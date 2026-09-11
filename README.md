@@ -1,1 +1,1 @@
-# Compages
+# Virgo-design

@@ -14,6 +14,10 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "useDefineForClassFields": true,
-    "moduleDetection": "force"
+    "moduleDetection": "force",
+    "paths": {
+      "@virgo-design/primitives": ["./packages/primitives/src/index.ts"],
+      "@virgo-design/ui": ["./packages/ui/src/index.ts"]
+    }
   }
 }

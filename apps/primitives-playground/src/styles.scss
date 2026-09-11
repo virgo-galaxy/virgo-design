@@ -10,3 +10,14 @@ body {
 main {
   padding: 32px;
 }
+
+section {
+  margin-top: 32px;
+}
+
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}

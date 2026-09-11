@@ -8,12 +8,13 @@ export default defineConfig({
       entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
       formats: ['es'],
       fileName: 'index',
+      cssFileName: 'styles',
     },
 
     sourcemap: true,
 
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', '@compages/primitives'],
+      external: ['react', 'react-dom', 'react/jsx-runtime', '@virgo-design/primitives'],
     },
   },
 });

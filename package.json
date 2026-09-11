@@ -1,12 +1,12 @@
 {
-  "name": "compages",
+  "name": "virgo-design",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.9.0",
   "scripts": {
-    "dev:primitives": "pnpm --filter @compages/primitives-playground dev",
-    "dev:ui": "pnpm --filter @compages/ui-playground dev",
+    "dev:primitives": "pnpm --filter @virgo-design/primitives-playground dev",
+    "dev:ui": "pnpm --filter @virgo-design/ui-playground dev",
     "build": "pnpm -r --if-present build",
     "typecheck": "pnpm -r --if-present typecheck",
     "lint": "eslint .",

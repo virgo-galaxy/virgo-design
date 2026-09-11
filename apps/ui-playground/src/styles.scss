@@ -4,9 +4,23 @@
 
 body {
   margin: 0;
+  background: #ffffff;
+  color: #18181b;
   font-family: system-ui, sans-serif;
 }
 
 main {
   padding: 32px;
+}
+
+section {
+  margin-top: 32px;
+}
+
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
 }

@@ -6,13 +6,18 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react()],
 
+  server: {
+    port: 6201,
+    strictPort: true,
+  },
+
   resolve: {
     alias: {
-      '@compages/primitives': fileURLToPath(
+      '@virgo-design/primitives': fileURLToPath(
         new URL('../../packages/primitives/src/index.ts', import.meta.url),
       ),
 
-      '@compages/ui': fileURLToPath(new URL('../../packages/ui/src/index.ts', import.meta.url)),
+      '@virgo-design/ui': fileURLToPath(new URL('../../packages/ui/src/index.ts', import.meta.url)),
     },
   },
 });

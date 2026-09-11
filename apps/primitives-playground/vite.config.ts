@@ -6,9 +6,14 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react()],
 
+  server: {
+    port: 6200,
+    strictPort: true,
+  },
+
   resolve: {
     alias: {
-      '@compages/primitives': fileURLToPath(
+      '@virgo-design/primitives': fileURLToPath(
         new URL('../../packages/primitives/src/index.ts', import.meta.url),
       ),
     },
