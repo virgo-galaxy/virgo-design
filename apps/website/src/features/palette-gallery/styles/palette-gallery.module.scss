@@ -87,36 +87,6 @@
   font-size: 14px;
 }
 
-.progressLabel {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 150px;
-}
-
-.progressLabel > span {
-  width: 28px;
-  color: var(--gallery-secondary);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 10px;
-}
-
-.progressLabel > div {
-  position: relative;
-  flex: 1;
-  height: 1px;
-  overflow: hidden;
-  background: var(--gallery-line-strong);
-}
-
-.progressLabel i {
-  position: absolute;
-  inset: 0 auto 0 0;
-  display: block;
-  background: #1664f9;
-  transition: width 40ms linear;
-}
-
 .galleryLayout {
   display: grid;
   grid-template-columns: minmax(0, 3fr) minmax(260px, 1fr);
@@ -204,6 +174,7 @@
 .detailPanel {
   position: relative;
   min-width: 0;
+  margin-top: 8px;
   border: 1px solid var(--gallery-line);
   border-radius: 22px;
   padding: 22px;
@@ -407,10 +378,6 @@
 
   .detailPanel {
     position: relative;
-  }
-
-  .progressLabel {
-    display: none;
   }
 }
 

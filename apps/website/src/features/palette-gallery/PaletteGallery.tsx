@@ -74,17 +74,6 @@ export function PaletteGallery({
               <h2>{t('gallery.title')}</h2>
               <p>{t('gallery.description')}</p>
             </div>
-
-            <div className={styles.progressLabel}>
-              <span>
-                {Math.round(motion.enter * 100)
-                  .toString()
-                  .padStart(2, '0')}
-              </span>
-              <div>
-                <i style={{ width: `${motion.enter * 100}%` }} />
-              </div>
-            </div>
           </header>
 
           <div
