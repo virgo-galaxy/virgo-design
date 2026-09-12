@@ -1,0 +1,4 @@
+.page {
+  min-height: calc(100svh - var(--layout-header-height));
+  background: var(--layout-page);
+}

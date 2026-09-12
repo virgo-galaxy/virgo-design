@@ -1,7 +1,7 @@
 import { type RefObject, useEffect, useMemo, useRef, useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
 
-import styles from '../../styles/color-studio.module.scss';
+import styles from './color-picker-popover.module.scss';
 
 interface RgbColor {
   r: number;
@@ -115,27 +115,18 @@ export function ColorPickerPopover({
   };
 
   return (
-    <div
-      ref={popoverRef}
-      className={styles.colorPickerPopover}
-      role="dialog"
-      aria-label="Color picker"
-    >
+    <div ref={popoverRef} className={styles.popover} role="dialog" aria-label="Color picker">
       <HexColorPicker
-        className={styles.colorPickerCanvas}
+        className={styles.canvas}
         color={normalizeHex(value)}
         onChange={(nextColor) => onChange(nextColor.toUpperCase())}
       />
 
-      <div className={styles.colorPickerHexRow}>
-        <span
-          className={styles.colorPickerPreview}
-          style={{ backgroundColor: value }}
-          aria-hidden="true"
-        />
+      <div className={styles.hexRow}>
+        <span className={styles.preview} style={{ backgroundColor: value }} aria-hidden="true" />
 
         <input
-          className={styles.colorPickerHexInput}
+          className={styles.hexInput}
           value={draftHex}
           spellCheck={false}
           onChange={(event) => setDraftHex(event.target.value)}
@@ -148,7 +139,7 @@ export function ColorPickerPopover({
         />
       </div>
 
-      <div className={styles.colorPickerChannels}>
+      <div className={styles.channels}>
         {(
           [
             ['r', 'R'],
@@ -156,7 +147,7 @@ export function ColorPickerPopover({
             ['b', 'B'],
           ] as const
         ).map(([channel, label]) => (
-          <label className={styles.colorPickerChannel} key={channel}>
+          <label className={styles.channel} key={channel}>
             <input
               type="number"
               min="0"

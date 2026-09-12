@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
-import { FOUNDATION_NAVIGATION_ITEMS } from '@/layout/foundation-navigation';
+import { FOUNDATION_NAVIGATION_ITEMS } from '@/shared/routes/route-config';
 
 import styles from './foundation-tokens.module.scss';
 

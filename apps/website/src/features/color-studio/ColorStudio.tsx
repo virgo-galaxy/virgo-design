@@ -1,8 +1,9 @@
 import { type CSSProperties, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ScrollCue } from '@/components/section/ScrollCue';
-import { useSectionMotion } from '@/hooks/use-section-motion';
+import { useSectionMotion } from '@/shared/hooks/use-section-motion';
+import type { Appearance } from '@/shared/theme/types';
+import { ScrollCue } from '@/shared/ui/scroll-cue/ScrollCue';
 
 import { BrandNeutralPage } from './components/BrandNeutralPage';
 import { FamilyEditorPanel } from './components/FamilyEditorPanel';
@@ -15,9 +16,10 @@ import pagerStyles from './styles/foundation-pager.module.scss';
 
 interface ColorStudioProps {
   studio: ColorStudioController;
+  appearance: Appearance;
 }
 
-export function ColorStudio({ studio }: ColorStudioProps) {
+export function ColorStudio({ studio, appearance }: ColorStudioProps) {
   const { t } = useTranslation();
   const sectionRef = useRef<HTMLElement>(null);
   const pagerRef = useRef<HTMLDivElement>(null);
@@ -32,12 +34,23 @@ export function ColorStudio({ studio }: ColorStudioProps) {
   const independent = studio.state.chromaticMode === 'custom';
   const official = studio.state.chromaticMode === 'official';
 
+  const entering = 1 - motion.enter;
+  const presence = motion.presence;
   const motionStyle = {
-    '--studio-motion-y': `${motion.exit * -22}px`,
-    '--studio-motion-scale': 1 - motion.exit * 0.025,
-    '--studio-motion-opacity': 1 - motion.exit * 0.42,
-    '--studio-header-y': `${motion.exit * -14}px`,
-    '--studio-header-opacity': 1 - motion.exit * 0.58,
+    '--studio-motion-y': `${entering * 18 - motion.exit * 22}px`,
+    '--studio-motion-scale': 0.985 + presence * 0.015,
+    '--studio-motion-opacity': 0.3 + presence * 0.7,
+    '--studio-header-y': `${entering * 34 - motion.exit * 20}px`,
+    '--studio-header-opacity': 0.08 + presence * 0.92,
+    '--studio-panel-y': `${entering * 28 - motion.exit * 16}px`,
+    '--studio-left-x': `${entering * -52 - motion.exit * 30}px`,
+    '--studio-right-x': `${entering * 52 + motion.exit * 30}px`,
+    '--studio-left-angle': `${entering * -5 - motion.exit * 2}deg`,
+    '--studio-right-angle': `${entering * 5 + motion.exit * 2}deg`,
+    '--studio-panel-scale': 0.965 + presence * 0.035,
+    '--studio-panel-opacity': 0.08 + presence * 0.92,
+    '--studio-footer-opacity': Math.max(0, Math.min(1, (presence - 0.68) / 0.32)),
+    '--studio-footer-y': `${(1 - presence) * 12}px`,
   } as CSSProperties;
 
   return (
@@ -45,7 +58,7 @@ export function ColorStudio({ studio }: ColorStudioProps) {
       ref={sectionRef}
       id="color-studio"
       className={styles.studio}
-      data-theme={studio.state.appearance}
+      data-theme={appearance}
       style={motionStyle}
     >
       <div className={styles.shell}>
@@ -131,7 +144,7 @@ export function ColorStudio({ studio }: ColorStudioProps) {
       <ScrollCue
         targetId="palette-gallery"
         ariaLabel={t('common.explorePalette')}
-        visible={motion.exit < 0.08}
+        visible={motion.enter >= 0.84 && motion.exit < 0.08}
       />
     </section>
   );

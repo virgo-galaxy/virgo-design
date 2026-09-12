@@ -118,11 +118,6 @@
   scroll-margin-top: var(--layout-header-height);
 }
 
-.placeholderPage {
-  min-height: calc(100svh - var(--layout-header-height));
-  background: var(--layout-page);
-}
-
 @media (max-width: 900px) {
   .layout {
     --layout-header-height: 68px;

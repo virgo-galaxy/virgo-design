@@ -2,8 +2,8 @@ import { type ColorScale, type GeneratedColorPalette } from '@virgo-design/color
 import { type CSSProperties, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { Appearance } from '@/features/color-studio/model/types';
-import { useSectionMotion } from '@/hooks/use-section-motion';
+import { useSectionMotion } from '@/shared/hooks/use-section-motion';
+import type { Appearance } from '@/shared/theme/types';
 
 import { ExportPanel } from './components/ExportPanel';
 import { SemanticRoleEditor } from './components/SemanticRoleEditor';

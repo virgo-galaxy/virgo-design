@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import styles from '../theme-builder.module.scss';
+import styles from './theme-select.module.scss';
 
 export interface ThemeSelectOption<T extends string | number> {
   value: T;

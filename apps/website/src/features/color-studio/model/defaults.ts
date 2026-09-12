@@ -11,7 +11,6 @@ export const VIRGO_STUDIO_DEFAULTS: ColorStudioState = {
   hueSpread: 1,
   distributionCurve: 1,
   customBases: { ...VIRGO_CHROMATIC_BASES },
-  appearance: 'light',
   selectedFamily: 'blue',
   selectedFoundation: 'blue',
   foundationPage: 'chromatic',

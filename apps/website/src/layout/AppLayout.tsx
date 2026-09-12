@@ -1,28 +1,18 @@
 import { type ReactNode, useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import type { Appearance } from '@/features/color-studio/model/types';
+import { useAppearance } from '@/shared/theme/use-appearance';
 
 import styles from './layout.module.scss';
 import { SiteHeader } from './SiteHeader';
 
 interface AppLayoutProps {
-  appearance: Appearance;
   children: ReactNode;
-  onAppearanceChange: (appearance: Appearance) => void;
 }
 
-export function AppLayout({ appearance, children, onAppearanceChange }: AppLayoutProps) {
+export function AppLayout({ children }: AppLayoutProps) {
   const { pathname } = useLocation();
-
-  useLayoutEffect(() => {
-    const root = document.documentElement;
-    root.dataset.theme = appearance;
-
-    return () => {
-      delete root.dataset.theme;
-    };
-  }, [appearance]);
+  const { appearance } = useAppearance();
 
   useLayoutEffect(() => {
     window.scrollTo({ top: 0, left: 0 });
@@ -30,7 +20,7 @@ export function AppLayout({ appearance, children, onAppearanceChange }: AppLayou
 
   return (
     <div className={styles.layout} data-theme={appearance}>
-      <SiteHeader appearance={appearance} onAppearanceChange={onAppearanceChange} />
+      <SiteHeader />
 
       <main className={styles.content}>{children}</main>
     </div>

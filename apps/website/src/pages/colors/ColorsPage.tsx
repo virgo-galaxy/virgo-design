@@ -1,18 +1,17 @@
 import { useMemo } from 'react';
 
+import { buildFoundationGroups } from '@/domain/foundation-colors';
 import { ColorStudio } from '@/features/color-studio/ColorStudio';
-import { buildFoundationGroups } from '@/features/color-studio/lib/foundation-groups';
-import type { ColorStudioController } from '@/features/color-studio/model/use-color-studio';
+import { useColorStudio } from '@/features/color-studio/model/use-color-studio';
 import { PaletteGallery } from '@/features/palette-gallery/PaletteGallery';
 import { ThemeBuilderSection } from '@/features/theme-builder/ThemeBuilderSection';
+import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { ColorsOverview } from './ColorsOverview';
 
-interface ColorsPageProps {
-  studio: ColorStudioController;
-}
-
-export function ColorsPage({ studio }: ColorsPageProps) {
+export function ColorsPage() {
+  const { appearance } = useAppearance();
+  const studio = useColorStudio();
   const groups = useMemo(
     () =>
       buildFoundationGroups({
@@ -27,17 +26,17 @@ export function ColorsPage({ studio }: ColorsPageProps) {
     <>
       <ColorsOverview />
 
-      <ColorStudio studio={studio} />
+      <ColorStudio studio={studio} appearance={appearance} />
 
       <PaletteGallery
         groups={groups}
-        appearance={studio.state.appearance}
+        appearance={appearance}
         selectedFoundation={studio.state.selectedFoundation}
         onSelectedFoundationChange={studio.setSelectedFoundation}
       />
 
       <ThemeBuilderSection
-        appearance={studio.state.appearance}
+        appearance={appearance}
         palette={studio.palette}
         brandScale={studio.brandScale}
         neutralScale={studio.neutralScale}

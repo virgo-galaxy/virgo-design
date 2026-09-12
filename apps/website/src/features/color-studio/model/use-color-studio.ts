@@ -11,14 +11,10 @@ import {
 } from '@virgo-design/colors';
 import { useMemo, useState } from 'react';
 
+import type { FoundationGroupId } from '@/domain/foundation-colors';
+
 import { VIRGO_STUDIO_DEFAULTS } from './defaults';
-import type {
-  Appearance,
-  ChromaticMode,
-  ColorStudioState,
-  FoundationGroupId,
-  FoundationPage,
-} from './types';
+import type { ChromaticMode, ColorStudioState, FoundationPage } from './types';
 
 const sameHex = (left: string, right: string) =>
   left.trim().toLowerCase() === right.trim().toLowerCase();
@@ -104,10 +100,6 @@ export function useColorStudio() {
         [family]: value,
       },
     }));
-  };
-
-  const setAppearance = (appearance: Appearance) => {
-    setState((current) => ({ ...current, appearance }));
   };
 
   const setSelectedFamily = (selectedFamily: ColorFamily) => {
@@ -200,7 +192,6 @@ export function useColorStudio() {
     setHueSpread,
     setDistributionCurve,
     setCustomBase,
-    setAppearance,
     setSelectedFamily,
     setSelectedFoundation,
     setFoundationPage,

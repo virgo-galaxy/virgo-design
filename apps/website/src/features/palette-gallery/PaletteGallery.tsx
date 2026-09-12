@@ -1,10 +1,10 @@
 import { useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ScrollCue } from '@/components/section/ScrollCue';
-import type { FoundationGroup } from '@/features/color-studio/lib/foundation-groups';
-import type { FoundationGroupId } from '@/features/color-studio/model/types';
-import { useSectionMotion } from '@/hooks/use-section-motion';
+import type { FoundationGroup, FoundationGroupId } from '@/domain/foundation-colors';
+import { useSectionMotion } from '@/shared/hooks/use-section-motion';
+import type { Appearance } from '@/shared/theme/types';
+import { ScrollCue } from '@/shared/ui/scroll-cue/ScrollCue';
 
 import { FamilyCard } from './components/FamilyCard';
 import { FamilyDetail } from './components/FamilyDetail';
@@ -12,7 +12,7 @@ import styles from './styles/palette-gallery.module.scss';
 
 interface PaletteGalleryProps {
   groups: readonly FoundationGroup[];
-  appearance: 'light' | 'dark';
+  appearance: Appearance;
   selectedFoundation: FoundationGroupId;
   onSelectedFoundationChange: (foundation: FoundationGroupId) => void;
 }

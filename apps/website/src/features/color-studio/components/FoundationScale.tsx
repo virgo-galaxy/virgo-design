@@ -1,8 +1,8 @@
 import type { ColorScale, ColorScaleStep } from '@virgo-design/colors';
 import { useTranslation } from 'react-i18next';
 
-import { CopyToast } from '@/components/feedback/CopyToast';
-import { useCopyToast } from '@/hooks/use-copy-toast';
+import { useCopyToast } from '@/shared/hooks/use-copy-toast';
+import { CopyToast } from '@/shared/ui/copy-toast/CopyToast';
 
 import styles from '../styles/foundation-extensions.module.scss';
 

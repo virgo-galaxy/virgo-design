@@ -1,4 +1,4 @@
-import type { FoundationGroupId } from '@/features/color-studio/model/types';
+import type { FoundationGroupId } from '@/domain/foundation-colors';
 
 import styles from '../styles/palette-gallery.module.scss';
 

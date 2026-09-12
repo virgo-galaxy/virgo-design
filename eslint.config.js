@@ -56,4 +56,48 @@ export default tseslint.config(
       ],
     },
   },
+
+  {
+    files: [
+      'apps/website/src/components/**/*.{ts,tsx}',
+      'apps/website/src/domain/**/*.{ts,tsx}',
+      'apps/website/src/hooks/**/*.{ts,tsx}',
+      'apps/website/src/layout/**/*.{ts,tsx}',
+      'apps/website/src/lib/**/*.{ts,tsx}',
+      'apps/website/src/shared/**/*.{ts,tsx}',
+    ],
+
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/app/*', '@/features/*', '@/pages/*'],
+              message:
+                'Shared and infrastructure layers must not depend on app, pages, or features.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  {
+    files: ['apps/website/src/features/**/*.{ts,tsx}'],
+
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/features/*', '@/pages/*'],
+              message: 'Features must not depend on sibling features or pages.',
+            },
+          ],
+        },
+      ],
+    },
+  },
 );
