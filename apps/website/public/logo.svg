@@ -1,0 +1,53 @@
+<svg
+  width="1024"
+  height="1024"
+  viewBox="256 256 768 768"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="virgoBlue" x1="340" y1="860" x2="920" y2="450" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1677FF"/>
+      <stop offset="55%" stop-color="#1F8FFF"/>
+      <stop offset="100%" stop-color="#2BB9FF"/>
+    </linearGradient>
+
+    <linearGradient id="virgoRed" x1="350" y1="360" x2="500" y2="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF3B4E"/>
+      <stop offset="100%" stop-color="#FF2D3F"/>
+    </linearGradient>
+  </defs>
+
+  <!-- The dot stays deliberately oversized so the red accent survives at 16 px. -->
+  <circle cx="414" cy="435" r="94" fill="url(#virgoRed)"/>
+
+  <!-- Virgo / vir monogram body -->
+  <path
+    d="
+      M 366 548
+      C 356 548, 349 553, 346 561
+      C 343 570, 345 579, 350 588
+
+      L 520 889
+      C 536 918, 560 938, 588 941
+      C 619 945, 645 930, 666 905
+
+      C 703 861, 742 801, 781 735
+      C 818 672, 850 624, 881 599
+      C 897 586, 914 578, 933 574
+
+      C 953 570, 965 557, 962 540
+      C 958 521, 944 513, 925 512
+
+      C 874 509, 832 525, 798 552
+      C 754 587, 717 636, 682 694
+      L 600 830
+
+      L 489 633
+      C 474 606, 457 578, 440 555
+      C 436 550, 430 548, 421 548
+      Z
+    "
+    fill="url(#virgoBlue)"
+  />
+</svg>

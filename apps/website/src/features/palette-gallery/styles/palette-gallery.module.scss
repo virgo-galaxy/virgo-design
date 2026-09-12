@@ -1,0 +1,521 @@
+.gallery {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+
+  --gallery-page: #f4f5f7;
+  --gallery-surface: rgba(255, 255, 255, 0.88);
+  --gallery-surface-solid: #ffffff;
+  --gallery-surface-muted: #f7f8fa;
+  --gallery-text: #111317;
+  --gallery-secondary: #6d727d;
+  --gallery-tertiary: #9ca2ad;
+  --gallery-line: rgba(17, 19, 23, 0.09);
+  --gallery-line-strong: rgba(17, 19, 23, 0.16);
+  --gallery-shadow: 0 28px 80px rgba(29, 35, 48, 0.1);
+
+  position: relative;
+  min-height: calc(150svh - var(--layout-header-height));
+  color: var(--gallery-text);
+  background:
+    radial-gradient(circle at 20% 32%, rgba(22, 100, 249, 0.08), transparent 34rem),
+    radial-gradient(circle at 68% 58%, rgba(112, 49, 249, 0.07), transparent 34rem),
+    var(--gallery-page);
+
+  scroll-snap-align: start;
+}
+
+.gallery[data-theme='dark'] {
+  --gallery-page: #090a0c;
+  --gallery-surface: rgba(18, 20, 24, 0.9);
+  --gallery-surface-solid: #121418;
+  --gallery-surface-muted: #17191e;
+  --gallery-text: #f5f6f8;
+  --gallery-secondary: #a8adb7;
+  --gallery-tertiary: #737985;
+  --gallery-line: rgba(255, 255, 255, 0.08);
+  --gallery-line-strong: rgba(255, 255, 255, 0.15);
+  --gallery-shadow: 0 34px 100px rgba(0, 0, 0, 0.38);
+
+  background:
+    radial-gradient(circle at 20% 32%, rgba(22, 100, 249, 0.12), transparent 34rem),
+    radial-gradient(circle at 68% 58%, rgba(112, 49, 249, 0.1), transparent 34rem),
+    var(--gallery-page);
+}
+
+.stickyScene {
+  position: sticky;
+  top: var(--layout-header-height);
+  min-height: calc(100svh - var(--layout-header-height));
+  overflow: hidden;
+}
+
+.galleryShell {
+  width: min(1480px, 100%);
+  min-height: calc(100svh - var(--layout-header-height));
+  margin: 0 auto;
+  padding: 54px 48px 42px;
+}
+
+.galleryHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 28px;
+  will-change: transform, opacity;
+}
+
+.eyebrow {
+  margin-bottom: 8px;
+  color: var(--gallery-tertiary);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+}
+
+.galleryHeader h2 {
+  margin: 0;
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.galleryHeader p {
+  max-width: 580px;
+  margin: 12px 0 0;
+  color: var(--gallery-secondary);
+  font-size: 14px;
+}
+
+.progressLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 150px;
+}
+
+.progressLabel > span {
+  width: 28px;
+  color: var(--gallery-secondary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 10px;
+}
+
+.progressLabel > div {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  overflow: hidden;
+  background: var(--gallery-line-strong);
+}
+
+.progressLabel i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: block;
+  background: #1664f9;
+  transition: width 40ms linear;
+}
+
+.galleryLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(260px, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.cardStage {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  perspective: 1400px;
+  min-width: 0;
+  padding: 8px 2px 32px;
+}
+
+.familyCard {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 148px;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--gallery-line);
+  border-radius: 18px;
+  padding: 10px;
+  color: var(--gallery-text);
+  background: var(--gallery-surface);
+  box-shadow: 0 10px 30px rgba(20, 25, 35, 0.04);
+  text-align: left;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.familyCardActive {
+  z-index: 3;
+  border-color: var(--gallery-line-strong);
+  background: var(--gallery-surface-solid);
+  box-shadow: var(--gallery-shadow);
+}
+
+.familyCardActive::after {
+  position: absolute;
+  inset: -1px;
+  border: 2px solid rgba(22, 100, 249, 0.45);
+  border-radius: 18px;
+  content: '';
+  pointer-events: none;
+}
+
+.familyCardColor {
+  display: block;
+  width: 100%;
+  height: 86px;
+  border-radius: 11px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+    inset 0 -10px 30px rgba(0, 0, 0, 0.025);
+}
+
+.familyCardMeta {
+  display: grid;
+  gap: 2px;
+  padding: 9px 3px 1px;
+}
+
+.familyCardMeta strong {
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.familyCardMeta code {
+  color: var(--gallery-tertiary);
+  font-size: 9px;
+}
+
+.detailPanel {
+  position: relative;
+  min-width: 0;
+  border: 1px solid var(--gallery-line);
+  border-radius: 22px;
+  padding: 22px;
+  background: var(--gallery-surface);
+  box-shadow: var(--gallery-shadow);
+  backdrop-filter: blur(24px);
+  will-change: opacity, transform;
+}
+
+.detailEyebrow {
+  color: var(--gallery-tertiary);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.detailTitleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.detailTitleRow h3 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: -0.04em;
+}
+
+.detailTitleRow code {
+  display: block;
+  margin-top: 4px;
+  color: var(--gallery-secondary);
+  font-size: 11px;
+}
+
+.detailDot {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 auto;
+  margin-top: 7px;
+  border: 2px solid var(--gallery-surface-solid);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--gallery-line);
+}
+
+.detailBase {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  margin-top: 22px;
+  border: 1px solid var(--gallery-line);
+  border-radius: 15px;
+  padding: 11px;
+  background: var(--gallery-surface-muted);
+}
+
+.detailBaseColor {
+  height: 72px;
+  border-radius: 11px;
+}
+
+.detailBase div:last-child {
+  display: grid;
+  gap: 2px;
+}
+
+.detailBase span,
+.detailBase small {
+  color: var(--gallery-secondary);
+  font-size: 9px;
+}
+
+.detailBase strong {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 15px;
+}
+
+.tonalHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.tonalHeading strong {
+  font-size: 12px;
+}
+
+.tonalHeading span {
+  color: var(--gallery-tertiary);
+  font-size: 9px;
+}
+
+.detailScale {
+  display: flex;
+  gap: 0;
+  margin-top: 10px;
+  overflow: hidden;
+  border: 1px solid var(--gallery-line);
+  border-radius: 11px;
+}
+
+.detailScaleItem {
+  min-width: 0;
+  flex: 1 1 0;
+  opacity: 0;
+  transform: translateY(20px) scaleY(0.25);
+  transform-origin: bottom;
+  animation: tonalBurst 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes tonalBurst {
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+.detailScaleColor {
+  display: block;
+  width: calc(100% + 1px);
+  height: 108px;
+}
+
+.detailScaleItem:not(:first-child) {
+  margin-left: -1px;
+}
+
+.detailScaleItem strong {
+  display: block;
+  padding: 6px 0;
+  color: var(--gallery-secondary);
+  font-size: 7px;
+  text-align: center;
+}
+
+.detailHexList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 14px;
+  margin-top: 16px;
+}
+
+.detailHexList div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  border-bottom: 1px solid var(--gallery-line);
+  padding: 6px 0;
+}
+
+.detailHexList span {
+  color: var(--gallery-secondary);
+  font-size: 9px;
+}
+
+.detailHexList code {
+  overflow: hidden;
+  color: var(--gallery-tertiary);
+  font-size: 8px;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 1080px) {
+  .galleryShell {
+    padding-inline: 24px;
+  }
+
+  .galleryLayout {
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 18px;
+  }
+
+  .cardStage {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .gallery {
+    min-height: auto;
+  }
+
+  .stickyScene {
+    position: relative;
+  }
+
+  .galleryLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .cardStage {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detailPanel {
+    position: relative;
+  }
+
+  .progressLabel {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .familyCard,
+  .detailPanel {
+    transition: none;
+  }
+
+  .detailScaleItem {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+.familyCard:focus-visible {
+  outline: 2px solid rgba(22, 100, 249, 0.65);
+  outline-offset: 2px;
+}
+
+/* SECTION EXIT MOTION START */
+
+/*
+ * Entry is still driven by the individual color-card choreography.
+ * Exit uses the same spatial language in reverse: the scene lifts,
+ * contracts slightly and the detail panel peels away to the right.
+ */
+
+.galleryHeader,
+.galleryLayout,
+.familyCard,
+.detailPanel {
+  will-change: transform, opacity;
+}
+
+.galleryLayout {
+  transform-origin: center top;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .galleryHeader,
+  .galleryLayout,
+  .familyCard,
+  .detailPanel {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* SECTION EXIT MOTION END */
+
+/* Detail panel hangs from its top edge during the entrance pendulum motion. */
+.detailPanel {
+  transform-origin: 50% 0%;
+  transform-style: preserve-3d;
+}
+
+.detailScaleItem {
+  border: 0;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.detailScaleItem:hover {
+  filter: saturate(1.04) brightness(1.015);
+}
+
+.detailScaleItem:focus-visible {
+  position: relative;
+  z-index: 3;
+  outline: 2px solid rgba(22, 100, 249, 0.6);
+  outline-offset: -2px;
+}
+
+.detailHexItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  border: 0;
+  border-bottom: 1px solid var(--gallery-line);
+  padding: 6px 0;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.detailHexItem:hover code {
+  color: var(--gallery-secondary);
+}
+
+.detailHexItem span {
+  color: var(--gallery-secondary);
+  font-size: 9px;
+}
+
+.detailHexItem code {
+  overflow: hidden;
+  color: var(--gallery-tertiary);
+  font-size: 8px;
+  text-overflow: ellipsis;
+  transition: color 140ms ease;
+}

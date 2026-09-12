@@ -14,7 +14,8 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "all": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "dev:website": "pnpm --filter @virgo-design/website dev"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

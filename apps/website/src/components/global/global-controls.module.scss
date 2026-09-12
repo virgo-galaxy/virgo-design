@@ -1,0 +1,96 @@
+.globalControls {
+  --control-surface: rgba(255, 255, 255, 0.82);
+  --control-surface-solid: #ffffff;
+  --control-text: #111317;
+  --control-secondary: #696d76;
+  --control-line: rgba(17, 19, 23, 0.09);
+  --control-hover: rgba(17, 19, 23, 0.055);
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 4px;
+  border: 1px solid var(--control-line);
+  border-radius: 13px;
+
+  background: var(--control-surface);
+  box-shadow: 0 8px 30px rgba(20, 25, 35, 0.07);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.globalControls[data-theme='dark'] {
+  --control-surface: rgba(18, 20, 24, 0.82);
+  --control-surface-solid: #1b1d22;
+  --control-text: #f5f6f8;
+  --control-secondary: #a8adb7;
+  --control-line: rgba(255, 255, 255, 0.09);
+  --control-hover: rgba(255, 255, 255, 0.06);
+
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
+}
+
+.group {
+  display: flex;
+  padding: 3px;
+  border-radius: 9px;
+  background: var(--control-hover);
+}
+
+.button {
+  min-width: 34px;
+  height: 30px;
+  border: 0;
+  border-radius: 7px;
+  padding: 0 9px;
+
+  color: var(--control-secondary);
+  background: transparent;
+
+  cursor: pointer;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  transition:
+    color 140ms ease,
+    background-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.button:hover {
+  color: var(--control-text);
+}
+
+.buttonActive {
+  color: var(--control-text);
+  background: var(--control-surface-solid);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.09);
+}
+
+.appearanceButton {
+  width: 34px;
+  min-width: 34px;
+  padding: 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  margin: 6px 1px;
+  background: var(--control-line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .globalControls {
+    transition: none;
+  }
+}
