@@ -1,0 +1,33 @@
+{
+  "name": "@virgo-design/tokens",
+  "version": "0.0.0",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./foundations": {
+      "types": "./dist/foundations/index.d.ts",
+      "import": "./dist/foundations/index.js",
+      "default": "./dist/foundations/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@virgo-design/colors": "workspace:*"
+  }
+}

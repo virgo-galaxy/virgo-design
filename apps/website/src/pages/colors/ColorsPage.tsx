@@ -6,6 +6,8 @@ import type { ColorStudioController } from '@/features/color-studio/model/use-co
 import { PaletteGallery } from '@/features/palette-gallery/PaletteGallery';
 import { ThemeBuilderSection } from '@/features/theme-builder/ThemeBuilderSection';
 
+import { ColorsOverview } from './ColorsOverview';
+
 interface ColorsPageProps {
   studio: ColorStudioController;
 }
@@ -23,6 +25,8 @@ export function ColorsPage({ studio }: ColorsPageProps) {
 
   return (
     <>
+      <ColorsOverview />
+
       <ColorStudio studio={studio} />
 
       <PaletteGallery

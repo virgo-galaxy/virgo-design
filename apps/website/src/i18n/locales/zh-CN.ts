@@ -17,6 +17,75 @@ export const zhCN = {
     resources: '资源',
   },
 
+  foundationNavigation: {
+    label: '基础类别',
+    colors: '颜色',
+    typography: '排版',
+    layout: '布局',
+    shapeDepth: '形状与层级',
+    motion: '动效',
+  },
+
+  foundationPages: {
+    eyebrow: 'FOUNDATIONS V1',
+    colors: {
+      title: '颜色',
+      description:
+        '一套完整、系统且可扩展的颜色基础，包含十二个基础色彩家族、一套品牌色阶与一套中性色阶，共 140 个基础颜色。',
+      foundationColors: '基础颜色',
+      chromaticFamilies: '色彩家族',
+      brandScale: '套品牌色阶',
+      neutralScale: '套中性色阶',
+      journey: {
+        create: '创建',
+        createDescription: '色板与色彩参数',
+        explore: '探索',
+        exploreDescription: '流动的色彩',
+        export: '导出',
+        exportDescription: '主题与生成代码',
+        summary: '从基础到应用，逐步探索与构建 Virgo Design 的色彩体系。',
+        detail: '在三个步骤中，了解色彩、试验搭配，并生成可直接用于产品的设计令牌与代码。',
+      },
+    },
+    typography: {
+      title: '排版',
+      description:
+        '字体族、字号、字重、行高与字距的原始材料。这里有意不定义 Heading、Body、Caption 等语义文本样式。',
+      fontFamily: '字体族',
+      fontFamilyDescription: 'Virgo Design 使用的两套平台自适应字体栈。',
+      fontSize: '字号',
+      fontWeight: '字重',
+      lineHeight: '行高',
+      letterSpacing: '字距',
+    },
+    layout: {
+      title: '布局基础',
+      description: 'Spacing 控制元素之间的距离，Sizing 控制对象自身的尺寸。',
+      spacing: '间距',
+      spacingDescription: '用于 padding、margin、gap 与空间节奏的基础值。',
+      sizing: '尺寸',
+      sizingDescription: '为未来的图标、控件、头像与拖拽点提供原始尺寸。',
+    },
+    shapeDepth: {
+      title: '形状与层级',
+      description: '用于构建表面的边框、圆角、阴影和透明度材料，不在此分配组件语义。',
+      borderWidth: '边框宽度',
+      borderStyle: '边框样式',
+      radius: '圆角',
+      elevation: '层级 / 阴影',
+      elevationDescription: '六档原始层级。这里不指定具体组件应该使用哪一档。',
+      opacity: '透明度',
+    },
+    motion: {
+      title: '动效',
+      description: '一组精简的时长与缓动材料。网站中的编排动画仍然不属于 Foundation Motion。',
+      duration: '时长',
+      durationDescription: '将鼠标移到轨道上，对比六档时长。',
+      easing: '缓动',
+      easingDescription: '将鼠标移到卡片上，对比五种时间曲线。',
+    },
+  },
+
   hero: {
     eyebrow: '01 · 创建',
     title: '色彩实验室',

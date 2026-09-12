@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@virgo-design/colors": "workspace:*",
+    "@virgo-design/tokens": "workspace:*",
     "i18next": "^26.4.2",
     "react": "^19.2.8",
     "react-colorful": "^5.8.1",

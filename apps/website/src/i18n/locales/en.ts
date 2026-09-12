@@ -17,6 +17,79 @@ export const en = {
     resources: 'Resources',
   },
 
+  foundationNavigation: {
+    label: 'Foundation categories',
+    colors: 'Colors',
+    typography: 'Typography',
+    layout: 'Layout',
+    shapeDepth: 'Shape & Depth',
+    motion: 'Motion',
+  },
+
+  foundationPages: {
+    eyebrow: 'FOUNDATIONS V1',
+    colors: {
+      title: 'Colors',
+      description:
+        'A complete, systematic, and extensible color foundation with 140 colors across chromatic, brand, and neutral scales.',
+      foundationColors: 'Foundation colors',
+      chromaticFamilies: 'Chromatic families',
+      brandScale: 'Brand scale',
+      neutralScale: 'Neutral scale',
+      journey: {
+        create: 'Create',
+        createDescription: 'Palette and color controls',
+        explore: 'Explore',
+        exploreDescription: 'Colors in motion',
+        export: 'Export',
+        exportDescription: 'Themes and production code',
+        summary: 'Move from foundations to application through Virgo Design’s color system.',
+        detail:
+          'Create and inspect colors across three stages, then generate design tokens and code ready for products.',
+      },
+    },
+    typography: {
+      title: 'Typography',
+      description:
+        'Raw type materials for font family, size, weight, line height, and letter spacing. Semantic text styles are intentionally not defined here.',
+      fontFamily: 'Font Family',
+      fontFamilyDescription: 'The two platform-aware stacks used by Virgo Design.',
+      fontSize: 'Font Size',
+      fontWeight: 'Font Weight',
+      lineHeight: 'Line Height',
+      letterSpacing: 'Letter Spacing',
+    },
+    layout: {
+      title: 'Layout',
+      description:
+        'Spacing controls the distance between elements. Sizing controls the dimensions of the elements themselves.',
+      spacing: 'Spacing',
+      spacingDescription: 'Foundation values for padding, margin, gap, and spatial rhythm.',
+      sizing: 'Sizing',
+      sizingDescription: 'Raw dimensions for future icons, controls, avatars, and handles.',
+    },
+    shapeDepth: {
+      title: 'Shape & Depth',
+      description:
+        'Border, radius, elevation, and opacity primitives for constructing surfaces without assigning component meaning.',
+      borderWidth: 'Border Width',
+      borderStyle: 'Border Style',
+      radius: 'Radius',
+      elevation: 'Elevation',
+      elevationDescription: 'Six raw depth levels. Components do not receive elevation roles here.',
+      opacity: 'Opacity',
+    },
+    motion: {
+      title: 'Motion',
+      description:
+        'A compact set of duration and easing materials. Choreographed product animations remain outside Foundations.',
+      duration: 'Duration',
+      durationDescription: 'Hover each track to compare the six duration values.',
+      easing: 'Easing',
+      easingDescription: 'Hover each card to compare the five timing curves.',
+    },
+  },
+
   hero: {
     eyebrow: '01 · CREATE',
     title: 'Color Studio',

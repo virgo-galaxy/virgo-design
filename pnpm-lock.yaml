@@ -104,6 +104,9 @@ importers:
       '@virgo-design/colors':
         specifier: workspace:*
         version: link:../../packages/colors
+      '@virgo-design/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
       i18next:
         specifier: ^26.4.2
         version: 26.4.2(typescript@6.0.3)
@@ -136,6 +139,12 @@ importers:
       react-dom:
         specifier: '>=18.0.0'
         version: 19.2.8(react@19.2.8)
+
+  packages/tokens:
+    dependencies:
+      '@virgo-design/colors':
+        specifier: workspace:*
+        version: link:../colors
 
   packages/ui:
     dependencies:

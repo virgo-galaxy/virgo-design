@@ -52,7 +52,7 @@ export function ColorStudio({ studio }: ColorStudioProps) {
         <header className={styles.header}>
           <div>
             <div className={styles.eyebrow}>{t('hero.eyebrow')}</div>
-            <h1>{t('hero.title')}</h1>
+            <h2>{t('hero.title')}</h2>
             <p>{t('hero.description')}</p>
           </div>
         </header>

@@ -24,7 +24,7 @@ export function SiteHeader({ appearance, onAppearanceChange }: SiteHeaderProps) 
   return (
     <header className={styles.header} data-theme={appearance}>
       <div className={styles.headerInner}>
-        <Link className={styles.brand} to="/foundations" aria-label="Virgo Design">
+        <Link className={styles.brand} to="/foundations/colors" aria-label="Virgo Design">
           <strong>Virgo</strong>
           <span>Design</span>
         </Link>

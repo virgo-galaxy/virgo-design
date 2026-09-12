@@ -16,7 +16,9 @@
     "useDefineForClassFields": true,
     "moduleDetection": "force",
     "paths": {
+      "@virgo-design/colors": ["./packages/colors/src/index.ts"],
       "@virgo-design/primitives": ["./packages/primitives/src/index.ts"],
+      "@virgo-design/tokens": ["./packages/tokens/src/index.ts"],
       "@virgo-design/ui": ["./packages/ui/src/index.ts"]
     }
   }

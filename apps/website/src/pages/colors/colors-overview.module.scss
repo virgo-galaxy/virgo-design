@@ -1,0 +1,238 @@
+.overview {
+  position: relative;
+  min-height: calc(100svh - var(--layout-header-height));
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.metricCard {
+  display: grid;
+  min-width: 0;
+  min-height: 176px;
+  align-content: end;
+  border: 1px solid var(--foundation-line);
+  border-radius: 20px;
+  padding: 22px;
+  background: var(--foundation-surface);
+  box-shadow: 0 18px 48px rgba(20, 25, 35, 0.06);
+  backdrop-filter: blur(20px);
+}
+
+.colorPreview {
+  display: flex;
+  width: max-content;
+  height: 42px;
+  align-items: center;
+  margin-bottom: auto;
+}
+
+.colorPreview i {
+  display: block;
+  width: 17px;
+  height: 30px;
+  flex: 0 0 auto;
+  border: 2px solid var(--foundation-surface-strong);
+  border-radius: 6px;
+  margin-left: -6px;
+  box-shadow: 0 2px 7px rgba(15, 18, 23, 0.08);
+}
+
+.colorPreview i:first-child {
+  margin-left: 0;
+}
+
+.colorPreview[data-kind='total'] {
+  display: grid;
+  grid-template-columns: repeat(3, 10px);
+  grid-template-rows: repeat(3, 10px);
+  gap: 3px;
+  align-content: center;
+}
+
+.colorPreview[data-kind='total'] i {
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-radius: 50%;
+  margin: 0;
+  box-shadow: 0 1px 4px rgba(22, 100, 249, 0.16);
+}
+
+.colorPreview[data-kind='brand'] i {
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  margin: 0;
+}
+
+.colorPreview[data-kind='neutral'] i {
+  width: 25px;
+  height: 25px;
+  border-radius: 7px;
+  margin-left: -9px;
+}
+
+.colorPreview[data-kind='neutral'] i:first-child {
+  margin-left: 0;
+}
+
+.metricCard strong {
+  margin-top: 22px;
+  font-size: 38px;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.metricCard span {
+  margin-top: 8px;
+  color: var(--layout-secondary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.journeyBlock {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(300px, 1fr);
+  gap: 36px;
+  align-items: center;
+  border-bottom: 1px solid var(--foundation-line);
+  padding: 34px 0 52px;
+}
+
+.journeyRail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--foundation-line);
+  border-radius: 28px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+:global([data-theme='dark']) .journeyRail {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.journeyStep {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  gap: 9px;
+  border: 0;
+  border-radius: 20px;
+  padding: 18px 24px;
+  color: var(--layout-secondary);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.journeyStep:not(:first-child)::before {
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  left: 0;
+  width: 1px;
+  background: var(--foundation-line-strong);
+  content: '';
+}
+
+.journeyStep strong {
+  color: var(--layout-text);
+  font-size: 16px;
+  letter-spacing: -0.02em;
+}
+
+.journeyStep span {
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 550;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.journeyStep:hover,
+.journeyStep:focus-visible {
+  color: rgba(22, 100, 249, 0.76);
+  background: rgba(22, 100, 249, 0.08);
+}
+
+.journeyStep:hover strong,
+.journeyStep:focus-visible strong {
+  color: var(--foundation-accent);
+}
+
+.journeyStep:focus-visible {
+  outline: 2px solid rgba(22, 100, 249, 0.48);
+  outline-offset: -2px;
+}
+
+.journeyCopy {
+  display: grid;
+  gap: 7px;
+  border-left: 1px solid var(--foundation-line-strong);
+  padding-left: 36px;
+}
+
+.journeyCopy p {
+  margin: 0;
+  color: var(--layout-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 800px) {
+  .metricGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .journeyBlock {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .journeyCopy {
+    border-top: 1px solid var(--foundation-line-strong);
+    border-left: 0;
+    padding-top: 20px;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .metricCard {
+    min-height: 136px;
+    padding: 14px;
+  }
+
+  .metricCard strong {
+    margin-top: 18px;
+    font-size: 28px;
+  }
+
+  .journeyRail {
+    grid-template-columns: 1fr;
+    border-radius: 20px;
+  }
+
+  .journeyStep {
+    padding: 14px 16px;
+  }
+
+  .journeyStep:not(:first-child)::before {
+    top: 0;
+    right: 16px;
+    bottom: auto;
+    left: 16px;
+    width: auto;
+    height: 1px;
+  }
+}
