@@ -99,6 +99,8 @@ importers:
         specifier: ^19.2.8
         version: 19.2.8(react@19.2.8)
 
+  packages/colors: {}
+
   packages/primitives:
     dependencies:
       '@base-ui/react':
