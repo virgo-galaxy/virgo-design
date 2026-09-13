@@ -1,7 +1,9 @@
-import { fontFamily, fontSize, fontWeight, letterSpacing, lineHeight } from '@virgo-design/tokens';
+import { fontSize, fontWeight, letterSpacing, lineHeight } from '@virgo-design/tokens';
 import { type CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { FontFamilyPreview } from './components/FontFamilyPreview';
+import { InternationalSansPreview } from './components/InternationalSansPreview';
 import styles from './foundation-tokens.module.scss';
 import { FoundationPage, FoundationSection } from './FoundationPage';
 
@@ -17,17 +19,15 @@ export function TypographyPage() {
         title={t('foundationPages.typography.fontFamily')}
         description={t('foundationPages.typography.fontFamilyDescription')}
       >
-        <div className={styles.familyGrid}>
-          {Object.entries(fontFamily).map(([name, value]) => (
-            <article key={name} className={styles.familyCard} style={{ fontFamily: value }}>
-              <div className={styles.tokenMeta}>
-                <strong>{name}</strong>
-                <code>{value}</code>
-              </div>
-              <span className={styles.familySample}>Virgo Design</span>
-            </article>
-          ))}
-        </div>
+        <FontFamilyPreview />
+      </FoundationSection>
+
+      <FoundationSection
+        id="international-sans"
+        title={t('foundationPages.typography.internationalSans.title')}
+        description={t('foundationPages.typography.internationalSans.description')}
+      >
+        <InternationalSansPreview />
       </FoundationSection>
 
       <FoundationSection title={t('foundationPages.typography.fontSize')}>

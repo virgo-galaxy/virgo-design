@@ -1,0 +1,57 @@
+{
+  "name": "@virgo-design/fonts",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "sideEffects": [
+    "./src/**/*.css"
+  ],
+  "files": [
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js",
+      "default": "./src/index.js"
+    },
+    "./default.css": "./src/default.css",
+    "./sans.css": "./src/sans/index.css",
+    "./mono.css": "./src/mono/index.css",
+    "./sans/inter.css": "./src/sans/latin/inter.css",
+    "./sans/instrument-sans.css": "./src/sans/latin/instrument-sans.css",
+    "./sans/figtree.css": "./src/sans/latin/figtree.css",
+    "./sans/ibm-plex-sans.css": "./src/sans/latin/ibm-plex-sans.css",
+    "./sans/noto-sans-sc.css": "./src/sans/cjk/noto-sans-sc.css",
+    "./sans/noto-sans-tc.css": "./src/sans/cjk/noto-sans-tc.css",
+    "./sans/noto-sans-hk.css": "./src/sans/cjk/noto-sans-hk.css",
+    "./sans/noto-sans-jp.css": "./src/sans/cjk/noto-sans-jp.css",
+    "./sans/noto-sans-kr.css": "./src/sans/cjk/noto-sans-kr.css",
+    "./mono/jetbrains-mono.css": "./src/mono/latin/jetbrains-mono.css",
+    "./mono/google-sans-code.css": "./src/mono/latin/google-sans-code.css",
+    "./mono/red-hat-mono.css": "./src/mono/latin/red-hat-mono.css",
+    "./mono/source-code-pro.css": "./src/mono/latin/source-code-pro.css",
+    "./mono/geist-mono.css": "./src/mono/latin/geist-mono.css",
+    "./mono/kode-mono.css": "./src/mono/latin/kode-mono.css"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@fontsource-variable/figtree": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0",
+    "@fontsource-variable/google-sans-code": "^5.3.0",
+    "@fontsource-variable/ibm-plex-sans": "^5.3.0",
+    "@fontsource-variable/instrument-sans": "^5.3.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/kode-mono": "^5.3.0",
+    "@fontsource-variable/noto-sans-hk": "^5.3.0",
+    "@fontsource-variable/noto-sans-jp": "^5.3.0",
+    "@fontsource-variable/noto-sans-kr": "^5.3.0",
+    "@fontsource-variable/noto-sans-sc": "^5.3.0",
+    "@fontsource-variable/noto-sans-tc": "^5.3.0",
+    "@fontsource-variable/red-hat-mono": "^5.3.0",
+    "@fontsource-variable/source-code-pro": "^5.3.0"
+  }
+}

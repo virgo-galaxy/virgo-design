@@ -12,12 +12,16 @@ import {
   easing,
   elevation,
   fontFamily,
+  fontFamilyRole,
   fontSize,
   fontWeight,
+  internationalSans,
+  internationalSansOrder,
   letterSpacing,
   lineHeight,
   opacity,
   radius,
+  sansLocaleMapping,
   sizing,
   spacing,
   VIRGO_BRAND_SCALE,
@@ -37,8 +41,12 @@ describe('Foundations V1', () => {
 
   it('defines the approved typography primitives', () => {
     expect(fontFamily).toEqual({
-      sans: 'ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif',
-      mono: 'ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace',
+      sans: '"Inter Variable", system-ui, sans-serif',
+      mono: '"JetBrains Mono Variable", ui-monospace, monospace',
+    });
+    expect(fontFamilyRole).toEqual({
+      sans: { name: 'Inter', family: fontFamily.sans },
+      mono: { name: 'JetBrains Mono', family: fontFamily.mono },
     });
     expect(Object.values(fontSize)).toEqual([
       '12px',
@@ -64,6 +72,45 @@ describe('Foundations V1', () => {
       '0.01em',
       '0.02em',
     ]);
+  });
+
+  it('defines locale-aware international sans stacks', () => {
+    expect(internationalSansOrder).toEqual(['latin', 'zhHans', 'zhHantTW', 'zhHantHK', 'ja', 'ko']);
+    expect(
+      Object.values(internationalSans).map(({ locale, name }) => ({
+        locale,
+        name,
+      })),
+    ).toEqual([
+      { locale: 'en', name: 'Inter' },
+      { locale: 'zh-Hans', name: 'Noto Sans SC' },
+      { locale: 'zh-Hant-TW', name: 'Noto Sans TC' },
+      { locale: 'zh-Hant-HK', name: 'Noto Sans HK' },
+      { locale: 'ja', name: 'Noto Sans JP' },
+      { locale: 'ko', name: 'Noto Sans KR' },
+    ]);
+    expect(sansLocaleMapping).toMatchObject({
+      en: 'latin',
+      'zh-CN': 'zhHans',
+      'zh-TW': 'zhHantTW',
+      'zh-HK': 'zhHantHK',
+      ja: 'ja',
+      ko: 'ko',
+    });
+    expect(internationalSans).toMatchObject({
+      latin: { family: '"Inter Variable", system-ui, sans-serif' },
+      zhHans: {
+        family: '"Inter Variable", "Noto Sans SC Variable", system-ui, sans-serif',
+      },
+      zhHantTW: {
+        family: '"Inter Variable", "Noto Sans TC Variable", system-ui, sans-serif',
+      },
+      zhHantHK: {
+        family: '"Inter Variable", "Noto Sans HK Variable", system-ui, sans-serif',
+      },
+      ja: { family: '"Inter Variable", "Noto Sans JP Variable", system-ui, sans-serif' },
+      ko: { family: '"Inter Variable", "Noto Sans KR Variable", system-ui, sans-serif' },
+    });
   });
 
   it('defines the approved layout primitives', () => {

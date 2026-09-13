@@ -49,10 +49,33 @@ export const zhCN = {
     },
     typography: {
       title: '排版',
-      description:
-        '字体族、字号、字重、行高与字距的原始材料。这里有意不定义 Heading、Body、Caption 等语义文本样式。',
+      description: 'Virgo Design 的字体族、字号、字重、行高与字距基础规范。',
       fontFamily: '字体族',
-      fontFamilyDescription: 'Virgo Design 使用的两套平台自适应字体栈。',
+      fontFamilyDescription: 'Virgo Design 的正式 Sans 与 Mono 字体角色及其回退栈。',
+      fontFamilyRoles: {
+        sans: 'Sans',
+        mono: 'Mono',
+      },
+      fontFamilyStack: 'Font-family stack',
+      internationalSans: {
+        title: '国际化 Sans',
+        description:
+          'Locale-aware Sans 字体栈：Latin 字符使用 Inter，CJK 字符使用对应的 Noto Sans 字体。',
+        localeSelector: '国际化 Sans locale',
+        activeStack: '字体家族',
+        locale: 'Locale',
+        latin: 'Latin 字符',
+        script: '本地文字',
+        stack: '解析后的 font-family stack',
+        locales: {
+          latin: 'Latin',
+          zhHans: '简体中文',
+          zhHantTW: '繁體中文 · 台灣',
+          zhHantHK: '繁體中文 · 香港',
+          ja: '日本語',
+          ko: '한국어',
+        },
+      },
       fontSize: '字号',
       fontWeight: '字重',
       lineHeight: '行高',
@@ -94,9 +117,9 @@ export const zhCN = {
     semanticRoles: '个语义角色',
     colorGroups: '个颜色组',
     resolvedThemes: '套解析主题',
-    validationTitle: '视觉验证界面',
-    validationDescription:
-      '以下所有数值均直接来自 @virgo-design/tokens。请在冻结 V1 前检查对比度、层级、状态行为与数据系列区分度。',
+    sourceTitle: 'Token 来源',
+    sourceDescription:
+      '以下所有数值均由 @virgo-design/tokens 直接解析，覆盖界面层级、交互状态、信息反馈和数据可视化。',
     comparisonLabel: 'Color Semantic 浅色与深色主题对比',
     themeLabel: '解析主题',
     light: {
@@ -113,8 +136,8 @@ export const zhCN = {
       status: '状态反馈',
       data: '数据可视化',
     },
-    interfaceDescription: '在一个真实产品界面中同时验证五组语义颜色。',
-    brandDescription: '验证主色、悬停、按下、弱化、链接、前景色与焦点色。',
+    interfaceDescription: '五组语义颜色在真实产品界面中的组合应用。',
+    brandDescription: '涵盖主色、悬停、按下、弱化、链接、前景色与焦点色。',
     statusDescription: '消息组合使用强调色、前景色、弱背景、边框和文字色。',
     dataDescription: '分类、连续和发散色仅用于表达数据本身。',
     workspaceTitle: '设计评审',
@@ -177,23 +200,22 @@ export const zhCN = {
     modeOfficial: '官方',
     modeLinked: '生成',
     modeCustom: '自定义',
-    modeOfficialDescription: '直接使用 Virgo Design 冻结的十二基础色体系。',
+    modeOfficialDescription: '直接使用 Virgo Design 官方十二基础色体系。',
     modeLinkedDescription: '输入一个临时色板锚点，由算法生成全部十二个色彩家族。',
     modeCustomDescription: '分别编辑十二个色彩家族的基础色。',
 
     modeOfficialNote: 'Virgo Chromatic Foundation V1',
-    modeOfficialNoteDescription: '12 个冻结基础色 · OKLCH 十阶色阶',
+    modeOfficialNoteDescription: '12 个官方基础色 · OKLCH 十阶色阶',
     modeLinkedNote: '关联生成',
     modeLinkedNoteDescription: '使用一个临时锚点生成全部十二个色相家族。',
     modeCustomNote: '独立色彩家族',
     modeCustomNoteDescription: '每个色彩家族使用自己可编辑的第 6 阶基础色。',
 
-    officialControlsHint: '官方模式使用冻结的 Virgo 色板。切换到“生成”后可调整色相跨度与分布曲线。',
+    officialControlsHint: '官方模式使用 Virgo 基础色板。切换到“生成”后可调整色相跨度与分布曲线。',
     customControlsHint: '自定义模式直接编辑每个家族，不应用横向色相分布参数。',
 
     paletteAnchor: '色板锚点',
-    paletteAnchorHint:
-      '启用关联色板时使用临时锚点生成十二个家族；Virgo Design 官方基础色板仍独立保存冻结值。',
+    paletteAnchorHint: '启用关联色板时使用锚点生成十二个家族；Virgo Design 官方基础色板保持独立。',
 
     linkedPalette: '关联色板',
     linkedOn: '一个锚点驱动全部色彩家族',
@@ -218,7 +240,7 @@ export const zhCN = {
     step6: '第 6 阶',
 
     official: 'Virgo Chromatic Foundation V1',
-    officialDescription: '12 个冻结基础色 · 可独立编辑 · OKLCH 十阶色阶',
+    officialDescription: '12 个官方基础色 · 可独立编辑 · OKLCH 十阶色阶',
     linkedMode: '关联生成',
     linkedModeDescription: '使用一个临时锚点生成全部十二个色相家族。',
   },
@@ -228,7 +250,7 @@ export const zhCN = {
     title: '色彩家族',
     paletteAnchor: '色板锚点',
     foundationEyebrow: '官方基础色板',
-    foundationTitle: '十二个冻结基础色',
+    foundationTitle: '十二个官方基础色',
     foundationDescription: '这套基础色板不内置品牌色，也不把蓝色设为特权色。',
     customEyebrow: '自定义基础色板',
     customTitle: '十二个独立基础色',

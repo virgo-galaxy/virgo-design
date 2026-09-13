@@ -1,3 +1,4 @@
+import { internationalSans, sansLocaleMapping } from '@virgo-design/tokens';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
@@ -18,6 +19,25 @@ function getInitialLocale(): AppLocale {
   return stored === 'zh-CN' ? 'zh-CN' : 'en';
 }
 
+export function getLocaleFontFamily(locale: AppLocale) {
+  const familyId = sansLocaleMapping[locale];
+
+  return internationalSans[familyId].family;
+}
+
+function applyDocumentLocale(locale: AppLocale) {
+  if (typeof document === 'undefined') {
+    return;
+  }
+
+  document.documentElement.lang = locale;
+  document.documentElement.style.setProperty('--app-font-family', getLocaleFontFamily(locale));
+}
+
+const initialLocale = getInitialLocale();
+
+applyDocumentLocale(initialLocale);
+
 void i18n.use(initReactI18next).init({
   resources: {
     en: {
@@ -27,11 +47,15 @@ void i18n.use(initReactI18next).init({
       translation: zhCN,
     },
   },
-  lng: getInitialLocale(),
+  lng: initialLocale,
   fallbackLng: 'en',
   interpolation: {
     escapeValue: false,
   },
+});
+
+i18n.on('languageChanged', (language) => {
+  applyDocumentLocale(language === 'zh-CN' ? 'zh-CN' : 'en');
 });
 
 export function setAppLocale(locale: AppLocale) {

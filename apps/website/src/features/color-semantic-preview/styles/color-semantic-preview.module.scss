@@ -17,7 +17,7 @@
 }
 
 .hero,
-.validationNote,
+.sourceBar,
 .comparison {
   width: min(1540px, 100%);
   margin-inline: auto;
@@ -86,18 +86,21 @@
   font-weight: 650;
 }
 
-.validationNote {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
+.sourceBar {
   margin-top: 48px;
+}
+
+.sourceNote {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   border: 1px solid color-mix(in srgb, var(--tokens-page-brand) 16%, transparent);
   border-radius: 14px;
   padding: 15px 18px;
   background: color-mix(in srgb, var(--tokens-page-brand) 5.5%, transparent);
 }
 
-.validationDot {
+.sourceDot {
   width: 8px;
   height: 8px;
   flex: 0 0 auto;
@@ -107,11 +110,11 @@
   box-shadow: 0 0 0 5px color-mix(in srgb, var(--tokens-page-brand) 10%, transparent);
 }
 
-.validationNote strong {
+.sourceNote strong {
   font-size: 12px;
 }
 
-.validationNote p {
+.sourceNote p {
   margin: 4px 0 0;
   color: var(--layout-secondary);
   font-size: 11px;
@@ -221,7 +224,6 @@
 
 .sectionHeading > div > span {
   color: var(--semantic-text-tertiary);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 9px;
 }
 
@@ -393,7 +395,6 @@
 
 .documentEyebrow {
   color: var(--semantic-text-tertiary);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 7px;
   text-transform: uppercase;
 }
@@ -540,7 +541,6 @@
   position: absolute;
   right: 8px;
   bottom: 7px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 6px;
 }
 
@@ -565,7 +565,6 @@
 
 .popover span {
   color: var(--semantic-text-tertiary);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 6px;
 }
 
@@ -595,7 +594,6 @@
   padding: 4px 6px;
   color: var(--semantic-text-tertiary);
   background: var(--semantic-surface-secondary);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 7px;
   font-style: normal;
   text-overflow: ellipsis;
@@ -656,7 +654,6 @@
   outline-offset: 2px;
   color: var(--semantic-text-secondary);
   background: var(--semantic-surface);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 7px;
 }
 

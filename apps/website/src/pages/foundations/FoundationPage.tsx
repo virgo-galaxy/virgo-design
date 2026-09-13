@@ -18,6 +18,7 @@ interface FoundationSectionProps {
   title: string;
   description?: string;
   children: ReactNode;
+  id?: string;
 }
 
 export function FoundationPage({
@@ -60,9 +61,9 @@ export function FoundationPage({
   );
 }
 
-export function FoundationSection({ title, description, children }: FoundationSectionProps) {
+export function FoundationSection({ title, description, children, id }: FoundationSectionProps) {
   return (
-    <section className={styles.tokenSection}>
+    <section id={id} className={styles.tokenSection}>
       <header className={styles.sectionHeader}>
         <h2>{title}</h2>
         {description ? <p>{description}</p> : null}

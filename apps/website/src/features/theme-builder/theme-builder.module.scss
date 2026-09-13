@@ -376,7 +376,7 @@
   padding: 16px;
   color: var(--text);
   background: var(--surface-muted);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--app-font-family-mono);
   font-size: 9px;
   line-height: 1.55;
   tab-size: 2;

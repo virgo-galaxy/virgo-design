@@ -109,6 +109,7 @@
 
 .tokenSection {
   min-width: 0;
+  scroll-margin-top: calc(var(--layout-header-height) + 20px);
   border: 1px solid var(--foundation-line);
   border-radius: 22px;
   padding: 28px;
@@ -164,30 +165,6 @@
   color: var(--foundation-tertiary);
   font-size: 9px;
   text-overflow: ellipsis;
-}
-
-.familyGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.familyCard {
-  display: grid;
-  min-height: 190px;
-  align-content: space-between;
-  gap: 24px;
-  border: 1px solid var(--foundation-line);
-  border-radius: 16px;
-  padding: 20px;
-  background: var(--foundation-surface-strong);
-}
-
-.familySample {
-  overflow: hidden;
-  font-size: clamp(28px, 4vw, 48px);
-  letter-spacing: -0.04em;
-  white-space: nowrap;
 }
 
 .typeScale,
@@ -452,8 +429,7 @@
     margin-top: 46px;
   }
 
-  .splitSections,
-  .familyGrid {
+  .splitSections {
     grid-template-columns: 1fr;
   }
 

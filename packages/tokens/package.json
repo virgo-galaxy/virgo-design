@@ -43,6 +43,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@virgo-design/colors": "workspace:*"
+    "@virgo-design/colors": "workspace:*",
+    "@virgo-design/fonts": "workspace:*"
   }
 }

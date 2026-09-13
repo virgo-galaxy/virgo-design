@@ -51,9 +51,34 @@ export const en = {
     typography: {
       title: 'Typography',
       description:
-        'Raw type materials for font family, size, weight, line height, and letter spacing. Semantic text styles are intentionally not defined here.',
+        'Foundation specifications for font family, size, weight, line height, and letter spacing across Virgo Design.',
       fontFamily: 'Font Family',
-      fontFamilyDescription: 'The two platform-aware stacks used by Virgo Design.',
+      fontFamilyDescription:
+        'The official Sans and Mono font roles and fallback stacks for Virgo Design.',
+      fontFamilyRoles: {
+        sans: 'Sans',
+        mono: 'Mono',
+      },
+      fontFamilyStack: 'Font-family stack',
+      internationalSans: {
+        title: 'International Sans',
+        description:
+          'Locale-aware Sans stacks pair Inter for Latin glyphs with the corresponding Noto Sans family for CJK glyphs.',
+        localeSelector: 'International sans locale',
+        activeStack: 'Font family',
+        locale: 'Locale',
+        latin: 'Latin glyphs',
+        script: 'Locale script',
+        stack: 'Resolved font-family stack',
+        locales: {
+          latin: 'Latin',
+          zhHans: 'Simplified Chinese',
+          zhHantTW: 'Traditional Chinese · TW',
+          zhHantHK: 'Traditional Chinese · HK',
+          ja: 'Japanese',
+          ko: 'Korean',
+        },
+      },
       fontSize: 'Font Size',
       fontWeight: 'Font Weight',
       lineHeight: 'Line Height',
@@ -98,9 +123,9 @@ export const en = {
     semanticRoles: 'semantic roles',
     colorGroups: 'color groups',
     resolvedThemes: 'resolved themes',
-    validationTitle: 'Visual validation surface',
-    validationDescription:
-      'All values below come directly from @virgo-design/tokens. Use this page to validate contrast, hierarchy, state behavior, and data-series separation before V1 is frozen.',
+    sourceTitle: 'Token source',
+    sourceDescription:
+      'All values below resolve directly from @virgo-design/tokens across interface hierarchy, interaction states, status communication, and data visualization.',
     comparisonLabel: 'Light and dark Color Semantic comparison',
     themeLabel: 'Resolved theme',
     light: {
@@ -119,7 +144,7 @@ export const en = {
       status: 'Status communication',
       data: 'Data visualization',
     },
-    interfaceDescription: 'A working product shell using five semantic groups together.',
+    interfaceDescription: 'Five semantic color groups applied together in a product interface.',
     brandDescription: 'Primary, hover, active, subtle, link, foreground, and focus roles.',
     statusDescription: 'Alerts combine accent, foreground, subtle, border, and text roles.',
     dataDescription: 'Categorical, sequential, and diverging roles represent the data itself.',
@@ -185,25 +210,25 @@ export const en = {
     modeOfficial: 'Official',
     modeLinked: 'Generate',
     modeCustom: 'Custom',
-    modeOfficialDescription: 'Use Virgo Design’s frozen twelve-family chromatic foundation.',
+    modeOfficialDescription: 'Use Virgo Design’s official twelve-family chromatic foundation.',
     modeLinkedDescription: 'Generate all twelve families from one temporary palette anchor.',
     modeCustomDescription: 'Edit all twelve family base colors independently.',
 
     modeOfficialNote: 'Virgo Chromatic Foundation V1',
-    modeOfficialNoteDescription: '12 frozen base hues · OKLCH ten-step tonal scales',
+    modeOfficialNoteDescription: '12 official base hues · OKLCH ten-step tonal scales',
     modeLinkedNote: 'Linked Generation',
     modeLinkedNoteDescription: 'One temporary anchor generates all twelve hue families.',
     modeCustomNote: 'Independent Families',
     modeCustomNoteDescription: 'Each family uses its own editable step-6 base color.',
 
     officialControlsHint:
-      'Official mode uses the frozen Virgo palette. Switch to Generate to use hue distribution controls.',
+      'Official mode uses the Virgo foundation palette. Switch to Generate to use hue distribution controls.',
     customControlsHint:
       'Custom mode edits each family directly. Hue distribution controls are not applied.',
 
     paletteAnchor: 'Palette Anchor',
     paletteAnchorHint:
-      'Choose a temporary anchor when Linked Palette is enabled. Virgo Design Official keeps its frozen chromatic bases separately.',
+      'Choose an anchor when Linked Palette is enabled. Virgo Design Official keeps its chromatic bases unchanged.',
 
     linkedPalette: 'Linked Palette',
     linkedOn: 'One anchor drives all families',
@@ -230,7 +255,7 @@ export const en = {
     step6: 'Step 6',
 
     official: 'Virgo Chromatic Foundation V1',
-    officialDescription: '12 frozen base hues · individually editable · OKLCH tonal scales',
+    officialDescription: '12 official base hues · individually editable · OKLCH tonal scales',
     linkedMode: 'Linked Generation',
     linkedModeDescription: 'One temporary anchor generates all twelve hue families.',
   },
@@ -240,7 +265,7 @@ export const en = {
     title: 'Color Families',
     paletteAnchor: 'Palette Anchor',
     foundationEyebrow: 'OFFICIAL FOUNDATION',
-    foundationTitle: 'Twelve frozen chromatic bases',
+    foundationTitle: 'Twelve official chromatic bases',
     foundationDescription: 'No brand color is embedded in this foundation palette.',
     customEyebrow: 'CUSTOM FOUNDATION',
     customTitle: 'Twelve independent chromatic bases',

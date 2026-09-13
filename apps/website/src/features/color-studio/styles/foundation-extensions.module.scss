@@ -118,7 +118,7 @@
 
 .foundationMeta strong {
   color: var(--text-secondary);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--app-font-family-mono);
   font-size: 9px;
   font-weight: 600;
 }

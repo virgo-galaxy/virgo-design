@@ -37,11 +37,13 @@ export function ColorSemanticPreview() {
         </div>
       </header>
 
-      <div className={styles.validationNote}>
-        <span className={styles.validationDot} />
-        <div>
-          <strong>{t('tokensPage.validationTitle')}</strong>
-          <p>{t('tokensPage.validationDescription')}</p>
+      <div className={styles.sourceBar}>
+        <div className={styles.sourceNote}>
+          <span className={styles.sourceDot} />
+          <div>
+            <strong>{t('tokensPage.sourceTitle')}</strong>
+            <p>{t('tokensPage.sourceDescription')}</p>
+          </div>
         </div>
       </div>
 
