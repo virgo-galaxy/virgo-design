@@ -164,7 +164,9 @@ describe('Color Semantic V1', () => {
     expect(Object.values(lightColorTheme.data.sequential)).toEqual(
       Object.values(VIRGO_BRAND_SCALE),
     );
-    expect(darkColorTheme.data.sequential).toEqual(lightColorTheme.data.sequential);
+    expect(Object.values(darkColorTheme.data.sequential)).toEqual(
+      Object.values(VIRGO_BRAND_SCALE).reverse(),
+    );
     expect(lightColorTheme.data.diverging.negative.strong).toBe(VIRGO_CHROMATIC_SCALES.red[8]);
     expect(lightColorTheme.data.diverging.neutral).toBe(VIRGO_NEUTRAL_SCALE[2]);
     expect(darkColorTheme.data.diverging.positive.subtle).toBe('rgb(106 209 137 / 0.16)');
