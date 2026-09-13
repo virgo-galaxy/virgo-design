@@ -7,6 +7,7 @@ export const ROUTE_PATHS = {
   foundationShapeDepth: '/foundations/shape-depth',
   foundationMotion: '/foundations/motion',
   tokens: '/tokens',
+  tokenColors: '/tokens/colors',
   components: '/components',
   resources: '/resources',
 } as const;

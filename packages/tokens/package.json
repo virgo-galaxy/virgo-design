@@ -18,6 +18,21 @@
       "types": "./dist/foundations/index.d.ts",
       "import": "./dist/foundations/index.js",
       "default": "./dist/foundations/index.js"
+    },
+    "./semantic": {
+      "types": "./dist/semantic/index.d.ts",
+      "import": "./dist/semantic/index.js",
+      "default": "./dist/semantic/index.js"
+    },
+    "./semantic/color": {
+      "types": "./dist/semantic/color/index.d.ts",
+      "import": "./dist/semantic/color/index.js",
+      "default": "./dist/semantic/color/index.js"
+    },
+    "./themes": {
+      "types": "./dist/themes/index.d.ts",
+      "import": "./dist/themes/index.js",
+      "default": "./dist/themes/index.js"
     }
   },
   "publishConfig": {

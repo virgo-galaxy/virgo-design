@@ -27,6 +27,9 @@ const PlaceholderPage = lazy(() =>
     default: module.PlaceholderPage,
   })),
 );
+const TokensPage = lazy(() =>
+  import('@/pages/tokens/TokensPage').then((module) => ({ default: module.TokensPage })),
+);
 
 export function AppRouter() {
   return (
@@ -45,7 +48,11 @@ export function AppRouter() {
         <Route path={ROUTE_PATHS.foundationLayout} element={<LayoutPage />} />
         <Route path={ROUTE_PATHS.foundationShapeDepth} element={<ShapeDepthPage />} />
         <Route path={ROUTE_PATHS.foundationMotion} element={<MotionPage />} />
-        <Route path={ROUTE_PATHS.tokens} element={<PlaceholderPage />} />
+        <Route
+          path={ROUTE_PATHS.tokens}
+          element={<Navigate to={ROUTE_PATHS.tokenColors} replace />}
+        />
+        <Route path={ROUTE_PATHS.tokenColors} element={<TokensPage />} />
         <Route path={ROUTE_PATHS.components} element={<PlaceholderPage />} />
         <Route path={ROUTE_PATHS.resources} element={<PlaceholderPage />} />
         <Route path="*" element={<Navigate to={ROUTE_PATHS.foundationColors} replace />} />
