@@ -81,42 +81,39 @@ export const sansLocaleMapping = {
 } as const satisfies Record<string, keyof typeof internationalSans>;
 
 export const fontSize = {
-  xs: '12px',
-  sm: '13px',
-  md: '14px',
-  lg: '16px',
-  xl: '18px',
-  '2xl': '20px',
-  '3xl': '24px',
-  '4xl': '28px',
-  '5xl': '32px',
-  '6xl': '40px',
-  '7xl': '48px',
-  '8xl': '64px',
+  12: '12px',
+  13: '13px',
+  14: '14px',
+  16: '16px',
+  20: '20px',
+  24: '24px',
+  28: '28px',
+  32: '32px',
+  40: '40px',
+  48: '48px',
+  56: '56px',
+  64: '64px',
 } as const;
 
 export const fontWeight = {
-  regular: 400,
-  medium: 500,
-  semibold: 600,
-  bold: 700,
-  extrabold: 800,
+  400: 400,
+  500: 500,
+  600: 600,
+  700: 700,
 } as const;
 
 export const lineHeight = {
-  tight: 1.1,
-  snug: 1.25,
-  normal: 1.4,
-  relaxed: 1.6,
+  1: 1.1,
+  2: 1.25,
+  3: 1.4,
+  4: 1.6,
 } as const;
 
-export const letterSpacing = {
-  tighter: '-0.03em',
-  tight: '-0.02em',
-  snug: '-0.01em',
-  normal: '0',
-  wide: '0.01em',
-  wider: '0.02em',
+export const lineHeightCssVariables = {
+  '--vd-line-height-1': lineHeight[1],
+  '--vd-line-height-2': lineHeight[2],
+  '--vd-line-height-3': lineHeight[3],
+  '--vd-line-height-4': lineHeight[4],
 } as const;
 
 export type FontFamilyToken = keyof typeof fontFamily;
@@ -126,4 +123,4 @@ export type SansLocale = keyof typeof sansLocaleMapping;
 export type FontSizeToken = keyof typeof fontSize;
 export type FontWeightToken = keyof typeof fontWeight;
 export type LineHeightToken = keyof typeof lineHeight;
-export type LetterSpacingToken = keyof typeof letterSpacing;
+export type LineHeightCssVariable = keyof typeof lineHeightCssVariables;

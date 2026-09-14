@@ -1,0 +1,85 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--foundation-line);
+  border-radius: 16px;
+  background: var(--foundation-surface-strong);
+}
+
+.cardHeader {
+  display: grid;
+  gap: 6px;
+  padding: 20px 22px;
+  border-bottom: 1px solid var(--foundation-line);
+}
+
+.cardHeader h3,
+.cardHeader p {
+  margin: 0;
+}
+
+.cardHeader h3 {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.cardHeader p {
+  color: var(--layout-secondary);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.tableViewport {
+  overflow-x: auto;
+}
+
+.tableViewport table {
+  width: 100%;
+  min-width: 500px;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.tableViewport th,
+.tableViewport td {
+  padding: 11px 18px;
+  border-top: 1px solid var(--foundation-line);
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.tableViewport thead th {
+  border-top: 0;
+  color: var(--foundation-tertiary);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tableViewport tbody th {
+  width: 42%;
+  font-weight: 600;
+}
+
+.tableViewport tbody td {
+  color: var(--layout-secondary);
+}
+
+.tableViewport .groupStart > * {
+  border-top-color: var(--foundation-line-strong);
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

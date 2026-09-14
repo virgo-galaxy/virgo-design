@@ -17,8 +17,8 @@ import {
   fontWeight,
   internationalSans,
   internationalSansOrder,
-  letterSpacing,
   lineHeight,
+  lineHeightCssVariables,
   opacity,
   radius,
   sansLocaleMapping,
@@ -48,30 +48,33 @@ describe('Foundations V1', () => {
       sans: { name: 'Inter', family: fontFamily.sans },
       mono: { name: 'JetBrains Mono', family: fontFamily.mono },
     });
-    expect(Object.values(fontSize)).toEqual([
-      '12px',
-      '13px',
-      '14px',
-      '16px',
-      '18px',
-      '20px',
-      '24px',
-      '28px',
-      '32px',
-      '40px',
-      '48px',
-      '64px',
-    ]);
-    expect(Object.values(fontWeight)).toEqual([400, 500, 600, 700, 800]);
-    expect(Object.values(lineHeight)).toEqual([1.1, 1.25, 1.4, 1.6]);
-    expect(Object.values(letterSpacing)).toEqual([
-      '-0.03em',
-      '-0.02em',
-      '-0.01em',
-      '0',
-      '0.01em',
-      '0.02em',
-    ]);
+    expect(fontSize).toEqual({
+      12: '12px',
+      13: '13px',
+      14: '14px',
+      16: '16px',
+      20: '20px',
+      24: '24px',
+      28: '28px',
+      32: '32px',
+      40: '40px',
+      48: '48px',
+      56: '56px',
+      64: '64px',
+    });
+    expect(fontWeight).toEqual({
+      400: 400,
+      500: 500,
+      600: 600,
+      700: 700,
+    });
+    expect(lineHeight).toEqual({ 1: 1.1, 2: 1.25, 3: 1.4, 4: 1.6 });
+    expect(lineHeightCssVariables).toEqual({
+      '--vd-line-height-1': 1.1,
+      '--vd-line-height-2': 1.25,
+      '--vd-line-height-3': 1.4,
+      '--vd-line-height-4': 1.6,
+    });
   });
 
   it('defines locale-aware international sans stacks', () => {

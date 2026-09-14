@@ -1,11 +1,19 @@
-import { fontSize, fontWeight, letterSpacing, lineHeight } from '@virgo-design/tokens';
-import { type CSSProperties } from 'react';
+import { fontSize, fontWeight, lineHeight } from '@virgo-design/tokens';
 import { useTranslation } from 'react-i18next';
 
 import { FontFamilyPreview } from './components/FontFamilyPreview';
 import { InternationalSansPreview } from './components/InternationalSansPreview';
+import { TypographyCompositionPreview } from './components/TypographyCompositionPreview';
+import { TypographyRecipeTables } from './components/TypographyRecipeTables';
 import styles from './foundation-tokens.module.scss';
 import { FoundationPage, FoundationSection } from './FoundationPage';
+
+const fontWeightLabels = {
+  400: 'Regular',
+  500: 'Medium',
+  600: 'Semibold',
+  700: 'Bold',
+} as const satisfies Record<keyof typeof fontWeight, string>;
 
 export function TypographyPage() {
   const { t } = useTranslation();
@@ -47,11 +55,11 @@ export function TypographyPage() {
       <div className={styles.splitSections}>
         <FoundationSection title={t('foundationPages.typography.fontWeight')}>
           <div className={styles.simpleList}>
-            {Object.entries(fontWeight).map(([name, value]) => (
-              <article key={name} className={styles.simpleRow}>
+            {Object.values(fontWeight).map((value) => (
+              <article key={value} className={styles.simpleRow}>
                 <div className={styles.compactMeta}>
-                  <strong>{name}</strong>
-                  <code>{value}</code>
+                  <strong>{value}</strong>
+                  <code>· {fontWeightLabels[value]}</code>
                 </div>
                 <span style={{ fontWeight: value }}>Virgo Design</span>
               </article>
@@ -59,7 +67,10 @@ export function TypographyPage() {
           </div>
         </FoundationSection>
 
-        <FoundationSection title={t('foundationPages.typography.lineHeight')}>
+        <FoundationSection
+          title={t('foundationPages.typography.lineHeight')}
+          description={t('foundationPages.typography.lineHeightDescription')}
+        >
           <div className={styles.lineHeightGrid}>
             {Object.entries(lineHeight).map(([name, value]) => (
               <article key={name} className={styles.lineHeightCard}>
@@ -78,22 +89,22 @@ export function TypographyPage() {
         </FoundationSection>
       </div>
 
-      <FoundationSection title={t('foundationPages.typography.letterSpacing')}>
-        <div className={styles.letterSpacingGrid}>
-          {Object.entries(letterSpacing).map(([name, value]) => (
-            <article
-              key={name}
-              className={styles.letterSpacingCard}
-              style={{ '--foundation-letter-spacing': value } as CSSProperties}
-            >
-              <div className={styles.compactMeta}>
-                <strong>{name}</strong>
-                <code>{value}</code>
-              </div>
-              <span>VIRGO</span>
-            </article>
-          ))}
-        </div>
+      <FoundationSection
+        id="typography-recipes"
+        eyebrow={t('foundationPages.typography.typographyRecipes.eyebrow')}
+        title={t('foundationPages.typography.typographyRecipes.title')}
+        description={t('foundationPages.typography.typographyRecipes.description')}
+      >
+        <TypographyRecipeTables />
+      </FoundationSection>
+
+      <FoundationSection
+        id="composition-preview"
+        eyebrow={t('foundationPages.typography.compositionPreview.eyebrow')}
+        title={t('foundationPages.typography.compositionPreview.title')}
+        description={t('foundationPages.typography.compositionPreview.description')}
+      >
+        <TypographyCompositionPreview />
       </FoundationSection>
     </FoundationPage>
   );

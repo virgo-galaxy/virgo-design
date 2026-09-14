@@ -51,7 +51,7 @@ export const en = {
     typography: {
       title: 'Typography',
       description:
-        'Foundation specifications for font family, size, weight, line height, and letter spacing across Virgo Design.',
+        'Foundation specifications for font family, size, weight, and line height across Virgo Design.',
       fontFamily: 'Font Family',
       fontFamilyDescription:
         'The official Sans and Mono font roles and fallback stacks for Virgo Design.',
@@ -82,7 +82,115 @@ export const en = {
       fontSize: 'Font Size',
       fontWeight: 'Font Weight',
       lineHeight: 'Line Height',
-      letterSpacing: 'Letter Spacing',
+      lineHeightDescription:
+        'Foundation Scale · The four current Line Height tokens shown at their exact values.',
+      typographyRecipes: {
+        eyebrow: 'TYPOGRAPHY RECIPES',
+        title: 'Document and UI typography recipes',
+        description:
+          'Foundation values are combined into role-based typography for document content and product interfaces.',
+        columns: {
+          role: 'Role',
+          fontSize: 'Font Size',
+          fontWeight: 'Font Weight',
+          lineHeight: 'Line Height',
+        },
+        document: {
+          title: 'Document Typography',
+          description: 'Roles for editorial hierarchy, long-form reading, and supporting detail.',
+        },
+        ui: {
+          title: 'UI Typography',
+          description:
+            'Roles for product hierarchy, controls, labels, and dense interface content.',
+        },
+        roles: {
+          displayLarge: 'Display Large',
+          displayMedium: 'Display Medium',
+          displaySmall: 'Display Small',
+          titleLarge: 'Title Large',
+          titleMedium: 'Title Medium',
+          titleSmall: 'Title Small',
+          heading1: 'Heading 1',
+          heading2: 'Heading 2',
+          heading3: 'Heading 3',
+          heading4: 'Heading 4',
+          heading5: 'Heading 5',
+          heading6: 'Heading 6',
+          bodyLarge: 'Body Large',
+          bodyDefault: 'Body Default',
+          bodySmall: 'Body Small',
+          labelDefault: 'Label Default',
+          labelSmall: 'Label Small',
+          caption: 'Caption',
+        },
+      },
+      compositionPreview: {
+        eyebrow: 'COMPOSITION PREVIEW',
+        title: 'Typography in context',
+        description:
+          'Evaluate hierarchy, density, and reading rhythm in realistic document and product interface compositions.',
+        document: {
+          eyebrow: 'Document preview',
+          title: 'Editorial hierarchy',
+          description:
+            'A continuous docs and article layout for comparing title, heading, body, and caption relationships in context.',
+          kicker: 'Virgo Design · Foundations',
+          titleLargeSample: 'Clear systems make ambitious work feel simple.',
+          titleMediumSample: 'Typography foundations for durable interfaces',
+          lead: 'A document needs more than a large title. Each level should guide attention without interrupting the flow of reading.',
+          heading1: 'Build hierarchy before decoration',
+          body1:
+            'Typography gives structure to ideas before color, imagery, or motion enters the page. A dependable scale helps readers understand where they are and what deserves attention next.',
+          heading2: 'Let the content set the rhythm',
+          body2:
+            'Headings create clear entry points while body text carries the argument. Their spacing and proportions should feel related, not mechanically repeated.',
+          asideKicker: 'Reading principles',
+          heading3: 'Clarity at every level',
+          body3:
+            'The same foundation should support a strong opening, a calm explanation, and the details readers return to later.',
+          heading4: 'Make scanning effortless',
+          body4: 'Distinct heading levels reveal the shape of a document at a glance.',
+          heading5: 'Keep paragraphs comfortable',
+          body5: 'Body text needs enough air to remain inviting through longer reading sessions.',
+          heading6: 'Use captions with purpose',
+          body6:
+            'Supporting details should stay legible without competing with the main narrative.',
+          caption:
+            'Document typography evaluation · Composed exclusively from current Foundation values.',
+        },
+        ui: {
+          eyebrow: 'UI preview',
+          title: 'Product interface hierarchy',
+          description:
+            'A workspace settings view for comparing display, title, body, label, caption, and control typography under real UI density.',
+          workspace: 'Workspace',
+          navigation: 'Workspace settings navigation',
+          overview: 'Overview',
+          members: 'Members',
+          integrations: 'Integrations',
+          billing: 'Billing',
+          sidebarCaption: 'Virgo Design · Team plan',
+          settings: 'Settings',
+          pageTitle: 'Workspace settings',
+          pageDescription: 'Manage identity, access, and collaboration defaults for your team.',
+          save: 'Save changes',
+          currentWorkspace: 'Current workspace',
+          workspaceName: 'Virgo Design',
+          workspaceMeta: 'Product Design · Updated moments ago',
+          activeMembers: 'active members',
+          general: 'General',
+          generalDescription: 'The details teammates see throughout the workspace.',
+          workspaceLabel: 'Workspace name',
+          workspaceHint: 'Shown in navigation, invitations, and shared links.',
+          slugLabel: 'Workspace URL',
+          slugHint: 'virgo.design/workspaces/virgo-design',
+          accessTitle: 'Member access',
+          accessDescription: 'New members join with the permissions configured for their role.',
+          private: 'Private',
+          restricted: 'Invitation required',
+        },
+      },
     },
     layout: {
       title: 'Layout',

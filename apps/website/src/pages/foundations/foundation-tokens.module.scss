@@ -122,6 +122,14 @@
   margin-bottom: 24px;
 }
 
+.sectionEyebrow {
+  margin-bottom: 8px;
+  color: var(--foundation-tertiary);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+}
+
 .sectionHeader h2 {
   margin: 0;
   font-size: 20px;
@@ -221,7 +229,6 @@
 }
 
 .lineHeightGrid,
-.letterSpacingGrid,
 .radiusGrid,
 .opacityGrid {
   display: grid;
@@ -229,8 +236,7 @@
   gap: 10px;
 }
 
-.lineHeightCard,
-.letterSpacingCard {
+.lineHeightCard {
   border: 1px solid var(--foundation-line);
   border-radius: 14px;
   padding: 15px;
@@ -240,18 +246,6 @@
 .lineHeightCard p {
   margin: 24px 0 0;
   font-size: 14px;
-}
-
-.letterSpacingGrid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.letterSpacingCard span {
-  display: block;
-  margin-top: 32px;
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: var(--foundation-letter-spacing);
 }
 
 .spacingMeasure {
@@ -458,7 +452,6 @@
     padding: 18px;
   }
 
-  .letterSpacingGrid,
   .easingGrid {
     grid-template-columns: 1fr;
   }

@@ -1,0 +1,26 @@
+import '../../../i18n';
+
+import { render, screen, within } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+
+import { TypographyRecipeTables } from './TypographyRecipeTables';
+
+describe('TypographyRecipeTables', () => {
+  it('shows the confirmed Document and UI role mappings', () => {
+    render(<TypographyRecipeTables />);
+
+    const documentTable = screen.getByRole('table', { name: 'Document Typography' });
+    const uiTable = screen.getByRole('table', { name: 'UI Typography' });
+
+    expect(within(documentTable).getAllByRole('row')).toHaveLength(13);
+    expect(within(uiTable).getAllByRole('row')).toHaveLength(13);
+    expect(
+      within(documentTable).getByRole('row', { name: 'Title Large 64px 700 1.10' }),
+    ).toBeTruthy();
+    expect(
+      within(documentTable).getByRole('row', { name: 'Heading 1 48px 600 1.10' }),
+    ).toBeTruthy();
+    expect(within(uiTable).getByRole('row', { name: 'Display Large 40px 700 1.10' })).toBeTruthy();
+    expect(within(uiTable).getByRole('row', { name: 'Label Default 14px 500 1.25' })).toBeTruthy();
+  });
+});
