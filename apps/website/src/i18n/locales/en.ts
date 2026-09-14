@@ -84,11 +84,11 @@ export const en = {
       lineHeight: 'Line Height',
       lineHeightDescription:
         'Foundation Scale · The four current Line Height tokens shown at their exact values.',
-      typographyRecipes: {
-        eyebrow: 'TYPOGRAPHY RECIPES',
-        title: 'Document and UI typography recipes',
+      semanticTypography: {
+        eyebrow: 'SEMANTIC TYPOGRAPHY',
+        title: 'Document and UI semantic typography',
         description:
-          'Foundation values are combined into role-based typography for document content and product interfaces.',
+          'Typography Foundation values are combined into official semantic roles for document content and product interfaces.',
         columns: {
           role: 'Role',
           fontSize: 'Font Size',
@@ -157,8 +157,7 @@ export const en = {
           heading6: 'Use captions with purpose',
           body6:
             'Supporting details should stay legible without competing with the main narrative.',
-          caption:
-            'Document typography evaluation · Composed exclusively from current Foundation values.',
+          caption: 'Document typography · Resolved from Semantic Typography tokens.',
         },
         ui: {
           eyebrow: 'UI preview',

@@ -1,4 +1,10 @@
 import type {
+  FontFamilyToken,
+  FontSizeToken,
+  FontWeightToken,
+  LineHeightToken,
+} from '../foundations/typography.js';
+import type {
   BorderColorRole,
   BrandColorRole,
   CategoricalDataColorRole,
@@ -10,6 +16,20 @@ import type {
   SurfaceColorRole,
   TextColorRole,
 } from '../semantic/color/index.js';
+
+export interface SemanticTypographyToken {
+  fontFamily: FontFamilyToken;
+  fontSize: FontSizeToken;
+  fontWeight: FontWeightToken;
+  lineHeight: LineHeightToken;
+}
+
+export interface ResolvedTypographyStyle {
+  fontFamily: string;
+  fontSize: string;
+  fontWeight: number;
+  lineHeight: number;
+}
 
 export type SemanticColorValue = string;
 

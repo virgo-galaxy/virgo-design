@@ -1,9 +1,10 @@
 import '../../../i18n';
 
 import { render, screen } from '@testing-library/react';
-import { fontFamily, fontSize, fontWeight, lineHeight } from '@virgo-design/tokens';
-import { describe, expect, it } from 'vitest';
+import { fontSize, fontWeight, internationalSans, lineHeight } from '@virgo-design/tokens';
+import { beforeEach, describe, expect, it } from 'vitest';
 
+import i18n from '../../../i18n';
 import { TypographyCompositionPreview } from './TypographyCompositionPreview';
 
 const expectRecipe = (
@@ -15,17 +16,24 @@ const expectRecipe = (
 ) => {
   const sample = container.querySelector<HTMLElement>(`[data-typography-role="${role}"]`);
 
-  expect(sample?.style.getPropertyValue('--evaluation-font-size')).toBe(size);
-  expect(sample?.style.getPropertyValue('--evaluation-font-weight')).toBe(String(weight));
-  expect(sample?.style.getPropertyValue('--evaluation-line-height')).toBe(String(height));
+  expect(sample?.style.getPropertyValue('--preview-font-family')).toBe(
+    internationalSans.latin.family,
+  );
+  expect(sample?.style.getPropertyValue('--preview-font-size')).toBe(size);
+  expect(sample?.style.getPropertyValue('--preview-font-weight')).toBe(String(weight));
+  expect(sample?.style.getPropertyValue('--preview-line-height')).toBe(String(height));
 };
 
 describe('TypographyCompositionPreview', () => {
-  it('composes every Document candidate directly from Typography Foundation values', () => {
+  beforeEach(async () => {
+    await i18n.changeLanguage('en');
+  });
+
+  it('resolves every Document role from official Semantic Typography', () => {
     const { container } = render(<TypographyCompositionPreview />);
     const preview = container.querySelector<HTMLElement>('[data-composition-locale="en"]');
 
-    expect(preview?.style.getPropertyValue('--evaluation-font-family')).toBe(fontFamily.sans);
+    expect(preview).toBeTruthy();
 
     expectRecipe(container, 'document-title-large', fontSize[64], fontWeight[700], lineHeight[1]);
     expectRecipe(container, 'document-title-medium', fontSize[56], fontWeight[700], lineHeight[1]);
@@ -41,7 +49,7 @@ describe('TypographyCompositionPreview', () => {
     expectRecipe(container, 'document-caption', fontSize[12], fontWeight[400], lineHeight[3]);
   });
 
-  it('composes every UI candidate directly from Typography Foundation values', () => {
+  it('resolves every UI role from official Semantic Typography', () => {
     const { container } = render(<TypographyCompositionPreview />);
 
     expectRecipe(container, 'ui-display-medium', fontSize[32], fontWeight[700], lineHeight[1]);
@@ -75,5 +83,20 @@ describe('TypographyCompositionPreview', () => {
     expect(documentTitle?.tagName).toBe('H2');
     expect(heading1?.tagName).toBe('H3');
     expect(documentTitle?.textContent).not.toBe(heading1?.textContent);
+  });
+
+  it('resolves the preview font family from the current Website locale', async () => {
+    await i18n.changeLanguage('zh-CN');
+
+    const { container } = render(<TypographyCompositionPreview />);
+    const preview = container.querySelector<HTMLElement>('[data-composition-locale="zh-CN"]');
+    const sample = container.querySelector<HTMLElement>(
+      '[data-typography-role="document-body-medium"]',
+    );
+
+    expect(preview).toBeTruthy();
+    expect(sample?.style.getPropertyValue('--preview-font-family')).toBe(
+      internationalSans.zhHans.family,
+    );
   });
 });

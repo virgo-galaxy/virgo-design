@@ -3,11 +3,11 @@ import '../../../i18n';
 import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { TypographyRecipeTables } from './TypographyRecipeTables';
+import { SemanticTypographyTables } from './SemanticTypographyTables';
 
-describe('TypographyRecipeTables', () => {
-  it('shows the confirmed Document and UI role mappings', () => {
-    render(<TypographyRecipeTables />);
+describe('SemanticTypographyTables', () => {
+  it('shows the official Document and UI semantic role mappings', () => {
+    render(<SemanticTypographyTables />);
 
     const documentTable = screen.getByRole('table', { name: 'Document Typography' });
     const uiTable = screen.getByRole('table', { name: 'UI Typography' });

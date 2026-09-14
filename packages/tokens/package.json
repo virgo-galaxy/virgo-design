@@ -29,6 +29,11 @@
       "import": "./dist/semantic/color/index.js",
       "default": "./dist/semantic/color/index.js"
     },
+    "./semantic/typography": {
+      "types": "./dist/semantic/typography/index.d.ts",
+      "import": "./dist/semantic/typography/index.js",
+      "default": "./dist/semantic/typography/index.js"
+    },
     "./themes": {
       "types": "./dist/themes/index.d.ts",
       "import": "./dist/themes/index.js",

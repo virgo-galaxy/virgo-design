@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import { FontFamilyPreview } from './components/FontFamilyPreview';
 import { InternationalSansPreview } from './components/InternationalSansPreview';
+import { SemanticTypographyTables } from './components/SemanticTypographyTables';
 import { TypographyCompositionPreview } from './components/TypographyCompositionPreview';
-import { TypographyRecipeTables } from './components/TypographyRecipeTables';
 import styles from './foundation-tokens.module.scss';
 import { FoundationPage, FoundationSection } from './FoundationPage';
 
@@ -90,12 +90,12 @@ export function TypographyPage() {
       </div>
 
       <FoundationSection
-        id="typography-recipes"
-        eyebrow={t('foundationPages.typography.typographyRecipes.eyebrow')}
-        title={t('foundationPages.typography.typographyRecipes.title')}
-        description={t('foundationPages.typography.typographyRecipes.description')}
+        id="semantic-typography"
+        eyebrow={t('foundationPages.typography.semanticTypography.eyebrow')}
+        title={t('foundationPages.typography.semanticTypography.title')}
+        description={t('foundationPages.typography.semanticTypography.description')}
       >
-        <TypographyRecipeTables />
+        <SemanticTypographyTables />
       </FoundationSection>
 
       <FoundationSection

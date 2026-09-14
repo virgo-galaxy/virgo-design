@@ -80,11 +80,10 @@ export const zhCN = {
       fontWeight: '字重',
       lineHeight: '行高',
       lineHeightDescription: 'Foundation Scale · 当前四档 Line Height Token 及其精确数值。',
-      typographyRecipes: {
-        eyebrow: 'TYPOGRAPHY RECIPES',
-        title: 'Document 与 UI 排版配方',
-        description:
-          '将 Font Family、Font Size、Font Weight 与 Line Height 组合为面向 Document 与 UI 的排版角色。',
+      semanticTypography: {
+        eyebrow: 'SEMANTIC TYPOGRAPHY',
+        title: 'Document 与 UI 语义排版',
+        description: 'Typography Foundation 被组合为面向 Document 与 UI 的正式语义角色。',
         columns: {
           role: '角色',
           fontSize: '字号',
@@ -148,7 +147,7 @@ export const zhCN = {
           body5: '正文需要足够的呼吸空间，才能支持持续而专注的阅读。',
           heading6: '有目的地使用注释',
           body6: '补充信息需要清晰可读，同时不与主要叙事争夺注意力。',
-          caption: 'Document 排版评估 · 全部由当前 Foundation 数值组合。',
+          caption: 'Document 排版 · 由 Semantic Typography Token 解析。',
         },
         ui: {
           eyebrow: 'UI Preview',
