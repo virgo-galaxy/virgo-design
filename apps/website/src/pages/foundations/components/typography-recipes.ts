@@ -31,7 +31,7 @@ export const documentTypographyRecipes = {
   },
   body: {
     large: recipe(16, 400, 4),
-    default: recipe(14, 400, 4),
+    medium: recipe(14, 400, 4),
     small: recipe(13, 400, 4),
   },
   caption: recipe(12, 400, 3),
@@ -50,12 +50,12 @@ export const uiTypographyRecipes = {
   },
   body: {
     large: recipe(16, 400, 3),
-    default: recipe(14, 400, 3),
+    medium: recipe(14, 400, 3),
     small: recipe(13, 400, 3),
   },
   label: {
-    default: recipe(14, 500, 2),
+    medium: recipe(14, 500, 2),
     small: recipe(13, 500, 2),
   },
-  caption: recipe(12, 400, 3),
+  meta: recipe(12, 400, 3),
 } as const;

@@ -84,8 +84,8 @@ export function TypographyRecipeTables() {
     { group: 'body', label: role('bodyLarge'), recipe: documentTypographyRecipes.body.large },
     {
       group: 'body',
-      label: role('bodyDefault'),
-      recipe: documentTypographyRecipes.body.default,
+      label: role('bodyMedium'),
+      recipe: documentTypographyRecipes.body.medium,
     },
     { group: 'body', label: role('bodySmall'), recipe: documentTypographyRecipes.body.small },
     { group: 'caption', label: role('caption'), recipe: documentTypographyRecipes.caption },
@@ -103,11 +103,11 @@ export function TypographyRecipeTables() {
     { group: 'title', label: role('titleMedium'), recipe: uiTypographyRecipes.title.medium },
     { group: 'title', label: role('titleSmall'), recipe: uiTypographyRecipes.title.small },
     { group: 'body', label: role('bodyLarge'), recipe: uiTypographyRecipes.body.large },
-    { group: 'body', label: role('bodyDefault'), recipe: uiTypographyRecipes.body.default },
+    { group: 'body', label: role('bodyMedium'), recipe: uiTypographyRecipes.body.medium },
     { group: 'body', label: role('bodySmall'), recipe: uiTypographyRecipes.body.small },
-    { group: 'label', label: role('labelDefault'), recipe: uiTypographyRecipes.label.default },
+    { group: 'label', label: role('labelMedium'), recipe: uiTypographyRecipes.label.medium },
     { group: 'label', label: role('labelSmall'), recipe: uiTypographyRecipes.label.small },
-    { group: 'caption', label: role('caption'), recipe: uiTypographyRecipes.caption },
+    { group: 'meta', label: role('meta'), recipe: uiTypographyRecipes.meta },
   ];
 
   return (

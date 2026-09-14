@@ -20,7 +20,13 @@ describe('TypographyRecipeTables', () => {
     expect(
       within(documentTable).getByRole('row', { name: 'Heading 1 48px 600 1.10' }),
     ).toBeTruthy();
+    expect(
+      within(documentTable).getByRole('row', { name: 'Body Medium 14px 400 1.60' }),
+    ).toBeTruthy();
+    expect(within(documentTable).getByRole('row', { name: 'Caption 12px 400 1.40' })).toBeTruthy();
     expect(within(uiTable).getByRole('row', { name: 'Display Large 40px 700 1.10' })).toBeTruthy();
-    expect(within(uiTable).getByRole('row', { name: 'Label Default 14px 500 1.25' })).toBeTruthy();
+    expect(within(uiTable).getByRole('row', { name: 'Body Medium 14px 400 1.40' })).toBeTruthy();
+    expect(within(uiTable).getByRole('row', { name: 'Label Medium 14px 500 1.25' })).toBeTruthy();
+    expect(within(uiTable).getByRole('row', { name: 'Meta 12px 400 1.40' })).toBeTruthy();
   });
 });

@@ -59,7 +59,7 @@ export function TypographyCompositionPreview() {
       <section className={styles.previewSection} aria-labelledby="document-preview-title">
         <header className={styles.previewHeader}>
           <div>
-            <TypeSample as="span" recipe={uiTypographyRecipes.caption} role="evaluation-caption">
+            <TypeSample as="span" recipe={uiTypographyRecipes.meta} role="evaluation-eyebrow">
               {t('foundationPages.typography.compositionPreview.document.eyebrow')}
             </TypeSample>
             <TypeSample
@@ -123,8 +123,8 @@ export function TypographyCompositionPreview() {
               </TypeSample>
               <TypeSample
                 as="p"
-                recipe={documentTypographyRecipes.body.default}
-                role="document-body-default"
+                recipe={documentTypographyRecipes.body.medium}
+                role="document-body-medium"
               >
                 {t('foundationPages.typography.compositionPreview.document.body1')}
               </TypeSample>
@@ -138,8 +138,8 @@ export function TypographyCompositionPreview() {
               </TypeSample>
               <TypeSample
                 as="p"
-                recipe={documentTypographyRecipes.body.default}
-                role="document-body-default"
+                recipe={documentTypographyRecipes.body.medium}
+                role="document-body-medium"
               >
                 {t('foundationPages.typography.compositionPreview.document.body2')}
               </TypeSample>
@@ -235,7 +235,7 @@ export function TypographyCompositionPreview() {
       <section className={styles.previewSection} aria-labelledby="ui-preview-title">
         <header className={styles.previewHeader}>
           <div>
-            <TypeSample as="span" recipe={uiTypographyRecipes.caption} role="evaluation-caption">
+            <TypeSample as="span" recipe={uiTypographyRecipes.meta} role="evaluation-eyebrow">
               {t('foundationPages.typography.compositionPreview.ui.eyebrow')}
             </TypeSample>
             <TypeSample
@@ -276,8 +276,8 @@ export function TypographyCompositionPreview() {
                   key={item}
                   as="span"
                   className={index === 0 ? styles.activeNavItem : styles.navItem}
-                  recipe={uiTypographyRecipes.label.default}
-                  role="ui-label-default"
+                  recipe={uiTypographyRecipes.label.medium}
+                  role="ui-label-medium"
                 >
                   {t(`foundationPages.typography.compositionPreview.ui.${item}`)}
                 </TypeSample>
@@ -285,11 +285,11 @@ export function TypographyCompositionPreview() {
             </nav>
             <TypeSample
               as="p"
-              className={styles.sidebarCaption}
-              recipe={uiTypographyRecipes.caption}
-              role="ui-caption"
+              className={styles.sidebarMeta}
+              recipe={uiTypographyRecipes.meta}
+              role="ui-meta"
             >
-              {t('foundationPages.typography.compositionPreview.ui.sidebarCaption')}
+              {t('foundationPages.typography.compositionPreview.ui.sidebarMeta')}
             </TypeSample>
           </aside>
 
@@ -314,8 +314,8 @@ export function TypographyCompositionPreview() {
               <button type="button">
                 <TypeSample
                   as="span"
-                  recipe={uiTypographyRecipes.label.default}
-                  role="ui-label-default"
+                  recipe={uiTypographyRecipes.label.medium}
+                  role="ui-label-medium"
                 >
                   {t('foundationPages.typography.compositionPreview.ui.save')}
                 </TypeSample>
@@ -339,7 +339,7 @@ export function TypographyCompositionPreview() {
                 >
                   {t('foundationPages.typography.compositionPreview.ui.workspaceName')}
                 </TypeSample>
-                <TypeSample as="p" recipe={uiTypographyRecipes.body.small} role="ui-body-small">
+                <TypeSample as="p" recipe={uiTypographyRecipes.meta} role="ui-meta">
                   {t('foundationPages.typography.compositionPreview.ui.workspaceMeta')}
                 </TypeSample>
               </div>
@@ -351,7 +351,7 @@ export function TypographyCompositionPreview() {
                 >
                   86
                 </TypeSample>
-                <TypeSample as="span" recipe={uiTypographyRecipes.caption} role="ui-caption">
+                <TypeSample as="span" recipe={uiTypographyRecipes.meta} role="ui-meta">
                   {t('foundationPages.typography.compositionPreview.ui.activeMembers')}
                 </TypeSample>
               </div>
@@ -362,7 +362,7 @@ export function TypographyCompositionPreview() {
                 <TypeSample as="h3" recipe={uiTypographyRecipes.title.large} role="ui-title-large">
                   {t('foundationPages.typography.compositionPreview.ui.general')}
                 </TypeSample>
-                <TypeSample as="p" recipe={uiTypographyRecipes.body.default} role="ui-body-default">
+                <TypeSample as="p" recipe={uiTypographyRecipes.body.medium} role="ui-body-medium">
                   {t('foundationPages.typography.compositionPreview.ui.generalDescription')}
                 </TypeSample>
               </header>
@@ -371,8 +371,8 @@ export function TypographyCompositionPreview() {
                 <label>
                   <TypeSample
                     as="span"
-                    recipe={uiTypographyRecipes.label.default}
-                    role="ui-label-default"
+                    recipe={uiTypographyRecipes.label.medium}
+                    role="ui-label-medium"
                   >
                     {t('foundationPages.typography.compositionPreview.ui.workspaceLabel')}
                   </TypeSample>
@@ -382,18 +382,22 @@ export function TypographyCompositionPreview() {
                     )}
                     className={styles.typeSample}
                     readOnly
-                    style={recipeStyle(uiTypographyRecipes.body.default)}
+                    style={recipeStyle(uiTypographyRecipes.body.medium)}
                     value={t('foundationPages.typography.compositionPreview.ui.workspaceName')}
                   />
-                  <TypeSample as="span" recipe={uiTypographyRecipes.caption} role="ui-caption">
+                  <TypeSample
+                    as="span"
+                    recipe={uiTypographyRecipes.body.small}
+                    role="ui-body-small"
+                  >
                     {t('foundationPages.typography.compositionPreview.ui.workspaceHint')}
                   </TypeSample>
                 </label>
                 <label>
                   <TypeSample
                     as="span"
-                    recipe={uiTypographyRecipes.label.default}
-                    role="ui-label-default"
+                    recipe={uiTypographyRecipes.label.medium}
+                    role="ui-label-medium"
                   >
                     {t('foundationPages.typography.compositionPreview.ui.slugLabel')}
                   </TypeSample>
@@ -401,10 +405,14 @@ export function TypographyCompositionPreview() {
                     aria-label={t('foundationPages.typography.compositionPreview.ui.slugLabel')}
                     className={styles.typeSample}
                     readOnly
-                    style={recipeStyle(uiTypographyRecipes.body.default)}
+                    style={recipeStyle(uiTypographyRecipes.body.medium)}
                     value="virgo-design"
                   />
-                  <TypeSample as="span" recipe={uiTypographyRecipes.caption} role="ui-caption">
+                  <TypeSample
+                    as="span"
+                    recipe={uiTypographyRecipes.body.small}
+                    role="ui-body-small"
+                  >
                     {t('foundationPages.typography.compositionPreview.ui.slugHint')}
                   </TypeSample>
                 </label>
@@ -419,11 +427,7 @@ export function TypographyCompositionPreview() {
                   >
                     {t('foundationPages.typography.compositionPreview.ui.accessTitle')}
                   </TypeSample>
-                  <TypeSample
-                    as="p"
-                    recipe={uiTypographyRecipes.body.default}
-                    role="ui-body-default"
-                  >
+                  <TypeSample as="p" recipe={uiTypographyRecipes.body.medium} role="ui-body-medium">
                     {t('foundationPages.typography.compositionPreview.ui.accessDescription')}
                   </TypeSample>
                 </div>

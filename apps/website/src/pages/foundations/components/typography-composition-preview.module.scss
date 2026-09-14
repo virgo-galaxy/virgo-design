@@ -188,7 +188,7 @@
   background: var(--foundation-muted);
 }
 
-.sidebarCaption {
+.sidebarMeta {
   margin-top: auto;
   color: var(--foundation-tertiary);
 }
@@ -350,7 +350,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .sidebarCaption {
+  .sidebarMeta {
     display: none;
   }
 

@@ -1,6 +1,6 @@
 import '../../../i18n';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { fontFamily, fontSize, fontWeight, lineHeight } from '@virgo-design/tokens';
 import { describe, expect, it } from 'vitest';
 
@@ -36,7 +36,7 @@ describe('TypographyCompositionPreview', () => {
     expectRecipe(container, 'document-heading-5', fontSize[24], fontWeight[600], lineHeight[2]);
     expectRecipe(container, 'document-heading-6', fontSize[20], fontWeight[600], lineHeight[2]);
     expectRecipe(container, 'document-body-large', fontSize[16], fontWeight[400], lineHeight[4]);
-    expectRecipe(container, 'document-body-default', fontSize[14], fontWeight[400], lineHeight[4]);
+    expectRecipe(container, 'document-body-medium', fontSize[14], fontWeight[400], lineHeight[4]);
     expectRecipe(container, 'document-body-small', fontSize[13], fontWeight[400], lineHeight[4]);
     expectRecipe(container, 'document-caption', fontSize[12], fontWeight[400], lineHeight[3]);
   });
@@ -51,11 +51,20 @@ describe('TypographyCompositionPreview', () => {
     expectRecipe(container, 'ui-title-medium', fontSize[20], fontWeight[600], lineHeight[2]);
     expectRecipe(container, 'ui-title-small', fontSize[16], fontWeight[600], lineHeight[2]);
     expectRecipe(container, 'ui-body-large', fontSize[16], fontWeight[400], lineHeight[3]);
-    expectRecipe(container, 'ui-body-default', fontSize[14], fontWeight[400], lineHeight[3]);
+    expectRecipe(container, 'ui-body-medium', fontSize[14], fontWeight[400], lineHeight[3]);
     expectRecipe(container, 'ui-body-small', fontSize[13], fontWeight[400], lineHeight[3]);
-    expectRecipe(container, 'ui-label-default', fontSize[14], fontWeight[500], lineHeight[2]);
+    expectRecipe(container, 'ui-label-medium', fontSize[14], fontWeight[500], lineHeight[2]);
     expectRecipe(container, 'ui-label-small', fontSize[13], fontWeight[500], lineHeight[2]);
-    expectRecipe(container, 'ui-caption', fontSize[12], fontWeight[400], lineHeight[3]);
+    expectRecipe(container, 'ui-meta', fontSize[12], fontWeight[400], lineHeight[3]);
+
+    expect(
+      screen.getByText('Product Design · Updated moments ago').getAttribute('data-typography-role'),
+    ).toBe('ui-meta');
+    expect(
+      screen
+        .getByText('Shown in navigation, invitations, and shared links.')
+        .getAttribute('data-typography-role'),
+    ).toBe('ui-body-small');
   });
 
   it('keeps the Document title distinct from Heading 1', () => {
