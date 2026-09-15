@@ -200,6 +200,31 @@ export const en = {
       spacingDescription: 'Foundation values for padding, margin, gap, and spatial rhythm.',
       sizing: 'Sizing',
       sizingDescription: 'Raw dimensions for future icons, controls, avatars, and handles.',
+      preview: {
+        eyebrow: 'SCALE PREVIEW',
+        title: 'Scale preview',
+        description:
+          'Visualize the current Spacing and Sizing Foundation scales through neutral spacing and object-size examples.',
+        sample: 'Content',
+        spacing: {
+          title: 'Spacing',
+          description:
+            'Padding and gap examples show individual Foundation values and their combinations.',
+          padding: 'Padding comparison',
+          gap: 'Gap comparison',
+          combinations: 'Spacing combinations',
+          combinationValues: 'Padding {{padding}} · Gap {{gap}}',
+        },
+        sizing: {
+          title: 'Sizing',
+          description:
+            'These examples illustrate scale only and do not define component semantics.',
+          heights: 'Height comparison',
+          icons: 'Icon-like size comparison',
+          objects: 'Small object size comparison',
+          mediumLargeObjects: 'Medium and large object size comparison',
+        },
+      },
     },
     shapeDepth: {
       title: 'Shape & Depth',

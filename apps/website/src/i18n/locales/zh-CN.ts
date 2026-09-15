@@ -189,6 +189,29 @@ export const zhCN = {
       spacingDescription: '用于 padding、margin、gap 与空间节奏的基础值。',
       sizing: '尺寸',
       sizingDescription: '为未来的图标、控件、头像与拖拽点提供原始尺寸。',
+      preview: {
+        eyebrow: 'SCALE PREVIEW',
+        title: '尺度预览',
+        description:
+          '通过中性的空间与尺寸示例，直观展示当前 Spacing 与 Sizing Foundation 的尺度关系。',
+        sample: '内容',
+        spacing: {
+          title: 'Spacing',
+          description: '通过 padding 与 gap 示例，展示单个 Foundation 数值及其组合关系。',
+          padding: 'Padding 对比',
+          gap: 'Gap 对比',
+          combinations: '间距组合',
+          combinationValues: 'Padding {{padding}} · Gap {{gap}}',
+        },
+        sizing: {
+          title: 'Sizing',
+          description: '以下示例仅用于展示尺度关系，不定义正式组件语义。',
+          heights: '高度对比',
+          icons: '类图标尺寸对比',
+          objects: '小型对象尺寸对比',
+          mediumLargeObjects: '中型与大型对象尺寸对比',
+        },
+      },
     },
     shapeDepth: {
       title: '形状与层级',

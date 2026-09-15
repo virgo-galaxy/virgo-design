@@ -1,6 +1,7 @@
 import { sizing, spacing } from '@virgo-design/tokens';
 import { useTranslation } from 'react-i18next';
 
+import { LayoutScalePreview } from './components/LayoutScalePreview';
 import styles from './foundation-tokens.module.scss';
 import { FoundationPage, FoundationSection } from './FoundationPage';
 
@@ -48,6 +49,15 @@ export function LayoutPage() {
             </article>
           ))}
         </div>
+      </FoundationSection>
+
+      <FoundationSection
+        id="scale-preview"
+        eyebrow={t('foundationPages.layout.preview.eyebrow')}
+        title={t('foundationPages.layout.preview.title')}
+        description={t('foundationPages.layout.preview.description')}
+      >
+        <LayoutScalePreview />
       </FoundationSection>
     </FoundationPage>
   );

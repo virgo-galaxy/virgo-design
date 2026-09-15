@@ -1,0 +1,272 @@
+.previewStack,
+.previewGroup {
+  display: grid;
+}
+
+.previewStack {
+  gap: 40px;
+}
+
+.previewGroup {
+  gap: 18px;
+}
+
+.previewGroup + .previewGroup {
+  border-top: 1px solid var(--foundation-line);
+  padding-top: 32px;
+}
+
+.groupHeader {
+  display: grid;
+  gap: 5px;
+}
+
+.groupHeader h3,
+.groupHeader p,
+.comparisonCard h4 {
+  margin: 0;
+}
+
+.groupHeader h3 {
+  font-size: 17px;
+}
+
+.groupHeader p {
+  max-width: 680px;
+  color: var(--layout-secondary);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.comparisonCard {
+  display: grid;
+  min-width: 0;
+  gap: 20px;
+  border: 1px solid var(--foundation-line);
+  border-radius: 16px;
+  padding: 20px;
+  background: var(--foundation-surface-strong);
+}
+
+.comparisonCard h4 {
+  font-size: 13px;
+}
+
+.paddingComparison,
+.gapComparison,
+.objectComparison,
+.heightComparison,
+.combinationComparison {
+  display: grid;
+  gap: 12px;
+}
+
+.paddingComparison,
+.gapComparison {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sampleColumn,
+.objectSample,
+.heightSample {
+  display: grid;
+  min-width: 0;
+  gap: 9px;
+}
+
+.paddingStage,
+.gapStage,
+.iconStage,
+.objectStage,
+.heightSample > div:first-child {
+  border: 1px solid var(--foundation-line);
+  border-radius: 12px;
+  background: var(--foundation-muted);
+}
+
+.paddingStage {
+  display: grid;
+  min-height: 104px;
+  padding: var(--preview-space);
+}
+
+.paddingStage span {
+  display: grid;
+  min-height: 40px;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--layout-secondary);
+  background: var(--foundation-surface-strong);
+  font-size: 10px;
+}
+
+.gapStage {
+  display: flex;
+  min-height: 104px;
+  align-items: center;
+  justify-content: center;
+  gap: var(--preview-space);
+  padding: 12px;
+}
+
+.gapStage i {
+  width: 18px;
+  height: 54px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--foundation-accent) 18%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--foundation-accent) 28%, transparent);
+}
+
+.tokenValue {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tokenValue strong {
+  font-size: 11px;
+}
+
+.tokenValue code {
+  color: var(--foundation-tertiary);
+  font-size: 9px;
+}
+
+.combinationComparison {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.combinationSample {
+  display: grid;
+  gap: var(--preview-gap);
+  border: 1px solid var(--foundation-line);
+  border-radius: 12px;
+  padding: var(--preview-padding);
+  background: var(--foundation-muted);
+}
+
+.combinationSample > strong {
+  font-size: 12px;
+}
+
+.combinationSample > div {
+  display: grid;
+  gap: var(--preview-gap);
+}
+
+.combinationSample span {
+  display: block;
+  height: 18px;
+  border-radius: 6px;
+  background: var(--foundation-surface-strong);
+  box-shadow: inset 0 0 0 1px var(--foundation-line);
+}
+
+.heightComparison {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: end;
+}
+
+.heightSample > div:first-child {
+  display: flex;
+  height: var(--preview-size);
+  align-items: center;
+  padding: 0 12px;
+}
+
+.heightSample > div:first-child span {
+  display: block;
+  width: 62%;
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--layout-text) 16%, transparent);
+}
+
+.objectComparison {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mediumObjectComparison {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.iconStage,
+.objectStage,
+.mediumObjectStage {
+  display: grid;
+  min-height: 76px;
+  place-items: center;
+}
+
+.iconStage i,
+.objectStage i,
+.mediumObjectStage i {
+  display: block;
+  width: var(--preview-size);
+  height: var(--preview-size);
+}
+
+.iconStage i {
+  border: max(1px, calc(var(--preview-size) / 10)) solid var(--foundation-accent);
+  border-radius: 28%;
+  transform: rotate(45deg) scale(0.64);
+}
+
+.objectStage i,
+.mediumObjectStage i {
+  background: color-mix(in srgb, var(--foundation-accent) 24%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--foundation-accent) 32%, transparent);
+}
+
+.mediumObjectStage {
+  min-height: 104px;
+  border: 1px solid var(--foundation-line);
+  border-radius: 12px;
+  background: var(--foundation-muted);
+}
+
+.objectStage i[data-shape='round'],
+.mediumObjectStage i[data-shape='round'] {
+  border-radius: 50%;
+}
+
+.objectStage i[data-shape='square'],
+.mediumObjectStage i[data-shape='square'] {
+  border-radius: 28%;
+}
+
+@media (max-width: 900px) {
+  .comparisonGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .mediumObjectComparison {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .previewStack {
+    gap: 32px;
+  }
+
+  .comparisonCard {
+    padding: 16px;
+  }
+
+  .combinationComparison,
+  .heightComparison,
+  .mediumObjectComparison {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
