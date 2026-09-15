@@ -1,0 +1,50 @@
+.export {
+  display: grid;
+  gap: 12px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.controls > code {
+  color: var(--foundation-tertiary);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.controls > button {
+  border: 1px solid var(--foundation-line-strong);
+  border-radius: 8px;
+  padding: 7px 10px;
+  cursor: pointer;
+  color: var(--layout-text);
+  background: var(--foundation-surface-strong);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.codeBlock {
+  max-height: 520px;
+  overflow: auto;
+  margin: 0;
+  border: 1px solid var(--foundation-line);
+  border-radius: 12px;
+  padding: 16px;
+  color: var(--layout-text);
+  background: var(--foundation-muted);
+  font-family: var(--layout-mono-font-family, ui-monospace, monospace);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.export > p {
+  margin: 0;
+  color: var(--layout-secondary);
+  font-size: 11px;
+  line-height: 1.55;
+}

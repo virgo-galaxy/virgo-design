@@ -112,8 +112,8 @@ export function PaletteGallery({
         </div>
 
         <ScrollCue
-          targetId="theme-builder"
-          ariaLabel={t('common.buildTheme')}
+          targetId="foundation-export"
+          ariaLabel={t('common.exportFoundationColors')}
           visible={motion.enter >= 0.82 && motion.exit < 0.08}
         />
       </div>

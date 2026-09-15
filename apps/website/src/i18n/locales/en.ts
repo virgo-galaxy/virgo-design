@@ -5,7 +5,7 @@ export const en = {
     lightMode: 'Light mode',
     darkMode: 'Dark mode',
     explorePalette: 'Explore full palette',
-    buildTheme: 'Build theme',
+    exportFoundationColors: 'Export foundation colors',
     colorCopied: '{{token}} copied: {{value}}',
   },
 
@@ -26,6 +26,16 @@ export const en = {
     motion: 'Motion',
   },
 
+  tokenNavigation: {
+    label: 'Token categories',
+    colors: 'Colors',
+    typography: 'Typography',
+  },
+
+  tokenPages: {
+    eyebrow: 'TOKENS V1',
+  },
+
   foundationPages: {
     eyebrow: 'FOUNDATIONS V1',
     colors: {
@@ -42,10 +52,10 @@ export const en = {
         explore: 'Explore',
         exploreDescription: 'Colors in motion',
         export: 'Export',
-        exportDescription: 'Themes and production code',
-        summary: 'Move from foundations to application through Virgo Design’s color system.',
+        exportDescription: 'Foundation color code',
+        summary: 'Explore Virgo Design’s Foundation color materials and their production export.',
         detail:
-          'Create and inspect colors across three stages, then generate design tokens and code ready for products.',
+          'Create and inspect Foundation colors, then export the current scales for product implementation.',
       },
     },
     typography: {
@@ -84,113 +94,6 @@ export const en = {
       lineHeight: 'Line Height',
       lineHeightDescription:
         'Foundation Scale · The four current Line Height tokens shown at their exact values.',
-      semanticTypography: {
-        eyebrow: 'SEMANTIC TYPOGRAPHY',
-        title: 'Document and UI semantic typography',
-        description:
-          'Typography Foundation values are combined into official semantic roles for document content and product interfaces.',
-        columns: {
-          role: 'Role',
-          fontSize: 'Font Size',
-          fontWeight: 'Font Weight',
-          lineHeight: 'Line Height',
-        },
-        document: {
-          title: 'Document Typography',
-          description: 'Roles for editorial hierarchy, long-form reading, and supporting detail.',
-        },
-        ui: {
-          title: 'UI Typography',
-          description:
-            'Roles for product hierarchy, controls, labels, and dense interface content.',
-        },
-        roles: {
-          displayLarge: 'Display Large',
-          displayMedium: 'Display Medium',
-          displaySmall: 'Display Small',
-          titleLarge: 'Title Large',
-          titleMedium: 'Title Medium',
-          titleSmall: 'Title Small',
-          heading1: 'Heading 1',
-          heading2: 'Heading 2',
-          heading3: 'Heading 3',
-          heading4: 'Heading 4',
-          heading5: 'Heading 5',
-          heading6: 'Heading 6',
-          bodyLarge: 'Body Large',
-          bodyMedium: 'Body Medium',
-          bodySmall: 'Body Small',
-          labelMedium: 'Label Medium',
-          labelSmall: 'Label Small',
-          caption: 'Caption',
-          meta: 'Meta',
-        },
-      },
-      compositionPreview: {
-        eyebrow: 'COMPOSITION PREVIEW',
-        title: 'Typography in context',
-        description:
-          'Evaluate hierarchy, density, and reading rhythm in realistic document and product interface compositions.',
-        document: {
-          eyebrow: 'Document preview',
-          title: 'Editorial hierarchy',
-          description:
-            'A continuous docs and article layout for comparing title, heading, body, and caption relationships in context.',
-          kicker: 'Virgo Design · Foundations',
-          titleLargeSample: 'Clear systems make ambitious work feel simple.',
-          titleMediumSample: 'Typography foundations for durable interfaces',
-          lead: 'A document needs more than a large title. Each level should guide attention without interrupting the flow of reading.',
-          heading1: 'Build hierarchy before decoration',
-          body1:
-            'Typography gives structure to ideas before color, imagery, or motion enters the page. A dependable scale helps readers understand where they are and what deserves attention next.',
-          heading2: 'Let the content set the rhythm',
-          body2:
-            'Headings create clear entry points while body text carries the argument. Their spacing and proportions should feel related, not mechanically repeated.',
-          asideKicker: 'Reading principles',
-          heading3: 'Clarity at every level',
-          body3:
-            'The same foundation should support a strong opening, a calm explanation, and the details readers return to later.',
-          heading4: 'Make scanning effortless',
-          body4: 'Distinct heading levels reveal the shape of a document at a glance.',
-          heading5: 'Keep paragraphs comfortable',
-          body5: 'Body text needs enough air to remain inviting through longer reading sessions.',
-          heading6: 'Use captions with purpose',
-          body6:
-            'Supporting details should stay legible without competing with the main narrative.',
-          caption: 'Document typography · Resolved from Semantic Typography tokens.',
-        },
-        ui: {
-          eyebrow: 'UI preview',
-          title: 'Product interface hierarchy',
-          description:
-            'A workspace settings view for comparing display, title, body, label, meta, and control typography under real UI density.',
-          workspace: 'Workspace',
-          navigation: 'Workspace settings navigation',
-          overview: 'Overview',
-          members: 'Members',
-          integrations: 'Integrations',
-          billing: 'Billing',
-          sidebarMeta: 'Virgo Design · Team plan',
-          settings: 'Settings',
-          pageTitle: 'Workspace settings',
-          pageDescription: 'Manage identity, access, and collaboration defaults for your team.',
-          save: 'Save changes',
-          currentWorkspace: 'Current workspace',
-          workspaceName: 'Virgo Design',
-          workspaceMeta: 'Product Design · Updated moments ago',
-          activeMembers: 'active members',
-          general: 'General',
-          generalDescription: 'The details teammates see throughout the workspace.',
-          workspaceLabel: 'Workspace name',
-          workspaceHint: 'Shown in navigation, invitations, and shared links.',
-          slugLabel: 'Workspace URL',
-          slugHint: 'virgo.design/workspaces/virgo-design',
-          accessTitle: 'Member access',
-          accessDescription: 'New members join with the permissions configured for their role.',
-          private: 'Private',
-          restricted: 'Invitation required',
-        },
-      },
     },
     layout: {
       title: 'Layout',
@@ -284,8 +187,18 @@ export const en = {
     },
   },
 
+  foundationColorExport: {
+    eyebrow: '03 · EXPORT',
+    title: 'Production Code',
+    description: 'Export the current 140 Foundation colors without a Semantic Theme mapping.',
+    format: 'Export format',
+    scaleNaming: 'Scale naming',
+    copy: 'Copy',
+    copied: 'Copied',
+    note: 'This export contains current Foundation colors only. Formal Color Semantic Tokens are documented under Tokens / Colors.',
+  },
+
   tokensPage: {
-    eyebrow: 'TOKENS · COLOR SEMANTIC V1',
     title: 'Color with meaning',
     description:
       'One semantic vocabulary resolved into two production themes. Inspect every role in real interface, interaction, status, and data-visualization contexts.',
@@ -295,6 +208,10 @@ export const en = {
     sourceTitle: 'Token source',
     sourceDescription:
       'All values below resolve directly from @virgo-design/tokens across interface hierarchy, interaction states, status communication, and data visualization.',
+    previewEyebrow: 'SEMANTIC COLOR',
+    previewTitle: 'Resolved themes',
+    previewDescription:
+      'The same formal roles resolve from themes.light.color and themes.dark.color.',
     comparisonLabel: 'Light and dark Color Semantic comparison',
     themeLabel: 'Resolved theme',
     light: {
@@ -362,6 +279,106 @@ export const en = {
       loss: 'Loss',
       profit: 'Profit',
     },
+    export: {
+      eyebrow: 'SEMANTIC EXPORT',
+      title: 'Production Code',
+      description:
+        'CSS custom properties generated directly from the official Light and Dark Color Semantic themes.',
+      copy: 'Copy',
+      copied: 'Copied',
+      note: 'This export is derived from @virgo-design/tokens themes. It does not create a Website-local semantic map.',
+    },
+  },
+
+  tokensTypography: {
+    title: 'Semantic Typography',
+    description:
+      'Formal Document and UI Typography roles resolved from @virgo-design/tokens for real content and interface hierarchy.',
+    semanticTypography: {
+      eyebrow: 'SEMANTIC TYPOGRAPHY',
+      title: 'Document and UI semantic typography',
+      description:
+        'Formal Document and UI roles reference Typography Foundation values without duplicating the Foundation scale.',
+      columns: {
+        role: 'Semantic Token',
+        fontFamily: 'Font Family',
+        fontSize: 'Font Size',
+        fontWeight: 'Font Weight',
+        lineHeight: 'Line Height',
+      },
+      document: {
+        title: 'Document Typography',
+        description: 'Roles for editorial hierarchy, long-form reading, and supporting detail.',
+      },
+      ui: {
+        title: 'UI Typography',
+        description: 'Roles for product hierarchy, controls, labels, and dense interface content.',
+      },
+    },
+    compositionPreview: {
+      eyebrow: 'COMPOSITION PREVIEW',
+      title: 'Typography in context',
+      description:
+        'Evaluate hierarchy, density, and reading rhythm in realistic document and product interface compositions.',
+      document: {
+        eyebrow: 'Document preview',
+        title: 'Editorial hierarchy',
+        description:
+          'A continuous docs and article layout for comparing title, heading, body, and caption relationships in context.',
+        kicker: 'Virgo Design · Tokens',
+        titleLargeSample: 'Clear systems make ambitious work feel simple.',
+        titleMediumSample: 'Typography foundations for durable interfaces',
+        lead: 'A document needs more than a large title. Each level should guide attention without interrupting the flow of reading.',
+        heading1: 'Build hierarchy before decoration',
+        body1:
+          'Typography gives structure to ideas before color, imagery, or motion enters the page. A dependable scale helps readers understand where they are and what deserves attention next.',
+        heading2: 'Let the content set the rhythm',
+        body2:
+          'Headings create clear entry points while body text carries the argument. Their spacing and proportions should feel related, not mechanically repeated.',
+        asideKicker: 'Reading principles',
+        heading3: 'Clarity at every level',
+        body3:
+          'The same foundation should support a strong opening, a calm explanation, and the details readers return to later.',
+        heading4: 'Make scanning effortless',
+        body4: 'Distinct heading levels reveal the shape of a document at a glance.',
+        heading5: 'Keep paragraphs comfortable',
+        body5: 'Body text needs enough air to remain inviting through longer reading sessions.',
+        heading6: 'Use captions with purpose',
+        body6: 'Supporting details should stay legible without competing with the main narrative.',
+        caption: 'Document typography · Resolved from Semantic Typography tokens.',
+      },
+      ui: {
+        eyebrow: 'UI preview',
+        title: 'Product interface hierarchy',
+        description:
+          'A workspace settings view for comparing display, title, body, label, meta, and control typography under real UI density.',
+        workspace: 'Workspace',
+        navigation: 'Workspace settings navigation',
+        overview: 'Overview',
+        members: 'Members',
+        integrations: 'Integrations',
+        billing: 'Billing',
+        sidebarMeta: 'Virgo Design · Team plan',
+        settings: 'Settings',
+        pageTitle: 'Workspace settings',
+        pageDescription: 'Manage identity, access, and collaboration defaults for your team.',
+        save: 'Save changes',
+        currentWorkspace: 'Current workspace',
+        workspaceName: 'Virgo Design',
+        workspaceMeta: 'Product Design · Updated moments ago',
+        activeMembers: 'active members',
+        general: 'General',
+        generalDescription: 'The details teammates see throughout the workspace.',
+        workspaceLabel: 'Workspace name',
+        workspaceHint: 'Shown in navigation, invitations, and shared links.',
+        slugLabel: 'Workspace URL',
+        slugHint: 'virgo.design/workspaces/virgo-design',
+        accessTitle: 'Member access',
+        accessDescription: 'New members join with the permissions configured for their role.',
+        private: 'Private',
+        restricted: 'Invitation required',
+      },
+    },
   },
 
   hero: {
@@ -380,13 +397,13 @@ export const en = {
     modeLinked: 'Generate',
     modeCustom: 'Custom',
     modeOfficialDescription: 'Use Virgo Design’s official twelve-family chromatic foundation.',
-    modeLinkedDescription: 'Generate all twelve families from one temporary palette anchor.',
+    modeLinkedDescription: 'Generate all twelve families from one shared palette anchor.',
     modeCustomDescription: 'Edit all twelve family base colors independently.',
 
     modeOfficialNote: 'Virgo Chromatic Foundation V1',
     modeOfficialNoteDescription: '12 official base hues · OKLCH ten-step tonal scales',
     modeLinkedNote: 'Linked Generation',
-    modeLinkedNoteDescription: 'One temporary anchor generates all twelve hue families.',
+    modeLinkedNoteDescription: 'One shared anchor generates all twelve hue families.',
     modeCustomNote: 'Independent Families',
     modeCustomNoteDescription: 'Each family uses its own editable step-6 base color.',
 
@@ -426,7 +443,7 @@ export const en = {
     official: 'Virgo Chromatic Foundation V1',
     officialDescription: '12 official base hues · individually editable · OKLCH tonal scales',
     linkedMode: 'Linked Generation',
-    linkedModeDescription: 'One temporary anchor generates all twelve hue families.',
+    linkedModeDescription: 'One shared anchor generates all twelve hue families.',
   },
 
   preview: {
@@ -483,43 +500,6 @@ export const en = {
       brand: 'BRAND FOUNDATION',
       neutral: 'NEUTRAL FOUNDATION',
     },
-  },
-
-  themeBuilder: {
-    eyebrow: '03 · EXPORT',
-    title: 'Theme Builder',
-    description: 'Turn the 140-color foundation into semantic tokens and production-ready code.',
-    staticExport: 'Static export',
-
-    configureEyebrow: 'THEME',
-    configureTitle: 'Semantic Mapping',
-    themeName: 'Theme name',
-    prefix: 'Token prefix',
-    light: 'Light',
-    dark: 'Dark',
-
-    semanticColors: 'Semantic Colors',
-    semanticDescription: 'Editing the {{theme}} semantic mapping.',
-    family: 'Family',
-    step: 'Step',
-
-    roles: {
-      primary: 'Primary',
-      success: 'Success',
-      warning: 'Warning',
-      danger: 'Danger',
-      info: 'Info',
-      link: 'Link',
-      focus: 'Focus',
-    },
-
-    exportEyebrow: 'EXPORT',
-    exportTitle: 'Production Code',
-    scaleNaming: 'Scale naming',
-    copy: 'Copy',
-    copied: 'Copied',
-    staticNote:
-      'Exports contain all 140 foundation colors plus light and dark semantic mappings. Production projects do not need the Virgo Design color engine at runtime.',
   },
 
   footer: {

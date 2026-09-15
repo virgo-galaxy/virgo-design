@@ -72,7 +72,7 @@ export function ColorsOverview() {
       number: '03',
       title: t('foundationPages.colors.journey.export'),
       description: t('foundationPages.colors.journey.exportDescription'),
-      target: 'theme-builder',
+      target: 'foundation-export',
     },
   ];
 

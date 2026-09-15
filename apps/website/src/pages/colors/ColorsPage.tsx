@@ -3,8 +3,8 @@ import { useMemo } from 'react';
 import { buildFoundationGroups } from '@/domain/foundation-colors';
 import { ColorStudio } from '@/features/color-studio/ColorStudio';
 import { useColorStudio } from '@/features/color-studio/model/use-color-studio';
+import { FoundationColorExportSection } from '@/features/foundation-color-export/FoundationColorExportSection';
 import { PaletteGallery } from '@/features/palette-gallery/PaletteGallery';
-import { ThemeBuilderSection } from '@/features/theme-builder/ThemeBuilderSection';
 import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { ColorsOverview } from './ColorsOverview';
@@ -35,8 +35,7 @@ export function ColorsPage() {
         onSelectedFoundationChange={studio.setSelectedFoundation}
       />
 
-      <ThemeBuilderSection
-        appearance={appearance}
+      <FoundationColorExportSection
         palette={studio.palette}
         brandScale={studio.brandScale}
         neutralScale={studio.neutralScale}

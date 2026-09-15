@@ -10,7 +10,7 @@ describe('ColorSemanticPreview', () => {
   it('renders both token-owned color themes', () => {
     render(<ColorSemanticPreview />);
 
-    const page = screen.getByRole('main');
+    const page = screen.getByTestId('semantic-color-preview');
 
     expect(page.style.getPropertyValue('--tokens-page-brand')).toBe(
       themes.light.color.brand.primary,

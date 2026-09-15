@@ -13,29 +13,21 @@ export function ColorSemanticPreview() {
   } as CSSProperties;
 
   return (
-    <main className={styles.page} style={pageStyle}>
-      <header className={styles.hero}>
+    <div className={styles.preview} style={pageStyle} data-testid="semantic-color-preview">
+      <div className={styles.heroMeta}>
         <div>
-          <span className={styles.eyebrow}>{t('tokensPage.eyebrow')}</span>
-          <h1>{t('tokensPage.title')}</h1>
-          <p>{t('tokensPage.description')}</p>
+          <strong>{COLOR_SEMANTIC_ROLE_COUNT}</strong>
+          <span>{t('tokensPage.semanticRoles')}</span>
         </div>
-
-        <div className={styles.heroMeta}>
-          <div>
-            <strong>{COLOR_SEMANTIC_ROLE_COUNT}</strong>
-            <span>{t('tokensPage.semanticRoles')}</span>
-          </div>
-          <div>
-            <strong>{COLOR_SEMANTIC_GROUPS.length}</strong>
-            <span>{t('tokensPage.colorGroups')}</span>
-          </div>
-          <div>
-            <strong>{Object.keys(themes).length}</strong>
-            <span>{t('tokensPage.resolvedThemes')}</span>
-          </div>
+        <div>
+          <strong>{COLOR_SEMANTIC_GROUPS.length}</strong>
+          <span>{t('tokensPage.colorGroups')}</span>
         </div>
-      </header>
+        <div>
+          <strong>{Object.keys(themes).length}</strong>
+          <span>{t('tokensPage.resolvedThemes')}</span>
+        </div>
+      </div>
 
       <div className={styles.sourceBar}>
         <div className={styles.sourceNote}>
@@ -59,6 +51,6 @@ export function ColorSemanticPreview() {
           description={t('tokensPage.dark.description')}
         />
       </section>
-    </main>
+    </div>
   );
 }

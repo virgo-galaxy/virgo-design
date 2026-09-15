@@ -3,8 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { FontFamilyPreview } from './components/FontFamilyPreview';
 import { InternationalSansPreview } from './components/InternationalSansPreview';
-import { SemanticTypographyTables } from './components/SemanticTypographyTables';
-import { TypographyCompositionPreview } from './components/TypographyCompositionPreview';
 import styles from './foundation-tokens.module.scss';
 import { FoundationPage, FoundationSection } from './FoundationPage';
 
@@ -88,24 +86,6 @@ export function TypographyPage() {
           </div>
         </FoundationSection>
       </div>
-
-      <FoundationSection
-        id="semantic-typography"
-        eyebrow={t('foundationPages.typography.semanticTypography.eyebrow')}
-        title={t('foundationPages.typography.semanticTypography.title')}
-        description={t('foundationPages.typography.semanticTypography.description')}
-      >
-        <SemanticTypographyTables />
-      </FoundationSection>
-
-      <FoundationSection
-        id="composition-preview"
-        eyebrow={t('foundationPages.typography.compositionPreview.eyebrow')}
-        title={t('foundationPages.typography.compositionPreview.title')}
-        description={t('foundationPages.typography.compositionPreview.description')}
-      >
-        <TypographyCompositionPreview />
-      </FoundationSection>
     </FoundationPage>
   );
 }

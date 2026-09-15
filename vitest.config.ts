@@ -5,6 +5,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   resolve: {
     alias: {
+      '@': fileURLToPath(new URL('./apps/website/src', import.meta.url)),
       '@virgo-design/colors': fileURLToPath(
         new URL('./packages/colors/src/index.ts', import.meta.url),
       ),

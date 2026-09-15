@@ -27,8 +27,13 @@ const PlaceholderPage = lazy(() =>
     default: module.PlaceholderPage,
   })),
 );
-const TokensPage = lazy(() =>
-  import('@/pages/tokens/TokensPage').then((module) => ({ default: module.TokensPage })),
+const TokensColorPage = lazy(() =>
+  import('@/pages/tokens/TokensColorPage').then((module) => ({ default: module.TokensColorPage })),
+);
+const TokensTypographyPage = lazy(() =>
+  import('@/pages/tokens/TokensTypographyPage').then((module) => ({
+    default: module.TokensTypographyPage,
+  })),
 );
 
 export function AppRouter() {
@@ -52,7 +57,8 @@ export function AppRouter() {
           path={ROUTE_PATHS.tokens}
           element={<Navigate to={ROUTE_PATHS.tokenColors} replace />}
         />
-        <Route path={ROUTE_PATHS.tokenColors} element={<TokensPage />} />
+        <Route path={ROUTE_PATHS.tokenColors} element={<TokensColorPage />} />
+        <Route path={ROUTE_PATHS.tokenTypography} element={<TokensTypographyPage />} />
         <Route path={ROUTE_PATHS.components} element={<PlaceholderPage />} />
         <Route path={ROUTE_PATHS.resources} element={<PlaceholderPage />} />
         <Route path="*" element={<Navigate to={ROUTE_PATHS.foundationColors} replace />} />
