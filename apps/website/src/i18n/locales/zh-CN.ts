@@ -222,6 +222,26 @@ export const zhCN = {
       elevation: '层级 / 阴影',
       elevationDescription: '六档原始层级。这里不指定具体组件应该使用哪一档。',
       opacity: '透明度',
+      preview: {
+        eyebrow: 'SCALE PREVIEW',
+        title: '尺度预览',
+        description:
+          '通过中性的边界与圆角示例，直观展示当前 Border 与 Radius Foundation 的尺度关系。',
+        disclaimer: '以下示例仅用于展示尺度关系，不定义正式组件语义。',
+        border: {
+          title: '边框',
+          description: '在相同形状上比较边框宽度与样式。',
+          widths: '边框宽度对比',
+          styles: '边框样式对比',
+        },
+        radius: {
+          title: '圆角',
+          description: '在小型与中型对象上比较圆角曲率，并单独展示完整圆角。',
+          small: '小型形状圆角',
+          medium: '中型表面圆角',
+          full: '完整圆角',
+        },
+      },
     },
     motion: {
       title: '动效',

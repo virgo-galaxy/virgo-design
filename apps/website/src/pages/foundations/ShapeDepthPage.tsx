@@ -1,6 +1,7 @@
 import { borderStyle, borderWidth, elevation, opacity, radius } from '@virgo-design/tokens';
 import { useTranslation } from 'react-i18next';
 
+import { ShapeScalePreview } from './components/ShapeScalePreview';
 import styles from './foundation-tokens.module.scss';
 import { FoundationPage, FoundationSection } from './FoundationPage';
 
@@ -55,6 +56,15 @@ export function ShapeDepthPage() {
             </article>
           ))}
         </div>
+      </FoundationSection>
+
+      <FoundationSection
+        id="shape-scale-preview"
+        eyebrow={t('foundationPages.shapeDepth.preview.eyebrow')}
+        title={t('foundationPages.shapeDepth.preview.title')}
+        description={t('foundationPages.shapeDepth.preview.description')}
+      >
+        <ShapeScalePreview />
       </FoundationSection>
 
       <FoundationSection

@@ -236,6 +236,27 @@ export const en = {
       elevation: 'Elevation',
       elevationDescription: 'Six raw depth levels. Components do not receive elevation roles here.',
       opacity: 'Opacity',
+      preview: {
+        eyebrow: 'SCALE PREVIEW',
+        title: 'Scale preview',
+        description:
+          'Visualize the current Border and Radius Foundation scales through neutral boundary and shape examples.',
+        disclaimer: 'These examples illustrate scale only and do not define component semantics.',
+        border: {
+          title: 'Border',
+          description: 'Compare boundary widths and styles on identical shapes.',
+          widths: 'Border width comparison',
+          styles: 'Border style comparison',
+        },
+        radius: {
+          title: 'Radius',
+          description:
+            'Compare corner curvature at small and medium sizes, with full rounding shown separately.',
+          small: 'Small shape radius',
+          medium: 'Medium surface radius',
+          full: 'Full radius',
+        },
+      },
     },
     motion: {
       title: 'Motion',

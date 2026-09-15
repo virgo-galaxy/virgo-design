@@ -3,11 +3,14 @@ import {
   VIRGO_CHROMATIC_BASES as colorChromaticBases,
   VIRGO_NEUTRAL_SCALE as colorNeutralScale,
 } from '@virgo-design/colors';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, expectTypeOf, it } from 'vitest';
 
 import {
   borderStyle,
   borderWidth,
+  type BorderWidthCssVariable,
+  borderWidthCssVariables,
+  type BorderWidthToken,
   duration,
   easing,
   elevation,
@@ -21,6 +24,9 @@ import {
   lineHeightCssVariables,
   opacity,
   radius,
+  type RadiusCssVariable,
+  radiusCssVariables,
+  type RadiusToken,
   sansLocaleMapping,
   sizing,
   spacing,
@@ -28,6 +34,7 @@ import {
   VIRGO_CHROMATIC_BASES,
   VIRGO_NEUTRAL_SCALE,
 } from '../index.js';
+import * as foundationTokens from './index.js';
 
 describe('Foundations V1', () => {
   it('re-exports colors without creating a second color source', () => {
@@ -154,18 +161,18 @@ describe('Foundations V1', () => {
   });
 
   it('defines the approved shape, depth, opacity, and motion primitives', () => {
-    expect(borderWidth).toEqual({ none: '0', thin: '1px', strong: '2px' });
+    expect(borderWidth).toEqual({ 0: 0, 1: '1px', 2: '2px' });
     expect(borderStyle).toEqual({ solid: 'solid', dashed: 'dashed' });
     expect(radius).toEqual({
-      none: '0',
-      xs: '4px',
-      sm: '6px',
-      md: '8px',
-      lg: '10px',
-      xl: '12px',
-      '2xl': '16px',
-      '3xl': '20px',
-      '4xl': '24px',
+      0: 0,
+      4: '4px',
+      6: '6px',
+      8: '8px',
+      10: '10px',
+      12: '12px',
+      16: '16px',
+      20: '20px',
+      24: '24px',
       full: '9999px',
     });
     expect(elevation).toEqual({
@@ -185,5 +192,56 @@ describe('Foundations V1', () => {
       exit: 'cubic-bezier(0.4, 0, 1, 1)',
       emphasized: 'cubic-bezier(0.22, 1, 0.36, 1)',
     });
+  });
+
+  it('exports numeric Shape keys without legacy aliases or a circle token', () => {
+    expectTypeOf<BorderWidthToken>().toEqualTypeOf<0 | 1 | 2>();
+    expectTypeOf<RadiusToken>().toEqualTypeOf<0 | 4 | 6 | 8 | 10 | 12 | 16 | 20 | 24 | 'full'>();
+
+    for (const legacyKey of ['none', 'thin', 'strong']) {
+      expect(borderWidth).not.toHaveProperty(legacyKey);
+    }
+    for (const legacyKey of ['none', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', 'circle']) {
+      expect(radius).not.toHaveProperty(legacyKey);
+    }
+  });
+
+  it('exports numeric Shape CSS variable mappings directly from Foundation values', () => {
+    expect(borderWidthCssVariables).toEqual({
+      '--vd-border-width-0': 0,
+      '--vd-border-width-1': '1px',
+      '--vd-border-width-2': '2px',
+    });
+    expect(radiusCssVariables).toEqual({
+      '--vd-radius-0': 0,
+      '--vd-radius-4': '4px',
+      '--vd-radius-6': '6px',
+      '--vd-radius-8': '8px',
+      '--vd-radius-10': '10px',
+      '--vd-radius-12': '12px',
+      '--vd-radius-16': '16px',
+      '--vd-radius-20': '20px',
+      '--vd-radius-24': '24px',
+      '--vd-radius-full': '9999px',
+    });
+    expectTypeOf<BorderWidthCssVariable>().toEqualTypeOf<`--vd-border-width-${BorderWidthToken}`>();
+    expectTypeOf<RadiusCssVariable>().toEqualTypeOf<`--vd-radius-${RadiusToken}`>();
+
+    for (const [key, value] of Object.entries(borderWidth)) {
+      const variable = `--vd-border-width-${key}` as BorderWidthCssVariable;
+      expect(borderWidthCssVariables[variable]).toBe(value);
+    }
+    for (const [key, value] of Object.entries(radius)) {
+      const variable = `--vd-radius-${key}` as RadiusCssVariable;
+      expect(radiusCssVariables[variable]).toBe(value);
+    }
+  });
+
+  it('keeps Shape exports consistent across the package root and Foundations barrel', () => {
+    expect(foundationTokens.borderWidth).toBe(borderWidth);
+    expect(foundationTokens.borderStyle).toBe(borderStyle);
+    expect(foundationTokens.radius).toBe(radius);
+    expect(foundationTokens.borderWidthCssVariables).toBe(borderWidthCssVariables);
+    expect(foundationTokens.radiusCssVariables).toBe(radiusCssVariables);
   });
 });

@@ -1,0 +1,145 @@
+.previewStack,
+.previewGroup {
+  display: grid;
+}
+
+.previewStack {
+  gap: 32px;
+}
+
+.disclaimer {
+  margin: 0;
+  color: var(--layout-secondary);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.previewGroup {
+  gap: 18px;
+}
+
+.previewGroup + .previewGroup {
+  border-top: var(--shape-frame-width) var(--shape-frame-style) var(--foundation-line);
+  padding-top: 32px;
+}
+
+.groupHeader {
+  display: grid;
+  gap: 5px;
+}
+
+.groupHeader h3,
+.groupHeader p,
+.comparisonCard h4 {
+  margin: 0;
+}
+
+.groupHeader h3 {
+  font-size: 17px;
+}
+
+.groupHeader p {
+  max-width: 680px;
+  color: var(--layout-secondary);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.comparisonCard {
+  display: grid;
+  min-width: 0;
+  gap: 20px;
+  border: var(--shape-frame-width) var(--shape-frame-style) var(--foundation-line);
+  border-radius: var(--shape-frame-radius);
+  padding: 20px;
+  background: var(--foundation-surface-strong);
+}
+
+.comparisonCard h4 {
+  font-size: 13px;
+}
+
+.sampleRow {
+  display: flex;
+  min-width: 0;
+  gap: 12px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  padding-bottom: 8px;
+}
+
+.sample {
+  display: grid;
+  width: 120px;
+  flex: 0 0 auto;
+  gap: 9px;
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+.stage {
+  display: grid;
+  min-height: 112px;
+  place-items: center;
+  border-radius: var(--shape-stage-radius);
+  padding: 12px;
+  background: var(--foundation-muted);
+}
+
+.shape {
+  box-sizing: border-box;
+  width: 96px;
+  height: 48px;
+  border-color: var(--layout-secondary);
+  background: color-mix(in srgb, var(--layout-text) 12%, var(--foundation-surface-strong));
+}
+
+.sample[data-shape-use='medium-radius'] {
+  width: 192px;
+}
+
+.sample[data-shape-use='medium-radius'] .stage {
+  min-height: 144px;
+}
+
+.sample[data-shape-use='medium-radius'] .shape {
+  width: 160px;
+  height: 96px;
+}
+
+.sample[data-shape-use='full-radius'] {
+  width: 224px;
+}
+
+.sample[data-shape-use='full-radius'] .shape {
+  width: 192px;
+}
+
+.tokenValue {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tokenValue strong {
+  font-size: 11px;
+}
+
+.tokenValue code {
+  color: var(--foundation-tertiary);
+  font-size: 9px;
+}
+
+@media (max-width: 900px) {
+  .comparisonGrid {
+    grid-template-columns: 1fr;
+  }
+}
