@@ -4,7 +4,6 @@ import {
   type CategoricalDataColorRole,
   categoricalDataColorTokens,
   divergingDataColorTokens,
-  elevation,
   type FillColorRole,
   fillColorTokens,
   type IconColorRole,
@@ -72,7 +71,7 @@ function buildThemeStyle(theme: VirgoTheme): SemanticStyle {
     '--semantic-fill-selected': color.fill.selected,
     '--semantic-fill-selected-hover': color.fill['selected-hover'],
     '--semantic-fill-disabled': color.fill.disabled,
-    '--semantic-elevation': elevation[theme.mode === 'light' ? 3 : 5],
+    '--semantic-elevation': theme.elevation[3],
   };
 }
 

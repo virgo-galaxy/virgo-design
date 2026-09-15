@@ -229,13 +229,13 @@ export const en = {
     shapeDepth: {
       title: 'Shape & Depth',
       description:
-        'Border, radius, elevation, and opacity primitives for constructing surfaces without assigning component meaning.',
+        'Border, radius, and theme-aware elevation primitives for constructing surfaces without assigning component meaning.',
       borderWidth: 'Border Width',
       borderStyle: 'Border Style',
       radius: 'Radius',
       elevation: 'Elevation',
-      elevationDescription: 'Six raw depth levels. Components do not receive elevation roles here.',
-      opacity: 'Opacity',
+      elevationDescription:
+        'Six stable elevation levels whose shadow rendering adapts to the active theme.',
       preview: {
         eyebrow: 'SCALE PREVIEW',
         title: 'Scale preview',
@@ -255,6 +255,19 @@ export const en = {
           small: 'Small shape radius',
           medium: 'Medium surface radius',
           full: 'Full radius',
+        },
+      },
+      depthPreview: {
+        eyebrow: 'SCALE PREVIEW',
+        title: 'Depth',
+        description: 'Visualize the active theme rendering for the six stable Elevation levels.',
+        disclaimer: 'These examples illustrate scale only and do not define component semantics.',
+        elevation: {
+          title: 'Elevation',
+          description:
+            'Compare identical neutral surfaces with only their theme-aware elevation shadow changed.',
+          scale: 'Elevation comparison',
+          layered: 'Layered elevation comparison',
         },
       },
     },

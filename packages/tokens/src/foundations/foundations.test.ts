@@ -5,6 +5,7 @@ import {
 } from '@virgo-design/colors';
 import { describe, expect, expectTypeOf, it } from 'vitest';
 
+import * as rootTokens from '../index.js';
 import {
   borderStyle,
   borderWidth,
@@ -13,7 +14,7 @@ import {
   type BorderWidthToken,
   duration,
   easing,
-  elevation,
+  elevationLevels,
   fontFamily,
   fontFamilyRole,
   fontSize,
@@ -22,7 +23,6 @@ import {
   internationalSansOrder,
   lineHeight,
   lineHeightCssVariables,
-  opacity,
   radius,
   type RadiusCssVariable,
   radiusCssVariables,
@@ -160,7 +160,7 @@ describe('Foundations V1', () => {
     ]);
   });
 
-  it('defines the approved shape, depth, opacity, and motion primitives', () => {
+  it('defines the approved shape, depth, and motion primitives', () => {
     expect(borderWidth).toEqual({ 0: 0, 1: '1px', 2: '2px' });
     expect(borderStyle).toEqual({ solid: 'solid', dashed: 'dashed' });
     expect(radius).toEqual({
@@ -175,15 +175,7 @@ describe('Foundations V1', () => {
       24: '24px',
       full: '9999px',
     });
-    expect(elevation).toEqual({
-      0: 'none',
-      1: '0 1px 2px rgba(15, 18, 23, 0.06), 0 1px 1px rgba(15, 18, 23, 0.04)',
-      2: '0 4px 12px rgba(15, 18, 23, 0.08), 0 1px 3px rgba(15, 18, 23, 0.06)',
-      3: '0 10px 30px rgba(15, 18, 23, 0.10), 0 2px 8px rgba(15, 18, 23, 0.06)',
-      4: '0 20px 50px rgba(15, 18, 23, 0.14), 0 4px 16px rgba(15, 18, 23, 0.08)',
-      5: '0 32px 80px rgba(15, 18, 23, 0.18), 0 8px 24px rgba(15, 18, 23, 0.10)',
-    });
-    expect(opacity).toEqual({ 100: 1, 80: 0.8, 64: 0.64, 48: 0.48, 32: 0.32, 16: 0.16, 8: 0.08 });
+    expect(elevationLevels).toEqual([0, 1, 2, 3, 4, 5]);
     expect(Object.values(duration)).toEqual(['0ms', '120ms', '180ms', '240ms', '360ms', '560ms']);
     expect(easing).toEqual({
       linear: 'linear',
@@ -243,5 +235,12 @@ describe('Foundations V1', () => {
     expect(foundationTokens.radius).toBe(radius);
     expect(foundationTokens.borderWidthCssVariables).toBe(borderWidthCssVariables);
     expect(foundationTokens.radiusCssVariables).toBe(radiusCssVariables);
+  });
+
+  it('does not expose theme-unaware elevation shadows or an Opacity Foundation', () => {
+    expect(foundationTokens).not.toHaveProperty('elevation');
+    expect(foundationTokens).not.toHaveProperty('opacity');
+    expect(rootTokens).not.toHaveProperty('elevation');
+    expect(rootTokens).not.toHaveProperty('opacity');
   });
 });

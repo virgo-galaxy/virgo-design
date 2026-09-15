@@ -1,13 +1,16 @@
-import { borderStyle, borderWidth, elevation, opacity, radius } from '@virgo-design/tokens';
+import { borderStyle, borderWidth, elevationLevels, radius, themes } from '@virgo-design/tokens';
 import { useTranslation } from 'react-i18next';
 
+import { useAppearance } from '../../shared/theme/use-appearance';
+import { DepthScalePreview } from './components/DepthScalePreview';
 import { ShapeScalePreview } from './components/ShapeScalePreview';
 import styles from './foundation-tokens.module.scss';
 import { FoundationPage, FoundationSection } from './FoundationPage';
 
 export function ShapeDepthPage() {
   const { t } = useTranslation();
-  const opacityEntries = Object.entries(opacity).reverse();
+  const { appearance } = useAppearance();
+  const theme = themes[appearance];
 
   return (
     <FoundationPage
@@ -72,27 +75,26 @@ export function ShapeDepthPage() {
         description={t('foundationPages.shapeDepth.elevationDescription')}
       >
         <div className={styles.elevationGrid}>
-          {Object.entries(elevation).map(([name, value]) => (
-            <article key={name} className={styles.elevationCard} style={{ boxShadow: value }}>
-              <strong>{name}</strong>
-              <code>{value}</code>
+          {elevationLevels.map((level) => (
+            <article
+              key={level}
+              className={styles.elevationCard}
+              style={{ boxShadow: theme.elevation[level] }}
+            >
+              <strong>{level}</strong>
+              <code>{theme.elevation[level]}</code>
             </article>
           ))}
         </div>
       </FoundationSection>
 
-      <FoundationSection title={t('foundationPages.shapeDepth.opacity')}>
-        <div className={styles.opacityGrid}>
-          {opacityEntries.map(([name, value]) => (
-            <article key={name} className={styles.opacityCard}>
-              <i style={{ opacity: value }} />
-              <div className={styles.compactMeta}>
-                <strong>{name}</strong>
-                <code>{value}</code>
-              </div>
-            </article>
-          ))}
-        </div>
+      <FoundationSection
+        id="depth-scale-preview"
+        eyebrow={t('foundationPages.shapeDepth.depthPreview.eyebrow')}
+        title={t('foundationPages.shapeDepth.depthPreview.title')}
+        description={t('foundationPages.shapeDepth.depthPreview.description')}
+      >
+        <DepthScalePreview />
       </FoundationSection>
     </FoundationPage>
   );

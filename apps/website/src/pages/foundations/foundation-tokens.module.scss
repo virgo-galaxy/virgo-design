@@ -229,8 +229,7 @@
 }
 
 .lineHeightGrid,
-.radiusGrid,
-.opacityGrid {
+.radiusGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
@@ -278,8 +277,7 @@
 }
 
 .sizingCard,
-.radiusCard,
-.opacityCard {
+.radiusCard {
   display: grid;
   gap: 14px;
   border: 1px solid var(--foundation-line);
@@ -347,17 +345,6 @@
   color: var(--foundation-tertiary);
   font-size: 8px;
   line-height: 1.5;
-}
-
-.opacityGrid {
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-
-.opacityCard i {
-  display: block;
-  height: 88px;
-  border-radius: 9px;
-  background: var(--foundation-accent);
 }
 
 .motionTrack,
@@ -431,10 +418,6 @@
   .radiusGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-
-  .opacityGrid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 620px) {
@@ -464,10 +447,6 @@
   .elevationGrid {
     grid-template-columns: 1fr;
     padding: 8px;
-  }
-
-  .opacityGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .typeScaleRow,
