@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["vitest/globals"],
+    "types": ["node", "vitest/globals"],
     "paths": {
       "@virgo-design/colors": ["../colors/src/index.ts"]
     }

@@ -2,7 +2,9 @@
   "name": "@virgo-design/tokens",
   "version": "0.0.0",
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "./dist/css/*.css"
+  ],
   "files": [
     "dist"
   ],
@@ -38,13 +40,18 @@
       "types": "./dist/themes/index.d.ts",
       "import": "./dist/themes/index.js",
       "default": "./dist/themes/index.js"
-    }
+    },
+    "./foundations.css": "./dist/css/foundations.css",
+    "./semantic-typography.css": "./dist/css/semantic-typography.css",
+    "./themes.css": "./dist/css/themes.css",
+    "./styles.css": "./dist/css/styles.css"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "clean": "node ./scripts/clean.mjs",
+    "build": "pnpm run clean && tsc -p tsconfig.build.json && node ./scripts/generate-css.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {

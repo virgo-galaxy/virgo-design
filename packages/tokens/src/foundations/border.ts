@@ -9,12 +9,5 @@ export const borderStyle = {
   dashed: 'dashed',
 } as const;
 
-export const borderWidthCssVariables = {
-  '--vd-border-width-0': borderWidth[0],
-  '--vd-border-width-1': borderWidth[1],
-  '--vd-border-width-2': borderWidth[2],
-} as const;
-
 export type BorderWidthToken = keyof typeof borderWidth;
 export type BorderStyleToken = keyof typeof borderStyle;
-export type BorderWidthCssVariable = keyof typeof borderWidthCssVariables;

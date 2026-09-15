@@ -109,13 +109,6 @@ export const lineHeight = {
   4: 1.6,
 } as const;
 
-export const lineHeightCssVariables = {
-  '--vd-line-height-1': lineHeight[1],
-  '--vd-line-height-2': lineHeight[2],
-  '--vd-line-height-3': lineHeight[3],
-  '--vd-line-height-4': lineHeight[4],
-} as const;
-
 export type FontFamilyToken = keyof typeof fontFamily;
 export type FontFamilyRole = keyof typeof fontFamilyRole;
 export type InternationalSansId = keyof typeof internationalSans;
@@ -123,4 +116,3 @@ export type SansLocale = keyof typeof sansLocaleMapping;
 export type FontSizeToken = keyof typeof fontSize;
 export type FontWeightToken = keyof typeof fontWeight;
 export type LineHeightToken = keyof typeof lineHeight;
-export type LineHeightCssVariable = keyof typeof lineHeightCssVariables;

@@ -9,8 +9,6 @@ import * as rootTokens from '../index.js';
 import {
   borderStyle,
   borderWidth,
-  type BorderWidthCssVariable,
-  borderWidthCssVariables,
   type BorderWidthToken,
   duration,
   type DurationToken,
@@ -24,10 +22,7 @@ import {
   internationalSans,
   internationalSansOrder,
   lineHeight,
-  lineHeightCssVariables,
   radius,
-  type RadiusCssVariable,
-  radiusCssVariables,
   type RadiusToken,
   sansLocaleMapping,
   sizing,
@@ -78,12 +73,6 @@ describe('Foundations V1', () => {
       700: 700,
     });
     expect(lineHeight).toEqual({ 1: 1.1, 2: 1.25, 3: 1.4, 4: 1.6 });
-    expect(lineHeightCssVariables).toEqual({
-      '--vd-line-height-1': 1.1,
-      '--vd-line-height-2': 1.25,
-      '--vd-line-height-3': 1.4,
-      '--vd-line-height-4': 1.6,
-    });
   });
 
   it('defines locale-aware international sans stacks', () => {
@@ -221,43 +210,10 @@ describe('Foundations V1', () => {
     }
   });
 
-  it('exports numeric Shape CSS variable mappings directly from Foundation values', () => {
-    expect(borderWidthCssVariables).toEqual({
-      '--vd-border-width-0': 0,
-      '--vd-border-width-1': '1px',
-      '--vd-border-width-2': '2px',
-    });
-    expect(radiusCssVariables).toEqual({
-      '--vd-radius-0': 0,
-      '--vd-radius-4': '4px',
-      '--vd-radius-6': '6px',
-      '--vd-radius-8': '8px',
-      '--vd-radius-10': '10px',
-      '--vd-radius-12': '12px',
-      '--vd-radius-16': '16px',
-      '--vd-radius-20': '20px',
-      '--vd-radius-24': '24px',
-      '--vd-radius-full': '9999px',
-    });
-    expectTypeOf<BorderWidthCssVariable>().toEqualTypeOf<`--vd-border-width-${BorderWidthToken}`>();
-    expectTypeOf<RadiusCssVariable>().toEqualTypeOf<`--vd-radius-${RadiusToken}`>();
-
-    for (const [key, value] of Object.entries(borderWidth)) {
-      const variable = `--vd-border-width-${key}` as BorderWidthCssVariable;
-      expect(borderWidthCssVariables[variable]).toBe(value);
-    }
-    for (const [key, value] of Object.entries(radius)) {
-      const variable = `--vd-radius-${key}` as RadiusCssVariable;
-      expect(radiusCssVariables[variable]).toBe(value);
-    }
-  });
-
   it('keeps Shape and Motion exports consistent across the package root and Foundations barrel', () => {
     expect(foundationTokens.borderWidth).toBe(borderWidth);
     expect(foundationTokens.borderStyle).toBe(borderStyle);
     expect(foundationTokens.radius).toBe(radius);
-    expect(foundationTokens.borderWidthCssVariables).toBe(borderWidthCssVariables);
-    expect(foundationTokens.radiusCssVariables).toBe(radiusCssVariables);
     expect(foundationTokens.duration).toBe(duration);
     expect(foundationTokens.easing).toBe(easing);
     expect(rootTokens.duration).toBe(duration);
