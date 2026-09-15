@@ -13,7 +13,9 @@ import {
   borderWidthCssVariables,
   type BorderWidthToken,
   duration,
+  type DurationToken,
   easing,
+  type EasingToken,
   elevationLevels,
   fontFamily,
   fontFamilyRole,
@@ -176,14 +178,35 @@ describe('Foundations V1', () => {
       full: '9999px',
     });
     expect(elevationLevels).toEqual([0, 1, 2, 3, 4, 5]);
-    expect(Object.values(duration)).toEqual(['0ms', '120ms', '180ms', '240ms', '360ms', '560ms']);
+    expect(duration).toEqual({
+      0: '0ms',
+      120: '120ms',
+      180: '180ms',
+      240: '240ms',
+      360: '360ms',
+      560: '560ms',
+    });
     expect(easing).toEqual({
       linear: 'linear',
       standard: 'cubic-bezier(0.2, 0, 0, 1)',
-      enter: 'cubic-bezier(0.16, 1, 0.3, 1)',
-      exit: 'cubic-bezier(0.4, 0, 1, 1)',
+      decelerate: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      accelerate: 'cubic-bezier(0.4, 0, 1, 1)',
       emphasized: 'cubic-bezier(0.22, 1, 0.36, 1)',
     });
+  });
+
+  it('exports numeric Motion durations and non-directional easing keys without legacy aliases', () => {
+    expectTypeOf<DurationToken>().toEqualTypeOf<0 | 120 | 180 | 240 | 360 | 560>();
+    expectTypeOf<EasingToken>().toEqualTypeOf<
+      'linear' | 'standard' | 'decelerate' | 'accelerate' | 'emphasized'
+    >();
+
+    for (const legacyKey of ['instant', 'fast', 'normal', 'moderate', 'slow', 'slower']) {
+      expect(duration).not.toHaveProperty(legacyKey);
+    }
+    for (const legacyKey of ['enter', 'exit']) {
+      expect(easing).not.toHaveProperty(legacyKey);
+    }
   });
 
   it('exports numeric Shape keys without legacy aliases or a circle token', () => {
@@ -229,12 +252,16 @@ describe('Foundations V1', () => {
     }
   });
 
-  it('keeps Shape exports consistent across the package root and Foundations barrel', () => {
+  it('keeps Shape and Motion exports consistent across the package root and Foundations barrel', () => {
     expect(foundationTokens.borderWidth).toBe(borderWidth);
     expect(foundationTokens.borderStyle).toBe(borderStyle);
     expect(foundationTokens.radius).toBe(radius);
     expect(foundationTokens.borderWidthCssVariables).toBe(borderWidthCssVariables);
     expect(foundationTokens.radiusCssVariables).toBe(radiusCssVariables);
+    expect(foundationTokens.duration).toBe(duration);
+    expect(foundationTokens.easing).toBe(easing);
+    expect(rootTokens.duration).toBe(duration);
+    expect(rootTokens.easing).toBe(easing);
   });
 
   it('does not expose theme-unaware elevation shadows or an Opacity Foundation', () => {

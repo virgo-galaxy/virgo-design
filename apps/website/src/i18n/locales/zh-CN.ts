@@ -257,10 +257,11 @@ export const zhCN = {
     motion: {
       title: '动效',
       description: '一组精简的时长与缓动材料。网站中的编排动画仍然不属于 Foundation Motion。',
-      duration: '时长',
-      durationDescription: '将鼠标移到轨道上，对比六档时长。',
-      easing: '缓动',
-      easingDescription: '将鼠标移到卡片上，对比五种时间曲线。',
+      duration: '时长尺度',
+      durationDescription: '通过共用时间尺度，直接比较六档时长。',
+      easing: '缓动曲线',
+      easingDescription: '每条曲线使用相同的时间与进度坐标轴，便于直接比较。',
+      disclaimer: '以下示例仅展示时间尺度和动效曲线，不定义交互语义。',
     },
   },
 

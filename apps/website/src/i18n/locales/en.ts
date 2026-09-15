@@ -275,10 +275,12 @@ export const en = {
       title: 'Motion',
       description:
         'A compact set of duration and easing materials. Choreographed product animations remain outside Foundations.',
-      duration: 'Duration',
-      durationDescription: 'Hover each track to compare the six duration values.',
-      easing: 'Easing',
-      easingDescription: 'Hover each card to compare the five timing curves.',
+      duration: 'Duration scale',
+      durationDescription: 'A shared time scale makes the six duration values directly comparable.',
+      easing: 'Easing curves',
+      easingDescription: 'Each curve uses the same time and progress axes for direct comparison.',
+      disclaimer:
+        'These examples illustrate timing scales and motion curves only and do not define interaction semantics.',
     },
   },
 

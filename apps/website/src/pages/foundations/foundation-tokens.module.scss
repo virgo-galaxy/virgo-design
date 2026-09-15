@@ -179,7 +179,7 @@
 .simpleList,
 .spacingList,
 .borderList,
-.motionList {
+.durationList {
   display: grid;
 }
 
@@ -196,7 +196,7 @@
 .simpleRow:first-child,
 .spacingRow:first-child,
 .borderRow:first-child,
-.motionRow:first-child {
+.durationRow:first-child {
   border-top: 0;
 }
 
@@ -215,7 +215,7 @@
 .simpleRow,
 .spacingRow,
 .borderRow,
-.motionRow {
+.durationRow {
   display: grid;
   grid-template-columns: 130px minmax(0, 1fr);
   gap: 24px;
@@ -347,58 +347,104 @@
   line-height: 1.5;
 }
 
-.motionTrack,
-.easingStage {
+.durationScale {
   position: relative;
-  height: 36px;
+  display: flex;
+  height: 32px;
+  align-items: center;
   overflow: hidden;
-  border-radius: 999px;
-  background: var(--foundation-muted);
+  border-bottom: 1px solid var(--foundation-line-strong);
+  background-image: linear-gradient(to right, var(--foundation-line) 1px, transparent 1px);
+  background-size: 25% 100%;
 }
 
-.motionTrack i,
-.easingStage i {
-  position: absolute;
-  top: 7px;
-  left: 7px;
+.durationScale::before {
+  width: 1px;
+  height: 100%;
+  flex: 0 0 auto;
+  background: var(--foundation-line-strong);
+  content: '';
+}
+
+.durationBar {
   display: block;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
+  width: max(2px, var(--duration-scale-progress));
+  height: 10px;
+  border-radius: 999px;
   background: var(--foundation-accent);
 }
 
-.motionTrack i {
-  transition: transform var(--foundation-duration) linear;
-}
-
-.motionRow:hover .motionTrack i,
-.motionRow:focus-within .motionTrack i {
-  transform: translateX(min(260px, calc(100vw - 390px)));
-}
-
-.easingGrid {
+.easingRowGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
 }
 
 .easingCard {
   display: grid;
-  gap: 28px;
+  gap: 18px;
   border: 1px solid var(--foundation-line);
   border-radius: 16px;
   padding: 18px;
   background: var(--foundation-surface-strong);
 }
 
-.easingStage i {
-  transition: transform 560ms var(--foundation-easing);
+.easingRowCard {
+  gap: 10px;
+  border-radius: 12px;
+  padding: 10px;
 }
 
-.easingCard:hover .easingStage i,
-.easingCard:focus-within .easingStage i {
-  transform: translateX(min(280px, calc(50vw - 150px)));
+.easingChart {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.5;
+  overflow: visible;
+  border: 1px solid var(--foundation-line);
+  border-radius: 10px;
+  background: var(--foundation-muted);
+}
+
+.easingRowChart {
+  aspect-ratio: 1.8;
+  border-radius: 7px;
+}
+
+.easingGridLine,
+.easingAxis {
+  fill: none;
+  stroke: var(--foundation-line-strong);
+  vector-effect: non-scaling-stroke;
+}
+
+.easingGridLine {
+  stroke-dasharray: 2 2;
+}
+
+.easingCurve {
+  fill: none;
+  stroke: var(--foundation-accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.easingEndpoint {
+  fill: var(--foundation-accent);
+}
+
+.easingAxisLabel {
+  fill: var(--foundation-tertiary);
+  font-size: 6px;
+  letter-spacing: 0.02em;
+  opacity: 0.5;
+}
+
+.motionDisclaimer {
+  margin: -4px 0 0;
+  color: var(--foundation-tertiary);
+  font-size: 12px;
+  line-height: 1.55;
 }
 
 @media (max-width: 900px) {
@@ -435,10 +481,6 @@
     padding: 18px;
   }
 
-  .easingGrid {
-    grid-template-columns: 1fr;
-  }
-
   .sizingGrid,
   .radiusGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -453,15 +495,8 @@
   .simpleRow,
   .spacingRow,
   .borderRow,
-  .motionRow {
+  .durationRow {
     grid-template-columns: 82px minmax(0, 1fr);
     gap: 14px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .motionTrack i,
-  .easingStage i {
-    transition: none;
   }
 }
