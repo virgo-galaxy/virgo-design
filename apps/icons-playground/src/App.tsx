@@ -1,0 +1,180 @@
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+  CloseIcon,
+  CybertruckIcon,
+  InfoIcon,
+  MinusIcon,
+  PlusIcon,
+  SearchIcon,
+  SettingsIcon,
+  TrashIcon,
+  UserIcon,
+} from '@virgo-design/icons';
+import { useEffect, useState } from 'react';
+
+import { IconSelect, type IconSelectOption } from './components/IconSelect';
+
+const canonicalRenderSize = 24;
+const largePreviewSize = 288;
+const gridCoordinates = Array.from({ length: 25 }, (_, coordinate) => coordinate);
+
+type PlaygroundTheme = 'light' | 'dark';
+const iconOptions = [
+  { id: 'cybertruck', label: 'Cybertruck', Icon: CybertruckIcon },
+  { id: 'plus', label: 'Plus', Icon: PlusIcon },
+  { id: 'minus', label: 'Minus', Icon: MinusIcon },
+  { id: 'close', label: 'Close', Icon: CloseIcon },
+  { id: 'check', label: 'Check', Icon: CheckIcon },
+  { id: 'info', label: 'Info', Icon: InfoIcon },
+  { id: 'chevron-down', label: 'Chevron Down', Icon: ChevronDownIcon },
+  { id: 'chevron-up', label: 'Chevron Up', Icon: ChevronUpIcon },
+  { id: 'chevron-left', label: 'Chevron Left', Icon: ChevronLeftIcon },
+  { id: 'chevron-right', label: 'Chevron Right', Icon: ChevronRightIcon },
+  { id: 'search', label: 'Search', Icon: SearchIcon },
+  { id: 'trash', label: 'Trash', Icon: TrashIcon },
+  { id: 'user', label: 'User', Icon: UserIcon },
+  { id: 'settings', label: 'Settings', Icon: SettingsIcon },
+] as const satisfies ReadonlyArray<IconSelectOption>;
+
+type IconId = (typeof iconOptions)[number]['id'];
+
+export function App() {
+  const [selectedIconId, setSelectedIconId] = useState<IconId>('plus');
+  const [theme, setTheme] = useState<PlaygroundTheme>('light');
+  const [showGrid, setShowGrid] = useState(true);
+  const selectedIcon = iconOptions.find((icon) => icon.id === selectedIconId) ?? iconOptions[0];
+  const SelectedIcon = selectedIcon.Icon;
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
+
+  return (
+    <div className="icons-playground" data-theme={theme}>
+      <header className="app-header">
+        <div>
+          <p className="eyebrow">VIRGO DESIGN · INTERNAL TOOL</p>
+          <h1>Icons Playground</h1>
+          <p className="header-copy">A focused canvas for refining a single Virgo icon.</p>
+        </div>
+      </header>
+
+      <main>
+        <section className="control-bar" aria-label="Review controls">
+          <IconSelect
+            onChange={(iconId) => setSelectedIconId(iconId as IconId)}
+            options={iconOptions}
+            value={selectedIconId}
+          />
+
+          <fieldset className="control-group">
+            <legend>Theme</legend>
+            <div className="segment-control">
+              {(['light', 'dark'] as const).map((candidateTheme) => (
+                <button
+                  aria-label={`Theme ${candidateTheme}`}
+                  aria-pressed={theme === candidateTheme}
+                  key={candidateTheme}
+                  onClick={() => setTheme(candidateTheme)}
+                  type="button"
+                >
+                  {candidateTheme}
+                </button>
+              ))}
+            </div>
+          </fieldset>
+
+          <fieldset className="control-group">
+            <legend>Grid</legend>
+            <button
+              aria-label="Toggle grid"
+              aria-pressed={showGrid}
+              className="toggle-button"
+              onClick={() => setShowGrid((visible) => !visible)}
+              type="button"
+            >
+              {showGrid ? 'On' : 'Off'}
+            </button>
+          </fieldset>
+        </section>
+
+        <section className="review-board" aria-labelledby="review-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">CANONICAL ICON</p>
+              <h2 id="review-title">{selectedIcon.label}</h2>
+            </div>
+            <p>24 × 24 viewBox · currentColor fill</p>
+          </div>
+
+          <div
+            className="design-canvas"
+            data-grid={showGrid}
+            data-icon={selectedIcon.id}
+            data-testid="icon-canvas"
+          >
+            {showGrid ? (
+              <div aria-hidden="true" className="grid-coordinates" data-testid="grid-coordinates">
+                <div className="grid-coordinates__axis grid-coordinates__axis--x">
+                  {gridCoordinates.map((coordinate) => (
+                    <span key={coordinate} style={{ left: `${(coordinate / 24) * 100}%` }}>
+                      {coordinate}
+                    </span>
+                  ))}
+                </div>
+                <div className="grid-coordinates__axis grid-coordinates__axis--y">
+                  {gridCoordinates.map((coordinate) => (
+                    <span key={coordinate} style={{ top: `${(coordinate / 24) * 100}%` }}>
+                      {coordinate}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+            <SelectedIcon
+              className="large-glyph"
+              size={largePreviewSize}
+              data-testid="large-icon-glyph"
+            />
+          </div>
+
+          <div className="actual-size-preview">
+            <p>Actual 24px</p>
+            <span className="actual-size-stage" data-icon={selectedIcon.id}>
+              <SelectedIcon size={canonicalRenderSize} data-testid="actual-icon-glyph" />
+            </span>
+          </div>
+
+          <section className="ui-preview" aria-labelledby="ui-preview-title">
+            <p className="eyebrow" id="ui-preview-title">
+              UI PREVIEW
+            </p>
+            <p className="ui-preview-note">Button icons render at 20 × 20px.</p>
+            <div className="ui-preview-controls">
+              <button
+                aria-label="Icon"
+                className="icon-button-preview"
+                data-testid="icon-button-preview"
+                type="button"
+              >
+                <SelectedIcon aria-hidden="true" size={20} />
+              </button>
+              <button
+                className="text-button-preview"
+                data-testid="text-button-preview"
+                type="button"
+              >
+                <SelectedIcon aria-hidden="true" size={20} />
+                <span>Icon</span>
+              </button>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+  );
+}

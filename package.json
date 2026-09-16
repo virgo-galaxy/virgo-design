@@ -5,8 +5,11 @@
   "type": "module",
   "packageManager": "pnpm@11.9.0",
   "scripts": {
+    "dev:website": "pnpm --filter @virgo-design/website dev",
     "dev:primitives": "pnpm --filter @virgo-design/primitives-playground dev",
     "dev:ui": "pnpm --filter @virgo-design/ui-playground dev",
+    "dev:icons": "pnpm --filter @virgo-design/icons-playground dev",
+    "gen:icons": "pnpm --filter @virgo-design/icons generate",
     "build": "pnpm -r --if-present build",
     "typecheck": "pnpm -r --if-present typecheck",
     "lint": "eslint .",
@@ -14,8 +17,7 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "all": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build",
-    "lint:fix": "eslint . --fix",
-    "dev:website": "pnpm --filter @virgo-design/website dev"
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

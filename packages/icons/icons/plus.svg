@@ -1,0 +1,11 @@
+<svg
+  fill="currentColor"
+  stroke="none"
+  stroke-linecap="butt"
+  stroke-linejoin="miter"
+  stroke-width="2"
+  viewBox="0 0 24 24"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path d="M11.5 3.5h1l.5 .5v7h7l.5 .5v1l-.5 .5h-7v7l-.5 .5h-1l-.5-.5v-7H4l-.5-.5v-1l.5-.5h7V4z" />
+</svg>

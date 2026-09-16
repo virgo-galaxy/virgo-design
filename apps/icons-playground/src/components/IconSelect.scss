@@ -1,0 +1,93 @@
+.icon-select {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.icon-select__label {
+  color: var(--review-muted);
+  font-size: 10px;
+  font-weight: var(--vd-font-weight-600);
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.icon-select__trigger,
+.icon-select__option {
+  color: var(--review-ink);
+  font: inherit;
+}
+
+.icon-select__trigger {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) 12px;
+  gap: var(--vd-spacing-8);
+  align-items: center;
+  width: 176px;
+  height: 34px;
+  padding: 0 10px;
+  text-align: left;
+  background: var(--review-raised);
+  border: var(--vd-border-width-1) solid var(--review-line);
+  border-radius: var(--vd-radius-8);
+  font-size: var(--vd-font-size-13);
+  font-weight: var(--vd-font-weight-600);
+  line-height: 1;
+}
+
+.icon-select__indicator {
+  width: 7px;
+  height: 7px;
+  justify-self: end;
+  border-right: var(--vd-border-width-1) solid currentColor;
+  border-bottom: var(--vd-border-width-1) solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.icon-select__trigger[aria-expanded='true'] .icon-select__indicator {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.icon-select__menu {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + var(--vd-spacing-8));
+  left: 0;
+  display: grid;
+  width: 200px;
+  padding: 4px;
+  background: var(--review-panel);
+  border: var(--vd-border-width-1) solid var(--review-line);
+  border-radius: var(--vd-radius-8);
+  box-shadow: var(--vd-elevation-3);
+}
+
+.icon-select__option {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: var(--vd-spacing-8);
+  align-items: center;
+  min-height: 32px;
+  padding: 0 8px;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: var(--vd-radius-6);
+  font-size: var(--vd-font-size-13);
+  line-height: 1;
+}
+
+.icon-select__option:hover,
+.icon-select__option[aria-selected='true'] {
+  background: var(--review-raised);
+}
+
+.icon-select__option[aria-selected='true'] {
+  color: var(--review-ink);
+}
+
+.icon-select__option:not([aria-selected='true']) {
+  color: var(--review-muted);
+}
