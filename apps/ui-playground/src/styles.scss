@@ -114,6 +114,11 @@ code {
   text-transform: uppercase;
 }
 
+.component-link-list {
+  display: grid;
+  gap: var(--vd-spacing-4);
+}
+
 .component-link {
   display: grid;
   grid-template-columns: var(--vd-sizing-28) 1fr auto;
@@ -122,9 +127,22 @@ code {
   min-height: var(--vd-sizing-56);
   padding: var(--vd-spacing-8);
   border-radius: var(--vd-radius-10);
+  color: var(--vd-text-secondary);
+  background: transparent;
+  text-decoration: none;
+  transition:
+    color var(--vd-duration-120) var(--vd-easing-standard),
+    background-color var(--vd-duration-120) var(--vd-easing-standard);
+}
+
+.component-link:hover {
+  color: var(--vd-text-primary);
+  background: var(--vd-fill-hover);
+}
+
+.component-link--active {
   color: var(--vd-text-primary);
   background: var(--vd-fill-selected);
-  text-decoration: none;
 }
 
 .component-link:focus-visible {
@@ -727,6 +745,74 @@ code {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+}
+
+.version-badge--next {
+  color: var(--vd-text-secondary);
+  background: var(--vd-surface-secondary);
+}
+
+.component-facts--placeholder dd {
+  color: var(--vd-text-tertiary);
+}
+
+.placeholder-specimen {
+  border-style: dashed;
+}
+
+.empty-component-stage {
+  min-height: 240px;
+}
+
+.empty-component-state {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: var(--vd-spacing-8);
+  max-width: 320px;
+  padding: var(--vd-spacing-24);
+  text-align: center;
+}
+
+.empty-component-index {
+  display: grid;
+  width: var(--vd-sizing-40);
+  height: var(--vd-sizing-40);
+  place-items: center;
+  border: var(--vd-border-width-1) solid var(--vd-border-default);
+  border-radius: var(--vd-radius-10);
+  font-family: var(--vd-font-family-mono);
+  font-size: var(--vd-font-size-12);
+  color: var(--vd-brand-link);
+  background: var(--vd-brand-subtle);
+}
+
+.empty-component-state strong {
+  font-size: var(--vd-font-size-16);
+  font-weight: var(--vd-font-weight-600);
+  line-height: var(--vd-line-height-2);
+}
+
+.empty-component-state p,
+.placeholder-review-body p {
+  margin: 0;
+  font-size: var(--vd-font-size-13);
+  line-height: var(--vd-line-height-4);
+  color: var(--vd-text-secondary);
+}
+
+.placeholder-review-body {
+  display: grid;
+  gap: var(--vd-spacing-8);
+  padding: var(--vd-spacing-32);
+  border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+}
+
+.placeholder-review-body strong {
+  font-size: var(--vd-font-size-14);
+  font-weight: var(--vd-font-weight-600);
+  line-height: var(--vd-line-height-2);
 }
 
 .review-footer {
