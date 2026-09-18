@@ -258,6 +258,8 @@ Large Playground previews are useful for inspecting geometry, but the final judg
 
 Details that only work when heavily magnified are not part of the intended visual language.
 
+Small structural signatures may use optical compensation so they remain perceptible at real UI sizes.
+
 ## Naming
 
 Canonical SVG files use lowercase kebab-case:

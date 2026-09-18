@@ -11,11 +11,7 @@ export type ChevronRightIconProps = Omit<
 export function ChevronRightIcon({ size = 24, ...props }: ChevronRightIconProps) {
   return (
     <svg fill="currentColor" height={size} viewBox="0 0 24 24" width={size} {...props}>
-      <path
-        d={
-          'M8.25 19.25l-.5-.5v-.5l6-6v-.5l-6-6v-.5l.5-.5.5-.5h.5l.5.5 6.55 6.55v1.4l-6.55 6.55-.5.5z'
-        }
-      />
+      <path d={'M7.75 19.25v-1l6-6v-.5l-6-6v-1l.5-.5h1l7.05 7.05v1.4l-7.05 7.05h-1z'} />
     </svg>
   );
 }

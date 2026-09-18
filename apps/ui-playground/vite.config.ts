@@ -13,10 +13,15 @@ export default defineConfig({
 
   resolve: {
     alias: {
+      '@virgo-design/icons': fileURLToPath(
+        new URL('../../packages/icons/src/index.ts', import.meta.url),
+      ),
       '@virgo-design/primitives': fileURLToPath(
         new URL('../../packages/primitives/src/index.ts', import.meta.url),
       ),
-
+      '@virgo-design/ui/metadata': fileURLToPath(
+        new URL('../../packages/ui/src/metadata/index.ts', import.meta.url),
+      ),
       '@virgo-design/ui': fileURLToPath(new URL('../../packages/ui/src/index.ts', import.meta.url)),
     },
   },

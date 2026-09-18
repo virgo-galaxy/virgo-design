@@ -1,3 +1,5 @@
+import '@virgo-design/fonts/default.css';
+import '@virgo-design/tokens/styles.css';
 import './styles.scss';
 
 import { StrictMode } from 'react';

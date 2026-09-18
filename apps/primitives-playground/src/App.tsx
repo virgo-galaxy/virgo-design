@@ -13,17 +13,7 @@ export function App() {
 
           <Button disabled>Disabled</Button>
 
-          <Button disabled focusableWhenDisabled>
-            Disabled but focusable
-          </Button>
-
-          <Button
-            render={<div />}
-            nativeButton={false}
-            onClick={() => console.log('custom button clicked')}
-          >
-            Custom element
-          </Button>
+          <Button type="submit">Submit button</Button>
         </div>
       </section>
     </main>

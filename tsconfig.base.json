@@ -20,7 +20,8 @@
       "@virgo-design/icons": ["./packages/icons/src/index.ts"],
       "@virgo-design/primitives": ["./packages/primitives/src/index.ts"],
       "@virgo-design/tokens": ["./packages/tokens/src/index.ts"],
-      "@virgo-design/ui": ["./packages/ui/src/index.ts"]
+      "@virgo-design/ui": ["./packages/ui/src/index.ts"],
+      "@virgo-design/ui/metadata": ["./packages/ui/src/metadata/index.ts"]
     }
   }
 }

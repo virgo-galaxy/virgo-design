@@ -11,11 +11,7 @@ export type ChevronUpIconProps = Omit<
 export function ChevronUpIcon({ size = 24, ...props }: ChevronUpIconProps) {
   return (
     <svg fill="currentColor" height={size} viewBox="0 0 24 24" width={size} {...props}>
-      <path
-        d={
-          'M19.25 15.75l-.5.5h-.5l-6-6h-.5l-6 6h-.5l-.5-.5-.5-.5v-.5l.5-.5L11.3 7.7h1.4l6.55 6.55.5.5v.5z'
-        }
-      />
+      <path d={'M19.25 16.25h-1l-6-6h-.5l-6 6h-1l-.5-.5v-1l7.05-7.05h1.4l7.05 7.05v1z'} />
     </svg>
   );
 }

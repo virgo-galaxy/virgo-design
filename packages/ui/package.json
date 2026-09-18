@@ -14,6 +14,11 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./metadata": {
+      "types": "./dist/metadata/index.d.ts",
+      "import": "./dist/metadata/index.js",
+      "default": "./dist/metadata/index.js"
+    },
     "./styles.css": "./dist/styles.css"
   },
   "publishConfig": {

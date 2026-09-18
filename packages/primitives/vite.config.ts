@@ -13,7 +13,7 @@ export default defineConfig({
     sourcemap: true,
 
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', /^@base-ui\/react/],
+      external: ['react', 'react-dom', 'react/jsx-runtime'],
     },
   },
 });

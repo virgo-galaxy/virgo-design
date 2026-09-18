@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@virgo-design/fonts": "workspace:*",
+    "@virgo-design/icons": "workspace:*",
+    "@virgo-design/tokens": "workspace:*",
     "@virgo-design/ui": "workspace:*",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"

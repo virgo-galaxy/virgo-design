@@ -11,11 +11,7 @@ export type CheckIconProps = Omit<
 export function CheckIcon({ size = 24, ...props }: CheckIconProps) {
   return (
     <svg fill="currentColor" height={size} viewBox="0 0 24 24" width={size} {...props}>
-      <path
-        d={
-          'M4.75 11.25l.5-.5h.5L10 15l8.5-8.5h.5l.5.5.5.5v.5l-.5.5-8.8 8.8H9.3l-4.55-4.55-.5-.5v-.5z'
-        }
-      />
+      <path d={'M4.875 10.75h.875L10 15l8.5-8.5h.875L20 7.125V8l-9.3 9.3H9.3l-5.05-5.05v-.875z'} />
     </svg>
   );
 }

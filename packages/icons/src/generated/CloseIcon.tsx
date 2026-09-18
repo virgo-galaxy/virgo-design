@@ -13,7 +13,7 @@ export function CloseIcon({ size = 24, ...props }: CloseIconProps) {
     <svg fill="currentColor" height={size} viewBox="0 0 24 24" width={size} {...props}>
       <path
         d={
-          'M5 5.5 5.5 5h.9L12 10.6 17.6 5h.9l.5.5v.9L13.4 12 19 17.6v.9l-.5.5h-.9L12 13.4 6.4 19h-.9l-.5-.5v-.9L10.6 12 5 6.4z'
+          'M5 5.875 5.875 5h.525L12 10.6 17.6 5h.525l.875.875V6.4L13.4 12l5.6 5.6v.525l-.875.875H17.6L12 13.4 6.4 19h-.525L5 18.125V17.6l5.6-5.6L5 6.4z'
         }
       />
     </svg>

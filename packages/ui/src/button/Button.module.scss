@@ -1,190 +1,186 @@
 .root {
+  --button-background: var(--vd-brand-primary);
+  --button-background-hover: var(--vd-brand-primary-hover);
+  --button-background-active: var(--vd-brand-primary-active);
+  --button-border: transparent;
+  --button-border-hover: transparent;
+  --button-border-active: transparent;
+  --button-foreground: var(--vd-brand-foreground);
+
   box-sizing: border-box;
   display: inline-flex;
   flex: none;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
 
+  height: var(--button-height);
   margin: 0;
-  border: 1px solid transparent;
-  border-radius: 0.5rem;
+  padding-inline: var(--button-padding-inline);
+  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--button-border);
+  border-radius: var(--button-radius);
 
-  font: inherit;
-  font-weight: 500;
-  line-height: 1;
+  font-family: var(--button-font-family);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  line-height: var(--button-line-height);
   white-space: nowrap;
   text-decoration: none;
 
+  color: var(--button-foreground);
+  background: var(--button-background);
   appearance: none;
-  user-select: none;
   cursor: pointer;
+  user-select: none;
 
   transition:
-    background-color 120ms ease,
-    border-color 120ms ease,
-    color 120ms ease,
-    box-shadow 120ms ease;
+    color var(--vd-duration-120) var(--vd-easing-standard),
+    background-color var(--vd-duration-120) var(--vd-easing-standard),
+    border-color var(--vd-duration-120) var(--vd-easing-standard),
+    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+
+  &:hover:not(:disabled) {
+    border-color: var(--button-border-hover);
+    background: var(--button-background-hover);
+  }
+
+  &:active:not(:disabled) {
+    border-color: var(--button-border-active);
+    background: var(--button-background-active);
+  }
 
   &:focus-visible {
-    outline: 2px solid var(--_focus-ring);
-    outline-offset: 2px;
+    outline: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-border-focus);
+    outline-offset: var(--vd-spacing-2);
   }
 
-  &[data-disabled] {
+  &:disabled {
+    border-color: var(--vd-border-disabled);
+    color: var(--vd-text-disabled);
+    background: var(--vd-fill-disabled);
     cursor: not-allowed;
-    opacity: 0.5;
   }
 }
 
-/* Size */
-
-.root[data-size='sm'] {
-  height: 2rem;
-  padding-inline: 0.75rem;
-  font-size: 0.8125rem;
-}
-
-.root[data-size='md'] {
-  height: 2.25rem;
-  padding-inline: 0.875rem;
-  font-size: 0.875rem;
-}
-
-.root[data-size='lg'] {
-  height: 2.5rem;
-  padding-inline: 1rem;
-  font-size: 0.9375rem;
-}
-
-/* Tone */
-
-.root[data-tone='accent'] {
-  --_solid-bg: var(--virgo-design-accent-9, #2563eb);
-  --_solid-bg-hover: var(--virgo-design-accent-10, #1d4ed8);
-  --_solid-bg-active: var(--virgo-design-accent-11, #1e40af);
-  --_solid-fg: var(--virgo-design-accent-contrast, #ffffff);
-
-  --_soft-bg: var(--virgo-design-accent-2, #eff6ff);
-  --_soft-bg-hover: var(--virgo-design-accent-3, #dbeafe);
-  --_soft-bg-active: var(--virgo-design-accent-4, #bfdbfe);
-  --_soft-fg: var(--virgo-design-accent-11, #1e40af);
-
-  --_outline-border: var(--virgo-design-accent-6, #93c5fd);
-  --_outline-fg: var(--virgo-design-accent-10, #1d4ed8);
-  --_outline-bg-hover: var(--virgo-design-accent-2, #eff6ff);
-  --_outline-bg-active: var(--virgo-design-accent-3, #dbeafe);
-
-  --_ghost-fg: var(--virgo-design-accent-10, #1d4ed8);
-  --_ghost-bg-hover: var(--virgo-design-accent-2, #eff6ff);
-  --_ghost-bg-active: var(--virgo-design-accent-3, #dbeafe);
-
-  --_focus-ring: var(--virgo-design-accent-7, #60a5fa);
-}
-
-.root[data-tone='neutral'] {
-  --_solid-bg: var(--virgo-design-neutral-12, #18181b);
-  --_solid-bg-hover: var(--virgo-design-neutral-11, #27272a);
-  --_solid-bg-active: var(--virgo-design-neutral-12, #09090b);
-  --_solid-fg: var(--virgo-design-neutral-contrast, #ffffff);
-
-  --_soft-bg: var(--virgo-design-neutral-2, #f4f4f5);
-  --_soft-bg-hover: var(--virgo-design-neutral-3, #e4e4e7);
-  --_soft-bg-active: var(--virgo-design-neutral-4, #d4d4d8);
-  --_soft-fg: var(--virgo-design-neutral-12, #18181b);
-
-  --_outline-border: var(--virgo-design-neutral-6, #d4d4d8);
-  --_outline-fg: var(--virgo-design-neutral-12, #18181b);
-  --_outline-bg-hover: var(--virgo-design-neutral-2, #f4f4f5);
-  --_outline-bg-active: var(--virgo-design-neutral-3, #e4e4e7);
-
-  --_ghost-fg: var(--virgo-design-neutral-12, #18181b);
-  --_ghost-bg-hover: var(--virgo-design-neutral-2, #f4f4f5);
-  --_ghost-bg-active: var(--virgo-design-neutral-3, #e4e4e7);
-
-  --_focus-ring: var(--virgo-design-neutral-7, #a1a1aa);
-}
-
-.root[data-tone='danger'] {
-  --_solid-bg: var(--virgo-design-danger-9, #dc2626);
-  --_solid-bg-hover: var(--virgo-design-danger-10, #b91c1c);
-  --_solid-bg-active: var(--virgo-design-danger-11, #991b1b);
-  --_solid-fg: var(--virgo-design-danger-contrast, #ffffff);
-
-  --_soft-bg: var(--virgo-design-danger-2, #fef2f2);
-  --_soft-bg-hover: var(--virgo-design-danger-3, #fee2e2);
-  --_soft-bg-active: var(--virgo-design-danger-4, #fecaca);
-  --_soft-fg: var(--virgo-design-danger-11, #991b1b);
-
-  --_outline-border: var(--virgo-design-danger-6, #fca5a5);
-  --_outline-fg: var(--virgo-design-danger-10, #b91c1c);
-  --_outline-bg-hover: var(--virgo-design-danger-2, #fef2f2);
-  --_outline-bg-active: var(--virgo-design-danger-3, #fee2e2);
-
-  --_ghost-fg: var(--virgo-design-danger-10, #b91c1c);
-  --_ghost-bg-hover: var(--virgo-design-danger-2, #fef2f2);
-  --_ghost-bg-active: var(--virgo-design-danger-3, #fee2e2);
-
-  --_focus-ring: var(--virgo-design-danger-7, #f87171);
-}
-
-/* Variant */
-
-.root[data-variant='solid'] {
-  background: var(--_solid-bg);
-  color: var(--_solid-fg);
-
-  &:hover:not([data-disabled]) {
-    background: var(--_solid-bg-hover);
-  }
-
-  &:active:not([data-disabled]) {
-    background: var(--_solid-bg-active);
-  }
-}
-
-.root[data-variant='soft'] {
-  background: var(--_soft-bg);
-  color: var(--_soft-fg);
-
-  &:hover:not([data-disabled]) {
-    background: var(--_soft-bg-hover);
-  }
-
-  &:active:not([data-disabled]) {
-    background: var(--_soft-bg-active);
-  }
+.root[data-variant='secondary'] {
+  --button-background: var(--vd-surface-secondary);
+  --button-background-hover: var(--vd-surface-strong);
+  --button-background-active: var(--vd-fill-active);
+  --button-foreground: var(--vd-text-primary);
 }
 
 .root[data-variant='outline'] {
-  border-color: var(--_outline-border);
-  background: transparent;
-  color: var(--_outline-fg);
+  --button-background: transparent;
+  --button-background-hover: var(--vd-fill-hover);
+  --button-background-active: var(--vd-fill-active);
+  --button-border: var(--vd-border-default);
+  --button-border-hover: var(--vd-border-strong);
+  --button-border-active: var(--vd-border-strong);
+  --button-foreground: var(--vd-text-primary);
 
-  &:hover:not([data-disabled]) {
-    background: var(--_outline-bg-hover);
-  }
-
-  &:active:not([data-disabled]) {
-    background: var(--_outline-bg-active);
+  &:disabled {
+    background: transparent;
   }
 }
 
-.root[data-variant='ghost'] {
-  background: transparent;
-  color: var(--_ghost-fg);
+.root[data-variant='text'] {
+  --button-background: transparent;
+  --button-background-hover: var(--vd-fill-hover);
+  --button-background-active: var(--vd-fill-active);
+  --button-foreground: var(--vd-brand-link);
 
-  &:hover:not([data-disabled]) {
-    background: var(--_ghost-bg-hover);
+  &:disabled {
+    border-color: transparent;
+    background: transparent;
   }
+}
 
-  &:active:not([data-disabled]) {
-    background: var(--_ghost-bg-active);
+.root[data-icon-only='true'] {
+  width: var(--button-height);
+  padding-inline: var(--vd-spacing-0);
+}
+
+.root[data-icon-only='true'][data-shape='circle'] {
+  border-radius: var(--vd-radius-full);
+}
+
+.root[data-size='mini'] {
+  --button-height: var(--vd-sizing-24);
+  --button-padding-inline: var(--vd-spacing-8);
+  --button-radius: var(--vd-radius-6);
+  --button-icon-size: var(--vd-sizing-12);
+  --button-gap: var(--vd-spacing-4);
+  --button-font-family: var(--vd-typography-ui-label-small-font-family);
+  --button-font-size: var(--vd-typography-ui-label-small-font-size);
+  --button-font-weight: var(--vd-typography-ui-label-small-font-weight);
+  --button-line-height: var(--vd-typography-ui-label-small-line-height);
+}
+
+.root[data-size='small'] {
+  --button-height: var(--vd-sizing-28);
+  --button-padding-inline: var(--vd-spacing-12);
+  --button-radius: var(--vd-radius-6);
+  --button-icon-size: var(--vd-sizing-16);
+  --button-gap: var(--vd-spacing-6);
+  --button-font-family: var(--vd-typography-ui-label-small-font-family);
+  --button-font-size: var(--vd-typography-ui-label-small-font-size);
+  --button-font-weight: var(--vd-typography-ui-label-small-font-weight);
+  --button-line-height: var(--vd-typography-ui-label-small-line-height);
+}
+
+.root[data-size='medium'] {
+  --button-height: var(--vd-sizing-36);
+  --button-padding-inline: var(--vd-spacing-16);
+  --button-radius: var(--vd-radius-8);
+  --button-icon-size: var(--vd-sizing-20);
+  --button-gap: var(--vd-spacing-6);
+  --button-font-family: var(--vd-typography-ui-label-medium-font-family);
+  --button-font-size: var(--vd-typography-ui-label-medium-font-size);
+  --button-font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  --button-line-height: var(--vd-typography-ui-label-medium-line-height);
+}
+
+.root[data-size='large'] {
+  --button-height: var(--vd-sizing-44);
+  --button-padding-inline: var(--vd-spacing-20);
+  --button-radius: var(--vd-radius-10);
+  --button-icon-size: var(--vd-sizing-20);
+  --button-gap: var(--vd-spacing-8);
+  --button-font-family: var(--vd-typography-ui-label-medium-font-family);
+  --button-font-size: var(--vd-typography-ui-label-medium-font-size);
+  --button-font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  --button-line-height: var(--vd-typography-ui-label-medium-line-height);
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--button-icon-size);
+  height: var(--button-icon-size);
+  color: inherit;
+
+  > svg {
+    width: 100%;
+    height: 100%;
   }
+}
+
+.icon[data-slot='leading-icon'] {
+  margin-inline-end: var(--button-gap);
+}
+
+.icon[data-slot='trailing-icon'] {
+  margin-inline-start: var(--button-gap);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .root {
-    transition: none;
+    transition-duration: var(--vd-duration-0);
   }
 }

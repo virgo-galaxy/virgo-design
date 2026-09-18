@@ -1,4 +1,4 @@
-import { Button as PrimitiveButton, type ButtonState } from '@virgo-design/primitives';
+import { Button as PrimitiveButton } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
 import styles from './Button.module.scss';
@@ -8,27 +8,54 @@ function joinClassNames(...classNames: Array<string | false | null | undefined>)
   return classNames.filter(Boolean).join(' ');
 }
 
-function resolveClassName(className: ButtonProps['className'], state: ButtonState) {
-  return typeof className === 'function' ? className(state) : className;
-}
-
-export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
-  { variant = 'solid', tone = 'accent', size = 'md', className, ...props },
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  {
+    variant = 'primary',
+    size = 'medium',
+    iconOnly = false,
+    shape = 'square',
+    leadingIcon,
+    trailingIcon,
+    children,
+    className,
+    ...props
+  },
   forwardedRef,
 ) {
-  const visualState = {
-    'data-variant': variant,
-    'data-tone': tone,
-    'data-size': size,
-  } as const;
-
   return (
     <PrimitiveButton
       {...props}
-      {...visualState}
       ref={forwardedRef}
-      className={(state) => joinClassNames(styles.root, resolveClassName(className, state))}
-    />
+      className={joinClassNames(styles.root, className)}
+      data-icon-only={iconOnly || undefined}
+      data-shape={iconOnly ? shape : undefined}
+      data-size={size}
+      data-variant={variant}
+    >
+      {iconOnly ? (
+        <span className={styles.icon} data-slot="icon" aria-hidden="true">
+          {children}
+        </span>
+      ) : (
+        <>
+          {leadingIcon ? (
+            <span className={styles.icon} data-slot="leading-icon" aria-hidden="true">
+              {leadingIcon}
+            </span>
+          ) : null}
+
+          <span className={styles.label} data-slot="label">
+            {children}
+          </span>
+
+          {trailingIcon ? (
+            <span className={styles.icon} data-slot="trailing-icon" aria-hidden="true">
+              {trailingIcon}
+            </span>
+          ) : null}
+        </>
+      )}
+    </PrimitiveButton>
   );
 });
 
