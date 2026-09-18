@@ -113,12 +113,12 @@ describe('Color Semantic V1', () => {
       VIRGO_BRAND_SCALE[6],
     ]);
     expect(Object.values(darkColorTheme.brand)).toEqual([
-      VIRGO_BRAND_SCALE[4],
-      VIRGO_BRAND_SCALE[3],
-      VIRGO_BRAND_SCALE[5],
+      VIRGO_BRAND_SCALE[6],
+      VIRGO_BRAND_SCALE[7],
+      VIRGO_BRAND_SCALE[8],
       'rgb(122 166 248 / 0.16)',
       'rgb(122 166 248 / 0.24)',
-      VIRGO_NEUTRAL_SCALE[10],
+      VIRGO_NEUTRAL_SCALE[1],
       VIRGO_BRAND_SCALE[3],
       VIRGO_BRAND_SCALE[2],
       VIRGO_BRAND_SCALE[4],
