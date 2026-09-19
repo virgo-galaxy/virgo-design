@@ -5,6 +5,7 @@ import {
   checkboxMetadata,
   componentMetadataRegistry,
   inputMetadata,
+  radioMetadata,
   selectMetadata,
   textareaMetadata,
 } from './index';
@@ -23,6 +24,11 @@ describe('componentMetadataRegistry', () => {
   it('registers the exported Input metadata without creating a copy', () => {
     expect(componentMetadataRegistry.input).toBe(inputMetadata);
     expect(inputMetadata.name).toBe('Input');
+  });
+
+  it('registers the exported Radio metadata without creating a copy', () => {
+    expect(componentMetadataRegistry.radio).toBe(radioMetadata);
+    expect(radioMetadata.name).toBe('Radio');
   });
 
   it('registers the exported Select metadata without creating a copy', () => {

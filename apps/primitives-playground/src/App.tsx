@@ -3,6 +3,8 @@ import {
   Checkbox,
   CheckboxGroup,
   Input,
+  Radio,
+  RadioGroup,
   Select,
   SelectContent,
   SelectOption,
@@ -89,6 +91,24 @@ export function App() {
               <Checkbox value="orange" /> Orange
             </label>
           </CheckboxGroup>
+        </div>
+      </section>
+
+      <section>
+        <h2>Radio</h2>
+
+        <div className="examples">
+          <RadioGroup defaultValue="pear" name="primitive-fruit" aria-label="Fruit">
+            <label>
+              <Radio value="apple" /> Apple
+            </label>
+            <label>
+              <Radio value="pear" /> Pear
+            </label>
+            <label>
+              <Radio disabled value="orange" /> Orange
+            </label>
+          </RadioGroup>
         </div>
       </section>
     </main>
