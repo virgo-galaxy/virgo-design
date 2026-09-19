@@ -13,8 +13,8 @@ export function RadioPage() {
           </div>
           <h1>Radio</h1>
           <p>
-            Single-selection control for mutually exclusive choices, with standard radio and
-            segmented button-style presentations.
+            Single-selection control for mutually exclusive choices using standard circular radio
+            controls.
           </p>
 
           <dl className="component-facts">
@@ -23,8 +23,8 @@ export function RadioPage() {
               <dd>02</dd>
             </div>
             <div>
-              <dt>Button styles</dt>
-              <dd>02</dd>
+              <dt>States</dt>
+              <dd>03</dd>
             </div>
             <div>
               <dt>Selection</dt>
@@ -138,57 +138,6 @@ export function RadioPage() {
           <Radio defaultChecked disabled name="disabled-checked">
             Disabled
           </Radio>
-        </div>
-      </ReviewSection>
-
-      <ReviewSection
-        id="radio-button"
-        index="04"
-        title="Button group"
-        description="Segmented radio options keep single-selection semantics while presenting choices as connected buttons."
-      >
-        <div className="radio-button-grid">
-          <article className="radio-button-card">
-            <div className="cell-meta">
-              <strong>Outline</strong>
-              <span>Selected option uses brand boundary and text</span>
-            </div>
-            <div className="radio-button-stage">
-              <RadioGroup
-                appearance="button"
-                buttonStyle="outline"
-                defaultValue="pear"
-                aria-label="Outline fruit"
-              >
-                <Radio value="apple">Apple</Radio>
-                <Radio value="pear">Pear</Radio>
-                <Radio value="orange">Orange</Radio>
-              </RadioGroup>
-            </div>
-            <code>appearance=&quot;button&quot; · buttonStyle=&quot;outline&quot;</code>
-          </article>
-
-          <article className="radio-button-card">
-            <div className="cell-meta">
-              <strong>Solid</strong>
-              <span>Selected option uses brand fill; disabled options remain visible</span>
-            </div>
-            <div className="radio-button-stage">
-              <RadioGroup
-                appearance="button"
-                buttonStyle="solid"
-                defaultValue="apple"
-                aria-label="Solid fruit"
-              >
-                <Radio value="apple">Apple</Radio>
-                <Radio value="pear">Pear</Radio>
-                <Radio disabled value="orange">
-                  Orange
-                </Radio>
-              </RadioGroup>
-            </div>
-            <code>appearance=&quot;button&quot; · buttonStyle=&quot;solid&quot;</code>
-          </article>
         </div>
       </ReviewSection>
 

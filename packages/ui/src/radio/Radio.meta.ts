@@ -4,20 +4,8 @@ export const radioMetadata = {
   name: 'Radio',
   package: '@virgo-design/ui',
   category: 'Forms',
-  description:
-    'Selects exactly one value from a group, with standard radio controls or segmented button-style options.',
+  description: 'Selects exactly one value from a group using standard circular radio controls.',
   import: "import { Radio, RadioGroup } from '@virgo-design/ui';",
-  variants: [
-    { name: 'radio', description: 'Standard circular radio control with a visible selection dot.' },
-    {
-      name: 'button-outline',
-      description: 'Segmented button-style options with an outlined selected state.',
-    },
-    {
-      name: 'button-solid',
-      description: 'Segmented button-style options with a solid selected state.',
-    },
-  ],
   states: ['unchecked', 'checked', 'disabled'],
   anatomy: [
     {
@@ -26,7 +14,7 @@ export const radioMetadata = {
     },
     {
       name: 'visualControl',
-      description: 'Virgo circular radio frame and selected indicator used by standard appearance.',
+      description: 'Virgo circular radio frame and selected indicator.',
     },
     {
       name: 'label',
@@ -44,7 +32,6 @@ export const radioMetadata = {
     group: true,
     horizontal: true,
     vertical: true,
-    buttonAppearance: true,
     visibleLabel: true,
   },
   accessibility: [
@@ -62,10 +49,6 @@ export const radioMetadata = {
     {
       name: 'Vertical radio group',
       code: '<RadioGroup orientation="vertical"><Radio value="small">Small</Radio><Radio value="large">Large</Radio></RadioGroup>',
-    },
-    {
-      name: 'Button-style radio group',
-      code: '<RadioGroup appearance="button" buttonStyle="solid" defaultValue="apple"><Radio value="apple">Apple</Radio><Radio value="pear">Pear</Radio></RadioGroup>',
     },
   ],
 } as const satisfies ComponentMetadata;

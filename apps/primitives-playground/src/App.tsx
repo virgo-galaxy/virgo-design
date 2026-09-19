@@ -9,6 +9,7 @@ import {
   SelectContent,
   SelectOption,
   SelectTrigger,
+  Switch,
   Textarea,
 } from '@virgo-design/primitives';
 
@@ -109,6 +110,21 @@ export function App() {
               <Radio disabled value="orange" /> Orange
             </label>
           </RadioGroup>
+        </div>
+      </section>
+      <section>
+        <h2>Switch</h2>
+
+        <div className="examples">
+          <label>
+            <Switch defaultChecked /> Native switch
+          </label>
+          <label>
+            <Switch /> Off switch
+          </label>
+          <label>
+            <Switch disabled /> Disabled switch
+          </label>
         </div>
       </section>
     </main>

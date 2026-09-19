@@ -55,20 +55,6 @@ describe('Radio', () => {
     );
   });
 
-  it('supports button appearance and solid button style', () => {
-    render(
-      <RadioGroup appearance="button" buttonStyle="solid" defaultValue="pear" aria-label="Fruit">
-        <Radio value="apple">Apple</Radio>
-        <Radio value="pear">Pear</Radio>
-      </RadioGroup>,
-    );
-
-    const group = screen.getByRole('radiogroup', { name: 'Fruit' });
-    expect(group).toHaveAttribute('data-appearance', 'button');
-    expect(group).toHaveAttribute('data-button-style', 'solid');
-    expect(screen.getByRole('radio', { name: 'Pear' })).toBeChecked();
-  });
-
   it('supports disabled options and forwards refs/native props', () => {
     const ref = createRef<HTMLInputElement>();
 

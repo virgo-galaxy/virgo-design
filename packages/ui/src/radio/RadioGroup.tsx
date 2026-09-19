@@ -9,13 +9,7 @@ function joinClassNames(...classNames: Array<string | false | null | undefined>)
 }
 
 export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(function RadioGroup(
-  {
-    appearance = 'radio',
-    buttonStyle = 'outline',
-    orientation = 'horizontal',
-    className,
-    ...props
-  },
+  { orientation = 'horizontal', className, ...props },
   forwardedRef,
 ) {
   return (
@@ -24,8 +18,6 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(function R
       ref={forwardedRef}
       className={joinClassNames(styles.group, className)}
       orientation={orientation}
-      data-appearance={appearance}
-      data-button-style={buttonStyle}
       data-orientation={orientation}
     />
   );

@@ -6,7 +6,9 @@ import {
   componentMetadataRegistry,
   inputMetadata,
   radioMetadata,
+  segmentedControlMetadata,
   selectMetadata,
+  switchMetadata,
   textareaMetadata,
 } from './index';
 
@@ -34,6 +36,16 @@ describe('componentMetadataRegistry', () => {
   it('registers the exported Select metadata without creating a copy', () => {
     expect(componentMetadataRegistry.select).toBe(selectMetadata);
     expect(selectMetadata.name).toBe('Select');
+  });
+
+  it('registers the exported SegmentedControl metadata without creating a copy', () => {
+    expect(componentMetadataRegistry.segmentedControl).toBe(segmentedControlMetadata);
+    expect(segmentedControlMetadata.name).toBe('SegmentedControl');
+  });
+
+  it('registers the exported Switch metadata without creating a copy', () => {
+    expect(componentMetadataRegistry.switch).toBe(switchMetadata);
+    expect(switchMetadata.name).toBe('Switch');
   });
 
   it('registers the exported Textarea metadata without creating a copy', () => {

@@ -4,7 +4,9 @@ import { ButtonPage } from '../pages/button/ButtonPage';
 import { CheckboxPage } from '../pages/checkbox/CheckboxPage';
 import { InputPage } from '../pages/input/InputPage';
 import { RadioPage } from '../pages/radio/RadioPage';
+import { SegmentedControlPage } from '../pages/segmented-control/SegmentedControlPage';
 import { SelectPage } from '../pages/select/SelectPage';
+import { SwitchPage } from '../pages/switch/SwitchPage';
 
 export type ComponentGroupId = 'general' | 'data-entry';
 
@@ -24,7 +26,7 @@ export const componentGroups = [
 
 export type ComponentRoute = {
   group: ComponentGroupId;
-  id: 'button' | 'input' | 'select' | 'checkbox' | 'radio';
+  id: 'button' | 'input' | 'select' | 'checkbox' | 'radio' | 'switch' | 'segmented-control';
   index: string;
   name: string;
   category: string;
@@ -89,5 +91,27 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1',
     Component: RadioPage,
+  },
+  {
+    id: 'switch',
+    group: 'data-entry',
+    index: '06',
+    name: 'Switch',
+    category: 'Forms',
+    path: '/components/switch',
+    status: 'stable',
+    version: 'V1',
+    Component: SwitchPage,
+  },
+  {
+    id: 'segmented-control',
+    group: 'data-entry',
+    index: '07',
+    name: 'Segmented Control',
+    category: 'Forms',
+    path: '/components/segmented-control',
+    status: 'stable',
+    version: 'V1',
+    Component: SegmentedControlPage,
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;
