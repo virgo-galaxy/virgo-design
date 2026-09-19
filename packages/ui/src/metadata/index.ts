@@ -1,9 +1,11 @@
 import { buttonMetadata } from '../button/Button.meta';
+import { inputMetadata } from '../input/Input.meta';
 
-export { buttonMetadata };
+export { buttonMetadata, inputMetadata };
 
 export const componentMetadataRegistry = {
   button: buttonMetadata,
+  input: inputMetadata,
 } as const;
 
 export type {

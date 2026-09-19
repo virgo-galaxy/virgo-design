@@ -14,7 +14,7 @@ export interface ComponentMetadata {
   readonly category: string;
   readonly description: string;
   readonly import: string;
-  readonly variants: readonly ComponentMetadataOption[];
+  readonly variants?: readonly ComponentMetadataOption[];
   readonly sizes: readonly ComponentMetadataOption[];
   readonly shapes?: readonly ComponentMetadataOption[];
   readonly states: readonly string[];

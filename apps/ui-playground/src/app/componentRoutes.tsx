@@ -29,7 +29,7 @@ export const componentRoutes = [
     name: 'Input',
     category: 'Forms',
     path: '/components/input',
-    status: 'NEXT',
+    status: 'REVIEW',
     Component: InputPage,
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;

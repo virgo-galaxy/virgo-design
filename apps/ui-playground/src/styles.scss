@@ -942,3 +942,117 @@ code {
     scroll-behavior: auto;
   }
 }
+
+.input-demo-width {
+  width: min(100%, 360px);
+}
+
+.input-demo-width--hero {
+  position: relative;
+  z-index: 1;
+}
+
+.input-size-list {
+  padding: 0 var(--vd-spacing-24);
+}
+
+.input-size-row {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) 180px;
+  gap: var(--vd-spacing-24);
+  align-items: center;
+  min-height: var(--vd-sizing-96);
+  border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+}
+
+.input-size-row:last-child {
+  border-bottom: 0;
+}
+
+.input-size-row > code,
+.input-specimen-card > code,
+.input-state-card > code {
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-font-size-12);
+  line-height: var(--vd-line-height-3);
+}
+
+.input-size-guide {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-size-guide .input-demo-width {
+  flex: 0 1 360px;
+  margin-inline: var(--vd-spacing-16);
+}
+
+.input-card-grid,
+.input-state-grid {
+  display: grid;
+  gap: var(--vd-spacing-16);
+  padding: var(--vd-spacing-24);
+}
+
+.input-card-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.input-card-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.input-state-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.input-specimen-card,
+.input-state-card {
+  min-width: 0;
+  padding: var(--vd-spacing-16);
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-12);
+  background: var(--vd-surface-background);
+}
+
+.input-component-stage {
+  display: flex;
+  min-height: var(--vd-sizing-96);
+  align-items: center;
+  justify-content: center;
+  margin: var(--vd-spacing-16) 0;
+  padding: var(--vd-spacing-16);
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-10);
+  background: var(--vd-surface-elevated);
+}
+
+@media (max-width: 1040px) {
+  .input-card-grid,
+  .input-card-grid--two,
+  .input-state-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .input-size-row {
+    grid-template-columns: 1fr;
+    gap: var(--vd-spacing-12);
+    padding: var(--vd-spacing-20) 0;
+  }
+
+  .input-size-guide {
+    justify-content: flex-start;
+  }
+
+  .input-size-guide .input-demo-width {
+    margin-inline: 0;
+  }
+
+  .input-size-row > code {
+    display: none;
+  }
+}
