@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   buttonMetadata,
+  checkboxMetadata,
   componentMetadataRegistry,
   inputMetadata,
   selectMetadata,
@@ -12,6 +13,11 @@ describe('componentMetadataRegistry', () => {
   it('registers the exported Button metadata without creating a copy', () => {
     expect(componentMetadataRegistry.button).toBe(buttonMetadata);
     expect(buttonMetadata.name).toBe('Button');
+  });
+
+  it('registers the exported Checkbox metadata without creating a copy', () => {
+    expect(componentMetadataRegistry.checkbox).toBe(checkboxMetadata);
+    expect(checkboxMetadata.name).toBe('Checkbox');
   });
 
   it('registers the exported Input metadata without creating a copy', () => {

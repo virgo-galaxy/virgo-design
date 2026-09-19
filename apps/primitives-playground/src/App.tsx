@@ -1,5 +1,7 @@
 import {
   Button,
+  Checkbox,
+  CheckboxGroup,
   Input,
   Select,
   SelectContent,
@@ -18,9 +20,7 @@ export function App() {
 
         <div className="examples">
           <Button onClick={() => console.log('clicked')}>Native button</Button>
-
           <Button disabled>Disabled</Button>
-
           <Button type="submit">Submit button</Button>
         </div>
       </section>
@@ -30,9 +30,7 @@ export function App() {
 
         <div className="examples">
           <Input aria-label="Native input" placeholder="Native input" />
-
           <Input disabled aria-label="Disabled input" defaultValue="Disabled" />
-
           <Input readOnly aria-label="Read-only input" defaultValue="Read only" />
         </div>
       </section>
@@ -42,9 +40,7 @@ export function App() {
 
         <div className="examples">
           <Textarea aria-label="Native textarea" placeholder="Native textarea" rows={4} />
-
           <Textarea disabled aria-label="Disabled textarea" defaultValue="Disabled" rows={4} />
-
           <Textarea readOnly aria-label="Read-only textarea" defaultValue="Read only" rows={4} />
         </div>
       </section>
@@ -63,6 +59,36 @@ export function App() {
               </SelectOption>
             </SelectContent>
           </Select>
+        </div>
+      </section>
+
+      <section>
+        <h2>Checkbox</h2>
+
+        <div className="examples">
+          <label>
+            <Checkbox defaultChecked /> Native checkbox
+          </label>
+
+          <label>
+            <Checkbox indeterminate /> Mixed checkbox
+          </label>
+
+          <label>
+            <Checkbox disabled /> Disabled checkbox
+          </label>
+
+          <CheckboxGroup defaultValue={['pear']} name="fruit" aria-label="Fruit">
+            <label>
+              <Checkbox value="apple" /> Apple
+            </label>
+            <label>
+              <Checkbox value="pear" /> Pear
+            </label>
+            <label>
+              <Checkbox value="orange" /> Orange
+            </label>
+          </CheckboxGroup>
         </div>
       </section>
     </main>

@@ -28,7 +28,7 @@ export function InputPage() {
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 02</span>
-            <span className="version-badge">Review · V1</span>
+            <span className="version-badge">Stable · V1</span>
           </div>
           <h1>Input</h1>
           <p>

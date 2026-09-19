@@ -39,7 +39,7 @@ export function SelectPage() {
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 03</span>
-            <span className="version-badge">Review · V1</span>
+            <span className="version-badge">Stable · V1</span>
           </div>
           <h1>Select</h1>
           <p>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
-import { componentRoutes } from './app/componentRoutes';
+import { componentGroups, componentRoutes } from './app/componentRoutes';
 
 type PlaygroundTheme = 'light' | 'dark';
 
@@ -30,23 +30,41 @@ export function App() {
 
         <nav aria-label="Component navigation">
           <p className="navigation-label">Components</p>
-          <div className="component-link-list">
-            {componentRoutes.map((route) => (
-              <NavLink
-                className={({ isActive }) =>
-                  `component-link${isActive ? ' component-link--active' : ''}`
-                }
-                key={route.id}
-                to={route.path}
-              >
-                <span className="component-number">{route.index}</span>
-                <span>
-                  <strong>{route.name}</strong>
-                  <small>{route.category}</small>
-                </span>
-                <span className="component-status">{route.status}</span>
-              </NavLink>
-            ))}
+          <div className="component-groups">
+            {componentGroups.map((group) => {
+              const routes = componentRoutes.filter((route) => route.group === group.id);
+
+              if (routes.length === 0) {
+                return null;
+              }
+
+              return (
+                <section className="component-group" key={group.id}>
+                  <p className="component-group-label">{group.label}</p>
+
+                  <div className="component-link-list">
+                    {routes.map((route) => (
+                      <NavLink
+                        className={({ isActive }) =>
+                          `component-link${isActive ? ' component-link--active' : ''}`
+                        }
+                        key={route.id}
+                        to={route.path}
+                      >
+                        <span className="component-number">{route.index}</span>
+                        <span>
+                          <strong>{route.name}</strong>
+                          <small>{route.category}</small>
+                        </span>
+                        <span className="component-status">
+                          {route.status.toUpperCase()} · {route.version}
+                        </span>
+                      </NavLink>
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
           </div>
         </nav>
 
