@@ -8,6 +8,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "paths": {
+      "@virgo-design/icons": ["../icons/dist/index.d.ts"],
       "@virgo-design/primitives": ["../primitives/dist/index.d.ts"]
     }
   },

@@ -2,9 +2,10 @@ import type { ComponentType } from 'react';
 
 import { ButtonPage } from '../pages/button/ButtonPage';
 import { InputPage } from '../pages/input/InputPage';
+import { SelectPage } from '../pages/select/SelectPage';
 
 export type ComponentRoute = {
-  id: 'button' | 'input';
+  id: 'button' | 'input' | 'select';
   index: string;
   name: string;
   category: string;
@@ -31,5 +32,14 @@ export const componentRoutes = [
     path: '/components/input',
     status: 'REVIEW',
     Component: InputPage,
+  },
+  {
+    id: 'select',
+    index: '03',
+    name: 'Select',
+    category: 'Forms',
+    path: '/components/select',
+    status: 'REVIEW',
+    Component: SelectPage,
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;

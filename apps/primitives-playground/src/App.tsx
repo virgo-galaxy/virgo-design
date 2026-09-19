@@ -1,4 +1,12 @@
-import { Button, Input, Textarea } from '@virgo-design/primitives';
+import {
+  Button,
+  Input,
+  Select,
+  SelectContent,
+  SelectOption,
+  SelectTrigger,
+  Textarea,
+} from '@virgo-design/primitives';
 
 export function App() {
   return (
@@ -38,6 +46,23 @@ export function App() {
           <Textarea disabled aria-label="Disabled textarea" defaultValue="Disabled" rows={4} />
 
           <Textarea readOnly aria-label="Read-only textarea" defaultValue="Read only" rows={4} />
+        </div>
+      </section>
+
+      <section>
+        <h2>Select</h2>
+
+        <div className="examples">
+          <Select defaultValue="design">
+            <SelectTrigger aria-label="Project">Native headless select</SelectTrigger>
+            <SelectContent>
+              <SelectOption value="design">Virgo Design</SelectOption>
+              <SelectOption value="docs">Virgo Cloud Docs</SelectOption>
+              <SelectOption disabled value="retro">
+                Virgo Retro
+              </SelectOption>
+            </SelectContent>
+          </Select>
         </div>
       </section>
     </main>

@@ -17,7 +17,13 @@ export default defineConfig({
     sourcemap: true,
 
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', '@virgo-design/primitives'],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        '@virgo-design/icons',
+        '@virgo-design/primitives',
+      ],
     },
   },
 });

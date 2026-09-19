@@ -235,6 +235,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@virgo-design/icons':
+        specifier: workspace:*
+        version: link:../icons
       '@virgo-design/primitives':
         specifier: workspace:*
         version: link:../primitives

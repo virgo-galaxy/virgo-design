@@ -25,7 +25,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@virgo-design/primitives": "workspace:*"
+    "@virgo-design/primitives": "workspace:*",
+    "@virgo-design/icons": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
