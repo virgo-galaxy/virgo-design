@@ -1,5 +1,5 @@
 import { CheckIcon, SearchIcon, UserIcon } from '@virgo-design/icons';
-import { Input, type InputSize } from '@virgo-design/ui';
+import { Input, type InputSize, Textarea, type TextareaSize } from '@virgo-design/ui';
 
 import { ReviewSection } from '../../components/ReviewSection';
 
@@ -9,6 +9,17 @@ const sizes = [
   { value: 'medium', label: 'Medium', height: '36' },
   { value: 'large', label: 'Large', height: '44' },
 ] as const satisfies ReadonlyArray<{ value: InputSize; label: string; height: string }>;
+
+const textareaSizes = [
+  { value: 'mini', label: 'Mini', minHeight: '56' },
+  { value: 'small', label: 'Small', minHeight: '64' },
+  { value: 'medium', label: 'Medium', minHeight: '80' },
+  { value: 'large', label: 'Large', minHeight: '96' },
+] as const satisfies ReadonlyArray<{
+  value: TextareaSize;
+  label: string;
+  minHeight: string;
+}>;
 
 export function InputPage() {
   return (
@@ -21,11 +32,16 @@ export function InputPage() {
           </div>
           <h1>Input</h1>
           <p>
-            Accepts a single line of text. Built on the native Virgo primitive and calibrated
-            against the same sizing, typography, color, motion, and icon foundations as Button.
+            Text-entry family for single-line and multiline content. Built on native Virgo
+            primitives and calibrated against the same sizing, typography, color, and motion
+            foundations as Button.
           </p>
 
           <dl className="component-facts">
+            <div>
+              <dt>Controls</dt>
+              <dd>02</dd>
+            </div>
             <div>
               <dt>Sizes</dt>
               <dd>04</dd>
@@ -34,17 +50,13 @@ export function InputPage() {
               <dt>States</dt>
               <dd>06</dd>
             </div>
-            <div>
-              <dt>Icon slots</dt>
-              <dd>02</dd>
-            </div>
           </dl>
         </div>
 
         <div className="hero-specimen">
           <div className="specimen-toolbar">
             <span>Reference specimen</span>
-            <code>default · medium</code>
+            <code>input · medium</code>
           </div>
           <div className="hero-stage">
             <div className="input-demo-width input-demo-width--hero">
@@ -258,9 +270,125 @@ export function InputPage() {
         </div>
       </ReviewSection>
 
+      <ReviewSection
+        id="input-textarea"
+        index="05"
+        title="Textarea"
+        description={
+          'Multiline text entry shares the Input family state language while keeping native textarea semantics.'
+        }
+      >
+        <div className="textarea-review">
+          <section className="textarea-subsection" aria-labelledby="textarea-sizes-title">
+            <div className="subsection-heading">
+              <div>
+                <h3 id="textarea-sizes-title">Sizes</h3>
+                <p>Size controls density and minimum height; native rows still describe content.</p>
+              </div>
+              <code>mini · small · medium · large</code>
+            </div>
+
+            <div className="textarea-size-grid">
+              {textareaSizes.map((size) => (
+                <article className="textarea-specimen-card" key={size.value}>
+                  <div className="cell-meta">
+                    <strong>{size.label}</strong>
+                    <span>{size.minHeight}px minimum height</span>
+                  </div>
+                  <div className="textarea-component-stage">
+                    <Textarea
+                      aria-label={`${size.label} textarea`}
+                      placeholder={`${size.label} multiline input`}
+                      rows={3}
+                      size={size.value}
+                    />
+                  </div>
+                  <code>size=&quot;{size.value}&quot;</code>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="textarea-subsection" aria-labelledby="textarea-states-title">
+            <div className="subsection-heading">
+              <div>
+                <h3 id="textarea-states-title">States</h3>
+                <p>Textarea reuses the same semantic state language as single-line Input.</p>
+              </div>
+              <code>default · disabled · readOnly · invalid</code>
+            </div>
+
+            <div className="textarea-state-grid">
+              <article className="textarea-specimen-card">
+                <div className="cell-meta">
+                  <strong>Default</strong>
+                  <span>Resizable multiline entry</span>
+                </div>
+                <div className="textarea-component-stage">
+                  <Textarea
+                    aria-label="Default textarea"
+                    placeholder="Describe the project"
+                    rows={4}
+                  />
+                </div>
+                <code>default</code>
+              </article>
+
+              <article className="textarea-specimen-card">
+                <div className="cell-meta">
+                  <strong>Disabled</strong>
+                  <span>Unavailable multiline control</span>
+                </div>
+                <div className="textarea-component-stage">
+                  <Textarea
+                    disabled
+                    aria-label="Disabled textarea"
+                    defaultValue="This content is unavailable."
+                    rows={4}
+                  />
+                </div>
+                <code>disabled</code>
+              </article>
+
+              <article className="textarea-specimen-card">
+                <div className="cell-meta">
+                  <strong>Read only</strong>
+                  <span>Focusable, selectable multiline content</span>
+                </div>
+                <div className="textarea-component-stage">
+                  <Textarea
+                    readOnly
+                    aria-label="Read-only textarea"
+                    defaultValue="Virgo Design keeps canonical UI assets close to their source of truth."
+                    rows={4}
+                  />
+                </div>
+                <code>readOnly</code>
+              </article>
+
+              <article className="textarea-specimen-card">
+                <div className="cell-meta">
+                  <strong>Invalid</strong>
+                  <span>Semantic danger boundary</span>
+                </div>
+                <div className="textarea-component-stage">
+                  <Textarea
+                    invalid
+                    aria-label="Invalid textarea"
+                    defaultValue="Needs revision"
+                    rows={4}
+                  />
+                </div>
+                <code>invalid</code>
+              </article>
+            </div>
+          </section>
+        </div>
+      </ReviewSection>
+
       <footer className="review-footer">
-        <span>Virgo Design UI · Input V1</span>
-        <span>Primitive · Tokens · Icons · Metadata</span>
+        <span>Virgo Design UI · Input Family V1</span>
+        <span>Input · Textarea · Primitive · Tokens · Metadata</span>
       </footer>
     </main>
   );

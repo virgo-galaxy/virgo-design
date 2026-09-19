@@ -1056,3 +1056,70 @@ code {
     display: none;
   }
 }
+
+.textarea-review {
+  display: grid;
+  gap: var(--vd-spacing-24);
+  padding: var(--vd-spacing-24);
+}
+
+.textarea-subsection {
+  display: grid;
+  gap: var(--vd-spacing-16);
+}
+
+.textarea-subsection + .textarea-subsection {
+  padding-top: var(--vd-spacing-24);
+  border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+}
+
+.textarea-size-grid,
+.textarea-state-grid {
+  display: grid;
+  gap: var(--vd-spacing-16);
+}
+
+.textarea-size-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.textarea-state-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.textarea-specimen-card {
+  min-width: 0;
+  padding: var(--vd-spacing-16);
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-12);
+  background: var(--vd-surface-background);
+}
+
+.textarea-specimen-card > code {
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-font-size-12);
+  line-height: var(--vd-line-height-3);
+}
+
+.textarea-component-stage {
+  display: flex;
+  min-height: var(--vd-sizing-96);
+  align-items: center;
+  justify-content: center;
+  margin: var(--vd-spacing-16) 0;
+  padding: var(--vd-spacing-16);
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-10);
+  background: var(--vd-surface-elevated);
+}
+
+.textarea-component-stage > * {
+  width: min(100%, 420px);
+}
+
+@media (max-width: 1040px) {
+  .textarea-size-grid,
+  .textarea-state-grid {
+    grid-template-columns: 1fr;
+  }
+}

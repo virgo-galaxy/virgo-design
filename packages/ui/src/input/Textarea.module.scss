@@ -1,0 +1,121 @@
+.root {
+  --textarea-background: var(--vd-surface-default);
+  --textarea-border: var(--vd-border-default);
+  --textarea-border-hover: var(--vd-border-strong);
+  --textarea-border-focus: var(--vd-border-focus);
+  --textarea-foreground: var(--vd-text-primary);
+  --textarea-placeholder: var(--vd-text-placeholder);
+
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--textarea-min-height);
+  margin: 0;
+  padding: var(--textarea-padding-block) var(--textarea-padding-inline);
+  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--textarea-border);
+  border-radius: var(--textarea-radius);
+  outline: 0;
+  color: var(--textarea-foreground);
+  background: var(--textarea-background);
+  caret-color: var(--vd-brand-primary);
+  font-family: var(--textarea-font-family);
+  font-size: var(--textarea-font-size);
+  font-weight: var(--textarea-font-weight);
+  line-height: var(--textarea-line-height);
+  resize: vertical;
+
+  transition:
+    color var(--vd-duration-120) var(--vd-easing-standard),
+    background-color var(--vd-duration-120) var(--vd-easing-standard),
+    border-color var(--vd-duration-120) var(--vd-easing-standard),
+    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+
+  &::placeholder {
+    color: var(--textarea-placeholder);
+    opacity: 1;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: var(--textarea-border-hover);
+  }
+
+  &:focus {
+    border-color: var(--textarea-border-focus);
+    box-shadow: 0 0 0 var(--vd-border-width-1) var(--textarea-border-focus);
+  }
+
+  &:disabled {
+    --textarea-background: var(--vd-fill-disabled);
+    --textarea-border: var(--vd-border-disabled);
+    --textarea-border-hover: var(--vd-border-disabled);
+    --textarea-foreground: var(--vd-text-disabled);
+    --textarea-placeholder: var(--vd-text-disabled);
+
+    cursor: not-allowed;
+    resize: none;
+    -webkit-text-fill-color: var(--textarea-foreground);
+  }
+
+  &:read-only:not(:disabled) {
+    --textarea-background: var(--vd-surface-secondary);
+
+    cursor: default;
+  }
+}
+
+.root[data-invalid='true'] {
+  --textarea-border: var(--vd-status-danger-border);
+  --textarea-border-hover: var(--vd-status-danger-accent);
+  --textarea-border-focus: var(--vd-status-danger-accent);
+}
+
+.root[data-size='mini'] {
+  --textarea-min-height: var(--vd-sizing-56);
+  --textarea-padding-block: var(--vd-spacing-6);
+  --textarea-padding-inline: var(--vd-spacing-8);
+  --textarea-radius: var(--vd-radius-6);
+  --textarea-font-family: var(--vd-typography-ui-body-small-font-family);
+  --textarea-font-size: var(--vd-typography-ui-body-small-font-size);
+  --textarea-font-weight: var(--vd-typography-ui-body-small-font-weight);
+  --textarea-line-height: var(--vd-typography-ui-body-small-line-height);
+}
+
+.root[data-size='small'] {
+  --textarea-min-height: var(--vd-sizing-64);
+  --textarea-padding-block: var(--vd-spacing-8);
+  --textarea-padding-inline: var(--vd-spacing-8);
+  --textarea-radius: var(--vd-radius-6);
+  --textarea-font-family: var(--vd-typography-ui-body-small-font-family);
+  --textarea-font-size: var(--vd-typography-ui-body-small-font-size);
+  --textarea-font-weight: var(--vd-typography-ui-body-small-font-weight);
+  --textarea-line-height: var(--vd-typography-ui-body-small-line-height);
+}
+
+.root[data-size='medium'] {
+  --textarea-min-height: var(--vd-sizing-80);
+  --textarea-padding-block: var(--vd-spacing-12);
+  --textarea-padding-inline: var(--vd-spacing-12);
+  --textarea-radius: var(--vd-radius-8);
+  --textarea-font-family: var(--vd-typography-ui-body-medium-font-family);
+  --textarea-font-size: var(--vd-typography-ui-body-medium-font-size);
+  --textarea-font-weight: var(--vd-typography-ui-body-medium-font-weight);
+  --textarea-line-height: var(--vd-typography-ui-body-medium-line-height);
+}
+
+.root[data-size='large'] {
+  --textarea-min-height: var(--vd-sizing-96);
+  --textarea-padding-block: var(--vd-spacing-12);
+  --textarea-padding-inline: var(--vd-spacing-16);
+  --textarea-radius: var(--vd-radius-10);
+  --textarea-font-family: var(--vd-typography-ui-body-large-font-family);
+  --textarea-font-size: var(--vd-typography-ui-body-large-font-size);
+  --textarea-font-weight: var(--vd-typography-ui-body-large-font-weight);
+  --textarea-line-height: var(--vd-typography-ui-body-large-line-height);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    transition-duration: var(--vd-duration-0);
+  }
+}

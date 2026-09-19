@@ -1,4 +1,4 @@
-import { Button, Input } from '@virgo-design/primitives';
+import { Button, Input, Textarea } from '@virgo-design/primitives';
 
 export function App() {
   return (
@@ -26,6 +26,18 @@ export function App() {
           <Input disabled aria-label="Disabled input" defaultValue="Disabled" />
 
           <Input readOnly aria-label="Read-only input" defaultValue="Read only" />
+        </div>
+      </section>
+
+      <section>
+        <h2>Textarea</h2>
+
+        <div className="examples">
+          <Textarea aria-label="Native textarea" placeholder="Native textarea" rows={4} />
+
+          <Textarea disabled aria-label="Disabled textarea" defaultValue="Disabled" rows={4} />
+
+          <Textarea readOnly aria-label="Read-only textarea" defaultValue="Read only" rows={4} />
         </div>
       </section>
     </main>
