@@ -1,3 +1,4 @@
+import { breadcrumbMetadata } from '../breadcrumb/Breadcrumb.meta';
 import { buttonMetadata } from '../button/Button.meta';
 import { checkboxMetadata } from '../checkbox/Checkbox.meta';
 import { inputMetadata } from '../input/Input.meta';
@@ -9,6 +10,7 @@ import { switchMetadata } from '../switch/Switch.meta';
 import { tabsMetadata } from '../tabs/Tabs.meta';
 
 export {
+  breadcrumbMetadata,
   buttonMetadata,
   checkboxMetadata,
   inputMetadata,
@@ -22,6 +24,7 @@ export {
 
 export const componentMetadataRegistry = {
   button: buttonMetadata,
+  breadcrumb: breadcrumbMetadata,
   checkbox: checkboxMetadata,
   input: inputMetadata,
   radio: radioMetadata,

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  breadcrumbMetadata,
   buttonMetadata,
   checkboxMetadata,
   componentMetadataRegistry,
@@ -17,6 +18,11 @@ describe('componentMetadataRegistry', () => {
   it('registers the exported Button metadata without creating a copy', () => {
     expect(componentMetadataRegistry.button).toBe(buttonMetadata);
     expect(buttonMetadata.name).toBe('Button');
+  });
+
+  it('registers the exported Breadcrumb metadata without creating a copy', () => {
+    expect(componentMetadataRegistry.breadcrumb).toBe(breadcrumbMetadata);
+    expect(breadcrumbMetadata.name).toBe('Breadcrumb');
   });
 
   it('registers the exported Checkbox metadata without creating a copy', () => {

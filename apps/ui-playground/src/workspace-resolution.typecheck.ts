@@ -1,4 +1,6 @@
 import {
+  Breadcrumb,
+  BreadcrumbItem,
   Button,
   Checkbox,
   Input,
@@ -17,6 +19,7 @@ import {
 import { type ComponentMetadata, componentMetadataRegistry } from '@virgo-design/ui/metadata';
 
 const buttonMetadata: ComponentMetadata = componentMetadataRegistry.button;
+const breadcrumbMetadata: ComponentMetadata = componentMetadataRegistry.breadcrumb;
 const checkboxMetadata: ComponentMetadata = componentMetadataRegistry.checkbox;
 const inputMetadata: ComponentMetadata = componentMetadataRegistry.input;
 const radioMetadata: ComponentMetadata = componentMetadataRegistry.radio;
@@ -27,6 +30,8 @@ const switchMetadata: ComponentMetadata = componentMetadataRegistry.switch;
 const tabsMetadata: ComponentMetadata = componentMetadataRegistry.tabs;
 
 export const workspaceSourceResolutionFixture = {
+  Breadcrumb,
+  BreadcrumbItem,
   Button,
   Checkbox,
   Input,
@@ -42,6 +47,7 @@ export const workspaceSourceResolutionFixture = {
   Tabs,
   Textarea,
   buttonMetadata,
+  breadcrumbMetadata,
   checkboxMetadata,
   inputMetadata,
   radioMetadata,

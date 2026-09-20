@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
 
+import { BreadcrumbPage } from '../pages/breadcrumb/BreadcrumbPage';
 import { ButtonPage } from '../pages/button/ButtonPage';
 import { CheckboxPage } from '../pages/checkbox/CheckboxPage';
 import { InputPage } from '../pages/input/InputPage';
@@ -32,7 +33,15 @@ export const componentGroups = [
 export type ComponentRoute = {
   group: ComponentGroupId;
   id:
-    'button' | 'input' | 'select' | 'checkbox' | 'radio' | 'switch' | 'segmented-control' | 'tabs';
+    | 'button'
+    | 'input'
+    | 'select'
+    | 'checkbox'
+    | 'radio'
+    | 'switch'
+    | 'segmented-control'
+    | 'tabs'
+    | 'breadcrumb';
   index: string;
   name: string;
   category: string;
@@ -130,5 +139,16 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1',
     Component: TabsPage,
+  },
+  {
+    id: 'breadcrumb',
+    group: 'navigation',
+    index: '09',
+    name: 'Breadcrumb',
+    category: 'Navigation',
+    path: '/components/breadcrumb',
+    status: 'stable',
+    version: 'V1',
+    Component: BreadcrumbPage,
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;
