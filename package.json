@@ -7,9 +7,10 @@
   "scripts": {
     "dev:website": "pnpm --filter @virgo-design/website dev",
     "dev:primitives": "pnpm --filter @virgo-design/primitives-playground dev",
-    "dev:ui": "pnpm --filter @virgo-design/ui-playground dev",
-    "dev:icons": "pnpm --filter @virgo-design/icons-playground dev",
+    "dev:ui": "pnpm build:tokens && pnpm --filter @virgo-design/ui-playground dev",
+    "dev:icons": "pnpm build:tokens && pnpm --filter @virgo-design/icons-playground dev",
     "gen:icons": "pnpm --filter @virgo-design/icons generate",
+    "build:tokens": "pnpm --filter @virgo-design/colors build && pnpm --filter @virgo-design/tokens build",
     "build": "pnpm -r --if-present build",
     "typecheck": "pnpm -r --if-present typecheck",
     "lint": "eslint .",
