@@ -5,3 +5,4 @@ export * from './radio';
 export * from './segmented-control';
 export * from './select';
 export * from './switch';
+export * from './tabs';

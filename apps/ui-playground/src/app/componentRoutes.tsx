@@ -7,8 +7,9 @@ import { RadioPage } from '../pages/radio/RadioPage';
 import { SegmentedControlPage } from '../pages/segmented-control/SegmentedControlPage';
 import { SelectPage } from '../pages/select/SelectPage';
 import { SwitchPage } from '../pages/switch/SwitchPage';
+import { TabsPage } from '../pages/tabs/TabsPage';
 
-export type ComponentGroupId = 'general' | 'data-entry';
+export type ComponentGroupId = 'general' | 'navigation' | 'data-entry';
 
 export const componentGroups = [
   {
@@ -19,6 +20,10 @@ export const componentGroups = [
     id: 'data-entry',
     label: 'Data Entry',
   },
+  {
+    id: 'navigation',
+    label: 'Navigation',
+  },
 ] as const satisfies ReadonlyArray<{
   id: ComponentGroupId;
   label: string;
@@ -26,7 +31,8 @@ export const componentGroups = [
 
 export type ComponentRoute = {
   group: ComponentGroupId;
-  id: 'button' | 'input' | 'select' | 'checkbox' | 'radio' | 'switch' | 'segmented-control';
+  id:
+    'button' | 'input' | 'select' | 'checkbox' | 'radio' | 'switch' | 'segmented-control' | 'tabs';
   index: string;
   name: string;
   category: string;
@@ -113,5 +119,16 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1',
     Component: SegmentedControlPage,
+  },
+  {
+    id: 'tabs',
+    group: 'navigation',
+    index: '08',
+    name: 'Tabs',
+    category: 'Navigation',
+    path: '/components/tabs',
+    status: 'stable',
+    version: 'V1',
+    Component: TabsPage,
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;

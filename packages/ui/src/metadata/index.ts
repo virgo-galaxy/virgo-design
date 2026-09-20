@@ -6,6 +6,7 @@ import { radioMetadata } from '../radio/Radio.meta';
 import { segmentedControlMetadata } from '../segmented-control/SegmentedControl.meta';
 import { selectMetadata } from '../select/Select.meta';
 import { switchMetadata } from '../switch/Switch.meta';
+import { tabsMetadata } from '../tabs/Tabs.meta';
 
 export {
   buttonMetadata,
@@ -15,6 +16,7 @@ export {
   segmentedControlMetadata,
   selectMetadata,
   switchMetadata,
+  tabsMetadata,
   textareaMetadata,
 };
 
@@ -26,6 +28,7 @@ export const componentMetadataRegistry = {
   segmentedControl: segmentedControlMetadata,
   select: selectMetadata,
   switch: switchMetadata,
+  tabs: tabsMetadata,
   textarea: textareaMetadata,
 } as const;
 

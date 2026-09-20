@@ -15,6 +15,10 @@ describe('@virgo-design/ui public API', () => {
     expect(ui).toHaveProperty('Textarea');
     expect(ui).toHaveProperty('Select');
     expect(ui).toHaveProperty('Switch');
+    expect(ui).toHaveProperty('Tabs');
+    expect(ui).toHaveProperty('TabList');
+    expect(ui).toHaveProperty('Tab');
+    expect(ui).toHaveProperty('TabPanel');
     expect(ui).not.toHaveProperty('buttonMetadata');
     expect(ui).not.toHaveProperty('checkboxMetadata');
     expect(ui).not.toHaveProperty('inputMetadata');
@@ -23,6 +27,7 @@ describe('@virgo-design/ui public API', () => {
     expect(ui).not.toHaveProperty('textareaMetadata');
     expect(ui).not.toHaveProperty('selectMetadata');
     expect(ui).not.toHaveProperty('switchMetadata');
+    expect(ui).not.toHaveProperty('tabsMetadata');
     expect(ui).not.toHaveProperty('componentMetadataRegistry');
   });
 });

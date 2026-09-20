@@ -1,0 +1,109 @@
+import { CloseIcon } from '@virgo-design/icons';
+import { Tab as PrimitiveTab } from '@virgo-design/primitives';
+import { forwardRef, useCallback } from 'react';
+
+import styles from './Tabs.module.scss';
+import type { TabProps } from './Tabs.types';
+import { useTabsVisualContext } from './TabsContext';
+
+function joinClassNames(...classNames: Array<string | false | null | undefined>) {
+  return classNames.filter(Boolean).join(' ');
+}
+
+export const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
+  {
+    value,
+    icon,
+    closable = false,
+    onClose,
+    closeLabel = 'Close tab',
+    disabled,
+    children,
+    className,
+    onKeyDown,
+    ...props
+  },
+  forwardedRef,
+) {
+  const { variant } = useTabsVisualContext('Tab');
+  const showsCloseAction = variant === 'card' && closable;
+
+  const closeTab = useCallback(
+    (currentTab: HTMLButtonElement | null) => {
+      if (!currentTab) {
+        return;
+      }
+
+      if (currentTab.getAttribute('aria-selected') === 'true') {
+        const tabList = currentTab.closest<HTMLElement>('[role="tablist"]');
+        const enabledTabs = Array.from(
+          tabList?.querySelectorAll<HTMLButtonElement>('[role="tab"]:not(:disabled)') ?? [],
+        );
+        const currentIndex = enabledTabs.indexOf(currentTab);
+        const adjacentTab = enabledTabs[currentIndex + 1] ?? enabledTabs[currentIndex - 1];
+
+        adjacentTab?.click();
+        adjacentTab?.focus();
+      }
+
+      onClose?.(value);
+    },
+    [onClose, value],
+  );
+
+  return (
+    <div
+      className={joinClassNames(styles.item, className)}
+      data-closable={showsCloseAction || undefined}
+      data-disabled={disabled || undefined}
+    >
+      <PrimitiveTab
+        {...props}
+        ref={forwardedRef}
+        className={styles.tab}
+        disabled={disabled}
+        value={value}
+        aria-keyshortcuts={showsCloseAction ? 'Delete' : props['aria-keyshortcuts']}
+        onKeyDown={(event) => {
+          onKeyDown?.(event);
+
+          if (!event.defaultPrevented && !disabled && showsCloseAction && event.key === 'Delete') {
+            event.preventDefault();
+            closeTab(event.currentTarget);
+          }
+        }}
+      >
+        {icon !== undefined ? (
+          <span aria-hidden="true" className={styles.icon} data-slot="icon">
+            {icon}
+          </span>
+        ) : null}
+        <span className={styles.label} data-slot="label">
+          {children}
+        </span>
+      </PrimitiveTab>
+
+      {showsCloseAction ? (
+        <button
+          className={styles.closeAction}
+          type="button"
+          aria-label={closeLabel}
+          data-slot="close-action"
+          disabled={disabled}
+          tabIndex={-1}
+          onClick={(event) => {
+            event.stopPropagation();
+
+            const item = event.currentTarget.parentElement;
+            const currentTab = item?.querySelector<HTMLButtonElement>('[role="tab"]');
+            closeTab(currentTab ?? null);
+          }}
+        >
+          <CloseIcon aria-hidden="true" />
+        </button>
+      ) : null}
+    </div>
+  );
+});
+
+Tab.displayName = 'Tab';

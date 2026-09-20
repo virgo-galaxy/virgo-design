@@ -8,6 +8,10 @@ import {
   SegmentedControlItem,
   Select,
   Switch,
+  Tab,
+  TabList,
+  TabPanel,
+  Tabs,
   Textarea,
 } from '@virgo-design/ui';
 import { type ComponentMetadata, componentMetadataRegistry } from '@virgo-design/ui/metadata';
@@ -20,6 +24,7 @@ const segmentedControlMetadata: ComponentMetadata = componentMetadataRegistry.se
 const textareaMetadata: ComponentMetadata = componentMetadataRegistry.textarea;
 const selectMetadata: ComponentMetadata = componentMetadataRegistry.select;
 const switchMetadata: ComponentMetadata = componentMetadataRegistry.switch;
+const tabsMetadata: ComponentMetadata = componentMetadataRegistry.tabs;
 
 export const workspaceSourceResolutionFixture = {
   Button,
@@ -31,6 +36,10 @@ export const workspaceSourceResolutionFixture = {
   SegmentedControlItem,
   Select,
   Switch,
+  Tab,
+  TabList,
+  TabPanel,
+  Tabs,
   Textarea,
   buttonMetadata,
   checkboxMetadata,
@@ -39,6 +48,7 @@ export const workspaceSourceResolutionFixture = {
   segmentedControlMetadata,
   selectMetadata,
   switchMetadata,
+  tabsMetadata,
   textareaMetadata,
   componentMetadataRegistry,
 } as const;

@@ -9,6 +9,7 @@ import {
   segmentedControlMetadata,
   selectMetadata,
   switchMetadata,
+  tabsMetadata,
   textareaMetadata,
 } from './index';
 
@@ -51,5 +52,10 @@ describe('componentMetadataRegistry', () => {
   it('registers the exported Textarea metadata without creating a copy', () => {
     expect(componentMetadataRegistry.textarea).toBe(textareaMetadata);
     expect(textareaMetadata.name).toBe('Textarea');
+  });
+
+  it('registers the exported Tabs metadata without creating a copy', () => {
+    expect(componentMetadataRegistry.tabs).toBe(tabsMetadata);
+    expect(tabsMetadata.name).toBe('Tabs');
   });
 });
