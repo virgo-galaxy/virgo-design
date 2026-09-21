@@ -22,7 +22,7 @@ export function BreadcrumbPage() {
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
-            <span>Component 09</span>
+            <span>Component 04</span>
             <span className="version-badge">Stable · V1</span>
           </div>
           <h1>Breadcrumb</h1>

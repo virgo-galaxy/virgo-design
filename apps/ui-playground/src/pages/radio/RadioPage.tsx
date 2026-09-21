@@ -8,7 +8,7 @@ export function RadioPage() {
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
-            <span>Component 05</span>
+            <span>Component 08</span>
             <span className="version-badge">Stable · V1</span>
           </div>
           <h1>Radio</h1>

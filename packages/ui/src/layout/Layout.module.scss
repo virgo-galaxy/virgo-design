@@ -1,0 +1,31 @@
+.root {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+.root[data-direction='vertical'] {
+  flex-direction: column;
+}
+
+.root[data-direction='horizontal'] {
+  flex-direction: row;
+}
+
+.header,
+.footer {
+  flex: 0 0 auto;
+}
+
+.sider {
+  width: var(--vd-layout-sider-width);
+  min-width: 0;
+  flex: 0 0 var(--vd-layout-sider-width);
+}
+
+.content {
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+}

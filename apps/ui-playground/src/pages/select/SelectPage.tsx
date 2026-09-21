@@ -38,7 +38,7 @@ export function SelectPage() {
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
-            <span>Component 03</span>
+            <span>Component 06</span>
             <span className="version-badge">Stable · V1</span>
           </div>
           <h1>Select</h1>

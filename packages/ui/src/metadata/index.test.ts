@@ -6,6 +6,7 @@ import {
   checkboxMetadata,
   componentMetadataRegistry,
   inputMetadata,
+  layoutMetadata,
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
@@ -33,6 +34,11 @@ describe('componentMetadataRegistry', () => {
   it('registers the exported Input metadata without creating a copy', () => {
     expect(componentMetadataRegistry.input).toBe(inputMetadata);
     expect(inputMetadata.name).toBe('Input');
+  });
+
+  it('registers the exported Layout metadata without creating a copy', () => {
+    expect(componentMetadataRegistry.layout).toBe(layoutMetadata);
+    expect(layoutMetadata.name).toBe('Layout');
   });
 
   it('registers the exported Radio metadata without creating a copy', () => {

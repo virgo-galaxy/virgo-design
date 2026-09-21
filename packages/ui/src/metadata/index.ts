@@ -3,6 +3,7 @@ import { buttonMetadata } from '../button/Button.meta';
 import { checkboxMetadata } from '../checkbox/Checkbox.meta';
 import { inputMetadata } from '../input/Input.meta';
 import { textareaMetadata } from '../input/Textarea.meta';
+import { layoutMetadata } from '../layout/Layout.meta';
 import { radioMetadata } from '../radio/Radio.meta';
 import { segmentedControlMetadata } from '../segmented-control/SegmentedControl.meta';
 import { selectMetadata } from '../select/Select.meta';
@@ -14,6 +15,7 @@ export {
   buttonMetadata,
   checkboxMetadata,
   inputMetadata,
+  layoutMetadata,
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
@@ -27,6 +29,7 @@ export const componentMetadataRegistry = {
   breadcrumb: breadcrumbMetadata,
   checkbox: checkboxMetadata,
   input: inputMetadata,
+  layout: layoutMetadata,
   radio: radioMetadata,
   segmentedControl: segmentedControlMetadata,
   select: selectMetadata,

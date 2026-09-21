@@ -21,7 +21,7 @@ export function SegmentedControlPage() {
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
-            <span>Component 07</span>
+            <span>Component 10</span>
             <span className="version-badge">Stable · V1</span>
           </div>
 
