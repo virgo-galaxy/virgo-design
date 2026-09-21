@@ -17,7 +17,7 @@ const motionVariants = [
 
 export function SegmentedControlPage() {
   return (
-    <main className="review-board" id="segmented-control-review">
+    <div className="review-board" id="segmented-control-review">
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
@@ -287,6 +287,6 @@ export function SegmentedControlPage() {
         <span>Virgo Design UI · Segmented Control V1</span>
         <span>Radio Primitive · Tokens · Motion · Metadata</span>
       </footer>
-    </main>
+    </div>
   );
 }

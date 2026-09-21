@@ -23,7 +23,7 @@ const textareaSizes = [
 
 export function InputPage() {
   return (
-    <main className="review-board" id="input-review">
+    <div className="review-board" id="input-review">
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
@@ -390,6 +390,6 @@ export function InputPage() {
         <span>Virgo Design UI · Input Family V1</span>
         <span>Input · Textarea · Primitive · Tokens · Metadata</span>
       </footer>
-    </main>
+    </div>
   );
 }

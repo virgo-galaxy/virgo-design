@@ -209,8 +209,8 @@ code {
 }
 
 .playground-shell {
-  display: grid;
-  grid-template-columns: 248px minmax(0, 1fr);
+  --playground-navigation-width: 280px;
+
   min-height: 100vh;
   color: var(--vd-text-primary);
   background: var(--vd-surface-background);
@@ -223,6 +223,7 @@ code {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden auto;
   padding: var(--vd-spacing-24) var(--vd-spacing-16);
   border-inline-end: var(--vd-border-width-1) solid var(--vd-border-subtle);
   background: var(--vd-surface-default);
@@ -270,6 +271,7 @@ code {
 }
 
 .component-navigation nav {
+  min-width: 0;
   margin-top: var(--vd-spacing-40);
 }
 
@@ -285,12 +287,18 @@ code {
 
 .component-link-list {
   display: grid;
+  min-width: 0;
   gap: var(--vd-spacing-4);
 }
 
 .component-groups {
   display: grid;
+  min-width: 0;
   gap: var(--vd-spacing-20);
+}
+
+.component-group {
+  min-width: 0;
 }
 
 .component-group + .component-group {
@@ -310,9 +318,10 @@ code {
 
 .component-link {
   display: grid;
-  grid-template-columns: var(--vd-sizing-28) 1fr auto;
+  grid-template-columns: var(--vd-sizing-28) minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--vd-spacing-8);
+  min-width: 0;
   min-height: var(--vd-sizing-56);
   padding: var(--vd-spacing-8);
   border-radius: var(--vd-radius-10);
@@ -354,6 +363,8 @@ code {
 .component-link strong,
 .component-link small {
   display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .component-link strong {
@@ -416,6 +427,11 @@ code {
 }
 
 .workspace {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.workspace-content {
   min-width: 0;
 }
 
@@ -949,10 +965,6 @@ code {
 }
 
 @media (max-width: 1040px) {
-  .playground-shell {
-    grid-template-columns: 200px minmax(0, 1fr);
-  }
-
   .overview {
     grid-template-columns: 1fr;
   }
@@ -980,6 +992,8 @@ code {
 
 @media (max-width: 760px) {
   .playground-shell {
+    --playground-navigation-width: 100%;
+
     display: block;
   }
 

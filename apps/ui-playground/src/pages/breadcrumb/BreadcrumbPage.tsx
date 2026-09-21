@@ -18,7 +18,7 @@ export function BreadcrumbPage() {
   const userId = 1;
 
   return (
-    <main className="review-board" id="breadcrumb-review">
+    <div className="review-board" id="breadcrumb-review">
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
@@ -130,6 +130,6 @@ export function BreadcrumbPage() {
         <span>Virgo Design UI · Breadcrumb V1</span>
         <span>Primitive · Tokens · Icons · Metadata · Accessibility</span>
       </footer>
-    </main>
+    </div>
   );
 }

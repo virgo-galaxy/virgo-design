@@ -4,7 +4,7 @@ import { ReviewSection } from '../../components/ReviewSection';
 
 export function RadioPage() {
   return (
-    <main className="review-board" id="radio-review">
+    <div className="review-board" id="radio-review">
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
@@ -145,6 +145,6 @@ export function RadioPage() {
         <span>Virgo Design UI · Radio V1</span>
         <span>Primitive · Tokens · Metadata</span>
       </footer>
-    </main>
+    </div>
   );
 }

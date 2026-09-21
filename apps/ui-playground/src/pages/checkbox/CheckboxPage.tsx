@@ -11,7 +11,7 @@ export function CheckboxPage() {
   const partiallyChecked = selectedFruit.length > 0 && !allChecked;
 
   return (
-    <main className="review-board" id="checkbox-review">
+    <div className="review-board" id="checkbox-review">
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
@@ -173,6 +173,6 @@ export function CheckboxPage() {
         <span>Virgo Design UI · Checkbox V1</span>
         <span>Primitive · Tokens · Icons · Metadata</span>
       </footer>
-    </main>
+    </div>
   );
 }

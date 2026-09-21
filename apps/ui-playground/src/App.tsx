@@ -1,4 +1,4 @@
-import { Breadcrumb } from '@virgo-design/ui';
+import { Breadcrumb, Layout } from '@virgo-design/ui';
 import { useEffect, useState } from 'react';
 import { Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
@@ -17,8 +17,8 @@ export function App() {
   }, [theme]);
 
   return (
-    <div className="playground-shell" data-theme={theme}>
-      <aside className="component-navigation">
+    <Layout className="playground-shell" data-theme={theme} direction="horizontal">
+      <Layout.Sider className="component-navigation" width="var(--playground-navigation-width)">
         <div className="brand-lockup">
           <div className="brand-mark" aria-hidden="true">
             V
@@ -76,10 +76,10 @@ export function App() {
             <span>Multi-component shell</span>
           </div>
         </div>
-      </aside>
+      </Layout.Sider>
 
-      <div className="workspace">
-        <header className="workspace-header">
+      <Layout className="workspace">
+        <Layout.Header className="workspace-header">
           <Breadcrumb className="workspace-breadcrumb">
             <Breadcrumb.Item aria-current={false}>Components</Breadcrumb.Item>
             <Breadcrumb.Item>{activeRoute.name}</Breadcrumb.Item>
@@ -97,16 +97,18 @@ export function App() {
               </button>
             ))}
           </div>
-        </header>
+        </Layout.Header>
 
-        <Routes>
-          <Route path="/" element={<Navigate replace to="/components/button" />} />
-          {componentRoutes.map(({ Component, id, path }) => (
-            <Route key={id} path={path} element={<Component />} />
-          ))}
-          <Route path="*" element={<Navigate replace to="/components/button" />} />
-        </Routes>
-      </div>
-    </div>
+        <Layout.Content className="workspace-content">
+          <Routes>
+            <Route path="/" element={<Navigate replace to="/components/button" />} />
+            {componentRoutes.map(({ Component, id, path }) => (
+              <Route key={id} path={path} element={<Component />} />
+            ))}
+            <Route path="*" element={<Navigate replace to="/components/button" />} />
+          </Routes>
+        </Layout.Content>
+      </Layout>
+    </Layout>
   );
 }

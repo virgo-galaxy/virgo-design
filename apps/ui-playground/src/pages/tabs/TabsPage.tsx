@@ -105,7 +105,7 @@ function EditableCardTabs() {
 
 export function TabsPage() {
   return (
-    <main className="review-board" id="tabs-review">
+    <div className="review-board" id="tabs-review">
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
@@ -294,6 +294,6 @@ export function TabsPage() {
         <span>Virgo Design UI · Tabs V1</span>
         <span>Primitive · Tokens · Icons · Motion · Metadata</span>
       </footer>
-    </main>
+    </div>
   );
 }

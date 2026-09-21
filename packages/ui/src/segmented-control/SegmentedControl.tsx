@@ -25,7 +25,7 @@ export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps
   ) {
     const rootRef = useRef<HTMLDivElement | null>(null);
     const isControlled = value !== undefined;
-    const [internalValue, setInternalValue] = useState(defaultValue ?? '');
+    const [internalValue, setInternalValue] = useState(defaultValue);
     const selectedValue = isControlled ? value : internalValue;
 
     const setRootRef = useCallback(
@@ -44,8 +44,7 @@ export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps
     const updateIndicator = useCallback(() => {
       const root = rootRef.current;
 
-      if (!root || !selectedValue) {
-        root?.removeAttribute('data-indicator-ready');
+      if (!root) {
         return;
       }
 
@@ -62,6 +61,10 @@ export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps
 
       const rootRect = root.getBoundingClientRect();
       const itemRect = selectedItem.getBoundingClientRect();
+      // Rects include ancestor scale/zoom, while left/width use local CSS pixels.
+      // Preserve fractional text widths; rounding them would introduce new gaps.
+      const localWidth = Number.parseFloat(getComputedStyle(root).width);
+      const scaleX = localWidth > 0 && rootRect.width > 0 ? rootRect.width / localWidth : 1;
       const position =
         items.length === 1
           ? 'only'
@@ -71,8 +74,11 @@ export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps
               ? 'last'
               : 'middle';
 
-      root.style.setProperty('--segmented-indicator-x', `${itemRect.left - rootRect.left}px`);
-      root.style.setProperty('--segmented-indicator-width', `${itemRect.width}px`);
+      root.style.setProperty(
+        '--segmented-indicator-x',
+        `${(itemRect.left - rootRect.left) / scaleX - root.clientLeft}px`,
+      );
+      root.style.setProperty('--segmented-indicator-width', `${itemRect.width / scaleX}px`);
       root.dataset.indicatorPosition = position;
       root.dataset.indicatorReady = 'true';
     }, [selectedValue]);
@@ -102,7 +108,7 @@ export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps
         observer.disconnect();
         window.removeEventListener('resize', handleResize);
       };
-    }, [updateIndicator, size, variant]);
+    }, [updateIndicator, size, variant, children]);
 
     return (
       <PrimitiveRadio.Group
@@ -110,7 +116,7 @@ export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps
         ref={setRootRef}
         className={joinClassNames(styles.root, className)}
         orientation="horizontal"
-        value={selectedValue}
+        {...(selectedValue === undefined ? {} : { value: selectedValue })}
         onValueChange={(nextValue) => {
           if (!isControlled) {
             setInternalValue(nextValue);

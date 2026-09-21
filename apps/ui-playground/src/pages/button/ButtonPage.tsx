@@ -23,7 +23,7 @@ const sizes = [
 
 export function ButtonPage() {
   return (
-    <main className="review-board" id="button-review">
+    <div className="review-board" id="button-review">
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
@@ -288,6 +288,6 @@ export function ButtonPage() {
         <span>Virgo Design UI · Button V1</span>
         <span>Primitive · Tokens · Icons</span>
       </footer>
-    </main>
+    </div>
   );
 }

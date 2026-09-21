@@ -61,7 +61,7 @@ function DemoSelect({ options, placeholder, 'aria-label': ariaLabel, ...props }:
 
 export function SelectPage() {
   return (
-    <main className="review-board" id="select-review">
+    <div className="review-board" id="select-review">
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
@@ -325,6 +325,6 @@ export function SelectPage() {
         <span>Virgo Design UI · Select V1</span>
         <span>Primitive · Tokens · Icons · Metadata</span>
       </footer>
-    </main>
+    </div>
   );
 }

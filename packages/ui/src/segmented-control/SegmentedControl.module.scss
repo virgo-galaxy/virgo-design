@@ -12,6 +12,7 @@
 
   position: relative;
   isolation: isolate;
+  overflow: hidden;
   box-sizing: border-box;
   display: inline-flex;
   height: var(--segmented-height);
@@ -22,15 +23,14 @@
 
 .indicator {
   position: absolute;
-  z-index: 0;
-  inset-block: var(--vd-border-width-1);
-  left: 0;
+  z-index: 2;
+  inset-block: 0;
+  left: var(--segmented-indicator-x);
   box-sizing: border-box;
   width: var(--segmented-indicator-width);
   border: var(--vd-border-width-1) var(--vd-border-style-solid) transparent;
   opacity: 0;
   pointer-events: none;
-  transform: translateX(var(--segmented-indicator-x));
 }
 
 .root[data-indicator-ready='true'] .indicator {
@@ -39,8 +39,9 @@
 
 .root[data-motion='slide'] .indicator {
   transition:
-    transform var(--vd-duration-180) var(--vd-easing-emphasized),
+    left var(--vd-duration-180) var(--vd-easing-emphasized),
     width var(--vd-duration-180) var(--vd-easing-emphasized),
+    border-radius var(--vd-duration-180) var(--vd-easing-emphasized),
     color var(--vd-duration-120) var(--vd-easing-standard),
     background-color var(--vd-duration-120) var(--vd-easing-standard),
     border-color var(--vd-duration-120) var(--vd-easing-standard),
@@ -49,7 +50,6 @@
 
 .item {
   position: relative;
-  z-index: 1;
   box-sizing: border-box;
   display: inline-flex;
   min-width: 0;
@@ -67,6 +67,26 @@
     box-shadow var(--vd-duration-120) var(--vd-easing-standard);
 }
 
+// Paint hover below the moving indicator, and keep text and focus above it.
+.item::before,
+.item::after {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border-radius: inherit;
+  content: '';
+  pointer-events: none;
+}
+
+.item::before {
+  z-index: 0;
+  transition: background-color var(--vd-duration-120) var(--vd-easing-standard);
+}
+
+.item::after {
+  z-index: 4;
+}
+
 .native {
   position: absolute;
   width: 1px;
@@ -79,6 +99,8 @@
 }
 
 .label {
+  position: relative;
+  z-index: 3;
   overflow: hidden;
   font-family: var(--segmented-font-family);
   font-size: var(--segmented-font-size);
@@ -126,20 +148,44 @@
 
 .root[data-variant='outline'],
 .root[data-variant='solid'] {
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-default);
   background: var(--vd-surface-default);
 }
 
-.root[data-variant='outline'] .item + .item,
-.root[data-variant='solid'] .item + .item {
+// A painted frame shares the indicator's coordinates without adding a border offset.
+.root[data-variant='outline']::after,
+.root[data-variant='solid']::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  box-sizing: border-box;
+  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-default);
+  border-radius: inherit;
+  content: '';
+  pointer-events: none;
+}
+
+.root[data-variant='outline'] .item + .item::before,
+.root[data-variant='solid'] .item + .item::before {
   border-inline-start: var(--vd-border-width-1) var(--vd-border-style-solid)
     var(--vd-border-default);
 }
 
-.root[data-variant='outline'] .item:has(.native:checked),
-.root[data-variant='solid'] .item:has(.native:checked),
-.root[data-variant='outline'] .item:has(.native:checked) + .item,
-.root[data-variant='solid'] .item:has(.native:checked) + .item {
+.root[data-variant='outline'] .item:first-of-type,
+.root[data-variant='solid'] .item:first-of-type {
+  border-start-start-radius: var(--segmented-radius);
+  border-end-start-radius: var(--segmented-radius);
+}
+
+.root[data-variant='outline'] .item:last-of-type,
+.root[data-variant='solid'] .item:last-of-type {
+  border-start-end-radius: var(--segmented-radius);
+  border-end-end-radius: var(--segmented-radius);
+}
+
+.root[data-variant='outline'] .item:has(.native:checked)::before,
+.root[data-variant='solid'] .item:has(.native:checked)::before,
+.root[data-variant='outline'] .item:has(.native:checked) + .item::before,
+.root[data-variant='solid'] .item:has(.native:checked) + .item::before {
   border-inline-start-color: transparent;
 }
 
@@ -149,37 +195,38 @@
 }
 
 .root[data-indicator-position='first'] .indicator {
-  border-start-start-radius: calc(var(--segmented-radius) - var(--vd-border-width-2));
-  border-end-start-radius: calc(var(--segmented-radius) - var(--vd-border-width-2));
+  border-start-start-radius: var(--segmented-radius);
+  border-end-start-radius: var(--segmented-radius);
 }
 
 .root[data-indicator-position='last'] .indicator {
-  border-start-end-radius: calc(var(--segmented-radius) - var(--vd-border-width-2));
-  border-end-end-radius: calc(var(--segmented-radius) - var(--vd-border-width-2));
+  border-start-end-radius: var(--segmented-radius);
+  border-end-end-radius: var(--segmented-radius);
 }
 
 .root[data-indicator-position='only'] .indicator {
-  border-radius: calc(var(--segmented-radius) - var(--vd-border-width-2));
+  border-radius: var(--segmented-radius);
 }
 
 .root[data-variant='outline'] .indicator {
-  border-color: var(--vd-brand-primary);
-  background: transparent;
+  border-color: var(--vd-brand-link);
+  background: var(--vd-surface-default);
 }
 
-.root[data-variant='outline'] .item:hover:not(:has(.native:disabled, .native:checked)) {
+.root[data-variant='outline'] .item:hover:not(:has(.native:disabled, .native:checked))::before {
   background: var(--vd-fill-hover);
 }
 
 .root[data-variant='outline'] .item:has(.native:checked) {
-  color: var(--vd-brand-primary);
+  color: var(--vd-brand-link);
 }
 
 .root[data-variant='solid'] .indicator {
+  border-color: var(--vd-brand-primary);
   background: var(--vd-brand-primary);
 }
 
-.root[data-variant='solid'] .item:hover:not(:has(.native:disabled, .native:checked)) {
+.root[data-variant='solid'] .item:hover:not(:has(.native:disabled, .native:checked))::before {
   background: var(--vd-fill-hover);
 }
 
@@ -205,19 +252,18 @@
   border-radius: var(--segmented-item-radius);
 }
 
-.root[data-variant='soft'] .item:hover:not(:has(.native:disabled, .native:checked)) {
+.root[data-variant='soft'] .item:hover:not(:has(.native:disabled, .native:checked))::before {
   background: var(--vd-fill-hover);
 }
 
-.item:has(.native:focus-visible) {
-  z-index: 3;
+.item:has(.native:focus-visible)::after {
   box-shadow: inset 0 0 0 var(--vd-border-width-2) var(--vd-border-focus);
 }
 
-.root[data-variant='soft'] .item:has(.native:focus-visible) {
+.root[data-variant='solid'] .item:has(.native:checked:focus-visible)::after {
   box-shadow:
-    var(--vd-elevation-1),
-    inset 0 0 0 var(--vd-border-width-2) var(--vd-border-focus);
+    inset 0 0 0 var(--vd-border-width-2) var(--vd-brand-primary),
+    inset 0 0 0 calc(var(--vd-border-width-2) + var(--vd-border-width-1)) var(--vd-brand-foreground);
 }
 
 .item:has(.native:disabled),
@@ -235,6 +281,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .item,
+  .item::before,
   .indicator {
     transition-duration: var(--vd-duration-0);
   }

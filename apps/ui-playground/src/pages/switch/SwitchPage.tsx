@@ -5,7 +5,7 @@ import { ReviewSection } from '../../components/ReviewSection';
 
 export function SwitchPage() {
   return (
-    <main className="review-board" id="switch-review">
+    <div className="review-board" id="switch-review">
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
@@ -221,6 +221,6 @@ export function SwitchPage() {
         <span>Virgo Design UI · Switch V1</span>
         <span>Primitive · Tokens · Metadata</span>
       </footer>
-    </main>
+    </div>
   );
 }
