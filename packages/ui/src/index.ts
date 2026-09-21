@@ -6,5 +6,6 @@ export * from './layout';
 export * from './radio';
 export * from './segmented-control';
 export * from './select';
+export * from './surface';
 export * from './switch';
 export * from './tabs';

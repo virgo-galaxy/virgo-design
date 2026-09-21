@@ -1,0 +1,53 @@
+.root {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  border-radius: var(--surface-radius);
+  color: var(--vd-text-primary);
+  background: var(--surface-tone);
+  box-shadow: var(--surface-elevation);
+}
+
+.root[data-material='translucent'],
+.root[data-material='glass'] {
+  background: transparent;
+}
+
+// Negative stacking levels stay inside the isolated root, above its background
+// and below normal-flow children. Children need no wrapper or imposed layout.
+.background,
+.material {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.background {
+  z-index: -2;
+}
+
+.material {
+  z-index: -1;
+  // Flatten alpha-bearing semantic tones against the current theme's default
+  // before applying material translucency, so dark and light remain readable.
+  --surface-tint: color-mix(in srgb, var(--surface-tone) 70%, var(--vd-surface-default));
+
+  // Usable fallback even without color-mix or backdrop-filter support.
+  background: var(--surface-tone);
+  background: color-mix(in srgb, var(--surface-tint) 84%, transparent);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .root[data-material='glass'] > .material {
+    background: color-mix(in srgb, var(--surface-tint) 66%, transparent);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+}
+
+@each $border in (subtle, default, strong) {
+  .root[data-border='#{$border}'] {
+    border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-#{$border});
+  }
+}

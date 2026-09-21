@@ -16,6 +16,8 @@ import {
   type SelectOptionProps,
   type SelectProps,
   type SelectTriggerProps,
+  Surface,
+  type SurfaceProps,
   Switch,
   Tabs,
   Textarea,
@@ -31,8 +33,11 @@ const radioMetadata: ComponentMetadata = componentMetadataRegistry.radio;
 const segmentedControlMetadata: ComponentMetadata = componentMetadataRegistry.segmentedControl;
 const textareaMetadata: ComponentMetadata = componentMetadataRegistry.textarea;
 const selectMetadata: ComponentMetadata = componentMetadataRegistry.select;
+const surfaceMetadata: ComponentMetadata = componentMetadataRegistry.surface;
 const switchMetadata: ComponentMetadata = componentMetadataRegistry.switch;
 const tabsMetadata: ComponentMetadata = componentMetadataRegistry.tabs;
+
+export type WorkspaceSurfaceProps = SurfaceProps;
 
 export type WorkspaceLayoutProps = {
   layout: LayoutProps;
@@ -58,6 +63,7 @@ export const workspaceSourceResolutionFixture = {
   Radio,
   SegmentedControl,
   Select,
+  Surface,
   Switch,
   Tabs,
   Textarea,
@@ -69,6 +75,7 @@ export const workspaceSourceResolutionFixture = {
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
+  surfaceMetadata,
   switchMetadata,
   tabsMetadata,
   textareaMetadata,

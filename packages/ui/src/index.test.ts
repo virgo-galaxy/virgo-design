@@ -5,6 +5,9 @@ import * as ui from './index';
 describe('@virgo-design/ui public API', () => {
   it('exposes runtime UI without metadata', () => {
     expect(ui).toHaveProperty('Button');
+    expect(ui).toHaveProperty('Surface');
+    expect(ui.Layout).not.toHaveProperty('Surface');
+    expect(ui).not.toHaveProperty('surfaceMetadata');
     expect(ui).toHaveProperty('Breadcrumb');
     expect(ui.Breadcrumb).toHaveProperty('Item');
     expect(ui).toHaveProperty('Checkbox');

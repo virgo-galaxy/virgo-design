@@ -991,7 +991,7 @@ code {
 }
 
 @media (max-width: 760px) {
-  .playground-shell {
+  .playground-shell[data-direction='horizontal'] {
     --playground-navigation-width: 100%;
 
     display: block;

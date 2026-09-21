@@ -10,12 +10,19 @@ import {
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
+  surfaceMetadata,
   switchMetadata,
   tabsMetadata,
   textareaMetadata,
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers the exported Surface metadata without creating a copy', () => {
+    expect(componentMetadataRegistry.surface).toBe(surfaceMetadata);
+    expect(surfaceMetadata.name).toBe('Surface');
+    expect(surfaceMetadata.category).toBe('General');
+  });
+
   it('registers the exported Button metadata without creating a copy', () => {
     expect(componentMetadataRegistry.button).toBe(buttonMetadata);
     expect(buttonMetadata.name).toBe('Button');

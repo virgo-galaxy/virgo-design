@@ -27,7 +27,7 @@ export function InputPage() {
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
-            <span>Component 05</span>
+            <span>Component 06</span>
             <span className="version-badge">Stable · V1</span>
           </div>
           <h1>Input</h1>
