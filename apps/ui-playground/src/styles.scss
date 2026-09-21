@@ -439,13 +439,15 @@ code {
   position: sticky;
   top: 0;
   z-index: 3;
+}
+
+.workspace-header-surface {
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-height: var(--vd-sizing-64);
   padding-inline: var(--vd-spacing-32);
   border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
-  background: var(--vd-surface-background);
 }
 
 .workspace-breadcrumb {
@@ -1010,7 +1012,7 @@ code {
     display: none;
   }
 
-  .workspace-header {
+  .workspace-header-surface {
     padding-inline: var(--vd-spacing-16);
   }
 

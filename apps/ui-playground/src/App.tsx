@@ -1,4 +1,4 @@
-import { Breadcrumb, Layout } from '@virgo-design/ui';
+import { Breadcrumb, Layout, Surface } from '@virgo-design/ui';
 import { useEffect, useState } from 'react';
 import { Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
@@ -80,23 +80,25 @@ export function App() {
 
       <Layout className="workspace">
         <Layout.Header className="workspace-header">
-          <Breadcrumb className="workspace-breadcrumb">
-            <Breadcrumb.Item aria-current={false}>Components</Breadcrumb.Item>
-            <Breadcrumb.Item>{activeRoute.name}</Breadcrumb.Item>
-          </Breadcrumb>
+          <Surface material="glass" border="none" className="workspace-header-surface">
+            <Breadcrumb className="workspace-breadcrumb">
+              <Breadcrumb.Item aria-current={false}>Components</Breadcrumb.Item>
+              <Breadcrumb.Item>{activeRoute.name}</Breadcrumb.Item>
+            </Breadcrumb>
 
-          <div className="theme-control" role="group" aria-label="Preview theme">
-            {(['light', 'dark'] as const).map((candidate) => (
-              <button
-                key={candidate}
-                type="button"
-                aria-pressed={theme === candidate}
-                onClick={() => setTheme(candidate)}
-              >
-                {candidate}
-              </button>
-            ))}
-          </div>
+            <div className="theme-control" role="group" aria-label="Preview theme">
+              {(['light', 'dark'] as const).map((candidate) => (
+                <button
+                  key={candidate}
+                  type="button"
+                  aria-pressed={theme === candidate}
+                  onClick={() => setTheme(candidate)}
+                >
+                  {candidate}
+                </button>
+              ))}
+            </div>
+          </Surface>
         </Layout.Header>
 
         <Layout.Content className="workspace-content">
