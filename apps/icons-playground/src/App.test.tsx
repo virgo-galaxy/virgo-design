@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { App } from './App';
 
 describe('Icons Playground', () => {
-  it('renders the fourteen canonical icons and defaults the review board to Plus', () => {
+  it('defaults the canonical review board to Plus', () => {
     render(<App />);
 
     expect(screen.getByRole('heading', { name: 'Plus' })).toBeInTheDocument();
@@ -33,7 +33,7 @@ describe('Icons Playground', () => {
 
     await user.click(screen.getByRole('button', { name: 'Icon Plus' }));
 
-    expect(screen.getAllByRole('option')).toHaveLength(14);
+    expect(screen.getAllByRole('option')).toHaveLength(26);
     expect(screen.getByRole('option', { name: 'Check' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Info' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Cybertruck' })).toBeInTheDocument();
@@ -59,6 +59,50 @@ describe('Icons Playground', () => {
       'width',
       '20',
     );
+  });
+
+  it.each([
+    ['Workspace', 'workspace'],
+    ['Home', 'home'],
+    ['Eye', 'eye'],
+    ['Eye Closed', 'eye-closed'],
+    ['Dashboard', 'dashboard'],
+    ['Gauge', 'gauge'],
+    ['Globe', 'globe'],
+    ['Bot', 'bot'],
+    ['Chevrons Left', 'chevrons-left'],
+    ['Chevrons Right', 'chevrons-right'],
+    ['Chevrons Up', 'chevrons-up'],
+    ['Chevrons Down', 'chevrons-down'],
+  ])('reviews %s at every size in both themes', async (label, id) => {
+    const user = userEvent.setup();
+    render(<App />);
+    await user.click(screen.getByRole('button', { name: 'Icon Plus' }));
+    await user.click(screen.getByRole('option', { name: label }));
+
+    expect(screen.getByRole('heading', { name: label })).toBeInTheDocument();
+    expect(screen.getByTestId('icon-canvas')).toHaveAttribute('data-icon', id);
+    expect(screen.getByTestId('icon-canvas')).toHaveAttribute('data-grid', 'true');
+
+    for (const theme of ['light', 'dark']) {
+      await user.click(screen.getByRole('button', { name: `Theme ${theme}` }));
+      expect(document.documentElement).toHaveAttribute('data-theme', theme);
+      const large = screen.getByTestId('large-icon-glyph');
+      const actual = screen.getByTestId('actual-icon-glyph');
+      const button = screen.getByTestId('icon-button-preview').querySelector('svg');
+      const textButton = screen.getByTestId('text-button-preview').querySelector('svg');
+      expect(large).toHaveAttribute('width', '288');
+      expect(actual).toHaveAttribute('width', '24');
+      expect(button).toHaveAttribute('width', '20');
+      expect(textButton).toHaveAttribute('width', '20');
+      for (const glyph of [large, actual, button, textButton]) {
+        expect(glyph).toHaveAttribute('viewBox', '0 0 24 24');
+        expect(glyph).toHaveAttribute('fill', 'currentColor');
+        expect(glyph).not.toHaveAttribute('stroke');
+        expect(glyph).not.toHaveAttribute('stroke-width');
+        expect(glyph?.innerHTML).toBe(large.innerHTML);
+      }
+    }
   });
 
   it('applies the optional grid to the design canvas', async () => {

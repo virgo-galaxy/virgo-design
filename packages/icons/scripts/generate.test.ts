@@ -6,20 +6,31 @@ import { describe, expect, it } from 'vitest';
 import { generateIconComponent } from './generate';
 
 describe('icons generator', () => {
-  it('accepts the fourteen canonical SVG assets under the icon source directory', async () => {
+  it('generates all twenty-six canonical SVG assets without losing geometry', async () => {
     const iconDirectory = resolve('packages/icons/icons');
     const files = (await readdir(iconDirectory))
       .filter((fileName) => fileName.endsWith('.svg'))
       .sort();
 
     expect(files).toEqual([
+      'bot.svg',
       'check.svg',
       'chevron-down.svg',
       'chevron-left.svg',
       'chevron-right.svg',
       'chevron-up.svg',
+      'chevrons-down.svg',
+      'chevrons-left.svg',
+      'chevrons-right.svg',
+      'chevrons-up.svg',
       'close.svg',
       'cybertruck.svg',
+      'dashboard.svg',
+      'eye-closed.svg',
+      'eye.svg',
+      'gauge.svg',
+      'globe.svg',
+      'home.svg',
       'info.svg',
       'minus.svg',
       'plus.svg',
@@ -27,6 +38,7 @@ describe('icons generator', () => {
       'settings.svg',
       'trash.svg',
       'user.svg',
+      'workspace.svg',
     ]);
 
     await Promise.all(
@@ -36,6 +48,22 @@ describe('icons generator', () => {
         expect(source).toContain('fill="currentColor"');
         expect(source).toContain('viewBox="0 0 24 24"');
         expect(source).not.toMatch(/\s(?:width|height)="/);
+        expect(source).not.toMatch(/\sstroke="(?!none")/);
+        expect(source).not.toMatch(/\stransform=/);
+
+        const output = generateIconComponent(fileName, source);
+        const paths = [...source.matchAll(/<path\s+([^>]+)\/>/g)];
+        expect(paths.length).toBeGreaterThan(0);
+        expect(output.match(/<path\s/g)).toHaveLength(paths.length);
+        for (const [, attributes] of paths) {
+          expect(attributes).toMatch(/^\s*(?:(?:d|fill-rule)="[^"]*"\s*)+$/);
+          const geometry = attributes?.match(/\bd="([^"]+)"/)?.[1];
+          expect(output).toContain(geometry);
+        }
+        expect(output).not.toContain('strokeWidth={strokeWidth}');
+        expect(output.match(/fillRule="evenodd"/g)?.length ?? 0).toBe(
+          source.match(/fill-rule="evenodd"/g)?.length ?? 0,
+        );
       }),
     );
   });

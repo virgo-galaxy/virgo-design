@@ -174,6 +174,7 @@ export async function generateIcons() {
   );
 
   const exports = generatedIcons
+    .sort((left, right) => left.localeCompare(right, 'en', { sensitivity: 'base', numeric: true }))
     .map(
       (componentName) =>
         `export { ${componentName}, type ${componentName}Props } from './generated/${componentName}.js';`,

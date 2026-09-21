@@ -1,0 +1,4 @@
+<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- Original chevron weight and terminals; seven-unit pitch gives a near-square footprint and a three-unit diagonal gap. -->
+  <path d="M4.25 19.25v-1l6-6v-.5l-6-6v-1l.5-.5h1l7.05 7.05v1.4l-7.05 7.05h-1z M11.25 19.25v-1l6-6v-.5l-6-6v-1l.5-.5h1l7.05 7.05v1.4l-7.05 7.05h-1z" />
+</svg>

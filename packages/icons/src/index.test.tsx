@@ -4,7 +4,36 @@ import { resolve } from 'node:path';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { PlusIcon } from './index';
+import {
+  BotIcon,
+  ChevronsDownIcon,
+  ChevronsLeftIcon,
+  ChevronsRightIcon,
+  ChevronsUpIcon,
+  DashboardIcon,
+  EyeClosedIcon,
+  EyeIcon,
+  GaugeIcon,
+  GlobeIcon,
+  HomeIcon,
+  PlusIcon,
+  WorkspaceIcon,
+} from './index';
+
+const addedIcons = [
+  ['workspace', WorkspaceIcon],
+  ['home', HomeIcon],
+  ['eye', EyeIcon],
+  ['eye-closed', EyeClosedIcon],
+  ['dashboard', DashboardIcon],
+  ['gauge', GaugeIcon],
+  ['globe', GlobeIcon],
+  ['bot', BotIcon],
+  ['chevrons-left', ChevronsLeftIcon],
+  ['chevrons-right', ChevronsRightIcon],
+  ['chevrons-up', ChevronsUpIcon],
+  ['chevrons-down', ChevronsDownIcon],
+] as const;
 
 describe('@virgo-design/icons', () => {
   it('uses Node-compatible ESM specifiers in the generated public index', async () => {
@@ -24,7 +53,44 @@ describe('@virgo-design/icons', () => {
     expect(indexSource).toContain("from './generated/SettingsIcon.js';");
     expect(indexSource).toContain("from './generated/TrashIcon.js';");
     expect(indexSource).toContain("from './generated/UserIcon.js';");
+    for (const [, Icon] of addedIcons) {
+      expect(indexSource).toContain(`from './generated/${Icon.name}.js';`);
+    }
+    // Kebab-case filename order differs from the case-insensitive public export order.
+    expect(indexSource.indexOf("from './generated/ChevronsUpIcon.js';")).toBeLessThan(
+      indexSource.indexOf("from './generated/ChevronUpIcon.js';"),
+    );
   });
+
+  it.each(addedIcons)(
+    'exports %s with its canonical geometry at 24px and 20px',
+    async (id, Icon) => {
+      const source = await readFile(resolve(`packages/icons/icons/${id}.svg`), 'utf8');
+      const canonical = new DOMParser().parseFromString(source, 'image/svg+xml');
+      const { rerender } = render(<Icon data-testid="icon" />);
+
+      for (const size of [24, 20]) {
+        if (size === 20) rerender(<Icon data-testid="icon" size={20} />);
+        const icon = screen.getByTestId('icon');
+        expect(icon).toHaveAttribute('viewBox', '0 0 24 24');
+        expect(icon).toHaveAttribute('fill', 'currentColor');
+        expect(icon).toHaveAttribute('width', String(size));
+        expect(icon).toHaveAttribute('height', String(size));
+        expect(icon).not.toHaveAttribute('stroke');
+        expect(icon).not.toHaveAttribute('stroke-width');
+        expect(icon.querySelector('[stroke], [stroke-width], [transform]')).toBeNull();
+        const paths = [...icon.querySelectorAll('path')];
+        const canonicalPaths = [...canonical.querySelectorAll('path')];
+        expect(paths).toHaveLength(canonicalPaths.length);
+        paths.forEach((path, index) => {
+          expect(path.getAttribute('d')).toBe(canonicalPaths[index]?.getAttribute('d'));
+          expect(path.getAttribute('fill-rule')).toBe(
+            canonicalPaths[index]?.getAttribute('fill-rule'),
+          );
+        });
+      }
+    },
+  );
 
   it('exports PlusIcon with canonical SVG defaults', () => {
     render(<PlusIcon data-testid="plus-icon" />);
