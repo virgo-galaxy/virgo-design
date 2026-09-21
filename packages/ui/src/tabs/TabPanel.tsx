@@ -1,4 +1,4 @@
-import { TabPanel as PrimitiveTabPanel } from '@virgo-design/primitives';
+import { Tabs as PrimitiveTabs } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
 import styles from './Tabs.module.scss';
@@ -13,7 +13,7 @@ export const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(function TabPa
   forwardedRef,
 ) {
   return (
-    <PrimitiveTabPanel
+    <PrimitiveTabs.Panel
       {...props}
       ref={forwardedRef}
       className={joinClassNames(styles.panel, className)}
@@ -21,4 +21,4 @@ export const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(function TabPa
   );
 });
 
-TabPanel.displayName = 'TabPanel';
+TabPanel.displayName = 'Tabs.Panel';

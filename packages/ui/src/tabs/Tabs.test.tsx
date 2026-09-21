@@ -3,25 +3,22 @@ import userEvent from '@testing-library/user-event';
 import { type ComponentProps, createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { Tab } from './Tab';
-import { TabList } from './TabList';
-import { TabPanel } from './TabPanel';
-import { Tabs } from './Tabs';
+import { Tabs } from './index';
 
 function renderTabs(
   props: Partial<ComponentProps<typeof Tabs>> = {},
-  tabProps: Partial<ComponentProps<typeof Tab>> = {},
+  tabProps: Partial<ComponentProps<typeof Tabs.Tab>> = {},
 ) {
   return render(
     <Tabs defaultValue="overview" {...props}>
-      <TabList aria-label="Sections">
-        <Tab value="overview" {...tabProps}>
+      <Tabs.List aria-label="Sections">
+        <Tabs.Tab value="overview" {...tabProps}>
           Overview
-        </Tab>
-        <Tab value="api">API</Tab>
-      </TabList>
-      <TabPanel value="overview">Overview content</TabPanel>
-      <TabPanel value="api">API content</TabPanel>
+        </Tabs.Tab>
+        <Tabs.Tab value="api">API</Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value="overview">Overview content</Tabs.Panel>
+      <Tabs.Panel value="api">API content</Tabs.Panel>
     </Tabs>,
   );
 }
@@ -128,16 +125,16 @@ describe('Tabs', () => {
       <>
         <button type="button">Before tabs</button>
         <Tabs variant="card" addable onAdd={onAdd} defaultValue="overview">
-          <TabList aria-label="Open tabs">
-            <Tab closable value="overview" onClose={onClose} closeLabel="Close overview">
+          <Tabs.List aria-label="Open tabs">
+            <Tabs.Tab closable value="overview" onClose={onClose} closeLabel="Close overview">
               Overview
-            </Tab>
-            <Tab closable value="api" onClose={onClose} closeLabel="Close API">
+            </Tabs.Tab>
+            <Tabs.Tab closable value="api" onClose={onClose} closeLabel="Close API">
               API
-            </Tab>
-          </TabList>
-          <TabPanel value="overview">Overview content</TabPanel>
-          <TabPanel value="api">API content</TabPanel>
+            </Tabs.Tab>
+          </Tabs.List>
+          <Tabs.Panel value="overview">Overview content</Tabs.Panel>
+          <Tabs.Panel value="api">API content</Tabs.Panel>
         </Tabs>
       </>,
     );
@@ -206,8 +203,8 @@ describe('Tabs', () => {
 
     render(
       <Tabs ref={rootRef} className="consumer-tabs" defaultValue="overview" data-testid="tabs">
-        <TabList className="consumer-list" aria-label="Sections">
-          <Tab
+        <Tabs.List className="consumer-list" aria-label="Sections">
+          <Tabs.Tab
             ref={tabRef}
             className="consumer-tab"
             value="overview"
@@ -215,11 +212,11 @@ describe('Tabs', () => {
             onClick={onClick}
           >
             Overview
-          </Tab>
-        </TabList>
-        <TabPanel ref={panelRef} className="consumer-panel" value="overview">
+          </Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel ref={panelRef} className="consumer-panel" value="overview">
           Content
-        </TabPanel>
+        </Tabs.Panel>
       </Tabs>,
     );
 

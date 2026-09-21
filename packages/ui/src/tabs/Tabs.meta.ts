@@ -6,7 +6,7 @@ export const tabsMetadata = {
   category: 'Navigation',
   description:
     'Switches between related content panels with standard tab semantics, keyboard navigation, and a smoothly moving selection indicator.',
-  import: "import { Tab, TabList, TabPanel, Tabs } from '@virgo-design/ui';",
+  import: "import { Tabs } from '@virgo-design/ui';",
   variants: [
     {
       name: 'line',
@@ -78,7 +78,7 @@ export const tabsMetadata = {
   examples: [
     {
       name: 'Line tabs',
-      code: '<Tabs defaultValue="overview"><TabList aria-label="Project sections"><Tab value="overview">Overview</Tab><Tab value="api">API</Tab></TabList><TabPanel value="overview">Overview content</TabPanel><TabPanel value="api">API content</TabPanel></Tabs>',
+      code: '<Tabs defaultValue="overview"><Tabs.List aria-label="Project sections"><Tabs.Tab value="overview">Overview</Tabs.Tab><Tabs.Tab value="api">API</Tabs.Tab></Tabs.List><Tabs.Panel value="overview">Overview content</Tabs.Panel><Tabs.Panel value="api">API content</Tabs.Panel></Tabs>',
     },
     {
       name: 'Centered tabs',
@@ -86,7 +86,7 @@ export const tabsMetadata = {
     },
     {
       name: 'Editable card tabs',
-      code: '<Tabs variant="card" addable onAdd={addTab} defaultValue="tab-1"><TabList aria-label="Open tabs"><Tab closable value="tab-1" onClose={closeTab}>Tab 1</Tab></TabList><TabPanel value="tab-1">Content</TabPanel></Tabs>',
+      code: '<Tabs variant="card" addable onAdd={addTab} defaultValue="tab-1"><Tabs.List aria-label="Open tabs"><Tabs.Tab closable value="tab-1" onClose={closeTab}>Tab 1</Tabs.Tab></Tabs.List><Tabs.Panel value="tab-1">Content</Tabs.Panel></Tabs>',
     },
   ],
 } as const satisfies ComponentMetadata;

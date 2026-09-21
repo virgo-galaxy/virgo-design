@@ -1,13 +1,13 @@
-import { Layout, LayoutContent, LayoutFooter, LayoutHeader, LayoutSider } from '@virgo-design/ui';
+import { Layout } from '@virgo-design/ui';
 
 import { ReviewSection } from '../../components/ReviewSection';
 
 function BasicLayout() {
   return (
     <Layout className="layout-demo">
-      <LayoutHeader className="layout-demo-region layout-demo-header">Header</LayoutHeader>
-      <LayoutContent className="layout-demo-region layout-demo-content">Content</LayoutContent>
-      <LayoutFooter className="layout-demo-region layout-demo-footer">Footer</LayoutFooter>
+      <Layout.Header className="layout-demo-region layout-demo-header">Header</Layout.Header>
+      <Layout.Content className="layout-demo-region layout-demo-content">Content</Layout.Content>
+      <Layout.Footer className="layout-demo-region layout-demo-footer">Footer</Layout.Footer>
     </Layout>
   );
 }
@@ -80,16 +80,16 @@ export function LayoutPage() {
       >
         <div className="layout-review-card">
           <Layout className="layout-demo">
-            <LayoutHeader className="layout-demo-region layout-demo-header">Header</LayoutHeader>
+            <Layout.Header className="layout-demo-region layout-demo-header">Header</Layout.Header>
             <Layout direction="horizontal">
-              <LayoutSider className="layout-demo-region layout-demo-sider" width={136}>
+              <Layout.Sider className="layout-demo-region layout-demo-sider" width={136}>
                 Sider
-              </LayoutSider>
-              <LayoutContent className="layout-demo-region layout-demo-content">
+              </Layout.Sider>
+              <Layout.Content className="layout-demo-region layout-demo-content">
                 Content
-              </LayoutContent>
+              </Layout.Content>
             </Layout>
-            <LayoutFooter className="layout-demo-region layout-demo-footer">Footer</LayoutFooter>
+            <Layout.Footer className="layout-demo-region layout-demo-footer">Footer</Layout.Footer>
           </Layout>
         </div>
       </ReviewSection>
@@ -102,16 +102,16 @@ export function LayoutPage() {
       >
         <div className="layout-review-card">
           <Layout className="layout-demo">
-            <LayoutHeader className="layout-demo-region layout-demo-header">Header</LayoutHeader>
+            <Layout.Header className="layout-demo-region layout-demo-header">Header</Layout.Header>
             <Layout direction="horizontal">
-              <LayoutContent className="layout-demo-region layout-demo-content">
+              <Layout.Content className="layout-demo-region layout-demo-content">
                 Content
-              </LayoutContent>
-              <LayoutSider className="layout-demo-region layout-demo-sider" width={136}>
+              </Layout.Content>
+              <Layout.Sider className="layout-demo-region layout-demo-sider" width={136}>
                 Sider
-              </LayoutSider>
+              </Layout.Sider>
             </Layout>
-            <LayoutFooter className="layout-demo-region layout-demo-footer">Footer</LayoutFooter>
+            <Layout.Footer className="layout-demo-region layout-demo-footer">Footer</Layout.Footer>
           </Layout>
         </div>
       </ReviewSection>
@@ -124,15 +124,19 @@ export function LayoutPage() {
       >
         <div className="layout-review-card">
           <Layout className="layout-demo" direction="horizontal">
-            <LayoutSider className="layout-demo-region layout-demo-sider" width={136}>
+            <Layout.Sider className="layout-demo-region layout-demo-sider" width={136}>
               Sider
-            </LayoutSider>
+            </Layout.Sider>
             <Layout>
-              <LayoutHeader className="layout-demo-region layout-demo-header">Header</LayoutHeader>
-              <LayoutContent className="layout-demo-region layout-demo-content">
+              <Layout.Header className="layout-demo-region layout-demo-header">
+                Header
+              </Layout.Header>
+              <Layout.Content className="layout-demo-region layout-demo-content">
                 Content
-              </LayoutContent>
-              <LayoutFooter className="layout-demo-region layout-demo-footer">Footer</LayoutFooter>
+              </Layout.Content>
+              <Layout.Footer className="layout-demo-region layout-demo-footer">
+                Footer
+              </Layout.Footer>
             </Layout>
           </Layout>
         </div>

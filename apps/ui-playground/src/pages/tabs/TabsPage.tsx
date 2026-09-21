@@ -1,5 +1,5 @@
 import { InfoIcon, SearchIcon, SettingsIcon, UserIcon } from '@virgo-design/icons';
-import { Tab, TabList, TabPanel, Tabs } from '@virgo-design/ui';
+import { Tabs } from '@virgo-design/ui';
 import { type ReactNode, useState } from 'react';
 
 import { ReviewSection } from '../../components/ReviewSection';
@@ -22,24 +22,24 @@ function ContentPanel({ title, children }: { title: string; children: ReactNode 
 function BasicTabs({ align = 'start' }: { align?: 'start' | 'center' }) {
   return (
     <Tabs align={align} defaultValue="overview">
-      <TabList aria-label={`${align} project sections`}>
+      <Tabs.List aria-label={`${align} project sections`}>
         {baseTabs.map((tab) => (
-          <Tab key={tab.value} value={tab.value}>
+          <Tabs.Tab key={tab.value} value={tab.value}>
             {tab.label}
-          </Tab>
+          </Tabs.Tab>
         ))}
-      </TabList>
-      <TabPanel value="overview">
+      </Tabs.List>
+      <Tabs.Panel value="overview">
         <ContentPanel title="Overview">A concise summary of the current project.</ContentPanel>
-      </TabPanel>
-      <TabPanel value="api">
+      </Tabs.Panel>
+      <Tabs.Panel value="api">
         <ContentPanel title="API">Public component props and composition guidance.</ContentPanel>
-      </TabPanel>
-      <TabPanel value="accessibility">
+      </Tabs.Panel>
+      <Tabs.Panel value="accessibility">
         <ContentPanel title="Accessibility">
           Keyboard and assistive technology behavior.
         </ContentPanel>
-      </TabPanel>
+      </Tabs.Panel>
     </Tabs>
   );
 }
@@ -78,9 +78,9 @@ function EditableCardTabs() {
       onAdd={addTab}
       addLabel="Add document tab"
     >
-      <TabList aria-label="Open documents">
+      <Tabs.List aria-label="Open documents">
         {tabs.map((tab) => (
-          <Tab
+          <Tabs.Tab
             closable
             key={tab.value}
             value={tab.value}
@@ -88,13 +88,13 @@ function EditableCardTabs() {
             onClose={closeTab}
           >
             {tab.label}
-          </Tab>
+          </Tabs.Tab>
         ))}
-      </TabList>
+      </Tabs.List>
       {tabs.map((tab) => (
-        <TabPanel key={tab.value} value={tab.value}>
+        <Tabs.Panel key={tab.value} value={tab.value}>
           <ContentPanel title={tab.label}>Editable content for {tab.label}.</ContentPanel>
-        </TabPanel>
+        </Tabs.Panel>
       ))}
       {tabs.length === 0 ? (
         <div className="tabs-empty-state">No documents are open. Use Add tab to create one.</div>
@@ -169,22 +169,22 @@ export function TabsPage() {
       >
         <div className="tabs-review-card">
           <Tabs defaultValue="overview">
-            <TabList aria-label="Sections with disabled tab">
-              <Tab value="overview">Overview</Tab>
-              <Tab disabled value="api">
+            <Tabs.List aria-label="Sections with disabled tab">
+              <Tabs.Tab value="overview">Overview</Tabs.Tab>
+              <Tabs.Tab disabled value="api">
                 API
-              </Tab>
-              <Tab value="accessibility">Accessibility</Tab>
-            </TabList>
-            <TabPanel value="overview">
+              </Tabs.Tab>
+              <Tabs.Tab value="accessibility">Accessibility</Tabs.Tab>
+            </Tabs.List>
+            <Tabs.Panel value="overview">
               <ContentPanel title="Overview">The API tab is currently unavailable.</ContentPanel>
-            </TabPanel>
-            <TabPanel value="api">
+            </Tabs.Panel>
+            <Tabs.Panel value="api">
               <ContentPanel title="API">Unavailable content.</ContentPanel>
-            </TabPanel>
-            <TabPanel value="accessibility">
+            </Tabs.Panel>
+            <Tabs.Panel value="accessibility">
               <ContentPanel title="Accessibility">Disabled tabs are skipped.</ContentPanel>
-            </TabPanel>
+            </Tabs.Panel>
           </Tabs>
         </div>
       </ReviewSection>
@@ -223,32 +223,32 @@ export function TabsPage() {
       >
         <div className="tabs-review-card">
           <Tabs defaultValue="account">
-            <TabList aria-label="Settings sections">
-              <Tab icon={<UserIcon />} value="account">
+            <Tabs.List aria-label="Settings sections">
+              <Tabs.Tab icon={<UserIcon />} value="account">
                 Account
-              </Tab>
-              <Tab icon={<SettingsIcon />} value="preferences">
+              </Tabs.Tab>
+              <Tabs.Tab icon={<SettingsIcon />} value="preferences">
                 Preferences
-              </Tab>
-              <Tab icon={<InfoIcon />} value="about">
+              </Tabs.Tab>
+              <Tabs.Tab icon={<InfoIcon />} value="about">
                 About
-              </Tab>
-              <Tab icon={<SearchIcon />} value="search">
+              </Tabs.Tab>
+              <Tabs.Tab icon={<SearchIcon />} value="search">
                 Search
-              </Tab>
-            </TabList>
-            <TabPanel value="account">
+              </Tabs.Tab>
+            </Tabs.List>
+            <Tabs.Panel value="account">
               <ContentPanel title="Account">Profile and identity preferences.</ContentPanel>
-            </TabPanel>
-            <TabPanel value="preferences">
+            </Tabs.Panel>
+            <Tabs.Panel value="preferences">
               <ContentPanel title="Preferences">Workspace-level configuration.</ContentPanel>
-            </TabPanel>
-            <TabPanel value="about">
+            </Tabs.Panel>
+            <Tabs.Panel value="about">
               <ContentPanel title="About">Product and version information.</ContentPanel>
-            </TabPanel>
-            <TabPanel value="search">
+            </Tabs.Panel>
+            <Tabs.Panel value="search">
               <ContentPanel title="Search">Search configuration.</ContentPanel>
-            </TabPanel>
+            </Tabs.Panel>
           </Tabs>
         </div>
       </ReviewSection>
@@ -261,20 +261,20 @@ export function TabsPage() {
       >
         <div className="tabs-review-card">
           <Tabs variant="card" defaultValue="document-1">
-            <TabList aria-label="Documents">
-              <Tab value="document-1">Tab 1</Tab>
-              <Tab value="document-2">Tab 2</Tab>
-              <Tab value="document-3">Tab 3</Tab>
-            </TabList>
-            <TabPanel value="document-1">
+            <Tabs.List aria-label="Documents">
+              <Tabs.Tab value="document-1">Tab 1</Tabs.Tab>
+              <Tabs.Tab value="document-2">Tab 2</Tabs.Tab>
+              <Tabs.Tab value="document-3">Tab 3</Tabs.Tab>
+            </Tabs.List>
+            <Tabs.Panel value="document-1">
               <ContentPanel title="Tab 1">Content for the first tab.</ContentPanel>
-            </TabPanel>
-            <TabPanel value="document-2">
+            </Tabs.Panel>
+            <Tabs.Panel value="document-2">
               <ContentPanel title="Tab 2">Content for the second tab.</ContentPanel>
-            </TabPanel>
-            <TabPanel value="document-3">
+            </Tabs.Panel>
+            <Tabs.Panel value="document-3">
               <ContentPanel title="Tab 3">Content for the third tab.</ContentPanel>
-            </TabPanel>
+            </Tabs.Panel>
           </Tabs>
         </div>
       </ReviewSection>

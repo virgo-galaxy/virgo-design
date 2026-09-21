@@ -1,4 +1,17 @@
-export { Layout, LayoutContent, LayoutFooter, LayoutHeader, LayoutSider } from './Layout';
+import {
+  Layout as LayoutRoot,
+  LayoutContent,
+  LayoutFooter,
+  LayoutHeader,
+  LayoutSider,
+} from './Layout';
+
+export const Layout = Object.assign(LayoutRoot, {
+  Header: LayoutHeader,
+  Sider: LayoutSider,
+  Content: LayoutContent,
+  Footer: LayoutFooter,
+});
 export type {
   LayoutContentProps,
   LayoutDirection,

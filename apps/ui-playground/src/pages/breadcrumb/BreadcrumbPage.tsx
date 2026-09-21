@@ -1,15 +1,15 @@
 import { SearchIcon, SettingsIcon, UserIcon } from '@virgo-design/icons';
-import { Breadcrumb, BreadcrumbItem } from '@virgo-design/ui';
+import { Breadcrumb } from '@virgo-design/ui';
 
 import { ReviewSection } from '../../components/ReviewSection';
 
 function BasicBreadcrumb() {
   return (
     <Breadcrumb>
-      <BreadcrumbItem href="#home">Home</BreadcrumbItem>
-      <BreadcrumbItem href="#application-center">Application Center</BreadcrumbItem>
-      <BreadcrumbItem href="#application-list">Application List</BreadcrumbItem>
-      <BreadcrumbItem>An Application</BreadcrumbItem>
+      <Breadcrumb.Item href="#home">Home</Breadcrumb.Item>
+      <Breadcrumb.Item href="#application-center">Application Center</Breadcrumb.Item>
+      <Breadcrumb.Item href="#application-list">Application List</Breadcrumb.Item>
+      <Breadcrumb.Item>An Application</Breadcrumb.Item>
     </Breadcrumb>
   );
 }
@@ -82,16 +82,16 @@ export function BreadcrumbPage() {
       >
         <div className="breadcrumb-review-card">
           <Breadcrumb>
-            <BreadcrumbItem icon={<UserIcon />} href="#home">
+            <Breadcrumb.Item icon={<UserIcon />} href="#home">
               Home
-            </BreadcrumbItem>
-            <BreadcrumbItem icon={<SettingsIcon />} href="#application-center">
+            </Breadcrumb.Item>
+            <Breadcrumb.Item icon={<SettingsIcon />} href="#application-center">
               Application Center
-            </BreadcrumbItem>
-            <BreadcrumbItem icon={<SearchIcon />} href="#application-list">
+            </Breadcrumb.Item>
+            <Breadcrumb.Item icon={<SearchIcon />} href="#application-list">
               Application List
-            </BreadcrumbItem>
-            <BreadcrumbItem>An Application</BreadcrumbItem>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>An Application</Breadcrumb.Item>
           </Breadcrumb>
         </div>
       </ReviewSection>
@@ -104,10 +104,10 @@ export function BreadcrumbPage() {
       >
         <div className="breadcrumb-review-card">
           <Breadcrumb separator=">">
-            <BreadcrumbItem href="#home">Home</BreadcrumbItem>
-            <BreadcrumbItem href="#application-center">Application Center</BreadcrumbItem>
-            <BreadcrumbItem href="#application-list">Application List</BreadcrumbItem>
-            <BreadcrumbItem>An Application</BreadcrumbItem>
+            <Breadcrumb.Item href="#home">Home</Breadcrumb.Item>
+            <Breadcrumb.Item href="#application-center">Application Center</Breadcrumb.Item>
+            <Breadcrumb.Item href="#application-list">Application List</Breadcrumb.Item>
+            <Breadcrumb.Item>An Application</Breadcrumb.Item>
           </Breadcrumb>
         </div>
       </ReviewSection>
@@ -120,8 +120,8 @@ export function BreadcrumbPage() {
       >
         <div className="breadcrumb-review-card">
           <Breadcrumb>
-            <BreadcrumbItem href="#users">Users</BreadcrumbItem>
-            <BreadcrumbItem>{userId}</BreadcrumbItem>
+            <Breadcrumb.Item href="#users">Users</Breadcrumb.Item>
+            <Breadcrumb.Item>{userId}</Breadcrumb.Item>
           </Breadcrumb>
         </div>
       </ReviewSection>

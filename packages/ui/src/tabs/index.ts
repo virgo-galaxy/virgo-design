@@ -1,7 +1,13 @@
-export { Tab } from './Tab';
-export { TabList } from './TabList';
-export { TabPanel } from './TabPanel';
-export { Tabs } from './Tabs';
+import { Tab } from './Tab';
+import { TabList } from './TabList';
+import { TabPanel } from './TabPanel';
+import { Tabs as TabsRoot } from './Tabs';
+
+export const Tabs = Object.assign(TabsRoot, {
+  List: TabList,
+  Tab,
+  Panel: TabPanel,
+});
 export type {
   TabListProps,
   TabPanelProps,

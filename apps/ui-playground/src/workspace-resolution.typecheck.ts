@@ -1,28 +1,22 @@
 import {
   Breadcrumb,
-  BreadcrumbItem,
   Button,
   Checkbox,
   Input,
   Layout,
-  LayoutContent,
   type LayoutContentProps,
-  LayoutFooter,
   type LayoutFooterProps,
-  LayoutHeader,
   type LayoutHeaderProps,
   type LayoutProps,
-  LayoutSider,
   type LayoutSiderProps,
   Radio,
-  RadioGroup,
   SegmentedControl,
-  SegmentedControlItem,
   Select,
+  type SelectContentProps,
+  type SelectOptionProps,
+  type SelectProps,
+  type SelectTriggerProps,
   Switch,
-  Tab,
-  TabList,
-  TabPanel,
   Tabs,
   Textarea,
 } from '@virgo-design/ui';
@@ -48,26 +42,23 @@ export type WorkspaceLayoutProps = {
   footer: LayoutFooterProps;
 };
 
+export type WorkspaceSelectProps = {
+  root: SelectProps;
+  trigger: SelectTriggerProps;
+  content: SelectContentProps;
+  option: SelectOptionProps;
+};
+
 export const workspaceSourceResolutionFixture = {
   Breadcrumb,
-  BreadcrumbItem,
   Button,
   Checkbox,
   Input,
   Layout,
-  LayoutContent,
-  LayoutFooter,
-  LayoutHeader,
-  LayoutSider,
   Radio,
-  RadioGroup,
   SegmentedControl,
-  SegmentedControlItem,
   Select,
   Switch,
-  Tab,
-  TabList,
-  TabPanel,
   Tabs,
   Textarea,
   buttonMetadata,
@@ -82,4 +73,20 @@ export const workspaceSourceResolutionFixture = {
   tabsMetadata,
   textareaMetadata,
   componentMetadataRegistry,
+  compositeAnatomy: {
+    BreadcrumbItem: Breadcrumb.Item,
+    CheckboxGroup: Checkbox.Group,
+    LayoutHeader: Layout.Header,
+    LayoutSider: Layout.Sider,
+    LayoutContent: Layout.Content,
+    LayoutFooter: Layout.Footer,
+    RadioGroup: Radio.Group,
+    SegmentedControlItem: SegmentedControl.Item,
+    SelectTrigger: Select.Trigger,
+    SelectContent: Select.Content,
+    SelectOption: Select.Option,
+    TabsList: Tabs.List,
+    TabsTab: Tabs.Tab,
+    TabsPanel: Tabs.Panel,
+  },
 } as const;

@@ -1,17 +1,4 @@
-import {
-  Button,
-  Checkbox,
-  CheckboxGroup,
-  Input,
-  Radio,
-  RadioGroup,
-  Select,
-  SelectContent,
-  SelectOption,
-  SelectTrigger,
-  Switch,
-  Textarea,
-} from '@virgo-design/primitives';
+import { Button, Checkbox, Input, Radio, Select, Switch, Textarea } from '@virgo-design/primitives';
 
 export function App() {
   return (
@@ -53,14 +40,14 @@ export function App() {
 
         <div className="examples">
           <Select defaultValue="design">
-            <SelectTrigger aria-label="Project">Native headless select</SelectTrigger>
-            <SelectContent>
-              <SelectOption value="design">Virgo Design</SelectOption>
-              <SelectOption value="docs">Virgo Cloud Docs</SelectOption>
-              <SelectOption disabled value="retro">
+            <Select.Trigger aria-label="Project">Native headless select</Select.Trigger>
+            <Select.Content>
+              <Select.Option value="design">Virgo Design</Select.Option>
+              <Select.Option value="docs">Virgo Cloud Docs</Select.Option>
+              <Select.Option disabled value="retro">
                 Virgo Retro
-              </SelectOption>
-            </SelectContent>
+              </Select.Option>
+            </Select.Content>
           </Select>
         </div>
       </section>
@@ -81,7 +68,7 @@ export function App() {
             <Checkbox disabled /> Disabled checkbox
           </label>
 
-          <CheckboxGroup defaultValue={['pear']} name="fruit" aria-label="Fruit">
+          <Checkbox.Group defaultValue={['pear']} name="fruit" aria-label="Fruit">
             <label>
               <Checkbox value="apple" /> Apple
             </label>
@@ -91,7 +78,7 @@ export function App() {
             <label>
               <Checkbox value="orange" /> Orange
             </label>
-          </CheckboxGroup>
+          </Checkbox.Group>
         </div>
       </section>
 
@@ -99,7 +86,7 @@ export function App() {
         <h2>Radio</h2>
 
         <div className="examples">
-          <RadioGroup defaultValue="pear" name="primitive-fruit" aria-label="Fruit">
+          <Radio.Group defaultValue="pear" name="primitive-fruit" aria-label="Fruit">
             <label>
               <Radio value="apple" /> Apple
             </label>
@@ -109,7 +96,7 @@ export function App() {
             <label>
               <Radio disabled value="orange" /> Orange
             </label>
-          </RadioGroup>
+          </Radio.Group>
         </div>
       </section>
       <section>

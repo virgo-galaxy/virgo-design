@@ -1,4 +1,4 @@
-import { SegmentedControl, SegmentedControlItem } from '@virgo-design/ui';
+import { SegmentedControl } from '@virgo-design/ui';
 
 import { ReviewSection } from '../../components/ReviewSection';
 
@@ -64,8 +64,8 @@ export function SegmentedControlPage() {
               defaultValue="light"
               aria-label="Theme"
             >
-              <SegmentedControlItem value="light">Light</SegmentedControlItem>
-              <SegmentedControlItem value="dark">Dark</SegmentedControlItem>
+              <SegmentedControl.Item value="light">Light</SegmentedControl.Item>
+              <SegmentedControl.Item value="dark">Dark</SegmentedControl.Item>
             </SegmentedControl>
           </div>
 
@@ -92,9 +92,9 @@ export function SegmentedControlPage() {
 
             <div className="segmented-stage">
               <SegmentedControl variant="outline" defaultValue="pear" aria-label="Outline fruit">
-                <SegmentedControlItem value="apple">Apple</SegmentedControlItem>
-                <SegmentedControlItem value="pear">Pear</SegmentedControlItem>
-                <SegmentedControlItem value="orange">Orange</SegmentedControlItem>
+                <SegmentedControl.Item value="apple">Apple</SegmentedControl.Item>
+                <SegmentedControl.Item value="pear">Pear</SegmentedControl.Item>
+                <SegmentedControl.Item value="orange">Orange</SegmentedControl.Item>
               </SegmentedControl>
             </div>
 
@@ -109,9 +109,9 @@ export function SegmentedControlPage() {
 
             <div className="segmented-stage">
               <SegmentedControl variant="solid" defaultValue="pear" aria-label="Solid fruit">
-                <SegmentedControlItem value="apple">Apple</SegmentedControlItem>
-                <SegmentedControlItem value="pear">Pear</SegmentedControlItem>
-                <SegmentedControlItem value="orange">Orange</SegmentedControlItem>
+                <SegmentedControl.Item value="apple">Apple</SegmentedControl.Item>
+                <SegmentedControl.Item value="pear">Pear</SegmentedControl.Item>
+                <SegmentedControl.Item value="orange">Orange</SegmentedControl.Item>
               </SegmentedControl>
             </div>
 
@@ -126,9 +126,9 @@ export function SegmentedControlPage() {
 
             <div className="segmented-stage">
               <SegmentedControl variant="soft" defaultValue="pear" aria-label="Soft fruit">
-                <SegmentedControlItem value="apple">Apple</SegmentedControlItem>
-                <SegmentedControlItem value="pear">Pear</SegmentedControlItem>
-                <SegmentedControlItem value="orange">Orange</SegmentedControlItem>
+                <SegmentedControl.Item value="apple">Apple</SegmentedControl.Item>
+                <SegmentedControl.Item value="pear">Pear</SegmentedControl.Item>
+                <SegmentedControl.Item value="orange">Orange</SegmentedControl.Item>
               </SegmentedControl>
             </div>
 
@@ -162,8 +162,8 @@ export function SegmentedControlPage() {
                       defaultValue="code"
                       aria-label={`${variant.label} static motion`}
                     >
-                      <SegmentedControlItem value="code">Code</SegmentedControlItem>
-                      <SegmentedControlItem value="preview">Preview</SegmentedControlItem>
+                      <SegmentedControl.Item value="code">Code</SegmentedControl.Item>
+                      <SegmentedControl.Item value="preview">Preview</SegmentedControl.Item>
                     </SegmentedControl>
                   </div>
 
@@ -180,8 +180,8 @@ export function SegmentedControlPage() {
                       defaultValue="code"
                       aria-label={`${variant.label} sliding motion`}
                     >
-                      <SegmentedControlItem value="code">Code</SegmentedControlItem>
-                      <SegmentedControlItem value="preview">Preview</SegmentedControlItem>
+                      <SegmentedControl.Item value="code">Code</SegmentedControl.Item>
+                      <SegmentedControl.Item value="preview">Preview</SegmentedControl.Item>
                     </SegmentedControl>
                   </div>
 
@@ -216,8 +216,8 @@ export function SegmentedControlPage() {
                   defaultValue="light"
                   aria-label={`${size.label} theme`}
                 >
-                  <SegmentedControlItem value="light">Light</SegmentedControlItem>
-                  <SegmentedControlItem value="dark">Dark</SegmentedControlItem>
+                  <SegmentedControl.Item value="light">Light</SegmentedControl.Item>
+                  <SegmentedControl.Item value="dark">Dark</SegmentedControl.Item>
                 </SegmentedControl>
 
                 <span className="guide-line" aria-hidden="true" />
@@ -244,8 +244,8 @@ export function SegmentedControlPage() {
 
             <div className="segmented-stage">
               <SegmentedControl defaultValue="code" aria-label="View mode">
-                <SegmentedControlItem value="code">Code</SegmentedControlItem>
-                <SegmentedControlItem value="preview">Preview</SegmentedControlItem>
+                <SegmentedControl.Item value="code">Code</SegmentedControl.Item>
+                <SegmentedControl.Item value="preview">Preview</SegmentedControl.Item>
               </SegmentedControl>
             </div>
           </article>
@@ -258,9 +258,9 @@ export function SegmentedControlPage() {
 
             <div className="segmented-stage">
               <SegmentedControl defaultValue="week" aria-label="Period">
-                <SegmentedControlItem value="day">Day</SegmentedControlItem>
-                <SegmentedControlItem value="week">Week</SegmentedControlItem>
-                <SegmentedControlItem value="month">Month</SegmentedControlItem>
+                <SegmentedControl.Item value="day">Day</SegmentedControl.Item>
+                <SegmentedControl.Item value="week">Week</SegmentedControl.Item>
+                <SegmentedControl.Item value="month">Month</SegmentedControl.Item>
               </SegmentedControl>
             </div>
           </article>
@@ -272,11 +272,11 @@ export function SegmentedControlPage() {
 
             <div className="segmented-stage">
               <SegmentedControl defaultValue="pear" aria-label="Fruit with disabled option">
-                <SegmentedControlItem value="apple">Apple</SegmentedControlItem>
-                <SegmentedControlItem value="pear">Pear</SegmentedControlItem>
-                <SegmentedControlItem value="orange" disabled>
+                <SegmentedControl.Item value="apple">Apple</SegmentedControl.Item>
+                <SegmentedControl.Item value="pear">Pear</SegmentedControl.Item>
+                <SegmentedControl.Item value="orange" disabled>
                   Orange
-                </SegmentedControlItem>
+                </SegmentedControl.Item>
               </SegmentedControl>
             </div>
           </article>

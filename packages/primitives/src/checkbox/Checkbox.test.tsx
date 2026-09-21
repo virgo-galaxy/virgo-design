@@ -3,8 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { Checkbox } from './Checkbox';
-import { CheckboxGroup } from './CheckboxGroup';
+import { Checkbox } from './index';
 
 describe('Checkbox primitive', () => {
   it('renders a native checkbox and forwards refs/native props', () => {
@@ -60,14 +59,14 @@ describe('Checkbox primitive', () => {
     const onValueChange = vi.fn();
 
     render(
-      <CheckboxGroup defaultValue={['pear']} name="fruit" onValueChange={onValueChange}>
+      <Checkbox.Group defaultValue={['pear']} name="fruit" onValueChange={onValueChange}>
         <label>
           <Checkbox value="apple" /> Apple
         </label>
         <label>
           <Checkbox value="pear" /> Pear
         </label>
-      </CheckboxGroup>,
+      </Checkbox.Group>,
     );
 
     const apple = screen.getByRole('checkbox', { name: 'Apple' });
@@ -89,14 +88,14 @@ describe('Checkbox primitive', () => {
     const onValueChange = vi.fn();
 
     render(
-      <CheckboxGroup value={['apple']} disabled onValueChange={onValueChange}>
+      <Checkbox.Group value={['apple']} disabled onValueChange={onValueChange}>
         <label>
           <Checkbox value="apple" /> Apple
         </label>
         <label>
           <Checkbox value="pear" /> Pear
         </label>
-      </CheckboxGroup>,
+      </Checkbox.Group>,
     );
 
     const apple = screen.getByRole('checkbox', { name: 'Apple' });

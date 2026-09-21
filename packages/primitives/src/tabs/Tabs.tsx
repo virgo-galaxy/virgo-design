@@ -136,7 +136,7 @@ export const TabList = forwardRef<HTMLDivElement, TabListProps>(function TabList
   return <div {...props} ref={forwardedRef} role={role} aria-orientation="horizontal" />;
 });
 
-TabList.displayName = 'TabList';
+TabList.displayName = 'Tabs.List';
 
 function getEnabledTabs(tabList: HTMLElement) {
   return Array.from(tabList.querySelectorAll<HTMLButtonElement>('[role="tab"]:not(:disabled)'));
@@ -223,7 +223,7 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
   );
 });
 
-Tab.displayName = 'Tab';
+Tab.displayName = 'Tabs.Tab';
 
 export const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(function TabPanel(
   { value, tabIndex = 0, ...props },
@@ -246,4 +246,4 @@ export const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(function TabPa
   );
 });
 
-TabPanel.displayName = 'TabPanel';
+TabPanel.displayName = 'Tabs.Panel';

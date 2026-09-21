@@ -228,7 +228,7 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
   },
 );
 
-SelectTrigger.displayName = 'SelectTrigger';
+SelectTrigger.displayName = 'Select.Trigger';
 
 function getEnabledOptions(content: HTMLElement) {
   return Array.from(
@@ -362,7 +362,7 @@ export const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(func
   );
 });
 
-SelectContent.displayName = 'SelectContent';
+SelectContent.displayName = 'Select.Content';
 
 export const SelectOption = forwardRef<HTMLDivElement, SelectOptionProps>(function SelectOption(
   { value, disabled = false, onClick, onKeyDown, onPointerMove, ...props },
@@ -422,4 +422,4 @@ export const SelectOption = forwardRef<HTMLDivElement, SelectOptionProps>(functi
   );
 });
 
-SelectOption.displayName = 'SelectOption';
+SelectOption.displayName = 'Select.Option';

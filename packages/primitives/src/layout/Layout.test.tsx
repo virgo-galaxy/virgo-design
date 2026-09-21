@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
 
-import { Layout, LayoutContent, LayoutFooter, LayoutHeader, LayoutSider } from './Layout';
+import { Layout } from './index';
 
 describe('Layout primitive', () => {
   it('renders vertical by default and forwards native props and refs', () => {
@@ -10,9 +10,9 @@ describe('Layout primitive', () => {
 
     render(
       <Layout ref={ref} data-testid="layout" aria-label="Application layout">
-        <LayoutHeader>Header</LayoutHeader>
-        <LayoutContent>Content</LayoutContent>
-        <LayoutFooter>Footer</LayoutFooter>
+        <Layout.Header>Header</Layout.Header>
+        <Layout.Content>Content</Layout.Content>
+        <Layout.Footer>Footer</Layout.Footer>
       </Layout>,
     );
 
@@ -25,11 +25,11 @@ describe('Layout primitive', () => {
   it('renders horizontal layouts and preserves nested child order', () => {
     render(
       <Layout direction="horizontal" data-testid="outer-layout">
-        <LayoutSider>Navigation region</LayoutSider>
+        <Layout.Sider>Navigation region</Layout.Sider>
         <Layout data-testid="inner-layout">
-          <LayoutHeader>Header region</LayoutHeader>
-          <LayoutContent>Content region</LayoutContent>
-          <LayoutFooter>Footer region</LayoutFooter>
+          <Layout.Header>Header region</Layout.Header>
+          <Layout.Content>Content region</Layout.Content>
+          <Layout.Footer>Footer region</Layout.Footer>
         </Layout>
       </Layout>,
     );
@@ -58,10 +58,10 @@ describe('Layout primitive', () => {
 
     render(
       <Layout>
-        <LayoutHeader ref={headerRef} data-testid="header" aria-label="Page header" />
-        <LayoutSider ref={siderRef} data-testid="sider" aria-label="Side region" width="18rem" />
-        <LayoutContent ref={contentRef} data-testid="content" aria-label="Page content" />
-        <LayoutFooter ref={footerRef} data-testid="footer" aria-label="Page footer" />
+        <Layout.Header ref={headerRef} data-testid="header" aria-label="Page header" />
+        <Layout.Sider ref={siderRef} data-testid="sider" aria-label="Side region" width="18rem" />
+        <Layout.Content ref={contentRef} data-testid="content" aria-label="Page content" />
+        <Layout.Footer ref={footerRef} data-testid="footer" aria-label="Page footer" />
       </Layout>,
     );
 

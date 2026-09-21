@@ -23,7 +23,7 @@ export const LayoutHeader = forwardRef<HTMLElement, LayoutHeaderProps>(
   },
 );
 
-LayoutHeader.displayName = 'LayoutHeader';
+LayoutHeader.displayName = 'Layout.Header';
 
 export const LayoutSider = forwardRef<HTMLElement, LayoutSiderProps>(function LayoutSider(
   { width, style, ...props },
@@ -38,7 +38,7 @@ export const LayoutSider = forwardRef<HTMLElement, LayoutSiderProps>(function La
   );
 });
 
-LayoutSider.displayName = 'LayoutSider';
+LayoutSider.displayName = 'Layout.Sider';
 
 export const LayoutContent = forwardRef<HTMLElement, LayoutContentProps>(
   function LayoutContent(props, forwardedRef) {
@@ -46,7 +46,7 @@ export const LayoutContent = forwardRef<HTMLElement, LayoutContentProps>(
   },
 );
 
-LayoutContent.displayName = 'LayoutContent';
+LayoutContent.displayName = 'Layout.Content';
 
 export const LayoutFooter = forwardRef<HTMLElement, LayoutFooterProps>(
   function LayoutFooter(props, forwardedRef) {
@@ -54,4 +54,4 @@ export const LayoutFooter = forwardRef<HTMLElement, LayoutFooterProps>(
   },
 );
 
-LayoutFooter.displayName = 'LayoutFooter';
+LayoutFooter.displayName = 'Layout.Footer';

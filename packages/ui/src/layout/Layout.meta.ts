@@ -6,8 +6,7 @@ export const layoutMetadata = {
   category: 'Layout',
   description:
     'Composes semantic page-level regions into vertical, horizontal, and nested structural skeletons.',
-  import:
-    "import { Layout, LayoutContent, LayoutFooter, LayoutHeader, LayoutSider } from '@virgo-design/ui';",
+  import: "import { Layout } from '@virgo-design/ui';",
   states: ['default'],
   anatomy: [
     {
@@ -15,19 +14,19 @@ export const layoutMetadata = {
       description: 'Flex container that arranges direct child regions vertically or horizontally.',
     },
     {
-      name: 'LayoutHeader',
+      name: 'Layout.Header',
       description: 'Semantic header region for page-level introductory content.',
     },
     {
-      name: 'LayoutSider',
+      name: 'Layout.Sider',
       description: 'Semantic aside region with a configurable structural width.',
     },
     {
-      name: 'LayoutContent',
+      name: 'Layout.Content',
       description: 'Semantic main region that grows into available layout space.',
     },
     {
-      name: 'LayoutFooter',
+      name: 'Layout.Footer',
       description: 'Semantic footer region for page-level closing content.',
     },
   ],
@@ -42,7 +41,7 @@ export const layoutMetadata = {
     fixedRegions: false,
   },
   accessibility: [
-    'LayoutHeader, LayoutSider, LayoutContent, and LayoutFooter render native header, aside, main, and footer elements.',
+    'Layout.Header, Layout.Sider, Layout.Content, and Layout.Footer render native header, aside, main, and footer elements.',
     'Children retain document order, so visual placement and reading order stay aligned.',
     'Layout itself adds no navigation, landmark labels, or interactive behavior.',
     'Consumers should avoid nesting multiple main regions in the same document landmark scope.',
@@ -50,19 +49,19 @@ export const layoutMetadata = {
   examples: [
     {
       name: 'Basic',
-      code: '<Layout><LayoutHeader /><LayoutContent /><LayoutFooter /></Layout>',
+      code: '<Layout><Layout.Header /><Layout.Content /><Layout.Footer /></Layout>',
     },
     {
       name: 'Left Sider',
-      code: '<Layout><LayoutHeader /><Layout direction="horizontal"><LayoutSider /><LayoutContent /></Layout><LayoutFooter /></Layout>',
+      code: '<Layout><Layout.Header /><Layout direction="horizontal"><Layout.Sider /><Layout.Content /></Layout><Layout.Footer /></Layout>',
     },
     {
       name: 'Right Sider',
-      code: '<Layout><LayoutHeader /><Layout direction="horizontal"><LayoutContent /><LayoutSider /></Layout><LayoutFooter /></Layout>',
+      code: '<Layout><Layout.Header /><Layout direction="horizontal"><Layout.Content /><Layout.Sider /></Layout><Layout.Footer /></Layout>',
     },
     {
       name: 'Full-height Sider',
-      code: '<Layout direction="horizontal"><LayoutSider /><Layout><LayoutHeader /><LayoutContent /><LayoutFooter /></Layout></Layout>',
+      code: '<Layout direction="horizontal"><Layout.Sider /><Layout><Layout.Header /><Layout.Content /><Layout.Footer /></Layout></Layout>',
     },
   ],
 } as const satisfies ComponentMetadata;

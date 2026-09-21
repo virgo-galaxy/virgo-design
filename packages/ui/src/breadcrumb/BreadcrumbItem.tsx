@@ -1,4 +1,4 @@
-import { BreadcrumbItem as PrimitiveBreadcrumbItem } from '@virgo-design/primitives';
+import { Breadcrumb as PrimitiveBreadcrumb } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
 import styles from './Breadcrumb.module.scss';
@@ -11,7 +11,7 @@ function joinClassNames(...classNames: Array<string | false | null | undefined>)
 export const BreadcrumbItem = forwardRef<HTMLAnchorElement | HTMLSpanElement, BreadcrumbItemProps>(
   function BreadcrumbItem({ icon, children, className, ...props }, forwardedRef) {
     return (
-      <PrimitiveBreadcrumbItem
+      <PrimitiveBreadcrumb.Item
         {...props}
         ref={forwardedRef}
         className={joinClassNames(styles.item, className)}
@@ -24,9 +24,9 @@ export const BreadcrumbItem = forwardRef<HTMLAnchorElement | HTMLSpanElement, Br
         <span className={styles.label} data-slot="label">
           {children}
         </span>
-      </PrimitiveBreadcrumbItem>
+      </PrimitiveBreadcrumb.Item>
     );
   },
 );
 
-BreadcrumbItem.displayName = 'BreadcrumbItem';
+BreadcrumbItem.displayName = 'Breadcrumb.Item';

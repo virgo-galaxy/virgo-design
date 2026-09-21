@@ -1,4 +1,4 @@
-import { Radio, RadioGroup } from '@virgo-design/ui';
+import { Radio } from '@virgo-design/ui';
 
 import { ReviewSection } from '../../components/ReviewSection';
 
@@ -39,11 +39,11 @@ export function RadioPage() {
             <code>horizontal · standard</code>
           </div>
           <div className="hero-stage">
-            <RadioGroup defaultValue="pear" aria-label="Fruit">
+            <Radio.Group defaultValue="pear" aria-label="Fruit">
               <Radio value="apple">Apple</Radio>
               <Radio value="pear">Pear</Radio>
               <Radio value="orange">Orange</Radio>
-            </RadioGroup>
+            </Radio.Group>
           </div>
           <div className="specimen-caption">
             <span>16px control</span>
@@ -90,7 +90,7 @@ export function RadioPage() {
         id="radio-orientation"
         index="02"
         title="Orientation"
-        description="RadioGroup supports horizontal and vertical option layouts without changing selection semantics."
+        description="Radio.Group supports horizontal and vertical option layouts without changing selection semantics."
       >
         <div className="radio-orientation-grid">
           <article className="radio-group-card">
@@ -99,11 +99,11 @@ export function RadioPage() {
               <span>Compact choices on one line</span>
             </div>
             <div className="radio-group-stage">
-              <RadioGroup defaultValue="pear" aria-label="Horizontal fruit">
+              <Radio.Group defaultValue="pear" aria-label="Horizontal fruit">
                 <Radio value="apple">Apple</Radio>
                 <Radio value="pear">Pear</Radio>
                 <Radio value="orange">Orange</Radio>
-              </RadioGroup>
+              </Radio.Group>
             </div>
             <code>orientation=&quot;horizontal&quot;</code>
           </article>
@@ -114,11 +114,11 @@ export function RadioPage() {
               <span>Stacked options for longer labels</span>
             </div>
             <div className="radio-group-stage radio-group-stage--vertical">
-              <RadioGroup defaultValue="pear" orientation="vertical" aria-label="Vertical fruit">
+              <Radio.Group defaultValue="pear" orientation="vertical" aria-label="Vertical fruit">
                 <Radio value="apple">Apple</Radio>
                 <Radio value="pear">Pear</Radio>
                 <Radio value="orange">Orange</Radio>
-              </RadioGroup>
+              </Radio.Group>
             </div>
             <code>orientation=&quot;vertical&quot;</code>
           </article>

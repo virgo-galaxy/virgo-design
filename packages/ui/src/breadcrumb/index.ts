@@ -1,3 +1,8 @@
-export { Breadcrumb } from './Breadcrumb';
+import { Breadcrumb as BreadcrumbRoot } from './Breadcrumb';
+import { BreadcrumbItem } from './BreadcrumbItem';
+
+export const Breadcrumb = Object.assign(BreadcrumbRoot, {
+  Item: BreadcrumbItem,
+});
+
 export type { BreadcrumbItemProps, BreadcrumbProps } from './Breadcrumb.types';
-export { BreadcrumbItem } from './BreadcrumbItem';

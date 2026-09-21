@@ -3,19 +3,19 @@ import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { Select, SelectContent, SelectOption, SelectTrigger } from './Select';
+import { Select } from './index';
 
 function PrimitiveSelectExample({ onValueChange }: { onValueChange?: (value: string) => void }) {
   return (
     <Select defaultValue="design" onValueChange={onValueChange}>
-      <SelectTrigger aria-label="Project">Choose project</SelectTrigger>
-      <SelectContent>
-        <SelectOption value="design">Virgo Design</SelectOption>
-        <SelectOption value="docs">Virgo Cloud Docs</SelectOption>
-        <SelectOption disabled value="retro">
+      <Select.Trigger aria-label="Project">Choose project</Select.Trigger>
+      <Select.Content>
+        <Select.Option value="design">Virgo Design</Select.Option>
+        <Select.Option value="docs">Virgo Cloud Docs</Select.Option>
+        <Select.Option disabled value="retro">
           Virgo Retro
-        </SelectOption>
-      </SelectContent>
+        </Select.Option>
+      </Select.Content>
     </Select>
   );
 }
@@ -124,11 +124,11 @@ describe('Select primitive', () => {
 
       return (
         <Select value={value} onValueChange={setValue} open={open} onOpenChange={setOpen}>
-          <SelectTrigger aria-label="Controlled project">{value}</SelectTrigger>
-          <SelectContent>
-            <SelectOption value="design">Virgo Design</SelectOption>
-            <SelectOption value="docs">Virgo Cloud Docs</SelectOption>
-          </SelectContent>
+          <Select.Trigger aria-label="Controlled project">{value}</Select.Trigger>
+          <Select.Content>
+            <Select.Option value="design">Virgo Design</Select.Option>
+            <Select.Option value="docs">Virgo Cloud Docs</Select.Option>
+          </Select.Content>
         </Select>
       );
     }
@@ -148,10 +148,10 @@ describe('Select primitive', () => {
   it('disables the trigger and can submit the selected value through a hidden input', () => {
     const { container } = render(
       <Select disabled defaultValue="design" name="project">
-        <SelectTrigger aria-label="Disabled project">Choose project</SelectTrigger>
-        <SelectContent>
-          <SelectOption value="design">Virgo Design</SelectOption>
-        </SelectContent>
+        <Select.Trigger aria-label="Disabled project">Choose project</Select.Trigger>
+        <Select.Content>
+          <Select.Option value="design">Virgo Design</Select.Option>
+        </Select.Content>
       </Select>,
     );
 

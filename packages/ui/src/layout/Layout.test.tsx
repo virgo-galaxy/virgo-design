@@ -2,15 +2,15 @@ import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
 
-import { Layout, LayoutContent, LayoutFooter, LayoutHeader, LayoutSider } from './Layout';
+import { Layout } from './index';
 
 describe('Layout', () => {
   it('composes a vertical semantic page skeleton by default', () => {
     render(
       <Layout data-testid="layout">
-        <LayoutHeader>Header</LayoutHeader>
-        <LayoutContent>Content</LayoutContent>
-        <LayoutFooter>Footer</LayoutFooter>
+        <Layout.Header>Header</Layout.Header>
+        <Layout.Content>Content</Layout.Content>
+        <Layout.Footer>Footer</Layout.Footer>
       </Layout>,
     );
 
@@ -26,12 +26,12 @@ describe('Layout', () => {
   it('supports horizontal nesting and preserves sider placement through child order', () => {
     render(
       <Layout>
-        <LayoutHeader>Header</LayoutHeader>
+        <Layout.Header>Header</Layout.Header>
         <Layout direction="horizontal" data-testid="body-layout">
-          <LayoutContent>Content</LayoutContent>
-          <LayoutSider>Right sider</LayoutSider>
+          <Layout.Content>Content</Layout.Content>
+          <Layout.Sider>Right sider</Layout.Sider>
         </Layout>
-        <LayoutFooter>Footer</LayoutFooter>
+        <Layout.Footer>Footer</Layout.Footer>
       </Layout>,
     );
 
@@ -44,14 +44,14 @@ describe('Layout', () => {
   });
 
   it('applies the default and custom sider widths', () => {
-    const { rerender } = render(<LayoutSider data-testid="sider">Sider</LayoutSider>);
+    const { rerender } = render(<Layout.Sider data-testid="sider">Sider</Layout.Sider>);
 
     expect(screen.getByTestId('sider')).toHaveStyle({ width: '240px' });
 
     rerender(
-      <LayoutSider data-testid="sider" width="18rem">
+      <Layout.Sider data-testid="sider" width="18rem">
         Sider
-      </LayoutSider>,
+      </Layout.Sider>,
     );
 
     expect(screen.getByTestId('sider').style.width).toBe('18rem');
@@ -63,7 +63,7 @@ describe('Layout', () => {
 
     render(
       <Layout ref={layoutRef} className="consumer-layout" data-testid="layout">
-        <LayoutSider
+        <Layout.Sider
           ref={siderRef}
           className="consumer-sider"
           aria-label="Supporting region"

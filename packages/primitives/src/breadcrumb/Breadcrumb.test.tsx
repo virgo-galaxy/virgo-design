@@ -2,15 +2,15 @@ import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
 
-import { Breadcrumb, BreadcrumbItem } from './Breadcrumb';
+import { Breadcrumb } from './index';
 
 function BasicBreadcrumb() {
   return (
     <Breadcrumb>
-      <BreadcrumbItem href="/">Home</BreadcrumbItem>
-      <BreadcrumbItem href="/applications">Application Center</BreadcrumbItem>
-      <BreadcrumbItem href="/applications/list">Application List</BreadcrumbItem>
-      <BreadcrumbItem>An Application</BreadcrumbItem>
+      <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+      <Breadcrumb.Item href="/applications">Application Center</Breadcrumb.Item>
+      <Breadcrumb.Item href="/applications/list">Application List</Breadcrumb.Item>
+      <Breadcrumb.Item>An Application</Breadcrumb.Item>
     </Breadcrumb>
   );
 }
@@ -47,8 +47,8 @@ describe('Breadcrumb primitive', () => {
   it('supports an accessibility-hidden ReactNode separator', () => {
     render(
       <Breadcrumb separator={<span data-testid="custom-separator">&gt;</span>}>
-        <BreadcrumbItem href="/">Home</BreadcrumbItem>
-        <BreadcrumbItem>Application</BreadcrumbItem>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item>Application</Breadcrumb.Item>
       </Breadcrumb>,
     );
 
@@ -61,8 +61,8 @@ describe('Breadcrumb primitive', () => {
 
     render(
       <Breadcrumb>
-        <BreadcrumbItem href="/users">Users</BreadcrumbItem>
-        <BreadcrumbItem>{userId}</BreadcrumbItem>
+        <Breadcrumb.Item href="/users">Users</Breadcrumb.Item>
+        <Breadcrumb.Item>{userId}</Breadcrumb.Item>
       </Breadcrumb>,
     );
 
@@ -75,10 +75,10 @@ describe('Breadcrumb primitive', () => {
 
     render(
       <Breadcrumb ref={navRef} aria-label="Page path" data-testid="breadcrumb">
-        <BreadcrumbItem ref={itemRef} href="/users" rel="home" data-testid="breadcrumb-link">
+        <Breadcrumb.Item ref={itemRef} href="/users" rel="home" data-testid="breadcrumb-link">
           Users
-        </BreadcrumbItem>
-        <BreadcrumbItem>Current user</BreadcrumbItem>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>Current user</Breadcrumb.Item>
       </Breadcrumb>,
     );
 

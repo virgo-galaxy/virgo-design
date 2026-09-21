@@ -1,4 +1,10 @@
-export { SegmentedControl } from './SegmentedControl';
+import { SegmentedControl as SegmentedControlRoot } from './SegmentedControl';
+import { SegmentedControlItem } from './SegmentedControlItem';
+
+export const SegmentedControl = Object.assign(SegmentedControlRoot, {
+  Item: SegmentedControlItem,
+});
+
 export type {
   SegmentedControlItemProps,
   SegmentedControlMotion,
@@ -6,4 +12,3 @@ export type {
   SegmentedControlSize,
   SegmentedControlVariant,
 } from './SegmentedControl.types';
-export { SegmentedControlItem } from './SegmentedControlItem';

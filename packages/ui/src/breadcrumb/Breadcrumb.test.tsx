@@ -2,16 +2,15 @@ import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
 
-import { Breadcrumb } from './Breadcrumb';
-import { BreadcrumbItem } from './BreadcrumbItem';
+import { Breadcrumb } from './index';
 
 describe('Breadcrumb', () => {
   it('renders native link and current-page semantics with the default separator', () => {
     render(
       <Breadcrumb>
-        <BreadcrumbItem href="/">Home</BreadcrumbItem>
-        <BreadcrumbItem href="/applications">Applications</BreadcrumbItem>
-        <BreadcrumbItem>Current application</BreadcrumbItem>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item href="/applications">Applications</Breadcrumb.Item>
+        <Breadcrumb.Item>Current application</Breadcrumb.Item>
       </Breadcrumb>,
     );
 
@@ -29,8 +28,8 @@ describe('Breadcrumb', () => {
   it('renders a custom ReactNode separator as decorative content', () => {
     render(
       <Breadcrumb separator={<span data-testid="chevron">&gt;</span>}>
-        <BreadcrumbItem href="/">Home</BreadcrumbItem>
-        <BreadcrumbItem>Application</BreadcrumbItem>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item>Application</Breadcrumb.Item>
       </Breadcrumb>,
     );
 
@@ -42,10 +41,10 @@ describe('Breadcrumb', () => {
 
     render(
       <Breadcrumb>
-        <BreadcrumbItem icon={<svg data-testid="users-icon" />} href="/users">
+        <Breadcrumb.Item icon={<svg data-testid="users-icon" />} href="/users">
           Users
-        </BreadcrumbItem>
-        <BreadcrumbItem>{userId}</BreadcrumbItem>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>{userId}</Breadcrumb.Item>
       </Breadcrumb>,
     );
 
@@ -60,10 +59,10 @@ describe('Breadcrumb', () => {
 
     render(
       <Breadcrumb ref={navRef} className="consumer-breadcrumb" aria-label="Location">
-        <BreadcrumbItem ref={itemRef} className="consumer-item" href="/home" target="_self">
+        <Breadcrumb.Item ref={itemRef} className="consumer-item" href="/home" target="_self">
           Home
-        </BreadcrumbItem>
-        <BreadcrumbItem>Current</BreadcrumbItem>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>Current</Breadcrumb.Item>
       </Breadcrumb>,
     );
 

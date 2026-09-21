@@ -1,4 +1,4 @@
-import { RadioGroup as PrimitiveRadioGroup } from '@virgo-design/primitives';
+import { Radio as PrimitiveRadio } from '@virgo-design/primitives';
 import { forwardRef, useCallback, useLayoutEffect, useRef, useState } from 'react';
 
 import styles from './SegmentedControl.module.scss';
@@ -105,7 +105,7 @@ export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps
     }, [updateIndicator, size, variant]);
 
     return (
-      <PrimitiveRadioGroup
+      <PrimitiveRadio.Group
         {...props}
         ref={setRootRef}
         className={joinClassNames(styles.root, className)}
@@ -124,7 +124,7 @@ export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps
       >
         <span aria-hidden="true" className={styles.indicator} data-slot="indicator" />
         {children}
-      </PrimitiveRadioGroup>
+      </PrimitiveRadio.Group>
     );
   },
 );

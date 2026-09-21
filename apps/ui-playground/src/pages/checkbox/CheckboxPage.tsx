@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxGroup } from '@virgo-design/ui';
+import { Checkbox } from '@virgo-design/ui';
 import { useState } from 'react';
 
 import { ReviewSection } from '../../components/ReviewSection';
@@ -119,7 +119,7 @@ export function CheckboxPage() {
         id="checkbox-group"
         index="03"
         title="Group"
-        description="CheckboxGroup coordinates multiple values while each checkbox keeps native form semantics."
+        description="Checkbox.Group coordinates multiple values while each checkbox keeps native form semantics."
       >
         <div className="checkbox-group-card">
           <div className="cell-meta">
@@ -127,13 +127,13 @@ export function CheckboxPage() {
             <span>Multiple independent values</span>
           </div>
           <div className="checkbox-group-stage">
-            <CheckboxGroup defaultValue={['pear', 'orange']} name="fruit" aria-label="Fruit">
+            <Checkbox.Group defaultValue={['pear', 'orange']} name="fruit" aria-label="Fruit">
               <Checkbox value="apple">Apple</Checkbox>
               <Checkbox value="pear">Pear</Checkbox>
               <Checkbox value="orange">Orange</Checkbox>
-            </CheckboxGroup>
+            </Checkbox.Group>
           </div>
-          <code>CheckboxGroup</code>
+          <code>Checkbox.Group</code>
         </div>
       </ReviewSection>
 
@@ -156,7 +156,7 @@ export function CheckboxPage() {
 
           <div className="checkbox-check-all-divider" />
 
-          <CheckboxGroup
+          <Checkbox.Group
             value={selectedFruit}
             onValueChange={setSelectedFruit}
             name="check-all-fruit"
@@ -165,7 +165,7 @@ export function CheckboxPage() {
             <Checkbox value="apple">Apple</Checkbox>
             <Checkbox value="pear">Pear</Checkbox>
             <Checkbox value="orange">Orange</Checkbox>
-          </CheckboxGroup>
+          </Checkbox.Group>
         </div>
       </ReviewSection>
 

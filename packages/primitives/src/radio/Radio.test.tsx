@@ -3,8 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { Radio } from './Radio';
-import { RadioGroup } from './RadioGroup';
+import { Radio } from './index';
 
 describe('Radio primitive', () => {
   it('renders a native radio and forwards refs/native props', () => {
@@ -24,7 +23,7 @@ describe('Radio primitive', () => {
     const onValueChange = vi.fn();
 
     render(
-      <RadioGroup defaultValue="pear" name="fruit" onValueChange={onValueChange}>
+      <Radio.Group defaultValue="pear" name="fruit" onValueChange={onValueChange}>
         <label>
           <Radio value="apple" /> Apple
         </label>
@@ -34,7 +33,7 @@ describe('Radio primitive', () => {
         <label>
           <Radio value="orange" /> Orange
         </label>
-      </RadioGroup>,
+      </Radio.Group>,
     );
 
     const apple = screen.getByRole('radio', { name: 'Apple' });
@@ -57,14 +56,14 @@ describe('Radio primitive', () => {
     const onValueChange = vi.fn();
 
     render(
-      <RadioGroup value="apple" disabled onValueChange={onValueChange}>
+      <Radio.Group value="apple" disabled onValueChange={onValueChange}>
         <label>
           <Radio value="apple" /> Apple
         </label>
         <label>
           <Radio value="pear" /> Pear
         </label>
-      </RadioGroup>,
+      </Radio.Group>,
     );
 
     const apple = screen.getByRole('radio', { name: 'Apple' });
@@ -80,9 +79,9 @@ describe('Radio primitive', () => {
 
   it('exposes group orientation semantics', () => {
     render(
-      <RadioGroup orientation="vertical" aria-label="Fruit">
+      <Radio.Group orientation="vertical" aria-label="Fruit">
         <Radio aria-label="Apple" value="apple" />
-      </RadioGroup>,
+      </Radio.Group>,
     );
 
     expect(screen.getByRole('radiogroup', { name: 'Fruit' })).toHaveAttribute(

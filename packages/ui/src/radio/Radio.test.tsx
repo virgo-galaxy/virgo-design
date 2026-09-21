@@ -3,8 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { Radio } from './Radio';
-import { RadioGroup } from './RadioGroup';
+import { Radio } from './index';
 
 describe('Radio', () => {
   it('renders the standard radio with its visible label', () => {
@@ -18,11 +17,11 @@ describe('Radio', () => {
     const onValueChange = vi.fn();
 
     render(
-      <RadioGroup defaultValue="pear" onValueChange={onValueChange} aria-label="Fruit">
+      <Radio.Group defaultValue="pear" onValueChange={onValueChange} aria-label="Fruit">
         <Radio value="apple">Apple</Radio>
         <Radio value="pear">Pear</Radio>
         <Radio value="orange">Orange</Radio>
-      </RadioGroup>,
+      </Radio.Group>,
     );
 
     expect(screen.getByRole('radio', { name: 'Pear' })).toBeChecked();
@@ -36,12 +35,12 @@ describe('Radio', () => {
   it('supports horizontal and vertical group orientations', () => {
     render(
       <>
-        <RadioGroup aria-label="Horizontal" orientation="horizontal">
+        <Radio.Group aria-label="Horizontal" orientation="horizontal">
           <Radio value="a">A</Radio>
-        </RadioGroup>
-        <RadioGroup aria-label="Vertical" orientation="vertical">
+        </Radio.Group>
+        <Radio.Group aria-label="Vertical" orientation="vertical">
           <Radio value="b">B</Radio>
-        </RadioGroup>
+        </Radio.Group>
       </>,
     );
 
@@ -59,14 +58,14 @@ describe('Radio', () => {
     const ref = createRef<HTMLInputElement>();
 
     render(
-      <RadioGroup aria-label="Fruit">
+      <Radio.Group aria-label="Fruit">
         <Radio ref={ref} value="apple" name="fruit">
           Apple
         </Radio>
         <Radio disabled value="orange">
           Orange
         </Radio>
-      </RadioGroup>,
+      </Radio.Group>,
     );
 
     expect(ref.current).toBe(screen.getByRole('radio', { name: 'Apple' }));

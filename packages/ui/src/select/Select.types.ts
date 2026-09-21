@@ -1,34 +1,30 @@
-import type { SelectProps as PrimitiveSelectProps } from '@virgo-design/primitives';
-import type { AriaAttributes, CSSProperties } from 'react';
+import type {
+  SelectContentProps as PrimitiveSelectContentProps,
+  SelectOptionProps as PrimitiveSelectOptionProps,
+  SelectProps as PrimitiveSelectProps,
+  SelectTriggerProps as PrimitiveSelectTriggerProps,
+} from '@virgo-design/primitives';
+import type { AriaAttributes, ReactNode } from 'react';
 
 export type SelectSize = 'mini' | 'small' | 'medium' | 'large';
 
-export interface SelectOption {
-  value: string;
-  label: string;
-  disabled?: boolean | undefined;
-}
-
-export interface SelectProps extends Pick<
-  PrimitiveSelectProps,
-  | 'defaultOpen'
-  | 'defaultValue'
-  | 'disabled'
-  | 'id'
-  | 'name'
-  | 'onOpenChange'
-  | 'onValueChange'
-  | 'open'
-  | 'value'
-> {
-  options: readonly SelectOption[];
-  placeholder?: string | undefined;
+export interface SelectProps extends Omit<PrimitiveSelectProps, 'children' | 'className'> {
+  children: ReactNode;
   size?: SelectSize | undefined;
   invalid?: boolean | undefined;
   className?: string | undefined;
-  style?: CSSProperties | undefined;
-  'aria-label'?: string | undefined;
-  'aria-labelledby'?: string | undefined;
-  'aria-describedby'?: string | undefined;
+}
+
+export interface SelectTriggerProps extends Omit<PrimitiveSelectTriggerProps, 'children'> {
+  children?: ReactNode;
+  placeholder?: ReactNode;
   'aria-invalid'?: AriaAttributes['aria-invalid'] | undefined;
+}
+
+export interface SelectContentProps extends Omit<PrimitiveSelectContentProps, 'children'> {
+  children: ReactNode;
+}
+
+export interface SelectOptionProps extends Omit<PrimitiveSelectOptionProps, 'children'> {
+  children: ReactNode;
 }

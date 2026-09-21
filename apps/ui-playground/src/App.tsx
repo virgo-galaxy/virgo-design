@@ -1,4 +1,4 @@
-import { Breadcrumb, BreadcrumbItem } from '@virgo-design/ui';
+import { Breadcrumb } from '@virgo-design/ui';
 import { useEffect, useState } from 'react';
 import { Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
@@ -81,8 +81,8 @@ export function App() {
       <div className="workspace">
         <header className="workspace-header">
           <Breadcrumb className="workspace-breadcrumb">
-            <BreadcrumbItem aria-current={false}>Components</BreadcrumbItem>
-            <BreadcrumbItem>{activeRoute.name}</BreadcrumbItem>
+            <Breadcrumb.Item aria-current={false}>Components</Breadcrumb.Item>
+            <Breadcrumb.Item>{activeRoute.name}</Breadcrumb.Item>
           </Breadcrumb>
 
           <div className="theme-control" role="group" aria-label="Preview theme">

@@ -29,4 +29,4 @@ export const SegmentedControlItem = forwardRef<HTMLInputElement, SegmentedContro
   },
 );
 
-SegmentedControlItem.displayName = 'SegmentedControlItem';
+SegmentedControlItem.displayName = 'SegmentedControl.Item';

@@ -6,7 +6,7 @@ export const segmentedControlMetadata = {
   category: 'Forms',
   description:
     'Presents a compact set of mutually exclusive choices as connected segments backed by radio-group semantics.',
-  import: "import { SegmentedControl, SegmentedControlItem } from '@virgo-design/ui';",
+  import: "import { SegmentedControl } from '@virgo-design/ui';",
   variants: [
     {
       name: 'outline',
@@ -61,7 +61,7 @@ export const segmentedControlMetadata = {
     reducedMotion: true,
   },
   accessibility: [
-    'Reuses Virgo RadioGroup primitives and native radio inputs for single-selection semantics.',
+    'Reuses Virgo Radio.Group primitives and native radio inputs for single-selection semantics.',
     'Supports controlled and uncontrolled values through the segmented-control API.',
     'The selected indicator is aria-hidden and never replaces native radio semantics.',
     'Keyboard focus remains on the native radio controls while Virgo renders the segmented visual surface.',
@@ -71,11 +71,11 @@ export const segmentedControlMetadata = {
   examples: [
     {
       name: 'Sliding soft theme selector',
-      code: '<SegmentedControl variant="soft" size="small" motion="slide" defaultValue="light" aria-label="Theme"><SegmentedControlItem value="light">Light</SegmentedControlItem><SegmentedControlItem value="dark">Dark</SegmentedControlItem></SegmentedControl>',
+      code: '<SegmentedControl variant="soft" size="small" motion="slide" defaultValue="light" aria-label="Theme"><SegmentedControl.Item value="light">Light</SegmentedControl.Item><SegmentedControl.Item value="dark">Dark</SegmentedControl.Item></SegmentedControl>',
     },
     {
       name: 'Sliding solid choice group',
-      code: '<SegmentedControl variant="solid" motion="slide" defaultValue="apple" aria-label="Fruit"><SegmentedControlItem value="apple">Apple</SegmentedControlItem><SegmentedControlItem value="pear">Pear</SegmentedControlItem></SegmentedControl>',
+      code: '<SegmentedControl variant="solid" motion="slide" defaultValue="apple" aria-label="Fruit"><SegmentedControl.Item value="apple">Apple</SegmentedControl.Item><SegmentedControl.Item value="pear">Pear</SegmentedControl.Item></SegmentedControl>',
     },
   ],
 } as const satisfies ComponentMetadata;

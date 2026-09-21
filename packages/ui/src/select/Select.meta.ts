@@ -48,31 +48,15 @@ export const selectMetadata = {
   examples: [
     {
       name: 'Basic selection',
-      code: `<Select
-  aria-label="Project"
-  placeholder="Choose a project"
-  options={[
-    { value: 'design', label: 'Virgo Design' },
-    { value: 'docs', label: 'Virgo Cloud Docs' },
-  ]}
-/>`,
+      code: `<Select><Select.Trigger aria-label="Project" placeholder="Choose a project" /><Select.Content><Select.Option value="design">Virgo Design</Select.Option><Select.Option value="docs">Virgo Cloud Docs</Select.Option></Select.Content></Select>`,
     },
     {
       name: 'Default value',
-      code: `<Select
-  aria-label="Project"
-  defaultValue="design"
-  options={projectOptions}
-/>`,
+      code: `<Select defaultValue="design"><Select.Trigger aria-label="Project" /><Select.Content><Select.Option value="design">Virgo Design</Select.Option><Select.Option value="docs">Virgo Cloud Docs</Select.Option></Select.Content></Select>`,
     },
     {
       name: 'Invalid selection',
-      code: `<Select
-  invalid
-  aria-label="Environment"
-  placeholder="Choose an environment"
-  options={environmentOptions}
-/>`,
+      code: `<Select invalid><Select.Trigger aria-label="Environment" placeholder="Choose an environment" /><Select.Content><Select.Option value="preview">Preview</Select.Option></Select.Content></Select>`,
     },
   ],
 } as const satisfies ComponentMetadata;

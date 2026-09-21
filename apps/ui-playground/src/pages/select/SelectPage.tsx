@@ -1,4 +1,4 @@
-import { Select, type SelectOption, type SelectSize } from '@virgo-design/ui';
+import { Select, type SelectProps, type SelectSize } from '@virgo-design/ui';
 
 import { ReviewSection } from '../../components/ReviewSection';
 
@@ -9,19 +9,25 @@ const sizes = [
   { value: 'large', label: 'Large', height: '44' },
 ] as const satisfies ReadonlyArray<{ value: SelectSize; label: string; height: string }>;
 
+type DemoOption = {
+  value: string;
+  label: string;
+  disabled?: boolean;
+};
+
 const projectOptions = [
   { value: 'design', label: 'Virgo Design' },
   { value: 'docs', label: 'Virgo Cloud Docs' },
   { value: 'nsh', label: 'Neural Semantic Highlighting' },
   { value: 'retro', label: 'Virgo Retro' },
-] as const satisfies ReadonlyArray<SelectOption>;
+] as const satisfies ReadonlyArray<DemoOption>;
 
 const environmentOptions = [
   { value: 'local', label: 'Local development' },
   { value: 'homelab', label: 'Homelab' },
   { value: 'preview', label: 'Preview environment' },
   { value: 'production', label: 'Production', disabled: true },
-] as const satisfies ReadonlyArray<SelectOption>;
+] as const satisfies ReadonlyArray<DemoOption>;
 
 const longOptions = [
   { value: 'short', label: 'Virgo Design' },
@@ -30,7 +36,28 @@ const longOptions = [
     label: 'Virgo Cloud Docs — personal local-first workspace for long-form knowledge and tooling',
   },
   { value: 'semantic', label: 'Neural Semantic Highlighting runtime and model workspace' },
-] as const satisfies ReadonlyArray<SelectOption>;
+] as const satisfies ReadonlyArray<DemoOption>;
+
+type DemoSelectProps = Omit<SelectProps, 'children'> & {
+  'aria-label': string;
+  options: readonly DemoOption[];
+  placeholder?: string;
+};
+
+function DemoSelect({ options, placeholder, 'aria-label': ariaLabel, ...props }: DemoSelectProps) {
+  return (
+    <Select {...props}>
+      <Select.Trigger aria-label={ariaLabel} placeholder={placeholder} />
+      <Select.Content>
+        {options.map((option) => (
+          <Select.Option disabled={option.disabled} key={option.value} value={option.value}>
+            {option.label}
+          </Select.Option>
+        ))}
+      </Select.Content>
+    </Select>
+  );
+}
 
 export function SelectPage() {
   return (
@@ -70,7 +97,7 @@ export function SelectPage() {
           </div>
           <div className="hero-stage">
             <div className="select-demo-width select-demo-width--hero">
-              <Select
+              <DemoSelect
                 aria-label="Reference project"
                 defaultValue="design"
                 options={projectOptions}
@@ -101,7 +128,7 @@ export function SelectPage() {
               <div className="select-size-guide">
                 <span className="guide-line" aria-hidden="true" />
                 <div className="select-demo-width">
-                  <Select
+                  <DemoSelect
                     aria-label={`${size.label} project`}
                     defaultValue="design"
                     options={projectOptions}
@@ -130,7 +157,7 @@ export function SelectPage() {
             </div>
             <div className="select-component-stage">
               <div className="select-demo-width">
-                <Select
+                <DemoSelect
                   aria-label="Choose project"
                   options={projectOptions}
                   placeholder="Choose a project"
@@ -147,7 +174,7 @@ export function SelectPage() {
             </div>
             <div className="select-component-stage">
               <div className="select-demo-width">
-                <Select
+                <DemoSelect
                   aria-label="Selected project"
                   defaultValue="docs"
                   options={projectOptions}
@@ -173,7 +200,7 @@ export function SelectPage() {
             </div>
             <div className="select-component-stage">
               <div className="select-demo-width">
-                <Select
+                <DemoSelect
                   aria-label="Default project"
                   options={projectOptions}
                   placeholder="Project"
@@ -190,7 +217,7 @@ export function SelectPage() {
             </div>
             <div className="select-component-stage">
               <div className="select-demo-width">
-                <Select
+                <DemoSelect
                   disabled
                   aria-label="Disabled project"
                   defaultValue="design"
@@ -208,7 +235,7 @@ export function SelectPage() {
             </div>
             <div className="select-component-stage">
               <div className="select-demo-width">
-                <Select
+                <DemoSelect
                   invalid
                   aria-label="Invalid environment"
                   options={environmentOptions}
@@ -226,7 +253,11 @@ export function SelectPage() {
             </div>
             <div className="select-component-stage">
               <div className="select-demo-width">
-                <Select aria-label="Open project" defaultValue="design" options={projectOptions} />
+                <DemoSelect
+                  aria-label="Open project"
+                  defaultValue="design"
+                  options={projectOptions}
+                />
               </div>
             </div>
             <code>click to inspect open</code>
@@ -248,7 +279,7 @@ export function SelectPage() {
             </div>
             <div className="select-component-stage">
               <div className="select-demo-width">
-                <Select
+                <DemoSelect
                   aria-label="Environment"
                   defaultValue="homelab"
                   options={environmentOptions}
@@ -265,7 +296,7 @@ export function SelectPage() {
             </div>
             <div className="select-component-stage">
               <div className="select-demo-width select-demo-width--narrow">
-                <Select aria-label="Long project" defaultValue="long" options={longOptions} />
+                <DemoSelect aria-label="Long project" defaultValue="long" options={longOptions} />
               </div>
             </div>
             <code>text-overflow</code>
@@ -278,7 +309,7 @@ export function SelectPage() {
             </div>
             <div className="select-component-stage">
               <div className="select-demo-width">
-                <Select
+                <DemoSelect
                   aria-label="Keyboard project"
                   options={projectOptions}
                   placeholder="Focus, then use ArrowDown"

@@ -6,7 +6,7 @@ export const breadcrumbMetadata = {
   category: 'Navigation',
   description:
     'Shows the current location within a hierarchy using native links and a current-page item.',
-  import: "import { Breadcrumb, BreadcrumbItem } from '@virgo-design/ui';",
+  import: "import { Breadcrumb } from '@virgo-design/ui';",
   states: ['default', 'hover', 'focus-visible', 'current'],
   anatomy: [
     {
@@ -51,19 +51,19 @@ export const breadcrumbMetadata = {
   examples: [
     {
       name: 'Basic',
-      code: '<Breadcrumb><BreadcrumbItem href="/">Home</BreadcrumbItem><BreadcrumbItem href="/applications">Application Center</BreadcrumbItem><BreadcrumbItem>Application</BreadcrumbItem></Breadcrumb>',
+      code: '<Breadcrumb><Breadcrumb.Item href="/">Home</Breadcrumb.Item><Breadcrumb.Item href="/applications">Application Center</Breadcrumb.Item><Breadcrumb.Item>Application</Breadcrumb.Item></Breadcrumb>',
     },
     {
       name: 'Icon and text',
-      code: '<Breadcrumb><BreadcrumbItem icon={<UserIcon />} href="/users">Users</BreadcrumbItem><BreadcrumbItem>Application</BreadcrumbItem></Breadcrumb>',
+      code: '<Breadcrumb><Breadcrumb.Item icon={<UserIcon />} href="/users">Users</Breadcrumb.Item><Breadcrumb.Item>Application</Breadcrumb.Item></Breadcrumb>',
     },
     {
       name: 'Custom separator',
-      code: '<Breadcrumb separator=">"><BreadcrumbItem href="/">Home</BreadcrumbItem><BreadcrumbItem>Application</BreadcrumbItem></Breadcrumb>',
+      code: '<Breadcrumb separator=">"><Breadcrumb.Item href="/">Home</Breadcrumb.Item><Breadcrumb.Item>Application</Breadcrumb.Item></Breadcrumb>',
     },
     {
       name: 'Dynamic value',
-      code: '<Breadcrumb><BreadcrumbItem href="/users">Users</BreadcrumbItem><BreadcrumbItem>{userId}</BreadcrumbItem></Breadcrumb>',
+      code: '<Breadcrumb><Breadcrumb.Item href="/users">Users</Breadcrumb.Item><Breadcrumb.Item>{userId}</Breadcrumb.Item></Breadcrumb>',
     },
   ],
 } as const satisfies ComponentMetadata;

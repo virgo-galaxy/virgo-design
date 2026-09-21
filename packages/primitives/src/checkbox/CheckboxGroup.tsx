@@ -42,4 +42,4 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(func
   );
 });
 
-CheckboxGroup.displayName = 'CheckboxGroup';
+CheckboxGroup.displayName = 'Checkbox.Group';

@@ -1,4 +1,4 @@
-import { CheckboxGroup as PrimitiveCheckboxGroup } from '@virgo-design/primitives';
+import { Checkbox as PrimitiveCheckbox } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
 import styles from './Checkbox.module.scss';
@@ -13,7 +13,7 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(func
   forwardedRef,
 ) {
   return (
-    <PrimitiveCheckboxGroup
+    <PrimitiveCheckbox.Group
       {...props}
       ref={forwardedRef}
       className={joinClassNames(styles.group, className)}
@@ -21,4 +21,4 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(func
   );
 });
 
-CheckboxGroup.displayName = 'CheckboxGroup';
+CheckboxGroup.displayName = 'Checkbox.Group';

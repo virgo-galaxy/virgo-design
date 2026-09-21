@@ -6,7 +6,7 @@ export const checkboxMetadata = {
   category: 'Forms',
   description:
     'Toggles an independent boolean choice and supports grouped multi-selection and mixed selection states.',
-  import: "import { Checkbox, CheckboxGroup } from '@virgo-design/ui';",
+  import: "import { Checkbox } from '@virgo-design/ui';",
   states: ['unchecked', 'checked', 'indeterminate', 'disabled'],
   anatomy: [
     {
@@ -38,7 +38,7 @@ export const checkboxMetadata = {
     'The visible label wraps the native input so clicking the label toggles the checkbox.',
     'Supports aria-label or aria-labelledby when no visible label is provided.',
     'Exposes aria-checked="mixed" when indeterminate is true.',
-    'CheckboxGroup preserves native checkbox form behavior with a shared name when provided.',
+    'Checkbox.Group preserves native checkbox form behavior with a shared name when provided.',
   ],
   examples: [
     {
@@ -51,7 +51,7 @@ export const checkboxMetadata = {
     },
     {
       name: 'Checkbox group',
-      code: '<CheckboxGroup defaultValue={["pear"]}><Checkbox value="apple">Apple</Checkbox><Checkbox value="pear">Pear</Checkbox></CheckboxGroup>',
+      code: '<Checkbox.Group defaultValue={["pear"]}><Checkbox value="apple">Apple</Checkbox><Checkbox value="pear">Pear</Checkbox></Checkbox.Group>',
     },
     {
       name: 'Indeterminate checkbox',

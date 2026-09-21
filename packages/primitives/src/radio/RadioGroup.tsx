@@ -60,4 +60,4 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(function R
   );
 });
 
-RadioGroup.displayName = 'RadioGroup';
+RadioGroup.displayName = 'Radio.Group';

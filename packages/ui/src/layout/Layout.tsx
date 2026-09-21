@@ -1,10 +1,4 @@
-import {
-  Layout as PrimitiveLayout,
-  LayoutContent as PrimitiveLayoutContent,
-  LayoutFooter as PrimitiveLayoutFooter,
-  LayoutHeader as PrimitiveLayoutHeader,
-  LayoutSider as PrimitiveLayoutSider,
-} from '@virgo-design/primitives';
+import { Layout as PrimitiveLayout } from '@virgo-design/primitives';
 import { type CSSProperties, forwardRef } from 'react';
 
 import styles from './Layout.module.scss';
@@ -40,7 +34,7 @@ export const LayoutHeader = forwardRef<HTMLElement, LayoutHeaderProps>(function 
   forwardedRef,
 ) {
   return (
-    <PrimitiveLayoutHeader
+    <PrimitiveLayout.Header
       {...props}
       ref={forwardedRef}
       className={joinClassNames(styles.header, className)}
@@ -48,7 +42,7 @@ export const LayoutHeader = forwardRef<HTMLElement, LayoutHeaderProps>(function 
   );
 });
 
-LayoutHeader.displayName = 'LayoutHeader';
+LayoutHeader.displayName = 'Layout.Header';
 
 type SiderStyle = CSSProperties & {
   '--vd-layout-sider-width'?: string;
@@ -64,7 +58,7 @@ export const LayoutSider = forwardRef<HTMLElement, LayoutSiderProps>(function La
   };
 
   return (
-    <PrimitiveLayoutSider
+    <PrimitiveLayout.Sider
       {...props}
       ref={forwardedRef}
       className={joinClassNames(styles.sider, className)}
@@ -74,14 +68,14 @@ export const LayoutSider = forwardRef<HTMLElement, LayoutSiderProps>(function La
   );
 });
 
-LayoutSider.displayName = 'LayoutSider';
+LayoutSider.displayName = 'Layout.Sider';
 
 export const LayoutContent = forwardRef<HTMLElement, LayoutContentProps>(function LayoutContent(
   { className, ...props },
   forwardedRef,
 ) {
   return (
-    <PrimitiveLayoutContent
+    <PrimitiveLayout.Content
       {...props}
       ref={forwardedRef}
       className={joinClassNames(styles.content, className)}
@@ -89,14 +83,14 @@ export const LayoutContent = forwardRef<HTMLElement, LayoutContentProps>(functio
   );
 });
 
-LayoutContent.displayName = 'LayoutContent';
+LayoutContent.displayName = 'Layout.Content';
 
 export const LayoutFooter = forwardRef<HTMLElement, LayoutFooterProps>(function LayoutFooter(
   { className, ...props },
   forwardedRef,
 ) {
   return (
-    <PrimitiveLayoutFooter
+    <PrimitiveLayout.Footer
       {...props}
       ref={forwardedRef}
       className={joinClassNames(styles.footer, className)}
@@ -104,4 +98,4 @@ export const LayoutFooter = forwardRef<HTMLElement, LayoutFooterProps>(function 
   );
 });
 
-LayoutFooter.displayName = 'LayoutFooter';
+LayoutFooter.displayName = 'Layout.Footer';

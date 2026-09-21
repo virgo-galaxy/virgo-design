@@ -1,4 +1,4 @@
-import { RadioGroup as PrimitiveRadioGroup } from '@virgo-design/primitives';
+import { Radio as PrimitiveRadio } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
 import styles from './Radio.module.scss';
@@ -13,7 +13,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(function R
   forwardedRef,
 ) {
   return (
-    <PrimitiveRadioGroup
+    <PrimitiveRadio.Group
       {...props}
       ref={forwardedRef}
       className={joinClassNames(styles.group, className)}
@@ -23,4 +23,4 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(function R
   );
 });
 
-RadioGroup.displayName = 'RadioGroup';
+RadioGroup.displayName = 'Radio.Group';

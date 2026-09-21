@@ -1,5 +1,5 @@
 import { CloseIcon } from '@virgo-design/icons';
-import { Tab as PrimitiveTab } from '@virgo-design/primitives';
+import { Tabs as PrimitiveTabs } from '@virgo-design/primitives';
 import { forwardRef, useCallback } from 'react';
 
 import styles from './Tabs.module.scss';
@@ -57,7 +57,7 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
       data-closable={showsCloseAction || undefined}
       data-disabled={disabled || undefined}
     >
-      <PrimitiveTab
+      <PrimitiveTabs.Tab
         {...props}
         ref={forwardedRef}
         className={styles.tab}
@@ -81,7 +81,7 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
         <span className={styles.label} data-slot="label">
           {children}
         </span>
-      </PrimitiveTab>
+      </PrimitiveTabs.Tab>
 
       {showsCloseAction ? (
         <button
@@ -106,4 +106,4 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
   );
 });
 
-Tab.displayName = 'Tab';
+Tab.displayName = 'Tabs.Tab';

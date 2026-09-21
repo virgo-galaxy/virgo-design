@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { Tab, TabList, TabPanel, Tabs } from './Tabs';
+import { Tabs } from './index';
 
 function TabsExample({
   value,
@@ -16,18 +16,18 @@ function TabsExample({
 }) {
   return (
     <Tabs value={value} defaultValue={defaultValue} onValueChange={onValueChange}>
-      <TabList aria-label="Project sections">
-        <Tab value="overview">Overview</Tab>
-        <Tab disabled value="settings">
+      <Tabs.List aria-label="Project sections">
+        <Tabs.Tab value="overview">Overview</Tabs.Tab>
+        <Tabs.Tab disabled value="settings">
           Settings
-        </Tab>
-        <Tab value="api">API</Tab>
-        <Tab value="accessibility">Accessibility</Tab>
-      </TabList>
-      <TabPanel value="overview">Overview content</TabPanel>
-      <TabPanel value="settings">Settings content</TabPanel>
-      <TabPanel value="api">API content</TabPanel>
-      <TabPanel value="accessibility">Accessibility content</TabPanel>
+        </Tabs.Tab>
+        <Tabs.Tab value="api">API</Tabs.Tab>
+        <Tabs.Tab value="accessibility">Accessibility</Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value="overview">Overview content</Tabs.Panel>
+      <Tabs.Panel value="settings">Settings content</Tabs.Panel>
+      <Tabs.Panel value="api">API content</Tabs.Panel>
+      <Tabs.Panel value="accessibility">Accessibility content</Tabs.Panel>
     </Tabs>
   );
 }
@@ -155,12 +155,12 @@ describe('Tabs primitive', () => {
   it('generates distinct tab and panel ids for values with ambiguous encoded forms', () => {
     render(
       <Tabs defaultValue="a%b">
-        <TabList aria-label="Special values">
-          <Tab value="a%b">Percent value</Tab>
-          <Tab value="a-25b">Hyphen value</Tab>
-        </TabList>
-        <TabPanel value="a%b">Percent content</TabPanel>
-        <TabPanel value="a-25b">Hyphen content</TabPanel>
+        <Tabs.List aria-label="Special values">
+          <Tabs.Tab value="a%b">Percent value</Tabs.Tab>
+          <Tabs.Tab value="a-25b">Hyphen value</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="a%b">Percent content</Tabs.Panel>
+        <Tabs.Panel value="a-25b">Hyphen content</Tabs.Panel>
       </Tabs>,
     );
 

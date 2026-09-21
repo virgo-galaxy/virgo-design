@@ -3,15 +3,14 @@ import userEvent from '@testing-library/user-event';
 import type { ComponentProps } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { SegmentedControl } from './SegmentedControl';
-import { SegmentedControlItem } from './SegmentedControlItem';
+import { SegmentedControl } from './index';
 
 function renderControl(props?: Partial<ComponentProps<typeof SegmentedControl>>) {
   return render(
     <SegmentedControl defaultValue="pear" aria-label="Fruit" {...props}>
-      <SegmentedControlItem value="apple">Apple</SegmentedControlItem>
-      <SegmentedControlItem value="pear">Pear</SegmentedControlItem>
-      <SegmentedControlItem value="orange">Orange</SegmentedControlItem>
+      <SegmentedControl.Item value="apple">Apple</SegmentedControl.Item>
+      <SegmentedControl.Item value="pear">Pear</SegmentedControl.Item>
+      <SegmentedControl.Item value="orange">Orange</SegmentedControl.Item>
     </SegmentedControl>,
   );
 }
@@ -51,10 +50,10 @@ describe('SegmentedControl', () => {
 
     render(
       <SegmentedControl defaultValue="apple" aria-label="Fruit">
-        <SegmentedControlItem value="apple">Apple</SegmentedControlItem>
-        <SegmentedControlItem disabled value="orange">
+        <SegmentedControl.Item value="apple">Apple</SegmentedControl.Item>
+        <SegmentedControl.Item disabled value="orange">
           Orange
-        </SegmentedControlItem>
+        </SegmentedControl.Item>
       </SegmentedControl>,
     );
 

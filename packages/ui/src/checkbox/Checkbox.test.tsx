@@ -3,8 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { Checkbox } from './Checkbox';
-import { CheckboxGroup } from './CheckboxGroup';
+import { Checkbox } from './index';
 
 describe('Checkbox', () => {
   it('renders the standard checkbox with its visible label', () => {
@@ -73,11 +72,11 @@ describe('Checkbox', () => {
     const onValueChange = vi.fn();
 
     render(
-      <CheckboxGroup defaultValue={['pear']} onValueChange={onValueChange} aria-label="Fruit">
+      <Checkbox.Group defaultValue={['pear']} onValueChange={onValueChange} aria-label="Fruit">
         <Checkbox value="apple">Apple</Checkbox>
         <Checkbox value="pear">Pear</Checkbox>
         <Checkbox value="orange">Orange</Checkbox>
-      </CheckboxGroup>,
+      </Checkbox.Group>,
     );
 
     expect(screen.getByRole('checkbox', { name: 'Pear' })).toBeChecked();

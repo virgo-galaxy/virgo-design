@@ -1,5 +1,5 @@
 import { PlusIcon } from '@virgo-design/icons';
-import { TabList as PrimitiveTabList } from '@virgo-design/primitives';
+import { Tabs as PrimitiveTabs } from '@virgo-design/primitives';
 import { forwardRef, useCallback, useLayoutEffect, useRef } from 'react';
 
 import styles from './Tabs.module.scss';
@@ -87,7 +87,7 @@ export const TabList = forwardRef<HTMLDivElement, TabListProps>(function TabList
   }, [children, updateIndicator]);
 
   const tabList = (
-    <PrimitiveTabList
+    <PrimitiveTabs.List
       {...props}
       ref={setListRef}
       className={joinClassNames(styles.list, className)}
@@ -96,7 +96,7 @@ export const TabList = forwardRef<HTMLDivElement, TabListProps>(function TabList
     >
       {children}
       <span aria-hidden="true" className={styles.indicator} data-slot="indicator" />
-    </PrimitiveTabList>
+    </PrimitiveTabs.List>
   );
 
   if (variant !== 'card' || !addable) {
@@ -119,4 +119,4 @@ export const TabList = forwardRef<HTMLDivElement, TabListProps>(function TabList
   );
 });
 
-TabList.displayName = 'TabList';
+TabList.displayName = 'Tabs.List';
