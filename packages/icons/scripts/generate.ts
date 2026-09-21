@@ -175,10 +175,14 @@ export async function generateIcons() {
 
   const exports = generatedIcons
     .sort((left, right) => left.localeCompare(right, 'en', { sensitivity: 'base', numeric: true }))
-    .map(
-      (componentName) =>
-        `export { ${componentName}, type ${componentName}Props } from './generated/${componentName}.js';`,
-    )
+    .map((componentName) => {
+      const source = `from './generated/${componentName}.js';`;
+      const inlineExport = `export { ${componentName}, type ${componentName}Props } ${source}`;
+
+      return inlineExport.length <= 100
+        ? inlineExport
+        : `export {\n  ${componentName},\n  type ${componentName}Props,\n} ${source}`;
+    })
     .join('\n');
 
   await writeFile(

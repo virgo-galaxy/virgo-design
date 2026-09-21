@@ -12,6 +12,11 @@ export { ChevronUpIcon, type ChevronUpIconProps } from './generated/ChevronUpIco
 export { CloseIcon, type CloseIconProps } from './generated/CloseIcon.js';
 export { CybertruckIcon, type CybertruckIconProps } from './generated/CybertruckIcon.js';
 export { DashboardIcon, type DashboardIconProps } from './generated/DashboardIcon.js';
+export { EllipsisIcon, type EllipsisIconProps } from './generated/EllipsisIcon.js';
+export {
+  EllipsisVerticalIcon,
+  type EllipsisVerticalIconProps,
+} from './generated/EllipsisVerticalIcon.js';
 export { EyeClosedIcon, type EyeClosedIconProps } from './generated/EyeClosedIcon.js';
 export { EyeIcon, type EyeIconProps } from './generated/EyeIcon.js';
 export { GaugeIcon, type GaugeIconProps } from './generated/GaugeIcon.js';

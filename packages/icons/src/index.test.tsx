@@ -11,6 +11,8 @@ import {
   ChevronsRightIcon,
   ChevronsUpIcon,
   DashboardIcon,
+  EllipsisIcon,
+  EllipsisVerticalIcon,
   EyeClosedIcon,
   EyeIcon,
   GaugeIcon,
@@ -21,6 +23,8 @@ import {
 } from './index';
 
 const addedIcons = [
+  ['ellipsis', EllipsisIcon],
+  ['ellipsis-vertical', EllipsisVerticalIcon],
   ['workspace', WorkspaceIcon],
   ['home', HomeIcon],
   ['eye', EyeIcon],

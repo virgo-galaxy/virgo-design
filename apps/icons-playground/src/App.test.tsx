@@ -33,7 +33,7 @@ describe('Icons Playground', () => {
 
     await user.click(screen.getByRole('button', { name: 'Icon Plus' }));
 
-    expect(screen.getAllByRole('option')).toHaveLength(26);
+    expect(screen.getAllByRole('option')).toHaveLength(28);
     expect(screen.getByRole('option', { name: 'Check' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Info' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Cybertruck' })).toBeInTheDocument();
@@ -62,6 +62,8 @@ describe('Icons Playground', () => {
   });
 
   it.each([
+    ['Ellipsis', 'ellipsis'],
+    ['Ellipsis Vertical', 'ellipsis-vertical'],
     ['Workspace', 'workspace'],
     ['Home', 'home'],
     ['Eye', 'eye'],

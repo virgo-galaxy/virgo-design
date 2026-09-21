@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { generateIconComponent } from './generate';
 
 describe('icons generator', () => {
-  it('generates all twenty-six canonical SVG assets without losing geometry', async () => {
+  it('generates all twenty-eight canonical SVG assets without losing geometry', async () => {
     const iconDirectory = resolve('packages/icons/icons');
     const files = (await readdir(iconDirectory))
       .filter((fileName) => fileName.endsWith('.svg'))
@@ -26,6 +26,8 @@ describe('icons generator', () => {
       'close.svg',
       'cybertruck.svg',
       'dashboard.svg',
+      'ellipsis-vertical.svg',
+      'ellipsis.svg',
       'eye-closed.svg',
       'eye.svg',
       'gauge.svg',
@@ -66,6 +68,43 @@ describe('icons generator', () => {
         );
       }),
     );
+  });
+
+  it('keeps both ellipses centered with identical regular hexagons and equal spacing', async () => {
+    let referenceShape: number[][] | undefined;
+
+    for (const fileName of ['ellipsis.svg', 'ellipsis-vertical.svg']) {
+      const source = await readFile(resolve('packages/icons/icons', fileName), 'utf8');
+      const paths = [...source.matchAll(/<path d="([^"]+)"/g)];
+      expect(paths).toHaveLength(3);
+
+      paths.forEach(([, geometry], index) => {
+        const coordinates = geometry?.match(/-?\d+(?:\.\d+)?/g)?.map(Number) ?? [];
+        expect(coordinates).toHaveLength(12);
+        const points = Array.from({ length: 6 }, (_, vertex) => [
+          coordinates[vertex * 2]!,
+          coordinates[vertex * 2 + 1]!,
+        ]);
+        const center = [0, 1].map(
+          (axis) => points.reduce((sum, point) => sum + point[axis]!, 0) / points.length,
+        );
+        const expectedCenter =
+          fileName === 'ellipsis.svg' ? [5 + index * 7, 12] : [12, 5 + index * 7];
+        center.forEach((coordinate, axis) =>
+          expect(coordinate).toBeCloseTo(expectedCenter[axis]!, 6),
+        );
+        const shape = points.map((point) =>
+          point.map((coordinate, axis) => Number((coordinate - center[axis]!).toFixed(3))),
+        );
+        referenceShape ??= shape;
+        expect(shape).toEqual(referenceShape);
+        points.forEach((point, vertex) => {
+          const next = points[(vertex + 1) % points.length]!;
+          expect(Math.hypot(next[0]! - point[0]!, next[1]! - point[1]!)).toBeCloseTo(2, 3);
+          expect(Math.hypot(point[0]! - center[0]!, point[1]! - center[1]!)).toBeCloseTo(2, 3);
+        });
+      });
+    }
   });
 
   it('generates a fill-only Plus React layer from the canonical SVG asset', async () => {
