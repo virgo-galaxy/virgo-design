@@ -4,7 +4,13 @@ import * as ui from './index';
 
 describe('@virgo-design/ui public API', () => {
   it('exposes runtime UI without metadata', () => {
+    for (const part of ['Trigger', 'Content', 'Item', 'Separator', 'Button'])
+      expect(ui.Dropdown).toHaveProperty(part);
+    expect(ui).not.toHaveProperty('DropdownTrigger');
+    expect(ui).not.toHaveProperty('dropdownMetadata');
     expect(ui).toHaveProperty('Button');
+    expect(ui).toHaveProperty('Pagination');
+    expect(ui).not.toHaveProperty('paginationMetadata');
     expect(ui).toHaveProperty('Surface');
     expect(ui.Layout).not.toHaveProperty('Surface');
     expect(ui).not.toHaveProperty('surfaceMetadata');

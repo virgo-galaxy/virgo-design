@@ -1,3 +1,4 @@
+import { DashboardIcon } from '@virgo-design/icons';
 import { Breadcrumb, Layout, Surface } from '@virgo-design/ui';
 import { useEffect, useState } from 'react';
 import { Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
@@ -72,7 +73,7 @@ export function App() {
         <div className="navigation-note">
           <span className="status-light" />
           <div>
-            <strong>Review build</strong>
+            <strong>Stable build</strong>
             <span>Multi-component shell</span>
           </div>
         </div>
@@ -82,7 +83,9 @@ export function App() {
         <Layout.Header className="workspace-header">
           <Surface material="glass" border="none" className="workspace-header-surface">
             <Breadcrumb className="workspace-breadcrumb">
-              <Breadcrumb.Item aria-current={false}>Components</Breadcrumb.Item>
+              <Breadcrumb.Item aria-current={false} icon={<DashboardIcon />}>
+                Components
+              </Breadcrumb.Item>
               <Breadcrumb.Item>{activeRoute.name}</Breadcrumb.Item>
             </Breadcrumb>
 

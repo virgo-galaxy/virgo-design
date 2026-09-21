@@ -4,7 +4,12 @@ import * as primitives from './index';
 
 describe('@virgo-design/primitives public API', () => {
   it('exposes composite anatomy only through family roots', () => {
+    for (const part of ['Trigger', 'Content', 'Item', 'Separator'])
+      expect(primitives.Dropdown).toHaveProperty(part);
+    expect(primitives).not.toHaveProperty('DropdownTrigger');
     expect(primitives.Breadcrumb).toHaveProperty('Item');
+    expect(primitives.Pagination).toHaveProperty('Item');
+    expect(primitives).not.toHaveProperty('PaginationItem');
     expect(primitives.Checkbox).toHaveProperty('Group');
     expect(primitives).toHaveProperty('Layout');
     expect(primitives.Layout).toHaveProperty('Header');

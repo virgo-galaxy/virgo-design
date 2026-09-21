@@ -3,8 +3,10 @@ import type { ComponentType } from 'react';
 import { BreadcrumbPage } from '../pages/breadcrumb/BreadcrumbPage';
 import { ButtonPage } from '../pages/button/ButtonPage';
 import { CheckboxPage } from '../pages/checkbox/CheckboxPage';
+import { DropdownPage } from '../pages/dropdown/DropdownPage';
 import { InputPage } from '../pages/input/InputPage';
 import { LayoutPage } from '../pages/layout/LayoutPage';
+import { PaginationPage } from '../pages/pagination/PaginationPage';
 import { RadioPage } from '../pages/radio/RadioPage';
 import { SegmentedControlPage } from '../pages/segmented-control/SegmentedControlPage';
 import { SelectPage } from '../pages/select/SelectPage';
@@ -49,6 +51,8 @@ export type ComponentRoute = {
     | 'switch'
     | 'segmented-control'
     | 'tabs'
+    | 'pagination'
+    | 'dropdown'
     | 'breadcrumb';
   index: string;
   name: string;
@@ -94,20 +98,9 @@ export const componentRoutes = [
     Component: LayoutPage,
   },
   {
-    id: 'tabs',
-    group: 'navigation',
-    index: '04',
-    name: 'Tabs',
-    category: 'Navigation',
-    path: '/components/tabs',
-    status: 'stable',
-    version: 'V1',
-    Component: TabsPage,
-  },
-  {
     id: 'breadcrumb',
     group: 'navigation',
-    index: '05',
+    index: '04',
     name: 'Breadcrumb',
     category: 'Navigation',
     path: '/components/breadcrumb',
@@ -116,26 +109,37 @@ export const componentRoutes = [
     Component: BreadcrumbPage,
   },
   {
-    id: 'input',
-    group: 'data-entry',
-    index: '06',
-    name: 'Input',
-    category: 'Forms',
-    path: '/components/input',
+    id: 'dropdown',
+    group: 'navigation',
+    index: '05',
+    name: 'Dropdown',
+    category: 'Navigation',
+    path: '/components/dropdown',
     status: 'stable',
     version: 'V1',
-    Component: InputPage,
+    Component: DropdownPage,
   },
   {
-    id: 'select',
-    group: 'data-entry',
-    index: '07',
-    name: 'Select',
-    category: 'Forms',
-    path: '/components/select',
+    id: 'pagination',
+    group: 'navigation',
+    index: '06',
+    name: 'Pagination',
+    category: 'Navigation',
+    path: '/components/pagination',
     status: 'stable',
     version: 'V1',
-    Component: SelectPage,
+    Component: PaginationPage,
+  },
+  {
+    id: 'tabs',
+    group: 'navigation',
+    index: '07',
+    name: 'Tabs',
+    category: 'Navigation',
+    path: '/components/tabs',
+    status: 'stable',
+    version: 'V1',
+    Component: TabsPage,
   },
   {
     id: 'checkbox',
@@ -149,26 +153,26 @@ export const componentRoutes = [
     Component: CheckboxPage,
   },
   {
-    id: 'radio',
+    id: 'input',
     group: 'data-entry',
     index: '09',
+    name: 'Input',
+    category: 'Forms',
+    path: '/components/input',
+    status: 'stable',
+    version: 'V1',
+    Component: InputPage,
+  },
+  {
+    id: 'radio',
+    group: 'data-entry',
+    index: '10',
     name: 'Radio',
     category: 'Forms',
     path: '/components/radio',
     status: 'stable',
     version: 'V1',
     Component: RadioPage,
-  },
-  {
-    id: 'switch',
-    group: 'data-entry',
-    index: '10',
-    name: 'Switch',
-    category: 'Forms',
-    path: '/components/switch',
-    status: 'stable',
-    version: 'V1',
-    Component: SwitchPage,
   },
   {
     id: 'segmented-control',
@@ -180,5 +184,27 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1',
     Component: SegmentedControlPage,
+  },
+  {
+    id: 'select',
+    group: 'data-entry',
+    index: '12',
+    name: 'Select',
+    category: 'Forms',
+    path: '/components/select',
+    status: 'stable',
+    version: 'V1',
+    Component: SelectPage,
+  },
+  {
+    id: 'switch',
+    group: 'data-entry',
+    index: '13',
+    name: 'Switch',
+    category: 'Forms',
+    path: '/components/switch',
+    status: 'stable',
+    version: 'V1',
+    Component: SwitchPage,
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;

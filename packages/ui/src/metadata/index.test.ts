@@ -5,8 +5,10 @@ import {
   buttonMetadata,
   checkboxMetadata,
   componentMetadataRegistry,
+  dropdownMetadata,
   inputMetadata,
   layoutMetadata,
+  paginationMetadata,
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
@@ -17,6 +19,15 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Dropdown as Navigation without loading', () => {
+    expect(componentMetadataRegistry.dropdown).toBe(dropdownMetadata);
+    expect(dropdownMetadata.category).toBe('Navigation');
+    expect(dropdownMetadata.capabilities.loading).toBe(false);
+  });
+  it('registers Pagination as Navigation', () => {
+    expect(componentMetadataRegistry.pagination).toBe(paginationMetadata);
+    expect(paginationMetadata.category).toBe('Navigation');
+  });
   it('registers the exported Surface metadata without creating a copy', () => {
     expect(componentMetadataRegistry.surface).toBe(surfaceMetadata);
     expect(surfaceMetadata.name).toBe('Surface');

@@ -2,6 +2,8 @@ import {
   Breadcrumb,
   Button,
   Checkbox,
+  Dropdown,
+  type DropdownProps,
   Input,
   Layout,
   type LayoutContentProps,
@@ -9,6 +11,8 @@ import {
   type LayoutHeaderProps,
   type LayoutProps,
   type LayoutSiderProps,
+  Pagination,
+  type PaginationProps,
   Radio,
   SegmentedControl,
   Select,
@@ -29,6 +33,7 @@ const breadcrumbMetadata: ComponentMetadata = componentMetadataRegistry.breadcru
 const checkboxMetadata: ComponentMetadata = componentMetadataRegistry.checkbox;
 const inputMetadata: ComponentMetadata = componentMetadataRegistry.input;
 const layoutMetadata: ComponentMetadata = componentMetadataRegistry.layout;
+const paginationMetadata: ComponentMetadata = componentMetadataRegistry.pagination;
 const radioMetadata: ComponentMetadata = componentMetadataRegistry.radio;
 const segmentedControlMetadata: ComponentMetadata = componentMetadataRegistry.segmentedControl;
 const textareaMetadata: ComponentMetadata = componentMetadataRegistry.textarea;
@@ -38,6 +43,8 @@ const switchMetadata: ComponentMetadata = componentMetadataRegistry.switch;
 const tabsMetadata: ComponentMetadata = componentMetadataRegistry.tabs;
 
 export type WorkspaceSurfaceProps = SurfaceProps;
+export type WorkspaceDropdownProps = DropdownProps;
+export type WorkspacePaginationProps = PaginationProps;
 
 export type WorkspaceLayoutProps = {
   layout: LayoutProps;
@@ -58,8 +65,10 @@ export const workspaceSourceResolutionFixture = {
   Breadcrumb,
   Button,
   Checkbox,
+  Dropdown,
   Input,
   Layout,
+  Pagination,
   Radio,
   SegmentedControl,
   Select,
@@ -72,6 +81,7 @@ export const workspaceSourceResolutionFixture = {
   checkboxMetadata,
   inputMetadata,
   layoutMetadata,
+  paginationMetadata,
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
@@ -80,7 +90,13 @@ export const workspaceSourceResolutionFixture = {
   tabsMetadata,
   textareaMetadata,
   componentMetadataRegistry,
+  dropdownMetadata: componentMetadataRegistry.dropdown,
   compositeAnatomy: {
+    DropdownTrigger: Dropdown.Trigger,
+    DropdownContent: Dropdown.Content,
+    DropdownItem: Dropdown.Item,
+    DropdownSeparator: Dropdown.Separator,
+    DropdownButton: Dropdown.Button,
     BreadcrumbItem: Breadcrumb.Item,
     CheckboxGroup: Checkbox.Group,
     LayoutHeader: Layout.Header,
