@@ -46,7 +46,7 @@ export function PaginationPage() {
             <span>Reference specimen</span>
             <code>page navigation</code>
           </div>
-          <div className="pagination-hero-stage">
+          <div className="hero-stage pagination-hero-stage">
             <Pagination
               total={500}
               defaultPage={6}

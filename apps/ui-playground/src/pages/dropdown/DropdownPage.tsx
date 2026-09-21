@@ -78,7 +78,7 @@ export function DropdownPage() {
             <span>Reference specimen</span>
             <code>contextual actions</code>
           </div>
-          <div className="dropdown-hero-stage">
+          <div className="hero-stage dropdown-hero-stage">
             <Dropdown>
               <Dropdown.Trigger>Workspace actions</Dropdown.Trigger>
               <Dropdown.Content arrow>
