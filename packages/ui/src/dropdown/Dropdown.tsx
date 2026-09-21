@@ -138,7 +138,7 @@ const SplitButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(function 
 ) {
   const context = useContext(UIContext);
   return (
-    <div className={classes(styles.split, className)}>
+    <div className={styles.split}>
       <Button
         {...props}
         ref={ref}
@@ -146,7 +146,7 @@ const SplitButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(function 
         size={context.size}
         variant={variant}
         disabled={context.disabled || disabled}
-        className={classes(styles.mainAction, danger && styles.danger)}
+        className={classes(styles.mainAction, danger && styles.danger, className)}
       >
         {children}
       </Button>

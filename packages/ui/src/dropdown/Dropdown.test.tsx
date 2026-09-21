@@ -41,7 +41,12 @@ describe('Dropdown UI', () => {
     const save = vi.fn();
     render(
       <Dropdown>
-        <Dropdown.Button menuLabel="More actions" menuIcon={<UserIcon />} onClick={save}>
+        <Dropdown.Button
+          menuLabel="More actions"
+          menuIcon={<UserIcon />}
+          className="custom-main-action"
+          onClick={save}
+        >
           Save
         </Dropdown.Button>
         <Dropdown.Content>
@@ -49,7 +54,10 @@ describe('Dropdown UI', () => {
         </Dropdown.Content>
       </Dropdown>,
     );
-    await user.click(screen.getByRole('button', { name: 'Save' }));
+    const mainAction = screen.getByRole('button', { name: 'Save' });
+    expect(mainAction).toHaveClass('custom-main-action');
+    expect(mainAction.parentElement).not.toHaveClass('custom-main-action');
+    await user.click(mainAction);
     expect(save).toHaveBeenCalledTimes(1);
     expect(screen.queryByRole('menu')).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'More actions' }));
