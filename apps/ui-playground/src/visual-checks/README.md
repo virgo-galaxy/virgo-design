@@ -37,7 +37,7 @@ must not be confused with content-dependent indicator drift or doubled borders.
 
 ## Automated regression tests
 
-Run `pnpm exec vitest run packages/ui/src/segmented-control/SegmentedControl.test.tsx`.
+Run `pnpm exec vitest run packages/ui/src/components/SegmentedControl/SegmentedControl.test.tsx`.
 The tests cover empty values, absence of a default selection, fractional widths
 inside scaled ancestors, resize/font notifications, and replacing text or adding
 items while preserving the selected value, alongside the existing interaction

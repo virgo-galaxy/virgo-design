@@ -1,0 +1,30 @@
+# Components and internal capabilities
+
+`packages/primitives/src/components/` contains the unstyled public component families. `packages/ui/src/components/` contains their styled public counterparts (including UI-only Surface and SegmentedControl). Each family keeps its implementation, public types, tests and index together; UI metadata and Sass remain beside the component.
+
+Both package root indexes export only component families and their documented types. `ui/src/metadata/` remains a separate public metadata entry for compatibility. No runtime helpers are exported from either package root, and package `exports` allow only the existing root, UI metadata and stylesheet paths. Internal declaration files may be emitted as dependencies of public types; that does not create a supported subpath export.
+
+## Shared behavior
+
+`primitives/src/internal/` owns behavior used by more than one component:
+
+- `utils/composeRefs.ts`: forwarding DOM refs while retaining the internal ref, used by Checkbox, Select, Dropdown and Popover.
+- `hooks/useControllableState.ts`: undefined distinguishes controlled from uncontrolled state; identical values do not emit change callbacks. Select, Dropdown and Popover share it. Its silent local reset supports disabled lifecycle changes.
+- `overlay/Portal.tsx`: document-body portal, safe to render without a document.
+- `overlay/positioning.ts` and `useFloatingPosition.ts`: physical/logical placement, offset, viewport flip/shift, arrow coordinates, scroll/resize observation and portal theme/direction synchronization. Dropdown and Popover use these.
+- `overlay/dismiss.ts`: outside pointer/focus and Escape with a small parent/child layer stack. Nested portalled children dismiss before their parent. Select participates while retaining its existing outside-focus and Escape behavior.
+- `overlay/focus.ts`: focus entry and conditional focus return. Menus keep their own roving item navigation and typeahead; arbitrary Popover content keeps normal Tab navigation.
+- `overlay/useHoverIntent.ts`: crossing delay and timer cleanup. Components choose whether focus should hold the panel open.
+- `overlay/usePresence.ts`: Popover's exit lifetime reads the actual CSS animation duration, making reduced-motion and unstyled content immediate.
+
+`ui/src/internal/overlay/_panel.scss` shares the existing Classic UI surface and arrow treatment. It adds no tokens or public Overlay component. Dropdown keeps its previous styling and immediate unmount behavior; Popover opts into entry/exit motion.
+
+Select only extracts refs, controllable state and outside dismissal in this pass. Its inline listbox, sizing and keyboard behavior remain intact. Checkbox only shares ref composition: native input state and group notification semantics remain unchanged. Tabs registration and Pagination's coupled page/size clamping are intentionally component-owned.
+
+New overlay consumers should first reuse these small capabilities. Do not export internal utilities, invent a public Overlay API or generalize component-specific keyboard semantics into the positioning layer.
+
+## Migration and verification
+
+Source directories now use PascalCase family names. Root imports such as `import { Button, Dropdown, Popover } from '@virgo-design/ui'` remain stable, as do the existing metadata and CSS entry points. Apps resolve those entry points rather than component file paths. Old flat directories and Dropdown-local positioning code are removed; documentation links follow their new paths.
+
+Verification covers the existing component suites, public export boundaries, shared positioning/listener lifecycle, nested overlays, Popover focus/controlled state/motion/theme/RTL, Playground integration and `pnpm all` (including the website and all playground builds).

@@ -13,6 +13,11 @@ import {
   type LayoutSiderProps,
   Pagination,
   type PaginationProps,
+  Popover,
+  type PopoverCloseProps,
+  type PopoverContentProps,
+  type PopoverProps,
+  type PopoverTriggerProps,
   Radio,
   SegmentedControl,
   Select,
@@ -45,6 +50,12 @@ const tabsMetadata: ComponentMetadata = componentMetadataRegistry.tabs;
 export type WorkspaceSurfaceProps = SurfaceProps;
 export type WorkspaceDropdownProps = DropdownProps;
 export type WorkspacePaginationProps = PaginationProps;
+export type WorkspacePopoverProps = {
+  root: PopoverProps;
+  trigger: PopoverTriggerProps;
+  content: PopoverContentProps;
+  close: PopoverCloseProps;
+};
 
 export type WorkspaceLayoutProps = {
   layout: LayoutProps;
@@ -92,6 +103,9 @@ export const workspaceSourceResolutionFixture = {
   componentMetadataRegistry,
   dropdownMetadata: componentMetadataRegistry.dropdown,
   compositeAnatomy: {
+    PopoverTrigger: Popover.Trigger,
+    PopoverContent: Popover.Content,
+    PopoverClose: Popover.Close,
     DropdownTrigger: Dropdown.Trigger,
     DropdownContent: Dropdown.Content,
     DropdownItem: Dropdown.Item,

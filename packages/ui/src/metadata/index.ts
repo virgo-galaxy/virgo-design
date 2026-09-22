@@ -1,17 +1,18 @@
-import { breadcrumbMetadata } from '../breadcrumb/Breadcrumb.meta';
-import { buttonMetadata } from '../button/Button.meta';
-import { checkboxMetadata } from '../checkbox/Checkbox.meta';
-import { dropdownMetadata } from '../dropdown/Dropdown.meta';
-import { inputMetadata } from '../input/Input.meta';
-import { textareaMetadata } from '../input/Textarea.meta';
-import { layoutMetadata } from '../layout/Layout.meta';
-import { paginationMetadata } from '../pagination/Pagination.meta';
-import { radioMetadata } from '../radio/Radio.meta';
-import { segmentedControlMetadata } from '../segmented-control/SegmentedControl.meta';
-import { selectMetadata } from '../select/Select.meta';
-import { surfaceMetadata } from '../surface/Surface.meta';
-import { switchMetadata } from '../switch/Switch.meta';
-import { tabsMetadata } from '../tabs/Tabs.meta';
+import { breadcrumbMetadata } from '../components/Breadcrumb/Breadcrumb.meta';
+import { buttonMetadata } from '../components/Button/Button.meta';
+import { checkboxMetadata } from '../components/Checkbox/Checkbox.meta';
+import { dropdownMetadata } from '../components/Dropdown/Dropdown.meta';
+import { inputMetadata } from '../components/Input/Input.meta';
+import { textareaMetadata } from '../components/Input/Textarea.meta';
+import { layoutMetadata } from '../components/Layout/Layout.meta';
+import { paginationMetadata } from '../components/Pagination/Pagination.meta';
+import { popoverMetadata } from '../components/Popover/Popover.meta';
+import { radioMetadata } from '../components/Radio/Radio.meta';
+import { segmentedControlMetadata } from '../components/SegmentedControl/SegmentedControl.meta';
+import { selectMetadata } from '../components/Select/Select.meta';
+import { surfaceMetadata } from '../components/Surface/Surface.meta';
+import { switchMetadata } from '../components/Switch/Switch.meta';
+import { tabsMetadata } from '../components/Tabs/Tabs.meta';
 
 export {
   breadcrumbMetadata,
@@ -21,6 +22,7 @@ export {
   inputMetadata,
   layoutMetadata,
   paginationMetadata,
+  popoverMetadata,
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
@@ -38,6 +40,7 @@ export const componentMetadataRegistry = {
   input: inputMetadata,
   layout: layoutMetadata,
   pagination: paginationMetadata,
+  popover: popoverMetadata,
   radio: radioMetadata,
   segmentedControl: segmentedControlMetadata,
   select: selectMetadata,

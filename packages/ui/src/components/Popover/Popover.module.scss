@@ -1,0 +1,84 @@
+@use '../../internal/overlay/panel';
+
+.root {
+  display: inline-flex;
+  min-width: 0;
+  vertical-align: middle;
+}
+.trigger[aria-expanded='true'] {
+  border-color: var(--vd-border-focus);
+}
+.content {
+  @include panel.surface;
+  width: calc(var(--vd-sizing-80) * 4);
+  padding: var(--vd-spacing-16);
+  text-align: start;
+  animation: popover-enter var(--vd-duration-120) var(--vd-easing-standard);
+  &[data-state='closed'] {
+    animation-name: popover-exit;
+  }
+  &:focus-visible {
+    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline-offset: var(--vd-spacing-2);
+  }
+}
+.viewport {
+  position: relative;
+  box-sizing: border-box;
+  width: calc(100% + var(--vd-spacing-4) * 2);
+  // Keep focus rings inside the scroll viewport without changing content alignment.
+  margin: calc(var(--vd-spacing-4) * -1);
+  padding: var(--vd-spacing-4);
+  min-height: 0;
+  max-height: calc(var(--vd-sizing-80) * 5);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.arrow {
+  @include panel.arrow;
+}
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--vd-sizing-28);
+  padding: 0 var(--vd-spacing-8);
+  border: 0;
+  border-radius: var(--vd-radius-6);
+  background: transparent;
+  color: var(--vd-text-primary);
+  font: inherit;
+  cursor: pointer;
+  &:hover:not(:disabled) {
+    background: var(--vd-fill-hover);
+  }
+  &:focus-visible {
+    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline-offset: var(--vd-spacing-2);
+  }
+  &:disabled {
+    color: var(--vd-text-disabled);
+    cursor: not-allowed;
+  }
+}
+@keyframes popover-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes popover-exit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .content {
+    animation: none;
+  }
+}

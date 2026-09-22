@@ -7,6 +7,7 @@ import { DropdownPage } from '../pages/dropdown/DropdownPage';
 import { InputPage } from '../pages/input/InputPage';
 import { LayoutPage } from '../pages/layout/LayoutPage';
 import { PaginationPage } from '../pages/pagination/PaginationPage';
+import { PopoverPage } from '../pages/popover/PopoverPage';
 import { RadioPage } from '../pages/radio/RadioPage';
 import { SegmentedControlPage } from '../pages/segmented-control/SegmentedControlPage';
 import { SelectPage } from '../pages/select/SelectPage';
@@ -52,6 +53,7 @@ export type ComponentRoute = {
     | 'segmented-control'
     | 'tabs'
     | 'pagination'
+    | 'popover'
     | 'dropdown'
     | 'breadcrumb';
   index: string;
@@ -76,9 +78,20 @@ export const componentRoutes = [
     Component: ButtonPage,
   },
   {
-    id: 'surface',
+    id: 'popover',
     group: 'general',
     index: '02',
+    name: 'Popover',
+    category: 'Content',
+    path: '/components/popover',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: PopoverPage,
+  },
+  {
+    id: 'surface',
+    group: 'general',
+    index: '03',
     name: 'Surface',
     category: 'Appearance',
     path: '/components/surface',
@@ -89,7 +102,7 @@ export const componentRoutes = [
   {
     id: 'layout',
     group: 'layout',
-    index: '03',
+    index: '04',
     name: 'Layout',
     category: 'Structure',
     path: '/components/layout',
@@ -100,7 +113,7 @@ export const componentRoutes = [
   {
     id: 'breadcrumb',
     group: 'navigation',
-    index: '04',
+    index: '05',
     name: 'Breadcrumb',
     category: 'Navigation',
     path: '/components/breadcrumb',
@@ -111,7 +124,7 @@ export const componentRoutes = [
   {
     id: 'dropdown',
     group: 'navigation',
-    index: '05',
+    index: '06',
     name: 'Dropdown',
     category: 'Navigation',
     path: '/components/dropdown',
@@ -122,7 +135,7 @@ export const componentRoutes = [
   {
     id: 'pagination',
     group: 'navigation',
-    index: '06',
+    index: '07',
     name: 'Pagination',
     category: 'Navigation',
     path: '/components/pagination',
@@ -133,7 +146,7 @@ export const componentRoutes = [
   {
     id: 'tabs',
     group: 'navigation',
-    index: '07',
+    index: '08',
     name: 'Tabs',
     category: 'Navigation',
     path: '/components/tabs',
@@ -144,7 +157,7 @@ export const componentRoutes = [
   {
     id: 'checkbox',
     group: 'data-entry',
-    index: '08',
+    index: '09',
     name: 'Checkbox',
     category: 'Forms',
     path: '/components/checkbox',
@@ -155,7 +168,7 @@ export const componentRoutes = [
   {
     id: 'input',
     group: 'data-entry',
-    index: '09',
+    index: '10',
     name: 'Input',
     category: 'Forms',
     path: '/components/input',
@@ -166,7 +179,7 @@ export const componentRoutes = [
   {
     id: 'radio',
     group: 'data-entry',
-    index: '10',
+    index: '11',
     name: 'Radio',
     category: 'Forms',
     path: '/components/radio',
@@ -177,7 +190,7 @@ export const componentRoutes = [
   {
     id: 'segmented-control',
     group: 'data-entry',
-    index: '11',
+    index: '12',
     name: 'Segmented Control',
     category: 'Forms',
     path: '/components/segmented-control',
@@ -188,7 +201,7 @@ export const componentRoutes = [
   {
     id: 'select',
     group: 'data-entry',
-    index: '12',
+    index: '13',
     name: 'Select',
     category: 'Forms',
     path: '/components/select',
@@ -199,7 +212,7 @@ export const componentRoutes = [
   {
     id: 'switch',
     group: 'data-entry',
-    index: '13',
+    index: '14',
     name: 'Switch',
     category: 'Forms',
     path: '/components/switch',

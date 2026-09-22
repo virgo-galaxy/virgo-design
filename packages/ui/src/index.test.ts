@@ -3,6 +3,32 @@ import { describe, expect, it } from 'vitest';
 import * as ui from './index';
 
 describe('@virgo-design/ui public API', () => {
+  it('keeps internal helpers private and exposes only component families', () => {
+    expect(Object.keys(ui).sort()).toEqual(
+      [
+        'Breadcrumb',
+        'Button',
+        'Checkbox',
+        'Dropdown',
+        'Input',
+        'Layout',
+        'Pagination',
+        'Popover',
+        'Radio',
+        'SegmentedControl',
+        'Select',
+        'Surface',
+        'Switch',
+        'Tabs',
+        'Textarea',
+      ].sort(),
+    );
+    expect(
+      Object.keys(ui.Popover)
+        .filter((key) => ['Trigger', 'Content', 'Close'].includes(key))
+        .sort(),
+    ).toEqual(['Close', 'Content', 'Trigger']);
+  });
   it('exposes runtime UI without metadata', () => {
     for (const part of ['Trigger', 'Content', 'Item', 'Separator', 'Button'])
       expect(ui.Dropdown).toHaveProperty(part);

@@ -9,6 +9,7 @@ import {
   inputMetadata,
   layoutMetadata,
   paginationMetadata,
+  popoverMetadata,
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
@@ -19,6 +20,16 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Popover in the existing metadata schema', () => {
+    expect(componentMetadataRegistry.popover).toBe(popoverMetadata);
+    expect(popoverMetadata.category).toBe('General');
+    expect(popoverMetadata.capabilities).toMatchObject({
+      portal: true,
+      rtl: true,
+      reducedMotion: true,
+      modal: false,
+    });
+  });
   it('registers Dropdown as Navigation without loading', () => {
     expect(componentMetadataRegistry.dropdown).toBe(dropdownMetadata);
     expect(dropdownMetadata.category).toBe('Navigation');
