@@ -1,12 +1,17 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { App } from '../../App';
 
+afterEach(() => {
+  vi.restoreAllMocks();
+});
+
 describe('Dropdown Playground', () => {
   it('is reachable in Navigation and demonstrates placements, actions, themes and pagination reuse', async () => {
+    vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
     const user = userEvent.setup();
     render(
       <MemoryRouter initialEntries={['/components/dropdown']}>

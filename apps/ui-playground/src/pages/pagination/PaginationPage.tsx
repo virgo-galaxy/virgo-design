@@ -19,7 +19,7 @@ export function PaginationPage() {
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 06</span>
-            <span className="version-badge">Stable · V1</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
           </div>
           <h1>Pagination</h1>
           <p>
@@ -250,7 +250,7 @@ export function PaginationPage() {
         </div>
       </ReviewSection>
       <footer className="review-footer">
-        <span>Virgo Design UI · Pagination V1</span>
+        <span>Virgo Design UI · Pagination V1.0.0</span>
         <span>Primitive · Tokens · Icons · Metadata · Accessibility</span>
       </footer>
     </div>

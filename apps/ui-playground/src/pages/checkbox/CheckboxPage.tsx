@@ -16,7 +16,7 @@ export function CheckboxPage() {
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 08</span>
-            <span className="version-badge">Stable · V1</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
           </div>
           <h1>Checkbox</h1>
           <p>
@@ -170,7 +170,7 @@ export function CheckboxPage() {
       </ReviewSection>
 
       <footer className="review-footer">
-        <span>Virgo Design UI · Checkbox V1</span>
+        <span>Virgo Design UI · Checkbox V1.0.0</span>
         <span>Primitive · Tokens · Icons · Metadata</span>
       </footer>
     </div>

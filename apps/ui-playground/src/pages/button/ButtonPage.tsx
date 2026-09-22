@@ -28,7 +28,7 @@ export function ButtonPage() {
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 01</span>
-            <span className="version-badge">Stable · V1</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
           </div>
           <h1>Button</h1>
           <p>
@@ -285,7 +285,7 @@ export function ButtonPage() {
       </ReviewSection>
 
       <footer className="review-footer">
-        <span>Virgo Design UI · Button V1</span>
+        <span>Virgo Design UI · Button V1.0.0</span>
         <span>Primitive · Tokens · Icons</span>
       </footer>
     </div>

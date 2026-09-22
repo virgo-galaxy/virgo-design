@@ -10,7 +10,7 @@ export function SwitchPage() {
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 13</span>
-            <span className="version-badge">Stable · V1</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
           </div>
           <h1>Switch</h1>
           <p>
@@ -218,7 +218,7 @@ export function SwitchPage() {
       </ReviewSection>
 
       <footer className="review-footer">
-        <span>Virgo Design UI · Switch V1</span>
+        <span>Virgo Design UI · Switch V1.0.0</span>
         <span>Primitive · Tokens · Metadata</span>
       </footer>
     </div>

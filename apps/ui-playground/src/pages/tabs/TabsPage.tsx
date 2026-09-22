@@ -110,7 +110,7 @@ export function TabsPage() {
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 07</span>
-            <span className="version-badge">Stable · V1</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
           </div>
           <h1>Tabs</h1>
           <p>
@@ -291,7 +291,7 @@ export function TabsPage() {
       </ReviewSection>
 
       <footer className="review-footer">
-        <span>Virgo Design UI · Tabs V1</span>
+        <span>Virgo Design UI · Tabs V1.0.0</span>
         <span>Primitive · Tokens · Icons · Motion · Metadata</span>
       </footer>
     </div>

@@ -19,7 +19,7 @@ export function LayoutPage() {
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 03</span>
-            <span className="version-badge">Stable · V1</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
           </div>
           <h1>Layout</h1>
           <p>
@@ -143,7 +143,7 @@ export function LayoutPage() {
       </ReviewSection>
 
       <footer className="review-footer">
-        <span>Virgo Design UI · Layout V1</span>
+        <span>Virgo Design UI · Layout V1.0.0</span>
         <span>Primitive · Tokens · Metadata · Semantics · Composition</span>
       </footer>
     </div>

@@ -51,7 +51,7 @@ export function SurfacePage() {
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 02</span>
-            <span className="version-badge">Stable · V1</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
           </div>
           <h1>Surface</h1>
           <p>
@@ -388,7 +388,7 @@ export function SurfacePage() {
       </ReviewSection>
 
       <footer className="review-footer surface-review-footer">
-        <span>Virgo Design / Surface V1</span>
+        <span>Virgo Design / Surface V1.0.0</span>
         <span>Semantic Tone · Material · Background · Depth · Composition</span>
       </footer>
     </div>

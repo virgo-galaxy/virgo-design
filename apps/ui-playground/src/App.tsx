@@ -1,6 +1,6 @@
 import { DashboardIcon } from '@virgo-design/icons';
 import { Breadcrumb, Layout, Surface } from '@virgo-design/ui';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
 import { componentGroups, componentRoutes } from './app/componentRoutes';
@@ -10,8 +10,18 @@ type PlaygroundTheme = 'light' | 'dark';
 export function App() {
   const [theme, setTheme] = useState<PlaygroundTheme>('light');
   const location = useLocation();
+  const previousPathname = useRef(location.pathname);
   const activeRoute =
     componentRoutes.find((route) => route.path === location.pathname) ?? componentRoutes[0];
+
+  useLayoutEffect(() => {
+    if (previousPathname.current === location.pathname) {
+      return;
+    }
+
+    previousPathname.current = location.pathname;
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [location.pathname]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -58,8 +68,8 @@ export function App() {
                           <strong>{route.name}</strong>
                           <small>{route.category}</small>
                         </span>
-                        <span className="component-status">
-                          {route.status.toUpperCase()} · {route.version}
+                        <span className="component-status" data-status={route.status}>
+                          {route.version.replace(/^V/, '')}
                         </span>
                       </NavLink>
                     ))}

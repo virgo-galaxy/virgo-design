@@ -23,7 +23,7 @@ export function BreadcrumbPage() {
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 04</span>
-            <span className="version-badge">Stable · V1</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
           </div>
           <h1>Breadcrumb</h1>
           <p>
@@ -127,7 +127,7 @@ export function BreadcrumbPage() {
       </ReviewSection>
 
       <footer className="review-footer">
-        <span>Virgo Design UI · Breadcrumb V1</span>
+        <span>Virgo Design UI · Breadcrumb V1.0.0</span>
         <span>Primitive · Tokens · Icons · Metadata · Accessibility</span>
       </footer>
     </div>

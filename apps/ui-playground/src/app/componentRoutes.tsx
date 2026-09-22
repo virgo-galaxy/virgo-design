@@ -72,7 +72,7 @@ export const componentRoutes = [
     category: 'Actions',
     path: '/components/button',
     status: 'stable',
-    version: 'V1',
+    version: 'V1.0.0',
     Component: ButtonPage,
   },
   {
@@ -83,7 +83,7 @@ export const componentRoutes = [
     category: 'Appearance',
     path: '/components/surface',
     status: 'stable',
-    version: 'V1',
+    version: 'V1.0.0',
     Component: SurfacePage,
   },
   {
@@ -94,7 +94,7 @@ export const componentRoutes = [
     category: 'Structure',
     path: '/components/layout',
     status: 'stable',
-    version: 'V1',
+    version: 'V1.0.0',
     Component: LayoutPage,
   },
   {
@@ -105,7 +105,7 @@ export const componentRoutes = [
     category: 'Navigation',
     path: '/components/breadcrumb',
     status: 'stable',
-    version: 'V1',
+    version: 'V1.0.0',
     Component: BreadcrumbPage,
   },
   {
@@ -116,7 +116,7 @@ export const componentRoutes = [
     category: 'Navigation',
     path: '/components/dropdown',
     status: 'stable',
-    version: 'V1',
+    version: 'V1.0.0',
     Component: DropdownPage,
   },
   {
@@ -127,7 +127,7 @@ export const componentRoutes = [
     category: 'Navigation',
     path: '/components/pagination',
     status: 'stable',
-    version: 'V1',
+    version: 'V1.0.0',
     Component: PaginationPage,
   },
   {
@@ -138,7 +138,7 @@ export const componentRoutes = [
     category: 'Navigation',
     path: '/components/tabs',
     status: 'stable',
-    version: 'V1',
+    version: 'V1.0.0',
     Component: TabsPage,
   },
   {
@@ -149,7 +149,7 @@ export const componentRoutes = [
     category: 'Forms',
     path: '/components/checkbox',
     status: 'stable',
-    version: 'V1',
+    version: 'V1.0.0',
     Component: CheckboxPage,
   },
   {
@@ -160,7 +160,7 @@ export const componentRoutes = [
     category: 'Forms',
     path: '/components/input',
     status: 'stable',
-    version: 'V1',
+    version: 'V1.0.0',
     Component: InputPage,
   },
   {
@@ -171,7 +171,7 @@ export const componentRoutes = [
     category: 'Forms',
     path: '/components/radio',
     status: 'stable',
-    version: 'V1',
+    version: 'V1.0.0',
     Component: RadioPage,
   },
   {
@@ -182,7 +182,7 @@ export const componentRoutes = [
     category: 'Forms',
     path: '/components/segmented-control',
     status: 'stable',
-    version: 'V1',
+    version: 'V1.0.0',
     Component: SegmentedControlPage,
   },
   {
@@ -193,7 +193,7 @@ export const componentRoutes = [
     category: 'Forms',
     path: '/components/select',
     status: 'stable',
-    version: 'V1',
+    version: 'V1.0.0',
     Component: SelectPage,
   },
   {
@@ -204,7 +204,7 @@ export const componentRoutes = [
     category: 'Forms',
     path: '/components/switch',
     status: 'stable',
-    version: 'V1',
+    version: 'V1.0.0',
     Component: SwitchPage,
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;

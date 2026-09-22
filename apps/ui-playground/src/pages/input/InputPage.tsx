@@ -28,7 +28,7 @@ export function InputPage() {
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 09</span>
-            <span className="version-badge">Stable · V1</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
           </div>
           <h1>Input</h1>
           <p>
@@ -387,7 +387,7 @@ export function InputPage() {
       </ReviewSection>
 
       <footer className="review-footer">
-        <span>Virgo Design UI · Input Family V1</span>
+        <span>Virgo Design UI · Input Family V1.0.0</span>
         <span>Input · Textarea · Primitive · Tokens · Metadata</span>
       </footer>
     </div>
