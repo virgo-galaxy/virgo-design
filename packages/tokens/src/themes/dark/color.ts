@@ -54,6 +54,8 @@ export const darkColorTheme = {
   },
   status: {
     success: {
+      solid: chromatic.green[8],
+      onSolid: neutral[1],
       accent: chromatic.green[5],
       foreground: neutral[10],
       subtle: withAlpha(chromatic.green[5], 0.16),
@@ -61,6 +63,8 @@ export const darkColorTheme = {
       text: chromatic.green[4],
     },
     warning: {
+      solid: chromatic.amber[8],
+      onSolid: neutral[1],
       accent: chromatic.amber[5],
       foreground: neutral[10],
       subtle: withAlpha(chromatic.amber[5], 0.16),
@@ -68,6 +72,8 @@ export const darkColorTheme = {
       text: chromatic.amber[4],
     },
     danger: {
+      solid: chromatic.red[7],
+      onSolid: neutral[1],
       accent: chromatic.red[5],
       foreground: neutral[10],
       subtle: withAlpha(chromatic.red[5], 0.16),
@@ -75,6 +81,8 @@ export const darkColorTheme = {
       text: chromatic.red[4],
     },
     info: {
+      solid: chromatic.blue[7],
+      onSolid: neutral[1],
       accent: chromatic.blue[5],
       foreground: neutral[10],
       subtle: withAlpha(chromatic.blue[5], 0.16),

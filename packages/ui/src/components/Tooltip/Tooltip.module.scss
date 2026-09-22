@@ -47,8 +47,8 @@
   }
   @each $tone in (success, warning, danger, info) {
     &[data-tone='#{$tone}'] {
-      --tooltip-background: var(--vd-status-#{$tone}-accent);
-      --tooltip-foreground: var(--vd-neutral-1);
+      --tooltip-background: var(--vd-status-#{$tone}-solid);
+      --tooltip-foreground: var(--vd-status-#{$tone}-on-solid);
     }
   }
 }

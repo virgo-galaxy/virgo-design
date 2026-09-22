@@ -18,4 +18,4 @@ export const COLOR_SEMANTIC_GROUPS = [
   'data',
 ] as const;
 
-export const COLOR_SEMANTIC_ROLE_COUNT = 86;
+export const COLOR_SEMANTIC_ROLE_COUNT = 94;

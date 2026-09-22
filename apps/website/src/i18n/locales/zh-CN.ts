@@ -216,7 +216,25 @@ export const zhCN = {
     },
     interfaceDescription: '五组语义颜色在真实产品界面中的组合应用。',
     brandDescription: '涵盖主色、悬停、按下、弱化、链接、前景色与焦点色。',
-    statusDescription: '消息组合使用强调色、前景色、弱背景、边框和文字色。',
+    statusDescription:
+      '对照实心与弱化状态组合。色值直接来自 Token；实心背景与文字须达到 WCAG AA 4.5:1。',
+    statusReview: {
+      families: {
+        success: 'Success · 成功',
+        warning: 'Warning · 警告',
+        danger: 'Danger · 危险',
+        info: 'Info · 信息',
+      },
+      contrast: '对比度',
+      pass: 'AA 通过',
+      fail: 'AA 未通过',
+      unavailable: '未评估',
+      solidUsage: '强状态区域 · Tooltip、实心 Badge、状态 Pill',
+      subtleUsage: '低强调区域 · Alert、状态卡片',
+      indicator: '指示色组合 · accent / foreground',
+      indicatorUsage:
+        'accent 用于图标、指示点及校验边框；foreground 与 accent 搭配用于紧凑的实心标记。承载文字的强状态区域使用 solid / onSolid。',
+    },
     dataDescription: '分类、连续和发散色仅用于表达数据本身。',
     workspaceTitle: '设计评审',
     workspaceMeta: '与产品团队共享 · 刚刚更新',

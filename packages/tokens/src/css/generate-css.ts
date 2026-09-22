@@ -165,7 +165,12 @@ export function generateSemanticTypographyCss() {
 
 function collectThemeColorDeclarations(value: unknown, path: string[] = []): CssDeclaration[] {
   if (typeof value === 'string') {
-    return [{ name: `--vd-${path.join('-')}`, value }];
+    return [
+      {
+        name: `--vd-${path.join('-').replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}`,
+        value,
+      },
+    ];
   }
 
   if (typeof value !== 'object' || value === null) {

@@ -610,72 +610,130 @@
   font-size: 7px;
 }
 
+/* Each theme owns a full-width status audit column. Values must remain readable. */
 .statusGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 9px;
+  gap: 20px;
 }
-
-.statusMessage {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 10px;
-  align-items: start;
-  overflow: hidden;
-  border: 1px solid var(--status-border);
-  border-radius: 13px;
-  padding: 12px;
-  color: var(--status-text);
-  background: var(--status-subtle);
+.statusReview {
+  min-width: 0;
+  border: 1px solid var(--semantic-border);
+  border-radius: 14px;
+  padding: 18px;
+  background: var(--semantic-surface);
 }
-
-.statusIcon {
-  display: grid;
-  width: 22px;
-  height: 22px;
-  place-items: center;
-  border-radius: 7px;
-  color: var(--status-foreground);
-  background: var(--status-accent);
-  font-size: 10px;
-  font-weight: 800;
-}
-
-.statusMessage strong {
-  font-size: 10px;
-}
-
-.statusMessage p {
-  margin: 3px 0 0;
-  font-size: 8px;
-  line-height: 1.45;
-}
-
-.statusBadge {
-  border-radius: 999px;
-  padding: 4px 6px;
-  color: var(--status-foreground);
-  background: var(--status-accent);
-  font-size: 6px;
-  font-weight: 760;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.statusTokens {
+.statusReviewHeader,
+.statusPairHeading {
   display: flex;
-  grid-column: 1 / -1;
   flex-wrap: wrap;
-  gap: 3px;
-  border-top: 1px solid var(--status-border);
-  padding-top: 8px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
-
-.statusTokens .tokenTag {
-  color: var(--status-text);
-  background: transparent;
-  font-size: 5.5px;
+.statusReviewHeader {
+  margin-bottom: 18px;
+}
+.statusReviewHeader h4 {
+  margin: 0;
+  font-size: 16px;
+}
+.statusReviewHeader > span {
+  color: var(--semantic-text-secondary);
+  font-size: 11px;
+}
+.statusPairHeading h5,
+.statusSubtleHeading {
+  margin: 0;
+  font-size: 12px;
+}
+.statusContrast {
+  border: 1px solid var(--semantic-border);
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.statusContrast[data-contrast-result='fail'] {
+  border-style: dashed;
+  font-weight: 750;
+}
+.statusSolid,
+.statusSubtle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.statusSolid > span:first-child,
+.statusSubtle > span:first-child {
+  flex: 0 0 18px;
+  text-align: center;
+  font-weight: 700;
+}
+.statusSubtle {
+  align-items: flex-start;
+  border: 1px solid;
+}
+.statusSubtle p {
+  margin: 4px 0 0;
+  font-size: 12px;
+}
+.statusSubtleHeading {
+  border-top: 1px solid var(--semantic-border-subtle);
+  padding-top: 16px;
+  margin-top: 16px;
+}
+.statusUsage {
+  margin: 8px 0;
+  color: var(--semantic-text-secondary);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.statusTokenValues {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.statusTokenValues > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+.statusTokenValues dt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.statusTokenValues dd {
+  margin: 0;
+  color: var(--semantic-text-secondary);
+}
+.statusTokenValues code {
+  overflow-wrap: anywhere;
+}
+.statusSwatch {
+  flex: 0 0 14px;
+  height: 14px;
+  border: 1px solid var(--semantic-border);
+  border-radius: 3px;
+}
+.statusIndicator {
+  margin-top: 16px;
+  border-top: 1px solid var(--semantic-border-subtle);
+  padding-top: 12px;
+  font-size: 11px;
+}
+.statusIndicator summary {
+  cursor: pointer;
+  color: var(--semantic-text-secondary);
 }
 
 .dataGrid {

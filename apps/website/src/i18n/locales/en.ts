@@ -232,7 +232,20 @@ export const en = {
     },
     interfaceDescription: 'Five semantic color groups applied together in a product interface.',
     brandDescription: 'Primary, hover, active, subtle, link, foreground, and focus roles.',
-    statusDescription: 'Alerts combine accent, foreground, subtle, border, and text roles.',
+    statusDescription:
+      'Compare solid and subtle status pairs. Resolved colors come directly from tokens; solid text must meet WCAG AA 4.5:1.',
+    statusReview: {
+      families: { success: 'Success', warning: 'Warning', danger: 'Danger', info: 'Info' },
+      contrast: 'Contrast',
+      pass: 'AA pass',
+      fail: 'AA fail',
+      unavailable: 'Not evaluated',
+      solidUsage: 'Strong surfaces · Tooltip, solid badge, status pill',
+      subtleUsage: 'Low-emphasis surfaces · Alert, status card',
+      indicator: 'Indicator pair · accent / foreground',
+      indicatorUsage:
+        'Accent highlights icons, indicators and validation borders. Foreground pairs with accent for compact filled markers; use solid / onSolid for text-bearing strong surfaces.',
+    },
     dataDescription: 'Categorical, sequential, and diverging roles represent the data itself.',
     workspaceTitle: 'Design review',
     workspaceMeta: 'Shared with Product · Updated now',

@@ -17,6 +17,13 @@ describe('SemanticColorExport', () => {
       `--vd-status-success-accent: ${themes.dark.color.status.success.accent};`,
     );
     expect(css).toContain(`--vd-data-categorical-1: ${themes.dark.color.data.categorical[1]};`);
+    for (const theme of Object.values(themes)) {
+      for (const [family, status] of Object.entries(theme.color.status)) {
+        expect(css).toContain(`--vd-status-${family}-solid: ${status.solid};`);
+        expect(css).toContain(`--vd-status-${family}-on-solid: ${status.onSolid};`);
+      }
+    }
+    expect(css).not.toContain('-onSolid:');
   });
 
   it('does not expose the removed Theme Builder semantic aliases', () => {

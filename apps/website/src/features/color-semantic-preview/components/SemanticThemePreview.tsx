@@ -10,8 +10,6 @@ import {
   iconColorTokens,
   type SequentialDataColorRole,
   sequentialDataColorTokens,
-  statusColorFamilies,
-  statusColorTokens,
   surfaceColorTokens,
   textColorTokens,
   type VirgoTheme,
@@ -20,6 +18,7 @@ import { type CSSProperties, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from '../styles/color-semantic-preview.module.scss';
+import { StatusColorReview } from './StatusColorReview';
 
 interface SemanticThemePreviewProps {
   theme: VirgoTheme;
@@ -302,40 +301,7 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
           <p>{t('tokensPage.statusDescription')}</p>
         </div>
 
-        <div className={styles.statusGrid}>
-          {statusColorFamilies.map((family) => {
-            const status = color.status[family];
-            const tokens = statusColorTokens[family];
-
-            return (
-              <div
-                key={family}
-                className={styles.statusMessage}
-                style={
-                  {
-                    '--status-accent': status.accent,
-                    '--status-foreground': status.foreground,
-                    '--status-subtle': status.subtle,
-                    '--status-border': status.border,
-                    '--status-text': status.text,
-                  } as SemanticStyle
-                }
-              >
-                <span className={styles.statusIcon}>✓</span>
-                <div>
-                  <strong>{t(`tokensPage.status.${family}`)}</strong>
-                  <p>{t(`tokensPage.status.${family}Message`)}</p>
-                </div>
-                <span className={styles.statusBadge}>{t('tokensPage.status.live')}</span>
-                <div className={styles.statusTokens}>
-                  {Object.values(tokens).map((token) => (
-                    <TokenTag key={token}>{token}</TokenTag>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <StatusColorReview theme={theme} />
       </section>
 
       <section id={`semantic-data-${theme.mode}`} className={styles.previewSection}>

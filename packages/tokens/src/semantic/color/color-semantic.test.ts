@@ -16,13 +16,14 @@ import {
   fillColorTokens,
   iconColorTokens,
   sequentialDataColorTokens,
+  statusColorFamilies,
   statusColorTokens,
   surfaceColorTokens,
   textColorTokens,
 } from './index.js';
 
 describe('Color Semantic V1', () => {
-  it('defines all 86 approved semantic color roles', () => {
+  it('defines all 94 semantic color roles, including solid status pairs', () => {
     const roleCount =
       Object.keys(textColorTokens).length +
       Object.keys(surfaceColorTokens).length +
@@ -129,6 +130,8 @@ describe('Color Semantic V1', () => {
 
   it('resolves all status families to the approved foundation steps', () => {
     expect(lightColorTheme.status.success).toEqual({
+      solid: VIRGO_CHROMATIC_SCALES.green[8],
+      onSolid: VIRGO_NEUTRAL_SCALE[1],
       accent: VIRGO_CHROMATIC_SCALES.green[7],
       foreground: VIRGO_NEUTRAL_SCALE[10],
       subtle: VIRGO_CHROMATIC_SCALES.green[1],
@@ -143,6 +146,33 @@ describe('Color Semantic V1', () => {
     expect(darkColorTheme.status.warning.border).toBe('rgb(233 181 96 / 0.32)');
     expect(darkColorTheme.status.danger.text).toBe(VIRGO_CHROMATIC_SCALES.red[4]);
     expect(darkColorTheme.status.info.accent).toBe(VIRGO_CHROMATIC_SCALES.blue[5]);
+  });
+
+  it('provides light foregrounds with at least 4.5:1 contrast on every solid status in both themes', () => {
+    const luminance = (hex: string) => {
+      const linear = (offset: number) => {
+        const channel = Number.parseInt(hex.slice(offset, offset + 2), 16) / 255;
+        return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+      };
+      return 0.2126 * linear(1) + 0.7152 * linear(3) + 0.0722 * linear(5);
+    };
+    const expected = {
+      success: VIRGO_CHROMATIC_SCALES.green[8],
+      warning: VIRGO_CHROMATIC_SCALES.amber[8],
+      danger: VIRGO_CHROMATIC_SCALES.red[7],
+      info: VIRGO_CHROMATIC_SCALES.blue[7],
+    };
+    for (const theme of [lightColorTheme, darkColorTheme]) {
+      for (const family of statusColorFamilies) {
+        const { solid, onSolid } = theme.status[family];
+        expect(solid).toBe(expected[family]);
+        expect(onSolid).toBe(VIRGO_NEUTRAL_SCALE[1]);
+        const ratio = (luminance(onSolid) + 0.05) / (luminance(solid) + 0.05);
+        expect(ratio, `${family} solid / onSolid`).toBeGreaterThanOrEqual(4.5);
+        expect(statusColorTokens[family].solid).toBe(`status.${family}.solid`);
+        expect(statusColorTokens[family].onSolid).toBe(`status.${family}.onSolid`);
+      }
+    }
   });
 
   it('resolves categorical, sequential, and diverging data colors', () => {

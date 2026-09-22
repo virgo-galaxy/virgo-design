@@ -51,6 +51,8 @@ export const lightColorTheme = {
   },
   status: {
     success: {
+      solid: chromatic.green[8],
+      onSolid: neutral[1],
       accent: chromatic.green[7],
       foreground: neutral[10],
       subtle: chromatic.green[1],
@@ -58,6 +60,8 @@ export const lightColorTheme = {
       text: chromatic.green[8],
     },
     warning: {
+      solid: chromatic.amber[8],
+      onSolid: neutral[1],
       accent: chromatic.amber[7],
       foreground: neutral[10],
       subtle: chromatic.amber[1],
@@ -65,6 +69,8 @@ export const lightColorTheme = {
       text: chromatic.amber[8],
     },
     danger: {
+      solid: chromatic.red[7],
+      onSolid: neutral[1],
       accent: chromatic.red[7],
       foreground: neutral[1],
       subtle: chromatic.red[1],
@@ -72,6 +78,8 @@ export const lightColorTheme = {
       text: chromatic.red[8],
     },
     info: {
+      solid: chromatic.blue[7],
+      onSolid: neutral[1],
       accent: chromatic.blue[7],
       foreground: neutral[1],
       subtle: chromatic.blue[1],

@@ -7,6 +7,7 @@ import { promisify } from 'node:util';
 import { describe, expect, it } from 'vitest';
 
 import { sansLocaleMapping } from '../foundations/typography.js';
+import { statusColorFamilies } from '../semantic/color/status.js';
 import { typography } from '../semantic/typography/index.js';
 import { themes } from '../themes/index.js';
 import type { SemanticTypographyToken } from '../types/semantic.js';
@@ -119,6 +120,20 @@ describe('CSS Style Bridge', () => {
     expect([foundationsCss, semanticTypographyCss, themesCss].join('\n')).not.toContain(
       '--vd-opacity-',
     );
+  });
+
+  it('exports solid status pairs in both themes with kebab-case on-solid names and preserves indicator pairs', () => {
+    for (const theme of Object.values(themes)) {
+      const block = themesCss.split("[data-theme='dark']")[theme.mode === 'light' ? 0 : 1];
+      for (const family of statusColorFamilies) {
+        const status = theme.color.status[family];
+        expect(block).toContain(`--vd-status-${family}-solid: ${status.solid};`);
+        expect(block).toContain(`--vd-status-${family}-on-solid: ${status.onSolid};`);
+        expect(block).toContain(`--vd-status-${family}-accent: ${status.accent};`);
+        expect(block).toContain(`--vd-status-${family}-foreground: ${status.foreground};`);
+      }
+    }
+    expect(themesCss).not.toContain('-onSolid:');
   });
 
   it('combines every generated output through the styles.css entrypoint', () => {

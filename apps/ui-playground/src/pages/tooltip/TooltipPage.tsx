@@ -131,7 +131,7 @@ export function TooltipPage() {
         id="tooltip-tone"
         index="04"
         title="Semantic colors"
-        description="Colored tooltips share white text in both themes. A custom class can set the background and foreground together."
+        description="Strong semantic tones use dedicated solid backgrounds and on-solid foreground colors. A custom class can set the background and foreground together."
       >
         <div className="tooltip-review-card">
           {tones.map((tone) => (
