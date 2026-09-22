@@ -21,6 +21,7 @@ describe('@virgo-design/ui public API', () => {
         'Switch',
         'Tabs',
         'Textarea',
+        'Tooltip',
       ].sort(),
     );
     expect(

@@ -1,45 +1,22 @@
 import './PopoverPage.scss';
 
-import {
-  Button,
-  Checkbox,
-  Dropdown,
-  Input,
-  Popover,
-  type PopoverPlacement,
-} from '@virgo-design/ui';
+import { Button, Checkbox, Dropdown, Input, Popover } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import { PlacementCompass } from '../../components/PlacementCompass';
 import { ReviewSection } from '../../components/ReviewSection';
-
-const placements: PopoverPlacement[] = [
-  'bottomStart',
-  'bottom',
-  'bottomEnd',
-  'topStart',
-  'top',
-  'topEnd',
-  'leftTop',
-  'left',
-  'leftBottom',
-  'rightTop',
-  'right',
-  'rightBottom',
-];
 
 export function PopoverPage() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('Virgo workspace');
   const [savedName, setSavedName] = useState(name);
   const [visibility, setVisibility] = useState('Private');
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-  const [direction, setDirection] = useState<'ltr' | 'rtl'>('rtl');
   return (
     <div className="review-board popover-review" id="popover-review">
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
-            <span>Component 02</span>
+            <span>Component 14</span>
             <span className="version-badge">STABLE · V1.0.0</span>
           </div>
           <h1>Popover</h1>
@@ -181,21 +158,25 @@ export function PopoverPage() {
         id="popover-placement"
         index="03"
         title="Placement & offset"
-        description="Logical Start/End follow the reading direction. Panels flip and shift at viewport edges. These examples use a 12px offset and an arrow."
+        description="Twelve physical positions around the trigger area. Panels flip and shift at viewport edges. These examples use a 12px offset and an arrow."
       >
         <div className="popover-review-card">
-          {placements.map((placement) => (
-            <Popover key={placement}>
-              <Popover.Trigger size="small">{placement}</Popover.Trigger>
-              <Popover.Content placement={placement} offset={12} arrow>
-                <div className="popover-demo-content">
-                  <strong>{placement}</strong>
-                  <p>Scroll or resize the page to see the panel follow its trigger.</p>
-                  <Popover.Close />
-                </div>
-              </Popover.Content>
-            </Popover>
-          ))}
+          <PlacementCompass>
+            {(placement, label) => (
+              <Popover key={placement}>
+                <Popover.Trigger size="small" aria-label={placement}>
+                  {label}
+                </Popover.Trigger>
+                <Popover.Content placement={placement} offset={12} arrow>
+                  <div className="popover-demo-content">
+                    <strong>{placement}</strong>
+                    <p>Scroll or resize the page to see the panel follow its trigger.</p>
+                    <Popover.Close />
+                  </div>
+                </Popover.Content>
+              </Popover>
+            )}
+          </PlacementCompass>
         </div>
       </ReviewSection>
       <ReviewSection
@@ -226,53 +207,6 @@ export function PopoverPage() {
                   </Dropdown.Content>
                 </Dropdown>
                 <Popover.Close>Done</Popover.Close>
-              </div>
-            </Popover.Content>
-          </Popover>
-        </div>
-      </ReviewSection>
-      <ReviewSection
-        id="popover-theme"
-        index="05"
-        title="Local theme & direction"
-        description="This area's theme and reading direction are inherited by its floating panel. Switch either while the panel is open to check live synchronization."
-      >
-        <div className="popover-review-card popover-local-theme" data-theme={theme} dir={direction}>
-          <Button
-            size="small"
-            variant="outline"
-            onClick={() => setTheme((value) => (value === 'dark' ? 'light' : 'dark'))}
-          >
-            Local theme: {theme}
-          </Button>
-          <Button
-            size="small"
-            variant="outline"
-            onClick={() => setDirection((value) => (value === 'rtl' ? 'ltr' : 'rtl'))}
-          >
-            Direction: {direction.toUpperCase()}
-          </Button>
-          <Popover>
-            <Popover.Trigger>Local preview</Popover.Trigger>
-            <Popover.Content placement="bottomStart" arrow>
-              <div className="popover-demo-content">
-                <strong>مساحة العمل · Workspace</strong>
-                <p>Start follows the trigger's reading direction.</p>
-                <Button
-                  size="small"
-                  variant="outline"
-                  onClick={() => setTheme((value) => (value === 'dark' ? 'light' : 'dark'))}
-                >
-                  Change panel theme
-                </Button>
-                <Button
-                  size="small"
-                  variant="outline"
-                  onClick={() => setDirection((value) => (value === 'rtl' ? 'ltr' : 'rtl'))}
-                >
-                  Change panel direction
-                </Button>
-                <Popover.Close />
               </div>
             </Popover.Content>
           </Popover>

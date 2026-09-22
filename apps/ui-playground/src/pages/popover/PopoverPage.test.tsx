@@ -25,7 +25,7 @@ describe('Popover Playground', () => {
     await user.keyboard('{Escape}');
     expect(trigger).toHaveFocus();
   });
-  it('edits a workspace, supports nested menus, and switches local theme/direction while open', async () => {
+  it('edits a workspace, supports nested menus, and follows the global theme', async () => {
     const user = userEvent.setup();
     vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
     render(
@@ -48,14 +48,16 @@ describe('Popover Playground', () => {
     expect(within(screen.getByRole('dialog')).getByText('Visibility: Public')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Done' }));
     await user.click(screen.getByRole('button', { name: 'dark' }));
-    await user.click(screen.getByRole('button', { name: 'Local preview' }));
+    await user.click(screen.getByRole('button', { name: 'Workspace details' }));
     expect(screen.getByRole('dialog')).toHaveAttribute('data-theme', 'dark');
-    await user.click(screen.getByRole('button', { name: 'Change panel theme' }));
-    expect(screen.getByRole('dialog')).toHaveAttribute('data-theme', 'light');
-    await user.click(screen.getByRole('button', { name: 'Change panel direction' }));
-    expect(screen.getByRole('button', { name: 'Direction: LTR' })).toBeInTheDocument();
     await user.keyboard('{Escape}');
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'light' }));
+    await user.click(screen.getByRole('button', { name: 'Workspace details' }));
+    expect(screen.getByRole('dialog')).toHaveAttribute('data-theme', 'light');
+    expect(
+      screen.queryByRole('heading', { name: 'Local theme & direction' }),
+    ).not.toBeInTheDocument();
   });
   it('preserves alphabetic grouping and consecutive numbering when registering Popover', () => {
     expect(componentRoutes.map((route) => route.index)).toEqual(

@@ -19,6 +19,7 @@ describe('@virgo-design/primitives public API', () => {
         'Switch',
         'Tabs',
         'Textarea',
+        'Tooltip',
       ].sort(),
     );
     for (const part of ['Trigger', 'Content', 'Close'])

@@ -114,6 +114,50 @@ describe('Popover primitive', () => {
     rerender(<Example key="uncontrolled" defaultOpen />);
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
+  it('opens successive hover panels immediately without moving keyboard focus or cutting off the previous panel', () => {
+    vi.useFakeTimers();
+    render(
+      <>
+        {['First', 'Second'].map((name) => (
+          <Popover key={name} trigger="hover">
+            <Popover.Trigger>{name}</Popover.Trigger>
+            <Popover.Content>{name} content</Popover.Content>
+          </Popover>
+        ))}
+      </>,
+    );
+    const first = screen.getByRole('button', { name: 'First' });
+    const second = screen.getByRole('button', { name: 'Second' });
+    fireEvent.pointerEnter(first);
+    expect(screen.getByRole('dialog', { name: 'First' })).toBeInTheDocument();
+    fireEvent.pointerLeave(first);
+    fireEvent.pointerEnter(second);
+    expect(screen.getByRole('dialog', { name: 'Second' })).toBeInTheDocument();
+    act(() => vi.advanceTimersByTime(149));
+    expect(screen.getByRole('dialog', { name: 'First' })).toBeInTheDocument();
+    act(() => vi.advanceTimersByTime(1));
+    expect(screen.queryByRole('dialog', { name: 'First' })).not.toBeInTheDocument();
+    expect(screen.getByRole('dialog', { name: 'Second' })).toBeInTheDocument();
+    expect(second).not.toHaveFocus();
+    expect(screen.getByRole('dialog')).not.toHaveFocus();
+  });
+  it('still restores focus after the user enters a hover panel and its owner closes it', () => {
+    function Panel({ open }: { open?: boolean }) {
+      return (
+        <Popover trigger="hover" {...(open === undefined ? {} : { open })}>
+          <Popover.Trigger>Details</Popover.Trigger>
+          <Popover.Content>
+            <input aria-label="Name" />
+          </Popover.Content>
+        </Popover>
+      );
+    }
+    const { rerender } = render(<Panel />);
+    fireEvent.pointerEnter(screen.getByRole('button', { name: 'Details' }));
+    act(() => screen.getByRole('textbox', { name: 'Name' }).focus());
+    rerender(<Panel open={false} />);
+    expect(screen.getByRole('button', { name: 'Details' })).toHaveFocus();
+  });
   it('supports hover gap crossing and keeps interactive content open while focused', () => {
     vi.useFakeTimers();
     const { unmount } = render(<Example trigger="hover" />);

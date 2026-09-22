@@ -33,6 +33,9 @@ export function useFloatingPosition({
       setTheme(anchor.closest('[data-theme]')?.getAttribute('data-theme') ?? undefined);
       const anchorRect = anchor.getBoundingClientRect();
       const rect = content.getBoundingClientRect();
+      // Layout dimensions stay stable while a panel's enter/exit transform is scaling it.
+      const width = content.offsetWidth || rect.width;
+      const contentHeight = content.offsetHeight || rect.height;
       const viewport = content.querySelector<HTMLElement>('[data-overlay-viewport]');
       // Use natural content height to avoid flip/resize oscillation after constraining a tall panel.
       const height = viewport
@@ -40,12 +43,12 @@ export function useFloatingPosition({
             Number.parseFloat(getComputedStyle(viewport).maxHeight) || Infinity,
             viewport.scrollHeight,
           ) +
-          rect.height -
-          viewport.getBoundingClientRect().height
-        : Math.max(rect.height, content.scrollHeight);
+          contentHeight -
+          (viewport.offsetHeight || viewport.getBoundingClientRect().height)
+        : Math.max(contentHeight, content.scrollHeight);
       const next = positionOverlay(
         anchorRect,
-        { width: rect.width, height, top: rect.top, left: rect.left },
+        { width, height, top: rect.top, left: rect.left },
         {
           width: document.documentElement.clientWidth || window.innerWidth,
           height: window.innerHeight,
@@ -100,6 +103,7 @@ export function useFloatingPosition({
     theme,
     direction,
     positioned: position !== null,
+    referenceHidden: position?.referenceHidden ?? false,
     placement: position?.placement ?? placement,
     side: position?.side,
   };

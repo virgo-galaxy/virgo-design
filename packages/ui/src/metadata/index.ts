@@ -13,6 +13,7 @@ import { selectMetadata } from '../components/Select/Select.meta';
 import { surfaceMetadata } from '../components/Surface/Surface.meta';
 import { switchMetadata } from '../components/Switch/Switch.meta';
 import { tabsMetadata } from '../components/Tabs/Tabs.meta';
+import { tooltipMetadata } from '../components/Tooltip/Tooltip.meta';
 
 export {
   breadcrumbMetadata,
@@ -30,6 +31,7 @@ export {
   switchMetadata,
   tabsMetadata,
   textareaMetadata,
+  tooltipMetadata,
 };
 
 export const componentMetadataRegistry = {
@@ -47,6 +49,7 @@ export const componentMetadataRegistry = {
   surface: surfaceMetadata,
   switch: switchMetadata,
   tabs: tabsMetadata,
+  tooltip: tooltipMetadata,
   textarea: textareaMetadata,
 } as const;
 

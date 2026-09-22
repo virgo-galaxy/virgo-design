@@ -1,0 +1,68 @@
+import type { ComponentMetadata } from '../../metadata/ComponentMetadata';
+
+export const tooltipMetadata = {
+  name: 'Tooltip',
+  package: '@virgo-design/ui',
+  category: 'Data Display',
+  description: 'A brief, non-interactive description shown on hover or keyboard focus.',
+  import: "import { Tooltip } from '@virgo-design/ui';",
+  variants: ['default', 'brand', 'success', 'warning', 'danger', 'info'].map((name) => ({
+    name,
+    description: `${name} semantic content tone.`,
+  })),
+  states: ['closed', 'open', 'hover', 'focus-visible', 'disabled', 'entering', 'exiting'],
+  anatomy: [
+    { name: 'Tooltip', description: 'Open state and hover delay.' },
+    {
+      name: 'Tooltip.Trigger',
+      description:
+        'Default Virgo Button or custom render; preserves native action and accessible name.',
+    },
+    {
+      name: 'Tooltip.Content',
+      description: 'Portalled tooltip description with optional arrow; no interactive controls.',
+    },
+  ],
+  capabilities: {
+    controlled: true,
+    uncontrolled: true,
+    hover: true,
+    keyboard: true,
+    customTrigger: true,
+    portal: true,
+    placements: true,
+    arrow: true,
+    semanticTones: true,
+    rtl: true,
+    themeInheritance: true,
+    reducedMotion: true,
+    smoothTransition: true,
+    interactiveContent: false,
+  },
+  accessibility: [
+    'Content uses role="tooltip" and adds its ID to the trigger’s existing aria-describedby; it does not replace the accessible name.',
+    'Focus opens immediately without moving focus; hover uses a configurable delay. Escape dismisses without refocusing.',
+    'The pointer can cross into the tooltip; it stays visible while hovered or while its trigger is focused.',
+    'Pointer activation dismisses without preventing the trigger action. Touch does not open hover-only help.',
+    'Use Popover for links, inputs, buttons or other interactive content. Keep essential information visible outside the tooltip.',
+    'Portals preserve theme and direction; placement flips/shifts at viewport edges and updates on scroll or resize.',
+  ],
+  examples: [
+    {
+      name: 'Smooth transition',
+      code: '<>{["Overview", "Members", "Activity", "Settings"].map((label) => <Tooltip key={label} smoothTransition><Tooltip.Trigger>{label}</Tooltip.Trigger><Tooltip.Content>Explore your workspace.</Tooltip.Content></Tooltip>)}</>',
+    },
+    {
+      name: 'Basic',
+      code: '<Tooltip><Tooltip.Trigger>Hover or focus</Tooltip.Trigger><Tooltip.Content>Helpful context</Tooltip.Content></Tooltip>',
+    },
+    {
+      name: 'Placement',
+      code: '<Tooltip><Tooltip.Trigger>Top right</Tooltip.Trigger><Tooltip.Content placement="topRight" arrow>Helpful context</Tooltip.Content></Tooltip>',
+    },
+    {
+      name: 'Custom trigger',
+      code: '<Tooltip><Tooltip.Trigger aria-label="Settings" render={(props) => <button {...props}><SettingsIcon /></button>} /><Tooltip.Content>Workspace settings</Tooltip.Content></Tooltip>',
+    },
+  ],
+} as const satisfies ComponentMetadata;

@@ -1,25 +1,11 @@
 import './DropdownPage.scss';
 
 import { EllipsisIcon, SettingsIcon, TrashIcon, UserIcon } from '@virgo-design/icons';
-import { Button, Dropdown, type DropdownPlacement, Switch } from '@virgo-design/ui';
+import { Button, Dropdown, Switch, Tooltip } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import { PlacementCompass } from '../../components/PlacementCompass';
 import { ReviewSection } from '../../components/ReviewSection';
-
-const placements: DropdownPlacement[] = [
-  'bottomLeft',
-  'bottom',
-  'bottomRight',
-  'topLeft',
-  'top',
-  'topRight',
-  'leftTop',
-  'left',
-  'leftBottom',
-  'rightTop',
-  'right',
-  'rightBottom',
-];
 
 function Actions({ onAction }: { onAction: (action: string) => void }) {
   return (
@@ -50,7 +36,7 @@ export function DropdownPage() {
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
-            <span>Component 06</span>
+            <span>Component 05</span>
             <span className="version-badge">STABLE · V1.0.0</span>
           </div>
           <h1>Dropdown</h1>
@@ -134,10 +120,12 @@ export function DropdownPage() {
           <Switch checked={arrow} onCheckedChange={setArrow}>
             Show arrow
           </Switch>
-          <div className="dropdown-placement-grid">
-            {placements.map((placement) => (
+          <PlacementCompass>
+            {(placement, label) => (
               <Dropdown key={placement} size="small">
-                <Dropdown.Trigger indicator={false}>{placement}</Dropdown.Trigger>
+                <Dropdown.Trigger indicator={false} aria-label={placement}>
+                  {label}
+                </Dropdown.Trigger>
                 <Dropdown.Content placement={placement} arrow={arrow}>
                   <Dropdown.Item onSelect={() => setAction(`${placement}: first item selected`)}>
                     First menu item
@@ -150,8 +138,8 @@ export function DropdownPage() {
                   </Dropdown.Item>
                 </Dropdown.Content>
               </Dropdown>
-            ))}
-          </div>
+            )}
+          </PlacementCompass>
         </div>
       </ReviewSection>
       <ReviewSection
@@ -200,13 +188,17 @@ export function DropdownPage() {
             </Dropdown.Content>
           </Dropdown>
           <Dropdown>
-            <Dropdown.Trigger
-              title="More workspace actions"
-              aria-label="More workspace actions"
-              indicator={false}
-            >
-              <EllipsisIcon size={20} />
-            </Dropdown.Trigger>
+            <Tooltip>
+              <Tooltip.Trigger
+                aria-label="More workspace actions"
+                render={(props) => (
+                  <Dropdown.Trigger {...props} indicator={false}>
+                    <EllipsisIcon size={20} />
+                  </Dropdown.Trigger>
+                )}
+              />
+              <Tooltip.Content>More workspace actions</Tooltip.Content>
+            </Tooltip>
             <Dropdown.Content>
               <Actions onAction={setAction} />
             </Dropdown.Content>

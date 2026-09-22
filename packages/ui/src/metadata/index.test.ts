@@ -17,12 +17,18 @@ import {
   switchMetadata,
   tabsMetadata,
   textareaMetadata,
+  tooltipMetadata,
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Tooltip as Data Display with non-interactive content', () => {
+    expect(componentMetadataRegistry.tooltip).toBe(tooltipMetadata);
+    expect(tooltipMetadata.category).toBe('Data Display');
+    expect(tooltipMetadata.capabilities.interactiveContent).toBe(false);
+  });
   it('registers Popover in the existing metadata schema', () => {
     expect(componentMetadataRegistry.popover).toBe(popoverMetadata);
-    expect(popoverMetadata.category).toBe('General');
+    expect(popoverMetadata.category).toBe('Data Display');
     expect(popoverMetadata.capabilities).toMatchObject({
       portal: true,
       rtl: true,

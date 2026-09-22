@@ -9,6 +9,24 @@ afterEach(() => {
 });
 
 describe('floating overlay lifecycle', () => {
+  it('positions using layout dimensions rather than the current animation scale', () => {
+    vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
+      this: HTMLElement,
+    ) {
+      return this.tagName === 'BUTTON' ? new DOMRect(200, 200, 80, 30) : new DOMRect(0, 0, 144, 90);
+    });
+    vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(160);
+    vi.spyOn(HTMLElement.prototype, 'offsetHeight', 'get').mockReturnValue(100);
+    render(
+      <Popover defaultOpen>
+        <Popover.Trigger>Anchor</Popover.Trigger>
+        <Popover.Content placement="top">Context</Popover.Content>
+      </Popover>,
+    );
+    expect(screen.getByRole('dialog')).toHaveStyle({ left: '160px', top: '92px' });
+    fireEvent.resize(window);
+    expect(screen.getByRole('dialog')).toHaveStyle({ left: '160px', top: '92px' });
+  });
   it('repositions on scroll, resize and ResizeObserver and removes listeners/observers on close', () => {
     const observers: TestResizeObserver[] = [];
     class TestResizeObserver implements ResizeObserver {

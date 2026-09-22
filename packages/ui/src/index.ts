@@ -12,3 +12,4 @@ export * from './components/Select';
 export * from './components/Surface';
 export * from './components/Switch';
 export * from './components/Tabs';
+export * from './components/Tooltip';

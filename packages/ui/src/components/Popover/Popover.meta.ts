@@ -3,7 +3,7 @@ import type { ComponentMetadata } from '../../metadata/ComponentMetadata';
 export const popoverMetadata = {
   name: 'Popover',
   package: '@virgo-design/ui',
-  category: 'General',
+  category: 'Data Display',
   description: 'A non-modal floating panel for contextual information and interactive content.',
   import: "import { Popover } from '@virgo-design/ui';",
   variants: ['primary', 'secondary', 'outline', 'text'].map((name) => ({

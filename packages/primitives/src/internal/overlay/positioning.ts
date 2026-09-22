@@ -77,6 +77,11 @@ export function positionOverlay(
   const arrowX = Math.max(12, Math.min(width - 12, anchor.left + anchor.width / 2 - left));
   const arrowY = Math.max(12, Math.min(height - 12, anchor.top + anchor.height / 2 - top));
   return {
+    referenceHidden:
+      anchor.top + anchor.height < 0 ||
+      anchor.top > viewport.height ||
+      anchor.left + anchor.width < 0 ||
+      anchor.left > viewport.width,
     left,
     top,
     maxHeight,

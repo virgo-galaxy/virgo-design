@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-export function useHoverIntent(enabled: boolean, onClose: () => void) {
+export function useHoverIntent(enabled: boolean, onClose: () => void, closeDelay = 150) {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cancelClose = useCallback(() => {
     if (timer.current !== null) clearTimeout(timer.current);
@@ -9,7 +9,7 @@ export function useHoverIntent(enabled: boolean, onClose: () => void) {
   const scheduleClose = () => {
     if (!enabled) return;
     cancelClose();
-    timer.current = setTimeout(onClose, 150);
+    timer.current = setTimeout(onClose, closeDelay);
   };
   useEffect(() => cancelClose, [cancelClose]);
   useEffect(() => {

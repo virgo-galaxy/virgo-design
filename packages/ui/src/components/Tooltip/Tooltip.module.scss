@@ -1,0 +1,102 @@
+@use '../../internal/overlay/panel';
+
+.root {
+  display: inline-flex;
+  min-width: 0;
+  vertical-align: middle;
+}
+.content {
+  @include panel.surface;
+  --tooltip-background: var(--vd-text-primary);
+  --tooltip-foreground: var(--vd-text-inverse);
+  &:where([data-theme='dark'][data-tone='default']) {
+    --tooltip-background: var(--vd-neutral-8);
+    --tooltip-foreground: var(--vd-neutral-1);
+  }
+  width: max-content;
+  padding: var(--vd-spacing-8) var(--vd-spacing-12);
+  border: 0;
+  border-radius: var(--vd-radius-6);
+  background: var(--tooltip-background);
+  color: var(--tooltip-foreground);
+  font-size: var(--vd-typography-ui-body-small-font-size);
+  line-height: var(--vd-typography-ui-body-small-line-height);
+  text-align: start;
+  animation: tooltip-enter var(--vd-duration-120) var(--vd-easing-standard) both;
+  &[data-side='top'] {
+    transform-origin: var(--overlay-arrow-x) 100%;
+  }
+  &[data-side='bottom'] {
+    transform-origin: var(--overlay-arrow-x) 0;
+  }
+  &[data-side='left'] {
+    transform-origin: 100% var(--overlay-arrow-y);
+  }
+  &[data-side='right'] {
+    transform-origin: 0 var(--overlay-arrow-y);
+  }
+  &[data-continuous='true'][data-state='open'] {
+    animation: tooltip-handoff var(--vd-duration-120) var(--vd-easing-standard) both;
+  }
+  &[data-state='closed'] {
+    animation-name: tooltip-exit;
+  }
+  &[data-tone='brand'] {
+    --tooltip-background: var(--vd-brand-primary);
+    --tooltip-foreground: var(--vd-neutral-1);
+  }
+  @each $tone in (success, warning, danger, info) {
+    &[data-tone='#{$tone}'] {
+      --tooltip-background: var(--vd-status-#{$tone}-accent);
+      --tooltip-foreground: var(--vd-neutral-1);
+    }
+  }
+}
+.viewport {
+  min-width: 0;
+  min-height: 0;
+  max-width: calc(var(--vd-sizing-80) * 3);
+  overflow: auto;
+  overflow-wrap: anywhere;
+}
+.arrow {
+  @include panel.arrow;
+  background: var(--tooltip-background);
+  border: 0;
+}
+@keyframes tooltip-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes tooltip-exit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+@keyframes tooltip-handoff {
+  from {
+    opacity: 1;
+    transform: translate(var(--tooltip-handoff-x), var(--tooltip-handoff-y));
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .content,
+  .content[data-continuous='true'][data-state='open'] {
+    animation: none;
+  }
+}

@@ -34,6 +34,7 @@ type Context = {
   triggerRef: React.RefObject<HTMLButtonElement | null>;
   contentRef: React.RefObject<HTMLDivElement | null>;
   focusOnOpen: React.MutableRefObject<boolean>;
+  restoreFocus: React.MutableRefObject<boolean>;
   triggerId: string;
   contentId: string;
 };
@@ -65,6 +66,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const focusOnOpen = useRef(true);
+  const restoreFocus = useRef(true);
   const wasOpen = useRef(false);
   const id = useId();
   const setOpen = (next: boolean) => {
@@ -91,13 +93,16 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
     }
   }, [disabled, cancelClose, resetOpen]);
   useLayoutEffect(() => {
-    if (wasOpen.current && !open) returnFocus(triggerRef.current, contentRef.current);
+    // A pointer-only hover never took focus; returning it would dismiss the next hovered panel.
+    if (wasOpen.current && !open && restoreFocus.current)
+      returnFocus(triggerRef.current, contentRef.current);
     wasOpen.current = open;
   }, [open]);
   const requestOpen = (focus: boolean) => {
     if (disabled || triggerRef.current?.disabled) return;
     cancelClose();
     focusOnOpen.current = focus;
+    restoreFocus.current = focus;
     setOpen(true);
     if (open && focus) focusFirst(contentRef.current);
   };
@@ -114,6 +119,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
         triggerRef,
         contentRef,
         focusOnOpen,
+        restoreFocus,
         triggerId: `${id}-trigger`,
         contentId: `${id}-content`,
       }}
@@ -191,6 +197,7 @@ export const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
       onKeyDown,
       onPointerEnter,
       onPointerLeave,
+      onFocusCapture,
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledBy,
       ...props
@@ -227,6 +234,10 @@ export const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
           dir={floating.direction}
           data-placement={floating.placement}
           data-side={floating.side}
+          onFocusCapture={(event) => {
+            context.restoreFocus.current = true;
+            onFocusCapture?.(event);
+          }}
           style={{ ...style, ...floating.style, ...(!open ? { pointerEvents: 'none' } : {}) }}
           onPointerEnter={(event) => {
             onPointerEnter?.(event);
