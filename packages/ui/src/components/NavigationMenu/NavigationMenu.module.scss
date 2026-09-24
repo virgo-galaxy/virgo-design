@@ -1,0 +1,232 @@
+@use '../../internal/overlay/panel';
+
+.root,
+.popoverContent {
+  // Portalled submenus need the same defaults as the navigation landmark.
+  --navigation-menu-control-height: var(--vd-sizing-36);
+  --navigation-menu-control-padding: var(--vd-spacing-12);
+  --navigation-menu-gap: var(--vd-spacing-4);
+  --navigation-menu-icon-size: var(--vd-sizing-20);
+  --navigation-menu-radius: var(--vd-radius-8);
+}
+
+.root {
+  box-sizing: border-box;
+  min-width: 0;
+  color: var(--vd-text-primary);
+  font-family: var(--vd-typography-ui-body-medium-font-family);
+  font-size: var(--vd-typography-ui-body-medium-font-size);
+  font-weight: var(--vd-typography-ui-body-medium-font-weight);
+  line-height: var(--vd-typography-ui-body-medium-line-height);
+}
+
+.popoverRoot {
+  display: contents;
+}
+
+.list,
+.content {
+  margin: var(--vd-spacing-0);
+  padding: var(--vd-spacing-0);
+  list-style: none;
+}
+
+.list {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: var(--navigation-menu-gap);
+}
+
+.list[data-orientation='vertical'] {
+  display: grid;
+  align-items: stretch;
+}
+
+.item {
+  min-width: 0;
+}
+
+.list[data-orientation='vertical'] > .item {
+  width: 100%;
+}
+
+.control {
+  box-sizing: border-box;
+  display: flex;
+  min-width: 0;
+  min-height: var(--navigation-menu-control-height);
+  align-items: center;
+  gap: var(--vd-spacing-8);
+  margin: var(--vd-spacing-0);
+  padding: var(--vd-spacing-0) var(--navigation-menu-control-padding);
+  border: 0;
+  border-radius: var(--navigation-menu-radius);
+  color: var(--vd-text-secondary);
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+  text-align: start;
+  text-decoration: none;
+  user-select: none;
+
+  transition:
+    color var(--vd-duration-120) var(--vd-easing-standard),
+    background-color var(--vd-duration-120) var(--vd-easing-standard),
+    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+
+  &:hover:not(:disabled):not([aria-disabled='true']) {
+    color: var(--vd-text-primary);
+    background: var(--vd-fill-hover);
+  }
+
+  &:focus-visible {
+    outline: 0;
+    box-shadow: inset 0 0 0 var(--vd-border-width-2) var(--vd-border-focus);
+  }
+
+  &[data-active='true'] {
+    color: var(--vd-text-primary);
+    background: var(--vd-fill-selected);
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    color: var(--vd-text-disabled);
+    cursor: not-allowed;
+  }
+}
+
+.list[data-orientation='vertical'] > .item > .control,
+.list[data-orientation='vertical'] > .item > .popoverRoot > .control {
+  width: 100%;
+}
+
+.icon,
+.indicator {
+  display: inline-flex;
+  flex: none;
+  width: var(--navigation-menu-icon-size);
+  height: var(--navigation-menu-icon-size);
+  align-items: center;
+  justify-content: center;
+  color: var(--vd-icon-secondary);
+
+  > svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.label {
+  min-width: 0;
+  flex: 1;
+}
+
+.disclosureIndicator {
+  position: relative;
+
+  // Change the angle of each stroke around their shared point, not the whole icon.
+  &::before,
+  &::after {
+    position: absolute;
+    top: calc(50% - var(--vd-border-width-2) / 2);
+    width: var(--vd-spacing-8);
+    height: var(--vd-border-width-2);
+    border-radius: var(--vd-radius-full);
+    background: currentColor;
+    content: '';
+    transition: transform var(--vd-duration-180) var(--vd-easing-standard);
+  }
+
+  &::before {
+    right: 50%;
+    transform-origin: right center;
+    transform: translateY(calc(var(--vd-spacing-6) / 2)) rotate(45deg);
+  }
+
+  &::after {
+    left: 50%;
+    transform-origin: left center;
+    transform: translateY(calc(var(--vd-spacing-6) / 2)) rotate(-45deg);
+  }
+
+  &[data-direction='up']::before {
+    transform: translateY(calc(var(--vd-spacing-6) / -2)) rotate(-45deg);
+  }
+
+  &[data-direction='up']::after {
+    transform: translateY(calc(var(--vd-spacing-6) / -2)) rotate(45deg);
+  }
+}
+
+.trigger[aria-expanded='true'] {
+  color: var(--vd-text-primary);
+  background: var(--vd-fill-hover);
+}
+
+.content {
+  display: grid;
+  gap: var(--navigation-menu-gap);
+  margin-block-start: var(--vd-spacing-4);
+  margin-inline-start: var(--navigation-menu-control-padding);
+  padding-inline-start: var(--vd-spacing-8);
+  border-inline-start: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.content .control {
+  width: 100%;
+}
+
+.popoverContent {
+  @include panel.surface;
+
+  min-width: calc(var(--vd-sizing-80) * 2);
+  max-width: calc(var(--vd-sizing-80) * 5);
+  padding: var(--vd-spacing-4);
+  animation: navigation-menu-popover-enter var(--vd-duration-120) var(--vd-easing-standard);
+
+  &[data-state='closed'] {
+    // Navigation switches between sibling panels immediately; retaining an exit
+    // animation makes rapid pointer movement leave several panels on screen.
+    animation: none;
+  }
+
+  > .content {
+    width: 100%;
+    margin: var(--vd-spacing-0);
+    padding: var(--vd-spacing-0);
+    border: 0;
+  }
+
+  &:focus-visible {
+    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline-offset: var(--vd-spacing-2);
+  }
+}
+
+@keyframes navigation-menu-popover-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .control,
+  .indicator,
+  .disclosureIndicator::before,
+  .disclosureIndicator::after,
+  .popoverContent {
+    transition-duration: var(--vd-duration-0);
+    animation: none;
+  }
+}
