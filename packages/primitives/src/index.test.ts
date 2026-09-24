@@ -15,6 +15,10 @@ describe('@virgo-design/primitives public API', () => {
         'Dropdown',
         'Input',
         'Layout',
+        'Menu',
+        'ContextMenu',
+        'Menubar',
+        'NavigationMenu',
         'Pagination',
         'Popover',
         'Radio',
@@ -45,6 +49,25 @@ describe('@virgo-design/primitives public API', () => {
       expect(primitives.Accordion).toHaveProperty(part);
     expect(primitives.Collapsible.Root).toBe(primitives.Collapsible);
     expect(primitives.Accordion.Root).toBe(primitives.Accordion);
+    for (const part of ['Root', 'List', 'Item', 'Link', 'Trigger', 'Content'])
+      expect(primitives.NavigationMenu).toHaveProperty(part);
+    expect(primitives.NavigationMenu.Root).toBe(primitives.NavigationMenu);
+  });
+  it('exposes one shared action item family across all menu entry points', () => {
+    for (const part of [
+      'Item',
+      'CheckboxItem',
+      'RadioItem',
+      'RadioGroup',
+      'Group',
+      'Separator',
+      'Submenu',
+      'SubmenuTrigger',
+      'SubmenuContent',
+    ] as const) {
+      expect(primitives.ContextMenu[part]).toBe(primitives.Menu[part]);
+      expect(primitives.Menubar[part]).toBe(primitives.Menu[part]);
+    }
   });
   it('exposes composite anatomy only through family roots', () => {
     for (const part of ['Trigger', 'Content', 'Item', 'Separator'])
@@ -56,7 +79,10 @@ describe('@virgo-design/primitives public API', () => {
     expect(primitives.Checkbox).toHaveProperty('Group');
     expect(primitives).toHaveProperty('Layout');
     expect(primitives.Layout).toHaveProperty('Header');
-    expect(primitives.Layout).toHaveProperty('Sider');
+    expect(primitives.Layout).toHaveProperty('Root');
+    expect(primitives.Layout).toHaveProperty('Sidebar');
+    expect(primitives.Layout).toHaveProperty('SidebarTrigger');
+    expect(primitives.Layout).not.toHaveProperty('Sider');
     expect(primitives.Layout).toHaveProperty('Content');
     expect(primitives.Layout).toHaveProperty('Footer');
     expect(primitives.Radio).toHaveProperty('Group');

@@ -8,8 +8,10 @@ import {
   componentMetadataRegistry,
   dialogMetadata,
   dropdownMetadata,
+  floatingActionMetadata,
   inputMetadata,
   layoutMetadata,
+  navigationMenuMetadata,
   paginationMetadata,
   popoverMetadata,
   radioMetadata,
@@ -23,6 +25,27 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers three action menu families separately from navigation', () => {
+    for (const key of ['menu', 'contextMenu', 'menubar'] as const) {
+      const metadata = componentMetadataRegistry[key];
+      expect(metadata.category).toBe('Actions');
+      expect(metadata.capabilities).toMatchObject({
+        submenu: true,
+        shortcutDisplay: true,
+        shortcutBinding: false,
+        routing: false,
+      });
+      expect(metadata.anatomy.some((part) => part.name.endsWith('.CheckboxItem'))).toBe(true);
+    }
+  });
+  it('registers floating actions independently from Layout and NavigationMenu', () => {
+    expect(componentMetadataRegistry.floatingAction).toBe(floatingActionMetadata);
+    expect(floatingActionMetadata.capabilities).toMatchObject({ portal: true, navigation: false });
+    expect(layoutMetadata.capabilities).toMatchObject({
+      floatingSidebar: true,
+      localFloatingControls: true,
+    });
+  });
   it('registers Accordion with its variants and interaction modes', () => {
     expect(componentMetadataRegistry.accordion).toBe(accordionMetadata);
     expect(accordionMetadata.variants.map(({ name }) => name)).toEqual([
@@ -34,6 +57,19 @@ describe('componentMetadataRegistry', () => {
       single: true,
       multiple: true,
       keyboardNavigation: true,
+    });
+  });
+  it('registers NavigationMenu with navigation-only capabilities', () => {
+    expect(componentMetadataRegistry.navigationMenu).toBe(navigationMenuMetadata);
+    expect(navigationMenuMetadata.category).toBe('Navigation');
+    expect(navigationMenuMetadata.capabilities).toMatchObject({
+      horizontal: true,
+      vertical: true,
+      nested: true,
+      inlineSubmenu: true,
+      popoverSubmenu: true,
+      routerIntegration: false,
+      collapse: false,
     });
   });
   it('registers Dialog with its modal anatomy and size variants', () => {

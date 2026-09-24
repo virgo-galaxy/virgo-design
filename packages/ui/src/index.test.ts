@@ -12,8 +12,13 @@ describe('@virgo-design/ui public API', () => {
         'Checkbox',
         'Dialog',
         'Dropdown',
+        'FloatingAction',
         'Input',
         'Layout',
+        'Menu',
+        'ContextMenu',
+        'Menubar',
+        'NavigationMenu',
         'Pagination',
         'Popover',
         'Radio',
@@ -49,6 +54,25 @@ describe('@virgo-design/ui public API', () => {
     for (const part of ['Root', 'Item', 'Trigger', 'Content'])
       expect(ui.Accordion).toHaveProperty(part);
     expect(ui.Accordion.Root).toBe(ui.Accordion);
+    for (const part of ['Root', 'List', 'Item', 'Link', 'Trigger', 'Content'])
+      expect(ui.NavigationMenu).toHaveProperty(part);
+    expect(ui.NavigationMenu.Root).toBe(ui.NavigationMenu);
+  });
+  it('exposes one shared action item family across all menu entry points', () => {
+    for (const part of [
+      'Item',
+      'CheckboxItem',
+      'RadioItem',
+      'RadioGroup',
+      'Group',
+      'Separator',
+      'Submenu',
+      'SubmenuTrigger',
+      'SubmenuContent',
+    ] as const) {
+      expect(ui.ContextMenu[part]).toBe(ui.Menu[part]);
+      expect(ui.Menubar[part]).toBe(ui.Menu[part]);
+    }
   });
   it('exposes runtime UI without metadata', () => {
     for (const part of ['Trigger', 'Content', 'Item', 'Separator', 'Button'])
@@ -69,8 +93,15 @@ describe('@virgo-design/ui public API', () => {
     expect(ui).toHaveProperty('Input');
     expect(ui.Input).toHaveProperty('Password');
     expect(ui).toHaveProperty('Layout');
+    expect(ui).toHaveProperty('NavigationMenu');
     expect(ui.Layout).toHaveProperty('Header');
-    expect(ui.Layout).toHaveProperty('Sider');
+    expect(ui.Layout).toHaveProperty('Root');
+    expect(ui.Layout).toHaveProperty('Floating');
+    for (const part of ['Group', 'Trigger', 'Content'])
+      expect(ui.FloatingAction).toHaveProperty(part);
+    expect(ui.Layout).toHaveProperty('Sidebar');
+    expect(ui.Layout).toHaveProperty('SidebarTrigger');
+    expect(ui.Layout).not.toHaveProperty('Sider');
     expect(ui.Layout).toHaveProperty('Content');
     expect(ui.Layout).toHaveProperty('Footer');
     expect(ui).toHaveProperty('Radio');
@@ -107,6 +138,7 @@ describe('@virgo-design/ui public API', () => {
     expect(ui).not.toHaveProperty('checkboxMetadata');
     expect(ui).not.toHaveProperty('inputMetadata');
     expect(ui).not.toHaveProperty('layoutMetadata');
+    expect(ui).not.toHaveProperty('navigationMenuMetadata');
     expect(ui).not.toHaveProperty('radioMetadata');
     expect(ui).not.toHaveProperty('segmentedControlMetadata');
     expect(ui).not.toHaveProperty('textareaMetadata');
