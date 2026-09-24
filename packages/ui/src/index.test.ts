@@ -30,6 +30,7 @@ describe('@virgo-design/ui public API', () => {
         'Tabs',
         'Textarea',
         'Tooltip',
+        'Toast',
       ].sort(),
     );
     expect(
@@ -60,6 +61,8 @@ describe('@virgo-design/ui public API', () => {
     expect(ui.NavigationMenu.Root).toBe(ui.NavigationMenu);
     for (const part of ['Root', 'Dialog', 'Input', 'List', 'Empty', 'Group', 'Item', 'Separator'])
       expect(ui.Command).toHaveProperty(part);
+    for (const part of ['Provider', 'Root', 'Title', 'Description', 'Action', 'Close', 'Viewport'])
+      expect(ui.Toast).toHaveProperty(part);
   });
   it('exposes one shared action item family across all menu entry points', () => {
     for (const part of [

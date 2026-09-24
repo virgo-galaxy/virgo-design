@@ -22,16 +22,23 @@ import {
   switchMetadata,
   tabsMetadata,
   textareaMetadata,
+  toastMetadata,
   tooltipMetadata,
 } from './index';
 
 describe('componentMetadataRegistry', () => {
-  it('registers Command as an independent interaction system', () => {
+  it('registers Command and Toast as independent interaction systems', () => {
     expect(componentMetadataRegistry.command).toBe(commandMetadata);
     expect(commandMetadata.capabilities).toMatchObject({
       controlledSearch: true,
       dialogComposition: true,
       shortcutBinding: false,
+    });
+    expect(componentMetadataRegistry.toast).toBe(toastMetadata);
+    expect(toastMetadata.capabilities).toMatchObject({
+      autoDismiss: true,
+      pauseOnHover: true,
+      stacking: true,
     });
   });
   it('registers three action menu families separately from navigation', () => {

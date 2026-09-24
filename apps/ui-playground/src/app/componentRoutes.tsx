@@ -19,6 +19,7 @@ import { SelectPage } from '../pages/select/SelectPage';
 import { SurfacePage } from '../pages/surface/SurfacePage';
 import { SwitchPage } from '../pages/switch/SwitchPage';
 import { TabsPage } from '../pages/tabs/TabsPage';
+import { ToastPage } from '../pages/toast/ToastPage';
 import { TooltipPage } from '../pages/tooltip/TooltipPage';
 
 export type ComponentGroupId =
@@ -74,6 +75,7 @@ export type ComponentRoute = {
     | 'pagination'
     | 'popover'
     | 'tooltip'
+    | 'toast'
     | 'dropdown'
     | 'breadcrumb';
   index: string;
@@ -274,9 +276,20 @@ export const componentRoutes = [
     Component: PopoverPage,
   },
   {
-    id: 'tooltip',
+    id: 'toast',
     group: 'data-display',
     index: '18',
+    name: 'Toast',
+    category: 'Feedback',
+    path: '/components/toast',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: ToastPage,
+  },
+  {
+    id: 'tooltip',
+    group: 'data-display',
+    index: '19',
     name: 'Tooltip',
     category: 'Data Display',
     path: '/components/tooltip',
@@ -287,7 +300,7 @@ export const componentRoutes = [
   {
     id: 'command',
     group: 'actions',
-    index: '19',
+    index: '20',
     name: 'Command',
     category: 'Actions',
     path: '/components/command',
@@ -298,7 +311,7 @@ export const componentRoutes = [
   {
     id: 'context-menu',
     group: 'actions',
-    index: '20',
+    index: '21',
     name: 'ContextMenu',
     category: 'Actions',
     path: '/components/context-menu',
@@ -309,7 +322,7 @@ export const componentRoutes = [
   {
     id: 'menu',
     group: 'actions',
-    index: '21',
+    index: '22',
     name: 'Menu',
     category: 'Actions',
     path: '/components/menu',
@@ -320,7 +333,7 @@ export const componentRoutes = [
   {
     id: 'menubar',
     group: 'actions',
-    index: '22',
+    index: '23',
     name: 'Menubar',
     category: 'Actions',
     path: '/components/menubar',

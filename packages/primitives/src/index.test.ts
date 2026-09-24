@@ -28,6 +28,7 @@ describe('@virgo-design/primitives public API', () => {
         'Tabs',
         'Textarea',
         'Tooltip',
+        'Toast',
       ].sort(),
     );
     for (const part of ['Trigger', 'Content', 'Close'])
@@ -55,6 +56,8 @@ describe('@virgo-design/primitives public API', () => {
     expect(primitives.NavigationMenu.Root).toBe(primitives.NavigationMenu);
     for (const part of ['Root', 'Input', 'List', 'Empty', 'Group', 'Item', 'Separator'])
       expect(primitives.Command).toHaveProperty(part);
+    for (const part of ['Provider', 'Root', 'Title', 'Description', 'Action', 'Close', 'Viewport'])
+      expect(primitives.Toast).toHaveProperty(part);
   });
   it('exposes one shared action item family across all menu entry points', () => {
     for (const part of [

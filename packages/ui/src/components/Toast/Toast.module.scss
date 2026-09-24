@@ -1,0 +1,187 @@
+@use '../../internal/overlay/panel';
+
+.viewport {
+  position: fixed;
+  z-index: panel.$layer;
+  display: flex;
+  width: min(calc(var(--vd-sizing-80) * 4), calc(100vw - var(--vd-spacing-32)));
+  max-height: calc(100vh - var(--vd-spacing-32));
+  flex-direction: column;
+  gap: var(--vd-spacing-12);
+  pointer-events: none;
+  outline: none;
+}
+
+.viewport[data-placement^='top'] {
+  inset-block-start: var(--vd-spacing-16);
+}
+
+.viewport[data-placement^='bottom'] {
+  inset-block-end: var(--vd-spacing-16);
+}
+
+.viewport[data-placement$='start'] {
+  inset-inline-start: var(--vd-spacing-16);
+}
+
+.viewport[data-placement$='end'] {
+  inset-inline-end: var(--vd-spacing-16);
+}
+
+.viewport[data-placement$='center'] {
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+}
+
+.root {
+  @include panel.surface;
+
+  --toast-accent: var(--vd-border-strong);
+  --toast-tint: var(--vd-surface-secondary);
+
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--vd-spacing-12);
+  padding: var(--vd-spacing-12) var(--vd-spacing-16);
+  border-inline-start: var(--vd-border-width-2) var(--vd-border-style-solid) var(--toast-accent);
+  border-radius: var(--vd-radius-10);
+  box-shadow: var(--vd-elevation-3);
+  pointer-events: auto;
+  animation: toast-enter var(--vd-duration-180) var(--vd-easing-emphasized) both;
+}
+
+.root[data-state='closed'] {
+  animation: toast-exit var(--vd-duration-120) var(--vd-easing-standard) both;
+}
+
+.root[data-intent='success'] {
+  --toast-accent: var(--vd-status-success-accent);
+  --toast-tint: var(--vd-status-success-subtle);
+}
+
+.root[data-intent='warning'] {
+  --toast-accent: var(--vd-status-warning-accent);
+  --toast-tint: var(--vd-status-warning-subtle);
+}
+
+.root[data-intent='error'] {
+  --toast-accent: var(--vd-status-danger-accent);
+  --toast-tint: var(--vd-status-danger-subtle);
+}
+
+.root[data-intent='info'] {
+  --toast-accent: var(--vd-status-info-accent);
+  --toast-tint: var(--vd-status-info-subtle);
+}
+
+.icon {
+  display: grid;
+  width: var(--vd-sizing-28);
+  height: var(--vd-sizing-28);
+  place-items: center;
+  border-radius: var(--vd-radius-8);
+  color: var(--toast-accent);
+  background: var(--toast-tint);
+
+  & > svg {
+    width: var(--vd-sizing-20);
+    height: var(--vd-sizing-20);
+  }
+}
+
+.body {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--vd-spacing-4) var(--vd-spacing-12);
+}
+
+.title {
+  color: var(--vd-text-primary);
+  font-family: var(--vd-typography-ui-label-medium-font-family);
+  font-size: var(--vd-typography-ui-label-medium-font-size);
+  font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  line-height: var(--vd-typography-ui-label-medium-line-height);
+}
+
+.description {
+  grid-column: 1;
+  color: var(--vd-text-secondary);
+}
+
+.action {
+  grid-column: 1;
+  justify-self: start;
+  margin-block-start: var(--vd-spacing-4);
+  padding: var(--vd-spacing-0);
+  border: 0;
+  color: var(--toast-accent);
+  background: transparent;
+  font: inherit;
+  font-weight: var(--vd-typography-ui-label-medium-font-weight);
+
+  &:focus-visible {
+    outline: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-border-focus);
+    outline-offset: var(--vd-spacing-2);
+  }
+}
+
+.close {
+  display: grid;
+  width: var(--vd-sizing-28);
+  height: var(--vd-sizing-28);
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  cursor: pointer;
+  place-items: center;
+  padding: var(--vd-spacing-0);
+  border: 0;
+  border-radius: var(--vd-radius-6);
+  color: var(--vd-text-tertiary);
+  background: transparent;
+
+  &:hover {
+    color: var(--vd-text-primary);
+    background: var(--vd-surface-secondary);
+  }
+
+  &:focus-visible {
+    outline: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-border-focus);
+    outline-offset: var(--vd-spacing-2);
+  }
+
+  & > svg {
+    width: var(--vd-sizing-16);
+    height: var(--vd-sizing-16);
+  }
+}
+
+@keyframes toast-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--vd-spacing-8));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(var(--vd-spacing-0));
+  }
+}
+
+@keyframes toast-exit {
+  from {
+    opacity: 1;
+    transform: translateY(var(--vd-spacing-0));
+  }
+  to {
+    opacity: 0;
+    transform: translateY(var(--vd-spacing-8));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root,
+  .root[data-state='closed'] {
+    animation-duration: var(--vd-duration-0);
+  }
+}

@@ -21,6 +21,7 @@ import { selectMetadata } from '../components/Select/Select.meta';
 import { surfaceMetadata } from '../components/Surface/Surface.meta';
 import { switchMetadata } from '../components/Switch/Switch.meta';
 import { tabsMetadata } from '../components/Tabs/Tabs.meta';
+import { toastMetadata } from '../components/Toast/Toast.meta';
 import { tooltipMetadata } from '../components/Tooltip/Tooltip.meta';
 
 export {
@@ -47,6 +48,7 @@ export {
   switchMetadata,
   tabsMetadata,
   textareaMetadata,
+  toastMetadata,
   tooltipMetadata,
 };
 
@@ -74,6 +76,7 @@ export const componentMetadataRegistry = {
   switch: switchMetadata,
   tabs: tabsMetadata,
   tooltip: tooltipMetadata,
+  toast: toastMetadata,
   textarea: textareaMetadata,
 } as const;
 
