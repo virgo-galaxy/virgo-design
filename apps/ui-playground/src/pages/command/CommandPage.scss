@@ -1,0 +1,36 @@
+.command-intro {
+  padding: var(--vd-spacing-40);
+  border-block-end: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+
+  h1 {
+    margin: var(--vd-spacing-12) var(--vd-spacing-0) var(--vd-spacing-8);
+  }
+  p {
+    max-width: calc(var(--vd-sizing-80) * 8);
+    margin: 0;
+    color: var(--vd-text-secondary);
+  }
+}
+
+.command-stage {
+  display: grid;
+  gap: var(--vd-spacing-16);
+  padding: var(--vd-spacing-32);
+}
+
+.command-demo {
+  width: min(100%, calc(var(--vd-sizing-80) * 5));
+}
+
+.command-dialog-trigger {
+  grid-template-columns: max-content max-content;
+  align-items: center;
+
+  kbd {
+    padding: var(--vd-spacing-4) var(--vd-spacing-8);
+    border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+    border-radius: var(--vd-radius-6);
+    color: var(--vd-text-secondary);
+    background: var(--vd-surface-secondary);
+  }
+}

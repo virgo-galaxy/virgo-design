@@ -4,6 +4,7 @@ import { AccordionPage } from '../pages/accordion/AccordionPage';
 import { BreadcrumbPage } from '../pages/breadcrumb/BreadcrumbPage';
 import { ButtonPage } from '../pages/button/ButtonPage';
 import { CheckboxPage } from '../pages/checkbox/CheckboxPage';
+import { CommandPage } from '../pages/command/CommandPage';
 import { DialogPage } from '../pages/dialog/DialogPage';
 import { DropdownPage } from '../pages/dropdown/DropdownPage';
 import { InputPage } from '../pages/input/InputPage';
@@ -64,6 +65,7 @@ export type ComponentRoute = {
     | 'input'
     | 'select'
     | 'checkbox'
+    | 'command'
     | 'dialog'
     | 'radio'
     | 'switch'
@@ -283,9 +285,20 @@ export const componentRoutes = [
     Component: TooltipPage,
   },
   {
-    id: 'context-menu',
+    id: 'command',
     group: 'actions',
     index: '19',
+    name: 'Command',
+    category: 'Actions',
+    path: '/components/command',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: CommandPage,
+  },
+  {
+    id: 'context-menu',
+    group: 'actions',
+    index: '20',
     name: 'ContextMenu',
     category: 'Actions',
     path: '/components/context-menu',
@@ -296,7 +309,7 @@ export const componentRoutes = [
   {
     id: 'menu',
     group: 'actions',
-    index: '20',
+    index: '21',
     name: 'Menu',
     category: 'Actions',
     path: '/components/menu',
@@ -307,7 +320,7 @@ export const componentRoutes = [
   {
     id: 'menubar',
     group: 'actions',
-    index: '21',
+    index: '22',
     name: 'Menubar',
     category: 'Actions',
     path: '/components/menubar',

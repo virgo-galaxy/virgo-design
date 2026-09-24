@@ -11,6 +11,7 @@ describe('@virgo-design/primitives public API', () => {
         'Button',
         'Checkbox',
         'Collapsible',
+        'Command',
         'Dialog',
         'Dropdown',
         'Input',
@@ -52,6 +53,8 @@ describe('@virgo-design/primitives public API', () => {
     for (const part of ['Root', 'List', 'Item', 'Link', 'Trigger', 'Content'])
       expect(primitives.NavigationMenu).toHaveProperty(part);
     expect(primitives.NavigationMenu.Root).toBe(primitives.NavigationMenu);
+    for (const part of ['Root', 'Input', 'List', 'Empty', 'Group', 'Item', 'Separator'])
+      expect(primitives.Command).toHaveProperty(part);
   });
   it('exposes one shared action item family across all menu entry points', () => {
     for (const part of [

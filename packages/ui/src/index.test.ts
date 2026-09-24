@@ -10,6 +10,7 @@ describe('@virgo-design/ui public API', () => {
         'Breadcrumb',
         'Button',
         'Checkbox',
+        'Command',
         'Dialog',
         'Dropdown',
         'FloatingAction',
@@ -57,6 +58,8 @@ describe('@virgo-design/ui public API', () => {
     for (const part of ['Root', 'List', 'Item', 'Link', 'Trigger', 'Content'])
       expect(ui.NavigationMenu).toHaveProperty(part);
     expect(ui.NavigationMenu.Root).toBe(ui.NavigationMenu);
+    for (const part of ['Root', 'Dialog', 'Input', 'List', 'Empty', 'Group', 'Item', 'Separator'])
+      expect(ui.Command).toHaveProperty(part);
   });
   it('exposes one shared action item family across all menu entry points', () => {
     for (const part of [

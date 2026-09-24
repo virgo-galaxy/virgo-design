@@ -83,7 +83,7 @@ export function MenuPage() {
   return (
     <Page
       name="Menu"
-      index="20"
+      index="21"
       description="Choose what to do. Button-triggered actions, nested submenus and persistent preferences share one menu protocol."
     >
       <ReviewSection
@@ -161,7 +161,7 @@ export function ContextMenuPage() {
   return (
     <Page
       name="ContextMenu"
-      index="19"
+      index="20"
       description="Actions for the object under the pointer. Right-click a target, or focus it and press Shift+F10 or the context-menu key."
     >
       <ReviewSection
@@ -213,7 +213,7 @@ export function MenubarPage() {
   return (
     <Page
       name="Menubar"
-      index="21"
+      index="22"
       description="Application-level action groups. Arrow keys move between menus; an open menu follows the pointer across its neighboring triggers."
     >
       <ReviewSection

@@ -2,6 +2,7 @@ import { accordionMetadata } from '../components/Accordion/Accordion.meta';
 import { breadcrumbMetadata } from '../components/Breadcrumb/Breadcrumb.meta';
 import { buttonMetadata } from '../components/Button/Button.meta';
 import { checkboxMetadata } from '../components/Checkbox/Checkbox.meta';
+import { commandMetadata } from '../components/Command/Command.meta';
 import { contextMenuMetadata } from '../components/ContextMenu/ContextMenu.meta';
 import { dialogMetadata } from '../components/Dialog/Dialog.meta';
 import { dropdownMetadata } from '../components/Dropdown/Dropdown.meta';
@@ -27,6 +28,7 @@ export {
   breadcrumbMetadata,
   buttonMetadata,
   checkboxMetadata,
+  commandMetadata,
   contextMenuMetadata,
   dialogMetadata,
   dropdownMetadata,
@@ -56,6 +58,7 @@ export const componentMetadataRegistry = {
   button: buttonMetadata,
   breadcrumb: breadcrumbMetadata,
   checkbox: checkboxMetadata,
+  command: commandMetadata,
   dialog: dialogMetadata,
   dropdown: dropdownMetadata,
   input: inputMetadata,

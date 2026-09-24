@@ -5,6 +5,7 @@ import {
   breadcrumbMetadata,
   buttonMetadata,
   checkboxMetadata,
+  commandMetadata,
   componentMetadataRegistry,
   dialogMetadata,
   dropdownMetadata,
@@ -25,6 +26,14 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Command as an independent interaction system', () => {
+    expect(componentMetadataRegistry.command).toBe(commandMetadata);
+    expect(commandMetadata.capabilities).toMatchObject({
+      controlledSearch: true,
+      dialogComposition: true,
+      shortcutBinding: false,
+    });
+  });
   it('registers three action menu families separately from navigation', () => {
     for (const key of ['menu', 'contextMenu', 'menubar'] as const) {
       const metadata = componentMetadataRegistry[key];

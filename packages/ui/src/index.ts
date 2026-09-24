@@ -2,6 +2,7 @@ export * from './components/Accordion';
 export * from './components/Breadcrumb';
 export * from './components/Button';
 export * from './components/Checkbox';
+export * from './components/Command';
 export * from './components/ContextMenu';
 export * from './components/Dialog';
 export * from './components/Dropdown';
