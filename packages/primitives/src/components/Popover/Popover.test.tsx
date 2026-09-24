@@ -177,6 +177,45 @@ describe('Popover primitive', () => {
     vi.runAllTimers();
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
+  it('treats nested hover portals as one pointer region without moving focus', () => {
+    vi.useFakeTimers();
+    render(
+      <Popover trigger="hover">
+        <Popover.Trigger>Parent</Popover.Trigger>
+        <Popover.Content>
+          <Popover trigger="hover">
+            <Popover.Trigger>Child</Popover.Trigger>
+            <Popover.Content>Child content</Popover.Content>
+          </Popover>
+        </Popover.Content>
+      </Popover>,
+    );
+    const parentTrigger = screen.getByRole('button', { name: 'Parent' });
+    fireEvent.pointerEnter(parentTrigger);
+    fireEvent.pointerLeave(parentTrigger);
+    const parentPanel = screen.getByRole('dialog', { name: 'Parent' });
+    fireEvent.pointerEnter(parentPanel);
+    const childTrigger = screen.getByRole('button', { name: 'Child' });
+    fireEvent.pointerEnter(childTrigger);
+    fireEvent.pointerLeave(childTrigger);
+    fireEvent.pointerLeave(parentPanel);
+    act(() => vi.advanceTimersByTime(100));
+    const childPanel = screen.getByRole('dialog', { name: 'Child' });
+    fireEvent.pointerEnter(childPanel);
+    act(() => vi.advanceTimersByTime(200));
+    expect(parentPanel).toBeVisible();
+    expect(childPanel).toBeVisible();
+    expect(document.body).toHaveFocus();
+
+    fireEvent.pointerLeave(childPanel);
+    fireEvent.pointerEnter(parentPanel);
+    act(() => vi.advanceTimersByTime(200));
+    expect(screen.queryByRole('dialog', { name: 'Child' })).not.toBeInTheDocument();
+    expect(parentPanel).toBeVisible();
+    fireEvent.pointerLeave(parentPanel);
+    act(() => vi.advanceTimersByTime(200));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
   it('honors cancelled trigger, close and Escape handlers, and forwards refs to native elements', async () => {
     const user = userEvent.setup();
     const ref = createRef<HTMLDivElement>();
@@ -255,6 +294,22 @@ describe('Popover primitive', () => {
     expect(screen.getByRole('option', { name: 'Beta' })).toHaveAttribute('aria-selected', 'true');
     await user.keyboard('{Escape}');
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+  it('opens hover popovers on keyboard focus without moving focus into content', async () => {
+    const user = userEvent.setup();
+    render(
+      <Popover trigger="hover">
+        <Popover.Trigger>Products</Popover.Trigger>
+        <Popover.Content>
+          <a href="#cloud">Cloud</a>
+        </Popover.Content>
+      </Popover>,
+    );
+
+    await user.tab();
+
+    expect(screen.getByRole('button', { name: 'Products' })).toHaveFocus();
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
   it('dismisses nested overlays when clicking outside both, but preserves the parent for inside clicks', async () => {

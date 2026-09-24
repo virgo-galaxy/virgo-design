@@ -58,11 +58,13 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
     onOpenChange,
     trigger = 'click',
     disabled = false,
+    restoreFocusOnClose = true,
     children,
     ...props
   },
   ref,
 ) {
+  const parentPopover = useContext(PopoverContext);
   const [openState, setOpenState, resetOpen] = useControllableState(
     controlledOpen,
     defaultOpen,
@@ -84,6 +86,15 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
     // Interactive hover panels stay open while their form or buttons own keyboard focus.
     if (!hasLayerFocus(layer)) setOpen(false);
   });
+  // A portalled child is still part of its ancestors' hover region.
+  const cancelTreeClose = () => {
+    cancelClose();
+    parentPopover?.cancelClose();
+  };
+  const scheduleTreeClose = () => {
+    scheduleClose();
+    parentPopover?.scheduleClose();
+  };
   useDismiss({
     open,
     layer,
@@ -100,14 +111,16 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
     }
   }, [disabled, cancelClose, resetOpen]);
   useLayoutEffect(() => {
+    // External state changes can close a panel before its hover timer finishes.
+    if (!open) cancelClose();
     // A pointer-only hover never took focus; returning it would dismiss the next hovered panel.
-    if (wasOpen.current && !open && restoreFocus.current)
+    if (wasOpen.current && !open && restoreFocus.current && restoreFocusOnClose)
       returnFocus(triggerRef.current, contentRef.current);
     wasOpen.current = open;
-  }, [open]);
+  }, [open, restoreFocusOnClose, cancelClose]);
   const requestOpen = (focus: boolean) => {
     if (disabled || triggerRef.current?.disabled) return;
-    cancelClose();
+    cancelTreeClose();
     focusOnOpen.current = focus;
     restoreFocus.current = focus;
     setOpen(true);
@@ -121,8 +134,8 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
         trigger,
         setOpen,
         requestOpen,
-        cancelClose,
-        scheduleClose,
+        cancelClose: cancelTreeClose,
+        scheduleClose: scheduleTreeClose,
         triggerRef,
         contentRef,
         focusOnOpen,
@@ -147,10 +160,23 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
 
 export const PopoverTrigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>(
   function PopoverTrigger(
-    { render, disabled, onClick, onKeyDown, onPointerEnter, onPointerLeave, ...props },
+    {
+      render,
+      disabled,
+      onClick,
+      onFocus,
+      onKeyDown,
+      onPointerCancel,
+      onPointerDown,
+      onPointerEnter,
+      onPointerLeave,
+      onPointerUp,
+      ...props
+    },
     ref,
   ) {
     const context = usePopover();
+    const pointerDownRef = useRef(false);
     const buttonProps: React.ButtonHTMLAttributes<HTMLButtonElement> & {
       ref: React.Ref<HTMLButtonElement>;
     } = {
@@ -180,6 +206,23 @@ export const PopoverTrigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>
           event.preventDefault();
           focusFirst(context.contentRef.current);
         }
+      },
+      onFocus: (event) => {
+        onFocus?.(event);
+        if (!event.defaultPrevented && context.trigger === 'hover' && !pointerDownRef.current)
+          context.requestOpen(false);
+      },
+      onPointerDown: (event) => {
+        pointerDownRef.current = true;
+        onPointerDown?.(event);
+      },
+      onPointerUp: (event) => {
+        pointerDownRef.current = false;
+        onPointerUp?.(event);
+      },
+      onPointerCancel: (event) => {
+        pointerDownRef.current = false;
+        onPointerCancel?.(event);
       },
       onPointerEnter: (event) => {
         onPointerEnter?.(event);

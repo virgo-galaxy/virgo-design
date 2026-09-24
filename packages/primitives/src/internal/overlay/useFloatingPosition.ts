@@ -8,12 +8,15 @@ export function useFloatingPosition({
   contentRef,
   placement,
   offset,
+  anchorRect,
 }: {
   active: boolean;
   triggerRef: RefObject<HTMLElement | null>;
   contentRef: RefObject<HTMLElement | null>;
   placement: OverlayPlacement;
   offset: number;
+  /** Optional virtual anchor; the trigger still supplies theme, direction and document. */
+  anchorRect?: { left: number; top: number; width: number; height: number };
 }) {
   const [position, setPosition] = useState<ReturnType<typeof positionOverlay> | null>(null);
   const [theme, setTheme] = useState<string | undefined>();
@@ -31,7 +34,7 @@ export function useFloatingPosition({
       const dir = getComputedStyle(anchor).direction === 'rtl' ? 'rtl' : 'ltr';
       setDirection(dir);
       setTheme(anchor.closest('[data-theme]')?.getAttribute('data-theme') ?? undefined);
-      const anchorRect = anchor.getBoundingClientRect();
+      const referenceRect = anchorRect ?? anchor.getBoundingClientRect();
       const rect = content.getBoundingClientRect();
       // Layout dimensions stay stable while a panel's enter/exit transform is scaling it.
       const width = content.offsetWidth || rect.width;
@@ -47,7 +50,7 @@ export function useFloatingPosition({
           (viewport.offsetHeight || viewport.getBoundingClientRect().height)
         : Math.max(contentHeight, content.scrollHeight);
       const next = positionOverlay(
-        anchorRect,
+        referenceRect,
         { width, height, top: rect.top, left: rect.left },
         {
           width: document.documentElement.clientWidth || window.innerWidth,
@@ -57,7 +60,7 @@ export function useFloatingPosition({
         offset,
         dir,
       );
-      setTriggerWidth(anchorRect.width);
+      setTriggerWidth(referenceRect.width);
       setPosition((previous) =>
         JSON.stringify(previous) === JSON.stringify(next) ? previous : next,
       );
@@ -86,7 +89,7 @@ export function useFloatingPosition({
       window.removeEventListener('resize', update);
       document.removeEventListener('scroll', update, true);
     };
-  }, [active, triggerRef, contentRef, placement, offset]);
+  }, [active, triggerRef, contentRef, placement, offset, anchorRect]);
   const style = {
     position: 'fixed',
     left: position?.left ?? 0,

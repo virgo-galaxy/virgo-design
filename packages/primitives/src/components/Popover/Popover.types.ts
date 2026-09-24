@@ -10,6 +10,8 @@ export interface PopoverProps extends HTMLAttributes<HTMLDivElement> {
   /** Pointer activation. Both modes support keyboard and touch clicks. @default 'click' */
   trigger?: 'click' | 'hover';
   disabled?: boolean;
+  /** Return focus to the trigger after programmatic close. Escape always returns focus. @default true */
+  restoreFocusOnClose?: boolean;
 }
 export interface PopoverTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Supply a button which forwards the provided native props and ref. */
