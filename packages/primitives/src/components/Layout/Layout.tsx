@@ -1,11 +1,14 @@
-import { forwardRef } from 'react';
+import { createContext, forwardRef, useContext, useId } from 'react';
 
+import { useControllableState } from '../../internal/hooks/useControllableState';
 import type {
   LayoutContentProps,
   LayoutFooterProps,
   LayoutHeaderProps,
   LayoutProps,
-  LayoutSiderProps,
+  LayoutSidebarProps,
+  LayoutSidebarState,
+  LayoutSidebarTriggerProps,
 } from './Layout.types';
 
 export const Layout = forwardRef<HTMLDivElement, LayoutProps>(function Layout(
@@ -25,20 +28,63 @@ export const LayoutHeader = forwardRef<HTMLElement, LayoutHeaderProps>(
 
 LayoutHeader.displayName = 'Layout.Header';
 
-export const LayoutSider = forwardRef<HTMLElement, LayoutSiderProps>(function LayoutSider(
-  { width, style, ...props },
-  forwardedRef,
+const SidebarContext = createContext<(LayoutSidebarState & { id: string }) | null>(null);
+
+export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(function LayoutSidebar(
+  {
+    id,
+    collapsed: controlledCollapsed,
+    defaultCollapsed = false,
+    onCollapsedChange,
+    children,
+    ...props
+  },
+  ref,
 ) {
+  const generatedId = useId();
+  const [value, setCollapsed] = useControllableState(
+    controlledCollapsed,
+    defaultCollapsed,
+    onCollapsedChange,
+  );
+  const state = { collapsed: Boolean(value), setCollapsed, id: id ?? `vd-sidebar-${generatedId}` };
   return (
-    <aside
-      {...props}
-      ref={forwardedRef}
-      style={width === undefined ? style : { ...style, width }}
-    />
+    <SidebarContext.Provider value={state}>
+      <aside
+        {...props}
+        ref={ref}
+        id={state.id}
+        data-state={state.collapsed ? 'collapsed' : 'expanded'}
+      >
+        {typeof children === 'function' ? children(state) : children}
+      </aside>
+    </SidebarContext.Provider>
   );
 });
+LayoutSidebar.displayName = 'Layout.Sidebar';
 
-LayoutSider.displayName = 'Layout.Sider';
+export const LayoutSidebarTrigger = forwardRef<HTMLButtonElement, LayoutSidebarTriggerProps>(
+  function LayoutSidebarTrigger({ render, onClick, disabled, ...props }, ref) {
+    const context = useContext(SidebarContext);
+    if (!context) throw new Error('Layout.SidebarTrigger must be used inside Layout.Sidebar.');
+    const buttonProps = {
+      type: 'button' as const,
+      'aria-label': context.collapsed ? 'Expand sidebar' : 'Collapse sidebar',
+      ...props,
+      ref,
+      disabled,
+      'aria-controls': context.id,
+      'aria-expanded': !context.collapsed,
+      'data-state': context.collapsed ? 'collapsed' : 'expanded',
+      onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
+        onClick?.(event);
+        if (!event.defaultPrevented && !disabled) context.setCollapsed(!context.collapsed);
+      },
+    };
+    return render ? render(buttonProps) : <button {...buttonProps} />;
+  },
+);
+LayoutSidebarTrigger.displayName = 'Layout.SidebarTrigger';
 
 export const LayoutContent = forwardRef<HTMLElement, LayoutContentProps>(
   function LayoutContent(props, forwardedRef) {

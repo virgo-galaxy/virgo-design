@@ -1,22 +1,33 @@
 import {
   Layout as LayoutRoot,
   LayoutContent,
+  LayoutFloating,
   LayoutFooter,
   LayoutHeader,
-  LayoutSider,
+  LayoutSidebar,
+  LayoutSidebarTrigger,
 } from './Layout';
 
 export const Layout = Object.assign(LayoutRoot, {
+  Root: LayoutRoot,
   Header: LayoutHeader,
-  Sider: LayoutSider,
+  Sidebar: LayoutSidebar,
+  SidebarTrigger: LayoutSidebarTrigger,
   Content: LayoutContent,
   Footer: LayoutFooter,
+  Floating: LayoutFloating,
 });
 export type {
   LayoutContentProps,
   LayoutDirection,
+  LayoutFloatingProps,
   LayoutFooterProps,
   LayoutHeaderProps,
+  LayoutLength,
   LayoutProps,
-  LayoutSiderProps,
+  LayoutSidebarProps,
+  LayoutSidebarSlot,
+  LayoutSidebarState,
+  LayoutSidebarTriggerProps,
+  LayoutSurface,
 } from './Layout.types';

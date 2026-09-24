@@ -3,12 +3,15 @@ import {
   LayoutContent,
   LayoutFooter,
   LayoutHeader,
-  LayoutSider,
+  LayoutSidebar,
+  LayoutSidebarTrigger,
 } from './Layout';
 
 export const Layout = Object.assign(LayoutRoot, {
+  Root: LayoutRoot,
   Header: LayoutHeader,
-  Sider: LayoutSider,
+  Sidebar: LayoutSidebar,
+  SidebarTrigger: LayoutSidebarTrigger,
   Content: LayoutContent,
   Footer: LayoutFooter,
 });
@@ -18,5 +21,7 @@ export type {
   LayoutFooterProps,
   LayoutHeaderProps,
   LayoutProps,
-  LayoutSiderProps,
+  LayoutSidebarProps,
+  LayoutSidebarState,
+  LayoutSidebarTriggerProps,
 } from './Layout.types';

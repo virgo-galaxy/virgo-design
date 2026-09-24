@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, HTMLAttributes, ReactElement, ReactNode, Ref } from 'react';
 
 export type LayoutDirection = 'vertical' | 'horizontal';
 
@@ -12,9 +12,22 @@ export interface LayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, 'child
 
 export type LayoutHeaderProps = HTMLAttributes<HTMLElement>;
 
-export interface LayoutSiderProps extends HTMLAttributes<HTMLElement> {
-  /** Structural width of the side region. */
-  width?: number | string;
+export interface LayoutSidebarState {
+  collapsed: boolean;
+  setCollapsed: (collapsed: boolean) => void;
+}
+
+export interface LayoutSidebarProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
+  collapsed?: boolean;
+  defaultCollapsed?: boolean;
+  onCollapsedChange?: (collapsed: boolean) => void;
+  children?: ReactNode | ((state: LayoutSidebarState) => ReactNode);
+}
+
+export interface LayoutSidebarTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  render?: (
+    props: ButtonHTMLAttributes<HTMLButtonElement> & { ref: Ref<HTMLButtonElement> },
+  ) => ReactElement;
 }
 
 export type LayoutContentProps = HTMLAttributes<HTMLElement>;
