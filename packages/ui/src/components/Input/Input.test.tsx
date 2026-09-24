@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createRef } from 'react';
+import { createRef, useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Input } from './Input';
@@ -38,6 +38,76 @@ describe('Input', () => {
       'aria-hidden',
       'true',
     );
+  });
+
+  it('renders prefix and suffix without taking focus from the input', () => {
+    render(
+      <Input
+        aria-label="Email"
+        prefix={<svg data-testid="prefix" />}
+        suffix={<svg data-testid="suffix" />}
+      />,
+    );
+
+    const input = screen.getByRole('textbox', { name: 'Email' });
+    const prefix = screen.getByTestId('prefix').parentElement;
+    const suffix = screen.getByTestId('suffix').parentElement;
+
+    expect(prefix).toHaveAttribute('data-slot', 'prefix');
+    expect(prefix).toHaveAttribute('aria-hidden', 'true');
+    expect(suffix).toHaveAttribute('data-slot', 'suffix');
+    expect(suffix).toHaveAttribute('aria-hidden', 'true');
+    expect(prefix).not.toHaveAttribute('tabindex');
+    expect(suffix).not.toHaveAttribute('tabindex');
+
+    input.focus();
+    suffix?.click();
+    expect(input).toHaveFocus();
+  });
+
+  it('clears an uncontrolled value, emits onChange, and keeps focus', async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+
+    render(<Input clearable aria-label="Project" defaultValue="Virgo" onChange={onChange} />);
+
+    const input = screen.getByRole('textbox', { name: 'Project' });
+    await user.click(screen.getByRole('button', { name: 'Clear input' }));
+
+    expect(input).toHaveValue('');
+    expect(input).toHaveFocus();
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(screen.queryByRole('button', { name: 'Clear input' })).not.toBeInTheDocument();
+  });
+
+  it('requests a controlled value change through onChange', async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+
+    function ControlledInput() {
+      const [value, setValue] = useState('Virgo');
+
+      return (
+        <Input
+          clearable
+          aria-label="Project"
+          value={value}
+          onChange={(event) => {
+            onChange(event.currentTarget.value);
+            setValue(event.currentTarget.value);
+          }}
+        />
+      );
+    }
+
+    render(<ControlledInput />);
+
+    const input = screen.getByRole('textbox', { name: 'Project' });
+    await user.click(screen.getByRole('button', { name: 'Clear input' }));
+
+    expect(input).toHaveValue('');
+    expect(input).toHaveFocus();
+    expect(onChange).toHaveBeenCalledWith('');
   });
 
   it('preserves native disabled and read-only states', () => {
@@ -98,5 +168,60 @@ describe('Input', () => {
     await user.type(input, 'Design');
 
     expect(onChange).toHaveBeenCalled();
+  });
+});
+
+describe('Input.Password', () => {
+  it('hides the password by default and forwards native props', () => {
+    render(
+      <Input.Password
+        aria-label="Password"
+        autoComplete="current-password"
+        defaultValue="mypassword"
+      />,
+    );
+
+    const input = screen.getByLabelText('Password');
+
+    expect(input).toHaveAttribute('type', 'password');
+    expect(input).toHaveAttribute('autocomplete', 'current-password');
+    expect(input).toHaveValue('mypassword');
+    expect(screen.getByRole('button', { name: 'Show password' })).toContainElement(
+      document.querySelector('[data-icon="eye-closed"]'),
+    );
+  });
+
+  it('toggles visibility without changing the value or input focus', async () => {
+    const user = userEvent.setup();
+
+    render(<Input.Password aria-label="Password" defaultValue="mypassword" />);
+
+    const input = screen.getByLabelText('Password');
+    await user.click(input);
+    await user.click(screen.getByRole('button', { name: 'Show password' }));
+
+    expect(input).toHaveAttribute('type', 'text');
+    expect(input).toHaveValue('mypassword');
+    expect(input).toHaveFocus();
+    expect(screen.getByRole('button', { name: 'Hide password' })).toContainElement(
+      document.querySelector('[data-icon="eye"]'),
+    );
+  });
+
+  it('supports keyboard activation and updates the accessible label', async () => {
+    const user = userEvent.setup();
+
+    render(<Input.Password aria-label="Password" />);
+
+    await user.tab();
+    await user.tab();
+    expect(screen.getByRole('button', { name: 'Show password' })).toHaveFocus();
+
+    await user.keyboard('{Enter}');
+
+    const input = screen.getByLabelText('Password');
+    expect(input).toHaveAttribute('type', 'text');
+    expect(input).toHaveFocus();
+    expect(screen.getByRole('button', { name: 'Hide password' })).toBeInTheDocument();
   });
 });

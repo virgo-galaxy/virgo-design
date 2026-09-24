@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 
 export type InputSize = 'mini' | 'small' | 'medium' | 'large';
 
-export interface InputProps extends Omit<PrimitiveInputProps, 'size'> {
+export interface InputProps extends Omit<PrimitiveInputProps, 'prefix' | 'size'> {
   /**
    * Visual size of the input.
    *
@@ -12,9 +12,22 @@ export interface InputProps extends Omit<PrimitiveInputProps, 'size'> {
   size?: InputSize;
 
   /** Decorative content rendered before the text-entry control. */
-  leadingIcon?: ReactNode;
+  prefix?: ReactNode;
 
   /** Decorative content rendered after the text-entry control. */
+  suffix?: ReactNode;
+
+  /**
+   * Shows a clear action while the input has a value.
+   *
+   * @default false
+   */
+  clearable?: boolean;
+
+  /** @deprecated Use prefix instead. */
+  leadingIcon?: ReactNode;
+
+  /** @deprecated Use suffix instead. */
   trailingIcon?: ReactNode;
 
   /**
@@ -24,3 +37,5 @@ export interface InputProps extends Omit<PrimitiveInputProps, 'size'> {
    */
   invalid?: boolean;
 }
+
+export type InputPasswordProps = Omit<InputProps, 'type'>;

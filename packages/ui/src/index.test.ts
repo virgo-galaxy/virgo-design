@@ -62,6 +62,7 @@ describe('@virgo-design/ui public API', () => {
     expect(ui).toHaveProperty('Checkbox');
     expect(ui.Checkbox).toHaveProperty('Group');
     expect(ui).toHaveProperty('Input');
+    expect(ui.Input).toHaveProperty('Password');
     expect(ui).toHaveProperty('Layout');
     expect(ui.Layout).toHaveProperty('Header');
     expect(ui.Layout).toHaveProperty('Sider');

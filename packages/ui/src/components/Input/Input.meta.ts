@@ -5,7 +5,7 @@ export const inputMetadata = {
   package: '@virgo-design/ui',
   category: 'Forms',
   description:
-    'Accepts a single line of text while preserving Virgo sizing, states, icons, and native input semantics.',
+    'Accepts a single line of text with optional adornments, clearing, password reveal, and native input semantics.',
   import: "import { Input } from '@virgo-design/ui';",
   sizes: [
     { name: 'mini', description: '24px height for compact interfaces.' },
@@ -20,31 +20,38 @@ export const inputMetadata = {
       description: 'Visual input frame that owns border, surface, spacing, and state.',
     },
     {
-      name: 'leadingIcon',
-      description: 'Optional decorative icon before the native input control.',
+      name: 'prefix',
+      description: 'Optional decorative content before the native input control.',
     },
     {
       name: 'control',
       description: 'Native input element that owns text-entry semantics and form behavior.',
     },
     {
-      name: 'trailingIcon',
-      description: 'Optional decorative icon after the native input control.',
+      name: 'suffix',
+      description: 'Optional decorative content after the native input control.',
+    },
+    {
+      name: 'action',
+      description: 'Optional clear or password-visibility action after the control.',
     },
   ],
   capabilities: {
+    prefix: true,
+    suffix: true,
     leadingIcon: true,
     trailingIcon: true,
     invalid: true,
     readOnly: true,
-    clearable: false,
-    passwordReveal: false,
+    clearable: true,
+    passwordReveal: true,
     loading: false,
   },
   accessibility: [
     'Renders a native input element and forwards native input attributes and events.',
     'Defaults to type="text" when no explicit native input type is provided.',
-    'Treats leading and trailing icons as decorative and hides them from the accessibility tree.',
+    'Treats prefix and suffix content as decorative and hides them from the accessibility tree.',
+    'Clear and password-visibility actions are keyboard accessible and restore focus to the input.',
     'Sets aria-invalid when the invalid prop is true.',
     'Placeholder text is not a substitute for an accessible label.',
   ],
@@ -54,8 +61,16 @@ export const inputMetadata = {
       code: '<Input aria-label="Project name" placeholder="Untitled project" />',
     },
     {
-      name: 'Leading icon',
-      code: '<Input aria-label="Search" leadingIcon={<SearchIcon />} placeholder="Search components" />',
+      name: 'Prefix',
+      code: '<Input aria-label="Email" prefix={<MailIcon />} placeholder="name@example.com" />',
+    },
+    {
+      name: 'Clearable input',
+      code: '<Input clearable aria-label="Search" placeholder="Search components" />',
+    },
+    {
+      name: 'Password input',
+      code: '<Input.Password aria-label="Password" autoComplete="current-password" />',
     },
     {
       name: 'Invalid input',

@@ -33,14 +33,14 @@ export function InputPage() {
           <h1>Input</h1>
           <p>
             Text-entry family for single-line and multiline content. Built on native Virgo
-            primitives and calibrated against the same sizing, typography, color, and motion
-            foundations as Button.
+            primitives, with decorative content, clearable values, and password reveal calibrated
+            against the same sizing, typography, color, and motion foundations as Button.
           </p>
 
           <dl className="component-facts">
             <div>
               <dt>Controls</dt>
-              <dd>02</dd>
+              <dd>03</dd>
             </div>
             <div>
               <dt>Sizes</dt>
@@ -62,8 +62,9 @@ export function InputPage() {
             <div className="input-demo-width input-demo-width--hero">
               <Input
                 aria-label="Search components"
-                leadingIcon={<SearchIcon />}
+                prefix={<SearchIcon />}
                 placeholder="Search components"
+                clearable
               />
             </div>
           </div>
@@ -147,49 +148,45 @@ export function InputPage() {
       <ReviewSection
         id="input-icons"
         index="03"
-        title="Icons"
+        title="Prefix and suffix"
         description={
-          'Decorative leading and trailing slots inherit currentColor and Input owns their size.'
+          'Decorative prefix and suffix slots inherit currentColor, remain outside the tab order, and let Input own their size.'
         }
       >
         <div className="input-card-grid">
           <article className="input-specimen-card">
             <div className="cell-meta">
-              <strong>Leading icon</strong>
+              <strong>Prefix</strong>
               <span>Search or field context</span>
             </div>
             <div className="input-component-stage">
               <div className="input-demo-width">
                 <Input
                   aria-label="Search"
-                  leadingIcon={<SearchIcon />}
+                  prefix={<SearchIcon />}
                   placeholder="Search components"
                 />
               </div>
             </div>
-            <code>leadingIcon</code>
+            <code>prefix</code>
           </article>
 
           <article className="input-specimen-card">
             <div className="cell-meta">
-              <strong>Trailing icon</strong>
+              <strong>Suffix</strong>
               <span>Decorative completion cue</span>
             </div>
             <div className="input-component-stage">
               <div className="input-demo-width">
-                <Input
-                  aria-label="Approved name"
-                  defaultValue="Virgo"
-                  trailingIcon={<CheckIcon />}
-                />
+                <Input aria-label="Approved name" defaultValue="Virgo" suffix={<CheckIcon />} />
               </div>
             </div>
-            <code>trailingIcon</code>
+            <code>suffix</code>
           </article>
 
           <article className="input-specimen-card">
             <div className="cell-meta">
-              <strong>Leading + trailing</strong>
+              <strong>Prefix + suffix</strong>
               <span>Two contextual cues</span>
             </div>
             <div className="input-component-stage">
@@ -197,19 +194,60 @@ export function InputPage() {
                 <Input
                   aria-label="Account"
                   defaultValue="mystic"
-                  leadingIcon={<UserIcon />}
-                  trailingIcon={<CheckIcon />}
+                  prefix={<UserIcon />}
+                  suffix={<CheckIcon />}
                 />
               </div>
             </div>
-            <code>leadingIcon · trailingIcon</code>
+            <code>prefix · suffix</code>
+          </article>
+        </div>
+      </ReviewSection>
+
+      <ReviewSection
+        id="input-actions"
+        index="04"
+        title="Actions"
+        description={
+          'Clearable and password inputs add small, keyboard-accessible actions without changing native input behavior.'
+        }
+      >
+        <div className="input-card-grid input-card-grid--two">
+          <article className="input-specimen-card">
+            <div className="cell-meta">
+              <strong>Clearable</strong>
+              <span>Clear the value and keep typing focus</span>
+            </div>
+            <div className="input-component-stage">
+              <div className="input-demo-width">
+                <Input clearable aria-label="Clearable project name" defaultValue="Virgo Design" />
+              </div>
+            </div>
+            <code>clearable</code>
+          </article>
+
+          <article className="input-specimen-card">
+            <div className="cell-meta">
+              <strong>Password</strong>
+              <span>Show or hide the value without replacing it</span>
+            </div>
+            <div className="input-component-stage">
+              <div className="input-demo-width">
+                <Input.Password
+                  aria-label="Current password"
+                  autoComplete="current-password"
+                  defaultValue="virgo-password"
+                />
+              </div>
+            </div>
+            <code>Input.Password</code>
           </article>
         </div>
       </ReviewSection>
 
       <ReviewSection
         id="input-states"
-        index="04"
+        index="05"
         title="States"
         description={
           'Hover and focus remain live; use Tab or click a field to inspect the focus treatment.'
@@ -272,7 +310,7 @@ export function InputPage() {
 
       <ReviewSection
         id="input-textarea"
-        index="05"
+        index="06"
         title="Textarea"
         description={
           'Multiline text entry shares the Input family state language while keeping native textarea semantics.'
