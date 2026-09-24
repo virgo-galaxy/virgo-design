@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  accordionMetadata,
   breadcrumbMetadata,
   buttonMetadata,
   checkboxMetadata,
@@ -22,6 +23,19 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Accordion with its variants and interaction modes', () => {
+    expect(componentMetadataRegistry.accordion).toBe(accordionMetadata);
+    expect(accordionMetadata.variants.map(({ name }) => name)).toEqual([
+      'default',
+      'bordered',
+      'ghost',
+    ]);
+    expect(accordionMetadata.capabilities).toMatchObject({
+      single: true,
+      multiple: true,
+      keyboardNavigation: true,
+    });
+  });
   it('registers Dialog with its modal anatomy and size variants', () => {
     expect(componentMetadataRegistry.dialog).toBe(dialogMetadata);
     expect(dialogMetadata.sizes.map(({ name }) => name)).toEqual(['sm', 'md', 'lg']);

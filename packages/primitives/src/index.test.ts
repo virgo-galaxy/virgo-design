@@ -6,9 +6,11 @@ describe('@virgo-design/primitives public API', () => {
   it('keeps overlay infrastructure and implementation subpaths private', () => {
     expect(Object.keys(primitives).sort()).toEqual(
       [
+        'Accordion',
         'Breadcrumb',
         'Button',
         'Checkbox',
+        'Collapsible',
         'Dialog',
         'Dropdown',
         'Input',
@@ -37,6 +39,12 @@ describe('@virgo-design/primitives public API', () => {
     ])
       expect(primitives.Dialog).toHaveProperty(part);
     expect(primitives.Dialog.Root).toBe(primitives.Dialog);
+    for (const part of ['Root', 'Trigger', 'Content'])
+      expect(primitives.Collapsible).toHaveProperty(part);
+    for (const part of ['Root', 'Item', 'Trigger', 'Content'])
+      expect(primitives.Accordion).toHaveProperty(part);
+    expect(primitives.Collapsible.Root).toBe(primitives.Collapsible);
+    expect(primitives.Accordion.Root).toBe(primitives.Accordion);
   });
   it('exposes composite anatomy only through family roots', () => {
     for (const part of ['Trigger', 'Content', 'Item', 'Separator'])

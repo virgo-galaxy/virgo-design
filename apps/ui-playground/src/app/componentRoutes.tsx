@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
 
+import { AccordionPage } from '../pages/accordion/AccordionPage';
 import { BreadcrumbPage } from '../pages/breadcrumb/BreadcrumbPage';
 import { ButtonPage } from '../pages/button/ButtonPage';
 import { CheckboxPage } from '../pages/checkbox/CheckboxPage';
@@ -48,6 +49,7 @@ export const componentGroups = [
 export type ComponentRoute = {
   group: ComponentGroupId;
   id:
+    | 'accordion'
     | 'button'
     | 'surface'
     | 'layout'
@@ -218,9 +220,31 @@ export const componentRoutes = [
     Component: SwitchPage,
   },
   {
-    id: 'popover',
+    id: 'accordion',
     group: 'data-display',
     index: '14',
+    name: 'Accordion',
+    category: 'Data Display',
+    path: '/components/accordion',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: AccordionPage,
+  },
+  {
+    id: 'dialog',
+    group: 'data-display',
+    index: '15',
+    name: 'Dialog',
+    category: 'Feedback',
+    path: '/components/dialog',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: DialogPage,
+  },
+  {
+    id: 'popover',
+    group: 'data-display',
+    index: '16',
     name: 'Popover',
     category: 'Data Display',
     path: '/components/popover',
@@ -231,23 +255,12 @@ export const componentRoutes = [
   {
     id: 'tooltip',
     group: 'data-display',
-    index: '15',
+    index: '17',
     name: 'Tooltip',
     category: 'Data Display',
     path: '/components/tooltip',
     status: 'stable',
     version: 'V1.0.0',
     Component: TooltipPage,
-  },
-  {
-    id: 'dialog',
-    group: 'data-display',
-    index: '16',
-    name: 'Dialog',
-    category: 'Feedback',
-    path: '/components/dialog',
-    status: 'stable',
-    version: 'V1.0.0',
-    Component: DialogPage,
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;

@@ -6,6 +6,7 @@ describe('@virgo-design/ui public API', () => {
   it('keeps internal helpers private and exposes only component families', () => {
     expect(Object.keys(ui).sort()).toEqual(
       [
+        'Accordion',
         'Breadcrumb',
         'Button',
         'Checkbox',
@@ -45,6 +46,9 @@ describe('@virgo-design/ui public API', () => {
     ])
       expect(ui.Dialog).toHaveProperty(part);
     expect(ui.Dialog.Root).toBe(ui.Dialog);
+    for (const part of ['Root', 'Item', 'Trigger', 'Content'])
+      expect(ui.Accordion).toHaveProperty(part);
+    expect(ui.Accordion.Root).toBe(ui.Accordion);
   });
   it('exposes runtime UI without metadata', () => {
     for (const part of ['Trigger', 'Content', 'Item', 'Separator', 'Button'])
@@ -52,6 +56,7 @@ describe('@virgo-design/ui public API', () => {
     expect(ui).not.toHaveProperty('DropdownTrigger');
     expect(ui).not.toHaveProperty('dropdownMetadata');
     expect(ui).toHaveProperty('Button');
+    expect(ui).toHaveProperty('Accordion');
     expect(ui).toHaveProperty('Pagination');
     expect(ui).not.toHaveProperty('paginationMetadata');
     expect(ui).toHaveProperty('Surface');
@@ -97,6 +102,7 @@ describe('@virgo-design/ui public API', () => {
     expect(ui).not.toHaveProperty('Tab');
     expect(ui).not.toHaveProperty('TabPanel');
     expect(ui).not.toHaveProperty('buttonMetadata');
+    expect(ui).not.toHaveProperty('accordionMetadata');
     expect(ui).not.toHaveProperty('breadcrumbMetadata');
     expect(ui).not.toHaveProperty('checkboxMetadata');
     expect(ui).not.toHaveProperty('inputMetadata');
