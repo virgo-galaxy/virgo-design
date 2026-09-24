@@ -1,0 +1,48 @@
+@use '../../internal/overlay/panel';
+
+.action {
+  box-shadow: var(--vd-elevation-2);
+}
+
+.action[data-variant='secondary'] {
+  --button-background: var(--vd-surface-elevated);
+  --button-background-hover: var(--vd-surface-secondary);
+}
+
+.group {
+  display: inline-flex;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--vd-spacing-12);
+  // Padding protects focus rings and soft shadows in a constrained viewport.
+  padding: var(--vd-spacing-8);
+  overflow: auto;
+  overscroll-behavior: contain;
+  z-index: panel.$layer;
+  outline: none;
+  animation: floating-actions-enter var(--vd-duration-120) var(--vd-easing-standard);
+}
+
+.content:focus-visible {
+  outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+  border-radius: var(--vd-radius-full);
+}
+
+@keyframes floating-actions-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content {
+    animation: none;
+  }
+}
