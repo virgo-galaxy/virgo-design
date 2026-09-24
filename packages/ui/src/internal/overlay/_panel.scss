@@ -1,7 +1,9 @@
+$layer: 100;
+
 @mixin surface {
   box-sizing: border-box;
   display: flex;
-  z-index: 100;
+  z-index: $layer;
   border: var(--vd-border-width-1) solid var(--vd-border-subtle);
   border-radius: var(--vd-radius-8);
   outline: none;

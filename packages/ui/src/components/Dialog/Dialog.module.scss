@@ -1,0 +1,111 @@
+@use '../../internal/overlay/panel';
+
+.root {
+  display: inline-flex;
+  min-width: 0;
+  vertical-align: middle;
+}
+
+.trigger[aria-expanded='true'] {
+  border-color: var(--vd-border-focus);
+}
+
+.overlay {
+  position: fixed;
+  z-index: panel.$layer;
+  inset: var(--vd-spacing-0);
+  background: var(--vd-surface-overlay);
+}
+
+.content {
+  @include panel.surface;
+
+  --dialog-width: calc(var(--vd-sizing-80) * 6);
+  --dialog-section-padding: var(--vd-spacing-24);
+  --dialog-section-gap: var(--vd-spacing-16);
+  --dialog-title-font-family: var(--vd-typography-ui-title-medium-font-family);
+  --dialog-title-font-size: var(--vd-typography-ui-title-medium-font-size);
+  --dialog-title-font-weight: var(--vd-typography-ui-title-medium-font-weight);
+  --dialog-title-line-height: var(--vd-typography-ui-title-medium-line-height);
+
+  position: fixed;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  display: flex;
+  width: min(var(--dialog-width), calc(100vw - var(--vd-spacing-32)));
+  max-height: calc(100vh - var(--vd-spacing-48));
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--vd-radius-12);
+  box-shadow: var(--vd-elevation-4);
+  transform: translate(-50%, -50%);
+
+  &:focus-visible {
+    outline: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-border-focus);
+    outline-offset: var(--vd-spacing-2);
+  }
+}
+
+.content[data-size='sm'] {
+  --dialog-width: calc(var(--vd-sizing-80) * 4);
+  --dialog-section-padding: var(--vd-spacing-16);
+  --dialog-section-gap: var(--vd-spacing-12);
+  --dialog-title-font-family: var(--vd-typography-ui-title-small-font-family);
+  --dialog-title-font-size: var(--vd-typography-ui-title-small-font-size);
+  --dialog-title-font-weight: var(--vd-typography-ui-title-small-font-weight);
+  --dialog-title-line-height: var(--vd-typography-ui-title-small-line-height);
+}
+
+.content[data-size='lg'] {
+  --dialog-width: calc(var(--vd-sizing-80) * 8);
+  --dialog-section-padding: var(--vd-spacing-32);
+  --dialog-section-gap: var(--vd-spacing-20);
+  --dialog-title-font-family: var(--vd-typography-ui-title-large-font-family);
+  --dialog-title-font-size: var(--vd-typography-ui-title-large-font-size);
+  --dialog-title-font-weight: var(--vd-typography-ui-title-large-font-weight);
+  --dialog-title-line-height: var(--vd-typography-ui-title-large-line-height);
+}
+
+.header {
+  display: grid;
+  flex: none;
+  gap: var(--vd-spacing-6);
+  padding: var(--dialog-section-padding);
+  border-block-end: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+}
+
+.title {
+  margin: var(--vd-spacing-0);
+  color: var(--vd-text-primary);
+  font-family: var(--dialog-title-font-family);
+  font-size: var(--dialog-title-font-size);
+  font-weight: var(--dialog-title-font-weight);
+  line-height: var(--dialog-title-line-height);
+}
+
+.description {
+  margin: var(--vd-spacing-0);
+  color: var(--vd-text-secondary);
+}
+
+.body {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: var(--dialog-section-padding);
+}
+
+.footer {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--vd-spacing-8);
+  padding: var(--dialog-section-gap) var(--dialog-section-padding);
+  border-block-start: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+}
+
+.close {
+  flex: none;
+}

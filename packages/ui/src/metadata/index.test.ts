@@ -5,6 +5,7 @@ import {
   buttonMetadata,
   checkboxMetadata,
   componentMetadataRegistry,
+  dialogMetadata,
   dropdownMetadata,
   inputMetadata,
   layoutMetadata,
@@ -21,6 +22,16 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Dialog with its modal anatomy and size variants', () => {
+    expect(componentMetadataRegistry.dialog).toBe(dialogMetadata);
+    expect(dialogMetadata.sizes.map(({ name }) => name)).toEqual(['sm', 'md', 'lg']);
+    expect(dialogMetadata.capabilities).toMatchObject({
+      modal: true,
+      nonModal: true,
+      focusTrap: true,
+      animation: false,
+    });
+  });
   it('registers Tooltip as Data Display with non-interactive content', () => {
     expect(componentMetadataRegistry.tooltip).toBe(tooltipMetadata);
     expect(tooltipMetadata.category).toBe('Data Display');

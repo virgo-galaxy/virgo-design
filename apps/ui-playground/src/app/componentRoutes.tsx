@@ -3,6 +3,7 @@ import type { ComponentType } from 'react';
 import { BreadcrumbPage } from '../pages/breadcrumb/BreadcrumbPage';
 import { ButtonPage } from '../pages/button/ButtonPage';
 import { CheckboxPage } from '../pages/checkbox/CheckboxPage';
+import { DialogPage } from '../pages/dialog/DialogPage';
 import { DropdownPage } from '../pages/dropdown/DropdownPage';
 import { InputPage } from '../pages/input/InputPage';
 import { LayoutPage } from '../pages/layout/LayoutPage';
@@ -53,6 +54,7 @@ export type ComponentRoute = {
     | 'input'
     | 'select'
     | 'checkbox'
+    | 'dialog'
     | 'radio'
     | 'switch'
     | 'segmented-control'
@@ -236,5 +238,16 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1.0.0',
     Component: TooltipPage,
+  },
+  {
+    id: 'dialog',
+    group: 'data-display',
+    index: '16',
+    name: 'Dialog',
+    category: 'Feedback',
+    path: '/components/dialog',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: DialogPage,
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;

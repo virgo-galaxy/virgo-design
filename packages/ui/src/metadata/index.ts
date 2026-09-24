@@ -1,6 +1,7 @@
 import { breadcrumbMetadata } from '../components/Breadcrumb/Breadcrumb.meta';
 import { buttonMetadata } from '../components/Button/Button.meta';
 import { checkboxMetadata } from '../components/Checkbox/Checkbox.meta';
+import { dialogMetadata } from '../components/Dialog/Dialog.meta';
 import { dropdownMetadata } from '../components/Dropdown/Dropdown.meta';
 import { inputMetadata } from '../components/Input/Input.meta';
 import { textareaMetadata } from '../components/Input/Textarea.meta';
@@ -19,6 +20,7 @@ export {
   breadcrumbMetadata,
   buttonMetadata,
   checkboxMetadata,
+  dialogMetadata,
   dropdownMetadata,
   inputMetadata,
   layoutMetadata,
@@ -38,6 +40,7 @@ export const componentMetadataRegistry = {
   button: buttonMetadata,
   breadcrumb: breadcrumbMetadata,
   checkbox: checkboxMetadata,
+  dialog: dialogMetadata,
   dropdown: dropdownMetadata,
   input: inputMetadata,
   layout: layoutMetadata,

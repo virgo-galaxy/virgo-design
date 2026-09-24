@@ -9,6 +9,7 @@ describe('@virgo-design/ui public API', () => {
         'Breadcrumb',
         'Button',
         'Checkbox',
+        'Dialog',
         'Dropdown',
         'Input',
         'Layout',
@@ -29,6 +30,21 @@ describe('@virgo-design/ui public API', () => {
         .filter((key) => ['Trigger', 'Content', 'Close'].includes(key))
         .sort(),
     ).toEqual(['Close', 'Content', 'Trigger']);
+    for (const part of [
+      'Root',
+      'Trigger',
+      'Portal',
+      'Overlay',
+      'Content',
+      'Header',
+      'Body',
+      'Footer',
+      'Title',
+      'Description',
+      'Close',
+    ])
+      expect(ui.Dialog).toHaveProperty(part);
+    expect(ui.Dialog.Root).toBe(ui.Dialog);
   });
   it('exposes runtime UI without metadata', () => {
     for (const part of ['Trigger', 'Content', 'Item', 'Separator', 'Button'])
