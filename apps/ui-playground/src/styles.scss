@@ -6,85 +6,6 @@
   text-rendering: optimizeLegibility;
 }
 
-/* Layout review */
-.layout-hero-specimen {
-  min-height: 360px;
-}
-
-.layout-hero-stage {
-  padding: var(--vd-spacing-32);
-}
-
-.layout-hero-canvas,
-.layout-review-card {
-  position: relative;
-  z-index: 1;
-  min-width: 0;
-  overflow: hidden;
-  border: var(--vd-border-width-1) solid var(--vd-border-default);
-  border-radius: var(--vd-radius-12);
-  background: var(--vd-surface-elevated);
-}
-
-.layout-hero-canvas {
-  width: min(100%, 420px);
-}
-
-.layout-review-card {
-  margin: var(--vd-spacing-24);
-}
-
-.layout-demo {
-  width: 100%;
-  min-height: 280px;
-}
-
-.layout-hero-canvas .layout-demo {
-  min-height: 220px;
-}
-
-.layout-demo-region {
-  display: grid;
-  place-items: center;
-  padding: var(--vd-spacing-16);
-  font-family: var(--vd-typography-ui-label-medium-font-family);
-  font-size: var(--vd-typography-ui-label-medium-font-size);
-  font-weight: var(--vd-typography-ui-label-medium-font-weight);
-  line-height: var(--vd-typography-ui-label-medium-line-height);
-}
-
-.layout-demo-header {
-  min-height: var(--vd-sizing-56);
-  color: var(--vd-neutral-1);
-  background: var(--vd-brand-5);
-}
-
-.layout-demo-sider {
-  color: var(--vd-neutral-1);
-  background: var(--vd-brand-6);
-}
-
-.layout-demo-content {
-  color: var(--vd-neutral-1);
-  background: var(--vd-brand-7);
-}
-
-.layout-demo-footer {
-  min-height: var(--vd-sizing-56);
-  color: var(--vd-neutral-1);
-  background: var(--vd-brand-5);
-}
-
-@media (max-width: 760px) {
-  .layout-hero-stage {
-    padding: var(--vd-spacing-20);
-  }
-
-  .layout-review-card {
-    margin: var(--vd-spacing-16);
-  }
-}
-
 /* Breadcrumb review */
 .breadcrumb-hero-specimen {
   min-height: 320px;
@@ -216,7 +137,7 @@ code {
   background: var(--vd-surface-background);
 }
 
-.component-navigation {
+.playground-shell > .component-navigation {
   position: sticky;
   top: 0;
   z-index: 2;
@@ -227,6 +148,11 @@ code {
   padding: var(--vd-spacing-24) var(--vd-spacing-16);
   border-inline-end: var(--vd-border-width-1) solid var(--vd-border-subtle);
   background: var(--vd-surface-default);
+}
+
+.component-navigation > [data-slot='sidebar-contents'] > [data-slot='sidebar-body'] {
+  padding: 0;
+  overflow: visible;
 }
 
 .brand-lockup {
@@ -1018,7 +944,7 @@ code {
     display: block;
   }
 
-  .component-navigation {
+  .playground-shell > .component-navigation {
     position: static;
     height: auto;
     padding: var(--vd-spacing-16);

@@ -10,7 +10,7 @@ import {
   type LayoutFooterProps,
   type LayoutHeaderProps,
   type LayoutProps,
-  type LayoutSiderProps,
+  type LayoutSidebarProps,
   Pagination,
   type PaginationProps,
   Popover,
@@ -60,7 +60,7 @@ export type WorkspacePopoverProps = {
 export type WorkspaceLayoutProps = {
   layout: LayoutProps;
   header: LayoutHeaderProps;
-  sider: LayoutSiderProps;
+  sidebar: LayoutSidebarProps;
   content: LayoutContentProps;
   footer: LayoutFooterProps;
 };
@@ -114,7 +114,7 @@ export const workspaceSourceResolutionFixture = {
     BreadcrumbItem: Breadcrumb.Item,
     CheckboxGroup: Checkbox.Group,
     LayoutHeader: Layout.Header,
-    LayoutSider: Layout.Sider,
+    LayoutSidebar: Layout.Sidebar,
     LayoutContent: Layout.Content,
     LayoutFooter: Layout.Footer,
     RadioGroup: Radio.Group,

@@ -29,7 +29,11 @@ export function App() {
 
   return (
     <Layout className="playground-shell" data-theme={theme} direction="horizontal">
-      <Layout.Sider className="component-navigation" width="var(--playground-navigation-width)">
+      <Layout.Sidebar
+        className="component-navigation"
+        width="var(--playground-navigation-width)"
+        surface={{ border: 'none' }}
+      >
         <div className="brand-lockup">
           <div className="brand-mark" aria-hidden="true">
             V
@@ -87,7 +91,7 @@ export function App() {
             <span>Multi-component shell</span>
           </div>
         </div>
-      </Layout.Sider>
+      </Layout.Sidebar>
 
       <Layout className="workspace">
         <Layout.Header className="workspace-header">

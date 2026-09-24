@@ -206,7 +206,7 @@
   }
 }
 
-.surface-composition-sider {
+.surface-composition-sidebar > [data-slot='sidebar-contents'] > [data-slot='sidebar-body'] {
   display: flex;
   flex-direction: column;
   gap: var(--vd-spacing-24);
@@ -350,7 +350,7 @@
   }
 
   .surface-composition-layout > .surface-composition-body[data-direction='horizontal'] {
-    --surface-composition-sider-width: 100%;
+    --surface-composition-sidebar-width: 100%;
 
     flex-direction: column;
 

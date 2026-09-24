@@ -8,6 +8,8 @@ import { DialogPage } from '../pages/dialog/DialogPage';
 import { DropdownPage } from '../pages/dropdown/DropdownPage';
 import { InputPage } from '../pages/input/InputPage';
 import { LayoutPage } from '../pages/layout/LayoutPage';
+import { ContextMenuPage, MenubarPage, MenuPage } from '../pages/menu-system/MenuSystemPages';
+import { NavigationMenuPage } from '../pages/navigation-menu/NavigationMenuPage';
 import { PaginationPage } from '../pages/pagination/PaginationPage';
 import { PopoverPage } from '../pages/popover/PopoverPage';
 import { RadioPage } from '../pages/radio/RadioPage';
@@ -18,7 +20,8 @@ import { SwitchPage } from '../pages/switch/SwitchPage';
 import { TabsPage } from '../pages/tabs/TabsPage';
 import { TooltipPage } from '../pages/tooltip/TooltipPage';
 
-export type ComponentGroupId = 'general' | 'layout' | 'navigation' | 'data-entry' | 'data-display';
+export type ComponentGroupId =
+  'general' | 'layout' | 'navigation' | 'data-entry' | 'data-display' | 'actions';
 
 export const componentGroups = [
   {
@@ -41,6 +44,7 @@ export const componentGroups = [
     id: 'data-display',
     label: 'Data Display',
   },
+  { id: 'actions', label: 'Actions' },
 ] as const satisfies ReadonlyArray<{
   id: ComponentGroupId;
   label: string;
@@ -49,10 +53,14 @@ export const componentGroups = [
 export type ComponentRoute = {
   group: ComponentGroupId;
   id:
+    | 'menu'
+    | 'context-menu'
+    | 'menubar'
     | 'accordion'
     | 'button'
     | 'surface'
     | 'layout'
+    | 'navigation-menu'
     | 'input'
     | 'select'
     | 'checkbox'
@@ -132,9 +140,20 @@ export const componentRoutes = [
     Component: DropdownPage,
   },
   {
-    id: 'pagination',
+    id: 'navigation-menu',
     group: 'navigation',
     index: '06',
+    name: 'NavigationMenu',
+    category: 'Navigation',
+    path: '/components/navigation-menu',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: NavigationMenuPage,
+  },
+  {
+    id: 'pagination',
+    group: 'navigation',
+    index: '07',
     name: 'Pagination',
     category: 'Navigation',
     path: '/components/pagination',
@@ -145,7 +164,7 @@ export const componentRoutes = [
   {
     id: 'tabs',
     group: 'navigation',
-    index: '07',
+    index: '08',
     name: 'Tabs',
     category: 'Navigation',
     path: '/components/tabs',
@@ -156,7 +175,7 @@ export const componentRoutes = [
   {
     id: 'checkbox',
     group: 'data-entry',
-    index: '08',
+    index: '09',
     name: 'Checkbox',
     category: 'Forms',
     path: '/components/checkbox',
@@ -167,7 +186,7 @@ export const componentRoutes = [
   {
     id: 'input',
     group: 'data-entry',
-    index: '09',
+    index: '10',
     name: 'Input',
     category: 'Forms',
     path: '/components/input',
@@ -178,7 +197,7 @@ export const componentRoutes = [
   {
     id: 'radio',
     group: 'data-entry',
-    index: '10',
+    index: '11',
     name: 'Radio',
     category: 'Forms',
     path: '/components/radio',
@@ -189,7 +208,7 @@ export const componentRoutes = [
   {
     id: 'segmented-control',
     group: 'data-entry',
-    index: '11',
+    index: '12',
     name: 'Segmented Control',
     category: 'Forms',
     path: '/components/segmented-control',
@@ -200,7 +219,7 @@ export const componentRoutes = [
   {
     id: 'select',
     group: 'data-entry',
-    index: '12',
+    index: '13',
     name: 'Select',
     category: 'Forms',
     path: '/components/select',
@@ -211,7 +230,7 @@ export const componentRoutes = [
   {
     id: 'switch',
     group: 'data-entry',
-    index: '13',
+    index: '14',
     name: 'Switch',
     category: 'Forms',
     path: '/components/switch',
@@ -222,7 +241,7 @@ export const componentRoutes = [
   {
     id: 'accordion',
     group: 'data-display',
-    index: '14',
+    index: '15',
     name: 'Accordion',
     category: 'Data Display',
     path: '/components/accordion',
@@ -233,7 +252,7 @@ export const componentRoutes = [
   {
     id: 'dialog',
     group: 'data-display',
-    index: '15',
+    index: '16',
     name: 'Dialog',
     category: 'Feedback',
     path: '/components/dialog',
@@ -244,7 +263,7 @@ export const componentRoutes = [
   {
     id: 'popover',
     group: 'data-display',
-    index: '16',
+    index: '17',
     name: 'Popover',
     category: 'Data Display',
     path: '/components/popover',
@@ -255,12 +274,45 @@ export const componentRoutes = [
   {
     id: 'tooltip',
     group: 'data-display',
-    index: '17',
+    index: '18',
     name: 'Tooltip',
     category: 'Data Display',
     path: '/components/tooltip',
     status: 'stable',
     version: 'V1.0.0',
     Component: TooltipPage,
+  },
+  {
+    id: 'context-menu',
+    group: 'actions',
+    index: '19',
+    name: 'ContextMenu',
+    category: 'Actions',
+    path: '/components/context-menu',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: ContextMenuPage,
+  },
+  {
+    id: 'menu',
+    group: 'actions',
+    index: '20',
+    name: 'Menu',
+    category: 'Actions',
+    path: '/components/menu',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: MenuPage,
+  },
+  {
+    id: 'menubar',
+    group: 'actions',
+    index: '21',
+    name: 'Menubar',
+    category: 'Actions',
+    path: '/components/menubar',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: MenubarPage,
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;

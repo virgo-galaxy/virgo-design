@@ -304,14 +304,16 @@ export function SurfacePage() {
               </Surface>
             </Layout.Header>
             <Layout direction="horizontal" className="surface-composition-body">
-              <Layout.Sider width="var(--surface-composition-sider-width, clamp(100px, 24%, 180px))">
-                <Surface material="translucent" radius={12} className="surface-composition-sider">
-                  <strong>Library</strong>
-                  <span>Projects</span>
-                  <span>Materials</span>
-                  <span>Archive</span>
-                </Surface>
-              </Layout.Sider>
+              <Layout.Sidebar
+                width="var(--surface-composition-sidebar-width, clamp(100px, 24%, 180px))"
+                surface={{ material: 'translucent', radius: 12, border: 'none' }}
+                className="surface-composition-sidebar"
+              >
+                <strong>Library</strong>
+                <span>Projects</span>
+                <span>Materials</span>
+                <span>Archive</span>
+              </Layout.Sidebar>
               <Layout.Content>
                 <Surface tone="elevated" radius={12} elevation={2} className="surface-demo-content">
                   <span className="surface-demo-eyebrow">Layout.Content + Surface</span>
