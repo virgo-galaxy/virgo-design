@@ -1,0 +1,51 @@
+import type { ComponentMetadata } from '../../metadata/ComponentMetadata';
+export const contextMenuMetadata = {
+  name: 'ContextMenu',
+  package: '@virgo-design/ui',
+  category: 'Actions',
+  description:
+    'Actions for the invoking context, opened at a pointer position or with the keyboard.',
+  import: "import { ContextMenu } from '@virgo-design/ui';",
+  variants: [{ name: 'Classic', description: 'Token-based surface, elevation and menu rows.' }],
+  sizes: ['mini', 'small', 'medium', 'large'].map((name) => ({
+    name,
+    description: 'Menu item density.',
+  })),
+  states: ['closed', 'open', 'focused', 'disabled', 'checked', 'mixed'],
+  anatomy: [
+    'Root',
+    'Trigger',
+    'Content',
+    'Item',
+    'Group',
+    'Separator',
+    'CheckboxItem',
+    'RadioGroup',
+    'RadioItem',
+    'Submenu',
+    'SubmenuTrigger',
+    'SubmenuContent',
+  ].map((part) => ({ name: 'ContextMenu.' + part, description: 'Shared menu composition part.' })),
+  capabilities: {
+    keyboard: true,
+    submenu: true,
+    controlledState: true,
+    checkbox: true,
+    radio: true,
+    icon: true,
+    shortcutDisplay: true,
+    shortcutBinding: false,
+    routing: false,
+  },
+  accessibility: [
+    'Menus use menu/menuitem semantics, labelled popups and aria-expanded relationships.',
+    'Arrow keys and typeahead move focus; Escape closes the current level; Tab leaves the menu tree.',
+    'Disabled items remain focusable but cannot be activated. Shortcut text does not register a command.',
+  ],
+  examples: [
+    {
+      name: 'Actions',
+      code: '<ContextMenu.Root><ContextMenu.Trigger>Actions</ContextMenu.Trigger><ContextMenu.Content><ContextMenu.Item shortcut="F2">Rename</ContextMenu.Item></ContextMenu.Content></ContextMenu.Root>',
+    },
+  ],
+} as const satisfies ComponentMetadata;

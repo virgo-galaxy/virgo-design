@@ -1,0 +1,50 @@
+import type { ComponentMetadata } from '../../metadata/ComponentMetadata';
+export const menuMetadata = {
+  name: 'Menu',
+  package: '@virgo-design/ui',
+  category: 'Actions',
+  description: 'Button-triggered actions with shared checkbox, radio and nested menu items.',
+  import: "import { Menu } from '@virgo-design/ui';",
+  variants: [{ name: 'Classic', description: 'Token-based surface, elevation and menu rows.' }],
+  sizes: ['mini', 'small', 'medium', 'large'].map((name) => ({
+    name,
+    description: 'Menu item density.',
+  })),
+  states: ['closed', 'open', 'focused', 'disabled', 'checked', 'mixed'],
+  anatomy: [
+    'Root',
+    'Trigger',
+    'Content',
+    'Item',
+    'Group',
+    'Separator',
+    'CheckboxItem',
+    'RadioGroup',
+    'RadioItem',
+    'Submenu',
+    'SubmenuTrigger',
+    'SubmenuContent',
+  ].map((part) => ({ name: 'Menu.' + part, description: 'Shared menu composition part.' })),
+  capabilities: {
+    keyboard: true,
+    submenu: true,
+    controlledState: true,
+    checkbox: true,
+    radio: true,
+    icon: true,
+    shortcutDisplay: true,
+    shortcutBinding: false,
+    routing: false,
+  },
+  accessibility: [
+    'Menus use menu/menuitem semantics, labelled popups and aria-expanded relationships.',
+    'Arrow keys and typeahead move focus; Escape closes the current level; Tab leaves the menu tree.',
+    'Disabled items remain focusable but cannot be activated. Shortcut text does not register a command.',
+  ],
+  examples: [
+    {
+      name: 'Actions',
+      code: '<Menu.Root><Menu.Trigger>Actions</Menu.Trigger><Menu.Content><Menu.Item shortcut="F2">Rename</Menu.Item></Menu.Content></Menu.Root>',
+    },
+  ],
+} as const satisfies ComponentMetadata;

@@ -1,0 +1,51 @@
+import type { ComponentMetadata } from '../../metadata/ComponentMetadata';
+export const menubarMetadata = {
+  name: 'Menubar',
+  package: '@virgo-design/ui',
+  category: 'Actions',
+  description: 'Application action groups with horizontal focus and open-menu coordination.',
+  import: "import { Menubar } from '@virgo-design/ui';",
+  variants: [{ name: 'Classic', description: 'Token-based surface, elevation and menu rows.' }],
+  sizes: ['mini', 'small', 'medium', 'large'].map((name) => ({
+    name,
+    description: 'Menu item density.',
+  })),
+  states: ['closed', 'open', 'focused', 'disabled', 'checked', 'mixed'],
+  anatomy: [
+    'Root',
+    'Trigger',
+    'Content',
+    'Item',
+    'Group',
+    'Separator',
+    'CheckboxItem',
+    'RadioGroup',
+    'RadioItem',
+    'Submenu',
+    'SubmenuTrigger',
+    'SubmenuContent',
+    'Menu',
+  ].map((part) => ({ name: 'Menubar.' + part, description: 'Shared menu composition part.' })),
+  capabilities: {
+    keyboard: true,
+    submenu: true,
+    controlledState: true,
+    checkbox: true,
+    radio: true,
+    icon: true,
+    shortcutDisplay: true,
+    shortcutBinding: false,
+    routing: false,
+  },
+  accessibility: [
+    'Menus use menu/menuitem semantics, labelled popups and aria-expanded relationships.',
+    'Arrow keys and typeahead move focus; Escape closes the current level; Tab leaves the menu tree.',
+    'Disabled items remain focusable but cannot be activated. Shortcut text does not register a command.',
+  ],
+  examples: [
+    {
+      name: 'Actions',
+      code: '<Menubar.Root><Menubar.Menu><Menubar.Trigger>Actions</Menubar.Trigger><Menubar.Content><Menubar.Item shortcut="F2">Rename</Menubar.Item></Menubar.Content></Menubar.Menu></Menubar.Root>',
+    },
+  ],
+} as const satisfies ComponentMetadata;
