@@ -1,4 +1,5 @@
 import { accordionMetadata } from '../components/Accordion/Accordion.meta';
+import { badgeMetadata } from '../components/Badge/Badge.meta';
 import { breadcrumbMetadata } from '../components/Breadcrumb/Breadcrumb.meta';
 import { buttonMetadata } from '../components/Button/Button.meta';
 import { checkboxMetadata } from '../components/Checkbox/Checkbox.meta';
@@ -26,6 +27,7 @@ import { tooltipMetadata } from '../components/Tooltip/Tooltip.meta';
 
 export {
   accordionMetadata,
+  badgeMetadata,
   breadcrumbMetadata,
   buttonMetadata,
   checkboxMetadata,
@@ -57,6 +59,7 @@ export const componentMetadataRegistry = {
   contextMenu: contextMenuMetadata,
   menu: menuMetadata,
   accordion: accordionMetadata,
+  badge: badgeMetadata,
   button: buttonMetadata,
   breadcrumb: breadcrumbMetadata,
   checkbox: checkboxMetadata,

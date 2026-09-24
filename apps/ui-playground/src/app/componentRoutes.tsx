@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react';
 
 import { AccordionPage } from '../pages/accordion/AccordionPage';
+import { BadgePage } from '../pages/badge/BadgePage';
 import { BreadcrumbPage } from '../pages/breadcrumb/BreadcrumbPage';
 import { ButtonPage } from '../pages/button/ButtonPage';
 import { CheckboxPage } from '../pages/checkbox/CheckboxPage';
@@ -59,6 +60,7 @@ export type ComponentRoute = {
     | 'context-menu'
     | 'menubar'
     | 'accordion'
+    | 'badge'
     | 'button'
     | 'surface'
     | 'layout'
@@ -254,9 +256,20 @@ export const componentRoutes = [
     Component: AccordionPage,
   },
   {
-    id: 'dialog',
+    id: 'badge',
     group: 'data-display',
     index: '16',
+    name: 'Badge',
+    category: 'Data Display',
+    path: '/components/badge',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: BadgePage,
+  },
+  {
+    id: 'dialog',
+    group: 'data-display',
+    index: '17',
     name: 'Dialog',
     category: 'Feedback',
     path: '/components/dialog',
@@ -267,7 +280,7 @@ export const componentRoutes = [
   {
     id: 'popover',
     group: 'data-display',
-    index: '17',
+    index: '18',
     name: 'Popover',
     category: 'Data Display',
     path: '/components/popover',
@@ -278,7 +291,7 @@ export const componentRoutes = [
   {
     id: 'toast',
     group: 'data-display',
-    index: '18',
+    index: '19',
     name: 'Toast',
     category: 'Feedback',
     path: '/components/toast',
@@ -289,7 +302,7 @@ export const componentRoutes = [
   {
     id: 'tooltip',
     group: 'data-display',
-    index: '19',
+    index: '20',
     name: 'Tooltip',
     category: 'Data Display',
     path: '/components/tooltip',
@@ -300,7 +313,7 @@ export const componentRoutes = [
   {
     id: 'command',
     group: 'actions',
-    index: '20',
+    index: '21',
     name: 'Command',
     category: 'Actions',
     path: '/components/command',
@@ -311,7 +324,7 @@ export const componentRoutes = [
   {
     id: 'context-menu',
     group: 'actions',
-    index: '21',
+    index: '22',
     name: 'ContextMenu',
     category: 'Actions',
     path: '/components/context-menu',
@@ -322,7 +335,7 @@ export const componentRoutes = [
   {
     id: 'menu',
     group: 'actions',
-    index: '22',
+    index: '23',
     name: 'Menu',
     category: 'Actions',
     path: '/components/menu',
@@ -333,7 +346,7 @@ export const componentRoutes = [
   {
     id: 'menubar',
     group: 'actions',
-    index: '23',
+    index: '24',
     name: 'Menubar',
     category: 'Actions',
     path: '/components/menubar',

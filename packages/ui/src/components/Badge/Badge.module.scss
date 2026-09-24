@@ -1,0 +1,55 @@
+.root {
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+  vertical-align: middle;
+}
+
+.indicator {
+  --badge-background: var(--vd-brand-primary);
+  --badge-foreground: var(--vd-brand-foreground);
+
+  box-sizing: border-box;
+  position: absolute;
+  inset-block-start: var(--vd-spacing-0);
+  inset-inline-end: var(--vd-spacing-0);
+  display: inline-flex;
+  min-width: var(--vd-sizing-20);
+  height: var(--vd-sizing-20);
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--vd-spacing-4);
+  border: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-surface-default);
+  border-radius: var(--vd-radius-full);
+  color: var(--badge-foreground);
+  background: var(--badge-background);
+  font-family: var(--vd-typography-ui-label-small-font-family);
+  font-size: var(--vd-typography-ui-label-small-font-size);
+  font-weight: var(--vd-typography-ui-label-small-font-weight);
+  line-height: var(--vd-typography-ui-label-small-line-height);
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translate(50%, -50%);
+}
+
+@each $intent in (success, warning, danger, info) {
+  .indicator[data-intent='#{$intent}'] {
+    --badge-background: var(--vd-status-#{$intent}-solid);
+    --badge-foreground: var(--vd-status-#{$intent}-on-solid);
+  }
+}
+
+.indicator[data-dot] {
+  width: var(--vd-spacing-8);
+  min-width: var(--vd-spacing-8);
+  height: var(--vd-spacing-8);
+  padding: var(--vd-spacing-0);
+  border-width: var(--vd-border-width-1);
+}
+
+.root[data-standalone] {
+  .indicator {
+    position: static;
+    transform: none;
+  }
+}

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   accordionMetadata,
+  badgeMetadata,
   breadcrumbMetadata,
   buttonMetadata,
   checkboxMetadata,
@@ -27,6 +28,15 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Badge as a UI-only attached display semantic', () => {
+    expect(componentMetadataRegistry.badge).toBe(badgeMetadata);
+    expect(badgeMetadata.capabilities).toMatchObject({
+      maxCount: true,
+      dot: true,
+      standalone: true,
+      overlayEngine: false,
+    });
+  });
   it('registers Command and Toast as independent interaction systems', () => {
     expect(componentMetadataRegistry.command).toBe(commandMetadata);
     expect(commandMetadata.capabilities).toMatchObject({

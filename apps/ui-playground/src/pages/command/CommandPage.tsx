@@ -72,7 +72,7 @@ export function CommandPage() {
     <div className="review-board command-review">
       <section className="command-intro" id="overview">
         <div className="eyebrow-row">
-          <span>Component 20</span>
+          <span>Component 21</span>
           <span className="version-badge">STABLE · V1.0.0</span>
         </div>
         <h1>Command</h1>
