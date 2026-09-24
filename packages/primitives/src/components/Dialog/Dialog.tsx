@@ -1,0 +1,278 @@
+import {
+  createContext,
+  forwardRef,
+  useCallback,
+  useContext,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
+
+import { useControllableState } from '../../internal/hooks/useControllableState';
+import { useDismiss } from '../../internal/overlay/dismiss';
+import {
+  LayerScope,
+  type OverlayLayer,
+  useLayerBranch,
+  useLayerRegistration,
+  useOverlayLayer,
+} from '../../internal/overlay/layers';
+import { Portal } from '../../internal/overlay/Portal';
+import { useFocusScope } from '../../internal/overlay/useFocusScope';
+import { useModalIsolation } from '../../internal/overlay/useModalIsolation';
+import { composeRefs } from '../../internal/utils/composeRefs';
+import type {
+  DialogCloseProps,
+  DialogContentProps,
+  DialogDescriptionProps,
+  DialogOverlayProps,
+  DialogPortalProps,
+  DialogProps,
+  DialogTitleProps,
+  DialogTriggerProps,
+} from './Dialog.types';
+
+type CloseReason = 'programmatic' | 'close' | 'escape' | 'pointer';
+
+type DialogContextValue = {
+  open: boolean;
+  modal: boolean;
+  requestOpenChange: (open: boolean, reason?: CloseReason) => void;
+  closeReasonRef: React.MutableRefObject<CloseReason>;
+  triggerRef: React.RefObject<HTMLButtonElement | null>;
+  contentRef: React.RefObject<HTMLDivElement | null>;
+  layer: OverlayLayer;
+  triggerId: string;
+  contentId: string;
+  defaultTitleId: string;
+  defaultDescriptionId: string;
+  titleId: string | undefined;
+  descriptionId: string | undefined;
+  setTitleId: (id: string | undefined) => void;
+  setDescriptionId: (id: string | undefined) => void;
+};
+
+const DialogContext = createContext<DialogContextValue | null>(null);
+
+function useDialog(part: string) {
+  const context = useContext(DialogContext);
+  if (!context) throw new Error(`${part} must be used inside Dialog.Root.`);
+  return context;
+}
+
+export const DialogRoot = forwardRef<HTMLDivElement, DialogProps>(function DialogRoot(
+  { open: controlledOpen, defaultOpen = false, onOpenChange, modal = true, children, ...props },
+  ref,
+) {
+  const [openState, setOpenState] = useControllableState(controlledOpen, defaultOpen, onOpenChange);
+  const open = Boolean(openState);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const closeReasonRef = useRef<CloseReason>('programmatic');
+  const [titleId, setTitleId] = useState<string>();
+  const [descriptionId, setDescriptionId] = useState<string>();
+  const generatedId = useId();
+  const layer = useOverlayLayer(triggerRef, contentRef);
+  useLayerRegistration(layer, open);
+  useLayoutEffect(() => {
+    if (open) closeReasonRef.current = 'programmatic';
+  }, [open]);
+  const requestOpenChange = useCallback(
+    (nextOpen: boolean, reason: CloseReason = 'programmatic') => {
+      if (!nextOpen) closeReasonRef.current = reason;
+      setOpenState(nextOpen);
+    },
+    [setOpenState],
+  );
+
+  return (
+    <DialogContext.Provider
+      value={{
+        open,
+        modal,
+        requestOpenChange,
+        closeReasonRef,
+        triggerRef,
+        contentRef,
+        layer,
+        triggerId: `${generatedId}-trigger`,
+        contentId: `${generatedId}-content`,
+        defaultTitleId: `${generatedId}-title`,
+        defaultDescriptionId: `${generatedId}-description`,
+        titleId,
+        descriptionId,
+        setTitleId,
+        setDescriptionId,
+      }}
+    >
+      <LayerScope.Provider value={layer}>
+        <div {...props} ref={ref} data-state={open ? 'open' : 'closed'}>
+          {children}
+        </div>
+      </LayerScope.Provider>
+    </DialogContext.Provider>
+  );
+});
+
+export const DialogTrigger = forwardRef<HTMLButtonElement, DialogTriggerProps>(
+  function DialogTrigger({ render, disabled, onClick, ...props }, ref) {
+    const context = useDialog('Dialog.Trigger');
+    const buttonProps: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+      ref: React.Ref<HTMLButtonElement>;
+      'data-state': 'open' | 'closed';
+    } = {
+      ...props,
+      ref: composeRefs(ref, context.triggerRef),
+      id: context.triggerId,
+      type: 'button',
+      disabled,
+      'aria-haspopup': 'dialog',
+      'aria-expanded': context.open,
+      'aria-controls': context.open ? context.contentId : undefined,
+      'data-state': context.open ? 'open' : 'closed',
+      onClick: (event) => {
+        onClick?.(event);
+        if (!event.defaultPrevented && !disabled && !context.open) context.requestOpenChange(true);
+      },
+    };
+    return render ? render(buttonProps) : <button {...buttonProps} />;
+  },
+);
+
+export function DialogPortal({ children }: DialogPortalProps) {
+  const context = useDialog('Dialog.Portal');
+  return context.open ? <Portal>{children}</Portal> : null;
+}
+
+export const DialogOverlay = forwardRef<HTMLDivElement, DialogOverlayProps>(
+  function DialogOverlay(props, ref) {
+    const context = useDialog('Dialog.Overlay');
+    const overlayRef = useRef<HTMLDivElement | null>(null);
+    useLayerBranch(context.layer, overlayRef, context.open && context.modal);
+    if (!context.open || !context.modal) return null;
+    return (
+      <div {...props} ref={composeRefs(ref, overlayRef)} aria-hidden="true" data-state="open" />
+    );
+  },
+);
+
+export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(function DialogContent(
+  {
+    onOpenAutoFocus,
+    onCloseAutoFocus,
+    onEscapeKeyDown,
+    onPointerDownOutside,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    'aria-describedby': ariaDescribedBy,
+    ...props
+  },
+  ref,
+) {
+  const context = useDialog('Dialog.Content');
+  useDismiss({
+    open: context.open,
+    layer: context.layer,
+    outsideFocus: false,
+    onDismiss: (reason, event) => {
+      if (reason === 'escape') {
+        onEscapeKeyDown?.(event as KeyboardEvent);
+        if (!event.defaultPrevented) context.requestOpenChange(false, 'escape');
+        return;
+      }
+      if (reason === 'pointer') {
+        onPointerDownOutside?.(event as PointerEvent);
+        if (event.defaultPrevented) return;
+        if (context.modal) event.preventDefault();
+        context.requestOpenChange(false, 'pointer');
+      }
+    },
+  });
+  useModalIsolation(context.layer, context.open && context.modal);
+  useFocusScope({
+    active: context.open,
+    trapped: context.modal,
+    layer: context.layer,
+    contentRef: context.contentRef,
+    restoreFocus: () =>
+      context.closeReasonRef.current === 'pointer' && !context.modal
+        ? false
+        : context.triggerRef.current,
+    ...(onOpenAutoFocus ? { onOpenAutoFocus } : {}),
+    ...(onCloseAutoFocus ? { onCloseAutoFocus } : {}),
+  });
+  if (!context.open) return null;
+
+  const labelledBy =
+    ariaLabelledBy === undefined
+      ? ariaLabel
+        ? undefined
+        : context.titleId
+      : ariaLabelledBy || undefined;
+  const describedBy =
+    ariaDescribedBy === undefined ? context.descriptionId : ariaDescribedBy || undefined;
+
+  return (
+    <div
+      {...props}
+      ref={composeRefs(ref, context.contentRef)}
+      id={context.contentId}
+      role="dialog"
+      tabIndex={-1}
+      aria-modal={context.modal || undefined}
+      aria-label={ariaLabel}
+      aria-labelledby={labelledBy}
+      aria-describedby={describedBy}
+      data-state="open"
+    />
+  );
+});
+
+export const DialogTitle = forwardRef<HTMLHeadingElement, DialogTitleProps>(function DialogTitle(
+  { id, ...props },
+  ref,
+) {
+  const context = useDialog('Dialog.Title');
+  const titleId = id ?? context.defaultTitleId;
+  const { setTitleId } = context;
+  useLayoutEffect(() => {
+    setTitleId(titleId);
+    return () => setTitleId(undefined);
+  }, [setTitleId, titleId]);
+  return <h2 {...props} ref={ref} id={titleId} />;
+});
+
+export const DialogDescription = forwardRef<HTMLParagraphElement, DialogDescriptionProps>(
+  function DialogDescription({ id, ...props }, ref) {
+    const context = useDialog('Dialog.Description');
+    const descriptionId = id ?? context.defaultDescriptionId;
+    const { setDescriptionId } = context;
+    useLayoutEffect(() => {
+      setDescriptionId(descriptionId);
+      return () => setDescriptionId(undefined);
+    }, [setDescriptionId, descriptionId]);
+    return <p {...props} ref={ref} id={descriptionId} />;
+  },
+);
+
+export const DialogClose = forwardRef<HTMLButtonElement, DialogCloseProps>(function DialogClose(
+  { render, onClick, ...props },
+  ref,
+) {
+  const context = useDialog('Dialog.Close');
+  const buttonProps: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    ref: React.Ref<HTMLButtonElement>;
+    'data-state': 'open' | 'closed';
+  } = {
+    ...props,
+    ref,
+    type: 'button',
+    'data-state': context.open ? 'open' : 'closed',
+    onClick: (event) => {
+      onClick?.(event);
+      if (!event.defaultPrevented) context.requestOpenChange(false, 'close');
+    },
+  };
+  return render ? render(buttonProps) : <button {...buttonProps} />;
+});

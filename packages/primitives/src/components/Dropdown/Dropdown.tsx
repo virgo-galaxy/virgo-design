@@ -10,8 +10,9 @@ import {
 } from 'react';
 
 import { useControllableState } from '../../internal/hooks/useControllableState';
-import { DismissScope, useDismiss } from '../../internal/overlay/dismiss';
+import { useDismiss } from '../../internal/overlay/dismiss';
 import { returnFocus } from '../../internal/overlay/focus';
+import { LayerScope, useLayerRegistration, useOverlayLayer } from '../../internal/overlay/layers';
 import { Portal } from '../../internal/overlay/Portal';
 import { useFloatingPosition } from '../../internal/overlay/useFloatingPosition';
 import { useHoverIntent } from '../../internal/overlay/useHoverIntent';
@@ -84,6 +85,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(function Dropd
   const contentRef = useRef<HTMLDivElement | null>(null);
   const intentRef = useRef<Intent>('none');
   const id = useId();
+  const layer = useOverlayLayer(triggerRef, contentRef);
+  useLayerRegistration(layer, open);
   const setOpen = useCallback(
     (next: boolean) => {
       if (next && disabled) return;
@@ -109,10 +112,9 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(function Dropd
       resetOpen(false);
     }
   }, [disabled, cancelClose, resetOpen]);
-  const scope = useDismiss({
+  useDismiss({
     open,
-    triggerRef,
-    contentRef,
+    layer,
     onDismiss: (reason) => {
       cancelClose();
       if (reason === 'escape') returnFocus(triggerRef.current, contentRef.current, true);
@@ -136,7 +138,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(function Dropd
         contentId: `${id}-menu`,
       }}
     >
-      <DismissScope.Provider value={scope}>
+      <LayerScope.Provider value={layer}>
         <div
           {...props}
           ref={ref}
@@ -145,7 +147,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(function Dropd
         >
           {children}
         </div>
-      </DismissScope.Provider>
+      </LayerScope.Provider>
     </DropdownContext.Provider>
   );
 });

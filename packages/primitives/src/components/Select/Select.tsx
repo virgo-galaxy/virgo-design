@@ -9,7 +9,8 @@ import {
 } from 'react';
 
 import { useControllableState } from '../../internal/hooks/useControllableState';
-import { DismissScope, useDismiss } from '../../internal/overlay/dismiss';
+import { useDismiss } from '../../internal/overlay/dismiss';
+import { LayerScope, useLayerRegistration, useOverlayLayer } from '../../internal/overlay/layers';
 import { composeRefs } from '../../internal/utils/composeRefs';
 import type {
   SelectContentProps,
@@ -72,6 +73,8 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
   const generatedId = useId();
   const triggerId = id ?? `${generatedId}-trigger`;
   const contentId = `${generatedId}-content`;
+  const layer = useOverlayLayer(rootRef, rootRef);
+  useLayerRegistration(layer, open);
 
   const requestOpen = useCallback(
     (intent: OpenFocusIntent = 'selected') => {
@@ -85,10 +88,9 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
     [disabled, setOpen],
   );
 
-  const scope = useDismiss({
+  useDismiss({
     open,
-    triggerRef: rootRef,
-    contentRef: rootRef,
+    layer,
     outsideFocus: false,
     escape: false,
     onDismiss: () => setOpen(false),
@@ -115,7 +117,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
         openFocusIntentRef,
       }}
     >
-      <DismissScope.Provider value={scope}>
+      <LayerScope.Provider value={layer}>
         <div
           {...props}
           ref={composeRefs(forwardedRef, rootRef)}
@@ -127,7 +129,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
           ) : null}
           {children}
         </div>
-      </DismissScope.Provider>
+      </LayerScope.Provider>
     </SelectContext.Provider>
   );
 });

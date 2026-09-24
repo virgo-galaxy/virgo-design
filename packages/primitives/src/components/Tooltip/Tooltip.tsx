@@ -11,7 +11,8 @@ import {
 } from 'react';
 
 import { useControllableState } from '../../internal/hooks/useControllableState';
-import { DismissScope, useDismiss } from '../../internal/overlay/dismiss';
+import { useDismiss } from '../../internal/overlay/dismiss';
+import { LayerScope, useLayerRegistration, useOverlayLayer } from '../../internal/overlay/layers';
 import { Portal } from '../../internal/overlay/Portal';
 import { useFloatingPosition } from '../../internal/overlay/useFloatingPosition';
 import { useHoverIntent } from '../../internal/overlay/useHoverIntent';
@@ -71,6 +72,8 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
   const dismissed = useRef(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const id = useId();
+  const layer = useOverlayLayer(triggerRef, contentRef);
+  useLayerRegistration(layer, open);
   const cancelOpen = useCallback(() => {
     if (timer.current !== null) clearTimeout(timer.current);
     timer.current = null;
@@ -107,10 +110,9 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
     dismissed.current = suppress;
     setOpen(false);
   };
-  const scope = useDismiss({
+  useDismiss({
     open,
-    triggerRef,
-    contentRef,
+    layer,
     onDismiss: (reason) => dismiss(reason !== 'focus'),
   });
   useEffect(() => cancelOpen, [cancelOpen]);
@@ -153,7 +155,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
         cancelClose,
       }}
     >
-      <DismissScope.Provider value={scope}>
+      <LayerScope.Provider value={layer}>
         <div
           {...props}
           ref={ref}
@@ -162,7 +164,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
         >
           {children}
         </div>
-      </DismissScope.Provider>
+      </LayerScope.Provider>
     </TooltipContext.Provider>
   );
 });

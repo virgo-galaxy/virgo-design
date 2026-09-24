@@ -9,8 +9,14 @@ import {
 } from 'react';
 
 import { useControllableState } from '../../internal/hooks/useControllableState';
-import { DismissScope, hasLayerFocus, useDismiss } from '../../internal/overlay/dismiss';
+import { useDismiss } from '../../internal/overlay/dismiss';
 import { focusFirst, getTabbables, returnFocus } from '../../internal/overlay/focus';
+import {
+  hasLayerFocus,
+  LayerScope,
+  useLayerRegistration,
+  useOverlayLayer,
+} from '../../internal/overlay/layers';
 import { Portal } from '../../internal/overlay/Portal';
 import { useFloatingPosition } from '../../internal/overlay/useFloatingPosition';
 import { useHoverIntent } from '../../internal/overlay/useHoverIntent';
@@ -69,17 +75,18 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
   const restoreFocus = useRef(true);
   const wasOpen = useRef(false);
   const id = useId();
+  const layer = useOverlayLayer(triggerRef, contentRef);
+  useLayerRegistration(layer, open);
   const setOpen = (next: boolean) => {
     if (!next || !disabled) setOpenState(next);
   };
   const { cancelClose, scheduleClose } = useHoverIntent(trigger === 'hover' && !disabled, () => {
     // Interactive hover panels stay open while their form or buttons own keyboard focus.
-    if (!hasLayerFocus(scope)) setOpen(false);
+    if (!hasLayerFocus(layer)) setOpen(false);
   });
-  const scope = useDismiss({
+  useDismiss({
     open,
-    triggerRef,
-    contentRef,
+    layer,
     onDismiss: (reason) => {
       cancelClose();
       if (reason === 'escape') returnFocus(triggerRef.current, contentRef.current, true);
@@ -124,7 +131,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
         contentId: `${id}-content`,
       }}
     >
-      <DismissScope.Provider value={scope}>
+      <LayerScope.Provider value={layer}>
         <div
           {...props}
           ref={ref}
@@ -133,7 +140,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
         >
           {children}
         </div>
-      </DismissScope.Provider>
+      </LayerScope.Provider>
     </PopoverContext.Provider>
   );
 });

@@ -9,6 +9,7 @@ describe('@virgo-design/primitives public API', () => {
         'Breadcrumb',
         'Button',
         'Checkbox',
+        'Dialog',
         'Dropdown',
         'Input',
         'Layout',
@@ -24,6 +25,18 @@ describe('@virgo-design/primitives public API', () => {
     );
     for (const part of ['Trigger', 'Content', 'Close'])
       expect(primitives.Popover).toHaveProperty(part);
+    for (const part of [
+      'Root',
+      'Trigger',
+      'Portal',
+      'Overlay',
+      'Content',
+      'Title',
+      'Description',
+      'Close',
+    ])
+      expect(primitives.Dialog).toHaveProperty(part);
+    expect(primitives.Dialog.Root).toBe(primitives.Dialog);
   });
   it('exposes composite anatomy only through family roots', () => {
     for (const part of ['Trigger', 'Content', 'Item', 'Separator'])
