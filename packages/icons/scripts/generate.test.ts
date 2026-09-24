@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { generateIconComponent } from './generate';
 
 describe('icons generator', () => {
-  it('generates all twenty-eight canonical SVG assets without losing geometry', async () => {
+  it('generates all canonical SVG assets without losing geometry', async () => {
     const iconDirectory = resolve('packages/icons/icons');
     const files = (await readdir(iconDirectory))
       .filter((fileName) => fileName.endsWith('.svg'))
@@ -38,6 +38,8 @@ describe('icons generator', () => {
       'plus.svg',
       'search.svg',
       'settings.svg',
+      'sidebar-collapse.svg',
+      'sidebar-expand.svg',
       'trash.svg',
       'user.svg',
       'workspace.svg',

@@ -27,6 +27,11 @@ export { MinusIcon, type MinusIconProps } from './generated/MinusIcon.js';
 export { PlusIcon, type PlusIconProps } from './generated/PlusIcon.js';
 export { SearchIcon, type SearchIconProps } from './generated/SearchIcon.js';
 export { SettingsIcon, type SettingsIconProps } from './generated/SettingsIcon.js';
+export {
+  SidebarCollapseIcon,
+  type SidebarCollapseIconProps,
+} from './generated/SidebarCollapseIcon.js';
+export { SidebarExpandIcon, type SidebarExpandIconProps } from './generated/SidebarExpandIcon.js';
 export { TrashIcon, type TrashIconProps } from './generated/TrashIcon.js';
 export { UserIcon, type UserIconProps } from './generated/UserIcon.js';
 export { WorkspaceIcon, type WorkspaceIconProps } from './generated/WorkspaceIcon.js';

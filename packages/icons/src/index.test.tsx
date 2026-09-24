@@ -19,10 +19,14 @@ import {
   GlobeIcon,
   HomeIcon,
   PlusIcon,
+  SidebarCollapseIcon,
+  SidebarExpandIcon,
   WorkspaceIcon,
 } from './index';
 
 const addedIcons = [
+  ['sidebar-collapse', SidebarCollapseIcon],
+  ['sidebar-expand', SidebarExpandIcon],
   ['ellipsis', EllipsisIcon],
   ['ellipsis-vertical', EllipsisVerticalIcon],
   ['workspace', WorkspaceIcon],
