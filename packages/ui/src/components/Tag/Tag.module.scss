@@ -1,0 +1,136 @@
+.root {
+  --tag-background: var(--vd-surface-secondary);
+  --tag-foreground: var(--vd-text-primary);
+  --tag-border: var(--vd-border-subtle);
+  --tag-solid: var(--vd-text-primary);
+  --tag-on-solid: var(--vd-text-inverse);
+
+  box-sizing: border-box;
+  display: inline-flex;
+  min-width: 0;
+  height: var(--tag-height);
+  align-items: center;
+  gap: var(--tag-gap);
+  padding-inline: var(--tag-padding-inline);
+  border: var(--vd-border-width-1) var(--vd-border-style-solid) transparent;
+  border-radius: var(--vd-radius-full);
+  color: var(--tag-foreground);
+  background: var(--tag-background);
+  font-family: var(--tag-font-family);
+  font-size: var(--tag-font-size);
+  font-weight: var(--tag-font-weight);
+  line-height: var(--tag-line-height);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.root[data-intent='brand'] {
+  --tag-background: var(--vd-brand-subtle);
+  --tag-foreground: var(--vd-brand-link);
+  --tag-border: var(--vd-brand-primary);
+  --tag-solid: var(--vd-brand-primary);
+  --tag-on-solid: var(--vd-brand-foreground);
+}
+
+@each $intent in (success, warning, danger, info) {
+  .root[data-intent='#{$intent}'] {
+    --tag-background: var(--vd-status-#{$intent}-subtle);
+    --tag-foreground: var(--vd-status-#{$intent}-text);
+    --tag-border: var(--vd-status-#{$intent}-border);
+    --tag-solid: var(--vd-status-#{$intent}-solid);
+    --tag-on-solid: var(--vd-status-#{$intent}-on-solid);
+  }
+}
+
+.root[data-variant='solid'] {
+  border-color: var(--tag-solid);
+  color: var(--tag-on-solid);
+  background: var(--tag-solid);
+}
+
+.root[data-variant='outline'] {
+  border-color: var(--tag-border);
+  background: transparent;
+}
+
+.root[data-size='sm'] {
+  --tag-height: var(--vd-sizing-24);
+  --tag-padding-inline: var(--vd-spacing-8);
+  --tag-gap: var(--vd-spacing-4);
+  --tag-icon-size: var(--vd-sizing-12);
+  --tag-font-family: var(--vd-typography-ui-label-small-font-family);
+  --tag-font-size: var(--vd-typography-ui-label-small-font-size);
+  --tag-font-weight: var(--vd-typography-ui-label-small-font-weight);
+  --tag-line-height: var(--vd-typography-ui-label-small-line-height);
+}
+
+.root[data-size='md'] {
+  --tag-height: var(--vd-sizing-28);
+  --tag-padding-inline: var(--vd-spacing-12);
+  --tag-gap: var(--vd-spacing-6);
+  --tag-icon-size: var(--vd-sizing-16);
+  --tag-font-family: var(--vd-typography-ui-label-small-font-family);
+  --tag-font-size: var(--vd-typography-ui-label-small-font-size);
+  --tag-font-weight: var(--vd-typography-ui-label-small-font-weight);
+  --tag-line-height: var(--vd-typography-ui-label-small-line-height);
+}
+
+.root[data-size='lg'] {
+  --tag-height: var(--vd-sizing-36);
+  --tag-padding-inline: var(--vd-spacing-16);
+  --tag-gap: var(--vd-spacing-8);
+  --tag-icon-size: var(--vd-sizing-20);
+  --tag-font-family: var(--vd-typography-ui-label-medium-font-family);
+  --tag-font-size: var(--vd-typography-ui-label-medium-font-size);
+  --tag-font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  --tag-line-height: var(--vd-typography-ui-label-medium-line-height);
+}
+
+.icon,
+.close {
+  display: inline-flex;
+  width: var(--tag-icon-size);
+  height: var(--tag-icon-size);
+  flex: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon > svg,
+.close > svg {
+  width: 100%;
+  height: 100%;
+}
+
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.close {
+  cursor: pointer;
+  padding: var(--vd-spacing-0);
+  border: 0;
+  border-radius: var(--vd-radius-full);
+  color: inherit;
+  background: transparent;
+
+  &:hover:not(:disabled) {
+    background: var(--vd-fill-hover);
+  }
+
+  &:focus-visible {
+    outline: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-border-focus);
+    outline-offset: var(--vd-spacing-2);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.root[data-disabled] {
+  border-color: var(--vd-border-disabled);
+  color: var(--vd-text-disabled);
+  background: var(--vd-fill-disabled);
+}

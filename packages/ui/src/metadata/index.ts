@@ -22,6 +22,7 @@ import { selectMetadata } from '../components/Select/Select.meta';
 import { surfaceMetadata } from '../components/Surface/Surface.meta';
 import { switchMetadata } from '../components/Switch/Switch.meta';
 import { tabsMetadata } from '../components/Tabs/Tabs.meta';
+import { tagMetadata } from '../components/Tag/Tag.meta';
 import { toastMetadata } from '../components/Toast/Toast.meta';
 import { tooltipMetadata } from '../components/Tooltip/Tooltip.meta';
 
@@ -49,6 +50,7 @@ export {
   surfaceMetadata,
   switchMetadata,
   tabsMetadata,
+  tagMetadata,
   textareaMetadata,
   toastMetadata,
   tooltipMetadata,
@@ -78,6 +80,7 @@ export const componentMetadataRegistry = {
   surface: surfaceMetadata,
   switch: switchMetadata,
   tabs: tabsMetadata,
+  tag: tagMetadata,
   tooltip: tooltipMetadata,
   toast: toastMetadata,
   textarea: textareaMetadata,

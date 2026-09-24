@@ -20,6 +20,7 @@ import { SelectPage } from '../pages/select/SelectPage';
 import { SurfacePage } from '../pages/surface/SurfacePage';
 import { SwitchPage } from '../pages/switch/SwitchPage';
 import { TabsPage } from '../pages/tabs/TabsPage';
+import { TagPage } from '../pages/tag/TagPage';
 import { ToastPage } from '../pages/toast/ToastPage';
 import { TooltipPage } from '../pages/tooltip/TooltipPage';
 
@@ -74,6 +75,7 @@ export type ComponentRoute = {
     | 'switch'
     | 'segmented-control'
     | 'tabs'
+    | 'tag'
     | 'pagination'
     | 'popover'
     | 'tooltip'
@@ -289,9 +291,20 @@ export const componentRoutes = [
     Component: PopoverPage,
   },
   {
-    id: 'toast',
+    id: 'tag',
     group: 'data-display',
     index: '19',
+    name: 'Tag',
+    category: 'Data Display',
+    path: '/components/tag',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: TagPage,
+  },
+  {
+    id: 'toast',
+    group: 'data-display',
+    index: '20',
     name: 'Toast',
     category: 'Feedback',
     path: '/components/toast',
@@ -302,7 +315,7 @@ export const componentRoutes = [
   {
     id: 'tooltip',
     group: 'data-display',
-    index: '20',
+    index: '21',
     name: 'Tooltip',
     category: 'Data Display',
     path: '/components/tooltip',
@@ -313,7 +326,7 @@ export const componentRoutes = [
   {
     id: 'command',
     group: 'actions',
-    index: '21',
+    index: '22',
     name: 'Command',
     category: 'Actions',
     path: '/components/command',
@@ -324,7 +337,7 @@ export const componentRoutes = [
   {
     id: 'context-menu',
     group: 'actions',
-    index: '22',
+    index: '23',
     name: 'ContextMenu',
     category: 'Actions',
     path: '/components/context-menu',
@@ -335,7 +348,7 @@ export const componentRoutes = [
   {
     id: 'menu',
     group: 'actions',
-    index: '23',
+    index: '24',
     name: 'Menu',
     category: 'Actions',
     path: '/components/menu',
@@ -346,7 +359,7 @@ export const componentRoutes = [
   {
     id: 'menubar',
     group: 'actions',
-    index: '24',
+    index: '25',
     name: 'Menubar',
     category: 'Actions',
     path: '/components/menubar',

@@ -22,12 +22,19 @@ import {
   surfaceMetadata,
   switchMetadata,
   tabsMetadata,
+  tagMetadata,
   textareaMetadata,
   toastMetadata,
   tooltipMetadata,
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Tag as a UI-only standalone display semantic', () => {
+    expect(componentMetadataRegistry.tag).toBe(tagMetadata);
+    expect(tagMetadata.variants.map(({ name }) => name)).toEqual(['soft', 'solid', 'outline']);
+    expect(tagMetadata.capabilities).toMatchObject({ closable: true, selfRemoving: false });
+  });
+
   it('registers Badge as a UI-only attached display semantic', () => {
     expect(componentMetadataRegistry.badge).toBe(badgeMetadata);
     expect(badgeMetadata.capabilities).toMatchObject({

@@ -28,6 +28,7 @@ describe('@virgo-design/ui public API', () => {
         'Select',
         'Surface',
         'Switch',
+        'Tag',
         'Tabs',
         'Textarea',
         'Tooltip',
@@ -61,6 +62,7 @@ describe('@virgo-design/ui public API', () => {
       expect(ui.NavigationMenu).toHaveProperty(part);
     expect(ui.NavigationMenu.Root).toBe(ui.NavigationMenu);
     expect(ui).toHaveProperty('Badge');
+    expect(ui).toHaveProperty('Tag');
     for (const part of ['Root', 'Dialog', 'Input', 'List', 'Empty', 'Group', 'Item', 'Separator'])
       expect(ui.Command).toHaveProperty(part);
     for (const part of ['Provider', 'Root', 'Title', 'Description', 'Action', 'Close', 'Viewport'])
