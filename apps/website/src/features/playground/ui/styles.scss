@@ -143,32 +143,13 @@
     overflow: visible;
   }
 
-  .brand-lockup {
-    --virgo-brand-font-size: var(--vd-font-size-13);
-    --virgo-brand-font-weight: var(--vd-font-weight-600);
-    --virgo-brand-letter-spacing: 0;
-    --virgo-brand-logo-height: 26px;
-
-    display: grid;
-    gap: var(--vd-spacing-4);
-    padding-inline: var(--vd-spacing-8);
-  }
-
   .navigation-note strong,
   .navigation-note span {
     display: block;
   }
 
-  .brand-context {
-    padding-inline-start: calc(33px + var(--vd-spacing-8));
-    font-size: var(--vd-font-size-12);
-    line-height: var(--vd-line-height-3);
-    color: var(--vd-text-tertiary);
-  }
-
   .component-navigation nav {
     min-width: 0;
-    margin-top: var(--vd-spacing-40);
     margin-bottom: calc(var(--vd-sizing-56) * 2);
   }
 

@@ -34,11 +34,9 @@ describe('UI Playground integration', () => {
     render(<AppearanceHarness />);
 
     const navigation = screen.getByRole('navigation', { name: 'Component navigation' });
-    const brand = screen.getByRole('link', { name: 'Virgo Design' });
 
-    expect(brand).toHaveAttribute('href', '/');
-    expect(brand.querySelector('img')).toHaveAttribute('src', '/virgo-design.svg');
-    expect(document.querySelector('.brand-mark')).not.toBeInTheDocument();
+    expect(screen.queryByText('UI Laboratory')).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Virgo Design' })).not.toBeInTheDocument();
     expect(
       within(navigation)
         .getAllByRole('link')

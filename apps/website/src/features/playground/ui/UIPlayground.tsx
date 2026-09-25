@@ -6,7 +6,6 @@ import { Breadcrumb, Layout, Surface } from '@virgo-design/ui';
 import { type ReactNode, useLayoutEffect, useRef } from 'react';
 import { Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
-import { VirgoBrand } from '@/components/brand/VirgoBrand/VirgoBrand';
 import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { componentGroups, componentRoutes, type ComponentSlug } from './app/componentRoutes';
@@ -41,11 +40,6 @@ export function UIPlayground({ renderFooter }: UIPlaygroundProps) {
           width="var(--playground-navigation-width)"
           surface={{ border: 'none' }}
         >
-          <div className="brand-lockup">
-            <VirgoBrand />
-            <span className="brand-context">UI Laboratory</span>
-          </div>
-
           <nav aria-label="Component navigation">
             <p className="navigation-label">Components</p>
             <div className="component-groups">
