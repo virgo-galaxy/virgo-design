@@ -14,6 +14,8 @@ Dark Elevation V1 is finalized. The Dark theme uses the reviewed shadow-plus-sub
 
 The audit covers visual source in `apps/website`, `apps/primitives-playground`, `apps/ui-playground`, and `packages/ui`. It excludes Token data, fonts, generated output, and packages without visual styles.
 
+> Historical scope note: the two standalone playground paths above existed in this audit snapshot and have since been retired. Their capabilities now live in the Website.
+
 - The snapshot contains 26 stylesheet files: 23 in `apps/website`, one in each playground, and one in `packages/ui`.
 - A shadow count represents one authored `box-shadow` declaration. A comma-separated multi-layer value remains one declaration.
 - `box-shadow` transition properties are not values and are excluded. `text-shadow` is out of scope; no `text-shadow` or `filter: drop-shadow(...)` declaration exists in the scanned source.

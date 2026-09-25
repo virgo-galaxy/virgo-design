@@ -7,6 +7,8 @@ It provides evidence for future Foundation and Semantic decisions but does not d
 - Scope: `apps/website`, `apps/primitives-playground`, `apps/ui-playground`, `packages/ui`
 - Excluded: `packages/fonts`, build output, dependencies, and the Layout Scale Preview styles themselves
 
+> Historical scope note: the two standalone playground paths above existed in this audit snapshot and have since been retired. Their capabilities now live in the Website.
+
 ## Method
 
 - Scanned CSS, SCSS, Sass, and Less files that can emit visual styles.

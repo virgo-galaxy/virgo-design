@@ -325,13 +325,13 @@ Icons inherit their color from the surrounding interface through `currentColor`.
 
 This allows icon color to follow component state, semantic color tokens, and normal CSS without embedding presentation-specific colors into canonical assets.
 
-## Icons Playground
+## Website icon review
 
-`apps/icons-playground` is the internal visual review environment for Virgo Icons.
+The Website route `/foundations/icons` is the visual review environment for Virgo Icons.
 
 It consumes the icon package and provides enlarged geometry inspection, real-size previews, theme review, grid inspection, and icon selection.
 
-The Playground is a viewing and calibration surface.
+The Website review page is a viewing and calibration surface.
 
 Canonical icon geometry remains in:
 

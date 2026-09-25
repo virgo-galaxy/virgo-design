@@ -9,6 +9,8 @@ It provides evidence for future Foundation and Semantic decisions but does not d
 - Excluded: `packages/fonts`, dependencies, build output, tests, and the Shape Scale Preview added alongside this report
 - Source inventory: 24 SCSS files; the two playground stylesheets contain no Border/Radius declarations, while package UI contributes its Button styles
 
+> Historical scope note: the two standalone playground paths above existed in this audit snapshot and have since been retired. Their rows below remain as audit evidence, not links to current source.
+
 ## Method
 
 - Parsed stylesheet declarations with PostCSS, including nested rules and responsive/state variants. Border shorthands were tokenized at top-level whitespace so values inside color functions are not mistaken for widths.
@@ -165,8 +167,8 @@ The inventory makes the source-level counting boundary explicit. Width literals 
 
 | Source                                                                                                                                                                                  | Border width literals | Explicit border styles | Radius components |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------: | ---------------------: | ----------------: |
-| [apps/primitives-playground/src/styles.scss](../../apps/primitives-playground/src/styles.scss)                                                                                          |                     0 |                      0 |                 0 |
-| [apps/ui-playground/src/styles.scss](../../apps/ui-playground/src/styles.scss)                                                                                                          |                     0 |                      0 |                 0 |
+| `apps/primitives-playground/src/styles.scss` (legacy, removed)                                                                                                                          |                     0 |                      0 |                 0 |
+| `apps/ui-playground/src/styles.scss` (legacy, removed)                                                                                                                                  |                     0 |                      0 |                 0 |
 | [ui/button/Button.module.scss](../../packages/ui/src/components/Button/Button.module.scss)                                                                                              |                     1 |                      1 |                 1 |
 | [website/pages/placeholder/placeholder-page.module.scss](../../apps/website/src/pages/placeholder/placeholder-page.module.scss)                                                         |                     0 |                      0 |                 0 |
 | [website/pages/colors/colors-overview.module.scss](../../apps/website/src/pages/colors/colors-overview.module.scss)                                                                     |                     9 |                      6 |                 8 |

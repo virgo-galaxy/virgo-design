@@ -6,6 +6,8 @@ This report records observed Duration and Easing usage across the Virgo Design r
 
 The audit covers visual source in `apps/website`, `apps/primitives-playground`, `apps/ui-playground`, and `packages/ui`. It excludes Token data, fonts, generated output, and packages without visual styles.
 
+> Historical scope note: the two standalone playground paths above existed in this audit snapshot and have since been retired. Their capabilities now live in the Website.
+
 - The snapshot contains 26 authored stylesheet files: 23 in `apps/website`, one in each playground, and one in `packages/ui`.
 - It found 49 timing declarations: 34 `transition` declarations and 15 `animation` declarations. No `transition-duration`, `transition-timing-function`, `animation-duration`, or `animation-timing-function` longhand declaration is authored in scope.
 - `transition: none` and `animation: none` appear 17 times, primarily in reduced-motion media queries. They are accessibility overrides and are excluded from duration and easing value totals.
