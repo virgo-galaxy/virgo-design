@@ -3,16 +3,20 @@ import './styles.scss';
 
 import { DashboardIcon } from '@virgo-design/icons';
 import { Breadcrumb, Layout, Surface } from '@virgo-design/ui';
-import { useLayoutEffect, useRef } from 'react';
+import { type ReactNode, useLayoutEffect, useRef } from 'react';
 import { Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
 import { useAppearance } from '@/shared/theme/use-appearance';
 
-import { componentGroups, componentRoutes } from './app/componentRoutes';
+import { componentGroups, componentRoutes, type ComponentSlug } from './app/componentRoutes';
 
 const componentsBasePath = '/components/';
 
-export function UIPlayground() {
+export interface UIPlaygroundProps {
+  renderFooter?: (componentSlug: ComponentSlug) => ReactNode;
+}
+
+export function UIPlayground({ renderFooter }: UIPlaygroundProps) {
   const { appearance } = useAppearance();
   const location = useLocation();
   const previousPathname = useRef(location.pathname);
@@ -119,6 +123,7 @@ export function UIPlayground() {
               ))}
               <Route path="*" element={<Navigate replace to="/components/button" />} />
             </Routes>
+            {renderFooter?.(activeRoute.id)}
           </Layout.Content>
         </Layout>
       </Layout>

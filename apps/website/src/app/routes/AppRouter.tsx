@@ -32,6 +32,16 @@ const PrimitiveDetailPage = lazy(() =>
     default: module.PrimitiveDetailPage,
   })),
 );
+const ComponentRelationships = lazy(() =>
+  import('@/app/relationships/DocumentationRelationships').then((module) => ({
+    default: module.ComponentRelationships,
+  })),
+);
+const PrimitiveRelationships = lazy(() =>
+  import('@/app/relationships/DocumentationRelationships').then((module) => ({
+    default: module.PrimitiveRelationships,
+  })),
+);
 const TokensColorPage = lazy(() =>
   import('@/pages/tokens/TokensColorPage').then((module) => ({ default: module.TokensColorPage })),
 );
@@ -66,6 +76,22 @@ function LegacyUIPlaygroundRedirect() {
   return <Navigate replace to={destination} />;
 }
 
+function ComponentsDocumentation() {
+  return (
+    <UIPlayground
+      renderFooter={(componentSlug) => <ComponentRelationships componentSlug={componentSlug} />}
+    />
+  );
+}
+
+function PrimitiveDocumentation() {
+  return (
+    <PrimitiveDetailPage
+      renderFooter={(primitiveSlug) => <PrimitiveRelationships primitiveSlug={primitiveSlug} />}
+    />
+  );
+}
+
 export function AppRouter() {
   return (
     <Suspense fallback={<div aria-busy="true" />}>
@@ -90,9 +116,9 @@ export function AppRouter() {
         />
         <Route path={ROUTE_PATHS.tokenColors} element={<TokensColorPage />} />
         <Route path={ROUTE_PATHS.tokenTypography} element={<TokensTypographyPage />} />
-        <Route path={ROUTE_PATHS.componentRoutes} element={<UIPlayground />} />
+        <Route path={ROUTE_PATHS.componentRoutes} element={<ComponentsDocumentation />} />
         <Route path={ROUTE_PATHS.primitives} element={<PrimitiveCataloguePage />} />
-        <Route path={ROUTE_PATHS.primitiveDetail} element={<PrimitiveDetailPage />} />
+        <Route path={ROUTE_PATHS.primitiveDetail} element={<PrimitiveDocumentation />} />
         <Route
           path={ROUTE_PATHS.resources}
           element={<Navigate to={ROUTE_PATHS.primitives} replace />}

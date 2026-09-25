@@ -1,0 +1,86 @@
+.section {
+  display: grid;
+  gap: var(--vd-spacing-20);
+  min-width: 0;
+  padding-top: var(--vd-spacing-32);
+  border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+}
+
+.header {
+  display: grid;
+  gap: var(--vd-spacing-6);
+}
+
+.header h2,
+.header h3 {
+  margin: 0;
+}
+
+.header h2 {
+  color: var(--vd-text-primary);
+  font-family: var(--vd-typography-ui-title-medium-font-family);
+  font-size: var(--vd-typography-ui-title-medium-font-size);
+  font-weight: var(--vd-typography-ui-title-medium-font-weight);
+  line-height: var(--vd-typography-ui-title-medium-line-height);
+}
+
+.header h3 {
+  color: var(--vd-text-tertiary);
+  font-family: var(--vd-typography-ui-label-medium-font-family);
+  font-size: var(--vd-typography-ui-label-medium-font-size);
+  font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  line-height: var(--vd-typography-ui-label-medium-line-height);
+}
+
+.links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--vd-spacing-12);
+}
+
+.link {
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card {
+  height: 100%;
+  transition:
+    border-color var(--vd-duration-120) var(--vd-easing-standard),
+    transform var(--vd-duration-120) var(--vd-easing-standard);
+}
+
+.cardBody {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vd-spacing-12);
+  font-family: var(--vd-typography-ui-label-medium-font-family);
+  font-size: var(--vd-typography-ui-label-medium-font-size);
+  font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  line-height: var(--vd-typography-ui-label-medium-line-height);
+}
+
+.link:hover .card {
+  border-color: var(--vd-border-strong);
+  transform: translateY(-1px);
+}
+
+.link:focus-visible {
+  border-radius: var(--vd-radius-12);
+  outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+  outline-offset: var(--vd-spacing-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .links {
+    grid-template-columns: 1fr;
+  }
+}

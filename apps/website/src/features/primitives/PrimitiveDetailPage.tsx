@@ -1,4 +1,5 @@
 import { Card, Tag } from '@virgo-design/ui';
+import type { ReactNode } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { PrimitiveSpecimen } from '@/components/docs/PrimitiveSpecimen/PrimitiveSpecimen';
@@ -18,7 +19,11 @@ function DetailList({ items }: { items: readonly string[] }) {
   );
 }
 
-export function PrimitiveDetailPage() {
+export interface PrimitiveDetailPageProps {
+  renderFooter?: (primitiveSlug: PrimitiveSlug) => ReactNode;
+}
+
+export function PrimitiveDetailPage({ renderFooter }: PrimitiveDetailPageProps) {
   const { slug = '' } = useParams();
   const doc = getPrimitiveDoc(slug);
 
@@ -116,6 +121,8 @@ export function PrimitiveDetailPage() {
             </ul>
           </aside>
         </div>
+
+        {renderFooter?.(doc.slug as PrimitiveSlug)}
       </div>
     </article>
   );

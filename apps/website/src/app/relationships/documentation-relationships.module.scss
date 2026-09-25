@@ -1,0 +1,15 @@
+.componentPlacement {
+  width: min(1180px, calc(100% - var(--vd-spacing-64)));
+  margin: 0 auto;
+  padding-bottom: var(--vd-spacing-64);
+}
+
+.primitivePlacement {
+  margin-top: 64px;
+}
+
+@media (max-width: 760px) {
+  .componentPlacement {
+    width: min(100% - var(--vd-spacing-32), 1180px);
+  }
+}

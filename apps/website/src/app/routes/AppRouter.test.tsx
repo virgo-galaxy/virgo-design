@@ -73,6 +73,33 @@ describe('Components and Playground routes', () => {
 
     await screen.findByRole('heading', { level: 1, name: 'Button' }, { timeout: 5000 });
     expect(screen.getByRole('navigation', { name: 'Component navigation' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Relationships' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'Built with' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Button Primitive/ })).toHaveAttribute(
+      'href',
+      '/primitives/button',
+    );
+  });
+
+  it('renders an indirect component-to-primitive relationship at the page bottom', async () => {
+    renderRoute('/components/drawer');
+
+    await screen.findByRole('heading', { level: 1, name: 'Drawer' }, { timeout: 5000 });
+    const relationshipHeading = screen.getByRole('heading', { level: 2, name: 'Relationships' });
+    expect(relationshipHeading.closest('section')).toHaveTextContent('Built with');
+    expect(screen.getByRole('link', { name: /Dialog Primitive/ })).toHaveAttribute(
+      'href',
+      '/primitives/dialog',
+    );
+  });
+
+  it('does not render Relationships for a UI-only component', async () => {
+    renderRoute('/components/card');
+
+    await screen.findByRole('heading', { level: 1, name: 'Card' }, { timeout: 5000 });
+    expect(
+      screen.queryByRole('heading', { level: 2, name: 'Relationships' }),
+    ).not.toBeInTheDocument();
   });
 
   it('redirects /components to the default component', async () => {
@@ -125,6 +152,36 @@ describe('Primitive routes', () => {
 
     await screen.findByRole('heading', { level: 1, name: 'Primitives' });
     expect(screen.getByTestId('current-path')).toHaveTextContent('/primitives');
+  });
+
+  it('renders reverse-computed component links at the bottom of a primitive page', async () => {
+    renderRoute('/primitives/dialog');
+
+    await screen.findByRole('heading', { level: 1, name: 'Dialog' });
+    const relationshipHeading = screen.getByRole('heading', { level: 2, name: 'Relationships' });
+    const relationshipSection = relationshipHeading.closest('section');
+
+    expect(relationshipSection).not.toBeNull();
+    expect(
+      within(relationshipSection!).getByRole('heading', { name: 'Used by' }),
+    ).toBeInTheDocument();
+    expect(within(relationshipSection!).getByRole('link', { name: /Command/ })).toHaveAttribute(
+      'href',
+      '/components/command',
+    );
+    expect(within(relationshipSection!).getByRole('link', { name: /Drawer/ })).toHaveAttribute(
+      'href',
+      '/components/drawer',
+    );
+  });
+
+  it('does not render Used by for a primitive with no UI consumer', async () => {
+    renderRoute('/primitives/collapsible');
+
+    await screen.findByRole('heading', { level: 1, name: 'Collapsible' });
+    expect(
+      screen.queryByRole('heading', { level: 2, name: 'Relationships' }),
+    ).not.toBeInTheDocument();
   });
 });
 
