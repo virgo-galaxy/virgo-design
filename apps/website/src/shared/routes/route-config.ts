@@ -13,6 +13,7 @@ export const ROUTE_PATHS = {
   resources: '/resources',
   playgroundPrimitives: '/playground/primitives',
   playgroundUi: '/playground/ui/*',
+  playgroundIcons: '/playground/icons',
 } as const;
 
 export const PRIMARY_NAVIGATION_ITEMS = [

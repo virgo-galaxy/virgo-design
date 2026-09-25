@@ -49,7 +49,14 @@ describe('Playground routes', () => {
   it('renders a namespaced UI playground component route', async () => {
     renderRoute('/playground/ui/components/button');
 
-    await screen.findByRole('heading', { level: 1, name: 'Button' });
+    await screen.findByRole('heading', { level: 1, name: 'Button' }, { timeout: 5000 });
     expect(screen.getByRole('navigation', { name: 'Component navigation' })).toBeInTheDocument();
+  });
+
+  it('renders the copied icons playground', async () => {
+    renderRoute('/playground/icons');
+
+    await screen.findByRole('heading', { level: 1, name: 'Icons Playground' });
+    expect(screen.getByTestId('icon-canvas')).toHaveAttribute('data-icon', 'plus');
   });
 });

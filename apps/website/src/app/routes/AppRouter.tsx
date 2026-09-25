@@ -45,6 +45,11 @@ const UIPlayground = lazy(() =>
     default: module.UIPlayground,
   })),
 );
+const IconsPlayground = lazy(() =>
+  import('@/features/playground/icons/IconsPlayground').then((module) => ({
+    default: module.IconsPlayground,
+  })),
+);
 
 export function AppRouter() {
   return (
@@ -73,6 +78,7 @@ export function AppRouter() {
         <Route path={ROUTE_PATHS.resources} element={<PlaceholderPage />} />
         <Route path={ROUTE_PATHS.playgroundPrimitives} element={<PrimitivesPlayground />} />
         <Route path={ROUTE_PATHS.playgroundUi} element={<UIPlayground />} />
+        <Route path={ROUTE_PATHS.playgroundIcons} element={<IconsPlayground />} />
         <Route path="*" element={<Navigate to={ROUTE_PATHS.foundationColors} replace />} />
       </Routes>
     </Suspense>
