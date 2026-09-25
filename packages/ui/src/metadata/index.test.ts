@@ -23,6 +23,7 @@ import {
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
+  skeletonMetadata,
   spinnerMetadata,
   surfaceMetadata,
   switchMetadata,
@@ -34,6 +35,20 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Skeleton as a visual-only loading placeholder', () => {
+    expect(componentMetadataRegistry.skeleton).toBe(skeletonMetadata);
+    expect(skeletonMetadata.variants.map(({ name }) => name)).toEqual([
+      'text',
+      'rectangle',
+      'circle',
+    ]);
+    expect(skeletonMetadata.capabilities).toMatchObject({
+      nativeDimensions: true,
+      reducedMotion: true,
+      contentInference: false,
+    });
+  });
+
   it('registers Spinner as reduced-motion-aware indeterminate feedback', () => {
     expect(componentMetadataRegistry.spinner).toBe(spinnerMetadata);
     expect(spinnerMetadata.capabilities).toMatchObject({

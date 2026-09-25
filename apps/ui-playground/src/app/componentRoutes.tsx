@@ -21,6 +21,7 @@ import { ProgressPage } from '../pages/progress/ProgressPage';
 import { RadioPage } from '../pages/radio/RadioPage';
 import { SegmentedControlPage } from '../pages/segmented-control/SegmentedControlPage';
 import { SelectPage } from '../pages/select/SelectPage';
+import { SkeletonPage } from '../pages/skeleton/SkeletonPage';
 import { SpinnerPage } from '../pages/spinner/SpinnerPage';
 import { SurfacePage } from '../pages/surface/SurfacePage';
 import { SwitchPage } from '../pages/switch/SwitchPage';
@@ -75,6 +76,7 @@ export type ComponentRoute = {
     | 'navigation-menu'
     | 'input'
     | 'select'
+    | 'skeleton'
     | 'spinner'
     | 'checkbox'
     | 'command'
@@ -354,6 +356,17 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1.0.0',
     Component: SpinnerPage,
+  },
+  {
+    id: 'skeleton',
+    group: 'data-display',
+    index: '31',
+    name: 'Skeleton',
+    category: 'Feedback',
+    path: '/components/skeleton',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: SkeletonPage,
   },
   {
     id: 'tag',

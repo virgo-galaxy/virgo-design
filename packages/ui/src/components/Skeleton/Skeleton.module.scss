@@ -1,0 +1,40 @@
+.root {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  height: var(--vd-sizing-20);
+  border-radius: var(--vd-radius-8);
+  background: var(--vd-fill-disabled);
+  vertical-align: middle;
+}
+
+.root[data-variant='text'] {
+  height: 1em;
+  border-radius: var(--vd-radius-4);
+}
+
+.root[data-variant='circle'] {
+  width: var(--vd-sizing-40);
+  height: var(--vd-sizing-40);
+  border-radius: var(--vd-radius-full);
+}
+
+.root[data-animated] {
+  animation: skeleton-pulse var(--vd-duration-560) var(--vd-easing-standard) infinite alternate;
+}
+
+@keyframes skeleton-pulse {
+  from {
+    opacity: 0.55;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root[data-animated] {
+    animation-duration: var(--vd-duration-0);
+  }
+}
