@@ -24,7 +24,6 @@ describe('Icons foundation', () => {
   it('defaults the canonical review board to Plus', () => {
     renderIcons();
 
-    expect(screen.getByRole('heading', { level: 1, name: 'Icons' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Plus' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Icon Plus' })).toBeInTheDocument();
     expect(screen.queryByRole('combobox')).not.toBeInTheDocument();

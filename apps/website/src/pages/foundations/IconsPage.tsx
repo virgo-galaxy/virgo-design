@@ -1,7 +1,11 @@
 import { IconsPlayground } from '@/features/playground/icons/IconsPlayground';
 
-import { FoundationNavigation } from './FoundationPage';
+import { FoundationPage } from './FoundationPage';
 
 export function IconsPage() {
-  return <IconsPlayground navigation={<FoundationNavigation />} />;
+  return (
+    <FoundationPage title="Icons" description="A focused canvas for refining a single Virgo icon.">
+      <IconsPlayground />
+    </FoundationPage>
+  );
 }

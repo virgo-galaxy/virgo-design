@@ -43,7 +43,7 @@ import {
   TypeIcon,
   UserIcon,
 } from '@virgo-design/icons';
-import { type ReactNode, useState } from 'react';
+import { useState } from 'react';
 
 import { useAppearance } from '@/shared/theme/use-appearance';
 
@@ -98,11 +98,7 @@ const iconOptions = [
 
 type IconId = (typeof iconOptions)[number]['id'];
 
-interface IconsPlaygroundProps {
-  navigation?: ReactNode;
-}
-
-export function IconsPlayground({ navigation }: IconsPlaygroundProps) {
+export function IconsPlayground() {
   const [selectedIconId, setSelectedIconId] = useState<IconId>('plus');
   const [showGrid, setShowGrid] = useState(true);
   const { appearance } = useAppearance();
@@ -112,16 +108,6 @@ export function IconsPlayground({ navigation }: IconsPlaygroundProps) {
   return (
     <div className="icons-playground-feature" data-playground="icons">
       <div className="icons-playground" data-theme={appearance}>
-        {navigation ? <div className="foundation-navigation-frame">{navigation}</div> : null}
-
-        <header className="app-header">
-          <div>
-            <p className="eyebrow">VIRGO DESIGN · FOUNDATIONS</p>
-            <h1>Icons</h1>
-            <p className="header-copy">A focused canvas for refining a single Virgo icon.</p>
-          </div>
-        </header>
-
         <main>
           <section className="control-bar" aria-label="Review controls">
             <IconSelect

@@ -1,3 +1,4 @@
+import { PaletteIcon, TypeIcon } from '@virgo-design/icons';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -5,6 +6,11 @@ import { SectionNavigation } from '@/components/section/SectionNavigation';
 import { TOKEN_NAVIGATION_ITEMS } from '@/shared/routes/route-config';
 
 import styles from '../foundations/foundation-tokens.module.scss';
+
+const tokenIcons = {
+  'tokenNavigation.colors': PaletteIcon,
+  'tokenNavigation.typography': TypeIcon,
+} as const;
 
 interface TokenPageProps {
   title: string;
@@ -22,10 +28,15 @@ interface TokenSectionProps {
 
 export function TokenPage({ title, description, children }: TokenPageProps) {
   const { t } = useTranslation();
-  const navigationItems = TOKEN_NAVIGATION_ITEMS.map((item) => ({
-    ...item,
-    label: t(item.label),
-  }));
+  const navigationItems = TOKEN_NAVIGATION_ITEMS.map((item) => {
+    const Icon = tokenIcons[item.label];
+
+    return {
+      ...item,
+      label: t(item.label),
+      icon: <Icon size={16} aria-hidden="true" />,
+    };
+  });
 
   return (
     <section className={styles.page}>

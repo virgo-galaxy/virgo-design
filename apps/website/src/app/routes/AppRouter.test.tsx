@@ -39,7 +39,7 @@ describe('Token routes', () => {
 
     expect(navigation).toHaveAttribute('data-variant', 'segmented');
     expect(navigation.querySelectorAll('[data-slot="separator"]')).toHaveLength(1);
-    expect(navigation.querySelector('[data-slot="icon"]')).not.toBeInTheDocument();
+    expect(navigation.querySelectorAll('[data-slot="icon"]')).toHaveLength(2);
     expect(
       within(navigation).getByRole('link', { name: 'Colors' }).getAttribute('aria-current'),
     ).toBe('page');
@@ -238,6 +238,8 @@ describe('Foundation routes', () => {
     await screen.findByRole('heading', { level: 1, name: 'Icons' });
     const navigation = screen.getByRole('navigation', { name: 'Foundation categories' });
 
+    expect(screen.getByText('FOUNDATIONS V1')).toBeInTheDocument();
+    expect(screen.queryByText('VIRGO DESIGN · FOUNDATIONS')).not.toBeInTheDocument();
     expect(navigation).toHaveAttribute('data-variant', 'segmented');
     expect(navigation.querySelectorAll('[data-slot="separator"]')).toHaveLength(5);
     expect(navigation.querySelectorAll('[data-slot="icon"]')).toHaveLength(6);

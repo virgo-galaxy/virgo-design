@@ -1,6 +1,5 @@
 .icons-playground-feature {
   & {
-    background: var(--vd-fill-default);
     color: var(--vd-text-primary);
     font-family: var(--vd-font-family-sans);
     font-synthesis: none;
@@ -18,7 +17,6 @@
   }
 
   .icons-playground {
-    --review-page: #f5f6f8;
     --review-panel: #ffffff;
     --review-raised: #fafbfc;
     --review-ink: #15191f;
@@ -27,19 +25,11 @@
     --review-line-strong: #aeb6c2;
     --review-grid: rgb(122 132 147 / 17%);
     --review-center: rgb(116 89 196 / 60%);
-    --foundation-surface-strong: var(--review-panel);
-    --foundation-muted: var(--review-raised);
-    --foundation-line: var(--review-line);
-    --foundation-line-strong: var(--review-line-strong);
 
-    min-height: calc(100vh - var(--layout-header-height));
-    padding: var(--vd-spacing-32);
     color: var(--review-ink);
-    background: var(--review-page);
   }
 
   .icons-playground[data-theme='dark'] {
-    --review-page: #111316;
     --review-panel: #191c20;
     --review-raised: #20242a;
     --review-ink: #f1f3f6;
@@ -50,20 +40,8 @@
     --review-center: rgb(185 166 255 / 72%);
   }
 
-  .foundation-navigation-frame {
-    width: min(1280px, 100%);
-    margin: 0 auto;
-  }
-
-  .app-header,
   main {
-    width: min(960px, 100%);
-    margin: 0 auto;
-  }
-
-  .app-header {
-    padding: var(--vd-spacing-16) 0 var(--vd-spacing-24);
-    border-bottom: var(--vd-border-width-1) solid var(--review-line);
+    width: 100%;
   }
 
   .eyebrow {
@@ -75,18 +53,9 @@
     letter-spacing: 0.09em;
   }
 
-  h1,
   h2,
   p {
     margin-top: 0;
-  }
-
-  h1 {
-    margin-bottom: var(--vd-spacing-8);
-    font-size: var(--vd-font-size-40);
-    font-weight: var(--vd-font-weight-600);
-    line-height: var(--vd-line-height-1);
-    letter-spacing: -0.04em;
   }
 
   h2 {
@@ -95,18 +64,6 @@
     font-weight: var(--vd-font-weight-600);
     line-height: var(--vd-line-height-2);
     letter-spacing: -0.02em;
-  }
-
-  .header-copy {
-    max-width: 480px;
-    margin-bottom: 0;
-    color: var(--review-muted);
-    font-size: var(--vd-font-size-14);
-    line-height: var(--vd-line-height-4);
-  }
-
-  main {
-    padding-top: var(--vd-spacing-24);
   }
 
   .control-bar {
@@ -372,15 +329,7 @@
     }
   }
 
-  @media (max-width: 600px) {
-    .icons-playground {
-      padding: var(--vd-spacing-16);
-    }
-
-    h1 {
-      font-size: var(--vd-font-size-32);
-    }
-
+  @media (max-width: 620px) {
     .review-board {
       padding: var(--vd-spacing-16);
     }
