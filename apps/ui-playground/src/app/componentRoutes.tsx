@@ -21,6 +21,7 @@ import { ProgressPage } from '../pages/progress/ProgressPage';
 import { RadioPage } from '../pages/radio/RadioPage';
 import { SegmentedControlPage } from '../pages/segmented-control/SegmentedControlPage';
 import { SelectPage } from '../pages/select/SelectPage';
+import { SpinnerPage } from '../pages/spinner/SpinnerPage';
 import { SurfacePage } from '../pages/surface/SurfacePage';
 import { SwitchPage } from '../pages/switch/SwitchPage';
 import { TabsPage } from '../pages/tabs/TabsPage';
@@ -74,6 +75,7 @@ export type ComponentRoute = {
     | 'navigation-menu'
     | 'input'
     | 'select'
+    | 'spinner'
     | 'checkbox'
     | 'command'
     | 'dialog'
@@ -341,6 +343,17 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1.0.0',
     Component: ProgressPage,
+  },
+  {
+    id: 'spinner',
+    group: 'data-display',
+    index: '30',
+    name: 'Spinner',
+    category: 'Feedback',
+    path: '/components/spinner',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: SpinnerPage,
   },
   {
     id: 'tag',

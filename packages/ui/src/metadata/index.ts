@@ -23,6 +23,7 @@ import { progressMetadata } from '../components/Progress/Progress.meta';
 import { radioMetadata } from '../components/Radio/Radio.meta';
 import { segmentedControlMetadata } from '../components/SegmentedControl/SegmentedControl.meta';
 import { selectMetadata } from '../components/Select/Select.meta';
+import { spinnerMetadata } from '../components/Spinner/Spinner.meta';
 import { surfaceMetadata } from '../components/Surface/Surface.meta';
 import { switchMetadata } from '../components/Switch/Switch.meta';
 import { tabsMetadata } from '../components/Tabs/Tabs.meta';
@@ -55,6 +56,7 @@ export {
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
+  spinnerMetadata,
   surfaceMetadata,
   switchMetadata,
   tabsMetadata,
@@ -89,6 +91,7 @@ export const componentMetadataRegistry = {
   radio: radioMetadata,
   segmentedControl: segmentedControlMetadata,
   select: selectMetadata,
+  spinner: spinnerMetadata,
   surface: surfaceMetadata,
   switch: switchMetadata,
   tabs: tabsMetadata,

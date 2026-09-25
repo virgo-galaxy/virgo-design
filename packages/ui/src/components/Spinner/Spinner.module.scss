@@ -1,0 +1,48 @@
+.root {
+  box-sizing: border-box;
+  display: inline-block;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  flex: none;
+  border: var(--spinner-stroke) var(--vd-border-style-solid) currentcolor;
+  border-inline-end-color: transparent;
+  border-radius: var(--vd-radius-full);
+  color: inherit;
+  vertical-align: middle;
+  animation: spinner-rotate var(--vd-duration-560) var(--vd-easing-linear) infinite;
+}
+
+.root[data-size='sm'] {
+  --spinner-size: var(--vd-sizing-16);
+  --spinner-stroke: var(--vd-border-width-2);
+}
+
+.root[data-size='md'] {
+  --spinner-size: var(--vd-sizing-20);
+  --spinner-stroke: var(--vd-border-width-2);
+}
+
+.root[data-size='lg'] {
+  --spinner-size: var(--vd-sizing-28);
+  --spinner-stroke: var(--vd-spacing-4);
+}
+
+.root[data-intent='neutral'] {
+  color: var(--vd-text-secondary);
+}
+
+.root[data-intent='brand'] {
+  color: var(--vd-brand-primary);
+}
+
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    animation-duration: var(--vd-duration-0);
+  }
+}

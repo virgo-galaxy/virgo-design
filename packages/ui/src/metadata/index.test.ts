@@ -23,6 +23,7 @@ import {
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
+  spinnerMetadata,
   surfaceMetadata,
   switchMetadata,
   tabsMetadata,
@@ -33,6 +34,15 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Spinner as reduced-motion-aware indeterminate feedback', () => {
+    expect(componentMetadataRegistry.spinner).toBe(spinnerMetadata);
+    expect(spinnerMetadata.capabilities).toMatchObject({
+      indeterminate: true,
+      currentColor: true,
+      reducedMotion: true,
+    });
+  });
+
   it('registers Progress as determinate feedback', () => {
     expect(componentMetadataRegistry.progress).toBe(progressMetadata);
     expect(progressMetadata.capabilities).toMatchObject({
