@@ -39,6 +39,24 @@ describe('Token routes', () => {
 });
 
 describe('Playground routes', () => {
+  it('links to every consolidated playground from Resources', async () => {
+    renderRoute('/resources');
+
+    await screen.findByRole('heading', { level: 1, name: 'Playgrounds' });
+    expect(screen.getByRole('link', { name: /Primitives Playground/ })).toHaveAttribute(
+      'href',
+      '/playground/primitives',
+    );
+    expect(screen.getByRole('link', { name: /UI Playground/ })).toHaveAttribute(
+      'href',
+      '/playground/ui',
+    );
+    expect(screen.getByRole('link', { name: /Icons Playground/ })).toHaveAttribute(
+      'href',
+      '/playground/icons',
+    );
+  });
+
   it('renders the copied primitives playground', async () => {
     renderRoute('/playground/primitives');
 

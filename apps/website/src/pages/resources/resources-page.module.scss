@@ -1,0 +1,101 @@
+.page {
+  min-height: calc(100svh - var(--layout-header-height));
+  padding: 88px 32px;
+  background: var(--layout-page);
+}
+
+.inner {
+  width: min(1040px, 100%);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--layout-accent);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.inner h1 {
+  margin: 0;
+  font-size: clamp(40px, 6vw, 68px);
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.intro {
+  max-width: 600px;
+  margin: 20px 0 0;
+  color: var(--layout-secondary);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 52px;
+}
+
+.card {
+  display: flex;
+  min-height: 220px;
+  flex-direction: column;
+  padding: 28px;
+  border: 1px solid var(--layout-line);
+  border-radius: 18px;
+  color: var(--layout-text);
+  background: color-mix(in srgb, var(--layout-page), var(--layout-text) 3%);
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.card:hover {
+  border-color: var(--layout-accent);
+  transform: translateY(-2px);
+}
+
+.card strong {
+  font-size: 20px;
+  letter-spacing: -0.025em;
+}
+
+.card span {
+  margin-top: 14px;
+  color: var(--layout-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.card small {
+  margin-top: auto;
+  padding-top: 24px;
+  color: var(--layout-accent);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding: 56px 20px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 180px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}
