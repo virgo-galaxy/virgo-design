@@ -9,6 +9,7 @@ import {
   commandMetadata,
   componentMetadataRegistry,
   dialogMetadata,
+  drawerMetadata,
   dropdownMetadata,
   floatingActionMetadata,
   inputMetadata,
@@ -113,6 +114,25 @@ describe('componentMetadataRegistry', () => {
       nonModal: true,
       focusTrap: true,
       animation: false,
+    });
+  });
+  it('registers Drawer as a Dialog-powered edge panel', () => {
+    expect(componentMetadataRegistry.drawer).toBe(drawerMetadata);
+    expect(drawerMetadata.placements.map(({ name }) => name)).toEqual([
+      'left',
+      'right',
+      'top',
+      'bottom',
+    ]);
+    expect(drawerMetadata.sizes.map(({ name }) => name)).toEqual(['sm', 'md', 'lg']);
+    expect(drawerMetadata.capabilities).toMatchObject({
+      modal: true,
+      nonModal: true,
+      controlled: true,
+      uncontrolled: true,
+      dismissible: true,
+      focusManaged: true,
+      scrollableBody: true,
     });
   });
   it('registers Tooltip as Data Display with non-interactive content', () => {

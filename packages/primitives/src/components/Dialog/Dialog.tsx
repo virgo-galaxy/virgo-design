@@ -21,6 +21,7 @@ import {
 import { Portal } from '../../internal/overlay/Portal';
 import { useFocusScope } from '../../internal/overlay/useFocusScope';
 import { useModalIsolation } from '../../internal/overlay/useModalIsolation';
+import { usePresence } from '../../internal/overlay/usePresence';
 import { composeRefs } from '../../internal/utils/composeRefs';
 import type {
   DialogCloseProps,
@@ -37,9 +38,11 @@ type CloseReason = 'programmatic' | 'close' | 'escape' | 'pointer';
 
 type DialogContextValue = {
   open: boolean;
+  present: boolean;
   modal: boolean;
   requestOpenChange: (open: boolean, reason?: CloseReason) => void;
   closeReasonRef: React.MutableRefObject<CloseReason>;
+  closeAutoFocusPreventedRef: React.MutableRefObject<boolean>;
   triggerRef: React.RefObject<HTMLButtonElement | null>;
   contentRef: React.RefObject<HTMLDivElement | null>;
   layer: OverlayLayer;
@@ -70,14 +73,35 @@ export const DialogRoot = forwardRef<HTMLDivElement, DialogProps>(function Dialo
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const closeReasonRef = useRef<CloseReason>('programmatic');
+  const closeAutoFocusPreventedRef = useRef(false);
+  const previousOpenRef = useRef(open);
   const [titleId, setTitleId] = useState<string>();
   const [descriptionId, setDescriptionId] = useState<string>();
   const generatedId = useId();
   const layer = useOverlayLayer(triggerRef, contentRef);
   useLayerRegistration(layer, open);
   useLayoutEffect(() => {
-    if (open) closeReasonRef.current = 'programmatic';
+    if (open) {
+      closeReasonRef.current = 'programmatic';
+      closeAutoFocusPreventedRef.current = false;
+    }
   }, [open]);
+  useLayoutEffect(() => {
+    const wasOpen = previousOpenRef.current;
+    previousOpenRef.current = open;
+    if (
+      !wasOpen ||
+      open ||
+      closeAutoFocusPreventedRef.current ||
+      (closeReasonRef.current === 'pointer' && !modal)
+    )
+      return;
+    const target = triggerRef.current;
+    if (target?.isConnected) target.focus({ preventScroll: true });
+    queueMicrotask(() => {
+      if (target?.isConnected) target.focus({ preventScroll: true });
+    });
+  }, [modal, open]);
   const requestOpenChange = useCallback(
     (nextOpen: boolean, reason: CloseReason = 'programmatic') => {
       if (!nextOpen) closeReasonRef.current = reason;
@@ -90,9 +114,11 @@ export const DialogRoot = forwardRef<HTMLDivElement, DialogProps>(function Dialo
     <DialogContext.Provider
       value={{
         open,
+        present: open,
         modal,
         requestOpenChange,
         closeReasonRef,
+        closeAutoFocusPreventedRef,
         triggerRef,
         contentRef,
         layer,
@@ -142,20 +168,33 @@ export const DialogTrigger = forwardRef<HTMLButtonElement, DialogTriggerProps>(
 
 export function DialogPortal({ children }: DialogPortalProps) {
   const context = useDialog('Dialog.Portal');
-  return context.open ? <Portal>{children}</Portal> : null;
+  const present = usePresence(context.open, context.contentRef);
+  if (!present) return null;
+  return (
+    <DialogContext.Provider value={{ ...context, present }}>
+      <Portal>{children}</Portal>
+    </DialogContext.Provider>
+  );
 }
 
-export const DialogOverlay = forwardRef<HTMLDivElement, DialogOverlayProps>(
-  function DialogOverlay(props, ref) {
-    const context = useDialog('Dialog.Overlay');
-    const overlayRef = useRef<HTMLDivElement | null>(null);
-    useLayerBranch(context.layer, overlayRef, context.open && context.modal);
-    if (!context.open || !context.modal) return null;
-    return (
-      <div {...props} ref={composeRefs(ref, overlayRef)} aria-hidden="true" data-state="open" />
-    );
-  },
-);
+export const DialogOverlay = forwardRef<HTMLDivElement, DialogOverlayProps>(function DialogOverlay(
+  { style, ...props },
+  ref,
+) {
+  const context = useDialog('Dialog.Overlay');
+  const overlayRef = useRef<HTMLDivElement | null>(null);
+  useLayerBranch(context.layer, overlayRef, context.open && context.modal);
+  if (!context.present || !context.modal) return null;
+  return (
+    <div
+      {...props}
+      ref={composeRefs(ref, overlayRef)}
+      aria-hidden="true"
+      data-state={context.open && context.modal ? 'open' : 'closed'}
+      style={{ ...style, ...(!context.open ? { pointerEvents: 'none' } : {}) }}
+    />
+  );
+});
 
 export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(function DialogContent(
   {
@@ -163,6 +202,7 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(func
     onCloseAutoFocus,
     onEscapeKeyDown,
     onPointerDownOutside,
+    style,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledBy,
     'aria-describedby': ariaDescribedBy,
@@ -200,9 +240,16 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(func
         ? false
         : context.triggerRef.current,
     ...(onOpenAutoFocus ? { onOpenAutoFocus } : {}),
-    ...(onCloseAutoFocus ? { onCloseAutoFocus } : {}),
+    ...(onCloseAutoFocus
+      ? {
+          onCloseAutoFocus: (event: Event) => {
+            onCloseAutoFocus(event);
+            context.closeAutoFocusPreventedRef.current = event.defaultPrevented;
+          },
+        }
+      : {}),
   });
-  if (!context.open) return null;
+  if (!context.present) return null;
 
   const labelledBy =
     ariaLabelledBy === undefined
@@ -220,11 +267,13 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(func
       id={context.contentId}
       role="dialog"
       tabIndex={-1}
-      aria-modal={context.modal || undefined}
+      aria-modal={(context.open && context.modal) || undefined}
+      aria-hidden={!context.open || undefined}
       aria-label={ariaLabel}
       aria-labelledby={labelledBy}
       aria-describedby={describedBy}
-      data-state="open"
+      data-state={context.open ? 'open' : 'closed'}
+      style={{ ...style, ...(!context.open ? { pointerEvents: 'none' } : {}) }}
     />
   );
 });

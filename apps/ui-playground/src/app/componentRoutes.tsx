@@ -7,6 +7,7 @@ import { ButtonPage } from '../pages/button/ButtonPage';
 import { CheckboxPage } from '../pages/checkbox/CheckboxPage';
 import { CommandPage } from '../pages/command/CommandPage';
 import { DialogPage } from '../pages/dialog/DialogPage';
+import { DrawerPage } from '../pages/drawer/DrawerPage';
 import { DropdownPage } from '../pages/dropdown/DropdownPage';
 import { InputPage } from '../pages/input/InputPage';
 import { LayoutPage } from '../pages/layout/LayoutPage';
@@ -71,6 +72,7 @@ export type ComponentRoute = {
     | 'checkbox'
     | 'command'
     | 'dialog'
+    | 'drawer'
     | 'radio'
     | 'switch'
     | 'segmented-control'
@@ -280,9 +282,20 @@ export const componentRoutes = [
     Component: DialogPage,
   },
   {
-    id: 'popover',
+    id: 'drawer',
     group: 'data-display',
     index: '18',
+    name: 'Drawer',
+    category: 'Feedback',
+    path: '/components/drawer',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: DrawerPage,
+  },
+  {
+    id: 'popover',
+    group: 'data-display',
+    index: '19',
     name: 'Popover',
     category: 'Data Display',
     path: '/components/popover',
@@ -293,7 +306,7 @@ export const componentRoutes = [
   {
     id: 'tag',
     group: 'data-display',
-    index: '19',
+    index: '20',
     name: 'Tag',
     category: 'Data Display',
     path: '/components/tag',
@@ -304,7 +317,7 @@ export const componentRoutes = [
   {
     id: 'toast',
     group: 'data-display',
-    index: '20',
+    index: '21',
     name: 'Toast',
     category: 'Feedback',
     path: '/components/toast',
@@ -315,7 +328,7 @@ export const componentRoutes = [
   {
     id: 'tooltip',
     group: 'data-display',
-    index: '21',
+    index: '22',
     name: 'Tooltip',
     category: 'Data Display',
     path: '/components/tooltip',
@@ -326,7 +339,7 @@ export const componentRoutes = [
   {
     id: 'command',
     group: 'actions',
-    index: '22',
+    index: '23',
     name: 'Command',
     category: 'Actions',
     path: '/components/command',
@@ -337,7 +350,7 @@ export const componentRoutes = [
   {
     id: 'context-menu',
     group: 'actions',
-    index: '23',
+    index: '24',
     name: 'ContextMenu',
     category: 'Actions',
     path: '/components/context-menu',
@@ -348,7 +361,7 @@ export const componentRoutes = [
   {
     id: 'menu',
     group: 'actions',
-    index: '24',
+    index: '25',
     name: 'Menu',
     category: 'Actions',
     path: '/components/menu',
@@ -359,7 +372,7 @@ export const componentRoutes = [
   {
     id: 'menubar',
     group: 'actions',
-    index: '25',
+    index: '26',
     name: 'Menubar',
     category: 'Actions',
     path: '/components/menubar',

@@ -1,0 +1,267 @@
+@use '../../internal/overlay/panel';
+
+.overlay {
+  position: fixed;
+  z-index: panel.$layer;
+  inset: var(--vd-spacing-0);
+  background: var(--vd-surface-overlay);
+  animation: drawer-overlay-enter var(--vd-duration-180) var(--vd-easing-standard) both;
+}
+
+.overlay[data-state='closed'] {
+  animation: drawer-overlay-exit var(--vd-duration-120) var(--vd-easing-accelerate) both;
+}
+
+.content {
+  @include panel.surface;
+
+  --drawer-size: calc(var(--vd-sizing-80) * 6);
+  --drawer-section-padding: var(--vd-spacing-24);
+  --drawer-section-gap: var(--vd-spacing-16);
+  --drawer-title-font-family: var(--vd-typography-ui-title-medium-font-family);
+  --drawer-title-font-size: var(--vd-typography-ui-title-medium-font-size);
+  --drawer-title-font-weight: var(--vd-typography-ui-title-medium-font-weight);
+  --drawer-title-line-height: var(--vd-typography-ui-title-medium-line-height);
+
+  position: fixed;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  border-radius: var(--vd-radius-12);
+  box-shadow: var(--vd-elevation-4);
+  animation-duration: var(--vd-duration-240);
+  animation-timing-function: var(--vd-easing-emphasized);
+  animation-fill-mode: both;
+
+  &:focus-visible {
+    outline: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-border-focus);
+    outline-offset: calc(var(--vd-spacing-2) * -1);
+  }
+}
+
+.content[data-size='sm'] {
+  --drawer-size: calc(var(--vd-sizing-80) * 4);
+  --drawer-section-padding: var(--vd-spacing-16);
+  --drawer-section-gap: var(--vd-spacing-12);
+  --drawer-title-font-family: var(--vd-typography-ui-title-small-font-family);
+  --drawer-title-font-size: var(--vd-typography-ui-title-small-font-size);
+  --drawer-title-font-weight: var(--vd-typography-ui-title-small-font-weight);
+  --drawer-title-line-height: var(--vd-typography-ui-title-small-line-height);
+}
+
+.content[data-size='lg'] {
+  --drawer-size: calc(var(--vd-sizing-80) * 8);
+  --drawer-section-padding: var(--vd-spacing-32);
+  --drawer-section-gap: var(--vd-spacing-20);
+  --drawer-title-font-family: var(--vd-typography-ui-title-large-font-family);
+  --drawer-title-font-size: var(--vd-typography-ui-title-large-font-size);
+  --drawer-title-font-weight: var(--vd-typography-ui-title-large-font-weight);
+  --drawer-title-line-height: var(--vd-typography-ui-title-large-line-height);
+}
+
+.content[data-placement='left'],
+.content[data-placement='right'] {
+  inset-block: var(--vd-spacing-0);
+  width: min(var(--drawer-size), 100vw);
+  height: 100dvh;
+}
+
+.content[data-placement='top'],
+.content[data-placement='bottom'] {
+  inset-inline: var(--vd-spacing-0);
+  width: 100vw;
+  height: min(var(--drawer-size), 100dvh);
+}
+
+.content[data-placement='left'] {
+  left: var(--vd-spacing-0);
+  border-top-left-radius: var(--vd-radius-0);
+  border-bottom-left-radius: var(--vd-radius-0);
+  animation-name: drawer-enter-left;
+}
+
+.content[data-placement='left'][data-state='closed'] {
+  animation-name: drawer-exit-left;
+}
+
+.content[data-placement='right'] {
+  right: var(--vd-spacing-0);
+  border-top-right-radius: var(--vd-radius-0);
+  border-bottom-right-radius: var(--vd-radius-0);
+  animation-name: drawer-enter-right;
+}
+
+.content[data-placement='right'][data-state='closed'] {
+  animation-name: drawer-exit-right;
+}
+
+.content[data-placement='top'] {
+  top: var(--vd-spacing-0);
+  border-top-left-radius: var(--vd-radius-0);
+  border-top-right-radius: var(--vd-radius-0);
+  animation-name: drawer-enter-top;
+}
+
+.content[data-placement='top'][data-state='closed'] {
+  animation-name: drawer-exit-top;
+}
+
+.content[data-placement='bottom'] {
+  bottom: var(--vd-spacing-0);
+  border-bottom-left-radius: var(--vd-radius-0);
+  border-bottom-right-radius: var(--vd-radius-0);
+  animation-name: drawer-enter-bottom;
+}
+
+.content[data-placement='bottom'][data-state='closed'] {
+  animation-name: drawer-exit-bottom;
+}
+
+.header {
+  display: grid;
+  flex: none;
+  gap: var(--vd-spacing-6);
+  padding: var(--drawer-section-padding);
+  padding-inline-end: calc(var(--drawer-section-padding) + var(--vd-sizing-36));
+  border-block-end: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+}
+
+.title {
+  margin: var(--vd-spacing-0);
+  color: var(--vd-text-primary);
+  font-family: var(--drawer-title-font-family);
+  font-size: var(--drawer-title-font-size);
+  font-weight: var(--drawer-title-font-weight);
+  line-height: var(--drawer-title-line-height);
+}
+
+.description {
+  margin: var(--vd-spacing-0);
+  color: var(--vd-text-secondary);
+}
+
+.body {
+  min-height: 0;
+  flex: 1;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: var(--drawer-section-padding);
+}
+
+.footer {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--vd-spacing-8);
+  padding: var(--drawer-section-gap) var(--drawer-section-padding);
+  border-block-start: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+}
+
+.close {
+  position: absolute;
+  inset-block-start: var(--vd-spacing-16);
+  inset-inline-end: var(--vd-spacing-16);
+}
+
+.closeAction {
+  flex: none;
+}
+
+@keyframes drawer-overlay-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drawer-overlay-exit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes drawer-enter-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawer-exit-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes drawer-enter-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawer-exit-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes drawer-enter-top {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes drawer-exit-top {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes drawer-enter-bottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes drawer-exit-bottom {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .content {
+    animation: none;
+  }
+}

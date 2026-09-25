@@ -13,6 +13,7 @@ describe('@virgo-design/ui public API', () => {
         'Checkbox',
         'Command',
         'Dialog',
+        'Drawer',
         'Dropdown',
         'FloatingAction',
         'Input',
@@ -55,6 +56,21 @@ describe('@virgo-design/ui public API', () => {
     ])
       expect(ui.Dialog).toHaveProperty(part);
     expect(ui.Dialog.Root).toBe(ui.Dialog);
+    for (const part of [
+      'Root',
+      'Trigger',
+      'Portal',
+      'Overlay',
+      'Content',
+      'Header',
+      'Body',
+      'Footer',
+      'Title',
+      'Description',
+      'Close',
+    ])
+      expect(ui.Drawer).toHaveProperty(part);
+    expect(ui.Drawer.Root).toBe(ui.Drawer);
     for (const part of ['Root', 'Item', 'Trigger', 'Content'])
       expect(ui.Accordion).toHaveProperty(part);
     expect(ui.Accordion.Root).toBe(ui.Accordion);

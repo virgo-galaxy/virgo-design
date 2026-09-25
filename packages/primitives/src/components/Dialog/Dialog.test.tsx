@@ -92,6 +92,25 @@ describe('Dialog primitive', () => {
     expect(trigger).toHaveFocus();
   });
 
+  it('keeps focus restoration cancellable while exit presence is retained', async () => {
+    const user = userEvent.setup();
+    render(
+      <Dialog.Root>
+        <Dialog.Trigger>Open without restore</Dialog.Trigger>
+        <Dialog.Portal>
+          <Dialog.Content onCloseAutoFocus={(event) => event.preventDefault()}>
+            <Dialog.Title>Without restore</Dialog.Title>
+            <Dialog.Close>Close without restore</Dialog.Close>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>,
+    );
+    const trigger = screen.getByRole('button', { name: 'Open without restore' });
+    await user.click(trigger);
+    await user.click(screen.getByRole('button', { name: 'Close without restore' }));
+    expect(trigger).not.toHaveFocus();
+  });
+
   it('adds dialog relationships and isolates the modal background', async () => {
     const user = userEvent.setup();
     const { container } = render(<Example />);

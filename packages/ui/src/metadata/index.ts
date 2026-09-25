@@ -6,6 +6,7 @@ import { checkboxMetadata } from '../components/Checkbox/Checkbox.meta';
 import { commandMetadata } from '../components/Command/Command.meta';
 import { contextMenuMetadata } from '../components/ContextMenu/ContextMenu.meta';
 import { dialogMetadata } from '../components/Dialog/Dialog.meta';
+import { drawerMetadata } from '../components/Drawer/Drawer.meta';
 import { dropdownMetadata } from '../components/Dropdown/Dropdown.meta';
 import { floatingActionMetadata } from '../components/FloatingAction/FloatingAction.meta';
 import { inputMetadata } from '../components/Input/Input.meta';
@@ -35,6 +36,7 @@ export {
   commandMetadata,
   contextMenuMetadata,
   dialogMetadata,
+  drawerMetadata,
   dropdownMetadata,
   floatingActionMetadata,
   inputMetadata,
@@ -67,6 +69,7 @@ export const componentMetadataRegistry = {
   checkbox: checkboxMetadata,
   command: commandMetadata,
   dialog: dialogMetadata,
+  drawer: drawerMetadata,
   dropdown: dropdownMetadata,
   input: inputMetadata,
   layout: layoutMetadata,
