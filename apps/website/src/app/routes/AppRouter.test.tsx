@@ -45,4 +45,11 @@ describe('Playground routes', () => {
     await screen.findByRole('heading', { level: 1, name: 'Virgo Design Primitives' });
     expect(screen.getByRole('button', { name: 'Native button' })).toBeInTheDocument();
   });
+
+  it('renders a namespaced UI playground component route', async () => {
+    renderRoute('/playground/ui/components/button');
+
+    await screen.findByRole('heading', { level: 1, name: 'Button' });
+    expect(screen.getByRole('navigation', { name: 'Component navigation' })).toBeInTheDocument();
+  });
 });

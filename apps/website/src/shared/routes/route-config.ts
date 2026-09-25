@@ -12,6 +12,7 @@ export const ROUTE_PATHS = {
   components: '/components',
   resources: '/resources',
   playgroundPrimitives: '/playground/primitives',
+  playgroundUi: '/playground/ui/*',
 } as const;
 
 export const PRIMARY_NAVIGATION_ITEMS = [

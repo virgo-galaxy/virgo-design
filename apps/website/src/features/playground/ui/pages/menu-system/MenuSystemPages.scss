@@ -1,0 +1,51 @@
+body:has(.ui-playground-feature) {
+  .menu-system-intro {
+    padding-block: var(--vd-spacing-24);
+  }
+  .menu-system-intro p {
+    max-width: calc(var(--vd-sizing-96) * 7);
+    color: var(--vd-text-secondary);
+  }
+  .menu-example {
+    display: grid;
+    gap: var(--vd-spacing-24);
+    justify-items: start;
+    padding: var(--vd-spacing-32);
+  }
+  .menu-example > p {
+    color: var(--vd-text-secondary);
+  }
+  .menu-density {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--vd-spacing-24);
+    padding: var(--vd-spacing-32);
+  }
+  .context-target {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--vd-spacing-16);
+    min-height: calc(var(--vd-sizing-80) * 2);
+    padding: var(--vd-spacing-32);
+    border: var(--vd-border-width-1) dashed var(--vd-border-default);
+    border-radius: var(--vd-radius-8);
+    background: var(--vd-surface-secondary);
+    color: var(--vd-text-secondary);
+    &:focus-visible {
+      outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+      outline-offset: var(--vd-spacing-4);
+    }
+  }
+  .menu-editor {
+    padding: var(--vd-spacing-24);
+    min-height: calc(var(--vd-sizing-80) * 2);
+    background: var(--vd-surface-secondary);
+    border-radius: var(--vd-radius-8);
+  }
+  .menu-editor > p {
+    color: var(--vd-text-secondary);
+  }
+}

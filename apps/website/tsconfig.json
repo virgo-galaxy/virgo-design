@@ -5,8 +5,10 @@
     "paths": {
       "@/*": ["./src/*"],
       "@virgo-design/colors": ["../../packages/colors/src/index.ts"],
+      "@virgo-design/icons": ["../../packages/icons/src/index.ts"],
       "@virgo-design/primitives": ["../../packages/primitives/src/index.ts"],
-      "@virgo-design/tokens": ["../../packages/tokens/src/index.ts"]
+      "@virgo-design/tokens": ["../../packages/tokens/src/index.ts"],
+      "@virgo-design/ui": ["../../packages/ui/src/index.ts"]
     }
   },
   "include": ["src", "vite.config.ts"]
