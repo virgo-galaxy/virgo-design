@@ -35,6 +35,11 @@ const TokensTypographyPage = lazy(() =>
     default: module.TokensTypographyPage,
   })),
 );
+const PrimitivesPlayground = lazy(() =>
+  import('@/features/playground/primitives/PrimitivesPlayground').then((module) => ({
+    default: module.PrimitivesPlayground,
+  })),
+);
 
 export function AppRouter() {
   return (
@@ -61,6 +66,7 @@ export function AppRouter() {
         <Route path={ROUTE_PATHS.tokenTypography} element={<TokensTypographyPage />} />
         <Route path={ROUTE_PATHS.components} element={<PlaceholderPage />} />
         <Route path={ROUTE_PATHS.resources} element={<PlaceholderPage />} />
+        <Route path={ROUTE_PATHS.playgroundPrimitives} element={<PrimitivesPlayground />} />
         <Route path="*" element={<Navigate to={ROUTE_PATHS.foundationColors} replace />} />
       </Routes>
     </Suspense>

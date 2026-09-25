@@ -11,6 +11,7 @@ export const ROUTE_PATHS = {
   tokenTypography: '/tokens/typography',
   components: '/components',
   resources: '/resources',
+  playgroundPrimitives: '/playground/primitives',
 } as const;
 
 export const PRIMARY_NAVIGATION_ITEMS = [

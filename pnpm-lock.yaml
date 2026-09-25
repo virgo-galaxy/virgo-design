@@ -137,6 +137,9 @@ importers:
       '@virgo-design/fonts':
         specifier: workspace:*
         version: link:../../packages/fonts
+      '@virgo-design/primitives':
+        specifier: workspace:*
+        version: link:../../packages/primitives
       '@virgo-design/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens

@@ -37,3 +37,12 @@ describe('Token routes', () => {
     expect(screen.getByRole('table', { name: 'UI Typography' })).toBeTruthy();
   });
 });
+
+describe('Playground routes', () => {
+  it('renders the copied primitives playground', async () => {
+    renderRoute('/playground/primitives');
+
+    await screen.findByRole('heading', { level: 1, name: 'Virgo Design Primitives' });
+    expect(screen.getByRole('button', { name: 'Native button' })).toBeInTheDocument();
+  });
+});

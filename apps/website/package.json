@@ -6,6 +6,7 @@
   "dependencies": {
     "@virgo-design/colors": "workspace:*",
     "@virgo-design/fonts": "workspace:*",
+    "@virgo-design/primitives": "workspace:*",
     "@virgo-design/tokens": "workspace:*",
     "i18next": "^26.4.2",
     "react": "^19.2.8",

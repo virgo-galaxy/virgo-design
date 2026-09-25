@@ -5,6 +5,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@virgo-design/colors": ["../../packages/colors/src/index.ts"],
+      "@virgo-design/primitives": ["../../packages/primitives/src/index.ts"],
       "@virgo-design/tokens": ["../../packages/tokens/src/index.ts"]
     }
   },

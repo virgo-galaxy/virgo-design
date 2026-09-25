@@ -17,6 +17,9 @@ export default defineConfig({
       '@virgo-design/colors': fileURLToPath(
         new URL('../../packages/colors/src/index.ts', import.meta.url),
       ),
+      '@virgo-design/primitives': fileURLToPath(
+        new URL('../../packages/primitives/src/index.ts', import.meta.url),
+      ),
       '@virgo-design/tokens': fileURLToPath(
         new URL('../../packages/tokens/src/index.ts', import.meta.url),
       ),
