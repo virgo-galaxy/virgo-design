@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Navigate, Route, Routes, useParams } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
 
@@ -50,14 +50,9 @@ const TokensTypographyPage = lazy(() =>
     default: module.TokensTypographyPage,
   })),
 );
-const PrimitivesPlayground = lazy(() =>
-  import('@/features/playground/primitives/PrimitivesPlayground').then((module) => ({
-    default: module.PrimitivesPlayground,
-  })),
-);
-const UIPlayground = lazy(() =>
-  import('@/features/playground/ui/UIPlayground').then((module) => ({
-    default: module.UIPlayground,
+const ComponentsDocumentation = lazy(() =>
+  import('@/features/components/ComponentsDocumentation').then((module) => ({
+    default: module.ComponentsDocumentation,
   })),
 );
 const IconsPage = lazy(() =>
@@ -66,19 +61,9 @@ const IconsPage = lazy(() =>
   })),
 );
 
-function LegacyUIPlaygroundRedirect() {
-  const { '*': legacyPath = '' } = useParams();
-  const componentPath = legacyPath.replace(/^components\/?/, '');
-  const destination = componentPath
-    ? `${ROUTE_PATHS.components}/${componentPath}`
-    : ROUTE_PATHS.components;
-
-  return <Navigate replace to={destination} />;
-}
-
-function ComponentsDocumentation() {
+function ComponentsDocumentationRoute() {
   return (
-    <UIPlayground
+    <ComponentsDocumentation
       renderFooter={(componentSlug) => <ComponentRelationships componentSlug={componentSlug} />}
     />
   );
@@ -116,20 +101,13 @@ export function AppRouter() {
         />
         <Route path={ROUTE_PATHS.tokenColors} element={<TokensColorPage />} />
         <Route path={ROUTE_PATHS.tokenTypography} element={<TokensTypographyPage />} />
-        <Route path={ROUTE_PATHS.componentRoutes} element={<ComponentsDocumentation />} />
+        <Route path={ROUTE_PATHS.componentRoutes} element={<ComponentsDocumentationRoute />} />
         <Route path={ROUTE_PATHS.primitives} element={<PrimitiveCataloguePage />} />
         <Route path={ROUTE_PATHS.primitiveDetail} element={<PrimitiveDocumentation />} />
         <Route
           path={ROUTE_PATHS.resources}
           element={<Navigate to={ROUTE_PATHS.primitives} replace />}
         />
-        <Route path={ROUTE_PATHS.playgroundPrimitives} element={<PrimitivesPlayground />} />
-        <Route path={ROUTE_PATHS.playgroundUi} element={<LegacyUIPlaygroundRedirect />} />
-        <Route
-          path={ROUTE_PATHS.playgroundIcons}
-          element={<Navigate to={ROUTE_PATHS.foundationIcons} replace />}
-        />
-        <Route path="*" element={<Navigate to={ROUTE_PATHS.foundationColors} replace />} />
       </Routes>
     </Suspense>
   );

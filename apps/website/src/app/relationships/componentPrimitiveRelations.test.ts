@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { componentRoutes } from '@/features/playground/ui/app/componentRoutes';
+import { componentRoutes } from '@/features/components/app/componentRoutes';
 import { primitiveDocs } from '@/features/primitives/primitiveDocs';
 
 import {

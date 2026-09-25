@@ -1,5 +1,5 @@
 import { RelationshipSection } from '@/components/docs/RelationshipSection/RelationshipSection';
-import type { ComponentSlug } from '@/features/playground/ui/app/componentRoutes';
+import type { ComponentSlug } from '@/features/components/app/componentRoutes';
 import type { PrimitiveSlug } from '@/features/primitives/primitiveDocs';
 
 import {

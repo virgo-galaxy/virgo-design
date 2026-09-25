@@ -15,10 +15,6 @@ export const ROUTE_PATHS = {
   primitives: '/primitives',
   primitiveDetail: '/primitives/:slug',
   resources: '/resources',
-  playgroundPrimitives: '/playground/primitives',
-  playgroundUiRoot: '/playground/ui',
-  playgroundUi: '/playground/ui/*',
-  playgroundIcons: '/playground/icons',
 } as const;
 
 export const PRIMARY_NAVIGATION_ITEMS = [

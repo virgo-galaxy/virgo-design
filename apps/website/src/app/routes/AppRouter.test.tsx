@@ -34,7 +34,7 @@ describe('Token routes', () => {
   it('redirects /tokens to the formal Color Semantic page', async () => {
     renderRoute('/tokens');
 
-    await screen.findByRole('heading', { level: 1, name: 'Color with meaning' });
+    await screen.findByRole('heading', { level: 1, name: 'Color with meaning' }, { timeout: 5000 });
     const navigation = screen.getByRole('navigation', { name: 'Token categories' });
 
     expect(navigation).toHaveAttribute('data-variant', 'segmented');
@@ -57,19 +57,12 @@ describe('Token routes', () => {
   });
 });
 
-describe('Components and Playground routes', () => {
+describe('Component routes', () => {
   it('redirects the retired Resources route to the Primitives catalogue', async () => {
     renderRoute('/resources');
 
     await screen.findByRole('heading', { level: 1, name: 'Primitives' }, { timeout: 5000 });
     expect(screen.getByTestId('current-path')).toHaveTextContent('/primitives');
-  });
-
-  it('renders the copied primitives playground', async () => {
-    renderRoute('/playground/primitives');
-
-    await screen.findByRole('heading', { level: 1, name: 'Virgo Design Primitives' });
-    expect(screen.getByRole('button', { name: 'Native button' })).toBeInTheDocument();
   });
 
   it('renders a canonical component route', async () => {
@@ -134,12 +127,6 @@ describe('Components and Playground routes', () => {
     renderRoute('/components');
 
     await screen.findByRole('heading', { level: 1, name: 'Button' }, { timeout: 5000 });
-  });
-
-  it('redirects legacy UI Playground component routes to Components', async () => {
-    renderRoute('/playground/ui/components/dialog');
-
-    await screen.findByRole('heading', { level: 1, name: 'Dialog' }, { timeout: 5000 });
   });
 });
 
@@ -250,13 +237,6 @@ describe('Foundation routes', () => {
     expect(screen.getByTestId('icon-canvas')).toHaveAttribute('data-icon', 'plus');
     expect(screen.getByTestId('grid-coordinates')).toBeInTheDocument();
     expect(screen.getByText('Actual 24px')).toBeInTheDocument();
-  });
-
-  it('redirects the legacy Icons Playground route to Foundations / Icons', async () => {
-    renderRoute('/playground/icons');
-
-    await screen.findByRole('heading', { level: 1, name: 'Icons' });
-    expect(screen.getByTestId('current-path')).toHaveTextContent('/foundations/icons');
   });
 
   it.each([

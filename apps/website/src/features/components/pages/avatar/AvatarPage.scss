@@ -1,0 +1,25 @@
+body:has(.components-documentation) {
+  .avatar-intro {
+    padding: var(--vd-spacing-40);
+    border-block-end: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+
+    h1 {
+      margin: var(--vd-spacing-12) var(--vd-spacing-0) var(--vd-spacing-8);
+    }
+
+    p {
+      max-width: calc(var(--vd-sizing-80) * 8);
+      margin: var(--vd-spacing-0);
+      color: var(--vd-text-secondary);
+    }
+  }
+
+  .avatar-stage {
+    display: flex;
+    min-height: var(--vd-sizing-96);
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--vd-spacing-32);
+    padding: var(--vd-spacing-32);
+  }
+}

@@ -1,0 +1,50 @@
+body:has(.components-documentation) {
+  .pagination-review-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--vd-spacing-24);
+    padding: var(--vd-spacing-32);
+    border: var(--vd-border-width-1) solid var(--vd-border-default);
+    border-radius: var(--vd-radius-12);
+    background: var(--vd-surface-elevated);
+  }
+
+  .pagination-hero {
+    min-height: 280px;
+  }
+  .pagination-hero-stage {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding: var(--vd-spacing-24);
+  }
+  .pagination-demo-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--vd-spacing-16);
+
+    > div:last-child {
+      width: var(--vd-sizing-96);
+    }
+  }
+  .pagination-demo-status {
+    margin: 0;
+    color: var(--vd-text-secondary);
+    font-size: var(--vd-font-size-12);
+  }
+  .pagination-review pre {
+    margin: 0;
+    overflow-x: auto;
+    padding: var(--vd-spacing-16);
+    border-radius: var(--vd-radius-8);
+    background: var(--vd-fill-hover);
+    font-size: var(--vd-font-size-12);
+  }
+
+  @media (max-width: 600px) {
+    .pagination-review-card {
+      padding: var(--vd-spacing-16);
+    }
+  }
+}

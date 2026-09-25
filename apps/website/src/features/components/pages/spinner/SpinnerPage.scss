@@ -1,0 +1,42 @@
+body:has(.components-documentation) {
+  .spinner-intro {
+    padding: var(--vd-spacing-40);
+    border-block-end: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+
+    h1 {
+      margin: var(--vd-spacing-12) var(--vd-spacing-0) var(--vd-spacing-8);
+    }
+
+    p {
+      max-width: calc(var(--vd-sizing-80) * 8);
+      margin: var(--vd-spacing-0);
+      color: var(--vd-text-secondary);
+    }
+  }
+
+  .spinner-stage,
+  .spinner-environments {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--vd-spacing-32);
+    padding: var(--vd-spacing-32);
+  }
+
+  .spinner-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--vd-spacing-8);
+  }
+
+  .spinner-environment {
+    display: grid;
+    width: var(--vd-sizing-96);
+    height: var(--vd-sizing-80);
+    place-items: center;
+    border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+    border-radius: var(--vd-radius-8);
+    color: var(--vd-text-primary);
+    background: var(--vd-surface-default);
+  }
+}
