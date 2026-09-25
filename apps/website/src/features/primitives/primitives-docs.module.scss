@@ -108,6 +108,145 @@
   align-items: center;
 }
 
+.detailInner {
+  max-width: 1120px;
+}
+
+.backLink {
+  display: inline-flex;
+  margin-bottom: 48px;
+  color: var(--layout-secondary);
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: var(--layout-text);
+}
+
+.backLink:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--vd-border-focus);
+  outline-offset: 4px;
+}
+
+.detailHero {
+  max-width: 760px;
+}
+
+.detailKicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.detailKicker .eyebrow {
+  margin: 0;
+}
+
+.detailHero h1 {
+  margin: 0;
+  font-size: clamp(48px, 7vw, 76px);
+  line-height: 0.96;
+  letter-spacing: -0.055em;
+}
+
+.detailHero > p {
+  max-width: 680px;
+  margin: 20px 0 0;
+  color: var(--layout-secondary);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 248px;
+  gap: 24px;
+  align-items: start;
+  margin-top: 64px;
+}
+
+.detailMain {
+  display: grid;
+  gap: 16px;
+}
+
+.detailCard {
+  min-width: 0;
+}
+
+.importBlock {
+  overflow-x: auto;
+  margin: 0;
+  padding: 18px;
+  border: 1px solid var(--layout-line);
+  border-radius: var(--vd-radius-8);
+  background: var(--layout-page);
+  color: var(--layout-text);
+  font-family: var(--app-font-family-mono);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.partList,
+.apiPanel ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.partList li,
+.apiPanel li {
+  padding: 7px 9px;
+  border: 1px solid var(--layout-line);
+  border-radius: 7px;
+  background: var(--layout-page);
+  font-size: 12px;
+}
+
+.partNote {
+  margin: 0;
+  color: var(--layout-secondary);
+  line-height: 1.6;
+}
+
+.detailList {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 20px;
+  color: var(--layout-secondary);
+  line-height: 1.6;
+}
+
+.detailList li::marker {
+  color: var(--layout-text);
+}
+
+.apiPanel {
+  position: sticky;
+  top: calc(var(--layout-header-height) + 24px);
+  padding: 20px;
+  border: 1px solid var(--layout-line);
+  border-radius: var(--vd-radius-12);
+  background: var(--layout-surface);
+}
+
+.apiPanel h2 {
+  margin: 0 0 16px;
+  font-size: 14px;
+}
+
+.apiPanel ul {
+  display: grid;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card {
     transition: none;
@@ -117,6 +256,14 @@
 @media (max-width: 900px) {
   .cardGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detailGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .apiPanel {
+    position: static;
   }
 }
 

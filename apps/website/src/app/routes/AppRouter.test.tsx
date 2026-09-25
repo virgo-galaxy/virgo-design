@@ -102,6 +102,31 @@ describe('Primitive routes', () => {
       '/primitives/textarea',
     );
   });
+
+  it.each([
+    ['/primitives/button', 'Button'],
+    ['/primitives/dialog', 'Dialog'],
+    ['/primitives/menu', 'Menu'],
+    ['/primitives/navigation-menu', 'NavigationMenu'],
+    ['/primitives/toast', 'Toast'],
+  ])('renders the %s detail documentation', async (path, exportName) => {
+    renderRoute(path);
+
+    await screen.findByRole('heading', { level: 1, name: exportName });
+    expect(
+      screen.getByText(`import { ${exportName} } from '@virgo-design/primitives';`),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Anatomy' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Behavior' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Accessibility' })).toBeInTheDocument();
+  });
+
+  it('redirects an unknown primitive slug to the catalogue', async () => {
+    renderRoute('/primitives/not-a-primitive');
+
+    await screen.findByRole('heading', { level: 1, name: 'Primitives' });
+    expect(screen.getByTestId('current-path')).toHaveTextContent('/primitives');
+  });
 });
 
 describe('Foundation routes', () => {

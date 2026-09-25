@@ -27,6 +27,11 @@ const PrimitiveCataloguePage = lazy(() =>
     default: module.PrimitiveCataloguePage,
   })),
 );
+const PrimitiveDetailPage = lazy(() =>
+  import('@/features/primitives/PrimitiveDetailPage').then((module) => ({
+    default: module.PrimitiveDetailPage,
+  })),
+);
 const TokensColorPage = lazy(() =>
   import('@/pages/tokens/TokensColorPage').then((module) => ({ default: module.TokensColorPage })),
 );
@@ -87,6 +92,7 @@ export function AppRouter() {
         <Route path={ROUTE_PATHS.tokenTypography} element={<TokensTypographyPage />} />
         <Route path={ROUTE_PATHS.componentRoutes} element={<UIPlayground />} />
         <Route path={ROUTE_PATHS.primitives} element={<PrimitiveCataloguePage />} />
+        <Route path={ROUTE_PATHS.primitiveDetail} element={<PrimitiveDetailPage />} />
         <Route
           path={ROUTE_PATHS.resources}
           element={<Navigate to={ROUTE_PATHS.primitives} replace />}
