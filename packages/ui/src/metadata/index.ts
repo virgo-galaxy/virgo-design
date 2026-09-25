@@ -19,6 +19,7 @@ import { menubarMetadata } from '../components/Menubar/Menubar.meta';
 import { navigationMenuMetadata } from '../components/NavigationMenu/NavigationMenu.meta';
 import { paginationMetadata } from '../components/Pagination/Pagination.meta';
 import { popoverMetadata } from '../components/Popover/Popover.meta';
+import { progressMetadata } from '../components/Progress/Progress.meta';
 import { radioMetadata } from '../components/Radio/Radio.meta';
 import { segmentedControlMetadata } from '../components/SegmentedControl/SegmentedControl.meta';
 import { selectMetadata } from '../components/Select/Select.meta';
@@ -50,6 +51,7 @@ export {
   navigationMenuMetadata,
   paginationMetadata,
   popoverMetadata,
+  progressMetadata,
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
@@ -83,6 +85,7 @@ export const componentMetadataRegistry = {
   navigationMenu: navigationMenuMetadata,
   pagination: paginationMetadata,
   popover: popoverMetadata,
+  progress: progressMetadata,
   radio: radioMetadata,
   segmentedControl: segmentedControlMetadata,
   select: selectMetadata,

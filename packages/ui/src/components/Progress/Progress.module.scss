@@ -1,0 +1,70 @@
+.root {
+  --progress-indicator: var(--vd-brand-primary);
+
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  gap: var(--vd-spacing-6);
+  color: var(--vd-text-primary);
+}
+
+.root[data-size='sm'] {
+  --progress-height: var(--vd-spacing-4);
+}
+
+.root[data-size='md'] {
+  --progress-height: var(--vd-spacing-8);
+}
+
+.root[data-size='lg'] {
+  --progress-height: var(--vd-spacing-12);
+}
+
+.root[data-intent='success'] {
+  --progress-indicator: var(--vd-status-success-solid);
+}
+
+.root[data-intent='warning'] {
+  --progress-indicator: var(--vd-status-warning-solid);
+}
+
+.root[data-intent='error'] {
+  --progress-indicator: var(--vd-status-danger-solid);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vd-spacing-12);
+  font-family: var(--vd-typography-ui-label-small-font-family);
+  font-size: var(--vd-typography-ui-label-small-font-size);
+  font-weight: var(--vd-typography-ui-label-small-font-weight);
+  line-height: var(--vd-typography-ui-label-small-line-height);
+}
+
+.label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.value {
+  flex: none;
+  color: var(--vd-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.track {
+  height: var(--progress-height);
+  overflow: hidden;
+  border-radius: var(--vd-radius-full);
+  background: var(--vd-surface-secondary);
+}
+
+.indicator {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--progress-indicator);
+}

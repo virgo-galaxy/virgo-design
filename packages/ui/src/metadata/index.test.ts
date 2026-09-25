@@ -19,6 +19,7 @@ import {
   navigationMenuMetadata,
   paginationMetadata,
   popoverMetadata,
+  progressMetadata,
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
@@ -32,6 +33,15 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Progress as determinate feedback', () => {
+    expect(componentMetadataRegistry.progress).toBe(progressMetadata);
+    expect(progressMetadata.capabilities).toMatchObject({
+      determinate: true,
+      clamping: true,
+      indeterminate: false,
+    });
+  });
+
   it('registers Avatar as a UI-only identity display', () => {
     expect(componentMetadataRegistry.avatar).toBe(avatarMetadata);
     expect(avatarMetadata.sizes.map(({ name }) => name)).toEqual(['sm', 'md', 'lg']);

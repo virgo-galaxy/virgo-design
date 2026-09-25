@@ -17,6 +17,7 @@ import { ContextMenuPage, MenubarPage, MenuPage } from '../pages/menu-system/Men
 import { NavigationMenuPage } from '../pages/navigation-menu/NavigationMenuPage';
 import { PaginationPage } from '../pages/pagination/PaginationPage';
 import { PopoverPage } from '../pages/popover/PopoverPage';
+import { ProgressPage } from '../pages/progress/ProgressPage';
 import { RadioPage } from '../pages/radio/RadioPage';
 import { SegmentedControlPage } from '../pages/segmented-control/SegmentedControlPage';
 import { SelectPage } from '../pages/select/SelectPage';
@@ -84,6 +85,7 @@ export type ComponentRoute = {
     | 'tag'
     | 'pagination'
     | 'popover'
+    | 'progress'
     | 'tooltip'
     | 'toast'
     | 'dropdown'
@@ -328,6 +330,17 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1.0.0',
     Component: PopoverPage,
+  },
+  {
+    id: 'progress',
+    group: 'data-display',
+    index: '29',
+    name: 'Progress',
+    category: 'Feedback',
+    path: '/components/progress',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: ProgressPage,
   },
   {
     id: 'tag',
