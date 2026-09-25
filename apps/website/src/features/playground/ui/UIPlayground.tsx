@@ -3,16 +3,17 @@ import './styles.scss';
 
 import { DashboardIcon } from '@virgo-design/icons';
 import { Breadcrumb, Layout, Surface } from '@virgo-design/ui';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+
+import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { componentGroups, componentRoutes } from './app/componentRoutes';
 
-type PlaygroundTheme = 'light' | 'dark';
 const uiPlaygroundBasePath = '/playground/ui/';
 
 export function UIPlayground() {
-  const [theme, setTheme] = useState<PlaygroundTheme>('light');
+  const { appearance } = useAppearance();
   const location = useLocation();
   const previousPathname = useRef(location.pathname);
   const activeRoute =
@@ -29,7 +30,7 @@ export function UIPlayground() {
 
   return (
     <div className="ui-playground-feature" data-playground="ui">
-      <Layout className="playground-shell" data-theme={theme} direction="horizontal">
+      <Layout className="playground-shell" data-theme={appearance} direction="horizontal">
         <Layout.Sidebar
           className="component-navigation"
           width="var(--playground-navigation-width)"
@@ -103,19 +104,6 @@ export function UIPlayground() {
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>{activeRoute.name}</Breadcrumb.Item>
               </Breadcrumb>
-
-              <div className="theme-control" role="group" aria-label="Preview theme">
-                {(['light', 'dark'] as const).map((candidate) => (
-                  <button
-                    key={candidate}
-                    type="button"
-                    aria-pressed={theme === candidate}
-                    onClick={() => setTheme(candidate)}
-                  >
-                    {candidate}
-                  </button>
-                ))}
-              </div>
             </Surface>
           </Layout.Header>
 

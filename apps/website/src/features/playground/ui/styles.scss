@@ -397,39 +397,6 @@
     font-weight: var(--vd-font-weight-500);
   }
 
-  .theme-control {
-    display: flex;
-    padding: var(--vd-spacing-2);
-    border: var(--vd-border-width-1) solid var(--vd-border-default);
-    border-radius: var(--vd-radius-8);
-    background: var(--vd-surface-secondary);
-  }
-
-  .theme-control button {
-    min-width: var(--vd-sizing-64);
-    height: var(--vd-sizing-28);
-    padding: 0 var(--vd-spacing-12);
-    border: 0;
-    border-radius: var(--vd-radius-6);
-    color: var(--vd-text-secondary);
-    background: transparent;
-    cursor: pointer;
-    font-size: var(--vd-font-size-12);
-    font-weight: var(--vd-font-weight-500);
-    text-transform: capitalize;
-  }
-
-  .theme-control button[aria-pressed='true'] {
-    color: var(--vd-text-primary);
-    background: var(--vd-surface-elevated);
-    box-shadow: var(--vd-elevation-1);
-  }
-
-  .theme-control button:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
-    outline-offset: var(--vd-spacing-2);
-  }
-
   .review-board {
     width: min(1180px, calc(100% - var(--vd-spacing-64)));
     margin: 0 auto;

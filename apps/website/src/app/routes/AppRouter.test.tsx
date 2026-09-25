@@ -4,13 +4,17 @@ import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 
+import { AppearanceContext } from '@/shared/theme/appearance-context';
+
 import { AppRouter } from './AppRouter';
 
 function renderRoute(path: string) {
   return render(
-    <MemoryRouter initialEntries={[path]}>
-      <AppRouter />
-    </MemoryRouter>,
+    <AppearanceContext.Provider value={{ appearance: 'light', setAppearance: () => {} }}>
+      <MemoryRouter initialEntries={[path]}>
+        <AppRouter />
+      </MemoryRouter>
+    </AppearanceContext.Provider>,
   );
 }
 
