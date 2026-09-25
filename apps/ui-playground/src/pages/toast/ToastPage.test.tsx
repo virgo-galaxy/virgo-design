@@ -23,6 +23,9 @@ describe('Toast Playground', () => {
     expect(screen.getAllByRole('status')).toHaveLength(3);
     expect(screen.getByText(/Toast #2/)).toBeInTheDocument();
     expect(screen.getByText(/Toast #3/)).toBeInTheDocument();
+    await user.click(screen.getAllByRole('button', { name: 'Dismiss notification' })[0]!);
+    expect(screen.getAllByRole('status')).toHaveLength(2);
+    expect(screen.queryByText(/Toast #1/)).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'top-start' }));
     expect(screen.getByRole('region', { name: 'Notifications' })).toHaveAttribute(
       'data-placement',

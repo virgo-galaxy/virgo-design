@@ -111,7 +111,16 @@ export function ToastPage() {
       </div>
 
       {toasts.map(({ id, intent, action }) => (
-        <Toast.Root key={id} intent={intent} duration={5000}>
+        <Toast.Root
+          key={id}
+          intent={intent}
+          duration={5000}
+          onOpenChange={(open) => {
+            if (!open) {
+              setToasts((current) => current.filter((toast) => toast.id !== id));
+            }
+          }}
+        >
           <Toast.Title>
             {intent === 'default'
               ? 'Notification'
