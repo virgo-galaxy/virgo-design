@@ -12,6 +12,7 @@
   display: block;
   width: auto;
   height: var(--virgo-brand-logo-height, 26px);
+  transform: translateY(var(--virgo-brand-logo-translate-y, 0));
   flex: none;
   object-fit: contain;
 }
