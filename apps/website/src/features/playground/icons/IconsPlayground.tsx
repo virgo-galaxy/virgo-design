@@ -102,7 +102,7 @@ export function IconsPlayground({ navigation }: IconsPlaygroundProps) {
   return (
     <div className="icons-playground-feature" data-playground="icons">
       <div className="icons-playground" data-theme={appearance}>
-        {navigation}
+        {navigation ? <div className="foundation-navigation-frame">{navigation}</div> : null}
 
         <header className="app-header">
           <div>

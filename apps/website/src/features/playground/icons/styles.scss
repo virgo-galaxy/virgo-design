@@ -50,6 +50,11 @@
     --review-center: rgb(185 166 255 / 72%);
   }
 
+  .foundation-navigation-frame {
+    width: min(1280px, 100%);
+    margin: 0 auto;
+  }
+
   .app-header,
   main {
     width: min(960px, 100%);
