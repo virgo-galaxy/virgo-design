@@ -1,0 +1,77 @@
+.root {
+  box-sizing: border-box;
+  display: inline-grid;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  flex: none;
+  overflow: hidden;
+  place-items: center;
+  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+  border-radius: var(--avatar-radius);
+  color: var(--vd-text-secondary);
+  background: var(--vd-surface-secondary);
+  font-family: var(--avatar-font-family);
+  font-size: var(--avatar-font-size);
+  font-weight: var(--avatar-font-weight);
+  line-height: var(--avatar-line-height);
+  vertical-align: middle;
+}
+
+.root[data-size='sm'] {
+  --avatar-size: var(--vd-sizing-28);
+  --avatar-font-family: var(--vd-typography-ui-label-small-font-family);
+  --avatar-font-size: var(--vd-typography-ui-label-small-font-size);
+  --avatar-font-weight: var(--vd-typography-ui-label-small-font-weight);
+  --avatar-line-height: var(--vd-typography-ui-label-small-line-height);
+}
+
+.root[data-size='md'] {
+  --avatar-size: var(--vd-sizing-40);
+  --avatar-font-family: var(--vd-typography-ui-label-medium-font-family);
+  --avatar-font-size: var(--vd-typography-ui-label-medium-font-size);
+  --avatar-font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  --avatar-line-height: var(--vd-typography-ui-label-medium-line-height);
+}
+
+.root[data-size='lg'] {
+  --avatar-size: var(--vd-sizing-56);
+  --avatar-font-family: var(--vd-typography-ui-label-large-font-family);
+  --avatar-font-size: var(--vd-typography-ui-label-large-font-size);
+  --avatar-font-weight: var(--vd-typography-ui-label-large-font-weight);
+  --avatar-line-height: var(--vd-typography-ui-label-large-line-height);
+}
+
+.root[data-shape='circle'] {
+  --avatar-radius: var(--vd-radius-full);
+}
+
+.root[data-shape='square'] {
+  --avatar-radius: var(--vd-radius-8);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fallback {
+  overflow: hidden;
+  max-width: 100%;
+  padding-inline: var(--vd-spacing-4);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.group {
+  display: inline-flex;
+  align-items: center;
+
+  > .root + .root {
+    margin-inline-start: calc(var(--vd-spacing-8) * -1);
+  }
+
+  > .root {
+    box-shadow: 0 0 0 var(--vd-border-width-2) var(--vd-surface-default);
+  }
+}

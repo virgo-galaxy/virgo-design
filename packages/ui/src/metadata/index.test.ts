@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   accordionMetadata,
   alertMetadata,
+  avatarMetadata,
   badgeMetadata,
   breadcrumbMetadata,
   buttonMetadata,
@@ -31,6 +32,16 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Avatar as a UI-only identity display', () => {
+    expect(componentMetadataRegistry.avatar).toBe(avatarMetadata);
+    expect(avatarMetadata.sizes.map(({ name }) => name)).toEqual(['sm', 'md', 'lg']);
+    expect(avatarMetadata.capabilities).toMatchObject({
+      imageErrorFallback: true,
+      group: true,
+      status: false,
+    });
+  });
+
   it('registers Alert as persistent inline feedback', () => {
     expect(componentMetadataRegistry.alert).toBe(alertMetadata);
     expect(alertMetadata.intents.map(({ name }) => name)).toEqual([

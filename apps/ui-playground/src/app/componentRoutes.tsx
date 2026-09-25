@@ -2,6 +2,7 @@ import type { ComponentType } from 'react';
 
 import { AccordionPage } from '../pages/accordion/AccordionPage';
 import { AlertPage } from '../pages/alert/AlertPage';
+import { AvatarPage } from '../pages/avatar/AvatarPage';
 import { BadgePage } from '../pages/badge/BadgePage';
 import { BreadcrumbPage } from '../pages/breadcrumb/BreadcrumbPage';
 import { ButtonPage } from '../pages/button/ButtonPage';
@@ -64,6 +65,7 @@ export type ComponentRoute = {
     | 'menubar'
     | 'accordion'
     | 'alert'
+    | 'avatar'
     | 'badge'
     | 'button'
     | 'surface'
@@ -282,6 +284,17 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1.0.0',
     Component: BadgePage,
+  },
+  {
+    id: 'avatar',
+    group: 'data-display',
+    index: '28',
+    name: 'Avatar',
+    category: 'Data Display',
+    path: '/components/avatar',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: AvatarPage,
   },
   {
     id: 'dialog',
