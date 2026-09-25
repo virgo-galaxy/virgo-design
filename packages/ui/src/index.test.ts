@@ -7,6 +7,7 @@ describe('@virgo-design/ui public API', () => {
     expect(Object.keys(ui).sort()).toEqual(
       [
         'Accordion',
+        'Alert',
         'Badge',
         'Breadcrumb',
         'Button',
@@ -56,6 +57,9 @@ describe('@virgo-design/ui public API', () => {
     ])
       expect(ui.Dialog).toHaveProperty(part);
     expect(ui.Dialog.Root).toBe(ui.Dialog);
+    for (const part of ['Root', 'Icon', 'Content', 'Title', 'Description', 'Action', 'Close'])
+      expect(ui.Alert).toHaveProperty(part);
+    expect(ui.Alert.Root).toBe(ui.Alert);
     for (const part of [
       'Root',
       'Trigger',

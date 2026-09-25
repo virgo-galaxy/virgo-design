@@ -21,7 +21,7 @@ export function BadgePage() {
     <div className="review-board badge-review">
       <section className="badge-intro" id="overview">
         <div className="eyebrow-row">
-          <span>Component 16</span>
+          <span>Component 17</span>
           <span className="version-badge">STABLE · V1.0.0</span>
         </div>
         <h1>Badge</h1>

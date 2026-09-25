@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react';
 
 import { AccordionPage } from '../pages/accordion/AccordionPage';
+import { AlertPage } from '../pages/alert/AlertPage';
 import { BadgePage } from '../pages/badge/BadgePage';
 import { BreadcrumbPage } from '../pages/breadcrumb/BreadcrumbPage';
 import { ButtonPage } from '../pages/button/ButtonPage';
@@ -62,6 +63,7 @@ export type ComponentRoute = {
     | 'context-menu'
     | 'menubar'
     | 'accordion'
+    | 'alert'
     | 'badge'
     | 'button'
     | 'surface'
@@ -260,9 +262,20 @@ export const componentRoutes = [
     Component: AccordionPage,
   },
   {
-    id: 'badge',
+    id: 'alert',
     group: 'data-display',
     index: '16',
+    name: 'Alert',
+    category: 'Feedback',
+    path: '/components/alert',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: AlertPage,
+  },
+  {
+    id: 'badge',
+    group: 'data-display',
+    index: '17',
     name: 'Badge',
     category: 'Data Display',
     path: '/components/badge',
@@ -273,7 +286,7 @@ export const componentRoutes = [
   {
     id: 'dialog',
     group: 'data-display',
-    index: '17',
+    index: '18',
     name: 'Dialog',
     category: 'Feedback',
     path: '/components/dialog',
@@ -284,7 +297,7 @@ export const componentRoutes = [
   {
     id: 'drawer',
     group: 'data-display',
-    index: '18',
+    index: '19',
     name: 'Drawer',
     category: 'Feedback',
     path: '/components/drawer',
@@ -295,7 +308,7 @@ export const componentRoutes = [
   {
     id: 'popover',
     group: 'data-display',
-    index: '19',
+    index: '20',
     name: 'Popover',
     category: 'Data Display',
     path: '/components/popover',
@@ -306,7 +319,7 @@ export const componentRoutes = [
   {
     id: 'tag',
     group: 'data-display',
-    index: '20',
+    index: '21',
     name: 'Tag',
     category: 'Data Display',
     path: '/components/tag',
@@ -317,7 +330,7 @@ export const componentRoutes = [
   {
     id: 'toast',
     group: 'data-display',
-    index: '21',
+    index: '22',
     name: 'Toast',
     category: 'Feedback',
     path: '/components/toast',
@@ -328,7 +341,7 @@ export const componentRoutes = [
   {
     id: 'tooltip',
     group: 'data-display',
-    index: '22',
+    index: '23',
     name: 'Tooltip',
     category: 'Data Display',
     path: '/components/tooltip',
@@ -339,7 +352,7 @@ export const componentRoutes = [
   {
     id: 'command',
     group: 'actions',
-    index: '23',
+    index: '24',
     name: 'Command',
     category: 'Actions',
     path: '/components/command',
@@ -350,7 +363,7 @@ export const componentRoutes = [
   {
     id: 'context-menu',
     group: 'actions',
-    index: '24',
+    index: '25',
     name: 'ContextMenu',
     category: 'Actions',
     path: '/components/context-menu',
@@ -361,7 +374,7 @@ export const componentRoutes = [
   {
     id: 'menu',
     group: 'actions',
-    index: '25',
+    index: '26',
     name: 'Menu',
     category: 'Actions',
     path: '/components/menu',
@@ -372,7 +385,7 @@ export const componentRoutes = [
   {
     id: 'menubar',
     group: 'actions',
-    index: '26',
+    index: '27',
     name: 'Menubar',
     category: 'Actions',
     path: '/components/menubar',

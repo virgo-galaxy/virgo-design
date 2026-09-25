@@ -49,7 +49,17 @@ describe('Tooltip Playground', () => {
     expect(screen.getByRole('heading', { name: 'Tooltip', level: 1 })).toBeInTheDocument();
     expect(
       componentRoutes.filter((route) => route.group === 'data-display').map((route) => route.name),
-    ).toEqual(['Accordion', 'Badge', 'Dialog', 'Drawer', 'Popover', 'Tag', 'Toast', 'Tooltip']);
+    ).toEqual([
+      'Accordion',
+      'Alert',
+      'Badge',
+      'Dialog',
+      'Drawer',
+      'Popover',
+      'Tag',
+      'Toast',
+      'Tooltip',
+    ]);
     expect(
       componentRoutes.filter((route) => route.group === 'general').map((route) => route.name),
     ).toEqual(['Button', 'Surface']);

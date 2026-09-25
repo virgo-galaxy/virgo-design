@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   accordionMetadata,
+  alertMetadata,
   badgeMetadata,
   breadcrumbMetadata,
   buttonMetadata,
@@ -30,6 +31,24 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Alert as persistent inline feedback', () => {
+    expect(componentMetadataRegistry.alert).toBe(alertMetadata);
+    expect(alertMetadata.intents.map(({ name }) => name)).toEqual([
+      'default',
+      'info',
+      'success',
+      'warning',
+      'error',
+    ]);
+    expect(alertMetadata.variants.map(({ name }) => name)).toEqual(['soft', 'outline']);
+    expect(alertMetadata.capabilities).toMatchObject({
+      persistent: true,
+      inline: true,
+      selfRemoving: false,
+      portal: false,
+      autoDismiss: false,
+    });
+  });
   it('registers Tag as a UI-only standalone display semantic', () => {
     expect(componentMetadataRegistry.tag).toBe(tagMetadata);
     expect(tagMetadata.variants.map(({ name }) => name)).toEqual(['soft', 'solid', 'outline']);
