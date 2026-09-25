@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
 
@@ -21,11 +21,6 @@ const ShapeDepthPage = lazy(() =>
 );
 const MotionPage = lazy(() =>
   import('@/pages/foundations/MotionPage').then((module) => ({ default: module.MotionPage })),
-);
-const PlaceholderPage = lazy(() =>
-  import('@/pages/placeholder/PlaceholderPage').then((module) => ({
-    default: module.PlaceholderPage,
-  })),
 );
 const ResourcesPage = lazy(() =>
   import('@/pages/resources/ResourcesPage').then((module) => ({
@@ -56,6 +51,16 @@ const IconsPlayground = lazy(() =>
   })),
 );
 
+function LegacyUIPlaygroundRedirect() {
+  const { '*': legacyPath = '' } = useParams();
+  const componentPath = legacyPath.replace(/^components\/?/, '');
+  const destination = componentPath
+    ? `${ROUTE_PATHS.components}/${componentPath}`
+    : ROUTE_PATHS.components;
+
+  return <Navigate replace to={destination} />;
+}
+
 export function AppRouter() {
   return (
     <Suspense fallback={<div aria-busy="true" />}>
@@ -79,10 +84,10 @@ export function AppRouter() {
         />
         <Route path={ROUTE_PATHS.tokenColors} element={<TokensColorPage />} />
         <Route path={ROUTE_PATHS.tokenTypography} element={<TokensTypographyPage />} />
-        <Route path={ROUTE_PATHS.components} element={<PlaceholderPage />} />
+        <Route path={ROUTE_PATHS.componentRoutes} element={<UIPlayground />} />
         <Route path={ROUTE_PATHS.resources} element={<ResourcesPage />} />
         <Route path={ROUTE_PATHS.playgroundPrimitives} element={<PrimitivesPlayground />} />
-        <Route path={ROUTE_PATHS.playgroundUi} element={<UIPlayground />} />
+        <Route path={ROUTE_PATHS.playgroundUi} element={<LegacyUIPlaygroundRedirect />} />
         <Route path={ROUTE_PATHS.playgroundIcons} element={<IconsPlayground />} />
         <Route path="*" element={<Navigate to={ROUTE_PATHS.foundationColors} replace />} />
       </Routes>

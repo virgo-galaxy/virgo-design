@@ -11,11 +11,6 @@ const playgrounds = [
     path: ROUTE_PATHS.playgroundPrimitives,
   },
   {
-    title: 'UI Playground',
-    description: 'The complete component laboratory with its original navigation and demos.',
-    path: ROUTE_PATHS.playgroundUiRoot,
-  },
-  {
     title: 'Icons Playground',
     description: 'Canonical icon geometry, sizing, theme, and grid inspection tools.',
     path: ROUTE_PATHS.playgroundIcons,

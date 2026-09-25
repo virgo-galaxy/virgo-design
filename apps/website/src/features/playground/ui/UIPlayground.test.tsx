@@ -22,9 +22,9 @@ describe('UI Playground integration', () => {
           <button type="button" onClick={() => setAppearance('dark')}>
             Set Website dark
           </button>
-          <MemoryRouter initialEntries={['/playground/ui/components/button']}>
+          <MemoryRouter initialEntries={['/components/button']}>
             <Routes>
-              <Route path="/playground/ui/*" element={<UIPlayground />} />
+              <Route path="/components/*" element={<UIPlayground />} />
             </Routes>
           </MemoryRouter>
         </AppearanceContext.Provider>
@@ -34,7 +34,11 @@ describe('UI Playground integration', () => {
     render(<AppearanceHarness />);
 
     const navigation = screen.getByRole('navigation', { name: 'Component navigation' });
-    expect(within(navigation).getAllByRole('link')).toHaveLength(componentRoutes.length);
+    expect(
+      within(navigation)
+        .getAllByRole('link')
+        .map((link) => link.getAttribute('href')),
+    ).toEqual(componentRoutes.map((route) => route.path));
     expect(screen.getByRole('heading', { level: 1, name: 'Button' })).toBeInTheDocument();
     expect(document.querySelector('.playground-shell')).toHaveAttribute('data-theme', 'light');
     expect(screen.queryByRole('group', { name: 'Preview theme' })).not.toBeInTheDocument();
@@ -44,5 +48,21 @@ describe('UI Playground integration', () => {
 
     await user.click(screen.getByRole('button', { name: 'Set Website dark' }));
     expect(document.querySelector('.playground-shell')).toHaveAttribute('data-theme', 'dark');
+  });
+
+  it.each(componentRoutes)('renders $name at its canonical route', ({ name, path }) => {
+    vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+
+    render(
+      <AppearanceContext.Provider value={{ appearance: 'light', setAppearance: () => {} }}>
+        <MemoryRouter initialEntries={[path]}>
+          <Routes>
+            <Route path="/components/*" element={<UIPlayground />} />
+          </Routes>
+        </MemoryRouter>
+      </AppearanceContext.Provider>,
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name })).toBeInTheDocument();
   });
 });

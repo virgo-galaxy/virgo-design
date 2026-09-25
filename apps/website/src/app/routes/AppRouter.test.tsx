@@ -2,11 +2,15 @@ import '../../i18n';
 
 import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { AppearanceContext } from '@/shared/theme/appearance-context';
 
 import { AppRouter } from './AppRouter';
+
+beforeEach(() => {
+  vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+});
 
 function renderRoute(path: string) {
   return render(
@@ -42,8 +46,8 @@ describe('Token routes', () => {
   });
 });
 
-describe('Playground routes', () => {
-  it('links to every consolidated playground from Resources', async () => {
+describe('Components and Playground routes', () => {
+  it('links to the remaining internal playgrounds from Resources', async () => {
     renderRoute('/resources');
 
     await screen.findByRole('heading', { level: 1, name: 'Playgrounds' });
@@ -51,10 +55,7 @@ describe('Playground routes', () => {
       'href',
       '/playground/primitives',
     );
-    expect(screen.getByRole('link', { name: /UI Playground/ })).toHaveAttribute(
-      'href',
-      '/playground/ui',
-    );
+    expect(screen.queryByRole('link', { name: /UI Playground/ })).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Icons Playground/ })).toHaveAttribute(
       'href',
       '/playground/icons',
@@ -68,11 +69,23 @@ describe('Playground routes', () => {
     expect(screen.getByRole('button', { name: 'Native button' })).toBeInTheDocument();
   });
 
-  it('renders a namespaced UI playground component route', async () => {
-    renderRoute('/playground/ui/components/button');
+  it('renders a canonical component route', async () => {
+    renderRoute('/components/button');
 
     await screen.findByRole('heading', { level: 1, name: 'Button' }, { timeout: 5000 });
     expect(screen.getByRole('navigation', { name: 'Component navigation' })).toBeInTheDocument();
+  });
+
+  it('redirects /components to the default component', async () => {
+    renderRoute('/components');
+
+    await screen.findByRole('heading', { level: 1, name: 'Button' }, { timeout: 5000 });
+  });
+
+  it('redirects legacy UI Playground component routes to Components', async () => {
+    renderRoute('/playground/ui/components/dialog');
+
+    await screen.findByRole('heading', { level: 1, name: 'Dialog' }, { timeout: 5000 });
   });
 
   it('renders the copied icons playground', async () => {

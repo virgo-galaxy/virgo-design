@@ -10,7 +10,7 @@ import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { componentGroups, componentRoutes } from './app/componentRoutes';
 
-const uiPlaygroundBasePath = '/playground/ui/';
+const componentsBasePath = '/components/';
 
 export function UIPlayground() {
   const { appearance } = useAppearance();
@@ -109,18 +109,15 @@ export function UIPlayground() {
 
           <Layout.Content className="workspace-content">
             <Routes>
-              <Route index element={<Navigate replace to="/playground/ui/components/button" />} />
+              <Route index element={<Navigate replace to="/components/button" />} />
               {componentRoutes.map(({ Component, id, path }) => (
                 <Route
                   key={id}
-                  path={path.replace(uiPlaygroundBasePath, '')}
+                  path={path.replace(componentsBasePath, '')}
                   element={<Component />}
                 />
               ))}
-              <Route
-                path="*"
-                element={<Navigate replace to="/playground/ui/components/button" />}
-              />
+              <Route path="*" element={<Navigate replace to="/components/button" />} />
             </Routes>
           </Layout.Content>
         </Layout>

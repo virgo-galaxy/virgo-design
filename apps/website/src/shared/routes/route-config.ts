@@ -10,6 +10,7 @@ export const ROUTE_PATHS = {
   tokenColors: '/tokens/colors',
   tokenTypography: '/tokens/typography',
   components: '/components',
+  componentRoutes: '/components/*',
   resources: '/resources',
   playgroundPrimitives: '/playground/primitives',
   playgroundUiRoot: '/playground/ui',
