@@ -22,6 +22,28 @@ interface FoundationSectionProps {
   id?: string;
 }
 
+export function FoundationNavigation() {
+  const { t } = useTranslation();
+
+  return (
+    <nav className={styles.foundationNavigation} aria-label={t('foundationNavigation.label')}>
+      {FOUNDATION_NAVIGATION_ITEMS.map((item) => (
+        <NavLink
+          key={item.path}
+          className={({ isActive }) =>
+            `${styles.foundationNavigationLink} ${
+              isActive ? styles.foundationNavigationLinkActive : ''
+            }`
+          }
+          to={item.path}
+        >
+          {t(item.label)}
+        </NavLink>
+      ))}
+    </nav>
+  );
+}
+
 export function FoundationPage({
   title,
   description,
@@ -34,21 +56,7 @@ export function FoundationPage({
   return (
     <section id={id} className={`${styles.page} ${className}`}>
       <div className={styles.inner}>
-        <nav className={styles.foundationNavigation} aria-label={t('foundationNavigation.label')}>
-          {FOUNDATION_NAVIGATION_ITEMS.map((item) => (
-            <NavLink
-              key={item.path}
-              className={({ isActive }) =>
-                `${styles.foundationNavigationLink} ${
-                  isActive ? styles.foundationNavigationLinkActive : ''
-                }`
-              }
-              to={item.path}
-            >
-              {t(item.label)}
-            </NavLink>
-          ))}
-        </nav>
+        <FoundationNavigation />
 
         <header className={styles.pageHeader}>
           <div className={styles.eyebrow}>{t('foundationPages.eyebrow')}</div>

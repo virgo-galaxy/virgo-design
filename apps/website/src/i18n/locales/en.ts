@@ -24,6 +24,7 @@ export const en = {
     layout: 'Layout',
     shapeDepth: 'Shape & Depth',
     motion: 'Motion',
+    icons: 'Icons',
   },
 
   tokenNavigation: {

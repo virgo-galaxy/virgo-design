@@ -27,6 +27,10 @@
     --review-line-strong: #aeb6c2;
     --review-grid: rgb(122 132 147 / 17%);
     --review-center: rgb(116 89 196 / 60%);
+    --foundation-surface-strong: var(--review-panel);
+    --foundation-muted: var(--review-raised);
+    --foundation-line: var(--review-line);
+    --foundation-line-strong: var(--review-line-strong);
 
     min-height: calc(100vh - var(--layout-header-height));
     padding: var(--vd-spacing-32);
@@ -131,16 +135,6 @@
     text-transform: uppercase;
   }
 
-  .segment-control {
-    display: inline-flex;
-    gap: 2px;
-    padding: 3px;
-    background: var(--review-raised);
-    border: var(--vd-border-width-1) solid var(--review-line);
-    border-radius: var(--vd-radius-8);
-  }
-
-  .segment-control button,
   .toggle-button {
     border: 0;
     border-radius: var(--vd-radius-6);
@@ -149,18 +143,6 @@
     font-size: var(--vd-font-size-13);
     font-weight: var(--vd-font-weight-600);
     line-height: 1;
-  }
-
-  .segment-control button {
-    min-width: 48px;
-    padding: 8px 10px;
-    text-transform: capitalize;
-  }
-
-  .segment-control button[aria-pressed='true'] {
-    color: var(--review-ink);
-    background: var(--review-panel);
-    box-shadow: var(--vd-elevation-1);
   }
 
   .toggle-button {

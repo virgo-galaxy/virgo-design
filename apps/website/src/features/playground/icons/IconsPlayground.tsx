@@ -38,7 +38,9 @@ import {
   UserIcon,
   WorkspaceIcon,
 } from '@virgo-design/icons';
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
+
+import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { IconSelect, type IconSelectOption } from './components/IconSelect';
 
@@ -46,7 +48,6 @@ const canonicalRenderSize = 24;
 const largePreviewSize = 288;
 const gridCoordinates = Array.from({ length: 25 }, (_, coordinate) => coordinate);
 
-type PlaygroundTheme = 'light' | 'dark';
 const iconOptions = [
   { id: 'cybertruck', label: 'Cybertruck', Icon: CybertruckIcon },
   { id: 'plus', label: 'Plus', Icon: PlusIcon },
@@ -87,20 +88,26 @@ const iconOptions = [
 
 type IconId = (typeof iconOptions)[number]['id'];
 
-export function IconsPlayground() {
+interface IconsPlaygroundProps {
+  navigation?: ReactNode;
+}
+
+export function IconsPlayground({ navigation }: IconsPlaygroundProps) {
   const [selectedIconId, setSelectedIconId] = useState<IconId>('plus');
-  const [theme, setTheme] = useState<PlaygroundTheme>('light');
   const [showGrid, setShowGrid] = useState(true);
+  const { appearance } = useAppearance();
   const selectedIcon = iconOptions.find((icon) => icon.id === selectedIconId) ?? iconOptions[0];
   const SelectedIcon = selectedIcon.Icon;
 
   return (
     <div className="icons-playground-feature" data-playground="icons">
-      <div className="icons-playground" data-theme={theme}>
+      <div className="icons-playground" data-theme={appearance}>
+        {navigation}
+
         <header className="app-header">
           <div>
-            <p className="eyebrow">VIRGO DESIGN · INTERNAL TOOL</p>
-            <h1>Icons Playground</h1>
+            <p className="eyebrow">VIRGO DESIGN · FOUNDATIONS</p>
+            <h1>Icons</h1>
             <p className="header-copy">A focused canvas for refining a single Virgo icon.</p>
           </div>
         </header>
@@ -112,23 +119,6 @@ export function IconsPlayground() {
               options={iconOptions}
               value={selectedIconId}
             />
-
-            <fieldset className="control-group">
-              <legend>Theme</legend>
-              <div className="segment-control">
-                {(['light', 'dark'] as const).map((candidateTheme) => (
-                  <button
-                    aria-label={`Theme ${candidateTheme}`}
-                    aria-pressed={theme === candidateTheme}
-                    key={candidateTheme}
-                    onClick={() => setTheme(candidateTheme)}
-                    type="button"
-                  >
-                    {candidateTheme}
-                  </button>
-                ))}
-              </div>
-            </fieldset>
 
             <fieldset className="control-group">
               <legend>Grid</legend>

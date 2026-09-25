@@ -10,11 +10,6 @@ const playgrounds = [
     description: 'Headless controls rendered with their native, unstyled behavior.',
     path: ROUTE_PATHS.playgroundPrimitives,
   },
-  {
-    title: 'Icons Playground',
-    description: 'Canonical icon geometry, sizing, theme, and grid inspection tools.',
-    path: ROUTE_PATHS.playgroundIcons,
-  },
 ] as const;
 
 export function ResourcesPage() {

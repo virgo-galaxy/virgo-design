@@ -6,6 +6,7 @@ export const ROUTE_PATHS = {
   foundationLayout: '/foundations/layout',
   foundationShapeDepth: '/foundations/shape-depth',
   foundationMotion: '/foundations/motion',
+  foundationIcons: '/foundations/icons',
   tokens: '/tokens',
   tokenColors: '/tokens/colors',
   tokenTypography: '/tokens/typography',
@@ -31,6 +32,7 @@ export const FOUNDATION_NAVIGATION_ITEMS = [
   { path: ROUTE_PATHS.foundationLayout, label: 'foundationNavigation.layout' },
   { path: ROUTE_PATHS.foundationShapeDepth, label: 'foundationNavigation.shapeDepth' },
   { path: ROUTE_PATHS.foundationMotion, label: 'foundationNavigation.motion' },
+  { path: ROUTE_PATHS.foundationIcons, label: 'foundationNavigation.icons' },
 ] as const;
 
 export const TOKEN_NAVIGATION_ITEMS = [

@@ -45,9 +45,9 @@ const UIPlayground = lazy(() =>
     default: module.UIPlayground,
   })),
 );
-const IconsPlayground = lazy(() =>
-  import('@/features/playground/icons/IconsPlayground').then((module) => ({
-    default: module.IconsPlayground,
+const IconsPage = lazy(() =>
+  import('@/pages/foundations/IconsPage').then((module) => ({
+    default: module.IconsPage,
   })),
 );
 
@@ -78,6 +78,7 @@ export function AppRouter() {
         <Route path={ROUTE_PATHS.foundationLayout} element={<LayoutPage />} />
         <Route path={ROUTE_PATHS.foundationShapeDepth} element={<ShapeDepthPage />} />
         <Route path={ROUTE_PATHS.foundationMotion} element={<MotionPage />} />
+        <Route path={ROUTE_PATHS.foundationIcons} element={<IconsPage />} />
         <Route
           path={ROUTE_PATHS.tokens}
           element={<Navigate to={ROUTE_PATHS.tokenColors} replace />}
@@ -88,7 +89,10 @@ export function AppRouter() {
         <Route path={ROUTE_PATHS.resources} element={<ResourcesPage />} />
         <Route path={ROUTE_PATHS.playgroundPrimitives} element={<PrimitivesPlayground />} />
         <Route path={ROUTE_PATHS.playgroundUi} element={<LegacyUIPlaygroundRedirect />} />
-        <Route path={ROUTE_PATHS.playgroundIcons} element={<IconsPlayground />} />
+        <Route
+          path={ROUTE_PATHS.playgroundIcons}
+          element={<Navigate to={ROUTE_PATHS.foundationIcons} replace />}
+        />
         <Route path="*" element={<Navigate to={ROUTE_PATHS.foundationColors} replace />} />
       </Routes>
     </Suspense>

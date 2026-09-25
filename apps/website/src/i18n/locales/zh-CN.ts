@@ -24,6 +24,7 @@ export const zhCN = {
     layout: '布局',
     shapeDepth: '形状与层级',
     motion: '动效',
+    icons: '图标',
   },
 
   tokenNavigation: {
