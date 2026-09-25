@@ -26,6 +26,7 @@ export { GaugeIcon, type GaugeIconProps } from './generated/GaugeIcon.js';
 export { GlobeIcon, type GlobeIconProps } from './generated/GlobeIcon.js';
 export { HomeIcon, type HomeIconProps } from './generated/HomeIcon.js';
 export { MinusIcon, type MinusIconProps } from './generated/MinusIcon.js';
+export { MoonIcon, type MoonIconProps } from './generated/MoonIcon.js';
 export { PlusIcon, type PlusIconProps } from './generated/PlusIcon.js';
 export { SearchIcon, type SearchIconProps } from './generated/SearchIcon.js';
 export { SettingsIcon, type SettingsIconProps } from './generated/SettingsIcon.js';
@@ -34,6 +35,7 @@ export {
   type SidebarCollapseIconProps,
 } from './generated/SidebarCollapseIcon.js';
 export { SidebarExpandIcon, type SidebarExpandIconProps } from './generated/SidebarExpandIcon.js';
+export { SunIcon, type SunIconProps } from './generated/SunIcon.js';
 export { TrashIcon, type TrashIconProps } from './generated/TrashIcon.js';
 export { TriangleAlertIcon, type TriangleAlertIconProps } from './generated/TriangleAlertIcon.js';
 export { UserIcon, type UserIconProps } from './generated/UserIcon.js';

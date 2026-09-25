@@ -1,3 +1,4 @@
+import { MoonIcon, SunIcon } from '@virgo-design/icons';
 import { useTranslation } from 'react-i18next';
 
 import type { Appearance } from '@/shared/theme/types';
@@ -22,7 +23,7 @@ export function AppearanceControl({ value, onChange }: AppearanceControlProps) {
         aria-label={t('common.lightMode')}
         onClick={() => onChange('light')}
       >
-        ☀
+        <SunIcon aria-hidden="true" size={16} />
       </button>
 
       <button
@@ -33,7 +34,7 @@ export function AppearanceControl({ value, onChange }: AppearanceControlProps) {
         aria-label={t('common.darkMode')}
         onClick={() => onChange('dark')}
       >
-        ☾
+        <MoonIcon aria-hidden="true" size={16} />
       </button>
     </div>
   );

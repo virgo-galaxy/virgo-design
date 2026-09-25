@@ -33,7 +33,7 @@ describe('Icons Playground', () => {
 
     await user.click(screen.getByRole('button', { name: 'Icon Plus' }));
 
-    expect(screen.getAllByRole('option')).toHaveLength(33);
+    expect(screen.getAllByRole('option')).toHaveLength(35);
     expect(screen.getByRole('option', { name: 'Check' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Circle Info' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Cybertruck' })).toBeInTheDocument();
@@ -82,6 +82,8 @@ describe('Icons Playground', () => {
     ['Chevrons Right', 'chevrons-right'],
     ['Chevrons Up', 'chevrons-up'],
     ['Chevrons Down', 'chevrons-down'],
+    ['Moon', 'moon'],
+    ['Sun', 'sun'],
   ])('reviews %s at every size in both themes', async (label, id) => {
     const user = userEvent.setup();
     render(<IconsPlayground />);

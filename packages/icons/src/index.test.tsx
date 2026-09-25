@@ -21,9 +21,11 @@ import {
   GaugeIcon,
   GlobeIcon,
   HomeIcon,
+  MoonIcon,
   PlusIcon,
   SidebarCollapseIcon,
   SidebarExpandIcon,
+  SunIcon,
   TriangleAlertIcon,
   WorkspaceIcon,
 } from './index';
@@ -39,6 +41,7 @@ const addedIcons = [
   ['ellipsis-vertical', EllipsisVerticalIcon],
   ['workspace', WorkspaceIcon],
   ['home', HomeIcon],
+  ['moon', MoonIcon],
   ['eye', EyeIcon],
   ['eye-closed', EyeClosedIcon],
   ['dashboard', DashboardIcon],
@@ -49,6 +52,7 @@ const addedIcons = [
   ['chevrons-right', ChevronsRightIcon],
   ['chevrons-up', ChevronsUpIcon],
   ['chevrons-down', ChevronsDownIcon],
+  ['sun', SunIcon],
 ] as const;
 
 describe('@virgo-design/icons', () => {
