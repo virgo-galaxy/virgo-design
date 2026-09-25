@@ -144,44 +144,26 @@
   }
 
   .brand-lockup {
-    display: flex;
-    align-items: center;
-    gap: var(--vd-spacing-12);
+    --virgo-brand-font-size: var(--vd-font-size-13);
+    --virgo-brand-font-weight: var(--vd-font-weight-600);
+    --virgo-brand-letter-spacing: 0;
+    --virgo-brand-logo-height: 26px;
+
+    display: grid;
+    gap: var(--vd-spacing-4);
     padding-inline: var(--vd-spacing-8);
   }
 
-  .brand-lockup strong,
-  .brand-lockup span,
   .navigation-note strong,
   .navigation-note span {
     display: block;
   }
 
-  .brand-lockup strong {
-    font-family: var(--vd-typography-ui-label-medium-font-family);
-    font-size: var(--vd-typography-ui-label-medium-font-size);
-    font-weight: var(--vd-font-weight-600);
-    line-height: var(--vd-typography-ui-label-medium-line-height);
-  }
-
-  .brand-lockup span {
-    margin-top: var(--vd-spacing-2);
+  .brand-context {
+    padding-inline-start: calc(33px + var(--vd-spacing-8));
     font-size: var(--vd-font-size-12);
     line-height: var(--vd-line-height-3);
     color: var(--vd-text-tertiary);
-  }
-
-  .brand-mark {
-    display: grid;
-    width: var(--vd-sizing-36);
-    height: var(--vd-sizing-36);
-    place-items: center;
-    border-radius: var(--vd-radius-10);
-    color: var(--vd-brand-foreground);
-    background: var(--vd-brand-primary);
-    box-shadow: var(--vd-elevation-1);
-    font-size: var(--vd-font-size-16);
-    font-weight: var(--vd-font-weight-700);
   }
 
   .component-navigation nav {

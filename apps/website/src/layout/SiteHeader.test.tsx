@@ -9,6 +9,25 @@ import { AppearanceContext } from '@/shared/theme/appearance-context';
 import { SiteHeader } from './SiteHeader';
 
 describe('SiteHeader', () => {
+  it('uses the official logo and real text in one Home link', () => {
+    render(
+      <AppearanceContext.Provider value={{ appearance: 'light', setAppearance: () => {} }}>
+        <MemoryRouter>
+          <SiteHeader />
+        </MemoryRouter>
+      </AppearanceContext.Provider>,
+    );
+
+    const brand = screen.getByRole('link', { name: 'Virgo Design' });
+    const logo = brand.querySelector('img');
+
+    expect(brand).toHaveAttribute('href', '/');
+    expect(brand).toHaveTextContent('Virgo Design');
+    expect(logo).toHaveAttribute('src', '/virgo-design.svg');
+    expect(logo).toHaveAttribute('alt', '');
+    expect(logo).toHaveAttribute('aria-hidden', 'true');
+  });
+
   it('presents Primitives as a top-level product area instead of Resources', () => {
     render(
       <AppearanceContext.Provider value={{ appearance: 'light', setAppearance: () => {} }}>

@@ -50,23 +50,11 @@
 }
 
 .brand {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 5px;
-
-  color: inherit;
-
-  font-size: 23px;
-  letter-spacing: -0.045em;
-  text-decoration: none;
-}
-
-.brand strong {
-  font-weight: 760;
-}
-
-.brand span {
-  font-weight: 430;
+  --virgo-brand-gap: 10px;
+  --virgo-brand-font-size: 23px;
+  --virgo-brand-font-weight: 650;
+  --virgo-brand-letter-spacing: -0.045em;
+  --virgo-brand-logo-height: 26px;
 }
 
 .navigation {
