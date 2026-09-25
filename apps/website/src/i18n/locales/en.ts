@@ -14,6 +14,7 @@ export const en = {
     foundations: 'Foundations',
     tokens: 'Tokens',
     components: 'Components',
+    primitives: 'Primitives',
     resources: 'Resources',
   },
 

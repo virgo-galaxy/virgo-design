@@ -53,16 +53,11 @@ describe('Token routes', () => {
 });
 
 describe('Components and Playground routes', () => {
-  it('links to the remaining internal playgrounds from Resources', async () => {
+  it('redirects the retired Resources route to the Primitives catalogue', async () => {
     renderRoute('/resources');
 
-    await screen.findByRole('heading', { level: 1, name: 'Playgrounds' });
-    expect(screen.getByRole('link', { name: /Primitives Playground/ })).toHaveAttribute(
-      'href',
-      '/playground/primitives',
-    );
-    expect(screen.queryByRole('link', { name: /UI Playground/ })).not.toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: /Icons Playground/ })).not.toBeInTheDocument();
+    await screen.findByRole('heading', { level: 1, name: 'Primitives' }, { timeout: 5000 });
+    expect(screen.getByTestId('current-path')).toHaveTextContent('/primitives');
   });
 
   it('renders the copied primitives playground', async () => {
@@ -89,6 +84,23 @@ describe('Components and Playground routes', () => {
     renderRoute('/playground/ui/components/dialog');
 
     await screen.findByRole('heading', { level: 1, name: 'Dialog' }, { timeout: 5000 });
+  });
+});
+
+describe('Primitive routes', () => {
+  it('renders the complete public primitive catalogue', async () => {
+    renderRoute('/primitives');
+
+    await screen.findByRole('heading', { level: 1, name: 'Primitives' });
+    expect(screen.getAllByRole('link')).toHaveLength(23);
+    expect(screen.getByRole('link', { name: /Button/ })).toHaveAttribute(
+      'href',
+      '/primitives/button',
+    );
+    expect(screen.getByRole('link', { name: /Textarea/ })).toHaveAttribute(
+      'href',
+      '/primitives/textarea',
+    );
   });
 });
 

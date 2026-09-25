@@ -14,6 +14,7 @@ export const zhCN = {
     foundations: '基础',
     tokens: '变量',
     components: '组件',
+    primitives: '原语',
     resources: '资源',
   },
 

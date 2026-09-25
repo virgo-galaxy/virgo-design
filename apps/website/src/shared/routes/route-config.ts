@@ -12,6 +12,8 @@ export const ROUTE_PATHS = {
   tokenTypography: '/tokens/typography',
   components: '/components',
   componentRoutes: '/components/*',
+  primitives: '/primitives',
+  primitiveDetail: '/primitives/:slug',
   resources: '/resources',
   playgroundPrimitives: '/playground/primitives',
   playgroundUiRoot: '/playground/ui',
@@ -23,7 +25,7 @@ export const PRIMARY_NAVIGATION_ITEMS = [
   { path: ROUTE_PATHS.foundations, label: 'navigation.foundations' },
   { path: ROUTE_PATHS.tokens, label: 'navigation.tokens' },
   { path: ROUTE_PATHS.components, label: 'navigation.components' },
-  { path: ROUTE_PATHS.resources, label: 'navigation.resources' },
+  { path: ROUTE_PATHS.primitives, label: 'navigation.primitives' },
 ] as const;
 
 export const FOUNDATION_NAVIGATION_ITEMS = [

@@ -22,9 +22,9 @@ const ShapeDepthPage = lazy(() =>
 const MotionPage = lazy(() =>
   import('@/pages/foundations/MotionPage').then((module) => ({ default: module.MotionPage })),
 );
-const ResourcesPage = lazy(() =>
-  import('@/pages/resources/ResourcesPage').then((module) => ({
-    default: module.ResourcesPage,
+const PrimitiveCataloguePage = lazy(() =>
+  import('@/features/primitives/PrimitiveCataloguePage').then((module) => ({
+    default: module.PrimitiveCataloguePage,
   })),
 );
 const TokensColorPage = lazy(() =>
@@ -86,7 +86,11 @@ export function AppRouter() {
         <Route path={ROUTE_PATHS.tokenColors} element={<TokensColorPage />} />
         <Route path={ROUTE_PATHS.tokenTypography} element={<TokensTypographyPage />} />
         <Route path={ROUTE_PATHS.componentRoutes} element={<UIPlayground />} />
-        <Route path={ROUTE_PATHS.resources} element={<ResourcesPage />} />
+        <Route path={ROUTE_PATHS.primitives} element={<PrimitiveCataloguePage />} />
+        <Route
+          path={ROUTE_PATHS.resources}
+          element={<Navigate to={ROUTE_PATHS.primitives} replace />}
+        />
         <Route path={ROUTE_PATHS.playgroundPrimitives} element={<PrimitivesPlayground />} />
         <Route path={ROUTE_PATHS.playgroundUi} element={<LegacyUIPlaygroundRedirect />} />
         <Route

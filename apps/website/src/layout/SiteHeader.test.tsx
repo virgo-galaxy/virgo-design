@@ -1,0 +1,35 @@
+import '../i18n';
+
+import { render, screen, within } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { describe, expect, it } from 'vitest';
+
+import { AppearanceContext } from '@/shared/theme/appearance-context';
+
+import { SiteHeader } from './SiteHeader';
+
+describe('SiteHeader', () => {
+  it('presents Primitives as a top-level product area instead of Resources', () => {
+    render(
+      <AppearanceContext.Provider value={{ appearance: 'light', setAppearance: () => {} }}>
+        <MemoryRouter>
+          <SiteHeader />
+        </MemoryRouter>
+      </AppearanceContext.Provider>,
+    );
+
+    const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
+
+    expect(
+      within(navigation)
+        .getAllByRole('link')
+        .map((link) => [link.textContent, link.getAttribute('href')]),
+    ).toEqual([
+      ['Foundations', '/foundations'],
+      ['Tokens', '/tokens'],
+      ['Components', '/components'],
+      ['Primitives', '/primitives'],
+    ]);
+    expect(within(navigation).queryByRole('link', { name: 'Resources' })).not.toBeInTheDocument();
+  });
+});
