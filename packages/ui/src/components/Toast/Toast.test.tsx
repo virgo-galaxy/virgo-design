@@ -1,10 +1,38 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import {
+  CircleCheckIcon,
+  CircleInfoIcon,
+  CircleXIcon,
+  TriangleAlertIcon,
+} from '@virgo-design/icons';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Toast } from './index';
 
 describe('Toast UI', () => {
+  it.each([
+    ['success', CircleCheckIcon],
+    ['info', CircleInfoIcon],
+    ['warning', TriangleAlertIcon],
+    ['error', CircleXIcon],
+  ] as const)('uses the canonical status icon for %s', (intent, Icon) => {
+    render(
+      <Toast.Provider>
+        <Icon data-testid="canonical-icon" />
+        <Toast intent={intent} duration={0}>
+          <Toast.Title>{intent}</Toast.Title>
+          <Toast.Close />
+        </Toast>
+        <Toast.Viewport />
+      </Toast.Provider>,
+    );
+    const glyph = screen.getByRole('status').querySelector('svg');
+    expect(glyph?.innerHTML).toBe(screen.getByTestId('canonical-icon').innerHTML);
+    expect(glyph?.parentElement).toHaveAttribute('aria-hidden', 'true');
+    expect(screen.getByRole('button', { name: 'Dismiss notification' })).toBeInTheDocument();
+  });
+
   it.each(['default', 'success', 'warning', 'error', 'info'] as const)(
     'renders the %s intent',
     (intent) => {

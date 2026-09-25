@@ -10,6 +10,9 @@ import {
   ChevronsLeftIcon,
   ChevronsRightIcon,
   ChevronsUpIcon,
+  CircleCheckIcon,
+  CircleInfoIcon,
+  CircleXIcon,
   DashboardIcon,
   EllipsisIcon,
   EllipsisVerticalIcon,
@@ -21,10 +24,15 @@ import {
   PlusIcon,
   SidebarCollapseIcon,
   SidebarExpandIcon,
+  TriangleAlertIcon,
   WorkspaceIcon,
 } from './index';
 
 const addedIcons = [
+  ['circle-check', CircleCheckIcon],
+  ['circle-info', CircleInfoIcon],
+  ['circle-x', CircleXIcon],
+  ['triangle-alert', TriangleAlertIcon],
   ['sidebar-collapse', SidebarCollapseIcon],
   ['sidebar-expand', SidebarExpandIcon],
   ['ellipsis', EllipsisIcon],
@@ -53,7 +61,6 @@ describe('@virgo-design/icons', () => {
     expect(indexSource).toContain("from './generated/ChevronUpIcon.js';");
     expect(indexSource).toContain("from './generated/CheckIcon.js';");
     expect(indexSource).toContain("from './generated/CybertruckIcon.js';");
-    expect(indexSource).toContain("from './generated/InfoIcon.js';");
     expect(indexSource).toContain("from './generated/CloseIcon.js';");
     expect(indexSource).toContain("from './generated/MinusIcon.js';");
     expect(indexSource).toContain("from './generated/PlusIcon.js';");

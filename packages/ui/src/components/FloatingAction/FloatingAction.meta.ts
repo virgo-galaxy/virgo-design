@@ -45,11 +45,11 @@ export const floatingActionMetadata = {
   examples: [
     {
       name: 'Standalone',
-      code: '<FloatingAction aria-label="Help" onClick={showHelp}><InfoIcon /></FloatingAction>',
+      code: '<FloatingAction aria-label="Help" onClick={showHelp}><CircleInfoIcon /></FloatingAction>',
     },
     {
       name: 'Group',
-      code: '<FloatingAction.Group><FloatingAction.Trigger aria-label="Quick actions" /><FloatingAction.Content aria-label="Quick actions"><FloatingAction aria-label="Help" onClick={showHelp}><InfoIcon /></FloatingAction></FloatingAction.Content></FloatingAction.Group>',
+      code: '<FloatingAction.Group><FloatingAction.Trigger aria-label="Quick actions" /><FloatingAction.Content aria-label="Quick actions"><FloatingAction aria-label="Help" onClick={showHelp}><CircleInfoIcon /></FloatingAction></FloatingAction.Content></FloatingAction.Group>',
     },
   ],
 } as const satisfies ComponentMetadata;

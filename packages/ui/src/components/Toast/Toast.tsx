@@ -1,4 +1,10 @@
-import { CheckIcon, CloseIcon, InfoIcon } from '@virgo-design/icons';
+import {
+  CircleCheckIcon,
+  CircleInfoIcon,
+  CircleXIcon,
+  CloseIcon,
+  TriangleAlertIcon,
+} from '@virgo-design/icons';
 import { Toast as PrimitiveToast } from '@virgo-design/primitives';
 import { forwardRef, type ReactNode } from 'react';
 
@@ -18,9 +24,10 @@ function classes(...values: Array<string | false | null | undefined>) {
 }
 
 function defaultIcon(intent: ToastIntent): ReactNode {
-  if (intent === 'success') return <CheckIcon />;
-  if (intent === 'error') return <CloseIcon />;
-  if (intent === 'info' || intent === 'warning') return <InfoIcon />;
+  if (intent === 'success') return <CircleCheckIcon />;
+  if (intent === 'info') return <CircleInfoIcon />;
+  if (intent === 'warning') return <TriangleAlertIcon />;
+  if (intent === 'error') return <CircleXIcon />;
   return null;
 }
 

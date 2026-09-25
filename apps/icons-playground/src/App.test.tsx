@@ -33,9 +33,9 @@ describe('Icons Playground', () => {
 
     await user.click(screen.getByRole('button', { name: 'Icon Plus' }));
 
-    expect(screen.getAllByRole('option')).toHaveLength(30);
+    expect(screen.getAllByRole('option')).toHaveLength(33);
     expect(screen.getByRole('option', { name: 'Check' })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: 'Info' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'Circle Info' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Cybertruck' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Chevron Left' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Settings' })).toHaveAttribute(
@@ -62,6 +62,10 @@ describe('Icons Playground', () => {
   });
 
   it.each([
+    ['Circle Check', 'circle-check'],
+    ['Circle Info', 'circle-info'],
+    ['Triangle Alert', 'triangle-alert'],
+    ['Circle X', 'circle-x'],
     ['Sidebar Collapse', 'sidebar-collapse'],
     ['Sidebar Expand', 'sidebar-expand'],
     ['Ellipsis', 'ellipsis'],

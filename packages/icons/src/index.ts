@@ -9,6 +9,9 @@ export { ChevronsLeftIcon, type ChevronsLeftIconProps } from './generated/Chevro
 export { ChevronsRightIcon, type ChevronsRightIconProps } from './generated/ChevronsRightIcon.js';
 export { ChevronsUpIcon, type ChevronsUpIconProps } from './generated/ChevronsUpIcon.js';
 export { ChevronUpIcon, type ChevronUpIconProps } from './generated/ChevronUpIcon.js';
+export { CircleCheckIcon, type CircleCheckIconProps } from './generated/CircleCheckIcon.js';
+export { CircleInfoIcon, type CircleInfoIconProps } from './generated/CircleInfoIcon.js';
+export { CircleXIcon, type CircleXIconProps } from './generated/CircleXIcon.js';
 export { CloseIcon, type CloseIconProps } from './generated/CloseIcon.js';
 export { CybertruckIcon, type CybertruckIconProps } from './generated/CybertruckIcon.js';
 export { DashboardIcon, type DashboardIconProps } from './generated/DashboardIcon.js';
@@ -22,7 +25,6 @@ export { EyeIcon, type EyeIconProps } from './generated/EyeIcon.js';
 export { GaugeIcon, type GaugeIconProps } from './generated/GaugeIcon.js';
 export { GlobeIcon, type GlobeIconProps } from './generated/GlobeIcon.js';
 export { HomeIcon, type HomeIconProps } from './generated/HomeIcon.js';
-export { InfoIcon, type InfoIconProps } from './generated/InfoIcon.js';
 export { MinusIcon, type MinusIconProps } from './generated/MinusIcon.js';
 export { PlusIcon, type PlusIconProps } from './generated/PlusIcon.js';
 export { SearchIcon, type SearchIconProps } from './generated/SearchIcon.js';
@@ -33,5 +35,6 @@ export {
 } from './generated/SidebarCollapseIcon.js';
 export { SidebarExpandIcon, type SidebarExpandIconProps } from './generated/SidebarExpandIcon.js';
 export { TrashIcon, type TrashIconProps } from './generated/TrashIcon.js';
+export { TriangleAlertIcon, type TriangleAlertIconProps } from './generated/TriangleAlertIcon.js';
 export { UserIcon, type UserIconProps } from './generated/UserIcon.js';
 export { WorkspaceIcon, type WorkspaceIconProps } from './generated/WorkspaceIcon.js';

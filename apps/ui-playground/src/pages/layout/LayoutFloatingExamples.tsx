@@ -1,8 +1,8 @@
 import {
+  CircleInfoIcon,
   DashboardIcon,
   GlobeIcon,
   HomeIcon,
-  InfoIcon,
   SettingsIcon,
   WorkspaceIcon,
 } from '@virgo-design/icons';
@@ -121,7 +121,7 @@ export function FloatingActionsExample() {
                 setStatus('Help selected. Choose the plus button to explore more actions.')
               }
             >
-              <InfoIcon />
+              <CircleInfoIcon />
             </FloatingAction>
             <FloatingAction.Group open={open} onOpenChange={setOpen}>
               <FloatingAction.Trigger
@@ -141,7 +141,7 @@ export function FloatingActionsExample() {
                   title="Show tips"
                   onClick={() => select('Tips enabled for this canvas.')}
                 >
-                  <InfoIcon />
+                  <CircleInfoIcon />
                 </FloatingAction>
               </FloatingAction.Content>
             </FloatingAction.Group>

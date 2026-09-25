@@ -129,7 +129,7 @@ The Playground keeps the original blue structural diagrams at the top: Basic, Le
   </Layout.Sidebar>
   <Layout.Floating placement="bottom-end">
     <FloatingAction aria-label="Help" onClick={showHelp}>
-      <InfoIcon />
+      <CircleInfoIcon />
     </FloatingAction>
     <FloatingAction.Group>
       <FloatingAction.Trigger aria-label="Quick actions" />

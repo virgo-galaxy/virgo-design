@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { InfoIcon } from '@virgo-design/icons';
+import { CircleInfoIcon } from '@virgo-design/icons';
 import { createRef, useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -13,10 +13,10 @@ function Example() {
         <FloatingAction.Trigger aria-label="Quick actions" />
         <FloatingAction.Content aria-label="Action list">
           <FloatingAction aria-label="Help">
-            <InfoIcon />
+            <CircleInfoIcon />
           </FloatingAction>
           <FloatingAction aria-label="Inspect">
-            <InfoIcon />
+            <CircleInfoIcon />
           </FloatingAction>
         </FloatingAction.Content>
       </FloatingAction.Group>
@@ -32,7 +32,7 @@ describe('FloatingAction', () => {
     const ref = createRef<HTMLButtonElement>();
     const { rerender } = render(
       <FloatingAction ref={ref} aria-label="Help" className="consumer" onClick={onClick}>
-        <InfoIcon />
+        <CircleInfoIcon />
       </FloatingAction>,
     );
     expect(ref.current).toHaveClass('consumer');
@@ -44,7 +44,7 @@ describe('FloatingAction', () => {
     expect(onClick).toHaveBeenCalledTimes(1);
     rerender(
       <FloatingAction aria-label="Help" disabled onClick={onClick}>
-        <InfoIcon />
+        <CircleInfoIcon />
       </FloatingAction>,
     );
     await user.click(screen.getByRole('button'));
@@ -106,7 +106,7 @@ describe('FloatingAction', () => {
           />
           <FloatingAction.Content aria-label="Actions" className="consumer-content">
             <FloatingAction aria-label="Help">
-              <InfoIcon />
+              <CircleInfoIcon />
             </FloatingAction>
           </FloatingAction.Content>
         </FloatingAction.Group>
@@ -128,7 +128,7 @@ describe('FloatingAction', () => {
           <FloatingAction.Trigger aria-label="Actions" />
           <FloatingAction.Content>
             <FloatingAction aria-label="Run" onClick={() => setOpen(false)}>
-              <InfoIcon />
+              <CircleInfoIcon />
             </FloatingAction>
           </FloatingAction.Content>
         </FloatingAction.Group>

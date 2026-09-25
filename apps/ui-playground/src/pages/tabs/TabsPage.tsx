@@ -1,4 +1,4 @@
-import { InfoIcon, SearchIcon, SettingsIcon, UserIcon } from '@virgo-design/icons';
+import { CircleInfoIcon, SearchIcon, SettingsIcon, UserIcon } from '@virgo-design/icons';
 import { Tabs } from '@virgo-design/ui';
 import { type ReactNode, useState } from 'react';
 
@@ -230,7 +230,7 @@ export function TabsPage() {
               <Tabs.Tab icon={<SettingsIcon />} value="preferences">
                 Preferences
               </Tabs.Tab>
-              <Tabs.Tab icon={<InfoIcon />} value="about">
+              <Tabs.Tab icon={<CircleInfoIcon />} value="about">
                 About
               </Tabs.Tab>
               <Tabs.Tab icon={<SearchIcon />} value="search">

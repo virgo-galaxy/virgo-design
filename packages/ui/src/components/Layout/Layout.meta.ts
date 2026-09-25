@@ -64,7 +64,7 @@ export const layoutMetadata = {
   examples: [
     {
       name: 'Floating regions',
-      code: '<Layout.Content><Layout.Sidebar mode="floating" collapsible>{navigation}</Layout.Sidebar><Layout.Floating><FloatingAction aria-label="Help"><InfoIcon /></FloatingAction></Layout.Floating></Layout.Content>',
+      code: '<Layout.Content><Layout.Sidebar mode="floating" collapsible>{navigation}</Layout.Sidebar><Layout.Floating><FloatingAction aria-label="Help"><CircleInfoIcon /></FloatingAction></Layout.Floating></Layout.Content>',
     },
     {
       name: 'Basic',
