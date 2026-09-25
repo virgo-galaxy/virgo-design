@@ -1,6 +1,6 @@
 import './BadgePage.scss';
 
-import { CircleInfoIcon, UserIcon, WorkspaceIcon } from '@virgo-design/icons';
+import { CircleInfoIcon, LayoutIcon, UserIcon } from '@virgo-design/icons';
 import { Badge, type BadgeIntent, Button } from '@virgo-design/ui';
 import { useState } from 'react';
 
@@ -39,7 +39,7 @@ export function BadgePage() {
         <div className="badge-stage">
           <Badge count={8}>
             <span className="badge-host">
-              <WorkspaceIcon />
+              <LayoutIcon />
             </span>
           </Badge>
           <Badge count={120} max={99}>

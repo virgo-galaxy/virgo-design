@@ -3,10 +3,10 @@ import './LayoutPage.scss';
 import {
   DashboardIcon,
   HomeIcon,
+  LayoutIcon,
   SettingsIcon,
   SidebarCollapseIcon,
   SidebarExpandIcon,
-  WorkspaceIcon,
 } from '@virgo-design/icons';
 import { Button, Layout, NavigationMenu, Surface } from '@virgo-design/ui';
 import { useId, useState } from 'react';
@@ -43,7 +43,7 @@ function DemoNavigation({
       <NavigationMenu.List>
         {[
           { value: 'overview', label: 'Overview', Icon: HomeIcon },
-          { value: 'projects', label: 'Projects', Icon: WorkspaceIcon },
+          { value: 'projects', label: 'Projects', Icon: LayoutIcon },
           { value: 'activity', label: 'Activity', Icon: DashboardIcon },
         ].map(({ value, label: name, Icon }) => (
           <NavigationMenu.Item key={value} value={value} icon={horizontal ? undefined : <Icon />}>

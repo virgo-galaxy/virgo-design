@@ -33,7 +33,8 @@ describe('Icons Playground', () => {
 
     await user.click(screen.getByRole('button', { name: 'Icon Plus' }));
 
-    expect(screen.getAllByRole('option')).toHaveLength(35);
+    expect(screen.getAllByRole('option')).toHaveLength(40);
+    expect(screen.queryByRole('option', { name: 'Workspace' })).not.toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Check' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Circle Info' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Cybertruck' })).toBeInTheDocument();
@@ -70,7 +71,12 @@ describe('Icons Playground', () => {
     ['Sidebar Expand', 'sidebar-expand'],
     ['Ellipsis', 'ellipsis'],
     ['Ellipsis Vertical', 'ellipsis-vertical'],
-    ['Workspace', 'workspace'],
+    ['Layout', 'layout'],
+    ['Palette', 'palette'],
+    ['Type', 'type'],
+    ['Layers', 'layers'],
+    ['Spline', 'spline'],
+    ['Shapes', 'shapes'],
     ['Home', 'home'],
     ['Eye', 'eye'],
     ['Eye Closed', 'eye-closed'],

@@ -1,3 +1,11 @@
+import {
+  LayersIcon,
+  LayoutIcon,
+  PaletteIcon,
+  ShapesIcon,
+  SplineIcon,
+  TypeIcon,
+} from '@virgo-design/icons';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
@@ -5,6 +13,15 @@ import { NavLink } from 'react-router-dom';
 import { FOUNDATION_NAVIGATION_ITEMS } from '@/shared/routes/route-config';
 
 import styles from './foundation-tokens.module.scss';
+
+const foundationIcons = {
+  'foundationNavigation.colors': PaletteIcon,
+  'foundationNavigation.typography': TypeIcon,
+  'foundationNavigation.layout': LayoutIcon,
+  'foundationNavigation.shapeDepth': LayersIcon,
+  'foundationNavigation.motion': SplineIcon,
+  'foundationNavigation.icons': ShapesIcon,
+} as const;
 
 interface FoundationPageProps {
   title: string;
@@ -27,19 +44,24 @@ export function FoundationNavigation() {
 
   return (
     <nav className={styles.foundationNavigation} aria-label={t('foundationNavigation.label')}>
-      {FOUNDATION_NAVIGATION_ITEMS.map((item) => (
-        <NavLink
-          key={item.path}
-          className={({ isActive }) =>
-            `${styles.foundationNavigationLink} ${
-              isActive ? styles.foundationNavigationLinkActive : ''
-            }`
-          }
-          to={item.path}
-        >
-          {t(item.label)}
-        </NavLink>
-      ))}
+      {FOUNDATION_NAVIGATION_ITEMS.map((item) => {
+        const Icon = foundationIcons[item.label];
+
+        return (
+          <NavLink
+            key={item.path}
+            className={({ isActive }) =>
+              `${styles.foundationNavigationLink} ${
+                isActive ? styles.foundationNavigationLinkActive : ''
+              }`
+            }
+            to={item.path}
+          >
+            <Icon size={16} aria-hidden="true" />
+            {t(item.label)}
+          </NavLink>
+        );
+      })}
     </nav>
   );
 }

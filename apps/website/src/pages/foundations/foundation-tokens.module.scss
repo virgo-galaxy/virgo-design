@@ -43,6 +43,9 @@
 
 .foundationNavigationLink {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   flex: 0 0 auto;
   border-radius: 8px;
   padding: 8px 12px;
@@ -50,6 +53,10 @@
   font-size: 11px;
   font-weight: 650;
   text-decoration: none;
+}
+
+.foundationNavigationLink svg {
+  flex: none;
 }
 
 .foundationNavigationLink + .foundationNavigationLink::before {

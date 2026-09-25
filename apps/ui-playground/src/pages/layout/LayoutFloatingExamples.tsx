@@ -3,8 +3,8 @@ import {
   DashboardIcon,
   GlobeIcon,
   HomeIcon,
+  LayoutIcon,
   SettingsIcon,
-  WorkspaceIcon,
 } from '@virgo-design/icons';
 import { FloatingAction, Layout, NavigationMenu } from '@virgo-design/ui';
 import { useState } from 'react';
@@ -43,7 +43,7 @@ export function FloatingSidebarExample() {
                       <span className={collapsed ? 'layout-sr-only' : undefined}>Home</span>
                     </NavigationMenu.Link>
                   </NavigationMenu.Item>
-                  <NavigationMenu.Item value="projects" icon={<WorkspaceIcon />}>
+                  <NavigationMenu.Item value="projects" icon={<LayoutIcon />}>
                     <NavigationMenu.Trigger
                       aria-label="Projects"
                       title={collapsed ? 'Projects' : undefined}

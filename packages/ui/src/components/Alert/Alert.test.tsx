@@ -5,8 +5,8 @@ import {
   CircleInfoIcon,
   CircleXIcon,
   CloseIcon,
+  LayoutIcon,
   TriangleAlertIcon,
-  WorkspaceIcon,
 } from '@virgo-design/icons';
 import type { ReactElement } from 'react';
 import { describe, expect, it, vi } from 'vitest';
@@ -83,7 +83,7 @@ describe('Alert', () => {
 
   it('supports a custom icon supplied by Root', () => {
     render(
-      <Alert intent="info" icon={<WorkspaceIcon data-testid="workspace-icon" />}>
+      <Alert intent="info" icon={<LayoutIcon data-testid="workspace-icon" />}>
         <Alert.Icon className="custom-icon-slot" data-testid="icon-slot" />
       </Alert>,
     );

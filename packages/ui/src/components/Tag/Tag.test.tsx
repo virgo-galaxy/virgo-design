@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { WorkspaceIcon } from '@virgo-design/icons';
+import { LayoutIcon } from '@virgo-design/icons';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Tag } from './index';
@@ -44,7 +44,7 @@ describe('Tag', () => {
   });
 
   it('renders a decorative icon', () => {
-    render(<Tag icon={<WorkspaceIcon data-testid="icon" />}>Workspace</Tag>);
+    render(<Tag icon={<LayoutIcon data-testid="icon" />}>Workspace</Tag>);
     expect(screen.getByTestId('icon').parentElement).toHaveAttribute('aria-hidden', 'true');
   });
 

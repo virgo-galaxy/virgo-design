@@ -1,6 +1,6 @@
 import './AlertPage.scss';
 
-import { WorkspaceIcon } from '@virgo-design/icons';
+import { LayoutIcon } from '@virgo-design/icons';
 import { Alert, type AlertIntent, Button } from '@virgo-design/ui';
 import { useState } from 'react';
 
@@ -195,7 +195,7 @@ export function AlertPage() {
         description="Override the status shape for domain context while keeping intent responsible for color."
       >
         <div className="alert-stack">
-          <Alert intent="info" icon={<WorkspaceIcon />}>
+          <Alert intent="info" icon={<LayoutIcon />}>
             <Alert.Icon />
             <Alert.Content>
               <Alert.Title>Workspace policy</Alert.Title>

@@ -25,18 +25,23 @@ export { EyeIcon, type EyeIconProps } from './generated/EyeIcon.js';
 export { GaugeIcon, type GaugeIconProps } from './generated/GaugeIcon.js';
 export { GlobeIcon, type GlobeIconProps } from './generated/GlobeIcon.js';
 export { HomeIcon, type HomeIconProps } from './generated/HomeIcon.js';
+export { LayersIcon, type LayersIconProps } from './generated/LayersIcon.js';
+export { LayoutIcon, type LayoutIconProps } from './generated/LayoutIcon.js';
 export { MinusIcon, type MinusIconProps } from './generated/MinusIcon.js';
 export { MoonIcon, type MoonIconProps } from './generated/MoonIcon.js';
+export { PaletteIcon, type PaletteIconProps } from './generated/PaletteIcon.js';
 export { PlusIcon, type PlusIconProps } from './generated/PlusIcon.js';
 export { SearchIcon, type SearchIconProps } from './generated/SearchIcon.js';
 export { SettingsIcon, type SettingsIconProps } from './generated/SettingsIcon.js';
+export { ShapesIcon, type ShapesIconProps } from './generated/ShapesIcon.js';
 export {
   SidebarCollapseIcon,
   type SidebarCollapseIconProps,
 } from './generated/SidebarCollapseIcon.js';
 export { SidebarExpandIcon, type SidebarExpandIconProps } from './generated/SidebarExpandIcon.js';
+export { SplineIcon, type SplineIconProps } from './generated/SplineIcon.js';
 export { SunIcon, type SunIconProps } from './generated/SunIcon.js';
 export { TrashIcon, type TrashIconProps } from './generated/TrashIcon.js';
 export { TriangleAlertIcon, type TriangleAlertIconProps } from './generated/TriangleAlertIcon.js';
+export { TypeIcon, type TypeIconProps } from './generated/TypeIcon.js';
 export { UserIcon, type UserIconProps } from './generated/UserIcon.js';
-export { WorkspaceIcon, type WorkspaceIconProps } from './generated/WorkspaceIcon.js';

@@ -1,6 +1,6 @@
 import './CommandPage.scss';
 
-import { DashboardIcon, SearchIcon, SettingsIcon, WorkspaceIcon } from '@virgo-design/icons';
+import { DashboardIcon, LayoutIcon, SearchIcon, SettingsIcon } from '@virgo-design/icons';
 import { Button, Command } from '@virgo-design/ui';
 import { useEffect, useState } from 'react';
 
@@ -22,7 +22,7 @@ function CommandItems({ select }: { select: (value: string) => void }) {
         </Command.Item>
         <Command.Item
           value="switch-workspace"
-          icon={<WorkspaceIcon />}
+          icon={<LayoutIcon />}
           shortcut="⌘ W"
           onSelect={select}
         >

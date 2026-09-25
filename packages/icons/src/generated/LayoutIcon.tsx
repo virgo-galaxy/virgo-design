@@ -1,14 +1,14 @@
-/* This file is generated from icons/workspace.svg by scripts/generate.ts. Do not edit. */
+/* This file is generated from icons/layout.svg by scripts/generate.ts. Do not edit. */
 import type { SVGProps } from 'react';
 
-export type WorkspaceIconProps = Omit<
+export type LayoutIconProps = Omit<
   SVGProps<SVGSVGElement>,
   'stroke' | 'strokeLinecap' | 'strokeLinejoin' | 'strokeWidth'
 > & {
   size?: number;
 };
 
-export function WorkspaceIcon({ size = 24, ...props }: WorkspaceIconProps) {
+export function LayoutIcon({ size = 24, ...props }: LayoutIconProps) {
   return (
     <svg fill="currentColor" height={size} viewBox="0 0 24 24" width={size} {...props}>
       <path

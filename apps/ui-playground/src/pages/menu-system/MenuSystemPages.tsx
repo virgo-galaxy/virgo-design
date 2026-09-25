@@ -1,6 +1,6 @@
 import './MenuSystemPages.scss';
 
-import { CheckIcon, PlusIcon, TrashIcon, WorkspaceIcon } from '@virgo-design/icons';
+import { CheckIcon, LayoutIcon, PlusIcon, TrashIcon } from '@virgo-design/icons';
 import { ContextMenu, Menu, Menubar } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
@@ -50,7 +50,7 @@ function SharedItems({ select }: { select: (name: string) => void }) {
       </Menu.Group>
       <Menu.Separator />
       <Menu.Submenu>
-        <Menu.SubmenuTrigger icon={<WorkspaceIcon />}>Export</Menu.SubmenuTrigger>
+        <Menu.SubmenuTrigger icon={<LayoutIcon />}>Export</Menu.SubmenuTrigger>
         <Menu.SubmenuContent>
           <Menu.Item onSelect={() => select('Export PDF')}>PDF</Menu.Item>
           <Menu.Submenu>
@@ -173,7 +173,7 @@ export function ContextMenuPage() {
         <div className="menu-example">
           <ContextMenu>
             <ContextMenu.Trigger className="context-target" aria-label="Document context">
-              <WorkspaceIcon />
+              <LayoutIcon />
               <strong>Document</strong>
               <span>Right-click here · Shift+F10</span>
             </ContextMenu.Trigger>

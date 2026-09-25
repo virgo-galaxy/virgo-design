@@ -1,6 +1,6 @@
 import './EmptyPage.scss';
 
-import { SearchIcon, WorkspaceIcon } from '@virgo-design/icons';
+import { LayoutIcon, SearchIcon } from '@virgo-design/icons';
 import { Button, Empty } from '@virgo-design/ui';
 
 import { ReviewSection } from '../../components/ReviewSection';
@@ -42,7 +42,7 @@ export function EmptyPage() {
       >
         <Empty aria-label="Documents empty state">
           <Empty.Icon>
-            <WorkspaceIcon />
+            <LayoutIcon />
           </Empty.Icon>
           <Empty.Title>No documents</Empty.Title>
           <Empty.Description>Create your first document to get started.</Empty.Description>

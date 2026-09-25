@@ -1,6 +1,6 @@
 import './TagPage.scss';
 
-import { CheckIcon, SettingsIcon, WorkspaceIcon } from '@virgo-design/icons';
+import { CheckIcon, LayoutIcon, SettingsIcon } from '@virgo-design/icons';
 import { Tag, type TagIntent, type TagSize, type TagVariant } from '@virgo-design/ui';
 import { useState } from 'react';
 
@@ -78,7 +78,7 @@ export function TagPage() {
       >
         <div className="tag-demo-grid">
           <div className="tag-stage">
-            <Tag icon={<WorkspaceIcon />} intent="info">
+            <Tag icon={<LayoutIcon />} intent="info">
               Workspace
             </Tag>
             <Tag icon={<CheckIcon />} intent="success" variant="outline">

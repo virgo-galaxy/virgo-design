@@ -5,8 +5,8 @@ import {
   DashboardIcon,
   GlobeIcon,
   HomeIcon,
+  LayoutIcon,
   SettingsIcon,
-  WorkspaceIcon,
 } from '@virgo-design/icons';
 import { NavigationMenu } from '@virgo-design/ui';
 
@@ -140,7 +140,7 @@ function LeftNavigation() {
         <NavigationMenu.Item value="dashboard" icon={<DashboardIcon />}>
           <NavigationMenu.Link href="#navigation-dashboard">Dashboard</NavigationMenu.Link>
         </NavigationMenu.Item>
-        <NavigationMenu.Item value="projects" icon={<WorkspaceIcon />}>
+        <NavigationMenu.Item value="projects" icon={<LayoutIcon />}>
           <NavigationMenu.Link href="#navigation-projects">Projects</NavigationMenu.Link>
         </NavigationMenu.Item>
         <NavigationMenu.Item value="settings" icon={<SettingsIcon />}>
@@ -162,7 +162,7 @@ function NestedNavigation() {
       orientation="vertical"
     >
       <NavigationMenu.List>
-        <NavigationMenu.Item defaultExpanded value="products" icon={<WorkspaceIcon />}>
+        <NavigationMenu.Item defaultExpanded value="products" icon={<LayoutIcon />}>
           <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
           <NavigationMenu.Content>
             <NavigationMenu.Item value="cloud" icon={<GlobeIcon />}>

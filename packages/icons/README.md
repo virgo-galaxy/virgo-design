@@ -284,6 +284,14 @@ SettingsIcon
 
 ## Generation
 
+### Foundation symbols
+
+The Website uses `PaletteIcon` for Colors, `TypeIcon` for Typography, `LayoutIcon` for Layout,
+`LayersIcon` for Shape & Depth, `SplineIcon` for Motion, and `ShapesIcon` for Icons.
+
+`LayoutIcon` replaces the former `WorkspaceIcon` export without changing its geometry.
+Consumers should update their imports to `LayoutIcon` (and `LayoutIconProps` for its props).
+
 After changing or adding a canonical SVG, regenerate the React package with:
 
 ```bash
