@@ -8,8 +8,8 @@ import {
 } from '@virgo-design/icons';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
 
+import { SectionNavigation } from '@/components/section/SectionNavigation';
 import { FOUNDATION_NAVIGATION_ITEMS } from '@/shared/routes/route-config';
 
 import styles from './foundation-tokens.module.scss';
@@ -41,29 +41,17 @@ interface FoundationSectionProps {
 
 export function FoundationNavigation() {
   const { t } = useTranslation();
+  const items = FOUNDATION_NAVIGATION_ITEMS.map((item) => {
+    const Icon = foundationIcons[item.label];
 
-  return (
-    <nav className={styles.foundationNavigation} aria-label={t('foundationNavigation.label')}>
-      {FOUNDATION_NAVIGATION_ITEMS.map((item) => {
-        const Icon = foundationIcons[item.label];
+    return {
+      ...item,
+      label: t(item.label),
+      icon: <Icon size={16} aria-hidden="true" />,
+    };
+  });
 
-        return (
-          <NavLink
-            key={item.path}
-            className={({ isActive }) =>
-              `${styles.foundationNavigationLink} ${
-                isActive ? styles.foundationNavigationLinkActive : ''
-              }`
-            }
-            to={item.path}
-          >
-            <Icon size={16} aria-hidden="true" />
-            {t(item.label)}
-          </NavLink>
-        );
-      })}
-    </nav>
-  );
+  return <SectionNavigation ariaLabel={t('foundationNavigation.label')} items={items} />;
 }
 
 export function FoundationPage({

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
 
+import { SectionNavigation } from '@/components/section/SectionNavigation';
 import { TOKEN_NAVIGATION_ITEMS } from '@/shared/routes/route-config';
 
 import styles from '../foundations/foundation-tokens.module.scss';
@@ -22,25 +22,15 @@ interface TokenSectionProps {
 
 export function TokenPage({ title, description, children }: TokenPageProps) {
   const { t } = useTranslation();
+  const navigationItems = TOKEN_NAVIGATION_ITEMS.map((item) => ({
+    ...item,
+    label: t(item.label),
+  }));
 
   return (
     <section className={styles.page}>
       <div className={styles.inner}>
-        <nav className={styles.foundationNavigation} aria-label={t('tokenNavigation.label')}>
-          {TOKEN_NAVIGATION_ITEMS.map((item) => (
-            <NavLink
-              key={item.path}
-              className={({ isActive }) =>
-                `${styles.foundationNavigationLink} ${
-                  isActive ? styles.foundationNavigationLinkActive : ''
-                }`
-              }
-              to={item.path}
-            >
-              {t(item.label)}
-            </NavLink>
-          ))}
-        </nav>
+        <SectionNavigation ariaLabel={t('tokenNavigation.label')} items={navigationItems} />
 
         <header className={styles.pageHeader}>
           <div className={styles.eyebrow}>{t('tokenPages.eyebrow')}</div>

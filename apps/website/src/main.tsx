@@ -1,4 +1,5 @@
 import '@virgo-design/fonts/default.css';
+import '@virgo-design/tokens/styles.css';
 import './i18n';
 import './styles.scss';
 

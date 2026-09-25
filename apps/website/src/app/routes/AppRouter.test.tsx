@@ -37,6 +37,9 @@ describe('Token routes', () => {
     await screen.findByRole('heading', { level: 1, name: 'Color with meaning' });
     const navigation = screen.getByRole('navigation', { name: 'Token categories' });
 
+    expect(navigation).toHaveAttribute('data-variant', 'segmented');
+    expect(navigation.querySelectorAll('[data-slot="separator"]')).toHaveLength(1);
+    expect(navigation.querySelector('[data-slot="icon"]')).not.toBeInTheDocument();
     expect(
       within(navigation).getByRole('link', { name: 'Colors' }).getAttribute('aria-current'),
     ).toBe('page');
@@ -235,6 +238,9 @@ describe('Foundation routes', () => {
     await screen.findByRole('heading', { level: 1, name: 'Icons' });
     const navigation = screen.getByRole('navigation', { name: 'Foundation categories' });
 
+    expect(navigation).toHaveAttribute('data-variant', 'segmented');
+    expect(navigation.querySelectorAll('[data-slot="separator"]')).toHaveLength(5);
+    expect(navigation.querySelectorAll('[data-slot="icon"]')).toHaveLength(6);
     expect(within(navigation).getByRole('link', { name: 'Icons' })).toHaveAttribute(
       'aria-current',
       'page',

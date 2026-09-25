@@ -29,58 +29,6 @@
   padding: 20px 0 112px;
 }
 
-.foundationNavigation {
-  display: flex;
-  width: max-content;
-  max-width: 100%;
-  gap: 4px;
-  overflow-x: auto;
-  border: 1px solid var(--foundation-line);
-  border-radius: 12px;
-  padding: 4px;
-  background: var(--foundation-muted);
-}
-
-.foundationNavigationLink {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  flex: 0 0 auto;
-  border-radius: 8px;
-  padding: 8px 12px;
-  color: var(--layout-secondary);
-  font-size: 11px;
-  font-weight: 650;
-  text-decoration: none;
-}
-
-.foundationNavigationLink svg {
-  flex: none;
-}
-
-.foundationNavigationLink + .foundationNavigationLink::before {
-  position: absolute;
-  top: 50%;
-  left: -3px;
-  width: 1px;
-  height: 14px;
-  background: var(--foundation-line-strong);
-  content: '';
-  pointer-events: none;
-  transform: translateY(-50%);
-}
-
-.foundationNavigationLink:hover {
-  color: var(--layout-text);
-}
-
-.foundationNavigationLinkActive {
-  color: var(--layout-text);
-  background: var(--foundation-surface-strong);
-  box-shadow: 0 1px 4px rgba(15, 18, 23, 0.08);
-}
-
 .pageHeader {
   max-width: 760px;
   margin-top: 64px;
