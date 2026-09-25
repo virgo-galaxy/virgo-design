@@ -9,7 +9,7 @@ export function SpinnerPage() {
     <div className="review-board spinner-review">
       <section className="spinner-intro" id="overview">
         <div className="eyebrow-row">
-          <span>Component 30</span>
+          <span>Component 27</span>
           <span className="version-badge">STABLE · V1.0.0</span>
         </div>
         <h1>Spinner</h1>

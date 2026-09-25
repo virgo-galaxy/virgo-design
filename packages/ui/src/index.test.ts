@@ -12,6 +12,7 @@ describe('@virgo-design/ui public API', () => {
         'Badge',
         'Breadcrumb',
         'Button',
+        'Card',
         'Checkbox',
         'Command',
         'Dialog',
@@ -68,6 +69,9 @@ describe('@virgo-design/ui public API', () => {
     expect(ui.Alert.Root).toBe(ui.Alert);
     expect(ui.Avatar.Root).toBe(ui.Avatar);
     expect(ui.Avatar).toHaveProperty('Group');
+    for (const part of ['Root', 'Header', 'Body', 'Footer', 'Title', 'Description'])
+      expect(ui.Card).toHaveProperty(part);
+    expect(ui.Card.Root).toBe(ui.Card);
     for (const part of ['Root', 'Icon', 'Title', 'Description', 'Action'])
       expect(ui.Empty).toHaveProperty(part);
     expect(ui.Empty.Root).toBe(ui.Empty);

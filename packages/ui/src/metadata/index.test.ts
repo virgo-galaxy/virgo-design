@@ -7,6 +7,7 @@ import {
   badgeMetadata,
   breadcrumbMetadata,
   buttonMetadata,
+  cardMetadata,
   checkboxMetadata,
   commandMetadata,
   componentMetadataRegistry,
@@ -37,6 +38,21 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Card as Surface-backed non-interactive content structure', () => {
+    expect(componentMetadataRegistry.card).toBe(cardMetadata);
+    expect(cardMetadata.variants.map(({ name }) => name)).toEqual([
+      'default',
+      'outlined',
+      'elevated',
+    ]);
+    expect(cardMetadata.capabilities).toMatchObject({
+      surfaceIntegration: true,
+      arbitraryChildren: true,
+      clickable: false,
+      selectable: false,
+    });
+  });
+
   it('registers Separator as a semantic or decorative layout rule', () => {
     expect(componentMetadataRegistry.separator).toBe(separatorMetadata);
     expect(separatorMetadata.capabilities).toMatchObject({

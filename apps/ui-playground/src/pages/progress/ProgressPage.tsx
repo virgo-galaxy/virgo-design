@@ -17,7 +17,7 @@ export function ProgressPage() {
     <div className="review-board progress-review">
       <section className="progress-intro" id="overview">
         <div className="eyebrow-row">
-          <span>Component 29</span>
+          <span>Component 25</span>
           <span className="version-badge">STABLE · V1.0.0</span>
         </div>
         <h1>Progress</h1>

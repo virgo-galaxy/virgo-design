@@ -9,7 +9,7 @@ export function SeparatorPage() {
     <div className="review-board separator-review">
       <section className="separator-intro" id="overview">
         <div className="eyebrow-row">
-          <span>Component 33</span>
+          <span>Component 04</span>
           <span className="version-badge">STABLE · V1.0.0</span>
         </div>
         <h1>Separator</h1>

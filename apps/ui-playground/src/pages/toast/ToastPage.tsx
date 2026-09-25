@@ -39,7 +39,7 @@ export function ToastPage() {
       <div className="review-board toast-review">
         <section className="toast-intro" id="overview">
           <div className="eyebrow-row">
-            <span>Component 22</span>
+            <span>Component 29</span>
             <span className="version-badge">STABLE · V1.0.0</span>
           </div>
           <h1>Toast</h1>

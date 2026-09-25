@@ -9,7 +9,7 @@ export function SkeletonPage() {
     <div className="review-board skeleton-review">
       <section className="skeleton-intro" id="overview">
         <div className="eyebrow-row">
-          <span>Component 31</span>
+          <span>Component 26</span>
           <span className="version-badge">STABLE · V1.0.0</span>
         </div>
         <h1>Skeleton</h1>

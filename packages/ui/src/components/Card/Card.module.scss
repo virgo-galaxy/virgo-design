@@ -1,0 +1,78 @@
+.root {
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  gap: var(--card-gap);
+  padding: var(--card-padding);
+}
+
+.root[data-size='sm'] {
+  --card-padding: var(--vd-spacing-16);
+  --card-gap: var(--vd-spacing-12);
+  --card-header-gap: var(--vd-spacing-2);
+  --card-title-font-family: var(--vd-typography-ui-label-medium-font-family);
+  --card-title-font-size: var(--vd-typography-ui-label-medium-font-size);
+  --card-title-font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  --card-title-line-height: var(--vd-typography-ui-label-medium-line-height);
+}
+
+.root[data-size='md'] {
+  --card-padding: var(--vd-spacing-24);
+  --card-gap: var(--vd-spacing-16);
+  --card-header-gap: var(--vd-spacing-4);
+  --card-title-font-family: var(--vd-typography-ui-title-small-font-family);
+  --card-title-font-size: var(--vd-typography-ui-title-small-font-size);
+  --card-title-font-weight: var(--vd-typography-ui-title-small-font-weight);
+  --card-title-line-height: var(--vd-typography-ui-title-small-line-height);
+}
+
+.root[data-size='lg'] {
+  --card-padding: var(--vd-spacing-32);
+  --card-gap: var(--vd-spacing-20);
+  --card-header-gap: var(--vd-spacing-6);
+  --card-title-font-family: var(--vd-typography-ui-title-medium-font-family);
+  --card-title-font-size: var(--vd-typography-ui-title-medium-font-size);
+  --card-title-font-weight: var(--vd-typography-ui-title-medium-font-weight);
+  --card-title-line-height: var(--vd-typography-ui-title-medium-line-height);
+}
+
+.header {
+  display: grid;
+  min-width: 0;
+  gap: var(--card-header-gap);
+}
+
+.body {
+  min-width: 0;
+  color: var(--vd-text-primary);
+}
+
+.footer {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--vd-spacing-8);
+}
+
+.title {
+  margin: var(--vd-spacing-0);
+  overflow-wrap: anywhere;
+  color: var(--vd-text-primary);
+  font-family: var(--card-title-font-family);
+  font-size: var(--card-title-font-size);
+  font-weight: var(--card-title-font-weight);
+  line-height: var(--card-title-line-height);
+}
+
+.description {
+  margin: var(--vd-spacing-0);
+  overflow-wrap: anywhere;
+  color: var(--vd-text-secondary);
+  font-family: var(--vd-typography-ui-body-medium-font-family);
+  font-size: var(--vd-typography-ui-body-medium-font-size);
+  font-weight: var(--vd-typography-ui-body-medium-font-weight);
+  line-height: var(--vd-typography-ui-body-medium-line-height);
+}

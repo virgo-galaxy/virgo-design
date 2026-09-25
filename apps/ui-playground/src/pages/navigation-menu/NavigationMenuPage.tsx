@@ -190,7 +190,7 @@ export function NavigationMenuPage() {
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
-            <span>Component 06</span>
+            <span>Component 07</span>
             <span className="version-badge">STABLE · V1.0.0</span>
           </div>
           <h1>NavigationMenu</h1>

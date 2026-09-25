@@ -10,7 +10,7 @@ export function EmptyPage() {
     <div className="review-board empty-review">
       <section className="empty-intro" id="overview">
         <div className="eyebrow-row">
-          <span>Component 32</span>
+          <span>Component 23</span>
           <span className="version-badge">STABLE · V1.0.0</span>
         </div>
         <h1>Empty</h1>

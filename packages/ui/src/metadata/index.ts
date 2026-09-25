@@ -4,6 +4,7 @@ import { avatarMetadata } from '../components/Avatar/Avatar.meta';
 import { badgeMetadata } from '../components/Badge/Badge.meta';
 import { breadcrumbMetadata } from '../components/Breadcrumb/Breadcrumb.meta';
 import { buttonMetadata } from '../components/Button/Button.meta';
+import { cardMetadata } from '../components/Card/Card.meta';
 import { checkboxMetadata } from '../components/Checkbox/Checkbox.meta';
 import { commandMetadata } from '../components/Command/Command.meta';
 import { contextMenuMetadata } from '../components/ContextMenu/ContextMenu.meta';
@@ -41,6 +42,7 @@ export {
   badgeMetadata,
   breadcrumbMetadata,
   buttonMetadata,
+  cardMetadata,
   checkboxMetadata,
   commandMetadata,
   contextMenuMetadata,
@@ -81,6 +83,7 @@ export const componentMetadataRegistry = {
   avatar: avatarMetadata,
   badge: badgeMetadata,
   button: buttonMetadata,
+  card: cardMetadata,
   breadcrumb: breadcrumbMetadata,
   checkbox: checkboxMetadata,
   command: commandMetadata,

@@ -9,7 +9,7 @@ export function AvatarPage() {
     <div className="review-board avatar-review">
       <section className="avatar-intro" id="overview">
         <div className="eyebrow-row">
-          <span>Component 28</span>
+          <span>Component 18</span>
           <span className="version-badge">STABLE · V1.0.0</span>
         </div>
         <h1>Avatar</h1>

@@ -59,21 +59,13 @@ describe('Popover Playground', () => {
       screen.queryByRole('heading', { name: 'Local theme & direction' }),
     ).not.toBeInTheDocument();
   });
-  it('preserves legacy alphabetic grouping and consecutive coverage numbering', () => {
+  it('preserves alphabetic grouping and consecutive numbering', () => {
     expect(componentRoutes.map((route) => route.index)).toEqual(
       componentRoutes.map((_, index) => String(index + 1).padStart(2, '0')),
     );
-    const coveragePassIds = new Set([
-      'avatar',
-      'progress',
-      'spinner',
-      'skeleton',
-      'empty',
-      'separator',
-    ]);
     for (const group of componentGroups) {
       const names = componentRoutes
-        .filter((route) => route.group === group.id && !coveragePassIds.has(route.id))
+        .filter((route) => route.group === group.id)
         .map((route) => route.name);
       expect(names).toEqual([...names].sort((left, right) => left.localeCompare(right)));
     }
