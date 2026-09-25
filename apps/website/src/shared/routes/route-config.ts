@@ -14,7 +14,6 @@ export const ROUTE_PATHS = {
   componentRoutes: '/components/*',
   primitives: '/primitives',
   primitiveDetail: '/primitives/:slug',
-  resources: '/resources',
 } as const;
 
 export const PRIMARY_NAVIGATION_ITEMS = [

@@ -104,10 +104,6 @@ export function AppRouter() {
         <Route path={ROUTE_PATHS.componentRoutes} element={<ComponentsDocumentationRoute />} />
         <Route path={ROUTE_PATHS.primitives} element={<PrimitiveCataloguePage />} />
         <Route path={ROUTE_PATHS.primitiveDetail} element={<PrimitiveDocumentation />} />
-        <Route
-          path={ROUTE_PATHS.resources}
-          element={<Navigate to={ROUTE_PATHS.primitives} replace />}
-        />
       </Routes>
     </Suspense>
   );

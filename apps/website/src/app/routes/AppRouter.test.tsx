@@ -58,13 +58,6 @@ describe('Token routes', () => {
 });
 
 describe('Component routes', () => {
-  it('redirects the retired Resources route to the Primitives catalogue', async () => {
-    renderRoute('/resources');
-
-    await screen.findByRole('heading', { level: 1, name: 'Primitives' }, { timeout: 5000 });
-    expect(screen.getByTestId('current-path')).toHaveTextContent('/primitives');
-  });
-
   it('renders a canonical component route', async () => {
     renderRoute('/components/button');
 
