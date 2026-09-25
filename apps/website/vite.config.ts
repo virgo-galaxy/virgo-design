@@ -29,6 +29,9 @@ export default defineConfig({
       '@virgo-design/tokens': fileURLToPath(
         new URL('../../packages/tokens/src/index.ts', import.meta.url),
       ),
+      '@virgo-design/ui/metadata': fileURLToPath(
+        new URL('../../packages/ui/src/metadata/index.ts', import.meta.url),
+      ),
       '@virgo-design/ui': fileURLToPath(new URL('../../packages/ui/src/index.ts', import.meta.url)),
     },
   },

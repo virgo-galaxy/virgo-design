@@ -1,3 +1,4 @@
+import { ChevronRightIcon } from '@virgo-design/icons';
 import { Card } from '@virgo-design/ui';
 import { Link } from 'react-router-dom';
 
@@ -31,7 +32,7 @@ export function RelationshipSection({ items, title }: RelationshipSectionProps) 
             <Card variant="outlined" size="sm" className={styles.card}>
               <Card.Body className={styles.cardBody}>
                 <span>{item.label}</span>
-                <span aria-hidden="true">→</span>
+                <ChevronRightIcon size={16} aria-hidden="true" />
               </Card.Body>
             </Card>
           </Link>

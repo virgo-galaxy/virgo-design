@@ -23,6 +23,11 @@ describe('Documentation relationships', () => {
       'href',
       '/primitives/dialog',
     );
+    expect(section).not.toHaveTextContent('→');
+    expect(section?.querySelectorAll('svg')).toHaveLength(2);
+    section?.querySelectorAll('svg').forEach((icon) => {
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+    });
   });
 
   it('renders reverse-computed Used by links', () => {

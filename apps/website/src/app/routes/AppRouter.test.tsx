@@ -1,6 +1,7 @@
 import '../../i18n';
 
 import { render, screen, within } from '@testing-library/react';
+import { floatingActionMetadata } from '@virgo-design/ui/metadata';
 import { MemoryRouter, useLocation } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -93,6 +94,30 @@ describe('Components and Playground routes', () => {
     );
   });
 
+  it('renders FloatingAction as a canonical component with metadata and relationships', async () => {
+    renderRoute('/components/floating-action');
+
+    await screen.findByRole('heading', { level: 1, name: 'FloatingAction' }, { timeout: 5000 });
+    expect(screen.getByText(floatingActionMetadata.description)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Help' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Quick actions' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Button Primitive/ })).toHaveAttribute(
+      'href',
+      '/primitives/button',
+    );
+    expect(screen.getByRole('link', { name: /Popover Primitive/ })).toHaveAttribute(
+      'href',
+      '/primitives/popover',
+    );
+  });
+
+  it('does not create a canonical Textarea component route', async () => {
+    renderRoute('/components/textarea');
+
+    await screen.findByRole('heading', { level: 1, name: 'Button' }, { timeout: 5000 });
+    expect(screen.getByTestId('current-path')).toHaveTextContent('/components/button');
+  });
+
   it('does not render Relationships for a UI-only component', async () => {
     renderRoute('/components/card');
 
@@ -172,6 +197,24 @@ describe('Primitive routes', () => {
     expect(within(relationshipSection!).getByRole('link', { name: /Drawer/ })).toHaveAttribute(
       'href',
       '/components/drawer',
+    );
+  });
+
+  it('reverse-computes FloatingAction for Button and Popover primitives', async () => {
+    const { unmount } = renderRoute('/primitives/button');
+
+    await screen.findByRole('heading', { level: 1, name: 'Button' });
+    expect(screen.getByRole('link', { name: /Floating Action/ })).toHaveAttribute(
+      'href',
+      '/components/floating-action',
+    );
+
+    unmount();
+    renderRoute('/primitives/popover');
+    await screen.findByRole('heading', { level: 1, name: 'Popover' });
+    expect(screen.getByRole('link', { name: /Floating Action/ })).toHaveAttribute(
+      'href',
+      '/components/floating-action',
     );
   });
 

@@ -15,6 +15,7 @@ export const componentPrimitiveRelations = {
   dialog: ['dialog'],
   drawer: ['dialog'],
   dropdown: ['dropdown'],
+  'floating-action': ['button', 'popover'],
   input: ['input', 'textarea'],
   layout: ['layout'],
   menu: ['menu'],

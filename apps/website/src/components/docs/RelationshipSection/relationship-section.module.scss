@@ -62,6 +62,10 @@
   line-height: var(--vd-typography-ui-label-medium-line-height);
 }
 
+.cardBody svg {
+  flex: none;
+}
+
 .link:hover .card {
   border-color: var(--vd-border-strong);
   transform: translateY(-1px);

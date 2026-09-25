@@ -13,6 +13,7 @@ import { DialogPage } from '../pages/dialog/DialogPage';
 import { DrawerPage } from '../pages/drawer/DrawerPage';
 import { DropdownPage } from '../pages/dropdown/DropdownPage';
 import { EmptyPage } from '../pages/empty/EmptyPage';
+import { FloatingActionPage } from '../pages/floating-action/FloatingActionPage';
 import { InputPage } from '../pages/input/InputPage';
 import { LayoutPage } from '../pages/layout/LayoutPage';
 import { ContextMenuPage, MenubarPage, MenuPage } from '../pages/menu-system/MenuSystemPages';
@@ -99,6 +100,7 @@ export type ComponentRoute = {
     | 'toast'
     | 'dropdown'
     | 'empty'
+    | 'floating-action'
     | 'breadcrumb';
   index: string;
   name: string;
@@ -131,6 +133,17 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1.0.0',
     Component: SurfacePage,
+  },
+  {
+    id: 'floating-action',
+    group: 'general',
+    index: '35',
+    name: 'FloatingAction',
+    category: 'Actions',
+    path: '/components/floating-action',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: FloatingActionPage,
   },
   {
     id: 'layout',

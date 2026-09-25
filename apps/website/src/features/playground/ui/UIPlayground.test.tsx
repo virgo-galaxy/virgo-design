@@ -42,12 +42,37 @@ describe('UI Playground integration', () => {
     expect(screen.getByRole('heading', { level: 1, name: 'Button' })).toBeInTheDocument();
     expect(document.querySelector('.playground-shell')).toHaveAttribute('data-theme', 'light');
     expect(screen.queryByRole('group', { name: 'Preview theme' })).not.toBeInTheDocument();
+    expect(componentRoutes).toHaveLength(35);
+    expect(componentRoutes.some((route) => route.id === 'floating-action')).toBe(true);
+    expect(componentRoutes.some((route) => route.id === ('textarea' as string))).toBe(false);
 
     await user.click(screen.getByRole('link', { name: /Surface/ }));
     expect(screen.getByRole('heading', { level: 1, name: 'Surface' })).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Set Website dark' }));
     expect(document.querySelector('.playground-shell')).toHaveAttribute('data-theme', 'dark');
+  });
+
+  it('keeps Textarea inside the Input documentation family', () => {
+    vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+
+    render(
+      <AppearanceContext.Provider value={{ appearance: 'light', setAppearance: () => {} }}>
+        <MemoryRouter initialEntries={['/components/input']}>
+          <Routes>
+            <Route path="/components/*" element={<UIPlayground />} />
+          </Routes>
+        </MemoryRouter>
+      </AppearanceContext.Provider>,
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: 'Input' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Textarea' })).toBeInTheDocument();
+    expect(
+      within(screen.getByRole('navigation', { name: 'Component navigation' })).queryByRole('link', {
+        name: /Textarea/,
+      }),
+    ).not.toBeInTheDocument();
   });
 
   it.each(componentRoutes)('renders $name at its canonical route', ({ name, path }) => {

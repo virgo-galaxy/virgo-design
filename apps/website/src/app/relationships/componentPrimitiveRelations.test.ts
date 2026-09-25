@@ -27,18 +27,24 @@ describe('componentPrimitiveRelations', () => {
 
   it('returns a one-to-one relationship', () => {
     expect(getPrimitivesForComponent('button')).toEqual(['button']);
-    expect(getComponentsForPrimitive('button')).toEqual(['button']);
   });
 
   it('supports one component built with multiple primitives', () => {
     expect(getPrimitivesForComponent('command')).toEqual(['command', 'dialog']);
     expect(getPrimitivesForComponent('navigation-menu')).toEqual(['navigation-menu', 'popover']);
     expect(getPrimitivesForComponent('pagination')).toEqual(['pagination', 'dropdown', 'input']);
+    expect(getPrimitivesForComponent('floating-action')).toEqual(['button', 'popover']);
   });
 
   it('reverse-computes multiple components using one primitive', () => {
     expect(getComponentsForPrimitive('dialog')).toEqual(['command', 'dialog', 'drawer']);
     expect(getComponentsForPrimitive('radio')).toEqual(['radio', 'segmented-control']);
+    expect(getComponentsForPrimitive('button')).toEqual(['button', 'floating-action']);
+    expect(getComponentsForPrimitive('popover')).toEqual([
+      'floating-action',
+      'navigation-menu',
+      'popover',
+    ]);
   });
 
   it('returns no relationship for a UI-only component', () => {
