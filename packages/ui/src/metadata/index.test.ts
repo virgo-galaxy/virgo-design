@@ -13,6 +13,7 @@ import {
   dialogMetadata,
   drawerMetadata,
   dropdownMetadata,
+  emptyMetadata,
   floatingActionMetadata,
   inputMetadata,
   layoutMetadata,
@@ -35,6 +36,16 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Empty as consumer-authored empty-content structure', () => {
+    expect(componentMetadataRegistry.empty).toBe(emptyMetadata);
+    expect(emptyMetadata.capabilities).toMatchObject({
+      compoundApi: true,
+      defaultCopy: false,
+      defaultIcon: false,
+      errorState: false,
+    });
+  });
+
   it('registers Skeleton as a visual-only loading placeholder', () => {
     expect(componentMetadataRegistry.skeleton).toBe(skeletonMetadata);
     expect(skeletonMetadata.variants.map(({ name }) => name)).toEqual([

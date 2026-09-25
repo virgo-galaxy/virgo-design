@@ -10,6 +10,7 @@ import { contextMenuMetadata } from '../components/ContextMenu/ContextMenu.meta'
 import { dialogMetadata } from '../components/Dialog/Dialog.meta';
 import { drawerMetadata } from '../components/Drawer/Drawer.meta';
 import { dropdownMetadata } from '../components/Dropdown/Dropdown.meta';
+import { emptyMetadata } from '../components/Empty/Empty.meta';
 import { floatingActionMetadata } from '../components/FloatingAction/FloatingAction.meta';
 import { inputMetadata } from '../components/Input/Input.meta';
 import { textareaMetadata } from '../components/Input/Textarea.meta';
@@ -45,6 +46,7 @@ export {
   dialogMetadata,
   drawerMetadata,
   dropdownMetadata,
+  emptyMetadata,
   floatingActionMetadata,
   inputMetadata,
   layoutMetadata,
@@ -83,6 +85,7 @@ export const componentMetadataRegistry = {
   dialog: dialogMetadata,
   drawer: drawerMetadata,
   dropdown: dropdownMetadata,
+  empty: emptyMetadata,
   input: inputMetadata,
   layout: layoutMetadata,
   floatingAction: floatingActionMetadata,

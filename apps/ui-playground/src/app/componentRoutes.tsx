@@ -11,6 +11,7 @@ import { CommandPage } from '../pages/command/CommandPage';
 import { DialogPage } from '../pages/dialog/DialogPage';
 import { DrawerPage } from '../pages/drawer/DrawerPage';
 import { DropdownPage } from '../pages/dropdown/DropdownPage';
+import { EmptyPage } from '../pages/empty/EmptyPage';
 import { InputPage } from '../pages/input/InputPage';
 import { LayoutPage } from '../pages/layout/LayoutPage';
 import { ContextMenuPage, MenubarPage, MenuPage } from '../pages/menu-system/MenuSystemPages';
@@ -93,6 +94,7 @@ export type ComponentRoute = {
     | 'tooltip'
     | 'toast'
     | 'dropdown'
+    | 'empty'
     | 'breadcrumb';
   index: string;
   name: string;
@@ -367,6 +369,17 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1.0.0',
     Component: SkeletonPage,
+  },
+  {
+    id: 'empty',
+    group: 'data-display',
+    index: '32',
+    name: 'Empty',
+    category: 'Data Display',
+    path: '/components/empty',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: EmptyPage,
   },
   {
     id: 'tag',
