@@ -1,9 +1,11 @@
 import { Card, Tag } from '@virgo-design/ui';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
+import { PrimitiveSpecimen } from '@/components/docs/PrimitiveSpecimen/PrimitiveSpecimen';
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
 
-import { getPrimitiveDoc } from './primitiveDocs';
+import { getPrimitiveDoc, type PrimitiveSlug } from './primitiveDocs';
+import { PrimitiveExample } from './PrimitiveExample';
 import styles from './primitives-docs.module.scss';
 
 function DetailList({ items }: { items: readonly string[] }) {
@@ -46,6 +48,10 @@ export function PrimitiveDetailPage() {
 
         <div className={styles.detailGrid}>
           <main className={styles.detailMain}>
+            <PrimitiveSpecimen>
+              <PrimitiveExample slug={doc.slug as PrimitiveSlug} />
+            </PrimitiveSpecimen>
+
             <Card variant="outlined" className={styles.detailCard}>
               <Card.Header>
                 <Card.Title as="h2">Package</Card.Title>

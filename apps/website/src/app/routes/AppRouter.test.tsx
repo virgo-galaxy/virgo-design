@@ -4,6 +4,7 @@ import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter, useLocation } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { primitiveDocs } from '@/features/primitives/primitiveDocs';
 import { AppearanceContext } from '@/shared/theme/appearance-context';
 
 import { AppRouter } from './AppRouter';
@@ -103,23 +104,21 @@ describe('Primitive routes', () => {
     );
   });
 
-  it.each([
-    ['/primitives/button', 'Button'],
-    ['/primitives/dialog', 'Dialog'],
-    ['/primitives/menu', 'Menu'],
-    ['/primitives/navigation-menu', 'NavigationMenu'],
-    ['/primitives/toast', 'Toast'],
-  ])('renders the %s detail documentation', async (path, exportName) => {
-    renderRoute(path);
+  it.each(primitiveDocs)(
+    'renders the /primitives/$slug detail documentation',
+    async ({ slug, exportName }) => {
+      renderRoute(`/primitives/${slug}`);
 
-    await screen.findByRole('heading', { level: 1, name: exportName });
-    expect(
-      screen.getByText(`import { ${exportName} } from '@virgo-design/primitives';`),
-    ).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 2, name: 'Anatomy' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 2, name: 'Behavior' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 2, name: 'Accessibility' })).toBeInTheDocument();
-  });
+      await screen.findByRole('heading', { level: 1, name: exportName });
+      expect(
+        screen.getByText(`import { ${exportName} } from '@virgo-design/primitives';`),
+      ).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 2, name: 'Basic example' })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 2, name: 'Anatomy' })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 2, name: 'Behavior' })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 2, name: 'Accessibility' })).toBeInTheDocument();
+    },
+  );
 
   it('redirects an unknown primitive slug to the catalogue', async () => {
     renderRoute('/primitives/not-a-primitive');
