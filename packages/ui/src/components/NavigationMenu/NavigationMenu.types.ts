@@ -7,9 +7,9 @@ import type {
   NavigationMenuProps as PrimitiveNavigationMenuProps,
   NavigationMenuTriggerProps as PrimitiveNavigationMenuTriggerProps,
 } from '@virgo-design/primitives';
-import type { ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 
-export type NavigationMenuVariant = 'default';
+export type NavigationMenuVariant = 'default' | 'segmented';
 export type NavigationMenuSubmenu = 'inline' | 'popover';
 
 export interface NavigationMenuProps extends PrimitiveNavigationMenuProps {
@@ -43,4 +43,5 @@ export interface NavigationMenuTriggerProps extends Omit<
 }
 
 export type NavigationMenuContentProps = PrimitiveNavigationMenuContentProps;
+export type NavigationMenuSeparatorProps = HTMLAttributes<HTMLLIElement>;
 export type { NavigationMenuOrientation };

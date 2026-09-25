@@ -18,6 +18,7 @@ import {
   useState,
 } from 'react';
 
+import { Separator as BaseSeparator } from '../Separator';
 import styles from './NavigationMenu.module.scss';
 import type {
   NavigationMenuContentProps,
@@ -26,6 +27,7 @@ import type {
   NavigationMenuListProps,
   NavigationMenuOrientation,
   NavigationMenuProps,
+  NavigationMenuSeparatorProps,
   NavigationMenuSubmenu,
   NavigationMenuTriggerProps,
 } from './NavigationMenu.types';
@@ -262,27 +264,12 @@ const Link = forwardRef<HTMLAnchorElement, NavigationMenuLinkProps>(function Nav
     if (!event.defaultPrevented && popover) group?.close();
   };
 
-  if (render) {
-    return (
-      <PrimitiveNavigationMenu.Link
-        {...props}
-        ref={forwardedRef}
-        className={className}
-        render={render}
-        onClick={handleClick}
-        onPointerEnter={handlePointerEnter}
-        onFocus={handleFocus}
-      >
-        {children}
-      </PrimitiveNavigationMenu.Link>
-    );
-  }
-
   return (
     <PrimitiveNavigationMenu.Link
       {...props}
       ref={forwardedRef}
       className={classes(styles.control, styles.link, className)}
+      {...(render ? { render } : {})}
       onClick={handleClick}
       onPointerEnter={handlePointerEnter}
       onFocus={handleFocus}
@@ -300,6 +287,29 @@ const Link = forwardRef<HTMLAnchorElement, NavigationMenuLinkProps>(function Nav
 });
 
 Link.displayName = 'NavigationMenu.Link';
+
+const Separator = forwardRef<HTMLLIElement, NavigationMenuSeparatorProps>(
+  function NavigationMenuSeparator({ className, ...props }, forwardedRef) {
+    const { orientation } = useContext(NavigationMenuVisualContext);
+    const separatorOrientation = orientation === 'horizontal' ? 'vertical' : 'horizontal';
+
+    return (
+      <li
+        {...props}
+        ref={forwardedRef}
+        className={classes(styles.separator, className)}
+        data-orientation={separatorOrientation}
+        data-slot="separator"
+        role="presentation"
+        aria-hidden="true"
+      >
+        <BaseSeparator decorative orientation={separatorOrientation} />
+      </li>
+    );
+  },
+);
+
+Separator.displayName = 'NavigationMenu.Separator';
 
 const Trigger = forwardRef<HTMLButtonElement, NavigationMenuTriggerProps>(
   function NavigationMenuTrigger({ render, className, children, ...props }, forwardedRef) {
@@ -447,6 +457,7 @@ export const NavigationMenu = Object.assign(Root, {
   List,
   Item,
   Link,
+  Separator,
   Trigger,
   Content,
 });

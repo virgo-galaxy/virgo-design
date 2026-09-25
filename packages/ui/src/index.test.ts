@@ -93,7 +93,7 @@ describe('@virgo-design/ui public API', () => {
     for (const part of ['Root', 'Item', 'Trigger', 'Content'])
       expect(ui.Accordion).toHaveProperty(part);
     expect(ui.Accordion.Root).toBe(ui.Accordion);
-    for (const part of ['Root', 'List', 'Item', 'Link', 'Trigger', 'Content'])
+    for (const part of ['Root', 'List', 'Item', 'Link', 'Separator', 'Trigger', 'Content'])
       expect(ui.NavigationMenu).toHaveProperty(part);
     expect(ui.NavigationMenu.Root).toBe(ui.NavigationMenu);
     expect(ui).toHaveProperty('Badge');

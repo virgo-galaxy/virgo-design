@@ -7,6 +7,7 @@ export type {
   NavigationMenuOrientation,
   NavigationMenuProps,
   NavigationMenuRootProps,
+  NavigationMenuSeparatorProps,
   NavigationMenuSubmenu,
   NavigationMenuTriggerProps,
   NavigationMenuVariant,

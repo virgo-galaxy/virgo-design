@@ -74,6 +74,27 @@ function PopoverExample({
   );
 }
 
+function SeparatorExample({ orientation }: { orientation: NavigationMenuOrientation }) {
+  return (
+    <NavigationMenu.Root
+      aria-label={`${orientation} sections`}
+      defaultValue="first"
+      orientation={orientation}
+      variant="segmented"
+    >
+      <NavigationMenu.List>
+        <NavigationMenu.Item value="first" icon={<svg data-testid="segmented-icon" />}>
+          <NavigationMenu.Link href="#first">First</NavigationMenu.Link>
+        </NavigationMenu.Item>
+        <NavigationMenu.Separator data-testid="navigation-separator" />
+        <NavigationMenu.Item value="second">
+          <NavigationMenu.Link href="#second">Second</NavigationMenu.Link>
+        </NavigationMenu.Item>
+      </NavigationMenu.List>
+    </NavigationMenu.Root>
+  );
+}
+
 afterEach(() => vi.useRealTimers());
 
 describe('NavigationMenu UI', () => {
@@ -82,6 +103,64 @@ describe('NavigationMenu UI', () => {
 
     expect(screen.getByTestId('navigation-menu')).toHaveAttribute('data-variant', 'default');
     expect(screen.getByTestId('navigation-menu')).toHaveAttribute('data-submenu', 'inline');
+  });
+
+  it.each(['light', 'dark'] as const)('supports the segmented variant in %s theme', (theme) => {
+    render(
+      <div data-theme={theme}>
+        <SeparatorExample orientation="horizontal" />
+      </div>,
+    );
+
+    const navigation = screen.getByRole('navigation', { name: 'horizontal sections' });
+    expect(navigation).toHaveAttribute('data-variant', 'segmented');
+    expect(navigation.closest(`[data-theme="${theme}"]`)).toBeInTheDocument();
+    expect(navigation).not.toHaveAttribute('data-theme');
+    expect(screen.getByTestId('segmented-icon').parentElement).toHaveAttribute(
+      'aria-hidden',
+      'true',
+    );
+  });
+
+  it.each([
+    ['horizontal', 'vertical'],
+    ['vertical', 'horizontal'],
+  ] as const)('uses a decorative %s rule in a %s menu', (orientation, separatorOrientation) => {
+    render(<SeparatorExample orientation={orientation} />);
+
+    const separator = screen.getByTestId('navigation-separator');
+    const rule = separator.firstElementChild;
+    expect(separator).toHaveAttribute('role', 'presentation');
+    expect(separator).toHaveAttribute('aria-hidden', 'true');
+    expect(separator).toHaveAttribute('data-orientation', separatorOrientation);
+    expect(rule).toHaveAttribute('data-orientation', separatorOrientation);
+    expect(rule).not.toHaveAttribute('role');
+    expect(rule).not.toHaveAttribute('aria-orientation');
+  });
+
+  it('preserves visual anatomy when a custom link renderer is used', () => {
+    render(
+      <NavigationMenu.Root aria-label="Custom link" defaultValue="home" variant="segmented">
+        <NavigationMenu.List>
+          <NavigationMenu.Item value="home" icon={<svg data-testid="custom-link-icon" />}>
+            <NavigationMenu.Link
+              href="#home"
+              render={(props) => <a {...props} data-custom-link="" />}
+            >
+              Home
+            </NavigationMenu.Link>
+          </NavigationMenu.Item>
+        </NavigationMenu.List>
+      </NavigationMenu.Root>,
+    );
+
+    const link = screen.getByRole('link', { name: 'Home' });
+    expect(link).toHaveAttribute('data-custom-link');
+    expect(link).toHaveAttribute('data-active', 'true');
+    expect(screen.getByTestId('custom-link-icon').parentElement).toHaveAttribute(
+      'data-slot',
+      'icon',
+    );
   });
 
   it.each(['horizontal', 'vertical'] as const)('supports %s orientation', (orientation) => {

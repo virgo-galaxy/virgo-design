@@ -9,6 +9,10 @@ export const navigationMenuMetadata = {
   import: "import { NavigationMenu } from '@virgo-design/ui';",
   variants: [
     { name: 'default', description: 'Classic Virgo navigation treatment for links and groups.' },
+    {
+      name: 'segmented',
+      description: 'Compact surface treatment for related section destinations.',
+    },
   ],
   states: ['default', 'hover', 'focus-visible', 'active', 'disabled', 'expanded'],
   anatomy: [
@@ -16,6 +20,10 @@ export const navigationMenuMetadata = {
     { name: 'NavigationMenu.List', description: 'Horizontal or vertical top-level link list.' },
     { name: 'NavigationMenu.Item', description: 'Coordinates one stable navigation value.' },
     { name: 'NavigationMenu.Link', description: 'Native link that activates its item.' },
+    {
+      name: 'NavigationMenu.Separator',
+      description: 'Decorative divider that follows the menu orientation automatically.',
+    },
     {
       name: 'NavigationMenu.Trigger',
       description: 'Button that discloses a nested navigation list.',
@@ -54,12 +62,20 @@ export const navigationMenuMetadata = {
   ],
   examples: [
     {
-      name: 'Top navigation',
+      name: 'Default horizontal',
       code: '<NavigationMenu.Root defaultValue="home"><NavigationMenu.List><NavigationMenu.Item value="home"><NavigationMenu.Link href="/">Home</NavigationMenu.Link></NavigationMenu.Item></NavigationMenu.List></NavigationMenu.Root>',
     },
     {
-      name: 'Vertical navigation',
+      name: 'Default vertical',
       code: '<NavigationMenu.Root orientation="vertical">...</NavigationMenu.Root>',
+    },
+    {
+      name: 'Segmented horizontal',
+      code: '<NavigationMenu.Root variant="segmented" defaultValue="colors"><NavigationMenu.List><NavigationMenu.Item value="colors"><NavigationMenu.Link href="/colors">Colors</NavigationMenu.Link></NavigationMenu.Item><NavigationMenu.Separator /><NavigationMenu.Item value="typography"><NavigationMenu.Link href="/typography">Typography</NavigationMenu.Link></NavigationMenu.Item></NavigationMenu.List></NavigationMenu.Root>',
+    },
+    {
+      name: 'Segmented with icons and separators',
+      code: '<NavigationMenu.Root variant="segmented" defaultValue="colors"><NavigationMenu.List><NavigationMenu.Item value="colors" icon={<PaletteIcon />}><NavigationMenu.Link href="/colors">Colors</NavigationMenu.Link></NavigationMenu.Item><NavigationMenu.Separator /><NavigationMenu.Item value="typography" icon={<TypeIcon />}><NavigationMenu.Link href="/typography">Typography</NavigationMenu.Link></NavigationMenu.Item></NavigationMenu.List></NavigationMenu.Root>',
     },
     {
       name: 'Nested navigation',

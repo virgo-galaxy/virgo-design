@@ -30,6 +30,50 @@ function TopNavigation() {
   );
 }
 
+function SegmentedNavigation() {
+  return (
+    <NavigationMenu.Root aria-label="Section navigation" defaultValue="colors" variant="segmented">
+      <NavigationMenu.List>
+        <NavigationMenu.Item value="colors">
+          <NavigationMenu.Link href="#navigation-colors">Colors</NavigationMenu.Link>
+        </NavigationMenu.Item>
+        <NavigationMenu.Separator />
+        <NavigationMenu.Item value="typography">
+          <NavigationMenu.Link href="#navigation-typography">Typography</NavigationMenu.Link>
+        </NavigationMenu.Item>
+        <NavigationMenu.Separator />
+        <NavigationMenu.Item value="layout">
+          <NavigationMenu.Link href="#navigation-layout">Layout</NavigationMenu.Link>
+        </NavigationMenu.Item>
+      </NavigationMenu.List>
+    </NavigationMenu.Root>
+  );
+}
+
+function SegmentedIconNavigation() {
+  return (
+    <NavigationMenu.Root
+      aria-label="Section navigation with icons"
+      defaultValue="overview"
+      variant="segmented"
+    >
+      <NavigationMenu.List>
+        <NavigationMenu.Item value="overview" icon={<HomeIcon />}>
+          <NavigationMenu.Link href="#navigation-overview">Overview</NavigationMenu.Link>
+        </NavigationMenu.Item>
+        <NavigationMenu.Separator />
+        <NavigationMenu.Item value="projects" icon={<LayoutIcon />}>
+          <NavigationMenu.Link href="#navigation-projects">Projects</NavigationMenu.Link>
+        </NavigationMenu.Item>
+        <NavigationMenu.Separator />
+        <NavigationMenu.Item value="settings" icon={<SettingsIcon />}>
+          <NavigationMenu.Link href="#navigation-settings">Settings</NavigationMenu.Link>
+        </NavigationMenu.Item>
+      </NavigationMenu.List>
+    </NavigationMenu.Root>
+  );
+}
+
 function HeaderPopoverNavigation() {
   return (
     <NavigationMenu.Root aria-label="Header navigation" defaultValue="home" submenu="popover">
@@ -205,7 +249,7 @@ export function NavigationMenuPage() {
             </div>
             <div>
               <dt>Variant</dt>
-              <dd>01</dd>
+              <dd>02</dd>
             </div>
             <div>
               <dt>Themes</dt>
@@ -262,8 +306,39 @@ export function NavigationMenuPage() {
       </ReviewSection>
 
       <ReviewSection
-        id="navigation-popover"
+        id="navigation-segmented"
         index="02"
+        title="Segmented navigation"
+        description="A compact surface groups peer destinations while keeping navigation semantics and link behavior."
+      >
+        <div className="navigation-menu-demo-grid">
+          <article className="navigation-menu-demo-card">
+            <div className="cell-meta">
+              <strong>Segmented</strong>
+              <span>Text destinations with decorative separators</span>
+            </div>
+            <div className="navigation-menu-stage navigation-menu-stage-horizontal">
+              <SegmentedNavigation />
+            </div>
+            <code>variant=&quot;segmented&quot;</code>
+          </article>
+
+          <article className="navigation-menu-demo-card">
+            <div className="cell-meta">
+              <strong>Segmented with icons</strong>
+              <span>Optional item icons and orientation-aware separators</span>
+            </div>
+            <div className="navigation-menu-stage navigation-menu-stage-horizontal">
+              <SegmentedIconNavigation />
+            </div>
+            <code>NavigationMenu.Item icon + NavigationMenu.Separator</code>
+          </article>
+        </div>
+      </ReviewSection>
+
+      <ReviewSection
+        id="navigation-popover"
+        index="03"
         title="Hover submenu"
         description="Hover a navigation item to open its destinations beside it. Move into a submenu to explore another level."
       >
@@ -283,7 +358,7 @@ export function NavigationMenuPage() {
 
       <ReviewSection
         id="navigation-nested"
-        index="03"
+        index="04"
         title="Nested navigation"
         description="A disclosure trigger reveals related destinations in document flow and keeps navigation semantics intact."
       >
