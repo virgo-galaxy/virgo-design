@@ -2,6 +2,8 @@ import './AvatarPage.scss';
 
 import { Avatar, Badge } from '@virgo-design/ui';
 
+import avatarImage from '@/assets/examples/avatar/icon.png';
+
 import { ReviewSection } from '../../components/ReviewSection';
 
 export function AvatarPage() {
@@ -23,7 +25,7 @@ export function AvatarPage() {
         description="Fallback content appears when the source is absent or cannot load."
       >
         <div className="avatar-stage">
-          <Avatar src="/playground/ui/icon.png" alt="Virgo Design" />
+          <Avatar src={avatarImage} alt="Virgo Design" />
           <Avatar fallback="PK" aria-label="Pokeya" />
           <Avatar src="/missing-avatar.png" alt="Broken image example" fallback="BR" />
         </div>

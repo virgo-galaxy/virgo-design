@@ -13,6 +13,8 @@ import {
 } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import landscapeImage from '@/assets/examples/surface/landscape.svg';
+
 import { ReviewSection } from '../../components/ReviewSection';
 
 const tones = [
@@ -39,7 +41,7 @@ const backgrounds: ReadonlyArray<{ name: string; background?: SurfaceBackground 
     name: 'Image',
     background: {
       type: 'image',
-      src: '/playground/ui/surface-landscape.svg',
+      src: landscapeImage,
       fit: 'cover',
       position: 'center',
     },
@@ -83,7 +85,10 @@ export function SurfacePage() {
             <span>Reference specimen</span>
             <code>glass · elevated</code>
           </div>
-          <div className="surface-backdrop surface-hero-stage">
+          <div
+            className="surface-backdrop surface-hero-stage"
+            style={{ backgroundImage: `url("${landscapeImage}")` }}
+          >
             <Layout>
               <Layout.Header>
                 <Surface
@@ -154,7 +159,10 @@ export function SurfacePage() {
                 <strong>{material}</strong>
                 <code>material</code>
               </div>
-              <div className="surface-backdrop surface-material-stage">
+              <div
+                className="surface-backdrop surface-material-stage"
+                style={{ backgroundImage: `url("${landscapeImage}")` }}
+              >
                 <span className="surface-scene-type" aria-hidden="true">
                   V / 01
                 </span>
@@ -216,7 +224,7 @@ export function SurfacePage() {
         </div>
         <div className="surface-image-material-row">
           <Surface
-            background={{ type: 'image', src: '/playground/ui/surface-landscape.svg' }}
+            background={{ type: 'image', src: landscapeImage }}
             material="glass"
             border="strong"
             radius={12}
@@ -231,7 +239,7 @@ export function SurfacePage() {
           <Surface
             background={{
               type: 'image',
-              src: '/playground/ui/surface-landscape.svg',
+              src: landscapeImage,
               fit: 'contain',
               position: 'right center',
             }}
@@ -300,7 +308,10 @@ export function SurfacePage() {
         title="Composition"
         description="Layout owns the header, side, and content regions. Surface supplies their appearance. Nested surfaces retain their own material, and visible overflow leaves room for badges, shadows, and floating content."
       >
-        <div className="surface-composition-stage surface-backdrop">
+        <div
+          className="surface-composition-stage surface-backdrop"
+          style={{ backgroundImage: `url("${landscapeImage}")` }}
+        >
           <Layout className="surface-composition-layout">
             <Layout.Header>
               <Surface material="glass" radius={12} className="surface-composition-header">

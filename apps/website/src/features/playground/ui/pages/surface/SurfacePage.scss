@@ -45,7 +45,9 @@ body:has(.ui-playground-feature) {
   }
 
   .surface-backdrop {
-    background: #243852 url('/playground/ui/surface-landscape.svg') center / cover;
+    background-color: #243852;
+    background-position: center;
+    background-size: cover;
   }
 
   .surface-hero-specimen {
