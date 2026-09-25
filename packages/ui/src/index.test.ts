@@ -8,6 +8,7 @@ describe('@virgo-design/ui public API', () => {
       [
         'Accordion',
         'Alert',
+        'Avatar',
         'Badge',
         'Breadcrumb',
         'Button',
@@ -16,6 +17,7 @@ describe('@virgo-design/ui public API', () => {
         'Dialog',
         'Drawer',
         'Dropdown',
+        'Empty',
         'FloatingAction',
         'Input',
         'Layout',
@@ -25,9 +27,13 @@ describe('@virgo-design/ui public API', () => {
         'NavigationMenu',
         'Pagination',
         'Popover',
+        'Progress',
         'Radio',
         'SegmentedControl',
         'Select',
+        'Separator',
+        'Skeleton',
+        'Spinner',
         'Surface',
         'Switch',
         'Tag',
@@ -60,6 +66,11 @@ describe('@virgo-design/ui public API', () => {
     for (const part of ['Root', 'Icon', 'Content', 'Title', 'Description', 'Action', 'Close'])
       expect(ui.Alert).toHaveProperty(part);
     expect(ui.Alert.Root).toBe(ui.Alert);
+    expect(ui.Avatar.Root).toBe(ui.Avatar);
+    expect(ui.Avatar).toHaveProperty('Group');
+    for (const part of ['Root', 'Icon', 'Title', 'Description', 'Action'])
+      expect(ui.Empty).toHaveProperty(part);
+    expect(ui.Empty.Root).toBe(ui.Empty);
     for (const part of [
       'Root',
       'Trigger',

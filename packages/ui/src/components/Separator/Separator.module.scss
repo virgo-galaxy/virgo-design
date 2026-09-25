@@ -1,0 +1,18 @@
+.root {
+  box-sizing: border-box;
+  flex: none;
+  margin: var(--vd-spacing-0);
+  border: 0;
+  background: var(--vd-border-subtle);
+}
+
+.root[data-orientation='horizontal'] {
+  width: 100%;
+  height: var(--vd-border-width-1);
+}
+
+.root[data-orientation='vertical'] {
+  width: var(--vd-border-width-1);
+  min-height: var(--vd-sizing-20);
+  align-self: stretch;
+}

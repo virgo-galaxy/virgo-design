@@ -24,6 +24,7 @@ import {
   radioMetadata,
   segmentedControlMetadata,
   selectMetadata,
+  separatorMetadata,
   skeletonMetadata,
   spinnerMetadata,
   surfaceMetadata,
@@ -36,6 +37,16 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('registers Separator as a semantic or decorative layout rule', () => {
+    expect(componentMetadataRegistry.separator).toBe(separatorMetadata);
+    expect(separatorMetadata.capabilities).toMatchObject({
+      horizontal: true,
+      vertical: true,
+      decorative: true,
+      menuPrimitive: false,
+    });
+  });
+
   it('registers Empty as consumer-authored empty-content structure', () => {
     expect(componentMetadataRegistry.empty).toBe(emptyMetadata);
     expect(emptyMetadata.capabilities).toMatchObject({

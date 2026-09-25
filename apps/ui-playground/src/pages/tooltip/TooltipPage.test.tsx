@@ -59,6 +59,11 @@ describe('Tooltip Playground', () => {
       'Tag',
       'Toast',
       'Tooltip',
+      'Avatar',
+      'Progress',
+      'Spinner',
+      'Skeleton',
+      'Empty',
     ]);
     expect(
       componentRoutes.filter((route) => route.group === 'general').map((route) => route.name),

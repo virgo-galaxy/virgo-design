@@ -22,6 +22,7 @@ import { ProgressPage } from '../pages/progress/ProgressPage';
 import { RadioPage } from '../pages/radio/RadioPage';
 import { SegmentedControlPage } from '../pages/segmented-control/SegmentedControlPage';
 import { SelectPage } from '../pages/select/SelectPage';
+import { SeparatorPage } from '../pages/separator/SeparatorPage';
 import { SkeletonPage } from '../pages/skeleton/SkeletonPage';
 import { SpinnerPage } from '../pages/spinner/SpinnerPage';
 import { SurfacePage } from '../pages/surface/SurfacePage';
@@ -77,6 +78,7 @@ export type ComponentRoute = {
     | 'navigation-menu'
     | 'input'
     | 'select'
+    | 'separator'
     | 'skeleton'
     | 'spinner'
     | 'checkbox'
@@ -294,17 +296,6 @@ export const componentRoutes = [
     Component: BadgePage,
   },
   {
-    id: 'avatar',
-    group: 'data-display',
-    index: '28',
-    name: 'Avatar',
-    category: 'Data Display',
-    path: '/components/avatar',
-    status: 'stable',
-    version: 'V1.0.0',
-    Component: AvatarPage,
-  },
-  {
     id: 'dialog',
     group: 'data-display',
     index: '18',
@@ -336,50 +327,6 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1.0.0',
     Component: PopoverPage,
-  },
-  {
-    id: 'progress',
-    group: 'data-display',
-    index: '29',
-    name: 'Progress',
-    category: 'Feedback',
-    path: '/components/progress',
-    status: 'stable',
-    version: 'V1.0.0',
-    Component: ProgressPage,
-  },
-  {
-    id: 'spinner',
-    group: 'data-display',
-    index: '30',
-    name: 'Spinner',
-    category: 'Feedback',
-    path: '/components/spinner',
-    status: 'stable',
-    version: 'V1.0.0',
-    Component: SpinnerPage,
-  },
-  {
-    id: 'skeleton',
-    group: 'data-display',
-    index: '31',
-    name: 'Skeleton',
-    category: 'Feedback',
-    path: '/components/skeleton',
-    status: 'stable',
-    version: 'V1.0.0',
-    Component: SkeletonPage,
-  },
-  {
-    id: 'empty',
-    group: 'data-display',
-    index: '32',
-    name: 'Empty',
-    category: 'Data Display',
-    path: '/components/empty',
-    status: 'stable',
-    version: 'V1.0.0',
-    Component: EmptyPage,
   },
   {
     id: 'tag',
@@ -457,5 +404,71 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1.0.0',
     Component: MenubarPage,
+  },
+  {
+    id: 'avatar',
+    group: 'data-display',
+    index: '28',
+    name: 'Avatar',
+    category: 'Data Display',
+    path: '/components/avatar',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: AvatarPage,
+  },
+  {
+    id: 'progress',
+    group: 'data-display',
+    index: '29',
+    name: 'Progress',
+    category: 'Feedback',
+    path: '/components/progress',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: ProgressPage,
+  },
+  {
+    id: 'spinner',
+    group: 'data-display',
+    index: '30',
+    name: 'Spinner',
+    category: 'Feedback',
+    path: '/components/spinner',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: SpinnerPage,
+  },
+  {
+    id: 'skeleton',
+    group: 'data-display',
+    index: '31',
+    name: 'Skeleton',
+    category: 'Feedback',
+    path: '/components/skeleton',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: SkeletonPage,
+  },
+  {
+    id: 'empty',
+    group: 'data-display',
+    index: '32',
+    name: 'Empty',
+    category: 'Data Display',
+    path: '/components/empty',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: EmptyPage,
+  },
+  {
+    id: 'separator',
+    group: 'layout',
+    index: '33',
+    name: 'Separator',
+    category: 'Layout',
+    path: '/components/separator',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: SeparatorPage,
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;
