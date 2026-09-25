@@ -15,7 +15,6 @@ export const en = {
     tokens: 'Tokens',
     components: 'Components',
     primitives: 'Primitives',
-    resources: 'Resources',
   },
 
   foundationNavigation: {
