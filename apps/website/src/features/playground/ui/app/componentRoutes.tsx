@@ -485,3 +485,5 @@ export const componentRoutes = [
     Component: MenubarPage,
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;
+
+export type ComponentSlug = (typeof componentRoutes)[number]['id'];
