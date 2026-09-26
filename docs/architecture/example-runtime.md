@@ -18,7 +18,7 @@ ArticleSection
     optional h3 + description, OUTSIDE the frame
     frame
       live preview — plain background, no coordinate grid
-      right-aligned circular Code / Copy actions + Tooltip
+      right-aligned borderless Code / Copy actions + small Tooltip
       raw source — hidden initially, expands inside the same frame
 ```
 
@@ -70,15 +70,22 @@ Other components' metadata are out of this change's scope.
   `aria-controls`. `useId` keeps panel IDs distinct even when the same example renders twice.
 - The running example stays mounted while source opens/closes. In-progress forms are not reset.
 - Actions are real `type="button"` controls with accessible labels. They support Enter/Space and
-  visible keyboard focus. Each has a Virgo Tooltip, available on hover and keyboard focus.
+  visible keyboard focus. Use the existing icon-only `variant="text"` Button; no circle or visible
+  border is added. Each has a `Tooltip.Content size="small"`, available on hover and keyboard focus.
 - Copy is available while source is collapsed. It writes the full raw file, not the selected text
   and not just the JSX. Repeated clicks while a write is pending are ignored.
-- Success is reported only after `writeText` resolves. The polite status message and Tooltip say
-  `Copied`, then reset after two seconds. The copy icon remains the same.
+- Success is reported only after `writeText` resolves. The Tooltip says `Copied`, then resets to
+  `Copy source` after two seconds without closing. A visually hidden polite live region announces
+  copy feedback for screen readers; no success/error text occupies the left side of the toolbar.
 - Missing/denied clipboard access never reports success and never rejects out of the event handler.
-  The source opens with an inline instruction for manual copying; the user may retry.
+  The source opens for manual copying. Failure text stays in the Tooltip with a non-visual live
+  announcement; the user may retry.
 - Timers are cleaned up on unmount, and resolved clipboard work never sets state after unmount.
-- Tooltip dismissal uses Virgo's existing behavior. Escape closes the Tooltip, not the example.
+- Both action Tooltips opt into `closeOnClick={false}`. Pointerdown, click and keyboard activation
+  update text in the existing panel rather than dismissing/reopening it. Escape still closes the
+  Tooltip, not the example; outside interaction and leaving hover/focus also retain normal dismissal.
+  This is a shared primitive behavior option, not a Website-local open-state workaround. Other
+  Tooltip consumers retain the default `closeOnClick={true}` behavior.
 - Source is plain escaped `<pre><code>` text. Long lines scroll inside the source area; the page
   does not widen. Source is focusable when visible for keyboard scrolling and selection.
 

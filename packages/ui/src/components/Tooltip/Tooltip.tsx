@@ -37,7 +37,7 @@ const Trigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>(function Tool
   );
 });
 const Content = forwardRef<HTMLDivElement, TooltipContentProps>(function TooltipContent(
-  { arrow = true, tone = 'default', className, children, ...props },
+  { arrow = true, tone = 'default', size = 'medium', className, children, ...props },
   ref,
 ) {
   return (
@@ -45,6 +45,7 @@ const Content = forwardRef<HTMLDivElement, TooltipContentProps>(function Tooltip
       {...props}
       ref={ref}
       data-tone={tone}
+      data-size={size}
       className={[styles.content, className].filter(Boolean).join(' ')}
     >
       {arrow && <span className={styles.arrow} data-slot="arrow" aria-hidden="true" />}

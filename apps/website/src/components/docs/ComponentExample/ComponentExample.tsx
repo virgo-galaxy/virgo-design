@@ -98,7 +98,8 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
 
         <div className={styles.toolbar} data-example-toolbar>
           <span
-            className={styles.feedback}
+            className={styles.announcement}
+            data-example-announcement
             data-copy-state={copyState}
             role="status"
             aria-live="polite"
@@ -108,7 +109,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
           </span>
 
           <div className={styles.actions} role="group" aria-label={`${title} example actions`}>
-            <Tooltip>
+            <Tooltip closeOnClick={false}>
               <Tooltip.Trigger
                 aria-label={`${sourceAction} for ${title}`}
                 aria-expanded={sourceOpen}
@@ -118,9 +119,8 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                   <Button
                     {...triggerProps}
                     iconOnly
-                    shape="circle"
                     size="small"
-                    variant="outline"
+                    variant="text"
                     aria-label={`${sourceAction} for ${title}`}
                     className={styles.actionButton}
                     data-example-action="source"
@@ -129,10 +129,10 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                   </Button>
                 )}
               />
-              <Tooltip.Content>{sourceAction}</Tooltip.Content>
+              <Tooltip.Content size="small">{sourceAction}</Tooltip.Content>
             </Tooltip>
 
-            <Tooltip>
+            <Tooltip closeOnClick={false}>
               <Tooltip.Trigger
                 aria-label={`Copy source for ${title}`}
                 aria-disabled={copyState === 'pending' || undefined}
@@ -141,9 +141,8 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                   <Button
                     {...triggerProps}
                     iconOnly
-                    shape="circle"
                     size="small"
-                    variant="outline"
+                    variant="text"
                     aria-label={`Copy source for ${title}`}
                     className={styles.actionButton}
                     data-example-action="copy"
@@ -153,16 +152,16 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                   </Button>
                 )}
               />
-              <Tooltip.Content>{copyHint}</Tooltip.Content>
+              <Tooltip.Content size="small">{copyHint}</Tooltip.Content>
             </Tooltip>
           </div>
         </div>
+      </div>
 
-        <div id={sourceId} className={styles.source} hidden={!sourceOpen} data-example-source>
-          <pre tabIndex={0} aria-label={`Source code for ${title}`}>
-            <code>{source}</code>
-          </pre>
-        </div>
+      <div id={sourceId} className={styles.source} hidden={!sourceOpen} data-example-source>
+        <pre tabIndex={0} aria-label={`Source code for ${title}`}>
+          <code>{source}</code>
+        </pre>
       </div>
     </div>
   );

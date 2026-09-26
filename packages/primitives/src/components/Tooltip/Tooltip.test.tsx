@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createRef } from 'react';
+import { createRef, useState } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { Popover } from '../Popover';
@@ -20,6 +20,100 @@ afterEach(() => {
 });
 
 describe('Tooltip primitive', () => {
+  it.each([undefined, true])('still dismisses on activation by default (%s)', (closeOnClick) => {
+    render(<Example defaultOpen {...(closeOnClick === undefined ? {} : { closeOnClick })} />);
+    const trigger = screen.getByRole('button');
+    fireEvent.pointerDown(trigger);
+    fireEvent.click(trigger);
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    expect(trigger.parentElement).not.toHaveAttribute('closeOnClick');
+  });
+
+  it('keeps the same tooltip on pointerdown/click while updating text', async () => {
+    const user = userEvent.setup();
+    const onOpenChange = vi.fn();
+    function Feedback() {
+      const [active, setActive] = useState(false);
+      return (
+        <Tooltip closeOnClick={false} openDelay={0} onOpenChange={onOpenChange}>
+          <Tooltip.Trigger onClick={() => setActive((value) => !value)}>Toggle</Tooltip.Trigger>
+          <Tooltip.Content>{active ? 'Hide details' : 'Show details'}</Tooltip.Content>
+        </Tooltip>
+      );
+    }
+    render(<Feedback />);
+    const trigger = screen.getByRole('button');
+    await user.hover(trigger);
+    const panel = screen.getByRole('tooltip');
+    onOpenChange.mockClear();
+    fireEvent.pointerDown(trigger);
+    expect(panel).toHaveAttribute('data-state', 'open');
+    await user.click(trigger);
+    expect(screen.getByRole('tooltip')).toBe(panel);
+    expect(panel).toHaveTextContent('Hide details');
+    await user.click(trigger);
+    expect(screen.getByRole('tooltip')).toBe(panel);
+    expect(panel).toHaveTextContent('Show details');
+    expect(onOpenChange).not.toHaveBeenCalledWith(false);
+    expect(trigger.parentElement).not.toHaveAttribute('closeOnClick');
+  });
+
+  it('preserves keyboard activation and Escape when closeOnClick is false', async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(
+      <Tooltip closeOnClick={false}>
+        <Tooltip.Trigger onClick={onClick}>Action</Tooltip.Trigger>
+        <Tooltip.Content>Feedback</Tooltip.Content>
+      </Tooltip>,
+    );
+    await user.tab();
+    const trigger = screen.getByRole('button');
+    const panel = screen.getByRole('tooltip');
+    await user.keyboard('{Enter}');
+    await user.keyboard(' ');
+    expect(onClick).toHaveBeenCalledTimes(2);
+    expect(screen.getByRole('tooltip')).toBe(panel);
+    await user.keyboard('{Escape}');
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
+
+  it('does not pin an opted-in tooltip after leaving or outside interaction', () => {
+    vi.useFakeTimers();
+    render(
+      <>
+        <Example closeOnClick={false} openDelay={0} />
+        <button>Outside</button>
+      </>,
+    );
+    const trigger = screen.getByRole('button', { name: 'Help' });
+    fireEvent.pointerEnter(trigger);
+    fireEvent.pointerDown(trigger, { pointerType: 'mouse' });
+    act(() => trigger.focus());
+    fireEvent.click(trigger, { detail: 1 });
+    expect(screen.getByRole('tooltip')).toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+    fireEvent.pointerLeave(trigger);
+    act(() => vi.advanceTimersByTime(150));
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    fireEvent.pointerEnter(trigger);
+    fireEvent.pointerDown(screen.getByRole('button', { name: 'Outside' }));
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+  });
+
+  it('does not request a controlled close on activation, but still requests one for Escape', () => {
+    const onOpenChange = vi.fn();
+    render(<Example open closeOnClick={false} onOpenChange={onOpenChange} />);
+    const trigger = screen.getByRole('button');
+    fireEvent.pointerDown(trigger);
+    fireEvent.click(trigger);
+    expect(onOpenChange).not.toHaveBeenCalled();
+    fireEvent.keyDown(trigger, { key: 'Escape' });
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    expect(screen.getByRole('tooltip')).toBeInTheDocument();
+  });
+
   it('responds to continuous hover in 100ms and cancels triggers passed over quickly', () => {
     vi.useFakeTimers();
     render(

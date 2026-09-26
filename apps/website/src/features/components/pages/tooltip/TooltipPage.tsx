@@ -14,6 +14,7 @@ export function TooltipPage() {
   const [actions, setActions] = useState(0);
   const [dynamicOpen, setDynamicOpen] = useState(false);
   const [detailed, setDetailed] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   useEffect(() => {
     if (!dynamicOpen) return;
     const timer = setTimeout(() => setDetailed(true), 900);
@@ -196,6 +197,47 @@ export function TooltipPage() {
               </Tooltip.Content>
             </Tooltip>
           </div>
+        </div>
+      </ReviewSection>
+      <ReviewSection
+        id="tooltip-sizes"
+        index="07"
+        title="Content sizes"
+        description="Content size is independent of the trigger button. Medium is unchanged; small is a compact description for toolbars."
+      >
+        <div className="tooltip-review-card">
+          <Tooltip>
+            <Tooltip.Trigger>Small tooltip</Tooltip.Trigger>
+            <Tooltip.Content size="small">Compact description</Tooltip.Content>
+          </Tooltip>
+          <Tooltip>
+            <Tooltip.Trigger>Medium tooltip</Tooltip.Trigger>
+            <Tooltip.Content size="medium">Default description</Tooltip.Content>
+          </Tooltip>
+        </div>
+      </ReviewSection>
+      <ReviewSection
+        id="tooltip-activation"
+        index="08"
+        title="Keep feedback on activation"
+        description="closeOnClick=false keeps the current tooltip open during activation. Its text changes in place; Escape and leaving hover/focus still dismiss it."
+      >
+        <div className="tooltip-review-card">
+          <Tooltip closeOnClick={false}>
+            <Tooltip.Trigger
+              aria-expanded={expanded}
+              aria-controls="tooltip-example-details"
+              onClick={() => setExpanded((value) => !value)}
+            >
+              Toggle details
+            </Tooltip.Trigger>
+            <Tooltip.Content size="small">
+              {expanded ? 'Hide details' : 'Show details'}
+            </Tooltip.Content>
+          </Tooltip>
+          <span id="tooltip-example-details" hidden={!expanded}>
+            The description changes without closing the tooltip.
+          </span>
         </div>
       </ReviewSection>
       <footer className="review-footer">

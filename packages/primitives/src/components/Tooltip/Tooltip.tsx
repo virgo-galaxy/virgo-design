@@ -26,6 +26,7 @@ type Context = {
   transition: { continuous: boolean; from: { left: number; top: number } | null };
   skipExit: boolean;
   disabled: boolean;
+  closeOnClick: boolean;
   id: string;
   triggerRef: React.RefObject<HTMLButtonElement | null>;
   contentRef: React.RefObject<HTMLDivElement | null>;
@@ -51,6 +52,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
     onOpenChange,
     disabled = false,
     openDelay = 100,
+    closeOnClick = true,
     smoothTransition = false,
     children,
     ...props
@@ -143,6 +145,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
         transition,
         skipExit,
         disabled,
+        closeOnClick,
         id,
         triggerRef,
         contentRef,
@@ -223,11 +226,23 @@ export const TooltipTrigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>
       },
       onPointerDown: (event) => {
         onPointerDown?.(event);
-        if (!event.defaultPrevented) context.dismiss();
+        if (event.defaultPrevented) return;
+        if (context.closeOnClick) context.dismiss();
       },
       onClick: (event) => {
         onClick?.(event);
-        if (!event.defaultPrevented) context.dismiss();
+        if (event.defaultPrevented) return;
+        if (context.closeOnClick) {
+          context.dismiss();
+        } else if (event.detail > 0) {
+          // A pointer click may focus the native button, but hover should still own this tooltip's
+          // lifetime. Once the pointer leaves, that incidental focus must not pin the panel open.
+          context.focused.current = false;
+        } else if (document.activeElement === context.triggerRef.current) {
+          // Keyboard activation can happen after a prior pointer click without another focus event.
+          context.focused.current = true;
+          context.show(true);
+        }
       },
     };
     return render ? render(buttonProps) : <button {...buttonProps} />;

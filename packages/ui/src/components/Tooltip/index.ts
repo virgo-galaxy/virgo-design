@@ -3,6 +3,7 @@ export type {
   TooltipContentProps,
   TooltipPlacement,
   TooltipProps,
+  TooltipSize,
   TooltipTone,
   TooltipTriggerProps,
 } from './Tooltip.types';

@@ -10,6 +10,8 @@ export interface TooltipProps extends HTMLAttributes<HTMLDivElement> {
   disabled?: boolean;
   /** Hover delay in milliseconds; keyboard focus opens immediately. @default 100 */
   openDelay?: number;
+  /** Dismiss on activation. Set false to keep dynamic feedback open while hover or keyboard focus remains. @default true */
+  closeOnClick?: boolean;
   /** Smooth handoff between opted-in tooltips; ordinary tooltips keep their own delay and fade. @default false */
   smoothTransition?: boolean;
 }

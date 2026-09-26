@@ -491,6 +491,7 @@ export const primitiveDetails = {
   tooltip: {
     parts: ['Root', 'Trigger', 'Content'],
     behaviors: [
+      'closeOnClick defaults to true; false keeps dynamic descriptions open during trigger activation.',
       'Opens after a configurable hover delay or immediately from keyboard focus.',
       'Supports controlled state, viewport-aware positioning, gap crossing, and optional smooth handoff.',
       'Dismisses with Escape, disabled state, unmount, or when the trigger leaves the viewport.',

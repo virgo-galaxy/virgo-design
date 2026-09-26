@@ -10,6 +10,13 @@ export const tooltipMetadata = {
     name,
     description: `${name} semantic content tone.`,
   })),
+  sizes: [
+    { name: 'small', description: 'Compact content: 12px text and 4px by 8px padding.' },
+    {
+      name: 'medium',
+      description: 'Default content density; preserves the existing tooltip size.',
+    },
+  ],
   states: ['closed', 'open', 'hover', 'focus-visible', 'disabled', 'entering', 'exiting'],
   anatomy: [
     { name: 'Tooltip', description: 'Open state and hover delay.' },
@@ -37,13 +44,16 @@ export const tooltipMetadata = {
     themeInheritance: true,
     reducedMotion: true,
     smoothTransition: true,
+    closeOnClick: true,
+    contentSizes: true,
     interactiveContent: false,
   },
   accessibility: [
     'Content uses role="tooltip" and adds its ID to the trigger’s existing aria-describedby; it does not replace the accessible name.',
     'Focus opens immediately without moving focus; hover uses a configurable delay. Escape dismisses without refocusing.',
     'The pointer can cross into the tooltip; it stays visible while hovered or while its trigger is focused.',
-    'Pointer activation dismisses without preventing the trigger action. Touch does not open hover-only help.',
+    'Trigger activation dismisses by default; closeOnClick=false keeps hover/focus feedback open without preventing the action.',
+    'Escape, outside interaction and leaving hover/focus still dismiss. Touch entry does not open hover-only help.',
     'Use Popover for links, inputs, buttons or other interactive content. Keep essential information visible outside the tooltip.',
     'Portals preserve theme and direction; placement flips/shifts at viewport edges and updates on scroll or resize.',
   ],

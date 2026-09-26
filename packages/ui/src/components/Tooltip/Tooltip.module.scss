@@ -13,6 +13,8 @@
     --tooltip-background: var(--vd-neutral-8);
     --tooltip-foreground: var(--vd-neutral-1);
   }
+  --tooltip-arrow-size: var(--vd-sizing-12);
+  --tooltip-arrow-half: var(--vd-spacing-6);
   width: max-content;
   padding: var(--vd-spacing-8) var(--vd-spacing-12);
   border: 0;
@@ -52,6 +54,15 @@
     }
   }
 }
+// Small is opt-in; medium keeps the existing Tooltip presentation unchanged.
+.content[data-size='small'] {
+  --tooltip-arrow-size: var(--vd-spacing-8);
+  --tooltip-arrow-half: var(--vd-spacing-4);
+  padding: var(--vd-spacing-4) var(--vd-spacing-8);
+  border-radius: var(--vd-radius-4);
+  font-size: var(--vd-font-size-12);
+  line-height: var(--vd-line-height-3);
+}
 .viewport {
   min-width: 0;
   min-height: 0;
@@ -61,6 +72,24 @@
 }
 .arrow {
   @include panel.arrow;
+  width: var(--tooltip-arrow-size);
+  height: var(--tooltip-arrow-size);
+  [data-side='bottom'] > & {
+    top: calc(var(--tooltip-arrow-half) * -1);
+    left: calc(var(--overlay-arrow-x) - var(--tooltip-arrow-half));
+  }
+  [data-side='top'] > & {
+    bottom: calc(var(--tooltip-arrow-half) * -1);
+    left: calc(var(--overlay-arrow-x) - var(--tooltip-arrow-half));
+  }
+  [data-side='left'] > & {
+    right: calc(var(--tooltip-arrow-half) * -1);
+    top: calc(var(--overlay-arrow-y) - var(--tooltip-arrow-half));
+  }
+  [data-side='right'] > & {
+    left: calc(var(--tooltip-arrow-half) * -1);
+    top: calc(var(--overlay-arrow-y) - var(--tooltip-arrow-half));
+  }
   background: var(--tooltip-background);
   border: 0;
 }

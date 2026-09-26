@@ -10,6 +10,55 @@ afterEach(() => {
 });
 
 describe('Tooltip UI', () => {
+  it('defaults content to medium independently of trigger size', () => {
+    render(
+      <Tooltip defaultOpen>
+        <Tooltip.Trigger size="small">Help</Tooltip.Trigger>
+        <Tooltip.Content>Default density</Tooltip.Content>
+      </Tooltip>,
+    );
+    expect(screen.getByRole('button')).toHaveAttribute('data-size', 'small');
+    expect(screen.getByRole('tooltip')).toHaveAttribute('data-size', 'medium');
+  });
+
+  it.each(['small', 'medium'] as const)(
+    'supports the %s content size through the portal',
+    (size) => {
+      const { container } = render(
+        <div data-theme="dark">
+          <Tooltip defaultOpen>
+            <Tooltip.Trigger>Help</Tooltip.Trigger>
+            <Tooltip.Content size={size} className="consumer-tooltip">
+              Description
+            </Tooltip.Content>
+          </Tooltip>
+        </div>,
+      );
+      const panel = screen.getByRole('tooltip');
+      expect(panel).toHaveAttribute('data-size', size);
+      expect(panel).toHaveAttribute('data-theme', 'dark');
+      expect(panel).toHaveClass('consumer-tooltip');
+      expect(panel).not.toHaveAttribute('size');
+      expect(container).not.toContainElement(panel);
+    },
+  );
+
+  it('passes closeOnClick through to the primitive without blocking actions', async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(
+      <Tooltip defaultOpen closeOnClick={false}>
+        <Tooltip.Trigger onClick={onClick}>Action</Tooltip.Trigger>
+        <Tooltip.Content size="small">Feedback</Tooltip.Content>
+      </Tooltip>,
+    );
+    const panel = screen.getByRole('tooltip');
+    await user.click(screen.getByRole('button'));
+    expect(onClick).toHaveBeenCalledOnce();
+    expect(screen.getByRole('tooltip')).toBe(panel);
+    expect(panel).toHaveAttribute('data-state', 'open');
+  });
+
   it.each([false, true])(
     'preserves ordinary exit and skips it only for smooth handoff (%s)',
     (smoothTransition) => {
