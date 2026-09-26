@@ -1,6 +1,6 @@
-import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { CodeIcon, CopyIcon } from '@virgo-design/icons';
+import { CheckIcon, CodeIcon, CopyIcon } from '@virgo-design/icons';
 import { useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -9,11 +9,27 @@ import { buttonExamples } from '@/examples/components/button/examples';
 import { dialogExamples } from '@/examples/components/dialog/examples';
 
 import { ComponentExample } from './ComponentExample';
+import {
+  ComponentExampleRuntimeControl,
+  ComponentExampleRuntimeProvider,
+} from './ComponentExampleRuntime';
+import reactLogo from './react-logo.svg';
 
 const originalClipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
 
 function setClipboard(value: unknown) {
   Object.defineProperty(navigator, 'clipboard', { configurable: true, value });
+}
+
+function openSource(title = 'Basic variants') {
+  fireEvent.click(screen.getByRole('button', { name: `View source for ${title}` }));
+}
+
+function expectIcon(button: HTMLElement, Icon: typeof CopyIcon) {
+  const expected = document.createElement('div');
+  expected.innerHTML = renderToStaticMarkup(<Icon />);
+  expect(button.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
+  expect(button.querySelector('svg')?.innerHTML).toBe(expected.querySelector('svg')?.innerHTML);
 }
 
 afterEach(() => {
@@ -31,6 +47,7 @@ describe('ComponentExample', () => {
     await user.hover(toggle);
     const panel = await screen.findByRole('tooltip');
     expect(panel).toHaveAttribute('data-size', 'small');
+    expect(panel.querySelector('[data-slot="arrow"]')).not.toBeInTheDocument();
     await user.click(toggle);
     expect(screen.getByRole('tooltip')).toBe(panel);
     expect(panel).toHaveTextContent('Hide source');
@@ -55,11 +72,13 @@ describe('ComponentExample', () => {
       ),
     });
     const { container } = render(<ComponentExample example={buttonExamples.variants} />);
+    openSource();
     const copy = screen.getByRole('button', { name: 'Copy source for Basic variants' });
     fireEvent.pointerEnter(copy);
     act(() => vi.advanceTimersByTime(100));
     const panel = screen.getByRole('tooltip');
     expect(panel).toHaveTextContent('Copy source');
+    expect(panel.querySelector('[data-slot="arrow"]')).not.toBeInTheDocument();
     fireEvent.pointerDown(copy);
     act(() => copy.focus());
     fireEvent.click(copy, { detail: 1 });
@@ -74,16 +93,17 @@ describe('ComponentExample', () => {
     expect(panel).toHaveAttribute('data-state', 'open');
     expect(copy).toHaveFocus();
     expect(container.querySelector('[data-example-announcement]')).toBe(screen.getByRole('status'));
-    expect(container.querySelector('[data-example-source]')).not.toBeVisible();
+    expect(container.querySelector('[data-example-source]')).toBeVisible();
     fireEvent.pointerLeave(copy);
     act(() => vi.advanceTimersByTime(250));
     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
   });
 
-  it('keeps failure feedback in the same tooltip and opens source for manual copying', async () => {
+  it('keeps failure feedback in the same tooltip and leaves source available for manual copying', async () => {
     const user = userEvent.setup();
     setClipboard({ writeText: vi.fn().mockRejectedValue(new Error('Clipboard denied')) });
     const { container } = render(<ComponentExample example={buttonExamples.variants} />);
+    openSource();
     const copy = screen.getByRole('button', { name: 'Copy source for Basic variants' });
     await user.hover(copy);
     const panel = await screen.findByRole('tooltip');
@@ -104,36 +124,63 @@ describe('ComponentExample', () => {
     expect(example.source).toContain('export default function App()');
     expect(example.source).not.toContain('ReviewSection');
     expect(example.source).not.toContain('ArticleSection');
-    expect(container.querySelector('[data-example-source]')).not.toBeVisible();
+    expect(container.querySelector('[data-example-source]')).toHaveAttribute(
+      'data-state',
+      'closed',
+    );
   });
 
-  it('keeps caption and source outside the preview while floating two actions inside it', () => {
+  it('keeps only the source toggle in the preview and renders React as static source metadata', () => {
     const { container } = render(<ComponentExample example={buttonExamples.variants} />);
     const frame = container.querySelector('[data-example-frame]');
     const toolbar = container.querySelector('[data-example-toolbar]');
     const source = container.querySelector('[data-example-source]');
     const caption = screen.getByRole('heading', { name: 'Basic variants' });
+    const toggle = screen.getByRole('button', { name: 'View source for Basic variants' });
+
     expect(frame?.contains(caption)).toBe(false);
     expect(frame?.contains(toolbar)).toBe(true);
     expect(frame?.contains(source)).toBe(false);
     expect(source?.previousElementSibling).toBe(frame);
-    const group = screen.getByRole('group', { name: 'Basic variants example actions' });
-    const actions = within(group).getAllByRole('button');
-    expect(actions).toHaveLength(2);
-    actions.forEach((button) => {
+    expect(toolbar?.querySelectorAll('button')).toHaveLength(1);
+    expect(toolbar?.contains(toggle)).toBe(true);
+    expect(toolbar?.querySelector('[data-example-action="copy"]')).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Copy source for Basic variants' })).toBeNull();
+    expect(source).toHaveAttribute('data-state', 'closed');
+    expect(source).toHaveAttribute('aria-hidden', 'true');
+    expect(container.querySelector('[data-example-source-header]')).toBeInTheDocument();
+    expect(toggle).toHaveAttribute('data-size', 'small');
+    expectIcon(toggle, CodeIcon);
+
+    openSource();
+    const header = container.querySelector('[data-example-source-header]');
+    const framework = container.querySelector('[data-example-framework="react"]');
+    const language = container.querySelector('[data-example-language]');
+    const copy = screen.getByRole('button', { name: 'Copy source for Basic variants' });
+
+    expect(source?.firstElementChild).toHaveAttribute('data-example-source-inner');
+    expect(source?.firstElementChild?.contains(header)).toBe(true);
+    expect(header?.contains(framework)).toBe(true);
+    expect(language).toHaveTextContent(/^React$/);
+    expect(language).toHaveAttribute('data-example-language', 'tsx');
+    expect(framework?.contains(language)).toBe(true);
+    expect(container.querySelector('pre code')).toHaveAttribute('data-language', 'tsx');
+    expect(header?.lastElementChild?.contains(copy)).toBe(true);
+    expect(copy).toHaveAttribute('data-size', 'small');
+    const logo = framework?.querySelector('img');
+    expect(logo).toHaveAttribute('src', reactLogo);
+    expect(logo).toHaveAttribute('alt', '');
+    expect(logo).toHaveAttribute('aria-hidden', 'true');
+    expect(logo).toHaveAttribute('draggable', 'false');
+    expect(framework?.closest('button')).toBeNull();
+    expect(framework).not.toHaveAttribute('role');
+    expect(screen.queryByRole('button', { name: /React.*collapse source/i })).toBeNull();
+    expectIcon(copy, CopyIcon);
+    [toggle, copy].forEach((button) => {
       expect(button).toHaveAttribute('type', 'button');
       expect(button).toHaveAttribute('data-icon-only', 'true');
-      expect(button).toHaveAttribute('data-shape', 'square');
+      expect(button).toHaveAttribute('data-shape', 'circle');
       expect(button).toHaveAttribute('data-variant', 'text');
-      expect(button).toHaveAttribute('data-size', 'small');
-      expect(button.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
-    });
-    [CodeIcon, CopyIcon].forEach((Icon, index) => {
-      const expected = document.createElement('div');
-      expected.innerHTML = renderToStaticMarkup(<Icon />);
-      expect(actions[index]?.querySelector('svg')?.innerHTML).toBe(
-        expected.querySelector('svg')?.innerHTML,
-      );
     });
     expect(container.querySelector('button button')).toBeNull();
     expect(container.querySelector('details, summary')).toBeNull();
@@ -153,14 +200,18 @@ describe('ComponentExample', () => {
     const toggle = screen.getByRole('button', { name: 'View source for Basic variants' });
     const panel = document.getElementById(toggle.getAttribute('aria-controls')!);
     expect(toggle).toHaveAttribute('aria-expanded', 'false');
-    expect(panel).not.toBeVisible();
+    expect(panel).toHaveAttribute('data-state', 'closed');
+    expect(panel).toHaveAttribute('aria-hidden', 'true');
     await user.click(toggle);
     expect(toggle).toHaveAttribute('aria-expanded', 'true');
     expect(toggle).toHaveAccessibleName('Hide source for Basic variants');
+    expect(panel).toHaveAttribute('data-state', 'open');
+    expect(panel).toHaveAttribute('aria-hidden', 'false');
     expect(panel).toBeVisible();
     await user.click(toggle);
     expect(toggle).toHaveAttribute('aria-expanded', 'false');
-    expect(panel).not.toBeVisible();
+    expect(panel).toHaveAttribute('data-state', 'closed');
+    expect(panel).toHaveAttribute('aria-hidden', 'true');
   });
 
   it('supports Enter and Space without remounting the running example', async () => {
@@ -206,6 +257,7 @@ describe('ComponentExample', () => {
     expect(await screen.findByRole('tooltip')).toHaveTextContent('View source');
     await user.unhover(toggle);
     await waitFor(() => expect(screen.queryByRole('tooltip')).not.toBeInTheDocument());
+    openSource();
     const copy = screen.getByRole('button', { name: 'Copy source for Basic variants' });
     act(() => copy.focus());
     expect(await screen.findByRole('tooltip')).toHaveTextContent('Copy source');
@@ -213,11 +265,12 @@ describe('ComponentExample', () => {
     await waitFor(() => expect(screen.queryByRole('tooltip')).not.toBeInTheDocument());
   });
 
-  it('copies while collapsed, reports success only on resolution, then resets feedback', async () => {
+  it('copies from the React header and resets the check icon and feedback after two seconds', async () => {
     vi.useFakeTimers();
     const writeText = vi.fn().mockResolvedValue(undefined);
     setClipboard({ writeText });
     const { container } = render(<ComponentExample example={buttonExamples.variants} />);
+    openSource();
     const copy = screen.getByRole('button', { name: 'Copy source for Basic variants' });
     await act(async () => {
       fireEvent.click(copy);
@@ -225,9 +278,13 @@ describe('ComponentExample', () => {
     expect(writeText).toHaveBeenCalledTimes(1);
     expect(writeText).toHaveBeenCalledWith(buttonExamples.variants.source);
     expect(screen.getByRole('status')).toHaveTextContent('Copied');
-    expect(container.querySelector('[data-example-source]')).not.toBeVisible();
+    expect(copy).toHaveAttribute('data-copy-state', 'success');
+    expectIcon(copy, CheckIcon);
+    expect(container.querySelector('[data-example-source]')).toBeVisible();
     act(() => vi.advanceTimersByTime(2000));
     expect(screen.getByRole('status')).toBeEmptyDOMElement();
+    expect(copy).toHaveAttribute('data-copy-state', 'idle');
+    expectIcon(copy, CopyIcon);
   });
 
   it('does not show Copied before the clipboard promise resolves, or enqueue duplicate writes', async () => {
@@ -240,11 +297,13 @@ describe('ComponentExample', () => {
     );
     setClipboard({ writeText });
     render(<ComponentExample example={buttonExamples.variants} />);
+    openSource();
     const copy = screen.getByRole('button', { name: 'Copy source for Basic variants' });
     fireEvent.click(copy);
     fireEvent.click(copy);
     expect(writeText).toHaveBeenCalledTimes(1);
     expect(copy).toHaveAttribute('aria-disabled', 'true');
+    expectIcon(copy, CopyIcon);
     expect(screen.getByRole('status')).not.toHaveTextContent('Copied');
     await act(async () => resolveWrite());
     expect(screen.getByRole('status')).toHaveTextContent('Copied');
@@ -259,6 +318,7 @@ describe('ComponentExample', () => {
           : { writeText: vi.fn().mockRejectedValue(new Error('Permission denied')) },
       );
       const { container } = render(<ComponentExample example={buttonExamples.variants} />);
+      openSource();
       await act(async () => {
         fireEvent.click(screen.getByRole('button', { name: 'Copy source for Basic variants' }));
       });
@@ -277,10 +337,122 @@ describe('ComponentExample', () => {
         }),
     });
     const { unmount } = render(<ComponentExample example={buttonExamples.variants} />);
+    openSource();
     fireEvent.click(screen.getByRole('button', { name: 'Copy source for Basic variants' }));
     unmount();
     await act(async () => resolveWrite());
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
+  });
+
+  it('unmounts the copy tooltip when source is collapsed, without discarding the source', async () => {
+    const user = userEvent.setup();
+    const { container } = render(<ComponentExample example={buttonExamples.variants} />);
+    openSource();
+    const copy = screen.getByRole('button', { name: 'Copy source for Basic variants' });
+    await user.hover(copy);
+    const panel = await screen.findByRole('tooltip');
+    expect(panel).toHaveTextContent('Copy source');
+    fireEvent.click(screen.getByRole('button', { name: 'Hide source for Basic variants' }));
+    expect(panel).not.toBeInTheDocument();
+    expect(container.querySelector('pre code')?.textContent).toBe(buttonExamples.variants.source);
+  });
+
+  it('does not reopen source when a pending copy fails after the user collapses it', async () => {
+    let rejectWrite!: (error: Error) => void;
+    setClipboard({
+      writeText: () =>
+        new Promise<void>((_, reject) => {
+          rejectWrite = reject;
+        }),
+    });
+    const { container } = render(<ComponentExample example={buttonExamples.variants} />);
+    openSource();
+    fireEvent.click(screen.getByRole('button', { name: 'Copy source for Basic variants' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Hide source for Basic variants' }));
+    await act(async () => rejectWrite(new Error('Permission denied')));
+    expect(container.querySelector('[data-example-source]')).toHaveAttribute(
+      'data-state',
+      'closed',
+    );
+    expect(screen.getByRole('status')).toHaveTextContent('Copy failed.');
+  });
+
+  it('allows retry after copy failure and clears the previous success timer', async () => {
+    vi.useFakeTimers();
+    const writeText = vi
+      .fn()
+      .mockRejectedValueOnce(new Error('Permission denied'))
+      .mockResolvedValue(undefined);
+    setClipboard({ writeText });
+    render(<ComponentExample example={buttonExamples.variants} />);
+    openSource();
+    const copy = screen.getByRole('button', { name: 'Copy source for Basic variants' });
+    await act(async () => {
+      fireEvent.click(copy);
+    });
+    expectIcon(copy, CopyIcon);
+    expect(copy).toHaveAttribute('data-copy-state', 'error');
+    await act(async () => {
+      fireEvent.click(copy);
+    });
+    expectIcon(copy, CheckIcon);
+    act(() => vi.advanceTimersByTime(1500));
+    await act(async () => {
+      fireEvent.click(copy);
+    });
+    act(() => vi.advanceTimersByTime(500));
+    expectIcon(copy, CheckIcon);
+    act(() => vi.advanceTimersByTime(1500));
+    expectIcon(copy, CopyIcon);
+    expect(writeText).toHaveBeenCalledTimes(3);
+  });
+
+  it('keeps the page-level Expand all / Collapse all control synchronized with individual examples', async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <ComponentExampleRuntimeProvider>
+        <ComponentExampleRuntimeControl />
+        <ComponentExample example={buttonExamples.variants} />
+        <ComponentExample example={buttonExamples.sizes} />
+      </ComponentExampleRuntimeProvider>,
+    );
+
+    const control = screen.getByRole('button', { name: 'Expand all' });
+    expect(control.querySelector('svg')).toBeNull();
+    expect(control).toHaveAttribute('aria-expanded', 'false');
+    expect(container.querySelectorAll('[data-example-source][data-state="closed"]')).toHaveLength(
+      2,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'View source for Basic variants' }));
+    expect(screen.getByRole('button', { name: 'Expand all' })).toBe(control);
+
+    await user.click(control);
+    expect(screen.getByRole('button', { name: 'Collapse all' })).toBe(control);
+    expect(control).toHaveAttribute('aria-expanded', 'true');
+    expect(container.querySelectorAll('[data-example-source][data-state="open"]')).toHaveLength(2);
+    expect(screen.getByRole('button', { name: 'Hide source for Basic variants' })).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    );
+    expect(screen.getByRole('button', { name: 'Hide source for Button sizes' })).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Hide source for Basic variants' }));
+    expect(screen.getByRole('button', { name: 'Expand all' })).toBe(control);
+
+    await user.click(screen.getByRole('button', { name: 'View source for Basic variants' }));
+    expect(screen.getByRole('button', { name: 'Collapse all' })).toBe(control);
+    expect(control).toHaveAttribute('aria-expanded', 'true');
+
+    await user.click(control);
+    expect(screen.getByRole('button', { name: 'Expand all' })).toBe(control);
+    expect(control).toHaveAttribute('aria-expanded', 'false');
+    expect(container.querySelectorAll('[data-example-source][data-state="closed"]')).toHaveLength(
+      2,
+    );
   });
 
   it('keeps stateful Dialog behavior and source disclosure independent', async () => {

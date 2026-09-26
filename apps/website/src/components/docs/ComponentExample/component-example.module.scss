@@ -1,4 +1,6 @@
 .root {
+  --component-example-inset: var(--vd-spacing-16);
+
   min-width: 0;
 }
 
@@ -50,8 +52,8 @@
 
 .toolbar {
   position: absolute;
-  right: var(--vd-spacing-12);
-  bottom: var(--vd-spacing-12);
+  inset-inline-end: var(--component-example-inset);
+  inset-block-end: var(--component-example-inset);
   display: flex;
   min-width: 0;
   align-items: center;
@@ -66,34 +68,40 @@
   opacity: 1;
 }
 
-.actions {
-  display: flex;
-  flex: none;
-  align-items: center;
-  gap: var(--vd-spacing-8);
-}
-
-// Use Button's public text variant for borderless actions, keeping its hit area and focus ring.
-.actionButton[data-example-action] {
+// Use Button's public text variant, including its focus ring and hit area.
+// Explicit neutral hover/active tokens keep every action readable on the tinted source surface.
+.root .actionButton[data-example-action] {
+  --button-background-hover: var(--vd-fill-hover);
+  --button-background-active: var(--vd-fill-active);
   --button-foreground: var(--vd-text-tertiary);
 }
 
-.actionButton[data-example-action]:hover,
-.actionButton[data-example-action]:focus-visible {
+.root .actionButton[data-example-action]:hover,
+.root .actionButton[data-example-action]:focus-visible,
+.root .actionButton[data-example-action][aria-expanded='true'] {
   --button-foreground: var(--vd-text-primary);
 }
 
-.actionButton[data-example-action][aria-expanded='true'] {
-  --button-background: var(--vd-brand-subtle);
-  --button-foreground: var(--vd-brand-link);
+.root .actionButton[data-example-action='source'][aria-expanded='true'] {
+  --button-background: var(--vd-text-primary);
+  --button-background-hover: var(--vd-text-primary);
+  --button-background-active: var(--vd-text-primary);
+  --button-foreground: var(--vd-text-inverse);
 }
 
-.actionButton[data-example-action][data-copy-state='success'] {
-  --button-foreground: var(--vd-status-success-text);
+.root .actionButton[data-example-action='copy'][data-copy-state='success'] {
+  --button-foreground: var(--vd-status-success-accent);
+  --button-background-hover: var(--vd-status-success-subtle);
+  --button-background-active: var(--vd-status-success-subtle);
 }
 
-.actionButton[data-example-action][aria-disabled='true'] {
+.root .actionButton[data-example-action][aria-disabled='true'] {
   cursor: progress;
+}
+
+.runtimeControl {
+  flex: none;
+  margin-inline-start: auto;
 }
 
 // Copy feedback is visible only in Tooltip; keep a separate non-visual live announcement.
@@ -110,22 +118,71 @@
 }
 
 .source {
+  display: grid;
   min-width: 0;
+  grid-template-rows: 0fr;
+  margin-top: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--vd-duration-240) var(--vd-easing-emphasized),
+    margin-top var(--vd-duration-240) var(--vd-easing-emphasized),
+    opacity var(--vd-duration-180) var(--vd-easing-standard),
+    visibility 0s linear var(--vd-duration-240);
+}
+
+.source[data-state='open'] {
+  grid-template-rows: 1fr;
   margin-top: var(--vd-spacing-12);
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.sourceInner {
+  min-width: 0;
+  min-height: 0;
   overflow: hidden;
   border: var(--vd-border-width-1) solid var(--vd-border-subtle);
   border-radius: var(--vd-radius-12);
   background: color-mix(in srgb, var(--vd-surface-background) 96%, var(--vd-text-primary) 4%);
-  animation: component-example-source-enter var(--vd-duration-120) var(--vd-easing-standard) both;
 }
 
-.source[hidden] {
-  display: none;
+.sourceHeader {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--vd-spacing-16);
+  padding: var(--component-example-inset);
+}
+
+// Framework metadata is presentational only. Source disclosure stays in the preview toolbar.
+.sourceLabel {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--vd-spacing-8);
+}
+
+.frameworkIcon {
+  display: block;
+  width: var(--vd-sizing-16);
+  height: var(--vd-sizing-16);
+}
+
+.language {
+  color: var(--vd-text-secondary);
+  font-family: var(--vd-font-family-mono);
+  font-size: var(--vd-font-size-12);
+  font-weight: var(--vd-font-weight-500);
+  line-height: var(--vd-line-height-3);
 }
 
 .source pre {
   margin: 0;
-  padding: var(--vd-spacing-24);
+  padding: 0 var(--component-example-inset) var(--vd-spacing-24);
   color: var(--vd-text-primary);
   tab-size: 2;
 }
@@ -144,25 +201,17 @@
 }
 
 @media (max-width: 760px) {
+  .root {
+    --component-example-inset: var(--vd-spacing-12);
+  }
+
   .preview {
     min-height: calc(var(--vd-sizing-64) * 2);
     padding: var(--vd-spacing-24) var(--vd-spacing-16);
   }
 
   .source pre {
-    padding: var(--vd-spacing-16);
-  }
-}
-
-@keyframes component-example-source-enter {
-  from {
-    opacity: 0;
-    transform: translateY(calc(var(--vd-spacing-4) * -1));
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    padding-block-end: var(--vd-spacing-16);
   }
 }
 
@@ -172,6 +221,6 @@
   }
 
   .source {
-    animation: none;
+    transition: none;
   }
 }

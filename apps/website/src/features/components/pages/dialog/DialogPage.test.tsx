@@ -12,5 +12,8 @@ describe('Dialog article documentation', () => {
     expect(container.querySelector('.review-section, .component-example-list')).toBeNull();
     expect(screen.queryByRole('heading', { name: 'Examples' })).not.toBeInTheDocument();
     expect(container.querySelector('.hero-stage')).toBeInTheDocument();
+    const runtimeControl = screen.getByRole('button', { name: 'Expand all' });
+    expect(runtimeControl.closest('.specimen-caption')).toBeInTheDocument();
+    expect(runtimeControl.querySelector('svg')).toBeNull();
   });
 });

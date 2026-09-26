@@ -1,8 +1,10 @@
-import { CodeIcon, CopyIcon } from '@virgo-design/icons';
+import { CheckIcon, CodeIcon, CopyIcon } from '@virgo-design/icons';
 import { Button, Tooltip } from '@virgo-design/ui';
 import { type ComponentType, useEffect, useId, useRef, useState } from 'react';
 
 import styles from './component-example.module.scss';
+import { useComponentExampleDisclosure } from './component-example-runtime-context';
+import reactLogo from './react-logo.svg';
 
 export interface ComponentExampleDefinition {
   id: string;
@@ -24,7 +26,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
   const { Component, description, id, source, title } = example;
   const instanceId = useId();
   const sourceId = `${instanceId}-source`;
-  const [sourceOpen, setSourceOpen] = useState(false);
+  const [sourceOpen, setSourceOpen] = useComponentExampleDisclosure(id);
   const [copyState, setCopyState] = useState<CopyState>('idle');
   const mounted = useRef(true);
   const copying = useRef(false);
@@ -54,13 +56,14 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
       if (!mounted.current) return;
       setCopyState('success');
       resetTimer.current = setTimeout(() => {
+        resetTimer.current = null;
         if (mounted.current) setCopyState('idle');
       }, 2000);
     } catch {
       if (!mounted.current) return;
+      // Source is already available for manual copying. Do not reopen it if the user
+      // deliberately collapsed it while the clipboard permission request was pending.
       setCopyState('error');
-      // Keep the source accessible for manual copying instead of pretending that copying worked.
-      setSourceOpen(true);
     } finally {
       copying.current = false;
     }
@@ -97,72 +100,104 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
         </div>
 
         <div className={styles.toolbar} data-example-toolbar>
-          <span
-            className={styles.announcement}
-            data-example-announcement
-            data-copy-state={copyState}
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            {copyFeedback}
-          </span>
-
-          <div className={styles.actions} role="group" aria-label={`${title} example actions`}>
-            <Tooltip closeOnClick={false}>
-              <Tooltip.Trigger
-                aria-label={`${sourceAction} for ${title}`}
-                aria-expanded={sourceOpen}
-                aria-controls={sourceId}
-                onClick={() => setSourceOpen((open) => !open)}
-                render={(triggerProps) => (
-                  <Button
-                    {...triggerProps}
-                    iconOnly
-                    size="small"
-                    variant="text"
-                    aria-label={`${sourceAction} for ${title}`}
-                    className={styles.actionButton}
-                    data-example-action="source"
-                  >
-                    <CodeIcon aria-hidden="true" />
-                  </Button>
-                )}
-              />
-              <Tooltip.Content size="small">{sourceAction}</Tooltip.Content>
-            </Tooltip>
-
-            <Tooltip closeOnClick={false}>
-              <Tooltip.Trigger
-                aria-label={`Copy source for ${title}`}
-                aria-disabled={copyState === 'pending' || undefined}
-                onClick={() => void copySource()}
-                render={(triggerProps) => (
-                  <Button
-                    {...triggerProps}
-                    iconOnly
-                    size="small"
-                    variant="text"
-                    aria-label={`Copy source for ${title}`}
-                    className={styles.actionButton}
-                    data-example-action="copy"
-                    data-copy-state={copyState}
-                  >
-                    <CopyIcon aria-hidden="true" />
-                  </Button>
-                )}
-              />
-              <Tooltip.Content size="small">{copyHint}</Tooltip.Content>
-            </Tooltip>
-          </div>
+          <Tooltip closeOnClick={false}>
+            <Tooltip.Trigger
+              aria-label={`${sourceAction} for ${title}`}
+              aria-expanded={sourceOpen}
+              aria-controls={sourceId}
+              onClick={() => setSourceOpen((open) => !open)}
+              render={(triggerProps) => (
+                <Button
+                  {...triggerProps}
+                  iconOnly
+                  size="small"
+                  shape="circle"
+                  variant="text"
+                  aria-label={`${sourceAction} for ${title}`}
+                  className={styles.actionButton}
+                  data-example-action="source"
+                >
+                  <CodeIcon aria-hidden="true" />
+                </Button>
+              )}
+            />
+            <Tooltip.Content size="small" arrow={false}>
+              {sourceAction}
+            </Tooltip.Content>
+          </Tooltip>
         </div>
       </div>
 
-      <div id={sourceId} className={styles.source} hidden={!sourceOpen} data-example-source>
-        <pre tabIndex={0} aria-label={`Source code for ${title}`}>
-          <code>{source}</code>
-        </pre>
+      <div
+        id={sourceId}
+        className={styles.source}
+        data-state={sourceOpen ? 'open' : 'closed'}
+        data-example-source
+        aria-hidden={!sourceOpen}
+      >
+        <div className={styles.sourceInner} data-example-source-inner>
+          <div className={styles.sourceHeader} data-example-source-header>
+            <div className={styles.sourceLabel} data-example-framework="react">
+              <img
+                src={reactLogo}
+                alt=""
+                aria-hidden="true"
+                draggable={false}
+                className={styles.frameworkIcon}
+              />
+              <span className={styles.language} data-example-language="tsx">
+                React
+              </span>
+            </div>
+
+            {sourceOpen ? (
+              <Tooltip closeOnClick={false}>
+                <Tooltip.Trigger
+                  aria-label={`Copy source for ${title}`}
+                  aria-disabled={copyState === 'pending' || undefined}
+                  onClick={() => void copySource()}
+                  render={(triggerProps) => (
+                    <Button
+                      {...triggerProps}
+                      iconOnly
+                      size="small"
+                      shape="circle"
+                      variant="text"
+                      aria-label={`Copy source for ${title}`}
+                      className={styles.actionButton}
+                      data-example-action="copy"
+                      data-copy-state={copyState}
+                    >
+                      {copyState === 'success' ? (
+                        <CheckIcon aria-hidden="true" />
+                      ) : (
+                        <CopyIcon aria-hidden="true" />
+                      )}
+                    </Button>
+                  )}
+                />
+                <Tooltip.Content size="small" arrow={false}>
+                  {copyHint}
+                </Tooltip.Content>
+              </Tooltip>
+            ) : null}
+          </div>
+          <pre tabIndex={sourceOpen ? 0 : -1} aria-label={`Source code for ${title}`}>
+            <code data-language="tsx">{source}</code>
+          </pre>
+        </div>
       </div>
+
+      <span
+        className={styles.announcement}
+        data-example-announcement
+        data-copy-state={copyState}
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {copyFeedback}
+      </span>
     </div>
   );
 }

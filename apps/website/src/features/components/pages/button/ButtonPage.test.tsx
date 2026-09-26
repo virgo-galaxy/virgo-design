@@ -21,5 +21,8 @@ describe('Button article documentation', () => {
       screen.getByRole('heading', { level: 3, name: 'Icon-only buttons' }),
     ).toBeInTheDocument();
     expect(container.querySelector('.hero-stage')).toBeInTheDocument();
+    const runtimeControl = screen.getByRole('button', { name: 'Expand all' });
+    expect(runtimeControl.closest('.specimen-caption')).toBeInTheDocument();
+    expect(runtimeControl.querySelector('svg')).toBeNull();
   });
 });

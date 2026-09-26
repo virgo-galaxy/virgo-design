@@ -18,16 +18,26 @@ ArticleSection
     optional h3 + description, OUTSIDE the frame
     frame
       live preview — plain background, no coordinate grid
-      right-aligned borderless Code / Copy actions + small Tooltip
-      raw source — hidden initially, expands inside the same frame
+      one Code toggle in the lower-right corner + small Tooltip
+    source panel — hidden initially, BELOW the preview frame
+      header: static React logo + React framework label on the left, Copy on the right
+      exact raw source in pre/code
+    visually hidden copy announcement
 ```
 
 `ArticleSection` and `ComponentExample` are Website-local documentation infrastructure, not
 public `@virgo-design/ui` components. The toolbar uses the real Virgo `Button`, `Tooltip`,
-`CodeIcon` and `CopyIcon`; it does not draw its own glyphs or nest buttons.
+`CodeIcon`, `CopyIcon` and `CheckIcon`. The React framework label uses the local
+`react-logo.svg` asset supplied for the Website; it is not added to the public icon package.
+No controls nest buttons.
 
-The page hero/reference specimen may keep its existing grid. Ordinary example previews do not
-use a grid, and headings/descriptions are not enclosed in a second review card.
+The page hero/reference specimen may keep its existing grid. Pages using this runtime wrap their
+examples in `ComponentExampleRuntimeProvider` and place `ComponentExampleRuntimeControl` at the
+right edge of the hero specimen caption. The control is text-only: `Expand all` while any example
+is collapsed, and `Collapse all` only when every registered example is open. Individual source
+toggles feed the same state, so manually opening the final collapsed example updates the hero
+control immediately. Ordinary example previews do not use a grid, and headings/descriptions are
+not enclosed in a second review card.
 
 For a section with one example, use `showCaption={false}` to avoid repeating the introduction.
 For a section with several examples, the default caption renders each example's h3 and description
@@ -66,28 +76,54 @@ Other components' metadata are out of this change's scope.
 
 ## Interaction contract
 
-- Source starts collapsed. A single Code button toggles it and updates `aria-expanded` and
-  `aria-controls`. `useId` keeps panel IDs distinct even when the same example renders twice.
+- Source starts collapsed. One Code button remains at the preview's lower-right corner and
+  toggles `aria-expanded` and `aria-controls`. `useId` keeps panel IDs distinct even when the
+  same example renders twice. Copy is not shown in the preview. The page-level runtime provider
+  owns disclosure state when present; standalone `ComponentExample` usage keeps the same local
+  fallback behavior.
+- The text-only hero action is synchronized with every registered example. If none, one, or only
+  some sources are open it reads `Expand all` and opens every source. Once all sources are open—
+  whether through that action or individual Code buttons—it reads `Collapse all` and closes them
+  together on activation. No icon is used for this page-level action.
+- The source panel header places a static React-logo-and-`React` framework label on the left,
+  with Copy aligned to the right. The preview disclosure, source header, code body, and Copy action
+  share one inset token (16px desktop, 12px compact), so the React logo aligns with source text and
+  the disclosure/Copy controls share one vertical axis. The supplied logo stays cyan (`#61DAFB`) at 16px, while the
+  text keeps its neutral color. The framework label is presentational only: it is not a button,
+  has no hover/focus state, and does not own a Tooltip. Source disclosure remains exclusively on
+  the persistent Code button in the preview's lower-right corner.
+  `React` is the display label; the source remains TSX (`data-language="tsx"`) and the raw file is
+  unchanged. This documentation metadata is never included in the displayed or copied source.
 - The running example stays mounted while source opens/closes. In-progress forms are not reset.
-- Actions are real `type="button"` controls with accessible labels. They support Enter/Space and
-  visible keyboard focus. Use the existing icon-only `variant="text"` Button; no circle or visible
-  border is added. Each has a `Tooltip.Content size="small"`, available on hover and keyboard focus.
-- Copy is available while source is collapsed. It writes the full raw file, not the selected text
-  and not just the JSX. Repeated clicks while a write is pending are ignored.
-- Success is reported only after `writeText` resolves. The Tooltip says `Copied`, then resets to
-  `Copy source` after two seconds without closing. A visually hidden polite live region announces
-  copy feedback for screen readers; no success/error text occupies the left side of the toolbar.
+  Source disclosure uses a 240ms emphasized grid/margin transition with a shorter 180ms opacity
+  transition in both directions, replacing the previous 120ms enter-only animation. Reduced-motion
+  preferences still disable the transition.
+- Actions are real `type="button"` controls with accessible English labels and existing Virgo
+  icons. They support Enter/Space and visible keyboard focus. The icon-only `variant="text"`
+  Button uses its public `shape="circle"` and neutral hover/pressed fills. The preview and Copy
+  actions both use the small icon-button size so their centers share one right-edge control axis.
+  The React framework label is static metadata rather than an action. No permanent visible border
+  is added.
+- Copy is available in the expanded source header. It writes the full raw file, not the selected
+  text, the `React` header, or just the JSX. Repeated clicks during a pending write are ignored.
+- Success is reported only after `writeText` resolves: CopyIcon becomes CheckIcon using the shared
+  `--vd-status-success-accent` semantic token, and the Tooltip says `Copied`. Both reset after two
+  seconds without dismissing the Tooltip or moving the button.
+  A new copy clears the previous reset timer. Pending and failed writes never show a success icon.
+- A visually hidden polite live region outside both panels announces copy feedback. No status text
+  displaces the header's controls or its language label.
 - Missing/denied clipboard access never reports success and never rejects out of the event handler.
-  The source opens for manual copying. Failure text stays in the Tooltip with a non-visual live
-  announcement; the user may retry.
+  Failure text stays in the Tooltip with a non-visual announcement; the user may retry or select
+  the visible code manually. A delayed failure does not reopen a panel deliberately collapsed
+  while the clipboard request was pending.
 - Timers are cleaned up on unmount, and resolved clipboard work never sets state after unmount.
-- Both action Tooltips opt into `closeOnClick={false}`. Pointerdown, click and keyboard activation
-  update text in the existing panel rather than dismissing/reopening it. Escape still closes the
-  Tooltip, not the example; outside interaction and leaving hover/focus also retain normal dismissal.
-  This is a shared primitive behavior option, not a Website-local open-state workaround. Other
-  Tooltip consumers retain the default `closeOnClick={true}` behavior.
-- Source is plain escaped `<pre><code>` text. Long lines scroll inside the source area; the page
-  does not widen. Source is focusable when visible for keyboard scrolling and selection.
+- The preview toggle and Copy Tooltips opt into `closeOnClick={false}` so repeated activation
+  updates their existing panels rather than dismissing/reopening them. Both runtime Tooltips also
+  set `arrow={false}` for this compact source-control treatment; Tooltip itself keeps `arrow=true`
+  as its public default. Header controls are unmounted when source closes, so no portalled Tooltip
+  survives its hidden trigger. Escape still dismisses a Tooltip rather than closing the source.
+- Source is plain escaped `<pre><code>` text. Long lines wrap inside the source area without
+  widening the page. The code is focusable when visible for keyboard selection.
 
 No Shiki, Prism, highlight.js, editor or syntax-highlighting dependency is introduced. A future
 Virgo highlighter can replace the code renderer without changing where the source comes from.
@@ -112,7 +148,9 @@ at the existing end-of-document location.
 
 ## Cleanup
 
-Replaced the old `details`/`summary` source UI, the in-frame caption row and textual Copy/TSX row.
+Replaced the old `details`/`summary` source UI and the in-frame caption row. The React-labelled
+source header belongs to the separate source panel as static framework metadata, not to the preview;
+the code language is TSX.
 Removed preview grid rules, the extra `component-example-list` wrapper/padding, and stale Dialog
 review-card/form-demo styles. Button and Dialog no longer use the old `ReviewSection` cards.
 `ReviewSection` itself remains because other, not-yet-migrated pages still use it.
@@ -123,14 +161,13 @@ Unknown local edits stop installation rather than being silently overwritten or 
 ## Verification
 
 Repository tests cover article structure, exact raw source, disclosure semantics, unique panel IDs,
-keyboard actions, real Virgo icons/Tooltip, clipboard success/failure/pending/unmount behavior,
-and stateful Dialog integration. The root `pnpm all` remains the final workspace gate.
+keyboard disclosure actions, static React framework metadata, the synchronized Expand all / Collapse
+all runtime control, real Virgo icons/Tooltip, copy-to-check feedback, clipboard
+success/failure/pending/retry/unmount behavior, and stateful Dialog integration. The root `pnpm all`
+remains the final workspace gate.
 
-The delivery environment could not install this project's locked dependencies. An isolated Chromium
-harness exercised the real TypeScript-transpiled project components and generated token values with
-an available React 18.2.0 runtime; this is supplementary, not a substitute for the project's locked
-React 19/Vite/Vitest suite. Clipboard results were simulated in that harness. The user must run
-`verify.sh`/`pnpm all` in the real repository before committing.
+Run `pnpm all` from the repository root with its locked dependencies before committing. Isolated
+browser or syntax checks are supplementary and do not replace this workspace validation.
 
 Reference behavior: Vite static asset raw imports, WAI-ARIA Disclosure pattern, and the browser
 Clipboard `writeText` API. Clipboard access is subject to the browser's secure-context/permission rules.
