@@ -7,13 +7,15 @@ import { ReviewSection } from '../../components/ReviewSection';
 export function SkeletonPage() {
   return (
     <div className="review-board skeleton-review">
-      <section className="skeleton-intro" id="overview">
-        <div className="eyebrow-row">
-          <span>Component 26</span>
-          <span className="version-badge">STABLE · V1.0.0</span>
+      <section className="overview overview--single" id="overview" data-review-section="overview">
+        <div className="overview-copy">
+          <div className="eyebrow-row">
+            <span>Component 26</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
+          </div>
+          <h1>Skeleton</h1>
+          <p>Visual content placeholders that preserve layout while real content loads.</p>
         </div>
-        <h1>Skeleton</h1>
-        <p>Visual content placeholders that preserve layout while real content loads.</p>
       </section>
 
       <ReviewSection

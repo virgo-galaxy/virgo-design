@@ -15,11 +15,7 @@ function BasicLayout() {
 export function LayoutStructure() {
   return (
     <>
-      <section
-        className="overview layout-structure-overview"
-        id="overview"
-        data-review-section="overview"
-      >
+      <section className="overview overview--single" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 03</span>

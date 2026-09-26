@@ -20,13 +20,15 @@ function Page({
 }) {
   return (
     <div className="review-board menu-system-review">
-      <section className="menu-system-intro" id="overview">
-        <div className="eyebrow-row">
-          <span>Component {index}</span>
-          <span className="version-badge">STABLE · V1.0.0</span>
+      <section className="overview overview--single" id="overview" data-review-section="overview">
+        <div className="overview-copy">
+          <div className="eyebrow-row">
+            <span>Component {index}</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
+          </div>
+          <h1>{name}</h1>
+          <p>{description}</p>
         </div>
-        <h1>{name}</h1>
-        <p>{description}</p>
       </section>
       {children}
       <footer className="review-footer">

@@ -19,15 +19,18 @@ export function BadgePage() {
 
   return (
     <div className="review-board badge-review">
-      <section className="badge-intro" id="overview">
-        <div className="eyebrow-row">
-          <span>Component 19</span>
-          <span className="version-badge">STABLE · V1.0.0</span>
+      <section className="overview overview--single" id="overview" data-review-section="overview">
+        <div className="overview-copy">
+          <div className="eyebrow-row">
+            <span>Component 19</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
+          </div>
+          <h1>Badge</h1>
+          <p>
+            A small count or status marker attached to a host element, with an inline standalone
+            form.
+          </p>
         </div>
-        <h1>Badge</h1>
-        <p>
-          A small count or status marker attached to a host element, with an inline standalone form.
-        </p>
       </section>
 
       <ReviewSection

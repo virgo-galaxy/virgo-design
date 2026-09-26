@@ -7,13 +7,15 @@ import { ReviewSection } from '../../components/ReviewSection';
 export function SeparatorPage() {
   return (
     <div className="review-board separator-review">
-      <section className="separator-intro" id="overview">
-        <div className="eyebrow-row">
-          <span>Component 04</span>
-          <span className="version-badge">STABLE · V1.0.0</span>
+      <section className="overview overview--single" id="overview" data-review-section="overview">
+        <div className="overview-copy">
+          <div className="eyebrow-row">
+            <span>Component 04</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
+          </div>
+          <h1>Separator</h1>
+          <p>A token-based rule for visual and semantic separation in general layouts.</p>
         </div>
-        <h1>Separator</h1>
-        <p>A token-based rule for visual and semantic separation in general layouts.</p>
       </section>
 
       <ReviewSection

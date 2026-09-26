@@ -7,13 +7,15 @@ import { ReviewSection } from '../../components/ReviewSection';
 export function CardPage() {
   return (
     <div className="review-board card-review">
-      <section className="card-intro" id="overview">
-        <div className="eyebrow-row">
-          <span>Component 20</span>
-          <span className="version-badge">STABLE · V1.0.0</span>
+      <section className="overview overview--single" id="overview" data-review-section="overview">
+        <div className="overview-copy">
+          <div className="eyebrow-row">
+            <span>Component 20</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
+          </div>
+          <h1>Card</h1>
+          <p>Content structure backed by Surface tokens, without implicit interaction.</p>
         </div>
-        <h1>Card</h1>
-        <p>Content structure backed by Surface tokens, without implicit interaction.</p>
       </section>
 
       <ReviewSection

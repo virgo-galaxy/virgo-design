@@ -102,12 +102,8 @@
     box-sizing: border-box;
   }
 
-  button,
-  input,
-  textarea,
-  select {
-    font: inherit;
-  }
+  // Native controls inherit from the unscoped Website reset in src/styles.scss.
+  // Do not reset font here: this scoped selector would override Virgo UI typography.
 
   button {
     -webkit-font-smoothing: antialiased;
@@ -366,20 +362,29 @@
     padding: var(--vd-spacing-48) 0 var(--vd-spacing-64);
   }
 
+  // Both overview layouts share the review board's content edge and typography.
   .overview {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(360px, 0.8fr);
     gap: var(--vd-spacing-40);
     align-items: stretch;
-    padding-bottom: var(--vd-spacing-48);
+    padding: 0 0 var(--vd-spacing-48);
+  }
+
+  // The first review section is the specimen when no separate hero is needed.
+  .overview--single {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
   }
 
   .overview-copy {
+    min-width: 0;
     padding: var(--vd-spacing-24) 0;
   }
 
   .eyebrow-row {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: var(--vd-spacing-12);
     margin-bottom: var(--vd-spacing-16);
@@ -398,6 +403,7 @@
     font-weight: var(--vd-typography-ui-display-medium-font-weight);
     line-height: var(--vd-typography-ui-display-medium-line-height);
     letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
   }
 
   .overview-copy > p {
@@ -412,6 +418,7 @@
 
   .component-facts {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--vd-spacing-32);
     margin: var(--vd-spacing-32) 0 0;
   }
@@ -438,6 +445,7 @@
 
   .hero-specimen {
     display: flex;
+    min-width: 0;
     min-height: 320px;
     flex-direction: column;
     overflow: hidden;
@@ -831,7 +839,7 @@
 
   @media (max-width: 1040px) {
     .overview {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
 
     .variant-grid {

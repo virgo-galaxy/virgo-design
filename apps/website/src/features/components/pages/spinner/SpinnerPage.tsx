@@ -7,13 +7,15 @@ import { ReviewSection } from '../../components/ReviewSection';
 export function SpinnerPage() {
   return (
     <div className="review-board spinner-review">
-      <section className="spinner-intro" id="overview">
-        <div className="eyebrow-row">
-          <span>Component 27</span>
-          <span className="version-badge">STABLE · V1.0.0</span>
+      <section className="overview overview--single" id="overview" data-review-section="overview">
+        <div className="overview-copy">
+          <div className="eyebrow-row">
+            <span>Component 27</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
+          </div>
+          <h1>Spinner</h1>
+          <p>Indeterminate loading feedback that composes through currentColor.</p>
         </div>
-        <h1>Spinner</h1>
-        <p>Indeterminate loading feedback that composes through currentColor.</p>
       </section>
 
       <ReviewSection

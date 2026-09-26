@@ -1,11 +1,4 @@
 body:has(.components-documentation) {
-  .menu-system-intro {
-    padding-block: var(--vd-spacing-24);
-  }
-  .menu-system-intro p {
-    max-width: calc(var(--vd-sizing-96) * 7);
-    color: var(--vd-text-secondary);
-  }
   .menu-example {
     display: grid;
     gap: var(--vd-spacing-24);

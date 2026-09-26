@@ -135,17 +135,6 @@ export const componentRoutes = [
     Component: SurfacePage,
   },
   {
-    id: 'floating-action',
-    group: 'general',
-    index: '35',
-    name: 'FloatingAction',
-    category: 'Actions',
-    path: '/components/floating-action',
-    status: 'stable',
-    version: 'V1.0.0',
-    Component: FloatingActionPage,
-  },
-  {
     id: 'layout',
     group: 'layout',
     index: '03',
@@ -496,6 +485,17 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1.0.0',
     Component: MenubarPage,
+  },
+  {
+    id: 'floating-action',
+    group: 'actions',
+    index: '35',
+    name: 'FloatingAction',
+    category: 'Actions',
+    path: '/components/floating-action',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: FloatingActionPage,
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;
 

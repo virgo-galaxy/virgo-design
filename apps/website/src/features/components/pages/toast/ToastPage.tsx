@@ -37,16 +37,18 @@ export function ToastPage() {
   return (
     <Toast.Provider>
       <div className="review-board toast-review">
-        <section className="toast-intro" id="overview">
-          <div className="eyebrow-row">
-            <span>Component 29</span>
-            <span className="version-badge">STABLE · V1.0.0</span>
+        <section className="overview overview--single" id="overview" data-review-section="overview">
+          <div className="overview-copy">
+            <div className="eyebrow-row">
+              <span>Component 29</span>
+              <span className="version-badge">STABLE · V1.0.0</span>
+            </div>
+            <h1>Toast</h1>
+            <p>
+              Brief feedback that announces itself without interrupting the current task or moving
+              focus.
+            </p>
           </div>
-          <h1>Toast</h1>
-          <p>
-            Brief feedback that announces itself without interrupting the current task or moving
-            focus.
-          </p>
         </section>
 
         <ReviewSection

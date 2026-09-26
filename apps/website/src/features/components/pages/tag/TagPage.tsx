@@ -22,13 +22,15 @@ export function TagPage() {
 
   return (
     <div className="review-board tag-review">
-      <section className="tag-intro" id="overview">
-        <div className="eyebrow-row">
-          <span>Component 28</span>
-          <span className="version-badge">STABLE · V1.0.0</span>
+      <section className="overview overview--single" id="overview" data-review-section="overview">
+        <div className="overview-copy">
+          <div className="eyebrow-row">
+            <span>Component 28</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
+          </div>
+          <h1>Tag</h1>
+          <p>A compact, standalone label for classification, status and short metadata.</p>
         </div>
-        <h1>Tag</h1>
-        <p>A compact, standalone label for classification, status and short metadata.</p>
       </section>
 
       <ReviewSection

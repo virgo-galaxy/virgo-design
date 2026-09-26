@@ -70,13 +70,15 @@ export function CommandPage() {
 
   return (
     <div className="review-board command-review">
-      <section className="command-intro" id="overview">
-        <div className="eyebrow-row">
-          <span>Component 31</span>
-          <span className="version-badge">STABLE · V1.0.0</span>
+      <section className="overview overview--single" id="overview" data-review-section="overview">
+        <div className="overview-copy">
+          <div className="eyebrow-row">
+            <span>Component 31</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
+          </div>
+          <h1>Command</h1>
+          <p>Search application actions, keep focus in one input, and execute the active result.</p>
         </div>
-        <h1>Command</h1>
-        <p>Search application actions, keep focus in one input, and execute the active result.</p>
       </section>
 
       <ReviewSection

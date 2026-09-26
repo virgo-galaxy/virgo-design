@@ -9,13 +9,15 @@ import { ReviewSection } from '../../components/ReviewSection';
 export function AvatarPage() {
   return (
     <div className="review-board avatar-review">
-      <section className="avatar-intro" id="overview">
-        <div className="eyebrow-row">
-          <span>Component 18</span>
-          <span className="version-badge">STABLE · V1.0.0</span>
+      <section className="overview overview--single" id="overview" data-review-section="overview">
+        <div className="overview-copy">
+          <div className="eyebrow-row">
+            <span>Component 18</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
+          </div>
+          <h1>Avatar</h1>
+          <p>Identity images with token-based sizing, resilient fallback, and simple grouping.</p>
         </div>
-        <h1>Avatar</h1>
-        <p>Identity images with token-based sizing, resilient fallback, and simple grouping.</p>
       </section>
 
       <ReviewSection

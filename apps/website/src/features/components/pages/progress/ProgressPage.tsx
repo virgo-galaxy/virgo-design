@@ -15,13 +15,15 @@ const intents = [
 export function ProgressPage() {
   return (
     <div className="review-board progress-review">
-      <section className="progress-intro" id="overview">
-        <div className="eyebrow-row">
-          <span>Component 25</span>
-          <span className="version-badge">STABLE · V1.0.0</span>
+      <section className="overview overview--single" id="overview" data-review-section="overview">
+        <div className="overview-copy">
+          <div className="eyebrow-row">
+            <span>Component 25</span>
+            <span className="version-badge">STABLE · V1.0.0</span>
+          </div>
+          <h1>Progress</h1>
+          <p>Determinate progress for tasks with a known completion amount.</p>
         </div>
-        <h1>Progress</h1>
-        <p>Determinate progress for tasks with a known completion amount.</p>
       </section>
 
       <ReviewSection
