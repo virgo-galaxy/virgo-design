@@ -57,22 +57,5 @@ export const tooltipMetadata = {
     'Use Popover for links, inputs, buttons or other interactive content. Keep essential information visible outside the tooltip.',
     'Portals preserve theme and direction; placement flips/shifts at viewport edges and updates on scroll or resize.',
   ],
-  examples: [
-    {
-      name: 'Smooth transition',
-      code: '<>{["Overview", "Members", "Activity", "Settings"].map((label) => <Tooltip key={label} smoothTransition><Tooltip.Trigger>{label}</Tooltip.Trigger><Tooltip.Content>Explore your workspace.</Tooltip.Content></Tooltip>)}</>',
-    },
-    {
-      name: 'Basic',
-      code: '<Tooltip><Tooltip.Trigger>Hover or focus</Tooltip.Trigger><Tooltip.Content>Helpful context</Tooltip.Content></Tooltip>',
-    },
-    {
-      name: 'Placement',
-      code: '<Tooltip><Tooltip.Trigger>Top right</Tooltip.Trigger><Tooltip.Content placement="topRight" arrow>Helpful context</Tooltip.Content></Tooltip>',
-    },
-    {
-      name: 'Custom trigger',
-      code: '<Tooltip><Tooltip.Trigger aria-label="Settings" render={(props) => <button {...props}><SettingsIcon /></button>} /><Tooltip.Content>Workspace settings</Tooltip.Content></Tooltip>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

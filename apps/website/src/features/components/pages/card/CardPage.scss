@@ -1,27 +1,4 @@
 body:has(.components-documentation) {
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(calc(var(--vd-sizing-80) * 3), 1fr));
-    gap: var(--vd-spacing-24);
-    padding: var(--vd-spacing-32);
-  }
-
-  .card-variant-grid {
-    align-items: start;
-  }
-
-  .card-profile {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    align-items: center;
-    gap: var(--vd-spacing-16);
-  }
-
-  .card-composition-copy {
-    margin: var(--vd-spacing-0);
-    color: var(--vd-text-secondary);
-  }
-
   .card-hero-stage {
     padding: var(--vd-spacing-32);
   }

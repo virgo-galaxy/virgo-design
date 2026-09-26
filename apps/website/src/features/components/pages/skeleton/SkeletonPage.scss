@@ -1,11 +1,4 @@
 body:has(.components-documentation) {
-  .skeleton-stack {
-    display: grid;
-    max-width: calc(var(--vd-sizing-80) * 5);
-    gap: var(--vd-spacing-16);
-    padding: var(--vd-spacing-32);
-  }
-
   .skeleton-card {
     display: grid;
     width: calc(var(--vd-sizing-80) * 4);
@@ -19,18 +12,5 @@ body:has(.components-documentation) {
   .skeleton-card-copy {
     display: grid;
     gap: var(--vd-spacing-8);
-  }
-
-  .skeleton-motion-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--vd-spacing-32);
-    padding: var(--vd-spacing-32);
-
-    > div {
-      display: grid;
-      gap: var(--vd-spacing-8);
-      color: var(--vd-text-secondary);
-    }
   }
 }

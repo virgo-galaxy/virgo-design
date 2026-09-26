@@ -1,20 +1,4 @@
 body:has(.components-documentation) {
-  .menu-example {
-    display: grid;
-    gap: var(--vd-spacing-24);
-    justify-items: start;
-    padding: var(--vd-spacing-32);
-  }
-  .menu-example > p {
-    color: var(--vd-text-secondary);
-  }
-  .menu-density {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--vd-spacing-24);
-    padding: var(--vd-spacing-32);
-  }
   .context-target {
     display: flex;
     flex-direction: column;
@@ -31,15 +15,6 @@ body:has(.components-documentation) {
       outline: var(--vd-border-width-2) solid var(--vd-border-focus);
       outline-offset: var(--vd-spacing-4);
     }
-  }
-  .menu-editor {
-    padding: var(--vd-spacing-24);
-    min-height: calc(var(--vd-sizing-80) * 2);
-    background: var(--vd-surface-secondary);
-    border-radius: var(--vd-radius-8);
-  }
-  .menu-editor > p {
-    color: var(--vd-text-secondary);
   }
 
   .menu-hero-stage {

@@ -1,41 +1,18 @@
 import './ToastPage.scss';
 
-import { Button, Toast, type ToastIntent, type ToastPlacement } from '@virgo-design/ui';
-import { useRef, useState } from 'react';
+import { Toast } from '@virgo-design/ui';
 
-import { ReviewSection } from '../../components/ReviewSection';
-
-const intents = [
-  'default',
-  'success',
-  'warning',
-  'error',
-  'info',
-] as const satisfies readonly ToastIntent[];
-const placements = [
-  'top-start',
-  'top-center',
-  'top-end',
-  'bottom-start',
-  'bottom-center',
-  'bottom-end',
-] as const satisfies readonly ToastPlacement[];
+import { ArticleSection } from '@/components/docs/ArticleSection';
+import {
+  ComponentExample,
+  ComponentExampleRuntimeControl,
+  ComponentExampleRuntimeProvider,
+} from '@/components/docs/ComponentExample';
+import { toastExamples } from '@/examples/components/toast/examples';
 
 export function ToastPage() {
-  const [toasts, setToasts] = useState<
-    Array<{ id: number; intent: ToastIntent; action?: boolean }>
-  >([]);
-  const [placement, setPlacement] = useState<ToastPlacement>('bottom-end');
-  const nextId = useRef(1);
-
-  const addToast = (intent: ToastIntent, action = false) => {
-    const id = nextId.current;
-    nextId.current += 1;
-    setToasts((current) => [...current, { id, intent, action }]);
-  };
-
   return (
-    <Toast.Provider>
+    <ComponentExampleRuntimeProvider>
       <div className="review-board toast-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
@@ -63,14 +40,13 @@ export function ToastPage() {
               </div>
             </dl>
           </div>
-
           <div className="hero-specimen">
             <div className="specimen-toolbar">
               <span>Reference specimen</span>
               <code>status · action · dismiss</code>
             </div>
             <div className="hero-stage toast-hero-stage">
-              <Toast.Provider>
+              <Toast.Provider hotkey={[]}>
                 <Toast.Root intent="success" duration={0}>
                   <Toast.Title>Document archived</Toast.Title>
                   <Toast.Description>Your document moved to the archive.</Toast.Description>
@@ -84,95 +60,44 @@ export function ToastPage() {
               <span>Non-blocking feedback</span>
               <span>Semantic status</span>
               <span>Actionable dismissal</span>
+              <ComponentExampleRuntimeControl />
             </div>
           </div>
         </section>
-
-        <ReviewSection
-          id="toast-status"
-          index="01"
-          title="Status variants"
-          description="Each intent uses semantic status tokens and an icon from Virgo Icons."
+        <ArticleSection
+          id={'toast-status'}
+          index={'01'}
+          title={'Status variants'}
+          description={'Each intent uses semantic status tokens and an icon from Virgo Icons.'}
         >
-          <div className="toast-controls">
-            {intents.map((intent) => (
-              <Button key={intent} variant="outline" onClick={() => addToast(intent)}>
-                Show {intent}
-              </Button>
-            ))}
-          </div>
-        </ReviewSection>
-
-        <ReviewSection
-          id="toast-stack"
-          index="02"
-          title="Action and stacking"
-          description="Create several notifications. Hover or focus a toast to pause only its remaining duration."
+          <ComponentExample example={toastExamples.toastIntents} showCaption={false} />
+        </ArticleSection>
+        <ArticleSection
+          id={'toast-stack'}
+          index={'02'}
+          title={'Action and stacking'}
+          description={
+            'Create several notifications. Hover or focus a toast to pause only its remaining duration.'
+          }
         >
-          <div className="toast-controls">
-            <Button onClick={() => addToast('success', true)}>Archive with Undo</Button>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                addToast('info');
-                addToast('warning');
-              }}
-            >
-              Add two toasts
-            </Button>
-          </div>
-        </ReviewSection>
-
-        <ReviewSection
-          id="toast-placement"
-          index="03"
-          title="Viewport placement"
-          description="Placement belongs to the visual viewport while announcement and timing stay in the primitive."
+          <ComponentExample example={toastExamples.toastUndo} />
+          <ComponentExample example={toastExamples.toastStack} />
+        </ArticleSection>
+        <ArticleSection
+          id={'toast-placement'}
+          index={'03'}
+          title={'Viewport placement'}
+          description={
+            'Choose a position to show a notification inside the preview canvas. Other examples keep their own viewports and notifications.'
+          }
         >
-          <div className="toast-controls">
-            {placements.map((value) => (
-              <Button
-                key={value}
-                size="small"
-                variant={placement === value ? 'primary' : 'outline'}
-                onClick={() => setPlacement(value)}
-              >
-                {value}
-              </Button>
-            ))}
-          </div>
-        </ReviewSection>
-
+          <ComponentExample example={toastExamples.toastPlacement} showCaption={false} />
+        </ArticleSection>
         <footer className="review-footer">
           <span>Virgo Design UI · Toast V1.0.0</span>
           <span>Live region · Presence · Classic</span>
         </footer>
       </div>
-
-      {toasts.map(({ id, intent, action }) => (
-        <Toast.Root
-          key={id}
-          intent={intent}
-          duration={5000}
-          onOpenChange={(open) => {
-            if (!open) {
-              setToasts((current) => current.filter((toast) => toast.id !== id));
-            }
-          }}
-        >
-          <Toast.Title>
-            {intent === 'default'
-              ? 'Notification'
-              : `${intent[0]!.toUpperCase()}${intent.slice(1)}`}
-          </Toast.Title>
-          <Toast.Description>
-            Toast #{id} is using the shared notification viewport.
-          </Toast.Description>
-          {action ? <Toast.Action>Undo</Toast.Action> : null}
-          <Toast.Close />
-        </Toast.Root>
-      ))}
-      <Toast.Viewport placement={placement} />
-    </Toast.Provider>
+    </ComponentExampleRuntimeProvider>
   );
 }

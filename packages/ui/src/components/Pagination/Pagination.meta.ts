@@ -44,24 +44,5 @@ export const paginationMetadata = {
     'Quick jump requires a whole number between one and the last page; invalid drafts expose aria-invalid.',
     'Accessible and visible labels can be localized through labels; navigation can be named by aria-label or aria-labelledby.',
   ],
-  examples: [
-    { name: 'Basic', code: '<Pagination total={50} />' },
-    {
-      name: 'Controlled',
-      code: '<Pagination total={500} page={page} pageSize={pageSize} onChange={(page, size) => { setPage(page); setPageSize(size); }} />',
-    },
-    { name: 'All controls', code: '<Pagination total={85} showAll />' },
-    {
-      name: 'Independent options',
-      code: '<Pagination total={500} showSizeChanger showQuickJumper align="right" />',
-    },
-    {
-      name: 'Visible range',
-      code: '<Pagination total={85} showTotal={(total, [start, end]) => `${start}–${end} of ${total} items`} />',
-    },
-    {
-      name: 'Text navigation',
-      code: '<Pagination total={500} previousLabel="Previous" nextLabel="Next" />',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

@@ -312,7 +312,10 @@ const Separator = forwardRef<HTMLLIElement, NavigationMenuSeparatorProps>(
 Separator.displayName = 'NavigationMenu.Separator';
 
 const Trigger = forwardRef<HTMLButtonElement, NavigationMenuTriggerProps>(
-  function NavigationMenuTrigger({ render, className, children, ...props }, forwardedRef) {
+  function NavigationMenuTrigger(
+    { render, className, children, indicator = true, ...props },
+    forwardedRef,
+  ) {
     const item = useNavigationMenuItemVisualContext();
     const { orientation } = useContext(NavigationMenuVisualContext);
     const depth = useContext(NavigationMenuDepthContext);
@@ -327,14 +330,16 @@ const Trigger = forwardRef<HTMLButtonElement, NavigationMenuTriggerProps>(
         <span className={styles.label} data-slot="label">
           {children}
         </span>
-        <span
-          className={classes(styles.indicator, !opensSideways && styles.disclosureIndicator)}
-          data-slot="indicator"
-          data-direction={opensSideways ? 'right' : item.expanded ? 'up' : 'down'}
-          aria-hidden="true"
-        >
-          {opensSideways ? <ChevronRightIcon /> : null}
-        </span>
+        {indicator ? (
+          <span
+            className={classes(styles.indicator, !opensSideways && styles.disclosureIndicator)}
+            data-slot="indicator"
+            data-direction={opensSideways ? 'right' : item.expanded ? 'up' : 'down'}
+            aria-hidden="true"
+          >
+            {opensSideways ? <ChevronRightIcon /> : null}
+          </span>
+        ) : null}
       </>
     );
 

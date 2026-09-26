@@ -75,18 +75,5 @@ export const tabsMetadata = {
     'Only the active panel is displayed while inactive panels remain hidden.',
     'The sliding indicator and tab icons are decorative and hidden from assistive technology.',
   ],
-  examples: [
-    {
-      name: 'Line tabs',
-      code: '<Tabs defaultValue="overview"><Tabs.List aria-label="Project sections"><Tabs.Tab value="overview">Overview</Tabs.Tab><Tabs.Tab value="api">API</Tabs.Tab></Tabs.List><Tabs.Panel value="overview">Overview content</Tabs.Panel><Tabs.Panel value="api">API content</Tabs.Panel></Tabs>',
-    },
-    {
-      name: 'Centered tabs',
-      code: '<Tabs align="center" defaultValue="overview">...</Tabs>',
-    },
-    {
-      name: 'Editable card tabs',
-      code: '<Tabs variant="card" addable onAdd={addTab} defaultValue="tab-1"><Tabs.List aria-label="Open tabs"><Tabs.Tab closable value="tab-1" onClose={closeTab}>Tab 1</Tabs.Tab></Tabs.List><Tabs.Panel value="tab-1">Content</Tabs.Panel></Tabs>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

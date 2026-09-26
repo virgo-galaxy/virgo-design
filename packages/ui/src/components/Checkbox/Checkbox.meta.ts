@@ -40,22 +40,5 @@ export const checkboxMetadata = {
     'Exposes aria-checked="mixed" when indeterminate is true.',
     'Checkbox.Group preserves native checkbox form behavior with a shared name when provided.',
   ],
-  examples: [
-    {
-      name: 'Basic checkbox',
-      code: '<Checkbox defaultChecked>Sync changes</Checkbox>',
-    },
-    {
-      name: 'Disabled checkbox',
-      code: '<Checkbox disabled>Unavailable</Checkbox>',
-    },
-    {
-      name: 'Checkbox group',
-      code: '<Checkbox.Group defaultValue={["pear"]}><Checkbox value="apple">Apple</Checkbox><Checkbox value="pear">Pear</Checkbox></Checkbox.Group>',
-    },
-    {
-      name: 'Indeterminate checkbox',
-      code: '<Checkbox indeterminate>Check all</Checkbox>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

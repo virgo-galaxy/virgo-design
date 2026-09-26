@@ -29,14 +29,5 @@ export const toastMetadata = {
     'Toasts never move focus when they appear. F8 moves focus into the viewport when interaction is needed.',
     'Hovering or focusing a toast pauses its remaining auto-dismiss duration.',
   ],
-  examples: [
-    {
-      name: 'Success',
-      code: '<Toast.Root intent="success"><Toast.Title>Saved</Toast.Title><Toast.Close /></Toast.Root>',
-    },
-    {
-      name: 'Action',
-      code: '<Toast.Root><Toast.Title>Archived</Toast.Title><Toast.Action>Undo</Toast.Action></Toast.Root>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

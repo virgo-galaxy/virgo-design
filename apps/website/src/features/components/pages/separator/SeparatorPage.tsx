@@ -2,108 +2,92 @@ import './SeparatorPage.scss';
 
 import { Separator } from '@virgo-design/ui';
 
-import { ReviewSection } from '../../components/ReviewSection';
+import { ArticleSection } from '@/components/docs/ArticleSection';
+import {
+  ComponentExample,
+  ComponentExampleRuntimeControl,
+  ComponentExampleRuntimeProvider,
+} from '@/components/docs/ComponentExample';
+import { separatorExamples } from '@/examples/components/separator/examples';
 
 export function SeparatorPage() {
   return (
-    <div className="review-board separator-review">
-      <section className="overview" id="overview" data-review-section="overview">
-        <div className="overview-copy">
-          <div className="eyebrow-row">
-            <span>Component 04</span>
-            <span className="version-badge">STABLE · V1.0.0</span>
-          </div>
-          <h1>Separator</h1>
-          <p>A token-based rule for visual and semantic separation in general layouts.</p>
-          <dl className="component-facts">
-            <div>
-              <dt>Orientations</dt>
-              <dd>02</dd>
+    <ComponentExampleRuntimeProvider>
+      <div className="review-board separator-review">
+        <section className="overview" id="overview" data-review-section="overview">
+          <div className="overview-copy">
+            <div className="eyebrow-row">
+              <span>Component 04</span>
+              <span className="version-badge">STABLE · V1.0.0</span>
             </div>
-            <div>
-              <dt>Semantics</dt>
-              <dd>ARIA</dd>
-            </div>
-            <div>
-              <dt>Decorative</dt>
-              <dd>Optional</dd>
-            </div>
-          </dl>
-        </div>
-
-        <div className="hero-specimen">
-          <div className="specimen-toolbar">
-            <span>Reference specimen</span>
-            <code>horizontal · semantic</code>
+            <h1>Separator</h1>
+            <p>A token-based rule for visual and semantic separation in general layouts.</p>
+            <dl className="component-facts">
+              <div>
+                <dt>Orientations</dt>
+                <dd>02</dd>
+              </div>
+              <div>
+                <dt>Semantics</dt>
+                <dd>ARIA</dd>
+              </div>
+              <div>
+                <dt>Decorative</dt>
+                <dd>Optional</dd>
+              </div>
+            </dl>
           </div>
-          <div className="hero-stage">
-            <div className="separator-stack">
-              <span>Account details</span>
-              <Separator />
-              <span>Billing</span>
+          <div className="hero-specimen">
+            <div className="specimen-toolbar">
+              <span>Reference specimen</span>
+              <code>horizontal · semantic</code>
+            </div>
+            <div className="hero-stage">
+              <div className="separator-stack">
+                <span>Account details</span>
+                <Separator />
+                <span>Billing</span>
+              </div>
+            </div>
+            <div className="specimen-caption">
+              <span>Rule-based rhythm</span>
+              <span>Horizontal by default</span>
+              <span>Decorative or semantic</span>
+              <ComponentExampleRuntimeControl />
             </div>
           </div>
-          <div className="specimen-caption">
-            <span>Rule-based rhythm</span>
-            <span>Horizontal by default</span>
-            <span>Decorative or semantic</span>
-          </div>
-        </div>
-      </section>
-
-      <ReviewSection
-        id="separator-horizontal"
-        index="01"
-        title="Horizontal"
-        description="The default orientation separates stacked content with explicit semantics."
-      >
-        <div className="separator-stack">
-          <span>Account details</span>
-          <Separator />
-          <span>Notification preferences</span>
-          <Separator />
-          <span>Security settings</span>
-        </div>
-      </ReviewSection>
-
-      <ReviewSection
-        id="separator-vertical"
-        index="02"
-        title="Vertical"
-        description="Vertical separators stretch naturally between adjacent inline items."
-      >
-        <div className="separator-row">
-          <span>Overview</span>
-          <Separator orientation="vertical" />
-          <span>Activity</span>
-          <Separator orientation="vertical" />
-          <span>Settings</span>
-        </div>
-      </ReviewSection>
-
-      <ReviewSection
-        id="separator-decorative"
-        index="03"
-        title="Decorative between content blocks"
-        description="Decorative rules remain visual-only when existing structure already conveys separation."
-      >
-        <div className="separator-blocks">
-          <article>
-            <h3>Design systems</h3>
-            <p>Shared tokens and components keep product surfaces coherent.</p>
-          </article>
-          <Separator decorative />
-          <article>
-            <h3>Coverage pass</h3>
-            <p>Small stable APIs complete the component map before deeper iteration.</p>
-          </article>
-        </div>
-      </ReviewSection>
-
-      <footer className="review-footer">
-        <span>Virgo Design UI · Separator V1.0.0</span>
-        <span>Horizontal · Vertical · Decorative</span>
-      </footer>
-    </div>
+        </section>
+        <ArticleSection
+          id={'separator-horizontal'}
+          index={'01'}
+          title={'Horizontal'}
+          description={'The default orientation separates stacked content with explicit semantics.'}
+        >
+          <ComponentExample example={separatorExamples.separatorHorizontal} showCaption={false} />
+        </ArticleSection>
+        <ArticleSection
+          id={'separator-vertical'}
+          index={'02'}
+          title={'Vertical'}
+          description={'Vertical separators stretch naturally between adjacent inline items.'}
+        >
+          <ComponentExample example={separatorExamples.separatorVertical} showCaption={false} />
+        </ArticleSection>
+        <ArticleSection
+          id={'separator-decorative'}
+          index={'03'}
+          title={'Decorative between content blocks'}
+          description={
+            'Decorative rules remain visual-only when existing structure already conveys separation.'
+          }
+        >
+          <ComponentExample example={separatorExamples.separatorDecorative} showCaption={false} />
+        </ArticleSection>
+        <footer className="review-footer">
+          <span>Virgo Design UI · Separator V1.0.0</span>
+          <span>Horizontal · Vertical · Decorative</span>
+        </footer>
+      </div>
+    </ComponentExampleRuntimeProvider>
   );
 }

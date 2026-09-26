@@ -1,0 +1,59 @@
+import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
+
+import NavigationHorizontalExample from './NavigationHorizontalExample';
+import navigationHorizontalSource from './NavigationHorizontalExample.tsx?raw';
+import NavigationNestedExample from './NavigationNestedExample';
+import navigationNestedSource from './NavigationNestedExample.tsx?raw';
+import NavigationPopoverExample from './NavigationPopoverExample';
+import navigationPopoverSource from './NavigationPopoverExample.tsx?raw';
+import NavigationSegmentedExample from './NavigationSegmentedExample';
+import navigationSegmentedSource from './NavigationSegmentedExample.tsx?raw';
+import NavigationSegmentedIconsExample from './NavigationSegmentedIconsExample';
+import navigationSegmentedIconsSource from './NavigationSegmentedIconsExample.tsx?raw';
+import NavigationVerticalExample from './NavigationVerticalExample';
+import navigationVerticalSource from './NavigationVerticalExample.tsx?raw';
+
+export const navigationMenuExamples = {
+  navigationHorizontal: {
+    id: 'navigation-horizontal',
+    title: 'Top navigation',
+    description: 'Horizontal destination links.',
+    Component: NavigationHorizontalExample,
+    source: navigationHorizontalSource,
+  },
+  navigationVertical: {
+    id: 'navigation-vertical',
+    title: 'Vertical navigation',
+    description: 'Icons and a disabled destination in a vertical list.',
+    Component: NavigationVerticalExample,
+    source: navigationVerticalSource,
+  },
+  navigationSegmented: {
+    id: 'navigation-segmented',
+    title: 'Segmented navigation',
+    description: 'Group peer destinations with decorative separators.',
+    Component: NavigationSegmentedExample,
+    source: navigationSegmentedSource,
+  },
+  navigationSegmentedIcons: {
+    id: 'navigation-segmented-icons',
+    title: 'Segmented links with icons',
+    description: 'Icons supplement destination labels.',
+    Component: NavigationSegmentedIconsExample,
+    source: navigationSegmentedIconsSource,
+  },
+  navigationPopover: {
+    id: 'navigation-popover',
+    title: 'Vertical hover submenu',
+    description: 'A third level shares the normal pointer and keyboard navigation model.',
+    Component: NavigationPopoverExample,
+    source: navigationPopoverSource,
+  },
+  navigationNested: {
+    id: 'navigation-nested',
+    title: 'Inline nested navigation',
+    description: 'Disclosure reveals destinations in normal document flow.',
+    Component: NavigationNestedExample,
+    source: navigationNestedSource,
+  },
+} as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

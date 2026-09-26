@@ -62,18 +62,5 @@ export const drawerMetadata = {
     'The default icon-only Close has the accessible name “Close drawer”.',
     'Reduced-motion preferences remove both panel and overlay animations.',
   ],
-  examples: [
-    {
-      name: 'Default right drawer',
-      code: '<Drawer.Root><Drawer.Trigger>Open settings</Drawer.Trigger><Drawer.Portal><Drawer.Overlay /><Drawer.Content><Drawer.Header><Drawer.Title>Settings</Drawer.Title><Drawer.Description>Configure workspace settings.</Drawer.Description></Drawer.Header><Drawer.Body>...</Drawer.Body><Drawer.Footer>...</Drawer.Footer><Drawer.Close /></Drawer.Content></Drawer.Portal></Drawer.Root>',
-    },
-    {
-      name: 'Bottom drawer',
-      code: '<Drawer.Content placement="bottom" size="sm"><Drawer.Header><Drawer.Title>Filters</Drawer.Title></Drawer.Header><Drawer.Body>...</Drawer.Body><Drawer.Close /></Drawer.Content>',
-    },
-    {
-      name: 'Custom size',
-      code: '<Drawer.Content style={{ "--drawer-size": "42rem" } as React.CSSProperties}>...</Drawer.Content>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

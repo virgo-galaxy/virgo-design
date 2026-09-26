@@ -30,6 +30,7 @@ export function useComponentExampleDisclosure(
   const [localOpen, setLocalOpen] = useState(false);
   const register = runtime?.register;
   const unregister = runtime?.unregister;
+  const setExampleOpen = runtime?.setExampleOpen;
 
   useEffect(() => {
     if (!register || !unregister) return undefined;
@@ -39,10 +40,10 @@ export function useComponentExampleDisclosure(
 
   const setOpen = useCallback<Dispatch<SetStateAction<boolean>>>(
     (update) => {
-      if (runtime) runtime.setExampleOpen(id, update);
+      if (setExampleOpen) setExampleOpen(id, update);
       else setLocalOpen(update);
     },
-    [id, runtime],
+    [id, setExampleOpen],
   );
 
   return [runtime ? (runtime.examples[id] ?? false) : localOpen, setOpen] as const;

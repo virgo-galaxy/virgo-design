@@ -45,18 +45,5 @@ export const selectMetadata = {
     'Marks selected and disabled options with listbox semantics.',
     'Supports an accessible label through aria-label or aria-labelledby on the trigger.',
   ],
-  examples: [
-    {
-      name: 'Basic selection',
-      code: `<Select><Select.Trigger aria-label="Project" placeholder="Choose a project" /><Select.Content><Select.Option value="design">Virgo Design</Select.Option><Select.Option value="docs">Virgo Cloud Docs</Select.Option></Select.Content></Select>`,
-    },
-    {
-      name: 'Default value',
-      code: `<Select defaultValue="design"><Select.Trigger aria-label="Project" /><Select.Content><Select.Option value="design">Virgo Design</Select.Option><Select.Option value="docs">Virgo Cloud Docs</Select.Option></Select.Content></Select>`,
-    },
-    {
-      name: 'Invalid selection',
-      code: `<Select invalid><Select.Trigger aria-label="Environment" placeholder="Choose an environment" /><Select.Content><Select.Option value="preview">Preview</Select.Option></Select.Content></Select>`,
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

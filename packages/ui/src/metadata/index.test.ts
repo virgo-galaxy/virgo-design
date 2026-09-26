@@ -38,6 +38,12 @@ import {
 } from './index';
 
 describe('componentMetadataRegistry', () => {
+  it('does not duplicate executable Website examples as metadata code strings', () => {
+    for (const metadata of Object.values(componentMetadataRegistry)) {
+      expect(metadata.examples, metadata.name).toEqual([]);
+    }
+  });
+
   it('registers Card as Surface-backed non-interactive content structure', () => {
     expect(componentMetadataRegistry.card).toBe(cardMetadata);
     expect(cardMetadata.variants.map(({ name }) => name)).toEqual([

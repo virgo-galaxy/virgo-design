@@ -205,6 +205,27 @@ describe('NavigationMenu UI', () => {
     expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('aria-current', 'page');
   });
 
+  it('can hide a trigger disclosure indicator', () => {
+    render(
+      <NavigationMenu.Root aria-label="Compact navigation" submenu="popover" orientation="vertical">
+        <NavigationMenu.List>
+          <NavigationMenu.Item value="projects">
+            <NavigationMenu.Trigger indicator={false}>Projects</NavigationMenu.Trigger>
+            <NavigationMenu.Content>
+              <NavigationMenu.Item value="cloud">
+                <NavigationMenu.Link href="#cloud">Cloud</NavigationMenu.Link>
+              </NavigationMenu.Item>
+            </NavigationMenu.Content>
+          </NavigationMenu.Item>
+        </NavigationMenu.List>
+      </NavigationMenu.Root>,
+    );
+
+    expect(screen.getByRole('button', { name: 'Projects' })).not.toContainElement(
+      document.querySelector('[data-slot="indicator"]'),
+    );
+  });
+
   it('styles and preserves nested disclosure behavior', async () => {
     const user = userEvent.setup();
     render(<Example />);

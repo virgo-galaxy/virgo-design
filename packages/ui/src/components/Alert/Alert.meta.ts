@@ -50,18 +50,5 @@ export const alertMetadata = {
     'Status icons are decorative; intent is also communicated by visible content and live-region semantics.',
     'Alert.Close is a native button named “Close alert” by default and only notifies the owner.',
   ],
-  examples: [
-    {
-      name: 'Warning',
-      code: '<Alert intent="warning"><Alert.Icon /><Alert.Content><Alert.Title>Configuration problem</Alert.Title><Alert.Description>Update the settings before deploy.</Alert.Description></Alert.Content></Alert>',
-    },
-    {
-      name: 'Action',
-      code: '<Alert intent="error"><Alert.Icon /><Alert.Content><Alert.Title>Deployment failed</Alert.Title></Alert.Content><Alert.Action><Button size="small">Retry</Button></Alert.Action></Alert>',
-    },
-    {
-      name: 'Closable',
-      code: '<Alert><Alert.Content><Alert.Description>Persistent feedback</Alert.Description></Alert.Content><Alert.Close onClick={dismiss} /></Alert>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

@@ -1,6 +1,5 @@
 body:has(.components-documentation) {
-  .spinner-stage,
-  .spinner-environments {
+  .spinner-stage {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -12,16 +11,5 @@ body:has(.components-documentation) {
     display: inline-flex;
     align-items: center;
     gap: var(--vd-spacing-8);
-  }
-
-  .spinner-environment {
-    display: grid;
-    width: var(--vd-sizing-96);
-    height: var(--vd-sizing-80);
-    place-items: center;
-    border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
-    border-radius: var(--vd-radius-8);
-    color: var(--vd-text-primary);
-    background: var(--vd-surface-default);
   }
 }

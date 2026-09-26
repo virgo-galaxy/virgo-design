@@ -27,9 +27,5 @@ export const skeletonMetadata = {
     'The loading region that owns Skeleton should communicate its busy state separately.',
     'Animation uses motion tokens and stops under prefers-reduced-motion.',
   ],
-  examples: [
-    { name: 'Text', code: '<Skeleton variant="text" style={{ width: 200 }} />' },
-    { name: 'Circle', code: '<Skeleton variant="circle" />' },
-    { name: 'Static rectangle', code: '<Skeleton animated={false} style={{ height: 120 }} />' },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

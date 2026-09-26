@@ -33,18 +33,5 @@ export const textareaMetadata = {
     'Sets aria-invalid when the invalid prop is true.',
     'Placeholder text is not a substitute for an accessible label.',
   ],
-  examples: [
-    {
-      name: 'Basic textarea',
-      code: '<Textarea aria-label="Description" placeholder="Describe the project" rows={4} />',
-    },
-    {
-      name: 'Read-only textarea',
-      code: '<Textarea readOnly aria-label="Summary" defaultValue="Virgo Design" />',
-    },
-    {
-      name: 'Invalid textarea',
-      code: '<Textarea invalid aria-label="Description" defaultValue="Needs revision" />',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

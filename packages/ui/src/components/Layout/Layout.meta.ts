@@ -61,26 +61,5 @@ export const layoutMetadata = {
     'Zero-width collapsed content is hidden and inert. Supply an external trigger. Icon-only navigation must retain accessible labels.',
     'Consumers should avoid nesting multiple main regions in the same document landmark scope.',
   ],
-  examples: [
-    {
-      name: 'Floating regions',
-      code: '<Layout.Content><Layout.Sidebar mode="floating" collapsible>{navigation}</Layout.Sidebar><Layout.Floating><FloatingAction aria-label="Help"><CircleInfoIcon /></FloatingAction></Layout.Floating></Layout.Content>',
-    },
-    {
-      name: 'Basic',
-      code: '<Layout><Layout.Header /><Layout.Content /><Layout.Footer /></Layout>',
-    },
-    {
-      name: 'Collapsible Sidebar',
-      code: '<Layout.Root direction="horizontal"><Layout.Sidebar collapsible header={<Logo />}>{({ collapsed }) => <Navigation compact={collapsed} />}</Layout.Sidebar><Layout.Content /></Layout.Root>',
-    },
-    {
-      name: 'Sticky Header',
-      code: '<Layout.Header position="sticky" logo={<Logo />} surface={{ tone: "default" }}><NavigationMenu.Root orientation="horizontal">...</NavigationMenu.Root></Layout.Header>',
-    },
-    {
-      name: 'Controlled Responsive Sidebar',
-      code: '<Layout.Sidebar collapsed={collapsed} onCollapsedChange={setCollapsed} collapseBelow={800} trigger={null}>{children}</Layout.Sidebar>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

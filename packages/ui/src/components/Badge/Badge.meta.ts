@@ -29,9 +29,5 @@ export const badgeMetadata = {
     'Numeric and short text content remain readable by assistive technology.',
     'Meaningful dots need an aria-label because color alone cannot communicate their state.',
   ],
-  examples: [
-    { name: 'Count', code: '<Badge count={8}><Button>Inbox</Button></Badge>' },
-    { name: 'Dot', code: '<Badge dot aria-label="Online"><Avatar /></Badge>' },
-    { name: 'Standalone', code: 'Inbox <Badge count={8} />' },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

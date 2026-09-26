@@ -41,10 +41,5 @@ export const menuMetadata = {
     'Arrow keys and typeahead move focus; Escape closes the current level; Tab leaves the menu tree.',
     'Disabled items remain focusable but cannot be activated. Shortcut text does not register a command.',
   ],
-  examples: [
-    {
-      name: 'Actions',
-      code: '<Menu.Root><Menu.Trigger>Actions</Menu.Trigger><Menu.Content><Menu.Item shortcut="F2">Rename</Menu.Item></Menu.Content></Menu.Root>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

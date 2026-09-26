@@ -29,9 +29,5 @@ export const spinnerMetadata = {
     'Provide aria-label when Spinner independently communicates a loading status.',
     'Rotation uses motion tokens and stops under prefers-reduced-motion.',
   ],
-  examples: [
-    { name: 'Decorative', code: '<Spinner />' },
-    { name: 'Accessible status', code: '<Spinner aria-label="Loading" />' },
-    { name: 'Button composition', code: '<Button leadingIcon={<Spinner />}>Saving</Button>' },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

@@ -52,18 +52,5 @@ export const dropdownMetadata = {
     'Checked items use menuitemradio; disabled items cannot activate. Icon-only triggers need aria-label.',
     'Portals preserve the nearest data-theme and direction, including changes while open.',
   ],
-  examples: [
-    {
-      name: 'Basic',
-      code: '<Dropdown><Dropdown.Trigger>Actions</Dropdown.Trigger><Dropdown.Content><Dropdown.Item onSelect={edit}>Edit</Dropdown.Item></Dropdown.Content></Dropdown>',
-    },
-    {
-      name: 'Hover and arrow',
-      code: '<Dropdown trigger="hover"><Dropdown.Trigger variant="text">Hover me</Dropdown.Trigger><Dropdown.Content placement="topLeft" arrow><Dropdown.Item>Open</Dropdown.Item></Dropdown.Content></Dropdown>',
-    },
-    {
-      name: 'Split button',
-      code: '<Dropdown><Dropdown.Button menuLabel="More actions" onClick={save}>Save</Dropdown.Button><Dropdown.Content><Dropdown.Item>Save as…</Dropdown.Item></Dropdown.Content></Dropdown>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

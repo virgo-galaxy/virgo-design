@@ -1,0 +1,20 @@
+import { SegmentedControl } from '@virgo-design/ui';
+
+export default function App() {
+  return (
+    <div style={{ display: 'grid', gap: 24 }}>
+      {(['outline', 'solid', 'soft'] as const).map((variant) => (
+        <SegmentedControl
+          key={variant}
+          variant={variant}
+          defaultValue="pear"
+          aria-label={`${variant} fruit`}
+        >
+          <SegmentedControl.Item value="apple">Apple</SegmentedControl.Item>
+          <SegmentedControl.Item value="pear">Pear</SegmentedControl.Item>
+          <SegmentedControl.Item value="orange">Orange</SegmentedControl.Item>
+        </SegmentedControl>
+      ))}
+    </div>
+  );
+}

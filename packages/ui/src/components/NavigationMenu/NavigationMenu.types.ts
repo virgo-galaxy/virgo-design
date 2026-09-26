@@ -40,6 +40,9 @@ export interface NavigationMenuTriggerProps extends Omit<
   'children'
 > {
   children?: ReactNode;
+
+  /** Whether to render the disclosure indicator. @default true */
+  indicator?: boolean;
 }
 
 export type NavigationMenuContentProps = PrimitiveNavigationMenuContentProps;

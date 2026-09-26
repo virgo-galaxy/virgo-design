@@ -61,22 +61,5 @@ export const popoverMetadata = {
     'Exit content is inert, hidden from assistive technology and non-interactive until its animation finishes. Reduced motion exits immediately.',
     'Logical Start/End placements follow RTL. Physical Left/Right placements keep their literal meaning.',
   ],
-  examples: [
-    {
-      name: 'Custom trigger',
-      code: '<Popover><Popover.Trigger aria-label="Profile" render={(props) => <button {...props}>VD</button>} /><Popover.Content>Profile details</Popover.Content></Popover>',
-    },
-    {
-      name: 'Basic',
-      code: '<Popover><Popover.Trigger>Details</Popover.Trigger><Popover.Content arrow><p>Workspace details</p><Popover.Close /></Popover.Content></Popover>',
-    },
-    {
-      name: 'Controlled',
-      code: '<Popover open={open} onOpenChange={setOpen}><Popover.Trigger>Edit</Popover.Trigger><Popover.Content aria-label="Edit workspace"><Input aria-label="Name" /><Popover.Close>Done</Popover.Close></Popover.Content></Popover>',
-    },
-    {
-      name: 'RTL',
-      code: '<div dir="rtl"><Popover><Popover.Trigger>Details</Popover.Trigger><Popover.Content placement="bottomStart" offset={12}>Content</Popover.Content></Popover></div>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

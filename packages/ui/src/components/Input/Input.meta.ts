@@ -55,26 +55,5 @@ export const inputMetadata = {
     'Sets aria-invalid when the invalid prop is true.',
     'Placeholder text is not a substitute for an accessible label.',
   ],
-  examples: [
-    {
-      name: 'Basic input',
-      code: '<Input aria-label="Project name" placeholder="Untitled project" />',
-    },
-    {
-      name: 'Prefix',
-      code: '<Input aria-label="Email" prefix={<MailIcon />} placeholder="name@example.com" />',
-    },
-    {
-      name: 'Clearable input',
-      code: '<Input clearable aria-label="Search" placeholder="Search components" />',
-    },
-    {
-      name: 'Password input',
-      code: '<Input.Password aria-label="Password" autoComplete="current-password" />',
-    },
-    {
-      name: 'Invalid input',
-      code: '<Input invalid aria-label="Project slug" defaultValue="virgo design" />',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

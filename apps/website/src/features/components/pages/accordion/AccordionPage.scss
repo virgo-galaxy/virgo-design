@@ -7,53 +7,8 @@ body:has(.components-documentation) {
     max-width: calc(var(--vd-sizing-80) * 6);
   }
 
-  .accordion-demo-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .accordion-mode-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .accordion-demo-card {
-    display: grid;
-    min-width: 0;
-    align-content: start;
-    gap: var(--vd-spacing-20);
-    padding: var(--vd-spacing-24);
-    border-inline-end: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
-  }
-
-  .accordion-demo-card:last-child {
-    border-inline-end: 0;
-  }
-
-  .accordion-demo-card > code {
-    color: var(--vd-text-tertiary);
-  }
-
-  @media (max-width: 960px) {
-    .accordion-demo-grid,
-    .accordion-mode-grid {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .accordion-demo-card {
-      border-inline-end: 0;
-      border-block-end: var(--vd-border-width-1) var(--vd-border-style-solid)
-        var(--vd-border-subtle);
-    }
-
-    .accordion-demo-card:last-child {
-      border-block-end: 0;
-    }
-  }
-
   @media (max-width: 760px) {
-    .accordion-hero-stage,
-    .accordion-demo-card {
+    .accordion-hero-stage {
       padding: var(--vd-spacing-16);
     }
   }

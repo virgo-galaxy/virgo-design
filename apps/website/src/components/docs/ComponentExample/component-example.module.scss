@@ -42,6 +42,10 @@
   min-height: calc(var(--vd-sizing-80) * 2);
   place-items: center;
   padding: var(--vd-spacing-32);
+  // Keep full-width/tall demos clear of the 24px source action and its inset.
+  padding-block-end: calc(
+    var(--component-example-inset) + var(--vd-sizing-24) + var(--vd-spacing-12)
+  );
   background: var(--vd-surface-background);
 }
 
@@ -64,7 +68,8 @@
 
 .frame:hover .toolbar,
 .frame:focus-within .toolbar,
-.toolbar:hover {
+.toolbar:hover,
+.toolbar:has([data-example-action='source'][aria-expanded='true']) {
   opacity: 1;
 }
 
@@ -207,7 +212,8 @@
 
   .preview {
     min-height: calc(var(--vd-sizing-64) * 2);
-    padding: var(--vd-spacing-24) var(--vd-spacing-16);
+    padding-block-start: var(--vd-spacing-24);
+    padding-inline: var(--vd-spacing-16);
   }
 
   .source pre {

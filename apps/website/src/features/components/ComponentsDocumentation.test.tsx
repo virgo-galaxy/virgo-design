@@ -1,13 +1,26 @@
-import { render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 
+import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
 import { AppearanceContext } from '@/shared/theme/appearance-context';
 
 import { componentRoutes } from './app/componentRoutes';
 import { ComponentsDocumentation } from './ComponentsDocumentation';
+
+type ExampleManifest = Record<string, Readonly<Record<string, ComponentExampleDefinition>>>;
+const exampleModules = import.meta.glob<ExampleManifest>(
+  '../../examples/components/*/examples.ts',
+  { eager: true },
+);
+const examplesBySlug = Object.fromEntries(
+  Object.entries(exampleModules).map(([file, module]) => [
+    file.split('/').at(-2)!,
+    Object.values(module).flatMap((examples) => Object.values(examples)),
+  ]),
+);
 
 describe('Components documentation integration', () => {
   it('keeps every copied component route and follows the Website appearance', async () => {
@@ -63,8 +76,18 @@ describe('Components documentation integration', () => {
     });
     expect(componentRoutes.some((route) => route.id === ('textarea' as string))).toBe(false);
 
+    await user.click(screen.getByRole('button', { name: 'Expand all' }));
+    expect(screen.getByRole('button', { name: 'Collapse all' })).toBeInTheDocument();
+
     await user.click(screen.getByRole('link', { name: /Surface/ }));
     expect(screen.getByRole('heading', { level: 1, name: 'Surface' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Expand all' })).toHaveAttribute(
+      'aria-expanded',
+      'false',
+    );
+    document
+      .querySelectorAll('[data-example-source]')
+      .forEach((source) => expect(source).toHaveAttribute('data-state', 'closed'));
 
     await user.click(screen.getByRole('button', { name: 'Set Website dark' }));
     expect(document.querySelector('.components-documentation-shell')).toHaveAttribute(
@@ -98,7 +121,7 @@ describe('Components documentation integration', () => {
   describe.each(['light', 'dark'] as const)('%s overviews', (appearance) => {
     it.each(componentRoutes)(
       'renders $name with shared heading structure and a Reference specimen hero',
-      ({ index, name, path }) => {
+      ({ id, index, name, path }) => {
         vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
 
         const { container } = render(
@@ -149,6 +172,39 @@ describe('Components documentation integration', () => {
         expect(specimenStage).toBeInTheDocument();
         expect(specimenStage).not.toBeEmptyDOMElement();
         expect(specimen?.querySelector(':scope > .specimen-caption')).not.toBeEmptyDOMElement();
+
+        const examples = examplesBySlug[id] ?? [];
+        expect(examples.length).toBeGreaterThan(0);
+        const frames = container.querySelectorAll('[data-example-id]');
+        const sources = container.querySelectorAll('[data-example-source]');
+        const sourceButtons = container.querySelectorAll('[data-example-action="source"]');
+        expect(frames).toHaveLength(examples.length);
+        expect(sources).toHaveLength(examples.length);
+        expect(sourceButtons).toHaveLength(examples.length);
+        expect(
+          new Set(Array.from(frames, (frame) => frame.getAttribute('data-example-id'))),
+        ).toEqual(new Set(examples.map((example) => example.id)));
+        expect(specimen?.querySelector('[data-example-id]')).toBeNull();
+        expect(container.querySelector('.review-section')).toBeNull();
+        const control = screen.getByRole('button', { name: 'Expand all' });
+        expect(specimen?.querySelector('.specimen-caption')?.contains(control)).toBe(true);
+        expect(control).toBeEnabled();
+        expect(control.querySelector('svg')).toBeNull();
+        sources.forEach((source) => expect(source).toHaveAttribute('data-state', 'closed'));
+
+        // Bulk disclosure only changes code panels, never opens the components' overlays.
+        const overlayCount = document.querySelectorAll('[role="dialog"], [role="menu"]').length;
+        fireEvent.click(control);
+        expect(control).toHaveTextContent('Collapse all');
+        sources.forEach((source) => expect(source).toHaveAttribute('data-state', 'open'));
+        sourceButtons.forEach((button) => expect(button).toHaveAttribute('aria-expanded', 'true'));
+        expect(document.querySelectorAll('[role="dialog"], [role="menu"]')).toHaveLength(
+          overlayCount,
+        );
+        fireEvent.click(control);
+        expect(control).toHaveTextContent('Expand all');
+        sources.forEach((source) => expect(source).toHaveAttribute('data-state', 'closed'));
+        sourceButtons.forEach((button) => expect(button).toHaveAttribute('aria-expanded', 'false'));
       },
     );
   });

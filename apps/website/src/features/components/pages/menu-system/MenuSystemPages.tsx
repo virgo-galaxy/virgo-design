@@ -1,11 +1,18 @@
 import './MenuSystemPages.scss';
 
-import { CheckIcon, LayoutIcon, PlusIcon, TrashIcon } from '@virgo-design/icons';
+import { LayoutIcon, PlusIcon, TrashIcon } from '@virgo-design/icons';
 import { ContextMenu, Menu, Menubar } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
-import { useState } from 'react';
 
-import { ReviewSection } from '../../components/ReviewSection';
+import { ArticleSection } from '@/components/docs/ArticleSection';
+import {
+  ComponentExample,
+  ComponentExampleRuntimeControl,
+  ComponentExampleRuntimeProvider,
+} from '@/components/docs/ComponentExample';
+import { contextMenuExamples } from '@/examples/components/context-menu/examples';
+import { menuExamples } from '@/examples/components/menu/examples';
+import { menubarExamples } from '@/examples/components/menubar/examples';
 
 function Page({
   name,
@@ -25,50 +32,52 @@ function Page({
   children: ReactNode;
 }) {
   return (
-    <div className="review-board menu-system-review">
-      <section className="overview" id="overview" data-review-section="overview">
-        <div className="overview-copy">
-          <div className="eyebrow-row">
-            <span>Component {index}</span>
-            <span className="version-badge">STABLE · V1.0.0</span>
-          </div>
-          <h1>{name}</h1>
-          <p>{description}</p>
-          <dl className="component-facts">
-            <div>
-              <dt>Items</dt>
-              <dd>Shared</dd>
+    <ComponentExampleRuntimeProvider>
+      <div className="review-board menu-system-review">
+        <section className="overview" id="overview" data-review-section="overview">
+          <div className="overview-copy">
+            <div className="eyebrow-row">
+              <span>Component {index}</span>
+              <span className="version-badge">STABLE · V1.0.0</span>
             </div>
-            <div>
-              <dt>Input</dt>
-              <dd>Keyboard</dd>
-            </div>
-            <div>
-              <dt>Composition</dt>
-              <dd>Nested menus</dd>
-            </div>
-          </dl>
-        </div>
-
-        <div className="hero-specimen">
-          <div className="specimen-toolbar">
-            <span>Reference specimen</span>
-            <code>{specimenCode}</code>
+            <h1>{name}</h1>
+            <p>{description}</p>
+            <dl className="component-facts">
+              <div>
+                <dt>Items</dt>
+                <dd>Shared</dd>
+              </div>
+              <div>
+                <dt>Input</dt>
+                <dd>Keyboard</dd>
+              </div>
+              <div>
+                <dt>Composition</dt>
+                <dd>Nested menus</dd>
+              </div>
+            </dl>
           </div>
-          <div className="hero-stage menu-hero-stage">{specimen}</div>
-          <div className="specimen-caption">
-            {specimenCaption.map((item) => (
-              <span key={item}>{item}</span>
-            ))}
+          <div className="hero-specimen">
+            <div className="specimen-toolbar">
+              <span>Reference specimen</span>
+              <code>{specimenCode}</code>
+            </div>
+            <div className="hero-stage menu-hero-stage">{specimen}</div>
+            <div className="specimen-caption">
+              {specimenCaption.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+              <ComponentExampleRuntimeControl />
+            </div>
           </div>
-        </div>
-      </section>
-      {children}
-      <footer className="review-footer">
-        <span>Virgo Design UI · {name}</span>
-        <span>Actions · Shared menu protocol · Classic</span>
-      </footer>
-    </div>
+        </section>
+        {children}
+        <footer className="review-footer">
+          <span>Virgo Design UI · {name}</span>
+          <span>Actions · Shared menu protocol · Classic</span>
+        </footer>
+      </div>
+    </ComponentExampleRuntimeProvider>
   );
 }
 
@@ -114,9 +123,6 @@ function SharedItems({ select }: { select: (name: string) => void }) {
 }
 
 export function MenuPage() {
-  const [action, setAction] = useState('Choose an action.');
-  const [grid, setGrid] = useState(true);
-  const [zoom, setZoom] = useState('100');
   return (
     <Page
       name="Menu"
@@ -135,79 +141,38 @@ export function MenuPage() {
         </div>
       }
     >
-      <ReviewSection
-        id="menu-actions"
-        index="01"
-        title="Actions and submenus"
-        description="Click Actions. Hover Export → Image, or use arrow keys to navigate. Escape returns one level at a time."
+      <ArticleSection
+        id={'menu-actions'}
+        index={'01'}
+        title={'Actions and submenus'}
+        description={
+          'Click Actions. Hover Export → Image, or use arrow keys to navigate. Escape returns one level at a time.'
+        }
       >
-        <div className="menu-example">
-          <Menu>
-            <Menu.Trigger>Actions</Menu.Trigger>
-            <Menu.Content>
-              <SharedItems select={setAction} />
-            </Menu.Content>
-          </Menu>
-          <p role="status">{action}</p>
-        </div>
-      </ReviewSection>
-      <ReviewSection
-        id="menu-preferences"
-        index="02"
-        title="Checkbox and radio items"
-        description="Preferences stay open after selection. Shortcut labels are display only."
+        <ComponentExample example={menuExamples.menuActions} showCaption={false} />
+      </ArticleSection>
+      <ArticleSection
+        id={'menu-preferences'}
+        index={'02'}
+        title={'Checkbox and radio items'}
+        description={'Preferences stay open after selection. Shortcut labels are display only.'}
       >
-        <div className="menu-example">
-          <Menu>
-            <Menu.Trigger>View options</Menu.Trigger>
-            <Menu.Content>
-              <Menu.CheckboxItem checked={grid} onCheckedChange={setGrid}>
-                Show grid
-              </Menu.CheckboxItem>
-              <Menu.CheckboxItem>Show guides</Menu.CheckboxItem>
-              <Menu.Separator />
-              <Menu.Group label="Zoom">
-                <Menu.RadioGroup value={zoom} onValueChange={setZoom} aria-label="Zoom">
-                  {['50', '100', '200'].map((value) => (
-                    <Menu.RadioItem key={value} value={value}>
-                      {value}%
-                    </Menu.RadioItem>
-                  ))}
-                </Menu.RadioGroup>
-              </Menu.Group>
-            </Menu.Content>
-          </Menu>
-          <p>
-            Grid {grid ? 'on' : 'off'} · Zoom {zoom}%
-          </p>
-        </div>
-      </ReviewSection>
-      <ReviewSection
-        id="menu-density"
-        index="03"
-        title="Density"
-        description="Classic menu rows inherit the root size and page theme."
+        <ComponentExample example={menuExamples.menuCheckbox} />
+        <ComponentExample example={menuExamples.menuRadio} />
+      </ArticleSection>
+      <ArticleSection
+        id={'menu-density'}
+        index={'03'}
+        title={'Density'}
+        description={'Classic menu rows inherit the root size and page theme.'}
       >
-        <div className="menu-density">
-          {(['small', 'medium', 'large'] as const).map((size) => (
-            <Menu key={size} size={size}>
-              <Menu.Trigger>{size}</Menu.Trigger>
-              <Menu.Content>
-                <Menu.Item icon={<CheckIcon />} onSelect={() => setAction(size + ' selected')}>
-                  Select
-                </Menu.Item>
-                <Menu.Item disabled>Unavailable</Menu.Item>
-              </Menu.Content>
-            </Menu>
-          ))}
-        </div>
-      </ReviewSection>
+        <ComponentExample example={menuExamples.menuSizes} showCaption={false} />
+      </ArticleSection>
     </Page>
   );
 }
 
 export function ContextMenuPage() {
-  const [action, setAction] = useState('No context action selected.');
   return (
     <Page
       name="ContextMenu"
@@ -230,53 +195,30 @@ export function ContextMenuPage() {
         </div>
       }
     >
-      <ReviewSection
-        id="context-target"
-        index="01"
-        title="Pointer and keyboard context"
-        description="The popup anchors to the pointer and adjusts at the viewport edges. Keyboard opening anchors to the focused target."
+      <ArticleSection
+        id={'context-target'}
+        index={'01'}
+        title={'Pointer and keyboard context'}
+        description={
+          'The popup anchors to the pointer and adjusts at the viewport edges. Keyboard opening anchors to the focused target.'
+        }
       >
-        <div className="menu-example">
-          <ContextMenu>
-            <ContextMenu.Trigger className="context-target" aria-label="Document context">
-              <LayoutIcon />
-              <strong>Document</strong>
-              <span>Right-click here · Shift+F10</span>
-            </ContextMenu.Trigger>
-            <ContextMenu.Content aria-label="Document actions">
-              <SharedItems select={setAction} />
-            </ContextMenu.Content>
-          </ContextMenu>
-          <p role="status">{action}</p>
-        </div>
-      </ReviewSection>
-      <ReviewSection
-        id="context-settings"
-        index="02"
-        title="Shared item system"
-        description="Context menus support the same persistent checkbox and grouped radio items."
+        <ComponentExample example={contextMenuExamples.contextMenuTarget} showCaption={false} />
+      </ArticleSection>
+      <ArticleSection
+        id={'context-settings'}
+        index={'02'}
+        title={'Shared item system'}
+        description={'Context menus support the same persistent checkbox and grouped radio items.'}
       >
-        <div className="menu-example">
-          <ContextMenu>
-            <ContextMenu.Trigger className="context-target" aria-label="Canvas context">
-              Canvas options · Right-click or use the keyboard
-            </ContextMenu.Trigger>
-            <ContextMenu.Content aria-label="Canvas options">
-              <ContextMenu.CheckboxItem defaultChecked>Snap to grid</ContextMenu.CheckboxItem>
-              <ContextMenu.RadioGroup defaultValue="pixels" aria-label="Units">
-                <ContextMenu.RadioItem value="pixels">Pixels</ContextMenu.RadioItem>
-                <ContextMenu.RadioItem value="points">Points</ContextMenu.RadioItem>
-              </ContextMenu.RadioGroup>
-            </ContextMenu.Content>
-          </ContextMenu>
-        </div>
-      </ReviewSection>
+        <ComponentExample example={contextMenuExamples.contextMenuCheckbox} />
+        <ComponentExample example={contextMenuExamples.contextMenuRadio} />
+      </ArticleSection>
     </Page>
   );
 }
 
 export function MenubarPage() {
-  const [action, setAction] = useState('Choose an application action.');
   return (
     <Page
       name="Menubar"
@@ -311,58 +253,16 @@ export function MenubarPage() {
         </div>
       }
     >
-      <ReviewSection
-        id="menubar-application"
-        index="01"
-        title="Application menus"
-        description="Use File, Edit or View. Arrow Left/Right switches groups; Arrow Down opens a group; Tab leaves the menu bar."
+      <ArticleSection
+        id={'menubar-application'}
+        index={'01'}
+        title={'Application menus'}
+        description={
+          'Use File, Edit or View. Arrow Left/Right switches groups; Arrow Down opens a group; Tab leaves the menu bar.'
+        }
       >
-        <div className="menu-example">
-          <Menubar aria-label="Application actions">
-            <Menubar.Menu value="file">
-              <Menubar.Trigger>File</Menubar.Trigger>
-              <Menubar.Content>
-                <SharedItems select={setAction} />
-              </Menubar.Content>
-            </Menubar.Menu>
-            <Menubar.Menu value="edit">
-              <Menubar.Trigger>Edit</Menubar.Trigger>
-              <Menubar.Content>
-                <Menubar.Item shortcut="⌘Z" onSelect={() => setAction('Undo')}>
-                  Undo
-                </Menubar.Item>
-                <Menubar.Item shortcut="⌘⇧Z" onSelect={() => setAction('Redo')}>
-                  Redo
-                </Menubar.Item>
-                <Menubar.Separator />
-                <Menubar.Item shortcut="⌘C" onSelect={() => setAction('Copy')}>
-                  Copy
-                </Menubar.Item>
-                <Menubar.Item disabled shortcut="⌘V">
-                  Paste
-                </Menubar.Item>
-              </Menubar.Content>
-            </Menubar.Menu>
-            <Menubar.Menu value="view">
-              <Menubar.Trigger>View</Menubar.Trigger>
-              <Menubar.Content>
-                <Menubar.CheckboxItem defaultChecked>Show toolbar</Menubar.CheckboxItem>
-                <Menubar.CheckboxItem>Show guides</Menubar.CheckboxItem>
-              </Menubar.Content>
-            </Menubar.Menu>
-            <Menubar.Menu value="help" disabled>
-              <Menubar.Trigger>Help</Menubar.Trigger>
-            </Menubar.Menu>
-          </Menubar>
-          <div className="menu-editor">
-            <span className="eyebrow">CONTENT</span>
-            <p role="status">{action}</p>
-            <p>
-              Menu commands are demonstrated as local feedback. Shortcut labels do not bind keys.
-            </p>
-          </div>
-        </div>
-      </ReviewSection>
+        <ComponentExample example={menubarExamples.menubarApplication} showCaption={false} />
+      </ArticleSection>
     </Page>
   );
 }

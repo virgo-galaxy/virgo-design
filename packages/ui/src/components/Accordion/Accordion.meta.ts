@@ -47,18 +47,5 @@ export const accordionMetadata = {
     'All enabled triggers remain in the normal Tab sequence.',
     'Content regions use aria-labelledby to reference their trigger.',
   ],
-  examples: [
-    {
-      name: 'Single',
-      code: '<Accordion.Root type="single"><Accordion.Item value="one"><Accordion.Trigger icon>Title</Accordion.Trigger><Accordion.Content>Content</Accordion.Content></Accordion.Item></Accordion.Root>',
-    },
-    {
-      name: 'Multiple bordered',
-      code: '<Accordion.Root type="multiple" variant="bordered" defaultValue={["one"]}>...</Accordion.Root>',
-    },
-    {
-      name: 'Controlled',
-      code: '<Accordion.Root type="single" value={value} onValueChange={setValue}>...</Accordion.Root>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

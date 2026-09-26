@@ -34,8 +34,5 @@ export const tagMetadata = {
     'Closable tags render a native button with a configurable accessible label.',
     'Closing only notifies the owner; consumers decide whether to remove the tag.',
   ],
-  examples: [
-    { name: 'Status', code: '<Tag intent="success">Stable</Tag>' },
-    { name: 'Closable', code: '<Tag closable onClose={remove}>TypeScript</Tag>' },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

@@ -42,10 +42,5 @@ export const contextMenuMetadata = {
     'Arrow keys and typeahead move focus; Escape closes the current level; Tab leaves the menu tree.',
     'Disabled items remain focusable but cannot be activated. Shortcut text does not register a command.',
   ],
-  examples: [
-    {
-      name: 'Actions',
-      code: '<ContextMenu.Root><ContextMenu.Trigger>Actions</ContextMenu.Trigger><ContextMenu.Content><ContextMenu.Item shortcut="F2">Rename</ContextMenu.Item></ContextMenu.Content></ContextMenu.Root>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

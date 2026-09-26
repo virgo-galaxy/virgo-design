@@ -61,22 +61,5 @@ export const switchMetadata = {
     'Use aria-label or aria-labelledby when no visible label is provided.',
     'Checked and unchecked decorative content is hidden from assistive technology; checked state remains semantic.',
   ],
-  examples: [
-    {
-      name: 'Basic switch',
-      code: '<Switch aria-label="Sync changes" defaultChecked />',
-    },
-    {
-      name: 'Small switch',
-      code: '<Switch aria-label="Compact mode" size="small" />',
-    },
-    {
-      name: 'Switch with content',
-      code: '<Switch aria-label="Power" checkedContent="On" uncheckedContent="Off" />',
-    },
-    {
-      name: 'Fader switch',
-      code: '<Switch aria-label="Console power" appearance="fader" />',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

@@ -26,7 +26,8 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
   const { Component, description, id, source, title } = example;
   const instanceId = useId();
   const sourceId = `${instanceId}-source`;
-  const [sourceOpen, setSourceOpen] = useComponentExampleDisclosure(id);
+  // Semantic IDs identify source definitions; disclosure belongs to each mounted instance.
+  const [sourceOpen, setSourceOpen] = useComponentExampleDisclosure(instanceId);
   const [copyState, setCopyState] = useState<CopyState>('idle');
   const mounted = useRef(true);
   const copying = useRef(false);
@@ -93,12 +94,10 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
           {description ? <p>{description}</p> : null}
         </div>
       ) : null}
-
       <div className={styles.frame} data-example-frame>
         <div className={styles.preview} data-example-preview>
           <Component />
         </div>
-
         <div className={styles.toolbar} data-example-toolbar>
           <Tooltip closeOnClick={false}>
             <Tooltip.Trigger
@@ -127,7 +126,6 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
           </Tooltip>
         </div>
       </div>
-
       <div
         id={sourceId}
         className={styles.source}
@@ -149,7 +147,6 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                 React
               </span>
             </div>
-
             {sourceOpen ? (
               <Tooltip closeOnClick={false}>
                 <Tooltip.Trigger
@@ -187,7 +184,6 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
           </pre>
         </div>
       </div>
-
       <span
         className={styles.announcement}
         data-example-announcement

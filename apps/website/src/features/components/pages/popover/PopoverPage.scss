@@ -2,53 +2,12 @@ body:has(.components-documentation) {
   .popover-hero-stage {
     padding: var(--vd-spacing-32);
   }
-  .popover-review-card {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--vd-spacing-16);
-    padding: var(--vd-spacing-32);
-  }
   .popover-demo-content {
     display: grid;
     gap: var(--vd-spacing-12);
     p {
       margin: 0;
       color: var(--vd-text-secondary);
-    }
-  }
-  .popover-demo-field {
-    display: grid;
-    gap: var(--vd-spacing-6);
-  }
-  .popover-demo-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: var(--vd-spacing-8);
-  }
-  .popover-avatar-trigger {
-    display: inline-grid;
-    place-items: center;
-    width: var(--vd-sizing-40);
-    height: var(--vd-sizing-40);
-    padding: 0;
-    border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-    border-radius: 50%;
-    color: var(--vd-text-primary);
-    background: var(--vd-surface-elevated);
-    font: inherit;
-    cursor: pointer;
-    &:hover {
-      background: var(--vd-fill-hover);
-    }
-    &:focus-visible {
-      outline: var(--vd-border-width-2) solid var(--vd-border-focus);
-      outline-offset: var(--vd-spacing-2);
-    }
-  }
-  @media (max-width: 760px) {
-    .popover-review-card {
-      padding: var(--vd-spacing-16);
     }
   }
 }

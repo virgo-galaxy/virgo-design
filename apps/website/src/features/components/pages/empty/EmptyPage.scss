@@ -1,23 +1,4 @@
 body:has(.components-documentation) {
-  .empty-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(calc(var(--vd-sizing-80) * 3), 1fr));
-    gap: var(--vd-spacing-16);
-    padding: var(--vd-spacing-32);
-
-    > * {
-      border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
-      border-radius: var(--vd-radius-12);
-    }
-  }
-
-  .empty-compact-frame {
-    max-width: calc(var(--vd-sizing-80) * 4);
-    margin: var(--vd-spacing-32);
-    border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
-    border-radius: var(--vd-radius-12);
-  }
-
   .empty-hero-frame {
     width: min(100%, calc(var(--vd-sizing-80) * 4));
     margin: var(--vd-spacing-32);

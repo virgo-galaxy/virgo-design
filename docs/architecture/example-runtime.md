@@ -6,8 +6,14 @@ An example is one understandable use case, not an entire documentation page and 
 one individual control. Button variants belong together in a short example. Icon-only controls are
 a separate example. Dialog sizes and a controlled form are separate examples.
 
-The Website currently uses this model on Button and Dialog. Other component pages retain their
-existing review presentation; this change does not bulk-migrate them.
+All 35 component pages use this model. The first complete migration contains 189 executable
+examples across 142 article sections, including Textarea inside the Input family. The existing
+chapter anchors and every hero/reference specimen are preserved.
+
+Each page is an assembly of documentation and imported examples. State, event handlers, fixtures,
+providers, and demonstration layout belong to the example that needs them, not to its page.
+A section can contain several independent use cases: for example, Input clearability and password
+visibility, Tag icons and removable collections, or inline and dialog command palettes.
 
 The page structure is an article:
 
@@ -71,8 +77,18 @@ Each example uses `export default function App()`, real required imports, and on
 needed to demonstrate the subject. Simple native layout is allowed. Website-only `ArticleSection`,
 `ReviewSection`, metadata, cards, measurements and documentation helpers stay outside it.
 
-Button/Dialog migrated metadata keep `examples: []`; do not reintroduce duplicate `code` snippets.
-Other components' metadata are out of this change's scope.
+Every migrated UI metadata entry, including Textarea, keeps `examples: []`; the public metadata
+shape is unchanged. Do not reintroduce duplicate `code` snippets. The Website's `examples.ts`
+manifests own titles, descriptions, and imports of the executable files.
+
+An example can use the public React, Virgo UI, and Virgo Icons imports. Its required helpers are
+in the same TSX module. It does not depend on Website aliases, page state, `ReviewSection`, or
+private page SCSS. Small, ordinary inline layout styles are part of the copied source. The consumer
+still needs the normal Virgo UI installation and stylesheet/token setup; an example does not
+reinstall or globally configure the design system.
+
+Surface image examples embed the repository-owned decorative SVG as a data URL so they work
+offline after copying. That fixture is not a new public component or an image-loading service.
 
 ## Interaction contract
 
@@ -80,11 +96,16 @@ Other components' metadata are out of this change's scope.
   toggles `aria-expanded` and `aria-controls`. `useId` keeps panel IDs distinct even when the
   same example renders twice. Copy is not shown in the preview. The page-level runtime provider
   owns disclosure state when present; standalone `ComponentExample` usage keeps the same local
-  fallback behavior.
+  fallback behavior. The provider registry is keyed by the mounted React instance ID, not the
+  semantic `example.id`. Two copies of one definition therefore get independent disclosure state
+  and DOM IDs. Unmounting one cannot unregister the other. A newly mounted example starts closed;
+  removing the last instance disables the bulk action. Stale updates cannot recreate removed entries.
 - The text-only hero action is synchronized with every registered example. If none, one, or only
   some sources are open it reads `Expand all` and opens every source. Once all sources are open—
   whether through that action or individual Code buttons—it reads `Collapse all` and closes them
-  together on activation. No icon is used for this page-level action.
+  together on activation. No icon is used for this page-level action. Bulk source disclosure never
+  opens menus, dialogs, drawers, popovers, or notifications. Each page owns a separate provider;
+  navigating to another page starts with its source panels closed.
 - The source panel header places a static React-logo-and-`React` framework label on the left,
   with Copy aligned to the right. The preview disclosure, source header, code body, and Copy action
   share one inset token (16px desktop, 12px compact), so the React logo aligns with source text and
@@ -103,7 +124,10 @@ Other components' metadata are out of this change's scope.
   Button uses its public `shape="circle"` and neutral hover/pressed fills. The preview and Copy
   actions both use the small icon-button size so their centers share one right-edge control axis.
   The React framework label is static metadata rather than an action. No permanent visible border
-  is added.
+  is added. Expanded source actions retain full opacity even when the pointer is elsewhere, so a
+  bulk expansion keeps the light/dark inverse state visible. The preview reserves a bottom safe
+  area from the same inset, the small action's sizing token, and a spacing token; the source action
+  cannot cover the final row of a full-width example.
 - Copy is available in the expanded source header. It writes the full raw file, not the selected
   text, the `React` header, or just the JSX. Repeated clicks during a pending write are ignored.
 - Success is reported only after `writeText` resolves: CopyIcon becomes CheckIcon using the shared
@@ -129,41 +153,90 @@ No Shiki, Prism, highlight.js, editor or syntax-highlighting dependency is intro
 Virgo highlighter can replace the code renderer without changing where the source comes from.
 No new global theme state is introduced; the docs and portalled Tooltips use the existing theme.
 
-## Button and Dialog inventory
+## Example inventory
 
-Button has four article sections and five source-backed examples:
+All manifests live at `apps/website/src/examples/components/<component>/examples.ts`.
+Each entry imports a neighboring `*Example.tsx` normally and as `?raw`.
 
-- Variants → `ButtonVariantsExample.tsx`
-- Sizes → `ButtonSizesExample.tsx`
-- Icons → `ButtonIconsExample.tsx`, `ButtonIconOnlyExample.tsx`
-- States → `ButtonStatesExample.tsx`
-
-Dialog has two article sections and two source-backed examples:
-
-- Sizes → `DialogSizesExample.tsx`
-- Form dialog → `DialogFormExample.tsx`
+| Component family    | Executable examples |
+| ------------------- | ------------------: |
+| `accordion`         |                   4 |
+| `alert`             |                   5 |
+| `avatar`            |                   5 |
+| `badge`             |                   5 |
+| `breadcrumb`        |                   4 |
+| `button`            |                   5 |
+| `card`              |                   6 |
+| `checkbox`          |                   4 |
+| `command`           |                   3 |
+| `context-menu`      |                   3 |
+| `dialog`            |                   2 |
+| `drawer`            |                   5 |
+| `dropdown`          |                   9 |
+| `empty`             |                   3 |
+| `floating-action`   |                   4 |
+| `input`             |                   8 |
+| `layout`            |                  12 |
+| `menu`              |                   4 |
+| `menubar`           |                   1 |
+| `navigation-menu`   |                   6 |
+| `pagination`        |                  12 |
+| `popover`           |                   7 |
+| `progress`          |                   3 |
+| `radio`             |                   4 |
+| `segmented-control` |                   5 |
+| `select`            |                   6 |
+| `separator`         |                   3 |
+| `skeleton`          |                   3 |
+| `spinner`           |                   4 |
+| `surface`           |                  11 |
+| `switch`            |                   6 |
+| `tabs`              |                   6 |
+| `tag`               |                   5 |
+| `toast`             |                   4 |
+| `tooltip`           |                  12 |
 
 There is no extra bottom-of-page `Examples` section. Relationships remain outside the page content
-at the existing end-of-document location.
+at the existing end-of-document location. Hero specimens remain compact component introductions,
+not registered code examples.
+
+## Scoped interactive environments
+
+- Command palettes bind the demonstration shortcut on their own React subtree, not on `document`.
+  Focus that example before pressing Meta/Ctrl+K. Two mounted examples cannot open two palettes
+  from one global keystroke. The button works independently of the shortcut.
+- Toast examples own separate providers, local preview viewports, notification IDs, timers, and
+  action state. They opt out of the provider's document-wide F8 shortcut with `hotkey={[]}` because
+  several independent notification demos share a page. The public Toast defaults are unchanged.
+  The placement example uses a positioned local canvas for the six viewport positions.
+- Forms use local state and `useId` for external submit relationships. Native radio/checkbox group
+  names are local to their example. Menu selections and editable tabs do not mutate neighboring
+  examples or the hero.
+- Layout examples include their own canvas dimensions, scroll containers, controls, and composition.
+  Floating actions stay within Layout.Content while actual overlay components retain their public
+  portal/focus/dismissal behavior.
 
 ## Cleanup
 
-Replaced the old `details`/`summary` source UI and the in-frame caption row. The React-labelled
-source header belongs to the separate source panel as static framework metadata, not to the preview;
-the code language is TSX.
-Removed preview grid rules, the extra `component-example-list` wrapper/padding, and stale Dialog
-review-card/form-demo styles. Button and Dialog no longer use the old `ReviewSection` cards.
-`ReviewSection` itself remains because other, not-yet-migrated pages still use it.
+All 136 legacy `ReviewSection` call sites have been replaced by article sections containing actual
+source-backed examples. The unused `ReviewSection` and `PlacementCompass` helpers are removed.
+Layout's old page-owned example modules are removed after their use cases move to executable
+sources. The retained Layout hero is still a page-owned specimen.
 
-Old Phase-1 demo files are removed by the installer only when they match the known supplied version.
-Unknown local edits stop installation rather than being silently overwritten or deleted.
+Dead review-card, measurement, demo-form, grid, and page-layout styles have been removed. Remaining
+page SCSS styles the hero and documentation shell only; it is not a hidden dependency of copied
+examples. The empty FloatingAction page stylesheet is removed together with its import.
+The legacy hard-coded Surface `<details>` source block and 105 duplicate metadata snippets are gone.
 
 ## Verification
 
 Repository tests cover article structure, exact raw source, disclosure semantics, unique panel IDs,
 keyboard disclosure actions, static React framework metadata, the synchronized Expand all / Collapse
 all runtime control, real Virgo icons/Tooltip, copy-to-check feedback, clipboard
-success/failure/pending/retry/unmount behavior, and stateful Dialog integration. The root `pnpm all`
+success/failure/pending/retry/unmount behavior, stateful Dialog integration, duplicate instance registration/unregistration, all 35 pages in both
+themes, and representative independent form/menu/tab/notification examples. Manifest tests pair
+all executable modules with their exact raw source and check public dependency boundaries.
+The root `pnpm all`
 remains the final workspace gate.
 
 Run `pnpm all` from the repository root with its locked dependencies before committing. Isolated

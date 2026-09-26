@@ -41,14 +41,5 @@ export const radioMetadata = {
     'Visible labels wrap their native input so clicking the label selects the option.',
     'Supports aria-label or aria-labelledby when no visible label is provided.',
   ],
-  examples: [
-    {
-      name: 'Horizontal radio group',
-      code: '<Radio.Group defaultValue="pear"><Radio value="apple">Apple</Radio><Radio value="pear">Pear</Radio></Radio.Group>',
-    },
-    {
-      name: 'Vertical radio group',
-      code: '<Radio.Group orientation="vertical"><Radio value="small">Small</Radio><Radio value="large">Large</Radio></Radio.Group>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

@@ -48,18 +48,5 @@ export const surfaceMetadata = {
     'Consumers must preserve readable contrast when choosing custom backgrounds.',
     'Glass falls back to a usable tinted surface when backdrop filtering is unavailable.',
   ],
-  examples: [
-    {
-      name: 'Semantic panel',
-      code: '<Surface tone="elevated" elevation={2} radius={12}>Panel content</Surface>',
-    },
-    {
-      name: 'Glass header',
-      code: '<Layout.Header><Surface material="glass">Header content</Surface></Layout.Header>',
-    },
-    {
-      name: 'Custom background',
-      code: '<Surface background={{ type: "image", src: "/wallpaper.svg", fit: "cover", position: "center" }} material="glass">Content</Surface>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

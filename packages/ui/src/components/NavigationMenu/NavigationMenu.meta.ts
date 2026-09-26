@@ -60,30 +60,5 @@ export const navigationMenuMetadata = {
     'Opening a nested list with its directional key moves focus inside; Escape collapses it and restores trigger focus.',
     'Disabled links remain discoverable while leaving the tab order and preventing activation.',
   ],
-  examples: [
-    {
-      name: 'Default horizontal',
-      code: '<NavigationMenu.Root defaultValue="home"><NavigationMenu.List><NavigationMenu.Item value="home"><NavigationMenu.Link href="/">Home</NavigationMenu.Link></NavigationMenu.Item></NavigationMenu.List></NavigationMenu.Root>',
-    },
-    {
-      name: 'Default vertical',
-      code: '<NavigationMenu.Root orientation="vertical">...</NavigationMenu.Root>',
-    },
-    {
-      name: 'Segmented horizontal',
-      code: '<NavigationMenu.Root variant="segmented" defaultValue="colors"><NavigationMenu.List><NavigationMenu.Item value="colors"><NavigationMenu.Link href="/colors">Colors</NavigationMenu.Link></NavigationMenu.Item><NavigationMenu.Separator /><NavigationMenu.Item value="typography"><NavigationMenu.Link href="/typography">Typography</NavigationMenu.Link></NavigationMenu.Item></NavigationMenu.List></NavigationMenu.Root>',
-    },
-    {
-      name: 'Segmented with icons and separators',
-      code: '<NavigationMenu.Root variant="segmented" defaultValue="colors"><NavigationMenu.List><NavigationMenu.Item value="colors" icon={<PaletteIcon />}><NavigationMenu.Link href="/colors">Colors</NavigationMenu.Link></NavigationMenu.Item><NavigationMenu.Separator /><NavigationMenu.Item value="typography" icon={<TypeIcon />}><NavigationMenu.Link href="/typography">Typography</NavigationMenu.Link></NavigationMenu.Item></NavigationMenu.List></NavigationMenu.Root>',
-    },
-    {
-      name: 'Nested navigation',
-      code: '<NavigationMenu.Item value="products" defaultExpanded><NavigationMenu.Trigger>Products</NavigationMenu.Trigger><NavigationMenu.Content><NavigationMenu.Item value="cloud"><NavigationMenu.Link href="/cloud">Cloud</NavigationMenu.Link></NavigationMenu.Item></NavigationMenu.Content></NavigationMenu.Item>',
-    },
-    {
-      name: 'Popover submenu',
-      code: '<NavigationMenu.Root submenu="popover">...</NavigationMenu.Root>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

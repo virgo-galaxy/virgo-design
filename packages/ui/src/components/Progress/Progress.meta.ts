@@ -34,9 +34,5 @@ export const progressMetadata = {
     'Provide aria-label or aria-labelledby when surrounding content does not name the task.',
     'Out-of-range and non-finite values are normalized before visual and ARIA output.',
   ],
-  examples: [
-    { name: 'Basic', code: '<Progress value={80} aria-label="Upload progress" />' },
-    { name: 'Custom max', code: '<Progress value={3} max={4} showValue />' },
-    { name: 'Labeled', code: '<Progress value={80} label="Uploading" showValue />' },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

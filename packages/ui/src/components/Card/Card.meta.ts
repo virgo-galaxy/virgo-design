@@ -38,18 +38,5 @@ export const cardMetadata = {
     'Card.Title defaults to a neutral div; choose an h1–h6 with the as prop when it is a document heading.',
     'Interactive controls remain explicit children, usually composed inside Card.Footer.',
   ],
-  examples: [
-    {
-      name: 'Basic',
-      code: '<Card><Card.Body>Project summary</Card.Body></Card>',
-    },
-    {
-      name: 'Structured',
-      code: '<Card><Card.Header><Card.Title as="h3">Project</Card.Title><Card.Description>Summary</Card.Description></Card.Header><Card.Body>Content</Card.Body></Card>',
-    },
-    {
-      name: 'Footer action',
-      code: '<Card variant="outlined"><Card.Body>Content</Card.Body><Card.Footer><Button>Open</Button></Card.Footer></Card>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

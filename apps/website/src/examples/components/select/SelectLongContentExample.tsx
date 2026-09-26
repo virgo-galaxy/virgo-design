@@ -1,0 +1,18 @@
+import { Select } from '@virgo-design/ui';
+
+export default function App() {
+  return (
+    <div style={{ width: '100%', maxWidth: 240 }}>
+      <Select defaultValue="long">
+        <Select.Trigger aria-label="Long project" />
+        <Select.Content>
+          <Select.Option value="short">Short name</Select.Option>
+          <Select.Option value="long">
+            A very long project name that should not widen the page
+          </Select.Option>
+          <Select.Option value="other">Another project</Select.Option>
+        </Select.Content>
+      </Select>
+    </div>
+  );
+}

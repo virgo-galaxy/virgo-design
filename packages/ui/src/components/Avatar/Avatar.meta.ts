@@ -34,12 +34,5 @@ export const avatarMetadata = {
     'Fallback content is only mounted when the image is unavailable, preventing duplicate announcements.',
     'Status belongs to Badge composition and is not built into Avatar.',
   ],
-  examples: [
-    { name: 'Image', code: '<Avatar src="/avatar.png" alt="Pokeya" />' },
-    { name: 'Fallback', code: '<Avatar fallback="PK" />' },
-    {
-      name: 'Group',
-      code: '<Avatar.Group><Avatar fallback="PK" /><Avatar fallback="VD" /></Avatar.Group>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

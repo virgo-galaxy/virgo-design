@@ -6,26 +6,4 @@ body:has(.components-documentation) {
     gap: var(--vd-spacing-12);
     padding: var(--vd-spacing-32);
   }
-
-  .tag-demo-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    & > .tag-stage + .tag-stage {
-      border-inline-start: var(--vd-border-width-1) var(--vd-border-style-solid)
-        var(--vd-border-subtle);
-    }
-  }
-
-  @media (max-width: 760px) {
-    .tag-demo-grid {
-      grid-template-columns: 1fr;
-
-      & > .tag-stage + .tag-stage {
-        border-inline-start: 0;
-        border-block-start: var(--vd-border-width-1) var(--vd-border-style-solid)
-          var(--vd-border-subtle);
-      }
-    }
-  }
 }

@@ -68,14 +68,5 @@ export const segmentedControlMetadata = {
     'Sliding motion respects prefers-reduced-motion.',
     'Disabled items remain visible and unavailable for interaction.',
   ],
-  examples: [
-    {
-      name: 'Sliding soft theme selector',
-      code: '<SegmentedControl variant="soft" size="small" motion="slide" defaultValue="light" aria-label="Theme"><SegmentedControl.Item value="light">Light</SegmentedControl.Item><SegmentedControl.Item value="dark">Dark</SegmentedControl.Item></SegmentedControl>',
-    },
-    {
-      name: 'Sliding solid choice group',
-      code: '<SegmentedControl variant="solid" motion="slide" defaultValue="apple" aria-label="Fruit"><SegmentedControl.Item value="apple">Apple</SegmentedControl.Item><SegmentedControl.Item value="pear">Pear</SegmentedControl.Item></SegmentedControl>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

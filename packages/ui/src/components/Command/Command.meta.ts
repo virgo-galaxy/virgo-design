@@ -29,14 +29,5 @@ export const commandMetadata = {
     'Arrow keys, Home and End move through visible enabled commands; Enter selects the active command.',
     'Command.Dialog reuses Dialog focus trapping, Escape dismissal, modal isolation and focus return.',
   ],
-  examples: [
-    {
-      name: 'Inline',
-      code: '<Command><Command.Input /><Command.List><Command.Item value="open">Open</Command.Item></Command.List></Command>',
-    },
-    {
-      name: 'Palette',
-      code: '<Command.Dialog open={open} onOpenChange={setOpen}><Command.Input autoFocus /><Command.List>...</Command.List></Command.Dialog>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

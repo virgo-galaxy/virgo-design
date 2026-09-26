@@ -24,9 +24,5 @@ export const separatorMetadata = {
     'decorative removes the separator role and orientation from the accessibility tree.',
     'Use decorative when surrounding structure already communicates the division.',
   ],
-  examples: [
-    { name: 'Horizontal', code: '<Separator />' },
-    { name: 'Vertical', code: '<Separator orientation="vertical" />' },
-    { name: 'Decorative', code: '<Separator decorative />' },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

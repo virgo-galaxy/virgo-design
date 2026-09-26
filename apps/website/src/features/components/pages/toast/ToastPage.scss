@@ -1,11 +1,4 @@
 body:has(.components-documentation) {
-  .toast-controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--vd-spacing-12);
-    padding: var(--vd-spacing-32);
-  }
-
   .toast-hero-stage {
     place-items: stretch;
     padding: var(--vd-spacing-24);

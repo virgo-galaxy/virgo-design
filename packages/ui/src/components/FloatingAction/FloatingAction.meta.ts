@@ -42,14 +42,5 @@ export const floatingActionMetadata = {
     'Popover supplies aria-expanded, aria-controls, focus entry, Escape/outside dismiss and focus return.',
     'Actions are ordinary buttons inside a nonmodal dialog, not navigation menu items.',
   ],
-  examples: [
-    {
-      name: 'Standalone',
-      code: '<FloatingAction aria-label="Help" onClick={showHelp}><CircleInfoIcon /></FloatingAction>',
-    },
-    {
-      name: 'Group',
-      code: '<FloatingAction.Group><FloatingAction.Trigger aria-label="Quick actions" /><FloatingAction.Content aria-label="Quick actions"><FloatingAction aria-label="Help" onClick={showHelp}><CircleInfoIcon /></FloatingAction></FloatingAction.Content></FloatingAction.Group>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

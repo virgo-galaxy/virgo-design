@@ -12,12 +12,12 @@ export function ComponentExampleRuntimeProvider({ children }: { children: ReactN
   const [examples, setExamples] = useState<Record<string, boolean>>({});
 
   const register = useCallback((id: string) => {
-    setExamples((current) => (id in current ? current : { ...current, [id]: false }));
+    setExamples((current) => (Object.hasOwn(current, id) ? current : { ...current, [id]: false }));
   }, []);
 
   const unregister = useCallback((id: string) => {
     setExamples((current) => {
-      if (!(id in current)) return current;
+      if (!Object.hasOwn(current, id)) return current;
       const next = { ...current };
       delete next[id];
       return next;
@@ -26,7 +26,9 @@ export function ComponentExampleRuntimeProvider({ children }: { children: ReactN
 
   const setExampleOpen = useCallback((id: string, update: DisclosureUpdater) => {
     setExamples((current) => {
-      const previous = current[id] ?? false;
+      // Ignore stale callbacks after an instance has unregistered.
+      if (!Object.hasOwn(current, id)) return current;
+      const previous = current[id]!;
       const nextValue = typeof update === 'function' ? update(previous) : update;
 
       if (current[id] === nextValue) return current;

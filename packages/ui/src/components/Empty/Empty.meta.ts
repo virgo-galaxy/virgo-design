@@ -31,15 +31,5 @@ export const emptyMetadata = {
     'Empty.Icon is decorative by default so the title remains the concise state announcement.',
     'Use aria-label or aria-labelledby on Empty.Root when it should be exposed as a named region.',
   ],
-  examples: [
-    { name: 'Basic', code: '<Empty><Empty.Title>No documents</Empty.Title></Empty>' },
-    {
-      name: 'With description',
-      code: '<Empty><Empty.Title>No results</Empty.Title><Empty.Description>Try another query.</Empty.Description></Empty>',
-    },
-    {
-      name: 'With action',
-      code: '<Empty><Empty.Title>No documents</Empty.Title><Empty.Action><Button>Create</Button></Empty.Action></Empty>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

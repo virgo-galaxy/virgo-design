@@ -48,22 +48,5 @@ export const breadcrumbMetadata = {
     'Separators and item icons are decorative and hidden from assistive technology.',
     'Link hover and focus styles apply only to interactive breadcrumb items.',
   ],
-  examples: [
-    {
-      name: 'Basic',
-      code: '<Breadcrumb><Breadcrumb.Item href="/">Home</Breadcrumb.Item><Breadcrumb.Item href="/applications">Application Center</Breadcrumb.Item><Breadcrumb.Item>Application</Breadcrumb.Item></Breadcrumb>',
-    },
-    {
-      name: 'Icon and text',
-      code: '<Breadcrumb><Breadcrumb.Item icon={<UserIcon />} href="/users">Users</Breadcrumb.Item><Breadcrumb.Item>Application</Breadcrumb.Item></Breadcrumb>',
-    },
-    {
-      name: 'Custom separator',
-      code: '<Breadcrumb separator=">"><Breadcrumb.Item href="/">Home</Breadcrumb.Item><Breadcrumb.Item>Application</Breadcrumb.Item></Breadcrumb>',
-    },
-    {
-      name: 'Dynamic value',
-      code: '<Breadcrumb><Breadcrumb.Item href="/users">Users</Breadcrumb.Item><Breadcrumb.Item>{userId}</Breadcrumb.Item></Breadcrumb>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

@@ -1,154 +1,117 @@
 import './CardPage.scss';
 
-import { Avatar, Badge, Button, Card, Tag } from '@virgo-design/ui';
+import { Button, Card } from '@virgo-design/ui';
 
-import { ReviewSection } from '../../components/ReviewSection';
+import { ArticleSection } from '@/components/docs/ArticleSection';
+import {
+  ComponentExample,
+  ComponentExampleRuntimeControl,
+  ComponentExampleRuntimeProvider,
+} from '@/components/docs/ComponentExample';
+import { cardExamples } from '@/examples/components/card/examples';
 
 export function CardPage() {
   return (
-    <div className="review-board card-review">
-      <section className="overview" id="overview" data-review-section="overview">
-        <div className="overview-copy">
-          <div className="eyebrow-row">
-            <span>Component 20</span>
-            <span className="version-badge">STABLE · V1.0.0</span>
-          </div>
-          <h1>Card</h1>
-          <p>Content structure backed by Surface tokens, without implicit interaction.</p>
-          <dl className="component-facts">
-            <div>
-              <dt>Variants</dt>
-              <dd>02</dd>
+    <ComponentExampleRuntimeProvider>
+      <div className="review-board card-review">
+        <section className="overview" id="overview" data-review-section="overview">
+          <div className="overview-copy">
+            <div className="eyebrow-row">
+              <span>Component 20</span>
+              <span className="version-badge">STABLE · V1.0.0</span>
             </div>
-            <div>
-              <dt>Sizes</dt>
-              <dd>03</dd>
-            </div>
-            <div>
-              <dt>Slots</dt>
-              <dd>Header · Body · Footer</dd>
-            </div>
-          </dl>
-        </div>
-
-        <div className="hero-specimen">
-          <div className="specimen-toolbar">
-            <span>Reference specimen</span>
-            <code>header · body · footer</code>
-          </div>
-          <div className="hero-stage card-hero-stage">
-            <div className="card-hero-card">
-              <Card variant="outlined">
-                <Card.Header>
-                  <Card.Title as="h3">Virgo Design</Card.Title>
-                  <Card.Description>Structure a small, related block of content.</Card.Description>
-                </Card.Header>
-                <Card.Body>Cards inherit Surface tokens and keep actions explicit.</Card.Body>
-                <Card.Footer>
-                  <Button variant="text">Cancel</Button>
-                  <Button>Review</Button>
-                </Card.Footer>
-              </Card>
-            </div>
-          </div>
-          <div className="specimen-caption">
-            <span>Surface-backed</span>
-            <span>Consumer-owned content</span>
-            <span>Explicit actions</span>
-          </div>
-        </div>
-      </section>
-
-      <ReviewSection
-        id="card-structure"
-        index="01"
-        title="Basic and header"
-        description="Card organizes related content; consumers choose the document heading level."
-      >
-        <div className="card-grid">
-          <Card>
-            <Card.Body>A compact group of related project information.</Card.Body>
-          </Card>
-          <Card>
-            <Card.Header>
-              <Card.Title as="h3">Virgo Design</Card.Title>
-              <Card.Description>Core UI component coverage and design tokens.</Card.Description>
-            </Card.Header>
-            <Card.Body>Thirty-four stable component routes are available for review.</Card.Body>
-          </Card>
-        </div>
-      </ReviewSection>
-
-      <ReviewSection
-        id="card-actions"
-        index="02"
-        title="Footer actions"
-        description="Actions remain explicit controls composed into the Footer slot."
-      >
-        <div className="card-grid">
-          <Card>
-            <Card.Header>
-              <Card.Title as="h3">Project access</Card.Title>
-              <Card.Description>Invite collaborators to this workspace.</Card.Description>
-            </Card.Header>
-            <Card.Footer>
-              <Button variant="text">Cancel</Button>
-              <Button>Invite</Button>
-            </Card.Footer>
-          </Card>
-        </div>
-      </ReviewSection>
-
-      <ReviewSection
-        id="card-variants"
-        index="03"
-        title="Outlined and elevated"
-        description="Variants map directly to existing Surface border, tone, radius, and elevation tokens."
-      >
-        <div className="card-grid card-variant-grid">
-          <Card variant="outlined" size="sm">
-            <Card.Title as="h3">Outlined</Card.Title>
-            <Card.Body>Subtle semantic border, small structural spacing.</Card.Body>
-          </Card>
-          <Card variant="elevated" size="lg">
-            <Card.Title as="h3">Elevated</Card.Title>
-            <Card.Body>Elevated semantic surface, large structural spacing.</Card.Body>
-          </Card>
-        </div>
-      </ReviewSection>
-
-      <ReviewSection
-        id="card-composition"
-        index="04"
-        title="Avatar, Badge, and arbitrary composition"
-        description="Card accepts normal children and does not constrain content to its own anatomy."
-      >
-        <div className="card-grid">
-          <Card variant="outlined">
-            <div className="card-profile">
-              <Avatar fallback="PK" size="lg" />
+            <h1>Card</h1>
+            <p>Content structure backed by Surface tokens, without implicit interaction.</p>
+            <dl className="component-facts">
               <div>
-                <Card.Title as="h3">Pokeya</Card.Title>
-                <Card.Description>Design system maintainer</Card.Description>
+                <dt>Variants</dt>
+                <dd>02</dd>
               </div>
-              <Badge count="Online" intent="success" />
+              <div>
+                <dt>Sizes</dt>
+                <dd>03</dd>
+              </div>
+              <div>
+                <dt>Slots</dt>
+                <dd>Header · Body · Footer</dd>
+              </div>
+            </dl>
+          </div>
+          <div className="hero-specimen">
+            <div className="specimen-toolbar">
+              <span>Reference specimen</span>
+              <code>header · body · footer</code>
             </div>
-          </Card>
-          <Card>
-            <Avatar fallback="VD" />
-            <Card.Title as="h3">Virgo Design Core</Card.Title>
-            <Tag intent="brand">Coverage Pass</Tag>
-            <p className="card-composition-copy">
-              Direct children participate in the Card’s normal structural flow.
-            </p>
-          </Card>
-        </div>
-      </ReviewSection>
-
-      <footer className="review-footer">
-        <span>Virgo Design UI · Card V1.0.0</span>
-        <span>Content structure · Surface-backed · Non-interactive</span>
-      </footer>
-    </div>
+            <div className="hero-stage card-hero-stage">
+              <div className="card-hero-card">
+                <Card variant="outlined">
+                  <Card.Header>
+                    <Card.Title as="h3">Virgo Design</Card.Title>
+                    <Card.Description>
+                      Structure a small, related block of content.
+                    </Card.Description>
+                  </Card.Header>
+                  <Card.Body>Cards inherit Surface tokens and keep actions explicit.</Card.Body>
+                  <Card.Footer>
+                    <Button variant="text">Cancel</Button>
+                    <Button>Review</Button>
+                  </Card.Footer>
+                </Card>
+              </div>
+            </div>
+            <div className="specimen-caption">
+              <span>Surface-backed</span>
+              <span>Consumer-owned content</span>
+              <span>Explicit actions</span>
+              <ComponentExampleRuntimeControl />
+            </div>
+          </div>
+        </section>
+        <ArticleSection
+          id={'card-structure'}
+          index={'01'}
+          title={'Basic and header'}
+          description={
+            'Card organizes related content; consumers choose the document heading level.'
+          }
+        >
+          <ComponentExample example={cardExamples.cardBasic} />
+          <ComponentExample example={cardExamples.cardHeader} />
+        </ArticleSection>
+        <ArticleSection
+          id={'card-actions'}
+          index={'02'}
+          title={'Footer actions'}
+          description={'Actions remain explicit controls composed into the Footer slot.'}
+        >
+          <ComponentExample example={cardExamples.cardActions} showCaption={false} />
+        </ArticleSection>
+        <ArticleSection
+          id={'card-variants'}
+          index={'03'}
+          title={'Outlined and elevated'}
+          description={
+            'Variants map directly to existing Surface border, tone, radius, and elevation tokens.'
+          }
+        >
+          <ComponentExample example={cardExamples.cardVariants} showCaption={false} />
+        </ArticleSection>
+        <ArticleSection
+          id={'card-composition'}
+          index={'04'}
+          title={'Avatar, Badge, and arbitrary composition'}
+          description={
+            'Card accepts normal children and does not constrain content to its own anatomy.'
+          }
+        >
+          <ComponentExample example={cardExamples.cardProfile} />
+          <ComponentExample example={cardExamples.cardChildren} />
+        </ArticleSection>
+        <footer className="review-footer">
+          <span>Virgo Design UI · Card V1.0.0</span>
+          <span>Content structure · Surface-backed · Non-interactive</span>
+        </footer>
+      </div>
+    </ComponentExampleRuntimeProvider>
   );
 }
