@@ -41,4 +41,20 @@ body:has(.components-documentation) {
   .menu-editor > p {
     color: var(--vd-text-secondary);
   }
+
+  .menu-hero-stage {
+    padding: var(--vd-spacing-32);
+    place-items: stretch;
+  }
+
+  .menu-hero-card {
+    display: grid;
+    justify-items: start;
+    gap: var(--vd-spacing-16);
+    width: min(100%, calc(var(--vd-sizing-80) * 4));
+    padding: var(--vd-spacing-24);
+    border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+    border-radius: var(--vd-radius-12);
+    background: var(--vd-surface-default);
+  }
 }

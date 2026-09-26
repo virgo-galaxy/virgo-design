@@ -22,7 +22,7 @@ export function TagPage() {
 
   return (
     <div className="review-board tag-review">
-      <section className="overview overview--single" id="overview" data-review-section="overview">
+      <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 28</span>
@@ -30,6 +30,46 @@ export function TagPage() {
           </div>
           <h1>Tag</h1>
           <p>A compact, standalone label for classification, status and short metadata.</p>
+          <dl className="component-facts">
+            <div>
+              <dt>Variants</dt>
+              <dd>03</dd>
+            </div>
+            <div>
+              <dt>Sizes</dt>
+              <dd>03</dd>
+            </div>
+            <div>
+              <dt>Behaviors</dt>
+              <dd>Closable</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="hero-specimen">
+          <div className="specimen-toolbar">
+            <span>Reference specimen</span>
+            <code>semantic · icon · closable</code>
+          </div>
+          <div className="hero-stage">
+            <div className="tag-stage">
+              <Tag intent="brand">Design System</Tag>
+              <Tag icon={<CheckIcon />} intent="success" variant="outline">
+                Stable
+              </Tag>
+              <Tag icon={<LayoutIcon />} intent="info">
+                Workspace
+              </Tag>
+              <Tag closable closeLabel="Remove Prototype">
+                Prototype
+              </Tag>
+            </div>
+          </div>
+          <div className="specimen-caption">
+            <span>Classification</span>
+            <span>Semantic color</span>
+            <span>Removable metadata</span>
+          </div>
         </div>
       </section>
 

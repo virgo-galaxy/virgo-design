@@ -9,25 +9,6 @@ import { AppearanceContext } from '@/shared/theme/appearance-context';
 import { componentRoutes } from './app/componentRoutes';
 import { ComponentsDocumentation } from './ComponentsDocumentation';
 
-// These pages use their first review section instead of duplicating it in a hero.
-const singleOverviewIds = new Set([
-  'layout',
-  'separator',
-  'avatar',
-  'badge',
-  'card',
-  'empty',
-  'progress',
-  'skeleton',
-  'spinner',
-  'tag',
-  'toast',
-  'command',
-  'context-menu',
-  'menu',
-  'menubar',
-]);
-
 describe('Components documentation integration', () => {
   it('keeps every copied component route and follows the Website appearance', async () => {
     vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
@@ -116,8 +97,8 @@ describe('Components documentation integration', () => {
 
   describe.each(['light', 'dark'] as const)('%s overviews', (appearance) => {
     it.each(componentRoutes)(
-      'renders $name with shared heading structure and an intentional specimen layout',
-      ({ id, index, name, path }) => {
+      'renders $name with shared heading structure and a Reference specimen hero',
+      ({ index, name, path }) => {
         vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
 
         const { container } = render(
@@ -135,13 +116,17 @@ describe('Components documentation integration', () => {
         const overview = heading.closest('#overview');
         const copy = overview?.querySelector(':scope > .overview-copy');
         const firstReview = board?.querySelector(':scope > [data-review-section]:not(#overview)');
+        const specimen = overview?.querySelector(':scope > .hero-specimen');
+        const specimenStage = specimen?.querySelector(
+          ':scope > .hero-stage, :scope > .surface-hero-stage',
+        );
 
         expect(container.querySelectorAll('#overview')).toHaveLength(1);
         expect(container.querySelector('.components-documentation-shell')).toHaveAttribute(
           'data-theme',
           appearance,
         );
-        expect(overview).toHaveClass('overview');
+        expect(overview).toHaveClass('overview', { exact: true });
         expect(overview).toHaveAttribute('data-review-section', 'overview');
         expect(overview?.parentElement).toBe(board);
         expect(heading.parentElement).toBe(copy);
@@ -155,25 +140,15 @@ describe('Components documentation integration', () => {
         expect(firstReview).toBeInTheDocument();
         expect(firstReview?.querySelector('h2')).toBeInTheDocument();
 
-        if (singleOverviewIds.has(id)) {
-          expect(overview).toHaveClass('overview overview--single', { exact: true });
-          expect(overview?.children).toHaveLength(1);
-          expect(overview?.querySelector('.hero-specimen')).not.toBeInTheDocument();
-          expect(overview?.nextElementSibling).toBe(firstReview);
-          expect(firstReview?.children.length).toBeGreaterThan(1);
-        } else {
-          expect(overview).not.toHaveClass('overview--single');
-          expect(overview?.children).toHaveLength(2);
-          const specimen = overview?.querySelector(':scope > .hero-specimen');
-          expect(specimen).toBeInTheDocument();
-          expect(specimen?.querySelector('.specimen-toolbar')).toHaveTextContent(
-            'Reference specimen',
-          );
-          // Surface uses a photograph instead of a grid to demonstrate its material.
-          expect(
-            specimen?.querySelector(':scope > .hero-stage, :scope > .surface-hero-stage'),
-          ).not.toBeEmptyDOMElement();
-        }
+        expect(overview?.children).toHaveLength(2);
+        expect(container.querySelector('.overview--single')).not.toBeInTheDocument();
+        expect(specimen).toBeInTheDocument();
+        expect(specimen?.querySelector('.specimen-toolbar')).toHaveTextContent(
+          'Reference specimen',
+        );
+        expect(specimenStage).toBeInTheDocument();
+        expect(specimenStage).not.toBeEmptyDOMElement();
+        expect(specimen?.querySelector(':scope > .specimen-caption')).not.toBeEmptyDOMElement();
       },
     );
   });

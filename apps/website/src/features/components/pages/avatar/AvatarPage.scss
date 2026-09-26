@@ -7,4 +7,8 @@ body:has(.components-documentation) {
     gap: var(--vd-spacing-32);
     padding: var(--vd-spacing-32);
   }
+
+  .avatar-hero-stage {
+    justify-content: center;
+  }
 }

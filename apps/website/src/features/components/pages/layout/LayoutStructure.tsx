@@ -12,10 +12,32 @@ function BasicLayout() {
   );
 }
 
+function HeroLayout() {
+  return (
+    <Layout className="layout-demo">
+      <Layout.Header className="layout-demo-region layout-demo-header">Header</Layout.Header>
+      <Layout direction="horizontal">
+        <Layout.Sidebar
+          className="layout-demo-region layout-demo-sidebar"
+          width="25%"
+          surface={{
+            border: 'none',
+            background: { type: 'color', value: 'var(--vd-brand-6)' },
+          }}
+        >
+          Sidebar
+        </Layout.Sidebar>
+        <Layout.Content className="layout-demo-region layout-demo-content">Content</Layout.Content>
+      </Layout>
+      <Layout.Footer className="layout-demo-region layout-demo-footer">Footer</Layout.Footer>
+    </Layout>
+  );
+}
+
 export function LayoutStructure() {
   return (
     <>
-      <section className="overview overview--single" id="overview" data-review-section="overview">
+      <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 03</span>
@@ -41,6 +63,23 @@ export function LayoutStructure() {
               <dd>Nested</dd>
             </div>
           </dl>
+        </div>
+
+        <div className="hero-specimen">
+          <div className="specimen-toolbar">
+            <span>Reference specimen</span>
+            <code>header · sidebar · content · footer</code>
+          </div>
+          <div className="hero-stage layout-hero-stage">
+            <div className="layout-hero-frame layout-review-card">
+              <HeroLayout />
+            </div>
+          </div>
+          <div className="specimen-caption">
+            <span>Vertical composition</span>
+            <span>Nested horizontal region</span>
+            <span>Semantic page skeleton</span>
+          </div>
         </div>
       </section>
 
@@ -69,29 +108,7 @@ export function LayoutStructure() {
             <h3 id="layout-left-sidebar-title" className="layout-sr-only">
               Left Sidebar
             </h3>
-            <Layout className="layout-demo">
-              <Layout.Header className="layout-demo-region layout-demo-header">
-                Header
-              </Layout.Header>
-              <Layout direction="horizontal">
-                <Layout.Sidebar
-                  className="layout-demo-region layout-demo-sidebar"
-                  width="25%"
-                  surface={{
-                    border: 'none',
-                    background: { type: 'color', value: 'var(--vd-brand-6)' },
-                  }}
-                >
-                  Sidebar
-                </Layout.Sidebar>
-                <Layout.Content className="layout-demo-region layout-demo-content">
-                  Content
-                </Layout.Content>
-              </Layout>
-              <Layout.Footer className="layout-demo-region layout-demo-footer">
-                Footer
-              </Layout.Footer>
-            </Layout>
+            <HeroLayout />
           </section>
           <section
             id="layout-right-sidebar"

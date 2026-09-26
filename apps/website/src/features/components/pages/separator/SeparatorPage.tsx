@@ -7,7 +7,7 @@ import { ReviewSection } from '../../components/ReviewSection';
 export function SeparatorPage() {
   return (
     <div className="review-board separator-review">
-      <section className="overview overview--single" id="overview" data-review-section="overview">
+      <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 04</span>
@@ -15,6 +15,39 @@ export function SeparatorPage() {
           </div>
           <h1>Separator</h1>
           <p>A token-based rule for visual and semantic separation in general layouts.</p>
+          <dl className="component-facts">
+            <div>
+              <dt>Orientations</dt>
+              <dd>02</dd>
+            </div>
+            <div>
+              <dt>Semantics</dt>
+              <dd>ARIA</dd>
+            </div>
+            <div>
+              <dt>Decorative</dt>
+              <dd>Optional</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="hero-specimen">
+          <div className="specimen-toolbar">
+            <span>Reference specimen</span>
+            <code>horizontal · semantic</code>
+          </div>
+          <div className="hero-stage">
+            <div className="separator-stack">
+              <span>Account details</span>
+              <Separator />
+              <span>Billing</span>
+            </div>
+          </div>
+          <div className="specimen-caption">
+            <span>Rule-based rhythm</span>
+            <span>Horizontal by default</span>
+            <span>Decorative or semantic</span>
+          </div>
         </div>
       </section>
 

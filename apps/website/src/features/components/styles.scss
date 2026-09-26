@@ -362,19 +362,14 @@
     padding: var(--vd-spacing-48) 0 var(--vd-spacing-64);
   }
 
-  // Both overview layouts share the review board's content edge and typography.
+  // Component pages share one overview pattern: descriptive copy on the left and a
+  // reference specimen hero on the right.
   .overview {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(360px, 0.8fr);
     gap: var(--vd-spacing-40);
     align-items: stretch;
     padding: 0 0 var(--vd-spacing-48);
-  }
-
-  // The first review section is the specimen when no separate hero is needed.
-  .overview--single {
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
   }
 
   .overview-copy {

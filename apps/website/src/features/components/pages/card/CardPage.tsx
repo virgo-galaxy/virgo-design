@@ -7,7 +7,7 @@ import { ReviewSection } from '../../components/ReviewSection';
 export function CardPage() {
   return (
     <div className="review-board card-review">
-      <section className="overview overview--single" id="overview" data-review-section="overview">
+      <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 20</span>
@@ -15,6 +15,47 @@ export function CardPage() {
           </div>
           <h1>Card</h1>
           <p>Content structure backed by Surface tokens, without implicit interaction.</p>
+          <dl className="component-facts">
+            <div>
+              <dt>Variants</dt>
+              <dd>02</dd>
+            </div>
+            <div>
+              <dt>Sizes</dt>
+              <dd>03</dd>
+            </div>
+            <div>
+              <dt>Slots</dt>
+              <dd>Header · Body · Footer</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="hero-specimen">
+          <div className="specimen-toolbar">
+            <span>Reference specimen</span>
+            <code>header · body · footer</code>
+          </div>
+          <div className="hero-stage card-hero-stage">
+            <div className="card-hero-card">
+              <Card variant="outlined">
+                <Card.Header>
+                  <Card.Title as="h3">Virgo Design</Card.Title>
+                  <Card.Description>Structure a small, related block of content.</Card.Description>
+                </Card.Header>
+                <Card.Body>Cards inherit Surface tokens and keep actions explicit.</Card.Body>
+                <Card.Footer>
+                  <Button variant="text">Cancel</Button>
+                  <Button>Review</Button>
+                </Card.Footer>
+              </Card>
+            </div>
+          </div>
+          <div className="specimen-caption">
+            <span>Surface-backed</span>
+            <span>Consumer-owned content</span>
+            <span>Explicit actions</span>
+          </div>
         </div>
       </section>
 

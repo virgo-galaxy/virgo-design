@@ -21,4 +21,12 @@ body:has(.components-documentation) {
     margin: var(--vd-spacing-0);
     color: var(--vd-text-secondary);
   }
+
+  .card-hero-stage {
+    padding: var(--vd-spacing-32);
+  }
+
+  .card-hero-card {
+    width: min(100%, calc(var(--vd-sizing-80) * 4));
+  }
 }

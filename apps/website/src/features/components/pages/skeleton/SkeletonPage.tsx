@@ -7,7 +7,7 @@ import { ReviewSection } from '../../components/ReviewSection';
 export function SkeletonPage() {
   return (
     <div className="review-board skeleton-review">
-      <section className="overview overview--single" id="overview" data-review-section="overview">
+      <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 26</span>
@@ -15,6 +15,42 @@ export function SkeletonPage() {
           </div>
           <h1>Skeleton</h1>
           <p>Visual content placeholders that preserve layout while real content loads.</p>
+          <dl className="component-facts">
+            <div>
+              <dt>Shapes</dt>
+              <dd>Text · Block · Circle</dd>
+            </div>
+            <div>
+              <dt>Motion</dt>
+              <dd>Optional</dd>
+            </div>
+            <div>
+              <dt>Purpose</dt>
+              <dd>Layout preservation</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="hero-specimen">
+          <div className="specimen-toolbar">
+            <span>Reference specimen</span>
+            <code>card placeholder · animated</code>
+          </div>
+          <div className="hero-stage">
+            <div className="skeleton-card" aria-label="Loading card preview" aria-busy="true">
+              <Skeleton style={{ height: 144 }} />
+              <div className="skeleton-card-copy">
+                <Skeleton variant="text" style={{ width: '72%' }} />
+                <Skeleton variant="text" />
+                <Skeleton variant="text" style={{ width: '84%' }} />
+              </div>
+            </div>
+          </div>
+          <div className="specimen-caption">
+            <span>Predictable dimensions</span>
+            <span>Content loading</span>
+            <span>Reduced-motion aware</span>
+          </div>
         </div>
       </section>
 

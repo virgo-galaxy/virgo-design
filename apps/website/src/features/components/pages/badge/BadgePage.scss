@@ -34,4 +34,8 @@ body:has(.components-documentation) {
   .badge-composition-stage {
     gap: var(--vd-spacing-40);
   }
+
+  .badge-hero-stage {
+    justify-content: center;
+  }
 }

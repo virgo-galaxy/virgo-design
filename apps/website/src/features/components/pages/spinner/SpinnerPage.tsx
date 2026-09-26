@@ -7,7 +7,7 @@ import { ReviewSection } from '../../components/ReviewSection';
 export function SpinnerPage() {
   return (
     <div className="review-board spinner-review">
-      <section className="overview overview--single" id="overview" data-review-section="overview">
+      <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 27</span>
@@ -15,6 +15,41 @@ export function SpinnerPage() {
           </div>
           <h1>Spinner</h1>
           <p>Indeterminate loading feedback that composes through currentColor.</p>
+          <dl className="component-facts">
+            <div>
+              <dt>State</dt>
+              <dd>Indeterminate</dd>
+            </div>
+            <div>
+              <dt>Sizes</dt>
+              <dd>03</dd>
+            </div>
+            <div>
+              <dt>Intent</dt>
+              <dd>Brand-aware</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="hero-specimen">
+          <div className="specimen-toolbar">
+            <span>Reference specimen</span>
+            <code>inline · button · currentColor</code>
+          </div>
+          <div className="hero-stage">
+            <div className="spinner-stage">
+              <span className="spinner-inline">
+                <Spinner size="sm" /> Syncing changes
+              </span>
+              <Button leadingIcon={<Spinner size="sm" />}>Saving</Button>
+              <Spinner size="lg" intent="brand" aria-label="Loading account data" />
+            </div>
+          </div>
+          <div className="specimen-caption">
+            <span>Inline feedback</span>
+            <span>Composable</span>
+            <span>Theme-aware color</span>
+          </div>
         </div>
       </section>
 

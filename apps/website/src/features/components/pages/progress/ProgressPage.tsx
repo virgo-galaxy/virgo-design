@@ -15,7 +15,7 @@ const intents = [
 export function ProgressPage() {
   return (
     <div className="review-board progress-review">
-      <section className="overview overview--single" id="overview" data-review-section="overview">
+      <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 25</span>
@@ -23,6 +23,38 @@ export function ProgressPage() {
           </div>
           <h1>Progress</h1>
           <p>Determinate progress for tasks with a known completion amount.</p>
+          <dl className="component-facts">
+            <div>
+              <dt>State</dt>
+              <dd>Determinate</dd>
+            </div>
+            <div>
+              <dt>Sizes</dt>
+              <dd>03</dd>
+            </div>
+            <div>
+              <dt>Intents</dt>
+              <dd>04</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="hero-specimen">
+          <div className="specimen-toolbar">
+            <span>Reference specimen</span>
+            <code>value · label · showValue</code>
+          </div>
+          <div className="hero-stage">
+            <div className="progress-stack">
+              <Progress value={72} label="Deploying design tokens" showValue />
+              <Progress value={3} max={4} intent="success" label="Three of four checks" showValue />
+            </div>
+          </div>
+          <div className="specimen-caption">
+            <span>Clamped values</span>
+            <span>Visible status</span>
+            <span>Semantic intent</span>
+          </div>
         </div>
       </section>
 

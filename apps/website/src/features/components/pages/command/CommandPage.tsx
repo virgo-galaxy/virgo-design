@@ -70,7 +70,7 @@ export function CommandPage() {
 
   return (
     <div className="review-board command-review">
-      <section className="overview overview--single" id="overview" data-review-section="overview">
+      <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 31</span>
@@ -78,6 +78,40 @@ export function CommandPage() {
           </div>
           <h1>Command</h1>
           <p>Search application actions, keep focus in one input, and execute the active result.</p>
+          <dl className="component-facts">
+            <div>
+              <dt>Modes</dt>
+              <dd>Inline · Dialog</dd>
+            </div>
+            <div>
+              <dt>Search</dt>
+              <dd>Built-in</dd>
+            </div>
+            <div>
+              <dt>Results</dt>
+              <dd>Grouped</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="hero-specimen">
+          <div className="specimen-toolbar">
+            <span>Reference specimen</span>
+            <code>inline · grouped · searchable</code>
+          </div>
+          <div className="hero-stage">
+            <Command className="command-demo">
+              <Command.Input aria-label="Hero command search" placeholder="Search commands…" />
+              <Command.List>
+                <CommandItems select={() => {}} />
+              </Command.List>
+            </Command>
+          </div>
+          <div className="specimen-caption">
+            <span>Single input</span>
+            <span>Grouped results</span>
+            <span>Keyboard-first</span>
+          </div>
         </div>
       </section>
 

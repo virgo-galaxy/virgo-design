@@ -19,7 +19,7 @@ export function BadgePage() {
 
   return (
     <div className="review-board badge-review">
-      <section className="overview overview--single" id="overview" data-review-section="overview">
+      <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 19</span>
@@ -30,6 +30,49 @@ export function BadgePage() {
             A small count or status marker attached to a host element, with an inline standalone
             form.
           </p>
+          <dl className="component-facts">
+            <div>
+              <dt>Forms</dt>
+              <dd>Count</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>Dot</dd>
+            </div>
+            <div>
+              <dt>Standalone</dt>
+              <dd>Inline</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="hero-specimen">
+          <div className="specimen-toolbar">
+            <span>Reference specimen</span>
+            <code>count · dot · standalone</code>
+          </div>
+          <div className="hero-stage">
+            <div className="badge-stage badge-hero-stage">
+              <Badge count={8}>
+                <span className="badge-host">
+                  <LayoutIcon />
+                </span>
+              </Badge>
+              <Badge dot intent="success" aria-label="Online">
+                <span className="badge-avatar">
+                  <UserIcon />
+                </span>
+              </Badge>
+              <span>
+                Release <Badge count="New" intent="info" />
+              </span>
+            </div>
+          </div>
+          <div className="specimen-caption">
+            <span>Attached count</span>
+            <span>Status dot</span>
+            <span>Inline metadata</span>
+          </div>
         </div>
       </section>
 

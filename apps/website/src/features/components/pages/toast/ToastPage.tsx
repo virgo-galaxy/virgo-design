@@ -37,7 +37,7 @@ export function ToastPage() {
   return (
     <Toast.Provider>
       <div className="review-board toast-review">
-        <section className="overview overview--single" id="overview" data-review-section="overview">
+        <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
             <div className="eyebrow-row">
               <span>Component 29</span>
@@ -48,6 +48,43 @@ export function ToastPage() {
               Brief feedback that announces itself without interrupting the current task or moving
               focus.
             </p>
+            <dl className="component-facts">
+              <div>
+                <dt>Placement</dt>
+                <dd>06</dd>
+              </div>
+              <div>
+                <dt>Priority</dt>
+                <dd>Polite · Assertive</dd>
+              </div>
+              <div>
+                <dt>Actions</dt>
+                <dd>Optional</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div className="hero-specimen">
+            <div className="specimen-toolbar">
+              <span>Reference specimen</span>
+              <code>status · action · dismiss</code>
+            </div>
+            <div className="hero-stage toast-hero-stage">
+              <Toast.Provider>
+                <Toast.Root intent="success" duration={0}>
+                  <Toast.Title>Document archived</Toast.Title>
+                  <Toast.Description>Your document moved to the archive.</Toast.Description>
+                  <Toast.Action>Undo</Toast.Action>
+                  <Toast.Close />
+                </Toast.Root>
+                <Toast.Viewport placement="top-start" className="toast-hero-viewport" />
+              </Toast.Provider>
+            </div>
+            <div className="specimen-caption">
+              <span>Non-blocking feedback</span>
+              <span>Semantic status</span>
+              <span>Actionable dismissal</span>
+            </div>
           </div>
         </section>
 

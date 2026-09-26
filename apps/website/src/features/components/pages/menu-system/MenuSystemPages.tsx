@@ -11,16 +11,22 @@ function Page({
   name,
   index,
   description,
+  specimenCode,
+  specimenCaption,
+  specimen,
   children,
 }: {
   name: string;
   index: string;
   description: string;
+  specimenCode: string;
+  specimenCaption: [string, string, string];
+  specimen: ReactNode;
   children: ReactNode;
 }) {
   return (
     <div className="review-board menu-system-review">
-      <section className="overview overview--single" id="overview" data-review-section="overview">
+      <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component {index}</span>
@@ -28,6 +34,33 @@ function Page({
           </div>
           <h1>{name}</h1>
           <p>{description}</p>
+          <dl className="component-facts">
+            <div>
+              <dt>Items</dt>
+              <dd>Shared</dd>
+            </div>
+            <div>
+              <dt>Input</dt>
+              <dd>Keyboard</dd>
+            </div>
+            <div>
+              <dt>Composition</dt>
+              <dd>Nested menus</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="hero-specimen">
+          <div className="specimen-toolbar">
+            <span>Reference specimen</span>
+            <code>{specimenCode}</code>
+          </div>
+          <div className="hero-stage menu-hero-stage">{specimen}</div>
+          <div className="specimen-caption">
+            {specimenCaption.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
         </div>
       </section>
       {children}
@@ -38,6 +71,7 @@ function Page({
     </div>
   );
 }
+
 function SharedItems({ select }: { select: (name: string) => void }) {
   return (
     <>
@@ -78,6 +112,7 @@ function SharedItems({ select }: { select: (name: string) => void }) {
     </>
   );
 }
+
 export function MenuPage() {
   const [action, setAction] = useState('Choose an action.');
   const [grid, setGrid] = useState(true);
@@ -87,6 +122,18 @@ export function MenuPage() {
       name="Menu"
       index="33"
       description="Choose what to do. Button-triggered actions, nested submenus and persistent preferences share one menu protocol."
+      specimenCode="button trigger · submenu"
+      specimenCaption={['Button trigger', 'Nested submenu', 'Shared menu parts']}
+      specimen={
+        <div className="menu-hero-card">
+          <Menu>
+            <Menu.Trigger>Actions</Menu.Trigger>
+            <Menu.Content>
+              <SharedItems select={() => {}} />
+            </Menu.Content>
+          </Menu>
+        </div>
+      }
     >
       <ReviewSection
         id="menu-actions"
@@ -158,6 +205,7 @@ export function MenuPage() {
     </Page>
   );
 }
+
 export function ContextMenuPage() {
   const [action, setAction] = useState('No context action selected.');
   return (
@@ -165,6 +213,22 @@ export function ContextMenuPage() {
       name="ContextMenu"
       index="32"
       description="Actions for the object under the pointer. Right-click a target, or focus it and press Shift+F10 or the context-menu key."
+      specimenCode="target trigger · contextual actions"
+      specimenCaption={['Object-scoped', 'Pointer anchored', 'Keyboard accessible']}
+      specimen={
+        <div className="menu-hero-card">
+          <ContextMenu>
+            <ContextMenu.Trigger className="context-target" aria-label="Hero document context">
+              <LayoutIcon />
+              <strong>Document</strong>
+              <span>Right-click here · Shift+F10</span>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content aria-label="Document actions">
+              <SharedItems select={() => {}} />
+            </ContextMenu.Content>
+          </ContextMenu>
+        </div>
+      }
     >
       <ReviewSection
         id="context-target"
@@ -210,6 +274,7 @@ export function ContextMenuPage() {
     </Page>
   );
 }
+
 export function MenubarPage() {
   const [action, setAction] = useState('Choose an application action.');
   return (
@@ -217,6 +282,34 @@ export function MenubarPage() {
       name="Menubar"
       index="34"
       description="Application-level action groups. Arrow keys move between menus; an open menu follows the pointer across its neighboring triggers."
+      specimenCode="application bar · grouped actions"
+      specimenCaption={['App-level navigation', 'Shared menu content', 'Arrow-key flow']}
+      specimen={
+        <div className="menu-hero-card">
+          <Menubar aria-label="Hero application actions">
+            <Menubar.Menu value="file">
+              <Menubar.Trigger>File</Menubar.Trigger>
+              <Menubar.Content>
+                <Menubar.Item>New</Menubar.Item>
+                <Menubar.Item>Save</Menubar.Item>
+              </Menubar.Content>
+            </Menubar.Menu>
+            <Menubar.Menu value="edit">
+              <Menubar.Trigger>Edit</Menubar.Trigger>
+              <Menubar.Content>
+                <Menubar.Item>Undo</Menubar.Item>
+                <Menubar.Item>Redo</Menubar.Item>
+              </Menubar.Content>
+            </Menubar.Menu>
+            <Menubar.Menu value="view">
+              <Menubar.Trigger>View</Menubar.Trigger>
+              <Menubar.Content>
+                <Menubar.CheckboxItem defaultChecked>Show toolbar</Menubar.CheckboxItem>
+              </Menubar.Content>
+            </Menubar.Menu>
+          </Menubar>
+        </div>
+      }
     >
       <ReviewSection
         id="menubar-application"

@@ -45,9 +45,9 @@ describe('Component overview style ownership', () => {
       'min-width': '0',
       padding: 'var(--vd-spacing-24) 0',
     });
-    expect(declarationsFor('.components-documentation .overview--single')).toEqual({
-      'grid-template-columns': 'minmax(0, 1fr)',
-      'align-items': 'start',
+    expect(declarationsFor('.components-documentation .hero-specimen')).toMatchObject({
+      display: 'flex',
+      'min-height': '320px',
     });
   });
 

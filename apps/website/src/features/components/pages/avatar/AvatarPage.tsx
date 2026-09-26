@@ -9,7 +9,7 @@ import { ReviewSection } from '../../components/ReviewSection';
 export function AvatarPage() {
   return (
     <div className="review-board avatar-review">
-      <section className="overview overview--single" id="overview" data-review-section="overview">
+      <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 18</span>
@@ -17,6 +17,45 @@ export function AvatarPage() {
           </div>
           <h1>Avatar</h1>
           <p>Identity images with token-based sizing, resilient fallback, and simple grouping.</p>
+          <dl className="component-facts">
+            <div>
+              <dt>Sources</dt>
+              <dd>Image</dd>
+            </div>
+            <div>
+              <dt>Fallback</dt>
+              <dd>Text</dd>
+            </div>
+            <div>
+              <dt>Composition</dt>
+              <dd>Group</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="hero-specimen">
+          <div className="specimen-toolbar">
+            <span>Reference specimen</span>
+            <code>image · fallback · group</code>
+          </div>
+          <div className="hero-stage">
+            <div className="avatar-stage avatar-hero-stage">
+              <Badge dot intent="success" aria-label="Online">
+                <Avatar src={avatarImage} alt="Virgo Design" size="lg" />
+              </Badge>
+              <Avatar fallback="PK" aria-label="Pokeya" size="lg" />
+              <Avatar.Group aria-label="Project members">
+                <Avatar fallback="VD" />
+                <Avatar fallback="UI" />
+                <Avatar fallback="DS" />
+              </Avatar.Group>
+            </div>
+          </div>
+          <div className="specimen-caption">
+            <span>Image</span>
+            <span>Fallback</span>
+            <span>Presence and group</span>
+          </div>
         </div>
       </section>
 

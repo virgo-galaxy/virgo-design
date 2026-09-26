@@ -8,7 +8,7 @@ import { ReviewSection } from '../../components/ReviewSection';
 export function EmptyPage() {
   return (
     <div className="review-board empty-review">
-      <section className="overview overview--single" id="overview" data-review-section="overview">
+      <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
             <span>Component 23</span>
@@ -16,6 +16,46 @@ export function EmptyPage() {
           </div>
           <h1>Empty</h1>
           <p>Application-owned empty-content messaging with semantic, composable anatomy.</p>
+          <dl className="component-facts">
+            <div>
+              <dt>Slots</dt>
+              <dd>Icon · Title · Description · Action</dd>
+            </div>
+            <div>
+              <dt>Sizes</dt>
+              <dd>02</dd>
+            </div>
+            <div>
+              <dt>Intent</dt>
+              <dd>Neutral</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="hero-specimen">
+          <div className="specimen-toolbar">
+            <span>Reference specimen</span>
+            <code>icon · message · action</code>
+          </div>
+          <div className="hero-stage">
+            <div className="empty-hero-frame">
+              <Empty aria-label="Empty documents hero state">
+                <Empty.Icon>
+                  <LayoutIcon />
+                </Empty.Icon>
+                <Empty.Title>No documents</Empty.Title>
+                <Empty.Description>Create your first document to get started.</Empty.Description>
+                <Empty.Action>
+                  <Button>Create document</Button>
+                </Empty.Action>
+              </Empty>
+            </div>
+          </div>
+          <div className="specimen-caption">
+            <span>Consumer copy</span>
+            <span>Composable slots</span>
+            <span>Neutral guidance</span>
+          </div>
         </div>
       </section>
 

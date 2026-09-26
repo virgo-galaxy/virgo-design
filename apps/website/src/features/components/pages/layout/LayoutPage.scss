@@ -185,4 +185,12 @@ body:has(.components-documentation) {
       overflow-x: auto;
     }
   }
+
+  .layout-hero-stage {
+    padding: var(--vd-spacing-32);
+  }
+
+  .layout-hero-frame {
+    width: min(100%, calc(var(--vd-sizing-80) * 5));
+  }
 }

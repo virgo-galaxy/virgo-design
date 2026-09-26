@@ -5,4 +5,18 @@ body:has(.components-documentation) {
     gap: var(--vd-spacing-12);
     padding: var(--vd-spacing-32);
   }
+
+  .toast-hero-stage {
+    place-items: stretch;
+    padding: var(--vd-spacing-24);
+  }
+
+  .toast-hero-viewport {
+    position: static;
+    inset: auto;
+    display: flex;
+    width: 100%;
+    max-height: none;
+    transform: none;
+  }
 }
