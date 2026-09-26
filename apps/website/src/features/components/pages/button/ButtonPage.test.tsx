@@ -1,0 +1,25 @@
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+
+import { ButtonPage } from './ButtonPage';
+
+describe('Button article documentation', () => {
+  it('keeps four article sections and five independent examples, without the PoC section', () => {
+    const { container } = render(<ButtonPage />);
+    expect(
+      screen.getAllByRole('heading', { level: 2 }).map((heading) => heading.textContent),
+    ).toEqual(['01Variants', '02Sizes', '03Icons', '04States']);
+    expect(container.querySelectorAll('[data-article-section]')).toHaveLength(4);
+    expect(container.querySelectorAll('[data-example-frame]')).toHaveLength(5);
+    expect(container.querySelectorAll('[data-example-toolbar]')).toHaveLength(5);
+    expect(container.querySelector('.review-section, .component-example-list')).toBeNull();
+    expect(screen.queryByRole('heading', { name: 'Examples' })).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 3, name: 'Buttons with icons' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 3, name: 'Icon-only buttons' }),
+    ).toBeInTheDocument();
+    expect(container.querySelector('.hero-stage')).toBeInTheDocument();
+  });
+});

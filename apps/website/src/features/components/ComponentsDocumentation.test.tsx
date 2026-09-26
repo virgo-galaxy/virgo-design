@@ -43,6 +43,9 @@ describe('Components documentation integration', () => {
         .map((link) => link.getAttribute('href')),
     ).toEqual(componentRoutes.map((route) => route.path));
     expect(screen.getByRole('heading', { level: 1, name: 'Button' })).toBeInTheDocument();
+    expect(document.querySelectorAll('[data-article-section]')).toHaveLength(4);
+    expect(document.querySelectorAll('[data-example-frame]')).toHaveLength(5);
+    expect(screen.queryByRole('heading', { name: 'Examples' })).not.toBeInTheDocument();
     expect(document.querySelector('.components-documentation-shell')).toHaveAttribute(
       'data-theme',
       'light',

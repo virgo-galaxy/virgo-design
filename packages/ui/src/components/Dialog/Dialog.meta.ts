@@ -62,18 +62,5 @@ export const dialogMetadata = {
     'Modal background content is inert while the dialog is open.',
     'Include a visible Dialog.Close or another clear closing action in every dialog.',
   ],
-  examples: [
-    {
-      name: 'Default',
-      code: '<Dialog.Root><Dialog.Trigger>Open</Dialog.Trigger><Dialog.Portal><Dialog.Overlay /><Dialog.Content><Dialog.Header><Dialog.Title>Title</Dialog.Title><Dialog.Description>Description</Dialog.Description></Dialog.Header><Dialog.Body>Content</Dialog.Body><Dialog.Footer><Dialog.Close>Cancel</Dialog.Close><Button>Continue</Button></Dialog.Footer></Dialog.Content></Dialog.Portal></Dialog.Root>',
-    },
-    {
-      name: 'Large dialog',
-      code: '<Dialog.Content size="lg"><Dialog.Header><Dialog.Title>Project settings</Dialog.Title></Dialog.Header><Dialog.Body>Settings form</Dialog.Body></Dialog.Content>',
-    },
-    {
-      name: 'Controlled form',
-      code: '<Dialog.Root open={open} onOpenChange={setOpen}><Dialog.Trigger>Edit profile</Dialog.Trigger><Dialog.Portal><Dialog.Overlay /><Dialog.Content><form onSubmit={save}>...</form></Dialog.Content></Dialog.Portal></Dialog.Root>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

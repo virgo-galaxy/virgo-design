@@ -13,6 +13,8 @@ export { CircleCheckIcon, type CircleCheckIconProps } from './generated/CircleCh
 export { CircleInfoIcon, type CircleInfoIconProps } from './generated/CircleInfoIcon.js';
 export { CircleXIcon, type CircleXIconProps } from './generated/CircleXIcon.js';
 export { CloseIcon, type CloseIconProps } from './generated/CloseIcon.js';
+export { CodeIcon, type CodeIconProps } from './generated/CodeIcon.js';
+export { CopyIcon, type CopyIconProps } from './generated/CopyIcon.js';
 export { CybertruckIcon, type CybertruckIconProps } from './generated/CybertruckIcon.js';
 export { DashboardIcon, type DashboardIconProps } from './generated/DashboardIcon.js';
 export { EllipsisIcon, type EllipsisIconProps } from './generated/EllipsisIcon.js';

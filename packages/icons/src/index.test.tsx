@@ -13,6 +13,8 @@ import {
   CircleCheckIcon,
   CircleInfoIcon,
   CircleXIcon,
+  CodeIcon,
+  CopyIcon,
   DashboardIcon,
   EllipsisIcon,
   EllipsisVerticalIcon,
@@ -36,6 +38,8 @@ import {
 } from './index';
 
 const addedIcons = [
+  ['code', CodeIcon],
+  ['copy', CopyIcon],
   ['circle-check', CircleCheckIcon],
   ['circle-info', CircleInfoIcon],
   ['circle-x', CircleXIcon],
@@ -120,6 +124,33 @@ describe('@virgo-design/icons', () => {
       }
     },
   );
+
+  it.each([
+    ['code', CodeIcon],
+    ['copy', CopyIcon],
+  ] as const)('supports small toolbar sizes and accessible SVG props for %s', (_id, Icon) => {
+    const { rerender } = render(<Icon data-testid="toolbar-icon" aria-hidden="true" />);
+
+    for (const size of [14, 16, 20, 24, 32]) {
+      rerender(
+        <Icon
+          data-testid="toolbar-icon"
+          size={size}
+          className="toolbar-glyph"
+          aria-hidden="true"
+        />,
+      );
+      const icon = screen.getByTestId('toolbar-icon');
+      expect(icon).toHaveAttribute('width', String(size));
+      expect(icon).toHaveAttribute('height', String(size));
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+      expect(icon).toHaveClass('toolbar-glyph');
+      expect(icon).not.toHaveAttribute('tabindex');
+    }
+
+    rerender(<Icon data-testid="toolbar-icon" role="img" aria-label="Documentation action" />);
+    expect(screen.getByRole('img', { name: 'Documentation action' })).toBeInTheDocument();
+  });
 
   it('exports PlusIcon with canonical SVG defaults', () => {
     render(<PlusIcon data-testid="plus-icon" />);

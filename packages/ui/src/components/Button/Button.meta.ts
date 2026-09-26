@@ -49,22 +49,5 @@ export const buttonMetadata = {
     'Treats leading and trailing icons as decorative; the visible label provides the name.',
     'Requires aria-label when iconOnly is true so the action keeps an accessible name.',
   ],
-  examples: [
-    {
-      name: 'Primary action',
-      code: '<Button>Save changes</Button>',
-    },
-    {
-      name: 'Leading icon',
-      code: '<Button leadingIcon={<PlusIcon />}>Create</Button>',
-    },
-    {
-      name: 'Trailing icon',
-      code: '<Button variant="secondary" trailingIcon={<ChevronDownIcon />}>Options</Button>',
-    },
-    {
-      name: 'Circular icon action',
-      code: '<Button iconOnly shape="circle" aria-label="Settings"><SettingsIcon /></Button>',
-    },
-  ],
+  examples: [],
 } as const satisfies ComponentMetadata;

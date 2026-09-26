@@ -27,6 +27,8 @@ describe('icons generator', () => {
       'circle-info.svg',
       'circle-x.svg',
       'close.svg',
+      'code.svg',
+      'copy.svg',
       'cybertruck.svg',
       'dashboard.svg',
       'ellipsis-vertical.svg',
@@ -81,6 +83,22 @@ describe('icons generator', () => {
       }),
     );
   });
+
+  it.each([
+    ['code.svg', 'CodeIcon'],
+    ['copy.svg', 'CopyIcon'],
+  ])(
+    'keeps the committed %s React component in sync with its canonical SVG',
+    async (fileName, componentName) => {
+      const source = await readFile(resolve('packages/icons/icons', fileName), 'utf8');
+      const generated = await readFile(
+        resolve('packages/icons/src/generated', `${componentName}.tsx`),
+        'utf8',
+      );
+
+      expect(generated).toBe(generateIconComponent(fileName, source));
+    },
+  );
 
   it('keeps both ellipses centered with identical regular hexagons and equal spacing', async () => {
     let referenceShape: number[][] | undefined;

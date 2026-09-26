@@ -1,19 +1,14 @@
 import './DialogPage.scss';
 
-import { Button, Dialog, type DialogSize, Input } from '@virgo-design/ui';
-import { useState } from 'react';
+import { Dialog } from '@virgo-design/ui';
 
-import { ReviewSection } from '../../components/ReviewSection';
-
-const sizes = ['sm', 'md', 'lg'] as const satisfies readonly DialogSize[];
+import { ArticleSection } from '@/components/docs/ArticleSection';
+import { ComponentExample } from '@/components/docs/ComponentExample';
+import { dialogExamples } from '@/examples/components/dialog/examples';
 
 export function DialogPage() {
-  const [formOpen, setFormOpen] = useState(false);
-  const [name, setName] = useState('Virgo workspace');
-  const [savedName, setSavedName] = useState(name);
-
   return (
-    <div className="review-board dialog-review" id="dialog-review">
+    <article className="review-board dialog-review" id="dialog-review">
       <section className="overview" id="overview" data-review-section="overview">
         <div className="overview-copy">
           <div className="eyebrow-row">
@@ -44,7 +39,7 @@ export function DialogPage() {
         <div className="hero-specimen">
           <div className="specimen-toolbar">
             <span>Reference specimen</span>
-            <code>size="md"</code>
+            <code>size=&quot;md&quot;</code>
           </div>
           <div className="hero-stage dialog-hero-stage">
             <Dialog.Root>
@@ -77,86 +72,28 @@ export function DialogPage() {
         </div>
       </section>
 
-      <ReviewSection
+      <ArticleSection
         id="dialog-sizes"
         index="01"
         title="Sizes"
         description="Choose the smallest panel that comfortably fits the task. Size changes width, spacing and title hierarchy together."
       >
-        <div className="dialog-review-card">
-          {sizes.map((size) => (
-            <Dialog.Root key={size}>
-              <Dialog.Trigger size="small">Open {size}</Dialog.Trigger>
-              <Dialog.Portal>
-                <Dialog.Overlay />
-                <Dialog.Content size={size}>
-                  <Dialog.Header>
-                    <Dialog.Title>{size.toUpperCase()} dialog</Dialog.Title>
-                    <Dialog.Description>
-                      A {size} Classic dialog using the shared anatomy.
-                    </Dialog.Description>
-                  </Dialog.Header>
-                  <Dialog.Body>Dialog content scales without changing its behavior.</Dialog.Body>
-                  <Dialog.Footer>
-                    <Dialog.Close variant="primary">Done</Dialog.Close>
-                  </Dialog.Footer>
-                </Dialog.Content>
-              </Dialog.Portal>
-            </Dialog.Root>
-          ))}
-        </div>
-      </ReviewSection>
+        <ComponentExample example={dialogExamples.sizes} showCaption={false} />
+      </ArticleSection>
 
-      <ReviewSection
+      <ArticleSection
         id="dialog-form"
         index="02"
         title="Form dialog"
         description="Controlled state lets form submission close the dialog after the data has been handled."
       >
-        <div className="dialog-review-card dialog-form-demo">
-          <Dialog.Root open={formOpen} onOpenChange={setFormOpen}>
-            <Dialog.Trigger>Edit workspace</Dialog.Trigger>
-            <Dialog.Portal>
-              <Dialog.Overlay />
-              <Dialog.Content>
-                <Dialog.Header>
-                  <Dialog.Title>Workspace settings</Dialog.Title>
-                  <Dialog.Description>
-                    Update the name shown throughout Virgo Design.
-                  </Dialog.Description>
-                </Dialog.Header>
-                <Dialog.Body>
-                  <form
-                    id="dialog-workspace-form"
-                    onSubmit={(event) => {
-                      event.preventDefault();
-                      setSavedName(name);
-                      setFormOpen(false);
-                    }}
-                  >
-                    <label className="dialog-demo-field">
-                      Workspace name
-                      <Input value={name} onChange={(event) => setName(event.target.value)} />
-                    </label>
-                  </form>
-                </Dialog.Body>
-                <Dialog.Footer>
-                  <Dialog.Close>Cancel</Dialog.Close>
-                  <Button type="submit" form="dialog-workspace-form">
-                    Save changes
-                  </Button>
-                </Dialog.Footer>
-              </Dialog.Content>
-            </Dialog.Portal>
-          </Dialog.Root>
-          <span role="status">Workspace: {savedName}</span>
-        </div>
-      </ReviewSection>
+        <ComponentExample example={dialogExamples.form} showCaption={false} />
+      </ArticleSection>
 
       <footer className="review-footer">
         <span>Virgo Design UI · Dialog V1.0.0</span>
         <span>Primitive · Tokens · Metadata · Accessibility</span>
       </footer>
-    </div>
+    </article>
   );
 }

@@ -1,0 +1,156 @@
+.root {
+  min-width: 0;
+}
+
+.caption {
+  margin-bottom: var(--vd-spacing-16);
+}
+
+.caption h3,
+.caption p {
+  margin: 0;
+}
+
+.caption h3 {
+  font-family: var(--vd-typography-ui-label-medium-font-family);
+  font-size: var(--vd-font-size-16);
+  font-weight: var(--vd-font-weight-600);
+  line-height: var(--vd-line-height-4);
+}
+
+.caption p {
+  margin-top: var(--vd-spacing-8);
+  color: var(--vd-text-secondary);
+  font-size: var(--vd-font-size-14);
+  line-height: var(--vd-line-height-4);
+}
+
+.frame {
+  min-width: 0;
+  overflow: hidden;
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-12);
+  background: var(--vd-surface-background);
+}
+
+.preview {
+  display: grid;
+  min-width: 0;
+  min-height: calc(var(--vd-sizing-80) * 2);
+  place-items: center;
+  padding: var(--vd-spacing-32);
+  background: var(--vd-surface-background);
+}
+
+.preview > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.toolbar {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--vd-spacing-16);
+  padding: var(--vd-spacing-8) var(--vd-spacing-16);
+  border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+}
+
+.actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--vd-spacing-8);
+}
+
+// Keep Virgo Button behavior/focus handling, with a compact neutral docs-tool treatment.
+.actionButton[data-icon-only='true'][data-example-action] {
+  --button-background: transparent;
+  --button-background-hover: var(--vd-fill-hover);
+  --button-background-active: var(--vd-fill-active);
+  --button-border: var(--vd-border-subtle);
+  --button-border-hover: var(--vd-border-default);
+  --button-border-active: var(--vd-border-strong);
+  --button-foreground: var(--vd-text-secondary);
+
+  width: var(--vd-sizing-32);
+  height: var(--vd-sizing-32);
+}
+
+.actionButton[data-example-action][aria-expanded='true'] {
+  --button-background: var(--vd-brand-subtle);
+  --button-foreground: var(--vd-brand-link);
+}
+
+.actionButton[data-example-action][data-copy-state='success'] {
+  --button-foreground: var(--vd-status-success-text);
+}
+
+.actionButton[data-example-action][aria-disabled='true'] {
+  cursor: progress;
+}
+
+.feedback {
+  min-width: 0;
+  margin-inline-end: auto;
+  color: var(--vd-text-secondary);
+  font-size: var(--vd-font-size-12);
+  line-height: var(--vd-line-height-3);
+  overflow-wrap: anywhere;
+}
+
+.feedback[data-copy-state='success'] {
+  color: var(--vd-status-success-text);
+}
+
+.feedback[data-copy-state='error'] {
+  color: var(--vd-status-danger-text);
+}
+
+.source {
+  min-width: 0;
+  border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  background: var(--vd-surface-background);
+}
+
+.source[hidden] {
+  display: none;
+}
+
+.source pre {
+  max-height: calc(var(--vd-sizing-80) * 6);
+  overflow: auto;
+  margin: 0;
+  padding: var(--vd-spacing-24);
+  color: var(--vd-text-primary);
+  tab-size: 2;
+}
+
+.source pre:focus-visible {
+  outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+  outline-offset: calc(var(--vd-border-width-2) * -1);
+}
+
+.source code {
+  font-family: var(--vd-font-family-mono);
+  font-size: var(--vd-font-size-13);
+  line-height: var(--vd-line-height-4);
+  white-space: pre;
+}
+
+@media (max-width: 760px) {
+  .preview {
+    min-height: calc(var(--vd-sizing-64) * 2);
+    padding: var(--vd-spacing-24) var(--vd-spacing-16);
+  }
+
+  .toolbar {
+    gap: var(--vd-spacing-8);
+    padding-inline: var(--vd-spacing-12);
+  }
+
+  .source pre {
+    padding: var(--vd-spacing-16);
+  }
+}
