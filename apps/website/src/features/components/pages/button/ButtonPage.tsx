@@ -45,9 +45,9 @@ export function ButtonPage() {
             <Button leadingIcon={<PlusIcon />}>Create project</Button>
           </div>
           <div className="specimen-caption">
-            <span>36px height</span>
-            <span>Label Medium</span>
-            <span>Radius 8</span>
+            <span>28px height</span>
+            <span>12px label</span>
+            <span>Radius 6</span>
           </div>
         </div>
       </section>

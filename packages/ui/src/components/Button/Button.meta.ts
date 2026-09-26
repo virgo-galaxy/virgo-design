@@ -13,10 +13,10 @@ export const buttonMetadata = {
     { name: 'text', description: 'Low-emphasis action without a persistent container.' },
   ],
   sizes: [
-    { name: 'mini', description: '24px height for compact interfaces.' },
-    { name: 'small', description: '28px height for dense interfaces.' },
-    { name: 'medium', description: '36px height and the default size.' },
-    { name: 'large', description: '44px height for prominent actions.' },
+    { name: 'mini', description: '20px height for ultra-compact actions and dense toolbars.' },
+    { name: 'small', description: '24px height for compact interfaces.' },
+    { name: 'medium', description: '28px height and the default size for most product actions.' },
+    { name: 'large', description: '36px height for stronger emphasis without oversized chrome.' },
   ],
   shapes: [
     { name: 'square', description: 'Default icon-only shape using the size-specific radius.' },

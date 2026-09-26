@@ -55,6 +55,8 @@ describe('CSS Style Bridge', () => {
   it('generates representative Foundation custom properties without an Opacity Foundation', () => {
     expect(foundationsCss).toContain('--vd-red-1:');
     expect(foundationsCss).toContain('--vd-font-family-sans:');
+    expect(foundationsCss).toContain('--vd-font-size-10: 10px;');
+    expect(foundationsCss).toContain('--vd-font-size-11: 11px;');
     expect(foundationsCss).toContain('--vd-font-size-14: 14px;');
     expect(foundationsCss).toContain('--vd-spacing-8: 8px;');
     expect(foundationsCss).toContain('--vd-sizing-36: 36px;');

@@ -81,6 +81,8 @@ export const sansLocaleMapping = {
 } as const satisfies Record<string, keyof typeof internationalSans>;
 
 export const fontSize = {
+  10: '10px',
+  11: '11px',
   12: '12px',
   13: '13px',
   14: '14px',
