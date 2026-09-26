@@ -46,8 +46,8 @@ describe('SiteHeader', () => {
     ).toEqual([
       ['Foundations', '/foundations'],
       ['Tokens', '/tokens'],
-      ['Components', '/components'],
       ['Primitives', '/primitives'],
+      ['Components', '/components'],
     ]);
     expect(within(navigation).queryByRole('link', { name: 'Resources' })).not.toBeInTheDocument();
   });

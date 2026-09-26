@@ -19,8 +19,8 @@ export const ROUTE_PATHS = {
 export const PRIMARY_NAVIGATION_ITEMS = [
   { path: ROUTE_PATHS.foundations, label: 'navigation.foundations' },
   { path: ROUTE_PATHS.tokens, label: 'navigation.tokens' },
-  { path: ROUTE_PATHS.components, label: 'navigation.components' },
   { path: ROUTE_PATHS.primitives, label: 'navigation.primitives' },
+  { path: ROUTE_PATHS.components, label: 'navigation.components' },
 ] as const;
 
 export const FOUNDATION_NAVIGATION_ITEMS = [
