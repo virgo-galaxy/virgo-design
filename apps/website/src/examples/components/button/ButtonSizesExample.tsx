@@ -1,8 +1,10 @@
 import { Button } from '@virgo-design/ui';
 
+import styles from './ButtonSizesExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+    <div className={styles.root!}>
       <Button size="mini">Mini</Button>
       <Button size="small">Small</Button>
       <Button size="medium">Medium</Button>

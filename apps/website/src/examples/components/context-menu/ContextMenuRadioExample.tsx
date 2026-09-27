@@ -1,26 +1,14 @@
 import { ContextMenu } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './ContextMenuRadioExample.module.scss';
+
 export default function App() {
   const [units, setUnits] = useState('pixels');
   return (
-    <div style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 360 }}>
+    <div className={styles.root!}>
       <ContextMenu>
-        <ContextMenu.Trigger
-          aria-label="Canvas units"
-          style={{
-            display: 'grid',
-            justifyItems: 'center',
-            alignContent: 'center',
-            gap: 12,
-            minHeight: 160,
-            padding: 24,
-            width: '100%',
-            border: '1px dashed var(--vd-border-default)',
-            borderRadius: 'var(--vd-radius-8)',
-            background: 'var(--vd-surface-secondary)',
-          }}
-        >
+        <ContextMenu.Trigger aria-label="Canvas units" className={styles.trigger!}>
           Canvas units · Right-click
         </ContextMenu.Trigger>
         <ContextMenu.Content aria-label="Canvas units">

@@ -1,10 +1,12 @@
 import { Accordion } from '@virgo-design/ui';
 
+import styles from './AccordionVariantsExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 24, width: '100%', maxWidth: 480 }}>
+    <div className={styles.root!}>
       {(['default', 'bordered', 'ghost'] as const).map((variant) => (
-        <div key={variant} style={{ display: 'grid', gap: 8 }}>
+        <div key={variant} className={styles.stage!}>
           <span>{variant}</span>
           <Accordion.Root type="single" variant={variant} defaultValue="anatomy">
             <Accordion.Item value="anatomy">

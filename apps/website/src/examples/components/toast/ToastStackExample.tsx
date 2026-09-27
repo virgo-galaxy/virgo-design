@@ -1,12 +1,14 @@
 import { Button, Toast } from '@virgo-design/ui';
 import { useRef, useState } from 'react';
 
+import styles from './ToastStackExample.module.scss';
+
 export default function App() {
   const [toasts, setToasts] = useState<number[]>([]);
   const nextId = useRef(1);
   return (
     <Toast.Provider hotkey={[]}>
-      <div style={{ display: 'grid', justifyItems: 'center', gap: 24, width: '100%' }}>
+      <div className={styles.root!}>
         <Button
           onClick={() => {
             const first = nextId.current;
@@ -16,18 +18,7 @@ export default function App() {
         >
           Add two toasts
         </Button>
-        <Toast.Viewport
-          aria-label="Stacked notifications"
-          style={{
-            position: 'relative',
-            inset: 'auto',
-            transform: 'none',
-            width: '100%',
-            maxWidth: 320,
-            maxHeight: 'none',
-            zIndex: 'auto',
-          }}
-        />
+        <Toast.Viewport aria-label="Stacked notifications" className={styles.viewport!} />
       </div>
       {toasts.map((id) => (
         <Toast.Root

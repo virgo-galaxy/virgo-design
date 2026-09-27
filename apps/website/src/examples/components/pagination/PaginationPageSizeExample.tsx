@@ -1,8 +1,10 @@
 import { Pagination } from '@virgo-design/ui';
 
+import styles from './PaginationPageSizeExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ width: '100%' }}>
+    <div className={styles.root!}>
       <Pagination total={500} defaultPage={3} showSizeChanger aria-label="Page size pagination" />
     </div>
   );

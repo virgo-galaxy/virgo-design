@@ -1,8 +1,10 @@
 import { Badge, Button } from '@virgo-design/ui';
 
+import styles from './BadgeZeroExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 32 }}>
+    <div className={styles.root!}>
       <Badge count={0}>
         <Button variant="outline">Zero hidden</Button>
       </Badge>

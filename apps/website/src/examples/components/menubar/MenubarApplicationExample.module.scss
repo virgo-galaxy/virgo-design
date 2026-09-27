@@ -1,0 +1,22 @@
+.root {
+  display: grid;
+  justify-items: start;
+  gap: 24px;
+  width: 100%;
+}
+
+.stage {
+  padding: 24px;
+  width: 100%;
+  min-height: 120px;
+  background: var(--vd-surface-secondary);
+  border-radius: var(--vd-radius-8);
+}
+
+.text {
+  margin-top: 0;
+}
+
+.text2 {
+  margin-bottom: 0;
+}

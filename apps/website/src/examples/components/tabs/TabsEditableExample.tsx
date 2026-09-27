@@ -1,6 +1,8 @@
 import { Tabs } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './TabsEditableExample.module.scss';
+
 export default function App() {
   const [tabs, setTabs] = useState([
     { value: 'document-1', label: 'Tab 1' },
@@ -26,7 +28,7 @@ export default function App() {
       onValueChange={setValue}
       onAdd={addTab}
       addLabel="Add document tab"
-      style={{ width: '100%' }}
+      className={styles.root!}
     >
       <Tabs.List aria-label="Open documents">
         {tabs.map((tab) => (

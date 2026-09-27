@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["vite/client", "node"],
+    "allowImportingTsExtensions": true,
     "paths": {
       "@/*": ["./src/*"],
       "@virgo-design/colors": ["../../packages/colors/src/index.ts"],

@@ -1,6 +1,8 @@
 import { Pagination, type PaginationProps, Select, Switch } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './PaginationControlledExample.module.scss';
+
 export default function App() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -9,8 +11,8 @@ export default function App() {
   const [showSizeChanger, setShowSizeChanger] = useState(true);
   const [showQuickJumper, setShowQuickJumper] = useState(true);
   return (
-    <div style={{ display: 'grid', gap: 24, width: '100%' }}>
-      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
+    <div className={styles.root!}>
+      <div className={styles.stage!}>
         <Switch checked={showTotal} onCheckedChange={setShowTotal}>
           Total
         </Switch>
@@ -50,7 +52,7 @@ export default function App() {
         align={align}
         aria-label="All options pagination"
       />
-      <p role="status" style={{ margin: 0 }}>
+      <p role="status" className={styles.text!}>
         Page {page} · {pageSize} items per page
       </p>
     </div>

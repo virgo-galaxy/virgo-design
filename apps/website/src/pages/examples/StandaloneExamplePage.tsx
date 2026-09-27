@@ -1,6 +1,8 @@
+import type { ComponentType } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate, useParams, useSearchParams } from 'react-router-dom';
 
-import { getComponentExample } from '@/examples/components/example-registry';
+import { loadStandaloneExample } from '@/examples/components/standalone-example-registry';
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
 import type { Appearance } from '@/shared/theme/types';
 import { useAppearance } from '@/shared/theme/use-appearance';
@@ -15,23 +17,35 @@ export function StandaloneExamplePage() {
   const { exampleId = '' } = useParams();
   const [searchParams] = useSearchParams();
   const { appearance } = useAppearance();
-  const example = getComponentExample(exampleId);
+  const [Example, setExample] = useState<ComponentType | null>();
 
-  if (!example) {
+  useEffect(() => {
+    let active = true;
+    setExample(undefined);
+
+    void loadStandaloneExample(exampleId).then((component) => {
+      if (active) setExample(() => component ?? null);
+    });
+
+    return () => {
+      active = false;
+    };
+  }, [exampleId]);
+
+  if (Example === null) {
     return <Navigate to={ROUTE_PATHS.components} replace />;
   }
 
   const theme = readTheme(searchParams.get('theme'), appearance);
-  const Example = example.Component;
 
   return (
     <main
       className={styles.root}
       data-theme={theme}
-      data-standalone-example={example.id}
-      aria-label={`${example.title} example`}
+      data-standalone-example={exampleId}
+      aria-label={`${exampleId} example`}
     >
-      <Example />
+      {Example ? <Example /> : <div aria-busy="true" />}
     </main>
   );
 }

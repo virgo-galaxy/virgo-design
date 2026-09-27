@@ -1,0 +1,46 @@
+.root {
+  width: 100%;
+  height: 400px;
+}
+
+.header {
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, var(--vd-neutral-1) 80%, transparent);
+  font-size: 12px;
+  font-weight: 400;
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0 7px,
+    color-mix(in srgb, var(--vd-neutral-1) 14%, transparent) 7px 8px
+  );
+}
+
+.label {
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, var(--vd-neutral-1) 80%, transparent);
+  font-size: 12px;
+  font-weight: 400;
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0 7px,
+    color-mix(in srgb, var(--vd-neutral-1) 14%, transparent) 7px 8px
+  );
+  width: 100%;
+  height: 100%;
+}
+
+.footer {
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, var(--vd-neutral-1) 80%, transparent);
+  font-size: 12px;
+  font-weight: 400;
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0 7px,
+    color-mix(in srgb, var(--vd-neutral-1) 14%, transparent) 7px 8px
+  );
+  min-height: 48px;
+}

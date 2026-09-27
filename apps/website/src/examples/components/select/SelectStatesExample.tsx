@@ -1,8 +1,10 @@
 import { Select } from '@virgo-design/ui';
 
+import styles from './SelectStatesExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 320 }}>
+    <div className={styles.root!}>
       <Select>
         <Select.Trigger aria-label="Default project" placeholder="Project" />
         <Select.Content>

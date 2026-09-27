@@ -1,8 +1,10 @@
 import { Input } from '@virgo-design/ui';
 
+import styles from './InputSizesExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 360 }}>
+    <div className={styles.root!}>
       {(['mini', 'small', 'medium', 'large'] as const).map((size) => (
         <Input key={size} aria-label={`${size} input`} placeholder={`${size} input`} size={size} />
       ))}

@@ -1,8 +1,10 @@
 import { Card } from '@virgo-design/ui';
 
+import styles from './CardHeaderExample.module.scss';
+
 export default function App() {
   return (
-    <Card style={{ width: '100%', maxWidth: 360 }}>
+    <Card className={styles.root!}>
       <Card.Header>
         <Card.Title as="h3">Virgo Design</Card.Title>
         <Card.Description>Shared UI components and design tokens.</Card.Description>

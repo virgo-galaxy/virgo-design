@@ -3,8 +3,10 @@ import { fileURLToPath, URL } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
+import { rawScssSourcePlugin } from '../../config/raw-scss-source-plugin.ts';
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [rawScssSourcePlugin(), react()],
 
   server: {
     port: 6300,

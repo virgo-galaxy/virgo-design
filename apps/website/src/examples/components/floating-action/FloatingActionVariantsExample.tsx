@@ -2,10 +2,12 @@ import { SettingsIcon } from '@virgo-design/icons';
 import { FloatingAction } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './FloatingActionVariantsExample.module.scss';
+
 export default function App() {
   const [selected, setSelected] = useState('none');
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 24 }}>
+    <div className={styles.root!}>
       {(['primary', 'secondary', 'outline', 'text'] as const).map((variant) => (
         <FloatingAction
           key={variant}

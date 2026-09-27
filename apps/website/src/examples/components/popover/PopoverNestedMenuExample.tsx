@@ -1,15 +1,17 @@
 import { Dropdown, Popover } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './PopoverNestedMenuExample.module.scss';
+
 export default function App() {
   const [visibility, setVisibility] = useState('Private');
   return (
     <Popover>
       <Popover.Trigger>Sharing settings</Popover.Trigger>
       <Popover.Content aria-label="Sharing settings panel" arrow>
-        <div style={{ display: 'grid', gap: 12, maxWidth: 260 }}>
+        <div className={styles.root!}>
           <strong>Sharing</strong>
-          <p style={{ margin: 0 }}>Visibility: {visibility}</p>
+          <p className={styles.text!}>Visibility: {visibility}</p>
           <Dropdown>
             <Dropdown.Trigger>Change visibility</Dropdown.Trigger>
             <Dropdown.Content>

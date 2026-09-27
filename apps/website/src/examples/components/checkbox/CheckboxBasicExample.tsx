@@ -1,8 +1,10 @@
 import { Checkbox } from '@virgo-design/ui';
 
+import styles from './CheckboxBasicExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+    <div className={styles.root!}>
       <Checkbox>Unchecked</Checkbox>
       <Checkbox defaultChecked>Checked</Checkbox>
       <Checkbox indeterminate>Indeterminate</Checkbox>

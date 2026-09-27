@@ -1,3 +1,5 @@
+import './TooltipDynamicExample.module.scss';
+
 import { Tooltip } from '@virgo-design/ui';
 import { useEffect, useState } from 'react';
 

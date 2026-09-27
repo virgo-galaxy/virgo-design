@@ -20,12 +20,12 @@ function renderStandalone(path: string, appearance: Appearance = 'light') {
 }
 
 describe('StandaloneExamplePage', () => {
-  it('renders the registered example without documentation chrome and honors the requested theme', () => {
+  it('renders the registered example without documentation chrome and honors the requested theme', async () => {
     const { container } = renderStandalone('/examples/button-variants?theme=dark');
     const standalone = container.querySelector('[data-standalone-example="button-variants"]');
 
     expect(standalone).toHaveAttribute('data-theme', 'dark');
-    expect(screen.getByRole('button', { name: 'Primary Button' })).toBeInTheDocument();
+    expect(await screen.findByRole('button', { name: 'Primary Button' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Secondary Button' })).toBeInTheDocument();
     expect(
       screen.queryByRole('navigation', { name: 'Component navigation' }),

@@ -1,3 +1,5 @@
+import './AvatarPresenceExample.module.scss';
+
 import { Avatar, Badge } from '@virgo-design/ui';
 
 export default function App() {

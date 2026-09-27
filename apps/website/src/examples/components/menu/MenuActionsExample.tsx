@@ -2,6 +2,8 @@ import { LayoutIcon, PlusIcon, TrashIcon } from '@virgo-design/icons';
 import { Menu } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './MenuActionsExample.module.scss';
+
 function SharedItems({ select }: { select: (name: string) => void }) {
   return (
     <>
@@ -46,14 +48,14 @@ function SharedItems({ select }: { select: (name: string) => void }) {
 export default function App() {
   const [action, setAction] = useState('Choose an action.');
   return (
-    <div style={{ display: 'grid', justifyItems: 'start', gap: 16 }}>
+    <div className={styles.root!}>
       <Menu>
         <Menu.Trigger>Actions</Menu.Trigger>
         <Menu.Content>
           <SharedItems select={setAction} />
         </Menu.Content>
       </Menu>
-      <p role="status" style={{ margin: 0 }}>
+      <p role="status" className={styles.text!}>
         {action}
       </p>
     </div>

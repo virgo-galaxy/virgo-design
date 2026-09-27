@@ -1,8 +1,10 @@
 import { Tag } from '@virgo-design/ui';
 
+import styles from './TagIntentsExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+    <div className={styles.root!}>
       {(['neutral', 'brand', 'success', 'warning', 'danger', 'info'] as const).map((intent) => (
         <Tag key={intent} intent={intent}>
           {intent}

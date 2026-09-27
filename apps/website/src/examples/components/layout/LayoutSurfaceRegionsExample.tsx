@@ -1,25 +1,14 @@
 import { Layout } from '@virgo-design/ui';
 
-const labelStyle = {
-  display: 'grid',
-  placeItems: 'center',
-  color: 'color-mix(in srgb, var(--vd-neutral-1) 80%, transparent)',
-  fontSize: 12,
-  fontWeight: 400,
-} as const;
-
-const hatchStyle = {
-  backgroundImage:
-    'repeating-linear-gradient(135deg, transparent 0 7px, color-mix(in srgb, var(--vd-neutral-1) 14%, transparent) 7px 8px)',
-} as const;
+import styles from './LayoutSurfaceRegionsExample.module.scss';
 
 export default function App() {
   return (
-    <Layout style={{ width: '100%', height: 400 }}>
+    <Layout className={styles.root!}>
       <Layout.Header
         height={64}
         surface={{ background: { type: 'color', value: 'var(--vd-brand-5)' }, border: 'none' }}
-        style={{ ...labelStyle, ...hatchStyle }}
+        className={styles.header!}
       >
         Header
       </Layout.Header>
@@ -28,20 +17,18 @@ export default function App() {
           width={224}
           surface={{ background: { type: 'color', value: 'var(--vd-brand-6)' }, border: 'none' }}
         >
-          <span style={{ ...labelStyle, ...hatchStyle, width: '100%', height: '100%' }}>
-            Sidebar
-          </span>
+          <span className={styles.label!}>Sidebar</span>
         </Layout.Sidebar>
         <Layout.Content
           surface={{ background: { type: 'color', value: 'var(--vd-brand-7)' }, border: 'none' }}
-          style={{ ...labelStyle, ...hatchStyle }}
+          className={styles.header!}
         >
           Content
         </Layout.Content>
       </Layout>
       <Layout.Footer
         surface={{ background: { type: 'color', value: 'var(--vd-brand-5)' }, border: 'none' }}
-        style={{ ...labelStyle, ...hatchStyle, minHeight: 48 }}
+        className={styles.footer!}
       >
         Footer
       </Layout.Footer>

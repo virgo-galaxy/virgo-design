@@ -1,3 +1,5 @@
+import './NavigationNestedExample.module.scss';
+
 import { BotIcon, DashboardIcon, GlobeIcon, HomeIcon, LayoutIcon } from '@virgo-design/icons';
 import { NavigationMenu } from '@virgo-design/ui';
 

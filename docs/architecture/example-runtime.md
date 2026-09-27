@@ -26,16 +26,16 @@ ArticleSection
       live preview — plain background, no coordinate grid
       Open-in-new-window + Code actions in the lower-right corner + small Tooltips
     source panel — hidden initially, BELOW the preview frame
-      header: static React logo + React framework label on the left, Copy on the right
-      exact raw source in pre/code
+      header: React / SCSS tabs on the left, Copy on the right
+      exact active raw file in pre/code
     visually hidden copy announcement
 ```
 
 `ArticleSection` and `ComponentExample` are Website-local documentation infrastructure, not
 public `@virgo-design/ui` components. The toolbar uses the real Virgo `Button`, `Tooltip`,
-`ExternalLinkIcon`, `CodeIcon`, `CopyIcon` and `CheckIcon`. The React framework label uses the local
-`react-logo.svg` asset supplied for the Website; it is not added to the public icon package.
-No controls nest buttons.
+`ExternalLinkIcon`, `CodeIcon`, `CopyIcon` and `CheckIcon`. Source tabs use the local
+`react-logo.svg` and `sass-logo.svg` assets supplied for the Website; these framework marks are not
+added to the public icon package. No controls nest buttons.
 
 The page hero/reference specimen may keep its existing grid. Pages using this runtime wrap their
 examples in `ComponentExampleRuntimeProvider` and place `ComponentExampleRuntimeControl` at the
@@ -49,46 +49,60 @@ For a section with one example, use `showCaption={false}` to avoid repeating the
 For a section with several examples, the default caption renders each example's h3 and description
 above its own frame. Example metadata supplies these captions, not the executable TSX file.
 
-## One executable source
+## One executable example, two exact source files
 
-A complete example is maintained in one file:
+A complete example owns one React file and one neighboring SCSS file:
 
 ```tsx
+import styles from './Example.module.scss';
+
 import { Button } from '@virgo-design/ui';
 
 export default function App() {
-  return <Button>Save changes</Button>;
+  return <Button className={styles.action}>Save changes</Button>;
 }
 ```
 
-The Website's example manifest imports that same file in two forms:
+```scss
+.action {
+  margin-inline: auto;
+}
+```
+
+The Website manifest imports the executable React module plus both files as raw source:
 
 ```ts
 import Example from './Example';
+import styleSource from './Example.module.scss?raw';
 import source from './Example.tsx?raw';
 ```
 
-The normal import executes the demo. The raw import supplies the displayed and copied code. The
-runtime does not reconstruct JSX, call `toString()`, evaluate text, extract AST nodes, or maintain
-another source string. Both rendering and copying receive the exact `source`, including its final
-newline. Vite performs the raw import at development/build time, not with browser file-system access.
+The normal TSX import executes the demo and its CSS Module import applies the exact companion
+stylesheet. Raw imports supply the two source tabs and Copy action. The runtime never reconstructs
+JSX or CSS, calls `toString()`, evaluates text, extracts AST nodes in the browser, or maintains a
+second handwritten snippet. Rendering, viewing, and copying therefore stay tied to the real files.
+Vite resolves both raw imports at development/build time; no browser file-system access is used.
 
-Each example uses `export default function App()`, real required imports, and only the state/helpers
-needed to demonstrate the subject. Simple native layout is allowed. Website-only `ArticleSection`,
-`ReviewSection`, metadata, cards, measurements and documentation helpers stay outside it.
+Every example uses `export default function App()`, real required imports, and only the state/helpers
+needed to demonstrate the subject. Example presentation belongs in the companion SCSS file rather
+than React `style` attributes. React stays responsible for structure, state, component props, and
+semantic class names. Truly component-owned styling remains inside `@virgo-design/ui`; an example
+SCSS file may therefore contain only a short explanatory comment when no example-specific rule is
+needed.
 
-Every migrated UI metadata entry, including Textarea, keeps `examples: []`; the public metadata
-shape is unchanged. Do not reintroduce duplicate `code` snippets. The Website's `examples.ts`
-manifests own titles, descriptions, and imports of the executable files.
+Website-only `ArticleSection`, `ReviewSection`, metadata, cards, measurements and documentation
+helpers stay outside examples. Every migrated UI metadata entry, including Textarea, keeps
+`examples: []`; the public metadata shape is unchanged. The Website's `examples.ts` manifests own
+titles, descriptions, executable imports, and exact React / SCSS raw-source bindings.
 
-An example can use the public React, Virgo UI, and Virgo Icons imports. Its required helpers are
-in the same TSX module. It does not depend on Website aliases, page state, `ReviewSection`, or
-private page SCSS. Small, ordinary inline layout styles are part of the copied source. The consumer
-still needs the normal Virgo UI installation and stylesheet/token setup; an example does not
-reinstall or globally configure the design system.
+Examples may use public React, Virgo UI, and Virgo Icons imports. Required helpers stay in the same
+TSX module. They do not depend on Website aliases or page-owned SCSS. The consumer still needs the
+normal Virgo UI installation and stylesheet/token setup; an example does not reinstall or globally
+configure the design system.
 
-Surface image examples embed the repository-owned decorative SVG as a data URL so they work
-offline after copying. That fixture is not a new public component or an image-loading service.
+Surface image examples keep repository-owned decorative data in their companion SCSS so the copied
+React structure is not polluted by presentation data. Those fixtures remain local examples rather
+than public components or image-loading services.
 
 ## Interaction contract
 
@@ -111,15 +125,12 @@ offline after copying. That fixture is not a new public component or an image-lo
   together on activation. No icon is used for this page-level action. Bulk source disclosure never
   opens menus, dialogs, drawers, popovers, or notifications. Each page owns a separate provider;
   navigating to another page starts with its source panels closed.
-- The source panel header places a static React-logo-and-`React` framework label on the left,
-  with Copy aligned to the right. The preview disclosure, source header, code body, and Copy action
-  share one inset token (16px desktop, 12px compact), so the React logo aligns with source text and
-  the disclosure/Copy controls share one vertical axis. The supplied logo stays cyan (`#61DAFB`) at 16px, while the
-  text keeps its neutral color. The framework label is presentational only: it is not a button,
-  has no hover/focus state, and does not own a Tooltip. Source disclosure remains exclusively on
-  the persistent Code button in the preview's lower-right corner.
-  `React` is the display label; the source remains TSX (`data-language="tsx"`) and the raw file is
-  unchanged. This documentation metadata is never included in the displayed or copied source.
+- The source panel header places two accessible file tabs on the left—`React` and `SCSS`—with Copy
+  aligned to the right. React uses the supplied cyan React mark; SCSS uses the supplied Sass mark.
+  The active tab changes only the exact raw file shown and copied; it never remounts the running
+  preview. React maps to `data-language="tsx"`, SCSS maps to `data-language="scss"`, and both share
+  one inset token (16px desktop, 12px compact). Source disclosure remains exclusively on the
+  persistent Code button in the preview's lower-right corner.
 - The running example stays mounted while source opens/closes. In-progress forms are not reset.
   Source disclosure uses a 240ms emphasized grid/margin transition with a shorter 180ms opacity
   transition in both directions, replacing the previous 120ms enter-only animation. Reduced-motion
@@ -128,13 +139,13 @@ offline after copying. That fixture is not a new public component or an image-lo
   icons. They support Enter/Space and visible keyboard focus. The icon-only `variant="text"`
   Button uses its public `shape="circle"` and neutral hover/pressed fills. The preview actions and Copy
   all use the small icon-button size so their centers share one right-edge control axis.
-  The React framework label is static metadata rather than an action. No permanent visible border
-  is added. Expanded source actions retain full opacity even when the pointer is elsewhere, so a
+  The React / SCSS source labels are tabs rather than disclosure actions. No permanent visible border
+  is added beyond the active-tab indicator. Expanded source actions retain full opacity even when the pointer is elsewhere, so a
   bulk expansion keeps the light/dark inverse state visible. The preview reserves a bottom safe
   area from the same inset, the small action's sizing token, and a spacing token; the source action
   cannot cover the final row of a full-width example.
-- Copy is available in the expanded source header. It writes the full raw file, not the selected
-  text, the `React` header, or just the JSX. Repeated clicks during a pending write are ignored.
+- Copy is available in the expanded source header. It writes the full raw file of the active React
+  or SCSS tab, not selected text or tab metadata. Repeated clicks during a pending write are ignored.
 - Success is reported only after `writeText` resolves: CopyIcon becomes CheckIcon using the shared
   `--vd-status-success-accent` semantic token, and the Tooltip says `Copied`. Both reset after two
   seconds without dismissing the Tooltip or moving the button.
@@ -161,7 +172,8 @@ No new global theme state is introduced; the docs and portalled Tooltips use the
 ## Example inventory
 
 All manifests live at `apps/website/src/examples/components/<component>/examples.ts`.
-Each entry imports a neighboring `*Example.tsx` normally and as `?raw`.
+Each entry imports a neighboring `*Example.tsx` normally and as `?raw`, plus the matching
+`*Example.module.scss?raw`. Every executable example imports that same SCSS file for its actual rendering.
 
 | Component family    | Executable examples |
 | ------------------- | ------------------: |
@@ -235,9 +247,9 @@ The legacy hard-coded Surface `<details>` source block and 105 duplicate metadat
 
 ## Verification
 
-Repository tests cover article structure, exact raw source, disclosure semantics, unique panel IDs,
-keyboard disclosure actions, static React framework metadata, the synchronized Expand all / Collapse
-all runtime control, real Virgo icons/Tooltip, copy-to-check feedback, clipboard
+Repository tests cover article structure, exact paired React / SCSS raw sources, disclosure semantics,
+unique panel IDs, keyboard disclosure actions, source-tab switching, the synchronized Expand all /
+Collapse all runtime control, real Virgo icons/Tooltip, copy-to-check feedback, clipboard
 success/failure/pending/retry/unmount behavior, stateful Dialog integration, duplicate instance registration/unregistration, all 35 pages in both
 themes, and representative independent form/menu/tab/notification examples. Manifest tests pair
 all executable modules with their exact raw source and check public dependency boundaries.

@@ -26,7 +26,31 @@ describe('Tooltip primitive', () => {
     fireEvent.pointerDown(trigger);
     fireEvent.click(trigger);
     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    expect(document.querySelector('[role="tooltip"]')).toBeNull();
     expect(trigger.parentElement).not.toHaveAttribute('closeOnClick');
+  });
+
+  it('keeps activation-dismissed hover closed across a tab-style blur and refocus', () => {
+    render(<Example openDelay={0} />);
+    const trigger = screen.getByRole('button');
+
+    fireEvent.pointerEnter(trigger, { pointerType: 'mouse' });
+    expect(screen.getByRole('tooltip')).toBeInTheDocument();
+
+    fireEvent.pointerDown(trigger, { pointerType: 'mouse' });
+    fireEvent.click(trigger, { detail: 1 });
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+
+    // Opening another browser tab blurs the document with no related in-document target.
+    fireEvent.blur(trigger, { relatedTarget: null });
+    fireEvent.focus(trigger);
+    fireEvent.pointerEnter(trigger, { pointerType: 'mouse' });
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+
+    // Once the pointer genuinely leaves, a later re-entry is a fresh hover interaction.
+    fireEvent.pointerLeave(trigger, { pointerType: 'mouse' });
+    fireEvent.pointerEnter(trigger, { pointerType: 'mouse' });
+    expect(screen.getByRole('tooltip')).toBeInTheDocument();
   });
 
   it('keeps the same tooltip on pointerdown/click while updating text', async () => {

@@ -1,9 +1,11 @@
 import { CircleInfoIcon, SearchIcon, SettingsIcon, UserIcon } from '@virgo-design/icons';
 import { Tabs } from '@virgo-design/ui';
 
+import styles from './TabsIconsExample.module.scss';
+
 export default function App() {
   return (
-    <Tabs defaultValue="account" style={{ width: '100%' }}>
+    <Tabs defaultValue="account" className={styles.root!}>
       <Tabs.List aria-label="Settings sections">
         <Tabs.Tab value="account" icon={<UserIcon />}>
           Account

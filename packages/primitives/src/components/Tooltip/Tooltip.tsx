@@ -33,8 +33,10 @@ type Context = {
   focused: React.MutableRefObject<boolean>;
   hovered: React.MutableRefObject<boolean>;
   dismissed: React.MutableRefObject<boolean>;
+  activationDismissed: React.MutableRefObject<boolean>;
   show: (immediate: boolean) => void;
   dismiss: () => void;
+  dismissImmediately: () => void;
   leave: () => void;
   cancelClose: () => void;
 };
@@ -72,6 +74,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
   const focused = useRef(false);
   const hovered = useRef(false);
   const dismissed = useRef(false);
+  const activationDismissed = useRef(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const id = useId();
   const layer = useOverlayLayer(triggerRef, contentRef);
@@ -110,6 +113,14 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
     cancelOpen();
     cancelClose();
     dismissed.current = suppress;
+    setOpen(false);
+  };
+  const dismissImmediately = () => {
+    cancelOpen();
+    cancelClose();
+    dismissed.current = true;
+    activationDismissed.current = true;
+    setSkipExit(true);
     setOpen(false);
   };
   useDismiss({
@@ -152,8 +163,10 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
         focused,
         hovered,
         dismissed,
+        activationDismissed,
         show,
         dismiss,
+        dismissImmediately,
         leave,
         cancelClose,
       }}
@@ -202,6 +215,7 @@ export const TooltipTrigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>
         onPointerEnter?.(event);
         if (event.defaultPrevented || event.pointerType === 'touch') return;
         context.hovered.current = true;
+        if (context.activationDismissed.current) return;
         context.dismissed.current = false;
         context.show(false);
       },
@@ -209,31 +223,42 @@ export const TooltipTrigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>
         onPointerLeave?.(event);
         if (event.defaultPrevented) return;
         context.hovered.current = false;
+        context.activationDismissed.current = false;
+        context.dismissed.current = false;
         context.leave();
       },
       onFocus: (event) => {
         onFocus?.(event);
         if (event.defaultPrevented) return;
         context.focused.current = true;
+        if (context.activationDismissed.current) return;
         context.show(true);
       },
       onBlur: (event) => {
         onBlur?.(event);
         if (event.defaultPrevented) return;
         context.focused.current = false;
-        context.dismissed.current = false;
+        // A real in-document focus transfer is a fresh interaction. A window/tab blur has no
+        // related target, so activation dismissal must survive until the pointer actually leaves.
+        if (
+          event.relatedTarget &&
+          event.currentTarget.ownerDocument.contains(event.relatedTarget)
+        ) {
+          context.activationDismissed.current = false;
+          context.dismissed.current = false;
+        }
         context.leave();
       },
       onPointerDown: (event) => {
         onPointerDown?.(event);
         if (event.defaultPrevented) return;
-        if (context.closeOnClick) context.dismiss();
+        if (context.closeOnClick) context.dismissImmediately();
       },
       onClick: (event) => {
         onClick?.(event);
         if (event.defaultPrevented) return;
         if (context.closeOnClick) {
-          context.dismiss();
+          context.dismissImmediately();
         } else if (event.detail > 0) {
           // A pointer click may focus the native button, but hover should still own this tooltip's
           // lifetime. Once the pointer leaves, that incidental focus must not pin the panel open.

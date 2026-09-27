@@ -1,0 +1,16 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.stage {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 80px;
+  border-radius: var(--vd-radius-8);
+  color: var(--vd-text-primary);
+  background: var(--vd-surface-default);
+  border: 1px solid var(--vd-border-subtle);
+}

@@ -1,8 +1,10 @@
 import { Button } from '@virgo-design/ui';
 
+import styles from './ButtonVariantsExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+    <div className={styles.root!}>
       <Button variant="primary">Primary Button</Button>
       <Button variant="secondary">Secondary Button</Button>
       <Button variant="outline">Outline Button</Button>

@@ -1,3 +1,5 @@
+import './DialogFormExample.module.scss';
+
 import { Button, Dialog, Input } from '@virgo-design/ui';
 import { useState } from 'react';
 

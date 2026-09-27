@@ -1,10 +1,12 @@
 import { Command } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './CommandFilterExample.module.scss';
+
 export default function App() {
   const [selection, setSelection] = useState('None');
   return (
-    <div style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 400 }}>
+    <div className={styles.root!}>
       <Command filter={(value, search) => value.startsWith(search.toLowerCase())}>
         <Command.Input aria-label="Prefix filter" placeholder="Try pref…" />
         <Command.List>

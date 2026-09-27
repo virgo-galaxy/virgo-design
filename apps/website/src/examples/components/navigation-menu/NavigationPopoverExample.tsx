@@ -1,3 +1,5 @@
+import './NavigationPopoverExample.module.scss';
+
 import { DashboardIcon, GlobeIcon, SettingsIcon } from '@virgo-design/icons';
 import { NavigationMenu } from '@virgo-design/ui';
 

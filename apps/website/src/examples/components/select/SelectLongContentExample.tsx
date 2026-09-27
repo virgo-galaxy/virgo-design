@@ -1,8 +1,10 @@
 import { Select } from '@virgo-design/ui';
 
+import styles from './SelectLongContentExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ width: '100%', maxWidth: 240 }}>
+    <div className={styles.root!}>
       <Select defaultValue="long">
         <Select.Trigger aria-label="Long project" />
         <Select.Content>

@@ -1,0 +1,23 @@
+.root {
+  display: grid;
+  gap: 20px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.skeleton {
+  height: 144px;
+}
+
+.stage {
+  display: grid;
+  gap: 8px;
+}
+
+.skeleton2 {
+  width: 72%;
+}
+
+.skeleton3 {
+  width: 84%;
+}

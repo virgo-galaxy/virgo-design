@@ -1,19 +1,14 @@
 import { Surface } from '@virgo-design/ui';
 
+import styles from './SurfaceColorBackgroundExample.module.scss';
+
 export default function App() {
   return (
-    <div
-      style={{
-        display: 'grid',
-        gap: 16,
-        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
-        width: '100%',
-      }}
-    >
+    <div className={styles.root!}>
       <Surface
         background={{ type: 'color', value: '#243852' }}
         radius={12}
-        style={{ padding: 24, color: '#ffffff' }}
+        className={styles.surface!}
       >
         <strong>Custom color</strong>
         <p>A flat decorative background below normal content.</p>
@@ -24,7 +19,7 @@ export default function App() {
           value: 'linear-gradient(125deg, #263c60, #5e448e 55%, #8b506d)',
         }}
         radius={12}
-        style={{ padding: 24, color: '#ffffff' }}
+        className={styles.surface!}
       >
         <strong>Custom gradient</strong>
         <p>Consumers own the foreground contrast.</p>

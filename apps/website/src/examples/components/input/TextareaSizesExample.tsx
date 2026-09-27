@@ -1,8 +1,10 @@
 import { Textarea } from '@virgo-design/ui';
 
+import styles from './TextareaSizesExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 480 }}>
+    <div className={styles.root!}>
       {(['mini', 'small', 'medium', 'large'] as const).map((size) => (
         <Textarea
           key={size}

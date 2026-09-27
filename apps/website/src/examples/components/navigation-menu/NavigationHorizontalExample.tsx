@@ -1,3 +1,5 @@
+import './NavigationHorizontalExample.module.scss';
+
 import { NavigationMenu } from '@virgo-design/ui';
 
 export default function App() {

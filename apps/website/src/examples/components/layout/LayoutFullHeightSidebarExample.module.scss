@@ -1,0 +1,40 @@
+.root {
+  width: 100%;
+  height: 400px;
+}
+
+.label {
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, var(--vd-neutral-1) 80%, transparent);
+  font-size: 12px;
+  font-weight: 400;
+  height: 100%;
+}
+
+.header {
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, var(--vd-neutral-1) 80%, transparent);
+  font-size: 12px;
+  font-weight: 400;
+  min-height: 64px;
+}
+
+.content {
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, var(--vd-neutral-1) 80%, transparent);
+  font-size: 12px;
+  font-weight: 400;
+  min-height: 240px;
+}
+
+.footer {
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, var(--vd-neutral-1) 80%, transparent);
+  font-size: 12px;
+  font-weight: 400;
+  min-height: 48px;
+}

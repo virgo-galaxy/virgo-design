@@ -1,8 +1,10 @@
 import { Tabs } from '@virgo-design/ui';
 
+import styles from './TabsAlignmentExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 24, width: '100%' }}>
+    <div className={styles.root!}>
       {(['start', 'center'] as const).map((align) => (
         <Tabs key={align} align={align} defaultValue="overview">
           <Tabs.List aria-label={`${align} project sections`}>

@@ -1,3 +1,5 @@
+import './RadioVerticalExample.module.scss';
+
 import { Radio } from '@virgo-design/ui';
 
 export default function App() {

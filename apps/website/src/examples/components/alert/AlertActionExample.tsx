@@ -1,10 +1,12 @@
 import { Alert, Button } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './AlertActionExample.module.scss';
+
 export default function App() {
   const [retries, setRetries] = useState(0);
   return (
-    <div style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 640 }}>
+    <div className={styles.root!}>
       <Alert intent="error">
         <Alert.Icon />
         <Alert.Content>

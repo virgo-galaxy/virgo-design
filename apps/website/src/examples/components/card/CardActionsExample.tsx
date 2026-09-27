@@ -1,10 +1,12 @@
 import { Button, Card } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './CardActionsExample.module.scss';
+
 export default function App() {
   const [message, setMessage] = useState('Invite collaborators to this workspace.');
   return (
-    <Card style={{ width: '100%', maxWidth: 360 }}>
+    <Card className={styles.root!}>
       <Card.Header>
         <Card.Title as="h3">Project access</Card.Title>
         <Card.Description>{message}</Card.Description>

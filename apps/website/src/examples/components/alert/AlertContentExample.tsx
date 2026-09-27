@@ -1,8 +1,10 @@
 import { Alert } from '@virgo-design/ui';
 
+import styles from './AlertContentExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 640 }}>
+    <div className={styles.root!}>
       <Alert intent="success" variant="outline">
         <Alert.Icon />
         <Alert.Content>

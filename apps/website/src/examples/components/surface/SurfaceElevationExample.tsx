@@ -1,23 +1,17 @@
 import { Surface } from '@virgo-design/ui';
 
+import styles from './SurfaceElevationExample.module.scss';
+
 export default function App() {
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 120px), 1fr))',
-        gap: 24,
-        width: '100%',
-        padding: 12,
-      }}
-    >
+    <div className={styles.root!}>
       {([0, 1, 2, 3, 4, 5] as const).map((elevation) => (
         <Surface
           key={elevation}
           tone="elevated"
           elevation={elevation}
           radius={12}
-          style={{ padding: 24, textAlign: 'center' }}
+          className={styles.surface!}
         >
           Level {elevation}
         </Surface>

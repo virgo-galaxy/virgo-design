@@ -1,15 +1,17 @@
 import { Surface } from '@virgo-design/ui';
 
+import styles from './SurfaceRadiusExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+    <div className={styles.root!}>
       {([0, 6, 12, 24, 'full'] as const).map((radius) => (
         <Surface
           key={radius}
           radius={radius}
           border="default"
           tone="secondary"
-          style={{ padding: 24, minWidth: 80, textAlign: 'center' }}
+          className={styles.surface!}
         >
           {radius}
         </Surface>

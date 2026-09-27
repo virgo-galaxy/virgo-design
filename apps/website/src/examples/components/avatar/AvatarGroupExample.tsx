@@ -1,3 +1,5 @@
+import './AvatarGroupExample.module.scss';
+
 import { Avatar } from '@virgo-design/ui';
 
 export default function App() {

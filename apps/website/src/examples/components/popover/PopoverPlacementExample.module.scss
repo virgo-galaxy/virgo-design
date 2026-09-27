@@ -1,0 +1,16 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.stage {
+  display: grid;
+  gap: 12px;
+  max-width: 240px;
+}
+
+.text {
+  margin: 0;
+}

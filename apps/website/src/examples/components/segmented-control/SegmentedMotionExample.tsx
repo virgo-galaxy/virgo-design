@@ -1,12 +1,14 @@
 import { SegmentedControl } from '@virgo-design/ui';
 
+import styles from './SegmentedMotionExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 24 }}>
+    <div className={styles.root!}>
       {(['outline', 'solid', 'soft'] as const).map((variant) => (
-        <div key={variant} style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+        <div key={variant} className={styles.stage!}>
           {(['none', 'slide'] as const).map((motion) => (
-            <div key={motion} style={{ display: 'grid', gap: 8 }}>
+            <div key={motion} className={styles.stage2!}>
               <span>
                 {variant} · {motion}
               </span>

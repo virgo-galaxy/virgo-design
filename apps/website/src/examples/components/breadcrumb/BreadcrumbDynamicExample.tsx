@@ -1,10 +1,12 @@
 import { Breadcrumb, Input } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './BreadcrumbDynamicExample.module.scss';
+
 export default function App() {
   const [userId, setUserId] = useState('1');
   return (
-    <div style={{ display: 'grid', gap: 24, width: '100%', maxWidth: 360 }}>
+    <div className={styles.root!}>
       <Input
         aria-label="User identifier"
         value={userId}

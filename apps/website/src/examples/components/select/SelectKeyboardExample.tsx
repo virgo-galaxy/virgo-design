@@ -1,8 +1,10 @@
 import { Select } from '@virgo-design/ui';
 
+import styles from './SelectKeyboardExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ width: '100%', maxWidth: 320 }}>
+    <div className={styles.root!}>
       <Select>
         <Select.Trigger aria-label="Keyboard project" placeholder="Focus, then use ArrowDown" />
         <Select.Content>

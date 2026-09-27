@@ -1,5 +1,7 @@
 import { Surface } from '@virgo-design/ui';
 
+import styles from './SurfaceImageBackgroundExample.module.scss';
+
 const landscape = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" fill="none">
   <defs>
     <linearGradient id="sky" x2="960" y2="640" gradientUnits="userSpaceOnUse">
@@ -29,13 +31,11 @@ export default function App() {
     <Surface
       background={{ type: 'image', src: landscape, fit: 'cover', position: 'center' }}
       radius={12}
-      style={{ width: '100%', minHeight: 240, display: 'grid', alignItems: 'end', padding: 24 }}
+      className={styles.root!}
     >
-      <Surface material="glass" tone="elevated" radius={8} style={{ padding: 16 }}>
+      <Surface material="glass" tone="elevated" radius={8} className={styles.surface!}>
         <strong>Decorative landscape</strong>
-        <p style={{ marginBottom: 0 }}>
-          Use an img with alt text when the picture carries meaning.
-        </p>
+        <p className={styles.text!}>Use an img with alt text when the picture carries meaning.</p>
       </Surface>
     </Surface>
   );

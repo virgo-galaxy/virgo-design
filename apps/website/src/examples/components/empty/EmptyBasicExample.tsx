@@ -1,8 +1,10 @@
 import { Empty } from '@virgo-design/ui';
 
+import styles from './EmptyBasicExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+    <div className={styles.root!}>
       <Empty aria-label="Empty documents">
         <Empty.Title>No documents</Empty.Title>
       </Empty>

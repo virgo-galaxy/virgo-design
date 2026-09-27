@@ -1,6 +1,8 @@
 import { Button, Toast, type ToastIntent } from '@virgo-design/ui';
 import { useRef, useState } from 'react';
 
+import styles from './ToastIntentsExample.module.scss';
+
 export default function App() {
   const [toasts, setToasts] = useState<Array<{ id: number; intent: ToastIntent }>>([]);
   const nextId = useRef(1);
@@ -11,26 +13,15 @@ export default function App() {
   // This local demo opts out of the document-wide F8 shortcut.
   return (
     <Toast.Provider hotkey={[]}>
-      <div style={{ display: 'grid', gap: 24, width: '100%', justifyItems: 'center' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+      <div className={styles.root!}>
+        <div className={styles.stage!}>
           {(['default', 'success', 'warning', 'error', 'info'] as const).map((intent) => (
             <Button key={intent} variant="outline" onClick={() => addToast(intent)}>
               Show {intent}
             </Button>
           ))}
         </div>
-        <Toast.Viewport
-          aria-label="Status notifications"
-          style={{
-            position: 'relative',
-            inset: 'auto',
-            transform: 'none',
-            width: '100%',
-            maxWidth: 320,
-            maxHeight: 'none',
-            zIndex: 'auto',
-          }}
-        />
+        <Toast.Viewport aria-label="Status notifications" className={styles.viewport!} />
       </div>
       {toasts.map((toast) => (
         <Toast.Root

@@ -1,8 +1,10 @@
 import { Badge, Button } from '@virgo-design/ui';
 
+import styles from './BadgeCountsExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 32 }}>
+    <div className={styles.root!}>
       <Badge count={8}>
         <Button variant="outline">Inbox</Button>
       </Badge>

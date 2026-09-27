@@ -1,10 +1,12 @@
 import { Menu } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './MenuCheckboxExample.module.scss';
+
 export default function App() {
   const [grid, setGrid] = useState(true);
   return (
-    <div style={{ display: 'grid', justifyItems: 'start', gap: 16 }}>
+    <div className={styles.root!}>
       <Menu>
         <Menu.Trigger>View options</Menu.Trigger>
         <Menu.Content>

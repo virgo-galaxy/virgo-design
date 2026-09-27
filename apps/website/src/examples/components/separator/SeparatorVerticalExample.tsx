@@ -1,8 +1,10 @@
 import { Separator } from '@virgo-design/ui';
 
+import styles from './SeparatorVerticalExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 20, minHeight: 40 }}>
+    <div className={styles.root!}>
       <span>Overview</span>
       <Separator orientation="vertical" />
       <span>Activity</span>

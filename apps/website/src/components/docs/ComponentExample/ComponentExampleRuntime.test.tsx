@@ -18,6 +18,7 @@ const example = {
   title: 'Stateful preview',
   Component: StatefulPreview,
   source: 'export default function App() { return <button>Count: 0</button>; }',
+  styleSource: '.stateful-preview {}',
 } satisfies ComponentExampleDefinition;
 
 function toggleIn(element: HTMLElement, expanded: boolean) {

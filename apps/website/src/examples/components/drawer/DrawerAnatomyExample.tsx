@@ -1,3 +1,5 @@
+import './DrawerAnatomyExample.module.scss';
+
 import { Drawer } from '@virgo-design/ui';
 
 export default function App() {

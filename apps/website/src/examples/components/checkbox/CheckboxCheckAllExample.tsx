@@ -1,6 +1,8 @@
 import { Checkbox, Separator } from '@virgo-design/ui';
 import { useId, useState } from 'react';
 
+import styles from './CheckboxCheckAllExample.module.scss';
+
 const values = ['apple', 'pear', 'orange'];
 
 export default function App() {
@@ -9,7 +11,7 @@ export default function App() {
   const allChecked = selected.length === values.length;
   const partiallyChecked = selected.length > 0 && !allChecked;
   return (
-    <div style={{ display: 'grid', gap: 20 }}>
+    <div className={styles.root!}>
       <Checkbox
         checked={allChecked}
         indeterminate={partiallyChecked}

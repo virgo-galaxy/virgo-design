@@ -15,6 +15,7 @@ import {
   ComponentExampleRuntimeProvider,
 } from './ComponentExampleRuntime';
 import reactLogo from './react-logo.svg';
+import sassLogo from './sass-logo.svg';
 
 const originalClipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
 
@@ -24,6 +25,10 @@ function setClipboard(value: unknown) {
 
 function openSource(title = 'Basic variants') {
   fireEvent.click(screen.getByRole('button', { name: `View source for ${title}` }));
+}
+
+function canonicalReactSource(source: string) {
+  return source.replace(/from ['"]\.\/[^'"]+\.module\.scss['"]/g, "from './Example.module.scss'");
 }
 
 function expectIcon(button: HTMLElement, Icon: typeof CopyIcon) {
@@ -116,14 +121,21 @@ describe('ComponentExample', () => {
     expect(container.querySelector('[data-example-source]')).toBeVisible();
   });
 
-  it('runs the real example and uses its exact raw source, without a second code string', () => {
+  it('runs the real example and uses its exact paired React / SCSS raw sources', () => {
     const example = buttonExamples.variants;
     const { container } = render(<ComponentExample example={example} />);
 
     expect(screen.getByRole('button', { name: 'Primary Button' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Secondary Button' })).toBeInTheDocument();
-    expect(container.querySelector('pre code')?.textContent).toBe(example.source);
+    expect(example.source).toContain("import styles from './ButtonVariantsExample.module.scss';");
+    expect(container.querySelector('pre code')?.textContent).toContain(
+      "import styles from './Example.module.scss';",
+    );
+    expect(container.querySelector('pre code')?.textContent).not.toContain(
+      './ButtonVariantsExample.module.scss',
+    );
     expect(example.source).toContain('export default function App()');
+    expect(example.styleSource).toContain('.root');
     expect(example.source).not.toContain('ReviewSection');
     expect(example.source).not.toContain('ArticleSection');
     expect(container.querySelector('[data-example-source]')).toHaveAttribute(
@@ -132,7 +144,7 @@ describe('ComponentExample', () => {
     );
   });
 
-  it('keeps standalone and source actions in the preview and renders React as static source metadata', () => {
+  it('keeps standalone and source actions in the preview and exposes React / SCSS source tabs', () => {
     const { container } = render(<ComponentExample example={buttonExamples.variants} />);
     const frame = container.querySelector('[data-example-frame]');
     const toolbar = container.querySelector('[data-example-toolbar]');
@@ -149,10 +161,8 @@ describe('ComponentExample', () => {
     expect(toolbar?.contains(external)).toBe(true);
     expect(toolbar?.contains(toggle)).toBe(true);
     expect(toolbar?.querySelector('[data-example-action="copy"]')).toBeNull();
-    expect(screen.queryByRole('button', { name: 'Copy source for Basic variants' })).toBeNull();
     expect(source).toHaveAttribute('data-state', 'closed');
     expect(source).toHaveAttribute('aria-hidden', 'true');
-    expect(container.querySelector('[data-example-source-header]')).toBeInTheDocument();
     expect(external).toHaveAttribute('data-size', 'small');
     expect(external).toHaveAttribute('data-example-action', 'external');
     expectIcon(external, ExternalLinkIcon);
@@ -160,28 +170,23 @@ describe('ComponentExample', () => {
     expectIcon(toggle, CodeIcon);
 
     openSource();
-    const header = container.querySelector('[data-example-source-header]');
-    const framework = container.querySelector('[data-example-framework="react"]');
-    const language = container.querySelector('[data-example-language]');
+    const tabs = screen.getByRole('tablist', { name: 'Basic variants source files' });
+    const reactTab = screen.getByRole('tab', { name: 'React' });
+    const scssTab = screen.getByRole('tab', { name: 'SCSS' });
+    const panel = screen.getByRole('tabpanel', { name: 'React' });
     const copy = screen.getByRole('button', { name: 'Copy source for Basic variants' });
 
-    expect(source?.firstElementChild).toHaveAttribute('data-example-source-inner');
-    expect(source?.firstElementChild?.contains(header)).toBe(true);
-    expect(header?.contains(framework)).toBe(true);
-    expect(language).toHaveTextContent(/^React$/);
-    expect(language).toHaveAttribute('data-example-language', 'tsx');
-    expect(framework?.contains(language)).toBe(true);
-    expect(container.querySelector('pre code')).toHaveAttribute('data-language', 'tsx');
-    expect(header?.lastElementChild?.contains(copy)).toBe(true);
+    expect(container.querySelector('[data-example-source-header]')).toContainElement(tabs);
+    expect(tabs).toHaveAttribute('data-variant', 'plain');
+    expect(reactTab).toHaveAttribute('aria-selected', 'true');
+    expect(scssTab).toHaveAttribute('aria-selected', 'false');
+    expect(panel.querySelector('code')).toHaveAttribute('data-language', 'tsx');
+    expect(panel.querySelector('code')?.textContent).toContain(
+      "import styles from './Example.module.scss';",
+    );
+    expect(reactTab.querySelector('img')).toHaveAttribute('src', reactLogo);
+    expect(scssTab.querySelector('img')).toHaveAttribute('src', sassLogo);
     expect(copy).toHaveAttribute('data-size', 'small');
-    const logo = framework?.querySelector('img');
-    expect(logo).toHaveAttribute('src', reactLogo);
-    expect(logo).toHaveAttribute('alt', '');
-    expect(logo).toHaveAttribute('aria-hidden', 'true');
-    expect(logo).toHaveAttribute('draggable', 'false');
-    expect(framework?.closest('button')).toBeNull();
-    expect(framework).not.toHaveAttribute('role');
-    expect(screen.queryByRole('button', { name: /React.*collapse source/i })).toBeNull();
     expectIcon(copy, CopyIcon);
     [external, toggle, copy].forEach((button) => {
       expect(button).toHaveAttribute('type', 'button');
@@ -191,6 +196,62 @@ describe('ComponentExample', () => {
     });
     expect(container.querySelector('button button')).toBeNull();
     expect(container.querySelector('details, summary')).toBeNull();
+  });
+
+  it('shows only React when the paired SCSS contains comments but no actual styles', () => {
+    const reactOnlyExample = {
+      ...buttonExamples.variants,
+      id: 'react-only-example',
+      title: 'React only example',
+      source: `import './ReactOnlyExample.module.scss';
+
+export default function App() {
+  return null;
+}
+`,
+      styleSource:
+        '/* This example relies on Virgo Design component styles and has no example-specific SCSS. */',
+    };
+    const { container } = render(<ComponentExample example={reactOnlyExample} />);
+
+    openSource('React only example');
+
+    expect(screen.queryByRole('tablist')).not.toBeInTheDocument();
+    expect(screen.queryByRole('tab', { name: 'SCSS' })).not.toBeInTheDocument();
+    expect(container.querySelector('[data-example-source-label]')).toHaveTextContent('React');
+    expect(container.querySelector('[data-example-source-label]')).toHaveAttribute(
+      'data-example-framework',
+      'react',
+    );
+    expect(container.querySelector('pre code')).toHaveAttribute('data-language', 'tsx');
+    expect(container.querySelector('pre code')?.textContent).toBe(`export default function App() {
+  return null;
+}
+`);
+  });
+
+  it('switches between canonical React and exact SCSS sources and copies the active tab', async () => {
+    const user = userEvent.setup();
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    setClipboard({ writeText });
+    render(<ComponentExample example={buttonExamples.variants} />);
+    openSource();
+
+    const copy = screen.getByRole('button', { name: 'Copy source for Basic variants' });
+    await user.click(copy);
+    expect(writeText).toHaveBeenLastCalledWith(
+      canonicalReactSource(buttonExamples.variants.source),
+    );
+
+    const scssTab = screen.getByRole('tab', { name: 'SCSS' });
+    await user.click(scssTab);
+    expect(scssTab).toHaveAttribute('aria-selected', 'true');
+    const panel = screen.getByRole('tabpanel', { name: 'SCSS' });
+    expect(panel.querySelector('code')).toHaveAttribute('data-language', 'scss');
+    expect(panel.querySelector('code')?.textContent).toBe(buttonExamples.variants.styleSource);
+
+    await user.click(copy);
+    expect(writeText).toHaveBeenLastCalledWith(buttonExamples.variants.styleSource);
   });
 
   it('opens the standalone example in a new window with the current theme', async () => {
@@ -212,6 +273,7 @@ describe('ComponentExample', () => {
       '_blank',
       'noopener,noreferrer',
     );
+    await waitFor(() => expect(screen.queryByRole('tooltip')).not.toBeInTheDocument());
   });
 
   it('can omit the caption when the article already introduces this example', () => {
@@ -250,7 +312,13 @@ describe('ComponentExample', () => {
     const user = userEvent.setup();
     render(
       <ComponentExample
-        example={{ id: 'counter', title: 'Counter', Component: Counter, source: 'counter source' }}
+        example={{
+          id: 'counter',
+          title: 'Counter',
+          Component: Counter,
+          source: 'counter source',
+          styleSource: '.counter {}',
+        }}
       />,
     );
     await user.click(screen.getByRole('button', { name: 'Count 0' }));
@@ -304,7 +372,7 @@ describe('ComponentExample', () => {
       fireEvent.click(copy);
     });
     expect(writeText).toHaveBeenCalledTimes(1);
-    expect(writeText).toHaveBeenCalledWith(buttonExamples.variants.source);
+    expect(writeText).toHaveBeenCalledWith(canonicalReactSource(buttonExamples.variants.source));
     expect(screen.getByRole('status')).toHaveTextContent('Copied');
     expect(copy).toHaveAttribute('data-copy-state', 'success');
     expectIcon(copy, CheckIcon);
@@ -382,7 +450,9 @@ describe('ComponentExample', () => {
     expect(panel).toHaveTextContent('Copy source');
     fireEvent.click(screen.getByRole('button', { name: 'Hide source for Basic variants' }));
     expect(panel).not.toBeInTheDocument();
-    expect(container.querySelector('pre code')?.textContent).toBe(buttonExamples.variants.source);
+    expect(container.querySelector('pre code')?.textContent).toBe(
+      canonicalReactSource(buttonExamples.variants.source),
+    );
   });
 
   it('does not reopen source when a pending copy fails after the user collapses it', async () => {

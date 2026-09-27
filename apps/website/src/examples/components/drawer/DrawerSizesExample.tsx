@@ -1,5 +1,7 @@
 import { Drawer, type DrawerPlacement, type DrawerSize } from '@virgo-design/ui';
 
+import styles from './DrawerSizesExample.module.scss';
+
 function DrawerFrame({
   placement = 'right',
   size = 'md',
@@ -37,7 +39,7 @@ function DrawerFrame({
 
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+    <div className={styles.root!}>
       {(['sm', 'md', 'lg'] as const).map((size) => (
         <DrawerFrame key={size} size={size} title={`${size} drawer`} />
       ))}

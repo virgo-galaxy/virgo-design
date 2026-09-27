@@ -1,3 +1,5 @@
+import './DropdownDisabledExample.module.scss';
+
 import { Dropdown } from '@virgo-design/ui';
 
 export default function App() {

@@ -1,3 +1,5 @@
+import './FloatingActionDisabledExample.module.scss';
+
 import { SettingsIcon } from '@virgo-design/icons';
 import { FloatingAction } from '@virgo-design/ui';
 

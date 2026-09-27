@@ -1,0 +1,11 @@
+.root {
+  display: grid;
+  gap: 24px;
+}
+
+.stage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+}

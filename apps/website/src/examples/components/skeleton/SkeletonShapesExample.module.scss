@@ -1,0 +1,20 @@
+.root {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.skeleton {
+  width: 80%;
+}
+
+.skeleton2 {
+  width: 56%;
+}
+
+.skeleton3 {
+  width: 100%;
+  max-width: 240px;
+  height: 96px;
+}

@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { StandaloneExamplePage } from '@/pages/examples/StandaloneExamplePage';
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
 
 const ColorsPage = lazy(() =>
@@ -60,12 +61,6 @@ const IconsPage = lazy(() =>
     default: module.IconsPage,
   })),
 );
-const StandaloneExamplePage = lazy(() =>
-  import('@/pages/examples/StandaloneExamplePage').then((module) => ({
-    default: module.StandaloneExamplePage,
-  })),
-);
-
 function ComponentsDocumentationRoute() {
   return (
     <ComponentsDocumentation

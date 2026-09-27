@@ -2,28 +2,10 @@ import { LayoutIcon, SidebarCollapseIcon, SidebarExpandIcon } from '@virgo-desig
 import { Button, Layout, NavigationMenu, Surface } from '@virgo-design/ui';
 import { useId, useState } from 'react';
 
-const labelStyle = {
-  fontSize: 12,
-  fontWeight: 400,
-  color: 'var(--vd-text-tertiary)',
-} as const;
+import styles from './LayoutControlledSidebarExample.module.scss';
 
 function SidebarBrand() {
-  return (
-    <span
-      aria-label="Logo"
-      style={{
-        display: 'block',
-        width: '100%',
-        height: 'var(--vd-sizing-32)',
-        // Cancel the Sidebar's outer top inset, not the header slot's own padding.
-        // The resulting brand row is 16 + 32 + 16 = 64px, matching Layout.Header.
-        marginBlockStart: 'calc(-1 * var(--vd-spacing-16))',
-        borderRadius: 'var(--vd-radius-6)',
-        background: 'var(--vd-surface-strong)',
-      }}
-    />
-  );
+  return <span aria-label="Logo" className={styles.root!} />;
 }
 
 function Navigation({ compact = false }: { compact?: boolean }) {
@@ -65,16 +47,8 @@ export default function App() {
   const sidebarId = useId();
 
   return (
-    <div
-      style={{
-        width: '100%',
-        height: 560,
-        border: '1px solid var(--vd-border-subtle)',
-        borderRadius: 12,
-        overflow: 'hidden',
-      }}
-    >
-      <Layout direction="horizontal" style={{ height: '100%' }}>
+    <div className={styles.stage!}>
+      <Layout direction="horizontal" className={styles.layout!}>
         <Layout.Sidebar
           collapsed={collapsed}
           onCollapsedChange={setCollapsed}
@@ -104,37 +78,18 @@ export default function App() {
                 {collapsed ? <SidebarExpandIcon /> : <SidebarCollapseIcon />}
               </Button>
             }
-            style={{ position: 'relative', flexWrap: 'wrap', gap: 12, padding: '12px 16px' }}
+            className={styles.header!}
             surface={{ tone: 'default', border: 'subtle' }}
           >
-            <span
-              style={{
-                position: 'absolute',
-                insetInlineStart: '50%',
-                transform: 'translateX(-50%)',
-                fontSize: 12,
-                fontWeight: 400,
-                color: 'var(--vd-text-tertiary)',
-              }}
-            >
-              Header
-            </span>
+            <span className={styles.label!}>Header</span>
           </Layout.Header>
-          <Layout.Content padding={16} surface={{ tone: 'secondary' }} style={{ minHeight: 0 }}>
-            <Surface
-              tone="elevated"
-              radius={12}
-              border="subtle"
-              style={{ display: 'grid', height: '100%', minHeight: 0, placeItems: 'center' }}
-            >
-              <span style={labelStyle}>Content</span>
+          <Layout.Content padding={16} surface={{ tone: 'secondary' }} className={styles.content!}>
+            <Surface tone="elevated" radius={12} border="subtle" className={styles.surface!}>
+              <span className={styles.label2!}>Content</span>
             </Surface>
           </Layout.Content>
-          <Layout.Footer
-            surface={{ tone: 'default', border: 'subtle' }}
-            style={{ display: 'grid', height: 48, placeItems: 'center', padding: '0 16px' }}
-          >
-            <span style={labelStyle}>Footer</span>
+          <Layout.Footer surface={{ tone: 'default', border: 'subtle' }} className={styles.footer!}>
+            <span className={styles.label2!}>Footer</span>
           </Layout.Footer>
         </Layout>
       </Layout>

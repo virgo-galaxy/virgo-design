@@ -2,6 +2,8 @@ import { SettingsIcon, TrashIcon, UserIcon } from '@virgo-design/icons';
 import { Dropdown } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './DropdownSplitStatesExample.module.scss';
+
 function Actions({ onAction }: { onAction: (action: string) => void }) {
   return (
     <>
@@ -25,8 +27,8 @@ function Actions({ onAction }: { onAction: (action: string) => void }) {
 export default function App() {
   const [action, setAction] = useState('Choose an action.');
   return (
-    <div style={{ display: 'grid', justifyItems: 'start', gap: 16 }}>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+    <div className={styles.root!}>
+      <div className={styles.stage!}>
         <Dropdown disabled>
           <Dropdown.Button menuLabel="Disabled actions">Disabled</Dropdown.Button>
           <Dropdown.Content>

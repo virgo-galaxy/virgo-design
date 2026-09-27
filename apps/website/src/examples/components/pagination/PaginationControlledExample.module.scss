@@ -1,0 +1,16 @@
+.root {
+  display: grid;
+  gap: 24px;
+  width: 100%;
+}
+
+.stage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.text {
+  margin: 0;
+}

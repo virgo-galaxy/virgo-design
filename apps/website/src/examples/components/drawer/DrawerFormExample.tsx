@@ -1,13 +1,15 @@
 import { Button, Drawer, Input } from '@virgo-design/ui';
 import { useId, useState } from 'react';
 
+import styles from './DrawerFormExample.module.scss';
+
 export default function App() {
   const formId = useId();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('Virgo workspace');
   const [savedName, setSavedName] = useState(name);
   return (
-    <div style={{ display: 'grid', justifyItems: 'start', gap: 16 }}>
+    <div className={styles.root!}>
       <Drawer.Root open={open} onOpenChange={setOpen}>
         <Drawer.Trigger>Edit workspace</Drawer.Trigger>
         <Drawer.Portal>
@@ -28,7 +30,7 @@ export default function App() {
                   setOpen(false);
                 }}
               >
-                <label style={{ display: 'grid', gap: 8 }}>
+                <label className={styles.label!}>
                   Workspace name
                   <Input value={name} onChange={(event) => setName(event.target.value)} />
                 </label>

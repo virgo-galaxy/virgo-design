@@ -2,6 +2,8 @@ import { SettingsIcon, TrashIcon, UserIcon } from '@virgo-design/icons';
 import { Button, Dropdown } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './DropdownControlledExample.module.scss';
+
 function Actions({ onAction }: { onAction: (action: string) => void }) {
   return (
     <>
@@ -26,7 +28,7 @@ export default function App() {
   const [open, setOpen] = useState(false);
   const [action, setAction] = useState('Choose an action.');
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
+    <div className={styles.root!}>
       <Dropdown open={open} onOpenChange={setOpen}>
         <Dropdown.Trigger>Controlled menu</Dropdown.Trigger>
         <Dropdown.Content>

@@ -1,8 +1,10 @@
 import { Tooltip } from '@virgo-design/ui';
 
+import styles from './TooltipSizesExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+    <div className={styles.root!}>
       <Tooltip>
         <Tooltip.Trigger>Small tooltip</Tooltip.Trigger>
         <Tooltip.Content size="small">Compact description</Tooltip.Content>

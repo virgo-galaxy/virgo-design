@@ -1,8 +1,10 @@
 import { Spinner } from '@virgo-design/ui';
 
+import styles from './SpinnerInlineExample.module.scss';
+
 export default function App() {
   return (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+    <span className={styles.root!}>
       <Spinner size="sm" />
       Syncing changes
     </span>

@@ -1,8 +1,10 @@
 import { Tabs } from '@virgo-design/ui';
 
+import styles from './TabsCardExample.module.scss';
+
 export default function App() {
   return (
-    <Tabs variant="card" defaultValue="document-1" style={{ width: '100%' }}>
+    <Tabs variant="card" defaultValue="document-1" className={styles.root!}>
       <Tabs.List aria-label="Documents">
         <Tabs.Tab value="document-1">Tab 1</Tabs.Tab>
         <Tabs.Tab value="document-2">Tab 2</Tabs.Tab>

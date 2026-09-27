@@ -1,8 +1,10 @@
 import { Select } from '@virgo-design/ui';
 
+import styles from './SelectDisabledOptionExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ width: '100%', maxWidth: 320 }}>
+    <div className={styles.root!}>
       <Select defaultValue="homelab">
         <Select.Trigger aria-label="Environment" />
         <Select.Content>

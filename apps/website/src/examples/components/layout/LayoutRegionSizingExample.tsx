@@ -1,20 +1,14 @@
 import { Layout } from '@virgo-design/ui';
 
-const labelStyle = {
-  display: 'grid',
-  placeItems: 'center',
-  color: 'color-mix(in srgb, var(--vd-neutral-1) 80%, transparent)',
-  fontSize: 12,
-  fontWeight: 400,
-} as const;
+import styles from './LayoutRegionSizingExample.module.scss';
 
 export default function App() {
   return (
-    <Layout style={{ width: '100%', height: 400 }}>
+    <Layout className={styles.root!}>
       <Layout.Header
         height={64}
         surface={{ background: { type: 'color', value: 'var(--vd-brand-5)' }, border: 'none' }}
-        style={labelStyle}
+        className={styles.header!}
       >
         Header
       </Layout.Header>
@@ -23,28 +17,19 @@ export default function App() {
           width={224}
           surface={{ background: { type: 'color', value: 'var(--vd-brand-6)' }, border: 'none' }}
         >
-          <span style={{ ...labelStyle, height: '100%' }}>Sidebar</span>
+          <span className={styles.label!}>Sidebar</span>
         </Layout.Sidebar>
         <Layout.Content
           padding={24}
           surface={{ background: { type: 'color', value: 'var(--vd-brand-4)' }, border: 'none' }}
-          style={{ boxShadow: 'inset 0 0 0 1px var(--vd-brand-3)' }}
+          className={styles.content!}
         >
-          <div
-            style={{
-              ...labelStyle,
-              height: '100%',
-              background: 'var(--vd-brand-7)',
-              boxShadow: 'inset 0 0 0 1px var(--vd-brand-8)',
-            }}
-          >
-            Content
-          </div>
+          <div className={styles.stage!}>Content</div>
         </Layout.Content>
       </Layout>
       <Layout.Footer
         surface={{ background: { type: 'color', value: 'var(--vd-brand-5)' }, border: 'none' }}
-        style={{ ...labelStyle, minHeight: 48 }}
+        className={styles.footer!}
       >
         Footer
       </Layout.Footer>

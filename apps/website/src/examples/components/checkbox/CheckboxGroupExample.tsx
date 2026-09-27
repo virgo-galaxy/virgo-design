@@ -1,3 +1,5 @@
+import './CheckboxGroupExample.module.scss';
+
 import { Checkbox } from '@virgo-design/ui';
 import { useId } from 'react';
 

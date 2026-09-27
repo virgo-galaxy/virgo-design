@@ -1,16 +1,18 @@
 import { Separator } from '@virgo-design/ui';
 
+import styles from './SeparatorDecorativeExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 20, width: '100%', maxWidth: 480 }}>
+    <div className={styles.root!}>
       <article>
-        <h3 style={{ margin: '0 0 6px' }}>Design systems</h3>
-        <p style={{ margin: 0 }}>Shared tokens and components keep product surfaces coherent.</p>
+        <h3 className={styles.h3!}>Design systems</h3>
+        <p className={styles.text!}>Shared tokens and components keep product surfaces coherent.</p>
       </article>
       <Separator decorative />
       <article>
-        <h3 style={{ margin: '0 0 6px' }}>Coverage pass</h3>
-        <p style={{ margin: 0 }}>Small stable APIs complete the component map.</p>
+        <h3 className={styles.h3!}>Coverage pass</h3>
+        <p className={styles.text!}>Small stable APIs complete the component map.</p>
       </article>
     </div>
   );

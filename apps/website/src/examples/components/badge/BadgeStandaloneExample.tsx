@@ -1,8 +1,10 @@
 import { Badge } from '@virgo-design/ui';
 
+import styles from './BadgeStandaloneExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 24 }}>
+    <div className={styles.root!}>
       <span>
         Queued <Badge count={12} />
       </span>

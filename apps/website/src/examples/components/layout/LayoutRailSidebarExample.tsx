@@ -1,19 +1,13 @@
 import { Layout } from '@virgo-design/ui';
 
-const labelStyle = {
-  display: 'grid',
-  placeItems: 'center',
-  color: 'color-mix(in srgb, var(--vd-neutral-1) 80%, transparent)',
-  fontSize: 12,
-  fontWeight: 400,
-} as const;
+import styles from './LayoutRailSidebarExample.module.scss';
 
 export default function App() {
   return (
-    <Layout style={{ width: '100%', height: 400 }}>
+    <Layout className={styles.root!}>
       <Layout.Header
         surface={{ background: { type: 'color', value: 'var(--vd-brand-5)' }, border: 'none' }}
-        style={{ ...labelStyle, minHeight: 64 }}
+        className={styles.header!}
       >
         Header
       </Layout.Header>
@@ -21,26 +15,26 @@ export default function App() {
         <Layout.Sidebar
           width={64}
           surface={{ background: { type: 'color', value: 'var(--vd-brand-6)' }, border: 'none' }}
-          style={{ borderInlineEnd: '1px solid var(--vd-brand-5)' }}
+          className={styles.sidebar!}
         >
-          <span style={{ ...labelStyle, height: '100%' }}>Rail</span>
+          <span className={styles.label!}>Rail</span>
         </Layout.Sidebar>
         <Layout.Sidebar
           width={160}
           surface={{ background: { type: 'color', value: 'var(--vd-brand-6)' }, border: 'none' }}
         >
-          <span style={{ ...labelStyle, height: '100%' }}>Sidebar</span>
+          <span className={styles.label!}>Sidebar</span>
         </Layout.Sidebar>
         <Layout.Content
           surface={{ background: { type: 'color', value: 'var(--vd-brand-7)' }, border: 'none' }}
-          style={{ ...labelStyle, minHeight: 240 }}
+          className={styles.content!}
         >
           Content
         </Layout.Content>
       </Layout>
       <Layout.Footer
         surface={{ background: { type: 'color', value: 'var(--vd-brand-5)' }, border: 'none' }}
-        style={{ ...labelStyle, minHeight: 48 }}
+        className={styles.footer!}
       >
         Footer
       </Layout.Footer>

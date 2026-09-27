@@ -1,9 +1,11 @@
 import { PlusIcon, SettingsIcon } from '@virgo-design/icons';
 import { Button } from '@virgo-design/ui';
 
+import styles from './ButtonIconOnlyExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+    <div className={styles.root!}>
       <Button iconOnly aria-label="Add item">
         <PlusIcon />
       </Button>

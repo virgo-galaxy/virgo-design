@@ -6,7 +6,7 @@ import type {
 } from '@virgo-design/primitives';
 import type { ReactNode } from 'react';
 
-export type TabsVariant = 'line' | 'card';
+export type TabsVariant = 'line' | 'plain' | 'card';
 export type TabsAlign = 'start' | 'center';
 
 interface TabsSharedProps extends Omit<PrimitiveTabsProps, 'className'> {

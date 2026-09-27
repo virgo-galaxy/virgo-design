@@ -41,6 +41,15 @@ describe('Tabs', () => {
     expect(list).toHaveAttribute('data-align', 'center');
   });
 
+  it('supports the plain variant without the sliding indicator contract', () => {
+    renderTabs({ variant: 'plain' });
+
+    const list = screen.getByRole('tablist', { name: 'Sections' });
+    expect(list).toHaveAttribute('data-variant', 'plain');
+    expect(list).not.toHaveAttribute('data-indicator-ready');
+    expect(list.querySelector('[data-slot="indicator"]')).toHaveAttribute('aria-hidden', 'true');
+  });
+
   it('renders icon content as decorative and keeps the label as the accessible name', () => {
     renderTabs({}, { icon: <svg data-testid="tab-icon" /> });
 

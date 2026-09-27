@@ -1,34 +1,49 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
 
 import LayoutBasicExample from './LayoutBasicExample';
+import layoutBasicStyles from './LayoutBasicExample.module.scss?virgo-raw';
 import layoutBasicSource from './LayoutBasicExample.tsx?raw';
 import LayoutControlledSidebarExample from './LayoutControlledSidebarExample';
+import layoutControlledSidebarStyles from './LayoutControlledSidebarExample.module.scss?virgo-raw';
 import layoutControlledSidebarSource from './LayoutControlledSidebarExample.tsx?raw';
 import LayoutFloatingActionsExample from './LayoutFloatingActionsExample';
+import layoutFloatingActionsStyles from './LayoutFloatingActionsExample.module.scss?virgo-raw';
 import layoutFloatingActionsSource from './LayoutFloatingActionsExample.tsx?raw';
 import LayoutFloatingSidebarExample from './LayoutFloatingSidebarExample';
+import layoutFloatingSidebarStyles from './LayoutFloatingSidebarExample.module.scss?virgo-raw';
 import layoutFloatingSidebarSource from './LayoutFloatingSidebarExample.tsx?raw';
 import LayoutFullHeightSidebarExample from './LayoutFullHeightSidebarExample';
+import layoutFullHeightSidebarStyles from './LayoutFullHeightSidebarExample.module.scss?virgo-raw';
 import layoutFullHeightSidebarSource from './LayoutFullHeightSidebarExample.tsx?raw';
 import LayoutHeaderExample from './LayoutHeaderExample';
+import layoutHeaderStyles from './LayoutHeaderExample.module.scss?virgo-raw';
 import layoutHeaderSource from './LayoutHeaderExample.tsx?raw';
 import LayoutLeftSidebarExample from './LayoutLeftSidebarExample';
+import layoutLeftSidebarStyles from './LayoutLeftSidebarExample.module.scss?virgo-raw';
 import layoutLeftSidebarSource from './LayoutLeftSidebarExample.tsx?raw';
 import LayoutOverlaySidebarExample from './LayoutOverlaySidebarExample';
+import layoutOverlaySidebarStyles from './LayoutOverlaySidebarExample.module.scss?virgo-raw';
 import layoutOverlaySidebarSource from './LayoutOverlaySidebarExample.tsx?raw';
 import LayoutRailSidebarExample from './LayoutRailSidebarExample';
+import layoutRailSidebarStyles from './LayoutRailSidebarExample.module.scss?virgo-raw';
 import layoutRailSidebarSource from './LayoutRailSidebarExample.tsx?raw';
 import LayoutRegionSizingExample from './LayoutRegionSizingExample';
+import layoutRegionSizingStyles from './LayoutRegionSizingExample.module.scss?virgo-raw';
 import layoutRegionSizingSource from './LayoutRegionSizingExample.tsx?raw';
 import LayoutResizableSidebarExample from './LayoutResizableSidebarExample';
+import layoutResizableSidebarStyles from './LayoutResizableSidebarExample.module.scss?virgo-raw';
 import layoutResizableSidebarSource from './LayoutResizableSidebarExample.tsx?raw';
 import LayoutRightSidebarExample from './LayoutRightSidebarExample';
+import layoutRightSidebarStyles from './LayoutRightSidebarExample.module.scss?virgo-raw';
 import layoutRightSidebarSource from './LayoutRightSidebarExample.tsx?raw';
 import LayoutSidebarExample from './LayoutSidebarExample';
+import layoutSidebarStyles from './LayoutSidebarExample.module.scss?virgo-raw';
 import layoutSidebarSource from './LayoutSidebarExample.tsx?raw';
 import LayoutStickyHeaderExample from './LayoutStickyHeaderExample';
+import layoutStickyHeaderStyles from './LayoutStickyHeaderExample.module.scss?virgo-raw';
 import layoutStickyHeaderSource from './LayoutStickyHeaderExample.tsx?raw';
 import LayoutSurfaceRegionsExample from './LayoutSurfaceRegionsExample';
+import layoutSurfaceRegionsStyles from './LayoutSurfaceRegionsExample.module.scss?virgo-raw';
 import layoutSurfaceRegionsSource from './LayoutSurfaceRegionsExample.tsx?raw';
 
 export const layoutExamples = {
@@ -38,6 +53,7 @@ export const layoutExamples = {
     description: 'Compose semantic regions with vertical and horizontal Layout containers.',
     Component: LayoutBasicExample,
     source: layoutBasicSource,
+    styleSource: layoutBasicStyles,
   },
   layoutLeftSidebar: {
     id: 'layout-left-sidebar',
@@ -45,6 +61,7 @@ export const layoutExamples = {
     description: 'Compose semantic regions with vertical and horizontal Layout containers.',
     Component: LayoutLeftSidebarExample,
     source: layoutLeftSidebarSource,
+    styleSource: layoutLeftSidebarStyles,
   },
   layoutRightSidebar: {
     id: 'layout-right-sidebar',
@@ -52,6 +69,7 @@ export const layoutExamples = {
     description: 'Compose semantic regions with vertical and horizontal Layout containers.',
     Component: LayoutRightSidebarExample,
     source: layoutRightSidebarSource,
+    styleSource: layoutRightSidebarStyles,
   },
   layoutFullHeightSidebar: {
     id: 'layout-full-height-sidebar',
@@ -59,6 +77,7 @@ export const layoutExamples = {
     description: 'Compose semantic regions with vertical and horizontal Layout containers.',
     Component: LayoutFullHeightSidebarExample,
     source: layoutFullHeightSidebarSource,
+    styleSource: layoutFullHeightSidebarStyles,
   },
   layoutRailSidebar: {
     id: 'layout-rail-sidebar',
@@ -66,6 +85,7 @@ export const layoutExamples = {
     description: 'Place a compact rail beside a wider sidebar before the main content region.',
     Component: LayoutRailSidebarExample,
     source: layoutRailSidebarSource,
+    styleSource: layoutRailSidebarStyles,
   },
   layoutSurfaceRegions: {
     id: 'layout-surface-regions',
@@ -73,6 +93,7 @@ export const layoutExamples = {
     description: 'Apply Surface treatments independently to Header, Sidebar, Content, and Footer.',
     Component: LayoutSurfaceRegionsExample,
     source: layoutSurfaceRegionsSource,
+    styleSource: layoutSurfaceRegionsStyles,
   },
   layoutResizableSidebar: {
     id: 'layout-resizable-sidebar',
@@ -81,6 +102,7 @@ export const layoutExamples = {
       'Drag the divider, or use the keyboard, to resize Sidebar within its minimum and maximum width.',
     Component: LayoutResizableSidebarExample,
     source: layoutResizableSidebarSource,
+    styleSource: layoutResizableSidebarStyles,
   },
   layoutStickyHeader: {
     id: 'layout-sticky-header',
@@ -89,6 +111,7 @@ export const layoutExamples = {
       'Scroll the structure while Header remains pinned to the top of its scroll region.',
     Component: LayoutStickyHeaderExample,
     source: layoutStickyHeaderSource,
+    styleSource: layoutStickyHeaderStyles,
   },
   layoutRegionSizing: {
     id: 'layout-region-sizing',
@@ -96,6 +119,7 @@ export const layoutExamples = {
     description: 'Tune Header height, Sidebar width, and Content padding through Layout props.',
     Component: LayoutRegionSizingExample,
     source: layoutRegionSizingSource,
+    styleSource: layoutRegionSizingStyles,
   },
   layoutHeader: {
     id: 'layout-header',
@@ -103,6 +127,7 @@ export const layoutExamples = {
     description: 'Navigation stays inside Header while Surface selects its background.',
     Component: LayoutHeaderExample,
     source: layoutHeaderSource,
+    styleSource: layoutHeaderStyles,
   },
   layoutSidebar: {
     id: 'layout-sidebar',
@@ -110,6 +135,7 @@ export const layoutExamples = {
     description: 'Navigation and container sizing are included in this standalone example.',
     Component: LayoutSidebarExample,
     source: layoutSidebarSource,
+    styleSource: layoutSidebarStyles,
   },
   layoutControlledSidebar: {
     id: 'layout-controlled-sidebar',
@@ -117,6 +143,7 @@ export const layoutExamples = {
     description: 'Navigation and container sizing are included in this standalone example.',
     Component: LayoutControlledSidebarExample,
     source: layoutControlledSidebarSource,
+    styleSource: layoutControlledSidebarStyles,
   },
   layoutOverlaySidebar: {
     id: 'layout-overlay-sidebar',
@@ -124,6 +151,7 @@ export const layoutExamples = {
     description: 'Navigation and container sizing are included in this standalone example.',
     Component: LayoutOverlaySidebarExample,
     source: layoutOverlaySidebarSource,
+    styleSource: layoutOverlaySidebarStyles,
   },
   layoutFloatingSidebar: {
     id: 'layout-floating-sidebar',
@@ -132,6 +160,7 @@ export const layoutExamples = {
       'The sidebar remains local to its containing content region, including compact navigation and a nested popover.',
     Component: LayoutFloatingSidebarExample,
     source: layoutFloatingSidebarSource,
+    styleSource: layoutFloatingSidebarStyles,
   },
   layoutFloatingActions: {
     id: 'layout-floating-actions',
@@ -140,5 +169,6 @@ export const layoutExamples = {
       'The layout positions a standalone action and a controlled action group inside its content region.',
     Component: LayoutFloatingActionsExample,
     source: layoutFloatingActionsSource,
+    styleSource: layoutFloatingActionsStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

@@ -1,10 +1,12 @@
 import { Menu } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './MenuRadioExample.module.scss';
+
 export default function App() {
   const [zoom, setZoom] = useState('100');
   return (
-    <div style={{ display: 'grid', justifyItems: 'start', gap: 16 }}>
+    <div className={styles.root!}>
       <Menu>
         <Menu.Trigger>Zoom options</Menu.Trigger>
         <Menu.Content>

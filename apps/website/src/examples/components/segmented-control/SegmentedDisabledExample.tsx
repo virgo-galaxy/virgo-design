@@ -1,3 +1,5 @@
+import './SegmentedDisabledExample.module.scss';
+
 import { SegmentedControl } from '@virgo-design/ui';
 
 export default function App() {

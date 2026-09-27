@@ -1,0 +1,45 @@
+.root {
+  width: 100%;
+  height: 400px;
+}
+
+.header {
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, var(--vd-neutral-1) 80%, transparent);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.label {
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, var(--vd-neutral-1) 80%, transparent);
+  font-size: 12px;
+  font-weight: 400;
+  height: 100%;
+}
+
+.content {
+  box-shadow: inset 0 0 0 1px var(--vd-brand-3);
+}
+
+.stage {
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, var(--vd-neutral-1) 80%, transparent);
+  font-size: 12px;
+  font-weight: 400;
+  height: 100%;
+  background: var(--vd-brand-7);
+  box-shadow: inset 0 0 0 1px var(--vd-brand-8);
+}
+
+.footer {
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, var(--vd-neutral-1) 80%, transparent);
+  font-size: 12px;
+  font-weight: 400;
+  min-height: 48px;
+}

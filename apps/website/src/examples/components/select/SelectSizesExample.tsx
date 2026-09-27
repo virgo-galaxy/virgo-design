@@ -1,8 +1,10 @@
 import { Select } from '@virgo-design/ui';
 
+import styles from './SelectSizesExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 320 }}>
+    <div className={styles.root!}>
       {(['mini', 'small', 'medium', 'large'] as const).map((size) => (
         <Select key={size} defaultValue="design" size={size}>
           <Select.Trigger aria-label={`${size} project`} />

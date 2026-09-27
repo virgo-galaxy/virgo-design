@@ -1,10 +1,12 @@
 import { Alert, Button } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './AlertClosableExample.module.scss';
+
 export default function App() {
   const [visible, setVisible] = useState(true);
   return (
-    <div style={{ width: '100%', maxWidth: 640 }}>
+    <div className={styles.root!}>
       {visible ? (
         <Alert intent="info">
           <Alert.Icon />

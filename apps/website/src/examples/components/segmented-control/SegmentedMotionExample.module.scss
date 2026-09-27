@@ -1,0 +1,15 @@
+.root {
+  display: grid;
+  gap: 24px;
+}
+
+.stage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.stage2 {
+  display: grid;
+  gap: 8px;
+}

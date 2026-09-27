@@ -1,8 +1,10 @@
 import { Progress } from '@virgo-design/ui';
 
+import styles from './ProgressValuesExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 24, width: '100%', maxWidth: 480 }}>
+    <div className={styles.root!}>
       {[0, 25, 80, 100].map((value) => (
         <Progress key={value} value={value} label={`${value} of 100`} showValue />
       ))}

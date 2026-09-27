@@ -1,8 +1,10 @@
 import { Accordion } from '@virgo-design/ui';
 
+import styles from './AccordionSingleExample.module.scss';
+
 export default function App() {
   return (
-    <Accordion.Root type="single" variant="bordered" style={{ width: '100%', maxWidth: 480 }}>
+    <Accordion.Root type="single" variant="bordered" className={styles.root!}>
       <Accordion.Item value="anatomy">
         <Accordion.Trigger icon>Anatomy</Accordion.Trigger>
         <Accordion.Content>

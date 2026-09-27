@@ -1,6 +1,8 @@
 import { Dropdown, Switch } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './DropdownPlacementExample.module.scss';
+
 const placements = [
   'topLeft',
   'top',
@@ -20,15 +22,11 @@ export default function App() {
   const [arrow, setArrow] = useState(true);
   const [action, setAction] = useState('Choose a positioned action.');
   return (
-    <div style={{ display: 'grid', justifyItems: 'center', gap: 24, width: '100%' }}>
+    <div className={styles.root!}>
       <Switch checked={arrow} onCheckedChange={setArrow}>
         Show arrow
       </Switch>
-      <div
-        style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}
-        role="group"
-        aria-label="Twelve placements"
-      >
+      <div className={styles.stage!} role="group" aria-label="Twelve placements">
         {placements.map((placement) => (
           <Dropdown key={placement} size="small">
             <Dropdown.Trigger indicator={false}>{placement}</Dropdown.Trigger>

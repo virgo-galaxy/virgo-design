@@ -2,7 +2,11 @@ import { fileURLToPath, URL } from 'node:url';
 
 import { defineConfig } from 'vitest/config';
 
+import { rawScssSourcePlugin } from './config/raw-scss-source-plugin.ts';
+
 export default defineConfig({
+  plugins: [rawScssSourcePlugin()],
+
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./apps/website/src', import.meta.url)),

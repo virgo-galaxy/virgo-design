@@ -1,15 +1,17 @@
 import { Skeleton } from '@virgo-design/ui';
 
+import styles from './SkeletonMotionExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32 }}>
-      <div style={{ display: 'grid', gap: 8 }}>
+    <div className={styles.root!}>
+      <div className={styles.stage!}>
         <span>Animated</span>
-        <Skeleton style={{ width: 160 }} />
+        <Skeleton className={styles.skeleton!} />
       </div>
-      <div style={{ display: 'grid', gap: 8 }}>
+      <div className={styles.stage!}>
         <span>Static</span>
-        <Skeleton animated={false} style={{ width: 160 }} />
+        <Skeleton animated={false} className={styles.skeleton!} />
       </div>
     </div>
   );

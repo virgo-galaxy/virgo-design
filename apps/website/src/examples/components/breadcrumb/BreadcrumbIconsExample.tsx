@@ -1,3 +1,5 @@
+import './BreadcrumbIconsExample.module.scss';
+
 import { SearchIcon, SettingsIcon, UserIcon } from '@virgo-design/icons';
 import { Breadcrumb } from '@virgo-design/ui';
 

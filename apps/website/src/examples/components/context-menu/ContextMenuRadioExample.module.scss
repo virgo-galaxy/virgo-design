@@ -1,0 +1,19 @@
+.root {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.trigger {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 12px;
+  min-height: 160px;
+  padding: 24px;
+  width: 100%;
+  border: 1px dashed var(--vd-border-default);
+  border-radius: var(--vd-radius-8);
+  background: var(--vd-surface-secondary);
+}

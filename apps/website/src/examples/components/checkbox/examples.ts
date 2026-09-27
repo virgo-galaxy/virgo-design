@@ -1,12 +1,16 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
 
 import CheckboxBasicExample from './CheckboxBasicExample';
+import checkboxBasicStyles from './CheckboxBasicExample.module.scss?virgo-raw';
 import checkboxBasicSource from './CheckboxBasicExample.tsx?raw';
 import CheckboxCheckAllExample from './CheckboxCheckAllExample';
+import checkboxCheckAllStyles from './CheckboxCheckAllExample.module.scss?virgo-raw';
 import checkboxCheckAllSource from './CheckboxCheckAllExample.tsx?raw';
 import CheckboxDisabledExample from './CheckboxDisabledExample';
+import checkboxDisabledStyles from './CheckboxDisabledExample.module.scss?virgo-raw';
 import checkboxDisabledSource from './CheckboxDisabledExample.tsx?raw';
 import CheckboxGroupExample from './CheckboxGroupExample';
+import checkboxGroupStyles from './CheckboxGroupExample.module.scss?virgo-raw';
 import checkboxGroupSource from './CheckboxGroupExample.tsx?raw';
 
 export const checkboxExamples = {
@@ -16,6 +20,7 @@ export const checkboxExamples = {
     description: 'Unchecked, checked, and indeterminate choices use the same geometry.',
     Component: CheckboxBasicExample,
     source: checkboxBasicSource,
+    styleSource: checkboxBasicStyles,
   },
   checkboxDisabled: {
     id: 'checkbox-disabled',
@@ -23,6 +28,7 @@ export const checkboxExamples = {
     description: 'Disabled preserves all three selection states.',
     Component: CheckboxDisabledExample,
     source: checkboxDisabledSource,
+    styleSource: checkboxDisabledStyles,
   },
   checkboxGroup: {
     id: 'checkbox-group',
@@ -30,6 +36,7 @@ export const checkboxExamples = {
     description: 'A group coordinates related native checkbox values.',
     Component: CheckboxGroupExample,
     source: checkboxGroupSource,
+    styleSource: checkboxGroupStyles,
   },
   checkboxCheckAll: {
     id: 'checkbox-check-all',
@@ -37,5 +44,6 @@ export const checkboxExamples = {
     description: 'Compute the aggregate state from the selected values.',
     Component: CheckboxCheckAllExample,
     source: checkboxCheckAllSource,
+    styleSource: checkboxCheckAllStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

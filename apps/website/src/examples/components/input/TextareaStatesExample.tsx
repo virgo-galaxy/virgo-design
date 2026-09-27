@@ -1,8 +1,10 @@
 import { Textarea } from '@virgo-design/ui';
 
+import styles from './TextareaStatesExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 480 }}>
+    <div className={styles.root!}>
       <Textarea aria-label="Default textarea" placeholder="Describe the project" rows={4} />
       <Textarea
         disabled

@@ -1,3 +1,5 @@
+import './PopoverDisabledExample.module.scss';
+
 import { Popover } from '@virgo-design/ui';
 
 export default function App() {

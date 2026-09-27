@@ -1,10 +1,12 @@
 import { Dialog } from '@virgo-design/ui';
 
+import styles from './DialogSizesExample.module.scss';
+
 const sizes = ['sm', 'md', 'lg'] as const;
 
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+    <div className={styles.root!}>
       {sizes.map((size) => (
         <Dialog.Root key={size}>
           <Dialog.Trigger size="small">Open {size}</Dialog.Trigger>

@@ -2,6 +2,8 @@ import { LayoutIcon, PlusIcon, TrashIcon } from '@virgo-design/icons';
 import { Menu, Menubar } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './MenubarApplicationExample.module.scss';
+
 function SharedItems({ select }: { select: (name: string) => void }) {
   return (
     <>
@@ -46,7 +48,7 @@ function SharedItems({ select }: { select: (name: string) => void }) {
 export default function App() {
   const [action, setAction] = useState('Choose an application action.');
   return (
-    <div style={{ display: 'grid', justifyItems: 'start', gap: 24, width: '100%' }}>
+    <div className={styles.root!}>
       <Menubar aria-label="Application actions">
         <Menubar.Menu value="file">
           <Menubar.Trigger>File</Menubar.Trigger>
@@ -83,19 +85,11 @@ export default function App() {
           <Menubar.Trigger>Help</Menubar.Trigger>
         </Menubar.Menu>
       </Menubar>
-      <div
-        style={{
-          padding: 24,
-          width: '100%',
-          minHeight: 120,
-          background: 'var(--vd-surface-secondary)',
-          borderRadius: 'var(--vd-radius-8)',
-        }}
-      >
-        <p role="status" style={{ marginTop: 0 }}>
+      <div className={styles.stage!}>
+        <p role="status" className={styles.text!}>
           {action}
         </p>
-        <p style={{ marginBottom: 0 }}>
+        <p className={styles.text2!}>
           Shortcut labels are display only; this demo does not bind global keys.
         </p>
       </div>

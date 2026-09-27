@@ -1,3 +1,5 @@
+import './SwitchIconsExample.module.scss';
+
 import { CheckIcon, CloseIcon } from '@virgo-design/icons';
 import { Switch } from '@virgo-design/ui';
 

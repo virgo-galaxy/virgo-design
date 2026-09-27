@@ -1,12 +1,14 @@
 import { Accordion } from '@virgo-design/ui';
 
+import styles from './AccordionMultipleExample.module.scss';
+
 export default function App() {
   return (
     <Accordion.Root
       type="multiple"
       variant="bordered"
       defaultValue={['anatomy', 'keyboard']}
-      style={{ width: '100%', maxWidth: 480 }}
+      className={styles.root!}
     >
       <Accordion.Item value="anatomy">
         <Accordion.Trigger icon>Anatomy</Accordion.Trigger>

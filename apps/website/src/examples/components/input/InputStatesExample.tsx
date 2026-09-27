@@ -1,8 +1,10 @@
 import { Input } from '@virgo-design/ui';
 
+import styles from './InputStatesExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 360 }}>
+    <div className={styles.root!}>
       <Input aria-label="Default input" placeholder="Type something" />
       <Input disabled aria-label="Disabled input" defaultValue="Unavailable" />
       <Input readOnly aria-label="Read-only input" defaultValue="virgo-galaxy" />

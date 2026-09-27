@@ -1,0 +1,27 @@
+.root {
+  width: 100%;
+  padding: 24px 12px 100px;
+}
+
+.surface {
+  position: relative;
+  padding: 24px;
+}
+
+.label {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--vd-brand-primary);
+  color: var(--vd-brand-foreground);
+}
+
+.surface2 {
+  position: absolute;
+  top: calc(100% + 12px);
+  inset-inline: 0;
+  padding: 16px;
+  z-index: 1;
+}

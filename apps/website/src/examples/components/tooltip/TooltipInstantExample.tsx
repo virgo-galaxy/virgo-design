@@ -1,3 +1,5 @@
+import './TooltipInstantExample.module.scss';
+
 import { Tooltip } from '@virgo-design/ui';
 
 export default function App() {

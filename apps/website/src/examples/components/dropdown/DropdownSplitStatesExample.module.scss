@@ -1,0 +1,11 @@
+.root {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+}
+
+.stage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}

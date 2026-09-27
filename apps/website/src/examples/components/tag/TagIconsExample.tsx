@@ -1,9 +1,11 @@
 import { CheckIcon, LayoutIcon, SettingsIcon } from '@virgo-design/icons';
 import { Tag } from '@virgo-design/ui';
 
+import styles from './TagIconsExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+    <div className={styles.root!}>
       <Tag icon={<LayoutIcon />} intent="info">
         Workspace
       </Tag>

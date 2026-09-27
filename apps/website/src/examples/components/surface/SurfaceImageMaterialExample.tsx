@@ -1,5 +1,7 @@
 import { Surface } from '@virgo-design/ui';
 
+import styles from './SurfaceImageMaterialExample.module.scss';
+
 const landscape = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" fill="none">
   <defs>
     <linearGradient id="sky" x2="960" y2="640" gradientUnits="userSpaceOnUse">
@@ -31,7 +33,7 @@ export default function App() {
       material="glass"
       border="strong"
       radius={12}
-      style={{ width: '100%', padding: 32, minHeight: 180 }}
+      className={styles.root!}
     >
       <strong>Image + glass</strong>
       <p>The decorative scene is softened without applying a blur to this content.</p>

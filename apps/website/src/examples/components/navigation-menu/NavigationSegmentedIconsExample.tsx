@@ -1,3 +1,5 @@
+import './NavigationSegmentedIconsExample.module.scss';
+
 import { HomeIcon, LayoutIcon, SettingsIcon } from '@virgo-design/icons';
 import { NavigationMenu } from '@virgo-design/ui';
 

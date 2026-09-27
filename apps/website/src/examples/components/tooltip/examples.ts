@@ -1,28 +1,40 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
 
 import TooltipActionExample from './TooltipActionExample';
+import tooltipActionStyles from './TooltipActionExample.module.scss?virgo-raw';
 import tooltipActionSource from './TooltipActionExample.tsx?raw';
 import TooltipActivationExample from './TooltipActivationExample';
+import tooltipActivationStyles from './TooltipActivationExample.module.scss?virgo-raw';
 import tooltipActivationSource from './TooltipActivationExample.tsx?raw';
 import TooltipBasicExample from './TooltipBasicExample';
+import tooltipBasicStyles from './TooltipBasicExample.module.scss?virgo-raw';
 import tooltipBasicSource from './TooltipBasicExample.tsx?raw';
 import TooltipCustomColorExample from './TooltipCustomColorExample';
+import tooltipCustomColorStyles from './TooltipCustomColorExample.module.scss?virgo-raw';
 import tooltipCustomColorSource from './TooltipCustomColorExample.tsx?raw';
 import TooltipDirectionExample from './TooltipDirectionExample';
+import tooltipDirectionStyles from './TooltipDirectionExample.module.scss?virgo-raw';
 import tooltipDirectionSource from './TooltipDirectionExample.tsx?raw';
 import TooltipDisabledExample from './TooltipDisabledExample';
+import tooltipDisabledStyles from './TooltipDisabledExample.module.scss?virgo-raw';
 import tooltipDisabledSource from './TooltipDisabledExample.tsx?raw';
 import TooltipDynamicExample from './TooltipDynamicExample';
+import tooltipDynamicStyles from './TooltipDynamicExample.module.scss?virgo-raw';
 import tooltipDynamicSource from './TooltipDynamicExample.tsx?raw';
 import TooltipInstantExample from './TooltipInstantExample';
+import tooltipInstantStyles from './TooltipInstantExample.module.scss?virgo-raw';
 import tooltipInstantSource from './TooltipInstantExample.tsx?raw';
 import TooltipPlacementExample from './TooltipPlacementExample';
+import tooltipPlacementStyles from './TooltipPlacementExample.module.scss?virgo-raw';
 import tooltipPlacementSource from './TooltipPlacementExample.tsx?raw';
 import TooltipSizesExample from './TooltipSizesExample';
+import tooltipSizesStyles from './TooltipSizesExample.module.scss?virgo-raw';
 import tooltipSizesSource from './TooltipSizesExample.tsx?raw';
 import TooltipSmoothExample from './TooltipSmoothExample';
+import tooltipSmoothStyles from './TooltipSmoothExample.module.scss?virgo-raw';
 import tooltipSmoothSource from './TooltipSmoothExample.tsx?raw';
 import TooltipTonesExample from './TooltipTonesExample';
+import tooltipTonesStyles from './TooltipTonesExample.module.scss?virgo-raw';
 import tooltipTonesSource from './TooltipTonesExample.tsx?raw';
 
 export const tooltipExamples = {
@@ -32,6 +44,7 @@ export const tooltipExamples = {
     description: 'Keyboard focus opens immediately; Escape dismisses the description.',
     Component: TooltipBasicExample,
     source: tooltipBasicSource,
+    styleSource: tooltipBasicStyles,
   },
   tooltipInstant: {
     id: 'tooltip-instant',
@@ -39,6 +52,7 @@ export const tooltipExamples = {
     description: 'Opt into immediate pointer feedback.',
     Component: TooltipInstantExample,
     source: tooltipInstantSource,
+    styleSource: tooltipInstantStyles,
   },
   tooltipDisabled: {
     id: 'tooltip-disabled',
@@ -46,6 +60,7 @@ export const tooltipExamples = {
     description: 'Disable only the descriptive overlay.',
     Component: TooltipDisabledExample,
     source: tooltipDisabledSource,
+    styleSource: tooltipDisabledStyles,
   },
   tooltipSmooth: {
     id: 'tooltip-smooth',
@@ -53,6 +68,7 @@ export const tooltipExamples = {
     description: 'Move between the buttons without a repeated hover delay.',
     Component: TooltipSmoothExample,
     source: tooltipSmoothSource,
+    styleSource: tooltipSmoothStyles,
   },
   tooltipPlacement: {
     id: 'tooltip-placement',
@@ -60,6 +76,7 @@ export const tooltipExamples = {
     description: 'The public arrow option remains independent of placement.',
     Component: TooltipPlacementExample,
     source: tooltipPlacementSource,
+    styleSource: tooltipPlacementStyles,
   },
   tooltipTones: {
     id: 'tooltip-tones',
@@ -67,6 +84,7 @@ export const tooltipExamples = {
     description: 'Each semantic solid has a corresponding on-solid foreground.',
     Component: TooltipTonesExample,
     source: tooltipTonesSource,
+    styleSource: tooltipTonesStyles,
   },
   tooltipCustomColor: {
     id: 'tooltip-custom-color',
@@ -74,6 +92,7 @@ export const tooltipExamples = {
     description: 'Set the background and foreground together using existing palette tokens.',
     Component: TooltipCustomColorExample,
     source: tooltipCustomColorSource,
+    styleSource: tooltipCustomColorStyles,
   },
   tooltipAction: {
     id: 'tooltip-action',
@@ -81,6 +100,7 @@ export const tooltipExamples = {
     description: 'The tooltip describes an action without consuming it.',
     Component: TooltipActionExample,
     source: tooltipActionSource,
+    styleSource: tooltipActionStyles,
   },
   tooltipDynamic: {
     id: 'tooltip-dynamic',
@@ -89,6 +109,7 @@ export const tooltipExamples = {
       'The description grows while open; the timer is owned and cleaned up by this example.',
     Component: TooltipDynamicExample,
     source: tooltipDynamicSource,
+    styleSource: tooltipDynamicStyles,
   },
   tooltipDirection: {
     id: 'tooltip-direction',
@@ -96,6 +117,7 @@ export const tooltipExamples = {
     description: 'A local RTL context resolves logical start alignment.',
     Component: TooltipDirectionExample,
     source: tooltipDirectionSource,
+    styleSource: tooltipDirectionStyles,
   },
   tooltipSizes: {
     id: 'tooltip-sizes',
@@ -103,6 +125,7 @@ export const tooltipExamples = {
     description: 'Description size is independent of the trigger button size.',
     Component: TooltipSizesExample,
     source: tooltipSizesSource,
+    styleSource: tooltipSizesStyles,
   },
   tooltipActivation: {
     id: 'tooltip-activation',
@@ -110,5 +133,6 @@ export const tooltipExamples = {
     description: 'Keep the description open while its action label changes.',
     Component: TooltipActivationExample,
     source: tooltipActivationSource,
+    styleSource: tooltipActivationStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

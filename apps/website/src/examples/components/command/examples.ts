@@ -1,10 +1,13 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
 
 import CommandDialogExample from './CommandDialogExample';
+import commandDialogStyles from './CommandDialogExample.module.scss?virgo-raw';
 import commandDialogSource from './CommandDialogExample.tsx?raw';
 import CommandFilterExample from './CommandFilterExample';
+import commandFilterStyles from './CommandFilterExample.module.scss?virgo-raw';
 import commandFilterSource from './CommandFilterExample.tsx?raw';
 import CommandInlineExample from './CommandInlineExample';
+import commandInlineStyles from './CommandInlineExample.module.scss?virgo-raw';
 import commandInlineSource from './CommandInlineExample.tsx?raw';
 
 export const commandExamples = {
@@ -14,6 +17,7 @@ export const commandExamples = {
     description: 'Search by label or keyword; the selected value is local feedback.',
     Component: CommandInlineExample,
     source: commandInlineSource,
+    styleSource: commandInlineStyles,
   },
   commandDialog: {
     id: 'command-dialog',
@@ -21,6 +25,7 @@ export const commandExamples = {
     description: 'Focus this example, then press ⌘/Ctrl K, or use its button.',
     Component: CommandDialogExample,
     source: commandDialogSource,
+    styleSource: commandDialogStyles,
   },
   commandFilter: {
     id: 'command-filter',
@@ -28,5 +33,6 @@ export const commandExamples = {
     description: 'Match the beginning of each command value.',
     Component: CommandFilterExample,
     source: commandFilterSource,
+    styleSource: commandFilterStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

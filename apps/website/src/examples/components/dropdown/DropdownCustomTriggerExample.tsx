@@ -2,6 +2,8 @@ import { EllipsisIcon, SettingsIcon, TrashIcon, UserIcon } from '@virgo-design/i
 import { Dropdown, Tooltip } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './DropdownCustomTriggerExample.module.scss';
+
 function Actions({ onAction }: { onAction: (action: string) => void }) {
   return (
     <>
@@ -25,7 +27,7 @@ function Actions({ onAction }: { onAction: (action: string) => void }) {
 export default function App() {
   const [action, setAction] = useState('Choose an action.');
   return (
-    <div style={{ display: 'grid', justifyItems: 'start', gap: 16 }}>
+    <div className={styles.root!}>
       <Dropdown>
         <Tooltip>
           <Tooltip.Trigger

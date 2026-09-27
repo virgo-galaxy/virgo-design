@@ -2,6 +2,8 @@ import { LayoutIcon, PlusIcon, TrashIcon } from '@virgo-design/icons';
 import { ContextMenu, Menu } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './ContextMenuTargetExample.module.scss';
+
 function SharedItems({ select }: { select: (name: string) => void }) {
   return (
     <>
@@ -46,23 +48,9 @@ function SharedItems({ select }: { select: (name: string) => void }) {
 export default function App() {
   const [action, setAction] = useState('No context action selected.');
   return (
-    <div style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 360 }}>
+    <div className={styles.root!}>
       <ContextMenu>
-        <ContextMenu.Trigger
-          aria-label="Document context"
-          style={{
-            display: 'grid',
-            justifyItems: 'center',
-            alignContent: 'center',
-            gap: 12,
-            minHeight: 160,
-            padding: 24,
-            width: '100%',
-            border: '1px dashed var(--vd-border-default)',
-            borderRadius: 'var(--vd-radius-8)',
-            background: 'var(--vd-surface-secondary)',
-          }}
-        >
+        <ContextMenu.Trigger aria-label="Document context" className={styles.trigger!}>
           <LayoutIcon />
           <strong>Document</strong>
           <span>Right-click here · Shift+F10</span>

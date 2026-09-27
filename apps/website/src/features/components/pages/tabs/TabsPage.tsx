@@ -61,12 +61,12 @@ export function TabsPage() {
             <h1>Tabs</h1>
             <p>
               Navigates between related content panels with standard tab semantics, automatic
-              keyboard activation, and a selected indicator that follows the active label.
+              keyboard activation, and line, plain, or card visual treatments.
             </p>
             <dl className="component-facts">
               <div>
                 <dt>Variants</dt>
-                <dd>02</dd>
+                <dd>03</dd>
               </div>
               <div>
                 <dt>Alignment</dt>
@@ -135,8 +135,18 @@ export function TabsPage() {
           <ComponentExample example={tabsExamples.tabsIcons} showCaption={false} />
         </ArticleSection>
         <ArticleSection
-          id={'tabs-card'}
+          id={'tabs-plain'}
           index={'05'}
+          title={'Plain'}
+          description={
+            'Plain tabs keep selection lightweight: separators organize adjacent labels, hover adds a soft surface, and the active label is color-only.'
+          }
+        >
+          <ComponentExample example={tabsExamples.tabsPlain} showCaption={false} />
+        </ArticleSection>
+        <ArticleSection
+          id={'tabs-card'}
+          index={'06'}
           title={'Card'}
           description={
             'Card tabs replace the underline with connected document-like surfaces while preserving the same tab and panel semantics.'
@@ -146,7 +156,7 @@ export function TabsPage() {
         </ArticleSection>
         <ArticleSection
           id={'tabs-editable-card'}
-          index={'06'}
+          index={'07'}
           title={'Editable Card'}
           description={
             'Close actions preserve an adjacent active tab; the trailing add action creates and activates a new tab.'

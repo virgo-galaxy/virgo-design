@@ -5,12 +5,17 @@ export const tabsMetadata = {
   package: '@virgo-design/ui',
   category: 'Navigation',
   description:
-    'Switches between related content panels with standard tab semantics, keyboard navigation, and a smoothly moving selection indicator.',
+    'Switches between related content panels with standard tab semantics, keyboard navigation, and line, plain, or card visual treatments.',
   import: "import { Tabs } from '@virgo-design/ui';",
   variants: [
     {
       name: 'line',
       description: 'Default navigation tabs with a sliding brand underline and subtle divider.',
+    },
+    {
+      name: 'plain',
+      description:
+        'Compact text tabs with separators, hover feedback, and a color-only active state.',
     },
     {
       name: 'card',
@@ -36,6 +41,10 @@ export const tabsMetadata = {
       description: 'Decorative line that tracks the active tab position and width.',
     },
     {
+      name: 'separator',
+      description: 'Decorative divider between adjacent plain tabs.',
+    },
+    {
       name: 'panel',
       description: 'Content region controlled by its matching tab.',
     },
@@ -59,6 +68,7 @@ export const tabsMetadata = {
     centerAlignment: true,
     icons: true,
     slidingIndicator: true,
+    plain: true,
     card: true,
     closable: true,
     addable: true,
@@ -74,6 +84,7 @@ export const tabsMetadata = {
     'The add action is an independent control beside the tablist rather than a tablist member.',
     'Only the active panel is displayed while inactive panels remain hidden.',
     'The sliding indicator and tab icons are decorative and hidden from assistive technology.',
+    'Plain separators are decorative CSS and do not add extra tab stops or semantic elements.',
   ],
   examples: [],
 } as const satisfies ComponentMetadata;

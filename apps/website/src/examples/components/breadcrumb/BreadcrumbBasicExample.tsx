@@ -1,3 +1,5 @@
+import './BreadcrumbBasicExample.module.scss';
+
 import { Breadcrumb } from '@virgo-design/ui';
 
 export default function App() {

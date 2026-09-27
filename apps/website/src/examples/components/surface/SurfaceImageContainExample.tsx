@@ -1,5 +1,7 @@
 import { Surface } from '@virgo-design/ui';
 
+import styles from './SurfaceImageContainExample.module.scss';
+
 const landscape = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" fill="none">
   <defs>
     <linearGradient id="sky" x2="960" y2="640" gradientUnits="userSpaceOnUse">
@@ -30,9 +32,9 @@ export default function App() {
       background={{ type: 'image', src: landscape, fit: 'contain', position: 'right center' }}
       tone="secondary"
       radius={12}
-      style={{ width: '100%', minHeight: 220, display: 'flex', alignItems: 'end', padding: 16 }}
+      className={styles.root!}
     >
-      <Surface tone="elevated" radius={6} style={{ padding: 12 }}>
+      <Surface tone="elevated" radius={6} className={styles.surface!}>
         Contain · right center · no repeat
       </Surface>
     </Surface>

@@ -1,0 +1,15 @@
+.root {
+  width: 100%;
+  max-width: 420px;
+}
+
+.stage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.stage2 {
+  flex: 1 1 120px;
+}

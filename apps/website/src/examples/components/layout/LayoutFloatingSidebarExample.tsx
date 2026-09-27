@@ -2,11 +2,7 @@ import { LayoutIcon } from '@virgo-design/icons';
 import { Layout, NavigationMenu, Surface } from '@virgo-design/ui';
 import { useState } from 'react';
 
-const labelStyle = {
-  fontSize: 12,
-  fontWeight: 400,
-  color: 'var(--vd-text-tertiary)',
-} as const;
+import styles from './LayoutFloatingSidebarExample.module.scss';
 
 export default function App() {
   const [value, setValue] = useState('menu-1');
@@ -15,79 +11,21 @@ export default function App() {
   const sidebarWidth = 224;
   const collapsedSidebarWidth = 64;
   const sidebarOffset = 16;
-  const headerLogoGap = 16;
-  const headerLogoWidth = sidebarWidth - headerLogoGap * 2;
-  // Reserve the sidebar and its offset; Content's padding supplies the 16px gap.
-  const contentInset = sidebarOffset + (collapsed ? collapsedSidebarWidth : sidebarWidth);
 
   return (
-    <div
-      style={{
-        width: '100%',
-        height: 560,
-        border: '1px solid var(--vd-border-subtle)',
-        borderRadius: 12,
-        overflow: 'hidden',
-      }}
-    >
-      <Layout style={{ height: '100%' }}>
+    <div className={styles.root!} data-sidebar-state={collapsed ? 'collapsed' : 'expanded'}>
+      <Layout className={styles.layout!}>
         <Layout.Header
           height={64}
           surface={{ tone: 'default', border: 'subtle' }}
-          style={{ position: 'relative', padding: 0 }}
+          className={styles.header!}
         >
-          <span
-            aria-label="Logo"
-            style={{
-              position: 'absolute',
-              insetInlineStart: headerLogoGap,
-              insetBlockStart: '50%',
-              width: headerLogoWidth,
-              height: 'var(--vd-sizing-32)',
-              borderRadius: 'var(--vd-radius-6)',
-              background: 'var(--vd-surface-strong)',
-              transform: 'translateY(-50%)',
-            }}
-          />
-          <span
-            style={{
-              ...labelStyle,
-              position: 'absolute',
-              insetBlock: 0,
-              insetInlineStart: contentInset,
-              insetInlineEnd: 0,
-              display: 'grid',
-              placeItems: 'center',
-              transition: 'inset-inline-start 220ms ease',
-            }}
-          >
-            Header
-          </span>
+          <span aria-label="Logo" className={styles.label!} />
+          <span className={styles.label2!}>Header</span>
         </Layout.Header>
-        <Layout.Content padding={16} surface={{ tone: 'secondary' }} style={{ minHeight: 0 }}>
-          <Surface
-            tone="elevated"
-            radius={12}
-            border="subtle"
-            style={{
-              position: 'relative',
-              height: '100%',
-              minHeight: 0,
-              marginInlineStart: contentInset,
-              transition: 'margin-inline-start 220ms ease',
-            }}
-          >
-            <span
-              style={{
-                ...labelStyle,
-                position: 'absolute',
-                inset: 0,
-                display: 'grid',
-                placeItems: 'center',
-              }}
-            >
-              Content
-            </span>
+        <Layout.Content padding={16} surface={{ tone: 'secondary' }} className={styles.content!}>
+          <Surface tone="elevated" radius={12} border="subtle" className={styles.surface!}>
+            <span className={styles.label3!}>Content</span>
           </Surface>
           <Layout.Sidebar
             aria-label="Floating sidebar"

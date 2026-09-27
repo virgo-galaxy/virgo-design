@@ -1,0 +1,11 @@
+.root {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.surface {
+  padding: 24px;
+  text-align: center;
+}

@@ -2,6 +2,8 @@ import { DashboardIcon, LayoutIcon, SearchIcon, SettingsIcon } from '@virgo-desi
 import { Button, Command } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './CommandDialogExample.module.scss';
+
 function CommandItems({ select }: { select: (value: string) => void }) {
   return (
     <>
@@ -49,7 +51,7 @@ export default function App() {
   const [selection, setSelection] = useState('No command selected.');
   return (
     <div
-      style={{ display: 'grid', justifyItems: 'start', gap: 16 }}
+      className={styles.root!}
       onKeyDown={(event) => {
         if (
           !event.defaultPrevented &&
@@ -68,7 +70,7 @@ export default function App() {
       >
         Open command palette
       </Button>
-      <p style={{ margin: 0 }}>Focus the button, then press ⌘/Ctrl K.</p>
+      <p className={styles.text!}>Focus the button, then press ⌘/Ctrl K.</p>
       <Command.Dialog open={open} onOpenChange={setOpen}>
         <Command.Input
           autoFocus

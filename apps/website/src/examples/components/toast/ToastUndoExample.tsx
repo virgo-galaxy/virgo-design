@@ -1,12 +1,14 @@
 import { Button, Toast } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './ToastUndoExample.module.scss';
+
 export default function App() {
   const [open, setOpen] = useState(false);
   const [archived, setArchived] = useState(false);
   return (
     <Toast.Provider hotkey={[]}>
-      <div style={{ display: 'grid', justifyItems: 'center', gap: 24, width: '100%' }}>
+      <div className={styles.root!}>
         <Button
           onClick={() => {
             setArchived(true);
@@ -18,18 +20,7 @@ export default function App() {
         <span role="status">
           {archived ? 'Document is archived.' : 'Document is in your workspace.'}
         </span>
-        <Toast.Viewport
-          aria-label="Archive notifications"
-          style={{
-            position: 'relative',
-            inset: 'auto',
-            transform: 'none',
-            width: '100%',
-            maxWidth: 320,
-            maxHeight: 'none',
-            zIndex: 'auto',
-          }}
-        />
+        <Toast.Viewport aria-label="Archive notifications" className={styles.viewport!} />
       </div>
       <Toast.Root open={open} onOpenChange={setOpen} intent="success" duration={5000}>
         <Toast.Title>Document archived</Toast.Title>

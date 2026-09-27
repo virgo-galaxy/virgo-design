@@ -1,8 +1,10 @@
 import { SegmentedControl } from '@virgo-design/ui';
 
+import styles from './SegmentedVariantsExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 24 }}>
+    <div className={styles.root!}>
       {(['outline', 'solid', 'soft'] as const).map((variant) => (
         <SegmentedControl
           key={variant}

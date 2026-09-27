@@ -1,0 +1,15 @@
+.root {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.surface {
+  padding: 24px;
+}
+
+.text {
+  margin-bottom: 0;
+  color: var(--vd-text-secondary);
+}

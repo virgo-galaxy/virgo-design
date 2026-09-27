@@ -1,5 +1,7 @@
 import { Alert, type AlertIntent } from '@virgo-design/ui';
 
+import styles from './AlertIntentsExample.module.scss';
+
 const intents = [
   {
     intent: 'default',
@@ -34,7 +36,7 @@ const intents = [
 
 export default function App() {
   return (
-    <div style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 640 }}>
+    <div className={styles.root!}>
       {intents.map(({ intent, title, description }) => (
         <Alert key={intent} intent={intent}>
           <Alert.Icon />

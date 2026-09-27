@@ -1,10 +1,12 @@
 import { Button, Spinner } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './SpinnerButtonExample.module.scss';
+
 export default function App() {
   const [saving, setSaving] = useState(false);
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
+    <div className={styles.root!}>
       <Button
         disabled={saving}
         aria-busy={saving}

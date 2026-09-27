@@ -1,3 +1,5 @@
+import './BreadcrumbSeparatorExample.module.scss';
+
 import { Breadcrumb } from '@virgo-design/ui';
 
 export default function App() {

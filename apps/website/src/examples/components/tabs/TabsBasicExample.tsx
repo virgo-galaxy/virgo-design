@@ -1,8 +1,10 @@
 import { Tabs } from '@virgo-design/ui';
 
+import styles from './TabsBasicExample.module.scss';
+
 export default function App() {
   return (
-    <Tabs defaultValue="overview" style={{ width: '100%' }}>
+    <Tabs defaultValue="overview" className={styles.root!}>
       <Tabs.List aria-label="Project sections">
         <Tabs.Tab value="overview">Overview</Tabs.Tab>
         <Tabs.Tab value="api">API</Tabs.Tab>

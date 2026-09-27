@@ -1,15 +1,14 @@
 import { Button, Tag } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './TagClosableExample.module.scss';
+
 const initialTags = ['React', 'TypeScript', 'Design tokens'];
 
 export default function App() {
   const [tags, setTags] = useState(initialTags);
   return (
-    <div
-      style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}
-      aria-label="Closable tag collection"
-    >
+    <div className={styles.root!} aria-label="Closable tag collection">
       {tags.map((tag) => (
         <Tag
           key={tag}

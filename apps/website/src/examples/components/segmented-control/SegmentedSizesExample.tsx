@@ -1,8 +1,10 @@
 import { SegmentedControl } from '@virgo-design/ui';
 
+import styles from './SegmentedSizesExample.module.scss';
+
 export default function App() {
   return (
-    <div style={{ display: 'grid', justifyItems: 'start', gap: 24 }}>
+    <div className={styles.root!}>
       {(['mini', 'small', 'medium', 'large'] as const).map((size) => (
         <SegmentedControl
           key={size}

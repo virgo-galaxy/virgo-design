@@ -1,0 +1,26 @@
+.root {
+  display: grid;
+  gap: 24px;
+  width: 100%;
+}
+
+.stage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.stage2 {
+  position: relative;
+  min-height: 300px;
+  border: 1px solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-12);
+  background: var(--vd-surface-secondary);
+}
+
+.viewport {
+  position: absolute;
+  width: min(320px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  z-index: 1;
+}

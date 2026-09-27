@@ -1,9 +1,11 @@
 import { SearchIcon } from '@virgo-design/icons';
 import { Empty } from '@virgo-design/ui';
 
+import styles from './EmptySearchExample.module.scss';
+
 export default function App() {
   return (
-    <Empty size="sm" aria-label="No search results" style={{ width: '100%', maxWidth: 320 }}>
+    <Empty size="sm" aria-label="No search results" className={styles.root!}>
       <Empty.Icon>
         <SearchIcon />
       </Empty.Icon>

@@ -1,11 +1,13 @@
 import { Tooltip } from '@virgo-design/ui';
 import { useId, useState } from 'react';
 
+import styles from './TooltipActivationExample.module.scss';
+
 export default function App() {
   const detailsId = useId();
   const [expanded, setExpanded] = useState(false);
   return (
-    <div style={{ display: 'grid', justifyItems: 'start', gap: 16 }}>
+    <div className={styles.root!}>
       <Tooltip closeOnClick={false}>
         <Tooltip.Trigger
           aria-expanded={expanded}

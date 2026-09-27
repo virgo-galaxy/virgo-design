@@ -1,3 +1,5 @@
+import './NavigationVerticalExample.module.scss';
+
 import { DashboardIcon, GlobeIcon, LayoutIcon, SettingsIcon } from '@virgo-design/icons';
 import { NavigationMenu } from '@virgo-design/ui';
 

@@ -2,6 +2,8 @@ import { DashboardIcon, LayoutIcon, SettingsIcon } from '@virgo-design/icons';
 import { Command } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './CommandInlineExample.module.scss';
+
 function CommandItems({ select }: { select: (value: string) => void }) {
   return (
     <>
@@ -47,14 +49,14 @@ function CommandItems({ select }: { select: (value: string) => void }) {
 export default function App() {
   const [selection, setSelection] = useState('No command selected.');
   return (
-    <div style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 400 }}>
+    <div className={styles.root!}>
       <Command>
         <Command.Input aria-label="Search inline commands" placeholder="Search commands…" />
         <Command.List>
           <CommandItems select={setSelection} />
         </Command.List>
       </Command>
-      <p role="status" style={{ margin: 0 }}>
+      <p role="status" className={styles.text!}>
         Selected: {selection}
       </p>
     </div>

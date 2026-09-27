@@ -22,12 +22,16 @@ describe('ComponentExample shared preview geometry', () => {
     expect(css).toContain('gap: var(--vd-spacing-4)');
   });
 
-  it('keeps expanded actions visible and theme-inverse, with semantic copy success', () => {
+  it('delegates source tab interaction visuals to Virgo Tabs while keeping runtime-specific source styling', () => {
+    expect(css).toContain('.sourceTabsRoot');
+    expect(css).toContain('.sourceTabsRoot .sourcePanel');
+    expect(css).toContain('.sourceTab .language');
+    expect(css).not.toContain('.sourceTab[data-active]');
+    expect(css).not.toContain('.sourceTab + .sourceTab::before');
+    expect(css).toContain('color: var(--vd-brand-primary)');
     expect(css).toMatch(
       /\.toolbar:has\(\[data-example-action=['"]?source['"]?\]\[aria-expanded=['"]?true['"]?\]\)\s*\{\s*opacity: 1;/,
     );
-    expect(css).toContain('--button-background: var(--vd-text-primary)');
-    expect(css).toContain('--button-foreground: var(--vd-text-inverse)');
     expect(css).toContain('--button-foreground: var(--vd-status-success-accent)');
     expect(css).toContain('@media (prefers-reduced-motion: reduce)');
   });

@@ -1,6 +1,8 @@
 import { Button, Toast, type ToastPlacement } from '@virgo-design/ui';
 import { useState } from 'react';
 
+import styles from './ToastPlacementExample.module.scss';
+
 const placements = [
   'top-start',
   'top-center',
@@ -15,8 +17,8 @@ export default function App() {
   const [open, setOpen] = useState(false);
   return (
     <Toast.Provider hotkey={[]}>
-      <div style={{ display: 'grid', gap: 24, width: '100%' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+      <div className={styles.root!}>
+        <div className={styles.stage!}>
           {placements.map((value) => (
             <Button
               key={value}
@@ -31,24 +33,11 @@ export default function App() {
             </Button>
           ))}
         </div>
-        <div
-          style={{
-            position: 'relative',
-            minHeight: 300,
-            border: '1px solid var(--vd-border-subtle)',
-            borderRadius: 'var(--vd-radius-12)',
-            background: 'var(--vd-surface-secondary)',
-          }}
-        >
+        <div className={styles.stage2!}>
           <Toast.Viewport
             placement={placement}
             aria-label="Positioned notifications"
-            style={{
-              position: 'absolute',
-              width: 'min(320px, calc(100% - 32px))',
-              maxHeight: 'calc(100% - 32px)',
-              zIndex: 1,
-            }}
+            className={styles.viewport!}
           />
         </div>
       </div>
