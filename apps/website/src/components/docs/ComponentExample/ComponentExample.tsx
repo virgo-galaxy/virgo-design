@@ -1,6 +1,8 @@
-import { CheckIcon, CodeIcon, CopyIcon } from '@virgo-design/icons';
+import { CheckIcon, CodeIcon, CopyIcon, ExternalLinkIcon } from '@virgo-design/icons';
 import { Button, Tooltip } from '@virgo-design/ui';
-import { type ComponentType, useEffect, useId, useRef, useState } from 'react';
+import { type ComponentType, useContext, useEffect, useId, useRef, useState } from 'react';
+
+import { AppearanceContext } from '@/shared/theme/appearance-context';
 
 import styles from './component-example.module.scss';
 import { useComponentExampleDisclosure } from './component-example-runtime-context';
@@ -22,8 +24,13 @@ export interface ComponentExampleProps {
 
 type CopyState = 'idle' | 'pending' | 'success' | 'error';
 
+function currentTheme() {
+  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+}
+
 export function ComponentExample({ example, showCaption = true }: ComponentExampleProps) {
   const { Component, description, id, source, title } = example;
+  const appearance = useContext(AppearanceContext)?.appearance;
   const instanceId = useId();
   const sourceId = `${instanceId}-source`;
   // Semantic IDs identify source definitions; disclosure belongs to each mounted instance.
@@ -86,6 +93,11 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
         ? 'Copy failed. Select the source below and copy it manually.'
         : '';
 
+  const openStandaloneExample = () => {
+    const url = `/examples/${encodeURIComponent(id)}?theme=${appearance ?? currentTheme()}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div className={styles.root} data-example-id={id}>
       {showCaption ? (
@@ -99,6 +111,29 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
           <Component />
         </div>
         <div className={styles.toolbar} data-example-toolbar>
+          <Tooltip closeOnClick={false}>
+            <Tooltip.Trigger
+              aria-label={`Open ${title} in new window`}
+              onClick={openStandaloneExample}
+              render={(triggerProps) => (
+                <Button
+                  {...triggerProps}
+                  iconOnly
+                  size="small"
+                  shape="circle"
+                  variant="text"
+                  aria-label={`Open ${title} in new window`}
+                  className={styles.actionButton}
+                  data-example-action="external"
+                >
+                  <ExternalLinkIcon aria-hidden="true" />
+                </Button>
+              )}
+            />
+            <Tooltip.Content size="small" arrow={false}>
+              Open in new window
+            </Tooltip.Content>
+          </Tooltip>
           <Tooltip closeOnClick={false}>
             <Tooltip.Trigger
               aria-label={`${sourceAction} for ${title}`}

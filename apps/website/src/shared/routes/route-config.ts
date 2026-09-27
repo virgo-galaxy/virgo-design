@@ -12,6 +12,7 @@ export const ROUTE_PATHS = {
   tokenTypography: '/tokens/typography',
   components: '/components',
   componentRoutes: '/components/*',
+  componentExample: '/examples/:exampleId',
   primitives: '/primitives',
   primitiveDetail: '/primitives/:slug',
 } as const;

@@ -6,7 +6,7 @@ An example is one understandable use case, not an entire documentation page and 
 one individual control. Button variants belong together in a short example. Icon-only controls are
 a separate example. Dialog sizes and a controlled form are separate examples.
 
-All 35 component pages use this model. The first complete migration contains 189 executable
+All 35 component pages use this model. The current runtime contains 192 executable
 examples across 142 article sections, including Textarea inside the Input family. The existing
 chapter anchors and every hero/reference specimen are preserved.
 
@@ -24,7 +24,7 @@ ArticleSection
     optional h3 + description, OUTSIDE the frame
     frame
       live preview — plain background, no coordinate grid
-      one Code toggle in the lower-right corner + small Tooltip
+      Open-in-new-window + Code actions in the lower-right corner + small Tooltips
     source panel — hidden initially, BELOW the preview frame
       header: static React logo + React framework label on the left, Copy on the right
       exact raw source in pre/code
@@ -33,7 +33,7 @@ ArticleSection
 
 `ArticleSection` and `ComponentExample` are Website-local documentation infrastructure, not
 public `@virgo-design/ui` components. The toolbar uses the real Virgo `Button`, `Tooltip`,
-`CodeIcon`, `CopyIcon` and `CheckIcon`. The React framework label uses the local
+`ExternalLinkIcon`, `CodeIcon`, `CopyIcon` and `CheckIcon`. The React framework label uses the local
 `react-logo.svg` asset supplied for the Website; it is not added to the public icon package.
 No controls nest buttons.
 
@@ -92,7 +92,12 @@ offline after copying. That fixture is not a new public component or an image-lo
 
 ## Interaction contract
 
-- Source starts collapsed. One Code button remains at the preview's lower-right corner and
+- Source starts collapsed. Open-in-new-window and Code buttons remain at the preview's lower-right corner.
+  The standalone action opens `/examples/:exampleId?theme=light|dark` in a new window and renders the
+  exact registered executable example without Website navigation, documentation chrome, source UI,
+  or theme controls. The current document theme is encoded in the URL; the standalone route uses that
+  theme for the page and portalled UI such as Tooltip, Popover, Dialog, and Toast.
+- The Code button
   toggles `aria-expanded` and `aria-controls`. `useId` keeps panel IDs distinct even when the
   same example renders twice. Copy is not shown in the preview. The page-level runtime provider
   owns disclosure state when present; standalone `ComponentExample` usage keeps the same local
@@ -121,8 +126,8 @@ offline after copying. That fixture is not a new public component or an image-lo
   preferences still disable the transition.
 - Actions are real `type="button"` controls with accessible English labels and existing Virgo
   icons. They support Enter/Space and visible keyboard focus. The icon-only `variant="text"`
-  Button uses its public `shape="circle"` and neutral hover/pressed fills. The preview and Copy
-  actions both use the small icon-button size so their centers share one right-edge control axis.
+  Button uses its public `shape="circle"` and neutral hover/pressed fills. The preview actions and Copy
+  all use the small icon-button size so their centers share one right-edge control axis.
   The React framework label is static metadata rather than an action. No permanent visible border
   is added. Expanded source actions retain full opacity even when the pointer is elsewhere, so a
   bulk expansion keeps the light/dark inverse state visible. The preview reserves a bottom safe
@@ -141,7 +146,7 @@ offline after copying. That fixture is not a new public component or an image-lo
   the visible code manually. A delayed failure does not reopen a panel deliberately collapsed
   while the clipboard request was pending.
 - Timers are cleaned up on unmount, and resolved clipboard work never sets state after unmount.
-- The preview toggle and Copy Tooltips opt into `closeOnClick={false}` so repeated activation
+- The preview actions and Copy Tooltips opt into `closeOnClick={false}` so repeated activation
   updates their existing panels rather than dismissing/reopening them. Both runtime Tooltips also
   set `arrow={false}` for this compact source-control treatment; Tooltip itself keeps `arrow=true`
   as its public default. Header controls are unmounted when source closes, so no portalled Tooltip
@@ -176,7 +181,7 @@ Each entry imports a neighboring `*Example.tsx` normally and as `?raw`.
 | `empty`             |                   3 |
 | `floating-action`   |                   4 |
 | `input`             |                   8 |
-| `layout`            |                  12 |
+| `layout`            |                  15 |
 | `menu`              |                   4 |
 | `menubar`           |                   1 |
 | `navigation-menu`   |                   6 |

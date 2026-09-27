@@ -4,6 +4,8 @@ import { describe, expect, it } from 'vitest';
 
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
 
+import { componentExampleRegistry } from './example-registry';
+
 type ManifestModule = Record<string, Readonly<Record<string, ComponentExampleDefinition>>>;
 const manifests = import.meta.glob<ManifestModule>('./*/examples.ts', { eager: true });
 const modules = import.meta.glob<{ default: ComponentType }>('./*/*Example.tsx', { eager: true });
@@ -22,6 +24,10 @@ describe('Executable component example sources', () => {
     expect(Object.keys(manifests)).toHaveLength(35);
     expect(definitions).toHaveLength(Object.keys(modules).length);
     expect(new Set(definitions.map((definition) => definition.id)).size).toBe(definitions.length);
+    expect(componentExampleRegistry.size).toBe(definitions.length);
+    for (const definition of definitions) {
+      expect(componentExampleRegistry.get(definition.id)).toBe(definition);
+    }
     expect(new Set(definitions.map((definition) => definition.Component)).size).toBe(
       definitions.length,
     );

@@ -60,6 +60,11 @@ const IconsPage = lazy(() =>
     default: module.IconsPage,
   })),
 );
+const StandaloneExamplePage = lazy(() =>
+  import('@/pages/examples/StandaloneExamplePage').then((module) => ({
+    default: module.StandaloneExamplePage,
+  })),
+);
 
 function ComponentsDocumentationRoute() {
   return (
@@ -101,6 +106,7 @@ export function AppRouter() {
         />
         <Route path={ROUTE_PATHS.tokenColors} element={<TokensColorPage />} />
         <Route path={ROUTE_PATHS.tokenTypography} element={<TokensTypographyPage />} />
+        <Route path={ROUTE_PATHS.componentExample} element={<StandaloneExamplePage />} />
         <Route path={ROUTE_PATHS.componentRoutes} element={<ComponentsDocumentationRoute />} />
         <Route path={ROUTE_PATHS.primitives} element={<PrimitiveCataloguePage />} />
         <Route path={ROUTE_PATHS.primitiveDetail} element={<PrimitiveDocumentation />} />

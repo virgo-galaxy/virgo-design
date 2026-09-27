@@ -1,0 +1,17 @@
+.root {
+  min-width: 320px;
+  min-height: 100dvh;
+  padding: var(--vd-spacing-24);
+  color: var(--vd-text-primary);
+  background: var(--app-page);
+}
+
+.root > * {
+  max-width: 100%;
+}
+
+@media (max-width: 760px) {
+  .root {
+    padding: var(--vd-spacing-16);
+  }
+}

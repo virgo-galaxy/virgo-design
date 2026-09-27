@@ -1,12 +1,13 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { CheckIcon, CodeIcon, CopyIcon } from '@virgo-design/icons';
+import { CheckIcon, CodeIcon, CopyIcon, ExternalLinkIcon } from '@virgo-design/icons';
 import { useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { buttonExamples } from '@/examples/components/button/examples';
 import { dialogExamples } from '@/examples/components/dialog/examples';
+import { AppearanceContext } from '@/shared/theme/appearance-context';
 
 import { ComponentExample } from './ComponentExample';
 import {
@@ -37,6 +38,7 @@ afterEach(() => {
   else Reflect.deleteProperty(navigator, 'clipboard');
   vi.useRealTimers();
   vi.restoreAllMocks();
+  delete document.documentElement.dataset.theme;
 });
 
 describe('ComponentExample', () => {
@@ -130,25 +132,30 @@ describe('ComponentExample', () => {
     );
   });
 
-  it('keeps only the source toggle in the preview and renders React as static source metadata', () => {
+  it('keeps standalone and source actions in the preview and renders React as static source metadata', () => {
     const { container } = render(<ComponentExample example={buttonExamples.variants} />);
     const frame = container.querySelector('[data-example-frame]');
     const toolbar = container.querySelector('[data-example-toolbar]');
     const source = container.querySelector('[data-example-source]');
     const caption = screen.getByRole('heading', { name: 'Basic variants' });
+    const external = screen.getByRole('button', { name: 'Open Basic variants in new window' });
     const toggle = screen.getByRole('button', { name: 'View source for Basic variants' });
 
     expect(frame?.contains(caption)).toBe(false);
     expect(frame?.contains(toolbar)).toBe(true);
     expect(frame?.contains(source)).toBe(false);
     expect(source?.previousElementSibling).toBe(frame);
-    expect(toolbar?.querySelectorAll('button')).toHaveLength(1);
+    expect(toolbar?.querySelectorAll('button')).toHaveLength(2);
+    expect(toolbar?.contains(external)).toBe(true);
     expect(toolbar?.contains(toggle)).toBe(true);
     expect(toolbar?.querySelector('[data-example-action="copy"]')).toBeNull();
     expect(screen.queryByRole('button', { name: 'Copy source for Basic variants' })).toBeNull();
     expect(source).toHaveAttribute('data-state', 'closed');
     expect(source).toHaveAttribute('aria-hidden', 'true');
     expect(container.querySelector('[data-example-source-header]')).toBeInTheDocument();
+    expect(external).toHaveAttribute('data-size', 'small');
+    expect(external).toHaveAttribute('data-example-action', 'external');
+    expectIcon(external, ExternalLinkIcon);
     expect(toggle).toHaveAttribute('data-size', 'small');
     expectIcon(toggle, CodeIcon);
 
@@ -176,7 +183,7 @@ describe('ComponentExample', () => {
     expect(framework).not.toHaveAttribute('role');
     expect(screen.queryByRole('button', { name: /React.*collapse source/i })).toBeNull();
     expectIcon(copy, CopyIcon);
-    [toggle, copy].forEach((button) => {
+    [external, toggle, copy].forEach((button) => {
       expect(button).toHaveAttribute('type', 'button');
       expect(button).toHaveAttribute('data-icon-only', 'true');
       expect(button).toHaveAttribute('data-shape', 'circle');
@@ -184,6 +191,27 @@ describe('ComponentExample', () => {
     });
     expect(container.querySelector('button button')).toBeNull();
     expect(container.querySelector('details, summary')).toBeNull();
+  });
+
+  it('opens the standalone example in a new window with the current theme', async () => {
+    const user = userEvent.setup();
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null);
+    render(
+      <AppearanceContext.Provider value={{ appearance: 'dark', setAppearance: () => {} }}>
+        <ComponentExample example={buttonExamples.variants} />
+      </AppearanceContext.Provider>,
+    );
+    const external = screen.getByRole('button', { name: 'Open Basic variants in new window' });
+
+    await user.hover(external);
+    expect(await screen.findByRole('tooltip')).toHaveTextContent('Open in new window');
+    await user.click(external);
+
+    expect(open).toHaveBeenCalledWith(
+      '/examples/button-variants?theme=dark',
+      '_blank',
+      'noopener,noreferrer',
+    );
   });
 
   it('can omit the caption when the article already introduces this example', () => {

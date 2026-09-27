@@ -10,7 +10,7 @@ const css = compileString(
 ).css;
 
 describe('ComponentExample shared preview geometry', () => {
-  it('reserves room for the source action without changing the shared control inset', () => {
+  it('reserves room for preview actions without changing the shared control inset', () => {
     expect(css).toContain('--component-example-inset: var(--vd-spacing-16)');
     expect(css).toContain('--component-example-inset: var(--vd-spacing-12)');
     expect(css).toContain(
@@ -19,6 +19,7 @@ describe('ComponentExample shared preview geometry', () => {
     expect(css).toContain('padding-inline: var(--vd-spacing-16)');
     expect(css).toContain('inset-inline-end: var(--component-example-inset)');
     expect(css).toContain('inset-block-end: var(--component-example-inset)');
+    expect(css).toContain('gap: var(--vd-spacing-4)');
   });
 
   it('keeps expanded actions visible and theme-inverse, with semantic copy success', () => {
