@@ -5,9 +5,9 @@ export const layoutMetadata = {
   package: '@virgo-design/ui',
   category: 'Layout',
   description:
-    'Composes semantic regions with collapsible sidebars, sticky headers, responsive width changes, and shared Surface treatments. Navigation remains independent.',
+    'Composes semantic regions with collapsible sidebars, sticky or fixed headers, responsive width changes, and shared Surface treatments. Navigation remains independent.',
   import: "import { Layout } from '@virgo-design/ui';",
-  states: ['default', 'expanded', 'collapsed', 'responsive', 'resizing', 'sticky'],
+  states: ['default', 'expanded', 'collapsed', 'responsive', 'resizing', 'sticky', 'fixed'],
   anatomy: [
     {
       name: 'Layout.Root',
@@ -15,7 +15,8 @@ export const layoutMetadata = {
     },
     {
       name: 'Layout.Header',
-      description: 'Semantic header region for page-level introductory content.',
+      description:
+        'Semantic header region with optional logo, content, and actions slots; configurable content alignment; and static, sticky, or fixed positioning.',
     },
     {
       name: 'Layout.Sidebar',
@@ -53,7 +54,7 @@ export const layoutMetadata = {
     overlaySidebar: true,
     floatingSidebar: true,
     localFloatingControls: true,
-    fixedRegions: false,
+    fixedRegions: true,
   },
   accessibility: [
     'Header, Sidebar, Content and Footer render native header, aside, main and footer elements.',

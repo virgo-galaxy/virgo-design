@@ -97,7 +97,7 @@ export function LayoutPage() {
           index={'02'}
           title={'Layout behaviors'}
           description={
-            'Surface, resizing, sticky positioning, and region sizing stay structural and composable.'
+            'Surface, resizing, sticky or fixed positioning, and region sizing stay structural and composable.'
           }
         >
           <ComponentExample example={layoutExamples.layoutSurfaceRegions} />

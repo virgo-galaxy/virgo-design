@@ -60,6 +60,9 @@ export const LayoutHeader = forwardRef<HTMLElement, LayoutHeaderProps>(function 
     height,
     position = 'static',
     top = 0,
+    gap,
+    paddingInline,
+    contentAlign = 'start',
     logo,
     actions,
     surface,
@@ -69,25 +72,43 @@ export const LayoutHeader = forwardRef<HTMLElement, LayoutHeaderProps>(function 
   },
   forwardedRef,
 ) {
+  const hasContent = children !== undefined && children !== null && children !== false;
+
   return (
     <PrimitiveLayout.Header
       {...props}
       ref={forwardedRef}
       className={joinClassNames(styles.header, Boolean(surface) && styles.surfaceRegion, className)}
       data-position={position}
-      data-composed={logo != null || actions != null || undefined}
+      data-content-align={contentAlign}
+      data-composed={logo != null || hasContent || actions != null || undefined}
       style={
         {
           '--vd-layout-header-height': height === undefined ? undefined : cssLength(height),
-          top: position === 'sticky' ? top : undefined,
+          '--vd-layout-header-gap': gap === undefined ? undefined : cssLength(gap),
+          '--vd-layout-header-padding-inline':
+            paddingInline === undefined ? undefined : cssLength(paddingInline),
+          top: position === 'static' ? undefined : top,
           ...style,
         } as CSSProperties
       }
     >
       <SurfaceLayer surface={surface} />
-      {logo != null ? <div className={styles.logo}>{logo}</div> : null}
-      {children}
-      {actions != null ? <div className={styles.actions}>{actions}</div> : null}
+      {logo != null ? (
+        <div className={styles.logo} data-slot="header-logo">
+          {logo}
+        </div>
+      ) : null}
+      {hasContent ? (
+        <div className={styles.headerContent} data-slot="header-content">
+          {children}
+        </div>
+      ) : null}
+      {actions != null ? (
+        <div className={styles.actions} data-slot="header-actions">
+          {actions}
+        </div>
+      ) : null}
     </PrimitiveLayout.Header>
   );
 });

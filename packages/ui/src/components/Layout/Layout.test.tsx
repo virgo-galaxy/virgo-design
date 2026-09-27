@@ -162,6 +162,69 @@ describe('Layout', () => {
     expect(screen.getByTestId('root')).toHaveStyle({ minHeight: '100dvh' });
   });
 
+  it('supports fixed composed headers with configurable spacing and stable slots', () => {
+    render(
+      <Layout.Header
+        position="fixed"
+        top={12}
+        height={72}
+        gap="clamp(20px, 3vw, 64px)"
+        paddingInline={32}
+        contentAlign="center"
+        logo={<a href="#home">Virgo</a>}
+        actions={<button>Account</button>}
+      >
+        Navigation
+      </Layout.Header>,
+    );
+
+    const header = screen.getByRole('banner');
+    expect(header).toHaveAttribute('data-position', 'fixed');
+    expect(header).toHaveAttribute('data-content-align', 'center');
+    expect(header).toHaveStyle({ top: '12px' });
+    expect(header.style.getPropertyValue('--vd-layout-header-height')).toBe('72px');
+    expect(header.style.getPropertyValue('--vd-layout-header-gap')).toBe('clamp(20px, 3vw, 64px)');
+    expect(header.style.getPropertyValue('--vd-layout-header-padding-inline')).toBe('32px');
+    expect(header.querySelector('[data-slot="header-logo"]')).toContainElement(
+      screen.getByRole('link', { name: 'Virgo' }),
+    );
+    expect(header.querySelector('[data-slot="header-content"]')).toHaveTextContent('Navigation');
+    expect(header.querySelector('[data-slot="header-actions"]')).toContainElement(
+      screen.getByRole('button', { name: 'Account' }),
+    );
+  });
+
+  it('keeps every header slot optional and defaults content alignment to start', () => {
+    const { rerender } = render(<Layout.Header>Navigation</Layout.Header>);
+
+    let header = screen.getByRole('banner');
+    expect(header).toHaveAttribute('data-composed', 'true');
+    expect(header).toHaveAttribute('data-content-align', 'start');
+    expect(header.querySelector('[data-slot="header-logo"]')).not.toBeInTheDocument();
+    expect(header.querySelector('[data-slot="header-content"]')).toHaveTextContent('Navigation');
+    expect(header.querySelector('[data-slot="header-actions"]')).not.toBeInTheDocument();
+
+    rerender(<Layout.Header logo="Virgo" />);
+    header = screen.getByRole('banner');
+    expect(header.querySelector('[data-slot="header-logo"]')).toHaveTextContent('Virgo');
+    expect(header.querySelector('[data-slot="header-content"]')).not.toBeInTheDocument();
+    expect(header.querySelector('[data-slot="header-actions"]')).not.toBeInTheDocument();
+
+    rerender(<Layout.Header actions={<button>Account</button>} contentAlign="end" />);
+    header = screen.getByRole('banner');
+    expect(header).toHaveAttribute('data-content-align', 'end');
+    expect(header.querySelector('[data-slot="header-logo"]')).not.toBeInTheDocument();
+    expect(header.querySelector('[data-slot="header-content"]')).not.toBeInTheDocument();
+    expect(header.querySelector('[data-slot="header-actions"]')).toContainElement(
+      screen.getByRole('button', { name: 'Account' }),
+    );
+
+    rerender(<Layout.Header />);
+    header = screen.getByRole('banner');
+    expect(header).not.toHaveAttribute('data-composed');
+    expect(header.querySelector('[data-slot]')).not.toBeInTheDocument();
+  });
+
   it('collapses at the viewport threshold, restores the prior preference, and cleans up', () => {
     let listener: (() => void) | undefined;
     const remove = vi.fn();

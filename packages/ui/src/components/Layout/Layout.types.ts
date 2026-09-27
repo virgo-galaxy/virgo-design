@@ -34,8 +34,14 @@ export interface LayoutHeaderProps extends Omit<PrimitiveLayoutHeaderProps, 'cla
   /** Consumer class applied to the header region. */
   className?: string;
   height?: LayoutLength;
-  position?: 'static' | 'sticky';
+  position?: 'static' | 'sticky' | 'fixed';
   top?: LayoutLength;
+  /** Space between composed logo, content, and actions. */
+  gap?: LayoutLength;
+  /** Logical inline padding for the composed header. */
+  paddingInline?: LayoutLength;
+  /** Horizontal alignment of the optional content slot within its available space. @default 'start' */
+  contentAlign?: 'start' | 'center' | 'end';
   logo?: ReactNode;
   actions?: ReactNode;
   surface?: LayoutSurface;
