@@ -1,46 +1,103 @@
-import { DashboardIcon, GlobeIcon, HomeIcon, LayoutIcon, SettingsIcon } from '@virgo-design/icons';
-import { Layout, NavigationMenu } from '@virgo-design/ui';
+import { LayoutIcon } from '@virgo-design/icons';
+import { Layout, NavigationMenu, Surface } from '@virgo-design/ui';
 import { useState } from 'react';
 
+const labelStyle = {
+  fontSize: 12,
+  fontWeight: 400,
+  color: 'var(--vd-text-tertiary)',
+} as const;
+
 export default function App() {
-  const [value, setValue] = useState('home');
+  const [value, setValue] = useState('menu-1');
+  const [collapsed, setCollapsed] = useState(true);
+
+  const sidebarWidth = 224;
+  const collapsedSidebarWidth = 64;
+  const sidebarOffset = 16;
+  const headerLogoGap = 16;
+  const headerLogoWidth = sidebarWidth - headerLogoGap * 2;
+  // Reserve the sidebar and its offset; Content's padding supplies the 16px gap.
+  const contentInset = sidebarOffset + (collapsed ? collapsedSidebarWidth : sidebarWidth);
+
   return (
     <div
       style={{
         width: '100%',
+        height: 560,
         border: '1px solid var(--vd-border-subtle)',
         borderRadius: 12,
         overflow: 'hidden',
       }}
     >
-      <Layout>
+      <Layout style={{ height: '100%' }}>
         <Layout.Header
-          logo={<strong>Virgo</strong>}
+          height={64}
           surface={{ tone: 'default', border: 'subtle' }}
-          style={{ flexWrap: 'wrap', gap: 12, padding: '12px 16px' }}
+          style={{ position: 'relative', padding: 0 }}
         >
-          Floating navigation
-        </Layout.Header>
-        <Layout.Content surface={{ tone: 'secondary' }} style={{ minHeight: 480 }}>
-          <div
+          <span
+            aria-label="Logo"
             style={{
               position: 'absolute',
-              top: 24,
-              insetInlineEnd: 24,
-              maxWidth: 260,
-              textAlign: 'end',
-              color: 'var(--vd-text-secondary)',
+              insetInlineStart: headerLogoGap,
+              insetBlockStart: '50%',
+              width: headerLogoWidth,
+              height: 'var(--vd-sizing-32)',
+              borderRadius: 'var(--vd-radius-6)',
+              background: 'var(--vd-surface-strong)',
+              transform: 'translateY(-50%)',
+            }}
+          />
+          <span
+            style={{
+              ...labelStyle,
+              position: 'absolute',
+              insetBlock: 0,
+              insetInlineStart: contentInset,
+              insetInlineEnd: 0,
+              display: 'grid',
+              placeItems: 'center',
+              transition: 'inset-inline-start 220ms ease',
             }}
           >
-            <strong>A canvas with room to move</strong>
-            <p>Navigation floats inside this region.</p>
-          </div>
+            Header
+          </span>
+        </Layout.Header>
+        <Layout.Content padding={16} surface={{ tone: 'secondary' }} style={{ minHeight: 0 }}>
+          <Surface
+            tone="elevated"
+            radius={12}
+            border="subtle"
+            style={{
+              position: 'relative',
+              height: '100%',
+              minHeight: 0,
+              marginInlineStart: contentInset,
+              transition: 'margin-inline-start 220ms ease',
+            }}
+          >
+            <span
+              style={{
+                ...labelStyle,
+                position: 'absolute',
+                inset: 0,
+                display: 'grid',
+                placeItems: 'center',
+              }}
+            >
+              Content
+            </span>
+          </Surface>
           <Layout.Sidebar
             aria-label="Floating sidebar"
             mode="floating"
+            collapsed={collapsed}
+            onCollapsedChange={setCollapsed}
             collapsible
-            width="min(240px, 75%)"
-            offset={16}
+            width={sidebarWidth}
+            collapsedWidth={collapsedSidebarWidth}
+            offset={sidebarOffset}
           >
             {({ collapsed }) => (
               <NavigationMenu
@@ -51,63 +108,63 @@ export default function App() {
                 aria-label="Floating navigation"
               >
                 <NavigationMenu.List>
-                  <NavigationMenu.Item value="home" icon={<HomeIcon />}>
+                  <NavigationMenu.Item value="menu-1" icon={<LayoutIcon />}>
                     <NavigationMenu.Link
-                      href="#home"
-                      aria-label="Home"
-                      title={collapsed ? 'Home' : undefined}
+                      href="#menu-1"
+                      aria-label="Menu 1"
+                      title={collapsed ? 'Menu 1' : undefined}
                       onClick={(event) => {
                         event.preventDefault();
-                        setValue('home');
+                        setValue('menu-1');
                       }}
                     >
-                      {collapsed ? null : 'Home'}
+                      {collapsed ? null : 'Menu 1'}
                     </NavigationMenu.Link>
                   </NavigationMenu.Item>
-                  <NavigationMenu.Item value="projects" icon={<LayoutIcon />}>
+                  <NavigationMenu.Item value="menu-2" icon={<LayoutIcon />}>
                     <NavigationMenu.Trigger
-                      aria-label="Projects"
-                      title={collapsed ? 'Projects' : undefined}
+                      aria-label="Menu 2"
+                      title={collapsed ? 'Menu 2' : undefined}
                       indicator={!collapsed}
                     >
-                      {collapsed ? null : 'Projects'}
+                      {collapsed ? null : 'Menu 2'}
                     </NavigationMenu.Trigger>
                     <NavigationMenu.Content>
-                      <NavigationMenu.Item value="cloud" icon={<GlobeIcon />}>
+                      <NavigationMenu.Item value="submenu-1" icon={<LayoutIcon />}>
                         <NavigationMenu.Link
-                          href="#cloud"
+                          href="#submenu-1"
                           onClick={(event) => {
                             event.preventDefault();
-                            setValue('cloud');
+                            setValue('submenu-1');
                           }}
                         >
-                          Cloud
+                          Submenu 1
                         </NavigationMenu.Link>
                       </NavigationMenu.Item>
-                      <NavigationMenu.Item value="storage" icon={<DashboardIcon />}>
+                      <NavigationMenu.Item value="submenu-2" icon={<LayoutIcon />}>
                         <NavigationMenu.Link
-                          href="#storage"
+                          href="#submenu-2"
                           onClick={(event) => {
                             event.preventDefault();
-                            setValue('storage');
+                            setValue('submenu-2');
                           }}
                         >
-                          Storage
+                          Submenu 2
                         </NavigationMenu.Link>
                       </NavigationMenu.Item>
                     </NavigationMenu.Content>
                   </NavigationMenu.Item>
-                  <NavigationMenu.Item value="settings" icon={<SettingsIcon />}>
+                  <NavigationMenu.Item value="menu-3" icon={<LayoutIcon />}>
                     <NavigationMenu.Link
-                      href="#settings"
-                      aria-label="Settings"
-                      title={collapsed ? 'Settings' : undefined}
+                      href="#menu-3"
+                      aria-label="Menu 3"
+                      title={collapsed ? 'Menu 3' : undefined}
                       onClick={(event) => {
                         event.preventDefault();
-                        setValue('settings');
+                        setValue('menu-3');
                       }}
                     >
-                      {collapsed ? null : 'Settings'}
+                      {collapsed ? null : 'Menu 3'}
                     </NavigationMenu.Link>
                   </NavigationMenu.Item>
                 </NavigationMenu.List>

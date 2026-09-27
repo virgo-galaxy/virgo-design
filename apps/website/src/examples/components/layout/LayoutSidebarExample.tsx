@@ -1,9 +1,33 @@
-import { DashboardIcon, HomeIcon, LayoutIcon, SettingsIcon } from '@virgo-design/icons';
-import { Button, Layout, NavigationMenu, Surface } from '@virgo-design/ui';
+import { LayoutIcon } from '@virgo-design/icons';
+import { Layout, NavigationMenu, Surface } from '@virgo-design/ui';
 import { useState } from 'react';
 
+const labelStyle = {
+  fontSize: 12,
+  fontWeight: 400,
+  color: 'var(--vd-text-tertiary)',
+} as const;
+
+function SidebarBrand() {
+  return (
+    <span
+      aria-label="Logo"
+      style={{
+        display: 'block',
+        width: '100%',
+        height: 'var(--vd-sizing-32)',
+        // Cancel the Sidebar's outer top inset, not the header slot's own padding.
+        // The resulting brand row is 16 + 32 + 16 = 64px, matching Layout.Header.
+        marginBlockStart: 'calc(-1 * var(--vd-spacing-16))',
+        borderRadius: 'var(--vd-radius-6)',
+        background: 'var(--vd-surface-strong)',
+      }}
+    />
+  );
+}
+
 function Navigation({ compact = false }: { compact?: boolean }) {
-  const [value, setValue] = useState('overview');
+  const [value, setValue] = useState('menu-1');
   return (
     <NavigationMenu
       orientation="vertical"
@@ -13,11 +37,11 @@ function Navigation({ compact = false }: { compact?: boolean }) {
     >
       <NavigationMenu.List>
         {[
-          { id: 'overview', label: 'Overview', Icon: HomeIcon },
-          { id: 'projects', label: 'Projects', Icon: LayoutIcon },
-          { id: 'activity', label: 'Activity', Icon: DashboardIcon },
-        ].map(({ id, label, Icon }) => (
-          <NavigationMenu.Item key={id} value={id} icon={<Icon />}>
+          { id: 'menu-1', label: 'Menu 1' },
+          { id: 'menu-2', label: 'Menu 2' },
+          { id: 'menu-3', label: 'Menu 3' },
+        ].map(({ id, label }) => (
+          <NavigationMenu.Item key={id} value={id} icon={<LayoutIcon />}>
             <NavigationMenu.Link
               href={`#${id}`}
               aria-label={label}
@@ -36,68 +60,63 @@ function Navigation({ compact = false }: { compact?: boolean }) {
   );
 }
 
-function Content() {
-  return (
-    <Surface tone="elevated" border="subtle" radius={8} style={{ padding: 16, minWidth: 0 }}>
-      <strong>Room for your work</strong>
-      <p style={{ color: 'var(--vd-text-secondary)' }}>
-        Navigation and content share the available space.
-      </p>
-    </Surface>
-  );
-}
-
 export default function App() {
-  const [wide, setWide] = useState(false);
   return (
     <div
       style={{
         width: '100%',
+        height: 560,
         border: '1px solid var(--vd-border-subtle)',
         borderRadius: 12,
         overflow: 'hidden',
       }}
     >
-      <Layout direction="horizontal" minHeight={360}>
+      <Layout direction="horizontal" style={{ height: '100%' }}>
         <Layout.Sidebar
           collapsible
           mode="inline"
           aria-label="Collapsible sidebar region"
-          width={wide ? 'min(288px, 50%)' : 'min(240px, 45%)'}
+          width={224}
           collapsedWidth={64}
-          header={({ collapsed }) => (
-            <strong aria-label="Virgo">{collapsed ? 'V' : 'Virgo'}</strong>
-          )}
-          footer={({ collapsed }) =>
-            collapsed ? (
-              <Button variant="text" size="small" iconOnly aria-label="Settings">
-                <SettingsIcon />
-              </Button>
-            ) : (
-              <Button variant="text" size="small" leadingIcon={<SettingsIcon />}>
-                Settings
-              </Button>
-            )
-          }
+          header={<SidebarBrand />}
         >
           {({ collapsed }) => <Navigation compact={collapsed} />}
         </Layout.Sidebar>
         <Layout>
           <Layout.Header
-            logo={<strong>Collapsible sidebar</strong>}
-            style={{ flexWrap: 'wrap', gap: 12, padding: '12px 16px' }}
-            actions={
-              <Button variant="text" size="small" onClick={() => setWide((value) => !value)}>
-                {wide ? 'Standard width' : 'Wider sidebar'}
-              </Button>
-            }
+            height={64}
+            style={{ position: 'relative', flexWrap: 'wrap', gap: 12, padding: '12px 16px' }}
             surface={{ tone: 'default', border: 'subtle' }}
-          />
-          <Layout.Content padding={16} surface={{ tone: 'secondary' }}>
-            <Content />
+          >
+            <span
+              style={{
+                position: 'absolute',
+                insetInlineStart: '50%',
+                insetBlockStart: '50%',
+                transform: 'translate(-50%, -50%)',
+                fontSize: 12,
+                fontWeight: 400,
+                color: 'var(--vd-text-tertiary)',
+              }}
+            >
+              Header
+            </span>
+          </Layout.Header>
+          <Layout.Content padding={16} surface={{ tone: 'secondary' }} style={{ minHeight: 0 }}>
+            <Surface
+              tone="elevated"
+              radius={12}
+              border="subtle"
+              style={{ display: 'grid', height: '100%', minHeight: 0, placeItems: 'center' }}
+            >
+              <span style={labelStyle}>Content</span>
+            </Surface>
           </Layout.Content>
-          <Layout.Footer style={{ padding: 16, color: 'var(--vd-text-secondary)' }}>
-            This example owns its navigation and sidebar state.
+          <Layout.Footer
+            surface={{ tone: 'default', border: 'subtle' }}
+            style={{ display: 'grid', height: 48, placeItems: 'center', padding: '0 16px' }}
+          >
+            <span style={labelStyle}>Footer</span>
           </Layout.Footer>
         </Layout>
       </Layout>

@@ -1,59 +1,38 @@
 import { Layout } from '@virgo-design/ui';
 
+const labelStyle = {
+  display: 'grid',
+  placeItems: 'center',
+  color: 'color-mix(in srgb, var(--vd-neutral-1) 80%, transparent)',
+  fontSize: 12,
+  fontWeight: 400,
+} as const;
+
 export default function App() {
   return (
-    <Layout direction="horizontal" style={{ width: '100%' }}>
+    <Layout direction="horizontal" style={{ width: '100%', height: 400 }}>
       <Layout.Sidebar
-        width="25%"
+        width={224}
         surface={{ background: { type: 'color', value: 'var(--vd-brand-6)' }, border: 'none' }}
       >
-        <span
-          style={{
-            display: 'grid',
-            height: '100%',
-            placeItems: 'center',
-            padding: 8,
-            color: 'var(--vd-neutral-1)',
-            overflowWrap: 'anywhere',
-          }}
-        >
-          Sidebar
-        </span>
+        <span style={{ ...labelStyle, height: '100%' }}>Sidebar</span>
       </Layout.Sidebar>
       <Layout>
         <Layout.Header
           surface={{ background: { type: 'color', value: 'var(--vd-brand-5)' }, border: 'none' }}
-          style={{
-            display: 'grid',
-            placeItems: 'center',
-            padding: 16,
-            color: 'var(--vd-neutral-1)',
-            minHeight: 56,
-          }}
+          style={{ ...labelStyle, minHeight: 64 }}
         >
           Header
         </Layout.Header>
         <Layout.Content
           surface={{ background: { type: 'color', value: 'var(--vd-brand-7)' }, border: 'none' }}
-          style={{
-            display: 'grid',
-            placeItems: 'center',
-            padding: 16,
-            color: 'var(--vd-neutral-1)',
-            minHeight: 120,
-          }}
+          style={{ ...labelStyle, minHeight: 240 }}
         >
           Content
         </Layout.Content>
         <Layout.Footer
           surface={{ background: { type: 'color', value: 'var(--vd-brand-5)' }, border: 'none' }}
-          style={{
-            display: 'grid',
-            placeItems: 'center',
-            padding: 16,
-            color: 'var(--vd-neutral-1)',
-            minHeight: 56,
-          }}
+          style={{ ...labelStyle, minHeight: 48 }}
         >
           Footer
         </Layout.Footer>

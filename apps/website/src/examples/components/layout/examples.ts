@@ -16,14 +16,20 @@ import LayoutLeftSidebarExample from './LayoutLeftSidebarExample';
 import layoutLeftSidebarSource from './LayoutLeftSidebarExample.tsx?raw';
 import LayoutOverlaySidebarExample from './LayoutOverlaySidebarExample';
 import layoutOverlaySidebarSource from './LayoutOverlaySidebarExample.tsx?raw';
-import LayoutResponsiveSidebarExample from './LayoutResponsiveSidebarExample';
-import layoutResponsiveSidebarSource from './LayoutResponsiveSidebarExample.tsx?raw';
+import LayoutRailSidebarExample from './LayoutRailSidebarExample';
+import layoutRailSidebarSource from './LayoutRailSidebarExample.tsx?raw';
+import LayoutRegionSizingExample from './LayoutRegionSizingExample';
+import layoutRegionSizingSource from './LayoutRegionSizingExample.tsx?raw';
+import LayoutResizableSidebarExample from './LayoutResizableSidebarExample';
+import layoutResizableSidebarSource from './LayoutResizableSidebarExample.tsx?raw';
 import LayoutRightSidebarExample from './LayoutRightSidebarExample';
 import layoutRightSidebarSource from './LayoutRightSidebarExample.tsx?raw';
 import LayoutSidebarExample from './LayoutSidebarExample';
 import layoutSidebarSource from './LayoutSidebarExample.tsx?raw';
 import LayoutStickyHeaderExample from './LayoutStickyHeaderExample';
 import layoutStickyHeaderSource from './LayoutStickyHeaderExample.tsx?raw';
+import LayoutSurfaceRegionsExample from './LayoutSurfaceRegionsExample';
+import layoutSurfaceRegionsSource from './LayoutSurfaceRegionsExample.tsx?raw';
 
 export const layoutExamples = {
   layoutBasic: {
@@ -54,51 +60,70 @@ export const layoutExamples = {
     Component: LayoutFullHeightSidebarExample,
     source: layoutFullHeightSidebarSource,
   },
-  layoutHeader: {
-    id: 'layout-header',
-    title: 'Logo, navigation, and actions',
-    description: 'The header keeps its native controls while Surface selects its background.',
-    Component: LayoutHeaderExample,
-    source: layoutHeaderSource,
+  layoutRailSidebar: {
+    id: 'layout-rail-sidebar',
+    title: 'Rail and sidebar',
+    description: 'Place a compact rail beside a wider sidebar before the main content region.',
+    Component: LayoutRailSidebarExample,
+    source: layoutRailSidebarSource,
+  },
+  layoutSurfaceRegions: {
+    id: 'layout-surface-regions',
+    title: 'Surface regions',
+    description: 'Apply Surface treatments independently to Header, Sidebar, Content, and Footer.',
+    Component: LayoutSurfaceRegionsExample,
+    source: layoutSurfaceRegionsSource,
+  },
+  layoutResizableSidebar: {
+    id: 'layout-resizable-sidebar',
+    title: 'Resizable sidebar',
+    description:
+      'Drag the divider, or use the keyboard, to resize Sidebar within its minimum and maximum width.',
+    Component: LayoutResizableSidebarExample,
+    source: layoutResizableSidebarSource,
   },
   layoutStickyHeader: {
     id: 'layout-sticky-header',
-    title: 'Sticky header in a scroll region',
-    description: 'The header keeps its native controls while Surface selects its background.',
+    title: 'Sticky header',
+    description:
+      'Scroll the structure while Header remains pinned to the top of its scroll region.',
     Component: LayoutStickyHeaderExample,
     source: layoutStickyHeaderSource,
+  },
+  layoutRegionSizing: {
+    id: 'layout-region-sizing',
+    title: 'Region sizing',
+    description: 'Tune Header height, Sidebar width, and Content padding through Layout props.',
+    Component: LayoutRegionSizingExample,
+    source: layoutRegionSizingSource,
+  },
+  layoutHeader: {
+    id: 'layout-header',
+    title: 'Logo, navigation, and actions',
+    description: 'Navigation stays inside Header while Surface selects its background.',
+    Component: LayoutHeaderExample,
+    source: layoutHeaderSource,
   },
   layoutSidebar: {
     id: 'layout-sidebar',
     title: 'Collapsible sidebar',
-    description:
-      'Navigation, controls, and container sizing are all included in this standalone example.',
+    description: 'Navigation and container sizing are included in this standalone example.',
     Component: LayoutSidebarExample,
     source: layoutSidebarSource,
   },
   layoutControlledSidebar: {
     id: 'layout-controlled-sidebar',
     title: 'External sidebar control',
-    description:
-      'Navigation, controls, and container sizing are all included in this standalone example.',
+    description: 'Navigation and container sizing are included in this standalone example.',
     Component: LayoutControlledSidebarExample,
     source: layoutControlledSidebarSource,
   },
   layoutOverlaySidebar: {
     id: 'layout-overlay-sidebar',
     title: 'Overlay sidebar',
-    description:
-      'Navigation, controls, and container sizing are all included in this standalone example.',
+    description: 'Navigation and container sizing are included in this standalone example.',
     Component: LayoutOverlaySidebarExample,
     source: layoutOverlaySidebarSource,
-  },
-  layoutResponsiveSidebar: {
-    id: 'layout-responsive-sidebar',
-    title: 'Responsive sidebar',
-    description:
-      'Navigation, controls, and container sizing are all included in this standalone example.',
-    Component: LayoutResponsiveSidebarExample,
-    source: layoutResponsiveSidebarSource,
   },
   layoutFloatingSidebar: {
     id: 'layout-floating-sidebar',

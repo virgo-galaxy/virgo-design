@@ -84,12 +84,26 @@ export function LayoutPage() {
           id={'layout-structures'}
           index={'01'}
           title={'Layout structures'}
-          description={'Four compositions of Header, Sidebar, Content, and Footer.'}
+          description={'Five compositions of Header, Sidebar, Content, Footer, and a compact Rail.'}
         >
           <ComponentExample example={layoutExamples.layoutBasic} />
           <ComponentExample example={layoutExamples.layoutLeftSidebar} />
           <ComponentExample example={layoutExamples.layoutRightSidebar} />
+          <ComponentExample example={layoutExamples.layoutRailSidebar} />
           <ComponentExample example={layoutExamples.layoutFullHeightSidebar} />
+        </ArticleSection>
+        <ArticleSection
+          id={'layout-behaviors'}
+          index={'02'}
+          title={'Layout behaviors'}
+          description={
+            'Surface, resizing, sticky positioning, and region sizing stay structural and composable.'
+          }
+        >
+          <ComponentExample example={layoutExamples.layoutSurfaceRegions} />
+          <ComponentExample example={layoutExamples.layoutResizableSidebar} />
+          <ComponentExample example={layoutExamples.layoutStickyHeader} />
+          <ComponentExample example={layoutExamples.layoutRegionSizing} />
         </ArticleSection>
         <section
           className="layout-examples-intro"
@@ -102,37 +116,35 @@ export function LayoutPage() {
         </section>
         <ArticleSection
           id={'layout-header'}
-          index={'02'}
+          index={'03'}
           title={'Header composition'}
           description={
-            'Logo, horizontal NavigationMenu, and actions share a Header. Surface provides the background.'
+            'Logo and a horizontal NavigationMenu share a Header. Surface provides the background.'
           }
         >
           <ComponentExample example={layoutExamples.layoutHeader} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'layout-sidebar'}
-          index={'03'}
+          index={'04'}
           title={'Collapsible sidebar'}
-          description={
-            'Use the bottom control to switch between full navigation and an icon rail. The width control changes the expanded width.'
-          }
+          description={'Use the bottom control to switch between full navigation and an icon rail.'}
         >
           <ComponentExample example={layoutExamples.layoutSidebar} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'layout-controlled'}
-          index={'04'}
+          index={'05'}
           title={'Header trigger'}
           description={
-            'A controlled Sidebar lets its toggle live in the Header. Both controls share one collapsed state.'
+            'A controlled Sidebar lets its toggle live in the Header and own the collapsed state.'
           }
         >
           <ComponentExample example={layoutExamples.layoutControlledSidebar} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'layout-overlay'}
-          index={'05'}
+          index={'06'}
           title={'Overlay sidebar'}
           description={
             'A zero-width collapsed Sidebar opens over the content. The external Header control stays available.'
@@ -141,28 +153,8 @@ export function LayoutPage() {
           <ComponentExample example={layoutExamples.layoutOverlaySidebar} showCaption={false} />
         </ArticleSection>
         <ArticleSection
-          id={'layout-responsive'}
-          index={'06'}
-          title={'Responsive sidebar'}
-          description={
-            'Crossing the viewport threshold requests collapse. Returning to a wider viewport restores the previous preference.'
-          }
-        >
-          <ComponentExample example={layoutExamples.layoutResponsiveSidebar} showCaption={false} />
-        </ArticleSection>
-        <ArticleSection
-          id={'layout-sticky'}
-          index={'07'}
-          title={'Sticky header'}
-          description={
-            'Scroll inside this frame. The Header stays at the top of its scroll area and remains in document flow.'
-          }
-        >
-          <ComponentExample example={layoutExamples.layoutStickyHeader} showCaption={false} />
-        </ArticleSection>
-        <ArticleSection
           id={'layout-floating-sidebar'}
-          index={'08'}
+          index={'07'}
           title={'Floating sidebar'}
           description={
             'A detached sidebar sits inside full-width Content. Collapse it into a capsule, or open Projects to explore its submenu.'
@@ -172,7 +164,7 @@ export function LayoutPage() {
         </ArticleSection>
         <ArticleSection
           id={'layout-floating-actions'}
-          index={'09'}
+          index={'08'}
           title={'Floating actions'}
           description={
             "A standalone action and an expandable action group sit in Content's lower-right corner. Try the buttons, Escape, and outside clicks."
