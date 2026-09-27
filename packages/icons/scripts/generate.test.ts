@@ -33,6 +33,7 @@ describe('icons generator', () => {
       'dashboard.svg',
       'ellipsis-vertical.svg',
       'ellipsis.svg',
+      'external-link.svg',
       'eye-closed.svg',
       'eye.svg',
       'gauge.svg',

@@ -22,6 +22,7 @@ export {
   EllipsisVerticalIcon,
   type EllipsisVerticalIconProps,
 } from './generated/EllipsisVerticalIcon.js';
+export { ExternalLinkIcon, type ExternalLinkIconProps } from './generated/ExternalLinkIcon.js';
 export { EyeClosedIcon, type EyeClosedIconProps } from './generated/EyeClosedIcon.js';
 export { EyeIcon, type EyeIconProps } from './generated/EyeIcon.js';
 export { GaugeIcon, type GaugeIconProps } from './generated/GaugeIcon.js';

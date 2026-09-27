@@ -49,10 +49,11 @@ describe('Icons foundation', () => {
 
     await user.click(screen.getByRole('button', { name: 'Icon Plus' }));
 
-    expect(screen.getAllByRole('option')).toHaveLength(42);
+    expect(screen.getAllByRole('option')).toHaveLength(43);
     expect(screen.queryByRole('option', { name: 'Workspace' })).not.toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Check' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Circle Info' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'External Link' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Cybertruck' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Chevron Left' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Settings' })).toHaveAttribute(
@@ -89,6 +90,7 @@ describe('Icons foundation', () => {
     ['Sidebar Expand', 'sidebar-expand'],
     ['Ellipsis', 'ellipsis'],
     ['Ellipsis Vertical', 'ellipsis-vertical'],
+    ['External Link', 'external-link'],
     ['Layout', 'layout'],
     ['Palette', 'palette'],
     ['Type', 'type'],
