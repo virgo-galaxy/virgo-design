@@ -53,6 +53,14 @@ export interface LayoutSidebarProps extends PrimitiveLayoutSidebarProps {
   trigger?: ReactNode;
   /** Viewport width in px. Requests collapse on entry, restores the prior state on exit. */
   collapseBelow?: number;
+  /** Allows pointer and keyboard resizing of the expanded sidebar width. */
+  resizable?: boolean;
+  /** Minimum resizable width in px. */
+  minWidth?: number;
+  /** Maximum resizable width in px. */
+  maxWidth?: number;
+  /** Called while the resizable width changes. */
+  onWidthChange?: (width: number) => void;
   mode?: 'inline' | 'overlay' | 'floating';
   /** Distance from the containing region's edges in floating mode. */
   offset?: LayoutLength;

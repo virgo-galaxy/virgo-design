@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -269,6 +269,63 @@ describe('Layout', () => {
     expect(screen.getByTestId('sidebar').style.getPropertyValue('--vd-layout-sidebar-width')).toBe(
       '18rem',
     );
+  });
+
+  it('resizes an expanded sidebar with pointer and keyboard input', () => {
+    const onWidthChange = vi.fn();
+    render(
+      <Layout direction="horizontal">
+        <Layout.Sidebar
+          width={240}
+          minWidth={160}
+          maxWidth={320}
+          resizable
+          onWidthChange={onWidthChange}
+        >
+          Sidebar
+        </Layout.Sidebar>
+        <Layout.Content>Content</Layout.Content>
+      </Layout>,
+    );
+
+    const sidebar = screen.getByRole('complementary');
+    const rect = vi.spyOn(sidebar, 'getBoundingClientRect').mockReturnValue({
+      x: 0,
+      y: 0,
+      width: 240,
+      height: 400,
+      top: 0,
+      right: 240,
+      bottom: 400,
+      left: 0,
+      toJSON: () => ({}),
+    });
+    const handle = screen.getByRole('separator', { name: 'Resize sidebar' });
+
+    fireEvent.pointerDown(handle, { button: 0, clientX: 240 });
+    fireEvent.pointerMove(window, { clientX: 300 });
+    expect(sidebar.style.getPropertyValue('--vd-layout-sidebar-width')).toBe('300px');
+    expect(onWidthChange).toHaveBeenLastCalledWith(300);
+
+    fireEvent.pointerMove(window, { clientX: 500 });
+    expect(sidebar.style.getPropertyValue('--vd-layout-sidebar-width')).toBe('320px');
+    fireEvent.pointerUp(window);
+
+    rect.mockReturnValue({
+      x: 0,
+      y: 0,
+      width: 320,
+      height: 400,
+      top: 0,
+      right: 320,
+      bottom: 400,
+      left: 0,
+      toJSON: () => ({}),
+    });
+    fireEvent.keyDown(handle, { key: 'ArrowLeft' });
+    expect(sidebar.style.getPropertyValue('--vd-layout-sidebar-width')).toBe('312px');
+    expect(handle).toHaveAttribute('aria-valuemin', '160');
+    expect(handle).toHaveAttribute('aria-valuemax', '320');
   });
 
   it('forwards native props, consumer classes, and refs', () => {

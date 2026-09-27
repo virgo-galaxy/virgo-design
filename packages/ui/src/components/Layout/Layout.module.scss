@@ -82,7 +82,55 @@
   inset-inline-end: var(--vd-layout-sidebar-offset);
 }
 
-.sidebar[data-mode='floating'] .sidebarContents {
+.sidebar[data-mode='floating'] .sidebar[data-mode='inline'][data-resizable] {
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar[data-resizing] {
+  transition: none;
+}
+
+.sidebarResizeHandle {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: -4px;
+  z-index: 4;
+  width: 8px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.sidebarResizeHandle[data-side='end'] {
+  inset-inline-start: -4px;
+  inset-inline-end: auto;
+}
+
+.sidebarResizeHandle::after {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 50%;
+  width: var(--vd-border-width-1);
+  background: var(--vd-border-default);
+  content: '';
+  transform: translateX(-50%);
+  transition:
+    width var(--vd-duration-120) var(--vd-easing-standard),
+    background-color var(--vd-duration-120) var(--vd-easing-standard);
+}
+
+.sidebarResizeHandle:hover::after,
+.sidebarResizeHandle:focus-visible::after,
+.sidebar[data-resizing] .sidebarResizeHandle::after {
+  width: var(--vd-border-width-2);
+  background: var(--vd-brand-primary);
+}
+
+.sidebarContents {
   padding-block: var(--vd-spacing-16);
 }
 
@@ -91,6 +139,10 @@
   min-height: var(--vd-sizing-36);
   border: 0;
   padding: 0;
+}
+
+.sidebar[data-mode='floating'] .sidebarContents {
+  padding-block: var(--vd-spacing-16) var(--vd-spacing-12);
 }
 
 .sidebar[data-mode='floating'] .sidebarTrigger {
@@ -114,14 +166,120 @@
   }
 }
 
+// The expanded trigger joins the sidebar surface. Only its outward arc owns a
+// border/shadow; keep a single matching fill in idle, hover, and pressed states.
 .sidebar[data-mode='floating'][data-state='expanded'] .sidebarTrigger {
   position: absolute;
   inset-inline-end: calc(var(--vd-sizing-36) / -2);
+  isolation: isolate;
+  overflow: visible;
+  border-color: transparent;
+  background: var(--vd-surface-default);
+  box-shadow: none;
+
+  &:hover:not(:disabled),
+  &:active:not(:disabled) {
+    border-color: transparent;
+    background: var(--vd-surface-default);
+  }
+
+  &:active:not(:disabled) {
+    color: var(--vd-brand-link-hover);
+  }
+}
+
+.sidebar[data-mode='floating'][data-state='expanded'] .sidebarTrigger::before {
+  position: absolute;
+  inset: calc(var(--vd-border-width-1) * -1);
+  z-index: -1;
+  box-sizing: border-box;
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: inherit;
+  background: inherit;
+  box-shadow: var(--vd-elevation-1);
+  clip-path: inset(
+    calc(var(--vd-spacing-4) * -1) calc(var(--vd-spacing-4) * -1) calc(var(--vd-spacing-4) * -1) 50%
+  );
+  pointer-events: none;
+  content: '';
+  transition: border-color var(--vd-duration-120) var(--vd-easing-standard);
+}
+
+.sidebar[data-mode='floating'][data-state='expanded'] .sidebarTrigger:hover:not(:disabled)::before {
+  border-color: var(--vd-brand-subtle-hover);
+}
+
+.sidebar[data-mode='floating'][data-state='expanded']
+  .sidebarTrigger:active:not(:disabled)::before {
+  border-color: var(--vd-brand-focus);
 }
 
 .sidebar[data-mode='floating'][data-state='expanded'][data-side='end'] .sidebarTrigger {
   inset-inline-start: calc(var(--vd-sizing-36) / -2);
   inset-inline-end: auto;
+}
+
+// Logical placement mirrors the protruding arc for end-side and RTL sidebars.
+.sidebar[data-mode='floating'][data-state='expanded'][data-side='end'] .sidebarTrigger::before,
+.sidebar[data-mode='floating'][data-state='expanded']:dir(rtl) .sidebarTrigger::before {
+  clip-path: inset(
+    calc(var(--vd-spacing-4) * -1) 50% calc(var(--vd-spacing-4) * -1) calc(var(--vd-spacing-4) * -1)
+  );
+}
+
+.sidebar[data-mode='floating'][data-state='expanded'][data-side='end']:dir(rtl)
+  .sidebarTrigger::before {
+  clip-path: inset(
+    calc(var(--vd-spacing-4) * -1) calc(var(--vd-spacing-4) * -1) calc(var(--vd-spacing-4) * -1) 50%
+  );
+}
+
+.sidebar[data-mode='inline'][data-resizable] {
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar[data-resizing] {
+  transition: none;
+}
+
+.sidebarResizeHandle {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: -4px;
+  z-index: 4;
+  width: 8px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.sidebarResizeHandle[data-side='end'] {
+  inset-inline-start: -4px;
+  inset-inline-end: auto;
+}
+
+.sidebarResizeHandle::after {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 50%;
+  width: var(--vd-border-width-1);
+  background: var(--vd-border-default);
+  content: '';
+  transform: translateX(-50%);
+  transition:
+    width var(--vd-duration-120) var(--vd-easing-standard),
+    background-color var(--vd-duration-120) var(--vd-easing-standard);
+}
+
+.sidebarResizeHandle:hover::after,
+.sidebarResizeHandle:focus-visible::after,
+.sidebar[data-resizing] .sidebarResizeHandle::after {
+  width: var(--vd-border-width-2);
+  background: var(--vd-brand-primary);
 }
 
 .sidebarContents {
@@ -149,11 +307,28 @@
 }
 
 .sidebarControls {
+  box-sizing: border-box;
   display: flex;
+  height: var(--vd-sizing-48);
+  align-items: center;
   justify-content: center;
-  flex: 0 0 auto;
-  padding: var(--vd-spacing-8);
-  border-block-start: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  flex: 0 0 var(--vd-sizing-48);
+  padding: 0;
+  border: 0;
+}
+
+.sidebar .sidebarContents:has(> .sidebarControls) {
+  padding-block-end: 0;
+}
+
+.sidebar:not([data-mode='floating']) .sidebarControls .sidebarTrigger {
+  width: var(--vd-sizing-28);
+  height: var(--vd-sizing-28);
+}
+
+.sidebar:not([data-mode='floating']) .sidebarControls .sidebarTrigger svg {
+  width: var(--vd-sizing-16);
+  height: var(--vd-sizing-16);
 }
 
 .sidebar[data-side='end'] .sidebarTrigger svg,
@@ -201,7 +376,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .sidebar,
-  .sidebar[data-mode='floating'] .sidebarTrigger {
+  .sidebar[data-mode='floating'] .sidebarTrigger,
+  .sidebar[data-mode='floating'][data-state='expanded'] .sidebarTrigger::before {
     transition: none;
   }
 }

@@ -7,7 +7,7 @@ export const layoutMetadata = {
   description:
     'Composes semantic regions with collapsible sidebars, sticky headers, responsive width changes, and shared Surface treatments. Navigation remains independent.',
   import: "import { Layout } from '@virgo-design/ui';",
-  states: ['default', 'expanded', 'collapsed', 'responsive', 'sticky'],
+  states: ['default', 'expanded', 'collapsed', 'responsive', 'resizing', 'sticky'],
   anatomy: [
     {
       name: 'Layout.Root',
@@ -20,7 +20,7 @@ export const layoutMetadata = {
     {
       name: 'Layout.Sidebar',
       description:
-        'Semantic aside with controlled or uncontrolled collapse, header/body/footer slots and configurable widths.',
+        'Semantic aside with controlled or uncontrolled collapse, header/body/footer slots, configurable widths, and optional resizing.',
     },
     {
       name: 'Layout.SidebarTrigger',
@@ -44,6 +44,7 @@ export const layoutMetadata = {
     horizontalComposition: true,
     nestedLayout: true,
     sidebarWidth: true,
+    resizableSidebar: true,
     semanticRegions: true,
     collapsibleSidebar: true,
     responsiveBreakpoint: true,
@@ -58,6 +59,7 @@ export const layoutMetadata = {
     'Header, Sidebar, Content and Footer render native header, aside, main and footer elements.',
     'Children retain document order, so visual placement and reading order stay aligned.',
     'SidebarTrigger uses a native button with aria-expanded, aria-controls, and an action label. Layout adds no navigation behavior.',
+    'Resizable Sidebar exposes a keyboard-focusable separator with arrow-key resizing and optional minimum and maximum widths.',
     'Zero-width collapsed content is hidden and inert. Supply an external trigger. Icon-only navigation must retain accessible labels.',
     'Consumers should avoid nesting multiple main regions in the same document landmark scope.',
   ],

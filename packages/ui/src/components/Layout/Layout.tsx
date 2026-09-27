@@ -1,6 +1,15 @@
 import { SidebarCollapseIcon, SidebarExpandIcon } from '@virgo-design/icons';
 import { Layout as PrimitiveLayout } from '@virgo-design/primitives';
-import { type CSSProperties, forwardRef, useEffect, useLayoutEffect, useRef } from 'react';
+import {
+  type CSSProperties,
+  forwardRef,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type PointerEvent as ReactPointerEvent,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { Surface } from '../Surface';
 import styles from './Layout.module.scss';
@@ -152,6 +161,10 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
     collapsedWidth = 'var(--vd-sizing-64)',
     collapsible = false,
     collapseBelow,
+    resizable = false,
+    minWidth,
+    maxWidth,
+    onWidthChange,
     header,
     footer,
     trigger,
@@ -166,16 +179,96 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
   },
   ref,
 ) {
+  const sidebarRef = useRef<HTMLElement | null>(null);
+  const resizeCleanupRef = useRef<(() => void) | null>(null);
+  const [resizedWidth, setResizedWidth] = useState<number | null>(null);
+  const [resizing, setResizing] = useState(false);
+
+  useEffect(() => {
+    setResizedWidth(null);
+  }, [width]);
+
+  useEffect(
+    () => () => {
+      resizeCleanupRef.current?.();
+    },
+    [],
+  );
+
+  const clampWidth = (nextWidth: number) =>
+    Math.min(maxWidth ?? Number.POSITIVE_INFINITY, Math.max(minWidth ?? 0, nextWidth));
+
+  const updateWidth = (nextWidth: number) => {
+    const clampedWidth = clampWidth(nextWidth);
+    setResizedWidth(clampedWidth);
+    onWidthChange?.(clampedWidth);
+  };
+
+  const startResize = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!resizable || event.button !== 0 || !sidebarRef.current) return;
+
+    resizeCleanupRef.current?.();
+    const startX = event.clientX;
+    const startWidth = sidebarRef.current.getBoundingClientRect().width;
+    const direction = side === 'end' ? -1 : 1;
+    setResizedWidth(startWidth);
+    setResizing(true);
+
+    const onPointerMove = (pointerEvent: PointerEvent) => {
+      updateWidth(startWidth + (pointerEvent.clientX - startX) * direction);
+    };
+    const stopResize = () => {
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', stopResize);
+      window.removeEventListener('pointercancel', stopResize);
+      resizeCleanupRef.current = null;
+      setResizing(false);
+    };
+
+    resizeCleanupRef.current = stopResize;
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', stopResize);
+    window.addEventListener('pointercancel', stopResize);
+    event.currentTarget.focus();
+    event.preventDefault();
+  };
+
+  const resizeWithKeyboard = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (!resizable || !sidebarRef.current) return;
+
+    const currentWidth = sidebarRef.current.getBoundingClientRect().width;
+    const direction = side === 'end' ? -1 : 1;
+    let nextWidth: number | undefined;
+
+    if (event.key === 'ArrowLeft') nextWidth = currentWidth - 8 * direction;
+    if (event.key === 'ArrowRight') nextWidth = currentWidth + 8 * direction;
+    if (event.key === 'Home' && minWidth !== undefined) nextWidth = minWidth;
+    if (event.key === 'End' && maxWidth !== undefined) nextWidth = maxWidth;
+    if (nextWidth === undefined) return;
+
+    event.preventDefault();
+    updateWidth(nextWidth);
+  };
+
+  const renderedWidth = resizedWidth ?? width;
+  const numericWidth = resizedWidth ?? (typeof width === 'number' ? width : undefined);
+
   return (
     <PrimitiveLayout.Sidebar
       {...props}
-      ref={ref}
+      ref={(node) => {
+        sidebarRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) ref.current = node;
+      }}
       className={joinClassNames(styles.sidebar, styles.surfaceRegion, className)}
       data-mode={mode}
       data-side={side}
+      data-resizable={resizable || undefined}
+      data-resizing={resizing || undefined}
       style={
         {
-          '--vd-layout-sidebar-width': cssLength(width),
+          '--vd-layout-sidebar-width': cssLength(renderedWidth),
           '--vd-layout-sidebar-collapsed-width': cssLength(collapsedWidth),
           '--vd-layout-sidebar-offset': cssLength(offset),
           ...style,
@@ -183,23 +276,43 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
       }
     >
       {(state) => (
-        <SidebarContents
-          state={state}
-          collapseBelow={collapseBelow}
-          header={header}
-          footer={footer}
-          collapsible={collapsible}
-          trigger={trigger}
-          collapsedWidth={collapsedWidth}
-          surface={{
-            tone: 'default',
-            border: 'subtle',
-            ...(mode === 'floating' ? { radius: state.collapsed ? 'full' : 12, elevation: 2 } : {}),
-            ...surface,
-          }}
-        >
-          {children}
-        </SidebarContents>
+        <>
+          <SidebarContents
+            state={state}
+            collapseBelow={collapseBelow}
+            header={header}
+            footer={footer}
+            collapsible={collapsible}
+            trigger={trigger}
+            collapsedWidth={collapsedWidth}
+            surface={{
+              tone: 'default',
+              border: 'subtle',
+              ...(mode === 'floating'
+                ? { radius: state.collapsed ? 'full' : 12, elevation: 2 }
+                : {}),
+              ...surface,
+            }}
+          >
+            {children}
+          </SidebarContents>
+          {resizable && !state.collapsed ? (
+            <div
+              role="separator"
+              aria-label="Resize sidebar"
+              aria-orientation="vertical"
+              aria-valuemin={minWidth}
+              aria-valuemax={maxWidth}
+              aria-valuenow={numericWidth === undefined ? undefined : Math.round(numericWidth)}
+              tabIndex={0}
+              className={styles.sidebarResizeHandle}
+              data-side={side}
+              data-slot="sidebar-resize-handle"
+              onPointerDown={startResize}
+              onKeyDown={resizeWithKeyboard}
+            />
+          ) : null}
+        </>
       )}
     </PrimitiveLayout.Sidebar>
   );
