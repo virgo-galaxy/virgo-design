@@ -6,8 +6,8 @@ An example is one understandable use case, not an entire documentation page and 
 one individual control. Button variants belong together in a short example. Icon-only controls are
 a separate example. Dialog sizes and a controlled form are separate examples.
 
-All 36 component pages use this model. The current runtime contains 201 executable
-examples across 142 article sections, including Textarea inside the Input family. The existing
+All 37 component pages use this model. The current runtime contains 209 executable
+examples across 159 article sections, including Textarea inside the Input family. The existing
 chapter anchors and every hero/reference specimen are preserved.
 
 Each page is an assembly of documentation and imported examples. State, event handlers, fixtures,
@@ -187,6 +187,7 @@ Each entry imports a neighboring `*Example.tsx` normally and as `?raw`, plus the
 | `checkbox`          |                   4 |
 | `command`           |                   3 |
 | `context-menu`      |                   3 |
+| `cursor`            |                   7 |
 | `dialog`            |                   2 |
 | `drawer`            |                   5 |
 | `dropdown`          |                   9 |
@@ -212,7 +213,7 @@ Each entry imports a neighboring `*Example.tsx` normally and as `?raw`, plus the
 | `tabs`              |                   7 |
 | `tag`               |                   5 |
 | `toast`             |                   4 |
-| `tooltip`           |                  12 |
+| `tooltip`           |                  13 |
 
 There is no extra bottom-of-page `Examples` section. Relationships remain outside the page content
 at the existing end-of-document location. Hero specimens remain compact component introductions,
@@ -251,7 +252,7 @@ The legacy hard-coded Surface `<details>` source block and 105 duplicate metadat
 Repository tests cover article structure, exact paired React / SCSS raw sources, disclosure semantics,
 unique panel IDs, keyboard disclosure actions, source-tab switching, the synchronized Expand all /
 Collapse all runtime control, real Virgo icons/Tooltip, copy-to-check feedback, clipboard
-success/failure/pending/retry/unmount behavior, stateful Dialog integration, duplicate instance registration/unregistration, all 36 pages in both
+success/failure/pending/retry/unmount behavior, stateful Dialog integration, duplicate instance registration/unregistration, all 37 pages in both
 themes, and representative independent form/menu/tab/notification examples. Manifest tests pair
 all executable modules with their exact raw source and check public dependency boundaries.
 The root `pnpm all`

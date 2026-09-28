@@ -1,4 +1,5 @@
 import { Separator, Surface } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { useAppearance } from '@/shared/theme/use-appearance';
 
@@ -7,13 +8,15 @@ import styles from './global-controls.module.scss';
 import { LanguageControl } from './LanguageControl';
 
 export function GlobalControls() {
+  const { t } = useTranslation();
   const { appearance, setAppearance } = useAppearance();
 
   return (
     <Surface
       className={styles.controls}
       data-theme={appearance}
-      aria-label="Global controls"
+      role="group"
+      aria-label={t('common.globalControls')}
       material="glass"
       tone="elevated"
       elevation={2}

@@ -1,6 +1,7 @@
 export const zhCN = {
   common: {
     reset: '重置',
+    globalControls: '全局控制',
     live: '实时',
     switchToChinese: '切换到中文',
     switchToEnglish: '切换到英文',

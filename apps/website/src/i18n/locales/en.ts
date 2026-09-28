@@ -1,6 +1,7 @@
 export const en = {
   common: {
     reset: 'Reset',
+    globalControls: 'Global controls',
     live: 'LIVE',
     switchToChinese: 'Switch to Chinese',
     switchToEnglish: 'Switch to English',

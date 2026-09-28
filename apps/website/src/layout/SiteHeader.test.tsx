@@ -1,9 +1,9 @@
-import '../i18n';
-
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
+import i18n from '@/i18n';
 import { AppearanceContext } from '@/shared/theme/appearance-context';
 
 import { SiteHeader } from './SiteHeader';
@@ -17,6 +17,11 @@ function renderHeader(initialEntry = '/') {
     </AppearanceContext.Provider>,
   );
 }
+
+afterEach(async () => {
+  await i18n.changeLanguage('en');
+  window.localStorage.clear();
+});
 
 describe('SiteHeader', () => {
   it('uses the official logo and real text in one Home link', () => {
@@ -49,9 +54,9 @@ describe('SiteHeader', () => {
     );
     expect(header.querySelector('[data-slot="header-content"]')).toContainElement(navigation);
     expect(header.querySelector('[data-slot="header-actions"]')).toContainElement(
-      screen.getByLabelText('Global controls'),
+      screen.getByRole('group', { name: 'Global controls' }),
     );
-    const controls = screen.getByLabelText('Global controls');
+    const controls = screen.getByRole('group', { name: 'Global controls' });
     expect(controls).toHaveAttribute('data-material', 'glass');
     const controlButtons = within(controls).getAllByRole('button');
     expect(controlButtons).toHaveLength(2);
@@ -64,6 +69,18 @@ describe('SiteHeader', () => {
       'aria-current',
       'page',
     );
+  });
+
+  it('localizes the global controls group label', async () => {
+    const user = userEvent.setup();
+    renderHeader();
+
+    const languageControl = screen.getByRole('button', { name: 'Switch to Chinese' });
+    expect(screen.getByRole('group', { name: 'Global controls' })).toBeInTheDocument();
+
+    await user.click(languageControl);
+
+    expect(await screen.findByRole('group', { name: '全局控制' })).toBeInTheDocument();
   });
 
   it('presents Primitives as a top-level product area instead of Resources', () => {
