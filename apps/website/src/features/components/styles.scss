@@ -454,17 +454,6 @@
     border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
   }
 
-  .review-footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: var(--vd-spacing-32);
-    padding: var(--vd-spacing-16) 0;
-    border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
-    font-size: var(--vd-font-size-12);
-    line-height: var(--vd-line-height-3);
-    color: var(--vd-text-tertiary);
-  }
-
   @media (max-width: 1040px) {
     .overview {
       grid-template-columns: minmax(0, 1fr);

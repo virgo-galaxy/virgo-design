@@ -1,3 +1,5 @@
+import { Separator, Surface } from '@virgo-design/ui';
+
 import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { AppearanceControl } from './AppearanceControl';
@@ -8,12 +10,18 @@ export function GlobalControls() {
   const { appearance, setAppearance } = useAppearance();
 
   return (
-    <div className={styles.controls} data-theme={appearance} aria-label="Global controls">
+    <Surface
+      className={styles.controls}
+      data-theme={appearance}
+      aria-label="Global controls"
+      material="glass"
+      tone="elevated"
+      elevation={2}
+      radius={12}
+    >
       <LanguageControl />
-
-      <div className={styles.divider} aria-hidden="true" />
-
+      <Separator className={styles.separator} decorative orientation="vertical" />
       <AppearanceControl value={appearance} onChange={setAppearance} />
-    </div>
+    </Surface>
   );
 }

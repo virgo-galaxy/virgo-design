@@ -52,9 +52,4 @@ body:has(.components-documentation) {
   .surface-demo-feedback {
     margin-top: var(--vd-spacing-12);
   }
-
-  .surface-review-footer {
-    flex-wrap: wrap;
-    gap: var(--vd-spacing-8) var(--vd-spacing-24);
-  }
 }

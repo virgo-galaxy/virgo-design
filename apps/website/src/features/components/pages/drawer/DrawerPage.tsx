@@ -10,16 +10,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { drawerExamples } from '@/examples/components/drawer/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function DrawerPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board drawer-review" id="drawer-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 27</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Drawer</h1>
             <p>
               Open a temporary inspector, settings surface, or secondary workspace from any screen
@@ -131,10 +130,6 @@ export function DrawerPage() {
         >
           <ComponentExample example={drawerExamples.drawerNonModal} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Drawer V1.0.0</span>
-          <span>Dialog behavior · Tokens · Motion · Accessibility</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

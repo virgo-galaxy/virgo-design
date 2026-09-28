@@ -64,7 +64,9 @@ const IconsPage = lazy(() =>
 function ComponentsDocumentationRoute() {
   return (
     <ComponentsDocumentation
-      renderFooter={(componentSlug) => <ComponentRelationships componentSlug={componentSlug} />}
+      renderRelationships={(componentSlug) => (
+        <ComponentRelationships componentSlug={componentSlug} />
+      )}
     />
   );
 }
@@ -72,7 +74,9 @@ function ComponentsDocumentationRoute() {
 function PrimitiveDocumentation() {
   return (
     <PrimitiveDetailPage
-      renderFooter={(primitiveSlug) => <PrimitiveRelationships primitiveSlug={primitiveSlug} />}
+      renderRelationships={(primitiveSlug) => (
+        <PrimitiveRelationships primitiveSlug={primitiveSlug} />
+      )}
     />
   );
 }

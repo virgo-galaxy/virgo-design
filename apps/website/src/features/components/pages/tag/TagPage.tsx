@@ -11,16 +11,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { tagExamples } from '@/examples/components/tag/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function TagPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board tag-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 23</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Tag</h1>
             <p>A compact, standalone label for classification, status and short metadata.</p>
             <dl className="component-facts">
@@ -95,10 +94,6 @@ export function TagPage() {
           <ComponentExample example={tagExamples.tagIcons} />
           <ComponentExample example={tagExamples.tagClosable} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Tag V1.0.0</span>
-          <span>Standalone metadata · Semantic tokens · Classic</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

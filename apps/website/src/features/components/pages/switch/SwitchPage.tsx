@@ -8,16 +8,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { switchExamples } from '@/examples/components/switch/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function SwitchPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board" id="switch-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 16</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Switch</h1>
             <p>
               Toggles an immediate binary state with a familiar pill control or a more technical
@@ -105,10 +104,6 @@ export function SwitchPage() {
         >
           <ComponentExample example={switchExamples.switchDisabled} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Switch V1.0.0</span>
-          <span>Primitive · Tokens · Metadata</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

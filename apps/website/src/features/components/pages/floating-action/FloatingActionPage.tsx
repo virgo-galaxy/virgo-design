@@ -10,16 +10,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { floatingActionExamples } from '@/examples/components/floating-action/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function FloatingActionPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board floating-action-review" id="floating-action-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 34</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>{floatingActionMetadata.name}</h1>
             <p>{floatingActionMetadata.description}</p>
             <dl className="component-facts">
@@ -92,10 +91,6 @@ export function FloatingActionPage() {
             showCaption={false}
           />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · FloatingAction V1.0.0</span>
-          <span>Button · Popover · Tokens · Icons · Metadata</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

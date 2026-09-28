@@ -10,6 +10,7 @@ import { DocumentationDetailShell } from '@/components/docs/DocumentationDetailS
 import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { componentGroups, componentRoutes, type ComponentSlug } from './app/componentRoutes';
+import { ComponentPageMetadataProvider } from './components/ComponentPageMetadata';
 
 const componentsBasePath = '/components/';
 const navigationGroups = componentGroups
@@ -20,10 +21,10 @@ const navigationGroups = componentGroups
   .filter((group) => group.routes.length > 0);
 
 export interface ComponentsDocumentationProps {
-  renderFooter?: (componentSlug: ComponentSlug) => ReactNode;
+  renderRelationships?: (componentSlug: ComponentSlug) => ReactNode;
 }
 
-export function ComponentsDocumentation({ renderFooter }: ComponentsDocumentationProps) {
+export function ComponentsDocumentation({ renderRelationships }: ComponentsDocumentationProps) {
   const { appearance } = useAppearance();
   const location = useLocation();
   const previousPathname = useRef(location.pathname);
@@ -118,14 +119,20 @@ export function ComponentsDocumentation({ renderFooter }: ComponentsDocumentatio
             </Breadcrumb>
           }
         >
-          <Routes>
-            <Route index element={<Navigate replace to="/components/button" />} />
-            {componentRoutes.map(({ Component, id, path }) => (
-              <Route key={id} path={path.replace(componentsBasePath, '')} element={<Component />} />
-            ))}
-            <Route path="*" element={<Navigate replace to="/components/button" />} />
-          </Routes>
-          {renderFooter?.(activeRoute.id)}
+          <ComponentPageMetadataProvider metadata={activeRoute}>
+            <Routes>
+              <Route index element={<Navigate replace to="/components/button" />} />
+              {componentRoutes.map(({ Component, id, path }) => (
+                <Route
+                  key={id}
+                  path={path.replace(componentsBasePath, '')}
+                  element={<Component />}
+                />
+              ))}
+              <Route path="*" element={<Navigate replace to="/components/button" />} />
+            </Routes>
+          </ComponentPageMetadataProvider>
+          {renderRelationships?.(activeRoute.id)}
         </DocumentationDetailShell>
       </Layout>
     </div>

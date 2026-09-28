@@ -1,4 +1,5 @@
 import { MoonIcon, SunIcon } from '@virgo-design/icons';
+import { Button, Tooltip } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import type { Appearance } from '@/shared/theme/types';
@@ -12,30 +13,31 @@ export interface AppearanceControlProps {
 
 export function AppearanceControl({ value, onChange }: AppearanceControlProps) {
   const { t } = useTranslation();
+  const nextAppearance: Appearance = value === 'light' ? 'dark' : 'light';
+  const actionLabel = t(value === 'light' ? 'common.switchToDarkMode' : 'common.switchToLightMode');
+  const AppearanceIcon = value === 'light' ? MoonIcon : SunIcon;
 
   return (
-    <div className={styles.group} aria-label="Appearance">
-      <button
-        className={`${styles.button} ${styles.appearanceButton} ${
-          value === 'light' ? styles.buttonActive : ''
-        }`}
-        type="button"
-        aria-label={t('common.lightMode')}
-        onClick={() => onChange('light')}
-      >
-        <SunIcon aria-hidden="true" size={16} />
-      </button>
-
-      <button
-        className={`${styles.button} ${styles.appearanceButton} ${
-          value === 'dark' ? styles.buttonActive : ''
-        }`}
-        type="button"
-        aria-label={t('common.darkMode')}
-        onClick={() => onChange('dark')}
-      >
-        <MoonIcon aria-hidden="true" size={16} />
-      </button>
-    </div>
+    <Tooltip className={styles.control} closeOnClick={false} smoothTransition>
+      <Tooltip.Trigger
+        aria-label={actionLabel}
+        onClick={() => onChange(nextAppearance)}
+        render={(triggerProps) => (
+          <Button
+            {...triggerProps}
+            iconOnly
+            aria-label={actionLabel}
+            className={styles.button}
+            size="medium"
+            variant="text"
+          >
+            <AppearanceIcon aria-hidden="true" />
+          </Button>
+        )}
+      />
+      <Tooltip.Content arrow={false} placement="bottom" size="small">
+        {actionLabel}
+      </Tooltip.Content>
+    </Tooltip>
   );
 }

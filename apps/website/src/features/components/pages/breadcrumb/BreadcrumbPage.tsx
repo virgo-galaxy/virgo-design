@@ -8,6 +8,8 @@ import {
 } from '@/components/docs/ComponentExample';
 import { breadcrumbExamples } from '@/examples/components/breadcrumb/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 function BasicBreadcrumb() {
   return (
     <Breadcrumb>
@@ -25,10 +27,7 @@ export function BreadcrumbPage() {
       <div className="review-board" id="breadcrumb-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 06</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Breadcrumb</h1>
             <p>
               Communicates the current location within a hierarchy using native links, ordered-list
@@ -105,10 +104,6 @@ export function BreadcrumbPage() {
         >
           <ComponentExample example={breadcrumbExamples.breadcrumbDynamic} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Breadcrumb V1.0.0</span>
-          <span>Primitive · Tokens · Icons · Metadata · Accessibility</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

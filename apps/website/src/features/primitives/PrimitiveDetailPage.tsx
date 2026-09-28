@@ -20,10 +20,10 @@ function DetailList({ items }: { items: readonly string[] }) {
 }
 
 export interface PrimitiveDetailPageProps {
-  renderFooter?: (primitiveSlug: PrimitiveSlug) => ReactNode;
+  renderRelationships?: (primitiveSlug: PrimitiveSlug) => ReactNode;
 }
 
-export function PrimitiveDetailPage({ renderFooter }: PrimitiveDetailPageProps) {
+export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPageProps) {
   const { slug = '' } = useParams();
   const doc = getPrimitiveDoc(slug);
 
@@ -122,7 +122,7 @@ export function PrimitiveDetailPage({ renderFooter }: PrimitiveDetailPageProps) 
           </aside>
         </div>
 
-        {renderFooter?.(doc.slug as PrimitiveSlug)}
+        {renderRelationships?.(doc.slug as PrimitiveSlug)}
       </div>
     </article>
   );

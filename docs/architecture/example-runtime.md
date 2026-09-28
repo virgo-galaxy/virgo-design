@@ -6,7 +6,7 @@ An example is one understandable use case, not an entire documentation page and 
 one individual control. Button variants belong together in a short example. Icon-only controls are
 a separate example. Dialog sizes and a controlled form are separate examples.
 
-All 36 component pages use this model. The current runtime contains 195 executable
+All 36 component pages use this model. The current runtime contains 201 executable
 examples across 142 article sections, including Textarea inside the Input family. The existing
 chapter anchors and every hero/reference specimen are preserved.
 
@@ -194,22 +194,22 @@ Each entry imports a neighboring `*Example.tsx` normally and as `?raw`, plus the
 | `empty`             |                   3 |
 | `floating-action`   |                   4 |
 | `input`             |                   8 |
-| `layout`            |                  15 |
+| `layout`            |                  16 |
 | `menu`              |                   4 |
 | `menubar`           |                   1 |
-| `navigation-menu`   |                   6 |
+| `navigation-menu`   |                   7 |
 | `pagination`        |                  12 |
 | `popover`           |                   7 |
 | `progress`          |                   3 |
 | `radio`             |                   4 |
 | `segmented-control` |                   5 |
 | `select`            |                   6 |
-| `separator`         |                   3 |
+| `separator`         |                   4 |
 | `skeleton`          |                   3 |
 | `spinner`           |                   4 |
 | `surface`           |                  11 |
 | `switch`            |                   6 |
-| `tabs`              |                   6 |
+| `tabs`              |                   7 |
 | `tag`               |                   5 |
 | `toast`             |                   4 |
 | `tooltip`           |                  12 |

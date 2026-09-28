@@ -11,6 +11,8 @@ import {
 } from '@/components/docs/ComponentExample';
 import { popoverExamples } from '@/examples/components/popover/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function PopoverPage() {
   const [name] = useState('Virgo workspace');
   const [savedName] = useState(name);
@@ -19,10 +21,7 @@ export function PopoverPage() {
       <div className="review-board popover-review" id="popover-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 22</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Popover</h1>
             <p>
               Open a little more context, right where you need it. Details, forms and actions share
@@ -111,10 +110,6 @@ export function PopoverPage() {
         >
           <ComponentExample example={popoverExamples.popoverNestedMenu} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Popover V1.0.0</span>
-          <span>Primitive · Tokens · Icons · Metadata · Accessibility</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

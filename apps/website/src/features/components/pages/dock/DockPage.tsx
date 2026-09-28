@@ -11,6 +11,8 @@ import {
 } from '@/components/docs/ComponentExample';
 import { dockExamples } from '@/examples/components/dock/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 function DockHero() {
   return (
     <Dock.Boundary className="hero-stage dock-hero-stage">
@@ -30,10 +32,7 @@ export function DockPage() {
       <div className="review-board dock-review" id="dock-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 03</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>{dockMetadata.name}</h1>
             <p>{dockMetadata.description}</p>
             <dl className="component-facts">
@@ -110,12 +109,6 @@ export function DockPage() {
         >
           <ComponentExample example={dockExamples.dockLockPin} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Dock V1.0.0</span>
-          <span>
-            Boundary · Placement · Snap · Free · Persistence · Handle · Orientation · Metadata
-          </span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

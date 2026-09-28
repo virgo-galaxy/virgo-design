@@ -11,16 +11,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { avatarExamples } from '@/examples/components/avatar/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function AvatarPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board avatar-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 18</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Avatar</h1>
             <p>Identity images with token-based sizing, resilient fallback, and simple grouping.</p>
             <dl className="component-facts">
@@ -92,10 +91,6 @@ export function AvatarPage() {
           <ComponentExample example={avatarExamples.avatarPresence} />
           <ComponentExample example={avatarExamples.avatarGroup} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Avatar V1.0.0</span>
-          <span>Identity · Fallback · Composition</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

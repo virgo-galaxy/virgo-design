@@ -10,16 +10,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { paginationExamples } from '@/examples/components/pagination/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function PaginationPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board pagination-review" id="pagination-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 09</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Pagination</h1>
             <p>
               Move through a collection at your own pace. Clear page positions, focused navigation,
@@ -154,10 +153,6 @@ export function PaginationPage() {
           <ComponentExample example={paginationExamples.paginationDisabled} />
           <ComponentExample example={paginationExamples.paginationEmpty} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Pagination V1.0.0</span>
-          <span>Primitive · Tokens · Icons · Metadata · Accessibility</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

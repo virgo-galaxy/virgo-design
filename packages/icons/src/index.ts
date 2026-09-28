@@ -29,6 +29,8 @@ export { GaugeIcon, type GaugeIconProps } from './generated/GaugeIcon.js';
 export { GithubIcon, type GithubIconProps } from './generated/GithubIcon.js';
 export { GlobeIcon, type GlobeIconProps } from './generated/GlobeIcon.js';
 export { HomeIcon, type HomeIconProps } from './generated/HomeIcon.js';
+export { LanguageEnIcon, type LanguageEnIconProps } from './generated/LanguageEnIcon.js';
+export { LanguageZhIcon, type LanguageZhIconProps } from './generated/LanguageZhIcon.js';
 export { LayersIcon, type LayersIconProps } from './generated/LayersIcon.js';
 export { LayoutIcon, type LayoutIconProps } from './generated/LayoutIcon.js';
 export { LockIcon, type LockIconProps } from './generated/LockIcon.js';

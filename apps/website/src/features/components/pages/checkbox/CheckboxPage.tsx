@@ -8,16 +8,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { checkboxExamples } from '@/examples/components/checkbox/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function CheckboxPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board" id="checkbox-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 11</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Checkbox</h1>
             <p>
               Boolean and multi-selection control with a single standard geometry. Built on the
@@ -92,10 +91,6 @@ export function CheckboxPage() {
         >
           <ComponentExample example={checkboxExamples.checkboxCheckAll} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Checkbox V1.0.0</span>
-          <span>Primitive · Tokens · Icons · Metadata</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

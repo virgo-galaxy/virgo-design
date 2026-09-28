@@ -11,16 +11,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { emptyExamples } from '@/examples/components/empty/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function EmptyPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board empty-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 21</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Empty</h1>
             <p>Application-owned empty-content messaging with semantic, composable anatomy.</p>
             <dl className="component-facts">
@@ -93,10 +92,6 @@ export function EmptyPage() {
         >
           <ComponentExample example={emptyExamples.emptySearch} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Empty V1.0.0</span>
-          <span>Consumer copy · Compound anatomy · Not an error</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

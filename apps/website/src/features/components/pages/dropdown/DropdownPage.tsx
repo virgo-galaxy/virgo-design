@@ -12,6 +12,8 @@ import {
 } from '@/components/docs/ComponentExample';
 import { dropdownExamples } from '@/examples/components/dropdown/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 function Actions({ onAction }: { onAction: (action: string) => void }) {
   return (
     <>
@@ -39,10 +41,7 @@ export function DropdownPage() {
       <div className="review-board dropdown-review" id="dropdown-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 07</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Dropdown</h1>
             <p>
               Keep related actions within reach. Menus open where you need them, with clear choices
@@ -142,10 +141,6 @@ export function DropdownPage() {
         >
           <ComponentExample example={dropdownExamples.dropdownSizes} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Dropdown V1.0.0</span>
-          <span>Primitive · Tokens · Icons · Metadata · Accessibility</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

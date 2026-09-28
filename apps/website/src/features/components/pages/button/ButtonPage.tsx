@@ -9,16 +9,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { buttonExamples } from '@/examples/components/button/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function ButtonPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <article className="review-board" id="button-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 01</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Button</h1>
             <p>
               Triggers an immediate action. Built on the native Virgo primitive and calibrated
@@ -94,11 +93,6 @@ export function ButtonPage() {
         >
           <ComponentExample example={buttonExamples.states} showCaption={false} />
         </ArticleSection>
-
-        <footer className="review-footer">
-          <span>Virgo Design UI · Button V1.0.0</span>
-          <span>Primitive · Tokens · Icons</span>
-        </footer>
       </article>
     </ComponentExampleRuntimeProvider>
   );

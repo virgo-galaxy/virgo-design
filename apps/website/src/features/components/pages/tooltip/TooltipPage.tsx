@@ -10,16 +10,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { tooltipExamples } from '@/examples/components/tooltip/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function TooltipPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board tooltip-review" id="tooltip-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 24</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Tooltip</h1>
             <p>
               A little context without interrupting the flow. Hover or focus for a brief
@@ -143,10 +142,6 @@ export function TooltipPage() {
         >
           <ComponentExample example={tooltipExamples.tooltipActivation} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Tooltip V1.0.0</span>
-          <span>Primitive · Tokens · Icons · Metadata · Accessibility</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

@@ -51,6 +51,15 @@ describe('SiteHeader', () => {
     expect(header.querySelector('[data-slot="header-actions"]')).toContainElement(
       screen.getByLabelText('Global controls'),
     );
+    const controls = screen.getByLabelText('Global controls');
+    expect(controls).toHaveAttribute('data-material', 'glass');
+    const controlButtons = within(controls).getAllByRole('button');
+    expect(controlButtons).toHaveLength(2);
+    controlButtons.forEach((button) => expect(button).toHaveAttribute('data-size', 'medium'));
+    expect(controls.querySelector('[data-orientation="vertical"]')).toHaveAttribute(
+      'data-decorative',
+      '',
+    );
     expect(within(navigation).getByRole('link', { name: 'Foundations' })).toHaveAttribute(
       'aria-current',
       'page',

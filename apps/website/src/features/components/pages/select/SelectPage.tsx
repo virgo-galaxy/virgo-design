@@ -8,6 +8,8 @@ import {
 } from '@/components/docs/ComponentExample';
 import { selectExamples } from '@/examples/components/select/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 type DemoOption = {
   value: string;
   label: string;
@@ -45,10 +47,7 @@ export function SelectPage() {
       <div className="review-board" id="select-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 15</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Select</h1>
             <p>
               Single-value selection through a custom Virgo listbox. The control keeps the Input
@@ -134,10 +133,6 @@ export function SelectPage() {
           <ComponentExample example={selectExamples.selectLongContent} />
           <ComponentExample example={selectExamples.selectKeyboard} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Select V1.0.0</span>
-          <span>Primitive · Tokens · Icons · Metadata</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

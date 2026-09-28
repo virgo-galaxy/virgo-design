@@ -9,6 +9,8 @@ import {
 } from '@/components/docs/ComponentExample';
 import { tabsExamples } from '@/examples/components/tabs/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 const baseTabs = [
   { value: 'overview', label: 'Overview' },
   { value: 'api', label: 'API' },
@@ -54,10 +56,7 @@ export function TabsPage() {
       <div className="review-board" id="tabs-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 10</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Tabs</h1>
             <p>
               Navigates between related content panels with standard tab semantics, automatic
@@ -164,10 +163,6 @@ export function TabsPage() {
         >
           <ComponentExample example={tabsExamples.tabsEditable} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Tabs V1.0.0</span>
-          <span>Primitive · Tokens · Icons · Motion · Metadata</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

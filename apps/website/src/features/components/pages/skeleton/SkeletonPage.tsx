@@ -10,16 +10,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { skeletonExamples } from '@/examples/components/skeleton/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function SkeletonPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board skeleton-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 29</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Skeleton</h1>
             <p>Visual content placeholders that preserve layout while real content loads.</p>
             <dl className="component-facts">
@@ -88,10 +87,6 @@ export function SkeletonPage() {
         >
           <ComponentExample example={skeletonExamples.skeletonMotion} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Skeleton V1.0.0</span>
-          <span>Visual placeholder · Native sizing · Reduced motion</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

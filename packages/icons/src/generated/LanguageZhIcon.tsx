@@ -1,0 +1,25 @@
+/* This file is generated from icons/language-zh.svg by scripts/generate.ts. Do not edit. */
+import type { SVGProps } from 'react';
+
+export type LanguageZhIconProps = Omit<
+  SVGProps<SVGSVGElement>,
+  'stroke' | 'strokeLinecap' | 'strokeLinejoin' | 'strokeWidth'
+> & {
+  size?: number;
+};
+
+export function LanguageZhIcon({ size = 24, ...props }: LanguageZhIconProps) {
+  return (
+    <svg fill="currentColor" height={size} viewBox="0 0 24 24" width={size} {...props}>
+      <path
+        d={'M3.5 3.5 7.5 5.5 6.5 7.5 2.5 5.5ZM3 9 7 11 6 13 2 11ZM5.5 14 7.5 15 4.5 21 2.5 20Z'}
+      />
+      <path
+        d={
+          'M9 4.5H20.15L20.5 4.85V6.5L18.5 11 15.5 15 12 18.5 8.5 21 7.3 19.3 10.7 16.9 13.9 13.7 16.7 10 18.2 6.5H9Z'
+        }
+      />
+      <path d={'M9.5 9 11.3 8 13.8 12 17.1 15.8 21.5 19.2 20.3 20.8 15.7 17.2 12.2 13.2Z'} />
+    </svg>
+  );
+}

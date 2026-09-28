@@ -11,16 +11,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { badgeExamples } from '@/examples/components/badge/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function BadgePage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board badge-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 19</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Badge</h1>
             <p>
               A small count or status marker attached to a host element, with an inline standalone
@@ -103,10 +102,6 @@ export function BadgePage() {
           <ComponentExample example={badgeExamples.badgeInteractiveHost} />
           <ComponentExample example={badgeExamples.badgeStandalone} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Badge V1.0.0</span>
-          <span>Attached status · Inline count · Classic</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

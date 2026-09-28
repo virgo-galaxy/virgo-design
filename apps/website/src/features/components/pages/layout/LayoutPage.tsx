@@ -10,6 +10,8 @@ import {
 } from '@/components/docs/ComponentExample';
 import { layoutExamples } from '@/examples/components/layout/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 function HeroLayout() {
   return (
     <Layout className="layout-demo">
@@ -42,10 +44,7 @@ export function LayoutPage() {
       <div className="review-board layout-system-review" id="layout-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 04</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Layout</h1>
             <p>
               Provides the page-level skeleton for semantic regions plus independent spatial lanes
@@ -186,10 +185,6 @@ export function LayoutPage() {
         >
           <ComponentExample example={layoutExamples.layoutGroupedSidebar} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Layout</span>
-          <span>Structure · Surface · Independent navigation</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

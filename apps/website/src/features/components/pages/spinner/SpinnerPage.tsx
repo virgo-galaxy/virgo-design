@@ -10,16 +10,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { spinnerExamples } from '@/examples/components/spinner/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function SpinnerPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board spinner-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 30</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Spinner</h1>
             <p>Indeterminate loading feedback that composes through currentColor.</p>
             <dl className="component-facts">
@@ -86,10 +85,6 @@ export function SpinnerPage() {
         >
           <ComponentExample example={spinnerExamples.spinnerThemes} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Spinner V1.0.0</span>
-          <span>Indeterminate · CurrentColor · Reduced motion</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

@@ -10,16 +10,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { dialogExamples } from '@/examples/components/dialog/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function DialogPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <article className="review-board dialog-review" id="dialog-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 26</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Dialog</h1>
             <p>
               Focus attention on a decision or short task with a clear title, structured content and
@@ -95,11 +94,6 @@ export function DialogPage() {
         >
           <ComponentExample example={dialogExamples.form} showCaption={false} />
         </ArticleSection>
-
-        <footer className="review-footer">
-          <span>Virgo Design UI · Dialog V1.0.0</span>
-          <span>Primitive · Tokens · Metadata · Accessibility</span>
-        </footer>
       </article>
     </ComponentExampleRuntimeProvider>
   );

@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
 
+import type { ComponentPageMetadataValue } from '../components/ComponentPageMetadata';
 import { AccordionPage } from '../pages/accordion/AccordionPage';
 import { AlertPage } from '../pages/alert/AlertPage';
 import { AvatarPage } from '../pages/avatar/AvatarPage';
@@ -69,7 +70,7 @@ export const componentGroups = [
   label: string;
 }>;
 
-export type ComponentRoute = {
+export type ComponentRoute = ComponentPageMetadataValue & {
   group: ComponentGroupId;
   id:
     | 'menu'
@@ -108,12 +109,9 @@ export type ComponentRoute = {
     | 'empty'
     | 'floating-action'
     | 'breadcrumb';
-  index: string;
   name: string;
   category: string;
   path: string;
-  status: 'stable' | 'review';
-  version: string;
   Component: ComponentType;
 };
 

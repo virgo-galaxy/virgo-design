@@ -10,16 +10,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { separatorExamples } from '@/examples/components/separator/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function SeparatorPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board separator-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 05</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Separator</h1>
             <p>A token-based rule for visual and semantic separation in general layouts.</p>
             <dl className="component-facts">
@@ -93,10 +92,6 @@ export function SeparatorPage() {
         >
           <ComponentExample example={separatorExamples.separatorDecorative} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Separator V1.0.0</span>
-          <span>Horizontal · Vertical · Decorative</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

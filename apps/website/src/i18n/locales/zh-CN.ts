@@ -2,8 +2,10 @@ export const zhCN = {
   common: {
     reset: '重置',
     live: '实时',
-    lightMode: '浅色模式',
-    darkMode: '深色模式',
+    switchToChinese: '切换到中文',
+    switchToEnglish: '切换到英文',
+    switchToLightMode: '切换到浅色模式',
+    switchToDarkMode: '切换到深色模式',
     explorePalette: '查看完整色板',
     exportFoundationColors: '导出基础颜色',
     colorCopied: '已复制 {{token}}：{{value}}',

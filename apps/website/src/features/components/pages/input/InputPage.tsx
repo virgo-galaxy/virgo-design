@@ -9,16 +9,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { inputExamples } from '@/examples/components/input/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function InputPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board" id="input-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 12</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Input</h1>
             <p>
               Text-entry family for single-line and multiline content. Built on native Virgo
@@ -125,10 +124,6 @@ export function InputPage() {
           <ComponentExample example={inputExamples.textareaSizes} />
           <ComponentExample example={inputExamples.textareaStates} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Input Family V1.0.0</span>
-          <span>Input · Textarea · Primitive · Tokens · Metadata</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

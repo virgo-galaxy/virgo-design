@@ -2,8 +2,10 @@ export const en = {
   common: {
     reset: 'Reset',
     live: 'LIVE',
-    lightMode: 'Light mode',
-    darkMode: 'Dark mode',
+    switchToChinese: 'Switch to Chinese',
+    switchToEnglish: 'Switch to English',
+    switchToLightMode: 'Switch to light mode',
+    switchToDarkMode: 'Switch to dark mode',
     explorePalette: 'Explore full palette',
     exportFoundationColors: 'Export foundation colors',
     colorCopied: '{{token}} copied: {{value}}',

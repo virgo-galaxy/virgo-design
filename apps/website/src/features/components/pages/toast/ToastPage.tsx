@@ -10,16 +10,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { toastExamples } from '@/examples/components/toast/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function ToastPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board toast-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 31</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Toast</h1>
             <p>
               Brief feedback that announces itself without interrupting the current task or moving
@@ -93,10 +92,6 @@ export function ToastPage() {
         >
           <ComponentExample example={toastExamples.toastPlacement} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Toast V1.0.0</span>
-          <span>Live region · Presence · Classic</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

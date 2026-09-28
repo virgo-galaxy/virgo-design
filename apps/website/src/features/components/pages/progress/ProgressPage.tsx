@@ -10,16 +10,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { progressExamples } from '@/examples/components/progress/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function ProgressPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board progress-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 28</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Progress</h1>
             <p>Determinate progress for tasks with a known completion amount.</p>
             <dl className="component-facts">
@@ -88,10 +87,6 @@ export function ProgressPage() {
         >
           <ComponentExample example={progressExamples.progressIntents} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Progress V1.0.0</span>
-          <span>Determinate · Clamped · Accessible</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

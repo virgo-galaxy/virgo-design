@@ -10,6 +10,8 @@ import {
 } from '@/components/docs/ComponentExample';
 import { accordionExamples } from '@/examples/components/accordion/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 function DemoItems({ prefix }: { prefix: string }) {
   return (
     <>
@@ -41,10 +43,7 @@ export function AccordionPage() {
       <div className="review-board accordion-review" id="accordion-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 17</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Accordion</h1>
             <p>
               Progressive disclosure for related sections, built from accessible heading buttons and
@@ -119,10 +118,6 @@ export function AccordionPage() {
           <ComponentExample example={accordionExamples.accordionSingle} />
           <ComponentExample example={accordionExamples.accordionMultiple} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Accordion V1.0.0</span>
-          <span>Primitive · Tokens · Metadata · Accessibility</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

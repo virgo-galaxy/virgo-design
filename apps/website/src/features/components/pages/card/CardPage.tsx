@@ -10,16 +10,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { cardExamples } from '@/examples/components/card/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function CardPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board card-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 20</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Card</h1>
             <p>Content structure backed by Surface tokens, without implicit interaction.</p>
             <dl className="component-facts">
@@ -107,10 +106,6 @@ export function CardPage() {
           <ComponentExample example={cardExamples.cardProfile} />
           <ComponentExample example={cardExamples.cardChildren} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Card V1.0.0</span>
-          <span>Content structure · Surface-backed · Non-interactive</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

@@ -11,6 +11,8 @@ import {
 } from '@/components/docs/ComponentExample';
 import { commandExamples } from '@/examples/components/command/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 function CommandItems({ select }: { select: (value: string) => void }) {
   return (
     <>
@@ -59,10 +61,7 @@ export function CommandPage() {
       <div className="review-board command-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 32</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Command</h1>
             <p>
               Search application actions, keep focus in one input, and execute the active result.
@@ -131,10 +130,6 @@ export function CommandPage() {
         >
           <ComponentExample example={commandExamples.commandFilter} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Command V1.0.0</span>
-          <span>Combobox · Dialog composition · Classic</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

@@ -10,16 +10,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { alertExamples } from '@/examples/components/alert/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function AlertPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board alert-review" id="alert-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 25</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Alert</h1>
             <p>
               Keep page-level feedback visible in context with semantic intent, structured content,
@@ -112,10 +111,6 @@ export function AlertPage() {
         >
           <ComponentExample example={alertExamples.alertCustomIcon} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Alert V1.0.0</span>
-          <span>Persistent feedback · Semantic icons · Accessible close</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

@@ -29,6 +29,8 @@ import {
   GithubIcon,
   GlobeIcon,
   HomeIcon,
+  LanguageEnIcon,
+  LanguageZhIcon,
   LayersIcon,
   LayoutIcon,
   LockIcon,
@@ -110,6 +112,8 @@ const iconOptions = [
   { id: 'settings', label: 'Settings', Icon: SettingsIcon },
   { id: 'moon', label: 'Moon', Icon: MoonIcon },
   { id: 'sun', label: 'Sun', Icon: SunIcon },
+  { id: 'language-en', label: 'Language EN', Icon: LanguageEnIcon },
+  { id: 'language-zh', label: 'Language ZH', Icon: LanguageZhIcon },
 ] as const satisfies ReadonlyArray<IconSelectOption>;
 
 type IconId = (typeof iconOptions)[number]['id'];

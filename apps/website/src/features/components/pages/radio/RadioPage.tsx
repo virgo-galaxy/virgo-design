@@ -8,16 +8,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { radioExamples } from '@/examples/components/radio/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function RadioPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board" id="radio-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 13</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Radio</h1>
             <p>
               Single-selection control for mutually exclusive choices using standard circular radio
@@ -89,10 +88,6 @@ export function RadioPage() {
         >
           <ComponentExample example={radioExamples.radioDisabled} showCaption={false} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Radio V1.0.0</span>
-          <span>Primitive · Tokens · Metadata</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

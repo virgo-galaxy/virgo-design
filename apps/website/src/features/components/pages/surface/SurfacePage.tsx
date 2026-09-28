@@ -12,6 +12,8 @@ import {
 } from '@/components/docs/ComponentExample';
 import { surfaceExamples } from '@/examples/components/surface/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function SurfacePage() {
   const [actions, setActions] = useState(0);
   return (
@@ -19,10 +21,7 @@ export function SurfacePage() {
       <div className="review-board" id="surface-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 02</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Surface</h1>
             <p>
               Layout defines the space. Surface gives that space a visual skin. Semantic color,
@@ -141,10 +140,6 @@ export function SurfacePage() {
           <ComponentExample example={surfaceExamples.surfaceLayoutComposition} />
           <ComponentExample example={surfaceExamples.surfaceOverflow} />
         </ArticleSection>
-        <footer className="review-footer surface-review-footer">
-          <span>Virgo Design / Surface V1.0.0</span>
-          <span>Semantic Tone · Material · Background · Depth · Composition</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

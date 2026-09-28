@@ -8,16 +8,15 @@ import {
 } from '@/components/docs/ComponentExample';
 import { segmentedControlExamples } from '@/examples/components/segmented-control/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 export function SegmentedControlPage() {
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board" id="segmented-control-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 14</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>Segmented Control</h1>
             <p>
               Compact single-selection control for switching between a small set of mutually
@@ -106,10 +105,6 @@ export function SegmentedControlPage() {
           <ComponentExample example={segmentedControlExamples.segmentedContent} />
           <ComponentExample example={segmentedControlExamples.segmentedDisabled} />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · Segmented Control V1.0.0</span>
-          <span>Radio Primitive · Tokens · Motion · Metadata</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );

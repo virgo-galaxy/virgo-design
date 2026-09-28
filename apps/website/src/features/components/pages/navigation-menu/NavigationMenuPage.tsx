@@ -11,6 +11,8 @@ import {
 } from '@/components/docs/ComponentExample';
 import { navigationMenuExamples } from '@/examples/components/navigation-menu/examples';
 
+import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 function HeaderPopoverNavigation() {
   return (
     <NavigationMenu.Root aria-label="Header navigation" defaultValue="home" submenu="popover">
@@ -49,10 +51,7 @@ export function NavigationMenuPage() {
       <div className="review-board navigation-menu-review" id="navigation-menu-review">
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
-            <div className="eyebrow-row">
-              <span>Component 08</span>
-              <span className="version-badge">STABLE · V1.0.0</span>
-            </div>
+            <ComponentPageMetadata />
             <h1>NavigationMenu</h1>
             <p>
               Navigation semantics for horizontal links, vertical destinations, and nested
@@ -140,12 +139,11 @@ export function NavigationMenuPage() {
           title="Grouped navigation"
           description="Organize related destinations with Group and GroupLabel. Each group keeps its own keyboard navigation scope."
         >
-          <ComponentExample example={navigationMenuExamples.navigationGrouped} showCaption={false} />
+          <ComponentExample
+            example={navigationMenuExamples.navigationGrouped}
+            showCaption={false}
+          />
         </ArticleSection>
-        <footer className="review-footer">
-          <span>Virgo Design UI · NavigationMenu V1.0.0</span>
-          <span>Primitive · Tokens · Metadata · Accessibility</span>
-        </footer>
       </div>
     </ComponentExampleRuntimeProvider>
   );
