@@ -5,6 +5,7 @@ import type {
   LayoutContentProps,
   LayoutFooterProps,
   LayoutHeaderProps,
+  LayoutLaneProps,
   LayoutProps,
   LayoutSidebarProps,
   LayoutSidebarState,
@@ -27,6 +28,15 @@ export const LayoutHeader = forwardRef<HTMLElement, LayoutHeaderProps>(
 );
 
 LayoutHeader.displayName = 'Layout.Header';
+
+export const LayoutLane = forwardRef<HTMLDivElement, LayoutLaneProps>(function LayoutLane(
+  { direction = 'vertical', ...props },
+  forwardedRef,
+) {
+  return <div {...props} ref={forwardedRef} data-vd-layout-lane="" data-direction={direction} />;
+});
+
+LayoutLane.displayName = 'Layout.Lane';
 
 const SidebarContext = createContext<(LayoutSidebarState & { id: string }) | null>(null);
 

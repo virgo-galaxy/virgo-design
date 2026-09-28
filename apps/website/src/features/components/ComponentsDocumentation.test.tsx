@@ -64,11 +64,16 @@ describe('Components documentation integration', () => {
       'light',
     );
     expect(screen.queryByRole('group', { name: 'Preview theme' })).not.toBeInTheDocument();
-    expect(componentRoutes).toHaveLength(35);
-    expect(componentRoutes.map((route) => route.index)).toEqual(
-      Array.from({ length: 35 }, (_, index) => String(index + 1).padStart(2, '0')),
+    expect(componentRoutes).toHaveLength(36);
+    expect(new Set(componentRoutes.map((route) => route.index)).size).toBe(componentRoutes.length);
+    expect(componentRoutes.map((route) => route.index).sort()).toEqual(
+      Array.from({ length: 36 }, (_, index) => String(index + 1).padStart(2, '0')).sort(),
     );
     expect(componentRoutes.some((route) => route.id === 'floating-action')).toBe(true);
+    expect(componentRoutes.find((route) => route.id === 'dock')).toMatchObject({
+      group: 'layout',
+      index: '36',
+    });
     expect(componentRoutes.at(-1)).toMatchObject({
       id: 'floating-action',
       group: 'actions',
@@ -121,7 +126,7 @@ describe('Components documentation integration', () => {
   describe.each(['light', 'dark'] as const)('%s overviews', (appearance) => {
     it.each(componentRoutes)(
       'renders $name with shared heading structure and a Reference specimen hero',
-      ({ id, index, name, path }) => {
+      ({ id, index, name, path, status, version }) => {
         vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
 
         const { container } = render(
@@ -157,7 +162,7 @@ describe('Components documentation integration', () => {
           `Component ${index}`,
         );
         expect(copy?.querySelector(':scope > .eyebrow-row .version-badge')).toHaveTextContent(
-          'STABLE · V1.0.0',
+          `${status.toUpperCase()} · ${version}`,
         );
         expect(copy?.querySelector(':scope > p')).not.toBeEmptyDOMElement();
         expect(firstReview).toBeInTheDocument();

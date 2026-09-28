@@ -6,6 +6,7 @@ export default function App() {
   return (
     <Layout className={styles.root!}>
       <Layout.Header
+        contentAlign="center"
         height={64}
         surface={{ background: { type: 'color', value: 'var(--vd-brand-5)' }, border: 'none' }}
         className={styles.header!}

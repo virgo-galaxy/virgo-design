@@ -58,6 +58,7 @@ export default function App() {
         </Layout.Sidebar>
         <Layout>
           <Layout.Header
+            contentAlign="center"
             height={64}
             className={styles.header!}
             surface={{ tone: 'default', border: 'subtle' }}

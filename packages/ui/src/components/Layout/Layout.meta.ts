@@ -5,7 +5,7 @@ export const layoutMetadata = {
   package: '@virgo-design/ui',
   category: 'Layout',
   description:
-    'Composes semantic regions with collapsible sidebars, sticky or fixed headers, responsive width changes, and shared Surface treatments. Navigation remains independent.',
+    'Composes semantic regions and independent spatial lanes with collapsible sidebars, sticky or fixed headers, responsive sizing, and shared Surface treatments. Navigation remains independent.',
   import: "import { Layout } from '@virgo-design/ui';",
   states: ['default', 'expanded', 'collapsed', 'responsive', 'resizing', 'sticky', 'fixed'],
   anatomy: [
@@ -17,6 +17,11 @@ export const layoutMetadata = {
       name: 'Layout.Header',
       description:
         'Semantic header region with optional logo, content, and actions slots; configurable content alignment; and static, sticky, or fixed positioning.',
+    },
+    {
+      name: 'Layout.Lane',
+      description:
+        'Neutral spatial boundary with independent width, maximum width, direction, and edge inset. It can contain Content, Sidebar, Header, Footer, navigation, or other attachment-aware UI without inheriting Content width.',
     },
     {
       name: 'Layout.Sidebar',
@@ -44,6 +49,9 @@ export const layoutMetadata = {
     verticalComposition: true,
     horizontalComposition: true,
     nestedLayout: true,
+    laneComposition: true,
+    laneSizing: true,
+    laneInset: true,
     sidebarWidth: true,
     resizableSidebar: true,
     semanticRegions: true,
@@ -57,7 +65,7 @@ export const layoutMetadata = {
     fixedRegions: true,
   },
   accessibility: [
-    'Header, Sidebar, Content and Footer render native header, aside, main and footer elements.',
+    'Header, Sidebar, Content and Footer render native header, aside, main and footer elements. Lane is intentionally a neutral div and adds no landmark of its own.',
     'Children retain document order, so visual placement and reading order stay aligned.',
     'SidebarTrigger uses a native button with aria-expanded, aria-controls, and an action label. Layout adds no navigation behavior.',
     'Resizable Sidebar exposes a keyboard-focusable separator with arrow-key resizing and optional minimum and maximum widths.',

@@ -3,6 +3,7 @@ import {
   LayoutContent,
   LayoutFooter,
   LayoutHeader,
+  LayoutLane,
   LayoutSidebar,
   LayoutSidebarTrigger,
 } from './Layout';
@@ -10,6 +11,7 @@ import {
 export const Layout = Object.assign(LayoutRoot, {
   Root: LayoutRoot,
   Header: LayoutHeader,
+  Lane: LayoutLane,
   Sidebar: LayoutSidebar,
   SidebarTrigger: LayoutSidebarTrigger,
   Content: LayoutContent,
@@ -20,6 +22,7 @@ export type {
   LayoutDirection,
   LayoutFooterProps,
   LayoutHeaderProps,
+  LayoutLaneProps,
   LayoutProps,
   LayoutSidebarProps,
   LayoutSidebarState,

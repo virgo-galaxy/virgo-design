@@ -18,6 +18,9 @@ import layoutFullHeightSidebarSource from './LayoutFullHeightSidebarExample.tsx?
 import LayoutHeaderExample from './LayoutHeaderExample';
 import layoutHeaderStyles from './LayoutHeaderExample.module.scss?virgo-raw';
 import layoutHeaderSource from './LayoutHeaderExample.tsx?raw';
+import LayoutLaneExample from './LayoutLaneExample';
+import layoutLaneStyles from './LayoutLaneExample.module.scss?virgo-raw';
+import layoutLaneSource from './LayoutLaneExample.tsx?raw';
 import LayoutLeftSidebarExample from './LayoutLeftSidebarExample';
 import layoutLeftSidebarStyles from './LayoutLeftSidebarExample.module.scss?virgo-raw';
 import layoutLeftSidebarSource from './LayoutLeftSidebarExample.tsx?raw';
@@ -27,9 +30,6 @@ import layoutOverlaySidebarSource from './LayoutOverlaySidebarExample.tsx?raw';
 import LayoutRailSidebarExample from './LayoutRailSidebarExample';
 import layoutRailSidebarStyles from './LayoutRailSidebarExample.module.scss?virgo-raw';
 import layoutRailSidebarSource from './LayoutRailSidebarExample.tsx?raw';
-import LayoutRegionSizingExample from './LayoutRegionSizingExample';
-import layoutRegionSizingStyles from './LayoutRegionSizingExample.module.scss?virgo-raw';
-import layoutRegionSizingSource from './LayoutRegionSizingExample.tsx?raw';
 import LayoutResizableSidebarExample from './LayoutResizableSidebarExample';
 import layoutResizableSidebarStyles from './LayoutResizableSidebarExample.module.scss?virgo-raw';
 import layoutResizableSidebarSource from './LayoutResizableSidebarExample.tsx?raw';
@@ -113,13 +113,14 @@ export const layoutExamples = {
     source: layoutStickyHeaderSource,
     styleSource: layoutStickyHeaderStyles,
   },
-  layoutRegionSizing: {
-    id: 'layout-region-sizing',
-    title: 'Region sizing',
-    description: 'Tune Header height, Sidebar width, and Content padding through Layout props.',
-    Component: LayoutRegionSizingExample,
-    source: layoutRegionSizingSource,
-    styleSource: layoutRegionSizingStyles,
+  layoutLane: {
+    id: 'layout-lane',
+    title: 'Lane boundary',
+    description:
+      'Create a shared spatial lane for Breadcrumb, Dock, navigation, and nested regions while Content keeps its own width.',
+    Component: LayoutLaneExample,
+    source: layoutLaneSource,
+    styleSource: layoutLaneStyles,
   },
   layoutHeader: {
     id: 'layout-header',

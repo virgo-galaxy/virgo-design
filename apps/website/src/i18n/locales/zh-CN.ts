@@ -18,6 +18,7 @@ export const zhCN = {
   },
 
   foundationNavigation: {
+    move: '移动基础导航',
     label: '基础类别',
     colors: '颜色',
     typography: '排版',
@@ -29,6 +30,7 @@ export const zhCN = {
 
   tokenNavigation: {
     label: '变量类别',
+    move: '移动变量导航',
     colors: '颜色',
     typography: '排版',
   },

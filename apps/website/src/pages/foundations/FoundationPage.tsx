@@ -6,6 +6,7 @@ import {
   SplineIcon,
   TypeIcon,
 } from '@virgo-design/icons';
+import { Dock, Layout } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -13,6 +14,8 @@ import { SectionNavigation } from '@/components/section/SectionNavigation';
 import { FOUNDATION_NAVIGATION_ITEMS } from '@/shared/routes/route-config';
 
 import styles from './foundation-tokens.module.scss';
+
+const FOUNDATION_DOCK_EDGES = ['top', 'left', 'right'] as const;
 
 const foundationIcons = {
   'foundationNavigation.colors': PaletteIcon,
@@ -51,7 +54,29 @@ export function FoundationNavigation() {
     };
   });
 
-  return <SectionNavigation ariaLabel={t('foundationNavigation.label')} items={items} />;
+  return (
+    <Dock.Root
+      defaultLocked
+      defaultPinned
+      allowedEdges={FOUNDATION_DOCK_EDGES}
+      defaultPlacement={{ edge: 'top', position: 0.5 }}
+      persist={{ storage: 'session', key: 'foundations-navigation' }}
+      snapDivisions={false}
+    >
+      {({ orientation }) => (
+        <>
+          <Dock.Handle aria-label={t('foundationNavigation.move')} />
+          <Dock.Content>
+            <SectionNavigation
+              ariaLabel={t('foundationNavigation.label')}
+              items={items}
+              orientation={orientation}
+            />
+          </Dock.Content>
+        </>
+      )}
+    </Dock.Root>
+  );
 }
 
 export function FoundationPage({
@@ -65,17 +90,26 @@ export function FoundationPage({
 
   return (
     <section id={id} className={`${styles.page} ${className}`}>
-      <div className={styles.inner}>
-        <FoundationNavigation />
+      <Layout.Lane
+        className={styles.lane!}
+        width="calc(100% - clamp(28px, 4vw, 64px))"
+        minHeight="calc(100svh - var(--layout-header-height))"
+        insetBlock="20px 112px"
+      >
+        <Dock.Boundary className={styles.laneBoundary!}>
+          <FoundationNavigation />
 
-        <header className={styles.pageHeader}>
-          <div className={styles.eyebrow}>{t('foundationPages.eyebrow')}</div>
-          <h1>{title}</h1>
-          <p>{description}</p>
-        </header>
+          <div className={styles.inner!}>
+            <header className={styles.pageHeader}>
+              <div className={styles.eyebrow}>{t('foundationPages.eyebrow')}</div>
+              <h1>{title}</h1>
+              <p>{description}</p>
+            </header>
 
-        <div className={styles.sections}>{children}</div>
-      </div>
+            <div className={styles.sections}>{children}</div>
+          </div>
+        </Dock.Boundary>
+      </Layout.Lane>
     </section>
   );
 }

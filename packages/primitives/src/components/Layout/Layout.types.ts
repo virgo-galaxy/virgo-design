@@ -12,6 +12,14 @@ export interface LayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, 'child
 
 export type LayoutHeaderProps = HTMLAttributes<HTMLElement>;
 
+export interface LayoutLaneProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+  /** Structural children that live within this spatial lane. */
+  children: ReactNode;
+
+  /** Direction in which direct lane children are arranged. */
+  direction?: LayoutDirection;
+}
+
 export interface LayoutSidebarState {
   collapsed: boolean;
   setCollapsed: (collapsed: boolean) => void;

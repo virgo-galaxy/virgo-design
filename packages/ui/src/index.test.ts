@@ -18,6 +18,7 @@ describe('@virgo-design/ui public API', () => {
         'Dialog',
         'Drawer',
         'Dropdown',
+        'Dock',
         'Empty',
         'FloatingAction',
         'Input',
@@ -93,6 +94,9 @@ describe('@virgo-design/ui public API', () => {
     for (const part of ['Root', 'Item', 'Trigger', 'Content'])
       expect(ui.Accordion).toHaveProperty(part);
     expect(ui.Accordion.Root).toBe(ui.Accordion);
+    for (const part of ['Root', 'Boundary', 'Handle', 'Content'])
+      expect(ui.Dock).toHaveProperty(part);
+    expect(ui.Dock.Root).toBe(ui.Dock);
     for (const part of ['Root', 'List', 'Item', 'Link', 'Separator', 'Trigger', 'Content'])
       expect(ui.NavigationMenu).toHaveProperty(part);
     expect(ui.NavigationMenu.Root).toBe(ui.NavigationMenu);
@@ -138,6 +142,7 @@ describe('@virgo-design/ui public API', () => {
     expect(ui).toHaveProperty('Input');
     expect(ui.Input).toHaveProperty('Password');
     expect(ui).toHaveProperty('Layout');
+    expect(ui).toHaveProperty('Dock');
     expect(ui).toHaveProperty('NavigationMenu');
     expect(ui.Layout).toHaveProperty('Header');
     expect(ui.Layout).toHaveProperty('Root');

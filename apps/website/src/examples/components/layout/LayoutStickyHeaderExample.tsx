@@ -7,6 +7,7 @@ export default function App() {
     <div className={styles.root!}>
       <Layout className={styles.layout!}>
         <Layout.Header
+          contentAlign="center"
           position="sticky"
           top={0}
           height={64}

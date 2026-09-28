@@ -7,6 +7,7 @@ import {
   Command,
   ContextMenu,
   Dialog,
+  Dock,
   Dropdown,
   Input,
   Layout,
@@ -141,15 +142,32 @@ function DropdownExample() {
   );
 }
 
+function DockExample() {
+  return (
+    <Dock.Boundary data-docs-primitive="dock">
+      <Dock.Root defaultPlacement={{ edge: 'top', position: 0.5 }}>
+        {({ orientation }) => (
+          <>
+            <Dock.Handle aria-label="Move primitive dock" />
+            <Dock.Content>{orientation} dock</Dock.Content>
+          </>
+        )}
+      </Dock.Root>
+    </Dock.Boundary>
+  );
+}
+
 function LayoutExample() {
   return (
     <Layout data-docs-primitive="layout">
       <Layout.Header>Header</Layout.Header>
-      <Layout.Sidebar defaultCollapsed={false}>
-        <Layout.SidebarTrigger>Toggle sidebar</Layout.SidebarTrigger>
-        <nav aria-label="Example sidebar">Sidebar</nav>
-      </Layout.Sidebar>
-      <Layout.Content>Main content</Layout.Content>
+      <Layout.Lane direction="horizontal">
+        <Layout.Sidebar defaultCollapsed={false}>
+          <Layout.SidebarTrigger>Toggle sidebar</Layout.SidebarTrigger>
+          <nav aria-label="Example sidebar">Sidebar</nav>
+        </Layout.Sidebar>
+        <Layout.Content>Main content</Layout.Content>
+      </Layout.Lane>
       <Layout.Footer>Footer</Layout.Footer>
     </Layout>
   );
@@ -347,6 +365,8 @@ export function PrimitiveExample({ slug }: { slug: PrimitiveSlug }) {
       return <DialogExample />;
     case 'dropdown':
       return <DropdownExample />;
+    case 'dock':
+      return <DockExample />;
     case 'input':
       return (
         <label>

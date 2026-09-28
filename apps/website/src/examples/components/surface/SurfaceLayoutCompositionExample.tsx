@@ -7,6 +7,7 @@ export default function App() {
     <div className={styles.root!}>
       <Layout surface={{ material: 'glass', radius: 12, border: 'subtle' }}>
         <Layout.Header
+          contentAlign="center"
           surface={{ material: 'glass', border: 'subtle' }}
           logo={<strong>Virgo</strong>}
         >

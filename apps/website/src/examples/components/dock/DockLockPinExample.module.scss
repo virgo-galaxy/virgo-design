@@ -1,0 +1,67 @@
+.root {
+  width: min(100%, 720px);
+}
+
+.viewport {
+  // Establish a local fixed containing block so pinning stays inside this example.
+  position: relative;
+  transform: translateZ(0);
+}
+
+.scroll {
+  height: 320px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-12);
+  background: var(--vd-surface-secondary);
+
+  &:focus-visible {
+    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline-offset: var(--vd-spacing-2);
+  }
+}
+
+.canvas {
+  min-height: 680px;
+  margin: var(--vd-spacing-16);
+}
+
+.panel {
+  display: flex;
+  min-height: var(--vd-sizing-36);
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--vd-spacing-8) var(--vd-spacing-12);
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-8);
+  background: var(--vd-surface-default);
+  box-shadow: var(--vd-elevation-1);
+  color: var(--vd-text-primary);
+  font-size: var(--vd-font-size-12);
+}
+
+.document {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vd-spacing-24);
+  padding: 104px var(--vd-spacing-24) var(--vd-spacing-24);
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-font-size-12);
+
+  strong {
+    color: var(--vd-text-secondary);
+    font-size: var(--vd-font-size-16);
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.placeholder {
+  height: 112px;
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-8);
+  background: var(--vd-surface-default);
+}

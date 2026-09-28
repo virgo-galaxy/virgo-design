@@ -18,6 +18,7 @@ export const en = {
   },
 
   foundationNavigation: {
+    move: 'Move foundation navigation',
     label: 'Foundation categories',
     colors: 'Colors',
     typography: 'Typography',
@@ -29,6 +30,7 @@ export const en = {
 
   tokenNavigation: {
     label: 'Token categories',
+    move: 'Move token navigation',
     colors: 'Colors',
     typography: 'Typography',
   },

@@ -65,6 +65,7 @@ export default function App() {
         </Layout.Sidebar>
         <Layout>
           <Layout.Header
+            contentAlign="center"
             height={64}
             logo={
               <Button

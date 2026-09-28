@@ -170,6 +170,13 @@ export const primitiveDocs = [
     description:
       'Semantic page regions with coordinated sidebar collapse state and structural ordering.',
   },
+  {
+    exportName: 'Dock',
+    slug: 'dock',
+    category: 'Structure',
+    description:
+      'Edge-constrained movable regions with normalized snapped or continuous placement and orientation state.',
+  },
 ] as const satisfies ReadonlyArray<PrimitiveDoc>;
 
 export type PrimitiveSlug = (typeof primitiveDocs)[number]['slug'];
@@ -524,20 +531,38 @@ export const primitiveDetails = {
       'Toast.Viewport',
     ],
   },
+  dock: {
+    parts: ['Boundary', 'Root', 'Handle', 'Content'],
+    behaviors: [
+      'Constrains placement to a configurable subset of the four edges of a local boundary.',
+      'Supports configurable equal snap divisions or continuous free positioning while deriving horizontal or vertical orientation.',
+      'Supports pointer dragging plus arrow, Home, End, and Alt+Arrow keyboard repositioning across enabled edges.',
+      'Can persist uncontrolled placement to localStorage or sessionStorage with an explicit consumer-owned key.',
+      'Places the dedicated movement handle at the logical start or end across horizontal and vertical orientations.',
+      'Exposes independent controlled or uncontrolled locked and pinned state: locking blocks movement, while pinning selects fixed positioning without blocking movement.',
+    ],
+    accessibility: [
+      'Uses a native button as the dedicated movement handle so docked content remains independently interactive.',
+      'The handle exposes a default accessible name, logical start/end placement, and keyboard shortcuts for movement and edge changes.',
+    ],
+    publicApi: ['Dock', 'Dock.Boundary', 'Dock.Handle', 'Dock.Content'],
+  },
   layout: {
-    parts: ['Root', 'Header', 'Sidebar', 'SidebarTrigger', 'Content', 'Footer'],
+    parts: ['Root', 'Header', 'Lane', 'Sidebar', 'SidebarTrigger', 'Content', 'Footer'],
     behaviors: [
       'Arranges structural regions vertically by default or horizontally when requested.',
+      'Provides a neutral Lane boundary whose composition direction stays independent from semantic Content sizing.',
       'Coordinates controlled or uncontrolled sidebar collapse state and custom trigger rendering.',
       'Supports multiple independent sidebars and render-function access to sidebar state.',
     ],
     accessibility: [
-      'Renders header, aside, main, and footer regions with native semantic elements.',
+      'Renders header, aside, main, and footer regions with native semantic elements while Lane remains a neutral div.',
       'The sidebar trigger exposes and changes its expanded state from keyboard activation.',
     ],
     publicApi: [
       'Layout',
       'Layout.Header',
+      'Layout.Lane',
       'Layout.Sidebar',
       'Layout.SidebarTrigger',
       'Layout.Content',

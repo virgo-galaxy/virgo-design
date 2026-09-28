@@ -14,6 +14,7 @@ describe('@virgo-design/primitives public API', () => {
         'Command',
         'Dialog',
         'Dropdown',
+        'Dock',
         'Input',
         'Layout',
         'Menu',
@@ -47,6 +48,9 @@ describe('@virgo-design/primitives public API', () => {
     expect(primitives.Dialog.Root).toBe(primitives.Dialog);
     for (const part of ['Root', 'Trigger', 'Content'])
       expect(primitives.Collapsible).toHaveProperty(part);
+    for (const part of ['Root', 'Boundary', 'Handle', 'Content'])
+      expect(primitives.Dock).toHaveProperty(part);
+    expect(primitives.Dock.Root).toBe(primitives.Dock);
     for (const part of ['Root', 'Item', 'Trigger', 'Content'])
       expect(primitives.Accordion).toHaveProperty(part);
     expect(primitives.Collapsible.Root).toBe(primitives.Collapsible);

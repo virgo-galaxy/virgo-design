@@ -27,6 +27,7 @@ describe('componentPrimitiveRelations', () => {
 
   it('returns a one-to-one relationship', () => {
     expect(getPrimitivesForComponent('button')).toEqual(['button']);
+    expect(getPrimitivesForComponent('dock')).toEqual(['dock']);
   });
 
   it('supports one component built with multiple primitives', () => {

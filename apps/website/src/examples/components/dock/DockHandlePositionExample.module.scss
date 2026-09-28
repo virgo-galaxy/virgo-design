@@ -1,0 +1,71 @@
+.root {
+  display: grid;
+  width: min(100%, 720px);
+  gap: var(--vd-spacing-12);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vd-spacing-12) var(--vd-spacing-20);
+}
+
+.controlGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vd-spacing-6);
+}
+
+.controlGroup > span {
+  margin-inline-end: var(--vd-spacing-2);
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-font-size-12);
+}
+
+.controlGroup button {
+  min-height: var(--vd-sizing-32);
+  padding-inline: var(--vd-spacing-12);
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-6);
+  background: var(--vd-surface-default);
+  color: var(--vd-text-secondary);
+  cursor: pointer;
+  font: inherit;
+  text-transform: capitalize;
+}
+
+.controlGroup button:hover,
+.controlGroup button[data-active] {
+  border-color: var(--vd-border-default);
+  background: var(--vd-fill-hover);
+  color: var(--vd-text-primary);
+}
+
+.boundary {
+  height: 280px;
+  border: var(--vd-border-width-1) dashed var(--vd-border-default);
+  border-radius: var(--vd-radius-12);
+  background: var(--vd-surface-secondary);
+}
+
+.panel {
+  display: inline-flex;
+  min-width: 128px;
+  min-height: var(--vd-sizing-36);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vd-spacing-12);
+  padding-inline: var(--vd-spacing-12);
+  color: var(--vd-text-primary);
+}
+
+.panel span {
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-font-size-12);
+  text-transform: capitalize;
+}
+
+/* 04 demonstrates handle start/end only. No smooth handle transition. */
+.root .handle {
+  transition: none !important;
+}

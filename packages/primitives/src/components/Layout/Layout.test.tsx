@@ -126,6 +126,23 @@ describe('Layout primitive', () => {
     ]);
   });
 
+  it('provides a neutral lane boundary with independent composition direction', () => {
+    const ref = createRef<HTMLDivElement>();
+
+    render(
+      <Layout.Lane ref={ref} direction="horizontal" data-testid="lane" aria-label="Workspace lane">
+        <span>Lane content</span>
+      </Layout.Lane>,
+    );
+
+    const lane = screen.getByTestId('lane');
+    expect(ref.current).toBe(lane);
+    expect(lane.tagName).toBe('DIV');
+    expect(lane).toHaveAttribute('data-vd-layout-lane', '');
+    expect(lane).toHaveAttribute('data-direction', 'horizontal');
+    expect(lane).toHaveAttribute('aria-label', 'Workspace lane');
+  });
+
   it('uses semantic region elements and forwards region refs and props', () => {
     const headerRef = createRef<HTMLElement>();
     const sidebarRef = createRef<HTMLElement>();

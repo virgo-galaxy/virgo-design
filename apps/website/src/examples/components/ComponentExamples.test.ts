@@ -28,7 +28,7 @@ const publicImports = new Set(['react', '@virgo-design/ui', '@virgo-design/icons
 
 describe('Executable component example sources', () => {
   it('covers every current component family without unregistered files or duplicate semantic IDs', () => {
-    expect(Object.keys(manifests)).toHaveLength(35);
+    expect(Object.keys(manifests)).toHaveLength(36);
     expect(definitions).toHaveLength(Object.keys(modules).length);
     expect(definitions).toHaveLength(Object.keys(styles).length);
     expect(new Set(definitions.map((definition) => definition.id)).size).toBe(definitions.length);

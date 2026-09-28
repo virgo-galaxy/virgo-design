@@ -3,6 +3,7 @@ import type {
   LayoutDirection,
   LayoutFooterProps as PrimitiveLayoutFooterProps,
   LayoutHeaderProps as PrimitiveLayoutHeaderProps,
+  LayoutLaneProps as PrimitiveLayoutLaneProps,
   LayoutProps as PrimitiveLayoutProps,
   LayoutSidebarProps as PrimitiveLayoutSidebarProps,
   LayoutSidebarState,
@@ -44,6 +45,24 @@ export interface LayoutHeaderProps extends Omit<PrimitiveLayoutHeaderProps, 'cla
   contentAlign?: 'start' | 'center' | 'end';
   logo?: ReactNode;
   actions?: ReactNode;
+  surface?: LayoutSurface;
+}
+
+export interface LayoutLaneProps extends Omit<PrimitiveLayoutLaneProps, 'className'> {
+  /** Consumer class applied to the lane boundary. */
+  className?: string;
+  /** Lane width, independent from the width of the content nested inside it. @default '100%' */
+  width?: LayoutLength;
+  /** Optional upper bound for the lane width. */
+  maxWidth?: LayoutLength;
+  /** Optional minimum block size for the lane. */
+  minHeight?: CSSProperties['minHeight'];
+  /** Shorthand inset between the lane boundary and in-flow children. */
+  inset?: LayoutLength;
+  /** Logical inline inset. Overrides inset on the inline axis. */
+  insetInline?: LayoutLength;
+  /** Logical block inset. Overrides inset on the block axis. */
+  insetBlock?: LayoutLength;
   surface?: LayoutSurface;
 }
 

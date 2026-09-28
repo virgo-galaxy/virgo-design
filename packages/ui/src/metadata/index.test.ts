@@ -12,6 +12,7 @@ import {
   commandMetadata,
   componentMetadataRegistry,
   dialogMetadata,
+  dockMetadata,
   drawerMetadata,
   dropdownMetadata,
   emptyMetadata,
@@ -181,11 +182,38 @@ describe('componentMetadataRegistry', () => {
       expect(metadata.anatomy.some((part) => part.name.endsWith('.CheckboxItem'))).toBe(true);
     }
   });
+  it('registers Dock with edge docking and snapping', () => {
+    expect(componentMetadataRegistry.dock).toBe(dockMetadata);
+    expect(dockMetadata.placements?.map(({ name }) => name)).toEqual([
+      'top',
+      'right',
+      'bottom',
+      'left',
+    ]);
+    expect(dockMetadata.capabilities).toMatchObject({
+      bottomDocking: true,
+      edgeRestrictions: true,
+      pointerDrag: true,
+      keyboardRepositioning: true,
+      gridSnapping: true,
+      freePositioning: true,
+      handlePositioning: true,
+      persistence: true,
+      localStoragePersistence: true,
+      sessionStoragePersistence: true,
+      consumerStorageKey: true,
+      pinning: true,
+      movementLocking: true,
+      autoHide: false,
+    });
+  });
   it('registers floating actions independently from Layout and NavigationMenu', () => {
     expect(componentMetadataRegistry.floatingAction).toBe(floatingActionMetadata);
     expect(floatingActionMetadata.capabilities).toMatchObject({ portal: true, navigation: false });
     expect(layoutMetadata.capabilities).toMatchObject({
       floatingSidebar: true,
+      laneComposition: true,
+      laneSizing: true,
       localFloatingControls: true,
     });
   });
@@ -297,6 +325,7 @@ describe('componentMetadataRegistry', () => {
   it('registers the exported Layout metadata without creating a copy', () => {
     expect(componentMetadataRegistry.layout).toBe(layoutMetadata);
     expect(layoutMetadata.name).toBe('Layout');
+    expect(layoutMetadata.anatomy.some((part) => part.name === 'Layout.Lane')).toBe(true);
   });
 
   it('registers the exported Radio metadata without creating a copy', () => {

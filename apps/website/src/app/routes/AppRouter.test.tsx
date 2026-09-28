@@ -3,7 +3,7 @@ import '../../i18n';
 import { render, screen, within } from '@testing-library/react';
 import { floatingActionMetadata } from '@virgo-design/ui/metadata';
 import { MemoryRouter, useLocation } from 'react-router-dom';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { primitiveDocs } from '@/features/primitives/primitiveDocs';
 import { AppearanceContext } from '@/shared/theme/appearance-context';
@@ -13,6 +13,13 @@ import { AppRouter } from './AppRouter';
 function CurrentPath() {
   return <output data-testid="current-path">{useLocation().pathname}</output>;
 }
+
+beforeAll(async () => {
+  await Promise.all([
+    import('@/features/components/ComponentsDocumentation'),
+    import('@/app/relationships/DocumentationRelationships'),
+  ]);
+});
 
 beforeEach(() => {
   vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
@@ -128,7 +135,7 @@ describe('Primitive routes', () => {
     renderRoute('/primitives');
 
     await screen.findByRole('heading', { level: 1, name: 'Primitives' });
-    expect(screen.getAllByRole('link')).toHaveLength(23);
+    expect(screen.getAllByRole('link')).toHaveLength(primitiveDocs.length);
     expect(screen.getByRole('link', { name: /Button/ })).toHaveAttribute(
       'href',
       '/primitives/button',

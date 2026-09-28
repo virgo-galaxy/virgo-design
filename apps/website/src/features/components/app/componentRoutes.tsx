@@ -10,6 +10,7 @@ import { CardPage } from '../pages/card/CardPage';
 import { CheckboxPage } from '../pages/checkbox/CheckboxPage';
 import { CommandPage } from '../pages/command/CommandPage';
 import { DialogPage } from '../pages/dialog/DialogPage';
+import { DockPage } from '../pages/dock/DockPage';
 import { DrawerPage } from '../pages/drawer/DrawerPage';
 import { DropdownPage } from '../pages/dropdown/DropdownPage';
 import { EmptyPage } from '../pages/empty/EmptyPage';
@@ -88,6 +89,7 @@ export type ComponentRoute = {
     | 'command'
     | 'dialog'
     | 'drawer'
+    | 'dock'
     | 'radio'
     | 'switch'
     | 'segmented-control'
@@ -155,6 +157,17 @@ export const componentRoutes = [
     status: 'stable',
     version: 'V1.0.0',
     Component: SeparatorPage,
+  },
+  {
+    id: 'dock',
+    group: 'layout',
+    index: '36',
+    name: 'Dock',
+    category: 'Layout',
+    path: '/components/dock',
+    status: 'stable',
+    version: 'V1.3.0',
+    Component: DockPage,
   },
   {
     id: 'breadcrumb',

@@ -13,6 +13,7 @@ export default function App() {
       </Layout.Sidebar>
       <Layout>
         <Layout.Header
+          contentAlign="center"
           surface={{ background: { type: 'color', value: 'var(--vd-brand-5)' }, border: 'none' }}
           className={styles.header!}
         >

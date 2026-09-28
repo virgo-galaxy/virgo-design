@@ -48,6 +48,21 @@ describe('SectionNavigation', () => {
     );
   });
 
+  it('supports a vertical orientation for edge-docked navigation', () => {
+    render(
+      <MemoryRouter initialEntries={['/first']}>
+        <SectionNavigation ariaLabel="Example sections" items={items} orientation="vertical" />
+      </MemoryRouter>,
+    );
+
+    const navigation = screen.getByRole('navigation', { name: 'Example sections' });
+    expect(navigation).toHaveAttribute('data-orientation', 'vertical');
+    expect(navigation.querySelector('[data-slot="separator"]')).toHaveAttribute(
+      'data-orientation',
+      'horizontal',
+    );
+  });
+
   it('keeps active state synchronized through navigation, back, and forward', async () => {
     const user = userEvent.setup();
     render(

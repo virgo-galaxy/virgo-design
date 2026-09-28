@@ -11,6 +11,7 @@ export default function App() {
     <div className={styles.root!}>
       <Layout surface={{ tone: 'secondary' }} className={styles.layout!}>
         <Layout.Header
+          contentAlign="center"
           position="static"
           height={64}
           surface={{ tone: 'default', border: 'subtle' }}

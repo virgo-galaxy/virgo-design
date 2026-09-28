@@ -278,6 +278,38 @@ describe('Layout', () => {
     expect(onCollapsedChange).toHaveBeenCalledWith(true);
     expect(screen.getByRole('button')).toHaveAttribute('aria-expanded', 'true');
   });
+  it('sizes a lane independently from its children and exposes configurable edge inset', () => {
+    const ref = createRef<HTMLDivElement>();
+
+    render(
+      <Layout.Lane
+        ref={ref}
+        data-testid="lane"
+        direction="horizontal"
+        width="calc(100% - 64px)"
+        maxWidth={1440}
+        minHeight={320}
+        inset={24}
+        insetInline={32}
+        surface={{ tone: 'secondary' }}
+        className="consumer-lane"
+      >
+        <div>Lane content</div>
+      </Layout.Lane>,
+    );
+
+    const lane = screen.getByTestId('lane');
+    expect(ref.current).toBe(lane);
+    expect(lane).toHaveClass('consumer-lane');
+    expect(lane).toHaveAttribute('data-direction', 'horizontal');
+    expect(lane.style.getPropertyValue('--vd-layout-lane-width')).toBe('calc(100% - 64px)');
+    expect(lane.style.getPropertyValue('--vd-layout-lane-max-width')).toBe('1440px');
+    expect(lane.style.getPropertyValue('--vd-layout-lane-inset-inline')).toBe('32px');
+    expect(lane.style.getPropertyValue('--vd-layout-lane-inset-block')).toBe('24px');
+    expect(lane).toHaveStyle({ minHeight: '320px' });
+    expect(lane.querySelector('[data-tone="secondary"]')).toHaveAttribute('aria-hidden', 'true');
+  });
+
   it('composes a vertical semantic page skeleton by default', () => {
     render(
       <Layout data-testid="layout">

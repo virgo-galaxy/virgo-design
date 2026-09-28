@@ -6,6 +6,7 @@ export * from './components/Collapsible';
 export * from './components/Command';
 export * from './components/ContextMenu';
 export * from './components/Dialog';
+export * from './components/Dock';
 export * from './components/Dropdown';
 export * from './components/Input';
 export * from './components/Layout';

@@ -1,4 +1,4 @@
-import { NavigationMenu } from '@virgo-design/ui';
+import { NavigationMenu, type NavigationMenuOrientation } from '@virgo-design/ui';
 import { Fragment, type ReactNode } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
@@ -11,16 +11,21 @@ export interface SectionNavigationItem {
 interface SectionNavigationProps {
   ariaLabel: string;
   items: readonly SectionNavigationItem[];
+  orientation?: NavigationMenuOrientation;
 }
 
-export function SectionNavigation({ ariaLabel, items }: SectionNavigationProps) {
+export function SectionNavigation({
+  ariaLabel,
+  items,
+  orientation = 'horizontal',
+}: SectionNavigationProps) {
   const { pathname } = useLocation();
   const activePath = items.find((item) => item.path === pathname)?.path ?? '';
 
   return (
     <NavigationMenu.Root
       aria-label={ariaLabel}
-      orientation="horizontal"
+      orientation={orientation}
       value={activePath}
       variant="segmented"
     >

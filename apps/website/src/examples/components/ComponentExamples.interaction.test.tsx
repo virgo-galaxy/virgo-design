@@ -10,6 +10,7 @@ import {
 
 import CheckboxCheckAllExample from './checkbox/CheckboxCheckAllExample';
 import CommandDialogExample from './command/CommandDialogExample';
+import DockLockPinExample from './dock/DockLockPinExample';
 import { drawerExamples } from './drawer/examples';
 import LayoutControlledSidebarExample from './layout/LayoutControlledSidebarExample';
 import MenuActionsExample from './menu/MenuActionsExample';
@@ -21,6 +22,24 @@ import ToastIntentsExample from './toast/ToastIntentsExample';
 import ToastUndoExample from './toast/ToastUndoExample';
 
 describe('Independent component examples', () => {
+  it('lets the Dock example pin independently from locking and unlock while pinned', () => {
+    render(<DockLockPinExample />);
+    const handle = screen.getByRole('button', { name: 'Move inspector dock' });
+    const dock = handle.closest('[data-vd-dock-root]');
+    fireEvent.click(screen.getByRole('button', { name: 'Pin dock' }));
+    expect(dock).toHaveAttribute('data-pinned');
+    expect(handle).toBeEnabled();
+    fireEvent.click(screen.getByRole('button', { name: 'Lock dock' }));
+    expect(handle).toBeDisabled();
+    expect(dock).toHaveAttribute('data-pinned');
+    fireEvent.click(screen.getByRole('button', { name: 'Unlock dock' }));
+    expect(handle).toBeEnabled();
+    fireEvent.keyDown(handle, { key: 'End' });
+    expect(dock).toHaveAttribute('data-position', '1');
+    fireEvent.click(screen.getByRole('button', { name: 'Unpin dock' }));
+    expect(dock).not.toHaveAttribute('data-pinned');
+    expect(handle).toBeEnabled();
+  });
   it('keeps check-all state local to each mounted use case', () => {
     render(
       <>

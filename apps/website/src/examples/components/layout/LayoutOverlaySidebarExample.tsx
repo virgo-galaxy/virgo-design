@@ -50,6 +50,7 @@ export default function App() {
     <div className={styles.stage!} data-sidebar-state={collapsed ? 'collapsed' : 'expanded'}>
       <Layout className={styles.layout!}>
         <Layout.Header
+          contentAlign="center"
           height={64}
           logo={
             <Button

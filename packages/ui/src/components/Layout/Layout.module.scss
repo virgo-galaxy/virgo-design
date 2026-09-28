@@ -6,6 +6,27 @@
   min-height: 0;
 }
 
+.lane {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  width: var(--vd-layout-lane-width, 100%);
+  max-width: var(--vd-layout-lane-max-width, none);
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  padding-block: var(--vd-layout-lane-inset-block, 0);
+  padding-inline: var(--vd-layout-lane-inset-inline, 0);
+}
+
+.lane[data-direction='vertical'] {
+  flex-direction: column;
+}
+
+.lane[data-direction='horizontal'] {
+  flex-direction: row;
+}
+
 .surfaceRegion {
   position: relative;
   isolation: isolate;

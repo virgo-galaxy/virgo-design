@@ -14,19 +14,23 @@ function HeroLayout() {
   return (
     <Layout className="layout-demo">
       <Layout.Header className="layout-demo-region layout-demo-header">Header</Layout.Header>
-      <Layout direction="horizontal">
-        <Layout.Sidebar
-          className="layout-demo-region layout-demo-sidebar"
-          width="25%"
-          surface={{
-            border: 'none',
-            background: { type: 'color', value: 'var(--vd-brand-6)' },
-          }}
-        >
-          Sidebar
-        </Layout.Sidebar>
-        <Layout.Content className="layout-demo-region layout-demo-content">Content</Layout.Content>
-      </Layout>
+      <Layout.Lane>
+        <Layout direction="horizontal">
+          <Layout.Sidebar
+            className="layout-demo-region layout-demo-sidebar"
+            width="25%"
+            surface={{
+              border: 'none',
+              background: { type: 'color', value: 'var(--vd-brand-6)' },
+            }}
+          >
+            Sidebar
+          </Layout.Sidebar>
+          <Layout.Content className="layout-demo-region layout-demo-content">
+            Content
+          </Layout.Content>
+        </Layout>
+      </Layout.Lane>
       <Layout.Footer className="layout-demo-region layout-demo-footer">Footer</Layout.Footer>
     </Layout>
   );
@@ -44,8 +48,8 @@ export function LayoutPage() {
             </div>
             <h1>Layout</h1>
             <p>
-              Provides the page-level skeleton for semantic header, side, content, and footer
-              regions through vertical, horizontal, and nested composition.
+              Provides the page-level skeleton for semantic regions plus independent spatial lanes
+              through vertical, horizontal, and nested composition.
             </p>
             <dl className="component-facts">
               <div>
@@ -53,8 +57,8 @@ export function LayoutPage() {
                 <dd>2</dd>
               </div>
               <div>
-                <dt>Regions</dt>
-                <dd>4</dd>
+                <dt>Structures</dt>
+                <dd>5</dd>
               </div>
               <div>
                 <dt>Composition</dt>
@@ -65,7 +69,7 @@ export function LayoutPage() {
           <div className="hero-specimen">
             <div className="specimen-toolbar">
               <span>Reference specimen</span>
-              <code>header · sidebar · content · footer</code>
+              <code>header · lane · sidebar · content · footer</code>
             </div>
             <div className="hero-stage layout-hero-stage">
               <div className="layout-hero-frame layout-review-card">
@@ -74,7 +78,7 @@ export function LayoutPage() {
             </div>
             <div className="specimen-caption">
               <span>Vertical composition</span>
-              <span>Nested horizontal region</span>
+              <span>Lane-owned body region</span>
               <span>Semantic page skeleton</span>
               <ComponentExampleRuntimeControl />
             </div>
@@ -84,7 +88,9 @@ export function LayoutPage() {
           id={'layout-structures'}
           index={'01'}
           title={'Layout structures'}
-          description={'Five compositions of Header, Sidebar, Content, Footer, and a compact Rail.'}
+          description={
+            'Five compositions of Header, Lane, Sidebar, Content, Footer, and a compact Rail.'
+          }
         >
           <ComponentExample example={layoutExamples.layoutBasic} />
           <ComponentExample example={layoutExamples.layoutLeftSidebar} />
@@ -97,13 +103,13 @@ export function LayoutPage() {
           index={'02'}
           title={'Layout behaviors'}
           description={
-            'Surface, resizing, sticky or fixed positioning, and region sizing stay structural and composable.'
+            'Surface, resizing, sticky or fixed positioning, and Lane boundaries stay structural and composable.'
           }
         >
           <ComponentExample example={layoutExamples.layoutSurfaceRegions} />
           <ComponentExample example={layoutExamples.layoutResizableSidebar} />
           <ComponentExample example={layoutExamples.layoutStickyHeader} />
-          <ComponentExample example={layoutExamples.layoutRegionSizing} />
+          <ComponentExample example={layoutExamples.layoutLane} />
         </ArticleSection>
         <section
           className="layout-examples-intro"

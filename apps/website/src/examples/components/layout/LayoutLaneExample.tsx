@@ -1,17 +1,19 @@
 import { Layout } from '@virgo-design/ui';
 
-import styles from './LayoutRegionSizingExample.module.scss';
+import styles from './LayoutLaneExample.module.scss';
 
 export default function App() {
   return (
     <Layout className={styles.root!}>
       <Layout.Header
+        contentAlign="center"
         height={64}
         surface={{ background: { type: 'color', value: 'var(--vd-brand-5)' }, border: 'none' }}
         className={styles.header!}
       >
         Header
       </Layout.Header>
+
       <Layout direction="horizontal">
         <Layout.Sidebar
           width={224}
@@ -19,14 +21,18 @@ export default function App() {
         >
           <span className={styles.label!}>Sidebar</span>
         </Layout.Sidebar>
-        <Layout.Content
-          padding={24}
+
+        <Layout.Lane
+          inset={24}
           surface={{ background: { type: 'color', value: 'var(--vd-brand-4)' }, border: 'none' }}
-          className={styles.content!}
+          className={styles.lane!}
         >
-          <div className={styles.stage!}>Content</div>
-        </Layout.Content>
+          <Layout.Content className={styles.content!}>
+            <div className={styles.stage!}>Content</div>
+          </Layout.Content>
+        </Layout.Lane>
       </Layout>
+
       <Layout.Footer
         surface={{ background: { type: 'color', value: 'var(--vd-brand-5)' }, border: 'none' }}
         className={styles.footer!}

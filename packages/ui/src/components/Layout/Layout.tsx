@@ -18,6 +18,7 @@ import type {
   LayoutFloatingProps,
   LayoutFooterProps,
   LayoutHeaderProps,
+  LayoutLaneProps,
   LayoutProps,
   LayoutSidebarProps,
   LayoutSidebarState,
@@ -114,6 +115,51 @@ export const LayoutHeader = forwardRef<HTMLElement, LayoutHeaderProps>(function 
 });
 
 LayoutHeader.displayName = 'Layout.Header';
+
+export const LayoutLane = forwardRef<HTMLDivElement, LayoutLaneProps>(function LayoutLane(
+  {
+    className,
+    width,
+    maxWidth,
+    minHeight,
+    inset,
+    insetInline,
+    insetBlock,
+    surface,
+    style,
+    children,
+    ...props
+  },
+  forwardedRef,
+) {
+  const resolvedInsetInline = insetInline ?? inset;
+  const resolvedInsetBlock = insetBlock ?? inset;
+
+  return (
+    <PrimitiveLayout.Lane
+      {...props}
+      ref={forwardedRef}
+      className={joinClassNames(styles.lane, Boolean(surface) && styles.surfaceRegion, className)}
+      style={
+        {
+          '--vd-layout-lane-width': width === undefined ? undefined : cssLength(width),
+          '--vd-layout-lane-max-width': maxWidth === undefined ? undefined : cssLength(maxWidth),
+          '--vd-layout-lane-inset-inline':
+            resolvedInsetInline === undefined ? undefined : cssLength(resolvedInsetInline),
+          '--vd-layout-lane-inset-block':
+            resolvedInsetBlock === undefined ? undefined : cssLength(resolvedInsetBlock),
+          minHeight,
+          ...style,
+        } as CSSProperties
+      }
+    >
+      <SurfaceLayer surface={surface} />
+      {children}
+    </PrimitiveLayout.Lane>
+  );
+});
+
+LayoutLane.displayName = 'Layout.Lane';
 
 function SidebarContents({
   state,
