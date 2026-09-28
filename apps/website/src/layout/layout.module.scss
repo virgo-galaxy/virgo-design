@@ -24,7 +24,10 @@
 .header {
   z-index: 300;
   height: var(--layout-header-height);
-  border-bottom: 1px solid var(--layout-line);
+  border-bottom: 1px solid color-mix(in srgb, var(--layout-line) 45%, transparent);
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.04),
+    0 3px 6px rgb(0 0 0 / 0.025);
   color: var(--layout-text);
   background: var(--layout-header);
   backdrop-filter: blur(22px) saturate(1.08);
