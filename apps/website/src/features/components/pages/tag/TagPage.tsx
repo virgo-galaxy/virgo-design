@@ -18,7 +18,7 @@ export function TagPage() {
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
             <div className="eyebrow-row">
-              <span>Component 28</span>
+              <span>Component 23</span>
               <span className="version-badge">STABLE · V1.0.0</span>
             </div>
             <h1>Tag</h1>

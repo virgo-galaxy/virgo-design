@@ -31,8 +31,8 @@ export function DockPage() {
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
             <div className="eyebrow-row">
-              <span>Component 36</span>
-              <span className="version-badge">STABLE · V1.3.0</span>
+              <span>Component 03</span>
+              <span className="version-badge">STABLE · V1.0.0</span>
             </div>
             <h1>{dockMetadata.name}</h1>
             <p>{dockMetadata.description}</p>
@@ -111,7 +111,7 @@ export function DockPage() {
           <ComponentExample example={dockExamples.dockLockPin} showCaption={false} />
         </ArticleSection>
         <footer className="review-footer">
-          <span>Virgo Design UI · Dock V1.3.0</span>
+          <span>Virgo Design UI · Dock V1.0.0</span>
           <span>
             Boundary · Placement · Snap · Free · Persistence · Handle · Orientation · Metadata
           </span>

@@ -7,7 +7,7 @@ import { describe, expect, it, vi } from 'vitest';
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
 import { AppearanceContext } from '@/shared/theme/appearance-context';
 
-import { componentRoutes } from './app/componentRoutes';
+import { componentGroups, componentRoutes } from './app/componentRoutes';
 import { ComponentsDocumentation } from './ComponentsDocumentation';
 
 type ExampleManifest = Record<string, Readonly<Record<string, ComponentExampleDefinition>>>;
@@ -65,19 +65,41 @@ describe('Components documentation integration', () => {
     );
     expect(screen.queryByRole('group', { name: 'Preview theme' })).not.toBeInTheDocument();
     expect(componentRoutes).toHaveLength(36);
-    expect(new Set(componentRoutes.map((route) => route.index)).size).toBe(componentRoutes.length);
-    expect(componentRoutes.map((route) => route.index).sort()).toEqual(
-      Array.from({ length: 36 }, (_, index) => String(index + 1).padStart(2, '0')).sort(),
+    expect(componentRoutes.map((route) => route.index)).toEqual(
+      Array.from({ length: 36 }, (_, index) => String(index + 1).padStart(2, '0')),
     );
+    expect(componentGroups.map((group) => group.id)).toEqual([
+      'general',
+      'layout',
+      'navigation',
+      'data-entry',
+      'data-display',
+      'feedback',
+      'actions',
+    ]);
+    componentGroups.forEach((group) => {
+      const names = componentRoutes
+        .filter((route) => route.group === group.id)
+        .map((route) => route.name);
+      expect(names).toEqual([...names].sort((left, right) => left.localeCompare(right, 'en')));
+    });
     expect(componentRoutes.some((route) => route.id === 'floating-action')).toBe(true);
     expect(componentRoutes.find((route) => route.id === 'dock')).toMatchObject({
       group: 'layout',
-      index: '36',
+      index: '03',
+      version: 'V1.0.0',
+    });
+    expect(
+      componentRoutes.filter((route) => route.category === 'Feedback').map((route) => route.group),
+    ).toEqual(Array(7).fill('feedback'));
+    expect(componentRoutes.find((route) => route.id === 'floating-action')).toMatchObject({
+      group: 'actions',
+      index: '34',
     });
     expect(componentRoutes.at(-1)).toMatchObject({
-      id: 'floating-action',
+      id: 'menubar',
       group: 'actions',
-      index: '35',
+      index: '36',
     });
     expect(componentRoutes.some((route) => route.id === ('textarea' as string))).toBe(false);
 

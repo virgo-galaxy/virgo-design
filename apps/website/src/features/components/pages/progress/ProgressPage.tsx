@@ -17,7 +17,7 @@ export function ProgressPage() {
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
             <div className="eyebrow-row">
-              <span>Component 25</span>
+              <span>Component 28</span>
               <span className="version-badge">STABLE · V1.0.0</span>
             </div>
             <h1>Progress</h1>

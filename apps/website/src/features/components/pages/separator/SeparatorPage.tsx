@@ -17,7 +17,7 @@ export function SeparatorPage() {
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
             <div className="eyebrow-row">
-              <span>Component 04</span>
+              <span>Component 05</span>
               <span className="version-badge">STABLE · V1.0.0</span>
             </div>
             <h1>Separator</h1>

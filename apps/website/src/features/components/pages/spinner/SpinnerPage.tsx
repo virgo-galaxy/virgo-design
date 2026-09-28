@@ -17,7 +17,7 @@ export function SpinnerPage() {
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
             <div className="eyebrow-row">
-              <span>Component 27</span>
+              <span>Component 30</span>
               <span className="version-badge">STABLE · V1.0.0</span>
             </div>
             <h1>Spinner</h1>

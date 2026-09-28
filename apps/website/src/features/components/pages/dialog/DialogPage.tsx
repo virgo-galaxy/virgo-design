@@ -17,7 +17,7 @@ export function DialogPage() {
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
             <div className="eyebrow-row">
-              <span>Component 21</span>
+              <span>Component 26</span>
               <span className="version-badge">STABLE · V1.0.0</span>
             </div>
             <h1>Dialog</h1>

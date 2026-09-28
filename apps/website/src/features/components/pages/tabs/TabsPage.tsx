@@ -55,7 +55,7 @@ export function TabsPage() {
         <section className="overview" id="overview" data-review-section="overview">
           <div className="overview-copy">
             <div className="eyebrow-row">
-              <span>Component 09</span>
+              <span>Component 10</span>
               <span className="version-badge">STABLE · V1.0.0</span>
             </div>
             <h1>Tabs</h1>
