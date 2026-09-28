@@ -129,3 +129,56 @@
     animation: none;
   }
 }
+
+// The pointer connection is presentation, separate from the primitive's virtual anchor.
+.content[data-pointer-follow='true'] {
+  z-index: panel.$layer + 1;
+  pointer-events: none;
+  &,
+  * {
+    pointer-events: none !important;
+  }
+  animation: none;
+  border-radius: var(--vd-radius-8);
+  box-shadow:
+    0 3px 12px rgb(20 39 68 / 14%),
+    inset 0 1px 0 rgb(255 255 255 / 28%);
+  backdrop-filter: blur(12px) saturate(1.12);
+  &[data-tone='default'] {
+    --tooltip-tint: color-mix(in srgb, var(--vd-surface-elevated) 94%, var(--vd-brand-primary));
+    --tooltip-background: color-mix(in srgb, var(--tooltip-tint) 88%, transparent);
+    --tooltip-foreground: var(--vd-text-primary);
+  }
+  .arrow {
+    left: clamp(-4px, calc(var(--pointer-anchor-x) + 2px), calc(100% - 12px));
+    width: 16px;
+    height: 12px;
+    transform: none;
+    border: 0;
+  }
+  &[data-side='bottom'] {
+    border-top-left-radius: 3px;
+    .arrow {
+      top: -8px;
+      clip-path: polygon(0 0, 100% 100%, 0 100%);
+    }
+  }
+  &[data-side='top'] {
+    border-bottom-left-radius: 3px;
+    .arrow {
+      bottom: -8px;
+      clip-path: polygon(0 0, 100% 0, 0 100%);
+    }
+  }
+  &[data-state='closed'] {
+    visibility: hidden;
+  }
+}
+@media (forced-colors: active) {
+  .content[data-pointer-follow='true'] {
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+    backdrop-filter: none;
+  }
+}

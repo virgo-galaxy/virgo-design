@@ -142,6 +142,14 @@ export function TooltipPage() {
         >
           <ComponentExample example={tooltipExamples.tooltipActivation} showCaption={false} />
         </ArticleSection>
+        <ArticleSection
+          id="tooltip-cursor"
+          index="09"
+          title="Cursor integration"
+          description="Opt into pointer follow on Cursor.Provider. It owns custom visuals and tracking; ordinary Tooltips follow mouse hover automatically and keep element anchoring for keyboard focus."
+        >
+          <ComponentExample example={tooltipExamples.tooltipCursor} />
+        </ArticleSection>
       </div>
     </ComponentExampleRuntimeProvider>
   );

@@ -1,0 +1,17 @@
+.sizes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--vd-spacing-16);
+  width: 100%;
+}
+.stage {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: var(--vd-spacing-16);
+  min-height: 180px;
+  padding: var(--vd-spacing-16);
+  border: 1px solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-12);
+  background: var(--vd-surface-elevated);
+}

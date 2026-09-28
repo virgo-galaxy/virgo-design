@@ -20,6 +20,13 @@ export interface PrimitiveDoc {
 
 export const primitiveDocs = [
   {
+    exportName: 'Cursor',
+    slug: 'cursor',
+    category: 'Overlays',
+    description:
+      'Scoped pointer state and non-interactive followers without prescribing a cursor visual.',
+  },
+  {
     exportName: 'Button',
     slug: 'button',
     category: 'Actions & Commands',
@@ -190,6 +197,19 @@ export interface PrimitiveDetail {
 }
 
 export const primitiveDetails = {
+  cursor: {
+    parts: ['Provider', 'Follower', 'usePointer'],
+    behaviors: [
+      'Coalesces mouse coordinates into a stable external store once per animation frame.',
+      'Scopes ownership to the nearest provider; resets on leave, blur, scroll, unmount and resetKey changes.',
+      'Positions decorative followers with viewport flip/shift; Tooltip can consume the same context.',
+    ],
+    accessibility: [
+      'Touch and keyboard never force a custom pointer.',
+      'Followers are inert and hidden from assistive technology; keep essential feedback in accessible content.',
+    ],
+    publicApi: ['Cursor.Provider', 'Cursor.Follower', 'Cursor.usePointer'],
+  },
   button: {
     parts: [],
     partNote: 'A single native button element; there are no compound parts.',

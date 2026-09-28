@@ -12,6 +12,7 @@ describe('@virgo-design/primitives public API', () => {
         'Checkbox',
         'Collapsible',
         'Command',
+        'Cursor',
         'Dialog',
         'Dropdown',
         'Dock',

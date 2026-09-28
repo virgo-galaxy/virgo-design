@@ -9,6 +9,9 @@ import tooltipActivationSource from './TooltipActivationExample.tsx?raw';
 import TooltipBasicExample from './TooltipBasicExample';
 import tooltipBasicStyles from './TooltipBasicExample.module.scss?virgo-raw';
 import tooltipBasicSource from './TooltipBasicExample.tsx?raw';
+import TooltipCursorExample from './TooltipCursorExample';
+import tooltipCursorStyles from './TooltipCursorExample.module.scss?virgo-raw';
+import tooltipCursorSource from './TooltipCursorExample.tsx?raw';
 import TooltipCustomColorExample from './TooltipCustomColorExample';
 import tooltipCustomColorStyles from './TooltipCustomColorExample.module.scss?virgo-raw';
 import tooltipCustomColorSource from './TooltipCustomColorExample.tsx?raw';
@@ -38,6 +41,15 @@ import tooltipTonesStyles from './TooltipTonesExample.module.scss?virgo-raw';
 import tooltipTonesSource from './TooltipTonesExample.tsx?raw';
 
 export const tooltipExamples = {
+  tooltipCursor: {
+    id: 'tooltip-cursor',
+    title: 'Cursor integration',
+    description:
+      'The Cursor Provider owns the custom visual and enables pointer follow; Tooltip keeps its existing API.',
+    Component: TooltipCursorExample,
+    source: tooltipCursorSource,
+    styleSource: tooltipCursorStyles,
+  },
   tooltipBasic: {
     id: 'tooltip-basic',
     title: 'Hover and focus',

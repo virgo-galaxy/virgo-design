@@ -1,0 +1,93 @@
+.apiViewport {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-8);
+  background: var(--vd-surface-elevated);
+
+  &:focus-visible {
+    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline-offset: calc(var(--vd-border-width-2) * -1);
+  }
+}
+
+.apiTable {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: var(--vd-font-size-14);
+  line-height: var(--vd-line-height-4);
+  text-align: start;
+
+  th,
+  td {
+    padding: var(--vd-spacing-16) var(--vd-spacing-20);
+    vertical-align: top;
+    text-align: start;
+    overflow-wrap: anywhere;
+  }
+
+  thead th {
+    padding-block: var(--vd-spacing-12);
+    background: var(--vd-surface-secondary);
+    color: var(--vd-text-secondary);
+    font-size: var(--vd-font-size-12);
+    font-weight: var(--vd-font-weight-600);
+    letter-spacing: 0.04em;
+  }
+
+  thead th:first-child {
+    width: 190px;
+  }
+
+  tbody th,
+  tbody td {
+    border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  }
+
+  tbody th {
+    color: var(--vd-text-primary);
+    font-weight: var(--vd-font-weight-500);
+  }
+
+  tbody td {
+    color: var(--vd-text-secondary);
+  }
+
+  code {
+    color: var(--vd-text-primary);
+    font-family: var(--vd-font-family-mono);
+    font-size: var(--vd-font-size-12);
+    line-height: inherit;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  td code {
+    padding: 1px var(--vd-spacing-4);
+    border-radius: var(--vd-radius-4);
+    background: var(--vd-surface-secondary);
+    box-decoration-break: clone;
+  }
+}
+
+.lifecycleNote {
+  max-width: 80ch;
+  margin: 0;
+  color: var(--vd-text-secondary);
+  font-size: var(--vd-font-size-13);
+  line-height: var(--vd-line-height-4);
+}
+
+@media (max-width: 760px) {
+  .apiTable th,
+  .apiTable td {
+    padding-inline: var(--vd-spacing-12);
+  }
+
+  .apiTable thead th:first-child {
+    width: 170px;
+  }
+}

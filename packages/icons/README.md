@@ -308,6 +308,18 @@ pnpm all
 
 ## Usage
 
+### Cursor Arrow
+
+`cursor-arrow.svg` exports `CursorArrowIcon` and `CursorArrowIconProps`. Its single closed
+silhouette has a softened northwest tip, broad shoulders, and a short, narrow southeast tail
+with rounded ends and smooth joins into the body,
+with proportions intended for 16, 20, and 24px rendering.
+
+The icon supplies geometry and `currentColor` only. The future Cursor component owns the
+translucent light fill, cool tint, soft edge, highlights, and shadow. Keep these material
+effects out of the canonical SVG. Its southeast tail provides the visual direction for a
+future pointer-follow Tooltip to extend behind the cursor.
+
 ```tsx
 import { PlusIcon, SearchIcon } from '@virgo-design/icons';
 

@@ -10,6 +10,7 @@ import { ButtonPage } from '../pages/button/ButtonPage';
 import { CardPage } from '../pages/card/CardPage';
 import { CheckboxPage } from '../pages/checkbox/CheckboxPage';
 import { CommandPage } from '../pages/command/CommandPage';
+import { CursorPage } from '../pages/cursor/CursorPage';
 import { DialogPage } from '../pages/dialog/DialogPage';
 import { DockPage } from '../pages/dock/DockPage';
 import { DrawerPage } from '../pages/drawer/DrawerPage';
@@ -37,7 +38,14 @@ import { ToastPage } from '../pages/toast/ToastPage';
 import { TooltipPage } from '../pages/tooltip/TooltipPage';
 
 export type ComponentGroupId =
-  'general' | 'layout' | 'navigation' | 'data-entry' | 'data-display' | 'feedback' | 'actions';
+  | 'general'
+  | 'layout'
+  | 'navigation'
+  | 'data-entry'
+  | 'interaction'
+  | 'data-display'
+  | 'feedback'
+  | 'actions';
 
 export const componentGroups = [
   {
@@ -55,6 +63,10 @@ export const componentGroups = [
   {
     id: 'data-entry',
     label: 'Data Entry',
+  },
+  {
+    id: 'interaction',
+    label: 'Interaction',
   },
   {
     id: 'data-display',
@@ -92,6 +104,7 @@ export type ComponentRoute = ComponentPageMetadataValue & {
     | 'spinner'
     | 'checkbox'
     | 'command'
+    | 'cursor'
     | 'dialog'
     | 'drawer'
     | 'dock'
@@ -293,9 +306,20 @@ export const componentRoutes = [
     Component: SwitchPage,
   },
   {
+    id: 'cursor',
+    group: 'interaction',
+    index: '17',
+    name: 'Cursor',
+    category: 'Interaction',
+    path: '/components/cursor',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: CursorPage,
+  },
+  {
     id: 'accordion',
     group: 'data-display',
-    index: '17',
+    index: '18',
     name: 'Accordion',
     category: 'Data Display',
     path: '/components/accordion',
@@ -306,7 +330,7 @@ export const componentRoutes = [
   {
     id: 'avatar',
     group: 'data-display',
-    index: '18',
+    index: '19',
     name: 'Avatar',
     category: 'Data Display',
     path: '/components/avatar',
@@ -317,7 +341,7 @@ export const componentRoutes = [
   {
     id: 'badge',
     group: 'data-display',
-    index: '19',
+    index: '20',
     name: 'Badge',
     category: 'Data Display',
     path: '/components/badge',
@@ -328,7 +352,7 @@ export const componentRoutes = [
   {
     id: 'card',
     group: 'data-display',
-    index: '20',
+    index: '21',
     name: 'Card',
     category: 'Data Display',
     path: '/components/card',
@@ -339,7 +363,7 @@ export const componentRoutes = [
   {
     id: 'empty',
     group: 'data-display',
-    index: '21',
+    index: '22',
     name: 'Empty',
     category: 'Data Display',
     path: '/components/empty',
@@ -350,7 +374,7 @@ export const componentRoutes = [
   {
     id: 'popover',
     group: 'data-display',
-    index: '22',
+    index: '23',
     name: 'Popover',
     category: 'Data Display',
     path: '/components/popover',
@@ -361,7 +385,7 @@ export const componentRoutes = [
   {
     id: 'tag',
     group: 'data-display',
-    index: '23',
+    index: '24',
     name: 'Tag',
     category: 'Data Display',
     path: '/components/tag',
@@ -372,7 +396,7 @@ export const componentRoutes = [
   {
     id: 'tooltip',
     group: 'data-display',
-    index: '24',
+    index: '25',
     name: 'Tooltip',
     category: 'Data Display',
     path: '/components/tooltip',
@@ -383,7 +407,7 @@ export const componentRoutes = [
   {
     id: 'alert',
     group: 'feedback',
-    index: '25',
+    index: '26',
     name: 'Alert',
     category: 'Feedback',
     path: '/components/alert',
@@ -394,7 +418,7 @@ export const componentRoutes = [
   {
     id: 'dialog',
     group: 'feedback',
-    index: '26',
+    index: '27',
     name: 'Dialog',
     category: 'Feedback',
     path: '/components/dialog',
@@ -405,7 +429,7 @@ export const componentRoutes = [
   {
     id: 'drawer',
     group: 'feedback',
-    index: '27',
+    index: '28',
     name: 'Drawer',
     category: 'Feedback',
     path: '/components/drawer',
@@ -416,7 +440,7 @@ export const componentRoutes = [
   {
     id: 'progress',
     group: 'feedback',
-    index: '28',
+    index: '29',
     name: 'Progress',
     category: 'Feedback',
     path: '/components/progress',
@@ -427,7 +451,7 @@ export const componentRoutes = [
   {
     id: 'skeleton',
     group: 'feedback',
-    index: '29',
+    index: '30',
     name: 'Skeleton',
     category: 'Feedback',
     path: '/components/skeleton',
@@ -438,7 +462,7 @@ export const componentRoutes = [
   {
     id: 'spinner',
     group: 'feedback',
-    index: '30',
+    index: '31',
     name: 'Spinner',
     category: 'Feedback',
     path: '/components/spinner',
@@ -449,7 +473,7 @@ export const componentRoutes = [
   {
     id: 'toast',
     group: 'feedback',
-    index: '31',
+    index: '32',
     name: 'Toast',
     category: 'Feedback',
     path: '/components/toast',
@@ -460,7 +484,7 @@ export const componentRoutes = [
   {
     id: 'command',
     group: 'actions',
-    index: '32',
+    index: '33',
     name: 'Command',
     category: 'Actions',
     path: '/components/command',
@@ -471,7 +495,7 @@ export const componentRoutes = [
   {
     id: 'context-menu',
     group: 'actions',
-    index: '33',
+    index: '34',
     name: 'ContextMenu',
     category: 'Actions',
     path: '/components/context-menu',
@@ -482,7 +506,7 @@ export const componentRoutes = [
   {
     id: 'floating-action',
     group: 'actions',
-    index: '34',
+    index: '35',
     name: 'FloatingAction',
     category: 'Actions',
     path: '/components/floating-action',
@@ -493,7 +517,7 @@ export const componentRoutes = [
   {
     id: 'menu',
     group: 'actions',
-    index: '35',
+    index: '36',
     name: 'Menu',
     category: 'Actions',
     path: '/components/menu',
@@ -504,7 +528,7 @@ export const componentRoutes = [
   {
     id: 'menubar',
     group: 'actions',
-    index: '36',
+    index: '37',
     name: 'Menubar',
     category: 'Actions',
     path: '/components/menubar',

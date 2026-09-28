@@ -46,6 +46,7 @@ export const tooltipMetadata = {
     smoothTransition: true,
     closeOnClick: true,
     contentSizes: true,
+    cursorIntegration: true,
     interactiveContent: false,
   },
   accessibility: [
@@ -54,6 +55,7 @@ export const tooltipMetadata = {
     'The pointer can cross into the tooltip; it stays visible while hovered or while its trigger is focused.',
     'Trigger activation dismisses by default; closeOnClick=false keeps hover/focus feedback open without preventing the action.',
     'Escape, outside interaction and leaving hover/focus still dismiss. Touch entry does not open hover-only help.',
+    'An ancestor Cursor.Provider can opt mouse hover into pointer-follow. Keyboard focus remains element anchored; the Cursor family owns visuals and tracking.',
     'Use Popover for links, inputs, buttons or other interactive content. Keep essential information visible outside the tooltip.',
     'Portals preserve theme and direction; placement flips/shifts at viewport edges and updates on scroll or resize.',
   ],

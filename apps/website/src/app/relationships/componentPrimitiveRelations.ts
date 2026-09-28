@@ -12,6 +12,7 @@ export const componentPrimitiveRelations = {
   checkbox: ['checkbox'],
   command: ['command', 'dialog'],
   'context-menu': ['context-menu'],
+  cursor: ['cursor'],
   dialog: ['dialog'],
   drawer: ['dialog'],
   dropdown: ['dropdown'],
@@ -30,7 +31,7 @@ export const componentPrimitiveRelations = {
   switch: ['switch'],
   tabs: ['tabs'],
   toast: ['toast'],
-  tooltip: ['tooltip'],
+  tooltip: ['tooltip', 'cursor'],
 } as const satisfies Partial<Record<ComponentSlug, readonly PrimitiveSlug[]>>;
 
 type RelatedComponentSlug = keyof typeof componentPrimitiveRelations;

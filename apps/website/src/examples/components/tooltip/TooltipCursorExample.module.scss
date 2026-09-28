@@ -1,0 +1,28 @@
+.stage {
+  display: grid;
+  gap: var(--vd-spacing-16);
+  align-content: center;
+  justify-items: center;
+  min-height: 220px;
+  width: 100%;
+  padding: var(--vd-spacing-24);
+  border: 1px solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-12);
+  background: var(--vd-surface-elevated);
+  color: var(--vd-text-primary);
+}
+.note {
+  margin: 0;
+  color: var(--vd-text-secondary);
+  font-size: var(--vd-font-size-13);
+}
+.custom {
+  display: block;
+  color: rgb(255 242 217 / 88%);
+  filter: drop-shadow(0 2px 3px rgb(60 35 10 / 25%));
+  path {
+    stroke: rgb(164 119 54 / 90%);
+    stroke-width: 0.8;
+    paint-order: stroke fill;
+  }
+}

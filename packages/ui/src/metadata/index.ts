@@ -8,6 +8,7 @@ import { cardMetadata } from '../components/Card/Card.meta';
 import { checkboxMetadata } from '../components/Checkbox/Checkbox.meta';
 import { commandMetadata } from '../components/Command/Command.meta';
 import { contextMenuMetadata } from '../components/ContextMenu/ContextMenu.meta';
+import { cursorMetadata } from '../components/Cursor/Cursor.meta';
 import { dialogMetadata } from '../components/Dialog/Dialog.meta';
 import { dockMetadata } from '../components/Dock/Dock.meta';
 import { drawerMetadata } from '../components/Drawer/Drawer.meta';
@@ -47,6 +48,7 @@ export {
   checkboxMetadata,
   commandMetadata,
   contextMenuMetadata,
+  cursorMetadata,
   dialogMetadata,
   dockMetadata,
   drawerMetadata,
@@ -89,6 +91,7 @@ export const componentMetadataRegistry = {
   breadcrumb: breadcrumbMetadata,
   checkbox: checkboxMetadata,
   command: commandMetadata,
+  cursor: cursorMetadata,
   dialog: dialogMetadata,
   drawer: drawerMetadata,
   dropdown: dropdownMetadata,

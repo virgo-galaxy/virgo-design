@@ -1,3 +1,5 @@
+import './NavigationGroupedExample.module.scss';
+
 import { NavigationMenu } from '@virgo-design/ui';
 import { useId } from 'react';
 

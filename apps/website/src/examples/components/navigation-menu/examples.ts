@@ -1,6 +1,7 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
 
 import NavigationGroupedExample from './NavigationGroupedExample';
+import navigationGroupedStyles from './NavigationGroupedExample.module.scss?virgo-raw';
 import navigationGroupedSource from './NavigationGroupedExample.tsx?raw';
 import NavigationHorizontalExample from './NavigationHorizontalExample';
 import navigationHorizontalStyles from './NavigationHorizontalExample.module.scss?virgo-raw';
@@ -28,7 +29,7 @@ export const navigationMenuExamples = {
     description: 'Label related destinations with Group and GroupLabel.',
     Component: NavigationGroupedExample,
     source: navigationGroupedSource,
-    styleSource: '/* Grouped navigation uses the default component styles. */',
+    styleSource: navigationGroupedStyles,
   },
   navigationHorizontal: {
     id: 'navigation-horizontal',

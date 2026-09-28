@@ -6,6 +6,7 @@ import {
   Collapsible,
   Command,
   ContextMenu,
+  Cursor,
   Dialog,
   Dock,
   Dropdown,
@@ -406,6 +407,13 @@ export function PrimitiveExample({ slug }: { slug: PrimitiveSlug }) {
       );
     case 'toast':
       return <ToastExample />;
+    case 'cursor':
+      return (
+        <Cursor.Provider data-docs-primitive="cursor">
+          <button type="button">Move your mouse here</button>
+          <Cursor.Follower {...portalProps}>Pointer feedback</Cursor.Follower>
+        </Cursor.Provider>
+      );
     case 'tooltip':
       return <TooltipExample />;
   }

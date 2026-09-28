@@ -8,6 +8,7 @@ import {
   useLayoutEffect,
   useRef,
   useState,
+  useSyncExternalStore,
 } from 'react';
 
 import { useControllableState } from '../../internal/hooks/useControllableState';
@@ -18,11 +19,15 @@ import { useFloatingPosition } from '../../internal/overlay/useFloatingPosition'
 import { useHoverIntent } from '../../internal/overlay/useHoverIntent';
 import { usePresence } from '../../internal/overlay/usePresence';
 import { composeRefs } from '../../internal/utils/composeRefs';
+import { useCursorPointer } from '../Cursor/context';
+import { pointerFollowStyle, usePointerFollow } from '../Cursor/usePointerFollow';
 import type { TooltipContentProps, TooltipProps, TooltipTriggerProps } from './Tooltip.types';
 import { useTooltipHandoff } from './useTooltipHandoff';
 
 type Context = {
   open: boolean;
+  input: 'mouse' | 'keyboard';
+  setInput: (input: 'mouse' | 'keyboard') => void;
   transition: { continuous: boolean; from: { left: number; top: number } | null };
   skipExit: boolean;
   disabled: boolean;
@@ -40,6 +45,7 @@ type Context = {
   leave: () => void;
   cancelClose: () => void;
 };
+const subscribeNothing = () => () => {};
 const TooltipContext = createContext<Context | null>(null);
 function useTooltip() {
   const context = useContext(TooltipContext);
@@ -66,6 +72,8 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
     defaultOpen,
     onOpenChange,
   );
+  const [input, setInput] = useState<'mouse' | 'keyboard'>('keyboard');
+  const pointer = useCursorPointer();
   const [superseded, setSuperseded] = useState(false);
   const [skipExit, setSkipExit] = useState(false);
   const open = !disabled && !superseded && Boolean(value);
@@ -130,6 +138,17 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
   });
   useEffect(() => cancelOpen, [cancelOpen]);
   useEffect(() => {
+    if (!pointer?.follow.tooltip) return;
+    return pointer.subscribe(() => {
+      if (!pointer.getSnapshot().active) {
+        hovered.current = false;
+        cancelOpen();
+        cancelClose();
+        if (!focused.current) setOpen(false);
+      }
+    });
+  }, [pointer, cancelOpen, cancelClose, setOpen]);
+  useEffect(() => {
     if (disabled) {
       cancelOpen();
       cancelClose();
@@ -153,6 +172,8 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
     <TooltipContext.Provider
       value={{
         open,
+        input,
+        setInput,
         transition,
         skipExit,
         disabled,
@@ -215,6 +236,9 @@ export const TooltipTrigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>
         onPointerEnter?.(event);
         if (event.defaultPrevented || event.pointerType === 'touch') return;
         context.hovered.current = true;
+        context.setInput(
+          event.pointerType === 'mouse' || !event.pointerType ? 'mouse' : 'keyboard',
+        );
         if (context.activationDismissed.current) return;
         context.dismissed.current = false;
         context.show(false);
@@ -231,6 +255,7 @@ export const TooltipTrigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>
         onFocus?.(event);
         if (event.defaultPrevented) return;
         context.focused.current = true;
+        context.setInput('keyboard');
         if (context.activationDismissed.current) return;
         context.show(true);
       },
@@ -281,8 +306,23 @@ export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
   ) {
     const context = useTooltip();
     const present = usePresence(context.open, context.contentRef);
+    const pointer = useCursorPointer();
+    const pointerType = useSyncExternalStore(
+      pointer?.subscribe ?? subscribeNothing,
+      () => pointer?.getSnapshot().pointerType ?? '',
+      () => '',
+    );
+    const following = Boolean(
+      pointer?.follow.tooltip && context.input === 'mouse' && pointerType === 'mouse',
+    );
+    usePointerFollow({
+      pointer,
+      active: context.open && present && !context.skipExit && following,
+      contentRef: context.contentRef,
+      anchorRef: context.triggerRef,
+    });
     const floating = useFloatingPosition({
-      active: present && !context.skipExit,
+      active: present && !context.skipExit && !following,
       triggerRef: context.triggerRef,
       contentRef: context.contentRef,
       placement,
@@ -302,7 +342,8 @@ export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
           id={context.id}
           role="tooltip"
           data-state={context.open ? 'open' : 'closed'}
-          data-continuous={context.transition.continuous || undefined}
+          data-continuous={(!following && context.transition.continuous) || undefined}
+          data-pointer-follow={following || undefined}
           aria-hidden={!context.open || floating.referenceHidden || undefined}
           data-theme={floating.theme}
           dir={floating.direction}
@@ -310,10 +351,10 @@ export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
           data-placement={floating.placement}
           style={{
             ...style,
-            ...floating.style,
+            ...(following ? pointerFollowStyle : floating.style),
             ...motionStyle,
             ...(floating.referenceHidden ? { visibility: 'hidden' } : {}),
-            ...(!context.open ? { pointerEvents: 'none' } : {}),
+            ...(!context.open || following ? { pointerEvents: 'none' as const } : {}),
           }}
           onPointerEnter={(event) => {
             onPointerEnter?.(event);

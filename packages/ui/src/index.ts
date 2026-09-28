@@ -8,6 +8,7 @@ export * from './components/Card';
 export * from './components/Checkbox';
 export * from './components/Command';
 export * from './components/ContextMenu';
+export * from './components/Cursor';
 export * from './components/Dialog';
 export * from './components/Dock';
 export * from './components/Drawer';
