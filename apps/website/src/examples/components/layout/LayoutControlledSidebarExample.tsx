@@ -70,6 +70,7 @@ export default function App() {
             logo={
               <Button
                 variant="text"
+                className={styles.sidebarTrigger!}
                 iconOnly
                 aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
                 aria-expanded={!collapsed}

@@ -26,6 +26,14 @@
   padding: 12px 16px;
 }
 
+.sidebarTrigger[data-variant='text'] {
+  color: var(--vd-text-secondary);
+
+  &:hover:not(:disabled) {
+    color: var(--vd-brand-link);
+  }
+}
+
 .label {
   position: absolute;
   inset-inline-start: 50%;

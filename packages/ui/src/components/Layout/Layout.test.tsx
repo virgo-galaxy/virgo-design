@@ -101,6 +101,35 @@ describe('Layout', () => {
     expect(trigger).toHaveFocus();
   });
 
+  it('keeps the edge trigger operable when zero-width content becomes hidden and inert', async () => {
+    const user = userEvent.setup();
+    render(
+      <Layout.Sidebar collapsible collapsedWidth={0} triggerPlacement="edge">
+        <a href="#projects">Projects</a>
+      </Layout.Sidebar>,
+    );
+
+    const aside = screen.getByRole('complementary');
+    const trigger = screen.getByRole('button', { name: 'Collapse sidebar' });
+    const contents = aside.querySelector('[data-slot="sidebar-contents"]');
+    expect(trigger).toHaveAttribute('aria-controls', aside.id);
+    expect(contents).not.toContainElement(trigger);
+    trigger.focus();
+    await user.keyboard('{Enter}');
+    expect(aside).toHaveAttribute('data-state', 'collapsed');
+    expect(contents).toHaveAttribute('hidden');
+    expect(contents).toHaveAttribute('inert');
+    expect(screen.queryByRole('link', { name: 'Projects' })).not.toBeInTheDocument();
+    expect(trigger).toHaveAccessibleName('Expand sidebar');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(trigger).toHaveFocus();
+
+    await user.keyboard(' ');
+    expect(aside).toHaveAttribute('data-state', 'expanded');
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('link', { name: 'Projects' })).toBeVisible();
+  });
+
   it('supports zero-width controlled overlay and custom external controls', () => {
     const { rerender } = render(
       <Layout.Sidebar

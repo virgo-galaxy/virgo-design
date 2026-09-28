@@ -15,6 +15,9 @@ import layoutFloatingSidebarSource from './LayoutFloatingSidebarExample.tsx?raw'
 import LayoutFullHeightSidebarExample from './LayoutFullHeightSidebarExample';
 import layoutFullHeightSidebarStyles from './LayoutFullHeightSidebarExample.module.scss?virgo-raw';
 import layoutFullHeightSidebarSource from './LayoutFullHeightSidebarExample.tsx?raw';
+import LayoutGroupedSidebarExample from './LayoutGroupedSidebarExample';
+import layoutGroupedSidebarStyles from './LayoutGroupedSidebarExample.module.scss?virgo-raw';
+import layoutGroupedSidebarSource from './LayoutGroupedSidebarExample.tsx?raw';
 import LayoutHeaderExample from './LayoutHeaderExample';
 import layoutHeaderStyles from './LayoutHeaderExample.module.scss?virgo-raw';
 import layoutHeaderSource from './LayoutHeaderExample.tsx?raw';
@@ -47,6 +50,14 @@ import layoutSurfaceRegionsStyles from './LayoutSurfaceRegionsExample.module.scs
 import layoutSurfaceRegionsSource from './LayoutSurfaceRegionsExample.tsx?raw';
 
 export const layoutExamples = {
+  layoutGroupedSidebar: {
+    id: 'layout-grouped-sidebar',
+    title: 'Sticky group labels',
+    description: 'Compose Sidebar with grouped navigation and CSS sticky group labels.',
+    Component: LayoutGroupedSidebarExample,
+    source: layoutGroupedSidebarSource,
+    styleSource: layoutGroupedSidebarStyles,
+  },
   layoutBasic: {
     id: 'layout-basic',
     title: 'Header, content, and footer',

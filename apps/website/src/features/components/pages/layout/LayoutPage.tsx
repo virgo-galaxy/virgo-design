@@ -178,6 +178,14 @@ export function LayoutPage() {
         >
           <ComponentExample example={layoutExamples.layoutFloatingActions} showCaption={false} />
         </ArticleSection>
+        <ArticleSection
+          id="layout-grouped-sidebar"
+          index="09"
+          title="Grouped sidebar navigation"
+          description="Scroll the sidebar to see each group label stay visible until the next group takes its place. Sticky positioning is provided by the example styles."
+        >
+          <ComponentExample example={layoutExamples.layoutGroupedSidebar} />
+        </ArticleSection>
         <footer className="review-footer">
           <span>Virgo Design UI · Layout</span>
           <span>Structure · Surface · Independent navigation</span>

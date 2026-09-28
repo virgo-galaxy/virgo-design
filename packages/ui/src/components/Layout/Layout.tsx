@@ -119,10 +119,10 @@ LayoutHeader.displayName = 'Layout.Header';
 export const LayoutLane = forwardRef<HTMLDivElement, LayoutLaneProps>(function LayoutLane(
   {
     className,
-    width,
-    maxWidth,
+    width = '100%',
+    maxWidth = 'none',
     minHeight,
-    inset,
+    inset = 0,
     insetInline,
     insetBlock,
     surface,
@@ -142,12 +142,11 @@ export const LayoutLane = forwardRef<HTMLDivElement, LayoutLaneProps>(function L
       className={joinClassNames(styles.lane, Boolean(surface) && styles.surfaceRegion, className)}
       style={
         {
-          '--vd-layout-lane-width': width === undefined ? undefined : cssLength(width),
-          '--vd-layout-lane-max-width': maxWidth === undefined ? undefined : cssLength(maxWidth),
-          '--vd-layout-lane-inset-inline':
-            resolvedInsetInline === undefined ? undefined : cssLength(resolvedInsetInline),
-          '--vd-layout-lane-inset-block':
-            resolvedInsetBlock === undefined ? undefined : cssLength(resolvedInsetBlock),
+          // Each Lane owns its boundary; never inherit dimensions or insets from an outer Lane.
+          '--vd-layout-lane-width': cssLength(width),
+          '--vd-layout-lane-max-width': cssLength(maxWidth),
+          '--vd-layout-lane-inset-inline': cssLength(resolvedInsetInline),
+          '--vd-layout-lane-inset-block': cssLength(resolvedInsetBlock),
           minHeight,
           ...style,
         } as CSSProperties
@@ -169,6 +168,7 @@ function SidebarContents({
   children,
   collapsible,
   trigger,
+  triggerPlacement,
   collapsedWidth,
   surface,
 }: { [Key in keyof LayoutSidebarProps]?: LayoutSidebarProps[Key] | undefined } & {
@@ -198,6 +198,14 @@ function SidebarContents({
   const renderSlot = (slot: LayoutSidebarProps['children']) =>
     typeof slot === 'function' ? slot(state) : slot;
   const hidden = state.collapsed && collapsedWidth === 0;
+  const collapseControl =
+    collapsible && trigger !== null ? (
+      trigger === undefined ? (
+        <LayoutSidebarTrigger />
+      ) : (
+        trigger
+      )
+    ) : null;
   return (
     <>
       <SurfaceLayer surface={hidden ? undefined : surface} />
@@ -212,12 +220,15 @@ function SidebarContents({
           {renderSlot(children)}
         </div>
         {footer != null ? <div className={styles.sidebarFooter}>{renderSlot(footer)}</div> : null}
-        {collapsible && trigger !== null ? (
-          <div className={styles.sidebarControls}>
-            {trigger === undefined ? <LayoutSidebarTrigger /> : trigger}
-          </div>
+        {collapseControl != null && triggerPlacement !== 'edge' ? (
+          <div className={styles.sidebarControls}>{collapseControl}</div>
         ) : null}
       </div>
+      {collapseControl != null && triggerPlacement === 'edge' ? (
+        <div className={styles.sidebarEdgeControls} data-slot="sidebar-edge-controls">
+          {collapseControl}
+        </div>
+      ) : null}
     </>
   );
 }
@@ -235,6 +246,7 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
     header,
     footer,
     trigger,
+    triggerPlacement = 'footer',
     children,
     mode = 'inline',
     offset = 'var(--vd-spacing-24)',
@@ -331,6 +343,7 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
       className={joinClassNames(styles.sidebar, styles.surfaceRegion, className)}
       data-mode={mode}
       data-side={side}
+      data-trigger-placement={triggerPlacement}
       data-resizable={resizable || undefined}
       data-resizing={resizing || undefined}
       style={
@@ -351,6 +364,7 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
             footer={footer}
             collapsible={collapsible}
             trigger={trigger}
+            triggerPlacement={triggerPlacement}
             collapsedWidth={collapsedWidth}
             surface={{
               tone: 'default',

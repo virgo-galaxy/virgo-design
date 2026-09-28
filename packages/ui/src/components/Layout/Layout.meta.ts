@@ -26,7 +26,7 @@ export const layoutMetadata = {
     {
       name: 'Layout.Sidebar',
       description:
-        'Semantic aside with controlled or uncontrolled collapse, header/body/footer slots, configurable widths, and optional resizing.',
+        'Semantic aside with controlled or uncontrolled collapse, footer or edge triggers, header/body/footer slots, configurable widths, and optional resizing.',
     },
     {
       name: 'Layout.SidebarTrigger',
@@ -69,7 +69,7 @@ export const layoutMetadata = {
     'Children retain document order, so visual placement and reading order stay aligned.',
     'SidebarTrigger uses a native button with aria-expanded, aria-controls, and an action label. Layout adds no navigation behavior.',
     'Resizable Sidebar exposes a keyboard-focusable separator with arrow-key resizing and optional minimum and maximum widths.',
-    'Zero-width collapsed content is hidden and inert. Supply an external trigger. Icon-only navigation must retain accessible labels.',
+    'Zero-width collapsed content is hidden and inert. Use an edge or external trigger to reopen it. Icon-only navigation must retain accessible labels.',
     'Consumers should avoid nesting multiple main regions in the same document landmark scope.',
   ],
   examples: [],

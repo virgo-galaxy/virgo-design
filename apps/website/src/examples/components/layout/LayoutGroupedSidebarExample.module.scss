@@ -1,0 +1,77 @@
+.root {
+  width: 100%;
+  height: 560px;
+  overflow: hidden;
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-12);
+}
+
+.sidebar {
+  position: relative;
+  max-width: 45%;
+}
+
+.sidebar::before {
+  // Cover the scrollport edge from outside its moving content layer.
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: calc(var(--vd-spacing-16) + 2px);
+  z-index: 3;
+  background: var(--vd-surface-default);
+  pointer-events: none;
+}
+
+// Keep Sidebar's default top and bottom inset outside its scrolling body.
+// Labels stick inside that body, leaving the surface above them visible.
+.sidebar [data-slot='sidebar-body'] {
+  padding-block: 0;
+  overscroll-behavior-y: none;
+}
+
+.groups {
+  gap: 0;
+}
+
+// Keep all inter-group spacing inside the group, so its sticky label is only
+// pushed away when the following label reaches it. The divider still scrolls.
+.separator {
+  padding: var(--vd-spacing-12) 0 var(--vd-spacing-16);
+}
+
+.groupLabel {
+  container-type: scroll-state;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  // Keep the text on its own layer during fractional, continuous scrolling.
+  transform: translateZ(0);
+  background: var(--vd-surface-default);
+}
+
+.groupLabel::after {
+  content: '';
+  position: absolute;
+  inset: 100% 0 auto;
+  height: var(--vd-spacing-6);
+  background: linear-gradient(to bottom, var(--vd-surface-default), transparent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@container scroll-state(stuck: top) {
+  .groupLabel::after {
+    opacity: 1;
+  }
+}
+
+.content {
+  display: grid;
+  place-items: center;
+}
+
+.contentLabel {
+  font-size: var(--vd-font-size-12);
+  font-weight: var(--vd-font-weight-400);
+  color: var(--vd-text-tertiary);
+}

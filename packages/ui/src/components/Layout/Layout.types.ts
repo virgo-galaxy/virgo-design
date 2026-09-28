@@ -69,13 +69,15 @@ export interface LayoutLaneProps extends Omit<PrimitiveLayoutLaneProps, 'classNa
 export interface LayoutSidebarProps extends PrimitiveLayoutSidebarProps {
   /** Expanded width. Defaults to three sizing-80 tokens (240px). */
   width?: LayoutLength;
-  /** Rail width. Use numeric 0 with an external trigger to hide the region. */
+  /** Rail width. Use numeric 0 with an edge or external trigger to hide the region. */
   collapsedWidth?: LayoutLength;
   collapsible?: boolean;
   header?: LayoutSidebarSlot;
   footer?: LayoutSidebarSlot;
   /** Omit for the default button; null hides it. Custom triggers use SidebarTrigger. */
   trigger?: ReactNode;
+  /** Place the collapse control in the footer or on the outer edge. @default 'footer' */
+  triggerPlacement?: 'footer' | 'edge';
   /** Viewport width in px. Requests collapse on entry, restores the prior state on exit. */
   collapseBelow?: number;
   /** Allows pointer and keyboard resizing of the expanded sidebar width. */

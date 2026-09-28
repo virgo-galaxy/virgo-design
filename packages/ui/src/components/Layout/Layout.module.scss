@@ -405,7 +405,8 @@
     width: var(--vd-sizing-20);
     height: var(--vd-sizing-20);
   }
-  &:hover {
+  &:hover:not(:disabled) {
+    color: var(--vd-brand-link);
     background: var(--vd-fill-hover);
   }
   &:focus-visible {
@@ -415,6 +416,51 @@
   &:disabled {
     color: var(--vd-text-disabled);
     cursor: not-allowed;
+  }
+}
+
+.sidebar[data-trigger-placement='edge'] {
+  // Keep the outward half of the control above the neighboring Content surface.
+  z-index: 1;
+}
+
+.sidebarEdgeControls {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: calc(var(--vd-sizing-24) / -2);
+  z-index: 5;
+  width: var(--vd-sizing-24);
+  height: var(--vd-sizing-24);
+  transform: translateY(-50%);
+}
+
+.sidebar[data-side='end'] > .sidebarEdgeControls {
+  inset-inline-start: calc(var(--vd-sizing-24) / -2);
+  inset-inline-end: auto;
+}
+
+.sidebar[data-trigger-placement='edge'] > .sidebarEdgeControls > .sidebarTrigger {
+  position: static;
+  width: var(--vd-sizing-24);
+  height: var(--vd-sizing-24);
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-full);
+  background: var(--vd-surface-default);
+  box-shadow: var(--vd-elevation-1);
+
+  &::before {
+    display: none;
+  }
+
+  svg {
+    width: var(--vd-sizing-16);
+    height: var(--vd-sizing-16);
+  }
+
+  &:hover:not(:disabled) {
+    color: var(--vd-brand-link);
+    background: var(--vd-surface-default);
+    border-color: var(--vd-brand-subtle-hover);
   }
 }
 
