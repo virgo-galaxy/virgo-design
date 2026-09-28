@@ -22,6 +22,7 @@ import {
   EyeClosedIcon,
   EyeIcon,
   GaugeIcon,
+  GithubIcon,
   GlobeIcon,
   HomeIcon,
   LayersIcon,
@@ -43,6 +44,7 @@ import {
 } from './index';
 
 const addedIcons = [
+  ['github', GithubIcon],
   ['code', CodeIcon],
   ['copy', CopyIcon],
   ['circle-check', CircleCheckIcon],

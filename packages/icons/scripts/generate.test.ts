@@ -37,6 +37,7 @@ describe('icons generator', () => {
       'eye-closed.svg',
       'eye.svg',
       'gauge.svg',
+      'github.svg',
       'globe.svg',
       'home.svg',
       'layers.svg',

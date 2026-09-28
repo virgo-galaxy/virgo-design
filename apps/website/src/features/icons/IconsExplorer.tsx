@@ -26,6 +26,7 @@ import {
   EyeClosedIcon,
   EyeIcon,
   GaugeIcon,
+  GithubIcon,
   GlobeIcon,
   HomeIcon,
   LayersIcon,
@@ -62,6 +63,7 @@ const gridCoordinates = Array.from({ length: 25 }, (_, coordinate) => coordinate
 
 const iconOptions = [
   { id: 'cybertruck', label: 'Cybertruck', Icon: CybertruckIcon },
+  { id: 'github', label: 'GitHub', Icon: GithubIcon },
   { id: 'plus', label: 'Plus', Icon: PlusIcon },
   { id: 'minus', label: 'Minus', Icon: MinusIcon },
   { id: 'close', label: 'Close', Icon: CloseIcon },
