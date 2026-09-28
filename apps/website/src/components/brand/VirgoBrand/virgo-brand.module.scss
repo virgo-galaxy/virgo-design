@@ -14,12 +14,72 @@
   height: var(--virgo-brand-logo-height, 26px);
   transform: translateY(var(--virgo-brand-logo-translate-y, 0));
   flex: none;
-  object-fit: contain;
+  overflow: visible;
+  pointer-events: none;
 }
 
 .name {
+  position: relative;
   transform: translateY(var(--virgo-brand-name-translate-y, 0));
   font-weight: var(--virgo-brand-font-weight, 700);
   line-height: var(--virgo-brand-name-line-height, 1);
   white-space: nowrap;
+}
+
+.sheen {
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  background: linear-gradient(
+    45deg,
+    transparent 42%,
+    #8d98a9 46.5%,
+    #dce5ef 49%,
+    #f5f8fc 50%,
+    #a4afbd 53.5%,
+    transparent 58%
+  );
+  background-size: 300% 200%;
+  background-position: 0% 0%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.detail {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.letters,
+.dust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.letters {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.letter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: pre;
+}
+
+.particle {
+  position: absolute;
+  bottom: -0.12em;
+  width: 0.1em;
+  height: 0.075em;
+  border-radius: 50%;
+  background: var(--layout-secondary, #87909d);
+  opacity: 0;
+  visibility: hidden;
 }

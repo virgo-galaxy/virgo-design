@@ -11,7 +11,12 @@ export type MoonIconProps = Omit<
 export function MoonIcon({ size = 24, ...props }: MoonIconProps) {
   return (
     <svg fill="currentColor" height={size} viewBox="0 0 24 24" width={size} {...props}>
-      <path d={'M20.31 14.77A8.5 8.5 0 0 1 9.23 3.69 9 9 0 1 0 20.31 14.77Z'} />
+      <path
+        d={
+          'M8.648 3.648A9 9 0 1 0 20.352 15.352 9 9 0 0 1 8.648 3.648Z M6.074 8.274A7 7 0 0 0 15.726 17.926 11 11 0 0 1 6.074 8.274Z'
+        }
+        fillRule="evenodd"
+      />
     </svg>
   );
 }

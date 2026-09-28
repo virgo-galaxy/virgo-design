@@ -23,12 +23,13 @@ describe('SiteHeader', () => {
     renderHeader();
 
     const brand = screen.getByRole('link', { name: 'Virgo Design' });
-    const logo = brand.querySelector('img');
+    const logo = brand.querySelector('svg');
 
     expect(brand).toHaveAttribute('href', '/');
     expect(brand).toHaveTextContent('Virgo Design');
-    expect(logo).toHaveAttribute('src', '/virgo-design.svg');
-    expect(logo).toHaveAttribute('alt', '');
+    expect(logo).toHaveAttribute('viewBox', '0 0 590 470');
+    expect(logo?.querySelectorAll('[data-brand-track]')).toHaveLength(2);
+    expect(logo?.querySelector('ellipse')).toHaveAttribute('rx', '62.65');
     expect(logo).toHaveAttribute('aria-hidden', 'true');
   });
 

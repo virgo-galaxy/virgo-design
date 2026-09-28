@@ -64,7 +64,6 @@ const iconOptions = [
   { id: 'cybertruck', label: 'Cybertruck', Icon: CybertruckIcon },
   { id: 'plus', label: 'Plus', Icon: PlusIcon },
   { id: 'minus', label: 'Minus', Icon: MinusIcon },
-  { id: 'moon', label: 'Moon', Icon: MoonIcon },
   { id: 'close', label: 'Close', Icon: CloseIcon },
   { id: 'check', label: 'Check', Icon: CheckIcon },
   { id: 'code', label: 'Code', Icon: CodeIcon },
@@ -107,6 +106,7 @@ const iconOptions = [
   { id: 'user', label: 'User', Icon: UserIcon },
   { id: 'bot', label: 'Bot', Icon: BotIcon },
   { id: 'settings', label: 'Settings', Icon: SettingsIcon },
+  { id: 'moon', label: 'Moon', Icon: MoonIcon },
   { id: 'sun', label: 'Sun', Icon: SunIcon },
 ] as const satisfies ReadonlyArray<IconSelectOption>;
 
