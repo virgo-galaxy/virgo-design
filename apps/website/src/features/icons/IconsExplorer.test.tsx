@@ -49,7 +49,7 @@ describe('Icons foundation', () => {
 
     await user.click(screen.getByRole('button', { name: 'Icon Plus' }));
 
-    expect(screen.getAllByRole('option')).toHaveLength(43);
+    expect(screen.getAllByRole('option')).toHaveLength(47);
     expect(screen.queryByRole('option', { name: 'Workspace' })).not.toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Check' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Circle Info' })).toBeInTheDocument();
@@ -82,6 +82,10 @@ describe('Icons foundation', () => {
   it.each([
     ['Code', 'code'],
     ['Copy', 'copy'],
+    ['Lock', 'lock'],
+    ['Unlock', 'unlock'],
+    ['Pin', 'pin'],
+    ['Unpin', 'unpin'],
     ['Circle Check', 'circle-check'],
     ['Circle Info', 'circle-info'],
     ['Triangle Alert', 'triangle-alert'],

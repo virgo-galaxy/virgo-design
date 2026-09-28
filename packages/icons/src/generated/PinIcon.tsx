@@ -1,0 +1,22 @@
+/* This file is generated from icons/pin.svg by scripts/generate.ts. Do not edit. */
+import type { SVGProps } from 'react';
+
+export type PinIconProps = Omit<
+  SVGProps<SVGSVGElement>,
+  'stroke' | 'strokeLinecap' | 'strokeLinejoin' | 'strokeWidth'
+> & {
+  size?: number;
+};
+
+export function PinIcon({ size = 24, ...props }: PinIconProps) {
+  return (
+    <svg fill="currentColor" height={size} viewBox="0 0 24 24" width={size} {...props}>
+      <path
+        d={
+          'M9.457 2.485 17.359 3.737 18.19 4.881 18.033 5.868 15.745 7.531 15.119 11.482 17.613 14.914 17.457 15.902 16.313 16.733 12.362 16.107 11.658 20.552 10.514 21.383 9.683 20.239 10.387 15.794 6.436 15.169 5.605 14.024 5.761 13.037 9.193 10.543 9.819 6.592 8.157 4.304 8.313 3.316Z M11.041 5.267 11.873 6.411 11.012 11.844 8.724 13.506 14.65 14.445 12.988 12.156 13.848 6.724 14.992 5.893Z'
+        }
+        fillRule="evenodd"
+      />
+    </svg>
+  );
+}

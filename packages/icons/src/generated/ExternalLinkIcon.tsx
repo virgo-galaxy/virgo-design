@@ -14,7 +14,7 @@ export function ExternalLinkIcon({ size = 24, ...props }: ExternalLinkIconProps)
       <path d={'M5.5 5.5h7l.5.5v1l-.5.5h-6v10h10v-6l.5-.5h1l.5.5v7l-1 1h-12l-1-1v-12z'} />
       <path
         d={
-          'M14.5 4.5h5l1 1v5l-.5.5h-1l-.5-.5V7.91l-7.29 7.3h-1.42l-.5-.5v-1.42l7.3-7.29H14.5l-.5-.5V5z'
+          'M14.5 4.5h5l1 1v5l-.5.5h-1l-.5-.5V7.91l-4.79 4.8h-1.42l-.5-.5v-1.42l4.8-4.79H14.5l-.5-.5V5z'
         }
       />
     </svg>

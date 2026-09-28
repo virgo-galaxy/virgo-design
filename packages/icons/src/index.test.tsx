@@ -26,8 +26,10 @@ import {
   HomeIcon,
   LayersIcon,
   LayoutIcon,
+  LockIcon,
   MoonIcon,
   PaletteIcon,
+  PinIcon,
   PlusIcon,
   ShapesIcon,
   SidebarCollapseIcon,
@@ -36,6 +38,8 @@ import {
   SunIcon,
   TriangleAlertIcon,
   TypeIcon,
+  UnlockIcon,
+  UnpinIcon,
 } from './index';
 
 const addedIcons = [
@@ -69,6 +73,10 @@ const addedIcons = [
   ['chevrons-up', ChevronsUpIcon],
   ['chevrons-down', ChevronsDownIcon],
   ['sun', SunIcon],
+  ['lock', LockIcon],
+  ['unlock', UnlockIcon],
+  ['pin', PinIcon],
+  ['unpin', UnpinIcon],
 ] as const;
 
 describe('@virgo-design/icons', () => {

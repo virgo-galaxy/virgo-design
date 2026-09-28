@@ -41,9 +41,11 @@ describe('icons generator', () => {
       'home.svg',
       'layers.svg',
       'layout.svg',
+      'lock.svg',
       'minus.svg',
       'moon.svg',
       'palette.svg',
+      'pin.svg',
       'plus.svg',
       'search.svg',
       'settings.svg',
@@ -55,6 +57,8 @@ describe('icons generator', () => {
       'trash.svg',
       'triangle-alert.svg',
       'type.svg',
+      'unlock.svg',
+      'unpin.svg',
       'user.svg',
     ]);
 
