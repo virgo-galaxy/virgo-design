@@ -49,7 +49,12 @@ describe('Components documentation integration', () => {
     const navigation = screen.getByRole('navigation', { name: 'Component navigation' });
 
     expect(screen.queryByText('UI Laboratory')).not.toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: 'Virgo Design' })).not.toBeInTheDocument();
+    expect(
+      within(screen.getByRole('contentinfo', { name: 'Documentation footer' })).getByRole(
+        'button',
+        { name: 'Powered by Virgo Design' },
+      ),
+    ).toHaveAttribute('data-variant', 'outline');
     expect(
       within(navigation)
         .getAllByRole('link')
@@ -121,6 +126,42 @@ describe('Components documentation integration', () => {
       'data-theme',
       'dark',
     );
+  });
+
+  it('collapses and restores navigation without replacing the document or active route', async () => {
+    const user = userEvent.setup();
+    render(
+      <AppearanceContext.Provider value={{ appearance: 'light', setAppearance: () => {} }}>
+        <MemoryRouter initialEntries={['/components/button']}>
+          <Routes>
+            <Route path="/components/*" element={<ComponentsDocumentation />} />
+          </Routes>
+        </MemoryRouter>
+      </AppearanceContext.Provider>,
+    );
+
+    const sidebar = screen.getByRole('complementary', { name: 'Components sidebar' });
+    const navigation = screen.getByRole('navigation', { name: 'Component navigation' });
+    const heading = screen.getByRole('heading', { level: 1, name: 'Button' });
+    const trigger = within(sidebar).getByRole('button', { name: 'Collapse sidebar' });
+    await user.click(trigger);
+
+    expect(sidebar).toHaveAttribute('data-state', 'collapsed');
+    expect(navigation).toHaveAttribute('inert');
+    expect(screen.queryByRole('navigation', { name: 'Component navigation' })).toBeNull();
+    expect(screen.getByRole('heading', { level: 1, name: 'Button' })).toBe(heading);
+    expect(trigger).toHaveFocus();
+    expect(trigger).toHaveAccessibleName('Expand sidebar');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+    await user.keyboard('{Enter}');
+    expect(screen.getByRole('navigation', { name: 'Component navigation' })).toBe(navigation);
+    expect(navigation).not.toHaveAttribute('inert');
+    expect(within(navigation).getByRole('link', { name: /Button/ })).toHaveAttribute(
+      'data-active',
+      'true',
+    );
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
   });
 
   it('keeps Textarea inside the Input documentation family', () => {

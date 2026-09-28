@@ -494,3 +494,94 @@ describe('NavigationMenu UI', () => {
     expect(linkRef.current).toHaveClass('consumer-link');
   });
 });
+
+describe('NavigationMenu groups', () => {
+  it('exposes labelled groups with valid list structure and forwards refs and native props', () => {
+    const groupRef = createRef<HTMLDivElement>();
+    const labelRef = createRef<HTMLDivElement>();
+    render(
+      <NavigationMenu.Root orientation="vertical" aria-label="Grouped">
+        <NavigationMenu.List>
+          <NavigationMenu.Group
+            ref={groupRef}
+            aria-labelledby="workspace-label"
+            className="custom-group"
+            style={{ marginTop: 12 }}
+          >
+            <NavigationMenu.GroupLabel
+              ref={labelRef}
+              id="workspace-label"
+              className="custom-label"
+              title="Workspace destinations"
+            >
+              Workspace
+            </NavigationMenu.GroupLabel>
+            <NavigationMenu.List>
+              <NavigationMenu.Item value="projects">
+                <NavigationMenu.Link href="#projects">Projects</NavigationMenu.Link>
+              </NavigationMenu.Item>
+            </NavigationMenu.List>
+          </NavigationMenu.Group>
+          <NavigationMenu.Separator data-testid="group-divider" />
+        </NavigationMenu.List>
+      </NavigationMenu.Root>,
+    );
+    const group = screen.getByRole('group', { name: 'Workspace' });
+    expect(groupRef.current).toBe(group);
+    expect(group.tagName).toBe('DIV');
+    expect(group.parentElement?.tagName).toBe('LI');
+    expect(group.parentElement).toHaveAttribute('role', 'presentation');
+    expect(group.parentElement?.parentElement?.tagName).toBe('UL');
+    expect(group).toHaveClass('custom-group');
+    expect(group).toHaveStyle({ marginTop: '12px' });
+    expect(labelRef.current).toBe(screen.getByText('Workspace'));
+    expect(labelRef.current).toHaveAttribute('data-slot', 'group-label');
+    expect(labelRef.current).toHaveAttribute('title', 'Workspace destinations');
+    expect(labelRef.current).toHaveClass('custom-label');
+    expect(screen.getByRole('link').parentElement?.parentElement?.parentElement).toBe(group);
+    expect(screen.getByTestId('group-divider').parentElement).toBe(
+      group.parentElement?.parentElement,
+    );
+    expect(screen.getByTestId('group-divider')).toHaveAttribute('data-orientation', 'horizontal');
+  });
+
+  it('shares active state across groups and preserves keyboard and disabled link behavior', async () => {
+    const user = userEvent.setup();
+    render(
+      <NavigationMenu.Root orientation="vertical" defaultValue="overview">
+        <NavigationMenu.List>
+          {['Workspace', 'Settings'].map((name, index) => (
+            <NavigationMenu.Group key={name} aria-labelledby={`${name}-label`}>
+              <NavigationMenu.GroupLabel id={`${name}-label`}>{name}</NavigationMenu.GroupLabel>
+              <NavigationMenu.List>
+                <NavigationMenu.Item value={index === 0 ? 'overview' : 'profile'}>
+                  <NavigationMenu.Link href={index === 0 ? '#overview' : '#profile'}>
+                    {index === 0 ? 'Overview' : 'Profile'}
+                  </NavigationMenu.Link>
+                </NavigationMenu.Item>
+                <NavigationMenu.Item disabled value={`${name}-disabled`}>
+                  <NavigationMenu.Link href="#disabled">{name} disabled</NavigationMenu.Link>
+                </NavigationMenu.Item>
+                <NavigationMenu.Item value={`${name}-last`}>
+                  <NavigationMenu.Link href="#last">{name} last</NavigationMenu.Link>
+                </NavigationMenu.Item>
+              </NavigationMenu.List>
+            </NavigationMenu.Group>
+          ))}
+        </NavigationMenu.List>
+      </NavigationMenu.Root>,
+    );
+    const overview = screen.getByRole('link', { name: 'Overview' });
+    const profile = screen.getByRole('link', { name: 'Profile' });
+    expect(overview).toHaveAttribute('aria-current', 'page');
+    await user.click(profile);
+    expect(profile).toHaveAttribute('aria-current', 'page');
+    expect(overview).not.toHaveAttribute('aria-current');
+    await user.keyboard('{ArrowDown}');
+    expect(screen.getByRole('link', { name: 'Settings last' })).toHaveFocus();
+    await user.keyboard('{Home}');
+    expect(profile).toHaveFocus();
+    await user.click(screen.getByRole('link', { name: 'Settings disabled' }));
+    expect(profile).toHaveAttribute('aria-current', 'page');
+  });
+});

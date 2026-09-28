@@ -72,6 +72,23 @@
   box-shadow: var(--vd-elevation-1);
 }
 
+.group,
+.list > [data-slot='group-item'] {
+  min-width: 0;
+}
+
+.list[data-orientation='vertical'] > [data-slot='group-item'] {
+  width: 100%;
+}
+
+.groupLabel {
+  padding: var(--vd-spacing-8) var(--navigation-menu-control-padding);
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-font-size-12);
+  font-weight: var(--vd-font-weight-500);
+  line-height: var(--vd-line-height-3);
+}
+
 .item {
   min-width: 0;
 }

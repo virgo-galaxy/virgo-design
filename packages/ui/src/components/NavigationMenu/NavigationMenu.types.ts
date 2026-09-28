@@ -1,5 +1,7 @@
 import type {
   NavigationMenuContentProps as PrimitiveNavigationMenuContentProps,
+  NavigationMenuGroupLabelProps as PrimitiveNavigationMenuGroupLabelProps,
+  NavigationMenuGroupProps as PrimitiveNavigationMenuGroupProps,
   NavigationMenuItemProps as PrimitiveNavigationMenuItemProps,
   NavigationMenuLinkProps as PrimitiveNavigationMenuLinkProps,
   NavigationMenuListProps as PrimitiveNavigationMenuListProps,
@@ -22,6 +24,8 @@ export interface NavigationMenuProps extends PrimitiveNavigationMenuProps {
 
 export type NavigationMenuRootProps = NavigationMenuProps;
 export type NavigationMenuListProps = PrimitiveNavigationMenuListProps;
+export type NavigationMenuGroupProps = PrimitiveNavigationMenuGroupProps;
+export type NavigationMenuGroupLabelProps = PrimitiveNavigationMenuGroupLabelProps;
 
 export interface NavigationMenuItemProps extends PrimitiveNavigationMenuItemProps {
   /** Decorative icon shared by this item's Link or Trigger. */

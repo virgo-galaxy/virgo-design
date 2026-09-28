@@ -18,6 +18,14 @@ export const navigationMenuMetadata = {
   anatomy: [
     { name: 'NavigationMenu.Root', description: 'Navigation landmark and active-state owner.' },
     { name: 'NavigationMenu.List', description: 'Horizontal or vertical top-level link list.' },
+    {
+      name: 'NavigationMenu.Group',
+      description: 'Labelled group inside List; contains GroupLabel and a nested List.',
+    },
+    {
+      name: 'NavigationMenu.GroupLabel',
+      description: 'Non-interactive title associated with Group through id and aria-labelledby.',
+    },
     { name: 'NavigationMenu.Item', description: 'Coordinates one stable navigation value.' },
     { name: 'NavigationMenu.Link', description: 'Native link that activates its item.' },
     {
@@ -39,6 +47,7 @@ export const navigationMenuMetadata = {
     controlled: true,
     uncontrolled: true,
     nested: true,
+    grouped: true,
     inlineSubmenu: true,
     popoverSubmenu: true,
     cascadingSubmenu: true,

@@ -27,6 +27,10 @@ export interface NavigationMenuProps extends Omit<
 
 export type NavigationMenuRootProps = NavigationMenuProps;
 export type NavigationMenuListProps = HTMLAttributes<HTMLUListElement>;
+/** Place inside List and reference GroupLabel's id with aria-labelledby. */
+export type NavigationMenuGroupProps = HTMLAttributes<HTMLDivElement>;
+/** Non-interactive group heading; accepts standard div attributes and a ref. */
+export type NavigationMenuGroupLabelProps = HTMLAttributes<HTMLDivElement>;
 
 export interface NavigationMenuItemProps extends Omit<HTMLAttributes<HTMLLIElement>, 'value'> {
   /** Stable value used to coordinate this item with the root active state. */

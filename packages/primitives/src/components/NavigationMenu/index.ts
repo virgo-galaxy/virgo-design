@@ -1,5 +1,7 @@
 import {
   NavigationMenuContent,
+  NavigationMenuGroup,
+  NavigationMenuGroupLabel,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
@@ -10,6 +12,8 @@ import {
 export const NavigationMenu = Object.assign(NavigationMenuRoot, {
   Root: NavigationMenuRoot,
   List: NavigationMenuList,
+  Group: NavigationMenuGroup,
+  GroupLabel: NavigationMenuGroupLabel,
   Item: NavigationMenuItem,
   Link: NavigationMenuLink,
   Trigger: NavigationMenuTrigger,
@@ -18,6 +22,8 @@ export const NavigationMenu = Object.assign(NavigationMenuRoot, {
 
 export type {
   NavigationMenuContentProps,
+  NavigationMenuGroupLabelProps,
+  NavigationMenuGroupProps,
   NavigationMenuItemProps,
   NavigationMenuLinkProps,
   NavigationMenuListProps,

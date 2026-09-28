@@ -22,6 +22,8 @@ import { Separator as BaseSeparator } from '../Separator';
 import styles from './NavigationMenu.module.scss';
 import type {
   NavigationMenuContentProps,
+  NavigationMenuGroupLabelProps,
+  NavigationMenuGroupProps,
   NavigationMenuItemProps,
   NavigationMenuLinkProps,
   NavigationMenuListProps,
@@ -156,6 +158,35 @@ const List = forwardRef<HTMLUListElement, NavigationMenuListProps>(function Navi
 });
 
 List.displayName = 'NavigationMenu.List';
+
+const Group = forwardRef<HTMLDivElement, NavigationMenuGroupProps>(function NavigationMenuGroup(
+  { className, ...props },
+  forwardedRef,
+) {
+  return (
+    <PrimitiveNavigationMenu.Group
+      {...props}
+      ref={forwardedRef}
+      className={classes(styles.group, className)}
+    />
+  );
+});
+
+Group.displayName = 'NavigationMenu.Group';
+
+const GroupLabel = forwardRef<HTMLDivElement, NavigationMenuGroupLabelProps>(
+  function NavigationMenuGroupLabel({ className, ...props }, forwardedRef) {
+    return (
+      <PrimitiveNavigationMenu.GroupLabel
+        {...props}
+        ref={forwardedRef}
+        className={classes(styles.groupLabel, className)}
+      />
+    );
+  },
+);
+
+GroupLabel.displayName = 'NavigationMenu.GroupLabel';
 
 const Item = forwardRef<HTMLLIElement, NavigationMenuItemProps>(function NavigationMenuItem(
   {
@@ -460,6 +491,8 @@ Content.displayName = 'NavigationMenu.Content';
 export const NavigationMenu = Object.assign(Root, {
   Root,
   List,
+  Group,
+  GroupLabel,
   Item,
   Link,
   Separator,

@@ -1,5 +1,7 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
 
+import NavigationGroupedExample from './NavigationGroupedExample';
+import navigationGroupedSource from './NavigationGroupedExample.tsx?raw';
 import NavigationHorizontalExample from './NavigationHorizontalExample';
 import navigationHorizontalStyles from './NavigationHorizontalExample.module.scss?virgo-raw';
 import navigationHorizontalSource from './NavigationHorizontalExample.tsx?raw';
@@ -20,6 +22,14 @@ import navigationVerticalStyles from './NavigationVerticalExample.module.scss?vi
 import navigationVerticalSource from './NavigationVerticalExample.tsx?raw';
 
 export const navigationMenuExamples = {
+  navigationGrouped: {
+    id: 'navigation-grouped',
+    title: 'Grouped navigation',
+    description: 'Label related destinations with Group and GroupLabel.',
+    Component: NavigationGroupedExample,
+    source: navigationGroupedSource,
+    styleSource: '/* Grouped navigation uses the default component styles. */',
+  },
   navigationHorizontal: {
     id: 'navigation-horizontal',
     title: 'Top navigation',

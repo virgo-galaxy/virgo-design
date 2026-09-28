@@ -134,6 +134,14 @@ export function NavigationMenuPage() {
         >
           <ComponentExample example={navigationMenuExamples.navigationNested} showCaption={false} />
         </ArticleSection>
+        <ArticleSection
+          id="navigation-grouped"
+          index="05"
+          title="Grouped navigation"
+          description="Organize related destinations with Group and GroupLabel. Each group keeps its own keyboard navigation scope."
+        >
+          <ComponentExample example={navigationMenuExamples.navigationGrouped} showCaption={false} />
+        </ArticleSection>
         <footer className="review-footer">
           <span>Virgo Design UI · NavigationMenu V1.0.0</span>
           <span>Primitive · Tokens · Metadata · Accessibility</span>

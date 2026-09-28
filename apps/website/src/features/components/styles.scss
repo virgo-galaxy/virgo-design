@@ -89,35 +89,61 @@
     display: flex;
     flex-direction: column;
     height: calc(100vh - var(--layout-header-height));
-    overflow: hidden auto;
-    padding: var(--vd-spacing-24) var(--vd-spacing-16);
+    overflow: visible;
+    padding: var(--vd-spacing-16) 0;
     border-inline-end: var(--vd-border-width-1) solid var(--vd-border-subtle);
     background: var(--vd-surface-default);
   }
 
-  .component-navigation > [data-slot='sidebar-contents'] > [data-slot='sidebar-body'] {
-    padding: 0;
-    overflow: visible;
+  .component-navigation::before {
+    // Keep the top cover outside the scrolling layer, overlapping its clip.
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: calc(var(--vd-spacing-16) + 2px);
+    z-index: 3;
+    background: var(--vd-surface-default);
+    pointer-events: none;
   }
 
-  .navigation-note strong,
-  .navigation-note span {
-    display: block;
+  // Keep the vertical inset outside the scrollport for the pinned labels.
+  // Horizontal padding belongs inside it so the scrollbar reaches the edge.
+  .component-navigation > [data-slot='sidebar-contents'] {
+    height: 100%;
+    min-height: 0;
+    padding-block: 0;
+    overflow: hidden;
+  }
+
+  .component-navigation[data-state='collapsed'] > [data-slot='sidebar-contents'] {
+    visibility: hidden;
+  }
+
+  .component-navigation > [data-slot='sidebar-edge-controls'] {
+    // Sidebar inset, group label, two General rows, then the divider's center.
+    inset-block-start: calc(
+      var(--vd-spacing-16) * 3 + var(--vd-font-size-12) * var(--vd-line-height-3) +
+        (var(--vd-sizing-56) + var(--vd-spacing-4)) * 2 + var(--vd-border-width-1) / 2
+    );
+    inset-inline-end: calc(var(--vd-sizing-24) / -2 - var(--vd-border-width-1));
+  }
+
+  .component-navigation-trigger[data-state='collapsed'] svg {
+    transform: rotate(180deg);
+  }
+
+  .component-navigation > [data-slot='sidebar-contents'] > [data-slot='sidebar-body'] {
+    // Keep navigation geometry and scroll position stable while the boundary collapses.
+    width: calc(var(--components-navigation-width) - var(--vd-border-width-1));
+    padding: 0 var(--vd-spacing-16);
+    overflow: auto;
+    // Keep trackpad momentum here instead of bouncing or scrolling the page.
+    overscroll-behavior-y: none;
   }
 
   .component-navigation nav {
     min-width: 0;
     margin-bottom: calc(var(--vd-sizing-56) * 2);
-  }
-
-  .navigation-label {
-    margin: 0 var(--vd-spacing-8) var(--vd-spacing-8);
-    font-size: var(--vd-font-size-12);
-    font-weight: var(--vd-font-weight-600);
-    line-height: var(--vd-line-height-3);
-    color: var(--vd-text-tertiary);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
   }
 
   .component-link-list {
@@ -129,20 +155,30 @@
   .component-groups {
     display: grid;
     min-width: 0;
-    gap: var(--vd-spacing-20);
+    gap: 0;
   }
 
   .component-group {
     min-width: 0;
   }
 
-  .component-group + .component-group {
-    padding-top: var(--vd-spacing-20);
-    border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  .component-group-separator {
+    // Include the divider and both insets in the preceding sticky boundary.
+    // The list's 4px gap plus 16px padding preserves the original 20px inset.
+    padding: var(--vd-spacing-16) 0 var(--vd-spacing-20);
   }
 
   .component-group-label {
-    margin: 0 var(--vd-spacing-8) var(--vd-spacing-8);
+    container-type: scroll-state;
+    // The group bounds push its label away as the next group approaches.
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    // Rasterize the label independently of fractional scroll offsets.
+    transform: translateZ(0);
+    margin: 0;
+    padding: var(--vd-spacing-8);
+    background: var(--vd-surface-default);
     font-size: var(--vd-font-size-12);
     font-weight: var(--vd-font-weight-500);
     line-height: var(--vd-line-height-3);
@@ -151,9 +187,24 @@
     text-transform: uppercase;
   }
 
+  .component-group-label::after {
+    content: '';
+    position: absolute;
+    inset: 100% 0 auto;
+    height: var(--vd-spacing-6);
+    background: linear-gradient(to bottom, var(--vd-surface-default), transparent);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @container scroll-state(stuck: top) {
+    .component-group-label::after {
+      opacity: 1;
+    }
+  }
+
   .component-link {
-    display: grid;
-    grid-template-columns: var(--vd-sizing-28) minmax(0, 1fr) auto;
+    display: flex;
     align-items: center;
     gap: var(--vd-spacing-8);
     min-width: 0;
@@ -168,12 +219,19 @@
       background-color var(--vd-duration-120) var(--vd-easing-standard);
   }
 
+  .component-link > [data-slot='label'] {
+    display: grid;
+    grid-template-columns: var(--vd-sizing-28) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--vd-spacing-8);
+  }
+
   .component-link:hover {
     color: var(--vd-text-primary);
     background: var(--vd-fill-hover);
   }
 
-  .component-link--active {
+  .component-link[data-active='true'] {
     color: var(--vd-text-primary);
     background: var(--vd-fill-selected);
   }
@@ -246,81 +304,9 @@
     white-space: nowrap;
   }
 
-  .navigation-note {
-    display: flex;
-    align-items: center;
-    gap: var(--vd-spacing-8);
-    margin-top: auto;
-    padding: var(--vd-spacing-12);
-    border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-    border-radius: var(--vd-radius-10);
-    background: var(--vd-surface-secondary);
-  }
-
-  .navigation-note strong {
-    font-size: var(--vd-font-size-12);
-    font-weight: var(--vd-font-weight-500);
-    line-height: var(--vd-line-height-3);
-  }
-
-  .navigation-note span:not(.status-light) {
-    margin-top: var(--vd-spacing-2);
-    font-size: var(--vd-font-size-12);
-    line-height: var(--vd-line-height-3);
-    color: var(--vd-text-tertiary);
-  }
-
-  .status-light {
-    flex: none;
-    width: var(--vd-sizing-12);
-    height: var(--vd-sizing-12);
-    border: var(--vd-border-width-2) solid var(--vd-status-success-border);
-    border-radius: var(--vd-radius-full);
-    background: var(--vd-status-success-accent);
-  }
-
-  .workspace {
-    flex: 1 1 0;
-    min-width: 0;
-  }
-
-  .workspace-content {
-    min-width: 0;
-  }
-
-  .workspace-header {
-    position: sticky;
-    top: var(--layout-header-height);
-    z-index: 3;
-  }
-
-  .workspace-header-surface {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: var(--vd-sizing-64);
-    padding-inline: var(--vd-spacing-32);
-    border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
-  }
-
-  .workspace-breadcrumb {
-    font-size: var(--vd-font-size-13);
-    line-height: var(--vd-line-height-3);
-  }
-
-  .workspace-header .workspace-breadcrumb [aria-current='false'] {
-    color: var(--vd-text-tertiary);
-  }
-
-  .workspace-header .workspace-breadcrumb [aria-current='page'] {
-    color: var(--vd-text-primary);
-    font-weight: var(--vd-font-weight-500);
-  }
-
   .review-board {
-    width: min(1180px, calc(100% - var(--vd-spacing-64)));
-    margin: 0 auto;
-    padding: var(--vd-spacing-48) 0 var(--vd-spacing-64);
+    min-width: 0;
+    padding-bottom: var(--vd-spacing-64);
   }
 
   /* Component pages share one overview pattern: descriptive copy on the left and a */
@@ -482,24 +468,20 @@
 
     .components-documentation-shell > .component-navigation {
       position: static;
+      width: 100%;
       height: auto;
       padding: var(--vd-spacing-16);
       border-inline-end: 0;
       border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
     }
 
+    .component-navigation > [data-slot='sidebar-contents'] {
+      padding-block: var(--vd-spacing-16);
+    }
+
     .component-navigation nav,
-    .navigation-note {
+    .component-navigation > [data-slot='sidebar-edge-controls'] {
       display: none;
-    }
-
-    .workspace-header-surface {
-      padding-inline: var(--vd-spacing-16);
-    }
-
-    .review-board {
-      width: min(100% - var(--vd-spacing-32), 1180px);
-      padding-top: var(--vd-spacing-24);
     }
   }
 

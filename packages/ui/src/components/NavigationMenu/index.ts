@@ -1,6 +1,8 @@
 export { NavigationMenu } from './NavigationMenu';
 export type {
   NavigationMenuContentProps,
+  NavigationMenuGroupLabelProps,
+  NavigationMenuGroupProps,
   NavigationMenuItemProps,
   NavigationMenuLinkProps,
   NavigationMenuListProps,

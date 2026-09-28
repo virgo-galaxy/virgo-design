@@ -4,6 +4,8 @@ import { useControllableState } from '../../internal/hooks/useControllableState'
 import { composeRefs } from '../../internal/utils/composeRefs';
 import type {
   NavigationMenuContentProps,
+  NavigationMenuGroupLabelProps,
+  NavigationMenuGroupProps,
   NavigationMenuItemProps,
   NavigationMenuLinkProps,
   NavigationMenuListProps,
@@ -163,6 +165,28 @@ export const NavigationMenuList = forwardRef<HTMLUListElement, NavigationMenuLis
 );
 
 NavigationMenuList.displayName = 'NavigationMenu.List';
+
+/** A labelled collection inside List; nest another List for its items. */
+export const NavigationMenuGroup = forwardRef<HTMLDivElement, NavigationMenuGroupProps>(
+  function NavigationMenuGroup(props, forwardedRef) {
+    useNavigationMenuContext('NavigationMenu.Group');
+    return (
+      <li role="presentation" data-slot="group-item">
+        <div role="group" {...props} ref={forwardedRef} data-slot="group" />
+      </li>
+    );
+  },
+);
+
+NavigationMenuGroup.displayName = 'NavigationMenu.Group';
+
+export const NavigationMenuGroupLabel = forwardRef<HTMLDivElement, NavigationMenuGroupLabelProps>(
+  function NavigationMenuGroupLabel(props, forwardedRef) {
+    return <div {...props} ref={forwardedRef} data-slot="group-label" />;
+  },
+);
+
+NavigationMenuGroupLabel.displayName = 'NavigationMenu.GroupLabel';
 
 export const NavigationMenuItem = forwardRef<HTMLLIElement, NavigationMenuItemProps>(
   function NavigationMenuItem(
