@@ -66,6 +66,8 @@ describe('componentMetadataRegistry', () => {
       horizontal: true,
       vertical: true,
       decorative: true,
+      textContent: true,
+      labelAlignment: true,
       menuPrimitive: false,
     });
   });

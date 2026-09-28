@@ -28,7 +28,7 @@ export default function App() {
       </Switch>
       <div className={styles.stage!} role="group" aria-label="Twelve placements">
         {placements.map((placement) => (
-          <Dropdown key={placement} size="small">
+          <Dropdown key={placement} className={styles[placement]!} size="small">
             <Dropdown.Trigger indicator={false}>{placement}</Dropdown.Trigger>
             <Dropdown.Content placement={placement} arrow={arrow}>
               <Dropdown.Item onSelect={() => setAction(`${placement}: first item selected`)}>

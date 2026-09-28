@@ -1,8 +1,47 @@
 .root {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  container-type: inline-size;
+}
+
+.placements {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-rows: repeat(5, minmax(32px, auto));
+  grid-template-areas:
+    '. topLeft top topRight .'
+    'leftTop . . . rightTop'
+    'left . . . right'
+    'leftBottom . . . rightBottom'
+    '. bottomLeft bottom bottomRight .';
+  align-items: center;
+  justify-items: center;
   gap: 12px;
+  width: min(100%, 560px);
+  direction: ltr;
+}
+
+@each $placement in topLeft, top, topRight, leftTop, left, leftBottom, rightTop, right, rightBottom,
+  bottomLeft, bottom, bottomRight
+{
+  .#{$placement} {
+    grid-area: $placement;
+  }
+}
+
+@container (max-width: 520px) {
+  .placements {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-areas:
+      'topLeft top topRight'
+      'leftTop . rightTop'
+      'left . right'
+      'leftBottom . rightBottom'
+      'bottomLeft bottom bottomRight';
+    gap: 8px 4px;
+    width: min(100%, 360px);
+  }
 }
 
 .stage {

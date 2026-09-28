@@ -1,0 +1,13 @@
+.root {
+  display: grid;
+  gap: 24px;
+  width: 100%;
+  max-width: 640px;
+
+  p {
+    margin: 0;
+    color: var(--vd-text-primary);
+    font-size: var(--vd-typography-ui-body-small-font-size);
+    line-height: 1.6;
+  }
+}

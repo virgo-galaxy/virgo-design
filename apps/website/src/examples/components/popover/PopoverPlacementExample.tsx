@@ -20,18 +20,22 @@ const placements = [
 export default function App() {
   return (
     <div className={styles.root!}>
-      {placements.map((placement) => (
-        <Popover key={placement}>
-          <Popover.Trigger size="small">{placement}</Popover.Trigger>
-          <Popover.Content placement={placement} offset={12} arrow>
-            <div className={styles.stage!}>
-              <strong>{placement}</strong>
-              <p className={styles.text!}>Scroll or resize to see the panel follow its trigger.</p>
-              <Popover.Close />
-            </div>
-          </Popover.Content>
-        </Popover>
-      ))}
+      <div className={styles.placements!} role="group" aria-label="Twelve popover placements">
+        {placements.map((placement) => (
+          <Popover key={placement} className={styles[placement]!}>
+            <Popover.Trigger size="small">{placement}</Popover.Trigger>
+            <Popover.Content placement={placement} offset={12} arrow>
+              <div className={styles.stage!}>
+                <strong>{placement}</strong>
+                <p className={styles.text!}>
+                  Scroll or resize to see the panel follow its trigger.
+                </p>
+                <Popover.Close />
+              </div>
+            </Popover.Content>
+          </Popover>
+        ))}
+      </div>
     </div>
   );
 }

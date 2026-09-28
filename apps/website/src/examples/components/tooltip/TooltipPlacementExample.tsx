@@ -27,7 +27,7 @@ export default function App() {
       </Switch>
       <div className={styles.stage!} role="group" aria-label="Twelve tooltip placements">
         {placements.map((placement) => (
-          <Tooltip key={placement}>
+          <Tooltip key={placement} className={styles[placement]!}>
             <Tooltip.Trigger size="small">{placement}</Tooltip.Trigger>
             <Tooltip.Content placement={placement} arrow={arrow}>
               {placement} tooltip

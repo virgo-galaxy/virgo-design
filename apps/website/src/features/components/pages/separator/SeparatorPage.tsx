@@ -66,8 +66,18 @@ export function SeparatorPage() {
           <ComponentExample example={separatorExamples.separatorHorizontal} showCaption={false} />
         </ArticleSection>
         <ArticleSection
-          id={'separator-vertical'}
+          id={'separator-label'}
           index={'02'}
+          title={'A pause with a purpose'}
+          description={
+            'Give a horizontal rule a short label through children. labelAlign accepts start, center (the default), or end; start and end follow the reading direction. orientation still controls whether the rule is horizontal or vertical.'
+          }
+        >
+          <ComponentExample example={separatorExamples.separatorLabel} showCaption={false} />
+        </ArticleSection>
+        <ArticleSection
+          id={'separator-vertical'}
+          index={'03'}
           title={'Vertical'}
           description={'Vertical separators stretch naturally between adjacent inline items.'}
         >
@@ -75,7 +85,7 @@ export function SeparatorPage() {
         </ArticleSection>
         <ArticleSection
           id={'separator-decorative'}
-          index={'03'}
+          index={'04'}
           title={'Decorative between content blocks'}
           description={
             'Decorative rules remain visual-only when existing structure already conveys separation.'

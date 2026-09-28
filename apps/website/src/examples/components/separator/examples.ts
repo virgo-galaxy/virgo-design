@@ -6,11 +6,22 @@ import separatorDecorativeSource from './SeparatorDecorativeExample.tsx?raw';
 import SeparatorHorizontalExample from './SeparatorHorizontalExample';
 import separatorHorizontalStyles from './SeparatorHorizontalExample.module.scss?virgo-raw';
 import separatorHorizontalSource from './SeparatorHorizontalExample.tsx?raw';
+import SeparatorLabelExample from './SeparatorLabelExample';
+import separatorLabelStyles from './SeparatorLabelExample.module.scss?virgo-raw';
+import separatorLabelSource from './SeparatorLabelExample.tsx?raw';
 import SeparatorVerticalExample from './SeparatorVerticalExample';
 import separatorVerticalStyles from './SeparatorVerticalExample.module.scss?virgo-raw';
 import separatorVerticalSource from './SeparatorVerticalExample.tsx?raw';
 
 export const separatorExamples = {
+  separatorLabel: {
+    id: 'separator-label',
+    title: 'A pause with a purpose',
+    description: 'Place a short milestone within a horizontal rule using labelAlign.',
+    Component: SeparatorLabelExample,
+    source: separatorLabelSource,
+    styleSource: separatorLabelStyles,
+  },
   separatorHorizontal: {
     id: 'separator-horizontal',
     title: 'Horizontal separator',

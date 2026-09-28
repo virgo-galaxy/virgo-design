@@ -16,3 +16,36 @@
   min-height: var(--vd-sizing-20);
   align-self: stretch;
 }
+
+.root[data-label-align] {
+  display: flex;
+  align-items: center;
+  gap: var(--vd-spacing-12);
+  height: auto;
+  min-width: 0;
+  color: var(--vd-text-secondary);
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--vd-typography-ui-body-small-font-size);
+  line-height: var(--vd-typography-ui-body-small-line-height);
+
+  &::before,
+  &::after {
+    content: '';
+    min-width: var(--vd-spacing-16);
+    height: var(--vd-border-width-1);
+    flex: 1 0 var(--vd-spacing-16);
+    background: var(--vd-border-subtle);
+  }
+}
+
+.root[data-label-align='start']::before,
+.root[data-label-align='end']::after {
+  flex: 0 0 var(--vd-spacing-24);
+}
+
+.label {
+  min-width: 0;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
