@@ -1,13 +1,20 @@
 import '@virgo-design/tokens/styles.css';
 import './styles.scss';
 
-import { ChevronLeftIcon } from '@virgo-design/icons';
-import { Breadcrumb, Layout, NavigationMenu } from '@virgo-design/ui';
+import { Breadcrumb, Layout } from '@virgo-design/ui';
 import { type ReactNode, useLayoutEffect, useRef } from 'react';
-import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { RegistryApiReference } from '@/components/docs/ApiReference';
-import { DocumentationDetailShell } from '@/components/docs/DocumentationDetailShell/DocumentationDetailShell';
+import { DocumentationDetailShell } from '@/components/docs/DocumentationDetailShell';
+import {
+  DocumentationSidebar,
+  DocumentationSidebarCopy,
+  DocumentationSidebarGroup,
+  DocumentationSidebarIndex,
+  DocumentationSidebarItem,
+  DocumentationSidebarSeparator,
+} from '@/components/docs/DocumentationSidebar';
 import { componentApiReference } from '@/generated/api-reference.generated';
 import { useAppearance } from '@/shared/theme/use-appearance';
 
@@ -58,69 +65,33 @@ export function ComponentsDocumentation({ renderRelationships }: ComponentsDocum
         data-theme={appearance}
         direction="horizontal"
       >
-        <Layout.Sidebar
-          className="component-navigation"
-          aria-label="Components sidebar"
-          collapsible
-          collapsedWidth={12}
-          triggerPlacement="edge"
-          trigger={
-            <Layout.SidebarTrigger className="component-navigation-trigger">
-              <ChevronLeftIcon aria-hidden="true" />
-            </Layout.SidebarTrigger>
-          }
-          width="var(--components-navigation-width)"
-          surface={{ border: 'none' }}
+        <DocumentationSidebar
+          label="Components sidebar"
+          navigationLabel="Component navigation"
+          activeValue={location.pathname}
         >
-          {({ collapsed }) => (
-            <NavigationMenu.Root
-              aria-label="Component navigation"
-              aria-hidden={collapsed || undefined}
-              inert={collapsed || undefined}
-              orientation="vertical"
-              value={location.pathname}
+          {navigationGroups.map((group, groupIndex) => (
+            <DocumentationSidebarGroup
+              key={group.id}
+              id={`component-group-${group.id}`}
+              label={group.label}
             >
-              <NavigationMenu.List className="component-groups">
-                {navigationGroups.map((group, groupIndex) => (
-                  <NavigationMenu.Group
-                    key={group.id}
-                    className="component-group"
-                    aria-labelledby={`component-group-${group.id}`}
-                  >
-                    <NavigationMenu.GroupLabel
-                      id={`component-group-${group.id}`}
-                      className="component-group-label"
-                    >
-                      {group.label}
-                    </NavigationMenu.GroupLabel>
-                    <NavigationMenu.List className="component-link-list">
-                      {group.routes.map((route) => (
-                        <NavigationMenu.Item key={route.id} value={route.path}>
-                          <NavigationMenu.Link
-                            className="component-link"
-                            render={(props) => <Link {...props} to={route.path} />}
-                          >
-                            <span className="component-number">{route.index}</span>
-                            <span>
-                              <strong>{route.name}</strong>
-                              <small>{route.category}</small>
-                            </span>
-                            <span className="component-status" data-status={route.status}>
-                              {route.version.replace(/^V/, '')}
-                            </span>
-                          </NavigationMenu.Link>
-                        </NavigationMenu.Item>
-                      ))}
-                      {groupIndex < navigationGroups.length - 1 ? (
-                        <NavigationMenu.Separator className="component-group-separator" />
-                      ) : null}
-                    </NavigationMenu.List>
-                  </NavigationMenu.Group>
-                ))}
-              </NavigationMenu.List>
-            </NavigationMenu.Root>
-          )}
-        </Layout.Sidebar>
+              {group.routes.map((route) => (
+                <DocumentationSidebarItem key={route.id} to={route.path}>
+                  <DocumentationSidebarIndex>{route.index}</DocumentationSidebarIndex>
+                  <DocumentationSidebarCopy>
+                    <strong>{route.name}</strong>
+                    <small>{route.category}</small>
+                  </DocumentationSidebarCopy>
+                  <span className="component-status" data-status={route.status}>
+                    {route.version.replace(/^V/, '')}
+                  </span>
+                </DocumentationSidebarItem>
+              ))}
+              {groupIndex < navigationGroups.length - 1 ? <DocumentationSidebarSeparator /> : null}
+            </DocumentationSidebarGroup>
+          ))}
+        </DocumentationSidebar>
 
         <DocumentationDetailShell
           breadcrumb={

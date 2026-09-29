@@ -1,0 +1,1 @@
+export { DocumentationDetailShell } from './DocumentationDetailShell';

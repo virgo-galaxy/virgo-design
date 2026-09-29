@@ -1,10 +1,17 @@
-import { ChevronLeftIcon } from '@virgo-design/icons';
-import { Breadcrumb, Card, Layout, NavigationMenu, Tag } from '@virgo-design/ui';
+import { Breadcrumb, Card, Layout, Tag } from '@virgo-design/ui';
 import { type ReactNode, useLayoutEffect, useRef } from 'react';
-import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
+import { Navigate, useLocation, useParams } from 'react-router-dom';
 
 import { RegistryApiReference } from '@/components/docs/ApiReference';
-import { DocumentationDetailShell } from '@/components/docs/DocumentationDetailShell/DocumentationDetailShell';
+import { DocumentationDetailShell } from '@/components/docs/DocumentationDetailShell';
+import {
+  DocumentationSidebar,
+  DocumentationSidebarCopy,
+  DocumentationSidebarGroup,
+  DocumentationSidebarIndex,
+  DocumentationSidebarItem,
+  DocumentationSidebarSeparator,
+} from '@/components/docs/DocumentationSidebar';
 import { PrimitiveSpecimen } from '@/components/docs/PrimitiveSpecimen/PrimitiveSpecimen';
 import { primitiveApiReference } from '@/generated/api-reference.generated';
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
@@ -71,76 +78,38 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
   return (
     <div className={styles.documentation} data-docs-page="primitive-detail">
       <Layout className={styles.documentationShell!} data-theme={appearance} direction="horizontal">
-        <Layout.Sidebar
-          className={styles.primitiveNavigation}
-          aria-label="Primitives sidebar"
-          collapsible
-          collapsedWidth={12}
-          triggerPlacement="edge"
-          trigger={
-            <Layout.SidebarTrigger className={styles.primitiveNavigationTrigger}>
-              <ChevronLeftIcon aria-hidden="true" />
-            </Layout.SidebarTrigger>
-          }
-          width="var(--primitives-navigation-width)"
-          surface={{ border: 'none' }}
+        <DocumentationSidebar
+          label="Primitives sidebar"
+          navigationLabel="Primitive navigation"
+          activeValue={location.pathname}
         >
-          {({ collapsed }) => (
-            <NavigationMenu.Root
-              aria-label="Primitive navigation"
-              aria-hidden={collapsed || undefined}
-              inert={collapsed || undefined}
-              orientation="vertical"
-              value={location.pathname}
-            >
-              <NavigationMenu.List className={styles.primitiveGroups}>
-                {primitiveNavigationGroups.map((group, groupIndex) => {
-                  const groupId = `primitive-group-${groupIndex}`;
+          {primitiveNavigationGroups.map((group, groupIndex) => {
+            const groupId = `primitive-group-${groupIndex}`;
+
+            return (
+              <DocumentationSidebarGroup key={group.category} id={groupId} label={group.category}>
+                {group.docs.map((primitive) => {
+                  const path = `/primitives/${primitive.slug}`;
 
                   return (
-                    <NavigationMenu.Group
-                      key={group.category}
-                      className={styles.primitiveGroup}
-                      aria-labelledby={groupId}
-                    >
-                      <NavigationMenu.GroupLabel
-                        id={groupId}
-                        className={styles.primitiveGroupLabel}
-                      >
-                        {group.category}
-                      </NavigationMenu.GroupLabel>
-                      <NavigationMenu.List className={styles.primitiveLinkList}>
-                        {group.docs.map((primitive) => {
-                          const path = `/primitives/${primitive.slug}`;
-
-                          return (
-                            <NavigationMenu.Item key={primitive.slug} value={path}>
-                              <NavigationMenu.Link
-                                className={styles.primitiveLink}
-                                render={(props) => <Link {...props} to={path} />}
-                              >
-                                <span className={styles.primitiveNumber}>
-                                  {primitiveIndexBySlug.get(primitive.slug)}
-                                </span>
-                                <span>
-                                  <strong>{primitive.exportName}</strong>
-                                  <small>Headless</small>
-                                </span>
-                              </NavigationMenu.Link>
-                            </NavigationMenu.Item>
-                          );
-                        })}
-                        {groupIndex < primitiveNavigationGroups.length - 1 ? (
-                          <NavigationMenu.Separator className={styles.primitiveGroupSeparator} />
-                        ) : null}
-                      </NavigationMenu.List>
-                    </NavigationMenu.Group>
+                    <DocumentationSidebarItem key={primitive.slug} to={path}>
+                      <DocumentationSidebarIndex>
+                        {primitiveIndexBySlug.get(primitive.slug)}
+                      </DocumentationSidebarIndex>
+                      <DocumentationSidebarCopy>
+                        <strong>{primitive.exportName}</strong>
+                        <small>Headless</small>
+                      </DocumentationSidebarCopy>
+                    </DocumentationSidebarItem>
                   );
                 })}
-              </NavigationMenu.List>
-            </NavigationMenu.Root>
-          )}
-        </Layout.Sidebar>
+                {groupIndex < primitiveNavigationGroups.length - 1 ? (
+                  <DocumentationSidebarSeparator />
+                ) : null}
+              </DocumentationSidebarGroup>
+            );
+          })}
+        </DocumentationSidebar>
 
         <DocumentationDetailShell
           breadcrumb={

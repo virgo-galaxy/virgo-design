@@ -168,6 +168,14 @@ describe('Primitive routes', () => {
       'href',
       '/primitives/textarea',
     );
+    expect(screen.getByRole('heading', { level: 2, name: 'Actions & Commands' })).toHaveAttribute(
+      'id',
+      'primitive-category-actions-commands',
+    );
+    expect(screen.getByRole('heading', { level: 2, name: 'Form Controls' })).toHaveAttribute(
+      'id',
+      'primitive-category-form-controls',
+    );
   });
 
   it.each(primitiveDocs)(
