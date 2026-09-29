@@ -22,8 +22,34 @@ that public API instead of importing the module's private implementation files. 
 hooks, utilities, and components stay directly imported with local relative paths; do not add a
 barrel to every directory for uniformity.
 
+Every retained `index.ts` is a pure barrel containing only exports or re-exports. Runtime setup,
+state, helpers, and side effects live in responsibility-named implementation files. Tests follow
+those implementation files (`runtime.test.ts`, `locale.test.ts`, and so on); do not create
+`index.test.ts` or `index.test.tsx` files or test a barrel itself.
+
 Generated sources follow the same boundaries. When a generated import changes, update the
 generator and regenerate the output rather than editing the generated file directly.
+
+## Website i18n ownership
+
+The Website keeps one default i18next `translation` tree and always calls
+`useTranslation()` without namespaces, `keyPrefix`, or business-owned generics. Keys include their
+top-level product domain, such as `app.*`, `foundations.*`, `tokens.*`, `components.*`,
+`primitives.*`, `docs.*`, or `icons.*`.
+
+Locale text is owned beside the business that renders it. Each participating layout, page, feature,
+component, or docs module keeps matching `locales/en-US.ts` and `locales/zh-CN.ts` files. English is the
+canonical schema; every Chinese fragment must satisfy `LocaleOf<typeof englishFragment>` so missing
+or extra keys fail TypeScript. `apps/website/src/i18n/registry.ts` is the explicit composition root
+that assembles those fragments into the single runtime tree.
+
+`apps/website/src/i18n/` owns only initialization, registry composition, language persistence and
+switching, font application, shared typing, parity infrastructure, and translation bridges. It is
+not a central store for feature copy.
+
+Business components use `useTranslation()` only for `t` and use `useAppLocale()` when they need the
+normalized current `AppLocale`. Direct reads from the i18next instance are confined to i18n
+infrastructure. The public `@/i18n` barrel intentionally does not expose that instance.
 
 ## Shared behavior
 

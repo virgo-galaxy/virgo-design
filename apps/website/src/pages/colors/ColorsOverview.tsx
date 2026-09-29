@@ -31,25 +31,25 @@ export function ColorsOverview() {
   const metrics = [
     {
       value: chromaticColors.length * 10 + brandColors.length + neutralColors.length,
-      label: t('foundationPages.colors.foundationColors'),
+      label: t('foundations.colors.foundationColors'),
       kind: 'total',
       colors: overviewPreviews.total,
     },
     {
       value: chromaticColors.length,
-      label: t('foundationPages.colors.chromaticFamilies'),
+      label: t('foundations.colors.chromaticFamilies'),
       kind: 'chromatic',
       colors: overviewPreviews.chromatic,
     },
     {
       value: 1,
-      label: t('foundationPages.colors.brandScale'),
+      label: t('foundations.colors.brandScale'),
       kind: 'brand',
       colors: overviewPreviews.brand,
     },
     {
       value: 1,
-      label: t('foundationPages.colors.neutralScale'),
+      label: t('foundations.colors.neutralScale'),
       kind: 'neutral',
       colors: overviewPreviews.neutral,
     },
@@ -58,20 +58,20 @@ export function ColorsOverview() {
   const journey = [
     {
       number: '01',
-      title: t('foundationPages.colors.journey.create'),
-      description: t('foundationPages.colors.journey.createDescription'),
+      title: t('foundations.colors.journey.create'),
+      description: t('foundations.colors.journey.createDescription'),
       target: 'color-studio',
     },
     {
       number: '02',
-      title: t('foundationPages.colors.journey.explore'),
-      description: t('foundationPages.colors.journey.exploreDescription'),
+      title: t('foundations.colors.journey.explore'),
+      description: t('foundations.colors.journey.exploreDescription'),
       target: 'palette-gallery',
     },
     {
       number: '03',
-      title: t('foundationPages.colors.journey.export'),
-      description: t('foundationPages.colors.journey.exportDescription'),
+      title: t('foundations.colors.journey.export'),
+      description: t('foundations.colors.journey.exportDescription'),
       target: 'foundation-export',
     },
   ];
@@ -84,8 +84,8 @@ export function ColorsOverview() {
     <FoundationPage
       id="colors-overview"
       className={styles.overview ?? ''}
-      title={t('foundationPages.colors.title')}
-      description={t('foundationPages.colors.description')}
+      title={t('foundations.colors.title')}
+      description={t('foundations.colors.description')}
     >
       <div className={styles.metricGrid}>
         {metrics.map((metric) => (
@@ -119,8 +119,8 @@ export function ColorsOverview() {
         </div>
 
         <div className={styles.journeyCopy}>
-          <p>{t('foundationPages.colors.journey.summary')}</p>
-          <p>{t('foundationPages.colors.journey.detail')}</p>
+          <p>{t('foundations.colors.journey.summary')}</p>
+          <p>{t('foundations.colors.journey.detail')}</p>
         </div>
       </div>
     </FoundationPage>

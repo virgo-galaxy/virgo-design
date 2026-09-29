@@ -24,7 +24,7 @@ export function FoundationScale({ scale, tokenPrefix, baseStep = 6 }: Foundation
 
     await copy(
       hex,
-      t('common.colorCopied', {
+      t('foundations.colors.colorCopied', {
         token,
         value: hex,
       }),
@@ -41,7 +41,7 @@ export function FoundationScale({ scale, tokenPrefix, baseStep = 6 }: Foundation
             className={styles.scaleItem}
             key={step}
             type="button"
-            aria-label={t('preview.copyStep', {
+            aria-label={t('foundations.colors.copyStep', {
               family: tokenPrefix,
               step,
             })}

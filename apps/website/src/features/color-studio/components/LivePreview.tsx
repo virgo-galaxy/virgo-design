@@ -38,7 +38,7 @@ export function LivePreview({
 
     await copy(
       hex,
-      t('common.colorCopied', {
+      t('foundations.colors.colorCopied', {
         token,
         value: hex,
       }),
@@ -51,13 +51,15 @@ export function LivePreview({
 
       <div className={styles.panelHeading}>
         <div>
-          <span className={styles.panelEyebrow}>{t('preview.eyebrow')}</span>
-          <h2>{t('preview.title')}</h2>
+          <span className={styles.panelEyebrow}>
+            {t('foundations.colorStudio.preview.eyebrow')}
+          </span>
+          <h2>{t('foundations.colorStudio.preview.title')}</h2>
         </div>
 
         <div className={styles.liveBadge}>
           <span />
-          {t('common.live')}
+          {t('foundations.colorStudio.preview.live')}
         </div>
       </div>
 
@@ -71,7 +73,7 @@ export function LivePreview({
           />
 
           <div>
-            <span>{t('preview.paletteAnchor')}</span>
+            <span>{t('foundations.colorStudio.preview.paletteAnchor')}</span>
             <strong>{palette.bases.blue.toUpperCase()}</strong>
             <small>{palette.model.toUpperCase()}</small>
           </div>
@@ -79,13 +81,25 @@ export function LivePreview({
       ) : (
         <div className={styles.foundationSummary}>
           <span>
-            {t(mode === 'official' ? 'preview.foundationEyebrow' : 'preview.customEyebrow')}
+            {t(
+              mode === 'official'
+                ? 'foundations.colorStudio.preview.foundationEyebrow'
+                : 'foundations.colorStudio.preview.customEyebrow',
+            )}
           </span>
           <strong>
-            {t(mode === 'official' ? 'preview.foundationTitle' : 'preview.customTitle')}
+            {t(
+              mode === 'official'
+                ? 'foundations.colorStudio.preview.foundationTitle'
+                : 'foundations.colorStudio.preview.customTitle',
+            )}
           </strong>
           <small>
-            {t(mode === 'official' ? 'preview.foundationDescription' : 'preview.customDescription')}
+            {t(
+              mode === 'official'
+                ? 'foundations.colorStudio.preview.foundationDescription'
+                : 'foundations.colorStudio.preview.customDescription',
+            )}
           </small>
         </div>
       )}
@@ -99,8 +113,8 @@ export function LivePreview({
       <div className={styles.selectedScale}>
         <div className={styles.selectedScaleHeading}>
           <div>
-            <span>{t('preview.selectedFamily')}</span>
-            <strong>{t(`families.${selectedFamily}`)}</strong>
+            <span>{t('foundations.colorStudio.preview.selectedFamily')}</span>
+            <strong>{t(`foundations.paletteGallery.families.${selectedFamily}`)}</strong>
           </div>
 
           <code>{selectedBase.toUpperCase()}</code>
@@ -112,8 +126,8 @@ export function LivePreview({
               className={styles.scaleItem}
               key={step}
               type="button"
-              aria-label={t('preview.copyStep', {
-                family: t(`families.${selectedFamily}`),
+              aria-label={t('foundations.colors.copyStep', {
+                family: t(`foundations.paletteGallery.families.${selectedFamily}`),
                 step,
               })}
               onClick={() => void copyStep(step)}

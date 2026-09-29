@@ -16,7 +16,7 @@ export function GlobalControls() {
       className={styles.controls}
       data-theme={appearance}
       role="group"
-      aria-label={t('common.globalControls')}
+      aria-label={t('app.controls.globalControls')}
       material="glass"
       tone="elevated"
       elevation={2}

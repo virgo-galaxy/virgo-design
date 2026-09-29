@@ -15,11 +15,11 @@ export function ShapeDepthPage() {
 
   return (
     <FoundationPage
-      title={t('foundationPages.shapeDepth.title')}
-      description={t('foundationPages.shapeDepth.description')}
+      title={t('foundations.shapeDepth.title')}
+      description={t('foundations.shapeDepth.description')}
     >
       <div className={styles.splitSections}>
-        <FoundationSection title={t('foundationPages.shapeDepth.borderWidth')}>
+        <FoundationSection title={t('foundations.shapeDepth.borderWidth')}>
           <div className={styles.borderList}>
             {Object.entries(borderWidth).map(([name, value]) => (
               <article key={name} className={styles.borderRow}>
@@ -33,7 +33,7 @@ export function ShapeDepthPage() {
           </div>
         </FoundationSection>
 
-        <FoundationSection title={t('foundationPages.shapeDepth.borderStyle')}>
+        <FoundationSection title={t('foundations.shapeDepth.borderStyle')}>
           <div className={styles.borderList}>
             {Object.entries(borderStyle).map(([name, value]) => (
               <article key={name} className={styles.borderRow}>
@@ -48,7 +48,7 @@ export function ShapeDepthPage() {
         </FoundationSection>
       </div>
 
-      <FoundationSection title={t('foundationPages.shapeDepth.radius')}>
+      <FoundationSection title={t('foundations.shapeDepth.radius')}>
         <div className={styles.radiusGrid}>
           {Object.entries(radius).map(([name, value]) => (
             <article key={name} className={styles.radiusCard}>
@@ -64,16 +64,16 @@ export function ShapeDepthPage() {
 
       <FoundationSection
         id="shape-scale-preview"
-        eyebrow={t('foundationPages.shapeDepth.preview.eyebrow')}
-        title={t('foundationPages.shapeDepth.preview.title')}
-        description={t('foundationPages.shapeDepth.preview.description')}
+        eyebrow={t('foundations.shapeDepth.preview.eyebrow')}
+        title={t('foundations.shapeDepth.preview.title')}
+        description={t('foundations.shapeDepth.preview.description')}
       >
         <ShapeScalePreview />
       </FoundationSection>
 
       <FoundationSection
-        title={t('foundationPages.shapeDepth.elevation')}
-        description={t('foundationPages.shapeDepth.elevationDescription')}
+        title={t('foundations.shapeDepth.elevation')}
+        description={t('foundations.shapeDepth.elevationDescription')}
       >
         <div className={styles.elevationGrid}>
           {elevationLevels.map((level) => (
@@ -91,9 +91,9 @@ export function ShapeDepthPage() {
 
       <FoundationSection
         id="depth-scale-preview"
-        eyebrow={t('foundationPages.shapeDepth.depthPreview.eyebrow')}
-        title={t('foundationPages.shapeDepth.depthPreview.title')}
-        description={t('foundationPages.shapeDepth.depthPreview.description')}
+        eyebrow={t('foundations.shapeDepth.depthPreview.eyebrow')}
+        title={t('foundations.shapeDepth.depthPreview.title')}
+        description={t('foundations.shapeDepth.depthPreview.description')}
       >
         <DepthScalePreview />
       </FoundationSection>

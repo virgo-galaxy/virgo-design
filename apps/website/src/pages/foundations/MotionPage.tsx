@@ -100,12 +100,12 @@ export function MotionPage() {
 
   return (
     <FoundationPage
-      title={t('foundationPages.motion.title')}
-      description={t('foundationPages.motion.description')}
+      title={t('foundations.motion.title')}
+      description={t('foundations.motion.description')}
     >
       <FoundationSection
-        title={t('foundationPages.motion.duration')}
-        description={t('foundationPages.motion.durationDescription')}
+        title={t('foundations.motion.duration')}
+        description={t('foundations.motion.durationDescription')}
       >
         <div className={styles.durationList}>
           {Object.entries(duration).map(([name, value]) => (
@@ -131,8 +131,8 @@ export function MotionPage() {
       </FoundationSection>
 
       <FoundationSection
-        title={t('foundationPages.motion.easing')}
-        description={t('foundationPages.motion.easingDescription')}
+        title={t('foundations.motion.easing')}
+        description={t('foundations.motion.easingDescription')}
       >
         <div className={styles.easingRowGrid}>
           {Object.entries(easing).map(([name, value]) => (
@@ -141,7 +141,7 @@ export function MotionPage() {
         </div>
       </FoundationSection>
 
-      <p className={styles.motionDisclaimer}>{t('foundationPages.motion.disclaimer')}</p>
+      <p className={styles.motionDisclaimer}>{t('foundations.motion.disclaimer')}</p>
     </FoundationPage>
   );
 }

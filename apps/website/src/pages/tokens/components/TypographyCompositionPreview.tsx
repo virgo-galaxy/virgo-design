@@ -2,9 +2,11 @@ import { resolveTypography, type SemanticTypographyToken, typography } from '@vi
 import { createContext, type CSSProperties, type ReactNode, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useAppLocale } from '@/i18n';
+
 import styles from './typography-composition-preview.module.scss';
 
-const TypographyLocaleContext = createContext('en');
+const TypographyLocaleContext = createContext('en-US');
 
 function typographyStyle(token: SemanticTypographyToken, locale: string) {
   const value = resolveTypography(token, locale);
@@ -49,8 +51,8 @@ function TypeSample({
 }
 
 export function TypographyCompositionPreview() {
-  const { i18n, t } = useTranslation();
-  const locale = i18n.resolvedLanguage ?? i18n.language ?? 'en';
+  const { t } = useTranslation();
+  const locale = useAppLocale();
 
   return (
     <TypographyLocaleContext.Provider value={locale}>
@@ -59,7 +61,7 @@ export function TypographyCompositionPreview() {
           <header className={styles.previewHeader}>
             <div>
               <TypeSample as="span" recipe={typography.ui.meta} role="semantic-eyebrow">
-                {t('tokensTypography.compositionPreview.document.eyebrow')}
+                {t('tokens.typography.compositionPreview.document.eyebrow')}
               </TypeSample>
               <TypeSample
                 as="h3"
@@ -67,11 +69,11 @@ export function TypographyCompositionPreview() {
                 recipe={typography.ui.title.medium}
                 role="semantic-section-title"
               >
-                {t('tokensTypography.compositionPreview.document.title')}
+                {t('tokens.typography.compositionPreview.document.title')}
               </TypeSample>
             </div>
             <TypeSample as="p" recipe={typography.ui.body.small} role="semantic-description">
-              {t('tokensTypography.compositionPreview.document.description')}
+              {t('tokens.typography.compositionPreview.document.description')}
             </TypeSample>
           </header>
 
@@ -83,7 +85,7 @@ export function TypographyCompositionPreview() {
                 recipe={typography.document.caption}
                 role="document-caption"
               >
-                {t('tokensTypography.compositionPreview.document.kicker')}
+                {t('tokens.typography.compositionPreview.document.kicker')}
               </TypeSample>
               <TypeSample
                 as="div"
@@ -91,7 +93,7 @@ export function TypographyCompositionPreview() {
                 recipe={typography.document.title.large}
                 role="document-title-large"
               >
-                {t('tokensTypography.compositionPreview.document.titleLargeSample')}
+                {t('tokens.typography.compositionPreview.document.titleLargeSample')}
               </TypeSample>
               <TypeSample
                 as="h2"
@@ -99,7 +101,7 @@ export function TypographyCompositionPreview() {
                 recipe={typography.document.title.medium}
                 role="document-title-medium"
               >
-                {t('tokensTypography.compositionPreview.document.titleMediumSample')}
+                {t('tokens.typography.compositionPreview.document.titleMediumSample')}
               </TypeSample>
               <TypeSample
                 as="p"
@@ -107,7 +109,7 @@ export function TypographyCompositionPreview() {
                 recipe={typography.document.body.large}
                 role="document-body-large"
               >
-                {t('tokensTypography.compositionPreview.document.lead')}
+                {t('tokens.typography.compositionPreview.document.lead')}
               </TypeSample>
             </header>
 
@@ -118,14 +120,14 @@ export function TypographyCompositionPreview() {
                   recipe={typography.document.heading[1]}
                   role="document-heading-1"
                 >
-                  {t('tokensTypography.compositionPreview.document.heading1')}
+                  {t('tokens.typography.compositionPreview.document.heading1')}
                 </TypeSample>
                 <TypeSample
                   as="p"
                   recipe={typography.document.body.medium}
                   role="document-body-medium"
                 >
-                  {t('tokensTypography.compositionPreview.document.body1')}
+                  {t('tokens.typography.compositionPreview.document.body1')}
                 </TypeSample>
 
                 <TypeSample
@@ -133,14 +135,14 @@ export function TypographyCompositionPreview() {
                   recipe={typography.document.heading[2]}
                   role="document-heading-2"
                 >
-                  {t('tokensTypography.compositionPreview.document.heading2')}
+                  {t('tokens.typography.compositionPreview.document.heading2')}
                 </TypeSample>
                 <TypeSample
                   as="p"
                   recipe={typography.document.body.medium}
                   role="document-body-medium"
                 >
-                  {t('tokensTypography.compositionPreview.document.body2')}
+                  {t('tokens.typography.compositionPreview.document.body2')}
                 </TypeSample>
               </section>
 
@@ -151,21 +153,21 @@ export function TypographyCompositionPreview() {
                   recipe={typography.document.caption}
                   role="document-caption"
                 >
-                  {t('tokensTypography.compositionPreview.document.asideKicker')}
+                  {t('tokens.typography.compositionPreview.document.asideKicker')}
                 </TypeSample>
                 <TypeSample
                   as="h5"
                   recipe={typography.document.heading[3]}
                   role="document-heading-3"
                 >
-                  {t('tokensTypography.compositionPreview.document.heading3')}
+                  {t('tokens.typography.compositionPreview.document.heading3')}
                 </TypeSample>
                 <TypeSample
                   as="p"
                   recipe={typography.document.body.small}
                   role="document-body-small"
                 >
-                  {t('tokensTypography.compositionPreview.document.body3')}
+                  {t('tokens.typography.compositionPreview.document.body3')}
                 </TypeSample>
                 <div className={styles.documentPrinciples}>
                   <section>
@@ -174,14 +176,14 @@ export function TypographyCompositionPreview() {
                       recipe={typography.document.heading[4]}
                       role="document-heading-4"
                     >
-                      {t('tokensTypography.compositionPreview.document.heading4')}
+                      {t('tokens.typography.compositionPreview.document.heading4')}
                     </TypeSample>
                     <TypeSample
                       as="p"
                       recipe={typography.document.body.small}
                       role="document-body-small"
                     >
-                      {t('tokensTypography.compositionPreview.document.body4')}
+                      {t('tokens.typography.compositionPreview.document.body4')}
                     </TypeSample>
                   </section>
                   <section>
@@ -190,14 +192,14 @@ export function TypographyCompositionPreview() {
                       recipe={typography.document.heading[5]}
                       role="document-heading-5"
                     >
-                      {t('tokensTypography.compositionPreview.document.heading5')}
+                      {t('tokens.typography.compositionPreview.document.heading5')}
                     </TypeSample>
                     <TypeSample
                       as="p"
                       recipe={typography.document.body.small}
                       role="document-body-small"
                     >
-                      {t('tokensTypography.compositionPreview.document.body5')}
+                      {t('tokens.typography.compositionPreview.document.body5')}
                     </TypeSample>
                   </section>
                   <section>
@@ -206,14 +208,14 @@ export function TypographyCompositionPreview() {
                       recipe={typography.document.heading[6]}
                       role="document-heading-6"
                     >
-                      {t('tokensTypography.compositionPreview.document.heading6')}
+                      {t('tokens.typography.compositionPreview.document.heading6')}
                     </TypeSample>
                     <TypeSample
                       as="p"
                       recipe={typography.document.body.small}
                       role="document-body-small"
                     >
-                      {t('tokensTypography.compositionPreview.document.body6')}
+                      {t('tokens.typography.compositionPreview.document.body6')}
                     </TypeSample>
                   </section>
                 </div>
@@ -226,7 +228,7 @@ export function TypographyCompositionPreview() {
               recipe={typography.document.caption}
               role="document-caption"
             >
-              {t('tokensTypography.compositionPreview.document.caption')}
+              {t('tokens.typography.compositionPreview.document.caption')}
             </TypeSample>
           </article>
         </section>
@@ -235,7 +237,7 @@ export function TypographyCompositionPreview() {
           <header className={styles.previewHeader}>
             <div>
               <TypeSample as="span" recipe={typography.ui.meta} role="semantic-eyebrow">
-                {t('tokensTypography.compositionPreview.ui.eyebrow')}
+                {t('tokens.typography.compositionPreview.ui.eyebrow')}
               </TypeSample>
               <TypeSample
                 as="h3"
@@ -243,11 +245,11 @@ export function TypographyCompositionPreview() {
                 recipe={typography.ui.title.medium}
                 role="semantic-section-title"
               >
-                {t('tokensTypography.compositionPreview.ui.title')}
+                {t('tokens.typography.compositionPreview.ui.title')}
               </TypeSample>
             </div>
             <TypeSample as="p" recipe={typography.ui.body.small} role="semantic-description">
-              {t('tokensTypography.compositionPreview.ui.description')}
+              {t('tokens.typography.compositionPreview.ui.description')}
             </TypeSample>
           </header>
 
@@ -267,9 +269,9 @@ export function TypographyCompositionPreview() {
                 recipe={typography.ui.label.small}
                 role="ui-label-small"
               >
-                {t('tokensTypography.compositionPreview.ui.workspace')}
+                {t('tokens.typography.compositionPreview.ui.workspace')}
               </TypeSample>
-              <nav aria-label={t('tokensTypography.compositionPreview.ui.navigation')}>
+              <nav aria-label={t('tokens.typography.compositionPreview.ui.navigation')}>
                 {(['overview', 'members', 'integrations', 'billing'] as const).map(
                   (item, index) => (
                     <TypeSample
@@ -279,7 +281,7 @@ export function TypographyCompositionPreview() {
                       recipe={typography.ui.label.medium}
                       role="ui-label-medium"
                     >
-                      {t(`tokensTypography.compositionPreview.ui.${item}`)}
+                      {t(`tokens.typography.compositionPreview.ui.${item}`)}
                     </TypeSample>
                   ),
                 )}
@@ -290,7 +292,7 @@ export function TypographyCompositionPreview() {
                 recipe={typography.ui.meta}
                 role="ui-meta"
               >
-                {t('tokensTypography.compositionPreview.ui.sidebarMeta')}
+                {t('tokens.typography.compositionPreview.ui.sidebarMeta')}
               </TypeSample>
             </aside>
 
@@ -303,18 +305,18 @@ export function TypographyCompositionPreview() {
                     recipe={typography.ui.label.small}
                     role="ui-label-small"
                   >
-                    {t('tokensTypography.compositionPreview.ui.settings')}
+                    {t('tokens.typography.compositionPreview.ui.settings')}
                   </TypeSample>
                   <TypeSample as="h2" recipe={typography.ui.display.small} role="ui-page-title">
-                    {t('tokensTypography.compositionPreview.ui.pageTitle')}
+                    {t('tokens.typography.compositionPreview.ui.pageTitle')}
                   </TypeSample>
                   <TypeSample as="p" recipe={typography.ui.body.large} role="ui-body-large">
-                    {t('tokensTypography.compositionPreview.ui.pageDescription')}
+                    {t('tokens.typography.compositionPreview.ui.pageDescription')}
                   </TypeSample>
                 </div>
                 <button type="button">
                   <TypeSample as="span" recipe={typography.ui.label.medium} role="ui-label-medium">
-                    {t('tokensTypography.compositionPreview.ui.save')}
+                    {t('tokens.typography.compositionPreview.ui.save')}
                   </TypeSample>
                 </button>
               </header>
@@ -327,13 +329,13 @@ export function TypographyCompositionPreview() {
                     recipe={typography.ui.label.small}
                     role="ui-label-small"
                   >
-                    {t('tokensTypography.compositionPreview.ui.currentWorkspace')}
+                    {t('tokens.typography.compositionPreview.ui.currentWorkspace')}
                   </TypeSample>
                   <TypeSample as="h3" recipe={typography.ui.display.small} role="ui-display-small">
-                    {t('tokensTypography.compositionPreview.ui.workspaceName')}
+                    {t('tokens.typography.compositionPreview.ui.workspaceName')}
                   </TypeSample>
                   <TypeSample as="p" recipe={typography.ui.meta} role="ui-meta">
-                    {t('tokensTypography.compositionPreview.ui.workspaceMeta')}
+                    {t('tokens.typography.compositionPreview.ui.workspaceMeta')}
                   </TypeSample>
                 </div>
                 <div className={styles.memberMetric}>
@@ -345,7 +347,7 @@ export function TypographyCompositionPreview() {
                     86
                   </TypeSample>
                   <TypeSample as="span" recipe={typography.ui.meta} role="ui-meta">
-                    {t('tokensTypography.compositionPreview.ui.activeMembers')}
+                    {t('tokens.typography.compositionPreview.ui.activeMembers')}
                   </TypeSample>
                 </div>
               </section>
@@ -353,10 +355,10 @@ export function TypographyCompositionPreview() {
               <section className={styles.settingsPanel}>
                 <header>
                   <TypeSample as="h3" recipe={typography.ui.title.large} role="ui-title-large">
-                    {t('tokensTypography.compositionPreview.ui.general')}
+                    {t('tokens.typography.compositionPreview.ui.general')}
                   </TypeSample>
                   <TypeSample as="p" recipe={typography.ui.body.medium} role="ui-body-medium">
-                    {t('tokensTypography.compositionPreview.ui.generalDescription')}
+                    {t('tokens.typography.compositionPreview.ui.generalDescription')}
                   </TypeSample>
                 </header>
 
@@ -367,17 +369,17 @@ export function TypographyCompositionPreview() {
                       recipe={typography.ui.label.medium}
                       role="ui-label-medium"
                     >
-                      {t('tokensTypography.compositionPreview.ui.workspaceLabel')}
+                      {t('tokens.typography.compositionPreview.ui.workspaceLabel')}
                     </TypeSample>
                     <input
-                      aria-label={t('tokensTypography.compositionPreview.ui.workspaceLabel')}
+                      aria-label={t('tokens.typography.compositionPreview.ui.workspaceLabel')}
                       className={styles.typeSample}
                       readOnly
                       style={typographyStyle(typography.ui.body.medium, locale)}
-                      value={t('tokensTypography.compositionPreview.ui.workspaceName')}
+                      value={t('tokens.typography.compositionPreview.ui.workspaceName')}
                     />
                     <TypeSample as="span" recipe={typography.ui.body.small} role="ui-body-small">
-                      {t('tokensTypography.compositionPreview.ui.workspaceHint')}
+                      {t('tokens.typography.compositionPreview.ui.workspaceHint')}
                     </TypeSample>
                   </label>
                   <label>
@@ -386,17 +388,17 @@ export function TypographyCompositionPreview() {
                       recipe={typography.ui.label.medium}
                       role="ui-label-medium"
                     >
-                      {t('tokensTypography.compositionPreview.ui.slugLabel')}
+                      {t('tokens.typography.compositionPreview.ui.slugLabel')}
                     </TypeSample>
                     <input
-                      aria-label={t('tokensTypography.compositionPreview.ui.slugLabel')}
+                      aria-label={t('tokens.typography.compositionPreview.ui.slugLabel')}
                       className={styles.typeSample}
                       readOnly
                       style={typographyStyle(typography.ui.body.medium, locale)}
                       value="virgo-design"
                     />
                     <TypeSample as="span" recipe={typography.ui.body.small} role="ui-body-small">
-                      {t('tokensTypography.compositionPreview.ui.slugHint')}
+                      {t('tokens.typography.compositionPreview.ui.slugHint')}
                     </TypeSample>
                   </label>
                 </div>
@@ -404,10 +406,10 @@ export function TypographyCompositionPreview() {
                 <section className={styles.accessCard}>
                   <div>
                     <TypeSample as="h4" recipe={typography.ui.title.medium} role="ui-title-medium">
-                      {t('tokensTypography.compositionPreview.ui.accessTitle')}
+                      {t('tokens.typography.compositionPreview.ui.accessTitle')}
                     </TypeSample>
                     <TypeSample as="p" recipe={typography.ui.body.medium} role="ui-body-medium">
-                      {t('tokensTypography.compositionPreview.ui.accessDescription')}
+                      {t('tokens.typography.compositionPreview.ui.accessDescription')}
                     </TypeSample>
                   </div>
                   <div className={styles.accessStatus}>
@@ -416,10 +418,10 @@ export function TypographyCompositionPreview() {
                       recipe={typography.ui.title.small}
                       role="ui-title-small"
                     >
-                      {t('tokensTypography.compositionPreview.ui.private')}
+                      {t('tokens.typography.compositionPreview.ui.private')}
                     </TypeSample>
                     <TypeSample as="span" recipe={typography.ui.body.small} role="ui-body-small">
-                      {t('tokensTypography.compositionPreview.ui.restricted')}
+                      {t('tokens.typography.compositionPreview.ui.restricted')}
                     </TypeSample>
                   </div>
                 </section>

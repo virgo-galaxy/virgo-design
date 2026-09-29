@@ -44,17 +44,17 @@ export function ShapeScalePreview() {
 
   return (
     <div className={styles.previewStack} style={frameStyle}>
-      <p className={styles.disclaimer}>{t('foundationPages.shapeDepth.preview.disclaimer')}</p>
+      <p className={styles.disclaimer}>{t('foundations.shapeDepth.preview.disclaimer')}</p>
 
       <section className={styles.previewGroup} aria-labelledby="border-preview-title">
         <header className={styles.groupHeader}>
-          <h3 id="border-preview-title">{t('foundationPages.shapeDepth.preview.border.title')}</h3>
-          <p>{t('foundationPages.shapeDepth.preview.border.description')}</p>
+          <h3 id="border-preview-title">{t('foundations.shapeDepth.preview.border.title')}</h3>
+          <p>{t('foundations.shapeDepth.preview.border.description')}</p>
         </header>
 
         <div className={styles.comparisonGrid}>
           <article className={styles.comparisonCard}>
-            <h4>{t('foundationPages.shapeDepth.preview.border.widths')}</h4>
+            <h4>{t('foundations.shapeDepth.preview.border.widths')}</h4>
             <div className={styles.sampleRow}>
               {Object.entries(borderWidth).map(([token, value]) => (
                 <ShapeSample
@@ -69,7 +69,7 @@ export function ShapeScalePreview() {
           </article>
 
           <article className={styles.comparisonCard}>
-            <h4>{t('foundationPages.shapeDepth.preview.border.styles')}</h4>
+            <h4>{t('foundations.shapeDepth.preview.border.styles')}</h4>
             <div className={styles.sampleRow}>
               {Object.entries(borderStyle).map(([token, value]) => (
                 <ShapeSample
@@ -91,12 +91,12 @@ export function ShapeScalePreview() {
 
       <section className={styles.previewGroup} aria-labelledby="radius-preview-title">
         <header className={styles.groupHeader}>
-          <h3 id="radius-preview-title">{t('foundationPages.shapeDepth.preview.radius.title')}</h3>
-          <p>{t('foundationPages.shapeDepth.preview.radius.description')}</p>
+          <h3 id="radius-preview-title">{t('foundations.shapeDepth.preview.radius.title')}</h3>
+          <p>{t('foundations.shapeDepth.preview.radius.description')}</p>
         </header>
 
         <article className={styles.comparisonCard}>
-          <h4>{t('foundationPages.shapeDepth.preview.radius.small')}</h4>
+          <h4>{t('foundations.shapeDepth.preview.radius.small')}</h4>
           <div className={styles.sampleRow}>
             {smallRadiusTokens.map((token) => (
               <ShapeSample
@@ -111,7 +111,7 @@ export function ShapeScalePreview() {
         </article>
 
         <article className={styles.comparisonCard}>
-          <h4>{t('foundationPages.shapeDepth.preview.radius.medium')}</h4>
+          <h4>{t('foundations.shapeDepth.preview.radius.medium')}</h4>
           <div className={styles.sampleRow}>
             {mediumRadiusTokens.map((token) => (
               <ShapeSample
@@ -126,7 +126,7 @@ export function ShapeScalePreview() {
         </article>
 
         <article className={styles.comparisonCard}>
-          <h4>{t('foundationPages.shapeDepth.preview.radius.full')}</h4>
+          <h4>{t('foundations.shapeDepth.preview.radius.full')}</h4>
           <div className={styles.sampleRow}>
             <ShapeSample
               kind="full-radius"

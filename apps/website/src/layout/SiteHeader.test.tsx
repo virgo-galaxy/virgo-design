@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it } from 'vitest';
 
-import i18n from '@/i18n';
+import { setAppLocale } from '@/i18n';
 import { AppearanceContext } from '@/shared/theme/appearance-context';
 
 import { SiteHeader } from './SiteHeader';
@@ -19,7 +19,7 @@ function renderHeader(initialEntry = '/') {
 }
 
 afterEach(async () => {
-  await i18n.changeLanguage('en');
+  await setAppLocale('en-US');
   window.localStorage.clear();
 });
 

@@ -2,17 +2,17 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import i18n from '@/i18n';
+import { setAppLocale } from '@/i18n';
 
 import { LanguageControl } from './LanguageControl';
 
 beforeEach(async () => {
   window.localStorage.clear();
-  await i18n.changeLanguage('en');
+  await setAppLocale('en-US');
 });
 
 afterEach(async () => {
-  await i18n.changeLanguage('en');
+  await setAppLocale('en-US');
   window.localStorage.clear();
 });
 

@@ -144,7 +144,7 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
         <div className={styles.themeIdentity}>
           <span className={styles.themeMark} aria-hidden="true" />
           <div>
-            <span>{t('tokensPage.themeLabel')}</span>
+            <span>{t('tokens.colors.themeLabel')}</span>
             <h2>{title}</h2>
           </div>
         </div>
@@ -155,9 +155,9 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
         <div className={styles.sectionHeading}>
           <div>
             <span>01</span>
-            <h3>{t('tokensPage.groups.interface')}</h3>
+            <h3>{t('tokens.colors.groups.interface')}</h3>
           </div>
-          <p>{t('tokensPage.interfaceDescription')}</p>
+          <p>{t('tokens.colors.interfaceDescription')}</p>
         </div>
 
         <div className={styles.productShell}>
@@ -176,7 +176,7 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
                   style={{ background: color.fill[role] }}
                 >
                   <Glyph />
-                  <span>{t(`tokensPage.fill.${role}`)}</span>
+                  <span>{t(`tokens.colors.fill.${role}`)}</span>
                   <TokenTag>{token}</TokenTag>
                 </div>
               ))}
@@ -186,8 +186,8 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
           <div className={styles.workspace}>
             <div className={styles.workspaceToolbar}>
               <div>
-                <strong>{t('tokensPage.workspaceTitle')}</strong>
-                <span>{t('tokensPage.workspaceMeta')}</span>
+                <strong>{t('tokens.colors.workspaceTitle')}</strong>
+                <span>{t('tokens.colors.workspaceMeta')}</span>
               </div>
               <div className={styles.iconRow}>
                 {iconEntries.map(([role, token]) => (
@@ -207,21 +207,21 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
 
             <div className={styles.documentCard}>
               <span className={styles.documentEyebrow}>{textColorTokens.tertiary}</span>
-              <h4>{t('tokensPage.documentTitle')}</h4>
-              <p>{t('tokensPage.documentBody')}</p>
-              <small>{t('tokensPage.documentMeta')}</small>
+              <h4>{t('tokens.colors.documentTitle')}</h4>
+              <p>{t('tokens.colors.documentBody')}</p>
+              <small>{t('tokens.colors.documentMeta')}</small>
 
               <div className={styles.inputRow}>
                 <input
-                  aria-label={t('tokensPage.placeholder')}
-                  placeholder={t('tokensPage.placeholder')}
+                  aria-label={t('tokens.colors.placeholder')}
+                  placeholder={t('tokens.colors.placeholder')}
                 />
-                <button type="button">{t('tokensPage.save')}</button>
+                <button type="button">{t('tokens.colors.save')}</button>
               </div>
 
               <div className={styles.disabledRow}>
                 <Glyph />
-                <span>{t('tokensPage.disabledContent')}</span>
+                <span>{t('tokens.colors.disabledContent')}</span>
                 <TokenTag>{textColorTokens.disabled}</TokenTag>
               </div>
             </div>
@@ -237,9 +237,9 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
                 <span>{surfaceColorTokens.overlay}</span>
               </div>
               <div className={styles.popover}>
-                <strong>{t('tokensPage.quickActions')}</strong>
+                <strong>{t('tokens.colors.quickActions')}</strong>
                 <span>{surfaceColorTokens.elevated}</span>
-                <button type="button">{t('tokensPage.open')}</button>
+                <button type="button">{t('tokens.colors.open')}</button>
               </div>
             </div>
           </div>
@@ -263,25 +263,25 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
         <div className={styles.sectionHeading}>
           <div>
             <span>02</span>
-            <h3>{t('tokensPage.groups.brand')}</h3>
+            <h3>{t('tokens.colors.groups.brand')}</h3>
           </div>
-          <p>{t('tokensPage.brandDescription')}</p>
+          <p>{t('tokens.colors.brandDescription')}</p>
         </div>
 
         <div className={styles.brandScene}>
           <button className={styles.primaryButton} type="button">
-            {t('tokensPage.createProject')}
+            {t('tokens.colors.createProject')}
           </button>
           <button className={styles.hoverButton} type="button">
-            {t('tokensPage.hover')}
+            {t('tokens.colors.hover')}
           </button>
           <button className={styles.activeButton} type="button">
-            {t('tokensPage.active')}
+            {t('tokens.colors.active')}
           </button>
           <button className={styles.subtleButton} type="button">
-            {t('tokensPage.selected')}
+            {t('tokens.colors.selected')}
           </button>
-          <a href={`#semantic-data-${theme.mode}`}>{t('tokensPage.linkExample')}</a>
+          <a href={`#semantic-data-${theme.mode}`}>{t('tokens.colors.linkExample')}</a>
           <div className={styles.focusSample}>{brandColorTokens.focus}</div>
         </div>
 
@@ -296,9 +296,9 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
         <div className={styles.sectionHeading}>
           <div>
             <span>03</span>
-            <h3>{t('tokensPage.groups.status')}</h3>
+            <h3>{t('tokens.colors.groups.status')}</h3>
           </div>
-          <p>{t('tokensPage.statusDescription')}</p>
+          <p>{t('tokens.colors.statusDescription')}</p>
         </div>
 
         <StatusColorReview theme={theme} />
@@ -308,16 +308,16 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
         <div className={styles.sectionHeading}>
           <div>
             <span>04</span>
-            <h3>{t('tokensPage.groups.data')}</h3>
+            <h3>{t('tokens.colors.groups.data')}</h3>
           </div>
-          <p>{t('tokensPage.dataDescription')}</p>
+          <p>{t('tokens.colors.dataDescription')}</p>
         </div>
 
         <div className={styles.dataGrid}>
           <div className={styles.chartCard}>
             <div className={styles.chartHeading}>
-              <strong>{t('tokensPage.data.categorical')}</strong>
-              <span>12 {t('tokensPage.data.series')}</span>
+              <strong>{t('tokens.colors.data.categorical')}</strong>
+              <span>12 {t('tokens.colors.data.series')}</span>
             </div>
             <div className={styles.barChart}>
               {categoricalEntries.map((entry, index) => (
@@ -340,8 +340,8 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
 
           <div className={styles.chartCard}>
             <div className={styles.chartHeading}>
-              <strong>{t('tokensPage.data.sequential')}</strong>
-              <span>{t('tokensPage.data.lowHigh')}</span>
+              <strong>{t('tokens.colors.data.sequential')}</strong>
+              <span>{t('tokens.colors.data.lowHigh')}</span>
             </div>
             <div className={styles.heatmap}>
               {sequentialEntries.map((entry) => (
@@ -355,8 +355,8 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
 
           <div className={`${styles.chartCard} ${styles.divergingCard}`}>
             <div className={styles.chartHeading}>
-              <strong>{t('tokensPage.data.diverging')}</strong>
-              <span>{t('tokensPage.data.negativePositive')}</span>
+              <strong>{t('tokens.colors.data.diverging')}</strong>
+              <span>{t('tokens.colors.data.negativePositive')}</span>
             </div>
             <div className={styles.divergingChart}>
               {divergingEntries.map((entry, index) => (
@@ -371,9 +371,9 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
               ))}
             </div>
             <div className={styles.divergingLabels}>
-              <span>{t('tokensPage.data.loss')}</span>
+              <span>{t('tokens.colors.data.loss')}</span>
               <span>0</span>
-              <span>{t('tokensPage.data.profit')}</span>
+              <span>{t('tokens.colors.data.profit')}</span>
             </div>
           </div>
         </div>

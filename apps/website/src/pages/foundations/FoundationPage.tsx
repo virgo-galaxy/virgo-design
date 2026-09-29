@@ -18,12 +18,12 @@ import styles from './foundation-tokens.module.scss';
 const FOUNDATION_DOCK_EDGES = ['top', 'left', 'right'] as const;
 
 const foundationIcons = {
-  'foundationNavigation.colors': PaletteIcon,
-  'foundationNavigation.typography': TypeIcon,
-  'foundationNavigation.layout': LayoutIcon,
-  'foundationNavigation.shapeDepth': LayersIcon,
-  'foundationNavigation.motion': SplineIcon,
-  'foundationNavigation.icons': ShapesIcon,
+  'foundations.navigation.colors': PaletteIcon,
+  'foundations.navigation.typography': TypeIcon,
+  'foundations.navigation.layout': LayoutIcon,
+  'foundations.navigation.shapeDepth': LayersIcon,
+  'foundations.navigation.motion': SplineIcon,
+  'foundations.navigation.icons': ShapesIcon,
 } as const;
 
 interface FoundationPageProps {
@@ -65,10 +65,10 @@ export function FoundationNavigation() {
     >
       {({ orientation }) => (
         <>
-          <Dock.Handle aria-label={t('foundationNavigation.move')} />
+          <Dock.Handle aria-label={t('foundations.navigation.move')} />
           <Dock.Content>
             <SectionNavigation
-              ariaLabel={t('foundationNavigation.label')}
+              ariaLabel={t('foundations.navigation.label')}
               items={items}
               orientation={orientation}
             />
@@ -101,7 +101,7 @@ export function FoundationPage({
 
           <div className={styles.inner!}>
             <header className={styles.pageHeader}>
-              <div className={styles.eyebrow}>{t('foundationPages.eyebrow')}</div>
+              <div className={styles.eyebrow}>{t('foundations.eyebrow')}</div>
               <h1>{title}</h1>
               <p>{description}</p>
             </header>

@@ -71,11 +71,13 @@ export function FamilyEditorPanel({
       aria-hidden={!active}
     >
       <header className={styles.familyEditorHeader}>
-        <span className={styles.panelEyebrow}>{t('settings.familyEditorEyebrow')}</span>
+        <span className={styles.panelEyebrow}>
+          {t('foundations.colorStudio.settings.familyEditorEyebrow')}
+        </span>
 
-        <h2>{t('settings.familyEditorTitle')}</h2>
+        <h2>{t('foundations.colorStudio.settings.familyEditorTitle')}</h2>
 
-        <p>{t('settings.familyEditorDescription')}</p>
+        <p>{t('foundations.colorStudio.settings.familyEditorDescription')}</p>
       </header>
 
       <div className={styles.familyEditorList}>
@@ -95,7 +97,9 @@ export function FamilyEditorPanel({
               onFocusCapture={() => onSelect(family)}
               onClick={() => onSelect(family)}
             >
-              <span className={styles.familyEditorName}>{t(`families.${family}`)}</span>
+              <span className={styles.familyEditorName}>
+                {t(`foundations.paletteGallery.families.${family}`)}
+              </span>
 
               <span
                 className={styles.familyEditorColor}

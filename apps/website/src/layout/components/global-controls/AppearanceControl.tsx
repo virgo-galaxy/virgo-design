@@ -14,7 +14,9 @@ export interface AppearanceControlProps {
 export function AppearanceControl({ value, onChange }: AppearanceControlProps) {
   const { t } = useTranslation();
   const nextAppearance: Appearance = value === 'light' ? 'dark' : 'light';
-  const actionLabel = t(value === 'light' ? 'common.switchToDarkMode' : 'common.switchToLightMode');
+  const actionLabel = t(
+    value === 'light' ? 'app.controls.switchToDarkMode' : 'app.controls.switchToLightMode',
+  );
   const AppearanceIcon = value === 'light' ? MoonIcon : SunIcon;
 
   return (

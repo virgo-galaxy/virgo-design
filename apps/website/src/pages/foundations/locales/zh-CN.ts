@@ -1,0 +1,132 @@
+import type { LocaleOf } from '@/i18n/locale-types';
+
+import { foundationsEnUS } from './en-US';
+
+export const foundationsZhCN = {
+  navigation: {
+    move: '移动基础导航',
+    label: '基础类别',
+    colors: '颜色',
+    typography: '排版',
+    layout: '布局',
+    shapeDepth: '形状与层级',
+    motion: '动效',
+    icons: '图标',
+  },
+  eyebrow: 'FOUNDATIONS V1',
+  typography: {
+    title: '排版',
+    description: 'Virgo Design 的字体族、字号、字重与行高基础规范。',
+    fontFamily: '字体族',
+    fontFamilyDescription: 'Virgo Design 的正式 Sans 与 Mono 字体角色及其回退栈。',
+    fontFamilyRoles: {
+      sans: 'Sans',
+      mono: 'Mono',
+    },
+    fontFamilyStack: 'Font-family stack',
+    internationalSans: {
+      title: '国际化 Sans',
+      description:
+        'Locale-aware Sans 字体栈：Latin 字符使用 Inter，CJK 字符使用对应的 Noto Sans 字体。',
+      localeSelector: '国际化 Sans locale',
+      activeStack: '字体家族',
+      locale: 'Locale',
+      latin: 'Latin 字符',
+      script: '本地文字',
+      stack: '解析后的 font-family stack',
+      locales: {
+        latin: 'Latin',
+        zhHans: '简体中文',
+        zhHantTW: '繁體中文 · 台灣',
+        zhHantHK: '繁體中文 · 香港',
+        ja: '日本語',
+        ko: '한국어',
+      },
+    },
+    fontSize: '字号',
+    fontWeight: '字重',
+    lineHeight: '行高',
+    lineHeightDescription: 'Foundation Scale · 当前四档 Line Height Token 及其精确数值。',
+  },
+  layout: {
+    title: '布局基础',
+    description: 'Spacing 控制元素之间的距离，Sizing 控制对象自身的尺寸。',
+    spacing: '间距',
+    spacingDescription: '用于 padding、margin、gap 与空间节奏的基础值。',
+    sizing: '尺寸',
+    sizingDescription: '为未来的图标、控件、头像与拖拽点提供原始尺寸。',
+    preview: {
+      eyebrow: 'SCALE PREVIEW',
+      title: '尺度预览',
+      description:
+        '通过中性的空间与尺寸示例，直观展示当前 Spacing 与 Sizing Foundation 的尺度关系。',
+      sample: '内容',
+      spacing: {
+        title: 'Spacing',
+        description: '通过 padding 与 gap 示例，展示单个 Foundation 数值及其组合关系。',
+        padding: 'Padding 对比',
+        gap: 'Gap 对比',
+        combinations: '间距组合',
+        combinationValues: 'Padding {{padding}} · Gap {{gap}}',
+      },
+      sizing: {
+        title: 'Sizing',
+        description: '以下示例仅用于展示尺度关系，不定义正式组件语义。',
+        heights: '高度对比',
+        icons: '类图标尺寸对比',
+        objects: '小型对象尺寸对比',
+        mediumLargeObjects: '中型与大型对象尺寸对比',
+      },
+    },
+  },
+  shapeDepth: {
+    title: '形状与层级',
+    description: '用于构建表面的边框、圆角和随主题适配的层级材料，不在此分配组件语义。',
+    borderWidth: '边框宽度',
+    borderStyle: '边框样式',
+    radius: '圆角',
+    elevation: '层级 / 阴影',
+    elevationDescription: '六档稳定的深度层级，具体阴影表现随当前主题适配。',
+    preview: {
+      eyebrow: 'SCALE PREVIEW',
+      title: '尺度预览',
+      description:
+        '通过中性的边界与圆角示例，直观展示当前 Border 与 Radius Foundation 的尺度关系。',
+      disclaimer: '以下示例仅用于展示尺度关系，不定义正式组件语义。',
+      border: {
+        title: '边框',
+        description: '在相同形状上比较边框宽度与样式。',
+        widths: '边框宽度对比',
+        styles: '边框样式对比',
+      },
+      radius: {
+        title: '圆角',
+        description: '在小型与中型对象上比较圆角曲率，并单独展示完整圆角。',
+        small: '小型形状圆角',
+        medium: '中型表面圆角',
+        full: '完整圆角',
+      },
+    },
+    depthPreview: {
+      eyebrow: 'SCALE PREVIEW',
+      title: '层级',
+      description: '通过中性的表面示例，直观展示六档稳定 Elevation 在当前主题下的表现。',
+      disclaimer: '以下示例仅用于展示尺度关系，不定义正式组件语义。',
+      elevation: {
+        title: '层级 / 阴影',
+        description: '在完全相同的中性表面上，仅改变当前主题的层级阴影进行比较。',
+        scale: '层级对比',
+        layered: '分层层级对比',
+      },
+    },
+  },
+  motion: {
+    title: '动效',
+    description: '一组精简的时长与缓动材料。网站中的编排动画仍然不属于 Foundation Motion。',
+    duration: '时长尺度',
+    durationDescription: '通过共用时间尺度，直接比较六档时长。',
+    easing: '缓动曲线',
+    easingDescription: '每条曲线使用相同的时间与进度坐标轴，便于直接比较。',
+    disclaimer: '以下示例仅展示时间尺度和动效曲线，不定义交互语义。',
+  },
+} satisfies LocaleOf<typeof foundationsEnUS>;

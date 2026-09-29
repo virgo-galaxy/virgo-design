@@ -11,8 +11,8 @@ import styles from '../foundations/foundation-tokens.module.scss';
 const TOKEN_DOCK_EDGES = ['top', 'left', 'right'] as const;
 
 const tokenIcons = {
-  'tokenNavigation.colors': PaletteIcon,
-  'tokenNavigation.typography': TypeIcon,
+  'tokens.navigation.colors': PaletteIcon,
+  'tokens.navigation.typography': TypeIcon,
 } as const;
 
 interface TokenPageProps {
@@ -60,10 +60,10 @@ export function TokenPage({ title, description, children }: TokenPageProps) {
           >
             {({ orientation }) => (
               <>
-                <Dock.Handle aria-label={t('tokenNavigation.move')} />
+                <Dock.Handle aria-label={t('tokens.navigation.move')} />
                 <Dock.Content>
                   <SectionNavigation
-                    ariaLabel={t('tokenNavigation.label')}
+                    ariaLabel={t('tokens.navigation.label')}
                     items={navigationItems}
                     orientation={orientation}
                   />
@@ -74,7 +74,7 @@ export function TokenPage({ title, description, children }: TokenPageProps) {
 
           <div className={styles.inner!}>
             <header className={styles.pageHeader}>
-              <div className={styles.eyebrow}>{t('tokenPages.eyebrow')}</div>
+              <div className={styles.eyebrow}>{t('tokens.eyebrow')}</div>
               <h1>{title}</h1>
               <p>{description}</p>
             </header>

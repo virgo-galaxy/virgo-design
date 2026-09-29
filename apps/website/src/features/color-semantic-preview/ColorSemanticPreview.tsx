@@ -17,15 +17,15 @@ export function ColorSemanticPreview() {
       <div className={styles.heroMeta}>
         <div>
           <strong>{COLOR_SEMANTIC_ROLE_COUNT}</strong>
-          <span>{t('tokensPage.semanticRoles')}</span>
+          <span>{t('tokens.colors.semanticRoles')}</span>
         </div>
         <div>
           <strong>{COLOR_SEMANTIC_GROUPS.length}</strong>
-          <span>{t('tokensPage.colorGroups')}</span>
+          <span>{t('tokens.colors.colorGroups')}</span>
         </div>
         <div>
           <strong>{Object.keys(themes).length}</strong>
-          <span>{t('tokensPage.resolvedThemes')}</span>
+          <span>{t('tokens.colors.resolvedThemes')}</span>
         </div>
       </div>
 
@@ -33,22 +33,22 @@ export function ColorSemanticPreview() {
         <div className={styles.sourceNote}>
           <span className={styles.sourceDot} />
           <div>
-            <strong>{t('tokensPage.sourceTitle')}</strong>
-            <p>{t('tokensPage.sourceDescription')}</p>
+            <strong>{t('tokens.colors.sourceTitle')}</strong>
+            <p>{t('tokens.colors.sourceDescription')}</p>
           </div>
         </div>
       </div>
 
-      <section className={styles.comparison} aria-label={t('tokensPage.comparisonLabel')}>
+      <section className={styles.comparison} aria-label={t('tokens.colors.comparisonLabel')}>
         <SemanticThemePreview
           theme={themes.light}
-          title={t('tokensPage.light.title')}
-          description={t('tokensPage.light.description')}
+          title={t('tokens.colors.light.title')}
+          description={t('tokens.colors.light.description')}
         />
         <SemanticThemePreview
           theme={themes.dark}
-          title={t('tokensPage.dark.title')}
-          description={t('tokensPage.dark.description')}
+          title={t('tokens.colors.dark.title')}
+          description={t('tokens.colors.dark.description')}
         />
       </section>
     </div>

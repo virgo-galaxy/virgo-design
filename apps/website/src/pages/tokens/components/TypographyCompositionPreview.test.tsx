@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { fontSize, fontWeight, internationalSans, lineHeight } from '@virgo-design/tokens';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import i18n from '@/i18n';
+import { setAppLocale } from '@/i18n';
 
 import { TypographyCompositionPreview } from './TypographyCompositionPreview';
 
@@ -25,12 +25,12 @@ const expectRecipe = (
 
 describe('TypographyCompositionPreview', () => {
   beforeEach(async () => {
-    await i18n.changeLanguage('en');
+    await setAppLocale('en-US');
   });
 
   it('resolves every Document role from official Semantic Typography', () => {
     const { container } = render(<TypographyCompositionPreview />);
-    const preview = container.querySelector<HTMLElement>('[data-composition-locale="en"]');
+    const preview = container.querySelector<HTMLElement>('[data-composition-locale="en-US"]');
 
     expect(preview).toBeTruthy();
 
@@ -85,7 +85,7 @@ describe('TypographyCompositionPreview', () => {
   });
 
   it('resolves the preview font family from the current Website locale', async () => {
-    await i18n.changeLanguage('zh-CN');
+    await setAppLocale('zh-CN');
 
     const { container } = render(<TypographyCompositionPreview />);
     const preview = container.querySelector<HTMLElement>('[data-composition-locale="zh-CN"]');

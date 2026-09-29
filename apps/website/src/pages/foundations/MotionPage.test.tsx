@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { describe, expect, it, vi } from 'vitest';
 
-import i18n from '@/i18n';
+import { i18nInstance } from '@/i18n/runtime';
 
 import { MotionPage } from './MotionPage';
 
@@ -27,8 +27,8 @@ vi.mock('./FoundationPage', () => ({
   ),
 }));
 
-function renderMotionPage(locale = 'en') {
-  const localizedI18n = i18n.cloneInstance({ lng: locale });
+function renderMotionPage(locale = 'en-US') {
+  const localizedI18n = i18nInstance.cloneInstance({ lng: locale });
 
   return {
     localizedI18n,
@@ -108,7 +108,7 @@ describe('MotionPage', () => {
 
   it.each([
     {
-      locale: 'en',
+      locale: 'en-US',
       duration: 'Duration scale',
       easing: 'Easing curves',
       disclaimer:
@@ -125,7 +125,7 @@ describe('MotionPage', () => {
     ({ locale, duration, easing, disclaimer }) => {
       const { localizedI18n, getByRole, getByText } = renderMotionPage(locale);
 
-      expect(localizedI18n.t('foundationPages.motion.duration')).toBe(duration);
+      expect(localizedI18n.t('foundations.motion.duration')).toBe(duration);
       expect(getByRole('heading', { level: 2, name: duration })).toBeTruthy();
       expect(getByRole('heading', { level: 2, name: easing })).toBeTruthy();
       expect(getByText(disclaimer)).toBeTruthy();

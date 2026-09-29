@@ -64,9 +64,9 @@ export function ColorStudio({ studio, appearance }: ColorStudioProps) {
       <div className={styles.shell}>
         <header className={styles.header}>
           <div>
-            <div className={styles.eyebrow}>{t('hero.eyebrow')}</div>
-            <h2>{t('hero.title')}</h2>
-            <p>{t('hero.description')}</p>
+            <div className={styles.eyebrow}>{t('foundations.colorStudio.hero.eyebrow')}</div>
+            <h2>{t('foundations.colorStudio.hero.title')}</h2>
+            <p>{t('foundations.colorStudio.hero.description')}</p>
           </div>
         </header>
 
@@ -132,7 +132,7 @@ export function ColorStudio({ studio, appearance }: ColorStudioProps) {
         </div>
       </div>
 
-      <div className={pagerStyles.hint}>{t('extensions.swipeHint')}</div>
+      <div className={pagerStyles.hint}>{t('foundations.colorStudio.extensions.swipeHint')}</div>
       <div
         className={pagerStyles.indicator}
         data-page={studio.state.foundationPage}
@@ -143,7 +143,7 @@ export function ColorStudio({ studio, appearance }: ColorStudioProps) {
 
       <ScrollCue
         targetId="palette-gallery"
-        ariaLabel={t('common.explorePalette')}
+        ariaLabel={t('foundations.colorStudio.actions.explorePalette')}
         visible={motion.enter >= 0.84 && motion.exit < 0.08}
       />
     </section>

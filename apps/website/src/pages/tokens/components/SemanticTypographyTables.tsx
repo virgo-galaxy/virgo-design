@@ -1,6 +1,8 @@
 import { resolveTypography, type SemanticTypographyToken, typography } from '@virgo-design/tokens';
 import { useTranslation } from 'react-i18next';
 
+import { useAppLocale } from '@/i18n';
+
 import styles from './semantic-typography-tables.module.scss';
 
 interface TypographyRow {
@@ -30,11 +32,11 @@ function TypographyTable({ description, locale, rows, title }: TypographyTablePr
         <table aria-label={title}>
           <thead>
             <tr>
-              <th scope="col">{t('tokensTypography.semanticTypography.columns.role')}</th>
-              <th scope="col">{t('tokensTypography.semanticTypography.columns.fontFamily')}</th>
-              <th scope="col">{t('tokensTypography.semanticTypography.columns.fontSize')}</th>
-              <th scope="col">{t('tokensTypography.semanticTypography.columns.fontWeight')}</th>
-              <th scope="col">{t('tokensTypography.semanticTypography.columns.lineHeight')}</th>
+              <th scope="col">{t('tokens.typography.semanticTypography.columns.role')}</th>
+              <th scope="col">{t('tokens.typography.semanticTypography.columns.fontFamily')}</th>
+              <th scope="col">{t('tokens.typography.semanticTypography.columns.fontSize')}</th>
+              <th scope="col">{t('tokens.typography.semanticTypography.columns.fontWeight')}</th>
+              <th scope="col">{t('tokens.typography.semanticTypography.columns.lineHeight')}</th>
             </tr>
           </thead>
           <tbody>
@@ -62,8 +64,8 @@ function TypographyTable({ description, locale, rows, title }: TypographyTablePr
 }
 
 export function SemanticTypographyTables() {
-  const { i18n, t } = useTranslation();
-  const locale = i18n.resolvedLanguage ?? i18n.language ?? 'en';
+  const { t } = useTranslation();
+  const locale = useAppLocale();
 
   const documentRows: TypographyRow[] = [
     { group: 'title', label: 'document.title.large', recipe: typography.document.title.large },
@@ -110,14 +112,14 @@ export function SemanticTypographyTables() {
   return (
     <div className={styles.grid}>
       <TypographyTable
-        title={t('tokensTypography.semanticTypography.document.title')}
-        description={t('tokensTypography.semanticTypography.document.description')}
+        title={t('tokens.typography.semanticTypography.document.title')}
+        description={t('tokens.typography.semanticTypography.document.description')}
         locale={locale}
         rows={documentRows}
       />
       <TypographyTable
-        title={t('tokensTypography.semanticTypography.ui.title')}
-        description={t('tokensTypography.semanticTypography.ui.description')}
+        title={t('tokens.typography.semanticTypography.ui.title')}
+        description={t('tokens.typography.semanticTypography.ui.description')}
         locale={locale}
         rows={uiRows}
       />

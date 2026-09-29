@@ -38,14 +38,14 @@ export function PaletteGallery({
 
   const labelFor = (group: FoundationGroup) => {
     if (group.id === 'brand') {
-      return t('foundations.brand');
+      return t('foundations.paletteGallery.foundationLabels.brand');
     }
 
     if (group.id === 'neutral') {
-      return t('foundations.neutral');
+      return t('foundations.paletteGallery.foundationLabels.neutral');
     }
 
-    return t(`families.${group.id}`);
+    return t(`foundations.paletteGallery.families.${group.id}`);
   };
 
   const headerOpacity = (0.35 + motion.enter * 0.65) * (1 - motion.exit * 0.78);
@@ -70,9 +70,9 @@ export function PaletteGallery({
             }}
           >
             <div>
-              <div className={styles.eyebrow}>{t('gallery.eyebrow')}</div>
-              <h2>{t('gallery.title')}</h2>
-              <p>{t('gallery.description')}</p>
+              <div className={styles.eyebrow}>{t('foundations.paletteGallery.eyebrow')}</div>
+              <h2>{t('foundations.paletteGallery.title')}</h2>
+              <p>{t('foundations.paletteGallery.description')}</p>
             </div>
           </header>
 
@@ -83,7 +83,10 @@ export function PaletteGallery({
               transform: `translate3d(0, ${layoutY}px, 0) scale(${layoutScale})`,
             }}
           >
-            <div className={styles.cardStage} aria-label={t('gallery.colorFamilies')}>
+            <div
+              className={styles.cardStage}
+              aria-label={t('foundations.paletteGallery.colorFamilies')}
+            >
               {groups.map((group, index) => (
                 <FamilyCard
                   key={group.id}
@@ -113,7 +116,7 @@ export function PaletteGallery({
 
         <ScrollCue
           targetId="foundation-export"
-          ariaLabel={t('common.exportFoundationColors')}
+          ariaLabel={t('foundations.paletteGallery.exportFoundationColors')}
           visible={motion.enter >= 0.82 && motion.exit < 0.08}
         />
       </div>

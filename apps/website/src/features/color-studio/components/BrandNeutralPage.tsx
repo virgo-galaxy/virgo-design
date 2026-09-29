@@ -42,9 +42,11 @@ export function BrandNeutralPage({
       >
         <header className={styles.panelHeader}>
           <div>
-            <span className={styles.eyebrow}>{t('extensions.brand.eyebrow')}</span>
-            <h2>{t('extensions.brand.title')}</h2>
-            <p>{t('extensions.brand.description')}</p>
+            <span className={styles.eyebrow}>
+              {t('foundations.colorStudio.extensions.brand.eyebrow')}
+            </span>
+            <h2>{t('foundations.colorStudio.extensions.brand.title')}</h2>
+            <p>{t('foundations.colorStudio.extensions.brand.description')}</p>
           </div>
 
           <button
@@ -53,20 +55,20 @@ export function BrandNeutralPage({
             disabled={disabled}
             onClick={onBrandReset}
           >
-            {t('common.reset')}
+            {t('foundations.colorStudio.actions.reset')}
           </button>
         </header>
 
         <div className={styles.controlRow}>
           <HexColorField
-            label={t('extensions.brand.base')}
+            label={t('foundations.colorStudio.extensions.brand.base')}
             value={brandBase}
             onChange={onBrandBaseChange}
             disabled={disabled}
           />
 
           <div className={styles.foundationMeta}>
-            <span>{t('extensions.algorithm')}</span>
+            <span>{t('foundations.colorStudio.extensions.algorithm')}</span>
             <strong>OKLCH · 10</strong>
           </div>
         </div>
@@ -80,9 +82,11 @@ export function BrandNeutralPage({
       >
         <header className={styles.panelHeader}>
           <div>
-            <span className={styles.eyebrow}>{t('extensions.neutral.eyebrow')}</span>
-            <h2>{t('extensions.neutral.title')}</h2>
-            <p>{t('extensions.neutral.description')}</p>
+            <span className={styles.eyebrow}>
+              {t('foundations.colorStudio.extensions.neutral.eyebrow')}
+            </span>
+            <h2>{t('foundations.colorStudio.extensions.neutral.title')}</h2>
+            <p>{t('foundations.colorStudio.extensions.neutral.description')}</p>
           </div>
 
           <button
@@ -91,20 +95,20 @@ export function BrandNeutralPage({
             disabled={disabled}
             onClick={onNeutralReset}
           >
-            {t('common.reset')}
+            {t('foundations.colorStudio.actions.reset')}
           </button>
         </header>
 
         <div className={styles.controlRow}>
           <HexColorField
-            label={t('extensions.neutral.base')}
+            label={t('foundations.colorStudio.extensions.neutral.base')}
             value={neutralBase}
             onChange={onNeutralBaseChange}
             disabled={disabled}
           />
 
           <div className={styles.foundationMeta}>
-            <span>{t('extensions.algorithm')}</span>
+            <span>{t('foundations.colorStudio.extensions.algorithm')}</span>
             <strong>OKLCH · 10</strong>
           </div>
         </div>

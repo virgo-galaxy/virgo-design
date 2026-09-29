@@ -4,6 +4,7 @@ export interface ApiReferenceProperty {
   required: boolean;
   defaultValue: string;
   description: string;
+  descriptionTranslationKey: string;
   source: string;
 }
 
@@ -12,6 +13,7 @@ export interface ApiReferenceDeclaration {
   kind: 'interface' | 'type';
   signature: string;
   description: string;
+  descriptionTranslationKey: string;
   source: string;
   reExported: boolean;
   properties: readonly ApiReferenceProperty[];

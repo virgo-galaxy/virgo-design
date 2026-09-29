@@ -51,13 +51,13 @@ export function LayoutScalePreview() {
     <div className={styles.previewStack}>
       <section className={styles.previewGroup} aria-labelledby="spacing-preview-title">
         <header className={styles.groupHeader}>
-          <h3 id="spacing-preview-title">{t('foundationPages.layout.preview.spacing.title')}</h3>
-          <p>{t('foundationPages.layout.preview.spacing.description')}</p>
+          <h3 id="spacing-preview-title">{t('foundations.layout.preview.spacing.title')}</h3>
+          <p>{t('foundations.layout.preview.spacing.description')}</p>
         </header>
 
         <div className={styles.comparisonGrid}>
           <article className={styles.comparisonCard}>
-            <h4>{t('foundationPages.layout.preview.spacing.padding')}</h4>
+            <h4>{t('foundations.layout.preview.spacing.padding')}</h4>
             <div className={styles.paddingComparison}>
               {paddingTokens.map((token) => (
                 <div
@@ -68,7 +68,7 @@ export function LayoutScalePreview() {
                   style={spacingStyle(token)}
                 >
                   <div className={styles.paddingStage}>
-                    <span>{t('foundationPages.layout.preview.sample')}</span>
+                    <span>{t('foundations.layout.preview.sample')}</span>
                   </div>
                   <TokenValue name={token} value={spacing[token]} />
                 </div>
@@ -77,7 +77,7 @@ export function LayoutScalePreview() {
           </article>
 
           <article className={styles.comparisonCard}>
-            <h4>{t('foundationPages.layout.preview.spacing.gap')}</h4>
+            <h4>{t('foundations.layout.preview.spacing.gap')}</h4>
             <div className={styles.gapComparison}>
               {gapTokens.map((token) => (
                 <div
@@ -100,7 +100,7 @@ export function LayoutScalePreview() {
         </div>
 
         <article className={styles.comparisonCard}>
-          <h4>{t('foundationPages.layout.preview.spacing.combinations')}</h4>
+          <h4>{t('foundations.layout.preview.spacing.combinations')}</h4>
           <div className={styles.combinationComparison}>
             {spacingCombinations.map(({ padding, gap }) => (
               <section
@@ -112,7 +112,7 @@ export function LayoutScalePreview() {
                 style={combinationStyle(padding, gap)}
               >
                 <strong>
-                  {t('foundationPages.layout.preview.spacing.combinationValues', {
+                  {t('foundations.layout.preview.spacing.combinationValues', {
                     gap: spacing[gap],
                     padding: spacing[padding],
                   })}
@@ -130,12 +130,12 @@ export function LayoutScalePreview() {
 
       <section className={styles.previewGroup} aria-labelledby="sizing-preview-title">
         <header className={styles.groupHeader}>
-          <h3 id="sizing-preview-title">{t('foundationPages.layout.preview.sizing.title')}</h3>
-          <p>{t('foundationPages.layout.preview.sizing.description')}</p>
+          <h3 id="sizing-preview-title">{t('foundations.layout.preview.sizing.title')}</h3>
+          <p>{t('foundations.layout.preview.sizing.description')}</p>
         </header>
 
         <article className={styles.comparisonCard}>
-          <h4>{t('foundationPages.layout.preview.sizing.heights')}</h4>
+          <h4>{t('foundations.layout.preview.sizing.heights')}</h4>
           <div className={styles.heightComparison}>
             {heightTokens.map((token) => (
               <div
@@ -156,7 +156,7 @@ export function LayoutScalePreview() {
 
         <div className={styles.comparisonGrid}>
           <article className={styles.comparisonCard}>
-            <h4>{t('foundationPages.layout.preview.sizing.icons')}</h4>
+            <h4>{t('foundations.layout.preview.sizing.icons')}</h4>
             <div className={styles.objectComparison}>
               {iconSizeTokens.map((token) => (
                 <div
@@ -176,7 +176,7 @@ export function LayoutScalePreview() {
           </article>
 
           <article className={styles.comparisonCard}>
-            <h4>{t('foundationPages.layout.preview.sizing.objects')}</h4>
+            <h4>{t('foundations.layout.preview.sizing.objects')}</h4>
             <div className={styles.objectComparison}>
               {smallObjectTokens.map((token, index) => (
                 <div
@@ -197,7 +197,7 @@ export function LayoutScalePreview() {
         </div>
 
         <article className={styles.comparisonCard}>
-          <h4>{t('foundationPages.layout.preview.sizing.mediumLargeObjects')}</h4>
+          <h4>{t('foundations.layout.preview.sizing.mediumLargeObjects')}</h4>
           <div className={styles.mediumObjectComparison}>
             {mediumLargeObjectTokens.map((token, index) => (
               <div

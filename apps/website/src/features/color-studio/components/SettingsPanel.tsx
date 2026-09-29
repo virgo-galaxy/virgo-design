@@ -1,6 +1,7 @@
 import type { ColorModel } from '@virgo-design/colors';
 import { useTranslation } from 'react-i18next';
 
+import { chromaticModeTranslationKeys } from '../color-studio-i18n';
 import type { ChromaticMode } from '../model/types';
 import styles from '../styles/color-studio.module.scss';
 import { ChromaticModeControl } from './controls/ChromaticModeControl';
@@ -41,12 +42,14 @@ export function SettingsPanel({
     <aside className={styles.settingsPanel}>
       <div className={styles.panelHeading}>
         <div>
-          <span className={styles.panelEyebrow}>{t('settings.eyebrow')}</span>
-          <h2>{t('settings.title')}</h2>
+          <span className={styles.panelEyebrow}>
+            {t('foundations.colorStudio.settings.eyebrow')}
+          </span>
+          <h2>{t('foundations.colorStudio.settings.title')}</h2>
         </div>
 
         <button className={styles.resetButton} type="button" onClick={onReset}>
-          {t('common.reset')}
+          {t('foundations.colorStudio.actions.reset')}
         </button>
       </div>
 
@@ -69,10 +72,8 @@ export function SettingsPanel({
       />
 
       <div className={styles.engineNote}>
-        <strong>{t(`settings.mode${mode.charAt(0).toUpperCase()}${mode.slice(1)}Note`)}</strong>
-        <span>
-          {t(`settings.mode${mode.charAt(0).toUpperCase()}${mode.slice(1)}NoteDescription`)}
-        </span>
+        <strong>{t(chromaticModeTranslationKeys[mode].note)}</strong>
+        <span>{t(chromaticModeTranslationKeys[mode].noteDescription)}</span>
       </div>
     </aside>
   );

@@ -2,17 +2,19 @@ import { LanguageEnIcon, LanguageZhIcon } from '@virgo-design/icons';
 import { Button, Tooltip } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
-import { type AppLocale, setAppLocale } from '@/i18n';
+import { setAppLocale, useAppLocale } from '@/i18n';
 
 import styles from './global-controls.module.scss';
 
 export function LanguageControl() {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
+  const locale = useAppLocale();
 
-  const locale: AppLocale = i18n.resolvedLanguage === 'zh-CN' ? 'zh-CN' : 'en';
-  const nextLocale: AppLocale = locale === 'en' ? 'zh-CN' : 'en';
-  const actionLabel = t(locale === 'en' ? 'common.switchToChinese' : 'common.switchToEnglish');
-  const LocaleIcon = locale === 'en' ? LanguageZhIcon : LanguageEnIcon;
+  const nextLocale = locale === 'en-US' ? 'zh-CN' : 'en-US';
+  const actionLabel = t(
+    locale === 'en-US' ? 'app.controls.switchToChinese' : 'app.controls.switchToEnglish',
+  );
+  const LocaleIcon = locale === 'en-US' ? LanguageZhIcon : LanguageEnIcon;
 
   function toggleLocale() {
     void setAppLocale(nextLocale);

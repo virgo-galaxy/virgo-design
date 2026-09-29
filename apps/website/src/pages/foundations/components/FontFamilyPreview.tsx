@@ -26,12 +26,12 @@ export function FontFamilyPreview() {
             style={{ '--family-preview-font': definition.family } as CSSProperties}
           >
             <header>
-              <span>{t(`foundationPages.typography.fontFamilyRoles.${role}`)}</span>
+              <span>{t(`foundations.typography.fontFamilyRoles.${role}`)}</span>
               <h3>{definition.name}</h3>
             </header>
             <p>{specimens[role]}</p>
             <div className={styles.stack}>
-              <span>{t('foundationPages.typography.fontFamilyStack')}</span>
+              <span>{t('foundations.typography.fontFamilyStack')}</span>
               <code>{definition.family}</code>
             </div>
           </article>

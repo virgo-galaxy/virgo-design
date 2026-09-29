@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
+import { chromaticModeTranslationKeys } from '../../color-studio-i18n';
 import type { ChromaticMode } from '../../model/types';
 import styles from '../../styles/color-studio.module.scss';
 
@@ -15,7 +16,9 @@ export function ChromaticModeControl({ value, onChange }: ChromaticModeControlPr
 
   return (
     <section className={styles.controlGroup}>
-      <span className={styles.controlLabel}>{t('settings.paletteMode')}</span>
+      <span className={styles.controlLabel}>
+        {t('foundations.colorStudio.settings.paletteMode')}
+      </span>
 
       <div className={styles.segmented}>
         {modes.map((mode) => (
@@ -25,14 +28,12 @@ export function ChromaticModeControl({ value, onChange }: ChromaticModeControlPr
             type="button"
             onClick={() => onChange(mode)}
           >
-            {t(`settings.mode${mode.charAt(0).toUpperCase()}${mode.slice(1)}`)}
+            {t(chromaticModeTranslationKeys[mode].label)}
           </button>
         ))}
       </div>
 
-      <p className={styles.controlHint}>
-        {t(`settings.mode${value.charAt(0).toUpperCase()}${value.slice(1)}Description`)}
-      </p>
+      <p className={styles.controlHint}>{t(chromaticModeTranslationKeys[value].description)}</p>
     </section>
   );
 }

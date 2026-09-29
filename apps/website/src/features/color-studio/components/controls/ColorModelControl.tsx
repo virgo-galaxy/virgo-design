@@ -21,8 +21,12 @@ export function ColorModelControl({ value, disabled = false, onChange }: ColorMo
   return (
     <section className={`${styles.controlGroup} ${disabled ? styles.controlDisabled : ''}`}>
       <div className={styles.controlLabelRow}>
-        <span className={styles.controlLabel}>{t('settings.colorModel')}</span>
-        <span className={styles.recommended}>{t('settings.recommended')}</span>
+        <span className={styles.controlLabel}>
+          {t('foundations.colorStudio.settings.colorModel')}
+        </span>
+        <span className={styles.recommended}>
+          {t('foundations.colorStudio.settings.recommended')}
+        </span>
       </div>
 
       <div className={styles.segmented}>

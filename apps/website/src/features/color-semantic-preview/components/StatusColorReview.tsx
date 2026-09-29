@@ -47,7 +47,7 @@ export function StatusColorReview({ theme }: { theme: VirgoTheme }) {
         const tokens = statusColorTokens[family];
         const ratio = contrastRatio(status.solid, status.onSolid);
         const result = ratio === null ? 'unavailable' : ratio >= 4.5 ? 'pass' : 'fail';
-        const label = t(`tokensPage.statusReview.families.${family}`);
+        const label = t(`tokens.colors.statusReview.families.${family}`);
         return (
           <section
             className={styles.statusReview}
@@ -57,14 +57,14 @@ export function StatusColorReview({ theme }: { theme: VirgoTheme }) {
           >
             <header className={styles.statusReviewHeader}>
               <h4>{label}</h4>
-              <span>{t(`tokensPage.${theme.mode}.title`)}</span>
+              <span>{t(`tokens.colors.${theme.mode}.title`)}</span>
             </header>
             <div className={styles.statusPairHeading}>
               <h5>Solid</h5>
               <span className={styles.statusContrast} data-contrast-result={result}>
-                {t('tokensPage.statusReview.contrast')}{' '}
+                {t('tokens.colors.statusReview.contrast')}{' '}
                 {ratio === null ? '—' : `${ratio.toFixed(2)}:1`} ·{' '}
-                {t(`tokensPage.statusReview.${result}`)}
+                {t(`tokens.colors.statusReview.${result}`)}
               </span>
             </div>
             <div
@@ -73,9 +73,9 @@ export function StatusColorReview({ theme }: { theme: VirgoTheme }) {
               style={{ background: status.solid, color: status.onSolid }}
             >
               <span aria-hidden="true">{marks[family]}</span>
-              <span>{t(`tokensPage.status.${family}`)}</span>
+              <span>{t(`tokens.colors.status.${family}`)}</span>
             </div>
-            <p className={styles.statusUsage}>{t('tokensPage.statusReview.solidUsage')}</p>
+            <p className={styles.statusUsage}>{t('tokens.colors.statusReview.solidUsage')}</p>
             <TokenValues
               entries={[
                 [tokens.solid, status.solid],
@@ -90,11 +90,11 @@ export function StatusColorReview({ theme }: { theme: VirgoTheme }) {
             >
               <span aria-hidden="true">{marks[family]}</span>
               <div>
-                <strong>{t(`tokensPage.status.${family}`)}</strong>
-                <p>{t(`tokensPage.status.${family}Message`)}</p>
+                <strong>{t(`tokens.colors.status.${family}`)}</strong>
+                <p>{t(`tokens.colors.status.${family}Message`)}</p>
               </div>
             </div>
-            <p className={styles.statusUsage}>{t('tokensPage.statusReview.subtleUsage')}</p>
+            <p className={styles.statusUsage}>{t('tokens.colors.statusReview.subtleUsage')}</p>
             <TokenValues
               entries={[
                 [tokens.subtle, status.subtle],
@@ -103,8 +103,8 @@ export function StatusColorReview({ theme }: { theme: VirgoTheme }) {
               ]}
             />
             <details className={styles.statusIndicator}>
-              <summary>{t('tokensPage.statusReview.indicator')}</summary>
-              <p className={styles.statusUsage}>{t('tokensPage.statusReview.indicatorUsage')}</p>
+              <summary>{t('tokens.colors.statusReview.indicator')}</summary>
+              <p className={styles.statusUsage}>{t('tokens.colors.statusReview.indicatorUsage')}</p>
               <TokenValues
                 entries={[
                   [tokens.accent, status.accent],

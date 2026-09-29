@@ -8,21 +8,24 @@ export function TokensTypographyPage() {
   const { t } = useTranslation();
 
   return (
-    <TokenPage title={t('tokensTypography.title')} description={t('tokensTypography.description')}>
+    <TokenPage
+      title={t('tokens.typography.title')}
+      description={t('tokens.typography.description')}
+    >
       <TokenSection
         id="semantic-typography"
-        eyebrow={t('tokensTypography.semanticTypography.eyebrow')}
-        title={t('tokensTypography.semanticTypography.title')}
-        description={t('tokensTypography.semanticTypography.description')}
+        eyebrow={t('tokens.typography.semanticTypography.eyebrow')}
+        title={t('tokens.typography.semanticTypography.title')}
+        description={t('tokens.typography.semanticTypography.description')}
       >
         <SemanticTypographyTables />
       </TokenSection>
 
       <TokenSection
         id="composition-preview"
-        eyebrow={t('tokensTypography.compositionPreview.eyebrow')}
-        title={t('tokensTypography.compositionPreview.title')}
-        description={t('tokensTypography.compositionPreview.description')}
+        eyebrow={t('tokens.typography.compositionPreview.eyebrow')}
+        title={t('tokens.typography.compositionPreview.title')}
+        description={t('tokens.typography.compositionPreview.description')}
       >
         <TypographyCompositionPreview />
       </TokenSection>

@@ -1,3 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
+import { translateApiDescription } from '@/i18n/translate-api-description';
+
 import styles from './api-reference.module.scss';
 import type { ApiReferenceDocument, ApiReferenceRegistry } from './api-reference.types';
 
@@ -23,6 +27,7 @@ export function ApiReference({
   description,
   className,
 }: ApiReferenceProps) {
+  const { t } = useTranslation();
   const resolvedDescription =
     description ??
     `Public TypeScript API exported by ${document.packageName}. Native React and DOM attributes are omitted from the property rows.`;
@@ -58,7 +63,15 @@ export function ApiReference({
                 <h3 id={`${id}-${declaration.name}-heading`}>
                   <code>{declaration.name}</code>
                 </h3>
-                {declaration.description ? <p>{declaration.description}</p> : null}
+                {declaration.description ? (
+                  <p>
+                    {translateApiDescription(
+                      t,
+                      declaration.descriptionTranslationKey,
+                      declaration.description,
+                    )}
+                  </p>
+                ) : null}
               </div>
               <span className={styles.kind}>{declaration.kind}</span>
             </div>
@@ -106,7 +119,15 @@ export function ApiReference({
                         <td>
                           {property.defaultValue ? <code>{property.defaultValue}</code> : '—'}
                         </td>
-                        <td>{property.description || '—'}</td>
+                        <td>
+                          {property.description
+                            ? translateApiDescription(
+                                t,
+                                property.descriptionTranslationKey,
+                                property.description,
+                              )
+                            : '—'}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -133,7 +154,13 @@ export function ApiReference({
                       {declarationLabel(declaration.kind, declaration.name, declaration.signature)}
                     </code>
                     {declaration.description ? (
-                      <span className={styles.aliasDescription}>{declaration.description}</span>
+                      <span className={styles.aliasDescription}>
+                        {translateApiDescription(
+                          t,
+                          declaration.descriptionTranslationKey,
+                          declaration.description,
+                        )}
+                      </span>
                     ) : null}
                   </dd>
                 </div>

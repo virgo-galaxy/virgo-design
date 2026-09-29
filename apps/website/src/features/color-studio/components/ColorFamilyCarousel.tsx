@@ -62,7 +62,9 @@ export function ColorFamilyCarousel({
                       }}
                     />
 
-                    <span className={styles.familyName}>{t(`families.${family}`)}</span>
+                    <span className={styles.familyName}>
+                      {t(`foundations.paletteGallery.families.${family}`)}
+                    </span>
                     <code>{bases[family].toUpperCase()}</code>
                   </button>
                 );

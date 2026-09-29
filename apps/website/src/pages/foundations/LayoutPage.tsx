@@ -10,12 +10,12 @@ export function LayoutPage() {
 
   return (
     <FoundationPage
-      title={t('foundationPages.layout.title')}
-      description={t('foundationPages.layout.description')}
+      title={t('foundations.layout.title')}
+      description={t('foundations.layout.description')}
     >
       <FoundationSection
-        title={t('foundationPages.layout.spacing')}
-        description={t('foundationPages.layout.spacingDescription')}
+        title={t('foundations.layout.spacing')}
+        description={t('foundations.layout.spacingDescription')}
       >
         <div className={styles.spacingList}>
           {Object.entries(spacing).map(([name, value]) => (
@@ -33,8 +33,8 @@ export function LayoutPage() {
       </FoundationSection>
 
       <FoundationSection
-        title={t('foundationPages.layout.sizing')}
-        description={t('foundationPages.layout.sizingDescription')}
+        title={t('foundations.layout.sizing')}
+        description={t('foundations.layout.sizingDescription')}
       >
         <div className={styles.sizingGrid}>
           {Object.entries(sizing).map(([name, value]) => (
@@ -53,9 +53,9 @@ export function LayoutPage() {
 
       <FoundationSection
         id="scale-preview"
-        eyebrow={t('foundationPages.layout.preview.eyebrow')}
-        title={t('foundationPages.layout.preview.title')}
-        description={t('foundationPages.layout.preview.description')}
+        eyebrow={t('foundations.layout.preview.eyebrow')}
+        title={t('foundations.layout.preview.title')}
+        description={t('foundations.layout.preview.description')}
       >
         <LayoutScalePreview />
       </FoundationSection>

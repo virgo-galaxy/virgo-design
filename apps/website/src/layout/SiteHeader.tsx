@@ -33,7 +33,7 @@ export function SiteHeader() {
     >
       <NavigationMenu.Root
         className={styles.navigation}
-        aria-label={t('navigation.label')}
+        aria-label={t('app.navigation.label')}
         value={activePrimaryNavigation(pathname)}
       >
         <NavigationMenu.List>

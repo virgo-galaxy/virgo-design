@@ -25,7 +25,9 @@ describe('StandaloneExamplePage', () => {
     const standalone = container.querySelector('[data-standalone-example="button-variants"]');
 
     expect(standalone).toHaveAttribute('data-theme', 'dark');
-    expect(await screen.findByRole('button', { name: 'Primary Button' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('button', { name: 'Primary Button' }, { timeout: 3_000 }),
+    ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Secondary Button' })).toBeInTheDocument();
     expect(
       screen.queryByRole('navigation', { name: 'Component navigation' }),

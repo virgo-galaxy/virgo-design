@@ -1,7 +1,7 @@
 import '@virgo-design/fonts/default.css';
 import '@virgo-design/tokens/styles.css';
-import './i18n';
 import './styles.scss';
+import '@/i18n/runtime';
 
 import { fontFamily } from '@virgo-design/tokens';
 import { StrictMode } from 'react';

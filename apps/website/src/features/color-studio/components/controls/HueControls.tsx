@@ -25,7 +25,9 @@ export function HueControls({
     <section className={`${styles.controlGroup} ${disabled ? styles.controlDisabled : ''}`}>
       <div className={styles.rangeControl}>
         <div className={styles.controlLabelRow}>
-          <span className={styles.controlLabel}>{t('settings.hueSpread')}</span>
+          <span className={styles.controlLabel}>
+            {t('foundations.colorStudio.settings.hueSpread')}
+          </span>
           <code>{hueSpread.toFixed(2)}</code>
         </div>
 
@@ -42,7 +44,9 @@ export function HueControls({
 
       <div className={styles.rangeControl}>
         <div className={styles.controlLabelRow}>
-          <span className={styles.controlLabel}>{t('settings.distributionCurve')}</span>
+          <span className={styles.controlLabel}>
+            {t('foundations.colorStudio.settings.distributionCurve')}
+          </span>
           <code>{distributionCurve.toFixed(2)}</code>
         </div>
 
@@ -59,7 +63,11 @@ export function HueControls({
 
       {disabled ? (
         <p className={styles.independentHint}>
-          {t(mode === 'official' ? 'settings.officialControlsHint' : 'settings.customControlsHint')}
+          {t(
+            mode === 'official'
+              ? 'foundations.colorStudio.settings.officialControlsHint'
+              : 'foundations.colorStudio.settings.customControlsHint',
+          )}
         </p>
       ) : null}
     </section>

@@ -228,6 +228,21 @@ function collectDeclarations(sourceFiles) {
   return result;
 }
 
+function withDescriptionTranslationKeys(domain, slug, declarations) {
+  return declarations.map((declaration) => {
+    const declarationKey = `${domain}.${slug}.api.${slugify(declaration.name)}`;
+
+    return {
+      ...declaration,
+      descriptionTranslationKey: `${declarationKey}.description`,
+      properties: declaration.properties.map((property) => ({
+        ...property,
+        descriptionTranslationKey: `${declarationKey}.properties.${slugify(property.name)}.description`,
+      })),
+    };
+  });
+}
+
 const uiComponentsRoot = path.join(repoRoot, 'packages/ui/src/components');
 const componentApiReference = Object.fromEntries(
   fs
@@ -235,6 +250,7 @@ const componentApiReference = Object.fromEntries(
     .filter((entry) => entry.isDirectory())
     .sort((a, b) => a.name.localeCompare(b.name))
     .map((entry) => {
+      const slug = slugify(entry.name);
       const sourceFiles = [path.join(uiComponentsRoot, entry.name, `${entry.name}.types.ts`)];
       if (entry.name === 'Input') {
         sourceFiles.push(path.join(uiComponentsRoot, entry.name, 'Textarea.types.ts'));
@@ -245,10 +261,14 @@ const componentApiReference = Object.fromEntries(
         }
       });
       return [
-        slugify(entry.name),
+        slug,
         {
           packageName: '@virgo-design/ui',
-          declarations: collectDeclarations(sourceFiles),
+          declarations: withDescriptionTranslationKeys(
+            'components',
+            slug,
+            collectDeclarations(sourceFiles),
+          ),
         },
       ];
     }),
@@ -288,7 +308,11 @@ const primitiveApiReference = Object.fromEntries(
     slug,
     {
       packageName: '@virgo-design/primitives',
-      declarations: collectDeclarations(files.map((file) => path.join(primitivesRoot, file))),
+      declarations: withDescriptionTranslationKeys(
+        'primitives',
+        slug,
+        collectDeclarations(files.map((file) => path.join(primitivesRoot, file))),
+      ),
     },
   ]),
 );

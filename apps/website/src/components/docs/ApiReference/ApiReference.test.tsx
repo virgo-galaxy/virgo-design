@@ -1,11 +1,20 @@
 import { render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import { componentApiReference } from '@/generated/api-reference.generated';
+import { i18nInstance } from '@/i18n/runtime';
 
 import { RegistryApiReference } from './ApiReference';
 
+const translatedDescriptionKey =
+  'components.button.api.text-button-props.properties.children.description';
+
 describe('ApiReference', () => {
+  afterEach(async () => {
+    i18nInstance.addResource('zh-CN', 'translation', translatedDescriptionKey, '');
+    await i18nInstance.changeLanguage('en-US');
+  });
+
   it('renders generated prop tables and public type aliases', () => {
     render(<RegistryApiReference registry={componentApiReference} slug="button" />);
 
@@ -18,5 +27,32 @@ describe('ApiReference', () => {
     expect(publicTypes).not.toBeNull();
     expect(within(publicTypes!).getByText('ButtonVariant')).toBeInTheDocument();
     expect(screen.getAllByText('variant').length).toBeGreaterThan(0);
+  });
+
+  it('uses a locale override without replacing the generated English fallback', async () => {
+    i18nInstance.addResource(
+      'zh-CN',
+      'translation',
+      translatedDescriptionKey,
+      '操作按钮的可见文本标签。',
+    );
+    await i18nInstance.changeLanguage('zh-CN');
+
+    render(<RegistryApiReference registry={componentApiReference} slug="button" />);
+
+    expect(screen.getByText('操作按钮的可见文本标签。')).toBeInTheDocument();
+    expect(componentApiReference.button?.declarations).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          name: 'TextButtonProps',
+          properties: expect.arrayContaining([
+            expect.objectContaining({
+              name: 'children',
+              description: 'Visible text label for the action.',
+            }),
+          ]),
+        }),
+      ]),
+    );
   });
 });

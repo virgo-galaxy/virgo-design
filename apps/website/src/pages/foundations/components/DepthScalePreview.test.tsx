@@ -3,7 +3,7 @@ import { borderStyle, borderWidth, elevationLevels, radius, themes } from '@virg
 import { I18nextProvider } from 'react-i18next';
 import { describe, expect, it, vi } from 'vitest';
 
-import i18n from '@/i18n';
+import { i18nInstance } from '@/i18n/runtime';
 import { AppearanceContext } from '@/shared/theme/appearance-context';
 import type { Appearance } from '@/shared/theme/types';
 
@@ -75,7 +75,7 @@ describe('DepthScalePreview', () => {
 
   it.each([
     {
-      locale: 'en',
+      locale: 'en-US',
       title: 'Depth',
       elevation: 'Elevation comparison',
       layered: 'Layered elevation comparison',
@@ -91,7 +91,7 @@ describe('DepthScalePreview', () => {
   ])(
     'uses neutral documentation language in $locale',
     ({ locale, title, elevation, layered, disclaimer }) => {
-      const localizedI18n = i18n.cloneInstance({ lng: locale });
+      const localizedI18n = i18nInstance.cloneInstance({ lng: locale });
       const { container } = render(
         <I18nextProvider i18n={localizedI18n}>
           <AppearanceContext.Provider value={{ appearance: 'light', setAppearance: vi.fn() }}>
@@ -100,7 +100,7 @@ describe('DepthScalePreview', () => {
         </I18nextProvider>,
       );
 
-      expect(localizedI18n.t('foundationPages.shapeDepth.depthPreview.title')).toBe(title);
+      expect(localizedI18n.t('foundations.shapeDepth.depthPreview.title')).toBe(title);
       expect(within(container).getByText(disclaimer)).toBeTruthy();
       for (const name of [elevation, layered]) {
         expect(within(container).getByRole('heading', { level: 4, name })).toBeTruthy();

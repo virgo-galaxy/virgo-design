@@ -18,25 +18,25 @@ export function TypographyPage() {
 
   return (
     <FoundationPage
-      title={t('foundationPages.typography.title')}
-      description={t('foundationPages.typography.description')}
+      title={t('foundations.typography.title')}
+      description={t('foundations.typography.description')}
     >
       <FoundationSection
-        title={t('foundationPages.typography.fontFamily')}
-        description={t('foundationPages.typography.fontFamilyDescription')}
+        title={t('foundations.typography.fontFamily')}
+        description={t('foundations.typography.fontFamilyDescription')}
       >
         <FontFamilyPreview />
       </FoundationSection>
 
       <FoundationSection
         id="international-sans"
-        title={t('foundationPages.typography.internationalSans.title')}
-        description={t('foundationPages.typography.internationalSans.description')}
+        title={t('foundations.typography.internationalSans.title')}
+        description={t('foundations.typography.internationalSans.description')}
       >
         <InternationalSansPreview />
       </FoundationSection>
 
-      <FoundationSection title={t('foundationPages.typography.fontSize')}>
+      <FoundationSection title={t('foundations.typography.fontSize')}>
         <div className={styles.typeScale}>
           {Object.entries(fontSize).map(([name, value]) => (
             <article key={name} className={styles.typeScaleRow}>
@@ -51,7 +51,7 @@ export function TypographyPage() {
       </FoundationSection>
 
       <div className={styles.splitSections}>
-        <FoundationSection title={t('foundationPages.typography.fontWeight')}>
+        <FoundationSection title={t('foundations.typography.fontWeight')}>
           <div className={styles.simpleList}>
             {Object.values(fontWeight).map((value) => (
               <article key={value} className={styles.simpleRow}>
@@ -66,8 +66,8 @@ export function TypographyPage() {
         </FoundationSection>
 
         <FoundationSection
-          title={t('foundationPages.typography.lineHeight')}
-          description={t('foundationPages.typography.lineHeightDescription')}
+          title={t('foundations.typography.lineHeight')}
+          description={t('foundations.typography.lineHeightDescription')}
         >
           <div className={styles.lineHeightGrid}>
             {Object.entries(lineHeight).map(([name, value]) => (

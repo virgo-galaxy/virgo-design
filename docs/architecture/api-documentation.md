@@ -9,6 +9,17 @@ Public `*.types.ts` files are the source of truth for prop names, required state
 JSDoc descriptions, and `@default` values. Component and primitive documentation should not keep a
 second handwritten prop table.
 
+Generated declarations and properties also carry a stable `descriptionTranslationKey` under the
+corresponding `components.<slug>.api.*` or `primitives.<slug>.api.*` domain. `ApiReference` asks the
+default translation tree for that key and falls back to the generated English JSDoc description.
+The generator therefore remains the source of API facts while a business-owned locale can override
+only the description text.
+
+Adding or changing a locale override does not require generation. Add the same key structure to the
+module's canonical English locale and its `zh-CN` locale, then change the localized string. Changes
+to the public API or its JSDoc still require regeneration. Do not add Chinese JSDoc to package
+sources or generate separate English and Chinese API registries.
+
 The generator intentionally omits React and DOM inherited attributes from property rows. Their
 heritage remains visible in the exported type signature, while Virgo-specific inherited props from
 `@virgo-design/primitives` are included.

@@ -14,6 +14,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.accordion.api.accordion-size.description',
       },
       {
         name: 'AccordionVariant',
@@ -23,6 +24,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.accordion.api.accordion-variant.description',
       },
       {
         name: 'AccordionProps',
@@ -40,6 +42,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-props.properties.type.description',
           },
           {
             name: 'value',
@@ -49,6 +53,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Controlled open item value. Use an empty string when every item is closed.\nControlled open item values.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -58,6 +64,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Initially open item value for uncontrolled usage.\nInitially open item values for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -66,6 +74,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when the open item changes.\nCalled when the open items change.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-props.properties.on-value-change.description',
           },
           {
             name: 'headingLevel',
@@ -74,6 +84,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '3',
             description: 'Heading level exposed by every item header.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-props.properties.heading-level.description',
           },
           {
             name: 'size',
@@ -82,6 +94,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'md'",
             description: 'Visual density shared by every item.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-props.properties.size.description',
           },
           {
             name: 'variant',
@@ -90,8 +104,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'default'",
             description: 'Classic Virgo surface treatment.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-props.properties.variant.description',
           },
         ],
+        descriptionTranslationKey: 'components.accordion.api.accordion-props.description',
       },
       {
         name: 'AccordionRootProps',
@@ -108,6 +125,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-root-props.properties.type.description',
           },
           {
             name: 'value',
@@ -117,6 +136,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Controlled open item value. Use an empty string when every item is closed.\nControlled open item values.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-root-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -126,6 +147,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Initially open item value for uncontrolled usage.\nInitially open item values for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-root-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -134,6 +157,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when the open item changes.\nCalled when the open items change.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-root-props.properties.on-value-change.description',
           },
           {
             name: 'headingLevel',
@@ -142,6 +167,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '3',
             description: 'Heading level exposed by every item header.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-root-props.properties.heading-level.description',
           },
           {
             name: 'size',
@@ -150,6 +177,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'md'",
             description: 'Visual density shared by every item.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-root-props.properties.size.description',
           },
           {
             name: 'variant',
@@ -158,8 +187,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'default'",
             description: 'Classic Virgo surface treatment.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-root-props.properties.variant.description',
           },
         ],
+        descriptionTranslationKey: 'components.accordion.api.accordion-root-props.description',
       },
       {
         name: 'AccordionItemProps',
@@ -176,6 +208,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Stable value used to coordinate this item with the root.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-item-props.properties.value.description',
           },
           {
             name: 'disabled',
@@ -185,8 +219,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Prevents this item from being toggled or reached by arrow-key navigation.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-item-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'components.accordion.api.accordion-item-props.description',
       },
       {
         name: 'AccordionTriggerProps',
@@ -203,6 +240,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-trigger-props.properties.children.description',
           },
           {
             name: 'icon',
@@ -211,6 +250,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Shows the default Virgo chevron indicator.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-trigger-props.properties.icon.description',
           },
           {
             name: 'render',
@@ -219,8 +260,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.accordion.api.accordion-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'components.accordion.api.accordion-trigger-props.description',
       },
       {
         name: 'AccordionContentProps',
@@ -230,6 +274,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.accordion.api.accordion-content-props.description',
       },
     ],
   },
@@ -244,6 +289,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.alert.api.alert-intent.description',
       },
       {
         name: 'AlertVariant',
@@ -253,6 +299,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.alert.api.alert-variant.description',
       },
       {
         name: 'AlertProps',
@@ -269,6 +316,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'default'",
             description: 'Semantic status treatment.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.alert.api.alert-props.properties.intent.description',
           },
           {
             name: 'variant',
@@ -277,6 +326,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'soft'",
             description: 'Surface treatment.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.alert.api.alert-props.properties.variant.description',
           },
           {
             name: 'icon',
@@ -285,8 +336,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Overrides the status icon rendered by Alert.Icon. Use false to hide it.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.alert.api.alert-props.properties.icon.description',
           },
         ],
+        descriptionTranslationKey: 'components.alert.api.alert-props.description',
       },
       {
         name: 'AlertRootProps',
@@ -303,6 +357,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'default'",
             description: 'Semantic status treatment.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.alert.api.alert-root-props.properties.intent.description',
           },
           {
             name: 'variant',
@@ -311,6 +367,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'soft'",
             description: 'Surface treatment.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.alert.api.alert-root-props.properties.variant.description',
           },
           {
             name: 'icon',
@@ -319,8 +377,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Overrides the status icon rendered by Alert.Icon. Use false to hide it.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.alert.api.alert-root-props.properties.icon.description',
           },
         ],
+        descriptionTranslationKey: 'components.alert.api.alert-root-props.description',
       },
       {
         name: 'AlertContentProps',
@@ -330,6 +391,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.alert.api.alert-content-props.description',
       },
       {
         name: 'AlertTitleProps',
@@ -339,6 +401,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.alert.api.alert-title-props.description',
       },
       {
         name: 'AlertDescriptionProps',
@@ -348,6 +411,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.alert.api.alert-description-props.description',
       },
       {
         name: 'AlertActionProps',
@@ -357,6 +421,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.alert.api.alert-action-props.description',
       },
       {
         name: 'AlertIconProps',
@@ -366,6 +431,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.alert.api.alert-icon-props.description',
       },
       {
         name: 'AlertCloseProps',
@@ -382,8 +448,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Notifies the owner; Alert.Close never removes the Alert itself.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.alert.api.alert-close-props.properties.on-click.description',
           },
         ],
+        descriptionTranslationKey: 'components.alert.api.alert-close-props.description',
       },
     ],
   },
@@ -398,6 +467,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.avatar.api.avatar-size.description',
       },
       {
         name: 'AvatarShape',
@@ -407,6 +477,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.avatar.api.avatar-shape.description',
       },
       {
         name: 'AvatarProps',
@@ -423,6 +494,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Image source for the represented identity.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.avatar.api.avatar-props.properties.src.description',
           },
           {
             name: 'alt',
@@ -431,6 +504,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "''",
             description: 'Accessible image alternative. Use an empty string for decorative images.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.avatar.api.avatar-props.properties.alt.description',
           },
           {
             name: 'fallback',
@@ -439,6 +514,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Content shown when no image is supplied or the image fails to load.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.avatar.api.avatar-props.properties.fallback.description',
           },
           {
             name: 'size',
@@ -447,6 +524,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'md'",
             description: 'Avatar size.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.avatar.api.avatar-props.properties.size.description',
           },
           {
             name: 'shape',
@@ -455,6 +534,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'circle'",
             description: 'Avatar silhouette.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.avatar.api.avatar-props.properties.shape.description',
           },
           {
             name: 'loading',
@@ -463,8 +544,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Native image loading behavior.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.avatar.api.avatar-props.properties.loading.description',
           },
         ],
+        descriptionTranslationKey: 'components.avatar.api.avatar-props.description',
       },
       {
         name: 'AvatarGroupProps',
@@ -474,6 +558,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.avatar.api.avatar-group-props.description',
       },
     ],
   },
@@ -488,6 +573,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.badge.api.badge-intent.description',
       },
       {
         name: 'BadgeProps',
@@ -504,6 +590,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Numeric or short text content.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.badge.api.badge-props.properties.count.description',
           },
           {
             name: 'max',
@@ -512,6 +600,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '99',
             description: 'Maximum displayed numeric count.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.badge.api.badge-props.properties.max.description',
           },
           {
             name: 'showZero',
@@ -520,6 +610,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Shows the count when it is zero.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.badge.api.badge-props.properties.show-zero.description',
           },
           {
             name: 'dot',
@@ -528,6 +620,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Shows a status dot instead of count content.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.badge.api.badge-props.properties.dot.description',
           },
           {
             name: 'intent',
@@ -536,6 +630,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'default'",
             description: 'Semantic color intent.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.badge.api.badge-props.properties.intent.description',
           },
           {
             name: 'children',
@@ -544,8 +640,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Optional host element. Without children, Badge renders inline.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.badge.api.badge-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey: 'components.badge.api.badge-props.description',
       },
     ],
   },
@@ -567,6 +666,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the breadcrumb navigation.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.breadcrumb.api.breadcrumb-props.properties.class-name.description',
           },
           {
             name: 'children',
@@ -575,6 +676,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Breadcrumb items rendered in path order.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.breadcrumb.api.breadcrumb-props.properties.children.description',
           },
           {
             name: 'separator',
@@ -583,8 +686,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative content placed between items.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.breadcrumb.api.breadcrumb-props.properties.separator.description',
           },
         ],
+        descriptionTranslationKey: 'components.breadcrumb.api.breadcrumb-props.description',
       },
       {
         name: 'BreadcrumbItemProps',
@@ -602,6 +708,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Visible item content, including dynamic ReactNode values.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.breadcrumb.api.breadcrumb-item-props.properties.children.description',
           },
           {
             name: 'icon',
@@ -610,6 +718,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Optional decorative icon before the item content.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.breadcrumb.api.breadcrumb-item-props.properties.icon.description',
           },
           {
             name: 'className',
@@ -618,6 +728,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the link or current-page element.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.breadcrumb.api.breadcrumb-item-props.properties.class-name.description',
           },
           {
             name: 'href',
@@ -626,8 +738,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Native link destination.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.breadcrumb.api.breadcrumb-item-props.properties.href.description',
           },
         ],
+        descriptionTranslationKey: 'components.breadcrumb.api.breadcrumb-item-props.description',
       },
     ],
   },
@@ -642,6 +757,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.button.api.button-variant.description',
       },
       {
         name: 'ButtonSize',
@@ -651,6 +767,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.button.api.button-size.description',
       },
       {
         name: 'ButtonShape',
@@ -660,6 +777,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.button.api.button-shape.description',
       },
       {
         name: 'TextButtonProps',
@@ -676,6 +794,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Visible text label for the action.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.text-button-props.properties.children.description',
           },
           {
             name: 'iconOnly',
@@ -684,6 +804,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Keeps the default text-button layout.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.text-button-props.properties.icon-only.description',
           },
           {
             name: 'shape',
@@ -692,6 +814,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Icon-only geometry is not available for text buttons.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.text-button-props.properties.shape.description',
           },
           {
             name: 'leadingIcon',
@@ -700,6 +824,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative content rendered before the label.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.text-button-props.properties.leading-icon.description',
           },
           {
             name: 'trailingIcon',
@@ -708,6 +834,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative content rendered after the label.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.text-button-props.properties.trailing-icon.description',
           },
           {
             name: 'variant',
@@ -716,6 +844,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'primary'",
             description: 'Visual treatment of the button.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.text-button-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -724,8 +854,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'medium'",
             description: 'Visual size of the button.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.text-button-props.properties.size.description',
           },
         ],
+        descriptionTranslationKey: 'components.button.api.text-button-props.description',
       },
       {
         name: 'IconOnlyButtonProps',
@@ -742,6 +875,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Renders a compact control whose child is the action icon.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.icon-only-button-props.properties.icon-only.description',
           },
           {
             name: 'aria-label',
@@ -750,6 +885,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Accessible name required because the action has no visible text label.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.icon-only-button-props.properties.aria-label.description',
           },
           {
             name: 'children',
@@ -758,6 +895,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: "Icon rendered as the button's only visible content.",
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.icon-only-button-props.properties.children.description',
           },
           {
             name: 'shape',
@@ -766,6 +905,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'square'",
             description: 'Geometry of an icon-only button.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.icon-only-button-props.properties.shape.description',
           },
           {
             name: 'leadingIcon',
@@ -774,6 +915,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.icon-only-button-props.properties.leading-icon.description',
           },
           {
             name: 'trailingIcon',
@@ -782,6 +925,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.icon-only-button-props.properties.trailing-icon.description',
           },
           {
             name: 'variant',
@@ -790,6 +935,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'primary'",
             description: 'Visual treatment of the button.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.icon-only-button-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -798,8 +945,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'medium'",
             description: 'Visual size of the button.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.icon-only-button-props.properties.size.description',
           },
         ],
+        descriptionTranslationKey: 'components.button.api.icon-only-button-props.description',
       },
       {
         name: 'ButtonProps',
@@ -817,6 +967,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               "Visible text label for the action.\nIcon rendered as the button's only visible content.",
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-props.properties.children.description',
           },
           {
             name: 'iconOnly',
@@ -826,6 +978,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Keeps the default text-button layout.\nRenders a compact control whose child is the action icon.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-props.properties.icon-only.description',
           },
           {
             name: 'shape',
@@ -835,6 +989,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Icon-only geometry is not available for text buttons.\nGeometry of an icon-only button.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-props.properties.shape.description',
           },
           {
             name: 'leadingIcon',
@@ -843,6 +999,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative content rendered before the label.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-props.properties.leading-icon.description',
           },
           {
             name: 'trailingIcon',
@@ -851,6 +1009,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative content rendered after the label.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-props.properties.trailing-icon.description',
           },
           {
             name: 'variant',
@@ -859,6 +1019,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'primary'",
             description: 'Visual treatment of the button.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -867,6 +1029,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'medium'",
             description: 'Visual size of the button.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-props.properties.size.description',
           },
           {
             name: 'aria-label',
@@ -876,8 +1040,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Defines a string value that labels the current element.\nAccessible name required because the action has no visible text label.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-props.properties.aria-label.description',
           },
         ],
+        descriptionTranslationKey: 'components.button.api.button-props.description',
       },
     ],
   },
@@ -892,6 +1059,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.card.api.card-variant.description',
       },
       {
         name: 'CardSize',
@@ -901,6 +1069,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.card.api.card-size.description',
       },
       {
         name: 'CardTitleElement',
@@ -910,6 +1079,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.card.api.card-title-element.description',
       },
       {
         name: 'CardProps',
@@ -926,6 +1096,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'default'",
             description: 'Structural presentation mapped to existing Surface tokens.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.card.api.card-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -934,8 +1106,10 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'md'",
             description: 'Internal spacing scale.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey: 'components.card.api.card-props.properties.size.description',
           },
         ],
+        descriptionTranslationKey: 'components.card.api.card-props.description',
       },
       {
         name: 'CardRootProps',
@@ -952,6 +1126,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'default'",
             description: 'Structural presentation mapped to existing Surface tokens.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.card.api.card-root-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -960,8 +1136,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'md'",
             description: 'Internal spacing scale.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.card.api.card-root-props.properties.size.description',
           },
         ],
+        descriptionTranslationKey: 'components.card.api.card-root-props.description',
       },
       {
         name: 'CardHeaderProps',
@@ -971,6 +1150,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.card.api.card-header-props.description',
       },
       {
         name: 'CardBodyProps',
@@ -980,6 +1160,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.card.api.card-body-props.description',
       },
       {
         name: 'CardFooterProps',
@@ -989,6 +1170,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.card.api.card-footer-props.description',
       },
       {
         name: 'CardTitleProps',
@@ -1005,8 +1187,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'div'",
             description: 'Consumer-selected heading level. Defaults to a neutral div.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.card.api.card-title-props.properties.as.description',
           },
         ],
+        descriptionTranslationKey: 'components.card.api.card-title-props.description',
       },
       {
         name: 'CardDescriptionProps',
@@ -1016,6 +1201,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.card.api.card-description-props.description',
       },
     ],
   },
@@ -1037,6 +1223,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Optional visible label rendered beside the checkbox control.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.checkbox.api.checkbox-props.properties.children.description',
           },
           {
             name: 'className',
@@ -1045,6 +1233,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the Checkbox root label.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.checkbox.api.checkbox-props.properties.class-name.description',
           },
           {
             name: 'indeterminate',
@@ -1053,8 +1243,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Displays the native checkbox in a mixed state.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.checkbox.api.checkbox-props.properties.indeterminate.description',
           },
         ],
+        descriptionTranslationKey: 'components.checkbox.api.checkbox-props.description',
       },
       {
         name: 'CheckboxGroupProps',
@@ -1071,6 +1264,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled selected values.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.checkbox.api.checkbox-group-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -1079,6 +1274,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initial selected values for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.checkbox.api.checkbox-group-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -1087,6 +1284,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called whenever the selected values change.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.checkbox.api.checkbox-group-props.properties.on-value-change.description',
           },
           {
             name: 'name',
@@ -1095,6 +1294,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Shared native name forwarded to grouped checkboxes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.checkbox.api.checkbox-group-props.properties.name.description',
           },
           {
             name: 'disabled',
@@ -1103,6 +1304,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Disables every checkbox in the group.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.checkbox.api.checkbox-group-props.properties.disabled.description',
           },
           {
             name: 'children',
@@ -1111,8 +1314,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.checkbox.api.checkbox-group-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey: 'components.checkbox.api.checkbox-group-props.description',
       },
     ],
   },
@@ -1134,6 +1340,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-props.properties.search.description',
           },
           {
             name: 'defaultSearch',
@@ -1142,6 +1350,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-props.properties.default-search.description',
           },
           {
             name: 'onSearchChange',
@@ -1150,6 +1360,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-props.properties.on-search-change.description',
           },
           {
             name: 'value',
@@ -1158,6 +1370,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -1166,6 +1380,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -1174,6 +1390,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-props.properties.on-value-change.description',
           },
           {
             name: 'shouldFilter',
@@ -1183,6 +1401,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Disable built-in filtering while retaining the collection and keyboard protocol.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-props.properties.should-filter.description',
           },
           {
             name: 'filter',
@@ -1191,8 +1411,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-props.properties.filter.description',
           },
         ],
+        descriptionTranslationKey: 'components.command.api.command-props.description',
       },
       {
         name: 'CommandRootProps',
@@ -1209,6 +1432,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-root-props.properties.search.description',
           },
           {
             name: 'defaultSearch',
@@ -1217,6 +1442,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-root-props.properties.default-search.description',
           },
           {
             name: 'onSearchChange',
@@ -1225,6 +1452,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-root-props.properties.on-search-change.description',
           },
           {
             name: 'value',
@@ -1233,6 +1462,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-root-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -1241,6 +1472,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-root-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -1249,6 +1482,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-root-props.properties.on-value-change.description',
           },
           {
             name: 'shouldFilter',
@@ -1258,6 +1493,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Disable built-in filtering while retaining the collection and keyboard protocol.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-root-props.properties.should-filter.description',
           },
           {
             name: 'filter',
@@ -1266,8 +1503,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-root-props.properties.filter.description',
           },
         ],
+        descriptionTranslationKey: 'components.command.api.command-root-props.description',
       },
       {
         name: 'CommandInputProps',
@@ -1277,6 +1517,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.command.api.command-input-props.description',
       },
       {
         name: 'CommandListProps',
@@ -1286,6 +1527,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.command.api.command-list-props.description',
       },
       {
         name: 'CommandEmptyProps',
@@ -1295,6 +1537,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.command.api.command-empty-props.description',
       },
       {
         name: 'CommandGroupProps',
@@ -1311,8 +1554,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-group-props.properties.heading.description',
           },
         ],
+        descriptionTranslationKey: 'components.command.api.command-group-props.description',
       },
       {
         name: 'CommandSeparatorProps',
@@ -1322,6 +1568,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.command.api.command-separator-props.description',
       },
       {
         name: 'CommandItemProps',
@@ -1338,6 +1585,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative leading icon.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.command.api.command-item-props.properties.icon.description',
           },
           {
             name: 'shortcut',
@@ -1346,6 +1595,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Display-only key hint. It does not register a shortcut.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.command.api.command-item-props.properties.shortcut.description',
           },
           {
             name: 'value',
@@ -1354,6 +1605,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-item-props.properties.value.description',
           },
           {
             name: 'keywords',
@@ -1362,6 +1615,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-item-props.properties.keywords.description',
           },
           {
             name: 'disabled',
@@ -1370,6 +1625,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-item-props.properties.disabled.description',
           },
           {
             name: 'textValue',
@@ -1378,6 +1635,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-item-props.properties.text-value.description',
           },
           {
             name: 'onSelect',
@@ -1386,8 +1645,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-item-props.properties.on-select.description',
           },
         ],
+        descriptionTranslationKey: 'components.command.api.command-item-props.description',
       },
       {
         name: 'CommandDialogProps',
@@ -1405,6 +1667,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.class-name.description',
           },
           {
             name: 'contentClassName',
@@ -1413,6 +1677,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.content-class-name.description',
           },
           {
             name: 'overlayClassName',
@@ -1421,6 +1687,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.overlay-class-name.description',
           },
           {
             name: 'aria-label',
@@ -1429,6 +1697,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.aria-label.description',
           },
           {
             name: 'open',
@@ -1437,6 +1707,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -1445,6 +1717,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -1453,6 +1727,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.on-open-change.description',
           },
           {
             name: 'modal',
@@ -1461,6 +1737,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'true',
             description: 'Prevent interaction with content outside the dialog while open.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.modal.description',
           },
           {
             name: 'defaultValue',
@@ -1469,6 +1747,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.default-value.description',
           },
           {
             name: 'value',
@@ -1477,6 +1757,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.value.description',
           },
           {
             name: 'search',
@@ -1485,6 +1767,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.search.description',
           },
           {
             name: 'defaultSearch',
@@ -1493,6 +1777,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.default-search.description',
           },
           {
             name: 'onSearchChange',
@@ -1501,6 +1787,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.on-search-change.description',
           },
           {
             name: 'onValueChange',
@@ -1509,6 +1797,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.on-value-change.description',
           },
           {
             name: 'shouldFilter',
@@ -1518,6 +1808,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Disable built-in filtering while retaining the collection and keyboard protocol.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.should-filter.description',
           },
           {
             name: 'filter',
@@ -1526,8 +1818,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.command.api.command-dialog-props.properties.filter.description',
           },
         ],
+        descriptionTranslationKey: 'components.command.api.command-dialog-props.description',
       },
     ],
   },
@@ -1549,6 +1844,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.context-menu.api.context-menu-props.properties.size.description',
           },
           {
             name: 'open',
@@ -1557,6 +1854,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.context-menu.api.context-menu-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -1565,6 +1864,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.context-menu.api.context-menu-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -1573,6 +1874,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.context-menu.api.context-menu-props.properties.on-open-change.description',
           },
           {
             name: 'disabled',
@@ -1581,8 +1884,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.context-menu.api.context-menu-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'components.context-menu.api.context-menu-props.description',
       },
       {
         name: 'ContextMenuContentProps',
@@ -1599,6 +1905,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.context-menu.api.context-menu-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -1607,8 +1915,12 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.context-menu.api.context-menu-content-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey:
+          'components.context-menu.api.context-menu-content-props.description',
       },
       {
         name: 'ContextMenuTriggerProps',
@@ -1625,6 +1937,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.context-menu.api.context-menu-trigger-props.properties.disabled.description',
           },
           {
             name: 'render',
@@ -1633,8 +1947,12 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.context-menu.api.context-menu-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey:
+          'components.context-menu.api.context-menu-trigger-props.description',
       },
     ],
   },
@@ -1656,6 +1974,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'bottomLeft'",
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-follower-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -1664,6 +1984,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '18',
             description: 'Gap from the pointer, in pixels.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-follower-props.properties.offset.description',
           },
           {
             name: 'offsetX',
@@ -1672,8 +1994,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '12',
             description: 'Horizontal anchor adjustment, in pixels.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-follower-props.properties.offset-x.description',
           },
         ],
+        descriptionTranslationKey: 'components.cursor.api.cursor-follower-props.description',
       },
       {
         name: 'CursorFollowOptions',
@@ -1691,8 +2016,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Let descendant Tooltips follow mouse hover. Keyboard focus stays element anchored.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-follow-options.properties.tooltip.description',
           },
         ],
+        descriptionTranslationKey: 'components.cursor.api.cursor-follow-options.description',
       },
       {
         name: 'CursorPointer',
@@ -1710,6 +2038,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Stable external store. Subscribe in an effect for frame-coalesced updates without React renders.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-pointer.properties.get-snapshot.description',
           },
           {
             name: 'subscribe',
@@ -1718,6 +2048,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-pointer.properties.subscribe.description',
           },
           {
             name: 'reset',
@@ -1727,6 +2059,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Hide/reset all pointer feedback, for example before a client-side navigation.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-pointer.properties.reset.description',
           },
           {
             name: 'follow',
@@ -1735,6 +2069,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-pointer.properties.follow.description',
           },
           {
             name: 'scopeRef',
@@ -1743,8 +2079,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-pointer.properties.scope-ref.description',
           },
         ],
+        descriptionTranslationKey: 'components.cursor.api.cursor-pointer.description',
       },
       {
         name: 'CursorSnapshot',
@@ -1761,6 +2100,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-snapshot.properties.x.description',
           },
           {
             name: 'y',
@@ -1769,6 +2110,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-snapshot.properties.y.description',
           },
           {
             name: 'active',
@@ -1777,6 +2120,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-snapshot.properties.active.description',
           },
           {
             name: 'visible',
@@ -1785,6 +2130,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-snapshot.properties.visible.description',
           },
           {
             name: 'pointerType',
@@ -1793,6 +2140,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-snapshot.properties.pointer-type.description',
           },
           {
             name: 'buttons',
@@ -1801,8 +2150,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-snapshot.properties.buttons.description',
           },
         ],
+        descriptionTranslationKey: 'components.cursor.api.cursor-snapshot.description',
       },
       {
         name: 'CursorSize',
@@ -1812,6 +2164,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.cursor.api.cursor-size.description',
       },
       {
         name: 'CursorProviderProps',
@@ -1829,6 +2182,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Default Virgo visual: sm=16px, md=20px, lg=24px. Custom visuals own their dimensions.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-provider-props.properties.size.description',
           },
           {
             name: 'cursor',
@@ -1837,6 +2192,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-provider-props.properties.cursor.description',
           },
           {
             name: 'follow',
@@ -1845,6 +2202,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-provider-props.properties.follow.description',
           },
           {
             name: 'disabled',
@@ -1853,6 +2212,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-provider-props.properties.disabled.description',
           },
           {
             name: 'resetKey',
@@ -1862,6 +2223,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               "Changing this value resets feedback; pass your router's location key for SPA navigation.",
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-provider-props.properties.reset-key.description',
           },
           {
             name: 'hotspot',
@@ -1871,6 +2234,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Pixel coordinate within the custom visual that coincides with the pointer.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-provider-props.properties.hotspot.description',
           },
           {
             name: 'visualClassName',
@@ -1879,8 +2244,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Class for the portalled, non-interactive visual layer.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-provider-props.properties.visual-class-name.description',
           },
         ],
+        descriptionTranslationKey: 'components.cursor.api.cursor-provider-props.description',
       },
       {
         name: 'CursorVisualProps',
@@ -1897,8 +2265,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'md'",
             description: 'sm=16px, md=20px, lg=24px.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.cursor.api.cursor-visual-props.properties.size.description',
           },
         ],
+        descriptionTranslationKey: 'components.cursor.api.cursor-visual-props.description',
       },
     ],
   },
@@ -1913,6 +2284,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.dialog.api.dialog-size.description',
       },
       {
         name: 'DialogProps',
@@ -1929,6 +2301,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -1937,6 +2311,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -1945,6 +2321,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-props.properties.on-open-change.description',
           },
           {
             name: 'modal',
@@ -1953,8 +2331,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'true',
             description: 'Prevent interaction with content outside the dialog while open.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-props.properties.modal.description',
           },
         ],
+        descriptionTranslationKey: 'components.dialog.api.dialog-props.description',
       },
       {
         name: 'DialogRootProps',
@@ -1971,6 +2352,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-root-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -1979,6 +2362,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-root-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -1987,6 +2372,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-root-props.properties.on-open-change.description',
           },
           {
             name: 'modal',
@@ -1995,8 +2382,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'true',
             description: 'Prevent interaction with content outside the dialog while open.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-root-props.properties.modal.description',
           },
         ],
+        descriptionTranslationKey: 'components.dialog.api.dialog-root-props.description',
       },
       {
         name: 'DialogTriggerProps',
@@ -2013,6 +2403,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'outline'",
             description: 'Virgo Button treatment when no custom render is supplied.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-trigger-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -2021,6 +2413,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'medium'",
             description: 'Virgo Button size when no custom render is supplied.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-trigger-props.properties.size.description',
           },
           {
             name: 'render',
@@ -2029,8 +2423,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'components.dialog.api.dialog-trigger-props.description',
       },
       {
         name: 'DialogPortalProps',
@@ -2047,8 +2444,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-portal-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey: 'components.dialog.api.dialog-portal-props.description',
       },
       {
         name: 'DialogOverlayProps',
@@ -2058,6 +2458,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.dialog.api.dialog-overlay-props.description',
       },
       {
         name: 'DialogContentProps',
@@ -2074,6 +2475,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'md'",
             description: 'Width and internal spacing of the dialog panel.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-content-props.properties.size.description',
           },
           {
             name: 'onOpenAutoFocus',
@@ -2082,6 +2485,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-content-props.properties.on-open-auto-focus.description',
           },
           {
             name: 'onCloseAutoFocus',
@@ -2090,6 +2495,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-content-props.properties.on-close-auto-focus.description',
           },
           {
             name: 'onEscapeKeyDown',
@@ -2098,6 +2505,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-content-props.properties.on-escape-key-down.description',
           },
           {
             name: 'onPointerDownOutside',
@@ -2106,8 +2515,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-content-props.properties.on-pointer-down-outside.description',
           },
         ],
+        descriptionTranslationKey: 'components.dialog.api.dialog-content-props.description',
       },
       {
         name: 'DialogHeaderProps',
@@ -2117,6 +2529,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.dialog.api.dialog-header-props.description',
       },
       {
         name: 'DialogBodyProps',
@@ -2126,6 +2539,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.dialog.api.dialog-body-props.description',
       },
       {
         name: 'DialogFooterProps',
@@ -2135,6 +2549,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.dialog.api.dialog-footer-props.description',
       },
       {
         name: 'DialogTitleProps',
@@ -2144,6 +2559,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.dialog.api.dialog-title-props.description',
       },
       {
         name: 'DialogDescriptionProps',
@@ -2153,6 +2569,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.dialog.api.dialog-description-props.description',
       },
       {
         name: 'DialogCloseProps',
@@ -2169,6 +2586,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'outline'",
             description: 'Virgo Button treatment when no custom render is supplied.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-close-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -2177,6 +2596,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'medium'",
             description: 'Virgo Button size when no custom render is supplied.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-close-props.properties.size.description',
           },
           {
             name: 'render',
@@ -2185,8 +2606,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dialog.api.dialog-close-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'components.dialog.api.dialog-close-props.description',
       },
     ],
   },
@@ -2201,6 +2625,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.dock.api.dock-chrome-visibility.description',
       },
       {
         name: 'DockRootProps',
@@ -2217,6 +2642,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled edge placement.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.placement.description',
           },
           {
             name: 'defaultPlacement',
@@ -2226,6 +2653,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Controlled placement owns initialization.\nInitial placement when no persisted value exists.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.default-placement.description',
           },
           {
             name: 'persist',
@@ -2235,6 +2664,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Persistence belongs to the external state owner in controlled mode.\nPersist uncontrolled placement across reloads using browser storage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.persist.description',
           },
           {
             name: 'children',
@@ -2243,6 +2674,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.children.description',
           },
           {
             name: 'onPlacementChange',
@@ -2251,6 +2684,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called whenever pointer or keyboard interaction changes placement.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.on-placement-change.description',
           },
           {
             name: 'allowedEdges',
@@ -2259,6 +2694,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "['top', 'right', 'bottom', 'left']",
             description: 'Edges available to placement and repositioning.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.allowed-edges.description',
           },
           {
             name: 'snapDivisions',
@@ -2268,6 +2705,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Number of equal snap intervals along each edge, or false for continuous free positioning.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.snap-divisions.description',
           },
           {
             name: 'disabled',
@@ -2276,6 +2715,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Disables drag and keyboard repositioning.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.disabled.description',
           },
           {
             name: 'locked',
@@ -2285,6 +2726,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Prevents pointer and keyboard movement without changing positioning mode.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.locked.description',
           },
           {
             name: 'defaultLocked',
@@ -2293,6 +2736,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Initial uncontrolled movement lock.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.default-locked.description',
           },
           {
             name: 'onLockedChange',
@@ -2301,6 +2746,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.on-locked-change.description',
           },
           {
             name: 'pinned',
@@ -2310,6 +2757,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Fixes the current docking frame in the viewport without jumping; movement remains enabled unless locked or disabled.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.pinned.description',
           },
           {
             name: 'defaultPinned',
@@ -2318,6 +2767,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Initial uncontrolled fixed positioning.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.default-pinned.description',
           },
           {
             name: 'onPinnedChange',
@@ -2326,6 +2777,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.on-pinned-change.description',
           },
           {
             name: 'chromeVisibility',
@@ -2335,8 +2788,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'When the shell, movement handle, and built-in lock/pin controls are revealed.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dock.api.dock-root-props.properties.chrome-visibility.description',
           },
         ],
+        descriptionTranslationKey: 'components.dock.api.dock-root-props.description',
       },
       {
         name: 'DockBoundaryProps',
@@ -2346,6 +2802,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.dock.api.dock-boundary-props.description',
       },
       {
         name: 'DockHandleProps',
@@ -2362,8 +2819,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'start'",
             description: 'Logical position of the movement handle within Dock.Root.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-handle-props.properties.position.description',
           },
         ],
+        descriptionTranslationKey: 'components.dock.api.dock-handle-props.description',
       },
       {
         name: 'DockContentProps',
@@ -2373,6 +2833,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.dock.api.dock-content-props.description',
       },
       {
         name: 'DockEdge',
@@ -2382,6 +2843,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [],
+        descriptionTranslationKey: 'components.dock.api.dock-edge.description',
       },
       {
         name: 'DockHandlePosition',
@@ -2391,6 +2853,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [],
+        descriptionTranslationKey: 'components.dock.api.dock-handle-position.description',
       },
       {
         name: 'DockOrientation',
@@ -2400,6 +2863,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [],
+        descriptionTranslationKey: 'components.dock.api.dock-orientation.description',
       },
       {
         name: 'DockPersistenceStorage',
@@ -2409,6 +2873,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [],
+        descriptionTranslationKey: 'components.dock.api.dock-persistence-storage.description',
       },
       {
         name: 'DockPersistOptions',
@@ -2426,6 +2891,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               "Stable consumer-owned identity used inside Virgo Design's storage namespace.",
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-persist-options.properties.key.description',
           },
           {
             name: 'storage',
@@ -2434,8 +2901,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Browser storage lifetime used for uncontrolled placement persistence.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-persist-options.properties.storage.description',
           },
         ],
+        descriptionTranslationKey: 'components.dock.api.dock-persist-options.description',
       },
       {
         name: 'DockPlacement',
@@ -2452,6 +2922,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Edge of the containing Dock.Boundary.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-placement.properties.edge.description',
           },
           {
             name: 'position',
@@ -2460,8 +2932,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Normalized position along the active edge, from 0 to 1.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-placement.properties.position.description',
           },
         ],
+        descriptionTranslationKey: 'components.dock.api.dock-placement.description',
       },
       {
         name: 'DockSnapDivisions',
@@ -2471,6 +2946,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [],
+        descriptionTranslationKey: 'components.dock.api.dock-snap-divisions.description',
       },
       {
         name: 'DockState',
@@ -2487,6 +2963,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-state.properties.placement.description',
           },
           {
             name: 'orientation',
@@ -2495,6 +2973,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-state.properties.orientation.description',
           },
           {
             name: 'dragging',
@@ -2503,6 +2983,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-state.properties.dragging.description',
           },
           {
             name: 'locked',
@@ -2511,6 +2993,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-state.properties.locked.description',
           },
           {
             name: 'pinned',
@@ -2519,6 +3003,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-state.properties.pinned.description',
           },
           {
             name: 'setLocked',
@@ -2527,6 +3013,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-state.properties.set-locked.description',
           },
           {
             name: 'setPinned',
@@ -2535,6 +3023,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-state.properties.set-pinned.description',
           },
           {
             name: 'setPlacement',
@@ -2543,8 +3033,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dock.api.dock-state.properties.set-placement.description',
           },
         ],
+        descriptionTranslationKey: 'components.dock.api.dock-state.description',
       },
     ],
   },
@@ -2559,6 +3052,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.drawer.api.drawer-placement.description',
       },
       {
         name: 'DrawerSize',
@@ -2568,6 +3062,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.drawer.api.drawer-size.description',
       },
       {
         name: 'DrawerProps',
@@ -2584,6 +3079,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -2592,6 +3089,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -2600,6 +3099,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-props.properties.on-open-change.description',
           },
           {
             name: 'modal',
@@ -2608,8 +3109,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'true',
             description: 'Prevent interaction with content outside the dialog while open.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-props.properties.modal.description',
           },
         ],
+        descriptionTranslationKey: 'components.drawer.api.drawer-props.description',
       },
       {
         name: 'DrawerRootProps',
@@ -2626,6 +3130,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-root-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -2634,6 +3140,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-root-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -2642,6 +3150,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-root-props.properties.on-open-change.description',
           },
           {
             name: 'modal',
@@ -2650,8 +3160,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'true',
             description: 'Prevent interaction with content outside the dialog while open.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-root-props.properties.modal.description',
           },
         ],
+        descriptionTranslationKey: 'components.drawer.api.drawer-root-props.description',
       },
       {
         name: 'DrawerTriggerProps',
@@ -2668,6 +3181,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'outline'",
             description: 'Virgo Button treatment when no custom render is supplied.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-trigger-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -2676,6 +3191,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'medium'",
             description: 'Virgo Button size when no custom render is supplied.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-trigger-props.properties.size.description',
           },
           {
             name: 'render',
@@ -2684,8 +3201,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'components.drawer.api.drawer-trigger-props.description',
       },
       {
         name: 'DrawerPortalProps',
@@ -2702,8 +3222,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-portal-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey: 'components.drawer.api.drawer-portal-props.description',
       },
       {
         name: 'DrawerOverlayProps',
@@ -2713,6 +3236,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.drawer.api.drawer-overlay-props.description',
       },
       {
         name: 'DrawerContentProps',
@@ -2729,6 +3253,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'right'",
             description: 'Screen edge from which the panel enters.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-content-props.properties.placement.description',
           },
           {
             name: 'size',
@@ -2737,6 +3263,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'md'",
             description: 'Width for left/right drawers or height for top/bottom drawers.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-content-props.properties.size.description',
           },
           {
             name: 'onOpenAutoFocus',
@@ -2745,6 +3273,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-content-props.properties.on-open-auto-focus.description',
           },
           {
             name: 'onCloseAutoFocus',
@@ -2753,6 +3283,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-content-props.properties.on-close-auto-focus.description',
           },
           {
             name: 'onEscapeKeyDown',
@@ -2761,6 +3293,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-content-props.properties.on-escape-key-down.description',
           },
           {
             name: 'onPointerDownOutside',
@@ -2769,8 +3303,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-content-props.properties.on-pointer-down-outside.description',
           },
         ],
+        descriptionTranslationKey: 'components.drawer.api.drawer-content-props.description',
       },
       {
         name: 'DrawerHeaderProps',
@@ -2780,6 +3317,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.drawer.api.drawer-header-props.description',
       },
       {
         name: 'DrawerBodyProps',
@@ -2789,6 +3327,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.drawer.api.drawer-body-props.description',
       },
       {
         name: 'DrawerFooterProps',
@@ -2798,6 +3337,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.drawer.api.drawer-footer-props.description',
       },
       {
         name: 'DrawerTitleProps',
@@ -2807,6 +3347,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.drawer.api.drawer-title-props.description',
       },
       {
         name: 'DrawerDescriptionProps',
@@ -2816,6 +3357,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.drawer.api.drawer-description-props.description',
       },
       {
         name: 'DrawerCloseProps',
@@ -2832,6 +3374,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'outline'",
             description: 'Virgo Button treatment when visible text is supplied.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-close-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -2840,6 +3384,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'small' for the icon control, otherwise 'medium'",
             description: 'Virgo Button size.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-close-props.properties.size.description',
           },
           {
             name: 'render',
@@ -2848,8 +3394,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.drawer.api.drawer-close-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'components.drawer.api.drawer-close-props.description',
       },
     ],
   },
@@ -2864,6 +3413,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [],
+        descriptionTranslationKey: 'components.dropdown.api.dropdown-placement.description',
       },
       {
         name: 'DropdownProps',
@@ -2880,6 +3430,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-props.properties.size.description',
           },
           {
             name: 'trigger',
@@ -2888,6 +3440,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Pointer activation; keyboard and touch activation work in both modes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-props.properties.trigger.description',
           },
           {
             name: 'open',
@@ -2896,6 +3450,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -2904,6 +3460,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -2912,6 +3470,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-props.properties.on-open-change.description',
           },
           {
             name: 'disabled',
@@ -2920,8 +3480,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'components.dropdown.api.dropdown-props.description',
       },
       {
         name: 'DropdownTriggerProps',
@@ -2938,6 +3501,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-trigger-props.properties.variant.description',
           },
           {
             name: 'danger',
@@ -2946,6 +3511,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-trigger-props.properties.danger.description',
           },
           {
             name: 'indicator',
@@ -2954,8 +3521,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative trailing icon; false hides it. Defaults to ChevronDownIcon.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-trigger-props.properties.indicator.description',
           },
         ],
+        descriptionTranslationKey: 'components.dropdown.api.dropdown-trigger-props.description',
       },
       {
         name: 'DropdownContentProps',
@@ -2972,6 +3542,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-content-props.properties.arrow.description',
           },
           {
             name: 'placement',
@@ -2980,6 +3552,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Preferred physical placement; flips and shifts at viewport edges.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -2988,8 +3562,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-content-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey: 'components.dropdown.api.dropdown-content-props.description',
       },
       {
         name: 'DropdownItemProps',
@@ -3006,6 +3583,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-item-props.properties.icon.description',
           },
           {
             name: 'danger',
@@ -3014,6 +3593,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-item-props.properties.danger.description',
           },
           {
             name: 'checked',
@@ -3022,6 +3603,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Supplying checked turns the item into a menuitemradio.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-item-props.properties.checked.description',
           },
           {
             name: 'onSelect',
@@ -3030,8 +3613,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: "Prevent the event's default to keep the menu open.",
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-item-props.properties.on-select.description',
           },
         ],
+        descriptionTranslationKey: 'components.dropdown.api.dropdown-item-props.description',
       },
       {
         name: 'DropdownButtonProps',
@@ -3048,6 +3634,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Accessible label for the separate menu button.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-button-props.properties.menu-label.description',
           },
           {
             name: 'menuIcon',
@@ -3056,6 +3644,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-button-props.properties.menu-icon.description',
           },
           {
             name: 'variant',
@@ -3064,6 +3654,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-button-props.properties.variant.description',
           },
           {
             name: 'danger',
@@ -3072,8 +3664,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-button-props.properties.danger.description',
           },
         ],
+        descriptionTranslationKey: 'components.dropdown.api.dropdown-button-props.description',
       },
     ],
   },
@@ -3088,6 +3683,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.empty.api.empty-size.description',
       },
       {
         name: 'EmptyProps',
@@ -3104,8 +3700,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'md'",
             description: 'Empty-state spacing and typography scale.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.empty.api.empty-props.properties.size.description',
           },
         ],
+        descriptionTranslationKey: 'components.empty.api.empty-props.description',
       },
       {
         name: 'EmptyRootProps',
@@ -3122,8 +3721,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'md'",
             description: 'Empty-state spacing and typography scale.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.empty.api.empty-root-props.properties.size.description',
           },
         ],
+        descriptionTranslationKey: 'components.empty.api.empty-root-props.description',
       },
       {
         name: 'EmptyIconProps',
@@ -3133,6 +3735,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.empty.api.empty-icon-props.description',
       },
       {
         name: 'EmptyTitleProps',
@@ -3142,6 +3745,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.empty.api.empty-title-props.description',
       },
       {
         name: 'EmptyDescriptionProps',
@@ -3151,6 +3755,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.empty.api.empty-description-props.description',
       },
       {
         name: 'EmptyActionProps',
@@ -3160,6 +3765,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.empty.api.empty-action-props.description',
       },
     ],
   },
@@ -3181,6 +3787,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Accessible name required because the action has no visible text label.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-props.properties.aria-label.description',
           },
           {
             name: 'children',
@@ -3189,6 +3797,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: "Icon rendered as the button's only visible content.",
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-props.properties.children.description',
           },
           {
             name: 'size',
@@ -3197,6 +3807,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'medium'",
             description: 'Visual size of the button.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-props.properties.size.description',
           },
           {
             name: 'leadingIcon',
@@ -3205,6 +3817,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-props.properties.leading-icon.description',
           },
           {
             name: 'trailingIcon',
@@ -3213,6 +3827,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-props.properties.trailing-icon.description',
           },
           {
             name: 'variant',
@@ -3221,8 +3837,12 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'primary'",
             description: 'Visual treatment of the button.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-props.properties.variant.description',
           },
         ],
+        descriptionTranslationKey:
+          'components.floating-action.api.floating-action-props.description',
       },
       {
         name: 'FloatingActionGroupProps',
@@ -3239,6 +3859,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-group-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -3247,6 +3869,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-group-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -3255,6 +3879,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-group-props.properties.on-open-change.description',
           },
           {
             name: 'trigger',
@@ -3263,6 +3889,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'click'",
             description: 'Pointer activation. Both modes support keyboard and touch clicks.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-group-props.properties.trigger.description',
           },
           {
             name: 'disabled',
@@ -3271,6 +3899,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-group-props.properties.disabled.description',
           },
           {
             name: 'restoreFocusOnClose',
@@ -3280,8 +3910,12 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Return focus to the trigger after programmatic close. Escape always returns focus.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-group-props.properties.restore-focus-on-close.description',
           },
         ],
+        descriptionTranslationKey:
+          'components.floating-action.api.floating-action-group-props.description',
       },
       {
         name: 'FloatingActionTriggerProps',
@@ -3298,6 +3932,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Required accessible name for the icon-only control.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-trigger-props.properties.aria-label.description',
           },
           {
             name: 'variant',
@@ -3306,6 +3942,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-trigger-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -3314,6 +3952,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-trigger-props.properties.size.description',
           },
           {
             name: 'render',
@@ -3322,8 +3962,12 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Supply a button which forwards the provided native props and ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey:
+          'components.floating-action.api.floating-action-trigger-props.description',
       },
       {
         name: 'FloatingActionContentProps',
@@ -3340,6 +3984,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'bottomStart'",
             description: "Logical Start/End alignments follow the trigger's direction.",
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -3348,8 +3994,12 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '8',
             description: 'Space between the trigger and panel, in pixels.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.floating-action.api.floating-action-content-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey:
+          'components.floating-action.api.floating-action-content-props.description',
       },
     ],
   },
@@ -3364,6 +4014,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.input.api.input-size.description',
       },
       {
         name: 'InputProps',
@@ -3380,6 +4031,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'medium'",
             description: 'Visual size of the input.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-props.properties.size.description',
           },
           {
             name: 'prefix',
@@ -3388,6 +4041,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative content rendered before the text-entry control.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-props.properties.prefix.description',
           },
           {
             name: 'suffix',
@@ -3396,6 +4051,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative content rendered after the text-entry control.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-props.properties.suffix.description',
           },
           {
             name: 'clearable',
@@ -3404,6 +4061,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Shows a clear action while the input has a value.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-props.properties.clearable.description',
           },
           {
             name: 'leadingIcon',
@@ -3412,6 +4071,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-props.properties.leading-icon.description',
           },
           {
             name: 'trailingIcon',
@@ -3420,6 +4081,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-props.properties.trailing-icon.description',
           },
           {
             name: 'invalid',
@@ -3428,8 +4091,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Applies the invalid visual treatment and sets aria-invalid when true.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-props.properties.invalid.description',
           },
         ],
+        descriptionTranslationKey: 'components.input.api.input-props.description',
       },
       {
         name: 'InputPasswordProps',
@@ -3446,6 +4112,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative content rendered before the text-entry control.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-password-props.properties.prefix.description',
           },
           {
             name: 'size',
@@ -3454,6 +4122,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'medium'",
             description: 'Visual size of the input.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-password-props.properties.size.description',
           },
           {
             name: 'leadingIcon',
@@ -3462,6 +4132,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-password-props.properties.leading-icon.description',
           },
           {
             name: 'trailingIcon',
@@ -3470,6 +4142,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-password-props.properties.trailing-icon.description',
           },
           {
             name: 'suffix',
@@ -3478,6 +4152,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative content rendered after the text-entry control.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-password-props.properties.suffix.description',
           },
           {
             name: 'clearable',
@@ -3486,6 +4162,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Shows a clear action while the input has a value.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-password-props.properties.clearable.description',
           },
           {
             name: 'invalid',
@@ -3494,8 +4172,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Applies the invalid visual treatment and sets aria-invalid when true.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-password-props.properties.invalid.description',
           },
         ],
+        descriptionTranslationKey: 'components.input.api.input-password-props.description',
       },
       {
         name: 'TextareaSize',
@@ -3505,6 +4186,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.input.api.textarea-size.description',
       },
       {
         name: 'TextareaProps',
@@ -3521,6 +4203,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'medium'",
             description: 'Visual density and minimum height of the textarea.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.textarea-props.properties.size.description',
           },
           {
             name: 'invalid',
@@ -3529,8 +4213,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Applies the invalid visual treatment and sets aria-invalid when true.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.textarea-props.properties.invalid.description',
           },
         ],
+        descriptionTranslationKey: 'components.input.api.textarea-props.description',
       },
     ],
   },
@@ -3545,6 +4232,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [],
+        descriptionTranslationKey: 'components.layout.api.layout-direction.description',
       },
       {
         name: 'LayoutSidebarState',
@@ -3561,6 +4249,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-state.properties.collapsed.description',
           },
           {
             name: 'setCollapsed',
@@ -3569,8 +4259,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-state.properties.set-collapsed.description',
           },
         ],
+        descriptionTranslationKey: 'components.layout.api.layout-sidebar-state.description',
       },
       {
         name: 'LayoutSidebarTriggerProps',
@@ -3587,8 +4280,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'components.layout.api.layout-sidebar-trigger-props.description',
       },
       {
         name: 'LayoutSurface',
@@ -3606,6 +4302,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'default'",
             description: 'Semantic surface color.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-surface.properties.tone.description',
           },
           {
             name: 'material',
@@ -3614,6 +4312,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'solid'",
             description: 'Surface treatment, independent of tone and background.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-surface.properties.material.description',
           },
           {
             name: 'background',
@@ -3622,6 +4322,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Optional decorative background below the material. Images do not repeat.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-surface.properties.background.description',
           },
           {
             name: 'elevation',
@@ -3630,6 +4332,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '0',
             description: 'Existing theme-aware elevation level.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-surface.properties.elevation.description',
           },
           {
             name: 'radius',
@@ -3638,6 +4342,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '0',
             description: 'Existing radius token.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-surface.properties.radius.description',
           },
           {
             name: 'border',
@@ -3646,8 +4352,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Semantic border. Defaults to subtle for glass, otherwise none.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-surface.properties.border.description',
           },
         ],
+        descriptionTranslationKey: 'components.layout.api.layout-surface.description',
       },
       {
         name: 'LayoutLength',
@@ -3657,6 +4366,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.layout.api.layout-length.description',
       },
       {
         name: 'LayoutSidebarSlot',
@@ -3666,6 +4376,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.layout.api.layout-sidebar-slot.description',
       },
       {
         name: 'LayoutProps',
@@ -3682,6 +4393,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the layout container.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-props.properties.class-name.description',
           },
           {
             name: 'minHeight',
@@ -3690,6 +4403,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-props.properties.min-height.description',
           },
           {
             name: 'surface',
@@ -3698,6 +4413,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-props.properties.surface.description',
           },
           {
             name: 'children',
@@ -3706,6 +4423,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Structural regions rendered in document order.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-props.properties.children.description',
           },
           {
             name: 'direction',
@@ -3714,8 +4433,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Direction in which the direct child regions are arranged.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-props.properties.direction.description',
           },
         ],
+        descriptionTranslationKey: 'components.layout.api.layout-props.description',
       },
       {
         name: 'LayoutHeaderProps',
@@ -3732,6 +4454,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the header region.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-header-props.properties.class-name.description',
           },
           {
             name: 'height',
@@ -3740,6 +4464,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-header-props.properties.height.description',
           },
           {
             name: 'position',
@@ -3748,6 +4474,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-header-props.properties.position.description',
           },
           {
             name: 'top',
@@ -3756,6 +4484,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-header-props.properties.top.description',
           },
           {
             name: 'gap',
@@ -3764,6 +4494,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Space between composed logo, content, and actions.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-header-props.properties.gap.description',
           },
           {
             name: 'paddingInline',
@@ -3772,6 +4504,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Logical inline padding for the composed header.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-header-props.properties.padding-inline.description',
           },
           {
             name: 'contentAlign',
@@ -3781,6 +4515,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Horizontal alignment of the optional content slot within its available space.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-header-props.properties.content-align.description',
           },
           {
             name: 'logo',
@@ -3789,6 +4525,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-header-props.properties.logo.description',
           },
           {
             name: 'actions',
@@ -3797,6 +4535,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-header-props.properties.actions.description',
           },
           {
             name: 'surface',
@@ -3805,8 +4545,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-header-props.properties.surface.description',
           },
         ],
+        descriptionTranslationKey: 'components.layout.api.layout-header-props.description',
       },
       {
         name: 'LayoutLaneProps',
@@ -3823,6 +4566,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the lane boundary.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-lane-props.properties.class-name.description',
           },
           {
             name: 'width',
@@ -3831,6 +4576,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'100%'",
             description: 'Lane width, independent from the width of the content nested inside it.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-lane-props.properties.width.description',
           },
           {
             name: 'maxWidth',
@@ -3839,6 +4586,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Optional upper bound for the lane width.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-lane-props.properties.max-width.description',
           },
           {
             name: 'minHeight',
@@ -3847,6 +4596,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Optional minimum block size for the lane.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-lane-props.properties.min-height.description',
           },
           {
             name: 'inset',
@@ -3855,6 +4606,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Shorthand inset between the lane boundary and in-flow children.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-lane-props.properties.inset.description',
           },
           {
             name: 'insetInline',
@@ -3863,6 +4616,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Logical inline inset. Overrides inset on the inline axis.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-lane-props.properties.inset-inline.description',
           },
           {
             name: 'insetBlock',
@@ -3871,6 +4626,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Logical block inset. Overrides inset on the block axis.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-lane-props.properties.inset-block.description',
           },
           {
             name: 'surface',
@@ -3879,6 +4636,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-lane-props.properties.surface.description',
           },
           {
             name: 'children',
@@ -3887,6 +4646,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Structural children that live within this spatial lane.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-lane-props.properties.children.description',
           },
           {
             name: 'direction',
@@ -3895,8 +4656,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Direction in which direct lane children are arranged.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-lane-props.properties.direction.description',
           },
         ],
+        descriptionTranslationKey: 'components.layout.api.layout-lane-props.description',
       },
       {
         name: 'LayoutSidebarProps',
@@ -3913,6 +4677,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Expanded width. Defaults to three sizing-80 tokens (240px).',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.width.description',
           },
           {
             name: 'collapsedWidth',
@@ -3922,6 +4688,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Rail width. Use numeric 0 with an edge or external trigger to hide the region.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.collapsed-width.description',
           },
           {
             name: 'collapsible',
@@ -3930,6 +4698,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.collapsible.description',
           },
           {
             name: 'header',
@@ -3938,6 +4708,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.header.description',
           },
           {
             name: 'footer',
@@ -3946,6 +4718,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.footer.description',
           },
           {
             name: 'trigger',
@@ -3955,6 +4729,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Omit for the default button; null hides it. Custom triggers use SidebarTrigger.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.trigger.description',
           },
           {
             name: 'triggerPlacement',
@@ -3963,6 +4739,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'footer'",
             description: 'Place the collapse control in the footer or on the outer edge.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.trigger-placement.description',
           },
           {
             name: 'collapseBelow',
@@ -3972,6 +4750,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Viewport width in px. Requests collapse on entry, restores the prior state on exit.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.collapse-below.description',
           },
           {
             name: 'resizable',
@@ -3980,6 +4760,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Allows pointer and keyboard resizing of the expanded sidebar width.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.resizable.description',
           },
           {
             name: 'minWidth',
@@ -3988,6 +4770,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Minimum resizable width in px.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.min-width.description',
           },
           {
             name: 'maxWidth',
@@ -3996,6 +4780,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Maximum resizable width in px.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.max-width.description',
           },
           {
             name: 'onWidthChange',
@@ -4004,6 +4790,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called while the resizable width changes.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.on-width-change.description',
           },
           {
             name: 'mode',
@@ -4012,6 +4800,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.mode.description',
           },
           {
             name: 'offset',
@@ -4020,6 +4810,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: "Distance from the containing region's edges in floating mode.",
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.offset.description',
           },
           {
             name: 'side',
@@ -4028,6 +4820,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.side.description',
           },
           {
             name: 'surface',
@@ -4036,6 +4830,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.surface.description',
           },
           {
             name: 'collapsed',
@@ -4044,6 +4840,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.collapsed.description',
           },
           {
             name: 'defaultCollapsed',
@@ -4052,6 +4850,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.default-collapsed.description',
           },
           {
             name: 'onCollapsedChange',
@@ -4060,6 +4860,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.on-collapsed-change.description',
           },
           {
             name: 'children',
@@ -4068,8 +4870,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey: 'components.layout.api.layout-sidebar-props.description',
       },
       {
         name: 'LayoutContentProps',
@@ -4086,6 +4891,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the main content region.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-content-props.properties.class-name.description',
           },
           {
             name: 'padding',
@@ -4094,6 +4901,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-content-props.properties.padding.description',
           },
           {
             name: 'scrollable',
@@ -4102,6 +4911,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-content-props.properties.scrollable.description',
           },
           {
             name: 'surface',
@@ -4110,8 +4921,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-content-props.properties.surface.description',
           },
         ],
+        descriptionTranslationKey: 'components.layout.api.layout-content-props.description',
       },
       {
         name: 'LayoutFooterProps',
@@ -4128,6 +4942,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the footer region.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-footer-props.properties.class-name.description',
           },
           {
             name: 'surface',
@@ -4136,8 +4952,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-footer-props.properties.surface.description',
           },
         ],
+        descriptionTranslationKey: 'components.layout.api.layout-footer-props.description',
       },
       {
         name: 'LayoutFloatingProps',
@@ -4154,6 +4973,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'bottom-end'",
             description: 'Logical corner within the nearest Content or Layout.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-floating-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -4162,8 +4983,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Distance from both edges. Defaults to spacing-24.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-floating-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey: 'components.layout.api.layout-floating-props.description',
       },
     ],
   },
@@ -4185,6 +5009,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -4193,8 +5019,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-content-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey: 'components.menu.api.menu-content-props.description',
       },
       {
         name: 'MenuRadioGroupProps',
@@ -4211,6 +5040,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-radio-group-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -4219,6 +5050,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-radio-group-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -4227,8 +5060,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-radio-group-props.properties.on-value-change.description',
           },
         ],
+        descriptionTranslationKey: 'components.menu.api.menu-radio-group-props.description',
       },
       {
         name: 'MenuProps',
@@ -4245,6 +5081,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey: 'components.menu.api.menu-props.properties.size.description',
           },
           {
             name: 'open',
@@ -4253,6 +5090,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey: 'components.menu.api.menu-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -4261,6 +5099,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -4269,6 +5109,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-props.properties.on-open-change.description',
           },
           {
             name: 'disabled',
@@ -4277,8 +5119,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'components.menu.api.menu-props.description',
       },
       {
         name: 'MenuTriggerProps',
@@ -4295,6 +5140,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-trigger-props.properties.variant.description',
           },
           {
             name: 'render',
@@ -4303,8 +5150,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'components.menu.api.menu-trigger-props.description',
       },
       {
         name: 'MenuItemVisualProps',
@@ -4321,6 +5171,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-item-visual-props.properties.icon.description',
           },
           {
             name: 'shortcut',
@@ -4329,6 +5181,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Display only. No shortcut binding is installed.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-item-visual-props.properties.shortcut.description',
           },
           {
             name: 'danger',
@@ -4337,8 +5191,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-item-visual-props.properties.danger.description',
           },
         ],
+        descriptionTranslationKey: 'components.menu.api.menu-item-visual-props.description',
       },
       {
         name: 'MenuItemProps',
@@ -4355,6 +5212,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Cancel selection with event.preventDefault().',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-item-props.properties.on-select.description',
           },
           {
             name: 'closeOnSelect',
@@ -4363,6 +5222,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Defaults to true for actions and false for checkbox/radio items.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-item-props.properties.close-on-select.description',
           },
           {
             name: 'textValue',
@@ -4371,6 +5232,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Search label for rich content. Shortcut display is excluded by UI.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-item-props.properties.text-value.description',
           },
           {
             name: 'icon',
@@ -4379,6 +5242,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-item-props.properties.icon.description',
           },
           {
             name: 'shortcut',
@@ -4387,6 +5252,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Display only. No shortcut binding is installed.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-item-props.properties.shortcut.description',
           },
           {
             name: 'danger',
@@ -4395,8 +5262,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-item-props.properties.danger.description',
           },
         ],
+        descriptionTranslationKey: 'components.menu.api.menu-item-props.description',
       },
       {
         name: 'MenuCheckboxItemProps',
@@ -4413,6 +5283,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-checkbox-item-props.properties.checked.description',
           },
           {
             name: 'defaultChecked',
@@ -4421,6 +5293,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-checkbox-item-props.properties.default-checked.description',
           },
           {
             name: 'onCheckedChange',
@@ -4429,6 +5303,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-checkbox-item-props.properties.on-checked-change.description',
           },
           {
             name: 'onSelect',
@@ -4437,6 +5313,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Cancel selection with event.preventDefault().',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-checkbox-item-props.properties.on-select.description',
           },
           {
             name: 'closeOnSelect',
@@ -4445,6 +5323,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Defaults to true for actions and false for checkbox/radio items.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-checkbox-item-props.properties.close-on-select.description',
           },
           {
             name: 'textValue',
@@ -4453,6 +5333,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Search label for rich content. Shortcut display is excluded by UI.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-checkbox-item-props.properties.text-value.description',
           },
           {
             name: 'icon',
@@ -4461,6 +5343,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-checkbox-item-props.properties.icon.description',
           },
           {
             name: 'shortcut',
@@ -4469,6 +5353,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Display only. No shortcut binding is installed.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-checkbox-item-props.properties.shortcut.description',
           },
           {
             name: 'danger',
@@ -4477,8 +5363,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-checkbox-item-props.properties.danger.description',
           },
         ],
+        descriptionTranslationKey: 'components.menu.api.menu-checkbox-item-props.description',
       },
       {
         name: 'MenuRadioItemProps',
@@ -4495,6 +5384,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-radio-item-props.properties.value.description',
           },
           {
             name: 'onSelect',
@@ -4503,6 +5394,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Cancel selection with event.preventDefault().',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-radio-item-props.properties.on-select.description',
           },
           {
             name: 'closeOnSelect',
@@ -4511,6 +5404,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Defaults to true for actions and false for checkbox/radio items.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-radio-item-props.properties.close-on-select.description',
           },
           {
             name: 'textValue',
@@ -4519,6 +5414,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Search label for rich content. Shortcut display is excluded by UI.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-radio-item-props.properties.text-value.description',
           },
           {
             name: 'icon',
@@ -4527,6 +5424,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-radio-item-props.properties.icon.description',
           },
           {
             name: 'shortcut',
@@ -4535,6 +5434,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Display only. No shortcut binding is installed.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-radio-item-props.properties.shortcut.description',
           },
           {
             name: 'danger',
@@ -4543,8 +5444,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-radio-item-props.properties.danger.description',
           },
         ],
+        descriptionTranslationKey: 'components.menu.api.menu-radio-item-props.description',
       },
       {
         name: 'MenuSubmenuTriggerProps',
@@ -4561,6 +5465,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-submenu-trigger-props.properties.icon.description',
           },
           {
             name: 'render',
@@ -4569,8 +5475,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-submenu-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'components.menu.api.menu-submenu-trigger-props.description',
       },
       {
         name: 'MenuGroupProps',
@@ -4587,8 +5496,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menu.api.menu-group-props.properties.label.description',
           },
         ],
+        descriptionTranslationKey: 'components.menu.api.menu-group-props.description',
       },
       {
         name: 'MenuSubmenuProps',
@@ -4605,6 +5517,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-submenu-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -4613,6 +5527,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-submenu-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -4621,6 +5537,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-submenu-props.properties.on-open-change.description',
           },
           {
             name: 'disabled',
@@ -4629,8 +5547,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menu.api.menu-submenu-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'components.menu.api.menu-submenu-props.description',
       },
     ],
   },
@@ -4652,6 +5573,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.menubar.api.menubar-props.properties.size.description',
           },
           {
             name: 'value',
@@ -4660,6 +5583,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Value of the open top-level menu; null closes all menus.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menubar.api.menubar-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -4668,6 +5593,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menubar.api.menubar-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -4676,8 +5603,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menubar.api.menubar-props.properties.on-value-change.description',
           },
         ],
+        descriptionTranslationKey: 'components.menubar.api.menubar-props.description',
       },
       {
         name: 'MenubarContentProps',
@@ -4694,6 +5624,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menubar.api.menubar-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -4702,8 +5634,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menubar.api.menubar-content-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey: 'components.menubar.api.menubar-content-props.description',
       },
       {
         name: 'MenubarMenuProps',
@@ -4720,6 +5655,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menubar.api.menubar-menu-props.properties.value.description',
           },
           {
             name: 'disabled',
@@ -4728,8 +5665,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menubar.api.menubar-menu-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'components.menubar.api.menubar-menu-props.description',
       },
       {
         name: 'MenubarTriggerProps',
@@ -4746,8 +5686,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.menubar.api.menubar-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'components.menubar.api.menubar-trigger-props.description',
       },
     ],
   },
@@ -4762,6 +5705,8 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'components.navigation-menu.api.navigation-menu-variant.description',
       },
       {
         name: 'NavigationMenuSubmenu',
@@ -4771,6 +5716,8 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'components.navigation-menu.api.navigation-menu-submenu.description',
       },
       {
         name: 'NavigationMenuProps',
@@ -4787,6 +5734,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'default'",
             description: 'Classic Virgo navigation treatment.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-props.properties.variant.description',
           },
           {
             name: 'submenu',
@@ -4795,6 +5744,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'inline'",
             description: 'How nested navigation content is presented.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-props.properties.submenu.description',
           },
           {
             name: 'orientation',
@@ -4803,6 +5754,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'horizontal'",
             description: 'Direction used by arrow-key navigation.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-props.properties.orientation.description',
           },
           {
             name: 'value',
@@ -4811,6 +5764,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled active item value.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -4819,6 +5774,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initially active item value for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -4827,8 +5784,12 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when a link activates an item.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-props.properties.on-value-change.description',
           },
         ],
+        descriptionTranslationKey:
+          'components.navigation-menu.api.navigation-menu-props.description',
       },
       {
         name: 'NavigationMenuRootProps',
@@ -4845,6 +5806,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'default'",
             description: 'Classic Virgo navigation treatment.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-root-props.properties.variant.description',
           },
           {
             name: 'submenu',
@@ -4853,6 +5816,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'inline'",
             description: 'How nested navigation content is presented.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-root-props.properties.submenu.description',
           },
           {
             name: 'orientation',
@@ -4861,6 +5826,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'horizontal'",
             description: 'Direction used by arrow-key navigation.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-root-props.properties.orientation.description',
           },
           {
             name: 'value',
@@ -4869,6 +5836,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled active item value.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-root-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -4877,6 +5846,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initially active item value for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-root-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -4885,8 +5856,12 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when a link activates an item.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-root-props.properties.on-value-change.description',
           },
         ],
+        descriptionTranslationKey:
+          'components.navigation-menu.api.navigation-menu-root-props.description',
       },
       {
         name: 'NavigationMenuListProps',
@@ -4896,6 +5871,8 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'components.navigation-menu.api.navigation-menu-list-props.description',
       },
       {
         name: 'NavigationMenuGroupProps',
@@ -4905,6 +5882,8 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'components.navigation-menu.api.navigation-menu-group-props.description',
       },
       {
         name: 'NavigationMenuGroupLabelProps',
@@ -4914,6 +5893,8 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'components.navigation-menu.api.navigation-menu-group-label-props.description',
       },
       {
         name: 'NavigationMenuItemProps',
@@ -4930,6 +5911,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: "Decorative icon shared by this item's Link or Trigger.",
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-item-props.properties.icon.description',
           },
           {
             name: 'value',
@@ -4938,6 +5921,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Stable value used to coordinate this item with the root active state.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-item-props.properties.value.description',
           },
           {
             name: 'disabled',
@@ -4946,6 +5931,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: "Prevents this item's link or disclosure trigger from being activated.",
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-item-props.properties.disabled.description',
           },
           {
             name: 'expanded',
@@ -4954,6 +5941,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: "Controlled expanded state for this item's nested content.",
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-item-props.properties.expanded.description',
           },
           {
             name: 'defaultExpanded',
@@ -4962,6 +5951,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Initial expanded state for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-item-props.properties.default-expanded.description',
           },
           {
             name: 'onExpandedChange',
@@ -4970,8 +5961,12 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when nested content expands or collapses.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-item-props.properties.on-expanded-change.description',
           },
         ],
+        descriptionTranslationKey:
+          'components.navigation-menu.api.navigation-menu-item-props.description',
       },
       {
         name: 'NavigationMenuLinkProps',
@@ -4988,6 +5983,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-link-props.properties.children.description',
           },
           {
             name: 'render',
@@ -4996,8 +5993,12 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom link that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-link-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey:
+          'components.navigation-menu.api.navigation-menu-link-props.description',
       },
       {
         name: 'NavigationMenuTriggerProps',
@@ -5014,6 +6015,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-trigger-props.properties.children.description',
           },
           {
             name: 'indicator',
@@ -5022,6 +6025,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'true',
             description: 'Whether to render the disclosure indicator.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-trigger-props.properties.indicator.description',
           },
           {
             name: 'render',
@@ -5030,8 +6035,12 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.navigation-menu.api.navigation-menu-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey:
+          'components.navigation-menu.api.navigation-menu-trigger-props.description',
       },
       {
         name: 'NavigationMenuContentProps',
@@ -5041,6 +6050,8 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'components.navigation-menu.api.navigation-menu-content-props.description',
       },
       {
         name: 'NavigationMenuSeparatorProps',
@@ -5050,6 +6061,8 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'components.navigation-menu.api.navigation-menu-separator-props.description',
       },
       {
         name: 'NavigationMenuOrientation',
@@ -5059,6 +6072,8 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [],
+        descriptionTranslationKey:
+          'components.navigation-menu.api.navigation-menu-orientation.description',
       },
     ],
   },
@@ -5080,6 +6095,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-labels.properties.navigation.description',
           },
           {
             name: 'previous',
@@ -5088,6 +6105,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-labels.properties.previous.description',
           },
           {
             name: 'next',
@@ -5096,6 +6115,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-labels.properties.next.description',
           },
           {
             name: 'page',
@@ -5104,6 +6125,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-labels.properties.page.description',
           },
           {
             name: 'jumpBackward',
@@ -5112,6 +6135,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-labels.properties.jump-backward.description',
           },
           {
             name: 'jumpForward',
@@ -5120,6 +6145,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-labels.properties.jump-forward.description',
           },
           {
             name: 'pageSize',
@@ -5128,6 +6155,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-labels.properties.page-size.description',
           },
           {
             name: 'itemsPerPage',
@@ -5136,6 +6165,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-labels.properties.items-per-page.description',
           },
           {
             name: 'jumpTo',
@@ -5144,6 +6175,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-labels.properties.jump-to.description',
           },
           {
             name: 'pageUnit',
@@ -5152,6 +6185,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-labels.properties.page-unit.description',
           },
           {
             name: 'total',
@@ -5160,8 +6195,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-labels.properties.total.description',
           },
         ],
+        descriptionTranslationKey: 'components.pagination.api.pagination-labels.description',
       },
       {
         name: 'PaginationProps',
@@ -5178,6 +6216,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'left'",
             description: 'Alignment within the available width.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.align.description',
           },
           {
             name: 'showAll',
@@ -5187,6 +6227,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Enables total, page size and quick jump together. Individual flags take precedence.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.show-all.description',
           },
           {
             name: 'showTotal',
@@ -5195,6 +6237,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.show-total.description',
           },
           {
             name: 'showSizeChanger',
@@ -5203,6 +6247,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.show-size-changer.description',
           },
           {
             name: 'showQuickJumper',
@@ -5211,6 +6257,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.show-quick-jumper.description',
           },
           {
             name: 'pageSizeOptions',
@@ -5219,6 +6267,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Positive integer choices; the current page size is always included.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.page-size-options.description',
           },
           {
             name: 'previousLabel',
@@ -5227,6 +6277,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.previous-label.description',
           },
           {
             name: 'nextLabel',
@@ -5235,6 +6287,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.next-label.description',
           },
           {
             name: 'labels',
@@ -5243,6 +6297,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Visible copy and accessible names; defaults to English.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.labels.description',
           },
           {
             name: 'onChange',
@@ -5251,6 +6307,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.on-change.description',
           },
           {
             name: 'disabled',
@@ -5259,6 +6317,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.disabled.description',
           },
           {
             name: 'page',
@@ -5267,6 +6327,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.page.description',
           },
           {
             name: 'total',
@@ -5275,6 +6337,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.total.description',
           },
           {
             name: 'defaultPage',
@@ -5283,6 +6347,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.default-page.description',
           },
           {
             name: 'pageSize',
@@ -5291,6 +6357,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.page-size.description',
           },
           {
             name: 'defaultPageSize',
@@ -5299,8 +6367,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.pagination.api.pagination-props.properties.default-page-size.description',
           },
         ],
+        descriptionTranslationKey: 'components.pagination.api.pagination-props.description',
       },
     ],
   },
@@ -5315,6 +6386,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [],
+        descriptionTranslationKey: 'components.popover.api.popover-placement.description',
       },
       {
         name: 'PopoverProps',
@@ -5331,6 +6403,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.popover.api.popover-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -5339,6 +6413,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.popover.api.popover-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -5347,6 +6423,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.popover.api.popover-props.properties.on-open-change.description',
           },
           {
             name: 'trigger',
@@ -5355,6 +6433,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'click'",
             description: 'Pointer activation. Both modes support keyboard and touch clicks.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.popover.api.popover-props.properties.trigger.description',
           },
           {
             name: 'disabled',
@@ -5363,6 +6443,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.popover.api.popover-props.properties.disabled.description',
           },
           {
             name: 'restoreFocusOnClose',
@@ -5372,8 +6454,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Return focus to the trigger after programmatic close. Escape always returns focus.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.popover.api.popover-props.properties.restore-focus-on-close.description',
           },
         ],
+        descriptionTranslationKey: 'components.popover.api.popover-props.description',
       },
       {
         name: 'PopoverTriggerProps',
@@ -5390,6 +6475,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Virgo Button treatment when no custom render is supplied.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.popover.api.popover-trigger-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -5398,6 +6485,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Virgo Button size when no custom render is supplied.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.popover.api.popover-trigger-props.properties.size.description',
           },
           {
             name: 'render',
@@ -5406,8 +6495,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Supply a button which forwards the provided native props and ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.popover.api.popover-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'components.popover.api.popover-trigger-props.description',
       },
       {
         name: 'PopoverContentProps',
@@ -5424,6 +6516,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.popover.api.popover-content-props.properties.arrow.description',
           },
           {
             name: 'placement',
@@ -5432,6 +6526,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'bottomStart'",
             description: "Logical Start/End alignments follow the trigger's direction.",
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.popover.api.popover-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -5440,8 +6536,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '8',
             description: 'Space between the trigger and panel, in pixels.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.popover.api.popover-content-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey: 'components.popover.api.popover-content-props.description',
       },
       {
         name: 'PopoverCloseProps',
@@ -5451,6 +6550,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.popover.api.popover-close-props.description',
       },
     ],
   },
@@ -5465,6 +6565,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.progress.api.progress-size.description',
       },
       {
         name: 'ProgressIntent',
@@ -5474,6 +6575,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.progress.api.progress-intent.description',
       },
       {
         name: 'ProgressProps',
@@ -5490,6 +6592,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Current completed amount.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.progress.api.progress-props.properties.value.description',
           },
           {
             name: 'max',
@@ -5498,6 +6602,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '100',
             description: 'Total amount represented by a complete track.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.progress.api.progress-props.properties.max.description',
           },
           {
             name: 'size',
@@ -5506,6 +6612,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'md'",
             description: 'Track thickness.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.progress.api.progress-props.properties.size.description',
           },
           {
             name: 'intent',
@@ -5514,6 +6622,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'default'",
             description: 'Semantic indicator color.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.progress.api.progress-props.properties.intent.description',
           },
           {
             name: 'label',
@@ -5522,6 +6632,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Optional visible label placed above the track.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.progress.api.progress-props.properties.label.description',
           },
           {
             name: 'showValue',
@@ -5530,8 +6642,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Shows the normalized percentage above the track.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.progress.api.progress-props.properties.show-value.description',
           },
         ],
+        descriptionTranslationKey: 'components.progress.api.progress-props.description',
       },
     ],
   },
@@ -5553,6 +6668,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Optional visible label rendered beside the radio control.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.radio.api.radio-props.properties.children.description',
           },
           {
             name: 'className',
@@ -5561,8 +6678,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the Radio root label.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.radio.api.radio-props.properties.class-name.description',
           },
         ],
+        descriptionTranslationKey: 'components.radio.api.radio-props.description',
       },
       {
         name: 'RadioGroupProps',
@@ -5579,6 +6699,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the RadioGroup root.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.radio.api.radio-group-props.properties.class-name.description',
           },
           {
             name: 'defaultValue',
@@ -5587,6 +6709,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initial selected value for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.radio.api.radio-group-props.properties.default-value.description',
           },
           {
             name: 'children',
@@ -5595,6 +6719,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.radio.api.radio-group-props.properties.children.description',
           },
           {
             name: 'value',
@@ -5603,6 +6729,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled selected value.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.radio.api.radio-group-props.properties.value.description',
           },
           {
             name: 'disabled',
@@ -5611,6 +6739,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Disables every radio in the group.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.radio.api.radio-group-props.properties.disabled.description',
           },
           {
             name: 'name',
@@ -5619,6 +6749,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Shared native name forwarded to grouped radio inputs.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.radio.api.radio-group-props.properties.name.description',
           },
           {
             name: 'onValueChange',
@@ -5627,6 +6759,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called whenever the selected value changes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.radio.api.radio-group-props.properties.on-value-change.description',
           },
           {
             name: 'orientation',
@@ -5635,8 +6769,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Layout orientation for the group.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.radio.api.radio-group-props.properties.orientation.description',
           },
         ],
+        descriptionTranslationKey: 'components.radio.api.radio-group-props.description',
       },
     ],
   },
@@ -5651,6 +6788,8 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'components.segmented-control.api.segmented-control-variant.description',
       },
       {
         name: 'SegmentedControlSize',
@@ -5660,6 +6799,8 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'components.segmented-control.api.segmented-control-size.description',
       },
       {
         name: 'SegmentedControlMotion',
@@ -5669,6 +6810,8 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'components.segmented-control.api.segmented-control-motion.description',
       },
       {
         name: 'SegmentedControlProps',
@@ -5685,6 +6828,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Visual treatment of the segmented control.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -5693,6 +6838,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Visual density of the segmented control.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-props.properties.size.description',
           },
           {
             name: 'motion',
@@ -5701,6 +6848,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Selected-indicator transition treatment.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-props.properties.motion.description',
           },
           {
             name: 'className',
@@ -5709,6 +6858,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the segmented-control root.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-props.properties.class-name.description',
           },
           {
             name: 'defaultValue',
@@ -5717,6 +6868,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initial selected value for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-props.properties.default-value.description',
           },
           {
             name: 'children',
@@ -5725,6 +6878,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-props.properties.children.description',
           },
           {
             name: 'value',
@@ -5733,6 +6888,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled selected value.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-props.properties.value.description',
           },
           {
             name: 'disabled',
@@ -5741,6 +6898,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Disables every radio in the group.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-props.properties.disabled.description',
           },
           {
             name: 'name',
@@ -5749,6 +6908,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Shared native name forwarded to grouped radio inputs.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-props.properties.name.description',
           },
           {
             name: 'onValueChange',
@@ -5757,8 +6918,12 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called whenever the selected value changes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-props.properties.on-value-change.description',
           },
         ],
+        descriptionTranslationKey:
+          'components.segmented-control.api.segmented-control-props.description',
       },
       {
         name: 'SegmentedControlItemProps',
@@ -5775,6 +6940,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Value represented by this segment.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-item-props.properties.value.description',
           },
           {
             name: 'children',
@@ -5783,6 +6950,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Visible label or content for the segment.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-item-props.properties.children.description',
           },
           {
             name: 'className',
@@ -5791,8 +6960,12 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the segment root.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-item-props.properties.class-name.description',
           },
         ],
+        descriptionTranslationKey:
+          'components.segmented-control.api.segmented-control-item-props.description',
       },
     ],
   },
@@ -5807,6 +6980,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.select.api.select-size.description',
       },
       {
         name: 'SelectProps',
@@ -5823,6 +6997,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.children.description',
           },
           {
             name: 'size',
@@ -5831,6 +7007,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.size.description',
           },
           {
             name: 'invalid',
@@ -5839,6 +7017,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.invalid.description',
           },
           {
             name: 'className',
@@ -5847,6 +7027,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.class-name.description',
           },
           {
             name: 'defaultValue',
@@ -5855,6 +7037,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.default-value.description',
           },
           {
             name: 'id',
@@ -5863,6 +7047,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Identifier applied to the interactive trigger.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.id.description',
           },
           {
             name: 'value',
@@ -5871,6 +7057,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.value.description',
           },
           {
             name: 'disabled',
@@ -5879,6 +7067,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.disabled.description',
           },
           {
             name: 'name',
@@ -5887,6 +7077,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.name.description',
           },
           {
             name: 'open',
@@ -5895,6 +7087,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -5903,6 +7097,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -5911,6 +7107,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.on-open-change.description',
           },
           {
             name: 'onValueChange',
@@ -5919,8 +7117,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.on-value-change.description',
           },
         ],
+        descriptionTranslationKey: 'components.select.api.select-props.description',
       },
       {
         name: 'SelectTriggerProps',
@@ -5937,6 +7138,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.select.api.select-trigger-props.properties.children.description',
           },
           {
             name: 'placeholder',
@@ -5945,6 +7148,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.select.api.select-trigger-props.properties.placeholder.description',
           },
           {
             name: 'aria-invalid',
@@ -5954,8 +7159,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Indicates the entered value does not conform to the format expected by the application.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.select.api.select-trigger-props.properties.aria-invalid.description',
           },
         ],
+        descriptionTranslationKey: 'components.select.api.select-trigger-props.description',
       },
       {
         name: 'SelectContentProps',
@@ -5972,8 +7180,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.select.api.select-content-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey: 'components.select.api.select-content-props.description',
       },
       {
         name: 'SelectOptionProps',
@@ -5990,6 +7201,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.select.api.select-option-props.properties.children.description',
           },
           {
             name: 'value',
@@ -5998,6 +7211,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-option-props.properties.value.description',
           },
           {
             name: 'disabled',
@@ -6006,8 +7221,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-option-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'components.select.api.select-option-props.description',
       },
     ],
   },
@@ -6022,6 +7240,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.separator.api.separator-orientation.description',
       },
       {
         name: 'SeparatorLabelAlign',
@@ -6031,6 +7250,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.separator.api.separator-label-align.description',
       },
       {
         name: 'SeparatorProps',
@@ -6047,6 +7267,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'horizontal'",
             description: 'Layout and semantic direction.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.separator.api.separator-props.properties.orientation.description',
           },
           {
             name: 'decorative',
@@ -6055,6 +7277,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Removes separator semantics for a purely visual rule.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.separator.api.separator-props.properties.decorative.description',
           },
           {
             name: 'children',
@@ -6063,6 +7287,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Optional non-interactive label for a horizontal separator.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.separator.api.separator-props.properties.children.description',
           },
           {
             name: 'labelAlign',
@@ -6071,8 +7297,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'center'",
             description: 'Label position along a horizontal rule; start/end follow text direction.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.separator.api.separator-props.properties.label-align.description',
           },
         ],
+        descriptionTranslationKey: 'components.separator.api.separator-props.description',
       },
     ],
   },
@@ -6087,6 +7316,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.skeleton.api.skeleton-variant.description',
       },
       {
         name: 'SkeletonProps',
@@ -6103,6 +7333,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'rectangle'",
             description: 'Placeholder geometry.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.skeleton.api.skeleton-props.properties.variant.description',
           },
           {
             name: 'animated',
@@ -6111,8 +7343,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'true',
             description: 'Enables the tokenized loading pulse.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.skeleton.api.skeleton-props.properties.animated.description',
           },
         ],
+        descriptionTranslationKey: 'components.skeleton.api.skeleton-props.description',
       },
     ],
   },
@@ -6127,6 +7362,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.spinner.api.spinner-size.description',
       },
       {
         name: 'SpinnerIntent',
@@ -6136,6 +7372,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.spinner.api.spinner-intent.description',
       },
       {
         name: 'SpinnerProps',
@@ -6152,6 +7389,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'md'",
             description: 'Spinner dimensions.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.spinner.api.spinner-props.properties.size.description',
           },
           {
             name: 'intent',
@@ -6160,8 +7399,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'current'",
             description: 'Color source. `current` inherits the surrounding text color.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.spinner.api.spinner-props.properties.intent.description',
           },
         ],
+        descriptionTranslationKey: 'components.spinner.api.spinner-props.description',
       },
     ],
   },
@@ -6176,6 +7418,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.surface.api.surface-tone.description',
       },
       {
         name: 'SurfaceMaterial',
@@ -6185,6 +7428,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.surface.api.surface-material.description',
       },
       {
         name: 'SurfaceBorder',
@@ -6194,6 +7438,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.surface.api.surface-border.description',
       },
       {
         name: 'SurfaceRadius',
@@ -6203,6 +7448,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.surface.api.surface-radius.description',
       },
       {
         name: 'SurfaceElevation',
@@ -6212,6 +7458,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.surface.api.surface-elevation.description',
       },
       {
         name: 'SurfaceBackground',
@@ -6230,8 +7477,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.surface.api.surface-background.properties.type.description',
           },
         ],
+        descriptionTranslationKey: 'components.surface.api.surface-background.description',
       },
       {
         name: 'SurfaceProps',
@@ -6248,6 +7498,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'default'",
             description: 'Semantic surface color.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.surface.api.surface-props.properties.tone.description',
           },
           {
             name: 'material',
@@ -6256,6 +7508,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'solid'",
             description: 'Surface treatment, independent of tone and background.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.surface.api.surface-props.properties.material.description',
           },
           {
             name: 'background',
@@ -6264,6 +7518,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Optional decorative background below the material. Images do not repeat.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.surface.api.surface-props.properties.background.description',
           },
           {
             name: 'elevation',
@@ -6272,6 +7528,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '0',
             description: 'Existing theme-aware elevation level.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.surface.api.surface-props.properties.elevation.description',
           },
           {
             name: 'radius',
@@ -6280,6 +7538,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '0',
             description: 'Existing radius token.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.surface.api.surface-props.properties.radius.description',
           },
           {
             name: 'border',
@@ -6288,8 +7548,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Semantic border. Defaults to subtle for glass, otherwise none.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.surface.api.surface-props.properties.border.description',
           },
         ],
+        descriptionTranslationKey: 'components.surface.api.surface-props.description',
       },
     ],
   },
@@ -6304,6 +7567,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.switch.api.switch-appearance.description',
       },
       {
         name: 'SwitchSize',
@@ -6313,6 +7577,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.switch.api.switch-size.description',
       },
       {
         name: 'SwitchProps',
@@ -6329,6 +7594,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Standard pill toggle or console-style fader appearance.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.switch.api.switch-props.properties.appearance.description',
           },
           {
             name: 'size',
@@ -6337,6 +7604,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Default and compact visual size.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.switch.api.switch-props.properties.size.description',
           },
           {
             name: 'checkedContent',
@@ -6345,6 +7614,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative content shown inside the toggle when checked.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.switch.api.switch-props.properties.checked-content.description',
           },
           {
             name: 'uncheckedContent',
@@ -6353,6 +7624,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative content shown inside the toggle when unchecked.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.switch.api.switch-props.properties.unchecked-content.description',
           },
           {
             name: 'children',
@@ -6361,6 +7634,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Optional visible label rendered beside the switch control.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.switch.api.switch-props.properties.children.description',
           },
           {
             name: 'className',
@@ -6369,6 +7644,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the Switch root label.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.switch.api.switch-props.properties.class-name.description',
           },
           {
             name: 'onCheckedChange',
@@ -6377,8 +7654,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when the checked state changes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.switch.api.switch-props.properties.on-checked-change.description',
           },
         ],
+        descriptionTranslationKey: 'components.switch.api.switch-props.description',
       },
     ],
   },
@@ -6393,6 +7673,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.tabs.api.tabs-variant.description',
       },
       {
         name: 'TabsAlign',
@@ -6402,6 +7683,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.tabs.api.tabs-align.description',
       },
       {
         name: 'TabsProps',
@@ -6418,6 +7700,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Visual treatment for the tab list.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tabs.api.tabs-props.properties.variant.description',
           },
           {
             name: 'align',
@@ -6426,6 +7710,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Horizontal alignment of the tabs within the list.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tabs.api.tabs-props.properties.align.description',
           },
           {
             name: 'className',
@@ -6434,6 +7720,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the Tabs root.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tabs.api.tabs-props.properties.class-name.description',
           },
           {
             name: 'defaultValue',
@@ -6442,6 +7730,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initial active tab value for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tabs.api.tabs-props.properties.default-value.description',
           },
           {
             name: 'children',
@@ -6450,6 +7740,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tabs.api.tabs-props.properties.children.description',
           },
           {
             name: 'value',
@@ -6458,6 +7750,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled active tab value.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tabs.api.tabs-props.properties.value.description',
           },
           {
             name: 'onValueChange',
@@ -6466,6 +7760,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called whenever the active tab changes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tabs.api.tabs-props.properties.on-value-change.description',
           },
           {
             name: 'addable',
@@ -6474,6 +7770,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Adds a trailing action beside the tablist for editable card tabs.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tabs.api.tabs-props.properties.addable.description',
           },
           {
             name: 'onAdd',
@@ -6482,6 +7780,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when the add-tab action is activated.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tabs.api.tabs-props.properties.on-add.description',
           },
           {
             name: 'addLabel',
@@ -6490,8 +7790,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Accessible name for the icon-only add action.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tabs.api.tabs-props.properties.add-label.description',
           },
         ],
+        descriptionTranslationKey: 'components.tabs.api.tabs-props.description',
       },
       {
         name: 'TabListProps',
@@ -6508,8 +7811,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the TabList root.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tabs.api.tab-list-props.properties.class-name.description',
           },
         ],
+        descriptionTranslationKey: 'components.tabs.api.tab-list-props.description',
       },
       {
         name: 'TabProps',
@@ -6526,6 +7832,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Visible tab label.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tabs.api.tab-props.properties.children.description',
           },
           {
             name: 'icon',
@@ -6534,6 +7842,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Optional decorative icon before the tab label.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey: 'components.tabs.api.tab-props.properties.icon.description',
           },
           {
             name: 'className',
@@ -6542,6 +7851,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the tab item wrapper.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tabs.api.tab-props.properties.class-name.description',
           },
           {
             name: 'value',
@@ -6550,6 +7861,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Value that associates this tab with its panel.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey: 'components.tabs.api.tab-props.properties.value.description',
           },
           {
             name: 'closable',
@@ -6558,6 +7870,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Shows a pointer close action and enables the Delete key for a card tab.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tabs.api.tab-props.properties.closable.description',
           },
           {
             name: 'onClose',
@@ -6566,6 +7880,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: "Called with this tab's value when its close action is activated.",
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tabs.api.tab-props.properties.on-close.description',
           },
           {
             name: 'closeLabel',
@@ -6574,8 +7890,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Accessible name for the icon-only close action.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tabs.api.tab-props.properties.close-label.description',
           },
         ],
+        descriptionTranslationKey: 'components.tabs.api.tab-props.description',
       },
       {
         name: 'TabPanelProps',
@@ -6592,6 +7911,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Consumer class applied to the TabPanel root.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tabs.api.tab-panel-props.properties.class-name.description',
           },
           {
             name: 'value',
@@ -6600,8 +7921,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Value of the tab that controls this panel.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tabs.api.tab-panel-props.properties.value.description',
           },
         ],
+        descriptionTranslationKey: 'components.tabs.api.tab-panel-props.description',
       },
     ],
   },
@@ -6616,6 +7940,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.tag.api.tag-intent.description',
       },
       {
         name: 'TagVariant',
@@ -6625,6 +7950,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.tag.api.tag-variant.description',
       },
       {
         name: 'TagSize',
@@ -6634,6 +7960,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.tag.api.tag-size.description',
       },
       {
         name: 'TagProps',
@@ -6650,6 +7977,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'neutral'",
             description: 'Semantic color treatment.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey: 'components.tag.api.tag-props.properties.intent.description',
           },
           {
             name: 'variant',
@@ -6658,6 +7986,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'soft'",
             description: 'Surface treatment.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tag.api.tag-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -6666,6 +7996,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'md'",
             description: 'Compact visual size.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey: 'components.tag.api.tag-props.properties.size.description',
           },
           {
             name: 'icon',
@@ -6674,6 +8005,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative leading icon.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey: 'components.tag.api.tag-props.properties.icon.description',
           },
           {
             name: 'closable',
@@ -6682,6 +8014,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Shows a keyboard-accessible close control.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tag.api.tag-props.properties.closable.description',
           },
           {
             name: 'disabled',
@@ -6690,6 +8024,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Disables the close control when this tag is interactive.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tag.api.tag-props.properties.disabled.description',
           },
           {
             name: 'closeLabel',
@@ -6698,6 +8034,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'Remove tag'",
             description: 'Accessible name for the close control.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tag.api.tag-props.properties.close-label.description',
           },
           {
             name: 'onClose',
@@ -6706,8 +8044,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Notifies the owner; the Tag does not remove itself.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tag.api.tag-props.properties.on-close.description',
           },
         ],
+        descriptionTranslationKey: 'components.tag.api.tag-props.description',
       },
     ],
   },
@@ -6722,6 +8063,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.toast.api.toast-intent.description',
       },
       {
         name: 'ToastPlacement',
@@ -6732,6 +8074,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.toast.api.toast-placement.description',
       },
       {
         name: 'ToastProviderProps',
@@ -6748,6 +8091,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-provider-props.properties.children.description',
           },
           {
             name: 'hotkey',
@@ -6756,8 +8101,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "['F8']",
             description: 'Keyboard shortcut that moves focus into the toast viewport.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-provider-props.properties.hotkey.description',
           },
         ],
+        descriptionTranslationKey: 'components.toast.api.toast-provider-props.description',
       },
       {
         name: 'ToastProps',
@@ -6774,6 +8122,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toast.api.toast-props.properties.intent.description',
           },
           {
             name: 'icon',
@@ -6782,6 +8132,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Overrides the status icon. Use false to hide it.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toast.api.toast-props.properties.icon.description',
           },
           {
             name: 'open',
@@ -6790,6 +8142,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -6798,6 +8152,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -6806,6 +8162,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-props.properties.on-open-change.description',
           },
           {
             name: 'duration',
@@ -6814,6 +8172,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '5000',
             description: 'Auto-dismiss delay in milliseconds. Use 0 to keep the toast open.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-props.properties.duration.description',
           },
           {
             name: 'priority',
@@ -6822,8 +8182,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'polite'",
             description: 'Announcement priority.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-props.properties.priority.description',
           },
         ],
+        descriptionTranslationKey: 'components.toast.api.toast-props.description',
       },
       {
         name: 'ToastRootProps',
@@ -6840,6 +8203,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toast.api.toast-root-props.properties.intent.description',
           },
           {
             name: 'icon',
@@ -6848,6 +8213,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Overrides the status icon. Use false to hide it.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toast.api.toast-root-props.properties.icon.description',
           },
           {
             name: 'open',
@@ -6856,6 +8223,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-root-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -6864,6 +8233,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-root-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -6872,6 +8243,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-root-props.properties.on-open-change.description',
           },
           {
             name: 'duration',
@@ -6880,6 +8253,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '5000',
             description: 'Auto-dismiss delay in milliseconds. Use 0 to keep the toast open.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-root-props.properties.duration.description',
           },
           {
             name: 'priority',
@@ -6888,8 +8263,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'polite'",
             description: 'Announcement priority.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-root-props.properties.priority.description',
           },
         ],
+        descriptionTranslationKey: 'components.toast.api.toast-root-props.description',
       },
       {
         name: 'ToastTitleProps',
@@ -6899,6 +8277,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.toast.api.toast-title-props.description',
       },
       {
         name: 'ToastDescriptionProps',
@@ -6908,6 +8287,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.toast.api.toast-description-props.description',
       },
       {
         name: 'ToastActionProps',
@@ -6924,8 +8304,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button while forwarding the supplied props and ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-action-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'components.toast.api.toast-action-props.description',
       },
       {
         name: 'ToastCloseProps',
@@ -6942,8 +8325,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button while forwarding the supplied props and ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.toast.api.toast-close-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'components.toast.api.toast-close-props.description',
       },
       {
         name: 'ToastViewportProps',
@@ -6960,8 +8346,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toast.api.toast-viewport-props.properties.placement.description',
           },
         ],
+        descriptionTranslationKey: 'components.toast.api.toast-viewport-props.description',
       },
     ],
   },
@@ -6976,6 +8365,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [],
+        descriptionTranslationKey: 'components.tooltip.api.tooltip-placement.description',
       },
       {
         name: 'TooltipProps',
@@ -6992,6 +8382,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -7000,6 +8392,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -7008,6 +8402,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-props.properties.on-open-change.description',
           },
           {
             name: 'disabled',
@@ -7016,6 +8412,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-props.properties.disabled.description',
           },
           {
             name: 'openDelay',
@@ -7024,6 +8422,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '100',
             description: 'Hover delay in milliseconds; keyboard focus opens immediately.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-props.properties.open-delay.description',
           },
           {
             name: 'closeOnClick',
@@ -7033,6 +8433,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Dismiss on activation. Set false to keep dynamic feedback open while hover or keyboard focus remains.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-props.properties.close-on-click.description',
           },
           {
             name: 'smoothTransition',
@@ -7042,8 +8444,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             description:
               'Smooth handoff between opted-in tooltips; ordinary tooltips keep their own delay and fade.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-props.properties.smooth-transition.description',
           },
         ],
+        descriptionTranslationKey: 'components.tooltip.api.tooltip-props.description',
       },
       {
         name: 'TooltipSize',
@@ -7053,6 +8458,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.tooltip.api.tooltip-size.description',
       },
       {
         name: 'TooltipTone',
@@ -7062,6 +8468,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'components.tooltip.api.tooltip-tone.description',
       },
       {
         name: 'TooltipTriggerProps',
@@ -7078,6 +8485,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-trigger-props.properties.variant.description',
           },
           {
             name: 'size',
@@ -7086,6 +8495,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-trigger-props.properties.size.description',
           },
           {
             name: 'render',
@@ -7094,8 +8505,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Forward all supplied props and ref to a native button.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'components.tooltip.api.tooltip-trigger-props.description',
       },
       {
         name: 'TooltipContentProps',
@@ -7112,6 +8526,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'medium'",
             description: "Content density, independent of Tooltip.Trigger's button size.",
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-content-props.properties.size.description',
           },
           {
             name: 'arrow',
@@ -7120,6 +8536,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: 'true',
             description: '',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-content-props.properties.arrow.description',
           },
           {
             name: 'tone',
@@ -7128,6 +8546,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'default'",
             description: 'Theme-aware semantic color.',
             source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-content-props.properties.tone.description',
           },
           {
             name: 'placement',
@@ -7136,6 +8556,8 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: "'top'",
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -7144,8 +8566,11 @@ export const componentApiReference: ApiReferenceRegistry = {
             defaultValue: '8',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-content-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey: 'components.tooltip.api.tooltip-content-props.description',
       },
     ],
   },
@@ -7170,6 +8595,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-single-props.properties.type.description',
           },
           {
             name: 'value',
@@ -7179,6 +8606,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Controlled open item value. Use an empty string when every item is closed.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-single-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -7187,6 +8616,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initially open item value for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-single-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -7195,6 +8626,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when the open item changes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-single-props.properties.on-value-change.description',
           },
           {
             name: 'headingLevel',
@@ -7203,8 +8636,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '3',
             description: 'Heading level exposed by every item header.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-single-props.properties.heading-level.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.accordion.api.accordion-single-props.description',
       },
       {
         name: 'AccordionMultipleProps',
@@ -7221,6 +8657,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-multiple-props.properties.type.description',
           },
           {
             name: 'value',
@@ -7229,6 +8667,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled open item values.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-multiple-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -7237,6 +8677,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initially open item values for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-multiple-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -7245,6 +8687,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when the open items change.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-multiple-props.properties.on-value-change.description',
           },
           {
             name: 'headingLevel',
@@ -7253,8 +8697,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '3',
             description: 'Heading level exposed by every item header.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-multiple-props.properties.heading-level.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.accordion.api.accordion-multiple-props.description',
       },
       {
         name: 'AccordionProps',
@@ -7271,6 +8718,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-props.properties.type.description',
           },
           {
             name: 'value',
@@ -7280,6 +8729,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Controlled open item value. Use an empty string when every item is closed.\nControlled open item values.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -7289,6 +8740,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Initially open item value for uncontrolled usage.\nInitially open item values for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -7297,6 +8750,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when the open item changes.\nCalled when the open items change.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-props.properties.on-value-change.description',
           },
           {
             name: 'headingLevel',
@@ -7305,8 +8760,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '3',
             description: 'Heading level exposed by every item header.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-props.properties.heading-level.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.accordion.api.accordion-props.description',
       },
       {
         name: 'AccordionRootProps',
@@ -7323,6 +8781,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-root-props.properties.type.description',
           },
           {
             name: 'value',
@@ -7332,6 +8792,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Controlled open item value. Use an empty string when every item is closed.\nControlled open item values.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-root-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -7341,6 +8803,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Initially open item value for uncontrolled usage.\nInitially open item values for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-root-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -7349,6 +8813,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when the open item changes.\nCalled when the open items change.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-root-props.properties.on-value-change.description',
           },
           {
             name: 'headingLevel',
@@ -7357,8 +8823,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '3',
             description: 'Heading level exposed by every item header.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-root-props.properties.heading-level.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.accordion.api.accordion-root-props.description',
       },
       {
         name: 'AccordionItemProps',
@@ -7375,6 +8844,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Stable value used to coordinate this item with the root.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-item-props.properties.value.description',
           },
           {
             name: 'disabled',
@@ -7384,8 +8855,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Prevents this item from being toggled or reached by arrow-key navigation.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-item-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.accordion.api.accordion-item-props.description',
       },
       {
         name: 'AccordionTriggerProps',
@@ -7402,8 +8876,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.accordion.api.accordion-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.accordion.api.accordion-trigger-props.description',
       },
       {
         name: 'AccordionContentProps',
@@ -7413,6 +8890,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.accordion.api.accordion-content-props.description',
       },
     ],
   },
@@ -7434,6 +8912,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Breadcrumb items rendered in path order.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.breadcrumb.api.breadcrumb-props.properties.children.description',
           },
           {
             name: 'separator',
@@ -7442,8 +8922,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Decorative content placed between items.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.breadcrumb.api.breadcrumb-props.properties.separator.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.breadcrumb.api.breadcrumb-props.description',
       },
       {
         name: 'BreadcrumbLinkItemProps',
@@ -7460,6 +8943,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Native link destination.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.breadcrumb.api.breadcrumb-link-item-props.properties.href.description',
           },
           {
             name: 'children',
@@ -7468,8 +8953,12 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Visible item content.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.breadcrumb.api.breadcrumb-link-item-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey:
+          'primitives.breadcrumb.api.breadcrumb-link-item-props.description',
       },
       {
         name: 'BreadcrumbCurrentItemProps',
@@ -7486,6 +8975,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.breadcrumb.api.breadcrumb-current-item-props.properties.href.description',
           },
           {
             name: 'children',
@@ -7494,8 +8985,12 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Visible current-page content.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.breadcrumb.api.breadcrumb-current-item-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey:
+          'primitives.breadcrumb.api.breadcrumb-current-item-props.description',
       },
       {
         name: 'BreadcrumbItemProps',
@@ -7512,6 +9007,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Native link destination.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.breadcrumb.api.breadcrumb-item-props.properties.href.description',
           },
           {
             name: 'children',
@@ -7520,8 +9017,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Visible item content.\nVisible current-page content.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.breadcrumb.api.breadcrumb-item-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.breadcrumb.api.breadcrumb-item-props.description',
       },
     ],
   },
@@ -7536,6 +9036,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.button.api.button-props.description',
       },
     ],
   },
@@ -7557,8 +9058,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Displays the native checkbox in a mixed state.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.checkbox.api.checkbox-props.properties.indeterminate.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.checkbox.api.checkbox-props.description',
       },
       {
         name: 'CheckboxGroupProps',
@@ -7575,6 +9079,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled selected values.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.checkbox.api.checkbox-group-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -7583,6 +9089,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initial selected values for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.checkbox.api.checkbox-group-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -7591,6 +9099,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called whenever the selected values change.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.checkbox.api.checkbox-group-props.properties.on-value-change.description',
           },
           {
             name: 'name',
@@ -7599,6 +9109,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Shared native name forwarded to grouped checkboxes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.checkbox.api.checkbox-group-props.properties.name.description',
           },
           {
             name: 'disabled',
@@ -7607,6 +9119,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Disables every checkbox in the group.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.checkbox.api.checkbox-group-props.properties.disabled.description',
           },
           {
             name: 'children',
@@ -7615,8 +9129,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.checkbox.api.checkbox-group-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.checkbox.api.checkbox-group-props.description',
       },
     ],
   },
@@ -7638,6 +9155,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled open state.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.collapsible.api.collapsible-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -7646,6 +9165,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Initial open state for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.collapsible.api.collapsible-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -7654,8 +9175,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when the open state changes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.collapsible.api.collapsible-props.properties.on-open-change.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.collapsible.api.collapsible-props.description',
       },
       {
         name: 'CollapsibleRootProps',
@@ -7672,6 +9196,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled open state.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.collapsible.api.collapsible-root-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -7680,6 +9206,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Initial open state for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.collapsible.api.collapsible-root-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -7688,8 +9216,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when the open state changes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.collapsible.api.collapsible-root-props.properties.on-open-change.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.collapsible.api.collapsible-root-props.description',
       },
       {
         name: 'CollapsibleTriggerProps',
@@ -7706,8 +9237,12 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.collapsible.api.collapsible-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey:
+          'primitives.collapsible.api.collapsible-trigger-props.description',
       },
       {
         name: 'CollapsibleContentProps',
@@ -7717,6 +9252,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'primitives.collapsible.api.collapsible-content-props.description',
       },
     ],
   },
@@ -7731,6 +9268,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.command.api.command-filter.description',
       },
       {
         name: 'CommandProps',
@@ -7747,6 +9285,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-props.properties.search.description',
           },
           {
             name: 'defaultSearch',
@@ -7755,6 +9295,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-props.properties.default-search.description',
           },
           {
             name: 'onSearchChange',
@@ -7763,6 +9305,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-props.properties.on-search-change.description',
           },
           {
             name: 'value',
@@ -7771,6 +9315,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -7779,6 +9325,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -7787,6 +9335,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-props.properties.on-value-change.description',
           },
           {
             name: 'shouldFilter',
@@ -7796,6 +9346,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Disable built-in filtering while retaining the collection and keyboard protocol.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-props.properties.should-filter.description',
           },
           {
             name: 'filter',
@@ -7804,8 +9356,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-props.properties.filter.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.command.api.command-props.description',
       },
       {
         name: 'CommandRootProps',
@@ -7822,6 +9377,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-root-props.properties.search.description',
           },
           {
             name: 'defaultSearch',
@@ -7830,6 +9387,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-root-props.properties.default-search.description',
           },
           {
             name: 'onSearchChange',
@@ -7838,6 +9397,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-root-props.properties.on-search-change.description',
           },
           {
             name: 'value',
@@ -7846,6 +9407,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-root-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -7854,6 +9417,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-root-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -7862,6 +9427,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-root-props.properties.on-value-change.description',
           },
           {
             name: 'shouldFilter',
@@ -7871,6 +9438,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Disable built-in filtering while retaining the collection and keyboard protocol.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-root-props.properties.should-filter.description',
           },
           {
             name: 'filter',
@@ -7879,8 +9448,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-root-props.properties.filter.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.command.api.command-root-props.description',
       },
       {
         name: 'CommandInputProps',
@@ -7890,6 +9462,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.command.api.command-input-props.description',
       },
       {
         name: 'CommandListProps',
@@ -7899,6 +9472,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.command.api.command-list-props.description',
       },
       {
         name: 'CommandEmptyProps',
@@ -7908,6 +9482,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.command.api.command-empty-props.description',
       },
       {
         name: 'CommandGroupProps',
@@ -7924,8 +9499,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-group-props.properties.heading.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.command.api.command-group-props.description',
       },
       {
         name: 'CommandItemProps',
@@ -7942,6 +9520,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-item-props.properties.value.description',
           },
           {
             name: 'keywords',
@@ -7950,6 +9530,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-item-props.properties.keywords.description',
           },
           {
             name: 'disabled',
@@ -7958,6 +9540,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-item-props.properties.disabled.description',
           },
           {
             name: 'textValue',
@@ -7966,6 +9550,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-item-props.properties.text-value.description',
           },
           {
             name: 'onSelect',
@@ -7974,8 +9560,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.command.api.command-item-props.properties.on-select.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.command.api.command-item-props.description',
       },
       {
         name: 'CommandSeparatorProps',
@@ -7985,6 +9574,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.command.api.command-separator-props.description',
       },
     ],
   },
@@ -8006,6 +9596,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.context-menu.api.context-menu-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -8014,8 +9606,12 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.context-menu.api.context-menu-content-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey:
+          'primitives.context-menu.api.context-menu-content-props.description',
       },
       {
         name: 'ContextMenuProps',
@@ -8032,6 +9628,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.context-menu.api.context-menu-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -8040,6 +9638,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.context-menu.api.context-menu-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -8048,6 +9648,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.context-menu.api.context-menu-props.properties.on-open-change.description',
           },
           {
             name: 'disabled',
@@ -8056,8 +9658,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.context-menu.api.context-menu-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.context-menu.api.context-menu-props.description',
       },
       {
         name: 'ContextMenuTriggerProps',
@@ -8074,6 +9679,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.context-menu.api.context-menu-trigger-props.properties.disabled.description',
           },
           {
             name: 'render',
@@ -8082,8 +9689,12 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.context-menu.api.context-menu-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey:
+          'primitives.context-menu.api.context-menu-trigger-props.description',
       },
     ],
   },
@@ -8105,6 +9716,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-snapshot.properties.x.description',
           },
           {
             name: 'y',
@@ -8113,6 +9726,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-snapshot.properties.y.description',
           },
           {
             name: 'active',
@@ -8121,6 +9736,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-snapshot.properties.active.description',
           },
           {
             name: 'visible',
@@ -8129,6 +9746,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-snapshot.properties.visible.description',
           },
           {
             name: 'pointerType',
@@ -8137,6 +9756,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-snapshot.properties.pointer-type.description',
           },
           {
             name: 'buttons',
@@ -8145,8 +9766,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-snapshot.properties.buttons.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.cursor.api.cursor-snapshot.description',
       },
       {
         name: 'CursorFollowOptions',
@@ -8164,8 +9788,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Let descendant Tooltips follow mouse hover. Keyboard focus stays element anchored.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-follow-options.properties.tooltip.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.cursor.api.cursor-follow-options.description',
       },
       {
         name: 'CursorPointer',
@@ -8183,6 +9810,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Stable external store. Subscribe in an effect for frame-coalesced updates without React renders.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-pointer.properties.get-snapshot.description',
           },
           {
             name: 'subscribe',
@@ -8191,6 +9820,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-pointer.properties.subscribe.description',
           },
           {
             name: 'reset',
@@ -8200,6 +9831,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Hide/reset all pointer feedback, for example before a client-side navigation.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-pointer.properties.reset.description',
           },
           {
             name: 'follow',
@@ -8208,6 +9841,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-pointer.properties.follow.description',
           },
           {
             name: 'scopeRef',
@@ -8216,8 +9851,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-pointer.properties.scope-ref.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.cursor.api.cursor-pointer.description',
       },
       {
         name: 'CursorProviderProps',
@@ -8234,6 +9872,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-provider-props.properties.cursor.description',
           },
           {
             name: 'follow',
@@ -8242,6 +9882,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-provider-props.properties.follow.description',
           },
           {
             name: 'disabled',
@@ -8250,6 +9892,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-provider-props.properties.disabled.description',
           },
           {
             name: 'resetKey',
@@ -8259,6 +9903,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               "Changing this value resets feedback; pass your router's location key for SPA navigation.",
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-provider-props.properties.reset-key.description',
           },
           {
             name: 'hotspot',
@@ -8268,6 +9914,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Pixel coordinate within the custom visual that coincides with the pointer.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-provider-props.properties.hotspot.description',
           },
           {
             name: 'visualClassName',
@@ -8276,8 +9924,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Class for the portalled, non-interactive visual layer.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-provider-props.properties.visual-class-name.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.cursor.api.cursor-provider-props.description',
       },
       {
         name: 'CursorFollowerProps',
@@ -8294,6 +9945,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: "'bottomLeft'",
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-follower-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -8302,6 +9955,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '18',
             description: 'Gap from the pointer, in pixels.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-follower-props.properties.offset.description',
           },
           {
             name: 'offsetX',
@@ -8310,8 +9965,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '12',
             description: 'Horizontal anchor adjustment, in pixels.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.cursor.api.cursor-follower-props.properties.offset-x.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.cursor.api.cursor-follower-props.description',
       },
     ],
   },
@@ -8333,6 +9991,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -8341,6 +10001,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -8349,6 +10011,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-props.properties.on-open-change.description',
           },
           {
             name: 'modal',
@@ -8357,8 +10021,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: 'true',
             description: 'Prevent interaction with content outside the dialog while open.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-props.properties.modal.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dialog.api.dialog-props.description',
       },
       {
         name: 'DialogRootProps',
@@ -8375,6 +10042,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-root-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -8383,6 +10052,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-root-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -8391,6 +10062,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-root-props.properties.on-open-change.description',
           },
           {
             name: 'modal',
@@ -8399,8 +10072,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: 'true',
             description: 'Prevent interaction with content outside the dialog while open.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-root-props.properties.modal.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dialog.api.dialog-root-props.description',
       },
       {
         name: 'DialogTriggerProps',
@@ -8417,8 +10093,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dialog.api.dialog-trigger-props.description',
       },
       {
         name: 'DialogPortalProps',
@@ -8435,8 +10114,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-portal-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dialog.api.dialog-portal-props.description',
       },
       {
         name: 'DialogOverlayProps',
@@ -8446,6 +10128,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.dialog.api.dialog-overlay-props.description',
       },
       {
         name: 'DialogContentProps',
@@ -8462,6 +10145,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-content-props.properties.on-open-auto-focus.description',
           },
           {
             name: 'onCloseAutoFocus',
@@ -8470,6 +10155,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-content-props.properties.on-close-auto-focus.description',
           },
           {
             name: 'onEscapeKeyDown',
@@ -8478,6 +10165,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-content-props.properties.on-escape-key-down.description',
           },
           {
             name: 'onPointerDownOutside',
@@ -8486,8 +10175,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-content-props.properties.on-pointer-down-outside.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dialog.api.dialog-content-props.description',
       },
       {
         name: 'DialogTitleProps',
@@ -8497,6 +10189,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.dialog.api.dialog-title-props.description',
       },
       {
         name: 'DialogDescriptionProps',
@@ -8506,6 +10199,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.dialog.api.dialog-description-props.description',
       },
       {
         name: 'DialogCloseProps',
@@ -8522,8 +10216,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dialog.api.dialog-close-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dialog.api.dialog-close-props.description',
       },
     ],
   },
@@ -8538,6 +10235,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.dock.api.dock-edge.description',
       },
       {
         name: 'DockOrientation',
@@ -8547,6 +10245,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.dock.api.dock-orientation.description',
       },
       {
         name: 'DockHandlePosition',
@@ -8556,6 +10255,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.dock.api.dock-handle-position.description',
       },
       {
         name: 'DockPersistenceStorage',
@@ -8565,6 +10265,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.dock.api.dock-persistence-storage.description',
       },
       {
         name: 'DockSnapDivisions',
@@ -8574,6 +10275,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.dock.api.dock-snap-divisions.description',
       },
       {
         name: 'DockPersistOptions',
@@ -8591,6 +10293,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               "Stable consumer-owned identity used inside Virgo Design's storage namespace.",
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-persist-options.properties.key.description',
           },
           {
             name: 'storage',
@@ -8599,8 +10303,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Browser storage lifetime used for uncontrolled placement persistence.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-persist-options.properties.storage.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dock.api.dock-persist-options.description',
       },
       {
         name: 'DockPlacement',
@@ -8617,6 +10324,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Edge of the containing Dock.Boundary.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-placement.properties.edge.description',
           },
           {
             name: 'position',
@@ -8625,8 +10334,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Normalized position along the active edge, from 0 to 1.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-placement.properties.position.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dock.api.dock-placement.description',
       },
       {
         name: 'DockState',
@@ -8643,6 +10355,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-state.properties.placement.description',
           },
           {
             name: 'orientation',
@@ -8651,6 +10365,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-state.properties.orientation.description',
           },
           {
             name: 'dragging',
@@ -8659,6 +10375,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-state.properties.dragging.description',
           },
           {
             name: 'locked',
@@ -8667,6 +10385,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-state.properties.locked.description',
           },
           {
             name: 'pinned',
@@ -8675,6 +10395,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-state.properties.pinned.description',
           },
           {
             name: 'setLocked',
@@ -8683,6 +10405,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-state.properties.set-locked.description',
           },
           {
             name: 'setPinned',
@@ -8691,6 +10415,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-state.properties.set-pinned.description',
           },
           {
             name: 'setPlacement',
@@ -8699,8 +10425,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-state.properties.set-placement.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dock.api.dock-state.description',
       },
       {
         name: 'DockRootProps',
@@ -8717,6 +10446,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled edge placement.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.placement.description',
           },
           {
             name: 'defaultPlacement',
@@ -8726,6 +10457,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Controlled placement owns initialization.\nInitial placement when no persisted value exists.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.default-placement.description',
           },
           {
             name: 'persist',
@@ -8735,6 +10468,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Persistence belongs to the external state owner in controlled mode.\nPersist uncontrolled placement across reloads using browser storage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.persist.description',
           },
           {
             name: 'children',
@@ -8743,6 +10478,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.children.description',
           },
           {
             name: 'onPlacementChange',
@@ -8751,6 +10488,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called whenever pointer or keyboard interaction changes placement.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.on-placement-change.description',
           },
           {
             name: 'allowedEdges',
@@ -8759,6 +10498,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: "['top', 'right', 'bottom', 'left']",
             description: 'Edges available to placement and repositioning.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.allowed-edges.description',
           },
           {
             name: 'snapDivisions',
@@ -8768,6 +10509,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Number of equal snap intervals along each edge, or false for continuous free positioning.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.snap-divisions.description',
           },
           {
             name: 'disabled',
@@ -8776,6 +10519,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Disables drag and keyboard repositioning.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.disabled.description',
           },
           {
             name: 'locked',
@@ -8785,6 +10530,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Prevents pointer and keyboard movement without changing positioning mode.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.locked.description',
           },
           {
             name: 'defaultLocked',
@@ -8793,6 +10540,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Initial uncontrolled movement lock.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.default-locked.description',
           },
           {
             name: 'onLockedChange',
@@ -8801,6 +10550,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.on-locked-change.description',
           },
           {
             name: 'pinned',
@@ -8810,6 +10561,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Fixes the current docking frame in the viewport without jumping; movement remains enabled unless locked or disabled.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.pinned.description',
           },
           {
             name: 'defaultPinned',
@@ -8818,6 +10571,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Initial uncontrolled fixed positioning.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.default-pinned.description',
           },
           {
             name: 'onPinnedChange',
@@ -8826,8 +10581,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-root-props.properties.on-pinned-change.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dock.api.dock-root-props.description',
       },
       {
         name: 'DockBoundaryProps',
@@ -8837,6 +10595,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.dock.api.dock-boundary-props.description',
       },
       {
         name: 'DockContentProps',
@@ -8846,6 +10605,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.dock.api.dock-content-props.description',
       },
       {
         name: 'DockHandleProps',
@@ -8863,8 +10623,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: "'start'",
             description: 'Logical position of the movement handle within Dock.Root.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dock.api.dock-handle-props.properties.position.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dock.api.dock-handle-props.description',
       },
     ],
   },
@@ -8879,6 +10642,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.dropdown.api.dropdown-placement.description',
       },
       {
         name: 'DropdownProps',
@@ -8895,6 +10659,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Pointer activation; keyboard and touch activation work in both modes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dropdown.api.dropdown-props.properties.trigger.description',
           },
           {
             name: 'open',
@@ -8903,6 +10669,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dropdown.api.dropdown-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -8911,6 +10679,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dropdown.api.dropdown-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -8919,6 +10689,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dropdown.api.dropdown-props.properties.on-open-change.description',
           },
           {
             name: 'disabled',
@@ -8927,8 +10699,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dropdown.api.dropdown-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dropdown.api.dropdown-props.description',
       },
       {
         name: 'DropdownTriggerProps',
@@ -8945,8 +10720,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dropdown.api.dropdown-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dropdown.api.dropdown-trigger-props.description',
       },
       {
         name: 'DropdownContentProps',
@@ -8963,6 +10741,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Preferred physical placement; flips and shifts at viewport edges.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dropdown.api.dropdown-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -8971,8 +10751,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dropdown.api.dropdown-content-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dropdown.api.dropdown-content-props.description',
       },
       {
         name: 'DropdownItemProps',
@@ -8989,6 +10772,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Supplying checked turns the item into a menuitemradio.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dropdown.api.dropdown-item-props.properties.checked.description',
           },
           {
             name: 'onSelect',
@@ -8997,8 +10782,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: "Prevent the event's default to keep the menu open.",
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.dropdown.api.dropdown-item-props.properties.on-select.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.dropdown.api.dropdown-item-props.description',
       },
     ],
   },
@@ -9013,6 +10801,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.input.api.input-props.description',
       },
     ],
   },
@@ -9027,6 +10816,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.textarea.api.textarea-props.description',
       },
     ],
   },
@@ -9041,6 +10831,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.layout.api.layout-direction.description',
       },
       {
         name: 'LayoutProps',
@@ -9057,6 +10848,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Structural regions rendered in document order.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-props.properties.children.description',
           },
           {
             name: 'direction',
@@ -9065,8 +10858,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Direction in which the direct child regions are arranged.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-props.properties.direction.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.layout.api.layout-props.description',
       },
       {
         name: 'LayoutHeaderProps',
@@ -9076,6 +10872,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.layout.api.layout-header-props.description',
       },
       {
         name: 'LayoutLaneProps',
@@ -9092,6 +10889,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Structural children that live within this spatial lane.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-lane-props.properties.children.description',
           },
           {
             name: 'direction',
@@ -9100,8 +10899,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Direction in which direct lane children are arranged.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-lane-props.properties.direction.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.layout.api.layout-lane-props.description',
       },
       {
         name: 'LayoutSidebarState',
@@ -9118,6 +10920,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-state.properties.collapsed.description',
           },
           {
             name: 'setCollapsed',
@@ -9126,8 +10930,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-state.properties.set-collapsed.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-state.description',
       },
       {
         name: 'LayoutSidebarProps',
@@ -9144,6 +10951,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-props.properties.collapsed.description',
           },
           {
             name: 'defaultCollapsed',
@@ -9152,6 +10961,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-props.properties.default-collapsed.description',
           },
           {
             name: 'onCollapsedChange',
@@ -9160,6 +10971,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-props.properties.on-collapsed-change.description',
           },
           {
             name: 'children',
@@ -9168,8 +10981,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-props.description',
       },
       {
         name: 'LayoutSidebarTriggerProps',
@@ -9186,8 +11002,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-trigger-props.description',
       },
       {
         name: 'LayoutContentProps',
@@ -9197,6 +11016,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.layout.api.layout-content-props.description',
       },
       {
         name: 'LayoutFooterProps',
@@ -9206,6 +11026,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.layout.api.layout-footer-props.description',
       },
     ],
   },
@@ -9227,6 +11048,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-checkbox-item-props.properties.checked.description',
           },
           {
             name: 'defaultChecked',
@@ -9235,6 +11058,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-checkbox-item-props.properties.default-checked.description',
           },
           {
             name: 'onCheckedChange',
@@ -9243,6 +11068,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-checkbox-item-props.properties.on-checked-change.description',
           },
           {
             name: 'onSelect',
@@ -9251,6 +11078,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Cancel selection with event.preventDefault().',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-checkbox-item-props.properties.on-select.description',
           },
           {
             name: 'closeOnSelect',
@@ -9259,6 +11088,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Defaults to true for actions and false for checkbox/radio items.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-checkbox-item-props.properties.close-on-select.description',
           },
           {
             name: 'textValue',
@@ -9267,8 +11098,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Search label for rich content. Shortcut display is excluded by UI.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-checkbox-item-props.properties.text-value.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.menu.api.menu-checkbox-item-props.description',
       },
       {
         name: 'MenuContentProps',
@@ -9285,6 +11119,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -9293,8 +11129,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-content-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.menu.api.menu-content-props.description',
       },
       {
         name: 'MenuGroupProps',
@@ -9304,6 +11143,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [],
+        descriptionTranslationKey: 'primitives.menu.api.menu-group-props.description',
       },
       {
         name: 'MenuItemProps',
@@ -9320,6 +11160,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Cancel selection with event.preventDefault().',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-item-props.properties.on-select.description',
           },
           {
             name: 'closeOnSelect',
@@ -9328,6 +11170,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Defaults to true for actions and false for checkbox/radio items.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-item-props.properties.close-on-select.description',
           },
           {
             name: 'textValue',
@@ -9336,8 +11180,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Search label for rich content. Shortcut display is excluded by UI.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-item-props.properties.text-value.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.menu.api.menu-item-props.description',
       },
       {
         name: 'MenuProps',
@@ -9354,6 +11201,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey: 'primitives.menu.api.menu-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -9362,6 +11210,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -9370,6 +11220,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-props.properties.on-open-change.description',
           },
           {
             name: 'disabled',
@@ -9378,8 +11230,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.menu.api.menu-props.description',
       },
       {
         name: 'MenuRadioGroupProps',
@@ -9396,6 +11251,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-radio-group-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -9404,6 +11261,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-radio-group-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -9412,8 +11271,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-radio-group-props.properties.on-value-change.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.menu.api.menu-radio-group-props.description',
       },
       {
         name: 'MenuRadioItemProps',
@@ -9430,6 +11292,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-radio-item-props.properties.value.description',
           },
           {
             name: 'onSelect',
@@ -9438,6 +11302,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Cancel selection with event.preventDefault().',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-radio-item-props.properties.on-select.description',
           },
           {
             name: 'closeOnSelect',
@@ -9446,6 +11312,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Defaults to true for actions and false for checkbox/radio items.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-radio-item-props.properties.close-on-select.description',
           },
           {
             name: 'textValue',
@@ -9454,8 +11322,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Search label for rich content. Shortcut display is excluded by UI.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-radio-item-props.properties.text-value.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.menu.api.menu-radio-item-props.description',
       },
       {
         name: 'MenuSubmenuProps',
@@ -9472,6 +11343,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-submenu-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -9480,6 +11353,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-submenu-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -9488,6 +11363,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-submenu-props.properties.on-open-change.description',
           },
           {
             name: 'disabled',
@@ -9496,8 +11373,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-submenu-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.menu.api.menu-submenu-props.description',
       },
       {
         name: 'MenuTriggerProps',
@@ -9514,8 +11394,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menu.api.menu-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.menu.api.menu-trigger-props.description',
       },
     ],
   },
@@ -9537,6 +11420,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menubar.api.menubar-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -9545,8 +11430,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menubar.api.menubar-content-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.menubar.api.menubar-content-props.description',
       },
       {
         name: 'MenubarMenuProps',
@@ -9563,6 +11451,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menubar.api.menubar-menu-props.properties.value.description',
           },
           {
             name: 'disabled',
@@ -9571,8 +11461,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menubar.api.menubar-menu-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.menubar.api.menubar-menu-props.description',
       },
       {
         name: 'MenubarProps',
@@ -9589,6 +11482,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Value of the open top-level menu; null closes all menus.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menubar.api.menubar-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -9597,6 +11492,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menubar.api.menubar-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -9605,8 +11502,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menubar.api.menubar-props.properties.on-value-change.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.menubar.api.menubar-props.description',
       },
       {
         name: 'MenubarTriggerProps',
@@ -9623,8 +11523,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.menubar.api.menubar-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.menubar.api.menubar-trigger-props.description',
       },
     ],
   },
@@ -9639,6 +11542,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'primitives.navigation-menu.api.navigation-menu-orientation.description',
       },
       {
         name: 'NavigationMenuProps',
@@ -9655,6 +11560,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: "'horizontal'",
             description: 'Direction used by arrow-key navigation.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-props.properties.orientation.description',
           },
           {
             name: 'value',
@@ -9663,6 +11570,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled active item value.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -9671,6 +11580,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initially active item value for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -9679,8 +11590,12 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when a link activates an item.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-props.properties.on-value-change.description',
           },
         ],
+        descriptionTranslationKey:
+          'primitives.navigation-menu.api.navigation-menu-props.description',
       },
       {
         name: 'NavigationMenuRootProps',
@@ -9697,6 +11612,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: "'horizontal'",
             description: 'Direction used by arrow-key navigation.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-root-props.properties.orientation.description',
           },
           {
             name: 'value',
@@ -9705,6 +11622,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled active item value.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-root-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -9713,6 +11632,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initially active item value for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-root-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -9721,8 +11642,12 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when a link activates an item.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-root-props.properties.on-value-change.description',
           },
         ],
+        descriptionTranslationKey:
+          'primitives.navigation-menu.api.navigation-menu-root-props.description',
       },
       {
         name: 'NavigationMenuListProps',
@@ -9732,6 +11657,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'primitives.navigation-menu.api.navigation-menu-list-props.description',
       },
       {
         name: 'NavigationMenuGroupProps',
@@ -9741,6 +11668,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'primitives.navigation-menu.api.navigation-menu-group-props.description',
       },
       {
         name: 'NavigationMenuGroupLabelProps',
@@ -9750,6 +11679,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'primitives.navigation-menu.api.navigation-menu-group-label-props.description',
       },
       {
         name: 'NavigationMenuItemProps',
@@ -9766,6 +11697,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Stable value used to coordinate this item with the root active state.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-item-props.properties.value.description',
           },
           {
             name: 'disabled',
@@ -9774,6 +11707,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: "Prevents this item's link or disclosure trigger from being activated.",
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-item-props.properties.disabled.description',
           },
           {
             name: 'expanded',
@@ -9782,6 +11717,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: "Controlled expanded state for this item's nested content.",
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-item-props.properties.expanded.description',
           },
           {
             name: 'defaultExpanded',
@@ -9790,6 +11727,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: 'false',
             description: 'Initial expanded state for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-item-props.properties.default-expanded.description',
           },
           {
             name: 'onExpandedChange',
@@ -9798,8 +11737,12 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when nested content expands or collapses.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-item-props.properties.on-expanded-change.description',
           },
         ],
+        descriptionTranslationKey:
+          'primitives.navigation-menu.api.navigation-menu-item-props.description',
       },
       {
         name: 'NavigationMenuLinkProps',
@@ -9816,8 +11759,12 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom link that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-link-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey:
+          'primitives.navigation-menu.api.navigation-menu-link-props.description',
       },
       {
         name: 'NavigationMenuTriggerProps',
@@ -9834,8 +11781,12 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button that forwards all supplied props and its ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.navigation-menu.api.navigation-menu-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey:
+          'primitives.navigation-menu.api.navigation-menu-trigger-props.description',
       },
       {
         name: 'NavigationMenuContentProps',
@@ -9845,6 +11796,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey:
+          'primitives.navigation-menu.api.navigation-menu-content-props.description',
       },
     ],
   },
@@ -9859,6 +11812,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.pagination.api.pagination-item.description',
       },
       {
         name: 'PaginationState',
@@ -9875,6 +11829,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-state.properties.page.description',
           },
           {
             name: 'pageSize',
@@ -9883,6 +11839,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-state.properties.page-size.description',
           },
           {
             name: 'pageCount',
@@ -9891,6 +11849,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-state.properties.page-count.description',
           },
           {
             name: 'total',
@@ -9899,6 +11859,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-state.properties.total.description',
           },
           {
             name: 'range',
@@ -9907,6 +11869,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-state.properties.range.description',
           },
           {
             name: 'items',
@@ -9915,6 +11879,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-state.properties.items.description',
           },
           {
             name: 'disabled',
@@ -9923,6 +11889,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-state.properties.disabled.description',
           },
           {
             name: 'setPage',
@@ -9931,6 +11899,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-state.properties.set-page.description',
           },
           {
             name: 'setPageSize',
@@ -9940,8 +11910,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Changes the page size and returns to page one in one change notification.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-state.properties.set-page-size.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.pagination.api.pagination-state.description',
       },
       {
         name: 'PaginationProps',
@@ -9958,6 +11931,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-props.properties.total.description',
           },
           {
             name: 'page',
@@ -9966,6 +11941,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-props.properties.page.description',
           },
           {
             name: 'defaultPage',
@@ -9974,6 +11951,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-props.properties.default-page.description',
           },
           {
             name: 'pageSize',
@@ -9982,6 +11961,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-props.properties.page-size.description',
           },
           {
             name: 'defaultPageSize',
@@ -9990,6 +11971,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-props.properties.default-page-size.description',
           },
           {
             name: 'onChange',
@@ -9998,6 +11981,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-props.properties.on-change.description',
           },
           {
             name: 'disabled',
@@ -10006,6 +11991,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-props.properties.disabled.description',
           },
           {
             name: 'children',
@@ -10014,8 +12001,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.pagination.api.pagination-props.description',
       },
       {
         name: 'PaginationItemProps',
@@ -10032,6 +12022,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-item-props.properties.page.description',
           },
           {
             name: 'current',
@@ -10041,8 +12033,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Only numbered items represent the current page, not previous/next or jump actions.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.pagination.api.pagination-item-props.properties.current.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.pagination.api.pagination-item-props.description',
       },
     ],
   },
@@ -10057,6 +12052,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.popover.api.popover-placement.description',
       },
       {
         name: 'PopoverProps',
@@ -10073,6 +12069,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.popover.api.popover-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -10081,6 +12079,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.popover.api.popover-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -10089,6 +12089,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.popover.api.popover-props.properties.on-open-change.description',
           },
           {
             name: 'trigger',
@@ -10097,6 +12099,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: "'click'",
             description: 'Pointer activation. Both modes support keyboard and touch clicks.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.popover.api.popover-props.properties.trigger.description',
           },
           {
             name: 'disabled',
@@ -10105,6 +12109,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.popover.api.popover-props.properties.disabled.description',
           },
           {
             name: 'restoreFocusOnClose',
@@ -10114,8 +12120,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Return focus to the trigger after programmatic close. Escape always returns focus.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.popover.api.popover-props.properties.restore-focus-on-close.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.popover.api.popover-props.description',
       },
       {
         name: 'PopoverTriggerProps',
@@ -10132,8 +12141,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Supply a button which forwards the provided native props and ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.popover.api.popover-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.popover.api.popover-trigger-props.description',
       },
       {
         name: 'PopoverContentProps',
@@ -10150,6 +12162,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: "'bottomStart'",
             description: "Logical Start/End alignments follow the trigger's direction.",
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.popover.api.popover-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -10158,8 +12172,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '8',
             description: 'Space between the trigger and panel, in pixels.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.popover.api.popover-content-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.popover.api.popover-content-props.description',
       },
       {
         name: 'PopoverCloseProps',
@@ -10169,6 +12186,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.popover.api.popover-close-props.description',
       },
     ],
   },
@@ -10183,6 +12201,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.radio.api.radio-props.description',
       },
       {
         name: 'RadioGroupOrientation',
@@ -10192,6 +12211,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.radio.api.radio-group-orientation.description',
       },
       {
         name: 'RadioGroupProps',
@@ -10208,6 +12228,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled selected value.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.radio.api.radio-group-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -10216,6 +12238,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initial selected value for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.radio.api.radio-group-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -10224,6 +12248,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called whenever the selected value changes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.radio.api.radio-group-props.properties.on-value-change.description',
           },
           {
             name: 'name',
@@ -10232,6 +12258,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Shared native name forwarded to grouped radio inputs.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.radio.api.radio-group-props.properties.name.description',
           },
           {
             name: 'disabled',
@@ -10240,6 +12268,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Disables every radio in the group.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.radio.api.radio-group-props.properties.disabled.description',
           },
           {
             name: 'orientation',
@@ -10248,6 +12278,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Layout orientation for the group.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.radio.api.radio-group-props.properties.orientation.description',
           },
           {
             name: 'children',
@@ -10256,8 +12288,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.radio.api.radio-group-props.properties.children.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.radio.api.radio-group-props.description',
       },
     ],
   },
@@ -10280,6 +12315,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-props.properties.children.description',
           },
           {
             name: 'id',
@@ -10288,6 +12325,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Identifier applied to the interactive trigger.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-props.properties.id.description',
           },
           {
             name: 'value',
@@ -10296,6 +12335,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -10304,6 +12345,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -10312,6 +12355,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-props.properties.on-value-change.description',
           },
           {
             name: 'open',
@@ -10320,6 +12365,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -10328,6 +12375,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -10336,6 +12385,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-props.properties.on-open-change.description',
           },
           {
             name: 'disabled',
@@ -10344,6 +12395,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-props.properties.disabled.description',
           },
           {
             name: 'name',
@@ -10352,8 +12405,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-props.properties.name.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.select.api.select-props.description',
       },
       {
         name: 'SelectTriggerProps',
@@ -10363,6 +12419,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.select.api.select-trigger-props.description',
       },
       {
         name: 'SelectContentProps',
@@ -10372,6 +12429,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.select.api.select-content-props.description',
       },
       {
         name: 'SelectOptionProps',
@@ -10388,6 +12446,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-option-props.properties.value.description',
           },
           {
             name: 'disabled',
@@ -10396,8 +12456,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-option-props.properties.disabled.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.select.api.select-option-props.description',
       },
     ],
   },
@@ -10419,8 +12482,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when the checked state changes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.switch.api.switch-props.properties.on-checked-change.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.switch.api.switch-props.description',
       },
     ],
   },
@@ -10442,6 +12508,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tabs.api.tabs-props.properties.children.description',
           },
           {
             name: 'value',
@@ -10450,6 +12518,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled active tab value.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tabs.api.tabs-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -10458,6 +12528,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initial active tab value for uncontrolled usage.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tabs.api.tabs-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -10466,8 +12538,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called whenever the active tab changes.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tabs.api.tabs-props.properties.on-value-change.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.tabs.api.tabs-props.description',
       },
       {
         name: 'TabListProps',
@@ -10477,6 +12552,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.tabs.api.tab-list-props.description',
       },
       {
         name: 'TabProps',
@@ -10493,8 +12569,10 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Value that associates this tab with its panel.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey: 'primitives.tabs.api.tab-props.properties.value.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.tabs.api.tab-props.description',
       },
       {
         name: 'TabPanelProps',
@@ -10511,8 +12589,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Value of the tab that controls this panel.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tabs.api.tab-panel-props.properties.value.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.tabs.api.tab-panel-props.description',
       },
     ],
   },
@@ -10534,6 +12615,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-provider-props.properties.children.description',
           },
           {
             name: 'hotkey',
@@ -10542,8 +12625,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: "['F8']",
             description: 'Keyboard shortcut that moves focus into the toast viewport.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-provider-props.properties.hotkey.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.toast.api.toast-provider-props.description',
       },
       {
         name: 'ToastProps',
@@ -10560,6 +12646,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -10568,6 +12656,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -10576,6 +12666,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-props.properties.on-open-change.description',
           },
           {
             name: 'duration',
@@ -10584,6 +12676,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '5000',
             description: 'Auto-dismiss delay in milliseconds. Use 0 to keep the toast open.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-props.properties.duration.description',
           },
           {
             name: 'priority',
@@ -10592,8 +12686,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: "'polite'",
             description: 'Announcement priority.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-props.properties.priority.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.toast.api.toast-props.description',
       },
       {
         name: 'ToastRootProps',
@@ -10610,6 +12707,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-root-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -10618,6 +12717,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-root-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -10626,6 +12727,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-root-props.properties.on-open-change.description',
           },
           {
             name: 'duration',
@@ -10634,6 +12737,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '5000',
             description: 'Auto-dismiss delay in milliseconds. Use 0 to keep the toast open.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-root-props.properties.duration.description',
           },
           {
             name: 'priority',
@@ -10642,8 +12747,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: "'polite'",
             description: 'Announcement priority.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-root-props.properties.priority.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.toast.api.toast-root-props.description',
       },
       {
         name: 'ToastTitleProps',
@@ -10653,6 +12761,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.toast.api.toast-title-props.description',
       },
       {
         name: 'ToastDescriptionProps',
@@ -10662,6 +12771,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.toast.api.toast-description-props.description',
       },
       {
         name: 'ToastActionProps',
@@ -10678,8 +12788,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button while forwarding the supplied props and ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-action-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.toast.api.toast-action-props.description',
       },
       {
         name: 'ToastCloseProps',
@@ -10696,8 +12809,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Render a custom button while forwarding the supplied props and ref.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-close-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.toast.api.toast-close-props.description',
       },
       {
         name: 'ToastViewportProps',
@@ -10707,6 +12823,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.toast.api.toast-viewport-props.description',
       },
     ],
   },
@@ -10721,6 +12838,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.tooltip.api.tooltip-placement.description',
       },
       {
         name: 'TooltipProps',
@@ -10737,6 +12855,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tooltip.api.tooltip-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -10745,6 +12865,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tooltip.api.tooltip-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -10753,6 +12875,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tooltip.api.tooltip-props.properties.on-open-change.description',
           },
           {
             name: 'disabled',
@@ -10761,6 +12885,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tooltip.api.tooltip-props.properties.disabled.description',
           },
           {
             name: 'openDelay',
@@ -10769,6 +12895,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '100',
             description: 'Hover delay in milliseconds; keyboard focus opens immediately.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tooltip.api.tooltip-props.properties.open-delay.description',
           },
           {
             name: 'closeOnClick',
@@ -10778,6 +12906,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Dismiss on activation. Set false to keep dynamic feedback open while hover or keyboard focus remains.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tooltip.api.tooltip-props.properties.close-on-click.description',
           },
           {
             name: 'smoothTransition',
@@ -10787,8 +12917,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             description:
               'Smooth handoff between opted-in tooltips; ordinary tooltips keep their own delay and fade.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tooltip.api.tooltip-props.properties.smooth-transition.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.tooltip.api.tooltip-props.description',
       },
       {
         name: 'TooltipTriggerProps',
@@ -10805,8 +12938,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Forward all supplied props and ref to a native button.',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tooltip.api.tooltip-trigger-props.properties.render.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.tooltip.api.tooltip-trigger-props.description',
       },
       {
         name: 'TooltipContentProps',
@@ -10823,6 +12959,8 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: "'top'",
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tooltip.api.tooltip-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -10831,8 +12969,11 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '8',
             description: '',
             source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tooltip.api.tooltip-content-props.properties.offset.description',
           },
         ],
+        descriptionTranslationKey: 'primitives.tooltip.api.tooltip-content-props.description',
       },
     ],
   },

@@ -3,7 +3,7 @@ import { borderStyle, borderWidth, radius, type RadiusToken } from '@virgo-desig
 import { I18nextProvider } from 'react-i18next';
 import { describe, expect, it } from 'vitest';
 
-import i18n from '@/i18n';
+import { i18nInstance } from '@/i18n/runtime';
 
 import { ShapeScalePreview } from './ShapeScalePreview';
 
@@ -89,7 +89,7 @@ describe('ShapeScalePreview', () => {
 
   it.each([
     {
-      locale: 'en',
+      locale: 'en-US',
       title: 'Scale preview',
       small: 'Small shape radius',
       medium: 'Medium surface radius',
@@ -107,15 +107,15 @@ describe('ShapeScalePreview', () => {
   ])(
     'uses neutral documentation language in $locale',
     ({ locale, title, small, medium, full, disclaimer }) => {
-      const localizedI18n = i18n.cloneInstance({ lng: locale });
+      const localizedI18n = i18nInstance.cloneInstance({ lng: locale });
       const { container } = render(
         <I18nextProvider i18n={localizedI18n}>
           <ShapeScalePreview />
         </I18nextProvider>,
       );
 
-      expect(localizedI18n.t('foundationPages.shapeDepth.preview.eyebrow')).toBe('SCALE PREVIEW');
-      expect(localizedI18n.t('foundationPages.shapeDepth.preview.title')).toBe(title);
+      expect(localizedI18n.t('foundations.shapeDepth.preview.eyebrow')).toBe('SCALE PREVIEW');
+      expect(localizedI18n.t('foundations.shapeDepth.preview.title')).toBe(title);
       expect(within(container).getByText(disclaimer)).toBeTruthy();
       for (const name of [small, medium, full]) {
         expect(within(container).getByRole('heading', { level: 4, name })).toBeTruthy();

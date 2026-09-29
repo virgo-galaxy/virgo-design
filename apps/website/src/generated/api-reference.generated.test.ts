@@ -29,4 +29,19 @@ describe('generated API reference registry', () => {
       'TextareaProps',
     );
   });
+
+  it('provides stable translation keys while retaining English JSDoc fallbacks', () => {
+    const textButton = componentApiReference.button?.declarations.find(
+      (entry) => entry.name === 'TextButtonProps',
+    );
+    const children = textButton?.properties.find((property) => property.name === 'children');
+
+    expect(textButton?.descriptionTranslationKey).toBe(
+      'components.button.api.text-button-props.description',
+    );
+    expect(children?.descriptionTranslationKey).toBe(
+      'components.button.api.text-button-props.properties.children.description',
+    );
+    expect(children?.description).toBe('Visible text label for the action.');
+  });
 });

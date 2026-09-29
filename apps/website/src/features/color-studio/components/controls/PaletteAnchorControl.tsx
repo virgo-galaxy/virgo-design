@@ -13,8 +13,14 @@ export function PaletteAnchorControl({ value, onChange }: PaletteAnchorControlPr
 
   return (
     <section className={styles.controlGroup}>
-      <HexColorField label={t('settings.paletteAnchor')} value={value} onChange={onChange} />
-      <p className={styles.controlHint}>{t('settings.paletteAnchorHint')}</p>
+      <HexColorField
+        label={t('foundations.colorStudio.settings.paletteAnchor')}
+        value={value}
+        onChange={onChange}
+      />
+      <p className={styles.controlHint}>
+        {t('foundations.colorStudio.settings.paletteAnchorHint')}
+      </p>
     </section>
   );
 }

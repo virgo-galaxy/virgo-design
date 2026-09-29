@@ -48,18 +48,18 @@ export function DepthScalePreview() {
 
   return (
     <div className={styles.previewStack} style={frameStyle}>
-      <p className={styles.disclaimer}>{t('foundationPages.shapeDepth.depthPreview.disclaimer')}</p>
+      <p className={styles.disclaimer}>{t('foundations.shapeDepth.depthPreview.disclaimer')}</p>
 
       <section className={styles.previewGroup} aria-labelledby="depth-elevation-preview-title">
         <header className={styles.groupHeader}>
           <h3 id="depth-elevation-preview-title">
-            {t('foundationPages.shapeDepth.depthPreview.elevation.title')}
+            {t('foundations.shapeDepth.depthPreview.elevation.title')}
           </h3>
-          <p>{t('foundationPages.shapeDepth.depthPreview.elevation.description')}</p>
+          <p>{t('foundations.shapeDepth.depthPreview.elevation.description')}</p>
         </header>
 
         <article className={styles.comparisonCard}>
-          <h4>{t('foundationPages.shapeDepth.depthPreview.elevation.scale')}</h4>
+          <h4>{t('foundations.shapeDepth.depthPreview.elevation.scale')}</h4>
           <div className={styles.elevationGrid}>
             {elevationLevels.map((level) => (
               <figure
@@ -81,7 +81,7 @@ export function DepthScalePreview() {
         </article>
 
         <article className={styles.comparisonCard}>
-          <h4>{t('foundationPages.shapeDepth.depthPreview.elevation.layered')}</h4>
+          <h4>{t('foundations.shapeDepth.depthPreview.elevation.layered')}</h4>
           <div className={styles.layeredStage}>
             {layeredElevationLevels.map((level) => (
               <div

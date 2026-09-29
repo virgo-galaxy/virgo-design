@@ -20,13 +20,13 @@ export function SemanticColorExport() {
       <div className={styles.controls}>
         <code>CSS</code>
         <button type="button" onClick={() => void copyCode()}>
-          {copied ? t('tokensPage.export.copied') : t('tokensPage.export.copy')}
+          {copied ? t('tokens.colors.export.copied') : t('tokens.colors.export.copy')}
         </button>
       </div>
       <pre className={styles.codeBlock}>
         <code>{code}</code>
       </pre>
-      <p>{t('tokensPage.export.note')}</p>
+      <p>{t('tokens.colors.export.note')}</p>
     </div>
   );
 }

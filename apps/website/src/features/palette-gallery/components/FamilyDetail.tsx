@@ -47,7 +47,7 @@ export function FamilyDetail({
 
     await copy(
       hex,
-      t('common.colorCopied', {
+      t('foundations.colors.colorCopied', {
         token,
         value: hex,
       }),
@@ -64,7 +64,7 @@ export function FamilyDetail({
     >
       <CopyToast key={toast?.id} toast={toast} />
 
-      <div className={styles.detailEyebrow}>{t(`gallery.kinds.${kind}`)}</div>
+      <div className={styles.detailEyebrow}>{t(`foundations.paletteGallery.kinds.${kind}`)}</div>
 
       <div className={styles.detailTitleRow}>
         <div>
@@ -79,14 +79,14 @@ export function FamilyDetail({
         <div className={styles.detailBaseColor} style={{ backgroundColor: base }} />
 
         <div>
-          <span>{t('gallery.baseColor')}</span>
+          <span>{t('foundations.paletteGallery.baseColor')}</span>
           <strong>{base.toUpperCase()}</strong>
           <small>STEP 6</small>
         </div>
       </div>
 
       <div className={styles.tonalHeading}>
-        <strong>{t('gallery.tonalScale')}</strong>
+        <strong>{t('foundations.paletteGallery.tonalScale')}</strong>
         <span>1 — 10</span>
       </div>
 
@@ -96,7 +96,7 @@ export function FamilyDetail({
             className={styles.detailScaleItem}
             key={step}
             type="button"
-            aria-label={t('preview.copyStep', {
+            aria-label={t('foundations.colors.copyStep', {
               family: label,
               step,
             })}

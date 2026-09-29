@@ -55,18 +55,18 @@ export function FoundationColorExportSection({
       <div className={styles.inner}>
         <header className={styles.header}>
           <div>
-            <span>{t('foundationColorExport.eyebrow')}</span>
-            <h2>{t('foundationColorExport.title')}</h2>
-            <p>{t('foundationColorExport.description')}</p>
+            <span>{t('foundations.colorExport.eyebrow')}</span>
+            <h2>{t('foundations.colorExport.title')}</h2>
+            <p>{t('foundations.colorExport.description')}</p>
           </div>
           <button type="button" onClick={() => void copyCode()}>
-            {copied ? t('foundationColorExport.copied') : t('foundationColorExport.copy')}
+            {copied ? t('foundations.colorExport.copied') : t('foundations.colorExport.copy')}
           </button>
         </header>
 
         <div className={styles.exportContent}>
           <div className={styles.controls}>
-            <div className={styles.tabs} aria-label={t('foundationColorExport.format')}>
+            <div className={styles.tabs} aria-label={t('foundations.colorExport.format')}>
               {(['css', 'scss', 'tailwind'] as const).map((item) => (
                 <button
                   key={item}
@@ -79,7 +79,7 @@ export function FoundationColorExportSection({
               ))}
             </div>
             <div className={styles.naming}>
-              <span>{t('foundationColorExport.scaleNaming')}</span>
+              <span>{t('foundations.colorExport.scaleNaming')}</span>
               <button
                 className={naming === 'conventional' ? styles.active : ''}
                 type="button"
@@ -100,7 +100,7 @@ export function FoundationColorExportSection({
           <pre className={styles.codeBlock}>
             <code>{code}</code>
           </pre>
-          <p className={styles.note}>{t('foundationColorExport.note')}</p>
+          <p className={styles.note}>{t('foundations.colorExport.note')}</p>
         </div>
       </div>
     </section>
