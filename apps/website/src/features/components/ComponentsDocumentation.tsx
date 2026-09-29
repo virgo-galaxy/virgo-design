@@ -13,6 +13,7 @@ import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { componentGroups, componentRoutes, type ComponentSlug } from './app/componentRoutes';
 import { ComponentPageMetadataProvider } from './components/ComponentPageMetadata';
+import { ComponentsCataloguePage } from './ComponentsCataloguePage';
 
 const componentsBasePath = '/components/';
 const navigationGroups = componentGroups
@@ -41,6 +42,14 @@ export function ComponentsDocumentation({ renderRelationships }: ComponentsDocum
     previousPathname.current = location.pathname;
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, [location.pathname]);
+
+  if (location.pathname === '/components' || location.pathname === '/components/') {
+    return (
+      <div className="components-documentation">
+        <ComponentsCataloguePage />
+      </div>
+    );
+  }
 
   return (
     <div className="components-documentation">
@@ -123,7 +132,7 @@ export function ComponentsDocumentation({ renderRelationships }: ComponentsDocum
         >
           <ComponentPageMetadataProvider metadata={activeRoute}>
             <Routes>
-              <Route index element={<Navigate replace to="/components/button" />} />
+              <Route index element={<ComponentsCataloguePage />} />
               {componentRoutes.map(({ Component, id, path }) => (
                 <Route
                   key={id}

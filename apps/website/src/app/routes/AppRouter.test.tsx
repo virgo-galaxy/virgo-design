@@ -138,10 +138,19 @@ describe('Component routes', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('redirects /components to the default component', async () => {
+  it('renders the component catalogue from the canonical component metadata', async () => {
     renderRoute('/components');
 
-    await findRouteHeading('Button');
+    await findRouteHeading('Components');
+    expect(screen.queryByRole('navigation', { name: 'Component navigation' })).toBeNull();
+    expect(screen.getAllByRole('link')).toHaveLength(37);
+    expect(screen.getByRole('heading', { level: 2, name: 'General' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Layout' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Navigation' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /^Button\b/ })).toHaveAttribute(
+      'href',
+      '/components/button',
+    );
   });
 });
 
@@ -176,6 +185,30 @@ describe('Primitive routes', () => {
       expect(screen.getByRole('heading', { level: 2, name: 'Accessibility' })).toBeInTheDocument();
     },
   );
+
+  it('wraps primitive detail content in its own grouped sidebar and shared detail structure', async () => {
+    renderRoute('/primitives/button');
+
+    await findRouteHeading('Button');
+    const sidebar = screen.getByRole('complementary', { name: 'Primitives sidebar' });
+    const navigation = within(sidebar).getByRole('navigation', { name: 'Primitive navigation' });
+
+    expect(within(navigation).getAllByRole('link')).toHaveLength(primitiveDocs.length);
+    const primitiveLinks = within(navigation).getAllByRole('link');
+    expect(primitiveLinks[0]).toHaveAccessibleName('01ButtonHeadless');
+    expect(primitiveLinks[1]).toHaveAccessibleName('02CommandHeadless');
+    expect(within(navigation).getByRole('link', { name: /Button/ })).toHaveAttribute(
+      'data-active',
+      'true',
+    );
+    expect(screen.getByText('Primitives', { exact: true })).toBeInTheDocument();
+    expect(
+      within(screen.getByRole('contentinfo', { name: 'Documentation footer' })).getByRole(
+        'button',
+        { name: 'Powered by Virgo Design' },
+      ),
+    ).toBeInTheDocument();
+  });
 
   it('redirects an unknown primitive slug to the catalogue', async () => {
     renderRoute('/primitives/not-a-primitive');

@@ -1,0 +1,136 @@
+.page {
+  min-height: calc(100svh - var(--layout-header-height));
+  color: var(--layout-text);
+  background:
+    radial-gradient(circle at 82% 5%, rgba(22, 100, 249, 0.08), transparent 32rem),
+    var(--layout-page);
+}
+
+.inner {
+  width: min(1280px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: 80px 0 112px;
+}
+
+.hero {
+  max-width: 760px;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--layout-secondary);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(48px, 7vw, 82px);
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+}
+
+.hero > p:last-child {
+  max-width: 680px;
+  margin: 20px 0 0;
+  color: var(--layout-secondary);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.catalogue {
+  display: grid;
+  gap: 52px;
+  margin-top: 80px;
+}
+
+.category {
+  display: grid;
+  gap: 20px;
+}
+
+.categoryHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--layout-line);
+}
+
+.categoryHeader h2 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.categoryHeader span {
+  color: var(--layout-secondary);
+  font-family: var(--app-font-family-mono);
+  font-size: 11px;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.cardLink {
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card {
+  height: 100%;
+  transition:
+    border-color var(--vd-duration-120) var(--vd-easing-standard),
+    transform var(--vd-duration-120) var(--vd-easing-standard),
+    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+}
+
+.cardLink:hover .card {
+  border-color: var(--vd-border-strong);
+  box-shadow: var(--vd-elevation-2);
+  transform: translateY(-2px);
+}
+
+.cardLink:focus-visible {
+  border-radius: var(--vd-radius-12);
+  outline: 2px solid var(--vd-border-focus);
+  outline-offset: 3px;
+}
+
+.cardHeader {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .inner {
+    width: min(100% - 32px, 1280px);
+    padding: 48px 0 80px;
+  }
+
+  .catalogue {
+    margin-top: 56px;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+}
