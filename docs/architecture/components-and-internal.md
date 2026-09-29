@@ -4,6 +4,27 @@
 
 Both package root indexes export only component families and their documented types. `ui/src/metadata/` remains a separate public metadata entry for compatibility. No runtime helpers are exported from either package root, and package `exports` allow only the existing root, UI metadata and stylesheet paths. Internal declaration files may be emitted as dependencies of public types; that does not create a supported subpath export.
 
+## Website import boundaries
+
+Within `apps/website/src`, `@` always resolves to the `src/` directory. Imports that cross a
+top-level source domain use that alias, for example `@/shared/...`, `@/i18n`, `@/components/...`,
+or `@/features/...`. They must not climb across domains with paths such as
+`../../../shared/...` or `../../../i18n`.
+
+Dependencies that stay inside a feature or module remain relative. Imports such as `./Foo` and
+`../components/Foo` communicate local ownership and should not be mechanically rewritten as
+`@/features/...`. A deep relative path is therefore reviewed by the boundary it crosses, not by
+depth alone.
+
+An `index.ts` is reserved for a real module public API, such as `DocumentationSidebar`,
+`DocumentationCatalogue`, `DocumentationDetailShell`, or `ApiReference`. External consumers use
+that public API instead of importing the module's private implementation files. Private feature
+hooks, utilities, and components stay directly imported with local relative paths; do not add a
+barrel to every directory for uniformity.
+
+Generated sources follow the same boundaries. When a generated import changes, update the
+generator and regenerate the output rather than editing the generated file directly.
+
 ## Shared behavior
 
 `primitives/src/internal/` owns behavior used by more than one component:

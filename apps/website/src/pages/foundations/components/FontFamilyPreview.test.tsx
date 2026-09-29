@@ -1,4 +1,4 @@
-import '../../../i18n';
+import '@/i18n';
 
 import { render, screen } from '@testing-library/react';
 import { fontFamilyRole } from '@virgo-design/tokens';

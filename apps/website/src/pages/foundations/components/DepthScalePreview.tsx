@@ -9,7 +9,8 @@ import {
 import type { CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useAppearance } from '../../../shared/theme/use-appearance';
+import { useAppearance } from '@/shared/theme/use-appearance';
+
 import styles from './depth-scale-preview.module.scss';
 
 const layeredElevationLevels = [1, 3, 5] as const satisfies readonly ElevationLevel[];

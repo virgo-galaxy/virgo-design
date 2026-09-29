@@ -1,4 +1,4 @@
-import '../../i18n';
+import '@/i18n';
 import '@testing-library/jest-dom/vitest';
 
 import { render, screen, within } from '@testing-library/react';

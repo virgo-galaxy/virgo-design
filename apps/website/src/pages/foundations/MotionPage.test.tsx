@@ -1,12 +1,11 @@
-import '../../i18n';
-
 import { render, within } from '@testing-library/react';
 import { duration, easing } from '@virgo-design/tokens';
 import type { ReactNode } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { describe, expect, it, vi } from 'vitest';
 
-import i18n from '../../i18n';
+import i18n from '@/i18n';
+
 import { MotionPage } from './MotionPage';
 
 vi.mock('./FoundationPage', () => ({

@@ -1,4 +1,4 @@
-import '../../../i18n';
+import '@/i18n';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import { internationalSans, internationalSansOrder } from '@virgo-design/tokens';

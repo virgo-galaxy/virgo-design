@@ -1,13 +1,12 @@
-import '../../../i18n';
-
 import { render, within } from '@testing-library/react';
 import { borderStyle, borderWidth, elevationLevels, radius, themes } from '@virgo-design/tokens';
 import { I18nextProvider } from 'react-i18next';
 import { describe, expect, it, vi } from 'vitest';
 
-import i18n from '../../../i18n';
-import { AppearanceContext } from '../../../shared/theme/appearance-context';
-import type { Appearance } from '../../../shared/theme/types';
+import i18n from '@/i18n';
+import { AppearanceContext } from '@/shared/theme/appearance-context';
+import type { Appearance } from '@/shared/theme/types';
+
 import { DepthScalePreview } from './DepthScalePreview';
 
 function renderPreview(appearance: Appearance = 'light') {

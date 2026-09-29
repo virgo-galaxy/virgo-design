@@ -3,7 +3,8 @@ import { sizing, spacing } from '@virgo-design/tokens';
 import { I18nextProvider } from 'react-i18next';
 import { describe, expect, it } from 'vitest';
 
-import i18n from '../../../i18n';
+import i18n from '@/i18n';
+
 import { LayoutScalePreview } from './LayoutScalePreview';
 
 describe('LayoutScalePreview', () => {

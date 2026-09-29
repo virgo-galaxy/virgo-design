@@ -1,7 +1,8 @@
 import { borderStyle, borderWidth, elevationLevels, radius, themes } from '@virgo-design/tokens';
 import { useTranslation } from 'react-i18next';
 
-import { useAppearance } from '../../shared/theme/use-appearance';
+import { useAppearance } from '@/shared/theme/use-appearance';
+
 import { DepthScalePreview } from './components/DepthScalePreview';
 import { ShapeScalePreview } from './components/ShapeScalePreview';
 import styles from './foundation-tokens.module.scss';

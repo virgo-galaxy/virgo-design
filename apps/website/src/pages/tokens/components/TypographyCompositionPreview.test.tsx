@@ -1,10 +1,9 @@
-import '../../../i18n';
-
 import { render, screen } from '@testing-library/react';
 import { fontSize, fontWeight, internationalSans, lineHeight } from '@virgo-design/tokens';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import i18n from '../../../i18n';
+import i18n from '@/i18n';
+
 import { TypographyCompositionPreview } from './TypographyCompositionPreview';
 
 const expectRecipe = (

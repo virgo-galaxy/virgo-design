@@ -3,7 +3,8 @@ import { borderStyle, borderWidth, radius, type RadiusToken } from '@virgo-desig
 import { I18nextProvider } from 'react-i18next';
 import { describe, expect, it } from 'vitest';
 
-import i18n from '../../../i18n';
+import i18n from '@/i18n';
+
 import { ShapeScalePreview } from './ShapeScalePreview';
 
 function samplesFor(container: HTMLElement, kind: string) {
