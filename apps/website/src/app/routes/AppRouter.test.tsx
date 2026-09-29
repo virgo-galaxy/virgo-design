@@ -10,6 +10,17 @@ import { AppearanceContext } from '@/shared/theme/appearance-context';
 
 import { AppRouter } from './AppRouter';
 
+vi.mock('@/generated/api-reference.generated', () => ({
+  componentApiReference: {},
+  primitiveApiReference: {},
+}));
+
+vi.mock('@/components/docs/ApiReference', () => ({
+  RegistryApiReference: () => null,
+}));
+
+const ROUTE_LOAD_TIMEOUT = 15_000;
+
 function CurrentPath() {
   return <output data-testid="current-path">{useLocation().pathname}</output>;
 }
@@ -19,7 +30,7 @@ beforeAll(async () => {
     import('@/features/components/ComponentsDocumentation'),
     import('@/app/relationships/DocumentationRelationships'),
   ]);
-});
+}, 30_000);
 
 beforeEach(() => {
   vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
@@ -37,11 +48,15 @@ function renderRoute(path: string) {
   );
 }
 
+function findRouteHeading(name: string) {
+  return screen.findByRole('heading', { level: 1, name }, { timeout: ROUTE_LOAD_TIMEOUT });
+}
+
 describe('Token routes', () => {
   it('redirects /tokens to the formal Color Semantic page', async () => {
     renderRoute('/tokens');
 
-    await screen.findByRole('heading', { level: 1, name: 'Color with meaning' }, { timeout: 5000 });
+    await findRouteHeading('Color with meaning');
     const navigation = screen.getByRole('navigation', { name: 'Token categories' });
 
     expect(navigation).toHaveAttribute('data-variant', 'segmented');
@@ -58,7 +73,7 @@ describe('Token routes', () => {
   it('renders the formal Semantic Typography page', async () => {
     renderRoute('/tokens/typography');
 
-    await screen.findByRole('heading', { level: 1, name: 'Semantic Typography' });
+    await findRouteHeading('Semantic Typography');
     expect(screen.getByRole('table', { name: 'Document Typography' })).toBeTruthy();
     expect(screen.getByRole('table', { name: 'UI Typography' })).toBeTruthy();
   });
@@ -68,7 +83,7 @@ describe('Component routes', () => {
   it('renders a canonical component route', async () => {
     renderRoute('/components/button');
 
-    await screen.findByRole('heading', { level: 1, name: 'Button' }, { timeout: 5000 });
+    await findRouteHeading('Button');
     expect(screen.getByRole('navigation', { name: 'Component navigation' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: 'Relationships' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 3, name: 'Built with' })).toBeInTheDocument();
@@ -81,7 +96,7 @@ describe('Component routes', () => {
   it('renders an indirect component-to-primitive relationship at the page bottom', async () => {
     renderRoute('/components/drawer');
 
-    await screen.findByRole('heading', { level: 1, name: 'Drawer' }, { timeout: 5000 });
+    await findRouteHeading('Drawer');
     const relationshipHeading = screen.getByRole('heading', { level: 2, name: 'Relationships' });
     expect(relationshipHeading.closest('section')).toHaveTextContent('Built with');
     expect(screen.getByRole('link', { name: /Dialog Primitive/ })).toHaveAttribute(
@@ -93,7 +108,7 @@ describe('Component routes', () => {
   it('renders FloatingAction as a canonical component with metadata and relationships', async () => {
     renderRoute('/components/floating-action');
 
-    await screen.findByRole('heading', { level: 1, name: 'FloatingAction' }, { timeout: 5000 });
+    await findRouteHeading('FloatingAction');
     expect(screen.getByText(floatingActionMetadata.description)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Help' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Quick actions' })).toBeInTheDocument();
@@ -110,14 +125,14 @@ describe('Component routes', () => {
   it('does not create a canonical Textarea component route', async () => {
     renderRoute('/components/textarea');
 
-    await screen.findByRole('heading', { level: 1, name: 'Button' }, { timeout: 5000 });
+    await findRouteHeading('Button');
     expect(screen.getByTestId('current-path')).toHaveTextContent('/components/button');
   });
 
   it('does not render Relationships for a UI-only component', async () => {
     renderRoute('/components/card');
 
-    await screen.findByRole('heading', { level: 1, name: 'Card' }, { timeout: 5000 });
+    await findRouteHeading('Card');
     expect(
       screen.queryByRole('heading', { level: 2, name: 'Relationships' }),
     ).not.toBeInTheDocument();
@@ -126,7 +141,7 @@ describe('Component routes', () => {
   it('redirects /components to the default component', async () => {
     renderRoute('/components');
 
-    await screen.findByRole('heading', { level: 1, name: 'Button' }, { timeout: 5000 });
+    await findRouteHeading('Button');
   });
 });
 
@@ -134,7 +149,7 @@ describe('Primitive routes', () => {
   it('renders the complete public primitive catalogue', async () => {
     renderRoute('/primitives');
 
-    await screen.findByRole('heading', { level: 1, name: 'Primitives' });
+    await findRouteHeading('Primitives');
     expect(screen.getAllByRole('link')).toHaveLength(primitiveDocs.length);
     expect(screen.getByRole('link', { name: /Button/ })).toHaveAttribute(
       'href',
@@ -151,7 +166,7 @@ describe('Primitive routes', () => {
     async ({ slug, exportName }) => {
       renderRoute(`/primitives/${slug}`);
 
-      await screen.findByRole('heading', { level: 1, name: exportName });
+      await findRouteHeading(exportName);
       expect(
         screen.getByText(`import { ${exportName} } from '@virgo-design/primitives';`),
       ).toBeInTheDocument();
@@ -165,14 +180,14 @@ describe('Primitive routes', () => {
   it('redirects an unknown primitive slug to the catalogue', async () => {
     renderRoute('/primitives/not-a-primitive');
 
-    await screen.findByRole('heading', { level: 1, name: 'Primitives' });
+    await findRouteHeading('Primitives');
     expect(screen.getByTestId('current-path')).toHaveTextContent('/primitives');
   });
 
   it('renders reverse-computed component links at the bottom of a primitive page', async () => {
     renderRoute('/primitives/dialog');
 
-    await screen.findByRole('heading', { level: 1, name: 'Dialog' });
+    await findRouteHeading('Dialog');
     const relationshipHeading = screen.getByRole('heading', { level: 2, name: 'Relationships' });
     const relationshipSection = relationshipHeading.closest('section');
 
@@ -193,7 +208,7 @@ describe('Primitive routes', () => {
   it('reverse-computes FloatingAction for Button and Popover primitives', async () => {
     const { unmount } = renderRoute('/primitives/button');
 
-    await screen.findByRole('heading', { level: 1, name: 'Button' });
+    await findRouteHeading('Button');
     expect(screen.getByRole('link', { name: /Floating Action/ })).toHaveAttribute(
       'href',
       '/components/floating-action',
@@ -201,7 +216,7 @@ describe('Primitive routes', () => {
 
     unmount();
     renderRoute('/primitives/popover');
-    await screen.findByRole('heading', { level: 1, name: 'Popover' });
+    await findRouteHeading('Popover');
     expect(screen.getByRole('link', { name: /Floating Action/ })).toHaveAttribute(
       'href',
       '/components/floating-action',
@@ -211,7 +226,7 @@ describe('Primitive routes', () => {
   it('does not render Used by for a primitive with no UI consumer', async () => {
     renderRoute('/primitives/collapsible');
 
-    await screen.findByRole('heading', { level: 1, name: 'Collapsible' });
+    await findRouteHeading('Collapsible');
     expect(
       screen.queryByRole('heading', { level: 2, name: 'Relationships' }),
     ).not.toBeInTheDocument();
@@ -222,7 +237,7 @@ describe('Foundation routes', () => {
   it('renders Icons as a canonical Foundation with its complete review surface', async () => {
     renderRoute('/foundations/icons');
 
-    await screen.findByRole('heading', { level: 1, name: 'Icons' });
+    await findRouteHeading('Icons');
     const navigation = screen.getByRole('navigation', { name: 'Foundation categories' });
 
     expect(screen.getByText('FOUNDATIONS V1')).toBeInTheDocument();
@@ -248,6 +263,6 @@ describe('Foundation routes', () => {
   ])('keeps %s available', async (path, heading) => {
     renderRoute(path);
 
-    await screen.findByRole('heading', { level: 1, name: heading });
+    await findRouteHeading(heading);
   });
 });

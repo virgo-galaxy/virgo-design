@@ -7,6 +7,8 @@
   "scripts": {
     "dev:website": "pnpm --filter @virgo-design/website dev",
     "gen:icons": "pnpm --filter @virgo-design/icons generate",
+    "gen:api-docs": "node scripts/generate-api-docs.mjs",
+    "check:api-docs": "node scripts/generate-api-docs.mjs --check",
     "build:tokens": "pnpm --filter @virgo-design/colors build && pnpm --filter @virgo-design/tokens build",
     "build": "pnpm -r --if-present build",
     "typecheck": "pnpm -r --if-present typecheck",
@@ -14,7 +16,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
-    "all": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build",
+    "all": "pnpm check:api-docs && pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build",
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {

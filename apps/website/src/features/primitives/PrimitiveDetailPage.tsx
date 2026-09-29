@@ -2,7 +2,9 @@ import { Card, Tag } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
+import { RegistryApiReference } from '@/components/docs/ApiReference';
 import { PrimitiveSpecimen } from '@/components/docs/PrimitiveSpecimen/PrimitiveSpecimen';
+import { primitiveApiReference } from '@/generated/api-reference.generated';
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
 
 import { getPrimitiveDoc, type PrimitiveSlug } from './primitiveDocs';
@@ -121,6 +123,14 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
             </ul>
           </aside>
         </div>
+
+        <RegistryApiReference
+          registry={primitiveApiReference}
+          slug={doc.slug}
+          id="primitive-api"
+          title="TypeScript API"
+          className={styles.fullApi}
+        />
 
         {renderRelationships?.(doc.slug as PrimitiveSlug)}
       </div>

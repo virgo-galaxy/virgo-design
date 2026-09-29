@@ -6,7 +6,9 @@ import { Breadcrumb, Layout, NavigationMenu } from '@virgo-design/ui';
 import { type ReactNode, useLayoutEffect, useRef } from 'react';
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
+import { RegistryApiReference } from '@/components/docs/ApiReference';
 import { DocumentationDetailShell } from '@/components/docs/DocumentationDetailShell/DocumentationDetailShell';
+import { componentApiReference } from '@/generated/api-reference.generated';
 import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { componentGroups, componentRoutes, type ComponentSlug } from './app/componentRoutes';
@@ -132,6 +134,7 @@ export function ComponentsDocumentation({ renderRelationships }: ComponentsDocum
               <Route path="*" element={<Navigate replace to="/components/button" />} />
             </Routes>
           </ComponentPageMetadataProvider>
+          <RegistryApiReference registry={componentApiReference} slug={activeRoute.id} />
           {renderRelationships?.(activeRoute.id)}
         </DocumentationDetailShell>
       </Layout>

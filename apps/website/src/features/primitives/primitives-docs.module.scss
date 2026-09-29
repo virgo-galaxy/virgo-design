@@ -229,6 +229,10 @@
   color: var(--layout-text);
 }
 
+.fullApi {
+  margin-top: var(--vd-spacing-48);
+}
+
 .apiPanel {
   position: sticky;
   top: calc(var(--layout-header-height) + 24px);
