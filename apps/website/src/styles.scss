@@ -9,8 +9,53 @@
   text-rendering: optimizeLegibility;
 }
 
+:root,
+[data-theme='light'] {
+  --app-scrollbar-thumb: rgba(120, 120, 120, 0.5);
+  --app-scrollbar-thumb-hover: rgba(120, 120, 120, 0.72);
+}
+
+[data-theme='dark'] {
+  --app-scrollbar-thumb: rgba(170, 170, 170, 0.5);
+  --app-scrollbar-thumb-hover: rgba(190, 190, 190, 0.72);
+}
+
 * {
   box-sizing: border-box;
+}
+
+// Keep the standard properties separate: non-auto values override WebKit styling.
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--app-scrollbar-thumb) transparent;
+  }
+}
+
+@supports selector(::-webkit-scrollbar) {
+  // A fixed width keeps content stable when the thumb is hovered.
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: var(--app-scrollbar-thumb);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--app-scrollbar-thumb-hover);
+  }
+
+  ::-webkit-scrollbar-button {
+    display: none;
+  }
 }
 
 html {
