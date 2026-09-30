@@ -9,9 +9,9 @@ export const tokensZhCN = {
     colors: '颜色',
     typography: '排版',
   },
-  eyebrow: 'TOKENS V1',
+  eyebrow: '设计变量 V1',
   colors: {
-    title: '让颜色拥有含义',
+    title: '语义颜色',
     description:
       '同一套语义词汇，解析为两套可用于生产的主题。在真实界面、交互状态、信息反馈和数据可视化中检查每一个角色。',
     semanticRoles: '个语义角色',
@@ -20,7 +20,7 @@ export const tokensZhCN = {
     sourceTitle: 'Token 来源',
     sourceDescription:
       '以下所有数值均由 @virgo-design/tokens 直接解析，覆盖界面层级、交互状态、信息反馈和数据可视化。',
-    previewEyebrow: 'SEMANTIC COLOR',
+    previewEyebrow: '语义颜色',
     previewTitle: '解析后的主题',
     previewDescription: '同一套正式角色分别由 themes.light.color 与 themes.dark.color 解析。',
     comparisonLabel: 'Color Semantic 浅色与深色主题对比',
@@ -106,7 +106,7 @@ export const tokensZhCN = {
       profit: '收益',
     },
     export: {
-      eyebrow: 'SEMANTIC EXPORT',
+      eyebrow: '语义导出',
       title: '生产代码',
       description: '直接由正式浅色与深色 Color Semantic Theme 生成的 CSS Custom Properties。',
       copy: '复制',
@@ -117,11 +117,11 @@ export const tokensZhCN = {
   typography: {
     title: '语义排版',
     description:
-      '面向真实内容与产品界面层级、直接由 @virgo-design/tokens 解析的正式 Document 与 UI Typography 角色。',
+      '面向真实内容与产品界面层级、直接由 @virgo-design/tokens 解析的正式文档与界面排版角色。',
     semanticTypography: {
-      eyebrow: 'SEMANTIC TYPOGRAPHY',
-      title: 'Document 与 UI 语义排版',
-      description: '正式 Document 与 UI 角色引用 Typography Foundation，不重复展示基础尺度。',
+      eyebrow: '语义排版',
+      title: '文档与界面语义排版',
+      description: '正式的文档与界面角色引用排版基础值，不重复展示基础尺度。',
       columns: {
         role: '语义 Token',
         fontFamily: '字体族',
@@ -130,23 +130,23 @@ export const tokensZhCN = {
         lineHeight: '行高',
       },
       document: {
-        title: 'Document Typography',
+        title: '文档排版',
         description: '用于文档层级、长文阅读与补充信息的排版角色。',
       },
       ui: {
-        title: 'UI Typography',
+        title: '界面排版',
         description: '用于产品层级、控件、标签与高密度界面内容的排版角色。',
       },
     },
     compositionPreview: {
-      eyebrow: 'COMPOSITION PREVIEW',
+      eyebrow: '组合预览',
       title: '真实排版场景',
       description: '在连续文档与真实产品界面中验证排版层级、密度与阅读节奏。',
       document: {
-        eyebrow: 'Document Preview',
+        eyebrow: '文档预览',
         title: '文档层级',
-        description: '通过连续的文档与文章版面，在真实语境中比较标题、各级 Heading、正文与注释。',
-        kicker: 'Virgo Design · Tokens',
+        description: '通过连续的文档与文章版面，在真实语境中比较标题、各级标题、正文与注释。',
+        kicker: 'Virgo Design · 设计变量',
         titleLargeSample: '清晰的系统，让有野心的工作依然简单。',
         titleMediumSample: '构建耐用界面的排版基础',
         lead: '文档需要的不只是醒目的标题。每一层文字都应引导注意力，同时保持阅读过程连贯自然。',
@@ -165,12 +165,12 @@ export const tokensZhCN = {
         body5: '正文需要足够的呼吸空间，才能支持持续而专注的阅读。',
         heading6: '有目的地使用注释',
         body6: '补充信息需要清晰可读，同时不与主要叙事争夺注意力。',
-        caption: 'Document 排版 · 由 Semantic Typography Token 解析。',
+        caption: '文档排版 · 由语义排版 Token 解析。',
       },
       ui: {
-        eyebrow: 'UI Preview',
+        eyebrow: '界面预览',
         title: '产品界面层级',
-        description: '通过真实工作区设置界面，比较 Display、Title、Body、Label、Meta 与控件文字。',
+        description: '通过真实工作区设置界面，比较展示、标题、正文、标签、元信息与控件文字。',
         workspace: '工作区',
         navigation: '工作区设置导航',
         overview: '概览',

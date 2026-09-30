@@ -1,3 +1,5 @@
+import '@/i18n/runtime';
+
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { StrictMode, useState } from 'react';
 import { describe, expect, it } from 'vitest';

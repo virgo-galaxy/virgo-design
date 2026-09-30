@@ -1,6 +1,7 @@
 import './ToastPage.scss';
 
 import { Toast } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -13,6 +14,8 @@ import { toastExamples } from '@/examples/components/toast/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function ToastPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board toast-review">
@@ -20,45 +23,44 @@ export function ToastPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Toast</h1>
-            <p>
-              Brief feedback that announces itself without interrupting the current task or moving
-              focus.
-            </p>
+            <p>{t('components.toast.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Placement</dt>
+                <dt>{t('components.toast.facts.placement')}</dt>
                 <dd>06</dd>
               </div>
               <div>
-                <dt>Priority</dt>
-                <dd>Polite · Assertive</dd>
+                <dt>{t('components.toast.facts.priority')}</dt>
+                <dd>{t('components.toast.facts.politeAssertive')}</dd>
               </div>
               <div>
-                <dt>Actions</dt>
-                <dd>Optional</dd>
+                <dt>{t('components.toast.facts.actions')}</dt>
+                <dd>{t('components.toast.facts.optional')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.toast.specimen.referenceSpecimen')}</span>
               <code>status · action · dismiss</code>
             </div>
             <div className="hero-stage toast-hero-stage">
               <Toast.Provider hotkey={[]}>
                 <Toast.Root intent="success" duration={0}>
-                  <Toast.Title>Document archived</Toast.Title>
-                  <Toast.Description>Your document moved to the archive.</Toast.Description>
-                  <Toast.Action>Undo</Toast.Action>
-                  <Toast.Close />
+                  <Toast.Title>{t('examples.toast.copy.documentArchived')}</Toast.Title>
+                  <Toast.Description>
+                    {t('examples.toast.copy.yourDocumentMovedToTheArchive')}
+                  </Toast.Description>
+                  <Toast.Action>{t('examples.toast.copy.undo')}</Toast.Action>
+                  <Toast.Close aria-label={t('examples.toast.copy.dismissNotification')} />
                 </Toast.Root>
                 <Toast.Viewport placement="top-start" className="toast-hero-viewport" />
               </Toast.Provider>
             </div>
             <div className="specimen-caption">
-              <span>Non-blocking feedback</span>
-              <span>Semantic status</span>
-              <span>Actionable dismissal</span>
+              <span>{t('components.toast.specimen.nonBlockingFeedback')}</span>
+              <span>{t('components.toast.specimen.semanticStatus')}</span>
+              <span>{t('components.toast.specimen.actionableDismissal')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -66,18 +68,16 @@ export function ToastPage() {
         <ArticleSection
           id={'toast-status'}
           index={'01'}
-          title={'Status variants'}
-          description={'Each intent uses semantic status tokens and an icon from Virgo Icons.'}
+          title={t('components.toast.status.title')}
+          description={t('components.toast.status.description')}
         >
           <ComponentExample example={toastExamples.toastIntents} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'toast-stack'}
           index={'02'}
-          title={'Action and stacking'}
-          description={
-            'Create several notifications. Hover or focus a toast to pause only its remaining duration.'
-          }
+          title={t('components.toast.stack.title')}
+          description={t('components.toast.stack.description')}
         >
           <ComponentExample example={toastExamples.toastUndo} />
           <ComponentExample example={toastExamples.toastStack} />
@@ -85,10 +85,8 @@ export function ToastPage() {
         <ArticleSection
           id={'toast-placement'}
           index={'03'}
-          title={'Viewport placement'}
-          description={
-            'Choose a position to show a notification inside the preview canvas. Other examples keep their own viewports and notifications.'
-          }
+          title={t('components.toast.placement.title')}
+          description={t('components.toast.placement.description')}
         >
           <ComponentExample example={toastExamples.toastPlacement} showCaption={false} />
         </ArticleSection>

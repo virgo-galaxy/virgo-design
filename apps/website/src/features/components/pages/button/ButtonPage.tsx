@@ -1,5 +1,6 @@
 import { PlusIcon } from '@virgo-design/icons';
 import { Button } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -12,6 +13,8 @@ import { buttonExamples } from '@/examples/components/button/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function ButtonPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <article className="review-board" id="button-review">
@@ -19,22 +22,19 @@ export function ButtonPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Button</h1>
-            <p>
-              Triggers an immediate action. Built on the native Virgo primitive and calibrated
-              against the complete token foundation.
-            </p>
+            <p>{t('components.button.overview.description')}</p>
 
             <dl className="component-facts">
               <div>
-                <dt>Variants</dt>
+                <dt>{t('components.button.facts.variants')}</dt>
                 <dd>04</dd>
               </div>
               <div>
-                <dt>Sizes</dt>
+                <dt>{t('components.button.facts.sizes')}</dt>
                 <dd>04</dd>
               </div>
               <div>
-                <dt>States</dt>
+                <dt>{t('components.button.facts.states')}</dt>
                 <dd>05</dd>
               </div>
             </dl>
@@ -42,16 +42,16 @@ export function ButtonPage() {
 
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.button.specimen.referenceSpecimen')}</span>
               <code>primary · medium</code>
             </div>
             <div className="hero-stage">
-              <Button leadingIcon={<PlusIcon />}>Create project</Button>
+              <Button leadingIcon={<PlusIcon />}>{t('examples.button.copy.createProject')}</Button>
             </div>
             <div className="specimen-caption">
-              <span>28px height</span>
-              <span>12px label</span>
-              <span>Radius 6</span>
+              <span>{t('components.button.specimen.28pxHeight')}</span>
+              <span>{t('components.button.specimen.12pxLabel')}</span>
+              <span>{t('components.button.specimen.radius6')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -60,8 +60,8 @@ export function ButtonPage() {
         <ArticleSection
           id="variants"
           index="01"
-          title="Variants"
-          description="A four-step emphasis hierarchy for common product actions."
+          title={t('components.button.variants.title')}
+          description={t('components.button.variants.description')}
         >
           <ComponentExample example={buttonExamples.variants} showCaption={false} />
         </ArticleSection>
@@ -69,8 +69,8 @@ export function ButtonPage() {
         <ArticleSection
           id="sizes"
           index="02"
-          title="Sizes"
-          description="Four heights mapped directly to the Virgo sizing foundation."
+          title={t('components.button.sizes.title')}
+          description={t('components.button.sizes.description')}
         >
           <ComponentExample example={buttonExamples.sizes} showCaption={false} />
         </ArticleSection>
@@ -78,8 +78,8 @@ export function ButtonPage() {
         <ArticleSection
           id="icons"
           index="03"
-          title="Icons"
-          description="Icons inherit currentColor while Button owns their size and spacing."
+          title={t('components.button.icons.title')}
+          description={t('components.button.icons.description')}
         >
           <ComponentExample example={buttonExamples.icons} />
           <ComponentExample example={buttonExamples.iconOnly} />
@@ -88,8 +88,8 @@ export function ButtonPage() {
         <ArticleSection
           id="states"
           index="04"
-          title="States"
-          description="Hover and active remain live; use Tab to inspect the focus-visible ring."
+          title={t('components.button.states.title')}
+          description={t('components.button.states.description')}
         >
           <ComponentExample example={buttonExamples.states} showCaption={false} />
         </ArticleSection>

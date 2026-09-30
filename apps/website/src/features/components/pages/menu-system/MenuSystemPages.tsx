@@ -3,6 +3,7 @@ import './MenuSystemPages.scss';
 import { LayoutIcon, PlusIcon, TrashIcon } from '@virgo-design/icons';
 import { ContextMenu, Menu, Menubar } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -13,6 +14,7 @@ import {
 import { contextMenuExamples } from '@/examples/components/context-menu/examples';
 import { menuExamples } from '@/examples/components/menu/examples';
 import { menubarExamples } from '@/examples/components/menubar/examples';
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
@@ -31,6 +33,8 @@ function Page({
   specimen: ReactNode;
   children: ReactNode;
 }) {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board menu-system-review">
@@ -38,31 +42,31 @@ function Page({
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>{name}</h1>
-            <p>{description}</p>
+            <p>{translateExampleText(t, 'menuSystem', description)}</p>
             <dl className="component-facts">
               <div>
-                <dt>Items</dt>
-                <dd>Shared</dd>
+                <dt>{t('components.menuSystem.facts.items')}</dt>
+                <dd>{t('components.menuSystem.facts.shared')}</dd>
               </div>
               <div>
-                <dt>Input</dt>
-                <dd>Keyboard</dd>
+                <dt>{t('components.menuSystem.facts.input')}</dt>
+                <dd>{t('components.menuSystem.facts.keyboard')}</dd>
               </div>
               <div>
-                <dt>Composition</dt>
-                <dd>Nested menus</dd>
+                <dt>{t('components.menuSystem.facts.composition')}</dt>
+                <dd>{t('components.menuSystem.facts.nestedMenus')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.menuSystem.specimen.referenceSpecimen')}</span>
               <code>{specimenCode}</code>
             </div>
             <div className="hero-stage menu-hero-stage">{specimen}</div>
             <div className="specimen-caption">
               {specimenCaption.map((item) => (
-                <span key={item}>{item}</span>
+                <span key={item}>{translateExampleText(t, 'menuSystem', item)}</span>
               ))}
               <ComponentExampleRuntimeControl />
             </div>
@@ -75,24 +79,28 @@ function Page({
 }
 
 function SharedItems({ select }: { select: (name: string) => void }) {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Menu.Group label="Actions">
+      <Menu.Group label={t('examples.menuSystem.copy.actions')}>
         <Menu.Item icon={<PlusIcon />} shortcut="⌘N" onSelect={() => select('New')}>
-          New
+          {t('examples.menuSystem.copy.new')}
         </Menu.Item>
         <Menu.Item shortcut="F2" onSelect={() => select('Rename')}>
-          Rename
+          {t('examples.menuSystem.copy.rename')}
         </Menu.Item>
-        <Menu.Item disabled>Paste</Menu.Item>
+        <Menu.Item disabled>{t('examples.menuSystem.copy.paste')}</Menu.Item>
       </Menu.Group>
       <Menu.Separator />
       <Menu.Submenu>
-        <Menu.SubmenuTrigger icon={<LayoutIcon />}>Export</Menu.SubmenuTrigger>
+        <Menu.SubmenuTrigger icon={<LayoutIcon />}>
+          {t('examples.menuSystem.copy.export')}
+        </Menu.SubmenuTrigger>
         <Menu.SubmenuContent>
           <Menu.Item onSelect={() => select('Export PDF')}>PDF</Menu.Item>
           <Menu.Submenu>
-            <Menu.SubmenuTrigger>Image</Menu.SubmenuTrigger>
+            <Menu.SubmenuTrigger>{t('examples.menuSystem.copy.image')}</Menu.SubmenuTrigger>
             <Menu.SubmenuContent>
               <Menu.Item onSelect={() => select('Export PNG')}>PNG</Menu.Item>
               <Menu.Item onSelect={() => select('Export SVG')}>SVG</Menu.Item>
@@ -101,31 +109,41 @@ function SharedItems({ select }: { select: (name: string) => void }) {
         </Menu.SubmenuContent>
       </Menu.Submenu>
       <Menu.Submenu>
-        <Menu.SubmenuTrigger>Share</Menu.SubmenuTrigger>
+        <Menu.SubmenuTrigger>{t('examples.menuSystem.copy.share')}</Menu.SubmenuTrigger>
         <Menu.SubmenuContent>
-          <Menu.Item onSelect={() => select('Copy link')}>Copy link</Menu.Item>
-          <Menu.Item onSelect={() => select('Copy selection')}>Copy selection</Menu.Item>
+          <Menu.Item onSelect={() => select('Copy link')}>
+            {t('examples.menuSystem.copy.copyLink')}
+          </Menu.Item>
+          <Menu.Item onSelect={() => select('Copy selection')}>
+            {t('examples.menuSystem.copy.copySelection')}
+          </Menu.Item>
         </Menu.SubmenuContent>
       </Menu.Submenu>
       <Menu.Separator />
       <Menu.Item danger icon={<TrashIcon />} onSelect={() => select('Delete')}>
-        Delete
+        {t('examples.menuSystem.copy.delete')}
       </Menu.Item>
     </>
   );
 }
 
 export function MenuPage() {
+  const { t } = useTranslation();
+
   return (
     <Page
       name="Menu"
-      description="Choose what to do. Button-triggered actions, nested submenus and persistent preferences share one menu protocol."
+      description={t('components.menuSystem.menu.overview.description')}
       specimenCode="button trigger · submenu"
-      specimenCaption={['Button trigger', 'Nested submenu', 'Shared menu parts']}
+      specimenCaption={[
+        t('components.menuSystem.menu.specimen.buttonTrigger'),
+        t('components.menuSystem.menu.specimen.nestedSubmenu'),
+        t('components.menuSystem.menu.specimen.sharedMenuParts'),
+      ]}
       specimen={
         <div className="menu-hero-card">
           <Menu>
-            <Menu.Trigger>Actions</Menu.Trigger>
+            <Menu.Trigger>{t('examples.menuSystem.copy.actions')}</Menu.Trigger>
             <Menu.Content>
               <SharedItems select={() => {}} />
             </Menu.Content>
@@ -136,18 +154,16 @@ export function MenuPage() {
       <ArticleSection
         id={'menu-actions'}
         index={'01'}
-        title={'Actions and submenus'}
-        description={
-          'Click Actions. Hover Export → Image, or use arrow keys to navigate. Escape returns one level at a time.'
-        }
+        title={t('components.menuSystem.menuActions.title')}
+        description={t('components.menuSystem.menuActions.description')}
       >
         <ComponentExample example={menuExamples.menuActions} showCaption={false} />
       </ArticleSection>
       <ArticleSection
         id={'menu-preferences'}
         index={'02'}
-        title={'Checkbox and radio items'}
-        description={'Preferences stay open after selection. Shortcut labels are display only.'}
+        title={t('components.menuSystem.menuPreferences.title')}
+        description={t('components.menuSystem.menuPreferences.description')}
       >
         <ComponentExample example={menuExamples.menuCheckbox} />
         <ComponentExample example={menuExamples.menuRadio} />
@@ -155,8 +171,8 @@ export function MenuPage() {
       <ArticleSection
         id={'menu-density'}
         index={'03'}
-        title={'Density'}
-        description={'Classic menu rows inherit the root size and page theme.'}
+        title={t('components.menuSystem.menuDensity.title')}
+        description={t('components.menuSystem.menuDensity.description')}
       >
         <ComponentExample example={menuExamples.menuSizes} showCaption={false} />
       </ArticleSection>
@@ -165,21 +181,30 @@ export function MenuPage() {
 }
 
 export function ContextMenuPage() {
+  const { t } = useTranslation();
+
   return (
     <Page
       name="ContextMenu"
-      description="Actions for the object under the pointer. Right-click a target, or focus it and press Shift+F10 or the context-menu key."
+      description={t('components.menuSystem.contextMenu.overview.description')}
       specimenCode="target trigger · contextual actions"
-      specimenCaption={['Object-scoped', 'Pointer anchored', 'Keyboard accessible']}
+      specimenCaption={[
+        t('components.menuSystem.contextMenu.specimen.objectScoped'),
+        t('components.menuSystem.contextMenu.specimen.pointerAnchored'),
+        t('components.menuSystem.contextMenu.specimen.keyboardAccessible'),
+      ]}
       specimen={
         <div className="menu-hero-card">
           <ContextMenu>
-            <ContextMenu.Trigger className="context-target" aria-label="Hero document context">
+            <ContextMenu.Trigger
+              className="context-target"
+              aria-label={t('examples.menuSystem.copy.heroDocumentContext')}
+            >
               <LayoutIcon />
-              <strong>Document</strong>
-              <span>Right-click here · Shift+F10</span>
+              <strong>{t('examples.menuSystem.copy.document')}</strong>
+              <span>{t('examples.menuSystem.copy.rightClickHereShiftF10')}</span>
             </ContextMenu.Trigger>
-            <ContextMenu.Content aria-label="Document actions">
+            <ContextMenu.Content aria-label={t('examples.menuSystem.copy.documentActions')}>
               <SharedItems select={() => {}} />
             </ContextMenu.Content>
           </ContextMenu>
@@ -189,18 +214,16 @@ export function ContextMenuPage() {
       <ArticleSection
         id={'context-target'}
         index={'01'}
-        title={'Pointer and keyboard context'}
-        description={
-          'The popup anchors to the pointer and adjusts at the viewport edges. Keyboard opening anchors to the focused target.'
-        }
+        title={t('components.menuSystem.contextTarget.title')}
+        description={t('components.menuSystem.contextTarget.description')}
       >
         <ComponentExample example={contextMenuExamples.contextMenuTarget} showCaption={false} />
       </ArticleSection>
       <ArticleSection
         id={'context-settings'}
         index={'02'}
-        title={'Shared item system'}
-        description={'Context menus support the same persistent checkbox and grouped radio items.'}
+        title={t('components.menuSystem.contextSettings.title')}
+        description={t('components.menuSystem.contextSettings.description')}
       >
         <ComponentExample example={contextMenuExamples.contextMenuCheckbox} />
         <ComponentExample example={contextMenuExamples.contextMenuRadio} />
@@ -210,33 +233,41 @@ export function ContextMenuPage() {
 }
 
 export function MenubarPage() {
+  const { t } = useTranslation();
+
   return (
     <Page
       name="Menubar"
-      description="Application-level action groups. Arrow keys move between menus; an open menu follows the pointer across its neighboring triggers."
+      description={t('components.menuSystem.menubar.overview.description')}
       specimenCode="application bar · grouped actions"
-      specimenCaption={['App-level navigation', 'Shared menu content', 'Arrow-key flow']}
+      specimenCaption={[
+        t('components.menuSystem.menubar.specimen.appLevelNavigation'),
+        t('components.menuSystem.menubar.specimen.sharedMenuContent'),
+        t('components.menuSystem.menubar.specimen.arrowKeyFlow'),
+      ]}
       specimen={
         <div className="menu-hero-card">
-          <Menubar aria-label="Hero application actions">
+          <Menubar aria-label={t('examples.menuSystem.copy.heroApplicationActions')}>
             <Menubar.Menu value="file">
-              <Menubar.Trigger>File</Menubar.Trigger>
+              <Menubar.Trigger>{t('examples.menuSystem.copy.file')}</Menubar.Trigger>
               <Menubar.Content>
-                <Menubar.Item>New</Menubar.Item>
-                <Menubar.Item>Save</Menubar.Item>
+                <Menubar.Item>{t('examples.menuSystem.copy.new')}</Menubar.Item>
+                <Menubar.Item>{t('examples.menuSystem.copy.save')}</Menubar.Item>
               </Menubar.Content>
             </Menubar.Menu>
             <Menubar.Menu value="edit">
-              <Menubar.Trigger>Edit</Menubar.Trigger>
+              <Menubar.Trigger>{t('examples.menuSystem.copy.edit')}</Menubar.Trigger>
               <Menubar.Content>
-                <Menubar.Item>Undo</Menubar.Item>
-                <Menubar.Item>Redo</Menubar.Item>
+                <Menubar.Item>{t('examples.menuSystem.copy.undo')}</Menubar.Item>
+                <Menubar.Item>{t('examples.menuSystem.copy.redo')}</Menubar.Item>
               </Menubar.Content>
             </Menubar.Menu>
             <Menubar.Menu value="view">
-              <Menubar.Trigger>View</Menubar.Trigger>
+              <Menubar.Trigger>{t('examples.menuSystem.copy.view')}</Menubar.Trigger>
               <Menubar.Content>
-                <Menubar.CheckboxItem defaultChecked>Show toolbar</Menubar.CheckboxItem>
+                <Menubar.CheckboxItem defaultChecked>
+                  {t('examples.menuSystem.copy.showToolbar')}
+                </Menubar.CheckboxItem>
               </Menubar.Content>
             </Menubar.Menu>
           </Menubar>
@@ -246,10 +277,8 @@ export function MenubarPage() {
       <ArticleSection
         id={'menubar-application'}
         index={'01'}
-        title={'Application menus'}
-        description={
-          'Use File, Edit or View. Arrow Left/Right switches groups; Arrow Down opens a group; Tab leaves the menu bar.'
-        }
+        title={t('components.menuSystem.menubarApplication.title')}
+        description={t('components.menuSystem.menubarApplication.description')}
       >
         <ComponentExample example={menubarExamples.menubarApplication} showCaption={false} />
       </ArticleSection>

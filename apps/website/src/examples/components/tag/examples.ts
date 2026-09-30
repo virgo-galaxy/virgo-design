@@ -1,4 +1,5 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
+import { createExampleSource } from '@/examples/components/create-example-source';
 
 import TagClosableExample from './TagClosableExample';
 import tagClosableStyles from './TagClosableExample.module.scss?virgo-raw';
@@ -20,41 +21,53 @@ export const tagExamples = {
   tagIntents: {
     id: 'tag-intents',
     title: 'Semantic intents',
+    titleTranslationKey: 'examples.tag.copy.semanticIntents',
     description: 'Use the brand and status palette for meaningful labels.',
+    descriptionTranslationKey: 'examples.tag.copy.useTheBrandAndStatusPaletteForMeaningfulLabels',
     Component: TagIntentsExample,
-    source: tagIntentsSource,
+    source: createExampleSource(tagIntentsSource),
     styleSource: tagIntentsStyles,
   },
   tagVariants: {
     id: 'tag-variants',
     title: 'Variants',
+    titleTranslationKey: 'examples.tag.copy.variants',
     description: 'Soft, solid, and outline express different visual emphasis.',
+    descriptionTranslationKey:
+      'examples.tag.copy.softSolidAndOutlineExpressDifferentVisualEmphasis',
     Component: TagVariantsExample,
-    source: tagVariantsSource,
+    source: createExampleSource(tagVariantsSource),
     styleSource: tagVariantsStyles,
   },
   tagSizes: {
     id: 'tag-sizes',
     title: 'Sizes',
+    titleTranslationKey: 'examples.tag.copy.sizes',
     description: 'Choose one compact density level for a collection.',
+    descriptionTranslationKey: 'examples.tag.copy.chooseOneCompactDensityLevelForACollection',
     Component: TagSizesExample,
-    source: tagSizesSource,
+    source: createExampleSource(tagSizesSource),
     styleSource: tagSizesStyles,
   },
   tagIcons: {
     id: 'tag-icons',
     title: 'Decorative icons',
+    titleTranslationKey: 'examples.tag.copy.decorativeIcons',
     description: 'Icons support the text without replacing its meaning.',
+    descriptionTranslationKey: 'examples.tag.copy.iconsSupportTheTextWithoutReplacingItsMeaning',
     Component: TagIconsExample,
-    source: tagIconsSource,
+    source: createExampleSource(tagIconsSource),
     styleSource: tagIconsStyles,
   },
   tagClosable: {
     id: 'tag-closable',
     title: 'Closable collection',
+    titleTranslationKey: 'examples.tag.copy.closableCollection',
     description: 'The application removes the selected item and can restore the collection.',
+    descriptionTranslationKey:
+      'examples.tag.copy.theApplicationRemovesTheSelectedItemAndCanRestoreThe',
     Component: TagClosableExample,
-    source: tagClosableSource,
+    source: createExampleSource(tagClosableSource),
     styleSource: tagClosableStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

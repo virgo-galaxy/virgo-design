@@ -1,4 +1,5 @@
 import { Surface } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './SurfaceImageContainExample.module.scss';
 
@@ -27,6 +28,8 @@ const landscape = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://w
 </svg>`)}`;
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <Surface
       background={{ type: 'image', src: landscape, fit: 'contain', position: 'right center' }}
@@ -35,7 +38,7 @@ export default function App() {
       className={styles.root!}
     >
       <Surface tone="elevated" radius={6} className={styles.surface!}>
-        Contain · right center · no repeat
+        {t('examples.surface.copy.containRightCenterNoRepeat')}
       </Surface>
     </Surface>
   );

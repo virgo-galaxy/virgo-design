@@ -1,6 +1,7 @@
 import './SpinnerPage.scss';
 
 import { Button, Spinner } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -13,6 +14,8 @@ import { spinnerExamples } from '@/examples/components/spinner/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function SpinnerPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board spinner-review">
@@ -20,40 +23,46 @@ export function SpinnerPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Spinner</h1>
-            <p>Indeterminate loading feedback that composes through currentColor.</p>
+            <p>{t('components.spinner.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>State</dt>
-                <dd>Indeterminate</dd>
+                <dt>{t('components.spinner.facts.state')}</dt>
+                <dd>{t('components.spinner.facts.indeterminate')}</dd>
               </div>
               <div>
-                <dt>Sizes</dt>
+                <dt>{t('components.spinner.facts.sizes')}</dt>
                 <dd>03</dd>
               </div>
               <div>
-                <dt>Intent</dt>
-                <dd>Brand-aware</dd>
+                <dt>{t('components.spinner.facts.intent')}</dt>
+                <dd>{t('components.spinner.facts.brandAware')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.spinner.specimen.referenceSpecimen')}</span>
               <code>inline · button · currentColor</code>
             </div>
             <div className="hero-stage">
               <div className="spinner-stage">
                 <span className="spinner-inline">
-                  <Spinner size="sm" /> Syncing changes
+                  <Spinner size="sm" /> {t('examples.spinner.copy.syncingChanges')}
                 </span>
-                <Button leadingIcon={<Spinner size="sm" />}>Saving</Button>
-                <Spinner size="lg" intent="brand" aria-label="Loading account data" />
+                <Button leadingIcon={<Spinner size="sm" />}>
+                  {t('examples.spinner.copy.saving')}
+                </Button>
+                <Spinner
+                  size="lg"
+                  intent="brand"
+                  aria-label={t('examples.spinner.copy.loadingAccountData')}
+                />
               </div>
             </div>
             <div className="specimen-caption">
-              <span>Inline feedback</span>
-              <span>Composable</span>
-              <span>Theme-aware color</span>
+              <span>{t('components.spinner.specimen.inlineFeedback')}</span>
+              <span>{t('components.spinner.specimen.composable')}</span>
+              <span>{t('components.spinner.specimen.themeAwareColor')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -61,18 +70,16 @@ export function SpinnerPage() {
         <ArticleSection
           id={'spinner-sizes'}
           index={'01'}
-          title={'Sizes and intents'}
-          description={
-            'Three token sizes and a small semantic color surface cover inline loading needs.'
-          }
+          title={t('components.spinner.sizes.title')}
+          description={t('components.spinner.sizes.description')}
         >
           <ComponentExample example={spinnerExamples.spinnerSizes} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'spinner-composition'}
           index={'02'}
-          title={'Inline and Button composition'}
-          description={'Spinner owns no async state and can be composed into existing controls.'}
+          title={t('components.spinner.composition.title')}
+          description={t('components.spinner.composition.description')}
         >
           <ComponentExample example={spinnerExamples.spinnerInline} />
           <ComponentExample example={spinnerExamples.spinnerButton} />
@@ -80,8 +87,8 @@ export function SpinnerPage() {
         <ArticleSection
           id={'spinner-environments'}
           index={'03'}
-          title={'Light and dark environments'}
-          description={'Current and semantic colors stay theme-aware in both environments.'}
+          title={t('components.spinner.environments.title')}
+          description={t('components.spinner.environments.description')}
         >
           <ComponentExample example={spinnerExamples.spinnerThemes} showCaption={false} />
         </ArticleSection>

@@ -1,5 +1,5 @@
 import { Tag } from '@virgo-design/ui';
-import { componentMetadataRegistry } from '@virgo-design/ui/metadata';
+import { useTranslation } from 'react-i18next';
 
 import {
   DocumentationCatalogue,
@@ -9,20 +9,14 @@ import {
 
 import { componentGroups, componentRoutes } from './app/componentRoutes';
 
-const metadataByName = new Map(
-  Object.values(componentMetadataRegistry).map((metadata) => [
-    metadata.name.replaceAll(' ', '').toLowerCase(),
-    metadata,
-  ]),
-);
-
 export function ComponentsCataloguePage() {
+  const { t } = useTranslation();
   return (
     <DocumentationCatalogue
       pageId="components-catalogue"
       eyebrow="@virgo-design/ui"
-      title="Components"
-      description="Production-ready interface components built from Virgo Design primitives, tokens and interaction patterns."
+      title={t('components.catalogue.title')}
+      description={t('components.catalogue.description')}
     >
       {componentGroups.map((group) => {
         const routes = componentRoutes.filter((route) => route.group === group.id);
@@ -31,12 +25,10 @@ export function ComponentsCataloguePage() {
           <DocumentationCatalogueGroup
             key={group.id}
             id={group.id}
-            label={group.label}
+            label={t(`components.catalogue.groups.${group.id}`)}
             count={routes.length}
           >
             {routes.map((route) => {
-              const metadata = metadataByName.get(route.name.replaceAll(' ', '').toLowerCase());
-
               return (
                 <DocumentationCatalogueItem
                   key={route.id}
@@ -48,7 +40,7 @@ export function ComponentsCataloguePage() {
                     </Tag>
                   }
                 >
-                  {metadata?.description ?? route.category}
+                  {t(`components.catalogue.metadata.${route.id}`)}
                 </DocumentationCatalogueItem>
               );
             })}

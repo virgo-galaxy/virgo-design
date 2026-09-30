@@ -1,4 +1,5 @@
 import { Surface } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './SurfaceImageMaterialExample.module.scss';
 
@@ -27,6 +28,8 @@ const landscape = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://w
 </svg>`)}`;
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <Surface
       background={{ type: 'image', src: landscape }}
@@ -35,8 +38,8 @@ export default function App() {
       radius={12}
       className={styles.root!}
     >
-      <strong>Image + glass</strong>
-      <p>The decorative scene is softened without applying a blur to this content.</p>
+      <strong>{t('examples.surface.copy.imageGlass')}</strong>
+      <p>{t('examples.surface.copy.theDecorativeSceneIsSoftenedWithoutApplyingABlurTo')}</p>
     </Surface>
   );
 }

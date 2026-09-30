@@ -1,5 +1,6 @@
 import { Breadcrumb, Card, Layout, Tag } from '@virgo-design/ui';
 import { type ReactNode, useLayoutEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Navigate, useLocation, useParams } from 'react-router-dom';
 
 import { RegistryApiReference } from '@/components/docs/ApiReference';
@@ -54,6 +55,7 @@ export interface PrimitiveDetailPageProps {
 }
 
 export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPageProps) {
+  const { t } = useTranslation();
   const { slug = '' } = useParams();
   const { appearance } = useAppearance();
   const location = useLocation();
@@ -79,15 +81,19 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
     <div className={styles.documentation} data-docs-page="primitive-detail">
       <Layout className={styles.documentationShell!} data-theme={appearance} direction="horizontal">
         <DocumentationSidebar
-          label="Primitives sidebar"
-          navigationLabel="Primitive navigation"
+          label={t('docs.sidebar.primitivesLabel')}
+          navigationLabel={t('docs.sidebar.primitiveNavigation')}
           activeValue={location.pathname}
         >
           {primitiveNavigationGroups.map((group, groupIndex) => {
             const groupId = `primitive-group-${groupIndex}`;
 
             return (
-              <DocumentationSidebarGroup key={group.category} id={groupId} label={group.category}>
+              <DocumentationSidebarGroup
+                key={group.category}
+                id={groupId}
+                label={t(`primitives.categories.${group.category}`)}
+              >
                 {group.docs.map((primitive) => {
                   const path = `/primitives/${primitive.slug}`;
 
@@ -98,7 +104,7 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
                       </DocumentationSidebarIndex>
                       <DocumentationSidebarCopy>
                         <strong>{primitive.exportName}</strong>
-                        <small>Headless</small>
+                        <small>{t('primitives.catalogue.headless')}</small>
                       </DocumentationSidebarCopy>
                     </DocumentationSidebarItem>
                   );
@@ -114,7 +120,9 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
         <DocumentationDetailShell
           breadcrumb={
             <Breadcrumb>
-              <Breadcrumb.Item aria-current={false}>Primitives</Breadcrumb.Item>
+              <Breadcrumb.Item aria-current={false}>
+                {t('app.navigation.primitives')}
+              </Breadcrumb.Item>
               <Breadcrumb.Item>{doc.exportName}</Breadcrumb.Item>
             </Breadcrumb>
           }
@@ -125,11 +133,11 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
                 <div className={styles.detailKicker}>
                   <p className={styles.eyebrow}>@virgo-design/primitives</p>
                   <Tag size="sm" variant="outline">
-                    {doc.category}
+                    {t(`primitives.categories.${doc.category}`)}
                   </Tag>
                 </div>
                 <h1>{doc.exportName}</h1>
-                <p>{doc.description}</p>
+                <p>{t(doc.description)}</p>
               </header>
 
               <div className={styles.detailGrid}>
@@ -140,9 +148,9 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
 
                   <Card variant="outlined" className={styles.detailCard}>
                     <Card.Header>
-                      <Card.Title as="h2">Package</Card.Title>
+                      <Card.Title as="h2">{t('primitives.detail.package')}</Card.Title>
                       <Card.Description>
-                        Import the public primitive directly from the package entry point.
+                        {t('primitives.detail.importDescription')}
                       </Card.Description>
                     </Card.Header>
                     <Card.Body>
@@ -154,14 +162,17 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
 
                   <Card variant="outlined" className={styles.detailCard}>
                     <Card.Header>
-                      <Card.Title as="h2">Anatomy</Card.Title>
+                      <Card.Title as="h2">{t('primitives.detail.anatomy')}</Card.Title>
                       <Card.Description>
-                        The public parts that compose this primitive.
+                        {t('primitives.detail.anatomyDescription')}
                       </Card.Description>
                     </Card.Header>
                     <Card.Body>
                       {doc.parts.length > 0 ? (
-                        <ul className={styles.partList} aria-label={`${doc.exportName} parts`}>
+                        <ul
+                          className={styles.partList}
+                          aria-label={t('primitives.detail.parts', { name: doc.exportName })}
+                        >
                           {doc.parts.map((part) => (
                             <li key={part}>
                               <code>{part}</code>
@@ -169,32 +180,32 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
                           ))}
                         </ul>
                       ) : (
-                        <p className={styles.partNote}>{doc.partNote}</p>
+                        <p className={styles.partNote}>{doc.partNote ? t(doc.partNote) : null}</p>
                       )}
                     </Card.Body>
                   </Card>
 
                   <Card variant="outlined" className={styles.detailCard}>
                     <Card.Header>
-                      <Card.Title as="h2">Behavior</Card.Title>
+                      <Card.Title as="h2">{t('primitives.detail.behavior')}</Card.Title>
                     </Card.Header>
                     <Card.Body>
-                      <DetailList items={doc.behaviors} />
+                      <DetailList items={doc.behaviors.map((key) => t(key))} />
                     </Card.Body>
                   </Card>
 
                   <Card variant="outlined" className={styles.detailCard}>
                     <Card.Header>
-                      <Card.Title as="h2">Accessibility</Card.Title>
+                      <Card.Title as="h2">{t('primitives.detail.accessibility')}</Card.Title>
                     </Card.Header>
                     <Card.Body>
-                      <DetailList items={doc.accessibility} />
+                      <DetailList items={doc.accessibility.map((key) => t(key))} />
                     </Card.Body>
                   </Card>
                 </main>
 
                 <aside className={styles.apiPanel} aria-labelledby="public-api-heading">
-                  <h2 id="public-api-heading">Public API</h2>
+                  <h2 id="public-api-heading">{t('primitives.detail.publicApi')}</h2>
                   <ul>
                     {doc.publicApi.map((entry) => (
                       <li key={entry}>

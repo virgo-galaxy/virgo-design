@@ -2,6 +2,7 @@ import './BadgePage.scss';
 
 import { LayoutIcon, UserIcon } from '@virgo-design/icons';
 import { Badge } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -14,6 +15,8 @@ import { badgeExamples } from '@/examples/components/badge/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function BadgePage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board badge-review">
@@ -21,28 +24,25 @@ export function BadgePage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Badge</h1>
-            <p>
-              A small count or status marker attached to a host element, with an inline standalone
-              form.
-            </p>
+            <p>{t('components.badge.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Forms</dt>
-                <dd>Count</dd>
+                <dt>{t('components.badge.facts.forms')}</dt>
+                <dd>{t('components.badge.facts.count')}</dd>
               </div>
               <div>
-                <dt>Status</dt>
-                <dd>Dot</dd>
+                <dt>{t('components.badge.facts.status')}</dt>
+                <dd>{t('components.badge.facts.dot')}</dd>
               </div>
               <div>
-                <dt>Standalone</dt>
-                <dd>Inline</dd>
+                <dt>{t('components.badge.facts.standalone')}</dt>
+                <dd>{t('components.badge.facts.inline')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.badge.specimen.referenceSpecimen')}</span>
               <code>count · dot · standalone</code>
             </div>
             <div className="hero-stage">
@@ -52,20 +52,21 @@ export function BadgePage() {
                     <LayoutIcon />
                   </span>
                 </Badge>
-                <Badge dot intent="success" aria-label="Online">
+                <Badge dot intent="success" aria-label={t('examples.badge.copy.online')}>
                   <span className="badge-avatar">
                     <UserIcon />
                   </span>
                 </Badge>
                 <span>
-                  Release <Badge count="New" intent="info" />
+                  {t('examples.badge.copy.release')}
+                  <Badge count="New" intent="info" />
                 </span>
               </div>
             </div>
             <div className="specimen-caption">
-              <span>Attached count</span>
-              <span>Status dot</span>
-              <span>Inline metadata</span>
+              <span>{t('components.badge.specimen.attachedCount')}</span>
+              <span>{t('components.badge.specimen.statusDot')}</span>
+              <span>{t('components.badge.specimen.inlineMetadata')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -73,10 +74,8 @@ export function BadgePage() {
         <ArticleSection
           id={'badge-counts'}
           index={'01'}
-          title={'Counts and overflow'}
-          description={
-            'Numeric counts stay compact, cap at max, and hide zero unless showZero is explicit.'
-          }
+          title={t('components.badge.counts.title')}
+          description={t('components.badge.counts.description')}
         >
           <ComponentExample example={badgeExamples.badgeCounts} />
           <ComponentExample example={badgeExamples.badgeZero} />
@@ -84,20 +83,16 @@ export function BadgePage() {
         <ArticleSection
           id={'badge-status'}
           index={'02'}
-          title={'Dots and intents'}
-          description={
-            'Meaningful dots use an accessible label; semantic intent never depends on arbitrary colors.'
-          }
+          title={t('components.badge.status.title')}
+          description={t('components.badge.status.description')}
         >
           <ComponentExample example={badgeExamples.badgeStatus} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'badge-composition'}
           index={'03'}
-          title={'Buttons, icons and standalone badges'}
-          description={
-            'The indicator ignores pointer events, so wrapped controls keep their normal interaction.'
-          }
+          title={t('components.badge.composition.title')}
+          description={t('components.badge.composition.description')}
         >
           <ComponentExample example={badgeExamples.badgeInteractiveHost} />
           <ComponentExample example={badgeExamples.badgeStandalone} />

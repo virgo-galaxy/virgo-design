@@ -1,0 +1,26 @@
+export const emptyExamplesEnUS = {
+  copy: {
+    documentCreated: 'Document created.',
+    resetExample: 'Reset example',
+    documentsEmptyState: 'Documents empty state',
+    noDocuments: 'No documents',
+    createYourFirstDocumentToGetStarted: 'Create your first document to get started.',
+    createDocument: 'Create document',
+    emptyDocuments: 'Empty documents',
+    emptyProjects: 'Empty projects',
+    noProjectsYet: 'No projects yet',
+    createAProjectToOrganizeYourTeamSWork: 'Create a project to organize your team’s work.',
+    noSearchResults: 'No search results',
+    noMatchingResults: 'No matching results',
+    tryADifferentSearchTerm: 'Try a different search term.',
+    basicMessages: 'Basic messages',
+    consumersOwnAllTitlesAndDescriptions: 'Consumers own all titles and descriptions.',
+    iconAndAction: 'Icon and action',
+    theApplicationHandlesTheActionAndReplacesItsOwnEmpty:
+      'The application handles the action and replaces its own empty state.',
+    compactSearchState: 'Compact search state',
+    theSmallSizeFitsAConstrainedSurface: 'The small size fits a constrained surface.',
+    iconTitleDescriptionAction: 'Icon · Title · Description · Action',
+    emptyDocumentsHeroState: 'Empty documents hero state',
+  },
+} as const;

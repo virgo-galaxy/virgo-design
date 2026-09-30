@@ -11,6 +11,7 @@ import {
   useState,
 } from 'react';
 
+import { useControlLabels } from '../../shared/control-labels';
 import { Surface } from '../Surface';
 import styles from './Layout.module.scss';
 import type {
@@ -258,6 +259,7 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
   },
   ref,
 ) {
+  const labels = useControlLabels();
   const sidebarRef = useRef<HTMLElement | null>(null);
   const resizeCleanupRef = useRef<(() => void) | null>(null);
   const [resizedWidth, setResizedWidth] = useState<number | null>(null);
@@ -380,7 +382,7 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
           {resizable && !state.collapsed ? (
             <div
               role="separator"
-              aria-label="Resize sidebar"
+              aria-label={labels.resizeSidebar}
               aria-orientation="vertical"
               aria-valuemin={minWidth}
               aria-valuemax={maxWidth}
@@ -402,12 +404,19 @@ LayoutSidebar.displayName = 'Layout.Sidebar';
 
 export const LayoutSidebarTrigger = forwardRef<HTMLButtonElement, LayoutSidebarTriggerProps>(
   function LayoutSidebarTrigger({ className, children, render, ...props }, ref) {
+    const labels = useControlLabels();
     return (
       <PrimitiveLayout.SidebarTrigger
         {...props}
         ref={ref}
         className={joinClassNames(styles.sidebarTrigger, className)}
         render={(buttonProps) => {
+          buttonProps = {
+            ...buttonProps,
+            'aria-label':
+              props['aria-label'] ??
+              (buttonProps['aria-expanded'] ? labels.collapseSidebar : labels.expandSidebar),
+          };
           const content =
             children ??
             (buttonProps['aria-expanded'] ? (

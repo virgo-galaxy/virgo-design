@@ -1,16 +1,24 @@
 import { Command } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import styles from './CommandFilterExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [selection, setSelection] = useState('None');
   return (
     <div className={styles.root!}>
       <Command filter={(value, search) => value.startsWith(search.toLowerCase())}>
-        <Command.Input aria-label="Prefix filter" placeholder="Try pref…" />
+        <Command.Input
+          aria-label={t('examples.command.copy.prefixFilter')}
+          placeholder={t('examples.command.copy.tryPref')}
+        />
         <Command.List>
-          <Command.Empty>No prefix match.</Command.Empty>
+          <Command.Empty>{t('examples.command.copy.noPrefixMatch')}</Command.Empty>
           {['preferences', 'projects', 'profile'].map((value) => (
             <Command.Item key={value} value={value} onSelect={setSelection}>
               {value}
@@ -18,7 +26,9 @@ export default function App() {
           ))}
         </Command.List>
       </Command>
-      <span role="status">Selected: {selection}</span>
+      <span role="status">
+        {t('examples.command.copy.selected')} {translateExampleText(t, 'command', selection)}
+      </span>
     </div>
   );
 }

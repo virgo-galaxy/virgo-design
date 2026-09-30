@@ -1,4 +1,5 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
+import { createExampleSource } from '@/examples/components/create-example-source';
 
 import NavigationGroupedExample from './NavigationGroupedExample';
 import navigationGroupedStyles from './NavigationGroupedExample.module.scss?virgo-raw';
@@ -26,57 +27,76 @@ export const navigationMenuExamples = {
   navigationGrouped: {
     id: 'navigation-grouped',
     title: 'Grouped navigation',
+    titleTranslationKey: 'examples.navigationMenu.copy.groupedNavigation',
     description: 'Label related destinations with Group and GroupLabel.',
+    descriptionTranslationKey:
+      'examples.navigationMenu.copy.labelRelatedDestinationsWithGroupAndGrouplabel',
     Component: NavigationGroupedExample,
-    source: navigationGroupedSource,
+    source: createExampleSource(navigationGroupedSource),
     styleSource: navigationGroupedStyles,
   },
   navigationHorizontal: {
     id: 'navigation-horizontal',
     title: 'Top navigation',
+    titleTranslationKey: 'examples.navigationMenu.copy.topNavigation',
     description: 'Horizontal destination links.',
+    descriptionTranslationKey: 'examples.navigationMenu.copy.horizontalDestinationLinks',
     Component: NavigationHorizontalExample,
-    source: navigationHorizontalSource,
+    source: createExampleSource(navigationHorizontalSource),
     styleSource: navigationHorizontalStyles,
   },
   navigationVertical: {
     id: 'navigation-vertical',
     title: 'Vertical navigation',
+    titleTranslationKey: 'examples.navigationMenu.copy.verticalNavigation',
     description: 'Icons and a disabled destination in a vertical list.',
+    descriptionTranslationKey:
+      'examples.navigationMenu.copy.iconsAndADisabledDestinationInAVerticalList',
     Component: NavigationVerticalExample,
-    source: navigationVerticalSource,
+    source: createExampleSource(navigationVerticalSource),
     styleSource: navigationVerticalStyles,
   },
   navigationSegmented: {
     id: 'navigation-segmented',
     title: 'Segmented navigation',
+    titleTranslationKey: 'examples.navigationMenu.copy.segmentedNavigation',
     description: 'Group peer destinations with decorative separators.',
+    descriptionTranslationKey:
+      'examples.navigationMenu.copy.groupPeerDestinationsWithDecorativeSeparators',
     Component: NavigationSegmentedExample,
-    source: navigationSegmentedSource,
+    source: createExampleSource(navigationSegmentedSource),
     styleSource: navigationSegmentedStyles,
   },
   navigationSegmentedIcons: {
     id: 'navigation-segmented-icons',
     title: 'Segmented links with icons',
+    titleTranslationKey: 'examples.navigationMenu.copy.segmentedLinksWithIcons',
     description: 'Icons supplement destination labels.',
+    descriptionTranslationKey: 'examples.navigationMenu.copy.iconsSupplementDestinationLabels',
     Component: NavigationSegmentedIconsExample,
-    source: navigationSegmentedIconsSource,
+    source: createExampleSource(navigationSegmentedIconsSource),
     styleSource: navigationSegmentedIconsStyles,
   },
   navigationPopover: {
     id: 'navigation-popover',
     title: 'Vertical hover submenu',
+    titleTranslationKey: 'examples.navigationMenu.copy.verticalHoverSubmenu',
     description: 'A third level shares the normal pointer and keyboard navigation model.',
+    descriptionTranslationKey:
+      'examples.navigationMenu.copy.aThirdLevelSharesTheNormalPointerAndKeyboardNavigation',
     Component: NavigationPopoverExample,
-    source: navigationPopoverSource,
+    source: createExampleSource(navigationPopoverSource),
     styleSource: navigationPopoverStyles,
   },
   navigationNested: {
     id: 'navigation-nested',
     title: 'Inline nested navigation',
+    titleTranslationKey: 'examples.navigationMenu.copy.inlineNestedNavigation',
     description: 'Disclosure reveals destinations in normal document flow.',
+    descriptionTranslationKey:
+      'examples.navigationMenu.copy.disclosureRevealsDestinationsInNormalDocumentFlow',
     Component: NavigationNestedExample,
-    source: navigationNestedSource,
+    source: createExampleSource(navigationNestedSource),
     styleSource: navigationNestedStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

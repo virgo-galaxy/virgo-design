@@ -1,14 +1,19 @@
 import { DashboardIcon, LayoutIcon, SettingsIcon } from '@virgo-design/icons';
 import { Command } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import styles from './CommandInlineExample.module.scss';
 
 function CommandItems({ select }: { select: (value: string) => void }) {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Command.Empty>No matching commands.</Command.Empty>
-      <Command.Group heading="Workspace">
+      <Command.Empty>{t('examples.command.copy.noMatchingCommands')}</Command.Empty>
+      <Command.Group heading={t('examples.command.details.workspace')}>
         <Command.Item
           value="open-dashboard"
           keywords={['home']}
@@ -16,7 +21,7 @@ function CommandItems({ select }: { select: (value: string) => void }) {
           shortcut="G D"
           onSelect={select}
         >
-          Open dashboard
+          {t('examples.command.copy.openDashboard')}
         </Command.Item>
         <Command.Item
           value="switch-workspace"
@@ -24,11 +29,11 @@ function CommandItems({ select }: { select: (value: string) => void }) {
           shortcut="⌘ W"
           onSelect={select}
         >
-          Switch workspace
+          {t('examples.command.copy.switchWorkspace')}
         </Command.Item>
       </Command.Group>
       <Command.Separator />
-      <Command.Group heading="Settings">
+      <Command.Group heading={t('examples.command.details.settings')}>
         <Command.Item
           value="preferences"
           keywords={['settings']}
@@ -36,10 +41,10 @@ function CommandItems({ select }: { select: (value: string) => void }) {
           shortcut="⌘ ,"
           onSelect={select}
         >
-          Open preferences
+          {t('examples.command.copy.openPreferences')}
         </Command.Item>
         <Command.Item value="unavailable" disabled>
-          Unavailable command
+          {t('examples.command.copy.unavailableCommand')}
         </Command.Item>
       </Command.Group>
     </>
@@ -47,17 +52,22 @@ function CommandItems({ select }: { select: (value: string) => void }) {
 }
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [selection, setSelection] = useState('No command selected.');
   return (
     <div className={styles.root!}>
       <Command>
-        <Command.Input aria-label="Search inline commands" placeholder="Search commands…" />
+        <Command.Input
+          aria-label={t('examples.command.copy.searchInlineCommands')}
+          placeholder={t('examples.command.copy.searchCommands')}
+        />
         <Command.List>
           <CommandItems select={setSelection} />
         </Command.List>
       </Command>
       <p role="status" className={styles.text!}>
-        Selected: {selection}
+        {t('examples.command.copy.selected')} {translateExampleText(t, 'command', selection)}
       </p>
     </div>
   );

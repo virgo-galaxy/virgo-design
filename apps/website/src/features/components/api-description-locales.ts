@@ -1,0 +1,79 @@
+import { componentApiReference } from '@/generated/api-reference.generated';
+import { collectApiDescriptionResources } from '@/i18n/api-description-resources';
+
+import { accordionApiZhCN } from './pages/accordion/locales/accordion.api.zh-CN';
+import { alertApiZhCN } from './pages/alert/locales/alert.api.zh-CN';
+import { avatarApiZhCN } from './pages/avatar/locales/avatar.api.zh-CN';
+import { badgeApiZhCN } from './pages/badge/locales/badge.api.zh-CN';
+import { breadcrumbApiZhCN } from './pages/breadcrumb/locales/breadcrumb.api.zh-CN';
+import { buttonApiZhCN } from './pages/button/locales/button.api.zh-CN';
+import { cardApiZhCN } from './pages/card/locales/card.api.zh-CN';
+import { checkboxApiZhCN } from './pages/checkbox/locales/checkbox.api.zh-CN';
+import { commandApiZhCN } from './pages/command/locales/command.api.zh-CN';
+import { cursorApiZhCN } from './pages/cursor/locales/cursor.api.zh-CN';
+import { dialogApiZhCN } from './pages/dialog/locales/dialog.api.zh-CN';
+import { dockApiZhCN } from './pages/dock/locales/dock.api.zh-CN';
+import { drawerApiZhCN } from './pages/drawer/locales/drawer.api.zh-CN';
+import { dropdownApiZhCN } from './pages/dropdown/locales/dropdown.api.zh-CN';
+import { emptyApiZhCN } from './pages/empty/locales/empty.api.zh-CN';
+import { floatingActionApiZhCN } from './pages/floating-action/locales/floatingAction.api.zh-CN';
+import { inputApiZhCN } from './pages/input/locales/input.api.zh-CN';
+import { layoutApiZhCN } from './pages/layout/locales/layout.api.zh-CN';
+import { menuApiZhCN } from './pages/menu-system/locales/menu.api.zh-CN';
+import { menubarApiZhCN } from './pages/menu-system/locales/menubar.api.zh-CN';
+import { navigationMenuApiZhCN } from './pages/navigation-menu/locales/navigationMenu.api.zh-CN';
+import { paginationApiZhCN } from './pages/pagination/locales/pagination.api.zh-CN';
+import { popoverApiZhCN } from './pages/popover/locales/popover.api.zh-CN';
+import { progressApiZhCN } from './pages/progress/locales/progress.api.zh-CN';
+import { radioApiZhCN } from './pages/radio/locales/radio.api.zh-CN';
+import { segmentedControlApiZhCN } from './pages/segmented-control/locales/segmentedControl.api.zh-CN';
+import { selectApiZhCN } from './pages/select/locales/select.api.zh-CN';
+import { separatorApiZhCN } from './pages/separator/locales/separator.api.zh-CN';
+import { skeletonApiZhCN } from './pages/skeleton/locales/skeleton.api.zh-CN';
+import { spinnerApiZhCN } from './pages/spinner/locales/spinner.api.zh-CN';
+import { surfaceApiZhCN } from './pages/surface/locales/surface.api.zh-CN';
+import { switchApiZhCN } from './pages/switch/locales/switch.api.zh-CN';
+import { tabsApiZhCN } from './pages/tabs/locales/tabs.api.zh-CN';
+import { tagApiZhCN } from './pages/tag/locales/tag.api.zh-CN';
+import { toastApiZhCN } from './pages/toast/locales/toast.api.zh-CN';
+import { tooltipApiZhCN } from './pages/tooltip/locales/tooltip.api.zh-CN';
+
+export const componentsApiEnUS = collectApiDescriptionResources(componentApiReference);
+export const componentsApiZhCN = {
+  accordion: accordionApiZhCN,
+  alert: alertApiZhCN,
+  avatar: avatarApiZhCN,
+  badge: badgeApiZhCN,
+  breadcrumb: breadcrumbApiZhCN,
+  button: buttonApiZhCN,
+  card: cardApiZhCN,
+  checkbox: checkboxApiZhCN,
+  command: commandApiZhCN,
+  cursor: cursorApiZhCN,
+  dialog: dialogApiZhCN,
+  dock: dockApiZhCN,
+  drawer: drawerApiZhCN,
+  dropdown: dropdownApiZhCN,
+  empty: emptyApiZhCN,
+  'floating-action': floatingActionApiZhCN,
+  input: inputApiZhCN,
+  layout: layoutApiZhCN,
+  menu: menuApiZhCN,
+  menubar: menubarApiZhCN,
+  'navigation-menu': navigationMenuApiZhCN,
+  pagination: paginationApiZhCN,
+  popover: popoverApiZhCN,
+  progress: progressApiZhCN,
+  radio: radioApiZhCN,
+  'segmented-control': segmentedControlApiZhCN,
+  select: selectApiZhCN,
+  separator: separatorApiZhCN,
+  skeleton: skeletonApiZhCN,
+  spinner: spinnerApiZhCN,
+  surface: surfaceApiZhCN,
+  switch: switchApiZhCN,
+  tabs: tabsApiZhCN,
+  tag: tagApiZhCN,
+  toast: toastApiZhCN,
+  tooltip: tooltipApiZhCN,
+};

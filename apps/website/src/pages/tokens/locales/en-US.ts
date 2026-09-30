@@ -7,7 +7,7 @@ export const tokensEnUS = {
   },
   eyebrow: 'TOKENS V1',
   colors: {
-    title: 'Color with meaning',
+    title: 'Semantic colors',
     description:
       'One semantic vocabulary resolved into two production themes. Inspect every role in real interface, interaction, status, and data-visualization contexts.',
     semanticRoles: 'semantic roles',

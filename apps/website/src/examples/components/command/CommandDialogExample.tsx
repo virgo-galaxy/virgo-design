@@ -1,14 +1,19 @@
 import { DashboardIcon, LayoutIcon, SearchIcon, SettingsIcon } from '@virgo-design/icons';
 import { Button, Command } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import styles from './CommandDialogExample.module.scss';
 
 function CommandItems({ select }: { select: (value: string) => void }) {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Command.Empty>No matching commands.</Command.Empty>
-      <Command.Group heading="Workspace">
+      <Command.Empty>{t('examples.command.copy.noMatchingCommands')}</Command.Empty>
+      <Command.Group heading={t('examples.command.details.workspace')}>
         <Command.Item
           value="open-dashboard"
           keywords={['home']}
@@ -16,7 +21,7 @@ function CommandItems({ select }: { select: (value: string) => void }) {
           shortcut="G D"
           onSelect={select}
         >
-          Open dashboard
+          {t('examples.command.copy.openDashboard')}
         </Command.Item>
         <Command.Item
           value="switch-workspace"
@@ -24,11 +29,11 @@ function CommandItems({ select }: { select: (value: string) => void }) {
           shortcut="⌘ W"
           onSelect={select}
         >
-          Switch workspace
+          {t('examples.command.copy.switchWorkspace')}
         </Command.Item>
       </Command.Group>
       <Command.Separator />
-      <Command.Group heading="Settings">
+      <Command.Group heading={t('examples.command.details.settings')}>
         <Command.Item
           value="preferences"
           keywords={['settings']}
@@ -36,10 +41,10 @@ function CommandItems({ select }: { select: (value: string) => void }) {
           shortcut="⌘ ,"
           onSelect={select}
         >
-          Open preferences
+          {t('examples.command.copy.openPreferences')}
         </Command.Item>
         <Command.Item value="unavailable" disabled>
-          Unavailable command
+          {t('examples.command.copy.unavailableCommand')}
         </Command.Item>
       </Command.Group>
     </>
@@ -47,6 +52,8 @@ function CommandItems({ select }: { select: (value: string) => void }) {
 }
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [open, setOpen] = useState(false);
   const [selection, setSelection] = useState('No command selected.');
   return (
@@ -68,14 +75,14 @@ export default function App() {
         leadingIcon={<SearchIcon />}
         aria-keyshortcuts="Meta+K Control+K"
       >
-        Open command palette
+        {t('examples.command.copy.openCommandPalette')}
       </Button>
-      <p className={styles.text!}>Focus the button, then press ⌘/Ctrl K.</p>
+      <p className={styles.text!}>{t('examples.command.copy.focusTheButtonThenPressCtrlK')}</p>
       <Command.Dialog open={open} onOpenChange={setOpen}>
         <Command.Input
           autoFocus
-          aria-label="Search command palette"
-          placeholder="Type a command…"
+          aria-label={t('examples.command.copy.searchCommandPalette')}
+          placeholder={t('examples.command.copy.typeACommand')}
         />
         <Command.List>
           <CommandItems
@@ -86,7 +93,9 @@ export default function App() {
           />
         </Command.List>
       </Command.Dialog>
-      <span role="status">Selected: {selection}</span>
+      <span role="status">
+        {t('examples.command.copy.selected')} {translateExampleText(t, 'command', selection)}
+      </span>
     </div>
   );
 }

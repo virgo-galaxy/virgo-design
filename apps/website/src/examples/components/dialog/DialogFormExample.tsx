@@ -2,14 +2,17 @@ import './DialogFormExample.module.scss';
 
 import { Button, Dialog, Input } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('Virgo workspace');
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger>Edit workspace</Dialog.Trigger>
+      <Dialog.Trigger>{t('examples.dialog.copy.editWorkspace')}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay />
         <Dialog.Content>
@@ -20,21 +23,21 @@ export default function App() {
             }}
           >
             <Dialog.Header>
-              <Dialog.Title>Workspace settings</Dialog.Title>
+              <Dialog.Title>{t('examples.dialog.copy.workspaceSettings')}</Dialog.Title>
               <Dialog.Description>
-                Update the name shown throughout Virgo Design.
+                {t('examples.dialog.copy.updateTheNameShownThroughoutVirgoDesign')}
               </Dialog.Description>
             </Dialog.Header>
             <Dialog.Body>
               <Input
-                aria-label="Workspace name"
+                aria-label={t('examples.dialog.copy.workspaceName')}
                 value={name}
                 onChange={(event) => setName(event.target.value)}
               />
             </Dialog.Body>
             <Dialog.Footer>
-              <Dialog.Close>Cancel</Dialog.Close>
-              <Button type="submit">Save changes</Button>
+              <Dialog.Close>{t('examples.dialog.copy.cancel')}</Dialog.Close>
+              <Button type="submit">{t('examples.dialog.copy.saveChanges')}</Button>
             </Dialog.Footer>
           </form>
         </Dialog.Content>

@@ -1,9 +1,12 @@
 import { Button, Toast } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './ToastUndoExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [open, setOpen] = useState(false);
   const [archived, setArchived] = useState(false);
   return (
@@ -15,18 +18,25 @@ export default function App() {
             setOpen(true);
           }}
         >
-          Archive with Undo
+          {t('examples.toast.copy.archiveWithUndo')}
         </Button>
         <span role="status">
-          {archived ? 'Document is archived.' : 'Document is in your workspace.'}
+          {archived
+            ? t('examples.toast.details.documentIsArchived')
+            : t('examples.toast.details.documentIsInYourWorkspace')}
         </span>
-        <Toast.Viewport aria-label="Archive notifications" className={styles.viewport!} />
+        <Toast.Viewport
+          aria-label={t('examples.toast.copy.archiveNotifications')}
+          className={styles.viewport!}
+        />
       </div>
       <Toast.Root open={open} onOpenChange={setOpen} intent="success" duration={5000}>
-        <Toast.Title>Document archived</Toast.Title>
-        <Toast.Description>You can undo this action.</Toast.Description>
-        <Toast.Action onClick={() => setArchived(false)}>Undo</Toast.Action>
-        <Toast.Close />
+        <Toast.Title>{t('examples.toast.copy.documentArchived')}</Toast.Title>
+        <Toast.Description>{t('examples.toast.copy.youCanUndoThisAction')}</Toast.Description>
+        <Toast.Action onClick={() => setArchived(false)}>
+          {t('examples.toast.copy.undo')}
+        </Toast.Action>
+        <Toast.Close aria-label={t('examples.toast.copy.dismissNotification')} />
       </Toast.Root>
     </Toast.Provider>
   );

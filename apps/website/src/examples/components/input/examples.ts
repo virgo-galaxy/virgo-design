@@ -1,4 +1,5 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
+import { createExampleSource } from '@/examples/components/create-example-source';
 
 import InputClearableExample from './InputClearableExample';
 import inputClearableStyles from './InputClearableExample.module.scss?virgo-raw';
@@ -29,65 +30,86 @@ export const inputExamples = {
   inputSizes: {
     id: 'input-sizes',
     title: 'Input sizes',
+    titleTranslationKey: 'examples.input.copy.inputSizes',
     description: 'Four control heights share one text-entry contract.',
+    descriptionTranslationKey: 'examples.input.copy.fourControlHeightsShareOneTextEntryContract',
     Component: InputSizesExample,
-    source: inputSizesSource,
+    source: createExampleSource(inputSizesSource),
     styleSource: inputSizesStyles,
   },
   inputContent: {
     id: 'input-content',
     title: 'Placeholder and value',
+    titleTranslationKey: 'examples.input.copy.placeholderAndValue',
     description: 'Empty hints and editable default values use native input semantics.',
+    descriptionTranslationKey:
+      'examples.input.copy.emptyHintsAndEditableDefaultValuesUseNativeInputSemantics',
     Component: InputContentExample,
-    source: inputContentSource,
+    source: createExampleSource(inputContentSource),
     styleSource: inputContentStyles,
   },
   inputDecorations: {
     id: 'input-decorations',
     title: 'Prefix and suffix',
+    titleTranslationKey: 'examples.input.copy.prefixAndSuffix',
     description: 'Decorative icons stay outside the tab order.',
+    descriptionTranslationKey: 'examples.input.copy.decorativeIconsStayOutsideTheTabOrder',
     Component: InputDecorationsExample,
-    source: inputDecorationsSource,
+    source: createExampleSource(inputDecorationsSource),
     styleSource: inputDecorationsStyles,
   },
   inputClearable: {
     id: 'input-clearable',
     title: 'Clearable input',
+    titleTranslationKey: 'examples.input.copy.clearableInput',
     description: 'Clear the current value while retaining typing focus.',
+    descriptionTranslationKey: 'examples.input.copy.clearTheCurrentValueWhileRetainingTypingFocus',
     Component: InputClearableExample,
-    source: inputClearableSource,
+    source: createExampleSource(inputClearableSource),
     styleSource: inputClearableStyles,
   },
   inputPassword: {
     id: 'input-password',
     title: 'Password reveal',
+    titleTranslationKey: 'examples.input.copy.passwordReveal',
     description: 'Toggle visibility without replacing the entered value.',
+    descriptionTranslationKey:
+      'examples.input.copy.toggleVisibilityWithoutReplacingTheEnteredValue',
     Component: InputPasswordExample,
-    source: inputPasswordSource,
+    source: createExampleSource(inputPasswordSource),
     styleSource: inputPasswordStyles,
   },
   inputStates: {
     id: 'input-states',
     title: 'Input states',
+    titleTranslationKey: 'examples.input.copy.inputStates',
     description: 'Default, disabled, read-only, and invalid states share native text semantics.',
+    descriptionTranslationKey:
+      'examples.input.copy.defaultDisabledReadOnlyAndInvalidStatesShareNativeText',
     Component: InputStatesExample,
-    source: inputStatesSource,
+    source: createExampleSource(inputStatesSource),
     styleSource: inputStatesStyles,
   },
   textareaSizes: {
     id: 'textarea-sizes',
     title: 'Textarea sizes',
+    titleTranslationKey: 'examples.input.copy.textareaSizes',
     description: 'Density and minimum height vary; rows still describe content.',
+    descriptionTranslationKey:
+      'examples.input.copy.densityAndMinimumHeightVaryRowsStillDescribeContent',
     Component: TextareaSizesExample,
-    source: textareaSizesSource,
+    source: createExampleSource(textareaSizesSource),
     styleSource: textareaSizesStyles,
   },
   textareaStates: {
     id: 'textarea-states',
     title: 'Textarea states',
+    titleTranslationKey: 'examples.input.copy.textareaStates',
     description: 'Multiline content reuses the Input family’s state language.',
+    descriptionTranslationKey:
+      'examples.input.copy.multilineContentReusesTheInputFamilySStateLanguage',
     Component: TextareaStatesExample,
-    source: textareaStatesSource,
+    source: createExampleSource(textareaStatesSource),
     styleSource: textareaStatesStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

@@ -1,4 +1,5 @@
 import { Surface } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './SurfaceImageBackgroundExample.module.scss';
 
@@ -27,6 +28,8 @@ const landscape = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://w
 </svg>`)}`;
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <Surface
       background={{ type: 'image', src: landscape, fit: 'cover', position: 'center' }}
@@ -34,8 +37,10 @@ export default function App() {
       className={styles.root!}
     >
       <Surface material="glass" tone="elevated" radius={8} className={styles.surface!}>
-        <strong>Decorative landscape</strong>
-        <p className={styles.text!}>Use an img with alt text when the picture carries meaning.</p>
+        <strong>{t('examples.surface.copy.decorativeLandscape')}</strong>
+        <p className={styles.text!}>
+          {t('examples.surface.copy.useAnImgWithAltTextWhenThePictureCarries')}
+        </p>
       </Surface>
     </Surface>
   );

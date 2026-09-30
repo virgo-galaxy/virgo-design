@@ -1,6 +1,7 @@
 import './AlertPage.scss';
 
 import { Alert } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -13,6 +14,8 @@ import { alertExamples } from '@/examples/components/alert/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function AlertPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board alert-review" id="alert-review">
@@ -20,43 +23,42 @@ export function AlertPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Alert</h1>
-            <p>
-              Keep page-level feedback visible in context with semantic intent, structured content,
-              and application-owned actions.
-            </p>
+            <p>{t('components.alert.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Intents</dt>
+                <dt>{t('components.alert.facts.intents')}</dt>
                 <dd>5</dd>
               </div>
               <div>
-                <dt>Variants</dt>
+                <dt>{t('components.alert.facts.variants')}</dt>
                 <dd>2</dd>
               </div>
               <div>
-                <dt>Default</dt>
-                <dd>Soft</dd>
+                <dt>{t('components.alert.facts.default')}</dt>
+                <dd>{t('components.alert.facts.soft')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.alert.specimen.referenceSpecimen')}</span>
               <code>intent=&quot;warning&quot;</code>
             </div>
             <div className="hero-stage alert-hero-stage">
               <Alert intent="warning">
                 <Alert.Icon />
                 <Alert.Content>
-                  <Alert.Title>Configuration problem</Alert.Title>
-                  <Alert.Description>Update the settings before deploy.</Alert.Description>
+                  <Alert.Title>{t('examples.alert.copy.configurationProblem')}</Alert.Title>
+                  <Alert.Description>
+                    {t('examples.alert.copy.updateTheSettingsBeforeDeploy')}
+                  </Alert.Description>
                 </Alert.Content>
               </Alert>
             </div>
             <div className="specimen-caption">
-              <span>Persistent</span>
-              <span>Inline</span>
-              <span>Theme aware</span>
+              <span>{t('components.alert.specimen.persistent')}</span>
+              <span>{t('components.alert.specimen.inline')}</span>
+              <span>{t('components.alert.specimen.themeAware')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -64,50 +66,40 @@ export function AlertPage() {
         <ArticleSection
           id={'alert-intents'}
           index={'01'}
-          title={'Semantic intents'}
-          description={
-            'Status icons reinforce each semantic treatment without making color the only signal.'
-          }
+          title={t('components.alert.intents.title')}
+          description={t('components.alert.intents.description')}
         >
           <ComponentExample example={alertExamples.alertIntents} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'alert-content'}
           index={'02'}
-          title={'Content structure'}
-          description={
-            'Use a concise title alone, or add a description when the user needs explanation or recovery guidance.'
-          }
+          title={t('components.alert.content.title')}
+          description={t('components.alert.content.description')}
         >
           <ComponentExample example={alertExamples.alertContent} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'alert-action'}
           index={'03'}
-          title={'Application action'}
-          description={
-            'Action is a layout slot; the application supplies the control and owns its behavior.'
-          }
+          title={t('components.alert.action.title')}
+          description={t('components.alert.action.description')}
         >
           <ComponentExample example={alertExamples.alertAction} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'alert-close'}
           index={'04'}
-          title={'Closable'}
-          description={
-            'Close only notifies the owner. This example removes the message in application state and can restore it.'
-          }
+          title={t('components.alert.close.title')}
+          description={t('components.alert.close.description')}
         >
           <ComponentExample example={alertExamples.alertClosable} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'alert-custom-icon'}
           index={'05'}
-          title={'Custom icon'}
-          description={
-            'Override the status shape for domain context while keeping intent responsible for color.'
-          }
+          title={t('components.alert.customIcon.title')}
+          description={t('components.alert.customIcon.description')}
         >
           <ComponentExample example={alertExamples.alertCustomIcon} showCaption={false} />
         </ArticleSection>

@@ -1,8 +1,11 @@
 import { Dock } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './DockFreePositioningExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.stage!}>
       <Dock.Boundary className={styles.boundary!}>
@@ -17,9 +20,9 @@ export default function App() {
         <Dock.Root defaultPlacement={{ edge: 'top', position: 0.37 }} snapDivisions={false}>
           {({ placement }) => (
             <>
-              <Dock.Handle aria-label="Move free-positioned dock" />
+              <Dock.Handle aria-label={t('examples.dock.copy.moveFreePositionedDock')} />
               <Dock.Content className={styles.panel!}>
-                <strong>Free</strong>
+                <strong>{t('examples.dock.copy.free')}</strong>
                 <code>{placement.position.toFixed(3)}</code>
               </Dock.Content>
             </>
@@ -27,7 +30,7 @@ export default function App() {
         </Dock.Root>
 
         <p className={styles.hint!}>
-          Drag continuously along an edge. Arrow keys fine-tune the position by 1%.
+          {t('examples.dock.copy.dragContinuouslyAlongAnEdgeArrowKeysFineTuneThe')}
         </p>
       </Dock.Boundary>
     </div>

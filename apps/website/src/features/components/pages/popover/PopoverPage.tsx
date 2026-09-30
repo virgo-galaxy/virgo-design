@@ -2,6 +2,7 @@ import './PopoverPage.scss';
 
 import { Popover } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -14,6 +15,8 @@ import { popoverExamples } from '@/examples/components/popover/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function PopoverPage() {
+  const { t } = useTranslation();
+
   const [name] = useState('Virgo workspace');
   const [savedName] = useState(name);
   return (
@@ -23,46 +26,43 @@ export function PopoverPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Popover</h1>
-            <p>
-              Open a little more context, right where you need it. Details, forms and actions share
-              a compact panel that stays connected to its trigger.
-            </p>
+            <p>{t('components.popover.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Content</dt>
-                <dd>Flexible</dd>
+                <dt>{t('components.popover.facts.content')}</dt>
+                <dd>{t('components.popover.facts.flexible')}</dd>
               </div>
               <div>
-                <dt>Triggers</dt>
-                <dd>2 modes</dd>
+                <dt>{t('components.popover.facts.triggers')}</dt>
+                <dd>{t('components.popover.facts.2Modes')}</dd>
               </div>
               <div>
-                <dt>Focus</dt>
-                <dd>Non-modal</dd>
+                <dt>{t('components.popover.facts.focus')}</dt>
+                <dd>{t('components.popover.facts.nonModal')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.popover.specimen.referenceSpecimen')}</span>
               <code>contextual content</code>
             </div>
             <div className="hero-stage popover-hero-stage">
               <Popover>
-                <Popover.Trigger>Workspace details</Popover.Trigger>
+                <Popover.Trigger>{t('examples.popover.copy.workspaceDetails')}</Popover.Trigger>
                 <Popover.Content arrow>
                   <div className="popover-demo-content">
                     <strong>{savedName}</strong>
-                    <p>A shared space for your team's designs, components and ideas.</p>
-                    <Popover.Close>Got it</Popover.Close>
+                    <p>{t('examples.popover.copy.aSharedSpaceForYourTeamSDesignsComponentsAnd')}</p>
+                    <Popover.Close>{t('examples.popover.copy.gotIt')}</Popover.Close>
                   </div>
                 </Popover.Content>
               </Popover>
             </div>
             <div className="specimen-caption">
-              <span>Any content</span>
-              <span>Keyboard ready</span>
-              <span>Theme aware</span>
+              <span>{t('components.popover.specimen.anyContent')}</span>
+              <span>{t('components.popover.specimen.keyboardReady')}</span>
+              <span>{t('components.popover.specimen.themeAware')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -70,10 +70,8 @@ export function PopoverPage() {
         <ArticleSection
           id={'popover-triggers'}
           index={'01'}
-          title={'Click & hover'}
-          description={
-            'Click to focus the panel. Hover offers a quick preview without moving keyboard focus; interactive content stays open while focused.'
-          }
+          title={t('components.popover.triggers.title')}
+          description={t('components.popover.triggers.description')}
         >
           <ComponentExample example={popoverExamples.popoverClick} />
           <ComponentExample example={popoverExamples.popoverHover} />
@@ -83,30 +81,24 @@ export function PopoverPage() {
         <ArticleSection
           id={'popover-form'}
           index={'02'}
-          title={'Edit in context'}
-          description={
-            'A controlled panel with a real form. Save updates the workspace name and returns focus to Edit workspace.'
-          }
+          title={t('components.popover.form.title')}
+          description={t('components.popover.form.description')}
         >
           <ComponentExample example={popoverExamples.popoverForm} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'popover-placement'}
           index={'03'}
-          title={'Placement & offset'}
-          description={
-            'Twelve physical positions around the trigger area. Panels flip and shift at viewport edges. These examples use a 12px offset and an arrow.'
-          }
+          title={t('components.popover.placement.title')}
+          description={t('components.popover.placement.description')}
         >
           <ComponentExample example={popoverExamples.popoverPlacement} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'popover-nested'}
           index={'04'}
-          title={'Actions inside a panel'}
-          description={
-            'Open a Dropdown inside the Popover. Escape closes the menu first; selecting an action keeps the parent panel open.'
-          }
+          title={t('components.popover.nested.title')}
+          description={t('components.popover.nested.description')}
         >
           <ComponentExample example={popoverExamples.popoverNestedMenu} showCaption={false} />
         </ArticleSection>

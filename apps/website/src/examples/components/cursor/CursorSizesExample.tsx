@@ -1,4 +1,5 @@
 import { Cursor, Tooltip } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './CursorSizesExample.module.scss';
 
@@ -9,6 +10,8 @@ const sizes = [
 ] as const;
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.sizes}>
       {sizes.map(({ size, pixels }) => (
@@ -16,9 +19,14 @@ export default function App() {
           <Cursor.Visual size={size} />
           <Tooltip>
             <Tooltip.Trigger>
-              {size.toUpperCase()} · {pixels}px{size === 'md' ? ' · Default' : ''}
+              {size.toUpperCase()} · {pixels}
+              {t('examples.cursor.copy.px')}
+              {size === 'md' ? t('examples.cursor.details.default') : ''}
             </Tooltip.Trigger>
-            <Tooltip.Content>A {pixels}px cursor, with context close behind.</Tooltip.Content>
+            <Tooltip.Content>
+              {t('examples.cursor.copy.a')} {pixels}
+              {t('examples.cursor.copy.pxCursorWithContextCloseBehind')}
+            </Tooltip.Content>
           </Tooltip>
         </Cursor.Provider>
       ))}

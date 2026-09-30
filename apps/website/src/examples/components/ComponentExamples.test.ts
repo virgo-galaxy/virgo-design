@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
 
+import { createExampleSource } from './create-example-source';
 import { componentExampleRegistry } from './example-registry';
 import { standaloneExampleIds } from './standalone-example-registry';
 
@@ -49,7 +50,7 @@ describe('Executable component example sources', () => {
   });
 
   it.each(definitions)(
-    '$id displays the exact file it executes and is independently copyable',
+    '$id provides a canonical source from its executable file and is independently copyable',
     (definition) => {
       const entry = Object.entries(modules).find(
         ([, module]) => module.default === definition.Component,
@@ -57,7 +58,7 @@ describe('Executable component example sources', () => {
       expect(entry).toBeDefined();
       if (!entry) throw new Error(`Missing executable source for ${definition.id}`);
       const [file] = entry;
-      expect(definition.source).toBe(sources[file]);
+      expect(definition.source).toBe(createExampleSource(sources[file]!));
       const styleFile = file.replace(/\.tsx$/, '.module.scss');
       expect(definition.styleSource).toBe(styles[styleFile]);
       expect(definition.source.trim()).not.toBe('');

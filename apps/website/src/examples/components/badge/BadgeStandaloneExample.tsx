@@ -1,15 +1,20 @@
 import { Badge } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './BadgeStandaloneExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.root!}>
       <span>
-        Queued <Badge count={12} />
+        {t('examples.badge.copy.queued')}
+        <Badge count={12} />
       </span>
       <span>
-        Release <Badge count="New" intent="info" />
+        {t('examples.badge.copy.release')}
+        <Badge count="New" intent="info" />
       </span>
     </div>
   );

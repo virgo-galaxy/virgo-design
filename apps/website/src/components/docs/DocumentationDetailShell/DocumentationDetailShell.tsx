@@ -1,6 +1,7 @@
 import { GithubIcon } from '@virgo-design/icons';
 import { Button, Layout } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { VirgoMark } from '@/components/brand/VirgoBrand/VirgoMark';
@@ -20,6 +21,7 @@ const laneBoundary = {
 
 /** The main column of a documentation page; an optional sidebar stays outside this shell. */
 export function DocumentationDetailShell({ breadcrumb, children }: DocumentationDetailShellProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
@@ -31,7 +33,7 @@ export function DocumentationDetailShell({ breadcrumb, children }: Documentation
         </Layout.Lane>
       </Layout.Content>
 
-      <Layout.Footer className={styles.footer!} aria-label="Documentation footer">
+      <Layout.Footer className={styles.footer!} aria-label={t('docs.detailShell.footerLabel')}>
         <Layout.Lane {...laneBoundary} className={styles.lane!}>
           <div className={styles.footerContent}>
             <Button
@@ -41,9 +43,9 @@ export function DocumentationDetailShell({ breadcrumb, children }: Documentation
               leadingIcon={<VirgoMark />}
               onClick={() => navigate(ROUTE_PATHS.root)}
             >
-              Powered by Virgo Design
+              {t('docs.detailShell.poweredBy')}
             </Button>
-            <nav aria-label="Project links">
+            <nav aria-label={t('docs.detailShell.projectLinks')}>
               <a className={styles.projectLink} href="https://github.com/virgo-galaxy/virgo-design">
                 <GithubIcon size={16} aria-hidden="true" />
                 <span>GitHub</span>

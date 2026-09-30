@@ -23,166 +23,151 @@ export const primitiveDocs = [
     exportName: 'Cursor',
     slug: 'cursor',
     category: 'Overlays',
-    description:
-      'Scoped pointer state and non-interactive followers without prescribing a cursor visual.',
+    description: 'primitives.docs.cursor.description',
   },
   {
     exportName: 'Button',
     slug: 'button',
     category: 'Actions & Commands',
-    description:
-      'A native button that preserves platform semantics, events, and disabled behavior.',
+    description: 'primitives.docs.button.description',
   },
   {
     exportName: 'Command',
     slug: 'command',
     category: 'Actions & Commands',
-    description:
-      'A searchable command collection with filtering, selection, and keyboard navigation.',
+    description: 'primitives.docs.command.description',
   },
   {
     exportName: 'Checkbox',
     slug: 'checkbox',
     category: 'Form Controls',
-    description: 'Native checkboxes with mixed state and optional controlled group coordination.',
+    description: 'primitives.docs.checkbox.description',
   },
   {
     exportName: 'Input',
     slug: 'input',
     category: 'Form Controls',
-    description:
-      'A transparent native input with ref forwarding and the full platform attribute surface.',
+    description: 'primitives.docs.input.description',
   },
   {
     exportName: 'Radio',
     slug: 'radio',
     category: 'Form Controls',
-    description:
-      'Native radio inputs with optional single-value group state and orientation semantics.',
+    description: 'primitives.docs.radio.description',
   },
   {
     exportName: 'Select',
     slug: 'select',
     category: 'Form Controls',
-    description:
-      'A headless listbox with controlled value, typeahead, keyboard navigation, and form support.',
+    description: 'primitives.docs.select.description',
   },
   {
     exportName: 'Switch',
     slug: 'switch',
     category: 'Form Controls',
-    description:
-      'A native checkbox enhanced with switch semantics and checked-state notifications.',
+    description: 'primitives.docs.switch.description',
   },
   {
     exportName: 'Textarea',
     slug: 'textarea',
     category: 'Form Controls',
-    description: 'A transparent native textarea with ref forwarding and native state behavior.',
+    description: 'primitives.docs.textarea.description',
   },
   {
     exportName: 'Accordion',
     slug: 'accordion',
     category: 'Disclosure',
-    description: 'Single or multiple disclosure sections with coordinated state and roving focus.',
+    description: 'primitives.docs.accordion.description',
   },
   {
     exportName: 'Collapsible',
     slug: 'collapsible',
     category: 'Disclosure',
-    description: 'A controlled or uncontrolled disclosure region with connected trigger semantics.',
+    description: 'primitives.docs.collapsible.description',
   },
   {
     exportName: 'Tabs',
     slug: 'tabs',
     category: 'Disclosure',
-    description: 'An accessible tab set with automatic selection and arrow-key navigation.',
+    description: 'primitives.docs.tabs.description',
   },
   {
     exportName: 'Breadcrumb',
     slug: 'breadcrumb',
     category: 'Navigation',
-    description: 'A labelled breadcrumb navigation with ordered items and current-page semantics.',
+    description: 'primitives.docs.breadcrumb.description',
   },
   {
     exportName: 'NavigationMenu',
     slug: 'navigation-menu',
     category: 'Navigation',
-    description:
-      'Top-level links and disclosures coordinated across horizontal or vertical navigation.',
+    description: 'primitives.docs.navigation-menu.description',
   },
   {
     exportName: 'Pagination',
     slug: 'pagination',
     category: 'Navigation',
-    description: 'Bounded page state and native page controls for finite result collections.',
+    description: 'primitives.docs.pagination.description',
   },
   {
     exportName: 'ContextMenu',
     slug: 'context-menu',
     category: 'Menus',
-    description:
-      'A menu opened at pointer coordinates or with the native context-menu keyboard gesture.',
+    description: 'primitives.docs.context-menu.description',
   },
   {
     exportName: 'Dropdown',
     slug: 'dropdown',
     category: 'Menus',
-    description: 'A positioned action menu opened by click, keyboard, touch, or optional hover.',
+    description: 'primitives.docs.dropdown.description',
   },
   {
     exportName: 'Menu',
     slug: 'menu',
     category: 'Menus',
-    description: 'A composable action menu with selection, typeahead, checked items, and submenus.',
+    description: 'primitives.docs.menu.description',
   },
   {
     exportName: 'Menubar',
     slug: 'menubar',
     category: 'Menus',
-    description: 'A coordinated row of menus with roving focus and cross-menu keyboard navigation.',
+    description: 'primitives.docs.menubar.description',
   },
   {
     exportName: 'Dialog',
     slug: 'dialog',
     category: 'Overlays',
-    description:
-      'A modal or non-modal dialog with focus management, dismissal, and layered isolation.',
+    description: 'primitives.docs.dialog.description',
   },
   {
     exportName: 'Popover',
     slug: 'popover',
     category: 'Overlays',
-    description:
-      'A non-modal positioned panel with click or hover activation and focus coordination.',
+    description: 'primitives.docs.popover.description',
   },
   {
     exportName: 'Tooltip',
     slug: 'tooltip',
     category: 'Overlays',
-    description:
-      'A delayed hover or focus description with positioning and optional smooth handoff.',
+    description: 'primitives.docs.tooltip.description',
   },
   {
     exportName: 'Toast',
     slug: 'toast',
     category: 'Feedback',
-    description:
-      'Portalled live-region notifications with timed dismissal, pause, and focus hotkey support.',
+    description: 'primitives.docs.toast.description',
   },
   {
     exportName: 'Layout',
     slug: 'layout',
     category: 'Structure',
-    description:
-      'Semantic page regions with coordinated sidebar collapse state and structural ordering.',
+    description: 'primitives.docs.layout.description',
   },
   {
     exportName: 'Dock',
     slug: 'dock',
     category: 'Structure',
-    description:
-      'Edge-constrained movable regions with normalized snapped or continuous placement and orientation state.',
+    description: 'primitives.docs.dock.description',
   },
 ] as const satisfies ReadonlyArray<PrimitiveDoc>;
 
@@ -200,36 +185,33 @@ export const primitiveDetails = {
   cursor: {
     parts: ['Provider', 'Follower', 'usePointer'],
     behaviors: [
-      'Coalesces mouse coordinates into a stable external store once per animation frame.',
-      'Scopes ownership to the nearest provider; resets on leave, blur, scroll, unmount and resetKey changes.',
-      'Positions decorative followers with viewport flip/shift; Tooltip can consume the same context.',
+      'primitives.docs.cursor.behaviors.item1',
+      'primitives.docs.cursor.behaviors.item2',
+      'primitives.docs.cursor.behaviors.item3',
     ],
     accessibility: [
-      'Touch and keyboard never force a custom pointer.',
-      'Followers are inert and hidden from assistive technology; keep essential feedback in accessible content.',
+      'primitives.docs.cursor.accessibility.item1',
+      'primitives.docs.cursor.accessibility.item2',
     ],
     publicApi: ['Cursor.Provider', 'Cursor.Follower', 'Cursor.usePointer'],
   },
   button: {
     parts: [],
-    partNote: 'A single native button element; there are no compound parts.',
-    behaviors: [
-      'Defaults to type="button" while allowing an explicit native button type.',
-      'Forwards native attributes, events, disabled state, and the element ref.',
-    ],
-    accessibility: ['Uses native button semantics and native keyboard activation.'],
+    partNote: 'primitives.docs.button.partNote',
+    behaviors: ['primitives.docs.button.behaviors.item1', 'primitives.docs.button.behaviors.item2'],
+    accessibility: ['primitives.docs.button.accessibility.item1'],
     publicApi: ['Button', 'ButtonProps'],
   },
   command: {
     parts: ['Root', 'Input', 'List', 'Empty', 'Group', 'Item', 'Separator'],
     behaviors: [
-      'Filters item values, labels, and keywords with an overridable filter function.',
-      'Keeps focus in the input while Arrow keys, Home, End, and Enter navigate and select.',
-      'Supports controlled search and active-value state as well as dynamic item registration.',
+      'primitives.docs.command.behaviors.item1',
+      'primitives.docs.command.behaviors.item2',
+      'primitives.docs.command.behaviors.item3',
     ],
     accessibility: [
-      'Connects a combobox input to a listbox and exposes active descendants.',
-      'Items use option semantics, including selected and disabled states.',
+      'primitives.docs.command.accessibility.item1',
+      'primitives.docs.command.accessibility.item2',
     ],
     publicApi: [
       'Command',
@@ -245,81 +227,72 @@ export const primitiveDetails = {
   checkbox: {
     parts: ['Checkbox', 'Checkbox.Group'],
     behaviors: [
-      'Renders a native checkbox and supports the browser checked and disabled behavior.',
-      'Adds a persistent indeterminate state and optional controlled or uncontrolled group values.',
-      'A group can supply a shared native name and disabled state.',
+      'primitives.docs.checkbox.behaviors.item1',
+      'primitives.docs.checkbox.behaviors.item2',
+      'primitives.docs.checkbox.behaviors.item3',
     ],
     accessibility: [
-      'Uses a native checkbox input.',
-      'Indeterminate checkboxes expose aria-checked="mixed".',
+      'primitives.docs.checkbox.accessibility.item1',
+      'primitives.docs.checkbox.accessibility.item2',
     ],
     publicApi: ['Checkbox', 'Checkbox.Group', 'CheckboxProps', 'CheckboxGroupProps'],
   },
   input: {
     parts: [],
-    partNote: 'A single native input element; there are no compound parts.',
-    behaviors: [
-      'Defaults to type="text" and accepts the complete native input attribute surface.',
-      'Forwards change events, disabled and read-only state, and the element ref.',
-    ],
-    accessibility: ['Retains native input semantics; consumers provide the accessible label.'],
+    partNote: 'primitives.docs.input.partNote',
+    behaviors: ['primitives.docs.input.behaviors.item1', 'primitives.docs.input.behaviors.item2'],
+    accessibility: ['primitives.docs.input.accessibility.item1'],
     publicApi: ['Input', 'InputProps'],
   },
   radio: {
     parts: ['Radio', 'Radio.Group'],
-    behaviors: [
-      'Renders native radio inputs and optionally coordinates one selected group value.',
-      'Supports controlled or uncontrolled group state, shared names, and group-level disabling.',
-    ],
+    behaviors: ['primitives.docs.radio.behaviors.item1', 'primitives.docs.radio.behaviors.item2'],
     accessibility: [
-      'Uses native radio inputs inside a radiogroup.',
-      'The group exposes horizontal or vertical orientation semantics.',
+      'primitives.docs.radio.accessibility.item1',
+      'primitives.docs.radio.accessibility.item2',
     ],
     publicApi: ['Radio', 'Radio.Group', 'RadioProps', 'RadioGroupProps'],
   },
   select: {
     parts: ['Root', 'Trigger', 'Content', 'Option'],
     behaviors: [
-      'Coordinates controlled or uncontrolled value and open state.',
-      'Supports Arrow keys, Home, End, Enter, Escape, and character typeahead.',
-      'Can submit its selected value through a hidden native input when given a name.',
+      'primitives.docs.select.behaviors.item1',
+      'primitives.docs.select.behaviors.item2',
+      'primitives.docs.select.behaviors.item3',
     ],
     accessibility: [
-      'The trigger controls a listbox and exposes expanded state.',
-      'Options expose selected and disabled semantics and keyboard focus management.',
+      'primitives.docs.select.accessibility.item1',
+      'primitives.docs.select.accessibility.item2',
     ],
     publicApi: ['Select', 'Select.Trigger', 'Select.Content', 'Select.Option'],
   },
   switch: {
     parts: [],
-    partNote: 'A single native checkbox input with switch semantics; there are no compound parts.',
-    behaviors: [
-      'Supports native controlled and uncontrolled checked state.',
-      'Calls onCheckedChange after uncancelled native change events.',
-    ],
-    accessibility: ['Uses a native checkbox input with role="switch".'],
+    partNote: 'primitives.docs.switch.partNote',
+    behaviors: ['primitives.docs.switch.behaviors.item1', 'primitives.docs.switch.behaviors.item2'],
+    accessibility: ['primitives.docs.switch.accessibility.item1'],
     publicApi: ['Switch', 'SwitchProps'],
   },
   textarea: {
     parts: [],
-    partNote: 'A single native textarea element; there are no compound parts.',
+    partNote: 'primitives.docs.textarea.partNote',
     behaviors: [
-      'Accepts native textarea attributes and browser editing behavior.',
-      'Forwards change events, disabled and read-only state, and the element ref.',
+      'primitives.docs.textarea.behaviors.item1',
+      'primitives.docs.input.behaviors.item2',
     ],
-    accessibility: ['Retains native textarea semantics; consumers provide the accessible label.'],
+    accessibility: ['primitives.docs.textarea.accessibility.item1'],
     publicApi: ['Textarea', 'TextareaProps'],
   },
   accordion: {
     parts: ['Root', 'Item', 'Trigger', 'Content'],
     behaviors: [
-      'Supports controlled or uncontrolled single and multiple expansion modes.',
-      'Arrow keys, Home, and End move focus between enabled triggers.',
-      'Disabled items cannot toggle and are skipped by roving focus.',
+      'primitives.docs.accordion.behaviors.item1',
+      'primitives.docs.accordion.behaviors.item2',
+      'primitives.docs.accordion.behaviors.item3',
     ],
     accessibility: [
-      'Each trigger and content region is connected with stable accessible ids.',
-      'Item triggers sit inside configurable semantic heading levels.',
+      'primitives.docs.accordion.accessibility.item1',
+      'primitives.docs.accordion.accessibility.item2',
     ],
     publicApi: [
       'Accordion',
@@ -332,49 +305,46 @@ export const primitiveDetails = {
   collapsible: {
     parts: ['Root', 'Trigger', 'Content'],
     behaviors: [
-      'Supports controlled or uncontrolled open state.',
-      'The trigger toggles content unless its native event is cancelled.',
+      'primitives.docs.collapsible.behaviors.item1',
+      'primitives.docs.collapsible.behaviors.item2',
     ],
     accessibility: [
-      'Trigger and content are connected through aria-controls and labelled region semantics.',
-      'The trigger exposes its current expanded state.',
+      'primitives.docs.collapsible.accessibility.item1',
+      'primitives.docs.collapsible.accessibility.item2',
     ],
     publicApi: ['Collapsible', 'Collapsible.Root', 'Collapsible.Trigger', 'Collapsible.Content'],
   },
   tabs: {
     parts: ['Root', 'List', 'Tab', 'Panel'],
-    behaviors: [
-      'Supports controlled or uncontrolled active values and chooses the first enabled tab by default.',
-      'ArrowLeft, ArrowRight, Home, and End move focus and selection while skipping disabled tabs.',
-    ],
+    behaviors: ['primitives.docs.tabs.behaviors.item1', 'primitives.docs.tabs.behaviors.item2'],
     accessibility: [
-      'Exposes tablist, tab, and tabpanel roles.',
-      'Every tab and panel pair receives matching ids and control relationships.',
+      'primitives.docs.tabs.accessibility.item1',
+      'primitives.docs.tabs.accessibility.item2',
     ],
     publicApi: ['Tabs', 'Tabs.List', 'Tabs.Tab', 'Tabs.Panel'],
   },
   breadcrumb: {
     parts: ['Root', 'Item'],
     behaviors: [
-      'Renders items in path order and inserts an accessibility-hidden separator.',
-      'Items become native links when href is present or current-page spans when it is absent.',
+      'primitives.docs.breadcrumb.behaviors.item1',
+      'primitives.docs.breadcrumb.behaviors.item2',
     ],
     accessibility: [
-      'Uses a labelled navigation landmark with an ordered list.',
-      'The current item defaults to aria-current="page".',
+      'primitives.docs.breadcrumb.accessibility.item1',
+      'primitives.docs.breadcrumb.accessibility.item2',
     ],
     publicApi: ['Breadcrumb', 'Breadcrumb.Item', 'BreadcrumbProps', 'BreadcrumbItemProps'],
   },
   'navigation-menu': {
     parts: ['Root', 'List', 'Item', 'Link', 'Trigger', 'Content'],
     behaviors: [
-      'Coordinates active links and controlled or uncontrolled disclosure state.',
-      'Directional keys follow horizontal or vertical orientation and skip disabled controls.',
-      'Nested content returns focus to its trigger when dismissed with Escape.',
+      'primitives.docs.navigation-menu.behaviors.item1',
+      'primitives.docs.navigation-menu.behaviors.item2',
+      'primitives.docs.navigation-menu.behaviors.item3',
     ],
     accessibility: [
-      'Uses a native navigation landmark and list structure.',
-      'Active links expose aria-current and disclosure triggers expose expanded relationships.',
+      'primitives.docs.navigation-menu.accessibility.item1',
+      'primitives.docs.navigation-menu.accessibility.item2',
     ],
     publicApi: [
       'NavigationMenu',
@@ -388,13 +358,13 @@ export const primitiveDetails = {
   pagination: {
     parts: ['Root', 'Item'],
     behaviors: [
-      'Calculates bounded page ranges and a compact item sequence for large totals.',
-      'Supports controlled or uncontrolled page and page-size state.',
-      'Clamps invalid or stale pages when totals change.',
+      'primitives.docs.pagination.behaviors.item1',
+      'primitives.docs.pagination.behaviors.item2',
+      'primitives.docs.pagination.behaviors.item3',
     ],
     accessibility: [
-      'Uses a labelled pagination navigation landmark.',
-      'Numbered page buttons expose aria-current for the active page.',
+      'primitives.docs.pagination.accessibility.item1',
+      'primitives.docs.pagination.accessibility.item2',
     ],
     publicApi: ['Pagination', 'Pagination.Item', 'PaginationProps', 'PaginationState'],
   },
@@ -412,26 +382,26 @@ export const primitiveDetails = {
       'Submenu',
     ],
     behaviors: [
-      'Opens at pointer coordinates and repositions when invoked again.',
-      'Also opens from Shift+F10 or the Context Menu key.',
-      'Reuses Menu item, checked-state, selection, submenu, and dismissal behavior.',
+      'primitives.docs.context-menu.behaviors.item1',
+      'primitives.docs.context-menu.behaviors.item2',
+      'primitives.docs.context-menu.behaviors.item3',
     ],
     accessibility: [
-      'Moves focus into the opened menu and restores it to the context target on close.',
-      'Items expose menuitem, menuitemcheckbox, or menuitemradio semantics as appropriate.',
+      'primitives.docs.context-menu.accessibility.item1',
+      'primitives.docs.context-menu.accessibility.item2',
     ],
     publicApi: ['ContextMenu', 'ContextMenu.Trigger', 'ContextMenu.Content', 'ContextMenu.Item'],
   },
   dropdown: {
     parts: ['Root', 'Trigger', 'Content', 'Item', 'Separator'],
     behaviors: [
-      'Supports click activation and optional hover activation without losing keyboard or touch support.',
-      'Positions, flips, and shifts portalled content at viewport edges.',
-      'Supports wrapping keyboard navigation, typeahead, selection cancellation, and outside dismissal.',
+      'primitives.docs.dropdown.behaviors.item1',
+      'primitives.docs.dropdown.behaviors.item2',
+      'primitives.docs.dropdown.behaviors.item3',
     ],
     accessibility: [
-      'The trigger owns a labelled menu and exposes expanded state.',
-      'Focus enters enabled menu items and returns to the trigger when appropriate.',
+      'primitives.docs.dropdown.accessibility.item1',
+      'primitives.docs.dropdown.accessibility.item2',
     ],
     publicApi: [
       'Dropdown',
@@ -457,39 +427,39 @@ export const primitiveDetails = {
       'SubmenuContent',
     ],
     behaviors: [
-      'Supports controlled or uncontrolled open state, typeahead, wrapping focus, and cancellable selection.',
-      'Checkbox and radio items maintain selection without closing by default.',
-      'Nested submenus coordinate pointer travel, keyboard direction, and layered Escape dismissal.',
+      'primitives.docs.menu.behaviors.item1',
+      'primitives.docs.menu.behaviors.item2',
+      'primitives.docs.menu.behaviors.item3',
     ],
     accessibility: [
-      'Uses menu and menuitem roles with checked variants where applicable.',
-      'Keyboard navigation supports Arrow keys, Home, End, Enter, Escape, and Tab exit.',
+      'primitives.docs.menu.accessibility.item1',
+      'primitives.docs.menu.accessibility.item2',
     ],
     publicApi: ['Menu', 'Menu.Trigger', 'Menu.Content', 'Menu.Item', 'Menu.Submenu'],
   },
   menubar: {
     parts: ['Root', 'Menu', 'Trigger', 'Content', 'Item'],
     behaviors: [
-      'Coordinates one open top-level menu and shares the complete Menu item implementation.',
-      'Horizontal keys, Home, and End move the single tab stop between menu triggers.',
-      'Open menus switch from keys or hover while an idle menubar remains closed.',
+      'primitives.docs.menubar.behaviors.item1',
+      'primitives.docs.menubar.behaviors.item2',
+      'primitives.docs.menubar.behaviors.item3',
     ],
     accessibility: [
-      'Uses menubar and menuitem semantics with one top-level tab stop.',
-      'Escape closes the active menu and restores focus to its trigger.',
+      'primitives.docs.menubar.accessibility.item1',
+      'primitives.docs.menubar.accessibility.item2',
     ],
     publicApi: ['Menubar', 'Menubar.Menu', 'Menubar.Trigger', 'Menubar.Content', 'Menubar.Item'],
   },
   dialog: {
     parts: ['Root', 'Trigger', 'Portal', 'Overlay', 'Content', 'Title', 'Description', 'Close'],
     behaviors: [
-      'Supports controlled or uncontrolled modal and non-modal open state.',
-      'Portals content, coordinates nested layers, handles outside and Escape dismissal, and restores focus.',
-      'Modal dialogs isolate background interaction and trap Tab navigation.',
+      'primitives.docs.dialog.behaviors.item1',
+      'primitives.docs.dialog.behaviors.item2',
+      'primitives.docs.dialog.behaviors.item3',
     ],
     accessibility: [
-      'Content uses dialog semantics and links mounted title and description ids.',
-      'Focus moves into the dialog on open and returns to the trigger on close unless cancelled.',
+      'primitives.docs.dialog.accessibility.item1',
+      'primitives.docs.dialog.accessibility.item2',
     ],
     publicApi: [
       'Dialog',
@@ -505,40 +475,40 @@ export const primitiveDetails = {
   popover: {
     parts: ['Root', 'Trigger', 'Content', 'Close'],
     behaviors: [
-      'Supports click or hover activation, controlled state, positioning, and outside dismissal.',
-      'Coordinates nested portalled overlays and optional focus restoration.',
-      'Interactive hover content remains open across pointer gaps and while focus is inside.',
+      'primitives.docs.popover.behaviors.item1',
+      'primitives.docs.popover.behaviors.item2',
+      'primitives.docs.popover.behaviors.item3',
     ],
     accessibility: [
-      'Uses non-modal dialog semantics and derives a default name from the trigger.',
-      'Keyboard focus enters interactive content and Escape restores trigger focus.',
+      'primitives.docs.popover.accessibility.item1',
+      'primitives.docs.popover.accessibility.item2',
     ],
     publicApi: ['Popover', 'Popover.Trigger', 'Popover.Content', 'Popover.Close'],
   },
   tooltip: {
     parts: ['Root', 'Trigger', 'Content'],
     behaviors: [
-      'closeOnClick defaults to true; false keeps dynamic descriptions open during trigger activation.',
-      'Opens after a configurable hover delay or immediately from keyboard focus.',
-      'Supports controlled state, viewport-aware positioning, gap crossing, and optional smooth handoff.',
-      'Dismisses with Escape, disabled state, unmount, or when the trigger leaves the viewport.',
+      'primitives.docs.tooltip.behaviors.item1',
+      'primitives.docs.tooltip.behaviors.item2',
+      'primitives.docs.tooltip.behaviors.item3',
+      'primitives.docs.tooltip.behaviors.item4',
     ],
     accessibility: [
-      'Connects tooltip content to the trigger description without moving focus.',
-      'Ignores touch hover and preserves native trigger actions.',
+      'primitives.docs.tooltip.accessibility.item1',
+      'primitives.docs.tooltip.accessibility.item2',
     ],
     publicApi: ['Tooltip', 'Tooltip.Trigger', 'Tooltip.Content'],
   },
   toast: {
     parts: ['Provider', 'Root', 'Title', 'Description', 'Action', 'Close', 'Viewport'],
     behaviors: [
-      'Portals open toasts into a shared viewport and supports controlled or uncontrolled state.',
-      'Auto-dismiss timing pauses while pointer or focus is inside.',
-      'Multiple toasts stack and the provider hotkey moves focus into the viewport.',
+      'primitives.docs.toast.behaviors.item1',
+      'primitives.docs.toast.behaviors.item2',
+      'primitives.docs.toast.behaviors.item3',
     ],
     accessibility: [
-      'Uses polite status or assertive alert live-region semantics.',
-      'Mounted title and description parts provide accessible relationships without stealing focus.',
+      'primitives.docs.toast.accessibility.item1',
+      'primitives.docs.toast.accessibility.item2',
     ],
     publicApi: [
       'Toast',
@@ -554,30 +524,30 @@ export const primitiveDetails = {
   dock: {
     parts: ['Boundary', 'Root', 'Handle', 'Content'],
     behaviors: [
-      'Constrains placement to a configurable subset of the four edges of a local boundary.',
-      'Supports configurable equal snap divisions or continuous free positioning while deriving horizontal or vertical orientation.',
-      'Supports pointer dragging plus arrow, Home, End, and Alt+Arrow keyboard repositioning across enabled edges.',
-      'Can persist uncontrolled placement to localStorage or sessionStorage with an explicit consumer-owned key.',
-      'Places the dedicated movement handle at the logical start or end across horizontal and vertical orientations.',
-      'Exposes independent controlled or uncontrolled locked and pinned state: locking blocks movement, while pinning selects fixed positioning without blocking movement.',
+      'primitives.docs.dock.behaviors.item1',
+      'primitives.docs.dock.behaviors.item2',
+      'primitives.docs.dock.behaviors.item3',
+      'primitives.docs.dock.behaviors.item4',
+      'primitives.docs.dock.behaviors.item5',
+      'primitives.docs.dock.behaviors.item6',
     ],
     accessibility: [
-      'Uses a native button as the dedicated movement handle so docked content remains independently interactive.',
-      'The handle exposes a default accessible name, logical start/end placement, and keyboard shortcuts for movement and edge changes.',
+      'primitives.docs.dock.accessibility.item1',
+      'primitives.docs.dock.accessibility.item2',
     ],
     publicApi: ['Dock', 'Dock.Boundary', 'Dock.Handle', 'Dock.Content'],
   },
   layout: {
     parts: ['Root', 'Header', 'Lane', 'Sidebar', 'SidebarTrigger', 'Content', 'Footer'],
     behaviors: [
-      'Arranges structural regions vertically by default or horizontally when requested.',
-      'Provides a neutral Lane boundary whose composition direction stays independent from semantic Content sizing.',
-      'Coordinates controlled or uncontrolled sidebar collapse state and custom trigger rendering.',
-      'Supports multiple independent sidebars and render-function access to sidebar state.',
+      'primitives.docs.layout.behaviors.item1',
+      'primitives.docs.layout.behaviors.item2',
+      'primitives.docs.layout.behaviors.item3',
+      'primitives.docs.layout.behaviors.item4',
     ],
     accessibility: [
-      'Renders header, aside, main, and footer regions with native semantic elements while Lane remains a neutral div.',
-      'The sidebar trigger exposes and changes its expanded state from keyboard activation.',
+      'primitives.docs.layout.accessibility.item1',
+      'primitives.docs.layout.accessibility.item2',
     ],
     publicApi: [
       'Layout',
@@ -591,12 +561,13 @@ export const primitiveDetails = {
   },
 } as const satisfies Record<PrimitiveSlug, PrimitiveDetail>;
 
-export function getPrimitiveDoc(slug: string): (PrimitiveDoc & PrimitiveDetail) | undefined {
+export function getPrimitiveDoc(slug: string) {
   const summary = primitiveDocs.find((doc) => doc.slug === slug);
 
   if (!summary) {
     return undefined;
   }
 
-  return { ...summary, ...primitiveDetails[summary.slug] };
+  const detail = primitiveDetails[summary.slug];
+  return { ...summary, ...detail, partNote: 'partNote' in detail ? detail.partNote : undefined };
 }

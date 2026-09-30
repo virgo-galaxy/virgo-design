@@ -1,9 +1,14 @@
 import { Tabs } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import styles from './TabsEditableExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [tabs, setTabs] = useState([
     { value: 'document-1', label: 'Tab 1' },
     { value: 'document-2', label: 'Tab 2' },
@@ -27,28 +32,35 @@ export default function App() {
       value={value}
       onValueChange={setValue}
       onAdd={addTab}
-      addLabel="Add document tab"
+      addLabel={t('examples.tabs.details.addDocumentTab')}
       className={styles.root!}
     >
-      <Tabs.List aria-label="Open documents">
+      <Tabs.List aria-label={t('examples.tabs.copy.openDocuments')}>
         {tabs.map((tab) => (
           <Tabs.Tab
             closable
             key={tab.value}
             value={tab.value}
-            closeLabel={`Close ${tab.label}`}
+            closeLabel={t('examples.tabs.details.closeValue', {
+              v0: translateExampleText(t, 'tabs', String(tab.label)),
+            })}
             onClose={closeTab}
           >
-            {tab.label}
+            {translateExampleText(t, 'tabs', tab.label)}
           </Tabs.Tab>
         ))}
       </Tabs.List>
       {tabs.map((tab) => (
         <Tabs.Panel key={tab.value} value={tab.value}>
-          <p>Editable content for {tab.label}.</p>
+          <p>
+            {t('examples.tabs.copy.editableContentFor')}{' '}
+            {translateExampleText(t, 'tabs', tab.label)}.
+          </p>
         </Tabs.Panel>
       ))}
-      {tabs.length === 0 ? <p>No documents are open. Use Add tab to create one.</p> : null}
+      {tabs.length === 0 ? (
+        <p>{t('examples.tabs.copy.noDocumentsAreOpenUseAddTabToCreateOne')}</p>
+      ) : null}
     </Tabs>
   );
 }

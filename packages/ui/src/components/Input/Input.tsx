@@ -10,6 +10,7 @@ import {
   useState,
 } from 'react';
 
+import { useControlLabels } from '../../shared/control-labels';
 import styles from './Input.module.scss';
 import type { InputPasswordProps, InputProps } from './Input.types';
 
@@ -87,6 +88,7 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
   },
   forwardedRef,
 ) {
+  const labels = useControlLabels();
   const isInvalid = invalid || hasAriaInvalidValue(ariaInvalid);
   const isControlled = value !== undefined;
   const [uncontrolledHasValue, setUncontrolledHasValue] = useState(() =>
@@ -155,7 +157,7 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
           className={styles.action}
           type="button"
           aria-hidden={!showsClearAction || undefined}
-          aria-label="Clear input"
+          aria-label={labels.clearInput}
           data-slot="clear-action"
           data-visible={showsClearAction || undefined}
           disabled={!showsClearAction}
@@ -193,6 +195,7 @@ const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(function 
   { disabled, ...props },
   forwardedRef,
 ) {
+  const labels = useControlLabels();
   const [isVisible, setIsVisible] = useState(false);
   const [inputRef, composedRef] = useInputRef(forwardedRef);
 
@@ -206,7 +209,7 @@ const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(function 
         <button
           className={styles.action}
           type="button"
-          aria-label={isVisible ? 'Hide password' : 'Show password'}
+          aria-label={isVisible ? labels.hidePassword : labels.showPassword}
           data-slot="password-action"
           disabled={disabled}
           onPointerDown={(event) => event.preventDefault()}

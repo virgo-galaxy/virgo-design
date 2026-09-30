@@ -1,36 +1,39 @@
 import { CircleInfoIcon, SearchIcon, SettingsIcon, UserIcon } from '@virgo-design/icons';
 import { Tabs } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './TabsIconsExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <Tabs defaultValue="account" className={styles.root!}>
-      <Tabs.List aria-label="Settings sections">
+      <Tabs.List aria-label={t('examples.tabs.copy.settingsSections')}>
         <Tabs.Tab value="account" icon={<UserIcon />}>
-          Account
+          {t('examples.tabs.copy.account')}
         </Tabs.Tab>
         <Tabs.Tab value="preferences" icon={<SettingsIcon />}>
-          Preferences
+          {t('examples.tabs.copy.preferences')}
         </Tabs.Tab>
         <Tabs.Tab value="about" icon={<CircleInfoIcon />}>
-          About
+          {t('examples.tabs.copy.about')}
         </Tabs.Tab>
         <Tabs.Tab value="search" icon={<SearchIcon />}>
-          Search
+          {t('examples.tabs.copy.search')}
         </Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value="account">
-        <p>Profile and identity preferences.</p>
+        <p>{t('examples.tabs.copy.profileAndIdentityPreferences')}</p>
       </Tabs.Panel>
       <Tabs.Panel value="preferences">
-        <p>Workspace-level configuration.</p>
+        <p>{t('examples.tabs.copy.workspaceLevelConfiguration')}</p>
       </Tabs.Panel>
       <Tabs.Panel value="about">
-        <p>Product and version information.</p>
+        <p>{t('examples.tabs.copy.productAndVersionInformation')}</p>
       </Tabs.Panel>
       <Tabs.Panel value="search">
-        <p>Search configuration.</p>
+        <p>{t('examples.tabs.copy.searchConfiguration')}</p>
       </Tabs.Panel>
     </Tabs>
   );

@@ -1,4 +1,7 @@
 import { Dock, type DockPersistenceStorage } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
+
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import styles from './DockPersistenceExample.module.scss';
 
@@ -23,12 +26,14 @@ const examples: ReadonlyArray<{
 ];
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.root!}>
       {examples.map((example) => (
         <section key={example.storage} className={styles.case!}>
           <div className={styles.label!}>
-            <strong>{example.label}</strong>
+            <strong>{translateExampleText(t, 'dock', example.label)}</strong>
             <span>{example.note}</span>
           </div>
 
@@ -41,7 +46,11 @@ export default function App() {
             >
               {({ placement, orientation }) => (
                 <>
-                  <Dock.Handle aria-label={`Move ${example.label.toLowerCase()} dock`} />
+                  <Dock.Handle
+                    aria-label={t('examples.dock.details.moveValueDock', {
+                      v0: translateExampleText(t, 'dock', String(example.label.toLowerCase())),
+                    })}
+                  />
                   <Dock.Content className={styles.panel!}>
                     <strong>{placement.edge}</strong>
                     <span>{orientation}</span>

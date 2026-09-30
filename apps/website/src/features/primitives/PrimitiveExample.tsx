@@ -26,72 +26,92 @@ import {
   Tooltip,
 } from '@virgo-design/primitives';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import type { PrimitiveSlug } from './primitiveDocs';
 
 const portalProps = { 'data-primitive-specimen-portal': '' } as const;
 
 function AccordionExample() {
+  const { t } = useTranslation();
+
   return (
     <Accordion type="single" defaultValue="overview" data-docs-primitive="accordion">
       <Accordion.Item value="overview">
-        <Accordion.Trigger>Overview</Accordion.Trigger>
-        <Accordion.Content>Accordion content is disclosed by its trigger.</Accordion.Content>
+        <Accordion.Trigger>{t('primitives.examples.overview')}</Accordion.Trigger>
+        <Accordion.Content>
+          {t('primitives.examples.accordionContentIsDisclosedByItsTrigger')}
+        </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="details">
-        <Accordion.Trigger>Details</Accordion.Trigger>
-        <Accordion.Content>A second independently addressable section.</Accordion.Content>
+        <Accordion.Trigger>{t('primitives.examples.details')}</Accordion.Trigger>
+        <Accordion.Content>
+          {t('primitives.examples.aSecondIndependentlyAddressableSection')}
+        </Accordion.Content>
       </Accordion.Item>
     </Accordion>
   );
 }
 
 function BreadcrumbExample() {
+  const { t } = useTranslation();
+
   return (
     <Breadcrumb data-docs-primitive="breadcrumb">
-      <Breadcrumb.Item href="#primitives">Primitives</Breadcrumb.Item>
-      <Breadcrumb.Item href="#navigation">Navigation</Breadcrumb.Item>
-      <Breadcrumb.Item>Breadcrumb</Breadcrumb.Item>
+      <Breadcrumb.Item href="#primitives">{t('primitives.examples.primitives')}</Breadcrumb.Item>
+      <Breadcrumb.Item href="#navigation">{t('primitives.examples.navigation')}</Breadcrumb.Item>
+      <Breadcrumb.Item>{t('primitives.examples.breadcrumb')}</Breadcrumb.Item>
     </Breadcrumb>
   );
 }
 
 function CheckboxExample() {
+  const { t } = useTranslation();
+
   return (
     <Checkbox.Group
       defaultValue={['weekly']}
       name="primitive-frequency"
-      aria-label="Frequency"
+      aria-label={t('primitives.examples.frequency')}
       data-docs-primitive="checkbox"
     >
       <label>
-        <Checkbox value="daily" /> Daily
+        <Checkbox value="daily" /> {t('primitives.examples.daily')}
       </label>{' '}
       <label>
-        <Checkbox value="weekly" /> Weekly
+        <Checkbox value="weekly" /> {t('primitives.examples.weekly')}
       </label>
     </Checkbox.Group>
   );
 }
 
 function CollapsibleExample() {
+  const { t } = useTranslation();
+
   return (
     <Collapsible defaultOpen data-docs-primitive="collapsible">
-      <Collapsible.Trigger>Project details</Collapsible.Trigger>
-      <Collapsible.Content>Created with a trigger and a disclosure region.</Collapsible.Content>
+      <Collapsible.Trigger>{t('primitives.examples.projectDetails')}</Collapsible.Trigger>
+      <Collapsible.Content>
+        {t('primitives.examples.createdWithATriggerAndADisclosureRegion')}
+      </Collapsible.Content>
     </Collapsible>
   );
 }
 
 function CommandExample() {
+  const { t } = useTranslation();
+
   return (
     <Command data-docs-primitive="command">
-      <Command.Input aria-label="Find a command" placeholder="Search commands" />
+      <Command.Input
+        aria-label={t('primitives.examples.findACommand')}
+        placeholder={t('primitives.examples.searchCommands')}
+      />
       <Command.List>
-        <Command.Empty>No matching command.</Command.Empty>
-        <Command.Group heading="Actions">
-          <Command.Item value="new-file">New file</Command.Item>
-          <Command.Item value="open-settings">Open settings</Command.Item>
+        <Command.Empty>{t('primitives.examples.noMatchingCommand')}</Command.Empty>
+        <Command.Group heading={t('primitives.examples.actions')}>
+          <Command.Item value="new-file">{t('primitives.examples.newFile')}</Command.Item>
+          <Command.Item value="open-settings">{t('primitives.examples.openSettings')}</Command.Item>
         </Command.Group>
       </Command.List>
     </Command>
@@ -99,30 +119,37 @@ function CommandExample() {
 }
 
 function ContextMenuExample() {
+  const { t } = useTranslation();
+
   return (
     <ContextMenu data-docs-primitive="context-menu">
-      <ContextMenu.Trigger>Right-click this file</ContextMenu.Trigger>
+      <ContextMenu.Trigger>{t('primitives.examples.rightClickThisFile')}</ContextMenu.Trigger>
       <ContextMenu.Content {...portalProps}>
-        <ContextMenu.Item>Rename</ContextMenu.Item>
-        <ContextMenu.Item>Duplicate</ContextMenu.Item>
+        <ContextMenu.Item>{t('primitives.examples.rename')}</ContextMenu.Item>
+        <ContextMenu.Item>{t('primitives.examples.duplicate')}</ContextMenu.Item>
       </ContextMenu.Content>
     </ContextMenu>
   );
 }
 
 function DialogExample() {
+  const { t } = useTranslation();
+
   return (
     <Dialog data-docs-primitive="dialog">
-      <Dialog.Trigger>Edit profile</Dialog.Trigger>
+      <Dialog.Trigger>{t('primitives.examples.editProfile')}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay {...portalProps} />
         <Dialog.Content {...portalProps}>
-          <Dialog.Title>Profile</Dialog.Title>
-          <Dialog.Description>Update your public details.</Dialog.Description>
+          <Dialog.Title>{t('primitives.examples.profile')}</Dialog.Title>
+          <Dialog.Description>
+            {t('primitives.examples.updateYourPublicDetails')}
+          </Dialog.Description>
           <label>
-            Display name <input defaultValue="Virgo" />
+            {t('primitives.examples.displayName')}
+            <input defaultValue="Virgo" />
           </label>{' '}
-          <Dialog.Close>Done</Dialog.Close>
+          <Dialog.Close>{t('primitives.examples.done')}</Dialog.Close>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog>
@@ -130,27 +157,33 @@ function DialogExample() {
 }
 
 function DropdownExample() {
+  const { t } = useTranslation();
+
   return (
     <Dropdown data-docs-primitive="dropdown">
-      <Dropdown.Trigger>Actions</Dropdown.Trigger>
+      <Dropdown.Trigger>{t('primitives.examples.actions')}</Dropdown.Trigger>
       <Dropdown.Content {...portalProps}>
-        <Dropdown.Item>Rename</Dropdown.Item>
-        <Dropdown.Item>Duplicate</Dropdown.Item>
+        <Dropdown.Item>{t('primitives.examples.rename')}</Dropdown.Item>
+        <Dropdown.Item>{t('primitives.examples.duplicate')}</Dropdown.Item>
         <Dropdown.Separator />
-        <Dropdown.Item>Archive</Dropdown.Item>
+        <Dropdown.Item>{t('primitives.examples.archive')}</Dropdown.Item>
       </Dropdown.Content>
     </Dropdown>
   );
 }
 
 function DockExample() {
+  const { t } = useTranslation();
+
   return (
     <Dock.Boundary data-docs-primitive="dock">
       <Dock.Root defaultPlacement={{ edge: 'top', position: 0.5 }}>
         {({ orientation }) => (
           <>
-            <Dock.Handle aria-label="Move primitive dock" />
-            <Dock.Content>{orientation} dock</Dock.Content>
+            <Dock.Handle aria-label={t('primitives.examples.movePrimitiveDock')} />
+            <Dock.Content>
+              {orientation} {t('primitives.examples.dock')}
+            </Dock.Content>
           </>
         )}
       </Dock.Root>
@@ -159,30 +192,38 @@ function DockExample() {
 }
 
 function LayoutExample() {
+  const { t } = useTranslation();
+
   return (
     <Layout data-docs-primitive="layout">
-      <Layout.Header>Header</Layout.Header>
+      <Layout.Header>{t('primitives.examples.header')}</Layout.Header>
       <Layout.Lane direction="horizontal">
         <Layout.Sidebar defaultCollapsed={false}>
-          <Layout.SidebarTrigger>Toggle sidebar</Layout.SidebarTrigger>
-          <nav aria-label="Example sidebar">Sidebar</nav>
+          <Layout.SidebarTrigger aria-label={t('primitives.examples.toggleSidebar')}>
+            {t('primitives.examples.toggleSidebar')}
+          </Layout.SidebarTrigger>
+          <nav aria-label={t('primitives.examples.exampleSidebar')}>
+            {t('primitives.examples.sidebar')}
+          </nav>
         </Layout.Sidebar>
-        <Layout.Content>Main content</Layout.Content>
+        <Layout.Content>{t('primitives.examples.mainContent')}</Layout.Content>
       </Layout.Lane>
-      <Layout.Footer>Footer</Layout.Footer>
+      <Layout.Footer>{t('primitives.examples.footer')}</Layout.Footer>
     </Layout>
   );
 }
 
 function MenuExample() {
+  const { t } = useTranslation();
+
   return (
     <Menu data-docs-primitive="menu">
-      <Menu.Trigger>Open menu</Menu.Trigger>
+      <Menu.Trigger>{t('primitives.examples.openMenu')}</Menu.Trigger>
       <Menu.Content {...portalProps}>
-        <Menu.Item>Copy</Menu.Item>
-        <Menu.Item>Paste</Menu.Item>
+        <Menu.Item>{t('primitives.examples.copy')}</Menu.Item>
+        <Menu.Item>{t('primitives.examples.paste')}</Menu.Item>
         <Menu.Submenu>
-          <Menu.SubmenuTrigger>Export</Menu.SubmenuTrigger>
+          <Menu.SubmenuTrigger>{t('primitives.examples.export')}</Menu.SubmenuTrigger>
           <Menu.SubmenuContent {...portalProps}>
             <Menu.Item>PDF</Menu.Item>
             <Menu.Item>SVG</Menu.Item>
@@ -194,20 +235,22 @@ function MenuExample() {
 }
 
 function MenubarExample() {
+  const { t } = useTranslation();
+
   return (
-    <Menubar aria-label="Example application" data-docs-primitive="menubar">
+    <Menubar aria-label={t('primitives.examples.exampleApplication')} data-docs-primitive="menubar">
       <Menubar.Menu value="file">
-        <Menubar.Trigger>File</Menubar.Trigger>
+        <Menubar.Trigger>{t('primitives.examples.file')}</Menubar.Trigger>
         <Menubar.Content {...portalProps}>
-          <Menubar.Item>New</Menubar.Item>
-          <Menubar.Item>Save</Menubar.Item>
+          <Menubar.Item>{t('primitives.examples.new')}</Menubar.Item>
+          <Menubar.Item>{t('primitives.examples.save')}</Menubar.Item>
         </Menubar.Content>
       </Menubar.Menu>
       <Menubar.Menu value="edit">
-        <Menubar.Trigger>Edit</Menubar.Trigger>
+        <Menubar.Trigger>{t('primitives.examples.edit')}</Menubar.Trigger>
         <Menubar.Content {...portalProps}>
-          <Menubar.Item>Undo</Menubar.Item>
-          <Menubar.Item>Redo</Menubar.Item>
+          <Menubar.Item>{t('primitives.examples.undo')}</Menubar.Item>
+          <Menubar.Item>{t('primitives.examples.redo')}</Menubar.Item>
         </Menubar.Content>
       </Menubar.Menu>
     </Menubar>
@@ -215,20 +258,27 @@ function MenubarExample() {
 }
 
 function NavigationMenuExample() {
+  const { t } = useTranslation();
+
   return (
-    <NavigationMenu aria-label="Example navigation" data-docs-primitive="navigation-menu">
+    <NavigationMenu
+      aria-label={t('primitives.examples.exampleNavigation')}
+      data-docs-primitive="navigation-menu"
+    >
       <NavigationMenu.List>
         <NavigationMenu.Item value="overview">
-          <NavigationMenu.Link href="#overview">Overview</NavigationMenu.Link>
+          <NavigationMenu.Link href="#overview">
+            {t('primitives.examples.overview')}
+          </NavigationMenu.Link>
         </NavigationMenu.Item>
         <NavigationMenu.Item value="learn">
-          <NavigationMenu.Trigger>Learn</NavigationMenu.Trigger>
+          <NavigationMenu.Trigger>{t('primitives.examples.learn')}</NavigationMenu.Trigger>
           <NavigationMenu.Content>
             <li>
-              <a href="#guides">Guides</a>
+              <a href="#guides">{t('primitives.examples.guides')}</a>
             </li>
             <li>
-              <a href="#examples">Examples</a>
+              <a href="#examples">{t('primitives.examples.examples')}</a>
             </li>
           </NavigationMenu.Content>
         </NavigationMenu.Item>
@@ -238,12 +288,14 @@ function NavigationMenuExample() {
 }
 
 function PaginationExample() {
+  const { t } = useTranslation();
+
   return (
     <Pagination total={72} defaultPage={2} pageSize={10} data-docs-primitive="pagination">
       {(state) => (
         <>
           <Pagination.Item page={state.page - 1} disabled={state.page === 1}>
-            Previous
+            {t('primitives.examples.previous')}
           </Pagination.Item>{' '}
           {state.items.map((item) =>
             typeof item === 'number' ? (
@@ -255,7 +307,7 @@ function PaginationExample() {
             ),
           )}{' '}
           <Pagination.Item page={state.page + 1} disabled={state.page === state.pageCount}>
-            Next
+            {t('primitives.examples.next')}
           </Pagination.Item>
         </>
       )}
@@ -264,73 +316,87 @@ function PaginationExample() {
 }
 
 function PopoverExample() {
+  const { t } = useTranslation();
+
   return (
     <Popover data-docs-primitive="popover">
-      <Popover.Trigger>Open popover</Popover.Trigger>
+      <Popover.Trigger>{t('primitives.examples.openPopover')}</Popover.Trigger>
       <Popover.Content {...portalProps}>
-        <p>This panel is positioned relative to its trigger.</p>
-        <Popover.Close>Close</Popover.Close>
+        <p>{t('primitives.examples.thisPanelIsPositionedRelativeToItsTrigger')}</p>
+        <Popover.Close>{t('primitives.examples.close')}</Popover.Close>
       </Popover.Content>
     </Popover>
   );
 }
 
 function RadioExample() {
+  const { t } = useTranslation();
+
   return (
     <Radio.Group
       defaultValue="comfortable"
       name="primitive-density"
-      aria-label="Density"
+      aria-label={t('primitives.examples.density')}
       data-docs-primitive="radio"
     >
       <label>
-        <Radio value="compact" /> Compact
+        <Radio value="compact" /> {t('primitives.examples.compact')}
       </label>{' '}
       <label>
-        <Radio value="comfortable" /> Comfortable
+        <Radio value="comfortable" /> {t('primitives.examples.comfortable')}
       </label>
     </Radio.Group>
   );
 }
 
 function SelectExample() {
+  const { t } = useTranslation();
+
   return (
     <Select defaultValue="design" name="project" data-docs-primitive="select">
-      <Select.Trigger aria-label="Project">Choose project</Select.Trigger>
+      <Select.Trigger aria-label={t('primitives.examples.project')}>
+        {t('primitives.examples.chooseProject')}
+      </Select.Trigger>
       <Select.Content {...portalProps}>
         <Select.Option value="design">Virgo Design</Select.Option>
-        <Select.Option value="docs">Virgo Docs</Select.Option>
+        <Select.Option value="docs">{t('primitives.examples.virgoDocs')}</Select.Option>
       </Select.Content>
     </Select>
   );
 }
 
 function TabsExample() {
+  const { t } = useTranslation();
+
   return (
     <Tabs defaultValue="overview" data-docs-primitive="tabs">
-      <Tabs.List aria-label="Primitive information">
-        <Tabs.Tab value="overview">Overview</Tabs.Tab>
+      <Tabs.List aria-label={t('primitives.examples.primitiveInformation')}>
+        <Tabs.Tab value="overview">{t('primitives.examples.overview')}</Tabs.Tab>
         <Tabs.Tab value="api">API</Tabs.Tab>
       </Tabs.List>
-      <Tabs.Panel value="overview">A headless tab panel.</Tabs.Panel>
-      <Tabs.Panel value="api">Composable root, list, tab, and panel parts.</Tabs.Panel>
+      <Tabs.Panel value="overview">{t('primitives.examples.aHeadlessTabPanel')}</Tabs.Panel>
+      <Tabs.Panel value="api">
+        {t('primitives.examples.composableRootListTabAndPanelParts')}
+      </Tabs.Panel>
     </Tabs>
   );
 }
 
 function ToastExample() {
+  const { t } = useTranslation();
+
   const [open, setOpen] = useState(false);
 
   return (
     <Toast.Provider>
       <button type="button" onClick={() => setOpen(true)} data-docs-primitive="toast">
-        Show toast
+        {t('primitives.examples.showToast')}
       </button>
       <Toast.Root open={open} onOpenChange={setOpen} duration={0}>
-        <Toast.Title>Saved</Toast.Title>
-        <Toast.Description>Your changes are ready.</Toast.Description>
-        <Toast.Action>Undo</Toast.Action>
-        <Toast.Close>Dismiss</Toast.Close>
+        <Toast.Title>{t('primitives.examples.saved')}</Toast.Title>
+        <Toast.Description>{t('primitives.examples.yourChangesAreReady')}</Toast.Description>
+        <Toast.Action>{t('primitives.examples.undo')}</Toast.Action>
+        <Toast.Close>{t('primitives.examples.dismiss')}</Toast.Close>
       </Toast.Root>
       <Toast.Viewport {...portalProps} />
     </Toast.Provider>
@@ -338,22 +404,26 @@ function ToastExample() {
 }
 
 function TooltipExample() {
+  const { t } = useTranslation();
+
   return (
     <Tooltip openDelay={100} data-docs-primitive="tooltip">
-      <Tooltip.Trigger>Hover or focus</Tooltip.Trigger>
-      <Tooltip.Content {...portalProps}>Helpful context</Tooltip.Content>
+      <Tooltip.Trigger>{t('primitives.examples.hoverOrFocus')}</Tooltip.Trigger>
+      <Tooltip.Content {...portalProps}>{t('primitives.examples.helpfulContext')}</Tooltip.Content>
     </Tooltip>
   );
 }
 
 export function PrimitiveExample({ slug }: { slug: PrimitiveSlug }) {
+  const { t } = useTranslation();
+
   switch (slug) {
     case 'accordion':
       return <AccordionExample />;
     case 'breadcrumb':
       return <BreadcrumbExample />;
     case 'button':
-      return <Button data-docs-primitive="button">Native button</Button>;
+      return <Button data-docs-primitive="button">{t('primitives.examples.nativeButton')}</Button>;
     case 'checkbox':
       return <CheckboxExample />;
     case 'collapsible':
@@ -371,7 +441,8 @@ export function PrimitiveExample({ slug }: { slug: PrimitiveSlug }) {
     case 'input':
       return (
         <label>
-          Project name <Input data-docs-primitive="input" defaultValue="Virgo Design" />
+          {t('primitives.examples.projectName')}
+          <Input data-docs-primitive="input" defaultValue="Virgo Design" />
         </label>
       );
     case 'layout':
@@ -393,7 +464,8 @@ export function PrimitiveExample({ slug }: { slug: PrimitiveSlug }) {
     case 'switch':
       return (
         <label>
-          <Switch data-docs-primitive="switch" defaultChecked /> Notifications
+          <Switch data-docs-primitive="switch" defaultChecked />{' '}
+          {t('primitives.examples.notifications')}
         </label>
       );
     case 'tabs':
@@ -401,8 +473,12 @@ export function PrimitiveExample({ slug }: { slug: PrimitiveSlug }) {
     case 'textarea':
       return (
         <label>
-          Notes{' '}
-          <Textarea data-docs-primitive="textarea" defaultValue="Headless by default." rows={3} />
+          {t('primitives.examples.notes')}{' '}
+          <Textarea
+            data-docs-primitive="textarea"
+            defaultValue={t('primitives.examples.headlessByDefault')}
+            rows={3}
+          />
         </label>
       );
     case 'toast':
@@ -410,8 +486,10 @@ export function PrimitiveExample({ slug }: { slug: PrimitiveSlug }) {
     case 'cursor':
       return (
         <Cursor.Provider data-docs-primitive="cursor">
-          <button type="button">Move your mouse here</button>
-          <Cursor.Follower {...portalProps}>Pointer feedback</Cursor.Follower>
+          <button type="button">{t('primitives.examples.moveYourMouseHere')}</button>
+          <Cursor.Follower {...portalProps}>
+            {t('primitives.examples.pointerFeedback')}
+          </Cursor.Follower>
         </Cursor.Provider>
       );
     case 'tooltip':

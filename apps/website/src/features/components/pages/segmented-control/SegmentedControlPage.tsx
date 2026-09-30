@@ -1,4 +1,5 @@
 import { SegmentedControl } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -11,6 +12,8 @@ import { segmentedControlExamples } from '@/examples/components/segmented-contro
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function SegmentedControlPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board" id="segmented-control-review">
@@ -18,28 +21,25 @@ export function SegmentedControlPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Segmented Control</h1>
-            <p>
-              Compact single-selection control for switching between a small set of mutually
-              exclusive modes or views.
-            </p>
+            <p>{t('components.segmentedControl.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Variants</dt>
+                <dt>{t('components.segmentedControl.facts.variants')}</dt>
                 <dd>03</dd>
               </div>
               <div>
-                <dt>Sizes</dt>
+                <dt>{t('components.segmentedControl.facts.sizes')}</dt>
                 <dd>04</dd>
               </div>
               <div>
-                <dt>Motion</dt>
+                <dt>{t('components.segmentedControl.facts.motion')}</dt>
                 <dd>02</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.segmentedControl.specimen.referenceSpecimen')}</span>
               <code>soft · small · slide</code>
             </div>
             <div className="hero-stage">
@@ -48,16 +48,20 @@ export function SegmentedControlPage() {
                 size="small"
                 motion="slide"
                 defaultValue="light"
-                aria-label="Theme"
+                aria-label={t('examples.segmentedControl.copy.theme')}
               >
-                <SegmentedControl.Item value="light">Light</SegmentedControl.Item>
-                <SegmentedControl.Item value="dark">Dark</SegmentedControl.Item>
+                <SegmentedControl.Item value="light">
+                  {t('examples.segmentedControl.copy.light')}
+                </SegmentedControl.Item>
+                <SegmentedControl.Item value="dark">
+                  {t('examples.segmentedControl.copy.dark')}
+                </SegmentedControl.Item>
               </SegmentedControl>
             </div>
             <div className="specimen-caption">
-              <span>28px height</span>
-              <span>Label Small</span>
-              <span>Sliding indicator</span>
+              <span>{t('components.segmentedControl.specimen.28pxHeight')}</span>
+              <span>{t('examples.segmentedControl.copy.labelSmall')}</span>
+              <span>{t('components.segmentedControl.specimen.slidingIndicator')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -65,10 +69,8 @@ export function SegmentedControlPage() {
         <ArticleSection
           id={'segmented-variants'}
           index={'01'}
-          title={'Variants'}
-          description={
-            'Only the visual treatment changes; size, motion, content, and selected value remain identical.'
-          }
+          title={t('components.segmentedControl.segmentedVariants.title')}
+          description={t('components.segmentedControl.segmentedVariants.description')}
         >
           <ComponentExample
             example={segmentedControlExamples.segmentedVariants}
@@ -78,8 +80,8 @@ export function SegmentedControlPage() {
         <ArticleSection
           id={'segmented-motion'}
           index={'02'}
-          title={'Motion'}
-          description={'For each visual variant, only the selected-indicator motion changes.'}
+          title={t('components.segmentedControl.segmentedMotion.title')}
+          description={t('components.segmentedControl.segmentedMotion.description')}
         >
           <ComponentExample
             example={segmentedControlExamples.segmentedMotion}
@@ -89,18 +91,16 @@ export function SegmentedControlPage() {
         <ArticleSection
           id={'segmented-sizes'}
           index={'03'}
-          title={'Sizes'}
-          description={'Only the control size changes; all other properties use their defaults.'}
+          title={t('components.segmentedControl.segmentedSizes.title')}
+          description={t('components.segmentedControl.segmentedSizes.description')}
         >
           <ComponentExample example={segmentedControlExamples.segmentedSizes} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'segmented-content'}
           index={'04'}
-          title={'Content'}
-          description={
-            'Only the option content changes; visual treatment, size, and motion use their defaults.'
-          }
+          title={t('components.segmentedControl.segmentedContent.title')}
+          description={t('components.segmentedControl.segmentedContent.description')}
         >
           <ComponentExample example={segmentedControlExamples.segmentedContent} />
           <ComponentExample example={segmentedControlExamples.segmentedDisabled} />

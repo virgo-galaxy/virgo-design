@@ -1,9 +1,15 @@
 import { Pagination, type PaginationProps, Select, Switch } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { usePaginationLabels } from '@/examples/components/pagination/use-pagination-labels';
 
 import styles from './PaginationControlledExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+  const paginationLabels = usePaginationLabels();
+
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [align, setAlign] = useState<NonNullable<PaginationProps['align']>>('left');
@@ -14,13 +20,13 @@ export default function App() {
     <div className={styles.root!}>
       <div className={styles.stage!}>
         <Switch checked={showTotal} onCheckedChange={setShowTotal}>
-          Total
+          {t('examples.pagination.copy.total')}
         </Switch>
         <Switch checked={showSizeChanger} onCheckedChange={setShowSizeChanger}>
-          Page size
+          {t('examples.pagination.copy.pageSize')}
         </Switch>
         <Switch checked={showQuickJumper} onCheckedChange={setShowQuickJumper}>
-          Quick jump
+          {t('examples.pagination.copy.quickJump')}
         </Switch>
         <Select
           size="small"
@@ -29,15 +35,16 @@ export default function App() {
             if (value === 'left' || value === 'center' || value === 'right') setAlign(value);
           }}
         >
-          <Select.Trigger aria-label="Pagination alignment" />
+          <Select.Trigger aria-label={t('examples.pagination.copy.paginationAlignment')} />
           <Select.Content>
-            <Select.Option value="left">Left</Select.Option>
-            <Select.Option value="center">Center</Select.Option>
-            <Select.Option value="right">Right</Select.Option>
+            <Select.Option value="left">{t('examples.pagination.copy.left')}</Select.Option>
+            <Select.Option value="center">{t('examples.pagination.copy.center')}</Select.Option>
+            <Select.Option value="right">{t('examples.pagination.copy.right')}</Select.Option>
           </Select.Content>
         </Select>
       </div>
       <Pagination
+        labels={paginationLabels}
         total={85}
         page={page}
         pageSize={pageSize}
@@ -50,10 +57,11 @@ export default function App() {
         showSizeChanger={showSizeChanger}
         showQuickJumper={showQuickJumper}
         align={align}
-        aria-label="All options pagination"
+        aria-label={t('examples.pagination.copy.allOptionsPagination')}
       />
       <p role="status" className={styles.text!}>
-        Page {page} · {pageSize} items per page
+        {t('examples.pagination.copy.page')} {page} · {pageSize}{' '}
+        {t('examples.pagination.copy.itemsPerPage')}
       </p>
     </div>
   );

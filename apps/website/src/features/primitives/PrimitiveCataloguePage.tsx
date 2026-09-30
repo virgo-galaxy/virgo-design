@@ -1,4 +1,5 @@
 import { Tag } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import {
   DocumentationCatalogue,
@@ -18,12 +19,13 @@ function getPrimitiveCategoryId(category: string) {
 }
 
 export function PrimitiveCataloguePage() {
+  const { t } = useTranslation();
   return (
     <DocumentationCatalogue
       pageId="primitives-catalogue"
       eyebrow="@virgo-design/primitives"
-      title="Primitives"
-      description="Headless building blocks for building custom interfaces with Virgo Design behavior, accessibility and interaction protocols."
+      title={t('primitives.catalogue.title')}
+      description={t('primitives.catalogue.description')}
     >
       {primitiveCategories.map((category) => {
         const docs = primitiveDocs.filter((doc) => doc.category === category);
@@ -32,7 +34,7 @@ export function PrimitiveCataloguePage() {
           <DocumentationCatalogueGroup
             key={category}
             id={getPrimitiveCategoryId(category)}
-            label={category}
+            label={t(`primitives.categories.${category}`)}
             count={docs.length}
           >
             {docs.map((doc) => (
@@ -42,11 +44,11 @@ export function PrimitiveCataloguePage() {
                 title={doc.exportName}
                 accessory={
                   <Tag size="sm" variant="outline">
-                    Headless
+                    {t('primitives.catalogue.headless')}
                   </Tag>
                 }
               >
-                {doc.description}
+                {t(doc.description)}
               </DocumentationCatalogueItem>
             ))}
           </DocumentationCatalogueGroup>

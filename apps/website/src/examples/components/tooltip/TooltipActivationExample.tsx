@@ -1,9 +1,12 @@
 import { Tooltip } from '@virgo-design/ui';
 import { useId, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './TooltipActivationExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const detailsId = useId();
   const [expanded, setExpanded] = useState(false);
   return (
@@ -14,12 +17,16 @@ export default function App() {
           aria-controls={detailsId}
           onClick={() => setExpanded((value) => !value)}
         >
-          Toggle details
+          {t('examples.tooltip.copy.toggleDetails')}
         </Tooltip.Trigger>
-        <Tooltip.Content size="small">{expanded ? 'Hide details' : 'Show details'}</Tooltip.Content>
+        <Tooltip.Content size="small">
+          {expanded
+            ? t('examples.tooltip.details.hideDetails')
+            : t('examples.tooltip.details.showDetails')}
+        </Tooltip.Content>
       </Tooltip>
       <span id={detailsId} hidden={!expanded}>
-        The description changes without closing the tooltip.
+        {t('examples.tooltip.copy.theDescriptionChangesWithoutClosingTheTooltip')}
       </span>
     </div>
   );

@@ -55,6 +55,7 @@ import {
   UserIcon,
 } from '@virgo-design/icons';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useAppearance } from '@/shared/theme/use-appearance';
 
@@ -121,6 +122,7 @@ const iconOptions = [
 type IconId = (typeof iconOptions)[number]['id'];
 
 export function IconsExplorer() {
+  const { t } = useTranslation();
   const [selectedIconId, setSelectedIconId] = useState<IconId>('plus');
   const [showGrid, setShowGrid] = useState(true);
   const { appearance } = useAppearance();
@@ -131,7 +133,7 @@ export function IconsExplorer() {
     <div className="icons-explorer-feature">
       <div className="icons-explorer" data-theme={appearance}>
         <main>
-          <section className="control-bar" aria-label="Review controls">
+          <section className="control-bar" aria-label={t('foundations.icons.reviewControls')}>
             <IconSelect
               onChange={(iconId) => setSelectedIconId(iconId as IconId)}
               options={iconOptions}
@@ -139,15 +141,15 @@ export function IconsExplorer() {
             />
 
             <fieldset className="control-group">
-              <legend>Grid</legend>
+              <legend>{t('foundations.icons.grid')}</legend>
               <button
-                aria-label="Toggle grid"
+                aria-label={t('foundations.icons.toggleGrid')}
                 aria-pressed={showGrid}
                 className="toggle-button"
                 onClick={() => setShowGrid((visible) => !visible)}
                 type="button"
               >
-                {showGrid ? 'On' : 'Off'}
+                {showGrid ? t('foundations.icons.on') : t('foundations.icons.off')}
               </button>
             </fieldset>
           </section>
@@ -155,7 +157,7 @@ export function IconsExplorer() {
           <section className="review-board" aria-labelledby="review-title">
             <div className="section-heading">
               <div>
-                <p className="eyebrow">CANONICAL ICON</p>
+                <p className="eyebrow">{t('foundations.icons.canonicalIcon')}</p>
                 <h2 id="review-title">{selectedIcon.label}</h2>
               </div>
               <p>24 × 24 viewBox · currentColor fill</p>
@@ -193,7 +195,7 @@ export function IconsExplorer() {
             </div>
 
             <div className="actual-size-preview">
-              <p>Actual 24px</p>
+              <p>{t('foundations.icons.actualSize')}</p>
               <span className="actual-size-stage" data-icon={selectedIcon.id}>
                 <SelectedIcon size={canonicalRenderSize} data-testid="actual-icon-glyph" />
               </span>
@@ -201,12 +203,12 @@ export function IconsExplorer() {
 
             <section className="ui-preview" aria-labelledby="ui-preview-title">
               <p className="eyebrow" id="ui-preview-title">
-                UI PREVIEW
+                {t('foundations.icons.preview')}
               </p>
-              <p className="ui-preview-note">Button icons render at 20 × 20px.</p>
+              <p className="ui-preview-note">{t('foundations.icons.previewNote')}</p>
               <div className="ui-preview-controls">
                 <button
-                  aria-label="Icon"
+                  aria-label={t('foundations.icons.icon')}
                   className="icon-button-preview"
                   data-testid="icon-button-preview"
                   type="button"
@@ -219,7 +221,7 @@ export function IconsExplorer() {
                   type="button"
                 >
                   <SelectedIcon aria-hidden="true" size={20} />
-                  <span>Icon</span>
+                  <span>{t('foundations.icons.icon')}</span>
                 </button>
               </div>
             </section>

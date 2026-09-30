@@ -1,10 +1,17 @@
 import { Skeleton } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './SkeletonCardExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
-    <div className={styles.root!} aria-label="Loading card" aria-busy="true">
+    <div
+      className={styles.root!}
+      aria-label={t('examples.skeleton.copy.loadingCard')}
+      aria-busy="true"
+    >
       <Skeleton className={styles.skeleton!} />
       <div className={styles.stage!}>
         <Skeleton variant="text" className={styles.skeleton2!} />

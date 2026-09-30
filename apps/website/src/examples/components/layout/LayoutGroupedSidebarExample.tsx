@@ -1,5 +1,8 @@
 import { Layout, NavigationMenu } from '@virgo-design/ui';
 import { useId, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import styles from './LayoutGroupedSidebarExample.module.scss';
 
@@ -13,13 +16,15 @@ const groups = [
 ];
 
 export default function App() {
+  const { t } = useTranslation();
+
   const id = useId();
   const [value, setValue] = useState('0-Item 1');
   return (
     <Layout direction="horizontal" className={styles.root!}>
       <Layout.Sidebar width={224} className={styles.sidebar!} surface={{ border: 'subtle' }}>
         <NavigationMenu.Root
-          aria-label="Grouped sidebar example"
+          aria-label={t('examples.layout.copy.groupedSidebarExample')}
           orientation="vertical"
           value={value}
         >
@@ -27,7 +32,7 @@ export default function App() {
             {groups.map((group, index) => (
               <NavigationMenu.Group key={group.label} aria-labelledby={`${id}-${index}`}>
                 <NavigationMenu.GroupLabel id={`${id}-${index}`} className={styles.groupLabel!}>
-                  {group.label}
+                  {translateExampleText(t, 'layout', group.label)}
                 </NavigationMenu.GroupLabel>
                 <NavigationMenu.List>
                   {group.items.map((item) => (
@@ -39,7 +44,7 @@ export default function App() {
                           setValue(`${index}-${item}`);
                         }}
                       >
-                        {item}
+                        {translateExampleText(t, 'layout', item)}
                       </NavigationMenu.Link>
                     </NavigationMenu.Item>
                   ))}
@@ -53,7 +58,7 @@ export default function App() {
         </NavigationMenu.Root>
       </Layout.Sidebar>
       <Layout.Content className={styles.content!} surface={{ tone: 'elevated' }}>
-        <span className={styles.contentLabel!}>Content</span>
+        <span className={styles.contentLabel!}>{t('examples.layout.copy.content')}</span>
       </Layout.Content>
     </Layout>
   );

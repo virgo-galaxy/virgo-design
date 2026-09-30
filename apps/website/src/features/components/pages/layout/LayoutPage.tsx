@@ -1,6 +1,7 @@
 import './LayoutPage.scss';
 
 import { Layout } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -13,9 +14,13 @@ import { layoutExamples } from '@/examples/components/layout/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 function HeroLayout() {
+  const { t } = useTranslation();
+
   return (
     <Layout className="layout-demo">
-      <Layout.Header className="layout-demo-region layout-demo-header">Header</Layout.Header>
+      <Layout.Header className="layout-demo-region layout-demo-header">
+        {t('examples.layout.copy.header')}
+      </Layout.Header>
       <Layout.Lane>
         <Layout direction="horizontal">
           <Layout.Sidebar
@@ -26,19 +31,23 @@ function HeroLayout() {
               background: { type: 'color', value: 'var(--vd-brand-6)' },
             }}
           >
-            Sidebar
+            {t('examples.layout.copy.sidebar')}
           </Layout.Sidebar>
           <Layout.Content className="layout-demo-region layout-demo-content">
-            Content
+            {t('examples.layout.copy.content')}
           </Layout.Content>
         </Layout>
       </Layout.Lane>
-      <Layout.Footer className="layout-demo-region layout-demo-footer">Footer</Layout.Footer>
+      <Layout.Footer className="layout-demo-region layout-demo-footer">
+        {t('examples.layout.copy.footer')}
+      </Layout.Footer>
     </Layout>
   );
 }
 
 export function LayoutPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board layout-system-review" id="layout-review">
@@ -46,28 +55,25 @@ export function LayoutPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Layout</h1>
-            <p>
-              Provides the page-level skeleton for semantic regions plus independent spatial lanes
-              through vertical, horizontal, and nested composition.
-            </p>
+            <p>{t('components.layout.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Directions</dt>
+                <dt>{t('components.layout.facts.directions')}</dt>
                 <dd>2</dd>
               </div>
               <div>
-                <dt>Structures</dt>
+                <dt>{t('components.layout.facts.structures')}</dt>
                 <dd>5</dd>
               </div>
               <div>
-                <dt>Composition</dt>
-                <dd>Nested</dd>
+                <dt>{t('components.layout.facts.composition')}</dt>
+                <dd>{t('components.layout.facts.nested')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.layout.specimen.referenceSpecimen')}</span>
               <code>header · lane · sidebar · content · footer</code>
             </div>
             <div className="hero-stage layout-hero-stage">
@@ -76,9 +82,9 @@ export function LayoutPage() {
               </div>
             </div>
             <div className="specimen-caption">
-              <span>Vertical composition</span>
-              <span>Lane-owned body region</span>
-              <span>Semantic page skeleton</span>
+              <span>{t('components.layout.specimen.verticalComposition')}</span>
+              <span>{t('components.layout.specimen.laneOwnedBodyRegion')}</span>
+              <span>{t('components.layout.specimen.semanticPageSkeleton')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -86,10 +92,8 @@ export function LayoutPage() {
         <ArticleSection
           id={'layout-structures'}
           index={'01'}
-          title={'Layout structures'}
-          description={
-            'Five compositions of Header, Lane, Sidebar, Content, Footer, and a compact Rail.'
-          }
+          title={t('components.layout.structures.title')}
+          description={t('components.layout.structures.description')}
         >
           <ComponentExample example={layoutExamples.layoutBasic} />
           <ComponentExample example={layoutExamples.layoutLeftSidebar} />
@@ -100,10 +104,8 @@ export function LayoutPage() {
         <ArticleSection
           id={'layout-behaviors'}
           index={'02'}
-          title={'Layout behaviors'}
-          description={
-            'Surface, resizing, sticky or fixed positioning, and Lane boundaries stay structural and composable.'
-          }
+          title={t('components.layout.behaviors.title')}
+          description={t('components.layout.behaviors.description')}
         >
           <ComponentExample example={layoutExamples.layoutSurfaceRegions} />
           <ComponentExample example={layoutExamples.layoutResizableSidebar} />
@@ -115,73 +117,63 @@ export function LayoutPage() {
           id="layout-examples"
           aria-labelledby="layout-examples-title"
         >
-          <span className="eyebrow">COMPOSITION</span>
-          <h2 id="layout-examples-title">Typical examples</h2>
-          <p>Compose the structures above with navigation, surfaces, and interactive controls.</p>
+          <span className="eyebrow">{t('examples.layout.copy.composition')}</span>
+          <h2 id="layout-examples-title">{t('examples.layout.copy.typicalExamples')}</h2>
+          <p>{t('components.layout.behaviors.note')}</p>
         </section>
         <ArticleSection
           id={'layout-header'}
           index={'03'}
-          title={'Header composition'}
-          description={
-            'Logo and a horizontal NavigationMenu share a Header. Surface provides the background.'
-          }
+          title={t('components.layout.header.title')}
+          description={t('components.layout.header.description')}
         >
           <ComponentExample example={layoutExamples.layoutHeader} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'layout-sidebar'}
           index={'04'}
-          title={'Collapsible sidebar'}
-          description={'Use the bottom control to switch between full navigation and an icon rail.'}
+          title={t('components.layout.sidebar.title')}
+          description={t('components.layout.sidebar.description')}
         >
           <ComponentExample example={layoutExamples.layoutSidebar} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'layout-controlled'}
           index={'05'}
-          title={'Header trigger'}
-          description={
-            'A controlled Sidebar lets its toggle live in the Header and own the collapsed state.'
-          }
+          title={t('components.layout.controlled.title')}
+          description={t('components.layout.controlled.description')}
         >
           <ComponentExample example={layoutExamples.layoutControlledSidebar} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'layout-overlay'}
           index={'06'}
-          title={'Overlay sidebar'}
-          description={
-            'A zero-width collapsed Sidebar opens over the content. The external Header control stays available.'
-          }
+          title={t('components.layout.overlay.title')}
+          description={t('components.layout.overlay.description')}
         >
           <ComponentExample example={layoutExamples.layoutOverlaySidebar} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'layout-floating-sidebar'}
           index={'07'}
-          title={'Floating sidebar'}
-          description={
-            'A detached sidebar sits inside full-width Content. Collapse it into a capsule, or open Projects to explore its submenu.'
-          }
+          title={t('components.layout.floatingSidebar.title')}
+          description={t('components.layout.floatingSidebar.description')}
         >
           <ComponentExample example={layoutExamples.layoutFloatingSidebar} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'layout-floating-actions'}
           index={'08'}
-          title={'Floating actions'}
-          description={
-            "A standalone action and an expandable action group sit in Content's lower-right corner. Try the buttons, Escape, and outside clicks."
-          }
+          title={t('components.layout.floatingActions.title')}
+          description={t('components.layout.floatingActions.description')}
         >
           <ComponentExample example={layoutExamples.layoutFloatingActions} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id="layout-grouped-sidebar"
           index="09"
-          title="Grouped sidebar navigation"
-          description="Scroll the sidebar to see each group label stay visible until the next group takes its place. Sticky positioning is provided by the example styles."
+          title={t('components.layout.groupedSidebar.title')}
+          description={t('components.layout.groupedSidebar.description')}
         >
           <ComponentExample example={layoutExamples.layoutGroupedSidebar} />
         </ArticleSection>

@@ -1,4 +1,5 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
+import { createExampleSource } from '@/examples/components/create-example-source';
 
 import SegmentedContentExample from './SegmentedContentExample';
 import segmentedContentStyles from './SegmentedContentExample.module.scss?virgo-raw';
@@ -20,41 +21,55 @@ export const segmentedControlExamples = {
   segmentedVariants: {
     id: 'segmented-variants',
     title: 'Visual variants',
+    titleTranslationKey: 'examples.segmentedControl.copy.visualVariants',
     description: 'Only the visual treatment changes.',
+    descriptionTranslationKey: 'examples.segmentedControl.copy.onlyTheVisualTreatmentChanges',
     Component: SegmentedVariantsExample,
-    source: segmentedVariantsSource,
+    source: createExampleSource(segmentedVariantsSource),
     styleSource: segmentedVariantsStyles,
   },
   segmentedMotion: {
     id: 'segmented-motion',
     title: 'Indicator motion',
+    titleTranslationKey: 'examples.segmentedControl.copy.indicatorMotion',
     description: 'Compare static and sliding indicators across visual variants.',
+    descriptionTranslationKey:
+      'examples.segmentedControl.copy.compareStaticAndSlidingIndicatorsAcrossVisualVariants',
     Component: SegmentedMotionExample,
-    source: segmentedMotionSource,
+    source: createExampleSource(segmentedMotionSource),
     styleSource: segmentedMotionStyles,
   },
   segmentedSizes: {
     id: 'segmented-sizes',
     title: 'Control sizes',
+    titleTranslationKey: 'examples.segmentedControl.copy.controlSizes',
     description: 'Only size changes; selection and visual treatment stay fixed.',
+    descriptionTranslationKey:
+      'examples.segmentedControl.copy.onlySizeChangesSelectionAndVisualTreatmentStayFixed',
     Component: SegmentedSizesExample,
-    source: segmentedSizesSource,
+    source: createExampleSource(segmentedSizesSource),
     styleSource: segmentedSizesStyles,
   },
   segmentedContent: {
     id: 'segmented-content',
     title: 'Option content',
+    titleTranslationKey: 'examples.segmentedControl.copy.optionContent',
     description: 'Short mode and period choices share the same single-selection behavior.',
+    descriptionTranslationKey:
+      'examples.segmentedControl.copy.shortModeAndPeriodChoicesShareTheSameSingleSelection',
     Component: SegmentedContentExample,
-    source: segmentedContentSource,
+    source: createExampleSource(segmentedContentSource),
     styleSource: segmentedContentStyles,
   },
   segmentedDisabled: {
     id: 'segmented-disabled',
     title: 'Disabled option',
+    titleTranslationKey: 'examples.segmentedControl.copy.disabledOption',
     description: 'Unavailable choices remain visible in context.',
+    descriptionTranslationKey:
+      'examples.segmentedControl.copy.unavailableChoicesRemainVisibleInContext',
     Component: SegmentedDisabledExample,
-    source: segmentedDisabledSource,
+    source: createExampleSource(segmentedDisabledSource),
     styleSource: segmentedDisabledStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

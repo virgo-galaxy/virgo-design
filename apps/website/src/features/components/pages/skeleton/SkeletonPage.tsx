@@ -1,6 +1,7 @@
 import './SkeletonPage.scss';
 
 import { Skeleton } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -13,6 +14,8 @@ import { skeletonExamples } from '@/examples/components/skeleton/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function SkeletonPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board skeleton-review">
@@ -20,29 +23,33 @@ export function SkeletonPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Skeleton</h1>
-            <p>Visual content placeholders that preserve layout while real content loads.</p>
+            <p>{t('components.skeleton.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Shapes</dt>
-                <dd>Text · Block · Circle</dd>
+                <dt>{t('components.skeleton.facts.shapes')}</dt>
+                <dd>{t('components.skeleton.facts.textBlockCircle')}</dd>
               </div>
               <div>
-                <dt>Motion</dt>
-                <dd>Optional</dd>
+                <dt>{t('components.skeleton.facts.motion')}</dt>
+                <dd>{t('components.skeleton.facts.optional')}</dd>
               </div>
               <div>
-                <dt>Purpose</dt>
-                <dd>Layout preservation</dd>
+                <dt>{t('components.skeleton.facts.purpose')}</dt>
+                <dd>{t('components.skeleton.facts.layoutPreservation')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.skeleton.specimen.referenceSpecimen')}</span>
               <code>card placeholder · animated</code>
             </div>
             <div className="hero-stage">
-              <div className="skeleton-card" aria-label="Loading card preview" aria-busy="true">
+              <div
+                className="skeleton-card"
+                aria-label={t('examples.skeleton.copy.loadingCardPreview')}
+                aria-busy="true"
+              >
                 <Skeleton style={{ height: 144 }} />
                 <div className="skeleton-card-copy">
                   <Skeleton variant="text" style={{ width: '72%' }} />
@@ -52,9 +59,9 @@ export function SkeletonPage() {
               </div>
             </div>
             <div className="specimen-caption">
-              <span>Predictable dimensions</span>
-              <span>Content loading</span>
-              <span>Reduced-motion aware</span>
+              <span>{t('components.skeleton.specimen.predictableDimensions')}</span>
+              <span>{t('components.skeleton.specimen.contentLoading')}</span>
+              <span>{t('components.skeleton.specimen.reducedMotionAware')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -62,28 +69,24 @@ export function SkeletonPage() {
         <ArticleSection
           id={'skeleton-variants'}
           index={'01'}
-          title={'Text, rectangle, and circle'}
-          description={
-            'A small set of shapes covers text lines, media blocks, and avatar placeholders.'
-          }
+          title={t('components.skeleton.variants.title')}
+          description={t('components.skeleton.variants.description')}
         >
           <ComponentExample example={skeletonExamples.skeletonShapes} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'skeleton-card'}
           index={'02'}
-          title={'Card placeholder'}
-          description={'Native dimensions and normal layout composition keep the API predictable.'}
+          title={t('components.skeleton.card.title')}
+          description={t('components.skeleton.card.description')}
         >
           <ComponentExample example={skeletonExamples.skeletonCard} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'skeleton-motion'}
           index={'03'}
-          title={'Motion control'}
-          description={
-            'Pulse is enabled by default, can be disabled, and stops for reduced-motion preferences.'
-          }
+          title={t('components.skeleton.motion.title')}
+          description={t('components.skeleton.motion.description')}
         >
           <ComponentExample example={skeletonExamples.skeletonMotion} showCaption={false} />
         </ArticleSection>

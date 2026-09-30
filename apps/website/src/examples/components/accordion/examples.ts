@@ -1,4 +1,5 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
+import { createExampleSource } from '@/examples/components/create-example-source';
 
 import AccordionMultipleExample from './AccordionMultipleExample';
 import accordionMultipleStyles from './AccordionMultipleExample.module.scss?virgo-raw';
@@ -17,33 +18,43 @@ export const accordionExamples = {
   accordionVariants: {
     id: 'accordion-variants',
     title: 'Visual variants',
+    titleTranslationKey: 'examples.accordion.copy.visualVariants',
     description: 'Default, bordered, and ghost treatment share the same content.',
+    descriptionTranslationKey:
+      'examples.accordion.copy.defaultBorderedAndGhostTreatmentShareTheSameContent',
     Component: AccordionVariantsExample,
-    source: accordionVariantsSource,
+    source: createExampleSource(accordionVariantsSource),
     styleSource: accordionVariantsStyles,
   },
   accordionSizes: {
     id: 'accordion-sizes',
     title: 'Accordion sizes',
+    titleTranslationKey: 'examples.accordion.copy.accordionSizes',
     description: 'Size adjusts heading height, type, icon, and spacing together.',
+    descriptionTranslationKey:
+      'examples.accordion.copy.sizeAdjustsHeadingHeightTypeIconAndSpacingTogether',
     Component: AccordionSizesExample,
-    source: accordionSizesSource,
+    source: createExampleSource(accordionSizesSource),
     styleSource: accordionSizesStyles,
   },
   accordionSingle: {
     id: 'accordion-single',
     title: 'Single selection',
+    titleTranslationKey: 'examples.accordion.copy.singleSelection',
     description: 'At most one section is open.',
+    descriptionTranslationKey: 'examples.accordion.copy.atMostOneSectionIsOpen',
     Component: AccordionSingleExample,
-    source: accordionSingleSource,
+    source: createExampleSource(accordionSingleSource),
     styleSource: accordionSingleStyles,
   },
   accordionMultiple: {
     id: 'accordion-multiple',
     title: 'Multiple selection',
+    titleTranslationKey: 'examples.accordion.copy.multipleSelection',
     description: 'Sections open independently.',
+    descriptionTranslationKey: 'examples.accordion.copy.sectionsOpenIndependently',
     Component: AccordionMultipleExample,
-    source: accordionMultipleSource,
+    source: createExampleSource(accordionMultipleSource),
     styleSource: accordionMultipleStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

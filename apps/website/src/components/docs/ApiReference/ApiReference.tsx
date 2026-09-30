@@ -23,14 +23,14 @@ function declarationLabel(kind: 'interface' | 'type', name: string, signature: s
 export function ApiReference({
   document,
   id = 'api',
-  title = 'API',
+  title,
   description,
   className,
 }: ApiReferenceProps) {
   const { t } = useTranslation();
+  const resolvedTitle = title ?? t('docs.apiReference.defaultTitle');
   const resolvedDescription =
-    description ??
-    `Public TypeScript API exported by ${document.packageName}. Native React and DOM attributes are omitted from the property rows.`;
+    description ?? t('docs.apiReference.defaultDescription', { packageName: document.packageName });
   const tableDeclarations = document.declarations.filter(
     (declaration) => declaration.properties.length > 0,
   );
@@ -47,7 +47,7 @@ export function ApiReference({
     >
       <header className={styles.header}>
         <p className={styles.eyebrow}>{document.packageName}</p>
-        <h2 id={`${id}-heading`}>{title}</h2>
+        <h2 id={`${id}-heading`}>{resolvedTitle}</h2>
         <p>{resolvedDescription}</p>
       </header>
 
@@ -88,17 +88,19 @@ export function ApiReference({
               <div
                 className={styles.tableViewport}
                 role="region"
-                aria-label={`${declaration.name} properties`}
+                aria-label={t('docs.apiReference.propertiesRegion', { name: declaration.name })}
                 tabIndex={0}
               >
                 <table className={styles.table}>
-                  <caption className={styles.visuallyHidden}>{declaration.name} properties</caption>
+                  <caption className={styles.visuallyHidden}>
+                    {t('docs.apiReference.propertiesRegion', { name: declaration.name })}
+                  </caption>
                   <thead>
                     <tr>
-                      <th scope="col">Property</th>
-                      <th scope="col">Type</th>
-                      <th scope="col">Default</th>
-                      <th scope="col">Description</th>
+                      <th scope="col">{t('docs.apiReference.columns.property')}</th>
+                      <th scope="col">{t('docs.apiReference.columns.type')}</th>
+                      <th scope="col">{t('docs.apiReference.columns.default')}</th>
+                      <th scope="col">{t('docs.apiReference.columns.description')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -107,10 +109,14 @@ export function ApiReference({
                         <th scope="row">
                           <code>{property.name}</code>
                           {property.required ? (
-                            <span className={styles.required}>required</span>
+                            <span className={styles.required}>
+                              {t('docs.apiReference.required')}
+                            </span>
                           ) : null}
                           {property.source !== document.packageName ? (
-                            <small className={styles.inherited}>from primitives</small>
+                            <small className={styles.inherited}>
+                              {t('docs.apiReference.inheritedFromPrimitives')}
+                            </small>
                           ) : null}
                         </th>
                         <td>
@@ -140,7 +146,7 @@ export function ApiReference({
         {aliasDeclarations.length > 0 ? (
           <section className={styles.aliases} aria-labelledby={`${id}-public-types-heading`}>
             <div className={styles.aliasesHeader}>
-              <h3 id={`${id}-public-types-heading`}>Public types</h3>
+              <h3 id={`${id}-public-types-heading`}>{t('docs.apiReference.publicTypes')}</h3>
               <span>{aliasDeclarations.length}</span>
             </div>
             <dl className={styles.aliasList}>

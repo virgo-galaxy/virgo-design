@@ -56,6 +56,7 @@ interface EasingCurveCardProps {
 }
 
 function EasingCurveCard({ name, value }: EasingCurveCardProps) {
+  const { t } = useTranslation();
   const titleId = `easing-${name}-title`;
 
   return (
@@ -78,7 +79,7 @@ function EasingCurveCard({ name, value }: EasingCurveCardProps) {
         <circle className={styles.easingEndpoint} cx={plot.left} cy={plot.bottom} r="1" />
         <circle className={styles.easingEndpoint} cx={plot.right} cy={plot.top} r="1" />
         <text className={styles.easingAxisLabel} x="52" y="98" textAnchor="middle">
-          time
+          {t('foundations.motion.axes.time')}
         </text>
         <text
           className={styles.easingAxisLabel}
@@ -87,7 +88,7 @@ function EasingCurveCard({ name, value }: EasingCurveCardProps) {
           textAnchor="middle"
           transform="rotate(-90 4 48)"
         >
-          progress
+          {t('foundations.motion.axes.progress')}
         </text>
       </svg>
     </article>

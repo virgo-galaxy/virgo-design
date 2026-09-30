@@ -1,4 +1,5 @@
 import { createContext, type ReactNode, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export type ComponentPageMetadataValue = {
   index: string;
@@ -23,6 +24,7 @@ export function ComponentPageMetadataProvider({
 }
 
 export function ComponentPageMetadata() {
+  const { t } = useTranslation();
   const metadata = useContext(ComponentPageMetadataContext);
 
   if (!metadata) {
@@ -31,9 +33,9 @@ export function ComponentPageMetadata() {
 
   return (
     <div className="eyebrow-row">
-      <span>Component {metadata.index}</span>
+      <span>{t('components.catalogue.component', { index: metadata.index })}</span>
       <span className="version-badge">
-        {metadata.status.toUpperCase()} · {metadata.version}
+        {t(`components.catalogue.status.${metadata.status}`)} · {metadata.version}
       </span>
     </div>
   );

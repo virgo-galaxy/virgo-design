@@ -2,8 +2,11 @@ import './TooltipDynamicExample.module.scss';
 
 import { Tooltip } from '@virgo-design/ui';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [open, setOpen] = useState(false);
   const [detailed, setDetailed] = useState(false);
   useEffect(() => {
@@ -19,11 +22,11 @@ export default function App() {
         if (!next) setDetailed(false);
       }}
     >
-      <Tooltip.Trigger>Changing description</Tooltip.Trigger>
+      <Tooltip.Trigger>{t('examples.tooltip.copy.changingDescription')}</Tooltip.Trigger>
       <Tooltip.Content placement="topRight">
         {detailed
-          ? 'Workspace details are ready. The tooltip keeps its arrow connected as this description becomes longer.'
-          : 'Workspace details'}
+          ? t('examples.tooltip.details.workspaceDetailsAreReadyTheTooltipKeepsItsArrowConnected')
+          : t('examples.tooltip.details.workspaceDetails')}
       </Tooltip.Content>
     </Tooltip>
   );

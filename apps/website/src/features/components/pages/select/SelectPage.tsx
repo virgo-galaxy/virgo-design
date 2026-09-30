@@ -1,4 +1,5 @@
 import { Select, type SelectProps } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -7,6 +8,7 @@ import {
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
 import { selectExamples } from '@/examples/components/select/examples';
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
@@ -27,13 +29,15 @@ type DemoSelectProps = Omit<SelectProps, 'children'> & {
   placeholder?: string;
 };
 function DemoSelect({ options, placeholder, 'aria-label': ariaLabel, ...props }: DemoSelectProps) {
+  const { t } = useTranslation();
+
   return (
     <Select {...props}>
       <Select.Trigger aria-label={ariaLabel} placeholder={placeholder} />
       <Select.Content>
         {options.map((option) => (
           <Select.Option disabled={option.disabled} key={option.value} value={option.value}>
-            {option.label}
+            {translateExampleText(t, 'select', option.label)}
           </Select.Option>
         ))}
       </Select.Content>
@@ -42,6 +46,8 @@ function DemoSelect({ options, placeholder, 'aria-label': ariaLabel, ...props }:
 }
 
 export function SelectPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board" id="select-review">
@@ -49,44 +55,40 @@ export function SelectPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Select</h1>
-            <p>
-              Single-value selection through a custom Virgo listbox. The control keeps the Input
-              family sizing and state language while owning disclosure, option, and keyboard
-              behavior.
-            </p>
+            <p>{t('components.select.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Mode</dt>
+                <dt>{t('components.select.facts.mode')}</dt>
                 <dd>01</dd>
               </div>
               <div>
-                <dt>Sizes</dt>
+                <dt>{t('components.select.facts.sizes')}</dt>
                 <dd>04</dd>
               </div>
               <div>
-                <dt>States</dt>
+                <dt>{t('components.select.facts.states')}</dt>
                 <dd>06</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.select.specimen.referenceSpecimen')}</span>
               <code>select · medium</code>
             </div>
             <div className="hero-stage">
               <div className="select-demo-width select-demo-width--hero">
                 <DemoSelect
-                  aria-label="Reference project"
+                  aria-label={t('examples.select.copy.referenceProject')}
                   defaultValue="design"
                   options={projectOptions}
                 />
               </div>
             </div>
             <div className="specimen-caption">
-              <span>36px trigger</span>
-              <span>Body Medium</span>
-              <span>Radius 8</span>
+              <span>{t('components.select.specimen.36pxTrigger')}</span>
+              <span>{t('examples.select.copy.bodyMedium')}</span>
+              <span>{t('components.select.specimen.radius8')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -94,40 +96,32 @@ export function SelectPage() {
         <ArticleSection
           id={'select-sizes'}
           index={'01'}
-          title={'Sizes'}
-          description={
-            'Four trigger heights aligned with Input and Button while the dropdown follows the same density.'
-          }
+          title={t('components.select.sizes.title')}
+          description={t('components.select.sizes.description')}
         >
           <ComponentExample example={selectExamples.selectSizes} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'select-content'}
           index={'02'}
-          title={'Content'}
-          description={
-            'Placeholder and selected value share the trigger while the selected option remains the source of display text.'
-          }
+          title={t('components.select.content.title')}
+          description={t('components.select.content.description')}
         >
           <ComponentExample example={selectExamples.selectContent} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'select-states'}
           index={'03'}
-          title={'States'}
-          description={
-            'Hover and focus remain live; open keeps the trigger highlighted while disabled and invalid use semantic state colors.'
-          }
+          title={t('components.select.states.title')}
+          description={t('components.select.states.description')}
         >
           <ComponentExample example={selectExamples.selectStates} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'select-options'}
           index={'04'}
-          title={'Options & behavior'}
-          description={
-            'Options support selected, disabled, long-content, pointer, and keyboard interaction without changing the public single-value model.'
-          }
+          title={t('components.select.options.title')}
+          description={t('components.select.options.description')}
         >
           <ComponentExample example={selectExamples.selectDisabledOption} />
           <ComponentExample example={selectExamples.selectLongContent} />

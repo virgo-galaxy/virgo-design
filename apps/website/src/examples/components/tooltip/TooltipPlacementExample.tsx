@@ -1,5 +1,6 @@
 import { Switch, Tooltip } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './TooltipPlacementExample.module.scss';
 
@@ -19,18 +20,24 @@ const placements = [
 ] as const;
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [arrow, setArrow] = useState(true);
   return (
     <div className={styles.root!}>
       <Switch checked={arrow} onCheckedChange={setArrow}>
-        Show arrow
+        {t('examples.tooltip.copy.showArrow')}
       </Switch>
-      <div className={styles.stage!} role="group" aria-label="Twelve tooltip placements">
+      <div
+        className={styles.stage!}
+        role="group"
+        aria-label={t('examples.tooltip.copy.twelveTooltipPlacements')}
+      >
         {placements.map((placement) => (
           <Tooltip key={placement} className={styles[placement]!}>
             <Tooltip.Trigger size="small">{placement}</Tooltip.Trigger>
             <Tooltip.Content placement={placement} arrow={arrow}>
-              {placement} tooltip
+              {placement} {t('examples.tooltip.copy.tooltip')}
             </Tooltip.Content>
           </Tooltip>
         ))}

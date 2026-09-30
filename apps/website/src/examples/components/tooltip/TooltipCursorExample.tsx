@@ -1,9 +1,12 @@
 import { CursorArrowIcon } from '@virgo-design/icons';
 import { Cursor, Tooltip } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './TooltipCursorExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <Cursor.Provider
       cursor={<CursorArrowIcon className={styles.custom} />}
@@ -11,10 +14,10 @@ export default function App() {
       follow={{ tooltip: true }}
       className={styles.stage}
     >
-      <p className={styles.note}>A custom cursor, an ordinary Tooltip.</p>
+      <p className={styles.note}>{t('examples.tooltip.copy.aCustomCursorAnOrdinaryTooltip')}</p>
       <Tooltip>
-        <Tooltip.Trigger>Copy link</Tooltip.Trigger>
-        <Tooltip.Content>Copy a shareable link</Tooltip.Content>
+        <Tooltip.Trigger>{t('examples.tooltip.copy.copyLink')}</Tooltip.Trigger>
+        <Tooltip.Content>{t('examples.tooltip.copy.copyAShareableLink')}</Tooltip.Content>
       </Tooltip>
     </Cursor.Provider>
   );

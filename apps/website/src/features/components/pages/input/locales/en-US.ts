@@ -1,0 +1,45 @@
+export const inputEnUS = {
+  overview: {
+    description:
+      'Text-entry family for single-line and multiline content. Built on native Virgo primitives, with decorative content, clearable values, and password reveal calibrated against the same sizing, typography, color, and motion foundations as Button.',
+  },
+  facts: {
+    controls: 'Controls',
+    sizes: 'Sizes',
+    states: 'States',
+  },
+  specimen: {
+    referenceSpecimen: 'Reference specimen',
+    '36pxHeight': '36px height',
+    radius8: 'Radius 8',
+  },
+  sizes: {
+    title: 'Sizes',
+    description: 'Four control heights aligned with the Virgo sizing foundation and Button scale.',
+  },
+  content: {
+    title: 'Content',
+    description:
+      'Placeholder and entered value use native input semantics and Virgo body typography.',
+  },
+  icons: {
+    title: 'Prefix and suffix',
+    description:
+      'Decorative prefix and suffix slots inherit currentColor, remain outside the tab order, and let Input own their size.',
+  },
+  actions: {
+    title: 'Actions',
+    description:
+      'Clearable and password inputs add small, keyboard-accessible actions without changing native input behavior.',
+  },
+  states: {
+    title: 'States',
+    description:
+      'Hover and focus remain live; use Tab or click a field to inspect the focus treatment.',
+  },
+  textarea: {
+    title: 'Textarea',
+    description:
+      'Multiline text entry shares the Input family state language while keeping native textarea semantics.',
+  },
+} as const;

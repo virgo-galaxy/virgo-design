@@ -2,6 +2,7 @@ import { LockIcon, PinIcon, UnlockIcon, UnpinIcon } from '@virgo-design/icons';
 import { Dock as PrimitiveDock, type DockState } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
+import { useControlLabels } from '../../shared/control-labels';
 import { Button } from '../Button';
 import { Tooltip } from '../Tooltip';
 import styles from './Dock.module.scss';
@@ -53,27 +54,28 @@ const Root = forwardRef<HTMLDivElement, DockRootProps>(function DockRoot(
 Root.displayName = 'Dock';
 
 function DockControls({ state, disabled }: { state: DockState; disabled: boolean | undefined }) {
+  const labels = useControlLabels();
   const { locked, pinned, setLocked, setPinned } = state;
   const actions = [
     {
       id: 'lock',
-      label: locked ? 'Unlock dock' : 'Lock dock',
-      hint: locked ? 'Unlock movement' : 'Lock movement',
+      label: locked ? labels.unlockDock : labels.lockDock,
+      hint: locked ? labels.unlockMovement : labels.lockMovement,
       active: locked,
       Icon: locked ? UnlockIcon : LockIcon,
       onClick: () => setLocked(!locked),
     },
     {
       id: 'pin',
-      label: pinned ? 'Unpin dock' : 'Pin dock',
-      hint: pinned ? 'Unpin from viewport' : 'Pin to viewport',
+      label: pinned ? labels.unpinDock : labels.pinDock,
+      hint: pinned ? labels.unpinViewport : labels.pinViewport,
       active: pinned,
       Icon: pinned ? UnpinIcon : PinIcon,
       onClick: () => setPinned(!pinned),
     },
   ];
   return (
-    <div className={styles.controls} role="group" aria-label="Dock controls">
+    <div className={styles.controls} role="group" aria-label={labels.dockControls}>
       {actions.map(({ id, label, hint, active, Icon, onClick }) => (
         <Tooltip key={id} disabled={disabled ?? false} closeOnClick={false}>
           <Tooltip.Trigger

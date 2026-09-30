@@ -1,28 +1,35 @@
 import { LayoutIcon, PlusIcon, TrashIcon } from '@virgo-design/icons';
 import { Menu, Menubar } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import styles from './MenubarApplicationExample.module.scss';
 
 function SharedItems({ select }: { select: (name: string) => void }) {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Menu.Group label="Actions">
+      <Menu.Group label={t('examples.menubar.copy.actions')}>
         <Menu.Item icon={<PlusIcon />} shortcut="⌘N" onSelect={() => select('New')}>
-          New
+          {t('examples.menubar.copy.new')}
         </Menu.Item>
         <Menu.Item shortcut="F2" onSelect={() => select('Rename')}>
-          Rename
+          {t('examples.menubar.copy.rename')}
         </Menu.Item>
-        <Menu.Item disabled>Paste</Menu.Item>
+        <Menu.Item disabled>{t('examples.menubar.copy.paste')}</Menu.Item>
       </Menu.Group>
       <Menu.Separator />
       <Menu.Submenu>
-        <Menu.SubmenuTrigger icon={<LayoutIcon />}>Export</Menu.SubmenuTrigger>
+        <Menu.SubmenuTrigger icon={<LayoutIcon />}>
+          {t('examples.menubar.copy.export')}
+        </Menu.SubmenuTrigger>
         <Menu.SubmenuContent>
           <Menu.Item onSelect={() => select('Export PDF')}>PDF</Menu.Item>
           <Menu.Submenu>
-            <Menu.SubmenuTrigger>Image</Menu.SubmenuTrigger>
+            <Menu.SubmenuTrigger>{t('examples.menubar.copy.image')}</Menu.SubmenuTrigger>
             <Menu.SubmenuContent>
               <Menu.Item onSelect={() => select('Export PNG')}>PNG</Menu.Item>
               <Menu.Item onSelect={() => select('Export SVG')}>SVG</Menu.Item>
@@ -31,66 +38,74 @@ function SharedItems({ select }: { select: (name: string) => void }) {
         </Menu.SubmenuContent>
       </Menu.Submenu>
       <Menu.Submenu>
-        <Menu.SubmenuTrigger>Share</Menu.SubmenuTrigger>
+        <Menu.SubmenuTrigger>{t('examples.menubar.copy.share')}</Menu.SubmenuTrigger>
         <Menu.SubmenuContent>
-          <Menu.Item onSelect={() => select('Copy link')}>Copy link</Menu.Item>
-          <Menu.Item onSelect={() => select('Copy selection')}>Copy selection</Menu.Item>
+          <Menu.Item onSelect={() => select('Copy link')}>
+            {t('examples.menubar.copy.copyLink')}
+          </Menu.Item>
+          <Menu.Item onSelect={() => select('Copy selection')}>
+            {t('examples.menubar.copy.copySelection')}
+          </Menu.Item>
         </Menu.SubmenuContent>
       </Menu.Submenu>
       <Menu.Separator />
       <Menu.Item danger icon={<TrashIcon />} onSelect={() => select('Delete')}>
-        Delete
+        {t('examples.menubar.copy.delete')}
       </Menu.Item>
     </>
   );
 }
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [action, setAction] = useState('Choose an application action.');
   return (
     <div className={styles.root!}>
-      <Menubar aria-label="Application actions">
+      <Menubar aria-label={t('examples.menubar.copy.applicationActions')}>
         <Menubar.Menu value="file">
-          <Menubar.Trigger>File</Menubar.Trigger>
+          <Menubar.Trigger>{t('examples.menubar.copy.file')}</Menubar.Trigger>
           <Menubar.Content>
             <SharedItems select={setAction} />
           </Menubar.Content>
         </Menubar.Menu>
         <Menubar.Menu value="edit">
-          <Menubar.Trigger>Edit</Menubar.Trigger>
+          <Menubar.Trigger>{t('examples.menubar.copy.edit')}</Menubar.Trigger>
           <Menubar.Content>
             <Menubar.Item shortcut="⌘Z" onSelect={() => setAction('Undo')}>
-              Undo
+              {t('examples.menubar.copy.undo')}
             </Menubar.Item>
             <Menubar.Item shortcut="⌘⇧Z" onSelect={() => setAction('Redo')}>
-              Redo
+              {t('examples.menubar.copy.redo')}
             </Menubar.Item>
             <Menubar.Separator />
             <Menubar.Item shortcut="⌘C" onSelect={() => setAction('Copy')}>
-              Copy
+              {t('examples.menubar.copy.copy')}
             </Menubar.Item>
             <Menubar.Item disabled shortcut="⌘V">
-              Paste
+              {t('examples.menubar.copy.paste')}
             </Menubar.Item>
           </Menubar.Content>
         </Menubar.Menu>
         <Menubar.Menu value="view">
-          <Menubar.Trigger>View</Menubar.Trigger>
+          <Menubar.Trigger>{t('examples.menubar.copy.view')}</Menubar.Trigger>
           <Menubar.Content>
-            <Menubar.CheckboxItem defaultChecked>Show toolbar</Menubar.CheckboxItem>
-            <Menubar.CheckboxItem>Show guides</Menubar.CheckboxItem>
+            <Menubar.CheckboxItem defaultChecked>
+              {t('examples.menubar.copy.showToolbar')}
+            </Menubar.CheckboxItem>
+            <Menubar.CheckboxItem>{t('examples.menubar.copy.showGuides')}</Menubar.CheckboxItem>
           </Menubar.Content>
         </Menubar.Menu>
         <Menubar.Menu value="help" disabled>
-          <Menubar.Trigger>Help</Menubar.Trigger>
+          <Menubar.Trigger>{t('examples.menubar.copy.help')}</Menubar.Trigger>
         </Menubar.Menu>
       </Menubar>
       <div className={styles.stage!}>
         <p role="status" className={styles.text!}>
-          {action}
+          {translateExampleText(t, 'menubar', action)}
         </p>
         <p className={styles.text2!}>
-          Shortcut labels are display only; this demo does not bind global keys.
+          {t('examples.menubar.copy.shortcutLabelsAreDisplayOnlyThisDemoDoesNotBind')}
         </p>
       </div>
     </div>

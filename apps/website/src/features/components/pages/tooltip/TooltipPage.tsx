@@ -1,6 +1,7 @@
 import './TooltipPage.scss';
 
 import { Tooltip } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -13,6 +14,8 @@ import { tooltipExamples } from '@/examples/components/tooltip/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function TooltipPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board tooltip-review" id="tooltip-review">
@@ -20,40 +23,39 @@ export function TooltipPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Tooltip</h1>
-            <p>
-              A little context without interrupting the flow. Hover or focus for a brief
-              description, with twelve positions that stay connected to the control.
-            </p>
+            <p>{t('components.tooltip.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Placement</dt>
-                <dd>12 positions</dd>
+                <dt>{t('components.tooltip.facts.placement')}</dt>
+                <dd>{t('components.tooltip.facts.12Positions')}</dd>
               </div>
               <div>
-                <dt>Trigger</dt>
-                <dd>Hover / focus</dd>
+                <dt>{t('components.tooltip.facts.trigger')}</dt>
+                <dd>{t('components.tooltip.facts.hoverFocus')}</dd>
               </div>
               <div>
-                <dt>Content</dt>
-                <dd>Descriptive</dd>
+                <dt>{t('components.tooltip.facts.content')}</dt>
+                <dd>{t('components.tooltip.facts.descriptive')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.tooltip.specimen.referenceSpecimen')}</span>
               <code>contextual help</code>
             </div>
             <div className="hero-stage tooltip-hero-stage">
               <Tooltip>
-                <Tooltip.Trigger>Hover or focus me</Tooltip.Trigger>
-                <Tooltip.Content>Small details, right where you need them.</Tooltip.Content>
+                <Tooltip.Trigger>{t('examples.tooltip.copy.hoverOrFocusMe')}</Tooltip.Trigger>
+                <Tooltip.Content>
+                  {t('examples.tooltip.copy.smallDetailsRightWhereYouNeedThem')}
+                </Tooltip.Content>
               </Tooltip>
             </div>
             <div className="specimen-caption">
-              <span>Native actions</span>
-              <span>Keyboard ready</span>
-              <span>Theme aware</span>
+              <span>{t('components.tooltip.specimen.nativeActions')}</span>
+              <span>{t('components.tooltip.specimen.keyboardReady')}</span>
+              <span>{t('components.tooltip.specimen.themeAware')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -61,10 +63,8 @@ export function TooltipPage() {
         <ArticleSection
           id={'tooltip-basic'}
           index={'01'}
-          title={'Hover & focus'}
-          description={
-            'Hover opens after a short delay. Keyboard focus opens immediately. Escape dismisses and leaves focus on the control.'
-          }
+          title={t('components.tooltip.basic.title')}
+          description={t('components.tooltip.basic.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipBasic} />
           <ComponentExample example={tooltipExamples.tooltipInstant} />
@@ -73,30 +73,24 @@ export function TooltipPage() {
         <ArticleSection
           id={'tooltip-smooth-transition'}
           index={'02'}
-          title={'Smooth transition'}
-          description={
-            'Smooth transition is enabled for this example. Move between the four buttons to pass the tooltip from one control to the next without a repeated delay or fade.'
-          }
+          title={t('components.tooltip.smoothTransition.title')}
+          description={t('components.tooltip.smoothTransition.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipSmooth} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'tooltip-placement'}
           index={'03'}
-          title={'Placement & arrow'}
-          description={
-            'Twelve physical positions arranged around the trigger area. The arrow follows the trigger center; the panel flips and shifts at viewport edges.'
-          }
+          title={t('components.tooltip.placement.title')}
+          description={t('components.tooltip.placement.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipPlacement} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'tooltip-tone'}
           index={'04'}
-          title={'Semantic colors'}
-          description={
-            'Semantic tones pair solid backgrounds with on-solid foregrounds. Custom tones can set both using palette tokens.'
-          }
+          title={t('components.tooltip.tone.title')}
+          description={t('components.tooltip.tone.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipTones} />
           <ComponentExample example={tooltipExamples.tooltipCustomColor} />
@@ -104,20 +98,16 @@ export function TooltipPage() {
         <ArticleSection
           id={'tooltip-actions'}
           index={'05'}
-          title={'Real controls'}
-          description={
-            'Our own Settings icon and Button are used together. The tooltip describes the action; clicking still runs it. The icon button keeps its accessible name.'
-          }
+          title={t('components.tooltip.actions.title')}
+          description={t('components.tooltip.actions.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipAction} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'tooltip-dynamic'}
           index={'06'}
-          title={'Content & direction'}
-          description={
-            'The first description grows while open to check automatic realignment. The second uses a local RTL direction and logical start alignment.'
-          }
+          title={t('components.tooltip.dynamic.title')}
+          description={t('components.tooltip.dynamic.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipDynamic} />
           <ComponentExample example={tooltipExamples.tooltipDirection} />
@@ -125,28 +115,24 @@ export function TooltipPage() {
         <ArticleSection
           id={'tooltip-sizes'}
           index={'07'}
-          title={'Content sizes'}
-          description={
-            'Content size is independent of the trigger button. Medium is unchanged; small is a compact description for toolbars.'
-          }
+          title={t('components.tooltip.sizes.title')}
+          description={t('components.tooltip.sizes.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipSizes} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'tooltip-activation'}
           index={'08'}
-          title={'Keep feedback on activation'}
-          description={
-            'closeOnClick=false keeps the current tooltip open during activation. Its text changes in place; Escape and leaving hover/focus still dismiss it.'
-          }
+          title={t('components.tooltip.activation.title')}
+          description={t('components.tooltip.activation.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipActivation} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id="tooltip-cursor"
           index="09"
-          title="Cursor integration"
-          description="Opt into pointer follow on Cursor.Provider. It owns custom visuals and tracking; ordinary Tooltips follow mouse hover automatically and keep element anchoring for keyboard focus."
+          title={t('components.tooltip.cursor.title')}
+          description={t('components.tooltip.cursor.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipCursor} />
         </ArticleSection>

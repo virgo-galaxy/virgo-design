@@ -1,3 +1,5 @@
+import '@/i18n/runtime';
+
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { CheckIcon, CodeIcon, CopyIcon, ExternalLinkIcon } from '@virgo-design/icons';
@@ -200,7 +202,7 @@ describe('ComponentExample', () => {
 
   it('shows only React when the paired SCSS contains comments but no actual styles', () => {
     const reactOnlyExample = {
-      ...buttonExamples.variants,
+      Component: buttonExamples.variants.Component,
       id: 'react-only-example',
       title: 'React only example',
       source: `import './ReactOnlyExample.module.scss';

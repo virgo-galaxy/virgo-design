@@ -1,10 +1,15 @@
 import { CircleInfoIcon, DashboardIcon } from '@virgo-design/icons';
 import { FloatingAction } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import styles from './FloatingActionGroupExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('Choose an action.');
   const select = (action: string) => {
@@ -14,17 +19,23 @@ export default function App() {
   return (
     <div className={styles.root!}>
       <FloatingAction.Group open={open} onOpenChange={setOpen}>
-        <FloatingAction.Trigger aria-label="Quick actions" />
-        <FloatingAction.Content aria-label="Quick actions">
-          <FloatingAction aria-label="Open dashboard" onClick={() => select('Dashboard')}>
+        <FloatingAction.Trigger aria-label={t('examples.floatingAction.copy.quickActions')} />
+        <FloatingAction.Content aria-label={t('examples.floatingAction.copy.quickActions')}>
+          <FloatingAction
+            aria-label={t('examples.floatingAction.copy.openDashboard')}
+            onClick={() => select('Dashboard')}
+          >
             <DashboardIcon />
           </FloatingAction>
-          <FloatingAction aria-label="Show help" onClick={() => select('Help')}>
+          <FloatingAction
+            aria-label={t('examples.floatingAction.copy.showHelp')}
+            onClick={() => select('Help')}
+          >
             <CircleInfoIcon />
           </FloatingAction>
         </FloatingAction.Content>
       </FloatingAction.Group>
-      <span role="status">{status}</span>
+      <span role="status">{translateExampleText(t, 'floatingAction', status)}</span>
     </div>
   );
 }

@@ -1,4 +1,7 @@
 import { Alert, type AlertIntent } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
+
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import styles from './AlertIntentsExample.module.scss';
 
@@ -35,14 +38,16 @@ const intents = [
 }>;
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.root!}>
       {intents.map(({ intent, title, description }) => (
         <Alert key={intent} intent={intent}>
           <Alert.Icon />
           <Alert.Content>
-            <Alert.Title>{title}</Alert.Title>
-            <Alert.Description>{description}</Alert.Description>
+            <Alert.Title>{translateExampleText(t, 'alert', title)}</Alert.Title>
+            <Alert.Description>{translateExampleText(t, 'alert', description)}</Alert.Description>
           </Alert.Content>
         </Alert>
       ))}

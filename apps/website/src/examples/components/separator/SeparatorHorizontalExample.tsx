@@ -1,15 +1,18 @@
 import { Separator } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './SeparatorHorizontalExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.root!}>
-      <span>Account details</span>
+      <span>{t('examples.separator.copy.accountDetails')}</span>
       <Separator />
-      <span>Notification preferences</span>
+      <span>{t('examples.separator.copy.notificationPreferences')}</span>
       <Separator />
-      <span>Security settings</span>
+      <span>{t('examples.separator.copy.securitySettings')}</span>
     </div>
   );
 }

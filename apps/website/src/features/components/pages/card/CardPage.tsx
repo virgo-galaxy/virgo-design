@@ -1,6 +1,7 @@
 import './CardPage.scss';
 
 import { Button, Card } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -13,6 +14,8 @@ import { cardExamples } from '@/examples/components/card/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function CardPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board card-review">
@@ -20,25 +23,25 @@ export function CardPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Card</h1>
-            <p>Content structure backed by Surface tokens, without implicit interaction.</p>
+            <p>{t('components.card.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Variants</dt>
+                <dt>{t('components.card.facts.variants')}</dt>
                 <dd>02</dd>
               </div>
               <div>
-                <dt>Sizes</dt>
+                <dt>{t('components.card.facts.sizes')}</dt>
                 <dd>03</dd>
               </div>
               <div>
-                <dt>Slots</dt>
-                <dd>Header · Body · Footer</dd>
+                <dt>{t('components.card.facts.slots')}</dt>
+                <dd>{t('examples.card.copy.headerBodyFooter')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.card.specimen.referenceSpecimen')}</span>
               <code>header · body · footer</code>
             </div>
             <div className="hero-stage card-hero-stage">
@@ -47,21 +50,23 @@ export function CardPage() {
                   <Card.Header>
                     <Card.Title as="h3">Virgo Design</Card.Title>
                     <Card.Description>
-                      Structure a small, related block of content.
+                      {t('examples.card.copy.structureASmallRelatedBlockOfContent')}
                     </Card.Description>
                   </Card.Header>
-                  <Card.Body>Cards inherit Surface tokens and keep actions explicit.</Card.Body>
+                  <Card.Body>
+                    {t('examples.card.copy.cardsInheritSurfaceTokensAndKeepActionsExplicit')}
+                  </Card.Body>
                   <Card.Footer>
-                    <Button variant="text">Cancel</Button>
-                    <Button>Review</Button>
+                    <Button variant="text">{t('examples.card.copy.cancel')}</Button>
+                    <Button>{t('examples.card.copy.review')}</Button>
                   </Card.Footer>
                 </Card>
               </div>
             </div>
             <div className="specimen-caption">
-              <span>Surface-backed</span>
-              <span>Consumer-owned content</span>
-              <span>Explicit actions</span>
+              <span>{t('components.card.specimen.surfaceBacked')}</span>
+              <span>{t('components.card.specimen.consumerOwnedContent')}</span>
+              <span>{t('components.card.specimen.explicitActions')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -69,10 +74,8 @@ export function CardPage() {
         <ArticleSection
           id={'card-structure'}
           index={'01'}
-          title={'Basic and header'}
-          description={
-            'Card organizes related content; consumers choose the document heading level.'
-          }
+          title={t('components.card.structure.title')}
+          description={t('components.card.structure.description')}
         >
           <ComponentExample example={cardExamples.cardBasic} />
           <ComponentExample example={cardExamples.cardHeader} />
@@ -80,28 +83,24 @@ export function CardPage() {
         <ArticleSection
           id={'card-actions'}
           index={'02'}
-          title={'Footer actions'}
-          description={'Actions remain explicit controls composed into the Footer slot.'}
+          title={t('components.card.actions.title')}
+          description={t('components.card.actions.description')}
         >
           <ComponentExample example={cardExamples.cardActions} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'card-variants'}
           index={'03'}
-          title={'Outlined and elevated'}
-          description={
-            'Variants map directly to existing Surface border, tone, radius, and elevation tokens.'
-          }
+          title={t('components.card.variants.title')}
+          description={t('components.card.variants.description')}
         >
           <ComponentExample example={cardExamples.cardVariants} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'card-composition'}
           index={'04'}
-          title={'Avatar, Badge, and arbitrary composition'}
-          description={
-            'Card accepts normal children and does not constrain content to its own anatomy.'
-          }
+          title={t('components.card.composition.title')}
+          description={t('components.card.composition.description')}
         >
           <ComponentExample example={cardExamples.cardProfile} />
           <ComponentExample example={cardExamples.cardChildren} />

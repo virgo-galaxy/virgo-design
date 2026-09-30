@@ -1,9 +1,12 @@
 import { Button, Surface } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './SurfaceMaterialsExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [count, setCount] = useState(0);
   return (
     <div className={styles.root!}>
@@ -12,16 +15,16 @@ export default function App() {
           <div key={material} className={styles.stage2!}>
             <Surface material={material} radius={12} className={styles.surface!}>
               <strong>{material}</strong>
-              <span>Same scene. Different material.</span>
+              <span>{t('examples.surface.copy.sameSceneDifferentMaterial')}</span>
               <Button size="small" variant="outline" onClick={() => setCount((value) => value + 1)}>
-                Interact
+                {t('examples.surface.copy.interact')}
               </Button>
             </Surface>
           </div>
         ))}
       </div>
       <p role="status" className={styles.text!}>
-        Successful interactions: {count}
+        {t('examples.surface.copy.successfulInteractions')} {count}
       </p>
     </div>
   );

@@ -1,4 +1,5 @@
 import { Switch } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -11,6 +12,8 @@ import { switchExamples } from '@/examples/components/switch/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function SwitchPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board" id="switch-review">
@@ -18,37 +21,34 @@ export function SwitchPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Switch</h1>
-            <p>
-              Toggles an immediate binary state with a familiar pill control or a more technical
-              console-style fader appearance.
-            </p>
+            <p>{t('components.switch.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Appearances</dt>
+                <dt>{t('components.switch.facts.appearances')}</dt>
                 <dd>02</dd>
               </div>
               <div>
-                <dt>Sizes</dt>
+                <dt>{t('components.switch.facts.sizes')}</dt>
                 <dd>02</dd>
               </div>
               <div>
-                <dt>States</dt>
+                <dt>{t('components.switch.facts.states')}</dt>
                 <dd>03</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.switch.specimen.referenceSpecimen')}</span>
               <code>toggle · default</code>
             </div>
             <div className="hero-stage">
-              <Switch defaultChecked>Sync changes</Switch>
+              <Switch defaultChecked>{t('examples.switch.copy.syncChanges')}</Switch>
             </div>
             <div className="specimen-caption">
-              <span>44 × 24px</span>
-              <span>Body Medium</span>
-              <span>Native switch semantics</span>
+              <span>{t('examples.switch.copy.4424px')}</span>
+              <span>{t('examples.switch.copy.bodyMedium')}</span>
+              <span>{t('components.switch.specimen.nativeSwitchSemantics')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -56,30 +56,24 @@ export function SwitchPage() {
         <ArticleSection
           id={'switch-basic'}
           index={'01'}
-          title={'Basic'}
-          description={
-            'The standard pill switch communicates off and on state through thumb position and brand fill.'
-          }
+          title={t('components.switch.basic.title')}
+          description={t('components.switch.basic.description')}
         >
           <ComponentExample example={switchExamples.switchBasic} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'switch-sizes'}
           index={'02'}
-          title={'Sizes'}
-          description={
-            'Switch keeps a focused two-size scale: default for normal interfaces and small for dense controls.'
-          }
+          title={t('components.switch.sizes.title')}
+          description={t('components.switch.sizes.description')}
         >
           <ComponentExample example={switchExamples.switchSizes} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'switch-content'}
           index={'03'}
-          title={'Content'}
-          description={
-            'Toggle appearance can carry compact decorative cues without changing the accessible switch state.'
-          }
+          title={t('components.switch.content.title')}
+          description={t('components.switch.content.description')}
         >
           <ComponentExample example={switchExamples.switchText} />
           <ComponentExample example={switchExamples.switchIcons} />
@@ -87,20 +81,16 @@ export function SwitchPage() {
         <ArticleSection
           id={'switch-appearances'}
           index={'04'}
-          title={'Appearance'}
-          description={
-            'The fader keeps native switch semantics while using a thin console rail and a compact sliding control block.'
-          }
+          title={t('components.switch.appearances.title')}
+          description={t('components.switch.appearances.description')}
         >
           <ComponentExample example={switchExamples.switchAppearances} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'switch-disabled'}
           index={'05'}
-          title={'Disabled'}
-          description={
-            'Disabled preserves off and on state in both visual appearances without introducing another semantic mode.'
-          }
+          title={t('components.switch.disabled.title')}
+          description={t('components.switch.disabled.description')}
         >
           <ComponentExample example={switchExamples.switchDisabled} showCaption={false} />
         </ArticleSection>

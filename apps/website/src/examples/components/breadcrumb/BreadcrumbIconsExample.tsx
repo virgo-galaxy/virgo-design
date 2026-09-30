@@ -2,20 +2,23 @@ import './BreadcrumbIconsExample.module.scss';
 
 import { SearchIcon, SettingsIcon, UserIcon } from '@virgo-design/icons';
 import { Breadcrumb } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <Breadcrumb>
       <Breadcrumb.Item icon={<UserIcon />} href="#home">
-        Home
+        {t('examples.breadcrumb.copy.home')}
       </Breadcrumb.Item>
       <Breadcrumb.Item icon={<SettingsIcon />} href="#application-center">
-        Application Center
+        {t('examples.breadcrumb.copy.applicationCenter')}
       </Breadcrumb.Item>
       <Breadcrumb.Item icon={<SearchIcon />} href="#application-list">
-        Application List
+        {t('examples.breadcrumb.copy.applicationList')}
       </Breadcrumb.Item>
-      <Breadcrumb.Item>An Application</Breadcrumb.Item>
+      <Breadcrumb.Item>{t('examples.breadcrumb.copy.anApplication')}</Breadcrumb.Item>
     </Breadcrumb>
   );
 }

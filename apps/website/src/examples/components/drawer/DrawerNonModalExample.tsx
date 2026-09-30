@@ -1,31 +1,38 @@
 import { Button, Drawer } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './DrawerNonModalExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [clicks, setClicks] = useState(0);
   return (
     <div className={styles.root!}>
       <Drawer.Root modal={false}>
-        <Drawer.Trigger>Open non-modal inspector</Drawer.Trigger>
+        <Drawer.Trigger>{t('examples.drawer.copy.openNonModalInspector')}</Drawer.Trigger>
         <Drawer.Portal>
           <Drawer.Content placement="right" size="sm">
             <Drawer.Header>
-              <Drawer.Title>Inspector</Drawer.Title>
+              <Drawer.Title>{t('examples.drawer.copy.inspector')}</Drawer.Title>
               <Drawer.Description>
-                The canvas remains available behind this panel.
+                {t('examples.drawer.copy.theCanvasRemainsAvailableBehindThisPanel')}
               </Drawer.Description>
             </Drawer.Header>
-            <Drawer.Body>Inspect the selection without a modal overlay.</Drawer.Body>
-            <Drawer.Close />
+            <Drawer.Body>
+              {t('examples.drawer.copy.inspectTheSelectionWithoutAModalOverlay')}
+            </Drawer.Body>
+            <Drawer.Close aria-label={t('examples.drawer.copy.closeDrawer')} />
           </Drawer.Content>
         </Drawer.Portal>
       </Drawer.Root>
       <Button variant="outline" onClick={() => setClicks((n) => n + 1)}>
-        Canvas action
+        {t('examples.drawer.copy.canvasAction')}
       </Button>
-      <span role="status">Canvas actions: {clicks}</span>
+      <span role="status">
+        {t('examples.drawer.copy.canvasActions')} {clicks}
+      </span>
     </div>
   );
 }

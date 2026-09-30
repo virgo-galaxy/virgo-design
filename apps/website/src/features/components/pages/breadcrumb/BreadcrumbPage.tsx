@@ -1,4 +1,5 @@
 import { Breadcrumb } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -11,17 +12,25 @@ import { breadcrumbExamples } from '@/examples/components/breadcrumb/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 function BasicBreadcrumb() {
+  const { t } = useTranslation();
+
   return (
     <Breadcrumb>
-      <Breadcrumb.Item href="#home">Home</Breadcrumb.Item>
-      <Breadcrumb.Item href="#application-center">Application Center</Breadcrumb.Item>
-      <Breadcrumb.Item href="#application-list">Application List</Breadcrumb.Item>
-      <Breadcrumb.Item>An Application</Breadcrumb.Item>
+      <Breadcrumb.Item href="#home">{t('examples.breadcrumb.copy.home')}</Breadcrumb.Item>
+      <Breadcrumb.Item href="#application-center">
+        {t('examples.breadcrumb.copy.applicationCenter')}
+      </Breadcrumb.Item>
+      <Breadcrumb.Item href="#application-list">
+        {t('examples.breadcrumb.copy.applicationList')}
+      </Breadcrumb.Item>
+      <Breadcrumb.Item>{t('examples.breadcrumb.copy.anApplication')}</Breadcrumb.Item>
     </Breadcrumb>
   );
 }
 
 export function BreadcrumbPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board" id="breadcrumb-review">
@@ -29,37 +38,34 @@ export function BreadcrumbPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Breadcrumb</h1>
-            <p>
-              Communicates the current location within a hierarchy using native links, ordered-list
-              semantics, and a clearly identified current page.
-            </p>
+            <p>{t('components.breadcrumb.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Items</dt>
+                <dt>{t('components.breadcrumb.facts.items')}</dt>
                 <dd>ReactNode</dd>
               </div>
               <div>
-                <dt>Separator</dt>
-                <dd>Custom</dd>
+                <dt>{t('components.breadcrumb.facts.separator')}</dt>
+                <dd>{t('components.breadcrumb.facts.custom')}</dd>
               </div>
               <div>
-                <dt>Semantics</dt>
-                <dd>Native</dd>
+                <dt>{t('components.breadcrumb.facts.semantics')}</dt>
+                <dd>{t('components.breadcrumb.facts.native')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen breadcrumb-hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.breadcrumb.specimen.referenceSpecimen')}</span>
               <code>basic · slash</code>
             </div>
             <div className="hero-stage breadcrumb-hero-stage">
               <BasicBreadcrumb />
             </div>
             <div className="specimen-caption">
-              <span>Native links</span>
-              <span>Ordered path</span>
-              <span>Current page</span>
+              <span>{t('components.breadcrumb.specimen.nativeLinks')}</span>
+              <span>{t('components.breadcrumb.specimen.orderedPath')}</span>
+              <span>{t('components.breadcrumb.specimen.currentPage')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -67,40 +73,32 @@ export function BreadcrumbPage() {
         <ArticleSection
           id={'breadcrumb-basic'}
           index={'01'}
-          title={'Basic'}
-          description={
-            'Previous hierarchy levels are native links while the final item identifies the current page.'
-          }
+          title={t('components.breadcrumb.basic.title')}
+          description={t('components.breadcrumb.basic.description')}
         >
           <ComponentExample example={breadcrumbExamples.breadcrumbBasic} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'breadcrumb-icons'}
           index={'02'}
-          title={'Icons'}
-          description={
-            'Decorative icons can accompany item labels without changing the default separator or link semantics.'
-          }
+          title={t('components.breadcrumb.icons.title')}
+          description={t('components.breadcrumb.icons.description')}
         >
           <ComponentExample example={breadcrumbExamples.breadcrumbIcons} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'breadcrumb-separator'}
           index={'03'}
-          title={'Separator'}
-          description={
-            'Only the decorative separator changes; item content and hierarchy remain identical.'
-          }
+          title={t('components.breadcrumb.separator.title')}
+          description={t('components.breadcrumb.separator.description')}
         >
           <ComponentExample example={breadcrumbExamples.breadcrumbSeparator} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'breadcrumb-dynamic-value'}
           index={'04'}
-          title={'Dynamic Value'}
-          description={
-            'Runtime values render naturally through ReactNode item content without router integration.'
-          }
+          title={t('components.breadcrumb.dynamicValue.title')}
+          description={t('components.breadcrumb.dynamicValue.description')}
         >
           <ComponentExample example={breadcrumbExamples.breadcrumbDynamic} showCaption={false} />
         </ArticleSection>

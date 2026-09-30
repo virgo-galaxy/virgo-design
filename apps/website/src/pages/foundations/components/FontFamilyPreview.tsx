@@ -6,10 +6,7 @@ import styles from './font-family-preview.module.scss';
 
 const familyRoles = ['sans', 'mono'] as const;
 
-const specimens = {
-  sans: 'Virgo Design\nBuild tools that feel inevitable.',
-  mono: 'const virgo = "design";\n192.168.1.10:6300',
-} as const;
+const monoSpecimen = 'const virgo = "design";\n192.168.1.10:6300';
 
 export function FontFamilyPreview() {
   const { t } = useTranslation();
@@ -29,7 +26,7 @@ export function FontFamilyPreview() {
               <span>{t(`foundations.typography.fontFamilyRoles.${role}`)}</span>
               <h3>{definition.name}</h3>
             </header>
-            <p>{specimens[role]}</p>
+            <p>{role === 'sans' ? t('foundations.typography.fontFamilySpecimen') : monoSpecimen}</p>
             <div className={styles.stack}>
               <span>{t('foundations.typography.fontFamilyStack')}</span>
               <code>{definition.family}</code>

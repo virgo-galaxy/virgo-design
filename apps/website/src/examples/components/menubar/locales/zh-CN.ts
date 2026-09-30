@@ -1,0 +1,45 @@
+import type { LocaleOf } from '@/i18n/locale-types';
+
+import type { menubarExamplesEnUS } from './en-US';
+export const menubarExamplesZhCN = {
+  copy: {
+    actions: '操作',
+    new: '新建',
+    rename: '重命名',
+    paste: '粘贴',
+    export: '导出',
+    image: '图像',
+    share: '共享',
+    copyLink: '复制链接',
+    copySelection: '复制选区',
+    delete: '删除',
+    applicationActions: '应用操作',
+    file: '文件',
+    edit: '编辑',
+    undo: '撤销',
+    redo: '重做',
+    copy: '复制',
+    view: '视图',
+    showToolbar: '显示工具栏',
+    showGuides: '显示参考线',
+    help: '帮助',
+    shortcutLabelsAreDisplayOnlyThisDemoDoesNotBind: '快捷键标签仅用于显示，此演示不绑定全局按键。',
+    applicationMenus: '应用菜单',
+    arrowKeysSwitchGroupsItemActionsAndPersistentPreferencesShare:
+      '方向键切换分组；项目操作与持续生效偏好共享菜单协议。',
+  },
+  details: {
+    new: '新建',
+    rename: '重命名',
+    exportPdf: '导出 PDF',
+    exportPng: '导出 PNG',
+    exportSvg: '导出 SVG',
+    copyLink: '复制链接',
+    copySelection: '复制选区',
+    delete: '删除',
+    chooseAnApplicationAction: '请选择应用操作。',
+    undo: '撤销',
+    redo: '重做',
+    copy: '复制',
+  },
+} satisfies LocaleOf<typeof menubarExamplesEnUS>;

@@ -1,27 +1,32 @@
 import { LayoutIcon } from '@virgo-design/icons';
 import { Button, Empty } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './EmptyActionExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [created, setCreated] = useState(false);
   return created ? (
     <div className={styles.root!}>
-      <p role="status">Document created.</p>
+      <p role="status">{t('examples.empty.copy.documentCreated')}</p>
       <Button variant="outline" onClick={() => setCreated(false)}>
-        Reset example
+        {t('examples.empty.copy.resetExample')}
       </Button>
     </div>
   ) : (
-    <Empty aria-label="Documents empty state">
+    <Empty aria-label={t('examples.empty.copy.documentsEmptyState')}>
       <Empty.Icon>
         <LayoutIcon />
       </Empty.Icon>
-      <Empty.Title>No documents</Empty.Title>
-      <Empty.Description>Create your first document to get started.</Empty.Description>
+      <Empty.Title>{t('examples.empty.copy.noDocuments')}</Empty.Title>
+      <Empty.Description>
+        {t('examples.empty.copy.createYourFirstDocumentToGetStarted')}
+      </Empty.Description>
       <Empty.Action>
-        <Button onClick={() => setCreated(true)}>Create document</Button>
+        <Button onClick={() => setCreated(true)}>{t('examples.empty.copy.createDocument')}</Button>
       </Empty.Action>
     </Empty>
   );

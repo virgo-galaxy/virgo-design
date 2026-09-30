@@ -1,0 +1,55 @@
+export const drawerExamplesEnUS = {
+  copy: {
+    closeDrawer: 'Close drawer',
+    openInspectorAnatomy: 'Open inspector anatomy',
+    inspectorAnatomy: 'Inspector anatomy',
+    scrollTheBodyToReviewAllFields: 'Scroll the body to review all fields.',
+    inspectorField: 'Inspector field',
+    aDetailForTheCurrentSelection: ': a detail for the current selection.',
+    cancel: 'Cancel',
+    done: 'Done',
+    editWorkspace: 'Edit workspace',
+    workspaceDetails: 'Workspace details',
+    updateTheNameShownThroughoutTheWorkspace: 'Update the name shown throughout the workspace.',
+    workspaceName: 'Workspace name',
+    saveChanges: 'Save changes',
+    workspace: 'Workspace:',
+    openNonModalInspector: 'Open non-modal inspector',
+    inspector: 'Inspector',
+    theCanvasRemainsAvailableBehindThisPanel: 'The canvas remains available behind this panel.',
+    inspectTheSelectionWithoutAModalOverlay: 'Inspect the selection without a modal overlay.',
+    canvasAction: 'Canvas action',
+    canvasActions: 'Canvas actions:',
+    open: 'Open',
+    a: 'A',
+    panelEnteringFromThe: 'panel entering from the',
+    edge: 'edge.',
+    drawerBehaviorFocusAndDismissalComeDirectlyFromTheDialog:
+      'Drawer behavior, focus, and dismissal come directly from the Dialog primitive.',
+    screenEdges: 'Screen edges',
+    eachDrawerIsIndependentlyTriggeredFromOnePhysicalEdge:
+      'Each drawer is independently triggered from one physical edge.',
+    panelSizes: 'Panel sizes',
+    sideDrawersUseWidthTopAndBottomDrawersUseHeight:
+      'Side drawers use width; top and bottom drawers use height.',
+    scrollableBody: 'Scrollable body',
+    headerAndFooterStayStableAroundAnIndependentlyScrollingBody:
+      'Header and footer stay stable around an independently scrolling body.',
+    controlledForm: 'Controlled form',
+    saveHandlesTheFormAndThenClosesThisDrawerOnly:
+      'Save handles the form and then closes this drawer only.',
+    nonModalInspector: 'Non-modal inspector',
+    keepTheSurroundingWorkspaceDirectlyInteractive:
+      'Keep the surrounding workspace directly interactive.',
+    openSettings: 'Open settings',
+    workspaceSettings: 'Workspace settings',
+    configurePreferencesForThisWorkspace: 'Configure preferences for this workspace.',
+    compactNavigation: 'Compact navigation',
+    useLessSpaceForPrimaryNavigation: 'Use less space for primary navigation.',
+    save: 'Save',
+  },
+  details: {
+    virgoWorkspace: 'Virgo workspace',
+    valueDrawer: '{{v0}} drawer',
+  },
+} as const;

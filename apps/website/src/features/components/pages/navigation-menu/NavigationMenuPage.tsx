@@ -2,6 +2,7 @@ import './NavigationMenuPage.scss';
 
 import { BotIcon, DashboardIcon, GlobeIcon } from '@virgo-design/icons';
 import { NavigationMenu } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -14,31 +15,51 @@ import { navigationMenuExamples } from '@/examples/components/navigation-menu/ex
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 function HeaderPopoverNavigation() {
+  const { t } = useTranslation();
+
   return (
-    <NavigationMenu.Root aria-label="Header navigation" defaultValue="home" submenu="popover">
+    <NavigationMenu.Root
+      aria-label={t('examples.navigationMenu.copy.headerNavigation')}
+      defaultValue="home"
+      submenu="popover"
+    >
       <NavigationMenu.List>
         <NavigationMenu.Item value="home">
-          <NavigationMenu.Link href="#navigation-home">Home</NavigationMenu.Link>
+          <NavigationMenu.Link href="#navigation-home">
+            {t('examples.navigationMenu.copy.home')}
+          </NavigationMenu.Link>
         </NavigationMenu.Item>
         <NavigationMenu.Item value="products">
-          <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
+          <NavigationMenu.Trigger>
+            {t('examples.navigationMenu.copy.products')}
+          </NavigationMenu.Trigger>
           <NavigationMenu.Content>
             <NavigationMenu.Item value="cloud" icon={<GlobeIcon />}>
-              <NavigationMenu.Link href="#navigation-cloud">Cloud</NavigationMenu.Link>
+              <NavigationMenu.Link href="#navigation-cloud">
+                {t('examples.navigationMenu.copy.cloud')}
+              </NavigationMenu.Link>
             </NavigationMenu.Item>
             <NavigationMenu.Item value="storage" icon={<DashboardIcon />}>
-              <NavigationMenu.Link href="#navigation-storage">Storage</NavigationMenu.Link>
+              <NavigationMenu.Link href="#navigation-storage">
+                {t('examples.navigationMenu.copy.storage')}
+              </NavigationMenu.Link>
             </NavigationMenu.Item>
             <NavigationMenu.Item value="ai" icon={<BotIcon />}>
-              <NavigationMenu.Link href="#navigation-ai">AI</NavigationMenu.Link>
+              <NavigationMenu.Link href="#navigation-ai">
+                {t('examples.navigationMenu.copy.ai')}
+              </NavigationMenu.Link>
             </NavigationMenu.Item>
           </NavigationMenu.Content>
         </NavigationMenu.Item>
         <NavigationMenu.Item value="docs">
-          <NavigationMenu.Link href="#navigation-docs">Docs</NavigationMenu.Link>
+          <NavigationMenu.Link href="#navigation-docs">
+            {t('examples.navigationMenu.copy.docs')}
+          </NavigationMenu.Link>
         </NavigationMenu.Item>
         <NavigationMenu.Item value="about">
-          <NavigationMenu.Link href="#navigation-about">About</NavigationMenu.Link>
+          <NavigationMenu.Link href="#navigation-about">
+            {t('examples.navigationMenu.copy.about')}
+          </NavigationMenu.Link>
         </NavigationMenu.Item>
       </NavigationMenu.List>
     </NavigationMenu.Root>
@@ -46,6 +67,8 @@ function HeaderPopoverNavigation() {
 }
 
 export function NavigationMenuPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board navigation-menu-review" id="navigation-menu-review">
@@ -53,37 +76,34 @@ export function NavigationMenuPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>NavigationMenu</h1>
-            <p>
-              Navigation semantics for horizontal links, vertical destinations, and nested
-              disclosure without owning routes or application shell layout.
-            </p>
+            <p>{t('components.navigationMenu.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Orientations</dt>
+                <dt>{t('components.navigationMenu.facts.orientations')}</dt>
                 <dd>02</dd>
               </div>
               <div>
-                <dt>Variant</dt>
+                <dt>{t('components.navigationMenu.facts.variant')}</dt>
                 <dd>02</dd>
               </div>
               <div>
-                <dt>Themes</dt>
+                <dt>{t('components.navigationMenu.facts.themes')}</dt>
                 <dd>02</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.navigationMenu.specimen.referenceSpecimen')}</span>
               <code>horizontal · popover</code>
             </div>
             <div className="hero-stage navigation-menu-hero-stage">
               <HeaderPopoverNavigation />
             </div>
             <div className="specimen-caption">
-              <span>Hover and focus</span>
-              <span>Shared layer system</span>
-              <span>Keyboard navigation</span>
+              <span>{t('components.navigationMenu.specimen.hoverAndFocus')}</span>
+              <span>{t('components.navigationMenu.specimen.sharedLayerSystem')}</span>
+              <span>{t('components.navigationMenu.specimen.keyboardNavigation')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -91,10 +111,8 @@ export function NavigationMenuPage() {
         <ArticleSection
           id={'navigation-orientations'}
           index={'01'}
-          title={'Navigation orientations'}
-          description={
-            'The same item model supports a compact top row or a vertical destination list.'
-          }
+          title={t('components.navigationMenu.navigationOrientations.title')}
+          description={t('components.navigationMenu.navigationOrientations.description')}
         >
           <ComponentExample example={navigationMenuExamples.navigationHorizontal} />
           <ComponentExample example={navigationMenuExamples.navigationVertical} />
@@ -102,10 +120,8 @@ export function NavigationMenuPage() {
         <ArticleSection
           id={'navigation-segmented'}
           index={'02'}
-          title={'Segmented navigation'}
-          description={
-            'A compact surface groups peer destinations while keeping navigation semantics and link behavior.'
-          }
+          title={t('components.navigationMenu.navigationSegmented.title')}
+          description={t('components.navigationMenu.navigationSegmented.description')}
         >
           <ComponentExample example={navigationMenuExamples.navigationSegmented} />
           <ComponentExample example={navigationMenuExamples.navigationSegmentedIcons} />
@@ -113,10 +129,8 @@ export function NavigationMenuPage() {
         <ArticleSection
           id={'navigation-popover'}
           index={'03'}
-          title={'Hover submenu'}
-          description={
-            'Hover a navigation item to open its destinations beside it. Move into a submenu to explore another level.'
-          }
+          title={t('components.navigationMenu.navigationPopover.title')}
+          description={t('components.navigationMenu.navigationPopover.description')}
         >
           <ComponentExample
             example={navigationMenuExamples.navigationPopover}
@@ -126,18 +140,16 @@ export function NavigationMenuPage() {
         <ArticleSection
           id={'navigation-nested'}
           index={'04'}
-          title={'Nested navigation'}
-          description={
-            'A disclosure trigger reveals related destinations in document flow and keeps navigation semantics intact.'
-          }
+          title={t('components.navigationMenu.navigationNested.title')}
+          description={t('components.navigationMenu.navigationNested.description')}
         >
           <ComponentExample example={navigationMenuExamples.navigationNested} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id="navigation-grouped"
           index="05"
-          title="Grouped navigation"
-          description="Organize related destinations with Group and GroupLabel. Each group keeps its own keyboard navigation scope."
+          title={t('components.navigationMenu.navigationGrouped.title')}
+          description={t('components.navigationMenu.navigationGrouped.description')}
         >
           <ComponentExample
             example={navigationMenuExamples.navigationGrouped}

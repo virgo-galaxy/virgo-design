@@ -1,0 +1,21 @@
+export const componentExampleEnUS = {
+  componentExample: {
+    openInNewWindow: 'Open in new window',
+    openNamedInNewWindow: 'Open {{title}} in new window',
+    viewSource: 'View source',
+    hideSource: 'Hide source',
+    viewSourceFor: 'View source for {{title}}',
+    hideSourceFor: 'Hide source for {{title}}',
+    sourceFiles: '{{title}} source files',
+    copySource: 'Copy source',
+    copySourceFor: 'Copy source for {{title}}',
+    copied: 'Copied',
+    copyFailedTryAgain: 'Copy failed — try again',
+    copyingSource: 'Copying source…',
+    copyFailedManual: 'Copy failed. Select the source below and copy it manually.',
+    reactSourceCodeFor: 'React source code for {{title}}',
+    scssSourceCodeFor: 'SCSS source code for {{title}}',
+    expandAll: 'Expand all',
+    collapseAll: 'Collapse all',
+  },
+} as const;

@@ -47,9 +47,12 @@
 
 .detailHero h1 {
   margin: 0;
-  font-size: clamp(48px, 7vw, 76px);
-  line-height: 0.96;
-  letter-spacing: -0.055em;
+  font-family: var(--vd-typography-ui-display-medium-font-family);
+  font-size: var(--vd-typography-ui-display-medium-font-size);
+  font-weight: var(--vd-typography-ui-display-medium-font-weight);
+  line-height: var(--vd-typography-ui-display-medium-line-height);
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
 }
 
 .detailHero > p {

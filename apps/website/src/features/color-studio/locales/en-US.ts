@@ -1,5 +1,6 @@
 export const colorStudioEnUS = {
   colorStudio: {
+    picker: { open: 'Open color picker', title: 'Color picker' },
     hero: {
       eyebrow: '01 · CREATE',
       title: 'Color Studio',

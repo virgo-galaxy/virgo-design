@@ -90,6 +90,7 @@ describe('ShapeScalePreview', () => {
   it.each([
     {
       locale: 'en-US',
+      eyebrow: 'SCALE PREVIEW',
       title: 'Scale preview',
       small: 'Small shape radius',
       medium: 'Medium surface radius',
@@ -98,6 +99,7 @@ describe('ShapeScalePreview', () => {
     },
     {
       locale: 'zh-CN',
+      eyebrow: '尺度预览',
       title: '尺度预览',
       small: '小型形状圆角',
       medium: '中型表面圆角',
@@ -106,7 +108,7 @@ describe('ShapeScalePreview', () => {
     },
   ])(
     'uses neutral documentation language in $locale',
-    ({ locale, title, small, medium, full, disclaimer }) => {
+    ({ locale, eyebrow, title, small, medium, full, disclaimer }) => {
       const localizedI18n = i18nInstance.cloneInstance({ lng: locale });
       const { container } = render(
         <I18nextProvider i18n={localizedI18n}>
@@ -114,7 +116,7 @@ describe('ShapeScalePreview', () => {
         </I18nextProvider>,
       );
 
-      expect(localizedI18n.t('foundations.shapeDepth.preview.eyebrow')).toBe('SCALE PREVIEW');
+      expect(localizedI18n.t('foundations.shapeDepth.preview.eyebrow')).toBe(eyebrow);
       expect(localizedI18n.t('foundations.shapeDepth.preview.title')).toBe(title);
       expect(within(container).getByText(disclaimer)).toBeTruthy();
       for (const name of [small, medium, full]) {

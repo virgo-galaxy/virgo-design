@@ -1,9 +1,12 @@
 import { Button, Toast, type ToastIntent } from '@virgo-design/ui';
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './ToastIntentsExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [toasts, setToasts] = useState<Array<{ id: number; intent: ToastIntent }>>([]);
   const nextId = useRef(1);
   const addToast = (intent: ToastIntent) => {
@@ -17,11 +20,14 @@ export default function App() {
         <div className={styles.stage!}>
           {(['default', 'success', 'warning', 'error', 'info'] as const).map((intent) => (
             <Button key={intent} variant="outline" onClick={() => addToast(intent)}>
-              Show {intent}
+              {t('examples.toast.copy.show')} {intent}
             </Button>
           ))}
         </div>
-        <Toast.Viewport aria-label="Status notifications" className={styles.viewport!} />
+        <Toast.Viewport
+          aria-label={t('examples.toast.copy.statusNotifications')}
+          className={styles.viewport!}
+        />
       </div>
       {toasts.map((toast) => (
         <Toast.Root
@@ -32,11 +38,14 @@ export default function App() {
             if (!open) setToasts((current) => current.filter((item) => item.id !== toast.id));
           }}
         >
-          <Toast.Title>{toast.intent === 'default' ? 'Notification' : toast.intent}</Toast.Title>
+          <Toast.Title>
+            {toast.intent === 'default' ? t('examples.toast.details.notification') : toast.intent}
+          </Toast.Title>
           <Toast.Description>
-            Notification #{toast.id} uses semantic status tokens.
+            {t('examples.toast.copy.notification')} {toast.id}{' '}
+            {t('examples.toast.copy.usesSemanticStatusTokens')}
           </Toast.Description>
-          <Toast.Close />
+          <Toast.Close aria-label={t('examples.toast.copy.dismissNotification')} />
         </Toast.Root>
       ))}
     </Toast.Provider>

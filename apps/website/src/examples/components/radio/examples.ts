@@ -1,4 +1,5 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
+import { createExampleSource } from '@/examples/components/create-example-source';
 
 import RadioBasicExample from './RadioBasicExample';
 import radioBasicStyles from './RadioBasicExample.module.scss?virgo-raw';
@@ -17,33 +18,43 @@ export const radioExamples = {
   radioBasic: {
     id: 'radio-basic',
     title: 'Native radio selection',
+    titleTranslationKey: 'examples.radio.copy.nativeRadioSelection',
     description: 'A native name groups mutually exclusive options.',
+    descriptionTranslationKey: 'examples.radio.copy.aNativeNameGroupsMutuallyExclusiveOptions',
     Component: RadioBasicExample,
-    source: radioBasicSource,
+    source: createExampleSource(radioBasicSource),
     styleSource: radioBasicStyles,
   },
   radioHorizontal: {
     id: 'radio-horizontal',
     title: 'Horizontal group',
+    titleTranslationKey: 'examples.radio.copy.horizontalGroup',
     description: 'Group choices without changing single-selection semantics.',
+    descriptionTranslationKey:
+      'examples.radio.copy.groupChoicesWithoutChangingSingleSelectionSemantics',
     Component: RadioHorizontalExample,
-    source: radioHorizontalSource,
+    source: createExampleSource(radioHorizontalSource),
     styleSource: radioHorizontalStyles,
   },
   radioVertical: {
     id: 'radio-vertical',
     title: 'Vertical group',
+    titleTranslationKey: 'examples.radio.copy.verticalGroup',
     description: 'Group choices without changing single-selection semantics.',
+    descriptionTranslationKey:
+      'examples.radio.copy.groupChoicesWithoutChangingSingleSelectionSemantics',
     Component: RadioVerticalExample,
-    source: radioVerticalSource,
+    source: createExampleSource(radioVerticalSource),
     styleSource: radioVerticalStyles,
   },
   radioDisabled: {
     id: 'radio-disabled',
     title: 'Disabled selection',
+    titleTranslationKey: 'examples.radio.copy.disabledSelection',
     description: 'Disabled options preserve their selection state.',
+    descriptionTranslationKey: 'examples.radio.copy.disabledOptionsPreserveTheirSelectionState',
     Component: RadioDisabledExample,
-    source: radioDisabledSource,
+    source: createExampleSource(radioDisabledSource),
     styleSource: radioDisabledStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

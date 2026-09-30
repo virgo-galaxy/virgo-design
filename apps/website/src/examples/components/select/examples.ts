@@ -1,4 +1,5 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
+import { createExampleSource } from '@/examples/components/create-example-source';
 
 import SelectContentExample from './SelectContentExample';
 import selectContentStyles from './SelectContentExample.module.scss?virgo-raw';
@@ -23,49 +24,65 @@ export const selectExamples = {
   selectSizes: {
     id: 'select-sizes',
     title: 'Trigger sizes',
+    titleTranslationKey: 'examples.select.copy.triggerSizes',
     description: 'The listbox follows the trigger’s density.',
+    descriptionTranslationKey: 'examples.select.copy.theListboxFollowsTheTriggerSDensity',
     Component: SelectSizesExample,
-    source: selectSizesSource,
+    source: createExampleSource(selectSizesSource),
     styleSource: selectSizesStyles,
   },
   selectContent: {
     id: 'select-content',
     title: 'Placeholder and value',
+    titleTranslationKey: 'examples.select.copy.placeholderAndValue',
     description: 'The selected option is the source of the trigger’s display text.',
+    descriptionTranslationKey: 'examples.select.copy.theSelectedOptionIsTheSourceOfTheTriggerS',
     Component: SelectContentExample,
-    source: selectContentSource,
+    source: createExampleSource(selectContentSource),
     styleSource: selectContentStyles,
   },
   selectStates: {
     id: 'select-states',
     title: 'Selection states',
+    titleTranslationKey: 'examples.select.copy.selectionStates',
     description: 'Default, disabled, and invalid triggers retain the same listbox model.',
+    descriptionTranslationKey:
+      'examples.select.copy.defaultDisabledAndInvalidTriggersRetainTheSameListboxModel',
     Component: SelectStatesExample,
-    source: selectStatesSource,
+    source: createExampleSource(selectStatesSource),
     styleSource: selectStatesStyles,
   },
   selectDisabledOption: {
     id: 'select-disabled-option',
     title: 'Disabled options',
+    titleTranslationKey: 'examples.select.copy.disabledOptions',
     description: 'Keep an unavailable destination in context without allowing selection.',
+    descriptionTranslationKey:
+      'examples.select.copy.keepAnUnavailableDestinationInContextWithoutAllowingSelection',
     Component: SelectDisabledOptionExample,
-    source: selectDisabledOptionSource,
+    source: createExampleSource(selectDisabledOptionSource),
     styleSource: selectDisabledOptionStyles,
   },
   selectLongContent: {
     id: 'select-long-content',
     title: 'Long content',
+    titleTranslationKey: 'examples.select.copy.longContent',
     description: 'Constrain the trigger while preserving complete option labels.',
+    descriptionTranslationKey:
+      'examples.select.copy.constrainTheTriggerWhilePreservingCompleteOptionLabels',
     Component: SelectLongContentExample,
-    source: selectLongContentSource,
+    source: createExampleSource(selectLongContentSource),
     styleSource: selectLongContentStyles,
   },
   selectKeyboard: {
     id: 'select-keyboard',
     title: 'Keyboard selection',
+    titleTranslationKey: 'examples.select.copy.keyboardSelection',
     description: 'Focus the trigger; use ArrowDown, Home/End, Enter, and Escape.',
+    descriptionTranslationKey:
+      'examples.select.copy.focusTheTriggerUseArrowdownHomeEndEnterAndEscape',
     Component: SelectKeyboardExample,
-    source: selectKeyboardSource,
+    source: createExampleSource(selectKeyboardSource),
     styleSource: selectKeyboardStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

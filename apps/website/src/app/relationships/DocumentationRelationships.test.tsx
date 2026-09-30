@@ -1,3 +1,5 @@
+import '@/i18n/runtime';
+
 import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';

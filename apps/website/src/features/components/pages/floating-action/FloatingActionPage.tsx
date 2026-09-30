@@ -1,6 +1,7 @@
 import { CircleInfoIcon } from '@virgo-design/icons';
 import { FloatingAction } from '@virgo-design/ui';
 import { floatingActionMetadata } from '@virgo-design/ui/metadata';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -13,6 +14,8 @@ import { floatingActionExamples } from '@/examples/components/floating-action/ex
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function FloatingActionPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board floating-action-review" id="floating-action-review">
@@ -20,36 +23,36 @@ export function FloatingActionPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>{floatingActionMetadata.name}</h1>
-            <p>{floatingActionMetadata.description}</p>
+            <p>{t('components.floatingAction.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Parts</dt>
+                <dt>{t('components.floatingAction.facts.parts')}</dt>
                 <dd>{String(floatingActionMetadata.anatomy.length).padStart(2, '0')}</dd>
               </div>
               <div>
-                <dt>States</dt>
+                <dt>{t('components.floatingAction.facts.states')}</dt>
                 <dd>{String(floatingActionMetadata.states.length).padStart(2, '0')}</dd>
               </div>
               <div>
-                <dt>Patterns</dt>
+                <dt>{t('components.floatingAction.facts.patterns')}</dt>
                 <dd>{String(Object.keys(floatingActionExamples).length).padStart(2, '0')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.floatingAction.specimen.referenceSpecimen')}</span>
               <code>standalone · primary</code>
             </div>
             <div className="hero-stage">
-              <FloatingAction variant="primary" aria-label="Help">
+              <FloatingAction variant="primary" aria-label={t('examples.floatingAction.copy.help')}>
                 <CircleInfoIcon />
               </FloatingAction>
             </div>
             <div className="specimen-caption">
-              <span>Button semantics</span>
-              <span>Circular shape</span>
-              <span>Token elevation</span>
+              <span>{t('components.floatingAction.specimen.buttonSemantics')}</span>
+              <span>{t('components.floatingAction.specimen.circularShape')}</span>
+              <span>{t('components.floatingAction.specimen.tokenElevation')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -57,10 +60,8 @@ export function FloatingActionPage() {
         <ArticleSection
           id={'floating-action-basic'}
           index={'01'}
-          title={'Basic'}
-          description={
-            'Standalone actions reuse Virgo Button variants, sizing, keyboard activation and disabled behavior.'
-          }
+          title={t('components.floatingAction.basic.title')}
+          description={t('components.floatingAction.basic.description')}
         >
           <ComponentExample example={floatingActionExamples.floatingActionVariants} />
           <ComponentExample example={floatingActionExamples.floatingActionDisabled} />
@@ -68,10 +69,8 @@ export function FloatingActionPage() {
         <ArticleSection
           id={'floating-action-group'}
           index={'02'}
-          title={'Button and Popover composition'}
-          description={
-            'Group, Trigger and Content combine circular Button actions with Popover open state, focus handling and dismissal.'
-          }
+          title={t('components.floatingAction.group.title')}
+          description={t('components.floatingAction.group.description')}
         >
           <ComponentExample
             example={floatingActionExamples.floatingActionGroup}
@@ -81,10 +80,8 @@ export function FloatingActionPage() {
         <ArticleSection
           id={'floating-action-placement'}
           index={'03'}
-          title={'Popover placement'}
-          description={
-            'Grouped actions inherit Popover placement. Standalone positioning remains the responsibility of the containing layout.'
-          }
+          title={t('components.floatingAction.placement.title')}
+          description={t('components.floatingAction.placement.description')}
         >
           <ComponentExample
             example={floatingActionExamples.floatingActionPlacement}

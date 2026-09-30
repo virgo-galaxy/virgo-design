@@ -2,6 +2,7 @@ import './CommandPage.scss';
 
 import { DashboardIcon, LayoutIcon, SettingsIcon } from '@virgo-design/icons';
 import { Command } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -14,10 +15,12 @@ import { commandExamples } from '@/examples/components/command/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 function CommandItems({ select }: { select: (value: string) => void }) {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Command.Empty>No matching commands.</Command.Empty>
-      <Command.Group heading="Workspace">
+      <Command.Empty>{t('examples.command.copy.noMatchingCommands')}</Command.Empty>
+      <Command.Group heading={t('examples.command.details.workspace')}>
         <Command.Item
           value="open-dashboard"
           keywords={['home']}
@@ -25,7 +28,7 @@ function CommandItems({ select }: { select: (value: string) => void }) {
           shortcut="G D"
           onSelect={select}
         >
-          Open dashboard
+          {t('examples.command.copy.openDashboard')}
         </Command.Item>
         <Command.Item
           value="switch-workspace"
@@ -33,11 +36,11 @@ function CommandItems({ select }: { select: (value: string) => void }) {
           shortcut="⌘ W"
           onSelect={select}
         >
-          Switch workspace
+          {t('examples.command.copy.switchWorkspace')}
         </Command.Item>
       </Command.Group>
       <Command.Separator />
-      <Command.Group heading="Settings">
+      <Command.Group heading={t('examples.command.details.settings')}>
         <Command.Item
           value="preferences"
           keywords={['settings']}
@@ -45,10 +48,10 @@ function CommandItems({ select }: { select: (value: string) => void }) {
           shortcut="⌘ ,"
           onSelect={select}
         >
-          Open preferences
+          {t('examples.command.copy.openPreferences')}
         </Command.Item>
         <Command.Item value="unavailable" disabled>
-          Unavailable command
+          {t('examples.command.copy.unavailableCommand')}
         </Command.Item>
       </Command.Group>
     </>
@@ -56,6 +59,8 @@ function CommandItems({ select }: { select: (value: string) => void }) {
 }
 
 export function CommandPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board command-review">
@@ -63,41 +68,42 @@ export function CommandPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Command</h1>
-            <p>
-              Search application actions, keep focus in one input, and execute the active result.
-            </p>
+            <p>{t('components.command.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Modes</dt>
-                <dd>Inline · Dialog</dd>
+                <dt>{t('components.command.facts.modes')}</dt>
+                <dd>{t('components.command.facts.inlineDialog')}</dd>
               </div>
               <div>
-                <dt>Search</dt>
-                <dd>Built-in</dd>
+                <dt>{t('components.command.facts.search')}</dt>
+                <dd>{t('components.command.facts.builtIn')}</dd>
               </div>
               <div>
-                <dt>Results</dt>
-                <dd>Grouped</dd>
+                <dt>{t('components.command.facts.results')}</dt>
+                <dd>{t('components.command.facts.grouped')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.command.specimen.referenceSpecimen')}</span>
               <code>inline · grouped · searchable</code>
             </div>
             <div className="hero-stage">
               <Command className="command-demo">
-                <Command.Input aria-label="Hero command search" placeholder="Search commands…" />
+                <Command.Input
+                  aria-label={t('examples.command.copy.heroCommandSearch')}
+                  placeholder={t('examples.command.copy.searchCommands')}
+                />
                 <Command.List>
                   <CommandItems select={() => {}} />
                 </Command.List>
               </Command>
             </div>
             <div className="specimen-caption">
-              <span>Single input</span>
-              <span>Grouped results</span>
-              <span>Keyboard-first</span>
+              <span>{t('components.command.specimen.singleInput')}</span>
+              <span>{t('components.command.specimen.groupedResults')}</span>
+              <span>{t('components.command.specimen.keyboardFirst')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -105,28 +111,24 @@ export function CommandPage() {
         <ArticleSection
           id={'command-inline'}
           index={'01'}
-          title={'Inline command list'}
-          description={
-            'Type settings or home. Arrow keys change the active option; Enter selects it.'
-          }
+          title={t('components.command.inline.title')}
+          description={t('components.command.inline.description')}
         >
           <ComponentExample example={commandExamples.commandInline} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'command-dialog'}
           index={'02'}
-          title={'Dialog palette'}
-          description={
-            'Open with the button, or focus this example and press ⌘/Ctrl K. The shortcut does not intercept keys elsewhere on the page.'
-          }
+          title={t('components.command.dialog.title')}
+          description={t('components.command.dialog.description')}
         >
           <ComponentExample example={commandExamples.commandDialog} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'command-filter'}
           index={'03'}
-          title={'Custom filter'}
-          description={'This list only matches the beginning of each command value.'}
+          title={t('components.command.filter.title')}
+          description={t('components.command.filter.description')}
         >
           <ComponentExample example={commandExamples.commandFilter} showCaption={false} />
         </ArticleSection>

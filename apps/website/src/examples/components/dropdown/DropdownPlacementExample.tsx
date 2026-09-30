@@ -1,5 +1,8 @@
 import { Dropdown, Switch } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import styles from './DropdownPlacementExample.module.scss';
 
@@ -19,32 +22,38 @@ const placements = [
 ] as const;
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [arrow, setArrow] = useState(true);
   const [action, setAction] = useState('Choose a positioned action.');
   return (
     <div className={styles.root!}>
       <Switch checked={arrow} onCheckedChange={setArrow}>
-        Show arrow
+        {t('examples.dropdown.copy.showArrow')}
       </Switch>
-      <div className={styles.stage!} role="group" aria-label="Twelve placements">
+      <div
+        className={styles.stage!}
+        role="group"
+        aria-label={t('examples.dropdown.copy.twelvePlacements')}
+      >
         {placements.map((placement) => (
           <Dropdown key={placement} className={styles[placement]!} size="small">
             <Dropdown.Trigger indicator={false}>{placement}</Dropdown.Trigger>
             <Dropdown.Content placement={placement} arrow={arrow}>
               <Dropdown.Item onSelect={() => setAction(`${placement}: first item selected`)}>
-                First menu item
+                {t('examples.dropdown.copy.firstMenuItem')}
               </Dropdown.Item>
               <Dropdown.Item onSelect={() => setAction(`${placement}: second item selected`)}>
-                Second menu item
+                {t('examples.dropdown.copy.secondMenuItem')}
               </Dropdown.Item>
               <Dropdown.Item onSelect={() => setAction(`${placement}: third item selected`)}>
-                Third menu item
+                {t('examples.dropdown.copy.thirdMenuItem')}
               </Dropdown.Item>
             </Dropdown.Content>
           </Dropdown>
         ))}
       </div>
-      <span role="status">{action}</span>
+      <span role="status">{translateExampleText(t, 'dropdown', action)}</span>
     </div>
   );
 }

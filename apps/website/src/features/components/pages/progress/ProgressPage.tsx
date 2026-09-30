@@ -1,6 +1,7 @@
 import './ProgressPage.scss';
 
 import { Progress } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -13,6 +14,8 @@ import { progressExamples } from '@/examples/components/progress/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function ProgressPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board progress-review">
@@ -20,43 +23,47 @@ export function ProgressPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Progress</h1>
-            <p>Determinate progress for tasks with a known completion amount.</p>
+            <p>{t('components.progress.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>State</dt>
-                <dd>Determinate</dd>
+                <dt>{t('components.progress.facts.state')}</dt>
+                <dd>{t('components.progress.facts.determinate')}</dd>
               </div>
               <div>
-                <dt>Sizes</dt>
+                <dt>{t('components.progress.facts.sizes')}</dt>
                 <dd>03</dd>
               </div>
               <div>
-                <dt>Intents</dt>
+                <dt>{t('components.progress.facts.intents')}</dt>
                 <dd>04</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.progress.specimen.referenceSpecimen')}</span>
               <code>value · label · showValue</code>
             </div>
             <div className="hero-stage">
               <div className="progress-stack">
-                <Progress value={72} label="Deploying design tokens" showValue />
+                <Progress
+                  value={72}
+                  label={t('examples.progress.copy.deployingDesignTokens')}
+                  showValue
+                />
                 <Progress
                   value={3}
                   max={4}
                   intent="success"
-                  label="Three of four checks"
+                  label={t('examples.progress.copy.threeOfFourChecks')}
                   showValue
                 />
               </div>
             </div>
             <div className="specimen-caption">
-              <span>Clamped values</span>
-              <span>Visible status</span>
-              <span>Semantic intent</span>
+              <span>{t('components.progress.specimen.clampedValues')}</span>
+              <span>{t('components.progress.specimen.visibleStatus')}</span>
+              <span>{t('components.progress.specimen.semanticIntent')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -64,26 +71,24 @@ export function ProgressPage() {
         <ArticleSection
           id={'progress-values'}
           index={'01'}
-          title={'Values and boundaries'}
-          description={
-            'Values are normalized against max and remain honest at empty and complete boundaries.'
-          }
+          title={t('components.progress.values.title')}
+          description={t('components.progress.values.description')}
         >
           <ComponentExample example={progressExamples.progressValues} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'progress-sizes'}
           index={'02'}
-          title={'Sizes'}
-          description={'Size changes track thickness without changing the semantic value.'}
+          title={t('components.progress.sizes.title')}
+          description={t('components.progress.sizes.description')}
         >
           <ComponentExample example={progressExamples.progressSizes} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'progress-intents'}
           index={'03'}
-          title={'Semantic intents'}
-          description={'Intent uses Virgo semantic status colors for meaningful task outcomes.'}
+          title={t('components.progress.intents.title')}
+          description={t('components.progress.intents.description')}
         >
           <ComponentExample example={progressExamples.progressIntents} showCaption={false} />
         </ArticleSection>

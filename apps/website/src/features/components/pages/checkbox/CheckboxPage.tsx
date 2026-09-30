@@ -1,4 +1,5 @@
 import { Checkbox } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -11,6 +12,8 @@ import { checkboxExamples } from '@/examples/components/checkbox/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function CheckboxPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board" id="checkbox-review">
@@ -18,37 +21,34 @@ export function CheckboxPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Checkbox</h1>
-            <p>
-              Boolean and multi-selection control with a single standard geometry. Built on the
-              native checkbox and extended with mixed and grouped selection.
-            </p>
+            <p>{t('components.checkbox.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Selection</dt>
+                <dt>{t('components.checkbox.facts.selection')}</dt>
                 <dd>03</dd>
               </div>
               <div>
-                <dt>Disabled</dt>
+                <dt>{t('components.checkbox.facts.disabled')}</dt>
                 <dd>03</dd>
               </div>
               <div>
-                <dt>Group</dt>
-                <dd>Yes</dd>
+                <dt>{t('components.checkbox.facts.group')}</dt>
+                <dd>{t('components.checkbox.facts.yes')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.checkbox.specimen.referenceSpecimen')}</span>
               <code>checked</code>
             </div>
             <div className="hero-stage">
-              <Checkbox defaultChecked>Sync changes</Checkbox>
+              <Checkbox defaultChecked>{t('examples.checkbox.copy.syncChanges')}</Checkbox>
             </div>
             <div className="specimen-caption">
-              <span>16px control</span>
-              <span>Body Medium</span>
-              <span>Radius 4</span>
+              <span>{t('components.checkbox.specimen.16pxControl')}</span>
+              <span>{t('examples.checkbox.copy.bodyMedium')}</span>
+              <span>{t('components.checkbox.specimen.radius4')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -56,38 +56,32 @@ export function CheckboxPage() {
         <ArticleSection
           id={'checkbox-basic'}
           index={'01'}
-          title={'Basic'}
-          description={
-            'Checkbox uses one standard visual size across unchecked, checked, and mixed selection.'
-          }
+          title={t('components.checkbox.basic.title')}
+          description={t('components.checkbox.basic.description')}
         >
           <ComponentExample example={checkboxExamples.checkboxBasic} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'checkbox-disabled'}
           index={'02'}
-          title={'Disabled'}
-          description={
-            'Disabled preserves unchecked, checked, and mixed selection without introducing a separate visual variant.'
-          }
+          title={t('components.checkbox.disabled.title')}
+          description={t('components.checkbox.disabled.description')}
         >
           <ComponentExample example={checkboxExamples.checkboxDisabled} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'checkbox-group'}
           index={'03'}
-          title={'Group'}
-          description={
-            'Checkbox.Group coordinates multiple values while each checkbox keeps native form semantics.'
-          }
+          title={t('components.checkbox.group.title')}
+          description={t('components.checkbox.group.description')}
         >
           <ComponentExample example={checkboxExamples.checkboxGroup} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'checkbox-check-all'}
           index={'04'}
-          title={'Check all'}
-          description={'Indeterminate naturally represents a partially selected group.'}
+          title={t('components.checkbox.checkAll.title')}
+          description={t('components.checkbox.checkAll.description')}
         >
           <ComponentExample example={checkboxExamples.checkboxCheckAll} showCaption={false} />
         </ArticleSection>

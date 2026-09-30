@@ -2,6 +2,7 @@ import './SurfacePage.scss';
 
 import { Button, Layout, Surface } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import landscapeImage from '@/assets/examples/surface/landscape.svg';
 import { ArticleSection } from '@/components/docs/ArticleSection';
@@ -11,10 +12,13 @@ import {
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
 import { surfaceExamples } from '@/examples/components/surface/examples';
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function SurfacePage() {
+  const { t } = useTranslation();
+
   const [actions, setActions] = useState(0);
   return (
     <ComponentExampleRuntimeProvider>
@@ -23,29 +27,25 @@ export function SurfacePage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Surface</h1>
-            <p>
-              Layout defines the space. Surface gives that space a visual skin. Semantic color,
-              material, and depth form one shared language for headers, panels, and floating
-              content.
-            </p>
+            <p>{t('components.surface.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Tones</dt>
+                <dt>{t('components.surface.facts.tones')}</dt>
                 <dd>04</dd>
               </div>
               <div>
-                <dt>Materials</dt>
+                <dt>{t('components.surface.facts.materials')}</dt>
                 <dd>03</dd>
               </div>
               <div>
-                <dt>Elevation</dt>
+                <dt>{t('components.surface.facts.elevation')}</dt>
                 <dd>0–5</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen surface-hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.surface.specimen.referenceSpecimen')}</span>
               <code>glass · elevated</code>
             </div>
             <div
@@ -61,25 +61,31 @@ export function SurfacePage() {
                     elevation={2}
                     className="surface-demo-content"
                   >
-                    <span className="surface-demo-eyebrow">A shared material language</span>
-                    <strong className="surface-demo-title">Space, dressed.</strong>
-                    <p>A glass header, built on an ordinary structural region.</p>
+                    <span className="surface-demo-eyebrow">
+                      {t('examples.surface.copy.aSharedMaterialLanguage')}
+                    </span>
+                    <strong className="surface-demo-title">
+                      {t('examples.surface.copy.spaceDressed')}
+                    </strong>
+                    <p>{t('components.surface.overview.note')}</p>
                     <Button size="small" onClick={() => setActions((count) => count + 1)}>
-                      Try the content
+                      {t('examples.surface.copy.tryTheContent')}
                     </Button>
                     <span className="surface-demo-feedback" aria-live="polite">
                       {actions === 0
-                        ? 'Content stays interactive'
-                        : `${actions} successful interactions`}
+                        ? t('examples.surface.details.contentStaysInteractive')
+                        : t('examples.surface.details.valueSuccessfulInteractions', {
+                            v0: translateExampleText(t, 'surface', String(actions)),
+                          })}
                     </span>
                   </Surface>
                 </Layout.Header>
               </Layout>
             </div>
             <div className="specimen-caption">
-              <span>Theme-aware tint</span>
-              <span>Native content</span>
-              <span>CSS material</span>
+              <span>{t('components.surface.specimen.themeAwareTint')}</span>
+              <span>{t('components.surface.specimen.nativeContent')}</span>
+              <span>{t('components.surface.specimen.cssMaterial')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -87,30 +93,24 @@ export function SurfacePage() {
         <ArticleSection
           id={'surface-semantic'}
           index={'01'}
-          title={'Semantic Surface'}
-          description={
-            'Four container tones use the existing semantic surface tokens. The default surface adds no padding, size, border, or radius; specimen spacing belongs to this page.'
-          }
+          title={t('components.surface.semantic.title')}
+          description={t('components.surface.semantic.description')}
         >
           <ComponentExample example={surfaceExamples.surfaceTones} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'surface-material'}
           index={'02'}
-          title={'Material'}
-          description={
-            'The same landscape sits behind each surface: solid retains its semantic fill, translucent lets the scene through, and glass diffuses it. Switch Light / Dark above to compare the tint.'
-          }
+          title={t('components.surface.material.title')}
+          description={t('components.surface.material.description')}
         >
           <ComponentExample example={surfaceExamples.surfaceMaterials} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'surface-background'}
           index={'03'}
-          title={'Background'}
-          description={
-            'Decorative color, gradient, and offline image examples are independently copyable. Use an img with alt text for meaningful images, and choose readable foregrounds for custom backgrounds.'
-          }
+          title={t('components.surface.background.title')}
+          description={t('components.surface.background.description')}
         >
           <ComponentExample example={surfaceExamples.surfaceColorBackground} />
           <ComponentExample example={surfaceExamples.surfaceImageBackground} />
@@ -120,10 +120,8 @@ export function SurfacePage() {
         <ArticleSection
           id={'surface-depth'}
           index={'04'}
-          title={'Depth & Shape'}
-          description={
-            'Existing Elevation 0–5, semantic borders, and radius tokens work independently of the material. No new Foundation scale is introduced.'
-          }
+          title={t('components.surface.depth.title')}
+          description={t('components.surface.depth.description')}
         >
           <ComponentExample example={surfaceExamples.surfaceElevation} />
           <ComponentExample example={surfaceExamples.surfaceBorders} />
@@ -132,10 +130,8 @@ export function SurfacePage() {
         <ArticleSection
           id={'surface-composition'}
           index={'05'}
-          title={'Composition'}
-          description={
-            'Layout owns the header, side, and content regions. Surface supplies their appearance. Nested surfaces retain their own material, and visible overflow leaves room for badges, shadows, and floating content.'
-          }
+          title={t('components.surface.composition.title')}
+          description={t('components.surface.composition.description')}
         >
           <ComponentExample example={surfaceExamples.surfaceLayoutComposition} />
           <ComponentExample example={surfaceExamples.surfaceOverflow} />

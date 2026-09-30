@@ -1,18 +1,25 @@
 import { Dock, type DockHandlePosition } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './DockHandlePositionExample.module.scss';
 
 const handlePositions: DockHandlePosition[] = ['start', 'end'];
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [handlePosition, setHandlePosition] = useState<DockHandlePosition>('start');
 
   return (
     <div className={styles.root!}>
       <div className={styles.controls!}>
-        <div className={styles.controlGroup!} role="group" aria-label="Handle position controls">
-          <span>Handle</span>
+        <div
+          className={styles.controlGroup!}
+          role="group"
+          aria-label={t('examples.dock.copy.handlePositionControls')}
+        >
+          <span>{t('examples.dock.copy.handle')}</span>
           {handlePositions.map((position) => (
             <button
               key={position}
@@ -31,10 +38,10 @@ export default function App() {
           <Dock.Handle
             className={styles.handle!}
             position={handlePosition}
-            aria-label="Handle position example"
+            aria-label={t('examples.dock.copy.handlePositionExample')}
           />
           <Dock.Content className={styles.panel!}>
-            <strong>Toolbar</strong>
+            <strong>{t('examples.dock.copy.toolbar')}</strong>
             <span>{handlePosition}</span>
           </Dock.Content>
         </Dock.Root>

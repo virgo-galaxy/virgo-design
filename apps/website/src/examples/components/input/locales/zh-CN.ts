@@ -1,0 +1,50 @@
+import type { LocaleOf } from '@/i18n/locale-types';
+
+import type { inputExamplesEnUS } from './en-US';
+export const inputExamplesZhCN = {
+  copy: {
+    clearableProjectName: '可清空的项目名称',
+    projectName: '项目名称',
+    untitledProject: '未命名项目',
+    workspaceName: '工作区名称',
+    search: '搜索',
+    searchComponents: '搜索组件',
+    approvedName: '已批准名称',
+    account: '账户',
+    currentPassword: '当前密码',
+    defaultInput: '默认输入框',
+    typeSomething: '输入内容',
+    disabledInput: '禁用输入框',
+    readOnlyInput: '只读输入框',
+    invalidInput: '无效输入框',
+    defaultTextarea: '默认文本区域',
+    describeTheProject: '描述项目',
+    disabledTextarea: '禁用文本区域',
+    readOnlyTextarea: '只读文本区域',
+    invalidTextarea: '无效文本区域',
+    inputSizes: 'Input 尺寸',
+    fourControlHeightsShareOneTextEntryContract: '四种控件高度共用一个文本输入协议。',
+    placeholderAndValue: '占位文本与值',
+    emptyHintsAndEditableDefaultValuesUseNativeInputSemantics:
+      '空值提示和可编辑默认值使用原生输入语义。',
+    prefixAndSuffix: '前缀与后缀',
+    decorativeIconsStayOutsideTheTabOrder: '装饰图标不进入 Tab 顺序。',
+    clearableInput: '可清空输入框',
+    clearTheCurrentValueWhileRetainingTypingFocus: '清空当前值，并保留输入焦点。',
+    passwordReveal: '密码显示',
+    toggleVisibilityWithoutReplacingTheEnteredValue: '切换可见性，不替换已输入值。',
+    inputStates: 'Input 状态',
+    defaultDisabledReadOnlyAndInvalidStatesShareNativeText:
+      '默认、禁用、只读和无效状态共享原生文本语义。',
+    textareaSizes: 'Textarea 尺寸',
+    densityAndMinimumHeightVaryRowsStillDescribeContent: '密度与最小高度可变化，rows 仍描述内容。',
+    textareaStates: 'Textarea 状态',
+    multilineContentReusesTheInputFamilySStateLanguage: '多行内容复用 Input 家族的状态表达。',
+    bodyMedium: 'Body Medium',
+  },
+  details: {
+    valueInput: '{{v0}} 输入框',
+    valueTextarea: '{{v0}} 文本区域',
+    valueMultilineInput: '{{v0}} 多行输入框',
+  },
+} satisfies LocaleOf<typeof inputExamplesEnUS>;

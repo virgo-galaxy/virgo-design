@@ -1,6 +1,7 @@
 import './AvatarPage.scss';
 
 import { Avatar, Badge } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import avatarImage from '@/assets/examples/avatar/icon.png';
 import { ArticleSection } from '@/components/docs/ArticleSection';
@@ -14,6 +15,8 @@ import { avatarExamples } from '@/examples/components/avatar/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function AvatarPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board avatar-review">
@@ -21,34 +24,34 @@ export function AvatarPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Avatar</h1>
-            <p>Identity images with token-based sizing, resilient fallback, and simple grouping.</p>
+            <p>{t('components.avatar.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Sources</dt>
-                <dd>Image</dd>
+                <dt>{t('components.avatar.facts.sources')}</dt>
+                <dd>{t('components.avatar.facts.image')}</dd>
               </div>
               <div>
-                <dt>Fallback</dt>
-                <dd>Text</dd>
+                <dt>{t('components.avatar.facts.fallback')}</dt>
+                <dd>{t('components.avatar.facts.text')}</dd>
               </div>
               <div>
-                <dt>Composition</dt>
-                <dd>Group</dd>
+                <dt>{t('components.avatar.facts.composition')}</dt>
+                <dd>{t('components.avatar.facts.group')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.avatar.specimen.referenceSpecimen')}</span>
               <code>image · fallback · group</code>
             </div>
             <div className="hero-stage">
               <div className="avatar-stage avatar-hero-stage">
-                <Badge dot intent="success" aria-label="Online">
+                <Badge dot intent="success" aria-label={t('examples.avatar.copy.online')}>
                   <Avatar src={avatarImage} alt="Virgo Design" size="lg" />
                 </Badge>
-                <Avatar fallback="PK" aria-label="Pokeya" size="lg" />
-                <Avatar.Group aria-label="Project members">
+                <Avatar fallback="PK" aria-label={t('examples.avatar.copy.pokeya')} size="lg" />
+                <Avatar.Group aria-label={t('examples.avatar.copy.projectMembers')}>
                   <Avatar fallback="VD" />
                   <Avatar fallback="UI" />
                   <Avatar fallback="DS" />
@@ -56,9 +59,9 @@ export function AvatarPage() {
               </div>
             </div>
             <div className="specimen-caption">
-              <span>Image</span>
-              <span>Fallback</span>
-              <span>Presence and group</span>
+              <span>{t('components.avatar.specimen.image')}</span>
+              <span>{t('components.avatar.specimen.fallback')}</span>
+              <span>{t('components.avatar.specimen.presenceAndGroup')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -66,16 +69,16 @@ export function AvatarPage() {
         <ArticleSection
           id={'avatar-content'}
           index={'01'}
-          title={'Image and fallback'}
-          description={'Fallback content appears when the source is absent or cannot load.'}
+          title={t('components.avatar.content.title')}
+          description={t('components.avatar.content.description')}
         >
           <ComponentExample example={avatarExamples.avatarImageFallback} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'avatar-sizes'}
           index={'02'}
-          title={'Sizes and shapes'}
-          description={'Three stable sizes support circular profile and square entity silhouettes.'}
+          title={t('components.avatar.sizes.title')}
+          description={t('components.avatar.sizes.description')}
         >
           <ComponentExample example={avatarExamples.avatarSizes} />
           <ComponentExample example={avatarExamples.avatarShapes} />
@@ -83,10 +86,8 @@ export function AvatarPage() {
         <ArticleSection
           id={'avatar-composition'}
           index={'03'}
-          title={'Badge and group composition'}
-          description={
-            'Presence stays a Badge concern; groups remain a lightweight visual collection.'
-          }
+          title={t('components.avatar.composition.title')}
+          description={t('components.avatar.composition.description')}
         >
           <ComponentExample example={avatarExamples.avatarPresence} />
           <ComponentExample example={avatarExamples.avatarGroup} />

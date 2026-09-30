@@ -3,6 +3,7 @@ import './styles.scss';
 
 import { Breadcrumb, Layout } from '@virgo-design/ui';
 import { type ReactNode, useLayoutEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { RegistryApiReference } from '@/components/docs/ApiReference';
@@ -35,6 +36,7 @@ export interface ComponentsDocumentationProps {
 }
 
 export function ComponentsDocumentation({ renderRelationships }: ComponentsDocumentationProps) {
+  const { t } = useTranslation();
   const { appearance } = useAppearance();
   const location = useLocation();
   const previousPathname = useRef(location.pathname);
@@ -66,22 +68,22 @@ export function ComponentsDocumentation({ renderRelationships }: ComponentsDocum
         direction="horizontal"
       >
         <DocumentationSidebar
-          label="Components sidebar"
-          navigationLabel="Component navigation"
+          label={t('docs.sidebar.componentsLabel')}
+          navigationLabel={t('docs.sidebar.componentNavigation')}
           activeValue={location.pathname}
         >
           {navigationGroups.map((group, groupIndex) => (
             <DocumentationSidebarGroup
               key={group.id}
               id={`component-group-${group.id}`}
-              label={group.label}
+              label={t(`components.catalogue.groups.${group.id}`)}
             >
               {group.routes.map((route) => (
                 <DocumentationSidebarItem key={route.id} to={route.path}>
                   <DocumentationSidebarIndex>{route.index}</DocumentationSidebarIndex>
                   <DocumentationSidebarCopy>
                     <strong>{route.name}</strong>
-                    <small>{route.category}</small>
+                    <small>{t(`components.catalogue.categories.${route.id}`)}</small>
                   </DocumentationSidebarCopy>
                   <span className="component-status" data-status={route.status}>
                     {route.version.replace(/^V/, '')}
@@ -96,7 +98,9 @@ export function ComponentsDocumentation({ renderRelationships }: ComponentsDocum
         <DocumentationDetailShell
           breadcrumb={
             <Breadcrumb>
-              <Breadcrumb.Item aria-current={false}>Components</Breadcrumb.Item>
+              <Breadcrumb.Item aria-current={false}>
+                {t('app.navigation.components')}
+              </Breadcrumb.Item>
               <Breadcrumb.Item>{activeRoute.name}</Breadcrumb.Item>
             </Breadcrumb>
           }

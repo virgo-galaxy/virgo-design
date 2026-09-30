@@ -6,11 +6,11 @@ import { InternationalSansPreview } from './components/InternationalSansPreview'
 import styles from './foundation-tokens.module.scss';
 import { FoundationPage, FoundationSection } from './FoundationPage';
 
-const fontWeightLabels = {
-  400: 'Regular',
-  500: 'Medium',
-  600: 'Semibold',
-  700: 'Bold',
+const fontWeightLabelKeys = {
+  400: 'foundations.typography.fontWeights.regular',
+  500: 'foundations.typography.fontWeights.medium',
+  600: 'foundations.typography.fontWeights.semibold',
+  700: 'foundations.typography.fontWeights.bold',
 } as const satisfies Record<keyof typeof fontWeight, string>;
 
 export function TypographyPage() {
@@ -57,7 +57,7 @@ export function TypographyPage() {
               <article key={value} className={styles.simpleRow}>
                 <div className={styles.compactMeta}>
                   <strong>{value}</strong>
-                  <code>· {fontWeightLabels[value]}</code>
+                  <code>· {t(fontWeightLabelKeys[value])}</code>
                 </div>
                 <span style={{ fontWeight: value }}>Virgo Design</span>
               </article>
@@ -77,9 +77,9 @@ export function TypographyPage() {
                   <code>{value.toFixed(2)}</code>
                 </div>
                 <p style={{ lineHeight: value }}>
-                  Foundation materials
+                  {t('foundations.typography.lineHeightSample.first')}
                   <br />
-                  remain composable.
+                  {t('foundations.typography.lineHeightSample.second')}
                 </p>
               </article>
             ))}

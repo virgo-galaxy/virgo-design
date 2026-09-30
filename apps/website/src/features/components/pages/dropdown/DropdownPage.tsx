@@ -3,6 +3,7 @@ import './DropdownPage.scss';
 import { SettingsIcon, TrashIcon, UserIcon } from '@virgo-design/icons';
 import { Dropdown } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -11,30 +12,45 @@ import {
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
 import { dropdownExamples } from '@/examples/components/dropdown/examples';
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 function Actions({ onAction }: { onAction: (action: string) => void }) {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Dropdown.Item icon={<UserIcon />} onSelect={() => onAction('Profile selected')}>
-        Profile
+      <Dropdown.Item
+        icon={<UserIcon />}
+        onSelect={() => onAction(t('examples.dropdown.details.profileSelected'))}
+      >
+        {t('examples.dropdown.copy.profile')}
       </Dropdown.Item>
-      <Dropdown.Item icon={<SettingsIcon />} onSelect={() => onAction('Settings selected')}>
-        Settings
+      <Dropdown.Item
+        icon={<SettingsIcon />}
+        onSelect={() => onAction(t('examples.dropdown.details.settingsSelected'))}
+      >
+        {t('examples.dropdown.copy.settings')}
       </Dropdown.Item>
       <Dropdown.Item disabled icon={<UserIcon />}>
-        Invite member
+        {t('examples.dropdown.copy.inviteMember')}
       </Dropdown.Item>
       <Dropdown.Separator />
-      <Dropdown.Item danger icon={<TrashIcon />} onSelect={() => onAction('Delete selected')}>
-        Delete workspace
+      <Dropdown.Item
+        danger
+        icon={<TrashIcon />}
+        onSelect={() => onAction(t('examples.dropdown.details.deleteSelected'))}
+      >
+        {t('examples.dropdown.copy.deleteWorkspace')}
       </Dropdown.Item>
     </>
   );
 }
 
 export function DropdownPage() {
+  const { t } = useTranslation();
+
   const [action, setAction] = useState('Choose an action to try the menu.');
   return (
     <ComponentExampleRuntimeProvider>
@@ -43,57 +59,52 @@ export function DropdownPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Dropdown</h1>
-            <p>
-              Keep related actions within reach. Menus open where you need them, with clear choices
-              and familiar keyboard navigation.
-            </p>
+            <p>{t('components.dropdown.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Triggers</dt>
-                <dd>Hover / click</dd>
+                <dt>{t('components.dropdown.facts.triggers')}</dt>
+                <dd>{t('components.dropdown.facts.hoverClick')}</dd>
               </div>
               <div>
-                <dt>Placement</dt>
-                <dd>12 positions</dd>
+                <dt>{t('components.dropdown.facts.placement')}</dt>
+                <dd>{t('components.dropdown.facts.12Positions')}</dd>
               </div>
               <div>
-                <dt>Actions</dt>
-                <dd>Split button</dd>
+                <dt>{t('components.dropdown.facts.actions')}</dt>
+                <dd>{t('components.dropdown.facts.splitButton')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.dropdown.specimen.referenceSpecimen')}</span>
               <code>contextual actions</code>
             </div>
             <div className="hero-stage dropdown-hero-stage">
               <Dropdown>
-                <Dropdown.Trigger>Workspace actions</Dropdown.Trigger>
+                <Dropdown.Trigger>{t('examples.dropdown.copy.workspaceActions')}</Dropdown.Trigger>
                 <Dropdown.Content arrow>
                   <Actions onAction={setAction} />
                 </Dropdown.Content>
               </Dropdown>
-              <span className="dropdown-hint">Click to explore</span>
+              <span className="dropdown-hint">{t('examples.dropdown.copy.clickToExplore')}</span>
             </div>
             <div className="specimen-caption">
-              <span>Virgo icons</span>
-              <span>Keyboard ready</span>
-              <span>Theme aware</span>
+              <span>{t('components.dropdown.specimen.virgoIcons')}</span>
+              <span>{t('components.dropdown.specimen.keyboardReady')}</span>
+              <span>{t('components.dropdown.specimen.themeAware')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
         </section>
         <div className="dropdown-feedback" role="status">
-          {action}
+          {translateExampleText(t, 'dropdown', action)}
         </div>
         <ArticleSection
           id={'dropdown-triggers'}
           index={'01'}
-          title={'Hover & click'}
-          description={
-            'Two activation modes. Disabled items stay unavailable; destructive actions use the danger treatment.'
-          }
+          title={t('components.dropdown.triggers.title')}
+          description={t('components.dropdown.triggers.description')}
         >
           <ComponentExample example={dropdownExamples.dropdownClick} />
           <ComponentExample example={dropdownExamples.dropdownHover} />
@@ -102,20 +113,16 @@ export function DropdownPage() {
         <ArticleSection
           id={'dropdown-placement'}
           index={'02'}
-          title={'Placement & arrow'}
-          description={
-            'Twelve preferred positions. Menus flip and shift near the viewport edges; the optional arrow follows the trigger.'
-          }
+          title={t('components.dropdown.placement.title')}
+          description={t('components.dropdown.placement.description')}
         >
           <ComponentExample example={dropdownExamples.dropdownPlacement} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'dropdown-split'}
           index={'03'}
-          title={'Split buttons & custom triggers'}
-          description={
-            'The main button runs an action. Its adjacent button opens related actions, with a default ellipsis or a custom Virgo icon.'
-          }
+          title={t('components.dropdown.split.title')}
+          description={t('components.dropdown.split.description')}
         >
           <ComponentExample example={dropdownExamples.dropdownSplit} />
           <ComponentExample example={dropdownExamples.dropdownSplitStates} />
@@ -124,20 +131,16 @@ export function DropdownPage() {
         <ArticleSection
           id={'dropdown-controlled'}
           index={'04'}
-          title={'Controlled & keyboard'}
-          description={
-            'Use Arrow keys, Home, End and typing to navigate. Escape returns focus; Tab continues to the next control.'
-          }
+          title={t('components.dropdown.controlled.title')}
+          description={t('components.dropdown.controlled.description')}
         >
           <ComponentExample example={dropdownExamples.dropdownControlled} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'dropdown-density'}
           index={'05'}
-          title={'Sizes'}
-          description={
-            'Four trigger sizes with coordinated menu density, using the existing Button and typography tokens.'
-          }
+          title={t('components.dropdown.density.title')}
+          description={t('components.dropdown.density.description')}
         >
           <ComponentExample example={dropdownExamples.dropdownSizes} showCaption={false} />
         </ArticleSection>

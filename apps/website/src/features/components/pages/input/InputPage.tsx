@@ -1,5 +1,6 @@
 import { SearchIcon } from '@virgo-design/icons';
 import { Input } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -12,6 +13,8 @@ import { inputExamples } from '@/examples/components/input/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function InputPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board" id="input-review">
@@ -19,45 +22,41 @@ export function InputPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Input</h1>
-            <p>
-              Text-entry family for single-line and multiline content. Built on native Virgo
-              primitives, with decorative content, clearable values, and password reveal calibrated
-              against the same sizing, typography, color, and motion foundations as Button.
-            </p>
+            <p>{t('components.input.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Controls</dt>
+                <dt>{t('components.input.facts.controls')}</dt>
                 <dd>03</dd>
               </div>
               <div>
-                <dt>Sizes</dt>
+                <dt>{t('components.input.facts.sizes')}</dt>
                 <dd>04</dd>
               </div>
               <div>
-                <dt>States</dt>
+                <dt>{t('components.input.facts.states')}</dt>
                 <dd>06</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.input.specimen.referenceSpecimen')}</span>
               <code>input · medium</code>
             </div>
             <div className="hero-stage">
               <div className="input-demo-width input-demo-width--hero">
                 <Input
-                  aria-label="Search components"
+                  aria-label={t('examples.input.copy.searchComponents')}
                   prefix={<SearchIcon />}
-                  placeholder="Search components"
+                  placeholder={t('examples.input.copy.searchComponents')}
                   clearable
                 />
               </div>
             </div>
             <div className="specimen-caption">
-              <span>36px height</span>
-              <span>Body Medium</span>
-              <span>Radius 8</span>
+              <span>{t('components.input.specimen.36pxHeight')}</span>
+              <span>{t('examples.input.copy.bodyMedium')}</span>
+              <span>{t('components.input.specimen.radius8')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -65,40 +64,32 @@ export function InputPage() {
         <ArticleSection
           id={'input-sizes'}
           index={'01'}
-          title={'Sizes'}
-          description={
-            'Four control heights aligned with the Virgo sizing foundation and Button scale.'
-          }
+          title={t('components.input.sizes.title')}
+          description={t('components.input.sizes.description')}
         >
           <ComponentExample example={inputExamples.inputSizes} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'input-content'}
           index={'02'}
-          title={'Content'}
-          description={
-            'Placeholder and entered value use native input semantics and Virgo body typography.'
-          }
+          title={t('components.input.content.title')}
+          description={t('components.input.content.description')}
         >
           <ComponentExample example={inputExamples.inputContent} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'input-icons'}
           index={'03'}
-          title={'Prefix and suffix'}
-          description={
-            'Decorative prefix and suffix slots inherit currentColor, remain outside the tab order, and let Input own their size.'
-          }
+          title={t('components.input.icons.title')}
+          description={t('components.input.icons.description')}
         >
           <ComponentExample example={inputExamples.inputDecorations} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'input-actions'}
           index={'04'}
-          title={'Actions'}
-          description={
-            'Clearable and password inputs add small, keyboard-accessible actions without changing native input behavior.'
-          }
+          title={t('components.input.actions.title')}
+          description={t('components.input.actions.description')}
         >
           <ComponentExample example={inputExamples.inputClearable} />
           <ComponentExample example={inputExamples.inputPassword} />
@@ -106,20 +97,16 @@ export function InputPage() {
         <ArticleSection
           id={'input-states'}
           index={'05'}
-          title={'States'}
-          description={
-            'Hover and focus remain live; use Tab or click a field to inspect the focus treatment.'
-          }
+          title={t('components.input.states.title')}
+          description={t('components.input.states.description')}
         >
           <ComponentExample example={inputExamples.inputStates} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'input-textarea'}
           index={'06'}
-          title={'Textarea'}
-          description={
-            'Multiline text entry shares the Input family state language while keeping native textarea semantics.'
-          }
+          title={t('components.input.textarea.title')}
+          description={t('components.input.textarea.description')}
         >
           <ComponentExample example={inputExamples.textareaSizes} />
           <ComponentExample example={inputExamples.textareaStates} />

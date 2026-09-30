@@ -1,3 +1,5 @@
+import '@/i18n/runtime';
+
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Layout } from '@virgo-design/ui';

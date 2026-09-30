@@ -1,4 +1,5 @@
 import { Popover } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './PopoverPlacementExample.module.scss';
 
@@ -18,9 +19,15 @@ const placements = [
 ] as const;
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.root!}>
-      <div className={styles.placements!} role="group" aria-label="Twelve popover placements">
+      <div
+        className={styles.placements!}
+        role="group"
+        aria-label={t('examples.popover.copy.twelvePopoverPlacements')}
+      >
         {placements.map((placement) => (
           <Popover key={placement} className={styles[placement]!}>
             <Popover.Trigger size="small">{placement}</Popover.Trigger>
@@ -28,7 +35,7 @@ export default function App() {
               <div className={styles.stage!}>
                 <strong>{placement}</strong>
                 <p className={styles.text!}>
-                  Scroll or resize to see the panel follow its trigger.
+                  {t('examples.popover.copy.scrollOrResizeToSeeThePanelFollowItsTrigger')}
                 </p>
                 <Popover.Close />
               </div>

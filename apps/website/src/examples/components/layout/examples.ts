@@ -1,4 +1,5 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
+import { createExampleSource } from '@/examples/components/create-example-source';
 
 import LayoutBasicExample from './LayoutBasicExample';
 import layoutBasicStyles from './LayoutBasicExample.module.scss?virgo-raw';
@@ -53,134 +54,180 @@ export const layoutExamples = {
   layoutGroupedSidebar: {
     id: 'layout-grouped-sidebar',
     title: 'Sticky group labels',
+    titleTranslationKey: 'examples.layout.copy.stickyGroupLabels',
     description: 'Compose Sidebar with grouped navigation and CSS sticky group labels.',
+    descriptionTranslationKey:
+      'examples.layout.copy.composeSidebarWithGroupedNavigationAndCssStickyGroupLabels',
     Component: LayoutGroupedSidebarExample,
-    source: layoutGroupedSidebarSource,
+    source: createExampleSource(layoutGroupedSidebarSource),
     styleSource: layoutGroupedSidebarStyles,
   },
   layoutBasic: {
     id: 'layout-basic',
     title: 'Header, content, and footer',
+    titleTranslationKey: 'examples.layout.copy.headerContentAndFooter',
     description: 'Compose semantic regions with vertical and horizontal Layout containers.',
+    descriptionTranslationKey:
+      'examples.layout.copy.composeSemanticRegionsWithVerticalAndHorizontalLayoutContainers',
     Component: LayoutBasicExample,
-    source: layoutBasicSource,
+    source: createExampleSource(layoutBasicSource),
     styleSource: layoutBasicStyles,
   },
   layoutLeftSidebar: {
     id: 'layout-left-sidebar',
     title: 'Left sidebar',
+    titleTranslationKey: 'examples.layout.copy.leftSidebar',
     description: 'Compose semantic regions with vertical and horizontal Layout containers.',
+    descriptionTranslationKey:
+      'examples.layout.copy.composeSemanticRegionsWithVerticalAndHorizontalLayoutContainers',
     Component: LayoutLeftSidebarExample,
-    source: layoutLeftSidebarSource,
+    source: createExampleSource(layoutLeftSidebarSource),
     styleSource: layoutLeftSidebarStyles,
   },
   layoutRightSidebar: {
     id: 'layout-right-sidebar',
     title: 'Right sidebar',
+    titleTranslationKey: 'examples.layout.copy.rightSidebar',
     description: 'Compose semantic regions with vertical and horizontal Layout containers.',
+    descriptionTranslationKey:
+      'examples.layout.copy.composeSemanticRegionsWithVerticalAndHorizontalLayoutContainers',
     Component: LayoutRightSidebarExample,
-    source: layoutRightSidebarSource,
+    source: createExampleSource(layoutRightSidebarSource),
     styleSource: layoutRightSidebarStyles,
   },
   layoutFullHeightSidebar: {
     id: 'layout-full-height-sidebar',
     title: 'Full-height sidebar',
+    titleTranslationKey: 'examples.layout.copy.fullHeightSidebar',
     description: 'Compose semantic regions with vertical and horizontal Layout containers.',
+    descriptionTranslationKey:
+      'examples.layout.copy.composeSemanticRegionsWithVerticalAndHorizontalLayoutContainers',
     Component: LayoutFullHeightSidebarExample,
-    source: layoutFullHeightSidebarSource,
+    source: createExampleSource(layoutFullHeightSidebarSource),
     styleSource: layoutFullHeightSidebarStyles,
   },
   layoutRailSidebar: {
     id: 'layout-rail-sidebar',
     title: 'Rail and sidebar',
+    titleTranslationKey: 'examples.layout.copy.railAndSidebar',
     description: 'Place a compact rail beside a wider sidebar before the main content region.',
+    descriptionTranslationKey: 'examples.layout.copy.placeACompactRailBesideAWiderSidebarBeforeThe',
     Component: LayoutRailSidebarExample,
-    source: layoutRailSidebarSource,
+    source: createExampleSource(layoutRailSidebarSource),
     styleSource: layoutRailSidebarStyles,
   },
   layoutSurfaceRegions: {
     id: 'layout-surface-regions',
     title: 'Surface regions',
+    titleTranslationKey: 'examples.layout.copy.surfaceRegions',
     description: 'Apply Surface treatments independently to Header, Sidebar, Content, and Footer.',
+    descriptionTranslationKey:
+      'examples.layout.copy.applySurfaceTreatmentsIndependentlyToHeaderSidebarContentAndFooter',
     Component: LayoutSurfaceRegionsExample,
-    source: layoutSurfaceRegionsSource,
+    source: createExampleSource(layoutSurfaceRegionsSource),
     styleSource: layoutSurfaceRegionsStyles,
   },
   layoutResizableSidebar: {
     id: 'layout-resizable-sidebar',
     title: 'Resizable sidebar',
+    titleTranslationKey: 'examples.layout.copy.resizableSidebar',
     description:
       'Drag the divider, or use the keyboard, to resize Sidebar within its minimum and maximum width.',
+    descriptionTranslationKey: 'examples.layout.copy.dragTheDividerOrUseTheKeyboardToResizeSidebar',
     Component: LayoutResizableSidebarExample,
-    source: layoutResizableSidebarSource,
+    source: createExampleSource(layoutResizableSidebarSource),
     styleSource: layoutResizableSidebarStyles,
   },
   layoutStickyHeader: {
     id: 'layout-sticky-header',
     title: 'Sticky header',
+    titleTranslationKey: 'examples.layout.copy.stickyHeader',
     description:
       'Scroll the structure while Header remains pinned to the top of its scroll region.',
+    descriptionTranslationKey:
+      'examples.layout.copy.scrollTheStructureWhileHeaderRemainsPinnedToTheTop',
     Component: LayoutStickyHeaderExample,
-    source: layoutStickyHeaderSource,
+    source: createExampleSource(layoutStickyHeaderSource),
     styleSource: layoutStickyHeaderStyles,
   },
   layoutLane: {
     id: 'layout-lane',
     title: 'Lane boundary',
+    titleTranslationKey: 'examples.layout.copy.laneBoundary',
     description:
       'Create a shared spatial lane for Breadcrumb, Dock, navigation, and nested regions while Content keeps its own width.',
+    descriptionTranslationKey:
+      'examples.layout.copy.createASharedSpatialLaneForBreadcrumbDockNavigationAnd',
     Component: LayoutLaneExample,
-    source: layoutLaneSource,
+    source: createExampleSource(layoutLaneSource),
     styleSource: layoutLaneStyles,
   },
   layoutHeader: {
     id: 'layout-header',
     title: 'Logo, navigation, and actions',
+    titleTranslationKey: 'examples.layout.copy.logoNavigationAndActions',
     description: 'Navigation stays inside Header while Surface selects its background.',
+    descriptionTranslationKey:
+      'examples.layout.copy.navigationStaysInsideHeaderWhileSurfaceSelectsItsBackground',
     Component: LayoutHeaderExample,
-    source: layoutHeaderSource,
+    source: createExampleSource(layoutHeaderSource),
     styleSource: layoutHeaderStyles,
   },
   layoutSidebar: {
     id: 'layout-sidebar',
     title: 'Collapsible sidebar',
+    titleTranslationKey: 'examples.layout.copy.collapsibleSidebar',
     description: 'Navigation and container sizing are included in this standalone example.',
+    descriptionTranslationKey:
+      'examples.layout.copy.navigationAndContainerSizingAreIncludedInThisStandaloneExample',
     Component: LayoutSidebarExample,
-    source: layoutSidebarSource,
+    source: createExampleSource(layoutSidebarSource),
     styleSource: layoutSidebarStyles,
   },
   layoutControlledSidebar: {
     id: 'layout-controlled-sidebar',
     title: 'External sidebar control',
+    titleTranslationKey: 'examples.layout.copy.externalSidebarControl',
     description: 'Navigation and container sizing are included in this standalone example.',
+    descriptionTranslationKey:
+      'examples.layout.copy.navigationAndContainerSizingAreIncludedInThisStandaloneExample',
     Component: LayoutControlledSidebarExample,
-    source: layoutControlledSidebarSource,
+    source: createExampleSource(layoutControlledSidebarSource),
     styleSource: layoutControlledSidebarStyles,
   },
   layoutOverlaySidebar: {
     id: 'layout-overlay-sidebar',
     title: 'Overlay sidebar',
+    titleTranslationKey: 'examples.layout.copy.overlaySidebar',
     description: 'Navigation and container sizing are included in this standalone example.',
+    descriptionTranslationKey:
+      'examples.layout.copy.navigationAndContainerSizingAreIncludedInThisStandaloneExample',
     Component: LayoutOverlaySidebarExample,
-    source: layoutOverlaySidebarSource,
+    source: createExampleSource(layoutOverlaySidebarSource),
     styleSource: layoutOverlaySidebarStyles,
   },
   layoutFloatingSidebar: {
     id: 'layout-floating-sidebar',
     title: 'Floating navigation inside a canvas',
+    titleTranslationKey: 'examples.layout.copy.floatingNavigationInsideACanvas',
     description:
       'The sidebar remains local to its containing content region, including compact navigation and a nested popover.',
+    descriptionTranslationKey:
+      'examples.layout.copy.theSidebarRemainsLocalToItsContainingContentRegionIncluding',
     Component: LayoutFloatingSidebarExample,
-    source: layoutFloatingSidebarSource,
+    source: createExampleSource(layoutFloatingSidebarSource),
     styleSource: layoutFloatingSidebarStyles,
   },
   layoutFloatingActions: {
     id: 'layout-floating-actions',
     title: 'Canvas-local actions',
+    titleTranslationKey: 'examples.layout.copy.canvasLocalActions',
     description:
       'The layout positions a standalone action and a controlled action group inside its content region.',
+    descriptionTranslationKey:
+      'examples.layout.copy.theLayoutPositionsAStandaloneActionAndAControlledAction',
     Component: LayoutFloatingActionsExample,
-    source: layoutFloatingActionsSource,
+    source: createExampleSource(layoutFloatingActionsSource),
     styleSource: layoutFloatingActionsStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

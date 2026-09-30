@@ -1,5 +1,6 @@
 import { Cursor } from '@virgo-design/ui';
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './CursorFeedbackExample.module.scss';
 
@@ -23,9 +24,13 @@ function Coordinates() {
 }
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <Cursor.Provider className={styles.stage}>
-      <p className={styles.note}>Viewport coordinates update without rendering this tree.</p>
+      <p className={styles.note}>
+        {t('examples.cursor.copy.viewportCoordinatesUpdateWithoutRenderingThisTree')}
+      </p>
       <Coordinates />
     </Cursor.Provider>
   );

@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { RelationshipSection } from '@/components/docs/RelationshipSection/RelationshipSection';
 import type { ComponentSlug } from '@/features/components/app/componentRoutes';
 import type { PrimitiveSlug } from '@/features/primitives/primitiveDocs';
@@ -16,9 +18,10 @@ function formatSlug(slug: string) {
 }
 
 export function ComponentRelationships({ componentSlug }: { componentSlug: ComponentSlug }) {
+  const { t } = useTranslation();
   const items = getPrimitivesForComponent(componentSlug).map((primitiveSlug) => ({
     href: `/primitives/${primitiveSlug}`,
-    label: `${formatSlug(primitiveSlug)} Primitive`,
+    label: t('docs.relationships.primitiveLabel', { name: formatSlug(primitiveSlug) }),
   }));
 
   if (items.length === 0) {
@@ -27,7 +30,7 @@ export function ComponentRelationships({ componentSlug }: { componentSlug: Compo
 
   return (
     <div className={styles.componentPlacement}>
-      <RelationshipSection title="Built with" items={items} />
+      <RelationshipSection kind="builtWith" items={items} />
     </div>
   );
 }
@@ -44,7 +47,7 @@ export function PrimitiveRelationships({ primitiveSlug }: { primitiveSlug: Primi
 
   return (
     <div className={styles.primitivePlacement}>
-      <RelationshipSection title="Used by" items={items} />
+      <RelationshipSection kind="usedBy" items={items} />
     </div>
   );
 }

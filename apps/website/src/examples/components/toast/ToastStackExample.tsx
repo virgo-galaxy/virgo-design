@@ -1,9 +1,12 @@
 import { Button, Toast } from '@virgo-design/ui';
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './ToastStackExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [toasts, setToasts] = useState<number[]>([]);
   const nextId = useRef(1);
   return (
@@ -16,9 +19,12 @@ export default function App() {
             setToasts((current) => [...current, first, first + 1]);
           }}
         >
-          Add two toasts
+          {t('examples.toast.copy.addTwoToasts')}
         </Button>
-        <Toast.Viewport aria-label="Stacked notifications" className={styles.viewport!} />
+        <Toast.Viewport
+          aria-label={t('examples.toast.copy.stackedNotifications')}
+          className={styles.viewport!}
+        />
       </div>
       {toasts.map((id) => (
         <Toast.Root
@@ -29,9 +35,13 @@ export default function App() {
             if (!open) setToasts((current) => current.filter((value) => value !== id));
           }}
         >
-          <Toast.Title>Notification #{id}</Toast.Title>
-          <Toast.Description>Hover or focus to pause its timer.</Toast.Description>
-          <Toast.Close />
+          <Toast.Title>
+            {t('examples.toast.copy.notification')} {id}
+          </Toast.Title>
+          <Toast.Description>
+            {t('examples.toast.copy.hoverOrFocusToPauseItsTimer')}
+          </Toast.Description>
+          <Toast.Close aria-label={t('examples.toast.copy.dismissNotification')} />
         </Toast.Root>
       ))}
     </Toast.Provider>

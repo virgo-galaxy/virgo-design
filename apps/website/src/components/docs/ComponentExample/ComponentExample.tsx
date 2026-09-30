@@ -1,6 +1,8 @@
 import { CheckIcon, CodeIcon, CopyIcon, ExternalLinkIcon } from '@virgo-design/icons';
 import { Button, Tabs, Tooltip } from '@virgo-design/ui';
+import type { ParseKeys } from 'i18next';
 import { type ComponentType, useContext, useEffect, useId, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { AppearanceContext } from '@/shared/theme/appearance-context';
 
@@ -12,6 +14,8 @@ import sassLogo from './sass-logo.svg';
 export interface ComponentExampleDefinition {
   id: string;
   title: string;
+  titleTranslationKey?: ParseKeys;
+  descriptionTranslationKey?: ParseKeys;
   description?: string;
   Component: ComponentType;
   source: string;
@@ -54,7 +58,12 @@ function canonicalizeReactExampleSource(source: string, includeScss: boolean) {
 }
 
 export function ComponentExample({ example, showCaption = true }: ComponentExampleProps) {
-  const { Component, description, id, source, styleSource, title } = example;
+  const { t } = useTranslation();
+  const { Component, id, source, styleSource } = example;
+  const title = example.titleTranslationKey ? t(example.titleTranslationKey) : example.title;
+  const description = example.descriptionTranslationKey
+    ? t(example.descriptionTranslationKey)
+    : example.description;
   const appearance = useContext(AppearanceContext)?.appearance;
   const instanceId = useId();
   const sourceId = `${instanceId}-source`;
@@ -122,20 +131,25 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
     }
   };
 
-  const sourceAction = sourceOpen ? 'Hide source' : 'View source';
+  const sourceAction = sourceOpen
+    ? t('docs.componentExample.hideSource')
+    : t('docs.componentExample.viewSource');
+  const sourceActionFor = sourceOpen
+    ? t('docs.componentExample.hideSourceFor', { title })
+    : t('docs.componentExample.viewSourceFor', { title });
   const copyHint =
     copyState === 'success'
-      ? 'Copied'
+      ? t('docs.componentExample.copied')
       : copyState === 'error'
-        ? 'Copy failed — try again'
+        ? t('docs.componentExample.copyFailedTryAgain')
         : copyState === 'pending'
-          ? 'Copying source…'
-          : 'Copy source';
+          ? t('docs.componentExample.copyingSource')
+          : t('docs.componentExample.copySource');
   const copyFeedback =
     copyState === 'success'
-      ? 'Copied'
+      ? t('docs.componentExample.copied')
       : copyState === 'error'
-        ? 'Copy failed. Select the source below and copy it manually.'
+        ? t('docs.componentExample.copyFailedManual')
         : '';
 
   const openStandaloneExample = () => {
@@ -158,7 +172,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
         <div className={styles.toolbar} data-example-toolbar>
           <Tooltip>
             <Tooltip.Trigger
-              aria-label={`Open ${title} in new window`}
+              aria-label={t('docs.componentExample.openNamedInNewWindow', { title })}
               onClick={openStandaloneExample}
               render={(triggerProps) => (
                 <Button
@@ -167,7 +181,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                   size="small"
                   shape="circle"
                   variant="text"
-                  aria-label={`Open ${title} in new window`}
+                  aria-label={t('docs.componentExample.openNamedInNewWindow', { title })}
                   className={styles.actionButton}
                   data-example-action="external"
                 >
@@ -176,12 +190,12 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
               )}
             />
             <Tooltip.Content size="small" arrow={false}>
-              Open in new window
+              {t('docs.componentExample.openInNewWindow')}
             </Tooltip.Content>
           </Tooltip>
           <Tooltip closeOnClick={false}>
             <Tooltip.Trigger
-              aria-label={`${sourceAction} for ${title}`}
+              aria-label={sourceActionFor}
               aria-expanded={sourceOpen}
               aria-controls={sourceId}
               onClick={() => setSourceOpen((open) => !open)}
@@ -192,7 +206,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                   size="small"
                   shape="circle"
                   variant="text"
-                  aria-label={`${sourceAction} for ${title}`}
+                  aria-label={sourceActionFor}
                   className={styles.actionButton}
                   data-example-action="source"
                 >
@@ -224,7 +238,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
               <div className={styles.sourceHeader} data-example-source-header>
                 <Tabs.List
                   className={styles.sourceTabs!}
-                  aria-label={`${title} source files`}
+                  aria-label={t('docs.componentExample.sourceFiles', { title })}
                   data-example-source-tabs
                 >
                   <Tabs.Tab
@@ -267,7 +281,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                 {sourceOpen ? (
                   <Tooltip closeOnClick={false}>
                     <Tooltip.Trigger
-                      aria-label={`Copy source for ${title}`}
+                      aria-label={t('docs.componentExample.copySourceFor', { title })}
                       aria-disabled={copyState === 'pending' || undefined}
                       onClick={() => void copySource()}
                       render={(triggerProps) => (
@@ -277,7 +291,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                           size="small"
                           shape="circle"
                           variant="text"
-                          aria-label={`Copy source for ${title}`}
+                          aria-label={t('docs.componentExample.copySourceFor', { title })}
                           className={styles.actionButton}
                           data-example-action="copy"
                           data-copy-state={copyState}
@@ -302,7 +316,10 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                 className={styles.sourcePanel!}
                 data-example-source-panel="react"
               >
-                <pre tabIndex={sourceOpen ? 0 : -1} aria-label={`React source code for ${title}`}>
+                <pre
+                  tabIndex={sourceOpen ? 0 : -1}
+                  aria-label={t('docs.componentExample.reactSourceCodeFor', { title })}
+                >
                   <code data-language="tsx">{displayReactSource}</code>
                 </pre>
               </Tabs.Panel>
@@ -312,7 +329,10 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                 className={styles.sourcePanel!}
                 data-example-source-panel="scss"
               >
-                <pre tabIndex={sourceOpen ? 0 : -1} aria-label={`SCSS source code for ${title}`}>
+                <pre
+                  tabIndex={sourceOpen ? 0 : -1}
+                  aria-label={t('docs.componentExample.scssSourceCodeFor', { title })}
+                >
                   <code data-language="scss">{styleSource}</code>
                 </pre>
               </Tabs.Panel>
@@ -339,7 +359,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                 {sourceOpen ? (
                   <Tooltip closeOnClick={false}>
                     <Tooltip.Trigger
-                      aria-label={`Copy source for ${title}`}
+                      aria-label={t('docs.componentExample.copySourceFor', { title })}
                       aria-disabled={copyState === 'pending' || undefined}
                       onClick={() => void copySource()}
                       render={(triggerProps) => (
@@ -349,7 +369,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                           size="small"
                           shape="circle"
                           variant="text"
-                          aria-label={`Copy source for ${title}`}
+                          aria-label={t('docs.componentExample.copySourceFor', { title })}
                           className={styles.actionButton}
                           data-example-action="copy"
                           data-copy-state={copyState}
@@ -370,7 +390,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
               </div>
               <pre
                 tabIndex={sourceOpen ? 0 : -1}
-                aria-label={`React source code for ${title}`}
+                aria-label={t('docs.componentExample.reactSourceCodeFor', { title })}
                 data-example-source-panel="react"
               >
                 <code data-language="tsx">{displayReactSource}</code>

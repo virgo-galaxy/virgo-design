@@ -1,17 +1,20 @@
 import { Button, Checkbox, Input, Popover } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './PopoverFormExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('Virgo workspace');
   const [savedName, setSavedName] = useState(name);
   return (
     <div className={styles.root!}>
       <Popover open={open} onOpenChange={setOpen}>
-        <Popover.Trigger>Edit workspace</Popover.Trigger>
-        <Popover.Content aria-label="Edit workspace settings" arrow>
+        <Popover.Trigger>{t('examples.popover.copy.editWorkspace')}</Popover.Trigger>
+        <Popover.Content aria-label={t('examples.popover.copy.editWorkspaceSettings')} arrow>
           <form
             className={styles.form!}
             onSubmit={(event) => {
@@ -20,24 +23,26 @@ export default function App() {
               setOpen(false);
             }}
           >
-            <strong>Workspace settings</strong>
+            <strong>{t('examples.popover.copy.workspaceSettings')}</strong>
             <label className={styles.label!}>
-              Workspace name
+              {t('examples.popover.copy.workspaceName')}
               <Input value={name} onChange={(event) => setName(event.target.value)} />
             </label>
-            <Checkbox defaultChecked>Notify workspace members</Checkbox>
+            <Checkbox defaultChecked>{t('examples.popover.copy.notifyWorkspaceMembers')}</Checkbox>
             <div className={styles.stage!}>
-              <Popover.Close>Cancel</Popover.Close>
+              <Popover.Close>{t('examples.popover.copy.cancel')}</Popover.Close>
               <Button type="submit" size="small">
-                Save changes
+                {t('examples.popover.copy.saveChanges')}
               </Button>
             </div>
           </form>
         </Popover.Content>
       </Popover>
-      <span role="status">Workspace: {savedName}</span>
+      <span role="status">
+        {t('examples.popover.copy.workspace')} {savedName}
+      </span>
       <Button variant="text" size="small">
-        Next control
+        {t('examples.popover.copy.nextControl')}
       </Button>
     </div>
   );

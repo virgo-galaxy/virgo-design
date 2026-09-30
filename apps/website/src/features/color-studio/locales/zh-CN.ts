@@ -4,6 +4,7 @@ import { colorStudioEnUS } from './en-US';
 
 export const colorStudioZhCN = {
   colorStudio: {
+    picker: { open: '打开颜色选择器', title: '颜色选择器' },
     hero: {
       eyebrow: '01 · 创建',
       title: '色彩实验室',

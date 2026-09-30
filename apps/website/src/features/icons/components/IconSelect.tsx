@@ -1,6 +1,7 @@
 import './IconSelect.scss';
 
 import { type ComponentType, useEffect, useId, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type IconRenderer = ComponentType<{
   'aria-hidden'?: boolean | 'true';
@@ -20,6 +21,7 @@ type IconSelectProps = {
 };
 
 export function IconSelect({ onChange, options, value }: IconSelectProps) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const menuId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -50,7 +52,7 @@ export function IconSelect({ onChange, options, value }: IconSelectProps) {
   return (
     <div className="icon-select" ref={rootRef}>
       <span className="icon-select__label" id={`${menuId}-label`}>
-        Icon
+        {t('foundations.icons.icon')}
       </span>
       <button
         aria-controls={isOpen ? menuId : undefined}

@@ -72,19 +72,25 @@ describe('LayoutScalePreview', () => {
   it.each([
     {
       locale: 'en-US',
+      eyebrow: 'SCALE PREVIEW',
       title: 'Scale preview',
+      paddingLabel: 'Padding',
+      gapLabel: 'Gap',
       combinations: 'Spacing combinations',
       disclaimer: 'These examples illustrate scale only and do not define component semantics.',
     },
     {
       locale: 'zh-CN',
+      eyebrow: '尺度预览',
       title: '尺度预览',
+      paddingLabel: '内边距',
+      gapLabel: '间距',
       combinations: '间距组合',
       disclaimer: '以下示例仅用于展示尺度关系，不定义正式组件语义。',
     },
   ])(
     'uses neutral documentation language in $locale',
-    ({ locale, title, combinations, disclaimer }) => {
+    ({ locale, eyebrow, title, paddingLabel, gapLabel, combinations, disclaimer }) => {
       const localizedI18n = i18nInstance.cloneInstance({ lng: locale });
       const { container } = render(
         <I18nextProvider i18n={localizedI18n}>
@@ -92,7 +98,7 @@ describe('LayoutScalePreview', () => {
         </I18nextProvider>,
       );
 
-      expect(localizedI18n.t('foundations.layout.preview.eyebrow')).toBe('SCALE PREVIEW');
+      expect(localizedI18n.t('foundations.layout.preview.eyebrow')).toBe(eyebrow);
       expect(localizedI18n.t('foundations.layout.preview.title')).toBe(title);
       expect(within(container).getByRole('heading', { level: 4, name: combinations })).toBeTruthy();
       expect(within(container).getByText(disclaimer)).toBeTruthy();
@@ -110,7 +116,7 @@ describe('LayoutScalePreview', () => {
         const gap = Number(sample.dataset.gapToken) as keyof typeof spacing;
 
         expect(sample.querySelector('strong')?.textContent).toBe(
-          `Padding ${spacing[padding]} · Gap ${spacing[gap]}`,
+          `${paddingLabel} ${spacing[padding]} · ${gapLabel} ${spacing[gap]}`,
         );
       }
 

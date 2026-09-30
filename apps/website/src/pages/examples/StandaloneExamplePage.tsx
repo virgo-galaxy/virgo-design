@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Navigate, useParams, useSearchParams } from 'react-router-dom';
 
 import { loadStandaloneExample } from '@/examples/components/standalone-example-registry';
@@ -14,6 +15,7 @@ function readTheme(value: string | null, fallback: Appearance): Appearance {
 }
 
 export function StandaloneExamplePage() {
+  const { t } = useTranslation();
   const { exampleId = '' } = useParams();
   const [searchParams] = useSearchParams();
   const { appearance } = useAppearance();
@@ -43,7 +45,7 @@ export function StandaloneExamplePage() {
       className={styles.root}
       data-theme={theme}
       data-standalone-example={exampleId}
-      aria-label={`${exampleId} example`}
+      aria-label={t('examples.standalone.label', { id: exampleId })}
     >
       {Example ? <Example /> : <div aria-busy="true" />}
     </main>

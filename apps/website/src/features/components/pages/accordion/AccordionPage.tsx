@@ -1,6 +1,7 @@
 import './AccordionPage.scss';
 
 import { Accordion } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -13,24 +14,28 @@ import { accordionExamples } from '@/examples/components/accordion/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 function DemoItems({ prefix }: { prefix: string }) {
+  const { t } = useTranslation();
+
   return (
     <>
       <Accordion.Item value={`${prefix}-anatomy`}>
-        <Accordion.Trigger icon>Anatomy</Accordion.Trigger>
+        <Accordion.Trigger icon>{t('examples.accordion.copy.anatomy')}</Accordion.Trigger>
         <Accordion.Content>
-          Root coordinates Item, Trigger, and Content without owning application content.
+          {t(
+            'examples.accordion.copy.rootCoordinatesItemTriggerAndContentWithoutOwningApplicationContent',
+          )}
         </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value={`${prefix}-behavior`}>
-        <Accordion.Trigger icon>Behavior</Accordion.Trigger>
+        <Accordion.Trigger icon>{t('examples.accordion.copy.behavior')}</Accordion.Trigger>
         <Accordion.Content>
-          State can be controlled or uncontrolled, with one or several items open.
+          {t('examples.accordion.copy.stateCanBeControlledOrUncontrolledWithOneOrSeveral')}
         </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value={`${prefix}-keyboard`}>
-        <Accordion.Trigger icon>Keyboard</Accordion.Trigger>
+        <Accordion.Trigger icon>{t('examples.accordion.copy.keyboard')}</Accordion.Trigger>
         <Accordion.Content>
-          Arrow keys, Home, and End move focus between enabled headings.
+          {t('examples.accordion.copy.arrowKeysHomeAndEndMoveFocusBetweenEnabledHeadings')}
         </Accordion.Content>
       </Accordion.Item>
     </>
@@ -38,6 +43,8 @@ function DemoItems({ prefix }: { prefix: string }) {
 }
 
 export function AccordionPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board accordion-review" id="accordion-review">
@@ -45,28 +52,25 @@ export function AccordionPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Accordion</h1>
-            <p>
-              Progressive disclosure for related sections, built from accessible heading buttons and
-              labelled content regions.
-            </p>
+            <p>{t('components.accordion.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Modes</dt>
+                <dt>{t('components.accordion.facts.modes')}</dt>
                 <dd>02</dd>
               </div>
               <div>
-                <dt>Sizes</dt>
+                <dt>{t('components.accordion.facts.sizes')}</dt>
                 <dd>03</dd>
               </div>
               <div>
-                <dt>Variants</dt>
+                <dt>{t('components.accordion.facts.variants')}</dt>
                 <dd>03</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.accordion.specimen.referenceSpecimen')}</span>
               <code>single · bordered · md</code>
             </div>
             <div className="hero-stage accordion-hero-stage">
@@ -80,9 +84,9 @@ export function AccordionPage() {
               </Accordion.Root>
             </div>
             <div className="specimen-caption">
-              <span>ARIA headings</span>
-              <span>Arrow navigation</span>
-              <span>Classic style</span>
+              <span>{t('components.accordion.specimen.ariaHeadings')}</span>
+              <span>{t('components.accordion.specimen.arrowNavigation')}</span>
+              <span>{t('components.accordion.specimen.classicStyle')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -90,30 +94,24 @@ export function AccordionPage() {
         <ArticleSection
           id={'accordion-variants'}
           index={'01'}
-          title={'Variants'}
-          description={
-            'Default uses separators, bordered groups items into one surface, and ghost removes visual dividers.'
-          }
+          title={t('components.accordion.variants.title')}
+          description={t('components.accordion.variants.description')}
         >
           <ComponentExample example={accordionExamples.accordionVariants} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'accordion-sizes'}
           index={'02'}
-          title={'Sizes'}
-          description={
-            'Size adjusts heading height, type, icon, and content spacing as one density decision.'
-          }
+          title={t('components.accordion.sizes.title')}
+          description={t('components.accordion.sizes.description')}
         >
           <ComponentExample example={accordionExamples.accordionSizes} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'accordion-modes'}
           index={'03'}
-          title={'Selection modes'}
-          description={
-            'Single mode keeps at most one section open; multiple mode lets each section change independently.'
-          }
+          title={t('components.accordion.modes.title')}
+          description={t('components.accordion.modes.description')}
         >
           <ComponentExample example={accordionExamples.accordionSingle} />
           <ComponentExample example={accordionExamples.accordionMultiple} />

@@ -22,6 +22,7 @@ export const foundationsEnUS = {
       mono: 'Mono',
     },
     fontFamilyStack: 'Font-family stack',
+    fontFamilySpecimen: 'Virgo Design\nBuild tools that feel inevitable.',
     internationalSans: {
       title: 'International Sans',
       description:
@@ -43,9 +44,19 @@ export const foundationsEnUS = {
     },
     fontSize: 'Font Size',
     fontWeight: 'Font Weight',
+    fontWeights: {
+      regular: 'Regular',
+      medium: 'Medium',
+      semibold: 'Semibold',
+      bold: 'Bold',
+    },
     lineHeight: 'Line Height',
     lineHeightDescription:
       'Foundation Scale · The four current Line Height tokens shown at their exact values.',
+    lineHeightSample: {
+      first: 'Foundation materials',
+      second: 'remain composable.',
+    },
   },
   layout: {
     title: 'Layout',
@@ -135,5 +146,9 @@ export const foundationsEnUS = {
     easingDescription: 'Each curve uses the same time and progress axes for direct comparison.',
     disclaimer:
       'These examples illustrate timing scales and motion curves only and do not define interaction semantics.',
+    axes: {
+      time: 'time',
+      progress: 'progress',
+    },
   },
 } as const;

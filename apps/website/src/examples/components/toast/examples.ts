@@ -1,4 +1,5 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
+import { createExampleSource } from '@/examples/components/create-example-source';
 
 import ToastIntentsExample from './ToastIntentsExample';
 import toastIntentsStyles from './ToastIntentsExample.module.scss?virgo-raw';
@@ -17,33 +18,44 @@ export const toastExamples = {
   toastIntents: {
     id: 'toast-intents',
     title: 'Status variants',
+    titleTranslationKey: 'examples.toast.copy.statusVariants',
     description: 'Semantic status and live announcements in a local preview viewport.',
+    descriptionTranslationKey:
+      'examples.toast.copy.semanticStatusAndLiveAnnouncementsInALocalPreviewViewport',
     Component: ToastIntentsExample,
-    source: toastIntentsSource,
+    source: createExampleSource(toastIntentsSource),
     styleSource: toastIntentsStyles,
   },
   toastUndo: {
     id: 'toast-undo',
     title: 'Action and dismissal',
+    titleTranslationKey: 'examples.toast.copy.actionAndDismissal',
     description: 'The application owns the undo action and replay control.',
+    descriptionTranslationKey:
+      'examples.toast.copy.theApplicationOwnsTheUndoActionAndReplayControl',
     Component: ToastUndoExample,
-    source: toastUndoSource,
+    source: createExampleSource(toastUndoSource),
     styleSource: toastUndoStyles,
   },
   toastStack: {
     id: 'toast-stack',
     title: 'Stacking and timers',
+    titleTranslationKey: 'examples.toast.copy.stackingAndTimers',
     description: 'Hover or focus a toast to pause only its remaining duration.',
+    descriptionTranslationKey: 'examples.toast.copy.hoverOrFocusAToastToPauseOnlyItsRemaining',
     Component: ToastStackExample,
-    source: toastStackSource,
+    source: createExampleSource(toastStackSource),
     styleSource: toastStackStyles,
   },
   toastPlacement: {
     id: 'toast-placement',
     title: 'Viewport placement',
+    titleTranslationKey: 'examples.toast.copy.viewportPlacement',
     description: 'A positioned preview canvas contains all six viewport placements.',
+    descriptionTranslationKey:
+      'examples.toast.copy.aPositionedPreviewCanvasContainsAllSixViewportPlacements',
     Component: ToastPlacementExample,
-    source: toastPlacementSource,
+    source: createExampleSource(toastPlacementSource),
     styleSource: toastPlacementStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

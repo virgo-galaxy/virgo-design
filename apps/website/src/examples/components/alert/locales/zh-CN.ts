@@ -1,0 +1,43 @@
+import type { LocaleOf } from '@/i18n/locale-types';
+
+import type { alertExamplesEnUS } from './en-US';
+export const alertExamplesZhCN = {
+  copy: {
+    deploymentFailed: '部署失败',
+    retryAfterCheckingTheServiceConnection: '检查服务连接后重试。',
+    retry: '重试',
+    retryRequests: '重试请求次数：',
+    reviewRequested: '请求评审',
+    aTeammateRequestedFeedbackOnThisWorkspace: '团队成员请求对此工作区提供反馈。',
+    restoreAlert: '恢复提示',
+    changesSaved: '更改已保存',
+    scheduledMaintenance: '计划维护',
+    editingWillBeUnavailableForApproximatelyTenMinutes: '编辑功能将暂停约十分钟。',
+    workspacePolicy: '工作区策略',
+    thisProjectFollowsTheSharedRetentionPolicy: '此项目遵循共享保留策略。',
+    semanticIntents: '语义意图',
+    iconsReinforceStatusWithoutRelyingOnlyOnColor: '图标强化状态，避免仅依赖颜色。',
+    titleAndDescription: '标题与描述',
+    aConciseTitleCanStandAloneOrIncludeRecoveryGuidance: '简短标题可独立使用，也可配合恢复指引。',
+    applicationAction: '应用操作',
+    theOwnerSuppliesARealControlAndHandlesItsBehavior: '使用方提供真实控件并处理其行为。',
+    closableAlert: '可关闭提示',
+    closeNotifiesTheOwnerTheDemoRemovesAndRestoresThe: '关闭时通知使用方；演示会移除与恢复消息。',
+    customIcon: '自定义图标',
+    useADomainIconWhileIntentContinuesToOwnColor: '使用自定义图标与语义颜色。',
+    configurationProblem: '配置问题',
+    updateTheSettingsBeforeDeploy: '部署前请更新设置。',
+  },
+  details: {
+    workspaceNotice: '工作区通知',
+    thisMessageRemainsPartOfThePageUntilItsOwner: '此消息保留在页面中，直到使用方移除。',
+    newSettingsAvailable: '有新设置可用',
+    reviewTheLatestWorkspacePreferencesWhenConvenient: '方便时查看最新工作区偏好。',
+    deploymentComplete: '部署完成',
+    theProductionWorkspaceIsRunningTheLatestVersion: '生产工作区正在运行最新版本。',
+    configurationProblem: '配置问题',
+    updateTheSettingsBeforeTheNextDeployment: '下次部署前请更新设置。',
+    connectionFailed: '连接失败',
+    virgoCouldNotReachTheDeploymentService: 'Virgo 无法连接部署服务。',
+  },
+} satisfies LocaleOf<typeof alertExamplesEnUS>;

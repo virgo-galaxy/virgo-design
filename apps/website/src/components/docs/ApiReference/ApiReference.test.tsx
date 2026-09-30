@@ -41,6 +41,12 @@ describe('ApiReference', () => {
     render(<RegistryApiReference registry={componentApiReference} slug="button" />);
 
     expect(screen.getByText('操作按钮的可见文本标签。')).toBeInTheDocument();
+    const buttonPropsTable = screen.getByRole('region', { name: 'ButtonProps 属性' });
+    expect(buttonPropsTable).toBeInTheDocument();
+    expect(
+      within(buttonPropsTable).getByRole('columnheader', { name: '属性' }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: '公共类型' })).toBeInTheDocument();
     expect(componentApiReference.button?.declarations).toEqual(
       expect.arrayContaining([
         expect.objectContaining({

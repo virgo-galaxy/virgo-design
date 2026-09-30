@@ -1,5 +1,6 @@
 import { Button } from '@virgo-design/ui';
 import { type ReactNode, useCallback, useContext, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './component-example.module.scss';
 import {
@@ -74,11 +75,14 @@ export function ComponentExampleRuntimeProvider({ children }: { children: ReactN
 }
 
 export function ComponentExampleRuntimeControl() {
+  const { t } = useTranslation();
   const runtime = useContext(ComponentExampleRuntimeContext);
 
   if (!runtime) return null;
 
-  const label = runtime.allOpen ? 'Collapse all' : 'Expand all';
+  const label = runtime.allOpen
+    ? t('docs.componentExample.collapseAll')
+    : t('docs.componentExample.expandAll');
 
   return (
     <Button

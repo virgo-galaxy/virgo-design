@@ -1,9 +1,12 @@
 import { Button, Drawer, Input } from '@virgo-design/ui';
 import { useId, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './DrawerFormExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   const formId = useId();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('Virgo workspace');
@@ -11,14 +14,14 @@ export default function App() {
   return (
     <div className={styles.root!}>
       <Drawer.Root open={open} onOpenChange={setOpen}>
-        <Drawer.Trigger>Edit workspace</Drawer.Trigger>
+        <Drawer.Trigger>{t('examples.drawer.copy.editWorkspace')}</Drawer.Trigger>
         <Drawer.Portal>
           <Drawer.Overlay />
           <Drawer.Content size="lg">
             <Drawer.Header>
-              <Drawer.Title>Workspace details</Drawer.Title>
+              <Drawer.Title>{t('examples.drawer.copy.workspaceDetails')}</Drawer.Title>
               <Drawer.Description>
-                Update the name shown throughout the workspace.
+                {t('examples.drawer.copy.updateTheNameShownThroughoutTheWorkspace')}
               </Drawer.Description>
             </Drawer.Header>
             <Drawer.Body>
@@ -31,22 +34,24 @@ export default function App() {
                 }}
               >
                 <label className={styles.label!}>
-                  Workspace name
+                  {t('examples.drawer.copy.workspaceName')}
                   <Input value={name} onChange={(event) => setName(event.target.value)} />
                 </label>
               </form>
             </Drawer.Body>
             <Drawer.Footer>
-              <Drawer.Close>Cancel</Drawer.Close>
+              <Drawer.Close>{t('examples.drawer.copy.cancel')}</Drawer.Close>
               <Button type="submit" form={formId}>
-                Save changes
+                {t('examples.drawer.copy.saveChanges')}
               </Button>
             </Drawer.Footer>
-            <Drawer.Close />
+            <Drawer.Close aria-label={t('examples.drawer.copy.closeDrawer')} />
           </Drawer.Content>
         </Drawer.Portal>
       </Drawer.Root>
-      <span role="status">Workspace: {savedName}</span>
+      <span role="status">
+        {t('examples.drawer.copy.workspace')} {savedName}
+      </span>
     </div>
   );
 }

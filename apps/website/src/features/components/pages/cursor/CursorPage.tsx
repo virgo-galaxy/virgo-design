@@ -1,4 +1,5 @@
 import { Cursor, Tooltip } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -12,6 +13,8 @@ import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 import styles from './CursorPage.module.scss';
 
 export function CursorPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board cursor-review" id="cursor-review">
@@ -19,40 +22,39 @@ export function CursorPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Cursor</h1>
-            <p>
-              A small glass pointer, with context close behind. Scope it to a canvas, an editor, or
-              an entire application.
-            </p>
+            <p>{t('components.cursor.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Input</dt>
-                <dd>Mouse aware</dd>
+                <dt>{t('components.cursor.facts.input')}</dt>
+                <dd>{t('components.cursor.facts.mouseAware')}</dd>
               </div>
               <div>
-                <dt>Visual</dt>
-                <dd>Yours or Virgo</dd>
+                <dt>{t('components.cursor.facts.visual')}</dt>
+                <dd>{t('components.cursor.facts.yoursOrVirgo')}</dd>
               </div>
               <div>
-                <dt>Feedback</dt>
-                <dd>Pointer follow</dd>
+                <dt>{t('components.cursor.facts.feedback')}</dt>
+                <dd>{t('components.cursor.facts.pointerFollow')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.cursor.specimen.referenceSpecimen')}</span>
               <code>context in motion</code>
             </div>
             <Cursor.Provider follow={{ tooltip: true }} className="hero-stage">
               <Tooltip>
-                <Tooltip.Trigger>Follow your curiosity</Tooltip.Trigger>
-                <Tooltip.Content>A little context, close behind.</Tooltip.Content>
+                <Tooltip.Trigger>{t('examples.cursor.copy.followYourCuriosity')}</Tooltip.Trigger>
+                <Tooltip.Content>
+                  {t('examples.cursor.copy.aLittleContextCloseBehind')}
+                </Tooltip.Content>
               </Tooltip>
             </Cursor.Provider>
             <div className="specimen-caption">
-              <span>Scoped input</span>
-              <span>Custom visuals</span>
-              <span>Keyboard ready</span>
+              <span>{t('components.cursor.specimen.scopedInput')}</span>
+              <span>{t('components.cursor.specimen.customVisuals')}</span>
+              <span>{t('components.cursor.specimen.keyboardReady')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -62,8 +64,8 @@ export function CursorPage() {
             key={example.id}
             id={example.id}
             index={String(index + 1).padStart(2, '0')}
-            title={example.title}
-            description={example.description}
+            title={t(example.titleTranslationKey)}
+            description={t(example.descriptionTranslationKey)}
           >
             <ComponentExample example={example} showCaption={false} />
           </ArticleSection>
@@ -71,15 +73,10 @@ export function CursorPage() {
         <ArticleSection
           id="cursor-lifecycle"
           index="08"
-          title="Lifecycle"
-          description="Cursor owns tracking and visuals. Consumers subscribe to the nearest scope."
+          title={t('components.cursor.lifecycle.title')}
+          description={t('components.cursor.lifecycle.description')}
         >
-          <p className={styles.lifecycleNote}>
-            Mouse coordinates are coalesced once per animation frame. Leaving the scope, scrolling,
-            window blur, visibility changes, cancellation, route resets and unmount all clear
-            pointer-follow feedback. Touch and pen keep native input behavior, while keyboard
-            Tooltips retain their element anchor and description relationship.
-          </p>
+          <p className={styles.lifecycleNote}>{t('components.cursor.lifecycle.note')}</p>
         </ArticleSection>
       </div>
     </ComponentExampleRuntimeProvider>

@@ -1,6 +1,7 @@
 import { BrowserRouter, useLocation } from 'react-router-dom';
 
 import { AppRouter } from '@/app/routes/AppRouter';
+import { WebsiteControlLabels } from '@/app/WebsiteControlLabels';
 import { AppLayout } from '@/layout/AppLayout';
 
 function RoutedApp() {
@@ -18,8 +19,10 @@ function RoutedApp() {
 
 export function App() {
   return (
-    <BrowserRouter>
-      <RoutedApp />
-    </BrowserRouter>
+    <WebsiteControlLabels>
+      <BrowserRouter>
+        <RoutedApp />
+      </BrowserRouter>
+    </WebsiteControlLabels>
   );
 }

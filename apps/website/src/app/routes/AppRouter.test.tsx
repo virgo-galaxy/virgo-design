@@ -56,7 +56,7 @@ describe('Token routes', () => {
   it('redirects /tokens to the formal Color Semantic page', async () => {
     renderRoute('/tokens');
 
-    await findRouteHeading('Color with meaning');
+    await findRouteHeading('Semantic colors');
     const navigation = screen.getByRole('navigation', { name: 'Token categories' });
 
     expect(navigation).toHaveAttribute('data-variant', 'segmented');

@@ -1,5 +1,6 @@
 import { Button, Toast, type ToastPlacement } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './ToastPlacementExample.module.scss';
 
@@ -13,6 +14,8 @@ const placements = [
 ] as const;
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [placement, setPlacement] = useState<ToastPlacement>('bottom-end');
   const [open, setOpen] = useState(false);
   return (
@@ -36,7 +39,7 @@ export default function App() {
         <div className={styles.stage2!}>
           <Toast.Viewport
             placement={placement}
-            aria-label="Positioned notifications"
+            aria-label={t('examples.toast.copy.positionedNotifications')}
             className={styles.viewport!}
           />
         </div>
@@ -44,9 +47,9 @@ export default function App() {
       <Toast.Root open={open} onOpenChange={setOpen} intent="info" duration={0}>
         <Toast.Title>{placement}</Toast.Title>
         <Toast.Description>
-          This example positions its viewport inside the canvas.
+          {t('examples.toast.copy.thisExamplePositionsItsViewportInsideTheCanvas')}
         </Toast.Description>
-        <Toast.Close />
+        <Toast.Close aria-label={t('examples.toast.copy.dismissNotification')} />
       </Toast.Root>
     </Toast.Provider>
   );

@@ -2,6 +2,7 @@ import './EmptyPage.scss';
 
 import { LayoutIcon } from '@virgo-design/icons';
 import { Button, Empty } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
@@ -14,6 +15,8 @@ import { emptyExamples } from '@/examples/components/empty/examples';
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
 export function EmptyPage() {
+  const { t } = useTranslation();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="review-board empty-review">
@@ -21,45 +24,47 @@ export function EmptyPage() {
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Empty</h1>
-            <p>Application-owned empty-content messaging with semantic, composable anatomy.</p>
+            <p>{t('components.empty.overview.description')}</p>
             <dl className="component-facts">
               <div>
-                <dt>Slots</dt>
-                <dd>Icon · Title · Description · Action</dd>
+                <dt>{t('components.empty.facts.slots')}</dt>
+                <dd>{t('examples.empty.copy.iconTitleDescriptionAction')}</dd>
               </div>
               <div>
-                <dt>Sizes</dt>
+                <dt>{t('components.empty.facts.sizes')}</dt>
                 <dd>02</dd>
               </div>
               <div>
-                <dt>Intent</dt>
-                <dd>Neutral</dd>
+                <dt>{t('components.empty.facts.intent')}</dt>
+                <dd>{t('components.empty.facts.neutral')}</dd>
               </div>
             </dl>
           </div>
           <div className="hero-specimen">
             <div className="specimen-toolbar">
-              <span>Reference specimen</span>
+              <span>{t('components.empty.specimen.referenceSpecimen')}</span>
               <code>icon · message · action</code>
             </div>
             <div className="hero-stage">
               <div className="empty-hero-frame">
-                <Empty aria-label="Empty documents hero state">
+                <Empty aria-label={t('examples.empty.copy.emptyDocumentsHeroState')}>
                   <Empty.Icon>
                     <LayoutIcon />
                   </Empty.Icon>
-                  <Empty.Title>No documents</Empty.Title>
-                  <Empty.Description>Create your first document to get started.</Empty.Description>
+                  <Empty.Title>{t('examples.empty.copy.noDocuments')}</Empty.Title>
+                  <Empty.Description>
+                    {t('examples.empty.copy.createYourFirstDocumentToGetStarted')}
+                  </Empty.Description>
                   <Empty.Action>
-                    <Button>Create document</Button>
+                    <Button>{t('examples.empty.copy.createDocument')}</Button>
                   </Empty.Action>
                 </Empty>
               </div>
             </div>
             <div className="specimen-caption">
-              <span>Consumer copy</span>
-              <span>Composable slots</span>
-              <span>Neutral guidance</span>
+              <span>{t('components.empty.specimen.consumerCopy')}</span>
+              <span>{t('components.empty.specimen.composableSlots')}</span>
+              <span>{t('components.empty.specimen.neutralGuidance')}</span>
               <ComponentExampleRuntimeControl />
             </div>
           </div>
@@ -67,28 +72,24 @@ export function EmptyPage() {
         <ArticleSection
           id={'empty-basic'}
           index={'01'}
-          title={'Basic and described'}
-          description={
-            'Consumers own every word; Empty supplies only stable structure and presentation.'
-          }
+          title={t('components.empty.basic.title')}
+          description={t('components.empty.basic.description')}
         >
           <ComponentExample example={emptyExamples.emptyBasic} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'empty-complete'}
           index={'02'}
-          title={'Icon, description, and action'}
-          description={
-            'Optional slots compose existing icons and controls without adding business logic.'
-          }
+          title={t('components.empty.complete.title')}
+          description={t('components.empty.complete.description')}
         >
           <ComponentExample example={emptyExamples.emptyAction} showCaption={false} />
         </ArticleSection>
         <ArticleSection
           id={'empty-search-compact'}
           index={'03'}
-          title={'Search and compact states'}
-          description={'The small size fits constrained surfaces while retaining the same anatomy.'}
+          title={t('components.empty.searchCompact.title')}
+          description={t('components.empty.searchCompact.description')}
         >
           <ComponentExample example={emptyExamples.emptySearch} showCaption={false} />
         </ArticleSection>

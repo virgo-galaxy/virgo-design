@@ -1,5 +1,6 @@
 import { type RefObject, useEffect, useMemo, useRef, useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
+import { useTranslation } from 'react-i18next';
 
 import styles from './color-picker-popover.module.scss';
 
@@ -51,6 +52,7 @@ export function ColorPickerPopover({
   onChange,
   onClose,
 }: ColorPickerPopoverProps) {
+  const { t } = useTranslation();
   const popoverRef = useRef<HTMLDivElement>(null);
   const [draftHex, setDraftHex] = useState(normalizeHex(value));
 
@@ -115,7 +117,12 @@ export function ColorPickerPopover({
   };
 
   return (
-    <div ref={popoverRef} className={styles.popover} role="dialog" aria-label="Color picker">
+    <div
+      ref={popoverRef}
+      className={styles.popover}
+      role="dialog"
+      aria-label={t('foundations.colorStudio.picker.title')}
+    >
       <HexColorPicker
         className={styles.canvas}
         color={normalizeHex(value)}

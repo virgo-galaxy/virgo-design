@@ -1,17 +1,25 @@
 import { Input, Popover } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './PopoverHoverExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <Popover trigger="hover">
-      <Popover.Trigger>Hover for details</Popover.Trigger>
+      <Popover.Trigger>{t('examples.popover.copy.hoverForDetails')}</Popover.Trigger>
       <Popover.Content arrow>
         <div className={styles.root!}>
-          <strong>Project notes</strong>
-          <p className={styles.text!}>Use Tab to move through controls and Escape to return.</p>
-          <Input aria-label="Preview note" placeholder="Add a note" />
-          <Popover.Close>Done</Popover.Close>
+          <strong>{t('examples.popover.copy.projectNotes')}</strong>
+          <p className={styles.text!}>
+            {t('examples.popover.copy.useTabToMoveThroughControlsAndEscapeToReturn')}
+          </p>
+          <Input
+            aria-label={t('examples.popover.copy.previewNote')}
+            placeholder={t('examples.popover.copy.addANote')}
+          />
+          <Popover.Close>{t('examples.popover.copy.done')}</Popover.Close>
         </div>
       </Popover.Content>
     </Popover>

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from '../../styles/color-studio.module.scss';
 import { ColorPickerPopover } from './ColorPickerPopover';
@@ -20,6 +21,7 @@ export function HexColorField({
   compact = false,
   disabled = false,
 }: HexColorFieldProps) {
+  const { t } = useTranslation();
   const [draft, setDraft] = useState(value);
   const [pickerOpen, setPickerOpen] = useState(false);
 
@@ -62,7 +64,7 @@ export function HexColorField({
           ref={swatchRef}
           className={styles.colorSwatchButton}
           type="button"
-          aria-label="Open color picker"
+          aria-label={t('foundations.colorStudio.picker.open')}
           aria-expanded={pickerOpen}
           disabled={disabled}
           onClick={() => setPickerOpen((current) => !current)}

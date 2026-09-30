@@ -1,4 +1,5 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
+import { createExampleSource } from '@/examples/components/create-example-source';
 
 import BadgeCountsExample from './BadgeCountsExample';
 import badgeCountsStyles from './BadgeCountsExample.module.scss?virgo-raw';
@@ -20,41 +21,54 @@ export const badgeExamples = {
   badgeCounts: {
     id: 'badge-counts',
     title: 'Counts and overflow',
+    titleTranslationKey: 'examples.badge.copy.countsAndOverflow',
     description: 'Attached counts cap at max while text labels remain unchanged.',
+    descriptionTranslationKey:
+      'examples.badge.copy.attachedCountsCapAtMaxWhileTextLabelsRemainUnchanged',
     Component: BadgeCountsExample,
-    source: badgeCountsSource,
+    source: createExampleSource(badgeCountsSource),
     styleSource: badgeCountsStyles,
   },
   badgeZero: {
     id: 'badge-zero',
     title: 'Zero counts',
+    titleTranslationKey: 'examples.badge.copy.zeroCounts',
     description: 'Choose explicitly whether a zero count is visible.',
+    descriptionTranslationKey: 'examples.badge.copy.chooseExplicitlyWhetherAZeroCountIsVisible',
     Component: BadgeZeroExample,
-    source: badgeZeroSource,
+    source: createExampleSource(badgeZeroSource),
     styleSource: badgeZeroStyles,
   },
   badgeStatus: {
     id: 'badge-status',
     title: 'Status dots',
+    titleTranslationKey: 'examples.badge.copy.statusDots',
     description: 'Name a meaningful status dot for assistive technology.',
+    descriptionTranslationKey: 'examples.badge.copy.nameAMeaningfulStatusDotForAssistiveTechnology',
     Component: BadgeStatusExample,
-    source: badgeStatusSource,
+    source: createExampleSource(badgeStatusSource),
     styleSource: badgeStatusStyles,
   },
   badgeInteractiveHost: {
     id: 'badge-interactive-host',
     title: 'Interactive host',
+    titleTranslationKey: 'examples.badge.copy.interactiveHost',
     description: 'The attached indicator does not intercept the button’s click.',
+    descriptionTranslationKey:
+      'examples.badge.copy.theAttachedIndicatorDoesNotInterceptTheButtonSClick',
     Component: BadgeInteractiveHostExample,
-    source: badgeInteractiveHostSource,
+    source: createExampleSource(badgeInteractiveHostSource),
     styleSource: badgeInteractiveHostStyles,
   },
   badgeStandalone: {
     id: 'badge-standalone',
     title: 'Standalone badges',
+    titleTranslationKey: 'examples.badge.copy.standaloneBadges',
     description: 'Use an inline count or release label without an attached host.',
+    descriptionTranslationKey:
+      'examples.badge.copy.useAnInlineCountOrReleaseLabelWithoutAnAttached',
     Component: BadgeStandaloneExample,
-    source: badgeStandaloneSource,
+    source: createExampleSource(badgeStandaloneSource),
     styleSource: badgeStandaloneStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

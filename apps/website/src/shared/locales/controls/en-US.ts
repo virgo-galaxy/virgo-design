@@ -1,0 +1,17 @@
+export const controlsEnUS = {
+  expandSidebar: 'Expand sidebar',
+  collapseSidebar: 'Collapse sidebar',
+  clearInput: 'Clear input',
+  hidePassword: 'Hide password',
+  showPassword: 'Show password',
+  resizeSidebar: 'Resize sidebar',
+  dockControls: 'Dock controls',
+  unlockDock: 'Unlock dock',
+  lockDock: 'Lock dock',
+  unlockMovement: 'Unlock movement',
+  lockMovement: 'Lock movement',
+  unpinDock: 'Unpin dock',
+  pinDock: 'Pin dock',
+  unpinViewport: 'Unpin from viewport',
+  pinViewport: 'Pin to viewport',
+} as const;

@@ -1,0 +1,67 @@
+export const dropdownExamplesEnUS = {
+  copy: {
+    profile: 'Profile',
+    settings: 'Settings',
+    inviteMember: 'Invite member',
+    deleteWorkspace: 'Delete workspace',
+    clickMe: 'Click me',
+    controlledMenu: 'Controlled menu',
+    menu: 'Menu',
+    nextControl: 'Next control',
+    moreWorkspaceActions: 'More workspace actions',
+    disabledMenu: 'Disabled menu',
+    unavailableAction: 'Unavailable action',
+    hoverMe: 'Hover me',
+    showArrow: 'Show arrow',
+    twelvePlacements: 'Twelve placements',
+    firstMenuItem: 'First menu item',
+    secondMenuItem: 'Second menu item',
+    thirdMenuItem: 'Third menu item',
+    save: 'Save',
+    account: 'Account',
+    disabled: 'Disabled',
+    unavailable: 'Unavailable',
+    danger: 'Danger',
+    clickMenu: 'Click menu',
+    disabledAndDestructiveItemsRetainTheirNativeMenuBehavior:
+      'Disabled and destructive items retain their native menu behavior.',
+    hoverMenu: 'Hover menu',
+    disabledTrigger: 'Disabled trigger',
+    anUnavailableRootPreventsTheMenuFromOpening:
+      'An unavailable root prevents the menu from opening.',
+    placementAndArrow: 'Placement and arrow',
+    twelvePositionsWithAnArrowThatCanBeDisabledIndependently:
+      'Twelve positions with an arrow that can be disabled independently.',
+    splitButton: 'Split button',
+    theMainButtonActsItsNeighborOpensRelatedActions:
+      'The main button acts; its neighbor opens related actions.',
+    splitButtonStates: 'Split button states',
+    disabledAndDangerStylesApplyToTheSplitAction:
+      'Disabled and danger styles apply to the split action.',
+    tooltipOnACustomTrigger: 'Tooltip on a custom trigger',
+    composeDescriptiveHelpWithoutNestingButtons:
+      'Compose descriptive help without nesting buttons.',
+    keyboardNavigationAndOpenStateBelongToThisExample:
+      'Keyboard navigation and open state belong to this example.',
+    menuDensity: 'Menu density',
+    fourTriggerSizesCoordinateTheRowAndTypographyDensity:
+      'Four trigger sizes coordinate the row and typography density.',
+    workspaceActions: 'Workspace actions',
+    clickToExplore: 'Click to explore',
+  },
+  details: {
+    profileSelected: 'Profile selected',
+    settingsSelected: 'Settings selected',
+    deleteSelected: 'Delete selected',
+    chooseAnAction: 'Choose an action.',
+    nextControlReached: 'Next control reached',
+    chooseAPositionedAction: 'Choose a positioned action.',
+    valueFirstItemSelected: '{{v0}}: first item selected',
+    valueSecondItemSelected: '{{v0}}: second item selected',
+    valueThirdItemSelected: '{{v0}}: third item selected',
+    saved: 'Saved',
+    accountOpened: 'Account opened',
+    dangerActionSelected: 'Danger action selected',
+    chooseAnActionToTryTheMenu: 'Choose an action to try the menu.',
+  },
+} as const;

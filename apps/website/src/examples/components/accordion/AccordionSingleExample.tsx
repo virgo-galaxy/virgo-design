@@ -1,26 +1,31 @@
 import { Accordion } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './AccordionSingleExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <Accordion.Root type="single" variant="bordered" className={styles.root!}>
       <Accordion.Item value="anatomy">
-        <Accordion.Trigger icon>Anatomy</Accordion.Trigger>
+        <Accordion.Trigger icon>{t('examples.accordion.copy.anatomy')}</Accordion.Trigger>
         <Accordion.Content>
-          Root coordinates Item, Trigger, and Content without owning application content.
+          {t(
+            'examples.accordion.copy.rootCoordinatesItemTriggerAndContentWithoutOwningApplicationContent',
+          )}
         </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="behavior">
-        <Accordion.Trigger icon>Behavior</Accordion.Trigger>
+        <Accordion.Trigger icon>{t('examples.accordion.copy.behavior')}</Accordion.Trigger>
         <Accordion.Content>
-          State can be controlled or uncontrolled, with one or several items open.
+          {t('examples.accordion.copy.stateCanBeControlledOrUncontrolledWithOneOrSeveral')}
         </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="keyboard">
-        <Accordion.Trigger icon>Keyboard</Accordion.Trigger>
+        <Accordion.Trigger icon>{t('examples.accordion.copy.keyboard')}</Accordion.Trigger>
         <Accordion.Content>
-          Arrow keys, Home, and End move focus between enabled headings.
+          {t('examples.accordion.copy.arrowKeysHomeAndEndMoveFocusBetweenEnabledHeadings')}
         </Accordion.Content>
       </Accordion.Item>
     </Accordion.Root>

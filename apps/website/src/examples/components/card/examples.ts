@@ -1,4 +1,5 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
+import { createExampleSource } from '@/examples/components/create-example-source';
 
 import CardActionsExample from './CardActionsExample';
 import cardActionsStyles from './CardActionsExample.module.scss?virgo-raw';
@@ -23,49 +24,65 @@ export const cardExamples = {
   cardBasic: {
     id: 'card-basic',
     title: 'Basic content',
+    titleTranslationKey: 'examples.card.copy.basicContent',
     description: 'Use Body for a compact group of related information.',
+    descriptionTranslationKey: 'examples.card.copy.useBodyForACompactGroupOfRelatedInformation',
     Component: CardBasicExample,
-    source: cardBasicSource,
+    source: createExampleSource(cardBasicSource),
     styleSource: cardBasicStyles,
   },
   cardHeader: {
     id: 'card-header',
     title: 'Header and description',
+    titleTranslationKey: 'examples.card.copy.headerAndDescription',
     description: 'Choose a document heading level explicitly.',
+    descriptionTranslationKey: 'examples.card.copy.chooseADocumentHeadingLevelExplicitly',
     Component: CardHeaderExample,
-    source: cardHeaderSource,
+    source: createExampleSource(cardHeaderSource),
     styleSource: cardHeaderStyles,
   },
   cardActions: {
     id: 'card-actions',
     title: 'Footer actions',
+    titleTranslationKey: 'examples.card.copy.footerActions',
     description: 'Buttons remain explicit children rather than implicit card interactions.',
+    descriptionTranslationKey:
+      'examples.card.copy.buttonsRemainExplicitChildrenRatherThanImplicitCardInteractions',
     Component: CardActionsExample,
-    source: cardActionsSource,
+    source: createExampleSource(cardActionsSource),
     styleSource: cardActionsStyles,
   },
   cardVariants: {
     id: 'card-variants',
     title: 'Outlined and elevated',
+    titleTranslationKey: 'examples.card.copy.outlinedAndElevated',
     description: 'Surface-backed treatments with different structural spacing.',
+    descriptionTranslationKey:
+      'examples.card.copy.surfaceBackedTreatmentsWithDifferentStructuralSpacing',
     Component: CardVariantsExample,
-    source: cardVariantsSource,
+    source: createExampleSource(cardVariantsSource),
     styleSource: cardVariantsStyles,
   },
   cardProfile: {
     id: 'card-profile',
     title: 'Profile composition',
+    titleTranslationKey: 'examples.card.copy.profileComposition',
     description: 'Combine an identity, description, and status inside a Card.',
+    descriptionTranslationKey:
+      'examples.card.copy.combineAnIdentityDescriptionAndStatusInsideACard',
     Component: CardProfileExample,
-    source: cardProfileSource,
+    source: createExampleSource(cardProfileSource),
     styleSource: cardProfileStyles,
   },
   cardChildren: {
     id: 'card-children',
     title: 'Arbitrary children',
+    titleTranslationKey: 'examples.card.copy.arbitraryChildren',
     description: 'Normal children can participate without every compound slot.',
+    descriptionTranslationKey:
+      'examples.card.copy.normalChildrenCanParticipateWithoutEveryCompoundSlot',
     Component: CardChildrenExample,
-    source: cardChildrenSource,
+    source: createExampleSource(cardChildrenSource),
     styleSource: cardChildrenStyles,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

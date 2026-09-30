@@ -1,32 +1,39 @@
 import { LayoutIcon, SidebarCollapseIcon, SidebarExpandIcon } from '@virgo-design/icons';
 import { Button, Layout, NavigationMenu, Surface } from '@virgo-design/ui';
 import { useId, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { translateExampleText } from '@/i18n/translate-example-text';
 
 import styles from './LayoutOverlaySidebarExample.module.scss';
 
 function SidebarBrand() {
-  return <span aria-label="Logo" className={styles.root!} />;
+  const { t } = useTranslation();
+
+  return <span aria-label={t('examples.layout.copy.logo')} className={styles.root!} />;
 }
 
 function Navigation({ compact = false }: { compact?: boolean }) {
+  const { t } = useTranslation();
+
   const [value, setValue] = useState('menu-1');
   return (
     <NavigationMenu
       orientation="vertical"
       value={value}
       onValueChange={setValue}
-      aria-label="Workspace navigation"
+      aria-label={t('examples.layout.copy.workspaceNavigation')}
     >
       <NavigationMenu.List>
         {[
-          { id: 'menu-1', label: 'Menu 1' },
-          { id: 'menu-2', label: 'Menu 2' },
-          { id: 'menu-3', label: 'Menu 3' },
+          { id: 'menu-1', label: t('examples.layout.details.menu1') },
+          { id: 'menu-2', label: t('examples.layout.details.menu2') },
+          { id: 'menu-3', label: t('examples.layout.details.menu3') },
         ].map(({ id, label }) => (
           <NavigationMenu.Item key={id} value={id} icon={<LayoutIcon />}>
             <NavigationMenu.Link
               href={`#${id}`}
-              aria-label={label}
+              aria-label={translateExampleText(t, 'layout', label)}
               title={compact ? label : undefined}
               onClick={(event) => {
                 event.preventDefault();
@@ -43,6 +50,8 @@ function Navigation({ compact = false }: { compact?: boolean }) {
 }
 
 export default function App() {
+  const { t } = useTranslation();
+
   const [collapsed, setCollapsed] = useState(true);
   const sidebarId = useId();
 
@@ -57,7 +66,11 @@ export default function App() {
               variant="text"
               className={styles.sidebarTrigger!}
               iconOnly
-              aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              aria-label={
+                collapsed
+                  ? t('examples.layout.details.expandSidebar')
+                  : t('examples.layout.details.collapseSidebar')
+              }
               aria-expanded={!collapsed}
               aria-controls={sidebarId}
               onClick={() => setCollapsed((value) => !value)}
@@ -68,7 +81,7 @@ export default function App() {
           className={styles.header!}
           surface={{ tone: 'default', border: 'subtle' }}
         >
-          <span className={styles.label!}>Header</span>
+          <span className={styles.label!}>{t('examples.layout.copy.header')}</span>
         </Layout.Header>
         <Layout direction="horizontal" className={styles.layout2!}>
           <Layout.Sidebar
@@ -78,7 +91,7 @@ export default function App() {
             trigger={null}
             collapsible
             mode="overlay"
-            aria-label="Overlay sidebar region"
+            aria-label={t('examples.layout.copy.overlaySidebarRegion')}
             width={224}
             collapsedWidth={0}
             header={<SidebarBrand />}
@@ -87,12 +100,12 @@ export default function App() {
           </Layout.Sidebar>
           <Layout.Content padding={16} surface={{ tone: 'secondary' }} className={styles.content!}>
             <Surface tone="elevated" radius={12} border="subtle" className={styles.surface!}>
-              <span className={styles.label2!}>Content</span>
+              <span className={styles.label2!}>{t('examples.layout.copy.content')}</span>
             </Surface>
           </Layout.Content>
         </Layout>
         <Layout.Footer surface={{ tone: 'default', border: 'subtle' }} className={styles.footer!}>
-          <span className={styles.label2!}>Footer</span>
+          <span className={styles.label2!}>{t('examples.layout.copy.footer')}</span>
         </Layout.Footer>
       </Layout>
     </div>

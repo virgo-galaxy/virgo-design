@@ -1,8 +1,11 @@
 import { Surface } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import styles from './SurfaceColorBackgroundExample.module.scss';
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.root!}>
       <Surface
@@ -10,8 +13,8 @@ export default function App() {
         radius={12}
         className={styles.surface!}
       >
-        <strong>Custom color</strong>
-        <p>A flat decorative background below normal content.</p>
+        <strong>{t('examples.surface.copy.customColor')}</strong>
+        <p>{t('examples.surface.copy.aFlatDecorativeBackgroundBelowNormalContent')}</p>
       </Surface>
       <Surface
         background={{
@@ -21,8 +24,8 @@ export default function App() {
         radius={12}
         className={styles.surface!}
       >
-        <strong>Custom gradient</strong>
-        <p>Consumers own the foreground contrast.</p>
+        <strong>{t('examples.surface.copy.customGradient')}</strong>
+        <p>{t('examples.surface.copy.consumersOwnTheForegroundContrast')}</p>
       </Surface>
     </div>
   );

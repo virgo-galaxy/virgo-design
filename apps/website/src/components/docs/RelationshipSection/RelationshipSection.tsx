@@ -1,5 +1,6 @@
 import { ChevronRightIcon } from '@virgo-design/icons';
 import { Card } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import styles from './relationship-section.module.scss';
@@ -11,18 +12,23 @@ export interface RelationshipItem {
 
 export interface RelationshipSectionProps {
   items: readonly RelationshipItem[];
-  title: 'Built with' | 'Used by';
+  kind: 'builtWith' | 'usedBy';
 }
 
-export function RelationshipSection({ items, title }: RelationshipSectionProps) {
+export function RelationshipSection({ items, kind }: RelationshipSectionProps) {
+  const { t } = useTranslation();
+
   if (items.length === 0) {
     return null;
   }
 
+  const title =
+    kind === 'builtWith' ? t('docs.relationships.builtWith') : t('docs.relationships.usedBy');
+
   return (
     <section className={styles.section} data-docs-relationships="">
       <header className={styles.header}>
-        <h2>Relationships</h2>
+        <h2>{t('docs.relationships.heading')}</h2>
         <h3>{title}</h3>
       </header>
 

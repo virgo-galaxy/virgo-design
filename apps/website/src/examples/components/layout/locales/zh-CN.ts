@@ -1,0 +1,88 @@
+import type { LocaleOf } from '@/i18n/locale-types';
+
+import type { layoutExamplesEnUS } from './en-US';
+export const layoutExamplesZhCN = {
+  copy: {
+    header: '标题区',
+    content: '内容',
+    footer: '底部',
+    logo: '标志',
+    workspaceNavigation: '工作区导航',
+    externalSidebarControlRegion: '外部侧栏控制区域',
+    help: '帮助',
+    quickActions: '快捷操作',
+    contentActions: '内容操作',
+    inspectLayout: '检查布局',
+    showTips: '显示提示',
+    floatingSidebar: '浮动侧栏',
+    floatingNavigation: '浮动导航',
+    menu1: '菜单 1',
+    menu2: '菜单 2',
+    submenu1: '子菜单 1',
+    submenu2: '子菜单 2',
+    menu3: '菜单 3',
+    sidebar: '侧栏',
+    groupedSidebarExample: '分组侧栏示例',
+    headerNavigation: '标题区导航',
+    overlaySidebarRegion: '覆盖侧栏区域',
+    rail: '窄栏',
+    collapsibleSidebarRegion: '可折叠侧栏区域',
+    stickyGroupLabels: '吸附分组标签',
+    composeSidebarWithGroupedNavigationAndCssStickyGroupLabels:
+      '将 Sidebar 与分组导航和 CSS sticky 分组标签组合。',
+    headerContentAndFooter: '标题区、内容与底部',
+    composeSemanticRegionsWithVerticalAndHorizontalLayoutContainers:
+      '通过垂直和水平 Layout 容器组合语义区域。',
+    leftSidebar: '左侧栏',
+    rightSidebar: '右侧栏',
+    fullHeightSidebar: '全高侧栏',
+    railAndSidebar: '窄栏与侧栏',
+    placeACompactRailBesideAWiderSidebarBeforeThe: '在主内容区域前，将紧凑窄栏与较宽侧栏并排放置。',
+    surfaceRegions: 'Surface 区域',
+    applySurfaceTreatmentsIndependentlyToHeaderSidebarContentAndFooter:
+      '为 Header、Sidebar、Content 与 Footer 独立设置 Surface 样式。',
+    resizableSidebar: '可调整宽度的侧栏',
+    dragTheDividerOrUseTheKeyboardToResizeSidebar:
+      '拖动分隔线或使用键盘，在最小与最大宽度之间调整 Sidebar。',
+    stickyHeader: '吸附标题区',
+    scrollTheStructureWhileHeaderRemainsPinnedToTheTop: '滚动结构时，Header 保持在滚动区域顶部。',
+    laneBoundary: 'Lane 边界',
+    createASharedSpatialLaneForBreadcrumbDockNavigationAnd:
+      '为 Breadcrumb、Dock、导航与嵌套区域创建共享空间分区，Content 保留自身宽度。',
+    logoNavigationAndActions: '标志、导航与操作',
+    navigationStaysInsideHeaderWhileSurfaceSelectsItsBackground:
+      '导航位于 Header 内，Surface 设置背景。',
+    collapsibleSidebar: '可折叠侧栏',
+    navigationAndContainerSizingAreIncludedInThisStandaloneExample:
+      '此独立示例包含导航与容器尺寸。',
+    externalSidebarControl: '外部侧栏控制',
+    overlaySidebar: '覆盖式侧栏',
+    floatingNavigationInsideACanvas: '画布内的浮动导航',
+    theSidebarRemainsLocalToItsContainingContentRegionIncluding:
+      '侧栏限定在所在内容区域内，包含紧凑导航与嵌套弹出面板。',
+    canvasLocalActions: '画布内操作',
+    theLayoutPositionsAStandaloneActionAndAControlledAction:
+      '布局将独立操作与受控操作组置于其内容区域内。',
+    composition: '组合',
+    typicalExamples: '典型示例',
+  },
+  details: {
+    menu1: '菜单 1',
+    menu2: '菜单 2',
+    menu3: '菜单 3',
+    expandSidebar: '展开侧栏',
+    collapseSidebar: '收起侧栏',
+    label1: '分组 1',
+    item1: '项目 1',
+    item2: '项目 2',
+    item3: '项目 3',
+    label2: '分组 2',
+    label3: '分组 3',
+    label4: '分组 4',
+    label5: '分组 5',
+    label6: '分组 6',
+    nav01: '导航 01',
+    nav02: '导航 02',
+    nav03: '导航 03',
+  },
+} satisfies LocaleOf<typeof layoutExamplesEnUS>;

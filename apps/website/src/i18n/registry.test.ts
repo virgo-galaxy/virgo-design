@@ -22,5 +22,6 @@ describe('locale registry', () => {
     expect(enUS).toHaveProperty('app');
     expect(enUS).toHaveProperty('foundations');
     expect(enUS).toHaveProperty('tokens');
+    expect(enUS).toHaveProperty('docs');
   });
 });
