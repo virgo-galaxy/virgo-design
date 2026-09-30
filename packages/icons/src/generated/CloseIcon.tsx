@@ -1,8 +1,9 @@
 /* This file is generated from icons/close.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1500,
@@ -38,22 +39,7 @@ const animationPaths = [
   { d: 'M17.6 5L18.125 5L19 5.875L19 6.4L6.4 19L5.875 19L5 18.125L5 17.6Z' },
 ] as const;
 
-export type CloseIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type CloseIconProps = IconProps & { animated?: IconAnimation };
 
 export const CloseIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, CloseIconProps>(
   function CloseIcon({ size = 24, animated, ...props }: CloseIconProps, ref) {

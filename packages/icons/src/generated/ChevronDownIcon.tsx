@@ -1,8 +1,9 @@
 /* This file is generated from icons/chevron-down.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1200,
@@ -23,22 +24,7 @@ const animationPaths = [
   { d: 'M4.75 7.75h1l6 6h.5l6-6h1l.5.5v1l-7.05 7.05h-1.4L4.25 9.25v-1z' },
 ] as const;
 
-export type ChevronDownIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type ChevronDownIconProps = IconProps & { animated?: IconAnimation };
 
 export const ChevronDownIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, ChevronDownIconProps>(
   function ChevronDownIcon({ size = 24, animated, ...props }: ChevronDownIconProps, ref) {

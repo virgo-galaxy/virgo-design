@@ -1,21 +1,9 @@
 /* This file is generated from icons/sidebar-expand.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type SidebarExpandIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type SidebarExpandIconProps = IconProps;
 
 export const SidebarExpandIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, SidebarExpandIconProps>(
   function SidebarExpandIcon({ size = 24, ...props }: SidebarExpandIconProps, ref) {

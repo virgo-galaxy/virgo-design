@@ -1,21 +1,9 @@
 /* This file is generated from icons/microphone.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type MicrophoneIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type MicrophoneIconProps = IconProps;
 
 export const MicrophoneIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, MicrophoneIconProps>(
   function MicrophoneIcon({ size = 24, ...props }: MicrophoneIconProps, ref) {

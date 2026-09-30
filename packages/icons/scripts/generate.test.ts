@@ -90,6 +90,9 @@ describe('icons generator', () => {
         expect(source).not.toMatch(/\stransform=/);
 
         const output = generateIconComponent(fileName, source);
+        expect(output).toContain("import type { IconProps } from '../icon-props.js';");
+        expect(output).toMatch(/export type \w+IconProps = IconProps(?: &|;)/);
+        expect(output).not.toContain('SVGProps<SVGSVGElement>');
         const paths = [...source.matchAll(/<path\s+([^>]+)\/>/g)];
         expect(paths.length).toBeGreaterThan(0);
         expect(output.match(/<path\s/g)).toHaveLength(paths.length);

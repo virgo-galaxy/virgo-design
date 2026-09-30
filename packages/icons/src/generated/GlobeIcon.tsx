@@ -1,8 +1,9 @@
 /* This file is generated from icons/globe.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 2200,
@@ -31,22 +32,7 @@ const animationPaths = [
   { d: 'M4 11h16v2H4z' },
 ] as const;
 
-export type GlobeIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type GlobeIconProps = IconProps & { animated?: IconAnimation };
 
 export const GlobeIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, GlobeIconProps>(
   function GlobeIcon({ size = 24, animated, ...props }: GlobeIconProps, ref) {

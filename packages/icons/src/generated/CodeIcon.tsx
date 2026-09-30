@@ -1,8 +1,9 @@
 /* This file is generated from icons/code.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1400,
@@ -28,22 +29,7 @@ const animationPaths = [
   { d: 'M13.5 3.5h1l.5.5-4.5 16-.5.5H9l-.5-.5L13 4z' },
 ] as const;
 
-export type CodeIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type CodeIconProps = IconProps & { animated?: IconAnimation };
 
 export const CodeIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, CodeIconProps>(function CodeIcon(
   { size = 24, animated, ...props }: CodeIconProps,

@@ -1,21 +1,9 @@
 /* This file is generated from icons/layout.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type LayoutIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type LayoutIconProps = IconProps;
 
 export const LayoutIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, LayoutIconProps>(
   function LayoutIcon({ size = 24, ...props }: LayoutIconProps, ref) {

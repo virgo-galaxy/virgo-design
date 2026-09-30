@@ -69,3 +69,4 @@ export { UnlockIcon, type UnlockIconProps } from './generated/UnlockIcon.js';
 export { UnpinIcon, type UnpinIconProps } from './generated/UnpinIcon.js';
 export { UploadIcon, type UploadIconProps } from './generated/UploadIcon.js';
 export { UserIcon, type UserIconProps } from './generated/UserIcon.js';
+export type { IconProps } from './icon-props.js';

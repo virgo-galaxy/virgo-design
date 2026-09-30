@@ -1,21 +1,9 @@
 /* This file is generated from icons/arrow-return.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type ArrowReturnIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type ArrowReturnIconProps = IconProps;
 
 export const ArrowReturnIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, ArrowReturnIconProps>(
   function ArrowReturnIcon({ size = 24, ...props }: ArrowReturnIconProps, ref) {

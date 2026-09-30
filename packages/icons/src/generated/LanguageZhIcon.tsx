@@ -1,21 +1,9 @@
 /* This file is generated from icons/language-zh.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type LanguageZhIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type LanguageZhIconProps = IconProps;
 
 export const LanguageZhIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, LanguageZhIconProps>(
   function LanguageZhIcon({ size = 24, ...props }: LanguageZhIconProps, ref) {

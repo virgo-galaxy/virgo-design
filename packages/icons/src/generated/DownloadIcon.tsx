@@ -1,8 +1,9 @@
 /* This file is generated from icons/download.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1200,
@@ -20,22 +21,7 @@ const animationPaths = [
   { d: 'M3 16h2v3h14v-3h2v4l-1 1H4l-1-1v-4Z' },
 ] as const;
 
-export type DownloadIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type DownloadIconProps = IconProps & { animated?: IconAnimation };
 
 export const DownloadIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, DownloadIconProps>(
   function DownloadIcon({ size = 24, animated, ...props }: DownloadIconProps, ref) {

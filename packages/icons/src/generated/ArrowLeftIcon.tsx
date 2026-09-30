@@ -1,8 +1,9 @@
 /* This file is generated from icons/arrow-left.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1400,
@@ -21,22 +22,7 @@ const animationPaths = [
   },
 ] as const;
 
-export type ArrowLeftIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type ArrowLeftIconProps = IconProps & { animated?: IconAnimation };
 
 export const ArrowLeftIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, ArrowLeftIconProps>(
   function ArrowLeftIcon({ size = 24, animated, ...props }: ArrowLeftIconProps, ref) {

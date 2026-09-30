@@ -1,21 +1,9 @@
 /* This file is generated from icons/studio-tools.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type StudioToolsIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type StudioToolsIconProps = IconProps;
 
 export const StudioToolsIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, StudioToolsIconProps>(
   function StudioToolsIcon({ size = 24, ...props }: StudioToolsIconProps, ref) {

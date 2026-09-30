@@ -360,7 +360,12 @@ Consumers can provide `aria-label` / `aria-labelledby`, className, style, events
 from the public type. The package is ESM, supports React 18+, and requires no Virgo UI or token package.
 `sideEffects: false` and the pure root barrel preserve tree-shaking.
 
-The root exports individual components and their `XxxIconProps`. Metadata, SVG sources, tooling,
+The root exports the shared `IconProps`, individual components, and their `XxxIconProps`.
+`IconProps` contains the supported SVG props plus optional `size`, with canonical geometry and
+dimensions excluded. Static icon props alias `IconProps`; animated icon props extend it with
+optional `animated`. Custom icon previews and Studio-generated TSX use the same public type.
+Studio's generated code imports `IconProps` as a type only; its runtime requires React.
+Metadata, SVG sources, tooling,
 and the full React registry are separate opt-in entrypoints; normal icon imports do not pull them in.
 `@virgo-design/icons/registry` exposes `iconComponents` keyed by canonical id, for catalogues.
 Raw assets are exported as `@virgo-design/icons/svg/settings.svg` (bundler asset handling applies).

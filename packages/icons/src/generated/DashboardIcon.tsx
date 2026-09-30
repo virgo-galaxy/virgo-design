@@ -1,21 +1,9 @@
 /* This file is generated from icons/dashboard.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type DashboardIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type DashboardIconProps = IconProps;
 
 export const DashboardIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, DashboardIconProps>(
   function DashboardIcon({ size = 24, ...props }: DashboardIconProps, ref) {

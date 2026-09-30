@@ -1,21 +1,9 @@
 /* This file is generated from icons/eye-closed.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type EyeClosedIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type EyeClosedIconProps = IconProps;
 
 export const EyeClosedIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, EyeClosedIconProps>(
   function EyeClosedIcon({ size = 24, ...props }: EyeClosedIconProps, ref) {

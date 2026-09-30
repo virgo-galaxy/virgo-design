@@ -1,8 +1,9 @@
 /* This file is generated from icons/external-link.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1700,
@@ -35,22 +36,7 @@ const animationPaths = [
   },
 ] as const;
 
-export type ExternalLinkIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type ExternalLinkIconProps = IconProps & { animated?: IconAnimation };
 
 export const ExternalLinkIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, ExternalLinkIconProps>(
   function ExternalLinkIcon({ size = 24, animated, ...props }: ExternalLinkIconProps, ref) {

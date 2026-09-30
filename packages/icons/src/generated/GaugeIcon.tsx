@@ -1,8 +1,9 @@
 /* This file is generated from icons/gauge.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1800,
@@ -23,22 +24,7 @@ const animationPaths = [
   { d: 'M16.75 9h.5v.5L13.5 17l-2-2z' },
 ] as const;
 
-export type GaugeIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type GaugeIconProps = IconProps & { animated?: IconAnimation };
 
 export const GaugeIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, GaugeIconProps>(
   function GaugeIcon({ size = 24, animated, ...props }: GaugeIconProps, ref) {

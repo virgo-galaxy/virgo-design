@@ -1,21 +1,9 @@
 /* This file is generated from icons/language-en.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type LanguageEnIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type LanguageEnIconProps = IconProps;
 
 export const LanguageEnIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, LanguageEnIconProps>(
   function LanguageEnIcon({ size = 24, ...props }: LanguageEnIconProps, ref) {

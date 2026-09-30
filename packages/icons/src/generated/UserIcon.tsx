@@ -1,21 +1,9 @@
 /* This file is generated from icons/user.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type UserIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type UserIconProps = IconProps;
 
 export const UserIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, UserIconProps>(function UserIcon(
   { size = 24, ...props }: UserIconProps,

@@ -1,21 +1,9 @@
 /* This file is generated from icons/triangle-alert.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type TriangleAlertIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type TriangleAlertIconProps = IconProps;
 
 export const TriangleAlertIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, TriangleAlertIconProps>(
   function TriangleAlertIcon({ size = 24, ...props }: TriangleAlertIconProps, ref) {

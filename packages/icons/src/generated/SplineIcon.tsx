@@ -1,21 +1,9 @@
 /* This file is generated from icons/spline.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type SplineIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type SplineIconProps = IconProps;
 
 export const SplineIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, SplineIconProps>(
   function SplineIcon({ size = 24, ...props }: SplineIconProps, ref) {

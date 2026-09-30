@@ -2,7 +2,7 @@ import '@virgo-design/tokens/styles.css';
 import './styles.scss';
 import './platform.scss';
 
-import type { IconAnimation, PlusIconProps } from '@virgo-design/icons';
+import type { IconAnimation, IconProps } from '@virgo-design/icons';
 import { type IconId, iconManifest } from '@virgo-design/icons/metadata';
 import { iconComponents } from '@virgo-design/icons/registry';
 import { Button, Input, Select, Switch, Tag } from '@virgo-design/ui';
@@ -39,7 +39,7 @@ export function IconsExplorer({
   onAnimationChange,
 }: {
   iconId?: IconId;
-  customIcon?: { id: string; label: string; Icon: (props: PlusIconProps) => ReactElement };
+  customIcon?: { id: string; label: string; Icon: (props: IconProps) => ReactElement };
   onAnimationChange?: (animated: IconAnimation | undefined) => void;
 }) {
   const { t } = useTranslation();

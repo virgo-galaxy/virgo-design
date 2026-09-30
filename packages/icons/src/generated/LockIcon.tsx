@@ -1,8 +1,9 @@
 /* This file is generated from icons/lock.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1500,
@@ -24,22 +25,7 @@ const animationPaths = [
   { d: 'M11.5 13h1l.5.5v3l-.5.5h-1l-.5-.5v-3z' },
 ] as const;
 
-export type LockIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type LockIconProps = IconProps & { animated?: IconAnimation };
 
 export const LockIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, LockIconProps>(function LockIcon(
   { size = 24, animated, ...props }: LockIconProps,

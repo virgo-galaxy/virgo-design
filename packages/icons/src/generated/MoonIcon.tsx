@@ -1,8 +1,9 @@
 /* This file is generated from icons/moon.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1600,
@@ -23,22 +24,7 @@ const animationPaths = [
   },
 ] as const;
 
-export type MoonIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type MoonIconProps = IconProps & { animated?: IconAnimation };
 
 export const MoonIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, MoonIconProps>(function MoonIcon(
   { size = 24, animated, ...props }: MoonIconProps,

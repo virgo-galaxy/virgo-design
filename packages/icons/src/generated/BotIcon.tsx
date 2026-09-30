@@ -1,8 +1,9 @@
 /* This file is generated from icons/bot.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1500,
@@ -27,22 +28,7 @@ const animationPaths = [
   { d: 'M11.5 3h1l.5.5V6h-2V3.5z' },
 ] as const;
 
-export type BotIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type BotIconProps = IconProps & { animated?: IconAnimation };
 
 export const BotIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, BotIconProps>(function BotIcon(
   { size = 24, animated, ...props }: BotIconProps,

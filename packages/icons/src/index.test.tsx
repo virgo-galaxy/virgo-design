@@ -3,10 +3,11 @@ import { resolve } from 'node:path';
 
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, expectTypeOf, it } from 'vitest';
 
 import {
   BotIcon,
+  type CheckIconProps,
   ChevronsDownIcon,
   ChevronsLeftIcon,
   ChevronsRightIcon,
@@ -26,6 +27,8 @@ import {
   GithubIcon,
   GlobeIcon,
   HomeIcon,
+  type IconAnimation,
+  type IconProps,
   LanguageEnIcon,
   LanguageZhIcon,
   LayersIcon,
@@ -38,6 +41,7 @@ import {
   PinIcon,
   PlayIcon,
   PlusIcon,
+  type PlusIconProps,
   ShapesIcon,
   SidebarCollapseIcon,
   SidebarExpandIcon,
@@ -95,6 +99,24 @@ const addedIcons = [
 ] as const;
 
 describe('@virgo-design/icons', () => {
+  it('exports shared IconProps and adds playback only to supported icon props', () => {
+    expectTypeOf<PlusIconProps>().toEqualTypeOf<IconProps>();
+    expectTypeOf<CheckIconProps>().toEqualTypeOf<IconProps & { animated?: IconAnimation }>();
+    expectTypeOf<IconProps['size']>().toEqualTypeOf<number | undefined>();
+    expectTypeOf<IconProps>().toHaveProperty('aria-label');
+    expectTypeOf<IconProps>().toHaveProperty('className');
+    expectTypeOf<IconProps>().toHaveProperty('style');
+    expectTypeOf<IconProps>().toHaveProperty('onClick');
+    expectTypeOf<IconProps>().not.toHaveProperty('animated');
+    expectTypeOf<IconProps>().not.toHaveProperty('strokeWidth');
+    expectTypeOf<IconProps>().not.toHaveProperty('fill');
+    expectTypeOf<IconProps>().not.toHaveProperty('viewBox');
+    expectTypeOf<IconProps>().not.toHaveProperty('width');
+    expectTypeOf<IconProps>().not.toHaveProperty('height');
+    expectTypeOf<IconProps>().not.toHaveProperty('children');
+    expectTypeOf<IconProps>().not.toHaveProperty('ref');
+  });
+
   it('uses Node-compatible ESM specifiers in the generated public index', async () => {
     const indexSource = await readFile(resolve('packages/icons/src/index.ts'), 'utf8');
 

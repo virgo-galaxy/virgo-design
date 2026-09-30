@@ -1,8 +1,9 @@
 /* This file is generated from icons/copy.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1200,
@@ -29,22 +30,7 @@ const animationPaths = [
   },
 ] as const;
 
-export type CopyIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type CopyIconProps = IconProps & { animated?: IconAnimation };
 
 export const CopyIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, CopyIconProps>(function CopyIcon(
   { size = 24, animated, ...props }: CopyIconProps,

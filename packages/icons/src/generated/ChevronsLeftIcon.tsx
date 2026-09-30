@@ -1,8 +1,9 @@
 /* This file is generated from icons/chevrons-left.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1100,
@@ -22,22 +23,7 @@ const animationPaths = [
   },
 ] as const;
 
-export type ChevronsLeftIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type ChevronsLeftIconProps = IconProps & { animated?: IconAnimation };
 
 export const ChevronsLeftIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, ChevronsLeftIconProps>(
   function ChevronsLeftIcon({ size = 24, animated, ...props }: ChevronsLeftIconProps, ref) {

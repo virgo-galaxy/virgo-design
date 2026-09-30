@@ -1,21 +1,9 @@
 /* This file is generated from icons/cursor-arrow.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type CursorArrowIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type CursorArrowIconProps = IconProps;
 
 export const CursorArrowIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, CursorArrowIconProps>(
   function CursorArrowIcon({ size = 24, ...props }: CursorArrowIconProps, ref) {

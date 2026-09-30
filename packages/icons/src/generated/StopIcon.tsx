@@ -1,21 +1,9 @@
 /* This file is generated from icons/stop.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type StopIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type StopIconProps = IconProps;
 
 export const StopIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, StopIconProps>(function StopIcon(
   { size = 24, ...props }: StopIconProps,

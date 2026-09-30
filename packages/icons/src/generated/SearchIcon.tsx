@@ -1,8 +1,9 @@
 /* This file is generated from icons/search.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1200,
@@ -31,22 +32,7 @@ const animationPaths = [
   { d: 'M15.2 14.55l1.4-1.4 4.4 4.4v1.4l-1.4 1.4h-1.4z' },
 ] as const;
 
-export type SearchIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type SearchIconProps = IconProps & { animated?: IconAnimation };
 
 export const SearchIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, SearchIconProps>(
   function SearchIcon({ size = 24, animated, ...props }: SearchIconProps, ref) {

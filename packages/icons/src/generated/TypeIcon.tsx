@@ -1,21 +1,9 @@
 /* This file is generated from icons/type.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type TypeIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type TypeIconProps = IconProps;
 
 export const TypeIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, TypeIconProps>(function TypeIcon(
   { size = 24, ...props }: TypeIconProps,

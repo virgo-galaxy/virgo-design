@@ -1,8 +1,9 @@
 /* This file is generated from icons/check.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1400,
@@ -27,22 +28,7 @@ const animationPaths = [
   },
 ] as const;
 
-export type CheckIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type CheckIconProps = IconProps & { animated?: IconAnimation };
 
 export const CheckIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, CheckIconProps>(
   function CheckIcon({ size = 24, animated, ...props }: CheckIconProps, ref) {

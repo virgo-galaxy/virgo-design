@@ -1,21 +1,9 @@
 /* This file is generated from icons/plus.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type PlusIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type PlusIconProps = IconProps;
 
 export const PlusIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, PlusIconProps>(function PlusIcon(
   { size = 24, ...props }: PlusIconProps,

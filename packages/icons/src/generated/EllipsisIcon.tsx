@@ -1,21 +1,9 @@
 /* This file is generated from icons/ellipsis.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type EllipsisIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type EllipsisIconProps = IconProps;
 
 export const EllipsisIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, EllipsisIconProps>(
   function EllipsisIcon({ size = 24, ...props }: EllipsisIconProps, ref) {

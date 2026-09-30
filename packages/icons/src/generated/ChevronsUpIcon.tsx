@@ -1,8 +1,9 @@
 /* This file is generated from icons/chevrons-up.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1100,
@@ -22,22 +23,7 @@ const animationPaths = [
   },
 ] as const;
 
-export type ChevronsUpIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type ChevronsUpIconProps = IconProps & { animated?: IconAnimation };
 
 export const ChevronsUpIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, ChevronsUpIconProps>(
   function ChevronsUpIcon({ size = 24, animated, ...props }: ChevronsUpIconProps, ref) {

@@ -1,8 +1,9 @@
 /* This file is generated from icons/layers.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1700,
@@ -32,22 +33,7 @@ const animationPaths = [
   { d: 'M2.5 16 12 20.75 21.5 16l.5.5V18l-.5.5-9 4.5h-1l-9-4.5L2 18v-1.5z' },
 ] as const;
 
-export type LayersIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type LayersIconProps = IconProps & { animated?: IconAnimation };
 
 export const LayersIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, LayersIconProps>(
   function LayersIcon({ size = 24, animated, ...props }: LayersIconProps, ref) {

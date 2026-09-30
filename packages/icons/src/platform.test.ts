@@ -46,6 +46,8 @@ describe('canonical platform contract', () => {
     expect(validateIconSvg(serializeIconSvg(definition))).toEqual(definition);
     const react = createIconSource('custom-square', source);
     expect(react).toContain('CustomSquareIcon');
+    expect(react).toContain("import type { IconProps } from '@virgo-design/icons';");
+    expect(react).toContain('export type CustomSquareIconProps = IconProps;');
     expect(react).toContain('4.123456');
     expect(react).not.toContain('strokeWidth?:');
     expect(() => iconComponentName('Bad_Name')).toThrow('kebab-case');

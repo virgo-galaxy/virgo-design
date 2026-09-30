@@ -1,8 +1,9 @@
 /* This file is generated from icons/sun.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1800,
@@ -25,22 +26,7 @@ const animationPaths = [
   },
 ] as const;
 
-export type SunIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type SunIconProps = IconProps & { animated?: IconAnimation };
 
 export const SunIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, SunIconProps>(function SunIcon(
   { size = 24, animated, ...props }: SunIconProps,

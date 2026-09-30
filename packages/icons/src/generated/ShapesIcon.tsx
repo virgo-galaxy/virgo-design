@@ -1,8 +1,9 @@
 /* This file is generated from icons/shapes.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 2600,
@@ -39,22 +40,7 @@ const animationPaths = [
   },
 ] as const;
 
-export type ShapesIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type ShapesIconProps = IconProps & { animated?: IconAnimation };
 
 export const ShapesIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, ShapesIconProps>(
   function ShapesIcon({ size = 24, animated, ...props }: ShapesIconProps, ref) {

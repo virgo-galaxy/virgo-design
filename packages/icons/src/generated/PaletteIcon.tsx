@@ -1,21 +1,9 @@
 /* This file is generated from icons/palette.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type PaletteIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type PaletteIconProps = IconProps;
 
 export const PaletteIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, PaletteIconProps>(
   function PaletteIcon({ size = 24, ...props }: PaletteIconProps, ref) {

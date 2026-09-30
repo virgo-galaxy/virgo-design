@@ -1,8 +1,9 @@
 /* This file is generated from icons/eye.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
 import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
 import type { IconAnimation } from '../animation-contract.js';
+import type { IconProps } from '../icon-props.js';
 
 const animation = {
   duration: 1800,
@@ -33,22 +34,7 @@ const animationPaths = [
   { d: 'M12 9.75a2.25 2.25 0 1 1 0 4.5 2.25 2.25 0 0 1 0-4.5Z' },
 ] as const;
 
-export type EyeIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-  animated?: IconAnimation;
-};
+export type EyeIconProps = IconProps & { animated?: IconAnimation };
 
 export const EyeIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, EyeIconProps>(function EyeIcon(
   { size = 24, animated, ...props }: EyeIconProps,

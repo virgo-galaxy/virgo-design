@@ -1,21 +1,9 @@
 /* This file is generated from icons/github.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type GithubIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type GithubIconProps = IconProps;
 
 export const GithubIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, GithubIconProps>(
   function GithubIcon({ size = 24, ...props }: GithubIconProps, ref) {

@@ -1,6 +1,6 @@
 import './platform.scss';
 
-import type { PlusIconProps } from '@virgo-design/icons';
+import type { IconProps } from '@virgo-design/icons';
 import { ArrowReturnIcon } from '@virgo-design/icons';
 import {
   createIconSource,
@@ -24,7 +24,7 @@ function CustomGlyph({
   definition,
   size = 24,
   ...props
-}: PlusIconProps & { definition: IconDefinition }) {
+}: IconProps & { definition: IconDefinition }) {
   return (
     <svg aria-hidden {...props} viewBox="0 0 24 24" fill="currentColor" width={size} height={size}>
       {definition.paths.map((path, index) => (

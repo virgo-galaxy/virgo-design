@@ -1,21 +1,9 @@
 /* This file is generated from icons/unlock.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type UnlockIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type UnlockIconProps = IconProps;
 
 export const UnlockIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, UnlockIconProps>(
   function UnlockIcon({ size = 24, ...props }: UnlockIconProps, ref) {

@@ -1,21 +1,9 @@
 /* This file is generated from icons/circle-x.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type CircleXIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type CircleXIconProps = IconProps;
 
 export const CircleXIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, CircleXIconProps>(
   function CircleXIcon({ size = 24, ...props }: CircleXIconProps, ref) {

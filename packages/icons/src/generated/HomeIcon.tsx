@@ -1,21 +1,9 @@
 /* This file is generated from icons/home.svg by scripts/generate.ts. Do not edit. */
-import { forwardRef, type SVGProps } from 'react';
+import { forwardRef } from 'react';
 
-export type HomeIconProps = Omit<
-  SVGProps<SVGSVGElement>,
-  | 'stroke'
-  | 'strokeLinecap'
-  | 'strokeLinejoin'
-  | 'strokeWidth'
-  | 'viewBox'
-  | 'fill'
-  | 'width'
-  | 'height'
-  | 'children'
-  | 'ref'
-> & {
-  size?: number;
-};
+import type { IconProps } from '../icon-props.js';
+
+export type HomeIconProps = IconProps;
 
 export const HomeIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, HomeIconProps>(function HomeIcon(
   { size = 24, ...props }: HomeIconProps,
