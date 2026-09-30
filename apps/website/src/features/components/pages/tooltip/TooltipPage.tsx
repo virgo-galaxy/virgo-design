@@ -42,7 +42,7 @@ export function TooltipPage() {
           <div className="hero-specimen">
             <div className="specimen-toolbar">
               <span>{t('components.tooltip.specimen.referenceSpecimen')}</span>
-              <code>contextual help</code>
+              <code>{t('components.tooltip.specimen.summary')}</code>
             </div>
             <div className="hero-stage tooltip-hero-stage">
               <Tooltip>

@@ -52,7 +52,7 @@ export function StatusColorReview({ theme }: { theme: VirgoTheme }) {
           <section
             className={styles.statusReview}
             key={family}
-            aria-label={`${theme.mode} ${family}`}
+            aria-label={`${t(`tokens.colors.${theme.mode}.title`)} ${label}`}
             data-status-family={family}
           >
             <header className={styles.statusReviewHeader}>
@@ -60,7 +60,7 @@ export function StatusColorReview({ theme }: { theme: VirgoTheme }) {
               <span>{t(`tokens.colors.${theme.mode}.title`)}</span>
             </header>
             <div className={styles.statusPairHeading}>
-              <h5>Solid</h5>
+              <h5>{t('tokens.colors.statusReview.solid')}</h5>
               <span className={styles.statusContrast} data-contrast-result={result}>
                 {t('tokens.colors.statusReview.contrast')}{' '}
                 {ratio === null ? '—' : `${ratio.toFixed(2)}:1`} ·{' '}
@@ -82,7 +82,7 @@ export function StatusColorReview({ theme }: { theme: VirgoTheme }) {
                 [tokens.onSolid, status.onSolid],
               ]}
             />
-            <h5 className={styles.statusSubtleHeading}>Subtle</h5>
+            <h5 className={styles.statusSubtleHeading}>{t('tokens.colors.statusReview.subtle')}</h5>
             <div
               className={styles.statusSubtle}
               data-status-sample="subtle"

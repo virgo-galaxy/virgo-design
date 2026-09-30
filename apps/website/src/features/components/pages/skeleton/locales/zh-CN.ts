@@ -15,6 +15,7 @@ export const skeletonZhCN = {
     layoutPreservation: '保持布局',
   },
   specimen: {
+    summary: '卡片占位 · 动画',
     referenceSpecimen: '参考样例',
     predictableDimensions: '可预期尺寸',
     contentLoading: '内容加载',

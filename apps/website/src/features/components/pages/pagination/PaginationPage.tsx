@@ -44,7 +44,7 @@ export function PaginationPage() {
           <div className="hero-specimen pagination-hero">
             <div className="specimen-toolbar">
               <span>{t('components.pagination.specimen.referenceSpecimen')}</span>
-              <code>page navigation</code>
+              <code>{t('components.pagination.specimen.summary')}</code>
             </div>
             <div className="hero-stage pagination-hero-stage">
               <Pagination

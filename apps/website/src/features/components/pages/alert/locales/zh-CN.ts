@@ -10,7 +10,7 @@ export const alertZhCN = {
     intents: '语义意图',
     variants: '变体',
     default: '默认',
-    soft: 'Soft',
+    soft: '柔和',
   },
   specimen: {
     referenceSpecimen: '参考样例',

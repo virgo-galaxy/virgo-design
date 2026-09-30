@@ -22,13 +22,10 @@ export function FoundationScale({ scale, tokenPrefix, baseStep = 6 }: Foundation
     const hex = scale[step].toUpperCase();
     const token = `@${tokenPrefix}-${step}`;
 
-    await copy(
-      hex,
-      t('foundations.colors.colorCopied', {
-        token,
-        value: hex,
-      }),
-    );
+    await copy(hex, 'foundations.colors.colorCopied', {
+      token,
+      value: hex,
+    });
   };
 
   return (
@@ -53,7 +50,9 @@ export function FoundationScale({ scale, tokenPrefix, baseStep = 6 }: Foundation
                 backgroundColor: scale[step],
               }}
             >
-              {step === baseStep ? <span className={styles.baseBadge}>BASE</span> : null}
+              {step === baseStep ? (
+                <span className={styles.baseBadge}>{t('foundations.colorStudio.baseLabel')}</span>
+              ) : null}
             </div>
 
             <div className={styles.scaleMeta}>

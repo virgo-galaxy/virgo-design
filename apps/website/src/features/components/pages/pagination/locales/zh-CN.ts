@@ -15,6 +15,7 @@ export const paginationZhCN = {
     bothModes: '两种模式',
   },
   specimen: {
+    summary: '页码导航',
     referenceSpecimen: '参考样例',
     currentPage: '当前页面',
     boundedPages: '页码边界',

@@ -36,13 +36,10 @@ export function LivePreview({
     const hex = selectedScale[step].toUpperCase();
     const token = `@${selectedFamily}-${step}`;
 
-    await copy(
-      hex,
-      t('foundations.colors.colorCopied', {
-        token,
-        value: hex,
-      }),
-    );
+    await copy(hex, 'foundations.colors.colorCopied', {
+      token,
+      value: hex,
+    });
   };
 
   return (
@@ -138,7 +135,7 @@ export function LivePreview({
                   backgroundColor: selectedScale[step],
                 }}
               >
-                {step === 6 ? <span>BASE</span> : null}
+                {step === 6 ? <span>{t('foundations.colorStudio.baseLabel')}</span> : null}
               </div>
 
               <div className={styles.scaleMeta}>

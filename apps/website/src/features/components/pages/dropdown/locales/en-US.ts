@@ -12,6 +12,7 @@ export const dropdownEnUS = {
     splitButton: 'Split button',
   },
   specimen: {
+    summary: 'contextual actions',
     referenceSpecimen: 'Reference specimen',
     virgoIcons: 'Virgo icons',
     keyboardReady: 'Keyboard ready',

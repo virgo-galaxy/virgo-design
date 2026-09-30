@@ -4,6 +4,7 @@ import { paletteGalleryEnUS } from './en-US';
 
 export const paletteGalleryZhCN = {
   paletteGallery: {
+    stepLabel: '第 {{step}} 阶',
     eyebrow: '02 · 探索',
     title: '流动的色彩',
     description:

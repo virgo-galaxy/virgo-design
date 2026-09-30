@@ -12,6 +12,7 @@ export const cursorEnUS = {
     pointerFollow: 'Pointer follow',
   },
   specimen: {
+    summary: 'context in motion',
     referenceSpecimen: 'Reference specimen',
     scopedInput: 'Scoped input',
     customVisuals: 'Custom visuals',

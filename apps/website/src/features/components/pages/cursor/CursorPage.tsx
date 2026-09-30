@@ -41,7 +41,7 @@ export function CursorPage() {
           <div className="hero-specimen">
             <div className="specimen-toolbar">
               <span>{t('components.cursor.specimen.referenceSpecimen')}</span>
-              <code>context in motion</code>
+              <code>{t('components.cursor.specimen.summary')}</code>
             </div>
             <Cursor.Provider follow={{ tooltip: true }} className="hero-stage">
               <Tooltip>

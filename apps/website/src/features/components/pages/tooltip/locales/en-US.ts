@@ -12,6 +12,7 @@ export const tooltipEnUS = {
     descriptive: 'Descriptive',
   },
   specimen: {
+    summary: 'contextual help',
     referenceSpecimen: 'Reference specimen',
     nativeActions: 'Native actions',
     keyboardReady: 'Keyboard ready',

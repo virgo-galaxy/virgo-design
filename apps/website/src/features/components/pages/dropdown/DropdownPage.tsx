@@ -78,7 +78,7 @@ export function DropdownPage() {
           <div className="hero-specimen">
             <div className="specimen-toolbar">
               <span>{t('components.dropdown.specimen.referenceSpecimen')}</span>
-              <code>contextual actions</code>
+              <code>{t('components.dropdown.specimen.summary')}</code>
             </div>
             <div className="hero-stage dropdown-hero-stage">
               <Dropdown>

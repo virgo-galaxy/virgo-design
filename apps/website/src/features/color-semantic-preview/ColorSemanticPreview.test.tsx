@@ -5,6 +5,8 @@ import { render, screen, within } from '@testing-library/react';
 import { statusColorFamilies, themes } from '@virgo-design/tokens';
 import { describe, expect, it } from 'vitest';
 
+import { i18nInstance } from '@/i18n/runtime';
+
 import { ColorSemanticPreview } from './ColorSemanticPreview';
 import { StatusColorReview } from './components/StatusColorReview';
 import { contrastRatio } from './contrast';
@@ -25,7 +27,9 @@ describe('ColorSemanticPreview', () => {
     render(<ColorSemanticPreview />);
     for (const theme of Object.values(themes)) {
       for (const family of statusColorFamilies) {
-        const card = screen.getByRole('region', { name: `${theme.mode} ${family}` });
+        const card = screen.getByRole('region', {
+          name: `${i18nInstance.t(`tokens.colors.${theme.mode}.title`)} ${i18nInstance.t(`tokens.colors.statusReview.families.${family}`)}`,
+        });
         const status = theme.color.status[family];
         for (const role of ['solid', 'onSolid', 'subtle', 'border', 'text'] as const) {
           expect(within(card).getByText(`status.${family}.${role}`)).toBeInTheDocument();
@@ -62,7 +66,7 @@ describe('ColorSemanticPreview', () => {
       },
     };
     render(<StatusColorReview theme={theme} />);
-    const card = screen.getByRole('region', { name: 'light warning' });
+    const card = screen.getByRole('region', { name: 'Light Warning' });
     expect(card.querySelector('[data-contrast-result="fail"]')).toHaveTextContent('1.00:1');
   });
 });

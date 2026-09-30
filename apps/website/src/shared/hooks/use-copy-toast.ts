@@ -1,4 +1,6 @@
+import type { ParseKeys } from 'i18next';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { copyTextToClipboard } from '@/shared/lib/clipboard';
 
@@ -10,7 +12,12 @@ export interface CopyToastState {
 }
 
 export function useCopyToast() {
-  const [toast, setToast] = useState<CopyToastState | null>(null);
+  const { t } = useTranslation();
+  const [message, setToast] = useState<{
+    id: number;
+    key: ParseKeys;
+    values: Record<string, string>;
+  } | null>(null);
   const timerRef = useRef<number | null>(null);
   const nextIdRef = useRef(1);
 
@@ -24,14 +31,15 @@ export function useCopyToast() {
   useEffect(() => clearTimer, [clearTimer]);
 
   const copy = useCallback(
-    async (text: string, message: string) => {
+    async (text: string, key: ParseKeys, values: Record<string, string>) => {
       await copyTextToClipboard(text);
 
       clearTimer();
 
       setToast({
         id: nextIdRef.current,
-        message,
+        key,
+        values,
       });
 
       nextIdRef.current += 1;
@@ -45,7 +53,7 @@ export function useCopyToast() {
   );
 
   return {
-    toast,
+    toast: message ? { id: message.id, message: t(message.key as never, message.values) } : null,
     copy,
   };
 }

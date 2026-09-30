@@ -12,6 +12,7 @@ export const popoverEnUS = {
     nonModal: 'Non-modal',
   },
   specimen: {
+    summary: 'contextual content',
     referenceSpecimen: 'Reference specimen',
     anyContent: 'Any content',
     keyboardReady: 'Keyboard ready',

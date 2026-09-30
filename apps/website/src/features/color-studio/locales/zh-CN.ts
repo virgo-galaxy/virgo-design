@@ -4,6 +4,7 @@ import { colorStudioEnUS } from './en-US';
 
 export const colorStudioZhCN = {
   colorStudio: {
+    baseLabel: '基础色',
     picker: { open: '打开颜色选择器', title: '颜色选择器' },
     hero: {
       eyebrow: '01 · 创建',
@@ -83,14 +84,14 @@ export const colorStudioZhCN = {
       algorithm: '生成算法',
       brand: {
         eyebrow: '品牌色基础',
-        title: 'Brand',
+        title: '品牌色',
         description:
           '独立的十阶品牌色。官方基础色为 #1664F9；修改基础色后，使用标准 OKLCH 算法实时重算十阶色板。',
         base: '品牌基础色',
       },
       neutral: {
         eyebrow: '中性色基础',
-        title: 'Neutral',
+        title: '中性色',
         description: '用于背景、Surface、边框与文字的十阶冷调石墨中性色。官方基础色为 #5E616D。',
         base: '中性基础色',
       },

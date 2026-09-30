@@ -1833,7 +1833,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         name: 'ContextMenuProps',
         kind: 'interface',
         signature: 'extends PrimitiveProps',
-        description: '',
+        description: 'Styled context menu for actions on the invoking object.',
         source: '@virgo-design/ui',
         reExported: false,
         properties: [
@@ -1842,7 +1842,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'ButtonSize',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Menu row density, inherited by nested menus.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.context-menu.api.context-menu-props.properties.size.description',
@@ -1852,7 +1852,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Controlled menu visibility.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.context-menu.api.context-menu-props.properties.open.description',
@@ -1862,7 +1862,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Initial visibility in uncontrolled mode.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.context-menu.api.context-menu-props.properties.default-open.description',
@@ -1872,7 +1872,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: '(open: boolean) => void',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Called when menu visibility changes.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.context-menu.api.context-menu-props.properties.on-open-change.description',
@@ -1882,7 +1882,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Disables opening the menu.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.context-menu.api.context-menu-props.properties.disabled.description',
@@ -1903,7 +1903,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'OverlayPlacement',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Preferred popup placement; flips and shifts to stay within the viewport.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.context-menu.api.context-menu-content-props.properties.placement.description',
@@ -1913,7 +1913,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'number',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Distance in pixels between the anchor and popup.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.context-menu.api.context-menu-content-props.properties.offset.description',
@@ -1926,7 +1926,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         name: 'ContextMenuTriggerProps',
         kind: 'interface',
         signature: 'extends HTMLAttributes<HTMLDivElement>',
-        description: '',
+        description: 'Target that opens a context menu on right-click or keyboard invocation.',
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [
@@ -1935,7 +1935,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Disables context-menu invocation for this target.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.context-menu.api.context-menu-trigger-props.properties.disabled.description',
@@ -1945,7 +1945,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: '(props: HTMLAttributes<HTMLDivElement> & { ref: Ref<HTMLDivElement> }) => ReactElement',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Renders a custom target that forwards the supplied props and ref.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.context-menu.api.context-menu-trigger-props.properties.render.description',
@@ -5007,7 +5007,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'OverlayPlacement',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Preferred popup placement; flips and shifts to stay within the viewport.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.menu.api.menu-content-props.properties.placement.description',
@@ -5017,7 +5017,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'number',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Distance in pixels between the anchor and popup.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.menu.api.menu-content-props.properties.offset.description',
@@ -5088,7 +5088,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Controlled menu visibility.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey: 'components.menu.api.menu-props.properties.open.description',
           },
@@ -5097,7 +5097,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Initial visibility in uncontrolled mode.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.menu.api.menu-props.properties.default-open.description',
@@ -5107,7 +5107,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: '(open: boolean) => void',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Called when menu visibility changes.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.menu.api.menu-props.properties.on-open-change.description',
@@ -5117,7 +5117,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Disables opening the menu.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.menu.api.menu-props.properties.disabled.description',
@@ -5515,7 +5515,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Controlled menu visibility.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.menu.api.menu-submenu-props.properties.open.description',
@@ -5525,7 +5525,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Initial visibility in uncontrolled mode.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.menu.api.menu-submenu-props.properties.default-open.description',
@@ -5535,7 +5535,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: '(open: boolean) => void',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Called when menu visibility changes.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.menu.api.menu-submenu-props.properties.on-open-change.description',
@@ -5545,7 +5545,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Disables opening the menu.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.menu.api.menu-submenu-props.properties.disabled.description',
@@ -5622,7 +5622,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'OverlayPlacement',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Preferred popup placement; flips and shifts to stay within the viewport.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.menubar.api.menubar-content-props.properties.placement.description',
@@ -5632,7 +5632,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'number',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Distance in pixels between the anchor and popup.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.menubar.api.menubar-content-props.properties.offset.description',
@@ -5663,7 +5663,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Disables opening the menu.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.menubar.api.menubar-menu-props.properties.disabled.description',
@@ -9594,7 +9594,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'OverlayPlacement',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Preferred popup placement; flips and shifts to stay within the viewport.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.context-menu.api.context-menu-content-props.properties.placement.description',
@@ -9604,7 +9604,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'number',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Distance in pixels between the anchor and popup.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.context-menu.api.context-menu-content-props.properties.offset.description',
@@ -9626,7 +9626,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Controlled menu visibility.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.context-menu.api.context-menu-props.properties.open.description',
@@ -9636,7 +9636,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Initial visibility in uncontrolled mode.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.context-menu.api.context-menu-props.properties.default-open.description',
@@ -9646,7 +9646,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: '(open: boolean) => void',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Called when menu visibility changes.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.context-menu.api.context-menu-props.properties.on-open-change.description',
@@ -9656,7 +9656,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Disables opening the menu.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.context-menu.api.context-menu-props.properties.disabled.description',
@@ -9668,7 +9668,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         name: 'ContextMenuTriggerProps',
         kind: 'interface',
         signature: 'extends HTMLAttributes<HTMLDivElement>',
-        description: '',
+        description: 'Target that opens a context menu on right-click or keyboard invocation.',
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [
@@ -9677,7 +9677,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Disables context-menu invocation for this target.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.context-menu.api.context-menu-trigger-props.properties.disabled.description',
@@ -9687,7 +9687,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: '(props: HTMLAttributes<HTMLDivElement> & { ref: Ref<HTMLDivElement> }) => ReactElement',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Renders a custom target that forwards the supplied props and ref.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.context-menu.api.context-menu-trigger-props.properties.render.description',
@@ -11117,7 +11117,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'OverlayPlacement',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Preferred popup placement; flips and shifts to stay within the viewport.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.menu.api.menu-content-props.properties.placement.description',
@@ -11127,7 +11127,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'number',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Distance in pixels between the anchor and popup.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.menu.api.menu-content-props.properties.offset.description',
@@ -11199,7 +11199,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Controlled menu visibility.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey: 'primitives.menu.api.menu-props.properties.open.description',
           },
@@ -11208,7 +11208,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Initial visibility in uncontrolled mode.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.menu.api.menu-props.properties.default-open.description',
@@ -11218,7 +11218,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: '(open: boolean) => void',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Called when menu visibility changes.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.menu.api.menu-props.properties.on-open-change.description',
@@ -11228,7 +11228,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Disables opening the menu.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.menu.api.menu-props.properties.disabled.description',
@@ -11341,7 +11341,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Controlled menu visibility.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.menu.api.menu-submenu-props.properties.open.description',
@@ -11351,7 +11351,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Initial visibility in uncontrolled mode.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.menu.api.menu-submenu-props.properties.default-open.description',
@@ -11361,7 +11361,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: '(open: boolean) => void',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Called when menu visibility changes.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.menu.api.menu-submenu-props.properties.on-open-change.description',
@@ -11371,7 +11371,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Disables opening the menu.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.menu.api.menu-submenu-props.properties.disabled.description',
@@ -11418,7 +11418,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'OverlayPlacement',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Preferred popup placement; flips and shifts to stay within the viewport.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.menubar.api.menubar-content-props.properties.placement.description',
@@ -11428,7 +11428,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'number',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Distance in pixels between the anchor and popup.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.menubar.api.menubar-content-props.properties.offset.description',
@@ -11459,7 +11459,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'boolean',
             required: false,
             defaultValue: '',
-            description: '',
+            description: 'Disables opening the menu.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.menubar.api.menubar-menu-props.properties.disabled.description',

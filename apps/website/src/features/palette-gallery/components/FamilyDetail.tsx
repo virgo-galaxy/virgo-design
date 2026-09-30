@@ -45,13 +45,10 @@ export function FamilyDetail({
     const hex = scale[step].toUpperCase();
     const token = `@${groupId}-${step}`;
 
-    await copy(
-      hex,
-      t('foundations.colors.colorCopied', {
-        token,
-        value: hex,
-      }),
-    );
+    await copy(hex, 'foundations.colors.colorCopied', {
+      token,
+      value: hex,
+    });
   };
 
   return (
@@ -81,7 +78,7 @@ export function FamilyDetail({
         <div>
           <span>{t('foundations.paletteGallery.baseColor')}</span>
           <strong>{base.toUpperCase()}</strong>
-          <small>STEP 6</small>
+          <small>{t('foundations.paletteGallery.stepLabel', { step: 6 })}</small>
         </div>
       </div>
 

@@ -62,7 +62,7 @@ export function DockPage() {
           <div className="hero-specimen">
             <div className="specimen-toolbar">
               <span>{t('components.dock.specimen.referenceSpecimen')}</span>
-              <code>top · 12 snap divisions</code>
+              <code>{t('components.dock.specimen.summary')}</code>
             </div>
             <DockHero />
             <div className="specimen-caption">

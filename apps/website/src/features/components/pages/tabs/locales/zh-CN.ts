@@ -36,16 +36,16 @@ export const tabsZhCN = {
     description: '装饰性 Virgo 图标继承标签页状态颜色，文字标签保留无障碍名称。',
   },
   plain: {
-    title: 'Plain',
+    title: '简洁样式',
     description:
       'plain 标签页采用轻量选中样式：分隔线组织相邻标签，悬停添加柔和表面，激活标签仅改变颜色。',
   },
   card: {
-    title: 'Card',
+    title: '卡片样式',
     description: 'card 标签页以相连的文档式表面替代下划线，同时保留相同标签页与面板语义。',
   },
   editableCard: {
-    title: '可编辑 Card',
+    title: '可编辑卡片',
     description: '关闭操作保留相邻的激活标签；末尾添加操作会创建并激活新标签页。',
   },
 } satisfies LocaleOf<typeof tabsEnUS>;

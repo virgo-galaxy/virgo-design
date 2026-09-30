@@ -45,7 +45,7 @@ export function PopoverPage() {
           <div className="hero-specimen">
             <div className="specimen-toolbar">
               <span>{t('components.popover.specimen.referenceSpecimen')}</span>
-              <code>contextual content</code>
+              <code>{t('components.popover.specimen.summary')}</code>
             </div>
             <div className="hero-stage popover-hero-stage">
               <Popover>

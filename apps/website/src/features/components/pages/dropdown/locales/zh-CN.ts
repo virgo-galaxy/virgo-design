@@ -15,6 +15,7 @@ export const dropdownZhCN = {
     splitButton: '分裂按钮',
   },
   specimen: {
+    summary: '上下文操作',
     referenceSpecimen: '参考样例',
     virgoIcons: 'Virgo 图标',
     keyboardReady: '支持键盘',

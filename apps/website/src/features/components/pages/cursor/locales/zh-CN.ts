@@ -15,6 +15,7 @@ export const cursorZhCN = {
     pointerFollow: '跟随指针',
   },
   specimen: {
+    summary: '动态上下文',
     referenceSpecimen: '参考样例',
     scopedInput: '限定输入范围',
     customVisuals: '自定义视觉',

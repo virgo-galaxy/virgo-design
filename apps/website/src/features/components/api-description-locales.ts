@@ -19,6 +19,7 @@ import { emptyApiZhCN } from './pages/empty/locales/empty.api.zh-CN';
 import { floatingActionApiZhCN } from './pages/floating-action/locales/floatingAction.api.zh-CN';
 import { inputApiZhCN } from './pages/input/locales/input.api.zh-CN';
 import { layoutApiZhCN } from './pages/layout/locales/layout.api.zh-CN';
+import { contextMenuApiZhCN } from './pages/menu-system/locales/contextMenu.api.zh-CN';
 import { menuApiZhCN } from './pages/menu-system/locales/menu.api.zh-CN';
 import { menubarApiZhCN } from './pages/menu-system/locales/menubar.api.zh-CN';
 import { navigationMenuApiZhCN } from './pages/navigation-menu/locales/navigationMenu.api.zh-CN';
@@ -49,6 +50,7 @@ export const componentsApiZhCN = {
   card: cardApiZhCN,
   checkbox: checkboxApiZhCN,
   command: commandApiZhCN,
+  'context-menu': contextMenuApiZhCN,
   cursor: cursorApiZhCN,
   dialog: dialogApiZhCN,
   dock: dockApiZhCN,

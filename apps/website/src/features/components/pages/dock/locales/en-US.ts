@@ -10,6 +10,7 @@ export const dockEnUS = {
     storage: 'Storage',
   },
   specimen: {
+    summary: 'top · 12 snap divisions',
     referenceSpecimen: 'Reference specimen',
     interactionChrome: 'Interaction chrome',
     snapFreePlacement: 'Snap + free placement',

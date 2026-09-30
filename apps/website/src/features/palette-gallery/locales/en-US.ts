@@ -1,5 +1,6 @@
 export const paletteGalleryEnUS = {
   paletteGallery: {
+    stepLabel: 'STEP {{step}}',
     eyebrow: '02 · EXPLORE',
     title: 'Colors in Motion',
     description:

@@ -15,6 +15,7 @@ export const popoverZhCN = {
     nonModal: '非模态',
   },
   specimen: {
+    summary: '上下文内容',
     referenceSpecimen: '参考样例',
     anyContent: '任意内容',
     keyboardReady: '支持键盘',

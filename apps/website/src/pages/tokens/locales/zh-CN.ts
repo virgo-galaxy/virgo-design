@@ -44,6 +44,8 @@ export const tokensZhCN = {
     statusDescription:
       '对照实心与弱化状态组合。色值直接来自 Token；实心背景与文字须达到 WCAG AA 4.5:1。',
     statusReview: {
+      solid: '实色',
+      subtle: '柔和色',
       families: {
         success: 'Success · 成功',
         warning: 'Warning · 警告',

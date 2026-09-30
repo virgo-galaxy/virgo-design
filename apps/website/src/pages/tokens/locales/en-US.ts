@@ -43,6 +43,8 @@ export const tokensEnUS = {
     statusDescription:
       'Compare solid and subtle status pairs. Resolved colors come directly from tokens; solid text must meet WCAG AA 4.5:1.',
     statusReview: {
+      solid: 'Solid',
+      subtle: 'Subtle',
       families: { success: 'Success', warning: 'Warning', danger: 'Danger', info: 'Info' },
       contrast: 'Contrast',
       pass: 'AA pass',

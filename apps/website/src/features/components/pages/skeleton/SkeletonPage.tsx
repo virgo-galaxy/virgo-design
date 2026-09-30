@@ -42,7 +42,7 @@ export function SkeletonPage() {
           <div className="hero-specimen">
             <div className="specimen-toolbar">
               <span>{t('components.skeleton.specimen.referenceSpecimen')}</span>
-              <code>card placeholder · animated</code>
+              <code>{t('components.skeleton.specimen.summary')}</code>
             </div>
             <div className="hero-stage">
               <div

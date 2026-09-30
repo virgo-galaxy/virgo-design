@@ -11,6 +11,7 @@ export const skeletonEnUS = {
     layoutPreservation: 'Layout preservation',
   },
   specimen: {
+    summary: 'card placeholder · animated',
     referenceSpecimen: 'Reference specimen',
     predictableDimensions: 'Predictable dimensions',
     contentLoading: 'Content loading',

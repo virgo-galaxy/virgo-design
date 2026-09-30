@@ -19,7 +19,7 @@ afterEach(async () => {
 
 describe('API description translations', () => {
   it('resolves every description to canonical JSDoc in English and an override in Chinese', async () => {
-    expect(entries).toHaveLength(474);
+    expect(entries).toHaveLength(520);
     await setAppLocale('en-US');
     for (const entry of entries)
       expect(

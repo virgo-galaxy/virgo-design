@@ -14,6 +14,7 @@ export const dockZhCN = {
     storage: '存储',
   },
   specimen: {
+    summary: '顶部 · 12 个吸附分区',
     referenceSpecimen: '参考样例',
     interactionChrome: '交互控件',
     snapFreePlacement: '吸附与自由定位',

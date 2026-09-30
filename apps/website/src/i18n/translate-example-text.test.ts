@@ -8,6 +8,17 @@ afterEach(async () => {
 });
 
 describe('dynamic example text', () => {
+  it('translates feedback stored in Chinese back to English, including nested variables', async () => {
+    await setAppLocale('zh-CN');
+    const feedback = i18nInstance.t('examples.dropdown.details.settingsSelected');
+    const closeTab = i18nInstance.t('examples.tabs.details.closeValue', {
+      v0: i18nInstance.t('examples.tabs.details.tabValue', { v0: 4 }),
+    });
+    await setAppLocale('en-US');
+    expect(translateExampleText(i18nInstance.t, 'dropdown', feedback)).toBe('Settings selected');
+    expect(translateExampleText(i18nInstance.t, 'tabs', closeTab)).toBe('Close Tab 4');
+  });
+
   it('updates existing values on locale changes and preserves technical identifiers', async () => {
     await setAppLocale('en-US');
     expect(translateExampleText(i18nInstance.t, 'tabs', 'Tab 4')).toBe('Tab 4');

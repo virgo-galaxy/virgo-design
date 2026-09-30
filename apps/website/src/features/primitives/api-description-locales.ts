@@ -7,6 +7,7 @@ import { buttonApiZhCN } from './locales/button/api.zh-CN';
 import { checkboxApiZhCN } from './locales/checkbox/api.zh-CN';
 import { collapsibleApiZhCN } from './locales/collapsible/api.zh-CN';
 import { commandApiZhCN } from './locales/command/api.zh-CN';
+import { contextMenuApiZhCN } from './locales/context-menu/api.zh-CN';
 import { cursorApiZhCN } from './locales/cursor/api.zh-CN';
 import { dialogApiZhCN } from './locales/dialog/api.zh-CN';
 import { dockApiZhCN } from './locales/dock/api.zh-CN';
@@ -34,6 +35,7 @@ export const primitivesApiZhCN = {
   checkbox: checkboxApiZhCN,
   collapsible: collapsibleApiZhCN,
   command: commandApiZhCN,
+  'context-menu': contextMenuApiZhCN,
   cursor: cursorApiZhCN,
   dialog: dialogApiZhCN,
   dock: dockApiZhCN,

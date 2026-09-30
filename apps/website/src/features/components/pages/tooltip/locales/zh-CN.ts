@@ -16,6 +16,7 @@ export const tooltipZhCN = {
     descriptive: '描述性',
   },
   specimen: {
+    summary: '上下文帮助',
     referenceSpecimen: '参考样例',
     nativeActions: '原生操作',
     keyboardReady: '支持键盘',

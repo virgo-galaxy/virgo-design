@@ -1,0 +1,1077 @@
+{
+  "scope": "Initial JSX text and literal accessibility/title/placeholder attributes; template/state/metadata/API findings are documented in the report.",
+  "occurrences": [
+    {
+      "file": "apps/website/src/components/brand/VirgoBrand/VirgoBrand.tsx",
+      "line": 62,
+      "kind": "attr:aria-label",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/components/brand/VirgoBrand/VirgoBrand.tsx",
+      "line": 70,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/components/brand/VirgoBrand/VirgoBrand.tsx",
+      "line": 72,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/components/docs/ComponentExample/ComponentExample.tsx",
+      "line": 259,
+      "kind": "jsx",
+      "value": "React",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/components/docs/ComponentExample/ComponentExample.tsx",
+      "line": 277,
+      "kind": "jsx",
+      "value": "SCSS",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/components/docs/ComponentExample/ComponentExample.tsx",
+      "line": 356,
+      "kind": "jsx",
+      "value": "React",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/components/docs/DocumentationDetailShell/DocumentationDetailShell.tsx",
+      "line": 51,
+      "kind": "jsx",
+      "value": "GitHub",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/components/docs/DocumentationDetailShell/DocumentationDetailShell.tsx",
+      "line": 54,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/examples/components/avatar/AvatarGroupExample.tsx",
+      "line": 12,
+      "kind": "attr:aria-label",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/examples/components/card/CardHeaderExample.tsx",
+      "line": 12,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/examples/components/context-menu/ContextMenuTargetExample.tsx",
+      "line": 30,
+      "kind": "jsx",
+      "value": "PDF",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/examples/components/context-menu/ContextMenuTargetExample.tsx",
+      "line": 34,
+      "kind": "jsx",
+      "value": "PNG",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/examples/components/context-menu/ContextMenuTargetExample.tsx",
+      "line": 35,
+      "kind": "jsx",
+      "value": "SVG",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/examples/components/menu/MenuActionsExample.tsx",
+      "line": 30,
+      "kind": "jsx",
+      "value": "PDF",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/examples/components/menu/MenuActionsExample.tsx",
+      "line": 34,
+      "kind": "jsx",
+      "value": "PNG",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/examples/components/menu/MenuActionsExample.tsx",
+      "line": 35,
+      "kind": "jsx",
+      "value": "SVG",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/examples/components/menubar/MenubarApplicationExample.tsx",
+      "line": 30,
+      "kind": "jsx",
+      "value": "PDF",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/examples/components/menubar/MenubarApplicationExample.tsx",
+      "line": 34,
+      "kind": "jsx",
+      "value": "PNG",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/examples/components/menubar/MenubarApplicationExample.tsx",
+      "line": 35,
+      "kind": "jsx",
+      "value": "SVG",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/examples/components/select/SelectContentExample.tsx",
+      "line": 17,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/examples/components/select/SelectContentExample.tsx",
+      "line": 25,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/examples/components/select/SelectKeyboardExample.tsx",
+      "line": 17,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/examples/components/select/SelectSizesExample.tsx",
+      "line": 21,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/examples/components/select/SelectStatesExample.tsx",
+      "line": 17,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/examples/components/select/SelectStatesExample.tsx",
+      "line": 25,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/examples/components/select/SelectStatesExample.tsx",
+      "line": 36,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/examples/components/surface/SurfaceLayoutCompositionExample.tsx",
+      "line": 15,
+      "kind": "jsx",
+      "value": "Virgo",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/examples/components/tabs/TabsAlignmentExample.tsx",
+      "line": 21,
+      "kind": "jsx",
+      "value": "API",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/examples/components/tabs/TabsBasicExample.tsx",
+      "line": 13,
+      "kind": "jsx",
+      "value": "API",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/examples/components/tabs/TabsDisabledExample.tsx",
+      "line": 14,
+      "kind": "jsx",
+      "value": "API",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/color-semantic-preview/SemanticColorExport.tsx",
+      "line": 21,
+      "kind": "jsx",
+      "value": "CSS",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/color-semantic-preview/components/SemanticThemePreview.tsx",
+      "line": 166,
+      "kind": "jsx",
+      "value": "V",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/features/color-semantic-preview/components/SemanticThemePreview.tsx",
+      "line": 167,
+      "kind": "jsx",
+      "value": "Virgo",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/features/color-semantic-preview/components/StatusColorReview.tsx",
+      "line": 63,
+      "kind": "jsx",
+      "value": "Solid",
+      "category": "必须翻译",
+      "reason": "普通界面说明或色阶标签，已修复"
+    },
+    {
+      "file": "apps/website/src/features/color-semantic-preview/components/StatusColorReview.tsx",
+      "line": 85,
+      "kind": "jsx",
+      "value": "Subtle",
+      "category": "必须翻译",
+      "reason": "普通界面说明或色阶标签，已修复"
+    },
+    {
+      "file": "apps/website/src/features/color-studio/components/BrandNeutralPage.tsx",
+      "line": 72,
+      "kind": "jsx",
+      "value": "OKLCH · 10",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/color-studio/components/BrandNeutralPage.tsx",
+      "line": 112,
+      "kind": "jsx",
+      "value": "OKLCH · 10",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/color-studio/components/FoundationScale.tsx",
+      "line": 56,
+      "kind": "jsx",
+      "value": "BASE",
+      "category": "必须翻译",
+      "reason": "普通界面说明或色阶标签，已修复"
+    },
+    {
+      "file": "apps/website/src/features/color-studio/components/LivePreview.tsx",
+      "line": 141,
+      "kind": "jsx",
+      "value": "BASE",
+      "category": "必须翻译",
+      "reason": "普通界面说明或色阶标签，已修复"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/accordion/AccordionPage.tsx",
+      "line": 54,
+      "kind": "jsx",
+      "value": "Accordion",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/accordion/AccordionPage.tsx",
+      "line": 74,
+      "kind": "jsx",
+      "value": "single · bordered · md",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/alert/AlertPage.tsx",
+      "line": 25,
+      "kind": "jsx",
+      "value": "Alert",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/alert/AlertPage.tsx",
+      "line": 45,
+      "kind": "jsx",
+      "value": "intent=&quot;warning&quot;",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/avatar/AvatarPage.tsx",
+      "line": 26,
+      "kind": "jsx",
+      "value": "Avatar",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/avatar/AvatarPage.tsx",
+      "line": 46,
+      "kind": "jsx",
+      "value": "image · fallback · group",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/avatar/AvatarPage.tsx",
+      "line": 51,
+      "kind": "attr:alt",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/badge/BadgePage.tsx",
+      "line": 26,
+      "kind": "jsx",
+      "value": "Badge",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/badge/BadgePage.tsx",
+      "line": 46,
+      "kind": "jsx",
+      "value": "count · dot · standalone",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/breadcrumb/BreadcrumbPage.tsx",
+      "line": 40,
+      "kind": "jsx",
+      "value": "Breadcrumb",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/breadcrumb/BreadcrumbPage.tsx",
+      "line": 45,
+      "kind": "jsx",
+      "value": "ReactNode",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/breadcrumb/BreadcrumbPage.tsx",
+      "line": 60,
+      "kind": "jsx",
+      "value": "basic · slash",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/button/ButtonPage.tsx",
+      "line": 24,
+      "kind": "jsx",
+      "value": "Button",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/button/ButtonPage.tsx",
+      "line": 46,
+      "kind": "jsx",
+      "value": "primary · medium",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/card/CardPage.tsx",
+      "line": 25,
+      "kind": "jsx",
+      "value": "Card",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/card/CardPage.tsx",
+      "line": 45,
+      "kind": "jsx",
+      "value": "header · body · footer",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/card/CardPage.tsx",
+      "line": 51,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/checkbox/CheckboxPage.tsx",
+      "line": 23,
+      "kind": "jsx",
+      "value": "Checkbox",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/checkbox/CheckboxPage.tsx",
+      "line": 43,
+      "kind": "jsx",
+      "value": "checked",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/command/CommandPage.tsx",
+      "line": 70,
+      "kind": "jsx",
+      "value": "Command",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/command/CommandPage.tsx",
+      "line": 90,
+      "kind": "jsx",
+      "value": "inline · grouped · searchable",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/cursor/CursorPage.tsx",
+      "line": 24,
+      "kind": "jsx",
+      "value": "Cursor",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/cursor/CursorPage.tsx",
+      "line": 44,
+      "kind": "jsx",
+      "value": "context in motion",
+      "category": "必须翻译",
+      "reason": "普通界面说明或色阶标签，已修复"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/dialog/DialogPage.tsx",
+      "line": 25,
+      "kind": "jsx",
+      "value": "Dialog",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/dialog/DialogPage.tsx",
+      "line": 46,
+      "kind": "jsx",
+      "value": "size=&quot;md&quot;",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/dock/DockPage.tsx",
+      "line": 65,
+      "kind": "jsx",
+      "value": "top · 12 snap divisions",
+      "category": "必须翻译",
+      "reason": "普通界面说明或色阶标签，已修复"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/drawer/DrawerPage.tsx",
+      "line": 25,
+      "kind": "jsx",
+      "value": "Drawer",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/drawer/DrawerPage.tsx",
+      "line": 45,
+      "kind": "jsx",
+      "value": "placement=&quot;right&quot;",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/dropdown/DropdownPage.tsx",
+      "line": 61,
+      "kind": "jsx",
+      "value": "Dropdown",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/dropdown/DropdownPage.tsx",
+      "line": 81,
+      "kind": "jsx",
+      "value": "contextual actions",
+      "category": "必须翻译",
+      "reason": "普通界面说明或色阶标签，已修复"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/empty/EmptyPage.tsx",
+      "line": 26,
+      "kind": "jsx",
+      "value": "Empty",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/empty/EmptyPage.tsx",
+      "line": 46,
+      "kind": "jsx",
+      "value": "icon · message · action",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/floating-action/FloatingActionPage.tsx",
+      "line": 45,
+      "kind": "jsx",
+      "value": "standalone · primary",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/input/InputPage.tsx",
+      "line": 24,
+      "kind": "jsx",
+      "value": "Input",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/input/InputPage.tsx",
+      "line": 44,
+      "kind": "jsx",
+      "value": "input · medium",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/layout/LayoutPage.tsx",
+      "line": 57,
+      "kind": "jsx",
+      "value": "Layout",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/layout/LayoutPage.tsx",
+      "line": 77,
+      "kind": "jsx",
+      "value": "header · lane · sidebar · content · footer",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/layout/LayoutPage.tsx",
+      "line": 118,
+      "kind": "attr:aria-labelledby",
+      "value": "layout-examples-title",
+      "category": "技术标识",
+      "reason": "关联 DOM ID，不是朗读文案"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/menu-system/MenuSystemPages.tsx",
+      "line": 101,
+      "kind": "jsx",
+      "value": "PDF",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/menu-system/MenuSystemPages.tsx",
+      "line": 105,
+      "kind": "jsx",
+      "value": "PNG",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/menu-system/MenuSystemPages.tsx",
+      "line": 106,
+      "kind": "jsx",
+      "value": "SVG",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/navigation-menu/NavigationMenuPage.tsx",
+      "line": 78,
+      "kind": "jsx",
+      "value": "NavigationMenu",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/navigation-menu/NavigationMenuPage.tsx",
+      "line": 98,
+      "kind": "jsx",
+      "value": "horizontal · popover",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/pagination/PaginationPage.tsx",
+      "line": 27,
+      "kind": "jsx",
+      "value": "Pagination",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/pagination/PaginationPage.tsx",
+      "line": 47,
+      "kind": "jsx",
+      "value": "page navigation",
+      "category": "必须翻译",
+      "reason": "普通界面说明或色阶标签，已修复"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/popover/PopoverPage.tsx",
+      "line": 28,
+      "kind": "jsx",
+      "value": "Popover",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/popover/PopoverPage.tsx",
+      "line": 48,
+      "kind": "jsx",
+      "value": "contextual content",
+      "category": "必须翻译",
+      "reason": "普通界面说明或色阶标签，已修复"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/progress/ProgressPage.tsx",
+      "line": 25,
+      "kind": "jsx",
+      "value": "Progress",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/progress/ProgressPage.tsx",
+      "line": 45,
+      "kind": "jsx",
+      "value": "value · label · showValue",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/radio/RadioPage.tsx",
+      "line": 23,
+      "kind": "jsx",
+      "value": "Radio",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/radio/RadioPage.tsx",
+      "line": 43,
+      "kind": "jsx",
+      "value": "horizontal · standard",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/segmented-control/SegmentedControlPage.tsx",
+      "line": 23,
+      "kind": "jsx",
+      "value": "Segmented Control",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/segmented-control/SegmentedControlPage.tsx",
+      "line": 43,
+      "kind": "jsx",
+      "value": "soft · small · slide",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/select/SelectPage.tsx",
+      "line": 57,
+      "kind": "jsx",
+      "value": "Select",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/select/SelectPage.tsx",
+      "line": 77,
+      "kind": "jsx",
+      "value": "select · medium",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/separator/SeparatorPage.tsx",
+      "line": 25,
+      "kind": "jsx",
+      "value": "Separator",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/separator/SeparatorPage.tsx",
+      "line": 45,
+      "kind": "jsx",
+      "value": "horizontal · semantic",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/skeleton/SkeletonPage.tsx",
+      "line": 25,
+      "kind": "jsx",
+      "value": "Skeleton",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/skeleton/SkeletonPage.tsx",
+      "line": 45,
+      "kind": "jsx",
+      "value": "card placeholder · animated",
+      "category": "必须翻译",
+      "reason": "普通界面说明或色阶标签，已修复"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/spinner/SpinnerPage.tsx",
+      "line": 25,
+      "kind": "jsx",
+      "value": "Spinner",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/spinner/SpinnerPage.tsx",
+      "line": 45,
+      "kind": "jsx",
+      "value": "inline · button · currentColor",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/surface/SurfacePage.tsx",
+      "line": 29,
+      "kind": "jsx",
+      "value": "Surface",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/surface/SurfacePage.tsx",
+      "line": 49,
+      "kind": "jsx",
+      "value": "glass · elevated",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/switch/SwitchPage.tsx",
+      "line": 23,
+      "kind": "jsx",
+      "value": "Switch",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/switch/SwitchPage.tsx",
+      "line": 43,
+      "kind": "jsx",
+      "value": "toggle · default",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/tabs/TabsPage.tsx",
+      "line": 54,
+      "kind": "attr:title",
+      "value": "API",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/tabs/TabsPage.tsx",
+      "line": 76,
+      "kind": "jsx",
+      "value": "Tabs",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/tabs/TabsPage.tsx",
+      "line": 96,
+      "kind": "jsx",
+      "value": "line · start",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/tag/TagPage.tsx",
+      "line": 26,
+      "kind": "jsx",
+      "value": "Tag",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/tag/TagPage.tsx",
+      "line": 46,
+      "kind": "jsx",
+      "value": "semantic · icon · closable",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/toast/ToastPage.tsx",
+      "line": 25,
+      "kind": "jsx",
+      "value": "Toast",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/toast/ToastPage.tsx",
+      "line": 45,
+      "kind": "jsx",
+      "value": "status · action · dismiss",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/tooltip/TooltipPage.tsx",
+      "line": 25,
+      "kind": "jsx",
+      "value": "Tooltip",
+      "category": "合理保留英文",
+      "reason": "公开组件名称，保持与导入名一致"
+    },
+    {
+      "file": "apps/website/src/features/components/pages/tooltip/TooltipPage.tsx",
+      "line": 45,
+      "kind": "jsx",
+      "value": "contextual help",
+      "category": "必须翻译",
+      "reason": "普通界面说明或色阶标签，已修复"
+    },
+    {
+      "file": "apps/website/src/features/icons/IconsExplorer.tsx",
+      "line": 157,
+      "kind": "attr:aria-labelledby",
+      "value": "review-title",
+      "category": "技术标识",
+      "reason": "关联 DOM ID，不是朗读文案"
+    },
+    {
+      "file": "apps/website/src/features/icons/IconsExplorer.tsx",
+      "line": 163,
+      "kind": "jsx",
+      "value": "24 × 24 viewBox · currentColor fill",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/icons/IconsExplorer.tsx",
+      "line": 204,
+      "kind": "attr:aria-labelledby",
+      "value": "ui-preview-title",
+      "category": "技术标识",
+      "reason": "关联 DOM ID，不是朗读文案"
+    },
+    {
+      "file": "apps/website/src/features/palette-gallery/components/FamilyDetail.tsx",
+      "line": 84,
+      "kind": "jsx",
+      "value": "STEP 6",
+      "category": "必须翻译",
+      "reason": "普通界面说明或色阶标签，已修复"
+    },
+    {
+      "file": "apps/website/src/features/primitives/PrimitiveDetailPage.tsx",
+      "line": 134,
+      "kind": "jsx",
+      "value": "@virgo-design/primitives",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/primitives/PrimitiveDetailPage.tsx",
+      "line": 207,
+      "kind": "attr:aria-labelledby",
+      "value": "public-api-heading",
+      "category": "技术标识",
+      "reason": "关联 DOM ID，不是朗读文案"
+    },
+    {
+      "file": "apps/website/src/features/primitives/PrimitiveDetailPage.tsx",
+      "line": 223,
+      "kind": "attr:title",
+      "value": "TypeScript API",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/primitives/PrimitiveExample.tsx",
+      "line": 228,
+      "kind": "jsx",
+      "value": "PDF",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/primitives/PrimitiveExample.tsx",
+      "line": 229,
+      "kind": "jsx",
+      "value": "SVG",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/features/primitives/PrimitiveExample.tsx",
+      "line": 361,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/features/primitives/PrimitiveExample.tsx",
+      "line": 375,
+      "kind": "jsx",
+      "value": "API",
+      "category": "技术标识",
+      "reason": "格式、语言、类型、属性或取值"
+    },
+    {
+      "file": "apps/website/src/pages/foundations/TypographyPage.tsx",
+      "line": 47,
+      "kind": "jsx",
+      "value": "Virgo",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/pages/foundations/TypographyPage.tsx",
+      "line": 62,
+      "kind": "jsx",
+      "value": "Virgo Design",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    },
+    {
+      "file": "apps/website/src/pages/foundations/components/DepthScalePreview.tsx",
+      "line": 53,
+      "kind": "attr:aria-labelledby",
+      "value": "depth-elevation-preview-title",
+      "category": "技术标识",
+      "reason": "关联 DOM ID，不是朗读文案"
+    },
+    {
+      "file": "apps/website/src/pages/foundations/components/LayoutScalePreview.tsx",
+      "line": 52,
+      "kind": "attr:aria-labelledby",
+      "value": "spacing-preview-title",
+      "category": "技术标识",
+      "reason": "关联 DOM ID，不是朗读文案"
+    },
+    {
+      "file": "apps/website/src/pages/foundations/components/LayoutScalePreview.tsx",
+      "line": 131,
+      "kind": "attr:aria-labelledby",
+      "value": "sizing-preview-title",
+      "category": "技术标识",
+      "reason": "关联 DOM ID，不是朗读文案"
+    },
+    {
+      "file": "apps/website/src/pages/foundations/components/ShapeScalePreview.tsx",
+      "line": 49,
+      "kind": "attr:aria-labelledby",
+      "value": "border-preview-title",
+      "category": "技术标识",
+      "reason": "关联 DOM ID，不是朗读文案"
+    },
+    {
+      "file": "apps/website/src/pages/foundations/components/ShapeScalePreview.tsx",
+      "line": 92,
+      "kind": "attr:aria-labelledby",
+      "value": "radius-preview-title",
+      "category": "技术标识",
+      "reason": "关联 DOM ID，不是朗读文案"
+    },
+    {
+      "file": "apps/website/src/pages/tokens/components/TypographyCompositionPreview.tsx",
+      "line": 60,
+      "kind": "attr:aria-labelledby",
+      "value": "document-preview-title",
+      "category": "技术标识",
+      "reason": "关联 DOM ID，不是朗读文案"
+    },
+    {
+      "file": "apps/website/src/pages/tokens/components/TypographyCompositionPreview.tsx",
+      "line": 236,
+      "kind": "attr:aria-labelledby",
+      "value": "ui-preview-title",
+      "category": "技术标识",
+      "reason": "关联 DOM ID，不是朗读文案"
+    },
+    {
+      "file": "apps/website/src/pages/tokens/components/TypographyCompositionPreview.tsx",
+      "line": 264,
+      "kind": "jsx",
+      "value": "VD",
+      "category": "品牌/代码 specimen",
+      "reason": "品牌名称或品牌字样"
+    }
+  ]
+}

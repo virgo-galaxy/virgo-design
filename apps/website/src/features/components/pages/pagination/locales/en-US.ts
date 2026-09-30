@@ -12,6 +12,7 @@ export const paginationEnUS = {
     bothModes: 'Both modes',
   },
   specimen: {
+    summary: 'page navigation',
     referenceSpecimen: 'Reference specimen',
     currentPage: 'Current page',
     boundedPages: 'Bounded pages',
