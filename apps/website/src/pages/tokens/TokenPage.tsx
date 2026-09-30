@@ -1,19 +1,8 @@
-import { PaletteIcon, TypeIcon } from '@virgo-design/icons';
-import { Dock, Layout } from '@virgo-design/ui';
+import { Layout } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { SectionNavigation } from '@/components/section/SectionNavigation';
-import { TOKEN_NAVIGATION_ITEMS } from '@/shared/routes/route-config';
-
 import styles from '../foundations/foundation-tokens.module.scss';
-
-const TOKEN_DOCK_EDGES = ['top', 'left', 'right'] as const;
-
-const tokenIcons = {
-  'tokens.navigation.colors': PaletteIcon,
-  'tokens.navigation.typography': TypeIcon,
-} as const;
 
 interface TokenPageProps {
   title: string;
@@ -31,16 +20,6 @@ interface TokenSectionProps {
 
 export function TokenPage({ title, description, children }: TokenPageProps) {
   const { t } = useTranslation();
-  const navigationItems = TOKEN_NAVIGATION_ITEMS.map((item) => {
-    const Icon = tokenIcons[item.label];
-
-    return {
-      ...item,
-      label: t(item.label),
-      icon: <Icon size={16} aria-hidden="true" />,
-    };
-  });
-
   return (
     <section className={styles.page}>
       <Layout.Lane
@@ -49,29 +28,7 @@ export function TokenPage({ title, description, children }: TokenPageProps) {
         minHeight="calc(100svh - var(--layout-header-height))"
         insetBlock="20px 112px"
       >
-        <Dock.Boundary className={styles.laneBoundary!}>
-          <Dock.Root
-            defaultLocked
-            defaultPinned
-            allowedEdges={TOKEN_DOCK_EDGES}
-            defaultPlacement={{ edge: 'top', position: 0.5 }}
-            persist={{ storage: 'session', key: 'tokens-navigation' }}
-            snapDivisions={false}
-          >
-            {({ orientation }) => (
-              <>
-                <Dock.Handle aria-label={t('tokens.navigation.move')} />
-                <Dock.Content>
-                  <SectionNavigation
-                    ariaLabel={t('tokens.navigation.label')}
-                    items={navigationItems}
-                    orientation={orientation}
-                  />
-                </Dock.Content>
-              </>
-            )}
-          </Dock.Root>
-
+        <div className={styles.laneBoundary!}>
           <div className={styles.inner!}>
             <header className={styles.pageHeader}>
               <div className={styles.eyebrow}>{t('tokens.eyebrow')}</div>
@@ -81,7 +38,7 @@ export function TokenPage({ title, description, children }: TokenPageProps) {
 
             <div className={styles.sections}>{children}</div>
           </div>
-        </Dock.Boundary>
+        </div>
       </Layout.Lane>
     </section>
   );

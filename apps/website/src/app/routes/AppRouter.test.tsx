@@ -6,6 +6,7 @@ import { MemoryRouter, useLocation } from 'react-router-dom';
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { primitiveDocs } from '@/features/primitives/primitiveDocs';
+import { DocumentationNavigationDock } from '@/layout/DocumentationNavigationDock';
 import { AppearanceContext } from '@/shared/theme/appearance-context';
 
 import { AppRouter } from './AppRouter';
@@ -41,6 +42,7 @@ function renderRoute(path: string) {
   return render(
     <AppearanceContext.Provider value={{ appearance: 'light', setAppearance: () => {} }}>
       <MemoryRouter initialEntries={[path]}>
+        <DocumentationNavigationDock />
         <AppRouter />
         <CurrentPath />
       </MemoryRouter>

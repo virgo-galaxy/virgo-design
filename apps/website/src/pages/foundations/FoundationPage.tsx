@@ -1,30 +1,8 @@
-import {
-  LayersIcon,
-  LayoutIcon,
-  PaletteIcon,
-  ShapesIcon,
-  SplineIcon,
-  TypeIcon,
-} from '@virgo-design/icons';
-import { Dock, Layout } from '@virgo-design/ui';
+import { Layout } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { SectionNavigation } from '@/components/section/SectionNavigation';
-import { FOUNDATION_NAVIGATION_ITEMS } from '@/shared/routes/route-config';
-
 import styles from './foundation-tokens.module.scss';
-
-const FOUNDATION_DOCK_EDGES = ['top', 'left', 'right'] as const;
-
-const foundationIcons = {
-  'foundations.navigation.colors': PaletteIcon,
-  'foundations.navigation.typography': TypeIcon,
-  'foundations.navigation.layout': LayoutIcon,
-  'foundations.navigation.shapeDepth': LayersIcon,
-  'foundations.navigation.motion': SplineIcon,
-  'foundations.navigation.icons': ShapesIcon,
-} as const;
 
 interface FoundationPageProps {
   title: string;
@@ -40,43 +18,6 @@ interface FoundationSectionProps {
   children: ReactNode;
   eyebrow?: string;
   id?: string;
-}
-
-export function FoundationNavigation() {
-  const { t } = useTranslation();
-  const items = FOUNDATION_NAVIGATION_ITEMS.map((item) => {
-    const Icon = foundationIcons[item.label];
-
-    return {
-      ...item,
-      label: t(item.label),
-      icon: <Icon size={16} aria-hidden="true" />,
-    };
-  });
-
-  return (
-    <Dock.Root
-      defaultLocked
-      defaultPinned
-      allowedEdges={FOUNDATION_DOCK_EDGES}
-      defaultPlacement={{ edge: 'top', position: 0.5 }}
-      persist={{ storage: 'session', key: 'foundations-navigation' }}
-      snapDivisions={false}
-    >
-      {({ orientation }) => (
-        <>
-          <Dock.Handle aria-label={t('foundations.navigation.move')} />
-          <Dock.Content>
-            <SectionNavigation
-              ariaLabel={t('foundations.navigation.label')}
-              items={items}
-              orientation={orientation}
-            />
-          </Dock.Content>
-        </>
-      )}
-    </Dock.Root>
-  );
 }
 
 export function FoundationPage({
@@ -96,9 +37,7 @@ export function FoundationPage({
         minHeight="calc(100svh - var(--layout-header-height))"
         insetBlock="20px 112px"
       >
-        <Dock.Boundary className={styles.laneBoundary!}>
-          <FoundationNavigation />
-
+        <div className={styles.laneBoundary!}>
           <div className={styles.inner!}>
             <header className={styles.pageHeader}>
               <div className={styles.eyebrow}>{t('foundations.eyebrow')}</div>
@@ -108,7 +47,7 @@ export function FoundationPage({
 
             <div className={styles.sections}>{children}</div>
           </div>
-        </Dock.Boundary>
+        </div>
       </Layout.Lane>
     </section>
   );

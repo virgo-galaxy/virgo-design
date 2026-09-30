@@ -1,0 +1,12 @@
+.boundary {
+  position: absolute;
+  z-index: 200;
+  inset-block-start: calc(var(--layout-header-height) + 20px);
+  inset-inline: clamp(14px, 2vw, 32px);
+  height: max(0px, calc(100svh - var(--layout-header-height) - 40px));
+  pointer-events: none;
+}
+
+.dock {
+  pointer-events: auto;
+}

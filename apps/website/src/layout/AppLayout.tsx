@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useAppearance } from '@/shared/theme/use-appearance';
 
+import { DocumentationNavigationDock } from './DocumentationNavigationDock';
 import styles from './layout.module.scss';
 import { SiteHeader } from './SiteHeader';
 
@@ -21,6 +22,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   return (
     <div className={styles.layout} data-theme={appearance}>
       <SiteHeader />
+      <DocumentationNavigationDock />
 
       <main className={styles.content}>{children}</main>
     </div>
