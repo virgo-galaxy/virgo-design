@@ -16,6 +16,8 @@ export type ToastPlacement =
 export type ToastProviderProps = PrimitiveProviderProps;
 export interface ToastProps extends PrimitiveProps {
   intent?: ToastIntent;
+  /** Panel notification or compact, content-sized feedback. @default 'panel' */
+  appearance?: 'panel' | 'compact';
   /** Overrides the status icon. Use false to hide it. */
   icon?: ReactNode | false;
 }

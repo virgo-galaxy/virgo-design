@@ -327,10 +327,7 @@
 .iconRow svg,
 .disabledRow svg,
 .fillItem svg {
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-width: 1.4;
+  fill: currentColor;
 }
 
 .iconRow svg {

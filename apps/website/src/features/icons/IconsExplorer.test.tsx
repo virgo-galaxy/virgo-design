@@ -1,6 +1,6 @@
 import '@/i18n';
 
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import { MemoryRouter } from 'react-router-dom';
@@ -30,7 +30,7 @@ describe('Icons foundation', () => {
     expect(screen.getByTestId('large-icon-glyph')).toHaveAttribute('viewBox', '0 0 24 24');
     expect(screen.getByTestId('large-icon-glyph')).toHaveAttribute('fill', 'currentColor');
     expect(screen.getByTestId('large-icon-glyph')).not.toHaveAttribute('stroke-width');
-    expect(screen.getByText('Actual 24px')).toBeInTheDocument();
+    expect(screen.getByText('Actual sizes')).toBeInTheDocument();
     expect(screen.getByTestId('actual-icon-glyph')).toHaveAttribute('width', '24');
     expect(screen.getByText('Button icons render at 20 × 20px.')).toBeInTheDocument();
     expect(screen.getByTestId('icon-button-preview').querySelector('svg')).toHaveAttribute(
@@ -49,7 +49,7 @@ describe('Icons foundation', () => {
 
     await user.click(screen.getByRole('button', { name: 'Icon Plus' }));
 
-    expect(screen.getAllByRole('option')).toHaveLength(51);
+    expect(screen.getAllByRole('option')).toHaveLength(63);
     expect(screen.queryByRole('option', { name: 'Workspace' })).not.toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Check' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Circle Info' })).toBeInTheDocument();
@@ -109,6 +109,12 @@ describe('Icons foundation', () => {
     ['Gauge', 'gauge'],
     ['Globe', 'globe'],
     ['Bot', 'bot'],
+    ['Arrow Left', 'arrow-left'],
+    ['Arrow Right', 'arrow-right'],
+    ['Arrow Up', 'arrow-up'],
+    ['Arrow Down', 'arrow-down'],
+    ['Arrow Return', 'arrow-return'],
+    ['Studio Tools', 'studio-tools'],
     ['Chevrons Left', 'chevrons-left'],
     ['Chevrons Right', 'chevrons-right'],
     ['Chevrons Up', 'chevrons-up'],
@@ -151,7 +157,13 @@ describe('Icons foundation', () => {
     const canvas = screen.getByTestId('icon-canvas');
     expect(canvas).toHaveAttribute('data-grid', 'true');
 
-    await user.click(screen.getByLabelText('Toggle grid'));
+    const toggle = screen.getByRole('switch', { name: 'Toggle grid' });
+    expect(toggle).toBeChecked();
+    expect(screen.getByText('Grid (On)')).toBeInTheDocument();
+    expect(toggle.closest('label')).toHaveAttribute('data-appearance', 'fader');
+    await user.click(toggle);
+    expect(toggle).not.toBeChecked();
+    expect(screen.getByText('Grid (Off)')).toBeInTheDocument();
 
     expect(canvas).toHaveAttribute('data-grid', 'false');
     expect(screen.queryByTestId('grid-coordinates')).not.toBeInTheDocument();
@@ -164,15 +176,18 @@ describe('Icons foundation', () => {
     function AppearanceHarness() {
       const [appearance, setAppearance] = useState<'light' | 'dark'>('light');
 
-      const setWebsiteDark = () => {
-        document.documentElement.dataset.theme = 'dark';
-        setAppearance('dark');
+      const setWebsiteAppearance = (next: 'light' | 'dark') => {
+        document.documentElement.dataset.theme = next;
+        setAppearance(next);
       };
 
       return (
         <AppearanceContext.Provider value={{ appearance, setAppearance }}>
-          <button type="button" onClick={setWebsiteDark}>
+          <button type="button" onClick={() => setWebsiteAppearance('dark')}>
             Set Website dark
+          </button>
+          <button type="button" onClick={() => setWebsiteAppearance('light')}>
+            Set Website light
           </button>
           <MemoryRouter initialEntries={['/foundations/icons']}>
             <IconsExplorer />
@@ -183,15 +198,27 @@ describe('Icons foundation', () => {
 
     render(<AppearanceHarness />);
 
-    expect(document.querySelector('.icons-explorer')).toHaveAttribute('data-theme', 'light');
-    expect(screen.queryByRole('button', { name: 'Theme light' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Theme dark' })).not.toBeInTheDocument();
+    expect(document.querySelector('.icons-explorer')).toHaveAttribute('data-appearance', 'light');
+    expect(screen.getByLabelText('Current background')).toHaveTextContent('Light');
+    expect(screen.getByLabelText('Current background')).toHaveAttribute('data-variant', 'soft');
+    expect(screen.queryByRole('button', { name: 'Light' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Dark' })).not.toBeInTheDocument();
 
+    await user.type(screen.getByRole('textbox', { name: 'Color / currentColor' }), '#7060ff');
+    fireEvent.change(screen.getByRole('slider', { name: 'Size' }), { target: { value: '40' } });
     await user.click(screen.getByLabelText('Toggle grid'));
     expect(document.documentElement).toHaveAttribute('data-theme', 'light');
 
     await user.click(screen.getByRole('button', { name: 'Set Website dark' }));
-    expect(document.querySelector('.icons-explorer')).toHaveAttribute('data-theme', 'dark');
+    expect(document.querySelector('.icons-explorer')).toHaveAttribute('data-appearance', 'dark');
+    expect(screen.getByLabelText('Current background')).toHaveTextContent('Dark');
     expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
+    await user.click(screen.getByRole('button', { name: 'Set Website light' }));
+    expect(document.querySelector('.icons-explorer')).toHaveAttribute('data-appearance', 'light');
+    expect(screen.getByLabelText('Current background')).toHaveTextContent('Light');
+    expect(screen.getByLabelText('Current background')).toHaveAttribute('data-variant', 'soft');
+    expect(screen.getByTestId('icon-canvas')).toHaveAttribute('data-grid', 'false');
+    expect(screen.getByRole('textbox', { name: 'Color / currentColor' })).toHaveValue('#7060ff');
+    expect(screen.getByRole('slider', { name: 'Size' })).toHaveValue('40');
   });
 });

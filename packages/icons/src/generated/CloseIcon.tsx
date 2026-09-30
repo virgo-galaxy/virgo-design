@@ -1,21 +1,87 @@
 /* This file is generated from icons/close.svg by scripts/generate.ts. Do not edit. */
-import type { SVGProps } from 'react';
+import { forwardRef, type SVGProps } from 'react';
+
+import { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';
+import type { IconAnimation } from '../animation-contract.js';
+
+const animation = {
+  duration: 1500,
+  tracks: [
+    {
+      path: 0,
+      attribute: 'd',
+      reveal: true,
+      values: [
+        'M5.7 5.7 L5.7 5.7 L5.7 5.7 L5.7 5.7 L5.7 5.7 L5.7 5.7 L5.7 5.7 L5.7 5.7Z',
+        'M5.7 5.7 L5.7 5.7 L5.7 5.7 L5.7 5.7 L5.7 5.7 L5.7 5.7 L5.7 5.7 L5.7 5.7Z',
+        'M5 5.875L5.875 5L6.4 5L19 17.6L19 18.125L18.125 19L17.6 19L5 6.4Z',
+        'M5 5.875L5.875 5L6.4 5L19 17.6L19 18.125L18.125 19L17.6 19L5 6.4Z',
+      ],
+      times: [0, 0.04, 0.4, 1],
+    },
+    {
+      path: 1,
+      attribute: 'd',
+      reveal: true,
+      values: [
+        'M18.3 5.7 L18.3 5.7 L18.3 5.7 L18.3 5.7 L18.3 5.7 L18.3 5.7 L18.3 5.7 L18.3 5.7Z',
+        'M18.3 5.7 L18.3 5.7 L18.3 5.7 L18.3 5.7 L18.3 5.7 L18.3 5.7 L18.3 5.7 L18.3 5.7Z',
+        'M17.6 5L18.125 5L19 5.875L19 6.4L6.4 19L5.875 19L5 18.125L5 17.6Z',
+        'M17.6 5L18.125 5L19 5.875L19 6.4L6.4 19L5.875 19L5 18.125L5 17.6Z',
+      ],
+      times: [0, 0.32, 0.7, 1],
+    },
+  ],
+} as const;
+const animationPaths = [
+  { d: 'M5 5.875L5.875 5L6.4 5L19 17.6L19 18.125L18.125 19L17.6 19L5 6.4Z' },
+  { d: 'M17.6 5L18.125 5L19 5.875L19 6.4L6.4 19L5.875 19L5 18.125L5 17.6Z' },
+] as const;
 
 export type CloseIconProps = Omit<
   SVGProps<SVGSVGElement>,
-  'stroke' | 'strokeLinecap' | 'strokeLinejoin' | 'strokeWidth'
+  | 'stroke'
+  | 'strokeLinecap'
+  | 'strokeLinejoin'
+  | 'strokeWidth'
+  | 'viewBox'
+  | 'fill'
+  | 'width'
+  | 'height'
+  | 'children'
+  | 'ref'
 > & {
   size?: number;
+  animated?: IconAnimation;
 };
 
-export function CloseIcon({ size = 24, ...props }: CloseIconProps) {
-  return (
-    <svg fill="currentColor" height={size} viewBox="0 0 24 24" width={size} {...props}>
-      <path
-        d={
-          'M5 5.875 5.875 5h.525L12 10.6 17.6 5h.525l.875.875V6.4L13.4 12l5.6 5.6v.525l-.875.875H17.6L12 13.4 6.4 19h-.525L5 18.125V17.6l5.6-5.6L5 6.4z'
-        }
-      />
-    </svg>
-  );
-}
+export const CloseIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, CloseIconProps>(
+  function CloseIcon({ size = 24, animated, ...props }: CloseIconProps, ref) {
+    return (
+      <svg
+        ref={ref}
+        aria-hidden={props['aria-label'] || props['aria-labelledby'] ? undefined : true}
+        {...props}
+        fill="currentColor"
+        height={size}
+        viewBox="0 0 24 24"
+        width={size}
+      >
+        {iconAnimationCount(animated) ? (
+          <AnimatedPaths
+            key={String(animated)}
+            paths={animationPaths}
+            animation={animation}
+            animated={animated!}
+          />
+        ) : (
+          <>
+            <path d={'M5 5.875L5.875 5L6.4 5L19 17.6L19 18.125L18.125 19L17.6 19L5 6.4Z'} />
+            <path d={'M17.6 5L18.125 5L19 5.875L19 6.4L6.4 19L5.875 19L5 18.125L5 17.6Z'} />
+          </>
+        )}
+      </svg>
+    );
+  },
+);
+CloseIcon.displayName = 'CloseIcon';

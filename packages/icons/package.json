@@ -5,7 +5,9 @@
   "sideEffects": false,
   "files": [
     "dist",
-    "THIRD_PARTY_NOTICES.md"
+    "THIRD_PARTY_NOTICES.md",
+    "icons",
+    "README.md"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,7 +16,28 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
-    }
+    },
+    "./metadata": {
+      "types": "./dist/metadata.d.ts",
+      "import": "./dist/metadata.js",
+      "default": "./dist/metadata.js"
+    },
+    "./registry": {
+      "types": "./dist/registry.d.ts",
+      "import": "./dist/registry.js",
+      "default": "./dist/registry.js"
+    },
+    "./assets": {
+      "types": "./dist/assets.d.ts",
+      "import": "./dist/assets.js",
+      "default": "./dist/assets.js"
+    },
+    "./tooling": {
+      "types": "./dist/tooling.d.ts",
+      "import": "./dist/tooling.js",
+      "default": "./dist/tooling.js"
+    },
+    "./svg/*": "./icons/*"
   },
   "publishConfig": {
     "access": "public"
@@ -26,6 +49,7 @@
     "clean": "node ./scripts/clean.mjs",
     "generate": "node ./scripts/generate.ts",
     "build": "pnpm run clean && pnpm run generate && tsc -p tsconfig.build.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "check": "node ./scripts/generate.ts --check"
   }
 }

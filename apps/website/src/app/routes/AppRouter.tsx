@@ -99,6 +99,7 @@ export function AppRouter() {
         <Route path={ROUTE_PATHS.foundationShapeDepth} element={<ShapeDepthPage />} />
         <Route path={ROUTE_PATHS.foundationMotion} element={<MotionPage />} />
         <Route path={ROUTE_PATHS.foundationIcons} element={<IconsPage />} />
+        <Route path={`${ROUTE_PATHS.foundationIcons}/:iconId`} element={<IconsPage />} />
         <Route
           path={ROUTE_PATHS.tokens}
           element={<Navigate to={ROUTE_PATHS.tokenColors} replace />}

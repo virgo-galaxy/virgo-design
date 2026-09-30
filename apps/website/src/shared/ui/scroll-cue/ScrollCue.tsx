@@ -1,3 +1,5 @@
+import { ChevronsDownIcon } from '@virgo-design/icons';
+
 import styles from './scroll-cue.module.scss';
 
 export interface ScrollCueProps {
@@ -21,11 +23,7 @@ export function ScrollCue({ targetId, ariaLabel, visible = true }: ScrollCueProp
       aria-label={ariaLabel}
       onClick={scrollToTarget}
     >
-      <svg viewBox="0 0 32 46" aria-hidden="true">
-        <path d="M7 7L16 16L25 7" />
-        <path d="M7 17L16 26L25 17" />
-        <path d="M7 27L16 36L25 27" />
-      </svg>
+      <ChevronsDownIcon size={24} aria-hidden="true" />
     </button>
   );
 }

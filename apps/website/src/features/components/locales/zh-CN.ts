@@ -93,7 +93,7 @@ export const componentsZhCN = {
     progress: '表达确定进度任务的已知完成量。',
     skeleton: '布局加载时提供视觉内容占位。',
     spinner: '指示不确定时长的工作，不管理异步状态。',
-    toast: '播报简短的非阻塞结果，支持可选操作与定时关闭。',
+    toast: '以通知卡片或紧凑反馈播报简短的非阻塞结果，支持可选操作与定时关闭。',
     command: '通过行内列表或对话框命令面板搜索并执行应用命令。',
     'context-menu': '为当前上下文提供操作，在指针位置或通过键盘打开。',
     'floating-action':

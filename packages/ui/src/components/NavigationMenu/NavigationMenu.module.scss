@@ -188,39 +188,11 @@
 }
 
 .disclosureIndicator {
-  position: relative;
+  transform: rotate(0deg);
+  transition: transform var(--vd-duration-180) var(--vd-easing-standard);
 
-  // Change the angle of each stroke around their shared point, not the whole icon.
-  &::before,
-  &::after {
-    position: absolute;
-    top: calc(50% - var(--vd-border-width-2) / 2);
-    width: var(--vd-spacing-8);
-    height: var(--vd-border-width-2);
-    border-radius: var(--vd-radius-full);
-    background: currentColor;
-    content: '';
-    transition: transform var(--vd-duration-180) var(--vd-easing-standard);
-  }
-
-  &::before {
-    right: 50%;
-    transform-origin: right center;
-    transform: translateY(calc(var(--vd-spacing-6) / 2)) rotate(45deg);
-  }
-
-  &::after {
-    left: 50%;
-    transform-origin: left center;
-    transform: translateY(calc(var(--vd-spacing-6) / 2)) rotate(-45deg);
-  }
-
-  &[data-direction='up']::before {
-    transform: translateY(calc(var(--vd-spacing-6) / -2)) rotate(-45deg);
-  }
-
-  &[data-direction='up']::after {
-    transform: translateY(calc(var(--vd-spacing-6) / -2)) rotate(45deg);
+  &[data-direction='up'] {
+    transform: rotate(180deg);
   }
 }
 
@@ -286,8 +258,6 @@
 @media (prefers-reduced-motion: reduce) {
   .control,
   .indicator,
-  .disclosureIndicator::before,
-  .disclosureIndicator::after,
   .popoverContent {
     transition-duration: var(--vd-duration-0);
     animation: none;

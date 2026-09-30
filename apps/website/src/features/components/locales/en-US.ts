@@ -105,7 +105,8 @@ export const componentsEnUS = {
     progress: 'Communicates the known completion amount of a determinate task.',
     skeleton: 'Provides a visual content placeholder while a layout is loading.',
     spinner: 'Indicates indeterminate work without managing asynchronous state.',
-    toast: 'Announces brief, non-blocking results with optional actions and timed dismissal.',
+    toast:
+      'Announces brief, non-blocking results as panel notifications or compact feedback, with optional actions and timed dismissal.',
     command: 'Searches and executes application commands from an inline list or dialog palette.',
     'context-menu':
       'Actions for the invoking context, opened at a pointer position or with the keyboard.',

@@ -1,3 +1,4 @@
+import { SettingsIcon } from '@virgo-design/icons';
 import {
   borderColorTokens,
   brandColorTokens,
@@ -79,12 +80,7 @@ function TokenTag({ children }: { children: ReactNode }) {
 }
 
 function Glyph({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 20 20" aria-hidden="true">
-      <path d="M3.5 5.5h13M3.5 10h13M3.5 14.5h8" />
-      <circle cx="15" cy="14.5" r="1.5" />
-    </svg>
-  );
+  return <SettingsIcon {...(className ? { className } : {})} size={20} aria-hidden="true" />;
 }
 
 export function SemanticThemePreview({ theme, title, description }: SemanticThemePreviewProps) {

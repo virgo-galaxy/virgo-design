@@ -277,7 +277,7 @@ describe('Primitive routes', () => {
 });
 
 describe('Foundation routes', () => {
-  it('renders Icons as a canonical Foundation with its complete review surface', async () => {
+  it('renders the icon catalogue within Foundations', async () => {
     renderRoute('/foundations/icons');
 
     await findRouteHeading('Icons');
@@ -292,9 +292,23 @@ describe('Foundation routes', () => {
       'aria-current',
       'page',
     );
-    expect(screen.getByTestId('icon-canvas')).toHaveAttribute('data-icon', 'plus');
-    expect(screen.getByTestId('grid-coordinates')).toBeInTheDocument();
-    expect(screen.getByText('Actual 24px')).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Search icons…' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /settings/ })).toHaveAttribute(
+      'href',
+      '/foundations/icons/settings',
+    );
+  });
+
+  it('opens a deep-linked icon detail and keeps the Icons navigation active', async () => {
+    renderRoute('/foundations/icons/settings');
+    await screen.findByRole('button', { name: 'Code format' });
+    const navigation = screen.getByRole('navigation', { name: 'Foundation categories' });
+    expect(within(navigation).getByRole('link', { name: 'Icons' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+    expect(screen.getByTestId('icon-canvas')).toHaveAttribute('data-icon', 'settings');
+    expect(screen.getByTestId('actual-20')).toHaveAttribute('width', '20');
   });
 
   it.each([

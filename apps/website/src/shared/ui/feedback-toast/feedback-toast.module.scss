@@ -1,0 +1,14 @@
+.viewport {
+  z-index: 5000;
+  width: min(460px, calc(100vw - 40px));
+}
+
+.viewport[data-placement='top-center'] {
+  inset-block-start: 92px;
+}
+
+@media (max-width: 900px) {
+  .viewport[data-placement='top-center'] {
+    inset-block-start: 84px;
+  }
+}

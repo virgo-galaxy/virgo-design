@@ -1,6 +1,7 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
+import { format } from 'prettier';
 import { describe, expect, it } from 'vitest';
 
 import { generateIconComponent } from './generate';
@@ -13,6 +14,11 @@ describe('icons generator', () => {
       .sort();
 
     expect(files).toEqual([
+      'arrow-down.svg',
+      'arrow-left.svg',
+      'arrow-return.svg',
+      'arrow-right.svg',
+      'arrow-up.svg',
       'bot.svg',
       'check.svg',
       'chevron-down.svg',
@@ -32,6 +38,7 @@ describe('icons generator', () => {
       'cursor-arrow.svg',
       'cybertruck.svg',
       'dashboard.svg',
+      'download.svg',
       'ellipsis-vertical.svg',
       'ellipsis.svg',
       'external-link.svg',
@@ -46,10 +53,13 @@ describe('icons generator', () => {
       'layers.svg',
       'layout.svg',
       'lock.svg',
+      'microphone.svg',
       'minus.svg',
       'moon.svg',
       'palette.svg',
+      'pause.svg',
       'pin.svg',
+      'play.svg',
       'plus.svg',
       'search.svg',
       'settings.svg',
@@ -57,12 +67,15 @@ describe('icons generator', () => {
       'sidebar-collapse.svg',
       'sidebar-expand.svg',
       'spline.svg',
+      'stop.svg',
+      'studio-tools.svg',
       'sun.svg',
       'trash.svg',
       'triangle-alert.svg',
       'type.svg',
       'unlock.svg',
       'unpin.svg',
+      'upload.svg',
       'user.svg',
     ]);
 
@@ -105,7 +118,14 @@ describe('icons generator', () => {
         'utf8',
       );
 
-      expect(generated).toBe(generateIconComponent(fileName, source));
+      expect(generated).toBe(
+        await format(generateIconComponent(fileName, source), {
+          parser: 'typescript',
+          singleQuote: true,
+          printWidth: 100,
+          trailingComma: 'all',
+        }),
+      );
     },
   );
 
@@ -150,7 +170,7 @@ describe('icons generator', () => {
     const source = await readFile(resolve('packages/icons/icons/plus.svg'), 'utf8');
     const output = generateIconComponent('plus.svg', source);
 
-    expect(output).toContain('export function PlusIcon');
+    expect(output).toContain('export const PlusIcon');
     expect(output).toContain('fill="currentColor"');
     expect(output).toContain('stroke="none"');
     expect(output).toContain('viewBox="0 0 24 24"');
@@ -168,7 +188,7 @@ describe('icons generator', () => {
       '<svg fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h6v6H4z" /><path d="M14 14h6v6h-6z" /></svg>',
     );
 
-    expect(output).toContain('export function FilledSampleIcon');
+    expect(output).toContain('export const FilledSampleIcon');
     expect(output).toContain("<path d={'M4 4h6v6H4z'} />");
     expect(output).toContain("<path d={'M14 14h6v6h-6z'} />");
     expect(output).not.toContain('strokeWidth?: number;');
@@ -210,17 +230,12 @@ describe('icons generator', () => {
     expect(output).toContain("d={'M2 2h20v20H2z M8 8h8v8H8z'}");
   });
 
-  it('retains controlled stroke width for stroked icons', () => {
-    const output = generateIconComponent(
-      'stroke-sample.svg',
-      '<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 12h16" /></svg>',
-    );
-
-    expect(output).toContain('export function StrokeSampleIcon');
-    expect(output).toContain('strokeLinecap="round"');
-    expect(output).toContain('strokeLinejoin="round"');
-    expect(output).toContain('strokeWidth?: number;');
-    expect(output).toContain('strokeWidth={strokeWidth}');
-    expect(output).toContain('strokeWidth = 1.5');
+  it('rejects stroke-first sources rather than publishing strokeWidth API', () => {
+    expect(() =>
+      generateIconComponent(
+        'stroke-sample.svg',
+        '<svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 12h16" /></svg>',
+      ),
+    ).toThrow('currentColor');
   });
 });

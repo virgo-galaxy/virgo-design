@@ -192,11 +192,11 @@ import { controlsZhCN } from '@/shared/locales/controls/zh-CN';
 import type { LocaleOf } from './locale-types';
 
 export const enUS = {
+  icons: iconsEnUS,
   shared: { controls: controlsEnUS },
   app: layoutEnUS,
   foundations: {
     ...foundationsEnUS,
-    icons: iconsEnUS,
     ...foundationColorsEnUS,
     ...colorStudioEnUS,
     ...paletteGalleryEnUS,
@@ -300,11 +300,11 @@ export const enUS = {
 } as const;
 
 export const zhCN = {
+  icons: iconsZhCN,
   shared: { controls: controlsZhCN },
   app: layoutZhCN,
   foundations: {
     ...foundationsZhCN,
-    icons: iconsZhCN,
     ...foundationColorsZhCN,
     ...colorStudioZhCN,
     ...paletteGalleryZhCN,

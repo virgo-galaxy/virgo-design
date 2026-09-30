@@ -34,7 +34,7 @@ function defaultIcon(intent: ToastIntent): ReactNode {
 const Provider = PrimitiveToast.Provider;
 
 const Root = forwardRef<HTMLDivElement, ToastProps>(function ToastRoot(
-  { intent = 'default', icon, className, children, ...props },
+  { intent = 'default', appearance = 'panel', icon, className, children, ...props },
   ref,
 ) {
   const resolvedIcon = icon === false ? null : (icon ?? defaultIcon(intent));
@@ -44,6 +44,7 @@ const Root = forwardRef<HTMLDivElement, ToastProps>(function ToastRoot(
       ref={ref}
       className={classes(styles.root, className)}
       data-intent={intent}
+      data-appearance={appearance}
     >
       {resolvedIcon ? (
         <span className={styles.icon} aria-hidden="true">

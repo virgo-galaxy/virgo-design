@@ -52,7 +52,7 @@ export function IconSelect({ onChange, options, value }: IconSelectProps) {
   return (
     <div className="icon-select" ref={rootRef}>
       <span className="icon-select__label" id={`${menuId}-label`}>
-        {t('foundations.icons.icon')}
+        {t('icons.icon')}
       </span>
       <button
         aria-controls={isOpen ? menuId : undefined}

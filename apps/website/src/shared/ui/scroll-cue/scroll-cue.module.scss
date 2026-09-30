@@ -37,29 +37,7 @@
 }
 
 .scrollCue svg {
-  width: 32px;
-  height: 46px;
-  overflow: visible;
-}
-
-.scrollCue path {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.scrollCue path:nth-child(1) {
   animation: breathe 1.8s ease-in-out infinite;
-}
-
-.scrollCue path:nth-child(2) {
-  animation: breathe 1.8s 140ms ease-in-out infinite;
-}
-
-.scrollCue path:nth-child(3) {
-  animation: breathe 1.8s 280ms ease-in-out infinite;
 }
 
 @keyframes breathe {
@@ -80,7 +58,7 @@
     transition: none;
   }
 
-  .scrollCue path {
+  .scrollCue svg {
     animation: none;
   }
 }

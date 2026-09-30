@@ -8126,6 +8126,16 @@ export const componentApiReference: ApiReferenceRegistry = {
               'components.toast.api.toast-props.properties.intent.description',
           },
           {
+            name: 'appearance',
+            type: "'panel' | 'compact'",
+            required: false,
+            defaultValue: "'panel'",
+            description: 'Panel notification or compact, content-sized feedback.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toast.api.toast-props.properties.appearance.description',
+          },
+          {
             name: 'icon',
             type: 'ReactNode | false',
             required: false,
@@ -8205,6 +8215,16 @@ export const componentApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.toast.api.toast-root-props.properties.intent.description',
+          },
+          {
+            name: 'appearance',
+            type: "'panel' | 'compact'",
+            required: false,
+            defaultValue: "'panel'",
+            description: 'Panel notification or compact, content-sized feedback.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toast.api.toast-root-props.properties.appearance.description',
           },
           {
             name: 'icon',

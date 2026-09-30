@@ -70,6 +70,29 @@ describe('Toast UI', () => {
     expect(onOpenChange).toHaveBeenCalledWith(false);
   });
 
+  it('supports compact feedback at top center without changing panel defaults', () => {
+    render(
+      <Toast.Provider>
+        <Toast appearance="compact" intent="success" duration={0}>
+          <Toast.Title>Copied</Toast.Title>
+        </Toast>
+        <Toast duration={0}>
+          <Toast.Title>Panel</Toast.Title>
+        </Toast>
+        <Toast.Viewport placement="top-center" />
+      </Toast.Provider>,
+    );
+    expect(screen.getByRole('status', { name: 'Copied' })).toHaveAttribute(
+      'data-appearance',
+      'compact',
+    );
+    expect(screen.getByRole('status', { name: 'Panel' })).toHaveAttribute(
+      'data-appearance',
+      'panel',
+    );
+    expect(screen.getByRole('region')).toHaveAttribute('data-placement', 'top-center');
+  });
+
   it('allows a custom icon or no icon', () => {
     render(
       <Toast.Provider>

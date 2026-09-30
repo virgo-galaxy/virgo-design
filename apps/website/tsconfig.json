@@ -10,7 +10,11 @@
       "@virgo-design/primitives": ["../../packages/primitives/src/index.ts"],
       "@virgo-design/tokens": ["../../packages/tokens/src/index.ts"],
       "@virgo-design/ui/metadata": ["../../packages/ui/src/metadata/index.ts"],
-      "@virgo-design/ui": ["../../packages/ui/src/index.ts"]
+      "@virgo-design/ui": ["../../packages/ui/src/index.ts"],
+      "@virgo-design/icons/metadata": ["../../packages/icons/src/metadata.ts"],
+      "@virgo-design/icons/registry": ["../../packages/icons/src/registry.ts"],
+      "@virgo-design/icons/assets": ["../../packages/icons/src/assets.ts"],
+      "@virgo-design/icons/tooling": ["../../packages/icons/src/tooling.ts"]
     }
   },
   "include": ["src", "vite.config.ts"]

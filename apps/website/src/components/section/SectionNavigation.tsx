@@ -20,7 +20,9 @@ export function SectionNavigation({
   orientation = 'horizontal',
 }: SectionNavigationProps) {
   const { pathname } = useLocation();
-  const activePath = items.find((item) => item.path === pathname)?.path ?? '';
+  const activePath =
+    items.find((item) => item.path === pathname || pathname.startsWith(`${item.path}/`))?.path ??
+    '';
 
   return (
     <NavigationMenu.Root
@@ -40,7 +42,6 @@ export function SectionNavigation({
                   <NavLink
                     {...props}
                     className={className ?? ''}
-                    end
                     style={style ?? {}}
                     to={href ?? item.path}
                   />

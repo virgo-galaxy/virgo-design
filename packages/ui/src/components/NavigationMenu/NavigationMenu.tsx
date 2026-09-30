@@ -1,4 +1,4 @@
-import { ChevronRightIcon } from '@virgo-design/icons';
+import { ChevronDownIcon, ChevronRightIcon } from '@virgo-design/icons';
 import {
   NavigationMenu as PrimitiveNavigationMenu,
   Popover as PrimitivePopover,
@@ -368,7 +368,7 @@ const Trigger = forwardRef<HTMLButtonElement, NavigationMenuTriggerProps>(
             data-direction={opensSideways ? 'right' : item.expanded ? 'up' : 'down'}
             aria-hidden="true"
           >
-            {opensSideways ? <ChevronRightIcon /> : null}
+            {opensSideways ? <ChevronRightIcon /> : <ChevronDownIcon />}
           </span>
         ) : null}
       </>

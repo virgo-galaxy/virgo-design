@@ -2,6 +2,8 @@ import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 
 export const toastApiZhCN = {
   api: {
+    'toast-props.properties.appearance.description': '通知卡片或按内容宽度呈现的紧凑反馈。',
+    'toast-root-props.properties.appearance.description': '通知卡片或按内容宽度呈现的紧凑反馈。',
     'toast-provider-props.properties.hotkey.description': '将焦点移入通知视口的键盘快捷键。',
     'toast-props.properties.icon.description': '覆盖状态图标；使用 false 隐藏图标。',
     'toast-props.properties.duration.description':

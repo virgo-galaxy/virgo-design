@@ -2,6 +2,7 @@ import type { LocaleOf } from '@/i18n/locale-types';
 
 import { controlsEnUS } from './en-US';
 export const controlsZhCN = {
+  notifications: '通知',
   expandSidebar: '展开侧栏',
   collapseSidebar: '收起侧栏',
   clearInput: '清空输入',

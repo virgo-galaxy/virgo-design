@@ -34,7 +34,11 @@ packages/icons/src/generated/
 
 The package entry point is generated from the available canonical icons.
 
-Applications, UI components, documentation, and the Icons Playground consume `@virgo-design/icons`. They do not own canonical icon geometry.
+Applications, UI components, documentation, and the Icons Catalogue consume `@virgo-design/icons`. They do not own canonical icon geometry.
+
+Every metadata record uses the same fields: id, category, tags, aliases, status, description, and
+`animated: boolean`. The flag indicates implemented animation support; it does not start playback.
+The 33 animated icons use their own authored motion while sharing the same public import path.
 
 ## Canonical SVG
 
@@ -254,7 +258,7 @@ Common UI usage around:
 
 is also important when evaluating visual density, negative space, and recognizability.
 
-Large Playground previews are useful for inspecting geometry, but the final judgment belongs to the real rendered size.
+Large Detail previews are useful for inspecting geometry, but the final judgment belongs to the real rendered size.
 
 Details that only work when heavily magnified are not part of the intended visual language.
 
@@ -298,7 +302,7 @@ After changing or adding a canonical SVG, regenerate the React package with:
 pnpm gen:icons
 ```
 
-The generator reads the canonical assets and updates the generated React components and public exports.
+The generator validates all canonical sources and metadata before updating React components, public exports, the metadata manifest, the opt-in React registry, and canonical SVG strings. `pnpm check:icons` validates sources and rejects stale generated output without writing files. Both `pnpm all` and the generator tests enforce this contract.
 
 The normal repository validation command is:
 
@@ -315,10 +319,10 @@ silhouette has a softened northwest tip, broad shoulders, and a short, narrow so
 with rounded ends and smooth joins into the body,
 with proportions intended for 16, 20, and 24px rendering.
 
-The icon supplies geometry and `currentColor` only. The future Cursor component owns the
+The icon supplies geometry and `currentColor` only. The Cursor component owns the
 translucent light fill, cool tint, soft edge, highlights, and shadow. Keep these material
 effects out of the canonical SVG. Its southeast tail provides the visual direction for a
-future pointer-follow Tooltip to extend behind the cursor.
+pointer-follow Tooltip to extend behind the cursor.
 
 ```tsx
 import { PlusIcon, SearchIcon } from '@virgo-design/icons';
@@ -337,16 +341,131 @@ Icons inherit their color from the surrounding interface through `currentColor`.
 
 This allows icon color to follow component state, semantic color tokens, and normal CSS without embedding presentation-specific colors into canonical assets.
 
-## Website icon review
+## Package entrypoints
 
-The Website route `/foundations/icons` is the visual review environment for Virgo Icons.
+```tsx
+import { SettingsIcon } from '@virgo-design/icons';
+import { iconManifest, searchIcons } from '@virgo-design/icons/metadata';
+import { getIconSvg, iconSvgSources } from '@virgo-design/icons/assets';
+import { validateIconSvg, createIconSource } from '@virgo-design/icons/tooling';
 
-It consumes the icon package and provides enlarged geometry inspection, real-size previews, theme review, grid inspection, and icon selection.
-
-The Website review page is a viewing and calibration surface.
-
-Canonical icon geometry remains in:
-
-```text
-packages/icons/icons/
+<SettingsIcon size={20} style={{ color: '#7060ff' }} />;
+<SettingsIcon aria-label="Settings" role="img" />;
+searchIcons(iconManifest, 'cog');
 ```
+
+Components default to 24px and `currentColor`; unlabeled icons are decorative (`aria-hidden`).
+Consumers can provide `aria-label` / `aria-labelledby`, className, style, events, and a React ref.
+`size` owns width and height. Geometry props (`viewBox`, fill, children, stroke settings) are excluded
+from the public type. The package is ESM, supports React 18+, and requires no Virgo UI or token package.
+`sideEffects: false` and the pure root barrel preserve tree-shaking.
+
+The root exports individual components and their `XxxIconProps`. Metadata, SVG sources, tooling,
+and the full React registry are separate opt-in entrypoints; normal icon imports do not pull them in.
+`@virgo-design/icons/registry` exposes `iconComponents` keyed by canonical id, for catalogues.
+Raw assets are exported as `@virgo-design/icons/svg/settings.svg` (bundler asset handling applies).
+The published package includes declarations, canonical SVGs, this guide, and third-party notices.
+
+## Metadata and search
+
+`metadata.json` is the authored English-only metadata registry. Each canonical SVG requires exactly
+one id, category, tags, aliases, status, description, and animated record. The generated manifest
+also includes the React component name; `IconId`, `IconCategory`, `IconMetadata`, and
+`IconManifestEntry` are available from `/metadata`.
+
+Canonical ids and aliases are globally unique. Aliases cannot shadow any canonical id, including
+icons later in the registry. Metadata terms are normalized lowercase English; Chinese vocabulary
+belongs to the Website feature. Search matches canonical id, component name, alias, tag, and
+category, with case-insensitive NFKC normalization, partial matching, AND query tokens, and optional
+category filtering. Consumers can pass their own `keywords` dictionary without changing core metadata.
+
+## Optional animation
+
+The four arrows, four single chevrons, four double chevrons, Bot, Check, Close, Code, Copy,
+Cybertruck, Download, External Link, Eye, Gauge, Globe, Layers, Lock, Moon, Pin, Search, Settings,
+Shapes, Sun, Trash, and Upload support one additional prop: `animated`. No animation-type or
+stroke API is added.
+
+```tsx
+import { CodeIcon } from '@virgo-design/icons';
+
+<CodeIcon />; // Static canonical geometry.
+<CodeIcon animated />; // Play once, then rest in the canonical pose.
+<CodeIcon animated={3} />; // Play three complete cycles.
+<CodeIcon animated="always" />; // Loop until disabled or unmounted.
+```
+
+Omitted / false, zero, negative, fractional, and non-finite counts stay static. Supported props
+use the exported `IconAnimation` type. Play and Pause are ordinary static icons.
+Motion settles in the canonical pose; drawing animations reveal the filled shape and hold it. Chevrons fold by path interpolation; double chevrons
+nudge and rebound; Code separates the brackets while fading its slash; Trash opens its lid;
+Copy separates its sheets; transfer arrows move relative to their tray; Settings turns its gear.
+Globe turns its meridian rather than spinning the entire flat symbol. Layers spread and fold;
+Lock lifts its shackle; Eye blinks; Bot sways its antenna; Gauge sweeps its needle. Search magnifies,
+Sun turns its rays, Moon and Pin sway, Cybertruck bounces on its suspension, and Shapes cycle positions.
+Check and Close draw their filled polygons in sequence, with no stroke-based public API.
+External Link flexes its two open frame terminals as its arrow draws back and launches outward.
+
+Playback uses native SVG animation without a third-party runtime or animation stylesheet.
+Static icons without animation support do not import the playback helper; supported icons retain
+their small animation definitions even when used statically. Static rendering creates no
+animation elements or motion listeners. Canonical source files remain static geometry.
+Server rendering and `prefers-reduced-motion` use the canonical resting pose. Active playback
+responds to changes in the reduced-motion preference and cleans up its subscription on unmount.
+Timing inherits `--vd-easing-standard` when available; a CSS `--virgo-icon-duration` override can
+reference external motion tokens, for example `--virgo-icon-duration: var(--vd-duration-1120)`.
+The package also supplies standalone timing defaults and does not require Virgo tokens.
+
+The opt-in `/assets` entrypoint also exports `getIconSvg(id, animated?)`. It uses the same
+authored animation definitions as the React components. Omit `animated` for the canonical
+static SVG; pass `true`, a positive integer, or `'always'` to include native `<animate>` /
+`<animateTransform>` elements that start automatically, without React or JavaScript:
+
+```ts
+getIconSvg('code'); // Static SVG.
+getIconSvg('code', 3); // Standalone SVG with three animation cycles.
+getIconSvg('code', 'always'); // Standalone looping SVG.
+```
+
+Standalone exports include their own timing and easing defaults and a reduced-motion media
+query with canonical resting geometry. Icons without animation support always export static
+geometry. Website Detail's SVG code, copy, and download follow its selected playback mode.
+The canonical `/svg/*` files and `iconSvgSources` remain static authoring sources; derived
+animated exports are not canonical input for the path-only custom-icon validator.
+
+## Validation and custom icons
+
+The browser-safe `/tooling` entrypoint exports `validateIconSvg`, `IconValidationError`,
+`IconDefinition`, `IconPath`, `serializeIconSvg`, `iconComponentName`, and `createIconSource`.
+It has no React or DOM dependency. Validation rejects wrong viewBoxes, fixed colors, dimensions,
+unknown/duplicate attributes, strokes, transforms, styles, external references, scripts, entities,
+unsupported shapes, malformed geometry, non-finite coordinates, and oversized input.
+Only self-closing paths are supported in this first version; convert rects, circles, and groups to
+paths before importing. Negative space uses path winding or `fill-rule="evenodd"`.
+Validation preserves canonical precision and intentional optical corrections.
+
+```ts
+const definition = validateIconSvg(svgText); // throws a typed error with a stable code
+const svg = serializeIconSvg(definition);
+const react = createIconSource('custom-star', svg); // standalone React component source
+```
+
+Generated custom code uses the same fill-first props contract. Copy the source into your project;
+Studio does not write custom artwork into the official icon collection. To contribute a canonical
+icon locally: author one SVG, add its metadata, review at 20/24px on both backgrounds, run
+`pnpm gen:icons`, then `pnpm all`. A validator pass is not an optical-quality approval.
+
+## Website catalogue, detail, and Studio
+
+- `/foundations/icons`: grid, English / Chinese search, categories, URL-persisted filtering.
+- `/foundations/icons/:id`: metadata, related icons, TSX / SVG source and copy, download SVG,
+  enlarged geometry, actual 16/20/24/32px previews, external Website appearance, a current-background readout, color, size, grid, UI preview.
+- `/foundations/icons/studio`: paste SVG, validate, reuse Detail previews, copy standalone React / SVG,
+  and download canonical SVG. Editing input invalidates the previous validated output.
+
+`IconsExplorer` supplies the shared geometry-review surface. Its appearance follows the external
+Website theme; it has no independent theme state or mode selector. Review colors use shared Virgo
+semantic tokens. Its current background is displayed as read-only text; there are no separate
+light/dark comparison cards. Website-local search terms and
+`icons.*` locales own Chinese search and translated interface labels; canonical identifiers remain
+unchanged in both languages. Canonical source remains `packages/icons/icons/`.

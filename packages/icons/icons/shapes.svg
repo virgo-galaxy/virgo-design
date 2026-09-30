@@ -1,3 +1,5 @@
 <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path d="M11.5 2h1l5 8.5-.5 1h-10l-.5-1z M9.5 9.5h5L12 5.25z M3 13h7l.5.5v7l-.5.5H3l-.5-.5v-7z M4.5 15v4h4v-4z M17.5 12.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9z M17.5 14.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z" fill-rule="evenodd" />
+  <path d="M11.5 2h1l5 8.5-.5 1h-10l-.5-1z M9.5 9.5h5L12 5.25z" fill-rule="evenodd" />
+  <path d="M3 13h7l.5.5v7l-.5.5H3l-.5-.5v-7z M4.5 15v4h4v-4z" fill-rule="evenodd" />
+  <path d="M17.5 12.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9z M17.5 14.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z" fill-rule="evenodd" />
 </svg>

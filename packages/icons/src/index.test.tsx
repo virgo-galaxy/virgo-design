@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 import { render, screen } from '@testing-library/react';
+import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
 
 import {
@@ -30,14 +31,18 @@ import {
   LayersIcon,
   LayoutIcon,
   LockIcon,
+  MicrophoneIcon,
   MoonIcon,
   PaletteIcon,
+  PauseIcon,
   PinIcon,
+  PlayIcon,
   PlusIcon,
   ShapesIcon,
   SidebarCollapseIcon,
   SidebarExpandIcon,
   SplineIcon,
+  StopIcon,
   SunIcon,
   TriangleAlertIcon,
   TypeIcon,
@@ -46,6 +51,10 @@ import {
 } from './index';
 
 const addedIcons = [
+  ['stop', StopIcon],
+  ['microphone', MicrophoneIcon],
+  ['play', PlayIcon],
+  ['pause', PauseIcon],
   ['github', GithubIcon],
   ['code', CodeIcon],
   ['copy', CopyIcon],
@@ -103,7 +112,7 @@ describe('@virgo-design/icons', () => {
     expect(indexSource).toContain("from './generated/TrashIcon.js';");
     expect(indexSource).toContain("from './generated/UserIcon.js';");
     for (const [, Icon] of addedIcons) {
-      expect(indexSource).toContain(`from './generated/${Icon.name}.js';`);
+      expect(indexSource).toContain(`from './generated/${Icon.displayName}.js';`);
     }
     // Kebab-case filename order differs from the case-insensitive public export order.
     expect(indexSource.indexOf("from './generated/ChevronsUpIcon.js';")).toBeLessThan(
@@ -190,6 +199,12 @@ describe('@virgo-design/icons', () => {
     expect(icon).toHaveClass('custom-plus');
     expect(icon).toHaveAttribute('width', '20');
     expect(icon).toHaveAttribute('height', '20');
+  });
+
+  it('forwards a React ref to the SVG element', () => {
+    const ref = createRef<SVGSVGElement>();
+    render(<PlusIcon ref={ref} data-testid="ref-icon" />);
+    expect(ref.current).toBe(screen.getByTestId('ref-icon'));
   });
 
   it('does not expose strokeWidth for fill-only icons', () => {

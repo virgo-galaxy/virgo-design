@@ -4,7 +4,8 @@ export const toastMetadata = {
   name: 'Toast',
   package: '@virgo-design/ui',
   category: 'Feedback',
-  description: 'Announces brief, non-blocking results with optional actions and timed dismissal.',
+  description:
+    'Announces brief, non-blocking results as panel notifications or compact feedback, with optional actions and timed dismissal.',
   import: "import { Toast } from '@virgo-design/ui';",
   variants: ['default', 'success', 'warning', 'error', 'info'].map((name) => ({
     name,

@@ -54,6 +54,27 @@
   animation: toast-exit var(--vd-duration-120) var(--vd-easing-standard) both;
 }
 
+.root[data-appearance='compact'] {
+  width: fit-content;
+  max-width: 100%;
+  align-self: center;
+  align-items: center;
+  gap: var(--vd-spacing-8);
+  padding: var(--vd-spacing-8) var(--vd-spacing-12);
+  border-inline-start: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+
+  .icon {
+    width: var(--vd-sizing-20);
+    height: var(--vd-sizing-20);
+    background: transparent;
+  }
+
+  .title {
+    font-size: var(--vd-typography-ui-body-small-font-size);
+    overflow-wrap: anywhere;
+  }
+}
+
 .root[data-intent='success'] {
   --toast-accent: var(--vd-status-success-accent);
   --toast-tint: var(--vd-status-success-subtle);

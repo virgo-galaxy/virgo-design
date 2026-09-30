@@ -1,10 +1,12 @@
-import { CheckIcon, CodeIcon, CopyIcon, ExternalLinkIcon } from '@virgo-design/icons';
+import { CodeIcon, ExternalLinkIcon } from '@virgo-design/icons';
 import { Button, Tabs, Tooltip } from '@virgo-design/ui';
 import type { ParseKeys } from 'i18next';
-import { type ComponentType, useContext, useEffect, useId, useRef, useState } from 'react';
+import { type ComponentType, useContext, useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useSourceCopy } from '@/shared/hooks/use-source-copy';
 import { AppearanceContext } from '@/shared/theme/appearance-context';
+import { SourceCopyButton } from '@/shared/ui/source-copy-button/SourceCopyButton';
 
 import styles from './component-example.module.scss';
 import { useComponentExampleDisclosure } from './component-example-runtime-context';
@@ -28,7 +30,6 @@ export interface ComponentExampleProps {
   showCaption?: boolean;
 }
 
-type CopyState = 'idle' | 'pending' | 'success' | 'error';
 type SourceTab = 'react' | 'scss';
 
 function currentTheme() {
@@ -70,65 +71,16 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
   // Semantic IDs identify source definitions; disclosure belongs to each mounted instance.
   const [sourceOpen, setSourceOpen] = useComponentExampleDisclosure(instanceId);
   const [sourceTab, setSourceTab] = useState<SourceTab>('react');
-  const [copyState, setCopyState] = useState<CopyState>('idle');
-  const mounted = useRef(true);
-  const copying = useRef(false);
-  const copySequence = useRef(0);
-  const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   const hasScss = hasMeaningfulScss(styleSource);
   const activeSourceTab = hasScss ? sourceTab : 'react';
   const displayReactSource = canonicalizeReactExampleSource(source, hasScss);
   const activeSource = activeSourceTab === 'react' ? displayReactSource : styleSource;
 
-  useEffect(() => {
-    mounted.current = true;
-    return () => {
-      mounted.current = false;
-      if (resetTimer.current !== null) clearTimeout(resetTimer.current);
-    };
-  }, []);
-
+  const { state: copyState, copy: copySource, reset: resetCopy } = useSourceCopy(activeSource);
   const selectSourceTab = (tab: SourceTab) => {
     if (tab === sourceTab) return;
-    if (resetTimer.current !== null) {
-      clearTimeout(resetTimer.current);
-      resetTimer.current = null;
-    }
-    copySequence.current += 1;
-    copying.current = false;
-    setCopyState('idle');
+    resetCopy();
     setSourceTab(tab);
-  };
-
-  const copySource = async () => {
-    if (copying.current) return;
-    copying.current = true;
-    const sequence = ++copySequence.current;
-    if (resetTimer.current !== null) clearTimeout(resetTimer.current);
-    setCopyState('pending');
-
-    try {
-      if (typeof navigator === 'undefined' || !navigator.clipboard?.writeText) {
-        throw new Error('Clipboard is unavailable.');
-      }
-
-      // Copy the exact active file shown below: React and SCSS are independent sources.
-      await navigator.clipboard.writeText(activeSource);
-      if (!mounted.current || sequence !== copySequence.current) return;
-      setCopyState('success');
-      resetTimer.current = setTimeout(() => {
-        resetTimer.current = null;
-        if (mounted.current) setCopyState('idle');
-      }, 2000);
-    } catch {
-      if (!mounted.current || sequence !== copySequence.current) return;
-      // Source is already available for manual copying. Do not reopen it if the user
-      // deliberately collapsed it while the clipboard permission request was pending.
-      setCopyState('error');
-    } finally {
-      if (sequence === copySequence.current) copying.current = false;
-    }
   };
 
   const sourceAction = sourceOpen
@@ -279,35 +231,13 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                   </Tabs.Tab>
                 </Tabs.List>
                 {sourceOpen ? (
-                  <Tooltip closeOnClick={false}>
-                    <Tooltip.Trigger
-                      aria-label={t('docs.componentExample.copySourceFor', { title })}
-                      aria-disabled={copyState === 'pending' || undefined}
-                      onClick={() => void copySource()}
-                      render={(triggerProps) => (
-                        <Button
-                          {...triggerProps}
-                          iconOnly
-                          size="small"
-                          shape="circle"
-                          variant="text"
-                          aria-label={t('docs.componentExample.copySourceFor', { title })}
-                          className={styles.actionButton}
-                          data-example-action="copy"
-                          data-copy-state={copyState}
-                        >
-                          {copyState === 'success' ? (
-                            <CheckIcon aria-hidden="true" />
-                          ) : (
-                            <CopyIcon aria-hidden="true" />
-                          )}
-                        </Button>
-                      )}
-                    />
-                    <Tooltip.Content size="small" arrow={false}>
-                      {copyHint}
-                    </Tooltip.Content>
-                  </Tooltip>
+                  <SourceCopyButton
+                    label={t('docs.componentExample.copySourceFor', { title })}
+                    hint={copyHint}
+                    state={copyState}
+                    onCopy={copySource}
+                    className={styles.actionButton}
+                  />
                 ) : null}
               </div>
               <Tabs.Panel
@@ -357,35 +287,13 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                   </span>
                 </div>
                 {sourceOpen ? (
-                  <Tooltip closeOnClick={false}>
-                    <Tooltip.Trigger
-                      aria-label={t('docs.componentExample.copySourceFor', { title })}
-                      aria-disabled={copyState === 'pending' || undefined}
-                      onClick={() => void copySource()}
-                      render={(triggerProps) => (
-                        <Button
-                          {...triggerProps}
-                          iconOnly
-                          size="small"
-                          shape="circle"
-                          variant="text"
-                          aria-label={t('docs.componentExample.copySourceFor', { title })}
-                          className={styles.actionButton}
-                          data-example-action="copy"
-                          data-copy-state={copyState}
-                        >
-                          {copyState === 'success' ? (
-                            <CheckIcon aria-hidden="true" />
-                          ) : (
-                            <CopyIcon aria-hidden="true" />
-                          )}
-                        </Button>
-                      )}
-                    />
-                    <Tooltip.Content size="small" arrow={false}>
-                      {copyHint}
-                    </Tooltip.Content>
-                  </Tooltip>
+                  <SourceCopyButton
+                    label={t('docs.componentExample.copySourceFor', { title })}
+                    hint={copyHint}
+                    state={copyState}
+                    onCopy={copySource}
+                    className={styles.actionButton}
+                  />
                 ) : null}
               </div>
               <pre

@@ -307,9 +307,13 @@ describe('NavigationMenu UI', () => {
     const trigger = screen.getByRole('button', { name: 'Products' });
     const disclosureIndicator = trigger.querySelector('[data-slot="indicator"]');
     expect(disclosureIndicator).toHaveAttribute('data-direction', 'down');
+    const glyph = disclosureIndicator?.querySelector('svg');
+    expect(glyph).toHaveAttribute('viewBox', '0 0 24 24');
+    expect(glyph?.querySelector('animate, animateTransform')).toBeNull();
     await user.click(trigger);
     expect(trigger.querySelector('[data-slot="indicator"]')).toBe(disclosureIndicator);
     expect(disclosureIndicator).toHaveAttribute('data-direction', 'up');
+    expect(disclosureIndicator?.querySelector('svg')).toBe(glyph);
     await user.click(trigger);
     expect(disclosureIndicator).toHaveAttribute('data-direction', 'down');
     unmount();

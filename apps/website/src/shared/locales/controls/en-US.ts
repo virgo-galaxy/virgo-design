@@ -1,4 +1,5 @@
 export const controlsEnUS = {
+  notifications: 'Notifications',
   expandSidebar: 'Expand sidebar',
   collapseSidebar: 'Collapse sidebar',
   clearInput: 'Clear input',

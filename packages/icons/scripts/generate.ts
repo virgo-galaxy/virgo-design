@@ -1,118 +1,47 @@
 import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
-import { dirname, extname, join, parse, resolve } from 'node:path';
+import { dirname, join, parse, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { format } from 'prettier';
+
+import { type IconMetadata, validateIconMetadata } from '../src/contract.ts';
+import { iconComponentName, validateIconSvg } from '../src/tooling.ts';
+import { createIconAnimation } from './animations.ts';
+import { createAnimatedSvg } from './svg-animation.ts';
+
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const iconsDirectory = join(packageRoot, 'icons');
-const generatedDirectory = join(packageRoot, 'src', 'generated');
-const indexFile = join(packageRoot, 'src', 'index.ts');
 
-function getAttribute(attributes, name) {
-  const value = getOptionalAttribute(attributes, name);
-
-  if (!value) {
-    throw new Error(`Missing required SVG attribute: ${name}`);
-  }
-
-  return value;
+function toComponentName(fileName: string) {
+  if (!/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*\.svg$/.test(fileName))
+    throw new Error('SVG filenames must use kebab-case.');
+  return iconComponentName(parse(fileName).name);
 }
-
-function getOptionalAttribute(attributes, name) {
-  const match = attributes.match(new RegExp(`\\b${name}="([^"]+)"`));
-
-  return match?.[1];
-}
-
-function toComponentName(fileName) {
-  return `${parse(fileName).name.replace(/(^|[-_])(\w)/g, (_, _separator, character) =>
-    character.toUpperCase(),
-  )}Icon`;
-}
-
-function toTypeScriptStringLiteral(value) {
+function toTypeScriptStringLiteral(value: string) {
   return `'${value.replaceAll('\\', '\\\\').replaceAll("'", "\\'").replaceAll('\n', '\\n')}'`;
 }
 
-function readSvgDefinition(source) {
-  const svgMatch = source.match(/^\s*<svg\s+([^>]*)>([\s\S]*?)<\/svg>\s*$/);
-
-  if (!svgMatch?.[1] || svgMatch[2] === undefined) {
-    throw new Error('Expected one root <svg> element.');
-  }
-
-  const attributes = svgMatch[1];
-  const svgBody = svgMatch[2].replace(/<!--[\s\S]*?-->/g, '');
-  const paths = [...svgBody.matchAll(/<path\s+([^>]*)\/>/g)].map((pathMatch) => {
-    const pathAttributes = pathMatch[1];
-
-    if (!pathAttributes) {
-      throw new Error('Expected path attributes.');
-    }
-
-    return {
-      d: getAttribute(pathAttributes, 'd'),
-      fillRule: getOptionalAttribute(pathAttributes, 'fill-rule'),
-    };
-  });
-  const remainingMarkup = svgBody.replace(/<path\s+[^>]*\/>/g, '').trim();
-
-  if (paths.length === 0 || remainingMarkup) {
-    throw new Error(
-      'Only self-closing <path> geometry is supported by the current icon generator.',
-    );
-  }
-
-  const strokeWidth = getOptionalAttribute(attributes, 'stroke-width');
-
-  if (strokeWidth !== undefined && !Number.isFinite(Number(strokeWidth))) {
-    throw new Error('Expected stroke-width to be numeric when it is provided.');
-  }
-
-  return {
-    fill: getAttribute(attributes, 'fill'),
-    paths,
-    stroke: getOptionalAttribute(attributes, 'stroke'),
-    strokeLinecap: getOptionalAttribute(attributes, 'stroke-linecap'),
-    strokeLinejoin: getOptionalAttribute(attributes, 'stroke-linejoin'),
-    strokeWidth: strokeWidth === undefined ? undefined : Number(strokeWidth),
-    viewBox: getAttribute(attributes, 'viewBox'),
-  };
-}
-
-export function generateIconComponent(fileName, source) {
+export function generateIconComponent(fileName: string, source: string) {
   const componentName = toComponentName(fileName);
-  const definition = readSvgDefinition(source);
+  const definition = validateIconSvg(source);
+  const animation = createIconAnimation(parse(fileName).name, definition);
 
-  const usesStroke = definition.stroke !== undefined && definition.stroke !== 'none';
-  const supportsStrokeWidth = usesStroke && definition.strokeWidth !== undefined;
-  const propsType = supportsStrokeWidth
-    ? `Omit<SVGProps<SVGSVGElement>, 'strokeWidth'> & {
-  size?: number;
-  strokeWidth?: number;
-}`
-    : `Omit<
+  const propsType = `Omit<
   SVGProps<SVGSVGElement>,
-  'stroke' | 'strokeLinecap' | 'strokeLinejoin' | 'strokeWidth'
+  'stroke' | 'strokeLinecap' | 'strokeLinejoin' | 'strokeWidth' | 'viewBox' | 'fill' | 'width' | 'height' | 'children' | 'ref'
 > & {
   size?: number;
+  ${animation ? 'animated?: IconAnimation;' : ''}
 }`;
-  const functionArguments = supportsStrokeWidth
-    ? `{ size = 24, strokeWidth = ${definition.strokeWidth}, ...props }: ${componentName}Props`
-    : `{ size = 24, ...props }: ${componentName}Props`;
+  const functionArguments = `{ size = 24, ${animation ? 'animated, ' : ''}...props }: ${componentName}Props`;
   const svgAttributeValues = [
-    `fill=${JSON.stringify(definition.fill)}`,
-    'height={size}',
-    definition.stroke === undefined ? undefined : `stroke=${JSON.stringify(definition.stroke)}`,
-    usesStroke && definition.strokeLinecap !== undefined
-      ? `strokeLinecap=${JSON.stringify(definition.strokeLinecap)}`
-      : undefined,
-    usesStroke && definition.strokeLinejoin !== undefined
-      ? `strokeLinejoin=${JSON.stringify(definition.strokeLinejoin)}`
-      : undefined,
-    supportsStrokeWidth ? 'strokeWidth={strokeWidth}' : undefined,
-    `viewBox=${JSON.stringify(definition.viewBox)}`,
-    'width={size}',
+    'ref={ref}',
+    "aria-hidden={props['aria-label'] || props['aria-labelledby'] ? undefined : true}",
     '{...props}',
+    'fill="currentColor"',
+    'height={size}',
+    definition.stroke === undefined ? undefined : 'stroke="none"',
+    'viewBox="0 0 24 24"',
+    'width={size}',
   ].filter((attribute): attribute is string => attribute !== undefined);
   const inlineSvgOpeningTag = `    <svg ${svgAttributeValues.join(' ')}>`;
   const svgOpeningTag =
@@ -139,58 +68,107 @@ export function generateIconComponent(fileName, source) {
     .join('\n');
 
   return `/* This file is generated from icons/${fileName} by scripts/generate.ts. Do not edit. */
-import type { SVGProps } from 'react';
+import { forwardRef, type SVGProps } from 'react';
+${animation ? "\nimport { AnimatedPaths, iconAnimationCount } from '../AnimatedPaths.js';\nimport type { IconAnimation } from '../animation-contract.js';\n\nconst animation = " + JSON.stringify(animation) + ' as const;\nconst animationPaths = ' + JSON.stringify(definition.paths) + ' as const;\n' : ''}
 
 export type ${componentName}Props = ${propsType};
 
-export function ${componentName}(${functionArguments}) {
+export const ${componentName} = /* @__PURE__ */ forwardRef<SVGSVGElement, ${componentName}Props>(function ${componentName}(${functionArguments}, ref) {
   return (
 ${svgOpeningTag}
+${animation ? '      {iconAnimationCount(animated) ? <AnimatedPaths key={String(animated)} paths={animationPaths} animation={animation} animated={animated!} /> : <>\n' : ''}
 ${paths}
+${animation ? '      </>}\n' : ''}
     </svg>
   );
-}
+});
+${componentName}.displayName = '${componentName}';
 `;
 }
 
-export async function generateIcons() {
-  const iconFiles = (await readdir(iconsDirectory))
-    .filter((fileName) => extname(fileName) === '.svg')
-    .sort();
-
-  await rm(generatedDirectory, { force: true, recursive: true });
-  await mkdir(generatedDirectory, { recursive: true });
-
-  const generatedIcons = await Promise.all(
-    iconFiles.map(async (fileName) => {
-      const source = await readFile(join(iconsDirectory, fileName), 'utf8');
-      const componentName = toComponentName(fileName);
-      const output = generateIconComponent(fileName, source);
-
-      await writeFile(join(generatedDirectory, `${componentName}.tsx`), output);
-
-      return componentName;
+export async function generateIcons(options: { check?: boolean; root?: string } = {}) {
+  const root = options.root ?? packageRoot;
+  const sourceDirectory = join(root, 'icons');
+  const outputDirectory = join(root, 'src', 'generated');
+  const files = (await readdir(sourceDirectory)).filter((name) => /\.svg$/i.test(name)).sort();
+  const metadata = JSON.parse(
+    await readFile(join(root, 'metadata.json'), 'utf8'),
+  ) as IconMetadata[];
+  validateIconMetadata(
+    metadata,
+    files.map((file) => parse(file).name),
+  );
+  // Validate every source before touching existing output.
+  const icons = await Promise.all(
+    files.map(async (file) => {
+      const source = await readFile(join(sourceDirectory, file), 'utf8');
+      const definition = validateIconSvg(source);
+      const animation = createIconAnimation(parse(file).name, definition);
+      const animated = Boolean(animation);
+      if (metadata.find((record) => record.id === parse(file).name)!.animated !== animated)
+        throw new Error(`Animation metadata does not match implementation: ${file}.`);
+      return {
+        id: parse(file).name,
+        name: toComponentName(file),
+        source,
+        animatedSource: animation ? createAnimatedSvg(definition, animation) : undefined,
+        output: generateIconComponent(file, source),
+      };
     }),
   );
-
-  const exports = generatedIcons
-    .sort((left, right) => left.localeCompare(right, 'en', { sensitivity: 'base', numeric: true }))
-    .map((componentName) => {
-      const source = `from './generated/${componentName}.js';`;
-      const inlineExport = `export { ${componentName}, type ${componentName}Props } ${source}`;
-
-      return inlineExport.length <= 100
-        ? inlineExport
-        : `export {\n  ${componentName},\n  type ${componentName}Props,\n} ${source}`;
-    })
-    .join('\n');
-
-  await writeFile(
-    indexFile,
-    `/* This file is generated by scripts/generate.ts. Do not edit. */\n${exports}\n`,
+  icons.sort((a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'base', numeric: true }));
+  if (new Set(icons.map((icon) => icon.name)).size !== icons.length)
+    throw new Error('Duplicate React component name.');
+  const outputs = new Map<string, string>();
+  for (const icon of icons) outputs.set(`generated/${icon.name}.tsx`, icon.output);
+  outputs.set(
+    'index.ts',
+    `/* Generated by scripts/generate.ts. Do not edit. */\nexport type { IconAnimation } from './animation-contract.js';\n${icons.map((icon) => `export { ${icon.name}, type ${icon.name}Props } from './generated/${icon.name}.js';`).join('\n')}\n`,
   );
+  const entries = metadata.map((record) => ({
+    ...record,
+    componentName: iconComponentName(record.id),
+  }));
+  outputs.set(
+    'generated/manifest.ts',
+    `/* Generated from metadata.json. Do not edit. */\nimport type { IconManifestEntry } from '../contract.js';\nexport const iconManifest = ${JSON.stringify(entries)} as const satisfies readonly IconManifestEntry[];\nexport type IconId = (typeof iconManifest)[number]['id'];\n`,
+  );
+  outputs.set(
+    'generated/assets.ts',
+    `/* Generated from canonical SVG. Do not edit. */\nexport const iconSvgSources = ${JSON.stringify(Object.fromEntries(icons.map((icon) => [icon.id, icon.source])))} as const;\nexport const iconAnimatedSvgSources = ${JSON.stringify(Object.fromEntries(icons.filter((icon) => icon.animatedSource).map((icon) => [icon.id, icon.animatedSource])))} as const;\n`,
+  );
+  outputs.set(
+    'generated/registry.ts',
+    `/* Generated opt-in React registry. Do not edit. */\n${icons.map((icon) => `import { ${icon.name} } from './${icon.name}.js';`).join('\n')}\nexport const iconComponents = {${icons.map((icon) => `'${icon.id}': ${icon.name}`).join(',')}} as const;\n`,
+  );
+  for (const [file, source] of outputs)
+    outputs.set(
+      file,
+      await format(source, {
+        parser: 'typescript',
+        singleQuote: true,
+        printWidth: 100,
+        trailingComma: 'all',
+      }),
+    );
+  if (options.check) {
+    const expected = [...outputs.keys()]
+      .filter((file) => file.startsWith('generated/'))
+      .map((file) => file.slice('generated/'.length))
+      .sort();
+    const actual = (await readdir(outputDirectory)).sort();
+    if (JSON.stringify(expected) !== JSON.stringify(actual))
+      throw new Error('Generated icon file list is stale; run pnpm gen:icons.');
+    for (const [file, source] of outputs)
+      if ((await readFile(join(root, 'src', file), 'utf8')) !== source)
+        throw new Error(`Generated icon output is stale: ${file}; run pnpm gen:icons.`);
+    return;
+  }
+  await rm(outputDirectory, { force: true, recursive: true });
+  await mkdir(outputDirectory, { recursive: true });
+  for (const [file, source] of outputs) await writeFile(join(root, 'src', file), source);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  await generateIcons();
+  await generateIcons({ check: process.argv.includes('--check') });
 }
