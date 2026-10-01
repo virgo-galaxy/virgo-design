@@ -1,0 +1,21 @@
+:global(body) {
+  margin: 0;
+}
+
+.app {
+  box-sizing: border-box;
+  min-height: 100svh;
+  padding: 2rem;
+  font-family: var(--vd-font-family-sans);
+  color: var(--vd-text-primary);
+  background: var(--vd-surface-background);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--vd-font-size-28);
+}
+
+.description {
+  color: var(--vd-text-secondary);
+}

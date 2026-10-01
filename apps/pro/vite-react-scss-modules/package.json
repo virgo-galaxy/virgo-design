@@ -1,0 +1,20 @@
+{
+  "name": "@virgo-design/pro-vite-react-scss-modules",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@virgo-design/fonts": "workspace:*",
+    "@virgo-design/icons": "workspace:*",
+    "@virgo-design/tokens": "workspace:*",
+    "@virgo-design/ui": "workspace:*",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src vite.config.ts"
+  }
+}

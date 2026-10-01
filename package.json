@@ -6,6 +6,7 @@
   "packageManager": "pnpm@11.9.0",
   "scripts": {
     "dev:website": "pnpm --filter @virgo-design/website dev",
+    "dev:pro-vite-react-scss-modules": "pnpm --filter @virgo-design/pro-vite-react-scss-modules dev",
     "gen:icons": "pnpm --filter @virgo-design/icons generate",
     "gen:api-docs": "node scripts/generate-api-docs.mjs",
     "check:api-docs": "node scripts/generate-api-docs.mjs --check",
