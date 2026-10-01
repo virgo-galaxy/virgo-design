@@ -1,5 +1,4 @@
-import { componentApiReference } from '@/generated/api-reference.generated';
-import { collectApiDescriptionResources } from '@/i18n/api-description-resources';
+export { componentsApiEnUS } from '@/generated/api-description-resources.generated';
 
 import { accordionApiZhCN } from './pages/accordion/locales/accordion.api.zh-CN';
 import { alertApiZhCN } from './pages/alert/locales/alert.api.zh-CN';
@@ -10,6 +9,7 @@ import { buttonApiZhCN } from './pages/button/locales/button.api.zh-CN';
 import { calendarApiZhCN } from './pages/calendar/locales/calendar.api.zh-CN';
 import { cardApiZhCN } from './pages/card/locales/card.api.zh-CN';
 import { checkboxApiZhCN } from './pages/checkbox/locales/checkbox.api.zh-CN';
+import { collapsibleApiZhCN } from './pages/collapsible/locales/collapsible.api.zh-CN';
 import { colorPickerApiZhCN } from './pages/color-picker/locales/colorPicker.api.zh-CN';
 import { comboboxApiZhCN } from './pages/combobox/locales/combobox.api.zh-CN';
 import { commandApiZhCN } from './pages/command/locales/command.api.zh-CN';
@@ -39,6 +39,7 @@ import { separatorApiZhCN } from './pages/separator/locales/separator.api.zh-CN'
 import { skeletonApiZhCN } from './pages/skeleton/locales/skeleton.api.zh-CN';
 import { sliderApiZhCN } from './pages/slider/locales/slider.api.zh-CN';
 import { spinnerApiZhCN } from './pages/spinner/locales/spinner.api.zh-CN';
+import { stepsApiZhCN } from './pages/steps/locales/steps.api.zh-CN';
 import { surfaceApiZhCN } from './pages/surface/locales/surface.api.zh-CN';
 import { switchApiZhCN } from './pages/switch/locales/switch.api.zh-CN';
 import { tableApiZhCN } from './pages/table/locales/table.api.zh-CN';
@@ -50,8 +51,9 @@ import { toastApiZhCN } from './pages/toast/locales/toast.api.zh-CN';
 import { tooltipApiZhCN } from './pages/tooltip/locales/tooltip.api.zh-CN';
 import { treeApiZhCN } from './pages/tree/locales/tree.api.zh-CN';
 
-export const componentsApiEnUS = collectApiDescriptionResources(componentApiReference);
 export const componentsApiZhCN = {
+  steps: stepsApiZhCN,
+  collapsible: collapsibleApiZhCN,
   timeline: timelineApiZhCN,
   calendar: calendarApiZhCN,
   'date-picker': datePickerApiZhCN,

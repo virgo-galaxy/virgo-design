@@ -138,15 +138,6 @@
 .apiPanel {
   position: sticky;
   top: calc(var(--layout-header-height) + 24px);
-  padding: 20px;
-  border: 1px solid var(--layout-line);
-  border-radius: var(--vd-radius-12);
-  background: var(--layout-surface);
-}
-
-.apiPanel h2 {
-  margin: 0 0 16px;
-  font-size: 14px;
 }
 
 .apiPanel ul {

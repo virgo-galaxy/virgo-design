@@ -1,4 +1,5 @@
 import type { ColorModel } from '@virgo-design/colors';
+import { Button } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { chromaticModeTranslationKeys } from '../color-studio-i18n';
@@ -39,7 +40,10 @@ export function SettingsPanel({
   const { t } = useTranslation();
 
   return (
-    <aside className={styles.settingsPanel}>
+    <aside
+      className={styles.settingsPanel}
+      aria-label={t('foundations.colorStudio.settings.title')}
+    >
       <div className={styles.panelHeading}>
         <div>
           <span className={styles.panelEyebrow}>
@@ -48,9 +52,9 @@ export function SettingsPanel({
           <h2>{t('foundations.colorStudio.settings.title')}</h2>
         </div>
 
-        <button className={styles.resetButton} type="button" onClick={onReset}>
+        <Button variant="text" className={styles.resetButton} type="button" onClick={onReset}>
           {t('foundations.colorStudio.actions.reset')}
-        </button>
+        </Button>
       </div>
 
       <ChromaticModeControl value={mode} onChange={onModeChange} />

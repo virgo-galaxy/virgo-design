@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { tooltipExamples } from '@/examples/components/tooltip/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -18,8 +19,8 @@ export function TooltipPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board tooltip-review" id="tooltip-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page tooltip-page" id="tooltip-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Tooltip</h1>
@@ -39,26 +40,26 @@ export function TooltipPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.tooltip.specimen.referenceSpecimen')}</span>
               <code>{t('components.tooltip.specimen.summary')}</code>
-            </div>
-            <div className="hero-stage tooltip-hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="tooltip-hero-stage">
               <Tooltip>
                 <Tooltip.Trigger>{t('examples.tooltip.copy.hoverOrFocusMe')}</Tooltip.Trigger>
                 <Tooltip.Content>
                   {t('examples.tooltip.copy.smallDetailsRightWhereYouNeedThem')}
                 </Tooltip.Content>
               </Tooltip>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.tooltip.specimen.nativeActions')}</span>
               <span>{t('components.tooltip.specimen.keyboardReady')}</span>
               <span>{t('components.tooltip.specimen.themeAware')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'tooltip-basic'}

@@ -11,6 +11,7 @@ export const foundationColorExportZhCN = {
     scaleNaming: '色阶命名',
     copy: '复制',
     copied: '已复制',
+    copyFailed: '复制失败，请重试。',
     note: '此导出只包含当前基础颜色。正式 Color Semantic Token 位于 Tokens / Colors。',
   },
 } satisfies LocaleOf<typeof foundationColorExportEnUS>;

@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { paginationExamples } from '@/examples/components/pagination/examples';
 import { usePaginationLabels } from '@/examples/components/pagination/use-pagination-labels';
 
@@ -20,8 +21,8 @@ export function PaginationPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board pagination-review" id="pagination-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page pagination-page" id="pagination-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Pagination</h1>
@@ -41,12 +42,12 @@ export function PaginationPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen pagination-hero">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen className="pagination-hero">
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.pagination.specimen.referenceSpecimen')}</span>
               <code>{t('components.pagination.specimen.summary')}</code>
-            </div>
-            <div className="hero-stage pagination-hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="pagination-hero-stage">
               <Pagination
                 labels={paginationLabels}
                 total={500}
@@ -54,14 +55,14 @@ export function PaginationPage() {
                 align="center"
                 aria-label={t('examples.pagination.copy.referencePagination')}
               />
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.pagination.specimen.currentPage')}</span>
               <span>{t('components.pagination.specimen.boundedPages')}</span>
               <span>{t('components.pagination.specimen.quickNavigation')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'pagination-basic'}

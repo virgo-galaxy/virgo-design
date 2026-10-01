@@ -136,7 +136,7 @@ describe('Icons platform', () => {
     };
     const playback = screen.getByRole('button', { name: 'Animation playback' });
     expect(playback.closest('aside')).toHaveAttribute('aria-label', 'Review controls');
-    expect(document.querySelector('.review-board .animation-control')).toBeNull();
+    expect(document.querySelector('.icon-specimen .animation-control')).toBeNull();
     expect(screen.queryByRole('button', { name: 'Replay' })).toBeNull();
     expect(screen.getByTestId('large-icon-glyph').querySelector('animate')).toBeNull();
     await selectPlayback('Once');

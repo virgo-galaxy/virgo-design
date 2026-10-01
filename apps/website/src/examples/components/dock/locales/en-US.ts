@@ -1,5 +1,11 @@
 export const dockExamplesEnUS = {
   copy: {
+    top: 'Top',
+    right: 'Right',
+    bottom: 'Bottom',
+    left: 'Left',
+    start: 'Start',
+    end: 'End',
     dockPlacementControls: 'Dock placement controls',
     moveInspector: 'Move inspector',
     inspector: 'Inspector',

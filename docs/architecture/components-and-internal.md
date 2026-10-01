@@ -75,3 +75,21 @@ New overlay consumers should first reuse these small capabilities. Do not export
 Source directories now use PascalCase family names. Root imports such as `import { Button, Dropdown, Popover } from '@virgo-design/ui'` remain stable, as do the existing metadata and CSS entry points. Apps resolve those entry points rather than component file paths. Old flat directories and Dropdown-local positioning code are removed; documentation links follow their new paths.
 
 Verification covers the existing component suites, public export boundaries, shared positioning/listener lifecycle, nested overlays, Popover focus/controlled state/motion/theme/RTL, Playground integration and `pnpm all` (including the website and all playground builds).
+
+## Website consumer boundary
+
+The continuing Website ownership and deliberate native-content policy is specified in
+[Website self-hosting](website-selfhosting.md). Public component gaps are repaired in their owning
+layer, with contract tests and generated API documentation. Local documentation geometry belongs
+to Website styles. Native token/primitive fixtures remain native when styled components would
+conceal the value being demonstrated. This does not create a second docs infrastructure.
+
+## Consumer styling contract
+
+Visual customization is part of UI API quality. Root and native/part props must preserve className,
+style, refs and semantic behavior. Where an internal wrapper is necessary, expose its named slot
+or an explicit part class/render hook rather than requiring nth-child selectors. UI Select documents
+value/indicator/option-label/check/viewport slots and renderValue/indicator; Tabs distinguishes item
+className from tabClassName/labelClassName; Input distinguishes rootClassName from control className.
+ColorPicker exposes compound editor parts and documented CSS variables. Consumers can restyle those
+parts while the public components continue to own keyboard, focus, state and form contracts.

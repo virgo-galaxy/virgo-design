@@ -4,7 +4,13 @@ export interface ColorPickerProps extends PrimitiveProps {
   size?: 'small' | 'medium' | 'large' | undefined;
 }
 export type {
+  ColorPickerAreaProps,
+  ColorPickerChannelFieldProps,
+  ColorPickerContentProps,
+  ColorPickerHexFieldProps,
+  ColorPickerHueProps,
   ColorPickerInputProps,
   ColorPickerPreviewProps,
   ColorPickerSwatchProps,
+  ColorPickerTriggerProps,
 } from '@virgo-design/primitives';

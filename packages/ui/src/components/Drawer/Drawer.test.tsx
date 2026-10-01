@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
+import { Dialog } from '../Dialog';
 import { Drawer } from './index';
 
 function Example({ modal = true }: { modal?: boolean }) {
@@ -30,6 +31,38 @@ function Example({ modal = true }: { modal?: boolean }) {
 }
 
 describe('Drawer UI', () => {
+  it('keeps its compound namespace independent from Dialog when both families are imported', () => {
+    const rootRef = createRef<HTMLDivElement>();
+    expect(Drawer).not.toBe(Dialog);
+    expect(Drawer.Root).not.toBe(Dialog.Root);
+    expect(Drawer.Content).not.toBe(Dialog.Content);
+    render(
+      <>
+        <Dialog.Root defaultOpen modal={false}>
+          <Dialog.Content aria-label="Dialog panel">Dialog content</Dialog.Content>
+        </Dialog.Root>
+        <Drawer.Root
+          defaultOpen
+          modal={false}
+          ref={rootRef}
+          className="independent-drawer-root"
+          data-testid="drawer-root"
+        >
+          <Drawer.Content aria-label="Drawer panel">Drawer content</Drawer.Content>
+        </Drawer.Root>
+      </>,
+    );
+    expect(rootRef.current).toBe(screen.getByTestId('drawer-root'));
+    expect(rootRef.current).toHaveClass('independent-drawer-root');
+    expect(screen.getByRole('dialog', { name: 'Dialog panel' })).not.toHaveAttribute(
+      'data-placement',
+    );
+    expect(screen.getByRole('dialog', { name: 'Drawer panel' })).toHaveAttribute(
+      'data-placement',
+      'right',
+    );
+  });
+
   it('composes Dialog open, close, portal, focus, and accessibility behavior', async () => {
     const user = userEvent.setup();
     render(<Example />);

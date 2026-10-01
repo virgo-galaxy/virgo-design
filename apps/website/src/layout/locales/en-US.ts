@@ -1,5 +1,6 @@
 export const layoutEnUS = {
   navigation: {
+    skipToContent: 'Skip to main content',
     label: 'Primary navigation',
     foundations: 'Foundations',
     tokens: 'Tokens',
@@ -7,6 +8,7 @@ export const layoutEnUS = {
     primitives: 'Primitives',
   },
   controls: {
+    loadingPage: 'Loading page…',
     globalControls: 'Global controls',
     switchToChinese: 'Switch to Chinese',
     switchToEnglish: 'Switch to English',

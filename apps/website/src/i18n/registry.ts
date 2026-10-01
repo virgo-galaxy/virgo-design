@@ -28,6 +28,8 @@ import { cardExamplesEnUS } from '@/examples/components/card/locales/en-US';
 import { cardExamplesZhCN } from '@/examples/components/card/locales/zh-CN';
 import { checkboxExamplesEnUS } from '@/examples/components/checkbox/locales/en-US';
 import { checkboxExamplesZhCN } from '@/examples/components/checkbox/locales/zh-CN';
+import { collapsibleExamplesEnUS } from '@/examples/components/collapsible/locales/en-US';
+import { collapsibleExamplesZhCN } from '@/examples/components/collapsible/locales/zh-CN';
 import { colorPickerExamplesEnUS } from '@/examples/components/color-picker/locales/en-US';
 import { colorPickerExamplesZhCN } from '@/examples/components/color-picker/locales/zh-CN';
 import { comboboxExamplesEnUS } from '@/examples/components/combobox/locales/en-US';
@@ -86,6 +88,8 @@ import { sliderExamplesEnUS } from '@/examples/components/slider/locales/en-US';
 import { sliderExamplesZhCN } from '@/examples/components/slider/locales/zh-CN';
 import { spinnerExamplesEnUS } from '@/examples/components/spinner/locales/en-US';
 import { spinnerExamplesZhCN } from '@/examples/components/spinner/locales/zh-CN';
+import { stepsExamplesEnUS } from '@/examples/components/steps/locales/en-US';
+import { stepsExamplesZhCN } from '@/examples/components/steps/locales/zh-CN';
 import { surfaceExamplesEnUS } from '@/examples/components/surface/locales/en-US';
 import { surfaceExamplesZhCN } from '@/examples/components/surface/locales/zh-CN';
 import { switchExamplesEnUS } from '@/examples/components/switch/locales/en-US';
@@ -132,6 +136,8 @@ import { cardEnUS } from '@/features/components/pages/card/locales/en-US';
 import { cardZhCN } from '@/features/components/pages/card/locales/zh-CN';
 import { checkboxEnUS } from '@/features/components/pages/checkbox/locales/en-US';
 import { checkboxZhCN } from '@/features/components/pages/checkbox/locales/zh-CN';
+import { collapsibleEnUS } from '@/features/components/pages/collapsible/locales/en-US';
+import { collapsibleZhCN } from '@/features/components/pages/collapsible/locales/zh-CN';
 import { colorPickerEnUS } from '@/features/components/pages/color-picker/locales/en-US';
 import { colorPickerZhCN } from '@/features/components/pages/color-picker/locales/zh-CN';
 import { comboboxEnUS } from '@/features/components/pages/combobox/locales/en-US';
@@ -188,6 +194,8 @@ import { sliderEnUS } from '@/features/components/pages/slider/locales/en-US';
 import { sliderZhCN } from '@/features/components/pages/slider/locales/zh-CN';
 import { spinnerEnUS } from '@/features/components/pages/spinner/locales/en-US';
 import { spinnerZhCN } from '@/features/components/pages/spinner/locales/zh-CN';
+import { stepsEnUS } from '@/features/components/pages/steps/locales/en-US';
+import { stepsZhCN } from '@/features/components/pages/steps/locales/zh-CN';
 import { surfaceEnUS } from '@/features/components/pages/surface/locales/en-US';
 import { surfaceZhCN } from '@/features/components/pages/surface/locales/zh-CN';
 import { switchEnUS } from '@/features/components/pages/switch/locales/en-US';
@@ -249,6 +257,8 @@ export const enUS = {
   tokens: tokensEnUS,
   examples: {
     standalone: standaloneEnUS,
+    steps: stepsExamplesEnUS,
+    collapsible: collapsibleExamplesEnUS,
     timeline: timelineExamplesEnUS,
     calendar: calendarExamplesEnUS,
     datePicker: datePickerExamplesEnUS,
@@ -303,6 +313,8 @@ export const enUS = {
   primitives: { ...primitivesEnUS, ...primitivesApiEnUS },
   components: {
     catalogue: componentsEnUS,
+    collapsible: { ...collapsibleEnUS, ...componentsApiEnUS['collapsible']! },
+    steps: { ...stepsEnUS, ...componentsApiEnUS['steps']! },
     timeline: { ...timelineEnUS, ...componentsApiEnUS['timeline']! },
     calendar: { ...calendarEnUS, ...componentsApiEnUS['calendar']! },
     datePicker: { ...datePickerEnUS, ...componentsApiEnUS['date-picker']! },
@@ -384,6 +396,8 @@ export const zhCN = {
   tokens: tokensZhCN,
   examples: {
     standalone: standaloneZhCN,
+    steps: stepsExamplesZhCN,
+    collapsible: collapsibleExamplesZhCN,
     timeline: timelineExamplesZhCN,
     calendar: calendarExamplesZhCN,
     datePicker: datePickerExamplesZhCN,
@@ -438,6 +452,8 @@ export const zhCN = {
   primitives: { ...primitivesZhCN, ...primitivesApiZhCN },
   components: {
     catalogue: componentsZhCN,
+    collapsible: { ...collapsibleZhCN, ...componentsApiZhCN['collapsible']! },
+    steps: { ...stepsZhCN, ...componentsApiZhCN['steps']! },
     timeline: { ...timelineZhCN, ...componentsApiZhCN['timeline']! },
     calendar: { ...calendarZhCN, ...componentsApiZhCN['calendar']! },
     datePicker: { ...datePickerZhCN, ...componentsApiZhCN['date-picker']! },

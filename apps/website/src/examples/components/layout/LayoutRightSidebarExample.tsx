@@ -17,6 +17,7 @@ export default function App() {
       </Layout.Header>
       <Layout direction="horizontal">
         <Layout.Content
+          as="div"
           surface={{ background: { type: 'color', value: 'var(--vd-brand-7)' }, border: 'none' }}
           className={styles.content!}
         >

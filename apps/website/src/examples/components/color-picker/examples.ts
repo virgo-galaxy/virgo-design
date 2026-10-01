@@ -4,10 +4,23 @@ import { createExampleSource } from '@/examples/components/create-example-source
 import ColorPickerControlledExample from './ColorPickerControlledExample';
 import style0 from './ColorPickerControlledExample.module.scss?virgo-raw';
 import source0 from './ColorPickerControlledExample.tsx?raw';
+import ColorPickerPanelExample from './ColorPickerPanelExample';
+import style2 from './ColorPickerPanelExample.module.scss?virgo-raw';
+import source2 from './ColorPickerPanelExample.tsx?raw';
 import ColorPickerStatesExample from './ColorPickerStatesExample';
 import style1 from './ColorPickerStatesExample.module.scss?virgo-raw';
 import source1 from './ColorPickerStatesExample.tsx?raw';
 export const colorPickerExamples = {
+  example2: {
+    id: 'color-picker-panel',
+    title: 'Custom picker panel',
+    titleTranslationKey: 'examples.colorPicker.copy.title2',
+    description: 'Shared HEX/RGB editing and keyboard-operable saturation, brightness and hue.',
+    descriptionTranslationKey: 'examples.colorPicker.copy.description2',
+    Component: ColorPickerPanelExample,
+    source: createExampleSource(source2),
+    styleSource: style2,
+  },
   example0: {
     id: 'color-picker-controlled',
     title: 'Native picker and swatches',

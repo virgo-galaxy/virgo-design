@@ -11,6 +11,9 @@ export interface InputProps extends Omit<PrimitiveInputProps, 'prefix' | 'size'>
    */
   size?: InputSize;
 
+  /** Consumer class applied to the input frame; className styles the native control. */
+  rootClassName?: string;
+
   /** Decorative content rendered before the text-entry control. */
   prefix?: ReactNode;
 

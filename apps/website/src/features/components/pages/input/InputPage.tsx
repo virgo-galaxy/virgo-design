@@ -8,6 +8,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { inputExamples } from '@/examples/components/input/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -17,8 +18,8 @@ export function InputPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board" id="input-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page" id="input-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Input</h1>
@@ -38,12 +39,12 @@ export function InputPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.input.specimen.referenceSpecimen')}</span>
               <code>input · medium</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <div className="input-demo-width input-demo-width--hero">
                 <Input
                   aria-label={t('examples.input.copy.searchComponents')}
@@ -52,14 +53,14 @@ export function InputPage() {
                   clearable
                 />
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.input.specimen.36pxHeight')}</span>
               <span>{t('examples.input.copy.bodyMedium')}</span>
               <span>{t('components.input.specimen.radius8')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'input-sizes'}

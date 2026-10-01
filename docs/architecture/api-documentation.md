@@ -15,8 +15,8 @@ default translation tree for that key and falls back to the generated English JS
 The generator therefore remains the source of API facts while a business-owned locale can override
 only the description text.
 
-Adding or changing a locale override does not require generation. Add the same key structure to the
-module's canonical English locale and its `zh-CN` locale, then change the localized string. Changes
+Changing a Chinese description override does not require generation. English API descriptions
+are generated from canonical JSDoc; co-located `zh-CN` files override the generated keys. Changes
 to the public API or its JSDoc still require regeneration. Do not add Chinese JSDoc to package
 sources or generate separate English and Chinese API registries.
 
@@ -33,10 +33,17 @@ pnpm gen:api-docs
 This writes:
 
 ```text
-apps/website/src/generated/api-reference.generated.ts
+apps/website/src/generated/api-reference.generated.ts              # compatibility barrel
+apps/website/src/generated/component-api-reference.generated.ts  # UI facts
+apps/website/src/generated/primitive-api-reference.generated.ts  # primitive facts
+apps/website/src/generated/api-description-resources.generated.ts # English description text
 ```
 
-Do not edit the generated file by hand.
+Do not edit generated files by hand. The i18n registry imports only the lean English description
+resources and business-owned Chinese overrides. UI and primitive detail features import their
+own fact registry. This avoids pulling types, default values and full declaration metadata into
+the initial translation bundle. The equivalence test checks every generated English description
+against the canonical full registry; the check command validates all four outputs.
 
 ## Verify
 
@@ -55,5 +62,12 @@ silently after a public type change.
 - every Primitives detail route renders the `@virgo-design/primitives` API while retaining its
   compact public-export summary.
 
-The reference uses Virgo Table, which preserves native HTML table semantics and a named scroll
-viewport. This presentation is independent of the generated API model.
+Declaration and public-type frames use Virgo Surface (`tone="default"`, `border="subtle"`,
+`radius={12}`). Explicit named regions preserve their accessible section semantics without adding
+wrappers or changing Surface's neutral default. Surface owns the fill, outer border and radius;
+Website owns content layout and overflow clipping.
+
+Inside each declaration, Virgo Table preserves native table semantics and a named scroll viewport.
+`border="separators"` supplies internal row rules without duplicating Surface's outer edge.
+Column ratios, code typography, content padding and dividers between title/signature/table regions
+remain Website composition styles. This presentation is independent of the generated API model.

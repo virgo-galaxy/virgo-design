@@ -219,7 +219,7 @@ function LayoutExample() {
             {t('primitives.examples.sidebar')}
           </nav>
         </Layout.Sidebar>
-        <Layout.Content>{t('primitives.examples.mainContent')}</Layout.Content>
+        <Layout.Content as="div">{t('primitives.examples.mainContent')}</Layout.Content>
       </Layout.Lane>
       <Layout.Footer>{t('primitives.examples.footer')}</Layout.Footer>
     </Layout>

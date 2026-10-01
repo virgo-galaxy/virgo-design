@@ -7,6 +7,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { breadcrumbExamples } from '@/examples/components/breadcrumb/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -33,8 +34,8 @@ export function BreadcrumbPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board" id="breadcrumb-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page" id="breadcrumb-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Breadcrumb</h1>
@@ -54,21 +55,21 @@ export function BreadcrumbPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen breadcrumb-hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen className="breadcrumb-hero-specimen">
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.breadcrumb.specimen.referenceSpecimen')}</span>
               <code>basic · slash</code>
-            </div>
-            <div className="hero-stage breadcrumb-hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="breadcrumb-hero-stage">
               <BasicBreadcrumb />
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.breadcrumb.specimen.nativeLinks')}</span>
               <span>{t('components.breadcrumb.specimen.orderedPath')}</span>
               <span>{t('components.breadcrumb.specimen.currentPage')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'breadcrumb-basic'}

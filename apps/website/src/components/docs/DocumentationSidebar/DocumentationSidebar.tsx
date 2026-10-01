@@ -1,7 +1,6 @@
 import { ChevronLeftIcon } from '@virgo-design/icons';
 import { Layout, NavigationMenu } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import styles from './documentation-sidebar.module.scss';
@@ -19,8 +18,6 @@ export function DocumentationSidebar({
   label,
   navigationLabel,
 }: DocumentationSidebarRootProps) {
-  const { t } = useTranslation();
-
   return (
     <Layout.Sidebar
       className={styles.sidebar}
@@ -30,17 +27,7 @@ export function DocumentationSidebar({
       collapsedWidth={12}
       triggerPlacement="edge"
       trigger={
-        <Layout.SidebarTrigger
-          className={styles.trigger}
-          render={(buttonProps) => (
-            <button
-              {...buttonProps}
-              aria-label={
-                buttonProps['aria-expanded'] ? t('docs.sidebar.collapse') : t('docs.sidebar.expand')
-              }
-            />
-          )}
-        >
+        <Layout.SidebarTrigger className={styles.trigger}>
           <ChevronLeftIcon aria-hidden="true" />
         </Layout.SidebarTrigger>
       }

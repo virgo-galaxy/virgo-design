@@ -4,6 +4,7 @@ import {
   statusColorTokens,
   type VirgoTheme,
 } from '@virgo-design/tokens';
+import { Collapsible } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { contrastRatio } from '../contrast';
@@ -102,16 +103,22 @@ export function StatusColorReview({ theme }: { theme: VirgoTheme }) {
                 [tokens.text, status.text],
               ]}
             />
-            <details className={styles.statusIndicator}>
-              <summary>{t('tokens.colors.statusReview.indicator')}</summary>
-              <p className={styles.statusUsage}>{t('tokens.colors.statusReview.indicatorUsage')}</p>
-              <TokenValues
-                entries={[
-                  [tokens.accent, status.accent],
-                  [tokens.foreground, status.foreground],
-                ]}
-              />
-            </details>
+            <Collapsible className={styles.statusIndicator}>
+              <Collapsible.Trigger className={styles.statusIndicatorTrigger}>
+                {t('tokens.colors.statusReview.indicator')}
+              </Collapsible.Trigger>
+              <Collapsible.Content className={styles.statusIndicatorContent}>
+                <p className={styles.statusUsage}>
+                  {t('tokens.colors.statusReview.indicatorUsage')}
+                </p>
+                <TokenValues
+                  entries={[
+                    [tokens.accent, status.accent],
+                    [tokens.foreground, status.foreground],
+                  ]}
+                />
+              </Collapsible.Content>
+            </Collapsible>
           </section>
         );
       })}

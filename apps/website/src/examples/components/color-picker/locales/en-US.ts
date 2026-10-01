@@ -1,5 +1,14 @@
 export const colorPickerExamplesEnUS = {
   copy: {
+    title2: 'Custom picker panel',
+    description2: 'Shared HEX/RGB editing and keyboard-operable saturation, brightness and hue.',
+    open: 'Open color picker',
+    panel: 'Color picker',
+    hex: 'HEX color',
+    saturation: 'Saturation',
+    brightness: 'Brightness',
+    hue: 'Hue',
+
     label: 'Accent color',
     hint: 'Opaque sRGB HEX colors. Native picking follows your browser.',
     readonly: 'Read-only color',

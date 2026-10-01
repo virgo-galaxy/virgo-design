@@ -11,6 +11,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { contextMenuExamples } from '@/examples/components/context-menu/examples';
 import { menuExamples } from '@/examples/components/menu/examples';
 import { menubarExamples } from '@/examples/components/menubar/examples';
@@ -37,8 +38,8 @@ function Page({
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board menu-system-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page menu-system-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>{name}</h1>
@@ -58,19 +59,21 @@ function Page({
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.menuSystem.specimen.referenceSpecimen')}</span>
               <code>{specimenCode}</code>
-            </div>
-            <div className="hero-stage menu-hero-stage">{specimen}</div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="menu-hero-stage">
+              {specimen}
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               {specimenCaption.map((item) => (
                 <span key={item}>{translateExampleText(t, 'menuSystem', item)}</span>
               ))}
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         {children}
       </div>

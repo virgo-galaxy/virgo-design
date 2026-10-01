@@ -113,6 +113,7 @@ export const tokensZhCN = {
       description: '直接由正式浅色与深色 Color Semantic Theme 生成的 CSS Custom Properties。',
       copy: '复制',
       copied: '已复制',
+      copyFailed: '复制失败，请重试。',
       note: '此导出由 @virgo-design/tokens 的 themes 生成，不创建 Website-local semantic map。',
     },
   },

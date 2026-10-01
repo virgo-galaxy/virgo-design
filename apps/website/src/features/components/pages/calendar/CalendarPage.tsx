@@ -7,6 +7,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { calendarExamples } from '@/examples/components/calendar/examples';
 import { useAppLocale } from '@/i18n';
 
@@ -17,28 +18,28 @@ export function CalendarPage() {
   const locale = useAppLocale();
   return (
     <ComponentExampleRuntimeProvider>
-      <div className={['review-board', styles.board].join(' ')}>
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className={['component-page', styles.board].join(' ')}>
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Calendar</h1>
             <p>{t('components.calendar.overview.description')}</p>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.calendar.specimen.referenceSpecimen')}</span>
               <code>Calendar</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <div className={styles.specimen}>
                 <Calendar locale={locale} defaultValue="2026-10-06" weekStartsOn={1} />
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.calendar.specimen.contract')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id="calendar-1"

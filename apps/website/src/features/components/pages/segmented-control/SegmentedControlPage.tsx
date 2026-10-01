@@ -7,6 +7,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { segmentedControlExamples } from '@/examples/components/segmented-control/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -16,8 +17,8 @@ export function SegmentedControlPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board" id="segmented-control-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page" id="segmented-control-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Segmented Control</h1>
@@ -37,12 +38,12 @@ export function SegmentedControlPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.segmentedControl.specimen.referenceSpecimen')}</span>
               <code>soft · small · slide</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <SegmentedControl
                 variant="soft"
                 size="small"
@@ -57,14 +58,14 @@ export function SegmentedControlPage() {
                   {t('examples.segmentedControl.copy.dark')}
                 </SegmentedControl.Item>
               </SegmentedControl>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.segmentedControl.specimen.28pxHeight')}</span>
               <span>{t('examples.segmentedControl.copy.labelSmall')}</span>
               <span>{t('components.segmentedControl.specimen.slidingIndicator')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'segmented-variants'}

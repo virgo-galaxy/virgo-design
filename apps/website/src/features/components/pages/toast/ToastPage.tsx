@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { toastExamples } from '@/examples/components/toast/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -18,8 +19,8 @@ export function ToastPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board toast-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page toast-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Toast</h1>
@@ -39,12 +40,12 @@ export function ToastPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.toast.specimen.referenceSpecimen')}</span>
               <code>status · action · dismiss</code>
-            </div>
-            <div className="hero-stage toast-hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="toast-hero-stage">
               <Toast.Provider hotkey={[]}>
                 <Toast.Root intent="success" duration={0}>
                   <Toast.Title>{t('examples.toast.copy.documentArchived')}</Toast.Title>
@@ -56,14 +57,14 @@ export function ToastPage() {
                 </Toast.Root>
                 <Toast.Viewport placement="top-start" className="toast-hero-viewport" />
               </Toast.Provider>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.toast.specimen.nonBlockingFeedback')}</span>
               <span>{t('components.toast.specimen.semanticStatus')}</span>
               <span>{t('components.toast.specimen.actionableDismissal')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'toast-status'}

@@ -5,7 +5,14 @@ import { colorStudioEnUS } from './en-US';
 export const colorStudioZhCN = {
   colorStudio: {
     baseLabel: '基础色',
-    picker: { open: '打开颜色选择器', title: '颜色选择器' },
+    picker: {
+      saturation: '饱和度',
+      brightness: '明度',
+      hue: '色相',
+      hex: 'HEX 颜色',
+      open: '打开颜色选择器',
+      title: '颜色选择器',
+    },
     hero: {
       eyebrow: '01 · 创建',
       title: '色彩实验室',

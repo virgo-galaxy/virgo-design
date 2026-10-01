@@ -74,7 +74,12 @@ export default function App() {
           >
             <span className={styles.label!}>{t('examples.layout.copy.header')}</span>
           </Layout.Header>
-          <Layout.Content padding={16} surface={{ tone: 'secondary' }} className={styles.content!}>
+          <Layout.Content
+            as="div"
+            padding={16}
+            surface={{ tone: 'secondary' }}
+            className={styles.content!}
+          >
             <Surface tone="elevated" radius={12} border="subtle" className={styles.surface!}>
               <span className={styles.label2!}>{t('examples.layout.copy.content')}</span>
             </Surface>

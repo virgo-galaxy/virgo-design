@@ -51,6 +51,12 @@ interface TabSharedProps extends Omit<PrimitiveTabProps, 'children' | 'className
   /** Optional decorative icon before the tab label. */
   icon?: ReactNode;
 
+  /** Consumer class applied to the focusable tab button. */
+  tabClassName?: string;
+
+  /** Consumer class applied to the label slot. */
+  labelClassName?: string;
+
   /** Consumer class applied to the tab item wrapper. */
   className?: string;
 }

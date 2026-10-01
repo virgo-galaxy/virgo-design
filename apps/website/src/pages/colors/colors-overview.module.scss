@@ -135,7 +135,7 @@
     background-color 160ms ease;
 }
 
-.journeyStep:not(:first-child)::before {
+.journeyRail > :global([data-slot='item']):not(:first-child) .journeyStep::before {
   position: absolute;
   top: 18px;
   bottom: 18px;
@@ -227,7 +227,7 @@
     padding: 14px 16px;
   }
 
-  .journeyStep:not(:first-child)::before {
+  .journeyRail > :global([data-slot='item']):not(:first-child) .journeyStep::before {
     top: 0;
     right: 16px;
     bottom: auto;
@@ -235,4 +235,26 @@
     width: auto;
     height: 1px;
   }
+}
+
+.journeyRail {
+  margin: 0;
+  gap: 0;
+}
+.journeyStep[data-variant] {
+  height: auto;
+  width: 100%;
+  font: inherit;
+}
+.journeyStep > [data-slot='label'] {
+  display: contents;
+}
+.journeyStep [data-slot='title'] {
+  font: inherit;
+  color: inherit;
+}
+
+.metricCard[data-tone] {
+  color: var(--layout-text);
+  border: 1px solid var(--foundation-line);
 }

@@ -12,6 +12,9 @@ import {
 
 import CheckboxCheckAllExample from './checkbox/CheckboxCheckAllExample';
 import CommandDialogExample from './command/CommandDialogExample';
+import { dialogExamples } from './dialog/examples';
+import DockControlledExample from './dock/DockControlledExample';
+import DockHandlePositionExample from './dock/DockHandlePositionExample';
 import DockLockPinExample from './dock/DockLockPinExample';
 import { drawerExamples } from './drawer/examples';
 import LayoutControlledSidebarExample from './layout/LayoutControlledSidebarExample';
@@ -24,6 +27,38 @@ import ToastIntentsExample from './toast/ToastIntentsExample';
 import ToastUndoExample from './toast/ToastUndoExample';
 
 describe('Independent component examples', () => {
+  it('keeps controlled Dock placement and segment selection synchronized after keyboard movement', async () => {
+    const user = userEvent.setup();
+    render(<DockControlledExample />);
+    const group = screen.getByRole('radiogroup', { name: 'Dock placement controls' });
+    const top = within(group).getByRole('radio', { name: 'Top' });
+    expect(top).toBeChecked();
+    top.focus();
+    await user.keyboard('{ArrowRight}');
+    expect(within(group).getByRole('radio', { name: 'Right' })).toBeChecked();
+    const handle = screen.getByRole('button', { name: 'Move inspector' });
+    const dock = handle.closest('[data-vd-dock-root]');
+    expect(dock).toHaveAttribute('data-edge', 'right');
+    fireEvent.keyDown(handle, { key: 'End' });
+    expect(dock).toHaveAttribute('data-position', '1');
+    await user.click(within(group).getByRole('radio', { name: 'Bottom' }));
+    expect(dock).toHaveAttribute('data-position', '1');
+    expect(dock).toHaveAttribute('data-edge', 'bottom');
+  });
+
+  it('lets arrow keys choose the Dock handle end while retaining the move handle', async () => {
+    const user = userEvent.setup();
+    render(<DockHandlePositionExample />);
+    const group = screen.getByRole('radiogroup', { name: 'Handle position controls' });
+    within(group).getByRole('radio', { name: 'Start' }).focus();
+    await user.keyboard('{ArrowRight}');
+    expect(within(group).getByRole('radio', { name: 'End' })).toBeChecked();
+    expect(screen.getByRole('button', { name: 'Handle position example' })).toHaveAttribute(
+      'data-position',
+      'end',
+    );
+  });
+
   it('lets the Dock example pin independently from locking and unlock while pinned', () => {
     render(<DockLockPinExample />);
     const handle = screen.getByRole('button', { name: 'Move inspector dock' });
@@ -116,6 +151,7 @@ describe('Independent component examples', () => {
   });
 
   it.each([
+    ['dialog', dialogExamples.form],
     ['drawer', drawerExamples.drawerForm],
     ['popover', popoverExamples.popoverForm],
   ] as const)('preserves the %s form through source disclosure', async (_name, example) => {
@@ -123,6 +159,10 @@ describe('Independent component examples', () => {
     render(<ComponentExample example={example} />);
     await user.click(screen.getByRole('button', { name: 'Edit workspace' }));
     const input = screen.getByRole('textbox', { name: 'Workspace name' });
+    expect(input).toHaveAttribute('name', 'workspaceName');
+    expect(input.closest('form')).toHaveAttribute('data-layout', 'vertical');
+    const save = screen.getByRole('button', { name: 'Save changes' });
+    expect((save as HTMLButtonElement).form).toBe(input.closest('form'));
     await user.clear(input);
     await user.type(input, 'Independent workspace');
     await user.click(screen.getByRole('button', { name: 'Save changes' }));

@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { cardExamples } from '@/examples/components/card/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -18,8 +19,8 @@ export function CardPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board card-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page card-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Card</h1>
@@ -39,12 +40,12 @@ export function CardPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.card.specimen.referenceSpecimen')}</span>
               <code>header · body · footer</code>
-            </div>
-            <div className="hero-stage card-hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="card-hero-stage">
               <div className="card-hero-card">
                 <Card variant="outlined">
                   <Card.Header>
@@ -62,14 +63,14 @@ export function CardPage() {
                   </Card.Footer>
                 </Card>
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.card.specimen.surfaceBacked')}</span>
               <span>{t('components.card.specimen.consumerOwnedContent')}</span>
               <span>{t('components.card.specimen.explicitActions')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'card-structure'}

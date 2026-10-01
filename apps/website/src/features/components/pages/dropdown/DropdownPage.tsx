@@ -11,6 +11,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { dropdownExamples } from '@/examples/components/dropdown/examples';
 import { translateExampleText } from '@/i18n/translate-example-text';
 
@@ -54,8 +55,8 @@ export function DropdownPage() {
   const [action, setAction] = useState('Choose an action to try the menu.');
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board dropdown-review" id="dropdown-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page dropdown-page" id="dropdown-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Dropdown</h1>
@@ -75,12 +76,12 @@ export function DropdownPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.dropdown.specimen.referenceSpecimen')}</span>
               <code>{t('components.dropdown.specimen.summary')}</code>
-            </div>
-            <div className="hero-stage dropdown-hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="dropdown-hero-stage">
               <Dropdown>
                 <Dropdown.Trigger>{t('examples.dropdown.copy.workspaceActions')}</Dropdown.Trigger>
                 <Dropdown.Content arrow>
@@ -88,14 +89,14 @@ export function DropdownPage() {
                 </Dropdown.Content>
               </Dropdown>
               <span className="dropdown-hint">{t('examples.dropdown.copy.clickToExplore')}</span>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.dropdown.specimen.virgoIcons')}</span>
               <span>{t('components.dropdown.specimen.keyboardReady')}</span>
               <span>{t('components.dropdown.specimen.themeAware')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <div className="dropdown-feedback" role="status">
           {translateExampleText(t, 'dropdown', action)}

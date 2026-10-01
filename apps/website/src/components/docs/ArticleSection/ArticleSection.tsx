@@ -19,7 +19,7 @@ export function ArticleSection({ id, index, title, description, children }: Arti
       className={styles.root}
       id={id}
       aria-labelledby={headingId}
-      data-review-section={id}
+      data-docs-section={id}
       data-article-section
     >
       <header className={styles.header}>

@@ -44,6 +44,7 @@ export const layoutApiZhCN = {
     'layout-sidebar-props.properties.on-width-change.description': '可调整宽度变化期间调用。',
     'layout-sidebar-props.properties.offset.description': '浮动模式下与容器区域边缘的距离。',
     'layout-content-props.properties.class-name.description': '应用到主内容区域的自定义 class。',
+    'layout-content-props.properties.as.description': '页面主要区域或嵌入内容区域使用的语义元素。',
     'layout-footer-props.properties.class-name.description': '应用到底部区域的自定义 class。',
     'layout-floating-props.properties.placement.description':
       '最近的 Content 或 Layout 内的逻辑角落。',

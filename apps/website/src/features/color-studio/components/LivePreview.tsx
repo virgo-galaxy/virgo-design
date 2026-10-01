@@ -3,6 +3,7 @@ import {
   type ColorScaleStep,
   type GeneratedColorPalette,
 } from '@virgo-design/colors';
+import { Button } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { useCopyToast } from '@/shared/hooks/use-copy-toast';
@@ -119,7 +120,8 @@ export function LivePreview({
 
         <div className={styles.scaleGrid}>
           {steps.map((step) => (
-            <button
+            <Button
+              variant="text"
               className={styles.scaleItem}
               key={step}
               type="button"
@@ -129,20 +131,20 @@ export function LivePreview({
               })}
               onClick={() => void copyStep(step)}
             >
-              <div
+              <span
                 className={styles.scaleColor}
                 style={{
                   backgroundColor: selectedScale[step],
                 }}
               >
                 {step === 6 ? <span>{t('foundations.colorStudio.baseLabel')}</span> : null}
-              </div>
+              </span>
 
-              <div className={styles.scaleMeta}>
+              <span className={styles.scaleMeta}>
                 <strong>{step}</strong>
                 <code>{selectedScale[step].toUpperCase()}</code>
-              </div>
-            </button>
+              </span>
+            </Button>
           ))}
         </div>
       </div>

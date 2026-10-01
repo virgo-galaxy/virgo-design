@@ -1,4 +1,5 @@
 import type { ColorScale } from '@virgo-design/colors';
+import { Button } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import styles from '../styles/foundation-extensions.module.scss';
@@ -49,14 +50,15 @@ export function BrandNeutralPage({
             <p>{t('foundations.colorStudio.extensions.brand.description')}</p>
           </div>
 
-          <button
+          <Button
+            variant="text"
             className={styles.resetButton}
             type="button"
             disabled={disabled}
             onClick={onBrandReset}
           >
             {t('foundations.colorStudio.actions.reset')}
-          </button>
+          </Button>
         </header>
 
         <div className={styles.controlRow}>
@@ -89,14 +91,15 @@ export function BrandNeutralPage({
             <p>{t('foundations.colorStudio.extensions.neutral.description')}</p>
           </div>
 
-          <button
+          <Button
+            variant="text"
             className={styles.resetButton}
             type="button"
             disabled={disabled}
             onClick={onNeutralReset}
           >
             {t('foundations.colorStudio.actions.reset')}
-          </button>
+          </Button>
         </header>
 
         <div className={styles.controlRow}>

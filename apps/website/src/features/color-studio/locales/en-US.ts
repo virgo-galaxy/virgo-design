@@ -1,7 +1,14 @@
 export const colorStudioEnUS = {
   colorStudio: {
     baseLabel: 'BASE',
-    picker: { open: 'Open color picker', title: 'Color picker' },
+    picker: {
+      saturation: 'Saturation',
+      brightness: 'Brightness',
+      hue: 'Hue',
+      hex: 'HEX color',
+      open: 'Open color picker',
+      title: 'Color picker',
+    },
     hero: {
       eyebrow: '01 · CREATE',
       title: 'Color Studio',

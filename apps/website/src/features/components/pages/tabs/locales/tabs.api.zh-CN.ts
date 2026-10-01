@@ -2,6 +2,8 @@ import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 
 export const tabsApiZhCN = {
   api: {
+    'tab-props.properties.label-class-name.description': '标签槽位的业务类名。',
+    'tab-props.properties.tab-class-name.description': '可聚焦标签按钮的业务类名。',
     'tabs-props.properties.variant.description': '标签列表的视觉样式。',
     'tabs-props.properties.align.description': '标签页在列表内的水平对齐方式。',
     'tabs-props.properties.class-name.description': '应用到 Tabs 根节点的自定义 class。',

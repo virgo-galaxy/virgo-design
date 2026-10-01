@@ -1,4 +1,4 @@
-import { Dock, type DockHandlePosition } from '@virgo-design/ui';
+import { Dock, type DockHandlePosition, SegmentedControl } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -14,22 +14,24 @@ export default function App() {
   return (
     <div className={styles.root!}>
       <div className={styles.controls!}>
-        <div
-          className={styles.controlGroup!}
-          role="group"
-          aria-label={t('examples.dock.copy.handlePositionControls')}
-        >
+        <div className={styles.controlGroup!}>
           <span>{t('examples.dock.copy.handle')}</span>
-          {handlePositions.map((position) => (
-            <button
-              key={position}
-              type="button"
-              data-active={handlePosition === position || undefined}
-              onClick={() => setHandlePosition(position)}
-            >
-              {position}
-            </button>
-          ))}
+          <SegmentedControl
+            aria-label={t('examples.dock.copy.handlePositionControls')}
+            value={handlePosition}
+            onValueChange={(position) => {
+              if (handlePositions.includes(position as DockHandlePosition)) {
+                setHandlePosition(position as DockHandlePosition);
+              }
+            }}
+            size="small"
+          >
+            {handlePositions.map((position) => (
+              <SegmentedControl.Item key={position} value={position}>
+                {t(`examples.dock.copy.${position}`)}
+              </SegmentedControl.Item>
+            ))}
+          </SegmentedControl>
         </div>
       </div>
 

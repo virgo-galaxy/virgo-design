@@ -4,6 +4,7 @@ import { layoutEnUS } from './en-US';
 
 export const layoutZhCN = {
   navigation: {
+    skipToContent: '跳转到主要内容',
     label: '主导航',
     foundations: '基础',
     tokens: '变量',
@@ -11,6 +12,7 @@ export const layoutZhCN = {
     primitives: '原语',
   },
   controls: {
+    loadingPage: '页面加载中…',
     globalControls: '全局控制',
     switchToChinese: '切换到中文',
     switchToEnglish: '切换到英文',

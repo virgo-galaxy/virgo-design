@@ -2,6 +2,10 @@ import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 
 export const inputApiZhCN = {
   api: {
+    'input-password-props.properties.root-class-name.description':
+      '输入框外框的业务类名；className 设置原生输入样式。',
+    'input-props.properties.root-class-name.description':
+      '输入框外框的业务类名；className 设置原生输入样式。',
     'input-props.properties.size.description': '输入框的视觉尺寸。',
     'input-props.properties.prefix.description': '文本输入控件之前的装饰内容。',
     'input-props.properties.suffix.description': '文本输入控件之后的装饰内容。',

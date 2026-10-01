@@ -51,11 +51,11 @@ describe('Documentation relationships', () => {
     expect(container).toBeEmptyDOMElement();
   });
 
-  it('does not render an empty section for a primitive-only primitive', () => {
+  it('shows the styled consumer of the Collapsible primitive', () => {
     const { container } = renderRelationship(
       <PrimitiveRelationships primitiveSlug="collapsible" />,
     );
 
-    expect(container).toBeEmptyDOMElement();
+    expect(container.querySelector('a[href="/components/collapsible"]')).not.toBeNull();
   });
 });

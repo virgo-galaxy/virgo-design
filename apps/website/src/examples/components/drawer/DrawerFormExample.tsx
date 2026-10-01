@@ -1,4 +1,4 @@
-import { Button, Drawer, Input } from '@virgo-design/ui';
+import { Button, Drawer, Field, Form, Input } from '@virgo-design/ui';
 import { useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -25,7 +25,7 @@ export default function App() {
               </Drawer.Description>
             </Drawer.Header>
             <Drawer.Body>
-              <form
+              <Form
                 id={formId}
                 onSubmit={(event) => {
                   event.preventDefault();
@@ -33,11 +33,15 @@ export default function App() {
                   setOpen(false);
                 }}
               >
-                <label className={styles.label!}>
-                  {t('examples.drawer.copy.workspaceName')}
-                  <Input value={name} onChange={(event) => setName(event.target.value)} />
-                </label>
-              </form>
+                <Field>
+                  <Field.Label>{t('examples.drawer.copy.workspaceName')}</Field.Label>
+                  <Input
+                    name="workspaceName"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                  />
+                </Field>
+              </Form>
             </Drawer.Body>
             <Drawer.Footer>
               <Drawer.Close>{t('examples.drawer.copy.cancel')}</Drawer.Close>

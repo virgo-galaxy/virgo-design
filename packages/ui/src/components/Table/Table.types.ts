@@ -6,8 +6,8 @@ import type {
 export interface TableProps extends Omit<PrimitiveTableProps, 'border'> {
   /** Cell density. @default 'medium' */
   size?: 'small' | 'medium' | 'large' | undefined;
-  /** Border treatment. @default 'rows' */
-  border?: 'none' | 'rows' | 'all' | undefined;
+  /** Border treatment. Separators divide adjacent rows without an outer edge. @default 'rows' */
+  border?: 'none' | 'rows' | 'separators' | 'all' | undefined;
   /** Alternating body row backgrounds. @default false */
   striped?: boolean | undefined;
   /** Highlights pointer-hovered rows. @default false */

@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { alertExamples } from '@/examples/components/alert/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -18,8 +19,8 @@ export function AlertPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board alert-review" id="alert-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page alert-page" id="alert-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Alert</h1>
@@ -39,12 +40,12 @@ export function AlertPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.alert.specimen.referenceSpecimen')}</span>
               <code>intent=&quot;warning&quot;</code>
-            </div>
-            <div className="hero-stage alert-hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="alert-hero-stage">
               <Alert intent="warning">
                 <Alert.Icon />
                 <Alert.Content>
@@ -54,14 +55,14 @@ export function AlertPage() {
                   </Alert.Description>
                 </Alert.Content>
               </Alert>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.alert.specimen.persistent')}</span>
               <span>{t('components.alert.specimen.inline')}</span>
               <span>{t('components.alert.specimen.themeAware')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'alert-intents'}

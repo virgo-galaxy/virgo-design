@@ -1,3 +1,4 @@
+import { Tag } from '@virgo-design/ui';
 import { createContext, type ReactNode, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -34,9 +35,9 @@ export function ComponentPageMetadata() {
   return (
     <div className="eyebrow-row">
       <span>{t('components.catalogue.component', { index: metadata.index })}</span>
-      <span className="version-badge">
+      <Tag className="version-badge" size="sm" intent="brand" variant="outline">
         {t(`components.catalogue.status.${metadata.status}`)} · {metadata.version}
-      </span>
+      </Tag>
     </div>
   );
 }

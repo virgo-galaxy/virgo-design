@@ -159,3 +159,29 @@ describe('Select', () => {
     expect(container.querySelector('input[name="project"]')).toHaveValue('design');
   });
 });
+
+it('customizes selected rendering and indicator slots without changing option navigation', async () => {
+  const user = userEvent.setup();
+  render(
+    <Select defaultValue="design">
+      <Select.Trigger
+        aria-label="Project"
+        indicator={<span>+</span>}
+        renderValue={(value, label) => (
+          <span data-testid="selection">
+            {value}: {label}
+          </span>
+        )}
+      />
+      <Select.Content>
+        <Select.Option value="design">Design</Select.Option>
+        <Select.Option value="docs">Docs</Select.Option>
+      </Select.Content>
+    </Select>,
+  );
+  expect(screen.getByTestId('selection')).toHaveTextContent('design: Design');
+  await user.click(screen.getByRole('button', { name: 'Project' }));
+  await user.keyboard('{ArrowDown}{Enter}');
+  expect(screen.getByTestId('selection')).toHaveTextContent('docs: Docs');
+  expect(screen.getByRole('button', { name: 'Project' })).toHaveFocus();
+});

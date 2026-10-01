@@ -728,7 +728,7 @@
   padding-top: 12px;
   font-size: 11px;
 }
-.statusIndicator summary {
+.statusIndicatorTrigger {
   cursor: pointer;
   color: var(--semantic-text-secondary);
 }
@@ -904,4 +904,39 @@
   .brandScene > a {
     transition: none;
   }
+}
+
+.statusIndicator {
+  border: 0;
+  border-radius: 0;
+}
+.statusIndicatorTrigger[data-variant] {
+  height: auto;
+  width: 100%;
+  justify-content: flex-start;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  background: transparent;
+  border: 0;
+  text-align: left;
+}
+.statusIndicatorTrigger > [data-slot='label'] {
+  justify-content: flex-start;
+}
+.statusIndicatorContent:not([hidden]) {
+  padding: 0;
+}
+
+.statusIndicator {
+  border-top: 1px solid var(--semantic-border-subtle);
+  color: inherit;
+}
+.statusIndicatorTrigger[data-variant] {
+  color: var(--semantic-text-secondary);
+}
+
+.statusIndicatorTrigger [data-slot='indicator'] {
+  width: 14px;
+  height: 14px;
 }

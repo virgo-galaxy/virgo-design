@@ -1,4 +1,4 @@
-import { Table } from '@virgo-design/ui';
+import { Surface, Table, Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { translateApiDescription } from '@/i18n/translate-api-description';
@@ -54,9 +54,13 @@ export function ApiReference({
 
       <div className={styles.declarations}>
         {tableDeclarations.map((declaration) => (
-          <section
+          <Surface
             className={styles.declaration}
             key={`${declaration.name}-${declaration.source}`}
+            tone="default"
+            border="subtle"
+            radius={12}
+            role="region"
             aria-labelledby={`${id}-${declaration.name}-heading`}
           >
             <div className={styles.declarationHeader}>
@@ -74,7 +78,9 @@ export function ApiReference({
                   </p>
                 ) : null}
               </div>
-              <span className={styles.kind}>{declaration.kind}</span>
+              <Tag size="sm" className={styles.kind}>
+                {declaration.kind}
+              </Tag>
             </div>
 
             {declaration.signature ? (
@@ -92,7 +98,7 @@ export function ApiReference({
                 aria-label={t('docs.apiReference.propertiesRegion', { name: declaration.name })}
                 tabIndex={0}
               >
-                <Table border="none" size="small" className={styles.table}>
+                <Table border="separators" size="small" className={styles.table}>
                   <Table.Caption className={styles.visuallyHidden}>
                     {t('docs.apiReference.propertiesRegion', { name: declaration.name })}
                   </Table.Caption>
@@ -143,11 +149,18 @@ export function ApiReference({
                 </Table>
               </Table.Viewport>
             ) : null}
-          </section>
+          </Surface>
         ))}
 
         {aliasDeclarations.length > 0 ? (
-          <section className={styles.aliases} aria-labelledby={`${id}-public-types-heading`}>
+          <Surface
+            className={styles.aliases}
+            tone="default"
+            border="subtle"
+            radius={12}
+            role="region"
+            aria-labelledby={`${id}-public-types-heading`}
+          >
             <div className={styles.aliasesHeader}>
               <h3 id={`${id}-public-types-heading`}>{t('docs.apiReference.publicTypes')}</h3>
               <span>{aliasDeclarations.length}</span>
@@ -175,7 +188,7 @@ export function ApiReference({
                 </div>
               ))}
             </dl>
-          </section>
+          </Surface>
         ) : null}
       </div>
     </section>

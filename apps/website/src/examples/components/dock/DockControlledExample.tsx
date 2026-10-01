@@ -1,4 +1,4 @@
-import { Dock, type DockEdge, type DockPlacement } from '@virgo-design/ui';
+import { Dock, type DockEdge, type DockPlacement, SegmentedControl } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -13,18 +13,23 @@ export default function App() {
 
   return (
     <div className={styles.root!}>
-      <div className={styles.controls!} aria-label={t('examples.dock.copy.dockPlacementControls')}>
+      <SegmentedControl
+        className={styles.controls!}
+        aria-label={t('examples.dock.copy.dockPlacementControls')}
+        value={placement.edge}
+        onValueChange={(edge) => {
+          if (edges.includes(edge as DockEdge)) {
+            setPlacement((previous) => ({ ...previous, edge: edge as DockEdge }));
+          }
+        }}
+        size="small"
+      >
         {edges.map((edge) => (
-          <button
-            key={edge}
-            type="button"
-            data-active={placement.edge === edge || undefined}
-            onClick={() => setPlacement({ edge, position: placement.position })}
-          >
-            {edge}
-          </button>
+          <SegmentedControl.Item key={edge} value={edge}>
+            {t(`examples.dock.copy.${edge}`)}
+          </SegmentedControl.Item>
         ))}
-      </div>
+      </SegmentedControl>
       <Dock.Boundary className={styles.boundary!}>
         <Dock.Root placement={placement} onPlacementChange={setPlacement} snapDivisions={8}>
           {({ orientation }) => (

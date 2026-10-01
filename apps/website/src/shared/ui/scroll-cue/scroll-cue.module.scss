@@ -62,3 +62,21 @@
     animation: none;
   }
 }
+
+.scrollCue[data-icon-only] {
+  width: 44px;
+  height: 50px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: currentColor;
+}
+.scrollCue [data-slot='icon'] {
+  width: 24px;
+  height: 24px;
+}
+
+.scrollCue[data-icon-only][data-shape][data-variant] {
+  border-radius: 0;
+  font: inherit;
+}

@@ -30,7 +30,7 @@ export default function App() {
           surface={{ background: { type: 'color', value: 'var(--vd-brand-4)' }, border: 'none' }}
           className={styles.lane!}
         >
-          <Layout.Content className={styles.content!}>
+          <Layout.Content as="div" className={styles.content!}>
             <div className={styles.stage!}>{t('examples.layout.copy.content')}</div>
           </Layout.Content>
         </Layout.Lane>

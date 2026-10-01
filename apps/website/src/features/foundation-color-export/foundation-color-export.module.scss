@@ -47,8 +47,8 @@
 }
 
 .header > button,
-.tabs button,
-.naming button {
+.tabs [data-segment-value],
+.namingOptions [data-segment-value] {
   border: 1px solid var(--layout-line);
   border-radius: 8px;
   padding: 7px 10px;
@@ -128,7 +128,6 @@
   }
 
   .naming {
-    flex-wrap: wrap;
   }
 }
 
@@ -138,4 +137,47 @@
     opacity: 1 !important;
     transform: none !important;
   }
+}
+
+.tabs[data-variant],
+.namingOptions[data-variant] {
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  gap: 4px;
+}
+.tabs [data-slot='indicator'],
+.namingOptions [data-slot='indicator'],
+.tabs [data-segment-value]::before,
+.tabs [data-segment-value]::after,
+.namingOptions [data-segment-value]::before,
+.namingOptions [data-segment-value]::after {
+  display: none;
+}
+.tabs [data-slot='label'],
+.namingOptions [data-slot='label'] {
+  font: inherit;
+}
+.tabs [data-segment-value]:focus-within,
+.namingOptions [data-segment-value]:focus-within {
+  outline: 2px solid var(--vd-border-focus);
+  outline-offset: -2px;
+}
+.header > button {
+  height: auto;
+  line-height: normal;
+}
+.header > button > [data-slot='label'] {
+  font: inherit;
+  color: inherit;
+  letter-spacing: normal;
+}
+
+.tabs[data-variant],
+.namingOptions[data-variant] {
+  background: transparent;
+}
+.tabs[data-variant]::after,
+.namingOptions[data-variant]::after {
+  display: none;
 }

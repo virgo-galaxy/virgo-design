@@ -8,6 +8,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { tabsExamples } from '@/examples/components/tabs/examples';
 import { translateExampleText } from '@/i18n/translate-example-text';
 
@@ -69,8 +70,8 @@ export function TabsPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board" id="tabs-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page" id="tabs-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Tabs</h1>
@@ -90,21 +91,21 @@ export function TabsPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen tabs-hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen className="tabs-hero-specimen">
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.tabs.specimen.referenceSpecimen')}</span>
               <code>line · start</code>
-            </div>
-            <div className="hero-stage tabs-hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="tabs-hero-stage">
               <BasicTabs />
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.tabs.specimen.automaticActivation')}</span>
               <span>{t('components.tabs.specimen.slidingIndicator')}</span>
               <span>{t('components.tabs.specimen.linkedPanels')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'tabs-basic'}

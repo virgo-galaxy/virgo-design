@@ -1,6 +1,7 @@
 import '@/i18n';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { internationalSans, internationalSansOrder } from '@virgo-design/tokens';
 import { describe, expect, it } from 'vitest';
 
@@ -16,6 +17,22 @@ const localeLabels = {
 } as const;
 
 describe('InternationalSansPreview', () => {
+  it('links tabs to panels and supports keyboard movement and activation', async () => {
+    const user = userEvent.setup();
+    render(<InternationalSansPreview />);
+    const latin = screen.getByRole('tab', { name: /Latin/ });
+    await user.tab();
+    expect(latin).toHaveFocus();
+    await user.keyboard('{ArrowRight}{Enter}');
+    const chinese = screen.getByRole('tab', { name: /Simplified Chinese/ });
+    expect(chinese).toHaveFocus();
+    expect(chinese).toHaveAttribute('aria-selected', 'true');
+    const panel = screen.getByRole('tabpanel');
+    expect(chinese).toHaveAttribute('aria-controls', panel.id);
+    expect(panel).toHaveAccessibleName(/Simplified Chinese/);
+    expect(panel.querySelector('section')).toHaveAttribute('lang', internationalSans.zhHans.locale);
+  });
+
   it('switches every locale preview using token-owned stacks', () => {
     const { container } = render(<InternationalSansPreview />);
 

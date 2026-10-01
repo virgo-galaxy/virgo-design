@@ -157,7 +157,7 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
         </div>
 
         <div className={styles.productShell}>
-          <aside className={styles.sidebar}>
+          <div className={styles.sidebar}>
             <div className={styles.productBrand}>
               <span>V</span>
               <strong>Virgo</strong>
@@ -177,7 +177,7 @@ export function SemanticThemePreview({ theme, title, description }: SemanticThem
                 </div>
               ))}
             </div>
-          </aside>
+          </div>
 
           <div className={styles.workspace}>
             <div className={styles.workspaceToolbar}>

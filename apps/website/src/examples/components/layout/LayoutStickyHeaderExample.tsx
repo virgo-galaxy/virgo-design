@@ -20,6 +20,7 @@ export default function App() {
           {t('examples.layout.copy.header')}
         </Layout.Header>
         <Layout.Content
+          as="div"
           surface={{ background: { type: 'color', value: 'var(--vd-brand-7)' }, border: 'none' }}
           className={styles.content!}
         >

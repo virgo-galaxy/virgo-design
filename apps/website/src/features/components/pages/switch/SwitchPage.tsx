@@ -7,6 +7,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { switchExamples } from '@/examples/components/switch/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -16,8 +17,8 @@ export function SwitchPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board" id="switch-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page" id="switch-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Switch</h1>
@@ -37,21 +38,21 @@ export function SwitchPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.switch.specimen.referenceSpecimen')}</span>
               <code>toggle · default</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <Switch defaultChecked>{t('examples.switch.copy.syncChanges')}</Switch>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('examples.switch.copy.4424px')}</span>
               <span>{t('examples.switch.copy.bodyMedium')}</span>
               <span>{t('components.switch.specimen.nativeSwitchSemantics')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'switch-basic'}

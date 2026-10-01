@@ -169,3 +169,23 @@
     transition: none;
   }
 }
+.skipLink {
+  position: fixed;
+  z-index: 1000;
+  top: var(--vd-spacing-12);
+  left: var(--vd-spacing-16);
+  padding: var(--vd-spacing-8) var(--vd-spacing-12);
+  border-radius: var(--vd-radius-6);
+  color: var(--vd-text-primary);
+  background: var(--vd-surface-default);
+  transform: translateY(-200%);
+
+  &:focus-visible {
+    transform: none;
+    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+  }
+}
+
+.layout :global(#website-main) {
+  scroll-margin-top: calc(var(--layout-header-height) + 16px);
+}

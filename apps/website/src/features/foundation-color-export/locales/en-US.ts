@@ -7,6 +7,7 @@ export const foundationColorExportEnUS = {
     scaleNaming: 'Scale naming',
     copy: 'Copy',
     copied: 'Copied',
+    copyFailed: 'Copy failed. Please try again.',
     note: 'This export contains current Foundation colors only. Formal Color Semantic Tokens are documented under Tokens / Colors.',
   },
 } as const;

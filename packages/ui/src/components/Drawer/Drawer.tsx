@@ -13,6 +13,7 @@ import type {
   DrawerFooterProps,
   DrawerHeaderProps,
   DrawerOverlayProps,
+  DrawerRootProps,
   DrawerTitleProps,
 } from './Drawer.types';
 
@@ -20,7 +21,11 @@ function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');
 }
 
-const Root = Dialog.Root;
+// Keep Drawer composition independent: attaching parts to Dialog.Root mutates Dialog itself.
+const Root = forwardRef<HTMLDivElement, DrawerRootProps>(function DrawerRoot(props, ref) {
+  return <Dialog.Root {...props} ref={ref} />;
+});
+Root.displayName = 'Drawer.Root';
 const Trigger = Dialog.Trigger;
 const Portal = Dialog.Portal;
 

@@ -7,6 +7,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { selectExamples } from '@/examples/components/select/examples';
 import { translateExampleText } from '@/i18n/translate-example-text';
 
@@ -50,8 +51,8 @@ export function SelectPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board" id="select-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page" id="select-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Select</h1>
@@ -71,12 +72,12 @@ export function SelectPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.select.specimen.referenceSpecimen')}</span>
               <code>select · medium</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <div className="select-demo-width select-demo-width--hero">
                 <DemoSelect
                   aria-label={t('examples.select.copy.referenceProject')}
@@ -84,14 +85,14 @@ export function SelectPage() {
                   options={projectOptions}
                 />
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.select.specimen.36pxTrigger')}</span>
               <span>{t('examples.select.copy.bodyMedium')}</span>
               <span>{t('components.select.specimen.radius8')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'select-sizes'}

@@ -1,3 +1,5 @@
+import { Button } from '@virgo-design/ui';
+
 import type { FoundationGroupId } from '@/domain/foundation-colors';
 
 import styles from '../styles/palette-gallery.module.scss';
@@ -46,7 +48,9 @@ export function FamilyCard({
   ].join(' ');
 
   return (
-    <button
+    <Button
+      variant="text"
+      aria-pressed={active}
       className={`${styles.familyCard} ${active ? styles.familyCardActive : ''}`}
       type="button"
       style={{ opacity, transform }}
@@ -64,6 +68,6 @@ export function FamilyCard({
         <strong>{label}</strong>
         <code>{base.toUpperCase()}</code>
       </span>
-    </button>
+    </Button>
   );
 }

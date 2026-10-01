@@ -7,6 +7,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { formExamples } from '@/examples/components/form/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -15,19 +16,19 @@ export function FormPage() {
   const { t } = useTranslation();
   return (
     <ComponentExampleRuntimeProvider>
-      <div className={['review-board', styles.board].join(' ')}>
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className={['component-page', styles.board].join(' ')}>
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Form</h1>
             <p>{t('components.form.overview.description')}</p>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.form.specimen.referenceSpecimen')}</span>
               <code>Form</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <div className={styles.specimen}>
                 <Form onSubmit={(event) => event.preventDefault()}>
                   <Field required>
@@ -46,12 +47,12 @@ export function FormPage() {
                   </Field>
                 </Form>
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.form.specimen.contract')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id="form-1"

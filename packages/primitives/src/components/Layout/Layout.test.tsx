@@ -6,6 +6,45 @@ import { describe, expect, it, vi } from 'vitest';
 import { Layout } from './index';
 
 describe('Layout primitive', () => {
+  it('preserves callback refs across updates and cleans up when the semantic element changes', () => {
+    const cleanup = vi.fn();
+    const ref = vi.fn(() => cleanup);
+    const { rerender, unmount } = render(
+      <Layout.Content as="div" ref={ref}>
+        One
+      </Layout.Content>,
+    );
+    const embedded = ref.mock.calls.length;
+    rerender(
+      <Layout.Content as="div" ref={ref}>
+        Two
+      </Layout.Content>,
+    );
+    expect(ref).toHaveBeenCalledTimes(embedded);
+    expect(cleanup).not.toHaveBeenCalled();
+    rerender(<Layout.Content ref={ref}>Page main</Layout.Content>);
+    expect(cleanup).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole('main')).toHaveTextContent('Page main');
+    unmount();
+    expect(cleanup).toHaveBeenCalledTimes(2);
+  });
+
+  it('allows embedded content without introducing another main landmark', () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <Layout.Content aria-label="Page content">
+        <Layout.Content as="div" ref={ref} className="embedded-content" tabIndex={-1}>
+          Embedded content
+        </Layout.Content>
+      </Layout.Content>,
+    );
+    expect(screen.getAllByRole('main')).toHaveLength(1);
+    expect(ref.current?.tagName).toBe('DIV');
+    expect(ref.current).toHaveClass('embedded-content');
+    expect(ref.current).toHaveAttribute('tabindex', '-1');
+    expect(screen.getByRole('main')).toHaveAccessibleName('Page content');
+  });
+
   it('coordinates an uncontrolled sidebar with its keyboard trigger and render state', async () => {
     const user = userEvent.setup();
     const onCollapsedChange = vi.fn();

@@ -1,8 +1,11 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { PageSkeleton } from '@/components/loading/PageSkeleton';
 import { StandaloneExamplePage } from '@/pages/examples/StandaloneExamplePage';
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
+
+import { RouteSkeleton } from './RouteSkeleton';
 
 const ColorsPage = lazy(() =>
   import('@/pages/colors/ColorsPage').then((module) => ({ default: module.ColorsPage })),
@@ -65,7 +68,9 @@ function ComponentsDocumentationRoute() {
   return (
     <ComponentsDocumentation
       renderRelationships={(componentSlug) => (
-        <ComponentRelationships componentSlug={componentSlug} />
+        <Suspense fallback={<PageSkeleton variant="section" />}>
+          <ComponentRelationships componentSlug={componentSlug} />
+        </Suspense>
       )}
     />
   );
@@ -75,7 +80,9 @@ function PrimitiveDocumentation() {
   return (
     <PrimitiveDetailPage
       renderRelationships={(primitiveSlug) => (
-        <PrimitiveRelationships primitiveSlug={primitiveSlug} />
+        <Suspense fallback={<PageSkeleton variant="section" />}>
+          <PrimitiveRelationships primitiveSlug={primitiveSlug} />
+        </Suspense>
       )}
     />
   );
@@ -83,7 +90,7 @@ function PrimitiveDocumentation() {
 
 export function AppRouter() {
   return (
-    <Suspense fallback={<div aria-busy="true" />}>
+    <Suspense fallback={<RouteSkeleton />}>
       <Routes>
         <Route
           path={ROUTE_PATHS.root}

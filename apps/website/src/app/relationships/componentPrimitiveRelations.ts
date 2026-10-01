@@ -7,7 +7,9 @@ import type { PrimitiveSlug } from '@/features/primitives/primitiveDocs';
  */
 export const componentPrimitiveRelations = {
   slider: ['slider'],
-  'color-picker': ['color-picker'],
+  'color-picker': ['color-picker', 'popover'],
+  collapsible: ['collapsible', 'button'],
+  steps: ['button'],
   'time-picker': ['time-picker'],
   'date-picker': ['date-picker', 'popover', 'calendar'],
   calendar: ['calendar'],

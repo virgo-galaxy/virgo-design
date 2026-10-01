@@ -10,6 +10,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { commandExamples } from '@/examples/components/command/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -63,8 +64,8 @@ export function CommandPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board command-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page command-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Command</h1>
@@ -84,12 +85,12 @@ export function CommandPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.command.specimen.referenceSpecimen')}</span>
               <code>inline · grouped · searchable</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <Command className="command-demo">
                 <Command.Input
                   aria-label={t('examples.command.copy.heroCommandSearch')}
@@ -99,14 +100,14 @@ export function CommandPage() {
                   <CommandItems select={() => {}} />
                 </Command.List>
               </Command>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.command.specimen.singleInput')}</span>
               <span>{t('components.command.specimen.groupedResults')}</span>
               <span>{t('components.command.specimen.keyboardFirst')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'command-inline'}

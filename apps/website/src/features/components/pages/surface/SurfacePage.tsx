@@ -11,6 +11,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { surfaceExamples } from '@/examples/components/surface/examples';
 import { translateExampleText } from '@/i18n/translate-example-text';
 
@@ -22,8 +23,8 @@ export function SurfacePage() {
   const [actions, setActions] = useState(0);
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board" id="surface-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page" id="surface-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Surface</h1>
@@ -43,11 +44,11 @@ export function SurfacePage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen surface-hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen className="surface-hero-specimen">
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.surface.specimen.referenceSpecimen')}</span>
               <code>glass · elevated</code>
-            </div>
+            </ReferenceSpecimen.Toolbar>
             <div
               className="surface-backdrop surface-hero-stage"
               style={{ backgroundImage: `url("${landscapeImage}")` }}
@@ -82,13 +83,13 @@ export function SurfacePage() {
                 </Layout.Header>
               </Layout>
             </div>
-            <div className="specimen-caption">
+            <ReferenceSpecimen.Caption>
               <span>{t('components.surface.specimen.themeAwareTint')}</span>
               <span>{t('components.surface.specimen.nativeContent')}</span>
               <span>{t('components.surface.specimen.cssMaterial')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'surface-semantic'}

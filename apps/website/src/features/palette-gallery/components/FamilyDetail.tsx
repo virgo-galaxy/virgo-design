@@ -1,4 +1,5 @@
 import type { ColorScale, ColorScaleStep } from '@virgo-design/colors';
+import { Button } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import type { FoundationGroupId, FoundationGroupKind } from '@/domain/foundation-colors';
@@ -89,7 +90,8 @@ export function FamilyDetail({
 
       <div className={styles.detailScale} key={groupId}>
         {STEPS.map((step, index) => (
-          <button
+          <Button
+            variant="text"
             className={styles.detailScaleItem}
             key={step}
             type="button"
@@ -109,13 +111,14 @@ export function FamilyDetail({
               }}
             />
             <strong>{step}</strong>
-          </button>
+          </Button>
         ))}
       </div>
 
       <div className={styles.detailHexList}>
         {STEPS.map((step) => (
-          <button
+          <Button
+            variant="text"
             className={styles.detailHexItem}
             key={step}
             type="button"
@@ -123,7 +126,7 @@ export function FamilyDetail({
           >
             <span>{step}</span>
             <code>{scale[step].toUpperCase()}</code>
-          </button>
+          </Button>
         ))}
       </div>
     </aside>

@@ -75,7 +75,7 @@ export function IconsExplorer({
         data-appearance={appearance}
         aria-labelledby="review-title"
       >
-        <div className="review-board">
+        <div className="icon-specimen">
           <header className="section-heading">
             <p className="eyebrow">{t('icons.canonicalIcon')}</p>
             <h2 id="review-title">{selectedIcon.label}</h2>

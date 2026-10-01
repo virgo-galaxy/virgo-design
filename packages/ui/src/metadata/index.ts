@@ -7,6 +7,7 @@ import { buttonMetadata } from '../components/Button/Button.meta';
 import { calendarMetadata } from '../components/Calendar/Calendar.meta';
 import { cardMetadata } from '../components/Card/Card.meta';
 import { checkboxMetadata } from '../components/Checkbox/Checkbox.meta';
+import { collapsibleMetadata } from '../components/Collapsible/Collapsible.meta';
 import { colorPickerMetadata } from '../components/ColorPicker/ColorPicker.meta';
 import { comboboxMetadata } from '../components/Combobox/Combobox.meta';
 import { commandMetadata } from '../components/Command/Command.meta';
@@ -37,6 +38,7 @@ import { separatorMetadata } from '../components/Separator/Separator.meta';
 import { skeletonMetadata } from '../components/Skeleton/Skeleton.meta';
 import { sliderMetadata } from '../components/Slider/Slider.meta';
 import { spinnerMetadata } from '../components/Spinner/Spinner.meta';
+import { stepsMetadata } from '../components/Steps/Steps.meta';
 import { surfaceMetadata } from '../components/Surface/Surface.meta';
 import { switchMetadata } from '../components/Switch/Switch.meta';
 import { tableMetadata } from '../components/Table/Table.meta';
@@ -58,6 +60,7 @@ export {
   calendarMetadata,
   cardMetadata,
   checkboxMetadata,
+  collapsibleMetadata,
   colorPickerMetadata,
   comboboxMetadata,
   commandMetadata,
@@ -87,6 +90,7 @@ export {
   skeletonMetadata,
   sliderMetadata,
   spinnerMetadata,
+  stepsMetadata,
   surfaceMetadata,
   switchMetadata,
   tableMetadata,
@@ -116,6 +120,8 @@ export const componentMetadataRegistry = {
   menubar: menubarMetadata,
   contextMenu: contextMenuMetadata,
   menu: menuMetadata,
+  steps: stepsMetadata,
+  collapsible: collapsibleMetadata,
   accordion: accordionMetadata,
   alert: alertMetadata,
   avatar: avatarMetadata,

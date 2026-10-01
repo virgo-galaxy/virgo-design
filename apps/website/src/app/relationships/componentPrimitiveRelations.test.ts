@@ -40,8 +40,14 @@ describe('componentPrimitiveRelations', () => {
   it('reverse-computes multiple components using one primitive', () => {
     expect(getComponentsForPrimitive('dialog')).toEqual(['command', 'dialog', 'drawer']);
     expect(getComponentsForPrimitive('radio')).toEqual(['radio', 'segmented-control']);
-    expect(getComponentsForPrimitive('button')).toEqual(['button', 'floating-action']);
+    expect(getComponentsForPrimitive('button')).toEqual([
+      'collapsible',
+      'steps',
+      'button',
+      'floating-action',
+    ]);
     expect(getComponentsForPrimitive('popover')).toEqual([
+      'color-picker',
       'date-picker',
       'floating-action',
       'navigation-menu',
@@ -54,6 +60,6 @@ describe('componentPrimitiveRelations', () => {
   });
 
   it('returns no consumers for a primitive-only primitive', () => {
-    expect(getComponentsForPrimitive('collapsible')).toEqual([]);
+    expect(getComponentsForPrimitive('collapsible')).toEqual(['collapsible']);
   });
 });

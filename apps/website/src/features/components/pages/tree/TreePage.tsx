@@ -6,6 +6,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { treeExamples } from '@/examples/components/tree/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -15,28 +16,28 @@ export function TreePage() {
   const Reference = treeExamples.example0.Component;
   return (
     <ComponentExampleRuntimeProvider>
-      <div className={['review-board', styles.board].join(' ')}>
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className={['component-page', styles.board].join(' ')}>
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Tree</h1>
             <p>{t('components.tree.overview.description')}</p>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.tree.specimen.referenceSpecimen')}</span>
               <code>Tree</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <div className={styles.specimen}>
                 <Reference />
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.tree.specimen.contract')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id="tree-1"

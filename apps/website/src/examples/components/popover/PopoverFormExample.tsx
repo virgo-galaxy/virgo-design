@@ -1,4 +1,4 @@
-import { Button, Checkbox, Input, Popover } from '@virgo-design/ui';
+import { Button, Checkbox, Field, Form, Input, Popover } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -15,7 +15,7 @@ export default function App() {
       <Popover open={open} onOpenChange={setOpen}>
         <Popover.Trigger>{t('examples.popover.copy.editWorkspace')}</Popover.Trigger>
         <Popover.Content aria-label={t('examples.popover.copy.editWorkspaceSettings')} arrow>
-          <form
+          <Form
             className={styles.form!}
             onSubmit={(event) => {
               event.preventDefault();
@@ -24,10 +24,14 @@ export default function App() {
             }}
           >
             <strong>{t('examples.popover.copy.workspaceSettings')}</strong>
-            <label className={styles.label!}>
-              {t('examples.popover.copy.workspaceName')}
-              <Input value={name} onChange={(event) => setName(event.target.value)} />
-            </label>
+            <Field>
+              <Field.Label>{t('examples.popover.copy.workspaceName')}</Field.Label>
+              <Input
+                name="workspaceName"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+              />
+            </Field>
             <Checkbox defaultChecked>{t('examples.popover.copy.notifyWorkspaceMembers')}</Checkbox>
             <div className={styles.stage!}>
               <Popover.Close>{t('examples.popover.copy.cancel')}</Popover.Close>
@@ -35,7 +39,7 @@ export default function App() {
                 {t('examples.popover.copy.saveChanges')}
               </Button>
             </div>
-          </form>
+          </Form>
         </Popover.Content>
       </Popover>
       <span role="status">

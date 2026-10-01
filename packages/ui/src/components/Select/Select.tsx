@@ -113,6 +113,8 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
   function SelectTrigger(
     {
       children,
+      renderValue,
+      indicator = <ChevronDownIcon />,
       placeholder = 'Select an option',
       className,
       'aria-invalid': ariaInvalid,
@@ -124,7 +126,9 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
     const isInvalid = context.invalid || hasAriaInvalidValue(ariaInvalid);
     const selectedLabel =
       context.value === undefined ? undefined : context.labels.get(context.value);
-    const visibleValue = selectedLabel ?? children ?? placeholder;
+    const visibleValue = renderValue
+      ? renderValue(context.value, selectedLabel ?? placeholder)
+      : (selectedLabel ?? children ?? placeholder);
 
     return (
       <PrimitiveSelect.Trigger
@@ -133,11 +137,15 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
         className={joinClassNames(styles.trigger, className)}
         aria-invalid={isInvalid || undefined}
       >
-        <span className={styles.value} data-placeholder={selectedLabel === undefined || undefined}>
+        <span
+          className={styles.value}
+          data-slot="value"
+          data-placeholder={selectedLabel === undefined || undefined}
+        >
           {visibleValue}
         </span>
-        <span className={styles.indicator} aria-hidden="true">
-          <ChevronDownIcon />
+        <span className={styles.indicator} data-slot="indicator" aria-hidden="true">
+          {indicator}
         </span>
       </PrimitiveSelect.Trigger>
     );
@@ -156,7 +164,9 @@ export const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(func
       ref={forwardedRef}
       className={joinClassNames(styles.content, className)}
     >
-      <div className={styles.viewport}>{children}</div>
+      <div className={styles.viewport} data-slot="viewport">
+        {children}
+      </div>
     </PrimitiveSelect.Content>
   );
 });
@@ -173,8 +183,10 @@ export const SelectOption = forwardRef<HTMLDivElement, SelectOptionProps>(functi
       ref={forwardedRef}
       className={joinClassNames(styles.option, className)}
     >
-      <span className={styles.optionLabel}>{children}</span>
-      <span className={styles.check} aria-hidden="true">
+      <span className={styles.optionLabel} data-slot="option-label">
+        {children}
+      </span>
+      <span className={styles.check} data-slot="check" aria-hidden="true">
         <CheckIcon />
       </span>
     </PrimitiveSelect.Option>

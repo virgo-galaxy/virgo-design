@@ -18,6 +18,10 @@ export interface SelectProps extends Omit<PrimitiveSelectProps, 'children' | 'cl
 export interface SelectTriggerProps extends Omit<PrimitiveSelectTriggerProps, 'children'> {
   children?: ReactNode;
   placeholder?: ReactNode;
+  /** Render the selected value without changing option labels or keyboard behavior. */
+  renderValue?: (value: string | undefined, label: ReactNode) => ReactNode;
+  /** Custom decorative indicator; null hides it. */
+  indicator?: ReactNode;
   'aria-invalid'?: AriaAttributes['aria-invalid'] | undefined;
 }
 

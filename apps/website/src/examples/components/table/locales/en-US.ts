@@ -9,7 +9,8 @@ export const tableExamplesEnUS = {
     title0: 'Records and summary',
     description0: 'Native headings, a caption and a summary footer.',
     title1: 'Density and borders',
-    description1: 'Local presentation options keep the same table semantics.',
+    description1:
+      'Density and border options retain native semantics. Surface frames internal row separators.',
     title2: 'Empty and sticky header',
     description2: 'Empty composes inside a spanning cell; scroll belongs to the viewport.',
   },

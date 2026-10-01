@@ -1,0 +1,34 @@
+.root {
+  border: 1px solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-8);
+}
+.trigger {
+  width: 100%;
+  height: auto;
+  padding: var(--vd-spacing-12);
+  color: var(--vd-text-primary);
+}
+.trigger > [data-slot='label'] {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--vd-spacing-8);
+}
+.trigger [data-slot='indicator'] {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  transition: transform var(--vd-duration-120) var(--vd-easing-standard);
+}
+.trigger[data-state='open'] [data-slot='indicator'] {
+  transform: rotate(180deg);
+}
+.content:not([hidden]) {
+  padding: var(--vd-spacing-12);
+}
+@media (prefers-reduced-motion: reduce) {
+  .trigger [data-slot='indicator'] {
+    transition: none;
+  }
+}

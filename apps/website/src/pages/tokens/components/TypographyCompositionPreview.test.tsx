@@ -30,6 +30,8 @@ describe('TypographyCompositionPreview', () => {
 
   it('resolves every Document role from official Semantic Typography', () => {
     const { container } = render(<TypographyCompositionPreview />);
+    expect(screen.queryByRole('main')).not.toBeInTheDocument();
+    expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
     const preview = container.querySelector<HTMLElement>('[data-composition-locale="en-US"]');
 
     expect(preview).toBeTruthy();

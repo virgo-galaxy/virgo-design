@@ -8,6 +8,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { buttonExamples } from '@/examples/components/button/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -17,8 +18,8 @@ export function ButtonPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <article className="review-board" id="button-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <article className="component-page" id="button-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Button</h1>
@@ -40,21 +41,21 @@ export function ButtonPage() {
             </dl>
           </div>
 
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.button.specimen.referenceSpecimen')}</span>
               <code>primary · medium</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <Button leadingIcon={<PlusIcon />}>{t('examples.button.copy.createProject')}</Button>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.button.specimen.28pxHeight')}</span>
               <span>{t('components.button.specimen.12pxLabel')}</span>
               <span>{t('components.button.specimen.radius6')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
 
         <ArticleSection

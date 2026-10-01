@@ -254,7 +254,7 @@ export function TypographyCompositionPreview() {
           </header>
 
           <div className={styles.uiPreview}>
-            <aside className={styles.uiSidebar}>
+            <div className={styles.uiSidebar}>
               <TypeSample
                 as="div"
                 className={styles.workspaceMark}
@@ -271,7 +271,11 @@ export function TypographyCompositionPreview() {
               >
                 {t('tokens.typography.compositionPreview.ui.workspace')}
               </TypeSample>
-              <nav aria-label={t('tokens.typography.compositionPreview.ui.navigation')}>
+              <div
+                className={styles.uiNavigation}
+                role="group"
+                aria-label={t('tokens.typography.compositionPreview.ui.navigation')}
+              >
                 {(['overview', 'members', 'integrations', 'billing'] as const).map(
                   (item, index) => (
                     <TypeSample
@@ -285,7 +289,7 @@ export function TypographyCompositionPreview() {
                     </TypeSample>
                   ),
                 )}
-              </nav>
+              </div>
               <TypeSample
                 as="p"
                 className={styles.sidebarMeta}
@@ -294,9 +298,9 @@ export function TypographyCompositionPreview() {
               >
                 {t('tokens.typography.compositionPreview.ui.sidebarMeta')}
               </TypeSample>
-            </aside>
+            </div>
 
-            <main className={styles.uiMain}>
+            <div className={styles.uiMain}>
               <header className={styles.uiPageHeader}>
                 <div>
                   <TypeSample
@@ -426,7 +430,7 @@ export function TypographyCompositionPreview() {
                   </div>
                 </section>
               </section>
-            </main>
+            </div>
           </div>
         </section>
       </div>

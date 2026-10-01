@@ -1,5 +1,4 @@
-import { primitiveApiReference } from '@/generated/api-reference.generated';
-import { collectApiDescriptionResources } from '@/i18n/api-description-resources';
+export { primitivesApiEnUS } from '@/generated/api-description-resources.generated';
 
 import { accordionApiZhCN } from './locales/accordion/api.zh-CN';
 import { breadcrumbApiZhCN } from './locales/breadcrumb/api.zh-CN';
@@ -38,7 +37,6 @@ import { toastApiZhCN } from './locales/toast/api.zh-CN';
 import { tooltipApiZhCN } from './locales/tooltip/api.zh-CN';
 import { treeApiZhCN } from './locales/tree/api.zh-CN';
 
-export const primitivesApiEnUS = collectApiDescriptionResources(primitiveApiReference);
 export const primitivesApiZhCN = {
   timeline: timelineApiZhCN,
   calendar: calendarApiZhCN,

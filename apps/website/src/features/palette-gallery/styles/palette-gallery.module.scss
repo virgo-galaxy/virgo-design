@@ -444,7 +444,7 @@
   cursor: pointer;
 }
 
-.detailScaleItem:hover {
+.detailScaleItem[data-variant]:hover {
   filter: saturate(1.04) brightness(1.015);
 }
 
@@ -470,7 +470,7 @@
   cursor: pointer;
 }
 
-.detailHexItem:hover code {
+.detailHexItem[data-variant]:hover code {
   color: var(--gallery-secondary);
 }
 
@@ -485,4 +485,31 @@
   font-size: 8px;
   text-overflow: ellipsis;
   transition: color 140ms ease;
+}
+
+.familyCard > :global([data-slot='label']),
+.backButton > :global([data-slot='label']),
+.scaleItem > :global([data-slot='label']) {
+  display: contents;
+}
+
+.detailScaleItem > :global([data-slot='label']),
+.detailHexItem > :global([data-slot='label']) {
+  display: contents;
+}
+
+.familyCard[data-variant] {
+  height: auto;
+  font: inherit;
+}
+.detailScaleItem[data-variant] {
+  display: block;
+  height: auto;
+  border-radius: 0;
+  font: inherit;
+}
+.detailHexItem[data-variant] {
+  height: auto;
+  border-radius: 0;
+  font: inherit;
 }

@@ -51,7 +51,7 @@ export default function App() {
             </NavigationMenu>
           </div>
         </Layout.Header>
-        <Layout.Content padding={16} className={styles.content!}>
+        <Layout.Content as="div" padding={16} className={styles.content!}>
           <Surface tone="elevated" radius={12} border="subtle" className={styles.surface!}>
             <span className={styles.label2!}>{t('examples.layout.copy.content')}</span>
           </Surface>

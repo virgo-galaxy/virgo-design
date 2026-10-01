@@ -20,6 +20,8 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
     disabled,
     children,
     className,
+    tabClassName,
+    labelClassName,
     onKeyDown,
     ...props
   },
@@ -54,13 +56,15 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
   return (
     <div
       className={joinClassNames(styles.item, className)}
+      data-slot="item"
       data-closable={showsCloseAction || undefined}
       data-disabled={disabled || undefined}
     >
       <PrimitiveTabs.Tab
         {...props}
         ref={forwardedRef}
-        className={styles.tab}
+        className={joinClassNames(styles.tab, tabClassName)}
+        data-slot="tab"
         disabled={disabled}
         value={value}
         aria-keyshortcuts={showsCloseAction ? 'Delete' : props['aria-keyshortcuts']}
@@ -78,7 +82,7 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
             {icon}
           </span>
         ) : null}
-        <span className={styles.label} data-slot="label">
+        <span className={joinClassNames(styles.label, labelClassName)} data-slot="label">
           {children}
         </span>
       </PrimitiveTabs.Tab>

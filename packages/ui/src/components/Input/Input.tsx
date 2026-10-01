@@ -79,6 +79,7 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
     disabled,
     readOnly,
     className,
+    rootClassName,
     value,
     defaultValue,
     onChange,
@@ -113,7 +114,8 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
 
   return (
     <span
-      className={styles.root}
+      className={joinClassNames(styles.root, rootClassName)}
+      data-slot="root"
       data-disabled={disabled || undefined}
       data-invalid={isInvalid || undefined}
       data-readonly={readOnly || undefined}

@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { floatingActionExamples } from '@/examples/components/floating-action/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -18,8 +19,8 @@ export function FloatingActionPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board floating-action-review" id="floating-action-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page floating-action-page" id="floating-action-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>{floatingActionMetadata.name}</h1>
@@ -39,23 +40,23 @@ export function FloatingActionPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.floatingAction.specimen.referenceSpecimen')}</span>
               <code>standalone · primary</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <FloatingAction variant="primary" aria-label={t('examples.floatingAction.copy.help')}>
                 <CircleInfoIcon />
               </FloatingAction>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.floatingAction.specimen.buttonSemantics')}</span>
               <span>{t('components.floatingAction.specimen.circularShape')}</span>
               <span>{t('components.floatingAction.specimen.tokenElevation')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'floating-action-basic'}

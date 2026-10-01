@@ -27,6 +27,7 @@ export default function App() {
           <span className={styles.label!}>{t('examples.layout.copy.sidebar')}</span>
         </Layout.Sidebar>
         <Layout.Content
+          as="div"
           surface={{ background: { type: 'color', value: 'var(--vd-brand-7)' }, border: 'none' }}
           className={styles.header!}
         >

@@ -1,6 +1,6 @@
 import '@/i18n/runtime';
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
@@ -75,7 +75,7 @@ describe('Components documentation integration', () => {
           .getAllByRole('link')
           .map((link) => link.getAttribute('href')),
       ).toEqual(componentRoutes.map((route) => route.path));
-      expect(screen.getByRole('heading', { level: 1, name: 'Button' })).toBeInTheDocument();
+      expect(await screen.findByRole('heading', { level: 1, name: 'Button' })).toBeInTheDocument();
       expect(document.querySelectorAll('[data-article-section]')).toHaveLength(4);
       expect(document.querySelectorAll('[data-example-frame]')).toHaveLength(5);
       expect(screen.queryByRole('heading', { name: 'Examples' })).not.toBeInTheDocument();
@@ -84,9 +84,9 @@ describe('Components documentation integration', () => {
         'light',
       );
       expect(screen.queryByRole('group', { name: 'Preview theme' })).not.toBeInTheDocument();
-      expect(componentRoutes).toHaveLength(48);
+      expect(componentRoutes).toHaveLength(50);
       expect(componentRoutes.map((route) => route.index)).toEqual(
-        Array.from({ length: 48 }, (_, index) => String(index + 1).padStart(2, '0')),
+        Array.from({ length: 50 }, (_, index) => String(index + 1).padStart(2, '0')),
       );
       expect(componentGroups.map((group) => group.id)).toEqual([
         'general',
@@ -117,12 +117,12 @@ describe('Components documentation integration', () => {
       ).toEqual(Array(7).fill('feedback'));
       expect(componentRoutes.find((route) => route.id === 'floating-action')).toMatchObject({
         group: 'actions',
-        index: '46',
+        index: '48',
       });
       expect(componentRoutes.at(-1)).toMatchObject({
         id: 'menubar',
         group: 'actions',
-        index: '48',
+        index: '50',
       });
       expect(componentRoutes.some((route) => route.id === ('textarea' as string))).toBe(false);
 
@@ -130,7 +130,7 @@ describe('Components documentation integration', () => {
       expect(screen.getByRole('button', { name: 'Collapse all' })).toBeInTheDocument();
 
       await user.click(screen.getByRole('link', { name: /Surface/ }));
-      expect(screen.getByRole('heading', { level: 1, name: 'Surface' })).toBeInTheDocument();
+      expect(await screen.findByRole('heading', { level: 1, name: 'Surface' })).toBeInTheDocument();
       expect(screen.getByRole('button', { name: 'Expand all' })).toHaveAttribute(
         'aria-expanded',
         'false',
@@ -164,7 +164,7 @@ describe('Components documentation integration', () => {
 
       const sidebar = screen.getByRole('complementary', { name: 'Components sidebar' });
       const navigation = screen.getByRole('navigation', { name: 'Component navigation' });
-      const heading = screen.getByRole('heading', { level: 1, name: 'Button' });
+      const heading = await screen.findByRole('heading', { level: 1, name: 'Button' });
       const trigger = within(sidebar).getByRole('button', { name: 'Collapse sidebar' });
       await user.click(trigger);
 
@@ -188,7 +188,7 @@ describe('Components documentation integration', () => {
     INTEGRATION_TEST_TIMEOUT,
   );
 
-  it('keeps Textarea inside the Input documentation family', () => {
+  it('keeps Textarea inside the Input documentation family', async () => {
     vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
 
     render(
@@ -201,7 +201,7 @@ describe('Components documentation integration', () => {
       </AppearanceContext.Provider>,
     );
 
-    expect(screen.getByRole('heading', { level: 1, name: 'Input' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'Input' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: 'Textarea' })).toBeInTheDocument();
     expect(
       within(screen.getByRole('navigation', { name: 'Component navigation' })).queryByRole('link', {
@@ -213,7 +213,7 @@ describe('Components documentation integration', () => {
   describe.each(['light', 'dark'] as const)('%s overviews', (appearance) => {
     it.each(componentRoutes)(
       'renders $name with shared heading structure and a Reference specimen hero',
-      ({ id, index, name, path, status, version }) => {
+      async ({ id, index, name, path, status, version }) => {
         vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
 
         const { container } = render(
@@ -226,11 +226,15 @@ describe('Components documentation integration', () => {
           </AppearanceContext.Provider>,
         );
 
-        const heading = screen.getByRole('heading', { level: 1, name });
-        const board = heading.closest('.review-board');
+        const heading = await screen.findByRole(
+          'heading',
+          { level: 1, name },
+          { timeout: INTEGRATION_TEST_TIMEOUT },
+        );
+        const board = heading.closest('.component-page');
         const overview = heading.closest('#overview');
         const copy = overview?.querySelector(':scope > .overview-copy');
-        const firstReview = board?.querySelector(':scope > [data-review-section]:not(#overview)');
+        const firstArticle = board?.querySelector(':scope > [data-docs-section]:not(#overview)');
         const specimen = overview?.querySelector(':scope > .hero-specimen');
         const specimenStage = specimen?.querySelector(
           ':scope > .hero-stage, :scope > .surface-hero-stage',
@@ -242,7 +246,7 @@ describe('Components documentation integration', () => {
           appearance,
         );
         expect(overview).toHaveClass('overview', { exact: true });
-        expect(overview).toHaveAttribute('data-review-section', 'overview');
+        expect(overview).toHaveAttribute('data-docs-section', 'overview');
         expect(overview?.parentElement).toBe(board);
         expect(heading.parentElement).toBe(copy);
         expect(copy?.querySelector(':scope > .eyebrow-row')).toHaveTextContent(
@@ -252,12 +256,19 @@ describe('Components documentation integration', () => {
           `${status.toUpperCase()} · ${version}`,
         );
         expect(copy?.querySelector(':scope > p')).not.toBeEmptyDOMElement();
-        expect(firstReview).toBeInTheDocument();
-        expect(firstReview?.querySelector('h2')).toBeInTheDocument();
+        expect(firstArticle).toBeInTheDocument();
+        expect(firstArticle?.querySelector('h2')).toBeInTheDocument();
 
         expect(overview?.children).toHaveLength(2);
         expect(container.querySelector('.overview--single')).not.toBeInTheDocument();
         expect(specimen).toBeInTheDocument();
+        expect(specimen).toHaveAttribute('data-reference-specimen');
+        expect(specimen).toHaveAttribute('data-tone', 'elevated');
+        expect(specimen).toHaveAttribute('data-border', 'default');
+        expect(specimen).toHaveAttribute('data-radius', '16');
+        expect(specimen).toHaveAttribute('data-elevation', '2');
+        expect(copy?.querySelector('.version-badge')).toHaveAttribute('data-variant', 'outline');
+        expect(copy?.querySelector('.version-badge')).toHaveAttribute('data-intent', 'brand');
         expect(specimen?.querySelector('.specimen-toolbar')).toHaveTextContent(
           'Reference specimen',
         );
@@ -280,7 +291,7 @@ describe('Components documentation integration', () => {
         expect(container.querySelector('.review-section')).toBeNull();
         const control = screen.getByRole('button', { name: 'Expand all' });
         expect(specimen?.querySelector('.specimen-caption')?.contains(control)).toBe(true);
-        expect(control).toBeEnabled();
+        await waitFor(() => expect(control).toBeEnabled());
         expect(control.querySelector('svg')).toBeNull();
         sources.forEach((source) => expect(source).toHaveAttribute('data-state', 'closed'));
 

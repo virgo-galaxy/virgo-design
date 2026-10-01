@@ -10,6 +10,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { tagExamples } from '@/examples/components/tag/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -19,8 +20,8 @@ export function TagPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board tag-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page tag-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Tag</h1>
@@ -40,12 +41,12 @@ export function TagPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.tag.specimen.referenceSpecimen')}</span>
               <code>semantic · icon · closable</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <div className="tag-stage">
                 <Tag intent="brand">{t('examples.tag.copy.designSystem')}</Tag>
                 <Tag icon={<CheckIcon />} intent="success" variant="outline">
@@ -58,14 +59,14 @@ export function TagPage() {
                   {t('examples.tag.copy.prototype')}
                 </Tag>
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.tag.specimen.classification')}</span>
               <span>{t('components.tag.specimen.semanticColor')}</span>
               <span>{t('components.tag.specimen.removableMetadata')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'tag-intents'}

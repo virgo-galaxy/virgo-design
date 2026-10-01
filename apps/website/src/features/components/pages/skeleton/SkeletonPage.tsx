@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { skeletonExamples } from '@/examples/components/skeleton/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -18,8 +19,8 @@ export function SkeletonPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board skeleton-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page skeleton-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Skeleton</h1>
@@ -39,12 +40,12 @@ export function SkeletonPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.skeleton.specimen.referenceSpecimen')}</span>
               <code>{t('components.skeleton.specimen.summary')}</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <div
                 className="skeleton-card"
                 aria-label={t('examples.skeleton.copy.loadingCardPreview')}
@@ -57,14 +58,14 @@ export function SkeletonPage() {
                   <Skeleton variant="text" style={{ width: '84%' }} />
                 </div>
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.skeleton.specimen.predictableDimensions')}</span>
               <span>{t('components.skeleton.specimen.contentLoading')}</span>
               <span>{t('components.skeleton.specimen.reducedMotionAware')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'skeleton-variants'}

@@ -10,6 +10,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { badgeExamples } from '@/examples/components/badge/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -19,8 +20,8 @@ export function BadgePage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board badge-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page badge-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Badge</h1>
@@ -40,12 +41,12 @@ export function BadgePage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.badge.specimen.referenceSpecimen')}</span>
               <code>count · dot · standalone</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <div className="badge-stage badge-hero-stage">
                 <Badge count={8}>
                   <span className="badge-host">
@@ -62,14 +63,14 @@ export function BadgePage() {
                   <Badge count="New" intent="info" />
                 </span>
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.badge.specimen.attachedCount')}</span>
               <span>{t('components.badge.specimen.statusDot')}</span>
               <span>{t('components.badge.specimen.inlineMetadata')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'badge-counts'}

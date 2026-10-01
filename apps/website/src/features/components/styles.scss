@@ -7,7 +7,7 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Breadcrumb review */
+  /* Breadcrumb specimen */
   .breadcrumb-hero-specimen {
     min-height: 320px;
   }
@@ -16,7 +16,7 @@
     padding: var(--vd-spacing-32);
   }
 
-  /* Tabs review */
+  /* Tabs specimen */
   .tabs-hero-specimen {
     min-height: 360px;
   }
@@ -80,38 +80,12 @@
     background: var(--vd-surface-background);
   }
 
-  .component-status {
-    padding: var(--vd-spacing-2) var(--vd-spacing-6);
-    border-radius: var(--vd-radius-6);
-    font-size: var(--vd-font-size-12);
-    font-weight: var(--vd-font-weight-500);
-    line-height: var(--vd-line-height-2);
-    white-space: nowrap;
-  }
-
-  .component-status[data-status='stable'] {
-    color: var(--vd-chartreuse-9);
-    background: var(--vd-chartreuse-1);
-  }
-
-  .components-documentation-shell[data-theme='dark'] .component-status[data-status='stable'] {
-    color: var(--vd-chartreuse-4);
-    background: var(--vd-chartreuse-10);
-  }
-
   .version-badge {
-    padding: var(--vd-spacing-2) var(--vd-spacing-6);
-    border: var(--vd-border-width-1) solid var(--vd-border-default);
-    border-radius: var(--vd-radius-full);
     font-family: var(--vd-font-family-mono);
-    font-size: var(--vd-font-size-12);
-    line-height: var(--vd-line-height-3);
-    color: var(--vd-brand-link);
-    background: var(--vd-surface-default);
-    white-space: nowrap;
+    letter-spacing: normal;
   }
 
-  .review-board {
+  .component-page {
     min-width: 0;
     padding-bottom: var(--vd-spacing-64);
   }
@@ -198,10 +172,6 @@
     min-height: 320px;
     flex-direction: column;
     overflow: hidden;
-    border: var(--vd-border-width-1) solid var(--vd-border-default);
-    border-radius: var(--vd-radius-16);
-    background: var(--vd-surface-elevated);
-    box-shadow: var(--vd-elevation-2);
   }
 
   .specimen-toolbar,
@@ -270,7 +240,7 @@
     z-index: 1;
   }
 
-  /* Select review */
+  /* Select specimen */
   .select-demo-width {
     width: min(320px, 100%);
   }
@@ -279,9 +249,9 @@
     width: min(360px, calc(100% - var(--vd-spacing-64)));
   }
 
-  /* Checkbox review */
+  /* Checkbox specimen */
 
-  /* Radio review */
+  /* Radio specimen */
 
-  /* Switch review */
+  /* Switch specimen */
 }

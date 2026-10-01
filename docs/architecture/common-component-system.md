@@ -33,12 +33,15 @@ consumers that require associations before hydration should pass an explicit `co
 
 Table retains native table semantics: Caption, Header, Body, Footer, Row, Head and Cell. Head defaults
 to column scope; consumers can set row scope. Viewport is a named, keyboard-scrollable region.
-UI adds three densities, logical alignment, none/rows/all borders, stripes, row hover, selected-row
+UI adds three densities, logical alignment, none/rows/separators/all borders, stripes, row hover, selected-row
 presentation and sticky headers inside a constrained viewport. Empty and summary content compose
 through native spanning cells and Footer. Selection is presentation, not a grid interaction model.
 
 Sorting, filtering, paging, visibility, resizing and virtualization remain outside Table. The
-Website's generated API reference now uses Table without changing the generated data model.
+Website's generated API reference composes Surface frames with Table without changing the generated
+data model. The UI-only `separators` border mode divides adjacent rows within and across nonempty
+table sections, leaving outer edges unbordered. It also supports headerless tables; `rows` retains
+its existing bottom-border behavior. Container framing belongs to Surface, not Table or a docs variant.
 
 ## Tree
 
@@ -84,8 +87,15 @@ native name/value. Multi-thumb ranges await a concrete consumer contract.
 ColorPicker composes Input (native color dialog), Swatch and Preview around a shared controlled
 or uncontrolled value. Values are canonical opaque sRGB #rrggbb. Named submission uses a hidden
 native input; disabled state excludes it. Swatches expose pressed state and an accessible color
-name. The browser/OS owns the picker dialog. Alpha, HSV editing and wide-gamut color are future
-work rather than implicit support in this first API.
+name. Input keeps the browser/OS native dialog. The shared root also composes Trigger and Popover Content,
+a pointer-driven saturation/value Area with two keyboard-accessible ranges, a Hue range, HexField,
+and RGB ChannelField parts. HSV and RGB conversions stay inside ColorPicker; its public value
+remains canonical opaque sRGB. Hue/saturation survive black while the editor is active. Valid HEX
+commits on Enter/blur; invalid drafts reset on blur or Escape. RGB fields clamp to 0–255 and update
+the same value. Controlled state, form submission, Field association, disabled/read-only guards and
+Popover dismissal/focus behavior are shared across parts. Alpha and wide-gamut values remain deferred.
+Part classes, stable data slots and panel/area/hue/thumb CSS variables let consumers restyle the
+panel without reimplementing its interaction or conversions.
 
 TimePicker uses native time segments and validation with a controlled/uncontrolled string,
 min/max/step, name, required and inherited field state. Values are local HH:mm or HH:mm:ss;
@@ -121,8 +131,8 @@ interactive scheduling and Gantt editing need a different, demonstrated consumer
 ## Documentation and adoption
 
 Eleven styled pages and eleven headless pages use existing catalogue/sidebar/detail infrastructure.
-Twenty-eight added examples bring the component runtime to 237 examples across 48 component pages
-and 36 primitive pages. Catalogue/sidebar ordinals are continuous 01–48 using the existing group
+Twenty-eight added examples bring the component runtime to 240 examples across 50 component pages
+and 36 primitive pages. Catalogue/sidebar ordinals are continuous 01–50 using the existing group
 order and formal component names. Existing URLs remain stable.
 Generated public API descriptions and co-located English/Chinese locales follow the existing schema.
 Construction relationships remain factual; a separately labeled composition list explains common
@@ -152,4 +162,22 @@ not establish a new component-token architecture or platform-themed interface.
 ## Validation record
 
 See [component-system-review.md](component-system-review.md) for the final verification matrix,
-visual review findings and follow-up boundaries. No Git commit is made by this implementation.
+visual review findings and follow-up boundaries.
+
+## Website self-hosting closure
+
+The current Website ownership, deliberate native fixtures, landmark policy and loading boundaries
+are specified in [Website self-hosting](website-selfhosting.md). The closure audit is kept separately
+from the historical common-component review. Typography tables now use Table with their original
+local composition styles; Layout.Content exposes the general main/div semantic choice.
+
+## Strict consumer additions
+
+Steps and UI Collapsible are public families with co-located types, styles, metadata, tests,
+generated API, bilingual documentation and executable examples. Steps is an ordered presentation
+pattern with optional Button actions; progress and navigation stay consumer-owned. Collapsible
+reuses the existing Primitive and UI Button. There are still 36 Primitive document families.
+ColorPicker now composes a real HEX/RGB/HSV panel; no native input API is removed. Select exposes
+selected-value/indicator customization and stable part slots; Tabs exposes native-button/label
+classes; Input exposes frame className independently of the native control. These are general
+consumer capabilities, not Website-only variants. See website-selfhosting.md for strict boundaries.

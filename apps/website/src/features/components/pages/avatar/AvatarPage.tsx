@@ -10,6 +10,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { avatarExamples } from '@/examples/components/avatar/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -19,8 +20,8 @@ export function AvatarPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board avatar-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page avatar-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Avatar</h1>
@@ -40,12 +41,12 @@ export function AvatarPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.avatar.specimen.referenceSpecimen')}</span>
               <code>image · fallback · group</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <div className="avatar-stage avatar-hero-stage">
                 <Badge dot intent="success" aria-label={t('examples.avatar.copy.online')}>
                   <Avatar src={avatarImage} alt="Virgo Design" size="lg" />
@@ -57,14 +58,14 @@ export function AvatarPage() {
                   <Avatar fallback="DS" />
                 </Avatar.Group>
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.avatar.specimen.image')}</span>
               <span>{t('components.avatar.specimen.fallback')}</span>
               <span>{t('components.avatar.specimen.presenceAndGroup')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'avatar-content'}

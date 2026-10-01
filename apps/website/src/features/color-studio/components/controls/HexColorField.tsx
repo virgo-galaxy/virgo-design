@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { ColorPicker } from '@virgo-design/ui';
+import { useId } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from '../../styles/color-studio.module.scss';
@@ -11,9 +12,6 @@ interface HexColorFieldProps {
   compact?: boolean;
   disabled?: boolean;
 }
-
-const HEX_PATTERN = /^#[0-9a-fA-F]{6}$/;
-
 export function HexColorField({
   label,
   value,
@@ -22,79 +20,34 @@ export function HexColorField({
   disabled = false,
 }: HexColorFieldProps) {
   const { t } = useTranslation();
-  const [draft, setDraft] = useState(value);
-  const [pickerOpen, setPickerOpen] = useState(false);
-
-  const swatchRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    setDraft(value);
-  }, [value]);
-
-  useEffect(() => {
-    if (disabled) {
-      setPickerOpen(false);
-    }
-  }, [disabled]);
-
-  const commit = () => {
-    if (disabled) {
-      setDraft(value);
-      return;
-    }
-
-    if (HEX_PATTERN.test(draft)) {
-      onChange(draft.toUpperCase());
-      return;
-    }
-
-    setDraft(value);
-  };
-
+  const inputId = useId();
   return (
-    <label
-      className={`${styles.hexField} ${compact ? styles.hexFieldCompact : ''} ${
-        disabled ? styles.hexFieldDisabled : ''
-      }`}
+    <ColorPicker
+      value={value}
+      onValueChange={(next) => onChange(next.toUpperCase())}
+      disabled={disabled}
+      className={`${styles.hexField} ${compact ? styles.hexFieldCompact : ''} ${disabled ? styles.hexFieldDisabled : ''}`}
     >
-      {label ? <span className={styles.controlLabel}>{label}</span> : null}
-
+      {label ? (
+        <label className={styles.controlLabel} htmlFor={inputId}>
+          {label}
+        </label>
+      ) : null}
       <div className={styles.hexFieldBody}>
-        <button
-          ref={swatchRef}
+        <ColorPicker.Trigger
           className={styles.colorSwatchButton}
-          type="button"
           aria-label={t('foundations.colorStudio.picker.open')}
-          aria-expanded={pickerOpen}
-          disabled={disabled}
-          onClick={() => setPickerOpen((current) => !current)}
         >
-          <span className={styles.colorSwatch} style={{ backgroundColor: value }} />
-        </button>
-
-        <input
+          <ColorPicker.Preview className={styles.colorSwatch} />
+        </ColorPicker.Trigger>
+        <ColorPicker.HexField
+          id={inputId}
+          aria-label={label ? undefined : t('foundations.colorStudio.picker.hex')}
           className={styles.hexInput}
-          value={draft}
-          spellCheck={false}
-          disabled={disabled}
-          onChange={(event) => setDraft(event.target.value)}
-          onBlur={commit}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter') {
-              event.currentTarget.blur();
-            }
-          }}
+          letterCase="upper"
         />
-
-        {pickerOpen && !disabled ? (
-          <ColorPickerPopover
-            value={value}
-            anchorRef={swatchRef}
-            onChange={onChange}
-            onClose={() => setPickerOpen(false)}
-          />
-        ) : null}
+        <ColorPickerPopover />
       </div>
-    </label>
+    </ColorPicker>
   );
 }

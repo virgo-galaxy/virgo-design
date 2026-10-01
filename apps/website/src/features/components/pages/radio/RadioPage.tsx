@@ -7,6 +7,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { radioExamples } from '@/examples/components/radio/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -16,8 +17,8 @@ export function RadioPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board" id="radio-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page" id="radio-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Radio</h1>
@@ -37,25 +38,25 @@ export function RadioPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.radio.specimen.referenceSpecimen')}</span>
               <code>horizontal · standard</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <Radio.Group defaultValue="pear" aria-label={t('examples.radio.copy.fruit')}>
                 <Radio value="apple">{t('examples.radio.copy.apple')}</Radio>
                 <Radio value="pear">{t('examples.radio.copy.pear')}</Radio>
                 <Radio value="orange">{t('examples.radio.copy.orange')}</Radio>
               </Radio.Group>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.radio.specimen.16pxControl')}</span>
               <span>{t('examples.radio.copy.bodyMedium')}</span>
               <span>{t('components.radio.specimen.singleSelection')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'radio-basic'}

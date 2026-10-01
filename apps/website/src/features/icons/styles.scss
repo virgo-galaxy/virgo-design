@@ -16,7 +16,7 @@
     border-radius: 16px;
     background: var(--vd-surface-default);
   }
-  .review-board {
+  .icon-specimen {
     min-width: 0;
     padding: 32px;
   }
@@ -248,7 +248,7 @@
     .review-workspace {
       grid-template-columns: minmax(0, 1fr);
     }
-    .review-board {
+    .icon-specimen {
       padding: 24px;
     }
     .preview-sidebar {
@@ -257,7 +257,7 @@
     }
   }
   @media (max-width: 420px) {
-    .review-board {
+    .icon-specimen {
       padding: 20px;
     }
     .preview-sidebar {

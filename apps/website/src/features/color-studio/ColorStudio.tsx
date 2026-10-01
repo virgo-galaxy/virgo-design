@@ -74,7 +74,7 @@ export function ColorStudio({ studio, appearance }: ColorStudioProps) {
           <div className={pagerStyles.track} data-page={studio.state.foundationPage}>
             <div className={pagerStyles.page}>
               <div className={pagerStyles.pageInner}>
-                <main
+                <div
                   className={`${styles.workspace} ${
                     independent ? styles.workspaceIndependent : styles.workspaceLinked
                   }`}
@@ -107,7 +107,7 @@ export function ColorStudio({ studio, appearance }: ColorStudioProps) {
                     selectedFamily={studio.state.selectedFamily}
                     onSelectedFamilyChange={studio.setSelectedFamily}
                   />
-                </main>
+                </div>
               </div>
             </div>
 

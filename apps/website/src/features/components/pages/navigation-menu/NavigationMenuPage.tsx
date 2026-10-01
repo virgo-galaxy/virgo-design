@@ -10,6 +10,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { navigationMenuExamples } from '@/examples/components/navigation-menu/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -71,8 +72,8 @@ export function NavigationMenuPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board navigation-menu-review" id="navigation-menu-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page navigation-menu-page" id="navigation-menu-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>NavigationMenu</h1>
@@ -92,21 +93,21 @@ export function NavigationMenuPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.navigationMenu.specimen.referenceSpecimen')}</span>
               <code>horizontal · popover</code>
-            </div>
-            <div className="hero-stage navigation-menu-hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="navigation-menu-hero-stage">
               <HeaderPopoverNavigation />
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.navigationMenu.specimen.hoverAndFocus')}</span>
               <span>{t('components.navigationMenu.specimen.sharedLayerSystem')}</span>
               <span>{t('components.navigationMenu.specimen.keyboardNavigation')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'navigation-orientations'}

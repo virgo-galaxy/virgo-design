@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useParams, useSearchParams } from 'react-router-dom';
 
+import { PageSkeleton } from '@/components/loading/PageSkeleton';
 import { loadStandaloneExample } from '@/examples/components/standalone-example-registry';
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
 import type { Appearance } from '@/shared/theme/types';
@@ -47,7 +48,7 @@ export function StandaloneExamplePage() {
       data-standalone-example={exampleId}
       aria-label={t('examples.standalone.label', { id: exampleId })}
     >
-      {Example ? <Example /> : <div aria-busy="true" />}
+      {Example ? <Example /> : <PageSkeleton variant="example" />}
     </main>
   );
 }

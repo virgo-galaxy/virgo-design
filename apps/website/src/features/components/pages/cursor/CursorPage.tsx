@@ -7,6 +7,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { cursorExamples } from '@/examples/components/cursor/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -17,8 +18,8 @@ export function CursorPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board cursor-review" id="cursor-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page cursor-page" id="cursor-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Cursor</h1>
@@ -38,11 +39,11 @@ export function CursorPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.cursor.specimen.referenceSpecimen')}</span>
               <code>{t('components.cursor.specimen.summary')}</code>
-            </div>
+            </ReferenceSpecimen.Toolbar>
             <Cursor.Provider follow={{ tooltip: true }} className="hero-stage">
               <Tooltip>
                 <Tooltip.Trigger>{t('examples.cursor.copy.followYourCuriosity')}</Tooltip.Trigger>
@@ -51,13 +52,13 @@ export function CursorPage() {
                 </Tooltip.Content>
               </Tooltip>
             </Cursor.Provider>
-            <div className="specimen-caption">
+            <ReferenceSpecimen.Caption>
               <span>{t('components.cursor.specimen.scopedInput')}</span>
               <span>{t('components.cursor.specimen.customVisuals')}</span>
               <span>{t('components.cursor.specimen.keyboardReady')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         {Object.values(cursorExamples).map((example, index) => (
           <ArticleSection

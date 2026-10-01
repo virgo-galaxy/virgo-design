@@ -3,6 +3,12 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { dockExamplesEnUS } from './en-US';
 export const dockExamplesZhCN = {
   copy: {
+    top: '顶部',
+    right: '右侧',
+    bottom: '底部',
+    left: '左侧',
+    start: '起始',
+    end: '末尾',
     dockPlacementControls: 'Dock 位置控制',
     moveInspector: '移动检查器',
     inspector: '检查器',

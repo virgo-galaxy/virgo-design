@@ -20,7 +20,7 @@ export default function App() {
           <Layout.Sidebar width="30%" surface={{ material: 'translucent', border: 'none' }}>
             <span className={styles.label!}>{t('examples.surface.copy.sidebar')}</span>
           </Layout.Sidebar>
-          <Layout.Content padding={16} surface={{ tone: 'elevated' }}>
+          <Layout.Content as="div" padding={16} surface={{ tone: 'elevated' }}>
             <strong>{t('examples.surface.copy.content')}</strong>
             <Surface tone="secondary" border="subtle" radius={8} className={styles.surface!}>
               {t('examples.surface.copy.aNestedSemanticSurface')}

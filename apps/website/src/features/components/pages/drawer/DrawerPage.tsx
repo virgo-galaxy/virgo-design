@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { drawerExamples } from '@/examples/components/drawer/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -18,8 +19,8 @@ export function DrawerPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board drawer-review" id="drawer-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page drawer-page" id="drawer-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Drawer</h1>
@@ -39,12 +40,12 @@ export function DrawerPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.drawer.specimen.referenceSpecimen')}</span>
               <code>placement=&quot;right&quot;</code>
-            </div>
-            <div className="hero-stage drawer-hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="drawer-hero-stage">
               <Drawer.Root>
                 <Drawer.Trigger>{t('examples.drawer.copy.openSettings')}</Drawer.Trigger>
                 <Drawer.Portal>
@@ -77,14 +78,14 @@ export function DrawerPage() {
                   </Drawer.Content>
                 </Drawer.Portal>
               </Drawer.Root>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.drawer.specimen.dialogBehavior')}</span>
               <span>{t('components.drawer.specimen.edgeMotion')}</span>
               <span>{t('components.drawer.specimen.scrollableBody')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'drawer-placements'}

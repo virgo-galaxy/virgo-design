@@ -1,4 +1,4 @@
-import { createContext, forwardRef, useContext, useId } from 'react';
+import { createContext, forwardRef, useCallback, useContext, useId } from 'react';
 
 import { useControllableState } from '../../internal/hooks/useControllableState';
 import type {
@@ -96,11 +96,19 @@ export const LayoutSidebarTrigger = forwardRef<HTMLButtonElement, LayoutSidebarT
 );
 LayoutSidebarTrigger.displayName = 'Layout.SidebarTrigger';
 
-export const LayoutContent = forwardRef<HTMLElement, LayoutContentProps>(
-  function LayoutContent(props, forwardedRef) {
-    return <main {...props} ref={forwardedRef} />;
-  },
-);
+export const LayoutContent = forwardRef<HTMLElement, LayoutContentProps>(function LayoutContent(
+  { as: Component = 'main', ...props },
+  forwardedRef,
+) {
+  const setRef = useCallback(
+    (node: HTMLElement | null) => {
+      if (typeof forwardedRef === 'function') return forwardedRef(node);
+      if (forwardedRef) forwardedRef.current = node;
+    },
+    [forwardedRef],
+  );
+  return <Component {...props} ref={setRef} />;
+});
 
 LayoutContent.displayName = 'Layout.Content';
 

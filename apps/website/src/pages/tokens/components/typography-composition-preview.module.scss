@@ -170,7 +170,7 @@
   background: var(--foundation-accent);
 }
 
-.uiSidebar nav {
+.uiNavigation {
   display: grid;
   gap: 5px;
 }
@@ -345,7 +345,7 @@
     border-bottom: 1px solid var(--foundation-line);
   }
 
-  .uiSidebar nav {
+  .uiNavigation {
     grid-column: 1 / -1;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

@@ -1,3 +1,4 @@
+import { SegmentedControl } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { chromaticModeTranslationKeys } from '../../color-studio-i18n';
@@ -15,25 +16,29 @@ export function ChromaticModeControl({ value, onChange }: ChromaticModeControlPr
   const { t } = useTranslation();
 
   return (
-    <section className={styles.controlGroup}>
-      <span className={styles.controlLabel}>
+    <section className={styles.controlGroup!}>
+      <span className={styles.controlLabel!}>
         {t('foundations.colorStudio.settings.paletteMode')}
       </span>
 
-      <div className={styles.segmented}>
+      <SegmentedControl
+        className={styles.segmented!}
+        value={value}
+        onValueChange={(next) => onChange(next as ChromaticMode)}
+        aria-label={t('foundations.colorStudio.settings.paletteMode')}
+      >
         {modes.map((mode) => (
-          <button
+          <SegmentedControl.Item
             key={mode}
-            className={value === mode ? styles.segmentedActive : ''}
-            type="button"
-            onClick={() => onChange(mode)}
+            value={mode}
+            className={value === mode ? styles.segmentedActive! : ''}
           >
             {t(chromaticModeTranslationKeys[mode].label)}
-          </button>
+          </SegmentedControl.Item>
         ))}
-      </div>
+      </SegmentedControl>
 
-      <p className={styles.controlHint}>{t(chromaticModeTranslationKeys[value].description)}</p>
+      <p className={styles.controlHint!}>{t(chromaticModeTranslationKeys[value].description)}</p>
     </section>
   );
 }

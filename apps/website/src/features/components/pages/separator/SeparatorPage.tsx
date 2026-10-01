@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { separatorExamples } from '@/examples/components/separator/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -18,8 +19,8 @@ export function SeparatorPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board separator-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page separator-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Separator</h1>
@@ -39,25 +40,25 @@ export function SeparatorPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.separator.specimen.referenceSpecimen')}</span>
               <code>horizontal · semantic</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <div className="separator-stack">
                 <span>{t('examples.separator.copy.accountDetails')}</span>
                 <Separator />
                 <span>{t('examples.separator.copy.billing')}</span>
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.separator.specimen.ruleBasedRhythm')}</span>
               <span>{t('components.separator.specimen.horizontalByDefault')}</span>
               <span>{t('components.separator.specimen.decorativeOrSemantic')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'separator-horizontal'}

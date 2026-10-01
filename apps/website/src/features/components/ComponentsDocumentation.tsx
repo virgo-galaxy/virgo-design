@@ -1,8 +1,8 @@
 import '@virgo-design/tokens/styles.css';
 import './styles.scss';
 
-import { Breadcrumb, Layout } from '@virgo-design/ui';
-import { type ReactNode, useLayoutEffect, useRef } from 'react';
+import { Breadcrumb, Layout, Tag } from '@virgo-design/ui';
+import { type ReactNode, Suspense, useLayoutEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
@@ -16,10 +16,11 @@ import {
   DocumentationSidebarItem,
   DocumentationSidebarSeparator,
 } from '@/components/docs/DocumentationSidebar';
-import { componentApiReference } from '@/generated/api-reference.generated';
+import { componentApiReference } from '@/generated/component-api-reference.generated';
 import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { componentGroups, componentRoutes, type ComponentSlug } from './app/componentRoutes';
+import { ComponentContentLoading } from './components/ComponentContentLoading';
 import { ComponentPageMetadataProvider } from './components/ComponentPageMetadata';
 import { ComponentsCataloguePage } from './ComponentsCataloguePage';
 
@@ -83,11 +84,15 @@ export function ComponentsDocumentation({ renderRelationships }: ComponentsDocum
                   <DocumentationSidebarIndex>{route.index}</DocumentationSidebarIndex>
                   <DocumentationSidebarCopy>
                     <strong>{route.name}</strong>
-                    <small>{t(`components.catalogue.categories.${route.id}`)}</small>
+                    <small>{t(`components.catalogue.sidebarLabels.${route.id}`)}</small>
                   </DocumentationSidebarCopy>
-                  <span className="component-status" data-status={route.status}>
+                  <Tag
+                    size="sm"
+                    intent={route.status === 'stable' ? 'success' : 'neutral'}
+                    data-status={route.status}
+                  >
                     {route.version.replace(/^V/, '')}
-                  </span>
+                  </Tag>
                 </DocumentationSidebarItem>
               ))}
               {groupIndex < navigationGroups.length - 1 ? <DocumentationSidebarSeparator /> : null}
@@ -106,17 +111,19 @@ export function ComponentsDocumentation({ renderRelationships }: ComponentsDocum
           }
         >
           <ComponentPageMetadataProvider metadata={activeRoute}>
-            <Routes>
-              <Route index element={<ComponentsCataloguePage />} />
-              {componentRoutes.map(({ Component, id, path }) => (
-                <Route
-                  key={id}
-                  path={path.replace(componentsBasePath, '')}
-                  element={<Component />}
-                />
-              ))}
-              <Route path="*" element={<Navigate replace to="/components/button" />} />
-            </Routes>
+            <Suspense fallback={<ComponentContentLoading />}>
+              <Routes>
+                <Route index element={<ComponentsCataloguePage />} />
+                {componentRoutes.map(({ Component, id, path }) => (
+                  <Route
+                    key={id}
+                    path={path.replace(componentsBasePath, '')}
+                    element={<Component />}
+                  />
+                ))}
+                <Route path="*" element={<Navigate replace to="/components/button" />} />
+              </Routes>
+            </Suspense>
           </ComponentPageMetadataProvider>
           <RegistryApiReference registry={componentApiReference} slug={activeRoute.id} />
           {renderRelationships?.(activeRoute.id)}

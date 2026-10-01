@@ -197,7 +197,8 @@ Each entry imports a neighboring `*Example.tsx` normally and as `?raw`, plus the
 | `calendar`          |                   2 |
 | `card`              |                   6 |
 | `checkbox`          |                   4 |
-| `color-picker`      |                   2 |
+| `color-picker`      |                   3 |
+| `collapsible`       |                   1 |
 | `combobox`          |                   4 |
 | `command`           |                   3 |
 | `context-menu`      |                   3 |
@@ -226,6 +227,7 @@ Each entry imports a neighboring `*Example.tsx` normally and as `?raw`, plus the
 | `skeleton`          |                   3 |
 | `slider`            |                   2 |
 | `spinner`           |                   4 |
+| `steps`             |                   1 |
 | `surface`           |                  11 |
 | `switch`            |                   6 |
 | `table`             |                   3 |
@@ -274,7 +276,7 @@ The legacy hard-coded Surface `<details>` source block and 105 duplicate metadat
 Repository tests cover article structure, exact paired React / SCSS raw sources, disclosure semantics,
 unique panel IDs, keyboard disclosure actions, source-tab switching, the synchronized Expand all /
 Collapse all runtime control, real Virgo icons/Tooltip, copy-to-check feedback, clipboard
-success/failure/pending/retry/unmount behavior, stateful Dialog integration, duplicate instance registration/unregistration, all 48 pages in both
+success/failure/pending/retry/unmount behavior, stateful Dialog integration, duplicate instance registration/unregistration, all 50 pages in both
 themes, and representative independent form/menu/tab/notification examples. Manifest tests pair
 all executable modules with their normalized React source and exact SCSS source, and check public
 dependency boundaries in the consumer React source.
@@ -286,3 +288,15 @@ browser or syntax checks are supplementary and do not replace this workspace val
 
 Reference behavior: Vite static asset raw imports, WAI-ARIA Disclosure pattern, and the browser
 Clipboard `writeText` API. Clipboard access is subject to the browser's secure-context/permission rules.
+
+## Website self-hosting boundary
+
+Component route metadata keeps lazy page components. Opening a catalogue does not load all
+50 detail pages and their live examples/raw source. Each detail page renders inside the existing
+DocumentationDetailShell with a localized Suspense status. Standalone examples retain their
+existing lazy glob registry and route contract.
+
+The page wrapper is `component-page`, article anchors use `data-docs-section`, and ArticleSection
+retains `data-article-section`. These are current documentation concepts rather than the former
+review board. Genuine icon geometry and semantic color review tools retain their review names.
+Layout examples and specimens use `Layout.Content as="div"` under the document's single main.

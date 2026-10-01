@@ -38,6 +38,9 @@ export interface LayoutSidebarTriggerProps extends ButtonHTMLAttributes<HTMLButt
   ) => ReactElement;
 }
 
-export type LayoutContentProps = HTMLAttributes<HTMLElement>;
+export interface LayoutContentProps extends HTMLAttributes<HTMLElement> {
+  /** Semantic element for a page main region or an embedded content area. @default 'main' */
+  as?: 'main' | 'div';
+}
 
 export type LayoutFooterProps = HTMLAttributes<HTMLElement>;

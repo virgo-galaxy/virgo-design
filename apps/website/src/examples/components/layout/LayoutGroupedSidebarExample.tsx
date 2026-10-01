@@ -57,7 +57,7 @@ export default function App() {
           </NavigationMenu.List>
         </NavigationMenu.Root>
       </Layout.Sidebar>
-      <Layout.Content className={styles.content!} surface={{ tone: 'elevated' }}>
+      <Layout.Content as="div" className={styles.content!} surface={{ tone: 'elevated' }}>
         <span className={styles.contentLabel!}>{t('examples.layout.copy.content')}</span>
       </Layout.Content>
     </Layout>

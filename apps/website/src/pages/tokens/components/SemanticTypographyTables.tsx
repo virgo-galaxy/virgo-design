@@ -1,4 +1,5 @@
 import { resolveTypography, type SemanticTypographyToken, typography } from '@virgo-design/tokens';
+import { Table } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { useAppLocale } from '@/i18n';
@@ -28,37 +29,47 @@ function TypographyTable({ description, locale, rows, title }: TypographyTablePr
         <p>{description}</p>
       </header>
 
-      <div className={styles.tableViewport}>
-        <table aria-label={title}>
-          <thead>
-            <tr>
-              <th scope="col">{t('tokens.typography.semanticTypography.columns.role')}</th>
-              <th scope="col">{t('tokens.typography.semanticTypography.columns.fontFamily')}</th>
-              <th scope="col">{t('tokens.typography.semanticTypography.columns.fontSize')}</th>
-              <th scope="col">{t('tokens.typography.semanticTypography.columns.fontWeight')}</th>
-              <th scope="col">{t('tokens.typography.semanticTypography.columns.lineHeight')}</th>
-            </tr>
-          </thead>
-          <tbody>
+      <Table.Viewport className={styles.tableViewport} aria-label={title}>
+        <Table border="none" aria-label={title}>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head scope="col">
+                {t('tokens.typography.semanticTypography.columns.role')}
+              </Table.Head>
+              <Table.Head scope="col">
+                {t('tokens.typography.semanticTypography.columns.fontFamily')}
+              </Table.Head>
+              <Table.Head scope="col">
+                {t('tokens.typography.semanticTypography.columns.fontSize')}
+              </Table.Head>
+              <Table.Head scope="col">
+                {t('tokens.typography.semanticTypography.columns.fontWeight')}
+              </Table.Head>
+              <Table.Head scope="col">
+                {t('tokens.typography.semanticTypography.columns.lineHeight')}
+              </Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {rows.map(({ group, label, recipe }, index) => {
               const resolved = resolveTypography(recipe, locale);
 
               return (
-                <tr
+                <Table.Row
                   key={`${group}-${label}`}
                   className={index > 0 && rows[index - 1]?.group !== group ? styles.groupStart : ''}
                 >
-                  <th scope="row">{label}</th>
-                  <td>{resolved.fontFamily}</td>
-                  <td>{resolved.fontSize}</td>
-                  <td>{resolved.fontWeight}</td>
-                  <td>{resolved.lineHeight.toFixed(2)}</td>
-                </tr>
+                  <Table.Head scope="row">{label}</Table.Head>
+                  <Table.Cell>{resolved.fontFamily}</Table.Cell>
+                  <Table.Cell>{resolved.fontSize}</Table.Cell>
+                  <Table.Cell>{resolved.fontWeight}</Table.Cell>
+                  <Table.Cell>{resolved.lineHeight.toFixed(2)}</Table.Cell>
+                </Table.Row>
               );
             })}
-          </tbody>
-        </table>
-      </div>
+          </Table.Body>
+        </Table>
+      </Table.Viewport>
     </article>
   );
 }

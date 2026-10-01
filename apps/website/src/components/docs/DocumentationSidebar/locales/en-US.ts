@@ -1,7 +1,5 @@
 export const documentationSidebarEnUS = {
   sidebar: {
-    collapse: 'Collapse sidebar',
-    expand: 'Expand sidebar',
     componentsLabel: 'Components sidebar',
     componentNavigation: 'Component navigation',
     primitivesLabel: 'Primitives sidebar',

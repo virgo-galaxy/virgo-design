@@ -8,6 +8,22 @@ import { Layout } from './index';
 describe('Layout', () => {
   afterEach(() => vi.unstubAllGlobals());
 
+  it('allows embedded content without introducing another main landmark', () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <Layout.Content aria-label="Page content">
+        <Layout.Content as="div" ref={ref} className="embedded-content" tabIndex={-1}>
+          Embedded content
+        </Layout.Content>
+      </Layout.Content>,
+    );
+    expect(screen.getAllByRole('main')).toHaveLength(1);
+    expect(ref.current?.tagName).toBe('DIV');
+    expect(ref.current).toHaveClass('embedded-content');
+    expect(ref.current).toHaveAttribute('tabindex', '-1');
+    expect(screen.getByRole('main')).toHaveAccessibleName('Page content');
+  });
+
   it('preserves floating sidebar behavior and permits surface overrides', async () => {
     const user = userEvent.setup();
     const { rerender } = render(

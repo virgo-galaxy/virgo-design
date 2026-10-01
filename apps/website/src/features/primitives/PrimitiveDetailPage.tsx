@@ -14,7 +14,8 @@ import {
   DocumentationSidebarSeparator,
 } from '@/components/docs/DocumentationSidebar';
 import { PrimitiveSpecimen } from '@/components/docs/PrimitiveSpecimen/PrimitiveSpecimen';
-import { primitiveApiReference } from '@/generated/api-reference.generated';
+import { primitiveApiReference } from '@/generated/primitive-api-reference.generated';
+import { useAppLocale } from '@/i18n/use-app-locale';
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
 import { useAppearance } from '@/shared/theme/use-appearance';
 
@@ -56,6 +57,7 @@ export interface PrimitiveDetailPageProps {
 
 export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPageProps) {
   const { t } = useTranslation();
+  const locale = useAppLocale();
   const { slug = '' } = useParams();
   const { appearance } = useAppearance();
   const location = useLocation();
@@ -104,7 +106,11 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
                       </DocumentationSidebarIndex>
                       <DocumentationSidebarCopy>
                         <strong>{primitive.exportName}</strong>
-                        <small>{t('primitives.catalogue.headless')}</small>
+                        <small>
+                          {locale === 'zh-CN'
+                            ? t(`primitives.catalogue.names.${primitive.slug}`)
+                            : t('primitives.catalogue.headless')}
+                        </small>
                       </DocumentationSidebarCopy>
                     </DocumentationSidebarItem>
                   );
@@ -141,7 +147,7 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
               </header>
 
               <div className={styles.detailGrid}>
-                <main className={styles.detailMain}>
+                <div className={styles.detailMain}>
                   <PrimitiveSpecimen>
                     <PrimitiveExample slug={doc.slug as PrimitiveSlug} />
                   </PrimitiveSpecimen>
@@ -202,17 +208,25 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
                       <DetailList items={doc.accessibility.map((key) => t(key))} />
                     </Card.Body>
                   </Card>
-                </main>
+                </div>
 
                 <aside className={styles.apiPanel} aria-labelledby="public-api-heading">
-                  <h2 id="public-api-heading">{t('primitives.detail.publicApi')}</h2>
-                  <ul>
-                    {doc.publicApi.map((entry) => (
-                      <li key={entry}>
-                        <code>{entry}</code>
-                      </li>
-                    ))}
-                  </ul>
+                  <Card variant="outlined" size="sm">
+                    <Card.Header>
+                      <Card.Title as="h2" id="public-api-heading">
+                        {t('primitives.detail.publicApi')}
+                      </Card.Title>
+                    </Card.Header>
+                    <Card.Body>
+                      <ul>
+                        {doc.publicApi.map((entry) => (
+                          <li key={entry}>
+                            <code>{entry}</code>
+                          </li>
+                        ))}
+                      </ul>
+                    </Card.Body>
+                  </Card>
                 </aside>
               </div>
 
@@ -220,7 +234,7 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
                 registry={primitiveApiReference}
                 slug={doc.slug}
                 id="primitive-api"
-                title="TypeScript API"
+                title={t('primitives.detail.typescriptApi')}
                 className={styles.fullApi}
               />
 

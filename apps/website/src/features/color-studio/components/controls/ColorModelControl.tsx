@@ -1,4 +1,5 @@
 import type { ColorModel } from '@virgo-design/colors';
+import { SegmentedControl } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import styles from '../../styles/color-studio.module.scss';
@@ -19,29 +20,33 @@ export function ColorModelControl({ value, disabled = false, onChange }: ColorMo
   const { t } = useTranslation();
 
   return (
-    <section className={`${styles.controlGroup} ${disabled ? styles.controlDisabled : ''}`}>
-      <div className={styles.controlLabelRow}>
-        <span className={styles.controlLabel}>
+    <section className={`${styles.controlGroup!} ${disabled ? styles.controlDisabled! : ''}`}>
+      <div className={styles.controlLabelRow!}>
+        <span className={styles.controlLabel!}>
           {t('foundations.colorStudio.settings.colorModel')}
         </span>
-        <span className={styles.recommended}>
+        <span className={styles.recommended!}>
           {t('foundations.colorStudio.settings.recommended')}
         </span>
       </div>
 
-      <div className={styles.segmented}>
+      <SegmentedControl
+        className={styles.segmented!}
+        value={value}
+        onValueChange={(next) => onChange(next as ColorModel)}
+        aria-label={t('foundations.colorStudio.settings.colorModel')}
+        disabled={disabled}
+      >
         {models.map((model) => (
-          <button
+          <SegmentedControl.Item
             key={model.id}
-            className={value === model.id ? styles.segmentedActive : ''}
-            type="button"
-            disabled={disabled}
-            onClick={() => onChange(model.id)}
+            value={model.id}
+            className={value === model.id ? styles.segmentedActive! : ''}
           >
             {model.label}
-          </button>
+          </SegmentedControl.Item>
         ))}
-      </div>
+      </SegmentedControl>
     </section>
   );
 }

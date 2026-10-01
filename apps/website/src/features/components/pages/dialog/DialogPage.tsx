@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { dialogExamples } from '@/examples/components/dialog/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -18,8 +19,8 @@ export function DialogPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <article className="review-board dialog-review" id="dialog-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <article className="component-page dialog-page" id="dialog-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Dialog</h1>
@@ -40,12 +41,12 @@ export function DialogPage() {
             </dl>
           </div>
 
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.dialog.specimen.referenceSpecimen')}</span>
               <code>size=&quot;md&quot;</code>
-            </div>
-            <div className="hero-stage dialog-hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="dialog-hero-stage">
               <Dialog.Root>
                 <Dialog.Trigger>{t('examples.dialog.copy.openDialog')}</Dialog.Trigger>
                 <Dialog.Portal>
@@ -71,14 +72,14 @@ export function DialogPage() {
                   </Dialog.Content>
                 </Dialog.Portal>
               </Dialog.Root>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.dialog.specimen.focusTrapped')}</span>
               <span>{t('components.dialog.specimen.escapeReady')}</span>
               <span>{t('components.dialog.specimen.themeAware')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
 
         <ArticleSection

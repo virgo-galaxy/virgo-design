@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { layoutExamples } from '@/examples/components/layout/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -33,7 +34,7 @@ function HeroLayout() {
           >
             {t('examples.layout.copy.sidebar')}
           </Layout.Sidebar>
-          <Layout.Content className="layout-demo-region layout-demo-content">
+          <Layout.Content as="div" className="layout-demo-region layout-demo-content">
             {t('examples.layout.copy.content')}
           </Layout.Content>
         </Layout>
@@ -50,8 +51,8 @@ export function LayoutPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board layout-system-review" id="layout-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page layout-system-page" id="layout-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Layout</h1>
@@ -71,23 +72,23 @@ export function LayoutPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.layout.specimen.referenceSpecimen')}</span>
               <code>header · lane · sidebar · content · footer</code>
-            </div>
-            <div className="hero-stage layout-hero-stage">
-              <div className="layout-hero-frame layout-review-card">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="layout-hero-stage">
+              <div className="layout-hero-frame layout-page-card">
                 <HeroLayout />
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.layout.specimen.verticalComposition')}</span>
               <span>{t('components.layout.specimen.laneOwnedBodyRegion')}</span>
               <span>{t('components.layout.specimen.semanticPageSkeleton')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'layout-structures'}

@@ -225,3 +225,15 @@ describe('Input.Password', () => {
     expect(screen.getByRole('button', { name: 'Hide password' })).toBeInTheDocument();
   });
 });
+
+it('customizes the frame independently while forwarding native refs and field labels', async () => {
+  const user = userEvent.setup();
+  const ref = createRef<HTMLInputElement>();
+  render(
+    <Input ref={ref} aria-label="HEX" rootClassName="frame-style" className="control-style" />,
+  );
+  expect(ref.current).toHaveClass('control-style');
+  expect(ref.current!.parentElement).toHaveClass('frame-style');
+  await user.type(screen.getByRole('textbox', { name: 'HEX' }), '#123456');
+  expect(ref.current).toHaveValue('#123456');
+});

@@ -25,7 +25,8 @@ export const tableExamples = {
     id: 'table-density',
     title: 'Density and borders',
     titleTranslationKey: 'examples.table.copy.title1',
-    description: 'Local presentation options keep the same table semantics.',
+    description:
+      'Density and border options retain native semantics. Surface frames internal row separators.',
     descriptionTranslationKey: 'examples.table.copy.description1',
     Component: TableDensityExample,
     source: createExampleSource(source1),

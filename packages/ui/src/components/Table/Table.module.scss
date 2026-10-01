@@ -16,6 +16,15 @@
   &[data-border='rows'] .cell {
     border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
   }
+  // Internal rules work with or without headings, and skip empty table sections.
+  &[data-border='separators'] > :is(thead, tbody, tfoot) > .row + .row > .cell,
+  &[data-border='separators']
+    > :is(thead, tbody, tfoot):has(> .row)
+    ~ :is(thead, tbody, tfoot)
+    > .row:first-child
+    > .cell {
+    border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  }
   &[data-border='all'] .cell {
     border: var(--vd-border-width-1) solid var(--vd-border-default);
   }

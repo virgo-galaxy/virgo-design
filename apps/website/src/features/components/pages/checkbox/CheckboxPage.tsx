@@ -7,6 +7,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { checkboxExamples } from '@/examples/components/checkbox/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -16,8 +17,8 @@ export function CheckboxPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board" id="checkbox-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page" id="checkbox-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Checkbox</h1>
@@ -37,21 +38,21 @@ export function CheckboxPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.checkbox.specimen.referenceSpecimen')}</span>
               <code>checked</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <Checkbox defaultChecked>{t('examples.checkbox.copy.syncChanges')}</Checkbox>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.checkbox.specimen.16pxControl')}</span>
               <span>{t('examples.checkbox.copy.bodyMedium')}</span>
               <span>{t('components.checkbox.specimen.radius4')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'checkbox-basic'}

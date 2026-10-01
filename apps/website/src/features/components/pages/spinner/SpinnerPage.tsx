@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { spinnerExamples } from '@/examples/components/spinner/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -18,8 +19,8 @@ export function SpinnerPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board spinner-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page spinner-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Spinner</h1>
@@ -39,12 +40,12 @@ export function SpinnerPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.spinner.specimen.referenceSpecimen')}</span>
               <code>inline · button · currentColor</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <div className="spinner-stage">
                 <span className="spinner-inline">
                   <Spinner size="sm" /> {t('examples.spinner.copy.syncingChanges')}
@@ -58,14 +59,14 @@ export function SpinnerPage() {
                   aria-label={t('examples.spinner.copy.loadingAccountData')}
                 />
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.spinner.specimen.inlineFeedback')}</span>
               <span>{t('components.spinner.specimen.composable')}</span>
               <span>{t('components.spinner.specimen.themeAwareColor')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'spinner-sizes'}

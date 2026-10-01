@@ -1,20 +1,10 @@
+@use './studio-palette' as palette;
+
 .studio {
   scroll-snap-align: start;
   scroll-snap-stop: always;
 
-  --page: #f4f5f7;
-  --surface: rgba(255, 255, 255, 0.84);
-  --surface-solid: #ffffff;
-  --surface-muted: #f7f8fa;
-  --text: #111317;
-  --text-secondary: #696d76;
-  --text-tertiary: #999ea8;
-  --line: rgba(17, 19, 23, 0.09);
-  --line-strong: rgba(17, 19, 23, 0.15);
-  --control: rgba(17, 19, 23, 0.055);
-  --control-hover: rgba(17, 19, 23, 0.085);
-  --shadow: 0 20px 60px rgba(23, 28, 38, 0.08);
-  --accent: #1664f9;
+  @include palette.light;
 
   position: relative;
   min-height: calc(100svh - var(--layout-header-height));
@@ -27,18 +17,7 @@
 }
 
 .studio[data-theme='dark'] {
-  --page: #090a0c;
-  --surface: rgba(18, 20, 24, 0.84);
-  --surface-solid: #121418;
-  --surface-muted: #17191e;
-  --text: #f5f6f8;
-  --text-secondary: #a8adb7;
-  --text-tertiary: #707681;
-  --line: rgba(255, 255, 255, 0.08);
-  --line-strong: rgba(255, 255, 255, 0.14);
-  --control: rgba(255, 255, 255, 0.06);
-  --control-hover: rgba(255, 255, 255, 0.1);
-  --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  @include palette.dark;
 
   background:
     radial-gradient(circle at 75% 12%, rgba(22, 100, 249, 0.13), transparent 32rem), var(--page);
@@ -145,7 +124,7 @@
     box-shadow 140ms ease;
 }
 
-.resetButton:hover {
+.resetButton[data-variant]:hover {
   color: var(--text);
   border-color: var(--line-strong);
   background: var(--control);
@@ -248,7 +227,7 @@
   background: var(--control);
 }
 
-.segmented button {
+.segmented :global([data-segment-value]) {
   border: 0;
   border-radius: 7px;
   color: var(--text-secondary);
@@ -256,14 +235,14 @@
   cursor: pointer;
 }
 
-.segmented button {
+.segmented :global([data-segment-value]) {
   flex: 1;
   height: 31px;
   font-size: 11px;
   font-weight: 650;
 }
 
-.segmented button:hover {
+.segmented :global([data-segment-value]):hover {
   color: var(--text);
 }
 
@@ -389,7 +368,7 @@
   cursor: pointer;
 }
 
-.familyItem:hover {
+.familyItem[data-variant]:hover {
   background: var(--control);
 }
 
@@ -1257,7 +1236,7 @@
 /* Chromatic palette modes                                                    */
 /* -------------------------------------------------------------------------- */
 
-.segmented button:disabled {
+.segmented :global([data-segment-value]):disabled {
   cursor: default;
 }
 
@@ -1345,7 +1324,7 @@
     filter 140ms ease;
 }
 
-.scaleItem:hover {
+.scaleItem[data-variant]:hover {
   z-index: 2;
   transform: translateY(-2px);
   box-shadow: 0 8px 22px rgba(18, 24, 35, 0.09);
@@ -1386,4 +1365,67 @@
   .familyCarouselTrack {
     animation: none;
   }
+}
+
+.resetButton > :global([data-slot='label']),
+.familyItem > :global([data-slot='label']),
+.previewButton > :global([data-slot='label']) {
+  display: contents;
+}
+
+.familyInputFrame {
+  display: contents;
+}
+.familyInputFrame .familyEditorInput {
+  box-sizing: border-box;
+}
+
+.segmented[data-variant] {
+  height: auto;
+  gap: 0;
+}
+.segmented [data-segment-value] {
+  flex: 1;
+  height: 31px;
+  padding: 0;
+}
+.segmented [data-segment-value]::before,
+.segmented [data-segment-value]::after,
+.segmented [data-slot='indicator'] {
+  display: none;
+}
+.segmented [data-slot='label'] {
+  font: inherit;
+}
+.segmented [data-segment-value]:focus-within {
+  outline: 2px solid var(--vd-border-focus);
+  outline-offset: -2px;
+}
+
+.scaleItem > :global([data-slot='label']) {
+  display: contents;
+}
+
+.segmented[data-variant] {
+  background: var(--control);
+}
+.segmented[data-variant]::after {
+  display: none;
+}
+.scaleItem[data-variant],
+.familyItem[data-variant] {
+  display: block;
+  height: auto;
+  font: inherit;
+}
+.scaleItem[data-variant] {
+  border-radius: 0;
+}
+.familyInputFrame[data-slot='root'] {
+  display: contents;
+}
+
+.scaleColor,
+.scaleMeta {
+  display: block;
 }

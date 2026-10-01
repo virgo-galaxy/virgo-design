@@ -3,6 +3,7 @@ import {
   VIRGO_CHROMATIC_BASES,
   VIRGO_NEUTRAL_SCALE,
 } from '@virgo-design/tokens';
+import { Steps, Surface } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { FoundationPage } from '@/pages/foundations/FoundationPage';
@@ -89,7 +90,13 @@ export function ColorsOverview() {
     >
       <div className={styles.metricGrid}>
         {metrics.map((metric) => (
-          <article key={metric.label} className={styles.metricCard}>
+          <Surface
+            role="article"
+            tone="default"
+            border="subtle"
+            key={metric.label}
+            className={styles.metricCard}
+          >
             <div className={styles.colorPreview} data-kind={metric.kind} aria-hidden="true">
               {metric.colors.map((color, index) => (
                 <i key={`${color}-${index}`} style={{ backgroundColor: color }} />
@@ -97,26 +104,25 @@ export function ColorsOverview() {
             </div>
             <strong>{metric.value}</strong>
             <span>{metric.label}</span>
-          </article>
+          </Surface>
         ))}
       </div>
 
       <div className={styles.journeyBlock}>
-        <div className={styles.journeyRail}>
+        <Steps className={styles.journeyRail}>
           {journey.map((step) => (
-            <button
-              key={step.number}
-              className={styles.journeyStep}
-              type="button"
-              onClick={() => scrollTo(step.target)}
-            >
-              <strong>
-                {step.number} · {step.title}
-              </strong>
-              <span>{step.description}</span>
-            </button>
+            <Steps.Item key={step.number}>
+              <Steps.Trigger className={styles.journeyStep} onClick={() => scrollTo(step.target)}>
+                <Steps.Title>
+                  <strong>
+                    {step.number} · {step.title}
+                  </strong>
+                </Steps.Title>
+                <Steps.Description>{step.description}</Steps.Description>
+              </Steps.Trigger>
+            </Steps.Item>
           ))}
-        </div>
+        </Steps>
 
         <div className={styles.journeyCopy}>
           <p>{t('foundations.colors.journey.summary')}</p>

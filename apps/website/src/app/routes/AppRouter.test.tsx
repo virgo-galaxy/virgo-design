@@ -145,7 +145,7 @@ describe('Component routes', () => {
 
     await findRouteHeading('Components');
     expect(screen.queryByRole('navigation', { name: 'Component navigation' })).toBeNull();
-    expect(screen.getAllByRole('link')).toHaveLength(48);
+    expect(screen.getAllByRole('link')).toHaveLength(50);
     expect(screen.getByRole('heading', { level: 2, name: 'General' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: 'Layout' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: 'Navigation' })).toBeInTheDocument();
@@ -193,6 +193,9 @@ describe('Primitive routes', () => {
       expect(screen.getByRole('heading', { level: 2, name: 'Anatomy' })).toBeInTheDocument();
       expect(screen.getByRole('heading', { level: 2, name: 'Behavior' })).toBeInTheDocument();
       expect(screen.getByRole('heading', { level: 2, name: 'Accessibility' })).toBeInTheDocument();
+      const publicApi = screen.getByRole('complementary', { name: 'Public API' });
+      expect(publicApi.firstElementChild).toHaveAttribute('data-variant', 'outlined');
+      expect(publicApi.firstElementChild).toHaveAttribute('data-radius', '12');
     },
   );
 
@@ -266,13 +269,16 @@ describe('Primitive routes', () => {
     );
   });
 
-  it('does not render Used by for a primitive with no UI consumer', async () => {
+  it('renders the newly added styled Collapsible consumer', async () => {
     renderRoute('/primitives/collapsible');
 
     await findRouteHeading('Collapsible');
+    expect(screen.queryByRole('heading', { level: 2, name: 'Relationships' })).toBeInTheDocument();
     expect(
-      screen.queryByRole('heading', { level: 2, name: 'Relationships' }),
-    ).not.toBeInTheDocument();
+      screen
+        .getAllByRole('link', { name: /Collapsible/ })
+        .some((link) => link.getAttribute('href') === '/components/collapsible'),
+    ).toBe(true);
   });
 });
 

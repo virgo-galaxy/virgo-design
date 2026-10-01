@@ -23,7 +23,9 @@ export const SegmentedControlItem = forwardRef<HTMLInputElement, SegmentedContro
           disabled={disabled}
           value={value}
         />
-        <span className={styles.label}>{children}</span>
+        <span className={styles.label} data-slot="label">
+          {children}
+        </span>
       </label>
     );
   },

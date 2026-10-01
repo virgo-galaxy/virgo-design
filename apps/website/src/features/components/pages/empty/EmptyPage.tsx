@@ -10,6 +10,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { emptyExamples } from '@/examples/components/empty/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -19,8 +20,8 @@ export function EmptyPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board empty-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page empty-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Empty</h1>
@@ -40,12 +41,12 @@ export function EmptyPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.empty.specimen.referenceSpecimen')}</span>
               <code>icon · message · action</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <div className="empty-hero-frame">
                 <Empty aria-label={t('examples.empty.copy.emptyDocumentsHeroState')}>
                   <Empty.Icon>
@@ -60,14 +61,14 @@ export function EmptyPage() {
                   </Empty.Action>
                 </Empty>
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.empty.specimen.consumerCopy')}</span>
               <span>{t('components.empty.specimen.composableSlots')}</span>
               <span>{t('components.empty.specimen.neutralGuidance')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'empty-basic'}

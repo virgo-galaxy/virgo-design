@@ -1,4 +1,5 @@
 import { ChevronsDownIcon } from '@virgo-design/icons';
+import { Button } from '@virgo-design/ui';
 
 import styles from './scroll-cue.module.scss';
 
@@ -17,13 +18,16 @@ export function ScrollCue({ targetId, ariaLabel, visible = true }: ScrollCueProp
   };
 
   return (
-    <button
+    <Button
+      variant="text"
+      iconOnly
+      shape="circle"
       className={`${styles.scrollCue} ${visible ? styles.visible : ''}`}
       type="button"
       aria-label={ariaLabel}
       onClick={scrollToTarget}
     >
       <ChevronsDownIcon size={24} aria-hidden="true" />
-    </button>
+    </Button>
   );
 }

@@ -1,4 +1,5 @@
 import type { ColorScale, ColorScaleStep } from '@virgo-design/colors';
+import { Button } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { useCopyToast } from '@/shared/hooks/use-copy-toast';
@@ -34,7 +35,8 @@ export function FoundationScale({ scale, tokenPrefix, baseStep = 6 }: Foundation
 
       <div className={styles.scale}>
         {STEPS.map((step) => (
-          <button
+          <Button
+            variant="text"
             className={styles.scaleItem}
             key={step}
             type="button"
@@ -44,7 +46,7 @@ export function FoundationScale({ scale, tokenPrefix, baseStep = 6 }: Foundation
             })}
             onClick={() => void copyStep(step)}
           >
-            <div
+            <span
               className={styles.scaleColor}
               style={{
                 backgroundColor: scale[step],
@@ -53,13 +55,13 @@ export function FoundationScale({ scale, tokenPrefix, baseStep = 6 }: Foundation
               {step === baseStep ? (
                 <span className={styles.baseBadge}>{t('foundations.colorStudio.baseLabel')}</span>
               ) : null}
-            </div>
+            </span>
 
-            <div className={styles.scaleMeta}>
+            <span className={styles.scaleMeta}>
               <strong>{step}</strong>
               <code>{scale[step].toUpperCase()}</code>
-            </div>
-          </button>
+            </span>
+          </Button>
         ))}
       </div>
     </>

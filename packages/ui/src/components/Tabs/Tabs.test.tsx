@@ -240,3 +240,32 @@ describe('Tabs', () => {
     expect(onClick).toHaveBeenCalledOnce();
   });
 });
+
+it('styles the item, native tab and label separately while preserving tab and panel associations', async () => {
+  const user = userEvent.setup();
+  const ref = createRef<HTMLButtonElement>();
+  render(
+    <Tabs defaultValue="one">
+      <Tabs.List aria-label="Languages">
+        <Tabs.Tab
+          ref={ref}
+          value="one"
+          className="item-style"
+          tabClassName="button-style"
+          labelClassName="label-style"
+        >
+          One
+        </Tabs.Tab>
+        <Tabs.Tab value="two">Two</Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value="one">First</Tabs.Panel>
+      <Tabs.Panel value="two">Second</Tabs.Panel>
+    </Tabs>,
+  );
+  expect(ref.current).toHaveClass('button-style');
+  expect(ref.current!.parentElement).toHaveClass('item-style');
+  expect(ref.current!.querySelector('[data-slot="label"]')).toHaveClass('label-style');
+  await user.tab();
+  await user.keyboard('{ArrowRight}{Enter}');
+  expect(screen.getByRole('tabpanel')).toHaveTextContent('Second');
+});

@@ -10,6 +10,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { popoverExamples } from '@/examples/components/popover/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -21,8 +22,8 @@ export function PopoverPage() {
   const [savedName] = useState(name);
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board popover-review" id="popover-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page popover-page" id="popover-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Popover</h1>
@@ -42,12 +43,12 @@ export function PopoverPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.popover.specimen.referenceSpecimen')}</span>
               <code>{t('components.popover.specimen.summary')}</code>
-            </div>
-            <div className="hero-stage popover-hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="popover-hero-stage">
               <Popover>
                 <Popover.Trigger>{t('examples.popover.copy.workspaceDetails')}</Popover.Trigger>
                 <Popover.Content arrow>
@@ -58,14 +59,14 @@ export function PopoverPage() {
                   </div>
                 </Popover.Content>
               </Popover>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.popover.specimen.anyContent')}</span>
               <span>{t('components.popover.specimen.keyboardReady')}</span>
               <span>{t('components.popover.specimen.themeAware')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'popover-triggers'}

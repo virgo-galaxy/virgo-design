@@ -13,7 +13,7 @@ describe('ArticleSection', () => {
     const heading = screen.getByRole('heading', { level: 2, name: 'Variants' });
     const section = container.querySelector('section');
     expect(section).toHaveAttribute('aria-labelledby', heading.id);
-    expect(section).toHaveAttribute('data-review-section', 'variants');
+    expect(section).toHaveAttribute('data-docs-section', 'variants');
     expect(section).not.toHaveClass('review-section');
     const header = section?.querySelector('header');
     expect(header).toHaveTextContent('Choose an emphasis.');

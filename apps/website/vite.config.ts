@@ -8,6 +8,24 @@ import { rawScssSourcePlugin } from '../../config/raw-scss-source-plugin.ts';
 export default defineConfig({
   plugins: [rawScssSourcePlugin(), react()],
 
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            { name: 'translations', test: /apps[\\/]website[\\/]src[\\/]i18n[\\/]registry\.ts$/ },
+            {
+              name: 'framework',
+              test: /node_modules[\\/](react|react-dom|react-router|react-router-dom|scheduler)[\\/]/,
+            },
+            { name: 'i18n', test: /node_modules[\\/](i18next|react-i18next)[\\/]/ },
+            { name: 'motion', test: /node_modules[\\/]gsap[\\/]/ },
+          ],
+        },
+      },
+    },
+  },
+
   server: {
     port: 6300,
     strictPort: true,

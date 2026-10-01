@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { progressExamples } from '@/examples/components/progress/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -18,8 +19,8 @@ export function ProgressPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board progress-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page progress-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Progress</h1>
@@ -39,12 +40,12 @@ export function ProgressPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.progress.specimen.referenceSpecimen')}</span>
               <code>value · label · showValue</code>
-            </div>
-            <div className="hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage>
               <div className="progress-stack">
                 <Progress
                   value={72}
@@ -59,14 +60,14 @@ export function ProgressPage() {
                   showValue
                 />
               </div>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.progress.specimen.clampedValues')}</span>
               <span>{t('components.progress.specimen.visibleStatus')}</span>
               <span>{t('components.progress.specimen.semanticIntent')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'progress-values'}

@@ -9,6 +9,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { accordionExamples } from '@/examples/components/accordion/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -47,8 +48,8 @@ export function AccordionPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board accordion-review" id="accordion-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page accordion-page" id="accordion-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>Accordion</h1>
@@ -68,12 +69,12 @@ export function AccordionPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.accordion.specimen.referenceSpecimen')}</span>
               <code>single · bordered · md</code>
-            </div>
-            <div className="hero-stage accordion-hero-stage">
+            </ReferenceSpecimen.Toolbar>
+            <ReferenceSpecimen.Stage className="accordion-hero-stage">
               <Accordion.Root
                 type="single"
                 variant="bordered"
@@ -82,14 +83,14 @@ export function AccordionPage() {
               >
                 <DemoItems prefix="hero" />
               </Accordion.Root>
-            </div>
-            <div className="specimen-caption">
+            </ReferenceSpecimen.Stage>
+            <ReferenceSpecimen.Caption>
               <span>{t('components.accordion.specimen.ariaHeadings')}</span>
               <span>{t('components.accordion.specimen.arrowNavigation')}</span>
               <span>{t('components.accordion.specimen.classicStyle')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id={'accordion-variants'}

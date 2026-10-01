@@ -26,7 +26,7 @@ export function DocumentationDetailShell({ breadcrumb, children }: Documentation
 
   return (
     <Layout className={styles.shell!} data-docs-detail-shell="">
-      <Layout.Content>
+      <Layout.Content id="website-main" tabIndex={-1}>
         <Layout.Lane {...laneBoundary} className={`${styles.lane} ${styles.contentLane}`}>
           <div className={styles.breadcrumb}>{breadcrumb}</div>
           {children}

@@ -10,6 +10,7 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
+import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { dockExamples } from '@/examples/components/dock/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -34,8 +35,8 @@ export function DockPage() {
 
   return (
     <ComponentExampleRuntimeProvider>
-      <div className="review-board dock-review" id="dock-review">
-        <section className="overview" id="overview" data-review-section="overview">
+      <div className="component-page dock-page" id="dock-page">
+        <section className="overview" id="overview" data-docs-section="overview">
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>{dockMetadata.name}</h1>
@@ -59,20 +60,20 @@ export function DockPage() {
               </div>
             </dl>
           </div>
-          <div className="hero-specimen">
-            <div className="specimen-toolbar">
+          <ReferenceSpecimen>
+            <ReferenceSpecimen.Toolbar>
               <span>{t('components.dock.specimen.referenceSpecimen')}</span>
               <code>{t('components.dock.specimen.summary')}</code>
-            </div>
+            </ReferenceSpecimen.Toolbar>
             <DockHero />
-            <div className="specimen-caption">
+            <ReferenceSpecimen.Caption>
               <span>{t('components.dock.specimen.interactionChrome')}</span>
               <span>{t('components.dock.specimen.snapFreePlacement')}</span>
               <span>{t('components.dock.specimen.keyboardRepositioning')}</span>
               <span>{t('components.dock.specimen.startEndHandle')}</span>
               <ComponentExampleRuntimeControl />
-            </div>
-          </div>
+            </ReferenceSpecimen.Caption>
+          </ReferenceSpecimen>
         </section>
         <ArticleSection
           id="dock-controlled-placement"

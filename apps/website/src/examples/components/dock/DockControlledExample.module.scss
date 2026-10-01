@@ -9,24 +9,6 @@
   gap: var(--vd-spacing-8);
 }
 
-.controls button {
-  min-height: var(--vd-sizing-32);
-  padding-inline: var(--vd-spacing-12);
-  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-6);
-  background: var(--vd-surface-default);
-  color: var(--vd-text-secondary);
-  cursor: pointer;
-  font: inherit;
-  text-transform: capitalize;
-}
-
-.controls button:hover,
-.controls button[data-active] {
-  color: var(--vd-text-primary);
-  background: var(--vd-fill-hover);
-}
-
 .boundary {
   height: 280px;
   border: var(--vd-border-width-1) dashed var(--vd-border-default);

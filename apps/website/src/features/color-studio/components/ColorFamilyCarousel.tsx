@@ -1,4 +1,5 @@
 import { COLOR_FAMILIES, type ColorFamily, type ColorFamilyBases } from '@virgo-design/colors';
+import { Button } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -48,7 +49,8 @@ export function ColorFamilyCarousel({
                 const selected = family === selectedFamily;
 
                 return (
-                  <button
+                  <Button
+                    variant="text"
                     key={`${copyIndex}-${family}`}
                     className={`${styles.familyItem} ${selected ? styles.familyItemSelected : ''}`}
                     type="button"
@@ -66,7 +68,7 @@ export function ColorFamilyCarousel({
                       {t(`foundations.paletteGallery.families.${family}`)}
                     </span>
                     <code>{bases[family].toUpperCase()}</code>
-                  </button>
+                  </Button>
                 );
               })}
             </div>

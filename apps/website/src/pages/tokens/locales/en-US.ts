@@ -109,6 +109,7 @@ export const tokensEnUS = {
         'CSS custom properties generated directly from the official Light and Dark Color Semantic themes.',
       copy: 'Copy',
       copied: 'Copied',
+      copyFailed: 'Copy failed. Please try again.',
       note: 'This export is derived from @virgo-design/tokens themes. It does not create a Website-local semantic map.',
     },
   },

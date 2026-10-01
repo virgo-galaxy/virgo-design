@@ -21,12 +21,42 @@ describe('ApiReference', () => {
     expect(screen.getByRole('heading', { level: 2, name: 'API' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 3, name: 'ButtonProps' })).toBeInTheDocument();
     expect(screen.getByRole('region', { name: 'ButtonProps properties' })).toBeInTheDocument();
-    const publicTypes = screen
-      .getByRole('heading', { level: 3, name: 'Public types' })
-      .closest('section');
-    expect(publicTypes).not.toBeNull();
-    expect(within(publicTypes!).getByText('ButtonVariant')).toBeInTheDocument();
+    const publicTypes = screen.getByRole('region', { name: 'Public types' });
+    expect(within(publicTypes).getByText('ButtonVariant')).toBeInTheDocument();
     expect(screen.getAllByText('variant').length).toBeGreaterThan(0);
+  });
+
+  it('composes Surface frames around declarations and aliases with Table-owned separators', () => {
+    render(<RegistryApiReference registry={componentApiReference} slug="button" />);
+
+    const declaration = screen.getByRole('region', { name: 'ButtonProps' });
+    const aliases = screen.getByRole('region', { name: 'Public types' });
+    expect(
+      within(declaration)
+        .getByText(
+          componentApiReference.button!.declarations.find((entry) => entry.name === 'ButtonProps')!
+            .kind,
+        )
+        .closest('[data-size]'),
+    ).toHaveAttribute('data-variant', 'soft');
+    for (const frame of [declaration, aliases]) {
+      expect(frame).toHaveAttribute('data-tone', 'default');
+      expect(frame).toHaveAttribute('data-border', 'subtle');
+      expect(frame).toHaveAttribute('data-radius', '12');
+      expect(frame).not.toHaveAttribute('tabindex');
+    }
+
+    const viewport = within(declaration).getByRole('region', { name: 'ButtonProps properties' });
+    expect(viewport).toHaveAttribute('tabindex', '0');
+    expect(within(viewport).getByRole('table')).toHaveAttribute('data-border', 'separators');
+    expect(within(viewport).getByRole('columnheader', { name: 'Property' })).toHaveAttribute(
+      'scope',
+      'col',
+    );
+    expect(within(viewport).getByRole('rowheader', { name: 'variant' })).toHaveAttribute(
+      'scope',
+      'row',
+    );
   });
 
   it('uses a locale override without replacing the generated English fallback', async () => {

@@ -1,5 +1,6 @@
 import type { InternationalSansId } from '@virgo-design/tokens';
 import { fontFamily, internationalSans, internationalSansOrder } from '@virgo-design/tokens';
+import { Tabs } from '@virgo-design/ui';
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -53,65 +54,76 @@ export function InternationalSansPreview() {
   } as CSSProperties;
 
   return (
-    <div className={styles.preview} style={previewStyle}>
-      <div
-        className={styles.localeOptions}
-        role="tablist"
+    <Tabs
+      variant="plain"
+      className={styles.preview!}
+      style={previewStyle}
+      value={activeId}
+      onValueChange={(value) => setActiveId(value as InternationalSansId)}
+    >
+      <Tabs.List
+        className={styles.localeOptions!}
         aria-label={t('foundations.typography.internationalSans.localeSelector')}
       >
         {internationalSansOrder.map((id) => {
           const option = internationalSans[id];
 
           return (
-            <button
+            <Tabs.Tab
+              tabClassName={styles.localeTab!}
+              labelClassName={styles.localeLabel!}
+              value={id}
               key={id}
               type="button"
-              role="tab"
-              aria-selected={activeId === id}
               title={option.name}
-              onClick={() => setActiveId(id)}
             >
               <strong>{t(`foundations.typography.internationalSans.locales.${id}`)}</strong>
               <span>{option.locale}</span>
-            </button>
+            </Tabs.Tab>
           );
         })}
-      </div>
+      </Tabs.List>
 
-      <section className={styles.specimen} lang={specimen.lang}>
-        <header className={styles.specimenHeader}>
-          <div>
-            <span>{t('foundations.typography.internationalSans.activeStack')}</span>
-            <h3>{definition.name}</h3>
-          </div>
-        </header>
+      {internationalSansOrder.map((id) => (
+        <Tabs.Panel className={styles.localePanel!} key={id} value={id}>
+          {activeId === id ? (
+            <section className={styles.specimen!} lang={specimen.lang}>
+              <header className={styles.specimenHeader!}>
+                <div>
+                  <span>{t('foundations.typography.internationalSans.activeStack')}</span>
+                  <h3>{definition.name}</h3>
+                </div>
+              </header>
 
-        <div className={styles.languageSample}>
-          <span>{t(`foundations.typography.internationalSans.locales.${activeId}`)}</span>
-          <strong>{specimen.language}</strong>
-          <p>{specimen.mixed}</p>
-        </div>
+              <div className={styles.languageSample!}>
+                <span>{t(`foundations.typography.internationalSans.locales.${activeId}`)}</span>
+                <strong>{specimen.language}</strong>
+                <p>{specimen.mixed}</p>
+              </div>
 
-        <dl className={styles.stackDetails}>
-          <div>
-            <dt>{t('foundations.typography.internationalSans.locale')}</dt>
-            <dd>{definition.locale}</dd>
-          </div>
-          <div>
-            <dt>{t('foundations.typography.internationalSans.latin')}</dt>
-            <dd>{internationalSans.latin.name}</dd>
-          </div>
-          <div>
-            <dt>{t('foundations.typography.internationalSans.script')}</dt>
-            <dd>{definition.name}</dd>
-          </div>
-        </dl>
+              <dl className={styles.stackDetails!}>
+                <div>
+                  <dt>{t('foundations.typography.internationalSans.locale')}</dt>
+                  <dd>{definition.locale}</dd>
+                </div>
+                <div>
+                  <dt>{t('foundations.typography.internationalSans.latin')}</dt>
+                  <dd>{internationalSans.latin.name}</dd>
+                </div>
+                <div>
+                  <dt>{t('foundations.typography.internationalSans.script')}</dt>
+                  <dd>{definition.name}</dd>
+                </div>
+              </dl>
 
-        <div className={styles.stackValue}>
-          <span>{t('foundations.typography.internationalSans.stack')}</span>
-          <code>{definition.family}</code>
-        </div>
-      </section>
-    </div>
+              <div className={styles.stackValue!}>
+                <span>{t('foundations.typography.internationalSans.stack')}</span>
+                <code>{definition.family}</code>
+              </div>
+            </section>
+          ) : null}
+        </Tabs.Panel>
+      ))}
+    </Tabs>
   );
 }
