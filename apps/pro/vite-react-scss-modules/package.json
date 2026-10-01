@@ -9,7 +9,8 @@
     "@virgo-design/tokens": "workspace:*",
     "@virgo-design/ui": "workspace:*",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "react-router": "8.4.0"
   },
   "scripts": {
     "dev": "vite",
