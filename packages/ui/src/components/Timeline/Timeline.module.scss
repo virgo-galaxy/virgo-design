@@ -1,0 +1,81 @@
+.root {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--vd-text-primary);
+  font-family: var(--vd-typography-ui-body-medium-font-family);
+  font-size: var(--vd-typography-ui-body-medium-font-size);
+  line-height: var(--vd-typography-ui-body-medium-line-height);
+  --timeline-gap: var(--vd-spacing-24);
+  &[data-size='small'] {
+    --timeline-gap: var(--vd-spacing-16);
+  }
+  &[data-size='large'] {
+    --timeline-gap: var(--vd-spacing-32);
+  }
+}
+.item {
+  position: relative;
+  padding-inline-start: var(--vd-spacing-32);
+  padding-bottom: var(--timeline-gap);
+  &:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 7px;
+    top: var(--vd-spacing-12);
+    bottom: 0;
+    width: var(--vd-border-width-1);
+    background: var(--vd-border-default);
+  }
+  &:last-child {
+    padding-bottom: 0;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    top: var(--vd-spacing-4);
+    width: var(--vd-sizing-12);
+    height: var(--vd-sizing-12);
+    border: var(--vd-border-width-1) solid var(--vd-border-default);
+    border-radius: var(--vd-radius-full);
+    background: var(--vd-surface-default);
+  }
+  &[data-status='active']::after {
+    border-color: var(--vd-brand-primary);
+    background: var(--vd-brand-primary);
+  }
+  &[data-status='complete']::after {
+    border-color: var(--vd-status-success-accent);
+    background: var(--vd-status-success-accent);
+  }
+  &:has(.indicator)::after {
+    display: none;
+  }
+}
+.title {
+  font-size: var(--vd-typography-ui-label-medium-font-size);
+  font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  margin: 0 0 var(--vd-spacing-4);
+}
+.description {
+  color: var(--vd-text-secondary);
+}
+.time {
+  display: block;
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-typography-ui-body-small-font-size);
+  margin-bottom: var(--vd-spacing-4);
+}
+.indicator {
+  position: absolute;
+  inset-inline-start: 0;
+  top: var(--vd-spacing-4);
+  display: inline-flex;
+  width: var(--vd-sizing-16);
+  height: var(--vd-sizing-16);
+  align-items: center;
+  justify-content: center;
+  color: var(--vd-brand-primary);
+  background: var(--vd-surface-default);
+}

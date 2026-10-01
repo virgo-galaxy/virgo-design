@@ -6,8 +6,8 @@ An example is one understandable use case, not an entire documentation page and 
 one individual control. Button variants belong together in a short example. Icon-only controls are
 a separate example. Dialog sizes and a controlled form are separate examples.
 
-All 37 component pages use this model. The current runtime contains 209 executable
-examples across 159 article sections, including Textarea inside the Input family. The existing
+All 48 component pages use this model. The current runtime contains 237 executable
+examples across 181 article sections, including Textarea inside the Input family. The existing
 chapter anchors and every hero/reference specimen are preserved.
 
 Each page is an assembly of documentation and imported examples. State, event handlers, fixtures,
@@ -27,7 +27,7 @@ ArticleSection
       Open-in-new-window + Code actions in the lower-right corner + small Tooltips
     source panel — hidden initially, BELOW the preview frame
       header: React / SCSS tabs on the left, Copy on the right
-      exact active raw file in pre/code
+      active consumer React source or exact SCSS file in pre/code
     visually hidden copy announcement
 ```
 
@@ -49,7 +49,7 @@ For a section with one example, use `showCaption={false}` to avoid repeating the
 For a section with several examples, the default caption renders each example's h3 and description
 above its own frame. Example metadata supplies these captions, not the executable TSX file.
 
-## One executable example, two exact source files
+## One executable example, paired source files
 
 A complete example owns one React file and one neighboring SCSS file:
 
@@ -69,19 +69,28 @@ export default function App() {
 }
 ```
 
-The Website manifest imports the executable React module plus both files as raw source:
+The Website manifest imports the executable React module and both source files. React copy source
+is normalized for consumers; SCSS copy source remains the exact companion file:
 
 ```ts
+import { createExampleSource } from '@/examples/components/create-example-source';
+
 import Example from './Example';
-import styleSource from './Example.module.scss?raw';
-import source from './Example.tsx?raw';
+import styleSource from './Example.module.scss?virgo-raw';
+import rawSource from './Example.tsx?raw';
+
+const source = createExampleSource(rawSource);
 ```
 
-The normal TSX import executes the demo and its CSS Module import applies the exact companion
-stylesheet. Raw imports supply the two source tabs and Copy action. The runtime never reconstructs
-JSX or CSS, calls `toString()`, evaluates text, extracts AST nodes in the browser, or maintains a
-second handwritten snippet. Rendering, viewing, and copying therefore stay tied to the real files.
-Vite resolves both raw imports at development/build time; no browser file-system access is used.
+The normal TSX import executes the localized demo and its CSS Module import applies the companion
+stylesheet. The `virgo-raw` Vite plugin reads that SCSS file without compilation for its source tab.
+`createExampleSource` derives consumer React source from the raw TSX: it removes Website
+localization imports, resolves canonical English text, uses `en-US` for the app locale, and includes
+local interpolation or pagination helpers when needed. The displayed/copied React source is therefore
+derived from the executable file rather than byte-for-byte identical to it; SCSS remains unchanged.
+The runtime keeps no second handwritten snippet and never executes copied source text, reconstructs
+JSX from rendered DOM, or extracts AST nodes in the browser. Vite resolves the source imports at
+development/build time; no browser file-system access is used.
 
 Every example uses `export default function App()`, real required imports, and only the state/helpers
 needed to demonstrate the subject. Example presentation belongs in the companion SCSS file rather
@@ -95,8 +104,10 @@ helpers stay outside examples. Every migrated UI metadata entry, including Texta
 `examples: []`; the public metadata shape is unchanged. The Website's `examples.ts` manifests own
 titles, descriptions, executable imports, and exact React / SCSS raw-source bindings.
 
-Examples may use public React, Virgo UI, and Virgo Icons imports. Required helpers stay in the same
-TSX module. They do not depend on Website aliases or page-owned SCSS. The consumer still needs the
+Copied examples use public React, Virgo UI, and Virgo Icons imports. Required helpers stay in the
+consumer TSX source. Executable Website examples may also use Website localization imports; those
+are removed or inlined by `createExampleSource`. Copied source does not depend on Website aliases or
+page-owned SCSS. The consumer still needs the
 normal Virgo UI installation and stylesheet/token setup; an example does not reinstall or globally
 configure the design system.
 
@@ -144,8 +155,8 @@ than public components or image-loading services.
   bulk expansion keeps the light/dark inverse state visible. The preview reserves a bottom safe
   area from the same inset, the small action's sizing token, and a spacing token; the source action
   cannot cover the final row of a full-width example.
-- Copy is available in the expanded source header. It writes the full raw file of the active React
-  or SCSS tab, not selected text or tab metadata. Repeated clicks during a pending write are ignored.
+- Copy is available in the expanded source header. It writes the full consumer React source or
+  exact SCSS file from the active tab, not selected text or tab metadata. Repeated clicks during a pending write are ignored.
 - Success is reported only after `writeText` resolves: CopyIcon becomes CheckIcon using the shared
   `--vd-status-success-accent` semantic token, and the Tooltip says `Copied`. Both reset after two
   seconds without dismissing the Tooltip or moving the button.
@@ -183,17 +194,23 @@ Each entry imports a neighboring `*Example.tsx` normally and as `?raw`, plus the
 | `badge`             |                   5 |
 | `breadcrumb`        |                   4 |
 | `button`            |                   5 |
+| `calendar`          |                   2 |
 | `card`              |                   6 |
 | `checkbox`          |                   4 |
+| `color-picker`      |                   2 |
+| `combobox`          |                   4 |
 | `command`           |                   3 |
 | `context-menu`      |                   3 |
 | `cursor`            |                   7 |
+| `date-picker`       |                   2 |
 | `dialog`            |                   2 |
+| `dock`              |                   5 |
 | `drawer`            |                   5 |
 | `dropdown`          |                   9 |
-| `dock`              |                   5 |
 | `empty`             |                   3 |
+| `field`             |                   3 |
 | `floating-action`   |                   4 |
+| `form`              |                   3 |
 | `input`             |                   8 |
 | `layout`            |                  16 |
 | `menu`              |                   4 |
@@ -207,13 +224,18 @@ Each entry imports a neighboring `*Example.tsx` normally and as `?raw`, plus the
 | `select`            |                   6 |
 | `separator`         |                   4 |
 | `skeleton`          |                   3 |
+| `slider`            |                   2 |
 | `spinner`           |                   4 |
 | `surface`           |                  11 |
 | `switch`            |                   6 |
+| `table`             |                   3 |
 | `tabs`              |                   7 |
 | `tag`               |                   5 |
+| `time-picker`       |                   2 |
+| `timeline`          |                   2 |
 | `toast`             |                   4 |
 | `tooltip`           |                  13 |
+| `tree`              |                   3 |
 
 There is no extra bottom-of-page `Examples` section. Relationships remain outside the page content
 at the existing end-of-document location. Hero specimens remain compact component introductions,
@@ -252,9 +274,10 @@ The legacy hard-coded Surface `<details>` source block and 105 duplicate metadat
 Repository tests cover article structure, exact paired React / SCSS raw sources, disclosure semantics,
 unique panel IDs, keyboard disclosure actions, source-tab switching, the synchronized Expand all /
 Collapse all runtime control, real Virgo icons/Tooltip, copy-to-check feedback, clipboard
-success/failure/pending/retry/unmount behavior, stateful Dialog integration, duplicate instance registration/unregistration, all 37 pages in both
+success/failure/pending/retry/unmount behavior, stateful Dialog integration, duplicate instance registration/unregistration, all 48 pages in both
 themes, and representative independent form/menu/tab/notification examples. Manifest tests pair
-all executable modules with their exact raw source and check public dependency boundaries.
+all executable modules with their normalized React source and exact SCSS source, and check public
+dependency boundaries in the consumer React source.
 The root `pnpm all`
 remains the final workspace gate.
 

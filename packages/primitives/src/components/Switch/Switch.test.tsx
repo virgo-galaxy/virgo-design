@@ -37,7 +37,7 @@ describe('Switch primitive', () => {
     const user = userEvent.setup();
     const onCheckedChange = vi.fn();
 
-    render(<Switch aria-label="Sync" checked onCheckedChange={onCheckedChange} readOnly />);
+    render(<Switch aria-label="Sync" checked onCheckedChange={onCheckedChange} />);
 
     const control = screen.getByRole('switch', { name: 'Sync' });
     expect(control).toBeChecked();

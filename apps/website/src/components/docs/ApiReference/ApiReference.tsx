@@ -1,3 +1,4 @@
+import { Table } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { translateApiDescription } from '@/i18n/translate-api-description';
@@ -85,28 +86,30 @@ export function ApiReference({
             ) : null}
 
             {declaration.properties.length > 0 ? (
-              <div
+              <Table.Viewport
                 className={styles.tableViewport}
                 role="region"
                 aria-label={t('docs.apiReference.propertiesRegion', { name: declaration.name })}
                 tabIndex={0}
               >
-                <table className={styles.table}>
-                  <caption className={styles.visuallyHidden}>
+                <Table border="none" size="small" className={styles.table}>
+                  <Table.Caption className={styles.visuallyHidden}>
                     {t('docs.apiReference.propertiesRegion', { name: declaration.name })}
-                  </caption>
-                  <thead>
-                    <tr>
-                      <th scope="col">{t('docs.apiReference.columns.property')}</th>
-                      <th scope="col">{t('docs.apiReference.columns.type')}</th>
-                      <th scope="col">{t('docs.apiReference.columns.default')}</th>
-                      <th scope="col">{t('docs.apiReference.columns.description')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+                  </Table.Caption>
+                  <Table.Header>
+                    <Table.Row>
+                      <Table.Head scope="col">{t('docs.apiReference.columns.property')}</Table.Head>
+                      <Table.Head scope="col">{t('docs.apiReference.columns.type')}</Table.Head>
+                      <Table.Head scope="col">{t('docs.apiReference.columns.default')}</Table.Head>
+                      <Table.Head scope="col">
+                        {t('docs.apiReference.columns.description')}
+                      </Table.Head>
+                    </Table.Row>
+                  </Table.Header>
+                  <Table.Body>
                     {declaration.properties.map((property) => (
-                      <tr key={property.name}>
-                        <th scope="row">
+                      <Table.Row key={property.name}>
+                        <Table.Head scope="row">
                           <code>{property.name}</code>
                           {property.required ? (
                             <span className={styles.required}>
@@ -118,14 +121,14 @@ export function ApiReference({
                               {t('docs.apiReference.inheritedFromPrimitives')}
                             </small>
                           ) : null}
-                        </th>
-                        <td>
+                        </Table.Head>
+                        <Table.Cell>
                           <code>{property.type}</code>
-                        </td>
-                        <td>
+                        </Table.Cell>
+                        <Table.Cell>
                           {property.defaultValue ? <code>{property.defaultValue}</code> : '—'}
-                        </td>
-                        <td>
+                        </Table.Cell>
+                        <Table.Cell>
                           {property.description
                             ? translateApiDescription(
                                 t,
@@ -133,12 +136,12 @@ export function ApiReference({
                                 property.description,
                               )
                             : '—'}
-                        </td>
-                      </tr>
+                        </Table.Cell>
+                      </Table.Row>
                     ))}
-                  </tbody>
-                </table>
-              </div>
+                  </Table.Body>
+                </Table>
+              </Table.Viewport>
             ) : null}
           </section>
         ))}

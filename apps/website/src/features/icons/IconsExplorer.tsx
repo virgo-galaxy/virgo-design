@@ -5,7 +5,7 @@ import './platform.scss';
 import type { IconAnimation, IconProps } from '@virgo-design/icons';
 import { type IconId, iconManifest } from '@virgo-design/icons/metadata';
 import { iconComponents } from '@virgo-design/icons/registry';
-import { Button, Input, Select, Switch, Tag } from '@virgo-design/ui';
+import { Button, Input, Select, Slider, Switch, Tag } from '@virgo-design/ui';
 import { type CSSProperties, type ReactElement, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -159,15 +159,14 @@ export function IconsExplorer({
               <output>{size}px</output>
             </div>
             <div className="size-adjustment">
-              <input
+              <Slider
                 id="icon-preview-size"
                 style={sliderStyle}
                 aria-label={t('icons.size')}
-                type="range"
                 min="12"
                 max="64"
                 value={size}
-                onChange={(event) => setSize(Number(event.target.value))}
+                onValueChange={setSize}
               />
               <span className="adjusted-size-stage">
                 <SelectedIcon

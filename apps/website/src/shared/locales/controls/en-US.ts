@@ -1,4 +1,7 @@
 export const controlsEnUS = {
+  previousMonth: 'Previous month',
+  nextMonth: 'Next month',
+  chooseDate: 'Choose date',
   notifications: 'Notifications',
   expandSidebar: 'Expand sidebar',
   collapseSidebar: 'Collapse sidebar',

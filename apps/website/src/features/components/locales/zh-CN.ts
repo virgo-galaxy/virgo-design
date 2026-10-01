@@ -22,6 +22,19 @@ export const componentsZhCN = {
     actions: '操作',
   },
   categories: {
+    slider: '表单',
+    'color-picker': '表单',
+    'time-picker': '表单',
+    'date-picker': '表单',
+    calendar: '表单',
+    timeline: '数据展示',
+
+    form: '表单',
+    field: '表单',
+    table: '数据展示',
+    tree: '导航',
+    combobox: '表单',
+
     button: '操作',
     surface: '外观',
     dock: '布局',
@@ -61,6 +74,18 @@ export const componentsZhCN = {
     menubar: '操作',
   },
   metadata: {
+    slider: '原生数值滑块，支持范围约束、键盘操作和统一字段语义。',
+    'color-picker': '通过原生取色和可复用 HEX 色板选择不透明 sRGB 颜色。',
+    'time-picker': '本地时间输入，支持原生分段编辑、精度设置和浏览器约束校验。',
+    'date-picker': '原生日期输入与日历浮层共用一个日期值。',
+    calendar: '本地化月历网格，支持独立的选择与显示状态、日期约束和键盘导航。',
+    timeline: '带时间、描述与进度样式的有序事件序列。',
+    form: '原生表单组合与统一字段布局。应用管理数据、校验和提交状态。',
+    field: '单控件字段，自动关联标签、说明、消息与状态。',
+    table: '语义表格提供密度、对齐、边框与滚动，数据操作由应用管理。',
+    tree: '可访问的嵌套层级，支持显式选择、受控展开与键盘导航。',
+    combobox: '可编辑的单选候选列表，支持筛选、输入法安全的键盘交互与共享浮层定位。',
+
     button: '通过文字标签或无障碍图标按钮触发即时操作。',
     surface: '为已有空间提供视觉外观、装饰背景与材质，不排列内容或赋予结构语义。',
     dock: '将可移动界面区域附着到边界边缘，支持吸附或连续定位、独立移动锁定与固定，以及可选的浏览器持久化。',

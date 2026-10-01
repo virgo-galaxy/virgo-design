@@ -10,7 +10,7 @@ import {
   serializeIconSvg,
   validateIconSvg,
 } from '@virgo-design/icons/tooling';
-import { Button, Input } from '@virgo-design/ui';
+import { Button, Field, Form, Input, Textarea } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -67,32 +67,40 @@ export function IconStudio() {
       </Link>
       <h2>{t('icons.studio')}</h2>
       <p>{t('icons.studioDescription')}</p>
-      <label className="icon-platform-field">
-        {t('icons.customName')}
-        <Input
-          value={name}
-          aria-label={t('icons.customName')}
-          onChange={(event) => {
-            setName(event.target.value);
-            invalidate();
-          }}
-        />
-      </label>
-      <label className="icon-platform-field">
-        {t('icons.pasteSvg')}
-        <textarea
-          rows={8}
-          value={source}
-          onChange={(event) => {
-            setSource(event.target.value);
-            invalidate();
-          }}
-        />
-      </label>
-      <Button onClick={validate}>{t('icons.validate')}</Button>
-      <p role={error ? 'alert' : 'status'}>
-        {error ? t(`icons.validation.${error}`) : result ? t('icons.valid') : ''}
-      </p>
+      <Form
+        onSubmit={(event) => {
+          event.preventDefault();
+          validate();
+        }}
+      >
+        <Field className="icon-platform-field">
+          <Field.Label>{t('icons.customName')}</Field.Label>
+          <Input
+            value={name}
+            aria-label={t('icons.customName')}
+            onChange={(event) => {
+              setName(event.target.value);
+              invalidate();
+            }}
+          />
+        </Field>
+        <Field className="icon-platform-field" invalid={Boolean(error)}>
+          <Field.Label>{t('icons.pasteSvg')}</Field.Label>
+          <Textarea
+            rows={8}
+            value={source}
+            onChange={(event) => {
+              setSource(event.target.value);
+              invalidate();
+            }}
+          />
+          {error ? (
+            <Field.Message role="alert">{t(`icons.validation.${error}`)}</Field.Message>
+          ) : null}
+        </Field>
+        <Button type="submit">{t('icons.validate')}</Button>
+        <p role="status">{result ? t('icons.valid') : ''}</p>
+      </Form>
       {result ? (
         <>
           <h3 className="icon-platform-section-title">{t('icons.previewSection')}</h3>

@@ -84,9 +84,9 @@ describe('Components documentation integration', () => {
         'light',
       );
       expect(screen.queryByRole('group', { name: 'Preview theme' })).not.toBeInTheDocument();
-      expect(componentRoutes).toHaveLength(37);
+      expect(componentRoutes).toHaveLength(48);
       expect(componentRoutes.map((route) => route.index)).toEqual(
-        Array.from({ length: 37 }, (_, index) => String(index + 1).padStart(2, '0')),
+        Array.from({ length: 48 }, (_, index) => String(index + 1).padStart(2, '0')),
       );
       expect(componentGroups.map((group) => group.id)).toEqual([
         'general',
@@ -117,12 +117,12 @@ describe('Components documentation integration', () => {
       ).toEqual(Array(7).fill('feedback'));
       expect(componentRoutes.find((route) => route.id === 'floating-action')).toMatchObject({
         group: 'actions',
-        index: '35',
+        index: '46',
       });
       expect(componentRoutes.at(-1)).toMatchObject({
         id: 'menubar',
         group: 'actions',
-        index: '37',
+        index: '48',
       });
       expect(componentRoutes.some((route) => route.id === ('textarea' as string))).toBe(false);
 

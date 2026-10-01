@@ -1,0 +1,21 @@
+.root {
+  display: grid;
+  gap: var(--vd-spacing-16);
+  min-width: 0;
+  &[data-size='small'] {
+    gap: var(--vd-spacing-12);
+  }
+  &[data-size='large'] {
+    gap: var(--vd-spacing-24);
+  }
+  &[data-layout='horizontal'] {
+    --field-columns: minmax(8rem, 1fr) minmax(0, 3fr);
+    --field-copy-column: 2;
+  }
+}
+@media (max-width: 640px) {
+  .root[data-layout='horizontal'] {
+    --field-columns: minmax(0, 1fr);
+    --field-copy-column: 1;
+  }
+}

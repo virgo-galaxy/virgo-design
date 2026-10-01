@@ -53,6 +53,7 @@ export const iconsEnUS = {
     settings: 'Turn the gear slightly, then settle back.',
   },
   all: 'All',
+  noSuggestions: 'No suggestions',
   noResults: 'No icons match your search.',
   results: '{{count}} icons',
   catalogue: 'Icon catalogue',

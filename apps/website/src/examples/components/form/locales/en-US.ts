@@ -1,0 +1,23 @@
+export const formExamplesEnUS = {
+  copy: {
+    email: 'Email',
+    private: 'Used only for project updates.',
+    project: 'Project',
+    choose: 'Choose a project',
+    notes: 'Notes',
+    accept: 'Accept terms',
+    notify: 'Enable notifications',
+    plan: 'Plan',
+    basic: 'Basic',
+    pro: 'Professional',
+    save: 'Save',
+    ready: 'Ready to submit.',
+    saved: 'Saved {{email}}',
+    title0: 'Unified controls',
+    description0: 'Existing controls inherit field semantics.',
+    title1: 'Horizontal layout',
+    description1: 'Labels align on wide screens and stack on small screens.',
+    title2: 'Native submission',
+    description2: 'The consumer owns FormData, validation and feedback.',
+  },
+} as const;

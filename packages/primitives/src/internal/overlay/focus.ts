@@ -35,5 +35,10 @@ export function getTabbables(content: HTMLElement) {
 
 export function focusFirst(content: HTMLElement | null) {
   if (!content) return;
-  (getTabbables(content)[0] ?? content).focus({ preventScroll: true });
+  const tabbables = getTabbables(content);
+  (
+    tabbables.find((node) => node.hasAttribute('data-overlay-autofocus')) ??
+    tabbables[0] ??
+    content
+  ).focus({ preventScroll: true });
 }

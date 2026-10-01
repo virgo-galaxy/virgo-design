@@ -2,6 +2,7 @@ import '@/i18n';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { iconManifest } from '@virgo-design/icons/metadata';
 import { useState } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
@@ -49,7 +50,7 @@ describe('Icons foundation', () => {
 
     await user.click(screen.getByRole('button', { name: 'Icon Plus' }));
 
-    expect(screen.getAllByRole('option')).toHaveLength(63);
+    expect(screen.getAllByRole('option')).toHaveLength(iconManifest.length);
     expect(screen.queryByRole('option', { name: 'Workspace' })).not.toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Check' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Circle Info' })).toBeInTheDocument();
@@ -80,6 +81,8 @@ describe('Icons foundation', () => {
   });
 
   it.each([
+    ['Calendar', 'calendar'],
+    ['Clock', 'clock'],
     ['GitHub', 'github'],
     ['Code', 'code'],
     ['Copy', 'copy'],

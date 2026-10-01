@@ -1,3 +1,4 @@
+import type { ParseKeys } from 'i18next';
 export const primitiveCategories = [
   'Actions & Commands',
   'Form Controls',
@@ -15,10 +16,78 @@ export interface PrimitiveDoc {
   exportName: string;
   slug: string;
   category: PrimitiveCategory;
-  description: string;
+  description: ParseKeys;
 }
 
 export const primitiveDocs = [
+  {
+    exportName: 'Slider',
+    slug: 'slider',
+    category: 'Form Controls',
+    description: 'primitives.docs.slider.description',
+  },
+  {
+    exportName: 'ColorPicker',
+    slug: 'color-picker',
+    category: 'Form Controls',
+    description: 'primitives.docs.color-picker.description',
+  },
+  {
+    exportName: 'TimePicker',
+    slug: 'time-picker',
+    category: 'Form Controls',
+    description: 'primitives.docs.time-picker.description',
+  },
+  {
+    exportName: 'DatePicker',
+    slug: 'date-picker',
+    category: 'Form Controls',
+    description: 'primitives.docs.date-picker.description',
+  },
+  {
+    exportName: 'Calendar',
+    slug: 'calendar',
+    category: 'Form Controls',
+    description: 'primitives.docs.calendar.description',
+  },
+  {
+    exportName: 'Timeline',
+    slug: 'timeline',
+    category: 'Structure',
+    description: 'primitives.docs.timeline.description',
+  },
+
+  {
+    exportName: 'Form',
+    slug: 'form',
+    category: 'Form Controls',
+    description: 'primitives.docs.form.description',
+  },
+  {
+    exportName: 'Field',
+    slug: 'field',
+    category: 'Form Controls',
+    description: 'primitives.docs.field.description',
+  },
+  {
+    exportName: 'Table',
+    slug: 'table',
+    category: 'Structure',
+    description: 'primitives.docs.table.description',
+  },
+  {
+    exportName: 'Tree',
+    slug: 'tree',
+    category: 'Navigation',
+    description: 'primitives.docs.tree.description',
+  },
+  {
+    exportName: 'Combobox',
+    slug: 'combobox',
+    category: 'Form Controls',
+    description: 'primitives.docs.combobox.description',
+  },
+
   {
     exportName: 'Cursor',
     slug: 'cursor',
@@ -175,13 +244,112 @@ export type PrimitiveSlug = (typeof primitiveDocs)[number]['slug'];
 
 export interface PrimitiveDetail {
   parts: readonly string[];
-  partNote?: string;
-  behaviors: readonly string[];
-  accessibility: readonly string[];
+  partNote?: ParseKeys | undefined;
+  behaviors: readonly ParseKeys[];
+  accessibility: readonly ParseKeys[];
   publicApi: readonly string[];
 }
 
 export const primitiveDetails = {
+  slider: {
+    parts: [],
+    behaviors: ['primitives.docs.slider.behavior'],
+    accessibility: ['primitives.docs.slider.accessibility'],
+    publicApi: ['Slider'],
+  },
+  'color-picker': {
+    parts: ['Input', 'Swatch', 'Preview'],
+    behaviors: ['primitives.docs.color-picker.behavior'],
+    accessibility: ['primitives.docs.color-picker.accessibility'],
+    publicApi: ['ColorPicker', 'ColorPicker.Input', 'ColorPicker.Swatch', 'ColorPicker.Preview'],
+  },
+  'time-picker': {
+    parts: [],
+    behaviors: ['primitives.docs.time-picker.behavior'],
+    accessibility: ['primitives.docs.time-picker.accessibility'],
+    publicApi: ['TimePicker'],
+  },
+  'date-picker': {
+    parts: ['Input', 'Trigger', 'Content', 'Calendar'],
+    behaviors: ['primitives.docs.date-picker.behavior'],
+    accessibility: ['primitives.docs.date-picker.accessibility'],
+    publicApi: [
+      'DatePicker',
+      'DatePicker.Input',
+      'DatePicker.Trigger',
+      'DatePicker.Content',
+      'DatePicker.Calendar',
+    ],
+  },
+  calendar: {
+    parts: [],
+    behaviors: ['primitives.docs.calendar.behavior'],
+    accessibility: ['primitives.docs.calendar.accessibility'],
+    publicApi: ['Calendar'],
+  },
+  timeline: {
+    parts: ['Item', 'Title', 'Description', 'Time', 'Indicator'],
+    behaviors: ['primitives.docs.timeline.behavior'],
+    accessibility: ['primitives.docs.timeline.accessibility'],
+    publicApi: [
+      'Timeline',
+      'Timeline.Item',
+      'Timeline.Title',
+      'Timeline.Description',
+      'Timeline.Time',
+      'Timeline.Indicator',
+    ],
+  },
+
+  form: {
+    parts: [],
+    behaviors: ['primitives.docs.form.behavior'],
+    accessibility: ['primitives.docs.form.accessibility'],
+    publicApi: ['Form'],
+  },
+  field: {
+    parts: ['Root', 'Label', 'Description', 'Message', 'Control'],
+    behaviors: ['primitives.docs.field.behavior'],
+    accessibility: ['primitives.docs.field.accessibility'],
+    publicApi: ['Field', 'Field.Label', 'Field.Description', 'Field.Message', 'Field.Control'],
+  },
+  table: {
+    parts: ['Root', 'Caption', 'Header', 'Body', 'Footer', 'Row', 'Head', 'Cell', 'Viewport'],
+    behaviors: ['primitives.docs.table.behavior'],
+    accessibility: ['primitives.docs.table.accessibility'],
+    publicApi: [
+      'Table',
+      'Table.Caption',
+      'Table.Header',
+      'Table.Body',
+      'Table.Footer',
+      'Table.Row',
+      'Table.Head',
+      'Table.Cell',
+      'Table.Viewport',
+    ],
+  },
+  tree: {
+    parts: ['Root', 'Item', 'Label', 'Toggle', 'Group'],
+    behaviors: ['primitives.docs.tree.behavior'],
+    accessibility: ['primitives.docs.tree.accessibility'],
+    publicApi: ['Tree', 'Tree.Item', 'Tree.Label', 'Tree.Toggle', 'Tree.Group'],
+  },
+  combobox: {
+    parts: ['Root', 'Input', 'Content', 'Option', 'Empty', 'Group', 'Clear'],
+    behaviors: ['primitives.docs.combobox.behavior'],
+    accessibility: ['primitives.docs.combobox.accessibility'],
+    publicApi: [
+      'Combobox',
+      'Combobox.Input',
+      'Combobox.Content',
+      'Combobox.Option',
+      'Combobox.Empty',
+      'Combobox.Group',
+      'Combobox.Clear',
+    ],
+  },
+
   cursor: {
     parts: ['Provider', 'Follower', 'usePointer'],
     behaviors: [
@@ -561,13 +729,15 @@ export const primitiveDetails = {
   },
 } as const satisfies Record<PrimitiveSlug, PrimitiveDetail>;
 
-export function getPrimitiveDoc(slug: string) {
+export function getPrimitiveDoc(
+  slug: string,
+): (Omit<PrimitiveDoc, 'slug'> & PrimitiveDetail & { slug: PrimitiveSlug }) | undefined {
   const summary = primitiveDocs.find((doc) => doc.slug === slug);
 
   if (!summary) {
     return undefined;
   }
 
-  const detail = primitiveDetails[summary.slug];
+  const detail: PrimitiveDetail = primitiveDetails[summary.slug];
   return { ...summary, ...detail, partNote: 'partNote' in detail ? detail.partNote : undefined };
 }

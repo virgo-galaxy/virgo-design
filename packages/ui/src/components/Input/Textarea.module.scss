@@ -64,7 +64,8 @@
   }
 }
 
-.root[data-invalid='true'] {
+.root[data-invalid='true'],
+.root[aria-invalid='true'] {
   --textarea-border: var(--vd-status-danger-border);
   --textarea-border-hover: var(--vd-status-danger-accent);
   --textarea-border-focus: var(--vd-status-danger-accent);

@@ -6,6 +6,7 @@ export { ArrowReturnIcon, type ArrowReturnIconProps } from './generated/ArrowRet
 export { ArrowRightIcon, type ArrowRightIconProps } from './generated/ArrowRightIcon.js';
 export { ArrowUpIcon, type ArrowUpIconProps } from './generated/ArrowUpIcon.js';
 export { BotIcon, type BotIconProps } from './generated/BotIcon.js';
+export { CalendarIcon, type CalendarIconProps } from './generated/CalendarIcon.js';
 export { CheckIcon, type CheckIconProps } from './generated/CheckIcon.js';
 export { ChevronDownIcon, type ChevronDownIconProps } from './generated/ChevronDownIcon.js';
 export { ChevronLeftIcon, type ChevronLeftIconProps } from './generated/ChevronLeftIcon.js';
@@ -18,6 +19,7 @@ export { ChevronUpIcon, type ChevronUpIconProps } from './generated/ChevronUpIco
 export { CircleCheckIcon, type CircleCheckIconProps } from './generated/CircleCheckIcon.js';
 export { CircleInfoIcon, type CircleInfoIconProps } from './generated/CircleInfoIcon.js';
 export { CircleXIcon, type CircleXIconProps } from './generated/CircleXIcon.js';
+export { ClockIcon, type ClockIconProps } from './generated/ClockIcon.js';
 export { CloseIcon, type CloseIconProps } from './generated/CloseIcon.js';
 export { CodeIcon, type CodeIconProps } from './generated/CodeIcon.js';
 export { CopyIcon, type CopyIconProps } from './generated/CopyIcon.js';

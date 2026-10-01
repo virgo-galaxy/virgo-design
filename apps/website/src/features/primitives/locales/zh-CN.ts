@@ -28,6 +28,63 @@ export const primitivesZhCN = {
     publicApi: '公共 API',
   },
   docs: {
+    slider: {
+      description: '原生数值滑块，支持范围约束、键盘操作和统一字段语义。',
+      behavior: '原生数值滑块，支持范围约束、键盘操作和统一字段语义。',
+      accessibility: '原生数值滑块，支持范围约束、键盘操作和统一字段语义。',
+    },
+    'color-picker': {
+      description: '通过原生取色和可复用 HEX 色板选择不透明 sRGB 颜色。',
+      behavior: '通过原生取色和可复用 HEX 色板选择不透明 sRGB 颜色。',
+      accessibility: '通过原生取色和可复用 HEX 色板选择不透明 sRGB 颜色。',
+    },
+    'time-picker': {
+      description: '本地时间输入，支持原生分段编辑、精度设置和浏览器约束校验。',
+      behavior: '本地时间输入，支持原生分段编辑、精度设置和浏览器约束校验。',
+      accessibility: '本地时间输入，支持原生分段编辑、精度设置和浏览器约束校验。',
+    },
+    'date-picker': {
+      description: '原生日期输入与日历浮层共用一个日期值。',
+      behavior: '原生日期输入与日历浮层共用一个日期值。',
+      accessibility: '原生日期输入与日历浮层共用一个日期值。',
+    },
+    calendar: {
+      description: '本地化月历网格，支持独立的选择与显示状态、日期约束和键盘导航。',
+      behavior: '本地化月历网格，支持独立的选择与显示状态、日期约束和键盘导航。',
+      accessibility: '本地化月历网格，支持独立的选择与显示状态、日期约束和键盘导航。',
+    },
+    timeline: {
+      description: '带时间、描述与进度样式的有序事件序列。',
+      behavior: '带时间、描述与进度样式的有序事件序列。',
+      accessibility: '带时间、描述与进度样式的有序事件序列。',
+    },
+
+    form: {
+      description: '原生表单组合与统一字段布局。应用管理数据、校验和提交状态。',
+      behavior: '原生表单组合与统一字段布局。应用管理数据、校验和提交状态。',
+      accessibility: '原生表单语义，提交由使用方处理。',
+    },
+    field: {
+      description: '单控件字段，自动关联标签、说明、消息与状态。',
+      behavior: '单控件字段，自动关联标签、说明、消息与状态。',
+      accessibility: '每个字段对应单个控件，保持标签与说明 ID 的关联。',
+    },
+    table: {
+      description: '语义表格提供密度、对齐、边框与滚动，数据操作由应用管理。',
+      behavior: '语义表格提供密度、对齐、边框与滚动，数据操作由应用管理。',
+      accessibility: '原生表格语义及正确的表头作用域。',
+    },
+    tree: {
+      description: '可访问的嵌套层级，支持显式选择、受控展开与键盘导航。',
+      behavior: '可访问的嵌套层级，支持显式选择、受控展开与键盘导航。',
+      accessibility: '一个可见 Tab 停靠点，支持方向键导航、独立选择和前缀搜索。',
+    },
+    combobox: {
+      description: '可编辑的单选候选列表，支持筛选、输入法安全的键盘交互与共享浮层定位。',
+      behavior: '可编辑的单选候选列表，支持筛选、输入法安全的键盘交互与共享浮层定位。',
+      accessibility: '输入框保持焦点，活动后代排除禁用与过滤的候选项。',
+    },
+
     cursor: {
       description: '限定范围的指针状态与非交互跟随元素，不规定光标视觉外观。',
       behaviors: {

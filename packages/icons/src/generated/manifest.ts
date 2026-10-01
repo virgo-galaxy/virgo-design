@@ -62,6 +62,16 @@ export const iconManifest = [
     componentName: 'BotIcon',
   },
   {
+    id: 'calendar',
+    category: 'system',
+    tags: ['date', 'month', 'schedule', 'picker'],
+    aliases: ['date-picker'],
+    status: 'stable',
+    description: 'A calendar with clipped frame corners, twin binding tabs and a six-day grid.',
+    animated: false,
+    componentName: 'CalendarIcon',
+  },
+  {
     id: 'check',
     category: 'actions',
     tags: ['actions', 'check'],
@@ -180,6 +190,16 @@ export const iconManifest = [
     description: 'Circle x icon for status interfaces.',
     animated: false,
     componentName: 'CircleXIcon',
+  },
+  {
+    id: 'clock',
+    category: 'system',
+    tags: ['time', 'hour', 'schedule', 'picker'],
+    aliases: ['time-picker'],
+    status: 'stable',
+    description: 'A circular clock with a two-unit rim and clipped hour and minute hands.',
+    animated: false,
+    componentName: 'ClockIcon',
   },
   {
     id: 'close',

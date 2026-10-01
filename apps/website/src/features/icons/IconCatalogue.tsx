@@ -1,9 +1,9 @@
 import './platform.scss';
 
-import { PauseIcon, PlayIcon, SearchIcon, StudioToolsIcon } from '@virgo-design/icons';
+import { PauseIcon, PlayIcon, StudioToolsIcon } from '@virgo-design/icons';
 import { iconCategories, type IconCategory } from '@virgo-design/icons/metadata';
 import { iconComponents } from '@virgo-design/icons/registry';
-import { Button, Input, Tooltip } from '@virgo-design/ui';
+import { Button, Combobox, Tooltip } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -40,13 +40,23 @@ export function IconCatalogue() {
   return (
     <section className="icon-platform" aria-label={t('icons.catalogue')}>
       <div className="icon-platform-toolbar">
-        <Input
-          aria-label={t('icons.search')}
-          placeholder={t('icons.search')}
-          leadingIcon={<SearchIcon size={20} />}
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
+        <Combobox
+          inputValue={query}
+          onInputValueChange={setQuery}
+          shouldFilter={false}
+          onValueChange={setQuery}
+        >
+          <Combobox.Input aria-label={t('icons.search')} placeholder={t('icons.search')} />
+          <Combobox.Clear />
+          <Combobox.Content>
+            {results.slice(0, 8).map((icon) => (
+              <Combobox.Option key={icon.id} value={icon.id} textValue={icon.id}>
+                {icon.id}
+              </Combobox.Option>
+            ))}
+            <Combobox.Empty>{t('icons.noSuggestions')}</Combobox.Empty>
+          </Combobox.Content>
+        </Combobox>
         <Link className="icon-platform-link" to="/foundations/icons/studio">
           <StudioToolsIcon size={20} />
           {t('icons.studio')}

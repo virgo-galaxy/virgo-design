@@ -7,6 +7,7 @@ import { describe, expect, expectTypeOf, it } from 'vitest';
 
 import {
   BotIcon,
+  CalendarIcon,
   type CheckIconProps,
   ChevronsDownIcon,
   ChevronsLeftIcon,
@@ -15,6 +16,7 @@ import {
   CircleCheckIcon,
   CircleInfoIcon,
   CircleXIcon,
+  ClockIcon,
   CodeIcon,
   CopyIcon,
   DashboardIcon,
@@ -55,6 +57,8 @@ import {
 } from './index';
 
 const addedIcons = [
+  ['calendar', CalendarIcon],
+  ['clock', ClockIcon],
   ['stop', StopIcon],
   ['microphone', MicrophoneIcon],
   ['play', PlayIcon],

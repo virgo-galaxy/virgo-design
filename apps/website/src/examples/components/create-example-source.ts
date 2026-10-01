@@ -4,6 +4,9 @@ import paginationLabelsSource from './pagination/use-pagination-labels.ts?raw';
 
 // Copied examples use canonical English and carry no website-only imports.
 export function createExampleSource(source: string): string {
+  source = source
+    .replace(/^import[^;]+from ['"]@\/i18n['"];?\s*\n/gm, '')
+    .replace(/useAppLocale\(\)/g, "'en-US'");
   const pagination = source.includes('@/examples/components/pagination/use-pagination-labels');
   let result = source.replace(
     /^import[^;]+from ['"](?:react-i18next|@\/i18n\/translate-example-text|@\/examples\/components\/pagination\/use-pagination-labels)['"];?\s*\n/gm,

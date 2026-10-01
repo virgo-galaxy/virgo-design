@@ -26,6 +26,87 @@ export const primitivesEnUS = {
     publicApi: 'Public API',
   },
   docs: {
+    slider: {
+      description:
+        'A native numeric slider with constrained values, keyboard editing and shared field semantics.',
+      behavior:
+        'A native numeric slider with constrained values, keyboard editing and shared field semantics.',
+      accessibility:
+        'A native numeric slider with constrained values, keyboard editing and shared field semantics.',
+    },
+    'color-picker': {
+      description: 'Opaque sRGB color selection through native picking and reusable HEX swatches.',
+      behavior: 'Opaque sRGB color selection through native picking and reusable HEX swatches.',
+      accessibility:
+        'Opaque sRGB color selection through native picking and reusable HEX swatches.',
+    },
+    'time-picker': {
+      description:
+        'Local time entry with native segmented editing, precision and browser constraint validation.',
+      behavior:
+        'Local time entry with native segmented editing, precision and browser constraint validation.',
+      accessibility:
+        'Local time entry with native segmented editing, precision and browser constraint validation.',
+    },
+    'date-picker': {
+      description: 'Native date entry and a composed calendar popup sharing one civil date value.',
+      behavior: 'Native date entry and a composed calendar popup sharing one civil date value.',
+      accessibility:
+        'Native date entry and a composed calendar popup sharing one civil date value.',
+    },
+    calendar: {
+      description:
+        'A localized month grid with independent selection and display, date constraints and keyboard navigation.',
+      behavior:
+        'A localized month grid with independent selection and display, date constraints and keyboard navigation.',
+      accessibility:
+        'A localized month grid with independent selection and display, date constraints and keyboard navigation.',
+    },
+    timeline: {
+      description:
+        'An ordered sequence of events with timestamps, descriptions and progress presentation.',
+      behavior:
+        'An ordered sequence of events with timestamps, descriptions and progress presentation.',
+      accessibility:
+        'An ordered sequence of events with timestamps, descriptions and progress presentation.',
+    },
+
+    form: {
+      description:
+        'Native form composition and shared field layout. Applications own data, validation and submit state.',
+      behavior:
+        'Native form composition and shared field layout. Applications own data, validation and submit state.',
+      accessibility: 'Native form semantics with consumer-owned submission.',
+    },
+    field: {
+      description:
+        'A single-control field with automatic label, description, message and state association.',
+      behavior:
+        'A single-control field with automatic label, description, message and state association.',
+      accessibility: 'One control per field; names and description IDs remain associated.',
+    },
+    table: {
+      description:
+        'Semantic tables with density, alignment, borders and overflow. Data operations belong to the application.',
+      behavior:
+        'Semantic tables with density, alignment, borders and overflow. Data operations belong to the application.',
+      accessibility: 'Native table semantics with correct header scopes.',
+    },
+    tree: {
+      description:
+        'Accessible nested hierarchy with explicit selection, controlled expansion and keyboard navigation.',
+      behavior:
+        'Accessible nested hierarchy with explicit selection, controlled expansion and keyboard navigation.',
+      accessibility: 'One visible tab stop, arrow navigation, independent selection and typeahead.',
+    },
+    combobox: {
+      description:
+        'Editable single-selection suggestions with filtering, IME-safe keyboard interaction and shared overlay positioning.',
+      behavior:
+        'Editable single-selection suggestions with filtering, IME-safe keyboard interaction and shared overlay positioning.',
+      accessibility: 'Input owns focus; active descendants exclude disabled and filtered options.',
+    },
+
     cursor: {
       description:
         'Scoped pointer state and non-interactive followers without prescribing a cursor visual.',

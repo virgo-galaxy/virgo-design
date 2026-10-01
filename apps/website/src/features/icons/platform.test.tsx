@@ -220,6 +220,16 @@ describe('Icons platform', () => {
     expect(searchWebsiteIcons(query).map((icon) => icon.id)).toContain('settings');
   });
   it.each([
+    ['date-picker', 'calendar'],
+    ['日历', 'calendar'],
+    ['日期', 'calendar'],
+    ['time-picker', 'clock'],
+    ['时钟', 'clock'],
+    ['时间', 'clock'],
+  ])('searches date and time icons: %s', (query, id) => {
+    expect(searchWebsiteIcons(query).map((icon) => icon.id)).toContain(id);
+  });
+  it.each([
     ['studio', 'studio-tools'],
     ['图标工作室', 'studio-tools'],
     ['return', 'arrow-return'],
@@ -270,7 +280,7 @@ describe('Icons platform', () => {
       </MemoryRouter>,
     );
     expect(screen.getByRole('button', { name: 'All' })).toHaveAttribute('data-variant', 'primary');
-    const search = screen.getByRole('textbox', { name: 'Search icons…' });
+    const search = screen.getByRole('combobox', { name: 'Search icons…' });
     await userEvent.type(search, 'gear');
     expect(screen.getByRole('link', { name: /settings/ })).toHaveAttribute(
       'href',
@@ -302,14 +312,14 @@ describe('Icons platform', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Copy code' }));
     expect(document.querySelector('.icon-code-feedback')).toHaveTextContent('Copied');
     for (const id of [
-      'moon',
+      'calendar',
       'bot',
-      'sun',
+      'clock',
       'cursor-arrow',
       'language-en',
-      'moon',
+      'calendar',
       'bot',
-      'settings',
+      'clock',
     ]) {
       await userEvent.click(screen.getByRole('link', { name: id }));
       expect(screen.getByRole('heading', { name: id })).toBeInTheDocument();
@@ -492,7 +502,7 @@ describe('Icons platform', () => {
   it('translates catalogue and validation UI live while keeping canonical names', async () => {
     mount(<IconCatalogue />);
     await act(() => setAppLocale('zh-CN'));
-    expect(screen.getByRole('textbox', { name: '搜索图标…' })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: '搜索图标…' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '系统' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /settings/ })).toBeInTheDocument();
   });

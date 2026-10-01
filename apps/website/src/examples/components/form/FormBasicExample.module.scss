@@ -1,0 +1,21 @@
+.root {
+  display: grid;
+  gap: var(--vd-spacing-16);
+  width: min(100%, 36rem);
+  min-width: 0;
+  margin-inline: auto;
+}
+.choice {
+  display: flex;
+  align-items: center;
+  gap: var(--vd-spacing-8);
+}
+.group {
+  min-inline-size: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--vd-spacing-8);
+  padding: var(--vd-spacing-12);
+  border: var(--vd-border-width-1) solid var(--vd-border-default);
+  border-radius: var(--vd-radius-6);
+}

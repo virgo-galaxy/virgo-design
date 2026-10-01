@@ -1,0 +1,80 @@
+.root {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--vd-text-primary);
+  background: var(--vd-surface-default);
+  font-family: var(--vd-typography-ui-body-medium-font-family);
+  font-size: var(--vd-typography-ui-body-medium-font-size);
+  line-height: var(--vd-typography-ui-body-medium-line-height);
+  --table-padding: var(--vd-spacing-12) var(--vd-spacing-16);
+  &[data-size='small'] {
+    --table-padding: var(--vd-spacing-6) var(--vd-spacing-12);
+  }
+  &[data-size='large'] {
+    --table-padding: var(--vd-spacing-16) var(--vd-spacing-20);
+  }
+  &[data-border='rows'] .cell {
+    border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  }
+  &[data-border='all'] .cell {
+    border: var(--vd-border-width-1) solid var(--vd-border-default);
+  }
+  &[data-striped='true'] .body > .row:nth-child(even) {
+    background: var(--vd-surface-secondary);
+  }
+  &[data-hoverable='true'] .body > .row:hover {
+    background: var(--vd-fill-hover);
+  }
+  & .body > .row[data-selected='true'] {
+    background: var(--vd-fill-selected);
+  }
+  &[data-sticky-header='true'] .header .cell {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--vd-surface-secondary);
+  }
+}
+.cell {
+  padding: var(--table-padding);
+  vertical-align: top;
+  text-align: start;
+  &[data-align='end'] {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+  }
+  &[data-align='center'] {
+    text-align: center;
+  }
+}
+.header,
+.footer {
+  font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  background: var(--vd-surface-secondary);
+}
+.caption {
+  padding: var(--vd-spacing-12);
+  text-align: start;
+  color: var(--vd-text-secondary);
+  caption-side: bottom;
+}
+.viewport {
+  overflow: auto;
+  max-width: 100%;
+  min-width: 0;
+  &:focus-visible {
+    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline-offset: var(--vd-spacing-2);
+  }
+}
+.row {
+  transition: background var(--vd-duration-120) var(--vd-easing-standard);
+}
+.body {
+  vertical-align: inherit;
+}
+@media (prefers-reduced-motion: reduce) {
+  .row {
+    transition: none;
+  }
+}

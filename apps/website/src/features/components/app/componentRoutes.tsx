@@ -7,16 +7,22 @@ import { AvatarPage } from '../pages/avatar/AvatarPage';
 import { BadgePage } from '../pages/badge/BadgePage';
 import { BreadcrumbPage } from '../pages/breadcrumb/BreadcrumbPage';
 import { ButtonPage } from '../pages/button/ButtonPage';
+import { CalendarPage } from '../pages/calendar/CalendarPage';
 import { CardPage } from '../pages/card/CardPage';
 import { CheckboxPage } from '../pages/checkbox/CheckboxPage';
+import { ColorPickerPage } from '../pages/color-picker/ColorPickerPage';
+import { ComboboxPage } from '../pages/combobox/ComboboxPage';
 import { CommandPage } from '../pages/command/CommandPage';
 import { CursorPage } from '../pages/cursor/CursorPage';
+import { DatePickerPage } from '../pages/date-picker/DatePickerPage';
 import { DialogPage } from '../pages/dialog/DialogPage';
 import { DockPage } from '../pages/dock/DockPage';
 import { DrawerPage } from '../pages/drawer/DrawerPage';
 import { DropdownPage } from '../pages/dropdown/DropdownPage';
 import { EmptyPage } from '../pages/empty/EmptyPage';
+import { FieldPage } from '../pages/field/FieldPage';
 import { FloatingActionPage } from '../pages/floating-action/FloatingActionPage';
+import { FormPage } from '../pages/form/FormPage';
 import { InputPage } from '../pages/input/InputPage';
 import { LayoutPage } from '../pages/layout/LayoutPage';
 import { ContextMenuPage, MenubarPage, MenuPage } from '../pages/menu-system/MenuSystemPages';
@@ -29,13 +35,18 @@ import { SegmentedControlPage } from '../pages/segmented-control/SegmentedContro
 import { SelectPage } from '../pages/select/SelectPage';
 import { SeparatorPage } from '../pages/separator/SeparatorPage';
 import { SkeletonPage } from '../pages/skeleton/SkeletonPage';
+import { SliderPage } from '../pages/slider/SliderPage';
 import { SpinnerPage } from '../pages/spinner/SpinnerPage';
 import { SurfacePage } from '../pages/surface/SurfacePage';
 import { SwitchPage } from '../pages/switch/SwitchPage';
+import { TablePage } from '../pages/table/TablePage';
 import { TabsPage } from '../pages/tabs/TabsPage';
 import { TagPage } from '../pages/tag/TagPage';
+import { TimePickerPage } from '../pages/time-picker/TimePickerPage';
+import { TimelinePage } from '../pages/timeline/TimelinePage';
 import { ToastPage } from '../pages/toast/ToastPage';
 import { TooltipPage } from '../pages/tooltip/TooltipPage';
+import { TreePage } from '../pages/tree/TreePage';
 
 export type ComponentGroupId =
   | 'general'
@@ -85,6 +96,17 @@ export const componentGroups = [
 export type ComponentRoute = ComponentPageMetadataValue & {
   group: ComponentGroupId;
   id:
+    | 'timeline'
+    | 'calendar'
+    | 'date-picker'
+    | 'time-picker'
+    | 'color-picker'
+    | 'slider'
+    | 'form'
+    | 'field'
+    | 'table'
+    | 'tree'
+    | 'combobox'
     | 'menu'
     | 'context-menu'
     | 'menubar'
@@ -240,9 +262,31 @@ export const componentRoutes = [
     Component: TabsPage,
   },
   {
+    id: 'tree',
+    group: 'navigation',
+    index: '11',
+    name: 'Tree',
+    category: 'Navigation',
+    path: '/components/tree',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: TreePage,
+  },
+  {
+    id: 'calendar',
+    group: 'data-entry',
+    index: '12',
+    name: 'Calendar',
+    category: 'Forms',
+    path: '/components/calendar',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: CalendarPage,
+  },
+  {
     id: 'checkbox',
     group: 'data-entry',
-    index: '11',
+    index: '13',
     name: 'Checkbox',
     category: 'Forms',
     path: '/components/checkbox',
@@ -251,9 +295,64 @@ export const componentRoutes = [
     Component: CheckboxPage,
   },
   {
+    id: 'color-picker',
+    group: 'data-entry',
+    index: '14',
+    name: 'ColorPicker',
+    category: 'Forms',
+    path: '/components/color-picker',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: ColorPickerPage,
+  },
+  {
+    id: 'combobox',
+    group: 'data-entry',
+    index: '15',
+    name: 'Combobox',
+    category: 'Forms',
+    path: '/components/combobox',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: ComboboxPage,
+  },
+  {
+    id: 'date-picker',
+    group: 'data-entry',
+    index: '16',
+    name: 'DatePicker',
+    category: 'Forms',
+    path: '/components/date-picker',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: DatePickerPage,
+  },
+  {
+    id: 'field',
+    group: 'data-entry',
+    index: '17',
+    name: 'Field',
+    category: 'Forms',
+    path: '/components/field',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: FieldPage,
+  },
+  {
+    id: 'form',
+    group: 'data-entry',
+    index: '18',
+    name: 'Form',
+    category: 'Forms',
+    path: '/components/form',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: FormPage,
+  },
+  {
     id: 'input',
     group: 'data-entry',
-    index: '12',
+    index: '19',
     name: 'Input',
     category: 'Forms',
     path: '/components/input',
@@ -264,7 +363,7 @@ export const componentRoutes = [
   {
     id: 'radio',
     group: 'data-entry',
-    index: '13',
+    index: '20',
     name: 'Radio',
     category: 'Forms',
     path: '/components/radio',
@@ -275,7 +374,7 @@ export const componentRoutes = [
   {
     id: 'segmented-control',
     group: 'data-entry',
-    index: '14',
+    index: '21',
     name: 'Segmented Control',
     category: 'Forms',
     path: '/components/segmented-control',
@@ -286,7 +385,7 @@ export const componentRoutes = [
   {
     id: 'select',
     group: 'data-entry',
-    index: '15',
+    index: '22',
     name: 'Select',
     category: 'Forms',
     path: '/components/select',
@@ -295,9 +394,20 @@ export const componentRoutes = [
     Component: SelectPage,
   },
   {
+    id: 'slider',
+    group: 'data-entry',
+    index: '23',
+    name: 'Slider',
+    category: 'Forms',
+    path: '/components/slider',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: SliderPage,
+  },
+  {
     id: 'switch',
     group: 'data-entry',
-    index: '16',
+    index: '24',
     name: 'Switch',
     category: 'Forms',
     path: '/components/switch',
@@ -306,9 +416,20 @@ export const componentRoutes = [
     Component: SwitchPage,
   },
   {
+    id: 'time-picker',
+    group: 'data-entry',
+    index: '25',
+    name: 'TimePicker',
+    category: 'Forms',
+    path: '/components/time-picker',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: TimePickerPage,
+  },
+  {
     id: 'cursor',
     group: 'interaction',
-    index: '17',
+    index: '26',
     name: 'Cursor',
     category: 'Interaction',
     path: '/components/cursor',
@@ -319,7 +440,7 @@ export const componentRoutes = [
   {
     id: 'accordion',
     group: 'data-display',
-    index: '18',
+    index: '27',
     name: 'Accordion',
     category: 'Data Display',
     path: '/components/accordion',
@@ -330,7 +451,7 @@ export const componentRoutes = [
   {
     id: 'avatar',
     group: 'data-display',
-    index: '19',
+    index: '28',
     name: 'Avatar',
     category: 'Data Display',
     path: '/components/avatar',
@@ -341,7 +462,7 @@ export const componentRoutes = [
   {
     id: 'badge',
     group: 'data-display',
-    index: '20',
+    index: '29',
     name: 'Badge',
     category: 'Data Display',
     path: '/components/badge',
@@ -352,7 +473,7 @@ export const componentRoutes = [
   {
     id: 'card',
     group: 'data-display',
-    index: '21',
+    index: '30',
     name: 'Card',
     category: 'Data Display',
     path: '/components/card',
@@ -363,7 +484,7 @@ export const componentRoutes = [
   {
     id: 'empty',
     group: 'data-display',
-    index: '22',
+    index: '31',
     name: 'Empty',
     category: 'Data Display',
     path: '/components/empty',
@@ -374,7 +495,7 @@ export const componentRoutes = [
   {
     id: 'popover',
     group: 'data-display',
-    index: '23',
+    index: '32',
     name: 'Popover',
     category: 'Data Display',
     path: '/components/popover',
@@ -383,9 +504,20 @@ export const componentRoutes = [
     Component: PopoverPage,
   },
   {
+    id: 'table',
+    group: 'data-display',
+    index: '33',
+    name: 'Table',
+    category: 'Data Display',
+    path: '/components/table',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: TablePage,
+  },
+  {
     id: 'tag',
     group: 'data-display',
-    index: '24',
+    index: '34',
     name: 'Tag',
     category: 'Data Display',
     path: '/components/tag',
@@ -394,9 +526,20 @@ export const componentRoutes = [
     Component: TagPage,
   },
   {
+    id: 'timeline',
+    group: 'data-display',
+    index: '35',
+    name: 'Timeline',
+    category: 'Data Display',
+    path: '/components/timeline',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: TimelinePage,
+  },
+  {
     id: 'tooltip',
     group: 'data-display',
-    index: '25',
+    index: '36',
     name: 'Tooltip',
     category: 'Data Display',
     path: '/components/tooltip',
@@ -407,7 +550,7 @@ export const componentRoutes = [
   {
     id: 'alert',
     group: 'feedback',
-    index: '26',
+    index: '37',
     name: 'Alert',
     category: 'Feedback',
     path: '/components/alert',
@@ -418,7 +561,7 @@ export const componentRoutes = [
   {
     id: 'dialog',
     group: 'feedback',
-    index: '27',
+    index: '38',
     name: 'Dialog',
     category: 'Feedback',
     path: '/components/dialog',
@@ -429,7 +572,7 @@ export const componentRoutes = [
   {
     id: 'drawer',
     group: 'feedback',
-    index: '28',
+    index: '39',
     name: 'Drawer',
     category: 'Feedback',
     path: '/components/drawer',
@@ -440,7 +583,7 @@ export const componentRoutes = [
   {
     id: 'progress',
     group: 'feedback',
-    index: '29',
+    index: '40',
     name: 'Progress',
     category: 'Feedback',
     path: '/components/progress',
@@ -451,7 +594,7 @@ export const componentRoutes = [
   {
     id: 'skeleton',
     group: 'feedback',
-    index: '30',
+    index: '41',
     name: 'Skeleton',
     category: 'Feedback',
     path: '/components/skeleton',
@@ -462,7 +605,7 @@ export const componentRoutes = [
   {
     id: 'spinner',
     group: 'feedback',
-    index: '31',
+    index: '42',
     name: 'Spinner',
     category: 'Feedback',
     path: '/components/spinner',
@@ -473,7 +616,7 @@ export const componentRoutes = [
   {
     id: 'toast',
     group: 'feedback',
-    index: '32',
+    index: '43',
     name: 'Toast',
     category: 'Feedback',
     path: '/components/toast',
@@ -484,7 +627,7 @@ export const componentRoutes = [
   {
     id: 'command',
     group: 'actions',
-    index: '33',
+    index: '44',
     name: 'Command',
     category: 'Actions',
     path: '/components/command',
@@ -495,7 +638,7 @@ export const componentRoutes = [
   {
     id: 'context-menu',
     group: 'actions',
-    index: '34',
+    index: '45',
     name: 'ContextMenu',
     category: 'Actions',
     path: '/components/context-menu',
@@ -506,7 +649,7 @@ export const componentRoutes = [
   {
     id: 'floating-action',
     group: 'actions',
-    index: '35',
+    index: '46',
     name: 'FloatingAction',
     category: 'Actions',
     path: '/components/floating-action',
@@ -517,7 +660,7 @@ export const componentRoutes = [
   {
     id: 'menu',
     group: 'actions',
-    index: '36',
+    index: '47',
     name: 'Menu',
     category: 'Actions',
     path: '/components/menu',
@@ -528,7 +671,7 @@ export const componentRoutes = [
   {
     id: 'menubar',
     group: 'actions',
-    index: '37',
+    index: '48',
     name: 'Menubar',
     category: 'Actions',
     path: '/components/menubar',

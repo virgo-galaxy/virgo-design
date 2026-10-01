@@ -6,6 +6,17 @@ describe('@virgo-design/ui public API', () => {
   it('keeps internal helpers private and exposes component families and host label configuration', () => {
     expect(Object.keys(ui).sort()).toEqual(
       [
+        'Slider',
+        'ColorPicker',
+        'TimePicker',
+        'DatePicker',
+        'Calendar',
+        'Timeline',
+        'Combobox',
+        'Field',
+        'Form',
+        'Table',
+        'Tree',
         'Accordion',
         'Alert',
         'Avatar',

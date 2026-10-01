@@ -6,6 +6,17 @@ describe('@virgo-design/primitives public API', () => {
   it('keeps overlay infrastructure and implementation subpaths private', () => {
     expect(Object.keys(primitives).sort()).toEqual(
       [
+        'Slider',
+        'ColorPicker',
+        'TimePicker',
+        'DatePicker',
+        'Calendar',
+        'Timeline',
+        'Combobox',
+        'Field',
+        'Form',
+        'Table',
+        'Tree',
         'Accordion',
         'Breadcrumb',
         'Button',

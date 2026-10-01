@@ -54,6 +54,7 @@ export const iconsZhCN = {
     settings: '齿轮轻转一小段，再回到原位。',
   },
   all: '全部',
+  noSuggestions: '没有可选建议',
   noResults: '没有符合搜索条件的图标。',
   results: '{{count}} 个图标',
   catalogue: '图标目录',

@@ -11,6 +11,8 @@ export const iconSvgSources = {
   'arrow-up':
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <!-- The directional family shares one clipped arrowhead and a two-unit stem. -->\n  <path d="M19.25 10.75 L19.25 11.75 L18.75 12.25 L17.75 12.25 L13 7 L13 20.5 L12.5 21 L11.5 21 L11 20.5 L11 7 L6.25 12.25 L5.25 12.25 L4.75 11.75 L4.75 10.75 L11.25 3.5 L12.75 3.5z" />\n</svg>\n',
   bot: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M13 6h5l1 1v10.5l-2 2h-10l-2-2V7l1-1z M7 8v8.75l.75.75h8.5l.75-.75V8z" fill-rule="evenodd" />\n  <path d="M8 11h3v1.5H8z M13 11h3v1.5h-3z M3 10.5h1.5v4H3l-.5-.5v-3z M19.5 10.5H21l.5.5v3l-.5.5h-1.5z" />\n  <path d="M11.5 3h1l.5.5V6h-2V3.5z" />\n</svg>\n',
+  calendar:
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M4.5 4.5h15l1 1v14l-1 1h-15l-1-1v-14z M5.5 6.5v2h13v-2z M5.5 10.5v8h13v-8z" fill-rule="evenodd" />\n  <path d="M7.5 2.5h1l.5.5v4l-.5.5h-1L7 7V3z M15.5 2.5h1l.5.5v4l-.5.5h-1L15 7V3z" />\n  <path d="M7 11.5h2v2H7z M11 11.5h2v2h-2z M15 11.5h2v2h-2z M7 15.5h2v2H7z M11 15.5h2v2h-2z M15 15.5h2v2h-2z" />\n</svg>\n',
   check:
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M4.875 10.75L5.75 10.75L10 15L18.5 6.5L19.375 6.5L20 7.125L20 8L10.7 17.3L9.3 17.3L4.25 12.25L4.25 11.375Z" />\n</svg>\n',
   'chevron-down':
@@ -35,6 +37,8 @@ export const iconSvgSources = {
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 2a7 7 0 1 1 0 14 7 7 0 0 1 0-14Z" fill-rule="evenodd" />\n  <path d="M11.5 7h1l.5.5v1l-.5.5h-1l-.5-.5v-1zM11.5 11h1l.5.5v5l-.5.5h-1l-.5-.5v-5z" />\n</svg>\n',
   'circle-x':
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 2a7 7 0 1 1 0 14 7 7 0 0 1 0-14Z" fill-rule="evenodd" />\n  <path d="M8 7.5h.5L12 11l3.5-3.5h.5l.5.5v.5L13 12l3.5 3.5v.5l-.5.5h-.5L12 13l-3.5 3.5H8l-.5-.5v-.5L11 12 7.5 8.5V8z" />\n</svg>\n',
+  clock:
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18z M12 5a7 7 0 1 0 0 14 7 7 0 0 0 0-14z" fill-rule="evenodd" />\n  <path d="M11.5 7h1l.5.5V11h3.5l.5.5v1l-.5.5h-5l-.5-.5v-5z" />\n</svg>\n',
   close:
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M5 5.875L5.875 5L6.4 5L19 17.6L19 18.125L18.125 19L17.6 19L5 6.4Z" />\n  <path d="M17.6 5L18.125 5L19 5.875L19 6.4L6.4 19L5.875 19L5 18.125L5 17.6Z" />\n</svg>\n',
   code: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <!-- Mirrored angle brackets with clipped terminals; the slash uses the family\'s two-unit weight. -->\n  <path d="M7 6.5h1l.5.5v1l-3.75 3.75v.5L8.5 16v1l-.5.5H7l-4.75-4.75v-1.5z" />\n  <path d="M17 6.5h-1l-.5.5v1l3.75 3.75v.5L15.5 16v1l.5.5h1l4.75-4.75v-1.5z" />\n  <path d="M13.5 3.5h1l.5.5-4.5 16-.5.5H9l-.5-.5L13 4z" />\n</svg>\n',

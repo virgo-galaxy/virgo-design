@@ -42,6 +42,7 @@ describe('componentPrimitiveRelations', () => {
     expect(getComponentsForPrimitive('radio')).toEqual(['radio', 'segmented-control']);
     expect(getComponentsForPrimitive('button')).toEqual(['button', 'floating-action']);
     expect(getComponentsForPrimitive('popover')).toEqual([
+      'date-picker',
       'floating-action',
       'navigation-menu',
       'popover',

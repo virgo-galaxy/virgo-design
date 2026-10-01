@@ -462,6 +462,11 @@ icon locally: author one SVG, add its metadata, review at 20/24px on both backgr
 
 ## Website catalogue, detail, and Studio
 
+`CalendarIcon` and `ClockIcon` use the same fill-first geometry and shared `IconProps`.
+UI DatePicker uses Calendar in its default trigger; TimePicker uses Clock beside its native
+time segments. Both are decorative in those controls: the button or input owns the accessible
+name. TimePicker preserves the browser's native picker hit target beneath the Virgo icon.
+
 - `/foundations/icons`: grid, English / Chinese search, categories, URL-persisted filtering.
 - `/foundations/icons/:id`: metadata, related icons, TSX / SVG source and copy, download SVG,
   enlarged geometry, actual 16/20/24/32px previews, external Website appearance, a current-background readout, color, size, grid, UI preview.

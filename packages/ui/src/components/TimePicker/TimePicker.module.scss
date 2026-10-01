@@ -1,0 +1,42 @@
+@use '../../internal/form/native-control';
+
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+  width: 100%;
+  vertical-align: middle;
+}
+
+.root {
+  @include native-control.control;
+  position: relative;
+  padding-inline-end: var(--vd-sizing-36);
+
+  // Keep the native picker hit target beneath the decorative Virgo glyph.
+  &::-webkit-calendar-picker-indicator {
+    position: absolute;
+    inset-inline-end: var(--vd-spacing-12);
+    top: 50%;
+    width: var(--vd-sizing-20);
+    height: var(--vd-sizing-20);
+    padding: 0;
+    margin: 0;
+    transform: translateY(-50%);
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+.icon {
+  position: absolute;
+  inset-inline-end: var(--vd-spacing-12);
+  top: 50%;
+  color: var(--vd-icon-secondary);
+  transform: translateY(-50%);
+  pointer-events: none;
+
+  .wrapper:has(input:disabled) & {
+    color: var(--vd-icon-disabled);
+  }
+}

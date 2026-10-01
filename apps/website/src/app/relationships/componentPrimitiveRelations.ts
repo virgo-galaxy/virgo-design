@@ -6,6 +6,19 @@ import type { PrimitiveSlug } from '@/features/primitives/primitiveDocs';
  * Primitive-to-Component relationships are always derived from this single source.
  */
 export const componentPrimitiveRelations = {
+  slider: ['slider'],
+  'color-picker': ['color-picker'],
+  'time-picker': ['time-picker'],
+  'date-picker': ['date-picker', 'popover', 'calendar'],
+  calendar: ['calendar'],
+  timeline: ['timeline'],
+
+  form: ['form'],
+  field: ['field'],
+  table: ['table'],
+  tree: ['tree'],
+  combobox: ['combobox'],
+
   accordion: ['accordion'],
   breadcrumb: ['breadcrumb'],
   button: ['button'],
@@ -49,4 +62,21 @@ export function getComponentsForPrimitive(primitiveSlug: PrimitiveSlug): readonl
         primitiveSlug,
       ),
   );
+}
+
+/** Common compositions, kept distinct from construction dependencies. */
+export const componentCompositionRelations = {
+  slider: ['field'],
+  'color-picker': ['field', 'input'],
+  'time-picker': ['field'],
+  'date-picker': ['field', 'calendar'],
+
+  form: ['field'],
+  field: ['input', 'select', 'checkbox', 'radio', 'switch', 'combobox'],
+  table: ['empty', 'pagination'],
+  tree: ['context-menu'],
+  combobox: ['field'],
+} as const satisfies Partial<Record<ComponentSlug, readonly ComponentSlug[]>>;
+export function getCompositionsForComponent(slug: ComponentSlug): readonly ComponentSlug[] {
+  return componentCompositionRelations[slug as keyof typeof componentCompositionRelations] ?? [];
 }

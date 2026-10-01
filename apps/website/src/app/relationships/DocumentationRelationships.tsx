@@ -6,6 +6,7 @@ import type { PrimitiveSlug } from '@/features/primitives/primitiveDocs';
 
 import {
   getComponentsForPrimitive,
+  getCompositionsForComponent,
   getPrimitivesForComponent,
 } from './componentPrimitiveRelations';
 import styles from './documentation-relationships.module.scss';
@@ -14,7 +15,7 @@ function formatSlug(slug: string) {
   return slug
     .split('-')
     .map((part) => `${part.charAt(0).toUpperCase()}${part.slice(1)}`)
-    .join(' ');
+    .join('');
 }
 
 export function ComponentRelationships({ componentSlug }: { componentSlug: ComponentSlug }) {
@@ -24,13 +25,17 @@ export function ComponentRelationships({ componentSlug }: { componentSlug: Compo
     label: t('docs.relationships.primitiveLabel', { name: formatSlug(primitiveSlug) }),
   }));
 
-  if (items.length === 0) {
+  const compositionItems = getCompositionsForComponent(componentSlug).map((slug) => ({
+    href: `/components/${slug}`,
+    label: formatSlug(slug),
+  }));
+  if (items.length === 0 && compositionItems.length === 0) {
     return null;
   }
 
   return (
     <div className={styles.componentPlacement}>
-      <RelationshipSection kind="builtWith" items={items} />
+      <RelationshipSection kind="builtWith" items={items} compositionItems={compositionItems} />
     </div>
   );
 }

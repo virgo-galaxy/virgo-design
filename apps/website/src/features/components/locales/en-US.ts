@@ -20,6 +20,19 @@ export const componentsEnUS = {
     actions: 'Actions',
   },
   categories: {
+    slider: 'Forms',
+    'color-picker': 'Forms',
+    'time-picker': 'Forms',
+    'date-picker': 'Forms',
+    calendar: 'Forms',
+    timeline: 'Data Display',
+
+    form: 'Forms',
+    field: 'Forms',
+    table: 'Data Display',
+    tree: 'Navigation',
+    combobox: 'Forms',
+
     button: 'Actions',
     surface: 'Appearance',
     dock: 'Layout',
@@ -59,6 +72,25 @@ export const componentsEnUS = {
     menubar: 'Actions',
   },
   metadata: {
+    slider:
+      'A native numeric slider with constrained values, keyboard editing and shared field semantics.',
+    'color-picker': 'Opaque sRGB color selection through native picking and reusable HEX swatches.',
+    'time-picker':
+      'Local time entry with native segmented editing, precision and browser constraint validation.',
+    'date-picker': 'Native date entry and a composed calendar popup sharing one civil date value.',
+    calendar:
+      'A localized month grid with independent selection and display, date constraints and keyboard navigation.',
+    timeline:
+      'An ordered sequence of events with timestamps, descriptions and progress presentation.',
+    form: 'Native form composition and shared field layout. Applications own data, validation and submit state.',
+    field:
+      'A single-control field with automatic label, description, message and state association.',
+    table:
+      'Semantic tables with density, alignment, borders and overflow. Data operations belong to the application.',
+    tree: 'Accessible nested hierarchy with explicit selection, controlled expansion and keyboard navigation.',
+    combobox:
+      'Editable single-selection suggestions with filtering, IME-safe keyboard interaction and shared overlay positioning.',
+
     button: 'Triggers an immediate action with a text label or an accessible icon-only control.',
     surface:
       'Gives an existing space a visual skin, decorative background, and material without arranging its content or assigning structural semantics.',

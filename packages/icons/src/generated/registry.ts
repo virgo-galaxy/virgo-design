@@ -5,6 +5,7 @@ import { ArrowReturnIcon } from './ArrowReturnIcon.js';
 import { ArrowRightIcon } from './ArrowRightIcon.js';
 import { ArrowUpIcon } from './ArrowUpIcon.js';
 import { BotIcon } from './BotIcon.js';
+import { CalendarIcon } from './CalendarIcon.js';
 import { CheckIcon } from './CheckIcon.js';
 import { ChevronDownIcon } from './ChevronDownIcon.js';
 import { ChevronLeftIcon } from './ChevronLeftIcon.js';
@@ -17,6 +18,7 @@ import { ChevronUpIcon } from './ChevronUpIcon.js';
 import { CircleCheckIcon } from './CircleCheckIcon.js';
 import { CircleInfoIcon } from './CircleInfoIcon.js';
 import { CircleXIcon } from './CircleXIcon.js';
+import { ClockIcon } from './ClockIcon.js';
 import { CloseIcon } from './CloseIcon.js';
 import { CodeIcon } from './CodeIcon.js';
 import { CopyIcon } from './CopyIcon.js';
@@ -69,6 +71,7 @@ export const iconComponents = {
   'arrow-right': ArrowRightIcon,
   'arrow-up': ArrowUpIcon,
   bot: BotIcon,
+  calendar: CalendarIcon,
   check: CheckIcon,
   'chevron-down': ChevronDownIcon,
   'chevron-left': ChevronLeftIcon,
@@ -81,6 +84,7 @@ export const iconComponents = {
   'circle-check': CircleCheckIcon,
   'circle-info': CircleInfoIcon,
   'circle-x': CircleXIcon,
+  clock: ClockIcon,
   close: CloseIcon,
   code: CodeIcon,
   copy: CopyIcon,

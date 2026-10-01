@@ -7,6 +7,9 @@ export function WebsiteControlLabels({ children }: { children: ReactNode }) {
   return (
     <UIControlLabelsProvider
       labels={{
+        previousMonth: t('shared.controls.previousMonth'),
+        nextMonth: t('shared.controls.nextMonth'),
+        chooseDate: t('shared.controls.chooseDate'),
         expandSidebar: t('shared.controls.expandSidebar'),
         collapseSidebar: t('shared.controls.collapseSidebar'),
         clearInput: t('shared.controls.clearInput'),

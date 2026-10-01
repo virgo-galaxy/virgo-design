@@ -145,7 +145,7 @@ describe('Component routes', () => {
 
     await findRouteHeading('Components');
     expect(screen.queryByRole('navigation', { name: 'Component navigation' })).toBeNull();
-    expect(screen.getAllByRole('link')).toHaveLength(37);
+    expect(screen.getAllByRole('link')).toHaveLength(48);
     expect(screen.getByRole('heading', { level: 2, name: 'General' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: 'Layout' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: 'Navigation' })).toBeInTheDocument();
@@ -252,7 +252,7 @@ describe('Primitive routes', () => {
     const { unmount } = renderRoute('/primitives/button');
 
     await findRouteHeading('Button');
-    expect(screen.getByRole('link', { name: /Floating Action/ })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /FloatingAction/ })).toHaveAttribute(
       'href',
       '/components/floating-action',
     );
@@ -260,7 +260,7 @@ describe('Primitive routes', () => {
     unmount();
     renderRoute('/primitives/popover');
     await findRouteHeading('Popover');
-    expect(screen.getByRole('link', { name: /Floating Action/ })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /FloatingAction/ })).toHaveAttribute(
       'href',
       '/components/floating-action',
     );
@@ -292,7 +292,7 @@ describe('Foundation routes', () => {
       'aria-current',
       'page',
     );
-    expect(screen.getByRole('textbox', { name: 'Search icons…' })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: 'Search icons…' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /settings/ })).toHaveAttribute(
       'href',
       '/foundations/icons/settings',

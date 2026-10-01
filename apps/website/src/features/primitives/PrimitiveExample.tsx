@@ -2,14 +2,20 @@ import {
   Accordion,
   Breadcrumb,
   Button,
+  Calendar,
   Checkbox,
   Collapsible,
+  ColorPicker,
+  Combobox,
   Command,
   ContextMenu,
   Cursor,
+  DatePicker,
   Dialog,
   Dock,
   Dropdown,
+  Field,
+  Form,
   Input,
   Layout,
   Menu,
@@ -19,14 +25,21 @@ import {
   Popover,
   Radio,
   Select,
+  Slider,
   Switch,
+  Table,
   Tabs,
   Textarea,
+  Timeline,
+  TimePicker,
   Toast,
   Tooltip,
+  Tree,
 } from '@virgo-design/primitives';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { useAppLocale } from '@/i18n';
 
 import type { PrimitiveSlug } from './primitiveDocs';
 
@@ -415,9 +428,134 @@ function TooltipExample() {
 }
 
 export function PrimitiveExample({ slug }: { slug: PrimitiveSlug }) {
+  const locale = useAppLocale();
   const { t } = useTranslation();
 
   switch (slug) {
+    case 'slider':
+      return (
+        <Slider
+          data-docs-primitive="slider"
+          aria-label={t('examples.slider.copy.label')}
+          defaultValue={40}
+        />
+      );
+    case 'color-picker':
+      return (
+        <ColorPicker data-docs-primitive="color-picker">
+          <ColorPicker.Input aria-label={t('examples.colorPicker.copy.label')} />
+          <ColorPicker.Swatch value="#1a5cff" />
+        </ColorPicker>
+      );
+    case 'time-picker':
+      return (
+        <TimePicker
+          data-docs-primitive="time-picker"
+          aria-label={t('examples.timePicker.copy.label')}
+          defaultValue="09:30"
+        />
+      );
+    case 'calendar':
+      return (
+        <Calendar
+          previousMonthLabel={t('shared.controls.previousMonth')}
+          nextMonthLabel={t('shared.controls.nextMonth')}
+          data-docs-primitive="calendar"
+          locale={locale}
+          defaultMonth="2026-10"
+        />
+      );
+    case 'date-picker':
+      return (
+        <DatePicker data-docs-primitive="date-picker" defaultValue="2026-10-06">
+          <DatePicker.Input aria-label={t('examples.datePicker.copy.label')} />
+          <DatePicker.Trigger>{t('shared.controls.chooseDate')}</DatePicker.Trigger>
+          <DatePicker.Content {...portalProps}>
+            <DatePicker.Calendar
+              previousMonthLabel={t('shared.controls.previousMonth')}
+              nextMonthLabel={t('shared.controls.nextMonth')}
+              locale={locale}
+            />
+          </DatePicker.Content>
+        </DatePicker>
+      );
+    case 'timeline':
+      return (
+        <Timeline data-docs-primitive="timeline">
+          <Timeline.Item>
+            <Timeline.Time dateTime="2026-10-01">2026-10-01</Timeline.Time>
+            <Timeline.Title>{t('examples.timeline.copy.created')}</Timeline.Title>
+          </Timeline.Item>
+          <Timeline.Item>
+            <Timeline.Title>{t('examples.timeline.copy.review')}</Timeline.Title>
+          </Timeline.Item>
+        </Timeline>
+      );
+
+    case 'form':
+      return (
+        <Form data-docs-primitive="form" onSubmit={(event) => event.preventDefault()}>
+          <Field>
+            <Field.Label>{t('primitives.examples.displayName')}</Field.Label>
+            <Input />
+          </Field>
+          <button type="submit">{t('primitives.examples.save')}</button>
+        </Form>
+      );
+    case 'field':
+      return (
+        <Field data-docs-primitive="field" required>
+          <Field.Label>{t('primitives.examples.displayName')}</Field.Label>
+          <Input />
+          <Field.Description>{t('primitives.examples.headlessByDefault')}</Field.Description>
+        </Field>
+      );
+    case 'table':
+      return (
+        <Table data-docs-primitive="table">
+          <Table.Caption>{t('primitives.examples.displayName')}</Table.Caption>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>{t('primitives.examples.file')}</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>README.md</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      );
+    case 'tree':
+      return (
+        <Tree data-docs-primitive="tree" aria-label={t('primitives.examples.file')}>
+          <Tree.Item value="src" branch>
+            <Tree.Label>
+              <Tree.Toggle>{t('primitives.examples.file')}</Tree.Toggle>src
+            </Tree.Label>
+            <Tree.Group>
+              <Tree.Item value="readme">
+                <Tree.Label>README.md</Tree.Label>
+              </Tree.Item>
+            </Tree.Group>
+          </Tree.Item>
+        </Tree>
+      );
+    case 'combobox':
+      return (
+        <Combobox data-docs-primitive="combobox">
+          <Combobox.Input aria-label={t('primitives.examples.displayName')} />
+          <Combobox.Content {...portalProps}>
+            <Combobox.Option value="virgo" textValue="Virgo">
+              Virgo
+            </Combobox.Option>
+            <Combobox.Option value="design" textValue="Design">
+              Design
+            </Combobox.Option>
+          </Combobox.Content>
+        </Combobox>
+      );
+
     case 'accordion':
       return <AccordionExample />;
     case 'breadcrumb':

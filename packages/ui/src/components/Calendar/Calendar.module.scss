@@ -1,0 +1,98 @@
+.root {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  width: 20rem;
+  padding: var(--vd-spacing-16);
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-8);
+  background: var(--vd-surface-default);
+  color: var(--vd-text-primary);
+  font-family: var(--vd-typography-ui-body-medium-font-family);
+  font-size: var(--vd-typography-ui-body-medium-font-size);
+  --calendar-day-height: var(--vd-sizing-36);
+  &[data-size='small'] {
+    --calendar-day-height: var(--vd-sizing-28);
+    padding: var(--vd-spacing-12);
+  }
+  &[data-size='large'] {
+    --calendar-day-height: var(--vd-sizing-44);
+  }
+  [data-calendar-header] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--vd-spacing-8);
+    margin-bottom: var(--vd-spacing-12);
+  }
+  [data-calendar-header] h2 {
+    margin: 0;
+    font-size: var(--vd-typography-ui-label-medium-font-size);
+    font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  }
+  [data-calendar-navigation] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--vd-sizing-28);
+    height: var(--vd-sizing-28);
+    border: 0;
+    border-radius: var(--vd-radius-4);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    &:dir(rtl) svg {
+      transform: rotate(180deg);
+    }
+  }
+  [data-calendar-grid] {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: var(--vd-spacing-2);
+  }
+  th {
+    font-size: var(--vd-typography-ui-body-small-font-size);
+    font-weight: normal;
+    color: var(--vd-text-secondary);
+    padding-bottom: var(--vd-spacing-6);
+  }
+  td {
+    padding: 0;
+    text-align: center;
+  }
+  button {
+    font: inherit;
+  }
+  [data-calendar-date] {
+    width: 100%;
+    height: var(--calendar-day-height);
+    padding: 0;
+    border: var(--vd-border-width-1) solid transparent;
+    border-radius: var(--vd-radius-4);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+  button:hover:not(:disabled) {
+    background: var(--vd-fill-hover);
+  }
+  button:focus-visible {
+    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline-offset: -1px;
+  }
+  button:disabled {
+    color: var(--vd-text-disabled);
+    cursor: not-allowed;
+  }
+  [data-outside='true'] {
+    color: var(--vd-text-tertiary);
+  }
+  [aria-current='date'] {
+    border-color: var(--vd-border-focus);
+  }
+  td[aria-selected='true'] button {
+    background: var(--vd-brand-primary);
+    color: var(--vd-brand-foreground);
+  }
+}

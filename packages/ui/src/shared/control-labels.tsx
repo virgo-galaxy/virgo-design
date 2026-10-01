@@ -1,6 +1,9 @@
 import { createContext, type ReactNode, useContext } from 'react';
 
 const defaultLabels = {
+  previousMonth: 'Previous month',
+  nextMonth: 'Next month',
+  chooseDate: 'Choose date',
   expandSidebar: 'Expand sidebar',
   collapseSidebar: 'Collapse sidebar',
   clearInput: 'Clear input',

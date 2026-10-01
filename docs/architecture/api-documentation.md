@@ -55,5 +55,5 @@ silently after a public type change.
 - every Primitives detail route renders the `@virgo-design/primitives` API while retaining its
   compact public-export summary.
 
-The reference uses semantic native HTML tables for now. A future Virgo Table component can replace
-the presentation without changing the generated API model.
+The reference uses Virgo Table, which preserves native HTML table semantics and a named scroll
+viewport. This presentation is independent of the generated API model.

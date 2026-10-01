@@ -1,3 +1,4 @@
+import { Slider } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import type { ChromaticMode } from '../../model/types';
@@ -31,14 +32,14 @@ export function HueControls({
           <code>{hueSpread.toFixed(2)}</code>
         </div>
 
-        <input
-          type="range"
+        <Slider
+          aria-label={t('foundations.colorStudio.settings.hueSpread')}
           min="0.6"
           max="1.2"
           step="0.01"
           value={hueSpread}
           disabled={disabled}
-          onChange={(event) => onHueSpreadChange(Number(event.target.value))}
+          onValueChange={onHueSpreadChange}
         />
       </div>
 
@@ -50,14 +51,14 @@ export function HueControls({
           <code>{distributionCurve.toFixed(2)}</code>
         </div>
 
-        <input
-          type="range"
+        <Slider
+          aria-label={t('foundations.colorStudio.settings.distributionCurve')}
           min="0.5"
           max="2"
           step="0.01"
           value={distributionCurve}
           disabled={disabled}
-          onChange={(event) => onDistributionCurveChange(Number(event.target.value))}
+          onValueChange={onDistributionCurveChange}
         />
       </div>
 

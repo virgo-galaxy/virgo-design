@@ -276,6 +276,19 @@ const componentApiReference = Object.fromEntries(
 
 const primitivesRoot = path.join(repoRoot, 'packages/primitives/src/components');
 const primitiveSourceMap = {
+  slider: ['Slider/Slider.types.ts'],
+  'color-picker': ['ColorPicker/ColorPicker.types.ts'],
+  'time-picker': ['TimePicker/TimePicker.types.ts'],
+  'date-picker': ['DatePicker/DatePicker.types.ts'],
+  calendar: ['Calendar/Calendar.types.ts'],
+  timeline: ['Timeline/Timeline.types.ts'],
+
+  form: ['Form/Form.types.ts'],
+  field: ['Field/Field.types.ts'],
+  table: ['Table/Table.types.ts'],
+  tree: ['Tree/Tree.types.ts'],
+  combobox: ['Combobox/Combobox.types.ts'],
+
   accordion: ['Accordion/Accordion.types.ts'],
   breadcrumb: ['Breadcrumb/Breadcrumb.types.ts'],
   button: ['Button/Button.types.ts'],

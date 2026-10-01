@@ -14,6 +14,8 @@ export interface SelectProps extends Omit<
   defaultOpen?: boolean | undefined;
   onOpenChange?: ((open: boolean) => void) | undefined;
   disabled?: boolean | undefined;
+  /** Prevents opening or changing selection while remaining focusable. */
+  readOnly?: boolean | undefined;
   name?: string | undefined;
 }
 

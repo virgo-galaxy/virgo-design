@@ -1,0 +1,42 @@
+.root {
+  display: grid;
+  grid-template-columns: var(--field-columns, minmax(0, 1fr));
+  gap: var(--vd-spacing-6) var(--vd-spacing-16);
+  align-items: start;
+  min-width: 0;
+  color: var(--vd-text-primary);
+  font-family: var(--vd-typography-ui-body-medium-font-family);
+  font-size: var(--vd-typography-ui-body-medium-font-size);
+  line-height: var(--vd-typography-ui-body-medium-line-height);
+  &[data-layout='vertical'] {
+    --field-columns: minmax(0, 1fr);
+    --field-copy-column: 1;
+  }
+  &[data-layout='horizontal'] {
+    --field-columns: minmax(8rem, 1fr) minmax(0, 3fr);
+    --field-copy-column: 2;
+  }
+  &[data-disabled='true'] > .label {
+    color: var(--vd-text-disabled);
+  }
+}
+.label {
+  font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  padding-block: var(--vd-spacing-4);
+}
+.description,
+.message {
+  grid-column: var(--field-copy-column, 1);
+  font-size: var(--vd-typography-ui-body-small-font-size);
+  color: var(--vd-text-secondary);
+}
+.root[data-invalid='true'] .message,
+.label [data-field-required] {
+  color: var(--vd-status-danger-text);
+}
+@media (max-width: 640px) {
+  .root[data-layout='horizontal'] {
+    --field-columns: minmax(0, 1fr);
+    --field-copy-column: 1;
+  }
+}

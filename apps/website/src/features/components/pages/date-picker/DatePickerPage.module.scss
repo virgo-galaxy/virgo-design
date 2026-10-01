@@ -1,0 +1,29 @@
+.board :global(.hero-stage) {
+  padding: var(--vd-spacing-40);
+  min-height: 300px;
+  box-sizing: border-box;
+}
+.specimen {
+  position: relative;
+  width: min(100%, 22rem);
+  min-width: 0;
+  padding: var(--vd-spacing-24);
+  box-sizing: border-box;
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-12);
+  background: var(--vd-surface-default);
+}
+@media (max-width: 640px) {
+  .board :global(.hero-stage) {
+    padding: var(--vd-spacing-24);
+  }
+  .board :global(.hero-stage)::before {
+    inset: var(--vd-spacing-16);
+  }
+  .specimen {
+    padding: var(--vd-spacing-16);
+  }
+  .board :global(.specimen-caption) {
+    flex-wrap: wrap;
+  }
+}

@@ -4,17 +4,23 @@ import { avatarMetadata } from '../components/Avatar/Avatar.meta';
 import { badgeMetadata } from '../components/Badge/Badge.meta';
 import { breadcrumbMetadata } from '../components/Breadcrumb/Breadcrumb.meta';
 import { buttonMetadata } from '../components/Button/Button.meta';
+import { calendarMetadata } from '../components/Calendar/Calendar.meta';
 import { cardMetadata } from '../components/Card/Card.meta';
 import { checkboxMetadata } from '../components/Checkbox/Checkbox.meta';
+import { colorPickerMetadata } from '../components/ColorPicker/ColorPicker.meta';
+import { comboboxMetadata } from '../components/Combobox/Combobox.meta';
 import { commandMetadata } from '../components/Command/Command.meta';
 import { contextMenuMetadata } from '../components/ContextMenu/ContextMenu.meta';
 import { cursorMetadata } from '../components/Cursor/Cursor.meta';
+import { datePickerMetadata } from '../components/DatePicker/DatePicker.meta';
 import { dialogMetadata } from '../components/Dialog/Dialog.meta';
 import { dockMetadata } from '../components/Dock/Dock.meta';
 import { drawerMetadata } from '../components/Drawer/Drawer.meta';
 import { dropdownMetadata } from '../components/Dropdown/Dropdown.meta';
 import { emptyMetadata } from '../components/Empty/Empty.meta';
+import { fieldMetadata } from '../components/Field/Field.meta';
 import { floatingActionMetadata } from '../components/FloatingAction/FloatingAction.meta';
+import { formMetadata } from '../components/Form/Form.meta';
 import { inputMetadata } from '../components/Input/Input.meta';
 import { textareaMetadata } from '../components/Input/Textarea.meta';
 import { layoutMetadata } from '../components/Layout/Layout.meta';
@@ -29,13 +35,18 @@ import { segmentedControlMetadata } from '../components/SegmentedControl/Segment
 import { selectMetadata } from '../components/Select/Select.meta';
 import { separatorMetadata } from '../components/Separator/Separator.meta';
 import { skeletonMetadata } from '../components/Skeleton/Skeleton.meta';
+import { sliderMetadata } from '../components/Slider/Slider.meta';
 import { spinnerMetadata } from '../components/Spinner/Spinner.meta';
 import { surfaceMetadata } from '../components/Surface/Surface.meta';
 import { switchMetadata } from '../components/Switch/Switch.meta';
+import { tableMetadata } from '../components/Table/Table.meta';
 import { tabsMetadata } from '../components/Tabs/Tabs.meta';
 import { tagMetadata } from '../components/Tag/Tag.meta';
+import { timelineMetadata } from '../components/Timeline/Timeline.meta';
+import { timePickerMetadata } from '../components/TimePicker/TimePicker.meta';
 import { toastMetadata } from '../components/Toast/Toast.meta';
 import { tooltipMetadata } from '../components/Tooltip/Tooltip.meta';
+import { treeMetadata } from '../components/Tree/Tree.meta';
 
 export {
   accordionMetadata,
@@ -44,17 +55,23 @@ export {
   badgeMetadata,
   breadcrumbMetadata,
   buttonMetadata,
+  calendarMetadata,
   cardMetadata,
   checkboxMetadata,
+  colorPickerMetadata,
+  comboboxMetadata,
   commandMetadata,
   contextMenuMetadata,
   cursorMetadata,
+  datePickerMetadata,
   dialogMetadata,
   dockMetadata,
   drawerMetadata,
   dropdownMetadata,
   emptyMetadata,
+  fieldMetadata,
   floatingActionMetadata,
+  formMetadata,
   inputMetadata,
   layoutMetadata,
   menubarMetadata,
@@ -68,17 +85,34 @@ export {
   selectMetadata,
   separatorMetadata,
   skeletonMetadata,
+  sliderMetadata,
   spinnerMetadata,
   surfaceMetadata,
   switchMetadata,
+  tableMetadata,
   tabsMetadata,
   tagMetadata,
   textareaMetadata,
+  timelineMetadata,
+  timePickerMetadata,
   toastMetadata,
   tooltipMetadata,
+  treeMetadata,
 };
 
 export const componentMetadataRegistry = {
+  slider: sliderMetadata,
+  colorPicker: colorPickerMetadata,
+  timePicker: timePickerMetadata,
+  datePicker: datePickerMetadata,
+  calendar: calendarMetadata,
+  timeline: timelineMetadata,
+
+  combobox: comboboxMetadata,
+  tree: treeMetadata,
+  table: tableMetadata,
+  field: fieldMetadata,
+  form: formMetadata,
   menubar: menubarMetadata,
   contextMenu: contextMenuMetadata,
   menu: menuMetadata,

@@ -13,13 +13,15 @@
   min-width: 0;
 }
 
-.root[data-invalid='true'] {
+.root[data-invalid='true'],
+.root:has([aria-invalid='true']) {
   --select-border: var(--vd-status-danger-border);
   --select-border-hover: var(--vd-status-danger-accent);
   --select-border-focus: var(--vd-status-danger-accent);
 }
 
-.root[data-disabled='true'] {
+.root[data-disabled='true'],
+.root:has(:disabled) {
   --select-background: var(--vd-fill-disabled);
   --select-border: var(--vd-border-disabled);
   --select-border-hover: var(--vd-border-disabled);

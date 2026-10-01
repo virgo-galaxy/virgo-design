@@ -13,12 +13,17 @@ export interface RelationshipItem {
 export interface RelationshipSectionProps {
   items: readonly RelationshipItem[];
   kind: 'builtWith' | 'usedBy';
+  compositionItems?: readonly RelationshipItem[];
 }
 
-export function RelationshipSection({ items, kind }: RelationshipSectionProps) {
+export function RelationshipSection({
+  items,
+  kind,
+  compositionItems = [],
+}: RelationshipSectionProps) {
   const { t } = useTranslation();
 
-  if (items.length === 0) {
+  if (items.length === 0 && compositionItems.length === 0) {
     return null;
   }
 
@@ -44,6 +49,23 @@ export function RelationshipSection({ items, kind }: RelationshipSectionProps) {
           </Link>
         ))}
       </div>
+      {compositionItems.length ? (
+        <>
+          <h3 className={styles.compositionTitle}>{t('docs.relationships.composesWith')}</h3>
+          <div className={styles.links}>
+            {compositionItems.map((item) => (
+              <Link className={styles.link} key={item.href} to={item.href}>
+                <Card variant="outlined" size="sm" className={styles.card}>
+                  <Card.Body className={styles.cardBody}>
+                    <span>{item.label}</span>
+                    <ChevronRightIcon size={16} aria-hidden="true" />
+                  </Card.Body>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </>
+      ) : null}
     </section>
   );
 }

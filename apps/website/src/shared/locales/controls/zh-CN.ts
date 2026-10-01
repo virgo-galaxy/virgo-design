@@ -2,6 +2,9 @@ import type { LocaleOf } from '@/i18n/locale-types';
 
 import { controlsEnUS } from './en-US';
 export const controlsZhCN = {
+  previousMonth: '上个月',
+  nextMonth: '下个月',
+  chooseDate: '选择日期',
   notifications: '通知',
   expandSidebar: '展开侧栏',
   collapseSidebar: '收起侧栏',

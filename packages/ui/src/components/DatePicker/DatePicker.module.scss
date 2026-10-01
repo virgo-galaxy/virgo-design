@@ -1,0 +1,42 @@
+@use '../../internal/form/native-control';
+@use '../../internal/overlay/panel';
+.root {
+  display: flex;
+  align-items: center;
+  gap: var(--vd-spacing-6);
+  min-width: 0;
+}
+.input {
+  @include native-control.control;
+  &::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+}
+.trigger {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: var(--vd-sizing-36);
+  padding: 0;
+  border: var(--vd-border-width-1) solid var(--vd-border-default);
+  border-radius: var(--vd-radius-6);
+  background: var(--vd-surface-default);
+  color: var(--vd-text-primary);
+  cursor: pointer;
+  &:focus-visible {
+    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline-offset: var(--vd-spacing-2);
+  }
+  &:disabled {
+    color: var(--vd-text-disabled);
+    cursor: not-allowed;
+  }
+}
+.content {
+  @include panel.surface;
+  display: block;
+  padding: var(--vd-spacing-4);
+  max-width: calc(100vw - var(--vd-spacing-24));
+}

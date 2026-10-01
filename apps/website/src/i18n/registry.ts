@@ -22,16 +22,24 @@ import { breadcrumbExamplesEnUS } from '@/examples/components/breadcrumb/locales
 import { breadcrumbExamplesZhCN } from '@/examples/components/breadcrumb/locales/zh-CN';
 import { buttonExamplesEnUS } from '@/examples/components/button/locales/en-US';
 import { buttonExamplesZhCN } from '@/examples/components/button/locales/zh-CN';
+import { calendarExamplesEnUS } from '@/examples/components/calendar/locales/en-US';
+import { calendarExamplesZhCN } from '@/examples/components/calendar/locales/zh-CN';
 import { cardExamplesEnUS } from '@/examples/components/card/locales/en-US';
 import { cardExamplesZhCN } from '@/examples/components/card/locales/zh-CN';
 import { checkboxExamplesEnUS } from '@/examples/components/checkbox/locales/en-US';
 import { checkboxExamplesZhCN } from '@/examples/components/checkbox/locales/zh-CN';
+import { colorPickerExamplesEnUS } from '@/examples/components/color-picker/locales/en-US';
+import { colorPickerExamplesZhCN } from '@/examples/components/color-picker/locales/zh-CN';
+import { comboboxExamplesEnUS } from '@/examples/components/combobox/locales/en-US';
+import { comboboxExamplesZhCN } from '@/examples/components/combobox/locales/zh-CN';
 import { commandExamplesEnUS } from '@/examples/components/command/locales/en-US';
 import { commandExamplesZhCN } from '@/examples/components/command/locales/zh-CN';
 import { contextMenuExamplesEnUS } from '@/examples/components/context-menu/locales/en-US';
 import { contextMenuExamplesZhCN } from '@/examples/components/context-menu/locales/zh-CN';
 import { cursorExamplesEnUS } from '@/examples/components/cursor/locales/en-US';
 import { cursorExamplesZhCN } from '@/examples/components/cursor/locales/zh-CN';
+import { datePickerExamplesEnUS } from '@/examples/components/date-picker/locales/en-US';
+import { datePickerExamplesZhCN } from '@/examples/components/date-picker/locales/zh-CN';
 import { dialogExamplesEnUS } from '@/examples/components/dialog/locales/en-US';
 import { dialogExamplesZhCN } from '@/examples/components/dialog/locales/zh-CN';
 import { dockExamplesEnUS } from '@/examples/components/dock/locales/en-US';
@@ -42,8 +50,12 @@ import { dropdownExamplesEnUS } from '@/examples/components/dropdown/locales/en-
 import { dropdownExamplesZhCN } from '@/examples/components/dropdown/locales/zh-CN';
 import { emptyExamplesEnUS } from '@/examples/components/empty/locales/en-US';
 import { emptyExamplesZhCN } from '@/examples/components/empty/locales/zh-CN';
+import { fieldExamplesEnUS } from '@/examples/components/field/locales/en-US';
+import { fieldExamplesZhCN } from '@/examples/components/field/locales/zh-CN';
 import { floatingActionExamplesEnUS } from '@/examples/components/floating-action/locales/en-US';
 import { floatingActionExamplesZhCN } from '@/examples/components/floating-action/locales/zh-CN';
+import { formExamplesEnUS } from '@/examples/components/form/locales/en-US';
+import { formExamplesZhCN } from '@/examples/components/form/locales/zh-CN';
 import { inputExamplesEnUS } from '@/examples/components/input/locales/en-US';
 import { inputExamplesZhCN } from '@/examples/components/input/locales/zh-CN';
 import { layoutExamplesEnUS } from '@/examples/components/layout/locales/en-US';
@@ -70,20 +82,30 @@ import { separatorExamplesEnUS } from '@/examples/components/separator/locales/e
 import { separatorExamplesZhCN } from '@/examples/components/separator/locales/zh-CN';
 import { skeletonExamplesEnUS } from '@/examples/components/skeleton/locales/en-US';
 import { skeletonExamplesZhCN } from '@/examples/components/skeleton/locales/zh-CN';
+import { sliderExamplesEnUS } from '@/examples/components/slider/locales/en-US';
+import { sliderExamplesZhCN } from '@/examples/components/slider/locales/zh-CN';
 import { spinnerExamplesEnUS } from '@/examples/components/spinner/locales/en-US';
 import { spinnerExamplesZhCN } from '@/examples/components/spinner/locales/zh-CN';
 import { surfaceExamplesEnUS } from '@/examples/components/surface/locales/en-US';
 import { surfaceExamplesZhCN } from '@/examples/components/surface/locales/zh-CN';
 import { switchExamplesEnUS } from '@/examples/components/switch/locales/en-US';
 import { switchExamplesZhCN } from '@/examples/components/switch/locales/zh-CN';
+import { tableExamplesEnUS } from '@/examples/components/table/locales/en-US';
+import { tableExamplesZhCN } from '@/examples/components/table/locales/zh-CN';
 import { tabsExamplesEnUS } from '@/examples/components/tabs/locales/en-US';
 import { tabsExamplesZhCN } from '@/examples/components/tabs/locales/zh-CN';
 import { tagExamplesEnUS } from '@/examples/components/tag/locales/en-US';
 import { tagExamplesZhCN } from '@/examples/components/tag/locales/zh-CN';
+import { timePickerExamplesEnUS } from '@/examples/components/time-picker/locales/en-US';
+import { timePickerExamplesZhCN } from '@/examples/components/time-picker/locales/zh-CN';
+import { timelineExamplesEnUS } from '@/examples/components/timeline/locales/en-US';
+import { timelineExamplesZhCN } from '@/examples/components/timeline/locales/zh-CN';
 import { toastExamplesEnUS } from '@/examples/components/toast/locales/en-US';
 import { toastExamplesZhCN } from '@/examples/components/toast/locales/zh-CN';
 import { tooltipExamplesEnUS } from '@/examples/components/tooltip/locales/en-US';
 import { tooltipExamplesZhCN } from '@/examples/components/tooltip/locales/zh-CN';
+import { treeExamplesEnUS } from '@/examples/components/tree/locales/en-US';
+import { treeExamplesZhCN } from '@/examples/components/tree/locales/zh-CN';
 import { colorStudioEnUS } from '@/features/color-studio/locales/en-US';
 import { colorStudioZhCN } from '@/features/color-studio/locales/zh-CN';
 import {
@@ -104,14 +126,22 @@ import { breadcrumbEnUS } from '@/features/components/pages/breadcrumb/locales/e
 import { breadcrumbZhCN } from '@/features/components/pages/breadcrumb/locales/zh-CN';
 import { buttonEnUS } from '@/features/components/pages/button/locales/en-US';
 import { buttonZhCN } from '@/features/components/pages/button/locales/zh-CN';
+import { calendarEnUS } from '@/features/components/pages/calendar/locales/en-US';
+import { calendarZhCN } from '@/features/components/pages/calendar/locales/zh-CN';
 import { cardEnUS } from '@/features/components/pages/card/locales/en-US';
 import { cardZhCN } from '@/features/components/pages/card/locales/zh-CN';
 import { checkboxEnUS } from '@/features/components/pages/checkbox/locales/en-US';
 import { checkboxZhCN } from '@/features/components/pages/checkbox/locales/zh-CN';
+import { colorPickerEnUS } from '@/features/components/pages/color-picker/locales/en-US';
+import { colorPickerZhCN } from '@/features/components/pages/color-picker/locales/zh-CN';
+import { comboboxEnUS } from '@/features/components/pages/combobox/locales/en-US';
+import { comboboxZhCN } from '@/features/components/pages/combobox/locales/zh-CN';
 import { commandEnUS } from '@/features/components/pages/command/locales/en-US';
 import { commandZhCN } from '@/features/components/pages/command/locales/zh-CN';
 import { cursorEnUS } from '@/features/components/pages/cursor/locales/en-US';
 import { cursorZhCN } from '@/features/components/pages/cursor/locales/zh-CN';
+import { datePickerEnUS } from '@/features/components/pages/date-picker/locales/en-US';
+import { datePickerZhCN } from '@/features/components/pages/date-picker/locales/zh-CN';
 import { dialogEnUS } from '@/features/components/pages/dialog/locales/en-US';
 import { dialogZhCN } from '@/features/components/pages/dialog/locales/zh-CN';
 import { dockEnUS } from '@/features/components/pages/dock/locales/en-US';
@@ -122,8 +152,12 @@ import { dropdownEnUS } from '@/features/components/pages/dropdown/locales/en-US
 import { dropdownZhCN } from '@/features/components/pages/dropdown/locales/zh-CN';
 import { emptyEnUS } from '@/features/components/pages/empty/locales/en-US';
 import { emptyZhCN } from '@/features/components/pages/empty/locales/zh-CN';
+import { fieldEnUS } from '@/features/components/pages/field/locales/en-US';
+import { fieldZhCN } from '@/features/components/pages/field/locales/zh-CN';
 import { floatingActionEnUS } from '@/features/components/pages/floating-action/locales/en-US';
 import { floatingActionZhCN } from '@/features/components/pages/floating-action/locales/zh-CN';
+import { formEnUS } from '@/features/components/pages/form/locales/en-US';
+import { formZhCN } from '@/features/components/pages/form/locales/zh-CN';
 import { inputEnUS } from '@/features/components/pages/input/locales/en-US';
 import { inputZhCN } from '@/features/components/pages/input/locales/zh-CN';
 import { layoutEnUS as componentLayoutEnUS } from '@/features/components/pages/layout/locales/en-US';
@@ -150,20 +184,30 @@ import { separatorEnUS } from '@/features/components/pages/separator/locales/en-
 import { separatorZhCN } from '@/features/components/pages/separator/locales/zh-CN';
 import { skeletonEnUS } from '@/features/components/pages/skeleton/locales/en-US';
 import { skeletonZhCN } from '@/features/components/pages/skeleton/locales/zh-CN';
+import { sliderEnUS } from '@/features/components/pages/slider/locales/en-US';
+import { sliderZhCN } from '@/features/components/pages/slider/locales/zh-CN';
 import { spinnerEnUS } from '@/features/components/pages/spinner/locales/en-US';
 import { spinnerZhCN } from '@/features/components/pages/spinner/locales/zh-CN';
 import { surfaceEnUS } from '@/features/components/pages/surface/locales/en-US';
 import { surfaceZhCN } from '@/features/components/pages/surface/locales/zh-CN';
 import { switchEnUS } from '@/features/components/pages/switch/locales/en-US';
 import { switchZhCN } from '@/features/components/pages/switch/locales/zh-CN';
+import { tableEnUS } from '@/features/components/pages/table/locales/en-US';
+import { tableZhCN } from '@/features/components/pages/table/locales/zh-CN';
 import { tabsEnUS } from '@/features/components/pages/tabs/locales/en-US';
 import { tabsZhCN } from '@/features/components/pages/tabs/locales/zh-CN';
 import { tagEnUS } from '@/features/components/pages/tag/locales/en-US';
 import { tagZhCN } from '@/features/components/pages/tag/locales/zh-CN';
+import { timePickerEnUS } from '@/features/components/pages/time-picker/locales/en-US';
+import { timePickerZhCN } from '@/features/components/pages/time-picker/locales/zh-CN';
+import { timelineEnUS } from '@/features/components/pages/timeline/locales/en-US';
+import { timelineZhCN } from '@/features/components/pages/timeline/locales/zh-CN';
 import { toastEnUS } from '@/features/components/pages/toast/locales/en-US';
 import { toastZhCN } from '@/features/components/pages/toast/locales/zh-CN';
 import { tooltipEnUS } from '@/features/components/pages/tooltip/locales/en-US';
 import { tooltipZhCN } from '@/features/components/pages/tooltip/locales/zh-CN';
+import { treeEnUS } from '@/features/components/pages/tree/locales/en-US';
+import { treeZhCN } from '@/features/components/pages/tree/locales/zh-CN';
 import { foundationColorExportEnUS } from '@/features/foundation-color-export/locales/en-US';
 import { foundationColorExportZhCN } from '@/features/foundation-color-export/locales/zh-CN';
 import { iconsEnUS } from '@/features/icons/locales/en-US';
@@ -205,6 +249,12 @@ export const enUS = {
   tokens: tokensEnUS,
   examples: {
     standalone: standaloneEnUS,
+    timeline: timelineExamplesEnUS,
+    calendar: calendarExamplesEnUS,
+    datePicker: datePickerExamplesEnUS,
+    timePicker: timePickerExamplesEnUS,
+    colorPicker: colorPickerExamplesEnUS,
+    slider: sliderExamplesEnUS,
     dialog: dialogExamplesEnUS,
     drawer: drawerExamplesEnUS,
     popover: popoverExamplesEnUS,
@@ -228,6 +278,12 @@ export const enUS = {
     badge: badgeExamplesEnUS,
     card: cardExamplesEnUS,
     empty: emptyExamplesEnUS,
+    form: formExamplesEnUS,
+    field: fieldExamplesEnUS,
+    table: tableExamplesEnUS,
+    tree: treeExamplesEnUS,
+    combobox: comboboxExamplesEnUS,
+
     tag: tagExamplesEnUS,
     progress: progressExamplesEnUS,
     skeleton: skeletonExamplesEnUS,
@@ -247,6 +303,12 @@ export const enUS = {
   primitives: { ...primitivesEnUS, ...primitivesApiEnUS },
   components: {
     catalogue: componentsEnUS,
+    timeline: { ...timelineEnUS, ...componentsApiEnUS['timeline']! },
+    calendar: { ...calendarEnUS, ...componentsApiEnUS['calendar']! },
+    datePicker: { ...datePickerEnUS, ...componentsApiEnUS['date-picker']! },
+    timePicker: { ...timePickerEnUS, ...componentsApiEnUS['time-picker']! },
+    colorPicker: { ...colorPickerEnUS, ...componentsApiEnUS['color-picker']! },
+    slider: { ...sliderEnUS, ...componentsApiEnUS['slider']! },
     accordion: { ...accordionEnUS, ...componentsApiEnUS['accordion']! },
     alert: { ...alertEnUS, ...componentsApiEnUS['alert']! },
     avatar: { ...avatarEnUS, ...componentsApiEnUS['avatar']! },
@@ -262,6 +324,12 @@ export const enUS = {
     drawer: { ...drawerEnUS, ...componentsApiEnUS['drawer']! },
     dropdown: { ...dropdownEnUS, ...componentsApiEnUS['dropdown']! },
     empty: { ...emptyEnUS, ...componentsApiEnUS['empty']! },
+    form: { ...formEnUS, ...componentsApiEnUS['form']! },
+    field: { ...fieldEnUS, ...componentsApiEnUS['field']! },
+    table: { ...tableEnUS, ...componentsApiEnUS['table']! },
+    tree: { ...treeEnUS, ...componentsApiEnUS['tree']! },
+    combobox: { ...comboboxEnUS, ...componentsApiEnUS['combobox']! },
+
     floatingAction: floatingActionEnUS,
     input: { ...inputEnUS, ...componentsApiEnUS['input']! },
     layout: { ...componentLayoutEnUS, ...componentsApiEnUS['layout']! },
@@ -282,6 +350,9 @@ export const enUS = {
     tag: { ...tagEnUS, ...componentsApiEnUS['tag']! },
     toast: { ...toastEnUS, ...componentsApiEnUS['toast']! },
     tooltip: { ...tooltipEnUS, ...componentsApiEnUS['tooltip']! },
+    'color-picker': componentsApiEnUS['color-picker']!,
+    'time-picker': componentsApiEnUS['time-picker']!,
+    'date-picker': componentsApiEnUS['date-picker']!,
     'floating-action': componentsApiEnUS['floating-action']!,
     'context-menu': componentsApiEnUS['context-menu']!,
     menu: componentsApiEnUS['menu']!,
@@ -313,6 +384,12 @@ export const zhCN = {
   tokens: tokensZhCN,
   examples: {
     standalone: standaloneZhCN,
+    timeline: timelineExamplesZhCN,
+    calendar: calendarExamplesZhCN,
+    datePicker: datePickerExamplesZhCN,
+    timePicker: timePickerExamplesZhCN,
+    colorPicker: colorPickerExamplesZhCN,
+    slider: sliderExamplesZhCN,
     dialog: dialogExamplesZhCN,
     drawer: drawerExamplesZhCN,
     popover: popoverExamplesZhCN,
@@ -336,6 +413,12 @@ export const zhCN = {
     badge: badgeExamplesZhCN,
     card: cardExamplesZhCN,
     empty: emptyExamplesZhCN,
+    form: formExamplesZhCN,
+    field: fieldExamplesZhCN,
+    table: tableExamplesZhCN,
+    tree: treeExamplesZhCN,
+    combobox: comboboxExamplesZhCN,
+
     tag: tagExamplesZhCN,
     progress: progressExamplesZhCN,
     skeleton: skeletonExamplesZhCN,
@@ -355,6 +438,12 @@ export const zhCN = {
   primitives: { ...primitivesZhCN, ...primitivesApiZhCN },
   components: {
     catalogue: componentsZhCN,
+    timeline: { ...timelineZhCN, ...componentsApiZhCN['timeline']! },
+    calendar: { ...calendarZhCN, ...componentsApiZhCN['calendar']! },
+    datePicker: { ...datePickerZhCN, ...componentsApiZhCN['date-picker']! },
+    timePicker: { ...timePickerZhCN, ...componentsApiZhCN['time-picker']! },
+    colorPicker: { ...colorPickerZhCN, ...componentsApiZhCN['color-picker']! },
+    slider: { ...sliderZhCN, ...componentsApiZhCN['slider']! },
     accordion: { ...accordionZhCN, ...componentsApiZhCN['accordion'] },
     alert: { ...alertZhCN, ...componentsApiZhCN['alert'] },
     avatar: { ...avatarZhCN, ...componentsApiZhCN['avatar'] },
@@ -370,6 +459,12 @@ export const zhCN = {
     drawer: { ...drawerZhCN, ...componentsApiZhCN['drawer'] },
     dropdown: { ...dropdownZhCN, ...componentsApiZhCN['dropdown'] },
     empty: { ...emptyZhCN, ...componentsApiZhCN['empty'] },
+    form: { ...formZhCN, ...componentsApiZhCN['form'] },
+    field: { ...fieldZhCN, ...componentsApiZhCN['field'] },
+    table: { ...tableZhCN, ...componentsApiZhCN['table'] },
+    tree: { ...treeZhCN, ...componentsApiZhCN['tree'] },
+    combobox: { ...comboboxZhCN, ...componentsApiZhCN['combobox'] },
+
     floatingAction: floatingActionZhCN,
     input: { ...inputZhCN, ...componentsApiZhCN['input'] },
     layout: { ...componentLayoutZhCN, ...componentsApiZhCN['layout'] },
@@ -390,6 +485,9 @@ export const zhCN = {
     tag: { ...tagZhCN, ...componentsApiZhCN['tag'] },
     toast: { ...toastZhCN, ...componentsApiZhCN['toast'] },
     tooltip: { ...tooltipZhCN, ...componentsApiZhCN['tooltip'] },
+    'color-picker': componentsApiZhCN['color-picker'],
+    'time-picker': componentsApiZhCN['time-picker'],
+    'date-picker': componentsApiZhCN['date-picker'],
     'floating-action': componentsApiZhCN['floating-action'],
     'context-menu': componentsApiZhCN['context-menu'],
     menu: componentsApiZhCN['menu'],

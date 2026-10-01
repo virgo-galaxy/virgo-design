@@ -1048,6 +1048,212 @@ export const componentApiReference: ApiReferenceRegistry = {
       },
     ],
   },
+  calendar: {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'CalendarProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'size',
+            type: "'small' | 'medium' | 'large' | undefined",
+            required: false,
+            defaultValue: "'medium'",
+            description: 'Visual density.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.size.description',
+          },
+          {
+            name: 'value',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Selected civil date in YYYY-MM-DD form; empty means no selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial selected civil date.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when an enabled day is selected.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.on-value-change.description',
+          },
+          {
+            name: 'month',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled displayed month in YYYY-MM form.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.month.description',
+          },
+          {
+            name: 'defaultMonth',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial month; defaults to selected date or today.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.default-month.description',
+          },
+          {
+            name: 'onMonthChange',
+            type: '((month: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called for requested month navigation.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.on-month-change.description',
+          },
+          {
+            name: 'min',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Earliest selectable civil date, inclusive.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.min.description',
+          },
+          {
+            name: 'max',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Latest selectable civil date, inclusive.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.max.description',
+          },
+          {
+            name: 'isDateUnavailable',
+            type: '((date: string) => boolean) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Additional consumer-owned unavailable dates.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.is-date-unavailable.description',
+          },
+          {
+            name: 'locale',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'en-US'",
+            description: 'Intl locale for month, weekday and date names.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.locale.description',
+          },
+          {
+            name: 'weekStartsOn',
+            type: '0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined',
+            required: false,
+            defaultValue: '0',
+            description: 'First weekday, 0 (Sunday) through 6 (Saturday).',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.week-starts-on.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disable all selection and keyboard navigation.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Permit navigation while preventing selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.read-only.description',
+          },
+          {
+            name: 'autoFocus',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Focus the enabled selected day or first available day on mount.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.auto-focus.description',
+          },
+          {
+            name: 'previousMonthContent',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative content for the previous-month button.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.previous-month-content.description',
+          },
+          {
+            name: 'nextMonthContent',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative content for the next-month button.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.next-month-content.description',
+          },
+          {
+            name: 'previousMonthLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Previous month'",
+            description: 'Localized previous-month button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.previous-month-label.description',
+          },
+          {
+            name: 'nextMonthLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Next month'",
+            description: 'Localized next-month button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.calendar.api.calendar-props.properties.next-month-label.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.calendar.api.calendar-props.description',
+      },
+    ],
+  },
   card: {
     packageName: '@virgo-design/ui',
     declarations: [
@@ -1319,6 +1525,459 @@ export const componentApiReference: ApiReferenceRegistry = {
           },
         ],
         descriptionTranslationKey: 'components.checkbox.api.checkbox-group-props.description',
+      },
+    ],
+  },
+  'color-picker': {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'ColorPickerProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'size',
+            type: "'small' | 'medium' | 'large' | undefined",
+            required: false,
+            defaultValue: "'medium'",
+            description: 'Visual density.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-props.properties.size.description',
+          },
+          {
+            name: 'value',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled opaque sRGB color, formatted as #rrggbb.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'#000000'",
+            description: 'Initial color.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Called when the native color input or a swatch chooses a valid HEX color.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-props.properties.on-value-change.description',
+          },
+          {
+            name: 'name',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Native form name for the selected HEX color.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-props.properties.name.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disable the picker and swatches.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Prevent color edits while retaining the current form value.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-props.properties.read-only.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.color-picker.api.color-picker-props.description',
+      },
+      {
+        name: 'ColorPickerInputProps',
+        kind: 'type',
+        signature:
+          "Omit< InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'defaultValue' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey:
+          'components.color-picker.api.color-picker-input-props.description',
+      },
+      {
+        name: 'ColorPickerPreviewProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLSpanElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey:
+          'components.color-picker.api.color-picker-preview-props.description',
+      },
+      {
+        name: 'ColorPickerSwatchProps',
+        kind: 'interface',
+        signature: 'extends ButtonHTMLAttributes<HTMLButtonElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [
+          {
+            name: 'value',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: 'Opaque sRGB HEX color represented by this button.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-swatch-props.properties.value.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'components.color-picker.api.color-picker-swatch-props.description',
+      },
+    ],
+  },
+  combobox: {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'ComboboxProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveComboboxProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'size',
+            type: "'small' | 'medium' | 'large' | undefined",
+            required: false,
+            defaultValue: "'medium'",
+            description: 'Input and option density.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.size.description',
+          },
+          {
+            name: 'value',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Selected option value. An empty string represents no selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "''",
+            description: 'Initial selected value.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called on option selection or explicit clear, not on typing.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.on-value-change.description',
+          },
+          {
+            name: 'inputValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Current input text, independent of the selected value.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.input-value.description',
+          },
+          {
+            name: 'defaultInputValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial input text for autocomplete usage.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.default-input-value.description',
+          },
+          {
+            name: 'onInputValueChange',
+            type: '((value: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when input text changes or an option fills the input.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.on-input-value-change.description',
+          },
+          {
+            name: 'open',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled popup state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.open.description',
+          },
+          {
+            name: 'defaultOpen',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Initial popup state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.default-open.description',
+          },
+          {
+            name: 'onOpenChange',
+            type: '((open: boolean) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when the popup is requested to open or close.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.on-open-change.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disables input, selection and clear.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Keeps the input focusable while preventing edits and selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.read-only.description',
+          },
+          {
+            name: 'name',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Name of the hidden selected-value form control.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.name.description',
+          },
+          {
+            name: 'shouldFilter',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'true',
+            description: 'Disable client filtering for consumer-owned or remote result lists.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.should-filter.description',
+          },
+          {
+            name: 'filter',
+            type: 'ComboboxFilter | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Custom synchronous filter; defaults to case-insensitive substring matching.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-props.properties.filter.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.combobox.api.combobox-props.description',
+      },
+      {
+        name: 'ComboboxClearProps',
+        kind: 'type',
+        signature: 'ButtonHTMLAttributes<HTMLButtonElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.combobox.api.combobox-clear-props.description',
+      },
+      {
+        name: 'ComboboxContentProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [
+          {
+            name: 'portal',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'true',
+            description: 'Render in the document-body portal.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-content-props.properties.portal.description',
+          },
+          {
+            name: 'placement',
+            type: "'bottomStart' | 'bottomEnd' | 'topStart' | 'topEnd' | undefined",
+            required: false,
+            defaultValue: "'bottomStart'",
+            description:
+              'Preferred logical popup placement; collision handling may flip or shift it.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-content-props.properties.placement.description',
+          },
+          {
+            name: 'offset',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '4',
+            description: 'Gap between input and popup in pixels.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-content-props.properties.offset.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.combobox.api.combobox-content-props.description',
+      },
+      {
+        name: 'ComboboxEmptyProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.combobox.api.combobox-empty-props.description',
+      },
+      {
+        name: 'ComboboxFilter',
+        kind: 'type',
+        signature: '(text: string, query: string, keywords: readonly string[]) => boolean',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.combobox.api.combobox-filter.description',
+      },
+      {
+        name: 'ComboboxGroupProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [
+          {
+            name: 'label',
+            type: 'ReactNode',
+            required: true,
+            defaultValue: '',
+            description: 'Visible group heading and accessible name.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-group-props.properties.label.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.combobox.api.combobox-group-props.description',
+      },
+      {
+        name: 'ComboboxInputProps',
+        kind: 'type',
+        signature: "Omit< InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.combobox.api.combobox-input-props.description',
+      },
+      {
+        name: 'ComboboxOptionProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [
+          {
+            name: 'value',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: 'Unique, nonempty selected value.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-option-props.properties.value.description',
+          },
+          {
+            name: 'textValue',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: 'Plain text used for filtering and filling the input.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-option-props.properties.text-value.description',
+          },
+          {
+            name: 'keywords',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Additional search terms.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-option-props.properties.keywords.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Visible but not selectable or highlightable.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-option-props.properties.disabled.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.combobox.api.combobox-option-props.description',
       },
     ],
   },
@@ -2270,6 +2929,350 @@ export const componentApiReference: ApiReferenceRegistry = {
           },
         ],
         descriptionTranslationKey: 'components.cursor.api.cursor-visual-props.description',
+      },
+    ],
+  },
+  'date-picker': {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'DatePickerProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'size',
+            type: "'small' | 'medium' | 'large' | undefined",
+            required: false,
+            defaultValue: "'medium'",
+            description: 'Visual density.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-props.properties.size.description',
+          },
+          {
+            name: 'value',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled civil date in YYYY-MM-DD form; empty means no selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial selected date.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called by native date input edits or calendar selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-props.properties.on-value-change.description',
+          },
+          {
+            name: 'open',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled calendar popup state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-props.properties.open.description',
+          },
+          {
+            name: 'defaultOpen',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Initial calendar popup state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-props.properties.default-open.description',
+          },
+          {
+            name: 'onOpenChange',
+            type: '((open: boolean) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when the popup is requested to open or close.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-props.properties.on-open-change.description',
+          },
+          {
+            name: 'name',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Selected-value form control name.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-props.properties.name.description',
+          },
+          {
+            name: 'min',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Earliest selectable date, inclusive.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-props.properties.min.description',
+          },
+          {
+            name: 'max',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Latest selectable date, inclusive.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-props.properties.max.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disable input and popup.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Keep input focusable while preventing edits and calendar selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-props.properties.read-only.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.date-picker.api.date-picker-props.description',
+      },
+      {
+        name: 'DatePickerCalendarProps',
+        kind: 'type',
+        signature:
+          "Omit< CalendarProps, 'value' | 'defaultValue' | 'onValueChange' | 'min' | 'max' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [
+          {
+            name: 'autoFocus',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Focus the enabled selected day or first available day on mount.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-calendar-props.properties.auto-focus.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disable all selection and keyboard navigation.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-calendar-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Permit navigation while preventing selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-calendar-props.properties.read-only.description',
+          },
+          {
+            name: 'month',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled displayed month in YYYY-MM form.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-calendar-props.properties.month.description',
+          },
+          {
+            name: 'defaultMonth',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial month; defaults to selected date or today.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-calendar-props.properties.default-month.description',
+          },
+          {
+            name: 'onMonthChange',
+            type: '((month: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called for requested month navigation.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-calendar-props.properties.on-month-change.description',
+          },
+          {
+            name: 'isDateUnavailable',
+            type: '((date: string) => boolean) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Additional consumer-owned unavailable dates.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-calendar-props.properties.is-date-unavailable.description',
+          },
+          {
+            name: 'locale',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'en-US'",
+            description: 'Intl locale for month, weekday and date names.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-calendar-props.properties.locale.description',
+          },
+          {
+            name: 'weekStartsOn',
+            type: '0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined',
+            required: false,
+            defaultValue: '0',
+            description: 'First weekday, 0 (Sunday) through 6 (Saturday).',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-calendar-props.properties.week-starts-on.description',
+          },
+          {
+            name: 'previousMonthContent',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative content for the previous-month button.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-calendar-props.properties.previous-month-content.description',
+          },
+          {
+            name: 'nextMonthContent',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative content for the next-month button.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-calendar-props.properties.next-month-content.description',
+          },
+          {
+            name: 'previousMonthLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Previous month'",
+            description: 'Localized previous-month button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-calendar-props.properties.previous-month-label.description',
+          },
+          {
+            name: 'nextMonthLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Next month'",
+            description: 'Localized next-month button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-calendar-props.properties.next-month-label.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'components.date-picker.api.date-picker-calendar-props.description',
+      },
+      {
+        name: 'DatePickerContentProps',
+        kind: 'type',
+        signature: 'PopoverContentProps',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [
+          {
+            name: 'placement',
+            type: 'PopoverPlacement',
+            required: false,
+            defaultValue: "'bottomStart'",
+            description: "Logical Start/End alignments follow the trigger's direction.",
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-content-props.properties.placement.description',
+          },
+          {
+            name: 'offset',
+            type: 'number',
+            required: false,
+            defaultValue: '8',
+            description: 'Space between the trigger and panel, in pixels.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-content-props.properties.offset.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'components.date-picker.api.date-picker-content-props.description',
+      },
+      {
+        name: 'DatePickerInputProps',
+        kind: 'type',
+        signature:
+          "Omit< InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'defaultValue' | 'name' | 'min' | 'max' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.date-picker.api.date-picker-input-props.description',
+      },
+      {
+        name: 'DatePickerTriggerProps',
+        kind: 'type',
+        signature: 'PopoverTriggerProps',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [
+          {
+            name: 'render',
+            type: '(\n    props: ButtonHTMLAttributes<HTMLButtonElement> & { ref: Ref<HTMLButtonElement> },\n  ) => ReactElement',
+            required: false,
+            defaultValue: '',
+            description: 'Supply a button which forwards the provided native props and ref.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.date-picker.api.date-picker-trigger-props.properties.render.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'components.date-picker.api.date-picker-trigger-props.description',
       },
     ],
   },
@@ -3769,6 +4772,214 @@ export const componentApiReference: ApiReferenceRegistry = {
       },
     ],
   },
+  field: {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'FieldProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveFieldProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'layout',
+            type: "'vertical' | 'horizontal' | undefined",
+            required: false,
+            defaultValue: '',
+            description: 'Local label/control arrangement; inherits Form layout when omitted.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.field.api.field-props.properties.layout.description',
+          },
+          {
+            name: 'controlId',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: "ID for the field's single control. Generated when omitted.",
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.field.api.field-props.properties.control-id.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Default disabled state for the control.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.field.api.field-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Prevents editing while retaining focus and form submission.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.field.api.field-props.properties.read-only.description',
+          },
+          {
+            name: 'required',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Marks the control required and shows the label indicator.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.field.api.field-props.properties.required.description',
+          },
+          {
+            name: 'invalid',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Consumer-owned validation state; Field never validates data.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.field.api.field-props.properties.invalid.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.field.api.field-props.description',
+      },
+      {
+        name: 'FieldControlAttributes',
+        kind: 'interface',
+        signature: '',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [
+          {
+            name: 'id',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.field.api.field-control-attributes.properties.id.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.field.api.field-control-attributes.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.field.api.field-control-attributes.properties.read-only.description',
+          },
+          {
+            name: 'required',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.field.api.field-control-attributes.properties.required.description',
+          },
+          {
+            name: 'aria-describedby',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.field.api.field-control-attributes.properties.aria-describedby.description',
+          },
+          {
+            name: 'aria-invalid',
+            type: "boolean | 'true' | 'false' | 'grammar' | 'spelling' | undefined",
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.field.api.field-control-attributes.properties.aria-invalid.description',
+          },
+          {
+            name: 'aria-required',
+            type: "boolean | 'true' | 'false' | undefined",
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.field.api.field-control-attributes.properties.aria-required.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.field.api.field-control-attributes.description',
+      },
+      {
+        name: 'FieldControlProps',
+        kind: 'interface',
+        signature: '',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [
+          {
+            name: 'render',
+            type: '(props: FieldControlAttributes) => ReactNode',
+            required: true,
+            defaultValue: '',
+            description: "Render a custom control with the field's semantic attributes.",
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.field.api.field-control-props.properties.render.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.field.api.field-control-props.description',
+      },
+      {
+        name: 'FieldDescriptionProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.field.api.field-description-props.description',
+      },
+      {
+        name: 'FieldLabelProps',
+        kind: 'type',
+        signature: 'LabelHTMLAttributes<HTMLLabelElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.field.api.field-label-props.description',
+      },
+      {
+        name: 'FieldMessageProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.field.api.field-message-props.description',
+      },
+    ],
+  },
   'floating-action': {
     packageName: '@virgo-design/ui',
     declarations: [
@@ -4000,6 +5211,61 @@ export const componentApiReference: ApiReferenceRegistry = {
         ],
         descriptionTranslationKey:
           'components.floating-action.api.floating-action-content-props.description',
+      },
+    ],
+  },
+  form: {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'FormProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveFormProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'layout',
+            type: "'vertical' | 'horizontal' | undefined",
+            required: false,
+            defaultValue: "'vertical'",
+            description: 'Field label/control arrangement.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.form.api.form-props.properties.layout.description',
+          },
+          {
+            name: 'size',
+            type: "'small' | 'medium' | 'large' | undefined",
+            required: false,
+            defaultValue: "'medium'",
+            description: 'Spacing between fields.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey: 'components.form.api.form-props.properties.size.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Default disabled state for controls; individual fields may override it.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.form.api.form-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Default read-only state for controls; does not manage form values.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.form.api.form-props.properties.read-only.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.form.api.form-props.description',
       },
     ],
   },
@@ -7081,6 +8347,16 @@ export const componentApiReference: ApiReferenceRegistry = {
               'components.select.api.select-props.properties.name.description',
           },
           {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Prevents opening or changing selection while remaining focusable.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-props.properties.read-only.description',
+          },
+          {
             name: 'open',
             type: 'boolean | undefined',
             required: false,
@@ -7348,6 +8624,62 @@ export const componentApiReference: ApiReferenceRegistry = {
           },
         ],
         descriptionTranslationKey: 'components.skeleton.api.skeleton-props.description',
+      },
+    ],
+  },
+  slider: {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'SliderProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'size',
+            type: "'small' | 'medium' | 'large' | undefined",
+            required: false,
+            defaultValue: "'medium'",
+            description: 'Visual density.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.slider.api.slider-props.properties.size.description',
+          },
+          {
+            name: 'value',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled numeric value, constrained by min/max/step.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial value. Defaults to the midpoint of min and max.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: number) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called for native pointer and keyboard value changes.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-props.properties.on-value-change.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.slider.api.slider-props.description',
       },
     ],
   },
@@ -7659,6 +8991,166 @@ export const componentApiReference: ApiReferenceRegistry = {
           },
         ],
         descriptionTranslationKey: 'components.switch.api.switch-props.description',
+      },
+    ],
+  },
+  table: {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'TableProps',
+        kind: 'interface',
+        signature: "extends Omit<PrimitiveTableProps, 'border'>",
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'size',
+            type: "'small' | 'medium' | 'large' | undefined",
+            required: false,
+            defaultValue: "'medium'",
+            description: 'Cell density.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-props.properties.size.description',
+          },
+          {
+            name: 'border',
+            type: "'none' | 'rows' | 'all' | undefined",
+            required: false,
+            defaultValue: "'rows'",
+            description: 'Border treatment.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-props.properties.border.description',
+          },
+          {
+            name: 'striped',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Alternating body row backgrounds.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-props.properties.striped.description',
+          },
+          {
+            name: 'hoverable',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Highlights pointer-hovered rows.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-props.properties.hoverable.description',
+          },
+          {
+            name: 'stickyHeader',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Sticks column headings inside the nearest scrolling viewport.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-props.properties.sticky-header.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.table.api.table-props.description',
+      },
+      {
+        name: 'TableHeadProps',
+        kind: 'interface',
+        signature: "extends Omit<PrimitiveTableHeadProps, 'align'>",
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'align',
+            type: "'start' | 'center' | 'end' | undefined",
+            required: false,
+            defaultValue: "'start'",
+            description: 'Logical alignment; end is useful for numeric columns.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-head-props.properties.align.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.table.api.table-head-props.description',
+      },
+      {
+        name: 'TableCellProps',
+        kind: 'interface',
+        signature: "extends Omit<PrimitiveTableCellProps, 'align'>",
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'align',
+            type: "'start' | 'center' | 'end' | undefined",
+            required: false,
+            defaultValue: "'start'",
+            description: 'Logical alignment; end is useful for numeric columns.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-cell-props.properties.align.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.table.api.table-cell-props.description',
+      },
+      {
+        name: 'TableCaptionProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLTableCaptionElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.table.api.table-caption-props.description',
+      },
+      {
+        name: 'TableRowProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLTableRowElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [
+          {
+            name: 'selected',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Consumer-owned selected appearance; does not add grid selection semantics.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.table.api.table-row-props.properties.selected.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.table.api.table-row-props.description',
+      },
+      {
+        name: 'TableSectionProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLTableSectionElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.table.api.table-section-props.description',
+      },
+      {
+        name: 'TableViewportProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.table.api.table-viewport-props.description',
       },
     ],
   },
@@ -8049,6 +9541,150 @@ export const componentApiReference: ApiReferenceRegistry = {
           },
         ],
         descriptionTranslationKey: 'components.tag.api.tag-props.description',
+      },
+    ],
+  },
+  timeline: {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'TimelineProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'size',
+            type: "'small' | 'medium' | 'large' | undefined",
+            required: false,
+            defaultValue: "'medium'",
+            description: 'Visual spacing.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.timeline.api.timeline-props.properties.size.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.timeline.api.timeline-props.description',
+      },
+      {
+        name: 'TimelineItemProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveItemProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'status',
+            type: "'pending' | 'active' | 'complete' | undefined",
+            required: false,
+            defaultValue: "'pending'",
+            description: "Presentation of an event's progress.",
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.timeline.api.timeline-item-props.properties.status.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.timeline.api.timeline-item-props.description',
+      },
+      {
+        name: 'TimelineDescriptionProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.timeline.api.timeline-description-props.description',
+      },
+      {
+        name: 'TimelineIndicatorProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLSpanElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.timeline.api.timeline-indicator-props.description',
+      },
+      {
+        name: 'TimelineTimeProps',
+        kind: 'type',
+        signature: 'TimeHTMLAttributes<HTMLTimeElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.timeline.api.timeline-time-props.description',
+      },
+      {
+        name: 'TimelineTitleProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLHeadingElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.timeline.api.timeline-title-props.description',
+      },
+    ],
+  },
+  'time-picker': {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'TimePickerProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'size',
+            type: "'small' | 'medium' | 'large' | undefined",
+            required: false,
+            defaultValue: "'medium'",
+            description: 'Visual density.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.time-picker.api.time-picker-props.properties.size.description',
+          },
+          {
+            name: 'value',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Controlled local wall-clock time in HH:mm or HH:mm:ss form. No timezone conversion.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.time-picker.api.time-picker-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial local time; an empty string represents no value.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.time-picker.api.time-picker-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when a native time edit changes the value, including clear.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.time-picker.api.time-picker-props.properties.on-value-change.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.time-picker.api.time-picker-props.description',
       },
     ],
   },
@@ -8594,9 +10230,1817 @@ export const componentApiReference: ApiReferenceRegistry = {
       },
     ],
   },
+  tree: {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'TreeProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveTreeProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'size',
+            type: "'small' | 'medium' | 'large' | undefined",
+            required: false,
+            defaultValue: "'medium'",
+            description: 'Row density.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey: 'components.tree.api.tree-props.properties.size.description',
+          },
+          {
+            name: 'expandedValues',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Expanded branch values.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tree.api.tree-props.properties.expanded-values.description',
+          },
+          {
+            name: 'defaultExpandedValues',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial expanded branches in uncontrolled mode.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tree.api.tree-props.properties.default-expanded-values.description',
+          },
+          {
+            name: 'onExpandedValuesChange',
+            type: '((values: readonly string[]) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when a branch is expanded or collapsed.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tree.api.tree-props.properties.on-expanded-values-change.description',
+          },
+          {
+            name: 'selectedValues',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Selected item values; single mode retains at most one value.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tree.api.tree-props.properties.selected-values.description',
+          },
+          {
+            name: 'defaultSelectedValues',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial selected items in uncontrolled mode.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tree.api.tree-props.properties.default-selected-values.description',
+          },
+          {
+            name: 'onSelectedValuesChange',
+            type: '((values: readonly string[]) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called on explicit selection, independently of focus movement.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tree.api.tree-props.properties.on-selected-values-change.description',
+          },
+          {
+            name: 'selectionMode',
+            type: "'single' | 'multiple' | 'none' | undefined",
+            required: false,
+            defaultValue: "'single'",
+            description: 'Single selection, modifier-free multiple selection, or navigation only.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tree.api.tree-props.properties.selection-mode.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disables interaction throughout this tree.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tree.api.tree-props.properties.disabled.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.tree.api.tree-props.description',
+      },
+      {
+        name: 'TreeGroupProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.tree.api.tree-group-props.description',
+      },
+      {
+        name: 'TreeItemProps',
+        kind: 'interface',
+        signature: "extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [
+          {
+            name: 'value',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: 'Unique value within this tree.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tree.api.tree-item-props.properties.value.description',
+          },
+          {
+            name: 'branch',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Identifies an expandable item containing Tree.Group.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tree.api.tree-item-props.properties.branch.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Excludes the item from keyboard navigation and selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tree.api.tree-item-props.properties.disabled.description',
+          },
+          {
+            name: 'textValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Plain label used by typeahead for rich content.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tree.api.tree-item-props.properties.text-value.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.tree.api.tree-item-props.description',
+      },
+      {
+        name: 'TreeLabelProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.tree.api.tree-label-props.description',
+      },
+      {
+        name: 'TreeToggleProps',
+        kind: 'type',
+        signature: 'ButtonHTMLAttributes<HTMLButtonElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.tree.api.tree-toggle-props.description',
+      },
+    ],
+  },
 };
 
 export const primitiveApiReference: ApiReferenceRegistry = {
+  slider: {
+    packageName: '@virgo-design/primitives',
+    declarations: [
+      {
+        name: 'SliderProps',
+        kind: 'interface',
+        signature:
+          "extends Omit< InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'defaultValue' | 'size' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'value',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled numeric value, constrained by min/max/step.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial value. Defaults to the midpoint of min and max.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: number) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called for native pointer and keyboard value changes.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-props.properties.on-value-change.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.slider.api.slider-props.description',
+      },
+    ],
+  },
+  'color-picker': {
+    packageName: '@virgo-design/primitives',
+    declarations: [
+      {
+        name: 'ColorPickerProps',
+        kind: 'interface',
+        signature: "extends Omit< HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'value',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled opaque sRGB color, formatted as #rrggbb.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.color-picker.api.color-picker-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'#000000'",
+            description: 'Initial color.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.color-picker.api.color-picker-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Called when the native color input or a swatch chooses a valid HEX color.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.color-picker.api.color-picker-props.properties.on-value-change.description',
+          },
+          {
+            name: 'name',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Native form name for the selected HEX color.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.color-picker.api.color-picker-props.properties.name.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disable the picker and swatches.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.color-picker.api.color-picker-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Prevent color edits while retaining the current form value.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.color-picker.api.color-picker-props.properties.read-only.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.color-picker.api.color-picker-props.description',
+      },
+      {
+        name: 'ColorPickerInputProps',
+        kind: 'type',
+        signature:
+          "Omit< InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'defaultValue' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey:
+          'primitives.color-picker.api.color-picker-input-props.description',
+      },
+      {
+        name: 'ColorPickerSwatchProps',
+        kind: 'interface',
+        signature: 'extends ButtonHTMLAttributes<HTMLButtonElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'value',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: 'Opaque sRGB HEX color represented by this button.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.color-picker.api.color-picker-swatch-props.properties.value.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'primitives.color-picker.api.color-picker-swatch-props.description',
+      },
+      {
+        name: 'ColorPickerPreviewProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLSpanElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey:
+          'primitives.color-picker.api.color-picker-preview-props.description',
+      },
+    ],
+  },
+  'time-picker': {
+    packageName: '@virgo-design/primitives',
+    declarations: [
+      {
+        name: 'TimePickerProps',
+        kind: 'interface',
+        signature:
+          "extends Omit< InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'defaultValue' | 'size' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'value',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Controlled local wall-clock time in HH:mm or HH:mm:ss form. No timezone conversion.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.time-picker.api.time-picker-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial local time; an empty string represents no value.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.time-picker.api.time-picker-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when a native time edit changes the value, including clear.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.time-picker.api.time-picker-props.properties.on-value-change.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.time-picker.api.time-picker-props.description',
+      },
+    ],
+  },
+  'date-picker': {
+    packageName: '@virgo-design/primitives',
+    declarations: [
+      {
+        name: 'DatePickerProps',
+        kind: 'interface',
+        signature: "extends Omit< HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'value',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled civil date in YYYY-MM-DD form; empty means no selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial selected date.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called by native date input edits or calendar selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-props.properties.on-value-change.description',
+          },
+          {
+            name: 'open',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled calendar popup state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-props.properties.open.description',
+          },
+          {
+            name: 'defaultOpen',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Initial calendar popup state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-props.properties.default-open.description',
+          },
+          {
+            name: 'onOpenChange',
+            type: '((open: boolean) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when the popup is requested to open or close.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-props.properties.on-open-change.description',
+          },
+          {
+            name: 'name',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Selected-value form control name.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-props.properties.name.description',
+          },
+          {
+            name: 'min',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Earliest selectable date, inclusive.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-props.properties.min.description',
+          },
+          {
+            name: 'max',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Latest selectable date, inclusive.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-props.properties.max.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disable input and popup.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Keep input focusable while preventing edits and calendar selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-props.properties.read-only.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.date-picker.api.date-picker-props.description',
+      },
+      {
+        name: 'DatePickerInputProps',
+        kind: 'type',
+        signature:
+          "Omit< InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'defaultValue' | 'name' | 'min' | 'max' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.date-picker.api.date-picker-input-props.description',
+      },
+      {
+        name: 'DatePickerTriggerProps',
+        kind: 'type',
+        signature: 'PopoverTriggerProps',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'render',
+            type: '(\n    props: ButtonHTMLAttributes<HTMLButtonElement> & { ref: Ref<HTMLButtonElement> },\n  ) => ReactElement',
+            required: false,
+            defaultValue: '',
+            description: 'Supply a button which forwards the provided native props and ref.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-trigger-props.properties.render.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'primitives.date-picker.api.date-picker-trigger-props.description',
+      },
+      {
+        name: 'DatePickerContentProps',
+        kind: 'type',
+        signature: 'PopoverContentProps',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'placement',
+            type: 'PopoverPlacement',
+            required: false,
+            defaultValue: "'bottomStart'",
+            description: "Logical Start/End alignments follow the trigger's direction.",
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-content-props.properties.placement.description',
+          },
+          {
+            name: 'offset',
+            type: 'number',
+            required: false,
+            defaultValue: '8',
+            description: 'Space between the trigger and panel, in pixels.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-content-props.properties.offset.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'primitives.date-picker.api.date-picker-content-props.description',
+      },
+      {
+        name: 'DatePickerCalendarProps',
+        kind: 'type',
+        signature:
+          "Omit< CalendarProps, 'value' | 'defaultValue' | 'onValueChange' | 'min' | 'max' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'autoFocus',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Focus the enabled selected day or first available day on mount.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.auto-focus.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disable all selection and keyboard navigation.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Permit navigation while preventing selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.read-only.description',
+          },
+          {
+            name: 'month',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled displayed month in YYYY-MM form.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.month.description',
+          },
+          {
+            name: 'defaultMonth',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial month; defaults to selected date or today.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.default-month.description',
+          },
+          {
+            name: 'onMonthChange',
+            type: '((month: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called for requested month navigation.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.on-month-change.description',
+          },
+          {
+            name: 'isDateUnavailable',
+            type: '((date: string) => boolean) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Additional consumer-owned unavailable dates.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.is-date-unavailable.description',
+          },
+          {
+            name: 'locale',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'en-US'",
+            description: 'Intl locale for month, weekday and date names.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.locale.description',
+          },
+          {
+            name: 'weekStartsOn',
+            type: '0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined',
+            required: false,
+            defaultValue: '0',
+            description: 'First weekday, 0 (Sunday) through 6 (Saturday).',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.week-starts-on.description',
+          },
+          {
+            name: 'previousMonthContent',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative content for the previous-month button.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.previous-month-content.description',
+          },
+          {
+            name: 'nextMonthContent',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative content for the next-month button.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.next-month-content.description',
+          },
+          {
+            name: 'previousMonthLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Previous month'",
+            description: 'Localized previous-month button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.previous-month-label.description',
+          },
+          {
+            name: 'nextMonthLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Next month'",
+            description: 'Localized next-month button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.next-month-label.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'primitives.date-picker.api.date-picker-calendar-props.description',
+      },
+    ],
+  },
+  calendar: {
+    packageName: '@virgo-design/primitives',
+    declarations: [
+      {
+        name: 'CalendarProps',
+        kind: 'interface',
+        signature:
+          "extends Omit< HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'value',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Selected civil date in YYYY-MM-DD form; empty means no selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial selected civil date.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when an enabled day is selected.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.on-value-change.description',
+          },
+          {
+            name: 'month',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled displayed month in YYYY-MM form.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.month.description',
+          },
+          {
+            name: 'defaultMonth',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial month; defaults to selected date or today.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.default-month.description',
+          },
+          {
+            name: 'onMonthChange',
+            type: '((month: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called for requested month navigation.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.on-month-change.description',
+          },
+          {
+            name: 'min',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Earliest selectable civil date, inclusive.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.min.description',
+          },
+          {
+            name: 'max',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Latest selectable civil date, inclusive.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.max.description',
+          },
+          {
+            name: 'isDateUnavailable',
+            type: '((date: string) => boolean) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Additional consumer-owned unavailable dates.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.is-date-unavailable.description',
+          },
+          {
+            name: 'locale',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'en-US'",
+            description: 'Intl locale for month, weekday and date names.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.locale.description',
+          },
+          {
+            name: 'weekStartsOn',
+            type: '0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined',
+            required: false,
+            defaultValue: '0',
+            description: 'First weekday, 0 (Sunday) through 6 (Saturday).',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.week-starts-on.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disable all selection and keyboard navigation.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Permit navigation while preventing selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.read-only.description',
+          },
+          {
+            name: 'autoFocus',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Focus the enabled selected day or first available day on mount.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.auto-focus.description',
+          },
+          {
+            name: 'previousMonthContent',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative content for the previous-month button.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.previous-month-content.description',
+          },
+          {
+            name: 'nextMonthContent',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative content for the next-month button.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.next-month-content.description',
+          },
+          {
+            name: 'previousMonthLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Previous month'",
+            description: 'Localized previous-month button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.previous-month-label.description',
+          },
+          {
+            name: 'nextMonthLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Next month'",
+            description: 'Localized next-month button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.next-month-label.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.calendar.api.calendar-props.description',
+      },
+    ],
+  },
+  timeline: {
+    packageName: '@virgo-design/primitives',
+    declarations: [
+      {
+        name: 'TimelineProps',
+        kind: 'type',
+        signature: 'OlHTMLAttributes<HTMLOListElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.timeline.api.timeline-props.description',
+      },
+      {
+        name: 'TimelineItemProps',
+        kind: 'type',
+        signature: 'LiHTMLAttributes<HTMLLIElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.timeline.api.timeline-item-props.description',
+      },
+      {
+        name: 'TimelineTitleProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLHeadingElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.timeline.api.timeline-title-props.description',
+      },
+      {
+        name: 'TimelineDescriptionProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.timeline.api.timeline-description-props.description',
+      },
+      {
+        name: 'TimelineTimeProps',
+        kind: 'type',
+        signature: 'TimeHTMLAttributes<HTMLTimeElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.timeline.api.timeline-time-props.description',
+      },
+      {
+        name: 'TimelineIndicatorProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLSpanElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.timeline.api.timeline-indicator-props.description',
+      },
+    ],
+  },
+  form: {
+    packageName: '@virgo-design/primitives',
+    declarations: [
+      {
+        name: 'FormProps',
+        kind: 'interface',
+        signature: 'extends FormHTMLAttributes<HTMLFormElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Default disabled state for controls; individual fields may override it.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.form.api.form-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Default read-only state for controls; does not manage form values.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.form.api.form-props.properties.read-only.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.form.api.form-props.description',
+      },
+    ],
+  },
+  field: {
+    packageName: '@virgo-design/primitives',
+    declarations: [
+      {
+        name: 'FieldProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'controlId',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: "ID for the field's single control. Generated when omitted.",
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.field.api.field-props.properties.control-id.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Default disabled state for the control.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.field.api.field-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Prevents editing while retaining focus and form submission.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.field.api.field-props.properties.read-only.description',
+          },
+          {
+            name: 'required',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Marks the control required and shows the label indicator.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.field.api.field-props.properties.required.description',
+          },
+          {
+            name: 'invalid',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Consumer-owned validation state; Field never validates data.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.field.api.field-props.properties.invalid.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.field.api.field-props.description',
+      },
+      {
+        name: 'FieldLabelProps',
+        kind: 'type',
+        signature: 'LabelHTMLAttributes<HTMLLabelElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.field.api.field-label-props.description',
+      },
+      {
+        name: 'FieldDescriptionProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.field.api.field-description-props.description',
+      },
+      {
+        name: 'FieldMessageProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.field.api.field-message-props.description',
+      },
+      {
+        name: 'FieldControlProps',
+        kind: 'interface',
+        signature: '',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'render',
+            type: '(props: FieldControlAttributes) => ReactNode',
+            required: true,
+            defaultValue: '',
+            description: "Render a custom control with the field's semantic attributes.",
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.field.api.field-control-props.properties.render.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.field.api.field-control-props.description',
+      },
+      {
+        name: 'FieldControlAttributes',
+        kind: 'interface',
+        signature: '',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'id',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.field.api.field-control-attributes.properties.id.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.field.api.field-control-attributes.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.field.api.field-control-attributes.properties.read-only.description',
+          },
+          {
+            name: 'required',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.field.api.field-control-attributes.properties.required.description',
+          },
+          {
+            name: 'aria-describedby',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.field.api.field-control-attributes.properties.aria-describedby.description',
+          },
+          {
+            name: 'aria-invalid',
+            type: "boolean | 'true' | 'false' | 'grammar' | 'spelling' | undefined",
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.field.api.field-control-attributes.properties.aria-invalid.description',
+          },
+          {
+            name: 'aria-required',
+            type: "boolean | 'true' | 'false' | undefined",
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.field.api.field-control-attributes.properties.aria-required.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.field.api.field-control-attributes.description',
+      },
+    ],
+  },
+  table: {
+    packageName: '@virgo-design/primitives',
+    declarations: [
+      {
+        name: 'TableProps',
+        kind: 'type',
+        signature: 'TableHTMLAttributes<HTMLTableElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.table.api.table-props.description',
+      },
+      {
+        name: 'TableCaptionProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLTableCaptionElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.table.api.table-caption-props.description',
+      },
+      {
+        name: 'TableSectionProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLTableSectionElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.table.api.table-section-props.description',
+      },
+      {
+        name: 'TableRowProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLTableRowElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'selected',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Consumer-owned selected appearance; does not add grid selection semantics.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.table.api.table-row-props.properties.selected.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.table.api.table-row-props.description',
+      },
+      {
+        name: 'TableHeadProps',
+        kind: 'type',
+        signature: 'ThHTMLAttributes<HTMLTableCellElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.table.api.table-head-props.description',
+      },
+      {
+        name: 'TableCellProps',
+        kind: 'type',
+        signature: 'TdHTMLAttributes<HTMLTableCellElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.table.api.table-cell-props.description',
+      },
+      {
+        name: 'TableViewportProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.table.api.table-viewport-props.description',
+      },
+    ],
+  },
+  tree: {
+    packageName: '@virgo-design/primitives',
+    declarations: [
+      {
+        name: 'TreeProps',
+        kind: 'interface',
+        signature: "extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'expandedValues',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Expanded branch values.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tree.api.tree-props.properties.expanded-values.description',
+          },
+          {
+            name: 'defaultExpandedValues',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial expanded branches in uncontrolled mode.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tree.api.tree-props.properties.default-expanded-values.description',
+          },
+          {
+            name: 'onExpandedValuesChange',
+            type: '((values: readonly string[]) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when a branch is expanded or collapsed.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tree.api.tree-props.properties.on-expanded-values-change.description',
+          },
+          {
+            name: 'selectedValues',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Selected item values; single mode retains at most one value.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tree.api.tree-props.properties.selected-values.description',
+          },
+          {
+            name: 'defaultSelectedValues',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial selected items in uncontrolled mode.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tree.api.tree-props.properties.default-selected-values.description',
+          },
+          {
+            name: 'onSelectedValuesChange',
+            type: '((values: readonly string[]) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called on explicit selection, independently of focus movement.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tree.api.tree-props.properties.on-selected-values-change.description',
+          },
+          {
+            name: 'selectionMode',
+            type: "'single' | 'multiple' | 'none' | undefined",
+            required: false,
+            defaultValue: "'single'",
+            description: 'Single selection, modifier-free multiple selection, or navigation only.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tree.api.tree-props.properties.selection-mode.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disables interaction throughout this tree.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tree.api.tree-props.properties.disabled.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.tree.api.tree-props.description',
+      },
+      {
+        name: 'TreeItemProps',
+        kind: 'interface',
+        signature: "extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'value',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: 'Unique value within this tree.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tree.api.tree-item-props.properties.value.description',
+          },
+          {
+            name: 'branch',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Identifies an expandable item containing Tree.Group.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tree.api.tree-item-props.properties.branch.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Excludes the item from keyboard navigation and selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tree.api.tree-item-props.properties.disabled.description',
+          },
+          {
+            name: 'textValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Plain label used by typeahead for rich content.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tree.api.tree-item-props.properties.text-value.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.tree.api.tree-item-props.description',
+      },
+      {
+        name: 'TreeLabelProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.tree.api.tree-label-props.description',
+      },
+      {
+        name: 'TreeGroupProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.tree.api.tree-group-props.description',
+      },
+      {
+        name: 'TreeToggleProps',
+        kind: 'type',
+        signature: 'ButtonHTMLAttributes<HTMLButtonElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.tree.api.tree-toggle-props.description',
+      },
+    ],
+  },
+  combobox: {
+    packageName: '@virgo-design/primitives',
+    declarations: [
+      {
+        name: 'ComboboxFilter',
+        kind: 'type',
+        signature: '(text: string, query: string, keywords: readonly string[]) => boolean',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.combobox.api.combobox-filter.description',
+      },
+      {
+        name: 'ComboboxProps',
+        kind: 'interface',
+        signature: "extends Omit< HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'value',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Selected option value. An empty string represents no selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "''",
+            description: 'Initial selected value.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called on option selection or explicit clear, not on typing.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.on-value-change.description',
+          },
+          {
+            name: 'inputValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Current input text, independent of the selected value.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.input-value.description',
+          },
+          {
+            name: 'defaultInputValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial input text for autocomplete usage.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.default-input-value.description',
+          },
+          {
+            name: 'onInputValueChange',
+            type: '((value: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when input text changes or an option fills the input.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.on-input-value-change.description',
+          },
+          {
+            name: 'open',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled popup state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.open.description',
+          },
+          {
+            name: 'defaultOpen',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Initial popup state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.default-open.description',
+          },
+          {
+            name: 'onOpenChange',
+            type: '((open: boolean) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when the popup is requested to open or close.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.on-open-change.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disables input, selection and clear.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Keeps the input focusable while preventing edits and selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.read-only.description',
+          },
+          {
+            name: 'name',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Name of the hidden selected-value form control.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.name.description',
+          },
+          {
+            name: 'shouldFilter',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'true',
+            description: 'Disable client filtering for consumer-owned or remote result lists.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.should-filter.description',
+          },
+          {
+            name: 'filter',
+            type: 'ComboboxFilter | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Custom synchronous filter; defaults to case-insensitive substring matching.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-props.properties.filter.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.combobox.api.combobox-props.description',
+      },
+      {
+        name: 'ComboboxInputProps',
+        kind: 'type',
+        signature: "Omit< InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.combobox.api.combobox-input-props.description',
+      },
+      {
+        name: 'ComboboxContentProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'portal',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'true',
+            description: 'Render in the document-body portal.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-content-props.properties.portal.description',
+          },
+          {
+            name: 'placement',
+            type: "'bottomStart' | 'bottomEnd' | 'topStart' | 'topEnd' | undefined",
+            required: false,
+            defaultValue: "'bottomStart'",
+            description:
+              'Preferred logical popup placement; collision handling may flip or shift it.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-content-props.properties.placement.description',
+          },
+          {
+            name: 'offset',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '4',
+            description: 'Gap between input and popup in pixels.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-content-props.properties.offset.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.combobox.api.combobox-content-props.description',
+      },
+      {
+        name: 'ComboboxOptionProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'value',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: 'Unique, nonempty selected value.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-option-props.properties.value.description',
+          },
+          {
+            name: 'textValue',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: 'Plain text used for filtering and filling the input.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-option-props.properties.text-value.description',
+          },
+          {
+            name: 'keywords',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Additional search terms.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-option-props.properties.keywords.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Visible but not selectable or highlightable.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-option-props.properties.disabled.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.combobox.api.combobox-option-props.description',
+      },
+      {
+        name: 'ComboboxEmptyProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.combobox.api.combobox-empty-props.description',
+      },
+      {
+        name: 'ComboboxGroupProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'label',
+            type: 'ReactNode',
+            required: true,
+            defaultValue: '',
+            description: 'Visible group heading and accessible name.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.combobox.api.combobox-group-props.properties.label.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.combobox.api.combobox-group-props.description',
+      },
+      {
+        name: 'ComboboxClearProps',
+        kind: 'type',
+        signature: 'ButtonHTMLAttributes<HTMLButtonElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.combobox.api.combobox-clear-props.description',
+      },
+    ],
+  },
   accordion: {
     packageName: '@virgo-design/primitives',
     declarations: [
@@ -12417,6 +15861,16 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.select.api.select-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Prevents opening or changing selection while remaining focusable.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-props.properties.read-only.description',
           },
           {
             name: 'name',

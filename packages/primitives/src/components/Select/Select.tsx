@@ -8,6 +8,7 @@ import {
   useRef,
 } from 'react';
 
+import { useFieldControl, useFieldState } from '../../internal/form/field-context';
 import { useControllableState } from '../../internal/hooks/useControllableState';
 import { useDismiss } from '../../internal/overlay/dismiss';
 import { LayerScope, useLayerRegistration, useOverlayLayer } from '../../internal/overlay/layers';
@@ -30,6 +31,7 @@ type SelectContextValue = {
   setOpen: (open: boolean) => void;
   requestOpen: (intent?: OpenFocusIntent) => void;
   disabled: boolean;
+  readOnly: boolean;
   contentId: string;
   triggerId: string;
   triggerRef: React.RefObject<HTMLButtonElement | null>;
@@ -57,35 +59,44 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
     open: controlledOpen,
     defaultOpen = false,
     onOpenChange,
-    disabled = false,
+    disabled: disabledProp,
+    readOnly: readOnlyProp,
     name,
     children,
     ...props
   },
   forwardedRef,
 ) {
+  const field = useFieldState();
+  const disabled = disabledProp ?? field.disabled ?? false;
+  const readOnly = readOnlyProp ?? field.readOnly ?? false;
   const [value, setValue] = useControllableState(controlledValue, defaultValue, onValueChange);
-  const [openState, setOpen] = useControllableState(controlledOpen, defaultOpen, onOpenChange);
-  const open = openState ?? false;
+  const [openState, setOpen, resetOpen] = useControllableState(
+    controlledOpen,
+    defaultOpen,
+    onOpenChange,
+  );
+  const open = !disabled && !readOnly && Boolean(openState);
   const rootRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const openFocusIntentRef = useRef<OpenFocusIntent>('selected');
   const generatedId = useId();
-  const triggerId = id ?? `${generatedId}-trigger`;
+  const fieldControl = useFieldControl({ id });
+  const triggerId = fieldControl.id ?? `${generatedId}-trigger`;
   const contentId = `${generatedId}-content`;
   const layer = useOverlayLayer(rootRef, rootRef);
   useLayerRegistration(layer, open);
 
   const requestOpen = useCallback(
     (intent: OpenFocusIntent = 'selected') => {
-      if (disabled) {
+      if (disabled || readOnly) {
         return;
       }
 
       openFocusIntentRef.current = intent;
       setOpen(true);
     },
-    [disabled, setOpen],
+    [disabled, readOnly, setOpen],
   );
 
   useDismiss({
@@ -97,10 +108,8 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
   });
 
   useEffect(() => {
-    if (disabled && open) {
-      setOpen(false);
-    }
-  }, [disabled, open, setOpen]);
+    if (disabled || readOnly) resetOpen(false);
+  }, [disabled, readOnly, resetOpen]);
 
   return (
     <SelectContext.Provider
@@ -111,6 +120,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
         setOpen,
         requestOpen,
         disabled,
+        readOnly,
         contentId,
         triggerId,
         triggerRef,
@@ -142,13 +152,23 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
     forwardedRef,
   ) {
     const context = useSelectContext('SelectTrigger');
-    const isDisabled = context.disabled || disabled;
+    const fieldProps = useFieldControl({
+      ...props,
+      readOnly: context.readOnly,
+      required: undefined,
+      id: context.triggerId,
+      disabled: context.disabled || disabled,
+    });
+    const { readOnly: fieldReadOnly, required: fieldRequired, ...triggerProps } = fieldProps;
+    const isDisabled = fieldProps.disabled;
 
     return (
       <button
-        {...props}
+        {...triggerProps}
         ref={composeRefs(forwardedRef, context.triggerRef)}
         id={context.triggerId}
+        aria-readonly={context.readOnly || fieldReadOnly || undefined}
+        aria-required={triggerProps['aria-required'] ?? fieldRequired}
         type={type}
         aria-controls={context.open ? context.contentId : undefined}
         aria-expanded={context.open}
@@ -158,7 +178,7 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
         onClick={(event) => {
           onClick?.(event);
 
-          if (event.defaultPrevented || isDisabled) {
+          if (event.defaultPrevented || isDisabled || context.readOnly) {
             return;
           }
 
@@ -171,7 +191,7 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
         onKeyDown={(event) => {
           onKeyDown?.(event);
 
-          if (event.defaultPrevented || isDisabled) {
+          if (event.defaultPrevented || isDisabled || context.readOnly) {
             return;
           }
 

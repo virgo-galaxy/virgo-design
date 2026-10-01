@@ -37,13 +37,15 @@
   }
 }
 
-.root[data-invalid='true'] {
+.root[data-invalid='true'],
+.root:has([aria-invalid='true']) {
   --input-border: var(--vd-status-danger-border);
   --input-border-hover: var(--vd-status-danger-accent);
   --input-border-focus: var(--vd-status-danger-accent);
 }
 
-.root[data-disabled='true'] {
+.root[data-disabled='true'],
+.root:has(input:disabled) {
   --input-background: var(--vd-fill-disabled);
   --input-border: var(--vd-border-disabled);
   --input-border-hover: var(--vd-border-disabled);

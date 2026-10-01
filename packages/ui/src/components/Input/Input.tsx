@@ -1,5 +1,5 @@
 import { CloseIcon, EyeClosedIcon, EyeIcon } from '@virgo-design/icons';
-import { Input as PrimitiveInput } from '@virgo-design/primitives';
+import { Field as PrimitiveField, Input as PrimitiveInput } from '@virgo-design/primitives';
 import {
   type ChangeEvent,
   type ForwardedRef,
@@ -166,7 +166,7 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
           onClick={() => {
             const input = inputRef.current;
 
-            if (!input) {
+            if (!input || input.disabled || input.readOnly) {
               return;
             }
 
@@ -186,12 +186,26 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
 InputCore.displayName = 'Input';
 
 const InputRoot = forwardRef<HTMLInputElement, InputProps>(function Input(props, forwardedRef) {
-  return <InputCore {...props} ref={forwardedRef} />;
+  return (
+    <PrimitiveField.Control
+      render={(attributes) => (
+        <InputCore
+          {...attributes}
+          {...props}
+          ref={forwardedRef}
+          disabled={props.disabled ?? attributes.disabled}
+          readOnly={props.readOnly ?? attributes.readOnly}
+          required={props.required ?? attributes.required}
+          aria-invalid={props['aria-invalid'] ?? attributes['aria-invalid']}
+        />
+      )}
+    />
+  );
 });
 
 InputRoot.displayName = 'Input';
 
-const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(function InputPassword(
+const InputPasswordCore = forwardRef<HTMLInputElement, InputPasswordProps>(function InputPassword(
   { disabled, ...props },
   forwardedRef,
 ) {
@@ -214,6 +228,7 @@ const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(function 
           disabled={disabled}
           onPointerDown={(event) => event.preventDefault()}
           onClick={() => {
+            if (inputRef.current?.disabled) return;
             setIsVisible((visible) => !visible);
             inputRef.current?.focus({ preventScroll: true });
           }}
@@ -229,6 +244,25 @@ const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(function 
   );
 });
 
+const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
+  function InputPassword(props, ref) {
+    return (
+      <PrimitiveField.Control
+        render={(attributes) => (
+          <InputPasswordCore
+            {...attributes}
+            {...props}
+            ref={ref}
+            disabled={props.disabled ?? attributes.disabled}
+            readOnly={props.readOnly ?? attributes.readOnly}
+            required={props.required ?? attributes.required}
+            aria-invalid={props['aria-invalid'] ?? attributes['aria-invalid']}
+          />
+        )}
+      />
+    );
+  },
+);
 InputPassword.displayName = 'Input.Password';
 
 export const Input = Object.assign(InputRoot, {

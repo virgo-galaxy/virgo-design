@@ -7,16 +7,22 @@ import { avatarApiZhCN } from './pages/avatar/locales/avatar.api.zh-CN';
 import { badgeApiZhCN } from './pages/badge/locales/badge.api.zh-CN';
 import { breadcrumbApiZhCN } from './pages/breadcrumb/locales/breadcrumb.api.zh-CN';
 import { buttonApiZhCN } from './pages/button/locales/button.api.zh-CN';
+import { calendarApiZhCN } from './pages/calendar/locales/calendar.api.zh-CN';
 import { cardApiZhCN } from './pages/card/locales/card.api.zh-CN';
 import { checkboxApiZhCN } from './pages/checkbox/locales/checkbox.api.zh-CN';
+import { colorPickerApiZhCN } from './pages/color-picker/locales/colorPicker.api.zh-CN';
+import { comboboxApiZhCN } from './pages/combobox/locales/combobox.api.zh-CN';
 import { commandApiZhCN } from './pages/command/locales/command.api.zh-CN';
 import { cursorApiZhCN } from './pages/cursor/locales/cursor.api.zh-CN';
+import { datePickerApiZhCN } from './pages/date-picker/locales/datePicker.api.zh-CN';
 import { dialogApiZhCN } from './pages/dialog/locales/dialog.api.zh-CN';
 import { dockApiZhCN } from './pages/dock/locales/dock.api.zh-CN';
 import { drawerApiZhCN } from './pages/drawer/locales/drawer.api.zh-CN';
 import { dropdownApiZhCN } from './pages/dropdown/locales/dropdown.api.zh-CN';
 import { emptyApiZhCN } from './pages/empty/locales/empty.api.zh-CN';
+import { fieldApiZhCN } from './pages/field/locales/field.api.zh-CN';
 import { floatingActionApiZhCN } from './pages/floating-action/locales/floatingAction.api.zh-CN';
+import { formApiZhCN } from './pages/form/locales/form.api.zh-CN';
 import { inputApiZhCN } from './pages/input/locales/input.api.zh-CN';
 import { layoutApiZhCN } from './pages/layout/locales/layout.api.zh-CN';
 import { contextMenuApiZhCN } from './pages/menu-system/locales/contextMenu.api.zh-CN';
@@ -31,16 +37,32 @@ import { segmentedControlApiZhCN } from './pages/segmented-control/locales/segme
 import { selectApiZhCN } from './pages/select/locales/select.api.zh-CN';
 import { separatorApiZhCN } from './pages/separator/locales/separator.api.zh-CN';
 import { skeletonApiZhCN } from './pages/skeleton/locales/skeleton.api.zh-CN';
+import { sliderApiZhCN } from './pages/slider/locales/slider.api.zh-CN';
 import { spinnerApiZhCN } from './pages/spinner/locales/spinner.api.zh-CN';
 import { surfaceApiZhCN } from './pages/surface/locales/surface.api.zh-CN';
 import { switchApiZhCN } from './pages/switch/locales/switch.api.zh-CN';
+import { tableApiZhCN } from './pages/table/locales/table.api.zh-CN';
 import { tabsApiZhCN } from './pages/tabs/locales/tabs.api.zh-CN';
 import { tagApiZhCN } from './pages/tag/locales/tag.api.zh-CN';
+import { timePickerApiZhCN } from './pages/time-picker/locales/timePicker.api.zh-CN';
+import { timelineApiZhCN } from './pages/timeline/locales/timeline.api.zh-CN';
 import { toastApiZhCN } from './pages/toast/locales/toast.api.zh-CN';
 import { tooltipApiZhCN } from './pages/tooltip/locales/tooltip.api.zh-CN';
+import { treeApiZhCN } from './pages/tree/locales/tree.api.zh-CN';
 
 export const componentsApiEnUS = collectApiDescriptionResources(componentApiReference);
 export const componentsApiZhCN = {
+  timeline: timelineApiZhCN,
+  calendar: calendarApiZhCN,
+  'date-picker': datePickerApiZhCN,
+  'time-picker': timePickerApiZhCN,
+  'color-picker': colorPickerApiZhCN,
+  slider: sliderApiZhCN,
+  combobox: comboboxApiZhCN,
+  tree: treeApiZhCN,
+  table: tableApiZhCN,
+  field: fieldApiZhCN,
+  form: formApiZhCN,
   accordion: accordionApiZhCN,
   alert: alertApiZhCN,
   avatar: avatarApiZhCN,
