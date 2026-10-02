@@ -20,7 +20,7 @@ function Example({ orientation = 'horizontal' }: { orientation?: NavigationMenuO
         </NavigationMenu.Item>
         <NavigationMenu.Item value="products">
           <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-          <NavigationMenu.Content>
+          <NavigationMenu.Content arrow>
             <NavigationMenu.Item value="cloud">
               <NavigationMenu.Link href="#cloud">Cloud</NavigationMenu.Link>
             </NavigationMenu.Item>
@@ -35,11 +35,13 @@ function Example({ orientation = 'horizontal' }: { orientation?: NavigationMenuO
 }
 
 function PopoverExample({
+  arrow,
   expanded,
   defaultExpanded,
   onExpandedChange,
   orientation = 'horizontal',
 }: {
+  arrow?: boolean;
   expanded?: boolean;
   defaultExpanded?: boolean;
   onExpandedChange?: (expanded: boolean) => void;
@@ -55,7 +57,7 @@ function PopoverExample({
           {...(onExpandedChange === undefined ? {} : { onExpandedChange })}
         >
           <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-          <NavigationMenu.Content>
+          <NavigationMenu.Content {...(arrow === undefined ? {} : { arrow })}>
             <NavigationMenu.Item value="cloud">
               <NavigationMenu.Link href="#cloud">Cloud</NavigationMenu.Link>
             </NavigationMenu.Item>
@@ -274,6 +276,58 @@ describe('NavigationMenu UI', () => {
     await user.keyboard('{Escape}');
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();
+  });
+
+  it('keeps popover arrows opt-in and consumes the prop without forwarding it to the list', () => {
+    const { rerender } = render(<PopoverExample defaultExpanded />);
+    const panel = screen.getByRole('dialog', { name: 'Products' });
+    expect(panel.querySelector('[data-slot="arrow"]')).toBeNull();
+
+    rerender(<PopoverExample defaultExpanded arrow />);
+    expect(panel.querySelector(':scope > [data-slot="arrow"]')).toHaveAttribute(
+      'aria-hidden',
+      'true',
+    );
+    expect(panel.querySelector('ul')).not.toHaveAttribute('arrow');
+
+    rerender(<PopoverExample defaultExpanded arrow={false} />);
+    expect(panel.querySelector('[data-slot="arrow"]')).toBeNull();
+  });
+
+  it.each(['horizontal', 'vertical'] as const)(
+    'preserves list refs and native props with an arrow in %s popover navigation',
+    (orientation) => {
+      const ref = createRef<HTMLUListElement>();
+      render(
+        <NavigationMenu submenu="popover" orientation={orientation}>
+          <NavigationMenu.List>
+            <NavigationMenu.Item value="products" defaultExpanded>
+              <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
+              <NavigationMenu.Content arrow ref={ref} data-testid="destinations">
+                <NavigationMenu.Item value="cloud">
+                  <NavigationMenu.Link href="#cloud">Cloud</NavigationMenu.Link>
+                </NavigationMenu.Item>
+              </NavigationMenu.Content>
+            </NavigationMenu.Item>
+          </NavigationMenu.List>
+        </NavigationMenu>,
+      );
+      const panel = screen.getByRole('dialog', { name: 'Products' });
+      expect(panel.querySelector('[data-slot="arrow"]')).toBeInTheDocument();
+      expect(ref.current).toBe(screen.getByTestId('destinations'));
+      expect(ref.current?.tagName).toBe('UL');
+      expect(ref.current).not.toHaveAttribute('arrow');
+      expect(screen.getByRole('link', { name: 'Cloud' })).toBeVisible();
+    },
+  );
+
+  it('ignores decorative arrows in inline submenus', async () => {
+    const user = userEvent.setup();
+    const { container } = render(<Example />);
+    await user.click(screen.getByRole('button', { name: 'Products' }));
+    expect(screen.getByRole('link', { name: 'Cloud' })).toBeVisible();
+    expect(container.querySelector('[data-slot="arrow"]')).toBeNull();
+    expect(container.querySelector('ul[arrow]')).toBeNull();
   });
 
   it('keeps controlled expanded state as the source of truth in popover mode', async () => {

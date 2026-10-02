@@ -20,4 +20,7 @@ export interface CollapsibleTriggerProps extends ButtonHTMLAttributes<HTMLButton
   ) => ReactElement;
 }
 
-export type CollapsibleContentProps = HTMLAttributes<HTMLDivElement>;
+export interface CollapsibleContentProps extends HTMLAttributes<HTMLDivElement> {
+  /** Keep closed content rendered for consumer animations; closed content remains inert and hidden from assistive technology. @default false */
+  keepMounted?: boolean;
+}

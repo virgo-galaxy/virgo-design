@@ -1,6 +1,14 @@
 import { createContext, type ReactNode, useContext } from 'react';
 
 const defaultLabels = {
+  sortAscending: 'Click to sort ascending',
+  sortDescending: 'Click to sort descending',
+  clearSorting: 'Click to cancel sorting',
+  previousSlide: 'Previous slide',
+  nextSlide: 'Next slide',
+  goToSlide: 'Go to slide',
+  playSlideshow: 'Resume slideshow',
+  pauseSlideshow: 'Pause slideshow',
   previousMonth: 'Previous month',
   nextMonth: 'Next month',
   chooseDate: 'Choose date',

@@ -10,7 +10,21 @@ import source1 from './TableDensityExample.tsx?raw';
 import TableEmptyExample from './TableEmptyExample';
 import style2 from './TableEmptyExample.module.scss?virgo-raw';
 import source2 from './TableEmptyExample.tsx?raw';
+import TableSortingExample from './TableSortingExample';
+import sortingStyles from './TableSortingExample.module.scss?virgo-raw';
+import sortingSource from './TableSortingExample.tsx?raw';
 export const tableExamples = {
+  sorting: {
+    id: 'table-sorting',
+    title: 'Three-state sorting',
+    titleTranslationKey: 'examples.table.copy.title3',
+    description:
+      'Click a heading to cycle ascending, descending and original order. Table.SortButton can also be composed independently.',
+    descriptionTranslationKey: 'examples.table.copy.description3',
+    Component: TableSortingExample,
+    source: createExampleSource(sortingSource),
+    styleSource: sortingStyles,
+  },
   example0: {
     id: 'table-basic',
     title: 'Records and summary',
@@ -26,7 +40,7 @@ export const tableExamples = {
     title: 'Density and borders',
     titleTranslationKey: 'examples.table.copy.title1',
     description:
-      'Density and border options retain native semantics. Surface frames internal row separators.',
+      'Compare compact, default and comfortable: density controls cell padding and minimum header/row heights. Surface frames internal row separators.',
     descriptionTranslationKey: 'examples.table.copy.description1',
     Component: TableDensityExample,
     source: createExampleSource(source1),

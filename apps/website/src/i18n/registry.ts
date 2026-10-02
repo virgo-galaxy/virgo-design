@@ -26,6 +26,8 @@ import { calendarExamplesEnUS } from '@/examples/components/calendar/locales/en-
 import { calendarExamplesZhCN } from '@/examples/components/calendar/locales/zh-CN';
 import { cardExamplesEnUS } from '@/examples/components/card/locales/en-US';
 import { cardExamplesZhCN } from '@/examples/components/card/locales/zh-CN';
+import { carouselExamplesEnUS } from '@/examples/components/carousel/locales/en-US';
+import { carouselExamplesZhCN } from '@/examples/components/carousel/locales/zh-CN';
 import { checkboxExamplesEnUS } from '@/examples/components/checkbox/locales/en-US';
 import { checkboxExamplesZhCN } from '@/examples/components/checkbox/locales/zh-CN';
 import { collapsibleExamplesEnUS } from '@/examples/components/collapsible/locales/en-US';
@@ -134,6 +136,8 @@ import { calendarEnUS } from '@/features/components/pages/calendar/locales/en-US
 import { calendarZhCN } from '@/features/components/pages/calendar/locales/zh-CN';
 import { cardEnUS } from '@/features/components/pages/card/locales/en-US';
 import { cardZhCN } from '@/features/components/pages/card/locales/zh-CN';
+import { carouselEnUS } from '@/features/components/pages/carousel/locales/en-US';
+import { carouselZhCN } from '@/features/components/pages/carousel/locales/zh-CN';
 import { checkboxEnUS } from '@/features/components/pages/checkbox/locales/en-US';
 import { checkboxZhCN } from '@/features/components/pages/checkbox/locales/zh-CN';
 import { collapsibleEnUS } from '@/features/components/pages/collapsible/locales/en-US';
@@ -258,6 +262,7 @@ export const enUS = {
   examples: {
     standalone: standaloneEnUS,
     steps: stepsExamplesEnUS,
+    carousel: carouselExamplesEnUS,
     collapsible: collapsibleExamplesEnUS,
     timeline: timelineExamplesEnUS,
     calendar: calendarExamplesEnUS,
@@ -313,6 +318,7 @@ export const enUS = {
   primitives: { ...primitivesEnUS, ...primitivesApiEnUS },
   components: {
     catalogue: componentsEnUS,
+    carousel: { ...carouselEnUS, ...componentsApiEnUS['carousel']! },
     collapsible: { ...collapsibleEnUS, ...componentsApiEnUS['collapsible']! },
     steps: { ...stepsEnUS, ...componentsApiEnUS['steps']! },
     timeline: { ...timelineEnUS, ...componentsApiEnUS['timeline']! },
@@ -397,6 +403,7 @@ export const zhCN = {
   examples: {
     standalone: standaloneZhCN,
     steps: stepsExamplesZhCN,
+    carousel: carouselExamplesZhCN,
     collapsible: collapsibleExamplesZhCN,
     timeline: timelineExamplesZhCN,
     calendar: calendarExamplesZhCN,
@@ -452,6 +459,7 @@ export const zhCN = {
   primitives: { ...primitivesZhCN, ...primitivesApiZhCN },
   components: {
     catalogue: componentsZhCN,
+    carousel: { ...carouselZhCN, ...componentsApiZhCN['carousel']! },
     collapsible: { ...collapsibleZhCN, ...componentsApiZhCN['collapsible']! },
     steps: { ...stepsZhCN, ...componentsApiZhCN['steps']! },
     timeline: { ...timelineZhCN, ...componentsApiZhCN['timeline']! },

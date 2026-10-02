@@ -11,9 +11,11 @@ export const collapsibleMetadata = {
     { name: 'Collapsible.Trigger', description: 'Composition part.' },
     { name: 'Collapsible.Content', description: 'Composition part.' },
   ],
-  capabilities: { nativeSemantics: true },
+  capabilities: { nativeSemantics: true, collapseMotion: true, reducedMotion: true },
   accessibility: [
     'A disclosure button and labelled region with controlled or uncontrolled expansion.',
+    'Closed content is inert and hidden from assistive technology, including during collapse transitions.',
+    'Collapse motion respects prefers-reduced-motion and exposes token-based duration, easing and content padding variables.',
   ],
   examples: [],
 } as const satisfies ComponentMetadata;

@@ -7,6 +7,7 @@ export const primitivesZhCN = {
     description: '无样式的基础构建块，为自定义界面提供 Virgo Design 的行为、无障碍能力与交互协议。',
     headless: '无样式',
     names: {
+      carousel: '轮播',
       slider: '滑块',
       'color-picker': '颜色选择器',
       'time-picker': '时间选择器',
@@ -67,6 +68,12 @@ export const primitivesZhCN = {
     publicApi: '公共 API',
   },
   docs: {
+    carousel: {
+      description: '任意内容的分页切换外壳。',
+      behavior: '受控页码、循环、自动播放、指针拖动与可选横向滚轮导航。',
+      accessibility:
+        '非当前页面不可交互；键盘导航保留内部输入控件行为；操作期间、隐藏文档和减少动态效果时暂停自动播放。',
+    },
     slider: {
       description: '原生数值滑块，支持范围约束、键盘操作和统一字段语义。',
       behavior: '原生数值滑块，支持范围约束、键盘操作和统一字段语义。',

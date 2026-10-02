@@ -7,6 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  TableSortButton,
   TableViewport,
 } from './Table';
 export const Table = Object.assign(TableRoot, {
@@ -19,13 +20,17 @@ export const Table = Object.assign(TableRoot, {
   Head: TableHead,
   Cell: TableCell,
   Viewport: TableViewport,
+  SortButton: TableSortButton,
 });
 export type {
   TableCaptionProps,
   TableCellProps,
+  TableDensity,
   TableHeadProps,
   TableProps,
   TableRowProps,
   TableSectionProps,
+  TableSortButtonProps,
+  TableSortDirection,
   TableViewportProps,
 } from './Table.types';

@@ -455,7 +455,7 @@ const Trigger = forwardRef<HTMLButtonElement, NavigationMenuTriggerProps>(
 Trigger.displayName = 'NavigationMenu.Trigger';
 
 const Content = forwardRef<HTMLUListElement, NavigationMenuContentProps>(
-  function NavigationMenuContent({ className, children, ...props }, forwardedRef) {
+  function NavigationMenuContent({ arrow = false, className, children, ...props }, forwardedRef) {
     const { orientation } = useContext(NavigationMenuVisualContext);
     const depth = useContext(NavigationMenuDepthContext);
     const item = useNavigationMenuItemVisualContext();
@@ -480,6 +480,7 @@ const Content = forwardRef<HTMLUListElement, NavigationMenuContentProps>(
         data-navigation-menu-popover-content=""
         placement={orientation === 'horizontal' && depth === 0 ? 'bottomStart' : 'rightTop'}
       >
+        {arrow ? <span className={styles.arrow} data-slot="arrow" aria-hidden="true" /> : null}
         {content}
       </PrimitivePopover.Content>
     );

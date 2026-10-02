@@ -24,11 +24,42 @@
 .trigger[data-state='open'] [data-slot='indicator'] {
   transform: rotate(180deg);
 }
-.content:not([hidden]) {
-  padding: var(--vd-spacing-12);
+.content {
+  --collapsible-content-padding: var(--vd-spacing-12);
+  --collapsible-motion-duration: var(--vd-duration-180);
+  --collapsible-motion-easing: var(--vd-easing-standard);
+}
+.content[data-motion='none']:not([hidden]) {
+  padding: var(--collapsible-content-padding);
+}
+.content[data-motion='collapse'] {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows var(--collapsible-motion-duration) var(--collapsible-motion-easing),
+    opacity var(--collapsible-motion-duration) var(--collapsible-motion-easing);
+  &[data-state='open'] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}
+.contentInner {
+  min-height: 0;
+  overflow: hidden;
+  display: flow-root;
+  padding: 0;
+  transition: padding var(--collapsible-motion-duration) var(--collapsible-motion-easing);
+}
+.content[data-state='open'] > .contentInner {
+  padding: var(--collapsible-content-padding);
 }
 @media (prefers-reduced-motion: reduce) {
   .trigger [data-slot='indicator'] {
+    transition: none;
+  }
+  .content[data-motion='collapse'],
+  .contentInner {
     transition: none;
   }
 }

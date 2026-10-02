@@ -175,6 +175,39 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Consumer-selected heading level. Defaults to a neutral div.',
     },
   },
+  carousel: {
+    api: {
+      'carousel-item-props.properties.index.description': 'Zero-based position of this slide.',
+      'carousel-props.properties.motion.description':
+        'Transition between slides. Reduced motion disables transitions.',
+      'carousel-props.properties.arrows.description':
+        'Circular previous/next controls: hidden by default, or visible on hover/focus or always.',
+      'carousel-props.properties.stack-below.description':
+        'Switch to fully accessible stacked pages below this viewport width, in pixels.',
+      'carousel-props.properties.count.description': 'Number of slides.',
+      'carousel-props.properties.index.description': 'Controlled, zero-based slide index.',
+      'carousel-props.properties.default-index.description': 'Initial slide index.',
+      'carousel-props.properties.on-index-change.description':
+        'Called when navigation requests another slide.',
+      'carousel-props.properties.loop.description': 'Wrap navigation at either end.',
+      'carousel-props.properties.auto-play.description':
+        'Enable automatic slide advance. Pauses during hover, focus, dragging, hidden documents and reduced motion.',
+      'carousel-props.properties.interval.description':
+        'Automatic advance interval in milliseconds.',
+      'carousel-props.properties.draggable.description':
+        'Enable horizontal mouse and touch dragging on non-interactive content.',
+      'carousel-props.properties.wheel.description':
+        'Enable horizontal trackpad and Shift-wheel navigation. Vertical scrolling is preserved.',
+      'carousel-props.properties.layout.description':
+        'Paged navigation or fully accessible stacked content.',
+      'carousel-indicators-props.properties.variant.description':
+        'Dots or a segmented progress bar; both allow direct navigation.',
+      'carousel-indicators-props.properties.placement.description':
+        'Place the indicator in normal flow or inside the viewport at its bottom edge.',
+      'carousel-indicators-props.properties.get-slide-label.description':
+        'Accessible label for each navigation button, given its zero-based index.',
+    },
+  },
   checkbox: {
     api: {
       'checkbox-props.properties.children.description':
@@ -206,6 +239,10 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Initial open state for uncontrolled usage.',
       'collapsible-root-props.properties.on-open-change.description':
         'Called when the open state changes.',
+      'collapsible-content-props.properties.motion.description':
+        'Intrinsic-height expansion and collapse. Collapse retains closed content as inert for reversible transitions.',
+      'collapsible-content-props.properties.keep-mounted.description':
+        'Keep closed content rendered for consumer animations; closed content remains inert and hidden from assistive technology.',
       'collapsible-trigger-props.properties.indicator.description':
         'Custom decorative indicator; null hides it.',
       'collapsible-trigger-props.properties.render.description':
@@ -753,6 +790,8 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Whether to render the disclosure indicator.',
       'navigation-menu-trigger-props.properties.render.description':
         'Render a custom button that forwards all supplied props and its ref.',
+      'navigation-menu-content-props.properties.arrow.description':
+        'Show a decorative arrow pointing to the trigger in popover submenus. Ignored for inline submenus.',
     },
   },
   pagination: {
@@ -946,19 +985,31 @@ export const componentsApiEnUS: ApiDescriptionResources = {
   },
   table: {
     api: {
-      'table-props.properties.size.description': 'Cell density.',
+      'table-props.properties.density.description':
+        'Cell padding and minimum header/body row heights. Takes precedence over size.',
+      'table-props.properties.size.description':
+        'Legacy density alias: small = compact, medium = default, large = comfortable. Prefer density.',
       'table-props.properties.border.description':
         'Border treatment. Separators divide adjacent rows without an outer edge.',
       'table-props.properties.striped.description': 'Alternating body row backgrounds.',
       'table-props.properties.hoverable.description': 'Highlights pointer-hovered rows.',
       'table-props.properties.sticky-header.description':
         'Sticks column headings inside the nearest scrolling viewport.',
+      'table-head-props.properties.on-sort-change.description':
+        'Makes the column heading a three-state sorting button. Data ordering is consumer-owned.',
       'table-head-props.properties.align.description':
         'Logical alignment; end is useful for numeric columns.',
+      'table-head-props.properties.sort-direction.description':
+        'Current column sort direction, reflected in aria-sort.',
       'table-cell-props.properties.align.description':
         'Logical alignment; end is useful for numeric columns.',
       'table-row-props.properties.selected.description':
         'Consumer-owned selected appearance; does not add grid selection semantics.',
+      'table-sort-button-props.properties.direction.description': 'Controlled sort direction.',
+      'table-sort-button-props.properties.default-direction.description':
+        'Initial uncontrolled direction.',
+      'table-sort-button-props.properties.on-direction-change.description':
+        'Requests the next direction: none → ascending → descending → none.',
     },
   },
   tabs: {
@@ -1268,6 +1319,13 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
     api: {
       'table-row-props.properties.selected.description':
         'Consumer-owned selected appearance; does not add grid selection semantics.',
+      'table-head-props.properties.sort-direction.description':
+        'Current column sort direction, reflected in aria-sort.',
+      'table-sort-button-props.properties.direction.description': 'Controlled sort direction.',
+      'table-sort-button-props.properties.default-direction.description':
+        'Initial uncontrolled direction.',
+      'table-sort-button-props.properties.on-direction-change.description':
+        'Requests the next direction: none → ascending → descending → none.',
     },
   },
   tree: {
@@ -1413,6 +1471,27 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Disables every checkbox in the group.',
     },
   },
+  carousel: {
+    api: {
+      'carousel-props.properties.count.description': 'Number of slides.',
+      'carousel-props.properties.index.description': 'Controlled, zero-based slide index.',
+      'carousel-props.properties.default-index.description': 'Initial slide index.',
+      'carousel-props.properties.on-index-change.description':
+        'Called when navigation requests another slide.',
+      'carousel-props.properties.loop.description': 'Wrap navigation at either end.',
+      'carousel-props.properties.auto-play.description':
+        'Enable automatic slide advance. Pauses during hover, focus, dragging, hidden documents and reduced motion.',
+      'carousel-props.properties.interval.description':
+        'Automatic advance interval in milliseconds.',
+      'carousel-props.properties.draggable.description':
+        'Enable horizontal mouse and touch dragging on non-interactive content.',
+      'carousel-props.properties.wheel.description':
+        'Enable horizontal trackpad and Shift-wheel navigation. Vertical scrolling is preserved.',
+      'carousel-props.properties.layout.description':
+        'Paged navigation or fully accessible stacked content.',
+      'carousel-item-props.properties.index.description': 'Zero-based position of this slide.',
+    },
+  },
   collapsible: {
     api: {
       'collapsible-props.properties.open.description': 'Controlled open state.',
@@ -1427,6 +1506,8 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Called when the open state changes.',
       'collapsible-trigger-props.properties.render.description':
         'Render a custom button that forwards all supplied props and its ref.',
+      'collapsible-content-props.properties.keep-mounted.description':
+        'Keep closed content rendered for consumer animations; closed content remains inert and hidden from assistive technology.',
     },
   },
   command: {

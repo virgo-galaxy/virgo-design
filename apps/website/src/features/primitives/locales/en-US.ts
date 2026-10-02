@@ -5,6 +5,7 @@ export const primitivesEnUS = {
       'Headless building blocks for building custom interfaces with Virgo Design behavior, accessibility and interaction protocols.',
     headless: 'Headless',
     names: {
+      carousel: 'Carousel',
       slider: 'Slider',
       'color-picker': 'Color picker',
       'time-picker': 'Time picker',
@@ -65,6 +66,13 @@ export const primitivesEnUS = {
     publicApi: 'Public API',
   },
   docs: {
+    carousel: {
+      description: 'Paged navigation for arbitrary mounted content.',
+      behavior:
+        'Controlled index, looping, autoplay, pointer dragging and optional horizontal wheel navigation.',
+      accessibility:
+        'Inactive pages are inert. Keyboard navigation preserves embedded inputs. Playback pauses during interaction, reduced motion and hidden documents.',
+    },
     slider: {
       description:
         'A native numeric slider with constrained values, keyboard editing and shared field semantics.',

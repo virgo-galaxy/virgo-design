@@ -18,7 +18,7 @@ export default function App() {
           <NavigationMenu.Trigger>
             {t('examples.navigationMenu.copy.navigationOne')}
           </NavigationMenu.Trigger>
-          <NavigationMenu.Content>
+          <NavigationMenu.Content arrow>
             <NavigationMenu.Item value="option-one">
               <NavigationMenu.Link href="#navigation-option-one">
                 {t('examples.navigationMenu.copy.option1')}
@@ -60,7 +60,7 @@ export default function App() {
               <NavigationMenu.Trigger>
                 {t('examples.navigationMenu.copy.submenu')}
               </NavigationMenu.Trigger>
-              <NavigationMenu.Content>
+              <NavigationMenu.Content arrow>
                 <NavigationMenu.Item value="option-seven">
                   <NavigationMenu.Link href="#navigation-option-seven">
                     {t('examples.navigationMenu.copy.option7')}

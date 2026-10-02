@@ -21,6 +21,12 @@ export interface PrimitiveDoc {
 
 export const primitiveDocs = [
   {
+    exportName: 'Carousel',
+    slug: 'carousel',
+    category: 'Navigation',
+    description: 'primitives.docs.carousel.description',
+  },
+  {
     exportName: 'Slider',
     slug: 'slider',
     category: 'Form Controls',
@@ -251,6 +257,18 @@ export interface PrimitiveDetail {
 }
 
 export const primitiveDetails = {
+  carousel: {
+    parts: ['Root', 'Viewport', 'Track', 'Item'],
+    behaviors: ['primitives.docs.carousel.behavior'],
+    accessibility: ['primitives.docs.carousel.accessibility'],
+    publicApi: [
+      'Carousel',
+      'Carousel.Viewport',
+      'Carousel.Track',
+      'Carousel.Item',
+      'useCarouselState',
+    ],
+  },
   slider: {
     parts: [],
     behaviors: ['primitives.docs.slider.behavior'],
@@ -314,12 +332,24 @@ export const primitiveDetails = {
     publicApi: ['Field', 'Field.Label', 'Field.Description', 'Field.Message', 'Field.Control'],
   },
   table: {
-    parts: ['Root', 'Caption', 'Header', 'Body', 'Footer', 'Row', 'Head', 'Cell', 'Viewport'],
+    parts: [
+      'Root',
+      'Caption',
+      'Header',
+      'Body',
+      'Footer',
+      'Row',
+      'Head',
+      'Cell',
+      'Viewport',
+      'SortButton',
+    ],
     behaviors: ['primitives.docs.table.behavior'],
     accessibility: ['primitives.docs.table.accessibility'],
     publicApi: [
       'Table',
       'Table.Caption',
+      'Table.SortButton',
       'Table.Header',
       'Table.Body',
       'Table.Footer',

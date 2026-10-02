@@ -7,6 +7,14 @@ export function WebsiteControlLabels({ children }: { children: ReactNode }) {
   return (
     <UIControlLabelsProvider
       labels={{
+        sortAscending: t('shared.controls.sortAscending'),
+        sortDescending: t('shared.controls.sortDescending'),
+        clearSorting: t('shared.controls.clearSorting'),
+        previousSlide: t('shared.controls.previousSlide'),
+        nextSlide: t('shared.controls.nextSlide'),
+        goToSlide: t('shared.controls.goToSlide'),
+        playSlideshow: t('shared.controls.playSlideshow'),
+        pauseSlideshow: t('shared.controls.pauseSlideshow'),
         previousMonth: t('shared.controls.previousMonth'),
         nextMonth: t('shared.controls.nextMonth'),
         chooseDate: t('shared.controls.chooseDate'),

@@ -31,5 +31,7 @@ export const navigationMenuApiZhCN = {
     'navigation-menu-trigger-props.properties.indicator.description': '是否渲染展开指示器。',
     'navigation-menu-trigger-props.properties.render.description':
       '渲染自定义按钮，转发全部提供的属性与 ref。',
+    'navigation-menu-content-props.properties.arrow.description':
+      '在浮层子菜单中显示指向触发器的装饰箭头；内联子菜单忽略此属性。',
   },
 } satisfies ApiDescriptionResources[string];

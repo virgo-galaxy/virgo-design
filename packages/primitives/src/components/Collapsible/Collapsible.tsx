@@ -91,7 +91,10 @@ export const CollapsibleTrigger = forwardRef<HTMLButtonElement, CollapsibleTrigg
 CollapsibleTrigger.displayName = 'Collapsible.Trigger';
 
 export const CollapsibleContent = forwardRef<HTMLDivElement, CollapsibleContentProps>(
-  function CollapsibleContent(props, forwardedRef) {
+  function CollapsibleContent(
+    { keepMounted = false, 'aria-label': label, 'aria-labelledby': labelledBy, inert, ...props },
+    forwardedRef,
+  ) {
     const context = useCollapsibleContext('Collapsible.Content');
 
     return (
@@ -100,9 +103,12 @@ export const CollapsibleContent = forwardRef<HTMLDivElement, CollapsibleContentP
         ref={forwardedRef}
         id={context.contentId}
         role="region"
-        aria-labelledby={context.triggerId}
+        aria-label={label}
+        aria-labelledby={labelledBy ?? (label ? undefined : context.triggerId)}
+        aria-hidden={context.open ? props['aria-hidden'] : true}
+        inert={!context.open || inert}
         data-state={context.open ? 'open' : 'closed'}
-        hidden={!context.open}
+        hidden={!context.open && !keepMounted}
       />
     );
   },

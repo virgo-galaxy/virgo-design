@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 
+import { useControllableState } from '../../internal/hooks/useControllableState';
 import type {
   TableCaptionProps,
   TableCellProps,
@@ -7,6 +8,7 @@ import type {
   TableProps,
   TableRowProps,
   TableSectionProps,
+  TableSortButtonProps,
   TableViewportProps,
 } from './Table.types';
 export const Table = forwardRef<HTMLTableElement, TableProps>(function Table(props, ref) {
@@ -39,11 +41,39 @@ export const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(function 
   return <tr {...props} ref={ref} data-selected={selected || undefined} />;
 });
 export const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(function TableHead(
-  { scope = 'col', ...props },
+  { scope = 'col', sortDirection, 'aria-sort': ariaSort, ...props },
   ref,
 ) {
-  return <th {...props} scope={scope} ref={ref} />;
+  return <th {...props} scope={scope} aria-sort={sortDirection ?? ariaSort} ref={ref} />;
 });
+export const TableSortButton = forwardRef<HTMLButtonElement, TableSortButtonProps>(
+  function TableSortButton(
+    { direction, defaultDirection = 'none', onDirectionChange, onClick, ...props },
+    ref,
+  ) {
+    const [value = 'none', setValue] = useControllableState(
+      direction,
+      defaultDirection,
+      onDirectionChange,
+    );
+    return (
+      <button
+        {...props}
+        ref={ref}
+        type="button"
+        data-direction={value}
+        onClick={(event) => {
+          onClick?.(event);
+          if (!event.defaultPrevented) {
+            setValue(
+              value === 'none' ? 'ascending' : value === 'ascending' ? 'descending' : 'none',
+            );
+          }
+        }}
+      />
+    );
+  },
+);
 export const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
   function TableCell(props, ref) {
     return <td {...props} ref={ref} />;

@@ -1,0 +1,159 @@
+.root {
+  --carousel-duration: 360ms;
+  --carousel-easing: var(--vd-motion-easing-standard);
+  --carousel-indicator-color: var(--vd-brand-link);
+  position: relative;
+  min-width: 0;
+  width: 100%;
+}
+.viewport {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  touch-action: pan-y;
+  outline: none;
+  &:focus-visible {
+    outline: 2px solid var(--vd-border-focus);
+    outline-offset: 3px;
+  }
+}
+.track {
+  display: flex;
+  height: 100%;
+  transform: translate3d(
+    calc(var(--carousel-index, 0) * -100% + var(--carousel-drag-offset, 0px)),
+    0,
+    0
+  );
+  transition: transform var(--carousel-duration) var(--carousel-easing);
+}
+.item {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+.arrows {
+  position: absolute;
+  inset: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--vd-motion-duration-fast) var(--vd-motion-easing-standard);
+  > button[data-variant='outline'] {
+    --button-height: 32px;
+    --button-background: var(--carousel-control-background, transparent);
+    --button-background-hover: var(--carousel-control-background-hover, var(--vd-fill-hover));
+    --button-border: var(--carousel-control-border, var(--vd-border-default));
+    --button-border-hover: var(--carousel-control-border, var(--vd-border-strong));
+    --button-foreground: var(--carousel-control-foreground, var(--vd-text-primary));
+    pointer-events: auto;
+  }
+}
+.root[data-arrows='always'] .arrows,
+.root[data-arrows='hover']:hover .arrows,
+.root[data-arrows='hover']:focus-within .arrows {
+  opacity: 1;
+}
+.root[data-arrows='none'] .arrows {
+  display: none;
+}
+.indicators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.indicator[data-variant='text'] {
+  --button-height: 24px;
+  width: 24px;
+  padding: 7px;
+  > span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--vd-text-tertiary);
+    transition: background var(--carousel-duration);
+  }
+  &[data-active='true'] > span {
+    background: var(--carousel-indicator-color);
+  }
+}
+.indicators[data-variant='bar'] {
+  position: relative;
+  gap: 0;
+  &::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: calc(50% - 1.5px);
+    height: 3px;
+    border-radius: 999px;
+    background: var(
+      --carousel-indicator-background,
+      color-mix(in srgb, var(--vd-text-primary) 18%, transparent)
+    );
+    pointer-events: none;
+  }
+  .indicator {
+    --button-background-hover: transparent;
+    --button-background-active: transparent;
+    flex: 1;
+    width: auto;
+    padding-inline: 0;
+    > span {
+      visibility: hidden;
+    }
+  }
+}
+.indicators[data-placement='inside'] {
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  width: var(--carousel-indicator-width, 96px);
+  transform: translateX(-50%);
+}
+.barThumb {
+  position: absolute;
+  left: 0;
+  top: calc(50% - 1.5px);
+  z-index: 1;
+  height: 3px;
+  width: calc(100% / var(--carousel-count));
+  border-radius: 999px;
+  background: var(--carousel-indicator-color);
+  transform: translateX(calc(var(--carousel-index) * 100%));
+  transition: transform var(--carousel-duration) var(--carousel-easing);
+  pointer-events: none;
+}
+.root[data-layout='stacked'] {
+  .viewport {
+    overflow: visible;
+    touch-action: auto;
+  }
+  .track {
+    display: block;
+    transform: none;
+  }
+  .item + .item {
+    margin-top: var(--carousel-stack-gap, 18px);
+  }
+}
+.root[data-dragging='true'] .track,
+.root[data-motion='none'] .track,
+.root[data-motion='none'] .barThumb {
+  transition: none;
+}
+@media (hover: none) {
+  .root[data-arrows='hover'] .arrows {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .arrows,
+  .indicator > span,
+  .barThumb {
+    transition: none;
+  }
+}

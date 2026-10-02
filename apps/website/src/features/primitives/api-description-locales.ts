@@ -1,3 +1,4 @@
+import { carouselApiZhCN } from './locales/carousel/api.zh-CN';
 export { primitivesApiEnUS } from '@/generated/api-description-resources.generated';
 
 import { accordionApiZhCN } from './locales/accordion/api.zh-CN';
@@ -38,6 +39,7 @@ import { tooltipApiZhCN } from './locales/tooltip/api.zh-CN';
 import { treeApiZhCN } from './locales/tree/api.zh-CN';
 
 export const primitivesApiZhCN = {
+  carousel: carouselApiZhCN,
   timeline: timelineApiZhCN,
   calendar: calendarApiZhCN,
   'date-picker': datePickerApiZhCN,

@@ -1,0 +1,35 @@
+.examples {
+  display: grid;
+  gap: 32px;
+  width: min(100%, 560px);
+}
+.banner {
+  min-height: 200px;
+  padding: 36px 56px;
+  background: color-mix(in srgb, var(--vd-brand-link) 7%, var(--vd-surface-default));
+}
+.banner[data-slide='1'] {
+  background: color-mix(in srgb, var(--vd-color-success) 7%, var(--vd-surface-default));
+}
+.banner[data-slide='2'] {
+  background: color-mix(in srgb, var(--vd-color-warning) 7%, var(--vd-surface-default));
+}
+.banner h3,
+.editor h3 {
+  margin: 12px 0;
+}
+.banner p,
+.editor p {
+  color: var(--vd-text-secondary);
+  margin: 12px 0 0;
+  font-size: 13px;
+}
+.editor {
+  padding: 24px 56px;
+  min-height: 210px;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

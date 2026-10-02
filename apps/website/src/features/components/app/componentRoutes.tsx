@@ -52,6 +52,7 @@ export type ComponentRoute = ComponentPageMetadataValue & {
   id:
     | 'steps'
     | 'collapsible'
+    | 'carousel'
     | 'timeline'
     | 'calendar'
     | 'date-picker'
@@ -541,6 +542,20 @@ export const componentRoutes = [
     version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/card/CardPage').then((module) => ({ default: module.CardPage })),
+    ),
+  },
+
+  {
+    id: 'carousel',
+    group: 'data-display',
+    index: '51',
+    name: 'Carousel',
+    category: 'Data Display',
+    path: '/components/carousel',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: lazy(() =>
+      import('../pages/carousel/CarouselPage').then((module) => ({ default: module.CarouselPage })),
     ),
   },
   {

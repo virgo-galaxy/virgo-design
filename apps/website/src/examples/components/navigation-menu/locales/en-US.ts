@@ -51,7 +51,7 @@ export const navigationMenuExamplesEnUS = {
     iconsSupplementDestinationLabels: 'Icons supplement destination labels.',
     verticalHoverSubmenu: 'Vertical hover submenu',
     aThirdLevelSharesTheNormalPointerAndKeyboardNavigation:
-      'A third level shares the normal pointer and keyboard navigation model.',
+      'A third level shares the normal pointer and keyboard navigation model. Content arrow adds an optional pointer to its trigger.',
     inlineNestedNavigation: 'Inline nested navigation',
     disclosureRevealsDestinationsInNormalDocumentFlow:
       'Disclosure reveals destinations in normal document flow.',

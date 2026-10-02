@@ -1,3 +1,4 @@
+import { Carousel } from '@virgo-design/ui';
 import { type CSSProperties, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -9,7 +10,6 @@ import { BrandNeutralPage } from './components/BrandNeutralPage';
 import { FamilyEditorPanel } from './components/FamilyEditorPanel';
 import { LivePreview } from './components/LivePreview';
 import { SettingsPanel } from './components/SettingsPanel';
-import { useFoundationPager } from './hooks/use-foundation-pager';
 import type { ColorStudioController } from './model/use-color-studio';
 import styles from './styles/color-studio.module.scss';
 import pagerStyles from './styles/foundation-pager.module.scss';
@@ -22,14 +22,7 @@ interface ColorStudioProps {
 export function ColorStudio({ studio, appearance }: ColorStudioProps) {
   const { t } = useTranslation();
   const sectionRef = useRef<HTMLElement>(null);
-  const pagerRef = useRef<HTMLDivElement>(null);
   const motion = useSectionMotion(sectionRef);
-
-  useFoundationPager({
-    ref: pagerRef,
-    page: studio.state.foundationPage,
-    onPageChange: studio.setFoundationPage,
-  });
 
   const independent = studio.state.chromaticMode === 'custom';
   const official = studio.state.chromaticMode === 'official';
@@ -61,85 +54,99 @@ export function ColorStudio({ studio, appearance }: ColorStudioProps) {
       data-theme={appearance}
       style={motionStyle}
     >
-      <div className={styles.shell}>
-        <header className={styles.header}>
-          <div>
-            <div className={styles.eyebrow}>{t('foundations.colorStudio.hero.eyebrow')}</div>
-            <h2>{t('foundations.colorStudio.hero.title')}</h2>
-            <p>{t('foundations.colorStudio.hero.description')}</p>
-          </div>
-        </header>
+      <Carousel
+        count={2}
+        index={studio.state.foundationPage === 'chromatic' ? 0 : 1}
+        onIndexChange={(index) =>
+          studio.setFoundationPage(index === 0 ? 'chromatic' : 'brand-neutral')
+        }
+        wheel
+        stackBelow={900}
+        className={pagerStyles.pager}
+        aria-label={t('foundations.colorStudio.hero.title')}
+      >
+        <div className={styles.shell}>
+          <header className={styles.header}>
+            <div>
+              <div className={styles.eyebrow}>{t('foundations.colorStudio.hero.eyebrow')}</div>
+              <h2>{t('foundations.colorStudio.hero.title')}</h2>
+              <p>{t('foundations.colorStudio.hero.description')}</p>
+            </div>
+          </header>
 
-        <div ref={pagerRef} className={pagerStyles.viewport}>
-          <div className={pagerStyles.track} data-page={studio.state.foundationPage}>
-            <div className={pagerStyles.page}>
-              <div className={pagerStyles.pageInner}>
-                <div
-                  className={`${styles.workspace} ${
-                    independent ? styles.workspaceIndependent : styles.workspaceLinked
-                  }`}
-                >
-                  <SettingsPanel
-                    mode={studio.state.chromaticMode}
-                    anchor={studio.state.anchor}
-                    model={studio.state.model}
-                    hueSpread={studio.state.hueSpread}
-                    distributionCurve={studio.state.distributionCurve}
-                    onModeChange={studio.setChromaticMode}
-                    onAnchorChange={studio.setAnchor}
-                    onModelChange={studio.setModel}
-                    onHueSpreadChange={studio.setHueSpread}
-                    onDistributionCurveChange={studio.setDistributionCurve}
-                    onReset={studio.reset}
-                  />
+          <Carousel.Viewport className={pagerStyles.viewport}>
+            <Carousel.Track>
+              <Carousel.Item index={0}>
+                <div className={pagerStyles.pageInner}>
+                  <div
+                    className={`${styles.workspace} ${
+                      independent ? styles.workspaceIndependent : styles.workspaceLinked
+                    }`}
+                  >
+                    <SettingsPanel
+                      mode={studio.state.chromaticMode}
+                      anchor={studio.state.anchor}
+                      model={studio.state.model}
+                      hueSpread={studio.state.hueSpread}
+                      distributionCurve={studio.state.distributionCurve}
+                      onModeChange={studio.setChromaticMode}
+                      onAnchorChange={studio.setAnchor}
+                      onModelChange={studio.setModel}
+                      onHueSpreadChange={studio.setHueSpread}
+                      onDistributionCurveChange={studio.setDistributionCurve}
+                      onReset={studio.reset}
+                    />
 
-                  <FamilyEditorPanel
-                    active={independent}
-                    bases={studio.state.customBases}
-                    selectedFamily={studio.state.selectedFamily}
-                    onChange={studio.setCustomBase}
-                    onSelect={studio.setSelectedFamily}
-                  />
+                    <FamilyEditorPanel
+                      active={independent}
+                      bases={studio.state.customBases}
+                      selectedFamily={studio.state.selectedFamily}
+                      onChange={studio.setCustomBase}
+                      onSelect={studio.setSelectedFamily}
+                    />
 
-                  <LivePreview
-                    mode={studio.state.chromaticMode}
-                    palette={studio.palette}
-                    selectedFamily={studio.state.selectedFamily}
-                    onSelectedFamilyChange={studio.setSelectedFamily}
+                    <LivePreview
+                      mode={studio.state.chromaticMode}
+                      palette={studio.palette}
+                      selectedFamily={studio.state.selectedFamily}
+                      onSelectedFamilyChange={studio.setSelectedFamily}
+                    />
+                  </div>
+                </div>
+              </Carousel.Item>
+
+              <Carousel.Item index={1}>
+                <div className={pagerStyles.pageInner}>
+                  <BrandNeutralPage
+                    brandBase={studio.brandBase}
+                    brandScale={studio.brandScale}
+                    neutralBase={studio.neutralBase}
+                    neutralScale={studio.neutralScale}
+                    onBrandBaseChange={studio.setBrandBase}
+                    onNeutralBaseChange={studio.setNeutralBase}
+                    onBrandReset={studio.resetBrand}
+                    onNeutralReset={studio.resetNeutral}
+                    onBrandSelect={() => studio.setSelectedFoundation('brand')}
+                    onNeutralSelect={() => studio.setSelectedFoundation('neutral')}
+                    disabled={official}
                   />
                 </div>
-              </div>
-            </div>
-
-            <div className={pagerStyles.page}>
-              <div className={pagerStyles.pageInner}>
-                <BrandNeutralPage
-                  brandBase={studio.brandBase}
-                  brandScale={studio.brandScale}
-                  neutralBase={studio.neutralBase}
-                  neutralScale={studio.neutralScale}
-                  onBrandBaseChange={studio.setBrandBase}
-                  onNeutralBaseChange={studio.setNeutralBase}
-                  onBrandReset={studio.resetBrand}
-                  onNeutralReset={studio.resetNeutral}
-                  onBrandSelect={() => studio.setSelectedFoundation('brand')}
-                  onNeutralSelect={() => studio.setSelectedFoundation('neutral')}
-                  disabled={official}
-                />
-              </div>
-            </div>
-          </div>
+              </Carousel.Item>
+            </Carousel.Track>
+          </Carousel.Viewport>
         </div>
-      </div>
 
-      <div className={pagerStyles.hint}>{t('foundations.colorStudio.extensions.swipeHint')}</div>
-      <div
-        className={pagerStyles.indicator}
-        data-page={studio.state.foundationPage}
-        aria-hidden="true"
-      >
-        <div className={pagerStyles.indicatorThumb} />
-      </div>
+        <div className={pagerStyles.hint}>{t('foundations.colorStudio.extensions.swipeHint')}</div>
+        <Carousel.Indicators
+          variant="bar"
+          className={pagerStyles.indicator}
+          getSlideLabel={(index) =>
+            index === 0
+              ? t('foundations.colorStudio.carousel.chromatic')
+              : t('foundations.colorStudio.carousel.brandNeutral')
+          }
+        />
+      </Carousel>
 
       <ScrollCue
         targetId="palette-gallery"

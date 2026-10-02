@@ -2,6 +2,14 @@ import type { LocaleOf } from '@/i18n/locale-types';
 
 import { controlsEnUS } from './en-US';
 export const controlsZhCN = {
+  sortAscending: '点击按升序排序',
+  sortDescending: '点击按降序排序',
+  clearSorting: '点击取消排序',
+  previousSlide: '上一页',
+  nextSlide: '下一页',
+  goToSlide: '前往页码',
+  playSlideshow: '继续轮播',
+  pauseSlideshow: '暂停轮播',
   previousMonth: '上个月',
   nextMonth: '下个月',
   chooseDate: '选择日期',

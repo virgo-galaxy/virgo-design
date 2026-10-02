@@ -8,6 +8,7 @@ import type { PrimitiveSlug } from '@/features/primitives/primitiveDocs';
 export const componentPrimitiveRelations = {
   slider: ['slider'],
   'color-picker': ['color-picker', 'popover'],
+  carousel: ['carousel', 'button'],
   collapsible: ['collapsible', 'button'],
   steps: ['button'],
   'time-picker': ['time-picker'],

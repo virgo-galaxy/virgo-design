@@ -11,8 +11,13 @@ export const tableMetadata = {
     { name: 'medium', description: 'Default presentation.' },
     { name: 'large', description: 'Spacious presentation.' },
   ],
-  states: ['default', 'hover', 'selected'],
+  states: ['default', 'hover', 'selected', 'ascending', 'descending'],
   anatomy: [
+    {
+      name: 'Table.SortButton',
+      description:
+        'Cycles none, ascending and descending; headings expose aria-sort while consumers order the data.',
+    },
     {
       name: 'Table',
       description: 'Table composition part.',
@@ -52,8 +57,9 @@ export const tableMetadata = {
   ],
   capabilities: {
     nativeTable: true,
+    density: true,
     stickyHeader: true,
-    sorting: false,
+    sorting: true,
     virtualization: false,
   },
   accessibility: [

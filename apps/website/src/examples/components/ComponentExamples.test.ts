@@ -4,6 +4,7 @@ import * as ts from 'typescript';
 import { describe, expect, it } from 'vitest';
 
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
+import { componentRoutes } from '@/features/components/app/componentRoutes';
 
 import { createExampleSource } from './create-example-source';
 import { componentExampleRegistry } from './example-registry';
@@ -29,7 +30,7 @@ const publicImports = new Set(['react', '@virgo-design/ui', '@virgo-design/icons
 
 describe('Executable component example sources', () => {
   it('covers every current component family without unregistered files or duplicate semantic IDs', () => {
-    expect(Object.keys(manifests)).toHaveLength(50);
+    expect(Object.keys(manifests)).toHaveLength(componentRoutes.length);
     expect(definitions).toHaveLength(Object.keys(modules).length);
     expect(definitions).toHaveLength(Object.keys(styles).length);
     expect(new Set(definitions.map((definition) => definition.id)).size).toBe(definitions.length);

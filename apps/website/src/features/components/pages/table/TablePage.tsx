@@ -63,6 +63,14 @@ export function TablePage() {
         >
           <ComponentExample example={tableExamples.example2} showCaption={false} />
         </ArticleSection>
+        <ArticleSection
+          id="table-sorting"
+          index="04"
+          title={t('examples.table.copy.title3')}
+          description={t('examples.table.copy.description3')}
+        >
+          <ComponentExample example={tableExamples.sorting} showCaption={false} />
+        </ArticleSection>
       </div>
     </ComponentExampleRuntimeProvider>
   );

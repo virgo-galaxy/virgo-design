@@ -74,7 +74,11 @@ describe('Components documentation integration', () => {
         within(navigation)
           .getAllByRole('link')
           .map((link) => link.getAttribute('href')),
-      ).toEqual(componentRoutes.map((route) => route.path));
+      ).toEqual(
+        componentGroups.flatMap((group) =>
+          componentRoutes.filter((route) => route.group === group.id).map((route) => route.path),
+        ),
+      );
       expect(await screen.findByRole('heading', { level: 1, name: 'Button' })).toBeInTheDocument();
       expect(document.querySelectorAll('[data-article-section]')).toHaveLength(4);
       expect(document.querySelectorAll('[data-example-frame]')).toHaveLength(5);
@@ -84,9 +88,9 @@ describe('Components documentation integration', () => {
         'light',
       );
       expect(screen.queryByRole('group', { name: 'Preview theme' })).not.toBeInTheDocument();
-      expect(componentRoutes).toHaveLength(50);
-      expect(componentRoutes.map((route) => route.index)).toEqual(
-        Array.from({ length: 50 }, (_, index) => String(index + 1).padStart(2, '0')),
+      expect(componentRoutes).toHaveLength(51);
+      expect(componentRoutes.map((route) => route.index).sort()).toEqual(
+        Array.from({ length: 51 }, (_, index) => String(index + 1).padStart(2, '0')),
       );
       expect(componentGroups.map((group) => group.id)).toEqual([
         'general',

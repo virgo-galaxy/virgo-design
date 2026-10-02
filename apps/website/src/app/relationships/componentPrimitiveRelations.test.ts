@@ -41,6 +41,7 @@ describe('componentPrimitiveRelations', () => {
     expect(getComponentsForPrimitive('dialog')).toEqual(['command', 'dialog', 'drawer']);
     expect(getComponentsForPrimitive('radio')).toEqual(['radio', 'segmented-control']);
     expect(getComponentsForPrimitive('button')).toEqual([
+      'carousel',
       'collapsible',
       'steps',
       'button',

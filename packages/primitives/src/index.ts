@@ -2,6 +2,7 @@ export * from './components/Accordion';
 export * from './components/Breadcrumb';
 export * from './components/Button';
 export { Calendar, type CalendarProps } from './components/Calendar';
+export * from './components/Carousel';
 export * from './components/Checkbox';
 export * from './components/Collapsible';
 export {

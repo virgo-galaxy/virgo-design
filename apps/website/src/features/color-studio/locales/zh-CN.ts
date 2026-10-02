@@ -4,6 +4,7 @@ import { colorStudioEnUS } from './en-US';
 
 export const colorStudioZhCN = {
   colorStudio: {
+    carousel: { chromatic: '彩色编辑工作区', brandNeutral: '品牌与中性编辑工作区' },
     baseLabel: '基础色',
     picker: {
       saturation: '饱和度',

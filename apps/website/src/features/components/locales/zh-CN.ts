@@ -22,6 +22,7 @@ export const componentsZhCN = {
     actions: '操作',
   },
   sidebarLabels: {
+    carousel: '内容轮播',
     steps: '步骤',
     collapsible: '可折叠区域',
     slider: '滑块',
@@ -74,6 +75,7 @@ export const componentsZhCN = {
     menubar: '菜单栏',
   },
   metadata: {
+    carousel: '内容轮播',
     steps: '步骤',
     collapsible: '可折叠区域',
     slider: '原生数值滑块，支持范围约束、键盘操作和统一字段语义。',

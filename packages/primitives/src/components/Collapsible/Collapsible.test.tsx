@@ -49,4 +49,49 @@ describe('Collapsible primitive', () => {
     rerender(<Example open onOpenChange={onOpenChange} />);
     expect(screen.getByText('Additional details')).not.toHaveAttribute('hidden');
   });
+
+  it('retains closed content for animation while removing it from the accessibility tree', () => {
+    const { rerender } = render(
+      <Collapsible open={false}>
+        <Collapsible.Trigger>Details</Collapsible.Trigger>
+        <Collapsible.Content keepMounted aria-label="Panel details">
+          <input aria-label="Draft" defaultValue="Preserved draft" />
+        </Collapsible.Content>
+      </Collapsible>,
+    );
+    const draft = screen.getByDisplayValue('Preserved draft');
+    const content = draft.parentElement!;
+    expect(content).not.toHaveAttribute('hidden');
+    expect(content).toHaveAttribute('inert');
+    expect(content).toHaveAttribute('aria-hidden', 'true');
+    expect(screen.queryByRole('region')).toBeNull();
+    expect(screen.queryByRole('textbox')).toBeNull();
+    rerender(
+      <Collapsible open>
+        <Collapsible.Trigger>Details</Collapsible.Trigger>
+        <Collapsible.Content keepMounted aria-label="Panel details">
+          <input aria-label="Draft" defaultValue="Preserved draft" />
+        </Collapsible.Content>
+      </Collapsible>,
+    );
+    expect(screen.getByRole('region', { name: 'Panel details' })).toBe(content);
+    expect(screen.getByRole('textbox', { name: 'Draft' })).toBe(draft);
+    expect(content).not.toHaveAttribute('inert');
+    expect(content).not.toHaveAttribute('aria-hidden');
+  });
+
+  it('respects an explicit content heading independently of the trigger label', () => {
+    render(
+      <Collapsible defaultOpen>
+        <h2 id="panel-title">Project distribution</h2>
+        <Collapsible.Trigger>Minimize</Collapsible.Trigger>
+        <Collapsible.Content aria-labelledby="panel-title">Project totals</Collapsible.Content>
+      </Collapsible>,
+    );
+    expect(screen.getByRole('region')).toHaveAccessibleName('Project distribution');
+    expect(screen.getByRole('button')).toHaveAttribute(
+      'aria-controls',
+      screen.getByRole('region').id,
+    );
+  });
 });

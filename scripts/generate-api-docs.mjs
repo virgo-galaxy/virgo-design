@@ -293,6 +293,7 @@ const primitiveSourceMap = {
   breadcrumb: ['Breadcrumb/Breadcrumb.types.ts'],
   button: ['Button/Button.types.ts'],
   checkbox: ['Checkbox/Checkbox.types.ts', 'Checkbox/CheckboxGroup.types.ts'],
+  carousel: ['Carousel/Carousel.types.ts'],
   collapsible: ['Collapsible/Collapsible.types.ts'],
   command: ['Command/Command.types.ts'],
   'context-menu': ['ContextMenu/ContextMenu.types.ts'],

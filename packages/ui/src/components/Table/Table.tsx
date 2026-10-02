@@ -1,18 +1,31 @@
+import { SortIcon } from '@virgo-design/icons';
 import { Table as PrimitiveTable } from '@virgo-design/primitives';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 
+import { useControlLabels } from '../../shared/control-labels';
+import { Tooltip } from '../Tooltip';
 import styles from './Table.module.scss';
 import type {
   TableCaptionProps,
   TableCellProps,
+  TableDensity,
   TableHeadProps,
   TableProps,
   TableRowProps,
   TableSectionProps,
+  TableSortButtonProps,
   TableViewportProps,
 } from './Table.types';
+
+const sizeDensity: Record<NonNullable<TableProps['size']>, TableDensity> = {
+  small: 'compact',
+  medium: 'default',
+  large: 'comfortable',
+};
+
 export const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
   {
+    density,
     size = 'medium',
     border = 'rows',
     striped = false,
@@ -29,6 +42,7 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
       ref={ref}
       className={[styles.root, className].filter(Boolean).join(' ')}
       data-size={size}
+      data-density={density ?? sizeDensity[size]}
       data-border={border}
       data-striped={striped || undefined}
       data-hoverable={hoverable || undefined}
@@ -106,7 +120,7 @@ export const TableViewport = forwardRef<HTMLDivElement, TableViewportProps>(func
   );
 });
 export const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(function TableHead(
-  { align = 'start', className, ...props },
+  { align = 'start', className, children, sortDirection, onSortChange, ...props },
   ref,
 ) {
   return (
@@ -114,10 +128,66 @@ export const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(functi
       {...props}
       ref={ref}
       data-align={align}
+      sortDirection={onSortChange ? (sortDirection ?? 'none') : sortDirection}
       className={[styles.cell, className].filter(Boolean).join(' ')}
-    />
+    >
+      {onSortChange ? (
+        <TableSortButton direction={sortDirection ?? 'none'} onDirectionChange={onSortChange}>
+          {children}
+        </TableSortButton>
+      ) : (
+        children
+      )}
+    </PrimitiveTable.Head>
   );
 });
+export const TableSortButton = forwardRef<HTMLButtonElement, TableSortButtonProps>(
+  function TableSortButton(
+    { direction, defaultDirection = 'none', onDirectionChange, className, children, ...props },
+    ref,
+  ) {
+    const [localDirection, setLocalDirection] = useState(defaultDirection);
+    const value = direction ?? localDirection;
+    const labels = useControlLabels();
+    const action =
+      value === 'none'
+        ? labels.sortAscending
+        : value === 'ascending'
+          ? labels.sortDescending
+          : labels.clearSorting;
+    return (
+      <Tooltip closeOnClick={false}>
+        <Tooltip.Trigger
+          {...props}
+          ref={ref}
+          render={(triggerProps) => (
+            <PrimitiveTable.SortButton
+              {...triggerProps}
+              direction={value}
+              onDirectionChange={(next) => {
+                if (direction === undefined) setLocalDirection(next);
+                onDirectionChange?.(next);
+              }}
+              className={[styles.sortButton, className].filter(Boolean).join(' ')}
+            >
+              {children}
+              <SortIcon
+                className={styles.sortIndicator}
+                data-slot="sort-indicator"
+                size={16}
+                direction={value}
+                activeColor="var(--vd-brand-link)"
+              />
+            </PrimitiveTable.SortButton>
+          )}
+        />
+        <Tooltip.Content size="small" arrow={false}>
+          {action}
+        </Tooltip.Content>
+      </Tooltip>
+    );
+  },
+);
 export const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(function TableCell(
   { align = 'start', className, ...props },
   ref,

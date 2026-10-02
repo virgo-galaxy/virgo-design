@@ -50,7 +50,8 @@ export const navigationMenuExamplesZhCN = {
     segmentedLinksWithIcons: '带图标的分段链接',
     iconsSupplementDestinationLabels: '图标补充目标标签。',
     verticalHoverSubmenu: '垂直悬停子菜单',
-    aThirdLevelSharesTheNormalPointerAndKeyboardNavigation: '第三层共用常规指针与键盘导航模型。',
+    aThirdLevelSharesTheNormalPointerAndKeyboardNavigation:
+      '第三层共用常规指针与键盘导航模型；Content 的 arrow 可选显示指向触发器的小箭头。',
     inlineNestedNavigation: '行内嵌套导航',
     disclosureRevealsDestinationsInNormalDocumentFlow: '展开后在常规文档流中显示目标。',
     headerNavigation: '标题区导航',

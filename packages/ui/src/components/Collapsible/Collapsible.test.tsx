@@ -33,4 +33,28 @@ describe('UI Collapsible', () => {
     expect(screen.queryByRole('region')).toBeNull();
     expect(Collapsible.Root).not.toBe(Dialog.Root);
   });
+
+  it('opts into reversible collapse motion without exposing closed controls', async () => {
+    const user = userEvent.setup();
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <Collapsible defaultOpen>
+        <Collapsible.Trigger>Details</Collapsible.Trigger>
+        <Collapsible.Content ref={ref} motion="collapse">
+          <button>Content action</button>
+        </Collapsible.Content>
+      </Collapsible>,
+    );
+    expect(screen.getByRole('region')).toBe(ref.current);
+    expect(ref.current).toHaveAttribute('data-motion', 'collapse');
+    await user.click(screen.getByRole('button', { name: 'Details' }));
+    expect(ref.current).toHaveAttribute('data-state', 'closed');
+    expect(ref.current).toHaveAttribute('inert');
+    expect(ref.current).not.toHaveAttribute('hidden');
+    expect(screen.queryByRole('button', { name: 'Content action' })).toBeNull();
+    await user.click(screen.getByRole('button', { name: 'Details' }));
+    expect(ref.current).toHaveAttribute('data-state', 'open');
+    expect(ref.current).not.toHaveAttribute('inert');
+    expect(screen.getByRole('button', { name: 'Content action' })).toBeVisible();
+  });
 });

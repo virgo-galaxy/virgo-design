@@ -37,3 +37,55 @@ describe('native Table', () => {
     expect(screen.getByRole('region', { name: 'Records' })).toHaveAttribute('tabindex', '0');
   });
 });
+
+it('cycles sorting without submitting a form and supports keyboard activation', async () => {
+  const user = (await import('@testing-library/user-event')).default.setup();
+  const { createRef } = await import('react');
+  const ref = createRef<HTMLButtonElement>();
+  const changes: string[] = [];
+  render(
+    <Table.SortButton ref={ref} onDirectionChange={(value) => changes.push(value)}>
+      Count
+    </Table.SortButton>,
+  );
+  const button = screen.getByRole('button', { name: 'Count' });
+  expect(ref.current).toBe(button);
+  expect(button).toHaveAttribute('type', 'button');
+  await user.tab();
+  await user.keyboard('{Enter}');
+  expect(button).toHaveAttribute('data-direction', 'ascending');
+  await user.keyboard(' ');
+  expect(button).toHaveAttribute('data-direction', 'descending');
+  await user.click(button);
+  expect(changes).toEqual(['ascending', 'descending', 'none']);
+});
+
+it('preserves controlled direction, cancellation and disabled behavior', async () => {
+  const user = (await import('@testing-library/user-event')).default.setup();
+  const changes: string[] = [];
+  const { rerender } = render(
+    <Table.SortButton direction="ascending" onDirectionChange={(value) => changes.push(value)}>
+      Count
+    </Table.SortButton>,
+  );
+  const button = screen.getByRole('button');
+  await user.click(button);
+  expect(changes).toEqual(['descending']);
+  expect(button).toHaveAttribute('data-direction', 'ascending');
+  rerender(
+    <Table.SortButton disabled onDirectionChange={(value) => changes.push(value)}>
+      Count
+    </Table.SortButton>,
+  );
+  await user.click(button);
+  rerender(
+    <Table.SortButton
+      onClick={(event) => event.preventDefault()}
+      onDirectionChange={(value) => changes.push(value)}
+    >
+      Count
+    </Table.SortButton>,
+  );
+  await user.click(button);
+  expect(changes).toEqual(['descending']);
+});

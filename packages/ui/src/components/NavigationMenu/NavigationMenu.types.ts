@@ -49,6 +49,9 @@ export interface NavigationMenuTriggerProps extends Omit<
   indicator?: boolean;
 }
 
-export type NavigationMenuContentProps = PrimitiveNavigationMenuContentProps;
+export interface NavigationMenuContentProps extends PrimitiveNavigationMenuContentProps {
+  /** Show a decorative arrow pointing to the trigger in popover submenus. Ignored for inline submenus. @default false */
+  arrow?: boolean;
+}
 export type NavigationMenuSeparatorProps = HTMLAttributes<HTMLLIElement>;
 export type { NavigationMenuOrientation };

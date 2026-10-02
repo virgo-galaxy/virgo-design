@@ -1280,14 +1280,76 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         descriptionTranslationKey: 'primitives.table.api.table-row-props.description',
       },
       {
-        name: 'TableHeadProps',
+        name: 'TableSortDirection',
         kind: 'type',
-        signature: 'ThHTMLAttributes<HTMLTableCellElement>',
+        signature: "'none' | 'ascending' | 'descending'",
         description: '',
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [],
+        descriptionTranslationKey: 'primitives.table.api.table-sort-direction.description',
+      },
+      {
+        name: 'TableHeadProps',
+        kind: 'interface',
+        signature: 'extends ThHTMLAttributes<HTMLTableCellElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'sortDirection',
+            type: 'TableSortDirection | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Current column sort direction, reflected in aria-sort.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.table.api.table-head-props.properties.sort-direction.description',
+          },
+        ],
         descriptionTranslationKey: 'primitives.table.api.table-head-props.description',
+      },
+      {
+        name: 'TableSortButtonProps',
+        kind: 'interface',
+        signature: 'extends ButtonHTMLAttributes<HTMLButtonElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'direction',
+            type: 'TableSortDirection | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled sort direction.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.table.api.table-sort-button-props.properties.direction.description',
+          },
+          {
+            name: 'defaultDirection',
+            type: 'TableSortDirection | undefined',
+            required: false,
+            defaultValue: "'none'",
+            description: 'Initial uncontrolled direction.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.table.api.table-sort-button-props.properties.default-direction.description',
+          },
+          {
+            name: 'onDirectionChange',
+            type: '((direction: TableSortDirection) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Requests the next direction: none → ascending → descending → none.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.table.api.table-sort-button-props.properties.on-direction-change.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.table.api.table-sort-button-props.description',
       },
       {
         name: 'TableCellProps',
@@ -2359,6 +2421,296 @@ export const primitiveApiReference: ApiReferenceRegistry = {
       },
     ],
   },
+  carousel: {
+    packageName: '@virgo-design/primitives',
+    declarations: [
+      {
+        name: 'CarouselProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'count',
+            type: 'number',
+            required: true,
+            defaultValue: '',
+            description: 'Number of slides.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-props.properties.count.description',
+          },
+          {
+            name: 'index',
+            type: 'number',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled, zero-based slide index.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-props.properties.index.description',
+          },
+          {
+            name: 'defaultIndex',
+            type: 'number',
+            required: false,
+            defaultValue: '0',
+            description: 'Initial slide index.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-props.properties.default-index.description',
+          },
+          {
+            name: 'onIndexChange',
+            type: '(index: number) => void',
+            required: false,
+            defaultValue: '',
+            description: 'Called when navigation requests another slide.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-props.properties.on-index-change.description',
+          },
+          {
+            name: 'loop',
+            type: 'boolean',
+            required: false,
+            defaultValue: 'false',
+            description: 'Wrap navigation at either end.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-props.properties.loop.description',
+          },
+          {
+            name: 'autoPlay',
+            type: 'boolean',
+            required: false,
+            defaultValue: 'false',
+            description:
+              'Enable automatic slide advance. Pauses during hover, focus, dragging, hidden documents and reduced motion.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-props.properties.auto-play.description',
+          },
+          {
+            name: 'interval',
+            type: 'number',
+            required: false,
+            defaultValue: '5000',
+            description: 'Automatic advance interval in milliseconds.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-props.properties.interval.description',
+          },
+          {
+            name: 'draggable',
+            type: 'boolean',
+            required: false,
+            defaultValue: 'true',
+            description: 'Enable horizontal mouse and touch dragging on non-interactive content.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-props.properties.draggable.description',
+          },
+          {
+            name: 'wheel',
+            type: 'boolean',
+            required: false,
+            defaultValue: 'false',
+            description:
+              'Enable horizontal trackpad and Shift-wheel navigation. Vertical scrolling is preserved.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-props.properties.wheel.description',
+          },
+          {
+            name: 'layout',
+            type: "'paged' | 'stacked'",
+            required: false,
+            defaultValue: "'paged'",
+            description: 'Paged navigation or fully accessible stacked content.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-props.properties.layout.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.carousel.api.carousel-props.description',
+      },
+      {
+        name: 'CarouselViewportProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.carousel.api.carousel-viewport-props.description',
+      },
+      {
+        name: 'CarouselTrackProps',
+        kind: 'type',
+        signature: 'HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.carousel.api.carousel-track-props.description',
+      },
+      {
+        name: 'CarouselItemProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLDivElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'index',
+            type: 'number',
+            required: true,
+            defaultValue: '',
+            description: 'Zero-based position of this slide.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-item-props.properties.index.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.carousel.api.carousel-item-props.description',
+      },
+      {
+        name: 'CarouselState',
+        kind: 'interface',
+        signature: '',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'index',
+            type: 'number',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-state.properties.index.description',
+          },
+          {
+            name: 'count',
+            type: 'number',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-state.properties.count.description',
+          },
+          {
+            name: 'layout',
+            type: "'paged' | 'stacked'",
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-state.properties.layout.description',
+          },
+          {
+            name: 'canPrevious',
+            type: 'boolean',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-state.properties.can-previous.description',
+          },
+          {
+            name: 'canNext',
+            type: 'boolean',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-state.properties.can-next.description',
+          },
+          {
+            name: 'autoPlay',
+            type: 'boolean',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-state.properties.auto-play.description',
+          },
+          {
+            name: 'playing',
+            type: 'boolean',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-state.properties.playing.description',
+          },
+          {
+            name: 'paused',
+            type: 'boolean',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-state.properties.paused.description',
+          },
+          {
+            name: 'setPaused',
+            type: '(paused: boolean) => void',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-state.properties.set-paused.description',
+          },
+          {
+            name: 'goTo',
+            type: '(index: number) => void',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-state.properties.go-to.description',
+          },
+          {
+            name: 'previous',
+            type: '() => void',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-state.properties.previous.description',
+          },
+          {
+            name: 'next',
+            type: '() => void',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.carousel.api.carousel-state.properties.next.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.carousel.api.carousel-state.description',
+      },
+    ],
+  },
   collapsible: {
     packageName: '@virgo-design/primitives',
     declarations: [
@@ -2468,12 +2820,24 @@ export const primitiveApiReference: ApiReferenceRegistry = {
       },
       {
         name: 'CollapsibleContentProps',
-        kind: 'type',
-        signature: 'HTMLAttributes<HTMLDivElement>',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLDivElement>',
         description: '',
         source: '@virgo-design/primitives',
         reExported: false,
-        properties: [],
+        properties: [
+          {
+            name: 'keepMounted',
+            type: 'boolean',
+            required: false,
+            defaultValue: 'false',
+            description:
+              'Keep closed content rendered for consumer animations; closed content remains inert and hidden from assistive technology.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.collapsible.api.collapsible-content-props.properties.keep-mounted.description',
+          },
+        ],
         descriptionTranslationKey:
           'primitives.collapsible.api.collapsible-content-props.description',
       },

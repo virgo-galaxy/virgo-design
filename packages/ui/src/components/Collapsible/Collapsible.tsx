@@ -52,14 +52,24 @@ export const CollapsibleTrigger = forwardRef<HTMLButtonElement, CollapsibleTrigg
   },
 );
 export const CollapsibleContent = forwardRef<HTMLDivElement, CollapsibleContentProps>(
-  function Content({ className, ...props }, ref) {
+  function Content({ motion = 'none', keepMounted = false, className, children, ...props }, ref) {
     return (
       <PrimitiveCollapsible.Content
         {...props}
         ref={ref}
         data-slot="content"
+        data-motion={motion}
+        keepMounted={motion === 'collapse' || keepMounted}
         className={classes(styles.content, className)}
-      />
+      >
+        {motion === 'collapse' ? (
+          <div className={styles.contentInner} data-slot="content-inner">
+            {children}
+          </div>
+        ) : (
+          children
+        )}
+      </PrimitiveCollapsible.Content>
     );
   },
 );

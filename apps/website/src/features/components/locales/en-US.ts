@@ -20,6 +20,7 @@ export const componentsEnUS = {
     actions: 'Actions',
   },
   sidebarLabels: {
+    carousel: 'Content carousel',
     steps: 'Stage sequence',
     collapsible: 'Content disclosure',
     slider: 'Numeric adjustment',
@@ -72,6 +73,7 @@ export const componentsEnUS = {
     menubar: 'Action groups',
   },
   metadata: {
+    carousel: 'Content carousel',
     steps: 'Stage sequence',
     collapsible: 'Content disclosure',
     slider:

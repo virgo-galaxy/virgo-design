@@ -81,7 +81,8 @@ export const navigationMenuExamples = {
     id: 'navigation-popover',
     title: 'Vertical hover submenu',
     titleTranslationKey: 'examples.navigationMenu.copy.verticalHoverSubmenu',
-    description: 'A third level shares the normal pointer and keyboard navigation model.',
+    description:
+      'A third level shares the normal pointer and keyboard navigation model. Content arrow adds an optional pointer to its trigger.',
     descriptionTranslationKey:
       'examples.navigationMenu.copy.aThirdLevelSharesTheNormalPointerAndKeyboardNavigation',
     Component: NavigationPopoverExample,

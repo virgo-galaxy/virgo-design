@@ -1,5 +1,6 @@
 export const colorStudioEnUS = {
   colorStudio: {
+    carousel: { chromatic: 'Chromatic workspace', brandNeutral: 'Brand and neutral workspace' },
     baseLabel: 'BASE',
     picker: {
       saturation: 'Saturation',

@@ -6,6 +6,7 @@ import { breadcrumbMetadata } from '../components/Breadcrumb/Breadcrumb.meta';
 import { buttonMetadata } from '../components/Button/Button.meta';
 import { calendarMetadata } from '../components/Calendar/Calendar.meta';
 import { cardMetadata } from '../components/Card/Card.meta';
+import { carouselMetadata } from '../components/Carousel/Carousel.meta';
 import { checkboxMetadata } from '../components/Checkbox/Checkbox.meta';
 import { collapsibleMetadata } from '../components/Collapsible/Collapsible.meta';
 import { colorPickerMetadata } from '../components/ColorPicker/ColorPicker.meta';
@@ -59,6 +60,7 @@ export {
   buttonMetadata,
   calendarMetadata,
   cardMetadata,
+  carouselMetadata,
   checkboxMetadata,
   collapsibleMetadata,
   colorPickerMetadata,
@@ -121,6 +123,7 @@ export const componentMetadataRegistry = {
   contextMenu: contextMenuMetadata,
   menu: menuMetadata,
   steps: stepsMetadata,
+  carousel: carouselMetadata,
   collapsible: collapsibleMetadata,
   accordion: accordionMetadata,
   alert: alertMetadata,

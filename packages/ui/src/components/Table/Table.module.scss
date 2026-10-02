@@ -1,20 +1,72 @@
 .root {
+  // Public geometry: inline style or consumer className can override these values.
+  // Native table row height is a minimum; wrapped content grows the row naturally.
+  --table-cell-padding-inline: var(--vd-spacing-16);
+  --table-cell-padding-block: var(--vd-spacing-12);
+  --table-header-height: var(--vd-sizing-44);
+  --table-row-height: var(--vd-sizing-48);
+  --table-cell-vertical-align: middle;
+  // Opaque, theme-aware layers keep header, hover and selection distinct.
+  --table-body-background: var(--vd-surface-default);
+  --table-header-foreground: var(--vd-text-primary);
+  --table-header-font-weight: var(--vd-font-weight-500);
+  --table-header-radius: var(--vd-radius-6);
+  --table-separator-color: var(--vd-border-subtle);
+  --table-header-background: color-mix(
+    in srgb,
+    var(--vd-text-primary) 3%,
+    var(--table-body-background)
+  );
+  --table-footer-background: color-mix(
+    in srgb,
+    var(--vd-text-primary) 5%,
+    var(--table-body-background)
+  );
+  --table-row-striped-background: color-mix(
+    in srgb,
+    var(--vd-text-primary) 3%,
+    var(--table-body-background)
+  );
+  --table-row-hover-background: color-mix(
+    in srgb,
+    var(--vd-brand-link) 3%,
+    var(--table-body-background)
+  );
+  --table-row-selected-background: color-mix(
+    in srgb,
+    var(--vd-brand-link) 14%,
+    var(--table-body-background)
+  );
+  --table-row-selected-hover-background: color-mix(
+    in srgb,
+    var(--vd-brand-link) 20%,
+    var(--table-body-background)
+  );
+  // Keep the existing shorthand as an override surface for older consumers.
+  --table-padding: var(--table-cell-padding-block) var(--table-cell-padding-inline);
+
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   color: var(--vd-text-primary);
-  background: var(--vd-surface-default);
+  background: var(--table-body-background);
   font-family: var(--vd-typography-ui-body-medium-font-family);
   font-size: var(--vd-typography-ui-body-medium-font-size);
   line-height: var(--vd-typography-ui-body-medium-line-height);
-  --table-padding: var(--vd-spacing-12) var(--vd-spacing-16);
-  &[data-size='small'] {
-    --table-padding: var(--vd-spacing-6) var(--vd-spacing-12);
+  &:where([data-density='compact']) {
+    --table-cell-padding-inline: var(--vd-spacing-12);
+    --table-cell-padding-block: var(--vd-spacing-8);
+    --table-header-height: var(--vd-sizing-36);
+    --table-row-height: var(--vd-sizing-40);
   }
-  &[data-size='large'] {
-    --table-padding: var(--vd-spacing-16) var(--vd-spacing-20);
+  &:where([data-density='comfortable']) {
+    --table-cell-padding-inline: var(--vd-spacing-20);
+    --table-cell-padding-block: var(--vd-spacing-16);
+    --table-header-height: calc(var(--vd-sizing-48) + var(--vd-spacing-4));
+    --table-row-height: var(--vd-sizing-56);
   }
   &[data-border='rows'] .cell {
-    border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+    border-bottom: var(--vd-border-width-1) solid var(--table-separator-color);
   }
   // Internal rules work with or without headings, and skip empty table sections.
   &[data-border='separators'] > :is(thead, tbody, tfoot) > .row + .row > .cell,
@@ -23,30 +75,40 @@
     ~ :is(thead, tbody, tfoot)
     > .row:first-child
     > .cell {
-    border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+    border-top: var(--vd-border-width-1) solid var(--table-separator-color);
+  }
+  // Preserve a single shared grid line for the fully bordered treatment.
+  &[data-border='all'] {
+    border-collapse: collapse;
   }
   &[data-border='all'] .cell {
     border: var(--vd-border-width-1) solid var(--vd-border-default);
   }
-  &[data-striped='true'] .body > .row:nth-child(even) {
-    background: var(--vd-surface-secondary);
+  & .body > .row {
+    background: var(--table-body-background);
   }
-  &[data-hoverable='true'] .body > .row:hover {
-    background: var(--vd-fill-hover);
+  &[data-striped='true'] .body > .row:nth-child(even) {
+    background: var(--table-row-striped-background);
+  }
+  &[data-hoverable='true'] .body > .row:is(:hover, :focus-within) {
+    background: var(--table-row-hover-background);
   }
   & .body > .row[data-selected='true'] {
-    background: var(--vd-fill-selected);
+    background: var(--table-row-selected-background);
+  }
+  &[data-hoverable='true'] .body > .row[data-selected='true']:is(:hover, :focus-within) {
+    background: var(--table-row-selected-hover-background);
   }
   &[data-sticky-header='true'] .header .cell {
     position: sticky;
     top: 0;
     z-index: 1;
-    background: var(--vd-surface-secondary);
+    background: var(--table-header-background);
   }
 }
 .cell {
   padding: var(--table-padding);
-  vertical-align: top;
+  vertical-align: var(--table-cell-vertical-align);
   text-align: start;
   &[data-align='end'] {
     text-align: end;
@@ -56,10 +118,34 @@
     text-align: center;
   }
 }
+.header > .row {
+  height: var(--table-header-height);
+}
+.body > .row,
+.footer > .row {
+  height: var(--table-row-height);
+}
 .header,
 .footer {
   font-weight: var(--vd-typography-ui-label-medium-font-weight);
-  background: var(--vd-surface-secondary);
+}
+.header {
+  color: var(--table-header-foreground);
+  font-weight: var(--table-header-font-weight);
+  > .row > .cell {
+    // Native th boldness does not inherit the weight declared on the section.
+    font-weight: var(--table-header-font-weight);
+    background: var(--table-header-background);
+  }
+  > .row:first-child > .cell:first-child {
+    border-start-start-radius: var(--table-header-radius);
+  }
+  > .row:first-child > .cell:last-child {
+    border-start-end-radius: var(--table-header-radius);
+  }
+}
+.footer {
+  background: var(--table-footer-background);
 }
 .caption {
   padding: var(--vd-spacing-12);
@@ -86,4 +172,31 @@
   .row {
     transition: none;
   }
+}
+
+.sortButton {
+  display: inline-flex;
+  min-height: var(--vd-sizing-20);
+  align-items: center;
+  gap: var(--vd-spacing-6);
+  padding: 0;
+  border: 0;
+  border-radius: var(--vd-radius-4);
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  &:focus-visible {
+    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline-offset: var(--vd-spacing-2);
+  }
+  &:disabled {
+    color: var(--vd-text-disabled);
+    cursor: not-allowed;
+  }
+}
+.sortIndicator {
+  flex: none;
+  color: var(--vd-icon-primary);
 }

@@ -1,8 +1,10 @@
+import { useCarouselState } from '@virgo-design/primitives';
 import {
   Accordion,
   Breadcrumb,
   Button,
   Calendar,
+  Carousel,
   Checkbox,
   Collapsible,
   ColorPicker,
@@ -95,6 +97,39 @@ function CheckboxExample() {
         <Checkbox value="weekly" /> {t('primitives.examples.weekly')}
       </label>
     </Checkbox.Group>
+  );
+}
+
+function CarouselExample() {
+  const { t } = useTranslation();
+  return (
+    <Carousel
+      count={2}
+      aria-label={t('primitives.catalogue.names.carousel')}
+      data-docs-primitive="carousel"
+    >
+      <Carousel.Viewport>
+        <Carousel.Track>
+          <Carousel.Item index={0}>{t('primitives.examples.headlessByDefault')}</Carousel.Item>
+          <Carousel.Item index={1}>{t('primitives.examples.projectName')}</Carousel.Item>
+        </Carousel.Track>
+      </Carousel.Viewport>
+      <CarouselNavigation />
+    </Carousel>
+  );
+}
+function CarouselNavigation() {
+  const state = useCarouselState();
+  const { t } = useTranslation();
+  return (
+    <>
+      <button type="button" disabled={!state.canPrevious} onClick={state.previous}>
+        {t('shared.controls.previousSlide')}
+      </button>
+      <button type="button" disabled={!state.canNext} onClick={state.next}>
+        {t('shared.controls.nextSlide')}
+      </button>
+    </>
   );
 }
 
@@ -564,6 +599,8 @@ export function PrimitiveExample({ slug }: { slug: PrimitiveSlug }) {
       return <Button data-docs-primitive="button">{t('primitives.examples.nativeButton')}</Button>;
     case 'checkbox':
       return <CheckboxExample />;
+    case 'carousel':
+      return <CarouselExample />;
     case 'collapsible':
       return <CollapsibleExample />;
     case 'command':

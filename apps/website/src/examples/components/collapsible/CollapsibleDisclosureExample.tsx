@@ -7,7 +7,9 @@ export default function App() {
   return (
     <Collapsible className={styles.root}>
       <Collapsible.Trigger>{t('examples.collapsible.copy.trigger')}</Collapsible.Trigger>
-      <Collapsible.Content>{t('examples.collapsible.copy.content')}</Collapsible.Content>
+      <Collapsible.Content motion="collapse">
+        {t('examples.collapsible.copy.content')}
+      </Collapsible.Content>
     </Collapsible>
   );
 }

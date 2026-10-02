@@ -7,6 +7,8 @@ describe('@virgo-design/ui public API', () => {
     expect(Object.keys(ui).sort()).toEqual(
       [
         'Steps',
+        'Carousel',
+        'useCarouselState',
         'Collapsible',
         'Slider',
         'ColorPicker',

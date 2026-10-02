@@ -245,6 +245,27 @@
   }
 }
 
+.arrow {
+  @include panel.arrow;
+
+  // Keep only the outward half so the rotated square cannot cover menu rows.
+  [data-side='right'] > & {
+    clip-path: polygon(0 0, 100% 100%, 0 100%);
+  }
+
+  [data-side='left'] > & {
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+  }
+
+  [data-side='bottom'] > & {
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+  }
+
+  [data-side='top'] > & {
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  }
+}
+
 @keyframes navigation-menu-popover-enter {
   from {
     opacity: 0;
