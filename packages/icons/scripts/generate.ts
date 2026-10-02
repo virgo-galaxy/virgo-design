@@ -25,8 +25,13 @@ export function generateIconComponent(fileName: string, source: string) {
   const definition = validateIconSvg(source);
   const animation = createIconAnimation(parse(fileName).name, definition);
 
-  const propsType = animation ? 'IconProps & { animated?: IconAnimation }' : 'IconProps';
-  const functionArguments = `{ size = 24, ${animation ? 'animated, ' : ''}...props }: ${componentName}Props`;
+  const isSort = fileName === 'sort.svg';
+  const propsType = isSort
+    ? "IconProps & { direction?: 'none' | 'ascending' | 'descending'; activeColor?: string }"
+    : animation
+      ? 'IconProps & { animated?: IconAnimation }'
+      : 'IconProps';
+  const functionArguments = `{ size = 24, ${isSort ? "direction = 'none', activeColor = 'currentColor', " : ''}${animation ? 'animated, ' : ''}...props }: ${componentName}Props`;
   const svgAttributeValues = [
     'ref={ref}',
     "aria-hidden={props['aria-label'] || props['aria-labelledby'] ? undefined : true}",
@@ -44,19 +49,22 @@ export function generateIconComponent(fileName: string, source: string) {
       : `    <svg\n${svgAttributeValues.map((attribute) => `      ${attribute}`).join('\n')}\n    >`;
 
   const paths = definition.paths
-    .map((path) => {
+    .map((path, index) => {
       const value = toTypeScriptStringLiteral(path.d);
       const fillRule =
         path.fillRule === undefined ? undefined : `fillRule=${JSON.stringify(path.fillRule)}`;
-      const inlinePath = `      <path d={${value}}${fillRule === undefined ? '' : ` ${fillRule}`} />`;
+      const sortAttributes = isSort
+        ? ` data-slot="sort-${index === 0 ? 'ascending' : 'descending'}" fill={direction === '${index === 0 ? 'ascending' : 'descending'}' ? activeColor : 'currentColor'} opacity={direction === '${index === 0 ? 'ascending' : 'descending'}' ? 1 : ${index === 0 ? '0.65' : '0.45'}}`
+        : '';
+      const inlinePath = `      <path d={${value}}${fillRule === undefined ? '' : ` ${fillRule}`}${sortAttributes} />`;
       const requiresMultilineValue = path.d.includes('\n') || `        d={${value}}`.length > 100;
 
       if (requiresMultilineValue) {
-        return `      <path\n        d={\n          ${value}\n        }${fillRule === undefined ? '' : `\n        ${fillRule}`}\n      />`;
+        return `      <path\n        d={\n          ${value}\n        }${fillRule === undefined ? '' : `\n        ${fillRule}`}${sortAttributes}\n      />`;
       }
 
       return inlinePath.length > 100
-        ? `      <path\n        d={${value}}${fillRule === undefined ? '' : `\n        ${fillRule}`}\n      />`
+        ? `      <path\n        d={${value}}${fillRule === undefined ? '' : `\n        ${fillRule}`}${sortAttributes}\n      />`
         : inlinePath;
     })
     .join('\n');

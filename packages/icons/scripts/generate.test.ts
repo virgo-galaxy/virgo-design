@@ -55,6 +55,7 @@ describe('icons generator', () => {
       'layers.svg',
       'layout.svg',
       'lock.svg',
+      'maximize.svg',
       'microphone.svg',
       'minus.svg',
       'moon.svg',
@@ -68,6 +69,7 @@ describe('icons generator', () => {
       'shapes.svg',
       'sidebar-collapse.svg',
       'sidebar-expand.svg',
+      'sort.svg',
       'spline.svg',
       'stop.svg',
       'studio-tools.svg',
@@ -79,6 +81,7 @@ describe('icons generator', () => {
       'unpin.svg',
       'upload.svg',
       'user.svg',
+      'widgets.svg',
     ]);
 
     await Promise.all(

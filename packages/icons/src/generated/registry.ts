@@ -40,6 +40,7 @@ import { LanguageZhIcon } from './LanguageZhIcon.js';
 import { LayersIcon } from './LayersIcon.js';
 import { LayoutIcon } from './LayoutIcon.js';
 import { LockIcon } from './LockIcon.js';
+import { MaximizeIcon } from './MaximizeIcon.js';
 import { MicrophoneIcon } from './MicrophoneIcon.js';
 import { MinusIcon } from './MinusIcon.js';
 import { MoonIcon } from './MoonIcon.js';
@@ -53,6 +54,7 @@ import { SettingsIcon } from './SettingsIcon.js';
 import { ShapesIcon } from './ShapesIcon.js';
 import { SidebarCollapseIcon } from './SidebarCollapseIcon.js';
 import { SidebarExpandIcon } from './SidebarExpandIcon.js';
+import { SortIcon } from './SortIcon.js';
 import { SplineIcon } from './SplineIcon.js';
 import { StopIcon } from './StopIcon.js';
 import { StudioToolsIcon } from './StudioToolsIcon.js';
@@ -64,6 +66,7 @@ import { UnlockIcon } from './UnlockIcon.js';
 import { UnpinIcon } from './UnpinIcon.js';
 import { UploadIcon } from './UploadIcon.js';
 import { UserIcon } from './UserIcon.js';
+import { WidgetsIcon } from './WidgetsIcon.js';
 export const iconComponents = {
   'arrow-down': ArrowDownIcon,
   'arrow-left': ArrowLeftIcon,
@@ -106,6 +109,7 @@ export const iconComponents = {
   layers: LayersIcon,
   layout: LayoutIcon,
   lock: LockIcon,
+  maximize: MaximizeIcon,
   microphone: MicrophoneIcon,
   minus: MinusIcon,
   moon: MoonIcon,
@@ -119,6 +123,7 @@ export const iconComponents = {
   shapes: ShapesIcon,
   'sidebar-collapse': SidebarCollapseIcon,
   'sidebar-expand': SidebarExpandIcon,
+  sort: SortIcon,
   spline: SplineIcon,
   stop: StopIcon,
   'studio-tools': StudioToolsIcon,
@@ -130,4 +135,5 @@ export const iconComponents = {
   unpin: UnpinIcon,
   upload: UploadIcon,
   user: UserIcon,
+  widgets: WidgetsIcon,
 } as const;

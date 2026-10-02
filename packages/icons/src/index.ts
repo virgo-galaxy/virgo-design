@@ -44,6 +44,7 @@ export { LanguageZhIcon, type LanguageZhIconProps } from './generated/LanguageZh
 export { LayersIcon, type LayersIconProps } from './generated/LayersIcon.js';
 export { LayoutIcon, type LayoutIconProps } from './generated/LayoutIcon.js';
 export { LockIcon, type LockIconProps } from './generated/LockIcon.js';
+export { MaximizeIcon, type MaximizeIconProps } from './generated/MaximizeIcon.js';
 export { MicrophoneIcon, type MicrophoneIconProps } from './generated/MicrophoneIcon.js';
 export { MinusIcon, type MinusIconProps } from './generated/MinusIcon.js';
 export { MoonIcon, type MoonIconProps } from './generated/MoonIcon.js';
@@ -60,6 +61,7 @@ export {
   type SidebarCollapseIconProps,
 } from './generated/SidebarCollapseIcon.js';
 export { SidebarExpandIcon, type SidebarExpandIconProps } from './generated/SidebarExpandIcon.js';
+export { SortIcon, type SortIconProps } from './generated/SortIcon.js';
 export { SplineIcon, type SplineIconProps } from './generated/SplineIcon.js';
 export { StopIcon, type StopIconProps } from './generated/StopIcon.js';
 export { StudioToolsIcon, type StudioToolsIconProps } from './generated/StudioToolsIcon.js';
@@ -71,4 +73,5 @@ export { UnlockIcon, type UnlockIconProps } from './generated/UnlockIcon.js';
 export { UnpinIcon, type UnpinIconProps } from './generated/UnpinIcon.js';
 export { UploadIcon, type UploadIconProps } from './generated/UploadIcon.js';
 export { UserIcon, type UserIconProps } from './generated/UserIcon.js';
+export { WidgetsIcon, type WidgetsIconProps } from './generated/WidgetsIcon.js';
 export type { IconProps } from './icon-props.js';

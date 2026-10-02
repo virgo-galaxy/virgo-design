@@ -76,6 +76,8 @@ export const iconSvgSources = {
   layout:
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M4.5 4.5h15l1 1v13l-1 1h-15l-1-1v-13z M5.25 6.25V8h13.5V6.25z M5.25 9.5v8.25H8.5V9.5z M10 9.5v8.25h8.75V9.5z" fill-rule="evenodd" />\n</svg>\n',
   lock: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <!-- Chamfered two-unit outline with an open interior; the shackle meets the body. -->\n  <path d="M7 9.5v-4L9.5 3h5L17 5.5v4h-2v-3L13.5 5h-3L9 6.5v3z" />\n  <path d="M5.5 9.5h13l1 1v9l-1 1h-13l-1-1v-9z M7 11.5l-.5.5v6l.5.5h10l.5-.5v-6l-.5-.5z" fill-rule="evenodd" />\n  <path d="M11.5 13h1l.5.5v3l-.5.5h-1l-.5-.5v-3z" />\n</svg>\n',
+  maximize:
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path fill-rule="evenodd" d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 2v12h12V6H6Z" />\n</svg>\n',
   microphone:
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M12 2.5a3.5 3.5 0 0 1 3.5 3.5v5a3.5 3.5 0 0 1-7 0V6A3.5 3.5 0 0 1 12 2.5Z M12 4.5A1.5 1.5 0 0 0 10.5 6v5a1.5 1.5 0 0 0 3 0V6A1.5 1.5 0 0 0 12 4.5Z" fill-rule="evenodd" />\n  <path d="M5.5 9h1l.5.5V11a5 5 0 0 0 10 0V9.5l.5-.5h1l.5.5V11a7 7 0 0 1-6 6.93V20h3l.5.5v1l-.5.5h-9l-.5-.5v-1l.5-.5h3v-2.07A7 7 0 0 1 5 11V9.5z" />\n</svg>\n',
   minus:
@@ -98,6 +100,7 @@ export const iconSvgSources = {
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M4 4.5h16l.5.5v1l-.5.5H4L3.5 6V5z M11 9h9l.5.5v1l-.5.5h-9l-.5-.5v-1z M11 13h9l.5.5v1l-.5.5h-9l-.5-.5v-1z M4 17.5h16l.5.5v1l-.5.5H4l-.5-.5v-1z" />\n  <path d="M8 8.5h-.5l-4 3v1l4 3H8l.5-.5V9z" />\n</svg>\n',
   'sidebar-expand':
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M4 4.5h16l.5.5v1l-.5.5H4L3.5 6V5z M11 9h9l.5.5v1l-.5.5h-9l-.5-.5v-1z M11 13h9l.5.5v1l-.5.5h-9l-.5-.5v-1z M4 17.5h16l.5.5v1l-.5.5H4l-.5-.5v-1z" />\n  <path d="M4 8.5h.5l4 3v1l-4 3H4l-.5-.5V9z" />\n</svg>\n',
+  sort: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M11.6 3h.8l5.6 7-.3.5H6.3L6 10z" />\n  <path d="M6.3 13.5h11.4l.3.5-5.6 7h-.8L6 14z" />\n</svg>\n',
   spline:
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <!-- A continuous S-curve between two chamfered, hollow anchor nodes. -->\n  <path d="M7.5 18H16a2.25 2.25 0 0 0 0-4.5H8A4.25 4.25 0 0 1 8 5h8.5v2H8a2.25 2.25 0 0 0 0 4.5h8a4.25 4.25 0 0 1 0 8.5H7.5z" />\n  <path d="M16.5 3h5l.5.5v5l-.5.5h-5l-.5-.5v-5z M18 5v2h2V5z M2.5 16h5l.5.5v5l-.5.5h-5l-.5-.5v-5z M4 18v2h2v-2z" fill-rule="evenodd" />\n</svg>\n',
   stop: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M6 5h12l1 1v12l-1 1H6l-1-1V6z" />\n</svg>\n',
@@ -116,6 +119,8 @@ export const iconSvgSources = {
   upload:
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">\n  <path d="m12 2.586 5.707 5.707-1.414 1.414L13 6.414V16h-2V6.414L7.707 9.707 6.293 8.293 12 2.586Z" />\n  <path d="M3 16h2v3h14v-3h2v4l-1 1H4l-1-1v-4Z" />\n</svg>\n',
   user: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path\n    d="M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z"\n    fill-rule="evenodd"\n  />\n  <path d="M4 20v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v2a1 1 0 0 1-2 0v-2a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v2a1 1 0 0 1-2 0Z" />\n</svg>\n',
+  widgets:
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M3 2.5h7l.5.5v7l-.5.5H3l-.5-.5V3z M4 4v5h5V4z" fill-rule="evenodd" />\n  <path d="M16.4 1.6h.7l4.3 4.3v.7l-4.3 4.3h-.7L12.1 6.6v-.7z M16.75 3.4l-2.85 2.85 2.85 2.85 2.85-2.85z" fill-rule="evenodd" />\n  <path d="M3 12.5h7l.5.5v7l-.5.5H3l-.5-.5v-7z M4 14v5h5v-5z" fill-rule="evenodd" />\n  <path d="M13 12.5h7l.5.5v7l-.5.5h-7l-.5-.5v-7z M14 14v5h5v-5z" fill-rule="evenodd" />\n</svg>\n',
 } as const;
 export const iconAnimatedSvgSources = {
   'arrow-down':

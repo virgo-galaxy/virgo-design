@@ -412,6 +412,16 @@ export const iconManifest = [
     componentName: 'LockIcon',
   },
   {
+    id: 'maximize',
+    category: 'actions',
+    tags: ['actions', 'window', 'expand', 'maximize'],
+    aliases: ['restore-window'],
+    status: 'stable',
+    description: 'An outlined window for expanding or restoring a minimized panel.',
+    animated: false,
+    componentName: 'MaximizeIcon',
+  },
+  {
     id: 'microphone',
     category: 'actions',
     tags: ['audio', 'voice', 'recording', 'dictation'],
@@ -542,6 +552,17 @@ export const iconManifest = [
     componentName: 'SidebarExpandIcon',
   },
   {
+    id: 'sort',
+    category: 'actions',
+    tags: ['sort', 'ascending', 'descending', 'triangles', 'table'],
+    aliases: ['sorting', 'order', 'sort-direction'],
+    status: 'stable',
+    description:
+      'Paired filled up and down triangles with distinct inactive tones and optional active direction.',
+    animated: false,
+    componentName: 'SortIcon',
+  },
+  {
     id: 'spline',
     category: 'design',
     tags: ['design', 'spline'],
@@ -650,6 +671,17 @@ export const iconManifest = [
     description: 'User icon for system interfaces.',
     animated: false,
     componentName: 'UserIcon',
+  },
+  {
+    id: 'widgets',
+    category: 'layout',
+    tags: ['widgets', 'grid', 'blocks', 'dashboard', 'diamond'],
+    aliases: ['widget', 'grid-widgets'],
+    status: 'stable',
+    description:
+      'Four outlined blocks with restrained chamfered corners and compact spacing, with an upper-right diamond balanced for small interface sizes.',
+    animated: false,
+    componentName: 'WidgetsIcon',
   },
 ] as const satisfies readonly IconManifestEntry[];
 export type IconId = (typeof iconManifest)[number]['id'];

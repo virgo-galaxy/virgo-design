@@ -362,7 +362,7 @@ from the public type. The package is ESM, supports React 18+, and requires no Vi
 
 The root exports the shared `IconProps`, individual components, and their `XxxIconProps`.
 `IconProps` contains the supported SVG props plus optional `size`, with canonical geometry and
-dimensions excluded. Static icon props alias `IconProps`; animated icon props extend it with
+dimensions excluded. Most static icon props alias `IconProps`; `SortIcon` adds the direction and active-color props described below. Animated icon props extend it with
 optional `animated`. Custom icon previews and Studio-generated TSX use the same public type.
 Studio's generated code imports `IconProps` as a type only; its runtime requires React.
 Metadata, SVG sources, tooling,
@@ -479,3 +479,18 @@ semantic tokens. Its current background is displayed as read-only text; there ar
 light/dark comparison cards. Website-local search terms and
 `icons.*` locales own Chinese search and translated interface labels; canonical identifiers remain
 unchanged in both languages. Canonical source remains `packages/icons/icons/`.
+
+### Sort indicator
+
+`sort.svg` exports `SortIcon` and `SortIconProps` from `@virgo-design/icons`. It contains
+a pair of filled upward/downward triangles. Both remain visible; inactive triangles
+inherit `currentColor` at 65% opacity above and 45% below. `direction` defaults to
+`'none'` and also accepts `'ascending'` or `'descending'`. The active triangle uses
+full opacity and `activeColor`, which defaults to `'currentColor'`.
+
+```tsx
+<SortIcon size={16} direction="ascending" color="gray" activeColor="var(--vd-brand-link)" />
+```
+
+The icon only displays state. `Table.SortButton` owns clicks, keyboard input, the
+three-state cycle and the next-action tooltip; `Table.Head` owns `aria-sort`.

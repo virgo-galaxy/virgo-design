@@ -369,6 +369,15 @@
     "animated": true
   },
   {
+    "id": "maximize",
+    "category": "actions",
+    "tags": ["actions", "window", "expand", "maximize"],
+    "aliases": ["restore-window"],
+    "status": "stable",
+    "description": "An outlined window for expanding or restoring a minimized panel.",
+    "animated": false
+  },
+  {
     "id": "microphone",
     "category": "actions",
     "tags": ["audio", "voice", "recording", "dictation"],
@@ -486,6 +495,15 @@
     "animated": false
   },
   {
+    "id": "sort",
+    "category": "actions",
+    "tags": ["sort", "ascending", "descending", "triangles", "table"],
+    "aliases": ["sorting", "order", "sort-direction"],
+    "status": "stable",
+    "description": "Paired filled up and down triangles with distinct inactive tones and optional active direction.",
+    "animated": false
+  },
+  {
     "id": "spline",
     "category": "design",
     "tags": ["design", "spline"],
@@ -582,6 +600,15 @@
     "aliases": ["person", "profile"],
     "status": "stable",
     "description": "User icon for system interfaces.",
+    "animated": false
+  },
+  {
+    "id": "widgets",
+    "category": "layout",
+    "tags": ["widgets", "grid", "blocks", "dashboard", "diamond"],
+    "aliases": ["widget", "grid-widgets"],
+    "status": "stable",
+    "description": "Four outlined blocks with restrained chamfered corners and compact spacing, with an upper-right diamond balanced for small interface sizes.",
     "animated": false
   }
 ]
