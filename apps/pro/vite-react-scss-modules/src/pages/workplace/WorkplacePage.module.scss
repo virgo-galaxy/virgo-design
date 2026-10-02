@@ -100,6 +100,9 @@
   grid-template-columns: minmax(0, 1fr) 288px;
   gap: var(--vd-spacing-20);
   align-items: start;
+  transition:
+    grid-template-columns var(--vd-duration-180) var(--vd-easing-standard),
+    column-gap var(--vd-duration-180) var(--vd-easing-standard);
 }
 .primaryColumn,
 .secondaryColumn {
@@ -107,15 +110,72 @@
   gap: var(--vd-spacing-20);
   min-width: 0;
 }
+.secondaryColumn {
+  gap: 0;
+}
+.workspaceGrid[data-aside-hidden='true'] {
+  .secondaryColumn {
+    display: none;
+  }
+}
+@media (min-width: 1201px) {
+  .workspaceGrid[data-aside-hidden='true'] {
+    grid-template-columns: minmax(0, 1fr) 0px;
+    column-gap: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workspaceGrid {
+    transition: none;
+  }
+}
 .trendCard[data-size='md'],
 .tasksCard[data-size='md'],
-.distributionCard[data-size='md'],
-.shortcutsCard[data-size='md'],
-.activityCard[data-size='md'] {
+.widgetCard[data-size='md'] {
   align-content: start;
   --card-padding: var(--vd-spacing-20);
   --card-title-font-size: var(--vd-font-size-14);
   --card-gap: var(--vd-spacing-20);
+}
+.widgetShell,
+.widgetDisclosure {
+  border: 0;
+  border-radius: 0;
+  min-width: 0;
+}
+.widgetPresence,
+.widgetBody {
+  --collapsible-content-padding: 0;
+}
+.widgetSpacing {
+  padding-block-end: var(--vd-spacing-20);
+}
+.widgetHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vd-spacing-8);
+}
+.widgetActions {
+  display: flex;
+  flex: none;
+  gap: var(--vd-spacing-2);
+}
+.widgetControl[data-variant='text'] {
+  --button-height: var(--vd-sizing-24);
+  width: var(--button-height);
+  height: var(--button-height);
+  padding: 0;
+  --button-foreground: var(--vd-icon-secondary);
+}
+.widgetBodyInner {
+  padding-block-start: var(--vd-spacing-16);
+  > p {
+    margin-block-end: var(--vd-spacing-16);
+  }
+}
+.activityDate {
+  margin-block-end: var(--vd-spacing-16);
 }
 .panelHeader {
   display: flex;
@@ -255,28 +315,12 @@
   min-width: 690px;
   font-size: var(--vd-font-size-12);
   th {
-    color: var(--vd-text-tertiary);
-    font-size: var(--vd-font-size-11);
-    font-weight: var(--vd-font-weight-500);
     white-space: nowrap;
-  }
-  td,
-  th {
-    padding-inline: var(--vd-spacing-8);
-  }
-  td:first-child,
-  th:first-child {
-    padding-inline-start: 0;
-  }
-  td:last-child,
-  th:last-child {
-    padding-inline-end: 0;
   }
 }
 .taskName {
   display: grid;
   gap: var(--vd-spacing-4);
-  padding-block: var(--vd-spacing-4);
   > span:first-child {
     white-space: nowrap;
     font-weight: var(--vd-font-weight-500);

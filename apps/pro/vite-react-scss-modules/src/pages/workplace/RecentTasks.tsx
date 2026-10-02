@@ -57,7 +57,7 @@ export function RecentTasks() {
       </div>
       <Card.Body>
         <Table.Viewport aria-label="Recent workspace tasks" className={styles.tableViewport}>
-          <Table size="small" border="separators" hoverable className={styles.taskTable}>
+          <Table density="compact" border="separators" hoverable className={styles.taskTable}>
             <Table.Caption className={styles.srOnly}>
               Recent tasks: task, project, status, priority, assignee and due date
             </Table.Caption>

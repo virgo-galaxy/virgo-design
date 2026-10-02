@@ -1,0 +1,352 @@
+.tasksPage {
+  display: grid;
+  gap: var(--vd-spacing-20);
+}
+.pageHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--vd-spacing-20);
+  p {
+    margin: var(--vd-spacing-4) 0 0;
+    color: var(--vd-text-secondary);
+    font-size: var(--vd-font-size-13);
+  }
+}
+.eyebrow {
+  color: var(--vd-text-tertiary);
+  font-family: var(--vd-font-family-mono);
+  font-size: var(--vd-font-size-10);
+  letter-spacing: 1px;
+}
+.titleLine {
+  display: flex;
+  align-items: center;
+  gap: var(--vd-spacing-12);
+  h1 {
+    margin: var(--vd-spacing-8) 0;
+    font-size: var(--vd-typography-ui-display-small-font-size);
+    font-weight: var(--vd-typography-ui-display-small-font-weight);
+    line-height: var(--vd-typography-ui-display-small-line-height);
+    letter-spacing: -0.6px;
+  }
+}
+.listActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vd-spacing-16);
+  padding: var(--vd-spacing-16) var(--vd-spacing-20);
+}
+.overview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--vd-spacing-16) var(--vd-spacing-20);
+  gap: var(--vd-spacing-24);
+  dl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--vd-spacing-32);
+    margin: 0;
+  }
+  dl > div {
+    display: flex;
+    align-items: baseline;
+    gap: var(--vd-spacing-12);
+  }
+  dt {
+    color: var(--vd-text-secondary);
+    font-size: var(--vd-font-size-12);
+  }
+  dd {
+    display: flex;
+    align-items: baseline;
+    gap: var(--vd-spacing-8);
+    margin: 0;
+    font-family: var(--vd-font-family-mono);
+    font-size: var(--vd-font-size-20);
+  }
+  dd span {
+    color: var(--vd-text-tertiary);
+    font-family: var(--vd-font-family-sans);
+    font-size: var(--vd-font-size-10);
+  }
+}
+.overviewNote {
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-font-size-10);
+  white-space: nowrap;
+}
+.listPanel {
+  min-width: 0;
+  overflow: visible;
+}
+.filterToolbar {
+  padding: var(--vd-spacing-20);
+}
+.searchRow {
+  display: flex;
+  gap: var(--vd-spacing-12);
+  align-items: center;
+  margin-block-end: var(--vd-spacing-16);
+}
+.search {
+  width: 100%;
+  max-width: 410px;
+}
+.resultCount {
+  margin-inline-start: auto;
+  white-space: nowrap;
+  color: var(--vd-text-tertiary);
+  font-family: var(--vd-font-family-mono);
+  font-size: var(--vd-font-size-11);
+}
+.filterGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--vd-spacing-16);
+}
+.filterLabel {
+  font-size: var(--vd-font-size-11);
+  color: var(--vd-text-secondary);
+}
+.tableViewport {
+  margin-inline: var(--vd-spacing-20);
+  scrollbar-width: thin;
+}
+.table {
+  min-width: 1100px;
+  font-size: var(--vd-font-size-12);
+  th {
+    white-space: nowrap;
+  }
+}
+.taskIdentity {
+  display: grid;
+  gap: var(--vd-spacing-4);
+}
+.taskId {
+  font-family: var(--vd-font-family-mono);
+  font-size: var(--vd-font-size-10);
+  color: var(--vd-text-tertiary);
+}
+.taskLink[data-variant='text'] {
+  --button-foreground: var(--vd-text-primary);
+  height: auto;
+  padding: 0;
+  text-align: start;
+  justify-content: flex-start;
+  font-size: var(--vd-font-size-12);
+  white-space: normal;
+  max-width: 340px;
+  &:hover {
+    --button-background-hover: transparent;
+    color: var(--vd-brand-link);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+.projectName {
+  white-space: nowrap;
+  color: var(--vd-text-secondary);
+}
+.person {
+  display: flex;
+  align-items: center;
+  gap: var(--vd-spacing-8);
+  white-space: nowrap;
+  color: var(--vd-text-secondary);
+}
+.avatar[data-size='sm'] {
+  --avatar-font-size: var(--vd-font-size-10);
+  font-family: var(--vd-font-family-mono);
+}
+.estimateHours {
+  font-variant-numeric: tabular-nums;
+}
+.createdAt {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  color: var(--vd-text-secondary);
+  font-size: var(--vd-font-size-11);
+}
+.dueDate {
+  display: grid;
+  gap: var(--vd-spacing-4);
+  white-space: nowrap;
+  font-size: var(--vd-font-size-11);
+  color: var(--vd-text-secondary);
+  &[data-overdue='true'] {
+    color: var(--vd-status-danger-text);
+  }
+}
+.overdueLabel {
+  font-size: var(--vd-font-size-10);
+}
+.tableFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--vd-spacing-12);
+  padding: var(--vd-spacing-16) var(--vd-spacing-20);
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-font-size-11);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tableSummary {
+  display: grid;
+  gap: var(--vd-spacing-4);
+}
+.pagination {
+  width: auto;
+  margin-inline-start: auto;
+}
+.taskDialog[data-size='lg'] {
+  --dialog-section-padding: var(--vd-spacing-24);
+  --dialog-title-font-size: var(--vd-font-size-20);
+}
+.dialogHeader {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+}
+.dialogHeading {
+  display: grid;
+  gap: var(--vd-spacing-6);
+}
+.taskDialogBody {
+  display: grid;
+  align-content: start;
+  gap: var(--vd-spacing-20);
+  scrollbar-width: thin;
+}
+.workflow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--vd-spacing-12);
+  padding-block-end: var(--vd-spacing-16);
+  border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  > div {
+    display: grid;
+    gap: var(--vd-spacing-6);
+    justify-items: start;
+  }
+  > div > span:last-child {
+    color: var(--vd-text-tertiary);
+    font-size: var(--vd-font-size-10);
+  }
+}
+.workflowHint {
+  width: 100%;
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-font-size-11);
+}
+.completedNote {
+  font-size: var(--vd-font-size-11);
+  color: var(--vd-status-success-text);
+}
+.taskForm {
+  width: 100%;
+}
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--vd-spacing-16);
+}
+
+// Keep ownership options above their trigger near the dialog scroll boundary.
+.ownershipOptions[role='listbox'] {
+  inset-block-start: auto;
+  inset-block-end: calc(100% + var(--vd-spacing-4));
+}
+.taskDialogFooter {
+  min-height: var(--vd-sizing-72);
+}
+.saveState {
+  margin-inline-end: auto;
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-font-size-11);
+}
+.discardNotice {
+  width: 100%;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (max-width: 1280px) {
+  .overviewNote {
+    display: none;
+  }
+  .overview dl {
+    gap: var(--vd-spacing-24);
+  }
+}
+@media (max-width: 850px) {
+  .overview dl {
+    gap: var(--vd-spacing-12) var(--vd-spacing-24);
+  }
+  .filterGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .pageHeading {
+    align-items: flex-start;
+  }
+  .overview {
+    padding: var(--vd-spacing-16);
+  }
+  .overview dl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+  .overview dl > div {
+    display: grid;
+    gap: var(--vd-spacing-4);
+  }
+  .overview dd {
+    flex-wrap: wrap;
+  }
+  .searchRow {
+    flex-wrap: wrap;
+  }
+  .search {
+    max-width: none;
+  }
+  .resultCount {
+    margin-inline-start: 0;
+    margin-inline-end: auto;
+  }
+  .filterToolbar {
+    padding: var(--vd-spacing-16);
+  }
+  .filterGrid {
+    gap: var(--vd-spacing-12);
+  }
+  .tableViewport {
+    margin-inline: var(--vd-spacing-16);
+  }
+  .tableFooter {
+    flex-direction: column;
+    gap: var(--vd-spacing-4);
+  }
+  .listActions {
+    padding: var(--vd-spacing-16);
+  }
+  .taskDialog[data-size='lg'] {
+    --dialog-section-padding: var(--vd-spacing-20);
+  }
+  .formGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

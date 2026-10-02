@@ -3,7 +3,6 @@ import {
   CircleInfoIcon,
   MoonIcon,
   SearchIcon,
-  ShapesIcon,
   SunIcon,
 } from '@virgo-design/icons';
 import {
@@ -12,7 +11,6 @@ import {
   Button,
   Combobox,
   Layout,
-  NavigationMenu,
   Popover,
   Separator,
   Tag,
@@ -25,6 +23,7 @@ import { snapshot } from '@/data/workplace';
 
 import styles from './AppShell.module.scss';
 import { navigationGroups, navigationPages } from './navigation';
+import { SidebarNavigation } from './SidebarNavigation';
 
 function PageSearch() {
   const [search, setSearch] = useState('');
@@ -63,8 +62,11 @@ export function AppShell() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const currentPage = navigationPages.find((page) => page.path === pathname);
+  const currentGroup = navigationGroups.find((group) => group.label === currentPage?.group);
+  const CurrentGroupIcon = currentGroup?.icon;
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [accountOpen, setAccountOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const contentRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -92,7 +94,7 @@ export function AppShell() {
             className={styles.brand}
             aria-label="Virgo Design Pro home"
           >
-            <ShapesIcon />
+            <img src="/virgo-design.svg" alt="" width="590" height="470" />
             <span>Virgo Design</span>
             <Tag size="sm" variant="outline">
               PRO
@@ -172,59 +174,28 @@ export function AppShell() {
         <Layout.Sidebar
           className={styles.sidebar}
           width={224}
-          collapsedWidth={64}
+          collapsedWidth={48}
           collapsible
+          collapsed={sidebarCollapsed}
+          onCollapsedChange={setSidebarCollapsed}
           collapseBelow={1080}
           surface={{ tone: 'default' }}
-          footer={({ collapsed }) => (
-            <div className={styles.sidebarFooter}>
-              {collapsed ? (
-                <span className={styles.statusDot} title="All systems operational" />
-              ) : (
-                <>
-                  <span className={styles.statusDot} />
-                  <span>All systems operational</span>
-                </>
-              )}
+          trigger={
+            <div className={styles.sidebarToggle}>
+              <Tooltip>
+                <Tooltip.Trigger
+                  render={(props) => (
+                    <Layout.SidebarTrigger {...props} className={styles.sidebarToggleButton} />
+                  )}
+                />
+                <Tooltip.Content placement="right" offset={12} size="small" arrow={false}>
+                  {sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                </Tooltip.Content>
+              </Tooltip>
             </div>
-          )}
+          }
         >
-          {({ collapsed }) => (
-            <NavigationMenu
-              orientation="vertical"
-              value={pathname}
-              className={styles.navigation}
-              data-compact={collapsed}
-              aria-label="Main navigation"
-            >
-              <NavigationMenu.List>
-                {navigationGroups.map((group) => (
-                  <NavigationMenu.Group key={group.label} aria-labelledby={`nav-${group.label}`}>
-                    <NavigationMenu.GroupLabel
-                      id={`nav-${group.label}`}
-                      className={styles.groupLabel}
-                    >
-                      {group.label}
-                    </NavigationMenu.GroupLabel>
-                    <NavigationMenu.List>
-                      {group.pages.map((page) => (
-                        <NavigationMenu.Item key={page.path} value={page.path} icon={<page.icon />}>
-                          <NavigationMenu.Link
-                            href={page.path}
-                            aria-label={page.label}
-                            title={collapsed ? page.label : undefined}
-                            render={(props) => <Link {...props} to={page.path} />}
-                          >
-                            {page.label}
-                          </NavigationMenu.Link>
-                        </NavigationMenu.Item>
-                      ))}
-                    </NavigationMenu.List>
-                  </NavigationMenu.Group>
-                ))}
-              </NavigationMenu.List>
-            </NavigationMenu>
-          )}
+          {({ collapsed }) => <SidebarNavigation collapsed={collapsed} pathname={pathname} />}
         </Layout.Sidebar>
         <Layout.Content
           id="pro-main"
@@ -236,23 +207,15 @@ export function AppShell() {
           <div className={styles.content}>
             <div className={styles.contextBar}>
               <Breadcrumb aria-label="Page breadcrumb">
-                <Breadcrumb.Item
-                  href="/dashboard/workplace"
-                  onClick={(event) => {
-                    if (
-                      !event.ctrlKey &&
-                      !event.metaKey &&
-                      !event.shiftKey &&
-                      !event.altKey &&
-                      event.button === 0
-                    ) {
-                      event.preventDefault();
-                      navigate('/dashboard/workplace');
-                    }
-                  }}
-                >
-                  Virgo Pro
-                </Breadcrumb.Item>
+                {CurrentGroupIcon && currentGroup ? (
+                  <Breadcrumb.Item
+                    aria-current={false}
+                    icon={<CurrentGroupIcon />}
+                    className={styles.breadcrumbIcon!}
+                  >
+                    <span className={styles.breadcrumbIconLabel}>{currentGroup.label}</span>
+                  </Breadcrumb.Item>
+                ) : null}
                 {currentPage && currentPage.group !== currentPage.label ? (
                   <Breadcrumb.Item aria-current={false}>{currentPage.group}</Breadcrumb.Item>
                 ) : null}
@@ -266,7 +229,6 @@ export function AppShell() {
             <Outlet />
             <footer className={styles.contentFooter}>
               <span>Virgo Design Pro</span>
-              <span>A little more clarity. A lot more progress.</span>
             </footer>
           </div>
         </Layout.Content>

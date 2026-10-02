@@ -1,68 +1,67 @@
 import {
-  ArrowRightIcon,
   CircleCheckIcon,
-  CircleXIcon,
-  DashboardIcon,
-  GaugeIcon,
   LayersIcon,
   LayoutIcon,
-  SearchIcon,
-  SettingsIcon,
   TypeIcon,
   UserIcon,
+  WidgetsIcon,
 } from '@virgo-design/icons';
 import type { ComponentType } from 'react';
 
 interface NavigationPage {
   label: string;
   path: string;
-  icon: ComponentType;
 }
 
 interface NavigationGroup {
   label: string;
+  icon: ComponentType;
   pages: NavigationPage[];
 }
 
 export const navigationGroups: NavigationGroup[] = [
   {
     label: 'Dashboard',
+    icon: WidgetsIcon,
     pages: [
-      { label: 'Workplace', path: '/dashboard/workplace', icon: DashboardIcon },
-      { label: 'Analytics', path: '/dashboard/analytics', icon: GaugeIcon },
+      { label: 'Workplace', path: '/dashboard/workplace' },
+      { label: 'Analytics', path: '/dashboard/analytics' },
     ],
   },
   {
     label: 'Work',
+    icon: LayersIcon,
     pages: [
-      { label: 'Tasks', path: '/work/tasks', icon: CircleCheckIcon },
-      { label: 'Projects', path: '/work/projects', icon: LayersIcon },
+      { label: 'Tasks', path: '/work/tasks' },
+      { label: 'Projects', path: '/work/projects' },
     ],
   },
   {
     label: 'Data',
+    icon: LayoutIcon,
     pages: [
-      { label: 'Search Table', path: '/data/search-table', icon: SearchIcon },
-      { label: 'Data List', path: '/data/list', icon: LayoutIcon },
-      { label: 'Detail', path: '/data/detail', icon: TypeIcon },
+      { label: 'Search Table', path: '/data/search-table' },
+      { label: 'Data List', path: '/data/list' },
+      { label: 'Detail', path: '/data/detail' },
     ],
   },
   {
     label: 'Form',
+    icon: TypeIcon,
     pages: [
-      { label: 'Basic Form', path: '/form/basic', icon: TypeIcon },
-      { label: 'Step Form', path: '/form/step', icon: ArrowRightIcon },
+      { label: 'Basic Form', path: '/form/basic' },
+      { label: 'Step Form', path: '/form/step' },
     ],
   },
   {
     label: 'Result',
+    icon: CircleCheckIcon,
     pages: [
-      { label: 'Success', path: '/result/success', icon: CircleCheckIcon },
-      { label: 'Error', path: '/result/error', icon: CircleXIcon },
+      { label: 'Success', path: '/result/success' },
+      { label: 'Error', path: '/result/error' },
     ],
   },
-  { label: 'Profile', pages: [{ label: 'Profile', path: '/profile', icon: UserIcon }] },
-  { label: 'Settings', pages: [{ label: 'Settings', path: '/settings', icon: SettingsIcon }] },
+  { label: 'Profile', icon: UserIcon, pages: [{ label: 'Profile', path: '/profile' }] },
 ];
 
 export const navigationPages = navigationGroups.flatMap((group) =>

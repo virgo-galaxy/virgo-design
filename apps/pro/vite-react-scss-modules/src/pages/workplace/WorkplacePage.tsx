@@ -7,7 +7,8 @@ import {
   LayersIcon,
   UserIcon,
 } from '@virgo-design/icons';
-import { Button, Card, Progress, Surface, Tag, Timeline } from '@virgo-design/ui';
+import { Button, Progress, Surface, Tag, Timeline } from '@virgo-design/ui';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import {
@@ -23,6 +24,11 @@ import {
 import { DeliveryTrend } from './DeliveryTrend';
 import { RecentTasks } from './RecentTasks';
 import styles from './WorkplacePage.module.scss';
+import { WorkplaceWidget, type WorkplaceWidgetState } from './WorkplaceWidget';
+import { WorkspaceCarousel } from './WorkspaceCarousel';
+
+const widgetIds = ['distribution', 'shortcuts', 'activity'] as const;
+type WidgetId = (typeof widgetIds)[number];
 
 const metricIcons = {
   projects: LayersIcon,
@@ -56,6 +62,33 @@ function exportSnapshot() {
 
 export function WorkplacePage() {
   const navigate = useNavigate();
+  const [widgets, setWidgets] = useState<Record<WidgetId, WorkplaceWidgetState>>({
+    distribution: 'expanded',
+    shortcuts: 'expanded',
+    activity: 'expanded',
+  });
+  const widgetTriggers = useRef<Partial<Record<WidgetId, HTMLButtonElement | null>>>({});
+  const exportRef = useRef<HTMLButtonElement>(null);
+  const changeWidget = (id: WidgetId, state: WorkplaceWidgetState) =>
+    setWidgets((previous) => ({ ...previous, [id]: state }));
+  const removeWidget = (id: WidgetId) => {
+    const index = widgetIds.indexOf(id);
+    const candidates = [...widgetIds.slice(index + 1), ...widgetIds.slice(0, index).reverse()];
+    const next = candidates.find(
+      (candidate) => widgets[candidate] !== 'removing' && widgets[candidate] !== 'removed',
+    );
+    (next ? widgetTriggers.current[next] : exportRef.current)?.focus();
+    changeWidget(id, 'removing');
+  };
+  const widgetProps = (id: WidgetId) => ({
+    state: widgets[id],
+    toggleRef: (node: HTMLButtonElement | null) => {
+      widgetTriggers.current[id] = node;
+    },
+    onToggle: (open: boolean) => changeWidget(id, open ? 'expanded' : 'minimized'),
+    onRemove: () => removeWidget(id),
+    onRemoved: () => changeWidget(id, 'removed'),
+  });
   return (
     <div className={styles.workplace}>
       <div className={styles.welcome}>
@@ -75,6 +108,7 @@ export function WorkplacePage() {
             variant="outline"
             size="small"
             leadingIcon={<DownloadIcon />}
+            ref={exportRef}
             onClick={exportSnapshot}
           >
             Export snapshot
@@ -101,7 +135,10 @@ export function WorkplacePage() {
         })}
       </Surface>
 
-      <div className={styles.workspaceGrid}>
+      <div
+        className={styles.workspaceGrid}
+        data-aside-hidden={widgetIds.every((id) => widgets[id] === 'removed')}
+      >
         <div className={styles.primaryColumn}>
           <DeliveryTrend />
           <RecentTasks />
@@ -124,13 +161,12 @@ export function WorkplacePage() {
           ))}
         </div>
         <div className={styles.secondaryColumn}>
-          <Card variant="outlined" className={styles.distributionCard}>
-            <Card.Header>
-              <div className={styles.sectionKicker}>WORKLOAD</div>
-              <Card.Title as="h2">Project distribution</Card.Title>
-              <Card.Description>Where open tasks are concentrated.</Card.Description>
-            </Card.Header>
-            <Card.Body>
+          {widgets.distribution !== 'removed' ? (
+            <WorkplaceWidget
+              {...widgetProps('distribution')}
+              title="Project distribution"
+              description="Where open tasks are concentrated."
+            >
               <div className={styles.distributionSummary}>
                 <strong>42</strong>
                 <span>
@@ -172,41 +208,38 @@ export function WorkplacePage() {
                   </div>
                 ))}
               </div>
-            </Card.Body>
-          </Card>
-          <Card variant="outlined" className={styles.shortcutsCard}>
-            <Card.Header>
-              <Card.Title as="h2">Pick up where you left off</Card.Title>
-            </Card.Header>
-            <Card.Body className={styles.shortcuts}>
-              {shortcuts.map((shortcut) => {
-                const Icon = shortcutIcons[shortcut.icon];
-                return (
-                  <Button
-                    key={shortcut.path}
-                    variant="text"
-                    className={styles.shortcut}
-                    leadingIcon={<Icon />}
-                    trailingIcon={<ArrowRightIcon />}
-                    onClick={() => navigate(shortcut.path)}
-                  >
-                    <span className={styles.shortcutCopy}>
-                      <strong>{shortcut.label}</strong>
-                      <span>{shortcut.detail}</span>
-                    </span>
-                  </Button>
-                );
-              })}
-            </Card.Body>
-          </Card>
-          <Card variant="outlined" className={styles.activityCard}>
-            <Card.Header className={styles.panelHeader}>
-              <Card.Title as="h2">Around the team</Card.Title>
-              <Tag size="sm" variant="outline">
+            </WorkplaceWidget>
+          ) : null}
+          {widgets.shortcuts !== 'removed' ? (
+            <WorkplaceWidget {...widgetProps('shortcuts')} title="Quick access">
+              <div className={styles.shortcuts}>
+                {shortcuts.map((shortcut) => {
+                  const Icon = shortcutIcons[shortcut.icon];
+                  return (
+                    <Button
+                      key={shortcut.path}
+                      variant="text"
+                      className={styles.shortcut}
+                      leadingIcon={<Icon />}
+                      trailingIcon={<ArrowRightIcon />}
+                      onClick={() => navigate(shortcut.path)}
+                    >
+                      <span className={styles.shortcutCopy}>
+                        <strong>{shortcut.label}</strong>
+                        <span>{shortcut.detail}</span>
+                      </span>
+                    </Button>
+                  );
+                })}
+              </div>
+              <WorkspaceCarousel />
+            </WorkplaceWidget>
+          ) : null}
+          {widgets.activity !== 'removed' ? (
+            <WorkplaceWidget {...widgetProps('activity')} title="Around the team">
+              <Tag size="sm" variant="outline" className={styles.activityDate}>
                 TODAY
               </Tag>
-            </Card.Header>
-            <Card.Body>
               <Timeline size="small" aria-label="Recent team activity">
                 {activity.map((event) => (
                   <Timeline.Item key={event.id} status={event.status}>
@@ -220,8 +253,8 @@ export function WorkplacePage() {
                   </Timeline.Item>
                 ))}
               </Timeline>
-            </Card.Body>
-          </Card>
+            </WorkplaceWidget>
+          ) : null}
         </div>
       </div>
     </div>

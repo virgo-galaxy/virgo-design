@@ -28,7 +28,7 @@ export function DeliveryTrend() {
         <SegmentedControl
           size="small"
           variant="soft"
-          motion="none"
+          motion="slide"
           aria-label="Delivery period"
           value={period}
           onValueChange={(value) => {
