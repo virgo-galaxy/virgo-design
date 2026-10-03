@@ -19,6 +19,9 @@ import { type Dispatch, type SetStateAction, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
+import { MutationFeedback } from '@/application/MutationFeedback';
+import { useProData } from '@/application/pro-data-context';
+import { useMutation } from '@/application/use-mutation';
 import {
   type HandoffDraft,
   reconcileScope,
@@ -27,7 +30,6 @@ import {
   validateHandoff,
   type WorkflowReceipt,
 } from '@/data/pro-workflows';
-import { projects } from '@/data/projects';
 import type { TaskState } from '@/data/tasks';
 import { FilterSelect, Panel } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
@@ -49,8 +51,11 @@ export function StepFormPage({
   state: TaskState;
   stage: number;
   setStage: Dispatch<SetStateAction<number>>;
-  onPrepare: () => WorkflowReceipt | null;
+  onPrepare: () => Promise<WorkflowReceipt>;
 }) {
+  const { projects } = useProData();
+
+  const mutation = useMutation();
   const { t, i18n } = useTranslation();
   const stages = [
     { title: t('forms.defineTheHandoff'), description: t('forms.projectAndSchedule') },
@@ -66,7 +71,7 @@ export function StepFormPage({
   ]);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const groups = scopeGroups(draft.projectId, state.tasks);
+  const groups = scopeGroups(draft.projectId, state.tasks, projects);
   const selected = groups
     .flatMap((group) => group.tasks)
     .filter((task) => draft.taskIds.includes(task.id));
@@ -86,7 +91,7 @@ export function StepFormPage({
   };
   const move = (next: number) => {
     if (next > stage) {
-      const invalid = validateHandoff(draft, state.tasks, next - 1);
+      const invalid = validateHandoff(draft, state.tasks, next - 1, projects);
       setErrors(invalid);
       if (Object.keys(invalid).length) {
         requestAnimationFrame(() =>
@@ -101,6 +106,7 @@ export function StepFormPage({
   };
   return (
     <div className={shared.page}>
+      <MutationFeedback pending={mutation.pending} error={mutation.error} />
       <h1 className={shared.srOnly}>{t('app.stepForm')}</h1>
       <Surface border="default" radius={8} className={styles.wizardSurface}>
         <div className={styles.wizard}>
@@ -128,6 +134,8 @@ export function StepFormPage({
             description={stages[stage]!.description}
           >
             <Form
+              inert={mutation.pending}
+              aria-busy={mutation.pending}
               className={styles.wizardForm}
               ref={formRef}
               size="small"
@@ -138,11 +146,13 @@ export function StepFormPage({
                   move(stage + 1);
                   return;
                 }
-                const invalid = validateHandoff(draft, state.tasks, 2);
+                const invalid = validateHandoff(draft, state.tasks, 2, projects);
                 setErrors(invalid);
                 if (Object.keys(invalid).length) return;
-                const receipt = onPrepare();
-                if (receipt) navigate(`/result/${receipt.outcome}`);
+                void mutation.run(async () => {
+                  const receipt = await onPrepare();
+                  if (receipt) navigate(`/result/${receipt.outcome}`);
+                });
               }}
             >
               <div className={styles.fields}>
@@ -454,7 +464,12 @@ export function StepFormPage({
                       {t('forms.back')}
                     </Button>
                   ) : null}
-                  <Button size="small" type="submit" trailingIcon={<ArrowRightIcon />}>
+                  <Button
+                    size="small"
+                    type="submit"
+                    disabled={mutation.pending}
+                    trailingIcon={<ArrowRightIcon />}
+                  >
                     {stage === 2 ? t('forms.prepareHandoff') : t('forms.continue')}
                   </Button>
                 </div>

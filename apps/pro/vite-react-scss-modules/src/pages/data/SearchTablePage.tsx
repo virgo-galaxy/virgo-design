@@ -14,10 +14,16 @@ import {
   Tooltip,
 } from '@virgo-design/ui';
 import type { TFunction } from 'i18next';
-import { type Dispatch, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useOutletContext, useSearchParams } from 'react-router';
 
+import { MutationFeedback } from '@/application/MutationFeedback';
+import { useProData } from '@/application/pro-data-context';
+import { RemoteState } from '@/application/RemoteState';
+import { getAllTasks, taskPageView } from '@/application/task-queries';
+import { useMutation } from '@/application/use-mutation';
+import { useTaskQuery } from '@/application/use-task-query';
 import type { ProSettings } from '@/components/global-settings/settings';
 import {
   type DataQuery,
@@ -27,32 +33,34 @@ import {
   queryFromParams,
   queryParams,
 } from '@/data/data-query';
-import { projectDetailPath, projects } from '@/data/projects';
+import { projectDetailPath } from '@/data/projects';
 import {
   isOverdue,
   isTaskPriority,
   isTaskStatus,
-  paginateTasks,
-  type TaskAction,
+  type TaskDispatch,
   taskPriorities,
   type TaskState,
   taskStatuses,
 } from '@/data/tasks';
 import { createTasksCsv } from '@/data/tasks.export';
-import { taskAssignees, taskProjects, taskReferenceDate } from '@/data/tasks.seed';
-import { sortTasks, type TaskSort, type TaskSortColumn } from '@/data/tasks.sort';
+import { type TaskSort, type TaskSortColumn } from '@/data/tasks.sort';
 import { formatDueDate } from '@/data/workplace';
 import { downloadCsv } from '@/pages/shared/download';
 import { FilterSelect, NoResults, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
 import { useTaskEditor } from '@/pages/shared/use-task-editor';
-import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
+import {
+  getTaskExportLabels,
+  getTaskPriorityLabel,
+  getTaskStatusLabel,
+} from '@/pages/tasks/task-presentation';
 import { taskPriorityIntent, taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import styles from './SearchTablePage.module.scss';
 
-function getColumnInfo(t: TFunction) {
+function getColumnInfo(t: TFunction, taskReferenceDate: string) {
   return [
     {
       key: 'title',
@@ -104,6 +112,8 @@ function getColumnInfo(t: TFunction) {
 type ColumnKey = ReturnType<typeof getColumnInfo>[number]['key'];
 
 function QueryForm({ query, onApply }: { query: DataQuery; onApply: (query: DataQuery) => void }) {
+  const { taskAssignees, taskProjects } = useProData();
+
   const { t } = useTranslation();
   const [draft, setDraft] = useState(query);
   const [error, setError] = useState<ReturnType<typeof queryError>>('');
@@ -253,16 +263,12 @@ function QueryForm({ query, onApply }: { query: DataQuery; onApply: (query: Data
   );
 }
 
-export function SearchTablePage({
-  state,
-  dispatch,
-}: {
-  state: TaskState;
-  dispatch: Dispatch<TaskAction>;
-}) {
+export function SearchTablePage({ state, dispatch }: { state: TaskState; dispatch: TaskDispatch }) {
+  const { projects, taskAssignees, taskReferenceDate } = useProData();
+
   const { t, i18n } = useTranslation();
   const paginationLabels = usePaginationLabels();
-  const columnInfo = getColumnInfo(t);
+  const columnInfo = getColumnInfo(t, taskReferenceDate);
   const { showOverlayArrows } = useOutletContext<Pick<ProSettings, 'showOverlayArrows'>>();
   const [params, setParams] = useSearchParams();
   const query = queryFromParams(params);
@@ -285,12 +291,24 @@ export function SearchTablePage({
     setPage(1);
     setSelection([]);
   }
-  const matches = (task: TaskState['tasks'][number]) => matchesDataQuery(task, query);
-  const matching = sortTasks(state.tasks.filter(matches), sort);
-  const view = paginateTasks(matching, page, pageSize);
-  if (page !== view.page) setPage(view.page);
+  const mutation = useMutation();
+  const matches = (task: TaskState['tasks'][number]) =>
+    matchesDataQuery(task, query, taskAssignees, taskReferenceDate);
+  const serverQuery = {
+    ...query,
+    page,
+    pageSize,
+    ...(sort && sort.direction !== 'none'
+      ? { sortBy: sort.column, sortDirection: sort.direction }
+      : {}),
+  };
+  const resource = useTaskQuery(serverQuery);
+  const matchingTotal = resource.data?.total ?? 0;
+  const view = resource.data
+    ? taskPageView(resource.data)
+    : { tasks: [], page: 1, range: [0, 0] as [number, number] };
   const editor = useTaskEditor(state, dispatch, matches);
-  const selected = matching.filter((task) => selection.includes(task.id));
+  const selected = state.tasks.filter((task) => selection.includes(task.id));
   const allSelected =
     view.tasks.length > 0 && view.tasks.every((task) => selection.includes(task.id));
   const someSelected = view.tasks.some((task) => selection.includes(task.id));
@@ -317,7 +335,11 @@ export function SearchTablePage({
   };
   const visibleColumns = columnInfo.filter((column) => columns.includes(column.key));
   return (
-    <div className={shared.page}>
+    <div className={shared.page} aria-busy={resource.loading}>
+      <MutationFeedback pending={mutation.pending} error={mutation.error} />
+      {resource.error || !resource.data ? (
+        <RemoteState loading={resource.loading} error={resource.error} retry={resource.retry} />
+      ) : null}
       <h1 className={shared.srOnly}>{t('app.searchTable')}</h1>
       <Surface radius={8} className={styles.contentSurface}>
         <section aria-labelledby="query-conditions-title">
@@ -335,7 +357,7 @@ export function SearchTablePage({
               <h2 id="query-results-title">{t('data.queryResults')}</h2>
               <p>
                 {t('data.valueMatchingRecordsValueInTheSharedRegister', {
-                  v0: matching.length,
+                  v0: matchingTotal,
                   v1: state.tasks.length,
                 })}
               </p>
@@ -397,13 +419,17 @@ export function SearchTablePage({
                   <Button
                     size="small"
                     variant="outline"
-                    disabled={selected.every((task) => task.status === 'Done')}
+                    disabled={mutation.pending || selected.every((task) => task.status === 'done')}
                     onClick={() => {
-                      selected.forEach((task) =>
-                        dispatch({ type: 'status', id: task.id, status: 'Done' }),
-                      );
-                      setFeedback({ kind: 'markedDone', count: selected.length });
-                      setSelection([]);
+                      void mutation.run(async () => {
+                        await Promise.all(
+                          selected.map((task) =>
+                            dispatch({ type: 'status', id: task.id, status: 'done' }),
+                          ),
+                        );
+                        setFeedback({ kind: 'markedDone', count: selected.length });
+                        setSelection([]);
+                      });
                     }}
                   >
                     {t('data.markDone')}
@@ -414,16 +440,18 @@ export function SearchTablePage({
                 size="small"
                 variant="outline"
                 leadingIcon={<DownloadIcon />}
-                disabled={matching.length === 0}
+                disabled={mutation.pending || matchingTotal === 0}
                 onClick={() => {
-                  const rows = selected.length ? selected : matching;
-                  downloadCsv(
-                    createTasksCsv(rows),
-                    selected.length ? 'virgo-selected-tasks.csv' : 'virgo-query-results.csv',
-                  );
-                  setFeedback({
-                    kind: selected.length ? 'exportedSelected' : 'exportedMatching',
-                    count: rows.length,
+                  void mutation.run(async () => {
+                    const rows = selected.length ? selected : await getAllTasks(serverQuery);
+                    downloadCsv(
+                      createTasksCsv(rows, taskAssignees, getTaskExportLabels(t)),
+                      selected.length ? 'virgo-selected-tasks.csv' : 'virgo-query-results.csv',
+                    );
+                    setFeedback({
+                      kind: selected.length ? 'exportedSelected' : 'exportedMatching',
+                      count: rows.length,
+                    });
                   });
                 }}
               >
@@ -588,7 +616,7 @@ export function SearchTablePage({
               </Table.Body>
             </Table>
           </Table.Viewport>
-          {!matching.length ? (
+          {resource.data && !resource.loading && !resource.error && !matchingTotal ? (
             <NoResults
               title={t('data.noRecordsMatchThisQuery')}
               onReset={() => apply({ ...emptyDataQuery })}
@@ -599,13 +627,13 @@ export function SearchTablePage({
               {t('data.showingValueValueOfValueRecords', {
                 v0: view.range[0],
                 v1: view.range[1],
-                v2: matching.length,
+                v2: matchingTotal,
               })}
             </span>
             <Pagination
               labels={paginationLabels}
               aria-label={t('data.queryResultPages')}
-              total={matching.length}
+              total={matchingTotal}
               page={view.page}
               pageSize={pageSize}
               onChange={(next, size) => {

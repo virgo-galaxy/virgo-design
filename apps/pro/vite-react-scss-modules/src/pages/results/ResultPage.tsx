@@ -3,13 +3,16 @@ import { Accordion, Alert, Button, Result, Separator, Steps, Surface, Tag } from
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
 
+import { MutationFeedback } from '@/application/MutationFeedback';
+import { useProData } from '@/application/pro-data-context';
+import { useMutation } from '@/application/use-mutation';
 import type { WorkflowReceipt } from '@/data/pro-workflows';
-import { projectDetailPath, projects } from '@/data/projects';
+import { projectDetailPath } from '@/data/projects';
 import type { TaskState } from '@/data/tasks';
 import { createTasksCsv } from '@/data/tasks.export';
 import { downloadCsv } from '@/pages/shared/download';
 import shared from '@/pages/shared/ProPage.module.scss';
-import { getTaskStatusLabel } from '@/pages/tasks/task-presentation';
+import { getTaskExportLabels, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 import { taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import styles from './ResultPage.module.scss';
@@ -23,8 +26,11 @@ export function ResultPage({
   receipt: WorkflowReceipt;
   state: TaskState;
   onRecover?: () => void;
-  onRetry?: () => WorkflowReceipt | null;
+  onRetry?: () => Promise<WorkflowReceipt>;
 }) {
+  const { taskAssignees, projects } = useProData();
+
+  const mutation = useMutation();
   const { t, i18n } = useTranslation();
   const receiptTime = new Intl.DateTimeFormat(i18n.language, {
     dateStyle: 'medium',
@@ -37,6 +43,7 @@ export function ResultPage({
   const tasks = state.tasks.filter((task) => receipt.taskIds.includes(task.id));
   return (
     <div className={shared.page}>
+      <MutationFeedback pending={mutation.pending} error={mutation.error} />
       <Surface border="default" radius={12} className={styles.result}>
         <Result.Root
           status={receipt.outcome}
@@ -66,7 +73,7 @@ export function ResultPage({
                   disabled={!tasks.length}
                   onClick={() =>
                     downloadCsv(
-                      createTasksCsv(tasks),
+                      createTasksCsv(tasks, taskAssignees, getTaskExportLabels(t)),
                       `virgo-${receipt.reference.toLowerCase()}-scope.csv`,
                     )
                   }
@@ -88,9 +95,12 @@ export function ResultPage({
                 <Button
                   size="small"
                   variant="outline"
+                  disabled={mutation.pending}
                   onClick={() => {
-                    const next = onRetry?.();
-                    navigate(next ? '/result/success' : '/form/step');
+                    void mutation.run(async () => {
+                      const next = await onRetry?.();
+                      navigate(next ? '/result/success' : '/form/step');
+                    });
                   }}
                 >
                   {t('results.prepareForTeamInstead')}

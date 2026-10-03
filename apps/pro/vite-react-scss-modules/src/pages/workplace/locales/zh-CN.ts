@@ -2,6 +2,7 @@ import type { LocaleOf } from '@/i18n/locale-types';
 
 import type { workplaceEnUS } from './en-US';
 export const workplaceZhCN = {
+  activityUpdated: '更新了工作空间动态',
   deliveryPeriod: '交付周期',
   deliveryChart: '交付图表',
   last7Days: '最近 7 天',
@@ -43,7 +44,7 @@ export const workplaceZhCN = {
   dueDate: '截止日期',
   noTasksMatchValue: '没有匹配“{{v0}}”的任务。',
   clearFilter: '清空筛选',
-  aWorkspaceSnapshotOctober1: '工作空间快照 · 10 月 1 日',
+  aWorkspaceSnapshotOctober1: '工作空间快照 · {{date}}',
   goodWorkStartsWithAClearViewHereS: '清晰的视野让工作更顺畅。这里是团队的当前进展。',
   projectDistribution: '项目分布',
   whereOpenTasksAreConcentrated: '未完成任务集中在哪些方向。',
@@ -51,12 +52,12 @@ export const workplaceZhCN = {
   workspaceInspiration: '工作空间灵感',
   aroundTheTeam: '团队动态',
   recentTeamActivity: '近期团队动态',
-  welcomeBackMystic: '欢迎回来，Mystic',
+  welcomeBackMystic: '欢迎回来，{{name}}',
   oct12026: '2026 年 10 月 1 日',
   exportSnapshot: '导出快照',
   teamNote: '团队通知',
   openTasks: '个未完成任务',
-  across4FocusAreas: '涵盖 4 个业务方向',
+  across4FocusAreas: '涵盖 {{count}} 个业务方向',
   valueValueOfValueOpenTasks: '{{v0}}：{{v2}} 个未完成任务中的 {{v1}} 个',
   valueOfOpenTasks: '占未完成任务的 {{v0}}%',
   today: '今天',
@@ -67,23 +68,23 @@ export const workplaceZhCN = {
   metrics: {
     projects: {
       label: '活跃项目',
-      detail: '相比上周',
-      change: '+2',
+      detail: '当前项目组合',
+      change: '活跃工作',
     },
     tasks: {
       label: '未完成任务',
       detail: '未来 7 天',
-      change: '8 个即将到期',
+      change: '近期到期任务',
     },
     members: {
       label: '团队成员',
       detail: '协同工作',
-      change: '4 个团队',
+      change: '工作空间成员',
     },
     completion: {
       label: '完成率',
-      detail: '相比上周',
-      change: '+6 个百分点',
+      detail: '当前任务登记',
+      change: '已完成占比',
     },
   },
   shortcuts: {

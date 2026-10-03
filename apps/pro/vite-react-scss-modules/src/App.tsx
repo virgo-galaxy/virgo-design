@@ -1,26 +1,21 @@
 import { Skeleton } from '@virgo-design/ui';
-import { lazy, type ReactElement, Suspense, useReducer, useRef, useState } from 'react';
+import { lazy, type ReactElement, Suspense, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 
+import { prepareHandoff as prepareRemoteHandoff } from '@/api/workflows';
 import { AppShell } from '@/app/AppShell';
 import { type ProPageKey, proRouteConfig } from '@/app/routes.config';
 import { proRouting } from '@/app/routing';
+import { useProData } from '@/application/pro-data-context';
 import {
   handoffFromReceipt,
   initialHandoff,
-  initialProfile,
   initialWorkRequest,
-  prepareHandoff,
-  sampleError,
-  sampleSuccess,
   type WorkflowReceipt,
   type WorkRequest,
   workRequestTask,
 } from '@/data/pro-workflows';
-import { projects } from '@/data/projects';
-import { tasksReducer } from '@/data/tasks';
-import { initialTaskState } from '@/data/tasks.seed';
 const AnalyticsPage = lazy(() =>
   import('@/pages/analytics/AnalyticsPage').then((module) => ({ default: module.AnalyticsPage })),
 );
@@ -76,41 +71,38 @@ function RouteLoading() {
   );
 }
 export function App() {
-  const [tasks, dispatch] = useReducer(tasksReducer, initialTaskState);
+  const {
+    state: tasks,
+    dispatch,
+    profile,
+    saveProfile: setProfile,
+    projects,
+    workflows,
+  } = useProData();
   const [request, setRequest] = useState({ ...initialWorkRequest });
   const [handoff, setHandoff] = useState({ ...initialHandoff });
   const [stage, setStage] = useState(0);
-  const [profile, setProfile] = useState({ ...initialProfile });
-  const [success, setSuccess] = useState<WorkflowReceipt>(sampleSuccess);
-  const [error, setError] = useState<WorkflowReceipt>(sampleError);
-  const handoffSequence = useRef(101);
-  const createRequest = (draft: WorkRequest) => {
-    const task = workRequestTask(draft);
-    const id = `VD-${tasks.nextId}`;
-    const recordedAt = new Date().toISOString();
-    dispatch({ type: 'create', draft: task, createdAt: recordedAt });
+  const [success, setSuccess] = useState<WorkflowReceipt>(workflows.success);
+  const [error, setError] = useState<WorkflowReceipt>(workflows.error);
+  const createRequest = async (draft: WorkRequest) => {
+    const task = await dispatch({
+      type: 'create',
+      draft: workRequestTask(draft),
+    });
     setSuccess({
       outcome: 'success',
       kind: 'task',
-      reference: `REQ-${tasks.nextId}`,
+      reference: task.id,
       message: 'workRequest',
-      projectId: projects.find((item) => item.name === task.project)!.id,
-      taskIds: [id],
-      recordedAt,
+      projectId: projects.find((item) => item.name === task.project)?.id ?? '',
+      taskIds: [task.id],
+      recordedAt: task.createdAt,
       requester: profile.name,
       audience: 'team',
     });
   };
-  const prepare = (draft = handoff) => {
-    const receipt = prepareHandoff(
-      draft,
-      tasks.tasks,
-      `HOF-${handoffSequence.current}`,
-      profile.name,
-      new Date().toISOString(),
-    );
-    if (!receipt) return null;
-    handoffSequence.current++;
+  const prepare = async (draft = handoff) => {
+    const receipt = await prepareRemoteHandoff(draft);
     if (receipt.outcome === 'success') setSuccess(receipt);
     else setError(receipt);
     return receipt;
@@ -119,10 +111,10 @@ export function App() {
     setHandoff(handoffFromReceipt(error));
     setStage(1);
   };
-  const retry = () => {
+  const retry = async () => {
     const draft = { ...handoffFromReceipt(error), audience: 'team' as const, confirmed: true };
     setHandoff(draft);
-    const receipt = prepare(draft);
+    const receipt = await prepare(draft);
     setStage(receipt ? 2 : 1);
     return receipt;
   };

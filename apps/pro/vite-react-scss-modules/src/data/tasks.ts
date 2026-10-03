@@ -1,8 +1,14 @@
+import {
+  TASK_PRIORITY_CODES,
+  TASK_STATUS_CODES,
+  type TaskPriorityDto,
+  type TaskStatusDto,
+} from '@/api/tasks';
 import type { tasksEnUS } from '@/pages/tasks/locales/en-US';
-export const taskStatuses = ['Backlog', 'Todo', 'In Progress', 'In Review', 'Done'] as const;
-export const taskPriorities = ['Low', 'Medium', 'High', 'Urgent'] as const;
-export type TaskStatus = (typeof taskStatuses)[number];
-export type TaskPriority = (typeof taskPriorities)[number];
+export const taskStatuses = TASK_STATUS_CODES;
+export const taskPriorities = TASK_PRIORITY_CODES;
+export type TaskStatus = TaskStatusDto;
+export type TaskPriority = TaskPriorityDto;
 
 export interface TaskDraft {
   title: string;
@@ -30,12 +36,12 @@ export interface TaskFilters {
 
 export interface TaskState {
   tasks: Task[];
-  nextId: number;
 }
 export type TaskAction =
-  | { type: 'create'; draft: TaskDraft; createdAt: string }
+  | { type: 'create'; draft: TaskDraft }
   | { type: 'edit'; id: string; draft: TaskDraft }
   | { type: 'status'; id: string; status: TaskStatus };
+export type TaskDispatch = (action: TaskAction) => Promise<Task>;
 export type TaskErrorKey = keyof typeof tasksEnUS.validation;
 export type TaskErrors = Partial<Record<keyof TaskDraft, TaskErrorKey>>;
 
@@ -49,8 +55,8 @@ export const emptyTaskFilters: TaskFilters = {
 export const emptyTaskDraft: TaskDraft = {
   title: '',
   description: '',
-  status: 'Todo',
-  priority: 'Medium',
+  status: 'todo',
+  priority: 'medium',
   project: '',
   assignee: '',
   dueDate: '',
@@ -118,27 +124,6 @@ export function validateTask(
   return errors;
 }
 
-export function tasksReducer(state: TaskState, action: TaskAction): TaskState {
-  if (action.type === 'create') {
-    const task: Task = {
-      ...normalizeTaskDraft(action.draft),
-      id: `VD-${state.nextId}`,
-      createdAt: action.createdAt,
-    };
-    return { tasks: [task, ...state.tasks], nextId: state.nextId + 1 };
-  }
-  return {
-    ...state,
-    tasks: state.tasks.map((task) =>
-      task.id !== action.id
-        ? task
-        : action.type === 'edit'
-          ? { ...task, ...normalizeTaskDraft(action.draft) }
-          : { ...task, status: action.status },
-    ),
-  };
-}
-
 export function matchesTask(
   task: TaskDraft & { id?: string },
   filters: TaskFilters,
@@ -168,7 +153,7 @@ export function hasTaskFilters(filters: TaskFilters) {
 }
 
 export function isOverdue(task: Task, today: string) {
-  return task.status !== 'Done' && task.dueDate !== '' && task.dueDate < today;
+  return task.status !== 'done' && task.dueDate !== '' && task.dueDate < today;
 }
 
 export function taskOverview(tasks: readonly Task[], today: string) {
@@ -177,11 +162,11 @@ export function taskOverview(tasks: readonly Task[], today: string) {
   const weekEnd = cutoff.toISOString().slice(0, 10);
   return {
     total: tasks.length,
-    inProgress: tasks.filter((task) => task.status === 'In Progress').length,
+    inProgress: tasks.filter((task) => task.status === 'in_progress').length,
     dueSoon: tasks.filter(
-      (task) => task.status !== 'Done' && task.dueDate >= today && task.dueDate <= weekEnd,
+      (task) => task.status !== 'done' && task.dueDate >= today && task.dueDate <= weekEnd,
     ).length,
-    completed: tasks.filter((task) => task.status === 'Done').length,
+    completed: tasks.filter((task) => task.status === 'done').length,
   };
 }
 

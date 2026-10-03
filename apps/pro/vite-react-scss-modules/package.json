@@ -9,7 +9,9 @@
     "@virgo-design/icons": "workspace:*",
     "@virgo-design/tokens": "workspace:*",
     "@virgo-design/ui": "workspace:*",
+    "axios": "^1.20.0",
     "i18next": "^26.4.2",
+    "msw": "^2.15.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-i18next": "^17.0.13",
@@ -21,5 +23,10 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint src vite.config.ts vitest.config.ts",
     "test": "vitest run --config vitest.config.ts"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

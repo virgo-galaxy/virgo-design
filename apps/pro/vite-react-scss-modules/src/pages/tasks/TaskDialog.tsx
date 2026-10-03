@@ -14,6 +14,9 @@ import {
 import { useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { MutationFeedback } from '@/application/MutationFeedback';
+import { useProData } from '@/application/pro-data-context';
+import { useMutation } from '@/application/use-mutation';
 import {
   draftHasChanges,
   emptyTaskDraft,
@@ -29,7 +32,6 @@ import {
   taskStatuses,
   validateTask,
 } from '@/data/tasks';
-import { taskAssignees, taskProjects } from '@/data/tasks.seed';
 import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 
 import { taskStatusIntent } from './task-presentation';
@@ -45,11 +47,14 @@ export function TaskDialog({
 }: {
   task: Task | undefined;
   hiddenByFilters: boolean;
-  onSave: (draft: TaskDraft) => void;
-  onStatusChange: (status: Task['status']) => void;
+  onSave: (draft: TaskDraft) => Promise<void>;
+  onStatusChange: (status: Task['status']) => Promise<void>;
   onClose: () => void;
   restoreFocus: () => void;
 }) {
+  const { taskAssignees, taskProjects } = useProData();
+
+  const mutation = useMutation();
   const { t, i18n } = useTranslation();
   const [draft, setDraft] = useState<TaskDraft>(() =>
     task ? taskDraft(task) : { ...emptyTaskDraft },
@@ -62,6 +67,7 @@ export function TaskDialog({
   const dirty = draftHasChanges(draft, task ? taskDraft(task) : emptyTaskDraft);
   const nextStatus = task ? nextTaskStatus(task.status) : undefined;
   const requestClose = () => {
+    if (mutation.pending) return;
     if (dirty) setConfirmDiscard(true);
     else onClose();
   };
@@ -129,6 +135,7 @@ export function TaskDialog({
             />
           </Dialog.Header>
           <Dialog.Body className={styles.taskDialogBody}>
+            <MutationFeedback pending={mutation.pending} error={mutation.error} />
             {task ? (
               <div className={styles.workflow}>
                 <div>
@@ -142,10 +149,12 @@ export function TaskDialog({
                     size="small"
                     variant="outline"
                     trailingIcon={<ArrowRightIcon />}
-                    disabled={dirty}
+                    disabled={dirty || mutation.pending}
                     onClick={() => {
-                      onStatusChange(nextStatus);
-                      setDraft((current) => ({ ...current, status: nextStatus }));
+                      void mutation.run(async () => {
+                        await onStatusChange(nextStatus);
+                        setDraft((current) => ({ ...current, status: nextStatus }));
+                      });
                     }}
                   >
                     {t('tasks.moveToValue', { v0: nextStatus })}
@@ -169,6 +178,8 @@ export function TaskDialog({
               </Alert>
             ) : null}
             <Form
+              inert={mutation.pending}
+              aria-busy={mutation.pending}
               id={formId}
               ref={formRef}
               size="small"
@@ -189,10 +200,12 @@ export function TaskDialog({
                   return;
                 }
                 const normalized = normalizeTaskDraft(draft);
-                onSave(normalized);
-                setDraft(normalized);
-                setConfirmDiscard(false);
-                if (task) requestAnimationFrame(() => titleRef.current?.focus());
+                void mutation.run(async () => {
+                  await onSave(normalized);
+                  setDraft(normalized);
+                  setConfirmDiscard(false);
+                  if (task) requestAnimationFrame(() => titleRef.current?.focus());
+                });
               }}
             >
               <Field required invalid={Boolean(errors.title)}>
@@ -391,7 +404,12 @@ export function TaskDialog({
                 <Dialog.Close size="small">
                   {task ? t('tasks.close') : t('tasks.cancel')}
                 </Dialog.Close>
-                <Button size="small" type="submit" form={formId} disabled={Boolean(task) && !dirty}>
+                <Button
+                  size="small"
+                  type="submit"
+                  form={formId}
+                  disabled={mutation.pending || (Boolean(task) && !dirty)}
+                >
                   {task ? t('tasks.saveChanges') : t('tasks.createTask')}
                 </Button>
               </>

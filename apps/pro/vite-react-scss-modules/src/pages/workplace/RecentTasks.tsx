@@ -1,30 +1,35 @@
 import { ArrowRightIcon, SearchIcon } from '@virgo-design/icons';
-import { Avatar, Button, Card, Input, Table, Tag, type TagIntent } from '@virgo-design/ui';
+import { Avatar, Button, Card, Input, Table, Tag } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { formatDueDate, recentTasks, type TaskStatus } from '@/data/workplace';
-import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
+import { useProData } from '@/application/pro-data-context';
+import { formatDueDate } from '@/data/workplace';
+import {
+  getTaskPriorityLabel,
+  getTaskStatusLabel,
+  taskStatusIntent,
+} from '@/pages/tasks/task-presentation';
 
 import styles from './WorkplacePage.module.scss';
 
-const statusIntent: Record<TaskStatus, TagIntent> = {
-  'In progress': 'brand',
-  'In review': 'warning',
-  Blocked: 'danger',
-  Done: 'success',
-};
-
 export function RecentTasks() {
+  const { recentTasks, snapshot } = useProData();
+
   const { t, i18n } = useTranslation();
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
   const normalizedQuery = query.trim().toLowerCase();
   const tasks = recentTasks.filter((task) =>
-    [task.title, task.id, task.project, task.status, task.priority, task.assignee.name].some(
-      (value) => value.toLowerCase().includes(normalizedQuery),
-    ),
+    [
+      task.title,
+      task.id,
+      task.project,
+      getTaskStatusLabel(t, task.status),
+      getTaskPriorityLabel(t, task.priority),
+      task.assignee.name,
+    ].some((value) => value.toLowerCase().includes(normalizedQuery)),
   );
 
   return (
@@ -90,7 +95,7 @@ export function RecentTasks() {
                     <span className={styles.projectName}>{task.project}</span>
                   </Table.Cell>
                   <Table.Cell>
-                    <Tag intent={statusIntent[task.status]} size="sm">
+                    <Tag intent={taskStatusIntent[task.status]} size="sm">
                       {getTaskStatusLabel(t, task.status)}
                     </Tag>
                   </Table.Cell>
@@ -111,7 +116,7 @@ export function RecentTasks() {
                   </Table.Cell>
                   <Table.Cell align="end">
                     <time dateTime={task.due} className={styles.dueDate}>
-                      {formatDueDate(task.due, i18n.language)}
+                      {task.due ? formatDueDate(task.due, i18n.language) : '—'}
                     </time>
                   </Table.Cell>
                 </Table.Row>
@@ -133,7 +138,11 @@ export function RecentTasks() {
         </Table.Viewport>
       </Card.Body>
       <Card.Footer className={styles.taskFooter}>
-        <span>{t('workplace.aWorkspaceSnapshotOctober1')}</span>
+        <span>
+          {t('workplace.aWorkspaceSnapshotOctober1', {
+            date: formatDueDate(snapshot.date, i18n.language),
+          })}
+        </span>
         <Avatar.Group aria-label={t('workplace.contributors')}>
           <Avatar fallback="AC" size="sm" title={t('workplace.avaChen')} />
           <Avatar fallback="LP" size="sm" title={t('workplace.leoPark')} />

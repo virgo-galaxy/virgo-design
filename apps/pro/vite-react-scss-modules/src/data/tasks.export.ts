@@ -1,5 +1,6 @@
+import type { MemberDto } from '@/api/tasks';
+
 import type { Task } from './tasks';
-import { taskAssignees } from './tasks.seed';
 
 function csvCell(value: string) {
   // Keep user-entered text as text when the CSV is opened in a spreadsheet.
@@ -7,7 +8,15 @@ function csvCell(value: string) {
   return `"${text.replaceAll('"', '""')}"`;
 }
 
-export function createTasksCsv(tasks: readonly Task[]) {
+export interface TaskExportLabels {
+  status: (code: Task['status']) => string;
+  priority: (code: Task['priority']) => string;
+}
+export function createTasksCsv(
+  tasks: readonly Task[],
+  taskAssignees: readonly MemberDto[],
+  labels: TaskExportLabels,
+) {
   const rows = [
     [
       'ID',
@@ -24,8 +33,8 @@ export function createTasksCsv(tasks: readonly Task[]) {
     ...tasks.map((task) => [
       task.id,
       task.title,
-      task.status,
-      task.priority,
+      labels.status(task.status),
+      labels.priority(task.priority),
       task.project,
       taskAssignees.find((member) => member.id === task.assignee)?.name ?? task.assignee,
       task.dueDate,

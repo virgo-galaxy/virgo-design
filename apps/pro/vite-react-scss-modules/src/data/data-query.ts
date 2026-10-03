@@ -1,3 +1,5 @@
+import type { MemberDto } from '@/api/tasks';
+
 import {
   isOverdue,
   isTaskPriority,
@@ -6,7 +8,6 @@ import {
   type Task,
   type TaskFilters,
 } from './tasks';
-import { taskAssignees, taskProjects, taskReferenceDate } from './tasks.seed';
 
 export interface DataQuery extends TaskFilters {
   createdFrom: string;
@@ -50,7 +51,12 @@ export function queryError(query: DataQuery) {
     return 'invalidEstimate';
   return '';
 }
-export function matchesDataQuery(task: Task, query: DataQuery) {
+export function matchesDataQuery(
+  task: Task,
+  query: DataQuery,
+  taskAssignees: readonly MemberDto[],
+  taskReferenceDate: string,
+) {
   const created = task.createdAt.slice(0, 10);
   const cutoff = new Date(`${taskReferenceDate}T00:00:00Z`);
   cutoff.setUTCDate(cutoff.getUTCDate() + 7);
@@ -64,7 +70,7 @@ export function matchesDataQuery(task: Task, query: DataQuery) {
       (query.due === 'overdue' && isOverdue(task, taskReferenceDate)) ||
       (query.due === 'unscheduled' && !task.dueDate) ||
       (query.due === 'week' &&
-        task.status !== 'Done' &&
+        task.status !== 'done' &&
         task.dueDate >= taskReferenceDate &&
         task.dueDate <= cutoff.toISOString().slice(0, 10)))
   );
@@ -78,9 +84,9 @@ export function queryFromParams(params: URLSearchParams): DataQuery {
   const priority = params.get('priority');
   if (priority && isTaskPriority(priority)) query.priority = priority;
   const project = params.get('project');
-  if (project && taskProjects.some((name) => name === project)) query.project = project;
+  if (project) query.project = project;
   const assignee = params.get('assignee');
-  if (assignee && taskAssignees.some((person) => person.id === assignee)) query.assignee = assignee;
+  if (assignee) query.assignee = assignee;
   const due = params.get('due');
   if (due === 'overdue' || due === 'week' || due === 'unscheduled') query.due = due;
   for (const key of ['createdFrom', 'createdTo'] as const) {

@@ -1,17 +1,15 @@
 import { Button, Empty, Progress, Surface, Tag, Timeline } from '@virgo-design/ui';
-import type { Dispatch } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router';
 
+import { useProData } from '@/application/pro-data-context';
 import {
   projectActivity,
   projectDetailPath,
   projectQueryPath,
-  projects,
   projectSummary,
 } from '@/data/projects';
-import type { TaskAction, TaskState } from '@/data/tasks';
-import { taskReferenceDate } from '@/data/tasks.seed';
+import type { TaskDispatch, TaskState } from '@/data/tasks';
 import { formatDueDate } from '@/data/workplace';
 import { getProjectHealthLabel } from '@/pages/projects/project-presentation';
 import { healthIntent } from '@/pages/projects/project-presentation';
@@ -20,16 +18,13 @@ import shared from '@/pages/shared/ProPage.module.scss';
 import { useTaskEditor } from '@/pages/shared/use-task-editor';
 import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 import { taskPriorityIntent, taskStatusIntent } from '@/pages/tasks/task-presentation';
+import { getActivityActionLabel } from '@/pages/workplace/activity-presentation';
 
 import styles from './DetailPage.module.scss';
 
-export function DetailPage({
-  state,
-  dispatch,
-}: {
-  state: TaskState;
-  dispatch: Dispatch<TaskAction>;
-}) {
+export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: TaskDispatch }) {
+  const { taskAssignees, activity, projects, taskReferenceDate } = useProData();
+
   const { t, i18n } = useTranslation();
   const [params, setParams] = useSearchParams();
   const project = projects.find((item) => item.id === (params.get('project') ?? 'workspace'));
@@ -49,8 +44,8 @@ export function DetailPage({
         </Empty>
       </div>
     );
-  const summary = projectSummary(project, state.tasks);
-  const events = projectActivity(project);
+  const summary = projectSummary(project, state.tasks, taskAssignees, taskReferenceDate);
+  const events = projectActivity(project, activity);
   return (
     <div className={shared.page}>
       <h1 className={shared.srOnly}>{t('app.detail')}</h1>
@@ -302,7 +297,7 @@ export function DetailPage({
                     <Timeline.Item key={event.id} status={event.status}>
                       <Timeline.Title>{event.name}</Timeline.Title>
                       <Timeline.Description>
-                        {t(`workplace.activityActions.${event.id}`)}
+                        {getActivityActionLabel(t, event.id)}
                       </Timeline.Description>
                       <Timeline.Time dateTime={event.dateTime}>
                         {t('data.oct1Value', { v0: event.time })}

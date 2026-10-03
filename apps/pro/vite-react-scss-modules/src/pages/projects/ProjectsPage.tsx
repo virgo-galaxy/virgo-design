@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
-import { type Project, projectDetailPath, projects, projectSummary } from '@/data/projects';
+import { useProData } from '@/application/pro-data-context';
+import { type Project, projectDetailPath, projectSummary } from '@/data/projects';
 import type { TaskState } from '@/data/tasks';
-import { taskAssignees } from '@/data/tasks.seed';
 import { formatDueDate } from '@/data/workplace';
 import { getProjectHealthLabel } from '@/pages/projects/project-presentation';
 import { FilterSelect, MetricStrip, NoResults, Panel, Person } from '@/pages/shared/ProPage';
@@ -18,8 +18,10 @@ import { healthIntent } from './project-presentation';
 import styles from './ProjectsPage.module.scss';
 
 function ProjectCard({ project, state }: { project: Project; state: TaskState }) {
+  const { taskAssignees, taskReferenceDate } = useProData();
+
   const { t, i18n } = useTranslation();
-  const summary = projectSummary(project, state.tasks);
+  const summary = projectSummary(project, state.tasks, taskAssignees, taskReferenceDate);
   return (
     <Surface border="subtle" radius={8} className={styles.projectCard}>
       <div className={styles.cardHeading}>
@@ -109,6 +111,8 @@ function ProjectCard({ project, state }: { project: Project; state: TaskState })
 }
 
 export function ProjectsPage({ state }: { state: TaskState }) {
+  const { taskReferenceDate, projects, taskAssignees } = useProData();
+
   const { t } = useTranslation();
   const [search, setSearch] = useState('');
   const [health, setHealth] = useState('all');
@@ -133,7 +137,9 @@ export function ProjectsPage({ state }: { state: TaskState }) {
         .toLowerCase()
         .includes(query),
   );
-  const summaries = projects.map((project) => projectSummary(project, state.tasks));
+  const summaries = projects.map((project) =>
+    projectSummary(project, state.tasks, taskAssignees, taskReferenceDate),
+  );
   return (
     <div className={shared.page}>
       <h1 className={shared.srOnly}>{t('app.projects')}</h1>

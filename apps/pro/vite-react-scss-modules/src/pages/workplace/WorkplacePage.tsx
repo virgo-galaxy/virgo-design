@@ -12,16 +12,12 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import {
-  activity,
-  announcements,
-  metrics,
-  projectDistribution,
-  recentTasks,
-  shortcuts,
-  snapshot,
-} from '@/data/workplace';
+import { useProData } from '@/application/pro-data-context';
+import { RemoteState } from '@/application/RemoteState';
+import { useOverviewRefresh } from '@/application/use-overview-refresh';
+import { shortcuts } from '@/data/workplace';
 import { PageHeading } from '@/pages/shared/ProPage';
+import { getActivityActionLabel } from '@/pages/workplace/activity-presentation';
 
 import { DeliveryTrend } from './DeliveryTrend';
 import { RecentTasks } from './RecentTasks';
@@ -40,7 +36,10 @@ const metricIcons = {
 };
 const shortcutIcons = { tasks: CircleCheckIcon, projects: LayersIcon, analytics: GaugeIcon };
 
-function exportSnapshot() {
+function exportSnapshot(
+  recentTasks: import('@/api/analytics').WorkplaceOverviewDto['recentTasks'],
+  snapshot: import('@/api/analytics').WorkplaceOverviewDto['snapshot'],
+) {
   const columns = ['ID', 'Task', 'Project', 'Status', 'Priority', 'Assignee', 'Due date'];
   const rows = recentTasks.map((task) => [
     task.id,
@@ -63,7 +62,10 @@ function exportSnapshot() {
 }
 
 export function WorkplacePage() {
-  const { t } = useTranslation();
+  const { profile, recentTasks, activity, announcements, metrics, projectDistribution, snapshot } =
+    useProData();
+
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [widgets, setWidgets] = useState<Record<WidgetId, WorkplaceWidgetState>>({
     distribution: 'expanded',
@@ -93,6 +95,9 @@ export function WorkplacePage() {
     onRemove: () => removeWidget(id),
     onRemoved: () => changeWidget(id, 'removed'),
   });
+  const overview = useOverviewRefresh();
+  if (overview.error || !overview.data)
+    return <RemoteState loading={overview.loading} error={overview.error} retry={overview.retry} />;
   return (
     <div className={styles.workplace}>
       <div
@@ -103,7 +108,7 @@ export function WorkplacePage() {
           <PageHeading
             title={
               <>
-                {t('workplace.welcomeBackMystic')}
+                {t('workplace.welcomeBackMystic', { name: profile.name })}
                 <span className={styles.welcomeDot}>.</span>
               </>
             }
@@ -112,14 +117,19 @@ export function WorkplacePage() {
               <div className={styles.welcomeActions}>
                 <span className={styles.snapshotDate}>
                   <CalendarIcon />
-                  <time dateTime={snapshot.date}>{t('workplace.oct12026')}</time>
+                  <time dateTime={snapshot.date}>
+                    {new Intl.DateTimeFormat(i18n.language, {
+                      dateStyle: 'medium',
+                      timeZone: 'UTC',
+                    }).format(new Date(`${snapshot.date}T00:00:00Z`))}
+                  </time>
                 </span>
                 <Button
                   variant="outline"
                   size="small"
                   leadingIcon={<DownloadIcon />}
                   ref={exportRef}
-                  onClick={exportSnapshot}
+                  onClick={() => exportSnapshot(recentTasks, snapshot)}
                 >
                   {t('workplace.exportSnapshot')}
                 </Button>
@@ -176,11 +186,11 @@ export function WorkplacePage() {
               description={t('workplace.whereOpenTasksAreConcentrated')}
             >
               <div className={styles.distributionSummary}>
-                <strong>42</strong>
+                <strong>{snapshot.openTasks}</strong>
                 <span>
                   {t('workplace.openTasks')}
                   <br />
-                  {t('workplace.across4FocusAreas')}
+                  {t('workplace.across4FocusAreas', { count: projectDistribution.length })}
                 </span>
               </div>
               <div className={styles.distributionBar} aria-hidden="true">
@@ -266,7 +276,7 @@ export function WorkplacePage() {
                   <Timeline.Item key={event.id} status={event.status}>
                     <Timeline.Title className={styles.activityTitle}>{event.name}</Timeline.Title>
                     <Timeline.Description className={styles.activityDescription}>
-                      {t(`workplace.activityActions.${event.id}`)}
+                      {getActivityActionLabel(t, event.id)}
                     </Timeline.Description>
                     <Timeline.Time dateTime={event.dateTime} className={styles.activityTime}>
                       {event.time} · {event.project}

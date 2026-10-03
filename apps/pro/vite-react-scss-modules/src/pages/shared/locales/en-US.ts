@@ -1,4 +1,15 @@
 export const sharedEnUS = {
+  remote: {
+    loading: 'Loading data…',
+    error: 'Unable to load data',
+    failed: 'The request failed. Please try again.',
+    retry: 'Retry',
+    timeout: 'The request timed out. Please try again.',
+    network: 'Check your connection and try again.',
+    saving: 'Saving…',
+    saveError: 'Unable to save',
+  },
+
   unassigned: 'Unassigned',
   tryABroaderSearchOrResetTheFilters: 'Try a broader search or reset the filters.',
   resetFilters: 'Reset filters',

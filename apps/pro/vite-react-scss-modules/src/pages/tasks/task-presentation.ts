@@ -2,41 +2,43 @@ import type { TagIntent } from '@virgo-design/ui';
 import type { TFunction } from 'i18next';
 
 import type { TaskPriority, TaskStatus } from '@/data/tasks';
-import type { TaskStatus as WorkplaceTaskStatus } from '@/data/workplace';
 
 export const taskStatusIntent: Record<TaskStatus, TagIntent> = {
-  Backlog: 'neutral',
-  Todo: 'info',
-  'In Progress': 'brand',
-  'In Review': 'warning',
-  Done: 'success',
+  backlog: 'neutral',
+  todo: 'info',
+  in_progress: 'brand',
+  in_review: 'warning',
+  done: 'success',
 };
 export const taskPriorityIntent: Record<TaskPriority, TagIntent> = {
-  Low: 'neutral',
-  Medium: 'neutral',
-  High: 'warning',
-  Urgent: 'danger',
+  low: 'neutral',
+  medium: 'neutral',
+  high: 'warning',
+  urgent: 'danger',
 };
 
 const statusKeys = {
-  Backlog: 'tasks.statusLabels.backlog',
-  Todo: 'tasks.statusLabels.todo',
-  'In Progress': 'tasks.statusLabels.inProgress',
-  'In progress': 'tasks.statusLabels.inProgress',
-  'In Review': 'tasks.statusLabels.inReview',
-  'In review': 'tasks.statusLabels.inReview',
-  Done: 'tasks.statusLabels.done',
-  Blocked: 'tasks.statusLabels.blocked',
-} as const;
+  backlog: 'tasks.statusLabels.backlog',
+  todo: 'tasks.statusLabels.todo',
+  in_progress: 'tasks.statusLabels.inProgress',
+  in_review: 'tasks.statusLabels.inReview',
+  done: 'tasks.statusLabels.done',
+} as const satisfies Record<TaskStatus, string>;
 const priorityKeys = {
-  Low: 'tasks.priorityLabels.low',
-  Medium: 'tasks.priorityLabels.medium',
-  High: 'tasks.priorityLabels.high',
-  Urgent: 'tasks.priorityLabels.urgent',
-} as const;
-export function getTaskStatusLabel(t: TFunction, status: TaskStatus | WorkplaceTaskStatus) {
+  low: 'tasks.priorityLabels.low',
+  medium: 'tasks.priorityLabels.medium',
+  high: 'tasks.priorityLabels.high',
+  urgent: 'tasks.priorityLabels.urgent',
+} as const satisfies Record<TaskPriority, string>;
+export function getTaskStatusLabel(t: TFunction, status: TaskStatus) {
   return t(statusKeys[status]);
 }
 export function getTaskPriorityLabel(t: TFunction, priority: TaskPriority) {
   return t(priorityKeys[priority]);
+}
+export function getTaskExportLabels(t: TFunction) {
+  return {
+    status: (code: TaskStatus) => getTaskStatusLabel(t, code),
+    priority: (code: TaskPriority) => getTaskPriorityLabel(t, code),
+  };
 }

@@ -227,10 +227,10 @@
     background: var(--vd-icon-tertiary);
     border-radius: var(--vd-radius-full);
   }
-  &[data-priority='High'] i {
+  &[data-priority='high'] i {
     background: var(--vd-status-danger-accent);
   }
-  &[data-priority='Medium'] i {
+  &[data-priority='medium'] i {
     background: var(--vd-status-warning-accent);
   }
 }

@@ -10,11 +10,14 @@ import { createRoot } from 'react-dom/client';
 
 import { App } from '@/App';
 import { ProControlLabels } from '@/app/ProControlLabels';
+import { AppBootstrap } from '@/application/AppBootstrap';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ProControlLabels>
-      <App />
+      <AppBootstrap>
+        <App />
+      </AppBootstrap>
     </ProControlLabels>
   </StrictMode>,
 );

@@ -1,0 +1,11 @@
+// Gateway business codes are stable contracts, independent of HTTP status and copy.
+export const API_ERROR_CODES = {
+  INVALID_REQUEST: 10001,
+  INVALID_QUERY: 10002,
+  TASK_NOT_FOUND: 20001,
+  TASK_VALIDATION_FAILED: 20002,
+  PROFILE_VALIDATION_FAILED: 30001,
+  HANDOFF_VALIDATION_FAILED: 40001,
+  HANDOFF_SCOPE_INVALID: 40002,
+} as const;
+export type ApiErrorCode = (typeof API_ERROR_CODES)[keyof typeof API_ERROR_CODES];

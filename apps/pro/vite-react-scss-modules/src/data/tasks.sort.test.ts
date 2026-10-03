@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { initialTaskState } from './tasks.seed';
+import { initialTaskState } from '@/mock/fixtures/tasks';
+
 import { sortTasks } from './tasks.sort';
 
 describe('task sorting', () => {

@@ -1,10 +1,10 @@
+import type { MemberDto } from '@/api/tasks';
 import type { formsEnUS } from '@/pages/forms/locales/en-US';
 import type { profileEnUS } from '@/pages/profile/locales/en-US';
 import type { resultsEnUS } from '@/pages/results/locales/en-US';
 
-import { projects } from './projects';
+import type { Project } from './projects';
 import { normalizeTaskDraft, type Task, type TaskDraft, validateTask } from './tasks';
-import { taskAssignees, taskProjects } from './tasks.seed';
 
 export interface WorkRequest extends TaskDraft {
   acceptanceConfirmed: boolean;
@@ -14,13 +14,17 @@ export const initialWorkRequest: WorkRequest = {
   description: '',
   project: 'Workspace',
   assignee: '',
-  status: 'Todo',
-  priority: 'Medium',
+  status: 'todo',
+  priority: 'medium',
   dueDate: '',
   estimateHours: 8,
   acceptanceConfirmed: false,
 };
-export function validateWorkRequest(draft: WorkRequest) {
+export function validateWorkRequest(
+  draft: WorkRequest,
+  taskProjects: readonly string[],
+  taskAssignees: readonly MemberDto[],
+) {
   return {
     ...validateTask(
       draft,
@@ -69,26 +73,30 @@ export interface ScopeGroup {
   title: string;
   tasks: Task[];
 }
-export function scopeGroups(projectId: string, tasks: readonly Task[]): ScopeGroup[] {
+export function scopeGroups(
+  projectId: string,
+  tasks: readonly Task[],
+  projects: readonly Project[],
+): ScopeGroup[] {
   const project = projects.find((item) => item.id === projectId);
   const groups: ScopeGroup[] = [
     {
       id: 'scope-review',
       title: 'Awaiting acceptance',
-      tasks: tasks.filter((task) => task.project === project?.name && task.status === 'In Review'),
+      tasks: tasks.filter((task) => task.project === project?.name && task.status === 'in_review'),
     },
     {
       id: 'scope-open',
       title: 'Work in motion',
       tasks: tasks.filter(
         (task) =>
-          task.project === project?.name && task.status !== 'Done' && task.status !== 'In Review',
+          task.project === project?.name && task.status !== 'done' && task.status !== 'in_review',
       ),
     },
     {
       id: 'scope-done',
       title: 'Delivered work',
-      tasks: tasks.filter((task) => task.project === project?.name && task.status === 'Done'),
+      tasks: tasks.filter((task) => task.project === project?.name && task.status === 'done'),
     },
   ];
   return groups.filter((group) => group.tasks.length > 0);
@@ -130,7 +138,12 @@ function validDate(value: string) {
     date.toISOString().slice(0, 10) === value
   );
 }
-export function validateHandoff(draft: HandoffDraft, tasks: readonly Task[], throughStep: number) {
+export function validateHandoff(
+  draft: HandoffDraft,
+  tasks: readonly Task[],
+  throughStep: number,
+  projects: readonly Project[],
+) {
   const errors: Partial<Record<keyof HandoffDraft, keyof typeof formsEnUS.validation>> = {};
   const project = projects.find((item) => item.id === draft.projectId);
   if (!draft.title.trim() || draft.title.trim().length > 100) errors.title = 'titleInvalid';
@@ -166,57 +179,6 @@ export interface WorkflowReceipt {
   schedule?: string;
   notes?: string;
 }
-export const sampleSuccess: WorkflowReceipt = {
-  outcome: 'success',
-  kind: 'task',
-  reference: 'RCP-125',
-  message: 'keyboardAudit',
-  projectId: 'design-system',
-  taskIds: ['VD-125'],
-  recordedAt: '2026-10-01T09:36:00+08:00',
-  requester: 'Eli Morgan',
-  audience: 'team',
-};
-export const sampleError: WorkflowReceipt = {
-  outcome: 'error',
-  kind: 'handoff',
-  reference: 'HOF-100',
-  message: 'externalHandoff',
-  projectId: 'workspace',
-  taskIds: ['VD-128', 'VD-126'],
-  recordedAt: '2026-10-03T10:00:00+08:00',
-  requester: 'Mystic',
-  audience: 'external',
-  handoffTitle: 'October release handoff',
-  schedule: '2026-10-06T10:00:00+08:00',
-  notes:
-    'Review workspace navigation and resolve export permission states before the October checkpoint.',
-};
-export function prepareHandoff(
-  draft: HandoffDraft,
-  tasks: readonly Task[],
-  reference: string,
-  requester: string,
-  recordedAt: string,
-): WorkflowReceipt | null {
-  if (Object.keys(validateHandoff(draft, tasks, 2)).length) return null;
-  const restricted = draft.projectId === 'workspace' && draft.audience === 'external';
-  return {
-    outcome: restricted ? 'error' : 'success',
-    kind: 'handoff',
-    reference,
-    message: restricted ? 'externalHandoffDraft' : 'handoff',
-    projectId: draft.projectId,
-    taskIds: [...draft.taskIds],
-    recordedAt,
-    requester,
-    audience: draft.audience,
-    handoffTitle: draft.title.trim(),
-    schedule: `${draft.date}T${draft.time}:00+08:00`,
-    notes: draft.notes.trim(),
-  };
-}
-
 export interface ProfileState {
   name: string;
   headline: string;
@@ -229,19 +191,7 @@ export interface ProfileState {
   reviewReminders: boolean;
   compactActivity: boolean;
 }
-export const initialProfile: ProfileState = {
-  name: 'Mystic',
-  headline: 'Product & design · Workspace owner',
-  bio: 'Building a calmer place for teams to do focused work. Keeping the product language clear, consistent and useful.',
-  avatarColor: '#1664f9',
-  avatarImage: '',
-  focusProject: 'workspace',
-  digest: true,
-  digestTime: '09:00',
-  reviewReminders: true,
-  compactActivity: false,
-};
-export function validateProfile(profile: ProfileState) {
+export function validateProfile(profile: ProfileState, projects: readonly Project[]) {
   const errors: Partial<Record<keyof ProfileState, keyof typeof profileEnUS.validation>> = {};
   if (!profile.name.trim() || profile.name.trim().length > 60) errors.name = 'nameInvalid';
   if (profile.headline.length > 100) errors.headline = 'headlineTooLong';

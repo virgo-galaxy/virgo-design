@@ -1,20 +1,25 @@
-import { type Dispatch, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { Task, TaskAction, TaskState } from '@/data/tasks';
+import { getTask } from '@/api/tasks';
+import { MutationFeedback } from '@/application/MutationFeedback';
+import { useMutation } from '@/application/use-mutation';
+import type { Task, TaskDispatch, TaskState } from '@/data/tasks';
 import { getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 import { TaskDialog } from '@/pages/tasks/TaskDialog';
 
 export function useTaskEditor(
   state: TaskState,
-  dispatch: Dispatch<TaskAction>,
+  dispatch: TaskDispatch,
   matches: (task: Task) => boolean = () => true,
 ) {
   const { t } = useTranslation();
   const [id, setId] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<{ id: string; status?: Task['status'] } | null>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
-  const task = state.tasks.find((item) => item.id === id);
+  const [detail, setDetail] = useState<Task | null>(null);
+  const mutation = useMutation();
+  const task = detail?.id === id ? detail : state.tasks.find((item) => item.id === id);
   return {
     feedback: feedback
       ? feedback.status
@@ -23,29 +28,41 @@ export function useTaskEditor(
       : '',
     open: (item: Task, button: HTMLButtonElement) => {
       opener.current = button;
-      setId(item.id);
+      void mutation.run(async () => {
+        const loaded = await getTask(item.id);
+        setDetail(loaded);
+        setId(item.id);
+      });
     },
-    editor: task ? (
-      <TaskDialog
-        key={task.id}
-        task={task}
-        hiddenByFilters={!matches(task)}
-        onSave={(draft) => {
-          dispatch({ type: 'edit', id: task.id, draft });
-          setFeedback({ id: task.id });
-        }}
-        onStatusChange={(status) => {
-          dispatch({ type: 'status', id: task.id, status });
-          setFeedback({ id: task.id, status });
-        }}
-        onClose={() => setId(null)}
-        restoreFocus={() => {
-          (opener.current?.isConnected
-            ? opener.current
-            : document.getElementById('pro-main')
-          )?.focus();
-        }}
-      />
-    ) : null,
+    editor: (
+      <>
+        {' '}
+        <MutationFeedback pending={mutation.pending} error={mutation.error} />
+        {task && id ? (
+          <TaskDialog
+            key={task.id}
+            task={task}
+            hiddenByFilters={!matches(task)}
+            onSave={async (draft) => {
+              const saved = await dispatch({ type: 'edit', id: task.id, draft });
+              setDetail(saved);
+              setFeedback({ id: task.id });
+            }}
+            onStatusChange={async (status) => {
+              const saved = await dispatch({ type: 'status', id: task.id, status });
+              setDetail(saved);
+              setFeedback({ id: task.id, status });
+            }}
+            onClose={() => setId(null)}
+            restoreFocus={() => {
+              (opener.current?.isConnected
+                ? opener.current
+                : document.getElementById('pro-main')
+              )?.focus();
+            }}
+          />
+        ) : null}
+      </>
+    ),
   };
 }

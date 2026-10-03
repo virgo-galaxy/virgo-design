@@ -3,13 +3,17 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { I18nextProvider, useTranslation } from 'react-i18next';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { initialProfile } from '@/mock/fixtures/profile';
+import { projects } from '@/mock/fixtures/projects';
+import { initialTaskState } from '@/mock/fixtures/tasks';
+import { sampleSuccess } from '@/mock/fixtures/workflows';
+
 import { getPageLabel } from '../app/navigation-labels';
 import { emptyDataQuery, queryError } from '../data/data-query';
-import { initialProfile, sampleSuccess, validateProfile } from '../data/pro-workflows';
-import { taskDraft } from '../data/tasks';
-import { initialTaskState } from '../data/tasks.seed';
+import { validateProfile } from '../data/pro-workflows';
+import { taskDraft, taskPriorities, taskStatuses } from '../data/tasks';
 import { formatDueDate } from '../data/workplace';
-import { getTaskStatusLabel } from '../pages/tasks/task-presentation';
+import { getTaskPriorityLabel, getTaskStatusLabel } from '../pages/tasks/task-presentation';
 import { getLocaleFontFamily, normalizeAppLocale, resolveAppLocale } from './locale';
 import {
   getLocalePreference,
@@ -36,7 +40,7 @@ function LocalePreview() {
         {t('settings.language')}
       </button>
       <h1>{getPageLabel(t, 'tasks')}</h1>
-      <p>{getTaskStatusLabel(t, 'In Progress')}</p>
+      <p>{getTaskStatusLabel(t, 'in_progress')}</p>
       <p>{formatDueDate('2026-10-01', locale)}</p>
     </>
   );
@@ -84,6 +88,7 @@ describe('pro locale runtime', () => {
       </I18nextProvider>,
     );
     expect(screen.getByRole('heading').textContent).toBe('Tasks');
+    expect(screen.getByText('In Progress')).toBeTruthy();
     await act(async () => fireEvent.click(screen.getByRole('button', { name: 'Language' })));
     expect(screen.getByRole('heading').textContent).toBe('任务');
     expect(screen.getByText('进行中')).toBeTruthy();
@@ -99,12 +104,40 @@ describe('pro locale runtime', () => {
 
   it('keeps domain values and validation codes stable while displaying translated feedback', async () => {
     const draft = taskDraft(initialTaskState.tasks[0]!);
-    const errors = validateProfile({ ...initialProfile, name: '' });
+    expect(draft).toMatchObject({ status: 'todo', priority: 'urgent' });
+    const english = i18nInstance.getFixedT('en-US');
+    expect(taskStatuses.map((code) => getTaskStatusLabel(english, code))).toEqual([
+      'Backlog',
+      'Todo',
+      'In Progress',
+      'In Review',
+      'Done',
+    ]);
+    expect(taskPriorities.map((code) => getTaskPriorityLabel(english, code))).toEqual([
+      'Low',
+      'Medium',
+      'High',
+      'Urgent',
+    ]);
+    const errors = validateProfile({ ...initialProfile, name: '' }, projects);
     const error = queryError({ ...emptyDataQuery, minimumHours: '-1' });
     expect(errors.name).toBe('nameInvalid');
     expect(error).toBe('invalidEstimate');
     if (!error) throw new Error('Expected a validation error');
     await setAppLocale('zh-CN');
+    expect(taskStatuses.map((code) => getTaskStatusLabel(i18nInstance.t, code))).toEqual([
+      '待规划',
+      '待办',
+      '进行中',
+      '待评审',
+      '已完成',
+    ]);
+    expect(taskPriorities.map((code) => getTaskPriorityLabel(i18nInstance.t, code))).toEqual([
+      '低',
+      '中',
+      '高',
+      '紧急',
+    ]);
     expect(i18nInstance.t(`profile.validation.${errors.name!}`)).toContain('显示名称');
     expect(i18nInstance.t(`data.validation.${error}`)).toContain('整数');
     expect(i18nInstance.t(`results.receipts.${sampleSuccess.message}.title`)).toBe(

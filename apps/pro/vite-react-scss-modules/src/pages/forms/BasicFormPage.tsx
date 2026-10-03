@@ -17,10 +17,12 @@ import { type Dispatch, type SetStateAction, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
 
+import { MutationFeedback } from '@/application/MutationFeedback';
+import { useProData } from '@/application/pro-data-context';
+import { useMutation } from '@/application/use-mutation';
 import { initialWorkRequest, validateWorkRequest, type WorkRequest } from '@/data/pro-workflows';
-import { projectDetailPath, projects } from '@/data/projects';
+import { projectDetailPath } from '@/data/projects';
 import { isTaskPriority, taskPriorities } from '@/data/tasks';
-import { taskAssignees } from '@/data/tasks.seed';
 import { Panel, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { getTaskPriorityLabel } from '@/pages/tasks/task-presentation';
@@ -34,8 +36,11 @@ export function BasicFormPage({
 }: {
   draft: WorkRequest;
   setDraft: Dispatch<SetStateAction<WorkRequest>>;
-  onCreate: (draft: WorkRequest) => void;
+  onCreate: (draft: WorkRequest) => Promise<void>;
 }) {
+  const { taskProjects, projects, taskAssignees } = useProData();
+
+  const mutation = useMutation();
   const { t, i18n } = useTranslation();
   const [errors, setErrors] = useState<ReturnType<typeof validateWorkRequest>>({});
   const formRef = useRef<HTMLFormElement>(null);
@@ -51,10 +56,13 @@ export function BasicFormPage({
   };
   return (
     <div className={shared.page}>
+      <MutationFeedback pending={mutation.pending} error={mutation.error} />
       <h1 className={shared.srOnly}>{t('app.basicForm')}</h1>
       <div className={styles.requestLayout}>
         <Surface border="default" radius={8} className={styles.requestSurface}>
           <Form
+            inert={mutation.pending}
+            aria-busy={mutation.pending}
             ref={formRef}
             id="work-request"
             size="small"
@@ -62,7 +70,7 @@ export function BasicFormPage({
             className={styles.requestForm}
             onSubmit={(event) => {
               event.preventDefault();
-              const next = validateWorkRequest(draft);
+              const next = validateWorkRequest(draft, taskProjects, taskAssignees);
               setErrors(next);
               if (Object.keys(next).length) {
                 requestAnimationFrame(() =>
@@ -70,9 +78,11 @@ export function BasicFormPage({
                 );
                 return;
               }
-              onCreate(draft);
-              setDraft({ ...initialWorkRequest });
-              navigate('/result/success');
+              void mutation.run(async () => {
+                await onCreate(draft);
+                setDraft({ ...initialWorkRequest });
+                navigate('/result/success');
+              });
             }}
           >
             <Panel
@@ -272,7 +282,12 @@ export function BasicFormPage({
                 >
                   {t('forms.resetRequest')}
                 </Button>
-                <Button size="small" type="submit" trailingIcon={<ArrowRightIcon />}>
+                <Button
+                  size="small"
+                  type="submit"
+                  disabled={mutation.pending}
+                  trailingIcon={<ArrowRightIcon />}
+                >
                   {t('forms.submitRequest')}
                 </Button>
               </div>

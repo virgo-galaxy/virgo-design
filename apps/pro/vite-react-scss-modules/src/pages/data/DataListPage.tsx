@@ -1,13 +1,15 @@
 import { SearchIcon } from '@virgo-design/icons';
 import { Button, Input, Pagination, Progress, SegmentedControl, Tag } from '@virgo-design/ui';
-import { type Dispatch, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
-import { projectDetailPath, projects } from '@/data/projects';
-import { isOverdue, paginateTasks, type Task, type TaskAction, type TaskState } from '@/data/tasks';
-import { taskAssignees, taskProjects, taskReferenceDate } from '@/data/tasks.seed';
-import { sortTasks } from '@/data/tasks.sort';
+import { useProData } from '@/application/pro-data-context';
+import { RemoteState } from '@/application/RemoteState';
+import { taskPageView } from '@/application/task-queries';
+import { useTaskQuery } from '@/application/use-task-query';
+import { projectDetailPath } from '@/data/projects';
+import { isOverdue, type Task, type TaskDispatch, type TaskState } from '@/data/tasks';
 import { formatDueDate } from '@/data/workplace';
 import { FilterSelect, MetricStrip, NoResults, Panel, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
@@ -18,13 +20,9 @@ import { taskPriorityIntent, taskStatusIntent } from '@/pages/tasks/task-present
 
 import styles from './DataListPage.module.scss';
 
-export function DataListPage({
-  state,
-  dispatch,
-}: {
-  state: TaskState;
-  dispatch: Dispatch<TaskAction>;
-}) {
+export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: TaskDispatch }) {
+  const { projects, taskAssignees, taskProjects, taskReferenceDate } = useProData();
+
   const { t, i18n } = useTranslation();
   const paginationLabels = usePaginationLabels();
   const [search, setSearch] = useState('');
@@ -39,9 +37,9 @@ export function DataListPage({
     (project === 'all' || task.project === project) &&
     (owner === 'all' || task.assignee === owner) &&
     (scope === 'all' ||
-      (scope === 'open' && task.status !== 'Done') ||
-      (scope === 'review' && task.status === 'In Review') ||
-      (scope === 'done' && task.status === 'Done')) &&
+      (scope === 'open' && task.status !== 'done') ||
+      (scope === 'review' && task.status === 'in_review') ||
+      (scope === 'done' && task.status === 'done')) &&
     [
       task.id,
       task.title,
@@ -52,12 +50,20 @@ export function DataListPage({
       .join(' ')
       .toLowerCase()
       .includes(query);
-  const filtered = sortTasks(state.tasks.filter(matches), {
-    column: order === 'due' ? 'dueDate' : order === 'effort' ? 'estimateHours' : 'createdAt',
-    direction: order === 'due' ? 'ascending' : 'descending',
+  const resource = useTaskQuery({
+    search,
+    project,
+    assignee: owner,
+    scope: scope === 'open' || scope === 'review' || scope === 'done' ? scope : 'all',
+    sortBy: order === 'due' ? 'dueDate' : order === 'effort' ? 'estimateHours' : 'createdAt',
+    sortDirection: order === 'due' ? 'ascending' : 'descending',
+    page,
+    pageSize: 6,
   });
-  const view = paginateTasks(filtered, page, 6);
-  if (page !== view.page) setPage(view.page);
+  const matchingTotal = resource.data?.total ?? 0;
+  const view = resource.data
+    ? taskPageView(resource.data)
+    : { tasks: [], page: 1, range: [0, 0] as [number, number] };
   const editor = useTaskEditor(state, dispatch, matches);
   const reset = () => {
     setSearch('');
@@ -66,10 +72,13 @@ export function DataListPage({
     setScope('open');
     setPage(1);
   };
-  const completed = state.tasks.filter((task) => task.status === 'Done').length;
-  const review = state.tasks.filter((task) => task.status === 'In Review').length;
+  const completed = state.tasks.filter((task) => task.status === 'done').length;
+  const review = state.tasks.filter((task) => task.status === 'in_review').length;
   return (
-    <div className={shared.page}>
+    <div className={shared.page} aria-busy={resource.loading}>
+      {resource.error || !resource.data ? (
+        <RemoteState loading={resource.loading} error={resource.error} retry={resource.retry} />
+      ) : null}
       <h1 className={shared.srOnly}>{t('app.dataList')}</h1>
       <MetricStrip
         items={[
@@ -129,7 +138,7 @@ export function DataListPage({
               }}
             />
             <span className={shared.count} aria-live="polite">
-              {t('data.valueBriefsMatch', { v0: filtered.length })}
+              {t('data.valueBriefsMatch', { v0: matchingTotal })}
             </span>
           </div>
           <div className={styles.filters}>
@@ -255,7 +264,7 @@ export function DataListPage({
               );
             })}
           </ul>
-          {!filtered.length ? (
+          {resource.data && !resource.loading && !resource.error && !matchingTotal ? (
             <NoResults title={t('data.noBriefsMatchThisView')} onReset={reset} />
           ) : null}
           <div className={shared.footer}>
@@ -263,12 +272,12 @@ export function DataListPage({
               {t('data.showingValueValueOfValue', {
                 v0: view.range[0],
                 v1: view.range[1],
-                v2: filtered.length,
+                v2: matchingTotal,
               })}
             </span>
             <Pagination
               labels={paginationLabels}
-              total={filtered.length}
+              total={matchingTotal}
               page={view.page}
               pageSize={6}
               onChange={setPage}
@@ -314,7 +323,7 @@ export function DataListPage({
             <ul className={styles.focusAreas}>
               {projects.map((item) => {
                 const count = state.tasks.filter(
-                  (task) => task.project === item.name && task.status !== 'Done',
+                  (task) => task.project === item.name && task.status !== 'done',
                 ).length;
                 return (
                   <li key={item.id}>

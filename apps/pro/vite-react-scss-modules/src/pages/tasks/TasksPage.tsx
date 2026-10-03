@@ -1,23 +1,27 @@
 import { DownloadIcon, PlusIcon } from '@virgo-design/icons';
 import { Button, Statistic, Surface, Toast } from '@virgo-design/ui';
-import { type Dispatch, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { getTask } from '@/api/tasks';
+import { MutationFeedback } from '@/application/MutationFeedback';
+import { useProData } from '@/application/pro-data-context';
+import { RemoteState } from '@/application/RemoteState';
+import { getAllTasks, taskPageView } from '@/application/task-queries';
+import { useMutation } from '@/application/use-mutation';
+import { useTaskQuery } from '@/application/use-task-query';
 import {
   emptyTaskFilters,
   hasTaskFilters,
   matchesTask,
-  paginateTasks,
   type Task,
-  type TaskAction,
+  type TaskDispatch,
   type TaskDraft,
-  taskOverview,
   type TaskState,
 } from '@/data/tasks';
 import { createTasksCsv } from '@/data/tasks.export';
-import { taskAssignees, taskReferenceDate, withTaskEstimates } from '@/data/tasks.seed';
-import { sortTasks, type TaskSort } from '@/data/tasks.sort';
-import { getTaskStatusLabel } from '@/pages/tasks/task-presentation';
+import { type TaskSort } from '@/data/tasks.sort';
+import { getTaskExportLabels, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 
 import { TaskDialog } from './TaskDialog';
 import { TaskFilters } from './TaskFilters';
@@ -32,14 +36,12 @@ interface Feedback {
   hidden: boolean;
 }
 
-export function TasksPage({
-  state,
-  dispatch,
-}: {
-  state: TaskState;
-  dispatch: Dispatch<TaskAction>;
-}) {
+export function TasksPage({ state, dispatch }: { state: TaskState; dispatch: TaskDispatch }) {
+  const { taskAssignees } = useProData();
+
   const { t } = useTranslation();
+  const mutation = useMutation();
+  const [detail, setDetail] = useState<Task | undefined>();
   const [filters, setFilters] = useState(emptyTaskFilters);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -50,21 +52,32 @@ export function TasksPage({
   const newTaskRef = useRef<HTMLButtonElement>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
   const assigneeName = (id: string) => taskAssignees.find((member) => member.id === id)?.name ?? '';
-  const tasks = withTaskEstimates(state.tasks);
-  const visibleTasks = sortTasks(
-    tasks.filter((task) => matchesTask(task, filters, assigneeName(task.assignee))),
-    sort,
-  );
-  const overview = taskOverview(tasks, taskReferenceDate);
-  const pageView = paginateTasks(visibleTasks, page, pageSize);
-  // Persist a reduced range so later mutations cannot revive an obsolete page.
-  if (page !== pageView.page) setPage(pageView.page);
+  const tasks = state.tasks;
+  const query = {
+    ...filters,
+    page,
+    pageSize,
+    ...(sort && sort.direction !== 'none'
+      ? { sortBy: sort.column, sortDirection: sort.direction }
+      : {}),
+  };
+  const resource = useTaskQuery(query);
+  const visibleTasks = resource.data?.items ?? [];
+  const overview = resource.data?.overview ?? { total: 0, inProgress: 0, dueSoon: 0, completed: 0 };
+  const pageView = resource.data
+    ? taskPageView(resource.data)
+    : { tasks: [], page: 1, range: [0, 0] as [number, number] };
+  const matchingTotal = resource.data?.total ?? 0;
   const changeFilters = (next: typeof filters) => {
     setFilters(next);
     setPage(1);
   };
   const selectedTask =
-    editor?.kind === 'edit' ? tasks.find((task) => task.id === editor.id) : undefined;
+    editor?.kind === 'edit'
+      ? detail?.id === editor.id
+        ? detail
+        : tasks.find((task) => task.id === editor.id)
+      : undefined;
   const filtered = hasTaskFilters(filters);
   const notify = (kind: Feedback['kind'], draft: TaskDraft & { id: string }) => {
     const hidden = !matchesTask(draft, filters, assigneeName(draft.assignee));
@@ -81,16 +94,21 @@ export function TasksPage({
   };
   const openTask = (task: Task, button: HTMLButtonElement) => {
     opener.current = button;
-    setEditor({ kind: 'edit', id: task.id });
+    void mutation.run(async () => {
+      const loaded = await getTask(task.id);
+      setDetail(loaded);
+      setEditor({ kind: 'edit', id: task.id });
+    });
   };
-  const save = (draft: TaskDraft) => {
+  const save = async (draft: TaskDraft) => {
     if (selectedTask) {
-      dispatch({ type: 'edit', id: selectedTask.id, draft });
-      notify('updated', { ...draft, id: selectedTask.id });
+      const saved = await dispatch({ type: 'edit', id: selectedTask.id, draft });
+      setDetail(saved);
+      notify('updated', saved);
     } else {
-      dispatch({ type: 'create', draft, createdAt: new Date().toISOString() });
+      const saved = await dispatch({ type: 'create', draft });
       if (matchesTask(draft, filters, assigneeName(draft.assignee))) setPage(1);
-      notify('created', { ...draft, id: `VD-${state.nextId}` });
+      notify('created', saved);
       setEditor(null);
     }
   };
@@ -112,12 +130,18 @@ export function TasksPage({
           </div>
           <span className={styles.overviewNote}>{t('tasks.workspaceTotals')}</span>
         </Surface>
-        <Surface border="default" radius={12} className={styles.listPanel}>
+        <Surface
+          border="default"
+          radius={12}
+          className={styles.listPanel}
+          aria-busy={resource.loading}
+        >
+          <MutationFeedback pending={mutation.pending} error={mutation.error} />
           <TaskFilters
             filters={filters}
             onChange={changeFilters}
             onReset={() => changeFilters(emptyTaskFilters)}
-            count={visibleTasks.length}
+            count={matchingTotal}
           />
           <div className={styles.listActions}>
             <Button ref={newTaskRef} size="small" leadingIcon={<PlusIcon />} onClick={openCreate}>
@@ -129,43 +153,52 @@ export function TasksPage({
               leadingIcon={<DownloadIcon />}
               disabled={visibleTasks.length === 0}
               onClick={() => {
-                const url = URL.createObjectURL(
-                  new Blob([createTasksCsv(visibleTasks)], { type: 'text/csv;charset=utf-8' }),
-                );
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = 'virgo-tasks.csv';
-                document.body.append(link);
-                link.click();
-                link.remove();
-                setTimeout(() => URL.revokeObjectURL(url), 0);
+                void mutation.run(async () => {
+                  const rows = await getAllTasks(query);
+                  const url = URL.createObjectURL(
+                    new Blob([createTasksCsv(rows, taskAssignees, getTaskExportLabels(t))], {
+                      type: 'text/csv;charset=utf-8',
+                    }),
+                  );
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.download = 'virgo-tasks.csv';
+                  document.body.append(link);
+                  link.click();
+                  link.remove();
+                  setTimeout(() => URL.revokeObjectURL(url), 0);
+                });
               }}
             >
               {t('tasks.download')}
             </Button>
           </div>
-          <TaskTable
-            sort={sort}
-            onSortChange={(next) => {
-              setSort(next.direction === 'none' ? null : next);
-              setPage(1);
-            }}
-            tasks={pageView.tasks}
-            total={state.tasks.length}
-            matchingTotal={visibleTasks.length}
-            page={pageView.page}
-            pageSize={pageSize}
-            range={pageView.range}
-            onPageChange={(nextPage, nextPageSize) => {
-              setPage(nextPage);
-              setPageSize(nextPageSize);
-            }}
-            filtered={filtered}
-            selectedId={selectedTask?.id}
-            onOpen={openTask}
-            onReset={() => changeFilters(emptyTaskFilters)}
-            onCreate={openCreate}
-          />
+          {resource.error || !resource.data ? (
+            <RemoteState loading={resource.loading} error={resource.error} retry={resource.retry} />
+          ) : (
+            <TaskTable
+              sort={sort}
+              onSortChange={(next) => {
+                setSort(next.direction === 'none' ? null : next);
+                setPage(1);
+              }}
+              tasks={pageView.tasks}
+              total={overview.total}
+              matchingTotal={matchingTotal}
+              page={pageView.page}
+              pageSize={pageSize}
+              range={pageView.range}
+              onPageChange={(nextPage, nextPageSize) => {
+                setPage(nextPage);
+                setPageSize(nextPageSize);
+              }}
+              filtered={filtered}
+              selectedId={selectedTask?.id}
+              onOpen={openTask}
+              onReset={() => changeFilters(emptyTaskFilters)}
+              onCreate={openCreate}
+            />
+          )}
         </Surface>
       </div>
       {editor ? (
@@ -177,9 +210,10 @@ export function TasksPage({
             !matchesTask(selectedTask, filters, assigneeName(selectedTask.assignee)),
           )}
           onSave={save}
-          onStatusChange={(status) => {
+          onStatusChange={async (status) => {
             if (!selectedTask) return;
-            dispatch({ type: 'status', id: selectedTask.id, status });
+            const saved = await dispatch({ type: 'status', id: selectedTask.id, status });
+            setDetail(saved);
             notify('moved', { ...selectedTask, status });
           }}
           onClose={() => setEditor(null)}

@@ -92,9 +92,10 @@ with the current capability and delivery boundaries.
   localized column schemas can compose their own accessible Table, as Analytics does.
 - Missing values compile to null with connectNulls disabled; ECharts controls transition
   behavior across changes in topology without Virgo synthesizing observations.
-- Mock product records are in-memory and reset on reload. Historical team delivery
-  remains distinct from the editable task register. This is a product fixture, not
-  backend persistence or a production data service.
+- Mock is an MSW v2 HTTP backend behind `src/api` and `src/lib/http` (Axios).
+  Task/profile mutations update in-memory backend state and reset on reload.
+  Historical team delivery remains distinct from the editable task register.
+  Set `VITE_API_MOCKING=false` to use the same APIs against a Gateway. See `API.md`.
 
 ## Leave to Interface Audit
 

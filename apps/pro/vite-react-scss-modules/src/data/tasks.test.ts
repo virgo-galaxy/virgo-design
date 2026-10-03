@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  initialTaskState,
+  taskAssignees,
+  taskProjects,
+  taskReferenceDate,
+} from '@/mock/fixtures/tasks';
+import { tasksReducer } from '@/test/task-state.test-helper';
+
+import {
   draftHasChanges,
   emptyTaskDraft,
   emptyTaskFilters,
@@ -14,28 +22,24 @@ import {
   taskDraft,
   type TaskFilters,
   taskOverview,
-  tasksReducer,
   validateTask,
 } from './tasks';
-import {
-  initialTaskState,
-  taskAssignees,
-  taskProjects,
-  taskReferenceDate,
-  withTaskEstimates,
-} from './tasks.seed';
 
 const draft: TaskDraft = {
   title: 'Review keyboard paths',
   description: 'Check nested panels and return focus.',
-  status: 'Todo',
-  priority: 'High',
+  status: 'todo',
+  priority: 'high',
   project: 'Workspace',
   assignee: 'ava',
   dueDate: '2026-10-05',
   estimateHours: 4,
 };
-const task: Task = { ...draft, id: 'VD-139', createdAt: '2026-10-02T08:00:00Z' };
+const task: Task = {
+  ...draft,
+  id: `VD-${initialTaskState.nextId}`,
+  createdAt: '2026-10-02T08:00:00Z',
+};
 const visible = (tasks: Task[], filters: TaskFilters) =>
   tasks.filter((item) =>
     matchesTask(
@@ -52,26 +56,29 @@ const errors = (value: TaskDraft) =>
   );
 
 describe('task filters', () => {
-  it.each(['keyboard', 'NESTED PANELS', ' vd-139 ', 'Workspace', taskAssignees[0].name])(
-    'searches task content and ownership: %s',
-    (search) => {
-      expect(visible([task], { ...emptyTaskFilters, search })).toEqual([task]);
-    },
-  );
+  it.each([
+    'keyboard',
+    'NESTED PANELS',
+    ` ${task.id.toLowerCase()} `,
+    'Workspace',
+    taskAssignees[0].name,
+  ])('searches task content and ownership: %s', (search) => {
+    expect(visible([task], { ...emptyTaskFilters, search })).toEqual([task]);
+  });
 
   it('combines search and every facet with AND semantics', () => {
     const filters: TaskFilters = {
       search: 'keyboard',
-      status: 'Todo',
-      priority: 'High',
+      status: 'todo',
+      priority: 'high',
       project: 'Workspace',
       assignee: 'ava',
     };
     expect(visible([task], filters)).toEqual([task]);
     const mismatches: Partial<TaskFilters>[] = [
       { search: 'missing' },
-      { status: 'Done' },
-      { priority: 'Low' },
+      { status: 'done' },
+      { priority: 'low' },
       { project: 'Discovery' },
       { assignee: 'leo' },
     ];
@@ -85,30 +92,31 @@ describe('task filters', () => {
     expect(visible(initialTaskState.tasks, filters)).toEqual([]);
     expect(hasTaskFilters(emptyTaskFilters)).toBe(false);
     expect(hasTaskFilters({ ...emptyTaskFilters, search: '   ' })).toBe(false);
-    expect(visible(initialTaskState.tasks, emptyTaskFilters)).toHaveLength(16);
+    expect(visible(initialTaskState.tasks, emptyTaskFilters)).toHaveLength(256);
   });
 });
 
 describe('task pagination', () => {
   it('returns distinct pages and the real range on a partial final page', () => {
     const first = paginateTasks(initialTaskState.tasks, 1, 10);
-    const second = paginateTasks(initialTaskState.tasks, 2, 10);
+    const second = paginateTasks(initialTaskState.tasks, 26, 10);
     expect(first.tasks).toEqual(initialTaskState.tasks.slice(0, 10));
     expect(first.range).toEqual([1, 10]);
-    expect(second.tasks).toEqual(initialTaskState.tasks.slice(10));
-    expect(second.range).toEqual([11, 16]);
-    expect(second.pageCount).toBe(2);
+    expect(second.tasks).toEqual(initialTaskState.tasks.slice(250));
+    expect(second.range).toEqual([251, 256]);
+    expect(second.pageCount).toBe(26);
     expect(new Set([...first.tasks, ...second.tasks].map((item) => item.id)).size).toBe(16);
   });
 
   it('paginates filtered data and clamps when the result or page size shrinks the page count', () => {
-    const filtered = visible(initialTaskState.tasks, { ...emptyTaskFilters, status: 'Todo' });
-    const result = paginateTasks(filtered, 2, 10);
-    expect(result.page).toBe(1);
-    expect(result.tasks).toEqual(filtered);
-    expect(result.range).toEqual([1, filtered.length]);
-    expect(paginateTasks(initialTaskState.tasks, 2, 20).page).toBe(1);
-    expect(paginateTasks(initialTaskState.tasks, 2, 20).tasks).toHaveLength(16);
+    const filtered = visible(initialTaskState.tasks, { ...emptyTaskFilters, status: 'todo' });
+    const result = paginateTasks(filtered, 999, 10);
+    const lastPage = Math.ceil(filtered.length / 10);
+    expect(result.page).toBe(lastPage);
+    expect(result.tasks).toEqual(filtered.slice((lastPage - 1) * 10));
+    expect(result.range).toEqual([(lastPage - 1) * 10 + 1, filtered.length]);
+    expect(paginateTasks(initialTaskState.tasks, 26, 20).page).toBe(13);
+    expect(paginateTasks(initialTaskState.tasks, 26, 20).tasks).toHaveLength(16);
     expect(paginateTasks([], 2, 10)).toEqual({ tasks: [], page: 1, pageCount: 1, range: [0, 0] });
   });
 
@@ -123,10 +131,12 @@ describe('task pagination', () => {
     const edited = tasksReducer(created, {
       type: 'edit',
       id: last.id,
-      draft: { ...taskDraft(last), title: 'Edited on page two' },
+      draft: { ...taskDraft(last), title: 'Edited on the final page' },
     });
-    expect(paginateTasks(edited.tasks, 2, 10).tasks.at(-1)?.title).toBe('Edited on page two');
-    expect(paginateTasks(edited.tasks, 2, 10).range).toEqual([11, 17]);
+    expect(paginateTasks(edited.tasks, 26, 10).tasks.at(-1)?.title).toBe(
+      'Edited on the final page',
+    );
+    expect(paginateTasks(edited.tasks, 26, 10).range).toEqual([251, 257]);
   });
 });
 
@@ -139,27 +149,27 @@ describe('task mutations', () => {
       createdAt: task.createdAt,
     });
     expect(state.tasks[0]).toEqual(task);
-    expect(state.nextId).toBe(140);
-    expect(taskOverview(state.tasks, taskReferenceDate).total).toBe(17);
+    expect(state.nextId).toBe(initialTaskState.nextId + 1);
+    expect(taskOverview(state.tasks, taskReferenceDate).total).toBe(257);
     expect(taskOverview(state.tasks, taskReferenceDate).dueSoon).toBe(
       taskOverview(before.tasks, taskReferenceDate).dueSoon + 1,
     );
     expect(initialTaskState).toEqual(before);
     expect(
-      visible(state.tasks, { ...emptyTaskFilters, search: 'keyboard paths', status: 'Todo' }),
+      visible(state.tasks, { ...emptyTaskFilters, search: 'keyboard paths', status: 'todo' }),
     ).toEqual([task]);
-    expect(visible([task], { ...emptyTaskFilters, status: 'Done' })).toEqual([]);
+    expect(visible([task], { ...emptyTaskFilters, status: 'done' })).toEqual([]);
     expect(
       tasksReducer(state, { type: 'create', draft, createdAt: task.createdAt }).tasks[0]?.id,
-    ).toBe('VD-140');
+    ).toBe(`VD-${initialTaskState.nextId + 1}`);
   });
 
   it('edits all fields while preserving identity and creation time, and reapplies filters', () => {
     const edited: TaskDraft = {
       title: 'Ship the accessibility review',
       description: 'All acceptance checks passed.',
-      status: 'Done',
-      priority: 'Low',
+      status: 'done',
+      priority: 'low',
       project: 'Design system',
       assignee: 'eli',
       dueDate: '',
@@ -172,11 +182,11 @@ describe('task mutations', () => {
     expect(state.tasks).toEqual([{ ...task, ...edited }]);
     expect(state.nextId).toBe(140);
     expect(task.title).toBe(draft.title);
-    expect(visible(state.tasks, { ...emptyTaskFilters, status: 'Todo' })).toEqual([]);
+    expect(visible(state.tasks, { ...emptyTaskFilters, status: 'todo' })).toEqual([]);
     expect(
       visible(state.tasks, {
         ...emptyTaskFilters,
-        status: 'Done',
+        status: 'done',
         project: 'Design system',
         assignee: 'eli',
       }),
@@ -191,24 +201,24 @@ describe('task mutations', () => {
 
   it('advances Todo → In Progress → In Review → Done and synchronizes summary/filter results', () => {
     let state = { tasks: [task], nextId: 140 };
-    for (const status of ['In Progress', 'In Review', 'Done'] as const) {
+    for (const status of ['in_progress', 'in_review', 'done'] as const) {
       expect(nextTaskStatus(state.tasks[0]!.status)).toBe(status);
       state = tasksReducer(state, { type: 'status', id: task.id, status });
       expect(state.tasks[0]).toEqual({ ...task, status });
       expect(visible(state.tasks, { ...emptyTaskFilters, status })).toHaveLength(1);
-      expect(visible(state.tasks, { ...emptyTaskFilters, status: 'Todo' })).toEqual([]);
+      expect(visible(state.tasks, { ...emptyTaskFilters, status: 'todo' })).toEqual([]);
       expect(taskOverview(state.tasks, taskReferenceDate).inProgress).toBe(
-        status === 'In Progress' ? 1 : 0,
+        status === 'in_progress' ? 1 : 0,
       );
       expect(taskOverview(state.tasks, taskReferenceDate).completed).toBe(
-        status === 'Done' ? 1 : 0,
+        status === 'done' ? 1 : 0,
       );
     }
-    expect(nextTaskStatus('Done')).toBeUndefined();
-    expect(nextTaskStatus('Backlog')).toBe('Todo');
+    expect(nextTaskStatus('done')).toBeUndefined();
+    expect(nextTaskStatus('backlog')).toBe('todo');
     expect(
-      tasksReducer(state, { type: 'status', id: task.id, status: 'Todo' }).tasks[0]?.status,
-    ).toBe('Todo');
+      tasksReducer(state, { type: 'status', id: task.id, status: 'todo' }).tasks[0]?.status,
+    ).toBe('todo');
   });
 
   it('supports the initial empty workspace and leaves unrelated tasks untouched', () => {
@@ -219,14 +229,16 @@ describe('task mutations', () => {
       completed: 0,
     });
     expect(
-      tasksReducer({ tasks: [], nextId: 139 }, { type: 'create', draft, createdAt: task.createdAt })
-        .tasks,
+      tasksReducer(
+        { tasks: [], nextId: initialTaskState.nextId },
+        { type: 'create', draft, createdAt: task.createdAt },
+      ).tasks,
     ).toEqual([task]);
     expect(tasksReducer(initialTaskState, { type: 'edit', id: 'unknown', draft }).tasks).toEqual(
       initialTaskState.tasks,
     );
     expect(
-      tasksReducer(initialTaskState, { type: 'status', id: 'unknown', status: 'Done' }).tasks,
+      tasksReducer(initialTaskState, { type: 'status', id: 'unknown', status: 'done' }).tasks,
     ).toEqual(initialTaskState.tasks);
   });
 });
@@ -266,7 +278,7 @@ describe('validation and dates', () => {
   it('counts due soon inclusively and excludes overdue, unscheduled and completed work', () => {
     const dates = ['2026-10-01', '2026-10-02', '2026-10-09', '2026-10-10', ''];
     const tasks = dates.map((dueDate, index) => ({ ...task, id: String(index), dueDate }));
-    tasks.push({ ...task, id: 'done', status: 'Done', dueDate: '2026-10-03' });
+    tasks.push({ ...task, id: 'done', status: 'done', dueDate: '2026-10-03' });
     expect(taskOverview(tasks, taskReferenceDate)).toEqual({
       total: 6,
       inProgress: 0,
@@ -274,22 +286,27 @@ describe('validation and dates', () => {
       completed: 1,
     });
     expect(isOverdue(tasks[0]!, taskReferenceDate)).toBe(true);
-    expect(isOverdue({ ...tasks[0]!, status: 'Done' }, taskReferenceDate)).toBe(false);
+    expect(isOverdue({ ...tasks[0]!, status: 'done' }, taskReferenceDate)).toBe(false);
     expect(isOverdue({ ...task, dueDate: '' }, taskReferenceDate)).toBe(false);
   });
 
-  it('keeps the parity fixture valid, deterministic and clear of future ID collisions', () => {
-    expect(new Set(initialTaskState.tasks.map((item) => item.id)).size).toBe(16);
+  it('keeps the expanded fixture valid, deterministic and clear of future ID collisions', () => {
+    expect(new Set(initialTaskState.tasks.map((item) => item.id)).size).toBe(256);
     for (const item of initialTaskState.tasks) {
       expect(errors(item)).toEqual({});
       expect(Number(item.id.slice(3))).toBeLessThan(initialTaskState.nextId);
       expect(Number.isNaN(new Date(item.createdAt).getTime())).toBe(false);
     }
     expect(taskOverview(initialTaskState.tasks, taskReferenceDate)).toEqual({
-      total: 16,
-      inProgress: 4,
-      dueSoon: 10,
-      completed: 3,
+      total: 256,
+      inProgress: initialTaskState.tasks.filter((item) => item.status === 'in_progress').length,
+      dueSoon: initialTaskState.tasks.filter(
+        (item) =>
+          item.status !== 'done' &&
+          item.dueDate >= taskReferenceDate &&
+          item.dueDate <= '2026-10-09',
+      ).length,
+      completed: initialTaskState.tasks.filter((item) => item.status === 'done').length,
     });
   });
 });
@@ -299,21 +316,4 @@ it.each([-1, 1000, 1.5, NaN, Infinity])('rejects invalid estimated hours %s', (e
 });
 it.each([0, 1, 999])('accepts whole estimated hours %s', (estimateHours) => {
   expect(errors({ ...draft, estimateHours })).toEqual({});
-});
-
-it('fills estimates for all existing session tasks while preserving edits and explicit zero', () => {
-  const oldTasks = initialTaskState.tasks.map((task) => ({ ...task, estimateHours: undefined }));
-  const restored = withTaskEstimates(
-    oldTasks.map((task) => ({ ...task, title: 'An edited title' })),
-  );
-  expect(restored.map((task) => task.estimateHours)).toEqual(
-    initialTaskState.tasks.map((task) => task.estimateHours),
-  );
-  expect(restored.every((task) => task.estimateHours > 0 && task.title === 'An edited title')).toBe(
-    true,
-  );
-  expect(
-    withTaskEstimates([{ ...initialTaskState.tasks[0]!, estimateHours: 0 }])[0]?.estimateHours,
-  ).toBe(0);
-  expect(withTaskEstimates([{ ...oldTasks[0]!, id: 'VD-999' }])[0]?.estimateHours).toBe(0);
 });

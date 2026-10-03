@@ -3,7 +3,7 @@ import { Avatar, Button, Empty, Field, Select, Statistic, Surface, Tag } from '@
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { taskAssignees } from '@/data/tasks.seed';
+import { useProData } from '@/application/pro-data-context';
 
 import styles from './ProPage.module.scss';
 
@@ -132,6 +132,8 @@ export function FilterSelect({
   );
 }
 export function Person({ id }: { id: string }) {
+  const { taskAssignees } = useProData();
+
   const { t } = useTranslation();
   const member = taskAssignees.find((person) => person.id === id);
   return (

@@ -3,17 +3,20 @@ import { Card, SegmentedControl } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { formatDueDate, type TrendPeriod, trendPoints } from '@/data/workplace';
+import { useProData } from '@/application/pro-data-context';
+import { formatDueDate, type TrendPeriod } from '@/data/workplace';
 
 import styles from './WorkplacePage.module.scss';
 
 export function DeliveryTrend() {
+  const { trendPoints } = useProData();
+
   const { t, i18n } = useTranslation();
   const [period, setPeriod] = useState<TrendPeriod>('7d');
   const points = period === '7d' ? trendPoints.slice(-7) : trendPoints;
   const completed = points.reduce((sum, point) => sum + point.completed, 0);
   const planned = points.reduce((sum, point) => sum + point.planned, 0);
-  const ratio = Math.round((completed / planned) * 100);
+  const ratio = planned ? Math.round((completed / planned) * 100) : 0;
 
   return (
     <Card variant="outlined" className={styles.trendCard}>

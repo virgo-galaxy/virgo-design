@@ -21,17 +21,13 @@ import {
   TimePicker,
   Toast,
 } from '@virgo-design/ui';
-import {
-  type CSSProperties,
-  type Dispatch,
-  type SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { type CSSProperties, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
+import { MutationFeedback } from '@/application/MutationFeedback';
+import { useProData } from '@/application/pro-data-context';
+import { useMutation } from '@/application/use-mutation';
 import {
   avatarFileError,
   avatarForeground,
@@ -39,11 +35,11 @@ import {
   type ProfileState,
   validateProfile,
 } from '@/data/pro-workflows';
-import { projectDetailPath, projects } from '@/data/projects';
+import { projectDetailPath } from '@/data/projects';
 import type { TaskState } from '@/data/tasks';
-import { activity } from '@/data/workplace';
 import { FilterSelect, Panel, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
+import { getActivityActionLabel } from '@/pages/workplace/activity-presentation';
 
 import type { profileEnUS } from './locales/en-US';
 import styles from './ProfilePage.module.scss';
@@ -55,10 +51,12 @@ function ProfileEditor({
   restoreFocus,
 }: {
   profile: ProfileState;
-  onSave: (profile: ProfileState) => void;
+  onSave: (profile: ProfileState) => Promise<void>;
   onClose: () => void;
   restoreFocus: () => void;
 }) {
+  const { projects } = useProData();
+  const mutation = useMutation();
   const { t } = useTranslation();
   const [draft, setDraft] = useState(profile);
   const [errors, setErrors] = useState<ReturnType<typeof validateProfile>>({});
@@ -120,7 +118,10 @@ function ProfileEditor({
             </Drawer.Close>
           </Drawer.Header>
           <Drawer.Body>
+            <MutationFeedback pending={mutation.pending} error={mutation.error} />
             <Form
+              inert={mutation.pending}
+              aria-busy={mutation.pending}
               ref={formRef}
               id="profile-editor"
               size="small"
@@ -128,7 +129,7 @@ function ProfileEditor({
               className={styles.editorForm}
               onSubmit={(event) => {
                 event.preventDefault();
-                const invalid = validateProfile(draft);
+                const invalid = validateProfile(draft, projects);
                 setErrors(invalid);
                 if (Object.keys(invalid).length) {
                   requestAnimationFrame(() =>
@@ -136,14 +137,16 @@ function ProfileEditor({
                   );
                   return;
                 }
-                alive.current = false;
-                onSave({
-                  ...draft,
-                  name: draft.name.trim(),
-                  headline: draft.headline.trim(),
-                  bio: draft.bio.trim(),
+                void mutation.run(async () => {
+                  await onSave({
+                    ...draft,
+                    name: draft.name.trim(),
+                    headline: draft.headline.trim(),
+                    bio: draft.bio.trim(),
+                  });
+                  alive.current = false;
+                  onClose();
                 });
-                onClose();
               }}
             >
               <div className={styles.photoRow}>
@@ -333,7 +336,7 @@ function ProfileEditor({
                   size="small"
                   type="submit"
                   form="profile-editor"
-                  disabled={!dirty || reading}
+                  disabled={mutation.pending || !dirty || reading}
                 >
                   {t('profile.saveProfile')}
                 </Button>
@@ -352,9 +355,12 @@ export function ProfilePage({
   state,
 }: {
   profile: ProfileState;
-  setProfile: Dispatch<SetStateAction<ProfileState>>;
+  setProfile: (next: ProfileState | ((previous: ProfileState) => ProfileState)) => Promise<void>;
   state: TaskState;
 }) {
+  const { projects, activity } = useProData();
+
+  const mutation = useMutation();
   const { t } = useTranslation();
   const [editing, setEditing] = useState(false);
   const [preferences, setPreferences] = useState(profile);
@@ -368,7 +374,7 @@ export function ProfilePage({
   const editRef = useRef<HTMLButtonElement>(null);
   const notify = (kind: 'preferences' | 'profile') => setNotice({ id: ++noticeId.current, kind });
   const focusProject = projects.find((item) => item.id === profile.focusProject)!;
-  const openReviews = state.tasks.filter((task) => task.status === 'In Review');
+  const openReviews = state.tasks.filter((task) => task.status === 'in_review');
   const preferenceDirty =
     preferences.focusProject !== profile.focusProject ||
     preferences.digest !== profile.digest ||
@@ -378,6 +384,7 @@ export function ProfilePage({
   return (
     <Toast.Provider>
       <div className={shared.page}>
+        <MutationFeedback pending={mutation.pending} error={mutation.error} />
         <Surface border="default" radius={12} className={styles.identity}>
           <div className={styles.identityMain}>
             <Badge dot intent="success">
@@ -495,7 +502,7 @@ export function ProfilePage({
                         <Badge count={openReviews.length} intent="warning" showZero />
                       </h3>
                       <p>{t('profile.reviewOwnershipAndTheNotesBehindPendingWork')}</p>
-                      <Link className={shared.link} to="/data/search-table?status=In+Review">
+                      <Link className={shared.link} to="/data/search-table?status=in_review">
                         {t('profile.reviewQueue')}
                       </Link>
                     </div>
@@ -519,34 +526,42 @@ export function ProfilePage({
               title={t('profile.workspacePreferences')}
               description={t('profile.savedPreferencesApplyForThisSession')}
             >
+              <MutationFeedback pending={mutation.pending} error={mutation.error} />
               <Form
+                inert={mutation.pending}
+                aria-busy={mutation.pending}
                 size="small"
                 className={styles.preferencesForm}
                 onSubmit={(event) => {
                   event.preventDefault();
-                  const invalid = validateProfile({
-                    ...profile,
-                    ...preferences,
-                    name: profile.name,
-                    headline: profile.headline,
-                    bio: profile.bio,
-                    avatarColor: profile.avatarColor,
-                    avatarImage: profile.avatarImage,
-                  });
+                  const invalid = validateProfile(
+                    {
+                      ...profile,
+                      ...preferences,
+                      name: profile.name,
+                      headline: profile.headline,
+                      bio: profile.bio,
+                      avatarColor: profile.avatarColor,
+                      avatarImage: profile.avatarImage,
+                    },
+                    projects,
+                  );
                   if (Object.keys(invalid).length) {
                     setPreferenceError(Object.values(invalid)[0]!);
                     return;
                   }
-                  setProfile((previous) => ({
-                    ...previous,
-                    focusProject: preferences.focusProject,
-                    digest: preferences.digest,
-                    digestTime: preferences.digestTime,
-                    reviewReminders: preferences.reviewReminders,
-                    compactActivity: preferences.compactActivity,
-                  }));
-                  setPreferenceError('');
-                  notify('preferences');
+                  void mutation.run(async () => {
+                    await setProfile((previous) => ({
+                      ...previous,
+                      focusProject: preferences.focusProject,
+                      digest: preferences.digest,
+                      digestTime: preferences.digestTime,
+                      reviewReminders: preferences.reviewReminders,
+                      compactActivity: preferences.compactActivity,
+                    }));
+                    setPreferenceError('');
+                    notify('preferences');
+                  });
                 }}
               >
                 <div className={styles.preferenceRow}>
@@ -638,7 +653,11 @@ export function ProfilePage({
                       ? t('profile.unsavedPreferenceChanges')
                       : t('profile.preferencesAreUpToDate')}
                   </span>
-                  <Button size="small" type="submit" disabled={!preferenceDirty}>
+                  <Button
+                    size="small"
+                    type="submit"
+                    disabled={mutation.pending || !preferenceDirty}
+                  >
                     {t('profile.savePreferences')}
                   </Button>
                 </div>
@@ -662,7 +681,7 @@ export function ProfilePage({
                     <Timeline.Item key={event.id} status={event.status}>
                       <Timeline.Title>{event.name}</Timeline.Title>
                       <Timeline.Description>
-                        {t(`workplace.activityActions.${event.id}`)}
+                        {getActivityActionLabel(t, event.id)}
                       </Timeline.Description>
                       <Timeline.Time dateTime={event.dateTime}>
                         {event.time} · {event.project}
@@ -677,8 +696,8 @@ export function ProfilePage({
         {editing ? (
           <ProfileEditor
             profile={profile}
-            onSave={(next) => {
-              setProfile(next);
+            onSave={async (next) => {
+              await setProfile(next);
               notify('profile');
             }}
             onClose={() => setEditing(false)}

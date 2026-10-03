@@ -1,4 +1,5 @@
 export const workplaceEnUS = {
+  activityUpdated: 'Updated workspace activity',
   deliveryPeriod: 'Delivery period',
   deliveryChart: 'Delivery chart',
   last7Days: 'last 7 days',
@@ -40,7 +41,7 @@ export const workplaceEnUS = {
   dueDate: 'Due date',
   noTasksMatchValue: 'No tasks match “{{v0}}”.',
   clearFilter: 'Clear filter',
-  aWorkspaceSnapshotOctober1: 'A workspace snapshot · October 1',
+  aWorkspaceSnapshotOctober1: 'A workspace snapshot · {{date}}',
   goodWorkStartsWithAClearViewHereS:
     'Good work starts with a clear view. Here’s where your team stands.',
   projectDistribution: 'Project distribution',
@@ -49,12 +50,12 @@ export const workplaceEnUS = {
   workspaceInspiration: 'Workspace inspiration',
   aroundTheTeam: 'Around the team',
   recentTeamActivity: 'Recent team activity',
-  welcomeBackMystic: 'Welcome back, Mystic',
+  welcomeBackMystic: 'Welcome back, {{name}}',
   oct12026: 'Oct 1, 2026',
   exportSnapshot: 'Export snapshot',
   teamNote: 'TEAM NOTE',
   openTasks: 'open tasks',
-  across4FocusAreas: 'across 4 focus areas',
+  across4FocusAreas: 'across {{count}} focus areas',
   valueValueOfValueOpenTasks: '{{v0}}: {{v1}} of {{v2}} open tasks',
   valueOfOpenTasks: '{{v0}}% of open tasks',
   today: 'TODAY',
@@ -65,23 +66,23 @@ export const workplaceEnUS = {
   metrics: {
     projects: {
       label: 'Active projects',
-      detail: 'vs. last week',
-      change: '+2',
+      detail: 'Current portfolio',
+      change: 'Active work',
     },
     tasks: {
       label: 'Open tasks',
       detail: 'next 7 days',
-      change: '8 due soon',
+      change: 'Upcoming deadlines',
     },
     members: {
       label: 'Team members',
       detail: 'working together',
-      change: '4 teams',
+      change: 'Workspace contributors',
     },
     completion: {
       label: 'Completion rate',
-      detail: 'vs. last week',
-      change: '+6 pp',
+      detail: 'Current task register',
+      change: 'Completed share',
     },
   },
   shortcuts: {

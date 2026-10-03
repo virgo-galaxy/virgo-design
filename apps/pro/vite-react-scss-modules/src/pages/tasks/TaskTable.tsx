@@ -2,8 +2,8 @@ import { CircleCheckIcon, SearchIcon } from '@virgo-design/icons';
 import { Avatar, Button, Empty, Pagination, Table, Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
+import { useProData } from '@/application/pro-data-context';
 import { isOverdue, type Task } from '@/data/tasks';
-import { taskAssignees, taskReferenceDate } from '@/data/tasks.seed';
 import type { TaskSort, TaskSortColumn } from '@/data/tasks.sort';
 import { formatDueDate } from '@/data/workplace';
 import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
@@ -43,6 +43,8 @@ export function TaskTable({
   onReset: () => void;
   onCreate: () => void;
 }) {
+  const { taskAssignees, taskReferenceDate } = useProData();
+
   const { t, i18n } = useTranslation();
   const paginationLabels = usePaginationLabels();
   const createdAtFormatter = new Intl.DateTimeFormat(i18n.language, {

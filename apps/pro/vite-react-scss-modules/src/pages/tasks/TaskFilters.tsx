@@ -2,6 +2,7 @@ import { SearchIcon } from '@virgo-design/icons';
 import { Button, Field, Input, Select } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
+import { useProData } from '@/application/pro-data-context';
 import {
   hasTaskFilters,
   isTaskPriority,
@@ -10,7 +11,6 @@ import {
   taskPriorities,
   taskStatuses,
 } from '@/data/tasks';
-import { taskAssignees, taskProjects } from '@/data/tasks.seed';
 import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 
 import styles from './TasksPage.module.scss';
@@ -26,6 +26,8 @@ export function TaskFilters({
   onReset: () => void;
   count: number;
 }) {
+  const { taskAssignees, taskProjects } = useProData();
+
   const { t } = useTranslation();
   return (
     <div className={styles.filterToolbar}>

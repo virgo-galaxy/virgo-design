@@ -1,6 +1,6 @@
 import { fileURLToPath, URL } from 'node:url';
 
-import { defineConfig } from 'vitest/config';
+import { defaultExclude, defineConfig } from 'vitest/config';
 
 import { rawScssSourcePlugin } from './config/raw-scss-source-plugin.ts';
 
@@ -54,6 +54,10 @@ export default defineConfig({
   },
 
   test: {
+    projects: [
+      { extends: true, test: { name: 'workspace', exclude: [...defaultExclude, 'apps/pro/**'] } },
+      './apps/pro/vite-react-scss-modules/vitest.config.ts',
+    ],
     environment: 'jsdom',
     setupFiles: ['./test/setup.ts'],
     passWithNoTests: true,

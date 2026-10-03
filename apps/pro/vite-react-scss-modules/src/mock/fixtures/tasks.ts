@@ -1,20 +1,22 @@
-import type { Task, TaskState } from './tasks';
+import type { TaskDto as Task } from '@/api/tasks';
+type TaskState = { tasks: Task[]; nextId: number };
+import { createTaskHistory } from './task-history';
 import { members } from './workplace';
 
-// Parity fixture v1: fixed reference date, IDs, ownership and copy. No UI imports.
+// Fixed reference date, IDs, ownership and copy. No UI imports.
 export const taskReferenceDate = '2026-10-02';
 export const taskProjects = ['Workspace', 'Design system', 'Onboarding', 'Discovery'] as const;
 export const taskAssignees = members;
 export const initialTaskState: TaskState = {
-  nextId: 139,
+  nextId: 379,
   tasks: [
     {
       id: 'VD-138',
       title: 'Align release readiness with support',
       description:
         'Bring product and support together for the October release. Capture known limitations and the escalation owner for each item.',
-      status: 'Todo',
-      priority: 'Urgent',
+      status: 'todo',
+      priority: 'urgent',
       project: 'Workspace',
       assignee: 'nina',
       dueDate: '2026-10-02',
@@ -26,8 +28,8 @@ export const initialTaskState: TaskState = {
       title: 'Document search ranking signals',
       description:
         'Describe how recency, exact matches and project membership influence ranking. Include three examples that support can reproduce.',
-      status: 'In Progress',
-      priority: 'High',
+      status: 'in_progress',
+      priority: 'high',
       project: 'Discovery',
       assignee: 'leo',
       dueDate: '2026-10-07',
@@ -39,8 +41,8 @@ export const initialTaskState: TaskState = {
       title: 'Review first-week activation funnel',
       description:
         'Compare invitation acceptance and first meaningful action. Identify where the welcome sequence loses people before proposing copy changes.',
-      status: 'Backlog',
-      priority: 'Medium',
+      status: 'backlog',
+      priority: 'medium',
       project: 'Onboarding',
       assignee: 'ava',
       dueDate: '2026-10-12',
@@ -52,8 +54,8 @@ export const initialTaskState: TaskState = {
       title: 'Audit dense form keyboard order',
       description:
         'Verify tab order in compact forms, including validation errors and overlay controls. Record the expected focus destination after closing each panel.',
-      status: 'In Review',
-      priority: 'High',
+      status: 'in_review',
+      priority: 'high',
       project: 'Design system',
       assignee: 'eli',
       dueDate: '2026-10-03',
@@ -65,8 +67,8 @@ export const initialTaskState: TaskState = {
       title: 'Define saved-view naming conventions',
       description:
         'Establish concise names that distinguish personal views from team views. Test the conventions against a busy project with twelve saved views.',
-      status: 'Backlog',
-      priority: 'Low',
+      status: 'backlog',
+      priority: 'low',
       project: 'Workspace',
       assignee: 'leo',
       dueDate: '',
@@ -78,8 +80,8 @@ export const initialTaskState: TaskState = {
       title: 'Publish control density guidelines',
       description:
         'Document when compact controls are appropriate and which labels must remain visible. Include a table toolbar and a right-side editor example.',
-      status: 'Done',
-      priority: 'Medium',
+      status: 'done',
+      priority: 'medium',
       project: 'Design system',
       assignee: 'nina',
       dueDate: '2026-09-30',
@@ -91,8 +93,8 @@ export const initialTaskState: TaskState = {
       title: 'Prepare invitation expiry copy',
       description:
         'Make expired invitation messages actionable without exposing workspace details. Include a clear route back to the invitation owner.',
-      status: 'Todo',
-      priority: 'Low',
+      status: 'todo',
+      priority: 'low',
       project: 'Onboarding',
       assignee: 'eli',
       dueDate: '2026-10-09',
@@ -104,8 +106,8 @@ export const initialTaskState: TaskState = {
       title: 'Reduce duplicate search suggestions',
       description:
         'Merge duplicate suggestions from recent items and project results. Preserve the most useful contextual subtitle when an item appears in both sources.',
-      status: 'In Progress',
-      priority: 'Medium',
+      status: 'in_progress',
+      priority: 'medium',
       project: 'Discovery',
       assignee: 'ava',
       dueDate: '2026-10-08',
@@ -117,8 +119,8 @@ export const initialTaskState: TaskState = {
       title: 'Check sidebar compact-mode labels',
       description:
         'Verify accessible names and active navigation in compact mode. Confirm that restoring the sidebar preserves the selected destination.',
-      status: 'Done',
-      priority: 'High',
+      status: 'done',
+      priority: 'high',
       project: 'Workspace',
       assignee: 'nina',
       dueDate: '2026-09-29',
@@ -130,8 +132,8 @@ export const initialTaskState: TaskState = {
       title: 'Resolve member handoff checklist',
       description:
         'Agree on the checklist used when a task changes owner. Highlight the acceptance notes the new assignee needs before starting.',
-      status: 'Todo',
-      priority: 'Medium',
+      status: 'todo',
+      priority: 'medium',
       project: 'Workspace',
       assignee: 'eli',
       dueDate: '2026-10-01',
@@ -143,8 +145,8 @@ export const initialTaskState: TaskState = {
       title: 'Review workspace navigation',
       description:
         'Review the hierarchy and naming of workspace destinations. Check deep links, back navigation and whether every destination has a clear active state.',
-      status: 'In Review',
-      priority: 'High',
+      status: 'in_review',
+      priority: 'high',
       project: 'Workspace',
       assignee: 'ava',
       dueDate: '2026-10-02',
@@ -156,8 +158,8 @@ export const initialTaskState: TaskState = {
       title: 'Map onboarding touchpoints',
       description:
         'Map the moments between an invitation and a first completed task. Assign a single owner to each touchpoint and remove redundant prompts.',
-      status: 'In Progress',
-      priority: 'Medium',
+      status: 'in_progress',
+      priority: 'medium',
       project: 'Onboarding',
       assignee: 'leo',
       dueDate: '2026-10-03',
@@ -169,8 +171,8 @@ export const initialTaskState: TaskState = {
       title: 'Resolve export permission states',
       description:
         'Clarify the product copy for restricted exports and review the permitted paths. The design decision is ready; implementation can now proceed.',
-      status: 'Todo',
-      priority: 'High',
+      status: 'todo',
+      priority: 'high',
       project: 'Workspace',
       assignee: 'nina',
       dueDate: '2026-10-04',
@@ -182,8 +184,8 @@ export const initialTaskState: TaskState = {
       title: 'Ship keyboard navigation audit',
       description:
         'Complete the keyboard pass across navigation, tables and nested panels. Link each finding to the control and the expected behavior.',
-      status: 'Done',
-      priority: 'Medium',
+      status: 'done',
+      priority: 'medium',
       project: 'Design system',
       assignee: 'eli',
       dueDate: '2026-10-01',
@@ -195,8 +197,8 @@ export const initialTaskState: TaskState = {
       title: 'Refine search empty states',
       description:
         'Distinguish an empty workspace from a search with no matches. Keep recovery actions short and preserve the query while results are empty.',
-      status: 'In Progress',
-      priority: 'Low',
+      status: 'in_progress',
+      priority: 'low',
       project: 'Discovery',
       assignee: 'ava',
       dueDate: '2026-10-05',
@@ -208,26 +210,14 @@ export const initialTaskState: TaskState = {
       title: 'Validate release acceptance criteria',
       description:
         'Confirm that focus behavior, appearance switching and error feedback meet release criteria. Bring unresolved findings to the team checkpoint.',
-      status: 'In Review',
-      priority: 'High',
+      status: 'in_review',
+      priority: 'high',
       project: 'Design system',
       assignee: 'leo',
       dueDate: '2026-10-06',
       createdAt: '2026-09-23T06:00:00Z',
       estimateHours: 24,
     },
+    ...createTaskHistory(taskProjects, taskAssignees),
   ],
 };
-
-/** Backfill the new estimate field in an already-open demo session without resetting edits. */
-export function withTaskEstimates(
-  tasks: readonly (Omit<Task, 'estimateHours'> & { estimateHours?: number | undefined })[],
-): Task[] {
-  return tasks.map((task) => ({
-    ...task,
-    estimateHours:
-      task.estimateHours ??
-      initialTaskState.tasks.find((sample) => sample.id === task.id)?.estimateHours ??
-      0,
-  }));
-}

@@ -5,10 +5,12 @@ import { type CSSProperties, useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
+import { useProData } from '@/application/pro-data-context';
+import { RemoteState } from '@/application/RemoteState';
+import { useOverviewRefresh } from '@/application/use-overview-refresh';
 import { deliveryAnalysis } from '@/data/analytics';
-import { projects, projectSummary } from '@/data/projects';
+import { projectSummary } from '@/data/projects';
 import { isOverdue, type TaskState, taskStatuses } from '@/data/tasks';
-import { taskAssignees, taskReferenceDate } from '@/data/tasks.seed';
 import { formatDueDate, type TrendPeriod } from '@/data/workplace';
 import { downloadCsv } from '@/pages/shared/download';
 import { MetricStrip, Panel, Person } from '@/pages/shared/ProPage';
@@ -18,19 +20,24 @@ import { getTaskStatusLabel } from '../tasks/task-presentation';
 import styles from './AnalyticsPage.module.scss';
 
 export function AnalyticsPage({ state }: { state: TaskState }) {
+  const { projects, taskAssignees, taskReferenceDate, trendPoints } = useProData();
+
   const { t, i18n } = useTranslation();
   const [period, setPeriod] = useState<TrendPeriod>('14d');
   const [showData, setShowData] = useState(false);
   const chartId = useId();
-  const analysis = deliveryAnalysis(period);
+  const analysis = deliveryAnalysis(period, trendPoints);
   const { points } = analysis;
-  const openTasks = state.tasks.filter((task) => task.status !== 'Done');
+  const openTasks = state.tasks.filter((task) => task.status !== 'done');
   const overdue = openTasks.filter((task) => isOverdue(task, taskReferenceDate));
   const distributions = taskStatuses.map((status, index) => ({
     status,
     count: state.tasks.filter((task) => task.status === status).length,
     color: index + 1,
   }));
+  const overview = useOverviewRefresh();
+  if (overview.error || !overview.data)
+    return <RemoteState loading={overview.loading} error={overview.error} retry={overview.retry} />;
   return (
     <div className={shared.page}>
       <h1 className={shared.srOnly}>{t('app.analytics')}</h1>
@@ -179,7 +186,12 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
         >
           <div className={styles.workload}>
             {projects.map((project) => {
-              const summary = projectSummary(project, state.tasks);
+              const summary = projectSummary(
+                project,
+                state.tasks,
+                taskAssignees,
+                taskReferenceDate,
+              );
               return (
                 <div key={project.id}>
                   <div className={styles.workloadLabel}>
@@ -296,7 +308,7 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
             </li>
             <li>
               <Tag size="sm" intent="warning">
-                {state.tasks.filter((task) => task.status === 'In Review').length}
+                {state.tasks.filter((task) => task.status === 'in_review').length}
               </Tag>
               <div>
                 <strong>{t('analytics.awaitingReview')}</strong>
@@ -305,7 +317,7 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
             </li>
             <li>
               <Tag size="sm" variant="outline">
-                {openTasks.filter((task) => task.priority === 'Urgent').length}
+                {openTasks.filter((task) => task.priority === 'urgent').length}
               </Tag>
               <div>
                 <strong>{t('analytics.urgentWork')}</strong>
