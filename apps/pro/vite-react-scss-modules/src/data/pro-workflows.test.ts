@@ -201,7 +201,7 @@ describe('profile identity and photo constraints', () => {
   });
   it('accepts supported images and rejects unsupported or oversized files', () => {
     expect(avatarFileError({ type: 'image/png', size: 1024 })).toBe('');
-    expect(avatarFileError({ type: 'image/svg+xml', size: 1024 })).toContain('PNG, JPEG or WebP');
-    expect(avatarFileError({ type: 'image/jpeg', size: 2 * 1024 * 1024 + 1 })).toContain('2 MB');
+    expect(avatarFileError({ type: 'image/svg+xml', size: 1024 })).toBe('unsupportedFile');
+    expect(avatarFileError({ type: 'image/jpeg', size: 2 * 1024 * 1024 + 1 })).toBe('fileTooLarge');
   });
 });

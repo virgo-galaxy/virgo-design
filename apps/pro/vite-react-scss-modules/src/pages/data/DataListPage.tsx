@@ -1,6 +1,7 @@
 import { SearchIcon } from '@virgo-design/icons';
 import { Button, Input, Pagination, Progress, SegmentedControl, Tag } from '@virgo-design/ui';
 import { type Dispatch, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
 import { projectDetailPath, projects } from '@/data/projects';
@@ -10,7 +11,9 @@ import { sortTasks } from '@/data/tasks.sort';
 import { formatDueDate } from '@/data/workplace';
 import { FilterSelect, MetricStrip, NoResults, Panel, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
+import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
 import { useTaskEditor } from '@/pages/shared/use-task-editor';
+import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 import { taskPriorityIntent, taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import styles from './DataListPage.module.scss';
@@ -22,6 +25,8 @@ export function DataListPage({
   state: TaskState;
   dispatch: Dispatch<TaskAction>;
 }) {
+  const { t, i18n } = useTranslation();
+  const paginationLabels = usePaginationLabels();
   const [search, setSearch] = useState('');
   const [project, setProject] = useState('all');
   const [owner, setOwner] = useState('all');
@@ -68,34 +73,42 @@ export function DataListPage({
       <MetricStrip
         items={[
           {
-            label: 'Open briefs',
+            label: t('data.openBriefs'),
             value: state.tasks.length - completed,
-            note: 'not yet completed',
+            note: t('data.notYetCompleted'),
           },
-          { label: 'Ready for review', value: review, note: 'acceptance is the next step' },
-          { label: 'Completed', value: completed, note: 'in the current register' },
-          { label: 'Focus areas', value: projects.length, note: 'same projects, shared owners' },
+          {
+            label: t('data.readyForReview'),
+            value: review,
+            note: t('data.acceptanceIsTheNextStep'),
+          },
+          { label: t('data.completed'), value: completed, note: t('data.inTheCurrentRegister') },
+          {
+            label: t('data.focusAreas'),
+            value: projects.length,
+            note: t('data.sameProjectsSharedOwners'),
+          },
         ]}
       />
       <div className={shared.twoColumns}>
         <Panel
-          title="Task briefs"
-          description="Context, ownership and delivery state in one place"
+          title={t('data.taskBriefs')}
+          description={t('data.contextOwnershipAndDeliveryStateInOnePlace')}
           actions={
             <>
               <SegmentedControl
                 size="small"
                 variant="soft"
                 value={layout}
-                aria-label="Brief layout"
+                aria-label={t('data.briefLayout')}
                 onValueChange={setLayout}
               >
-                <SegmentedControl.Item value="list">List</SegmentedControl.Item>
-                <SegmentedControl.Item value="cards">Cards</SegmentedControl.Item>
+                <SegmentedControl.Item value="list">{t('data.list')}</SegmentedControl.Item>
+                <SegmentedControl.Item value="cards">{t('data.cards')}</SegmentedControl.Item>
               </SegmentedControl>
 
               <Link className={shared.link} to="/data/search-table">
-                Open task register →
+                {t('data.openTaskRegister')}
               </Link>
             </>
           }
@@ -103,8 +116,8 @@ export function DataListPage({
           <div className={shared.toolbar}>
             <Input
               size="small"
-              aria-label="Search task briefs"
-              placeholder="Search briefs or people…"
+              aria-label={t('data.searchTaskBriefs')}
+              placeholder={t('data.searchBriefsOrPeople')}
               value={search}
               clearable
               prefix={<SearchIcon />}
@@ -115,45 +128,45 @@ export function DataListPage({
               }}
             />
             <span className={shared.count} aria-live="polite">
-              {filtered.length} briefs match
+              {t('data.valueBriefsMatch', { v0: filtered.length })}
             </span>
           </div>
           <div className={styles.filters}>
             <FilterSelect
-              label="Project"
+              label={t('data.project')}
               value={project}
               onChange={(value) => {
                 setProject(value);
                 setPage(1);
               }}
               options={[
-                { value: 'all', label: 'All projects' },
+                { value: 'all', label: t('data.allProjects') },
                 ...taskProjects.map((value) => ({ value, label: value })),
               ]}
             />
             <FilterSelect
-              label="Owner"
+              label={t('data.owner')}
               value={owner}
               onChange={(value) => {
                 setOwner(value);
                 setPage(1);
               }}
               options={[
-                { value: 'all', label: 'All people' },
+                { value: 'all', label: t('data.allPeople') },
                 ...taskAssignees.map((member) => ({ value: member.id, label: member.name })),
               ]}
             />
             <FilterSelect
-              label="Sort by"
+              label={t('data.sortBy')}
               value={order}
               onChange={(value) => {
                 setOrder(value);
                 setPage(1);
               }}
               options={[
-                { value: 'due', label: 'Due date · soonest' },
-                { value: 'recent', label: 'Newest first' },
-                { value: 'effort', label: 'Largest estimate' },
+                { value: 'due', label: t('data.dueDateSoonest') },
+                { value: 'recent', label: t('data.newestFirst') },
+                { value: 'effort', label: t('data.largestEstimate') },
               ]}
             />
           </div>
@@ -161,22 +174,22 @@ export function DataListPage({
             <SegmentedControl
               size="small"
               value={scope}
-              aria-label="Brief status"
+              aria-label={t('data.briefStatus')}
               onValueChange={(value) => {
                 setScope(value);
                 setPage(1);
               }}
             >
-              <SegmentedControl.Item value="open">Open</SegmentedControl.Item>
-              <SegmentedControl.Item value="review">In review</SegmentedControl.Item>
-              <SegmentedControl.Item value="done">Done</SegmentedControl.Item>
-              <SegmentedControl.Item value="all">All</SegmentedControl.Item>
+              <SegmentedControl.Item value="open">{t('data.open')}</SegmentedControl.Item>
+              <SegmentedControl.Item value="review">{t('data.inReview')}</SegmentedControl.Item>
+              <SegmentedControl.Item value="done">{t('data.done')}</SegmentedControl.Item>
+              <SegmentedControl.Item value="all">{t('data.all')}</SegmentedControl.Item>
             </SegmentedControl>
             <Button size="small" variant="text" onClick={reset}>
-              Reset filters
+              {t('data.resetFilters')}
             </Button>
           </div>
-          <ul className={styles.briefs} data-layout={layout} aria-label="Task briefs">
+          <ul className={styles.briefs} data-layout={layout} aria-label={t('data.taskBriefs')}>
             {view.tasks.map((task) => {
               const related = projects.find((item) => item.name === task.project)!;
               return (
@@ -186,10 +199,10 @@ export function DataListPage({
                       <span className={shared.mono}>{task.id}</span>
                       <div>
                         <Tag size="sm" intent={taskStatusIntent[task.status]}>
-                          {task.status}
+                          {getTaskStatusLabel(t, task.status)}
                         </Tag>
                         <Tag size="sm" intent={taskPriorityIntent[task.priority]} variant="outline">
-                          {task.priority}
+                          {getTaskPriorityLabel(t, task.priority)}
                         </Tag>
                       </div>
                     </div>
@@ -209,15 +222,19 @@ export function DataListPage({
                         <i style={{ background: `var(--vd-data-categorical-${related.color})` }} />
                         {task.project}
                       </Link>
-                      <span>{task.estimateHours}h estimated</span>
+                      <span>{t('data.valueHEstimated', { v0: task.estimateHours })}</span>
                       <span data-overdue={isOverdue(task, taskReferenceDate)}>
                         {task.dueDate ? (
                           <>
-                            <time dateTime={task.dueDate}>Due {formatDueDate(task.dueDate)}</time>
-                            {isOverdue(task, taskReferenceDate) ? ' · overdue' : ''}
+                            <time dateTime={task.dueDate}>
+                              {t('data.dueValue', {
+                                v0: formatDueDate(task.dueDate, i18n.language),
+                              })}
+                            </time>
+                            {isOverdue(task, taskReferenceDate) ? t('data.overdue') : ''}
                           </>
                         ) : (
-                          'Unscheduled'
+                          t('data.unscheduled')
                         )}
                       </span>
                     </div>
@@ -227,9 +244,9 @@ export function DataListPage({
                         size="small"
                         variant="text"
                         onClick={(event) => editor.open(task, event.currentTarget)}
-                        aria-label={`Read brief ${task.id}`}
+                        aria-label={t('data.readBriefValue', { v0: task.id })}
                       >
-                        Read brief →
+                        {t('data.readBrief')}
                       </Button>
                     </div>
                   </article>
@@ -238,37 +255,44 @@ export function DataListPage({
             })}
           </ul>
           {!filtered.length ? (
-            <NoResults title="No briefs match this view" onReset={reset} />
+            <NoResults title={t('data.noBriefsMatchThisView')} onReset={reset} />
           ) : null}
           <div className={shared.footer}>
             <span>
-              Showing {view.range[0]}–{view.range[1]} of {filtered.length}
+              {t('data.showingValueValueOfValue', {
+                v0: view.range[0],
+                v1: view.range[1],
+                v2: filtered.length,
+              })}
             </span>
             <Pagination
+              labels={paginationLabels}
               total={filtered.length}
               page={view.page}
               pageSize={6}
               onChange={setPage}
-              aria-label="Brief pages"
+              aria-label={t('data.briefPages')}
               className={styles.pagination}
             />
           </div>
           <div className={styles.feedback} role="status">
-            {editor.feedback || 'Briefs and the task register share the same saved records.'}
+            {editor.feedback || t('data.briefsAndTheTaskRegisterShareTheSameSaved')}
           </div>
         </Panel>
         <div className={shared.stack}>
-          <Panel title="October checkpoint" description="Prepare the next team handoff">
+          <Panel
+            title={t('data.octoberCheckpoint')}
+            description={t('data.prepareTheNextTeamHandoff')}
+          >
             <div className={shared.body}>
-              <span className={shared.eyebrow}>OCT 06 / RELEASE READINESS</span>
-              <h3 className={styles.asideTitle}>Make acceptance visible.</h3>
+              <span className={shared.eyebrow}>{t('data.oct06ReleaseReadiness')}</span>
+              <h3 className={styles.asideTitle}>{t('data.makeAcceptanceVisible')}</h3>
               <p className={styles.asideCopy}>
-                Attach review notes, confirm the next owner and surface unresolved risks before the
-                team checkpoint.
+                {t('data.attachReviewNotesConfirmTheNextOwnerAndSurface')}
               </p>
               <div className={styles.checkpointMetric}>
                 <strong>{review}</strong>
-                <span>briefs waiting for review</span>
+                <span>{t('data.briefsWaitingForReview')}</span>
               </div>
               <Button
                 size="small"
@@ -281,11 +305,11 @@ export function DataListPage({
                   setPage(1);
                 }}
               >
-                Review the queue
+                {t('data.reviewTheQueue')}
               </Button>
             </div>
           </Panel>
-          <Panel title="Focus areas" description="Open work in the current register">
+          <Panel title={t('data.focusAreas')} description={t('data.openWorkInTheCurrentRegister')}>
             <ul className={styles.focusAreas}>
               {projects.map((item) => {
                 const count = state.tasks.filter(
@@ -297,27 +321,24 @@ export function DataListPage({
                       <Link className={shared.link} to={projectDetailPath(item)}>
                         {item.name}
                       </Link>
-                      <span>{count} open</span>
+                      <span>{t('data.valueOpen', { v0: count })}</span>
                     </div>
                     <Progress
                       size="sm"
                       value={count}
                       max={Math.max(1, state.tasks.length - completed)}
-                      aria-label={`${item.name} open task share`}
+                      aria-label={t('data.valueOpenTaskShare', { v0: item.name })}
                     />
                   </li>
                 );
               })}
             </ul>
           </Panel>
-          <Panel title="How briefs connect">
+          <Panel title={t('data.howBriefsConnect')}>
             <div className={shared.body}>
-              <p className={styles.asideCopy}>
-                A brief is the full context of a task. Status and ownership changes here appear in
-                Tasks, Projects and the current-register analytics.
-              </p>
+              <p className={styles.asideCopy}>{t('data.aBriefIsTheFullContextOfATask')}</p>
               <Link className={shared.link} to="/work/projects">
-                Explore the portfolio →
+                {t('data.exploreThePortfolio')}
               </Link>
             </div>
           </Panel>

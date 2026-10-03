@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from '@virgo-design/ui';
 import { type CSSProperties, forwardRef, useId, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { headerHeightRange, type ProSettings, sidebarWidthRanges } from './settings';
 import styles from './SettingsDrawer.module.scss';
@@ -29,6 +30,7 @@ function PixelInput({
   type?: 'text' | 'number';
   onChange: (width: number) => void;
 }) {
+  const { t } = useTranslation();
   // Associate a draft with the current width so slider changes replace stale input.
   const [draft, setDraft] = useState<{ width: number; text: string } | null>(null);
   const text = draft?.width === width ? draft.text : String(width);
@@ -51,7 +53,7 @@ function PixelInput({
       step={1}
       inputMode="numeric"
       value={text}
-      suffix="px"
+      suffix={t('settings.px')}
       aria-describedby={`${id}-hint`}
       rootClassName={type === 'number' ? styles.heightInputFrame! : styles.widthInputFrame!}
       className={styles.widthInput!}
@@ -135,6 +137,7 @@ export const SettingsTrigger = forwardRef<
   { anchorY, tooltipOpen, onTooltipOpenChange, onTooltipInteraction },
   ref,
 ) {
+  const { t } = useTranslation();
   const docked = anchorY !== undefined;
   return (
     <Tooltip open={tooltipOpen} onOpenChange={onTooltipOpenChange}>
@@ -155,7 +158,7 @@ export const SettingsTrigger = forwardRef<
                 iconOnly
                 size={docked ? 'large' : 'medium'}
                 variant={docked ? 'primary' : 'text'}
-                aria-label="Settings"
+                aria-label={t('settings.settings')}
                 {...(docked
                   ? {
                       className: styles.edgeTrigger,
@@ -169,7 +172,9 @@ export const SettingsTrigger = forwardRef<
           />
         )}
       />
-      <Tooltip.Content placement={docked ? 'left' : 'bottom'}>Settings</Tooltip.Content>
+      <Tooltip.Content placement={docked ? 'left' : 'bottom'}>
+        {t('settings.settings')}
+      </Tooltip.Content>
     </Tooltip>
   );
 });
@@ -191,10 +196,11 @@ export function SettingsDrawer({
   onHeaderChange: (showHeader: boolean, anchorY: number) => void;
   onCloseAutoFocus: (event: Event) => void;
 }) {
+  const { t } = useTranslation();
   const id = useId();
   const rail = settings.sidebarMode === 'collapsed';
   const widthRange = sidebarWidthRanges[settings.sidebarMode];
-  const widthLabel = rail ? 'Rail width' : 'Expanded width';
+  const widthLabel = rail ? t('settings.railWidth') : t('settings.expandedWidth');
   const sidebarWidth = rail ? settings.sidebarRailWidth : settings.sidebarWidth;
   const changeWidth = (width: number) =>
     onChange(rail ? { sidebarRailWidth: width } : { sidebarWidth: width });
@@ -209,15 +215,15 @@ export function SettingsDrawer({
         <Drawer.Header>
           <Drawer.Title className={styles.title}>
             <SettingsIcon aria-hidden="true" />
-            Settings
+            {t('settings.settings')}
           </Drawer.Title>
-          <Drawer.Description>Make this workspace feel right.</Drawer.Description>
+          <Drawer.Description>{t('settings.makeThisWorkspaceFeelRight')}</Drawer.Description>
         </Drawer.Header>
         <Drawer.Body className={styles.body}>
           <section aria-labelledby={`${id}-appearance`} className={styles.section}>
-            <h2 id={`${id}-appearance`}>Appearance</h2>
+            <h2 id={`${id}-appearance`}>{t('settings.appearance')}</h2>
             <SegmentedControl
-              aria-label="Appearance"
+              aria-label={t('settings.appearance')}
               motion="slide"
               value={settings.appearance}
               onValueChange={(value) => {
@@ -230,46 +236,48 @@ export function SettingsDrawer({
               <SegmentedControl.Item value="light">
                 <span className={styles.appearanceLabel}>
                   <SunIcon aria-hidden="true" />
-                  Light
+                  {t('settings.light')}
                 </span>
               </SegmentedControl.Item>
               <SegmentedControl.Item value="dark">
                 <span className={styles.appearanceLabel}>
                   <MoonIcon aria-hidden="true" />
-                  Dark
+                  {t('settings.dark')}
                 </span>
               </SegmentedControl.Item>
               <SegmentedControl.Item value="system">
                 <span className={styles.appearanceLabel}>
                   <MonitorIcon aria-hidden="true" />
-                  System
+                  {t('settings.system')}
                 </span>
               </SegmentedControl.Item>
             </SegmentedControl>
             <p className={styles.hint}>
               {settings.appearance === 'system'
-                ? `Following system · ${theme === 'dark' ? 'Dark' : 'Light'}`
-                : 'Also available from the header appearance button.'}
+                ? t('settings.followingSystem', {
+                    theme: theme === 'dark' ? t('settings.dark') : t('settings.light'),
+                  })
+                : t('settings.alsoAvailableFromTheHeaderAppearanceButton')}
             </p>
           </section>
           <Separator decorative />
           <section aria-labelledby={`${id}-display`} className={styles.section}>
-            <h2 id={`${id}-display`}>Display</h2>
+            <h2 id={`${id}-display`}>{t('settings.display')}</h2>
             <SettingToggle
-              label="Overlay arrows"
-              description="Show arrows on tooltips and popup menus."
+              label={t('settings.overlayArrows')}
+              description={t('settings.showArrowsOnTooltipsAndPopupMenus')}
               checked={settings.showOverlayArrows}
               onChange={(showOverlayArrows) => onChange({ showOverlayArrows })}
             />
             <SettingToggle
-              label="Breathing indicator"
-              description="Animate the workspace status dot."
+              label={t('settings.breathingIndicator')}
+              description={t('settings.animateTheWorkspaceStatusDot')}
               checked={settings.breathe}
               onChange={(breathe) => onChange({ breathe })}
             />
             <div className={styles.width}>
               <p id={`${id}-notification-indicator`} className={styles.controlLabel}>
-                Notification indicator
+                {t('settings.notificationIndicator')}
               </p>
               <SegmentedControl
                 aria-labelledby={`${id}-notification-indicator`}
@@ -282,48 +290,48 @@ export function SettingsDrawer({
                 className={styles.segments!}
                 size="small"
               >
-                <SegmentedControl.Item value="dot">Dot</SegmentedControl.Item>
-                <SegmentedControl.Item value="count">Number</SegmentedControl.Item>
-                <SegmentedControl.Item value="none">None</SegmentedControl.Item>
+                <SegmentedControl.Item value="dot">{t('settings.dot')}</SegmentedControl.Item>
+                <SegmentedControl.Item value="count">{t('settings.number')}</SegmentedControl.Item>
+                <SegmentedControl.Item value="none">{t('settings.none')}</SegmentedControl.Item>
               </SegmentedControl>
             </div>
           </section>
           <Separator decorative />
           <section aria-labelledby={`${id}-layout`} className={styles.section}>
-            <h2 id={`${id}-layout`}>Layout</h2>
+            <h2 id={`${id}-layout`}>{t('settings.layout')}</h2>
             <SettingToggle
-              label="Header"
-              description="Hiding the header closes settings. Use the gear on the right edge to reopen them."
+              label={t('settings.header')}
+              description={t('settings.hidingTheHeaderClosesSettingsUseTheGearOn')}
               checked={settings.showHeader}
               onChange={onHeaderChange}
             />
             <SettingToggle
-              label="Sidebar"
-              description="Show or hide navigation. Keep its layout and width settings below."
+              label={t('settings.sidebar')}
+              description={t('settings.showOrHideNavigationKeepItsLayoutAndWidth')}
               checked={settings.sidebarState !== 'hidden'}
               onChange={(visible) =>
                 onChange({ sidebarState: visible ? settings.sidebarMode : 'hidden' })
               }
             />
             <SettingToggle
-              label="Breadcrumb"
-              description="Show the current page path above the content."
+              label={t('settings.breadcrumb')}
+              description={t('settings.showTheCurrentPagePathAboveTheContent')}
               checked={settings.showBreadcrumb}
               onChange={(showBreadcrumb) => onChange({ showBreadcrumb })}
             />
             <SettingToggle
-              label="Footer"
-              description="Show the Virgo Design Pro home link."
+              label={t('settings.footer')}
+              description={t('settings.showTheVirgoDesignProHomeLink')}
               checked={settings.showFooter}
               onChange={(showFooter) => onChange({ showFooter })}
             />
           </section>
           <Separator decorative />
           <section aria-labelledby={`${id}-header`} className={styles.section}>
-            <h2 id={`${id}-header`}>Header</h2>
+            <h2 id={`${id}-header`}>{t('settings.header')}</h2>
             <div className={styles.width}>
               <div className={styles.widthLabel}>
-                <label htmlFor={`${id}-height`}>Height</label>
+                <label htmlFor={`${id}-height`}>{t('settings.height')}</label>
                 <PixelInput
                   id={`${id}-height`}
                   type="number"
@@ -334,11 +342,14 @@ export function SettingsDrawer({
                 />
               </div>
               <p id={`${id}-height-hint`} className={styles.hint}>
-                {headerHeightRange.min}–{headerHeightRange.max} pixels.
+                {t('settings.valueValuePixels', {
+                  v0: headerHeightRange.min,
+                  v1: headerHeightRange.max,
+                })}
               </p>
             </div>
             <SegmentedControl
-              aria-label="Header material"
+              aria-label={t('settings.headerMaterial')}
               motion="slide"
               value={settings.headerMaterial}
               onValueChange={(value) => {
@@ -347,16 +358,18 @@ export function SettingsDrawer({
               className={styles.segments!}
               size="small"
             >
-              <SegmentedControl.Item value="solid">Opaque</SegmentedControl.Item>
-              <SegmentedControl.Item value="glass">Frosted glass</SegmentedControl.Item>
+              <SegmentedControl.Item value="solid">{t('settings.opaque')}</SegmentedControl.Item>
+              <SegmentedControl.Item value="glass">
+                {t('settings.frostedGlass')}
+              </SegmentedControl.Item>
             </SegmentedControl>
-            <p className={styles.hint}>Soften content scrolling beneath the header.</p>
+            <p className={styles.hint}>{t('settings.softenContentScrollingBeneathTheHeader')}</p>
           </section>
           <Separator decorative />
           <section aria-labelledby={`${id}-navigation`} className={styles.section}>
-            <h2 id={`${id}-navigation`}>Sidebar</h2>
+            <h2 id={`${id}-navigation`}>{t('settings.sidebar')}</h2>
             <SegmentedControl
-              aria-label="Sidebar layout"
+              aria-label={t('settings.sidebarLayout')}
               motion="slide"
               value={settings.sidebarMode}
               onValueChange={(value) => {
@@ -369,8 +382,12 @@ export function SettingsDrawer({
               className={styles.segments!}
               size="small"
             >
-              <SegmentedControl.Item value="expanded">Expanded</SegmentedControl.Item>
-              <SegmentedControl.Item value="collapsed">Icon rail</SegmentedControl.Item>
+              <SegmentedControl.Item value="expanded">
+                {t('settings.expanded')}
+              </SegmentedControl.Item>
+              <SegmentedControl.Item value="collapsed">
+                {t('settings.iconRail')}
+              </SegmentedControl.Item>
             </SegmentedControl>
             <div className={styles.width}>
               <div className={styles.widthLabel}>
@@ -385,7 +402,7 @@ export function SettingsDrawer({
                 />
               </div>
               <Slider
-                aria-label={`${widthLabel} slider`}
+                aria-label={t('settings.valueSlider', { v0: widthLabel })}
                 value={sidebarWidth}
                 min={widthRange.min}
                 max={widthRange.max}
@@ -393,35 +410,40 @@ export function SettingsDrawer({
                 onValueChange={changeWidth}
               />
               <div className={styles.range}>
-                <span>{widthRange.min}px</span>
-                <span>{widthRange.max}px</span>
+                <span>{t('settings.valuePx', { v0: widthRange.min })}</span>
+                <span>{t('settings.valuePx', { v0: widthRange.max })}</span>
               </div>
               <p id={`${id}-width-hint`} className={styles.hint}>
-                {widthRange.min}–{widthRange.max} pixels.{' '}
-                {rail ? 'Saved for the icon rail.' : 'Saved for when the sidebar is expanded.'}
+                {t('settings.valueValuePixelsValue', {
+                  v0: widthRange.min,
+                  v1: widthRange.max,
+                  v2: rail
+                    ? t('settings.savedForTheIconRail')
+                    : t('settings.savedForWhenTheSidebarIsExpanded'),
+                })}
               </p>
             </div>
             <SettingToggle
-              label="Drag to resize"
-              description="Adjust the sidebar from its divider."
+              label={t('settings.dragToResize')}
+              description={t('settings.adjustTheSidebarFromItsDivider')}
               checked={settings.sidebarResizable}
               onChange={(sidebarResizable) => onChange({ sidebarResizable })}
             />
             <SettingToggle
-              label="Magnetic snap"
-              description="Drag inward to the icon rail, then hide."
+              label={t('settings.magneticSnap')}
+              description={t('settings.dragInwardToTheIconRailThenHide')}
               checked={settings.sidebarSnap}
               onChange={(sidebarSnap) => onChange({ sidebarSnap })}
             />
             <SettingToggle
-              label="Fixed group labels"
-              description="Keep groups expanded and remove disclosure arrows."
+              label={t('settings.fixedGroupLabels')}
+              description={t('settings.keepGroupsExpandedAndRemoveDisclosureArrows')}
               checked={settings.sidebarStyle === 'labels'}
               onChange={(fixed) => onChange({ sidebarStyle: fixed ? 'labels' : 'collapsible' })}
             />
             <SettingToggle
-              label="Submenu header"
-              description="Show the group name and divider in icon-rail menus."
+              label={t('settings.submenuHeader')}
+              description={t('settings.showTheGroupNameAndDividerInIconRail')}
               checked={settings.showSubmenuHeader}
               onChange={(showSubmenuHeader) => onChange({ showSubmenuHeader })}
             />
@@ -430,21 +452,21 @@ export function SettingsDrawer({
         <Drawer.Footer className={styles.footer}>
           <p role="status">
             {storageAvailable
-              ? 'Changes apply immediately and save in this browser.'
-              : 'Changes apply for this session. Browser storage is unavailable.'}
+              ? t('settings.changesApplyImmediatelyAndSaveInThisBrowser')
+              : t('settings.changesApplyForThisSessionBrowserStorageIsUnavailable')}
           </p>
           <div className={styles.footerActions}>
             <Button variant="outline" onClick={onReset}>
-              Restore defaults
+              {t('settings.restoreDefaults')}
             </Button>
-            <Drawer.Close variant="primary">Done</Drawer.Close>
+            <Drawer.Close variant="primary">{t('settings.done')}</Drawer.Close>
           </div>
         </Drawer.Footer>
         <Tooltip>
           <Tooltip.Trigger
-            render={(props) => <Drawer.Close {...props} aria-label="Close settings" />}
+            render={(props) => <Drawer.Close {...props} aria-label={t('settings.closeSettings')} />}
           />
-          <Tooltip.Content placement="left">Close settings</Tooltip.Content>
+          <Tooltip.Content placement="left">{t('settings.closeSettings')}</Tooltip.Content>
         </Tooltip>
       </Drawer.Content>
     </Drawer.Portal>

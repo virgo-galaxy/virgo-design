@@ -12,6 +12,7 @@ import {
   Textarea,
 } from '@virgo-design/ui';
 import { useId, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   draftHasChanges,
@@ -29,7 +30,7 @@ import {
   validateTask,
 } from '@/data/tasks';
 import { taskAssignees, taskProjects } from '@/data/tasks.seed';
-import { formatDueDate } from '@/data/workplace';
+import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 
 import { taskStatusIntent } from './task-presentation';
 import styles from './TasksPage.module.scss';
@@ -49,6 +50,7 @@ export function TaskDialog({
   onClose: () => void;
   restoreFocus: () => void;
 }) {
+  const { t, i18n } = useTranslation();
   const [draft, setDraft] = useState<TaskDraft>(() =>
     task ? taskDraft(task) : { ...emptyTaskDraft },
   );
@@ -96,20 +98,27 @@ export function TaskDialog({
         >
           <Dialog.Header className={styles.dialogHeader}>
             <div className={styles.dialogHeading}>
-              <span className={styles.eyebrow}>{task ? task.id : 'PLAN THE NEXT DELIVERY'}</span>
-              <Dialog.Title>{task ? 'Task details' : 'New task'}</Dialog.Title>
+              <span className={styles.eyebrow}>
+                {task ? task.id : t('tasks.planTheNextDelivery')}
+              </span>
+              <Dialog.Title>{task ? t('tasks.taskDetails') : t('tasks.newTask')}</Dialog.Title>
               <Dialog.Description>
                 {task
-                  ? `Created ${formatDueDate(task.createdAt.slice(0, 10))}, ${task.createdAt.slice(0, 4)} · Changes apply to the task list immediately after saving.`
-                  : 'Give the work a clear owner, a priority and a next step.'}
+                  ? t('tasks.createdDescription', {
+                      date: new Intl.DateTimeFormat(i18n.language, {
+                        dateStyle: 'medium',
+                        timeZone: 'UTC',
+                      }).format(new Date(task.createdAt)),
+                    })
+                  : t('tasks.giveTheWorkAClearOwnerAPriorityAnd')}
               </Dialog.Description>
             </div>
             <Dialog.Close
-              aria-label="Close task editor"
+              aria-label={t('tasks.closeTaskEditor')}
               render={(buttonProps) => (
                 <Button
                   {...buttonProps}
-                  aria-label="Close task editor"
+                  aria-label={t('tasks.closeTaskEditor')}
                   size="small"
                   variant="text"
                   iconOnly
@@ -124,9 +133,9 @@ export function TaskDialog({
               <div className={styles.workflow}>
                 <div>
                   <Tag intent={taskStatusIntent[task.status]} size="sm">
-                    {task.status}
+                    {getTaskStatusLabel(t, task.status)}
                   </Tag>
-                  <span>Saved status</span>
+                  <span>{t('tasks.savedStatus')}</span>
                 </div>
                 {nextStatus ? (
                   <Button
@@ -139,23 +148,23 @@ export function TaskDialog({
                       setDraft((current) => ({ ...current, status: nextStatus }));
                     }}
                   >
-                    Move to {nextStatus}
+                    {t('tasks.moveToValue', { v0: nextStatus })}
                   </Button>
                 ) : (
-                  <span className={styles.completedNote}>Ready for the next delivery.</span>
+                  <span className={styles.completedNote}>{t('tasks.readyForTheNextDelivery')}</span>
                 )}
                 {dirty ? (
                   <span className={styles.workflowHint}>
-                    Save your edits before advancing the task.
+                    {t('tasks.saveYourEditsBeforeAdvancingTheTask')}
                   </span>
                 ) : null}
               </div>
             ) : null}
             {hiddenByFilters ? (
               <Alert intent="info">
-                <Alert.Title>Saved, but outside this view</Alert.Title>
+                <Alert.Title>{t('tasks.savedButOutsideThisView')}</Alert.Title>
                 <Alert.Description>
-                  This task no longer matches your current filters. Your changes are still saved.
+                  {t('tasks.thisTaskNoLongerMatchesYourCurrentFiltersYour')}
                 </Alert.Description>
               </Alert>
             ) : null}
@@ -187,38 +196,40 @@ export function TaskDialog({
               }}
             >
               <Field required invalid={Boolean(errors.title)}>
-                <Field.Label>Title</Field.Label>
+                <Field.Label>{t('tasks.title')}</Field.Label>
                 <Input
                   ref={titleRef}
                   name="title"
                   value={draft.title}
                   onChange={(event) => update('title', event.target.value)}
-                  placeholder="What needs to be done?"
+                  placeholder={t('tasks.whatNeedsToBeDone')}
                 />
                 {errors.title ? (
-                  <Field.Message>{errors.title}</Field.Message>
+                  <Field.Message>{t(`tasks.validation.${errors.title}`)}</Field.Message>
                 ) : (
-                  <Field.Description>Keep it specific and within 120 characters.</Field.Description>
+                  <Field.Description>
+                    {t('tasks.keepItSpecificAndWithin120Characters')}
+                  </Field.Description>
                 )}
               </Field>
               <Field invalid={Boolean(errors.description)}>
-                <Field.Label>Description</Field.Label>
+                <Field.Label>{t('tasks.description')}</Field.Label>
                 <Textarea
                   name="description"
                   rows={4}
                   value={draft.description}
                   onChange={(event) => update('description', event.target.value)}
-                  placeholder="Context, acceptance criteria, or the next step…"
+                  placeholder={t('tasks.contextAcceptanceCriteriaOrTheNextStep')}
                 />
                 {errors.description ? (
-                  <Field.Message>{errors.description}</Field.Message>
+                  <Field.Message>{t(`tasks.validation.${errors.description}`)}</Field.Message>
                 ) : (
-                  <Field.Description>Optional · up to 2,000 characters.</Field.Description>
+                  <Field.Description>{t('tasks.optionalUpTo2000Characters')}</Field.Description>
                 )}
               </Field>
               <div className={styles.formGrid}>
                 <Field required invalid={Boolean(errors.status)}>
-                  <Field.Label>Status</Field.Label>
+                  <Field.Label>{t('tasks.status')}</Field.Label>
                   <Select
                     name="status"
                     value={draft.status}
@@ -230,15 +241,17 @@ export function TaskDialog({
                     <Select.Content>
                       {taskStatuses.map((status) => (
                         <Select.Option value={status} key={status}>
-                          {status}
+                          {getTaskStatusLabel(t, status)}
                         </Select.Option>
                       ))}
                     </Select.Content>
                   </Select>
-                  {errors.status ? <Field.Message>{errors.status}</Field.Message> : null}
+                  {errors.status ? (
+                    <Field.Message>{t(`tasks.validation.${errors.status}`)}</Field.Message>
+                  ) : null}
                 </Field>
                 <Field required invalid={Boolean(errors.priority)}>
-                  <Field.Label>Priority</Field.Label>
+                  <Field.Label>{t('tasks.priority')}</Field.Label>
                   <Select
                     name="priority"
                     value={draft.priority}
@@ -250,21 +263,23 @@ export function TaskDialog({
                     <Select.Content>
                       {taskPriorities.map((priority) => (
                         <Select.Option value={priority} key={priority}>
-                          {priority}
+                          {getTaskPriorityLabel(t, priority)}
                         </Select.Option>
                       ))}
                     </Select.Content>
                   </Select>
-                  {errors.priority ? <Field.Message>{errors.priority}</Field.Message> : null}
+                  {errors.priority ? (
+                    <Field.Message>{t(`tasks.validation.${errors.priority}`)}</Field.Message>
+                  ) : null}
                 </Field>
                 <Field required invalid={Boolean(errors.project)}>
-                  <Field.Label>Project</Field.Label>
+                  <Field.Label>{t('tasks.project')}</Field.Label>
                   <Select
                     name="project"
                     value={draft.project}
                     onValueChange={(value) => update('project', value)}
                   >
-                    <Select.Trigger placeholder="Choose a project" />
+                    <Select.Trigger placeholder={t('tasks.chooseAProject')} />
                     <Select.Content className={styles.ownershipOptions}>
                       {taskProjects.map((project) => (
                         <Select.Option value={project} key={project}>
@@ -273,16 +288,18 @@ export function TaskDialog({
                       ))}
                     </Select.Content>
                   </Select>
-                  {errors.project ? <Field.Message>{errors.project}</Field.Message> : null}
+                  {errors.project ? (
+                    <Field.Message>{t(`tasks.validation.${errors.project}`)}</Field.Message>
+                  ) : null}
                 </Field>
                 <Field required invalid={Boolean(errors.assignee)}>
-                  <Field.Label>Assignee</Field.Label>
+                  <Field.Label>{t('tasks.assignee')}</Field.Label>
                   <Select
                     name="assignee"
                     value={draft.assignee}
                     onValueChange={(value) => update('assignee', value)}
                   >
-                    <Select.Trigger placeholder="Choose an assignee" />
+                    <Select.Trigger placeholder={t('tasks.chooseAnAssignee')} />
                     <Select.Content className={styles.ownershipOptions}>
                       {taskAssignees.map((member) => (
                         <Select.Option value={member.id} key={member.id}>
@@ -291,11 +308,13 @@ export function TaskDialog({
                       ))}
                     </Select.Content>
                   </Select>
-                  {errors.assignee ? <Field.Message>{errors.assignee}</Field.Message> : null}
+                  {errors.assignee ? (
+                    <Field.Message>{t(`tasks.validation.${errors.assignee}`)}</Field.Message>
+                  ) : null}
                 </Field>
               </div>
               <Field invalid={Boolean(errors.estimateHours)}>
-                <Field.Label>Estimated hours</Field.Label>
+                <Field.Label>{t('tasks.estimatedHours')}</Field.Label>
                 <Input
                   name="estimateHours"
                   type="number"
@@ -309,34 +328,38 @@ export function TaskDialog({
                       event.currentTarget.value === '' ? 0 : Number(event.currentTarget.value),
                     )
                   }
-                  suffix="h"
+                  suffix={t('tasks.h')}
                 />
                 {errors.estimateHours ? (
-                  <Field.Message>{errors.estimateHours}</Field.Message>
+                  <Field.Message>{t(`tasks.validation.${errors.estimateHours}`)}</Field.Message>
                 ) : (
                   <Field.Description>
-                    Whole hours. Use 0 when the task has not been estimated.
+                    {t('tasks.wholeHoursUse0WhenTheTaskHasNot')}
                   </Field.Description>
                 )}
               </Field>
               <Field invalid={Boolean(errors.dueDate)}>
-                <Field.Label>Due date</Field.Label>
+                <Field.Label>{t('tasks.dueDate')}</Field.Label>
                 <DatePicker
                   name="dueDate"
                   value={draft.dueDate}
                   onValueChange={(value) => update('dueDate', value)}
                 >
                   <DatePicker.Input />
-                  <DatePicker.Trigger aria-label="Choose due date" />
-                  <DatePicker.Content aria-label="Due date calendar">
-                    <DatePicker.Calendar locale="en-US" weekStartsOn={1} defaultMonth="2026-10" />
+                  <DatePicker.Trigger aria-label={t('tasks.chooseDueDate')} />
+                  <DatePicker.Content aria-label={t('tasks.dueDateCalendar')}>
+                    <DatePicker.Calendar
+                      locale={i18n.language}
+                      weekStartsOn={1}
+                      defaultMonth="2026-10"
+                    />
                   </DatePicker.Content>
                 </DatePicker>
                 {errors.dueDate ? (
-                  <Field.Message>{errors.dueDate}</Field.Message>
+                  <Field.Message>{t(`tasks.validation.${errors.dueDate}`)}</Field.Message>
                 ) : (
                   <Field.Description>
-                    Optional. Leave empty when the work is not scheduled.
+                    {t('tasks.optionalLeaveEmptyWhenTheWorkIsNotScheduled')}
                   </Field.Description>
                 )}
               </Field>
@@ -345,25 +368,31 @@ export function TaskDialog({
           <Dialog.Footer className={styles.taskDialogFooter}>
             {confirmDiscard ? (
               <Alert intent="warning" className={styles.discardNotice}>
-                <Alert.Title>Discard unsaved changes?</Alert.Title>
-                <Alert.Description>The saved task will stay as it is.</Alert.Description>
+                <Alert.Title>{t('tasks.discardUnsavedChanges')}</Alert.Title>
+                <Alert.Description>{t('tasks.theSavedTaskWillStayAsItIs')}</Alert.Description>
                 <Alert.Action>
                   <Button variant="outline" size="small" onClick={onClose}>
-                    Discard changes
+                    {t('tasks.discardChanges')}
                   </Button>
                   <Button size="small" onClick={() => setConfirmDiscard(false)}>
-                    Keep editing
+                    {t('tasks.keepEditing')}
                   </Button>
                 </Alert.Action>
               </Alert>
             ) : (
               <>
                 <span className={styles.saveState} aria-live="polite">
-                  {dirty ? 'Unsaved changes' : task ? 'All changes saved' : 'New task'}
+                  {dirty
+                    ? t('tasks.unsavedChanges')
+                    : task
+                      ? t('tasks.allChangesSaved')
+                      : t('tasks.newTask')}
                 </span>
-                <Dialog.Close size="small">{task ? 'Close' : 'Cancel'}</Dialog.Close>
+                <Dialog.Close size="small">
+                  {task ? t('tasks.close') : t('tasks.cancel')}
+                </Dialog.Close>
                 <Button size="small" type="submit" form={formId} disabled={Boolean(task) && !dirty}>
-                  {task ? 'Save changes' : 'Create task'}
+                  {task ? t('tasks.saveChanges') : t('tasks.createTask')}
                 </Button>
               </>
             )}

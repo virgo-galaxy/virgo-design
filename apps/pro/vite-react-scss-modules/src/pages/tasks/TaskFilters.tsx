@@ -1,5 +1,6 @@
 import { SearchIcon } from '@virgo-design/icons';
 import { Button, Field, Input, Select } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import {
   hasTaskFilters,
@@ -10,6 +11,7 @@ import {
   taskStatuses,
 } from '@/data/tasks';
 import { taskAssignees, taskProjects } from '@/data/tasks.seed';
+import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 
 import styles from './TasksPage.module.scss';
 
@@ -24,13 +26,14 @@ export function TaskFilters({
   onReset: () => void;
   count: number;
 }) {
+  const { t } = useTranslation();
   return (
     <div className={styles.filterToolbar}>
       <div className={styles.searchRow}>
         <Input
           size="small"
-          aria-label="Search tasks"
-          placeholder="Search tasks, IDs, descriptions or people…"
+          aria-label={t('tasks.searchTasks')}
+          placeholder={t('tasks.searchTasksIdsDescriptionsOrPeople')}
           prefix={<SearchIcon />}
           value={filters.search}
           clearable
@@ -38,15 +41,15 @@ export function TaskFilters({
           rootClassName={styles.search!}
         />
         <span className={styles.resultCount} aria-live="polite">
-          {count} {count === 1 ? 'task' : 'tasks'} match
+          {t('tasks.matchedCount', { count })}
         </span>
         <Button size="small" variant="text" onClick={onReset} disabled={!hasTaskFilters(filters)}>
-          Reset filters
+          {t('tasks.resetFilters')}
         </Button>
       </div>
       <div className={styles.filterGrid}>
         <Field>
-          <Field.Label className={styles.filterLabel}>Status</Field.Label>
+          <Field.Label className={styles.filterLabel}>{t('tasks.status')}</Field.Label>
           <Select
             size="small"
             value={filters.status}
@@ -56,17 +59,17 @@ export function TaskFilters({
           >
             <Select.Trigger />
             <Select.Content>
-              <Select.Option value="all">All statuses</Select.Option>
+              <Select.Option value="all">{t('tasks.allStatuses')}</Select.Option>
               {taskStatuses.map((status) => (
                 <Select.Option key={status} value={status}>
-                  {status}
+                  {getTaskStatusLabel(t, status)}
                 </Select.Option>
               ))}
             </Select.Content>
           </Select>
         </Field>
         <Field>
-          <Field.Label className={styles.filterLabel}>Priority</Field.Label>
+          <Field.Label className={styles.filterLabel}>{t('tasks.priority')}</Field.Label>
           <Select
             size="small"
             value={filters.priority}
@@ -77,17 +80,17 @@ export function TaskFilters({
           >
             <Select.Trigger />
             <Select.Content>
-              <Select.Option value="all">All priorities</Select.Option>
+              <Select.Option value="all">{t('tasks.allPriorities')}</Select.Option>
               {taskPriorities.map((priority) => (
                 <Select.Option key={priority} value={priority}>
-                  {priority}
+                  {getTaskPriorityLabel(t, priority)}
                 </Select.Option>
               ))}
             </Select.Content>
           </Select>
         </Field>
         <Field>
-          <Field.Label className={styles.filterLabel}>Project</Field.Label>
+          <Field.Label className={styles.filterLabel}>{t('tasks.project')}</Field.Label>
           <Select
             size="small"
             value={filters.project}
@@ -95,7 +98,7 @@ export function TaskFilters({
           >
             <Select.Trigger />
             <Select.Content>
-              <Select.Option value="all">All projects</Select.Option>
+              <Select.Option value="all">{t('tasks.allProjects')}</Select.Option>
               {taskProjects.map((project) => (
                 <Select.Option key={project} value={project}>
                   {project}
@@ -105,7 +108,7 @@ export function TaskFilters({
           </Select>
         </Field>
         <Field>
-          <Field.Label className={styles.filterLabel}>Assignee</Field.Label>
+          <Field.Label className={styles.filterLabel}>{t('tasks.assignee')}</Field.Label>
           <Select
             size="small"
             value={filters.assignee}
@@ -113,7 +116,7 @@ export function TaskFilters({
           >
             <Select.Trigger />
             <Select.Content>
-              <Select.Option value="all">Anyone</Select.Option>
+              <Select.Option value="all">{t('tasks.anyone')}</Select.Option>
               {taskAssignees.map((member) => (
                 <Select.Option key={member.id} value={member.id}>
                   {member.name}

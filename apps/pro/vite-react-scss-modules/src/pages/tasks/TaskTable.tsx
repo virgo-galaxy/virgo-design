@@ -1,32 +1,16 @@
 import { CircleCheckIcon, SearchIcon } from '@virgo-design/icons';
 import { Avatar, Button, Empty, Pagination, Table, Tag } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { isOverdue, type Task } from '@/data/tasks';
 import { taskAssignees, taskReferenceDate } from '@/data/tasks.seed';
 import type { TaskSort, TaskSortColumn } from '@/data/tasks.sort';
 import { formatDueDate } from '@/data/workplace';
+import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
+import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 
 import { taskPriorityIntent, taskStatusIntent } from './task-presentation';
 import styles from './TasksPage.module.scss';
-
-const columns: Array<{ key: string; label: string; sortColumn?: TaskSortColumn; align?: 'end' }> = [
-  { key: 'title', label: 'Task' },
-  { key: 'status', label: 'Status' },
-  { key: 'priority', label: 'Priority' },
-  { key: 'project', label: 'Project' },
-  { key: 'assignee', label: 'Assignee' },
-  { key: 'estimateHours', label: 'Estimate (h)', sortColumn: 'estimateHours', align: 'end' },
-  { key: 'createdAt', label: 'Created at', sortColumn: 'createdAt' },
-  { key: 'dueDate', label: 'Due date', sortColumn: 'dueDate', align: 'end' },
-];
-const createdAtFormatter = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit',
-  hourCycle: 'h23',
-});
 
 export function TaskTable({
   sort,
@@ -59,13 +43,39 @@ export function TaskTable({
   onReset: () => void;
   onCreate: () => void;
 }) {
+  const { t, i18n } = useTranslation();
+  const paginationLabels = usePaginationLabels();
+  const createdAtFormatter = new Intl.DateTimeFormat(i18n.language, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+    timeZone: 'UTC',
+  });
+  const columns: Array<{ key: string; label: string; sortColumn?: TaskSortColumn; align?: 'end' }> =
+    [
+      { key: 'title', label: t('tasks.task') },
+      { key: 'status', label: t('tasks.status') },
+      { key: 'priority', label: t('tasks.priority') },
+      { key: 'project', label: t('tasks.project') },
+      { key: 'assignee', label: t('tasks.assignee') },
+      {
+        key: 'estimateHours',
+        label: t('tasks.estimateH'),
+        sortColumn: 'estimateHours',
+        align: 'end',
+      },
+      { key: 'createdAt', label: t('tasks.createdAt'), sortColumn: 'createdAt' },
+      { key: 'dueDate', label: t('tasks.dueDate'), sortColumn: 'dueDate', align: 'end' },
+    ];
   return (
     <>
-      <Table.Viewport aria-label="Task list" className={styles.tableViewport}>
+      <Table.Viewport aria-label={t('tasks.taskList')} className={styles.tableViewport}>
         <Table density="default" border="separators" hoverable className={styles.table}>
           <Table.Caption className={styles.srOnly}>
-            Workspace tasks, status, priority, project, assignee, estimated hours, creation time and
-            due date
+            {t('tasks.workspaceTasksStatusPriorityProjectAssigneeEstimatedHoursCreation')}
           </Table.Caption>
           <Table.Header>
             <Table.Row>
@@ -100,7 +110,7 @@ export function TaskTable({
                         variant="text"
                         size="small"
                         className={styles.taskLink}
-                        aria-label={`Open task ${task.id}: ${task.title}`}
+                        aria-label={t('tasks.openTaskValueValue', { v0: task.id, v1: task.title })}
                         onClick={(event) => onOpen(task, event.currentTarget)}
                       >
                         {task.title}
@@ -109,12 +119,12 @@ export function TaskTable({
                   </Table.Cell>
                   <Table.Cell>
                     <Tag size="sm" intent={taskStatusIntent[task.status]}>
-                      {task.status}
+                      {getTaskStatusLabel(t, task.status)}
                     </Tag>
                   </Table.Cell>
                   <Table.Cell>
                     <Tag size="sm" intent={taskPriorityIntent[task.priority]} variant="outline">
-                      {task.priority}
+                      {getTaskPriorityLabel(t, task.priority)}
                     </Tag>
                   </Table.Cell>
                   <Table.Cell>
@@ -127,7 +137,7 @@ export function TaskTable({
                         fallback={assignee?.initials ?? '?'}
                         className={styles.avatar}
                       />
-                      <span>{assignee?.name ?? 'Unknown member'}</span>
+                      <span>{assignee?.name ?? t('tasks.unknownMember')}</span>
                     </div>
                   </Table.Cell>
                   <Table.Cell align="end">
@@ -141,11 +151,15 @@ export function TaskTable({
                   <Table.Cell align="end">
                     <div className={styles.dueDate} data-overdue={overdue}>
                       {task.dueDate ? (
-                        <time dateTime={task.dueDate}>{formatDueDate(task.dueDate)}</time>
+                        <time dateTime={task.dueDate}>
+                          {formatDueDate(task.dueDate, i18n.language)}
+                        </time>
                       ) : (
-                        <span>No due date</span>
+                        <span>{t('tasks.noDueDate')}</span>
                       )}
-                      {overdue ? <span className={styles.overdueLabel}>Overdue</span> : null}
+                      {overdue ? (
+                        <span className={styles.overdueLabel}>{t('tasks.overdue')}</span>
+                      ) : null}
                     </div>
                   </Table.Cell>
                 </Table.Row>
@@ -158,16 +172,16 @@ export function TaskTable({
         <Empty size="md">
           <Empty.Icon>{filtered ? <SearchIcon /> : <CircleCheckIcon />}</Empty.Icon>
           <Empty.Title>
-            {filtered ? 'No tasks match your filters' : 'Your task queue is clear'}
+            {filtered ? t('tasks.noTasksMatchYourFilters') : t('tasks.yourTaskQueueIsClear')}
           </Empty.Title>
           <Empty.Description>
             {filtered
-              ? 'Try another search or reset the filters to see the whole workspace.'
-              : 'Create a task to plan the next piece of work.'}
+              ? t('tasks.tryAnotherSearchOrResetTheFiltersToSee')
+              : t('tasks.createATaskToPlanTheNextPieceOf')}
           </Empty.Description>
           <Empty.Action>
             <Button variant="outline" size="small" onClick={filtered ? onReset : onCreate}>
-              {filtered ? 'Reset filters' : 'New Task'}
+              {filtered ? t('tasks.resetFilters') : t('tasks.newTask2')}
             </Button>
           </Empty.Action>
         </Empty>
@@ -175,12 +189,17 @@ export function TaskTable({
       <div className={styles.tableFooter}>
         <div className={styles.tableSummary}>
           <span aria-live="polite">
-            Showing {range[0]}–{range[1]} of {matchingTotal} tasks
-            {filtered ? ` · ${total} in workspace` : ''}
+            {t('tasks.showingValueValueOfValueTasksValue', {
+              v0: range[0],
+              v1: range[1],
+              v2: matchingTotal,
+              v3: filtered ? t('tasks.workspaceCount', { count: total }) : '',
+            })}
           </span>
         </div>
         <Pagination
-          aria-label="Task pages"
+          labels={paginationLabels}
+          aria-label={t('tasks.taskPages')}
           total={matchingTotal}
           page={page}
           pageSize={pageSize}

@@ -29,6 +29,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
 import {
@@ -44,6 +45,7 @@ import { activity } from '@/data/workplace';
 import { FilterSelect, Panel, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 
+import type { profileEnUS } from './locales/en-US';
 import styles from './ProfilePage.module.scss';
 
 function ProfileEditor({
@@ -57,11 +59,12 @@ function ProfileEditor({
   onClose: () => void;
   restoreFocus: () => void;
 }) {
+  const { t } = useTranslation();
   const [draft, setDraft] = useState(profile);
   const [errors, setErrors] = useState<ReturnType<typeof validateProfile>>({});
   const [discard, setDiscard] = useState(false);
   const [reading, setReading] = useState(false);
-  const [imageError, setImageError] = useState('');
+  const [imageError, setImageError] = useState<keyof typeof profileEnUS.validation | ''>('');
   const formRef = useRef<HTMLFormElement>(null);
   const photoRevision = useRef(0);
   const alive = useRef(true);
@@ -107,10 +110,12 @@ function ProfileEditor({
         >
           <Drawer.Header className={styles.drawerHeader}>
             <div>
-              <Drawer.Title>Edit your profile</Drawer.Title>
-              <Drawer.Description>Your identity in the Virgo Studio workspace.</Drawer.Description>
+              <Drawer.Title>{t('profile.editYourProfile')}</Drawer.Title>
+              <Drawer.Description>
+                {t('profile.yourIdentityInTheVirgoStudioWorkspace')}
+              </Drawer.Description>
             </div>
-            <Drawer.Close aria-label="Close profile editor" variant="text">
+            <Drawer.Close aria-label={t('profile.closeProfileEditor')} variant="text">
               <CloseIcon />
             </Drawer.Close>
           </Drawer.Header>
@@ -152,13 +157,15 @@ function ProfileEditor({
                   }}
                 />
                 <div>
-                  <strong>Profile photo</strong>
-                  <p>PNG, JPEG or WebP · up to 2 MB</p>
+                  <strong>{t('profile.profilePhoto')}</strong>
+                  <p>{t('profile.pngJpegOrWebpUpTo2Mb')}</p>
                 </div>
-                {reading ? <Spinner size="sm" aria-label="Reading profile photo" /> : null}
+                {reading ? (
+                  <Spinner size="sm" aria-label={t('profile.readingProfilePhoto')} />
+                ) : null}
               </div>
               <Field invalid={Boolean(imageError)}>
-                <Field.Label>Choose a photo</Field.Label>
+                <Field.Label>{t('profile.chooseAPhoto')}</Field.Label>
                 <Input
                   type="file"
                   accept="image/png,image/jpeg,image/webp"
@@ -188,7 +195,7 @@ function ProfileEditor({
                         update('avatarImage', url);
                     } catch {
                       if (alive.current && revision === photoRevision.current)
-                        setImageError('This image could not be read. Choose another photo.');
+                        setImageError('imageUnreadable');
                     } finally {
                       if (alive.current && revision === photoRevision.current) setReading(false);
                     }
@@ -196,9 +203,11 @@ function ProfileEditor({
                   prefix={<UploadIcon />}
                 />
                 {imageError ? (
-                  <Field.Message>{imageError}</Field.Message>
+                  <Field.Message>{t(`profile.validation.${imageError}`)}</Field.Message>
                 ) : (
-                  <Field.Description>The selected photo is kept in this session.</Field.Description>
+                  <Field.Description>
+                    {t('profile.theSelectedPhotoIsKeptInThisSession')}
+                  </Field.Description>
                 )}
               </Field>
               {draft.avatarImage ? (
@@ -212,74 +221,84 @@ function ProfileEditor({
                     update('avatarImage', '');
                   }}
                 >
-                  Remove photo
+                  {t('profile.removePhoto')}
                 </Button>
               ) : null}
               <Separator decorative />
               <Field required invalid={Boolean(errors.name)}>
-                <Field.Label>Display name</Field.Label>
+                <Field.Label>{t('profile.displayName')}</Field.Label>
                 <Input
                   value={draft.name}
                   maxLength={60}
                   onChange={(event) => update('name', event.target.value)}
                 />
-                {errors.name ? <Field.Message>{errors.name}</Field.Message> : null}
+                {errors.name ? (
+                  <Field.Message>{t(`profile.validation.${errors.name}`)}</Field.Message>
+                ) : null}
               </Field>
               <Field invalid={Boolean(errors.headline)}>
-                <Field.Label>Headline</Field.Label>
+                <Field.Label>{t('profile.headline')}</Field.Label>
                 <Input
                   value={draft.headline}
                   maxLength={100}
                   onChange={(event) => update('headline', event.target.value)}
                 />
-                {errors.headline ? <Field.Message>{errors.headline}</Field.Message> : null}
+                {errors.headline ? (
+                  <Field.Message>{t(`profile.validation.${errors.headline}`)}</Field.Message>
+                ) : null}
               </Field>
               <Field invalid={Boolean(errors.bio)}>
-                <Field.Label>About you</Field.Label>
+                <Field.Label>{t('profile.aboutYou')}</Field.Label>
                 <Textarea
                   rows={4}
                   value={draft.bio}
                   maxLength={600}
                   onChange={(event) => update('bio', event.target.value)}
                 />
-                <Field.Description>{draft.bio.length}/600 characters</Field.Description>
-                {errors.bio ? <Field.Message>{errors.bio}</Field.Message> : null}
+                <Field.Description>
+                  {t('profile.value600Characters', { v0: draft.bio.length })}
+                </Field.Description>
+                {errors.bio ? (
+                  <Field.Message>{t(`profile.validation.${errors.bio}`)}</Field.Message>
+                ) : null}
               </Field>
               <Field invalid={Boolean(errors.avatarColor)}>
-                <Field.Label>Avatar background</Field.Label>
+                <Field.Label>{t('profile.avatarBackground')}</Field.Label>
                 <ColorPicker
                   size="small"
                   value={draft.avatarColor}
                   onValueChange={(value) => update('avatarColor', value)}
                 >
                   <div className={styles.colorRow}>
-                    <ColorPicker.Trigger aria-label="Choose avatar color">
+                    <ColorPicker.Trigger aria-label={t('profile.chooseAvatarColor')}>
                       <ColorPicker.Preview />
                     </ColorPicker.Trigger>
-                    <ColorPicker.HexField aria-label="Avatar hex color" />
+                    <ColorPicker.HexField aria-label={t('profile.avatarHexColor')} />
                     {['#1664f9', '#127d55', '#824bc2', '#bf432a'].map((color) => (
                       <ColorPicker.Swatch
                         key={color}
                         value={color}
-                        aria-label={`Avatar color ${color}`}
+                        aria-label={t('profile.avatarColorValue', { v0: color })}
                       />
                     ))}
                   </div>
                   <ColorPicker.Content
-                    aria-label="Avatar color picker"
+                    aria-label={t('profile.avatarColorPicker')}
                     className={styles.colorPanel}
                   >
                     <ColorPicker.Area
                       saturationLabel="Avatar color saturation"
                       brightnessLabel="Avatar color brightness"
                     />
-                    <ColorPicker.Hue aria-label="Avatar color hue" />
-                    <ColorPicker.HexField aria-label="Picker hex color" />
+                    <ColorPicker.Hue aria-label={t('profile.avatarColorHue')} />
+                    <ColorPicker.HexField aria-label={t('profile.pickerHexColor')} />
                   </ColorPicker.Content>
                 </ColorPicker>
-                {errors.avatarColor ? <Field.Message>{errors.avatarColor}</Field.Message> : null}
+                {errors.avatarColor ? (
+                  <Field.Message>{t(`profile.validation.${errors.avatarColor}`)}</Field.Message>
+                ) : null}
                 <Field.Description>
-                  Shown behind your initials when no photo is selected.
+                  {t('profile.shownBehindYourInitialsWhenNoPhotoIsSelected')}
                 </Field.Description>
               </Field>
             </Form>
@@ -287,8 +306,8 @@ function ProfileEditor({
           <Drawer.Footer className={styles.drawerFooter}>
             {discard ? (
               <Alert intent="warning">
-                <Alert.Title>Discard profile changes?</Alert.Title>
-                <Alert.Description>Your saved profile will stay as it is.</Alert.Description>
+                <Alert.Title>{t('profile.discardProfileChanges')}</Alert.Title>
+                <Alert.Description>{t('profile.yourSavedProfileWillStayAsItIs')}</Alert.Description>
                 <Alert.Action>
                   <Button
                     size="small"
@@ -298,17 +317,17 @@ function ProfileEditor({
                       onClose();
                     }}
                   >
-                    Discard changes
+                    {t('profile.discardChanges')}
                   </Button>
                   <Button size="small" onClick={() => setDiscard(false)}>
-                    Keep editing
+                    {t('profile.keepEditing')}
                   </Button>
                 </Alert.Action>
               </Alert>
             ) : (
               <>
                 <span className={shared.caption}>
-                  {dirty ? 'Unsaved changes' : 'Your profile is up to date'}
+                  {dirty ? t('profile.unsavedChanges') : t('profile.yourProfileIsUpToDate')}
                 </span>
                 <Button
                   size="small"
@@ -316,7 +335,7 @@ function ProfileEditor({
                   form="profile-editor"
                   disabled={!dirty || reading}
                 >
-                  Save profile
+                  {t('profile.saveProfile')}
                 </Button>
               </>
             )}
@@ -336,13 +355,18 @@ export function ProfilePage({
   setProfile: Dispatch<SetStateAction<ProfileState>>;
   state: TaskState;
 }) {
+  const { t } = useTranslation();
   const [editing, setEditing] = useState(false);
   const [preferences, setPreferences] = useState(profile);
-  const [preferenceError, setPreferenceError] = useState('');
-  const [notice, setNotice] = useState<{ id: number; text: string } | null>(null);
+  const [preferenceError, setPreferenceError] = useState<keyof typeof profileEnUS.validation | ''>(
+    '',
+  );
+  const [notice, setNotice] = useState<{ id: number; kind: 'preferences' | 'profile' } | null>(
+    null,
+  );
   const noticeId = useRef(0);
   const editRef = useRef<HTMLButtonElement>(null);
-  const notify = (text: string) => setNotice({ id: ++noticeId.current, text });
+  const notify = (kind: 'preferences' | 'profile') => setNotice({ id: ++noticeId.current, kind });
   const focusProject = projects.find((item) => item.id === profile.focusProject)!;
   const openReviews = state.tasks.filter((task) => task.status === 'In Review');
   const preferenceDirty =
@@ -369,21 +393,21 @@ export function ProfilePage({
               />
             </Badge>
             <div>
-              <span className={shared.eyebrow}>VIRGO STUDIO / WORKSPACE OWNER</span>
+              <span className={shared.eyebrow}>{t('profile.virgoStudioWorkspaceOwner')}</span>
               <h1>{profile.name}</h1>
               <p>{profile.headline}</p>
               <div className={shared.actions}>
                 <Tag size="sm" intent="brand">
-                  Owner
+                  {t('profile.owner')}
                 </Tag>
                 <Tag size="sm" variant="outline">
-                  Product & Design
+                  {t('profile.productDesign')}
                 </Tag>
               </div>
             </div>
           </div>
           <div className={styles.identityActions}>
-            <span className={shared.caption}>Member since September 2026</span>
+            <span className={shared.caption}>{t('profile.memberSinceSeptember2026')}</span>
             <Button
               ref={editRef}
               size="small"
@@ -391,47 +415,50 @@ export function ProfilePage({
               leadingIcon={<UserIcon />}
               onClick={() => setEditing(true)}
             >
-              Edit profile
+              {t('profile.editProfile')}
             </Button>
           </div>
         </Surface>
         <Tabs defaultValue="overview" variant="line" className={styles.tabs!}>
-          <Tabs.List aria-label="Profile sections">
-            <Tabs.Tab value="overview">Overview</Tabs.Tab>
+          <Tabs.List aria-label={t('profile.profileSections')}>
+            <Tabs.Tab value="overview">{t('profile.overview')}</Tabs.Tab>
             <Tabs.Tab value="preferences" icon={<SettingsIcon />}>
-              Preferences
+              {t('profile.preferences')}
             </Tabs.Tab>
-            <Tabs.Tab value="activity">Activity</Tabs.Tab>
+            <Tabs.Tab value="activity">{t('profile.activity')}</Tabs.Tab>
           </Tabs.List>
           <Tabs.Panel value="overview">
             <div className={shared.twoColumns}>
               <div className={shared.stack}>
-                <Panel title="About">
+                <Panel title={t('profile.about')}>
                   <div className={shared.body}>
                     <p className={styles.bio}>
-                      {profile.bio || 'Add an introduction so your team knows how you work.'}
+                      {profile.bio || t('profile.addAnIntroductionSoYourTeamKnowsHowYou')}
                     </p>
                     <dl className={styles.accountMetadata}>
                       <div>
-                        <dt>Workspace</dt>
-                        <dd>Virgo Studio</dd>
+                        <dt>{t('profile.workspace')}</dt>
+                        <dd>{t('profile.virgoStudio')}</dd>
                       </div>
                       <div>
-                        <dt>Role</dt>
-                        <dd>Workspace owner</dd>
+                        <dt>{t('profile.role')}</dt>
+                        <dd>{t('profile.workspaceOwner')}</dd>
                       </div>
                       <div>
-                        <dt>Team</dt>
-                        <dd>Product & Design</dd>
+                        <dt>{t('profile.team')}</dt>
+                        <dd>{t('profile.productDesign')}</dd>
                       </div>
                       <div>
-                        <dt>Time zone</dt>
-                        <dd>Asia/Shanghai · UTC+08:00</dd>
+                        <dt>{t('profile.timeZone')}</dt>
+                        <dd>{t('profile.asiaShanghaiUtc0800')}</dd>
                       </div>
                     </dl>
                   </div>
                 </Panel>
-                <Panel title="Focus project" description="Your preferred starting point">
+                <Panel
+                  title={t('profile.focusProject')}
+                  description={t('profile.yourPreferredStartingPoint')}
+                >
                   <div className={shared.body}>
                     <span className={shared.eyebrow}>{focusProject.code}</span>
                     <h3 className={styles.focusTitle}>{focusProject.name}</h3>
@@ -439,24 +466,24 @@ export function ProfilePage({
                     <Person id={focusProject.owner} />
                     <div className={styles.focusLink}>
                       <Link className={shared.link} to={projectDetailPath(focusProject)}>
-                        Open project record →
+                        {t('profile.openProjectRecord')}
                       </Link>
                     </div>
                   </div>
                 </Panel>
               </div>
               <Panel
-                title="Your workspace responsibilities"
-                description="Keep the team’s work clear and connected"
+                title={t('profile.yourWorkspaceResponsibilities')}
+                description={t('profile.keepTheTeamSWorkClearAndConnected')}
               >
                 <ul className={styles.responsibilities}>
                   <li>
                     <span className={shared.mono}>01</span>
                     <div>
-                      <h3>Maintain project direction</h3>
-                      <p>Four focus areas share one October delivery plan.</p>
+                      <h3>{t('profile.maintainProjectDirection')}</h3>
+                      <p>{t('profile.fourFocusAreasShareOneOctoberDeliveryPlan')}</p>
                       <Link className={shared.link} to="/work/projects">
-                        Project portfolio →
+                        {t('profile.projectPortfolio')}
                       </Link>
                     </div>
                   </li>
@@ -464,22 +491,22 @@ export function ProfilePage({
                     <span className={shared.mono}>02</span>
                     <div>
                       <h3>
-                        Make acceptance visible{' '}
+                        {t('profile.makeAcceptanceVisible')}
                         <Badge count={openReviews.length} intent="warning" showZero />
                       </h3>
-                      <p>Review ownership and the notes behind pending work.</p>
+                      <p>{t('profile.reviewOwnershipAndTheNotesBehindPendingWork')}</p>
                       <Link className={shared.link} to="/data/search-table?status=In+Review">
-                        Review queue →
+                        {t('profile.reviewQueue')}
                       </Link>
                     </div>
                   </li>
                   <li>
                     <span className={shared.mono}>03</span>
                     <div>
-                      <h3>Prepare reliable handoffs</h3>
-                      <p>Bring scope, audience and the next checkpoint together.</p>
+                      <h3>{t('profile.prepareReliableHandoffs')}</h3>
+                      <p>{t('profile.bringScopeAudienceAndTheNextCheckpointTogether')}</p>
                       <Link className={shared.link} to="/form/step">
-                        Prepare a handoff →
+                        {t('profile.prepareAHandoff')}
                       </Link>
                     </div>
                   </li>
@@ -489,8 +516,8 @@ export function ProfilePage({
           </Tabs.Panel>
           <Tabs.Panel value="preferences">
             <Panel
-              title="Workspace preferences"
-              description="Saved preferences apply for this session."
+              title={t('profile.workspacePreferences')}
+              description={t('profile.savedPreferencesApplyForThisSession')}
             >
               <Form
                 size="small"
@@ -519,17 +546,17 @@ export function ProfilePage({
                     compactActivity: preferences.compactActivity,
                   }));
                   setPreferenceError('');
-                  notify('Workspace preferences saved.');
+                  notify('preferences');
                 }}
               >
                 <div className={styles.preferenceRow}>
                   <div>
-                    <h3>Focus project</h3>
-                    <p>The project highlighted on your profile overview.</p>
+                    <h3>{t('profile.focusProject')}</h3>
+                    <p>{t('profile.theProjectHighlightedOnYourProfileOverview')}</p>
                   </div>
                   <div className={styles.preferenceControl}>
                     <FilterSelect
-                      label="Preferred project"
+                      label={t('profile.preferredProject')}
                       value={preferences.focusProject}
                       onChange={(value) =>
                         setPreferences((previous) => ({ ...previous, focusProject: value }))
@@ -540,8 +567,8 @@ export function ProfilePage({
                 </div>
                 <div className={styles.preferenceRow}>
                   <div>
-                    <h3>Daily digest</h3>
-                    <p>Keep your preferred review time with your workspace settings.</p>
+                    <h3>{t('profile.dailyDigest')}</h3>
+                    <p>{t('profile.keepYourPreferredReviewTimeWithYourWorkspaceSettings')}</p>
                   </div>
                   <div className={styles.preferenceControl}>
                     <Switch
@@ -550,10 +577,10 @@ export function ProfilePage({
                         setPreferences((previous) => ({ ...previous, digest: checked }))
                       }
                     >
-                      Daily digest enabled
+                      {t('profile.dailyDigestEnabled')}
                     </Switch>
                     <Field disabled={!preferences.digest}>
-                      <Field.Label>Digest time</Field.Label>
+                      <Field.Label>{t('profile.digestTime')}</Field.Label>
                       <TimePicker
                         size="small"
                         value={preferences.digestTime}
@@ -561,14 +588,14 @@ export function ProfilePage({
                           setPreferences((previous) => ({ ...previous, digestTime: value }))
                         }
                       />
-                      <Field.Description>Asia/Shanghai</Field.Description>
+                      <Field.Description>{t('profile.asiaShanghai')}</Field.Description>
                     </Field>
                   </div>
                 </div>
                 <div className={styles.preferenceRow}>
                   <div>
-                    <h3>Review reminders</h3>
-                    <p>Store your preference for acceptance review reminders.</p>
+                    <h3>{t('profile.reviewReminders')}</h3>
+                    <p>{t('profile.storeYourPreferenceForAcceptanceReviewReminders')}</p>
                   </div>
                   <Switch
                     appearance="fader"
@@ -577,17 +604,17 @@ export function ProfilePage({
                       setPreferences((previous) => ({ ...previous, reviewReminders: checked }))
                     }
                   >
-                    Review reminders enabled
+                    {t('profile.reviewRemindersEnabled')}
                   </Switch>
                 </div>
                 <div className={styles.preferenceRow}>
                   <div>
-                    <h3>Activity spacing</h3>
-                    <p>Choose how the activity timeline reads on your profile.</p>
+                    <h3>{t('profile.activitySpacing')}</h3>
+                    <p>{t('profile.chooseHowTheActivityTimelineReadsOnYourProfile')}</p>
                   </div>
                   <Radio.Group
                     value={preferences.compactActivity ? 'compact' : 'comfortable'}
-                    aria-label="Activity spacing"
+                    aria-label={t('profile.activitySpacing')}
                     orientation="horizontal"
                     onValueChange={(value) =>
                       setPreferences((previous) => ({
@@ -596,21 +623,23 @@ export function ProfilePage({
                       }))
                     }
                   >
-                    <Radio value="comfortable">Comfortable</Radio>
-                    <Radio value="compact">Compact</Radio>
+                    <Radio value="comfortable">{t('profile.comfortable')}</Radio>
+                    <Radio value="compact">{t('profile.compact')}</Radio>
                   </Radio.Group>
                 </div>
                 {preferenceError ? (
                   <Alert intent="error">
-                    <Alert.Title>{preferenceError}</Alert.Title>
+                    <Alert.Title>{t(`profile.validation.${preferenceError}`)}</Alert.Title>
                   </Alert>
                 ) : null}
                 <div className={styles.preferenceFooter}>
                   <span className={shared.caption}>
-                    {preferenceDirty ? 'Unsaved preference changes' : 'Preferences are up to date'}
+                    {preferenceDirty
+                      ? t('profile.unsavedPreferenceChanges')
+                      : t('profile.preferencesAreUpToDate')}
                   </span>
                   <Button size="small" type="submit" disabled={!preferenceDirty}>
-                    Save preferences
+                    {t('profile.savePreferences')}
                   </Button>
                 </div>
               </Form>
@@ -618,13 +647,13 @@ export function ProfilePage({
           </Tabs.Panel>
           <Tabs.Panel value="activity">
             <Panel
-              title="Around your workspace"
-              description="Recorded team activity · October 1, 2026"
+              title={t('profile.aroundYourWorkspace')}
+              description={t('profile.recordedTeamActivityOctober12026')}
             >
               <div className={shared.body}>
                 <Timeline
                   size="small"
-                  aria-label="Profile workspace activity"
+                  aria-label={t('profile.profileWorkspaceActivity')}
                   style={
                     { '--timeline-gap': profile.compactActivity ? '12px' : '28px' } as CSSProperties
                   }
@@ -632,7 +661,9 @@ export function ProfilePage({
                   {activity.map((event) => (
                     <Timeline.Item key={event.id} status={event.status}>
                       <Timeline.Title>{event.name}</Timeline.Title>
-                      <Timeline.Description>{event.action}</Timeline.Description>
+                      <Timeline.Description>
+                        {t(`workplace.activityActions.${event.id}`)}
+                      </Timeline.Description>
                       <Timeline.Time dateTime={event.dateTime}>
                         {event.time} · {event.project}
                       </Timeline.Time>
@@ -648,14 +679,14 @@ export function ProfilePage({
             profile={profile}
             onSave={(next) => {
               setProfile(next);
-              notify('Profile saved. Your workspace identity is up to date.');
+              notify('profile');
             }}
             onClose={() => setEditing(false)}
             restoreFocus={() => editRef.current?.focus()}
           />
         ) : null}
       </div>
-      <Toast.Viewport placement="bottom-end" aria-label="Profile feedback" />
+      <Toast.Viewport placement="bottom-end" aria-label={t('profile.profileFeedback')} />
       {notice ? (
         <Toast.Root
           key={notice.id}
@@ -665,8 +696,12 @@ export function ProfilePage({
             if (!open) setNotice(null);
           }}
         >
-          <Toast.Title>{notice.text}</Toast.Title>
-          <Toast.Close aria-label="Dismiss profile feedback" />
+          <Toast.Title>
+            {notice.kind === 'preferences'
+              ? t('profile.workspacePreferencesSaved')
+              : t('profile.profileSavedYourWorkspaceIdentityIsUpToDate')}
+          </Toast.Title>
+          <Toast.Close aria-label={t('profile.dismissProfileFeedback')} />
         </Toast.Root>
       ) : null}
     </Toast.Provider>

@@ -1,6 +1,7 @@
 import { DownloadIcon, PlusIcon } from '@virgo-design/icons';
 import { Button, Surface, Toast } from '@virgo-design/ui';
 import { type Dispatch, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   emptyTaskFilters,
@@ -16,6 +17,7 @@ import {
 import { createTasksCsv } from '@/data/tasks.export';
 import { taskAssignees, taskReferenceDate, withTaskEstimates } from '@/data/tasks.seed';
 import { sortTasks, type TaskSort } from '@/data/tasks.sort';
+import { getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 
 import { TaskDialog } from './TaskDialog';
 import { TaskFilters } from './TaskFilters';
@@ -25,8 +27,8 @@ import { TaskTable } from './TaskTable';
 type Editor = { kind: 'create' } | { kind: 'edit'; id: string };
 interface Feedback {
   id: number;
-  title: string;
-  description: string;
+  kind: 'created' | 'updated' | 'moved';
+  draft: TaskDraft & { id: string };
   hidden: boolean;
 }
 
@@ -37,6 +39,7 @@ export function TasksPage({
   state: TaskState;
   dispatch: Dispatch<TaskAction>;
 }) {
+  const { t } = useTranslation();
   const [filters, setFilters] = useState(emptyTaskFilters);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -63,14 +66,12 @@ export function TasksPage({
   const selectedTask =
     editor?.kind === 'edit' ? tasks.find((task) => task.id === editor.id) : undefined;
   const filtered = hasTaskFilters(filters);
-  const notify = (title: string, draft: TaskDraft & { id: string }) => {
+  const notify = (kind: Feedback['kind'], draft: TaskDraft & { id: string }) => {
     const hidden = !matchesTask(draft, filters, assigneeName(draft.assignee));
     setFeedback({
       id: ++feedbackId.current,
-      title,
-      description: hidden
-        ? `${draft.id} is saved, but does not match your current filters.`
-        : `${draft.id} · ${draft.title}`,
+      kind,
+      draft,
       hidden,
     });
   };
@@ -85,11 +86,11 @@ export function TasksPage({
   const save = (draft: TaskDraft) => {
     if (selectedTask) {
       dispatch({ type: 'edit', id: selectedTask.id, draft });
-      notify('Task updated', { ...draft, id: selectedTask.id });
+      notify('updated', { ...draft, id: selectedTask.id });
     } else {
       dispatch({ type: 'create', draft, createdAt: new Date().toISOString() });
       if (matchesTask(draft, filters, assigneeName(draft.assignee))) setPage(1);
-      notify('Task created', { ...draft, id: `VD-${state.nextId}` });
+      notify('created', { ...draft, id: `VD-${state.nextId}` });
       setEditor(null);
     }
   };
@@ -100,26 +101,26 @@ export function TasksPage({
         <Surface border="default" radius={8} className={styles.overview}>
           <dl>
             <div>
-              <dt>Total tasks</dt>
+              <dt>{t('tasks.totalTasks')}</dt>
               <dd>{overview.total}</dd>
             </div>
             <div>
-              <dt>In progress</dt>
+              <dt>{t('tasks.inProgress')}</dt>
               <dd>{overview.inProgress}</dd>
             </div>
             <div>
-              <dt>Due soon</dt>
+              <dt>{t('tasks.dueSoon')}</dt>
               <dd>
                 {overview.dueSoon}
-                <span>next 7 days</span>
+                <span>{t('tasks.next7Days')}</span>
               </dd>
             </div>
             <div>
-              <dt>Completed</dt>
+              <dt>{t('tasks.completed')}</dt>
               <dd>{overview.completed}</dd>
             </div>
           </dl>
-          <span className={styles.overviewNote}>Workspace totals</span>
+          <span className={styles.overviewNote}>{t('tasks.workspaceTotals')}</span>
         </Surface>
         <Surface border="default" radius={12} className={styles.listPanel}>
           <TaskFilters
@@ -130,7 +131,7 @@ export function TasksPage({
           />
           <div className={styles.listActions}>
             <Button ref={newTaskRef} size="small" leadingIcon={<PlusIcon />} onClick={openCreate}>
-              New Task
+              {t('tasks.newTask2')}
             </Button>
             <Button
               size="small"
@@ -150,7 +151,7 @@ export function TasksPage({
                 setTimeout(() => URL.revokeObjectURL(url), 0);
               }}
             >
-              Download
+              {t('tasks.download')}
             </Button>
           </div>
           <TaskTable
@@ -189,7 +190,7 @@ export function TasksPage({
           onStatusChange={(status) => {
             if (!selectedTask) return;
             dispatch({ type: 'status', id: selectedTask.id, status });
-            notify(`Moved to ${status}`, { ...selectedTask, status });
+            notify('moved', { ...selectedTask, status });
           }}
           onClose={() => setEditor(null)}
           restoreFocus={() => {
@@ -198,7 +199,7 @@ export function TasksPage({
           }}
         />
       ) : null}
-      <Toast.Viewport placement="bottom-end" aria-label="Task feedback" />
+      <Toast.Viewport placement="bottom-end" aria-label={t('tasks.taskFeedback')} />
       {feedback ? (
         <Toast.Root
           key={feedback.id}
@@ -208,14 +209,24 @@ export function TasksPage({
             if (!open) setFeedback((current) => (current?.id === feedback.id ? null : current));
           }}
         >
-          <Toast.Title>{feedback.title}</Toast.Title>
-          <Toast.Description>{feedback.description}</Toast.Description>
+          <Toast.Title>
+            {feedback.kind === 'created'
+              ? t('tasks.taskCreated')
+              : feedback.kind === 'updated'
+                ? t('tasks.taskUpdated')
+                : t('tasks.movedTo', { status: getTaskStatusLabel(t, feedback.draft.status) })}
+          </Toast.Title>
+          <Toast.Description>
+            {feedback.hidden
+              ? t('tasks.valueIsSavedButDoesNotMatchYourCurrent', { v0: feedback.draft.id })
+              : `${feedback.draft.id} · ${feedback.draft.title}`}
+          </Toast.Description>
           {feedback.hidden ? (
             <Toast.Action onClick={() => changeFilters(emptyTaskFilters)}>
-              Show all tasks
+              {t('tasks.showAllTasks')}
             </Toast.Action>
           ) : null}
-          <Toast.Close aria-label="Dismiss task feedback" />
+          <Toast.Close aria-label={t('tasks.dismissTaskFeedback')} />
         </Toast.Root>
       ) : null}
     </Toast.Provider>

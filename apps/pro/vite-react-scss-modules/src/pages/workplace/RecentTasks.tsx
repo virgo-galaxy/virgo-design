@@ -1,9 +1,11 @@
 import { ArrowRightIcon, SearchIcon } from '@virgo-design/icons';
 import { Avatar, Button, Card, Input, Table, Tag, type TagIntent } from '@virgo-design/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { formatDueDate, recentTasks, type TaskStatus } from '@/data/workplace';
+import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 
 import styles from './WorkplacePage.module.scss';
 
@@ -15,6 +17,7 @@ const statusIntent: Record<TaskStatus, TagIntent> = {
 };
 
 export function RecentTasks() {
+  const { t, i18n } = useTranslation();
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
   const normalizedQuery = query.trim().toLowerCase();
@@ -28,8 +31,8 @@ export function RecentTasks() {
     <Card variant="outlined" className={styles.tasksCard}>
       <Card.Header className={styles.panelHeader}>
         <div>
-          <Card.Title as="h2">On the radar</Card.Title>
-          <Card.Description>Recent tasks across your workspace.</Card.Description>
+          <Card.Title as="h2">{t('workplace.onTheRadar')}</Card.Title>
+          <Card.Description>{t('workplace.recentTasksAcrossYourWorkspace')}</Card.Description>
         </div>
         <Button
           variant="text"
@@ -37,13 +40,13 @@ export function RecentTasks() {
           trailingIcon={<ArrowRightIcon />}
           onClick={() => navigate('/work/tasks')}
         >
-          All tasks
+          {t('workplace.allTasks')}
         </Button>
       </Card.Header>
       <div className={styles.taskToolbar}>
         <Input
-          aria-label="Filter recent tasks"
-          placeholder="Filter tasks, projects, people…"
+          aria-label={t('workplace.filterRecentTasks')}
+          placeholder={t('workplace.filterTasksProjectsPeople')}
           prefix={<SearchIcon />}
           value={query}
           onChange={(event) => setQuery(event.target.value)}
@@ -52,23 +55,26 @@ export function RecentTasks() {
           rootClassName={styles.taskSearch!}
         />
         <span aria-live="polite" className={styles.taskCount}>
-          {tasks.length} of {recentTasks.length} tasks
+          {t('workplace.valueOfValueTasks', { v0: tasks.length, v1: recentTasks.length })}
         </span>
       </div>
       <Card.Body>
-        <Table.Viewport aria-label="Recent workspace tasks" className={styles.tableViewport}>
+        <Table.Viewport
+          aria-label={t('workplace.recentWorkspaceTasks')}
+          className={styles.tableViewport}
+        >
           <Table density="compact" border="separators" hoverable className={styles.taskTable}>
             <Table.Caption className={styles.srOnly}>
-              Recent tasks: task, project, status, priority, assignee and due date
+              {t('workplace.recentTasksTaskProjectStatusPriorityAssigneeAndDue')}
             </Table.Caption>
             <Table.Header>
               <Table.Row>
-                <Table.Head>Task</Table.Head>
-                <Table.Head>Project</Table.Head>
-                <Table.Head>Status</Table.Head>
-                <Table.Head>Priority</Table.Head>
-                <Table.Head>Assignee</Table.Head>
-                <Table.Head align="end">Due date</Table.Head>
+                <Table.Head>{t('workplace.task')}</Table.Head>
+                <Table.Head>{t('workplace.project')}</Table.Head>
+                <Table.Head>{t('workplace.status')}</Table.Head>
+                <Table.Head>{t('workplace.priority')}</Table.Head>
+                <Table.Head>{t('workplace.assignee')}</Table.Head>
+                <Table.Head align="end">{t('workplace.dueDate')}</Table.Head>
               </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -85,13 +91,13 @@ export function RecentTasks() {
                   </Table.Cell>
                   <Table.Cell>
                     <Tag intent={statusIntent[task.status]} size="sm">
-                      {task.status}
+                      {getTaskStatusLabel(t, task.status)}
                     </Tag>
                   </Table.Cell>
                   <Table.Cell>
                     <span className={styles.priority} data-priority={task.priority}>
                       <i />
-                      {task.priority}
+                      {getTaskPriorityLabel(t, task.priority)}
                     </span>
                   </Table.Cell>
                   <Table.Cell>
@@ -105,7 +111,7 @@ export function RecentTasks() {
                   </Table.Cell>
                   <Table.Cell align="end">
                     <time dateTime={task.due} className={styles.dueDate}>
-                      {formatDueDate(task.due)}
+                      {formatDueDate(task.due, i18n.language)}
                     </time>
                   </Table.Cell>
                 </Table.Row>
@@ -114,9 +120,9 @@ export function RecentTasks() {
                 <Table.Row>
                   <Table.Cell colSpan={6}>
                     <div className={styles.emptyTasks}>
-                      No tasks match “{query}”.
+                      {t('workplace.noTasksMatchValue', { v0: query })}
                       <Button variant="text" size="small" onClick={() => setQuery('')}>
-                        Clear filter
+                        {t('workplace.clearFilter')}
                       </Button>
                     </div>
                   </Table.Cell>
@@ -127,12 +133,12 @@ export function RecentTasks() {
         </Table.Viewport>
       </Card.Body>
       <Card.Footer className={styles.taskFooter}>
-        <span>A workspace snapshot · October 1</span>
-        <Avatar.Group aria-label="Contributors">
-          <Avatar fallback="AC" size="sm" title="Ava Chen" />
-          <Avatar fallback="LP" size="sm" title="Leo Park" />
-          <Avatar fallback="NW" size="sm" title="Nina Wu" />
-          <Avatar fallback="EM" size="sm" title="Eli Morgan" />
+        <span>{t('workplace.aWorkspaceSnapshotOctober1')}</span>
+        <Avatar.Group aria-label={t('workplace.contributors')}>
+          <Avatar fallback="AC" size="sm" title={t('workplace.avaChen')} />
+          <Avatar fallback="LP" size="sm" title={t('workplace.leoPark')} />
+          <Avatar fallback="NW" size="sm" title={t('workplace.ninaWu')} />
+          <Avatar fallback="EM" size="sm" title={t('workplace.eliMorgan')} />
         </Avatar.Group>
       </Card.Footer>
     </Card>

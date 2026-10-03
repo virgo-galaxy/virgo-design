@@ -13,5 +13,5 @@ export const navigationGroups = proRouting.groups.map((group) => ({
 }));
 
 export const navigationPages = navigationGroups.flatMap((group) =>
-  group.pages.map((page) => ({ ...page, group: group.label })),
+  group.pages.map((page) => ({ ...page, group: group.label, groupId: group.id })),
 );

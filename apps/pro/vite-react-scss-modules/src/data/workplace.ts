@@ -127,7 +127,6 @@ export const activity = [
   {
     id: 'a1',
     name: 'Ava Chen',
-    action: 'requested a navigation review.',
     project: 'Workspace',
     time: '10:42',
     dateTime: '2026-10-01T10:42:00+08:00',
@@ -136,7 +135,6 @@ export const activity = [
   {
     id: 'a2',
     name: 'Eli Morgan',
-    action: 'completed the keyboard audit.',
     project: 'Design system',
     time: '09:36',
     dateTime: '2026-10-01T09:36:00+08:00',
@@ -145,7 +143,6 @@ export const activity = [
   {
     id: 'a3',
     name: 'Leo Park',
-    action: 'updated the onboarding brief.',
     project: 'Onboarding',
     time: '09:12',
     dateTime: '2026-10-01T09:12:00+08:00',
@@ -156,22 +153,16 @@ export const activity = [
 export const announcements = [
   {
     id: 'release',
-    title: 'Release checkpoint · October 6',
-    body: 'Attach acceptance notes and clear review requests before the team checkpoint.',
   },
 ] as const;
 
 export const shortcuts = [
   {
-    label: 'Task queue',
-    detail: 'Prioritize the next delivery',
     path: '/work/tasks',
     icon: 'tasks',
   },
-  { label: 'Projects', detail: 'See the bigger picture', path: '/work/projects', icon: 'projects' },
+  { path: '/work/projects', icon: 'projects' },
   {
-    label: 'Analytics',
-    detail: 'Explore team performance',
     path: '/dashboard/analytics',
     icon: 'analytics',
   },
@@ -179,37 +170,25 @@ export const shortcuts = [
 
 export const metrics = [
   {
-    label: 'Active projects',
     value: snapshot.activeProjects,
-    change: '+2',
-    detail: 'vs. last week',
     icon: 'projects',
   },
   {
-    label: 'Open tasks',
     value: snapshot.openTasks,
-    change: '8 due soon',
-    detail: 'next 7 days',
     icon: 'tasks',
   },
   {
-    label: 'Team members',
     value: snapshot.teamMembers,
-    change: '4 teams',
-    detail: 'working together',
     icon: 'members',
   },
   {
-    label: 'Completion rate',
     value: `${snapshot.completionRate}%`,
-    change: '+6 pp',
-    detail: 'vs. last week',
     icon: 'completion',
   },
 ] as const;
 
-export function formatDueDate(date: string) {
-  return new Intl.DateTimeFormat('en-US', {
+export function formatDueDate(date: string, locale = 'en-US') {
+  return new Intl.DateTimeFormat(locale, {
     month: 'short',
     day: 'numeric',
     timeZone: 'UTC',

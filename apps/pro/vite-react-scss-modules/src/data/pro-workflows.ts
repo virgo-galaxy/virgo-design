@@ -1,3 +1,7 @@
+import type { formsEnUS } from '@/pages/forms/locales/en-US';
+import type { profileEnUS } from '@/pages/profile/locales/en-US';
+import type { resultsEnUS } from '@/pages/results/locales/en-US';
+
 import { projects } from './projects';
 import { normalizeTaskDraft, type Task, type TaskDraft, validateTask } from './tasks';
 import { taskAssignees, taskProjects } from './tasks.seed';
@@ -23,9 +27,7 @@ export function validateWorkRequest(draft: WorkRequest) {
       taskProjects,
       taskAssignees.map((person) => person.id),
     ),
-    ...(!draft.acceptanceConfirmed
-      ? { acceptanceConfirmed: 'Confirm that the brief is ready for the assignee.' }
-      : {}),
+    ...(!draft.acceptanceConfirmed ? { acceptanceConfirmed: 'acceptanceRequired' as const } : {}),
   };
 }
 export function workRequestTask(draft: WorkRequest): TaskDraft {
@@ -63,13 +65,13 @@ export const initialHandoff: HandoffDraft = {
   confirmed: false,
 };
 export interface ScopeGroup {
-  id: string;
+  id: 'scope-review' | 'scope-open' | 'scope-done';
   title: string;
   tasks: Task[];
 }
 export function scopeGroups(projectId: string, tasks: readonly Task[]): ScopeGroup[] {
   const project = projects.find((item) => item.id === projectId);
-  return [
+  const groups: ScopeGroup[] = [
     {
       id: 'scope-review',
       title: 'Awaiting acceptance',
@@ -88,7 +90,8 @@ export function scopeGroups(projectId: string, tasks: readonly Task[]): ScopeGro
       title: 'Delivered work',
       tasks: tasks.filter((task) => task.project === project?.name && task.status === 'Done'),
     },
-  ].filter((group) => group.tasks.length > 0);
+  ];
+  return groups.filter((group) => group.tasks.length > 0);
 }
 export function scopeTreeValues(ids: readonly string[], groups: readonly ScopeGroup[]) {
   const leaves = groups
@@ -128,14 +131,12 @@ function validDate(value: string) {
   );
 }
 export function validateHandoff(draft: HandoffDraft, tasks: readonly Task[], throughStep: number) {
-  const errors: Partial<Record<keyof HandoffDraft, string>> = {};
+  const errors: Partial<Record<keyof HandoffDraft, keyof typeof formsEnUS.validation>> = {};
   const project = projects.find((item) => item.id === draft.projectId);
-  if (!draft.title.trim() || draft.title.trim().length > 100)
-    errors.title = 'Enter a handoff title within 100 characters.';
-  if (!project) errors.projectId = 'Choose an existing project.';
-  if (!validDate(draft.date) || draft.date < '2026-10-03')
-    errors.date = 'Choose a date on or after October 3, 2026.';
-  if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(draft.time)) errors.time = 'Choose a valid handoff time.';
+  if (!draft.title.trim() || draft.title.trim().length > 100) errors.title = 'titleInvalid';
+  if (!project) errors.projectId = 'projectInvalid';
+  if (!validDate(draft.date) || draft.date < '2026-10-03') errors.date = 'dateInvalid';
+  if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(draft.time)) errors.time = 'timeInvalid';
   if (throughStep >= 1) {
     if (
       !draft.taskIds.length ||
@@ -143,21 +144,19 @@ export function validateHandoff(draft: HandoffDraft, tasks: readonly Task[], thr
         (id) => !tasks.some((task) => task.id === id && task.project === project?.name),
       )
     )
-      errors.taskIds = 'Select at least one current task from this project.';
-    if (draft.notes.length > 1500) errors.notes = 'Keep handoff notes within 1,500 characters.';
+      errors.taskIds = 'scopeRequired';
+    if (draft.notes.length > 1500) errors.notes = 'notesTooLong';
     if (draft.audience !== 'team' && draft.audience !== 'external')
-      errors.audience = 'Choose an audience.';
+      errors.audience = 'audienceInvalid';
   }
-  if (throughStep >= 2 && !draft.confirmed)
-    errors.confirmed = 'Confirm the scope and handoff details before preparing the packet.';
+  if (throughStep >= 2 && !draft.confirmed) errors.confirmed = 'confirmationRequired';
   return errors;
 }
 export interface WorkflowReceipt {
   outcome: 'success' | 'error';
   kind: 'task' | 'handoff';
   reference: string;
-  title: string;
-  description: string;
+  message: keyof typeof resultsEnUS.receipts;
   projectId: string;
   taskIds: string[];
   recordedAt: string;
@@ -171,9 +170,7 @@ export const sampleSuccess: WorkflowReceipt = {
   outcome: 'success',
   kind: 'task',
   reference: 'RCP-125',
-  title: 'Keyboard audit completed',
-  description:
-    'The keyboard audit is recorded as delivered. Its findings are ready for the Design system acceptance review.',
+  message: 'keyboardAudit',
   projectId: 'design-system',
   taskIds: ['VD-125'],
   recordedAt: '2026-10-01T09:36:00+08:00',
@@ -184,9 +181,7 @@ export const sampleError: WorkflowReceipt = {
   outcome: 'error',
   kind: 'handoff',
   reference: 'HOF-100',
-  title: 'External handoff restricted',
-  description:
-    'Workspace release material is limited to the team while export permissions are being reviewed.',
+  message: 'externalHandoff',
   projectId: 'workspace',
   taskIds: ['VD-128', 'VD-126'],
   recordedAt: '2026-10-03T10:00:00+08:00',
@@ -210,10 +205,7 @@ export function prepareHandoff(
     outcome: restricted ? 'error' : 'success',
     kind: 'handoff',
     reference,
-    title: restricted ? 'External handoff restricted' : 'Handoff packet prepared',
-    description: restricted
-      ? 'Workspace release material is limited to the team while export permissions are being reviewed. Your draft is kept for correction.'
-      : 'Your project scope and acceptance notes are ready for the handoff. Review the packet with your team at the scheduled checkpoint.',
+    message: restricted ? 'externalHandoffDraft' : 'handoff',
     projectId: draft.projectId,
     taskIds: [...draft.taskIds],
     recordedAt,
@@ -250,17 +242,15 @@ export const initialProfile: ProfileState = {
   compactActivity: false,
 };
 export function validateProfile(profile: ProfileState) {
-  const errors: Partial<Record<keyof ProfileState, string>> = {};
-  if (!profile.name.trim() || profile.name.trim().length > 60)
-    errors.name = 'Use a display name within 60 characters.';
-  if (profile.headline.length > 100) errors.headline = 'Keep your headline within 100 characters.';
-  if (profile.bio.length > 600) errors.bio = 'Keep your introduction within 600 characters.';
-  if (!/^#[\da-f]{6}$/i.test(profile.avatarColor))
-    errors.avatarColor = 'Choose a six-digit hex color.';
+  const errors: Partial<Record<keyof ProfileState, keyof typeof profileEnUS.validation>> = {};
+  if (!profile.name.trim() || profile.name.trim().length > 60) errors.name = 'nameInvalid';
+  if (profile.headline.length > 100) errors.headline = 'headlineTooLong';
+  if (profile.bio.length > 600) errors.bio = 'bioTooLong';
+  if (!/^#[\da-f]{6}$/i.test(profile.avatarColor)) errors.avatarColor = 'colorInvalid';
   if (!projects.some((project) => project.id === profile.focusProject))
-    errors.focusProject = 'Choose a focus project.';
+    errors.focusProject = 'projectInvalid';
   if (profile.digest && !/^([01]\d|2[0-3]):[0-5]\d$/.test(profile.digestTime))
-    errors.digestTime = 'Choose a valid digest time.';
+    errors.digestTime = 'digestTimeInvalid';
   return errors;
 }
 export function profileInitials(name: string) {
@@ -285,9 +275,8 @@ export function avatarForeground(color: string) {
 }
 
 export function avatarFileError(file: { type: string; size: number }) {
-  if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type))
-    return 'Choose a PNG, JPEG or WebP image.';
-  if (file.size > 2 * 1024 * 1024) return 'Choose an image smaller than 2 MB.';
+  if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) return 'unsupportedFile';
+  if (file.size > 2 * 1024 * 1024) return 'fileTooLarge';
   return '';
 }
 

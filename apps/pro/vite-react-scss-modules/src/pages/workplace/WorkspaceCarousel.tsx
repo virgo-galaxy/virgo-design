@@ -1,10 +1,12 @@
 import { Carousel } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 
 import { workplaceImages } from '@/data/workplace-images';
 
 import styles from './WorkspaceCarousel.module.scss';
 
 export function WorkspaceCarousel() {
+  const { t } = useTranslation();
   return (
     <Carousel
       count={workplaceImages.length}
@@ -12,7 +14,7 @@ export function WorkspaceCarousel() {
       autoPlay
       interval={6000}
       arrows="hover"
-      aria-label="Workspace inspiration"
+      aria-label={t('workplace.workspaceInspiration')}
       className={styles.carousel}
     >
       <Carousel.Viewport className={styles.viewport}>
@@ -21,7 +23,7 @@ export function WorkspaceCarousel() {
             <Carousel.Item key={image.id} index={index}>
               <img
                 src={image.src}
-                alt={image.alt}
+                alt={t(`workplace.imageAlts.${image.id}`)}
                 width={960}
                 height={640}
                 loading="lazy"

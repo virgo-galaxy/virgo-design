@@ -15,6 +15,7 @@ import {
   Tooltip,
 } from '@virgo-design/ui';
 import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router';
 
 import {
@@ -23,15 +24,23 @@ import {
 } from '@/components/global-settings/settings';
 import { SettingsDrawer, SettingsTrigger } from '@/components/global-settings/SettingsDrawer';
 import { useProSettings } from '@/components/global-settings/useProSettings';
+import { LanguageControl } from '@/components/language-control/LanguageControl';
 import { avatarForeground, profileInitials, type ProfileState } from '@/data/pro-workflows';
 
 import styles from './AppShell.module.scss';
-import { navigationPages } from './navigation';
+import { navigationPages as baseNavigationPages } from './navigation';
+import { getGroupLabel, getPageLabel } from './navigation-labels';
 import { proRouteConfig } from './routes.config';
 import { proRouting } from './routing';
 import { SidebarNavigation } from './SidebarNavigation';
 
 function PageSearch() {
+  const { t } = useTranslation();
+  const navigationPages = baseNavigationPages.map((page) => ({
+    ...page,
+    label: getPageLabel(t, page.page),
+    group: getGroupLabel(t, page.groupId),
+  }));
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
   return (
@@ -45,7 +54,7 @@ function PageSearch() {
       size="small"
     >
       <SearchIcon aria-hidden="true" className={styles.searchIcon} />
-      <Combobox.Input aria-label="Find a page" placeholder="Find a page…" />
+      <Combobox.Input aria-label={t('app.findAPage')} placeholder={t('app.findAPage2')} />
       <Combobox.Content>
         {navigationPages.map((page) => (
           <Combobox.Option
@@ -58,7 +67,7 @@ function PageSearch() {
             <span className={styles.optionGroup}>{page.group}</span>
           </Combobox.Option>
         ))}
-        <Combobox.Empty>No matching pages</Combobox.Empty>
+        <Combobox.Empty>{t('app.noMatchingPages')}</Combobox.Empty>
       </Combobox.Content>
     </Combobox>
   );
@@ -71,6 +80,7 @@ function Notifications({
   showOverlayArrows: boolean;
   indicator: NotificationIndicator;
 }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const tooltipSuppressed = useRef(false);
@@ -110,7 +120,7 @@ function Notifications({
             <Popover.Trigger
               {...tooltipProps}
               render={(props) => (
-                <Button {...props} iconOnly variant="text" aria-label="Notifications">
+                <Button {...props} iconOnly variant="text" aria-label={t('app.notifications')}>
                   <Badge
                     dot={indicator === 'dot'}
                     {...(indicator === 'count' ? { count: 1 } : {})}
@@ -124,28 +134,32 @@ function Notifications({
             />
           )}
         />
-        <Tooltip.Content placement="bottom">Notifications</Tooltip.Content>
+        <Tooltip.Content placement="bottom">{t('app.notifications')}</Tooltip.Content>
       </Tooltip>
       <Popover.Content
         className={styles.infoPanel}
         placement="bottomEnd"
-        aria-label="Notifications"
+        aria-label={t('app.notifications')}
         arrow={showOverlayArrows}
       >
-        <strong>Notifications</strong>
-        <p>Welcome to Virgo Studio.</p>
+        <strong>{t('app.notifications')}</strong>
+        <p>{t('app.welcomeToVirgoStudio')}</p>
         <Separator decorative />
-        <p>Workplace snapshot · October 1, 2026</p>
+        <p>{t('app.workplaceSnapshotOctober12026')}</p>
       </Popover.Content>
     </Popover>
   );
 }
 
 export function AppShell({ profile }: { profile: ProfileState }) {
+  const { t } = useTranslation();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const currentPage = proRouting.match(pathname);
-  const currentGroup = currentPage?.group;
+  const currentGroup = currentPage?.group
+    ? { ...currentPage.group, label: getGroupLabel(t, currentPage.group.id) }
+    : undefined;
+  const currentPageLabel = currentPage ? getPageLabel(t, currentPage.page) : t('app.pageNotFound');
   const CurrentGroupIcon = currentGroup ? iconComponents[currentGroup.icon] : undefined;
   const CurrentPageIcon = currentPage?.icon ? iconComponents[currentPage.icon] : undefined;
   const { settings, setSettings, updateSettings, resetSettings, theme, storageAvailable } =
@@ -192,10 +206,13 @@ export function AppShell({ profile }: { profile: ProfileState }) {
   }, [pathname, narrow, setSettings]);
 
   useEffect(() => {
-    document.title = `${currentPage?.label ?? 'Page not found'} · Virgo Design Pro`;
+    document.title = t('app.valueVirgoDesignPro', { v0: currentPageLabel });
+  }, [currentPageLabel, t]);
+
+  useEffect(() => {
     contentRef.current?.scrollTo({ top: 0 });
     contentRef.current?.focus({ preventScroll: true });
-  }, [pathname, currentPage?.label]);
+  }, [pathname]);
 
   const settingsTriggerProps = {
     ref: settingsTrigger,
@@ -250,7 +267,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
             }}
           >
             <a className={styles.skipLink} href="#pro-main">
-              Skip to content
+              {t('app.skipToContent')}
             </a>
             <Layout.Header
               className={styles.header!}
@@ -274,8 +291,8 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                           className={styles.brandTrigger}
                           aria-label={
                             sidebarState === 'hidden'
-                              ? 'Restore navigation'
-                              : 'Virgo Design Pro home'
+                              ? t('app.restoreNavigation')
+                              : t('app.virgoDesignProHome')
                           }
                           onClick={(event) => {
                             props.onClick?.(event);
@@ -293,22 +310,23 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                         </Layout.SidebarTrigger>
                       )}
                     />
-                    <Tooltip.Content>Restore navigation</Tooltip.Content>
+                    <Tooltip.Content>{t('app.restoreNavigation')}</Tooltip.Content>
                   </Tooltip>
                   <Link
                     to={proRouteConfig.homePath}
                     className={styles.brandHome}
-                    aria-label="Virgo Design Pro home"
+                    aria-label={t('app.virgoDesignProHome')}
                   >
-                    Virgo Design
+                    {t('app.virgoDesign')}
                   </Link>
                   <Tag size="sm" intent="brand" variant="soft" className={styles.proBadge}>
-                    PRO
+                    {t('app.pro')}
                   </Tag>
                 </div>
               }
               actions={
                 <div className={styles.actions}>
+                  <LanguageControl />
                   <Tooltip>
                     <Tooltip.Trigger
                       render={(props) => (
@@ -316,7 +334,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                           {...props}
                           iconOnly
                           variant="text"
-                          aria-label={theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+                          aria-label={theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
                           onClick={(event) => {
                             props.onClick?.(event);
                             if (!event.defaultPrevented)
@@ -328,7 +346,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                       )}
                     />
                     <Tooltip.Content>
-                      {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+                      {theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
                     </Tooltip.Content>
                   </Tooltip>
                   <Notifications
@@ -345,7 +363,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                           variant="text"
                           size="large"
                           className={styles.account}
-                          aria-label={`${profile.name} account`}
+                          aria-label={t('app.accountLabel', { name: profile.name })}
                           trailingIcon={<ChevronDownIcon className={styles.accountChevron} />}
                         >
                           <Avatar
@@ -368,7 +386,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                       arrow={settings.showOverlayArrows}
                     >
                       <strong>{profile.name}</strong>
-                      <p>Workspace owner · Virgo Studio</p>
+                      <p>{t('app.workspaceOwnerVirgoStudio')}</p>
                       <Separator decorative />
                       <Button
                         variant="text"
@@ -377,7 +395,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                           navigate('/profile');
                         }}
                       >
-                        View profile
+                        {t('app.viewProfile')}
                       </Button>
                     </Popover.Content>
                   </Popover>
@@ -418,7 +436,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                           animation={settings.breathe ? 'breathe' : 'none'}
                           className={styles.statusDot}
                         />
-                        TEAM WORKSPACE
+                        {t('app.teamWorkspace')}
                       </span>
                     ) : null}
                     <Tooltip className={styles.sidebarToggleHint}>
@@ -432,7 +450,9 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                         )}
                       />
                       <Tooltip.Content placement="right" offset={12}>
-                        {sidebarState !== 'expanded' ? 'Expand sidebar' : 'Collapse sidebar'}
+                        {sidebarState !== 'expanded'
+                          ? t('app.expandSidebar')
+                          : t('app.collapseSidebar')}
                       </Tooltip.Content>
                     </Tooltip>
                   </div>
@@ -452,7 +472,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                 <Layout.SidebarTrigger
                   action="collapse"
                   className={styles.sidebarBackdrop}
-                  aria-label="Close navigation"
+                  aria-label={t('app.closeNavigation')}
                   onClick={() => navigationToggle.current?.focus()}
                 />
               ) : null}
@@ -466,7 +486,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                 <div className={styles.content} data-layout={currentPage?.contentLayout}>
                   {settings.showBreadcrumb && currentPage?.display.breadcrumb ? (
                     <div className={styles.contextBar}>
-                      <Breadcrumb aria-label="Page breadcrumb">
+                      <Breadcrumb aria-label={t('app.pageBreadcrumb')}>
                         {CurrentGroupIcon && currentGroup ? (
                           <Breadcrumb.Item
                             aria-current={false}
@@ -476,7 +496,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                             <span className={styles.breadcrumbIconLabel}>{currentGroup.label}</span>
                           </Breadcrumb.Item>
                         ) : null}
-                        {currentGroup && currentGroup.label !== currentPage.label ? (
+                        {currentGroup && currentGroup.label !== currentPageLabel ? (
                           <Breadcrumb.Item aria-current={false}>
                             {currentGroup.label}
                           </Breadcrumb.Item>
@@ -484,7 +504,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                         <Breadcrumb.Item
                           {...(CurrentPageIcon ? { icon: <CurrentPageIcon /> } : {})}
                         >
-                          {currentPage.label}
+                          {currentPageLabel}
                         </Breadcrumb.Item>
                       </Breadcrumb>
                     </div>
@@ -494,7 +514,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                   </div>
                   {settings.showFooter ? (
                     <footer className={styles.contentFooter}>
-                      <Link to={proRouteConfig.homePath}>Virgo Design Pro</Link>
+                      <Link to={proRouteConfig.homePath}>{t('app.virgoDesignPro')}</Link>
                     </footer>
                   ) : null}
                 </div>

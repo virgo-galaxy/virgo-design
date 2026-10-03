@@ -51,9 +51,7 @@ export function App() {
       outcome: 'success',
       kind: 'task',
       reference: `REQ-${tasks.nextId}`,
-      title: 'Work request accepted',
-      description:
-        'Your brief is now a Todo task with a clear owner. It is ready for the team’s next delivery.',
+      message: 'workRequest',
       projectId: projects.find((item) => item.name === task.project)!.id,
       taskIds: [id],
       recordedAt,

@@ -1,11 +1,13 @@
 import { NavigationMenu, Separator } from '@virgo-design/ui';
 import { useId, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
 import type { SidebarStyle } from '@/components/global-settings/settings';
 
 import styles from './AppShell.module.scss';
-import { navigationGroups } from './navigation';
+import { navigationGroups as baseNavigationGroups } from './navigation';
+import { getGroupLabel, getPageLabel } from './navigation-labels';
 import { proRouting } from './routing';
 
 export function SidebarNavigation({
@@ -21,6 +23,12 @@ export function SidebarNavigation({
   sidebarStyle: SidebarStyle;
   showOverlayArrows: boolean;
 }) {
+  const { t } = useTranslation();
+  const navigationGroups = baseNavigationGroups.map((group) => ({
+    ...group,
+    label: getGroupLabel(t, group.id),
+    pages: group.pages.map((page) => ({ ...page, label: getPageLabel(t, page.page) })),
+  }));
   const menuId = useId();
   const currentPage = proRouting.match(pathname);
   const currentGroup = currentPage?.group?.id;
@@ -46,7 +54,7 @@ export function SidebarNavigation({
       value={currentPage?.path ?? pathname}
       className={styles.navigation}
       data-compact={collapsed}
-      aria-label="Main navigation"
+      aria-label={t('app.mainNavigation')}
     >
       <NavigationMenu.List>
         {navigationGroups.map((group) => {

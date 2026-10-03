@@ -52,9 +52,9 @@ describe('complex task queries', () => {
   it('rejects inverted date ranges and invalid estimates', () => {
     expect(
       queryError({ ...emptyDataQuery, createdFrom: '2026-10-03', createdTo: '2026-10-01' }),
-    ).toContain('start date');
+    ).toBe('dateOrder');
     for (const minimumHours of ['-1', '1.5', '1000', 'abc'])
-      expect(queryError({ ...emptyDataQuery, minimumHours })).toContain('whole number');
+      expect(queryError({ ...emptyDataQuery, minimumHours })).toBe('invalidEstimate');
     expect(queryError({ ...emptyDataQuery, minimumHours: '0' })).toBe('');
   });
   it('round trips applied conditions through URL history and omits defaults', () => {
@@ -79,9 +79,7 @@ describe('complex task queries', () => {
     ).toEqual(emptyDataQuery);
   });
   it('rejects impossible dates before a query is applied', () => {
-    expect(queryError({ ...emptyDataQuery, createdFrom: '2026-02-31' })).toContain(
-      'valid creation dates',
-    );
+    expect(queryError({ ...emptyDataQuery, createdFrom: '2026-02-31' })).toBe('invalidDates');
   });
   it('sorts the entire matching set before pagination', () => {
     const matching = sortTasks(find({ project: 'Workspace' }), {

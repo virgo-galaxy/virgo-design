@@ -1,5 +1,5 @@
 :root {
-  font-family: var(--vd-font-family-sans);
+  font-family: var(--app-font-family, var(--vd-font-family-sans));
   font-size: var(--vd-typography-ui-body-medium-font-size);
   line-height: var(--vd-typography-ui-body-medium-line-height);
   color: var(--vd-text-primary);

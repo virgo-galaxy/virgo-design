@@ -1,6 +1,7 @@
 import { SearchIcon } from '@virgo-design/icons';
 import { Avatar, Button, Empty, Field, Select, Surface, Tag } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { taskAssignees } from '@/data/tasks.seed';
 
@@ -130,31 +131,27 @@ export function FilterSelect({
   );
 }
 export function Person({ id }: { id: string }) {
+  const { t } = useTranslation();
   const member = taskAssignees.find((person) => person.id === id);
   return (
     <span className={styles.person}>
       <Avatar size="sm" fallback={member?.initials ?? '?'} className={styles.avatar} />
-      <span>{member?.name ?? 'Unassigned'}</span>
+      <span>{member?.name ?? t('shared.unassigned')}</span>
     </span>
   );
 }
-export function NoResults({
-  onReset,
-  title = 'No results match this view',
-}: {
-  onReset: () => void;
-  title?: string;
-}) {
+export function NoResults({ onReset, title }: { onReset: () => void; title?: string }) {
+  const { t } = useTranslation();
   return (
     <Empty size="md">
       <Empty.Icon>
         <SearchIcon />
       </Empty.Icon>
-      <Empty.Title>{title}</Empty.Title>
-      <Empty.Description>Try a broader search or reset the filters.</Empty.Description>
+      <Empty.Title>{title ?? t('shared.noResults')}</Empty.Title>
+      <Empty.Description>{t('shared.tryABroaderSearchOrResetTheFilters')}</Empty.Description>
       <Empty.Action>
         <Button size="small" variant="outline" onClick={onReset}>
-          Reset filters
+          {t('shared.resetFilters')}
         </Button>
       </Empty.Action>
     </Empty>

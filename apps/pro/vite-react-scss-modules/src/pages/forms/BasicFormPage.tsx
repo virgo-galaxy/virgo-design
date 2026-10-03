@@ -14,6 +14,7 @@ import {
   Textarea,
 } from '@virgo-design/ui';
 import { type Dispatch, type SetStateAction, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
 
 import { initialWorkRequest, validateWorkRequest, type WorkRequest } from '@/data/pro-workflows';
@@ -22,6 +23,7 @@ import { isTaskPriority, taskPriorities } from '@/data/tasks';
 import { taskAssignees } from '@/data/tasks.seed';
 import { Panel, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
+import { getTaskPriorityLabel } from '@/pages/tasks/task-presentation';
 
 import styles from './FormsPage.module.scss';
 
@@ -34,6 +36,7 @@ export function BasicFormPage({
   setDraft: Dispatch<SetStateAction<WorkRequest>>;
   onCreate: (draft: WorkRequest) => void;
 }) {
+  const { t, i18n } = useTranslation();
   const [errors, setErrors] = useState<ReturnType<typeof validateWorkRequest>>({});
   const formRef = useRef<HTMLFormElement>(null);
   const navigate = useNavigate();
@@ -73,57 +76,61 @@ export function BasicFormPage({
           >
             <Panel
               className={styles.formSection!}
-              title="01 / The brief"
-              description="What needs to change, and what does good look like?"
+              title={t('forms.text01TheBrief')}
+              description={t('forms.whatNeedsToChangeAndWhatDoesGoodLook')}
             >
               <div className={styles.fields}>
                 <Field required invalid={Boolean(errors.title)}>
-                  <Field.Label>Request title</Field.Label>
+                  <Field.Label>{t('forms.requestTitle')}</Field.Label>
                   <Input
                     value={draft.title}
                     onChange={(event) => update('title', event.target.value)}
-                    placeholder="A specific outcome, in a few words"
+                    placeholder={t('forms.aSpecificOutcomeInAFewWords')}
                     maxLength={120}
                   />
                   {errors.title ? (
-                    <Field.Message>{errors.title}</Field.Message>
+                    <Field.Message>{t(`tasks.validation.${errors.title}`)}</Field.Message>
                   ) : (
                     <Field.Description>
-                      {draft.title.length}/120 characters · this becomes the task title
+                      {t('forms.value120CharactersThisBecomesTheTaskTitle', {
+                        v0: draft.title.length,
+                      })}
                     </Field.Description>
                   )}
                 </Field>
                 <Field invalid={Boolean(errors.description)}>
-                  <Field.Label>Context and acceptance notes</Field.Label>
+                  <Field.Label>{t('forms.contextAndAcceptanceNotes')}</Field.Label>
                   <Textarea
                     rows={5}
                     value={draft.description}
                     onChange={(event) => update('description', event.target.value)}
-                    placeholder="Describe the problem, useful context and the acceptance criteria…"
+                    placeholder={t('forms.describeTheProblemUsefulContextAndTheAcceptanceCriteria')}
                     maxLength={2000}
                   />
                   <Field.Description>
-                    Include the decision or deliverable the assignee needs to produce.
+                    {t('forms.includeTheDecisionOrDeliverableTheAssigneeNeedsTo')}
                   </Field.Description>
-                  {errors.description ? <Field.Message>{errors.description}</Field.Message> : null}
+                  {errors.description ? (
+                    <Field.Message>{t(`tasks.validation.${errors.description}`)}</Field.Message>
+                  ) : null}
                 </Field>
               </div>
             </Panel>
             <Panel
               className={styles.formSection!}
-              title="02 / Ownership and delivery"
-              description="Connect this request to the team’s active work."
+              title={t('forms.text02OwnershipAndDelivery')}
+              description={t('forms.connectThisRequestToTheTeamSActiveWork')}
             >
               <div className={styles.fields}>
                 <div className={styles.fieldGrid}>
                   <Field required invalid={Boolean(errors.project)}>
-                    <Field.Label>Project</Field.Label>
+                    <Field.Label>{t('forms.project')}</Field.Label>
                     <Combobox
                       size="small"
                       value={draft.project}
                       onValueChange={(value) => update('project', value)}
                     >
-                      <Combobox.Input placeholder="Find a project" />
+                      <Combobox.Input placeholder={t('forms.findAProject')} />
                       <Combobox.Content>
                         {projects.map((item) => (
                           <Combobox.Option
@@ -136,19 +143,21 @@ export function BasicFormPage({
                             <span className={shared.mono}>{item.code}</span>
                           </Combobox.Option>
                         ))}
-                        <Combobox.Empty>No project matches</Combobox.Empty>
+                        <Combobox.Empty>{t('forms.noProjectMatches')}</Combobox.Empty>
                       </Combobox.Content>
                     </Combobox>
-                    {errors.project ? <Field.Message>{errors.project}</Field.Message> : null}
+                    {errors.project ? (
+                      <Field.Message>{t(`tasks.validation.${errors.project}`)}</Field.Message>
+                    ) : null}
                   </Field>
                   <Field required invalid={Boolean(errors.assignee)}>
-                    <Field.Label>Assignee</Field.Label>
+                    <Field.Label>{t('forms.assignee')}</Field.Label>
                     <Combobox
                       size="small"
                       value={draft.assignee}
                       onValueChange={(value) => update('assignee', value)}
                     >
-                      <Combobox.Input placeholder="Find a team member" />
+                      <Combobox.Input placeholder={t('forms.findATeamMember')} />
                       <Combobox.Content>
                         {taskAssignees.map((person) => (
                           <Combobox.Option
@@ -160,22 +169,22 @@ export function BasicFormPage({
                             <Person id={person.id} />
                           </Combobox.Option>
                         ))}
-                        <Combobox.Empty>No team member matches</Combobox.Empty>
+                        <Combobox.Empty>{t('forms.noTeamMemberMatches')}</Combobox.Empty>
                       </Combobox.Content>
                     </Combobox>
                     {errors.assignee ? (
-                      <Field.Message>{errors.assignee}</Field.Message>
+                      <Field.Message>{t(`tasks.validation.${errors.assignee}`)}</Field.Message>
                     ) : (
                       <Field.Description>
-                        One person responsible for the next step.
+                        {t('forms.onePersonResponsibleForTheNextStep')}
                       </Field.Description>
                     )}
                   </Field>
                 </div>
                 <fieldset className={styles.fieldset}>
-                  <legend>Priority</legend>
+                  <legend>{t('forms.priority')}</legend>
                   <Radio.Group
-                    aria-label="Request priority"
+                    aria-label={t('forms.requestPriority')}
                     orientation="horizontal"
                     value={draft.priority}
                     onValueChange={(value) => {
@@ -184,39 +193,43 @@ export function BasicFormPage({
                   >
                     {taskPriorities.map((priority) => (
                       <Radio key={priority} value={priority}>
-                        {priority}
+                        {getTaskPriorityLabel(t, priority)}
                       </Radio>
                     ))}
                   </Radio.Group>
                   <p className={shared.caption}>
-                    Urgent work needs immediate attention; keep it deliberate.
+                    {t('forms.urgentWorkNeedsImmediateAttentionKeepItDeliberate')}
                   </p>
                 </fieldset>
                 <div className={styles.fieldGrid}>
                   <Field invalid={Boolean(errors.dueDate)}>
-                    <Field.Label>Due date</Field.Label>
+                    <Field.Label>{t('forms.dueDate')}</Field.Label>
                     <DatePicker
                       size="small"
                       value={draft.dueDate}
                       onValueChange={(value) => update('dueDate', value)}
                     >
                       <DatePicker.Input />
-                      <DatePicker.Trigger aria-label="Choose request due date" />
-                      <DatePicker.Content aria-label="Request due date calendar">
+                      <DatePicker.Trigger aria-label={t('forms.chooseRequestDueDate')} />
+                      <DatePicker.Content aria-label={t('forms.requestDueDateCalendar')}>
                         <DatePicker.Calendar
+                          locale={i18n.language}
                           defaultMonth="2026-10"
-                          locale="en-US"
                           weekStartsOn={1}
                         />
                       </DatePicker.Content>
                     </DatePicker>
                     <Field.Description>
-                      Optional. Leave empty for unscheduled work.
+                      {t('forms.optionalLeaveEmptyForUnscheduledWork')}
                     </Field.Description>
-                    {errors.dueDate ? <Field.Message>{errors.dueDate}</Field.Message> : null}
+                    {errors.dueDate ? (
+                      <Field.Message>{t(`tasks.validation.${errors.dueDate}`)}</Field.Message>
+                    ) : null}
                   </Field>
                   <Field>
-                    <Field.Label>Estimated effort · {draft.estimateHours}h</Field.Label>
+                    <Field.Label>
+                      {t('forms.estimatedEffortValueH', { v0: draft.estimateHours })}
+                    </Field.Label>
                     <Slider
                       size="small"
                       min={0}
@@ -226,7 +239,7 @@ export function BasicFormPage({
                       onValueChange={(value) => update('estimateHours', value)}
                     />
                     <Field.Description>
-                      0 means unestimated · up to 40h for this request.
+                      {t('forms.text0MeansUnestimatedUpTo40hForThisRequest')}
                     </Field.Description>
                   </Field>
                 </div>
@@ -238,10 +251,12 @@ export function BasicFormPage({
                   checked={draft.acceptanceConfirmed}
                   onChange={(event) => update('acceptanceConfirmed', event.target.checked)}
                 >
-                  The brief is ready for the assignee.
+                  {t('forms.theBriefIsReadyForTheAssignee')}
                 </Checkbox>
                 {errors.acceptanceConfirmed ? (
-                  <Field.Message>{errors.acceptanceConfirmed}</Field.Message>
+                  <Field.Message>
+                    {t(`forms.validation.${errors.acceptanceConfirmed}`)}
+                  </Field.Message>
                 ) : null}
               </Field>
               <div className={shared.actions}>
@@ -254,41 +269,44 @@ export function BasicFormPage({
                     setErrors({});
                   }}
                 >
-                  Reset request
+                  {t('forms.resetRequest')}
                 </Button>
                 <Button size="small" type="submit" trailingIcon={<ArrowRightIcon />}>
-                  Submit request
+                  {t('forms.submitRequest')}
                 </Button>
               </div>
             </div>
           </Form>
         </Surface>
-        <aside className={shared.stack} aria-label="Work request context">
-          <Panel title="Request destination" description="The project this work belongs to">
+        <aside className={shared.stack} aria-label={t('forms.workRequestContext')}>
+          <Panel
+            title={t('forms.requestDestination')}
+            description={t('forms.theProjectThisWorkBelongsTo')}
+          >
             <div className={shared.body}>
-              <span className={shared.eyebrow}>{project?.code ?? 'CHOOSE A PROJECT'}</span>
-              <h3 className={styles.asideTitle}>{project?.name ?? 'Unassigned'}</h3>
+              <span className={shared.eyebrow}>{project?.code ?? t('forms.chooseAProject')}</span>
+              <h3 className={styles.asideTitle}>{project?.name ?? t('forms.unassigned')}</h3>
               <p className={styles.asideCopy}>
-                {project?.summary ?? 'Choose an existing project to place the request.'}
+                {project?.summary ?? t('forms.chooseAnExistingProjectToPlaceTheRequest')}
               </p>
               {project ? (
                 <>
                   <Person id={project.owner} />
                   <div className={styles.asideLink}>
                     <Link className={shared.link} to={projectDetailPath(project)}>
-                      Review project context →
+                      {t('forms.reviewProjectContext')}
                     </Link>
                   </div>
                 </>
               ) : null}
             </div>
           </Panel>
-          <Panel title="A useful brief">
+          <Panel title={t('forms.aUsefulBrief')}>
             <ul className={styles.guidance}>
               {[
-                'Name an outcome, not just an activity.',
-                'Add enough context to start independently.',
-                'Define what makes the work complete.',
+                t('forms.nameAnOutcomeNotJustAnActivity'),
+                t('forms.addEnoughContextToStartIndependently'),
+                t('forms.defineWhatMakesTheWorkComplete'),
               ].map((item) => (
                 <li key={item}>
                   <CheckIcon aria-hidden="true" />
@@ -298,10 +316,9 @@ export function BasicFormPage({
             </ul>
           </Panel>
           <Alert intent="info">
-            <Alert.Title>From request to delivery</Alert.Title>
+            <Alert.Title>{t('forms.fromRequestToDelivery')}</Alert.Title>
             <Alert.Description>
-              Submitting creates a Todo task. It will appear in Tasks, the project and the task
-              register.
+              {t('forms.submittingCreatesATodoTaskItWillAppearIn')}
             </Alert.Description>
           </Alert>
         </aside>

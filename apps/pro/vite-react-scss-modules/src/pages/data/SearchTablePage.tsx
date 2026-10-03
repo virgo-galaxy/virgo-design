@@ -13,7 +13,9 @@ import {
   Tag,
   Tooltip,
 } from '@virgo-design/ui';
+import type { TFunction } from 'i18next';
 import { type Dispatch, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useOutletContext, useSearchParams } from 'react-router';
 
 import type { ProSettings } from '@/components/global-settings/settings';
@@ -43,61 +45,68 @@ import { formatDueDate } from '@/data/workplace';
 import { downloadCsv } from '@/pages/shared/download';
 import { FilterSelect, NoResults, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
+import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
 import { useTaskEditor } from '@/pages/shared/use-task-editor';
+import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 import { taskPriorityIntent, taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import styles from './SearchTablePage.module.scss';
 
-const columnInfo = [
-  {
-    key: 'title',
-    label: 'Task',
-    description: 'Stable ID and task title. Open a record to edit its details.',
-  },
-  {
-    key: 'status',
-    label: 'Status',
-    description: 'Current delivery stage in the shared task workflow.',
-  },
-  {
-    key: 'priority',
-    label: 'Priority',
-    description: 'Urgent, High, Medium or Low. Priority is independent of due date.',
-  },
-  {
-    key: 'project',
-    label: 'Project',
-    description: 'The focus area owning this task. Open the project record for context.',
-  },
-  {
-    key: 'assignee',
-    label: 'Assignee',
-    description: 'The team member responsible for the next step.',
-  },
-  {
-    key: 'estimateHours',
-    label: 'Estimate (h)',
-    description: 'Whole-hour estimate; 0 means unestimated. This is not time logged.',
-    sort: 'estimateHours',
-  },
-  {
-    key: 'createdAt',
-    label: 'Created at',
-    description: 'Record creation date, shown in UTC. Filters include both date boundaries.',
-    sort: 'createdAt',
-  },
-  {
-    key: 'dueDate',
-    label: 'Due date',
-    description: `Due date. Overdue is measured against ${taskReferenceDate}. Undated tasks sort last.`,
-    sort: 'dueDate',
-  },
-] as const;
-type ColumnKey = (typeof columnInfo)[number]['key'];
+function getColumnInfo(t: TFunction) {
+  return [
+    {
+      key: 'title',
+      label: t('data.task'),
+      description: t('data.stableIdAndTaskTitleOpenARecordTo'),
+    },
+    {
+      key: 'status',
+      label: t('data.status'),
+      description: t('data.currentDeliveryStageInTheSharedTaskWorkflow'),
+    },
+    {
+      key: 'priority',
+      label: t('data.priority'),
+      description: t('data.urgentHighMediumOrLowPriorityIsIndependentOf'),
+    },
+    {
+      key: 'project',
+      label: t('data.project'),
+      description: t('data.theFocusAreaOwningThisTaskOpenTheProject'),
+    },
+    {
+      key: 'assignee',
+      label: t('data.assignee'),
+      description: t('data.theTeamMemberResponsibleForTheNextStep'),
+    },
+    {
+      key: 'estimateHours',
+      label: t('data.estimateH'),
+      description: t('data.wholeHourEstimate0MeansUnestimatedThisIsNot'),
+      sort: 'estimateHours',
+    },
+    {
+      key: 'createdAt',
+      label: t('data.createdAt'),
+      description: t('data.recordCreationDateShownInUtcFiltersIncludeBoth'),
+      sort: 'createdAt',
+    },
+    {
+      key: 'dueDate',
+      label: t('data.dueDate'),
+      description: t('data.dueDateOverdueIsMeasuredAgainstValueUndatedTasks', {
+        v0: taskReferenceDate,
+      }),
+      sort: 'dueDate',
+    },
+  ] as const;
+}
+type ColumnKey = ReturnType<typeof getColumnInfo>[number]['key'];
 
 function QueryForm({ query, onApply }: { query: DataQuery; onApply: (query: DataQuery) => void }) {
+  const { t } = useTranslation();
   const [draft, setDraft] = useState(query);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<ReturnType<typeof queryError>>('');
   const update = <Key extends keyof DataQuery>(key: Key, value: DataQuery[Key]) => {
     setDraft((previous) => ({ ...previous, [key]: value }));
     setError('');
@@ -115,8 +124,8 @@ function QueryForm({ query, onApply }: { query: DataQuery; onApply: (query: Data
     >
       <Input
         size="small"
-        aria-label="Search task register"
-        placeholder="Task title, ID, description or person…"
+        aria-label={t('data.searchTaskRegister')}
+        placeholder={t('data.taskTitleIdDescriptionOrPerson')}
         prefix={<SearchIcon />}
         value={draft.search}
         clearable
@@ -124,47 +133,47 @@ function QueryForm({ query, onApply }: { query: DataQuery; onApply: (query: Data
       />
       <div className={styles.queryGrid}>
         <FilterSelect
-          label="Project"
+          label={t('data.project')}
           value={draft.project}
           onChange={(value) => update('project', value)}
           options={[
-            { value: 'all', label: 'All projects' },
+            { value: 'all', label: t('data.allProjects') },
             ...taskProjects.map((value) => ({ value, label: value })),
           ]}
         />
         <FilterSelect
-          label="Status"
+          label={t('data.status')}
           value={draft.status}
           onChange={(value) => {
             if (value === 'all' || isTaskStatus(value)) update('status', value);
           }}
           options={[
-            { value: 'all', label: 'All statuses' },
-            ...taskStatuses.map((value) => ({ value, label: value })),
+            { value: 'all', label: t('data.allStatuses') },
+            ...taskStatuses.map((value) => ({ value, label: getTaskStatusLabel(t, value) })),
           ]}
         />
         <FilterSelect
-          label="Priority"
+          label={t('data.priority')}
           value={draft.priority}
           onChange={(value) => {
             if (value === 'all' || isTaskPriority(value)) update('priority', value);
           }}
           options={[
-            { value: 'all', label: 'All priorities' },
-            ...taskPriorities.map((value) => ({ value, label: value })),
+            { value: 'all', label: t('data.allPriorities') },
+            ...taskPriorities.map((value) => ({ value, label: getTaskPriorityLabel(t, value) })),
           ]}
         />
         <FilterSelect
-          label="Assignee"
+          label={t('data.assignee')}
           value={draft.assignee}
           onChange={(value) => update('assignee', value)}
           options={[
-            { value: 'all', label: 'All people' },
+            { value: 'all', label: t('data.allPeople') },
             ...taskAssignees.map((member) => ({ value: member.id, label: member.name })),
           ]}
         />
         <Field>
-          <Field.Label className={shared.filterLabel}>Created from (UTC)</Field.Label>
+          <Field.Label className={shared.filterLabel}>{t('data.createdFromUtc')}</Field.Label>
           <Input
             size="small"
             type="date"
@@ -173,7 +182,7 @@ function QueryForm({ query, onApply }: { query: DataQuery; onApply: (query: Data
           />
         </Field>
         <Field>
-          <Field.Label className={shared.filterLabel}>Created through (UTC)</Field.Label>
+          <Field.Label className={shared.filterLabel}>{t('data.createdThroughUtc')}</Field.Label>
           <Input
             size="small"
             type="date"
@@ -182,7 +191,7 @@ function QueryForm({ query, onApply }: { query: DataQuery; onApply: (query: Data
           />
         </Field>
         <FilterSelect
-          label="Due condition"
+          label={t('data.dueCondition')}
           value={draft.due}
           onChange={(value) => {
             if (
@@ -194,21 +203,21 @@ function QueryForm({ query, onApply }: { query: DataQuery; onApply: (query: Data
               update('due', value);
           }}
           options={[
-            { value: 'all', label: 'Any due date' },
-            { value: 'overdue', label: 'Overdue · open tasks' },
-            { value: 'week', label: 'Next 7 days · open tasks' },
-            { value: 'unscheduled', label: 'Unscheduled' },
+            { value: 'all', label: t('data.anyDueDate') },
+            { value: 'overdue', label: t('data.overdueOpenTasks') },
+            { value: 'week', label: t('data.next7DaysOpenTasks') },
+            { value: 'unscheduled', label: t('data.unscheduled') },
           ]}
         />
         <Field>
-          <Field.Label className={shared.filterLabel}>Minimum estimate</Field.Label>
+          <Field.Label className={shared.filterLabel}>{t('data.minimumEstimate')}</Field.Label>
           <Input
             size="small"
             type="number"
             min={0}
             max={999}
             step={1}
-            suffix="h"
+            suffix={t('data.h')}
             value={draft.minimumHours}
             onChange={(event) => update('minimumHours', event.target.value)}
           />
@@ -216,13 +225,13 @@ function QueryForm({ query, onApply }: { query: DataQuery; onApply: (query: Data
       </div>
       {error ? (
         <Alert intent="error">
-          <Alert.Title>Check your query</Alert.Title>
-          <Alert.Description>{error}</Alert.Description>
+          <Alert.Title>{t('data.checkYourQuery')}</Alert.Title>
+          <Alert.Description>{t(`data.validation.${error}`)}</Alert.Description>
         </Alert>
       ) : null}
       <div className={styles.queryActions}>
         <span className={shared.caption}>
-          All conditions are combined · creation dates are inclusive
+          {t('data.allConditionsAreCombinedCreationDatesAreInclusive')}
         </span>
         <Button
           size="small"
@@ -234,10 +243,10 @@ function QueryForm({ query, onApply }: { query: DataQuery; onApply: (query: Data
             onApply({ ...emptyDataQuery });
           }}
         >
-          Reset query
+          {t('data.resetQuery')}
         </Button>
         <Button size="small" type="submit" leadingIcon={<SearchIcon />}>
-          Apply query
+          {t('data.applyQuery')}
         </Button>
       </div>
     </Form>
@@ -251,6 +260,9 @@ export function SearchTablePage({
   state: TaskState;
   dispatch: Dispatch<TaskAction>;
 }) {
+  const { t, i18n } = useTranslation();
+  const paginationLabels = usePaginationLabels();
+  const columnInfo = getColumnInfo(t);
   const { showOverlayArrows } = useOutletContext<Pick<ProSettings, 'showOverlayArrows'>>();
   const [params, setParams] = useSearchParams();
   const query = queryFromParams(params);
@@ -264,7 +276,10 @@ export function SearchTablePage({
   });
   const [selection, setSelection] = useState<string[]>([]);
   const [columns, setColumns] = useState<ColumnKey[]>(columnInfo.map((column) => column.key));
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState<{
+    kind: 'markedDone' | 'exportedSelected' | 'exportedMatching';
+    count: number;
+  } | null>(null);
   if (lastQuery !== queryKey) {
     setLastQuery(queryKey);
     setPage(1);
@@ -283,7 +298,7 @@ export function SearchTablePage({
     setParams(queryParams(next));
     setPage(1);
     setSelection([]);
-    setFeedback('');
+    setFeedback(null);
     requestAnimationFrame(() => document.getElementById('pro-main')?.focus());
   };
   const chips = (Object.keys(query) as Array<keyof DataQuery>).filter(
@@ -307,8 +322,8 @@ export function SearchTablePage({
         <section aria-labelledby="query-conditions-title">
           <div className={styles.sectionHeading}>
             <div>
-              <h2 id="query-conditions-title">Query conditions</h2>
-              <p>Combine ownership, delivery stage, dates and effort</p>
+              <h2 id="query-conditions-title">{t('data.queryConditions')}</h2>
+              <p>{t('data.combineOwnershipDeliveryStageDatesAndEffort')}</p>
             </div>
           </div>
           <QueryForm key={queryKey} query={query} onApply={apply} />
@@ -316,22 +331,25 @@ export function SearchTablePage({
         <section aria-labelledby="query-results-title" className={styles.resultsSection}>
           <div className={styles.sectionHeading}>
             <div>
-              <h2 id="query-results-title">Query results</h2>
+              <h2 id="query-results-title">{t('data.queryResults')}</h2>
               <p>
-                {matching.length} matching records · {state.tasks.length} in the shared register
+                {t('data.valueMatchingRecordsValueInTheSharedRegister', {
+                  v0: matching.length,
+                  v1: state.tasks.length,
+                })}
               </p>
             </div>
             <Popover>
               <Popover.Trigger size="small" variant="outline">
-                Columns · {columns.length}
+                {t('data.columnsValue', { v0: columns.length })}
               </Popover.Trigger>
               <Popover.Content
                 placement="bottomEnd"
                 className={styles.columnPanel}
                 arrow={showOverlayArrows}
               >
-                <strong>Visible columns</strong>
-                <p>Task identity stays visible.</p>
+                <strong>{t('data.visibleColumns')}</strong>
+                <p>{t('data.taskIdentityStaysVisible')}</p>
                 {columnInfo.map((column) => (
                   <Checkbox
                     key={column.key}
@@ -352,7 +370,7 @@ export function SearchTablePage({
             </Popover>
           </div>
           {chips.length ? (
-            <div className={styles.chips} aria-label="Applied conditions">
+            <div className={styles.chips} aria-label={t('data.appliedConditions')}>
               {chips.map((key) => (
                 <Tag key={key} size="sm" variant="outline">
                   {labels[key]}:{' '}
@@ -366,14 +384,14 @@ export function SearchTablePage({
           <div className={styles.resultActions}>
             <span aria-live="polite">
               {selected.length
-                ? `${selected.length} selected across matching results`
-                : 'Select records for a bulk operation'}
+                ? t('data.selectionSummary', { count: selected.length })
+                : t('data.selectRecordsForABulkOperation')}
             </span>
             <div className={shared.actions}>
               {selected.length ? (
                 <>
                   <Button size="small" variant="text" onClick={() => setSelection([])}>
-                    Clear selection
+                    {t('data.clearSelection')}
                   </Button>
                   <Button
                     size="small"
@@ -383,13 +401,11 @@ export function SearchTablePage({
                       selected.forEach((task) =>
                         dispatch({ type: 'status', id: task.id, status: 'Done' }),
                       );
-                      setFeedback(
-                        `${selected.length} tasks marked Done. Updated across the workspace.`,
-                      );
+                      setFeedback({ kind: 'markedDone', count: selected.length });
                       setSelection([]);
                     }}
                   >
-                    Mark Done
+                    {t('data.markDone')}
                   </Button>
                 </>
               ) : null}
@@ -404,26 +420,26 @@ export function SearchTablePage({
                     createTasksCsv(rows),
                     selected.length ? 'virgo-selected-tasks.csv' : 'virgo-query-results.csv',
                   );
-                  setFeedback(
-                    `Exported ${rows.length} ${selected.length ? 'selected' : 'matching'} records in the current sort order.`,
-                  );
+                  setFeedback({
+                    kind: selected.length ? 'exportedSelected' : 'exportedMatching',
+                    count: rows.length,
+                  });
                 }}
               >
-                {selected.length ? 'Export selected' : 'Export results'}
+                {selected.length ? t('data.exportSelected') : t('data.exportResults')}
               </Button>
             </div>
           </div>
-          <Table.Viewport aria-label="Task query results" className={styles.viewport}>
+          <Table.Viewport aria-label={t('data.taskQueryResults')} className={styles.viewport}>
             <Table density="compact" border="separators" hoverable className={styles.table}>
               <Table.Caption className={shared.srOnly}>
-                Filtered task register. Select rows for bulk completion or export. Column
-                descriptions are available in the header.
+                {t('data.filteredTaskRegisterSelectRowsForBulkCompletionOr')}
               </Table.Caption>
               <Table.Header>
                 <Table.Row>
                   <Table.Head>
                     <Checkbox
-                      aria-label="Select current page"
+                      aria-label={t('data.selectCurrentPage')}
                       checked={allSelected}
                       indeterminate={someSelected && !allSelected}
                       disabled={!view.tasks.length}
@@ -472,7 +488,7 @@ export function SearchTablePage({
                             <Tooltip.Trigger
                               size="small"
                               variant="text"
-                              aria-label={`About ${column.label}`}
+                              aria-label={t('data.aboutValue', { v0: column.label })}
                               className={styles.infoButton}
                             >
                               ?
@@ -490,7 +506,7 @@ export function SearchTablePage({
                   <Table.Row key={task.id} selected={selection.includes(task.id)}>
                     <Table.Cell>
                       <Checkbox
-                        aria-label={`Select ${task.id}`}
+                        aria-label={t('data.selectValue', { v0: task.id })}
                         checked={selection.includes(task.id)}
                         onChange={(event) =>
                           setSelection((previous) =>
@@ -520,7 +536,7 @@ export function SearchTablePage({
                           </div>
                         ) : column.key === 'status' ? (
                           <Tag size="sm" intent={taskStatusIntent[task.status]}>
-                            {task.status}
+                            {getTaskStatusLabel(t, task.status)}
                           </Tag>
                         ) : column.key === 'priority' ? (
                           <Tag
@@ -528,7 +544,7 @@ export function SearchTablePage({
                             variant="outline"
                             intent={taskPriorityIntent[task.priority]}
                           >
-                            {task.priority}
+                            {getTaskPriorityLabel(t, task.priority)}
                           </Tag>
                         ) : column.key === 'project' ? (
                           <Link
@@ -545,7 +561,7 @@ export function SearchTablePage({
                           <span className={styles.numeric}>{task.estimateHours}</span>
                         ) : column.key === 'createdAt' ? (
                           <time dateTime={task.createdAt}>
-                            {formatDueDate(task.createdAt.slice(0, 10))}, 2026
+                            {formatDueDate(task.createdAt.slice(0, 10), i18n.language)}
                           </time>
                         ) : (
                           <span
@@ -553,11 +569,15 @@ export function SearchTablePage({
                             data-overdue={isOverdue(task, taskReferenceDate)}
                           >
                             {task.dueDate ? (
-                              <time dateTime={task.dueDate}>{formatDueDate(task.dueDate)}</time>
+                              <time dateTime={task.dueDate}>
+                                {formatDueDate(task.dueDate, i18n.language)}
+                              </time>
                             ) : (
-                              'Unscheduled'
+                              t('data.unscheduled')
                             )}
-                            {isOverdue(task, taskReferenceDate) ? <small>Overdue</small> : null}
+                            {isOverdue(task, taskReferenceDate) ? (
+                              <small>{t('data.overdue2')}</small>
+                            ) : null}
                           </span>
                         )}
                       </Table.Cell>
@@ -569,16 +589,21 @@ export function SearchTablePage({
           </Table.Viewport>
           {!matching.length ? (
             <NoResults
-              title="No records match this query"
+              title={t('data.noRecordsMatchThisQuery')}
               onReset={() => apply({ ...emptyDataQuery })}
             />
           ) : null}
           <div className={shared.footer}>
             <span aria-live="polite">
-              Showing {view.range[0]}–{view.range[1]} of {matching.length} records
+              {t('data.showingValueValueOfValueRecords', {
+                v0: view.range[0],
+                v1: view.range[1],
+                v2: matching.length,
+              })}
             </span>
             <Pagination
-              aria-label="Query result pages"
+              labels={paginationLabels}
+              aria-label={t('data.queryResultPages')}
               total={matching.length}
               page={view.page}
               pageSize={pageSize}
@@ -593,9 +618,9 @@ export function SearchTablePage({
             />
           </div>
           <div className={styles.feedback} role="status">
-            {feedback ||
+            {(feedback && t(`data.${feedback.kind}`, { count: feedback.count })) ||
               editor.feedback ||
-              'Bulk changes update the shared task register. Selection is cleared when conditions change.'}
+              t('data.bulkChangesUpdateTheSharedTaskRegisterSelectionIs')}
           </div>
         </section>
       </Surface>

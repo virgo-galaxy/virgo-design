@@ -234,9 +234,9 @@ describe('task mutations', () => {
 describe('validation and dates', () => {
   it('requires a title and valid ownership while allowing optional description/date', () => {
     expect(errors(emptyTaskDraft)).toEqual({
-      title: 'Enter a task title.',
-      project: 'Choose a project.',
-      assignee: 'Choose an assignee.',
+      title: 'titleRequired',
+      project: 'projectRequired',
+      assignee: 'assigneeRequired',
     });
     expect(
       errors({ ...draft, title: '  ', project: 'unknown', assignee: 'unknown' }),

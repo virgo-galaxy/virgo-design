@@ -9,6 +9,7 @@ import {
 } from '@virgo-design/icons';
 import { Button, Progress, Surface, Tag, Timeline } from '@virgo-design/ui';
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import {
@@ -62,6 +63,7 @@ function exportSnapshot() {
 }
 
 export function WorkplacePage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [widgets, setWidgets] = useState<Record<WidgetId, WorkplaceWidgetState>>({
     distribution: 'expanded',
@@ -101,15 +103,16 @@ export function WorkplacePage() {
           <PageHeading
             title={
               <>
-                Welcome back, Mystic<span className={styles.welcomeDot}>.</span>
+                {t('workplace.welcomeBackMystic')}
+                <span className={styles.welcomeDot}>.</span>
               </>
             }
-            description="Good work starts with a clear view. Here’s where your team stands."
+            description={t('workplace.goodWorkStartsWithAClearViewHereS')}
             actions={
               <div className={styles.welcomeActions}>
                 <span className={styles.snapshotDate}>
                   <CalendarIcon />
-                  <time dateTime={snapshot.date}>Oct 1, 2026</time>
+                  <time dateTime={snapshot.date}>{t('workplace.oct12026')}</time>
                 </span>
                 <Button
                   variant="outline"
@@ -118,7 +121,7 @@ export function WorkplacePage() {
                   ref={exportRef}
                   onClick={exportSnapshot}
                 >
-                  Export snapshot
+                  {t('workplace.exportSnapshot')}
                 </Button>
               </div>
             }
@@ -128,15 +131,15 @@ export function WorkplacePage() {
             {metrics.map((metric) => {
               const Icon = metricIcons[metric.icon];
               return (
-                <div className={styles.metric} key={metric.label}>
+                <div className={styles.metric} key={metric.icon}>
                   <div className={styles.metricLabel}>
-                    <span>{metric.label}</span>
+                    <span>{t(`workplace.metrics.${metric.icon}.label`)}</span>
                     <Icon aria-hidden="true" />
                   </div>
                   <strong>{metric.value}</strong>
                   <div className={styles.metricNote}>
-                    <span>{metric.change}</span>
-                    <span>{metric.detail}</span>
+                    <span>{t(`workplace.metrics.${metric.icon}.change`)}</span>
+                    <span>{t(`workplace.metrics.${metric.icon}.detail`)}</span>
                   </div>
                 </div>
               );
@@ -154,11 +157,11 @@ export function WorkplacePage() {
             >
               <span className={styles.announcementMarker} aria-hidden="true" />
               <div>
-                <strong>{announcement.title}</strong>
-                <p>{announcement.body}</p>
+                <strong>{t('workplace.announcement.title')}</strong>
+                <p>{t('workplace.announcement.body')}</p>
               </div>
               <Tag size="sm" variant="outline">
-                TEAM NOTE
+                {t('workplace.teamNote')}
               </Tag>
             </Surface>
           ))}
@@ -167,15 +170,15 @@ export function WorkplacePage() {
           {widgets.distribution !== 'removed' ? (
             <WorkplaceWidget
               {...widgetProps('distribution')}
-              title="Project distribution"
-              description="Where open tasks are concentrated."
+              title={t('workplace.projectDistribution')}
+              description={t('workplace.whereOpenTasksAreConcentrated')}
             >
               <div className={styles.distributionSummary}>
                 <strong>42</strong>
                 <span>
-                  open tasks
+                  {t('workplace.openTasks')}
                   <br />
-                  across 4 focus areas
+                  {t('workplace.across4FocusAreas')}
                 </span>
               </div>
               <div className={styles.distributionBar} aria-hidden="true">
@@ -203,18 +206,24 @@ export function WorkplacePage() {
                       size="sm"
                       value={project.count}
                       max={snapshot.openTasks}
-                      aria-label={`${project.name}: ${project.count} of ${snapshot.openTasks} open tasks`}
+                      aria-label={t('workplace.valueValueOfValueOpenTasks', {
+                        v0: project.name,
+                        v1: project.count,
+                        v2: snapshot.openTasks,
+                      })}
                       className={styles.distributionProgress}
                       data-series={project.color}
                     />
-                    <span className={styles.distributionShare}>{project.share}% of open tasks</span>
+                    <span className={styles.distributionShare}>
+                      {t('workplace.valueOfOpenTasks', { v0: project.share })}
+                    </span>
                   </div>
                 ))}
               </div>
             </WorkplaceWidget>
           ) : null}
           {widgets.shortcuts !== 'removed' ? (
-            <WorkplaceWidget {...widgetProps('shortcuts')} title="Quick access">
+            <WorkplaceWidget {...widgetProps('shortcuts')} title={t('workplace.quickAccess')}>
               <div className={styles.shortcuts}>
                 {shortcuts.map((shortcut) => {
                   const Icon = shortcutIcons[shortcut.icon];
@@ -228,8 +237,8 @@ export function WorkplacePage() {
                       onClick={() => navigate(shortcut.path)}
                     >
                       <span className={styles.shortcutCopy}>
-                        <strong>{shortcut.label}</strong>
-                        <span>{shortcut.detail}</span>
+                        <strong>{t(`workplace.shortcuts.${shortcut.icon}.label`)}</strong>
+                        <span>{t(`workplace.shortcuts.${shortcut.icon}.detail`)}</span>
                       </span>
                     </Button>
                   );
@@ -238,21 +247,24 @@ export function WorkplacePage() {
             </WorkplaceWidget>
           ) : null}
           {widgets.inspiration !== 'removed' ? (
-            <WorkplaceWidget {...widgetProps('inspiration')} title="Workspace inspiration">
+            <WorkplaceWidget
+              {...widgetProps('inspiration')}
+              title={t('workplace.workspaceInspiration')}
+            >
               <WorkspaceCarousel />
             </WorkplaceWidget>
           ) : null}
           {widgets.activity !== 'removed' ? (
-            <WorkplaceWidget {...widgetProps('activity')} title="Around the team">
+            <WorkplaceWidget {...widgetProps('activity')} title={t('workplace.aroundTheTeam')}>
               <Tag size="sm" variant="outline" className={styles.activityDate}>
-                TODAY
+                {t('workplace.today')}
               </Tag>
-              <Timeline size="small" aria-label="Recent team activity">
+              <Timeline size="small" aria-label={t('workplace.recentTeamActivity')}>
                 {activity.map((event) => (
                   <Timeline.Item key={event.id} status={event.status}>
                     <Timeline.Title className={styles.activityTitle}>{event.name}</Timeline.Title>
                     <Timeline.Description className={styles.activityDescription}>
-                      {event.action}
+                      {t(`workplace.activityActions.${event.id}`)}
                     </Timeline.Description>
                     <Timeline.Time dateTime={event.dateTime} className={styles.activityTime}>
                       {event.time} · {event.project}

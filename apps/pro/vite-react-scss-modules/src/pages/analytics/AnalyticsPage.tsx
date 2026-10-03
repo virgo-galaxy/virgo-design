@@ -1,6 +1,7 @@
 import { DownloadIcon } from '@virgo-design/icons';
 import { Button, Progress, SegmentedControl, Surface, Table, Tag } from '@virgo-design/ui';
 import { type CSSProperties, useId, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
 import { deliveryAnalysis } from '@/data/analytics';
@@ -15,6 +16,7 @@ import shared from '@/pages/shared/ProPage.module.scss';
 import styles from './AnalyticsPage.module.scss';
 
 export function AnalyticsPage({ state }: { state: TaskState }) {
+  const { t, i18n } = useTranslation();
   const [period, setPeriod] = useState<TrendPeriod>('14d');
   const [showData, setShowData] = useState(false);
   const [inspected, setInspected] = useState<string | null>(null);
@@ -40,10 +42,11 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
         <div className={styles.periodBar}>
           <div>
             <Tag size="sm" variant="outline">
-              TEAM DELIVERY
+              {t('analytics.teamDelivery')}
             </Tag>
             <span>
-              {formatDueDate(points[0]!.date)} – {formatDueDate(points.at(-1)!.date)}, 2026
+              {formatDueDate(points[0]!.date, i18n.language)} –{' '}
+              {formatDueDate(points.at(-1)!.date, i18n.language)}
             </span>
           </div>
           <div className={styles.periodActions}>
@@ -51,7 +54,7 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
               size="small"
               variant="soft"
               value={period}
-              aria-label="Analytics time range"
+              aria-label={t('analytics.analyticsTimeRange')}
               onValueChange={(value) => {
                 if (value === '7d' || value === '14d') {
                   setPeriod(value);
@@ -59,8 +62,8 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
                 }
               }}
             >
-              <SegmentedControl.Item value="7d">7 days</SegmentedControl.Item>
-              <SegmentedControl.Item value="14d">14 days</SegmentedControl.Item>
+              <SegmentedControl.Item value="7d">{t('analytics.text7Days')}</SegmentedControl.Item>
+              <SegmentedControl.Item value="14d">{t('analytics.text14Days')}</SegmentedControl.Item>
             </SegmentedControl>
             <Button
               size="small"
@@ -73,7 +76,7 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
                 )
               }
             >
-              Export report
+              {t('analytics.exportReport')}
             </Button>
           </div>
         </div>
@@ -81,55 +84,55 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
       <MetricStrip
         items={[
           {
-            label: 'Tasks delivered',
+            label: t('analytics.tasksDelivered'),
             value: analysis.delivered,
-            note: `${analysis.planned} planned in this period`,
+            note: t('analytics.plannedInPeriod', { count: analysis.planned }),
           },
           {
-            label: 'Plan attainment',
+            label: t('analytics.planAttainment'),
             value: `${analysis.attainment}%`,
-            note: `${analysis.planned - analysis.delivered} below plan`,
+            note: t('analytics.belowPlan', { count: analysis.planned - analysis.delivered }),
           },
           {
-            label: 'Daily throughput',
+            label: t('analytics.dailyThroughput'),
             value: analysis.average.toFixed(1),
-            note: 'delivered tasks / day',
+            note: t('analytics.deliveredTasksDay'),
           },
           {
-            label: 'Delivery momentum',
+            label: t('analytics.deliveryMomentum'),
             value: `${analysis.momentum > 0 ? '+' : ''}${analysis.momentum}%`,
-            note: 'last half vs first half · equal days',
+            note: t('analytics.lastHalfVsFirstHalfEqualDays'),
           },
         ]}
       />
       <Panel
-        title="Delivery trend"
-        description="Daily delivered tasks against plan · team history through October 1"
+        title={t('analytics.deliveryTrend')}
+        description={t('analytics.dailyDeliveredTasksAgainstPlanTeamHistoryThroughOctober')}
         actions={
           <div className={styles.legend}>
             <span>
               <i />
-              Delivered
+              {t('analytics.delivered')}
             </span>
             <span>
               <i data-planned />
-              Planned
+              {t('analytics.planned')}
             </span>
           </div>
         }
       >
         <div className={shared.body}>
           <div className={styles.inspection}>
-            <span className={shared.mono}>{formatDueDate(currentPoint.date)}</span>
-            <strong>{currentPoint.completed} delivered</strong>
-            <span>{currentPoint.planned} planned</span>
-            <span className={shared.caption}>Focus a point to inspect a day.</span>
+            <span className={shared.mono}>{formatDueDate(currentPoint.date, i18n.language)}</span>
+            <strong>{t('analytics.valueDelivered', { v0: currentPoint.completed })}</strong>
+            <span>{t('analytics.valuePlanned', { v0: currentPoint.planned })}</span>
+            <span className={shared.caption}>{t('analytics.focusAPointToInspectADay')}</span>
           </div>
           <div
             className={styles.chartViewport}
             tabIndex={0}
             role="region"
-            aria-label="Delivery plot, scroll horizontally on small screens"
+            aria-label={t('analytics.deliveryPlotScrollHorizontallyOnSmallScreens')}
           >
             {' '}
             <svg
@@ -139,11 +142,15 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
               aria-labelledby={`${chartId}-title ${chartId}-desc`}
             >
               <title id={`${chartId}-title`}>
-                Delivered versus planned tasks over {period === '7d' ? 7 : 14} days
+                {t('analytics.deliveredVersusPlannedTasksOverValueDays', {
+                  v0: period === '7d' ? 7 : 14,
+                })}
               </title>
               <desc id={`${chartId}-desc`}>
-                {analysis.delivered} delivered, {analysis.planned} planned. Exact daily values are
-                available with Show daily data.
+                {t('analytics.valueDeliveredValuePlannedExactDailyValuesAreAvailable', {
+                  v0: analysis.delivered,
+                  v1: analysis.planned,
+                })}
               </desc>
               {[0, 5, 10, 15, 20, 25].map((value) => (
                 <g key={value}>
@@ -167,13 +174,17 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
                     r={point.date === currentPoint.date ? 5 : 3.5}
                     className={styles.point}
                     tabIndex={0}
-                    aria-label={`${formatDueDate(point.date)}: ${point.completed} delivered, ${point.planned} planned`}
+                    aria-label={t('analytics.valueValueDeliveredValuePlanned', {
+                      v0: formatDueDate(point.date, i18n.language),
+                      v1: point.completed,
+                      v2: point.planned,
+                    })}
                     onFocus={() => setInspected(point.date)}
                     onMouseEnter={() => setInspected(point.date)}
                   />
                   <text x={x(index)} y="216" textAnchor="middle" className={styles.axis}>
                     {period === '7d' || index % 2 === 0 || index === points.length - 1
-                      ? formatDueDate(point.date)
+                      ? formatDueDate(point.date, i18n.language)
                       : ''}
                   </text>
                 </g>
@@ -182,7 +193,7 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
           </div>
           <div className={styles.chartFooter}>
             <span className={shared.caption}>
-              Source: Virgo Studio delivery history · same series as Workplace
+              {t('analytics.sourceVirgoStudioDeliveryHistorySameSeriesAsWorkplace')}
             </span>
             <Button
               size="small"
@@ -191,19 +202,21 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
               aria-controls={`${chartId}-data`}
               onClick={() => setShowData(!showData)}
             >
-              {showData ? 'Hide daily data' : 'Show daily data'}
+              {showData ? t('analytics.hideDailyData') : t('analytics.showDailyData')}
             </Button>
           </div>
           <div id={`${chartId}-data`} hidden={!showData}>
-            <Table.Viewport aria-label="Daily delivery values">
+            <Table.Viewport aria-label={t('analytics.dailyDeliveryValues')}>
               <Table density="compact" border="separators">
-                <Table.Caption className={shared.srOnly}>Daily delivery history</Table.Caption>
+                <Table.Caption className={shared.srOnly}>
+                  {t('analytics.dailyDeliveryHistory')}
+                </Table.Caption>
                 <Table.Header>
                   <Table.Row>
-                    <Table.Head>Date</Table.Head>
-                    <Table.Head align="end">Delivered</Table.Head>
-                    <Table.Head align="end">Planned</Table.Head>
-                    <Table.Head align="end">Gap</Table.Head>
+                    <Table.Head>{t('analytics.date')}</Table.Head>
+                    <Table.Head align="end">{t('analytics.delivered')}</Table.Head>
+                    <Table.Head align="end">{t('analytics.planned')}</Table.Head>
+                    <Table.Head align="end">{t('analytics.gap')}</Table.Head>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -223,8 +236,10 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
       </Panel>
       <div className={shared.twoColumns}>
         <Panel
-          title="Project workload"
-          description={`Current register · ${openTasks.length} open tasks across four focus areas`}
+          title={t('analytics.projectWorkload')}
+          description={t('analytics.currentRegisterValueOpenTasksAcrossFourFocusAreas', {
+            v0: openTasks.length,
+          })}
         >
           <div className={styles.workload}>
             {projects.map((project) => {
@@ -239,15 +254,21 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
                       {project.name}
                     </Link>
                     <span>
-                      {summary.open} open{' '}
-                      <span className={shared.caption}>/ {summary.total} tasks</span>
+                      {t('analytics.valueOpen', { v0: summary.open })}
+                      <span className={shared.caption}>
+                        {t('analytics.valueTasks', { v0: summary.total })}
+                      </span>
                     </span>
                   </div>
                   <Progress
                     size="sm"
                     value={summary.open}
                     max={Math.max(1, openTasks.length)}
-                    aria-label={`${project.name}: ${summary.open} of ${openTasks.length} open tasks`}
+                    aria-label={t('analytics.valueValueOfValueOpenTasks', {
+                      v0: project.name,
+                      v1: summary.open,
+                      v2: openTasks.length,
+                    })}
                     className={styles.seriesProgress}
                     style={
                       {
@@ -256,8 +277,11 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
                     }
                   />
                   <span className={shared.caption}>
-                    {summary.hours}h estimated · {summary.review} in review · {summary.overdue}{' '}
-                    overdue
+                    {t('analytics.valueHEstimatedValueInReviewValueOverdue', {
+                      v0: summary.hours,
+                      v1: summary.review,
+                      v2: summary.overdue,
+                    })}
                   </span>
                 </div>
               );
@@ -265,14 +289,16 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
           </div>
         </Panel>
         <Panel
-          title="Task distribution"
-          description={`Current register · ${state.tasks.length} tasks`}
+          title={t('analytics.taskDistribution')}
+          description={t('analytics.currentRegisterValueTasks', { v0: state.tasks.length })}
         >
           <div className={styles.distribution}>
             <svg
               viewBox="0 0 160 160"
               role="img"
-              aria-label={`Task status distribution. ${distributions.map((item) => `${item.status}: ${item.count}`).join(', ')}`}
+              aria-label={t('analytics.taskStatusDistributionValue', {
+                v0: distributions.map((item) => `${item.status}: ${item.count}`).join(', '),
+              })}
             >
               <circle
                 cx="80"
@@ -306,7 +332,7 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
                 {state.tasks.length}
               </text>
               <text x="80" y="97" textAnchor="middle" className={styles.axis}>
-                TASKS
+                {t('analytics.tasks')}
               </text>
             </svg>
             <ul>
@@ -325,8 +351,8 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
       </div>
       <div className={shared.twoColumns}>
         <Panel
-          title="Ownership capacity"
-          description="Open-task estimates by assignee · hours are estimates, not time logged"
+          title={t('analytics.ownershipCapacity')}
+          description={t('analytics.openTaskEstimatesByAssigneeHoursAreEstimatesNot')}
         >
           <div className={styles.ownerGrid}>
             {taskAssignees.map((member) => {
@@ -336,17 +362,19 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
                   <Person id={member.id} />
                   <strong>
                     {owned.reduce((sum, task) => sum + task.estimateHours, 0)}
-                    <small>h</small>
+                    <small>{t('analytics.h')}</small>
                   </strong>
-                  <span className={shared.caption}>{owned.length} open tasks</span>
+                  <span className={shared.caption}>
+                    {t('analytics.valueOpenTasks', { v0: owned.length })}
+                  </span>
                 </div>
               );
             })}
           </div>
         </Panel>
         <Panel
-          title="Attention signals"
-          description={`Current task snapshot · ${taskReferenceDate}`}
+          title={t('analytics.attentionSignals')}
+          description={t('analytics.currentTaskSnapshotValue', { v0: taskReferenceDate })}
         >
           <ul className={styles.signals}>
             <li>
@@ -354,8 +382,8 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
                 {overdue.length}
               </Tag>
               <div>
-                <strong>Overdue tasks</strong>
-                <p>Resolve ownership before the release checkpoint.</p>
+                <strong>{t('analytics.overdueTasks')}</strong>
+                <p>{t('analytics.resolveOwnershipBeforeTheReleaseCheckpoint')}</p>
               </div>
             </li>
             <li>
@@ -363,8 +391,8 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
                 {state.tasks.filter((task) => task.status === 'In Review').length}
               </Tag>
               <div>
-                <strong>Awaiting review</strong>
-                <p>Clear acceptance notes to keep delivery moving.</p>
+                <strong>{t('analytics.awaitingReview')}</strong>
+                <p>{t('analytics.clearAcceptanceNotesToKeepDeliveryMoving')}</p>
               </div>
             </li>
             <li>
@@ -372,14 +400,14 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
                 {openTasks.filter((task) => task.priority === 'Urgent').length}
               </Tag>
               <div>
-                <strong>Urgent work</strong>
-                <p>Keep support readiness visible to the team.</p>
+                <strong>{t('analytics.urgentWork')}</strong>
+                <p>{t('analytics.keepSupportReadinessVisibleToTheTeam')}</p>
               </div>
             </li>
           </ul>
           <div className={shared.footer}>
             <Link className={shared.link} to="/data/search-table">
-              Investigate task register →
+              {t('analytics.investigateTaskRegister')}
             </Link>
           </div>
         </Panel>

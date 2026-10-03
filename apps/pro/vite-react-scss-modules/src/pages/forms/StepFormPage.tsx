@@ -16,6 +16,7 @@ import {
   Tree,
 } from '@virgo-design/ui';
 import { type Dispatch, type SetStateAction, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import {
@@ -30,15 +31,10 @@ import { projects } from '@/data/projects';
 import type { TaskState } from '@/data/tasks';
 import { FilterSelect, Panel } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
+import { getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 import { taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import styles from './FormsPage.module.scss';
-
-const stages = [
-  { title: 'Define the handoff', description: 'Project and schedule' },
-  { title: 'Build the scope', description: 'Work and audience' },
-  { title: 'Review and prepare', description: 'One final check' },
-];
 
 export function StepFormPage({
   draft,
@@ -55,6 +51,12 @@ export function StepFormPage({
   setStage: Dispatch<SetStateAction<number>>;
   onPrepare: () => WorkflowReceipt | null;
 }) {
+  const { t, i18n } = useTranslation();
+  const stages = [
+    { title: t('forms.defineTheHandoff'), description: t('forms.projectAndSchedule') },
+    { title: t('forms.buildTheScope'), description: t('forms.workAndAudience') },
+    { title: t('forms.reviewAndPrepare'), description: t('forms.oneFinalCheck') },
+  ];
   const navigate = useNavigate();
   const [errors, setErrors] = useState<ReturnType<typeof validateHandoff>>({});
   const [expanded, setExpanded] = useState<readonly string[]>([
@@ -102,7 +104,7 @@ export function StepFormPage({
       <Surface border="default" radius={8} className={styles.wizardSurface}>
         <div className={styles.wizard}>
           <div className={styles.stepsFrame}>
-            <Steps className={styles.steps} aria-label="Handoff steps">
+            <Steps className={styles.steps} aria-label={t('forms.handoffSteps')}>
               {stages.map((item, index) => (
                 <Steps.Item
                   key={item.title}
@@ -121,7 +123,7 @@ export function StepFormPage({
           </div>
           <Panel
             className={styles.wizardStage!}
-            title={`Step ${stage + 1} / ${stages[stage]!.title}`}
+            title={t('forms.stepValueValue', { v0: stage + 1, v1: stages[stage]!.title })}
             description={stages[stage]!.description}
           >
             <Form
@@ -145,17 +147,17 @@ export function StepFormPage({
               <div className={styles.fields}>
                 <h3 tabIndex={-1} ref={headingRef} className={styles.stageHeading}>
                   {stage === 0
-                    ? 'A clear destination.'
+                    ? t('forms.aClearDestination')
                     : stage === 1
-                      ? 'Choose what goes into the packet.'
-                      : 'Ready for the next team handoff.'}
+                      ? t('forms.chooseWhatGoesIntoThePacket')
+                      : t('forms.readyForTheNextTeamHandoff')}
                 </h3>
                 {Object.keys(errors).length ? (
                   <Alert intent="error">
-                    <Alert.Title>Check the handoff details</Alert.Title>
+                    <Alert.Title>{t('forms.checkTheHandoffDetails')}</Alert.Title>
                     <Alert.Description>
                       {Object.values(errors).map((error) => (
-                        <p key={error}>{error}</p>
+                        <p key={error}>{t(`forms.validation.${error}`)}</p>
                       ))}
                     </Alert.Description>
                   </Alert>
@@ -163,16 +165,18 @@ export function StepFormPage({
                 {stage === 0 ? (
                   <>
                     <Field required invalid={Boolean(errors.title)}>
-                      <Field.Label>Handoff title</Field.Label>
+                      <Field.Label>{t('forms.handoffTitle')}</Field.Label>
                       <Input
                         value={draft.title}
                         maxLength={100}
                         onChange={(event) => update('title', event.target.value)}
                       />
-                      {errors.title ? <Field.Message>{errors.title}</Field.Message> : null}
+                      {errors.title ? (
+                        <Field.Message>{t(`forms.validation.${errors.title}`)}</Field.Message>
+                      ) : null}
                     </Field>
                     <FilterSelect
-                      label="Handoff project"
+                      label={t('forms.handoffProject')}
                       value={draft.projectId}
                       onChange={(value) => {
                         setDraft((previous) => ({
@@ -187,7 +191,7 @@ export function StepFormPage({
                     />
                     <div className={styles.fieldGrid}>
                       <Field required invalid={Boolean(errors.date)}>
-                        <Field.Label>Handoff date</Field.Label>
+                        <Field.Label>{t('forms.handoffDate')}</Field.Label>
                         <DatePicker
                           size="small"
                           value={draft.date}
@@ -195,30 +199,36 @@ export function StepFormPage({
                           min="2026-10-03"
                         >
                           <DatePicker.Input />
-                          <DatePicker.Trigger aria-label="Choose handoff date" />
-                          <DatePicker.Content aria-label="Handoff date calendar">
+                          <DatePicker.Trigger aria-label={t('forms.chooseHandoffDate')} />
+                          <DatePicker.Content aria-label={t('forms.handoffDateCalendar')}>
                             <DatePicker.Calendar
+                              locale={i18n.language}
                               defaultMonth="2026-10"
-                              locale="en-US"
                               weekStartsOn={1}
                             />
                           </DatePicker.Content>
                         </DatePicker>
-                        {errors.date ? <Field.Message>{errors.date}</Field.Message> : null}
+                        {errors.date ? (
+                          <Field.Message>{t(`forms.validation.${errors.date}`)}</Field.Message>
+                        ) : null}
                       </Field>
                       <Field required invalid={Boolean(errors.time)}>
-                        <Field.Label>Handoff time</Field.Label>
+                        <Field.Label>{t('forms.handoffTime')}</Field.Label>
                         <TimePicker
                           size="small"
                           value={draft.time}
                           onValueChange={(value) => update('time', value)}
                         />
-                        <Field.Description>Asia/Shanghai · UTC+08:00</Field.Description>
-                        {errors.time ? <Field.Message>{errors.time}</Field.Message> : null}
+                        <Field.Description>{t('forms.asiaShanghaiUtc0800')}</Field.Description>
+                        {errors.time ? (
+                          <Field.Message>{t(`forms.validation.${errors.time}`)}</Field.Message>
+                        ) : null}
                       </Field>
                     </div>
                     <p className={styles.stageCopy}>
-                      {project?.summary} Your selections will be kept while moving between steps.
+                      {t('forms.valueYourSelectionsWillBeKeptWhileMovingBetween', {
+                        v0: project?.summary,
+                      })}
                     </p>
                   </>
                 ) : stage === 1 ? (
@@ -226,7 +236,10 @@ export function StepFormPage({
                     <div>
                       <div className={styles.treeTools}>
                         <Tag size="sm" variant="outline">
-                          {selected.length} {selected.length === 1 ? 'task' : 'tasks'} selected
+                          {t('forms.valueValueSelected', {
+                            v0: selected.length,
+                            v1: selected.length === 1 ? 'task' : 'tasks',
+                          })}
                         </Tag>
                         <div className={shared.actions}>
                           <Button
@@ -240,7 +253,7 @@ export function StepFormPage({
                               )
                             }
                           >
-                            Select all
+                            {t('forms.selectAll')}
                           </Button>
                           <Button
                             size="small"
@@ -248,7 +261,7 @@ export function StepFormPage({
                             type="button"
                             onClick={() => update('taskIds', [])}
                           >
-                            Clear
+                            {t('forms.clear')}
                           </Button>
                         </div>
                       </div>
@@ -257,7 +270,7 @@ export function StepFormPage({
                         className={styles.scopeTree}
                         size="small"
                         selectionMode="multiple"
-                        aria-label="Handoff task scope"
+                        aria-label={t('forms.handoffTaskScope')}
                         expandedValues={expanded}
                         onExpandedValuesChange={setExpanded}
                         selectedValues={treeValues}
@@ -266,9 +279,16 @@ export function StepFormPage({
                         }
                       >
                         {groups.map((group) => (
-                          <Tree.Item key={group.id} value={group.id} branch textValue={group.title}>
+                          <Tree.Item
+                            key={group.id}
+                            value={group.id}
+                            branch
+                            textValue={t(`forms.scopeLabels.${group.id}`)}
+                          >
                             <Tree.Label className={styles.treeLabel}>
-                              <Tree.Toggle aria-label={`Toggle ${group.title}`} />
+                              <Tree.Toggle
+                                aria-label={t('forms.toggleValue', { v0: group.title })}
+                              />
                               <span
                                 className={styles.treeMark}
                                 data-selected={treeValues.includes(group.id)}
@@ -276,7 +296,7 @@ export function StepFormPage({
                                 {treeValues.includes(group.id) ? '✓' : '＋'}
                               </span>
                               <strong>
-                                {group.title} · {group.tasks.length}
+                                {t(`forms.scopeLabels.${group.id}`)} · {group.tasks.length}
                               </strong>
                             </Tree.Label>
                             <Tree.Group>
@@ -296,11 +316,14 @@ export function StepFormPage({
                                     <span className={styles.treeCopy}>
                                       <span>{task.title}</span>
                                       <span className={shared.mono}>
-                                        {task.id} · {task.estimateHours}h
+                                        {t('forms.valueValueH', {
+                                          v0: task.id,
+                                          v1: task.estimateHours,
+                                        })}
                                       </span>
                                     </span>
                                     <Tag size="sm" intent={taskStatusIntent[task.status]}>
-                                      {task.status}
+                                      {getTaskStatusLabel(t, task.status)}
                                     </Tag>
                                   </Tree.Label>
                                 </Tree.Item>
@@ -310,15 +333,14 @@ export function StepFormPage({
                         ))}
                       </Tree>
                       <p className={styles.scopeNote}>
-                        Select a group to include its tasks, or select individual rows. Arrow keys
-                        move through the hierarchy; Space toggles selection.
+                        {t('forms.selectAGroupToIncludeItsTasksOrSelect')}
                       </p>
                     </div>
                     <div className={shared.stack}>
                       <fieldset className={styles.fieldset}>
-                        <legend>Packet audience</legend>
+                        <legend>{t('forms.packetAudience')}</legend>
                         <Radio.Group
-                          aria-label="Packet audience"
+                          aria-label={t('forms.packetAudience')}
                           value={draft.audience}
                           orientation="vertical"
                           onValueChange={(value) => {
@@ -326,25 +348,26 @@ export function StepFormPage({
                           }}
                         >
                           <Radio value="team" className={styles.choice!}>
-                            Team workspace
+                            {t('forms.teamWorkspace')}
                           </Radio>
                           <Radio value="external" className={styles.choice!}>
-                            External collaborators
+                            {t('forms.externalCollaborators')}
                           </Radio>
                         </Radio.Group>
                         <p className={shared.caption}>
-                          Workspace release material currently supports team access. External
-                          preparation will return a permission result.
+                          {t(
+                            'forms.workspaceReleaseMaterialCurrentlySupportsTeamAccessExternalPreparation',
+                          )}
                         </p>
                       </fieldset>
                       <Field invalid={Boolean(errors.notes)}>
-                        <Field.Label>Handoff notes</Field.Label>
+                        <Field.Label>{t('forms.handoffNotes')}</Field.Label>
                         <Textarea
                           rows={5}
                           value={draft.notes}
                           maxLength={1500}
                           onChange={(event) => update('notes', event.target.value)}
-                          placeholder="Acceptance notes, risks and the next owner…"
+                          placeholder={t('forms.acceptanceNotesRisksAndTheNextOwner')}
                         />
                       </Field>
                     </div>
@@ -354,33 +377,33 @@ export function StepFormPage({
                     <div className={styles.reviewGrid}>
                       <dl className={styles.reviewMetadata}>
                         <div>
-                          <dt>Handoff</dt>
+                          <dt>{t('forms.handoff')}</dt>
                           <dd>{draft.title}</dd>
                         </div>
                         <div>
-                          <dt>Project</dt>
+                          <dt>{t('forms.project')}</dt>
                           <dd>{project?.name}</dd>
                         </div>
                         <div>
-                          <dt>Schedule · UTC+08:00</dt>
+                          <dt>{t('forms.scheduleUtc0800')}</dt>
                           <dd>
                             {draft.date} · {draft.time}
                           </dd>
                         </div>
                         <div>
-                          <dt>Audience</dt>
+                          <dt>{t('forms.audience')}</dt>
                           <dd>
                             <Tag size="sm" intent={draft.audience === 'team' ? 'info' : 'warning'}>
                               {draft.audience === 'team'
-                                ? 'Team workspace'
-                                : 'External collaborators'}
+                                ? t('forms.teamWorkspace')
+                                : t('forms.externalCollaborators')}
                             </Tag>
                           </dd>
                         </div>
                       </dl>
                       <div>
                         <span className={shared.eyebrow}>
-                          PACKET SCOPE / {selected.length} TASKS
+                          {t('forms.packetScopeValueTasks', { v0: selected.length })}
                         </span>
                         <ul className={styles.scopeReview}>
                           {selected.map((task) => (
@@ -390,7 +413,7 @@ export function StepFormPage({
                                 {task.title}
                               </span>
                               <Tag size="sm" intent={taskStatusIntent[task.status]}>
-                                {task.status}
+                                {getTaskStatusLabel(t, task.status)}
                               </Tag>
                             </li>
                           ))}
@@ -400,10 +423,9 @@ export function StepFormPage({
                     {draft.notes ? <div className={styles.reviewNotes}>{draft.notes}</div> : null}
                     {draft.audience === 'external' && draft.projectId === 'workspace' ? (
                       <Alert intent="warning">
-                        <Alert.Title>External access needs review</Alert.Title>
+                        <Alert.Title>{t('forms.externalAccessNeedsReview')}</Alert.Title>
                         <Alert.Description>
-                          The packet will be checked against Workspace’s current export policy. You
-                          can change the audience in step 2.
+                          {t('forms.thePacketWillBeCheckedAgainstWorkspaceSCurrent')}
                         </Alert.Description>
                       </Alert>
                     ) : null}
@@ -411,14 +433,14 @@ export function StepFormPage({
                       checked={draft.confirmed}
                       onChange={(event) => update('confirmed', event.target.checked)}
                     >
-                      I reviewed the task scope, audience and schedule.
+                      {t('forms.iReviewedTheTaskScopeAudienceAndSchedule')}
                     </Checkbox>
                   </>
                 )}
               </div>
               <div className={styles.wizardFooter}>
                 <span className={shared.caption}>
-                  Step {stage + 1} of 3 · draft kept in this session
+                  {t('forms.stepValueOf3DraftKeptInThisSession', { v0: stage + 1 })}
                 </span>
                 <div className={shared.actions}>
                   {stage > 0 ? (
@@ -428,11 +450,11 @@ export function StepFormPage({
                       type="button"
                       onClick={() => move(stage - 1)}
                     >
-                      Back
+                      {t('forms.back')}
                     </Button>
                   ) : null}
                   <Button size="small" type="submit" trailingIcon={<ArrowRightIcon />}>
-                    {stage === 2 ? 'Prepare handoff' : 'Continue'}
+                    {stage === 2 ? t('forms.prepareHandoff') : t('forms.continue')}
                   </Button>
                 </div>
               </div>

@@ -1,6 +1,7 @@
 import { CloseIcon, MaximizeIcon, MinusIcon } from '@virgo-design/icons';
 import { Button, Card, Collapsible, Tooltip } from '@virgo-design/ui';
 import { type ReactNode, type Ref, useEffect, useId, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './WorkplacePage.module.scss';
 
@@ -26,6 +27,7 @@ export function WorkplaceWidget({
   onRemoved: () => void;
   children: ReactNode;
 }) {
+  const { t } = useTranslation();
   const titleId = useId();
   const presenceRef = useRef<HTMLDivElement>(null);
   const open = state === 'expanded';
@@ -97,17 +99,17 @@ export function WorkplaceWidget({
                       )}
                     />
                     <Tooltip.Content placement="top">
-                      {open ? 'Minimize' : 'Expand'}
+                      {open ? t('workplace.minimize') : t('workplace.expand')}
                     </Tooltip.Content>
                   </Tooltip>
                   <Tooltip>
                     <Tooltip.Trigger
-                      aria-label={`Remove ${title}`}
+                      aria-label={t('workplace.removeValue', { v0: title })}
                       onClick={onRemove}
                       render={(props) => (
                         <Button
                           {...props}
-                          aria-label={`Remove ${title}`}
+                          aria-label={t('workplace.removeValue', { v0: title })}
                           variant="text"
                           size="mini"
                           iconOnly
@@ -117,7 +119,9 @@ export function WorkplaceWidget({
                         </Button>
                       )}
                     />
-                    <Tooltip.Content placement="top">Remove from workplace</Tooltip.Content>
+                    <Tooltip.Content placement="top">
+                      {t('workplace.removeFromWorkplace')}
+                    </Tooltip.Content>
                   </Tooltip>
                 </div>
               </Card.Header>

@@ -1,5 +1,6 @@
 import { CheckIcon, CloseIcon, DownloadIcon } from '@virgo-design/icons';
 import { Accordion, Alert, Button, Separator, Steps, Surface, Tag } from '@virgo-design/ui';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
 
 import type { WorkflowReceipt } from '@/data/pro-workflows';
@@ -8,15 +9,10 @@ import type { TaskState } from '@/data/tasks';
 import { createTasksCsv } from '@/data/tasks.export';
 import { downloadCsv } from '@/pages/shared/download';
 import shared from '@/pages/shared/ProPage.module.scss';
+import { getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 import { taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import styles from './ResultPage.module.scss';
-
-const receiptTime = new Intl.DateTimeFormat('en-US', {
-  dateStyle: 'medium',
-  timeStyle: 'short',
-  timeZone: 'Asia/Shanghai',
-});
 
 export function ResultPage({
   receipt,
@@ -29,6 +25,12 @@ export function ResultPage({
   onRecover?: () => void;
   onRetry?: () => WorkflowReceipt | null;
 }) {
+  const { t, i18n } = useTranslation();
+  const receiptTime = new Intl.DateTimeFormat(i18n.language, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+    timeZone: 'Asia/Shanghai',
+  });
   const success = receipt.outcome === 'success';
   const navigate = useNavigate();
   const project = projects.find((item) => item.id === receipt.projectId)!;
@@ -43,13 +45,13 @@ export function ResultPage({
           <Tag size="sm" variant="outline">
             {receipt.reference}
           </Tag>
-          <h1>{receipt.title}</h1>
-          <p>{receipt.description}</p>
+          <h1>{t(`results.receipts.${receipt.message}.title`)}</h1>
+          <p>{t(`results.receipts.${receipt.message}.description`)}</p>
           <div className={styles.primaryActions}>
             {success ? (
               <>
                 <Button size="small" onClick={() => navigate(projectDetailPath(project))}>
-                  View project
+                  {t('results.viewProject')}
                 </Button>
                 <Button
                   size="small"
@@ -63,7 +65,7 @@ export function ResultPage({
                     )
                   }
                 >
-                  Download task scope
+                  {t('results.downloadTaskScope')}
                 </Button>
               </>
             ) : (
@@ -75,7 +77,7 @@ export function ResultPage({
                     navigate('/form/step');
                   }}
                 >
-                  Review handoff settings
+                  {t('results.reviewHandoffSettings')}
                 </Button>
                 <Button
                   size="small"
@@ -85,7 +87,7 @@ export function ResultPage({
                     navigate(next ? '/result/success' : '/form/step');
                   }}
                 >
-                  Prepare for team instead
+                  {t('results.prepareForTeamInstead')}
                 </Button>
               </>
             )}
@@ -95,7 +97,7 @@ export function ResultPage({
         <div className={styles.receiptBody}>
           <dl className={styles.receiptMetadata}>
             <div>
-              <dt>Project</dt>
+              <dt>{t('results.project')}</dt>
               <dd>
                 <Link className={shared.link} to={projectDetailPath(project)}>
                   {project.name}
@@ -103,11 +105,11 @@ export function ResultPage({
               </dd>
             </div>
             <div>
-              <dt>Prepared by</dt>
+              <dt>{t('results.preparedBy')}</dt>
               <dd>{receipt.requester}</dd>
             </div>
             <div>
-              <dt>Recorded · UTC+08:00</dt>
+              <dt>{t('results.recordedUtc0800')}</dt>
               <dd>
                 <time dateTime={receipt.recordedAt}>
                   {receiptTime.format(new Date(receipt.recordedAt))}
@@ -115,18 +117,22 @@ export function ResultPage({
               </dd>
             </div>
             <div>
-              <dt>Audience</dt>
-              <dd>{receipt.audience === 'team' ? 'Team workspace' : 'External collaborators'}</dd>
+              <dt>{t('results.audience')}</dt>
+              <dd>
+                {receipt.audience === 'team'
+                  ? t('results.teamWorkspace')
+                  : t('results.externalCollaborators')}
+              </dd>
             </div>
             {receipt.handoffTitle ? (
               <div>
-                <dt>Handoff</dt>
+                <dt>{t('results.handoff')}</dt>
                 <dd>{receipt.handoffTitle}</dd>
               </div>
             ) : null}
             {receipt.schedule ? (
               <div>
-                <dt>Handoff schedule</dt>
+                <dt>{t('results.handoffSchedule')}</dt>
                 <dd>
                   <time dateTime={receipt.schedule}>
                     {receiptTime.format(new Date(receipt.schedule))}
@@ -135,83 +141,84 @@ export function ResultPage({
               </div>
             ) : null}
             <div>
-              <dt>Scope</dt>
-              <dd>
-                {receipt.taskIds.length} linked {receipt.taskIds.length === 1 ? 'task' : 'tasks'}
-              </dd>
+              <dt>{t('results.scope')}</dt>
+              <dd>{t('results.linkedCount', { count: tasks.length })}</dd>
             </div>
           </dl>
           {success ? (
             <div className={styles.nextSteps}>
               <h3>
-                {receipt.kind === 'task' ? 'Keep the work moving' : 'Bring this to the checkpoint'}
+                {receipt.kind === 'task'
+                  ? t('results.keepTheWorkMoving')
+                  : t('results.bringThisToTheCheckpoint')}
               </h3>
-              <Steps orientation="vertical" aria-label="Next steps">
+              <Steps orientation="vertical" aria-label={t('results.nextSteps')}>
                 <Steps.Item status="complete">
                   <Steps.Indicator>01</Steps.Indicator>
                   <Steps.Title>
-                    {receipt.kind === 'task' ? 'Work recorded' : 'Scope prepared'}
+                    {receipt.kind === 'task'
+                      ? t('results.workRecorded')
+                      : t('results.scopePrepared')}
                   </Steps.Title>
                   <Steps.Description>
-                    The project and linked task records are available.
+                    {t('results.theProjectAndLinkedTaskRecordsAreAvailable')}
                   </Steps.Description>
                 </Steps.Item>
                 <Steps.Item status="current">
                   <Steps.Indicator>02</Steps.Indicator>
                   <Steps.Title>
-                    {receipt.kind === 'task' ? 'Review the next step' : 'Review with the team'}
+                    {receipt.kind === 'task'
+                      ? t('results.reviewTheNextStep')
+                      : t('results.reviewWithTheTeam')}
                   </Steps.Title>
                   <Steps.Description>
-                    Keep the owner and acceptance criteria visible.
+                    {t('results.keepTheOwnerAndAcceptanceCriteriaVisible')}
                   </Steps.Description>
                 </Steps.Item>
                 <Steps.Item>
                   <Steps.Indicator>03</Steps.Indicator>
-                  <Steps.Title>Follow through</Steps.Title>
+                  <Steps.Title>{t('results.followThrough')}</Steps.Title>
                   <Steps.Description>
-                    Use the task queue to track the next delivery.
+                    {t('results.useTheTaskQueueToTrackTheNextDelivery')}
                   </Steps.Description>
                 </Steps.Item>
               </Steps>
               <Link className={shared.link} to="/work/tasks">
-                Open task queue →
+                {t('results.openTaskQueue')}
               </Link>
             </div>
           ) : (
             <div className={styles.recovery}>
               <Alert intent="error">
-                <Alert.Title>Permission policy · WS-EXPORT-01</Alert.Title>
+                <Alert.Title>{t('results.permissionPolicyWsExport01')}</Alert.Title>
                 <Alert.Description>
-                  The Workspace packet can be prepared for team review. External sharing remains
-                  restricted.
+                  {t('results.theWorkspacePacketCanBePreparedForTeamReview')}
                 </Alert.Description>
               </Alert>
               <Accordion type="single" variant="ghost" size="sm">
                 <Accordion.Item value="why">
-                  <Accordion.Trigger icon>Why did this fail?</Accordion.Trigger>
+                  <Accordion.Trigger icon>{t('results.whyDidThisFail')}</Accordion.Trigger>
                   <Accordion.Content>
-                    Workspace’s export permission states are still under review. The restriction
-                    applies to the audience, not to your selected tasks.
+                    {t('results.workspaceSExportPermissionStatesAreStillUnderReview')}
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="draft">
-                  <Accordion.Trigger icon>What happens to my draft?</Accordion.Trigger>
+                  <Accordion.Trigger icon>{t('results.whatHappensToMyDraft')}</Accordion.Trigger>
                   <Accordion.Content>
-                    Your scope, schedule and notes are kept. Review the settings, or prepare the
-                    same scope for the team.
+                    {t('results.yourScopeScheduleAndNotesAreKeptReviewThe')}
                   </Accordion.Content>
                 </Accordion.Item>
               </Accordion>
               <Link className={shared.link} to="/data/search-table?search=VD-126">
-                Review the permission task →
+                {t('results.reviewThePermissionTask')}
               </Link>
             </div>
           )}
         </div>
         <div className={styles.scopeSection}>
           <div>
-            <h3>Linked work</h3>
-            <span className={shared.caption}>Current task records for this result</span>
+            <h3>{t('results.linkedWork')}</h3>
+            <span className={shared.caption}>{t('results.currentTaskRecordsForThisResult')}</span>
           </div>
           <ul>
             {tasks.map((task) => (
@@ -223,21 +230,23 @@ export function ResultPage({
                   </Link>
                 </div>
                 <Tag size="sm" intent={taskStatusIntent[task.status]}>
-                  {task.status}
+                  {getTaskStatusLabel(t, task.status)}
                 </Tag>
               </li>
             ))}
           </ul>
           {!tasks.length ? (
             <p className={shared.caption}>
-              These tasks have moved out of the current register. Review the project to continue.
+              {t('results.theseTasksHaveMovedOutOfTheCurrentRegister')}
             </p>
           ) : null}
         </div>
         <div className={styles.resultFooter}>
-          <span className={shared.mono}>VIRGO STUDIO / {success ? 'RECORDED' : 'DRAFT KEPT'}</span>
+          <span className={shared.mono}>
+            {t('results.virgoStudioValue', { v0: success ? 'RECORDED' : t('results.draftKept') })}
+          </span>
           <Link className={shared.link} to={success ? '/form/basic' : '/work/projects'}>
-            {success ? 'Create another request →' : 'Back to projects →'}
+            {success ? t('results.createAnotherRequest') : t('results.backToProjects')}
           </Link>
         </div>
       </Surface>

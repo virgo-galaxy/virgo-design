@@ -38,16 +38,16 @@ export function queryError(query: DataQuery) {
     (query.createdFrom && !validQueryDate(query.createdFrom)) ||
     (query.createdTo && !validQueryDate(query.createdTo))
   )
-    return 'Enter valid creation dates.';
+    return 'invalidDates';
   if (query.createdFrom && query.createdTo && query.createdFrom > query.createdTo)
-    return 'The start date must be on or before the end date.';
+    return 'dateOrder';
   if (
     query.minimumHours &&
     (!Number.isInteger(Number(query.minimumHours)) ||
       Number(query.minimumHours) < 0 ||
       Number(query.minimumHours) > 999)
   )
-    return 'Minimum estimate must be a whole number between 0 and 999.';
+    return 'invalidEstimate';
   return '';
 }
 export function matchesDataQuery(task: Task, query: DataQuery) {

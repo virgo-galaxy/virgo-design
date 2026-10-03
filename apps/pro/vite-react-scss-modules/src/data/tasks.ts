@@ -1,3 +1,4 @@
+import type { tasksEnUS } from '@/pages/tasks/locales/en-US';
 export const taskStatuses = ['Backlog', 'Todo', 'In Progress', 'In Review', 'Done'] as const;
 export const taskPriorities = ['Low', 'Medium', 'High', 'Urgent'] as const;
 export type TaskStatus = (typeof taskStatuses)[number];
@@ -35,7 +36,8 @@ export type TaskAction =
   | { type: 'create'; draft: TaskDraft; createdAt: string }
   | { type: 'edit'; id: string; draft: TaskDraft }
   | { type: 'status'; id: string; status: TaskStatus };
-export type TaskErrors = Partial<Record<keyof TaskDraft, string>>;
+export type TaskErrorKey = keyof typeof tasksEnUS.validation;
+export type TaskErrors = Partial<Record<keyof TaskDraft, TaskErrorKey>>;
 
 export const emptyTaskFilters: TaskFilters = {
   search: '',
@@ -91,20 +93,19 @@ export function validateTask(
   assigneeIds: readonly string[],
 ): TaskErrors {
   const errors: TaskErrors = {};
-  if (!draft.title.trim()) errors.title = 'Enter a task title.';
-  else if (draft.title.trim().length > 120) errors.title = 'Keep the title within 120 characters.';
-  if (draft.description.length > 2000)
-    errors.description = 'Keep the description within 2,000 characters.';
-  if (!isTaskStatus(draft.status)) errors.status = 'Choose a valid status.';
-  if (!isTaskPriority(draft.priority)) errors.priority = 'Choose a valid priority.';
-  if (!projects.includes(draft.project)) errors.project = 'Choose a project.';
-  if (!assigneeIds.includes(draft.assignee)) errors.assignee = 'Choose an assignee.';
+  if (!draft.title.trim()) errors.title = 'titleRequired';
+  else if (draft.title.trim().length > 120) errors.title = 'titleTooLong';
+  if (draft.description.length > 2000) errors.description = 'descriptionTooLong';
+  if (!isTaskStatus(draft.status)) errors.status = 'invalidStatus';
+  if (!isTaskPriority(draft.priority)) errors.priority = 'invalidPriority';
+  if (!projects.includes(draft.project)) errors.project = 'projectRequired';
+  if (!assigneeIds.includes(draft.assignee)) errors.assignee = 'assigneeRequired';
   if (
     !Number.isInteger(draft.estimateHours) ||
     draft.estimateHours < 0 ||
     draft.estimateHours > 999
   )
-    errors.estimateHours = 'Enter whole hours between 0 and 999.';
+    errors.estimateHours = 'invalidEstimate';
   if (draft.dueDate) {
     const date = new Date(`${draft.dueDate}T00:00:00Z`);
     if (
@@ -112,7 +113,7 @@ export function validateTask(
       Number.isNaN(date.getTime()) ||
       date.toISOString().slice(0, 10) !== draft.dueDate
     )
-      errors.dueDate = 'Enter a valid due date.';
+      errors.dueDate = 'invalidDueDate';
   }
   return errors;
 }
