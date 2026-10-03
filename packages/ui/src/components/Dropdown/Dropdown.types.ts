@@ -12,12 +12,21 @@ export type { DropdownPlacement } from '@virgo-design/primitives';
 export interface DropdownProps extends PrimitiveProps {
   size?: ButtonSize;
 }
-export interface DropdownTriggerProps extends Omit<PrimitiveTriggerProps, 'render'> {
+interface DropdownTriggerSharedProps extends Omit<PrimitiveTriggerProps, 'render'> {
   variant?: ButtonVariant;
   danger?: boolean;
   /** Decorative trailing icon; false hides it. Defaults to ChevronDownIcon. */
   indicator?: ReactNode;
 }
+export interface DropdownTextTriggerProps extends DropdownTriggerSharedProps {
+  iconOnly?: false;
+}
+export interface DropdownIconTriggerProps extends DropdownTriggerSharedProps {
+  /** Use a square icon-only button with an accessible name. */
+  iconOnly: true;
+  'aria-label': string;
+}
+export type DropdownTriggerProps = DropdownTextTriggerProps | DropdownIconTriggerProps;
 export interface DropdownContentProps extends PrimitiveContentProps {
   arrow?: boolean;
 }

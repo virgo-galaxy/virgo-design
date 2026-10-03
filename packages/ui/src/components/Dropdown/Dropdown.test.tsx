@@ -7,6 +7,30 @@ import { describe, expect, it, vi } from 'vitest';
 import { Dropdown } from './index';
 
 describe('Dropdown UI', () => {
+  it('opens an icon-only hover trigger without a trailing indicator and supports keyboard selection', async () => {
+    const user = userEvent.setup();
+    const select = vi.fn();
+    render(
+      <Dropdown trigger="hover">
+        <Dropdown.Trigger iconOnly variant="text" aria-label="Language">
+          <UserIcon />
+        </Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item onSelect={select}>English</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>,
+    );
+    const trigger = screen.getByRole('button', { name: 'Language' });
+    expect(trigger).toHaveAttribute('data-icon-only', 'true');
+    expect(trigger.querySelectorAll('svg')).toHaveLength(1);
+    expect(trigger).not.toHaveAttribute('iconOnly');
+    await user.hover(trigger);
+    expect(screen.getByRole('menu')).toBeVisible();
+    trigger.focus();
+    await user.keyboard('{ArrowDown}{Enter}');
+    expect(select).toHaveBeenCalledOnce();
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+  });
   it('uses Virgo Button and fill-first icons, renders an arrow, danger and checked items', async () => {
     const user = userEvent.setup();
     const ref = createRef<HTMLButtonElement>();

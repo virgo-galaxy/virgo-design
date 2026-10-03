@@ -5202,13 +5202,137 @@ export const componentApiReference: ApiReferenceRegistry = {
         descriptionTranslationKey: 'components.dropdown.api.dropdown-props.description',
       },
       {
-        name: 'DropdownTriggerProps',
+        name: 'DropdownTextTriggerProps',
         kind: 'interface',
-        signature: "extends Omit<PrimitiveTriggerProps, 'render'>",
+        signature: 'extends DropdownTriggerSharedProps',
         description: '',
         source: '@virgo-design/ui',
         reExported: false,
         properties: [
+          {
+            name: 'iconOnly',
+            type: 'false',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-text-trigger-props.properties.icon-only.description',
+          },
+          {
+            name: 'variant',
+            type: 'ButtonVariant',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-text-trigger-props.properties.variant.description',
+          },
+          {
+            name: 'danger',
+            type: 'boolean',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-text-trigger-props.properties.danger.description',
+          },
+          {
+            name: 'indicator',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative trailing icon; false hides it. Defaults to ChevronDownIcon.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-text-trigger-props.properties.indicator.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'components.dropdown.api.dropdown-text-trigger-props.description',
+      },
+      {
+        name: 'DropdownIconTriggerProps',
+        kind: 'interface',
+        signature: 'extends DropdownTriggerSharedProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'iconOnly',
+            type: 'true',
+            required: true,
+            defaultValue: '',
+            description: 'Use a square icon-only button with an accessible name.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-icon-trigger-props.properties.icon-only.description',
+          },
+          {
+            name: 'aria-label',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: 'Defines a string value that labels the current element.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-icon-trigger-props.properties.aria-label.description',
+          },
+          {
+            name: 'variant',
+            type: 'ButtonVariant',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-icon-trigger-props.properties.variant.description',
+          },
+          {
+            name: 'danger',
+            type: 'boolean',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-icon-trigger-props.properties.danger.description',
+          },
+          {
+            name: 'indicator',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative trailing icon; false hides it. Defaults to ChevronDownIcon.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-icon-trigger-props.properties.indicator.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'components.dropdown.api.dropdown-icon-trigger-props.description',
+      },
+      {
+        name: 'DropdownTriggerProps',
+        kind: 'type',
+        signature: 'DropdownTextTriggerProps | DropdownIconTriggerProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'iconOnly',
+            type: 'boolean',
+            required: false,
+            defaultValue: '',
+            description: 'Use a square icon-only button with an accessible name.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-trigger-props.properties.icon-only.description',
+          },
           {
             name: 'variant',
             type: 'ButtonVariant',
@@ -5238,6 +5362,16 @@ export const componentApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.dropdown.api.dropdown-trigger-props.properties.indicator.description',
+          },
+          {
+            name: 'aria-label',
+            type: 'string',
+            required: false,
+            defaultValue: '',
+            description: 'Defines a string value that labels the current element.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-trigger-props.properties.aria-label.description',
           },
         ],
         descriptionTranslationKey: 'components.dropdown.api.dropdown-trigger-props.description',

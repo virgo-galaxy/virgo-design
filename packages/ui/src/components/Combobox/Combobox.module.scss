@@ -55,12 +55,15 @@
   padding-inline: var(--vd-spacing-8);
   border-radius: var(--vd-radius-4);
   cursor: pointer;
+  color: var(--vd-text-secondary);
   &[data-highlighted='true'] {
+    color: var(--vd-text-primary);
     background: var(--vd-fill-hover);
     outline: var(--vd-border-width-1) solid var(--vd-border-focus);
   }
   &[aria-selected='true'] {
-    color: var(--vd-brand-primary);
+    color: var(--vd-brand-link);
+    background: var(--vd-brand-subtle-hover);
     font-weight: var(--vd-typography-ui-label-medium-font-weight);
   }
   &[aria-disabled='true'] {

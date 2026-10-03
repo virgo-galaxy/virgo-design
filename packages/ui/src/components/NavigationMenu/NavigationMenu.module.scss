@@ -150,8 +150,8 @@
   }
 
   &[data-active='true'] {
-    color: var(--vd-text-primary);
-    background: var(--vd-fill-selected);
+    color: var(--vd-brand-link);
+    background: var(--vd-brand-subtle-hover);
   }
 
   &:disabled,

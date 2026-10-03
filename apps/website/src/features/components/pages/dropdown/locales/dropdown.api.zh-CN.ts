@@ -5,6 +5,16 @@ export const dropdownApiZhCN = {
     'dropdown-props.properties.trigger.description': '指针激活方式；两种模式均支持键盘与触摸激活。',
     'dropdown-trigger-props.properties.indicator.description':
       '装饰性后置图标；false 隐藏图标，默认使用 ChevronDownIcon。',
+    'dropdown-trigger-props.properties.icon-only.description':
+      '使用方形纯图标按钮，并提供无障碍名称。',
+    'dropdown-trigger-props.properties.aria-label.description': '为按钮提供无障碍名称。',
+    'dropdown-text-trigger-props.properties.indicator.description':
+      '装饰性后置图标；false 隐藏图标，默认使用 ChevronDownIcon。',
+    'dropdown-icon-trigger-props.properties.icon-only.description':
+      '使用方形纯图标按钮，并提供无障碍名称。',
+    'dropdown-icon-trigger-props.properties.aria-label.description': '为按钮提供无障碍名称。',
+    'dropdown-icon-trigger-props.properties.indicator.description':
+      '装饰性后置图标；false 隐藏图标，默认使用 ChevronDownIcon。',
     'dropdown-content-props.properties.placement.description':
       '首选物理位置；在视口边缘翻转与偏移。',
     'dropdown-item-props.properties.checked.description':

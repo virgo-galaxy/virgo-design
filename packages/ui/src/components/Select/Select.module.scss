@@ -189,7 +189,7 @@
   padding: var(--vd-spacing-4) var(--select-padding-inline);
   border-radius: max(calc(var(--select-radius) - var(--vd-spacing-2)), var(--vd-radius-6));
   outline: 0;
-  color: var(--vd-text-primary);
+  color: var(--vd-text-secondary);
   cursor: pointer;
   font-family: var(--select-font-family);
   font-size: var(--select-font-size);
@@ -198,13 +198,15 @@
 
   &:hover:not([data-disabled='true']),
   &:focus:not([data-disabled='true']) {
+    color: var(--vd-text-primary);
     background: var(--vd-fill-hover);
   }
 }
 
 .option[data-selected='true'] {
-  color: var(--vd-text-primary);
-  background: var(--vd-fill-selected);
+  color: var(--vd-brand-link);
+  background: var(--vd-brand-subtle-hover);
+  font-weight: var(--vd-font-weight-500);
 }
 
 .option[data-disabled='true'] {

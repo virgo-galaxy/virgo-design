@@ -34,36 +34,45 @@ const Root = forwardRef<HTMLDivElement, DropdownProps>(function Dropdown(
   );
 });
 
-const Trigger = forwardRef<HTMLButtonElement, DropdownTriggerProps>(function DropdownTrigger(
-  {
-    variant = 'outline',
-    danger = false,
-    indicator = <ChevronDownIcon />,
-    className,
-    children,
-    ...props
+const Trigger = forwardRef<HTMLButtonElement, DropdownTriggerProps>(
+  function DropdownTrigger(triggerProps, ref) {
+    const {
+      variant = 'outline',
+      danger = false,
+      iconOnly,
+      indicator = <ChevronDownIcon />,
+      className,
+      children,
+      ...props
+    } = triggerProps;
+    const layoutProps = triggerProps.iconOnly
+      ? { iconOnly: true as const, 'aria-label': triggerProps['aria-label'] }
+      : { iconOnly: false as const, trailingIcon: indicator };
+    const { size } = useContext(UIContext);
+    return (
+      <PrimitiveDropdown.Trigger
+        {...props}
+        ref={ref}
+        render={(buttonProps) => (
+          <Button
+            {...buttonProps}
+            variant={variant}
+            {...layoutProps}
+            size={size}
+            className={classes(
+              styles.trigger,
+              iconOnly && styles.iconOnly,
+              danger && styles.danger,
+              className,
+            )}
+          >
+            {children}
+          </Button>
+        )}
+      />
+    );
   },
-  ref,
-) {
-  const { size } = useContext(UIContext);
-  return (
-    <PrimitiveDropdown.Trigger
-      {...props}
-      ref={ref}
-      render={(buttonProps) => (
-        <Button
-          {...buttonProps}
-          variant={variant}
-          size={size}
-          className={classes(styles.trigger, danger && styles.danger, className)}
-          trailingIcon={indicator}
-        >
-          {children}
-        </Button>
-      )}
-    />
-  );
-});
+);
 
 const Content = forwardRef<HTMLDivElement, DropdownContentProps>(function DropdownContent(
   { arrow = false, className, children, ...props },

@@ -525,8 +525,20 @@ export const componentsApiEnUS: ApiDescriptionResources = {
     api: {
       'dropdown-props.properties.trigger.description':
         'Pointer activation; keyboard and touch activation work in both modes.',
+      'dropdown-text-trigger-props.properties.indicator.description':
+        'Decorative trailing icon; false hides it. Defaults to ChevronDownIcon.',
+      'dropdown-icon-trigger-props.properties.icon-only.description':
+        'Use a square icon-only button with an accessible name.',
+      'dropdown-icon-trigger-props.properties.aria-label.description':
+        'Defines a string value that labels the current element.',
+      'dropdown-icon-trigger-props.properties.indicator.description':
+        'Decorative trailing icon; false hides it. Defaults to ChevronDownIcon.',
+      'dropdown-trigger-props.properties.icon-only.description':
+        'Use a square icon-only button with an accessible name.',
       'dropdown-trigger-props.properties.indicator.description':
         'Decorative trailing icon; false hides it. Defaults to ChevronDownIcon.',
+      'dropdown-trigger-props.properties.aria-label.description':
+        'Defines a string value that labels the current element.',
       'dropdown-content-props.properties.placement.description':
         'Preferred physical placement; flips and shifts at viewport edges.',
       'dropdown-item-props.properties.checked.description':
