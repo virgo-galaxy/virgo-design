@@ -75,6 +75,8 @@ export const iconSvgSources = {
   home: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M11.5 3.5h1L21 11.25v1l-.75.75H19v6.5l-1 1H6l-1-1V13H3.75L3 12.25v-1z M12 6 7 10.5v8h2v-6h6v6h2v-8z M11 14.5v6h2v-6z" fill-rule="evenodd" />\n</svg>\n',
   'language-en':
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M3.35 5H10V7H5V11H9.5V13H5V17H10V19H3.35L3 18.65V5.35Z" />\n  <path d="M12 19V5.35L12.35 5H14L19 14.5V5H20.65L21 5.35V18.65L20.65 19H19L14 9.5V19Z" />\n</svg>\n',
+  language:
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M8 2H10V5H8ZM2.5 5H15.5V7H2.5Z" />\n  <path d="M5 7H7.2L8.8 10.2 11.3 12.8 14 14.7 12.8 16.4 9.9 14.3 7.1 11.3Z" />\n  <path d="M12.2 7H14.4L12.6 10.5 10.1 13.4 7 15.9 3.6 17.6 2.5 15.9 5.9 14.2 8.7 11.9 11 9.2Z" />\n  <path d="M16.5 11H18.5L23 22H20.8L19.8 19.5H15.2L14.2 22H12ZM16 17.5H19L17.5 13.7Z" fill-rule="evenodd" />\n</svg>\n',
   'language-zh':
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M3.5 3.5 7.5 5.5 6.5 7.5 2.5 5.5ZM3 9 7 11 6 13 2 11ZM5.5 14 7.5 15 4.5 21 2.5 20Z" />\n  <path d="M9 4.5H20.15L20.5 4.85V6.5L18.5 11 15.5 15 12 18.5 8.5 21 7.3 19.3 10.7 16.9 13.9 13.7 16.7 10 18.2 6.5H9Z" />\n  <path d="M9.5 9 11.3 8 13.8 12 17.1 15.8 21.5 19.2 20.3 20.8 15.7 17.2 12.2 13.2Z" />\n</svg>\n',
   layers:

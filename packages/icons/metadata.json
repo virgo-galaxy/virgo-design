@@ -360,6 +360,15 @@
     "animated": false
   },
   {
+    "id": "language",
+    "category": "system",
+    "tags": ["system", "language", "translate"],
+    "aliases": ["translate"],
+    "status": "stable",
+    "description": "Chinese and Latin letter icon for language selection.",
+    "animated": false
+  },
+  {
     "id": "language-en",
     "category": "system",
     "tags": ["system", "language", "en"],

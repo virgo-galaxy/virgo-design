@@ -38,6 +38,7 @@ export const chineseIconKeywords = {
   github: ['仓库', '代码托管'],
   globe: ['全球', '地球', '网络'],
   home: ['首页', '主页'],
+  language: ['语言', '翻译', '中英文', '自动检测'],
   'language-en': ['英文', '英语', '语言'],
   'language-zh': ['中文', '汉语', '语言'],
   layers: ['图层', '层级'],

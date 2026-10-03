@@ -40,6 +40,7 @@ import { GithubIcon } from './GithubIcon.js';
 import { GlobeIcon } from './GlobeIcon.js';
 import { HomeIcon } from './HomeIcon.js';
 import { LanguageEnIcon } from './LanguageEnIcon.js';
+import { LanguageIcon } from './LanguageIcon.js';
 import { LanguageZhIcon } from './LanguageZhIcon.js';
 import { LayersIcon } from './LayersIcon.js';
 import { LayoutIcon } from './LayoutIcon.js';
@@ -115,6 +116,7 @@ export const iconComponents = {
   globe: GlobeIcon,
   home: HomeIcon,
   'language-en': LanguageEnIcon,
+  language: LanguageIcon,
   'language-zh': LanguageZhIcon,
   layers: LayersIcon,
   layout: LayoutIcon,

@@ -56,6 +56,7 @@ describe('icons generator', () => {
       'home.svg',
       'language-en.svg',
       'language-zh.svg',
+      'language.svg',
       'layers.svg',
       'layout.svg',
       'lock.svg',

@@ -404,6 +404,16 @@ export const iconManifest = [
     componentName: 'HomeIcon',
   },
   {
+    id: 'language',
+    category: 'system',
+    tags: ['system', 'language', 'translate'],
+    aliases: ['translate'],
+    status: 'stable',
+    description: 'Chinese and Latin letter icon for language selection.',
+    animated: false,
+    componentName: 'LanguageIcon',
+  },
+  {
     id: 'language-en',
     category: 'system',
     tags: ['system', 'language', 'en'],
