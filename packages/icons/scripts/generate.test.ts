@@ -13,7 +13,7 @@ describe('icons generator', () => {
       .filter((fileName) => fileName.endsWith('.svg'))
       .sort();
 
-    expect(files).toEqual([
+    const regularFiles = [
       'arrow-down.svg',
       'arrow-left.svg',
       'arrow-return.svg',
@@ -89,7 +89,14 @@ describe('icons generator', () => {
       'upload.svg',
       'user.svg',
       'widgets.svg',
-    ]);
+    ];
+    const filledFamilies =
+      'bell bot briefcase calendar circle-check circle-info circle-x triangle-alert dashboard database form gauge home layers layout widgets eye eye-closed lock unlock pin unpin microphone monitor sun moon play pause stop palette receipt settings shapes studio-tools trash user'.split(
+        ' ',
+      );
+    expect(files).toEqual(
+      [...regularFiles, ...filledFamilies.map((id) => `${id}-filled.svg`)].sort(),
+    );
 
     await Promise.all(
       files.map(async (fileName) => {

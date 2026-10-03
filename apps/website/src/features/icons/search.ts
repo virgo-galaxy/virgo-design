@@ -2,6 +2,7 @@ import {
   type IconCategory,
   type IconId,
   iconManifest,
+  type IconManifestEntry,
   searchIcons,
 } from '@virgo-design/icons/metadata';
 export const chineseIconKeywords = {
@@ -80,7 +81,7 @@ export const chineseIconKeywords = {
   'chevrons-left': ['双箭头', '左', '向左'],
   'chevron-right': ['箭头', '右', '向右'],
   'chevrons-right': ['双箭头', '右', '向右'],
-} satisfies Record<IconId, readonly string[]>;
+} satisfies Record<(typeof iconManifest)[number]['family'], readonly string[]>;
 const chineseCategories = {
   actions: ['操作'],
   navigation: ['导航'],
@@ -94,7 +95,11 @@ const chineseCategories = {
 const websiteKeywords = Object.fromEntries(
   iconManifest.map((icon) => [
     icon.id,
-    [...chineseIconKeywords[icon.id], ...chineseCategories[icon.category]],
+    [
+      ...chineseIconKeywords[icon.family],
+      ...chineseCategories[icon.category],
+      ...(icon.variant === 'filled' ? ['实心', '填充'] : ['轮廓', '线框', '常规']),
+    ],
   ]),
 );
 export function searchWebsiteIcons(query: string, category?: IconCategory, animated?: boolean) {
@@ -104,34 +109,43 @@ export function searchWebsiteIcons(query: string, category?: IconCategory, anima
   }).filter((icon) => animated === undefined || icon.animated === animated);
 }
 
+export function sortCatalogueIcons<T extends IconManifestEntry>(records: readonly T[]): T[] {
+  return [...records].sort(
+    (a, b) =>
+      a.family.localeCompare(b.family, 'en', { sensitivity: 'base', numeric: true }) ||
+      Number(a.variant === 'filled') - Number(b.variant === 'filled'),
+  );
+}
+
 export function iconAnimationIdeaKey(id: IconId) {
-  if (id.startsWith('arrow-')) return 'icons.animationIdeas.arrow';
-  if (id.startsWith('chevron-')) return 'icons.animationIdeas.chevron';
-  if (id.startsWith('chevrons-')) return 'icons.animationIdeas.chevrons';
+  const family = id.replace(/-filled$/, '');
+  if (family.startsWith('arrow-')) return 'icons.animationIdeas.arrow';
+  if (family.startsWith('chevron-')) return 'icons.animationIdeas.chevron';
+  if (family.startsWith('chevrons-')) return 'icons.animationIdeas.chevrons';
   if (
-    id === 'code' ||
-    id === 'trash' ||
-    id === 'copy' ||
-    id === 'upload' ||
-    id === 'download' ||
-    id === 'settings' ||
-    id === 'bell' ||
-    id === 'external-link' ||
-    id === 'bot' ||
-    id === 'check' ||
-    id === 'close' ||
-    id === 'cybertruck' ||
-    id === 'eye' ||
-    id === 'gauge' ||
-    id === 'globe' ||
-    id === 'layers' ||
-    id === 'lock' ||
-    id === 'moon' ||
-    id === 'pin' ||
-    id === 'search' ||
-    id === 'shapes' ||
-    id === 'sun'
+    family === 'code' ||
+    family === 'trash' ||
+    family === 'copy' ||
+    family === 'upload' ||
+    family === 'download' ||
+    family === 'settings' ||
+    family === 'bell' ||
+    family === 'external-link' ||
+    family === 'bot' ||
+    family === 'check' ||
+    family === 'close' ||
+    family === 'cybertruck' ||
+    family === 'eye' ||
+    family === 'gauge' ||
+    family === 'globe' ||
+    family === 'layers' ||
+    family === 'lock' ||
+    family === 'moon' ||
+    family === 'pin' ||
+    family === 'search' ||
+    family === 'shapes' ||
+    family === 'sun'
   )
-    return `icons.animationIdeas.${id}` as const;
+    return `icons.animationIdeas.${family}` as const;
   return 'icons.animationIdeas.arrow';
 }

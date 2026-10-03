@@ -19,7 +19,10 @@ export const PlayIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, PlayIconProps>
       viewBox="0 0 24 24"
       width={size}
     >
-      <path d={'M8 4.25h1l11 7.25v1L9 19.75H8l-.5-.5v-14z'} />
+      <path
+        d={'M8 4.25h1l11 7.25v1L9 19.75H8l-.5-.5v-14z M9.5 7.4v9.2l7-4.6z'}
+        fillRule="evenodd"
+      />
     </svg>
   );
 });

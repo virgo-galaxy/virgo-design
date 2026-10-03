@@ -18,7 +18,10 @@ const animation = {
   ],
 } as const;
 const animationPaths = [
-  { d: 'M8.648 3.648A9 9 0 1 0 20.352 15.352 9 9 0 0 1 8.648 3.648Z' },
+  {
+    d: 'M8.648 3.648A9 9 0 1 0 20.352 15.352 9 9 0 0 1 8.648 3.648Z M6.074 8.274A7 7 0 0 0 15.726 17.926A11 11 0 0 1 6.074 8.274Z',
+    fillRule: 'evenodd',
+  },
 ] as const;
 
 export type MoonIconProps = IconProps & { animated?: IconAnimation };
@@ -46,7 +49,12 @@ export const MoonIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, MoonIconProps>
         />
       ) : (
         <>
-          <path d={'M8.648 3.648A9 9 0 1 0 20.352 15.352 9 9 0 0 1 8.648 3.648Z'} />
+          <path
+            d={
+              'M8.648 3.648A9 9 0 1 0 20.352 15.352 9 9 0 0 1 8.648 3.648Z M6.074 8.274A7 7 0 0 0 15.726 17.926A11 11 0 0 1 6.074 8.274Z'
+            }
+            fillRule="evenodd"
+          />
         </>
       )}
     </svg>

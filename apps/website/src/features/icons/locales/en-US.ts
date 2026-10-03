@@ -1,7 +1,7 @@
 export const iconsEnUS = {
   title: 'Icons',
   description:
-    'Explore Virgo’s fill-first icons, inspect canonical geometry, and create custom icons.',
+    'Explore Virgo’s Outline / Filled icon families, inspect canonical geometry, and create custom icons.',
   reviewControls: 'Review controls',
   toggleGrid: 'Toggle grid',
   grid: 'Grid ({{state}})',
@@ -17,7 +17,7 @@ export const iconsEnUS = {
   animationFilter: 'Animation',
   animated: 'Animated',
   nonAnimated: 'Non-animated',
-  animationNote: 'Each icon uses its own animation. Preview playback can be paused.',
+  animationNote: 'Each family shares its motion across variants. Preview playback can be paused.',
   animationPlayback: 'Animation playback',
   playOnce: 'Once',
   playThreeTimes: '3 times',
@@ -71,6 +71,9 @@ export const iconsEnUS = {
   copyCode: 'Copy code',
   copying: 'Copying…',
   component: 'React component',
+  family: 'Family',
+  variant: 'Variant',
+  variantNames: { outline: 'Outline', filled: 'Filled' },
   downloadSvg: 'Download SVG',
   copied: 'Copied',
   copyFailed: 'Copy failed. Try again.',

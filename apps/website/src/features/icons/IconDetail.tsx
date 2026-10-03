@@ -31,7 +31,8 @@ export function IconDetail({ id }: { id: string }) {
   const related = iconManifest
     .filter(
       (item) =>
-        item.id !== id &&
+        item.family !== icon.family &&
+        item.variant === 'outline' &&
         (item.category === icon.category ||
           item.tags.some((tag) => (icon.tags as readonly string[]).includes(tag))),
     )
@@ -45,7 +46,36 @@ export function IconDetail({ id }: { id: string }) {
         {t('icons.back')}
       </Link>
       <h2>{icon.id}</h2>
+      <div className="icon-platform-grid" role="group" aria-label={t('icons.variant')}>
+        {iconManifest
+          .filter((item) => item.family === icon.family)
+          .sort((a, b) => Number(a.variant === 'filled') - Number(b.variant === 'filled'))
+          .map((item) => {
+            const VariantIcon = iconComponents[item.id];
+            return (
+              <Link
+                className="icon-platform-card"
+                aria-label={`${item.componentName} ${t(`icons.variantNames.${item.variant}`)}`}
+                key={item.id}
+                to={`/foundations/icons/${item.id}`}
+                aria-current={item.id === id ? 'page' : undefined}
+              >
+                <VariantIcon size={24} />
+                <span>{item.componentName}</span>
+                <small>{t(`icons.variantNames.${item.variant}`)}</small>
+              </Link>
+            );
+          })}
+      </div>
       <dl className="icon-platform-metadata">
+        <div>
+          <dt>{t('icons.family')}</dt>
+          <dd>{icon.family}</dd>
+        </div>
+        <div>
+          <dt>{t('icons.variant')}</dt>
+          <dd>{t(`icons.variantNames.${icon.variant}`)}</dd>
+        </div>
         <div>
           <dt>{t('icons.component')}</dt>
           <dd>

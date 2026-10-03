@@ -3,6 +3,7 @@ export {
   type IconCategory,
   type IconManifestEntry,
   type IconMetadata,
+  type IconVariant,
   searchIcons,
   validateIconMetadata,
 } from './contract.js';

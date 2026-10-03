@@ -1,6 +1,8 @@
 [
   {
     "id": "arrow-down",
+    "family": "arrow-down",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["direction", "down", "arrow"],
     "aliases": ["down-arrow"],
@@ -10,6 +12,8 @@
   },
   {
     "id": "arrow-left",
+    "family": "arrow-left",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["direction", "left", "arrow"],
     "aliases": ["left-arrow"],
@@ -19,6 +23,8 @@
   },
   {
     "id": "arrow-return",
+    "family": "arrow-return",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["return", "back", "undo", "arrow", "bend"],
     "aliases": ["return", "back", "undo"],
@@ -28,6 +34,8 @@
   },
   {
     "id": "arrow-right",
+    "family": "arrow-right",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["direction", "right", "arrow"],
     "aliases": ["right-arrow"],
@@ -37,6 +45,8 @@
   },
   {
     "id": "arrow-up",
+    "family": "arrow-up",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["direction", "up", "arrow"],
     "aliases": ["up-arrow"],
@@ -46,6 +56,8 @@
   },
   {
     "id": "bell",
+    "family": "bell",
+    "variant": "outline",
     "category": "system",
     "tags": ["bell", "notification", "alert", "reminder", "message"],
     "aliases": ["notifications"],
@@ -54,7 +66,20 @@
     "animated": true
   },
   {
+    "id": "bell-filled",
+    "family": "bell",
+    "variant": "filled",
+    "category": "system",
+    "tags": ["bell", "notification", "alert", "reminder", "message"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the bell family.",
+    "animated": true
+  },
+  {
     "id": "bot",
+    "family": "bot",
+    "variant": "outline",
     "category": "system",
     "tags": ["system", "bot"],
     "aliases": [],
@@ -63,7 +88,20 @@
     "animated": true
   },
   {
+    "id": "bot-filled",
+    "family": "bot",
+    "variant": "filled",
+    "category": "system",
+    "tags": ["system", "bot"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the bot family.",
+    "animated": true
+  },
+  {
     "id": "briefcase",
+    "family": "briefcase",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["work", "project", "task", "business", "case"],
     "aliases": ["work-case"],
@@ -72,7 +110,20 @@
     "animated": false
   },
   {
+    "id": "briefcase-filled",
+    "family": "briefcase",
+    "variant": "filled",
+    "category": "navigation",
+    "tags": ["work", "project", "task", "business", "case"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the briefcase family.",
+    "animated": false
+  },
+  {
     "id": "calendar",
+    "family": "calendar",
+    "variant": "outline",
     "category": "system",
     "tags": ["date", "month", "schedule", "picker"],
     "aliases": ["date-picker"],
@@ -81,7 +132,20 @@
     "animated": false
   },
   {
+    "id": "calendar-filled",
+    "family": "calendar",
+    "variant": "filled",
+    "category": "system",
+    "tags": ["date", "month", "schedule", "picker"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the calendar family.",
+    "animated": false
+  },
+  {
     "id": "check",
+    "family": "check",
+    "variant": "outline",
     "category": "actions",
     "tags": ["actions", "check"],
     "aliases": [],
@@ -91,6 +155,8 @@
   },
   {
     "id": "chevron-down",
+    "family": "chevron-down",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["direction", "expand", "arrow"],
     "aliases": ["caret-down"],
@@ -100,6 +166,8 @@
   },
   {
     "id": "chevron-left",
+    "family": "chevron-left",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["direction", "back", "arrow"],
     "aliases": ["caret-left"],
@@ -109,6 +177,8 @@
   },
   {
     "id": "chevron-right",
+    "family": "chevron-right",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["direction", "next", "arrow"],
     "aliases": ["caret-right"],
@@ -118,6 +188,8 @@
   },
   {
     "id": "chevron-up",
+    "family": "chevron-up",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["direction", "collapse", "arrow"],
     "aliases": ["caret-up"],
@@ -127,6 +199,8 @@
   },
   {
     "id": "chevrons-down",
+    "family": "chevrons-down",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["navigation", "chevrons", "down"],
     "aliases": [],
@@ -136,6 +210,8 @@
   },
   {
     "id": "chevrons-left",
+    "family": "chevrons-left",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["navigation", "chevrons", "left"],
     "aliases": [],
@@ -145,6 +221,8 @@
   },
   {
     "id": "chevrons-right",
+    "family": "chevrons-right",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["navigation", "chevrons", "right"],
     "aliases": [],
@@ -154,6 +232,8 @@
   },
   {
     "id": "chevrons-up",
+    "family": "chevrons-up",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["navigation", "chevrons", "up"],
     "aliases": [],
@@ -163,6 +243,8 @@
   },
   {
     "id": "circle-check",
+    "family": "circle-check",
+    "variant": "outline",
     "category": "status",
     "tags": ["status", "circle", "check"],
     "aliases": [],
@@ -171,7 +253,20 @@
     "animated": false
   },
   {
+    "id": "circle-check-filled",
+    "family": "circle-check",
+    "variant": "filled",
+    "category": "status",
+    "tags": ["status", "circle", "check"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the circle-check family.",
+    "animated": false
+  },
+  {
     "id": "circle-info",
+    "family": "circle-info",
+    "variant": "outline",
     "category": "status",
     "tags": ["information", "help"],
     "aliases": ["info"],
@@ -180,7 +275,20 @@
     "animated": false
   },
   {
+    "id": "circle-info-filled",
+    "family": "circle-info",
+    "variant": "filled",
+    "category": "status",
+    "tags": ["information", "help"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the circle-info family.",
+    "animated": false
+  },
+  {
     "id": "circle-x",
+    "family": "circle-x",
+    "variant": "outline",
     "category": "status",
     "tags": ["status", "circle", "x"],
     "aliases": [],
@@ -189,7 +297,20 @@
     "animated": false
   },
   {
+    "id": "circle-x-filled",
+    "family": "circle-x",
+    "variant": "filled",
+    "category": "status",
+    "tags": ["status", "circle", "x"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the circle-x family.",
+    "animated": false
+  },
+  {
     "id": "clock",
+    "family": "clock",
+    "variant": "outline",
     "category": "system",
     "tags": ["time", "hour", "schedule", "picker"],
     "aliases": ["time-picker"],
@@ -199,6 +320,8 @@
   },
   {
     "id": "close",
+    "family": "close",
+    "variant": "outline",
     "category": "actions",
     "tags": ["dismiss", "cancel"],
     "aliases": ["x"],
@@ -208,6 +331,8 @@
   },
   {
     "id": "code",
+    "family": "code",
+    "variant": "outline",
     "category": "development",
     "tags": ["programming", "developer"],
     "aliases": ["source-code"],
@@ -217,6 +342,8 @@
   },
   {
     "id": "copy",
+    "family": "copy",
+    "variant": "outline",
     "category": "actions",
     "tags": ["clipboard", "duplicate"],
     "aliases": ["duplicate"],
@@ -226,6 +353,8 @@
   },
   {
     "id": "cursor-arrow",
+    "family": "cursor-arrow",
+    "variant": "outline",
     "category": "system",
     "tags": ["system", "cursor", "arrow"],
     "aliases": [],
@@ -235,6 +364,8 @@
   },
   {
     "id": "cybertruck",
+    "family": "cybertruck",
+    "variant": "outline",
     "category": "brands",
     "tags": ["brands", "cybertruck"],
     "aliases": [],
@@ -244,6 +375,8 @@
   },
   {
     "id": "dashboard",
+    "family": "dashboard",
+    "variant": "outline",
     "category": "layout",
     "tags": ["layout", "dashboard"],
     "aliases": [],
@@ -252,7 +385,20 @@
     "animated": false
   },
   {
+    "id": "dashboard-filled",
+    "family": "dashboard",
+    "variant": "filled",
+    "category": "layout",
+    "tags": ["layout", "dashboard"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the dashboard family.",
+    "animated": false
+  },
+  {
     "id": "database",
+    "family": "database",
+    "variant": "outline",
     "category": "development",
     "tags": ["data", "database", "storage", "records", "table"],
     "aliases": ["data-store"],
@@ -261,7 +407,20 @@
     "animated": false
   },
   {
+    "id": "database-filled",
+    "family": "database",
+    "variant": "filled",
+    "category": "development",
+    "tags": ["data", "database", "storage", "records", "table"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the database family.",
+    "animated": false
+  },
+  {
     "id": "download",
+    "family": "download",
+    "variant": "outline",
     "category": "actions",
     "tags": ["file", "transfer", "export"],
     "aliases": ["save-file"],
@@ -271,6 +430,8 @@
   },
   {
     "id": "ellipsis",
+    "family": "ellipsis",
+    "variant": "outline",
     "category": "layout",
     "tags": ["layout", "ellipsis"],
     "aliases": [],
@@ -280,6 +441,8 @@
   },
   {
     "id": "ellipsis-vertical",
+    "family": "ellipsis-vertical",
+    "variant": "outline",
     "category": "layout",
     "tags": ["layout", "ellipsis", "vertical"],
     "aliases": [],
@@ -289,6 +452,8 @@
   },
   {
     "id": "external-link",
+    "family": "external-link",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["navigation", "external", "link"],
     "aliases": [],
@@ -298,6 +463,8 @@
   },
   {
     "id": "eye",
+    "family": "eye",
+    "variant": "outline",
     "category": "actions",
     "tags": ["actions", "eye"],
     "aliases": [],
@@ -307,6 +474,8 @@
   },
   {
     "id": "eye-closed",
+    "family": "eye-closed",
+    "variant": "outline",
     "category": "actions",
     "tags": ["actions", "eye", "closed"],
     "aliases": [],
@@ -315,7 +484,31 @@
     "animated": false
   },
   {
+    "id": "eye-closed-filled",
+    "family": "eye-closed",
+    "variant": "filled",
+    "category": "actions",
+    "tags": ["actions", "eye", "closed"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the eye-closed family.",
+    "animated": false
+  },
+  {
+    "id": "eye-filled",
+    "family": "eye",
+    "variant": "filled",
+    "category": "actions",
+    "tags": ["actions", "eye"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the eye family.",
+    "animated": true
+  },
+  {
     "id": "form",
+    "family": "form",
+    "variant": "outline",
     "category": "layout",
     "tags": ["form", "field", "input", "label", "document"],
     "aliases": ["input-form"],
@@ -324,7 +517,20 @@
     "animated": false
   },
   {
+    "id": "form-filled",
+    "family": "form",
+    "variant": "filled",
+    "category": "layout",
+    "tags": ["form", "field", "input", "label", "document"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the form family.",
+    "animated": false
+  },
+  {
     "id": "gauge",
+    "family": "gauge",
+    "variant": "outline",
     "category": "status",
     "tags": ["status", "gauge"],
     "aliases": [],
@@ -333,7 +539,20 @@
     "animated": true
   },
   {
+    "id": "gauge-filled",
+    "family": "gauge",
+    "variant": "filled",
+    "category": "status",
+    "tags": ["status", "gauge"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the gauge family.",
+    "animated": true
+  },
+  {
     "id": "github",
+    "family": "github",
+    "variant": "outline",
     "category": "development",
     "tags": ["repository", "git", "brand"],
     "aliases": ["git-host"],
@@ -343,6 +562,8 @@
   },
   {
     "id": "globe",
+    "family": "globe",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["navigation", "globe"],
     "aliases": [],
@@ -352,6 +573,8 @@
   },
   {
     "id": "home",
+    "family": "home",
+    "variant": "outline",
     "category": "navigation",
     "tags": ["start", "house"],
     "aliases": ["house"],
@@ -360,7 +583,20 @@
     "animated": false
   },
   {
+    "id": "home-filled",
+    "family": "home",
+    "variant": "filled",
+    "category": "navigation",
+    "tags": ["start", "house"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the home family.",
+    "animated": false
+  },
+  {
     "id": "language",
+    "family": "language",
+    "variant": "outline",
     "category": "system",
     "tags": ["system", "language", "translate"],
     "aliases": ["translate"],
@@ -370,6 +606,8 @@
   },
   {
     "id": "language-en",
+    "family": "language-en",
+    "variant": "outline",
     "category": "system",
     "tags": ["system", "language", "en"],
     "aliases": [],
@@ -379,6 +617,8 @@
   },
   {
     "id": "language-zh",
+    "family": "language-zh",
+    "variant": "outline",
     "category": "system",
     "tags": ["system", "language", "zh"],
     "aliases": [],
@@ -388,6 +628,8 @@
   },
   {
     "id": "layers",
+    "family": "layers",
+    "variant": "outline",
     "category": "layout",
     "tags": ["layout", "layers"],
     "aliases": [],
@@ -396,7 +638,20 @@
     "animated": true
   },
   {
+    "id": "layers-filled",
+    "family": "layers",
+    "variant": "filled",
+    "category": "layout",
+    "tags": ["layout", "layers"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the layers family.",
+    "animated": true
+  },
+  {
     "id": "layout",
+    "family": "layout",
+    "variant": "outline",
     "category": "layout",
     "tags": ["layout"],
     "aliases": [],
@@ -405,7 +660,20 @@
     "animated": false
   },
   {
+    "id": "layout-filled",
+    "family": "layout",
+    "variant": "filled",
+    "category": "layout",
+    "tags": ["layout"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the layout family.",
+    "animated": false
+  },
+  {
     "id": "lock",
+    "family": "lock",
+    "variant": "outline",
     "category": "actions",
     "tags": ["actions", "lock"],
     "aliases": [],
@@ -414,7 +682,20 @@
     "animated": true
   },
   {
+    "id": "lock-filled",
+    "family": "lock",
+    "variant": "filled",
+    "category": "actions",
+    "tags": ["actions", "lock"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the lock family.",
+    "animated": true
+  },
+  {
     "id": "maximize",
+    "family": "maximize",
+    "variant": "outline",
     "category": "actions",
     "tags": ["actions", "window", "expand", "maximize"],
     "aliases": ["restore-window"],
@@ -424,6 +705,8 @@
   },
   {
     "id": "microphone",
+    "family": "microphone",
+    "variant": "outline",
     "category": "actions",
     "tags": ["audio", "voice", "recording", "dictation"],
     "aliases": ["mic"],
@@ -432,7 +715,20 @@
     "animated": false
   },
   {
+    "id": "microphone-filled",
+    "family": "microphone",
+    "variant": "filled",
+    "category": "actions",
+    "tags": ["audio", "voice", "recording", "dictation"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the microphone family.",
+    "animated": false
+  },
+  {
     "id": "minus",
+    "family": "minus",
+    "variant": "outline",
     "category": "actions",
     "tags": ["actions", "minus"],
     "aliases": [],
@@ -442,6 +738,8 @@
   },
   {
     "id": "monitor",
+    "family": "monitor",
+    "variant": "outline",
     "category": "system",
     "tags": ["monitor", "display", "screen", "desktop", "system", "appearance"],
     "aliases": ["computer", "system-theme"],
@@ -450,16 +748,42 @@
     "animated": false
   },
   {
+    "id": "monitor-filled",
+    "family": "monitor",
+    "variant": "filled",
+    "category": "system",
+    "tags": ["monitor", "display", "screen", "desktop", "system", "appearance"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the monitor family.",
+    "animated": false
+  },
+  {
     "id": "moon",
+    "family": "moon",
+    "variant": "outline",
     "category": "system",
     "tags": ["system", "moon"],
     "aliases": [],
     "status": "stable",
-    "description": "Moon icon for system interfaces.",
+    "description": "An outlined moon for system interfaces.",
+    "animated": true
+  },
+  {
+    "id": "moon-filled",
+    "family": "moon",
+    "variant": "filled",
+    "category": "system",
+    "tags": ["system", "moon"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the moon family.",
     "animated": true
   },
   {
     "id": "palette",
+    "family": "palette",
+    "variant": "outline",
     "category": "design",
     "tags": ["colors", "paint"],
     "aliases": ["colors"],
@@ -468,16 +792,42 @@
     "animated": false
   },
   {
+    "id": "palette-filled",
+    "family": "palette",
+    "variant": "filled",
+    "category": "design",
+    "tags": ["colors", "paint"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the palette family.",
+    "animated": false
+  },
+  {
     "id": "pause",
+    "family": "pause",
+    "variant": "outline",
     "category": "actions",
     "tags": ["media", "playback", "stop"],
     "aliases": ["pause-playback"],
     "status": "stable",
-    "description": "Two clipped solid bars for pausing media and preview playback.",
+    "description": "An outlined pause for actions interfaces.",
+    "animated": false
+  },
+  {
+    "id": "pause-filled",
+    "family": "pause",
+    "variant": "filled",
+    "category": "actions",
+    "tags": ["media", "playback", "stop"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the pause family.",
     "animated": false
   },
   {
     "id": "pin",
+    "family": "pin",
+    "variant": "outline",
     "category": "actions",
     "tags": ["actions", "pin"],
     "aliases": [],
@@ -486,16 +836,42 @@
     "animated": true
   },
   {
+    "id": "pin-filled",
+    "family": "pin",
+    "variant": "filled",
+    "category": "actions",
+    "tags": ["actions", "pin"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the pin family.",
+    "animated": true
+  },
+  {
     "id": "play",
+    "family": "play",
+    "variant": "outline",
     "category": "actions",
     "tags": ["media", "playback", "start"],
     "aliases": ["start-playback"],
     "status": "stable",
-    "description": "A clipped solid play triangle for media and preview playback.",
+    "description": "An outlined play for actions interfaces.",
+    "animated": false
+  },
+  {
+    "id": "play-filled",
+    "family": "play",
+    "variant": "filled",
+    "category": "actions",
+    "tags": ["media", "playback", "start"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the play family.",
     "animated": false
   },
   {
     "id": "plus",
+    "family": "plus",
+    "variant": "outline",
     "category": "actions",
     "tags": ["actions", "plus"],
     "aliases": [],
@@ -505,6 +881,8 @@
   },
   {
     "id": "receipt",
+    "family": "receipt",
+    "variant": "outline",
     "category": "status",
     "tags": ["receipt", "result", "record", "response", "confirmation"],
     "aliases": ["result", "acknowledgement"],
@@ -513,7 +891,20 @@
     "animated": false
   },
   {
+    "id": "receipt-filled",
+    "family": "receipt",
+    "variant": "filled",
+    "category": "status",
+    "tags": ["receipt", "result", "record", "response", "confirmation"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the receipt family.",
+    "animated": false
+  },
+  {
     "id": "search",
+    "family": "search",
+    "variant": "outline",
     "category": "actions",
     "tags": ["find", "query"],
     "aliases": ["magnifier"],
@@ -523,6 +914,8 @@
   },
   {
     "id": "settings",
+    "family": "settings",
+    "variant": "outline",
     "category": "system",
     "tags": ["configuration", "preferences"],
     "aliases": ["gear", "cog"],
@@ -531,7 +924,20 @@
     "animated": true
   },
   {
+    "id": "settings-filled",
+    "family": "settings",
+    "variant": "filled",
+    "category": "system",
+    "tags": ["configuration", "preferences"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the settings family.",
+    "animated": true
+  },
+  {
     "id": "shapes",
+    "family": "shapes",
+    "variant": "outline",
     "category": "design",
     "tags": ["design", "shapes"],
     "aliases": [],
@@ -540,7 +946,20 @@
     "animated": true
   },
   {
+    "id": "shapes-filled",
+    "family": "shapes",
+    "variant": "filled",
+    "category": "design",
+    "tags": ["design", "shapes"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the shapes family.",
+    "animated": true
+  },
+  {
     "id": "sidebar-collapse",
+    "family": "sidebar-collapse",
+    "variant": "outline",
     "category": "layout",
     "tags": ["layout", "sidebar", "collapse"],
     "aliases": [],
@@ -550,6 +969,8 @@
   },
   {
     "id": "sidebar-expand",
+    "family": "sidebar-expand",
+    "variant": "outline",
     "category": "layout",
     "tags": ["layout", "sidebar", "expand"],
     "aliases": [],
@@ -559,6 +980,8 @@
   },
   {
     "id": "sort",
+    "family": "sort",
+    "variant": "outline",
     "category": "actions",
     "tags": ["sort", "ascending", "descending", "triangles", "table"],
     "aliases": ["sorting", "order", "sort-direction"],
@@ -568,6 +991,8 @@
   },
   {
     "id": "spline",
+    "family": "spline",
+    "variant": "outline",
     "category": "design",
     "tags": ["design", "spline"],
     "aliases": [],
@@ -577,15 +1002,30 @@
   },
   {
     "id": "stop",
+    "family": "stop",
+    "variant": "outline",
     "category": "actions",
     "tags": ["media", "playback", "stop"],
     "aliases": ["stop-playback"],
     "status": "stable",
-    "description": "A stop square for media playback.",
+    "description": "An outlined stop for actions interfaces.",
+    "animated": false
+  },
+  {
+    "id": "stop-filled",
+    "family": "stop",
+    "variant": "filled",
+    "category": "actions",
+    "tags": ["media", "playback", "stop"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the stop family.",
     "animated": false
   },
   {
     "id": "studio-tools",
+    "family": "studio-tools",
+    "variant": "outline",
     "category": "design",
     "tags": ["icon", "design", "create", "editor", "canvas"],
     "aliases": ["studio", "icon-studio", "workshop"],
@@ -594,16 +1034,42 @@
     "animated": false
   },
   {
+    "id": "studio-tools-filled",
+    "family": "studio-tools",
+    "variant": "filled",
+    "category": "design",
+    "tags": ["icon", "design", "create", "editor", "canvas"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the studio-tools family.",
+    "animated": false
+  },
+  {
     "id": "sun",
+    "family": "sun",
+    "variant": "outline",
     "category": "system",
     "tags": ["system", "sun"],
     "aliases": [],
     "status": "stable",
-    "description": "Sun icon for system interfaces.",
+    "description": "An outlined sun for system interfaces.",
+    "animated": true
+  },
+  {
+    "id": "sun-filled",
+    "family": "sun",
+    "variant": "filled",
+    "category": "system",
+    "tags": ["system", "sun"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the sun family.",
     "animated": true
   },
   {
     "id": "trash",
+    "family": "trash",
+    "variant": "outline",
     "category": "actions",
     "tags": ["remove", "delete"],
     "aliases": ["delete", "bin"],
@@ -612,7 +1078,20 @@
     "animated": true
   },
   {
+    "id": "trash-filled",
+    "family": "trash",
+    "variant": "filled",
+    "category": "actions",
+    "tags": ["remove", "delete"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the trash family.",
+    "animated": true
+  },
+  {
     "id": "triangle-alert",
+    "family": "triangle-alert",
+    "variant": "outline",
     "category": "status",
     "tags": ["warning", "danger"],
     "aliases": ["warning"],
@@ -621,7 +1100,20 @@
     "animated": false
   },
   {
+    "id": "triangle-alert-filled",
+    "family": "triangle-alert",
+    "variant": "filled",
+    "category": "status",
+    "tags": ["warning", "danger"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the triangle-alert family.",
+    "animated": false
+  },
+  {
     "id": "type",
+    "family": "type",
+    "variant": "outline",
     "category": "design",
     "tags": ["font", "text", "typography"],
     "aliases": ["typography"],
@@ -631,6 +1123,8 @@
   },
   {
     "id": "unlock",
+    "family": "unlock",
+    "variant": "outline",
     "category": "actions",
     "tags": ["actions", "unlock"],
     "aliases": [],
@@ -639,7 +1133,20 @@
     "animated": false
   },
   {
+    "id": "unlock-filled",
+    "family": "unlock",
+    "variant": "filled",
+    "category": "actions",
+    "tags": ["actions", "unlock"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the unlock family.",
+    "animated": false
+  },
+  {
     "id": "unpin",
+    "family": "unpin",
+    "variant": "outline",
     "category": "actions",
     "tags": ["actions", "unpin"],
     "aliases": [],
@@ -648,7 +1155,20 @@
     "animated": false
   },
   {
+    "id": "unpin-filled",
+    "family": "unpin",
+    "variant": "filled",
+    "category": "actions",
+    "tags": ["actions", "unpin"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the unpin family.",
+    "animated": false
+  },
+  {
     "id": "upload",
+    "family": "upload",
+    "variant": "outline",
     "category": "actions",
     "tags": ["file", "transfer", "import"],
     "aliases": ["send-file"],
@@ -658,6 +1178,8 @@
   },
   {
     "id": "user",
+    "family": "user",
+    "variant": "outline",
     "category": "system",
     "tags": ["account", "person", "profile"],
     "aliases": ["person", "profile"],
@@ -666,12 +1188,36 @@
     "animated": false
   },
   {
+    "id": "user-filled",
+    "family": "user",
+    "variant": "filled",
+    "category": "system",
+    "tags": ["account", "person", "profile"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the user family.",
+    "animated": false
+  },
+  {
     "id": "widgets",
+    "family": "widgets",
+    "variant": "outline",
     "category": "layout",
     "tags": ["widgets", "grid", "blocks", "dashboard", "diamond"],
     "aliases": ["widget", "grid-widgets"],
     "status": "stable",
     "description": "Four outlined blocks with restrained chamfered corners and compact spacing, with an upper-right diamond balanced for small interface sizes.",
+    "animated": false
+  },
+  {
+    "id": "widgets-filled",
+    "family": "widgets",
+    "variant": "filled",
+    "category": "layout",
+    "tags": ["widgets", "grid", "blocks", "dashboard", "diamond"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the widgets family.",
     "animated": false
   }
 ]

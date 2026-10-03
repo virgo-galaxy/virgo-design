@@ -8,6 +8,33 @@ import { validateIconSvg } from '../src/tooling';
 import { createIconAnimation, validateIconAnimation } from './animations';
 
 describe('generated animation definitions', () => {
+  it.each(iconManifest.filter((icon) => icon.variant === 'filled'))(
+    '$family shares animation capability, duration and playback timing across its variants',
+    async (icon) => {
+      const outline = iconManifest.find((item) => item.id === icon.family)!;
+      expect(icon.animated).toBe(outline.animated);
+      const motion = async (id: string) =>
+        createIconAnimation(
+          id,
+          validateIconSvg(await readFile(`packages/icons/icons/${id}.svg`, 'utf8')),
+        );
+      const regular = await motion(outline.id);
+      const filled = await motion(icon.id);
+      expect(filled?.duration).toBe(regular?.duration);
+      expect(filled?.tracks.map((track) => track.times)).toEqual(
+        regular?.tracks.map((track) => track.times),
+      );
+      if (icon.family !== 'gauge') expect(filled).toEqual(regular);
+      else {
+        expect(filled?.tracks[0]?.attribute).toBe('d');
+        const dial = validateIconSvg(
+          await readFile('packages/icons/icons/gauge-filled.svg', 'utf8'),
+        ).paths[0]!.d.split(' M16.75')[0]!;
+        for (const pose of filled!.tracks[0]!.values) expect(pose).toContain(dial);
+        expect(new Set(filled!.tracks[0]!.values).size).toBeGreaterThan(1);
+      }
+    },
+  );
   it.each(iconManifest)('$id animation capability agrees with implementation', async (icon) => {
     const definition = validateIconSvg(
       await readFile(`packages/icons/icons/${icon.id}.svg`, 'utf8'),

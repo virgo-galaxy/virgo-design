@@ -36,9 +36,9 @@ The package entry point is generated from the available canonical icons.
 
 Applications, UI components, documentation, and the Icons Catalogue consume `@virgo-design/icons`. They do not own canonical icon geometry.
 
-Every metadata record uses the same fields: id, category, tags, aliases, status, description, and
+Every metadata record uses the same fields: id, family, variant, category, tags, aliases, status, description, and
 `animated: boolean`. The flag indicates implemented animation support; it does not start playback.
-The 34 animated icons use their own authored motion while sharing the same public import path.
+The 34 animated families (46 icon variants) use their own authored motion while sharing the same public import path.
 
 ## Canonical SVG
 
@@ -266,6 +266,46 @@ Small structural signatures may use optical compensation so they remain percepti
 
 ## Naming
 
+Icons use an explicit Outline / Filled family contract:
+
+- `sun.svg` → `SunIcon`: outline / regular (`family: 'sun'`, `variant: 'outline'`).
+- `sun-filled.svg` → `SunFilledIcon`: filled (`family: 'sun'`, `variant: 'filled'`).
+
+Both visual variants use closed `currentColor` fill paths. Outline is a visual treatment,
+not an SVG stroke API; the existing viewBox, weight, chamfers, curves, negative-space and
+optical-size rules apply to both. There is no runtime `<Icon variant="">` abstraction.
+The generator validates family membership and variant naming before writing components.
+
+Only these 36 families have a Filled variant:
+
+```text
+bell, bot, briefcase, calendar,
+circle-check, circle-info, circle-x, triangle-alert,
+dashboard, database, form, gauge, home, layers, layout, widgets,
+eye, eye-closed, lock, unlock, pin, unpin, microphone, monitor,
+sun, moon, play, pause, stop,
+palette, receipt, settings, shapes, studio-tools, trash, user
+```
+
+Other icons retain their existing single regular shape and record `variant: 'outline'`;
+this includes semantic marks and brand silhouettes whose geometry is inherently solid.
+Do not add a Filled counterpart solely to increase coverage.
+
+Before V1, the former solid Sun, Moon, Play, Pause and Stop geometry moved intact to
+`SunFilledIcon`, `MoonFilledIcon`, `PlayFilledIcon`, `PauseFilledIcon` and `StopFilledIcon`.
+Their default exports now use outline geometry. Update imports to the Filled names to
+keep the previous solid appearance. Animation support belongs to the family: both members of the 12 animated pairs expose
+the same optional `animated` playback prop. The other pairs remain static. Filled Gauge
+animates its transparent needle contour while preserving the fixed dial.
+
+The Website catalogue is a flat grid: every actual export occupies one equal-width,
+equal-height grid cell. Family expresses a relationship and never changes layout or
+card width. Sort by family A–Z, with Outline followed immediately by Filled; siblings
+may naturally wrap across rows. Cards show `Family: name · Outline / Filled` and retain
+independent detail links, TSX examples and SVG downloads for each export.
+Search covers family, variant, inherited family aliases and localized terms. Animation
+and category filters show only matching variants. Detail links between both family members.
+
 Canonical SVG files use lowercase kebab-case:
 
 ```text
@@ -386,7 +426,7 @@ The published package includes declarations, canonical SVGs, this guide, and thi
 ## Metadata and search
 
 `metadata.json` is the authored English-only metadata registry. Each canonical SVG requires exactly
-one id, category, tags, aliases, status, description, and animated record. The generated manifest
+one id, family, variant, category, tags, aliases, status, description, and animated record. The generated manifest
 also includes the React component name; `IconId`, `IconCategory`, `IconMetadata`, and
 `IconManifestEntry` are available from `/metadata`.
 
@@ -398,9 +438,11 @@ category filtering. Consumers can pass their own `keywords` dictionary without c
 
 ## Optional animation
 
-The four arrows, four single chevrons, four double chevrons, Bot, Check, Close, Code, Copy,
+The four arrows, four single chevrons, four double chevrons, Bell, Bot, Check, Close, Code, Copy,
 Cybertruck, Download, External Link, Eye, Gauge, Globe, Layers, Lock, Moon, Pin, Search, Settings,
-Shapes, Sun, Trash, and Upload support one additional prop: `animated`. No animation-type or
+Shapes, Sun, Trash, and Upload support one additional prop: `animated`.
+The Filled members of Bell, Bot, Eye, Gauge, Layers, Lock, Moon, Pin, Settings, Shapes,
+Sun and Trash share their family motion and support the same prop. No animation-type or
 stroke API is added.
 
 ```tsx

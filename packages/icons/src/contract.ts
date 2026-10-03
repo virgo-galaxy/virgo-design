@@ -9,8 +9,11 @@ export const iconCategories = [
   'brands',
 ] as const;
 export type IconCategory = (typeof iconCategories)[number];
+export type IconVariant = 'outline' | 'filled';
 export type IconMetadata = {
   id: string;
+  family: string;
+  variant: IconVariant;
   category: IconCategory;
   tags: readonly string[];
   aliases: readonly string[];
@@ -38,6 +41,15 @@ export function validateIconMetadata(
       throw new Error(`Unknown or duplicate metadata: ${record?.id}.`);
     seen.add(record.id);
     if (
+      typeof record.family !== 'string' ||
+      !/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(record.family) ||
+      !['outline', 'filled'].includes(record.variant) ||
+      record.family.endsWith('-filled') ||
+      record.id !== (record.variant === 'filled' ? `${record.family}-filled` : record.family) ||
+      !names.has(record.family)
+    )
+      throw new Error(`Invalid icon family / variant: ${record.id}.`);
+    if (
       !iconCategories.includes(record.category) ||
       !['stable', 'experimental', 'deprecated'].includes(record.status) ||
       !Array.isArray(record.tags) ||
@@ -62,6 +74,11 @@ export function validateIconMetadata(
     }
   }
   for (const id of ids) if (!seen.has(id)) throw new Error(`Missing metadata: ${id}.`);
+  const families = new Map(records.map((record) => [record.id, record]));
+  for (const record of records) {
+    if (record.animated !== families.get(record.family)!.animated)
+      throw new Error(`Animation metadata must agree within family: ${record.family}.`);
+  }
 }
 export function searchIcons<T extends IconManifestEntry>(
   records: readonly T[],
@@ -69,17 +86,23 @@ export function searchIcons<T extends IconManifestEntry>(
   options: { category?: IconCategory; keywords?: Readonly<Record<string, readonly string[]>> } = {},
 ): T[] {
   const tokens = query.normalize('NFKC').trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const familyAliases = new Map(
+    records.filter((icon) => icon.variant === 'outline').map((icon) => [icon.family, icon.aliases]),
+  );
   return records
     .filter((icon) => {
       if (options.category && icon.category !== options.category) return false;
       const text = [
         icon.id,
         icon.id.replaceAll('-', ' '),
+        icon.family,
+        icon.variant,
         icon.componentName,
         icon.category,
         ...icon.tags,
         ...icon.aliases,
-        ...(options.keywords?.[icon.id] ?? []),
+        ...(familyAliases.get(icon.family) ?? []),
+        ...(options.keywords?.[icon.id] ?? options.keywords?.[icon.family] ?? []),
       ]
         .join(' ')
         .normalize('NFKC')

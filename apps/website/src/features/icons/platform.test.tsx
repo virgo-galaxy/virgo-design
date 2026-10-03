@@ -13,7 +13,7 @@ import { AppearanceContext } from '@/shared/theme/appearance-context';
 import { IconCatalogue } from './IconCatalogue';
 import { IconDetail } from './IconDetail';
 import { IconStudio } from './IconStudio';
-import { iconAnimationIdeaKey, searchWebsiteIcons } from './search';
+import { iconAnimationIdeaKey, searchWebsiteIcons, sortCatalogueIcons } from './search';
 
 vi.mock('@/shared/lib/clipboard', () => ({
   copyTextToClipboard: vi.fn().mockResolvedValue(undefined),
@@ -29,6 +29,57 @@ const selectFormat = async (label: string, trigger = 'Code format') => {
   await userEvent.click(screen.getByRole('option', { name: label }));
 };
 describe('Icons platform', () => {
+  it('places every export directly in one flat grid and sorts family siblings consecutively', () => {
+    mount(<IconCatalogue />);
+    const grid = document.querySelector('.icon-platform-grid')!;
+    const cards = Array.from(grid.children);
+    const sorted = sortCatalogueIcons(iconManifest);
+    expect(cards).toHaveLength(iconManifest.length);
+    expect(document.querySelector('.icon-family, .icon-family-variants')).toBeNull();
+    expect(cards.map((card) => card.getAttribute('href'))).toEqual(
+      sorted.map((icon) => `/foundations/icons/${icon.id}`),
+    );
+    cards.forEach((card, index) => {
+      expect(card).toHaveClass('icon-platform-card');
+      const icon = sorted[index]!;
+      expect(card.querySelector('small')).toHaveTextContent(
+        `Family: ${icon.family} · ${icon.variant === 'filled' ? 'Filled' : 'Outline'}`,
+      );
+      if (icon.variant === 'filled') {
+        expect(sorted[index - 1]?.family).toBe(icon.family);
+        expect(sorted[index - 1]?.variant).toBe('outline');
+      }
+    });
+  });
+  it('finds localized variants and selects a family member with its explicit TSX / SVG exports', async () => {
+    expect(searchWebsiteIcons('太阳 实心').map((icon) => icon.id)).toEqual(['sun-filled']);
+    expect(searchWebsiteIcons('太阳 轮廓').map((icon) => icon.id)).toEqual(['sun']);
+    function DetailRoute() {
+      const { id } = useParams();
+      return <IconDetail id={id ?? ''} />;
+    }
+    mount(
+      <Routes>
+        <Route path="/foundations/icons/:id" element={<DetailRoute />} />
+      </Routes>,
+      ['/foundations/icons/sun'],
+    );
+    await userEvent.click(screen.getByRole('link', { name: 'SunFilledIcon Filled' }));
+    expect(screen.getByRole('heading', { name: 'sun-filled' })).toBeInTheDocument();
+    expect(document.querySelector('.icon-code-panel pre')).toHaveTextContent(
+      '<SunFilledIcon size={24} />',
+    );
+    expect(screen.getByRole('button', { name: 'Animation playback' })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Animation playback' }));
+    await userEvent.click(screen.getByRole('option', { name: '3 times' }));
+    expect(document.querySelector('.icon-code-panel pre')).toHaveTextContent(
+      '<SunFilledIcon size={24} animated={3} />',
+    );
+    await selectFormat('SVG');
+    expect(
+      document.querySelector('.icon-code-panel pre')?.textContent?.replace(/>\s+</g, '><'),
+    ).toBe(getIconSvg('sun-filled', 3));
+  });
   it.each([
     ['公文包', 'briefcase'],
     ['数据库', 'database'],
@@ -45,13 +96,16 @@ describe('Icons platform', () => {
   it('filters the implemented animations together with search and category', () => {
     const candidates = searchWebsiteIcons('', undefined, true);
     const staticIcons = searchWebsiteIcons('', undefined, false);
-    expect(candidates).toHaveLength(34);
-    expect(staticIcons).toHaveLength(iconManifest.length - 34);
+    expect(candidates).toHaveLength(46);
+    expect(staticIcons).toHaveLength(iconManifest.length - 46);
     expect([...candidates, ...staticIcons].map((icon) => icon.id).sort()).toEqual(
       iconManifest.map((icon) => icon.id).sort(),
     );
     expect(searchWebsiteIcons('', 'navigation', true)).toHaveLength(14);
-    expect(searchWebsiteIcons('齿轮', 'system', true).map((icon) => icon.id)).toEqual(['settings']);
+    expect(searchWebsiteIcons('齿轮', 'system', true).map((icon) => icon.id)).toEqual([
+      'settings',
+      'settings-filled',
+    ]);
     expect(searchWebsiteIcons('gear', 'system', false)).toEqual([]);
     expect(searchWebsiteIcons('github', undefined, true)).toEqual([]);
     for (const icon of candidates) {
@@ -78,11 +132,13 @@ describe('Icons platform', () => {
       'true',
     );
     expect(screen.getByTestId('filter-location')).toHaveTextContent('animation=true');
-    expect(cards()).toHaveLength(34);
+    expect(cards()).toHaveLength(46);
     expect(
-      screen.getByText('Each icon uses its own animation. Preview playback can be paused.'),
+      screen.getByText(
+        'Each family shares its motion across variants. Preview playback can be paused.',
+      ),
     ).toBeInTheDocument();
-    expect(document.querySelectorAll('.icon-animation-idea')).toHaveLength(34);
+    expect(document.querySelectorAll('.icon-animation-idea')).toHaveLength(46);
     expect(document.querySelector('animate, animateTransform')).not.toBeNull();
     const pause = screen.getByRole('button', { name: 'Pause' });
     expect(pause.textContent).toBe('');
@@ -106,10 +162,12 @@ describe('Icons platform', () => {
     await act(() => setAppLocale('zh-CN'));
     expect(screen.getByRole('button', { name: '动画' })).toHaveAttribute('data-variant', 'primary');
     expect(cards()).toHaveLength(14);
-    expect(screen.getByText('每个图标使用自身的动画，可暂停预览播放。')).toBeInTheDocument();
+    expect(screen.getByText('同一图标家族的变体共享动效，可暂停预览播放。')).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: '非动画' }));
     expect(screen.getByTestId('filter-location')).toHaveTextContent('animation=false');
-    expect(screen.queryByText('每个图标使用自身的动画，可暂停预览播放。')).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('同一图标家族的变体共享动效，可暂停预览播放。'),
+    ).not.toBeInTheDocument();
     expect(cards()).toHaveLength(searchWebsiteIcons('', 'navigation', false).length);
     expect(document.querySelectorAll('.icon-animation-idea')).toHaveLength(0);
     await userEvent.click(screen.getByRole('button', { name: '非动画' }));
@@ -207,7 +265,7 @@ describe('Icons platform', () => {
       document.querySelectorAll('.icon-platform-card > span'),
       (item) => item.textContent,
     );
-    expect(ids).toEqual(iconManifest.map((icon) => icon.id));
+    expect(ids).toEqual(sortCatalogueIcons(iconManifest).map((icon) => icon.id));
   });
   it.each(['check', 'circle-check', 'studio-tools'])(
     'orders related cards for %s alphabetically in both locales',
@@ -269,7 +327,7 @@ describe('Icons platform', () => {
     const studio = screen.getByRole('link', { name: 'Icon Studio' });
     expect(studio.querySelector('svg')).toHaveAttribute('viewBox', '0 0 24 24');
     expect(studio.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
-    expect(screen.getByRole('link', { name: /studio-tools/ })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'studio-tools Outline' })).toHaveAttribute(
       'href',
       '/foundations/icons/studio-tools',
     );
@@ -295,7 +353,7 @@ describe('Icons platform', () => {
     expect(screen.getByRole('button', { name: 'All' })).toHaveAttribute('data-variant', 'primary');
     const search = screen.getByRole('combobox', { name: 'Search icons…' });
     await userEvent.type(search, 'gear');
-    expect(screen.getByRole('link', { name: /settings/ })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'settings Outline' })).toHaveAttribute(
       'href',
       '/foundations/icons/settings',
     );
@@ -307,7 +365,7 @@ describe('Icons platform', () => {
     );
     expect(screen.getByRole('button', { name: 'All' })).toHaveAttribute('data-variant', 'outline');
     await userEvent.click(screen.getByRole('button', { name: 'All' }));
-    await userEvent.click(screen.getByRole('link', { name: /settings/ }));
+    await userEvent.click(screen.getByRole('link', { name: 'settings Outline' }));
     expect(screen.getByText('detail route')).toBeInTheDocument();
   });
   it('keeps one action bar and the current icon when repeatedly following related links', async () => {
@@ -517,6 +575,6 @@ describe('Icons platform', () => {
     await act(() => setAppLocale('zh-CN'));
     expect(screen.getByRole('combobox', { name: '搜索图标…' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '系统' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /settings/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'settings Outline / 轮廓' })).toBeInTheDocument();
   });
 });

@@ -3,7 +3,7 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { iconsEnUS } from './en-US';
 export const iconsZhCN = {
   title: '图标',
-  description: '浏览 Virgo 填充优先的图标，检查标准几何，并创建自定义图标。',
+  description: '浏览 Virgo 的 Outline / Filled 图标家族，检查标准几何，并创建自定义图标。',
   reviewControls: '预览控制',
   toggleGrid: '切换网格',
   grid: '网格（{{state}}）',
@@ -19,7 +19,7 @@ export const iconsZhCN = {
   animationFilter: '动画筛选',
   animated: '动画',
   nonAnimated: '非动画',
-  animationNote: '每个图标使用自身的动画，可暂停预览播放。',
+  animationNote: '同一图标家族的变体共享动效，可暂停预览播放。',
   animationPlayback: '动画播放',
   playOnce: '一次',
   playThreeTimes: '3 次',
@@ -72,6 +72,9 @@ export const iconsZhCN = {
   copyCode: '复制代码',
   copying: '复制中…',
   component: 'React 组件',
+  family: '图标家族',
+  variant: '视觉变体',
+  variantNames: { outline: 'Outline / 轮廓', filled: 'Filled / 实心' },
   downloadSvg: '下载 SVG',
   copied: '已复制',
   copyFailed: '复制失败，请重试。',

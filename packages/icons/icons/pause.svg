@@ -1,3 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-  <path d="M7 4.5h2l.5.5v14l-.5.5H7l-.5-.5V5z M15 4.5h2l.5.5v14l-.5.5h-2l-.5-.5V5z" />
+<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- Slightly wider hollow bars keep the 1.5-unit rails and negative space clear at UI sizes. -->
+  <path d="M6.25 4.5h3.5l.5.5v14l-.5.5h-3.5l-.5-.5V5z M14.25 4.5h3.5l.5.5v14l-.5.5h-3.5l-.5-.5V5z M7.25 6v12h1.5V6z M15.25 6v12h1.5V6z" fill-rule="evenodd" />
 </svg>

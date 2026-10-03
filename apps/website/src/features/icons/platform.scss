@@ -34,7 +34,8 @@
 }
 .icon-platform-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(144px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 144px), 1fr));
+  grid-auto-rows: 1fr;
   gap: 12px;
 }
 .icon-animation-filters {
@@ -72,6 +73,9 @@
   }
 }
 .icon-platform-card {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -86,17 +86,31 @@ function revealPolygon(
   return { path, attribute: 'd', reveal: true, values: [hidden, hidden, d, d], times };
 }
 
+// A filled dial uses a transparent needle; rotate its cutout around the same family pivot.
+function gaugeNeedleCutout(angle: number) {
+  const radians = (angle * Math.PI) / 180;
+  const point = (x: number, y: number) =>
+    [
+      12 + (x - 12) * Math.cos(radians) - (y - 16) * Math.sin(radians),
+      16 + (x - 12) * Math.sin(radians) + (y - 16) * Math.cos(radians),
+    ]
+      .map((value) => Number(value.toFixed(3)))
+      .join(' ');
+  return `M${point(16.75, 9)}L${point(17.25, 9)}L${point(17.25, 9.5)}L${point(13.65, 16.7)}A1.75 1.75 0 1 1 ${point(11.2, 14.4)}Z`;
+}
+
 export function createIconAnimation(
   id: string,
   definition: IconDefinition,
 ): IconAnimationDefinition | undefined {
+  const family = id.replace(/-filled$/, '');
   let animation: IconAnimationDefinition | undefined;
-  if (/^arrow-(up|down|left|right)$/.test(id)) {
+  if (/^arrow-(up|down|left|right)$/.test(family)) {
     animation = {
       duration: 1400,
       tracks: [transform(0, 'rotate', ['0 12 12', '-90 12 12', '0 12 12', '0 12 12'])],
     };
-  } else if (/^chevron-(up|down|left|right)$/.test(id)) {
+  } else if (/^chevron-(up|down|left|right)$/.test(family)) {
     const points = polygonPoints(definition.paths[0]!.d);
     const base = polygonPath(points);
     animation = {
@@ -105,12 +119,12 @@ export function createIconAnimation(
         {
           path: 0,
           attribute: 'd',
-          values: [base, polygonPath(oppositeChevron(id, points)), base, base],
+          values: [base, polygonPath(oppositeChevron(family, points)), base, base],
         },
       ],
     };
-  } else if (/^chevrons-(up|down|left|right)$/.test(id)) {
-    const direction = id.split('-')[1];
+  } else if (/^chevrons-(up|down|left|right)$/.test(family)) {
+    const direction = family.split('-')[1];
     const [x, y] =
       direction === 'up'
         ? [0, -1.8]
@@ -130,7 +144,7 @@ export function createIconAnimation(
         ),
       ],
     };
-  } else if (id === 'code') {
+  } else if (family === 'code') {
     animation = {
       duration: 1400,
       tracks: [
@@ -139,12 +153,12 @@ export function createIconAnimation(
         { path: 2, attribute: 'opacity', values: ['1', '0', '1', '1'] },
       ],
     };
-  } else if (id === 'trash') {
+  } else if (family === 'trash') {
     animation = {
       duration: 1400,
       tracks: [transform(0, 'rotate', ['0 18.5 7.5', '12 18.5 7.5', '0 18.5 7.5', '0 18.5 7.5'])],
     };
-  } else if (id === 'copy') {
+  } else if (family === 'copy') {
     animation = {
       duration: 1200,
       tracks: [
@@ -152,26 +166,26 @@ export function createIconAnimation(
         transform(1, 'translate', ['0 0', '0.7 0.7', '0 0', '0 0']),
       ],
     };
-  } else if (id === 'upload' || id === 'download') {
+  } else if (family === 'upload' || family === 'download') {
     animation = {
       duration: 1200,
       tracks: [
-        transform(0, 'translate', ['0 0', `0 ${id === 'upload' ? -1.5 : 1.5}`, '0 0', '0 0']),
+        transform(0, 'translate', ['0 0', `0 ${family === 'upload' ? -1.5 : 1.5}`, '0 0', '0 0']),
       ],
     };
-  } else if (id === 'bell') {
+  } else if (family === 'bell') {
     animation = {
       duration: 1200,
       tracks: [0, 1].map((path) =>
         transform(path, 'rotate', ['0 12 4', '-12 12 4', '12 12 4', '0 12 4']),
       ),
     };
-  } else if (id === 'settings') {
+  } else if (family === 'settings') {
     animation = {
       duration: 1400,
       tracks: [transform(0, 'rotate', ['0 12 12', '30 12 12', '0 12 12', '0 12 12'])],
     };
-  } else if (id === 'external-link') {
+  } else if (family === 'external-link') {
     const points = polygonPoints(definition.paths[0]!.d);
     const base = polygonPath(points);
     const open = polygonPath(
@@ -198,13 +212,13 @@ export function createIconAnimation(
         ),
       ],
     };
-  } else if (id === 'globe') {
+  } else if (family === 'globe') {
     const base = globeMeridian(1);
     animation = {
       duration: 2200,
       tracks: [{ path: 1, attribute: 'd', values: [base, globeMeridian(0.15), base, base] }],
     };
-  } else if (id === 'cybertruck') {
+  } else if (family === 'cybertruck') {
     animation = {
       duration: 1300,
       tracks: [
@@ -218,7 +232,7 @@ export function createIconAnimation(
         transform(2, 'translate', ['0 0', '0 -0.5', '0 0', '0 0']),
       ],
     };
-  } else if (id === 'layers') {
+  } else if (family === 'layers') {
     animation = {
       duration: 1700,
       tracks: [
@@ -226,23 +240,23 @@ export function createIconAnimation(
         transform(2, 'translate', ['0 0', '0 0.7', '0 -2.8', '0 0', '0 0'], [0, 0.25, 0.5, 0.8, 1]),
       ],
     };
-  } else if (id === 'lock') {
+  } else if (family === 'lock') {
     animation = {
       duration: 1500,
       tracks: [transform(0, 'rotate', ['0 8 9.5', '-12 8 9.5', '0 8 9.5', '0 8 9.5'])],
     };
-  } else if (id === 'search') {
+  } else if (family === 'search') {
     animation = {
       duration: 1200,
       tracks: [0, 1].map((path) => scale(path, ['1 1', '1.1 1.1', '1 1', '1 1'])),
     };
-  } else if (id === 'sun') {
+  } else if (family === 'sun') {
     animation = {
       duration: 1800,
       tracks: [transform(1, 'rotate', ['0 12 12', '45 12 12', '0 12 12', '0 12 12'])],
     };
-  } else if (id === 'moon' || id === 'pin') {
-    const angle = id === 'moon' ? 12 : 9;
+  } else if (family === 'moon' || family === 'pin') {
+    const angle = family === 'moon' ? 12 : 9;
     animation = {
       duration: 1600,
       tracks: [
@@ -254,7 +268,7 @@ export function createIconAnimation(
         ),
       ],
     };
-  } else if (id === 'eye') {
+  } else if (family === 'eye') {
     animation = {
       duration: 1800,
       tracks: [0, 1].map((path) => ({
@@ -262,7 +276,7 @@ export function createIconAnimation(
         times: [0, 0.22, 0.44, 1],
       })),
     };
-  } else if (id === 'bot') {
+  } else if (family === 'bot') {
     animation = {
       duration: 1500,
       tracks: [
@@ -274,7 +288,7 @@ export function createIconAnimation(
         ),
       ],
     };
-  } else if (id === 'close') {
+  } else if (family === 'close') {
     animation = {
       duration: 1500,
       tracks: [
@@ -282,7 +296,7 @@ export function createIconAnimation(
         revealPolygon(1, definition.paths[1]!.d, [18.3, 5.7], [0, 0.32, 0.7, 1]),
       ],
     };
-  } else if (id === 'check') {
+  } else if (family === 'check') {
     const points = polygonPoints(definition.paths[0]!.d);
     const base = definition.paths[0]!.d;
     const hidden = polygonPath(points.map(() => [5, 11.5] as Point));
@@ -311,7 +325,21 @@ export function createIconAnimation(
         },
       ],
     };
-  } else if (id === 'gauge') {
+  } else if (family === 'gauge' && id.endsWith('-filled')) {
+    const prefix = definition.paths[0]!.d.split(' M16.75')[0]!;
+    const pose = (angle: number) => `${prefix} ${gaugeNeedleCutout(angle)}`;
+    animation = {
+      duration: 1800,
+      tracks: [
+        {
+          path: 0,
+          attribute: 'd',
+          values: [pose(0), pose(-65), pose(15), pose(0), pose(0)],
+          times: [0, 0.25, 0.55, 0.8, 1],
+        },
+      ],
+    };
+  } else if (family === 'gauge') {
     animation = {
       duration: 1800,
       tracks: [
@@ -323,7 +351,7 @@ export function createIconAnimation(
         ),
       ],
     };
-  } else if (id === 'shapes') {
+  } else if (family === 'shapes') {
     animation = {
       duration: 2600,
       tracks: [

@@ -22,6 +22,8 @@ describe('generator validation and freshness', () => {
         JSON.stringify([
           {
             id: 'sample',
+            family: 'sample',
+            variant: 'outline',
             category: 'system',
             tags: ['test'],
             aliases: [],

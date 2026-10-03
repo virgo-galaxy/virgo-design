@@ -4,9 +4,13 @@ import { ArrowLeftIcon } from './ArrowLeftIcon.js';
 import { ArrowReturnIcon } from './ArrowReturnIcon.js';
 import { ArrowRightIcon } from './ArrowRightIcon.js';
 import { ArrowUpIcon } from './ArrowUpIcon.js';
+import { BellFilledIcon } from './BellFilledIcon.js';
 import { BellIcon } from './BellIcon.js';
+import { BotFilledIcon } from './BotFilledIcon.js';
 import { BotIcon } from './BotIcon.js';
+import { BriefcaseFilledIcon } from './BriefcaseFilledIcon.js';
 import { BriefcaseIcon } from './BriefcaseIcon.js';
+import { CalendarFilledIcon } from './CalendarFilledIcon.js';
 import { CalendarIcon } from './CalendarIcon.js';
 import { CheckIcon } from './CheckIcon.js';
 import { ChevronDownIcon } from './ChevronDownIcon.js';
@@ -17,8 +21,11 @@ import { ChevronsLeftIcon } from './ChevronsLeftIcon.js';
 import { ChevronsRightIcon } from './ChevronsRightIcon.js';
 import { ChevronsUpIcon } from './ChevronsUpIcon.js';
 import { ChevronUpIcon } from './ChevronUpIcon.js';
+import { CircleCheckFilledIcon } from './CircleCheckFilledIcon.js';
 import { CircleCheckIcon } from './CircleCheckIcon.js';
+import { CircleInfoFilledIcon } from './CircleInfoFilledIcon.js';
 import { CircleInfoIcon } from './CircleInfoIcon.js';
+import { CircleXFilledIcon } from './CircleXFilledIcon.js';
 import { CircleXIcon } from './CircleXIcon.js';
 import { ClockIcon } from './ClockIcon.js';
 import { CloseIcon } from './CloseIcon.js';
@@ -26,53 +33,82 @@ import { CodeIcon } from './CodeIcon.js';
 import { CopyIcon } from './CopyIcon.js';
 import { CursorArrowIcon } from './CursorArrowIcon.js';
 import { CybertruckIcon } from './CybertruckIcon.js';
+import { DashboardFilledIcon } from './DashboardFilledIcon.js';
 import { DashboardIcon } from './DashboardIcon.js';
+import { DatabaseFilledIcon } from './DatabaseFilledIcon.js';
 import { DatabaseIcon } from './DatabaseIcon.js';
 import { DownloadIcon } from './DownloadIcon.js';
 import { EllipsisIcon } from './EllipsisIcon.js';
 import { EllipsisVerticalIcon } from './EllipsisVerticalIcon.js';
 import { ExternalLinkIcon } from './ExternalLinkIcon.js';
+import { EyeClosedFilledIcon } from './EyeClosedFilledIcon.js';
 import { EyeClosedIcon } from './EyeClosedIcon.js';
+import { EyeFilledIcon } from './EyeFilledIcon.js';
 import { EyeIcon } from './EyeIcon.js';
+import { FormFilledIcon } from './FormFilledIcon.js';
 import { FormIcon } from './FormIcon.js';
+import { GaugeFilledIcon } from './GaugeFilledIcon.js';
 import { GaugeIcon } from './GaugeIcon.js';
 import { GithubIcon } from './GithubIcon.js';
 import { GlobeIcon } from './GlobeIcon.js';
+import { HomeFilledIcon } from './HomeFilledIcon.js';
 import { HomeIcon } from './HomeIcon.js';
 import { LanguageEnIcon } from './LanguageEnIcon.js';
 import { LanguageIcon } from './LanguageIcon.js';
 import { LanguageZhIcon } from './LanguageZhIcon.js';
+import { LayersFilledIcon } from './LayersFilledIcon.js';
 import { LayersIcon } from './LayersIcon.js';
+import { LayoutFilledIcon } from './LayoutFilledIcon.js';
 import { LayoutIcon } from './LayoutIcon.js';
+import { LockFilledIcon } from './LockFilledIcon.js';
 import { LockIcon } from './LockIcon.js';
 import { MaximizeIcon } from './MaximizeIcon.js';
+import { MicrophoneFilledIcon } from './MicrophoneFilledIcon.js';
 import { MicrophoneIcon } from './MicrophoneIcon.js';
 import { MinusIcon } from './MinusIcon.js';
+import { MonitorFilledIcon } from './MonitorFilledIcon.js';
 import { MonitorIcon } from './MonitorIcon.js';
+import { MoonFilledIcon } from './MoonFilledIcon.js';
 import { MoonIcon } from './MoonIcon.js';
+import { PaletteFilledIcon } from './PaletteFilledIcon.js';
 import { PaletteIcon } from './PaletteIcon.js';
+import { PauseFilledIcon } from './PauseFilledIcon.js';
 import { PauseIcon } from './PauseIcon.js';
+import { PinFilledIcon } from './PinFilledIcon.js';
 import { PinIcon } from './PinIcon.js';
+import { PlayFilledIcon } from './PlayFilledIcon.js';
 import { PlayIcon } from './PlayIcon.js';
 import { PlusIcon } from './PlusIcon.js';
+import { ReceiptFilledIcon } from './ReceiptFilledIcon.js';
 import { ReceiptIcon } from './ReceiptIcon.js';
 import { SearchIcon } from './SearchIcon.js';
+import { SettingsFilledIcon } from './SettingsFilledIcon.js';
 import { SettingsIcon } from './SettingsIcon.js';
+import { ShapesFilledIcon } from './ShapesFilledIcon.js';
 import { ShapesIcon } from './ShapesIcon.js';
 import { SidebarCollapseIcon } from './SidebarCollapseIcon.js';
 import { SidebarExpandIcon } from './SidebarExpandIcon.js';
 import { SortIcon } from './SortIcon.js';
 import { SplineIcon } from './SplineIcon.js';
+import { StopFilledIcon } from './StopFilledIcon.js';
 import { StopIcon } from './StopIcon.js';
+import { StudioToolsFilledIcon } from './StudioToolsFilledIcon.js';
 import { StudioToolsIcon } from './StudioToolsIcon.js';
+import { SunFilledIcon } from './SunFilledIcon.js';
 import { SunIcon } from './SunIcon.js';
+import { TrashFilledIcon } from './TrashFilledIcon.js';
 import { TrashIcon } from './TrashIcon.js';
+import { TriangleAlertFilledIcon } from './TriangleAlertFilledIcon.js';
 import { TriangleAlertIcon } from './TriangleAlertIcon.js';
 import { TypeIcon } from './TypeIcon.js';
+import { UnlockFilledIcon } from './UnlockFilledIcon.js';
 import { UnlockIcon } from './UnlockIcon.js';
+import { UnpinFilledIcon } from './UnpinFilledIcon.js';
 import { UnpinIcon } from './UnpinIcon.js';
 import { UploadIcon } from './UploadIcon.js';
+import { UserFilledIcon } from './UserFilledIcon.js';
 import { UserIcon } from './UserIcon.js';
+import { WidgetsFilledIcon } from './WidgetsFilledIcon.js';
 import { WidgetsIcon } from './WidgetsIcon.js';
 export const iconComponents = {
   'arrow-down': ArrowDownIcon,
@@ -80,9 +116,13 @@ export const iconComponents = {
   'arrow-return': ArrowReturnIcon,
   'arrow-right': ArrowRightIcon,
   'arrow-up': ArrowUpIcon,
+  'bell-filled': BellFilledIcon,
   bell: BellIcon,
+  'bot-filled': BotFilledIcon,
   bot: BotIcon,
+  'briefcase-filled': BriefcaseFilledIcon,
   briefcase: BriefcaseIcon,
+  'calendar-filled': CalendarFilledIcon,
   calendar: CalendarIcon,
   check: CheckIcon,
   'chevron-down': ChevronDownIcon,
@@ -93,8 +133,11 @@ export const iconComponents = {
   'chevrons-right': ChevronsRightIcon,
   'chevrons-up': ChevronsUpIcon,
   'chevron-up': ChevronUpIcon,
+  'circle-check-filled': CircleCheckFilledIcon,
   'circle-check': CircleCheckIcon,
+  'circle-info-filled': CircleInfoFilledIcon,
   'circle-info': CircleInfoIcon,
+  'circle-x-filled': CircleXFilledIcon,
   'circle-x': CircleXIcon,
   clock: ClockIcon,
   close: CloseIcon,
@@ -102,52 +145,81 @@ export const iconComponents = {
   copy: CopyIcon,
   'cursor-arrow': CursorArrowIcon,
   cybertruck: CybertruckIcon,
+  'dashboard-filled': DashboardFilledIcon,
   dashboard: DashboardIcon,
+  'database-filled': DatabaseFilledIcon,
   database: DatabaseIcon,
   download: DownloadIcon,
   ellipsis: EllipsisIcon,
   'ellipsis-vertical': EllipsisVerticalIcon,
   'external-link': ExternalLinkIcon,
+  'eye-closed-filled': EyeClosedFilledIcon,
   'eye-closed': EyeClosedIcon,
+  'eye-filled': EyeFilledIcon,
   eye: EyeIcon,
+  'form-filled': FormFilledIcon,
   form: FormIcon,
+  'gauge-filled': GaugeFilledIcon,
   gauge: GaugeIcon,
   github: GithubIcon,
   globe: GlobeIcon,
+  'home-filled': HomeFilledIcon,
   home: HomeIcon,
   'language-en': LanguageEnIcon,
   language: LanguageIcon,
   'language-zh': LanguageZhIcon,
+  'layers-filled': LayersFilledIcon,
   layers: LayersIcon,
+  'layout-filled': LayoutFilledIcon,
   layout: LayoutIcon,
+  'lock-filled': LockFilledIcon,
   lock: LockIcon,
   maximize: MaximizeIcon,
+  'microphone-filled': MicrophoneFilledIcon,
   microphone: MicrophoneIcon,
   minus: MinusIcon,
+  'monitor-filled': MonitorFilledIcon,
   monitor: MonitorIcon,
+  'moon-filled': MoonFilledIcon,
   moon: MoonIcon,
+  'palette-filled': PaletteFilledIcon,
   palette: PaletteIcon,
+  'pause-filled': PauseFilledIcon,
   pause: PauseIcon,
+  'pin-filled': PinFilledIcon,
   pin: PinIcon,
+  'play-filled': PlayFilledIcon,
   play: PlayIcon,
   plus: PlusIcon,
+  'receipt-filled': ReceiptFilledIcon,
   receipt: ReceiptIcon,
   search: SearchIcon,
+  'settings-filled': SettingsFilledIcon,
   settings: SettingsIcon,
+  'shapes-filled': ShapesFilledIcon,
   shapes: ShapesIcon,
   'sidebar-collapse': SidebarCollapseIcon,
   'sidebar-expand': SidebarExpandIcon,
   sort: SortIcon,
   spline: SplineIcon,
+  'stop-filled': StopFilledIcon,
   stop: StopIcon,
+  'studio-tools-filled': StudioToolsFilledIcon,
   'studio-tools': StudioToolsIcon,
+  'sun-filled': SunFilledIcon,
   sun: SunIcon,
+  'trash-filled': TrashFilledIcon,
   trash: TrashIcon,
+  'triangle-alert-filled': TriangleAlertFilledIcon,
   'triangle-alert': TriangleAlertIcon,
   type: TypeIcon,
+  'unlock-filled': UnlockFilledIcon,
   unlock: UnlockIcon,
+  'unpin-filled': UnpinFilledIcon,
   unpin: UnpinIcon,
   upload: UploadIcon,
+  'user-filled': UserFilledIcon,
   user: UserIcon,
+  'widgets-filled': WidgetsFilledIcon,
   widgets: WidgetsIcon,
 } as const;

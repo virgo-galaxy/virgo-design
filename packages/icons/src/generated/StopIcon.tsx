@@ -19,7 +19,7 @@ export const StopIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, StopIconProps>
       viewBox="0 0 24 24"
       width={size}
     >
-      <path d={'M6 5h12l1 1v12l-1 1H6l-1-1V6z'} />
+      <path d={'M6 5h12l1 1v12l-1 1H6l-1-1V6z M7 7v10h10V7z'} fillRule="evenodd" />
     </svg>
   );
 });

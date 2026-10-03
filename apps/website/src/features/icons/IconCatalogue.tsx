@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router-dom';
 
-import { iconAnimationIdeaKey, searchWebsiteIcons } from './search';
+import { iconAnimationIdeaKey, searchWebsiteIcons, sortCatalogueIcons } from './search';
 
 export function IconCatalogue() {
   const { t } = useTranslation();
@@ -126,12 +126,13 @@ export function IconCatalogue() {
       <p role="status">{t('icons.results', { count: results.length })}</p>
       {results.length ? (
         <div className="icon-platform-grid">
-          {results.map((icon) => {
+          {sortCatalogueIcons(results).map((icon) => {
             const Icon = iconComponents[icon.id];
             return (
               <Link
                 key={icon.id}
                 className="icon-platform-card"
+                aria-label={`${icon.id} ${t(`icons.variantNames.${icon.variant}`)}`}
                 to={`/foundations/icons/${icon.id}`}
               >
                 <Icon
@@ -141,7 +142,9 @@ export function IconCatalogue() {
                     : {})}
                 />
                 <span>{icon.id}</span>
-                <small>{t(`icons.categoryNames.${icon.category}`)}</small>
+                <small>
+                  {t('icons.family')}: {icon.family} · {t(`icons.variantNames.${icon.variant}`)}
+                </small>
                 {animated === true ? (
                   <p className="icon-animation-idea">{t(iconAnimationIdeaKey(icon.id))}</p>
                 ) : null}

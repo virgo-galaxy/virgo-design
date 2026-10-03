@@ -96,12 +96,15 @@ describe('canonical platform contract', () => {
     ])
       expect(searchIcons(iconManifest, query).map((icon) => icon.id)).toContain('settings');
     expect(searchIcons(iconManifest, 'settings', { category: 'actions' })).toEqual([]);
-    expect(searchIcons(iconManifest, '  ＣＯＧ  ').map((icon) => icon.id)).toEqual(['settings']);
+    expect(searchIcons(iconManifest, '  ＣＯＧ  ').map((icon) => icon.id)).toEqual([
+      'settings',
+      'settings-filled',
+    ]);
     expect(searchIcons(iconManifest, 'nonsense')).toEqual([]);
   });
   it('validates a uniform metadata shape and implemented animation support', () => {
     const candidates = iconManifest.filter((icon) => icon.animated);
-    expect(candidates.map((icon) => icon.id)).toEqual([
+    expect(candidates.filter((icon) => icon.variant === 'outline').map((icon) => icon.id)).toEqual([
       'arrow-down',
       'arrow-left',
       'arrow-right',
@@ -136,6 +139,22 @@ describe('canonical platform contract', () => {
       'sun',
       'trash',
       'upload',
+    ]);
+    expect(
+      candidates.filter((icon) => icon.variant === 'filled').map((icon) => icon.family),
+    ).toEqual([
+      'bell',
+      'bot',
+      'eye',
+      'gauge',
+      'layers',
+      'lock',
+      'moon',
+      'pin',
+      'settings',
+      'shapes',
+      'sun',
+      'trash',
     ]);
     expect(iconManifest.every((icon) => typeof icon.animated === 'boolean')).toBe(true);
     for (const icon of iconManifest)

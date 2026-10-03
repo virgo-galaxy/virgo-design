@@ -299,7 +299,7 @@ describe('Foundation routes', () => {
       'page',
     );
     expect(screen.getByRole('combobox', { name: 'Search icons…' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /settings/ })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'settings Outline' })).toHaveAttribute(
       'href',
       '/foundations/icons/settings',
     );

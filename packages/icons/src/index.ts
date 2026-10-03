@@ -5,9 +5,19 @@ export { ArrowLeftIcon, type ArrowLeftIconProps } from './generated/ArrowLeftIco
 export { ArrowReturnIcon, type ArrowReturnIconProps } from './generated/ArrowReturnIcon.js';
 export { ArrowRightIcon, type ArrowRightIconProps } from './generated/ArrowRightIcon.js';
 export { ArrowUpIcon, type ArrowUpIconProps } from './generated/ArrowUpIcon.js';
+export { BellFilledIcon, type BellFilledIconProps } from './generated/BellFilledIcon.js';
 export { BellIcon, type BellIconProps } from './generated/BellIcon.js';
+export { BotFilledIcon, type BotFilledIconProps } from './generated/BotFilledIcon.js';
 export { BotIcon, type BotIconProps } from './generated/BotIcon.js';
+export {
+  BriefcaseFilledIcon,
+  type BriefcaseFilledIconProps,
+} from './generated/BriefcaseFilledIcon.js';
 export { BriefcaseIcon, type BriefcaseIconProps } from './generated/BriefcaseIcon.js';
+export {
+  CalendarFilledIcon,
+  type CalendarFilledIconProps,
+} from './generated/CalendarFilledIcon.js';
 export { CalendarIcon, type CalendarIconProps } from './generated/CalendarIcon.js';
 export { CheckIcon, type CheckIconProps } from './generated/CheckIcon.js';
 export { ChevronDownIcon, type ChevronDownIconProps } from './generated/ChevronDownIcon.js';
@@ -18,8 +28,17 @@ export { ChevronsLeftIcon, type ChevronsLeftIconProps } from './generated/Chevro
 export { ChevronsRightIcon, type ChevronsRightIconProps } from './generated/ChevronsRightIcon.js';
 export { ChevronsUpIcon, type ChevronsUpIconProps } from './generated/ChevronsUpIcon.js';
 export { ChevronUpIcon, type ChevronUpIconProps } from './generated/ChevronUpIcon.js';
+export {
+  CircleCheckFilledIcon,
+  type CircleCheckFilledIconProps,
+} from './generated/CircleCheckFilledIcon.js';
 export { CircleCheckIcon, type CircleCheckIconProps } from './generated/CircleCheckIcon.js';
+export {
+  CircleInfoFilledIcon,
+  type CircleInfoFilledIconProps,
+} from './generated/CircleInfoFilledIcon.js';
 export { CircleInfoIcon, type CircleInfoIconProps } from './generated/CircleInfoIcon.js';
+export { CircleXFilledIcon, type CircleXFilledIconProps } from './generated/CircleXFilledIcon.js';
 export { CircleXIcon, type CircleXIconProps } from './generated/CircleXIcon.js';
 export { ClockIcon, type ClockIconProps } from './generated/ClockIcon.js';
 export { CloseIcon, type CloseIconProps } from './generated/CloseIcon.js';
@@ -27,7 +46,15 @@ export { CodeIcon, type CodeIconProps } from './generated/CodeIcon.js';
 export { CopyIcon, type CopyIconProps } from './generated/CopyIcon.js';
 export { CursorArrowIcon, type CursorArrowIconProps } from './generated/CursorArrowIcon.js';
 export { CybertruckIcon, type CybertruckIconProps } from './generated/CybertruckIcon.js';
+export {
+  DashboardFilledIcon,
+  type DashboardFilledIconProps,
+} from './generated/DashboardFilledIcon.js';
 export { DashboardIcon, type DashboardIconProps } from './generated/DashboardIcon.js';
+export {
+  DatabaseFilledIcon,
+  type DatabaseFilledIconProps,
+} from './generated/DatabaseFilledIcon.js';
 export { DatabaseIcon, type DatabaseIconProps } from './generated/DatabaseIcon.js';
 export { DownloadIcon, type DownloadIconProps } from './generated/DownloadIcon.js';
 export { EllipsisIcon, type EllipsisIconProps } from './generated/EllipsisIcon.js';
@@ -36,32 +63,59 @@ export {
   type EllipsisVerticalIconProps,
 } from './generated/EllipsisVerticalIcon.js';
 export { ExternalLinkIcon, type ExternalLinkIconProps } from './generated/ExternalLinkIcon.js';
+export {
+  EyeClosedFilledIcon,
+  type EyeClosedFilledIconProps,
+} from './generated/EyeClosedFilledIcon.js';
 export { EyeClosedIcon, type EyeClosedIconProps } from './generated/EyeClosedIcon.js';
+export { EyeFilledIcon, type EyeFilledIconProps } from './generated/EyeFilledIcon.js';
 export { EyeIcon, type EyeIconProps } from './generated/EyeIcon.js';
+export { FormFilledIcon, type FormFilledIconProps } from './generated/FormFilledIcon.js';
 export { FormIcon, type FormIconProps } from './generated/FormIcon.js';
+export { GaugeFilledIcon, type GaugeFilledIconProps } from './generated/GaugeFilledIcon.js';
 export { GaugeIcon, type GaugeIconProps } from './generated/GaugeIcon.js';
 export { GithubIcon, type GithubIconProps } from './generated/GithubIcon.js';
 export { GlobeIcon, type GlobeIconProps } from './generated/GlobeIcon.js';
+export { HomeFilledIcon, type HomeFilledIconProps } from './generated/HomeFilledIcon.js';
 export { HomeIcon, type HomeIconProps } from './generated/HomeIcon.js';
 export { LanguageEnIcon, type LanguageEnIconProps } from './generated/LanguageEnIcon.js';
 export { LanguageIcon, type LanguageIconProps } from './generated/LanguageIcon.js';
 export { LanguageZhIcon, type LanguageZhIconProps } from './generated/LanguageZhIcon.js';
+export { LayersFilledIcon, type LayersFilledIconProps } from './generated/LayersFilledIcon.js';
 export { LayersIcon, type LayersIconProps } from './generated/LayersIcon.js';
+export { LayoutFilledIcon, type LayoutFilledIconProps } from './generated/LayoutFilledIcon.js';
 export { LayoutIcon, type LayoutIconProps } from './generated/LayoutIcon.js';
+export { LockFilledIcon, type LockFilledIconProps } from './generated/LockFilledIcon.js';
 export { LockIcon, type LockIconProps } from './generated/LockIcon.js';
 export { MaximizeIcon, type MaximizeIconProps } from './generated/MaximizeIcon.js';
+export {
+  MicrophoneFilledIcon,
+  type MicrophoneFilledIconProps,
+} from './generated/MicrophoneFilledIcon.js';
 export { MicrophoneIcon, type MicrophoneIconProps } from './generated/MicrophoneIcon.js';
 export { MinusIcon, type MinusIconProps } from './generated/MinusIcon.js';
+export { MonitorFilledIcon, type MonitorFilledIconProps } from './generated/MonitorFilledIcon.js';
 export { MonitorIcon, type MonitorIconProps } from './generated/MonitorIcon.js';
+export { MoonFilledIcon, type MoonFilledIconProps } from './generated/MoonFilledIcon.js';
 export { MoonIcon, type MoonIconProps } from './generated/MoonIcon.js';
+export { PaletteFilledIcon, type PaletteFilledIconProps } from './generated/PaletteFilledIcon.js';
 export { PaletteIcon, type PaletteIconProps } from './generated/PaletteIcon.js';
+export { PauseFilledIcon, type PauseFilledIconProps } from './generated/PauseFilledIcon.js';
 export { PauseIcon, type PauseIconProps } from './generated/PauseIcon.js';
+export { PinFilledIcon, type PinFilledIconProps } from './generated/PinFilledIcon.js';
 export { PinIcon, type PinIconProps } from './generated/PinIcon.js';
+export { PlayFilledIcon, type PlayFilledIconProps } from './generated/PlayFilledIcon.js';
 export { PlayIcon, type PlayIconProps } from './generated/PlayIcon.js';
 export { PlusIcon, type PlusIconProps } from './generated/PlusIcon.js';
+export { ReceiptFilledIcon, type ReceiptFilledIconProps } from './generated/ReceiptFilledIcon.js';
 export { ReceiptIcon, type ReceiptIconProps } from './generated/ReceiptIcon.js';
 export { SearchIcon, type SearchIconProps } from './generated/SearchIcon.js';
+export {
+  SettingsFilledIcon,
+  type SettingsFilledIconProps,
+} from './generated/SettingsFilledIcon.js';
 export { SettingsIcon, type SettingsIconProps } from './generated/SettingsIcon.js';
+export { ShapesFilledIcon, type ShapesFilledIconProps } from './generated/ShapesFilledIcon.js';
 export { ShapesIcon, type ShapesIconProps } from './generated/ShapesIcon.js';
 export {
   SidebarCollapseIcon,
@@ -70,15 +124,30 @@ export {
 export { SidebarExpandIcon, type SidebarExpandIconProps } from './generated/SidebarExpandIcon.js';
 export { SortIcon, type SortIconProps } from './generated/SortIcon.js';
 export { SplineIcon, type SplineIconProps } from './generated/SplineIcon.js';
+export { StopFilledIcon, type StopFilledIconProps } from './generated/StopFilledIcon.js';
 export { StopIcon, type StopIconProps } from './generated/StopIcon.js';
+export {
+  StudioToolsFilledIcon,
+  type StudioToolsFilledIconProps,
+} from './generated/StudioToolsFilledIcon.js';
 export { StudioToolsIcon, type StudioToolsIconProps } from './generated/StudioToolsIcon.js';
+export { SunFilledIcon, type SunFilledIconProps } from './generated/SunFilledIcon.js';
 export { SunIcon, type SunIconProps } from './generated/SunIcon.js';
+export { TrashFilledIcon, type TrashFilledIconProps } from './generated/TrashFilledIcon.js';
 export { TrashIcon, type TrashIconProps } from './generated/TrashIcon.js';
+export {
+  TriangleAlertFilledIcon,
+  type TriangleAlertFilledIconProps,
+} from './generated/TriangleAlertFilledIcon.js';
 export { TriangleAlertIcon, type TriangleAlertIconProps } from './generated/TriangleAlertIcon.js';
 export { TypeIcon, type TypeIconProps } from './generated/TypeIcon.js';
+export { UnlockFilledIcon, type UnlockFilledIconProps } from './generated/UnlockFilledIcon.js';
 export { UnlockIcon, type UnlockIconProps } from './generated/UnlockIcon.js';
+export { UnpinFilledIcon, type UnpinFilledIconProps } from './generated/UnpinFilledIcon.js';
 export { UnpinIcon, type UnpinIconProps } from './generated/UnpinIcon.js';
 export { UploadIcon, type UploadIconProps } from './generated/UploadIcon.js';
+export { UserFilledIcon, type UserFilledIconProps } from './generated/UserFilledIcon.js';
 export { UserIcon, type UserIconProps } from './generated/UserIcon.js';
+export { WidgetsFilledIcon, type WidgetsFilledIconProps } from './generated/WidgetsFilledIcon.js';
 export { WidgetsIcon, type WidgetsIconProps } from './generated/WidgetsIcon.js';
 export type { IconProps } from './icon-props.js';
