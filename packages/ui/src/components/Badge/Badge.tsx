@@ -13,6 +13,7 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
     max = 99,
     showZero = false,
     dot = false,
+    animation = 'none',
     intent = 'default',
     className,
     children,
@@ -37,6 +38,7 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
         <span
           className={styles.indicator}
           data-dot={dot ? '' : undefined}
+          data-animation={dot && animation !== 'none' ? animation : undefined}
           data-intent={intent}
           role={ariaLabel ? 'img' : undefined}
           aria-label={ariaLabel}

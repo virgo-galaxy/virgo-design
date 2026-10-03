@@ -3,8 +3,6 @@ import { Layout as PrimitiveLayout } from '@virgo-design/primitives';
 import {
   type CSSProperties,
   forwardRef,
-  type KeyboardEvent as ReactKeyboardEvent,
-  type PointerEvent as ReactPointerEvent,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -26,6 +24,7 @@ import type {
   LayoutSidebarTriggerProps,
   LayoutSurface,
 } from './Layout.types';
+import { SidebarResizeHandle } from './SidebarResizeHandle';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');
@@ -172,7 +171,7 @@ function SidebarContents({
   triggerPlacement,
   collapsedWidth,
   surface,
-}: { [Key in keyof LayoutSidebarProps]?: LayoutSidebarProps[Key] | undefined } & {
+}: { [Key in keyof Omit<LayoutSidebarProps, 'state'>]?: LayoutSidebarProps[Key] | undefined } & {
   state: LayoutSidebarState;
 }) {
   const current = useRef(state);
@@ -183,14 +182,14 @@ function SidebarContents({
     if (collapseBelow === undefined || typeof window.matchMedia !== 'function') return;
     const media = window.matchMedia(`(max-width: ${collapseBelow}px)`);
     let narrow = false;
-    let previous = current.current.collapsed;
+    let previous = current.current.state;
     const update = () => {
       if (media.matches === narrow) return;
       narrow = media.matches;
       if (narrow) {
-        previous = current.current.collapsed;
-        current.current.setCollapsed(true);
-      } else current.current.setCollapsed(previous);
+        previous = current.current.state;
+        if (previous !== 'hidden') current.current.setState('collapsed');
+      } else if (current.current.state !== 'hidden') current.current.setState(previous);
     };
     update();
     media.addEventListener('change', update);
@@ -198,7 +197,7 @@ function SidebarContents({
   }, [collapseBelow]);
   const renderSlot = (slot: LayoutSidebarProps['children']) =>
     typeof slot === 'function' ? slot(state) : slot;
-  const hidden = state.collapsed && collapsedWidth === 0;
+  const hidden = state.state === 'hidden' || (state.collapsed && collapsedWidth === 0);
   const collapseControl =
     collapsible && trigger !== null ? (
       trigger === undefined ? (
@@ -225,7 +224,7 @@ function SidebarContents({
           <div className={styles.sidebarControls}>{collapseControl}</div>
         ) : null}
       </div>
-      {collapseControl != null && triggerPlacement === 'edge' ? (
+      {state.state !== 'hidden' && collapseControl != null && triggerPlacement === 'edge' ? (
         <div className={styles.sidebarEdgeControls} data-slot="sidebar-edge-controls">
           {collapseControl}
         </div>
@@ -233,6 +232,8 @@ function SidebarContents({
     </>
   );
 }
+
+export const LayoutSidebarProvider = PrimitiveLayout.SidebarProvider;
 
 export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(function LayoutSidebar(
   {
@@ -244,6 +245,8 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
     minWidth,
     maxWidth,
     onWidthChange,
+    resizeSnap,
+    onResizeEnd,
     header,
     footer,
     trigger,
@@ -259,9 +262,7 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
   },
   ref,
 ) {
-  const labels = useControlLabels();
   const sidebarRef = useRef<HTMLElement | null>(null);
-  const resizeCleanupRef = useRef<(() => void) | null>(null);
   const [resizedWidth, setResizedWidth] = useState<number | null>(null);
   const [resizing, setResizing] = useState(false);
 
@@ -269,70 +270,7 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
     setResizedWidth(null);
   }, [width]);
 
-  useEffect(
-    () => () => {
-      resizeCleanupRef.current?.();
-    },
-    [],
-  );
-
-  const clampWidth = (nextWidth: number) =>
-    Math.min(maxWidth ?? Number.POSITIVE_INFINITY, Math.max(minWidth ?? 0, nextWidth));
-
-  const updateWidth = (nextWidth: number) => {
-    const clampedWidth = clampWidth(nextWidth);
-    setResizedWidth(clampedWidth);
-    onWidthChange?.(clampedWidth);
-  };
-
-  const startResize = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!resizable || event.button !== 0 || !sidebarRef.current) return;
-
-    resizeCleanupRef.current?.();
-    const startX = event.clientX;
-    const startWidth = sidebarRef.current.getBoundingClientRect().width;
-    const direction = side === 'end' ? -1 : 1;
-    setResizedWidth(startWidth);
-    setResizing(true);
-
-    const onPointerMove = (pointerEvent: PointerEvent) => {
-      updateWidth(startWidth + (pointerEvent.clientX - startX) * direction);
-    };
-    const stopResize = () => {
-      window.removeEventListener('pointermove', onPointerMove);
-      window.removeEventListener('pointerup', stopResize);
-      window.removeEventListener('pointercancel', stopResize);
-      resizeCleanupRef.current = null;
-      setResizing(false);
-    };
-
-    resizeCleanupRef.current = stopResize;
-    window.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('pointerup', stopResize);
-    window.addEventListener('pointercancel', stopResize);
-    event.currentTarget.focus();
-    event.preventDefault();
-  };
-
-  const resizeWithKeyboard = (event: ReactKeyboardEvent<HTMLDivElement>) => {
-    if (!resizable || !sidebarRef.current) return;
-
-    const currentWidth = sidebarRef.current.getBoundingClientRect().width;
-    const direction = side === 'end' ? -1 : 1;
-    let nextWidth: number | undefined;
-
-    if (event.key === 'ArrowLeft') nextWidth = currentWidth - 8 * direction;
-    if (event.key === 'ArrowRight') nextWidth = currentWidth + 8 * direction;
-    if (event.key === 'Home' && minWidth !== undefined) nextWidth = minWidth;
-    if (event.key === 'End' && maxWidth !== undefined) nextWidth = maxWidth;
-    if (nextWidth === undefined) return;
-
-    event.preventDefault();
-    updateWidth(nextWidth);
-  };
-
   const renderedWidth = resizedWidth ?? width;
-  const numericWidth = resizedWidth ?? (typeof width === 'number' ? width : undefined);
 
   return (
     <PrimitiveLayout.Sidebar
@@ -379,20 +317,22 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
           >
             {children}
           </SidebarContents>
-          {resizable && !state.collapsed ? (
-            <div
-              role="separator"
-              aria-label={labels.resizeSidebar}
-              aria-orientation="vertical"
-              aria-valuemin={minWidth}
-              aria-valuemax={maxWidth}
-              aria-valuenow={numericWidth === undefined ? undefined : Math.round(numericWidth)}
-              tabIndex={0}
-              className={styles.sidebarResizeHandle}
-              data-side={side}
-              data-slot="sidebar-resize-handle"
-              onPointerDown={startResize}
-              onKeyDown={resizeWithKeyboard}
+          {resizable ? (
+            <SidebarResizeHandle
+              sidebarRef={sidebarRef}
+              sidebarState={state}
+              expandedWidth={renderedWidth}
+              collapsedWidth={collapsedWidth}
+              side={side}
+              minWidth={minWidth}
+              maxWidth={maxWidth}
+              resizeSnap={resizeSnap}
+              onResizeEnd={onResizeEnd}
+              onResizingChange={setResizing}
+              onWidthChange={(next) => {
+                setResizedWidth(next);
+                onWidthChange?.(next);
+              }}
             />
           ) : null}
         </>
@@ -415,11 +355,21 @@ export const LayoutSidebarTrigger = forwardRef<HTMLButtonElement, LayoutSidebarT
             ...buttonProps,
             'aria-label':
               props['aria-label'] ??
-              (buttonProps['aria-expanded'] ? labels.collapseSidebar : labels.expandSidebar),
+              (props.action === 'hide'
+                ? labels.hideSidebar
+                : props.action === 'expand'
+                  ? labels.expandSidebar
+                  : props.action === 'collapse'
+                    ? labels.collapseSidebar
+                    : buttonProps['aria-expanded']
+                      ? labels.collapseSidebar
+                      : labels.expandSidebar),
           };
           const content =
             children ??
-            (buttonProps['aria-expanded'] ? (
+            ((props.action !== 'expand' && buttonProps['aria-expanded']) ||
+            props.action === 'collapse' ||
+            props.action === 'hide' ? (
               <SidebarCollapseIcon aria-hidden="true" />
             ) : (
               <SidebarExpandIcon aria-hidden="true" />

@@ -2,6 +2,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { Table } from '../Table';
 import { Tooltip } from './index';
 
 afterEach(() => {
@@ -10,6 +11,58 @@ afterEach(() => {
 });
 
 describe('Tooltip UI', () => {
+  it('inherits presentation through portals and updates arrows without remounting content', () => {
+    const example = (arrow: boolean) => (
+      <Tooltip.Provider size="small" arrow={arrow}>
+        <Tooltip defaultOpen>
+          <Tooltip.Trigger>Help</Tooltip.Trigger>
+          <Tooltip.Content>Description</Tooltip.Content>
+        </Tooltip>
+      </Tooltip.Provider>
+    );
+    const { rerender } = render(example(true));
+    const panel = screen.getByRole('tooltip');
+    expect(panel).toHaveAttribute('data-size', 'small');
+    expect(panel.querySelector('[data-slot="arrow"]')).not.toBeNull();
+    rerender(example(false));
+    expect(screen.getByRole('tooltip')).toBe(panel);
+    expect(panel.querySelector('[data-slot="arrow"]')).toBeNull();
+  });
+
+  it('merges nested presentation defaults and respects explicit content options', () => {
+    const example = (explicit: boolean) => (
+      <Tooltip.Provider size="small" arrow={false}>
+        <Tooltip.Provider size="medium">
+          <Tooltip defaultOpen>
+            <Tooltip.Trigger>Help</Tooltip.Trigger>
+            <Tooltip.Content {...(explicit ? ({ size: 'small', arrow: true } as const) : {})}>
+              Description
+            </Tooltip.Content>
+          </Tooltip>
+        </Tooltip.Provider>
+      </Tooltip.Provider>
+    );
+    const { rerender } = render(example(false));
+    const panel = screen.getByRole('tooltip');
+    expect(panel).toHaveAttribute('data-size', 'medium');
+    expect(panel.querySelector('[data-slot="arrow"]')).toBeNull();
+    rerender(example(true));
+    expect(panel).toHaveAttribute('data-size', 'small');
+    expect(panel.querySelector('[data-slot="arrow"]')).not.toBeNull();
+  });
+
+  it('applies presentation defaults to built-in table sorting hints', () => {
+    render(
+      <Tooltip.Provider size="medium" arrow>
+        <Table.SortButton>Column</Table.SortButton>
+      </Tooltip.Provider>,
+    );
+    fireEvent.focus(screen.getByRole('button'));
+    const panel = screen.getByRole('tooltip');
+    expect(panel).toHaveAttribute('data-size', 'medium');
+    expect(panel.querySelector('[data-slot="arrow"]')).not.toBeNull();
+  });
+
   it('defaults content to medium independently of trigger size', () => {
     render(
       <Tooltip defaultOpen>

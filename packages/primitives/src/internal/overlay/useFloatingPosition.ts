@@ -80,14 +80,22 @@ export function useFloatingPosition({
     }
     const contentsObserver = new MutationObserver(update);
     contentsObserver.observe(content, { childList: true, subtree: true, characterData: true });
+    // An ancestor's slide-in transform moves an anchor without resizing it.
+    const updateAfterMotion = (event: Event) => {
+      if (event.target instanceof Element && event.target.contains(anchor)) update();
+    };
     window.addEventListener('resize', update);
     document.addEventListener('scroll', update, true);
+    document.addEventListener('animationend', updateAfterMotion, true);
+    document.addEventListener('transitionend', updateAfterMotion, true);
     return () => {
       resize?.disconnect();
       themeObserver.disconnect();
       contentsObserver.disconnect();
       window.removeEventListener('resize', update);
       document.removeEventListener('scroll', update, true);
+      document.removeEventListener('animationend', updateAfterMotion, true);
+      document.removeEventListener('transitionend', updateAfterMotion, true);
     };
   }, [active, triggerRef, contentRef, placement, offset, anchorRect]);
   const style = {

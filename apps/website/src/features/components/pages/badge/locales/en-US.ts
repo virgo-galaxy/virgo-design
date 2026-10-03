@@ -32,4 +32,10 @@ export const badgeEnUS = {
     description:
       'The indicator ignores pointer events, so wrapped controls keep their normal interaction.',
   },
+  motion: {
+    title: 'Breathing dots',
+    description: 'Opt in to breathing dots; reduced motion keeps them static.',
+    static: 'Static dot',
+    breathing: 'Breathing dot',
+  },
 } as const;

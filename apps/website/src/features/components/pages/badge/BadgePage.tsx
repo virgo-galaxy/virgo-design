@@ -88,6 +88,7 @@ export function BadgePage() {
           description={t('components.badge.status.description')}
         >
           <ComponentExample example={badgeExamples.badgeStatus} showCaption={false} />
+          <ComponentExample example={badgeExamples.badgeMotion} />
         </ArticleSection>
         <ArticleSection
           id={'badge-composition'}

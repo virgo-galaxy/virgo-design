@@ -4492,6 +4492,16 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         descriptionTranslationKey: 'primitives.layout.api.layout-lane-props.description',
       },
       {
+        name: 'LayoutSidebarDisplayState',
+        kind: 'type',
+        signature: "'expanded' | 'collapsed' | 'hidden'",
+        description: 'Distinct expanded, icon-rail and fully hidden Sidebar states.',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-display-state.description',
+      },
+      {
         name: 'LayoutSidebarState',
         kind: 'interface',
         signature: '',
@@ -4499,6 +4509,26 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [
+          {
+            name: 'state',
+            type: 'LayoutSidebarDisplayState',
+            required: true,
+            defaultValue: '',
+            description: 'Current resolved display state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-state.properties.state.description',
+          },
+          {
+            name: 'setState',
+            type: '(state: LayoutSidebarDisplayState) => void',
+            required: true,
+            defaultValue: '',
+            description: 'Requests a display-state change.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-state.properties.set-state.description',
+          },
           {
             name: 'collapsed',
             type: 'boolean',
@@ -4523,6 +4553,71 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-state.description',
       },
       {
+        name: 'LayoutSidebarProviderProps',
+        kind: 'interface',
+        signature: '',
+        description:
+          'Shared state and external trigger scope for one Sidebar. Provider state takes precedence over nested Sidebar state props.',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'id',
+            type: 'string',
+            required: false,
+            defaultValue: '',
+            description:
+              'ID of the single Sidebar controlled by this provider. Generated when omitted.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-provider-props.properties.id.description',
+          },
+          {
+            name: 'state',
+            type: 'LayoutSidebarDisplayState',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled display state shared by the Sidebar and triggers.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-provider-props.properties.state.description',
+          },
+          {
+            name: 'defaultState',
+            type: 'LayoutSidebarDisplayState',
+            required: false,
+            defaultValue: "'expanded'",
+            description: 'Initial uncontrolled display state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-provider-props.properties.default-state.description',
+          },
+          {
+            name: 'onStateChange',
+            type: '(state: LayoutSidebarDisplayState) => void',
+            required: false,
+            defaultValue: '',
+            description:
+              'Called when a trigger, resize snap or responsive behavior requests a state change.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-provider-props.properties.on-state-change.description',
+          },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Sidebar and any internal or external triggers within this scope.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-provider-props.properties.children.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'primitives.layout.api.layout-sidebar-provider-props.description',
+      },
+      {
         name: 'LayoutSidebarProps',
         kind: 'interface',
         signature: "extends Omit<HTMLAttributes<HTMLElement>, 'children'>",
@@ -4530,6 +4625,37 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [
+          {
+            name: 'state',
+            type: 'LayoutSidebarDisplayState',
+            required: false,
+            defaultValue: '',
+            description: 'Three-state control. Takes precedence over legacy collapsed.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-props.properties.state.description',
+          },
+          {
+            name: 'defaultState',
+            type: 'LayoutSidebarDisplayState',
+            required: false,
+            defaultValue: '',
+            description: 'Initial uncontrolled state. Takes precedence over defaultCollapsed.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-props.properties.default-state.description',
+          },
+          {
+            name: 'onStateChange',
+            type: '(state: LayoutSidebarDisplayState) => void',
+            required: false,
+            defaultValue: '',
+            description:
+              'Called when the standalone Sidebar requests a state change. Place state control on SidebarProvider when using a shared scope.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-props.properties.on-state-change.description',
+          },
           {
             name: 'collapsed',
             type: 'boolean',
@@ -4581,6 +4707,16 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [
+          {
+            name: 'action',
+            type: "'toggle' | 'expand' | 'collapse' | 'hide'",
+            required: false,
+            defaultValue: "'toggle'",
+            description: 'Action shared with its Sidebar or enclosing SidebarProvider.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.layout.api.layout-sidebar-trigger-props.properties.action.description',
+          },
           {
             name: 'render',
             type: '(\n    props: ButtonHTMLAttributes<HTMLButtonElement> & { ref: Ref<HTMLButtonElement> },\n  ) => ReactElement',

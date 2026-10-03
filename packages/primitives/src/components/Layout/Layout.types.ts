@@ -20,12 +20,39 @@ export interface LayoutLaneProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
   direction?: LayoutDirection;
 }
 
+/** Distinct expanded, icon-rail and fully hidden Sidebar states. */
+export type LayoutSidebarDisplayState = 'expanded' | 'collapsed' | 'hidden';
+
 export interface LayoutSidebarState {
+  /** Current resolved display state. */
+  state: LayoutSidebarDisplayState;
+  /** Requests a display-state change. */
+  setState: (state: LayoutSidebarDisplayState) => void;
   collapsed: boolean;
   setCollapsed: (collapsed: boolean) => void;
 }
 
+/** Shared state and external trigger scope for one Sidebar. Provider state takes precedence over nested Sidebar state props. */
+export interface LayoutSidebarProviderProps {
+  /** ID of the single Sidebar controlled by this provider. Generated when omitted. */
+  id?: string;
+  /** Controlled display state shared by the Sidebar and triggers. */
+  state?: LayoutSidebarDisplayState;
+  /** Initial uncontrolled display state. @default 'expanded' */
+  defaultState?: LayoutSidebarDisplayState;
+  /** Called when a trigger, resize snap or responsive behavior requests a state change. */
+  onStateChange?: (state: LayoutSidebarDisplayState) => void;
+  /** Sidebar and any internal or external triggers within this scope. */
+  children?: ReactNode;
+}
+
 export interface LayoutSidebarProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
+  /** Three-state control. Takes precedence over legacy collapsed. */
+  state?: LayoutSidebarDisplayState;
+  /** Initial uncontrolled state. Takes precedence over defaultCollapsed. */
+  defaultState?: LayoutSidebarDisplayState;
+  /** Called when the standalone Sidebar requests a state change. Place state control on SidebarProvider when using a shared scope. */
+  onStateChange?: (state: LayoutSidebarDisplayState) => void;
   collapsed?: boolean;
   defaultCollapsed?: boolean;
   onCollapsedChange?: (collapsed: boolean) => void;
@@ -33,6 +60,8 @@ export interface LayoutSidebarProps extends Omit<HTMLAttributes<HTMLElement>, 'c
 }
 
 export interface LayoutSidebarTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Action shared with its Sidebar or enclosing SidebarProvider. @default 'toggle' */
+  action?: 'toggle' | 'expand' | 'collapse' | 'hide';
   render?: (
     props: ButtonHTMLAttributes<HTMLButtonElement> & { ref: Ref<HTMLButtonElement> },
   ) => ReactElement;

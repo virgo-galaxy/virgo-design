@@ -7,8 +7,23 @@ export const layoutMetadata = {
   description:
     'Composes semantic regions and independent spatial lanes with collapsible sidebars, sticky or fixed headers, responsive sizing, and shared Surface treatments. Navigation remains independent.',
   import: "import { Layout } from '@virgo-design/ui';",
-  states: ['default', 'expanded', 'collapsed', 'responsive', 'resizing', 'sticky', 'fixed'],
+  states: [
+    'default',
+    'expanded',
+    'collapsed',
+    'hidden',
+    'snapped',
+    'responsive',
+    'resizing',
+    'sticky',
+    'fixed',
+  ],
   anatomy: [
+    {
+      name: 'Layout.SidebarProvider',
+      description:
+        'Shared three-state Sidebar scope for one sidebar and internal or external action triggers; returns focus to an external trigger when hiding the focused sidebar.',
+    },
     {
       name: 'Layout.Root',
       description: 'Flex container that arranges direct child regions vertically or horizontally.',
@@ -26,7 +41,7 @@ export const layoutMetadata = {
     {
       name: 'Layout.Sidebar',
       description:
-        'Semantic aside with controlled or uncontrolled collapse, footer or edge triggers, header/body/footer slots, configurable widths, and optional resizing.',
+        'Semantic aside with controlled or uncontrolled expanded/rail/hidden state, header/body/footer slots, bounded resizing, optional snap thresholds and resize-end callbacks. Legacy collapsed control remains supported.',
     },
     {
       name: 'Layout.SidebarTrigger',
@@ -54,6 +69,9 @@ export const layoutMetadata = {
     laneInset: true,
     sidebarWidth: true,
     resizableSidebar: true,
+    sidebarResizeSnap: true,
+    hiddenSidebar: true,
+    externalSidebarTriggers: true,
     semanticRegions: true,
     collapsibleSidebar: true,
     responsiveBreakpoint: true,
@@ -70,6 +88,7 @@ export const layoutMetadata = {
     'SidebarTrigger uses a native button with aria-expanded, aria-controls, and an action label. Layout adds no navigation behavior.',
     'Resizable Sidebar exposes a keyboard-focusable separator with arrow-key resizing and optional minimum and maximum widths.',
     'Zero-width collapsed content is hidden and inert. Use an edge or external trigger to reopen it. Icon-only navigation must retain accessible labels.',
+    'SidebarProvider scopes external SidebarTrigger actions without prescribing a logo or navigation. Supply an external trigger when enabling hidden state. Hidden content is inert and leaves the landmark/tab order; focus inside it transfers to an available external trigger.',
     'Consumers should avoid nesting multiple main regions in the same document landmark scope.',
   ],
   examples: [],

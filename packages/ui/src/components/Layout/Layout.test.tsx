@@ -468,6 +468,163 @@ describe('Layout', () => {
     expect(handle).toHaveAttribute('aria-valuemax', '320');
   });
 
+  it('keeps a continuous resize gesture through rail and hidden states with hysteresis and external recovery', async () => {
+    const user = userEvent.setup();
+    const onResizeEnd = vi.fn();
+    const onStateChange = vi.fn();
+    render(
+      <Layout.SidebarProvider onStateChange={onStateChange}>
+        <Layout.SidebarTrigger action="expand">Restore navigation</Layout.SidebarTrigger>
+        <Layout.Sidebar
+          width={240}
+          minWidth={200}
+          maxWidth={320}
+          collapsedWidth={48}
+          resizable
+          resizeSnap={{ collapseAt: 160, hideAt: 24, hysteresis: 16 }}
+          onResizeEnd={onResizeEnd}
+        >
+          <a href="#work">Work</a>
+        </Layout.Sidebar>
+      </Layout.SidebarProvider>,
+    );
+    const sidebar = screen.getByRole('complementary');
+    const handle = screen.getByRole('separator');
+    vi.spyOn(sidebar, 'getBoundingClientRect').mockReturnValue({ width: 240 } as DOMRect);
+    fireEvent.pointerDown(handle, { button: 0, clientX: 240, pointerId: 1 });
+    fireEvent.pointerMove(window, { clientX: 500, pointerId: 2 });
+    fireEvent.pointerCancel(window, { pointerId: 2 });
+    fireEvent.pointerUp(window, { pointerId: 2 });
+    expect(onResizeEnd).not.toHaveBeenCalled();
+    expect(sidebar.style.getPropertyValue('--vd-layout-sidebar-width')).toBe('240px');
+    fireEvent.pointerMove(window, { clientX: 500, pointerId: 1 });
+    expect(sidebar.style.getPropertyValue('--vd-layout-sidebar-width')).toBe('320px');
+    fireEvent.pointerMove(window, { clientX: 150, pointerId: 1 });
+    expect(sidebar).toHaveAttribute('data-state', 'collapsed');
+    fireEvent.pointerMove(window, { clientX: 168, pointerId: 1 });
+    expect(sidebar).toHaveAttribute('data-state', 'collapsed');
+    fireEvent.pointerMove(window, { clientX: 178, pointerId: 1 });
+    expect(sidebar).toHaveAttribute('data-state', 'expanded');
+    expect(sidebar.style.getPropertyValue('--vd-layout-sidebar-width')).toBe('200px');
+    fireEvent.pointerMove(window, { clientX: 20, pointerId: 1 });
+    expect(sidebar).toHaveAttribute('data-state', 'hidden');
+    expect(sidebar).toHaveAttribute('inert');
+    expect(screen.queryByRole('link', { name: 'Work' })).not.toBeInTheDocument();
+    const restore = screen.getByRole('button', { name: 'Expand sidebar' });
+    expect(restore).toHaveFocus();
+    fireEvent.pointerUp(window, { pointerId: 1 });
+    expect(onResizeEnd).toHaveBeenLastCalledWith({ width: 200, state: 'hidden', cancelled: false });
+    expect(screen.queryByRole('separator')).not.toBeInTheDocument();
+    await user.click(restore);
+    expect(sidebar).toHaveAttribute('data-state', 'expanded');
+    expect(sidebar.style.getPropertyValue('--vd-layout-sidebar-width')).toBe('200px');
+    expect(onStateChange.mock.calls.map(([state]) => state)).toEqual([
+      'collapsed',
+      'expanded',
+      'hidden',
+      'expanded',
+    ]);
+  });
+
+  it('cancels a resize by restoring its starting state and width and cleans up global drag styles', () => {
+    const onResizeEnd = vi.fn();
+    const { unmount } = render(
+      <Layout.Sidebar
+        width={240}
+        resizable
+        minWidth={200}
+        maxWidth={320}
+        resizeSnap={{ collapseAt: 160, hideAt: 24 }}
+        onResizeEnd={onResizeEnd}
+      >
+        Navigation
+      </Layout.Sidebar>,
+    );
+    const sidebar = screen.getByRole('complementary');
+    vi.spyOn(sidebar, 'getBoundingClientRect').mockReturnValue({ width: 240 } as DOMRect);
+    const handle = screen.getByRole('separator');
+    fireEvent.pointerDown(handle, { button: 0, clientX: 240 });
+    fireEvent.pointerMove(window, { clientX: 20 });
+    expect(sidebar).toHaveAttribute('data-state', 'hidden');
+    fireEvent.pointerCancel(window);
+    expect(sidebar).toHaveAttribute('data-state', 'expanded');
+    expect(sidebar.style.getPropertyValue('--vd-layout-sidebar-width')).toBe('240px');
+    expect(onResizeEnd).toHaveBeenLastCalledWith({
+      width: 240,
+      state: 'expanded',
+      cancelled: true,
+    });
+    expect(document.body.style.userSelect).toBe('');
+    fireEvent.pointerDown(screen.getByRole('separator'), { button: 0, clientX: 240 });
+    unmount();
+    expect(document.body.style.cursor).toBe('');
+    expect(document.body.style.userSelect).toBe('');
+    fireEvent.pointerMove(window, { clientX: 300 });
+    expect(onResizeEnd).toHaveBeenCalledTimes(1);
+  });
+
+  it('supports keyboard bounds, rail snapping, hiding and external focus return', () => {
+    render(
+      <Layout.SidebarProvider>
+        <Layout.SidebarTrigger action="expand" />
+        <Layout.Sidebar
+          width={240}
+          minWidth={200}
+          maxWidth={320}
+          collapsedWidth={48}
+          resizable
+          resizeSnap={{ collapseAt: 160, hideAt: 24 }}
+        >
+          Navigation
+        </Layout.Sidebar>
+      </Layout.SidebarProvider>,
+    );
+    const sidebar = screen.getByRole('complementary');
+    vi.spyOn(sidebar, 'getBoundingClientRect').mockImplementation(
+      () =>
+        ({
+          width:
+            sidebar.dataset.state === 'collapsed'
+              ? 48
+              : Number.parseFloat(sidebar.style.getPropertyValue('--vd-layout-sidebar-width')),
+        }) as DOMRect,
+    );
+    const handle = screen.getByRole('separator');
+    handle.focus();
+    fireEvent.keyDown(handle, { key: 'End' });
+    expect(handle).toHaveAttribute('aria-valuenow', '320');
+    fireEvent.keyDown(handle, { key: 'Home' });
+    expect(handle).toHaveAttribute('aria-valuenow', '200');
+    for (let i = 0; i < 5; i++) fireEvent.keyDown(handle, { key: 'ArrowLeft' });
+    expect(sidebar).toHaveAttribute('data-state', 'collapsed');
+    expect(handle).toHaveAttribute('aria-valuenow', '48');
+    for (let i = 0; i < 3; i++) fireEvent.keyDown(handle, { key: 'ArrowLeft' });
+    expect(sidebar).toHaveAttribute('data-state', 'hidden');
+    expect(screen.getByRole('button', { name: 'Expand sidebar' })).toHaveFocus();
+  });
+
+  it.each([
+    { side: 'end' as const, direction: 'ltr' as const },
+    { side: 'start' as const, direction: 'rtl' as const },
+  ])('mirrors resize direction for $side/$direction', ({ side, direction }) => {
+    render(
+      <Layout.Sidebar
+        width={240}
+        resizable
+        side={side}
+        style={{ direction }}
+        minWidth={200}
+        maxWidth={320}
+      />,
+    );
+    const sidebar = screen.getByRole('complementary');
+    vi.spyOn(sidebar, 'getBoundingClientRect').mockReturnValue({ width: 240 } as DOMRect);
+    fireEvent.pointerDown(screen.getByRole('separator'), { button: 0, clientX: 240 });
+    fireEvent.pointerMove(window, { clientX: 180 });
+    fireEvent.pointerUp(window);
+    expect(sidebar.style.getPropertyValue('--vd-layout-sidebar-width')).toBe('300px');
+  });
+
   it('forwards native props, consumer classes, and refs', () => {
     const layoutRef = createRef<HTMLDivElement>();
     const sidebarRef = createRef<HTMLElement>();

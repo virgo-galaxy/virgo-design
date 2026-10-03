@@ -41,7 +41,7 @@ export const layoutExamplesEnUS = {
       'Apply Surface treatments independently to Header, Sidebar, Content, and Footer.',
     resizableSidebar: 'Resizable sidebar',
     dragTheDividerOrUseTheKeyboardToResizeSidebar:
-      'Drag the divider, or use the keyboard, to resize Sidebar within its minimum and maximum width.',
+      'Resize within bounds, snap to a rail, continue to hide, and restore through a provider-scoped external trigger.',
     stickyHeader: 'Sticky header',
     scrollTheStructureWhileHeaderRemainsPinnedToTheTop:
       'Scroll the structure while Header remains pinned to the top of its scroll region.',
@@ -66,6 +66,15 @@ export const layoutExamplesEnUS = {
     typicalExamples: 'Typical examples',
   },
   details: {
+    expanded: 'Expanded',
+    collapsed: 'Icon rail',
+    hidden: 'Hidden',
+    showSidebar: 'Show sidebar',
+    resizeInstructions:
+      'Drag the divider inward to snap to the icon rail, then continue to hide. The header button restores the expanded sidebar at its default 224px width. Arrow keys resize; Home and End select the expanded bounds.',
+    expandedWidth: 'Remembered expanded width: {{width}}px',
+    resizeRange: 'Expanded: 200–320px · rail: 48px · hidden: 0px',
+    resizeCommitted: 'Resize finished: {{state}} · remembered width {{width}}px',
     menu1: 'Menu 1',
     menu2: 'Menu 2',
     menu3: 'Menu 3',

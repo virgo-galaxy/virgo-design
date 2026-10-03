@@ -43,7 +43,7 @@ export const layoutExamplesZhCN = {
       '为 Header、Sidebar、Content 与 Footer 独立设置 Surface 样式。',
     resizableSidebar: '可调整宽度的侧栏',
     dragTheDividerOrUseTheKeyboardToResizeSidebar:
-      '拖动分隔线或使用键盘，在最小与最大宽度之间调整 Sidebar。',
+      '在范围内调宽、吸附成图标栏、继续拖到隐藏，再通过 Provider 作用域内的外部触发器唤回。',
     stickyHeader: '吸附标题区',
     scrollTheStructureWhileHeaderRemainsPinnedToTheTop: '滚动结构时，Header 保持在滚动区域顶部。',
     laneBoundary: 'Lane 边界',
@@ -67,6 +67,15 @@ export const layoutExamplesZhCN = {
     typicalExamples: '典型示例',
   },
   details: {
+    expanded: '展开',
+    collapsed: '图标栏',
+    hidden: '隐藏',
+    showSidebar: '显示侧栏',
+    resizeInstructions:
+      '向内拖动分隔线，吸附成图标栏，再继续拖到隐藏。标题区按钮可恢复默认展开状态与 224px 宽度。方向键调宽；Home 和 End 选择展开宽度的下限与上限。',
+    expandedWidth: '记住的展开宽度：{{width}}px',
+    resizeRange: '展开：200–320px · 图标栏：48px · 隐藏：0px',
+    resizeCommitted: '拖动已结束：{{state}} · 记住的宽度 {{width}}px',
     menu1: '菜单 1',
     menu2: '菜单 2',
     menu3: '菜单 3',

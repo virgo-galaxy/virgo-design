@@ -67,6 +67,8 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'badge-props.properties.max.description': 'Maximum displayed numeric count.',
       'badge-props.properties.show-zero.description': 'Shows the count when it is zero.',
       'badge-props.properties.dot.description': 'Shows a status dot instead of count content.',
+      'badge-props.properties.animation.description':
+        'Optional dot animation. Counts stay static; respects prefers-reduced-motion.',
       'badge-props.properties.intent.description': 'Semantic color intent.',
       'badge-props.properties.children.description':
         'Optional host element. Without children, Badge renders inline.',
@@ -592,24 +594,34 @@ export const componentsApiEnUS: ApiDescriptionResources = {
   },
   input: {
     api: {
+      'input-stepper-repeat-options.properties.delay.description':
+        'Delay in milliseconds before a held step button starts repeating.',
+      'input-stepper-repeat-options.properties.interval.description':
+        'Milliseconds between repeated steps, with a minimum of 16.',
       'input-props.properties.size.description': 'Visual size of the input.',
       'input-props.properties.root-class-name.description':
         'Consumer class applied to the input frame; className styles the native control.',
       'input-props.properties.prefix.description':
-        'Decorative content rendered before the text-entry control.',
+        'Decorative text, unit, or icon rendered before the text-entry control.',
       'input-props.properties.suffix.description':
-        'Decorative content rendered after the text-entry control.',
+        'Decorative text, unit, or icon rendered after the text-entry control.',
       'input-props.properties.clearable.description':
         'Shows a clear action while the input has a value.',
+      'input-props.properties.steppers.description':
+        'Shows theme-aware increase/decrease buttons for type="number". Uses native min, max,\nand step rules; ignored for other types or step="any". Button width defaults to 24px\nand can be customized with --input-stepper-width on the frame.',
+      'input-props.properties.stepper-repeat.description':
+        'Hold-to-repeat behavior for numeric steppers. False disables repetition; an object customizes timing.',
+      'input-props.properties.stepper-reverse.description':
+        'Reverses numeric arrow actions: up decreases and down increases, including held buttons and keyboard arrows.',
       'input-props.properties.invalid.description':
         'Applies the invalid visual treatment and sets aria-invalid when true.',
       'input-password-props.properties.prefix.description':
-        'Decorative content rendered before the text-entry control.',
+        'Decorative text, unit, or icon rendered before the text-entry control.',
       'input-password-props.properties.size.description': 'Visual size of the input.',
       'input-password-props.properties.root-class-name.description':
         'Consumer class applied to the input frame; className styles the native control.',
       'input-password-props.properties.suffix.description':
-        'Decorative content rendered after the text-entry control.',
+        'Decorative text, unit, or icon rendered after the text-entry control.',
       'input-password-props.properties.clearable.description':
         'Shows a clear action while the input has a value.',
       'input-password-props.properties.invalid.description':
@@ -622,6 +634,39 @@ export const componentsApiEnUS: ApiDescriptionResources = {
   },
   layout: {
     api: {
+      'layout-sidebar-display-state.description':
+        'Distinct expanded, icon-rail and fully hidden Sidebar states.',
+      'layout-sidebar-provider-props.description':
+        'Shared state and external trigger scope for one Sidebar. Provider state takes precedence over nested Sidebar state props.',
+      'layout-sidebar-provider-props.properties.id.description':
+        'ID of the single Sidebar controlled by this provider. Generated when omitted.',
+      'layout-sidebar-provider-props.properties.state.description':
+        'Controlled display state shared by the Sidebar and triggers.',
+      'layout-sidebar-provider-props.properties.default-state.description':
+        'Initial uncontrolled display state.',
+      'layout-sidebar-provider-props.properties.on-state-change.description':
+        'Called when a trigger, resize snap or responsive behavior requests a state change.',
+      'layout-sidebar-provider-props.properties.children.description':
+        'Sidebar and any internal or external triggers within this scope.',
+      'layout-sidebar-state.properties.state.description': 'Current resolved display state.',
+      'layout-sidebar-state.properties.set-state.description': 'Requests a display-state change.',
+      'layout-sidebar-trigger-props.properties.action.description':
+        'Action shared with its Sidebar or enclosing SidebarProvider.',
+      'layout-sidebar-resize-snap.description':
+        'Optional magnetic rail and hidden thresholds for resizing.',
+      'layout-sidebar-resize-snap.properties.collapse-at.description':
+        'Raw drag width at or below which the sidebar snaps to its rail.',
+      'layout-sidebar-resize-snap.properties.hide-at.description':
+        'Optional raw drag width at or below which the sidebar becomes hidden. Must be lower than collapseAt.',
+      'layout-sidebar-resize-snap.properties.hysteresis.description':
+        'Additional outward distance before leaving a snapped state.',
+      'layout-sidebar-resize-result.description':
+        'Final resize request, suitable for consumer-owned preference persistence.',
+      'layout-sidebar-resize-result.properties.width.description':
+        'Remembered expanded width in px, independent from rail/hidden width.',
+      'layout-sidebar-resize-result.properties.state.description': 'Final requested display state.',
+      'layout-sidebar-resize-result.properties.cancelled.description':
+        'Whether the pointer gesture was canceled and its starting state restored.',
       'layout-surface.description': 'Surface owns all background and material rendering.',
       'layout-surface.properties.tone.description': 'Semantic surface color.',
       'layout-surface.properties.material.description':
@@ -676,12 +721,23 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Viewport width in px. Requests collapse on entry, restores the prior state on exit.',
       'layout-sidebar-props.properties.resizable.description':
         'Allows pointer and keyboard resizing of the expanded sidebar width.',
-      'layout-sidebar-props.properties.min-width.description': 'Minimum resizable width in px.',
-      'layout-sidebar-props.properties.max-width.description': 'Maximum resizable width in px.',
+      'layout-sidebar-props.properties.min-width.description':
+        'Minimum expanded width in px; does not constrain rail or hidden state.',
+      'layout-sidebar-props.properties.max-width.description': 'Maximum expanded width in px.',
       'layout-sidebar-props.properties.on-width-change.description':
         'Called while the resizable width changes.',
+      'layout-sidebar-props.properties.resize-snap.description':
+        'Opt-in rail/hidden snap thresholds. Expanded min/max bounds still apply only to expanded widths.',
+      'layout-sidebar-props.properties.on-resize-end.description':
+        'Called on pointer release/cancel or a keyboard resize step.',
       'layout-sidebar-props.properties.offset.description':
         "Distance from the containing region's edges in floating mode.",
+      'layout-sidebar-props.properties.state.description':
+        'Three-state control. Takes precedence over legacy collapsed.',
+      'layout-sidebar-props.properties.default-state.description':
+        'Initial uncontrolled state. Takes precedence over defaultCollapsed.',
+      'layout-sidebar-props.properties.on-state-change.description':
+        'Called when the standalone Sidebar requests a state change. Place state control on SidebarProvider when using a shared scope.',
       'layout-content-props.properties.class-name.description':
         'Consumer class applied to the main content region.',
       'layout-content-props.properties.as.description':
@@ -1112,6 +1168,10 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Dismiss on activation. Set false to keep dynamic feedback open while hover or keyboard focus remains.',
       'tooltip-props.properties.smooth-transition.description':
         'Smooth handoff between opted-in tooltips; ordinary tooltips keep their own delay and fade.',
+      'tooltip-provider-props.properties.size.description':
+        'Default content density for descendant tooltips, including built-in control hints.',
+      'tooltip-provider-props.properties.arrow.description':
+        'Default arrow visibility for descendant tooltips.',
       'tooltip-trigger-props.properties.render.description':
         'Forward all supplied props and ref to a native button.',
       'tooltip-content-props.properties.size.description':
@@ -1638,6 +1698,30 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Structural children that live within this spatial lane.',
       'layout-lane-props.properties.direction.description':
         'Direction in which direct lane children are arranged.',
+      'layout-sidebar-display-state.description':
+        'Distinct expanded, icon-rail and fully hidden Sidebar states.',
+      'layout-sidebar-state.properties.state.description': 'Current resolved display state.',
+      'layout-sidebar-state.properties.set-state.description': 'Requests a display-state change.',
+      'layout-sidebar-provider-props.description':
+        'Shared state and external trigger scope for one Sidebar. Provider state takes precedence over nested Sidebar state props.',
+      'layout-sidebar-provider-props.properties.id.description':
+        'ID of the single Sidebar controlled by this provider. Generated when omitted.',
+      'layout-sidebar-provider-props.properties.state.description':
+        'Controlled display state shared by the Sidebar and triggers.',
+      'layout-sidebar-provider-props.properties.default-state.description':
+        'Initial uncontrolled display state.',
+      'layout-sidebar-provider-props.properties.on-state-change.description':
+        'Called when a trigger, resize snap or responsive behavior requests a state change.',
+      'layout-sidebar-provider-props.properties.children.description':
+        'Sidebar and any internal or external triggers within this scope.',
+      'layout-sidebar-props.properties.state.description':
+        'Three-state control. Takes precedence over legacy collapsed.',
+      'layout-sidebar-props.properties.default-state.description':
+        'Initial uncontrolled state. Takes precedence over defaultCollapsed.',
+      'layout-sidebar-props.properties.on-state-change.description':
+        'Called when the standalone Sidebar requests a state change. Place state control on SidebarProvider when using a shared scope.',
+      'layout-sidebar-trigger-props.properties.action.description':
+        'Action shared with its Sidebar or enclosing SidebarProvider.',
       'layout-content-props.properties.as.description':
         'Semantic element for a page main region or an embedded content area.',
     },

@@ -19,6 +19,10 @@ export const tooltipMetadata = {
   ],
   states: ['closed', 'open', 'hover', 'focus-visible', 'disabled', 'entering', 'exiting'],
   anatomy: [
+    {
+      name: 'Tooltip.Provider',
+      description: 'Shared content size and arrow defaults for a subtree.',
+    },
     { name: 'Tooltip', description: 'Open state and hover delay.' },
     {
       name: 'Tooltip.Trigger',
@@ -46,6 +50,7 @@ export const tooltipMetadata = {
     smoothTransition: true,
     closeOnClick: true,
     contentSizes: true,
+    presentationDefaults: true,
     cursorIntegration: true,
     interactiveContent: false,
   },

@@ -4,6 +4,7 @@ import { forwardRef, useState } from 'react';
 
 import { useControlLabels } from '../../shared/control-labels';
 import { Tooltip } from '../Tooltip';
+import { useTooltipPresentation } from '../Tooltip/TooltipContext';
 import styles from './Table.module.scss';
 import type {
   TableCaptionProps,
@@ -147,6 +148,7 @@ export const TableSortButton = forwardRef<HTMLButtonElement, TableSortButtonProp
     ref,
   ) {
     const [localDirection, setLocalDirection] = useState(defaultDirection);
+    const tooltipPresentation = useTooltipPresentation();
     const value = direction ?? localDirection;
     const labels = useControlLabels();
     const action =
@@ -181,7 +183,10 @@ export const TableSortButton = forwardRef<HTMLButtonElement, TableSortButtonProp
             </PrimitiveTable.SortButton>
           )}
         />
-        <Tooltip.Content size="small" arrow={false}>
+        <Tooltip.Content
+          size={tooltipPresentation.size ?? 'small'}
+          arrow={tooltipPresentation.arrow ?? false}
+        >
           {action}
         </Tooltip.Content>
       </Tooltip>

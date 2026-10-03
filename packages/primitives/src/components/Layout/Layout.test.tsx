@@ -120,6 +120,74 @@ describe('Layout primitive', () => {
     expect(collapse).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getAllByRole('button', { name: 'Collapse sidebar' })).toHaveLength(2);
   });
+  it('shares three states with external provider triggers while honoring controlled state', async () => {
+    const user = userEvent.setup();
+    const change = vi.fn();
+    const example = (state: 'expanded' | 'collapsed' | 'hidden') => (
+      <Layout.SidebarProvider id="shared-sidebar" state={state} onStateChange={change}>
+        <Layout.Header>
+          <Layout.SidebarTrigger action="expand">Restore</Layout.SidebarTrigger>
+        </Layout.Header>
+        <Layout.Sidebar>
+          <Layout.SidebarTrigger action="hide">Hide</Layout.SidebarTrigger>
+        </Layout.Sidebar>
+      </Layout.SidebarProvider>
+    );
+    const { rerender } = render(example('expanded'));
+    const sidebar = screen.getByRole('complementary');
+    expect(sidebar.id).toBe('shared-sidebar');
+    const restore = screen.getByRole('button', { name: 'Expand sidebar' });
+    expect(restore).toHaveAttribute('aria-controls', sidebar.id);
+    await user.click(screen.getByRole('button', { name: 'Hide sidebar' }));
+    expect(change).toHaveBeenLastCalledWith('hidden');
+    expect(sidebar).toHaveAttribute('data-state', 'expanded');
+    rerender(example('hidden'));
+    expect(sidebar).toHaveAttribute('inert');
+    expect(sidebar).toHaveAttribute('aria-hidden', 'true');
+    expect(restore).toHaveFocus();
+    await user.click(restore);
+    expect(change).toHaveBeenLastCalledWith('expanded');
+    expect(sidebar).toHaveAttribute('data-state', 'hidden');
+    rerender(example('collapsed'));
+    expect(sidebar).toHaveAttribute('data-state', 'collapsed');
+    expect(sidebar).not.toHaveAttribute('inert');
+  });
+
+  it('isolates provider scopes and uses explicit three-state control over legacy collapsed', async () => {
+    const user = userEvent.setup();
+    render(
+      <>
+        <Layout.SidebarProvider defaultState="hidden">
+          <Layout.SidebarTrigger action="expand">First</Layout.SidebarTrigger>
+          <Layout.Sidebar aria-label="First navigation" />
+        </Layout.SidebarProvider>
+        <Layout.SidebarProvider>
+          <Layout.SidebarTrigger action="collapse">Second</Layout.SidebarTrigger>
+          <Layout.Sidebar aria-label="Second navigation" />
+        </Layout.SidebarProvider>
+        <Layout.Sidebar state="expanded" collapsed aria-label="Legacy precedence" />
+      </>,
+    );
+    const buttons = screen.getAllByRole('button');
+    expect(buttons[0]?.getAttribute('aria-controls')).not.toBe(
+      buttons[1]?.getAttribute('aria-controls'),
+    );
+    await user.click(buttons[0]!);
+    expect(screen.getByRole('complementary', { name: 'First navigation' })).toHaveAttribute(
+      'data-state',
+      'expanded',
+    );
+    await user.click(buttons[1]!);
+    expect(screen.getByRole('complementary', { name: 'Second navigation' })).toHaveAttribute(
+      'data-state',
+      'collapsed',
+    );
+    expect(screen.getByRole('complementary', { name: 'Legacy precedence' })).toHaveAttribute(
+      'data-state',
+      'expanded',
+    );
+  });
+
   it('renders vertical by default and forwards native props and refs', () => {
     const ref = createRef<HTMLDivElement>();
 

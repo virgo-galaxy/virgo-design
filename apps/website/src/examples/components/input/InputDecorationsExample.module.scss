@@ -4,3 +4,9 @@
   width: 100%;
   max-width: 360px;
 }
+.compact {
+  width: var(--vd-sizing-80);
+}
+.numeric {
+  width: calc(var(--vd-sizing-80) + var(--vd-sizing-40));
+}

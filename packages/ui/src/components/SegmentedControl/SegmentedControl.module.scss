@@ -282,7 +282,7 @@
 @media (prefers-reduced-motion: reduce) {
   .item,
   .item::before,
-  .indicator {
+  .root[data-motion='slide'] .indicator {
     transition-duration: var(--vd-duration-0);
   }
 }

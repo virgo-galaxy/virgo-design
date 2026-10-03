@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vd-spacing-32);
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vd-spacing-12);
+  padding: var(--vd-spacing-8);
+  font-size: var(--vd-font-size-13);
+  color: var(--vd-text-secondary);
+}

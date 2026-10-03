@@ -53,3 +53,51 @@
     transform: none;
   }
 }
+
+.indicator[data-dot][data-animation='breathe'] {
+  --badge-breathe-duration: 2.8s;
+  animation: badge-breathe var(--badge-breathe-duration) ease-in-out infinite;
+
+  &::after {
+    box-sizing: border-box;
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: var(--vd-border-width-1) solid var(--badge-background);
+    border-radius: inherit;
+    pointer-events: none;
+    animation: badge-breathe-ring var(--badge-breathe-duration) ease-out infinite;
+  }
+}
+
+@keyframes badge-breathe {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes badge-breathe-ring {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.75);
+  }
+  80%,
+  100% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indicator[data-dot][data-animation='breathe'] {
+    animation: none;
+    &::after {
+      display: none;
+      animation: none;
+    }
+  }
+}

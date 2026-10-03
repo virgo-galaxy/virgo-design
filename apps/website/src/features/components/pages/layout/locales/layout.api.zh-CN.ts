@@ -2,6 +2,44 @@ import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 
 export const layoutApiZhCN = {
   api: {
+    'layout-sidebar-display-state.description': '侧栏的展开、图标栏与完全隐藏三种独立状态。',
+    'layout-sidebar-state.properties.state.description': '当前解析后的显示状态。',
+    'layout-sidebar-state.properties.set-state.description': '请求改变显示状态。',
+    'layout-sidebar-provider-props.description':
+      '单个侧栏的共享状态与外部触发器作用域。Provider 的状态优先于内部 Sidebar 的状态属性。',
+    'layout-sidebar-provider-props.properties.id.description':
+      '此 Provider 控制的单个 Sidebar 的 ID。省略时自动生成。',
+    'layout-sidebar-provider-props.properties.state.description':
+      'Sidebar 与触发器共享的受控显示状态。',
+    'layout-sidebar-provider-props.properties.default-state.description': '初始非受控显示状态。',
+    'layout-sidebar-provider-props.properties.on-state-change.description':
+      '触发器、拖动吸附或响应式行为请求改变状态时调用。',
+    'layout-sidebar-provider-props.properties.children.description':
+      '此作用域内的 Sidebar 及内部或外部触发器。',
+    'layout-sidebar-trigger-props.properties.action.description':
+      '与 Sidebar 或外层 SidebarProvider 共享的操作。',
+    'layout-sidebar-resize-snap.description': '拖宽时可选的图标栏与隐藏吸附阈值。',
+    'layout-sidebar-resize-snap.properties.collapse-at.description':
+      '原始拖动宽度达到或低于此值时吸附成图标栏。',
+    'layout-sidebar-resize-snap.properties.hide-at.description':
+      '可选隐藏阈值。原始拖动宽度达到或低于此值时隐藏；必须低于 collapseAt。',
+    'layout-sidebar-resize-snap.properties.hysteresis.description':
+      '脱离吸附状态前需额外向外拖动的距离。',
+    'layout-sidebar-resize-result.description': '最终拖宽请求，可用于由使用方保存偏好。',
+    'layout-sidebar-resize-result.properties.width.description':
+      '记住的展开宽度，单位为 px，独立于图标栏与隐藏宽度。',
+    'layout-sidebar-resize-result.properties.state.description': '最终请求的显示状态。',
+    'layout-sidebar-resize-result.properties.cancelled.description':
+      '指针拖动是否已取消并恢复起始状态与宽度。',
+    'layout-sidebar-props.properties.resize-snap.description':
+      '按需启用图标栏与隐藏吸附阈值；最小与最大宽度仍仅约束展开宽度。',
+    'layout-sidebar-props.properties.on-resize-end.description':
+      '指针释放、取消或一次键盘调整结束时调用。',
+    'layout-sidebar-props.properties.state.description': '三种状态的受控属性，优先于旧 collapsed。',
+    'layout-sidebar-props.properties.default-state.description':
+      '初始非受控状态，优先于 defaultCollapsed。',
+    'layout-sidebar-props.properties.on-state-change.description':
+      '独立 Sidebar 请求改变状态时调用；共享作用域中的状态控制应放在 SidebarProvider。',
     'layout-surface.description': 'Surface 渲染全部背景与材质。',
     'layout-surface.properties.tone.description': '语义表面颜色。',
     'layout-surface.properties.material.description': '表面样式，独立于色调与背景。',
@@ -39,8 +77,9 @@ export const layoutApiZhCN = {
       '视口宽度，单位为 px。进入范围时折叠，离开时恢复之前状态。',
     'layout-sidebar-props.properties.resizable.description':
       '允许通过指针与键盘调整已展开侧栏的宽度。',
-    'layout-sidebar-props.properties.min-width.description': '可调整宽度的最小值，单位为 px。',
-    'layout-sidebar-props.properties.max-width.description': '可调整宽度的最大值，单位为 px。',
+    'layout-sidebar-props.properties.min-width.description':
+      '展开宽度的最小值，单位为 px，不约束图标栏或隐藏状态。',
+    'layout-sidebar-props.properties.max-width.description': '展开宽度的最大值，单位为 px。',
     'layout-sidebar-props.properties.on-width-change.description': '可调整宽度变化期间调用。',
     'layout-sidebar-props.properties.offset.description': '浮动模式下与容器区域边缘的距离。',
     'layout-content-props.properties.class-name.description': '应用到主内容区域的自定义 class。',

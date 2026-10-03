@@ -5,7 +5,9 @@ import type {
   LayoutHeaderProps as PrimitiveLayoutHeaderProps,
   LayoutLaneProps as PrimitiveLayoutLaneProps,
   LayoutProps as PrimitiveLayoutProps,
+  LayoutSidebarDisplayState,
   LayoutSidebarProps as PrimitiveLayoutSidebarProps,
+  LayoutSidebarProviderProps,
   LayoutSidebarState,
   LayoutSidebarTriggerProps,
 } from '@virgo-design/primitives';
@@ -14,7 +16,32 @@ import type { CSSProperties, HTMLAttributes, ReactNode } from 'react';
 import type { SurfaceProps } from '../Surface';
 
 export type { LayoutDirection };
-export type { LayoutSidebarState, LayoutSidebarTriggerProps };
+export type {
+  LayoutSidebarDisplayState,
+  LayoutSidebarProviderProps,
+  LayoutSidebarState,
+  LayoutSidebarTriggerProps,
+};
+
+/** Optional magnetic rail and hidden thresholds for resizing. */
+export interface LayoutSidebarResizeSnap {
+  /** Raw drag width at or below which the sidebar snaps to its rail. */
+  collapseAt: number;
+  /** Optional raw drag width at or below which the sidebar becomes hidden. Must be lower than collapseAt. */
+  hideAt?: number;
+  /** Additional outward distance before leaving a snapped state. @default 16 */
+  hysteresis?: number;
+}
+
+/** Final resize request, suitable for consumer-owned preference persistence. */
+export interface LayoutSidebarResizeResult {
+  /** Remembered expanded width in px, independent from rail/hidden width. */
+  width: number;
+  /** Final requested display state. */
+  state: LayoutSidebarDisplayState;
+  /** Whether the pointer gesture was canceled and its starting state restored. */
+  cancelled: boolean;
+}
 
 /** Surface owns all background and material rendering. */
 export type LayoutSurface = Pick<
@@ -82,12 +109,16 @@ export interface LayoutSidebarProps extends PrimitiveLayoutSidebarProps {
   collapseBelow?: number;
   /** Allows pointer and keyboard resizing of the expanded sidebar width. */
   resizable?: boolean;
-  /** Minimum resizable width in px. */
+  /** Minimum expanded width in px; does not constrain rail or hidden state. */
   minWidth?: number;
-  /** Maximum resizable width in px. */
+  /** Maximum expanded width in px. */
   maxWidth?: number;
   /** Called while the resizable width changes. */
   onWidthChange?: (width: number) => void;
+  /** Opt-in rail/hidden snap thresholds. Expanded min/max bounds still apply only to expanded widths. */
+  resizeSnap?: LayoutSidebarResizeSnap;
+  /** Called on pointer release/cancel or a keyboard resize step. */
+  onResizeEnd?: (result: LayoutSidebarResizeResult) => void;
   mode?: 'inline' | 'overlay' | 'floating';
   /** Distance from the containing region's edges in floating mode. */
   offset?: LayoutLength;

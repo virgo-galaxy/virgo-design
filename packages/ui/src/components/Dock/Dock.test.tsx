@@ -3,9 +3,23 @@ import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { Tooltip } from '../Tooltip';
 import { Dock } from './index';
 
 describe('Dock UI', () => {
+  it('inherits shared tooltip size and arrow preferences for built-in controls', () => {
+    render(
+      <Tooltip.Provider size="medium" arrow>
+        <Dock>
+          <Dock.Content>Tools</Dock.Content>
+        </Dock>
+      </Tooltip.Provider>,
+    );
+    fireEvent.focus(screen.getByRole('button', { name: 'Lock dock' }));
+    const panel = screen.getByRole('tooltip');
+    expect(panel).toHaveAttribute('data-size', 'medium');
+    expect(panel.querySelector('[data-slot="arrow"]')).not.toBeNull();
+  });
   it('includes working lock and pin controls without consumer-owned actions or state', () => {
     render(
       <Dock data-testid="dock">

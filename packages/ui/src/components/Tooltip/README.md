@@ -28,6 +28,18 @@ Content supports `placement="top"`, `offset={8}`, `arrow={true}` and `tone="defa
 
 Content portals to the document body, inherits the nearest data-theme and direction, and repositions on scroll, resize and content resize. CSS motion respects reduced motion. During exit, content is inert and aria-hidden and the description is removed from Trigger.
 
+Use `Tooltip.Provider` to share presentation defaults across an application:
+
+```tsx
+<Tooltip.Provider size="small" arrow={showArrows}>
+  <App />
+</Tooltip.Provider>
+```
+
+Defaults apply through portals, including built-in Table sort and Dock control hints.
+Nested providers inherit omitted options; explicit `Tooltip.Content` options take
+precedence. Updating `arrow` changes open panels immediately without remounting.
+
 When its trigger scrolls completely outside the viewport, the tooltip is hidden until the trigger returns, rather than remaining pinned to a screen edge.
 
 `smoothTransition` defaults to `false`. Ordinary tooltips each use their own `openDelay` and gently scale/fade at their own trigger; they do not move from another tooltip's position or inherit its warm hover state.
@@ -36,4 +48,5 @@ Opt in with `<Tooltip smoothTransition>` on each participating tooltip. Between 
 
 Only one tooltip is presented per document. Opening another cancels pending hover timers and closes the old panel without moving focus; ordinary panels finish their exit animation in place, while opted-in smooth handoffs remove the old panel immediately. Controlled tooltips receive `onOpenChange(false)` on handoff; a stale `open` value cannot keep the superseded panel visible. A new trigger interaction or a subsequent false-to-true open change can present it again. Ordinary dismissal still uses the exit animation.
 
-The shared internal overlay remains private. No new provider or global configuration is required. Documentation: `/components/tooltip`.
+The shared internal overlay remains private. The presentation provider is optional.
+Documentation: `/components/tooltip`.

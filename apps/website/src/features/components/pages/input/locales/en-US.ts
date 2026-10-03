@@ -25,12 +25,12 @@ export const inputEnUS = {
   icons: {
     title: 'Prefix and suffix',
     description:
-      'Decorative prefix and suffix slots inherit currentColor, remain outside the tab order, and let Input own their size.',
+      'Prefix and suffix accept text, units, or icons. Text uses its natural width; icons follow the input size. Decorative slots stay outside the tab order, so include meaningful units in the accessible label.',
   },
   actions: {
     title: 'Actions',
     description:
-      'Clearable and password inputs add small, keyboard-accessible actions without changing native input behavior.',
+      'Clearable, password, and numeric inputs add keyboard-accessible actions. Numeric steppers use the native min, max, and step rules.',
   },
   states: {
     title: 'States',

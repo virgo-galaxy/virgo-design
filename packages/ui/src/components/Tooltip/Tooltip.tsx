@@ -4,6 +4,7 @@ import { forwardRef } from 'react';
 import { Button } from '../Button';
 import styles from './Tooltip.module.scss';
 import type { TooltipContentProps, TooltipProps, TooltipTriggerProps } from './Tooltip.types';
+import { TooltipProvider, useTooltipPresentation } from './TooltipContext';
 
 const Root = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
   { className, ...props },
@@ -37,9 +38,12 @@ const Trigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>(function Tool
   );
 });
 const Content = forwardRef<HTMLDivElement, TooltipContentProps>(function TooltipContent(
-  { arrow = true, tone = 'default', size = 'medium', className, children, ...props },
+  { arrow: arrowProp, tone = 'default', size: sizeProp, className, children, ...props },
   ref,
 ) {
+  const presentation = useTooltipPresentation();
+  const size = sizeProp ?? presentation.size ?? 'medium';
+  const arrow = arrowProp ?? presentation.arrow ?? true;
   return (
     <PrimitiveTooltip.Content
       {...props}
@@ -55,4 +59,4 @@ const Content = forwardRef<HTMLDivElement, TooltipContentProps>(function Tooltip
     </PrimitiveTooltip.Content>
   );
 });
-export const Tooltip = Object.assign(Root, { Trigger, Content });
+export const Tooltip = Object.assign(Root, { Trigger, Content, Provider: TooltipProvider });

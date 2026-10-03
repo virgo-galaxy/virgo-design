@@ -27,11 +27,13 @@ export const inputZhCN = {
   },
   icons: {
     title: '前缀与后缀',
-    description: '装饰性前缀与后缀插槽继承 currentColor，不进入 Tab 顺序，尺寸由 Input 管理。',
+    description:
+      '前后缀支持文字、单位或图标。文字按内容宽度显示，图标随输入框尺寸变化。装饰性插槽不进入 Tab 顺序，具有含义的单位应同时写入可访问标签。',
   },
   actions: {
     title: '操作',
-    description: '可清空输入与密码输入添加小型键盘可访问操作，不改变原生输入行为。',
+    description:
+      '可清空、密码和数值输入提供键盘可访问操作。数值增减按钮遵循原生 min、max 和 step 规则。',
   },
   states: {
     title: '状态',

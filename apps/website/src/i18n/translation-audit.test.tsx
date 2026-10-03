@@ -20,7 +20,7 @@ afterEach(async () => {
 describe('B8 translation audit regressions', () => {
   it('keeps every example caption out of the English fallback path in Chinese', async () => {
     await setAppLocale('zh-CN');
-    expect(componentExampleRegistry.size).toBe(242);
+    expect(componentExampleRegistry.size).toBe(243);
     for (const example of componentExampleRegistry.values()) {
       for (const [key, fallback] of [
         [example.titleTranslationKey, example.title],

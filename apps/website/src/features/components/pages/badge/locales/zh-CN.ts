@@ -32,4 +32,10 @@ export const badgeZhCN = {
     title: '按钮、图标与独立徽标',
     description: '指示器忽略指针事件，包裹的控件保留正常交互。',
   },
+  motion: {
+    title: '呼吸圆点',
+    description: '通过 animation="breathe" 开启；系统启用减少动态效果时保持静态。',
+    static: '静态圆点',
+    breathing: '呼吸圆点',
+  },
 } satisfies LocaleOf<typeof badgeEnUS>;

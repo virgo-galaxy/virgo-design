@@ -10,7 +10,15 @@ export const badgeMetadata = {
     name,
     description: 'Theme-aware semantic indicator color.',
   })),
-  states: ['count', 'overflow', 'zero-hidden', 'zero-visible', 'dot', 'standalone'],
+  states: [
+    'count',
+    'overflow',
+    'zero-hidden',
+    'zero-visible',
+    'dot',
+    'breathing-dot',
+    'standalone',
+  ],
   anatomy: [
     { name: 'Badge', description: 'Relative host wrapper or standalone inline container.' },
     { name: 'indicator', description: 'Non-interactive count or dot marker.' },
@@ -21,6 +29,8 @@ export const badgeMetadata = {
     maxCount: true,
     showZero: true,
     dot: true,
+    dotAnimation: true,
+    reducedMotion: true,
     standalone: true,
     overlayEngine: false,
   },
@@ -28,6 +38,7 @@ export const badgeMetadata = {
     'Badge never enters the tab order and does not intercept pointer interaction with its host.',
     'Numeric and short text content remain readable by assistive technology.',
     'Meaningful dots need an aria-label because color alone cannot communicate their state.',
+    'Breathing is opt-in for dots only and stops when prefers-reduced-motion is enabled.',
   ],
   examples: [],
 } as const satisfies ComponentMetadata;

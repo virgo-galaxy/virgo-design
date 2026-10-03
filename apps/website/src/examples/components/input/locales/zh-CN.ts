@@ -11,6 +11,10 @@ export const inputExamplesZhCN = {
     searchComponents: '搜索组件',
     approvedName: '已批准名称',
     account: '账户',
+    amount: '金额（人民币）',
+    disabledAmount: '禁用的金额（人民币）',
+    widthInPixels: '宽度（像素）',
+    heightInPixels: '高度（像素）',
     currentPassword: '当前密码',
     defaultInput: '默认输入框',
     typeSomething: '输入内容',
@@ -28,7 +32,8 @@ export const inputExamplesZhCN = {
     emptyHintsAndEditableDefaultValuesUseNativeInputSemantics:
       '空值提示和可编辑默认值使用原生输入语义。',
     prefixAndSuffix: '前缀与后缀',
-    decorativeIconsStayOutsideTheTabOrder: '装饰图标不进入 Tab 顺序。',
+    decorativeIconsStayOutsideTheTabOrder:
+      '文字、单位或图标均可作为装饰性前后缀。具有含义的单位应同时写入可访问标签。',
     clearableInput: '可清空输入框',
     clearTheCurrentValueWhileRetainingTypingFocus: '清空当前值，并保留输入焦点。',
     passwordReveal: '密码显示',

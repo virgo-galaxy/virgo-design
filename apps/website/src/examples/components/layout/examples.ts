@@ -132,7 +132,7 @@ export const layoutExamples = {
     title: 'Resizable sidebar',
     titleTranslationKey: 'examples.layout.copy.resizableSidebar',
     description:
-      'Drag the divider, or use the keyboard, to resize Sidebar within its minimum and maximum width.',
+      'Resize within bounds, snap to a rail, continue to hide, and restore through a provider-scoped external trigger.',
     descriptionTranslationKey: 'examples.layout.copy.dragTheDividerOrUseTheKeyboardToResizeSidebar',
     Component: LayoutResizableSidebarExample,
     source: createExampleSource(layoutResizableSidebarSource),

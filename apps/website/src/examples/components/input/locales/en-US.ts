@@ -8,6 +8,10 @@ export const inputExamplesEnUS = {
     searchComponents: 'Search components',
     approvedName: 'Approved name',
     account: 'Account',
+    amount: 'Amount in RMB',
+    disabledAmount: 'Disabled amount in RMB',
+    widthInPixels: 'Width in pixels',
+    heightInPixels: 'Height in pixels',
     currentPassword: 'Current password',
     defaultInput: 'Default input',
     typeSomething: 'Type something',
@@ -26,7 +30,8 @@ export const inputExamplesEnUS = {
     emptyHintsAndEditableDefaultValuesUseNativeInputSemantics:
       'Empty hints and editable default values use native input semantics.',
     prefixAndSuffix: 'Prefix and suffix',
-    decorativeIconsStayOutsideTheTabOrder: 'Decorative icons stay outside the tab order.',
+    decorativeIconsStayOutsideTheTabOrder:
+      'Use text, units, or icons as decorative prefixes and suffixes. Include meaningful units in the accessible label.',
     clearableInput: 'Clearable input',
     clearTheCurrentValueWhileRetainingTypingFocus:
       'Clear the current value while retaining typing focus.',

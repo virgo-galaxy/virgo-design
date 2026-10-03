@@ -576,6 +576,16 @@ export const componentApiReference: ApiReferenceRegistry = {
         descriptionTranslationKey: 'components.badge.api.badge-intent.description',
       },
       {
+        name: 'BadgeAnimation',
+        kind: 'type',
+        signature: "'none' | 'breathe'",
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'components.badge.api.badge-animation.description',
+      },
+      {
         name: 'BadgeProps',
         kind: 'interface',
         signature: 'extends HTMLAttributes<HTMLSpanElement>',
@@ -622,6 +632,17 @@ export const componentApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.badge.api.badge-props.properties.dot.description',
+          },
+          {
+            name: 'animation',
+            type: 'BadgeAnimation',
+            required: false,
+            defaultValue: "'none'",
+            description:
+              'Optional dot animation. Counts stay static; respects prefers-reduced-motion.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.badge.api.badge-props.properties.animation.description',
           },
           {
             name: 'intent',
@@ -5974,6 +5995,37 @@ export const componentApiReference: ApiReferenceRegistry = {
         descriptionTranslationKey: 'components.input.api.input-size.description',
       },
       {
+        name: 'InputStepperRepeatOptions',
+        kind: 'interface',
+        signature: '',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'delay',
+            type: 'number',
+            required: false,
+            defaultValue: '400',
+            description: 'Delay in milliseconds before a held step button starts repeating.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-stepper-repeat-options.properties.delay.description',
+          },
+          {
+            name: 'interval',
+            type: 'number',
+            required: false,
+            defaultValue: '80',
+            description: 'Milliseconds between repeated steps, with a minimum of 16.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-stepper-repeat-options.properties.interval.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.input.api.input-stepper-repeat-options.description',
+      },
+      {
         name: 'InputProps',
         kind: 'interface',
         signature: "extends Omit<PrimitiveInputProps, 'prefix' | 'size'>",
@@ -6007,7 +6059,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'ReactNode',
             required: false,
             defaultValue: '',
-            description: 'Decorative content rendered before the text-entry control.',
+            description: 'Decorative text, unit, or icon rendered before the text-entry control.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.input.api.input-props.properties.prefix.description',
@@ -6017,7 +6069,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'ReactNode',
             required: false,
             defaultValue: '',
-            description: 'Decorative content rendered after the text-entry control.',
+            description: 'Decorative text, unit, or icon rendered after the text-entry control.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.input.api.input-props.properties.suffix.description',
@@ -6031,6 +6083,39 @@ export const componentApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.input.api.input-props.properties.clearable.description',
+          },
+          {
+            name: 'steppers',
+            type: 'boolean',
+            required: false,
+            defaultValue: 'false',
+            description:
+              'Shows theme-aware increase/decrease buttons for type="number". Uses native min, max,\nand step rules; ignored for other types or step="any". Button width defaults to 24px\nand can be customized with --input-stepper-width on the frame.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-props.properties.steppers.description',
+          },
+          {
+            name: 'stepperRepeat',
+            type: 'boolean | InputStepperRepeatOptions',
+            required: false,
+            defaultValue: 'true',
+            description:
+              'Hold-to-repeat behavior for numeric steppers. False disables repetition; an object customizes timing.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-props.properties.stepper-repeat.description',
+          },
+          {
+            name: 'stepperReverse',
+            type: 'boolean',
+            required: false,
+            defaultValue: 'false',
+            description:
+              'Reverses numeric arrow actions: up decreases and down increases, including held buttons and keyboard arrows.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.input.api.input-props.properties.stepper-reverse.description',
           },
           {
             name: 'leadingIcon',
@@ -6068,7 +6153,7 @@ export const componentApiReference: ApiReferenceRegistry = {
       {
         name: 'InputPasswordProps',
         kind: 'type',
-        signature: "Omit<InputProps, 'type'>",
+        signature: "Omit< InputProps, 'type' | 'steppers' | 'stepperRepeat' | 'stepperReverse' >",
         description: '',
         source: '@virgo-design/ui',
         reExported: false,
@@ -6078,7 +6163,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'ReactNode',
             required: false,
             defaultValue: '',
-            description: 'Decorative content rendered before the text-entry control.',
+            description: 'Decorative text, unit, or icon rendered before the text-entry control.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.input.api.input-password-props.properties.prefix.description',
@@ -6129,7 +6214,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'ReactNode',
             required: false,
             defaultValue: '',
-            description: 'Decorative content rendered after the text-entry control.',
+            description: 'Decorative text, unit, or icon rendered after the text-entry control.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.input.api.input-password-props.properties.suffix.description',
@@ -6214,6 +6299,81 @@ export const componentApiReference: ApiReferenceRegistry = {
         descriptionTranslationKey: 'components.layout.api.layout-direction.description',
       },
       {
+        name: 'LayoutSidebarDisplayState',
+        kind: 'type',
+        signature: "'expanded' | 'collapsed' | 'hidden'",
+        description: 'Distinct expanded, icon-rail and fully hidden Sidebar states.',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey: 'components.layout.api.layout-sidebar-display-state.description',
+      },
+      {
+        name: 'LayoutSidebarProviderProps',
+        kind: 'interface',
+        signature: '',
+        description:
+          'Shared state and external trigger scope for one Sidebar. Provider state takes precedence over nested Sidebar state props.',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [
+          {
+            name: 'id',
+            type: 'string',
+            required: false,
+            defaultValue: '',
+            description:
+              'ID of the single Sidebar controlled by this provider. Generated when omitted.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-provider-props.properties.id.description',
+          },
+          {
+            name: 'state',
+            type: 'LayoutSidebarDisplayState',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled display state shared by the Sidebar and triggers.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-provider-props.properties.state.description',
+          },
+          {
+            name: 'defaultState',
+            type: 'LayoutSidebarDisplayState',
+            required: false,
+            defaultValue: "'expanded'",
+            description: 'Initial uncontrolled display state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-provider-props.properties.default-state.description',
+          },
+          {
+            name: 'onStateChange',
+            type: '(state: LayoutSidebarDisplayState) => void',
+            required: false,
+            defaultValue: '',
+            description:
+              'Called when a trigger, resize snap or responsive behavior requests a state change.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-provider-props.properties.on-state-change.description',
+          },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Sidebar and any internal or external triggers within this scope.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-provider-props.properties.children.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'components.layout.api.layout-sidebar-provider-props.description',
+      },
+      {
         name: 'LayoutSidebarState',
         kind: 'interface',
         signature: '',
@@ -6221,6 +6381,26 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [
+          {
+            name: 'state',
+            type: 'LayoutSidebarDisplayState',
+            required: true,
+            defaultValue: '',
+            description: 'Current resolved display state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-state.properties.state.description',
+          },
+          {
+            name: 'setState',
+            type: '(state: LayoutSidebarDisplayState) => void',
+            required: true,
+            defaultValue: '',
+            description: 'Requests a display-state change.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-state.properties.set-state.description',
+          },
           {
             name: 'collapsed',
             type: 'boolean',
@@ -6253,6 +6433,16 @@ export const componentApiReference: ApiReferenceRegistry = {
         reExported: true,
         properties: [
           {
+            name: 'action',
+            type: "'toggle' | 'expand' | 'collapse' | 'hide'",
+            required: false,
+            defaultValue: "'toggle'",
+            description: 'Action shared with its Sidebar or enclosing SidebarProvider.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-trigger-props.properties.action.description',
+          },
+          {
             name: 'render',
             type: '(\n    props: ButtonHTMLAttributes<HTMLButtonElement> & { ref: Ref<HTMLButtonElement> },\n  ) => ReactElement',
             required: false,
@@ -6264,6 +6454,90 @@ export const componentApiReference: ApiReferenceRegistry = {
           },
         ],
         descriptionTranslationKey: 'components.layout.api.layout-sidebar-trigger-props.description',
+      },
+      {
+        name: 'LayoutSidebarResizeSnap',
+        kind: 'interface',
+        signature: '',
+        description: 'Optional magnetic rail and hidden thresholds for resizing.',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'collapseAt',
+            type: 'number',
+            required: true,
+            defaultValue: '',
+            description: 'Raw drag width at or below which the sidebar snaps to its rail.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-resize-snap.properties.collapse-at.description',
+          },
+          {
+            name: 'hideAt',
+            type: 'number',
+            required: false,
+            defaultValue: '',
+            description:
+              'Optional raw drag width at or below which the sidebar becomes hidden. Must be lower than collapseAt.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-resize-snap.properties.hide-at.description',
+          },
+          {
+            name: 'hysteresis',
+            type: 'number',
+            required: false,
+            defaultValue: '16',
+            description: 'Additional outward distance before leaving a snapped state.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-resize-snap.properties.hysteresis.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.layout.api.layout-sidebar-resize-snap.description',
+      },
+      {
+        name: 'LayoutSidebarResizeResult',
+        kind: 'interface',
+        signature: '',
+        description: 'Final resize request, suitable for consumer-owned preference persistence.',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'width',
+            type: 'number',
+            required: true,
+            defaultValue: '',
+            description: 'Remembered expanded width in px, independent from rail/hidden width.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-resize-result.properties.width.description',
+          },
+          {
+            name: 'state',
+            type: 'LayoutSidebarDisplayState',
+            required: true,
+            defaultValue: '',
+            description: 'Final requested display state.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-resize-result.properties.state.description',
+          },
+          {
+            name: 'cancelled',
+            type: 'boolean',
+            required: true,
+            defaultValue: '',
+            description:
+              'Whether the pointer gesture was canceled and its starting state restored.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-resize-result.properties.cancelled.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.layout.api.layout-sidebar-resize-result.description',
       },
       {
         name: 'LayoutSurface',
@@ -6747,7 +7021,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'number',
             required: false,
             defaultValue: '',
-            description: 'Minimum resizable width in px.',
+            description: 'Minimum expanded width in px; does not constrain rail or hidden state.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.layout.api.layout-sidebar-props.properties.min-width.description',
@@ -6757,7 +7031,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'number',
             required: false,
             defaultValue: '',
-            description: 'Maximum resizable width in px.',
+            description: 'Maximum expanded width in px.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.layout.api.layout-sidebar-props.properties.max-width.description',
@@ -6771,6 +7045,27 @@ export const componentApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.layout.api.layout-sidebar-props.properties.on-width-change.description',
+          },
+          {
+            name: 'resizeSnap',
+            type: 'LayoutSidebarResizeSnap',
+            required: false,
+            defaultValue: '',
+            description:
+              'Opt-in rail/hidden snap thresholds. Expanded min/max bounds still apply only to expanded widths.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.resize-snap.description',
+          },
+          {
+            name: 'onResizeEnd',
+            type: '(result: LayoutSidebarResizeResult) => void',
+            required: false,
+            defaultValue: '',
+            description: 'Called on pointer release/cancel or a keyboard resize step.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.on-resize-end.description',
           },
           {
             name: 'mode',
@@ -6811,6 +7106,37 @@ export const componentApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.layout.api.layout-sidebar-props.properties.surface.description',
+          },
+          {
+            name: 'state',
+            type: 'LayoutSidebarDisplayState',
+            required: false,
+            defaultValue: '',
+            description: 'Three-state control. Takes precedence over legacy collapsed.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.state.description',
+          },
+          {
+            name: 'defaultState',
+            type: 'LayoutSidebarDisplayState',
+            required: false,
+            defaultValue: '',
+            description: 'Initial uncontrolled state. Takes precedence over defaultCollapsed.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.default-state.description',
+          },
+          {
+            name: 'onStateChange',
+            type: '(state: LayoutSidebarDisplayState) => void',
+            required: false,
+            defaultValue: '',
+            description:
+              'Called when the standalone Sidebar requests a state change. Place state control on SidebarProvider when using a shared scope.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.layout.api.layout-sidebar-props.properties.on-state-change.description',
           },
           {
             name: 'collapsed',
@@ -11167,6 +11493,48 @@ export const componentApiReference: ApiReferenceRegistry = {
         reExported: false,
         properties: [],
         descriptionTranslationKey: 'components.tooltip.api.tooltip-tone.description',
+      },
+      {
+        name: 'TooltipProviderProps',
+        kind: 'interface',
+        signature: '',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'children',
+            type: 'ReactNode',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-provider-props.properties.children.description',
+          },
+          {
+            name: 'size',
+            type: 'TooltipSize',
+            required: false,
+            defaultValue: '',
+            description:
+              'Default content density for descendant tooltips, including built-in control hints.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-provider-props.properties.size.description',
+          },
+          {
+            name: 'arrow',
+            type: 'boolean',
+            required: false,
+            defaultValue: '',
+            description: 'Default arrow visibility for descendant tooltips.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-provider-props.properties.arrow.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.tooltip.api.tooltip-provider-props.description',
       },
       {
         name: 'TooltipTriggerProps',

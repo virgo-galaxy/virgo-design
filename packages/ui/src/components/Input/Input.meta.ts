@@ -5,7 +5,7 @@ export const inputMetadata = {
   package: '@virgo-design/ui',
   category: 'Forms',
   description:
-    'Accepts a single line of text with optional adornments, clearing, password reveal, and native input semantics.',
+    'Accepts a single line of text or a number with optional adornments, numeric stepping, clearing, password reveal, and native input semantics.',
   import: "import { Input } from '@virgo-design/ui';",
   sizes: [
     { name: 'mini', description: '24px height for compact interfaces.' },
@@ -32,6 +32,11 @@ export const inputMetadata = {
       description: 'Optional decorative content after the native input control.',
     },
     {
+      name: 'steppers',
+      description:
+        'Optional increase/decrease buttons for native numeric inputs before the suffix.',
+    },
+    {
       name: 'action',
       description: 'Optional clear or password-visibility action after the control.',
     },
@@ -44,6 +49,9 @@ export const inputMetadata = {
     invalid: true,
     readOnly: true,
     clearable: true,
+    steppers: true,
+    stepperRepeat: true,
+    stepperReverse: true,
     passwordReveal: true,
     loading: false,
   },
@@ -52,6 +60,9 @@ export const inputMetadata = {
     'Defaults to type="text" when no explicit native input type is provided.',
     'Treats prefix and suffix content as decorative and hides them from the accessibility tree.',
     'Clear and password-visibility actions are keyboard accessible and restore focus to the input.',
+    'Numeric step buttons respect min, max and step, disable at bounds or for disabled/read-only fields, and preserve native input events and focus.',
+    'Held step buttons repeat after a configurable delay and stop on release, pointer exit/cancel, window blur, bounds, or unmount.',
+    'Optional stepperReverse makes the up arrow decrease and the down arrow increase; keyboard arrows and accessible action labels follow the same mapping.',
     'Sets aria-invalid when the invalid prop is true.',
     'Placeholder text is not a substitute for an accessible label.',
   ],

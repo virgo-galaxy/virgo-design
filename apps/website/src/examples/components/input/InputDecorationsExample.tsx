@@ -25,6 +25,40 @@ export default function App() {
         prefix={<UserIcon />}
         suffix={<CheckIcon />}
       />
+      <Input
+        aria-label={t('examples.input.copy.amount')}
+        inputMode="decimal"
+        defaultValue="100"
+        prefix="¥"
+        suffix="RMB"
+      />
+      <Input
+        aria-label={t('examples.input.copy.disabledAmount')}
+        defaultValue="100"
+        prefix="¥"
+        suffix="RMB"
+        disabled
+      />
+      <Input
+        aria-label={t('examples.input.copy.widthInPixels')}
+        inputMode="numeric"
+        defaultValue="224"
+        size="mini"
+        suffix="px"
+        rootClassName={styles.compact!}
+      />
+      <Input
+        aria-label={t('examples.input.copy.heightInPixels')}
+        type="number"
+        steppers
+        stepperReverse
+        min={48}
+        max={96}
+        step={1}
+        defaultValue={64}
+        suffix="px"
+        rootClassName={styles.numeric!}
+      />
     </div>
   );
 }

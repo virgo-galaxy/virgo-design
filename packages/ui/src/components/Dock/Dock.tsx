@@ -5,6 +5,7 @@ import { forwardRef } from 'react';
 import { useControlLabels } from '../../shared/control-labels';
 import { Button } from '../Button';
 import { Tooltip } from '../Tooltip';
+import { useTooltipPresentation } from '../Tooltip/TooltipContext';
 import styles from './Dock.module.scss';
 import type {
   DockBoundaryProps,
@@ -55,6 +56,7 @@ Root.displayName = 'Dock';
 
 function DockControls({ state, disabled }: { state: DockState; disabled: boolean | undefined }) {
   const labels = useControlLabels();
+  const tooltipPresentation = useTooltipPresentation();
   const { locked, pinned, setLocked, setPinned } = state;
   const actions = [
     {
@@ -89,7 +91,10 @@ function DockControls({ state, disabled }: { state: DockState; disabled: boolean
               </Button>
             )}
           />
-          <Tooltip.Content size="small" arrow={false}>
+          <Tooltip.Content
+            size={tooltipPresentation.size ?? 'small'}
+            arrow={tooltipPresentation.arrow ?? false}
+          >
             {hint}
           </Tooltip.Content>
         </Tooltip>

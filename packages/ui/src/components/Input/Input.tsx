@@ -1,4 +1,10 @@
-import { CloseIcon, EyeClosedIcon, EyeIcon } from '@virgo-design/icons';
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  CloseIcon,
+  EyeClosedIcon,
+  EyeIcon,
+} from '@virgo-design/icons';
 import { Field as PrimitiveField, Input as PrimitiveInput } from '@virgo-design/primitives';
 import {
   type ChangeEvent,
@@ -6,6 +12,7 @@ import {
   forwardRef,
   type ReactNode,
   useCallback,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -48,16 +55,16 @@ function useInputRef(forwardedRef: ForwardedRef<HTMLInputElement>) {
   return [inputRef, composedRef] as const;
 }
 
-function clearNativeInput(input: HTMLInputElement) {
+function setNativeInputValue(input: HTMLInputElement, value: string) {
   const window = input.ownerDocument.defaultView;
   const valueSetter = window
     ? Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set
     : undefined;
 
   if (valueSetter) {
-    valueSetter.call(input, '');
+    valueSetter.call(input, value);
   } else {
-    input.value = '';
+    input.value = value;
   }
 
   input.dispatchEvent(new (window?.Event ?? Event)('input', { bubbles: true }));
@@ -73,6 +80,9 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
     prefix,
     suffix,
     clearable = false,
+    steppers = false,
+    stepperRepeat = true,
+    stepperReverse = false,
     leadingIcon,
     trailingIcon,
     invalid = false,
@@ -83,6 +93,7 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
     value,
     defaultValue,
     onChange,
+    onKeyDown,
     endAction,
     'aria-invalid': ariaInvalid,
     ...props
@@ -92,21 +103,78 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
   const labels = useControlLabels();
   const isInvalid = invalid || hasAriaInvalidValue(ariaInvalid);
   const isControlled = value !== undefined;
-  const [uncontrolledHasValue, setUncontrolledHasValue] = useState(() =>
-    hasInputValue(defaultValue),
-  );
+  const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
+  const currentValue = isControlled ? value : uncontrolledValue;
   const [inputRef, composedRef] = useInputRef(forwardedRef);
   const resolvedPrefix = prefix ?? leadingIcon;
   const resolvedSuffix = suffix ?? trailingIcon;
-  const showsClearAction =
-    clearable &&
-    (isControlled ? hasInputValue(value) : uncontrolledHasValue) &&
-    !disabled &&
-    !readOnly;
+  const showsClearAction = clearable && hasInputValue(currentValue) && !disabled && !readOnly;
+  const showsSteppers = steppers && props.type === 'number' && props.step !== 'any';
+  const upDirection = stepperReverse ? -1 : 1;
+  const downDirection = stepperReverse ? 1 : -1;
+  const numericValue = hasInputValue(currentValue) ? Number(currentValue) : NaN;
+  const cannotIncrease =
+    disabled ||
+    readOnly ||
+    (props.max !== undefined && numericValue >= parseFloat(String(props.max)));
+  const cannotDecrease =
+    disabled ||
+    readOnly ||
+    (props.min !== undefined && numericValue <= parseFloat(String(props.min)));
+  const stepValue = (direction: 1 | -1) => {
+    const input = inputRef.current;
+    if (!input || input.disabled || input.readOnly) return false;
+    input.focus({ preventScroll: true });
+    const previous = input.value;
+    if (direction === 1) input.stepUp();
+    else input.stepDown();
+    const next = input.value;
+    if (next !== previous) setNativeInputValue(input, next);
+    return next !== previous;
+  };
+  const repeats = showsSteppers && stepperRepeat !== false;
+  const repeatOptions = typeof stepperRepeat === 'object' ? stepperRepeat : undefined;
+  const repeatDelay = Number.isFinite(repeatOptions?.delay)
+    ? Math.max(0, repeatOptions!.delay!)
+    : 400;
+  const repeatInterval = Number.isFinite(repeatOptions?.interval)
+    ? Math.max(16, repeatOptions!.interval!)
+    : 80;
+  const repeatCleanup = useRef<() => void>(() => {});
+  const stopRepeating = useCallback(() => repeatCleanup.current(), []);
+  useEffect(() => {
+    // Timers must also stop when the input is removed, disabled, or reconfigured.
+    return stopRepeating;
+  }, [repeats, repeatDelay, repeatInterval, stepperReverse, disabled, readOnly, stopRepeating]);
+  const startRepeating = (direction: 1 | -1) => {
+    stopRepeating();
+    if (!repeats || !stepValue(direction)) return;
+    const ownerWindow = inputRef.current!.ownerDocument.defaultView!;
+    let timer: number;
+    const stop = () => {
+      ownerWindow.clearTimeout(timer);
+      ownerWindow.removeEventListener('pointerup', stop, true);
+      ownerWindow.removeEventListener('pointercancel', stop, true);
+      ownerWindow.removeEventListener('blur', stop);
+      repeatCleanup.current = () => {};
+    };
+    const tick = () => {
+      if (!stepValue(direction)) {
+        stop();
+        return;
+      }
+      timer = ownerWindow.setTimeout(tick, repeatInterval);
+    };
+    repeatCleanup.current = stop;
+    ownerWindow.addEventListener('pointerup', stop, true);
+    ownerWindow.addEventListener('pointercancel', stop, true);
+    ownerWindow.addEventListener('blur', stop);
+    timer = ownerWindow.setTimeout(tick, repeatDelay);
+  };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {
-      setUncontrolledHasValue(hasInputValue(event.currentTarget.value));
+      setUncontrolledValue(event.currentTarget.value);
     }
 
     onChange?.(event);
@@ -120,6 +188,8 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
       data-invalid={isInvalid || undefined}
       data-readonly={readOnly || undefined}
       data-size={size}
+      data-steppers={showsSteppers || undefined}
+      data-stepper-reverse={(showsSteppers && stepperReverse) || undefined}
     >
       {resolvedPrefix !== undefined && resolvedPrefix !== null ? (
         <span
@@ -139,10 +209,62 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
         defaultValue={defaultValue}
         disabled={disabled}
         onChange={handleChange}
+        onKeyDown={(event) => {
+          onKeyDown?.(event);
+          if (event.defaultPrevented || !showsSteppers || !stepperReverse || disabled || readOnly)
+            return;
+          if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            event.preventDefault();
+            stepValue(event.key === 'ArrowUp' ? -1 : 1);
+          }
+        }}
         readOnly={readOnly}
         value={value}
         data-slot="control"
       />
+
+      {showsSteppers ? (
+        <span className={styles.steppers} data-slot="steppers">
+          <button
+            type="button"
+            className={styles.stepper}
+            data-slot={stepperReverse ? 'decrease-action' : 'increase-action'}
+            aria-label={stepperReverse ? labels.decreaseValue : labels.increaseValue}
+            aria-controls={props.id}
+            disabled={stepperReverse ? cannotDecrease : cannotIncrease}
+            onPointerDown={(event) => {
+              if (event.button !== 0) return;
+              event.preventDefault();
+              startRepeating(upDirection);
+            }}
+            onPointerLeave={stopRepeating}
+            onClick={(event) => {
+              if (!repeats || event.detail === 0) stepValue(upDirection);
+            }}
+          >
+            <ChevronUpIcon aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className={styles.stepper}
+            data-slot={stepperReverse ? 'increase-action' : 'decrease-action'}
+            aria-label={stepperReverse ? labels.increaseValue : labels.decreaseValue}
+            aria-controls={props.id}
+            disabled={stepperReverse ? cannotIncrease : cannotDecrease}
+            onPointerDown={(event) => {
+              if (event.button !== 0) return;
+              event.preventDefault();
+              startRepeating(downDirection);
+            }}
+            onPointerLeave={stopRepeating}
+            onClick={(event) => {
+              if (!repeats || event.detail === 0) stepValue(downDirection);
+            }}
+          >
+            <ChevronDownIcon aria-hidden="true" />
+          </button>
+        </span>
+      ) : null}
 
       {resolvedSuffix !== undefined && resolvedSuffix !== null ? (
         <span
@@ -173,7 +295,7 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
             }
 
             input.focus({ preventScroll: true });
-            clearNativeInput(input);
+            setNativeInputValue(input, '');
           }}
         >
           <CloseIcon aria-hidden="true" />

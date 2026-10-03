@@ -52,7 +52,8 @@ export const inputExamples = {
     id: 'input-decorations',
     title: 'Prefix and suffix',
     titleTranslationKey: 'examples.input.copy.prefixAndSuffix',
-    description: 'Decorative icons stay outside the tab order.',
+    description:
+      'Use text, units, or icons as decorative prefixes and suffixes. Include meaningful units in the accessible label.',
     descriptionTranslationKey: 'examples.input.copy.decorativeIconsStayOutsideTheTabOrder',
     Component: InputDecorationsExample,
     source: createExampleSource(inputDecorationsSource),

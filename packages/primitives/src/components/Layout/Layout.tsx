@@ -1,13 +1,24 @@
-import { createContext, forwardRef, useCallback, useContext, useId } from 'react';
+import {
+  createContext,
+  forwardRef,
+  useCallback,
+  useContext,
+  useId,
+  useLayoutEffect,
+  useRef,
+} from 'react';
 
 import { useControllableState } from '../../internal/hooks/useControllableState';
+import { composeRefs } from '../../internal/utils/composeRefs';
 import type {
   LayoutContentProps,
   LayoutFooterProps,
   LayoutHeaderProps,
   LayoutLaneProps,
   LayoutProps,
+  LayoutSidebarDisplayState,
   LayoutSidebarProps,
+  LayoutSidebarProviderProps,
   LayoutSidebarState,
   LayoutSidebarTriggerProps,
 } from './Layout.types';
@@ -38,33 +49,117 @@ export const LayoutLane = forwardRef<HTMLDivElement, LayoutLaneProps>(function L
 
 LayoutLane.displayName = 'Layout.Lane';
 
-const SidebarContext = createContext<(LayoutSidebarState & { id: string }) | null>(null);
+type SidebarContextValue = LayoutSidebarState & {
+  id: string;
+  triggers: React.RefObject<Set<HTMLButtonElement>>;
+  focusedInside: React.RefObject<boolean>;
+};
+const SidebarContext = createContext<SidebarContextValue | null>(null);
+
+function useSidebarController({
+  id,
+  state: controlledState,
+  defaultState,
+  onStateChange,
+  collapsed,
+  defaultCollapsed,
+  onCollapsedChange,
+}: {
+  [Key in keyof LayoutSidebarProps]?: LayoutSidebarProps[Key] | undefined;
+}): SidebarContextValue {
+  const generatedId = useId();
+  const triggers = useRef(new Set<HTMLButtonElement>());
+  const focusedInside = useRef(false);
+  const controlled =
+    controlledState ?? (collapsed === undefined ? undefined : collapsed ? 'collapsed' : 'expanded');
+  const [value = 'expanded', setState] = useControllableState<LayoutSidebarDisplayState>(
+    controlled,
+    defaultState ?? (defaultCollapsed ? 'collapsed' : 'expanded'),
+    (next) => {
+      onStateChange?.(next);
+      if ((next !== 'expanded') !== (value !== 'expanded'))
+        onCollapsedChange?.(next !== 'expanded');
+    },
+  );
+  const sidebarId = id ?? `vd-sidebar-${generatedId}`;
+  useLayoutEffect(() => {
+    if (value !== 'hidden') return;
+    const sidebar = document.getElementById(sidebarId);
+    if (
+      !sidebar ||
+      (!sidebar.contains(document.activeElement) &&
+        !(focusedInside.current && document.activeElement === document.body))
+    )
+      return;
+    const external = [...triggers.current].find(
+      (button) => button.isConnected && !button.disabled && !sidebar.contains(button),
+    );
+    external?.focus();
+    focusedInside.current = false;
+  }, [value, sidebarId]);
+  return {
+    id: sidebarId,
+    state: value,
+    setState,
+    collapsed: value !== 'expanded',
+    setCollapsed: (next) => setState(next ? 'collapsed' : 'expanded'),
+    triggers,
+    focusedInside,
+  };
+}
+
+export function LayoutSidebarProvider(props: LayoutSidebarProviderProps) {
+  const context = useSidebarController(props);
+  return <SidebarContext.Provider value={context}>{props.children}</SidebarContext.Provider>;
+}
+LayoutSidebarProvider.displayName = 'Layout.SidebarProvider';
 
 export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(function LayoutSidebar(
   {
     id,
-    collapsed: controlledCollapsed,
-    defaultCollapsed = false,
+    state: controlledState,
+    defaultState,
+    onStateChange,
+    collapsed,
+    defaultCollapsed,
     onCollapsedChange,
     children,
     ...props
   },
   ref,
 ) {
-  const generatedId = useId();
-  const [value, setCollapsed] = useControllableState(
-    controlledCollapsed,
+  const provider = useContext(SidebarContext);
+  const local = useSidebarController({
+    id,
+    state: controlledState,
+    defaultState,
+    onStateChange,
+    collapsed,
     defaultCollapsed,
     onCollapsedChange,
-  );
-  const state = { collapsed: Boolean(value), setCollapsed, id: id ?? `vd-sidebar-${generatedId}` };
+  });
+  const state = provider ?? local;
   return (
     <SidebarContext.Provider value={state}>
       <aside
         {...props}
         ref={ref}
         id={state.id}
-        data-state={state.collapsed ? 'collapsed' : 'expanded'}
+        data-state={state.state}
+        aria-hidden={state.state === 'hidden' || props['aria-hidden'] || undefined}
+        inert={state.state === 'hidden' || props.inert || undefined}
+        onFocusCapture={(event) => {
+          props.onFocusCapture?.(event);
+          state.focusedInside.current = true;
+        }}
+        onBlurCapture={(event) => {
+          props.onBlurCapture?.(event);
+          if (
+            event.relatedTarget instanceof Node &&
+            !event.currentTarget.contains(event.relatedTarget)
+          )
+            state.focusedInside.current = false;
+        }}
       >
         {typeof children === 'function' ? children(state) : children}
       </aside>
@@ -74,21 +169,55 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
 LayoutSidebar.displayName = 'Layout.Sidebar';
 
 export const LayoutSidebarTrigger = forwardRef<HTMLButtonElement, LayoutSidebarTriggerProps>(
-  function LayoutSidebarTrigger({ render, onClick, disabled, ...props }, ref) {
+  function LayoutSidebarTrigger({ action = 'toggle', render, onClick, disabled, ...props }, ref) {
     const context = useContext(SidebarContext);
-    if (!context) throw new Error('Layout.SidebarTrigger must be used inside Layout.Sidebar.');
+    const triggerRef = useRef<HTMLButtonElement>(null);
+    const registeredTriggers = context?.triggers;
+    useLayoutEffect(() => {
+      const button = triggerRef.current;
+      if (!button || !registeredTriggers || action === 'hide' || action === 'collapse') return;
+      const triggers = registeredTriggers.current;
+      triggers.add(button);
+      return () => {
+        triggers.delete(button);
+      };
+    }, [registeredTriggers, action]);
+    if (!context)
+      throw new Error(
+        'Layout.SidebarTrigger must be used inside Layout.Sidebar or Layout.SidebarProvider.',
+      );
     const buttonProps = {
       type: 'button' as const,
-      'aria-label': context.collapsed ? 'Expand sidebar' : 'Collapse sidebar',
+      'aria-label':
+        action === 'hide'
+          ? 'Hide sidebar'
+          : action === 'expand'
+            ? 'Expand sidebar'
+            : action === 'collapse'
+              ? 'Collapse sidebar'
+              : context.collapsed
+                ? 'Expand sidebar'
+                : 'Collapse sidebar',
       ...props,
-      ref,
+      ref: composeRefs(ref, triggerRef),
       disabled,
       'aria-controls': context.id,
       'aria-expanded': !context.collapsed,
-      'data-state': context.collapsed ? 'collapsed' : 'expanded',
+      'data-state': context.state,
       onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
         onClick?.(event);
-        if (!event.defaultPrevented && !disabled) context.setCollapsed(!context.collapsed);
+        if (!event.defaultPrevented && !disabled)
+          context.setState(
+            action === 'toggle'
+              ? context.collapsed
+                ? 'expanded'
+                : 'collapsed'
+              : action === 'expand'
+                ? 'expanded'
+                : action === 'collapse'
+                  ? 'collapsed'
+                  : 'hidden',
+          );
       },
     };
     return render ? render(buttonProps) : <button {...buttonProps} />;

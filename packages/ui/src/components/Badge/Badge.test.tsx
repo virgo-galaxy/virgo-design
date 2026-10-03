@@ -64,4 +64,38 @@ describe('Badge', () => {
     expect(screen.getByTestId('badge')).toHaveAttribute('data-standalone');
     expect(screen.getByTestId('badge')).toHaveClass('custom');
   });
+
+  it('keeps dots static by default and supports changing their animation', () => {
+    const { rerender } = render(<Badge dot intent="success" aria-label="Online" />);
+    const dot = () => screen.getByRole('img', { name: 'Online' });
+    expect(dot()).not.toHaveAttribute('data-animation');
+    rerender(<Badge dot intent="success" animation="breathe" aria-label="Online" />);
+    expect(dot()).toHaveAttribute('data-animation', 'breathe');
+    expect(dot()).toHaveAttribute('data-intent', 'success');
+    rerender(<Badge dot intent="success" animation="none" aria-label="Online" />);
+    expect(dot()).not.toHaveAttribute('data-animation');
+  });
+
+  it('does not animate counts when breathing is requested', () => {
+    render(<Badge count={8} animation="breathe" />);
+    expect(screen.getByText('8')).not.toHaveAttribute('data-animation');
+    expect(screen.getByText('8')).not.toHaveAttribute('data-dot');
+  });
+
+  it('keeps breathing attached dots accessible without intercepting the host', async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(
+      <Badge dot intent="info" animation="breathe" aria-label="Syncing">
+        <Button onClick={onClick}>Open workspace</Button>
+      </Badge>,
+    );
+    expect(screen.getByRole('img', { name: 'Syncing' })).toHaveAttribute(
+      'data-animation',
+      'breathe',
+    );
+    await user.click(screen.getByRole('button', { name: 'Open workspace' }));
+    expect(onClick).toHaveBeenCalledOnce();
+    expect(screen.getByRole('button', { name: 'Open workspace' })).toHaveFocus();
+  });
 });

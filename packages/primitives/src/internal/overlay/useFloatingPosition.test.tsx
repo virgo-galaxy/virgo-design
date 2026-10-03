@@ -9,6 +9,37 @@ afterEach(() => {
 });
 
 describe('floating overlay lifecycle', () => {
+  it.each(['animationEnd', 'transitionEnd'] as const)(
+    'repositions after ancestor %s without requiring a resize',
+    (event) => {
+      vi.stubGlobal('innerWidth', 1000);
+      vi.stubGlobal('innerHeight', 800);
+      let anchor = new DOMRect(1100, 100, 80, 30);
+      vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
+        this: HTMLElement,
+      ) {
+        return this.tagName === 'BUTTON' ? anchor : new DOMRect(0, 0, 160, 100);
+      });
+      render(
+        <>
+          <section data-testid="moving-panel">
+            <Popover defaultOpen>
+              <Popover.Trigger>Anchor</Popover.Trigger>
+              <Popover.Content>Context</Popover.Content>
+            </Popover>
+          </section>
+          <div data-testid="unrelated-motion" />
+        </>,
+      );
+      const panel = screen.getByRole('dialog');
+      const previousLeft = panel.style.left;
+      anchor = new DOMRect(200, 100, 80, 30);
+      fireEvent[event](screen.getByTestId('unrelated-motion'));
+      expect(panel.style.left).toBe(previousLeft);
+      fireEvent[event](screen.getByTestId('moving-panel'));
+      expect(panel).toHaveStyle({ left: '200px', top: '138px' });
+    },
+  );
   it('positions using layout dimensions rather than the current animation scale', () => {
     vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
       this: HTMLElement,
@@ -81,6 +112,8 @@ describe('floating overlay lifecycle', () => {
     expect(observers.every((observer) => observer.disconnect.mock.calls.length > 0)).toBe(true);
     expect(removeWindow).toHaveBeenCalledWith('resize', expect.any(Function));
     expect(removeDocument).toHaveBeenCalledWith('scroll', expect.any(Function), true);
+    expect(removeDocument).toHaveBeenCalledWith('animationend', expect.any(Function), true);
+    expect(removeDocument).toHaveBeenCalledWith('transitionend', expect.any(Function), true);
     expect(removeDocument).toHaveBeenCalledWith('pointerdown', expect.any(Function));
     expect(removeDocument).toHaveBeenCalledWith('keydown', expect.any(Function));
   });

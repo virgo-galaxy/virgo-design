@@ -7,6 +7,9 @@ import badgeCountsSource from './BadgeCountsExample.tsx?raw';
 import BadgeInteractiveHostExample from './BadgeInteractiveHostExample';
 import badgeInteractiveHostStyles from './BadgeInteractiveHostExample.module.scss?virgo-raw';
 import badgeInteractiveHostSource from './BadgeInteractiveHostExample.tsx?raw';
+import BadgeMotionExample from './BadgeMotionExample';
+import badgeMotionStyles from './BadgeMotionExample.module.scss?virgo-raw';
+import badgeMotionSource from './BadgeMotionExample.tsx?raw';
 import BadgeStandaloneExample from './BadgeStandaloneExample';
 import badgeStandaloneStyles from './BadgeStandaloneExample.module.scss?virgo-raw';
 import badgeStandaloneSource from './BadgeStandaloneExample.tsx?raw';
@@ -48,6 +51,16 @@ export const badgeExamples = {
     Component: BadgeStatusExample,
     source: createExampleSource(badgeStatusSource),
     styleSource: badgeStatusStyles,
+  },
+  badgeMotion: {
+    id: 'badge-motion',
+    title: 'Breathing dots',
+    titleTranslationKey: 'components.badge.motion.title',
+    description: 'Opt in to breathing dots; reduced motion keeps them static.',
+    descriptionTranslationKey: 'components.badge.motion.description',
+    Component: BadgeMotionExample,
+    source: createExampleSource(badgeMotionSource),
+    styleSource: badgeMotionStyles,
   },
   badgeInteractiveHost: {
     id: 'badge-interactive-host',
