@@ -145,7 +145,7 @@ describe('Component routes', () => {
 
     await findRouteHeading('Components');
     expect(screen.queryByRole('navigation', { name: 'Component navigation' })).toBeNull();
-    expect(screen.getAllByRole('link')).toHaveLength(51);
+    expect(screen.getAllByRole('link')).toHaveLength(53);
     expect(screen.getByRole('heading', { level: 2, name: 'General' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: 'Layout' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: 'Navigation' })).toBeInTheDocument();

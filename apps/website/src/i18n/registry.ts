@@ -249,9 +249,12 @@ import { tokensZhCN } from '@/pages/tokens/locales/zh-CN';
 import { controlsEnUS } from '@/shared/locales/controls/en-US';
 import { controlsZhCN } from '@/shared/locales/controls/zh-CN';
 
+import { chartsEnUS } from '../features/charts/locales/en-US';
+import { chartsZhCN } from '../features/charts/locales/zh-CN';
 import type { LocaleOf } from './locale-types';
 
 export const enUS = {
+  charts: chartsEnUS,
   icons: iconsEnUS,
   shared: { controls: controlsEnUS },
   app: layoutEnUS,
@@ -395,6 +398,7 @@ export const enUS = {
 } as const;
 
 export const zhCN = {
+  charts: chartsZhCN,
   icons: iconsZhCN,
   shared: { controls: controlsZhCN },
   app: layoutZhCN,

@@ -10,6 +10,15 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./apps/website/src', import.meta.url)),
+      '@virgo-design/charts/echarts': fileURLToPath(
+        new URL('./packages/charts/src/echarts.tsx', import.meta.url),
+      ),
+      '@virgo-design/charts/sparkline': fileURLToPath(
+        new URL('./packages/charts/src/native/Sparkline.tsx', import.meta.url),
+      ),
+      '@virgo-design/charts': fileURLToPath(
+        new URL('./packages/charts/src/index.ts', import.meta.url),
+      ),
       '@virgo-design/colors': fileURLToPath(
         new URL('./packages/colors/src/index.ts', import.meta.url),
       ),

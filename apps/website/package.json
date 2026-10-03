@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@virgo-design/charts": "workspace:*",
     "@virgo-design/colors": "workspace:*",
     "@virgo-design/fonts": "workspace:*",
     "@virgo-design/icons": "workspace:*",

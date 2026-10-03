@@ -97,6 +97,7 @@ describe('SiteHeader', () => {
       ['Tokens', '/tokens'],
       ['Primitives', '/primitives'],
       ['Components', '/components'],
+      ['Charts', '/charts'],
     ]);
     expect(within(navigation).queryByRole('link', { name: 'Resources' })).not.toBeInTheDocument();
   });

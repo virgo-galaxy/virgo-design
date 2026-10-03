@@ -25,7 +25,10 @@
       "@virgo-design/icons/metadata": ["./packages/icons/src/metadata.ts"],
       "@virgo-design/icons/registry": ["./packages/icons/src/registry.ts"],
       "@virgo-design/icons/assets": ["./packages/icons/src/assets.ts"],
-      "@virgo-design/icons/tooling": ["./packages/icons/src/tooling.ts"]
+      "@virgo-design/icons/tooling": ["./packages/icons/src/tooling.ts"],
+      "@virgo-design/charts": ["./packages/charts/src/index.ts"],
+      "@virgo-design/charts/echarts": ["./packages/charts/src/echarts.tsx"],
+      "@virgo-design/charts/sparkline": ["./packages/charts/src/native/Sparkline.tsx"]
     }
   }
 }

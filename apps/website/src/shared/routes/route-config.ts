@@ -10,6 +10,7 @@ export const ROUTE_PATHS = {
   tokens: '/tokens',
   tokenColors: '/tokens/colors',
   tokenTypography: '/tokens/typography',
+  charts: '/charts',
   components: '/components',
   componentRoutes: '/components/*',
   componentExample: '/examples/:exampleId',
@@ -22,6 +23,7 @@ export const PRIMARY_NAVIGATION_ITEMS = [
   { path: ROUTE_PATHS.tokens, label: 'app.navigation.tokens' },
   { path: ROUTE_PATHS.primitives, label: 'app.navigation.primitives' },
   { path: ROUTE_PATHS.components, label: 'app.navigation.components' },
+  { path: ROUTE_PATHS.charts, label: 'app.navigation.charts' },
 ] as const;
 
 export const FOUNDATION_NAVIGATION_ITEMS = [

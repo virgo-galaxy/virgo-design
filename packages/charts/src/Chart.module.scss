@@ -1,0 +1,255 @@
+.root {
+  --chart-background: transparent;
+  --chart-axis: var(--vd-border-default);
+  --chart-axis-label: var(--vd-text-secondary);
+  --chart-grid: var(--vd-border-subtle);
+  --chart-series-1: var(--vd-data-categorical-1);
+  --chart-series-2: var(--vd-data-categorical-2);
+  --chart-series-3: var(--vd-data-categorical-3);
+  --chart-series-4: var(--vd-data-categorical-4);
+  --chart-series-5: var(--vd-data-categorical-5);
+  --chart-series-6: var(--vd-data-categorical-6);
+  --chart-heatmap-empty: var(--vd-fill-hover);
+  --chart-heatmap-1: var(--vd-blue-2);
+  --chart-heatmap-2: var(--vd-blue-4);
+  --chart-heatmap-3: var(--vd-blue-6);
+  --chart-heatmap-4: var(--vd-blue-8);
+  --chart-line-width: 2;
+  --chart-tooltip-surface: var(--vd-surface-elevated);
+  --chart-tooltip-border: var(--vd-border-default);
+  --chart-tooltip-radius: var(--vd-radius-6);
+  --chart-tooltip-shadow: var(--vd-elevation-2);
+  --chart-legend: var(--vd-text-secondary);
+  --chart-active-point: var(--vd-surface-default);
+  --chart-muted-opacity: 0.3;
+  --chart-enter-duration: 700ms;
+  --chart-update-duration: 400ms;
+  --chart-interaction-duration: var(--vd-duration-120);
+  --chart-sector-offset: 8px;
+  --chart-point-radius: 3px;
+  --chart-active-point-radius: 4.5px;
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  background: var(--chart-background);
+  color: var(--vd-text-primary);
+  font-family: var(--vd-font-family-sans);
+  font-size: var(--vd-font-size-12);
+}
+[data-theme='dark'] .root,
+.root[data-theme='dark'] {
+  --chart-heatmap-1: var(--vd-blue-8);
+  --chart-heatmap-2: var(--vd-blue-6);
+  --chart-heatmap-3: var(--vd-blue-4);
+  --chart-heatmap-4: var(--vd-blue-2);
+}
+.responsive,
+.plot {
+  position: relative;
+  min-width: 0;
+  width: 100%;
+}
+.plot > svg {
+  display: block;
+  overflow: visible;
+}
+.line {
+  fill: none;
+  stroke: var(--chart-color);
+  stroke-width: var(--chart-line-width);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.series {
+  pointer-events: none;
+}
+.point {
+  fill: var(--chart-color);
+  stroke: var(--chart-active-point);
+  stroke-width: 2;
+  opacity: 0;
+  r: var(--chart-point-radius);
+}
+.point[data-marker='visible'] {
+  opacity: 1;
+}
+.point[data-marker='muted'] {
+  opacity: var(--chart-muted-opacity);
+}
+.point[data-active='true'] {
+  r: var(--chart-active-point-radius);
+  opacity: 1;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 3px var(--chart-color));
+}
+.hit {
+  fill: transparent;
+  cursor: crosshair;
+  outline: none;
+}
+.hit:focus-visible {
+  stroke: var(--vd-border-focus);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.center {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+.tooltip {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  min-width: min(180px, 100%);
+  padding: var(--vd-spacing-12);
+  border: 1px solid var(--chart-tooltip-border);
+  border-radius: var(--chart-tooltip-radius);
+  background: var(--chart-tooltip-surface);
+  box-shadow: var(--chart-tooltip-shadow);
+  pointer-events: none;
+  overflow-wrap: anywhere;
+}
+.tooltip strong {
+  font-weight: var(--vd-font-weight-500);
+}
+.tooltip dl {
+  display: grid;
+  gap: var(--vd-spacing-8);
+  margin: var(--vd-spacing-8) 0 0;
+}
+.tooltip dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--vd-spacing-16);
+}
+.tooltip dt {
+  display: flex;
+  align-items: center;
+  gap: var(--vd-spacing-6);
+  color: var(--vd-text-secondary);
+}
+.tooltip dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+.tooltip i,
+.legend i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: none;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--vd-spacing-12);
+  padding-block: var(--vd-spacing-8);
+}
+.legend button {
+  display: flex;
+  align-items: center;
+  gap: var(--vd-spacing-6);
+  border: 0;
+  padding: var(--vd-spacing-4);
+  border-radius: var(--vd-radius-4);
+  color: var(--chart-legend);
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+.legend button[aria-pressed='false'] {
+  opacity: var(--chart-muted-opacity);
+  text-decoration: line-through;
+}
+.legend button:hover {
+  background: var(--vd-fill-hover);
+}
+.legend button:focus-visible {
+  outline: 2px solid var(--vd-border-focus);
+  outline-offset: 2px;
+}
+.empty {
+  display: grid;
+  place-items: center;
+  color: var(--vd-text-secondary);
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.data {
+  max-width: 100%;
+  overflow: auto;
+}
+.data summary {
+  cursor: pointer;
+  color: var(--vd-brand-link);
+  padding: var(--vd-spacing-8);
+}
+.data table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data th,
+.data td {
+  padding: var(--vd-spacing-8);
+  text-align: start;
+  border-bottom: 1px solid var(--vd-border-subtle);
+}
+.root[data-animated='true'] .series {
+  animation: chart-reveal var(--chart-enter-duration) linear both;
+  animation-play-state: paused;
+}
+.root[data-chart-visible='true'] .series {
+  animation-play-state: running;
+}
+.root[data-animated='true'] .line {
+  animation: chart-draw var(--chart-enter-duration) linear both;
+  animation-play-state: paused;
+}
+.root[data-chart-visible='true'] .line {
+  animation-play-state: running;
+}
+@keyframes chart-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes chart-draw {
+  from {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .root[data-animated='true'] .series,
+  .root[data-animated='true'] .line {
+    animation: none;
+  }
+}
+.engine {
+  width: 100%;
+  min-width: 0;
+}
+.plot:focus-within {
+  outline: 2px solid var(--vd-border-focus);
+  outline-offset: 2px;
+}

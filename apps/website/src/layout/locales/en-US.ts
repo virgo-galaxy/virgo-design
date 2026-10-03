@@ -1,5 +1,6 @@
 export const layoutEnUS = {
   navigation: {
+    charts: 'Charts',
     skipToContent: 'Skip to main content',
     label: 'Primary navigation',
     foundations: 'Foundations',
