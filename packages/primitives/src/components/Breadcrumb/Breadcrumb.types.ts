@@ -1,4 +1,4 @@
-import type { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
+import type { AnchorHTMLAttributes, HTMLAttributes, ReactElement, ReactNode, Ref } from 'react';
 
 export interface BreadcrumbProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
   /** Breadcrumb items rendered in path order. */
@@ -12,6 +12,10 @@ export interface BreadcrumbLinkItemProps extends Omit<
   AnchorHTMLAttributes<HTMLAnchorElement>,
   'children'
 > {
+  /** Router adapter; forward all attributes, children and ref to a native link. */
+  render?: (
+    props: AnchorHTMLAttributes<HTMLAnchorElement> & { ref: Ref<HTMLAnchorElement> },
+  ) => ReactElement;
   /** Native link destination. */
   href: string;
 
@@ -24,6 +28,7 @@ export interface BreadcrumbCurrentItemProps extends Omit<
   'children'
 > {
   href?: undefined;
+  render?: never;
 
   /** Visible current-page content. */
   children: ReactNode;

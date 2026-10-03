@@ -1,5 +1,6 @@
-import { type CSSProperties, type RefObject, useLayoutEffect, useState } from 'react';
+import { type CSSProperties, type RefObject, useContext, useLayoutEffect, useState } from 'react';
 
+import { LayerScope } from './layers';
 import { type OverlayPlacement, positionOverlay } from './positioning';
 
 export function useFloatingPosition({
@@ -18,6 +19,9 @@ export function useFloatingPosition({
   /** Optional virtual anchor; the trigger still supplies theme, direction and document. */
   anchorRect?: { left: number; top: number; width: number; height: number };
 }) {
+  const layer = useContext(LayerScope);
+  let depth = 0;
+  for (let current = layer?.parent; current; current = current.parent) depth++;
   const [position, setPosition] = useState<ReturnType<typeof positionOverlay> | null>(null);
   const [theme, setTheme] = useState<string | undefined>();
   const [direction, setDirection] = useState<'ltr' | 'rtl'>('ltr');
@@ -100,6 +104,7 @@ export function useFloatingPosition({
   }, [active, triggerRef, contentRef, placement, offset, anchorRect]);
   const style = {
     position: 'fixed',
+    '--vd-overlay-layer': `calc(var(--vd-overlay-base-layer, 100) + ${depth})`,
     left: position?.left ?? 0,
     top: position?.top ?? 0,
     maxWidth: 'calc(100vw - 16px)',

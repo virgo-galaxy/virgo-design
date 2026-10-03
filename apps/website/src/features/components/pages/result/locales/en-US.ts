@@ -1,0 +1,22 @@
+export const resultEnUS = {
+  description: 'An outcome with status, title, recovery actions and optional supporting content.',
+  specimen: 'Reference specimen',
+  caption: 'Seven outcomes · recovery actions · composable slots',
+  variants: 'Outcome and exception states',
+  variantDescription: 'Success, error, warning, info, 403, 404 and 500 share one structure.',
+  composition: 'Compound composition',
+  compositionDescription:
+    'Replace the icon or add business content without rebuilding the outcome layout.',
+  title: 'Changes saved',
+  support: 'The project is ready for the next review.',
+  primary: 'Continue',
+  secondary: 'Go back',
+  extra: 'Reference: VD-2026',
+  success: 'Success',
+  error: 'Error',
+  warning: 'Warning',
+  info: 'Information',
+  '403': 'Access denied',
+  '404': 'Page not found',
+  '500': 'Service error',
+};

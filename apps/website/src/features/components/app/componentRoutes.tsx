@@ -94,6 +94,8 @@ export type ComponentRoute = ComponentPageMetadataValue & {
     | 'tag'
     | 'pagination'
     | 'popover'
+    | 'statistic'
+    | 'result'
     | 'progress'
     | 'tooltip'
     | 'toast'
@@ -585,6 +587,21 @@ export const componentRoutes = [
     ),
   },
   {
+    id: 'statistic',
+    group: 'data-display',
+    index: '52',
+    name: 'Statistic',
+    category: 'Data Display',
+    path: '/components/statistic',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: lazy(() =>
+      import('../pages/statistic/StatisticPage').then((module) => ({
+        default: module.StatisticPage,
+      })),
+    ),
+  },
+  {
     id: 'table',
     group: 'data-display',
     index: '35',
@@ -686,6 +703,19 @@ export const componentRoutes = [
     version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/progress/ProgressPage').then((module) => ({ default: module.ProgressPage })),
+    ),
+  },
+  {
+    id: 'result',
+    group: 'feedback',
+    index: '53',
+    name: 'Result',
+    category: 'Feedback',
+    path: '/components/result',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: lazy(() =>
+      import('../pages/result/ResultPage').then((module) => ({ default: module.ResultPage })),
     ),
   },
   {

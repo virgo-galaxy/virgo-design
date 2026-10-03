@@ -92,3 +92,24 @@ describe('Breadcrumb primitive', () => {
     expect(link).toHaveAttribute('data-testid', 'breadcrumb-link');
   });
 });
+
+it('forwards native link attributes and ref through a router adapter', () => {
+  const ref = createRef<HTMLAnchorElement>();
+  render(
+    <Breadcrumb>
+      <Breadcrumb.Item
+        href="/projects"
+        ref={ref}
+        className="link"
+        render={(props) => <a {...props} data-router="true" />}
+      >
+        Projects
+      </Breadcrumb.Item>
+      <Breadcrumb.Item>Detail</Breadcrumb.Item>
+    </Breadcrumb>,
+  );
+  expect(ref.current).toBe(screen.getByRole('link', { name: 'Projects' }));
+  expect(ref.current).toHaveAttribute('href', '/projects');
+  expect(ref.current).toHaveAttribute('data-router', 'true');
+  expect(ref.current).toHaveClass('link');
+});

@@ -159,3 +159,51 @@ describe('Select primitive', () => {
     expect(container.querySelector('input[name="project"]')).toHaveValue('design');
   });
 });
+
+it('portals, inherits theme and flips near the bottom viewport boundary', async () => {
+  const original = HTMLElement.prototype.getBoundingClientRect;
+  const rect = vi
+    .spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+    .mockImplementation(function (this: HTMLElement) {
+      if (this.getAttribute('role') === 'listbox')
+        return {
+          x: 0,
+          y: 0,
+          top: 0,
+          left: 0,
+          right: 200,
+          bottom: 160,
+          width: 200,
+          height: 160,
+          toJSON: () => {},
+        };
+      if (this.tagName === 'BUTTON')
+        return {
+          x: 30,
+          y: 740,
+          top: 740,
+          left: 30,
+          right: 230,
+          bottom: 768,
+          width: 200,
+          height: 28,
+          toJSON: () => {},
+        };
+      return original.call(this);
+    });
+  try {
+    const { container } = render(
+      <div data-theme="dark">
+        <PrimitiveSelectExample />
+      </div>,
+    );
+    await userEvent.setup().click(screen.getByRole('button', { name: 'Project' }));
+    const content = screen.getByRole('listbox');
+    expect(container).not.toContainElement(content);
+    expect(content).toHaveAttribute('data-theme', 'dark');
+    expect(content).toHaveAttribute('data-side', 'top');
+    expect(content.style.position).toBe('fixed');
+  } finally {
+    rect.mockRestore();
+  }
+});

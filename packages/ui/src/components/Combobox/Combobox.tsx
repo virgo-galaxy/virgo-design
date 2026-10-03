@@ -30,8 +30,20 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(function Combo
   );
 });
 export const ComboboxInput = forwardRef<HTMLInputElement, ComboboxInputProps>(
-  function ComboboxInput({ className, ...props }, ref) {
-    return (
+  function ComboboxInput({ className, prefix, leadingIcon, ...props }, ref) {
+    const adornment = prefix ?? leadingIcon;
+    return adornment !== undefined ? (
+      <div className={styles.inputFrame} data-slot="input-frame">
+        <span className={styles.prefix} aria-hidden="true" data-slot="prefix">
+          {adornment}
+        </span>
+        <PrimitiveCombobox.Input
+          {...props}
+          ref={ref}
+          className={[styles.input, className].filter(Boolean).join(' ')}
+        />
+      </div>
+    ) : (
       <PrimitiveCombobox.Input
         {...props}
         ref={ref}

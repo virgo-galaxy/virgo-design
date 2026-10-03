@@ -88,6 +88,8 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Optional decorative icon before the item content.',
       'breadcrumb-item-props.properties.class-name.description':
         'Consumer class applied to the link or current-page element.',
+      'breadcrumb-item-props.properties.render.description':
+        'Router adapter; forward all attributes, children and ref to a native link.',
       'breadcrumb-item-props.properties.href.description': 'Native link destination.',
     },
   },
@@ -326,6 +328,10 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'combobox-option-props.properties.keywords.description': 'Additional search terms.',
       'combobox-option-props.properties.disabled.description':
         'Visible but not selectable or highlightable.',
+      'combobox-input-props.properties.prefix.description':
+        'Decorative content placed before the native text control.',
+      'combobox-input-props.properties.leading-icon.description':
+        'Decorative leading icon; prefix takes precedence.',
     },
   },
   command: {
@@ -922,6 +928,24 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'radio-group-props.properties.orientation.description': 'Layout orientation for the group.',
     },
   },
+  result: {
+    api: {
+      'result-props.properties.status.description': 'Outcome or exception status.',
+      'result-props.properties.icon.description':
+        'Custom decorative artwork replacing the status icon.',
+      'result-props.properties.title.description': 'Outcome title used to name the result.',
+      'result-props.properties.description.description':
+        'Supporting explanation and recovery guidance.',
+      'result-props.properties.heading-level.description':
+        'Heading level matching the document hierarchy.',
+      'result-props.properties.primary-action.description':
+        'Primary recovery or continuation action.',
+      'result-props.properties.secondary-action.description':
+        'Optional secondary navigation or recovery action.',
+      'result-props.properties.extra.description': 'Additional business content below the actions.',
+      'result-title-props.properties.as.description': 'Heading element for the composed title.',
+    },
+  },
   'segmented-control': {
     api: {
       'segmented-control-props.properties.variant.description':
@@ -960,6 +984,8 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Custom decorative indicator; null hides it.',
       'select-trigger-props.properties.aria-invalid.description':
         'Indicates the entered value does not conform to the format expected by the application.',
+      'select-content-props.properties.placement.description':
+        'Preferred placement; flips and shifts at viewport boundaries.',
     },
   },
   separator: {
@@ -995,6 +1021,25 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'spinner-props.properties.size.description': 'Spinner dimensions.',
       'spinner-props.properties.intent.description':
         'Color source. `current` inherits the surrounding text color.',
+    },
+  },
+  statistic: {
+    api: {
+      'statistic-props.properties.label.description': 'The accessible metric label.',
+      'statistic-props.properties.value.description':
+        'The displayed metric value; zero remains visible.',
+      'statistic-props.properties.prefix.description':
+        'Content before the value, such as a currency symbol.',
+      'statistic-props.properties.suffix.description': 'Content after the value, such as a unit.',
+      'statistic-props.properties.trend.description':
+        'Change content, commonly composed with Statistic.Trend.',
+      'statistic-props.properties.description.description': 'Supporting context for the metric.',
+      'statistic-props.properties.loading.description':
+        'Replaces the value with a Skeleton and exposes aria-busy.',
+      'statistic-trend-props.properties.direction.description':
+        'Direction of change, independent of semantic intent.',
+      'statistic-trend-props.properties.intent.description':
+        'Semantic meaning of change: positive, negative or neutral.',
     },
   },
   steps: {
@@ -1513,10 +1558,14 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Breadcrumb items rendered in path order.',
       'breadcrumb-props.properties.separator.description':
         'Decorative content placed between items.',
+      'breadcrumb-link-item-props.properties.render.description':
+        'Router adapter; forward all attributes, children and ref to a native link.',
       'breadcrumb-link-item-props.properties.href.description': 'Native link destination.',
       'breadcrumb-link-item-props.properties.children.description': 'Visible item content.',
       'breadcrumb-current-item-props.properties.children.description':
         'Visible current-page content.',
+      'breadcrumb-item-props.properties.render.description':
+        'Router adapter; forward all attributes, children and ref to a native link.',
       'breadcrumb-item-props.properties.href.description': 'Native link destination.',
       'breadcrumb-item-props.properties.children.description':
         'Visible item content.\nVisible current-page content.',
@@ -1861,6 +1910,8 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
       'select-props.properties.id.description': 'Identifier applied to the interactive trigger.',
       'select-props.properties.read-only.description':
         'Prevents opening or changing selection while remaining focusable.',
+      'select-content-props.properties.placement.description':
+        'Preferred placement; flips and shifts at viewport boundaries.',
     },
   },
   switch: {

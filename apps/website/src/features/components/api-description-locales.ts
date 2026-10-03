@@ -1,4 +1,6 @@
 import { carouselApiZhCN } from './pages/carousel/locales/carousel.api.zh-CN';
+import { resultApiZhCN } from './pages/result/locales/result.api.zh-CN';
+import { statisticApiZhCN } from './pages/statistic/locales/statistic.api.zh-CN';
 export { componentsApiEnUS } from '@/generated/api-description-resources.generated';
 
 import { accordionApiZhCN } from './pages/accordion/locales/accordion.api.zh-CN';
@@ -53,6 +55,8 @@ import { tooltipApiZhCN } from './pages/tooltip/locales/tooltip.api.zh-CN';
 import { treeApiZhCN } from './pages/tree/locales/tree.api.zh-CN';
 
 export const componentsApiZhCN = {
+  result: resultApiZhCN,
+  statistic: statisticApiZhCN,
   carousel: carouselApiZhCN,
   steps: stepsApiZhCN,
   collapsible: collapsibleApiZhCN,

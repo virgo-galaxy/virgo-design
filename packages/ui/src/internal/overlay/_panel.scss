@@ -3,7 +3,7 @@ $layer: 100;
 @mixin surface {
   box-sizing: border-box;
   display: flex;
-  z-index: $layer;
+  z-index: var(--vd-overlay-layer, #{$layer});
   border: var(--vd-border-width-1) solid var(--vd-border-subtle);
   border-radius: var(--vd-radius-8);
   outline: none;

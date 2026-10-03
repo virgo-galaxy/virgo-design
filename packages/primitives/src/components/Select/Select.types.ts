@@ -1,5 +1,7 @@
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
 
+import type { OverlayPlacement } from '../../internal/overlay/positioning';
+
 export interface SelectProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'defaultValue' | 'id' | 'onChange'
@@ -21,7 +23,11 @@ export interface SelectProps extends Omit<
 
 export type SelectTriggerProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'id'>;
 
-export type SelectContentProps = HTMLAttributes<HTMLDivElement>;
+export interface SelectContentProps extends HTMLAttributes<HTMLDivElement> {
+  /** Preferred placement; flips and shifts at viewport boundaries. */
+  placement?: OverlayPlacement;
+  offset?: number;
+}
 
 export interface SelectOptionProps extends HTMLAttributes<HTMLDivElement> {
   value: string;

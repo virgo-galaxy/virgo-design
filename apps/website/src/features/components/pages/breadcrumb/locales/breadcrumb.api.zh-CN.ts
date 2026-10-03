@@ -2,6 +2,8 @@ import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 
 export const breadcrumbApiZhCN = {
   api: {
+    'breadcrumb-item-props.properties.render.description':
+      '路由适配函数，需要将属性、内容和 ref 转发给原生链接。',
     'breadcrumb-props.properties.class-name.description': '应用到面包屑导航的自定义 class。',
     'breadcrumb-props.properties.children.description': '按路径顺序渲染的面包屑项目。',
     'breadcrumb-props.properties.separator.description': '项目之间的装饰内容。',

@@ -49,8 +49,16 @@ Breadcrumb.displayName = 'Breadcrumb';
 export const BreadcrumbItem = forwardRef<HTMLAnchorElement | HTMLSpanElement, BreadcrumbItemProps>(
   function BreadcrumbItem(props, forwardedRef) {
     if (props.href !== undefined) {
-      const { children, href, ...linkProps } = props as BreadcrumbLinkItemProps;
+      const { children, href, render, ...linkProps } = props as BreadcrumbLinkItemProps;
 
+      if (render)
+        return render({
+          ...linkProps,
+          href,
+          children,
+          ref: forwardedRef as ForwardedRef<HTMLAnchorElement>,
+          'data-link': 'true',
+        } as Parameters<NonNullable<BreadcrumbLinkItemProps['render']>>[0]);
       return (
         <a
           {...linkProps}

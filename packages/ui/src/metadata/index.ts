@@ -33,12 +33,14 @@ import { paginationMetadata } from '../components/Pagination/Pagination.meta';
 import { popoverMetadata } from '../components/Popover/Popover.meta';
 import { progressMetadata } from '../components/Progress/Progress.meta';
 import { radioMetadata } from '../components/Radio/Radio.meta';
+import { resultMetadata } from '../components/Result/Result.meta';
 import { segmentedControlMetadata } from '../components/SegmentedControl/SegmentedControl.meta';
 import { selectMetadata } from '../components/Select/Select.meta';
 import { separatorMetadata } from '../components/Separator/Separator.meta';
 import { skeletonMetadata } from '../components/Skeleton/Skeleton.meta';
 import { sliderMetadata } from '../components/Slider/Slider.meta';
 import { spinnerMetadata } from '../components/Spinner/Spinner.meta';
+import { statisticMetadata } from '../components/Statistic/Statistic.meta';
 import { stepsMetadata } from '../components/Steps/Steps.meta';
 import { surfaceMetadata } from '../components/Surface/Surface.meta';
 import { switchMetadata } from '../components/Switch/Switch.meta';
@@ -86,12 +88,14 @@ export {
   popoverMetadata,
   progressMetadata,
   radioMetadata,
+  resultMetadata,
   segmentedControlMetadata,
   selectMetadata,
   separatorMetadata,
   skeletonMetadata,
   sliderMetadata,
   spinnerMetadata,
+  statisticMetadata,
   stepsMetadata,
   surfaceMetadata,
   switchMetadata,
@@ -146,6 +150,8 @@ export const componentMetadataRegistry = {
   navigationMenu: navigationMenuMetadata,
   pagination: paginationMetadata,
   popover: popoverMetadata,
+  statistic: statisticMetadata,
+  result: resultMetadata,
   progress: progressMetadata,
   radio: radioMetadata,
   segmentedControl: segmentedControlMetadata,

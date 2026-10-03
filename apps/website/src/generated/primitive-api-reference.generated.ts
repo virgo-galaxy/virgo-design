@@ -2221,6 +2221,17 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         reExported: false,
         properties: [
           {
+            name: 'render',
+            type: '(\n    props: AnchorHTMLAttributes<HTMLAnchorElement> & { ref: Ref<HTMLAnchorElement> },\n  ) => ReactElement',
+            required: false,
+            defaultValue: '',
+            description:
+              'Router adapter; forward all attributes, children and ref to a native link.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.breadcrumb.api.breadcrumb-link-item-props.properties.render.description',
+          },
+          {
             name: 'href',
             type: 'string',
             required: true,
@@ -2263,6 +2274,16 @@ export const primitiveApiReference: ApiReferenceRegistry = {
               'primitives.breadcrumb.api.breadcrumb-current-item-props.properties.href.description',
           },
           {
+            name: 'render',
+            type: 'never',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.breadcrumb.api.breadcrumb-current-item-props.properties.render.description',
+          },
+          {
             name: 'children',
             type: 'ReactNode',
             required: true,
@@ -2284,6 +2305,17 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [
+          {
+            name: 'render',
+            type: '((props: AnchorHTMLAttributes<HTMLAnchorElement> & { ref: Ref<HTMLAnchorElement>; }) => ReactElement)',
+            required: false,
+            defaultValue: '',
+            description:
+              'Router adapter; forward all attributes, children and ref to a native link.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.breadcrumb.api.breadcrumb-item-props.properties.render.description',
+          },
           {
             name: 'href',
             type: 'string',
@@ -6166,12 +6198,33 @@ export const primitiveApiReference: ApiReferenceRegistry = {
       },
       {
         name: 'SelectContentProps',
-        kind: 'type',
-        signature: 'HTMLAttributes<HTMLDivElement>',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLDivElement>',
         description: '',
         source: '@virgo-design/primitives',
         reExported: false,
-        properties: [],
+        properties: [
+          {
+            name: 'placement',
+            type: 'OverlayPlacement',
+            required: false,
+            defaultValue: '',
+            description: 'Preferred placement; flips and shifts at viewport boundaries.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-content-props.properties.placement.description',
+          },
+          {
+            name: 'offset',
+            type: 'number',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-content-props.properties.offset.description',
+          },
+        ],
         descriptionTranslationKey: 'primitives.select.api.select-content-props.description',
       },
       {

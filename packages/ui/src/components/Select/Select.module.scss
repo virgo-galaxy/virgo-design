@@ -30,7 +30,8 @@
   --select-icon: var(--vd-icon-disabled);
 }
 
-.root[data-size='mini'] {
+.root[data-size='mini'],
+.content[data-size='mini'] {
   --select-height: var(--vd-sizing-24);
   --select-padding-inline: var(--vd-spacing-8);
   --select-radius: var(--vd-radius-6);
@@ -43,7 +44,8 @@
   --select-line-height: var(--vd-typography-ui-body-small-line-height);
 }
 
-.root[data-size='small'] {
+.root[data-size='small'],
+.content[data-size='small'] {
   --select-height: var(--vd-sizing-28);
   --select-padding-inline: var(--vd-spacing-8);
   --select-radius: var(--vd-radius-6);
@@ -56,7 +58,8 @@
   --select-line-height: var(--vd-typography-ui-body-small-line-height);
 }
 
-.root[data-size='medium'] {
+.root[data-size='medium'],
+.content[data-size='medium'] {
   --select-height: var(--vd-sizing-36);
   --select-padding-inline: var(--vd-spacing-12);
   --select-radius: var(--vd-radius-8);
@@ -69,7 +72,8 @@
   --select-line-height: var(--vd-typography-ui-body-medium-line-height);
 }
 
-.root[data-size='large'] {
+.root[data-size='large'],
+.content[data-size='large'] {
   --select-height: var(--vd-sizing-44);
   --select-padding-inline: var(--vd-spacing-16);
   --select-radius: var(--vd-radius-10);
@@ -158,10 +162,9 @@
 }
 
 .content {
-  position: absolute;
-  z-index: 20;
-  inset-block-start: calc(100% + var(--vd-spacing-4));
-  inset-inline: 0;
+  z-index: var(--vd-overlay-layer, 100);
+  width: var(--overlay-trigger-width);
+  box-sizing: border-box;
   max-height: calc(var(--select-option-height) * 6 + var(--vd-spacing-8));
   overflow: auto;
   padding: var(--vd-spacing-4);

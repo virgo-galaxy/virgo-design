@@ -186,6 +186,8 @@ import { progressEnUS } from '@/features/components/pages/progress/locales/en-US
 import { progressZhCN } from '@/features/components/pages/progress/locales/zh-CN';
 import { radioEnUS } from '@/features/components/pages/radio/locales/en-US';
 import { radioZhCN } from '@/features/components/pages/radio/locales/zh-CN';
+import { resultEnUS } from '@/features/components/pages/result/locales/en-US';
+import { resultZhCN } from '@/features/components/pages/result/locales/zh-CN';
 import { segmentedControlEnUS } from '@/features/components/pages/segmented-control/locales/en-US';
 import { segmentedControlZhCN } from '@/features/components/pages/segmented-control/locales/zh-CN';
 import { selectEnUS } from '@/features/components/pages/select/locales/en-US';
@@ -198,6 +200,8 @@ import { sliderEnUS } from '@/features/components/pages/slider/locales/en-US';
 import { sliderZhCN } from '@/features/components/pages/slider/locales/zh-CN';
 import { spinnerEnUS } from '@/features/components/pages/spinner/locales/en-US';
 import { spinnerZhCN } from '@/features/components/pages/spinner/locales/zh-CN';
+import { statisticEnUS } from '@/features/components/pages/statistic/locales/en-US';
+import { statisticZhCN } from '@/features/components/pages/statistic/locales/zh-CN';
 import { stepsEnUS } from '@/features/components/pages/steps/locales/en-US';
 import { stepsZhCN } from '@/features/components/pages/steps/locales/zh-CN';
 import { surfaceEnUS } from '@/features/components/pages/surface/locales/en-US';
@@ -355,6 +359,8 @@ export const enUS = {
     navigationMenu: navigationMenuEnUS,
     pagination: { ...paginationEnUS, ...componentsApiEnUS['pagination']! },
     popover: { ...popoverEnUS, ...componentsApiEnUS['popover']! },
+    statistic: { ...statisticEnUS, ...componentsApiEnUS['statistic']! },
+    result: { ...resultEnUS, ...componentsApiEnUS['result']! },
     progress: { ...progressEnUS, ...componentsApiEnUS['progress']! },
     radio: { ...radioEnUS, ...componentsApiEnUS['radio']! },
     segmentedControl: segmentedControlEnUS,
@@ -496,6 +502,8 @@ export const zhCN = {
     navigationMenu: navigationMenuZhCN,
     pagination: { ...paginationZhCN, ...componentsApiZhCN['pagination'] },
     popover: { ...popoverZhCN, ...componentsApiZhCN['popover'] },
+    statistic: { ...statisticZhCN, ...componentsApiZhCN['statistic'] },
+    result: { ...resultZhCN, ...componentsApiZhCN['result'] },
     progress: { ...progressZhCN, ...componentsApiZhCN['progress'] },
     radio: { ...radioZhCN, ...componentsApiZhCN['radio'] },
     segmentedControl: segmentedControlZhCN,

@@ -1,3 +1,4 @@
+@use '../../internal/overlay/panel';
 .root {
   display: flex;
   align-items: center;
@@ -61,6 +62,8 @@
 }
 
 .content {
+  @include panel.surface;
+  display: block;
   width: var(--color-picker-panel-width, 238px);
   padding: var(--vd-spacing-12);
   border: 1px solid var(--vd-border-default);

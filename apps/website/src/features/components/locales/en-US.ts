@@ -20,6 +20,8 @@ export const componentsEnUS = {
     actions: 'Actions',
   },
   sidebarLabels: {
+    statistic: 'Labelled metric',
+    result: 'Outcome and recovery',
     carousel: 'Content carousel',
     steps: 'Stage sequence',
     collapsible: 'Content disclosure',
@@ -73,6 +75,8 @@ export const componentsEnUS = {
     menubar: 'Action groups',
   },
   metadata: {
+    statistic: 'A readable metric with label, value, affixes, change and supporting context.',
+    result: 'An outcome with status, title, recovery actions and optional supporting content.',
     carousel: 'Content carousel',
     steps: 'Stage sequence',
     collapsible: 'Content disclosure',

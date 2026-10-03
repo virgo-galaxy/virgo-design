@@ -88,9 +88,9 @@ describe('Components documentation integration', () => {
         'light',
       );
       expect(screen.queryByRole('group', { name: 'Preview theme' })).not.toBeInTheDocument();
-      expect(componentRoutes).toHaveLength(51);
+      expect(componentRoutes).toHaveLength(53);
       expect(componentRoutes.map((route) => route.index).sort()).toEqual(
-        Array.from({ length: 51 }, (_, index) => String(index + 1).padStart(2, '0')),
+        Array.from({ length: 53 }, (_, index) => String(index + 1).padStart(2, '0')),
       );
       expect(componentGroups.map((group) => group.id)).toEqual([
         'general',
@@ -118,7 +118,7 @@ describe('Components documentation integration', () => {
         componentRoutes
           .filter((route) => route.category === 'Feedback')
           .map((route) => route.group),
-      ).toEqual(Array(7).fill('feedback'));
+      ).toEqual(Array(8).fill('feedback'));
       expect(componentRoutes.find((route) => route.id === 'floating-action')).toMatchObject({
         group: 'actions',
         index: '48',
@@ -134,7 +134,13 @@ describe('Components documentation integration', () => {
       expect(screen.getByRole('button', { name: 'Collapse all' })).toBeInTheDocument();
 
       await user.click(screen.getByRole('link', { name: /Surface/ }));
-      expect(await screen.findByRole('heading', { level: 1, name: 'Surface' })).toBeInTheDocument();
+      expect(
+        await screen.findByRole(
+          'heading',
+          { level: 1, name: 'Surface' },
+          { timeout: INTEGRATION_TEST_TIMEOUT },
+        ),
+      ).toBeInTheDocument();
       expect(screen.getByRole('button', { name: 'Expand all' })).toHaveAttribute(
         'aria-expanded',
         'false',

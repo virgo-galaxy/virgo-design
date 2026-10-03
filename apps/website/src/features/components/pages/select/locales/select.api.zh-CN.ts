@@ -2,6 +2,9 @@ import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 
 export const selectApiZhCN = {
   api: {
+    'select-content-props.properties.placement.description':
+      '优先展开方向；空间不足时自动翻转并约束在视口内。',
+
     'select-trigger-props.properties.indicator.description': '自定义装饰指示器；null 隐藏指示器。',
     'select-trigger-props.properties.render-value.description':
       '自定义选中值呈现，保留选项名称和键盘行为。',

@@ -46,6 +46,8 @@ describe('@virgo-design/ui public API', () => {
         'Pagination',
         'Popover',
         'Progress',
+        'Statistic',
+        'Result',
         'Radio',
         'SegmentedControl',
         'Select',

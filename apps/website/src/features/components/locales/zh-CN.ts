@@ -22,6 +22,8 @@ export const componentsZhCN = {
     actions: '操作',
   },
   sidebarLabels: {
+    statistic: '统计指标',
+    result: '结果与恢复',
     carousel: '内容轮播',
     steps: '步骤',
     collapsible: '可折叠区域',
@@ -75,6 +77,8 @@ export const componentsZhCN = {
     menubar: '菜单栏',
   },
   metadata: {
+    statistic: '包含标签、数值、前后缀、变化趋势和辅助说明的统计指标。',
+    result: '包含状态、标题、恢复操作与辅助内容的结果反馈。',
     carousel: '内容轮播',
     steps: '步骤',
     collapsible: '可折叠区域',

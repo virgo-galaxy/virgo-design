@@ -29,6 +29,7 @@ function hasAriaInvalidValue(value: SelectTriggerProps['aria-invalid']) {
 
 type SelectVisualContextValue = {
   invalid: boolean;
+  size: SelectProps['size'];
   labels: ReadonlyMap<string, ReactNode>;
   value: string | undefined;
 };
@@ -84,7 +85,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
   const labels = useMemo(() => collectOptionLabels(children), [children]);
 
   return (
-    <SelectVisualContext.Provider value={{ invalid, labels, value }}>
+    <SelectVisualContext.Provider value={{ invalid, labels, value, size }}>
       <PrimitiveSelect
         {...props}
         ref={forwardedRef}
@@ -158,13 +159,15 @@ export const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(func
   { children, className, ...props },
   forwardedRef,
 ) {
+  const context = useSelectVisualContext('Select.Content');
   return (
     <PrimitiveSelect.Content
       {...props}
       ref={forwardedRef}
+      data-size={context.size}
       className={joinClassNames(styles.content, className)}
     >
-      <div className={styles.viewport} data-slot="viewport">
+      <div className={styles.viewport} data-slot="viewport" data-overlay-viewport="">
         {children}
       </div>
     </PrimitiveSelect.Content>

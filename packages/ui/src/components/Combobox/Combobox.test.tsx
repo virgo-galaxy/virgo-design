@@ -20,3 +20,13 @@ describe('styled Combobox', () => {
     expect(screen.getByRole('button', { name: 'Clear input' })).toBeInTheDocument();
   });
 });
+it('keeps the editable input semantics when a leading adornment is composed', () => {
+  const { container } = render(
+    <Combobox>
+      <Combobox.Input aria-label="Search" prefix={<span>Icon</span>} />
+    </Combobox>,
+  );
+  expect(screen.getByRole('combobox', { name: 'Search' })).toBeInTheDocument();
+  expect(container.querySelector('[data-slot=prefix]')).toHaveAttribute('aria-hidden', 'true');
+  expect(screen.getByText('Icon')).toBeInTheDocument();
+});

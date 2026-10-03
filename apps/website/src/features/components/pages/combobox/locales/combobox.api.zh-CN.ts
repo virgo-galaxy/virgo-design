@@ -1,6 +1,9 @@
 import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 export const comboboxApiZhCN = {
   api: {
+    'combobox-input-props.properties.prefix.description': '输入框前方的可选装饰内容。',
+    'combobox-input-props.properties.leading-icon.description': '输入框前方的装饰图标。',
+
     'combobox-props.properties.size.description': '输入框与候选项的密度。',
     'combobox-props.properties.value.description': '选中的候选项值，空字符串表示未选择。',
     'combobox-props.properties.default-value.description': '初始选中值。',

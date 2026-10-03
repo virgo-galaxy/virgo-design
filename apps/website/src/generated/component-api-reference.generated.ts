@@ -753,6 +753,17 @@ export const componentApiReference: ApiReferenceRegistry = {
               'components.breadcrumb.api.breadcrumb-item-props.properties.class-name.description',
           },
           {
+            name: 'render',
+            type: '((props: AnchorHTMLAttributes<HTMLAnchorElement> & { ref: Ref<HTMLAnchorElement>; }) => ReactElement)',
+            required: false,
+            defaultValue: '',
+            description:
+              'Router adapter; forward all attributes, children and ref to a native link.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.breadcrumb.api.breadcrumb-item-props.properties.render.description',
+          },
+          {
             name: 'href',
             type: 'string',
             required: false,
@@ -2631,16 +2642,6 @@ export const componentApiReference: ApiReferenceRegistry = {
         descriptionTranslationKey: 'components.combobox.api.combobox-group-props.description',
       },
       {
-        name: 'ComboboxInputProps',
-        kind: 'type',
-        signature: "Omit< InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' >",
-        description: '',
-        source: '@virgo-design/primitives',
-        reExported: true,
-        properties: [],
-        descriptionTranslationKey: 'components.combobox.api.combobox-input-props.description',
-      },
-      {
         name: 'ComboboxOptionProps',
         kind: 'interface',
         signature: 'extends HTMLAttributes<HTMLDivElement>',
@@ -2690,6 +2691,37 @@ export const componentApiReference: ApiReferenceRegistry = {
           },
         ],
         descriptionTranslationKey: 'components.combobox.api.combobox-option-props.description',
+      },
+      {
+        name: 'ComboboxInputProps',
+        kind: 'interface',
+        signature: "extends Omit<PrimitiveComboboxInputProps, 'prefix'>",
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'prefix',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative content placed before the native text control.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-input-props.properties.prefix.description',
+          },
+          {
+            name: 'leadingIcon',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative leading icon; prefix takes precedence.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.combobox.api.combobox-input-props.properties.leading-icon.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.combobox.api.combobox-input-props.description',
       },
     ],
   },
@@ -9238,6 +9270,133 @@ export const componentApiReference: ApiReferenceRegistry = {
       },
     ],
   },
+  result: {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'ResultStatus',
+        kind: 'type',
+        signature: "'success' | 'error' | 'warning' | 'info' | '403' | '404' | '500'",
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'components.result.api.result-status.description',
+      },
+      {
+        name: 'ResultProps',
+        kind: 'interface',
+        signature: "extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>",
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'status',
+            type: 'ResultStatus',
+            required: false,
+            defaultValue: '',
+            description: 'Outcome or exception status.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.result.api.result-props.properties.status.description',
+          },
+          {
+            name: 'icon',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Custom decorative artwork replacing the status icon.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.result.api.result-props.properties.icon.description',
+          },
+          {
+            name: 'title',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Outcome title used to name the result.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.result.api.result-props.properties.title.description',
+          },
+          {
+            name: 'description',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Supporting explanation and recovery guidance.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.result.api.result-props.properties.description.description',
+          },
+          {
+            name: 'headingLevel',
+            type: '1 | 2 | 3',
+            required: false,
+            defaultValue: '',
+            description: 'Heading level matching the document hierarchy.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.result.api.result-props.properties.heading-level.description',
+          },
+          {
+            name: 'primaryAction',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Primary recovery or continuation action.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.result.api.result-props.properties.primary-action.description',
+          },
+          {
+            name: 'secondaryAction',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Optional secondary navigation or recovery action.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.result.api.result-props.properties.secondary-action.description',
+          },
+          {
+            name: 'extra',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Additional business content below the actions.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.result.api.result-props.properties.extra.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.result.api.result-props.description',
+      },
+      {
+        name: 'ResultTitleProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLHeadingElement>',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'as',
+            type: "'h1' | 'h2' | 'h3'",
+            required: false,
+            defaultValue: '',
+            description: 'Heading element for the composed title.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.result.api.result-title-props.properties.as.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.result.api.result-title-props.description',
+      },
+    ],
+  },
   'segmented-control': {
     packageName: '@virgo-design/ui',
     declarations: [
@@ -9675,6 +9834,26 @@ export const componentApiReference: ApiReferenceRegistry = {
             descriptionTranslationKey:
               'components.select.api.select-content-props.properties.children.description',
           },
+          {
+            name: 'offset',
+            type: 'number',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-content-props.properties.offset.description',
+          },
+          {
+            name: 'placement',
+            type: 'OverlayPlacement',
+            required: false,
+            defaultValue: '',
+            description: 'Preferred placement; flips and shifts at viewport boundaries.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.select.api.select-content-props.properties.placement.description',
+          },
         ],
         descriptionTranslationKey: 'components.select.api.select-content-props.description',
       },
@@ -9952,6 +10131,123 @@ export const componentApiReference: ApiReferenceRegistry = {
           },
         ],
         descriptionTranslationKey: 'components.spinner.api.spinner-props.description',
+      },
+    ],
+  },
+  statistic: {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'StatisticProps',
+        kind: 'interface',
+        signature: "extends Omit<HTMLAttributes<HTMLDivElement>, 'prefix'>",
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'label',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'The accessible metric label.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.statistic.api.statistic-props.properties.label.description',
+          },
+          {
+            name: 'value',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'The displayed metric value; zero remains visible.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.statistic.api.statistic-props.properties.value.description',
+          },
+          {
+            name: 'prefix',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Content before the value, such as a currency symbol.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.statistic.api.statistic-props.properties.prefix.description',
+          },
+          {
+            name: 'suffix',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Content after the value, such as a unit.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.statistic.api.statistic-props.properties.suffix.description',
+          },
+          {
+            name: 'trend',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Change content, commonly composed with Statistic.Trend.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.statistic.api.statistic-props.properties.trend.description',
+          },
+          {
+            name: 'description',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Supporting context for the metric.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.statistic.api.statistic-props.properties.description.description',
+          },
+          {
+            name: 'loading',
+            type: 'boolean',
+            required: false,
+            defaultValue: '',
+            description: 'Replaces the value with a Skeleton and exposes aria-busy.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.statistic.api.statistic-props.properties.loading.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.statistic.api.statistic-props.description',
+      },
+      {
+        name: 'StatisticTrendProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLSpanElement>',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'direction',
+            type: "'up' | 'down' | 'neutral'",
+            required: false,
+            defaultValue: '',
+            description: 'Direction of change, independent of semantic intent.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.statistic.api.statistic-trend-props.properties.direction.description',
+          },
+          {
+            name: 'intent',
+            type: "'positive' | 'negative' | 'neutral'",
+            required: false,
+            defaultValue: '',
+            description: 'Semantic meaning of change: positive, negative or neutral.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.statistic.api.statistic-trend-props.properties.intent.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.statistic.api.statistic-trend-props.description',
       },
     ],
   },
