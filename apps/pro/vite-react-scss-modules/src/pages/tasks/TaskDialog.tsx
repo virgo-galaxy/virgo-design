@@ -280,7 +280,7 @@ export function TaskDialog({
                     onValueChange={(value) => update('project', value)}
                   >
                     <Select.Trigger placeholder={t('tasks.chooseAProject')} />
-                    <Select.Content className={styles.ownershipOptions}>
+                    <Select.Content>
                       {taskProjects.map((project) => (
                         <Select.Option value={project} key={project}>
                           {project}
@@ -300,7 +300,7 @@ export function TaskDialog({
                     onValueChange={(value) => update('assignee', value)}
                   >
                     <Select.Trigger placeholder={t('tasks.chooseAnAssignee')} />
-                    <Select.Content className={styles.ownershipOptions}>
+                    <Select.Content>
                       {taskAssignees.map((member) => (
                         <Select.Option value={member.id} key={member.id}>
                           {member.name}

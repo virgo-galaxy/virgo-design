@@ -1,4 +1,5 @@
 export const appEnUS = {
+  loadingPage: 'Loading page…',
   findAPage: 'Find a page',
   findAPage2: 'Find a page…',
   notifications: 'Notifications',

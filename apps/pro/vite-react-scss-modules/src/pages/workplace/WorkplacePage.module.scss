@@ -2,12 +2,7 @@
   display: grid;
   gap: var(--vd-spacing-24);
 }
-.sectionKicker {
-  color: var(--vd-text-tertiary);
-  font-family: var(--vd-font-family-mono);
-  font-size: var(--vd-font-size-10);
-  letter-spacing: 1.2px;
-}
+
 .welcomeDot {
   color: var(--vd-brand-primary);
 }
@@ -40,15 +35,6 @@
   &:last-child {
     border: 0;
   }
-  > strong {
-    display: block;
-    margin-block: var(--vd-spacing-12);
-    font-family: var(--vd-font-family-mono);
-    font-size: var(--vd-font-size-32);
-    font-weight: var(--vd-font-weight-500);
-    letter-spacing: -1px;
-    line-height: var(--vd-line-height-1);
-  }
 }
 .metricLabel {
   display: flex;
@@ -63,18 +49,7 @@
     color: var(--vd-icon-tertiary);
   }
 }
-.metricNote {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--vd-spacing-8);
-  font-size: var(--vd-font-size-11);
-  color: var(--vd-text-tertiary);
-  span:first-child {
-    color: var(--vd-brand-link);
-    font-weight: var(--vd-font-weight-500);
-  }
-}
+
 .workspaceGrid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 288px;
@@ -193,82 +168,7 @@
     font-size: var(--vd-font-size-11);
   }
 }
-.legend {
-  display: flex;
-  align-items: center;
-  gap: var(--vd-spacing-16);
-  span {
-    display: flex;
-    align-items: center;
-    gap: var(--vd-spacing-6);
-  }
-  i {
-    display: inline-block;
-    width: var(--vd-sizing-12);
-    height: 2px;
-    background: var(--vd-brand-primary);
-    &[data-series='planned'] {
-      background: var(--vd-text-tertiary);
-    }
-  }
-}
-.chart {
-  margin: 0;
-  overflow-x: auto;
-  scrollbar-width: thin;
-  &:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
-    outline-offset: var(--vd-spacing-4);
-  }
-  svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    min-height: 200px;
-  }
-}
-.gridLine {
-  stroke: var(--vd-border-subtle);
-  stroke-width: 1;
-}
-.chartLabel {
-  fill: var(--vd-text-tertiary);
-  font-family: var(--vd-font-family-mono);
-  font-size: 10px;
-}
-.chartArea {
-  fill: var(--vd-brand-primary);
-  opacity: 0.06;
-}
-.completedLine {
-  fill: none;
-  stroke: var(--vd-brand-primary);
-  stroke-width: 2.5;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-}
-.plannedLine {
-  fill: none;
-  stroke: var(--vd-text-tertiary);
-  stroke-width: 1.5;
-  stroke-dasharray: 4 5;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  opacity: 0.65;
-}
-.chartPoint {
-  fill: var(--vd-surface-default);
-  stroke: var(--vd-brand-primary);
-  stroke-width: 2;
-}
-.chartCaption {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--vd-spacing-8);
-  margin-block-start: var(--vd-spacing-8);
-  color: var(--vd-text-tertiary);
-  font-size: var(--vd-font-size-11);
-}
+
 .tasksCard {
   --card-gap: var(--vd-spacing-16);
 }
@@ -540,9 +440,6 @@
   .workspaceGrid {
     grid-template-columns: minmax(0, 1fr) 320px;
   }
-  .chart svg {
-    max-height: 300px;
-  }
 }
 @media (max-width: 1200px) {
   .workspaceGrid {
@@ -560,9 +457,7 @@
   .secondaryColumn {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .activityCard {
-    grid-column: 1 / -1;
-  }
+
   .metrics {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -577,10 +472,6 @@
   }
 }
 @media (max-width: 640px) {
-  .chart svg {
-    min-width: 480px;
-    min-height: 0;
-  }
   .workplace {
     gap: var(--vd-spacing-20);
   }
@@ -596,9 +487,7 @@
   .secondaryColumn {
     grid-template-columns: minmax(0, 1fr);
   }
-  .activityCard {
-    grid-column: auto;
-  }
+
   .panelHeader,
   .trendSummary {
     flex-wrap: wrap;
@@ -608,8 +497,5 @@
     > span:last-child {
       display: none;
     }
-  }
-  .chartCaption {
-    flex-direction: column;
   }
 }

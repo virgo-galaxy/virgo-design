@@ -70,6 +70,7 @@ export function DataListPage({
   const review = state.tasks.filter((task) => task.status === 'In Review').length;
   return (
     <div className={shared.page}>
+      <h1 className={shared.srOnly}>{t('app.dataList')}</h1>
       <MetricStrip
         items={[
           {

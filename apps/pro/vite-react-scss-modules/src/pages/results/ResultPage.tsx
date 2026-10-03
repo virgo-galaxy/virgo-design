@@ -1,5 +1,5 @@
-import { CheckIcon, CloseIcon, DownloadIcon } from '@virgo-design/icons';
-import { Accordion, Alert, Button, Separator, Steps, Surface, Tag } from '@virgo-design/ui';
+import { DownloadIcon } from '@virgo-design/icons';
+import { Accordion, Alert, Button, Result, Separator, Steps, Surface, Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
 
@@ -38,16 +38,22 @@ export function ResultPage({
   return (
     <div className={shared.page}>
       <Surface border="default" radius={12} className={styles.result}>
-        <div className={styles.resultHero}>
-          <span className={styles.resultIcon} data-outcome={receipt.outcome} aria-hidden="true">
-            {success ? <CheckIcon size={36} /> : <CloseIcon size={36} />}
-          </span>
+        <Result.Root
+          status={receipt.outcome}
+          className={styles.resultHero}
+          aria-labelledby="receipt-result-title"
+        >
+          <Result.Icon />
           <Tag size="sm" variant="outline">
             {receipt.reference}
           </Tag>
-          <h1>{t(`results.receipts.${receipt.message}.title`)}</h1>
-          <p>{t(`results.receipts.${receipt.message}.description`)}</p>
-          <div className={styles.primaryActions}>
+          <Result.Title as="h1" id="receipt-result-title">
+            {t(`results.receipts.${receipt.message}.title`)}
+          </Result.Title>
+          <Result.Description>
+            {t(`results.receipts.${receipt.message}.description`)}
+          </Result.Description>
+          <Result.Actions className={styles.primaryActions}>
             {success ? (
               <>
                 <Button size="small" onClick={() => navigate(projectDetailPath(project))}>
@@ -91,8 +97,8 @@ export function ResultPage({
                 </Button>
               </>
             )}
-          </div>
-        </div>
+          </Result.Actions>
+        </Result.Root>
         <Separator decorative />
         <div className={styles.receiptBody}>
           <dl className={styles.receiptMetadata}>

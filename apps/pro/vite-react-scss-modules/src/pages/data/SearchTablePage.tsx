@@ -318,6 +318,7 @@ export function SearchTablePage({
   const visibleColumns = columnInfo.filter((column) => columns.includes(column.key));
   return (
     <div className={shared.page}>
+      <h1 className={shared.srOnly}>{t('app.searchTable')}</h1>
       <Surface radius={8} className={styles.contentSurface}>
         <section aria-labelledby="query-conditions-title">
           <div className={styles.sectionHeading}>

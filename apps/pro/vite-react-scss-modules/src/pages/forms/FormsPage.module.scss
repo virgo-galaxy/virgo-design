@@ -1,7 +1,7 @@
 .requestLayout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
-  gap: 20px;
+  gap: var(--vd-spacing-20);
   align-items: start;
 }
 .requestForm {
@@ -22,14 +22,14 @@
   border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
 }
 .fields {
-  padding: 20px;
+  padding: var(--vd-spacing-20);
   display: grid;
-  gap: 24px;
+  gap: var(--vd-spacing-24);
 }
 .fieldGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  gap: var(--vd-spacing-20);
   align-items: start;
 }
 .fieldset {
@@ -38,16 +38,16 @@
   border: 0;
   min-width: 0;
   legend {
-    margin-bottom: 12px;
+    margin-bottom: var(--vd-spacing-12);
     font-size: var(--vd-font-size-12);
     font-weight: 500;
   }
   [role='radiogroup'] {
     flex-wrap: wrap;
-    gap: 12px 24px;
+    gap: var(--vd-spacing-12) var(--vd-spacing-24);
   }
   p {
-    margin: 12px 0 0;
+    margin: var(--vd-spacing-12) 0 0;
   }
 }
 .submitBar {
@@ -55,34 +55,34 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 16px;
-  padding: 16px 20px;
+  gap: var(--vd-spacing-16);
+  padding: var(--vd-spacing-16) var(--vd-spacing-20);
   border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
 }
 .asideTitle {
-  margin: 12px 0 8px;
-  font-size: var(--vd-font-size-18);
+  margin: var(--vd-spacing-12) 0 var(--vd-spacing-8);
+  font-size: var(--vd-font-size-20);
   font-weight: 600;
 }
 .asideCopy {
-  margin: 0 0 20px;
+  margin: 0 0 var(--vd-spacing-20);
   color: var(--vd-text-secondary);
   font-size: var(--vd-font-size-12);
   line-height: 1.8;
 }
 .asideLink {
-  margin-top: 20px;
+  margin-top: var(--vd-spacing-20);
   font-size: var(--vd-font-size-12);
 }
 .guidance {
   list-style: none;
-  padding: 20px;
+  padding: var(--vd-spacing-20);
   margin: 0;
   display: grid;
-  gap: 20px;
+  gap: var(--vd-spacing-20);
   li {
     display: flex;
-    gap: 12px;
+    gap: var(--vd-spacing-12);
     align-items: start;
     color: var(--vd-text-secondary);
     font-size: var(--vd-font-size-12);
@@ -93,11 +93,11 @@
     width: 16px;
     height: 16px;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: var(--vd-spacing-2);
   }
 }
 .stepsFrame {
-  padding: 16px;
+  padding: var(--vd-spacing-16);
   border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
 }
 .steps {
@@ -131,18 +131,18 @@
 }
 .stageHeading {
   margin: 0;
-  font-size: var(--vd-font-size-18);
+  font-size: var(--vd-font-size-20);
   letter-spacing: -0.3px;
 }
 .stageCopy {
-  margin: 6px 0 0;
+  margin: var(--vd-spacing-6) 0 0;
   font-size: var(--vd-font-size-12);
   color: var(--vd-text-secondary);
 }
 .scopeLayout {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(230px, 1fr);
-  gap: 24px;
+  gap: var(--vd-spacing-24);
 }
 .scopeTree {
   min-width: 0;
@@ -157,13 +157,13 @@
 .treeLabel {
   display: flex;
   align-items: start;
-  gap: 8px;
+  gap: var(--vd-spacing-8);
   width: 100%;
   font-size: var(--vd-font-size-12);
 }
 .treeCopy {
   display: grid;
-  gap: 4px;
+  gap: var(--vd-spacing-4);
   min-width: 0;
   flex: 1;
 }
@@ -181,36 +181,36 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding-bottom: 12px;
+  gap: var(--vd-spacing-12);
+  padding-bottom: var(--vd-spacing-12);
 }
 .scopeNote {
   color: var(--vd-text-tertiary);
   font-size: var(--vd-font-size-11);
   line-height: 1.7;
-  margin: 12px 0 0;
+  margin: var(--vd-spacing-12) 0 0;
 }
 .choice {
-  padding: 12px;
+  padding: var(--vd-spacing-12);
   border: 1px solid var(--vd-border-subtle);
-  border-radius: 8px;
+  border-radius: var(--vd-radius-8);
   font-size: var(--vd-font-size-12);
 }
 .reviewGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  gap: var(--vd-spacing-20);
 }
 .reviewMetadata {
   margin: 0;
-  padding: 16px;
+  padding: var(--vd-spacing-16);
   border: 1px solid var(--vd-border-subtle);
-  border-radius: 8px;
+  border-radius: var(--vd-radius-8);
   display: grid;
-  gap: 16px;
+  gap: var(--vd-spacing-16);
   > div {
     display: grid;
-    gap: 4px;
+    gap: var(--vd-spacing-4);
   }
   dt {
     color: var(--vd-text-tertiary);
@@ -227,32 +227,32 @@
   list-style: none;
   margin: 0;
   display: grid;
-  gap: 12px;
+  gap: var(--vd-spacing-12);
   li {
     display: flex;
     align-items: start;
     justify-content: space-between;
-    gap: 12px;
+    gap: var(--vd-spacing-12);
     font-size: var(--vd-font-size-12);
   }
   li > span:first-child {
     display: grid;
-    gap: 4px;
+    gap: var(--vd-spacing-4);
   }
 }
 .wizardFooter {
   border-top: 1px solid var(--vd-border-subtle);
-  padding: 16px 20px;
+  padding: var(--vd-spacing-16) var(--vd-spacing-20);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: var(--vd-spacing-12);
   flex-wrap: wrap;
 }
 .reviewNotes {
   background: var(--vd-surface-secondary);
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: var(--vd-radius-8);
+  padding: var(--vd-spacing-16);
   color: var(--vd-text-secondary);
   font-size: var(--vd-font-size-12);
   white-space: pre-wrap;
@@ -279,8 +279,8 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .fields {
-    padding: 16px;
-    gap: 20px;
+    padding: var(--vd-spacing-16);
+    gap: var(--vd-spacing-20);
   }
   .wizard {
     padding: var(--vd-spacing-16) 0;
@@ -292,12 +292,12 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .stepsFrame {
-    padding: 8px;
+    padding: var(--vd-spacing-8);
   }
   .steps {
-    gap: 4px;
+    gap: var(--vd-spacing-4);
     [data-slot='trigger'] {
-      padding: 8px;
+      padding: var(--vd-spacing-8);
     }
     [data-slot='description'] {
       display: none;
@@ -310,9 +310,9 @@
     flex-wrap: wrap;
   }
   .treeLabel > [data-slot='root'] {
-    margin-inline-start: 24px;
+    margin-inline-start: var(--vd-spacing-24);
   }
   .wizardFooter {
-    padding: 16px;
+    padding: var(--vd-spacing-16);
   }
 }

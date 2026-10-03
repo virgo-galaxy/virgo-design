@@ -1,5 +1,5 @@
 import { DownloadIcon, PlusIcon } from '@virgo-design/icons';
-import { Button, Surface, Toast } from '@virgo-design/ui';
+import { Button, Statistic, Surface, Toast } from '@virgo-design/ui';
 import { type Dispatch, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -98,28 +98,18 @@ export function TasksPage({
   return (
     <Toast.Provider>
       <div className={styles.tasksPage}>
+        <h1 className={styles.srOnly}>{t('app.tasks')}</h1>
         <Surface border="default" radius={8} className={styles.overview}>
-          <dl>
-            <div>
-              <dt>{t('tasks.totalTasks')}</dt>
-              <dd>{overview.total}</dd>
-            </div>
-            <div>
-              <dt>{t('tasks.inProgress')}</dt>
-              <dd>{overview.inProgress}</dd>
-            </div>
-            <div>
-              <dt>{t('tasks.dueSoon')}</dt>
-              <dd>
-                {overview.dueSoon}
-                <span>{t('tasks.next7Days')}</span>
-              </dd>
-            </div>
-            <div>
-              <dt>{t('tasks.completed')}</dt>
-              <dd>{overview.completed}</dd>
-            </div>
-          </dl>
+          <div className={styles.metricGrid}>
+            <Statistic label={t('tasks.totalTasks')} value={overview.total} />
+            <Statistic label={t('tasks.inProgress')} value={overview.inProgress} />
+            <Statistic
+              label={t('tasks.dueSoon')}
+              value={overview.dueSoon}
+              description={t('tasks.next7Days')}
+            />
+            <Statistic label={t('tasks.completed')} value={overview.completed} />
+          </div>
           <span className={styles.overviewNote}>{t('tasks.workspaceTotals')}</span>
         </Surface>
         <Surface border="default" radius={12} className={styles.listPanel}>

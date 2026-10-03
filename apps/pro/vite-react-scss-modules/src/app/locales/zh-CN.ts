@@ -2,6 +2,7 @@ import type { LocaleOf } from '@/i18n/locale-types';
 
 import type { appEnUS } from './en-US';
 export const appZhCN = {
+  loadingPage: '正在加载页面…',
   findAPage: '查找页面',
   findAPage2: '查找页面…',
   notifications: '通知',

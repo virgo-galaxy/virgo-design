@@ -1,5 +1,5 @@
 import { ArrowLeftIcon } from '@virgo-design/icons';
-import { Button, Empty, Surface } from '@virgo-design/ui';
+import { Button, Result, Surface } from '@virgo-design/ui';
 import type { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -35,26 +35,31 @@ export function ExceptionPage({ code }: { code: keyof ReturnType<typeof getExcep
   const exception = getExceptions(t)[code];
   return (
     <Surface radius={8} className={styles.canvas}>
-      <Empty size="md" className={styles.state} aria-labelledby={`exception-${code}`}>
-        <h1 id={`exception-${code}`} className={styles.srOnly}>
-          {code} · {exception.title}
-        </h1>
-        <Empty.Icon className={styles.illustration}>
-          {/* Only our bundled, static SVG sources are inserted; no external or user markup. */}
-          <span dangerouslySetInnerHTML={{ __html: exception.illustration }} />
-        </Empty.Icon>
-        <Empty.Description>{exception.description}</Empty.Description>
-        <Empty.Action>
-          {code !== '403' ? (
+      <Result
+        status={code}
+        headingLevel={1}
+        title={exception.title}
+        description={exception.description}
+        className={styles.state}
+        icon={
+          <span
+            className={styles.illustration}
+            dangerouslySetInnerHTML={{ __html: exception.illustration }}
+          />
+        }
+        secondaryAction={
+          code !== '403' ? (
             <Button variant="outline" onClick={() => window.location.reload()}>
               {t('exceptions.retry')}
             </Button>
-          ) : null}
+          ) : undefined
+        }
+        primaryAction={
           <Button leadingIcon={<ArrowLeftIcon />} onClick={() => navigate('/dashboard/workplace')}>
             {t('exceptions.backToWorkplace')}
           </Button>
-        </Empty.Action>
-      </Empty>
+        }
+      />
     </Surface>
   );
 }

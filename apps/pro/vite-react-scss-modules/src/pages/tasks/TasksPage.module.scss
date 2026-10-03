@@ -21,34 +21,6 @@
   justify-content: space-between;
   padding: var(--vd-spacing-16) var(--vd-spacing-20);
   gap: var(--vd-spacing-24);
-  dl {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--vd-spacing-32);
-    margin: 0;
-  }
-  dl > div {
-    display: flex;
-    align-items: baseline;
-    gap: var(--vd-spacing-12);
-  }
-  dt {
-    color: var(--vd-text-secondary);
-    font-size: var(--vd-font-size-12);
-  }
-  dd {
-    display: flex;
-    align-items: baseline;
-    gap: var(--vd-spacing-8);
-    margin: 0;
-    font-family: var(--vd-font-family-mono);
-    font-size: var(--vd-font-size-20);
-  }
-  dd span {
-    color: var(--vd-text-tertiary);
-    font-family: var(--vd-font-family-sans);
-    font-size: var(--vd-font-size-10);
-  }
 }
 .overviewNote {
   color: var(--vd-text-tertiary);
@@ -233,11 +205,6 @@
   gap: var(--vd-spacing-16);
 }
 
-// Keep ownership options above their trigger near the dialog scroll boundary.
-.ownershipOptions[role='listbox'] {
-  inset-block-start: auto;
-  inset-block-end: calc(100% + var(--vd-spacing-4));
-}
 .taskDialogFooter {
   min-height: var(--vd-sizing-72);
 }
@@ -263,14 +230,8 @@
   .overviewNote {
     display: none;
   }
-  .overview dl {
-    gap: var(--vd-spacing-24);
-  }
 }
 @media (max-width: 850px) {
-  .overview dl {
-    gap: var(--vd-spacing-12) var(--vd-spacing-24);
-  }
   .filterGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -278,18 +239,6 @@
 @media (max-width: 640px) {
   .overview {
     padding: var(--vd-spacing-16);
-  }
-  .overview dl {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    width: 100%;
-  }
-  .overview dl > div {
-    display: grid;
-    gap: var(--vd-spacing-4);
-  }
-  .overview dd {
-    flex-wrap: wrap;
   }
   .searchRow {
     flex-wrap: wrap;
@@ -322,5 +271,20 @@
   }
   .formGrid {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.metricGrid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--vd-spacing-24);
+}
+@media (max-width: 640px) {
+  .metricGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .overviewNote {
+    display: none;
   }
 }

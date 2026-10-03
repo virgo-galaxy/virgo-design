@@ -37,6 +37,7 @@ export function DetailPage({
   if (!project)
     return (
       <div className={shared.page}>
+        <h1 className={shared.srOnly}>{t('app.detail')}</h1>
         <Empty size="md">
           <Empty.Title>{t('data.projectNotFound')}</Empty.Title>
           <Empty.Description>{t('data.chooseAProjectFromThePortfolioToViewIts')}</Empty.Description>
@@ -52,6 +53,7 @@ export function DetailPage({
   const events = projectActivity(project);
   return (
     <div className={shared.page}>
+      <h1 className={shared.srOnly}>{t('app.detail')}</h1>
       <Surface border="default" radius={8} className={styles.recordSummary}>
         <div className={styles.recordBar}>
           <div>

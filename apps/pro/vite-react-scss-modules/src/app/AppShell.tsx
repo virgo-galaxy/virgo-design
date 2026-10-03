@@ -53,8 +53,11 @@ function PageSearch() {
       }}
       size="small"
     >
-      <SearchIcon aria-hidden="true" className={styles.searchIcon} />
-      <Combobox.Input aria-label={t('app.findAPage')} placeholder={t('app.findAPage2')} />
+      <Combobox.Input
+        prefix={<SearchIcon />}
+        aria-label={t('app.findAPage')}
+        placeholder={t('app.findAPage2')}
+      />
       <Combobox.Content>
         {navigationPages.map((page) => (
           <Combobox.Option

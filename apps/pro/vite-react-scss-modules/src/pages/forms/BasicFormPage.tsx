@@ -51,6 +51,7 @@ export function BasicFormPage({
   };
   return (
     <div className={shared.page}>
+      <h1 className={shared.srOnly}>{t('app.basicForm')}</h1>
       <div className={styles.requestLayout}>
         <Surface border="default" radius={8} className={styles.requestSurface}>
           <Form

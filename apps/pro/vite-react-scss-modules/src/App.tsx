@@ -1,4 +1,6 @@
-import { type ReactElement, useReducer, useRef, useState } from 'react';
+import { Skeleton } from '@virgo-design/ui';
+import { lazy, type ReactElement, Suspense, useReducer, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 
 import { AppShell } from '@/app/AppShell';
@@ -19,20 +21,60 @@ import {
 import { projects } from '@/data/projects';
 import { tasksReducer } from '@/data/tasks';
 import { initialTaskState } from '@/data/tasks.seed';
-import { AnalyticsPage } from '@/pages/analytics/AnalyticsPage';
-import { DataListPage } from '@/pages/data/DataListPage';
-import { DetailPage } from '@/pages/data/DetailPage';
-import { SearchTablePage } from '@/pages/data/SearchTablePage';
-import { ExceptionPage } from '@/pages/exceptions/ExceptionPage';
-import { BasicFormPage } from '@/pages/forms/BasicFormPage';
-import { StepFormPage } from '@/pages/forms/StepFormPage';
-import { NotFoundPage } from '@/pages/NotFoundPage';
-import { ProfilePage } from '@/pages/profile/ProfilePage';
-import { ProjectsPage } from '@/pages/projects/ProjectsPage';
-import { ResultPage } from '@/pages/results/ResultPage';
-import { TasksPage } from '@/pages/tasks/TasksPage';
-import { WorkplacePage } from '@/pages/workplace/WorkplacePage';
+const AnalyticsPage = lazy(() =>
+  import('@/pages/analytics/AnalyticsPage').then((module) => ({ default: module.AnalyticsPage })),
+);
+const DataListPage = lazy(() =>
+  import('@/pages/data/DataListPage').then((module) => ({ default: module.DataListPage })),
+);
+const DetailPage = lazy(() =>
+  import('@/pages/data/DetailPage').then((module) => ({ default: module.DetailPage })),
+);
+const SearchTablePage = lazy(() =>
+  import('@/pages/data/SearchTablePage').then((module) => ({ default: module.SearchTablePage })),
+);
+const ExceptionPage = lazy(() =>
+  import('@/pages/exceptions/ExceptionPage').then((module) => ({ default: module.ExceptionPage })),
+);
+const BasicFormPage = lazy(() =>
+  import('@/pages/forms/BasicFormPage').then((module) => ({ default: module.BasicFormPage })),
+);
+const StepFormPage = lazy(() =>
+  import('@/pages/forms/StepFormPage').then((module) => ({ default: module.StepFormPage })),
+);
+const NotFoundPage = lazy(() =>
+  import('@/pages/NotFoundPage').then((module) => ({ default: module.NotFoundPage })),
+);
+const ProfilePage = lazy(() =>
+  import('@/pages/profile/ProfilePage').then((module) => ({ default: module.ProfilePage })),
+);
+const ProjectsPage = lazy(() =>
+  import('@/pages/projects/ProjectsPage').then((module) => ({ default: module.ProjectsPage })),
+);
+const ResultPage = lazy(() =>
+  import('@/pages/results/ResultPage').then((module) => ({ default: module.ResultPage })),
+);
+const TasksPage = lazy(() =>
+  import('@/pages/tasks/TasksPage').then((module) => ({ default: module.TasksPage })),
+);
+const WorkplacePage = lazy(() =>
+  import('@/pages/workplace/WorkplacePage').then((module) => ({ default: module.WorkplacePage })),
+);
 
+function RouteLoading() {
+  const { t } = useTranslation();
+  return (
+    <div
+      role="status"
+      aria-label={t('app.loadingPage')}
+      style={{ padding: 'var(--vd-spacing-24)', display: 'grid', gap: 'var(--vd-spacing-16)' }}
+    >
+      <Skeleton variant="text" style={{ width: '40%' }} />
+      <Skeleton style={{ height: 'var(--vd-sizing-80)' }} />
+      <Skeleton style={{ height: 'var(--vd-sizing-80)' }} />
+    </div>
+  );
+}
 export function App() {
   const [tasks, dispatch] = useReducer(tasksReducer, initialTaskState);
   const [request, setRequest] = useState({ ...initialWorkRequest });
@@ -124,7 +166,15 @@ export function App() {
             />
           ))}
           {proRouting.routes.map((route) => (
-            <Route key={route.id} path={route.path} element={pages[route.page]} />
+            <Route
+              key={route.id}
+              path={route.path}
+              element={
+                <Suspense key={route.id} fallback={<RouteLoading />}>
+                  {pages[route.page]}
+                </Suspense>
+              }
+            />
           ))}
         </Route>
       </Routes>

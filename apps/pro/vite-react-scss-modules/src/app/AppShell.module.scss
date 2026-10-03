@@ -40,11 +40,6 @@
         font-size: var(--vd-font-size-16);
       }
     }
-    .searchIcon {
-      left: var(--vd-spacing-12);
-      width: var(--vd-sizing-20);
-      height: var(--vd-sizing-20);
-    }
     .actions button[data-size='medium'] {
       --button-height: var(--vd-sizing-36);
       --button-icon-size: var(--vd-sizing-20);
@@ -169,20 +164,6 @@
   width: var(--pro-search-width, 230px);
   margin-inline-start: auto;
   position: relative;
-  input {
-    padding-inline-start: var(--vd-spacing-32);
-  }
-}
-.searchIcon {
-  position: absolute;
-  top: 50%;
-  left: var(--vd-spacing-8);
-  width: var(--vd-sizing-16);
-  height: var(--vd-sizing-16);
-  transform: translateY(-50%);
-  color: var(--vd-icon-tertiary);
-  pointer-events: none;
-  z-index: 1;
 }
 .optionGroup {
   float: inline-end;

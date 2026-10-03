@@ -136,6 +136,7 @@ export function ProjectsPage({ state }: { state: TaskState }) {
   const summaries = projects.map((project) => projectSummary(project, state.tasks));
   return (
     <div className={shared.page}>
+      <h1 className={shared.srOnly}>{t('app.projects')}</h1>
       <MetricStrip
         items={[
           {

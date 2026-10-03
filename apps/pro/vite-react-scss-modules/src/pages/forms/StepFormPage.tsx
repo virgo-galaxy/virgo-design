@@ -101,6 +101,7 @@ export function StepFormPage({
   };
   return (
     <div className={shared.page}>
+      <h1 className={shared.srOnly}>{t('app.stepForm')}</h1>
       <Surface border="default" radius={8} className={styles.wizardSurface}>
         <div className={styles.wizard}>
           <div className={styles.stepsFrame}>

@@ -1,5 +1,5 @@
 import { SearchIcon } from '@virgo-design/icons';
-import { Avatar, Button, Empty, Field, Select, Surface, Tag } from '@virgo-design/ui';
+import { Avatar, Button, Empty, Field, Select, Statistic, Surface, Tag } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -90,15 +90,16 @@ export function MetricStrip({
 }) {
   return (
     <Surface border="default" radius={8} className={`${styles.metrics} ${className ?? ''}`}>
-      <dl>
+      <div className={styles.metricGrid}>
         {items.map((item) => (
-          <div key={item.label}>
-            <dt>{item.label}</dt>
-            <dd>{item.value}</dd>
-            {item.note ? <span>{item.note}</span> : null}
-          </div>
+          <Statistic
+            key={item.label}
+            label={item.label}
+            value={item.value}
+            description={item.note}
+          />
         ))}
-      </dl>
+      </div>
       {note ? <span className={styles.caption}>{note}</span> : null}
     </Surface>
   );

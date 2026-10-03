@@ -7,7 +7,7 @@ import {
   LayersIcon,
   UserIcon,
 } from '@virgo-design/icons';
-import { Button, Progress, Surface, Tag, Timeline } from '@virgo-design/ui';
+import { Button, Progress, Statistic, Surface, Tag, Timeline } from '@virgo-design/ui';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -131,17 +131,19 @@ export function WorkplacePage() {
             {metrics.map((metric) => {
               const Icon = metricIcons[metric.icon];
               return (
-                <div className={styles.metric} key={metric.icon}>
-                  <div className={styles.metricLabel}>
-                    <span>{t(`workplace.metrics.${metric.icon}.label`)}</span>
-                    <Icon aria-hidden="true" />
-                  </div>
-                  <strong>{metric.value}</strong>
-                  <div className={styles.metricNote}>
-                    <span>{t(`workplace.metrics.${metric.icon}.change`)}</span>
-                    <span>{t(`workplace.metrics.${metric.icon}.detail`)}</span>
-                  </div>
-                </div>
+                <Statistic
+                  key={metric.icon}
+                  className={styles.metric}
+                  value={metric.value}
+                  label={
+                    <span className={styles.metricLabel}>
+                      <span>{t(`workplace.metrics.${metric.icon}.label`)}</span>
+                      <Icon aria-hidden="true" />
+                    </span>
+                  }
+                  trend={t(`workplace.metrics.${metric.icon}.change`)}
+                  description={t(`workplace.metrics.${metric.icon}.detail`)}
+                />
               );
             })}
           </Surface>

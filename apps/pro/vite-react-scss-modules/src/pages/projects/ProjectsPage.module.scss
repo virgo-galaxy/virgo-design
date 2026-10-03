@@ -1,21 +1,21 @@
 .filters {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 230px));
-  gap: 16px;
-  padding: 0 20px 20px;
+  gap: var(--vd-spacing-16);
+  padding: 0 var(--vd-spacing-20) var(--vd-spacing-20);
 }
 .projectGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-  padding: 0 20px 20px;
+  gap: var(--vd-spacing-20);
+  padding: 0 var(--vd-spacing-20) var(--vd-spacing-20);
   align-items: start;
 }
 .projectCard {
-  padding: 20px;
+  padding: var(--vd-spacing-20);
   h3 {
-    margin: 16px 0 6px;
-    font-size: var(--vd-font-size-18);
+    margin: var(--vd-spacing-16) 0 var(--vd-spacing-6);
+    font-size: var(--vd-font-size-20);
     font-weight: 600;
     a {
       color: var(--vd-text-primary);
@@ -31,12 +31,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: var(--vd-spacing-12);
 }
 .projectCode {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--vd-spacing-8);
   color: var(--vd-text-tertiary);
   font: var(--vd-font-size-10) var(--vd-font-family-mono);
   i {
@@ -49,14 +49,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 20px 0;
-  gap: 12px;
+  margin: var(--vd-spacing-20) 0;
+  gap: var(--vd-spacing-12);
 }
 .progressLabel {
   display: flex;
   justify-content: space-between;
   font-size: var(--vd-font-size-11);
-  margin-bottom: 8px;
+  margin-bottom: var(--vd-spacing-8);
   color: var(--vd-text-secondary);
   strong {
     font-family: var(--vd-font-family-mono);
@@ -66,15 +66,15 @@
 .projectStats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: 20px 0;
-  gap: 12px;
+  margin: var(--vd-spacing-20) 0;
+  gap: var(--vd-spacing-12);
   dt {
     font-size: var(--vd-font-size-11);
     color: var(--vd-text-tertiary);
   }
   dd {
-    margin: 4px 0 0;
-    font: var(--vd-font-size-18) var(--vd-font-family-mono);
+    margin: var(--vd-spacing-4) 0 0;
+    font: var(--vd-font-size-20) var(--vd-font-family-mono);
   }
   dd span {
     font-size: var(--vd-font-size-10);
@@ -84,18 +84,18 @@
 .schedule {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--vd-spacing-12);
   font-size: var(--vd-font-size-11);
   color: var(--vd-text-secondary);
 }
 .expansion {
-  margin-top: 16px;
+  margin-top: var(--vd-spacing-16);
   border-top: 1px solid var(--vd-border-subtle);
-  padding-top: 12px;
+  padding-top: var(--vd-spacing-12);
   [data-slot='content'] > a {
     display: inline-block;
     font-size: var(--vd-font-size-12);
-    margin-top: 12px;
+    margin-top: var(--vd-spacing-12);
   }
 }
 .expandTrigger {
@@ -105,20 +105,20 @@
 }
 .relatedList {
   list-style: none;
-  margin: 12px 0 0;
+  margin: var(--vd-spacing-12) 0 0;
   padding: 0;
   display: grid;
-  gap: 12px;
+  gap: var(--vd-spacing-12);
   li {
     display: flex;
     align-items: start;
     justify-content: space-between;
-    gap: 16px;
+    gap: var(--vd-spacing-16);
     font-size: var(--vd-font-size-12);
   }
   li > span:first-child {
     display: grid;
-    gap: 4px;
+    gap: var(--vd-spacing-4);
   }
 }
 @media (max-width: 760px) {
@@ -128,20 +128,20 @@
 }
 @media (max-width: 640px) {
   .projectGrid {
-    padding: 0 16px 16px;
+    padding: 0 var(--vd-spacing-16) var(--vd-spacing-16);
   }
   .filters {
-    padding: 0 16px 16px;
+    padding: 0 var(--vd-spacing-16) var(--vd-spacing-16);
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .projectCard {
-    padding: 16px;
+    padding: var(--vd-spacing-16);
   }
   .owner > span:last-child {
     display: none;
   }
   .relatedList li {
     flex-wrap: wrap;
-    gap: 6px;
+    gap: var(--vd-spacing-6);
   }
 }

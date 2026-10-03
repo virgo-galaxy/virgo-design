@@ -8,8 +8,8 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 16px;
-  padding: 48px 32px 40px;
+  gap: var(--vd-spacing-16);
+  padding: var(--vd-spacing-48) var(--vd-spacing-32) var(--vd-spacing-40);
   text-align: center;
   h1 {
     margin: 0;
@@ -24,48 +24,29 @@
     line-height: 1.8;
   }
 }
-.resultIcon {
-  display: grid;
-  place-items: center;
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  margin-bottom: 8px;
-  &[data-outcome='success'] {
-    background: var(--vd-status-success-solid);
-    color: var(--vd-status-success-on-solid);
-  }
-  &[data-outcome='error'] {
-    background: var(--vd-status-danger-solid);
-    color: var(--vd-status-danger-on-solid);
-  }
-  svg {
-    width: 36px;
-    height: 36px;
-  }
-}
+
 .primaryActions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
-  margin-top: 8px;
+  gap: var(--vd-spacing-12);
+  margin-top: var(--vd-spacing-8);
 }
 .receiptBody {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 32px;
-  padding: 32px;
+  gap: var(--vd-spacing-32);
+  padding: var(--vd-spacing-32);
 }
 .receiptMetadata {
   margin: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
+  gap: var(--vd-spacing-24);
   align-content: start;
   > div {
     display: grid;
-    gap: 8px;
+    gap: var(--vd-spacing-8);
   }
   dt {
     font-size: var(--vd-font-size-11);
@@ -79,7 +60,7 @@
 }
 .nextSteps {
   display: grid;
-  gap: 20px;
+  gap: var(--vd-spacing-20);
   h3 {
     margin: 0;
     font-size: var(--vd-font-size-13);
@@ -89,7 +70,7 @@
   }
   [data-slot='item'] {
     grid-template-columns: 24px minmax(0, 1fr);
-    gap: 6px 12px;
+    gap: var(--vd-spacing-6) var(--vd-spacing-12);
   }
   [data-slot='indicator'] {
     grid-row: 1 / 3;
@@ -105,7 +86,7 @@
 .recovery {
   min-width: 0;
   display: grid;
-  gap: 16px;
+  gap: var(--vd-spacing-16);
   > a {
     font-size: var(--vd-font-size-12);
   }
@@ -116,37 +97,37 @@
 }
 .scopeSection {
   border-top: 1px solid var(--vd-border-subtle);
-  margin-inline: 32px;
-  padding: 24px 0;
+  margin-inline: var(--vd-spacing-32);
+  padding: var(--vd-spacing-24) 0;
   h3 {
-    margin: 0 0 6px;
+    margin: 0 0 var(--vd-spacing-6);
     font-size: var(--vd-font-size-13);
   }
   ul {
     list-style: none;
-    margin: 20px 0 0;
+    margin: var(--vd-spacing-20) 0 0;
     padding: 0;
     display: grid;
-    gap: 16px;
+    gap: var(--vd-spacing-16);
   }
   li {
     display: flex;
     align-items: start;
     justify-content: space-between;
-    gap: 16px;
+    gap: var(--vd-spacing-16);
     font-size: var(--vd-font-size-12);
   }
   li > div {
     display: grid;
-    gap: 6px;
+    gap: var(--vd-spacing-6);
   }
 }
 .resultFooter {
-  padding: 16px 32px;
+  padding: var(--vd-spacing-16) var(--vd-spacing-32);
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--vd-spacing-12);
   justify-content: space-between;
   border-top: 1px solid var(--vd-border-subtle);
   > a {
@@ -160,23 +141,23 @@
 }
 @media (max-width: 640px) {
   .resultHero {
-    padding: 32px 20px;
+    padding: var(--vd-spacing-32) var(--vd-spacing-20);
   }
   .receiptBody {
-    padding: 20px;
+    padding: var(--vd-spacing-20);
   }
   .receiptMetadata {
-    gap: 20px 16px;
+    gap: var(--vd-spacing-20) var(--vd-spacing-16);
   }
   .scopeSection {
-    margin-inline: 20px;
+    margin-inline: var(--vd-spacing-20);
   }
   .scopeSection li {
     flex-wrap: wrap;
-    gap: 8px;
+    gap: var(--vd-spacing-8);
   }
   .resultFooter {
-    padding: 16px 20px;
+    padding: var(--vd-spacing-16) var(--vd-spacing-20);
   }
   .resultHero h1 {
     font-size: var(--vd-font-size-20);
