@@ -1,5 +1,5 @@
 import { DownloadIcon, PlusIcon } from '@virgo-design/icons';
-import { Button, Surface, Tag, Toast } from '@virgo-design/ui';
+import { Button, Surface, Toast } from '@virgo-design/ui';
 import { type Dispatch, useRef, useState } from 'react';
 
 import {
@@ -97,18 +97,6 @@ export function TasksPage({
   return (
     <Toast.Provider>
       <div className={styles.tasksPage}>
-        <div className={styles.pageHeading}>
-          <div>
-            <span className={styles.eyebrow}>WORK / TEAM DELIVERY</span>
-            <div className={styles.titleLine}>
-              <h1>Tasks</h1>
-              <Tag size="sm" variant="outline">
-                {overview.total}
-              </Tag>
-            </div>
-            <p>Turn the next step into shared progress.</p>
-          </div>
-        </div>
         <Surface border="default" radius={8} className={styles.overview}>
           <dl>
             <div>

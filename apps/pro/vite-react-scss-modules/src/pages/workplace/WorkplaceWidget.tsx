@@ -96,7 +96,7 @@ export function WorkplaceWidget({
                         />
                       )}
                     />
-                    <Tooltip.Content placement="top" size="small" arrow={false}>
+                    <Tooltip.Content placement="top">
                       {open ? 'Minimize' : 'Expand'}
                     </Tooltip.Content>
                   </Tooltip>
@@ -117,9 +117,7 @@ export function WorkplaceWidget({
                         </Button>
                       )}
                     />
-                    <Tooltip.Content placement="top" size="small" arrow={false}>
-                      Remove from workplace
-                    </Tooltip.Content>
+                    <Tooltip.Content placement="top">Remove from workplace</Tooltip.Content>
                   </Tooltip>
                 </div>
               </Card.Header>

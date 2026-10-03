@@ -1,0 +1,19 @@
+{
+  "appearance": "system",
+  "showOverlayArrows": true,
+  "breathe": true,
+  "notificationIndicator": "dot",
+  "showHeader": true,
+  "sidebarState": "expanded",
+  "showBreadcrumb": true,
+  "showFooter": true,
+  "headerHeight": 64,
+  "headerMaterial": "glass",
+  "sidebarMode": "expanded",
+  "sidebarWidth": 224,
+  "sidebarRailWidth": 52,
+  "sidebarResizable": true,
+  "sidebarSnap": true,
+  "sidebarStyle": "collapsible",
+  "showSubmenuHeader": true
+}

@@ -20,6 +20,7 @@ import {
   shortcuts,
   snapshot,
 } from '@/data/workplace';
+import { PageHeading } from '@/pages/shared/ProPage';
 
 import { DeliveryTrend } from './DeliveryTrend';
 import { RecentTasks } from './RecentTasks';
@@ -27,7 +28,7 @@ import styles from './WorkplacePage.module.scss';
 import { WorkplaceWidget, type WorkplaceWidgetState } from './WorkplaceWidget';
 import { WorkspaceCarousel } from './WorkspaceCarousel';
 
-const widgetIds = ['distribution', 'shortcuts', 'activity'] as const;
+const widgetIds = ['distribution', 'shortcuts', 'inspiration', 'activity'] as const;
 type WidgetId = (typeof widgetIds)[number];
 
 const metricIcons = {
@@ -65,6 +66,7 @@ export function WorkplacePage() {
   const [widgets, setWidgets] = useState<Record<WidgetId, WorkplaceWidgetState>>({
     distribution: 'expanded',
     shortcuts: 'expanded',
+    inspiration: 'expanded',
     activity: 'expanded',
   });
   const widgetTriggers = useRef<Partial<Record<WidgetId, HTMLButtonElement | null>>>({});
@@ -91,55 +93,56 @@ export function WorkplacePage() {
   });
   return (
     <div className={styles.workplace}>
-      <div className={styles.welcome}>
-        <div>
-          <span className={styles.eyebrow}>YOUR WORK, IN FOCUS</span>
-          <h1>
-            Welcome back, Mystic<span className={styles.welcomeDot}>.</span>
-          </h1>
-          <p>Good work starts with a clear view. Here’s where your team stands.</p>
-        </div>
-        <div className={styles.welcomeActions}>
-          <span className={styles.snapshotDate}>
-            <CalendarIcon />
-            <time dateTime={snapshot.date}>Oct 1, 2026</time>
-          </span>
-          <Button
-            variant="outline"
-            size="small"
-            leadingIcon={<DownloadIcon />}
-            ref={exportRef}
-            onClick={exportSnapshot}
-          >
-            Export snapshot
-          </Button>
-        </div>
-      </div>
-
-      <Surface border="default" radius={12} className={styles.metrics}>
-        {metrics.map((metric) => {
-          const Icon = metricIcons[metric.icon];
-          return (
-            <div className={styles.metric} key={metric.label}>
-              <div className={styles.metricLabel}>
-                <span>{metric.label}</span>
-                <Icon aria-hidden="true" />
-              </div>
-              <strong>{metric.value}</strong>
-              <div className={styles.metricNote}>
-                <span>{metric.change}</span>
-                <span>{metric.detail}</span>
-              </div>
-            </div>
-          );
-        })}
-      </Surface>
-
       <div
         className={styles.workspaceGrid}
         data-aside-hidden={widgetIds.every((id) => widgets[id] === 'removed')}
       >
         <div className={styles.primaryColumn}>
+          <PageHeading
+            title={
+              <>
+                Welcome back, Mystic<span className={styles.welcomeDot}>.</span>
+              </>
+            }
+            description="Good work starts with a clear view. Here’s where your team stands."
+            actions={
+              <div className={styles.welcomeActions}>
+                <span className={styles.snapshotDate}>
+                  <CalendarIcon />
+                  <time dateTime={snapshot.date}>Oct 1, 2026</time>
+                </span>
+                <Button
+                  variant="outline"
+                  size="small"
+                  leadingIcon={<DownloadIcon />}
+                  ref={exportRef}
+                  onClick={exportSnapshot}
+                >
+                  Export snapshot
+                </Button>
+              </div>
+            }
+          />
+
+          <Surface border="default" radius={12} className={styles.metrics}>
+            {metrics.map((metric) => {
+              const Icon = metricIcons[metric.icon];
+              return (
+                <div className={styles.metric} key={metric.label}>
+                  <div className={styles.metricLabel}>
+                    <span>{metric.label}</span>
+                    <Icon aria-hidden="true" />
+                  </div>
+                  <strong>{metric.value}</strong>
+                  <div className={styles.metricNote}>
+                    <span>{metric.change}</span>
+                    <span>{metric.detail}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </Surface>
+
           <DeliveryTrend />
           <RecentTasks />
           {announcements.map((announcement) => (
@@ -232,6 +235,10 @@ export function WorkplacePage() {
                   );
                 })}
               </div>
+            </WorkplaceWidget>
+          ) : null}
+          {widgets.inspiration !== 'removed' ? (
+            <WorkplaceWidget {...widgetProps('inspiration')} title="Workspace inspiration">
               <WorkspaceCarousel />
             </WorkplaceWidget>
           ) : null}

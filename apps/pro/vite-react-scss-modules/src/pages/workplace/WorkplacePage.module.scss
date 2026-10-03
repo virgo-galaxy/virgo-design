@@ -2,26 +2,6 @@
   display: grid;
   gap: var(--vd-spacing-24);
 }
-.welcome {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--vd-spacing-24);
-  h1 {
-    margin: var(--vd-spacing-8) 0;
-    font-size: var(--vd-typography-ui-display-small-font-size);
-    font-weight: var(--vd-typography-ui-display-small-font-weight);
-    line-height: var(--vd-typography-ui-display-small-line-height);
-    letter-spacing: -0.8px;
-  }
-  p {
-    margin: 0;
-    color: var(--vd-text-secondary);
-    font-size: var(--vd-font-size-13);
-    line-height: var(--vd-line-height-4);
-  }
-}
-.eyebrow,
 .sectionKicker {
   color: var(--vd-text-tertiary);
   font-family: var(--vd-font-family-mono);
@@ -453,19 +433,40 @@
   width: 100%;
   justify-content: flex-start;
   height: auto;
-  padding: var(--vd-spacing-8) 0;
+  padding: var(--vd-spacing-8);
   white-space: normal;
   text-align: start;
   gap: var(--vd-spacing-12);
   --button-foreground: var(--vd-text-primary);
+  --button-background-hover: var(--vd-brand-subtle-hover);
+  --button-background-active: color-mix(
+    in srgb,
+    var(--vd-brand-primary) 24%,
+    var(--vd-surface-default)
+  );
+  &:hover,
+  &:focus-visible {
+    [data-slot='leading-icon'],
+    [data-slot='trailing-icon'] {
+      color: var(--vd-brand-link);
+    }
+    [data-slot='leading-icon'] {
+      background: color-mix(in srgb, var(--vd-brand-primary) 14%, transparent);
+    }
+  }
+  &:focus-visible {
+    outline-offset: calc(-1 * var(--vd-border-width-2));
+  }
   [data-slot='label'] {
     flex: 1;
+    min-width: 0;
   }
   [data-slot='trailing-icon'] {
     margin-inline-start: auto;
     color: var(--vd-icon-tertiary);
   }
   [data-slot='leading-icon'] {
+    margin-inline-end: 0;
     width: var(--vd-sizing-32);
     height: var(--vd-sizing-32);
     background: var(--vd-surface-secondary);
@@ -548,7 +549,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .secondaryColumn {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
   }
   .trendCard .chart svg {
@@ -571,12 +572,6 @@
   .metric:nth-child(-n + 2) {
     border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
   }
-  .welcome {
-    align-items: flex-start;
-  }
-  .welcome h1 {
-    font-size: var(--vd-font-size-24);
-  }
   .welcomeActions {
     gap: var(--vd-spacing-8);
   }
@@ -588,10 +583,6 @@
   }
   .workplace {
     gap: var(--vd-spacing-20);
-  }
-  .welcome {
-    flex-direction: column;
-    gap: var(--vd-spacing-16);
   }
   .welcomeActions {
     flex-direction: row;

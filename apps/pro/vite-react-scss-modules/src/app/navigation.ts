@@ -1,68 +1,16 @@
-import {
-  CircleCheckIcon,
-  LayersIcon,
-  LayoutIcon,
-  TypeIcon,
-  UserIcon,
-  WidgetsIcon,
-} from '@virgo-design/icons';
-import type { ComponentType } from 'react';
+import { iconComponents } from '@virgo-design/icons/registry';
 
-interface NavigationPage {
-  label: string;
-  path: string;
-}
+import { proRouting } from './routing';
 
-interface NavigationGroup {
-  label: string;
-  icon: ComponentType;
-  pages: NavigationPage[];
-}
-
-export const navigationGroups: NavigationGroup[] = [
-  {
-    label: 'Dashboard',
-    icon: WidgetsIcon,
-    pages: [
-      { label: 'Workplace', path: '/dashboard/workplace' },
-      { label: 'Analytics', path: '/dashboard/analytics' },
-    ],
-  },
-  {
-    label: 'Work',
-    icon: LayersIcon,
-    pages: [
-      { label: 'Tasks', path: '/work/tasks' },
-      { label: 'Projects', path: '/work/projects' },
-    ],
-  },
-  {
-    label: 'Data',
-    icon: LayoutIcon,
-    pages: [
-      { label: 'Search Table', path: '/data/search-table' },
-      { label: 'Data List', path: '/data/list' },
-      { label: 'Detail', path: '/data/detail' },
-    ],
-  },
-  {
-    label: 'Form',
-    icon: TypeIcon,
-    pages: [
-      { label: 'Basic Form', path: '/form/basic' },
-      { label: 'Step Form', path: '/form/step' },
-    ],
-  },
-  {
-    label: 'Result',
-    icon: CircleCheckIcon,
-    pages: [
-      { label: 'Success', path: '/result/success' },
-      { label: 'Error', path: '/result/error' },
-    ],
-  },
-  { label: 'Profile', icon: UserIcon, pages: [{ label: 'Profile', path: '/profile' }] },
-];
+/** The public registry resolves serializable icon IDs into optional React icons. */
+export const navigationGroups = proRouting.groups.map((group) => ({
+  ...group,
+  icon: iconComponents[group.icon],
+  pages: group.pages.map((page) => ({
+    ...page,
+    icon: page.icon ? iconComponents[page.icon] : undefined,
+  })),
+}));
 
 export const navigationPages = navigationGroups.flatMap((group) =>
   group.pages.map((page) => ({ ...page, group: group.label })),

@@ -1,27 +1,33 @@
+import beach from '@/assets/beach.jpg';
+import glacier from '@/assets/glacier.jpg';
+import ocean from '@/assets/ocean.jpg';
+import starlight from '@/assets/starlight.jpg';
+import volcano from '@/assets/volcano.jpg';
+
 export const workplaceImages = [
   {
     id: 'starlight',
-    src: '/images/workplace/starlight.jpg',
+    src: starlight,
     alt: 'The Milky Way stretching over an open mountain landscape.',
   },
   {
     id: 'glacier',
-    src: '/images/workplace/glacier.jpg',
+    src: glacier,
     alt: 'Blue Icelandic icebergs reflected in still glacial water.',
   },
   {
     id: 'ocean',
-    src: '/images/workplace/ocean.jpg',
+    src: ocean,
     alt: 'Ocean waves reaching a wide blue horizon.',
   },
   {
     id: 'beach',
-    src: '/images/workplace/beach.jpg',
+    src: beach,
     alt: 'An aerial view of white sand, palm trees and turquoise ocean.',
   },
   {
     id: 'volcano',
-    src: '/images/workplace/volcano.jpg',
+    src: volcano,
     alt: 'An erupting volcano illuminating the night with flowing lava.',
   },
 ] as const;
