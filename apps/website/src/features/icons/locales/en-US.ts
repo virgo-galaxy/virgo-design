@@ -25,6 +25,7 @@ export const iconsEnUS = {
   pauseAnimations: 'Pause',
   playAnimations: 'Play',
   animationIdeas: {
+    bell: 'Gently ring the bell from side to side, then settle upright.',
     'external-link':
       'Flex the open corners outward, draw the arrow back, then launch it diagonally.',
     bot: 'Sway the antenna while the robot stays still.',

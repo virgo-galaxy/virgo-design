@@ -27,6 +27,7 @@ export const iconsZhCN = {
   pauseAnimations: '暂停',
   playAnimations: '播放',
   animationIdeas: {
+    bell: '铃铛轻轻左右摇动，再回到直立位置。',
     'external-link': '缺口两端向外掰开，箭头蓄力后向右上探出，再回到原位。',
     bot: '天线左右摆动，机器人身体保持不动。',
     check: '先画出短边，再画出向上的长边。',

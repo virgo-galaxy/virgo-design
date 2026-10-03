@@ -106,6 +106,7 @@ describe('canonical platform contract', () => {
       'arrow-left',
       'arrow-right',
       'arrow-up',
+      'bell',
       'bot',
       'check',
       'chevron-down',

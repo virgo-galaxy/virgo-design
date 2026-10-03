@@ -12,6 +12,10 @@ export const chineseIconKeywords = {
   'arrow-down': ['下箭头', '箭头', '向下'],
   'studio-tools': ['工作室', '图标工作室', '创作', '编辑器', '画布'],
   bot: ['机器人', '助手', '人工智能'],
+  bell: ['铃铛', '通知', '提醒', '消息'],
+  briefcase: ['公文包', '工作', '项目', '任务'],
+  database: ['数据库', '数据', '记录', '存储'],
+  form: ['表单', '标签', '输入框', '字段'],
   calendar: ['日历', '日期', '选择日期'],
   check: ['勾选', '确认', '完成'],
   'circle-check': ['成功', '完成', '确认'],
@@ -43,6 +47,7 @@ export const chineseIconKeywords = {
   minus: ['减少', '减号'],
   maximize: ['最大化', '展开', '还原', '窗口', '面板'],
   moon: ['月亮', '夜间', '深色'],
+  monitor: ['显示器', '屏幕', '桌面', '系统', '跟随系统'],
   palette: ['调色板', '颜色'],
   pin: ['固定', '图钉'],
   stop: ['停止', '结束播放'],
@@ -51,6 +56,7 @@ export const chineseIconKeywords = {
   pause: ['暂停', '停止播放'],
   unpin: ['取消固定'],
   plus: ['添加', '加号'],
+  receipt: ['回执', '回执单', '结果', '凭证', '记录', '票据'],
   search: ['搜索', '查找'],
   settings: ['设置', '齿轮', '配置', '偏好'],
   shapes: ['形状', '几何'],
@@ -108,6 +114,7 @@ export function iconAnimationIdeaKey(id: IconId) {
     id === 'upload' ||
     id === 'download' ||
     id === 'settings' ||
+    id === 'bell' ||
     id === 'external-link' ||
     id === 'bot' ||
     id === 'check' ||

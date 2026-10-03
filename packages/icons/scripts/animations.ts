@@ -159,6 +159,13 @@ export function createIconAnimation(
         transform(0, 'translate', ['0 0', `0 ${id === 'upload' ? -1.5 : 1.5}`, '0 0', '0 0']),
       ],
     };
+  } else if (id === 'bell') {
+    animation = {
+      duration: 1200,
+      tracks: [0, 1].map((path) =>
+        transform(path, 'rotate', ['0 12 4', '-12 12 4', '12 12 4', '0 12 4']),
+      ),
+    };
   } else if (id === 'settings') {
     animation = {
       duration: 1400,

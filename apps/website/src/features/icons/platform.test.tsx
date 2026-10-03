@@ -29,11 +29,24 @@ const selectFormat = async (label: string, trigger = 'Code format') => {
   await userEvent.click(screen.getByRole('option', { name: label }));
 };
 describe('Icons platform', () => {
+  it.each([
+    ['公文包', 'briefcase'],
+    ['数据库', 'database'],
+    ['输入框', 'form'],
+    ['回执单', 'receipt'],
+    ['result', 'receipt'],
+    ['显示器', 'monitor'],
+    ['system', 'monitor'],
+    ['铃铛', 'bell'],
+    ['notification', 'bell'],
+  ])('finds the product navigation icon for %s', (query, id) => {
+    expect(searchWebsiteIcons(query).map((icon) => icon.id)).toContain(id);
+  });
   it('filters the implemented animations together with search and category', () => {
     const candidates = searchWebsiteIcons('', undefined, true);
     const staticIcons = searchWebsiteIcons('', undefined, false);
-    expect(candidates).toHaveLength(33);
-    expect(staticIcons).toHaveLength(iconManifest.length - 33);
+    expect(candidates).toHaveLength(34);
+    expect(staticIcons).toHaveLength(iconManifest.length - 34);
     expect([...candidates, ...staticIcons].map((icon) => icon.id).sort()).toEqual(
       iconManifest.map((icon) => icon.id).sort(),
     );
@@ -65,11 +78,11 @@ describe('Icons platform', () => {
       'true',
     );
     expect(screen.getByTestId('filter-location')).toHaveTextContent('animation=true');
-    expect(cards()).toHaveLength(33);
+    expect(cards()).toHaveLength(34);
     expect(
       screen.getByText('Each icon uses its own animation. Preview playback can be paused.'),
     ).toBeInTheDocument();
-    expect(document.querySelectorAll('.icon-animation-idea')).toHaveLength(33);
+    expect(document.querySelectorAll('.icon-animation-idea')).toHaveLength(34);
     expect(document.querySelector('animate, animateTransform')).not.toBeNull();
     const pause = screen.getByRole('button', { name: 'Pause' });
     expect(pause.textContent).toBe('');

@@ -4,7 +4,9 @@ import { ArrowLeftIcon } from './ArrowLeftIcon.js';
 import { ArrowReturnIcon } from './ArrowReturnIcon.js';
 import { ArrowRightIcon } from './ArrowRightIcon.js';
 import { ArrowUpIcon } from './ArrowUpIcon.js';
+import { BellIcon } from './BellIcon.js';
 import { BotIcon } from './BotIcon.js';
+import { BriefcaseIcon } from './BriefcaseIcon.js';
 import { CalendarIcon } from './CalendarIcon.js';
 import { CheckIcon } from './CheckIcon.js';
 import { ChevronDownIcon } from './ChevronDownIcon.js';
@@ -25,12 +27,14 @@ import { CopyIcon } from './CopyIcon.js';
 import { CursorArrowIcon } from './CursorArrowIcon.js';
 import { CybertruckIcon } from './CybertruckIcon.js';
 import { DashboardIcon } from './DashboardIcon.js';
+import { DatabaseIcon } from './DatabaseIcon.js';
 import { DownloadIcon } from './DownloadIcon.js';
 import { EllipsisIcon } from './EllipsisIcon.js';
 import { EllipsisVerticalIcon } from './EllipsisVerticalIcon.js';
 import { ExternalLinkIcon } from './ExternalLinkIcon.js';
 import { EyeClosedIcon } from './EyeClosedIcon.js';
 import { EyeIcon } from './EyeIcon.js';
+import { FormIcon } from './FormIcon.js';
 import { GaugeIcon } from './GaugeIcon.js';
 import { GithubIcon } from './GithubIcon.js';
 import { GlobeIcon } from './GlobeIcon.js';
@@ -43,12 +47,14 @@ import { LockIcon } from './LockIcon.js';
 import { MaximizeIcon } from './MaximizeIcon.js';
 import { MicrophoneIcon } from './MicrophoneIcon.js';
 import { MinusIcon } from './MinusIcon.js';
+import { MonitorIcon } from './MonitorIcon.js';
 import { MoonIcon } from './MoonIcon.js';
 import { PaletteIcon } from './PaletteIcon.js';
 import { PauseIcon } from './PauseIcon.js';
 import { PinIcon } from './PinIcon.js';
 import { PlayIcon } from './PlayIcon.js';
 import { PlusIcon } from './PlusIcon.js';
+import { ReceiptIcon } from './ReceiptIcon.js';
 import { SearchIcon } from './SearchIcon.js';
 import { SettingsIcon } from './SettingsIcon.js';
 import { ShapesIcon } from './ShapesIcon.js';
@@ -73,7 +79,9 @@ export const iconComponents = {
   'arrow-return': ArrowReturnIcon,
   'arrow-right': ArrowRightIcon,
   'arrow-up': ArrowUpIcon,
+  bell: BellIcon,
   bot: BotIcon,
+  briefcase: BriefcaseIcon,
   calendar: CalendarIcon,
   check: CheckIcon,
   'chevron-down': ChevronDownIcon,
@@ -94,12 +102,14 @@ export const iconComponents = {
   'cursor-arrow': CursorArrowIcon,
   cybertruck: CybertruckIcon,
   dashboard: DashboardIcon,
+  database: DatabaseIcon,
   download: DownloadIcon,
   ellipsis: EllipsisIcon,
   'ellipsis-vertical': EllipsisVerticalIcon,
   'external-link': ExternalLinkIcon,
   'eye-closed': EyeClosedIcon,
   eye: EyeIcon,
+  form: FormIcon,
   gauge: GaugeIcon,
   github: GithubIcon,
   globe: GlobeIcon,
@@ -112,12 +122,14 @@ export const iconComponents = {
   maximize: MaximizeIcon,
   microphone: MicrophoneIcon,
   minus: MinusIcon,
+  monitor: MonitorIcon,
   moon: MoonIcon,
   palette: PaletteIcon,
   pause: PauseIcon,
   pin: PinIcon,
   play: PlayIcon,
   plus: PlusIcon,
+  receipt: ReceiptIcon,
   search: SearchIcon,
   settings: SettingsIcon,
   shapes: ShapesIcon,

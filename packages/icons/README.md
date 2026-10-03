@@ -38,7 +38,7 @@ Applications, UI components, documentation, and the Icons Catalogue consume `@vi
 
 Every metadata record uses the same fields: id, category, tags, aliases, status, description, and
 `animated: boolean`. The flag indicates implemented animation support; it does not start playback.
-The 33 animated icons use their own authored motion while sharing the same public import path.
+The 34 animated icons use their own authored motion while sharing the same public import path.
 
 ## Canonical SVG
 
@@ -288,6 +288,18 @@ SettingsIcon
 
 ## Generation
 
+### Product navigation symbols
+
+`BriefcaseIcon` represents work/projects with a chamfered case, clipped handle and
+central latch. `DatabaseIcon` represents data with naturally curved cylinder ends,
+three compact tiers and two-unit side rails. `FormIcon` represents forms with a
+chamfered sheet, short heading and two label/input pairs.
+
+These static icons use the same 24-unit, fill-first, currentColor contract as the
+family. Their restrained cyber character comes from open geometry, clipped terminals
+and structural rhythm. They remain readable at 16, 20 and 24px. Virgo Pro uses them
+for Work, Data and Form; Layout, Layers and Type retain their foundation meanings.
+
 ### Foundation symbols
 
 The Website uses `PaletteIcon` for Colors, `TypeIcon` for Typography, `LayoutIcon` for Layout,
@@ -480,6 +492,15 @@ light/dark comparison cards. Website-local search terms and
 `icons.*` locales own Chinese search and translated interface labels; canonical identifiers remain
 unchanged in both languages. Canonical source remains `packages/icons/icons/`.
 
+### Result receipt
+
+`receipt.svg` exports `ReceiptIcon` and `ReceiptIconProps`. Its clipped top, two
+record lines and short zigzag tear edge express a neutral result or acknowledgement.
+Virgo Pro uses it for Result navigation; success/error content keeps its semantic
+check/cross icons. Receipt is static, fill-first and inherits `currentColor` through
+the shared `IconProps` contract. English `receipt`/`result` and Chinese 回执/结果
+search terms lead to its catalogue entry.
+
 ### Sort indicator
 
 `sort.svg` exports `SortIcon` and `SortIconProps` from `@virgo-design/icons`. It contains
@@ -494,3 +515,27 @@ full opacity and `activeColor`, which defaults to `'currentColor'`.
 
 The icon only displays state. `Table.SortButton` owns clicks, keyboard input, the
 three-state cycle and the next-action tooltip; `Table.Head` owns `aria-sort`.
+
+### System appearance
+
+`monitor.svg` exports `MonitorIcon` and `MonitorIconProps`. The open display frame,
+clipped corners and compact stand follow the 24-unit, fill-first family geometry.
+Virgo Pro uses it for System appearance beside Sun and Moon at 16px. Search the
+Icons catalogue for monitor, system, 显示器 or 跟随系统.
+
+### Notifications
+
+`bell.svg` exports `BellIcon` and `BellIconProps`. Its open rounded dome, clipped
+rim and compact clapper follow the canonical fill-first geometry. The existing
+`animated` API adds a gentle side-to-side ring about the top of the bell: true
+plays once, a positive integer specifies repetitions, and "always" loops. It
+respects reduced motion and supports SVG export. Virgo Pro keeps the bell static
+and composes it with the existing `Badge dot` for its notification button. Search the
+catalogue for bell, notification, 铃铛 or 通知.
+
+```tsx
+<BellIcon />
+<BellIcon animated />
+<BellIcon animated={3} />
+<BellIcon animated="always" />
+```

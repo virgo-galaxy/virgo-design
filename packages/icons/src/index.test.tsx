@@ -6,7 +6,10 @@ import { createRef } from 'react';
 import { describe, expect, expectTypeOf, it } from 'vitest';
 
 import {
+  BellIcon,
+  type BellIconProps,
   BotIcon,
+  BriefcaseIcon,
   CalendarIcon,
   type CheckIconProps,
   ChevronsDownIcon,
@@ -20,11 +23,13 @@ import {
   CodeIcon,
   CopyIcon,
   DashboardIcon,
+  DatabaseIcon,
   EllipsisIcon,
   EllipsisVerticalIcon,
   ExternalLinkIcon,
   EyeClosedIcon,
   EyeIcon,
+  FormIcon,
   GaugeIcon,
   GithubIcon,
   GlobeIcon,
@@ -37,6 +42,7 @@ import {
   LayoutIcon,
   LockIcon,
   MicrophoneIcon,
+  MonitorIcon,
   MoonIcon,
   PaletteIcon,
   PauseIcon,
@@ -44,6 +50,7 @@ import {
   PlayIcon,
   PlusIcon,
   type PlusIconProps,
+  ReceiptIcon,
   ShapesIcon,
   SidebarCollapseIcon,
   SidebarExpandIcon,
@@ -58,6 +65,12 @@ import {
 } from './index';
 
 const addedIcons = [
+  ['bell', BellIcon],
+  ['monitor', MonitorIcon],
+  ['briefcase', BriefcaseIcon],
+  ['database', DatabaseIcon],
+  ['form', FormIcon],
+  ['receipt', ReceiptIcon],
   ['calendar', CalendarIcon],
   ['clock', ClockIcon],
   ['stop', StopIcon],
@@ -108,6 +121,7 @@ describe('@virgo-design/icons', () => {
   it('exports shared IconProps and adds playback only to supported icon props', () => {
     expectTypeOf<PlusIconProps>().toEqualTypeOf<IconProps>();
     expectTypeOf<CheckIconProps>().toEqualTypeOf<IconProps & { animated?: IconAnimation }>();
+    expectTypeOf<BellIconProps>().toEqualTypeOf<IconProps & { animated?: IconAnimation }>();
     expectTypeOf<IconProps['size']>().toEqualTypeOf<number | undefined>();
     expectTypeOf<IconProps>().toHaveProperty('aria-label');
     expectTypeOf<IconProps>().toHaveProperty('className');
@@ -149,14 +163,14 @@ describe('@virgo-design/icons', () => {
   });
 
   it.each(addedIcons)(
-    'exports %s with its canonical geometry at 24px and 20px',
+    'exports %s with its canonical geometry at 16px, 20px and 24px',
     async (id, Icon) => {
       const source = await readFile(resolve(`packages/icons/icons/${id}.svg`), 'utf8');
       const canonical = new DOMParser().parseFromString(source, 'image/svg+xml');
       const { rerender } = render(<Icon data-testid="icon" />);
 
-      for (const size of [24, 20]) {
-        if (size === 20) rerender(<Icon data-testid="icon" size={20} />);
+      for (const size of [24, 20, 16]) {
+        if (size !== 24) rerender(<Icon data-testid="icon" size={size} />);
         const icon = screen.getByTestId('icon');
         expect(icon).toHaveAttribute('viewBox', '0 0 24 24');
         expect(icon).toHaveAttribute('fill', 'currentColor');

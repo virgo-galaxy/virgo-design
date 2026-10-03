@@ -52,6 +52,16 @@ export const iconManifest = [
     componentName: 'ArrowUpIcon',
   },
   {
+    id: 'bell',
+    category: 'system',
+    tags: ['bell', 'notification', 'alert', 'reminder', 'message'],
+    aliases: ['notifications'],
+    status: 'stable',
+    description: 'An open notification bell with a rounded dome, clipped rim and small clapper.',
+    animated: true,
+    componentName: 'BellIcon',
+  },
+  {
     id: 'bot',
     category: 'system',
     tags: ['system', 'bot'],
@@ -60,6 +70,17 @@ export const iconManifest = [
     description: 'Bot icon for system interfaces.',
     animated: true,
     componentName: 'BotIcon',
+  },
+  {
+    id: 'briefcase',
+    category: 'navigation',
+    tags: ['work', 'project', 'task', 'business', 'case'],
+    aliases: ['work-case'],
+    status: 'stable',
+    description:
+      'A work briefcase with a clipped handle, chamfered open body and a compact central latch.',
+    animated: false,
+    componentName: 'BriefcaseIcon',
   },
   {
     id: 'calendar',
@@ -262,6 +283,17 @@ export const iconManifest = [
     componentName: 'DashboardIcon',
   },
   {
+    id: 'database',
+    category: 'development',
+    tags: ['data', 'database', 'storage', 'records', 'table'],
+    aliases: ['data-store'],
+    status: 'stable',
+    description:
+      'A naturally curved database cylinder with three compact tiers and open interiors.',
+    animated: false,
+    componentName: 'DatabaseIcon',
+  },
+  {
     id: 'download',
     category: 'actions',
     tags: ['file', 'transfer', 'export'],
@@ -320,6 +352,16 @@ export const iconManifest = [
     description: 'Eye closed icon for actions interfaces.',
     animated: false,
     componentName: 'EyeClosedIcon',
+  },
+  {
+    id: 'form',
+    category: 'layout',
+    tags: ['form', 'field', 'input', 'label', 'document'],
+    aliases: ['input-form'],
+    status: 'stable',
+    description: 'A chamfered form sheet with a short heading and two label/input pairs.',
+    animated: false,
+    componentName: 'FormIcon',
   },
   {
     id: 'gauge',
@@ -442,6 +484,16 @@ export const iconManifest = [
     componentName: 'MinusIcon',
   },
   {
+    id: 'monitor',
+    category: 'system',
+    tags: ['monitor', 'display', 'screen', 'desktop', 'system', 'appearance'],
+    aliases: ['computer', 'system-theme'],
+    status: 'stable',
+    description: 'A desktop monitor with a chamfered open frame, central stem and compact stand.',
+    animated: false,
+    componentName: 'MonitorIcon',
+  },
+  {
     id: 'moon',
     category: 'system',
     tags: ['system', 'moon'],
@@ -500,6 +552,17 @@ export const iconManifest = [
     description: 'Plus icon for actions interfaces.',
     animated: false,
     componentName: 'PlusIcon',
+  },
+  {
+    id: 'receipt',
+    category: 'status',
+    tags: ['receipt', 'result', 'record', 'response', 'confirmation'],
+    aliases: ['result', 'acknowledgement'],
+    status: 'stable',
+    description:
+      'A clipped-top receipt with a zigzag tear edge and two short record lines for results and acknowledgements.',
+    animated: false,
+    componentName: 'ReceiptIcon',
   },
   {
     id: 'search',

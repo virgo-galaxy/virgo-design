@@ -45,6 +45,15 @@
     "animated": true
   },
   {
+    "id": "bell",
+    "category": "system",
+    "tags": ["bell", "notification", "alert", "reminder", "message"],
+    "aliases": ["notifications"],
+    "status": "stable",
+    "description": "An open notification bell with a rounded dome, clipped rim and small clapper.",
+    "animated": true
+  },
+  {
     "id": "bot",
     "category": "system",
     "tags": ["system", "bot"],
@@ -52,6 +61,15 @@
     "status": "stable",
     "description": "Bot icon for system interfaces.",
     "animated": true
+  },
+  {
+    "id": "briefcase",
+    "category": "navigation",
+    "tags": ["work", "project", "task", "business", "case"],
+    "aliases": ["work-case"],
+    "status": "stable",
+    "description": "A work briefcase with a clipped handle, chamfered open body and a compact central latch.",
+    "animated": false
   },
   {
     "id": "calendar",
@@ -234,6 +252,15 @@
     "animated": false
   },
   {
+    "id": "database",
+    "category": "development",
+    "tags": ["data", "database", "storage", "records", "table"],
+    "aliases": ["data-store"],
+    "status": "stable",
+    "description": "A naturally curved database cylinder with three compact tiers and open interiors.",
+    "animated": false
+  },
+  {
     "id": "download",
     "category": "actions",
     "tags": ["file", "transfer", "export"],
@@ -285,6 +312,15 @@
     "aliases": [],
     "status": "stable",
     "description": "Eye closed icon for actions interfaces.",
+    "animated": false
+  },
+  {
+    "id": "form",
+    "category": "layout",
+    "tags": ["form", "field", "input", "label", "document"],
+    "aliases": ["input-form"],
+    "status": "stable",
+    "description": "A chamfered form sheet with a short heading and two label/input pairs.",
     "animated": false
   },
   {
@@ -396,6 +432,15 @@
     "animated": false
   },
   {
+    "id": "monitor",
+    "category": "system",
+    "tags": ["monitor", "display", "screen", "desktop", "system", "appearance"],
+    "aliases": ["computer", "system-theme"],
+    "status": "stable",
+    "description": "A desktop monitor with a chamfered open frame, central stem and compact stand.",
+    "animated": false
+  },
+  {
     "id": "moon",
     "category": "system",
     "tags": ["system", "moon"],
@@ -447,6 +492,15 @@
     "aliases": [],
     "status": "stable",
     "description": "Plus icon for actions interfaces.",
+    "animated": false
+  },
+  {
+    "id": "receipt",
+    "category": "status",
+    "tags": ["receipt", "result", "record", "response", "confirmation"],
+    "aliases": ["result", "acknowledgement"],
+    "status": "stable",
+    "description": "A clipped-top receipt with a zigzag tear edge and two short record lines for results and acknowledgements.",
     "animated": false
   },
   {
