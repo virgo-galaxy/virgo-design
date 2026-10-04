@@ -16,7 +16,7 @@ export default function App() {
       </Field>
       <Field invalid>
         <Field.Label>{t('examples.field.copy.custom')}</Field.Label>
-        <Field.Control render={(props) => <input {...props} className={styles.native!} />} />
+        <Field.Control render={(props) => <Input {...props} />} />
         <Field.Message>{t('examples.field.copy.error')}</Field.Message>
       </Field>
     </div>

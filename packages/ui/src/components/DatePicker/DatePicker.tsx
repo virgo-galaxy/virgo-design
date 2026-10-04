@@ -12,7 +12,7 @@ import type {
   DatePickerProps,
   DatePickerTriggerProps,
 } from './DatePicker.types';
-const SizeContext = createContext<DatePickerProps['size']>('medium');
+export const SizeContext = createContext<DatePickerProps['size']>('medium');
 export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(function DatePicker(
   { size = 'medium', className, ...props },
   ref,

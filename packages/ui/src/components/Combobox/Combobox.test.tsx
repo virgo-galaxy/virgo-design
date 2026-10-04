@@ -15,8 +15,11 @@ describe('styled Combobox', () => {
         <Combobox.Clear />
       </Combobox>,
     );
-    expect(screen.getByRole('combobox').parentElement).toHaveAttribute('data-size', 'large');
-    expect(screen.getByRole('combobox').parentElement).toHaveClass('custom');
+    expect(screen.getByRole('combobox').closest('[data-size]')).toHaveAttribute(
+      'data-size',
+      'large',
+    );
+    expect(screen.getByRole('combobox').closest('[data-size]')).toHaveClass('custom');
     expect(screen.getByRole('button', { name: 'Clear input' })).toBeInTheDocument();
   });
 });

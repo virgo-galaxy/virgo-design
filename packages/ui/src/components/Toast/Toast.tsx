@@ -102,12 +102,13 @@ const Close = forwardRef<HTMLButtonElement, ToastCloseProps>(function ToastClose
 });
 
 const Viewport = forwardRef<HTMLDivElement, ToastViewportProps>(function ToastViewport(
-  { placement = 'bottom-end', className, ...props },
+  { placement = 'bottom-end', portal = true, className, ...props },
   ref,
 ) {
   return (
     <PrimitiveToast.Viewport
       {...props}
+      portal={portal}
       ref={ref}
       className={classes(styles.viewport, className)}
       data-placement={placement}

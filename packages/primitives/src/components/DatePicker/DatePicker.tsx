@@ -73,6 +73,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(function D
     >
       <Popover
         {...props}
+        anchor="root"
         ref={ref}
         open={Boolean(open) && !disabled && !readOnly}
         onOpenChange={setOpen}
@@ -84,14 +85,14 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(function D
   );
 });
 export const DatePickerInput = forwardRef<HTMLInputElement, DatePickerInputProps>(
-  function DatePickerInput({ onChange, ...props }, ref) {
+  function DatePickerInput({ type = 'date', onChange, ...props }, ref) {
     const context = usePicker();
     const field = useFieldControl(props);
     return (
       <input
         {...field}
         ref={ref}
-        type="date"
+        type={type}
         name={context.name}
         min={context.min}
         max={context.max}

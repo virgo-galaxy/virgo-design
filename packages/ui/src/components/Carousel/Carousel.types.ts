@@ -7,6 +7,8 @@ export type {
   CarouselViewportProps,
 } from '@virgo-design/primitives';
 export interface CarouselProps extends PrimitiveCarouselProps {
+  /** Size of navigation, indicator and playback controls. @default 'small' */
+  size?: 'small' | 'medium' | 'large' | undefined;
   /** Transition between slides. Reduced motion disables transitions. @default 'slide' */
   motion?: 'slide' | 'none';
   /** Circular previous/next controls: hidden by default, or visible on hover/focus or always. @default 'none' */

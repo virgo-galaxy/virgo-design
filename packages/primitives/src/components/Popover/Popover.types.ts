@@ -10,6 +10,10 @@ export interface PopoverProps extends HTMLAttributes<HTMLDivElement> {
   /** Pointer activation. Both modes support keyboard and touch clicks. @default 'click' */
   trigger?: 'click' | 'hover';
   disabled?: boolean;
+  /** Position against the trigger button or the complete root control. @default 'trigger' */
+  anchor?: 'trigger' | 'root';
+  /** Move focus into the panel on open; false preserves editable input focus. @default true */
+  autoFocus?: boolean | undefined;
   /** Return focus to the trigger after programmatic close. Escape always returns focus. @default true */
   restoreFocusOnClose?: boolean;
 }

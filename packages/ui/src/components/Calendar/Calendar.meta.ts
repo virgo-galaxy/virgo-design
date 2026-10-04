@@ -4,7 +4,7 @@ export const calendarMetadata = {
   package: '@virgo-design/ui',
   category: 'Forms',
   description:
-    'A localized month grid with independent selection and display, date constraints and keyboard navigation.',
+    'A localized calendar with compact and full-width panels, month/year views, date constraints and keyboard navigation.',
   import: "import { Calendar } from '@virgo-design/ui';",
   sizes: [
     {
@@ -31,6 +31,8 @@ export const calendarMetadata = {
   capabilities: {
     nativeSemantics: true,
     controlledValue: true,
+    fullscreen: true,
+    monthYearViews: true,
   },
   accessibility: [
     'A localized month grid with independent selection and display, date constraints and keyboard navigation.',

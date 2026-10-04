@@ -266,16 +266,6 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
         </span>
       ) : null}
 
-      {resolvedSuffix !== undefined && resolvedSuffix !== null ? (
-        <span
-          className={styles.adornment}
-          data-slot={suffix !== undefined ? 'suffix' : 'trailing-icon'}
-          aria-hidden="true"
-        >
-          {resolvedSuffix}
-        </span>
-      ) : null}
-
       {clearable ? (
         <button
           className={styles.action}
@@ -300,6 +290,16 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
         >
           <CloseIcon aria-hidden="true" />
         </button>
+      ) : null}
+
+      {resolvedSuffix !== undefined && resolvedSuffix !== null ? (
+        <span
+          className={styles.adornment}
+          data-slot={suffix !== undefined ? 'suffix' : 'trailing-icon'}
+          aria-hidden="true"
+        >
+          {resolvedSuffix}
+        </span>
       ) : null}
 
       {endAction}

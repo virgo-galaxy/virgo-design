@@ -1,0 +1,37 @@
+@use 'control-focus';
+
+@mixin surface {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  width: var(--vd-sizing-16);
+  height: var(--vd-sizing-16);
+  align-items: center;
+  justify-content: center;
+  padding: var(--vd-spacing-2);
+  border: 0;
+  border-radius: var(--vd-radius-full);
+  color: var(--vd-icon-secondary);
+  background: var(--vd-fill-hover);
+  cursor: pointer;
+
+  > svg {
+    width: var(--vd-sizing-12);
+    height: var(--vd-sizing-12);
+  }
+  &:hover:not(:disabled) {
+    background: var(--vd-fill-active);
+    color: var(--vd-text-primary);
+  }
+  &:active:not(:disabled) {
+    background: color-mix(in srgb, var(--vd-text-primary) 24%, transparent);
+  }
+  &:focus-visible {
+    outline: var(--vd-border-width-2) solid control-focus.$color;
+    outline-offset: var(--vd-spacing-2);
+  }
+  &:disabled {
+    color: var(--vd-icon-disabled);
+    cursor: not-allowed;
+  }
+}

@@ -20,6 +20,32 @@ afterEach(() => {
 });
 
 describe('Tooltip primitive', () => {
+  it('shows the reason on disabled trigger hover while keeping activation disabled', async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    const example = (disabled: boolean) => (
+      <Tooltip disabled={disabled} openDelay={0}>
+        <Tooltip.Trigger disabled onClick={onClick}>
+          Advance
+        </Tooltip.Trigger>
+        <Tooltip.Content>Save changes first</Tooltip.Content>
+      </Tooltip>
+    );
+    const { rerender } = render(example(false));
+    const trigger = screen.getByRole('button', { name: 'Advance' });
+    expect(trigger).toBeDisabled();
+    await user.hover(trigger);
+    expect(screen.getByRole('tooltip')).toHaveTextContent('Save changes first');
+    await user.click(trigger);
+    expect(onClick).not.toHaveBeenCalled();
+    expect(trigger).toBeDisabled();
+    rerender(example(true));
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    await user.unhover(trigger);
+    await user.hover(trigger);
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+  });
+
   it.each([undefined, true])('still dismisses on activation by default (%s)', (closeOnClick) => {
     render(<Example defaultOpen {...(closeOnClick === undefined ? {} : { closeOnClick })} />);
     const trigger = screen.getByRole('button');
@@ -412,6 +438,41 @@ describe('Tooltip primitive', () => {
     fireEvent.scroll(document);
     expect(tooltip).toHaveStyle({ top: '92px', visibility: 'visible' });
     expect(tooltip).not.toHaveAttribute('aria-hidden');
+  });
+  it('positions against a custom anchor while describing and activating the full trigger', () => {
+    const anchorRef = createRef<HTMLSpanElement>();
+    let anchorLeft = 286;
+    const original = HTMLElement.prototype.getBoundingClientRect;
+    vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
+      this: HTMLElement,
+    ) {
+      if (this === anchorRef.current) return new DOMRect(anchorLeft, 100, 16, 16);
+      if (this.tagName === 'BUTTON') return new DOMRect(100, 100, 202, 20);
+      if (this.getAttribute('role') === 'tooltip') return new DOMRect(0, 0, 120, 40);
+      return original.call(this);
+    });
+    const onClick = vi.fn();
+    render(
+      <Tooltip defaultOpen closeOnClick={false}>
+        <Tooltip.Trigger onClick={onClick}>
+          Sort field
+          <span ref={anchorRef} aria-hidden="true">
+            ▲
+          </span>
+        </Tooltip.Trigger>
+        <Tooltip.Content anchorRef={anchorRef}>Next sort action</Tooltip.Content>
+      </Tooltip>,
+    );
+    const tooltip = screen.getByRole('tooltip');
+    const button = screen.getByRole('button', { name: 'Sort field' });
+    expect(tooltip).toHaveStyle({ left: '234px', top: '52px' });
+    expect(button).toHaveAttribute('aria-describedby', tooltip.id);
+    fireEvent.click(button);
+    expect(onClick).toHaveBeenCalledOnce();
+    expect(tooltip).toBeInTheDocument();
+    anchorLeft = 386;
+    fireEvent.scroll(document);
+    expect(tooltip).toHaveStyle({ left: '334px' });
   });
   it('delays hover, cancels abandoned entry, allows gap crossing and does not move focus', () => {
     vi.useFakeTimers();

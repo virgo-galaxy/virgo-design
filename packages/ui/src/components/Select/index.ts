@@ -1,6 +1,13 @@
-import { Select as SelectRoot, SelectContent, SelectOption, SelectTrigger } from './Select';
+import {
+  Select as SelectRoot,
+  SelectContent,
+  SelectMultiple,
+  SelectOption,
+  SelectTrigger,
+} from './Select';
 
 export const Select = Object.assign(SelectRoot, {
+  Multiple: SelectMultiple,
   Trigger: SelectTrigger,
   Content: SelectContent,
   Option: SelectOption,
@@ -8,6 +15,7 @@ export const Select = Object.assign(SelectRoot, {
 
 export type {
   SelectContentProps,
+  SelectMultipleProps,
   SelectOptionProps,
   SelectProps,
   SelectSize,

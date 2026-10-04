@@ -25,6 +25,7 @@ export function positionOverlay(
   placement: OverlayPlacement,
   offset: number,
   direction: 'ltr' | 'rtl' = 'ltr',
+  arrow = false,
 ) {
   const margin = 8;
   const side = (['bottom', 'top', 'left', 'right'] as const).find((value) =>
@@ -74,8 +75,29 @@ export function positionOverlay(
         : anchor.top + (anchor.height - height) / 2;
   left = Math.max(margin, Math.min(left, viewport.width - width - margin));
   top = Math.max(margin, Math.min(top, viewport.height - height - margin));
-  const arrowX = Math.max(12, Math.min(width - 12, anchor.left + anchor.width / 2 - left));
-  const arrowY = Math.max(12, Math.min(height - 12, anchor.top + anchor.height / 2 - top));
+  // Leave room for the rotated arrow's base beside the panel's rounded corners.
+  const arrowInsetX = Math.min(20, width / 2);
+  const arrowInsetY = Math.min(20, height / 2);
+  if (arrow) {
+    // Shift the panel as well as its arrow so the tip still points at the trigger center.
+    if (vertical) {
+      const center = anchor.left + anchor.width / 2;
+      left = Math.max(center - width + arrowInsetX, Math.min(left, center - arrowInsetX));
+      left = Math.max(margin, Math.min(left, viewport.width - width - margin));
+    } else {
+      const center = anchor.top + anchor.height / 2;
+      top = Math.max(center - height + arrowInsetY, Math.min(top, center - arrowInsetY));
+      top = Math.max(margin, Math.min(top, viewport.height - height - margin));
+    }
+  }
+  const arrowX = Math.max(
+    arrowInsetX,
+    Math.min(width - arrowInsetX, anchor.left + anchor.width / 2 - left),
+  );
+  const arrowY = Math.max(
+    arrowInsetY,
+    Math.min(height - arrowInsetY, anchor.top + anchor.height / 2 - top),
+  );
   return {
     referenceHidden:
       anchor.top + anchor.height < 0 ||

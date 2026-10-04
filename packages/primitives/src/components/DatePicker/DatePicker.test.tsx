@@ -58,6 +58,37 @@ describe('DatePicker input/calendar composition', () => {
     expect(open).toHaveBeenCalledWith(true);
     expect(screen.queryByRole('dialog')).toBeNull();
   });
+  it('supports text entry independent of browser locale and shares its value with the calendar and form', async () => {
+    const user = userEvent.setup();
+    const change = vi.fn();
+    render(
+      <Form>
+        <Field>
+          <Field.Label>Due</Field.Label>
+          <DatePicker name="due" onValueChange={change}>
+            <DatePicker.Input type="text" placeholder="YYYY-MM-DD" />
+            <DatePicker.Trigger aria-label="Choose date">Choose</DatePicker.Trigger>
+            <DatePicker.Content aria-label="Calendar">
+              <DatePicker.Calendar locale="en-US" />
+            </DatePicker.Content>
+          </DatePicker>
+        </Field>
+      </Form>,
+    );
+    const input = screen.getByRole('textbox', { name: 'Due' });
+    expect(input).toHaveAttribute('placeholder', 'YYYY-MM-DD');
+    await user.type(input, '2026-10-06');
+    expect(change).toHaveBeenLastCalledWith('2026-10-06');
+    await user.click(screen.getByRole('button', { name: 'Choose date' }));
+    await waitFor(() =>
+      expect(document.querySelector('[data-calendar-date="2026-10-06"]')).toHaveFocus(),
+    );
+    await user.keyboard('{ArrowRight}{Enter}');
+    expect(input).toHaveValue('2026-10-07');
+    expect(new FormData(input.closest('form')!).get('due')).toBe('2026-10-07');
+    await user.clear(input);
+    expect(change).toHaveBeenLastCalledWith('');
+  });
   it('dismisses with Escape and prevents inherited read-only/disabled edits and opening', async () => {
     const user = userEvent.setup();
     const { rerender, unmount } = render(

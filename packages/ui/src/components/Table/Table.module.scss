@@ -1,3 +1,5 @@
+@use '../../internal/form/option-highlight';
+
 .root {
   // Public geometry: inline style or consumer className can override these values.
   // Native table row height is a minimum; wrapped content grows the row naturally.
@@ -8,6 +10,8 @@
   --table-cell-vertical-align: middle;
   // Opaque, theme-aware layers keep header, hover and selection distinct.
   --table-body-background: var(--vd-surface-default);
+  // Sky-blue row tints stay distinct from the deeper brand used by controls.
+  --table-selection-color: hsl(from var(--vd-brand-link) 205 s l);
   --table-header-foreground: var(--vd-text-primary);
   --table-header-font-weight: var(--vd-font-weight-500);
   --table-header-radius: var(--vd-radius-6);
@@ -29,17 +33,17 @@
   );
   --table-row-hover-background: color-mix(
     in srgb,
-    var(--vd-brand-link) 3%,
+    var(--vd-text-primary) 3%,
     var(--table-body-background)
   );
   --table-row-selected-background: color-mix(
     in srgb,
-    var(--vd-brand-link) 14%,
+    var(--table-selection-color) 8%,
     var(--table-body-background)
   );
   --table-row-selected-hover-background: color-mix(
     in srgb,
-    var(--vd-brand-link) 20%,
+    var(--table-selection-color) 24%,
     var(--table-body-background)
   );
   // Keep the existing shorthand as an override surface for older consumers.
@@ -90,13 +94,13 @@
   &[data-striped='true'] .body > .row:nth-child(even) {
     background: var(--table-row-striped-background);
   }
-  &[data-hoverable='true'] .body > .row:is(:hover, :focus-within) {
+  &[data-hoverable='true'] .body > .row:is(:hover, :has(:focus-visible)) {
     background: var(--table-row-hover-background);
   }
   & .body > .row[data-selected='true'] {
     background: var(--table-row-selected-background);
   }
-  &[data-hoverable='true'] .body > .row[data-selected='true']:is(:hover, :focus-within) {
+  &[data-hoverable='true'] .body > .row[data-selected='true']:is(:hover, :has(:focus-visible)) {
     background: var(--table-row-selected-hover-background);
   }
   &[data-sticky-header='true'] .header .cell {
@@ -199,4 +203,155 @@
 .sortIndicator {
   flex: none;
   color: var(--vd-icon-primary);
+}
+.sortIndicatorAnchor {
+  display: inline-flex;
+  flex: none;
+}
+
+.root[data-column-widths='true'] {
+  table-layout: fixed;
+}
+.header > .row > .cell {
+  position: relative;
+}
+.root[data-header-dividers='true']:not([data-border='all'])
+  .header
+  > .row
+  > .cell:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  inset-inline-end: 0;
+  top: 50%;
+  width: 1px;
+  height: var(--vd-sizing-16);
+  transform: translateY(-50%);
+  background: var(--vd-border-default);
+  pointer-events: none;
+}
+.headContent {
+  display: flex;
+  align-items: center;
+  gap: var(--vd-spacing-8);
+  min-width: 0;
+}
+.cell[data-align='end'] > .headContent {
+  justify-content: flex-end;
+}
+.cell[data-align='center'] > .headContent {
+  justify-content: center;
+}
+.headLabel {
+  min-width: 0;
+}
+.headActions {
+  display: inline-flex;
+  flex: none;
+  margin-inline-start: auto;
+}
+.resizeHandle {
+  position: absolute;
+  inset-inline-end: -4px;
+  top: 0;
+  z-index: 2;
+  width: 8px;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: col-resize;
+  touch-action: none;
+  &:focus-visible {
+    outline: 1px solid var(--vd-border-focus);
+    outline-offset: -1px;
+  }
+}
+.filterButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--vd-sizing-24);
+  height: var(--vd-sizing-24);
+  padding: 0;
+  border: 0;
+  border-radius: var(--vd-radius-4);
+  color: var(--vd-icon-primary);
+  background: transparent;
+  cursor: pointer;
+  &:hover,
+  &[aria-expanded='true'] {
+    background: var(--vd-fill-hover);
+  }
+  &[data-active='true'] {
+    color: var(--vd-brand-link);
+  }
+  &:focus-visible {
+    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+  }
+  &:disabled {
+    color: var(--vd-icon-disabled);
+    cursor: not-allowed;
+  }
+}
+.filterPanel {
+  width: max-content;
+  min-width: 160px;
+  max-width: min(280px, calc(100vw - 32px));
+  padding: var(--vd-spacing-4);
+}
+.filterOptions {
+  @include option-highlight.viewport;
+  padding-bottom: var(--vd-spacing-4);
+}
+.filterOption {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--vd-sizing-36);
+  padding: var(--vd-spacing-4) var(--vd-spacing-12);
+  border-radius: var(--vd-radius-6);
+  &:hover:not([data-disabled='true']),
+  &:has(:focus-visible):not([data-disabled='true']),
+  &:has(input[data-checked='true']):not([data-disabled='true']) {
+    @include option-highlight.surface;
+  }
+}
+.filterActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vd-spacing-12);
+  border-top: 1px solid var(--vd-border-subtle);
+  padding-top: var(--vd-spacing-8);
+  padding-inline: var(--vd-spacing-8);
+  padding-bottom: var(--vd-spacing-8);
+}
+
+.root[data-sticky-header='true'] .header .cell {
+  position: sticky;
+}
+
+.root[data-column-widths='true'] .body .cell {
+  overflow: hidden;
+}
+
+.selection {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vd-spacing-4);
+  vertical-align: middle;
+}
+.selectionMenuTrigger.selectionMenuTrigger {
+  width: var(--vd-sizing-16);
+  height: var(--vd-sizing-24);
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--vd-text-disabled);
+  &:hover:not(:disabled),
+  &[aria-expanded='true']:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    background: transparent;
+    color: var(--vd-text-secondary);
+  }
 }

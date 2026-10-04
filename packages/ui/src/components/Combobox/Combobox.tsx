@@ -32,23 +32,19 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(function Combo
 export const ComboboxInput = forwardRef<HTMLInputElement, ComboboxInputProps>(
   function ComboboxInput({ className, prefix, leadingIcon, ...props }, ref) {
     const adornment = prefix ?? leadingIcon;
-    return adornment !== undefined ? (
+    return (
       <div className={styles.inputFrame} data-slot="input-frame">
-        <span className={styles.prefix} aria-hidden="true" data-slot="prefix">
-          {adornment}
-        </span>
+        {adornment !== undefined ? (
+          <span className={styles.prefix} aria-hidden="true" data-slot="prefix">
+            {adornment}
+          </span>
+        ) : null}
         <PrimitiveCombobox.Input
           {...props}
           ref={ref}
           className={[styles.input, className].filter(Boolean).join(' ')}
         />
       </div>
-    ) : (
-      <PrimitiveCombobox.Input
-        {...props}
-        ref={ref}
-        className={[styles.input, className].filter(Boolean).join(' ')}
-      />
     );
   },
 );
@@ -110,7 +106,7 @@ export const ComboboxClear = forwardRef<HTMLButtonElement, ComboboxClearProps>(
         aria-label={label ?? labels.clearInput}
         className={[styles.clear, className].filter(Boolean).join(' ')}
       >
-        {children ?? <CloseIcon size={16} />}
+        {children ?? <CloseIcon size={12} aria-hidden="true" />}
       </PrimitiveCombobox.Clear>
     );
   },

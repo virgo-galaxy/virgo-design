@@ -16,6 +16,7 @@ the current page emits nothing. A page-size change returns to page 1.
 | ---------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `align`                      | `left`              | `left`, `center`, or `right` within the available width.                                                               |
 | `showTotal`                  | `false`             | `true` for total count, or `(total, [start, end]) => ReactNode` for custom range text.                                 |
+| `selectedCount`              | `0`                 | Appends the selected item count to a visible total; zero or omission hides the suffix.                                 |
 | `showSizeChanger`            | `false`             | Shows Virgo Dropdown with checked page-size items.                                                                     |
 | `pageSizeOptions`            | `[10, 20, 50, 100]` | Positive integer choices; the active size is always included.                                                          |
 | `showQuickJumper`            | `false`             | Enter commits a valid page; Escape clears the input.                                                                   |
@@ -23,6 +24,11 @@ the current page emits nothing. A page-size change returns to page 1.
 | `previousLabel`, `nextLabel` | Chevron icons       | Optional visible content such as Previous / Next.                                                                      |
 | `disabled`                   | `false`             | Disables every interactive control.                                                                                    |
 | `labels`                     | English copy        | Localizes visible text and accessible names.                                                                           |
+
+With `showTotal` enabled, `selectedCount={10}` renders `Total 85 items (Selected 10 items)`.
+The caller supplies the selection count, including selections on other pages.
+Use `labels.total` and `labels.selected` to localize both parts; neither names a business entity.
+With `align="right"`, the summary stays on the left and page controls stay on the right.
 
 Long lists retain the first and last pages and a bounded window around the current
 page. Ellipsis buttons jump five pages. Total changes clamp the displayed page;

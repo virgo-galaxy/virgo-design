@@ -158,7 +158,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
   const show = (immediate: boolean) => {
     cancelOpen();
     cancelClose();
-    if (disabled || triggerRef.current?.disabled || dismissed.current || open) return;
+    if (disabled || dismissed.current || open) return;
     setSuperseded(false);
     setSkipExit(false);
     if (immediate || transition.isWarm() || openDelay <= 0) setOpen(true);
@@ -301,7 +301,7 @@ export const TooltipTrigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>
 
 export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
   function TooltipContent(
-    { placement = 'top', offset = 8, style, onPointerEnter, onPointerLeave, ...props },
+    { placement = 'top', offset = 8, anchorRef, style, onPointerEnter, onPointerLeave, ...props },
     ref,
   ) {
     const context = useTooltip();
@@ -323,7 +323,7 @@ export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
     });
     const floating = useFloatingPosition({
       active: present && !context.skipExit && !following,
-      triggerRef: context.triggerRef,
+      triggerRef: anchorRef ?? context.triggerRef,
       contentRef: context.contentRef,
       placement,
       offset,

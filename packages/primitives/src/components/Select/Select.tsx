@@ -17,8 +17,10 @@ import { useFloatingPosition } from '../../internal/overlay/useFloatingPosition'
 import { composeRefs } from '../../internal/utils/composeRefs';
 import type {
   SelectContentProps,
+  SelectMultipleProps,
   SelectOptionProps,
   SelectProps,
+  SelectRemoveProps,
   SelectTriggerProps,
 } from './Select.types';
 
@@ -27,7 +29,9 @@ type OpenFocusIntent = 'selected' | 'first' | 'last';
 const TYPEAHEAD_RESET_MS = 500;
 
 type SelectContextValue = {
-  value: string | undefined;
+  value: string | readonly string[] | undefined;
+  multiple: boolean;
+  removeValue: (value: string) => void;
   setValue: (value: string) => void;
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -53,9 +57,17 @@ function useSelectContext(componentName: string) {
   return context;
 }
 
-export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
+type SelectRootProps = Omit<SelectProps, 'value' | 'defaultValue' | 'onValueChange'> & {
+  multiple?: boolean;
+  value?: string | readonly string[] | undefined;
+  defaultValue?: string | readonly string[] | undefined;
+  onValueChange?: ((value: string | readonly string[]) => void) | undefined;
+};
+
+const SelectRoot = forwardRef<HTMLDivElement, SelectRootProps>(function SelectRoot(
   {
     id,
+    multiple = false,
     value: controlledValue,
     defaultValue,
     onValueChange,
@@ -119,7 +131,20 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
     <SelectContext.Provider
       value={{
         value,
-        setValue,
+        multiple,
+        removeValue: (removed) => {
+          if (!disabled && !readOnly && Array.isArray(value))
+            setValue(value.filter((entry) => entry !== removed));
+        },
+        setValue: (next) => {
+          if (disabled || readOnly) return;
+          if (multiple) {
+            const values = Array.isArray(value) ? value : [];
+            setValue(
+              values.includes(next) ? values.filter((entry) => entry !== next) : [...values, next],
+            );
+          } else setValue(next);
+        },
         open,
         setOpen,
         requestOpen,
@@ -136,11 +161,18 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
         <div
           {...props}
           ref={composeRefs(forwardedRef, rootRef)}
+          data-multiple={multiple || undefined}
           data-disabled={disabled || undefined}
           data-state={open ? 'open' : 'closed'}
         >
           {name ? (
-            <input disabled={disabled} name={name} type="hidden" value={value ?? ''} />
+            Array.isArray(value) ? (
+              value.map((entry) => (
+                <input key={entry} disabled={disabled} name={name} type="hidden" value={entry} />
+              ))
+            ) : (
+              <input disabled={disabled} name={name} type="hidden" value={value ?? ''} />
+            )
           ) : null}
           {children}
         </div>
@@ -149,7 +181,52 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
   );
 });
 
+export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
+  { onValueChange, ...props },
+  ref,
+) {
+  return (
+    <SelectRoot {...props} ref={ref} onValueChange={(value) => onValueChange?.(value as string)} />
+  );
+});
 Select.displayName = 'Select';
+
+export const SelectMultiple = forwardRef<HTMLDivElement, SelectMultipleProps>(
+  function SelectMultiple({ onValueChange, defaultValue = [], ...props }, ref) {
+    return (
+      <SelectRoot
+        {...props}
+        multiple
+        ref={ref}
+        defaultValue={defaultValue}
+        onValueChange={(value) => onValueChange?.([...(value as readonly string[])])}
+      />
+    );
+  },
+);
+SelectMultiple.displayName = 'Select.Multiple';
+
+export const SelectRemove = forwardRef<HTMLButtonElement, SelectRemoveProps>(function SelectRemove(
+  { value, onClick, disabled, ...props },
+  ref,
+) {
+  const context = useSelectContext('Select.Remove');
+  return (
+    <button
+      {...props}
+      type="button"
+      ref={ref}
+      disabled={context.disabled || context.readOnly || disabled}
+      onClick={(event) => {
+        onClick?.(event);
+        if (event.defaultPrevented || context.disabled || context.readOnly || disabled) return;
+        context.removeValue(value);
+        context.triggerRef.current?.focus();
+      }}
+    />
+  );
+});
+SelectRemove.displayName = 'Select.Remove';
 
 export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
   function SelectTrigger(
@@ -296,6 +373,7 @@ export const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(func
         data-side={floating.side}
         style={{ ...style, ...floating.style }}
         role="listbox"
+        aria-multiselectable={context.multiple || undefined}
         aria-labelledby={context.triggerId}
         data-state="open"
         onKeyDown={(event) => {
@@ -368,16 +446,17 @@ export const SelectOption = forwardRef<HTMLDivElement, SelectOptionProps>(functi
   forwardedRef,
 ) {
   const context = useSelectContext('SelectOption');
-  const isSelected = context.value === value;
+  const isSelected = Array.isArray(context.value)
+    ? context.value.includes(value)
+    : context.value === value;
 
   const selectOption = () => {
-    if (disabled) {
-      return;
-    }
-
+    if (disabled || context.disabled || context.readOnly) return;
     context.setValue(value);
-    context.setOpen(false);
-    context.triggerRef.current?.focus();
+    if (!context.multiple) {
+      context.setOpen(false);
+      context.triggerRef.current?.focus();
+    }
   };
 
   return (

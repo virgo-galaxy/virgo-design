@@ -1,0 +1,11 @@
+@use 'control-hover';
+
+@mixin viewport {
+  display: grid;
+  gap: var(--vd-spacing-2);
+}
+
+@mixin surface {
+  color: var(--vd-text-primary);
+  @include control-hover.surface(var(--vd-surface-elevated));
+}

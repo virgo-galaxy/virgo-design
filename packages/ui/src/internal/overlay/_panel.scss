@@ -24,28 +24,33 @@ $layer: 100;
   border: var(--vd-border-width-1) solid var(--vd-border-subtle);
   transform: rotate(45deg);
   pointer-events: none;
+  // Keep only the outward triangle so its diagonal borders stop at the panel edge.
   [data-side='bottom'] > & {
     top: calc(var(--vd-spacing-6) * -1);
     left: calc(var(--overlay-arrow-x) - var(--vd-spacing-6));
     border-right: 0;
     border-bottom: 0;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
   }
   [data-side='top'] > & {
     bottom: calc(var(--vd-spacing-6) * -1);
     left: calc(var(--overlay-arrow-x) - var(--vd-spacing-6));
     border-left: 0;
     border-top: 0;
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
   }
   [data-side='left'] > & {
     right: calc(var(--vd-spacing-6) * -1);
     top: calc(var(--overlay-arrow-y) - var(--vd-spacing-6));
     border-left: 0;
     border-bottom: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
   }
   [data-side='right'] > & {
     left: calc(var(--vd-spacing-6) * -1);
     top: calc(var(--overlay-arrow-y) - var(--vd-spacing-6));
     border-right: 0;
     border-top: 0;
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
   }
 }

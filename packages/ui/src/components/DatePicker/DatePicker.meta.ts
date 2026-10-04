@@ -3,7 +3,8 @@ export const datePickerMetadata = {
   name: 'DatePicker',
   package: '@virgo-design/ui',
   category: 'Forms',
-  description: 'Native date entry and a composed calendar popup sharing one civil date value.',
+  description:
+    'Single-date entry or a composed two-month interval picker with shared input and calendar state.',
   import: "import { DatePicker } from '@virgo-design/ui';",
   sizes: [
     {
@@ -23,7 +24,14 @@ export const datePickerMetadata = {
   anatomy: [
     {
       name: 'DatePicker',
-      description: 'Native date entry and a composed calendar popup sharing one civil date value.',
+      description:
+        'Single-date entry or a composed two-month interval picker with shared input and calendar state.',
+    },
+    { name: 'DatePicker.Range', description: 'Controlled or uncontrolled interval root.' },
+    { name: 'DatePicker.RangeInput', description: 'Editable start or end date.' },
+    {
+      name: 'DatePicker.RangeCalendar',
+      description: 'Two adjacent months with interval selection.',
     },
     {
       name: 'DatePicker.Input',
@@ -46,6 +54,8 @@ export const datePickerMetadata = {
     nativeSemantics: true,
     controlledValue: true,
   },
-  accessibility: ['Native date entry and a composed calendar popup sharing one civil date value.'],
+  accessibility: [
+    'Single-date entry or a composed two-month interval picker with shared input and calendar state.',
+  ],
   examples: [],
 } as const satisfies ComponentMetadata;

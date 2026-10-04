@@ -1,8 +1,13 @@
+@use '../../internal/form/checkbox-indicator';
+@use '../../internal/form/control-focus';
+@use '../../internal/form/control-hover';
+@use '../../internal/form/option-highlight';
+
 .root {
   --select-background: var(--vd-surface-default);
   --select-border: var(--vd-border-default);
   --select-border-hover: var(--vd-border-strong);
-  --select-border-focus: var(--vd-border-focus);
+  --select-border-focus: #{control-focus.$color};
   --select-foreground: var(--vd-text-primary);
   --select-placeholder: var(--vd-text-placeholder);
   --select-icon: var(--vd-icon-secondary);
@@ -21,7 +26,7 @@
 }
 
 .root[data-disabled='true'],
-.root:has(:disabled) {
+.root:has([aria-haspopup='listbox']:disabled) {
   --select-background: var(--vd-fill-disabled);
   --select-border: var(--vd-border-disabled);
   --select-border-hover: var(--vd-border-disabled);
@@ -32,6 +37,8 @@
 
 .root[data-size='mini'],
 .content[data-size='mini'] {
+  --select-tag-height: var(--vd-sizing-16);
+  --select-tag-padding-block: var(--vd-spacing-4);
   --select-height: var(--vd-sizing-24);
   --select-padding-inline: var(--vd-spacing-8);
   --select-radius: var(--vd-radius-6);
@@ -46,6 +53,8 @@
 
 .root[data-size='small'],
 .content[data-size='small'] {
+  --select-tag-height: var(--vd-sizing-20);
+  --select-tag-padding-block: var(--vd-spacing-4);
   --select-height: var(--vd-sizing-28);
   --select-padding-inline: var(--vd-spacing-8);
   --select-radius: var(--vd-radius-6);
@@ -60,6 +69,8 @@
 
 .root[data-size='medium'],
 .content[data-size='medium'] {
+  --select-tag-height: var(--vd-sizing-24);
+  --select-tag-padding-block: var(--vd-spacing-6);
   --select-height: var(--vd-sizing-36);
   --select-padding-inline: var(--vd-spacing-12);
   --select-radius: var(--vd-radius-8);
@@ -74,6 +85,8 @@
 
 .root[data-size='large'],
 .content[data-size='large'] {
+  --select-tag-height: var(--vd-sizing-28);
+  --select-tag-padding-block: var(--vd-spacing-8);
   --select-height: var(--vd-sizing-44);
   --select-padding-inline: var(--vd-spacing-16);
   --select-radius: var(--vd-radius-10);
@@ -117,12 +130,12 @@
 
   &:hover:not(:disabled) {
     border-color: var(--select-border-hover);
+    @include control-hover.surface(var(--select-background));
   }
 
-  &:focus-visible,
-  &[data-state='open'] {
-    border-color: var(--select-border-focus);
-    box-shadow: 0 0 0 var(--vd-border-width-1) var(--select-border-focus);
+  &:focus:not(:disabled),
+  &[data-state='open']:not(:disabled) {
+    @include control-focus.surface(var(--select-border-focus), var(--select-background));
   }
 
   &:disabled {
@@ -139,6 +152,116 @@
 
 .value[data-placeholder='true'] {
   color: var(--select-placeholder);
+}
+
+.multipleControl {
+  display: grid;
+  min-height: var(--select-height);
+  .trigger {
+    grid-area: 1 / 1;
+    height: 100%;
+    min-height: var(--select-height);
+  }
+  &:hover .trigger:not(:disabled):not(:focus):not([data-state='open']) {
+    border-color: var(--select-border-hover);
+    @include control-hover.surface(var(--select-background));
+  }
+}
+.selectedValues {
+  grid-area: 1 / 1;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vd-spacing-4);
+  padding: var(--select-tag-padding-block) 0;
+  margin-inline: var(--select-padding-inline)
+    calc(var(--select-padding-inline) + var(--select-icon-size) + var(--select-gap));
+  pointer-events: none;
+}
+.selectedTag {
+  box-sizing: border-box;
+  min-height: var(--select-tag-height);
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+  align-items: center;
+  gap: var(--vd-spacing-4);
+  padding: var(--vd-spacing-2) var(--vd-spacing-4) var(--vd-spacing-2) var(--vd-spacing-8);
+  border-radius: var(--vd-radius-4);
+  background: var(--vd-fill-hover);
+  color: var(--vd-text-primary);
+  font-size: var(--select-font-size);
+  line-height: calc(var(--select-tag-height) - var(--vd-spacing-4));
+  > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}
+.remove {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: max(calc(var(--select-tag-height) - var(--vd-spacing-8)), var(--vd-sizing-12));
+  height: max(calc(var(--select-tag-height) - var(--vd-spacing-8)), var(--vd-sizing-12));
+  padding: 0;
+  border: 0;
+  border-radius: var(--vd-radius-full);
+  color: var(--vd-icon-secondary);
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  > svg {
+    width: calc(var(--vd-sizing-12) - var(--vd-spacing-2));
+    height: calc(var(--vd-sizing-12) - var(--vd-spacing-2));
+  }
+  &:hover:not(:disabled) {
+    background: var(--vd-fill-active);
+    color: var(--vd-text-primary);
+  }
+  &:focus-visible {
+    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--vd-icon-disabled);
+  }
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.checkbox {
+  @include checkbox-indicator.variables;
+  @include checkbox-indicator.control;
+}
+.checkboxMark {
+  @include checkbox-indicator.mark;
+}
+.option[data-multiple='true'] {
+  justify-content: flex-start;
+  gap: var(--vd-spacing-8);
+  &[data-selected='true']:not([data-disabled='true']) {
+    @include option-highlight.surface;
+    .checkbox {
+      @include checkbox-indicator.checked-control;
+    }
+    .checkboxMark {
+      @include checkbox-indicator.checked-mark;
+    }
+  }
+  &:hover:not([data-disabled='true']),
+  &:focus:not([data-disabled='true']) {
+    @include option-highlight.surface;
+    .checkbox {
+      border-color: var(--checkbox-border-hover);
+    }
+  }
 }
 
 .indicator {
@@ -177,8 +300,7 @@
 }
 
 .viewport {
-  display: grid;
-  gap: var(--vd-spacing-2);
+  @include option-highlight.viewport;
 }
 
 .option {
@@ -201,20 +323,24 @@
 
   &:hover:not([data-disabled='true']),
   &:focus:not([data-disabled='true']) {
-    color: var(--vd-text-primary);
-    background: var(--vd-fill-hover);
+    @include option-highlight.surface;
   }
 }
 
-.option[data-selected='true'] {
-  color: var(--vd-brand-link);
-  background: var(--vd-brand-subtle-hover);
+.option[data-selected='true']:not([data-disabled='true']) {
+  @include option-highlight.surface;
   font-weight: var(--vd-font-weight-500);
 }
 
 .option[data-disabled='true'] {
   color: var(--vd-text-disabled);
   cursor: not-allowed;
+  .checkbox {
+    @include checkbox-indicator.disabled-control;
+  }
+  &[data-selected='true'] .checkboxMark {
+    @include checkbox-indicator.checked-mark;
+  }
 }
 
 .optionLabel {
@@ -222,6 +348,37 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+// Option intent colors the selected representation; dropdown rows stay neutral.
+.selectedTag[data-intent='brand'],
+.value[data-intent='brand'] {
+  --select-intent-background: var(--vd-brand-subtle);
+  --select-intent-foreground: var(--vd-brand-link);
+}
+
+@each $intent in (success, warning, danger, info) {
+  .selectedTag[data-intent='#{$intent}'],
+  .value[data-intent='#{$intent}'] {
+    --select-intent-background: var(--vd-status-#{$intent}-subtle);
+    --select-intent-foreground: var(--vd-status-#{$intent}-text);
+  }
+}
+
+.selectedTag[data-intent] {
+  color: var(--select-intent-foreground, var(--vd-text-primary));
+  background: var(--select-intent-background, var(--vd-fill-hover));
+}
+
+.value[data-intent] {
+  color: var(--select-intent-foreground, var(--vd-text-primary));
+}
+
+.selectedTag[data-intent] .remove {
+  color: inherit;
+  &:disabled {
+    color: var(--vd-icon-disabled);
+  }
 }
 
 .check {

@@ -1,14 +1,27 @@
+@use '../../internal/form/clear-control';
+@use '../../internal/form/control-focus';
+@use '../../internal/form/control-hover';
+@use '../../internal/form/option-highlight';
 @use '../../internal/overlay/panel';
 .root {
   position: relative;
   min-width: 0;
   width: 100%;
   --combobox-height: var(--vd-sizing-36);
+  --combobox-padding-block: var(--vd-spacing-4);
+  --combobox-border-hover: var(--vd-border-strong);
+  --combobox-border-focus: #{control-focus.$color};
+  &:has([aria-invalid='true']) {
+    --combobox-border-hover: var(--vd-status-danger-accent);
+    --combobox-border-focus: var(--vd-status-danger-accent);
+  }
   &[data-size='small'] {
     --combobox-height: var(--vd-sizing-28);
+    --combobox-padding-block: var(--vd-spacing-2);
   }
   &[data-size='large'] {
     --combobox-height: var(--vd-sizing-44);
+    --combobox-padding-block: var(--vd-spacing-6);
   }
 }
 .input {
@@ -22,9 +35,9 @@
   color: var(--vd-text-primary);
   font-family: var(--vd-typography-ui-body-medium-font-family);
   font-size: var(--vd-typography-ui-body-medium-font-size);
-  &:focus {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
-    outline-offset: -1px;
+  @include control-hover.transition;
+  &:focus:not(:disabled) {
+    @include control-focus.surface(var(--combobox-border-focus));
   }
   &[aria-invalid='true'] {
     border-color: var(--vd-status-danger-accent);
@@ -40,7 +53,7 @@
 }
 .content {
   @include panel.surface;
-  display: block;
+  @include option-highlight.viewport;
   width: var(--overlay-trigger-width);
   overflow: auto;
   padding: var(--vd-spacing-4);
@@ -53,17 +66,14 @@
   align-items: center;
   min-height: var(--vd-sizing-32);
   padding-inline: var(--vd-spacing-8);
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-radius-6);
   cursor: pointer;
   color: var(--vd-text-secondary);
-  &[data-highlighted='true'] {
-    color: var(--vd-text-primary);
-    background: var(--vd-fill-hover);
-    outline: var(--vd-border-width-1) solid var(--vd-border-focus);
+  &[data-highlighted='true']:not([aria-disabled='true']),
+  &[aria-selected='true']:not([aria-disabled='true']) {
+    @include option-highlight.surface;
   }
   &[aria-selected='true'] {
-    color: var(--vd-brand-link);
-    background: var(--vd-brand-subtle-hover);
     font-weight: var(--vd-typography-ui-label-medium-font-weight);
   }
   &[aria-disabled='true'] {
@@ -87,28 +97,37 @@
     display: none;
   }
 }
+.group {
+  @include option-highlight.viewport;
+  &[hidden] {
+    display: none;
+  }
+}
 .group > :first-child {
   padding: var(--vd-spacing-6) var(--vd-spacing-8);
   color: var(--vd-text-secondary);
   font-size: var(--vd-typography-ui-body-small-font-size);
 }
 .clear {
+  @include clear-control.surface;
   position: absolute;
   inset-inline-end: var(--vd-spacing-8);
   top: 50%;
   transform: translateY(-50%);
-  display: inline-flex;
-  padding: var(--vd-spacing-2);
-  border: 0;
-  background: transparent;
-  color: var(--vd-icon-secondary);
-  cursor: pointer;
-  &:disabled {
-    color: var(--vd-icon-disabled);
-    cursor: not-allowed;
-  }
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--vd-duration-120) var(--vd-easing-standard);
+  .root:hover &,
   &:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  @media (hover: none) {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: var(--vd-duration-0);
   }
 }
 
@@ -122,10 +141,14 @@
   border: var(--vd-border-width-1) solid var(--vd-border-default);
   border-radius: var(--vd-radius-6);
   background: var(--vd-surface-default);
+  @include control-hover.transition;
 }
-.inputFrame:focus-within {
-  outline: var(--vd-border-width-2) solid var(--vd-border-focus);
-  outline-offset: -1px;
+.root:hover:not([data-disabled='true']) > .inputFrame:not(:has(:disabled)):not(:focus-within) {
+  border-color: var(--combobox-border-hover);
+  @include control-hover.surface;
+}
+.inputFrame:focus-within:not(:has(:disabled)) {
+  @include control-focus.surface(var(--combobox-border-focus));
 }
 .inputFrame:has([aria-invalid='true']) {
   border-color: var(--vd-status-danger-accent);
@@ -134,16 +157,25 @@
   background: var(--vd-fill-disabled);
   color: var(--vd-text-disabled);
 }
+.inputFrame:has(input[readonly]):not(:has(:disabled)) {
+  background: var(--vd-surface-secondary);
+}
 .inputFrame .input {
   flex: 1;
   width: 0;
   min-width: 0;
+  height: calc(100% - var(--combobox-padding-block) * 2);
   border: 0;
   background: transparent;
+  padding-inline-start: var(--vd-spacing-12);
+}
+.inputFrame:has(.prefix) .input {
   padding-inline-start: var(--vd-spacing-8);
 }
-.inputFrame .input:focus {
+.inputFrame .input:focus:not(:disabled) {
   outline: none;
+  box-shadow: none;
+  background: transparent;
 }
 .prefix {
   display: inline-flex;

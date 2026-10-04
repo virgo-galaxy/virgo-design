@@ -63,7 +63,12 @@ export function useFloatingPosition({
         placement,
         offset,
         dir,
+        Boolean(content.querySelector(':scope > [data-slot="arrow"]')) &&
+          content.getAttribute('data-pointer-follow') !== 'true',
       );
+      // Absolute arrow coordinates start inside the panel border, unlike viewport coordinates.
+      next.arrowX -= content.clientLeft;
+      next.arrowY -= content.clientTop;
       setTriggerWidth(referenceRect.width);
       setPosition((previous) =>
         JSON.stringify(previous) === JSON.stringify(next) ? previous : next,

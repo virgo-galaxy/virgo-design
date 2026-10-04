@@ -5,7 +5,9 @@ import {
   useEffect,
   useId,
   useLayoutEffect,
+  useMemo,
   useRef,
+  useState,
 } from 'react';
 
 import { useControllableState } from '../../internal/hooks/useControllableState';
@@ -33,12 +35,14 @@ type Context = {
   open: boolean;
   disabled: boolean;
   trigger: 'click' | 'hover';
+  autoFocus: boolean;
   setOpen: (open: boolean) => void;
   requestOpen: (focus: boolean) => void;
   cancelClose: () => void;
   scheduleClose: () => void;
   triggerRef: React.RefObject<HTMLButtonElement | null>;
   contentRef: React.RefObject<HTMLDivElement | null>;
+  anchorRef: React.RefObject<HTMLElement | null>;
   focusOnOpen: React.MutableRefObject<boolean>;
   restoreFocus: React.MutableRefObject<boolean>;
   triggerId: string;
@@ -57,6 +61,8 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
     defaultOpen = false,
     onOpenChange,
     trigger = 'click',
+    anchor = 'trigger',
+    autoFocus = true,
     disabled = false,
     restoreFocusOnClose = true,
     children,
@@ -72,12 +78,23 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
   );
   const open = !disabled && Boolean(openState);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const [root, setRoot] = useState<HTMLDivElement | null>(null);
+  const rootRef = useMemo(() => ({ current: root }), [root]);
+  const composedRootRef = useMemo(
+    () => (node: HTMLDivElement | null) => {
+      setRoot(node);
+      if (typeof ref === 'function') ref(node);
+      else if (ref) ref.current = node;
+    },
+    [ref],
+  );
+  const anchorRef = anchor === 'root' ? rootRef : triggerRef;
   const contentRef = useRef<HTMLDivElement | null>(null);
   const focusOnOpen = useRef(true);
   const restoreFocus = useRef(true);
   const wasOpen = useRef(false);
   const id = useId();
-  const layer = useOverlayLayer(triggerRef, contentRef);
+  const layer = useOverlayLayer(anchorRef, contentRef);
   useLayerRegistration(layer, open);
   const setOpen = (next: boolean) => {
     if (!next || !disabled) setOpenState(next);
@@ -132,12 +149,14 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
         open,
         disabled,
         trigger,
+        autoFocus,
         setOpen,
         requestOpen,
         cancelClose: cancelTreeClose,
         scheduleClose: scheduleTreeClose,
         triggerRef,
         contentRef,
+        anchorRef,
         focusOnOpen,
         restoreFocus,
         triggerId: `${id}-trigger`,
@@ -147,7 +166,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
       <LayerScope.Provider value={layer}>
         <div
           {...props}
-          ref={ref}
+          ref={composedRootRef}
           data-state={open ? 'open' : 'closed'}
           data-disabled={disabled || undefined}
         >
@@ -255,18 +274,19 @@ export const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
     ref,
   ) {
     const context = usePopover();
-    const { open, contentRef, triggerRef, focusOnOpen } = context;
+    const { open, contentRef, triggerRef, anchorRef, focusOnOpen } = context;
     const present = usePresence(open, contentRef);
     const floating = useFloatingPosition({
       active: present,
-      triggerRef,
+      triggerRef: anchorRef,
       contentRef,
       placement,
       offset,
     });
     useLayoutEffect(() => {
-      if (open && floating.positioned && focusOnOpen.current) focusFirst(contentRef.current);
-    }, [open, floating.positioned, contentRef, focusOnOpen]);
+      if (open && floating.positioned && focusOnOpen.current && context.autoFocus)
+        focusFirst(contentRef.current);
+    }, [open, floating.positioned, contentRef, focusOnOpen, context.autoFocus]);
     if (!present) return null;
     return (
       <Portal>

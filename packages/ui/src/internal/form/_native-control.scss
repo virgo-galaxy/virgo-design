@@ -1,4 +1,8 @@
+@use 'control-focus';
+@use 'control-hover';
+
 @mixin control {
+  --native-control-border-focus: #{control-focus.$color};
   box-sizing: border-box;
   min-width: 0;
   width: 100%;
@@ -12,12 +16,16 @@
   font-size: var(--vd-typography-ui-body-medium-font-size);
   line-height: var(--vd-typography-ui-body-medium-line-height);
   color-scheme: light;
-  &:hover:not(:disabled) {
+  @include control-hover.transition;
+  &:hover:not(:disabled):not([data-disabled='true']):not(:has(:disabled)):not(:focus-within):not(
+      [data-state='open']
+    ) {
     border-color: var(--vd-border-strong);
+    @include control-hover.surface;
   }
-  &:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
-    outline-offset: -1px;
+  &:focus-within:not(:disabled):not([data-disabled='true']):not(:has(:disabled)),
+  &[data-state='open']:not(:disabled):not([data-disabled='true']):not(:has(:disabled)) {
+    @include control-focus.surface(var(--native-control-border-focus));
   }
   &[data-size='small'] {
     height: var(--vd-sizing-28);
@@ -26,6 +34,7 @@
     height: var(--vd-sizing-44);
   }
   &[aria-invalid='true'] {
+    --native-control-border-focus: var(--vd-status-danger-accent);
     border-color: var(--vd-status-danger-border);
   }
   &:disabled {

@@ -33,6 +33,108 @@ function SelectExample({ label, placeholder, ...props }: SelectExampleProps) {
 }
 
 describe('Select', () => {
+  it('shares option intent with removable tags and updates it without changing selection', async () => {
+    const user = userEvent.setup();
+    const fixture = (intent: 'success' | 'warning') => (
+      <Select.Multiple defaultValue={['done']}>
+        <Select.Trigger aria-label="Status" />
+        <Select.Content>
+          <Select.Option value="done" intent={intent}>
+            Done
+          </Select.Option>
+          <Select.Option value="todo">To do</Select.Option>
+        </Select.Content>
+      </Select.Multiple>
+    );
+    const { rerender } = render(fixture('success'));
+    await user.click(screen.getByRole('button', { name: 'Status' }));
+    const option = screen.getByRole('option', { name: 'Done' });
+    expect(option).toHaveAttribute('data-intent', 'success');
+    expect(document.querySelector('[data-slot="selected-tag"]')).toHaveAttribute(
+      'data-intent',
+      'success',
+    );
+    expect(screen.getByRole('option', { name: 'To do' })).not.toHaveAttribute('data-intent');
+    rerender(fixture('warning'));
+    expect(option).toHaveAttribute('data-intent', 'warning');
+    expect(document.querySelector('[data-slot="selected-tag"]')).toHaveAttribute(
+      'data-intent',
+      'warning',
+    );
+    expect(option).toHaveAttribute('aria-selected', 'true');
+    await user.keyboard('{Escape}');
+    await user.click(screen.getByRole('button', { name: 'Remove Done' }));
+    expect(document.querySelector('[data-slot="selected-tag"]')).toBeNull();
+  });
+
+  it('shares option intent with the single selected value without leaking intent to the DOM', () => {
+    render(
+      <Select defaultValue="done">
+        <Select.Trigger aria-label="Status" />
+        <Select.Content>
+          <Select.Option value="done" intent="success">
+            Done
+          </Select.Option>
+        </Select.Content>
+      </Select>,
+    );
+    expect(document.querySelector('[data-slot="value"]')).toHaveAttribute('data-intent', 'success');
+    expect(document.querySelector('[intent]')).toBeNull();
+  });
+  it('shows removable multi-value tags without nested buttons and restores the placeholder after clearing', async () => {
+    const user = userEvent.setup();
+    render(
+      <Select.Multiple>
+        <Select.Trigger aria-label="Projects" placeholder="All projects" />
+        <Select.Content>
+          <Select.Option value="design">Design</Select.Option>
+          <Select.Option value="docs">Docs</Select.Option>
+        </Select.Content>
+      </Select.Multiple>,
+    );
+    const trigger = screen.getByRole('button', { name: 'Projects' });
+    await user.click(trigger);
+    await user.click(screen.getByRole('option', { name: 'Design' }));
+    await user.click(screen.getByRole('option', { name: 'Docs' }));
+    expect(
+      screen
+        .getAllByRole('option')
+        .every((option) => option.getAttribute('aria-selected') === 'true'),
+    ).toBe(true);
+    expect(document.querySelectorAll('[data-slot="selected-tag"]')).toHaveLength(2);
+    expect(trigger.querySelector('button')).toBeNull();
+    await user.keyboard('{Escape}');
+    await user.click(screen.getByRole('button', { name: 'Remove Design' }));
+    expect(trigger).toHaveFocus();
+    expect(screen.queryByRole('button', { name: 'Remove Design' })).toBeNull();
+    await user.click(screen.getByRole('button', { name: 'Remove Docs' }));
+    expect(trigger).toHaveTextContent('All projects');
+  });
+
+  it('supports controlled multi-values and disables removal when read-only or disabled', async () => {
+    const user = userEvent.setup();
+    const change = vi.fn();
+    const fixture = (props: { disabled?: boolean; readOnly?: boolean }) => (
+      <Select.Multiple {...props} value={['design']} onValueChange={change}>
+        <Select.Trigger aria-label="Projects" />
+        <Select.Content>
+          <Select.Option value="design">Design</Select.Option>
+          <Select.Option value="docs">Docs</Select.Option>
+        </Select.Content>
+      </Select.Multiple>
+    );
+    const { rerender } = render(fixture({}));
+    await user.click(screen.getByRole('button', { name: 'Remove Design' }));
+    expect(change).toHaveBeenLastCalledWith([]);
+    expect(screen.getByRole('button', { name: 'Remove Design' })).toBeInTheDocument();
+    rerender(fixture({ readOnly: true }));
+    expect(screen.getByRole('button', { name: 'Remove Design' })).toBeDisabled();
+    await user.click(screen.getByRole('button', { name: 'Projects' }));
+    expect(screen.queryByRole('listbox')).toBeNull();
+    rerender(fixture({ disabled: true }));
+    expect(screen.getByRole('button', { name: 'Projects' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Remove Design' })).toBeDisabled();
+  });
   it('uses the default medium size and placeholder', () => {
     render(<SelectExample label="Project" placeholder="Choose a project" />);
 

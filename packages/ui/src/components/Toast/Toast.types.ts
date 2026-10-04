@@ -27,5 +27,7 @@ export type ToastDescriptionProps = PrimitiveDescriptionProps;
 export type ToastActionProps = PrimitiveActionProps;
 export type ToastCloseProps = PrimitiveCloseProps;
 export interface ToastViewportProps extends PrimitiveViewportProps {
+  /** Places notifications outside clipping and isolated page layouts, preserving theme and direction. Set false for an inline viewport. @default true */
+  portal?: boolean;
   placement?: ToastPlacement;
 }

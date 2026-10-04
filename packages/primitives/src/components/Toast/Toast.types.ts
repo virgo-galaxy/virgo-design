@@ -34,4 +34,7 @@ export interface ToastCloseProps extends ButtonHTMLAttributes<HTMLButtonElement>
   ) => ReactElement;
 }
 
-export type ToastViewportProps = HTMLAttributes<HTMLDivElement>;
+export interface ToastViewportProps extends HTMLAttributes<HTMLDivElement> {
+  /** Portals the viewport to document.body and inherits the declaration site's theme and direction. @default false */
+  portal?: boolean;
+}

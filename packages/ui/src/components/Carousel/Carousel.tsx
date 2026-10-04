@@ -21,8 +21,17 @@ import type {
 } from './Carousel.types';
 const classes = (...values: Array<string | undefined>) => values.filter(Boolean).join(' ');
 const ArrowContext = createContext<NonNullable<CarouselProps['arrows']>>('none');
+const SizeContext = createContext<NonNullable<CarouselProps['size']>>('small');
 export const CarouselRoot = forwardRef<HTMLDivElement, CarouselProps>(function Carousel(
-  { motion = 'slide', arrows = 'none', stackBelow, layout = 'paged', className, ...props },
+  {
+    motion = 'slide',
+    arrows = 'none',
+    stackBelow,
+    layout = 'paged',
+    className,
+    size = 'small',
+    ...props
+  },
   ref,
 ) {
   const [stacked, setStacked] = useState(false);
@@ -35,17 +44,20 @@ export const CarouselRoot = forwardRef<HTMLDivElement, CarouselProps>(function C
     return () => media.removeEventListener?.('change', update);
   }, [stackBelow]);
   return (
-    <ArrowContext.Provider value={arrows}>
-      <PrimitiveCarousel
-        {...props}
-        ref={ref}
-        layout={stackBelow !== undefined && stacked ? 'stacked' : layout}
-        data-slot="root"
-        data-motion={motion}
-        data-arrows={arrows}
-        className={classes(styles.root, className)}
-      />
-    </ArrowContext.Provider>
+    <SizeContext.Provider value={size}>
+      <ArrowContext.Provider value={arrows}>
+        <PrimitiveCarousel
+          {...props}
+          ref={ref}
+          layout={stackBelow !== undefined && stacked ? 'stacked' : layout}
+          data-slot="root"
+          data-motion={motion}
+          data-arrows={arrows}
+          data-size={size}
+          className={classes(styles.root, className)}
+        />
+      </ArrowContext.Provider>
+    </SizeContext.Provider>
   );
 });
 export const CarouselViewport = forwardRef<HTMLDivElement, CarouselViewportProps>(function Viewport(
@@ -54,6 +66,7 @@ export const CarouselViewport = forwardRef<HTMLDivElement, CarouselViewportProps
 ) {
   const state = useCarouselState();
   const arrows = useContext(ArrowContext);
+  const size = useContext(SizeContext);
   const labels = useControlLabels();
   return (
     <PrimitiveCarousel.Viewport
@@ -67,7 +80,7 @@ export const CarouselViewport = forwardRef<HTMLDivElement, CarouselViewportProps
         <div data-slot="arrows" className={styles.arrows}>
           <Button
             variant="outline"
-            size="small"
+            size={size}
             shape="circle"
             iconOnly
             aria-label={labels.previousSlide}
@@ -78,7 +91,7 @@ export const CarouselViewport = forwardRef<HTMLDivElement, CarouselViewportProps
           </Button>
           <Button
             variant="outline"
-            size="small"
+            size={size}
             shape="circle"
             iconOnly
             aria-label={labels.nextSlide}
@@ -124,6 +137,7 @@ export const CarouselIndicators = forwardRef<HTMLDivElement, CarouselIndicatorsP
     ref,
   ) {
     const state = useCarouselState();
+    const size = useContext(SizeContext);
     const labels = useControlLabels();
     if (state.layout === 'stacked' || state.count < 2) return null;
     return (
@@ -143,7 +157,7 @@ export const CarouselIndicators = forwardRef<HTMLDivElement, CarouselIndicatorsP
           <Button
             key={index}
             variant="text"
-            size="small"
+            size={size}
             iconOnly
             aria-label={getSlideLabel?.(index) ?? `${labels.goToSlide} ${index + 1}`}
             aria-current={state.index === index ? 'step' : undefined}
@@ -160,13 +174,14 @@ export const CarouselIndicators = forwardRef<HTMLDivElement, CarouselIndicatorsP
 );
 export function CarouselPlayback() {
   const state = useCarouselState();
+  const size = useContext(SizeContext);
   const labels = useControlLabels();
   if (!state.autoPlay || state.layout === 'stacked' || state.count < 2) return null;
   return (
     <Button
       data-slot="playback"
       variant="text"
-      size="small"
+      size={size}
       iconOnly
       aria-label={state.paused ? labels.playSlideshow : labels.pauseSlideshow}
       onClick={() => state.setPaused(!state.paused)}

@@ -1,14 +1,27 @@
 import type {
   SelectContentProps as PrimitiveSelectContentProps,
+  SelectMultipleProps as PrimitiveSelectMultipleProps,
   SelectOptionProps as PrimitiveSelectOptionProps,
   SelectProps as PrimitiveSelectProps,
   SelectTriggerProps as PrimitiveSelectTriggerProps,
 } from '@virgo-design/primitives';
 import type { AriaAttributes, ReactNode } from 'react';
 
+import type { TagIntent } from '../Tag/Tag.types';
+
 export type SelectSize = 'mini' | 'small' | 'medium' | 'large';
 
 export interface SelectProps extends Omit<PrimitiveSelectProps, 'children' | 'className'> {
+  children: ReactNode;
+  size?: SelectSize | undefined;
+  invalid?: boolean | undefined;
+  className?: string | undefined;
+}
+
+export interface SelectMultipleProps extends Omit<
+  PrimitiveSelectMultipleProps,
+  'children' | 'className'
+> {
   children: ReactNode;
   size?: SelectSize | undefined;
   invalid?: boolean | undefined;
@@ -31,4 +44,6 @@ export interface SelectContentProps extends Omit<PrimitiveSelectContentProps, 'c
 
 export interface SelectOptionProps extends Omit<PrimitiveSelectOptionProps, 'children'> {
   children: ReactNode;
+  /** Semantic color for the selected value and removable selected tag; dropdown rows stay neutral. */
+  intent?: TagIntent | undefined;
 }

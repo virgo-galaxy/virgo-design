@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, HTMLAttributes, ReactElement, Ref } from 'react';
+import type { ButtonHTMLAttributes, HTMLAttributes, ReactElement, Ref, RefObject } from 'react';
 
 import type { OverlayPlacement } from '../../internal/overlay/positioning';
 
@@ -22,6 +22,8 @@ export interface TooltipTriggerProps extends ButtonHTMLAttributes<HTMLButtonElem
   ) => ReactElement;
 }
 export interface TooltipContentProps extends HTMLAttributes<HTMLDivElement> {
+  /** Optional positioning anchor; hover, focus and accessible description remain on the trigger. */
+  anchorRef?: RefObject<HTMLElement | null> | undefined;
   /** @default 'top' */
   placement?: TooltipPlacement;
   /** @default 8 */

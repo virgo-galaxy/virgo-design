@@ -1,8 +1,12 @@
+@use '../../internal/form/clear-control';
+@use '../../internal/form/control-focus';
+@use '../../internal/form/control-hover';
+
 .root {
   --input-background: var(--vd-surface-default);
   --input-border: var(--vd-border-default);
   --input-border-hover: var(--vd-border-strong);
-  --input-border-focus: var(--vd-border-focus);
+  --input-border-focus: #{control-focus.$color};
   --input-foreground: var(--vd-text-primary);
   --input-placeholder: var(--vd-text-placeholder);
   --input-icon: var(--vd-icon-secondary);
@@ -14,6 +18,7 @@
   height: var(--input-height);
   align-items: center;
   gap: var(--input-gap);
+  padding-block: var(--input-padding-block);
   padding-inline: var(--input-padding-inline);
   border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--input-border);
   border-radius: var(--input-radius);
@@ -27,13 +32,13 @@
     border-color var(--vd-duration-120) var(--vd-easing-standard),
     box-shadow var(--vd-duration-120) var(--vd-easing-standard);
 
-  &:hover:not([data-disabled='true']) {
+  &:hover:not([data-disabled='true']):not(:has(input:disabled)):not(:focus-within) {
     border-color: var(--input-border-hover);
+    @include control-hover.surface(var(--input-background));
   }
 
-  &:focus-within {
-    border-color: var(--input-border-focus);
-    box-shadow: 0 0 0 var(--vd-border-width-1) var(--input-border-focus);
+  &:focus-within:not([data-disabled='true']) {
+    @include control-focus.surface(var(--input-border-focus), var(--input-background));
   }
 }
 
@@ -56,7 +61,8 @@
   cursor: not-allowed;
 }
 
-.root[data-readonly='true']:not([data-disabled='true']) {
+.root[data-readonly='true']:not([data-disabled='true']),
+.root:has(input[readonly]):not(:has(input:disabled)) {
   --input-background: var(--vd-surface-secondary);
 
   cursor: default;
@@ -64,6 +70,7 @@
 
 .root[data-size='mini'] {
   --input-height: var(--vd-sizing-24);
+  --input-padding-block: var(--vd-spacing-2);
   --input-padding-inline: var(--vd-spacing-8);
   --input-radius: var(--vd-radius-6);
   --input-icon-size: var(--vd-sizing-12);
@@ -76,6 +83,7 @@
 
 .root[data-size='small'] {
   --input-height: var(--vd-sizing-28);
+  --input-padding-block: var(--vd-spacing-2);
   --input-padding-inline: var(--vd-spacing-8);
   --input-radius: var(--vd-radius-6);
   --input-icon-size: var(--vd-sizing-16);
@@ -88,6 +96,7 @@
 
 .root[data-size='medium'] {
   --input-height: var(--vd-sizing-36);
+  --input-padding-block: var(--vd-spacing-4);
   --input-padding-inline: var(--vd-spacing-12);
   --input-radius: var(--vd-radius-8);
   --input-icon-size: var(--vd-sizing-20);
@@ -100,6 +109,7 @@
 
 .root[data-size='large'] {
   --input-height: var(--vd-sizing-44);
+  --input-padding-block: var(--vd-spacing-6);
   --input-padding-inline: var(--vd-spacing-16);
   --input-radius: var(--vd-radius-10);
   --input-icon-size: var(--vd-sizing-20);
@@ -199,9 +209,12 @@
     cursor: not-allowed;
   }
 
-  &[data-slot='clear-action']:not([data-visible='true']) {
-    visibility: hidden;
-    pointer-events: none;
+  &[data-slot='clear-action'] {
+    @include clear-control.surface;
+
+    &:not([data-visible='true']) {
+      display: none;
+    }
   }
 }
 
@@ -209,13 +222,17 @@
   color: var(--vd-icon-primary);
 }
 
-.root[data-steppers='true'] .control {
+.control[type='number'] {
   appearance: textfield;
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
     margin: 0;
     appearance: none;
   }
+}
+
+.root:has(input:is(:disabled, [readonly])) .action[data-slot='clear-action'] {
+  display: none;
 }
 
 .steppers {

@@ -4,15 +4,28 @@ export const tableMetadata = {
   package: '@virgo-design/ui',
   category: 'Data Display',
   description:
-    'Presents tabular data with native table semantics and composable density and borders.',
+    'Presents tabular data with native semantics, header dividers, optional column resizing and confirmed column filters.',
   import: "import { Table } from '@virgo-design/ui';",
   sizes: [
     { name: 'small', description: 'Compact presentation.' },
     { name: 'medium', description: 'Default presentation.' },
     { name: 'large', description: 'Spacious presentation.' },
   ],
-  states: ['default', 'hover', 'selected', 'ascending', 'descending'],
+  states: ['default', 'hover', 'selected', 'ascending', 'descending', 'filtered', 'resizing'],
   anatomy: [
+    {
+      name: 'Table.Selection',
+      description:
+        'Select-page checkbox with an optional hover menu of built-in and custom selection actions.',
+    },
+    {
+      name: 'Table.Filter',
+      description: 'Checkbox filter popover with draft values, Confirm and Reset.',
+    },
+    {
+      name: 'column-resize-handle',
+      description: 'Optional focusable separator supporting pointer drag and arrow keys.',
+    },
     {
       name: 'Table.SortButton',
       description:
@@ -60,6 +73,9 @@ export const tableMetadata = {
     density: true,
     stickyHeader: true,
     sorting: true,
+    filtering: true,
+    columnResizing: true,
+    headerDividers: true,
     virtualization: false,
   },
   accessibility: [

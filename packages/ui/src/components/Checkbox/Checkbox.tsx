@@ -1,4 +1,4 @@
-import { CheckIcon, MinusIcon } from '@virgo-design/icons';
+import { CheckIcon } from '@virgo-design/icons';
 import { Checkbox as PrimitiveCheckbox } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
@@ -26,7 +26,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
 
       <span className={styles.control} aria-hidden="true" data-slot="visual-control">
         <CheckIcon className={styles.checkIcon} />
-        <MinusIcon className={styles.indeterminateIcon} />
+        <span className={styles.indeterminateIcon} />
       </span>
 
       {children !== undefined ? (

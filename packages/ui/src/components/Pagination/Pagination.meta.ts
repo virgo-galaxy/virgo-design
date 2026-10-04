@@ -14,7 +14,11 @@ export const paginationMetadata = {
       description: 'Named navigation landmark with left, center or right alignment.',
     },
     { name: 'list', description: 'Previous, numbered pages, optional five-page jumps, and next.' },
-    { name: 'total', description: 'Optional total or custom visible item range.' },
+    {
+      name: 'total',
+      description:
+        'Optional total or custom visible item range, followed by a selection count when provided.',
+    },
     {
       name: 'sizeChanger',
       description: 'Virgo Dropdown with checked page sizes; changes return to page one.',
@@ -32,6 +36,7 @@ export const paginationMetadata = {
     pageSize: true,
     quickJump: true,
     customTotal: true,
+    selectionCount: true,
     customNavigationLabels: true,
     localization: true,
     showAll: true,

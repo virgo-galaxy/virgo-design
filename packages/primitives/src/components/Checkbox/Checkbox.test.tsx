@@ -26,6 +26,25 @@ describe('Checkbox primitive', () => {
     expect(checkbox).toHaveAttribute('aria-checked', 'mixed');
   });
 
+  it('reflects controlled partial, full, and empty selection for visual styling', () => {
+    const { rerender } = render(<Checkbox aria-label="Select all" checked={false} indeterminate />);
+    const checkbox = screen.getByRole('checkbox', { name: 'Select all' }) as HTMLInputElement;
+
+    expect(checkbox).toHaveAttribute('data-checked', 'false');
+    expect(checkbox).toHaveAttribute('data-indeterminate', 'true');
+    expect(checkbox.indeterminate).toBe(true);
+
+    rerender(<Checkbox aria-label="Select all" checked />);
+    expect(checkbox).toBeChecked();
+    expect(checkbox).toHaveAttribute('data-checked', 'true');
+    expect(checkbox).not.toHaveAttribute('data-indeterminate');
+    expect(checkbox.indeterminate).toBe(false);
+
+    rerender(<Checkbox aria-label="Select all" checked={false} />);
+    expect(checkbox).not.toBeChecked();
+    expect(checkbox).toHaveAttribute('data-checked', 'false');
+  });
+
   it('keeps indeterminate applied when the prop remains true after interaction', async () => {
     const user = userEvent.setup();
 

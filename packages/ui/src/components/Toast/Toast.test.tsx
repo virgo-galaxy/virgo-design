@@ -11,6 +11,22 @@ import { describe, expect, it, vi } from 'vitest';
 import { Toast } from './index';
 
 describe('Toast UI', () => {
+  it('places the styled viewport outside page layouts by default', () => {
+    const { container, rerender } = render(
+      <Toast.Provider>
+        <Toast.Viewport />
+      </Toast.Provider>,
+    );
+    expect(screen.getByRole('region').parentElement).toBe(document.body);
+    expect(container).not.toContainElement(screen.getByRole('region'));
+    rerender(
+      <Toast.Provider>
+        <Toast.Viewport portal={false} />
+      </Toast.Provider>,
+    );
+    expect(container).toContainElement(screen.getByRole('region'));
+  });
+
   it.each([
     ['success', CircleCheckIcon],
     ['info', CircleInfoIcon],

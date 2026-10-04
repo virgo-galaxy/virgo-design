@@ -21,6 +21,39 @@ function PrimitiveSelectExample({ onValueChange }: { onValueChange?: (value: str
 }
 
 describe('Select primitive', () => {
+  it('toggles multiple options with the keyboard, keeps the list open and submits repeated form values', async () => {
+    const user = userEvent.setup();
+    const change = vi.fn();
+    render(
+      <form aria-label="Filters">
+        <Select.Multiple name="status" onValueChange={change}>
+          <Select.Trigger aria-label="Status">All</Select.Trigger>
+          <Select.Content>
+            <Select.Option value="todo">Todo</Select.Option>
+            <Select.Option value="done">Done</Select.Option>
+            <Select.Option disabled value="hidden">
+              Hidden
+            </Select.Option>
+          </Select.Content>
+        </Select.Multiple>
+      </form>,
+    );
+    const trigger = screen.getByRole('button', { name: 'Status' });
+    trigger.focus();
+    await user.keyboard('{ArrowDown} {ArrowDown}{Enter}');
+    expect(screen.getByRole('listbox')).toHaveAttribute('aria-multiselectable', 'true');
+    expect(change).toHaveBeenLastCalledWith(['todo', 'done']);
+    expect(screen.getByRole('option', { name: 'Done' })).toHaveFocus();
+    expect(new FormData(screen.getByRole('form') as HTMLFormElement).getAll('status')).toEqual([
+      'todo',
+      'done',
+    ]);
+    await user.keyboard(' ');
+    expect(change).toHaveBeenLastCalledWith(['todo']);
+    await user.keyboard('{Escape}');
+    expect(trigger).toHaveFocus();
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  });
   it('opens a listbox from the native button trigger and selects an option', async () => {
     const user = userEvent.setup();
     const onValueChange = vi.fn();

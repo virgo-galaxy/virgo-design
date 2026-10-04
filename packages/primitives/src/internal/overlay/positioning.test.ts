@@ -51,4 +51,67 @@ describe('Overlay positioning', () => {
       'leftTop',
     );
   });
+  it.each<[PhysicalPlacement, 'arrowX' | 'arrowY', number]>([
+    ['bottomLeft', 'arrowX', 20],
+    ['bottomRight', 'arrowX', 140],
+    ['rightTop', 'arrowY', 20],
+    ['rightBottom', 'arrowY', 100],
+  ])('keeps the arrow clear of rounded corners for %s', (placement, axis, expected) => {
+    const smallTrigger = { ...anchor, width: 24, height: 24 };
+    expect(positionOverlay(smallTrigger, menu, viewport, placement, 8)[axis]).toBe(expected);
+  });
+  it('centers the arrow when the panel is too small for corner insets', () => {
+    const tiny = { ...menu, width: 24, height: 24 };
+    expect(positionOverlay(anchor, tiny, viewport, 'bottomRight', 8).arrowX).toBe(12);
+    expect(positionOverlay(anchor, tiny, viewport, 'rightBottom', 8).arrowY).toBe(12);
+  });
+  it.each<PhysicalPlacement>([
+    'bottomLeft',
+    'bottom',
+    'bottomRight',
+    'topLeft',
+    'top',
+    'topRight',
+    'leftTop',
+    'left',
+    'leftBottom',
+    'rightTop',
+    'right',
+    'rightBottom',
+  ])('aligns the arrow to a small trigger center for %s', (placement) => {
+    const smallTrigger = { ...anchor, width: 24, height: 24 };
+    const result = positionOverlay(smallTrigger, menu, viewport, placement, 8, 'ltr', true);
+    if (result.side === 'top' || result.side === 'bottom') {
+      expect(result.left + result.arrowX).toBe(smallTrigger.left + smallTrigger.width / 2);
+      expect(result.arrowX).toBeGreaterThanOrEqual(20);
+      expect(menu.width - result.arrowX).toBeGreaterThanOrEqual(20);
+    } else {
+      expect(result.top + result.arrowY).toBe(smallTrigger.top + smallTrigger.height / 2);
+      expect(result.arrowY).toBeGreaterThanOrEqual(20);
+      expect(menu.height - result.arrowY).toBeGreaterThanOrEqual(20);
+    }
+  });
+  it.each(['ltr', 'rtl'] as const)(
+    'preserves trigger alignment for logical placements in %s',
+    (dir) => {
+      const smallTrigger = { ...anchor, width: 24, height: 24 };
+      for (const placement of ['bottomStart', 'bottomEnd', 'topStart', 'topEnd'] as const) {
+        const result = positionOverlay(smallTrigger, menu, viewport, placement, 8, dir, true);
+        expect(result.left + result.arrowX).toBe(412);
+      }
+    },
+  );
+  it('keeps the panel within the viewport when exact arrow alignment is impossible', () => {
+    const result = positionOverlay(
+      { left: 976, top: 300, width: 24, height: 24 },
+      menu,
+      viewport,
+      'bottomRight',
+      8,
+      'ltr',
+      true,
+    );
+    expect(result.left + menu.width).toBe(viewport.width - 8);
+    expect(result.arrowX).toBe(menu.width - 20);
+  });
 });

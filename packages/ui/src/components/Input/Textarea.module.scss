@@ -1,8 +1,11 @@
+@use '../../internal/form/control-focus';
+@use '../../internal/form/control-hover';
+
 .root {
   --textarea-background: var(--vd-surface-default);
   --textarea-border: var(--vd-border-default);
   --textarea-border-hover: var(--vd-border-strong);
-  --textarea-border-focus: var(--vd-border-focus);
+  --textarea-border-focus: #{control-focus.$color};
   --textarea-foreground: var(--vd-text-primary);
   --textarea-placeholder: var(--vd-text-placeholder);
 
@@ -38,11 +41,11 @@
 
   &:hover:not(:disabled) {
     border-color: var(--textarea-border-hover);
+    @include control-hover.surface(var(--textarea-background));
   }
 
-  &:focus {
-    border-color: var(--textarea-border-focus);
-    box-shadow: 0 0 0 var(--vd-border-width-1) var(--textarea-border-focus);
+  &:focus:not(:disabled) {
+    @include control-focus.surface(var(--textarea-border-focus), var(--textarea-background));
   }
 
   &:disabled {

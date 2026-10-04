@@ -12,6 +12,7 @@ import {
 import { createPortal } from 'react-dom';
 
 import { useControllableState } from '../../internal/hooks/useControllableState';
+import { Portal } from '../../internal/overlay/Portal';
 import { usePresence } from '../../internal/overlay/usePresence';
 import type {
   ToastActionProps,
@@ -238,10 +239,40 @@ export const ToastClose = forwardRef<HTMLButtonElement, ToastCloseProps>(functio
 });
 
 export const ToastViewport = forwardRef<HTMLDivElement, ToastViewportProps>(function ToastViewport(
-  { 'aria-label': ariaLabel = 'Notifications', tabIndex = -1, ...props },
+  { 'aria-label': ariaLabel = 'Notifications', tabIndex = -1, portal = false, ...props },
   ref,
 ) {
   const context = useToastProvider('Toast.Viewport');
+  const anchorRef = useRef<HTMLSpanElement>(null);
+  const [environment, setEnvironment] = useState<{
+    theme: string | undefined;
+    direction: string | undefined;
+  }>({ theme: undefined, direction: undefined });
+  useLayoutEffect(() => {
+    if (!portal || !anchorRef.current) return;
+    const anchor = anchorRef.current;
+    const update = () => {
+      const theme = anchor.closest('[data-theme]')?.getAttribute('data-theme') ?? undefined;
+      const direction =
+        anchor.ownerDocument.defaultView?.getComputedStyle(anchor).direction ||
+        anchor.closest('[dir]')?.getAttribute('dir') ||
+        undefined;
+      setEnvironment((previous) =>
+        previous.theme === theme && previous.direction === direction
+          ? previous
+          : { theme, direction },
+      );
+    };
+    update();
+    const observer = new MutationObserver(update);
+    for (let node = anchor.parentElement; node; node = node.parentElement) {
+      observer.observe(node, {
+        attributes: true,
+        attributeFilter: ['data-theme', 'dir', 'class', 'style'],
+      });
+    }
+    return () => observer.disconnect();
+  }, [portal]);
   const { setViewport } = context;
   const setViewportRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -251,7 +282,23 @@ export const ToastViewport = forwardRef<HTMLDivElement, ToastViewportProps>(func
     },
     [ref, setViewport],
   );
-  return (
-    <div {...props} ref={setViewportRef} role="region" aria-label={ariaLabel} tabIndex={tabIndex} />
+  const viewport = (
+    <div
+      data-theme={portal ? environment.theme : undefined}
+      dir={portal ? environment.direction : undefined}
+      {...props}
+      ref={setViewportRef}
+      role="region"
+      aria-label={ariaLabel}
+      tabIndex={tabIndex}
+    />
+  );
+  return portal ? (
+    <>
+      <span ref={anchorRef} hidden aria-hidden="true" data-toast-anchor="" />
+      <Portal>{viewport}</Portal>
+    </>
+  ) : (
+    viewport
   );
 });

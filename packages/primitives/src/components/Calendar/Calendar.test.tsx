@@ -6,6 +6,78 @@ import { Calendar } from './index';
 const day = (date: string) =>
   document.querySelector<HTMLButtonElement>(`[data-calendar-date="${date}"]`)!;
 describe('Calendar civil dates and grid navigation', () => {
+  it('uses four, five or six rows when fixedWeeks is false, including date boundaries', () => {
+    const { rerender } = render(<Calendar month="2027-02" weekStartsOn={1} fixedWeeks={false} />);
+    expect(screen.getByRole('grid').querySelectorAll('tbody tr')).toHaveLength(4);
+    rerender(<Calendar month="2026-09" weekStartsOn={1} fixedWeeks={false} />);
+    expect(screen.getByRole('grid').querySelectorAll('tbody tr')).toHaveLength(5);
+    rerender(<Calendar month="2026-03" weekStartsOn={1} fixedWeeks={false} />);
+    expect(screen.getByRole('grid').querySelectorAll('tbody tr')).toHaveLength(6);
+    rerender(<Calendar month="9999-12" fixedWeeks={false} />);
+    expect(day('9999-12-31')).toBeEnabled();
+  });
+  it('navigates the year grid, skips unavailable months and opens a month without selecting a date', async () => {
+    const user = userEvent.setup();
+    const change = vi.fn();
+    const mode = vi.fn();
+    render(
+      <Calendar
+        defaultValue="2026-05-12"
+        defaultMode="year"
+        autoFocus
+        min="2026-04-15"
+        max="2027-02-20"
+        isDateUnavailable={(date) => date.startsWith('2026-06')}
+        onValueChange={change}
+        onModeChange={mode}
+      />,
+    );
+    const monthButton = (entry: string) =>
+      document.querySelector<HTMLButtonElement>(`[data-calendar-month="${entry}"]`)!;
+    expect(screen.getByRole('grid')).toHaveAccessibleName('2026');
+    expect(monthButton('2026-03')).toBeDisabled();
+    expect(monthButton('2026-06')).toBeDisabled();
+    expect(monthButton('2026-05')).toHaveFocus();
+    await user.keyboard('{ArrowRight}');
+    expect(monthButton('2026-07')).toHaveFocus();
+    await user.keyboard('{PageDown}');
+    expect(monthButton('2026-07')).toHaveFocus();
+    await user.keyboard('{Enter}');
+    expect(screen.getByRole('grid')).toHaveAccessibleName('July 2026');
+    expect(day('2026-07-01')).toHaveFocus();
+    expect(mode).toHaveBeenCalledWith('month');
+    expect(change).not.toHaveBeenCalled();
+    await user.keyboard('{Enter}');
+    expect(change).toHaveBeenCalledWith('2026-07-01');
+  });
+  it('keeps a controlled year view authoritative and retains read-only navigation', async () => {
+    const user = userEvent.setup();
+    const mode = vi.fn();
+    const month = vi.fn();
+    const value = vi.fn();
+    const { rerender } = render(
+      <Calendar
+        month="2026-10"
+        mode="year"
+        readOnly
+        onModeChange={mode}
+        onMonthChange={month}
+        onValueChange={value}
+      />,
+    );
+    await user.click(screen.getByRole('button', { name: 'May 2026' }));
+    expect(month).toHaveBeenCalledWith('2026-05');
+    expect(mode).toHaveBeenCalledWith('month');
+    expect(value).not.toHaveBeenCalled();
+    expect(screen.getByRole('grid')).toHaveAccessibleName('2026');
+    rerender(<Calendar mode="year" month="0001-01" />);
+    expect(screen.getByRole('button', { name: 'Previous year' })).toBeDisabled();
+    rerender(<Calendar mode="year" month="9999-12" disabled />);
+    expect(screen.getByRole('button', { name: 'Next year' })).toBeDisabled();
+    expect(
+      screen.getAllByRole('button').every((node) => (node as HTMLButtonElement).disabled),
+    ).toBe(true);
+  });
   it('renders the supported date boundaries without invalid adjacent dates', () => {
     const { rerender } = render(<Calendar defaultMonth="0001-01" />);
     expect(screen.getByRole('button', { name: 'Previous month' })).toBeDisabled();

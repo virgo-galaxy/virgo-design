@@ -1,15 +1,7 @@
+@use '../../internal/form/checkbox-indicator';
+
 .root {
-  --checkbox-control-size: var(--vd-sizing-16);
-  --checkbox-hit-size: var(--vd-sizing-24);
-  --checkbox-gap: var(--vd-spacing-8);
-  --checkbox-radius: var(--vd-radius-4);
-  --checkbox-background: var(--vd-surface-default);
-  --checkbox-border: var(--vd-border-default);
-  --checkbox-border-hover: var(--vd-border-strong);
-  --checkbox-border-focus: var(--vd-border-focus);
-  --checkbox-foreground: var(--vd-text-primary);
-  --checkbox-mark: var(--vd-brand-foreground);
-  --checkbox-selected: var(--vd-brand-primary);
+  @include checkbox-indicator.variables;
 
   position: relative;
   display: inline-flex;
@@ -33,36 +25,23 @@
 }
 
 .control {
-  position: relative;
-  display: inline-grid;
-  flex: none;
-  width: var(--checkbox-control-size);
-  height: var(--checkbox-control-size);
-  place-items: center;
-  overflow: hidden;
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--checkbox-border);
-  border-radius: var(--checkbox-radius);
-  color: var(--checkbox-mark);
-  background: var(--checkbox-background);
-  transform: translateY(1px);
-
-  transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    border-color var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+  @include checkbox-indicator.control;
 }
 
-.checkIcon,
+.checkIcon {
+  @include checkbox-indicator.mark;
+}
+
 .indeterminateIcon {
   position: absolute;
-  width: 75%;
-  height: 75%;
+  width: calc(var(--checkbox-control-size) * 0.5);
+  height: calc(var(--checkbox-control-size) * 0.5);
+  background: var(--checkbox-selected);
   opacity: 0;
-  transform: scale(0.72);
+  transform: scale(0.5);
   transition:
     opacity var(--vd-duration-120) var(--vd-easing-standard),
-    transform var(--vd-duration-120) var(--vd-easing-standard);
+    transform var(--vd-duration-240) var(--vd-easing-standard);
 }
 
 .root:hover .native:not(:disabled) + .control {
@@ -74,19 +53,15 @@
   box-shadow: 0 0 0 var(--vd-border-width-1) var(--checkbox-border-focus);
 }
 
-.native:checked + .control,
-.native[data-indeterminate='true'] + .control {
-  border-color: var(--checkbox-selected);
-  background: var(--checkbox-selected);
+.native:is([data-checked='true'], :not([data-checked]):checked):not([data-indeterminate='true'])
+  + .control {
+  @include checkbox-indicator.checked-control;
 }
 
-.native:checked + .control .checkIcon {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.native[data-indeterminate='true'] + .control .checkIcon {
-  opacity: 0;
+.native:is([data-checked='true'], :not([data-checked]):checked):not([data-indeterminate='true'])
+  + .control
+  .checkIcon {
+  @include checkbox-indicator.checked-mark;
 }
 
 .native[data-indeterminate='true'] + .control .indeterminateIcon {
@@ -102,15 +77,19 @@
 }
 
 .native:disabled + .control {
+  @include checkbox-indicator.disabled-control;
+}
+
+.native:disabled:is([data-checked='true'], :not([data-checked]):checked):not(
+    [data-indeterminate='true']
+  )
+  + .control {
   border-color: var(--vd-border-disabled);
-  color: var(--vd-icon-disabled);
   background: var(--vd-fill-disabled);
 }
 
-.native:disabled:checked + .control,
-.native:disabled[data-indeterminate='true'] + .control {
-  border-color: var(--vd-border-disabled);
-  background: var(--vd-fill-disabled);
+.native:disabled + .control .indeterminateIcon {
+  background: var(--vd-icon-disabled);
 }
 
 .native:disabled ~ .label {
@@ -129,8 +108,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .control,
-  .checkIcon,
   .indeterminateIcon {
     transition-duration: var(--vd-duration-0);
   }

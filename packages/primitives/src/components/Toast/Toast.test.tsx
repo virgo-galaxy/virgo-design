@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -19,6 +19,41 @@ function Example({ duration = 0, onOpenChange = vi.fn() }) {
 }
 
 describe('Toast primitive', () => {
+  it('keeps the default viewport inline', () => {
+    const { container } = render(<Example />);
+    expect(container).toContainElement(screen.getByRole('region'));
+  });
+
+  it('portals outside layouts and follows their theme and direction', async () => {
+    const ref = { current: null as HTMLDivElement | null };
+    const example = (theme: string, direction: 'ltr' | 'rtl') => (
+      <div data-theme={theme} dir={direction}>
+        <Toast.Provider>
+          <Toast.Root duration={0}>
+            <Toast.Title>Saved outside layout</Toast.Title>
+          </Toast.Root>
+          <Toast.Viewport portal ref={ref} />
+        </Toast.Provider>
+      </div>
+    );
+    const { container, rerender, unmount } = render(example('dark', 'rtl'));
+    const viewport = screen.getByRole('region');
+    expect(viewport.parentElement).toBe(document.body);
+    expect(container).not.toContainElement(viewport);
+    expect(ref.current).toBe(viewport);
+    expect(viewport).toHaveAttribute('data-theme', 'dark');
+    expect(viewport).toHaveAttribute('dir', 'rtl');
+    expect(viewport).toContainElement(screen.getByRole('status'));
+    rerender(example('light', 'ltr'));
+    await waitFor(() => {
+      expect(viewport).toHaveAttribute('data-theme', 'light');
+      expect(viewport).toHaveAttribute('dir', 'ltr');
+    });
+    unmount();
+    expect(viewport).not.toBeInTheDocument();
+    expect(ref.current).toBeNull();
+  });
+
   it('portals into the viewport with live-region relationships and does not steal focus', () => {
     const outside = document.createElement('button');
     document.body.append(outside);

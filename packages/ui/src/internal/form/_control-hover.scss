@@ -1,0 +1,13 @@
+@mixin surface($background: var(--vd-surface-default)) {
+  background: color-mix(in srgb, var(--vd-text-primary) 3%, #{$background});
+}
+
+@mixin transition {
+  transition:
+    background-color var(--vd-duration-120) var(--vd-easing-standard),
+    border-color var(--vd-duration-120) var(--vd-easing-standard);
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: var(--vd-duration-0);
+  }
+}

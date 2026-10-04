@@ -1,4 +1,4 @@
-import { CheckIcon, ChevronDownIcon } from '@virgo-design/icons';
+import { CheckIcon, ChevronDownIcon, CloseIcon } from '@virgo-design/icons';
 import { Select as PrimitiveSelect } from '@virgo-design/primitives';
 import {
   Children,
@@ -11,9 +11,11 @@ import {
   useState,
 } from 'react';
 
+import { useControlLabels } from '../../shared/control-labels';
 import styles from './Select.module.scss';
 import type {
   SelectContentProps,
+  SelectMultipleProps,
   SelectOptionProps,
   SelectProps,
   SelectTriggerProps,
@@ -31,7 +33,10 @@ type SelectVisualContextValue = {
   invalid: boolean;
   size: SelectProps['size'];
   labels: ReadonlyMap<string, ReactNode>;
+  intents: ReadonlyMap<string, SelectOptionProps['intent']>;
   value: string | undefined;
+  values: readonly string[];
+  multiple: boolean;
 };
 
 const SelectVisualContext = createContext<SelectVisualContextValue | null>(null);
@@ -46,7 +51,11 @@ function useSelectVisualContext(componentName: string) {
   return context;
 }
 
-function collectOptionLabels(children: ReactNode, labels = new Map<string, ReactNode>()) {
+function collectOptionLabels(
+  children: ReactNode,
+  labels = new Map<string, ReactNode>(),
+  intents = new Map<string, SelectOptionProps['intent']>(),
+) {
   Children.forEach(children, (child) => {
     if (!isValidElement(child)) {
       return;
@@ -55,16 +64,24 @@ function collectOptionLabels(children: ReactNode, labels = new Map<string, React
     if (child.type === SelectOption) {
       const optionProps = child.props as SelectOptionProps;
       labels.set(optionProps.value, optionProps.children);
+      intents.set(optionProps.value, optionProps.intent);
       return;
     }
 
     const childProps = child.props as { children?: ReactNode };
     if (childProps.children !== undefined) {
-      collectOptionLabels(childProps.children, labels);
+      collectOptionLabels(childProps.children, labels, intents);
     }
   });
 
-  return labels;
+  return { labels, intents };
+}
+
+function optionText(label: ReactNode): string {
+  if (typeof label === 'string' || typeof label === 'number') return String(label);
+  if (Array.isArray(label)) return label.map(optionText).join('');
+  if (isValidElement<{ children?: ReactNode }>(label)) return optionText(label.props.children);
+  return '';
 }
 
 export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
@@ -82,10 +99,20 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
 ) {
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
   const value = controlledValue === undefined ? uncontrolledValue : controlledValue;
-  const labels = useMemo(() => collectOptionLabels(children), [children]);
+  const { labels, intents } = useMemo(() => collectOptionLabels(children), [children]);
 
   return (
-    <SelectVisualContext.Provider value={{ invalid, labels, value, size }}>
+    <SelectVisualContext.Provider
+      value={{
+        invalid,
+        labels,
+        intents,
+        value,
+        values: value === undefined ? [] : [value],
+        multiple: false,
+        size,
+      }}
+    >
       <PrimitiveSelect
         {...props}
         ref={forwardedRef}
@@ -110,6 +137,48 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
 
 Select.displayName = 'Select';
 
+export const SelectMultiple = forwardRef<HTMLDivElement, SelectMultipleProps>(
+  function SelectMultiple(
+    {
+      children,
+      value: controlledValue,
+      defaultValue = [],
+      onValueChange,
+      size = 'medium',
+      invalid = false,
+      className,
+      ...props
+    },
+    ref,
+  ) {
+    const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
+    const values = controlledValue ?? uncontrolledValue;
+    const { labels, intents } = useMemo(() => collectOptionLabels(children), [children]);
+    return (
+      <SelectVisualContext.Provider
+        value={{ invalid, labels, intents, value: undefined, values, multiple: true, size }}
+      >
+        <PrimitiveSelect.Multiple
+          {...props}
+          ref={ref}
+          className={joinClassNames(styles.root, className)}
+          data-invalid={invalid || undefined}
+          data-size={size}
+          defaultValue={defaultValue}
+          value={controlledValue}
+          onValueChange={(next) => {
+            if (controlledValue === undefined) setUncontrolledValue(next);
+            onValueChange?.(next);
+          }}
+        >
+          {children}
+        </PrimitiveSelect.Multiple>
+      </SelectVisualContext.Provider>
+    );
+  },
+);
+SelectMultiple.displayName = 'Select.Multiple';
+
 export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
   function SelectTrigger(
     {
@@ -124,6 +193,7 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
     forwardedRef,
   ) {
     const context = useSelectVisualContext('Select.Trigger');
+    const controlLabels = useControlLabels();
     const isInvalid = context.invalid || hasAriaInvalidValue(ariaInvalid);
     const selectedLabel =
       context.value === undefined ? undefined : context.labels.get(context.value);
@@ -131,7 +201,7 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
       ? renderValue(context.value, selectedLabel ?? placeholder)
       : (selectedLabel ?? children ?? placeholder);
 
-    return (
+    const trigger = (
       <PrimitiveSelect.Trigger
         {...props}
         ref={forwardedRef}
@@ -141,14 +211,58 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
         <span
           className={styles.value}
           data-slot="value"
+          data-intent={context.value === undefined ? undefined : context.intents.get(context.value)}
           data-placeholder={selectedLabel === undefined || undefined}
         >
-          {visibleValue}
+          {context.multiple ? (
+            context.values.length ? (
+              <span className={styles.srOnly}>
+                {context.values
+                  .map((value) => optionText(context.labels.get(value)) || value)
+                  .join(', ')}
+              </span>
+            ) : (
+              (children ?? placeholder)
+            )
+          ) : (
+            visibleValue
+          )}
         </span>
         <span className={styles.indicator} data-slot="indicator" aria-hidden="true">
           {indicator}
         </span>
       </PrimitiveSelect.Trigger>
+    );
+    if (!context.multiple) return trigger;
+    return (
+      <div className={styles.multipleControl}>
+        {trigger}
+        {context.values.length ? (
+          <div className={styles.selectedValues}>
+            {context.values.map((value) => {
+              const label = context.labels.get(value) ?? value;
+              const text = optionText(label) || value;
+              return (
+                <span
+                  className={styles.selectedTag}
+                  key={value}
+                  data-slot="selected-tag"
+                  data-intent={context.intents.get(value)}
+                >
+                  <span>{label}</span>
+                  <PrimitiveSelect.Remove
+                    value={value}
+                    className={styles.remove}
+                    aria-label={controlLabels.removeSelection.replace('{{value}}', text)}
+                  >
+                    <CloseIcon size={12} aria-hidden="true" />
+                  </PrimitiveSelect.Remove>
+                </span>
+              );
+            })}
+          </div>
+        ) : null}
+      </div>
     );
   },
 );
@@ -177,21 +291,31 @@ export const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(func
 SelectContent.displayName = 'Select.Content';
 
 export const SelectOption = forwardRef<HTMLDivElement, SelectOptionProps>(function SelectOption(
-  { children, className, ...props },
+  { children, className, intent, ...props },
   forwardedRef,
 ) {
+  const context = useSelectVisualContext('Select.Option');
   return (
     <PrimitiveSelect.Option
       {...props}
       ref={forwardedRef}
       className={joinClassNames(styles.option, className)}
+      data-multiple={context.multiple || undefined}
+      data-intent={intent}
     >
+      {context.multiple ? (
+        <span className={styles.checkbox} data-slot="checkbox" aria-hidden="true">
+          <CheckIcon className={styles.checkboxMark} />
+        </span>
+      ) : null}
       <span className={styles.optionLabel} data-slot="option-label">
         {children}
       </span>
-      <span className={styles.check} data-slot="check" aria-hidden="true">
-        <CheckIcon />
-      </span>
+      {context.multiple ? null : (
+        <span className={styles.check} data-slot="check" aria-hidden="true">
+          <CheckIcon />
+        </span>
+      )}
     </PrimitiveSelect.Option>
   );
 });

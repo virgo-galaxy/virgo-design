@@ -167,3 +167,139 @@ it('supports an independent uncontrolled SortButton, native handlers and button 
   await user.click(button);
   expect(button).toHaveAttribute('data-direction', 'ascending');
 });
+
+it('shows header dividers by default and keeps resizing opt-in', () => {
+  const fixture = (resizable = false, headerDividers = true) => (
+    <Table resizable={resizable} headerDividers={headerDividers}>
+      <Table.Header>
+        <Table.Row>
+          <Table.Head>Project</Table.Head>
+          <Table.Head>Owner</Table.Head>
+        </Table.Row>
+      </Table.Header>
+    </Table>
+  );
+  const { rerender } = render(fixture());
+  expect(screen.getByRole('table')).toHaveAttribute('data-header-dividers', 'true');
+  expect(screen.queryByRole('separator')).toBeNull();
+  rerender(fixture(true, false));
+  expect(screen.getAllByRole('separator')).toHaveLength(2);
+  expect(screen.getByRole('table')).toHaveAttribute('data-header-dividers', 'false');
+});
+
+it.each([undefined, 'medium'] as const)(
+  'confirms, cancels and resets draft filters with action size %s',
+  async (size) => {
+    const user = (await import('@testing-library/user-event')).default.setup();
+    const { useState } = await import('react');
+    function Example() {
+      const [owners, setOwners] = useState<string[]>([]);
+      return (
+        <Table>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head
+                onSortChange={() => {}}
+                actions={
+                  <Table.Filter
+                    size={size}
+                    label="Owner"
+                    value={owners}
+                    onValueChange={setOwners}
+                    options={[
+                      { value: 'ava', label: 'Ava' },
+                      { value: 'leo', label: 'Leo' },
+                      { value: 'nina', label: 'Nina', disabled: true },
+                    ]}
+                  />
+                }
+              >
+                Owner
+              </Table.Head>
+            </Table.Row>
+          </Table.Header>
+        </Table>
+      );
+    }
+    const { container } = render(<Example />);
+    expect(container.querySelector('button button')).toBeNull();
+    const trigger = screen.getByRole('button', { name: 'Filter Owner' });
+    await user.click(trigger);
+    expect(screen.getByRole('button', { name: 'Confirm' })).toHaveAttribute(
+      'data-size',
+      size ?? 'mini',
+    );
+    expect(screen.getByRole('button', { name: 'Reset' })).toHaveAttribute(
+      'data-size',
+      size ?? 'mini',
+    );
+    await user.click(screen.getByRole('checkbox', { name: 'Ava' }));
+    expect(trigger).not.toHaveAttribute('data-active');
+    expect(screen.getByRole('checkbox', { name: 'Nina' })).toBeDisabled();
+    await user.keyboard('{Escape}');
+    expect(trigger).toHaveFocus();
+    await user.click(trigger);
+    expect(screen.getByRole('checkbox', { name: 'Ava' })).not.toBeChecked();
+    await user.click(screen.getByRole('checkbox', { name: 'Ava' }));
+    await user.click(screen.getByRole('checkbox', { name: 'Leo' }));
+    await user.click(screen.getByRole('button', { name: 'Confirm' }));
+    expect(trigger).toHaveAttribute('data-active', 'true');
+    expect(trigger).toHaveFocus();
+    await user.click(trigger);
+    expect(screen.getByRole('checkbox', { name: 'Ava' })).toBeChecked();
+    expect(screen.getByRole('checkbox', { name: 'Leo' })).toBeChecked();
+    await user.click(screen.getByRole('button', { name: 'Reset' }));
+    expect(trigger).not.toHaveAttribute('data-active');
+  },
+);
+
+it('resizes a column with arrow keys while preserving adjacent column widths', async () => {
+  const user = (await import('@testing-library/user-event')).default.setup();
+  render(
+    <Table resizable minColumnWidth={80}>
+      <Table.Header>
+        <Table.Row>
+          <Table.Head>Project</Table.Head>
+          <Table.Head>Owner</Table.Head>
+        </Table.Row>
+      </Table.Header>
+    </Table>,
+  );
+  for (const head of screen.getAllByRole('columnheader'))
+    head.getBoundingClientRect = () => ({ width: 150 }) as DOMRect;
+  const handle = screen.getByRole('separator', { name: 'Resize Project column' });
+  handle.focus();
+  await user.keyboard('{ArrowRight}');
+  expect([...document.querySelectorAll('col')].map((col) => col.style.width)).toEqual([
+    '160px',
+    '150px',
+  ]);
+  await user.keyboard('{Home}');
+  expect([...document.querySelectorAll('col')].map((col) => col.style.width)).toEqual([
+    '80px',
+    '150px',
+  ]);
+});
+
+it('describes the filter trigger with a tooltip and dismisses the hint when filtering', async () => {
+  const user = (await import('@testing-library/user-event')).default.setup();
+  render(<Table.Filter label="Assignee" options={[{ value: 'ava', label: 'Ava' }]} />);
+  const trigger = screen.getByRole('button', { name: 'Filter Assignee' });
+  await user.hover(trigger);
+  expect(await screen.findByRole('tooltip')).toHaveTextContent('Filter');
+  expect(screen.getByRole('tooltip')).not.toHaveTextContent('Assignee');
+  expect(trigger).toHaveAttribute('aria-describedby');
+  await user.click(trigger);
+  expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+  expect(screen.getByRole('dialog', { name: 'Filter Assignee' })).toBeInTheDocument();
+  expect(screen.getByRole('checkbox', { name: 'Ava' })).toBeInTheDocument();
+});
+
+it('lets consumers customize or omit the filter hint', async () => {
+  const user = (await import('@testing-library/user-event')).default.setup();
+  const { rerender } = render(<Table.Filter label="Owner" options={[]} tooltip="Choose members" />);
+  await user.hover(screen.getByRole('button'));
+  expect(await screen.findByRole('tooltip')).toHaveTextContent('Choose members');
+  rerender(<Table.Filter label="Owner" options={[]} tooltip={false} />);
+  expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+});

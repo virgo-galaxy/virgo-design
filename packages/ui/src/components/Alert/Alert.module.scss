@@ -76,7 +76,9 @@
 .action {
   display: flex;
   flex: none;
+  flex-wrap: wrap;
   align-items: center;
+  gap: var(--vd-spacing-8);
 }
 
 .close {

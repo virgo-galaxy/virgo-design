@@ -40,3 +40,88 @@
   padding: var(--vd-spacing-4);
   max-width: calc(100vw - var(--vd-spacing-24));
 }
+.range {
+  @include native-control.control;
+  display: flex;
+  align-items: center;
+  gap: var(--vd-spacing-6);
+  min-width: 0;
+  padding: var(--vd-spacing-4) var(--vd-spacing-6);
+  &[data-size='small'] {
+    padding-block: var(--vd-spacing-2);
+  }
+  &[data-disabled='true'] {
+    color: var(--vd-text-disabled);
+    background: var(--vd-fill-disabled);
+  }
+  &[data-readonly='true'] {
+    background: var(--vd-surface-secondary);
+  }
+  > span {
+    color: var(--vd-text-tertiary);
+  }
+  .trigger {
+    border: 0;
+    background: transparent;
+    width: var(--vd-sizing-28);
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}
+.rangeInput {
+  width: 0;
+  min-width: 0;
+  flex: 1;
+  align-self: stretch;
+  box-sizing: border-box;
+  padding: var(--vd-spacing-2) var(--vd-spacing-6);
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  border-radius: var(--vd-radius-2);
+  font-variant-numeric: tabular-nums;
+  &[data-active='true'] {
+    background: color-mix(in srgb, var(--vd-brand-primary) 8%, var(--vd-surface-default));
+  }
+  &::placeholder {
+    color: var(--vd-text-tertiary);
+  }
+}
+.content [data-date-picker-range-calendar] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 36rem;
+  max-width: 100%;
+  > div {
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+  > div + div {
+    border-inline-start: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  }
+  td[aria-selected='true'] [data-in-range='true'] {
+    background: color-mix(in srgb, var(--vd-brand-primary) 12%, var(--vd-surface-default));
+    color: var(--vd-brand-link);
+  }
+  td[aria-selected='true'] [data-range-endpoint='true'] {
+    background: var(--vd-brand-primary);
+    color: var(--vd-brand-foreground);
+  }
+}
+@media (max-width: 560px) {
+  .content [data-date-picker-range-calendar] {
+    grid-template-columns: minmax(0, 1fr);
+    width: 20rem;
+    max-height: 65vh;
+    overflow: auto;
+    > div + div {
+      border-inline-start: 0;
+      border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+    }
+  }
+}

@@ -1,0 +1,68 @@
+@mixin variables {
+  --checkbox-control-size: var(--vd-sizing-16);
+  --checkbox-hit-size: var(--vd-sizing-24);
+  --checkbox-gap: var(--vd-spacing-8);
+  --checkbox-radius: var(--vd-radius-4);
+  --checkbox-background: var(--vd-surface-default);
+  --checkbox-border: var(--vd-border-default);
+  --checkbox-border-hover: var(--vd-brand-primary);
+  --checkbox-border-focus: var(--vd-border-focus);
+  --checkbox-foreground: var(--vd-text-primary);
+  --checkbox-mark: var(--vd-brand-foreground);
+  --checkbox-selected: var(--vd-brand-primary);
+}
+
+@mixin control {
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  width: var(--checkbox-control-size);
+  height: var(--checkbox-control-size);
+  place-items: center;
+  overflow: hidden;
+  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--checkbox-border);
+  border-radius: var(--checkbox-radius);
+  color: var(--checkbox-mark);
+  background: var(--checkbox-background);
+  transform: translateY(1px);
+  transition:
+    color var(--vd-duration-120) var(--vd-easing-standard),
+    border-color var(--vd-duration-120) var(--vd-easing-standard),
+    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: var(--vd-duration-0);
+  }
+}
+
+@mixin mark {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  stroke-width: 1.5px;
+  opacity: 0;
+  // Keep a short visible start so a newly checked box never has an empty blue frame.
+  clip-path: inset(0 70% 0 0);
+  transition: clip-path var(--vd-duration-240) var(--vd-easing-standard);
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: var(--vd-duration-0);
+  }
+}
+
+@mixin checked-control {
+  border-color: var(--checkbox-selected);
+  background: var(--checkbox-selected);
+}
+
+@mixin checked-mark {
+  opacity: 1;
+  clip-path: inset(0);
+}
+
+@mixin disabled-control {
+  border-color: var(--vd-border-disabled);
+  color: var(--vd-icon-disabled);
+  background: var(--vd-fill-disabled);
+}

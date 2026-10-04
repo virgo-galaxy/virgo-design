@@ -43,6 +43,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
       name={name ?? group?.name}
       value={value}
       checked={resolvedChecked}
+      data-checked={resolvedChecked}
       defaultChecked={isGroupManaged ? undefined : defaultChecked}
       disabled={resolvedDisabled}
       aria-checked={indeterminate ? 'mixed' : ariaChecked}

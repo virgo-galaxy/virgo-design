@@ -23,6 +23,23 @@ export interface SelectProps extends Omit<
 
 export type SelectTriggerProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'id'>;
 
+export interface SelectMultipleProps extends Omit<
+  SelectProps,
+  'value' | 'defaultValue' | 'onValueChange'
+> {
+  /** Controlled selected values; an empty array means no selection. */
+  value?: readonly string[] | undefined;
+  /** Initially selected values. */
+  defaultValue?: readonly string[] | undefined;
+  /** Called when an option is toggled or a selected value is removed. */
+  onValueChange?: ((value: string[]) => void) | undefined;
+}
+
+export interface SelectRemoveProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Selected value to remove; returns focus to the trigger. */
+  value: string;
+}
+
 export interface SelectContentProps extends HTMLAttributes<HTMLDivElement> {
   /** Preferred placement; flips and shifts at viewport boundaries. */
   placement?: OverlayPlacement;

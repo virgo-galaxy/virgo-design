@@ -41,7 +41,7 @@
   opacity: 0;
   transition: opacity var(--vd-motion-duration-fast) var(--vd-motion-easing-standard);
   > button[data-variant='outline'] {
-    --button-height: 32px;
+    --button-height: var(--carousel-arrow-height, 32px);
     --button-background: var(--carousel-control-background, transparent);
     --button-background-hover: var(--carousel-control-background-hover, var(--vd-fill-hover));
     --button-border: var(--carousel-control-border, var(--vd-border-default));
@@ -65,8 +65,8 @@
   gap: 2px;
 }
 .indicator[data-variant='text'] {
-  --button-height: 24px;
-  width: 24px;
+  --button-height: var(--carousel-indicator-height, 24px);
+  width: var(--carousel-indicator-height, 24px);
   padding: 7px;
   > span {
     width: 6px;
@@ -156,4 +156,12 @@
   .barThumb {
     transition: none;
   }
+}
+.root[data-size='medium'] {
+  --carousel-arrow-height: var(--vd-sizing-28);
+  --carousel-indicator-height: var(--vd-sizing-28);
+}
+.root[data-size='large'] {
+  --carousel-arrow-height: var(--vd-sizing-36);
+  --carousel-indicator-height: var(--vd-sizing-36);
 }

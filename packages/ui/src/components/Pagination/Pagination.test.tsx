@@ -5,6 +5,50 @@ import { describe, expect, it, vi } from 'vitest';
 import { Pagination } from './Pagination';
 
 describe('Pagination UI', () => {
+  it('retains totals and appends an external selection count across pages', async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(<Pagination total={85} showTotal selectedCount={20} />);
+    const summary = screen
+      .getByText('Total 85 items', { exact: false })
+      .closest('[data-slot="total"]')!;
+    expect(summary).toHaveTextContent('Total 85 items (Selected 20 items)');
+    expect(summary).toHaveAttribute('aria-live', 'polite');
+    await user.click(screen.getByRole('button', { name: 'Page 2' }));
+    expect(summary).toHaveTextContent('Total 85 items (Selected 20 items)');
+    rerender(<Pagination total={85} showTotal selectedCount={0} />);
+    expect(summary).toHaveTextContent('Total 85 items');
+    expect(summary.querySelector('[data-slot="selected"]')).toBeNull();
+    rerender(<Pagination total={85} selectedCount={20} />);
+    expect(screen.queryByText('Total 85 items', { exact: false })).not.toBeInTheDocument();
+  });
+
+  it('localizes the total and selection suffix, including custom ranges', () => {
+    render(
+      <Pagination
+        total={85}
+        showTotal={(total, [start, end]) => `第 ${start}–${end} 项，共 ${total} 项`}
+        selectedCount={2}
+        labels={{ selected: (count) => `（已选 ${count} 项）` }}
+      />,
+    );
+    expect(screen.getByText('第 1–10 项，共 85 项', { exact: false })).toHaveTextContent(
+      '第 1–10 项，共 85 项 （已选 2 项）',
+    );
+  });
+
+  it('applies the requested density to every pagination control and keeps small as the default', () => {
+    const { rerender } = render(<Pagination total={85} showAll size="medium" />);
+    const navigation = screen.getByRole('navigation');
+    expect(navigation).toHaveAttribute('data-size', 'medium');
+    expect(
+      screen.getByRole('button', { name: 'Items per page' }).closest('[data-size]'),
+    ).toHaveAttribute('data-size', 'medium');
+    expect(
+      screen.getByRole('textbox', { name: 'Go to page' }).closest('[data-size]'),
+    ).toHaveAttribute('data-size', 'medium');
+    rerender(<Pagination total={85} showAll />);
+    expect(navigation).toHaveAttribute('data-size', 'small');
+  });
   it('shows optional controls independently and lets explicit flags override showAll', () => {
     const { rerender } = render(<Pagination total={85} />);
     expect(screen.queryByText('Total 85 items')).not.toBeInTheDocument();

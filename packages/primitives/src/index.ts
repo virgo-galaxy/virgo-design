@@ -1,7 +1,12 @@
 export * from './components/Accordion';
 export * from './components/Breadcrumb';
 export * from './components/Button';
-export { Calendar, type CalendarProps } from './components/Calendar';
+export {
+  Calendar,
+  type CalendarHeaderRenderProps,
+  type CalendarMode,
+  type CalendarProps,
+} from './components/Calendar';
 export * from './components/Carousel';
 export * from './components/Checkbox';
 export * from './components/Collapsible';
@@ -28,7 +33,11 @@ export {
   type DatePickerContentProps,
   type DatePickerInputProps,
   type DatePickerProps,
+  type DatePickerRangeCalendarProps,
+  type DatePickerRangeInputProps,
+  type DatePickerRangeProps,
   type DatePickerTriggerProps,
+  type DateRange,
 } from './components/DatePicker';
 export * from './components/Dialog';
 export * from './components/Dock';

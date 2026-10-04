@@ -13,7 +13,7 @@ import { Input } from '../Input';
 import styles from './Pagination.module.scss';
 import type { PaginationLabels, PaginationProps } from './Pagination.types';
 
-const defaultLabels: PaginationLabels = {
+const defaultLabels = {
   navigation: 'Pagination',
   previous: 'Previous page',
   next: 'Next page',
@@ -24,10 +24,19 @@ const defaultLabels: PaginationLabels = {
   itemsPerPage: (size) => `${size} / page`,
   jumpTo: 'Go to',
   pageUnit: 'page',
-  total: (total) => `Total ${total} items`,
-};
+  selected: (count: number) => `(Selected ${count} items)`,
+  total: (total: number) => `Total ${total} items`,
+} satisfies PaginationLabels;
 
-function QuickJumper({ state, labels }: { state: PaginationState; labels: PaginationLabels }) {
+function QuickJumper({
+  state,
+  labels,
+  size,
+}: {
+  state: PaginationState;
+  labels: PaginationLabels;
+  size: NonNullable<PaginationProps['size']>;
+}) {
   const [value, setValue] = useState('');
   useEffect(() => setValue(''), [state.page, state.pageSize]);
   const invalid =
@@ -41,7 +50,7 @@ function QuickJumper({ state, labels }: { state: PaginationState; labels: Pagina
     <label className={styles.jumper}>
       <span>{labels.jumpTo}</span>
       <Input
-        size="small"
+        size={size}
         inputMode="numeric"
         autoComplete="off"
         value={value}
@@ -68,9 +77,11 @@ function QuickJumper({ state, labels }: { state: PaginationState; labels: Pagina
 
 export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagination(
   {
+    size = 'small',
     align = 'left',
     showAll = false,
     showTotal = showAll,
+    selectedCount = 0,
     showSizeChanger = showAll,
     showQuickJumper = showAll,
     pageSizeOptions = [10, 20, 50, 100],
@@ -92,17 +103,24 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
       ref={forwardedRef}
       className={[styles.root, className].filter(Boolean).join(' ')}
       data-align={align}
+      data-size={size}
       aria-label={ariaLabel ?? (ariaLabelledBy === undefined ? labels.navigation : undefined)}
       aria-labelledby={ariaLabelledBy}
     >
       {(state) => (
         <>
           {showTotal ? (
-            <span className={styles.total} data-slot="total">
+            <span className={styles.total} data-slot="total" aria-live="polite" aria-atomic="true">
               {(typeof showTotal === 'function' ? showTotal : labels.total)(
                 state.total,
                 state.range,
               )}
+              {selectedCount > 0 ? (
+                <span data-slot="selected">
+                  {' '}
+                  {(labels.selected ?? defaultLabels.selected)(selectedCount)}
+                </span>
+              ) : null}
             </span>
           ) : null}
           <ol className={styles.list}>
@@ -158,7 +176,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
             </li>
           </ol>
           {showSizeChanger ? (
-            <Dropdown className={styles.sizeChanger} size="small" disabled={state.disabled}>
+            <Dropdown className={styles.sizeChanger} size={size} disabled={state.disabled}>
               <Dropdown.Trigger aria-label={labels.pageSize}>
                 {labels.itemsPerPage(state.pageSize)}
               </Dropdown.Trigger>
@@ -178,7 +196,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
               </Dropdown.Content>
             </Dropdown>
           ) : null}
-          {showQuickJumper ? <QuickJumper state={state} labels={labels} /> : null}
+          {showQuickJumper ? <QuickJumper state={state} labels={labels} size={size} /> : null}
         </>
       )}
     </PrimitivePagination>
