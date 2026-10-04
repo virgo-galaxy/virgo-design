@@ -49,6 +49,51 @@ beforeEach(() => {
   vi.clearAllMocks();
 });
 describe('React ECharts integration', () => {
+  it('renders static summaries without inspection targets, hover listeners or toggle buttons', async () => {
+    const { container, rerender } = render(
+      <Chart.Root data={data} title="Static summary" interactive={false} animated={false}>
+        <Chart.Cartesian>
+          <Chart.XAxis dataKey="date" hidden />
+          <Chart.YAxis hidden />
+          <Chart.Bar dataKey="b" name="Completed" />
+          <Chart.Tooltip />
+          <Chart.Legend />
+        </Chart.Cartesian>
+      </Chart.Root>,
+    );
+    await waitFor(() => expect(engine.chart.setOption).toHaveBeenCalled());
+    expect(screen.queryByRole('button')).toBeNull();
+    expect(screen.getByText('Completed')).toBeVisible();
+    expect(container.querySelector('[data-chart-hit]')).toBeNull();
+    expect(engine.chart.on).not.toHaveBeenCalled();
+    expect(engine.chart.setOption.mock.calls.at(-1)?.[0]).toMatchObject({
+      tooltip: { show: false },
+      xAxis: { show: false },
+      yAxis: { show: false },
+      series: [{ silent: true, emphasis: { disabled: true } }],
+    });
+    rerender(<Example />);
+    expect(
+      await screen.findByRole('button', { name: 'Mon: Created 4, Completed 0' }),
+    ).toBeVisible();
+    expect(engine.chart.on).toHaveBeenCalledWith('mouseover', expect.any(Function));
+  });
+  it('keeps static native sparklines data-driven without pointer or keyboard hit areas', () => {
+    const { container } = render(
+      <Chart.Sparkline
+        data={data}
+        dataKey="b"
+        xKey="date"
+        title="Static micro"
+        interactive={false}
+        animated={false}
+      />,
+    );
+    expect(container.querySelector('svg path')).toBeTruthy();
+    expect(container.querySelector('[data-chart-hit]')).toBeNull();
+    expect(screen.queryByRole('button')).toBeNull();
+    expect(screen.queryByRole('tooltip')).toBeNull();
+  });
   it('keeps the declarative API and keyboard/focus inspection while delegating interaction', async () => {
     const user = userEvent.setup();
     render(<Example />);

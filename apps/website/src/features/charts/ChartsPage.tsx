@@ -86,16 +86,16 @@ import '@virgo-design/charts/styles.css';
 const api = [
   [
     'Root',
-    'data, title, description, locale, theme, renderer, height, margins, animated, showData, empty, labelFormatter, valueFormatter, missingLabel, dataTableLabel',
+    'data, title, description, locale, theme, renderer, height, margins, animated, interactive, showData, empty, labelFormatter, valueFormatter, missingLabel, dataTableLabel',
     'Data / formatters / visibility',
   ],
   ['Responsive', 'height, renderer', 'ResizeObserver'],
   ['Cartesian', 'height', 'Scales / active x'],
   ['Grid', 'vertical', 'Ticks / zero baseline'],
   ['XAxis', 'dataKey, type, tickFormatter, tickCount, hidden', 'category / time / linear'],
-  ['YAxis', 'domain, tickFormatter, tickCount', 'Linear domain'],
+  ['YAxis', 'domain, tickFormatter, tickCount, hidden', 'Linear domain'],
   ['Line / Area', 'dataKey, name, color, curve, marker', 'Paths / points / synchronized reveal'],
-  ['Bar', 'dataKey, name, color, stackId', 'Grouped / diverging stacks'],
+  ['Bar', 'dataKey, name, color, stackId, maxWidth', 'Grouped / diverging stacks'],
   [
     'Pie / Donut',
     'dataKey, nameKey, innerRadius, colors, center, showLabels, labelLine',

@@ -23,6 +23,7 @@ export function Sparkline({
   showData = false,
   dataTableLabel = 'View chart data',
   animated = true,
+  interactive = true,
   className,
   theme,
   renderer: _renderer,
@@ -71,8 +72,8 @@ export function Sparkline({
     x = linear([0, data.length - 1], [6, Math.max(6, width - 6)]),
     y = linear([low, high || 1], [height - 6, 6]),
     points = values.map((v, i) => (v === null ? null : ([x(i), y(v)] as const))),
-    current = active === null ? null : points[active],
-    datum = active === null ? null : data[active];
+    current = !interactive || active === null ? null : points[active],
+    datum = !interactive || active === null ? null : data[active];
   return (
     <figure
       {...props}
@@ -81,6 +82,7 @@ export function Sparkline({
       data-chart-engine="native"
       data-theme={theme}
       data-animated={animated}
+      data-interactive={interactive}
       data-chart-visible="true"
       onPointerLeave={() => {
         if (!ref.current?.contains(document.activeElement)) setActive(null);
@@ -122,49 +124,51 @@ export function Sparkline({
               />
             ) : null}
           </g>
-          {data.map((d, index) => (
-            <rect
-              key={String(read(d, xKey) ?? index)}
-              data-chart-hit={index}
-              role="button"
-              className={styles.hit}
-              x={index ? (x(index - 1) + x(index)) / 2 : 0}
-              y={0}
-              width={Math.max(
-                1,
-                (index === data.length - 1 ? width : (x(index) + x(index + 1)) / 2) -
-                  (index ? (x(index - 1) + x(index)) / 2 : 0),
-              )}
-              height={height}
-              tabIndex={index === (active ?? 0) ? 0 : -1}
-              aria-label={`${label(read(d, xKey))}: ${dataKey} ${value(read(d, dataKey))}`}
-              onPointerEnter={() => setActive(index)}
-              onFocus={() => setActive(index)}
-              onKeyDown={(event) => {
-                if (event.key === 'Escape') {
-                  setActive(null);
-                  event.currentTarget.blur();
-                  return;
-                }
-                const next =
-                  event.key === 'ArrowRight'
-                    ? Math.min(data.length - 1, index + 1)
-                    : event.key === 'ArrowLeft'
-                      ? Math.max(0, index - 1)
-                      : event.key === 'Home'
-                        ? 0
-                        : event.key === 'End'
-                          ? data.length - 1
-                          : null;
-                if (next !== null) {
-                  event.preventDefault();
-                  event.currentTarget.ownerSVGElement
-                    ?.querySelector<SVGRectElement>(`[data-chart-hit="${next}"]`)
-                    ?.focus();
-                }
-              }}
-            />
-          ))}
+          {interactive
+            ? data.map((d, index) => (
+                <rect
+                  key={String(read(d, xKey) ?? index)}
+                  data-chart-hit={index}
+                  role="button"
+                  className={styles.hit}
+                  x={index ? (x(index - 1) + x(index)) / 2 : 0}
+                  y={0}
+                  width={Math.max(
+                    1,
+                    (index === data.length - 1 ? width : (x(index) + x(index + 1)) / 2) -
+                      (index ? (x(index - 1) + x(index)) / 2 : 0),
+                  )}
+                  height={height}
+                  tabIndex={index === (active ?? 0) ? 0 : -1}
+                  aria-label={`${label(read(d, xKey))}: ${dataKey} ${value(read(d, dataKey))}`}
+                  onPointerEnter={() => setActive(index)}
+                  onFocus={() => setActive(index)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Escape') {
+                      setActive(null);
+                      event.currentTarget.blur();
+                      return;
+                    }
+                    const next =
+                      event.key === 'ArrowRight'
+                        ? Math.min(data.length - 1, index + 1)
+                        : event.key === 'ArrowLeft'
+                          ? Math.max(0, index - 1)
+                          : event.key === 'Home'
+                            ? 0
+                            : event.key === 'End'
+                              ? data.length - 1
+                              : null;
+                    if (next !== null) {
+                      event.preventDefault();
+                      event.currentTarget.ownerSVGElement
+                        ?.querySelector<SVGRectElement>(`[data-chart-hit="${next}"]`)
+                        ?.focus();
+                    }
+                  }}
+                />
+              ))
+            : null}
         </svg>
       ) : (
         <div className={styles.empty} style={{ height }} role="status">

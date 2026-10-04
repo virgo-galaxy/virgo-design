@@ -1,5 +1,5 @@
 import type { EChartsType } from 'echarts';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import styles from '../Chart.module.scss';
 import { numeric, read } from '../data';
@@ -30,6 +30,7 @@ export default function EngineView({
     ),
     reduced = useReducedMotion(),
     [active, setActive] = useState<number | null>(null);
+  const interactive = definition.interactive !== false;
   const onReady = useCallback((instance: EChartsType) => {
     const enter = (event: { seriesType?: string; seriesIndex?: number; dataIndex?: number }) => {
       if (event.seriesType === 'pie')
@@ -50,6 +51,7 @@ export default function EngineView({
     instance.on('mouseover', enter);
     instance.on('mouseout', leave);
     return () => {
+      if (instance.isDisposed?.()) return;
       instance.off('mouseover', enter);
       instance.off('mouseout', leave);
     };
@@ -58,7 +60,11 @@ export default function EngineView({
     () => (theme ? compileOption(definition, theme, animated && !reduced) : null),
     [definition, theme, animated, reduced],
   );
-  const chart = useChartRuntime({ ref, init, renderer, height, option, onReady });
+  const chart = useChartRuntime({ ref, init, renderer, height, option });
+  useEffect(() => {
+    const instance = chart.current;
+    if (interactive && instance) return onReady(instance);
+  }, [chart, interactive, onReady, renderer]);
   const inspect = (index: number | null) => {
     const instance = chart.current;
     instance?.dispatchAction({ type: 'downplay' });
@@ -125,54 +131,62 @@ export default function EngineView({
       aria-label={title}
       data-chart-engine="echarts"
       data-renderer={renderer}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) inspect(null);
-      }}
+      onBlur={
+        interactive
+          ? (event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) inspect(null);
+            }
+          : undefined
+      }
     >
       <div ref={ref} className={styles.engine} style={{ height }} />
-      <div className={styles.srOnly}>
-        {visible.map((index) => (
-          <button
-            key={index}
-            type="button"
-            data-chart-hit={index}
-            tabIndex={
-              index === (active !== null && visible.includes(active) ? active : visible[0]) ? 0 : -1
-            }
-            aria-label={pointLabel(index)}
-            onFocus={() => inspect(index)}
-            onKeyDown={(event) => {
-              if (event.key === 'Escape') {
-                inspect(null);
-                event.currentTarget.blur();
-                return;
+      {interactive ? (
+        <div className={styles.srOnly}>
+          {visible.map((index) => (
+            <button
+              key={index}
+              type="button"
+              data-chart-hit={index}
+              tabIndex={
+                index === (active !== null && visible.includes(active) ? active : visible[0])
+                  ? 0
+                  : -1
               }
-              const position = visible.indexOf(index),
-                direction =
-                  event.key === 'ArrowRight' || event.key === 'ArrowDown'
-                    ? 1
-                    : event.key === 'ArrowLeft' || event.key === 'ArrowUp'
-                      ? -1
-                      : 0;
-              const next =
-                event.key === 'Home'
-                  ? visible[0]
-                  : event.key === 'End'
-                    ? visible.at(-1)
-                    : direction
-                      ? visible[Math.max(0, Math.min(visible.length - 1, position + direction))]
-                      : undefined;
-              if (next !== undefined) {
-                event.preventDefault();
-                event.currentTarget.parentElement
-                  ?.querySelector<HTMLButtonElement>(`[data-chart-hit="${next}"]`)
-                  ?.focus();
-              }
-            }}
-          />
-        ))}
-        <span aria-live="polite">{active === null ? '' : pointLabel(active)}</span>
-      </div>
+              aria-label={pointLabel(index)}
+              onFocus={() => inspect(index)}
+              onKeyDown={(event) => {
+                if (event.key === 'Escape') {
+                  inspect(null);
+                  event.currentTarget.blur();
+                  return;
+                }
+                const position = visible.indexOf(index),
+                  direction =
+                    event.key === 'ArrowRight' || event.key === 'ArrowDown'
+                      ? 1
+                      : event.key === 'ArrowLeft' || event.key === 'ArrowUp'
+                        ? -1
+                        : 0;
+                const next =
+                  event.key === 'Home'
+                    ? visible[0]
+                    : event.key === 'End'
+                      ? visible.at(-1)
+                      : direction
+                        ? visible[Math.max(0, Math.min(visible.length - 1, position + direction))]
+                        : undefined;
+                if (next !== undefined) {
+                  event.preventDefault();
+                  event.currentTarget.parentElement
+                    ?.querySelector<HTMLButtonElement>(`[data-chart-hit="${next}"]`)
+                    ?.focus();
+                }
+              }}
+            />
+          ))}
+          <span aria-live="polite">{active === null ? '' : pointLabel(active)}</span>
+        </div>
+      ) : null}
     </div>
   );
 }

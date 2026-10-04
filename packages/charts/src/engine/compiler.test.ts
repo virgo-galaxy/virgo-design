@@ -58,6 +58,30 @@ const model: ChartDefinition = {
   legend: true,
 };
 describe('Virgo → ECharts compiler', () => {
+  it('disables all pointer emphasis, tooltips and polar selection in static mode', () => {
+    for (const kind of ['line', 'area', 'bar'] as const) {
+      const option = compileOption(
+        { ...model, interactive: false, series: model.series.map((s) => ({ ...s, kind })) },
+        theme,
+        false,
+      );
+      expect(option.tooltip).toMatchObject({ show: false });
+      expect(option.xAxis).toMatchObject({ axisPointer: { show: false } });
+      expect(
+        (option.series as LineSeriesOption[]).every((s) => s.silent && s.emphasis?.disabled),
+      ).toBe(true);
+    }
+    const option = compileOption(
+      { ...model, interactive: false, polar: { dataKey: 'a', nameKey: 'date' } },
+      theme,
+      false,
+    );
+    expect((option.series as PieSeriesOption[])[0]).toMatchObject({
+      silent: true,
+      selectedMode: false,
+      emphasis: { disabled: true },
+    });
+  });
   it('preserves zero, missing gaps, straight lines and smooth areas', () => {
     const option = compileOption(model, theme, true),
       series = option.series as LineSeriesOption[];
@@ -84,13 +108,16 @@ describe('Virgo → ECharts compiler', () => {
   });
   it('delegates grouped and diverging stacks without calculating bar geometry', () => {
     const series = compileOption(
-      { ...model, series: model.series.map((s) => ({ ...s, kind: 'bar', stackId: 'total' })) },
+      {
+        ...model,
+        series: model.series.map((s) => ({ ...s, kind: 'bar', stackId: 'total', maxWidth: 16 })),
+      },
       theme,
       true,
     ).series as BarSeriesOption[];
-    expect(series.map((s) => [s.type, s.stack, s.stackStrategy])).toEqual([
-      ['bar', 'total', 'samesign'],
-      ['bar', 'total', 'samesign'],
+    expect(series.map((s) => [s.type, s.stack, s.stackStrategy, s.barMaxWidth])).toEqual([
+      ['bar', 'total', 'samesign', 16],
+      ['bar', 'total', 'samesign', 16],
     ]);
     const grouped = compileOption(
       { ...model, series: model.series.map((s) => ({ ...s, kind: 'bar' })) },
@@ -98,6 +125,7 @@ describe('Virgo → ECharts compiler', () => {
       true,
     ).series as BarSeriesOption[];
     expect(grouped.every((s) => s.stack === undefined)).toBe(true);
+    expect(grouped.every((s) => s.barMaxWidth === 80)).toBe(true);
   });
   it('maps time axes and explicit domains, visibility and crosshair settings', () => {
     const option = compileOption(

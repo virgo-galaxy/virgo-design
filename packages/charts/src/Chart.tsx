@@ -18,6 +18,7 @@ import { numeric, read } from './data';
 import type { ChartDefinition, SeriesDefinition } from './engine/compiler';
 import { Sparkline } from './native/Sparkline';
 import type {
+  BarProps,
   CartesianProps,
   ChartDatum,
   ChartFormatter,
@@ -64,7 +65,7 @@ function nodes(children: ReactNode): ReactElement[] {
 function gather(children: ReactNode, data: readonly ChartDatum[], output: SeriesDefinition[] = []) {
   for (const child of nodes(children)) {
     if (child.type === Line || child.type === Area || child.type === Bar) {
-      const props = child.props as SeriesProps;
+      const props = child.props as BarProps;
       if (!output.some((s) => s.key === props.dataKey))
         output.push({
           ...props,
@@ -97,6 +98,7 @@ export function Root({
   locale = 'en-US',
   renderer = 'svg',
   animated = true,
+  interactive = true,
   valueFormatter,
   labelFormatter,
   empty = 'No chart data',
@@ -152,6 +154,7 @@ export function Root({
     height,
     renderer,
     animated,
+    interactive,
     visible,
     empty,
     toggle: (key) =>
@@ -171,6 +174,7 @@ export function Root({
         className={[styles.root, className].filter(Boolean).join(' ')}
         data-theme={theme}
         data-animated={animated}
+        data-interactive={interactive}
         data-chart-visible={visible}
       >
         <figcaption className={styles.srOnly}>{title}</figcaption>
@@ -303,7 +307,7 @@ export function Area(_props: SeriesProps) {
   void _props;
   return null;
 }
-export function Bar(_props: SeriesProps) {
+export function Bar(_props: BarProps) {
   void _props;
   return null;
 }
@@ -325,18 +329,25 @@ export function Legend({ className, toggleLabel }: LegendProps) {
   const root = useRoot();
   return (
     <div className={[styles.legend, className].filter(Boolean).join(' ')}>
-      {root.series.map((series) => (
-        <button
-          key={series.key}
-          type="button"
-          aria-pressed={!root.hidden.has(series.key)}
-          aria-label={toggleLabel?.(series.name)}
-          onClick={() => root.toggle(series.key)}
-        >
-          <i style={{ background: series.color }} />
-          {series.name}
-        </button>
-      ))}
+      {root.series.map((series) =>
+        root.interactive === false ? (
+          <span key={series.key}>
+            <i style={{ background: series.color }} />
+            {series.name}
+          </span>
+        ) : (
+          <button
+            key={series.key}
+            type="button"
+            aria-pressed={!root.hidden.has(series.key)}
+            aria-label={toggleLabel?.(series.name)}
+            onClick={() => root.toggle(series.key)}
+          >
+            <i style={{ background: series.color }} />
+            {series.name}
+          </button>
+        ),
+      )}
     </div>
   );
 }

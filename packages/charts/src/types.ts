@@ -19,6 +19,8 @@ export interface ChartRootProps extends Omit<HTMLAttributes<HTMLElement>, 'title
   theme?: 'light' | 'dark';
   /** Disable motion explicitly. Reduced-motion preferences always take precedence. */
   animated?: boolean;
+  /** Disable pointer inspection, keyboard inspection and legend toggling for static summaries. */
+  interactive?: boolean;
   /** ECharts rendering backend for ordinary charts. Sparkline always uses native SVG. */
   renderer?: ChartRenderer;
   valueFormatter?: ChartFormatter;
@@ -42,6 +44,7 @@ export interface XAxisProps {
   hidden?: boolean;
 }
 export interface YAxisProps {
+  hidden?: boolean;
   domain?: readonly [number, number];
   tickFormatter?: ChartFormatter;
   tickCount?: number;
@@ -55,6 +58,10 @@ export interface SeriesProps {
   curve?: 'linear' | 'smooth';
   /** Bars sharing a stackId use diverging positive/negative stacks. */
   stackId?: string;
+}
+export interface BarProps extends SeriesProps {
+  /** Maximum bar width in pixels. Useful for sparse or compact plots. @default 80 */
+  maxWidth?: number;
 }
 export interface TooltipProps {
   crosshair?: boolean;

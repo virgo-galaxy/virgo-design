@@ -152,7 +152,8 @@
   gap: var(--vd-spacing-12);
   padding-block: var(--vd-spacing-8);
 }
-.legend button {
+.legend button,
+.legend > span {
   display: flex;
   align-items: center;
   gap: var(--vd-spacing-6);
@@ -162,6 +163,8 @@
   color: var(--chart-legend);
   background: transparent;
   font: inherit;
+}
+.legend button {
   cursor: pointer;
 }
 .legend button[aria-pressed='false'] {

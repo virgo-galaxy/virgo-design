@@ -43,22 +43,22 @@ No `echarts-for-react` dependency or page-owned ECharts themes are used.
 
 ## Public API
 
-| Part            | Main props                                                                   | Behavior                                                           |
-| --------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| Root            | data, title, description, locale, theme, renderer, height, margins, animated | Named figure, formatting, visibility and theme inheritance         |
-| Root formatters | labelFormatter, valueFormatter, missingLabel                                 | Tooltip, axes, accessible point names and data table               |
-| Root data       | showData, dataTableLabel, empty                                              | Native table disclosure and consumer-owned empty content           |
-| Responsive      | height, renderer                                                             | Inherited height/renderer; runtime observes container size         |
-| Cartesian       | height, className                                                            | ECharts Cartesian coordinate system                                |
-| Grid            | vertical                                                                     | Horizontal grid; optional vertical grid                            |
-| XAxis           | dataKey, type, tickFormatter, tickCount, hidden                              | category / time / linear, adaptive labels                          |
-| YAxis           | domain, tickFormatter, tickCount                                             | Automatic zero-aware domain or explicit limits                     |
-| Line / Area     | dataKey, name, color, curve, marker                                          | line series; Area adds areaStyle                                   |
-| Bar             | dataKey, name, color, stackId                                                | Grouped bars; same stackId creates diverging stacks                |
-| Pie / Donut     | dataKey, nameKey, innerRadius, colors, center, showLabels, labelLine         | Pie series; proportional 0–1 or pixel inner radius                 |
-| Tooltip         | crosshair, className                                                         | Shared x and visible series, safe Virgo HTML card                  |
-| Legend          | toggleLabel, className                                                       | Native buttons with aria-pressed; updates ECharts legend selection |
-| Sparkline       | data, title, dataKey, xKey, color, area, height                              | Native SVG micro visualization                                     |
+| Part            | Main props                                                                                | Behavior                                                           |
+| --------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Root            | data, title, description, locale, theme, renderer, height, margins, animated, interactive | Named figure, formatting, visibility and theme inheritance         |
+| Root formatters | labelFormatter, valueFormatter, missingLabel                                              | Tooltip, axes, accessible point names and data table               |
+| Root data       | showData, dataTableLabel, empty                                                           | Native table disclosure and consumer-owned empty content           |
+| Responsive      | height, renderer                                                                          | Inherited height/renderer; runtime observes container size         |
+| Cartesian       | height, className                                                                         | ECharts Cartesian coordinate system                                |
+| Grid            | vertical                                                                                  | Horizontal grid; optional vertical grid                            |
+| XAxis           | dataKey, type, tickFormatter, tickCount, hidden                                           | category / time / linear, adaptive labels                          |
+| YAxis           | domain, tickFormatter, tickCount, hidden                                                  | Automatic zero-aware domain or explicit limits                     |
+| Line / Area     | dataKey, name, color, curve, marker                                                       | line series; Area adds areaStyle                                   |
+| Bar             | dataKey, name, color, stackId, maxWidth                                                   | Grouped bars; same stackId creates diverging stacks                |
+| Pie / Donut     | dataKey, nameKey, innerRadius, colors, center, showLabels, labelLine                      | Pie series; proportional 0–1 or pixel inner radius                 |
+| Tooltip         | crosshair, className                                                                      | Shared x and visible series, safe Virgo HTML card                  |
+| Legend          | toggleLabel, className                                                                    | Native buttons with aria-pressed; updates ECharts legend selection |
+| Sparkline       | data, title, dataKey, xKey, color, area, height                                           | Native SVG micro visualization                                     |
 
 `curve="linear"` is the default and connects points with straight segments.
 `curve="smooth"` uses the engine's smooth interpolation. Markers can be visible,
@@ -75,6 +75,10 @@ may be Date or ISO strings. Series retain stable IDs for ECharts updates.
 
 Pie/Donut display percentage labels and leader lines by default. `labelLine={false}`
 hides only lines; `showLabels={false}` hides both. ECharts handles label layout.
+
+Bar width adapts to the plot width and category count. Use `maxWidth={16}` on
+`Chart.Bar` to keep time-series bars slim; all series in a stack should use the same
+maximum. The default maximum is 80px.
 
 ## React runtime, motion and interaction
 
@@ -97,6 +101,12 @@ Virgo exposes a keyboard inspection layer for both renderers. Left/Right (and Up
 Home/End move between points; Escape clears inspection. Native legend buttons and the
 optional data table remain keyboard accessible. Supply localized title/description,
 formatters, empty content, dataTableLabel and toggleLabel in the consuming app.
+
+Set `interactive={false}` on Root or Sparkline for static KPI summaries. It disables
+pointer emphasis, tooltips, sector selection, keyboard inspection and legend toggling;
+legend labels remain visible as plain text. Pair it with `animated={false}` for an
+entirely still chart. The visualization remains data-driven and accessible by its
+figure title/description. `YAxis hidden` and `XAxis hidden` remove axes in micro charts.
 
 ## Semantic theme contract
 

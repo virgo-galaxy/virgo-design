@@ -10,23 +10,24 @@ import type {
 import styles from '../Chart.module.scss';
 import { numeric, read } from '../data';
 import type {
+  BarProps,
   ChartDatum,
   ChartFormatter,
   ChartMargins,
   PieProps,
-  SeriesProps,
   XAxisProps,
   YAxisProps,
 } from '../types';
 import type { ChartTheme } from './theme';
 
-export interface SeriesDefinition extends SeriesProps {
+export interface SeriesDefinition extends BarProps {
   key: string;
   name: string;
   kind: 'line' | 'area' | 'bar' | 'pie';
   color: string;
 }
 export interface ChartDefinition {
+  interactive?: boolean;
   data: readonly ChartDatum[];
   series: SeriesDefinition[];
   hidden: Set<string>;
@@ -80,9 +81,10 @@ export function compileOption(
   theme: ChartTheme,
   animated: boolean,
 ): EChartsOption {
+  const interactive = model.interactive !== false;
   const selected = Object.fromEntries(model.series.map((s) => [s.name, !model.hidden.has(s.key)]));
   const tooltip: TooltipComponentOption = {
-    show: !!model.tooltip,
+    show: interactive && !!model.tooltip,
     trigger: model.polar ? 'item' : 'axis',
     renderMode: 'html',
     appendToBody: false,
@@ -131,7 +133,8 @@ export function compileOption(
       type: 'pie',
       radius: [inner <= 1 ? `${inner * 64}%` : inner, outer],
       center: ['50%', '50%'],
-      selectedMode: 'single',
+      silent: !interactive,
+      selectedMode: interactive ? 'single' : false,
       selectedOffset: theme.sectorOffset,
       avoidLabelOverlap: true,
       stillShowZeroSum: false,
@@ -152,6 +155,7 @@ export function compileOption(
       },
       itemStyle: { borderWidth: 1, borderColor: theme.background },
       emphasis: {
+        disabled: !interactive,
         scale: false,
         label: { fontWeight: 'normal' },
         itemStyle: { shadowBlur: 8, shadowColor: 'rgba(0,0,0,0.2)', shadowOffsetY: 3 },
@@ -189,6 +193,7 @@ export function compileOption(
       };
     });
     const base = {
+      silent: !interactive,
       id: s.key,
       name: s.name,
       data,
@@ -201,10 +206,11 @@ export function compileOption(
         type: 'bar',
         ...(s.stackId ? { stack: s.stackId } : {}),
         stackStrategy: 'samesign',
-        barMaxWidth: 80,
+        barMaxWidth: s.maxWidth ?? 80,
         barGap: '0%',
         barCategoryGap: '28%',
         emphasis: {
+          disabled: !interactive,
           itemStyle: {
             shadowBlur: 6,
             shadowColor: paint,
@@ -230,6 +236,7 @@ export function compileOption(
       },
       lineStyle: { color: paint, width: theme.lineWidth, cap: 'round', join: 'round' },
       emphasis: {
+        disabled: !interactive,
         scale: theme.activePointRadius / theme.pointRadius,
         lineStyle: { width: theme.lineWidth },
         itemStyle: { opacity: 1, borderWidth: 2.5, shadowBlur: 3, shadowColor: paint },
@@ -282,12 +289,13 @@ export function compileOption(
       ...(kind !== 'category' ? { splitNumber: model.xAxis?.tickCount ?? 5 } : {}),
       splitLine: { show: !!model.grid?.vertical, lineStyle: { color: theme.grid, type: 'dashed' } },
       axisPointer: {
-        show: !!model.tooltip && model.tooltip.crosshair !== false,
+        show: interactive && !!model.tooltip && model.tooltip.crosshair !== false,
         snap: true,
         label: { show: false },
       },
     } as XAXisComponentOption,
     yAxis: {
+      show: model.yAxis?.hidden !== true,
       type: 'value',
       ...(model.yAxis?.domain ? { min: model.yAxis.domain[0], max: model.yAxis.domain[1] } : {}),
       splitNumber: model.yAxis?.tickCount ?? 5,
