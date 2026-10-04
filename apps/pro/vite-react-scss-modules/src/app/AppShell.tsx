@@ -1,12 +1,20 @@
-import { BellIcon, ChevronDownIcon, MoonIcon, SearchIcon, SunIcon } from '@virgo-design/icons';
+import {
+  BellIcon,
+  ChevronDownIcon,
+  MoonFilledIcon,
+  SearchIcon,
+  SunFilledIcon,
+  VirgoDesignIcon,
+} from '@virgo-design/icons';
+import virgoDesignLogo from '@virgo-design/icons/brands/virgo-design.svg';
 import { iconComponents } from '@virgo-design/icons/registry';
 import {
   Avatar,
   Badge,
   Breadcrumb,
   Button,
-  Combobox,
   Drawer,
+  Input,
   Layout,
   type LayoutSidebarDisplayState,
   Popover,
@@ -28,51 +36,21 @@ import { LanguageControl } from '@/components/language-control/LanguageControl';
 import { avatarForeground, profileInitials, type ProfileState } from '@/data/pro-workflows';
 
 import styles from './AppShell.module.scss';
-import { navigationPages as baseNavigationPages } from './navigation';
 import { getGroupLabel, getPageLabel } from './navigation-labels';
 import { proRouteConfig } from './routes.config';
 import { proRouting } from './routing';
 import { SidebarNavigation } from './SidebarNavigation';
 
-function PageSearch() {
+function HeaderSearch() {
   const { t } = useTranslation();
-  const navigationPages = baseNavigationPages.map((page) => ({
-    ...page,
-    label: getPageLabel(t, page.page),
-    group: getGroupLabel(t, page.groupId),
-  }));
-  const [search, setSearch] = useState('');
-  const navigate = useNavigate();
   return (
-    <Combobox
-      className={styles.search}
-      inputValue={search}
-      onInputValueChange={setSearch}
-      onValueChange={(value) => {
-        if (value) navigate(value);
-      }}
-      size="small"
-    >
-      <Combobox.Input
-        prefix={<SearchIcon />}
-        aria-label={t('app.findAPage')}
-        placeholder={t('app.findAPage2')}
-      />
-      <Combobox.Content>
-        {navigationPages.map((page) => (
-          <Combobox.Option
-            key={page.path}
-            value={page.path}
-            textValue={page.label}
-            keywords={[page.group]}
-          >
-            <span>{page.label}</span>
-            <span className={styles.optionGroup}>{page.group}</span>
-          </Combobox.Option>
-        ))}
-        <Combobox.Empty>{t('app.noMatchingPages')}</Combobox.Empty>
-      </Combobox.Content>
-    </Combobox>
+    <Input
+      rootClassName={styles.search!}
+      suffix={<SearchIcon />}
+      aria-label={t('app.searchPlaceholder')}
+      placeholder={t('app.searchPlaceholder')}
+      size="medium"
+    />
   );
 }
 
@@ -232,7 +210,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
   };
 
   return (
-    <Tooltip.Provider size="small" arrow={settings.showOverlayArrows}>
+    <Tooltip.Provider size="medium" arrow={settings.showOverlayArrows}>
       <Drawer
         className={styles.settingsRoot}
         open={settingsOpen}
@@ -309,7 +287,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                             }
                           }}
                         >
-                          <img src="/virgo-design.svg" alt="" width="590" height="470" />
+                          <img src={virgoDesignLogo} alt="" width="590" height="470" />
                         </Layout.SidebarTrigger>
                       )}
                     />
@@ -322,7 +300,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                   >
                     {t('app.virgoDesign')}
                   </Link>
-                  <Tag size="sm" intent="brand" variant="soft" className={styles.proBadge}>
+                  <Tag size="md" intent="brand" variant="soft" className={styles.proBadge}>
                     {t('app.pro')}
                   </Tag>
                 </div>
@@ -344,7 +322,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                               updateSettings({ appearance: theme === 'light' ? 'dark' : 'light' });
                           }}
                         >
-                          {theme === 'light' ? <MoonIcon /> : <SunIcon />}
+                          {theme === 'light' ? <MoonFilledIcon /> : <SunFilledIcon />}
                         </Button>
                       )}
                     />
@@ -364,13 +342,13 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                         <Button
                           {...props}
                           variant="text"
-                          size="large"
+                          size="medium"
                           className={styles.account}
                           aria-label={t('app.accountLabel', { name: profile.name })}
                           trailingIcon={<ChevronDownIcon className={styles.accountChevron} />}
                         >
                           <Avatar
-                            size="sm"
+                            size="md"
                             fallback={profileInitials(profile.name).slice(0, 1)}
                             {...(profile.avatarImage ? { src: profile.avatarImage } : {})}
                             style={{
@@ -405,7 +383,7 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                 </div>
               }
             >
-              <PageSearch key={pathname} />
+              <HeaderSearch />
             </Layout.Header>
 
             <Layout direction="horizontal" className={styles.body!}>
@@ -517,7 +495,10 @@ export function AppShell({ profile }: { profile: ProfileState }) {
                   </div>
                   {settings.showFooter ? (
                     <footer className={styles.contentFooter}>
-                      <Link to={proRouteConfig.homePath}>{t('app.virgoDesignPro')}</Link>
+                      <Link to={proRouteConfig.homePath}>
+                        <VirgoDesignIcon size={16} />
+                        <span>{t('app.virgoDesignPro')}</span>
+                      </Link>
                     </footer>
                   ) : null}
                 </div>

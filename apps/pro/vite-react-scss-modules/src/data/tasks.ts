@@ -28,10 +28,10 @@ export interface Task extends TaskDraft {
 
 export interface TaskFilters {
   search: string;
-  status: TaskStatus | 'all';
-  priority: TaskPriority | 'all';
-  project: string;
-  assignee: string;
+  status: TaskStatus | 'all' | readonly TaskStatus[];
+  priority: TaskPriority | 'all' | readonly TaskPriority[];
+  project: string | readonly string[];
+  assignee: string | readonly string[];
 }
 
 export interface TaskState {
@@ -124,6 +124,15 @@ export function validateTask(
   return errors;
 }
 
+function matchesFilter(value: string, filter: string | readonly string[]) {
+  return typeof filter === 'string'
+    ? filter === 'all' || value === filter
+    : !filter.length || filter.includes(value);
+}
+export function filterValues(filter: string | readonly string[]): readonly string[] {
+  return typeof filter === 'string' ? (filter === 'all' ? [] : [filter]) : filter;
+}
+
 export function matchesTask(
   task: TaskDraft & { id?: string },
   filters: TaskFilters,
@@ -135,20 +144,26 @@ export function matchesTask(
     .toLowerCase();
   return (
     (!query || text.includes(query)) &&
-    (filters.status === 'all' || task.status === filters.status) &&
-    (filters.priority === 'all' || task.priority === filters.priority) &&
-    (filters.project === 'all' || task.project === filters.project) &&
-    (filters.assignee === 'all' || task.assignee === filters.assignee)
+    matchesFilter(task.status, filters.status) &&
+    matchesFilter(task.priority, filters.priority) &&
+    matchesFilter(task.project, filters.project) &&
+    matchesFilter(task.assignee, filters.assignee)
   );
 }
 
 export function hasTaskFilters(filters: TaskFilters) {
   return (
     filters.search.trim() !== '' ||
-    filters.status !== 'all' ||
-    filters.priority !== 'all' ||
-    filters.project !== 'all' ||
-    filters.assignee !== 'all'
+    (typeof filters.status === 'string' ? filters.status !== 'all' : filters.status.length > 0) ||
+    (typeof filters.priority === 'string'
+      ? filters.priority !== 'all'
+      : filters.priority.length > 0) ||
+    (typeof filters.project === 'string'
+      ? filters.project !== 'all'
+      : filters.project.length > 0) ||
+    (typeof filters.assignee === 'string'
+      ? filters.assignee !== 'all'
+      : filters.assignee.length > 0)
   );
 }
 

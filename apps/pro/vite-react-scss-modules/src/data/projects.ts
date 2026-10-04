@@ -50,6 +50,6 @@ export function projectActivity(project: Project, activity: readonly ActivityDto
 export function projectDetailPath(project: Project) {
   return `/data/detail?project=${project.id}`;
 }
-export function projectQueryPath(project: Project) {
-  return `/data/search-table?project=${encodeURIComponent(project.name)}`;
+export function projectTasksPath(project: Project) {
+  return `/work/tasks?project=${encodeURIComponent(project.name)}`;
 }

@@ -1,5 +1,7 @@
 import type { MemberDto, TaskDto, TaskPriorityDto, TaskStatusDto } from '@/api/tasks';
 
+import { createMockTaskId } from './task-id';
+
 const subjects = [
   [
     'Workspace permissions',
@@ -104,7 +106,7 @@ export function createTaskHistory(
       Date.UTC(2026, 8, 22, 2 + (index % 8), index % 60) - Math.floor(index / 3) * day;
     const due = Math.max(created + day, Date.UTC(2026, 9, 2) + (-18 + (variation % 50)) * day);
     return {
-      id: `VD-${139 + index}`,
+      id: createMockTaskId(139 + index),
       title: `${subject}: ${phase[0]}`,
       description: `${phase[1]} Scope: ${subject.toLowerCase()} in ${projects[projectIndex]}. Include reproducible examples and a clear handoff to the next owner.`,
       project: projects[projectIndex]!,

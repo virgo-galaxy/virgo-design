@@ -25,9 +25,6 @@ const DataListPage = lazy(() =>
 const DetailPage = lazy(() =>
   import('@/pages/data/DetailPage').then((module) => ({ default: module.DetailPage })),
 );
-const SearchTablePage = lazy(() =>
-  import('@/pages/data/SearchTablePage').then((module) => ({ default: module.SearchTablePage })),
-);
 const ExceptionPage = lazy(() =>
   import('@/pages/exceptions/ExceptionPage').then((module) => ({ default: module.ExceptionPage })),
 );
@@ -123,7 +120,6 @@ export function App() {
     analytics: <AnalyticsPage state={tasks} />,
     tasks: <TasksPage state={tasks} dispatch={dispatch} />,
     projects: <ProjectsPage state={tasks} />,
-    'search-table': <SearchTablePage state={tasks} dispatch={dispatch} />,
     'data-list': <DataListPage state={tasks} dispatch={dispatch} />,
     detail: <DetailPage state={tasks} dispatch={dispatch} />,
     'basic-form': <BasicFormPage draft={request} setDraft={setRequest} onCreate={createRequest} />,

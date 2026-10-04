@@ -13,7 +13,7 @@ import { createTasksCsv } from '@/data/tasks.export';
 import { downloadCsv } from '@/pages/shared/download';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { getTaskExportLabels, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
-import { taskStatusIntent } from '@/pages/tasks/task-presentation';
+import { taskLabelStyles, taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import styles from './ResultPage.module.scss';
 
@@ -51,7 +51,7 @@ export function ResultPage({
           aria-labelledby="receipt-result-title"
         >
           <Result.Icon />
-          <Tag size="sm" variant="outline">
+          <Tag size="md" variant="outline">
             {receipt.reference}
           </Tag>
           <Result.Title as="h1" id="receipt-result-title">
@@ -63,11 +63,11 @@ export function ResultPage({
           <Result.Actions className={styles.primaryActions}>
             {success ? (
               <>
-                <Button size="small" onClick={() => navigate(projectDetailPath(project))}>
+                <Button size="medium" onClick={() => navigate(projectDetailPath(project))}>
                   {t('results.viewProject')}
                 </Button>
                 <Button
-                  size="small"
+                  size="medium"
                   variant="outline"
                   leadingIcon={<DownloadIcon />}
                   disabled={!tasks.length}
@@ -84,7 +84,7 @@ export function ResultPage({
             ) : (
               <>
                 <Button
-                  size="small"
+                  size="medium"
                   onClick={() => {
                     onRecover?.();
                     navigate('/form/step');
@@ -93,7 +93,7 @@ export function ResultPage({
                   {t('results.reviewHandoffSettings')}
                 </Button>
                 <Button
-                  size="small"
+                  size="medium"
                   variant="outline"
                   disabled={mutation.pending}
                   onClick={() => {
@@ -211,7 +211,7 @@ export function ResultPage({
                   {t('results.theWorkspacePacketCanBePreparedForTeamReview')}
                 </Alert.Description>
               </Alert>
-              <Accordion type="single" variant="ghost" size="sm">
+              <Accordion type="single" variant="ghost" size="md">
                 <Accordion.Item value="why">
                   <Accordion.Trigger icon>{t('results.whyDidThisFail')}</Accordion.Trigger>
                   <Accordion.Content>
@@ -225,7 +225,7 @@ export function ResultPage({
                   </Accordion.Content>
                 </Accordion.Item>
               </Accordion>
-              <Link className={shared.link} to="/data/search-table?search=VD-126">
+              <Link className={shared.link} to="/work/tasks?search=df4de51e-ea0d">
                 {t('results.reviewThePermissionTask')}
               </Link>
             </div>
@@ -241,11 +241,15 @@ export function ResultPage({
               <li key={task.id}>
                 <div>
                   <span className={shared.mono}>{task.id}</span>
-                  <Link className={shared.link} to={`/data/search-table?search=${task.id}`}>
+                  <Link className={shared.link} to={`/work/tasks?search=${task.id}`}>
                     {task.title}
                   </Link>
                 </div>
-                <Tag size="sm" intent={taskStatusIntent[task.status]}>
+                <Tag
+                  size="md"
+                  intent={taskStatusIntent[task.status]}
+                  className={taskLabelStyles.tag}
+                >
                   {getTaskStatusLabel(t, task.status)}
                 </Tag>
               </li>

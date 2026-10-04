@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { initialProfile } from '@/mock/fixtures/profile';
 import { projects } from '@/mock/fixtures/projects';
+import { createMockTaskId } from '@/mock/fixtures/task-id';
 import { taskAssignees, taskProjects } from '@/mock/fixtures/tasks';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { sampleError } from '@/mock/fixtures/workflows';
@@ -27,7 +28,7 @@ const tasks = initialTaskState.tasks;
 const completeHandoff = {
   ...initialHandoff,
   title: '  Workspace acceptance checkpoint  ',
-  taskIds: ['VD-128', 'VD-126'],
+  taskIds: ['1bbcd880-f5e5', 'df4de51e-ea0d'],
   notes: '  Check navigation and export permissions.  ',
   confirmed: true,
 };
@@ -67,7 +68,7 @@ describe('work request entering the shared register', () => {
       createdAt: '2026-10-03T00:00:00Z',
     });
     expect(stored.tasks[0]).toMatchObject({
-      id: `VD-${initialTaskState.nextId}`,
+      id: createMockTaskId(initialTaskState.nextId),
       title: 'Review scope',
       description: 'Notes',
       project: 'Workspace',
@@ -123,8 +124,8 @@ describe('handoff scope and stage validation', () => {
   it('filters invalid scope ids and does not fabricate groups for an empty project', () => {
     expect(scopeGroups('missing', tasks, projects)).toEqual([]);
     const groups = scopeGroups('workspace', tasks, projects);
-    expect(scopeTreeValues(['missing', 'VD-128'], groups)).not.toContain('missing');
-    expect(reconcileScope([], ['missing', 'VD-128'], groups)).toEqual(['VD-128']);
+    expect(scopeTreeValues(['missing', '1bbcd880-f5e5'], groups)).not.toContain('missing');
+    expect(reconcileScope([], ['missing', '1bbcd880-f5e5'], groups)).toEqual(['1bbcd880-f5e5']);
   });
 });
 
@@ -132,7 +133,7 @@ describe('handoff result and recovery', () => {
   it('restores server receipt fields for review without confirming the handoff', () => {
     expect(handoffFromReceipt(sampleError)).toMatchObject({
       projectId: 'workspace',
-      taskIds: ['VD-128', 'VD-126'],
+      taskIds: ['1bbcd880-f5e5', 'df4de51e-ea0d'],
       audience: 'external',
       confirmed: false,
     });

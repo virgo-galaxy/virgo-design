@@ -2,6 +2,12 @@ import type { LocaleOf } from '@/i18n/locale-types';
 
 import type { sharedEnUS } from './en-US';
 export const sharedZhCN = {
+  copy: {
+    copy: '复制',
+    copied: '已复制',
+    failed: '复制失败，请重试',
+    copyValue: '复制 {{value}}',
+  },
   remote: {
     loading: '正在加载数据…',
     error: '数据加载失败',
@@ -30,6 +36,7 @@ export const sharedZhCN = {
     itemsPerPage: '{{size}} 条 / 页',
     jumpTo: '跳转到',
     pageUnit: '页',
-    total: '共 {{count}} 条',
+    selected: '（已选 {{count}} 项）',
+    total: '共 {{count}} 项',
   },
 } satisfies LocaleOf<typeof sharedEnUS>;

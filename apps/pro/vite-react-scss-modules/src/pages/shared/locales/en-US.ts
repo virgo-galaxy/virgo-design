@@ -1,4 +1,10 @@
 export const sharedEnUS = {
+  copy: {
+    copy: 'Copy',
+    copied: 'Copied',
+    failed: 'Copy failed',
+    copyValue: 'Copy {{value}}',
+  },
   remote: {
     loading: 'Loading data…',
     error: 'Unable to load data',
@@ -27,6 +33,7 @@ export const sharedEnUS = {
     itemsPerPage: '{{size}} / page',
     jumpTo: 'Go to',
     pageUnit: 'page',
+    selected: '(Selected {{count}} items)',
     total: 'Total {{count}} items',
   },
 } as const;

@@ -6,8 +6,8 @@ import { useProData } from '@/application/pro-data-context';
 import {
   projectActivity,
   projectDetailPath,
-  projectQueryPath,
   projectSummary,
+  projectTasksPath,
 } from '@/data/projects';
 import type { TaskDispatch, TaskState } from '@/data/tasks';
 import { formatDueDate } from '@/data/workplace';
@@ -17,7 +17,11 @@ import { FilterSelect, MetricStrip, Panel, Person } from '@/pages/shared/ProPage
 import shared from '@/pages/shared/ProPage.module.scss';
 import { useTaskEditor } from '@/pages/shared/use-task-editor';
 import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
-import { taskPriorityIntent, taskStatusIntent } from '@/pages/tasks/task-presentation';
+import {
+  taskLabelStyles,
+  taskPriorityIntent,
+  taskStatusIntent,
+} from '@/pages/tasks/task-presentation';
 import { getActivityActionLabel } from '@/pages/workplace/activity-presentation';
 
 import styles from './DetailPage.module.scss';
@@ -52,7 +56,7 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
       <Surface border="default" radius={8} className={styles.recordSummary}>
         <div className={styles.recordBar}>
           <div>
-            <Tag size="sm" intent={healthIntent[project.health]}>
+            <Tag size="md" intent={healthIntent[project.health]}>
               {getProjectHealthLabel(t, project.health)}
             </Tag>
             <span className={shared.mono}>{t('data.octoberCycle')}</span>
@@ -133,7 +137,7 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
                   </span>
                 </div>
                 <Progress
-                  size="sm"
+                  size="md"
                   value={summary.progress}
                   aria-label={t('data.projectTaskCompletion')}
                 />
@@ -144,8 +148,8 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
             title={t('data.linkedTasks')}
             description={t('data.liveRecordsFromTheSharedTaskRegister')}
             actions={
-              <Link className={shared.link} to={projectQueryPath(project)}>
-                {t('data.queryAllTasks')}
+              <Link className={shared.link} to={projectTasksPath(project)}>
+                {t('data.openTaskRegister')}
               </Link>
             }
           >
@@ -155,7 +159,7 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
                   <div>
                     <span className={shared.mono}>{task.id}</span>
                     <Button
-                      size="small"
+                      size="medium"
                       variant="text"
                       className={styles.taskButton}
                       onClick={(event) => editor.open(task, event.currentTarget)}
@@ -172,10 +176,19 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
                     </span>
                   </div>
                   <div className={styles.taskTags}>
-                    <Tag size="sm" intent={taskStatusIntent[task.status]}>
+                    <Tag
+                      size="md"
+                      intent={taskStatusIntent[task.status]}
+                      className={taskLabelStyles.tag}
+                    >
                       {getTaskStatusLabel(t, task.status)}
                     </Tag>
-                    <Tag size="sm" intent={taskPriorityIntent[task.priority]} variant="outline">
+                    <Tag
+                      size="md"
+                      intent={taskPriorityIntent[task.priority]}
+                      className={taskLabelStyles.tag}
+                      variant="outline"
+                    >
                       {getTaskPriorityLabel(t, task.priority)}
                     </Tag>
                   </div>
@@ -197,7 +210,7 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
           >
             <div className={shared.body}>
               <Timeline
-                size="small"
+                size="medium"
                 aria-label={t('data.valueMilestoneSchedule', { v0: project.name })}
               >
                 {project.milestones.map((milestone, index) => (
@@ -260,7 +273,7 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
               <div>
                 <dt>{t('data.healthAssessment')}</dt>
                 <dd>
-                  <Tag size="sm" intent={healthIntent[project.health]}>
+                  <Tag size="md" intent={healthIntent[project.health]}>
                     {getProjectHealthLabel(t, project.health)}
                   </Tag>
                 </dd>
@@ -292,7 +305,7 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
           >
             <div className={shared.body}>
               {events.length ? (
-                <Timeline size="small" aria-label={t('data.projectTeamActivity')}>
+                <Timeline size="medium" aria-label={t('data.projectTeamActivity')}>
                   {events.map((event) => (
                     <Timeline.Item key={event.id} status={event.status}>
                       <Timeline.Title>{event.name}</Timeline.Title>

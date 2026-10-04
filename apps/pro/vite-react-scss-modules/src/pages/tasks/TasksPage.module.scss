@@ -15,24 +15,13 @@
   gap: var(--vd-spacing-16);
   padding: var(--vd-spacing-16) var(--vd-spacing-20);
 }
-.overview {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--vd-spacing-16) var(--vd-spacing-20);
-  gap: var(--vd-spacing-24);
-}
-.overviewNote {
-  color: var(--vd-text-tertiary);
-  font-size: var(--vd-font-size-10);
-  white-space: nowrap;
-}
 .listPanel {
   min-width: 0;
   overflow: visible;
 }
 .filterToolbar {
   padding: var(--vd-spacing-20);
+  border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
 }
 .searchRow {
   display: flex;
@@ -65,7 +54,7 @@
   scrollbar-width: thin;
 }
 .table {
-  min-width: 1100px;
+  min-width: 1300px;
   font-size: var(--vd-font-size-12);
   th {
     white-space: nowrap;
@@ -80,21 +69,10 @@
   font-size: var(--vd-font-size-10);
   color: var(--vd-text-tertiary);
 }
-.taskLink[data-variant='text'] {
-  --button-foreground: var(--vd-text-primary);
-  height: auto;
-  padding: 0;
-  text-align: start;
-  justify-content: flex-start;
-  font-size: var(--vd-font-size-12);
-  white-space: normal;
+.taskTitle {
   max-width: 340px;
-  &:hover {
-    --button-background-hover: transparent;
-    color: var(--vd-brand-link);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
+  font-size: var(--vd-font-size-12);
+  overflow-wrap: anywhere;
 }
 .projectName {
   white-space: nowrap;
@@ -107,8 +85,7 @@
   white-space: nowrap;
   color: var(--vd-text-secondary);
 }
-.avatar[data-size='sm'] {
-  --avatar-font-size: var(--vd-font-size-10);
+.avatar {
   font-family: var(--vd-font-family-mono);
 }
 .estimateHours {
@@ -143,17 +120,24 @@
   align-items: center;
   flex-wrap: wrap;
 }
-.tableSummary {
-  display: grid;
-  gap: var(--vd-spacing-4);
-}
 .pagination {
-  width: auto;
-  margin-inline-start: auto;
+  width: 100%;
+
+  [data-slot='total'] {
+    color: var(--vd-text-tertiary);
+  }
 }
-.taskDialog[data-size='lg'] {
+.taskDialog[data-size='md'] {
+  --dialog-width: calc(var(--vd-sizing-80) * 10);
   --dialog-section-padding: var(--vd-spacing-24);
   --dialog-title-font-size: var(--vd-font-size-20);
+  height: min(calc(var(--vd-sizing-80) * 8.5), calc(100dvh - var(--vd-spacing-48)));
+  max-height: calc(100dvh - var(--vd-spacing-48));
+  inset-block-start: 50%;
+  transform: translate(-50%, -50%);
+}
+.taskDetailsDialog[data-size='md'] {
+  --dialog-width: calc(var(--vd-sizing-80) * 7.5);
 }
 .dialogHeader {
   grid-template-columns: minmax(0, 1fr) auto;
@@ -164,6 +148,7 @@
   gap: var(--vd-spacing-6);
 }
 .taskDialogBody {
+  flex: 1;
   display: grid;
   align-content: start;
   gap: var(--vd-spacing-20);
@@ -187,22 +172,28 @@
     font-size: var(--vd-font-size-10);
   }
 }
-.workflowHint {
-  width: 100%;
-  color: var(--vd-text-tertiary);
-  font-size: var(--vd-font-size-11);
-}
 .completedNote {
   font-size: var(--vd-font-size-11);
   color: var(--vd-status-success-text);
 }
 .taskForm {
   width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--vd-spacing-24);
+}
+.taskEditorContent {
+  display: grid;
+  align-content: start;
+  gap: var(--vd-spacing-20);
+  min-width: 0;
 }
 .formGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--vd-spacing-16);
+  align-items: start;
 }
 
 .taskDialogFooter {
@@ -215,6 +206,16 @@
 }
 .discardNotice {
   width: 100%;
+  align-items: center;
+  gap: var(--vd-spacing-16);
+}
+.discardActions {
+  justify-content: flex-end;
+}
+@media (max-width: 640px) {
+  .discardActions {
+    width: 100%;
+  }
 }
 .srOnly {
   position: absolute;
@@ -226,20 +227,17 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
-@media (max-width: 1280px) {
-  .overviewNote {
-    display: none;
-  }
-}
 @media (max-width: 850px) {
   .filterGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-@media (max-width: 640px) {
-  .overview {
-    padding: var(--vd-spacing-16);
+@media (max-width: 720px) {
+  .taskForm {
+    grid-template-columns: minmax(0, 1fr);
   }
+}
+@media (max-width: 640px) {
   .searchRow {
     flex-wrap: wrap;
   }
@@ -266,7 +264,7 @@
   .listActions {
     padding: var(--vd-spacing-16);
   }
-  .taskDialog[data-size='lg'] {
+  .taskDialog[data-size='md'] {
     --dialog-section-padding: var(--vd-spacing-20);
   }
   .formGrid {
@@ -274,17 +272,80 @@
   }
 }
 
-.metricGrid {
+@media (max-width: 480px) {
+  .filterGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.queryActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vd-spacing-12);
+  margin-top: var(--vd-spacing-20);
+}
+.queryHint {
+  margin-inline-end: auto;
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-font-size-11);
+}
+.selectionCell {
+  width: 68px;
+}
+
+.bulkActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--vd-spacing-12);
+  margin-inline-start: auto;
+}
+.operationsCell {
+  width: 200px;
+}
+.rowActions {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: var(--vd-spacing-4);
+}
+.taskDetails {
   display: grid;
-  width: 100%;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--vd-spacing-24);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--vd-spacing-20);
+  margin: 0;
+  > div {
+    display: grid;
+    align-content: start;
+    gap: var(--vd-spacing-8);
+    min-width: 0;
+  }
+  dt {
+    color: var(--vd-text-tertiary);
+  }
+  dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+}
+.detailFullWidth {
+  grid-column: 1 / -1;
 }
 @media (max-width: 640px) {
-  .metricGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .taskDetails {
+    grid-template-columns: minmax(0, 1fr);
   }
-  .overviewNote {
-    display: none;
+  .listActions {
+    flex-wrap: wrap;
   }
+}
+
+.deleteButton[data-variant='primary'] {
+  --button-background: var(--vd-status-danger-solid);
+  --button-background-hover: color-mix(in srgb, var(--vd-status-danger-solid) 90%, black);
+  --button-background-active: color-mix(in srgb, var(--vd-status-danger-solid) 80%, black);
+  --button-foreground: var(--vd-status-danger-on-solid);
 }

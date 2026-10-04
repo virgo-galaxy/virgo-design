@@ -34,7 +34,7 @@ import type { TaskState } from '@/data/tasks';
 import { FilterSelect, Panel } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { getTaskStatusLabel } from '@/pages/tasks/task-presentation';
-import { taskStatusIntent } from '@/pages/tasks/task-presentation';
+import { taskLabelStyles, taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import styles from './FormsPage.module.scss';
 
@@ -138,7 +138,7 @@ export function StepFormPage({
               aria-busy={mutation.pending}
               className={styles.wizardForm}
               ref={formRef}
-              size="small"
+              size="medium"
               noValidate
               onSubmit={(event) => {
                 event.preventDefault();
@@ -204,7 +204,7 @@ export function StepFormPage({
                       <Field required invalid={Boolean(errors.date)}>
                         <Field.Label>{t('forms.handoffDate')}</Field.Label>
                         <DatePicker
-                          size="small"
+                          size="medium"
                           value={draft.date}
                           onValueChange={(value) => update('date', value)}
                           min="2026-10-03"
@@ -226,7 +226,7 @@ export function StepFormPage({
                       <Field required invalid={Boolean(errors.time)}>
                         <Field.Label>{t('forms.handoffTime')}</Field.Label>
                         <TimePicker
-                          size="small"
+                          size="medium"
                           value={draft.time}
                           onValueChange={(value) => update('time', value)}
                         />
@@ -246,7 +246,7 @@ export function StepFormPage({
                   <div className={styles.scopeLayout}>
                     <div>
                       <div className={styles.treeTools}>
-                        <Tag size="sm" variant="outline">
+                        <Tag size="md" variant="outline">
                           {t('forms.valueValueSelected', {
                             v0: selected.length,
                             v1: selected.length === 1 ? 'task' : 'tasks',
@@ -254,7 +254,7 @@ export function StepFormPage({
                         </Tag>
                         <div className={shared.actions}>
                           <Button
-                            size="small"
+                            size="medium"
                             variant="text"
                             type="button"
                             onClick={() =>
@@ -267,7 +267,7 @@ export function StepFormPage({
                             {t('forms.selectAll')}
                           </Button>
                           <Button
-                            size="small"
+                            size="medium"
                             variant="text"
                             type="button"
                             onClick={() => update('taskIds', [])}
@@ -279,7 +279,7 @@ export function StepFormPage({
                       <Tree
                         key={draft.projectId}
                         className={styles.scopeTree}
-                        size="small"
+                        size="medium"
                         selectionMode="multiple"
                         aria-label={t('forms.handoffTaskScope')}
                         expandedValues={expanded}
@@ -333,7 +333,11 @@ export function StepFormPage({
                                         })}
                                       </span>
                                     </span>
-                                    <Tag size="sm" intent={taskStatusIntent[task.status]}>
+                                    <Tag
+                                      size="md"
+                                      intent={taskStatusIntent[task.status]}
+                                      className={taskLabelStyles.tag}
+                                    >
                                       {getTaskStatusLabel(t, task.status)}
                                     </Tag>
                                   </Tree.Label>
@@ -404,7 +408,7 @@ export function StepFormPage({
                         <div>
                           <dt>{t('forms.audience')}</dt>
                           <dd>
-                            <Tag size="sm" intent={draft.audience === 'team' ? 'info' : 'warning'}>
+                            <Tag size="md" intent={draft.audience === 'team' ? 'info' : 'warning'}>
                               {draft.audience === 'team'
                                 ? t('forms.teamWorkspace')
                                 : t('forms.externalCollaborators')}
@@ -423,7 +427,11 @@ export function StepFormPage({
                                 <span className={shared.mono}>{task.id}</span>
                                 {task.title}
                               </span>
-                              <Tag size="sm" intent={taskStatusIntent[task.status]}>
+                              <Tag
+                                size="md"
+                                intent={taskStatusIntent[task.status]}
+                                className={taskLabelStyles.tag}
+                              >
                                 {getTaskStatusLabel(t, task.status)}
                               </Tag>
                             </li>
@@ -456,7 +464,7 @@ export function StepFormPage({
                 <div className={shared.actions}>
                   {stage > 0 ? (
                     <Button
-                      size="small"
+                      size="medium"
                       variant="outline"
                       type="button"
                       onClick={() => move(stage - 1)}
@@ -465,7 +473,7 @@ export function StepFormPage({
                     </Button>
                   ) : null}
                   <Button
-                    size="small"
+                    size="medium"
                     type="submit"
                     disabled={mutation.pending}
                     trailingIcon={<ArrowRightIcon />}

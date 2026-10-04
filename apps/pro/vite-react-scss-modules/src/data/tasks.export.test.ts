@@ -21,7 +21,7 @@ describe('task CSV export', () => {
     expect(createTasksCsv([task], taskAssignees, chinese)).toContain('"待办","紧急"');
     expect(task.status).toBe('todo');
     expect(task.priority).toBe('urgent');
-    expect(csv).toContain('"VD-123"');
+    expect(csv).toContain('"04a7780b-584a"');
     expect(csv).toContain('"Estimate (h)","Created at"');
     expect(csv).toContain('"4","2026-10-01T03:20:00Z"');
     expect(createTasksCsv([{ ...task, dueDate: '' }], taskAssignees, labels)).toContain(
@@ -42,7 +42,7 @@ describe('task CSV export', () => {
   it('exports the supplied filtered set and keeps formula-like titles as text', () => {
     const csv = createTasksCsv([{ ...task, title: '=SUM(1,2)' }], taskAssignees, labels);
     expect(csv).toContain('"\'=SUM(1,2)"');
-    expect(csv).not.toContain('VD-137');
+    expect(csv).not.toContain('abb01fb9-ab2f');
     expect(csv.trim().split('\r\n')).toHaveLength(2);
   });
 });

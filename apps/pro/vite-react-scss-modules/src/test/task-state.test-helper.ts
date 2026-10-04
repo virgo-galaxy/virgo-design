@@ -6,6 +6,7 @@ import {
   type TaskDraft,
   type TaskState,
 } from '@/data/tasks';
+import { createMockTaskId } from '@/mock/fixtures/task-id';
 type LegacyTaskState = TaskState & { nextId: number };
 type LegacyTaskAction =
   Exclude<TaskAction, { type: 'create' }> | { type: 'create'; draft: TaskDraft; createdAt: string };
@@ -13,7 +14,7 @@ export function tasksReducer(state: LegacyTaskState, action: LegacyTaskAction): 
   if (action.type === 'create') {
     const task: Task = {
       ...normalizeTaskDraft(action.draft),
-      id: `VD-${state.nextId}`,
+      id: createMockTaskId(state.nextId),
       createdAt: action.createdAt,
     };
     return { tasks: [task, ...state.tasks], nextId: state.nextId + 1 };

@@ -11,7 +11,3 @@ export const navigationGroups = proRouting.groups.map((group) => ({
     icon: page.icon ? iconComponents[page.icon] : undefined,
   })),
 }));
-
-export const navigationPages = navigationGroups.flatMap((group) =>
-  group.pages.map((page) => ({ ...page, group: group.label, groupId: group.id })),
-);

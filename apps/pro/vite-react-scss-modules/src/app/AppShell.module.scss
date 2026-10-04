@@ -29,35 +29,15 @@
       width: var(--vd-sizing-44);
       height: var(--vd-sizing-44);
     }
-    .proBadge[data-size='sm'] {
-      --tag-height: var(--vd-sizing-28);
-      --tag-font-size: var(--vd-font-size-14);
-    }
-    .search[data-size='small'] {
-      --combobox-height: var(--vd-sizing-36);
-      input {
-        padding-inline-start: var(--vd-spacing-40);
-        font-size: var(--vd-font-size-16);
-      }
-    }
-    .actions button[data-size='medium'] {
-      --button-height: var(--vd-sizing-36);
-      --button-icon-size: var(--vd-sizing-20);
-    }
     .actionDivider {
       height: var(--vd-sizing-32);
     }
     .account[data-variant='text'] {
-      --button-height: var(--vd-sizing-44);
       --button-font-size: var(--vd-font-size-14);
       [data-slot='trailing-icon'] {
         width: var(--vd-sizing-16);
         height: var(--vd-sizing-16);
       }
-    }
-    .userAvatar[data-size='sm'] {
-      --avatar-size: var(--vd-sizing-32);
-      --avatar-font-size: var(--vd-font-size-12);
     }
   }
 }
@@ -156,20 +136,15 @@
     line-height: var(--vd-line-height-4);
   }
 }
-.userAvatar[data-size='sm'] {
-  --avatar-size: var(--vd-sizing-24);
-  --avatar-font-size: var(--vd-font-size-10);
-}
 .search {
   width: var(--pro-search-width, 230px);
   margin-inline-start: auto;
-  position: relative;
-}
-.optionGroup {
-  float: inline-end;
-  color: var(--vd-text-tertiary);
-  font-size: var(--vd-font-size-12);
-  margin-inline-start: var(--vd-spacing-16);
+  &[data-size='medium'] {
+    --input-padding-inline: var(--vd-spacing-12);
+    --input-background: var(--vd-surface-secondary);
+    --input-border: transparent;
+    --input-border-hover: transparent;
+  }
 }
 .body {
   position: relative;
@@ -460,6 +435,9 @@
   color: var(--vd-text-tertiary);
   font-size: var(--vd-font-size-11);
   a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--vd-spacing-4);
     color: inherit;
     text-decoration: none;
     &:hover {
@@ -523,14 +501,8 @@
 }
 @media (max-width: 360px) {
   .header[data-scale='large'] {
-    .actions button[data-size='medium'] {
-      --button-height: var(--vd-sizing-32);
-    }
     .account [data-slot='trailing-icon'] {
       display: none;
-    }
-    .search input {
-      padding-inline-end: var(--vd-spacing-8);
     }
   }
 }

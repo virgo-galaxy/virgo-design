@@ -90,7 +90,7 @@ describe('remote UI states', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Save changes' }));
     await screen.findByText('Unable to save');
     expect((title as HTMLInputElement).value).toBe('Remote saved title');
-    expect((await getTask('VD-138')).title).not.toBe('Remote saved title');
+    expect((await getTask('49e7996a-311b')).title).not.toBe('Remote saved title');
     server.resetHandlers();
     fireEvent.click(screen.getByRole('button', { name: 'Save changes' }));
     await waitFor(() => expect(screen.queryByText('Unable to save')).toBeNull());
@@ -99,7 +99,7 @@ describe('remote UI states', () => {
         true,
       ),
     );
-    expect((await getTask('VD-138')).title).toBe('Remote saved title');
+    expect((await getTask('49e7996a-311b')).title).toBe('Remote saved title');
   });
   it('cancels replaced requests and ignores late results after query changes', async () => {
     let resolveFirst: ((value: string) => void) | undefined;

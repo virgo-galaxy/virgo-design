@@ -124,7 +124,7 @@ function ProfileEditor({
               aria-busy={mutation.pending}
               ref={formRef}
               id="profile-editor"
-              size="small"
+              size="medium"
               noValidate
               className={styles.editorForm}
               onSubmit={(event) => {
@@ -151,7 +151,7 @@ function ProfileEditor({
             >
               <div className={styles.photoRow}>
                 <Avatar
-                  size="lg"
+                  size="md"
                   fallback={profileInitials(draft.name)}
                   {...(draft.avatarImage ? { src: draft.avatarImage } : {})}
                   style={{
@@ -164,7 +164,7 @@ function ProfileEditor({
                   <p>{t('profile.pngJpegOrWebpUpTo2Mb')}</p>
                 </div>
                 {reading ? (
-                  <Spinner size="sm" aria-label={t('profile.readingProfilePhoto')} />
+                  <Spinner size="md" aria-label={t('profile.readingProfilePhoto')} />
                 ) : null}
               </div>
               <Field invalid={Boolean(imageError)}>
@@ -172,7 +172,7 @@ function ProfileEditor({
                 <Input
                   type="file"
                   accept="image/png,image/jpeg,image/webp"
-                  size="small"
+                  size="medium"
                   onChange={async (event) => {
                     const file = event.target.files?.[0];
                     if (!file) return;
@@ -215,7 +215,7 @@ function ProfileEditor({
               </Field>
               {draft.avatarImage ? (
                 <Button
-                  size="small"
+                  size="medium"
                   variant="text"
                   type="button"
                   onClick={() => {
@@ -268,7 +268,7 @@ function ProfileEditor({
               <Field invalid={Boolean(errors.avatarColor)}>
                 <Field.Label>{t('profile.avatarBackground')}</Field.Label>
                 <ColorPicker
-                  size="small"
+                  size="medium"
                   value={draft.avatarColor}
                   onValueChange={(value) => update('avatarColor', value)}
                 >
@@ -313,7 +313,7 @@ function ProfileEditor({
                 <Alert.Description>{t('profile.yourSavedProfileWillStayAsItIs')}</Alert.Description>
                 <Alert.Action>
                   <Button
-                    size="small"
+                    size="medium"
                     variant="outline"
                     onClick={() => {
                       alive.current = false;
@@ -322,7 +322,7 @@ function ProfileEditor({
                   >
                     {t('profile.discardChanges')}
                   </Button>
-                  <Button size="small" onClick={() => setDiscard(false)}>
+                  <Button size="medium" onClick={() => setDiscard(false)}>
                     {t('profile.keepEditing')}
                   </Button>
                 </Alert.Action>
@@ -333,7 +333,7 @@ function ProfileEditor({
                   {dirty ? t('profile.unsavedChanges') : t('profile.yourProfileIsUpToDate')}
                 </span>
                 <Button
-                  size="small"
+                  size="medium"
                   type="submit"
                   form="profile-editor"
                   disabled={mutation.pending || !dirty || reading}
@@ -389,7 +389,7 @@ export function ProfilePage({
           <div className={styles.identityMain}>
             <Badge dot intent="success">
               <Avatar
-                size="lg"
+                size="md"
                 className={styles.heroAvatar!}
                 {...(profile.avatarImage ? { src: profile.avatarImage } : {})}
                 fallback={profileInitials(profile.name)}
@@ -404,10 +404,10 @@ export function ProfilePage({
               <h1>{profile.name}</h1>
               <p>{profile.headline}</p>
               <div className={shared.actions}>
-                <Tag size="sm" intent="brand">
+                <Tag size="md" intent="brand">
                   {t('profile.owner')}
                 </Tag>
-                <Tag size="sm" variant="outline">
+                <Tag size="md" variant="outline">
                   {t('profile.productDesign')}
                 </Tag>
               </div>
@@ -417,7 +417,7 @@ export function ProfilePage({
             <span className={shared.caption}>{t('profile.memberSinceSeptember2026')}</span>
             <Button
               ref={editRef}
-              size="small"
+              size="medium"
               variant="outline"
               leadingIcon={<UserIcon />}
               onClick={() => setEditing(true)}
@@ -502,7 +502,7 @@ export function ProfilePage({
                         <Badge count={openReviews.length} intent="warning" showZero />
                       </h3>
                       <p>{t('profile.reviewOwnershipAndTheNotesBehindPendingWork')}</p>
-                      <Link className={shared.link} to="/data/search-table?status=in_review">
+                      <Link className={shared.link} to="/work/tasks?status=in_review">
                         {t('profile.reviewQueue')}
                       </Link>
                     </div>
@@ -530,7 +530,7 @@ export function ProfilePage({
               <Form
                 inert={mutation.pending}
                 aria-busy={mutation.pending}
-                size="small"
+                size="medium"
                 className={styles.preferencesForm}
                 onSubmit={(event) => {
                   event.preventDefault();
@@ -597,7 +597,7 @@ export function ProfilePage({
                     <Field disabled={!preferences.digest}>
                       <Field.Label>{t('profile.digestTime')}</Field.Label>
                       <TimePicker
-                        size="small"
+                        size="medium"
                         value={preferences.digestTime}
                         onValueChange={(value) =>
                           setPreferences((previous) => ({ ...previous, digestTime: value }))
@@ -654,7 +654,7 @@ export function ProfilePage({
                       : t('profile.preferencesAreUpToDate')}
                   </span>
                   <Button
-                    size="small"
+                    size="medium"
                     type="submit"
                     disabled={mutation.pending || !preferenceDirty}
                   >
@@ -671,7 +671,7 @@ export function ProfilePage({
             >
               <div className={shared.body}>
                 <Timeline
-                  size="small"
+                  size="medium"
                   aria-label={t('profile.profileWorkspaceActivity')}
                   style={
                     { '--timeline-gap': profile.compactActivity ? '12px' : '28px' } as CSSProperties

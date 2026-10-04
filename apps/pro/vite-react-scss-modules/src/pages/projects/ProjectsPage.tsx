@@ -5,14 +5,19 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
 import { useProData } from '@/application/pro-data-context';
+import clipboardListArtwork from '@/assets/illustrations/clipboard-list.svg';
+import documentMagnifierArtwork from '@/assets/illustrations/document-magnifier.svg';
+import folderTargetArtwork from '@/assets/illustrations/folder-target.svg';
+import triangleAlertArtwork from '@/assets/illustrations/triangle-alert.svg';
 import { type Project, projectDetailPath, projectSummary } from '@/data/projects';
 import type { TaskState } from '@/data/tasks';
 import { formatDueDate } from '@/data/workplace';
 import { getProjectHealthLabel } from '@/pages/projects/project-presentation';
-import { FilterSelect, MetricStrip, NoResults, Panel, Person } from '@/pages/shared/ProPage';
+import { MultiFilterSelect, NoResults, Panel, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
+import { WorkOverview } from '@/pages/shared/WorkOverview';
 import { getTaskStatusLabel } from '@/pages/tasks/task-presentation';
-import { taskStatusIntent } from '@/pages/tasks/task-presentation';
+import { taskLabelStyles, taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import { healthIntent } from './project-presentation';
 import styles from './ProjectsPage.module.scss';
@@ -29,7 +34,7 @@ function ProjectCard({ project, state }: { project: Project; state: TaskState })
           <i style={{ background: `var(--vd-data-categorical-${project.color})` }} />
           {project.code}
         </span>
-        <Tag size="sm" intent={healthIntent[project.health]}>
+        <Tag size="md" intent={healthIntent[project.health]}>
           {getProjectHealthLabel(t, project.health)}
         </Tag>
       </div>
@@ -49,7 +54,7 @@ function ProjectCard({ project, state }: { project: Project; state: TaskState })
       </div>
       <Progress
         value={summary.progress}
-        size="sm"
+        size="md"
         aria-label={t('projects.valueTaskCompletion', { v0: project.name })}
       />
       <dl className={styles.projectStats}>
@@ -95,7 +100,11 @@ function ProjectCard({ project, state }: { project: Project; state: TaskState })
                   <span className={shared.mono}>{task.id}</span>
                   {task.title}
                 </span>
-                <Tag size="sm" intent={taskStatusIntent[task.status]}>
+                <Tag
+                  size="md"
+                  intent={taskStatusIntent[task.status]}
+                  className={taskLabelStyles.tag}
+                >
                   {getTaskStatusLabel(t, task.status)}
                 </Tag>
               </li>
@@ -115,18 +124,18 @@ export function ProjectsPage({ state }: { state: TaskState }) {
 
   const { t } = useTranslation();
   const [search, setSearch] = useState('');
-  const [health, setHealth] = useState('all');
-  const [owner, setOwner] = useState('all');
+  const [health, setHealth] = useState<string[]>([]);
+  const [owner, setOwner] = useState<string[]>([]);
   const reset = () => {
     setSearch('');
-    setHealth('all');
-    setOwner('all');
+    setHealth([]);
+    setOwner([]);
   };
   const query = search.trim().toLowerCase();
   const visible = projects.filter(
     (project) =>
-      (health === 'all' || project.health === health) &&
-      (owner === 'all' || project.owner === owner) &&
+      (!health.length || health.includes(project.health)) &&
+      (!owner.length || owner.includes(project.owner)) &&
       [
         project.name,
         project.code,
@@ -143,27 +152,31 @@ export function ProjectsPage({ state }: { state: TaskState }) {
   return (
     <div className={shared.page}>
       <h1 className={shared.srOnly}>{t('app.projects')}</h1>
-      <MetricStrip
+      <WorkOverview
         items={[
           {
             label: t('projects.focusAreas'),
             value: projects.length,
             note: t('projects.sharedWithTheTaskRegister'),
+            artwork: folderTargetArtwork,
           },
           {
             label: t('projects.openTasks'),
             value: summaries.reduce((sum, item) => sum + item.open, 0),
             note: t('projects.acrossAllProjects'),
+            artwork: clipboardListArtwork,
           },
           {
             label: t('projects.awaitingReview'),
             value: summaries.reduce((sum, item) => sum + item.review, 0),
             note: t('projects.readyForAcceptance'),
+            artwork: documentMagnifierArtwork,
           },
           {
             label: t('projects.atRisk'),
             value: projects.filter((project) => project.health === 'At risk').length,
             note: t('projects.projectLeadAssessment'),
+            artwork: triangleAlertArtwork,
           },
         ]}
       />
@@ -178,7 +191,7 @@ export function ProjectsPage({ state }: { state: TaskState }) {
       >
         <div className={shared.toolbar}>
           <Input
-            size="small"
+            size="medium"
             aria-label={t('projects.searchProjects')}
             placeholder={t('projects.searchProjectsLeadsOrIds')}
             prefix={<SearchIcon />}
@@ -191,35 +204,33 @@ export function ProjectsPage({ state }: { state: TaskState }) {
             {t('projects.valueProjectsMatch', { v0: visible.length })}
           </span>
           <Button
-            size="small"
+            size="medium"
             variant="text"
-            disabled={!search && health === 'all' && owner === 'all'}
+            disabled={!search && !health.length && !owner.length}
             onClick={reset}
           >
             {t('projects.resetFilters')}
           </Button>
         </div>
         <div className={styles.filters}>
-          <FilterSelect
+          <MultiFilterSelect
             label={t('projects.projectHealth')}
+            placeholder={t('projects.allHealthStates')}
             value={health}
             onChange={setHealth}
             options={[
-              { value: 'all', label: t('projects.allHealthStates') },
               ...(['On track', 'At risk', 'Planning'] as const).map((value) => ({
                 value,
                 label: getProjectHealthLabel(t, value),
               })),
             ]}
           />
-          <FilterSelect
+          <MultiFilterSelect
             label={t('projects.projectLead')}
+            placeholder={t('projects.allLeads')}
             value={owner}
             onChange={setOwner}
-            options={[
-              { value: 'all', label: t('projects.allLeads') },
-              ...taskAssignees.map((member) => ({ value: member.id, label: member.name })),
-            ]}
+            options={[...taskAssignees.map((member) => ({ value: member.id, label: member.name }))]}
           />
         </div>
         {visible.length ? (
@@ -233,7 +244,7 @@ export function ProjectsPage({ state }: { state: TaskState }) {
         )}
         <div className={shared.footer}>
           <span>{t('projects.completionIsCalculatedFromSavedTaskStatusHealthIs')}</span>
-          <Tag size="sm" variant="outline">
+          <Tag size="md" variant="outline">
             {t('projects.octoberCycle')}
           </Tag>
         </div>

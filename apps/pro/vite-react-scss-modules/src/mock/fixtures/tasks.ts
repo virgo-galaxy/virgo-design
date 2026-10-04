@@ -11,7 +11,7 @@ export const initialTaskState: TaskState = {
   nextId: 379,
   tasks: [
     {
-      id: 'VD-138',
+      id: '49e7996a-311b',
       title: 'Align release readiness with support',
       description:
         'Bring product and support together for the October release. Capture known limitations and the escalation owner for each item.',
@@ -24,7 +24,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 4,
     },
     {
-      id: 'VD-137',
+      id: 'abb01fb9-ab2f',
       title: 'Document search ranking signals',
       description:
         'Describe how recency, exact matches and project membership influence ranking. Include three examples that support can reproduce.',
@@ -37,7 +37,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 12,
     },
     {
-      id: 'VD-136',
+      id: '0d78a608-2543',
       title: 'Review first-week activation funnel',
       description:
         'Compare invitation acceptance and first meaningful action. Identify where the welcome sequence loses people before proposing copy changes.',
@@ -50,7 +50,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 8,
     },
     {
-      id: 'VD-135',
+      id: '6f412c57-9f57',
       title: 'Audit dense form keyboard order',
       description:
         'Verify tab order in compact forms, including validation errors and overlay controls. Record the expected focus destination after closing each panel.',
@@ -63,7 +63,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 6,
     },
     {
-      id: 'VD-134',
+      id: 'd109b2a6-196b',
       title: 'Define saved-view naming conventions',
       description:
         'Establish concise names that distinguish personal views from team views. Test the conventions against a busy project with twelve saved views.',
@@ -76,7 +76,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 3,
     },
     {
-      id: 'VD-133',
+      id: '32d238f5-9380',
       title: 'Publish control density guidelines',
       description:
         'Document when compact controls are appropriate and which labels must remain visible. Include a table toolbar and a right-side editor example.',
@@ -89,7 +89,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 5,
     },
     {
-      id: 'VD-132',
+      id: '949abf44-0d94',
       title: 'Prepare invitation expiry copy',
       description:
         'Make expired invitation messages actionable without exposing workspace details. Include a clear route back to the invitation owner.',
@@ -102,7 +102,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 2,
     },
     {
-      id: 'VD-131',
+      id: 'f6634593-87a8',
       title: 'Reduce duplicate search suggestions',
       description:
         'Merge duplicate suggestions from recent items and project results. Preserve the most useful contextual subtitle when an item appears in both sources.',
@@ -115,7 +115,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 10,
     },
     {
-      id: 'VD-130',
+      id: '582bcbe2-01bc',
       title: 'Check sidebar compact-mode labels',
       description:
         'Verify accessible names and active navigation in compact mode. Confirm that restoring the sidebar preserves the selected destination.',
@@ -128,7 +128,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 1,
     },
     {
-      id: 'VD-129',
+      id: 'b9f45231-7bd0',
       title: 'Resolve member handoff checklist',
       description:
         'Agree on the checklist used when a task changes owner. Highlight the acceptance notes the new assignee needs before starting.',
@@ -141,7 +141,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 4,
     },
     {
-      id: 'VD-128',
+      id: '1bbcd880-f5e5',
       title: 'Review workspace navigation',
       description:
         'Review the hierarchy and naming of workspace destinations. Check deep links, back navigation and whether every destination has a clear active state.',
@@ -154,7 +154,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 16,
     },
     {
-      id: 'VD-127',
+      id: '7d855ecf-6ff9',
       title: 'Map onboarding touchpoints',
       description:
         'Map the moments between an invitation and a first completed task. Assign a single owner to each touchpoint and remove redundant prompts.',
@@ -167,7 +167,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 6,
     },
     {
-      id: 'VD-126',
+      id: 'df4de51e-ea0d',
       title: 'Resolve export permission states',
       description:
         'Clarify the product copy for restricted exports and review the permitted paths. The design decision is ready; implementation can now proceed.',
@@ -180,7 +180,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 8,
     },
     {
-      id: 'VD-125',
+      id: '41166b6d-6421',
       title: 'Ship keyboard navigation audit',
       description:
         'Complete the keyboard pass across navigation, tables and nested panels. Link each finding to the control and the expected behavior.',
@@ -193,7 +193,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 12,
     },
     {
-      id: 'VD-124',
+      id: 'a2def1bc-de36',
       title: 'Refine search empty states',
       description:
         'Distinguish an empty workspace from a search with no matches. Keep recovery actions short and preserve the query while results are empty.',
@@ -206,7 +206,7 @@ export const initialTaskState: TaskState = {
       estimateHours: 2,
     },
     {
-      id: 'VD-123',
+      id: '04a7780b-584a',
       title: 'Validate release acceptance criteria',
       description:
         'Confirm that focus behavior, appearance switching and error feedback meet release criteria. Bring unresolved findings to the team checkpoint.',

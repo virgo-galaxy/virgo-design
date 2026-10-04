@@ -3,6 +3,8 @@ import type { TFunction } from 'i18next';
 
 import type { TaskPriority, TaskStatus } from '@/data/tasks';
 
+export { default as taskLabelStyles } from './task-label.module.scss';
+
 export const taskStatusIntent: Record<TaskStatus, TagIntent> = {
   backlog: 'neutral',
   todo: 'info',
@@ -12,7 +14,7 @@ export const taskStatusIntent: Record<TaskStatus, TagIntent> = {
 };
 export const taskPriorityIntent: Record<TaskPriority, TagIntent> = {
   low: 'neutral',
-  medium: 'neutral',
+  medium: 'info',
   high: 'warning',
   urgent: 'danger',
 };

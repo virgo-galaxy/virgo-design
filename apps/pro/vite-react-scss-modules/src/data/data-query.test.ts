@@ -4,6 +4,7 @@ import { taskAssignees, taskReferenceDate } from '@/mock/fixtures/tasks';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 
 import {
+  type DataQuery,
   emptyDataQuery,
   matchesDataQuery,
   queryError,
@@ -31,7 +32,7 @@ describe('complex task queries', () => {
         createdTo: '2026-09-30',
         minimumHours: '12',
       }).map((task) => task.id),
-    ).toEqual(['VD-137']);
+    ).toEqual(['abb01fb9-ab2f']);
     expect(
       find({
         project: 'Discovery',
@@ -44,15 +45,39 @@ describe('complex task queries', () => {
       initialTaskState.tasks.filter((task) => task.assignee === 'ava').length,
     );
   });
+  it('round trips multiple conditions through URL history and combines values within a field', () => {
+    const query: DataQuery = {
+      ...emptyDataQuery,
+      status: ['todo', 'in_progress'],
+      priority: ['high', 'urgent'],
+      project: ['Workspace', 'Discovery'],
+      assignee: ['ava', 'leo'],
+      due: ['overdue', 'unscheduled'],
+    };
+    const params = queryParams(query);
+    expect(params.getAll('status')).toEqual(['todo', 'in_progress']);
+    expect(queryFromParams(params)).toEqual(query);
+    expect(find(query)).toEqual(
+      initialTaskState.tasks.filter(
+        (task) =>
+          ['todo', 'in_progress'].includes(task.status) &&
+          ['high', 'urgent'].includes(task.priority) &&
+          ['Workspace', 'Discovery'].includes(task.project) &&
+          ['ava', 'leo'].includes(task.assignee) &&
+          (!task.dueDate || task.dueDate < taskReferenceDate),
+      ),
+    );
+    expect(queryParams({ ...emptyDataQuery, status: [], due: [] }).toString()).toBe('');
+  });
   it('uses inclusive UTC date boundaries independent of browser timezone', () => {
     expect(
       find({ createdFrom: '2026-09-30', createdTo: '2026-09-30' }).map((task) => task.id),
-    ).toEqual(['VD-137', 'VD-136']);
-    expect(find({ createdFrom: '2026-10-01' }).map((task) => task.id)).toEqual(['VD-138']);
+    ).toEqual(['abb01fb9-ab2f', '0d78a608-2543']);
+    expect(find({ createdFrom: '2026-10-01' }).map((task) => task.id)).toEqual(['49e7996a-311b']);
   });
   it('excludes completed work from overdue and due-soon conditions', () => {
     expect(find({ due: 'overdue', createdFrom: '2026-09-23' }).map((task) => task.id)).toEqual([
-      'VD-129',
+      'b9f45231-7bd0',
     ]);
     expect(
       find({ due: 'week' }).every(
@@ -61,7 +86,7 @@ describe('complex task queries', () => {
       ),
     ).toBe(true);
     expect(find({ due: 'unscheduled', createdFrom: '2026-09-23' }).map((task) => task.id)).toEqual([
-      'VD-134',
+      'd109b2a6-196b',
     ]);
   });
   it('rejects inverted date ranges and invalid estimates', () => {

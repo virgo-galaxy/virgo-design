@@ -24,9 +24,7 @@
     overflow-wrap: anywhere;
   }
 }
-.heroAvatar[data-size='lg'] {
-  --avatar-size: 72px;
-  --avatar-font-size: var(--vd-font-size-24);
+.heroAvatar {
   font-family: var(--vd-font-family-mono);
 }
 .identityActions {

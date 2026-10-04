@@ -1,4 +1,4 @@
-import { MonitorIcon, MoonIcon, SettingsIcon, SunIcon } from '@virgo-design/icons';
+import { MonitorIcon, MoonFilledIcon, SettingsIcon, SunFilledIcon } from '@virgo-design/icons';
 import {
   Button,
   Drawer,
@@ -44,7 +44,7 @@ function PixelInput({
   return (
     <Input
       id={id}
-      size={type === 'number' ? 'medium' : 'mini'}
+      size="medium"
       type={type}
       steppers={type === 'number'}
       stepperReverse={type === 'number'}
@@ -118,7 +118,7 @@ function SettingToggle({
           pointerY.current = null;
         }}
         aria-describedby={`${id}-hint`}
-        size="small"
+        size="default"
       />
     </div>
   );
@@ -156,7 +156,7 @@ export const SettingsTrigger = forwardRef<
               <Button
                 {...props}
                 iconOnly
-                size={docked ? 'large' : 'medium'}
+                size="medium"
                 variant={docked ? 'primary' : 'text'}
                 aria-label={t('settings.settings')}
                 {...(docked
@@ -231,17 +231,17 @@ export function SettingsDrawer({
                   onChange({ appearance: value });
               }}
               className={styles.segments!}
-              size="small"
+              size="medium"
             >
               <SegmentedControl.Item value="light">
                 <span className={styles.appearanceLabel}>
-                  <SunIcon aria-hidden="true" />
+                  <SunFilledIcon aria-hidden="true" />
                   {t('settings.light')}
                 </span>
               </SegmentedControl.Item>
               <SegmentedControl.Item value="dark">
                 <span className={styles.appearanceLabel}>
-                  <MoonIcon aria-hidden="true" />
+                  <MoonFilledIcon aria-hidden="true" />
                   {t('settings.dark')}
                 </span>
               </SegmentedControl.Item>
@@ -288,7 +288,7 @@ export function SettingsDrawer({
                     onChange({ notificationIndicator: value });
                 }}
                 className={styles.segments!}
-                size="small"
+                size="medium"
               >
                 <SegmentedControl.Item value="dot">{t('settings.dot')}</SegmentedControl.Item>
                 <SegmentedControl.Item value="count">{t('settings.number')}</SegmentedControl.Item>
@@ -356,7 +356,7 @@ export function SettingsDrawer({
                 if (value === 'solid' || value === 'glass') onChange({ headerMaterial: value });
               }}
               className={styles.segments!}
-              size="small"
+              size="medium"
             >
               <SegmentedControl.Item value="solid">{t('settings.opaque')}</SegmentedControl.Item>
               <SegmentedControl.Item value="glass">
@@ -380,7 +380,7 @@ export function SettingsDrawer({
                   });
               }}
               className={styles.segments!}
-              size="small"
+              size="medium"
             >
               <SegmentedControl.Item value="expanded">
                 {t('settings.expanded')}
@@ -464,7 +464,9 @@ export function SettingsDrawer({
         </Drawer.Footer>
         <Tooltip>
           <Tooltip.Trigger
-            render={(props) => <Drawer.Close {...props} aria-label={t('settings.closeSettings')} />}
+            render={(props) => (
+              <Drawer.Close {...props} size="medium" aria-label={t('settings.closeSettings')} />
+            )}
           />
           <Tooltip.Content placement="left">{t('settings.closeSettings')}</Tooltip.Content>
         </Tooltip>

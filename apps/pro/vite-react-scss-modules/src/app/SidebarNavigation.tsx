@@ -37,7 +37,7 @@ export function SidebarNavigation({
   );
   const [previousPath, setPreviousPath] = useState(pathname);
 
-  // Direct routes, page search and browser history reveal the destination's group.
+  // Direct routes, links and browser history reveal the destination's group.
   // Keep manual disclosure choices until the route changes again.
   if (previousPath !== pathname) {
     setPreviousPath(pathname);

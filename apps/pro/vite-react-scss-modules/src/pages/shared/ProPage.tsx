@@ -1,5 +1,16 @@
 import { SearchIcon } from '@virgo-design/icons';
-import { Avatar, Button, Empty, Field, Select, Statistic, Surface, Tag } from '@virgo-design/ui';
+import {
+  Avatar,
+  Button,
+  Empty,
+  Field,
+  Select,
+  type SelectOptionProps,
+  type SelectSize,
+  Statistic,
+  Surface,
+  Tag,
+} from '@virgo-design/ui';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -29,7 +40,7 @@ export function PageHeading({
         <div className={styles.titleLine}>
           <h1>{title}</h1>
           {count !== undefined ? (
-            <Tag size="sm" variant="outline">
+            <Tag size="md" variant="outline">
               {count}
             </Tag>
           ) : null}
@@ -93,6 +104,7 @@ export function MetricStrip({
       <div className={styles.metricGrid}>
         {items.map((item) => (
           <Statistic
+            animation
             key={item.label}
             label={item.label}
             value={item.value}
@@ -109,20 +121,22 @@ export function FilterSelect({
   value,
   onChange,
   options,
+  size = 'medium',
 }: {
+  size?: SelectSize;
   label: string;
   value: string;
   onChange: (value: string) => void;
-  options: readonly { value: string; label: string }[];
+  options: readonly { value: string; label: string; intent?: SelectOptionProps['intent'] }[];
 }) {
   return (
     <Field>
       <Field.Label className={styles.filterLabel}>{label}</Field.Label>
-      <Select size="small" value={value} onValueChange={onChange}>
+      <Select size={size} value={value} onValueChange={onChange}>
         <Select.Trigger />
         <Select.Content>
           {options.map((option) => (
-            <Select.Option key={option.value} value={option.value}>
+            <Select.Option key={option.value} value={option.value} intent={option.intent}>
               {option.label}
             </Select.Option>
           ))}
@@ -131,6 +145,40 @@ export function FilterSelect({
     </Field>
   );
 }
+export function MultiFilterSelect({
+  label,
+  value,
+  onChange,
+  options,
+  placeholder,
+  size = 'medium',
+  className,
+}: {
+  className?: string | undefined;
+  size?: SelectSize;
+  label: string;
+  value: readonly string[];
+  onChange: (value: string[]) => void;
+  options: readonly { value: string; label: string; intent?: SelectOptionProps['intent'] }[];
+  placeholder: string;
+}) {
+  return (
+    <Field>
+      <Field.Label className={styles.filterLabel}>{label}</Field.Label>
+      <Select.Multiple className={className} size={size} value={value} onValueChange={onChange}>
+        <Select.Trigger placeholder={placeholder} />
+        <Select.Content>
+          {options.map((option) => (
+            <Select.Option key={option.value} value={option.value} intent={option.intent}>
+              {option.label}
+            </Select.Option>
+          ))}
+        </Select.Content>
+      </Select.Multiple>
+    </Field>
+  );
+}
+
 export function Person({ id }: { id: string }) {
   const { taskAssignees } = useProData();
 
@@ -138,7 +186,7 @@ export function Person({ id }: { id: string }) {
   const member = taskAssignees.find((person) => person.id === id);
   return (
     <span className={styles.person}>
-      <Avatar size="sm" fallback={member?.initials ?? '?'} className={styles.avatar} />
+      <Avatar size="md" fallback={member?.initials ?? '?'} className={styles.avatar} />
       <span>{member?.name ?? t('shared.unassigned')}</span>
     </span>
   );
@@ -153,7 +201,7 @@ export function NoResults({ onReset, title }: { onReset: () => void; title?: str
       <Empty.Title>{title ?? t('shared.noResults')}</Empty.Title>
       <Empty.Description>{t('shared.tryABroaderSearchOrResetTheFilters')}</Empty.Description>
       <Empty.Action>
-        <Button size="small" variant="outline" onClick={onReset}>
+        <Button size="medium" variant="outline" onClick={onReset}>
           {t('shared.resetFilters')}
         </Button>
       </Empty.Action>

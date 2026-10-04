@@ -65,7 +65,7 @@ export function BasicFormPage({
             aria-busy={mutation.pending}
             ref={formRef}
             id="work-request"
-            size="small"
+            size="medium"
             noValidate
             className={styles.requestForm}
             onSubmit={(event) => {
@@ -137,7 +137,7 @@ export function BasicFormPage({
                   <Field required invalid={Boolean(errors.project)}>
                     <Field.Label>{t('forms.project')}</Field.Label>
                     <Combobox
-                      size="small"
+                      size="medium"
                       value={draft.project}
                       onValueChange={(value) => update('project', value)}
                     >
@@ -164,7 +164,7 @@ export function BasicFormPage({
                   <Field required invalid={Boolean(errors.assignee)}>
                     <Field.Label>{t('forms.assignee')}</Field.Label>
                     <Combobox
-                      size="small"
+                      size="medium"
                       value={draft.assignee}
                       onValueChange={(value) => update('assignee', value)}
                     >
@@ -216,7 +216,7 @@ export function BasicFormPage({
                   <Field invalid={Boolean(errors.dueDate)}>
                     <Field.Label>{t('forms.dueDate')}</Field.Label>
                     <DatePicker
-                      size="small"
+                      size="medium"
                       value={draft.dueDate}
                       onValueChange={(value) => update('dueDate', value)}
                     >
@@ -242,7 +242,7 @@ export function BasicFormPage({
                       {t('forms.estimatedEffortValueH', { v0: draft.estimateHours })}
                     </Field.Label>
                     <Slider
-                      size="small"
+                      size="medium"
                       min={0}
                       max={40}
                       step={1}
@@ -272,7 +272,7 @@ export function BasicFormPage({
               </Field>
               <div className={shared.actions}>
                 <Button
-                  size="small"
+                  size="medium"
                   variant="text"
                   type="button"
                   onClick={() => {
@@ -283,7 +283,7 @@ export function BasicFormPage({
                   {t('forms.resetRequest')}
                 </Button>
                 <Button
-                  size="small"
+                  size="medium"
                   type="submit"
                   disabled={mutation.pending}
                   trailingIcon={<ArrowRightIcon />}

@@ -1,6 +1,7 @@
 import type { MemberDto } from '@/api/tasks';
 
 import {
+  filterValues,
   isOverdue,
   isTaskPriority,
   isTaskStatus,
@@ -9,10 +10,11 @@ import {
   type TaskFilters,
 } from './tasks';
 
+export type DueCondition = 'overdue' | 'week' | 'unscheduled';
 export interface DataQuery extends TaskFilters {
   createdFrom: string;
   createdTo: string;
-  due: 'all' | 'overdue' | 'week' | 'unscheduled';
+  due: 'all' | DueCondition | readonly DueCondition[];
   minimumHours: string;
 }
 export const emptyDataQuery: DataQuery = {
@@ -34,7 +36,7 @@ function validQueryDate(value: string) {
     date.toISOString().slice(0, 10) === value
   );
 }
-export function queryError(query: DataQuery) {
+export function queryError(query: DataQuery, limits?: { maxCreatedDate?: string }) {
   if (
     (query.createdFrom && !validQueryDate(query.createdFrom)) ||
     (query.createdTo && !validQueryDate(query.createdTo))
@@ -42,6 +44,11 @@ export function queryError(query: DataQuery) {
     return 'invalidDates';
   if (query.createdFrom && query.createdTo && query.createdFrom > query.createdTo)
     return 'dateOrder';
+  if (
+    limits?.maxCreatedDate &&
+    (query.createdFrom > limits.maxCreatedDate || query.createdTo > limits.maxCreatedDate)
+  )
+    return 'futureDates';
   if (
     query.minimumHours &&
     (!Number.isInteger(Number(query.minimumHours)) ||
@@ -66,29 +73,36 @@ export function matchesDataQuery(
     (!query.createdFrom || created >= query.createdFrom) &&
     (!query.createdTo || created <= query.createdTo) &&
     (!query.minimumHours || task.estimateHours >= Number(query.minimumHours)) &&
-    (query.due === 'all' ||
-      (query.due === 'overdue' && isOverdue(task, taskReferenceDate)) ||
-      (query.due === 'unscheduled' && !task.dueDate) ||
-      (query.due === 'week' &&
-        task.status !== 'done' &&
-        task.dueDate >= taskReferenceDate &&
-        task.dueDate <= cutoff.toISOString().slice(0, 10)))
+    (!filterValues(query.due).length ||
+      filterValues(query.due).some(
+        (due) =>
+          (due === 'overdue' && isOverdue(task, taskReferenceDate)) ||
+          (due === 'unscheduled' && !task.dueDate) ||
+          (due === 'week' &&
+            task.status !== 'done' &&
+            task.dueDate >= taskReferenceDate &&
+            task.dueDate <= cutoff.toISOString().slice(0, 10)),
+      ))
   );
 }
 
 export function queryFromParams(params: URLSearchParams): DataQuery {
   const query = { ...emptyDataQuery };
   query.search = params.get('search') ?? '';
-  const status = params.get('status');
-  if (status && isTaskStatus(status)) query.status = status;
-  const priority = params.get('priority');
-  if (priority && isTaskPriority(priority)) query.priority = priority;
-  const project = params.get('project');
-  if (project) query.project = project;
-  const assignee = params.get('assignee');
-  if (assignee) query.assignee = assignee;
-  const due = params.get('due');
-  if (due === 'overdue' || due === 'week' || due === 'unscheduled') query.due = due;
+  const collapse = <T extends string>(values: T[]): 'all' | T | T[] =>
+    values.length > 1 ? values : (values[0] ?? 'all');
+  query.status = collapse(params.getAll('status').filter(isTaskStatus));
+  query.priority = collapse(params.getAll('priority').filter(isTaskPriority));
+  query.project = collapse(params.getAll('project').filter((value) => value !== 'all'));
+  query.assignee = collapse(params.getAll('assignee').filter((value) => value !== 'all'));
+  query.due = collapse(
+    params
+      .getAll('due')
+      .filter(
+        (value): value is DueCondition =>
+          value === 'overdue' || value === 'week' || value === 'unscheduled',
+      ),
+  );
   for (const key of ['createdFrom', 'createdTo'] as const) {
     const value = params.get(key);
     if (value && validQueryDate(value)) query[key] = value;
@@ -101,7 +115,9 @@ export function queryFromParams(params: URLSearchParams): DataQuery {
 export function queryParams(query: DataQuery) {
   const params = new URLSearchParams();
   for (const key of Object.keys(query) as Array<keyof DataQuery>) {
-    if (query[key] !== emptyDataQuery[key]) params.set(key, query[key]);
+    const value = query[key];
+    if (Array.isArray(value)) value.forEach((entry) => params.append(key, entry));
+    else if (value !== emptyDataQuery[key]) params.set(key, value as string);
   }
   return params;
 }

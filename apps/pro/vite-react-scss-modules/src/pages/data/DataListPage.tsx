@@ -11,12 +11,23 @@ import { useTaskQuery } from '@/application/use-task-query';
 import { projectDetailPath } from '@/data/projects';
 import { isOverdue, type Task, type TaskDispatch, type TaskState } from '@/data/tasks';
 import { formatDueDate } from '@/data/workplace';
-import { FilterSelect, MetricStrip, NoResults, Panel, Person } from '@/pages/shared/ProPage';
+import {
+  FilterSelect,
+  MetricStrip,
+  MultiFilterSelect,
+  NoResults,
+  Panel,
+  Person,
+} from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
 import { useTaskEditor } from '@/pages/shared/use-task-editor';
 import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
-import { taskPriorityIntent, taskStatusIntent } from '@/pages/tasks/task-presentation';
+import {
+  taskLabelStyles,
+  taskPriorityIntent,
+  taskStatusIntent,
+} from '@/pages/tasks/task-presentation';
 
 import styles from './DataListPage.module.scss';
 
@@ -26,16 +37,16 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
   const { t, i18n } = useTranslation();
   const paginationLabels = usePaginationLabels();
   const [search, setSearch] = useState('');
-  const [project, setProject] = useState('all');
-  const [owner, setOwner] = useState('all');
+  const [project, setProject] = useState<string[]>([]);
+  const [owner, setOwner] = useState<string[]>([]);
   const [scope, setScope] = useState('open');
   const [order, setOrder] = useState('due');
   const [layout, setLayout] = useState('list');
   const [page, setPage] = useState(1);
   const query = search.trim().toLowerCase();
   const matches = (task: Task) =>
-    (project === 'all' || task.project === project) &&
-    (owner === 'all' || task.assignee === owner) &&
+    (!project.length || project.includes(task.project)) &&
+    (!owner.length || owner.includes(task.assignee)) &&
     (scope === 'all' ||
       (scope === 'open' && task.status !== 'done') ||
       (scope === 'review' && task.status === 'in_review') ||
@@ -67,8 +78,8 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
   const editor = useTaskEditor(state, dispatch, matches);
   const reset = () => {
     setSearch('');
-    setProject('all');
-    setOwner('all');
+    setProject([]);
+    setOwner([]);
     setScope('open');
     setPage(1);
   };
@@ -107,7 +118,7 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
           actions={
             <>
               <SegmentedControl
-                size="small"
+                size="medium"
                 variant="soft"
                 value={layout}
                 aria-label={t('data.briefLayout')}
@@ -117,7 +128,7 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
                 <SegmentedControl.Item value="cards">{t('data.cards')}</SegmentedControl.Item>
               </SegmentedControl>
 
-              <Link className={shared.link} to="/data/search-table">
+              <Link className={shared.link} to="/work/tasks">
                 {t('data.openTaskRegister')}
               </Link>
             </>
@@ -125,7 +136,7 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
         >
           <div className={shared.toolbar}>
             <Input
-              size="small"
+              size="medium"
               aria-label={t('data.searchTaskBriefs')}
               placeholder={t('data.searchBriefsOrPeople')}
               value={search}
@@ -142,19 +153,18 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
             </span>
           </div>
           <div className={styles.filters}>
-            <FilterSelect
+            <MultiFilterSelect
+              placeholder={t('data.allProjects')}
               label={t('data.project')}
               value={project}
               onChange={(value) => {
                 setProject(value);
                 setPage(1);
               }}
-              options={[
-                { value: 'all', label: t('data.allProjects') },
-                ...taskProjects.map((value) => ({ value, label: value })),
-              ]}
+              options={[...taskProjects.map((value) => ({ value, label: value }))]}
             />
-            <FilterSelect
+            <MultiFilterSelect
+              placeholder={t('data.allPeople')}
               label={t('data.owner')}
               value={owner}
               onChange={(value) => {
@@ -162,7 +172,6 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
                 setPage(1);
               }}
               options={[
-                { value: 'all', label: t('data.allPeople') },
                 ...taskAssignees.map((member) => ({ value: member.id, label: member.name })),
               ]}
             />
@@ -182,7 +191,7 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
           </div>
           <div className={styles.viewBar}>
             <SegmentedControl
-              size="small"
+              size="medium"
               value={scope}
               aria-label={t('data.briefStatus')}
               onValueChange={(value) => {
@@ -195,7 +204,7 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
               <SegmentedControl.Item value="done">{t('data.done')}</SegmentedControl.Item>
               <SegmentedControl.Item value="all">{t('data.all')}</SegmentedControl.Item>
             </SegmentedControl>
-            <Button size="small" variant="text" onClick={reset}>
+            <Button size="medium" variant="text" onClick={reset}>
               {t('data.resetFilters')}
             </Button>
           </div>
@@ -208,17 +217,26 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
                     <div className={styles.briefTop}>
                       <span className={shared.mono}>{task.id}</span>
                       <div>
-                        <Tag size="sm" intent={taskStatusIntent[task.status]}>
+                        <Tag
+                          size="md"
+                          intent={taskStatusIntent[task.status]}
+                          className={taskLabelStyles.tag}
+                        >
                           {getTaskStatusLabel(t, task.status)}
                         </Tag>
-                        <Tag size="sm" intent={taskPriorityIntent[task.priority]} variant="outline">
+                        <Tag
+                          size="md"
+                          intent={taskPriorityIntent[task.priority]}
+                          className={taskLabelStyles.tag}
+                          variant="outline"
+                        >
                           {getTaskPriorityLabel(t, task.priority)}
                         </Tag>
                       </div>
                     </div>
                     <h3>
                       <Button
-                        size="small"
+                        size="medium"
                         variant="text"
                         className={styles.briefTitle}
                         onClick={(event) => editor.open(task, event.currentTarget)}
@@ -251,7 +269,7 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
                     <div className={styles.briefFooter}>
                       <Person id={task.assignee} />
                       <Button
-                        size="small"
+                        size="medium"
                         variant="text"
                         onClick={(event) => editor.open(task, event.currentTarget)}
                         aria-label={t('data.readBriefValue', { v0: task.id })}
@@ -276,6 +294,7 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
               })}
             </span>
             <Pagination
+              size="medium"
               labels={paginationLabels}
               total={matchingTotal}
               page={view.page}
@@ -305,12 +324,12 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
                 <span>{t('data.briefsWaitingForReview')}</span>
               </div>
               <Button
-                size="small"
+                size="medium"
                 variant="outline"
                 onClick={() => {
                   setScope('review');
-                  setProject('all');
-                  setOwner('all');
+                  setProject([]);
+                  setOwner([]);
                   setSearch('');
                   setPage(1);
                 }}
@@ -334,7 +353,7 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
                       <span>{t('data.valueOpen', { v0: count })}</span>
                     </div>
                     <Progress
-                      size="sm"
+                      size="md"
                       value={count}
                       max={Math.max(1, state.tasks.length - completed)}
                       aria-label={t('data.valueOpenTaskShare', { v0: item.name })}

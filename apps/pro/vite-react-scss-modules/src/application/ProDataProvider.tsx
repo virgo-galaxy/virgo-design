@@ -2,6 +2,7 @@ import { type ReactNode, useCallback, useState } from 'react';
 
 import {
   createTask,
+  deleteTasks,
   getAnalyticsOverview,
   getWorkplaceOverview,
   type ProfileDto,
@@ -42,6 +43,16 @@ function ReadyData({ initial, children }: { initial: BootstrapData; children: Re
     setRevision((value) => value + 1);
     return task;
   };
+  const removeTasks = async (ids: readonly string[]) => {
+    const { deletedIds } = await deleteTasks({ ids });
+    const removed = new Set(deletedIds);
+    setData((previous) => ({
+      ...previous,
+      tasks: previous.tasks.filter((task) => !removed.has(task.id)),
+    }));
+    setRevision((value) => value + 1);
+    return deletedIds;
+  };
   const saveProfile = async (next: ProfileDto | ((previous: ProfileDto) => ProfileDto)) => {
     const profile = await updateProfile(typeof next === 'function' ? next(data.profile) : next);
     setData((previous) => ({ ...previous, profile }));
@@ -57,6 +68,7 @@ function ReadyData({ initial, children }: { initial: BootstrapData; children: Re
         taskReferenceDate: data.metadata.referenceDate,
         state: { tasks: data.tasks },
         dispatch,
+        removeTasks,
         revision,
         refreshOverview,
         saveProfile,

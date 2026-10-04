@@ -1,6 +1,8 @@
 import { http } from '@/lib/http';
 
 import type {
+  TaskDeleteRequest,
+  TaskDeleteResult,
   TaskDto,
   TaskListDto,
   TaskListQuery,
@@ -9,7 +11,11 @@ import type {
   TaskStatusDto,
 } from './contract';
 export function getTasks(query: TaskListQuery = {}, signal?: AbortSignal): Promise<TaskListDto> {
-  return http.get('/tasks', { params: query, ...(signal ? { signal } : {}) });
+  return http.get('/tasks', {
+    params: query,
+    paramsSerializer: { indexes: null },
+    ...(signal ? { signal } : {}),
+  });
 }
 export function getTask(id: string, signal?: AbortSignal): Promise<TaskDto> {
   return http.get(`/tasks/${encodeURIComponent(id)}`, signal ? { signal } : undefined);
@@ -25,4 +31,8 @@ export function updateTaskStatus(id: string, status: TaskStatusDto): Promise<Tas
 }
 export function getTaskMetadata(signal?: AbortSignal): Promise<TaskMetadataDto> {
   return http.get('/tasks/metadata', signal ? { signal } : undefined);
+}
+
+export function deleteTasks(request: TaskDeleteRequest): Promise<TaskDeleteResult> {
+  return http.post('/tasks/batch-delete', request);
 }

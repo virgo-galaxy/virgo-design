@@ -10,6 +10,7 @@ import {
   Select,
   Tag,
   Textarea,
+  Tooltip,
 } from '@virgo-design/ui';
 import { useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -34,7 +35,7 @@ import {
 } from '@/data/tasks';
 import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 
-import { taskStatusIntent } from './task-presentation';
+import { taskLabelStyles, taskStatusIntent } from './task-presentation';
 import styles from './TasksPage.module.scss';
 
 export function TaskDialog({
@@ -61,6 +62,7 @@ export function TaskDialog({
   );
   const [errors, setErrors] = useState<TaskErrors>({});
   const [confirmDiscard, setConfirmDiscard] = useState(false);
+  const [statusHintOpen, setStatusHintOpen] = useState(false);
   const formId = useId();
   const titleRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -91,7 +93,7 @@ export function TaskDialog({
       <Dialog.Portal>
         <Dialog.Overlay />
         <Dialog.Content
-          size="lg"
+          size="md"
           className={styles.taskDialog}
           onOpenAutoFocus={(event) => {
             event.preventDefault();
@@ -107,7 +109,7 @@ export function TaskDialog({
               <span className={styles.eyebrow}>
                 {task ? task.id : t('tasks.planTheNextDelivery')}
               </span>
-              <Dialog.Title>{task ? t('tasks.taskDetails') : t('tasks.newTask')}</Dialog.Title>
+              <Dialog.Title>{task ? t('tasks.editTask') : t('tasks.newTask')}</Dialog.Title>
               <Dialog.Description>
                 {task
                   ? t('tasks.createdDescription', {
@@ -125,7 +127,7 @@ export function TaskDialog({
                 <Button
                   {...buttonProps}
                   aria-label={t('tasks.closeTaskEditor')}
-                  size="small"
+                  size="medium"
                   variant="text"
                   iconOnly
                 >
@@ -139,42 +141,53 @@ export function TaskDialog({
             {task ? (
               <div className={styles.workflow}>
                 <div>
-                  <Tag intent={taskStatusIntent[task.status]} size="sm">
+                  <Tag
+                    intent={taskStatusIntent[task.status]}
+                    className={taskLabelStyles.tag}
+                    size="md"
+                  >
                     {getTaskStatusLabel(t, task.status)}
                   </Tag>
                   <span>{t('tasks.savedStatus')}</span>
                 </div>
                 {nextStatus ? (
-                  <Button
-                    size="small"
-                    variant="outline"
-                    trailingIcon={<ArrowRightIcon />}
-                    disabled={dirty || mutation.pending}
-                    onClick={() => {
-                      void mutation.run(async () => {
-                        await onStatusChange(nextStatus);
-                        setDraft((current) => ({ ...current, status: nextStatus }));
-                      });
-                    }}
-                  >
-                    {t('tasks.moveToValue', { v0: nextStatus })}
-                  </Button>
+                  <Tooltip open={dirty && statusHintOpen} onOpenChange={setStatusHintOpen}>
+                    <Tooltip.Trigger
+                      disabled={dirty || mutation.pending}
+                      onClick={() => {
+                        void mutation.run(async () => {
+                          await onStatusChange(nextStatus);
+                          setDraft((current) => ({ ...current, status: nextStatus }));
+                        });
+                      }}
+                      render={(props) => (
+                        <Button
+                          {...props}
+                          size="medium"
+                          variant="outline"
+                          trailingIcon={<ArrowRightIcon />}
+                        >
+                          {t('tasks.moveToValue', { v0: nextStatus })}
+                        </Button>
+                      )}
+                    />
+                    <Tooltip.Content>
+                      {t('tasks.saveYourEditsBeforeAdvancingTheTask')}
+                    </Tooltip.Content>
+                  </Tooltip>
                 ) : (
                   <span className={styles.completedNote}>{t('tasks.readyForTheNextDelivery')}</span>
                 )}
-                {dirty ? (
-                  <span className={styles.workflowHint}>
-                    {t('tasks.saveYourEditsBeforeAdvancingTheTask')}
-                  </span>
-                ) : null}
               </div>
             ) : null}
             {hiddenByFilters ? (
               <Alert intent="info">
-                <Alert.Title>{t('tasks.savedButOutsideThisView')}</Alert.Title>
-                <Alert.Description>
-                  {t('tasks.thisTaskNoLongerMatchesYourCurrentFiltersYour')}
-                </Alert.Description>
+                <Alert.Content>
+                  <Alert.Title>{t('tasks.savedButOutsideThisView')}</Alert.Title>
+                  <Alert.Description>
+                    {t('tasks.thisTaskNoLongerMatchesYourCurrentFiltersYour')}
+                  </Alert.Description>
+                </Alert.Content>
               </Alert>
             ) : null}
             <Form
@@ -182,7 +195,7 @@ export function TaskDialog({
               aria-busy={mutation.pending}
               id={formId}
               ref={formRef}
-              size="small"
+              size="medium"
               noValidate
               className={styles.taskForm}
               onSubmit={(event) => {
@@ -208,38 +221,40 @@ export function TaskDialog({
                 });
               }}
             >
-              <Field required invalid={Boolean(errors.title)}>
-                <Field.Label>{t('tasks.title')}</Field.Label>
-                <Input
-                  ref={titleRef}
-                  name="title"
-                  value={draft.title}
-                  onChange={(event) => update('title', event.target.value)}
-                  placeholder={t('tasks.whatNeedsToBeDone')}
-                />
-                {errors.title ? (
-                  <Field.Message>{t(`tasks.validation.${errors.title}`)}</Field.Message>
-                ) : (
-                  <Field.Description>
-                    {t('tasks.keepItSpecificAndWithin120Characters')}
-                  </Field.Description>
-                )}
-              </Field>
-              <Field invalid={Boolean(errors.description)}>
-                <Field.Label>{t('tasks.description')}</Field.Label>
-                <Textarea
-                  name="description"
-                  rows={4}
-                  value={draft.description}
-                  onChange={(event) => update('description', event.target.value)}
-                  placeholder={t('tasks.contextAcceptanceCriteriaOrTheNextStep')}
-                />
-                {errors.description ? (
-                  <Field.Message>{t(`tasks.validation.${errors.description}`)}</Field.Message>
-                ) : (
-                  <Field.Description>{t('tasks.optionalUpTo2000Characters')}</Field.Description>
-                )}
-              </Field>
+              <div className={styles.taskEditorContent}>
+                <Field required invalid={Boolean(errors.title)}>
+                  <Field.Label>{t('tasks.title')}</Field.Label>
+                  <Input
+                    ref={titleRef}
+                    name="title"
+                    value={draft.title}
+                    onChange={(event) => update('title', event.target.value)}
+                    placeholder={t('tasks.whatNeedsToBeDone')}
+                  />
+                  {errors.title ? (
+                    <Field.Message>{t(`tasks.validation.${errors.title}`)}</Field.Message>
+                  ) : (
+                    <Field.Description>
+                      {t('tasks.keepItSpecificAndWithin120Characters')}
+                    </Field.Description>
+                  )}
+                </Field>
+                <Field invalid={Boolean(errors.description)}>
+                  <Field.Label>{t('tasks.description')}</Field.Label>
+                  <Textarea
+                    name="description"
+                    rows={6}
+                    value={draft.description}
+                    onChange={(event) => update('description', event.target.value)}
+                    placeholder={t('tasks.contextAcceptanceCriteriaOrTheNextStep')}
+                  />
+                  {errors.description ? (
+                    <Field.Message>{t(`tasks.validation.${errors.description}`)}</Field.Message>
+                  ) : (
+                    <Field.Description>{t('tasks.optionalUpTo2000Characters')}</Field.Description>
+                  )}
+                </Field>
+              </div>
               <div className={styles.formGrid}>
                 <Field required invalid={Boolean(errors.status)}>
                   <Field.Label>{t('tasks.status')}</Field.Label>
@@ -325,69 +340,72 @@ export function TaskDialog({
                     <Field.Message>{t(`tasks.validation.${errors.assignee}`)}</Field.Message>
                   ) : null}
                 </Field>
+                <Field invalid={Boolean(errors.estimateHours)}>
+                  <Field.Label>{t('tasks.estimatedHours')}</Field.Label>
+                  <Input
+                    name="estimateHours"
+                    type="number"
+                    steppers
+                    min={0}
+                    max={999}
+                    step={1}
+                    value={String(draft.estimateHours)}
+                    onChange={(event) =>
+                      update(
+                        'estimateHours',
+                        event.currentTarget.value === '' ? 0 : Number(event.currentTarget.value),
+                      )
+                    }
+                    suffix={t('tasks.h')}
+                  />
+                  {errors.estimateHours ? (
+                    <Field.Message>{t(`tasks.validation.${errors.estimateHours}`)}</Field.Message>
+                  ) : (
+                    <Field.Description>
+                      {t('tasks.wholeHoursUse0WhenTheTaskHasNot')}
+                    </Field.Description>
+                  )}
+                </Field>
+                <Field invalid={Boolean(errors.dueDate)}>
+                  <Field.Label>{t('tasks.dueDate')}</Field.Label>
+                  <DatePicker
+                    name="dueDate"
+                    value={draft.dueDate}
+                    onValueChange={(value) => update('dueDate', value)}
+                  >
+                    <DatePicker.Input type="text" placeholder={t('tasks.dateFormat')} />
+                    <DatePicker.Trigger aria-label={t('tasks.chooseDueDate')} />
+                    <DatePicker.Content aria-label={t('tasks.dueDateCalendar')}>
+                      <DatePicker.Calendar
+                        locale={i18n.language}
+                        weekStartsOn={1}
+                        defaultMonth="2026-10"
+                      />
+                    </DatePicker.Content>
+                  </DatePicker>
+                  {errors.dueDate ? (
+                    <Field.Message>{t(`tasks.validation.${errors.dueDate}`)}</Field.Message>
+                  ) : (
+                    <Field.Description>
+                      {t('tasks.optionalLeaveEmptyWhenTheWorkIsNotScheduled')}
+                    </Field.Description>
+                  )}
+                </Field>
               </div>
-              <Field invalid={Boolean(errors.estimateHours)}>
-                <Field.Label>{t('tasks.estimatedHours')}</Field.Label>
-                <Input
-                  name="estimateHours"
-                  type="number"
-                  min={0}
-                  max={999}
-                  step={1}
-                  value={String(draft.estimateHours)}
-                  onChange={(event) =>
-                    update(
-                      'estimateHours',
-                      event.currentTarget.value === '' ? 0 : Number(event.currentTarget.value),
-                    )
-                  }
-                  suffix={t('tasks.h')}
-                />
-                {errors.estimateHours ? (
-                  <Field.Message>{t(`tasks.validation.${errors.estimateHours}`)}</Field.Message>
-                ) : (
-                  <Field.Description>
-                    {t('tasks.wholeHoursUse0WhenTheTaskHasNot')}
-                  </Field.Description>
-                )}
-              </Field>
-              <Field invalid={Boolean(errors.dueDate)}>
-                <Field.Label>{t('tasks.dueDate')}</Field.Label>
-                <DatePicker
-                  name="dueDate"
-                  value={draft.dueDate}
-                  onValueChange={(value) => update('dueDate', value)}
-                >
-                  <DatePicker.Input />
-                  <DatePicker.Trigger aria-label={t('tasks.chooseDueDate')} />
-                  <DatePicker.Content aria-label={t('tasks.dueDateCalendar')}>
-                    <DatePicker.Calendar
-                      locale={i18n.language}
-                      weekStartsOn={1}
-                      defaultMonth="2026-10"
-                    />
-                  </DatePicker.Content>
-                </DatePicker>
-                {errors.dueDate ? (
-                  <Field.Message>{t(`tasks.validation.${errors.dueDate}`)}</Field.Message>
-                ) : (
-                  <Field.Description>
-                    {t('tasks.optionalLeaveEmptyWhenTheWorkIsNotScheduled')}
-                  </Field.Description>
-                )}
-              </Field>
             </Form>
           </Dialog.Body>
           <Dialog.Footer className={styles.taskDialogFooter}>
             {confirmDiscard ? (
               <Alert intent="warning" className={styles.discardNotice}>
-                <Alert.Title>{t('tasks.discardUnsavedChanges')}</Alert.Title>
-                <Alert.Description>{t('tasks.theSavedTaskWillStayAsItIs')}</Alert.Description>
-                <Alert.Action>
-                  <Button variant="outline" size="small" onClick={onClose}>
+                <Alert.Content>
+                  <Alert.Title>{t('tasks.discardUnsavedChanges')}</Alert.Title>
+                  <Alert.Description>{t('tasks.theSavedTaskWillStayAsItIs')}</Alert.Description>
+                </Alert.Content>
+                <Alert.Action className={styles.discardActions!}>
+                  <Button variant="outline" size="medium" onClick={onClose}>
                     {t('tasks.discardChanges')}
                   </Button>
-                  <Button size="small" onClick={() => setConfirmDiscard(false)}>
+                  <Button size="medium" onClick={() => setConfirmDiscard(false)}>
                     {t('tasks.keepEditing')}
                   </Button>
                 </Alert.Action>
@@ -401,11 +419,11 @@ export function TaskDialog({
                       ? t('tasks.allChangesSaved')
                       : t('tasks.newTask')}
                 </span>
-                <Dialog.Close size="small">
+                <Dialog.Close size="medium">
                   {task ? t('tasks.close') : t('tasks.cancel')}
                 </Dialog.Close>
                 <Button
-                  size="small"
+                  size="medium"
                   type="submit"
                   form={formId}
                   disabled={mutation.pending || (Boolean(task) && !dirty)}

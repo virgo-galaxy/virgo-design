@@ -11,6 +11,7 @@ export interface ProData extends BootstrapData, AnalyticsOverviewDto, WorkplaceO
   taskReferenceDate: string;
   state: TaskState;
   revision: number;
+  removeTasks: (ids: readonly string[]) => Promise<string[]>;
   refreshOverview: (signal: AbortSignal) => Promise<void>;
   dispatch: (action: TaskAction) => Promise<Task>;
   saveProfile: (profile: ProfileDto | ((previous: ProfileDto) => ProfileDto)) => Promise<void>;

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { createMockTaskId } from '@/mock/fixtures/task-id';
 import {
   initialTaskState,
   taskAssignees,
@@ -37,7 +38,7 @@ const draft: TaskDraft = {
 };
 const task: Task = {
   ...draft,
-  id: `VD-${initialTaskState.nextId}`,
+  id: createMockTaskId(initialTaskState.nextId),
   createdAt: '2026-10-02T08:00:00Z',
 };
 const visible = (tasks: Task[], filters: TaskFilters) =>
@@ -93,6 +94,27 @@ describe('task filters', () => {
     expect(hasTaskFilters(emptyTaskFilters)).toBe(false);
     expect(hasTaskFilters({ ...emptyTaskFilters, search: '   ' })).toBe(false);
     expect(visible(initialTaskState.tasks, emptyTaskFilters)).toHaveLength(256);
+  });
+  it('matches any selected value per field and intersects fields, with empty selections meaning all', () => {
+    const filters: TaskFilters = {
+      ...emptyTaskFilters,
+      status: ['todo', 'in_progress'],
+      priority: ['high', 'urgent'],
+      project: ['Workspace', 'Discovery'],
+      assignee: ['ava', 'leo'],
+    };
+    const expected = initialTaskState.tasks.filter(
+      (task) =>
+        ['todo', 'in_progress'].includes(task.status) &&
+        ['high', 'urgent'].includes(task.priority) &&
+        ['Workspace', 'Discovery'].includes(task.project) &&
+        ['ava', 'leo'].includes(task.assignee),
+    );
+    expect(visible(initialTaskState.tasks, filters)).toEqual(expected);
+    expect(hasTaskFilters(filters)).toBe(true);
+    const clear = { search: '', status: [], priority: [], project: [], assignee: [] };
+    expect(hasTaskFilters(clear)).toBe(false);
+    expect(visible(initialTaskState.tasks, clear)).toHaveLength(256);
   });
 });
 
@@ -161,7 +183,7 @@ describe('task mutations', () => {
     expect(visible([task], { ...emptyTaskFilters, status: 'done' })).toEqual([]);
     expect(
       tasksReducer(state, { type: 'create', draft, createdAt: task.createdAt }).tasks[0]?.id,
-    ).toBe(`VD-${initialTaskState.nextId + 1}`);
+    ).toBe(createMockTaskId(initialTaskState.nextId + 1));
   });
 
   it('edits all fields while preserving identity and creation time, and reapplies filters', () => {
@@ -294,7 +316,8 @@ describe('validation and dates', () => {
     expect(new Set(initialTaskState.tasks.map((item) => item.id)).size).toBe(256);
     for (const item of initialTaskState.tasks) {
       expect(errors(item)).toEqual({});
-      expect(Number(item.id.slice(3))).toBeLessThan(initialTaskState.nextId);
+      expect(item.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}$/);
+      expect(item.id).not.toBe(task.id);
       expect(Number.isNaN(new Date(item.createdAt).getTime())).toBe(false);
     }
     expect(taskOverview(initialTaskState.tasks, taskReferenceDate)).toEqual({

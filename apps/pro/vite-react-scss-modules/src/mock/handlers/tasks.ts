@@ -9,6 +9,7 @@ import {
   type TaskRequest,
 } from '@/api/tasks';
 import { isRecord } from '@/lib/http/protocol';
+import { createMockTaskId } from '@/mock/fixtures/task-id';
 
 import {
   initialTaskState,
@@ -102,8 +103,8 @@ function list(params: URLSearchParams): TaskListDto {
   const search = (params.get('search') ?? '').trim().toLowerCase();
   let matching = tasks.filter((task) => {
     for (const key of ['status', 'priority', 'project', 'assignee'] as const) {
-      const value = params.get(key);
-      if (value && value !== 'all' && task[key] !== value) return false;
+      const values = params.getAll(key).filter((value) => value !== 'all');
+      if (values.length && !values.includes(task[key])) return false;
     }
     const name = taskAssignees.find((member) => member.id === task.assignee)?.name ?? '';
     if (
@@ -130,12 +131,18 @@ function list(params: URLSearchParams): TaskListDto {
       (minimum && task.estimateHours < Number(minimum))
     )
       return false;
-    const due = params.get('due');
-    if (due === 'overdue' && !overdue(task)) return false;
-    if (due === 'unscheduled' && task.dueDate) return false;
+    const due = params.getAll('due').filter((value) => value !== 'all');
     if (
-      due === 'week' &&
-      (task.status === 'done' || task.dueDate < taskReferenceDate || task.dueDate > through)
+      due.length &&
+      !due.some(
+        (value) =>
+          (value === 'overdue' && overdue(task)) ||
+          (value === 'unscheduled' && !task.dueDate) ||
+          (value === 'week' &&
+            task.status !== 'done' &&
+            task.dueDate >= taskReferenceDate &&
+            task.dueDate <= through),
+      )
     )
       return false;
     return true;
@@ -172,9 +179,10 @@ export const tasksHandlers = [
     for (const [key, codes] of [
       ['status', statuses],
       ['priority', priorities],
+      ['due', ['overdue', 'week', 'unscheduled']],
     ] as const) {
-      const value = params.get(key);
-      if (value && value !== 'all' && !codes.some((code) => code === value))
+      const values = params.getAll(key);
+      if (values.some((value) => value && value !== 'all' && !codes.some((code) => code === value)))
         return failure({
           status: 400,
           code: API_ERROR_CODES.INVALID_QUERY,
@@ -200,6 +208,42 @@ export const tasksHandlers = [
       ? success(task)
       : failure({ status: 404, code: API_ERROR_CODES.TASK_NOT_FOUND, detail: 'Task not found' });
   }),
+  http.post(endpoint('/tasks/batch-delete'), async ({ request }) => {
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return failure({
+        status: 400,
+        code: API_ERROR_CODES.INVALID_REQUEST,
+        detail: 'Invalid JSON',
+      });
+    }
+    if (
+      !isRecord(body) ||
+      !Array.isArray(body.ids) ||
+      !body.ids.length ||
+      !body.ids.every((id) => typeof id === 'string' && id.trim().length > 0)
+    ) {
+      return failure({
+        status: 422,
+        code: API_ERROR_CODES.TASK_VALIDATION_FAILED,
+        detail: 'Select tasks to delete',
+        fields: { ids: ['Provide non-empty task IDs'] },
+      });
+    }
+    const ids = [...new Set(body.ids as string[])];
+    if (ids.some((id) => !tasks.some((task) => task.id === id))) {
+      return failure({
+        status: 404,
+        code: API_ERROR_CODES.TASK_NOT_FOUND,
+        detail: 'Task not found',
+      });
+    }
+    const removed = new Set(ids);
+    tasks = tasks.filter((task) => !removed.has(task.id));
+    return success({ deletedIds: ids });
+  }),
   http.post(endpoint('/tasks'), async ({ request }) => {
     let body: unknown;
     try {
@@ -221,7 +265,7 @@ export const tasksHandlers = [
       });
     const task: TaskDto = {
       ...taskRequest(body),
-      id: `VD-${nextId++}`,
+      id: createMockTaskId(nextId++),
       createdAt: new Date().toISOString(),
     };
     tasks.unshift(task);

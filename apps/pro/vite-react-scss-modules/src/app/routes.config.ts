@@ -1,5 +1,5 @@
 /**
- * Pro 路由配置：App、Sidebar、页面搜索与 Breadcrumb 共用这一份配置。
+ * Pro 路由配置：App、Sidebar 与 Breadcrumb 共用这一份配置。
  *
  * 路由、侧栏和面包屑共用这份业务配置；公共组件只负责展示与交互。
  * icon 和 page 都是字符串，由 Pro 的图标表、页面表映射到组件，配置可转为 JSON。
@@ -19,7 +19,6 @@ export type ProPageKey =
   | 'analytics'
   | 'tasks'
   | 'projects'
-  | 'search-table'
   | 'data-list'
   | 'detail'
   | 'basic-form'
@@ -43,7 +42,7 @@ export interface ProPageRoute {
   id: string;
   /** 支持参数路径和通配符；这类页面由业务数据生成入口，不放入固定菜单或页面搜索。 */
   path: `/${string}` | '*';
-  /** 用于菜单、面包屑、页面搜索和浏览器标题。 */
+  /** 用于菜单、面包屑和浏览器标题。 */
   label: string;
   /** 可选的子路由图标；使用公共图标库的 IconId。不填写则不显示，不继承分组图标。 */
   icon?: IconId;
@@ -86,7 +85,7 @@ export const proRouteConfig = {
     {
       id: 'dashboard',
       label: 'Dashboard',
-      icon: 'widgets',
+      icon: 'gauge',
       routes: [
         {
           id: 'workplace',
@@ -94,6 +93,13 @@ export const proRouteConfig = {
           label: 'Workplace',
           page: 'workplace',
         },
+      ],
+    },
+    {
+      id: 'visualization',
+      label: 'Data Visualization',
+      icon: 'chart-line',
+      routes: [
         {
           id: 'analytics',
           path: '/dashboard/analytics',
@@ -116,12 +122,6 @@ export const proRouteConfig = {
       label: 'Data',
       icon: 'database',
       routes: [
-        {
-          id: 'search-table',
-          path: '/data/search-table',
-          label: 'Search Table',
-          page: 'search-table',
-        },
         { id: 'data-list', path: '/data/list', label: 'Data List', page: 'data-list' },
         { id: 'detail', path: '/data/detail', label: 'Detail', page: 'detail' },
       ],

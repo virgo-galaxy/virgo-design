@@ -14,6 +14,7 @@ export function usePaginationLabels(): PaginationLabels {
     itemsPerPage: (size) => t('shared.pagination.itemsPerPage', { size }),
     jumpTo: t('shared.pagination.jumpTo'),
     pageUnit: t('shared.pagination.pageUnit'),
+    selected: (count) => t('shared.pagination.selected', { count }),
     total: (count) => t('shared.pagination.total', { count }),
   };
 }

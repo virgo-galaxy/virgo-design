@@ -215,8 +215,7 @@
     padding: var(--vd-spacing-16);
   }
 }
-.avatar[data-size='sm'] {
-  --avatar-font-size: var(--vd-font-size-10);
+.avatar {
   font-family: var(--vd-font-family-mono);
   flex-shrink: 0;
 }

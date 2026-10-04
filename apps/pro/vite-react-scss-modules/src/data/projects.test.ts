@@ -6,7 +6,7 @@ import { initialTaskState, taskProjects } from '@/mock/fixtures/tasks';
 import { activity } from '@/mock/fixtures/workplace';
 import { tasksReducer } from '@/test/task-state.test-helper';
 
-import { projectActivity, projectDetailPath, projectQueryPath, projectSummary } from './projects';
+import { projectActivity, projectDetailPath, projectSummary, projectTasksPath } from './projects';
 import { taskDraft } from './tasks';
 
 describe('shared project register', () => {
@@ -34,7 +34,11 @@ describe('shared project register', () => {
       taskReferenceDate,
     );
     expect(before.overdue).toBeGreaterThan(0);
-    const next = tasksReducer(initialTaskState, { type: 'status', id: 'VD-129', status: 'done' });
+    const next = tasksReducer(initialTaskState, {
+      type: 'status',
+      id: 'b9f45231-7bd0',
+      status: 'done',
+    });
     expect(projectSummary(project, next.tasks, taskAssignees, taskReferenceDate)).toMatchObject({
       total: before.total,
       completed: before.completed + 1,
@@ -48,7 +52,7 @@ describe('shared project register', () => {
     );
   });
   it('moves related work and estimates between projects without duplicating records', () => {
-    const task = initialTaskState.tasks.find((item) => item.id === 'VD-138')!;
+    const task = initialTaskState.tasks.find((item) => item.id === '49e7996a-311b')!;
     const workspaceBefore = projectSummary(
       projects[0]!,
       initialTaskState.tasks,
@@ -97,7 +101,7 @@ describe('shared project register', () => {
   it('deep links to an identified project and scopes historical activity correctly', () => {
     expect(projectDetailPath(projects[1]!)).toBe('/data/detail?project=design-system');
     expect(
-      new URL(projectQueryPath(projects[1]!), 'https://example.test').searchParams.get('project'),
+      new URL(projectTasksPath(projects[1]!), 'https://example.test').searchParams.get('project'),
     ).toBe('Design system');
     expect(
       projectActivity(projects[0]!, activity).every((event) => event.project === 'Workspace'),

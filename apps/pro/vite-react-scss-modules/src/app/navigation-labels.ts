@@ -7,7 +7,6 @@ const pageKeys = {
   analytics: 'app.analytics',
   tasks: 'app.tasks',
   projects: 'app.projects',
-  'search-table': 'app.searchTable',
   'data-list': 'app.dataList',
   detail: 'app.detail',
   'basic-form': 'app.basicForm',
@@ -29,6 +28,8 @@ export function getGroupLabel(t: TFunction, id: string) {
   switch (id) {
     case 'dashboard':
       return t('app.dashboard');
+    case 'visualization':
+      return t('app.visualization');
     case 'work':
       return t('app.work');
     case 'data':

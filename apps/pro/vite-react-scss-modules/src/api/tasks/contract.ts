@@ -13,6 +13,7 @@ export interface TaskRequest {
   estimateHours: number;
 }
 export interface TaskDto extends TaskRequest {
+  /** Server-assigned opaque identifier; Mock uses two hexadecimal segments (8-4). */
   id: string;
   createdAt: string;
 }
@@ -28,14 +29,15 @@ export interface TaskMetadataDto {
 }
 export interface TaskListQuery {
   search?: string;
-  status?: TaskStatusDto | 'all';
-  priority?: TaskPriorityDto | 'all';
-  project?: string;
-  assignee?: string;
+  status?: TaskStatusDto | 'all' | readonly TaskStatusDto[];
+  priority?: TaskPriorityDto | 'all' | readonly TaskPriorityDto[];
+  project?: string | readonly string[];
+  assignee?: string | readonly string[];
   scope?: 'all' | 'open' | 'review' | 'done';
   createdFrom?: string;
   createdTo?: string;
-  due?: 'all' | 'overdue' | 'week' | 'unscheduled';
+  due?:
+    'all' | 'overdue' | 'week' | 'unscheduled' | readonly ('overdue' | 'week' | 'unscheduled')[];
   minimumHours?: string;
   sortBy?: 'createdAt' | 'estimateHours' | 'dueDate';
   sortDirection?: 'ascending' | 'descending';
@@ -48,4 +50,11 @@ export interface TaskListDto {
   page: number;
   pageSize: number;
   overview: { total: number; inProgress: number; dueSoon: number; completed: number };
+}
+
+export interface TaskDeleteRequest {
+  ids: readonly string[];
+}
+export interface TaskDeleteResult {
+  deletedIds: string[];
 }
