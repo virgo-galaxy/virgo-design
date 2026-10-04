@@ -10,10 +10,38 @@ import source1 from './TableDensityExample.tsx?raw';
 import TableEmptyExample from './TableEmptyExample';
 import style2 from './TableEmptyExample.module.scss?virgo-raw';
 import source2 from './TableEmptyExample.tsx?raw';
+import TableFilteringExample from './TableFilteringExample';
+import filteringStyles from './TableFilteringExample.module.scss?virgo-raw';
+import filteringSource from './TableFilteringExample.tsx?raw';
+import TableSelectionExample from './TableSelectionExample';
+import selectionStyles from './TableSelectionExample.module.scss?virgo-raw';
+import selectionSource from './TableSelectionExample.tsx?raw';
 import TableSortingExample from './TableSortingExample';
 import sortingStyles from './TableSortingExample.module.scss?virgo-raw';
 import sortingSource from './TableSortingExample.tsx?raw';
 export const tableExamples = {
+  selection: {
+    id: 'table-selection',
+    title: 'Selection menu',
+    titleTranslationKey: 'examples.table.copy.selectionTitle',
+    description:
+      'An optional hover menu beside the select-page checkbox, with built-in and custom selection actions.',
+    descriptionTranslationKey: 'examples.table.copy.selectionDescription',
+    Component: TableSelectionExample,
+    source: createExampleSource(selectionSource),
+    styleSource: selectionStyles,
+  },
+  filtering: {
+    id: 'table-filtering',
+    title: 'Column filters and resizing',
+    titleTranslationKey: 'examples.table.copy.filteringTitle',
+    description:
+      'Confirm checkbox filters from a column heading. Header dividers are visible by default; enable resizing to drag them or use arrow keys.',
+    descriptionTranslationKey: 'examples.table.copy.filteringDescription',
+    Component: TableFilteringExample,
+    source: createExampleSource(filteringSource),
+    styleSource: filteringStyles,
+  },
   sorting: {
     id: 'table-sorting',
     title: 'Three-state sorting',

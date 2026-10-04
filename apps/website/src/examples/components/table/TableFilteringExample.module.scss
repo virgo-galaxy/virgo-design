@@ -1,0 +1,9 @@
+.root {
+  width: 100%;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vd-spacing-16);
+  margin-bottom: var(--vd-spacing-16);
+}

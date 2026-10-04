@@ -2,6 +2,8 @@ import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 
 export const tooltipApiZhCN = {
   api: {
+    'tooltip-content-props.properties.anchor-ref.description':
+      '可指定定位元素；悬停、聚焦和无障碍描述仍由触发按钮负责。',
     'tooltip-props.properties.open-delay.description': '悬停延迟，单位为毫秒；键盘聚焦立即打开。',
     'tooltip-props.properties.close-on-click.description':
       '激活时关闭。设置为 false 时，在悬停或键盘聚焦期间保留动态反馈。',

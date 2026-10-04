@@ -58,6 +58,7 @@ export const paginationExamplesZhCN = {
     valueItemsPerPage: '{{v0}} 条/页',
     jumpTo: '跳至',
     page: '页',
+    selected: '（已选 {{count}} 项）',
     valueItemsInTotal: '共 {{v0}} 条',
   },
 } satisfies LocaleOf<typeof paginationExamplesEnUS>;

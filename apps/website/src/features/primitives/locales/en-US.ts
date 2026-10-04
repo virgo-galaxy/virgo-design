@@ -237,14 +237,17 @@ export const primitivesEnUS = {
     },
     select: {
       description:
-        'A headless listbox with controlled value, typeahead, keyboard navigation, and form support.',
+        'A headless listbox supporting single and multiple selection, typeahead, keyboard navigation, and forms.',
       behaviors: {
-        item1: 'Coordinates controlled or uncontrolled value and open state.',
+        item1:
+          'Coordinates controlled or uncontrolled selection and open state; Select.Multiple keeps options open while toggling.',
         item2: 'Supports Arrow keys, Home, End, Enter, Escape, and character typeahead.',
-        item3: 'Can submit its selected value through a hidden native input when given a name.',
+        item3:
+          'Given a name, submits single values or repeated multi-values through hidden native inputs.',
       },
       accessibility: {
-        item1: 'The trigger controls a listbox and exposes expanded state.',
+        item1:
+          'The trigger controls a listbox and exposes expanded state; multiple selection sets aria-multiselectable.',
         item2: 'Options expose selected and disabled semantics and keyboard focus management.',
       },
     },

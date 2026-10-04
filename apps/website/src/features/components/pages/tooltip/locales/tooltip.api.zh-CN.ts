@@ -2,6 +2,8 @@ import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 
 export const tooltipApiZhCN = {
   api: {
+    'tooltip-content-props.properties.anchor-ref.description':
+      '可指定定位元素；悬停、聚焦和无障碍描述仍由触发按钮负责。',
     'tooltip-provider-props.properties.size.description':
       '后代提示的默认内容密度，也适用于控件内置的提示。',
     'tooltip-provider-props.properties.arrow.description': '后代提示默认是否显示三角箭头。',

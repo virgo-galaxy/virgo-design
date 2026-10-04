@@ -41,7 +41,9 @@ export default function App() {
         <br />
         <code>--table-header-background</code>, <code>--table-header-foreground</code>,{' '}
         <code>--table-header-font-weight</code>, <code>--table-separator-color</code>,{' '}
-        <code>--table-row-hover-background</code>, <code>--table-row-selected-background</code>
+        <code>--table-selection-color</code>, <code>--table-row-hover-background</code>,{' '}
+        <code>--table-row-selected-background</code>,{' '}
+        <code>--table-row-selected-hover-background</code>
       </p>
       <Surface border="subtle" radius={12} className={styles.frame}>
         <Table border="separators">

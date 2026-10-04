@@ -3,6 +3,9 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { selectExamplesEnUS } from './en-US';
 export const selectExamplesZhCN = {
   copy: {
+    allProjects: '全部项目',
+    multipleSelection: '多选',
+    multipleSelectionDescription: '连续勾选多个选项，列表保持打开；通过标签上的按钮移除选择。',
     chooseProject: '选择项目',
     chooseAProject: '选择一个项目',
     cloudDocs: '云文档',

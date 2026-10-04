@@ -5,7 +5,7 @@ import type { selectEnUS } from './en-US';
 export const selectZhCN = {
   overview: {
     description:
-      '通过自定义 Virgo listbox 进行单值选择。控件沿用 Input 家族的尺寸与状态表达，并管理展开、选项和键盘行为。',
+      '通过自定义 Virgo listbox 进行单选或多选。Select.Multiple 使用复选框和可移除标签，两种模式共用尺寸和键盘导航。',
   },
   facts: {
     mode: '模式',
@@ -31,6 +31,6 @@ export const selectZhCN = {
   },
   options: {
     title: '选项与行为',
-    description: '选项支持选中、禁用、长内容、指针与键盘交互，不改变公开的单值模型。',
+    description: '单选与多选均支持选中、禁用、长内容、指针与键盘交互。',
   },
 } satisfies LocaleOf<typeof selectEnUS>;

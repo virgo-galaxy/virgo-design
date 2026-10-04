@@ -452,7 +452,7 @@ export const primitiveDetails = {
     publicApi: ['Radio', 'Radio.Group', 'RadioProps', 'RadioGroupProps'],
   },
   select: {
-    parts: ['Root', 'Trigger', 'Content', 'Option'],
+    parts: ['Root', 'Multiple', 'Trigger', 'Content', 'Option', 'Remove'],
     behaviors: [
       'primitives.docs.select.behaviors.item1',
       'primitives.docs.select.behaviors.item2',
@@ -462,7 +462,14 @@ export const primitiveDetails = {
       'primitives.docs.select.accessibility.item1',
       'primitives.docs.select.accessibility.item2',
     ],
-    publicApi: ['Select', 'Select.Trigger', 'Select.Content', 'Select.Option'],
+    publicApi: [
+      'Select',
+      'Select.Multiple',
+      'Select.Trigger',
+      'Select.Content',
+      'Select.Option',
+      'Select.Remove',
+    ],
   },
   switch: {
     parts: [],

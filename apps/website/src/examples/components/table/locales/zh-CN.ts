@@ -3,6 +3,19 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { tableExamplesEnUS } from './en-US';
 export const tableExamplesZhCN = {
   copy: {
+    selectionTitle: '批量选择菜单',
+    selectionDescription: '当页全选复选框旁的可选悬停菜单，支持内置和自定义选择操作。',
+    showSelectionMenu: '显示批量选择菜单',
+    selectOddRows: '选择奇数行',
+    selectEvenRows: '选择偶数行',
+
+    filteringTitle: '列筛选与列宽调整',
+    filteringDescription:
+      '从表头勾选并确认筛选条件。默认显示表头分隔线；开启列宽调整后，可拖动分隔线或使用方向键调整。',
+    resizeColumns: '开启列宽调整',
+    headerDividers: '显示表头分隔线',
+    assignee: '负责人',
+
     title3: '三态排序',
     description3: '点击表头在升序、降序和原始顺序之间切换；Table.SortButton 也可独立组合使用。',
     colorLayers:

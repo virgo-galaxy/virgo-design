@@ -1,7 +1,7 @@
 export const calendarEnUS = {
   overview: {
     description:
-      'A localized month grid with independent selection and display, date constraints and keyboard navigation.',
+      'A localized calendar with compact and full-width panels, month/year views, date constraints and keyboard navigation.',
   },
   specimen: {
     referenceSpecimen: 'Reference specimen',

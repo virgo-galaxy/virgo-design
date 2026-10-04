@@ -1,6 +1,7 @@
 import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 export const carouselApiZhCN = {
   api: {
+    'carousel-props.properties.size.description': '导航、指示器与播放控件的尺寸。',
     'carousel-indicators-props.properties.placement.description':
       '将指示器放在常规文档流中，或视口内部的底部。',
     'carousel-item-props.properties.index.description': '受控的从 0 开始的页码。',

@@ -14,6 +14,7 @@ export function usePaginationLabels(): PaginationLabels {
     itemsPerPage: (value) => t('examples.pagination.details.valueItemsPerPage', { v0: value }),
     jumpTo: t('examples.pagination.details.jumpTo'),
     pageUnit: t('examples.pagination.details.page'),
+    selected: (count) => t('examples.pagination.details.selected', { count }),
     total: (value) => t('examples.pagination.details.valueItemsInTotal', { v0: value }),
   };
 }

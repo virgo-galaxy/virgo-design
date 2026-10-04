@@ -13,6 +13,9 @@ import selectKeyboardSource from './SelectKeyboardExample.tsx?raw';
 import SelectLongContentExample from './SelectLongContentExample';
 import selectLongContentStyles from './SelectLongContentExample.module.scss?virgo-raw';
 import selectLongContentSource from './SelectLongContentExample.tsx?raw';
+import SelectMultipleExample from './SelectMultipleExample';
+import selectMultipleStyles from './SelectMultipleExample.module.scss?virgo-raw';
+import selectMultipleSource from './SelectMultipleExample.tsx?raw';
 import SelectSizesExample from './SelectSizesExample';
 import selectSizesStyles from './SelectSizesExample.module.scss?virgo-raw';
 import selectSizesSource from './SelectSizesExample.tsx?raw';
@@ -21,6 +24,17 @@ import selectStatesStyles from './SelectStatesExample.module.scss?virgo-raw';
 import selectStatesSource from './SelectStatesExample.tsx?raw';
 
 export const selectExamples = {
+  selectMultiple: {
+    id: 'select-multiple',
+    title: 'Multiple selection',
+    titleTranslationKey: 'examples.select.copy.multipleSelection',
+    description:
+      'Toggle several options without closing the list, and remove selections from their tags.',
+    descriptionTranslationKey: 'examples.select.copy.multipleSelectionDescription',
+    Component: SelectMultipleExample,
+    source: createExampleSource(selectMultipleSource),
+    styleSource: selectMultipleStyles,
+  },
   selectSizes: {
     id: 'select-sizes',
     title: 'Trigger sizes',

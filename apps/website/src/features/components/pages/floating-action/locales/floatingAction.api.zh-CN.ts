@@ -2,6 +2,10 @@ import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 
 export const floatingActionApiZhCN = {
   api: {
+    'floating-action-group-props.properties.auto-focus.description':
+      '展开时将焦点移入浮层；设为 false 时保留可编辑输入的焦点。',
+    'floating-action-group-props.properties.anchor.description':
+      '浮层相对于触发按钮或完整的根控件定位。',
     'floating-action-props.properties.aria-label.description':
       '操作没有可见文字标签，因此必须提供无障碍名称。',
     'floating-action-props.properties.children.description': '按钮唯一可见内容中的图标。',

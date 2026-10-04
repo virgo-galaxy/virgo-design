@@ -60,7 +60,7 @@ export function SelectPage() {
             <dl className="component-facts">
               <div>
                 <dt>{t('components.select.facts.mode')}</dt>
-                <dd>01</dd>
+                <dd>02</dd>
               </div>
               <div>
                 <dt>{t('components.select.facts.sizes')}</dt>
@@ -109,6 +109,7 @@ export function SelectPage() {
           description={t('components.select.content.description')}
         >
           <ComponentExample example={selectExamples.selectContent} showCaption={false} />
+          <ComponentExample example={selectExamples.selectMultiple} />
         </ArticleSection>
         <ArticleSection
           id={'select-states'}

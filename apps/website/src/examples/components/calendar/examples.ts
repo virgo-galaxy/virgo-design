@@ -7,7 +7,20 @@ import source0 from './CalendarBasicExample.tsx?raw';
 import CalendarConstraintsExample from './CalendarConstraintsExample';
 import style1 from './CalendarConstraintsExample.module.scss?virgo-raw';
 import source1 from './CalendarConstraintsExample.tsx?raw';
+import CalendarPanelExample from './CalendarPanelExample';
+import style2 from './CalendarPanelExample.module.scss?virgo-raw';
+import source2 from './CalendarPanelExample.tsx?raw';
 export const calendarExamples = {
+  example2: {
+    id: 'calendar-panel',
+    title: 'Basic calendar panel',
+    titleTranslationKey: 'examples.calendar.copy.title2',
+    description: 'A full-width calendar with year and month selection and month/year views.',
+    descriptionTranslationKey: 'examples.calendar.copy.description2',
+    Component: CalendarPanelExample,
+    source: createExampleSource(source2),
+    styleSource: style2,
+  },
   example0: {
     id: 'calendar-basic',
     title: 'Localized month navigation',

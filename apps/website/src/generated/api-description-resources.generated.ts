@@ -133,6 +133,8 @@ export const componentsApiEnUS: ApiDescriptionResources = {
   calendar: {
     api: {
       'calendar-props.properties.size.description': 'Visual density.',
+      'calendar-props.properties.fullscreen.description':
+        'Fill the container with spacious date cells and year/month controls.',
       'calendar-props.properties.value.description':
         'Selected civil date in YYYY-MM-DD form; empty means no selection.',
       'calendar-props.properties.default-value.description': 'Initial selected civil date.',
@@ -143,6 +145,16 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Initial month; defaults to selected date or today.',
       'calendar-props.properties.on-month-change.description':
         'Called for requested month navigation.',
+      'calendar-props.properties.mode.description':
+        'Controlled panel mode: a day grid or a grid of twelve months.',
+      'calendar-props.properties.default-mode.description': 'Initial panel mode.',
+      'calendar-props.properties.on-mode-change.description': 'Called when the panel mode changes.',
+      'calendar-props.properties.render-header.description':
+        'Replace the header while retaining panel state and navigation constraints.',
+      'calendar-props.properties.render-date-content.description':
+        'Additional non-interactive content below each date number.',
+      'calendar-props.properties.highlight-range.description':
+        'Highlight an inclusive civil-date interval without changing single-date selection.',
       'calendar-props.properties.min.description': 'Earliest selectable civil date, inclusive.',
       'calendar-props.properties.max.description': 'Latest selectable civil date, inclusive.',
       'calendar-props.properties.is-date-unavailable.description':
@@ -151,6 +163,10 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Intl locale for month, weekday and date names.',
       'calendar-props.properties.week-starts-on.description':
         'First weekday, 0 (Sunday) through 6 (Saturday).',
+      'calendar-props.properties.show-outside-days.description':
+        'Render dates belonging to adjacent months.',
+      'calendar-props.properties.fixed-weeks.description':
+        'Always render six week rows; false uses only the weeks needed by the month.',
       'calendar-props.properties.disabled.description':
         'Disable all selection and keyboard navigation.',
       'calendar-props.properties.read-only.description':
@@ -165,6 +181,9 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Localized previous-month button label.',
       'calendar-props.properties.next-month-label.description':
         'Localized next-month button label.',
+      'calendar-props.properties.previous-year-label.description':
+        'Localized previous-year button label.',
+      'calendar-props.properties.next-year-label.description': 'Localized next-year button label.',
     },
   },
   card: {
@@ -182,6 +201,8 @@ export const componentsApiEnUS: ApiDescriptionResources = {
   carousel: {
     api: {
       'carousel-item-props.properties.index.description': 'Zero-based position of this slide.',
+      'carousel-props.properties.size.description':
+        'Size of navigation, indicator and playback controls.',
       'carousel-props.properties.motion.description':
         'Transition between slides. Reduced motion disables transitions.',
       'carousel-props.properties.arrows.description':
@@ -401,7 +422,7 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Controlled civil date in YYYY-MM-DD form; empty means no selection.',
       'date-picker-props.properties.default-value.description': 'Initial selected date.',
       'date-picker-props.properties.on-value-change.description':
-        'Called by native date input edits or calendar selection.',
+        'Called by input edits or calendar selection.',
       'date-picker-props.properties.open.description': 'Controlled calendar popup state.',
       'date-picker-props.properties.default-open.description': 'Initial calendar popup state.',
       'date-picker-props.properties.on-open-change.description':
@@ -412,24 +433,57 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'date-picker-props.properties.disabled.description': 'Disable input and popup.',
       'date-picker-props.properties.read-only.description':
         'Keep input focusable while preventing edits and calendar selection.',
+      'date-picker-range-props.properties.size.description': 'Visual density.',
+      'date-picker-range-props.properties.value.description':
+        'Controlled start and end civil dates in YYYY-MM-DD form.',
+      'date-picker-range-props.properties.default-value.description': 'Initial interval.',
+      'date-picker-range-props.properties.on-value-change.description':
+        'Called by input edits and each calendar selection; first click leaves the end empty.',
+      'date-picker-range-props.properties.names.description':
+        'Separate form-control names for the start and end inputs.',
+      'date-picker-range-props.properties.disabled.description': 'Disable input and popup.',
+      'date-picker-range-props.properties.max.description': 'Latest selectable date, inclusive.',
+      'date-picker-range-props.properties.min.description': 'Earliest selectable date, inclusive.',
+      'date-picker-range-props.properties.read-only.description':
+        'Keep input focusable while preventing edits and calendar selection.',
+      'date-picker-range-props.properties.open.description': 'Controlled calendar popup state.',
+      'date-picker-range-props.properties.default-open.description':
+        'Initial calendar popup state.',
+      'date-picker-range-props.properties.on-open-change.description':
+        'Called when the popup is requested to open or close.',
       'date-picker-calendar-props.properties.auto-focus.description':
         'Focus the enabled selected day or first available day on mount.',
       'date-picker-calendar-props.properties.disabled.description':
         'Disable all selection and keyboard navigation.',
-      'date-picker-calendar-props.properties.read-only.description':
-        'Permit navigation while preventing selection.',
       'date-picker-calendar-props.properties.month.description':
         'Controlled displayed month in YYYY-MM form.',
+      'date-picker-calendar-props.properties.read-only.description':
+        'Permit navigation while preventing selection.',
+      'date-picker-calendar-props.properties.mode.description':
+        'Controlled panel mode: a day grid or a grid of twelve months.',
       'date-picker-calendar-props.properties.default-month.description':
         'Initial month; defaults to selected date or today.',
       'date-picker-calendar-props.properties.on-month-change.description':
         'Called for requested month navigation.',
+      'date-picker-calendar-props.properties.default-mode.description': 'Initial panel mode.',
+      'date-picker-calendar-props.properties.on-mode-change.description':
+        'Called when the panel mode changes.',
+      'date-picker-calendar-props.properties.render-header.description':
+        'Replace the header while retaining panel state and navigation constraints.',
+      'date-picker-calendar-props.properties.render-date-content.description':
+        'Additional non-interactive content below each date number.',
+      'date-picker-calendar-props.properties.highlight-range.description':
+        'Highlight an inclusive civil-date interval without changing single-date selection.',
       'date-picker-calendar-props.properties.is-date-unavailable.description':
         'Additional consumer-owned unavailable dates.',
       'date-picker-calendar-props.properties.locale.description':
         'Intl locale for month, weekday and date names.',
       'date-picker-calendar-props.properties.week-starts-on.description':
         'First weekday, 0 (Sunday) through 6 (Saturday).',
+      'date-picker-calendar-props.properties.show-outside-days.description':
+        'Render dates belonging to adjacent months.',
+      'date-picker-calendar-props.properties.fixed-weeks.description':
+        'Always render six week rows; false uses only the weeks needed by the month.',
       'date-picker-calendar-props.properties.previous-month-content.description':
         'Decorative content for the previous-month button.',
       'date-picker-calendar-props.properties.next-month-content.description':
@@ -438,12 +492,55 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Localized previous-month button label.',
       'date-picker-calendar-props.properties.next-month-label.description':
         'Localized next-month button label.',
+      'date-picker-calendar-props.properties.previous-year-label.description':
+        'Localized previous-year button label.',
+      'date-picker-calendar-props.properties.next-year-label.description':
+        'Localized next-year button label.',
       'date-picker-content-props.properties.placement.description':
         "Logical Start/End alignments follow the trigger's direction.",
       'date-picker-content-props.properties.offset.description':
         'Space between the trigger and panel, in pixels.',
+      'date-picker-input-props.properties.type.description':
+        'Native date entry follows the browser locale; text entry allows application-managed YYYY-MM-DD placeholders and validation.',
+      'date-picker-range-calendar-props.properties.disabled.description':
+        'Disable all selection and keyboard navigation.',
+      'date-picker-range-calendar-props.properties.month.description':
+        'Controlled displayed month in YYYY-MM form.',
+      'date-picker-range-calendar-props.properties.read-only.description':
+        'Permit navigation while preventing selection.',
+      'date-picker-range-calendar-props.properties.default-month.description':
+        'Initial month; defaults to selected date or today.',
+      'date-picker-range-calendar-props.properties.on-month-change.description':
+        'Called for requested month navigation.',
+      'date-picker-range-calendar-props.properties.render-date-content.description':
+        'Additional non-interactive content below each date number.',
+      'date-picker-range-calendar-props.properties.is-date-unavailable.description':
+        'Additional consumer-owned unavailable dates.',
+      'date-picker-range-calendar-props.properties.locale.description':
+        'Intl locale for month, weekday and date names.',
+      'date-picker-range-calendar-props.properties.week-starts-on.description':
+        'First weekday, 0 (Sunday) through 6 (Saturday).',
+      'date-picker-range-calendar-props.properties.fixed-weeks.description':
+        'Always render six week rows; false uses only the weeks needed by the month.',
+      'date-picker-range-calendar-props.properties.previous-month-content.description':
+        'Decorative content for the previous-month button.',
+      'date-picker-range-calendar-props.properties.next-month-content.description':
+        'Decorative content for the next-month button.',
+      'date-picker-range-calendar-props.properties.previous-month-label.description':
+        'Localized previous-month button label.',
+      'date-picker-range-calendar-props.properties.next-month-label.description':
+        'Localized next-month button label.',
+      'date-picker-range-calendar-props.properties.previous-year-label.description':
+        'Localized previous-year button label.',
+      'date-picker-range-calendar-props.properties.next-year-label.description':
+        'Localized next-year button label.',
+      'date-picker-range-input-props.properties.type.description':
+        'Text entry accepts application-managed date formats; native date entry follows the browser locale.',
+      'date-picker-range-input-props.properties.edge.description': 'Endpoint edited by this input.',
       'date-picker-trigger-props.properties.render.description':
         'Supply a button which forwards the provided native props and ref.',
+      'date-range.description':
+        'Inclusive date interval; an empty endpoint permits an open-ended or pending range.',
     },
   },
   dialog: {
@@ -588,6 +685,10 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'floating-action-props.properties.variant.description': 'Visual treatment of the button.',
       'floating-action-group-props.properties.trigger.description':
         'Pointer activation. Both modes support keyboard and touch clicks.',
+      'floating-action-group-props.properties.anchor.description':
+        'Position against the trigger button or the complete root control.',
+      'floating-action-group-props.properties.auto-focus.description':
+        'Move focus into the panel on open; false preserves editable input focus.',
       'floating-action-group-props.properties.restore-focus-on-close.description':
         'Return focus to the trigger after programmatic close. Escape always returns focus.',
       'floating-action-trigger-props.properties.aria-label.description':
@@ -870,9 +971,15 @@ export const componentsApiEnUS: ApiDescriptionResources = {
   },
   pagination: {
     api: {
+      'pagination-labels.properties.selected.description':
+        'Selection suffix appended to the total when selectedCount is positive.',
+      'pagination-props.properties.size.description':
+        'Density of page items, page-size selection and quick jump.',
       'pagination-props.properties.align.description': 'Alignment within the available width.',
       'pagination-props.properties.show-all.description':
         'Enables total, page size and quick jump together. Individual flags take precedence.',
+      'pagination-props.properties.selected-count.description':
+        'Selected items across pages; appended to the visible total. Omitted or zero hides the suffix.',
       'pagination-props.properties.page-size-options.description':
         'Positive integer choices; the current page size is always included.',
       'pagination-props.properties.labels.description':
@@ -883,6 +990,10 @@ export const componentsApiEnUS: ApiDescriptionResources = {
     api: {
       'popover-props.properties.trigger.description':
         'Pointer activation. Both modes support keyboard and touch clicks.',
+      'popover-props.properties.anchor.description':
+        'Position against the trigger button or the complete root control.',
+      'popover-props.properties.auto-focus.description':
+        'Move focus into the panel on open; false preserves editable input focus.',
       'popover-props.properties.restore-focus-on-close.description':
         'Return focus to the trigger after programmatic close. Escape always returns focus.',
       'popover-trigger-props.properties.variant.description':
@@ -978,6 +1089,15 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'select-props.properties.id.description': 'Identifier applied to the interactive trigger.',
       'select-props.properties.read-only.description':
         'Prevents opening or changing selection while remaining focusable.',
+      'select-multiple-props.properties.default-value.description': 'Initially selected values.',
+      'select-multiple-props.properties.id.description':
+        'Identifier applied to the interactive trigger.',
+      'select-multiple-props.properties.value.description':
+        'Controlled selected values; an empty array means no selection.',
+      'select-multiple-props.properties.read-only.description':
+        'Prevents opening or changing selection while remaining focusable.',
+      'select-multiple-props.properties.on-value-change.description':
+        'Called when an option is toggled or a selected value is removed.',
       'select-trigger-props.properties.render-value.description':
         'Render the selected value without changing option labels or keyboard behavior.',
       'select-trigger-props.properties.indicator.description':
@@ -986,6 +1106,8 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Indicates the entered value does not conform to the format expected by the application.',
       'select-content-props.properties.placement.description':
         'Preferred placement; flips and shifts at viewport boundaries.',
+      'select-option-props.properties.intent.description':
+        'Semantic color for the selected value and removable selected tag; dropdown rows stay neutral.',
     },
   },
   separator: {
@@ -1025,9 +1147,19 @@ export const componentsApiEnUS: ApiDescriptionResources = {
   },
   statistic: {
     api: {
+      'statistic-animation-options.properties.from.description':
+        'Starting value for the first numeric animation.',
+      'statistic-animation-options.properties.duration.description':
+        'Initial animation duration in milliseconds. Defaults to the 560 ms motion token.',
+      'statistic-animation-options.properties.update-duration.description':
+        'Duration of subsequent value changes in milliseconds. Defaults to the 360 ms motion token.',
       'statistic-props.properties.label.description': 'The accessible metric label.',
       'statistic-props.properties.value.description':
         'The displayed metric value; zero remains visible.',
+      'statistic-props.properties.animation.description':
+        'Animates finite numeric values using the decelerate motion token. Respects reduced motion.',
+      'statistic-props.properties.formatter.description':
+        'Formats numeric values, including animation frames. Pass numbers to value and units to suffix.',
       'statistic-props.properties.prefix.description':
         'Content before the value, such as a currency symbol.',
       'statistic-props.properties.suffix.description': 'Content after the value, such as a unit.',
@@ -1036,6 +1168,12 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'statistic-props.properties.description.description': 'Supporting context for the metric.',
       'statistic-props.properties.loading.description':
         'Replaces the value with a Skeleton and exposes aria-busy.',
+      'statistic-value-props.properties.value.description':
+        'Numeric value for the compound slot. Explicit children take precedence.',
+      'statistic-value-props.properties.animation.description':
+        'Optional numeric animation with the same behavior as Statistic.Root.',
+      'statistic-value-props.properties.formatter.description':
+        'Formats the numeric value and its animation frames.',
       'statistic-trend-props.properties.direction.description':
         'Direction of change, independent of semantic intent.',
       'statistic-trend-props.properties.intent.description':
@@ -1104,10 +1242,18 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Legacy density alias: small = compact, medium = default, large = comfortable. Prefer density.',
       'table-props.properties.border.description':
         'Border treatment. Separators divide adjacent rows without an outer edge.',
+      'table-props.properties.header-dividers.description':
+        'Short vertical separators between column headings.',
+      'table-props.properties.resizable.description':
+        'Enables pointer and keyboard column resizing.',
+      'table-props.properties.min-column-width.description':
+        'Minimum width in pixels when resizing a column.',
       'table-props.properties.striped.description': 'Alternating body row backgrounds.',
       'table-props.properties.hoverable.description': 'Highlights pointer-hovered rows.',
       'table-props.properties.sticky-header.description':
         'Sticks column headings inside the nearest scrolling viewport.',
+      'table-head-props.properties.actions.description':
+        'Trailing column controls, such as Table.Filter; kept outside the sorting button.',
       'table-head-props.properties.on-sort-change.description':
         'Makes the column heading a three-state sorting button. Data ordering is consumer-owned.',
       'table-head-props.properties.align.description':
@@ -1123,6 +1269,43 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Initial uncontrolled direction.',
       'table-sort-button-props.properties.on-direction-change.description':
         'Requests the next direction: none → ascending → descending → none.',
+      'table-filter-props.properties.tooltip.description':
+        'Tooltip content. Defaults to the generic localized Filter label; false hides the hint.',
+      'table-filter-props.properties.size.description':
+        'Size of the Confirm and Reset action buttons.',
+      'table-filter-props.properties.label.description':
+        'Column name used to label the filter button and popover.',
+      'table-filter-props.properties.options.description': 'Available checkbox choices.',
+      'table-filter-props.properties.value.description':
+        'Controlled applied values. An empty array means no filter.',
+      'table-filter-props.properties.default-value.description':
+        'Initial applied values when uncontrolled.',
+      'table-filter-props.properties.on-value-change.description':
+        'Called on Confirm or Reset; checking a box only changes the draft.',
+      'table-filter-props.properties.disabled.description': 'Disables the filter trigger.',
+      'table-filter-props.properties.class-name.description':
+        'Consumer class applied to the filter root.',
+      'table-selection-option.properties.key.description': 'Stable custom action identifier.',
+      'table-selection-option.properties.label.description': 'Menu item content.',
+      'table-selection-option.properties.on-select.description':
+        'Returns the next selected keys from the selectable page keys and current selection.',
+      'table-selection-option.properties.disabled.description': 'Disables this action.',
+      'table-selection-props.properties.row-keys.description':
+        'Selectable keys on the current page, in display order. Exclude disabled rows.',
+      'table-selection-props.properties.value.description':
+        'Controlled selected keys, including selections from other pages.',
+      'table-selection-props.properties.default-value.description':
+        'Initial selected keys when uncontrolled.',
+      'table-selection-props.properties.on-value-change.description':
+        'Called once when the checkbox or a menu action changes selection.',
+      'table-selection-props.properties.selections.description':
+        'Optional selection menu: true shows all, invert and none; an array orders built-in and custom actions. false or an empty array hides the arrow.',
+      'table-selection-props.properties.label.description':
+        'Accessible name of the select-page checkbox.',
+      'table-selection-props.properties.menu-label.description':
+        'Accessible name of the selection menu trigger.',
+      'table-selection-props.properties.disabled.description':
+        'Disables the checkbox and menu. Empty rowKeys also disables them.',
     },
   },
   tabs: {
@@ -1215,6 +1398,8 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Render a custom button while forwarding the supplied props and ref.',
       'toast-close-props.properties.render.description':
         'Render a custom button while forwarding the supplied props and ref.',
+      'toast-viewport-props.properties.portal.description':
+        'Places notifications outside clipping and isolated page layouts, preserving theme and direction. Set false for an inline viewport.',
     },
   },
   tooltip: {
@@ -1234,6 +1419,8 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'tooltip-content-props.properties.size.description':
         "Content density, independent of Tooltip.Trigger's button size.",
       'tooltip-content-props.properties.tone.description': 'Theme-aware semantic color.',
+      'tooltip-content-props.properties.anchor-ref.description':
+        'Optional positioning anchor; hover, focus and accessible description remain on the trigger.',
     },
   },
   tree: {
@@ -1325,7 +1512,7 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Controlled civil date in YYYY-MM-DD form; empty means no selection.',
       'date-picker-props.properties.default-value.description': 'Initial selected date.',
       'date-picker-props.properties.on-value-change.description':
-        'Called by native date input edits or calendar selection.',
+        'Called by input edits or calendar selection.',
       'date-picker-props.properties.open.description': 'Controlled calendar popup state.',
       'date-picker-props.properties.default-open.description': 'Initial calendar popup state.',
       'date-picker-props.properties.on-open-change.description':
@@ -1336,6 +1523,8 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
       'date-picker-props.properties.disabled.description': 'Disable input and popup.',
       'date-picker-props.properties.read-only.description':
         'Keep input focusable while preventing edits and calendar selection.',
+      'date-picker-input-props.properties.type.description':
+        'Native date entry follows the browser locale; text entry allows application-managed YYYY-MM-DD placeholders and validation.',
       'date-picker-trigger-props.properties.render.description':
         'Supply a button which forwards the provided native props and ref.',
       'date-picker-content-props.properties.placement.description':
@@ -1346,20 +1535,35 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Focus the enabled selected day or first available day on mount.',
       'date-picker-calendar-props.properties.disabled.description':
         'Disable all selection and keyboard navigation.',
-      'date-picker-calendar-props.properties.read-only.description':
-        'Permit navigation while preventing selection.',
       'date-picker-calendar-props.properties.month.description':
         'Controlled displayed month in YYYY-MM form.',
+      'date-picker-calendar-props.properties.read-only.description':
+        'Permit navigation while preventing selection.',
+      'date-picker-calendar-props.properties.mode.description':
+        'Controlled panel mode: a day grid or a grid of twelve months.',
       'date-picker-calendar-props.properties.default-month.description':
         'Initial month; defaults to selected date or today.',
       'date-picker-calendar-props.properties.on-month-change.description':
         'Called for requested month navigation.',
+      'date-picker-calendar-props.properties.default-mode.description': 'Initial panel mode.',
+      'date-picker-calendar-props.properties.on-mode-change.description':
+        'Called when the panel mode changes.',
+      'date-picker-calendar-props.properties.render-header.description':
+        'Replace the header while retaining panel state and navigation constraints.',
+      'date-picker-calendar-props.properties.render-date-content.description':
+        'Additional non-interactive content below each date number.',
+      'date-picker-calendar-props.properties.highlight-range.description':
+        'Highlight an inclusive civil-date interval without changing single-date selection.',
       'date-picker-calendar-props.properties.is-date-unavailable.description':
         'Additional consumer-owned unavailable dates.',
       'date-picker-calendar-props.properties.locale.description':
         'Intl locale for month, weekday and date names.',
       'date-picker-calendar-props.properties.week-starts-on.description':
         'First weekday, 0 (Sunday) through 6 (Saturday).',
+      'date-picker-calendar-props.properties.show-outside-days.description':
+        'Render dates belonging to adjacent months.',
+      'date-picker-calendar-props.properties.fixed-weeks.description':
+        'Always render six week rows; false uses only the weeks needed by the month.',
       'date-picker-calendar-props.properties.previous-month-content.description':
         'Decorative content for the previous-month button.',
       'date-picker-calendar-props.properties.next-month-content.description':
@@ -1368,6 +1572,64 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Localized previous-month button label.',
       'date-picker-calendar-props.properties.next-month-label.description':
         'Localized next-month button label.',
+      'date-picker-calendar-props.properties.previous-year-label.description':
+        'Localized previous-year button label.',
+      'date-picker-calendar-props.properties.next-year-label.description':
+        'Localized next-year button label.',
+      'date-range.description':
+        'Inclusive date interval; an empty endpoint permits an open-ended or pending range.',
+      'date-picker-range-props.properties.value.description':
+        'Controlled start and end civil dates in YYYY-MM-DD form.',
+      'date-picker-range-props.properties.default-value.description': 'Initial interval.',
+      'date-picker-range-props.properties.on-value-change.description':
+        'Called by input edits and each calendar selection; first click leaves the end empty.',
+      'date-picker-range-props.properties.names.description':
+        'Separate form-control names for the start and end inputs.',
+      'date-picker-range-props.properties.disabled.description': 'Disable input and popup.',
+      'date-picker-range-props.properties.max.description': 'Latest selectable date, inclusive.',
+      'date-picker-range-props.properties.min.description': 'Earliest selectable date, inclusive.',
+      'date-picker-range-props.properties.read-only.description':
+        'Keep input focusable while preventing edits and calendar selection.',
+      'date-picker-range-props.properties.open.description': 'Controlled calendar popup state.',
+      'date-picker-range-props.properties.default-open.description':
+        'Initial calendar popup state.',
+      'date-picker-range-props.properties.on-open-change.description':
+        'Called when the popup is requested to open or close.',
+      'date-picker-range-input-props.properties.type.description':
+        'Text entry accepts application-managed date formats; native date entry follows the browser locale.',
+      'date-picker-range-input-props.properties.edge.description': 'Endpoint edited by this input.',
+      'date-picker-range-calendar-props.properties.disabled.description':
+        'Disable all selection and keyboard navigation.',
+      'date-picker-range-calendar-props.properties.month.description':
+        'Controlled displayed month in YYYY-MM form.',
+      'date-picker-range-calendar-props.properties.read-only.description':
+        'Permit navigation while preventing selection.',
+      'date-picker-range-calendar-props.properties.default-month.description':
+        'Initial month; defaults to selected date or today.',
+      'date-picker-range-calendar-props.properties.on-month-change.description':
+        'Called for requested month navigation.',
+      'date-picker-range-calendar-props.properties.render-date-content.description':
+        'Additional non-interactive content below each date number.',
+      'date-picker-range-calendar-props.properties.is-date-unavailable.description':
+        'Additional consumer-owned unavailable dates.',
+      'date-picker-range-calendar-props.properties.locale.description':
+        'Intl locale for month, weekday and date names.',
+      'date-picker-range-calendar-props.properties.week-starts-on.description':
+        'First weekday, 0 (Sunday) through 6 (Saturday).',
+      'date-picker-range-calendar-props.properties.fixed-weeks.description':
+        'Always render six week rows; false uses only the weeks needed by the month.',
+      'date-picker-range-calendar-props.properties.previous-month-content.description':
+        'Decorative content for the previous-month button.',
+      'date-picker-range-calendar-props.properties.next-month-content.description':
+        'Decorative content for the next-month button.',
+      'date-picker-range-calendar-props.properties.previous-month-label.description':
+        'Localized previous-month button label.',
+      'date-picker-range-calendar-props.properties.next-month-label.description':
+        'Localized next-month button label.',
+      'date-picker-range-calendar-props.properties.previous-year-label.description':
+        'Localized previous-year button label.',
+      'date-picker-range-calendar-props.properties.next-year-label.description':
+        'Localized next-year button label.',
     },
   },
   calendar: {
@@ -1382,6 +1644,16 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Initial month; defaults to selected date or today.',
       'calendar-props.properties.on-month-change.description':
         'Called for requested month navigation.',
+      'calendar-props.properties.mode.description':
+        'Controlled panel mode: a day grid or a grid of twelve months.',
+      'calendar-props.properties.default-mode.description': 'Initial panel mode.',
+      'calendar-props.properties.on-mode-change.description': 'Called when the panel mode changes.',
+      'calendar-props.properties.render-header.description':
+        'Replace the header while retaining panel state and navigation constraints.',
+      'calendar-props.properties.render-date-content.description':
+        'Additional non-interactive content below each date number.',
+      'calendar-props.properties.highlight-range.description':
+        'Highlight an inclusive civil-date interval without changing single-date selection.',
       'calendar-props.properties.min.description': 'Earliest selectable civil date, inclusive.',
       'calendar-props.properties.max.description': 'Latest selectable civil date, inclusive.',
       'calendar-props.properties.is-date-unavailable.description':
@@ -1390,6 +1662,10 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Intl locale for month, weekday and date names.',
       'calendar-props.properties.week-starts-on.description':
         'First weekday, 0 (Sunday) through 6 (Saturday).',
+      'calendar-props.properties.show-outside-days.description':
+        'Render dates belonging to adjacent months.',
+      'calendar-props.properties.fixed-weeks.description':
+        'Always render six week rows; false uses only the weeks needed by the month.',
       'calendar-props.properties.disabled.description':
         'Disable all selection and keyboard navigation.',
       'calendar-props.properties.read-only.description':
@@ -1404,6 +1680,9 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Localized previous-month button label.',
       'calendar-props.properties.next-month-label.description':
         'Localized next-month button label.',
+      'calendar-props.properties.previous-year-label.description':
+        'Localized previous-year button label.',
+      'calendar-props.properties.next-year-label.description': 'Localized next-year button label.',
     },
   },
   timeline: {
@@ -1882,6 +2161,10 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
     api: {
       'popover-props.properties.trigger.description':
         'Pointer activation. Both modes support keyboard and touch clicks.',
+      'popover-props.properties.anchor.description':
+        'Position against the trigger button or the complete root control.',
+      'popover-props.properties.auto-focus.description':
+        'Move focus into the panel on open; false preserves editable input focus.',
       'popover-props.properties.restore-focus-on-close.description':
         'Return focus to the trigger after programmatic close. Escape always returns focus.',
       'popover-trigger-props.properties.render.description':
@@ -1910,6 +2193,17 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
       'select-props.properties.id.description': 'Identifier applied to the interactive trigger.',
       'select-props.properties.read-only.description':
         'Prevents opening or changing selection while remaining focusable.',
+      'select-multiple-props.properties.value.description':
+        'Controlled selected values; an empty array means no selection.',
+      'select-multiple-props.properties.default-value.description': 'Initially selected values.',
+      'select-multiple-props.properties.on-value-change.description':
+        'Called when an option is toggled or a selected value is removed.',
+      'select-multiple-props.properties.id.description':
+        'Identifier applied to the interactive trigger.',
+      'select-multiple-props.properties.read-only.description':
+        'Prevents opening or changing selection while remaining focusable.',
+      'select-remove-props.properties.value.description':
+        'Selected value to remove; returns focus to the trigger.',
       'select-content-props.properties.placement.description':
         'Preferred placement; flips and shifts at viewport boundaries.',
     },
@@ -1945,6 +2239,8 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Render a custom button while forwarding the supplied props and ref.',
       'toast-close-props.properties.render.description':
         'Render a custom button while forwarding the supplied props and ref.',
+      'toast-viewport-props.properties.portal.description':
+        "Portals the viewport to document.body and inherits the declaration site's theme and direction.",
     },
   },
   tooltip: {
@@ -1957,6 +2253,8 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Smooth handoff between opted-in tooltips; ordinary tooltips keep their own delay and fade.',
       'tooltip-trigger-props.properties.render.description':
         'Forward all supplied props and ref to a native button.',
+      'tooltip-content-props.properties.anchor-ref.description':
+        'Optional positioning anchor; hover, focus and accessible description remain on the trigger.',
     },
   },
 };

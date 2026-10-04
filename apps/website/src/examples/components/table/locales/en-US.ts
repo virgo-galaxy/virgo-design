@@ -1,5 +1,19 @@
 export const tableExamplesEnUS = {
   copy: {
+    selectionTitle: 'Selection menu',
+    selectionDescription:
+      'An optional hover menu beside the select-page checkbox, with built-in and custom selection actions.',
+    showSelectionMenu: 'Show selection menu',
+    selectOddRows: 'Select odd rows',
+    selectEvenRows: 'Select even rows',
+
+    filteringTitle: 'Column filters and resizing',
+    filteringDescription:
+      'Confirm checkbox filters from a column heading. Header dividers are visible by default; enable resizing to drag them or use arrow keys.',
+    resizeColumns: 'Enable column resizing',
+    headerDividers: 'Show header dividers',
+    assignee: 'Assignee',
+
     title3: 'Three-state sorting',
     description3:
       'Click a heading to cycle ascending, descending and original order. Table.SortButton can also be composed independently.',

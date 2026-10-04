@@ -71,6 +71,22 @@ export function TablePage() {
         >
           <ComponentExample example={tableExamples.sorting} showCaption={false} />
         </ArticleSection>
+        <ArticleSection
+          id="table-filtering"
+          index="05"
+          title={t('examples.table.copy.filteringTitle')}
+          description={t('examples.table.copy.filteringDescription')}
+        >
+          <ComponentExample example={tableExamples.filtering} showCaption={false} />
+        </ArticleSection>
+        <ArticleSection
+          id="table-selection"
+          index="06"
+          title={t('examples.table.copy.selectionTitle')}
+          description={t('examples.table.copy.selectionDescription')}
+        >
+          <ComponentExample example={tableExamples.selection} showCaption={false} />
+        </ArticleSection>
       </div>
     </ComponentExampleRuntimeProvider>
   );

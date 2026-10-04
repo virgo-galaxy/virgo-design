@@ -430,7 +430,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: '((value: string) => void) | undefined',
             required: false,
             defaultValue: '',
-            description: 'Called by native date input edits or calendar selection.',
+            description: 'Called by input edits or calendar selection.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.date-picker.api.date-picker-props.properties.on-value-change.description',
@@ -520,13 +520,25 @@ export const primitiveApiReference: ApiReferenceRegistry = {
       },
       {
         name: 'DatePickerInputProps',
-        kind: 'type',
+        kind: 'interface',
         signature:
-          "Omit< InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'defaultValue' | 'name' | 'min' | 'max' >",
+          "extends Omit< InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'defaultValue' | 'name' | 'min' | 'max' >",
         description: '',
         source: '@virgo-design/primitives',
         reExported: false,
-        properties: [],
+        properties: [
+          {
+            name: 'type',
+            type: "'date' | 'text' | undefined",
+            required: false,
+            defaultValue: "'date'",
+            description:
+              'Native date entry follows the browser locale; text entry allows application-managed YYYY-MM-DD placeholders and validation.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-input-props.properties.type.description',
+          },
+        ],
         descriptionTranslationKey: 'primitives.date-picker.api.date-picker-input-props.description',
       },
       {
@@ -613,6 +625,16 @@ export const primitiveApiReference: ApiReferenceRegistry = {
               'primitives.date-picker.api.date-picker-calendar-props.properties.disabled.description',
           },
           {
+            name: 'month',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled displayed month in YYYY-MM form.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.month.description',
+          },
+          {
             name: 'readOnly',
             type: 'boolean | undefined',
             required: false,
@@ -623,14 +645,14 @@ export const primitiveApiReference: ApiReferenceRegistry = {
               'primitives.date-picker.api.date-picker-calendar-props.properties.read-only.description',
           },
           {
-            name: 'month',
-            type: 'string | undefined',
+            name: 'mode',
+            type: 'CalendarMode | undefined',
             required: false,
             defaultValue: '',
-            description: 'Controlled displayed month in YYYY-MM form.',
+            description: 'Controlled panel mode: a day grid or a grid of twelve months.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
-              'primitives.date-picker.api.date-picker-calendar-props.properties.month.description',
+              'primitives.date-picker.api.date-picker-calendar-props.properties.mode.description',
           },
           {
             name: 'defaultMonth',
@@ -651,6 +673,58 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.date-picker.api.date-picker-calendar-props.properties.on-month-change.description',
+          },
+          {
+            name: 'defaultMode',
+            type: 'CalendarMode | undefined',
+            required: false,
+            defaultValue: "'month'",
+            description: 'Initial panel mode.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.default-mode.description',
+          },
+          {
+            name: 'onModeChange',
+            type: '((mode: CalendarMode) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when the panel mode changes.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.on-mode-change.description',
+          },
+          {
+            name: 'renderHeader',
+            type: '((props: CalendarHeaderRenderProps) => ReactNode) | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Replace the header while retaining panel state and navigation constraints.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.render-header.description',
+          },
+          {
+            name: 'renderDateContent',
+            type: '((date: string) => ReactNode) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Additional non-interactive content below each date number.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.render-date-content.description',
+          },
+          {
+            name: 'highlightRange',
+            type: 'readonly [string, string] | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Highlight an inclusive civil-date interval without changing single-date selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.highlight-range.description',
           },
           {
             name: 'isDateUnavailable',
@@ -681,6 +755,27 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.date-picker.api.date-picker-calendar-props.properties.week-starts-on.description',
+          },
+          {
+            name: 'showOutsideDays',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'true',
+            description: 'Render dates belonging to adjacent months.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.show-outside-days.description',
+          },
+          {
+            name: 'fixedWeeks',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'true',
+            description:
+              'Always render six week rows; false uses only the weeks needed by the month.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.fixed-weeks.description',
           },
           {
             name: 'previousMonthContent',
@@ -722,15 +817,468 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             descriptionTranslationKey:
               'primitives.date-picker.api.date-picker-calendar-props.properties.next-month-label.description',
           },
+          {
+            name: 'previousYearLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Previous year'",
+            description: 'Localized previous-year button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.previous-year-label.description',
+          },
+          {
+            name: 'nextYearLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Next year'",
+            description: 'Localized next-year button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-calendar-props.properties.next-year-label.description',
+          },
         ],
         descriptionTranslationKey:
           'primitives.date-picker.api.date-picker-calendar-props.description',
+      },
+      {
+        name: 'DateRange',
+        kind: 'type',
+        signature: 'readonly [string, string]',
+        description:
+          'Inclusive date interval; an empty endpoint permits an open-ended or pending range.',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.date-picker.api.date-range.description',
+      },
+      {
+        name: 'DatePickerRangeProps',
+        kind: 'interface',
+        signature:
+          "extends Omit< DatePickerProps, 'value' | 'defaultValue' | 'onValueChange' | 'name' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'value',
+            type: 'DateRange | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled start and end civil dates in YYYY-MM-DD form.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'DateRange | undefined',
+            required: false,
+            defaultValue: "['', '']",
+            description: 'Initial interval.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: DateRange) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Called by input edits and each calendar selection; first click leaves the end empty.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-props.properties.on-value-change.description',
+          },
+          {
+            name: 'names',
+            type: 'readonly [string, string] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Separate form-control names for the start and end inputs.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-props.properties.names.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disable input and popup.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-props.properties.disabled.description',
+          },
+          {
+            name: 'max',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Latest selectable date, inclusive.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-props.properties.max.description',
+          },
+          {
+            name: 'min',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Earliest selectable date, inclusive.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-props.properties.min.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Keep input focusable while preventing edits and calendar selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-props.properties.read-only.description',
+          },
+          {
+            name: 'open',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled calendar popup state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-props.properties.open.description',
+          },
+          {
+            name: 'defaultOpen',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Initial calendar popup state.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-props.properties.default-open.description',
+          },
+          {
+            name: 'onOpenChange',
+            type: '((open: boolean) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when the popup is requested to open or close.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-props.properties.on-open-change.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.date-picker.api.date-picker-range-props.description',
+      },
+      {
+        name: 'DatePickerRangeInputProps',
+        kind: 'interface',
+        signature: 'extends DatePickerInputProps',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'type',
+            type: "'date' | 'text' | undefined",
+            required: false,
+            defaultValue: "'text'",
+            description:
+              'Text entry accepts application-managed date formats; native date entry follows the browser locale.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-input-props.properties.type.description',
+          },
+          {
+            name: 'edge',
+            type: "'start' | 'end'",
+            required: true,
+            defaultValue: '',
+            description: 'Endpoint edited by this input.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-input-props.properties.edge.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'primitives.date-picker.api.date-picker-range-input-props.description',
+      },
+      {
+        name: 'DatePickerRangeCalendarProps',
+        kind: 'type',
+        signature:
+          "Omit< DatePickerCalendarProps, | 'mode' | 'defaultMode' | 'onModeChange' | 'renderHeader' | 'highlightRange' | 'autoFocus' | 'showOutsideDays' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Disable all selection and keyboard navigation.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.disabled.description',
+          },
+          {
+            name: 'month',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled displayed month in YYYY-MM form.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.month.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Permit navigation while preventing selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.read-only.description',
+          },
+          {
+            name: 'defaultMonth',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initial month; defaults to selected date or today.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.default-month.description',
+          },
+          {
+            name: 'onMonthChange',
+            type: '((month: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called for requested month navigation.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.on-month-change.description',
+          },
+          {
+            name: 'renderDateContent',
+            type: '((date: string) => ReactNode) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Additional non-interactive content below each date number.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.render-date-content.description',
+          },
+          {
+            name: 'isDateUnavailable',
+            type: '((date: string) => boolean) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Additional consumer-owned unavailable dates.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.is-date-unavailable.description',
+          },
+          {
+            name: 'locale',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'en-US'",
+            description: 'Intl locale for month, weekday and date names.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.locale.description',
+          },
+          {
+            name: 'weekStartsOn',
+            type: '0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined',
+            required: false,
+            defaultValue: '0',
+            description: 'First weekday, 0 (Sunday) through 6 (Saturday).',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.week-starts-on.description',
+          },
+          {
+            name: 'fixedWeeks',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'true',
+            description:
+              'Always render six week rows; false uses only the weeks needed by the month.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.fixed-weeks.description',
+          },
+          {
+            name: 'previousMonthContent',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative content for the previous-month button.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.previous-month-content.description',
+          },
+          {
+            name: 'nextMonthContent',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Decorative content for the next-month button.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.next-month-content.description',
+          },
+          {
+            name: 'previousMonthLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Previous month'",
+            description: 'Localized previous-month button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.previous-month-label.description',
+          },
+          {
+            name: 'nextMonthLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Next month'",
+            description: 'Localized next-month button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.next-month-label.description',
+          },
+          {
+            name: 'previousYearLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Previous year'",
+            description: 'Localized previous-year button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.previous-year-label.description',
+          },
+          {
+            name: 'nextYearLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Next year'",
+            description: 'Localized next-year button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.date-picker.api.date-picker-range-calendar-props.properties.next-year-label.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'primitives.date-picker.api.date-picker-range-calendar-props.description',
       },
     ],
   },
   calendar: {
     packageName: '@virgo-design/primitives',
     declarations: [
+      {
+        name: 'CalendarMode',
+        kind: 'type',
+        signature: "'month' | 'year'",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'primitives.calendar.api.calendar-mode.description',
+      },
+      {
+        name: 'CalendarHeaderRenderProps',
+        kind: 'interface',
+        signature: '',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'month',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-header-render-props.properties.month.description',
+          },
+          {
+            name: 'mode',
+            type: 'CalendarMode',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-header-render-props.properties.mode.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-header-render-props.properties.disabled.description',
+          },
+          {
+            name: 'minMonth',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-header-render-props.properties.min-month.description',
+          },
+          {
+            name: 'maxMonth',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-header-render-props.properties.max-month.description',
+          },
+          {
+            name: 'onMonthChange',
+            type: '(month: string) => void',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-header-render-props.properties.on-month-change.description',
+          },
+          {
+            name: 'onModeChange',
+            type: '(mode: CalendarMode) => void',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-header-render-props.properties.on-mode-change.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'primitives.calendar.api.calendar-header-render-props.description',
+      },
       {
         name: 'CalendarProps',
         kind: 'interface',
@@ -801,6 +1349,68 @@ export const primitiveApiReference: ApiReferenceRegistry = {
               'primitives.calendar.api.calendar-props.properties.on-month-change.description',
           },
           {
+            name: 'mode',
+            type: 'CalendarMode | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled panel mode: a day grid or a grid of twelve months.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.mode.description',
+          },
+          {
+            name: 'defaultMode',
+            type: 'CalendarMode | undefined',
+            required: false,
+            defaultValue: "'month'",
+            description: 'Initial panel mode.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.default-mode.description',
+          },
+          {
+            name: 'onModeChange',
+            type: '((mode: CalendarMode) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when the panel mode changes.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.on-mode-change.description',
+          },
+          {
+            name: 'renderHeader',
+            type: '((props: CalendarHeaderRenderProps) => ReactNode) | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Replace the header while retaining panel state and navigation constraints.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.render-header.description',
+          },
+          {
+            name: 'renderDateContent',
+            type: '((date: string) => ReactNode) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Additional non-interactive content below each date number.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.render-date-content.description',
+          },
+          {
+            name: 'highlightRange',
+            type: 'readonly [string, string] | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Highlight an inclusive civil-date interval without changing single-date selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.highlight-range.description',
+          },
+          {
             name: 'min',
             type: 'string | undefined',
             required: false,
@@ -849,6 +1459,27 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.calendar.api.calendar-props.properties.week-starts-on.description',
+          },
+          {
+            name: 'showOutsideDays',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'true',
+            description: 'Render dates belonging to adjacent months.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.show-outside-days.description',
+          },
+          {
+            name: 'fixedWeeks',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'true',
+            description:
+              'Always render six week rows; false uses only the weeks needed by the month.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.fixed-weeks.description',
           },
           {
             name: 'disabled',
@@ -919,6 +1550,26 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.calendar.api.calendar-props.properties.next-month-label.description',
+          },
+          {
+            name: 'previousYearLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Previous year'",
+            description: 'Localized previous-year button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.previous-year-label.description',
+          },
+          {
+            name: 'nextYearLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "'Next year'",
+            description: 'Localized next-year button label.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.calendar.api.calendar-props.properties.next-year-label.description',
           },
         ],
         descriptionTranslationKey: 'primitives.calendar.api.calendar-props.description',
@@ -5878,6 +6529,26 @@ export const primitiveApiReference: ApiReferenceRegistry = {
               'primitives.popover.api.popover-props.properties.disabled.description',
           },
           {
+            name: 'anchor',
+            type: "'trigger' | 'root'",
+            required: false,
+            defaultValue: "'trigger'",
+            description: 'Position against the trigger button or the complete root control.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.popover.api.popover-props.properties.anchor.description',
+          },
+          {
+            name: 'autoFocus',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'true',
+            description: 'Move focus into the panel on open; false preserves editable input focus.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.popover.api.popover-props.properties.auto-focus.description',
+          },
+          {
             name: 'restoreFocusOnClose',
             type: 'boolean',
             required: false,
@@ -6195,6 +6866,148 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         reExported: false,
         properties: [],
         descriptionTranslationKey: 'primitives.select.api.select-trigger-props.description',
+      },
+      {
+        name: 'SelectMultipleProps',
+        kind: 'interface',
+        signature: "extends Omit< SelectProps, 'value' | 'defaultValue' | 'onValueChange' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'value',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled selected values; an empty array means no selection.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-multiple-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Initially selected values.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-multiple-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: string[]) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when an option is toggled or a selected value is removed.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-multiple-props.properties.on-value-change.description',
+          },
+          {
+            name: 'id',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Identifier applied to the interactive trigger.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-multiple-props.properties.id.description',
+          },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-multiple-props.properties.children.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-multiple-props.properties.disabled.description',
+          },
+          {
+            name: 'name',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-multiple-props.properties.name.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Prevents opening or changing selection while remaining focusable.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-multiple-props.properties.read-only.description',
+          },
+          {
+            name: 'open',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-multiple-props.properties.open.description',
+          },
+          {
+            name: 'defaultOpen',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-multiple-props.properties.default-open.description',
+          },
+          {
+            name: 'onOpenChange',
+            type: '((open: boolean) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-multiple-props.properties.on-open-change.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.select.api.select-multiple-props.description',
+      },
+      {
+        name: 'SelectRemoveProps',
+        kind: 'interface',
+        signature: 'extends ButtonHTMLAttributes<HTMLButtonElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'value',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: 'Selected value to remove; returns focus to the trigger.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.select.api.select-remove-props.properties.value.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.select.api.select-remove-props.description',
       },
       {
         name: 'SelectContentProps',
@@ -6613,12 +7426,24 @@ export const primitiveApiReference: ApiReferenceRegistry = {
       },
       {
         name: 'ToastViewportProps',
-        kind: 'type',
-        signature: 'HTMLAttributes<HTMLDivElement>',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLDivElement>',
         description: '',
         source: '@virgo-design/primitives',
         reExported: false,
-        properties: [],
+        properties: [
+          {
+            name: 'portal',
+            type: 'boolean',
+            required: false,
+            defaultValue: 'false',
+            description:
+              "Portals the viewport to document.body and inherits the declaration site's theme and direction.",
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.toast.api.toast-viewport-props.properties.portal.description',
+          },
+        ],
         descriptionTranslationKey: 'primitives.toast.api.toast-viewport-props.description',
       },
     ],
@@ -6748,6 +7573,17 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [
+          {
+            name: 'anchorRef',
+            type: 'RefObject<HTMLElement | null> | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Optional positioning anchor; hover, focus and accessible description remain on the trigger.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tooltip.api.tooltip-content-props.properties.anchor-ref.description',
+          },
           {
             name: 'placement',
             type: 'TooltipPlacement',

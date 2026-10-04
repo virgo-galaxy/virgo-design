@@ -44,14 +44,22 @@ export function CalendarPage() {
         <ArticleSection
           id="calendar-1"
           index="01"
+          title={t('examples.calendar.copy.title2')}
+          description={t('examples.calendar.copy.description2')}
+        >
+          <ComponentExample example={calendarExamples.example2} showCaption={false} />
+        </ArticleSection>
+        <ArticleSection
+          id="calendar-2"
+          index="02"
           title={t('examples.calendar.copy.title0')}
           description={t('examples.calendar.copy.description0')}
         >
           <ComponentExample example={calendarExamples.example0} showCaption={false} />
         </ArticleSection>
         <ArticleSection
-          id="calendar-2"
-          index="02"
+          id="calendar-3"
+          index="03"
           title={t('examples.calendar.copy.title1')}
           description={t('examples.calendar.copy.description1')}
         >

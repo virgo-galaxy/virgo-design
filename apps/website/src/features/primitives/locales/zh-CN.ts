@@ -201,14 +201,14 @@ export const primitivesZhCN = {
       },
     },
     select: {
-      description: '支持受控值、输入搜索、键盘导航与表单的无样式 listbox。',
+      description: '支持单选、多选、字符搜索、键盘导航与表单的无样式 listbox。',
       behaviors: {
-        item1: '协调受控或非受控值与打开状态。',
+        item1: '协调受控或非受控选择与打开状态；Select.Multiple 勾选时保持列表打开。',
         item2: '支持方向键、Home、End、Enter、Escape 和字符输入搜索。',
-        item3: '提供 name 时，可通过隐藏的原生 input 提交选中值。',
+        item3: '提供 name 时，通过隐藏的原生 input 提交单值或同名的多个值。',
       },
       accessibility: {
-        item1: '触发器控制 listbox 并暴露展开状态。',
+        item1: '触发器控制 listbox 并暴露展开状态；多选时设置 aria-multiselectable。',
         item2: '选项暴露选中与禁用语义，并管理键盘焦点。',
       },
     },

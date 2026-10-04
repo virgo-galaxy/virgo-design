@@ -1,5 +1,9 @@
 export const selectExamplesEnUS = {
   copy: {
+    allProjects: 'All projects',
+    multipleSelection: 'Multiple selection',
+    multipleSelectionDescription:
+      'Toggle several options without closing the list, and remove selections from their tags.',
     chooseProject: 'Choose project',
     chooseAProject: 'Choose a project',
     cloudDocs: 'Cloud Docs',

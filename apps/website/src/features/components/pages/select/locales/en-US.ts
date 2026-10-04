@@ -1,7 +1,7 @@
 export const selectEnUS = {
   overview: {
     description:
-      'Single-value selection through a custom Virgo listbox. The control keeps the Input family sizing and state language while owning disclosure, option, and keyboard behavior.',
+      'Single or multiple selection through a custom Virgo listbox. Select.Multiple uses checkboxes and removable tags while sharing the same sizes and keyboard navigation.',
   },
   facts: {
     mode: 'Mode',
@@ -31,6 +31,6 @@ export const selectEnUS = {
   options: {
     title: 'Options & behavior',
     description:
-      'Options support selected, disabled, long-content, pointer, and keyboard interaction without changing the public single-value model.',
+      'Options support selected, disabled, long-content, pointer, and keyboard interaction in both selection modes.',
   },
 } as const;

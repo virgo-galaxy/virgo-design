@@ -55,6 +55,14 @@ export function DatePickerPage() {
         >
           <ComponentExample example={datePickerExamples.example1} showCaption={false} />
         </ArticleSection>
+        <ArticleSection
+          id="date-picker-3"
+          index="03"
+          title={t('examples.datePicker.copy.title2')}
+          description={t('examples.datePicker.copy.description2')}
+        >
+          <ComponentExample example={datePickerExamples.example2} showCaption={false} />
+        </ArticleSection>
       </div>
     </ComponentExampleRuntimeProvider>
   );

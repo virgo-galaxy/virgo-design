@@ -61,6 +61,7 @@ export const paginationExamplesEnUS = {
     valueItemsPerPage: '{{v0}} items per page',
     jumpTo: 'Jump to',
     page: 'page',
+    selected: '(Selected {{count}} items)',
     valueItemsInTotal: '{{v0}} items in total',
   },
 } as const;
