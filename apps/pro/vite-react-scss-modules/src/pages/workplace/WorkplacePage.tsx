@@ -1,12 +1,4 @@
-import {
-  ArrowRightIcon,
-  CalendarIcon,
-  CircleCheckIcon,
-  DownloadIcon,
-  GaugeIcon,
-  LayersIcon,
-  UserIcon,
-} from '@virgo-design/icons';
+import { ArrowRightIcon, CircleCheckIcon, GaugeIcon, LayersIcon } from '@virgo-design/icons';
 import { Button, Progress, Statistic, Surface, Tag, Timeline } from '@virgo-design/ui';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,12 +7,18 @@ import { useNavigate } from 'react-router';
 import { useProData } from '@/application/pro-data-context';
 import { RemoteState } from '@/application/RemoteState';
 import { useOverviewRefresh } from '@/application/use-overview-refresh';
+import checkBadgeArtwork from '@/assets/illustrations/check-badge.svg';
+import clipboardCheckArtwork from '@/assets/illustrations/clipboard-check.svg';
+import folderDocumentArtwork from '@/assets/illustrations/folder-document.svg';
+import usersArtwork from '@/assets/illustrations/users.svg';
 import { shortcuts } from '@/data/workplace';
 import { PageHeading } from '@/pages/shared/ProPage';
 import { getActivityActionLabel } from '@/pages/workplace/activity-presentation';
 
 import { DeliveryTrend } from './DeliveryTrend';
 import { RecentTasks } from './RecentTasks';
+import { TokenUsageCalendar } from './TokenUsageCalendar';
+import { TokenUsageHeatmap } from './TokenUsageHeatmap';
 import styles from './WorkplacePage.module.scss';
 import { WorkplaceWidget, type WorkplaceWidgetState } from './WorkplaceWidget';
 import { WorkspaceCarousel } from './WorkspaceCarousel';
@@ -28,45 +26,22 @@ import { WorkspaceCarousel } from './WorkspaceCarousel';
 const widgetIds = ['distribution', 'shortcuts', 'inspiration', 'activity'] as const;
 type WidgetId = (typeof widgetIds)[number];
 
-const metricIcons = {
-  projects: LayersIcon,
-  tasks: CircleCheckIcon,
-  members: UserIcon,
-  completion: GaugeIcon,
+const metricArtwork = {
+  projects: folderDocumentArtwork,
+  tasks: clipboardCheckArtwork,
+  members: usersArtwork,
+  completion: checkBadgeArtwork,
 };
 const shortcutIcons = { tasks: CircleCheckIcon, projects: LayersIcon, analytics: GaugeIcon };
-
-function exportSnapshot(
-  recentTasks: import('@/api/analytics').WorkplaceOverviewDto['recentTasks'],
-  snapshot: import('@/api/analytics').WorkplaceOverviewDto['snapshot'],
-) {
-  const columns = ['ID', 'Task', 'Project', 'Status', 'Priority', 'Assignee', 'Due date'];
-  const rows = recentTasks.map((task) => [
-    task.id,
-    task.title,
-    task.project,
-    task.status,
-    task.priority,
-    task.assignee.name,
-    task.due,
-  ]);
-  const csv = [columns, ...rows]
-    .map((row) => row.map((value) => `"${value.replaceAll('"', '""')}"`).join(','))
-    .join('\r\n');
-  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = `virgo-workplace-${snapshot.date}.csv`;
-  link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
+const completionValue = (value: number) => `${Math.round(value)}%`;
 
 export function WorkplacePage() {
-  const { profile, recentTasks, activity, announcements, metrics, projectDistribution, snapshot } =
-    useProData();
+  const { profile, activity, announcements, metrics, projectDistribution, snapshot } = useProData();
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
+  const [hoveredShortcut, setHoveredShortcut] = useState<string | null>(null);
+  const [focusedShortcut, setFocusedShortcut] = useState<string | null>(null);
   const [widgets, setWidgets] = useState<Record<WidgetId, WorkplaceWidgetState>>({
     distribution: 'expanded',
     shortcuts: 'expanded',
@@ -74,7 +49,7 @@ export function WorkplacePage() {
     activity: 'expanded',
   });
   const widgetTriggers = useRef<Partial<Record<WidgetId, HTMLButtonElement | null>>>({});
-  const exportRef = useRef<HTMLButtonElement>(null);
+  const allTasksRef = useRef<HTMLButtonElement>(null);
   const changeWidget = (id: WidgetId, state: WorkplaceWidgetState) =>
     setWidgets((previous) => ({ ...previous, [id]: state }));
   const removeWidget = (id: WidgetId) => {
@@ -83,7 +58,7 @@ export function WorkplacePage() {
     const next = candidates.find(
       (candidate) => widgets[candidate] !== 'removing' && widgets[candidate] !== 'removed',
     );
-    (next ? widgetTriggers.current[next] : exportRef.current)?.focus();
+    (next ? widgetTriggers.current[next] : allTasksRef.current)?.focus();
     changeWidget(id, 'removing');
   };
   const widgetProps = (id: WidgetId) => ({
@@ -105,61 +80,48 @@ export function WorkplacePage() {
         data-aside-hidden={widgetIds.every((id) => widgets[id] === 'removed')}
       >
         <div className={styles.primaryColumn}>
-          <PageHeading
-            title={
-              <>
-                {t('workplace.welcomeBackMystic', { name: profile.name })}
-                <span className={styles.welcomeDot}>.</span>
-              </>
-            }
-            description={t('workplace.goodWorkStartsWithAClearViewHereS')}
-            actions={
-              <div className={styles.welcomeActions}>
-                <span className={styles.snapshotDate}>
-                  <CalendarIcon />
-                  <time dateTime={snapshot.date}>
-                    {new Intl.DateTimeFormat(i18n.language, {
-                      dateStyle: 'medium',
-                      timeZone: 'UTC',
-                    }).format(new Date(`${snapshot.date}T00:00:00Z`))}
-                  </time>
-                </span>
-                <Button
-                  variant="outline"
-                  size="small"
-                  leadingIcon={<DownloadIcon />}
-                  ref={exportRef}
-                  onClick={() => exportSnapshot(recentTasks, snapshot)}
-                >
-                  {t('workplace.exportSnapshot')}
-                </Button>
-              </div>
-            }
-          />
+          <div className={styles.welcome}>
+            <PageHeading
+              title={
+                <>
+                  {t('workplace.welcomeBackMystic', { name: profile.name })}
+                  <span className={styles.welcomeDot}>.</span>
+                </>
+              }
+              description={t('workplace.goodWorkStartsWithAClearViewHereS')}
+              actions={<TokenUsageCalendar />}
+            />
+          </div>
 
           <Surface border="default" radius={12} className={styles.metrics}>
-            {metrics.map((metric) => {
-              const Icon = metricIcons[metric.icon];
-              return (
+            {metrics.map((metric) => (
+              <div key={metric.icon} className={styles.metric}>
+                <img
+                  className={styles.metricArtwork}
+                  src={metricArtwork[metric.icon]}
+                  alt=""
+                  width={56}
+                  height={56}
+                  aria-hidden="true"
+                />
                 <Statistic
-                  key={metric.icon}
-                  className={styles.metric}
-                  value={metric.value}
-                  label={
-                    <span className={styles.metricLabel}>
-                      <span>{t(`workplace.metrics.${metric.icon}.label`)}</span>
-                      <Icon aria-hidden="true" />
-                    </span>
-                  }
+                  className={styles.metricContent}
+                  value={metric.icon === 'completion' ? snapshot.completionRate : metric.value}
+                  {...(metric.icon === 'completion' ? { formatter: completionValue } : {})}
+                  animation
+                  label={t(`workplace.metrics.${metric.icon}.label`)}
                   trend={t(`workplace.metrics.${metric.icon}.change`)}
                   description={t(`workplace.metrics.${metric.icon}.detail`)}
                 />
-              );
-            })}
+              </div>
+            ))}
           </Surface>
 
-          <DeliveryTrend />
-          <RecentTasks />
+          <TokenUsageHeatmap />
+          <div className={styles.overviewPanels}>
+            <DeliveryTrend />
+            <RecentTasks allTasksRef={allTasksRef} />
+          </div>
           {announcements.map((announcement) => (
             <Surface
               key={announcement.id}
@@ -172,7 +134,7 @@ export function WorkplacePage() {
                 <strong>{t('workplace.announcement.title')}</strong>
                 <p>{t('workplace.announcement.body')}</p>
               </div>
-              <Tag size="sm" variant="outline">
+              <Tag size="sm" intent="info" variant="soft">
                 {t('workplace.teamNote')}
               </Tag>
             </Surface>
@@ -215,7 +177,7 @@ export function WorkplacePage() {
                       <strong>{project.count}</strong>
                     </div>
                     <Progress
-                      size="sm"
+                      size="md"
                       value={project.count}
                       max={snapshot.openTasks}
                       aria-label={t('workplace.valueValueOfValueOpenTasks', {
@@ -245,7 +207,19 @@ export function WorkplacePage() {
                       variant="text"
                       className={styles.shortcut}
                       leadingIcon={<Icon />}
-                      trailingIcon={<ArrowRightIcon />}
+                      trailingIcon={
+                        <ArrowRightIcon
+                          animated={
+                            hoveredShortcut === shortcut.path || focusedShortcut === shortcut.path
+                              ? 'always'
+                              : false
+                          }
+                        />
+                      }
+                      onMouseEnter={() => setHoveredShortcut(shortcut.path)}
+                      onMouseLeave={() => setHoveredShortcut(null)}
+                      onFocus={() => setFocusedShortcut(shortcut.path)}
+                      onBlur={() => setFocusedShortcut(null)}
                       onClick={() => navigate(shortcut.path)}
                     >
                       <span className={styles.shortcutCopy}>
@@ -268,10 +242,10 @@ export function WorkplacePage() {
           ) : null}
           {widgets.activity !== 'removed' ? (
             <WorkplaceWidget {...widgetProps('activity')} title={t('workplace.aroundTheTeam')}>
-              <Tag size="sm" variant="outline" className={styles.activityDate}>
+              <Tag size="md" variant="outline" className={styles.activityDate}>
                 {t('workplace.today')}
               </Tag>
-              <Timeline size="small" aria-label={t('workplace.recentTeamActivity')}>
+              <Timeline size="medium" aria-label={t('workplace.recentTeamActivity')}>
                 {activity.map((event) => (
                   <Timeline.Item key={event.id} status={event.status}>
                     <Timeline.Title className={styles.activityTitle}>{event.name}</Timeline.Title>

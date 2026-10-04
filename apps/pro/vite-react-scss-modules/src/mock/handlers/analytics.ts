@@ -1,12 +1,22 @@
 import { http } from 'msw';
 
+import { projectDelivery } from '../fixtures/analytics';
 import { projects } from '../fixtures/projects';
 import { taskAssignees } from '../fixtures/tasks';
-import { activity, announcements, metrics, snapshot, trendPoints } from '../fixtures/workplace';
+import {
+  activity,
+  announcements,
+  metrics,
+  snapshot,
+  tokenUsage,
+  trendPoints,
+} from '../fixtures/workplace';
 import { endpoint, success } from '../response';
 import { getBackendTasks } from './tasks';
 export const analyticsHandlers = [
-  http.get(endpoint('/analytics/overview'), () => success({ trendPoints, activity })),
+  http.get(endpoint('/analytics/overview'), () =>
+    success({ trendPoints, projectDelivery, activity }),
+  ),
   http.get(endpoint('/workplace/overview'), () => {
     const tasks = getBackendTasks();
     const distribution = projects.map((project) => {
@@ -31,6 +41,7 @@ export const analyticsHandlers = [
       completionRate: tasks.length ? Math.round((completed / tasks.length) * 100) : 0,
     };
     return success({
+      tokenUsage,
       snapshot: currentSnapshot,
       metrics: metrics.map((metric) => ({
         ...metric,

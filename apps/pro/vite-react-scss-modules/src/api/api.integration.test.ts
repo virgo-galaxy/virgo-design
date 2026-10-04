@@ -5,6 +5,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from
 
 import { getAllTasks } from '@/application/task-queries';
 import { http, HttpError } from '@/lib/http';
+import { createMockTaskId } from '@/mock/fixtures/task-id';
 import { initialTaskState, taskReferenceDate } from '@/mock/fixtures/tasks';
 import { handlers } from '@/mock/handlers';
 import { resetProfile } from '@/mock/handlers/profile';
@@ -16,6 +17,7 @@ import { getProfile, updateProfile } from './profile';
 import { getProjects } from './projects';
 import {
   createTask,
+  deleteTasks,
   getTask,
   getTaskMetadata,
   getTasks,
@@ -44,6 +46,61 @@ const draft = {
   estimateHours: 3,
 };
 describe('consumer → API → Axios → MSW', () => {
+  it('combines multi-value filters as OR within a field and AND across fields, including all-page export', async () => {
+    const query = {
+      status: ['todo', 'in_progress'] as const,
+      priority: ['high', 'urgent'] as const,
+      project: ['Workspace', 'Discovery'],
+      assignee: ['ava', 'leo'],
+    };
+    const expected = initialTaskState.tasks.filter(
+      (task) =>
+        query.status.some((status) => task.status === status) &&
+        query.priority.some((priority) => task.priority === priority) &&
+        query.project.includes(task.project) &&
+        query.assignee.includes(task.assignee),
+    );
+    const result = await getTasks({ ...query, pageSize: 5 });
+    expect(result.total).toBe(expected.length);
+    expect(result.items).toEqual(expected.slice(0, 5));
+    expect(await getAllTasks(query)).toEqual(expected);
+    expect((await getTasks({ status: [], priority: [] })).total).toBe(256);
+    await expect(getTasks({ status: ['todo', 'invalid'] as never })).rejects.toMatchObject({
+      code: API_ERROR_CODES.INVALID_QUERY,
+    });
+  });
+  it('combines multiple due conditions for queries and export', async () => {
+    const expected = initialTaskState.tasks.filter(
+      (task) => !task.dueDate || (task.status !== 'done' && task.dueDate < taskReferenceDate),
+    );
+    expect(await getAllTasks({ due: ['overdue', 'unscheduled'] })).toEqual(expected);
+    await expect(getTasks({ due: ['overdue', 'invalid'] as never })).rejects.toMatchObject({
+      code: API_ERROR_CODES.INVALID_QUERY,
+    });
+  });
+  it('deletes a selected batch atomically, deduplicates IDs and refreshes totals and pagination', async () => {
+    const before = await getTasks();
+    const ids = before.items.slice(0, 2).map((task) => task.id);
+    await expect(deleteTasks({ ids: [ids[0]!, 'unknown'] })).rejects.toMatchObject({
+      code: API_ERROR_CODES.TASK_NOT_FOUND,
+    });
+    expect((await getTasks()).total).toBe(before.total);
+    expect(await getTask(ids[0]!)).toEqual(before.items[0]);
+    expect(await deleteTasks({ ids: [...ids, ids[0]!] })).toEqual({ deletedIds: ids });
+    const after = await getTasks({ page: 26, pageSize: 10 });
+    expect(after.total).toBe(before.total - 2);
+    expect(after.overview.total).toBe(before.overview.total - 2);
+    expect(after.items).toHaveLength(4);
+    await expect(getTask(ids[0]!)).rejects.toMatchObject({ code: API_ERROR_CODES.TASK_NOT_FOUND });
+    expect((await getAllTasks()).some((task) => ids.includes(task.id))).toBe(false);
+    await expect(deleteTasks({ ids: [] })).rejects.toMatchObject({
+      code: API_ERROR_CODES.TASK_VALIDATION_FAILED,
+    });
+    await expect(deleteTasks({ ids: [42] as never })).rejects.toMatchObject({
+      code: API_ERROR_CODES.TASK_VALIDATION_FAILED,
+    });
+    expect((await getTasks()).total).toBe(before.total - 2);
+  });
   it('unwraps list data and performs stateful create/detail/edit/status updates', async () => {
     const before = await getTasks({ page: 1, pageSize: 5 });
     expect(before.items).toHaveLength(5);
@@ -68,7 +125,9 @@ describe('consumer → API → Axios → MSW', () => {
     ).toBe(true);
     expect(allTasks.some((item) => item.dueDate === '')).toBe(true);
     const created = await createTask(draft);
-    expect(created.id).toBe(`VD-${initialTaskState.nextId}`);
+    expect(created.id).toBe(createMockTaskId(initialTaskState.nextId));
+    expect(created.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}$/);
+    expect(initialTaskState.tasks.map((task) => task.id)).not.toContain(created.id);
     expect(await getTask(created.id)).toEqual(created);
     const updated = await updateTask(created.id, {
       title: 'Edited through HTTP',
@@ -106,7 +165,7 @@ describe('consumer → API → Axios → MSW', () => {
     });
   });
   it('keeps malformed request codes separate from validation and not-found codes', async () => {
-    await expect(http.patch('/tasks/VD-138', [])).rejects.toMatchObject({
+    await expect(http.patch('/tasks/49e7996a-311b', [])).rejects.toMatchObject({
       kind: 'api',
       code: API_ERROR_CODES.INVALID_REQUEST,
       status: 400,
@@ -122,7 +181,7 @@ describe('consumer → API → Axios → MSW', () => {
         projectId: 'workspace',
         date: '2026-10-06',
         time: '10:00',
-        taskIds: ['VD-137'],
+        taskIds: ['abb01fb9-ab2f'],
         audience: 'team',
         notes: '',
         confirmed: true,
@@ -155,16 +214,16 @@ describe('consumer → API → Axios → MSW', () => {
       (
         await getTasks({ assignee: 'nina', priority: 'urgent', createdFrom: '2026-09-23' })
       ).items.map((task) => task.id),
-    ).toEqual(['VD-138']);
+    ).toEqual(['49e7996a-311b']);
     expect((await getTasks({ search: 'no matching task' })).total).toBe(0);
     expect(
       (await getTasks({ due: 'overdue', createdFrom: '2026-09-23' })).items.map((task) => task.id),
-    ).toEqual(['VD-129']);
+    ).toEqual(['b9f45231-7bd0']);
     expect(
       (await getTasks({ minimumHours: '20', createdFrom: '2026-09-23' })).items.map(
         (task) => task.id,
       ),
-    ).toEqual(['VD-123']);
+    ).toEqual(['04a7780b-584a']);
   });
   it('returns API validation and not-found errors with field and tracing metadata', async () => {
     try {
@@ -199,6 +258,19 @@ describe('consumer → API → Axios → MSW', () => {
     expect(projects).toHaveLength(4);
     expect(metadata.members).toHaveLength(4);
     expect(analytics.trendPoints).toHaveLength(14);
+    expect(analytics.projectDelivery).toHaveLength(14);
+    for (const [index, day] of analytics.projectDelivery.entries()) {
+      expect(day.date).toBe(analytics.trendPoints[index]!.date);
+      expect(day.deliveries.map((entry) => entry.projectId)).toEqual(
+        projects.map((project) => project.id),
+      );
+      expect(
+        day.deliveries.every((entry) => Number.isInteger(entry.completed) && entry.completed >= 0),
+      ).toBe(true);
+      expect(day.deliveries.reduce((sum, entry) => sum + entry.completed, 0)).toBe(
+        analytics.trendPoints[index]!.completed,
+      );
+    }
     const saved = await updateProfile({ name: 'Remote profile', digest: false });
     expect(saved.name).toBe('Remote profile');
     expect(saved.headline).toBe(profile.headline);
@@ -211,10 +283,26 @@ describe('consumer → API → Axios → MSW', () => {
     const task = await createTask(draft);
     await updateTaskStatus(task.id, 'done');
     const workplace = await getWorkplaceOverview();
+    expect(workplace.tokenUsage).toHaveLength(365);
+    expect(new Set(workplace.tokenUsage.map((day) => day.date)).size).toBe(365);
+    expect(
+      workplace.tokenUsage.every(
+        (day) =>
+          Number.isInteger(day.inputTokens) &&
+          Number.isInteger(day.outputTokens) &&
+          day.inputTokens >= 0 &&
+          day.outputTokens >= 0,
+      ),
+    ).toBe(true);
+    expect(
+      workplace.tokenUsage
+        .filter((day) => day.date > workplace.snapshot.date)
+        .every((day) => day.inputTokens === 0 && day.outputTokens === 0),
+    ).toBe(true);
     expect(workplace.projectDistribution.reduce((sum, project) => sum + project.count, 0)).toBe(
       workplace.snapshot.openTasks,
     );
-    expect(workplace.recentTasks.find((item) => item.id === 'VD-138')).toMatchObject({
+    expect(workplace.recentTasks.find((item) => item.id === '49e7996a-311b')).toMatchObject({
       status: 'todo',
       priority: 'urgent',
     });
@@ -230,18 +318,22 @@ describe('consumer → API → Axios → MSW', () => {
       projectId: 'workspace',
       date: '2026-10-06',
       time: '10:00',
-      taskIds: ['VD-128'],
+      taskIds: ['1bbcd880-f5e5'],
       audience: 'team',
       notes: 'Ready',
       confirmed: true,
     });
-    expect(receipt).toMatchObject({ outcome: 'success', kind: 'handoff', taskIds: ['VD-128'] });
+    expect(receipt).toMatchObject({
+      outcome: 'success',
+      kind: 'handoff',
+      taskIds: ['1bbcd880-f5e5'],
+    });
     const restricted = await prepareHandoff({
       title: 'External handoff',
       projectId: 'workspace',
       date: '2026-10-06',
       time: '10:00',
-      taskIds: ['VD-128'],
+      taskIds: ['1bbcd880-f5e5'],
       audience: 'external',
       notes: 'Ready',
       confirmed: true,

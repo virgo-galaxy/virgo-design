@@ -12,11 +12,23 @@ export interface ActivityDto {
   dateTime: string;
   status: 'active' | 'complete' | 'pending';
 }
+export interface TokenUsageDayDto {
+  /** Reporting date (YYYY-MM-DD); counts are raw workspace-wide tokens. */
+  date: string;
+  inputTokens: number;
+  outputTokens: number;
+}
 export interface AnalyticsOverviewDto {
   trendPoints: TrendPointDto[];
+  projectDelivery: ProjectDeliveryDayDto[];
   activity: ActivityDto[];
 }
+export interface ProjectDeliveryDayDto {
+  date: string;
+  deliveries: { projectId: string; completed: number }[];
+}
 export interface WorkplaceOverviewDto {
+  tokenUsage: TokenUsageDayDto[];
   snapshot: {
     date: string;
     displayDate: string;

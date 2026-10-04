@@ -1,4 +1,4 @@
-import type { TrendPointDto as TrendPoint } from '@/api/analytics';
+import type { TokenUsageDayDto, TrendPointDto as TrendPoint } from '@/api/analytics';
 import type { MemberDto as Member } from '@/api/tasks';
 export const snapshot = {
   date: '2026-10-01',
@@ -10,6 +10,21 @@ export const snapshot = {
   teamMembers: 24,
   completionRate: 84,
 } as const;
+
+// Stable workspace-wide daily usage fixture. Token counts are raw input/output totals,
+// independent of task deadlines; no future usage is recorded beyond the snapshot.
+export const tokenUsage: TokenUsageDayDto[] = Array.from({ length: 365 }, (_, index) => {
+  const day = new Date(Date.UTC(2026, 0, index + 1));
+  const date = day.toISOString().slice(0, 10);
+  const weekend = day.getUTCDay() === 0 || day.getUTCDay() === 6;
+  const seed = (index * 17 + Math.floor(index / 7) * 13) % 31;
+  const total =
+    date > snapshot.date || seed < 5
+      ? 0
+      : Math.round((12000000 + seed * 9700000) * (weekend ? 0.12 : 1));
+  const inputTokens = Math.round(total * 0.78);
+  return { date, inputTokens, outputTokens: total - inputTokens };
+});
 
 export const members: [Member, Member, Member, Member] = [
   { id: 'ava', name: 'Ava Chen', initials: 'AC' },

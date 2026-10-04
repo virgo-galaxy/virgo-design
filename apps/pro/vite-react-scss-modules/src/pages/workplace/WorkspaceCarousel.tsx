@@ -9,6 +9,7 @@ export function WorkspaceCarousel() {
   const { t } = useTranslation();
   return (
     <Carousel
+      size="medium"
       count={workplaceImages.length}
       loop
       autoPlay

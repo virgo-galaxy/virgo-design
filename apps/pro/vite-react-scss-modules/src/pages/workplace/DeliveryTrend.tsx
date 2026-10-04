@@ -26,7 +26,7 @@ export function DeliveryTrend() {
           <Card.Description>{t('workplace.keepTheWorkMovingOneDayAtATime')}</Card.Description>
         </div>
         <SegmentedControl
-          size="small"
+          size="medium"
           variant="soft"
           motion="slide"
           aria-label={t('workplace.deliveryPeriod')}
@@ -67,7 +67,7 @@ export function DeliveryTrend() {
               curve="smooth"
               marker="muted"
             />
-            <Chart.Tooltip />
+            <Chart.Tooltip className={styles.deliveryTooltip ?? ''} />
             <Chart.Legend />
           </Chart.Cartesian>
         </Chart.Root>
