@@ -46,6 +46,12 @@ export default defineConfig({
       '@virgo-design/colors': fileURLToPath(
         new URL('../../packages/colors/src/index.ts', import.meta.url),
       ),
+      '@virgo-design/icons/brands/virgo-design.svg': fileURLToPath(
+        new URL('../../packages/icons/brands/virgo-design.svg', import.meta.url),
+      ),
+      '@virgo-design/icons/brands': fileURLToPath(
+        new URL('../../packages/icons/src/brands.ts', import.meta.url),
+      ),
       '@virgo-design/icons/metadata': fileURLToPath(
         new URL('../../packages/icons/src/metadata.ts', import.meta.url),
       ),

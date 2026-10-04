@@ -1,13 +1,11 @@
 import './platform.scss';
 
 import { ArrowReturnIcon, type IconAnimation } from '@virgo-design/icons';
-import { getIconSvg } from '@virgo-design/icons/assets';
-import { iconManifest } from '@virgo-design/icons/metadata';
-import { iconComponents } from '@virgo-design/icons/registry';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import { getIconSvg, iconComponents, iconManifest } from './catalogue';
 import { IconCodePanel } from './IconCodePanel';
 import { IconsExplorer } from './IconsExplorer';
 
@@ -137,6 +135,11 @@ export function IconDetail({ id }: { id: string }) {
       <h3 className="icon-platform-section-title">{t('icons.codeSection')}</h3>
       <IconCodePanel
         name={icon.componentName}
+        reactSource={
+          icon.variant === 'color'
+            ? `import { VirgoDesignLogo } from '@virgo-design/icons/brands';\n\nexport default function Example() {\n  return <VirgoDesignLogo size={24} />;\n}`
+            : undefined
+        }
         svg={getIconSvg(
           icon.id,
           previewAnimation?.id === icon.id ? previewAnimation.value : undefined,

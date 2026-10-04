@@ -12,6 +12,7 @@ import { BriefcaseFilledIcon } from './BriefcaseFilledIcon.js';
 import { BriefcaseIcon } from './BriefcaseIcon.js';
 import { CalendarFilledIcon } from './CalendarFilledIcon.js';
 import { CalendarIcon } from './CalendarIcon.js';
+import { ChartLineIcon } from './ChartLineIcon.js';
 import { CheckIcon } from './CheckIcon.js';
 import { ChevronDownIcon } from './ChevronDownIcon.js';
 import { ChevronLeftIcon } from './ChevronLeftIcon.js';
@@ -38,6 +39,7 @@ import { DashboardIcon } from './DashboardIcon.js';
 import { DatabaseFilledIcon } from './DatabaseFilledIcon.js';
 import { DatabaseIcon } from './DatabaseIcon.js';
 import { DownloadIcon } from './DownloadIcon.js';
+import { EditIcon } from './EditIcon.js';
 import { EllipsisIcon } from './EllipsisIcon.js';
 import { EllipsisVerticalIcon } from './EllipsisVerticalIcon.js';
 import { ExternalLinkIcon } from './ExternalLinkIcon.js';
@@ -45,6 +47,9 @@ import { EyeClosedFilledIcon } from './EyeClosedFilledIcon.js';
 import { EyeClosedIcon } from './EyeClosedIcon.js';
 import { EyeFilledIcon } from './EyeFilledIcon.js';
 import { EyeIcon } from './EyeIcon.js';
+import { FileTextIcon } from './FileTextIcon.js';
+import { FilterFilledIcon } from './FilterFilledIcon.js';
+import { FilterIcon } from './FilterIcon.js';
 import { FormFilledIcon } from './FormFilledIcon.js';
 import { FormIcon } from './FormIcon.js';
 import { GaugeFilledIcon } from './GaugeFilledIcon.js';
@@ -81,6 +86,7 @@ import { PlayIcon } from './PlayIcon.js';
 import { PlusIcon } from './PlusIcon.js';
 import { ReceiptFilledIcon } from './ReceiptFilledIcon.js';
 import { ReceiptIcon } from './ReceiptIcon.js';
+import { ResetIcon } from './ResetIcon.js';
 import { SearchIcon } from './SearchIcon.js';
 import { SettingsFilledIcon } from './SettingsFilledIcon.js';
 import { SettingsIcon } from './SettingsIcon.js';
@@ -108,6 +114,7 @@ import { UnpinIcon } from './UnpinIcon.js';
 import { UploadIcon } from './UploadIcon.js';
 import { UserFilledIcon } from './UserFilledIcon.js';
 import { UserIcon } from './UserIcon.js';
+import { VirgoDesignIcon } from './VirgoDesignIcon.js';
 import { WidgetsFilledIcon } from './WidgetsFilledIcon.js';
 import { WidgetsIcon } from './WidgetsIcon.js';
 export const iconComponents = {
@@ -124,6 +131,7 @@ export const iconComponents = {
   briefcase: BriefcaseIcon,
   'calendar-filled': CalendarFilledIcon,
   calendar: CalendarIcon,
+  'chart-line': ChartLineIcon,
   check: CheckIcon,
   'chevron-down': ChevronDownIcon,
   'chevron-left': ChevronLeftIcon,
@@ -150,6 +158,7 @@ export const iconComponents = {
   'database-filled': DatabaseFilledIcon,
   database: DatabaseIcon,
   download: DownloadIcon,
+  edit: EditIcon,
   ellipsis: EllipsisIcon,
   'ellipsis-vertical': EllipsisVerticalIcon,
   'external-link': ExternalLinkIcon,
@@ -157,6 +166,9 @@ export const iconComponents = {
   'eye-closed': EyeClosedIcon,
   'eye-filled': EyeFilledIcon,
   eye: EyeIcon,
+  'file-text': FileTextIcon,
+  'filter-filled': FilterFilledIcon,
+  filter: FilterIcon,
   'form-filled': FormFilledIcon,
   form: FormIcon,
   'gauge-filled': GaugeFilledIcon,
@@ -193,6 +205,7 @@ export const iconComponents = {
   plus: PlusIcon,
   'receipt-filled': ReceiptFilledIcon,
   receipt: ReceiptIcon,
+  reset: ResetIcon,
   search: SearchIcon,
   'settings-filled': SettingsFilledIcon,
   settings: SettingsIcon,
@@ -220,6 +233,7 @@ export const iconComponents = {
   upload: UploadIcon,
   'user-filled': UserFilledIcon,
   user: UserIcon,
+  'virgo-design': VirgoDesignIcon,
   'widgets-filled': WidgetsFilledIcon,
   widgets: WidgetsIcon,
 } as const;

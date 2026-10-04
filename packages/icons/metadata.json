@@ -143,6 +143,17 @@
     "animated": false
   },
   {
+    "id": "chart-line",
+    "family": "chart-line",
+    "variant": "outline",
+    "category": "layout",
+    "tags": ["chart", "line", "analytics", "visualization", "trend"],
+    "aliases": ["line-chart", "data-visualization"],
+    "status": "stable",
+    "description": "A rising line chart with open axes and clipped geometric terminals.",
+    "animated": false
+  },
+  {
     "id": "check",
     "family": "check",
     "variant": "outline",
@@ -429,6 +440,17 @@
     "animated": true
   },
   {
+    "id": "edit",
+    "family": "edit",
+    "variant": "outline",
+    "category": "actions",
+    "tags": ["edit", "pencil", "write", "modify"],
+    "aliases": ["pencil", "pen"],
+    "status": "stable",
+    "description": "An open diagonal pencil with a pointed nib, separated clipped cap and a sharp angular writing underline below.",
+    "animated": false
+  },
+  {
     "id": "ellipsis",
     "family": "ellipsis",
     "variant": "outline",
@@ -504,6 +526,39 @@
     "status": "stable",
     "description": "The filled variant of the eye family.",
     "animated": true
+  },
+  {
+    "id": "file-text",
+    "family": "file-text",
+    "variant": "outline",
+    "category": "actions",
+    "tags": ["document", "details", "text", "record", "read"],
+    "aliases": ["details", "document", "file"],
+    "status": "stable",
+    "description": "An open document frame with a folded corner and two text lines.",
+    "animated": false
+  },
+  {
+    "id": "filter",
+    "family": "filter",
+    "variant": "outline",
+    "category": "system",
+    "tags": ["filter", "funnel", "table", "refine"],
+    "aliases": ["funnel"],
+    "status": "stable",
+    "description": "An outlined geometric funnel for table column filters.",
+    "animated": false
+  },
+  {
+    "id": "filter-filled",
+    "family": "filter",
+    "variant": "filled",
+    "category": "system",
+    "tags": ["filter", "funnel", "table", "refine"],
+    "aliases": [],
+    "status": "stable",
+    "description": "The filled variant of the filter family.",
+    "animated": false
   },
   {
     "id": "form",
@@ -902,6 +957,17 @@
     "animated": false
   },
   {
+    "id": "reset",
+    "family": "reset",
+    "variant": "outline",
+    "category": "actions",
+    "tags": ["reset", "restore", "clear", "query"],
+    "aliases": ["reset-filters", "restore-defaults"],
+    "status": "stable",
+    "description": "A counterclockwise circular arrow for resetting query conditions or restoring defaults.",
+    "animated": false
+  },
+  {
     "id": "search",
     "family": "search",
     "variant": "outline",
@@ -1196,6 +1262,17 @@
     "aliases": [],
     "status": "stable",
     "description": "The filled variant of the user family.",
+    "animated": false
+  },
+  {
+    "id": "virgo-design",
+    "family": "virgo-design",
+    "variant": "outline",
+    "category": "brands",
+    "tags": ["brand", "logo", "virgo", "design", "monochrome"],
+    "aliases": ["virgo", "virgo-logo"],
+    "status": "stable",
+    "description": "The original Virgo Design brand mark in a single inherited color.",
     "animated": false
   },
   {

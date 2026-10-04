@@ -2,13 +2,13 @@ import '@/i18n';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { iconManifest } from '@virgo-design/icons/metadata';
 import { useState } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 
 import { AppearanceContext } from '@/shared/theme/appearance-context';
 
+import { iconManifest } from './catalogue';
 import { IconsExplorer } from './IconsExplorer';
 
 function renderIcons(appearance: 'light' | 'dark' = 'light') {

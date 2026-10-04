@@ -34,7 +34,33 @@ packages/icons/src/generated/
 
 The package entry point is generated from the available canonical icons.
 
+`ChartLineIcon` is a single outline family for analytics and data visualization navigation.
+It pairs with the dial-shaped `GaugeIcon` for dashboard navigation, using open axes and a rising
+line to keep the two destinations visually distinct at small sizes.
+
 Applications, UI components, documentation, and the Icons Catalogue consume `@virgo-design/icons`. They do not own canonical icon geometry.
+
+`VirgoDesignIcon` (`virgo-design.svg`, category `brands`) is the monochrome version of
+the original Virgo Design mark. Its original proportions are preserved within the
+24px icon grid. It uses `currentColor`, so black, white, or a theme color can be set
+through `color` or CSS. The full-color mark also belongs to this package's brand
+resources, with its original gradients and aspect ratio:
+
+```tsx
+import { VirgoDesignIcon } from '@virgo-design/icons';
+import { VirgoDesignLogo } from '@virgo-design/icons/brands';
+import virgoDesignLogo from '@virgo-design/icons/brands/virgo-design.svg';
+
+<VirgoDesignIcon size={24} color="currentColor" />;
+<VirgoDesignLogo width={30} height={24} />;
+<img src={virgoDesignLogo} alt="Virgo Design" />;
+```
+
+The colorful SVG lives in `brands/` rather than the monochrome `icons/` source
+directory, so the 24px `currentColor` validation contract stays consistent.
+The `brands` entry also exports `brandIconManifest`, `brandIconComponents`, and
+`brandIconSvgSources` for catalogues. The colored mark appears as `virgo-design-color`
+with variant `color`, next to the monochrome `virgo-design` in the Brands category.
 
 Every metadata record uses the same fields: id, family, variant, category, tags, aliases, status, description, and
 `animated: boolean`. The flag indicates implemented animation support; it does not start playback.
@@ -276,12 +302,12 @@ not an SVG stroke API; the existing viewBox, weight, chamfers, curves, negative-
 optical-size rules apply to both. There is no runtime `<Icon variant="">` abstraction.
 The generator validates family membership and variant naming before writing components.
 
-Only these 36 families have a Filled variant:
+Only these 37 families have a Filled variant:
 
 ```text
 bell, bot, briefcase, calendar,
 circle-check, circle-info, circle-x, triangle-alert,
-dashboard, database, form, gauge, home, layers, layout, widgets,
+dashboard, database, filter, form, gauge, home, layers, layout, widgets,
 eye, eye-closed, lock, unlock, pin, unpin, microphone, monitor,
 sun, moon, play, pause, stop,
 palette, receipt, settings, shapes, studio-tools, trash, user
@@ -543,6 +569,14 @@ check/cross icons. Receipt is static, fill-first and inherits `currentColor` thr
 the shared `IconProps` contract. English `receipt`/`result` and Chinese 回执/结果
 search terms lead to its catalogue entry.
 
+### Filter
+
+`filter.svg` and `filter-filled.svg` export `FilterIcon` and `FilterFilledIcon`.
+Both share the 24-unit funnel silhouette; the ordinary variant preserves an open
+interior and the filled variant provides a solid silhouette. Table filter triggers
+use the filled variant and highlight its color when a filter is applied. Both are static,
+use `currentColor`, and support catalogue searches for filter, funnel, 筛选 and 漏斗.
+
 ### Sort indicator
 
 `sort.svg` exports `SortIcon` and `SortIconProps` from `@virgo-design/icons`. It contains
@@ -581,3 +615,12 @@ catalogue for bell, notification, 铃铛 or 通知.
 <BellIcon animated={3} />
 <BellIcon animated="always" />
 ```
+
+### Editing and details
+
+`edit.svg` exports `EditIcon` for editing: a diagonal pencil with an open barrel,
+pointed nib, separated cap and a sharp angular writing underline underneath. `file-text.svg` exports `FileTextIcon` for document
+details: an open frame, folded corner and two text lines. Both are static,
+fill-first assets on the 24px grid and inherit `currentColor`. Pro row actions use
+them through the Button `leadingIcon` API at 16px. Search for edit / pencil / 编辑 /
+铅笔, or details / document / 详情 / 文档 in the catalogue.

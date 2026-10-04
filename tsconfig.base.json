@@ -28,7 +28,9 @@
       "@virgo-design/icons/tooling": ["./packages/icons/src/tooling.ts"],
       "@virgo-design/charts": ["./packages/charts/src/index.ts"],
       "@virgo-design/charts/echarts": ["./packages/charts/src/echarts.tsx"],
-      "@virgo-design/charts/sparkline": ["./packages/charts/src/native/Sparkline.tsx"]
+      "@virgo-design/charts/sparkline": ["./packages/charts/src/native/Sparkline.tsx"],
+      "@virgo-design/icons/brands": ["./packages/icons/src/brands.ts"],
+      "@virgo-design/icons/brands/*": ["./packages/icons/brands/*"]
     }
   }
 }

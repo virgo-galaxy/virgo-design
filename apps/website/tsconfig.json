@@ -14,7 +14,9 @@
       "@virgo-design/icons/metadata": ["../../packages/icons/src/metadata.ts"],
       "@virgo-design/icons/registry": ["../../packages/icons/src/registry.ts"],
       "@virgo-design/icons/assets": ["../../packages/icons/src/assets.ts"],
-      "@virgo-design/icons/tooling": ["../../packages/icons/src/tooling.ts"]
+      "@virgo-design/icons/tooling": ["../../packages/icons/src/tooling.ts"],
+      "@virgo-design/icons/brands": ["../../packages/icons/src/brands.ts"],
+      "@virgo-design/icons/brands/*": ["../../packages/icons/brands/*"]
     }
   },
   "include": ["src", "vite.config.ts"]

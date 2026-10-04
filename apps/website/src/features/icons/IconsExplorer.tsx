@@ -3,14 +3,13 @@ import './styles.scss';
 import './platform.scss';
 
 import type { IconAnimation, IconProps } from '@virgo-design/icons';
-import { type IconId, iconManifest } from '@virgo-design/icons/metadata';
-import { iconComponents } from '@virgo-design/icons/registry';
 import { Button, Input, Select, Slider, Switch, Tag } from '@virgo-design/ui';
 import { type CSSProperties, type ReactElement, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAppearance } from '@/shared/theme/use-appearance';
 
+import { iconComponents, type IconId, iconManifest } from './catalogue';
 import { IconSelect, type IconSelectOption } from './components/IconSelect';
 
 const canonicalRenderSize = 24;
@@ -31,6 +30,7 @@ const iconOptions = iconManifest.map((icon) => ({
           .replace(/\b(En|Zh)$/, (value) => value.toUpperCase()),
   Icon: iconComponents[icon.id],
   animated: icon.animated,
+  variant: icon.variant,
 })) satisfies ReadonlyArray<IconSelectOption>;
 
 export function IconsExplorer({
@@ -55,6 +55,7 @@ export function IconsExplorer({
     iconOptions.find((icon) => icon.id === (iconId ?? selectedIconId)) ??
     iconOptions[0]!;
   const SelectedIcon = selectedIcon.Icon;
+  const colored = 'variant' in selectedIcon && selectedIcon.variant === 'color';
   const supportsAnimation = 'animated' in selectedIcon && selectedIcon.animated;
   const animated: IconAnimation | undefined =
     !supportsAnimation || animationMode === 'off'
@@ -79,7 +80,9 @@ export function IconsExplorer({
           <header className="section-heading">
             <p className="eyebrow">{t('icons.canonicalIcon')}</p>
             <h2 id="review-title">{selectedIcon.label}</h2>
-            <p className="canvas-contract">24 × 24 viewBox · currentColor fill</p>
+            <p className="canvas-contract">
+              {colored ? t('icons.originalBrandColors') : '24 × 24 viewBox · currentColor fill'}
+            </p>
           </header>
           <div
             className="design-canvas"
@@ -183,7 +186,8 @@ export function IconsExplorer({
             <span className="control-label">{t('icons.color')}</span>
             <Input
               aria-label={t('icons.color')}
-              placeholder="currentColor"
+              disabled={colored}
+              placeholder={colored ? t('icons.originalBrandColors') : 'currentColor'}
               value={color}
               leadingIcon={
                 <span

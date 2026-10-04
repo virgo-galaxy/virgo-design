@@ -7,7 +7,8 @@
     "dist",
     "THIRD_PARTY_NOTICES.md",
     "icons",
-    "README.md"
+    "README.md",
+    "brands"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -37,7 +38,13 @@
       "import": "./dist/tooling.js",
       "default": "./dist/tooling.js"
     },
-    "./svg/*": "./icons/*"
+    "./svg/*": "./icons/*",
+    "./brands": {
+      "types": "./dist/brands.d.ts",
+      "import": "./dist/brands.js",
+      "default": "./dist/brands.js"
+    },
+    "./brands/*": "./brands/*"
   },
   "publishConfig": {
     "access": "public"
@@ -47,9 +54,9 @@
   },
   "scripts": {
     "clean": "node ./scripts/clean.mjs",
-    "generate": "node ./scripts/generate.ts",
+    "generate": "node ./scripts/generate.ts && node ./scripts/generate-brands.mjs",
     "build": "pnpm run clean && pnpm run generate && tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "check": "node ./scripts/generate.ts --check"
+    "check": "node ./scripts/generate.ts --check && node ./scripts/generate-brands.mjs --check"
   }
 }

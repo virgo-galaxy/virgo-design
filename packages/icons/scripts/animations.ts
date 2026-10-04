@@ -106,9 +106,24 @@ export function createIconAnimation(
   const family = id.replace(/-filled$/, '');
   let animation: IconAnimationDefinition | undefined;
   if (/^arrow-(up|down|left|right)$/.test(family)) {
+    const [x, y] =
+      family === 'arrow-up'
+        ? [0, -2.5]
+        : family === 'arrow-down'
+          ? [0, 2.5]
+          : family === 'arrow-left'
+            ? [-2.5, 0]
+            : [2.5, 0];
     animation = {
-      duration: 1400,
-      tracks: [transform(0, 'rotate', ['0 12 12', '-90 12 12', '0 12 12', '0 12 12'])],
+      duration: 900,
+      tracks: [
+        transform(
+          0,
+          'translate',
+          ['0 0', `${x} ${y}`, `${-x / 5} ${-y / 5}`, '0 0', '0 0'],
+          [0, 0.28, 0.52, 0.72, 1],
+        ),
+      ],
     };
   } else if (/^chevron-(up|down|left|right)$/.test(family)) {
     const points = polygonPoints(definition.paths[0]!.d);

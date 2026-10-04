@@ -9,7 +9,7 @@ export const iconCategories = [
   'brands',
 ] as const;
 export type IconCategory = (typeof iconCategories)[number];
-export type IconVariant = 'outline' | 'filled';
+export type IconVariant = 'outline' | 'filled' | 'color';
 export type IconMetadata = {
   id: string;
   family: string;
@@ -43,9 +43,11 @@ export function validateIconMetadata(
     if (
       typeof record.family !== 'string' ||
       !/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(record.family) ||
-      !['outline', 'filled'].includes(record.variant) ||
+      !['outline', 'filled', 'color'].includes(record.variant) ||
+      (record.variant === 'color' && record.category !== 'brands') ||
       record.family.endsWith('-filled') ||
-      record.id !== (record.variant === 'filled' ? `${record.family}-filled` : record.family) ||
+      record.id !==
+        (record.variant === 'outline' ? record.family : `${record.family}-${record.variant}`) ||
       !names.has(record.family)
     )
       throw new Error(`Invalid icon family / variant: ${record.id}.`);

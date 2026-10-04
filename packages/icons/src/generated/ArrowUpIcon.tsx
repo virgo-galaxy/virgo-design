@@ -6,13 +6,14 @@ import type { IconAnimation } from '../animation-contract.js';
 import type { IconProps } from '../icon-props.js';
 
 const animation = {
-  duration: 1400,
+  duration: 900,
   tracks: [
     {
       path: 0,
       attribute: 'transform',
-      transform: 'rotate',
-      values: ['0 12 12', '-90 12 12', '0 12 12', '0 12 12'],
+      transform: 'translate',
+      values: ['0 0', '0 -2.5', '0 0.5', '0 0', '0 0'],
+      times: [0, 0.28, 0.52, 0.72, 1],
     },
   ],
 } as const;

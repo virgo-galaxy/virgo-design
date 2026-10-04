@@ -19,6 +19,7 @@ const dualFamilies = [
   'triangle-alert',
   'dashboard',
   'database',
+  'filter',
   'form',
   'gauge',
   'home',
@@ -48,7 +49,7 @@ const dualFamilies = [
 ] as const;
 
 describe('Outline / Filled families', () => {
-  it('provides exactly the intended 36 pairs and keeps every other family single', () => {
+  it('provides exactly the intended 37 pairs and keeps every other family single', () => {
     expect(
       iconManifest
         .filter((icon) => icon.variant === 'filled')

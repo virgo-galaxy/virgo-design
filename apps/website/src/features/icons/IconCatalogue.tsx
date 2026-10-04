@@ -2,12 +2,12 @@ import './platform.scss';
 
 import { PauseIcon, PlayIcon, StudioToolsIcon } from '@virgo-design/icons';
 import { iconCategories, type IconCategory } from '@virgo-design/icons/metadata';
-import { iconComponents } from '@virgo-design/icons/registry';
 import { Button, Combobox, Tooltip } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router-dom';
 
+import { iconComponents } from './catalogue';
 import { iconAnimationIdeaKey, searchWebsiteIcons, sortCatalogueIcons } from './search';
 
 export function IconCatalogue() {

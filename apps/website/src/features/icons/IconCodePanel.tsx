@@ -17,7 +17,7 @@ export function IconCodePanel({
 }: {
   name: string;
   svg: string;
-  reactSource?: string;
+  reactSource?: string | undefined;
   animated?: IconAnimation | undefined;
 }) {
   const { t } = useTranslation();

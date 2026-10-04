@@ -23,6 +23,7 @@ describe('icons generator', () => {
       'bot.svg',
       'briefcase.svg',
       'calendar.svg',
+      'chart-line.svg',
       'check.svg',
       'chevron-down.svg',
       'chevron-left.svg',
@@ -44,11 +45,14 @@ describe('icons generator', () => {
       'dashboard.svg',
       'database.svg',
       'download.svg',
+      'edit.svg',
       'ellipsis-vertical.svg',
       'ellipsis.svg',
       'external-link.svg',
       'eye-closed.svg',
       'eye.svg',
+      'file-text.svg',
+      'filter.svg',
       'form.svg',
       'gauge.svg',
       'github.svg',
@@ -71,6 +75,7 @@ describe('icons generator', () => {
       'play.svg',
       'plus.svg',
       'receipt.svg',
+      'reset.svg',
       'search.svg',
       'settings.svg',
       'shapes.svg',
@@ -88,10 +93,11 @@ describe('icons generator', () => {
       'unpin.svg',
       'upload.svg',
       'user.svg',
+      'virgo-design.svg',
       'widgets.svg',
     ];
     const filledFamilies =
-      'bell bot briefcase calendar circle-check circle-info circle-x triangle-alert dashboard database form gauge home layers layout widgets eye eye-closed lock unlock pin unpin microphone monitor sun moon play pause stop palette receipt settings shapes studio-tools trash user'.split(
+      'bell bot briefcase calendar circle-check circle-info circle-x triangle-alert dashboard database filter form gauge home layers layout widgets eye eye-closed lock unlock pin unpin microphone monitor sun moon play pause stop palette receipt settings shapes studio-tools trash user'.split(
         ' ',
       );
     expect(files).toEqual(

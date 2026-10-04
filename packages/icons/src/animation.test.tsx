@@ -12,6 +12,25 @@ import { iconComponents } from './registry';
 import { validateIconSvg } from './tooling';
 
 describe('optional native icon animations', () => {
+  it.each([
+    ['arrow-up', '0 -2.5'],
+    ['arrow-down', '0 2.5'],
+    ['arrow-left', '-2.5 0'],
+    ['arrow-right', '2.5 0'],
+  ] as const)('%s bounces along its own direction without rotating', (id, peak) => {
+    const Icon = iconComponents[id];
+    const { container } = render(<Icon animated="always" />);
+    const motion = container.querySelector('animateTransform');
+    expect(motion).toHaveAttribute('type', 'translate');
+    expect(motion).toHaveAttribute('repeatCount', 'indefinite');
+    const poses = motion!.getAttribute('values')!.split(';');
+    expect(poses[1]).toBe(peak);
+    expect(poses[0]).toBe('0 0');
+    expect(poses.at(-1)).toBe('0 0');
+    const [x, y] = poses[1]!.split(' ').map(Number);
+    const [reboundX, reboundY] = poses[2]!.split(' ').map(Number);
+    expect(x! * reboundX! + y! * reboundY!).toBeLessThan(0);
+  });
   it.each(iconManifest.filter((icon) => icon.animated))(
     '$id keeps static geometry and supports once, counted and continuous playback',
     (icon) => {

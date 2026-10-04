@@ -1,0 +1,5 @@
+<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- A clipped document frame with a folded corner and two readable text lines. -->
+  <path d="M5 2h9l6 6v13l-1 1H5l-1-1V3z M6 4v16h12V9h-5V4z M15 5.5V7h1.5z" fill-rule="evenodd" />
+  <path d="M8 11h8v2H8z M8 15h6v2H8z" />
+</svg>

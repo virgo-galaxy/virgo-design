@@ -1,7 +1,6 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { getIconSvg, iconSvgSources } from '@virgo-design/icons/assets';
-import { iconCategories, iconManifest } from '@virgo-design/icons/metadata';
+import { iconCategories } from '@virgo-design/icons/metadata';
 import { validateIconSvg } from '@virgo-design/icons/tooling';
 import { MemoryRouter, Route, Routes, useLocation, useParams } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
@@ -10,6 +9,7 @@ import { setAppLocale } from '@/i18n';
 import { copyTextToClipboard } from '@/shared/lib/clipboard';
 import { AppearanceContext } from '@/shared/theme/appearance-context';
 
+import { getIconSvg, iconManifest, iconSvgSources } from './catalogue';
 import { IconCatalogue } from './IconCatalogue';
 import { IconDetail } from './IconDetail';
 import { IconStudio } from './IconStudio';
@@ -29,6 +29,31 @@ const selectFormat = async (label: string, trigger = 'Code format') => {
   await userEvent.click(screen.getByRole('option', { name: label }));
 };
 describe('Icons platform', () => {
+  it('shows monochrome and full-color Virgo marks together in the brands catalogue', () => {
+    mount(<IconCatalogue />, ['/foundations/icons?category=brands']);
+    const mono = screen.getByRole('link', { name: 'virgo-design Outline' });
+    const colored = screen.getByRole('link', { name: 'virgo-design-color Color' });
+    expect(mono).toHaveAttribute('href', '/foundations/icons/virgo-design');
+    expect(colored).toHaveAttribute('href', '/foundations/icons/virgo-design-color');
+    expect(mono.querySelector('linearGradient')).toBeNull();
+    expect(colored.querySelectorAll('linearGradient')).toHaveLength(3);
+    expect(searchWebsiteIcons('Virgo 彩色').map((icon) => icon.id)).toEqual(['virgo-design-color']);
+  });
+
+  it('previews the colorful mark and offers its brand import and original SVG', async () => {
+    mount(<IconDetail id="virgo-design-color" />);
+    expect(screen.getByTestId('large-icon-glyph').querySelectorAll('linearGradient')).toHaveLength(
+      3,
+    );
+    expect(screen.getByRole('textbox', { name: 'Color / currentColor' })).toBeDisabled();
+    expect(document.querySelector('.icon-code-panel code')).toHaveTextContent(
+      "import { VirgoDesignLogo } from '@virgo-design/icons/brands'",
+    );
+    await selectFormat('SVG');
+    expect(document.querySelector('.icon-code-panel code')).toHaveTextContent('linearGradient');
+    expect(document.querySelector('.icon-code-panel code')).toHaveTextContent('0 0 590 470');
+    expect(getIconSvg('virgo-design-color')).toContain('#FF5F56');
+  });
   it('places every export directly in one flat grid and sorts family siblings consecutively', () => {
     mount(<IconCatalogue />);
     const grid = document.querySelector('.icon-platform-grid')!;
@@ -43,7 +68,7 @@ describe('Icons platform', () => {
       expect(card).toHaveClass('icon-platform-card');
       const icon = sorted[index]!;
       expect(card.querySelector('small')).toHaveTextContent(
-        `Family: ${icon.family} · ${icon.variant === 'filled' ? 'Filled' : 'Outline'}`,
+        `Family: ${icon.family} · ${icon.variant === 'color' ? 'Color' : icon.variant === 'filled' ? 'Filled' : 'Outline'}`,
       );
       if (icon.variant === 'filled') {
         expect(sorted[index - 1]?.family).toBe(icon.family);
@@ -81,6 +106,8 @@ describe('Icons platform', () => {
     ).toBe(getIconSvg('sun-filled', 3));
   });
   it.each([
+    ['编辑', 'edit'],
+    ['详情', 'file-text'],
     ['公文包', 'briefcase'],
     ['数据库', 'database'],
     ['输入框', 'form'],
@@ -387,7 +414,7 @@ describe('Icons platform', () => {
       'bot',
       'clock',
       'cursor-arrow',
-      'language-en',
+      'language',
       'calendar',
       'bot',
       'clock',

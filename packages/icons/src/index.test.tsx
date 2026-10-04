@@ -24,11 +24,13 @@ import {
   CopyIcon,
   DashboardIcon,
   DatabaseIcon,
+  EditIcon,
   EllipsisIcon,
   EllipsisVerticalIcon,
   ExternalLinkIcon,
   EyeClosedIcon,
   EyeIcon,
+  FileTextIcon,
   FormIcon,
   GaugeIcon,
   GithubIcon,
@@ -65,6 +67,8 @@ import {
 } from './index';
 
 const addedIcons = [
+  ['edit', EditIcon],
+  ['file-text', FileTextIcon],
   ['bell', BellIcon],
   ['monitor', MonitorIcon],
   ['briefcase', BriefcaseIcon],

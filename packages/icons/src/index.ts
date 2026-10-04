@@ -19,6 +19,7 @@ export {
   type CalendarFilledIconProps,
 } from './generated/CalendarFilledIcon.js';
 export { CalendarIcon, type CalendarIconProps } from './generated/CalendarIcon.js';
+export { ChartLineIcon, type ChartLineIconProps } from './generated/ChartLineIcon.js';
 export { CheckIcon, type CheckIconProps } from './generated/CheckIcon.js';
 export { ChevronDownIcon, type ChevronDownIconProps } from './generated/ChevronDownIcon.js';
 export { ChevronLeftIcon, type ChevronLeftIconProps } from './generated/ChevronLeftIcon.js';
@@ -57,6 +58,7 @@ export {
 } from './generated/DatabaseFilledIcon.js';
 export { DatabaseIcon, type DatabaseIconProps } from './generated/DatabaseIcon.js';
 export { DownloadIcon, type DownloadIconProps } from './generated/DownloadIcon.js';
+export { EditIcon, type EditIconProps } from './generated/EditIcon.js';
 export { EllipsisIcon, type EllipsisIconProps } from './generated/EllipsisIcon.js';
 export {
   EllipsisVerticalIcon,
@@ -70,6 +72,9 @@ export {
 export { EyeClosedIcon, type EyeClosedIconProps } from './generated/EyeClosedIcon.js';
 export { EyeFilledIcon, type EyeFilledIconProps } from './generated/EyeFilledIcon.js';
 export { EyeIcon, type EyeIconProps } from './generated/EyeIcon.js';
+export { FileTextIcon, type FileTextIconProps } from './generated/FileTextIcon.js';
+export { FilterFilledIcon, type FilterFilledIconProps } from './generated/FilterFilledIcon.js';
+export { FilterIcon, type FilterIconProps } from './generated/FilterIcon.js';
 export { FormFilledIcon, type FormFilledIconProps } from './generated/FormFilledIcon.js';
 export { FormIcon, type FormIconProps } from './generated/FormIcon.js';
 export { GaugeFilledIcon, type GaugeFilledIconProps } from './generated/GaugeFilledIcon.js';
@@ -109,6 +114,7 @@ export { PlayIcon, type PlayIconProps } from './generated/PlayIcon.js';
 export { PlusIcon, type PlusIconProps } from './generated/PlusIcon.js';
 export { ReceiptFilledIcon, type ReceiptFilledIconProps } from './generated/ReceiptFilledIcon.js';
 export { ReceiptIcon, type ReceiptIconProps } from './generated/ReceiptIcon.js';
+export { ResetIcon, type ResetIconProps } from './generated/ResetIcon.js';
 export { SearchIcon, type SearchIconProps } from './generated/SearchIcon.js';
 export {
   SettingsFilledIcon,
@@ -148,6 +154,7 @@ export { UnpinIcon, type UnpinIconProps } from './generated/UnpinIcon.js';
 export { UploadIcon, type UploadIconProps } from './generated/UploadIcon.js';
 export { UserFilledIcon, type UserFilledIconProps } from './generated/UserFilledIcon.js';
 export { UserIcon, type UserIconProps } from './generated/UserIcon.js';
+export { VirgoDesignIcon, type VirgoDesignIconProps } from './generated/VirgoDesignIcon.js';
 export { WidgetsFilledIcon, type WidgetsFilledIconProps } from './generated/WidgetsFilledIcon.js';
 export { WidgetsIcon, type WidgetsIconProps } from './generated/WidgetsIcon.js';
 export type { IconProps } from './icon-props.js';

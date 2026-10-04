@@ -1,11 +1,12 @@
 import {
   type IconCategory,
-  type IconId,
-  iconManifest,
   type IconManifestEntry,
   searchIcons,
 } from '@virgo-design/icons/metadata';
+
+import { type IconId, iconManifest } from './catalogue';
 export const chineseIconKeywords = {
+  'virgo-design': ['品牌', '标志', '徽标', '处女座', 'Virgo Design'],
   'arrow-return': ['返回', '弯折', '折返', '撤销', '上一页'],
   'arrow-left': ['左箭头', '箭头', '向左'],
   'arrow-right': ['右箭头', '箭头', '向右'],
@@ -16,8 +17,13 @@ export const chineseIconKeywords = {
   bell: ['铃铛', '通知', '提醒', '消息'],
   briefcase: ['公文包', '工作', '项目', '任务'],
   database: ['数据库', '数据', '记录', '存储'],
+  reset: ['重置', '恢复', '还原', '查询', '筛选'],
+  filter: ['筛选', '过滤', '漏斗', '表格'],
+  edit: ['编辑', '铅笔', '修改', '书写'],
+  'file-text': ['详情', '文档', '文件', '文字', '查看'],
   form: ['表单', '标签', '输入框', '字段'],
   calendar: ['日历', '日期', '选择日期'],
+  'chart-line': ['折线图', '图表', '分析', '数据可视化', '趋势'],
   check: ['勾选', '确认', '完成'],
   'circle-check': ['成功', '完成', '确认'],
   'circle-info': ['信息', '帮助'],
@@ -98,7 +104,11 @@ const websiteKeywords = Object.fromEntries(
     [
       ...chineseIconKeywords[icon.family],
       ...chineseCategories[icon.category],
-      ...(icon.variant === 'filled' ? ['实心', '填充'] : ['轮廓', '线框', '常规']),
+      ...(icon.variant === 'color'
+        ? ['彩色', '多色', '渐变']
+        : icon.variant === 'filled'
+          ? ['实心', '填充']
+          : ['轮廓', '线框', '常规']),
     ],
   ]),
 );
@@ -113,7 +123,8 @@ export function sortCatalogueIcons<T extends IconManifestEntry>(records: readonl
   return [...records].sort(
     (a, b) =>
       a.family.localeCompare(b.family, 'en', { sensitivity: 'base', numeric: true }) ||
-      Number(a.variant === 'filled') - Number(b.variant === 'filled'),
+      ['outline', 'filled', 'color'].indexOf(a.variant) -
+        ['outline', 'filled', 'color'].indexOf(b.variant),
   );
 }
 
