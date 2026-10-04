@@ -4,7 +4,8 @@ import { forwardRef } from 'react';
 
 import { Skeleton } from '../Skeleton';
 import styles from './Statistic.module.scss';
-import type { StatisticProps, StatisticTrendProps } from './Statistic.types';
+import type { StatisticProps, StatisticTrendProps, StatisticValueProps } from './Statistic.types';
+import { StatisticNumber } from './StatisticNumber';
 const classes = (...values: (string | undefined)[]) => values.filter(Boolean).join(' ');
 const Label = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(function StatisticLabel(
   { className, ...props },
@@ -14,12 +15,17 @@ const Label = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(functio
     <div {...props} ref={ref} className={classes(styles.label, className)} data-slot="label" />
   );
 });
-const Value = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(function StatisticValue(
-  { className, ...props },
+const Value = forwardRef<HTMLDivElement, StatisticValueProps>(function StatisticValue(
+  { className, value, animation, formatter, children, ...props },
   ref,
 ) {
   return (
-    <div {...props} ref={ref} className={classes(styles.value, className)} data-slot="value" />
+    <div {...props} ref={ref} className={classes(styles.value, className)} data-slot="value">
+      {children ??
+        (value !== undefined ? (
+          <StatisticNumber value={value} animation={animation} formatter={formatter} />
+        ) : null)}
+    </div>
   );
 });
 const Description = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
@@ -59,6 +65,8 @@ const Root = forwardRef<HTMLDivElement, StatisticProps>(function Statistic(
   {
     label,
     value,
+    animation,
+    formatter,
     prefix,
     suffix,
     trend,
@@ -83,7 +91,18 @@ const Root = forwardRef<HTMLDivElement, StatisticProps>(function Statistic(
           <dl>
             <dt className={styles.label}>{label}</dt>
             <dd className={styles.value}>
-              {loading ? (
+              {typeof value === 'number' ? (
+                <>
+                  {!loading && prefix ? <span className={styles.affix}>{prefix}</span> : null}
+                  <StatisticNumber
+                    value={value}
+                    animation={animation}
+                    formatter={formatter}
+                    loading={loading}
+                  />
+                  {!loading && suffix ? <span className={styles.affix}>{suffix}</span> : null}
+                </>
+              ) : loading ? (
                 <Skeleton style={{ width: '5em', height: '1em' }} />
               ) : (
                 <>

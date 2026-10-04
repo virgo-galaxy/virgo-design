@@ -13,4 +13,9 @@ export const statisticZhCN = {
   support: '与上个月相比',
   other: '活跃项目',
   loading: '待加载总数',
+  animation: '数字动画',
+  animationDescription:
+    '首次从零增长，数据变化时从当前数值平滑过渡到新值，使用先快后慢的减速动效 Token。减少动态效果时直接显示结果。',
+  animatedValue: '条目数',
+  replay: '重新播放',
 } satisfies LocaleOf<typeof statisticEnUS>;

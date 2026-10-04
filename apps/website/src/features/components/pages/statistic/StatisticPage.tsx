@@ -55,8 +55,16 @@ export function StatisticPage() {
           <ComponentExample example={statisticExamples.variants} showCaption={false} />
         </ArticleSection>
         <ArticleSection
-          id="statistic-composition"
+          id="statistic-animation"
           index="02"
+          title={t('components.statistic.animation')}
+          description={t('components.statistic.animationDescription')}
+        >
+          <ComponentExample example={statisticExamples.animation} showCaption={false} />
+        </ArticleSection>
+        <ArticleSection
+          id="statistic-composition"
+          index="03"
           title={t('components.statistic.composition')}
           description={t('components.statistic.compositionDescription')}
         >

@@ -1,0 +1,10 @@
+.root {
+  display: grid;
+  gap: var(--vd-spacing-20);
+  width: 100%;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vd-spacing-8);
+}

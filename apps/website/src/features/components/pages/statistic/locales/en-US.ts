@@ -12,4 +12,9 @@ export const statisticEnUS = {
   support: 'Compared with the previous month',
   other: 'Active projects',
   loading: 'Pending total',
+  animation: 'Numeric animation',
+  animationDescription:
+    'Count from zero on entry and smoothly retarget from the current value when data changes, using the decelerate motion token. Reduced motion displays the result immediately.',
+  animatedValue: 'Items',
+  replay: 'Replay',
 };

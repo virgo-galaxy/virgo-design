@@ -1,4 +1,7 @@
 .root {
+  --statistic-animation-duration: var(--vd-duration-560);
+  --statistic-animation-update-duration: var(--vd-duration-360);
+  --statistic-animation-easing: var(--vd-easing-decelerate);
   --statistic-gap: var(--vd-spacing-6);
   --statistic-value-font-size: var(--vd-font-size-24);
   --statistic-value-font-family: var(--vd-font-family-mono);
@@ -28,6 +31,16 @@
 .affix {
   font-family: var(--vd-font-family-sans);
   font-size: var(--vd-font-size-13);
+}
+.accessibleValue {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 .description {
   color: var(--vd-text-tertiary);
