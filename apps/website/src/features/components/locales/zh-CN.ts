@@ -38,6 +38,7 @@ export const componentsZhCN = {
     table: '表格',
     tree: '树形控件',
     combobox: '组合框',
+    toolbar: '工具栏',
     button: '按钮',
     surface: '表面',
     dock: '停靠栏',
@@ -94,6 +95,7 @@ export const componentsZhCN = {
     tree: '可访问的嵌套层级，支持显式选择、受控展开与键盘导航。',
     combobox: '可编辑的单选候选列表，支持筛选、输入法安全的键盘交互与共享浮层定位。',
 
+    toolbar: '组合独立操作与弹出层触发按钮，支持方向键导航。',
     button: '通过文字标签或无障碍图标按钮触发即时操作。',
     surface: '为已有空间提供视觉外观、装饰背景与材质，不排列内容或赋予结构语义。',
     dock: '将可移动界面区域附着到边界边缘，支持吸附或连续定位、独立移动锁定与固定，以及可选的浏览器持久化。',

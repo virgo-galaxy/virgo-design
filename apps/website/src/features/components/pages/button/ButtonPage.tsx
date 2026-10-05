@@ -50,7 +50,7 @@ export function ButtonPage() {
               <Button leadingIcon={<PlusIcon />}>{t('examples.button.copy.createProject')}</Button>
             </ReferenceSpecimen.Stage>
             <ReferenceSpecimen.Caption>
-              <span>{t('components.button.specimen.28pxHeight')}</span>
+              <span>{t('components.button.specimen.36pxHeight')}</span>
               <span>{t('components.button.specimen.12pxLabel')}</span>
               <span>{t('components.button.specimen.radius6')}</span>
               <ComponentExampleRuntimeControl />
@@ -93,6 +93,14 @@ export function ButtonPage() {
           description={t('components.button.states.description')}
         >
           <ComponentExample example={buttonExamples.states} showCaption={false} />
+        </ArticleSection>
+        <ArticleSection
+          id="groups"
+          index="05"
+          title={t('components.button.groups.title')}
+          description={t('components.button.groups.description')}
+        >
+          <ComponentExample example={buttonExamples.groups} showCaption={false} />
         </ArticleSection>
       </article>
     </ComponentExampleRuntimeProvider>

@@ -1,6 +1,9 @@
 import type { ComponentExampleDefinition } from '@/components/docs/ComponentExample';
 import { createExampleSource } from '@/examples/components/create-example-source';
 
+import ButtonGroupsExample from './ButtonGroupsExample';
+import groupsStyles from './ButtonGroupsExample.module.scss?virgo-raw';
+import groupsSource from './ButtonGroupsExample.tsx?raw';
 import ButtonIconOnlyExample from './ButtonIconOnlyExample';
 import buttonIconOnlyStyles from './ButtonIconOnlyExample.module.scss?virgo-raw';
 import buttonIconOnlySource from './ButtonIconOnlyExample.tsx?raw';
@@ -18,6 +21,16 @@ import buttonVariantsStyles from './ButtonVariantsExample.module.scss?virgo-raw'
 import buttonVariantsSource from './ButtonVariantsExample.tsx?raw';
 
 export const buttonExamples = {
+  groups: {
+    id: 'button-groups',
+    title: 'Button groups',
+    titleTranslationKey: 'components.button.groups.title',
+    description: 'Group related actions without a shared selected value.',
+    descriptionTranslationKey: 'components.button.groups.description',
+    Component: ButtonGroupsExample,
+    source: createExampleSource(groupsSource),
+    styleSource: groupsStyles,
+  },
   variants: {
     id: 'button-variants',
     title: 'Basic variants',

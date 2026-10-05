@@ -56,6 +56,9 @@ export function IconsExplorer({
     iconOptions[0]!;
   const SelectedIcon = selectedIcon.Icon;
   const colored = 'variant' in selectedIcon && selectedIcon.variant === 'color';
+  const originalColorsLabel = t(
+    selectedIcon.id === 'grok-bot' ? 'icons.originalArtworkColors' : 'icons.originalBrandColors',
+  );
   const supportsAnimation = 'animated' in selectedIcon && selectedIcon.animated;
   const animated: IconAnimation | undefined =
     !supportsAnimation || animationMode === 'off'
@@ -81,7 +84,7 @@ export function IconsExplorer({
             <p className="eyebrow">{t('icons.canonicalIcon')}</p>
             <h2 id="review-title">{selectedIcon.label}</h2>
             <p className="canvas-contract">
-              {colored ? t('icons.originalBrandColors') : '24 × 24 viewBox · currentColor fill'}
+              {colored ? originalColorsLabel : '24 × 24 viewBox · currentColor fill'}
             </p>
           </header>
           <div
@@ -187,7 +190,7 @@ export function IconsExplorer({
             <Input
               aria-label={t('icons.color')}
               disabled={colored}
-              placeholder={colored ? t('icons.originalBrandColors') : 'currentColor'}
+              placeholder={colored ? originalColorsLabel : 'currentColor'}
               value={color}
               leadingIcon={
                 <span
@@ -251,7 +254,7 @@ export function IconsExplorer({
             <p className="control-label" id="ui-preview-title">
               {t('icons.preview')}
             </p>
-            <div className="ui-preview-controls">
+            <Button.Group layout="custom" className="ui-preview-controls">
               <Button
                 iconOnly
                 aria-label={t('icons.icon')}
@@ -281,7 +284,7 @@ export function IconsExplorer({
               >
                 {t('icons.icon')}
               </Button>
-            </div>
+            </Button.Group>
             <p className="ui-preview-note">{t('icons.previewNote')}</p>
           </section>
         </aside>

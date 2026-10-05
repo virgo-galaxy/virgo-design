@@ -1,6 +1,6 @@
 import './DrawerPage.scss';
 
-import { Drawer, Switch } from '@virgo-design/ui';
+import { Button, Drawer, Switch } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
@@ -68,12 +68,15 @@ export function DrawerPage() {
                         <Switch aria-label={t('examples.drawer.copy.compactNavigation')} />
                       </div>
                     </Drawer.Body>
-                    <Drawer.Footer>
+                    <Button.Group
+                      layout="custom"
+                      render={(groupProps) => <Drawer.Footer {...groupProps} />}
+                    >
                       <Drawer.Close>{t('examples.drawer.copy.cancel')}</Drawer.Close>
                       <Drawer.Close variant="primary">
                         {t('examples.drawer.copy.save')}
                       </Drawer.Close>
-                    </Drawer.Footer>
+                    </Button.Group>
                     <Drawer.Close aria-label={t('examples.drawer.copy.closeDrawer')} />
                   </Drawer.Content>
                 </Drawer.Portal>

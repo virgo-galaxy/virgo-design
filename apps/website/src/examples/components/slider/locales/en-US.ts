@@ -9,5 +9,12 @@ export const sliderExamplesEnUS = {
     description0: 'Numeric changes stay owned by the example.',
     title1: 'Steps and states',
     description1: 'Native bounds and read-only/disabled composition.',
+    title2: 'Range and bounded value',
+    description2: 'Two or three ordered thumbs with independent keyboard bounds.',
+    minimum: 'Minimum',
+    current: 'Current',
+    maximum: 'Maximum',
+    interval: 'Interval',
+    bounded: 'Bounded value',
   },
 } as const;

@@ -220,6 +220,8 @@ import { timelineEnUS } from '@/features/components/pages/timeline/locales/en-US
 import { timelineZhCN } from '@/features/components/pages/timeline/locales/zh-CN';
 import { toastEnUS } from '@/features/components/pages/toast/locales/en-US';
 import { toastZhCN } from '@/features/components/pages/toast/locales/zh-CN';
+import { toolbarEnUS } from '@/features/components/pages/toolbar/locales/en-US';
+import { toolbarZhCN } from '@/features/components/pages/toolbar/locales/zh-CN';
 import { tooltipEnUS } from '@/features/components/pages/tooltip/locales/en-US';
 import { tooltipZhCN } from '@/features/components/pages/tooltip/locales/zh-CN';
 import { treeEnUS } from '@/features/components/pages/tree/locales/en-US';
@@ -339,6 +341,7 @@ export const enUS = {
     avatar: { ...avatarEnUS, ...componentsApiEnUS['avatar']! },
     badge: { ...badgeEnUS, ...componentsApiEnUS['badge']! },
     breadcrumb: { ...breadcrumbEnUS, ...componentsApiEnUS['breadcrumb']! },
+    toolbar: { ...toolbarEnUS, api: componentsApiEnUS['toolbar']!.api },
     button: { ...buttonEnUS, ...componentsApiEnUS['button']! },
     card: { ...cardEnUS, ...componentsApiEnUS['card']! },
     checkbox: { ...checkboxEnUS, ...componentsApiEnUS['checkbox']! },
@@ -483,6 +486,7 @@ export const zhCN = {
     avatar: { ...avatarZhCN, ...componentsApiZhCN['avatar'] },
     badge: { ...badgeZhCN, ...componentsApiZhCN['badge'] },
     breadcrumb: { ...breadcrumbZhCN, ...componentsApiZhCN['breadcrumb'] },
+    toolbar: { ...toolbarZhCN, api: componentsApiZhCN['toolbar']!.api },
     button: { ...buttonZhCN, ...componentsApiZhCN['button'] },
     card: { ...cardZhCN, ...componentsApiZhCN['card'] },
     checkbox: { ...checkboxZhCN, ...componentsApiZhCN['checkbox'] },

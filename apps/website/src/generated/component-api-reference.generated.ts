@@ -1078,6 +1078,89 @@ export const componentApiReference: ApiReferenceRegistry = {
         ],
         descriptionTranslationKey: 'components.button.api.button-props.description',
       },
+      {
+        name: 'ButtonGroupProps',
+        kind: 'interface',
+        signature: 'extends ActionGroupProps',
+        description: 'Groups related independent actions without a shared selected value.',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'variant',
+            type: "'spaced' | 'attached'",
+            required: false,
+            defaultValue: "'spaced'",
+            description:
+              'Separate controls or connect their adjacent edges. Attached groups accept direct Button children.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-group-props.properties.variant.description',
+          },
+          {
+            name: 'size',
+            type: 'ButtonSize',
+            required: false,
+            defaultValue: '',
+            description: 'Shared button size. An explicit Button size takes precedence.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-group-props.properties.size.description',
+          },
+          {
+            name: 'layout',
+            type: "'default' | 'custom'",
+            required: false,
+            defaultValue: "'default'",
+            description: "Use custom to keep the consumer's existing layout completely unchanged.",
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-group-props.properties.layout.description',
+          },
+          {
+            name: 'orientation',
+            type: "'horizontal' | 'vertical'",
+            required: false,
+            defaultValue: "'horizontal'",
+            description: 'Direction of the controls.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-group-props.properties.orientation.description',
+          },
+          {
+            name: 'align',
+            type: "'start' | 'center' | 'end' | 'between'",
+            required: false,
+            defaultValue: "'start'",
+            description: 'Main-axis alignment.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-group-props.properties.align.description',
+          },
+          {
+            name: 'gap',
+            type: '0 | 2 | 4 | 8 | 12 | 16 | 20 | 24',
+            required: false,
+            defaultValue: '8',
+            description: 'Spacing token between controls.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-group-props.properties.gap.description',
+          },
+          {
+            name: 'render',
+            type: '(props: HTMLAttributes<HTMLDivElement> & { ref: Ref<HTMLDivElement> }) => ReactElement',
+            required: false,
+            defaultValue: '',
+            description:
+              'Render the same root through a Surface or another div-based component without adding a wrapper.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.button.api.button-group-props.properties.render.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.button.api.button-group-props.description',
+      },
     ],
   },
   calendar: {
@@ -5961,6 +6044,16 @@ export const componentApiReference: ApiReferenceRegistry = {
             descriptionTranslationKey:
               'components.dropdown.api.dropdown-text-trigger-props.properties.indicator.description',
           },
+          {
+            name: 'render',
+            type: '(\n    props: ButtonHTMLAttributes<HTMLButtonElement> & { ref: Ref<HTMLButtonElement> },\n  ) => ReactElement',
+            required: false,
+            defaultValue: '',
+            description: 'Render a custom button that forwards all supplied props and its ref.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-text-trigger-props.properties.render.description',
+          },
         ],
         descriptionTranslationKey:
           'components.dropdown.api.dropdown-text-trigger-props.description',
@@ -6023,6 +6116,16 @@ export const componentApiReference: ApiReferenceRegistry = {
             descriptionTranslationKey:
               'components.dropdown.api.dropdown-icon-trigger-props.properties.indicator.description',
           },
+          {
+            name: 'render',
+            type: '(\n    props: ButtonHTMLAttributes<HTMLButtonElement> & { ref: Ref<HTMLButtonElement> },\n  ) => ReactElement',
+            required: false,
+            defaultValue: '',
+            description: 'Render a custom button that forwards all supplied props and its ref.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-icon-trigger-props.properties.render.description',
+          },
         ],
         descriptionTranslationKey:
           'components.dropdown.api.dropdown-icon-trigger-props.description',
@@ -6074,6 +6177,16 @@ export const componentApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.dropdown.api.dropdown-trigger-props.properties.indicator.description',
+          },
+          {
+            name: 'render',
+            type: '((props: ButtonHTMLAttributes<HTMLButtonElement> & { ref: Ref<HTMLButtonElement>; }) => ReactElement)',
+            required: false,
+            defaultValue: '',
+            description: 'Render a custom button that forwards all supplied props and its ref.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.dropdown.api.dropdown-trigger-props.properties.render.description',
           },
           {
             name: 'aria-label',
@@ -9414,7 +9527,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         properties: [
           {
             name: 'size',
-            type: "'small' | 'medium' | 'large' | undefined",
+            type: "'mini' | 'small' | 'medium' | 'large' | undefined",
             required: false,
             defaultValue: "'small'",
             description: 'Density of page items, page-size selection and quick jump.',
@@ -10325,6 +10438,16 @@ export const componentApiReference: ApiReferenceRegistry = {
               'components.segmented-control.api.segmented-control-item-props.properties.children.description',
           },
           {
+            name: 'tooltip',
+            type: 'ReactNode | false | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Tooltip shown on pointer hover or keyboard focus; false omits it.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-item-props.properties.tooltip.description',
+          },
+          {
             name: 'className',
             type: 'string',
             required: false,
@@ -10988,6 +11111,157 @@ export const componentApiReference: ApiReferenceRegistry = {
           },
         ],
         descriptionTranslationKey: 'components.slider.api.slider-props.description',
+      },
+      {
+        name: 'SliderRangeProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveRangeProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'size',
+            type: "'small' | 'medium' | 'large' | undefined",
+            required: false,
+            defaultValue: "'medium'",
+            description: 'Visual density.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.size.description',
+          },
+          {
+            name: 'value',
+            type: 'readonly number[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Ordered controlled thumb values. Thumbs cannot cross their neighbors.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'readonly number[] | undefined',
+            required: false,
+            defaultValue: '[min, max]',
+            description: 'Initial thumb values.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.default-value.description',
+          },
+          {
+            name: 'min',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '0',
+            description: 'Lower bound shared by all thumbs.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.min.description',
+          },
+          {
+            name: 'max',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '100',
+            description: 'Upper bound shared by all thumbs.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.max.description',
+          },
+          {
+            name: 'step',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '1',
+            description: 'Numeric increment from min.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.step.description',
+          },
+          {
+            name: 'thumbLabels',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Accessible name for each thumb, in value order.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.thumb-labels.description',
+          },
+          {
+            name: 'getValueText',
+            type: '((value: number, index: number) => string) | undefined',
+            required: false,
+            defaultValue: '',
+            description: "Formats each thumb's accessible value text and visible value hint.",
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.get-value-text.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: number[]) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called with ordered values for pointer or keyboard changes.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.on-value-change.description',
+          },
+          {
+            name: 'onThumbFocus',
+            type: '((index: number) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called with the zero-based index when a thumb receives focus.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.on-thumb-focus.description',
+          },
+          {
+            name: 'name',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Repeated field name used by hidden inputs for native form submission.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.name.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Prevents interaction and excludes values from form submission.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Prevents editing while retaining focus and form values.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.read-only.description',
+          },
+          {
+            name: 'required',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Marks the field as required for shared field semantics.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.slider.api.slider-range-props.properties.required.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.slider.api.slider-range-props.description',
       },
     ],
   },
@@ -11704,7 +11978,7 @@ export const componentApiReference: ApiReferenceRegistry = {
       {
         name: 'TableDensity',
         kind: 'type',
-        signature: "'compact' | 'default' | 'comfortable'",
+        signature: "'mini' | 'compact' | 'default' | 'comfortable'",
         description: '',
         source: '@virgo-design/ui',
         reExported: false,
@@ -11732,7 +12006,7 @@ export const componentApiReference: ApiReferenceRegistry = {
           },
           {
             name: 'size',
-            type: "'small' | 'medium' | 'large' | undefined",
+            type: "'mini' | 'small' | 'medium' | 'large' | undefined",
             required: false,
             defaultValue: "'medium'",
             description:
@@ -11766,7 +12040,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'boolean | undefined',
             required: false,
             defaultValue: 'false',
-            description: 'Enables pointer and keyboard column resizing.',
+            description: 'Enables pointer and keyboard resizing for all columns.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.table.api.table-props.properties.resizable.description',
@@ -11780,6 +12054,38 @@ export const componentApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.table.api.table-props.properties.min-column-width.description',
+          },
+          {
+            name: 'maxColumnWidth',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: 'Infinity',
+            description: 'Maximum column width in pixels.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-props.properties.max-column-width.description',
+          },
+          {
+            name: 'columnWidths',
+            type: 'readonly number[] | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Controlled widths in visible column order. Kept when resizing is disabled.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-props.properties.column-widths.description',
+          },
+          {
+            name: 'onColumnWidthsChange',
+            type: '((widths: number[]) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Receives widths after pointer or keyboard resizing; data/column identity stays consumer-owned.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-props.properties.on-column-widths-change.description',
           },
           {
             name: 'striped',
@@ -11815,54 +12121,296 @@ export const componentApiReference: ApiReferenceRegistry = {
         descriptionTranslationKey: 'components.table.api.table-props.description',
       },
       {
-        name: 'TableHeadProps',
+        name: 'TableSortMode',
+        kind: 'type',
+        signature: "'both' | 'ascending' | 'descending'",
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey: 'components.table.api.table-sort-mode.description',
+      },
+      {
+        name: 'TableFixedCellProps',
         kind: 'interface',
-        signature: "extends Omit<PrimitiveTableHeadProps, 'align'>",
+        signature: '',
         description: '',
         source: '@virgo-design/ui',
         reExported: false,
         properties: [
           {
-            name: 'actions',
-            type: 'ReactNode',
+            name: 'fixed',
+            type: "'start' | 'end' | undefined",
             required: false,
             defaultValue: '',
-            description:
-              'Trailing column controls, such as Table.Filter; kept outside the sorting button.',
+            description: 'Pins this cell to a logical edge of Table.Viewport.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
-              'components.table.api.table-head-props.properties.actions.description',
+              'components.table.api.table-fixed-cell-props.properties.fixed.description',
           },
           {
-            name: 'onSortChange',
+            name: 'stickyOffset',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '0',
+            description:
+              'Cumulative widths of preceding pinned columns at the same edge, in pixels.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-fixed-cell-props.properties.sticky-offset.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.table.api.table-fixed-cell-props.description',
+      },
+      {
+        name: 'TableSortButtonProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveTableSortButtonProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'sortMode',
+            type: 'TableSortMode | undefined',
+            required: false,
+            defaultValue: "'both'",
+            description:
+              'Both arrows and a three-state cycle, or a single arrow toggling that direction and none.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-sort-button-props.properties.sort-mode.description',
+          },
+          {
+            name: 'direction',
+            type: 'TableSortDirection | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled sort direction.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.table.api.table-sort-button-props.properties.direction.description',
+          },
+          {
+            name: 'defaultDirection',
+            type: 'TableSortDirection | undefined',
+            required: false,
+            defaultValue: "'none'",
+            description: 'Initial uncontrolled direction.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.table.api.table-sort-button-props.properties.default-direction.description',
+          },
+          {
+            name: 'directions',
+            type: "readonly Exclude<TableSortDirection, 'none'>[] | undefined",
+            required: false,
+            defaultValue: "['ascending', 'descending']",
+            description: 'Enabled sort directions, cycled in order before returning to none.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.table.api.table-sort-button-props.properties.directions.description',
+          },
+          {
+            name: 'onDirectionChange',
             type: '((direction: TableSortDirection) => void) | undefined',
             required: false,
             defaultValue: '',
-            description:
-              'Makes the column heading a three-state sorting button. Data ordering is consumer-owned.',
+            description: 'Requests the next enabled direction, then none.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.table.api.table-sort-button-props.properties.on-direction-change.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.table.api.table-sort-button-props.description',
+      },
+      {
+        name: 'TableHeaderSortControl',
+        kind: 'interface',
+        signature: '',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'enabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'true',
+            description: 'Shows the sorting button while retaining its mode when disabled.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
-              'components.table.api.table-head-props.properties.on-sort-change.description',
+              'components.table.api.table-header-sort-control.properties.enabled.description',
+          },
+          {
+            name: 'mode',
+            type: 'TableSortMode | undefined',
+            required: false,
+            defaultValue: "'both'",
+            description: 'Arrow shape and direction cycle.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-header-sort-control.properties.mode.description',
+          },
+          {
+            name: 'direction',
+            type: 'TableSortDirection | undefined',
+            required: false,
+            defaultValue: "'none'",
+            description: "Controlled direction, also reflected in the heading's aria-sort.",
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-header-sort-control.properties.direction.description',
+          },
+          {
+            name: 'onDirectionChange',
+            type: '((direction: TableSortDirection) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Receives the requested direction; data ordering remains consumer-owned.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-header-sort-control.properties.on-direction-change.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.table.api.table-header-sort-control.description',
+      },
+      {
+        name: 'TableHeaderControls',
+        kind: 'interface',
+        signature: '',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'layout',
+            type: "'separate' | 'joined' | undefined",
+            required: false,
+            defaultValue: "'separate'",
+            description:
+              'Keeps the heading at the start, or aligns heading and controls as one group.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-header-controls.properties.layout.description',
+          },
+          {
+            name: 'align',
+            type: "'start' | 'center' | 'end' | undefined",
+            required: false,
+            defaultValue: "'end'",
+            description:
+              'Aligns controls in the remaining space, or the complete joined heading group.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-header-controls.properties.align.description',
+          },
+          {
+            name: 'sort',
+            type: 'TableHeaderSortControl | false | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Sorting control; omitted or false hides it.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-header-controls.properties.sort.description',
+          },
+          {
+            name: 'filter',
+            type: "Omit<TableFilterProps, 'label'> | false | undefined",
+            required: false,
+            defaultValue: '',
+            description:
+              'Filter control; the column name supplies its label. Omitted or false hides it.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-header-controls.properties.filter.description',
+          },
+          {
+            name: 'search',
+            type: "Omit<TableSearchProps, 'label'> | false | undefined",
+            required: false,
+            defaultValue: '',
+            description:
+              'Search control; the column name supplies its label. Omitted or false hides it.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-header-controls.properties.search.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.table.api.table-header-controls.description',
+      },
+      {
+        name: 'TableHeadProps',
+        kind: 'interface',
+        signature:
+          "extends TableFixedCellProps, Omit<PrimitiveTableHeadProps, 'align' | 'sortDirection'>",
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'controls',
+            type: 'TableHeaderControls | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Optional controls in fixed order: sorting, filter, search. Their alignment is shared.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-head-props.properties.controls.description',
+          },
+          {
+            name: 'minWidth',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Per-column minimum resize width, overriding the table default.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-head-props.properties.min-width.description',
+          },
+          {
+            name: 'maxWidth',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Per-column maximum resize width, overriding the table default.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-head-props.properties.max-width.description',
           },
           {
             name: 'align',
             type: "'start' | 'center' | 'end' | undefined",
             required: false,
             defaultValue: "'start'",
-            description: 'Logical alignment; end is useful for numeric columns.',
+            description:
+              'Heading alignment when controls is omitted; otherwise controls.align owns alignment.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.table.api.table-head-props.properties.align.description',
           },
           {
-            name: 'sortDirection',
-            type: 'TableSortDirection | undefined',
+            name: 'fixed',
+            type: "'start' | 'end' | undefined",
             required: false,
             defaultValue: '',
-            description: 'Current column sort direction, reflected in aria-sort.',
-            source: '@virgo-design/primitives',
+            description: 'Pins this cell to a logical edge of Table.Viewport.',
+            source: '@virgo-design/ui',
             descriptionTranslationKey:
-              'components.table.api.table-head-props.properties.sort-direction.description',
+              'components.table.api.table-head-props.properties.fixed.description',
+          },
+          {
+            name: 'stickyOffset',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '0',
+            description:
+              'Cumulative widths of preceding pinned columns at the same edge, in pixels.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-head-props.properties.sticky-offset.description',
           },
         ],
         descriptionTranslationKey: 'components.table.api.table-head-props.description',
@@ -11870,7 +12418,7 @@ export const componentApiReference: ApiReferenceRegistry = {
       {
         name: 'TableCellProps',
         kind: 'interface',
-        signature: "extends Omit<PrimitiveTableCellProps, 'align'>",
+        signature: "extends TableFixedCellProps, Omit<PrimitiveTableCellProps, 'align'>",
         description: '',
         source: '@virgo-design/ui',
         reExported: false,
@@ -11884,6 +12432,27 @@ export const componentApiReference: ApiReferenceRegistry = {
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.table.api.table-cell-props.properties.align.description',
+          },
+          {
+            name: 'fixed',
+            type: "'start' | 'end' | undefined",
+            required: false,
+            defaultValue: '',
+            description: 'Pins this cell to a logical edge of Table.Viewport.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-cell-props.properties.fixed.description',
+          },
+          {
+            name: 'stickyOffset',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '0',
+            description:
+              'Cumulative widths of preceding pinned columns at the same edge, in pixels.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-cell-props.properties.sticky-offset.description',
           },
         ],
         descriptionTranslationKey: 'components.table.api.table-cell-props.description',
@@ -11929,47 +12498,6 @@ export const componentApiReference: ApiReferenceRegistry = {
         reExported: true,
         properties: [],
         descriptionTranslationKey: 'components.table.api.table-section-props.description',
-      },
-      {
-        name: 'TableSortButtonProps',
-        kind: 'interface',
-        signature: 'extends ButtonHTMLAttributes<HTMLButtonElement>',
-        description: '',
-        source: '@virgo-design/primitives',
-        reExported: true,
-        properties: [
-          {
-            name: 'direction',
-            type: 'TableSortDirection | undefined',
-            required: false,
-            defaultValue: '',
-            description: 'Controlled sort direction.',
-            source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'components.table.api.table-sort-button-props.properties.direction.description',
-          },
-          {
-            name: 'defaultDirection',
-            type: 'TableSortDirection | undefined',
-            required: false,
-            defaultValue: "'none'",
-            description: 'Initial uncontrolled direction.',
-            source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'components.table.api.table-sort-button-props.properties.default-direction.description',
-          },
-          {
-            name: 'onDirectionChange',
-            type: '((direction: TableSortDirection) => void) | undefined',
-            required: false,
-            defaultValue: '',
-            description: 'Requests the next direction: none → ascending → descending → none.',
-            source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'components.table.api.table-sort-button-props.properties.on-direction-change.description',
-          },
-        ],
-        descriptionTranslationKey: 'components.table.api.table-sort-button-props.description',
       },
       {
         name: 'TableSortDirection',
@@ -12288,6 +12816,107 @@ export const componentApiReference: ApiReferenceRegistry = {
           },
         ],
         descriptionTranslationKey: 'components.table.api.table-selection-props.description',
+      },
+      {
+        name: 'TableSearchProps',
+        kind: 'interface',
+        signature: '',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'label',
+            type: 'string',
+            required: true,
+            defaultValue: '',
+            description: 'Column name used in accessible labels.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-search-props.properties.label.description',
+          },
+          {
+            name: 'value',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Controlled applied query.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-search-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: "''",
+            description: 'Initial uncontrolled query.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-search-props.properties.default-value.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: string) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called when submitting or clearing the search.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-search-props.properties.on-value-change.description',
+          },
+          {
+            name: 'placeholder',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Optional input placeholder.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-search-props.properties.placeholder.description',
+          },
+          {
+            name: 'tooltip',
+            type: 'ReactNode | false | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Custom tooltip; false hides it.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-search-props.properties.tooltip.description',
+          },
+          {
+            name: 'size',
+            type: 'ButtonSize | undefined',
+            required: false,
+            defaultValue: "'small'",
+            description: 'Size of the search controls.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-search-props.properties.size.description',
+          },
+          {
+            name: 'actionSize',
+            type: 'ButtonSize | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Size of the search action buttons, overriding size when provided.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-search-props.properties.action-size.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Disables the search trigger.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.table.api.table-search-props.properties.disabled.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.table.api.table-search-props.description',
       },
     ],
   },
@@ -13178,6 +13807,94 @@ export const componentApiReference: ApiReferenceRegistry = {
       },
     ],
   },
+  toolbar: {
+    packageName: '@virgo-design/ui',
+    declarations: [
+      {
+        name: 'ToolbarProps',
+        kind: 'interface',
+        signature: 'extends ActionGroupProps',
+        description:
+          'A labelled set of independent controls with one Tab stop and arrow-key navigation.',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'loop',
+            type: 'boolean',
+            required: false,
+            defaultValue: 'true',
+            description: 'Wrap arrow-key focus from the last enabled control to the first.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toolbar.api.toolbar-props.properties.loop.description',
+          },
+          {
+            name: 'size',
+            type: 'ButtonSize',
+            required: false,
+            defaultValue: '',
+            description: 'Shared button size. An explicit Button size takes precedence.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toolbar.api.toolbar-props.properties.size.description',
+          },
+          {
+            name: 'layout',
+            type: "'default' | 'custom'",
+            required: false,
+            defaultValue: "'default'",
+            description: "Use custom to keep the consumer's existing layout completely unchanged.",
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toolbar.api.toolbar-props.properties.layout.description',
+          },
+          {
+            name: 'orientation',
+            type: "'horizontal' | 'vertical'",
+            required: false,
+            defaultValue: "'horizontal'",
+            description: 'Direction of the controls.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toolbar.api.toolbar-props.properties.orientation.description',
+          },
+          {
+            name: 'align',
+            type: "'start' | 'center' | 'end' | 'between'",
+            required: false,
+            defaultValue: "'start'",
+            description: 'Main-axis alignment.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toolbar.api.toolbar-props.properties.align.description',
+          },
+          {
+            name: 'gap',
+            type: '0 | 2 | 4 | 8 | 12 | 16 | 20 | 24',
+            required: false,
+            defaultValue: '8',
+            description: 'Spacing token between controls.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toolbar.api.toolbar-props.properties.gap.description',
+          },
+          {
+            name: 'render',
+            type: '(props: HTMLAttributes<HTMLDivElement> & { ref: Ref<HTMLDivElement> }) => ReactElement',
+            required: false,
+            defaultValue: '',
+            description:
+              'Render the same root through a Surface or another div-based component without adding a wrapper.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.toolbar.api.toolbar-props.properties.render.description',
+          },
+        ],
+        descriptionTranslationKey: 'components.toolbar.api.toolbar-props.description',
+      },
+    ],
+  },
   tooltip: {
     packageName: '@virgo-design/ui',
     declarations: [
@@ -13199,6 +13916,17 @@ export const componentApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/ui',
         reExported: false,
         properties: [
+          {
+            name: 'anchorRef',
+            type: 'RefObject<HTMLElement | null> | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'External anchor for controlled tooltips on existing elements; the consumer handles hover and focus.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.tooltip.api.tooltip-props.properties.anchor-ref.description',
+          },
           {
             name: 'open',
             type: 'boolean',

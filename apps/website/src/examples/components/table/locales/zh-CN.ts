@@ -3,6 +3,9 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { tableExamplesEnUS } from './en-US';
 export const tableExamplesZhCN = {
   copy: {
+    compositionTitle: '可组合的列控制',
+    compositionDescription:
+      '排序、筛选、查询顺序固定。标题可固定居左，也可与控件作为一个整体对齐。单箭头切换一个方向与未排序；固定两端列保持可见，列宽调整由一个全局开关统一控制。',
     selectionTitle: '批量选择菜单',
     selectionDescription: '当页全选复选框旁的可选悬停菜单，支持内置和自定义选择操作。',
     showSelectionMenu: '显示批量选择菜单',

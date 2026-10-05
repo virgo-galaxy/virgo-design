@@ -69,6 +69,8 @@ export function getComponentsForPrimitive(primitiveSlug: PrimitiveSlug): readonl
 
 /** Common compositions, kept distinct from construction dependencies. */
 export const componentCompositionRelations = {
+  toolbar: ['button', 'dropdown', 'popover', 'tooltip'],
+  button: ['toolbar'],
   slider: ['field'],
   'color-picker': ['field', 'input'],
   'time-picker': ['field'],

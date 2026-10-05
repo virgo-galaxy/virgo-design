@@ -10,10 +10,10 @@ export default function App() {
         <Result.Icon />
         <Result.Title>{t('components.result.title')}</Result.Title>
         <Result.Description>{t('components.result.support')}</Result.Description>
-        <Result.Actions>
+        <Button.Group layout="custom" render={(groupProps) => <Result.Actions {...groupProps} />}>
           <Button>{t('components.result.primary')}</Button>
           <Button variant="outline">{t('components.result.secondary')}</Button>
-        </Result.Actions>
+        </Button.Group>
         <Result.Extra>{t('components.result.extra')}</Result.Extra>
       </Result.Root>
     </div>

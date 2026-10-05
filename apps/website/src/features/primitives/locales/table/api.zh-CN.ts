@@ -6,8 +6,10 @@ export const tableApiZhCN = {
     'table-sort-button-props.properties.direction.description': '受控的排序方向。',
     'table-sort-button-props.properties.default-direction.description':
       '非受控模式下的初始排序方向。',
+    'table-sort-button-props.properties.directions.description':
+      '排序方向的循环顺序，最后回到未排序；可只包含升序或降序。',
     'table-sort-button-props.properties.on-direction-change.description':
-      '请求下一个排序方向：未排序 → 升序 → 降序 → 未排序。',
+      '请求循环中的下一个排序方向。',
     'table-row-props.properties.selected.description':
       '由使用方控制的选中外观，不添加数据网格的选择语义。',
   },

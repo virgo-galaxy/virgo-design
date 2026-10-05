@@ -4,6 +4,9 @@ import { createExampleSource } from '@/examples/components/create-example-source
 import TableBasicExample from './TableBasicExample';
 import style0 from './TableBasicExample.module.scss?virgo-raw';
 import source0 from './TableBasicExample.tsx?raw';
+import TableCompositionExample from './TableCompositionExample';
+import compositionStyles from './TableCompositionExample.module.scss?virgo-raw';
+import compositionSource from './TableCompositionExample.tsx?raw';
 import TableDensityExample from './TableDensityExample';
 import style1 from './TableDensityExample.module.scss?virgo-raw';
 import source1 from './TableDensityExample.tsx?raw';
@@ -20,6 +23,17 @@ import TableSortingExample from './TableSortingExample';
 import sortingStyles from './TableSortingExample.module.scss?virgo-raw';
 import sortingSource from './TableSortingExample.tsx?raw';
 export const tableExamples = {
+  composition: {
+    id: 'table-composition',
+    title: 'Composable column controls',
+    titleTranslationKey: 'examples.table.copy.compositionTitle',
+    description:
+      'Combine sorting, filtering and search, with single-direction sort buttons, bounded widths and fixed edge columns.',
+    descriptionTranslationKey: 'examples.table.copy.compositionDescription',
+    Component: TableCompositionExample,
+    source: createExampleSource(compositionSource),
+    styleSource: compositionStyles,
+  },
   selection: {
     id: 'table-selection',
     title: 'Selection menu',

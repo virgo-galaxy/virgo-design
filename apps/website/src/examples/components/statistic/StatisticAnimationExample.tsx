@@ -21,7 +21,7 @@ export default function App() {
         animation
         formatter={format.format}
       />
-      <div className={styles.actions}>
+      <Button.Group layout="custom" className={styles.actions}>
         <Button variant="outline" onClick={() => setValue((current) => current - 10)}>
           −10
         </Button>
@@ -37,7 +37,7 @@ export default function App() {
         >
           {t('components.statistic.replay')}
         </Button>
-      </div>
+      </Button.Group>
     </div>
   );
 }

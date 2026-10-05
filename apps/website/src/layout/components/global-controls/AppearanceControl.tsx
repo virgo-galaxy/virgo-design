@@ -1,4 +1,4 @@
-import { MoonIcon, SunIcon } from '@virgo-design/icons';
+import { MoonFilledIcon, SunFilledIcon } from '@virgo-design/icons';
 import { Button, Tooltip } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
@@ -17,7 +17,7 @@ export function AppearanceControl({ value, onChange }: AppearanceControlProps) {
   const actionLabel = t(
     value === 'light' ? 'app.controls.switchToDarkMode' : 'app.controls.switchToLightMode',
   );
-  const AppearanceIcon = value === 'light' ? MoonIcon : SunIcon;
+  const AppearanceIcon = value === 'light' ? MoonFilledIcon : SunFilledIcon;
 
   return (
     <Tooltip className={styles.control} closeOnClick={false} smoothTransition>
@@ -30,7 +30,6 @@ export function AppearanceControl({ value, onChange }: AppearanceControlProps) {
             iconOnly
             aria-label={actionLabel}
             className={styles.button}
-            size="medium"
             variant="text"
           >
             <AppearanceIcon aria-hidden="true" />

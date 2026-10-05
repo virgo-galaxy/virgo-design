@@ -3,6 +3,15 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { buttonEnUS } from './en-US';
 
 export const buttonZhCN = {
+  groups: {
+    title: '按钮组',
+    description: '组合相关的独立操作，支持间隔或相连边缘，不管理共同的选中值。',
+    reset: '恢复默认设置',
+    done: '完成',
+    editing: '编辑操作',
+    copy: '复制',
+    paste: '粘贴',
+  },
   overview: {
     description: '触发即时操作。基于 Virgo 原生 primitive 构建，并与完整的 token 基础体系对齐。',
   },
@@ -13,7 +22,7 @@ export const buttonZhCN = {
   },
   specimen: {
     referenceSpecimen: '参考样例',
-    '28pxHeight': '高度 28px',
+    '36pxHeight': '高度 36px',
     '12pxLabel': '标签字号 12px',
     radius6: '圆角 6',
   },

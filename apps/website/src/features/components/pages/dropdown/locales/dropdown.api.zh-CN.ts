@@ -3,6 +3,12 @@ import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 export const dropdownApiZhCN = {
   api: {
     'dropdown-props.properties.trigger.description': '指针激活方式；两种模式均支持键盘与触摸激活。',
+    'dropdown-trigger-props.properties.render.description':
+      '自定义按钮渲染；须转发全部传入属性及 ref。',
+    'dropdown-text-trigger-props.properties.render.description':
+      '自定义按钮渲染；须转发全部传入属性及 ref。',
+    'dropdown-icon-trigger-props.properties.render.description':
+      '自定义按钮渲染；须转发全部传入属性及 ref。',
     'dropdown-trigger-props.properties.indicator.description':
       '装饰性后置图标；false 隐藏图标，默认使用 ChevronDownIcon。',
     'dropdown-trigger-props.properties.icon-only.description':

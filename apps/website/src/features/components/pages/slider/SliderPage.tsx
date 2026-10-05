@@ -55,6 +55,14 @@ export function SliderPage() {
         >
           <ComponentExample example={sliderExamples.example1} showCaption={false} />
         </ArticleSection>
+        <ArticleSection
+          id="slider-3"
+          index="03"
+          title={t('examples.slider.copy.title2')}
+          description={t('examples.slider.copy.description2')}
+        >
+          <ComponentExample example={sliderExamples.example2} showCaption={false} />
+        </ArticleSection>
       </div>
     </ComponentExampleRuntimeProvider>
   );

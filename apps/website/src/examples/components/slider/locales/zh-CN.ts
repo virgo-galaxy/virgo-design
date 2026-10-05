@@ -12,5 +12,12 @@ export const sliderExamplesZhCN = {
     description0: '数值变化由示例管理。',
     title1: '步长与状态',
     description1: '原生范围约束及只读、禁用组合。',
+    title2: '范围与区间内数值',
+    description2: '两个或三个有序滑块，各自遵守相邻数值的键盘约束。',
+    minimum: '最小值',
+    current: '当前值',
+    maximum: '最大值',
+    interval: '范围',
+    bounded: '区间内数值',
   },
 } satisfies LocaleOf<typeof sliderExamplesEnUS>;

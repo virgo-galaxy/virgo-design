@@ -31,7 +31,6 @@ export function LanguageControl() {
             iconOnly
             aria-label={actionLabel}
             className={styles.button}
-            size="medium"
             variant="text"
           >
             <LocaleIcon aria-hidden="true" />

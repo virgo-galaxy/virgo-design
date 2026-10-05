@@ -1,6 +1,7 @@
 import { carouselApiZhCN } from './pages/carousel/locales/carousel.api.zh-CN';
 import { resultApiZhCN } from './pages/result/locales/result.api.zh-CN';
 import { statisticApiZhCN } from './pages/statistic/locales/statistic.api.zh-CN';
+import { toolbarApiZhCN } from './pages/toolbar/locales/toolbar.api.zh-CN';
 export { componentsApiEnUS } from '@/generated/api-description-resources.generated';
 
 import { accordionApiZhCN } from './pages/accordion/locales/accordion.api.zh-CN';
@@ -77,6 +78,7 @@ export const componentsApiZhCN = {
   badge: badgeApiZhCN,
   breadcrumb: breadcrumbApiZhCN,
   button: buttonApiZhCN,
+  toolbar: toolbarApiZhCN,
   card: cardApiZhCN,
   checkbox: checkboxApiZhCN,
   command: commandApiZhCN,

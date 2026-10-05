@@ -2,6 +2,18 @@ import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 
 export const buttonApiZhCN = {
   api: {
+    'button-group-props.description': '组合相关的独立操作，不管理共同的选中值。',
+    'button-group-props.properties.size.description':
+      '组内按钮的共同尺寸，按钮显式指定的尺寸优先。',
+    'button-group-props.properties.layout.description': '使用 custom 完整保留现有布局样式。',
+    'button-group-props.properties.orientation.description': '控件排列方向。',
+    'button-group-props.properties.align.description': '主轴对齐方式。',
+    'button-group-props.properties.gap.description': '控件之间使用的间距 token。',
+    'button-group-props.properties.render.description':
+      '通过 Surface 或其他 div 组件复用根节点，不增加 DOM 包裹。',
+    'button-group-props.properties.variant.description':
+      '按钮保留间隔或连接相邻边缘。相连模式使用直接 Button 子元素。',
+
     'text-button-props.properties.children.description': '操作的可见文字标签。',
     'text-button-props.properties.icon-only.description': '保留默认文字按钮布局。',
     'text-button-props.properties.shape.description': '文字按钮不支持纯图标形状。',

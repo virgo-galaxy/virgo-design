@@ -80,17 +80,17 @@ describe('Components documentation integration', () => {
         ),
       );
       expect(await screen.findByRole('heading', { level: 1, name: 'Button' })).toBeInTheDocument();
-      expect(document.querySelectorAll('[data-article-section]')).toHaveLength(4);
-      expect(document.querySelectorAll('[data-example-frame]')).toHaveLength(5);
+      expect(document.querySelectorAll('[data-article-section]')).toHaveLength(5);
+      expect(document.querySelectorAll('[data-example-frame]')).toHaveLength(6);
       expect(screen.queryByRole('heading', { name: 'Examples' })).not.toBeInTheDocument();
       expect(document.querySelector('.components-documentation-shell')).toHaveAttribute(
         'data-theme',
         'light',
       );
       expect(screen.queryByRole('group', { name: 'Preview theme' })).not.toBeInTheDocument();
-      expect(componentRoutes).toHaveLength(53);
+      expect(componentRoutes).toHaveLength(54);
       expect(componentRoutes.map((route) => route.index).sort()).toEqual(
-        Array.from({ length: 53 }, (_, index) => String(index + 1).padStart(2, '0')),
+        Array.from({ length: 54 }, (_, index) => String(index + 1).padStart(2, '0')),
       );
       expect(componentGroups.map((group) => group.id)).toEqual([
         'general',
@@ -124,9 +124,9 @@ describe('Components documentation integration', () => {
         index: '48',
       });
       expect(componentRoutes.at(-1)).toMatchObject({
-        id: 'menubar',
+        id: 'toolbar',
         group: 'actions',
-        index: '50',
+        index: '54',
       });
       expect(componentRoutes.some((route) => route.id === ('textarea' as string))).toBe(false);
 

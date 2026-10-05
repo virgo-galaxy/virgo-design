@@ -1,6 +1,6 @@
 import './DialogPage.scss';
 
-import { Dialog } from '@virgo-design/ui';
+import { Button, Dialog } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
@@ -63,12 +63,15 @@ export function DialogPage() {
                         'examples.dialog.copy.invitationsUseEachCollaboratorSWorkspaceEmailAddress',
                       )}
                     </Dialog.Body>
-                    <Dialog.Footer>
+                    <Button.Group
+                      layout="custom"
+                      render={(groupProps) => <Dialog.Footer {...groupProps} />}
+                    >
                       <Dialog.Close>{t('examples.dialog.copy.cancel')}</Dialog.Close>
                       <Dialog.Close variant="primary">
                         {t('examples.dialog.copy.continue')}
                       </Dialog.Close>
-                    </Dialog.Footer>
+                    </Button.Group>
                   </Dialog.Content>
                 </Dialog.Portal>
               </Dialog.Root>

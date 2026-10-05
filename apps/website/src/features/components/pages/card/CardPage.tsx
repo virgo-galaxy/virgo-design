@@ -57,10 +57,13 @@ export function CardPage() {
                   <Card.Body>
                     {t('examples.card.copy.cardsInheritSurfaceTokensAndKeepActionsExplicit')}
                   </Card.Body>
-                  <Card.Footer>
+                  <Button.Group
+                    layout="custom"
+                    render={(groupProps) => <Card.Footer {...groupProps} />}
+                  >
                     <Button variant="text">{t('examples.card.copy.cancel')}</Button>
                     <Button>{t('examples.card.copy.review')}</Button>
-                  </Card.Footer>
+                  </Button.Group>
                 </Card>
               </div>
             </ReferenceSpecimen.Stage>

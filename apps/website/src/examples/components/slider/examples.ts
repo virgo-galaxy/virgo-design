@@ -4,6 +4,9 @@ import { createExampleSource } from '@/examples/components/create-example-source
 import SliderControlledExample from './SliderControlledExample';
 import style0 from './SliderControlledExample.module.scss?virgo-raw';
 import source0 from './SliderControlledExample.tsx?raw';
+import SliderRangeExample from './SliderRangeExample';
+import style2 from './SliderRangeExample.module.scss?virgo-raw';
+import source2 from './SliderRangeExample.tsx?raw';
 import SliderStepsExample from './SliderStepsExample';
 import style1 from './SliderStepsExample.module.scss?virgo-raw';
 import source1 from './SliderStepsExample.tsx?raw';
@@ -27,5 +30,15 @@ export const sliderExamples = {
     Component: SliderStepsExample,
     source: createExampleSource(source1),
     styleSource: style1,
+  },
+  example2: {
+    id: 'slider-range',
+    title: 'Range and bounded value',
+    titleTranslationKey: 'examples.slider.copy.title2',
+    description: 'Two or three ordered thumbs with independent keyboard bounds.',
+    descriptionTranslationKey: 'examples.slider.copy.description2',
+    Component: SliderRangeExample,
+    source: createExampleSource(source2),
+    styleSource: style2,
   },
 } as const satisfies Readonly<Record<string, ComponentExampleDefinition>>;

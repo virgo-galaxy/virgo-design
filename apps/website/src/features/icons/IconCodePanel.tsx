@@ -68,7 +68,7 @@ export function IconCodePanel({
             <Select.Option value="svg">SVG</Select.Option>
           </Select.Content>
         </Select>
-        <div className="icon-code-tools">
+        <Button.Group layout="custom" className="icon-code-tools">
           {format === 'svg' && (
             <Tooltip closeOnClick={false}>
               <Tooltip.Trigger
@@ -101,7 +101,7 @@ export function IconCodePanel({
               await copy();
             }}
           />
-        </div>
+        </Button.Group>
       </header>
       <pre tabIndex={0} aria-label={t('icons.codeExample')}>
         <code data-language={format === 'svg' ? 'svg' : 'tsx'}>{source}</code>

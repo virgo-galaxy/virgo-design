@@ -121,7 +121,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
         <div className={styles.preview} data-example-preview>
           <Component />
         </div>
-        <div className={styles.toolbar} data-example-toolbar>
+        <Button.Group layout="custom" className={styles.toolbar} data-example-toolbar>
           <Tooltip>
             <Tooltip.Trigger
               aria-label={t('docs.componentExample.openNamedInNewWindow', { title })}
@@ -170,7 +170,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
               {sourceAction}
             </Tooltip.Content>
           </Tooltip>
-        </div>
+        </Button.Group>
       </div>
       <div
         id={sourceId}

@@ -22,7 +22,7 @@ export default function TableSortingExample() {
         <Table.Header>
           <Table.Row>
             <Table.Head>{t('examples.table.copy.project')}</Table.Head>
-            <Table.Head align="end" sortDirection={direction} onSortChange={setDirection}>
+            <Table.Head controls={{ sort: { direction, onDirectionChange: setDirection } }}>
               {t('examples.table.copy.count')}
             </Table.Head>
           </Table.Row>

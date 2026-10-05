@@ -29,6 +29,21 @@ const selectFormat = async (label: string, trigger = 'Code format') => {
   await userEvent.click(screen.getByRole('option', { name: label }));
 };
 describe('Icons platform', () => {
+  it('lists the silver Grok bot with its public import and original SVG export', async () => {
+    expect(searchWebsiteIcons('亮银 机器人').map((icon) => icon.id)).toEqual(['grok-bot']);
+    mount(<IconDetail id="grok-bot" />);
+    expect(screen.getByTestId('large-icon-glyph')).toHaveAttribute(
+      'viewBox',
+      '8.25 8.25 112.1 113.5',
+    );
+    expect(screen.getByRole('textbox', { name: 'Color / currentColor' })).toBeDisabled();
+    expect(document.querySelector('.icon-code-panel code')).toHaveTextContent(
+      "import { GrokBotIcon } from '@virgo-design/icons'",
+    );
+    await selectFormat('SVG');
+    expect(document.querySelector('.icon-code-panel code')).toHaveTextContent('radialGradient');
+    expect(getIconSvg('grok-bot')).toContain('width="24" height="24"');
+  });
   it('shows monochrome and full-color Virgo marks together in the brands catalogue', () => {
     mount(<IconCatalogue />, ['/foundations/icons?category=brands']);
     const mono = screen.getByRole('link', { name: 'virgo-design Outline' });
@@ -409,17 +424,11 @@ describe('Icons platform', () => {
     );
     await userEvent.click(screen.getByRole('button', { name: 'Copy code' }));
     expect(document.querySelector('.icon-code-feedback')).toHaveTextContent('Copied');
-    for (const id of [
-      'calendar',
-      'bot',
-      'clock',
-      'cursor-arrow',
-      'language',
-      'calendar',
-      'bot',
-      'clock',
-    ]) {
-      await userEvent.click(screen.getByRole('link', { name: id }));
+    for (let step = 0; step < 8; step++) {
+      const links = [...document.querySelectorAll<HTMLAnchorElement>('.icon-related-card')];
+      const link = links[step % 2 ? links.length - 1 : 0]!;
+      const id = link.getAttribute('href')!.split('/').at(-1)!;
+      await userEvent.click(link);
       expect(screen.getByRole('heading', { name: id })).toBeInTheDocument();
       expect(document.querySelectorAll('.icon-code-panel')).toHaveLength(1);
       expect(screen.getAllByRole('button', { name: 'Copy code' })).toHaveLength(1);

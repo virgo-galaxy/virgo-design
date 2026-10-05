@@ -72,6 +72,7 @@ export type ComponentRoute = ComponentPageMetadataValue & {
     | 'avatar'
     | 'badge'
     | 'button'
+    | 'toolbar'
     | 'card'
     | 'surface'
     | 'layout'
@@ -828,6 +829,19 @@ export const componentRoutes = [
       import('../pages/menu-system/MenuSystemPages').then((module) => ({
         default: module.MenubarPage,
       })),
+    ),
+  },
+  {
+    id: 'toolbar',
+    group: 'actions',
+    index: '54',
+    name: 'Toolbar',
+    category: 'Actions',
+    path: '/components/toolbar',
+    status: 'stable',
+    version: 'V1.0.0',
+    Component: lazy(() =>
+      import('../pages/toolbar/ToolbarPage').then((module) => ({ default: module.ToolbarPage })),
     ),
   },
 ] as const satisfies ReadonlyArray<ComponentRoute>;

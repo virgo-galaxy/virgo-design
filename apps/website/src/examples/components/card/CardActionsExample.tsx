@@ -16,14 +16,14 @@ export default function App() {
         <Card.Title as="h3">{t('examples.card.copy.projectAccess')}</Card.Title>
         <Card.Description>{translateExampleText(t, 'card', message)}</Card.Description>
       </Card.Header>
-      <Card.Footer>
+      <Button.Group layout="custom" render={(groupProps) => <Card.Footer {...groupProps} />}>
         <Button variant="text" onClick={() => setMessage('Invitation cancelled.')}>
           {t('examples.card.copy.cancel')}
         </Button>
         <Button onClick={() => setMessage('Invitation prepared. This is a local demo.')}>
           {t('examples.card.copy.invite')}
         </Button>
-      </Card.Footer>
+      </Button.Group>
     </Card>
   );
 }

@@ -60,7 +60,7 @@ describe('SiteHeader', () => {
     expect(controls).toHaveAttribute('data-material', 'glass');
     const controlButtons = within(controls).getAllByRole('button');
     expect(controlButtons).toHaveLength(2);
-    controlButtons.forEach((button) => expect(button).toHaveAttribute('data-size', 'medium'));
+    controlButtons.forEach((button) => expect(button).toHaveAttribute('data-size', 'small'));
     expect(controls.querySelector('[data-orientation="vertical"]')).toHaveAttribute(
       'data-decorative',
       '',

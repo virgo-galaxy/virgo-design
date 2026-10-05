@@ -34,14 +34,9 @@ export default function App() {
             <Table.Row>
               <Table.Head>{t('examples.table.copy.project')}</Table.Head>
               <Table.Head
-                actions={
-                  <Table.Filter
-                    label={t('examples.table.copy.assignee')}
-                    options={options}
-                    value={owners}
-                    onValueChange={setOwners}
-                  />
-                }
+                controls={{
+                  filter: { options, value: owners, onValueChange: setOwners },
+                }}
               >
                 {t('examples.table.copy.assignee')}
               </Table.Head>

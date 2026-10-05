@@ -1,4 +1,14 @@
 export const buttonEnUS = {
+  groups: {
+    title: 'Button groups',
+    description:
+      'Related independent actions with separate or attached edges. There is no shared selected value.',
+    reset: 'Restore defaults',
+    done: 'Done',
+    editing: 'Editing actions',
+    copy: 'Copy',
+    paste: 'Paste',
+  },
   overview: {
     description:
       'Triggers an immediate action. Built on the native Virgo primitive and calibrated against the complete token foundation.',
@@ -10,7 +20,7 @@ export const buttonEnUS = {
   },
   specimen: {
     referenceSpecimen: 'Reference specimen',
-    '28pxHeight': '28px height',
+    '36pxHeight': '36px height',
     '12pxLabel': '12px label',
     radius6: 'Radius 6',
   },

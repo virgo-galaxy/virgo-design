@@ -87,6 +87,14 @@ export function TablePage() {
         >
           <ComponentExample example={tableExamples.selection} showCaption={false} />
         </ArticleSection>
+        <ArticleSection
+          id="table-composition"
+          index="07"
+          title={t('examples.table.copy.compositionTitle')}
+          description={t('examples.table.copy.compositionDescription')}
+        >
+          <ComponentExample example={tableExamples.composition} showCaption={false} />
+        </ArticleSection>
       </div>
     </ComponentExampleRuntimeProvider>
   );

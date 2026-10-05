@@ -40,12 +40,12 @@ export default function App() {
               </Field>
             </Form>
           </Dialog.Body>
-          <Dialog.Footer>
+          <Button.Group layout="custom" render={(groupProps) => <Dialog.Footer {...groupProps} />}>
             <Dialog.Close>{t('examples.dialog.copy.cancel')}</Dialog.Close>
             <Button type="submit" form={formId}>
               {t('examples.dialog.copy.saveChanges')}
             </Button>
-          </Dialog.Footer>
+          </Button.Group>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

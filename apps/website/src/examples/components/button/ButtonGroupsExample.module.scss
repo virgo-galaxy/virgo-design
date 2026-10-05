@@ -1,0 +1,6 @@
+.root {
+  display: grid;
+  gap: var(--vd-spacing-24);
+  width: min(100%, 360px);
+  justify-items: stretch;
+}

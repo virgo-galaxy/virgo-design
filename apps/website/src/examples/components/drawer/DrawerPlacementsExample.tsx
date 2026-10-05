@@ -1,4 +1,4 @@
-import { Drawer, type DrawerPlacement, type DrawerSize } from '@virgo-design/ui';
+import { Button, Drawer, type DrawerPlacement, type DrawerSize } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { translateExampleText } from '@/i18n/translate-example-text';
@@ -34,10 +34,10 @@ function DrawerFrame({
           <Drawer.Body>
             {t('examples.drawer.copy.drawerBehaviorFocusAndDismissalComeDirectlyFromTheDialog')}
           </Drawer.Body>
-          <Drawer.Footer>
+          <Button.Group layout="custom" render={(groupProps) => <Drawer.Footer {...groupProps} />}>
             <Drawer.Close>{t('examples.drawer.copy.cancel')}</Drawer.Close>
             <Drawer.Close variant="primary">{t('examples.drawer.copy.done')}</Drawer.Close>
-          </Drawer.Footer>
+          </Button.Group>
           <Drawer.Close aria-label={t('examples.drawer.copy.closeDrawer')} />
         </Drawer.Content>
       </Drawer.Portal>

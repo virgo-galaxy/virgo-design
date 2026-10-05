@@ -136,7 +136,7 @@ export function IconDetail({ id }: { id: string }) {
       <IconCodePanel
         name={icon.componentName}
         reactSource={
-          icon.variant === 'color'
+          icon.id === 'virgo-design-color'
             ? `import { VirgoDesignLogo } from '@virgo-design/icons/brands';\n\nexport default function Example() {\n  return <VirgoDesignLogo size={24} />;\n}`
             : undefined
         }

@@ -7,7 +7,7 @@ export default function App() {
   return (
     <div className={styles.root!}>
       <div className={styles.comparison}>
-        {(['compact', 'default', 'comfortable'] as const).map((density) => (
+        {(['mini', 'compact', 'default', 'comfortable'] as const).map((density) => (
           <Table key={density} density={density} border="all" striped hoverable>
             <Table.Caption>density="{density}"</Table.Caption>
             <Table.Header>

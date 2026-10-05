@@ -43,12 +43,15 @@ export default function App() {
                 </Field>
               </Form>
             </Drawer.Body>
-            <Drawer.Footer>
+            <Button.Group
+              layout="custom"
+              render={(groupProps) => <Drawer.Footer {...groupProps} />}
+            >
               <Drawer.Close>{t('examples.drawer.copy.cancel')}</Drawer.Close>
               <Button type="submit" form={formId}>
                 {t('examples.drawer.copy.saveChanges')}
               </Button>
-            </Drawer.Footer>
+            </Button.Group>
             <Drawer.Close aria-label={t('examples.drawer.copy.closeDrawer')} />
           </Drawer.Content>
         </Drawer.Portal>

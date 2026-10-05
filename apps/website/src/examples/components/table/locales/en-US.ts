@@ -1,5 +1,8 @@
 export const tableExamplesEnUS = {
   copy: {
+    compositionTitle: 'Composable column controls',
+    compositionDescription:
+      'Sorting, filter and search keep a fixed order. Keep the title on the left or align it with the controls as one group. Single arrows toggle one direction; fixed edge columns stay visible. One resizing switch applies to the whole table.',
     selectionTitle: 'Selection menu',
     selectionDescription:
       'An optional hover menu beside the select-page checkbox, with built-in and custom selection actions.',

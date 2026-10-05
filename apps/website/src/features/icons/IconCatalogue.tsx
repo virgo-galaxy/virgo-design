@@ -81,7 +81,12 @@ export function IconCatalogue() {
           </Button>
         ))}
       </div>
-      <div className="icon-animation-filters" role="group" aria-label={t('icons.animationFilter')}>
+      <Button.Group
+        layout="custom"
+        className="icon-animation-filters"
+        role="group"
+        aria-label={t('icons.animationFilter')}
+      >
         <span className="icon-animation-filter-label">{t('icons.animationFilter')}</span>
         <Button
           variant={animated === true ? 'primary' : 'outline'}
@@ -97,7 +102,7 @@ export function IconCatalogue() {
         >
           {t('icons.nonAnimated')}
         </Button>
-      </div>
+      </Button.Group>
       {animated === true ? (
         <div className="icon-animation-note">
           <span>{t('icons.animationNote')}</span>

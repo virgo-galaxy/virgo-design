@@ -48,6 +48,148 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         ],
         descriptionTranslationKey: 'primitives.slider.api.slider-props.description',
       },
+      {
+        name: 'SliderRangeProps',
+        kind: 'interface',
+        signature:
+          "extends Omit< HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children' >",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'value',
+            type: 'readonly number[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Ordered controlled thumb values. Thumbs cannot cross their neighbors.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-range-props.properties.value.description',
+          },
+          {
+            name: 'defaultValue',
+            type: 'readonly number[] | undefined',
+            required: false,
+            defaultValue: '[min, max]',
+            description: 'Initial thumb values.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-range-props.properties.default-value.description',
+          },
+          {
+            name: 'min',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '0',
+            description: 'Lower bound shared by all thumbs.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-range-props.properties.min.description',
+          },
+          {
+            name: 'max',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '100',
+            description: 'Upper bound shared by all thumbs.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-range-props.properties.max.description',
+          },
+          {
+            name: 'step',
+            type: 'number | undefined',
+            required: false,
+            defaultValue: '1',
+            description: 'Numeric increment from min.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-range-props.properties.step.description',
+          },
+          {
+            name: 'thumbLabels',
+            type: 'readonly string[] | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Accessible name for each thumb, in value order.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-range-props.properties.thumb-labels.description',
+          },
+          {
+            name: 'getValueText',
+            type: '((value: number, index: number) => string) | undefined',
+            required: false,
+            defaultValue: '',
+            description: "Formats each thumb's accessible value text and visible value hint.",
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-range-props.properties.get-value-text.description',
+          },
+          {
+            name: 'onValueChange',
+            type: '((value: number[]) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called with ordered values for pointer or keyboard changes.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-range-props.properties.on-value-change.description',
+          },
+          {
+            name: 'onThumbFocus',
+            type: '((index: number) => void) | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Called with the zero-based index when a thumb receives focus.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-range-props.properties.on-thumb-focus.description',
+          },
+          {
+            name: 'name',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Repeated field name used by hidden inputs for native form submission.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-range-props.properties.name.description',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Prevents interaction and excludes values from form submission.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-range-props.properties.disabled.description',
+          },
+          {
+            name: 'readOnly',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Prevents editing while retaining focus and form values.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-range-props.properties.read-only.description',
+          },
+          {
+            name: 'required',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description: 'Marks the field as required for shared field semantics.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.slider.api.slider-range-props.properties.required.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.slider.api.slider-range-props.description',
+      },
     ],
   },
   'color-picker': {
@@ -1990,11 +2132,21 @@ export const primitiveApiReference: ApiReferenceRegistry = {
               'primitives.table.api.table-sort-button-props.properties.default-direction.description',
           },
           {
+            name: 'directions',
+            type: "readonly Exclude<TableSortDirection, 'none'>[] | undefined",
+            required: false,
+            defaultValue: "['ascending', 'descending']",
+            description: 'Enabled sort directions, cycled in order before returning to none.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.table.api.table-sort-button-props.properties.directions.description',
+          },
+          {
             name: 'onDirectionChange',
             type: '((direction: TableSortDirection) => void) | undefined',
             required: false,
             defaultValue: '',
-            description: 'Requests the next direction: none → ascending → descending → none.',
+            description: 'Requests the next enabled direction, then none.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.table.api.table-sort-button-props.properties.on-direction-change.description',
@@ -7469,6 +7621,17 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         source: '@virgo-design/primitives',
         reExported: false,
         properties: [
+          {
+            name: 'anchorRef',
+            type: 'RefObject<HTMLElement | null> | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'External anchor for controlled tooltips on existing elements; the consumer handles hover and focus.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.tooltip.api.tooltip-props.properties.anchor-ref.description',
+          },
           {
             name: 'open',
             type: 'boolean',

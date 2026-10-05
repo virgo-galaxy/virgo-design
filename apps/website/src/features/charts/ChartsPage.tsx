@@ -185,7 +185,7 @@ export function ChartsPage() {
           title={t('charts.interactions')}
           description={t('charts.interactionDescription')}
         >
-          <div className={styles.toolbar}>
+          <Button.Group layout="custom" className={styles.toolbar}>
             <Button
               size="small"
               onClick={() =>
@@ -203,7 +203,7 @@ export function ChartsPage() {
             <Button size="small" variant="outline" onClick={() => setData(initial)}>
               {t('charts.reset')}
             </Button>
-          </div>
+          </Button.Group>
           <Surface border="default" radius={8} className={styles.preview}>
             {sample('area')}
           </Surface>
@@ -214,7 +214,7 @@ export function ChartsPage() {
           title={t('charts.basics')}
           description={t('charts.basicsDescription')}
         >
-          <div className={styles.toolbar}>
+          <Button.Group layout="custom" className={styles.toolbar}>
             <Button
               size="small"
               variant="outline"
@@ -223,7 +223,7 @@ export function ChartsPage() {
             >
               {t('charts.labelLine')}
             </Button>
-          </div>
+          </Button.Group>
           <div className={styles.grid}>
             {(['line', 'area', 'bar', 'grouped', 'stacked'] as const).map((kind) => (
               <Surface key={kind} border="default" radius={8} className={styles.preview}>
@@ -285,7 +285,7 @@ export function ChartsPage() {
           title={t('charts.responsive')}
           description={t('charts.responsiveDescription')}
         >
-          <div className={styles.toolbar}>
+          <Button.Group layout="custom" className={styles.toolbar}>
             <Button
               size="small"
               variant="outline"
@@ -293,7 +293,7 @@ export function ChartsPage() {
             >
               {t('charts.renderer')}: {renderer.toUpperCase()}
             </Button>
-          </div>
+          </Button.Group>
           <label className={styles.range}>
             <span>{t('charts.width')}</span>
             <Slider

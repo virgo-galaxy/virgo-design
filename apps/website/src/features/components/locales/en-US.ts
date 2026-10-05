@@ -36,6 +36,7 @@ export const componentsEnUS = {
     table: 'Tabular content',
     tree: 'Nested hierarchy',
     combobox: 'Editable selection',
+    toolbar: 'Independent actions',
     button: 'Action trigger',
     surface: 'Visual container',
     dock: 'Edge positioning',
@@ -100,6 +101,7 @@ export const componentsEnUS = {
     combobox:
       'Editable single-selection suggestions with filtering, IME-safe keyboard interaction and shared overlay positioning.',
 
+    toolbar: 'Groups independent actions and popup triggers with arrow-key navigation.',
     button: 'Triggers an immediate action with a text label or an accessible icon-only control.',
     surface:
       'Gives an existing space a visual skin, decorative background, and material without arranging its content or assigning structural semantics.',

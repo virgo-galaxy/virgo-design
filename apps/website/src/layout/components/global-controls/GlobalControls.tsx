@@ -1,4 +1,4 @@
-import { Separator, Surface } from '@virgo-design/ui';
+import { Button, Separator, Surface } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { useAppearance } from '@/shared/theme/use-appearance';
@@ -12,19 +12,20 @@ export function GlobalControls() {
   const { appearance, setAppearance } = useAppearance();
 
   return (
-    <Surface
+    <Button.Group
+      layout="custom"
+      size="small"
+      render={(groupProps) => (
+        <Surface {...groupProps} material="glass" tone="elevated" elevation={2} radius={12} />
+      )}
       className={styles.controls}
       data-theme={appearance}
       role="group"
       aria-label={t('app.controls.globalControls')}
-      material="glass"
-      tone="elevated"
-      elevation={2}
-      radius={12}
     >
       <LanguageControl />
       <Separator className={styles.separator} decorative orientation="vertical" />
       <AppearanceControl value={appearance} onChange={setAppearance} />
-    </Surface>
+    </Button.Group>
   );
 }

@@ -128,6 +128,19 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'button-props.properties.size.description': 'Visual size of the button.',
       'button-props.properties.aria-label.description':
         'Defines a string value that labels the current element.\nAccessible name required because the action has no visible text label.',
+      'button-group-props.description':
+        'Groups related independent actions without a shared selected value.',
+      'button-group-props.properties.variant.description':
+        'Separate controls or connect their adjacent edges. Attached groups accept direct Button children.',
+      'button-group-props.properties.size.description':
+        'Shared button size. An explicit Button size takes precedence.',
+      'button-group-props.properties.layout.description':
+        "Use custom to keep the consumer's existing layout completely unchanged.",
+      'button-group-props.properties.orientation.description': 'Direction of the controls.',
+      'button-group-props.properties.align.description': 'Main-axis alignment.',
+      'button-group-props.properties.gap.description': 'Spacing token between controls.',
+      'button-group-props.properties.render.description':
+        'Render the same root through a Surface or another div-based component without adding a wrapper.',
     },
   },
   calendar: {
@@ -630,16 +643,22 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Pointer activation; keyboard and touch activation work in both modes.',
       'dropdown-text-trigger-props.properties.indicator.description':
         'Decorative trailing icon; false hides it. Defaults to ChevronDownIcon.',
+      'dropdown-text-trigger-props.properties.render.description':
+        'Render a custom button that forwards all supplied props and its ref.',
       'dropdown-icon-trigger-props.properties.icon-only.description':
         'Use a square icon-only button with an accessible name.',
       'dropdown-icon-trigger-props.properties.aria-label.description':
         'Defines a string value that labels the current element.',
       'dropdown-icon-trigger-props.properties.indicator.description':
         'Decorative trailing icon; false hides it. Defaults to ChevronDownIcon.',
+      'dropdown-icon-trigger-props.properties.render.description':
+        'Render a custom button that forwards all supplied props and its ref.',
       'dropdown-trigger-props.properties.icon-only.description':
         'Use a square icon-only button with an accessible name.',
       'dropdown-trigger-props.properties.indicator.description':
         'Decorative trailing icon; false hides it. Defaults to ChevronDownIcon.',
+      'dropdown-trigger-props.properties.render.description':
+        'Render a custom button that forwards all supplied props and its ref.',
       'dropdown-trigger-props.properties.aria-label.description':
         'Defines a string value that labels the current element.',
       'dropdown-content-props.properties.placement.description':
@@ -1080,6 +1099,8 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Value represented by this segment.',
       'segmented-control-item-props.properties.children.description':
         'Visible label or content for the segment.',
+      'segmented-control-item-props.properties.tooltip.description':
+        'Tooltip shown on pointer hover or keyboard focus; false omits it.',
       'segmented-control-item-props.properties.class-name.description':
         'Consumer class applied to the segment root.',
     },
@@ -1136,6 +1157,29 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Initial value. Defaults to the midpoint of min and max.',
       'slider-props.properties.on-value-change.description':
         'Called for native pointer and keyboard value changes.',
+      'slider-range-props.properties.size.description': 'Visual density.',
+      'slider-range-props.properties.value.description':
+        'Ordered controlled thumb values. Thumbs cannot cross their neighbors.',
+      'slider-range-props.properties.default-value.description': 'Initial thumb values.',
+      'slider-range-props.properties.min.description': 'Lower bound shared by all thumbs.',
+      'slider-range-props.properties.max.description': 'Upper bound shared by all thumbs.',
+      'slider-range-props.properties.step.description': 'Numeric increment from min.',
+      'slider-range-props.properties.thumb-labels.description':
+        'Accessible name for each thumb, in value order.',
+      'slider-range-props.properties.get-value-text.description':
+        "Formats each thumb's accessible value text and visible value hint.",
+      'slider-range-props.properties.on-value-change.description':
+        'Called with ordered values for pointer or keyboard changes.',
+      'slider-range-props.properties.on-thumb-focus.description':
+        'Called with the zero-based index when a thumb receives focus.',
+      'slider-range-props.properties.name.description':
+        'Repeated field name used by hidden inputs for native form submission.',
+      'slider-range-props.properties.disabled.description':
+        'Prevents interaction and excludes values from form submission.',
+      'slider-range-props.properties.read-only.description':
+        'Prevents editing while retaining focus and form values.',
+      'slider-range-props.properties.required.description':
+        'Marks the field as required for shared field semantics.',
     },
   },
   spinner: {
@@ -1245,30 +1289,68 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'table-props.properties.header-dividers.description':
         'Short vertical separators between column headings.',
       'table-props.properties.resizable.description':
-        'Enables pointer and keyboard column resizing.',
+        'Enables pointer and keyboard resizing for all columns.',
       'table-props.properties.min-column-width.description':
         'Minimum width in pixels when resizing a column.',
+      'table-props.properties.max-column-width.description': 'Maximum column width in pixels.',
+      'table-props.properties.column-widths.description':
+        'Controlled widths in visible column order. Kept when resizing is disabled.',
+      'table-props.properties.on-column-widths-change.description':
+        'Receives widths after pointer or keyboard resizing; data/column identity stays consumer-owned.',
       'table-props.properties.striped.description': 'Alternating body row backgrounds.',
       'table-props.properties.hoverable.description': 'Highlights pointer-hovered rows.',
       'table-props.properties.sticky-header.description':
         'Sticks column headings inside the nearest scrolling viewport.',
-      'table-head-props.properties.actions.description':
-        'Trailing column controls, such as Table.Filter; kept outside the sorting button.',
-      'table-head-props.properties.on-sort-change.description':
-        'Makes the column heading a three-state sorting button. Data ordering is consumer-owned.',
-      'table-head-props.properties.align.description':
-        'Logical alignment; end is useful for numeric columns.',
-      'table-head-props.properties.sort-direction.description':
-        'Current column sort direction, reflected in aria-sort.',
-      'table-cell-props.properties.align.description':
-        'Logical alignment; end is useful for numeric columns.',
-      'table-row-props.properties.selected.description':
-        'Consumer-owned selected appearance; does not add grid selection semantics.',
+      'table-fixed-cell-props.properties.fixed.description':
+        'Pins this cell to a logical edge of Table.Viewport.',
+      'table-fixed-cell-props.properties.sticky-offset.description':
+        'Cumulative widths of preceding pinned columns at the same edge, in pixels.',
+      'table-sort-button-props.properties.sort-mode.description':
+        'Both arrows and a three-state cycle, or a single arrow toggling that direction and none.',
       'table-sort-button-props.properties.direction.description': 'Controlled sort direction.',
       'table-sort-button-props.properties.default-direction.description':
         'Initial uncontrolled direction.',
+      'table-sort-button-props.properties.directions.description':
+        'Enabled sort directions, cycled in order before returning to none.',
       'table-sort-button-props.properties.on-direction-change.description':
-        'Requests the next direction: none → ascending → descending → none.',
+        'Requests the next enabled direction, then none.',
+      'table-header-sort-control.properties.enabled.description':
+        'Shows the sorting button while retaining its mode when disabled.',
+      'table-header-sort-control.properties.mode.description': 'Arrow shape and direction cycle.',
+      'table-header-sort-control.properties.direction.description':
+        "Controlled direction, also reflected in the heading's aria-sort.",
+      'table-header-sort-control.properties.on-direction-change.description':
+        'Receives the requested direction; data ordering remains consumer-owned.',
+      'table-header-controls.properties.layout.description':
+        'Keeps the heading at the start, or aligns heading and controls as one group.',
+      'table-header-controls.properties.align.description':
+        'Aligns controls in the remaining space, or the complete joined heading group.',
+      'table-header-controls.properties.sort.description':
+        'Sorting control; omitted or false hides it.',
+      'table-header-controls.properties.filter.description':
+        'Filter control; the column name supplies its label. Omitted or false hides it.',
+      'table-header-controls.properties.search.description':
+        'Search control; the column name supplies its label. Omitted or false hides it.',
+      'table-head-props.properties.controls.description':
+        'Optional controls in fixed order: sorting, filter, search. Their alignment is shared.',
+      'table-head-props.properties.min-width.description':
+        'Per-column minimum resize width, overriding the table default.',
+      'table-head-props.properties.max-width.description':
+        'Per-column maximum resize width, overriding the table default.',
+      'table-head-props.properties.align.description':
+        'Heading alignment when controls is omitted; otherwise controls.align owns alignment.',
+      'table-head-props.properties.fixed.description':
+        'Pins this cell to a logical edge of Table.Viewport.',
+      'table-head-props.properties.sticky-offset.description':
+        'Cumulative widths of preceding pinned columns at the same edge, in pixels.',
+      'table-cell-props.properties.align.description':
+        'Logical alignment; end is useful for numeric columns.',
+      'table-cell-props.properties.fixed.description':
+        'Pins this cell to a logical edge of Table.Viewport.',
+      'table-cell-props.properties.sticky-offset.description':
+        'Cumulative widths of preceding pinned columns at the same edge, in pixels.',
+      'table-row-props.properties.selected.description':
+        'Consumer-owned selected appearance; does not add grid selection semantics.',
       'table-filter-props.properties.tooltip.description':
         'Tooltip content. Defaults to the generic localized Filter label; false hides the hint.',
       'table-filter-props.properties.size.description':
@@ -1306,6 +1388,17 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Accessible name of the selection menu trigger.',
       'table-selection-props.properties.disabled.description':
         'Disables the checkbox and menu. Empty rowKeys also disables them.',
+      'table-search-props.properties.label.description': 'Column name used in accessible labels.',
+      'table-search-props.properties.value.description': 'Controlled applied query.',
+      'table-search-props.properties.default-value.description': 'Initial uncontrolled query.',
+      'table-search-props.properties.on-value-change.description':
+        'Called when submitting or clearing the search.',
+      'table-search-props.properties.placeholder.description': 'Optional input placeholder.',
+      'table-search-props.properties.tooltip.description': 'Custom tooltip; false hides it.',
+      'table-search-props.properties.size.description': 'Size of the search controls.',
+      'table-search-props.properties.action-size.description':
+        'Size of the search action buttons, overriding size when provided.',
+      'table-search-props.properties.disabled.description': 'Disables the search trigger.',
     },
   },
   tabs: {
@@ -1402,8 +1495,27 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Places notifications outside clipping and isolated page layouts, preserving theme and direction. Set false for an inline viewport.',
     },
   },
+  toolbar: {
+    api: {
+      'toolbar-props.description':
+        'A labelled set of independent controls with one Tab stop and arrow-key navigation.',
+      'toolbar-props.properties.loop.description':
+        'Wrap arrow-key focus from the last enabled control to the first.',
+      'toolbar-props.properties.size.description':
+        'Shared button size. An explicit Button size takes precedence.',
+      'toolbar-props.properties.layout.description':
+        "Use custom to keep the consumer's existing layout completely unchanged.",
+      'toolbar-props.properties.orientation.description': 'Direction of the controls.',
+      'toolbar-props.properties.align.description': 'Main-axis alignment.',
+      'toolbar-props.properties.gap.description': 'Spacing token between controls.',
+      'toolbar-props.properties.render.description':
+        'Render the same root through a Surface or another div-based component without adding a wrapper.',
+    },
+  },
   tooltip: {
     api: {
+      'tooltip-props.properties.anchor-ref.description':
+        'External anchor for controlled tooltips on existing elements; the consumer handles hover and focus.',
       'tooltip-props.properties.open-delay.description':
         'Hover delay in milliseconds; keyboard focus opens immediately.',
       'tooltip-props.properties.close-on-click.description':
@@ -1460,6 +1572,28 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Initial value. Defaults to the midpoint of min and max.',
       'slider-props.properties.on-value-change.description':
         'Called for native pointer and keyboard value changes.',
+      'slider-range-props.properties.value.description':
+        'Ordered controlled thumb values. Thumbs cannot cross their neighbors.',
+      'slider-range-props.properties.default-value.description': 'Initial thumb values.',
+      'slider-range-props.properties.min.description': 'Lower bound shared by all thumbs.',
+      'slider-range-props.properties.max.description': 'Upper bound shared by all thumbs.',
+      'slider-range-props.properties.step.description': 'Numeric increment from min.',
+      'slider-range-props.properties.thumb-labels.description':
+        'Accessible name for each thumb, in value order.',
+      'slider-range-props.properties.get-value-text.description':
+        "Formats each thumb's accessible value text and visible value hint.",
+      'slider-range-props.properties.on-value-change.description':
+        'Called with ordered values for pointer or keyboard changes.',
+      'slider-range-props.properties.on-thumb-focus.description':
+        'Called with the zero-based index when a thumb receives focus.',
+      'slider-range-props.properties.name.description':
+        'Repeated field name used by hidden inputs for native form submission.',
+      'slider-range-props.properties.disabled.description':
+        'Prevents interaction and excludes values from form submission.',
+      'slider-range-props.properties.read-only.description':
+        'Prevents editing while retaining focus and form values.',
+      'slider-range-props.properties.required.description':
+        'Marks the field as required for shared field semantics.',
     },
   },
   'color-picker': {
@@ -1720,8 +1854,10 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
       'table-sort-button-props.properties.direction.description': 'Controlled sort direction.',
       'table-sort-button-props.properties.default-direction.description':
         'Initial uncontrolled direction.',
+      'table-sort-button-props.properties.directions.description':
+        'Enabled sort directions, cycled in order before returning to none.',
       'table-sort-button-props.properties.on-direction-change.description':
-        'Requests the next direction: none → ascending → descending → none.',
+        'Requests the next enabled direction, then none.',
     },
   },
   tree: {
@@ -2245,6 +2381,8 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
   },
   tooltip: {
     api: {
+      'tooltip-props.properties.anchor-ref.description':
+        'External anchor for controlled tooltips on existing elements; the consumer handles hover and focus.',
       'tooltip-props.properties.open-delay.description':
         'Hover delay in milliseconds; keyboard focus opens immediately.',
       'tooltip-props.properties.close-on-click.description':

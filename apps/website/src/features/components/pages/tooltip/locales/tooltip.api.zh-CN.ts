@@ -2,6 +2,8 @@ import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 
 export const tooltipApiZhCN = {
   api: {
+    'tooltip-props.properties.anchor-ref.description':
+      '受控提示可使用已有元素作为外部锚点；使用方处理悬停和聚焦。',
     'tooltip-content-props.properties.anchor-ref.description':
       '可指定定位元素；悬停、聚焦和无障碍描述仍由触发按钮负责。',
     'tooltip-provider-props.properties.size.description':
