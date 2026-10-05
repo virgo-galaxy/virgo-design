@@ -33,3 +33,23 @@ describe('Slider visual contract', () => {
     },
   );
 });
+it('exports the styled range with normalized positions and forwards its root ref', () => {
+  const ref = createRef<HTMLDivElement>();
+  render(
+    <Slider.Range
+      ref={ref}
+      aria-label="Width"
+      value={[20, 50, 80]}
+      thumbLabels={['Minimum', 'Current', 'Maximum']}
+      size="small"
+    />,
+  );
+  const group = screen.getByRole('group', { name: 'Width' });
+  expect(ref.current).toBe(group);
+  expect(group).toHaveAttribute('data-size', 'small');
+  expect(group.querySelector('[data-slot="track"]')).toHaveStyle({
+    '--slider-range-start': '20%',
+    '--slider-range-end': '80%',
+  });
+  expect(screen.getByRole('slider', { name: 'Current' })).toHaveStyle({ insetInlineStart: '50%' });
+});

@@ -53,7 +53,7 @@ export * from './components/Pagination';
 export * from './components/Popover';
 export * from './components/Radio';
 export * from './components/Select';
-export { Slider, type SliderProps } from './components/Slider';
+export { Slider, type SliderProps, type SliderRangeProps } from './components/Slider';
 export * from './components/Switch';
 export * from './components/Table';
 export * from './components/Tabs';

@@ -1,2 +1,4 @@
-export { Slider } from './Slider';
-export type { SliderProps } from './Slider.types';
+import { Slider as Root } from './Slider';
+import { SliderRange } from './SliderRange';
+export const Slider = Object.assign(Root, { Range: SliderRange });
+export type { SliderProps, SliderRangeProps } from './Slider.types';
