@@ -68,6 +68,19 @@ The 34 animated families (46 icon variants) use their own authored motion while 
 
 ## Canonical SVG
 
+`GrokBotIcon` preserves the original silver bot artwork and its proportions at any
+`size` (24px by default). Its gradients use unique IDs per instance. The source
+lives in `artwork/grok-bot.svg`, separately from the monochrome canonical assets,
+and appears in the website's Brands icon catalogue.
+
+```tsx
+import { GrokBotIcon } from '@virgo-design/icons';
+import adminBot from '@virgo-design/icons/artwork/grok-bot.svg';
+
+<GrokBotIcon size={24} />;
+<img src={adminBot} width={24} height={24} alt="Administrator bot" />;
+```
+
 Every Virgo Icon is designed on a canonical:
 
 ```text

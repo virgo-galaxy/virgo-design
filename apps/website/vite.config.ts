@@ -64,6 +64,12 @@ export default defineConfig({
       '@virgo-design/icons/tooling': fileURLToPath(
         new URL('../../packages/icons/src/tooling.ts', import.meta.url),
       ),
+      '@virgo-design/icons/artwork/grok-bot.svg': fileURLToPath(
+        new URL('../../packages/icons/artwork/grok-bot.svg', import.meta.url),
+      ),
+      '@virgo-design/icons/artwork': fileURLToPath(
+        new URL('../../packages/icons/src/artwork.ts', import.meta.url),
+      ),
       '@virgo-design/icons': fileURLToPath(
         new URL('../../packages/icons/src/index.ts', import.meta.url),
       ),

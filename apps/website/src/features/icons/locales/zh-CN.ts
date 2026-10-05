@@ -83,6 +83,7 @@ export const iconsZhCN = {
   related: '相关图标',
   size: '尺寸',
   originalBrandColors: '原始品牌配色与比例',
+  originalArtworkColors: '原始插画配色与比例',
   color: '颜色 / currentColor',
   background: '当前背景',
   light: '浅色',

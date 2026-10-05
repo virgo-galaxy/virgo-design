@@ -1,7 +1,16 @@
 /* Generated from canonical SVG. Do not edit. */
 export const iconSvgSources = {
+  ai: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path fill-rule="evenodd" d="M2.376 18.3 8.994 5.7 9.820 5 11.220 5 11.794 5.7 13.876 18.3 13.250 19 11.750 19 11.180 15.5 6.080 15.5 4.250 19 2.750 19ZM7.140 13.5 10.840 13.5 10.190 8.5 9.590 8.5Z" />\n  <path d="M16.7 5H21.3L22 5.7V6.3L21.3 7H20V17H21.3L22 17.7V18.3L21.3 19H16.7L16 18.3V17.7L16.7 17H18V7H16.7L16 6.3V5.7Z" />\n</svg>\n',
+  'align-center':
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M4.5 4H19.5l.5.5v1l-.5.5H4.5l-.5-.5v-1z M7.5 9H16.5l.5.5v1l-.5.5H7.5l-.5-.5v-1z M4.5 14H19.5l.5.5v1l-.5.5H4.5l-.5-.5v-1z M7.5 19H16.5l.5.5v1l-.5.5H7.5l-.5-.5v-1z" />\n</svg>\n',
+  'align-left':
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M4.5 4H19.5l.5.5v1l-.5.5H4.5l-.5-.5v-1z M4.5 9H13.5l.5.5v1l-.5.5H4.5l-.5-.5v-1z M4.5 14H19.5l.5.5v1l-.5.5H4.5l-.5-.5v-1z M4.5 19H13.5l.5.5v1l-.5.5H4.5l-.5-.5v-1z" />\n</svg>\n',
+  'align-right':
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M4.5 4H19.5l.5.5v1l-.5.5H4.5l-.5-.5v-1z M10.5 9H19.5l.5.5v1l-.5.5H10.5l-.5-.5v-1z M4.5 14H19.5l.5.5v1l-.5.5H4.5l-.5-.5v-1z M10.5 19H19.5l.5.5v1l-.5.5H10.5l-.5-.5v-1z" />\n</svg>\n',
   'arrow-down':
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <!-- The directional family shares one clipped arrowhead and a two-unit stem. -->\n  <path d="M4.75 13.25 L4.75 12.25 L5.25 11.75 L6.25 11.75 L11 17 L11 3.5 L11.5 3 L12.5 3 L13 3.5 L13 17 L17.75 11.75 L18.75 11.75 L19.25 12.25 L19.25 13.25 L12.75 20.5 L11.25 20.5z" />\n</svg>\n',
+  'arrow-enter':
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M3 16L9 10V15H14.5C17.8 15 19.5 13.3 19.5 10.5S17.8 6 14.5 6H14V4H14.5C19 4 21.5 6.5 21.5 10.5S19 17 14.5 17H9V22Z" />\n</svg>\n',
   'arrow-left':
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <!-- The directional family shares one clipped arrowhead and a two-unit stem. -->\n  <path d="M10.75 4.75 L11.75 4.75 L12.25 5.25 L12.25 6.25 L7 11 L20.5 11 L21 11.5 L21 12.5 L20.5 13 L7 13 L12.25 17.75 L12.25 18.75 L11.75 19.25 L10.75 19.25 L3.5 12.75 L3.5 11.25z" />\n</svg>\n',
   'arrow-return':
@@ -107,6 +116,7 @@ export const iconSvgSources = {
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943" />\n</svg>\n',
   globe:
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18Z M12 5a7 7 0 1 0 0 14 7 7 0 0 0 0-14Z" fill-rule="evenodd" />\n  <path d="M12 3c3 0 4.5 4 4.5 9s-1.5 9-4.5 9-4.5-4-4.5-9S9 3 12 3Z M12 5c-1.5 0-2.75 3-2.75 7s1.25 7 2.75 7 2.75-3 2.75-7S13.5 5 12 5Z" fill-rule="evenodd" />\n  <path d="M4 11h16v2H4z" />\n</svg>\n',
+  grip: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M10 6 9 7.732 7 7.732 6 6 7 4.268 9 4.268Z" />\n  <path d="M18 6 17 7.732 15 7.732 14 6 15 4.268 17 4.268Z" />\n  <path d="M10 12 9 13.732 7 13.732 6 12 7 10.268 9 10.268Z" />\n  <path d="M18 12 17 13.732 15 13.732 14 12 15 10.268 17 10.268Z" />\n  <path d="M10 18 9 19.732 7 19.732 6 18 7 16.268 9 16.268Z" />\n  <path d="M18 18 17 19.732 15 19.732 14 18 15 16.268 17 16.268Z" />\n</svg>\n',
   'home-filled':
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M11.5 3.5h1L21 11.25v1l-.75.75H19v6.5l-1 1H6l-1-1V13H3.75L3 12.25v-1z M9 12.5v8h6v-8z" fill-rule="evenodd" />\n</svg>\n',
   home: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M11.5 3.5h1L21 11.25v1l-.75.75H19v6.5l-1 1H6l-1-1V13H3.75L3 12.25v-1z M12 6 7 10.5v8h2v-6h6v6h2v-8z M11 14.5v6h2v-6z" fill-rule="evenodd" />\n</svg>\n',
@@ -127,6 +137,8 @@ export const iconSvgSources = {
   'lock-filled':
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M7 9.5v-4L9.5 3h5L17 5.5v4h-2v-3L13.5 5h-3L9 6.5v3z" fill-rule="evenodd" />\n  <path d="M5.5 9.5h13l1 1v9l-1 1h-13l-1-1v-9z M11.5 13h1l.5.5v3l-.5.5h-1l-.5-.5v-3z" fill-rule="evenodd" />\n</svg>\n',
   lock: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <!-- Chamfered two-unit outline with an open interior; the shackle meets the body. -->\n  <path d="M7 9.5v-4L9.5 3h5L17 5.5v4h-2v-3L13.5 5h-3L9 6.5v3z" />\n  <path d="M5.5 9.5h13l1 1v9l-1 1h-13l-1-1v-9z M7 11.5l-.5.5v6l.5.5h10l.5-.5v-6l-.5-.5z" fill-rule="evenodd" />\n  <path d="M11.5 13h1l.5.5v3l-.5.5h-1l-.5-.5v-3z" />\n</svg>\n',
+  'log-out':
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M5 3h6l.5.5v1l-.5.5H6v14h5l.5.5v1l-.5.5H5l-1-1V4z" />\n  <path d="m17 7 5 5-5 5h-1.4l-.5-.5v-1.4l2.6-2.6H10l-.5-.5v-1l.5-.5h7.7l-2.6-2.6V7.5l.5-.5z" />\n</svg>\n',
   maximize:
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path fill-rule="evenodd" d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 2v12h12V6H6Z" />\n</svg>\n',
   'microphone-filled':
@@ -142,6 +154,7 @@ export const iconSvgSources = {
   'moon-filled':
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M8.648 3.648A9 9 0 1 0 20.352 15.352 9 9 0 0 1 8.648 3.648Z" />\n</svg>\n',
   moon: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M8.648 3.648A9 9 0 1 0 20.352 15.352 9 9 0 0 1 8.648 3.648Z M6.074 8.274A7 7 0 0 0 15.726 17.926A11 11 0 0 1 6.074 8.274Z" fill-rule="evenodd" />\n</svg>\n',
+  move: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <!-- Four clipped arrowheads share a two-unit cross for drag and reorder handles. -->\n  <path d="M11.5 2.5h1L16 6v1l-.5.5h-1L13 6v5h5l-1.5-1.5v-1L17 8h1l3.5 3.5v1L18 16h-1l-.5-.5v-1L18 13h-5v5l1.5-1.5h1l.5.5v1l-3.5 3.5h-1L8 18v-1l.5-.5h1L11 18v-5H6l1.5 1.5v1L7 16H6l-3.5-3.5v-1L6 8h1l.5.5v1L6 11h5V6L9.5 7.5h-1L8 7V6z" />\n</svg>\n',
   'palette-filled':
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M12 2a10 10 0 0 0 0 20h1a3 3 0 0 0 2.4-4.8l-.6-.8a.25.25 0 0 1 .2-.4h2a5 5 0 0 0 5-5c0-5-4.5-9-10-9z M10.5 5.5h2l.5.5v2l-.5.5h-2L10 8V6z M6 8h2l.5.5v2l-.5.5H6l-.5-.5v-2z M6 13h2l.5.5v2L8 16H6l-.5-.5v-2z M15 7.5h2l.5.5v2l-.5.5h-2l-.5-.5V8z" fill-rule="evenodd" />\n</svg>\n',
   palette:
@@ -163,6 +176,14 @@ export const iconSvgSources = {
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <!-- A clipped-top receipt with a short zigzag tear edge and two clear record lines. -->\n  <path d="M6 2h12l2 2v18l-4-2-4 2-4-2-4 2V4z M6 4v14.76l2-1 4 2 4-2 2 1V4z" fill-rule="evenodd" />\n  <path d="M8 7h8v2H8z M8 11h6v2H8z" />\n</svg>\n',
   reset:
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.88 7.35a8.5 8.5 0 1 1-1.13 6.71l1.94-.48a6.5 6.5 0 1 0 .89-5.16L8.5 10.5H2.75V4.75z"/></svg>\n',
+  'resize-corner-bottom-left':
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M6 6H4V19L5 20H18V18H6Z" />\n  <path d="M12 6H10V13L11 14H18V12H12Z" />\n</svg>\n',
+  'resize-corner-bottom-right':
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M18 6H20V19L19 20H6V18H18Z" />\n  <path d="M12 6H14V13L13 14H6V12H12Z" />\n</svg>\n',
+  'resize-corner-top-left':
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M6 18H4V5L5 4H18V6H6Z" />\n  <path d="M12 18H10V11L11 10H18V12H12Z" />\n</svg>\n',
+  'resize-corner-top-right':
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M18 18H20V5L19 4H6V6H18Z" />\n  <path d="M12 18H14V11L13 10H6V12H12Z" />\n</svg>\n',
   search:
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path\n    d="M10 3.75a7 7 0 1 1 0 14 7 7 0 0 1 0-14Zm0 2.25a4.75 4.75 0 1 0 0 9.5 4.75 4.75 0 0 0 0-9.5Z"\n    fill-rule="evenodd"\n  />\n  <path d="M15.2 14.55l1.4-1.4 4.4 4.4v1.4l-1.4 1.4h-1.4z" />\n</svg>\n',
   'settings-filled':
@@ -178,6 +199,8 @@ export const iconSvgSources = {
   'sidebar-expand':
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M4 4.5h16l.5.5v1l-.5.5H4L3.5 6V5z M11 9h9l.5.5v1l-.5.5h-9l-.5-.5v-1z M11 13h9l.5.5v1l-.5.5h-9l-.5-.5v-1z M4 17.5h16l.5.5v1l-.5.5H4l-.5-.5v-1z" />\n  <path d="M4 8.5h.5l4 3v1l-4 3H4l-.5-.5V9z" />\n</svg>\n',
   sort: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M11.6 3h.8l5.6 7-.3.5H6.3L6 10z" />\n  <path d="M6.3 13.5h11.4l.3.5-5.6 7h-.8L6 14z" />\n</svg>\n',
+  sparkles:
+    '<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">\n  <path d="M10.5 3 13 9l6 2.5-6 2.5-2.5 6L8 14l-6-2.5L8 9Zm0 4.8-1.3 3.1-3.1 1.3 3.1 1.3 1.3 3.1 1.3-3.1 3.1-1.3-3.1-1.3Z" fill-rule="evenodd"/>\n  <path d="m19 1 1.1 2.9L23 5l-2.9 1.1L19 9l-1.1-2.9L15 5l2.9-1.1ZM20 16l.9 2.1 2.1.9-2.1.9L20 22l-.9-2.1L17 19l2.1-.9Z"/>\n</svg>\n',
   spline:
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <!-- A continuous S-curve between two chamfered, hollow anchor nodes. -->\n  <path d="M7.5 18H16a2.25 2.25 0 0 0 0-4.5H8A4.25 4.25 0 0 1 8 5h8.5v2H8a2.25 2.25 0 0 0 0 4.5h8a4.25 4.25 0 0 1 0 8.5H7.5z" />\n  <path d="M16.5 3h5l.5.5v5l-.5.5h-5l-.5-.5v-5z M18 5v2h2V5z M2.5 16h5l.5.5v5l-.5.5h-5l-.5-.5v-5z M4 18v2h2v-2z" fill-rule="evenodd" />\n</svg>\n',
   'stop-filled':
@@ -218,6 +241,8 @@ export const iconSvgSources = {
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M3 2.5h7l.5.5v7l-.5.5H3l-.5-.5V3z" fill-rule="evenodd" />\n  <path d="M16.4 1.6h.7l4.3 4.3v.7l-4.3 4.3h-.7L12.1 6.6v-.7z" fill-rule="evenodd" />\n  <path d="M3 12.5h7l.5.5v7l-.5.5H3l-.5-.5v-7z" fill-rule="evenodd" />\n  <path d="M13 12.5h7l.5.5v7l-.5.5h-7l-.5-.5v-7z" fill-rule="evenodd" />\n</svg>\n',
   widgets:
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M3 2.5h7l.5.5v7l-.5.5H3l-.5-.5V3z M4 4v5h5V4z" fill-rule="evenodd" />\n  <path d="M16.4 1.6h.7l4.3 4.3v.7l-4.3 4.3h-.7L12.1 6.6v-.7z M16.75 3.4l-2.85 2.85 2.85 2.85 2.85-2.85z" fill-rule="evenodd" />\n  <path d="M3 12.5h7l.5.5v7l-.5.5H3l-.5-.5v-7z M4 14v5h5v-5z" fill-rule="evenodd" />\n  <path d="M13 12.5h7l.5.5v7l-.5.5h-7l-.5-.5v-7z M14 14v5h5v-5z" fill-rule="evenodd" />\n</svg>\n',
+  'window-move':
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M4 3H18L20 5V10H18V5.75L17.25 5H5.75L5 5.75V17.25L5.75 18H10V20H4L3 19V4Z" />\n  <path d="M13.2 11.35 21.05 14.2C22.35 14.68 22.37 16.25 21 16.72L18.35 17.58C17.97 17.7 17.72 17.96 17.6 18.33L16.74 20.99C16.3 22.37 14.7 22.36 14.22 21.06L11.37 13.21C10.86 11.81 11.81 10.84 13.2 11.35Z" />\n</svg>\n',
 } as const;
 export const iconAnimatedSvgSources = {
   'arrow-down':

@@ -6,6 +6,9 @@ import { createRef } from 'react';
 import { describe, expect, expectTypeOf, it } from 'vitest';
 
 import {
+  AlignCenterIcon,
+  AlignLeftIcon,
+  AlignRightIcon,
   BellIcon,
   type BellIconProps,
   BotIcon,
@@ -43,9 +46,11 @@ import {
   LayersIcon,
   LayoutIcon,
   LockIcon,
+  LogOutIcon,
   MicrophoneIcon,
   MonitorIcon,
   MoonIcon,
+  MoveIcon,
   PaletteIcon,
   PauseIcon,
   PinIcon,
@@ -67,6 +72,9 @@ import {
 } from './index';
 
 const addedIcons = [
+  ['align-left', AlignLeftIcon],
+  ['align-center', AlignCenterIcon],
+  ['align-right', AlignRightIcon],
   ['edit', EditIcon],
   ['file-text', FileTextIcon],
   ['bell', BellIcon],
@@ -102,6 +110,7 @@ const addedIcons = [
   ['shapes', ShapesIcon],
   ['home', HomeIcon],
   ['moon', MoonIcon],
+  ['move', MoveIcon],
   ['eye', EyeIcon],
   ['eye-closed', EyeClosedIcon],
   ['dashboard', DashboardIcon],
@@ -116,6 +125,7 @@ const addedIcons = [
   ['language-en', LanguageEnIcon],
   ['language-zh', LanguageZhIcon],
   ['lock', LockIcon],
+  ['log-out', LogOutIcon],
   ['unlock', UnlockIcon],
   ['pin', PinIcon],
   ['unpin', UnpinIcon],

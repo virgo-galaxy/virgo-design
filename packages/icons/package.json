@@ -7,6 +7,7 @@
     "dist",
     "THIRD_PARTY_NOTICES.md",
     "icons",
+    "artwork",
     "README.md",
     "brands"
   ],
@@ -33,6 +34,12 @@
       "import": "./dist/assets.js",
       "default": "./dist/assets.js"
     },
+    "./artwork": {
+      "types": "./dist/artwork.d.ts",
+      "import": "./dist/artwork.js",
+      "default": "./dist/artwork.js"
+    },
+    "./artwork/*": "./artwork/*",
     "./tooling": {
       "types": "./dist/tooling.d.ts",
       "import": "./dist/tooling.js",
@@ -54,9 +61,9 @@
   },
   "scripts": {
     "clean": "node ./scripts/clean.mjs",
-    "generate": "node ./scripts/generate.ts && node ./scripts/generate-brands.mjs",
+    "generate": "node ./scripts/generate.ts && node ./scripts/generate-brands.mjs && node ./scripts/generate-artwork.mjs",
     "build": "pnpm run clean && pnpm run generate && tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "check": "node ./scripts/generate.ts --check && node ./scripts/generate-brands.mjs --check"
+    "check": "node ./scripts/generate.ts --check && node ./scripts/generate-brands.mjs --check && node ./scripts/generate-artwork.mjs --check"
   }
 }

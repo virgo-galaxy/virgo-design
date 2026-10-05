@@ -1,5 +1,10 @@
 /* Generated opt-in React registry. Do not edit. */
+import { AiIcon } from './AiIcon.js';
+import { AlignCenterIcon } from './AlignCenterIcon.js';
+import { AlignLeftIcon } from './AlignLeftIcon.js';
+import { AlignRightIcon } from './AlignRightIcon.js';
 import { ArrowDownIcon } from './ArrowDownIcon.js';
+import { ArrowEnterIcon } from './ArrowEnterIcon.js';
 import { ArrowLeftIcon } from './ArrowLeftIcon.js';
 import { ArrowReturnIcon } from './ArrowReturnIcon.js';
 import { ArrowRightIcon } from './ArrowRightIcon.js';
@@ -56,6 +61,7 @@ import { GaugeFilledIcon } from './GaugeFilledIcon.js';
 import { GaugeIcon } from './GaugeIcon.js';
 import { GithubIcon } from './GithubIcon.js';
 import { GlobeIcon } from './GlobeIcon.js';
+import { GripIcon } from './GripIcon.js';
 import { HomeFilledIcon } from './HomeFilledIcon.js';
 import { HomeIcon } from './HomeIcon.js';
 import { LanguageEnIcon } from './LanguageEnIcon.js';
@@ -67,6 +73,7 @@ import { LayoutFilledIcon } from './LayoutFilledIcon.js';
 import { LayoutIcon } from './LayoutIcon.js';
 import { LockFilledIcon } from './LockFilledIcon.js';
 import { LockIcon } from './LockIcon.js';
+import { LogOutIcon } from './LogOutIcon.js';
 import { MaximizeIcon } from './MaximizeIcon.js';
 import { MicrophoneFilledIcon } from './MicrophoneFilledIcon.js';
 import { MicrophoneIcon } from './MicrophoneIcon.js';
@@ -75,6 +82,7 @@ import { MonitorFilledIcon } from './MonitorFilledIcon.js';
 import { MonitorIcon } from './MonitorIcon.js';
 import { MoonFilledIcon } from './MoonFilledIcon.js';
 import { MoonIcon } from './MoonIcon.js';
+import { MoveIcon } from './MoveIcon.js';
 import { PaletteFilledIcon } from './PaletteFilledIcon.js';
 import { PaletteIcon } from './PaletteIcon.js';
 import { PauseFilledIcon } from './PauseFilledIcon.js';
@@ -87,6 +95,10 @@ import { PlusIcon } from './PlusIcon.js';
 import { ReceiptFilledIcon } from './ReceiptFilledIcon.js';
 import { ReceiptIcon } from './ReceiptIcon.js';
 import { ResetIcon } from './ResetIcon.js';
+import { ResizeCornerBottomLeftIcon } from './ResizeCornerBottomLeftIcon.js';
+import { ResizeCornerBottomRightIcon } from './ResizeCornerBottomRightIcon.js';
+import { ResizeCornerTopLeftIcon } from './ResizeCornerTopLeftIcon.js';
+import { ResizeCornerTopRightIcon } from './ResizeCornerTopRightIcon.js';
 import { SearchIcon } from './SearchIcon.js';
 import { SettingsFilledIcon } from './SettingsFilledIcon.js';
 import { SettingsIcon } from './SettingsIcon.js';
@@ -95,6 +107,7 @@ import { ShapesIcon } from './ShapesIcon.js';
 import { SidebarCollapseIcon } from './SidebarCollapseIcon.js';
 import { SidebarExpandIcon } from './SidebarExpandIcon.js';
 import { SortIcon } from './SortIcon.js';
+import { SparklesIcon } from './SparklesIcon.js';
 import { SplineIcon } from './SplineIcon.js';
 import { StopFilledIcon } from './StopFilledIcon.js';
 import { StopIcon } from './StopIcon.js';
@@ -117,8 +130,14 @@ import { UserIcon } from './UserIcon.js';
 import { VirgoDesignIcon } from './VirgoDesignIcon.js';
 import { WidgetsFilledIcon } from './WidgetsFilledIcon.js';
 import { WidgetsIcon } from './WidgetsIcon.js';
+import { WindowMoveIcon } from './WindowMoveIcon.js';
 export const iconComponents = {
+  ai: AiIcon,
+  'align-center': AlignCenterIcon,
+  'align-left': AlignLeftIcon,
+  'align-right': AlignRightIcon,
   'arrow-down': ArrowDownIcon,
+  'arrow-enter': ArrowEnterIcon,
   'arrow-left': ArrowLeftIcon,
   'arrow-return': ArrowReturnIcon,
   'arrow-right': ArrowRightIcon,
@@ -175,6 +194,7 @@ export const iconComponents = {
   gauge: GaugeIcon,
   github: GithubIcon,
   globe: GlobeIcon,
+  grip: GripIcon,
   'home-filled': HomeFilledIcon,
   home: HomeIcon,
   'language-en': LanguageEnIcon,
@@ -186,6 +206,7 @@ export const iconComponents = {
   layout: LayoutIcon,
   'lock-filled': LockFilledIcon,
   lock: LockIcon,
+  'log-out': LogOutIcon,
   maximize: MaximizeIcon,
   'microphone-filled': MicrophoneFilledIcon,
   microphone: MicrophoneIcon,
@@ -194,6 +215,7 @@ export const iconComponents = {
   monitor: MonitorIcon,
   'moon-filled': MoonFilledIcon,
   moon: MoonIcon,
+  move: MoveIcon,
   'palette-filled': PaletteFilledIcon,
   palette: PaletteIcon,
   'pause-filled': PauseFilledIcon,
@@ -206,6 +228,10 @@ export const iconComponents = {
   'receipt-filled': ReceiptFilledIcon,
   receipt: ReceiptIcon,
   reset: ResetIcon,
+  'resize-corner-bottom-left': ResizeCornerBottomLeftIcon,
+  'resize-corner-bottom-right': ResizeCornerBottomRightIcon,
+  'resize-corner-top-left': ResizeCornerTopLeftIcon,
+  'resize-corner-top-right': ResizeCornerTopRightIcon,
   search: SearchIcon,
   'settings-filled': SettingsFilledIcon,
   settings: SettingsIcon,
@@ -214,6 +240,7 @@ export const iconComponents = {
   'sidebar-collapse': SidebarCollapseIcon,
   'sidebar-expand': SidebarExpandIcon,
   sort: SortIcon,
+  sparkles: SparklesIcon,
   spline: SplineIcon,
   'stop-filled': StopFilledIcon,
   stop: StopIcon,
@@ -236,4 +263,5 @@ export const iconComponents = {
   'virgo-design': VirgoDesignIcon,
   'widgets-filled': WidgetsFilledIcon,
   widgets: WidgetsIcon,
+  'window-move': WindowMoveIcon,
 } as const;

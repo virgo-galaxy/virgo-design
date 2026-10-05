@@ -82,6 +82,7 @@ export const iconsEnUS = {
   related: 'Related icons',
   size: 'Size',
   originalBrandColors: 'Original brand colors and proportions',
+  originalArtworkColors: 'Original artwork colors and proportions',
   color: 'Color / currentColor',
   background: 'Current background',
   light: 'Light',

@@ -1,0 +1,4 @@
+<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- Four clipped arrowheads share a two-unit cross for drag and reorder handles. -->
+  <path d="M11.5 2.5h1L16 6v1l-.5.5h-1L13 6v5h5l-1.5-1.5v-1L17 8h1l3.5 3.5v1L18 16h-1l-.5-.5v-1L18 13h-5v5l1.5-1.5h1l.5.5v1l-3.5 3.5h-1L8 18v-1l.5-.5h1L11 18v-5H6l1.5 1.5v1L7 16H6l-3.5-3.5v-1L6 8h1l.5.5v1L6 11h5V6L9.5 7.5h-1L8 7V6z" />
+</svg>

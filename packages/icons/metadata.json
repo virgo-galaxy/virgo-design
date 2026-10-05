@@ -1,5 +1,49 @@
 [
   {
+    "id": "ai",
+    "family": "ai",
+    "variant": "outline",
+    "category": "system",
+    "tags": ["ai", "letters", "typography", "assistant", "intelligence"],
+    "aliases": ["ai-letters"],
+    "status": "stable",
+    "description": "The uppercase letters AI with a forward-leaning A, geometric strokes, and chamfered corners.",
+    "animated": false
+  },
+  {
+    "id": "align-center",
+    "family": "align-center",
+    "variant": "outline",
+    "category": "layout",
+    "tags": ["align", "center", "text", "layout", "table"],
+    "aliases": ["text-align-center"],
+    "status": "stable",
+    "description": "Four horizontal bars with alternating lengths aligned to the center with subtly chamfered ends.",
+    "animated": false
+  },
+  {
+    "id": "align-left",
+    "family": "align-left",
+    "variant": "outline",
+    "category": "layout",
+    "tags": ["align", "left", "text", "layout", "table"],
+    "aliases": ["text-align-left"],
+    "status": "stable",
+    "description": "Four horizontal bars with alternating lengths aligned to the left with subtly chamfered ends.",
+    "animated": false
+  },
+  {
+    "id": "align-right",
+    "family": "align-right",
+    "variant": "outline",
+    "category": "layout",
+    "tags": ["align", "right", "text", "layout", "table"],
+    "aliases": ["text-align-right"],
+    "status": "stable",
+    "description": "Four horizontal bars with alternating lengths aligned to the right with subtly chamfered ends.",
+    "animated": false
+  },
+  {
     "id": "arrow-down",
     "family": "arrow-down",
     "variant": "outline",
@@ -9,6 +53,17 @@
     "status": "stable",
     "description": "A straight down-pointing arrow with a clipped head and a two-unit stem.",
     "animated": true
+  },
+  {
+    "id": "arrow-enter",
+    "family": "arrow-enter",
+    "variant": "outline",
+    "category": "navigation",
+    "tags": ["enter", "return", "keyboard", "arrow", "bend"],
+    "aliases": ["enter-key", "return-key"],
+    "status": "stable",
+    "description": "An Enter-key arrow with an upper tail curving down to a lower left-facing head.",
+    "animated": false
   },
   {
     "id": "arrow-left",
@@ -627,6 +682,17 @@
     "animated": true
   },
   {
+    "id": "grip",
+    "family": "grip",
+    "variant": "outline",
+    "category": "layout",
+    "tags": ["drag", "handle", "move", "grab"],
+    "aliases": ["grip-dots"],
+    "status": "stable",
+    "description": "Six hexagonal dots matching the clipped corners of Ellipsis, forming a compact drag handle.",
+    "animated": false
+  },
+  {
     "id": "home",
     "family": "home",
     "variant": "outline",
@@ -748,6 +814,17 @@
     "animated": true
   },
   {
+    "id": "log-out",
+    "family": "log-out",
+    "variant": "outline",
+    "category": "actions",
+    "tags": ["account", "logout", "session", "exit", "authentication"],
+    "aliases": ["logout", "sign-out"],
+    "status": "stable",
+    "description": "An open doorway with a right-pointing arrow for ending an account session.",
+    "animated": false
+  },
+  {
     "id": "maximize",
     "family": "maximize",
     "variant": "outline",
@@ -834,6 +911,17 @@
     "status": "stable",
     "description": "The filled variant of the moon family.",
     "animated": true
+  },
+  {
+    "id": "move",
+    "family": "move",
+    "variant": "outline",
+    "category": "actions",
+    "tags": ["move", "drag", "reorder", "sort", "position"],
+    "aliases": ["drag-handle", "reorder-handle", "move-arrows"],
+    "status": "stable",
+    "description": "Four clipped arrowheads joined by a two-unit cross for moving and reordering items.",
+    "animated": false
   },
   {
     "id": "palette",
@@ -968,6 +1056,50 @@
     "animated": false
   },
   {
+    "id": "resize-corner-bottom-left",
+    "family": "resize-corner-bottom-left",
+    "variant": "outline",
+    "category": "layout",
+    "tags": ["resize", "corner", "scale", "handle", "preview", "bottom", "left"],
+    "aliases": [],
+    "status": "stable",
+    "description": "Nested bottom-left corner marks for a window or preview resize handle.",
+    "animated": false
+  },
+  {
+    "id": "resize-corner-bottom-right",
+    "family": "resize-corner-bottom-right",
+    "variant": "outline",
+    "category": "layout",
+    "tags": ["resize", "corner", "scale", "handle", "preview", "bottom", "right"],
+    "aliases": [],
+    "status": "stable",
+    "description": "Nested bottom-right corner marks for a window or preview resize handle.",
+    "animated": false
+  },
+  {
+    "id": "resize-corner-top-left",
+    "family": "resize-corner-top-left",
+    "variant": "outline",
+    "category": "layout",
+    "tags": ["resize", "corner", "scale", "handle", "preview", "top", "left"],
+    "aliases": [],
+    "status": "stable",
+    "description": "Nested top-left corner marks for a window or preview resize handle.",
+    "animated": false
+  },
+  {
+    "id": "resize-corner-top-right",
+    "family": "resize-corner-top-right",
+    "variant": "outline",
+    "category": "layout",
+    "tags": ["resize", "corner", "scale", "handle", "preview", "top", "right"],
+    "aliases": [],
+    "status": "stable",
+    "description": "Nested top-right corner marks for a window or preview resize handle.",
+    "animated": false
+  },
+  {
     "id": "search",
     "family": "search",
     "variant": "outline",
@@ -1053,6 +1185,17 @@
     "aliases": ["sorting", "order", "sort-direction"],
     "status": "stable",
     "description": "Paired filled up and down triangles with distinct inactive tones and optional active direction.",
+    "animated": false
+  },
+  {
+    "id": "sparkles",
+    "family": "sparkles",
+    "variant": "outline",
+    "category": "system",
+    "tags": ["ai", "assistant", "agent", "sparkles", "intelligence"],
+    "aliases": ["artificial-intelligence", "ai-mode"],
+    "status": "stable",
+    "description": "A four-point sparkle with two smaller sparks for highlighted and AI-assisted interaction.",
     "animated": false
   },
   {
@@ -1295,6 +1438,17 @@
     "aliases": [],
     "status": "stable",
     "description": "The filled variant of the widgets family.",
+    "animated": false
+  },
+  {
+    "id": "window-move",
+    "family": "window-move",
+    "variant": "outline",
+    "category": "layout",
+    "tags": ["window", "move", "drag", "pointer", "position"],
+    "aliases": ["move-window", "window-drag"],
+    "status": "stable",
+    "description": "An open window frame with clipped corners and a softly rounded tailless pointer for moving floating windows.",
     "animated": false
   }
 ]
