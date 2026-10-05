@@ -19,7 +19,7 @@ export interface PaginationLabels {
 
 export interface PaginationProps extends Omit<PrimitivePaginationProps, 'children'> {
   /** Density of page items, page-size selection and quick jump. @default 'small' */
-  size?: 'small' | 'medium' | 'large' | undefined;
+  size?: 'mini' | 'small' | 'medium' | 'large' | undefined;
   /** Alignment within the available width. @default 'left' */
   align?: 'left' | 'center' | 'right';
   /** Enables total, page size and quick jump together. Individual flags take precedence. */

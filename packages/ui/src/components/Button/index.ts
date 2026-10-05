@@ -1,5 +1,6 @@
 export { Button } from './Button';
 export type {
+  ButtonGroupProps,
   ButtonProps,
   ButtonShape,
   ButtonSize,

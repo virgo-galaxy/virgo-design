@@ -1,6 +1,8 @@
 import type { ButtonProps as PrimitiveButtonProps } from '@virgo-design/primitives';
 import type { ReactNode } from 'react';
 
+import type { ActionGroupProps } from '../../internal/action-group/ActionGroup.types';
+
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'text';
 
 export type ButtonSize = 'mini' | 'small' | 'medium' | 'large';
@@ -62,3 +64,9 @@ export interface IconOnlyButtonProps extends ButtonSharedProps {
 }
 
 export type ButtonProps = TextButtonProps | IconOnlyButtonProps;
+
+/** Groups related independent actions without a shared selected value. */
+export interface ButtonGroupProps extends ActionGroupProps {
+  /** Separate controls or connect their adjacent edges. Attached groups accept direct Button children. @default 'spaced' */
+  variant?: 'spaced' | 'attached';
+}

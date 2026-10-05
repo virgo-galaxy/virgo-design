@@ -1,10 +1,11 @@
+@use '../../internal/form/control-size';
 @use '../../internal/form/control-focus';
 @use '../../internal/form/control-hover';
 
 .root {
   --textarea-background: var(--vd-surface-default);
   --textarea-border: var(--vd-border-default);
-  --textarea-border-hover: var(--vd-border-strong);
+  --textarea-border-hover: #{control-hover.$color};
   --textarea-border-focus: #{control-focus.$color};
   --textarea-foreground: var(--vd-text-primary);
   --textarea-placeholder: var(--vd-text-placeholder);
@@ -76,44 +77,44 @@
 
 .root[data-size='mini'] {
   --textarea-min-height: var(--vd-sizing-56);
-  --textarea-padding-block: var(--vd-spacing-6);
-  --textarea-padding-inline: var(--vd-spacing-8);
-  --textarea-radius: var(--vd-radius-6);
+  --textarea-padding-block: #{control-size.token(mini, padding-block)};
+  --textarea-padding-inline: #{control-size.token(mini, padding-inline)};
+  --textarea-radius: #{control-size.token(mini, radius)};
   --textarea-font-family: var(--vd-typography-ui-body-small-font-family);
-  --textarea-font-size: var(--vd-typography-ui-body-small-font-size);
+  --textarea-font-size: #{control-size.token(mini, font-size)};
   --textarea-font-weight: var(--vd-typography-ui-body-small-font-weight);
   --textarea-line-height: var(--vd-typography-ui-body-small-line-height);
 }
 
 .root[data-size='small'] {
   --textarea-min-height: var(--vd-sizing-64);
-  --textarea-padding-block: var(--vd-spacing-8);
-  --textarea-padding-inline: var(--vd-spacing-8);
-  --textarea-radius: var(--vd-radius-6);
+  --textarea-padding-block: #{control-size.token(small, padding-block)};
+  --textarea-padding-inline: #{control-size.token(small, padding-inline)};
+  --textarea-radius: #{control-size.token(small, radius)};
   --textarea-font-family: var(--vd-typography-ui-body-small-font-family);
-  --textarea-font-size: var(--vd-typography-ui-body-small-font-size);
+  --textarea-font-size: #{control-size.token(small, font-size)};
   --textarea-font-weight: var(--vd-typography-ui-body-small-font-weight);
   --textarea-line-height: var(--vd-typography-ui-body-small-line-height);
 }
 
 .root[data-size='medium'] {
   --textarea-min-height: var(--vd-sizing-80);
-  --textarea-padding-block: var(--vd-spacing-12);
-  --textarea-padding-inline: var(--vd-spacing-12);
-  --textarea-radius: var(--vd-radius-8);
+  --textarea-padding-block: #{control-size.token(medium, padding-block)};
+  --textarea-padding-inline: #{control-size.token(medium, padding-inline)};
+  --textarea-radius: #{control-size.token(medium, radius)};
   --textarea-font-family: var(--vd-typography-ui-body-medium-font-family);
-  --textarea-font-size: var(--vd-typography-ui-body-medium-font-size);
+  --textarea-font-size: #{control-size.token(medium, font-size)};
   --textarea-font-weight: var(--vd-typography-ui-body-medium-font-weight);
   --textarea-line-height: var(--vd-typography-ui-body-medium-line-height);
 }
 
 .root[data-size='large'] {
   --textarea-min-height: var(--vd-sizing-96);
-  --textarea-padding-block: var(--vd-spacing-12);
-  --textarea-padding-inline: var(--vd-spacing-16);
-  --textarea-radius: var(--vd-radius-10);
+  --textarea-padding-block: #{control-size.token(large, padding-block)};
+  --textarea-padding-inline: #{control-size.token(large, padding-inline)};
+  --textarea-radius: #{control-size.token(large, radius)};
   --textarea-font-family: var(--vd-typography-ui-body-large-font-family);
-  --textarea-font-size: var(--vd-typography-ui-body-large-font-size);
+  --textarea-font-size: #{control-size.token(large, font-size)};
   --textarea-font-weight: var(--vd-typography-ui-body-large-font-weight);
   --textarea-line-height: var(--vd-typography-ui-body-large-line-height);
 }

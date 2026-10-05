@@ -4,9 +4,39 @@ import { UserIcon } from '@virgo-design/icons';
 import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
+import { Button } from '../Button';
 import { Dropdown } from './index';
 
 describe('Dropdown UI', () => {
+  it('preserves custom Button styling and forwards trigger behavior and refs', async () => {
+    const user = userEvent.setup();
+    const ref = createRef<HTMLButtonElement>();
+    render(
+      <Dropdown>
+        <Dropdown.Trigger
+          ref={ref}
+          render={(props) => (
+            <Button {...props} variant="outline">
+              Sorting
+            </Button>
+          )}
+        />
+        <Dropdown.Content>
+          <Dropdown.Item>Both arrows</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>,
+    );
+    const trigger = screen.getByRole('button', { name: 'Sorting' });
+    expect(ref.current).toBe(trigger);
+    expect(trigger.className).not.toContain('trigger');
+    await user.hover(trigger);
+    expect(screen.queryByRole('menu')).toBeNull();
+    await user.click(trigger);
+    expect(screen.getByRole('menu')).toBeVisible();
+    await user.click(trigger);
+    expect(screen.queryByRole('menu')).toBeNull();
+    expect(trigger).toHaveFocus();
+  });
   it('opens an icon-only hover trigger without a trailing indicator and supports keyboard selection', async () => {
     const user = userEvent.setup();
     const select = vi.fn();

@@ -27,6 +27,7 @@ describe('@virgo-design/ui public API', () => {
         'Badge',
         'Breadcrumb',
         'Button',
+        'Toolbar',
         'Card',
         'Checkbox',
         'Command',

@@ -12,7 +12,7 @@ export type { DropdownPlacement } from '@virgo-design/primitives';
 export interface DropdownProps extends PrimitiveProps {
   size?: ButtonSize;
 }
-interface DropdownTriggerSharedProps extends Omit<PrimitiveTriggerProps, 'render'> {
+interface DropdownTriggerSharedProps extends PrimitiveTriggerProps {
   variant?: ButtonVariant;
   danger?: boolean;
   /** Decorative trailing icon; false hides it. Defaults to ChevronDownIcon. */

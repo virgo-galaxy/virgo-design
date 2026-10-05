@@ -43,12 +43,20 @@ const Trigger = forwardRef<HTMLButtonElement, DropdownTriggerProps>(
       indicator = <ChevronDownIcon />,
       className,
       children,
+      render,
       ...props
     } = triggerProps;
     const layoutProps = triggerProps.iconOnly
       ? { iconOnly: true as const, 'aria-label': triggerProps['aria-label'] }
       : { iconOnly: false as const, trailingIcon: indicator };
     const { size } = useContext(UIContext);
+    if (render) {
+      return (
+        <PrimitiveDropdown.Trigger {...props} ref={ref} render={render}>
+          {children}
+        </PrimitiveDropdown.Trigger>
+      );
+    }
     return (
       <PrimitiveDropdown.Trigger
         {...props}

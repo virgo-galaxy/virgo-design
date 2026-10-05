@@ -1,14 +1,16 @@
+@use '../../internal/form/control-size';
 .root {
   color: var(--vd-text-primary);
   font-family: var(--vd-typography-ui-body-medium-font-family);
-  font-size: var(--vd-typography-ui-body-medium-font-size);
+  font-size: var(--tree-font-size);
   line-height: var(--vd-typography-ui-body-medium-line-height);
-  --tree-row-height: var(--vd-sizing-36);
+  @include control-size.variables(tree, medium);
+  --tree-row-height: var(--tree-height);
   &[data-size='small'] {
-    --tree-row-height: var(--vd-sizing-28);
+    @include control-size.variables(tree, small);
   }
   &[data-size='large'] {
-    --tree-row-height: var(--vd-sizing-44);
+    @include control-size.variables(tree, large);
   }
 }
 .item {

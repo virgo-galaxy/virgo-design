@@ -177,7 +177,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
           </ol>
           {showSizeChanger ? (
             <Dropdown className={styles.sizeChanger} size={size} disabled={state.disabled}>
-              <Dropdown.Trigger aria-label={labels.pageSize}>
+              <Dropdown.Trigger className={styles.sizeChangerTrigger} aria-label={labels.pageSize}>
                 {labels.itemsPerPage(state.pageSize)}
               </Dropdown.Trigger>
               <Dropdown.Content>

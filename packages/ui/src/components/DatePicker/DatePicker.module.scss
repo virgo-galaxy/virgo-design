@@ -1,6 +1,14 @@
 @use '../../internal/form/native-control';
+@use '../../internal/form/control-size';
 @use '../../internal/overlay/panel';
 .root {
+  @include control-size.variables(date-picker, medium);
+  &[data-size='small'] {
+    @include control-size.variables(date-picker, small);
+  }
+  &[data-size='large'] {
+    @include control-size.variables(date-picker, large);
+  }
   display: flex;
   align-items: center;
   gap: var(--vd-spacing-6);
@@ -18,13 +26,17 @@
   align-items: center;
   justify-content: center;
   align-self: stretch;
-  width: var(--vd-sizing-36);
+  width: var(--date-picker-height);
   padding: 0;
   border: var(--vd-border-width-1) solid var(--vd-border-default);
-  border-radius: var(--vd-radius-6);
+  border-radius: var(--date-picker-radius, var(--native-control-radius));
   background: var(--vd-surface-default);
   color: var(--vd-text-primary);
   cursor: pointer;
+  > svg {
+    width: var(--date-picker-icon-size, var(--native-control-icon-size));
+    height: var(--date-picker-icon-size, var(--native-control-icon-size));
+  }
   &:focus-visible {
     outline: var(--vd-border-width-2) solid var(--vd-border-focus);
     outline-offset: var(--vd-spacing-2);

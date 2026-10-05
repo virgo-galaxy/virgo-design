@@ -50,6 +50,7 @@ import { tagMetadata } from '../components/Tag/Tag.meta';
 import { timelineMetadata } from '../components/Timeline/Timeline.meta';
 import { timePickerMetadata } from '../components/TimePicker/TimePicker.meta';
 import { toastMetadata } from '../components/Toast/Toast.meta';
+import { toolbarMetadata } from '../components/Toolbar/Toolbar.meta';
 import { tooltipMetadata } from '../components/Tooltip/Tooltip.meta';
 import { treeMetadata } from '../components/Tree/Tree.meta';
 
@@ -106,6 +107,7 @@ export {
   timelineMetadata,
   timePickerMetadata,
   toastMetadata,
+  toolbarMetadata,
   tooltipMetadata,
   treeMetadata,
 };
@@ -166,6 +168,7 @@ export const componentMetadataRegistry = {
   tooltip: tooltipMetadata,
   toast: toastMetadata,
   textarea: textareaMetadata,
+  toolbar: toolbarMetadata,
 } as const;
 
 export type {

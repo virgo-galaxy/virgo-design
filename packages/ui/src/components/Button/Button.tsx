@@ -1,17 +1,19 @@
 import { Button as PrimitiveButton } from '@virgo-design/primitives';
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
 
+import { ActionGroupSizeContext } from '../../internal/action-group/ActionGroupContext';
 import styles from './Button.module.scss';
 import type { ButtonProps } from './Button.types';
+import { ButtonGroup } from './ButtonGroup';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+const ButtonRoot = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     variant = 'primary',
-    size = 'medium',
+    size: sizeProp,
     iconOnly = false,
     shape = 'square',
     leadingIcon,
@@ -22,11 +24,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   },
   forwardedRef,
 ) {
+  const inheritedSize = useContext(ActionGroupSizeContext);
+  const size = sizeProp ?? inheritedSize ?? 'medium';
   return (
     <PrimitiveButton
       {...props}
       ref={forwardedRef}
       className={joinClassNames(styles.root, className)}
+      data-vd-button=""
       data-icon-only={iconOnly || undefined}
       data-shape={iconOnly ? shape : undefined}
       data-size={size}
@@ -59,4 +64,5 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   );
 });
 
-Button.displayName = 'Button';
+ButtonRoot.displayName = 'Button';
+export const Button = Object.assign(ButtonRoot, { Group: ButtonGroup });

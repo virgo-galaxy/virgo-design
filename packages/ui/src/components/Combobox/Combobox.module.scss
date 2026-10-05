@@ -1,3 +1,4 @@
+@use '../../internal/form/control-size';
 @use '../../internal/form/clear-control';
 @use '../../internal/form/control-focus';
 @use '../../internal/form/control-hover';
@@ -7,34 +8,32 @@
   position: relative;
   min-width: 0;
   width: 100%;
-  --combobox-height: var(--vd-sizing-36);
-  --combobox-padding-block: var(--vd-spacing-4);
-  --combobox-border-hover: var(--vd-border-strong);
+  @include control-size.variables(combobox, medium);
+  --combobox-border-hover: #{control-hover.$color};
   --combobox-border-focus: #{control-focus.$color};
   &:has([aria-invalid='true']) {
     --combobox-border-hover: var(--vd-status-danger-accent);
     --combobox-border-focus: var(--vd-status-danger-accent);
   }
   &[data-size='small'] {
-    --combobox-height: var(--vd-sizing-28);
-    --combobox-padding-block: var(--vd-spacing-2);
+    @include control-size.variables(combobox, small);
   }
   &[data-size='large'] {
-    --combobox-height: var(--vd-sizing-44);
-    --combobox-padding-block: var(--vd-spacing-6);
+    @include control-size.variables(combobox, large);
   }
 }
 .input {
   box-sizing: border-box;
   width: 100%;
   height: var(--combobox-height);
-  padding-inline: var(--vd-spacing-12) var(--vd-sizing-36);
+  padding-inline: var(--combobox-padding-inline)
+    calc(var(--combobox-icon-size) + 2 * var(--combobox-padding-inline));
   border: var(--vd-border-width-1) solid var(--vd-border-default);
-  border-radius: var(--vd-radius-6);
+  border-radius: var(--combobox-radius);
   background: var(--vd-surface-default);
   color: var(--vd-text-primary);
   font-family: var(--vd-typography-ui-body-medium-font-family);
-  font-size: var(--vd-typography-ui-body-medium-font-size);
+  font-size: var(--combobox-font-size);
   @include control-hover.transition;
   &:focus:not(:disabled) {
     @include control-focus.surface(var(--combobox-border-focus));
@@ -66,7 +65,7 @@
   align-items: center;
   min-height: var(--vd-sizing-32);
   padding-inline: var(--vd-spacing-8);
-  border-radius: var(--vd-radius-6);
+  border-radius: var(--combobox-radius);
   cursor: pointer;
   color: var(--vd-text-secondary);
   &[data-highlighted='true']:not([aria-disabled='true']),
@@ -139,7 +138,7 @@
   box-sizing: border-box;
   height: var(--combobox-height);
   border: var(--vd-border-width-1) solid var(--vd-border-default);
-  border-radius: var(--vd-radius-6);
+  border-radius: var(--combobox-radius);
   background: var(--vd-surface-default);
   @include control-hover.transition;
 }

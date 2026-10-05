@@ -1,3 +1,4 @@
+@use '../../internal/form/control-size';
 @use '../../internal/form/checkbox-indicator';
 @use '../../internal/form/control-focus';
 @use '../../internal/form/control-hover';
@@ -6,7 +7,7 @@
 .root {
   --select-background: var(--vd-surface-default);
   --select-border: var(--vd-border-default);
-  --select-border-hover: var(--vd-border-strong);
+  --select-border-hover: #{control-hover.$color};
   --select-border-focus: #{control-focus.$color};
   --select-foreground: var(--vd-text-primary);
   --select-placeholder: var(--vd-text-placeholder);
@@ -39,14 +40,14 @@
 .content[data-size='mini'] {
   --select-tag-height: var(--vd-sizing-16);
   --select-tag-padding-block: var(--vd-spacing-4);
-  --select-height: var(--vd-sizing-24);
-  --select-padding-inline: var(--vd-spacing-8);
-  --select-radius: var(--vd-radius-6);
-  --select-icon-size: var(--vd-sizing-12);
-  --select-gap: var(--vd-spacing-4);
+  --select-height: #{control-size.token(mini, height)};
+  --select-padding-inline: #{control-size.token(mini, padding-inline)};
+  --select-radius: #{control-size.token(mini, radius)};
+  --select-icon-size: #{control-size.token(mini, icon-size)};
+  --select-gap: #{control-size.token(mini, gap)};
   --select-option-height: var(--vd-sizing-28);
   --select-font-family: var(--vd-typography-ui-body-small-font-family);
-  --select-font-size: var(--vd-typography-ui-body-small-font-size);
+  --select-font-size: #{control-size.token(mini, font-size)};
   --select-font-weight: var(--vd-typography-ui-body-small-font-weight);
   --select-line-height: var(--vd-typography-ui-body-small-line-height);
 }
@@ -55,14 +56,14 @@
 .content[data-size='small'] {
   --select-tag-height: var(--vd-sizing-20);
   --select-tag-padding-block: var(--vd-spacing-4);
-  --select-height: var(--vd-sizing-28);
-  --select-padding-inline: var(--vd-spacing-8);
-  --select-radius: var(--vd-radius-6);
-  --select-icon-size: var(--vd-sizing-16);
-  --select-gap: var(--vd-spacing-6);
+  --select-height: #{control-size.token(small, height)};
+  --select-padding-inline: #{control-size.token(small, padding-inline)};
+  --select-radius: #{control-size.token(small, radius)};
+  --select-icon-size: #{control-size.token(small, icon-size)};
+  --select-gap: #{control-size.token(small, gap)};
   --select-option-height: var(--vd-sizing-32);
   --select-font-family: var(--vd-typography-ui-body-small-font-family);
-  --select-font-size: var(--vd-typography-ui-body-small-font-size);
+  --select-font-size: #{control-size.token(small, font-size)};
   --select-font-weight: var(--vd-typography-ui-body-small-font-weight);
   --select-line-height: var(--vd-typography-ui-body-small-line-height);
 }
@@ -71,14 +72,14 @@
 .content[data-size='medium'] {
   --select-tag-height: var(--vd-sizing-24);
   --select-tag-padding-block: var(--vd-spacing-6);
-  --select-height: var(--vd-sizing-36);
-  --select-padding-inline: var(--vd-spacing-12);
-  --select-radius: var(--vd-radius-8);
-  --select-icon-size: var(--vd-sizing-20);
-  --select-gap: var(--vd-spacing-6);
+  --select-height: #{control-size.token(medium, height)};
+  --select-padding-inline: #{control-size.token(medium, padding-inline)};
+  --select-radius: #{control-size.token(medium, radius)};
+  --select-icon-size: #{control-size.token(medium, icon-size)};
+  --select-gap: #{control-size.token(medium, gap)};
   --select-option-height: var(--vd-sizing-36);
   --select-font-family: var(--vd-typography-ui-body-medium-font-family);
-  --select-font-size: var(--vd-typography-ui-body-medium-font-size);
+  --select-font-size: #{control-size.token(medium, font-size)};
   --select-font-weight: var(--vd-typography-ui-body-medium-font-weight);
   --select-line-height: var(--vd-typography-ui-body-medium-line-height);
 }
@@ -87,14 +88,14 @@
 .content[data-size='large'] {
   --select-tag-height: var(--vd-sizing-28);
   --select-tag-padding-block: var(--vd-spacing-8);
-  --select-height: var(--vd-sizing-44);
-  --select-padding-inline: var(--vd-spacing-16);
-  --select-radius: var(--vd-radius-10);
-  --select-icon-size: var(--vd-sizing-20);
-  --select-gap: var(--vd-spacing-8);
+  --select-height: #{control-size.token(large, height)};
+  --select-padding-inline: #{control-size.token(large, padding-inline)};
+  --select-radius: #{control-size.token(large, radius)};
+  --select-icon-size: #{control-size.token(large, icon-size)};
+  --select-gap: #{control-size.token(large, gap)};
   --select-option-height: var(--vd-sizing-44);
   --select-font-family: var(--vd-typography-ui-body-large-font-family);
-  --select-font-size: var(--vd-typography-ui-body-large-font-size);
+  --select-font-size: #{control-size.token(large, font-size)};
   --select-font-weight: var(--vd-typography-ui-body-large-font-weight);
   --select-line-height: var(--vd-typography-ui-body-large-line-height);
 }

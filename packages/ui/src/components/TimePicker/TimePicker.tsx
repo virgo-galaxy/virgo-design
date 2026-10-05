@@ -9,7 +9,7 @@ export const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(function
   ref,
 ) {
   return (
-    <span className={styles.wrapper}>
+    <span className={styles.wrapper} data-size={size}>
       <PrimitiveTimePicker
         {...props}
         ref={ref}

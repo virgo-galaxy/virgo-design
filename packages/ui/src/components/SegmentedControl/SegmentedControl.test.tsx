@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { ComponentProps } from 'react';
 import { describe, expect, it, vi } from 'vitest';
@@ -30,6 +30,45 @@ function rect(left: number, width: number) {
 }
 
 describe('SegmentedControl', () => {
+  it('does not show tooltip hints when the group is disabled', async () => {
+    const user = userEvent.setup();
+    render(
+      <SegmentedControl disabled defaultValue="start">
+        <SegmentedControl.Item value="start" tooltip="Align left">
+          Left
+        </SegmentedControl.Item>
+      </SegmentedControl>,
+    );
+    await user.hover(screen.getByRole('radio').closest('label')!);
+    expect(screen.queryByRole('tooltip')).toBeNull();
+  });
+  it('shows item tooltips on full-segment hover and keyboard focus without changing selection', async () => {
+    const user = userEvent.setup();
+    render(
+      <SegmentedControl defaultValue="start" motion="slide" aria-label="Alignment">
+        <SegmentedControl.Item value="start" tooltip="Align left">
+          Left
+        </SegmentedControl.Item>
+        <SegmentedControl.Item value="center" tooltip="Align center">
+          Center
+        </SegmentedControl.Item>
+      </SegmentedControl>,
+    );
+    const center = screen.getByRole('radio', { name: 'Center' });
+    await user.hover(center.closest('label')!);
+    expect(await screen.findByRole('tooltip')).toHaveTextContent('Align center');
+    expect(center).toHaveAccessibleDescription('Align center');
+    expect(screen.getByRole('radio', { name: 'Left' })).toBeChecked();
+    await user.click(center);
+    expect(center).toBeChecked();
+    await waitFor(() => expect(screen.queryByRole('tooltip')).toBeNull());
+    fireEvent.blur(center);
+    fireEvent.focus(center);
+    expect(await screen.findByRole('tooltip')).toHaveTextContent('Align center');
+    await user.keyboard('{Escape}');
+    await waitFor(() => expect(screen.queryByRole('tooltip')).toBeNull());
+    expect(center).not.toHaveAttribute('aria-describedby');
+  });
   it('renders a radio-backed single-selection group', () => {
     renderControl();
 

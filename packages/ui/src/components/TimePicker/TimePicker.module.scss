@@ -1,6 +1,14 @@
 @use '../../internal/form/native-control';
+@use '../../internal/form/control-size';
 
 .wrapper {
+  @include control-size.variables(time-picker, medium);
+  &[data-size='small'] {
+    @include control-size.variables(time-picker, small);
+  }
+  &[data-size='large'] {
+    @include control-size.variables(time-picker, large);
+  }
   position: relative;
   display: inline-flex;
   min-width: 0;
@@ -29,6 +37,8 @@
 }
 
 .icon {
+  width: var(--time-picker-icon-size);
+  height: var(--time-picker-icon-size);
   position: absolute;
   inset-inline-end: var(--vd-spacing-12);
   top: 50%;

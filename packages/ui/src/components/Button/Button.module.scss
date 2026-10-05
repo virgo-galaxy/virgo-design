@@ -1,3 +1,4 @@
+@use '../../internal/form/control-size';
 .root {
   --button-background: var(--vd-brand-primary);
   --button-background-hover: var(--vd-brand-primary-hover);
@@ -104,49 +105,49 @@
 }
 
 .root[data-size='mini'] {
-  --button-height: var(--vd-sizing-20);
-  --button-padding-inline: var(--vd-spacing-6);
-  --button-radius: var(--vd-radius-6);
-  --button-icon-size: var(--vd-sizing-12);
-  --button-gap: var(--vd-spacing-4);
+  --button-height: #{control-size.token(mini, height)};
+  --button-padding-inline: #{control-size.token(mini, padding-inline)};
+  --button-radius: #{control-size.token(mini, radius)};
+  --button-icon-size: #{control-size.token(mini, icon-size)};
+  --button-gap: #{control-size.token(mini, gap)};
   --button-font-family: var(--vd-font-family-sans);
-  --button-font-size: var(--vd-font-size-10);
+  --button-font-size: #{control-size.token(mini, font-size)};
   --button-font-weight: var(--vd-font-weight-500);
   --button-line-height: var(--vd-line-height-2);
 }
 
 .root[data-size='small'] {
-  --button-height: var(--vd-sizing-24);
-  --button-padding-inline: var(--vd-spacing-8);
-  --button-radius: var(--vd-radius-6);
-  --button-icon-size: var(--vd-sizing-12);
-  --button-gap: var(--vd-spacing-4);
+  --button-height: #{control-size.token(small, height)};
+  --button-padding-inline: #{control-size.token(small, padding-inline)};
+  --button-radius: #{control-size.token(small, radius)};
+  --button-icon-size: #{control-size.token(small, icon-size)};
+  --button-gap: #{control-size.token(small, gap)};
   --button-font-family: var(--vd-typography-ui-label-small-font-family);
-  --button-font-size: var(--vd-font-size-11);
+  --button-font-size: #{control-size.token(small, font-size)};
   --button-font-weight: var(--vd-typography-ui-label-small-font-weight);
   --button-line-height: var(--vd-typography-ui-label-small-line-height);
 }
 
 .root[data-size='medium'] {
-  --button-height: var(--vd-sizing-28);
-  --button-padding-inline: var(--vd-spacing-12);
-  --button-radius: var(--vd-radius-6);
-  --button-icon-size: var(--vd-sizing-16);
-  --button-gap: var(--vd-spacing-6);
+  --button-height: #{control-size.token(medium, height)};
+  --button-padding-inline: #{control-size.token(medium, padding-inline)};
+  --button-radius: #{control-size.token(medium, radius)};
+  --button-icon-size: #{control-size.token(medium, icon-size)};
+  --button-gap: #{control-size.token(medium, gap)};
   --button-font-family: var(--vd-typography-ui-label-small-font-family);
-  --button-font-size: var(--vd-font-size-12);
+  --button-font-size: #{control-size.token(medium, font-size)};
   --button-font-weight: var(--vd-typography-ui-label-small-font-weight);
   --button-line-height: var(--vd-typography-ui-label-small-line-height);
 }
 
 .root[data-size='large'] {
-  --button-height: var(--vd-sizing-36);
-  --button-padding-inline: var(--vd-spacing-16);
-  --button-radius: var(--vd-radius-8);
-  --button-icon-size: var(--vd-sizing-16);
-  --button-gap: var(--vd-spacing-6);
+  --button-height: #{control-size.token(large, height)};
+  --button-padding-inline: #{control-size.token(large, padding-inline)};
+  --button-radius: #{control-size.token(large, radius)};
+  --button-icon-size: #{control-size.token(large, icon-size)};
+  --button-gap: #{control-size.token(large, gap)};
   --button-font-family: var(--vd-typography-ui-label-medium-font-family);
-  --button-font-size: var(--vd-font-size-13);
+  --button-font-size: #{control-size.token(large, font-size)};
   --button-font-weight: var(--vd-typography-ui-label-medium-font-weight);
   --button-line-height: var(--vd-typography-ui-label-medium-line-height);
 }

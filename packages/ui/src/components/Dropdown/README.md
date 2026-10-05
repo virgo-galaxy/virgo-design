@@ -31,6 +31,8 @@ Placements: bottomLeft, bottom, bottomRight, topLeft, top, topRight, leftTop, le
 
 `Dropdown.Button` is used instead of `Dropdown.Trigger`, inside a Root. The main action never opens the menu; the adjacent labelled button does. Custom trigger content and icons are supported without nesting interactive elements. Native `title` may supply a simple browser tooltip; no separate Tooltip component is introduced.
 
+`Dropdown.Trigger render={props => <Button {...props}>Sorting</Button>}` reuses an ordinary Button without the default dropdown-control styling or trailing indicator. The custom renderer must forward all supplied props and the ref so menu positioning, dismissal and keyboard behavior remain intact. Set size, variant and icons on the custom Button itself.
+
 Hover opening does not move focus, allows a 150ms crossing delay, and supports touch click. Keyboard works with either trigger mode: Down/Up opens at first/last item; Enter/Space opens at the checked or first item; arrows wrap and skip disabled items, Home/End and typeahead navigate. Escape and selection restore focus unless an action has deliberately focused another element; Tab closes and proceeds in document order. Outside pointer/focus dismisses. `onSelect(event)` can prevent default to keep the menu open. Controlled state requires the caller to honor `onOpenChange`.
 
 Pagination uses a click Dropdown with checked page-size items; selecting a size resets to page one. Its quick jumper still uses Input. Metadata is exported only from `@virgo-design/ui/metadata`. Review at `/components/dropdown`.

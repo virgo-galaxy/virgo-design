@@ -1,26 +1,29 @@
 @use 'control-focus';
+@use 'control-size';
 @use 'control-hover';
 
 @mixin control {
+  @include control-size.variables(native-control, medium);
+  --native-control-border-hover: #{control-hover.$color};
   --native-control-border-focus: #{control-focus.$color};
   box-sizing: border-box;
   min-width: 0;
   width: 100%;
-  height: var(--vd-sizing-36);
-  padding: var(--vd-spacing-6) var(--vd-spacing-12);
+  height: var(--native-control-height);
+  padding: var(--native-control-padding-block) var(--native-control-padding-inline);
   border: var(--vd-border-width-1) solid var(--vd-border-default);
-  border-radius: var(--vd-radius-6);
+  border-radius: var(--native-control-radius);
   color: var(--vd-text-primary);
   background: var(--vd-surface-default);
   font-family: var(--vd-typography-ui-body-medium-font-family);
-  font-size: var(--vd-typography-ui-body-medium-font-size);
+  font-size: var(--native-control-font-size);
   line-height: var(--vd-typography-ui-body-medium-line-height);
   color-scheme: light;
   @include control-hover.transition;
   &:hover:not(:disabled):not([data-disabled='true']):not(:has(:disabled)):not(:focus-within):not(
       [data-state='open']
     ) {
-    border-color: var(--vd-border-strong);
+    border-color: var(--native-control-border-hover);
     @include control-hover.surface;
   }
   &:focus-within:not(:disabled):not([data-disabled='true']):not(:has(:disabled)),
@@ -28,12 +31,13 @@
     @include control-focus.surface(var(--native-control-border-focus));
   }
   &[data-size='small'] {
-    height: var(--vd-sizing-28);
+    @include control-size.variables(native-control, small);
   }
   &[data-size='large'] {
-    height: var(--vd-sizing-44);
+    @include control-size.variables(native-control, large);
   }
   &[aria-invalid='true'] {
+    --native-control-border-hover: var(--vd-status-danger-accent);
     --native-control-border-focus: var(--vd-status-danger-accent);
     border-color: var(--vd-status-danger-border);
   }

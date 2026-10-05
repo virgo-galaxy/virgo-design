@@ -13,10 +13,16 @@ export const buttonMetadata = {
     { name: 'text', description: 'Low-emphasis action without a persistent container.' },
   ],
   sizes: [
-    { name: 'mini', description: '20px height for ultra-compact actions and dense toolbars.' },
-    { name: 'small', description: '24px height for compact interfaces.' },
-    { name: 'medium', description: '28px height and the default size for most product actions.' },
-    { name: 'large', description: '36px height for stronger emphasis without oversized chrome.' },
+    { name: 'mini', description: '24px height for ultra-compact actions and dense toolbars.' },
+    { name: 'small', description: '28px height for compact interfaces.' },
+    {
+      name: 'medium',
+      description: '36px height and the default size, aligned with medium form controls.',
+    },
+    {
+      name: 'large',
+      description: '44px height for large actions, aligned with large form controls.',
+    },
   ],
   shapes: [
     { name: 'square', description: 'Default icon-only shape using the size-specific radius.' },
@@ -24,6 +30,11 @@ export const buttonMetadata = {
   ],
   states: ['default', 'hover', 'active', 'focus-visible', 'disabled'],
   anatomy: [
+    {
+      name: 'Group',
+      description:
+        'Groups related independent actions with optional size inheritance and attached edges.',
+    },
     { name: 'root', description: 'Native button element supplied by the Button primitive.' },
     {
       name: 'leadingIcon',

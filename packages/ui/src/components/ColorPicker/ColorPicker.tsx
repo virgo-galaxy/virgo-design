@@ -1,5 +1,5 @@
 import { ColorPicker as PrimitiveColorPicker } from '@virgo-design/primitives';
-import { forwardRef } from 'react';
+import { createContext, forwardRef, useContext } from 'react';
 
 import styles from './ColorPicker.module.scss';
 import type {
@@ -14,17 +14,20 @@ import type {
   ColorPickerSwatchProps,
   ColorPickerTriggerProps,
 } from './ColorPicker.types';
+const SizeContext = createContext<NonNullable<ColorPickerProps['size']>>('medium');
 export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(function ColorPicker(
   { size = 'medium', className, ...props },
   ref,
 ) {
   return (
-    <PrimitiveColorPicker
-      {...props}
-      ref={ref}
-      data-size={size}
-      className={[styles.root, className].filter(Boolean).join(' ')}
-    />
+    <SizeContext.Provider value={size}>
+      <PrimitiveColorPicker
+        {...props}
+        ref={ref}
+        data-size={size}
+        className={[styles.root, className].filter(Boolean).join(' ')}
+      />
+    </SizeContext.Provider>
   );
 });
 export const ColorPickerInput = forwardRef<HTMLInputElement, ColorPickerInputProps>(function Input(
@@ -132,11 +135,13 @@ export const ColorPickerTrigger = forwardRef<HTMLButtonElement, ColorPickerTrigg
 
 export const ColorPickerContent = forwardRef<HTMLDivElement, ColorPickerContentProps>(
   function Content({ className, ...props }, ref) {
+    const size = useContext(SizeContext);
     return (
       <PrimitiveColorPicker.Content
         {...props}
         ref={ref}
         data-slot="content"
+        data-size={size}
         className={[styles.content, className].filter(Boolean).join(' ')}
       />
     );

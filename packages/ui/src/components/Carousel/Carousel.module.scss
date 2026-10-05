@@ -1,3 +1,4 @@
+@use '../../internal/form/control-size';
 .root {
   --carousel-duration: 360ms;
   --carousel-easing: var(--vd-motion-easing-standard);
@@ -41,7 +42,7 @@
   opacity: 0;
   transition: opacity var(--vd-motion-duration-fast) var(--vd-motion-easing-standard);
   > button[data-variant='outline'] {
-    --button-height: var(--carousel-arrow-height, 32px);
+    --button-height: var(--carousel-arrow-height, #{control-size.token(small, height)});
     --button-background: var(--carousel-control-background, transparent);
     --button-background-hover: var(--carousel-control-background-hover, var(--vd-fill-hover));
     --button-border: var(--carousel-control-border, var(--vd-border-default));
@@ -65,8 +66,8 @@
   gap: 2px;
 }
 .indicator[data-variant='text'] {
-  --button-height: var(--carousel-indicator-height, 24px);
-  width: var(--carousel-indicator-height, 24px);
+  --button-height: var(--carousel-indicator-height, #{control-size.token(small, height)});
+  width: var(--carousel-indicator-height, control-size.token(small, height));
   padding: 7px;
   > span {
     width: 6px;
@@ -158,10 +159,10 @@
   }
 }
 .root[data-size='medium'] {
-  --carousel-arrow-height: var(--vd-sizing-28);
-  --carousel-indicator-height: var(--vd-sizing-28);
+  --carousel-arrow-height: #{control-size.token(medium, height)};
+  --carousel-indicator-height: #{control-size.token(medium, height)};
 }
 .root[data-size='large'] {
-  --carousel-arrow-height: var(--vd-sizing-36);
-  --carousel-indicator-height: var(--vd-sizing-36);
+  --carousel-arrow-height: #{control-size.token(large, height)};
+  --carousel-indicator-height: #{control-size.token(large, height)};
 }

@@ -1,0 +1,51 @@
+@use 'sass:map';
+
+// Shared size presets reference existing Foundation Tokens directly.
+$sizes: (
+  mini: (
+    height: var(--vd-sizing-24),
+    radius: var(--vd-radius-6),
+    font-size: var(--vd-font-size-11),
+    padding-inline: var(--vd-spacing-8),
+    padding-block: var(--vd-spacing-2),
+    icon-size: var(--vd-sizing-12),
+    gap: var(--vd-spacing-4),
+  ),
+  small: (
+    height: var(--vd-sizing-28),
+    radius: var(--vd-radius-6),
+    font-size: var(--vd-font-size-13),
+    padding-inline: var(--vd-spacing-8),
+    padding-block: var(--vd-spacing-2),
+    icon-size: var(--vd-sizing-16),
+    gap: var(--vd-spacing-6),
+  ),
+  medium: (
+    height: var(--vd-sizing-36),
+    radius: var(--vd-radius-8),
+    font-size: var(--vd-font-size-14),
+    padding-inline: var(--vd-spacing-12),
+    padding-block: var(--vd-spacing-4),
+    icon-size: var(--vd-sizing-20),
+    gap: var(--vd-spacing-6),
+  ),
+  large: (
+    height: var(--vd-sizing-44),
+    radius: var(--vd-radius-10),
+    font-size: var(--vd-font-size-16),
+    padding-inline: var(--vd-spacing-16),
+    padding-block: var(--vd-spacing-6),
+    icon-size: var(--vd-sizing-20),
+    gap: var(--vd-spacing-8),
+  ),
+);
+
+@function token($size, $metric) {
+  @return map.get($sizes, $size, $metric);
+}
+
+@mixin variables($prefix, $size) {
+  @each $metric, $value in map.get($sizes, $size) {
+    --#{$prefix}-#{$metric}: #{$value};
+  }
+}

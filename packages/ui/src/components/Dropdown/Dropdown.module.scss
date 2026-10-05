@@ -1,3 +1,4 @@
+@use '../../internal/form/control-size';
 @use '../../internal/form/control-focus';
 @use '../../internal/form/control-hover';
 @use '../../internal/form/option-highlight';
@@ -36,6 +37,9 @@
     calc(100vw - var(--vd-spacing-16))
   );
   padding: var(--vd-spacing-4);
+  font-family: var(--vd-font-family-sans);
+  font-size: control-size.token(medium, font-size);
+  line-height: var(--vd-line-height-3);
 }
 .viewport {
   @include option-highlight.viewport;
@@ -77,12 +81,18 @@
 }
 .content[data-size='small'],
 .content[data-size='mini'] {
-  font-size: var(--vd-typography-ui-body-small-font-size);
+  font-size: control-size.token(small, font-size);
   line-height: var(--vd-typography-ui-body-small-line-height);
   .item {
     min-height: var(--vd-sizing-32);
     padding-inline: var(--vd-spacing-8);
   }
+}
+.content[data-size='mini'] {
+  font-size: control-size.token(mini, font-size);
+}
+.content[data-size='large'] {
+  font-size: control-size.token(large, font-size);
 }
 .content[data-size='large'] .item {
   min-height: var(--vd-sizing-44);

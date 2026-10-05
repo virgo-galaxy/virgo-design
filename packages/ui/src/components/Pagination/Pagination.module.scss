@@ -1,5 +1,7 @@
+@use '../../internal/form/control-size';
 .root {
-  --pagination-item-height: var(--vd-sizing-28);
+  --pagination-item-height: #{control-size.token(small, height)};
+  --pagination-item-radius: #{control-size.token(small, radius)};
   display: flex;
   width: 100%;
   min-width: 0;
@@ -8,18 +10,25 @@
   gap: var(--vd-spacing-16);
   color: var(--vd-text-primary);
   font-family: var(--vd-typography-ui-body-small-font-family);
-  font-size: var(--vd-typography-ui-body-small-font-size);
+  font-size: control-size.token(small, font-size);
   font-weight: var(--vd-typography-ui-body-small-font-weight);
   line-height: var(--vd-typography-ui-body-small-line-height);
   font-variant-numeric: tabular-nums;
 }
+.root[data-size='mini'] {
+  --pagination-item-height: #{control-size.token(mini, height)};
+  font-size: control-size.token(mini, font-size);
+  gap: var(--vd-spacing-8);
+}
 .root[data-size='medium'] {
-  --pagination-item-height: var(--vd-sizing-36);
-  font-size: var(--vd-typography-ui-body-medium-font-size);
+  --pagination-item-height: #{control-size.token(medium, height)};
+  --pagination-item-radius: #{control-size.token(medium, radius)};
+  font-size: control-size.token(medium, font-size);
 }
 .root[data-size='large'] {
-  --pagination-item-height: var(--vd-sizing-44);
-  font-size: var(--vd-typography-ui-body-large-font-size);
+  --pagination-item-height: #{control-size.token(large, height)};
+  --pagination-item-radius: #{control-size.token(large, radius)};
+  font-size: control-size.token(large, font-size);
 }
 
 .root[data-align='center'] {
@@ -52,7 +61,7 @@
   justify-content: center;
   padding: 0 var(--vd-spacing-6);
   border: var(--vd-border-width-1) solid transparent;
-  border-radius: var(--vd-radius-6);
+  border-radius: var(--pagination-item-radius);
   color: inherit;
   background: transparent;
   font: inherit;
@@ -112,6 +121,9 @@
   width: auto;
   min-width: calc(var(--vd-sizing-56) * 2);
 }
+.root .sizeChangerTrigger {
+  font: inherit;
+}
 .jumper {
   display: inline-flex;
   align-items: center;
@@ -123,6 +135,7 @@
   }
   input {
     text-align: center;
+    font: inherit;
   }
 }
 

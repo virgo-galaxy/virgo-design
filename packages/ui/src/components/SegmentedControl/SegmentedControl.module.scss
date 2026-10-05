@@ -1,12 +1,13 @@
+@use '../../internal/form/control-size';
 .root {
-  --segmented-height: var(--vd-sizing-36);
-  --segmented-radius: var(--vd-radius-8);
+  --segmented-height: #{control-size.token(medium, height)};
+  --segmented-radius: #{control-size.token(medium, radius)};
   --segmented-item-radius: var(--vd-radius-6);
-  --segmented-padding-inline: var(--vd-spacing-16);
+  --segmented-padding-inline: #{control-size.token(medium, padding-inline)};
   --segmented-indicator-x: 0px;
   --segmented-indicator-width: 0px;
   --segmented-font-family: var(--vd-typography-ui-label-medium-font-family);
-  --segmented-font-size: var(--vd-typography-ui-label-medium-font-size);
+  --segmented-font-size: #{control-size.token(medium, font-size)};
   --segmented-font-weight: var(--vd-typography-ui-label-medium-font-weight);
   --segmented-line-height: var(--vd-typography-ui-label-medium-line-height);
 
@@ -52,6 +53,8 @@
   position: relative;
   box-sizing: border-box;
   display: inline-flex;
+  // Fill stretched grid/flex containers as well as explicitly sized controls.
+  flex: 1 1 auto;
   min-width: 0;
   align-items: center;
   justify-content: center;
@@ -111,39 +114,41 @@
 }
 
 .root[data-size='mini'] {
-  --segmented-height: var(--vd-sizing-24);
-  --segmented-radius: var(--vd-radius-6);
+  --segmented-height: #{control-size.token(mini, height)};
+  --segmented-radius: #{control-size.token(mini, radius)};
   --segmented-item-radius: var(--vd-radius-4);
-  --segmented-padding-inline: var(--vd-spacing-8);
+  --segmented-padding-inline: #{control-size.token(mini, padding-inline)};
   --segmented-font-family: var(--vd-typography-ui-label-small-font-family);
-  --segmented-font-size: var(--vd-typography-ui-label-small-font-size);
+  --segmented-font-size: #{control-size.token(mini, font-size)};
   --segmented-font-weight: var(--vd-typography-ui-label-small-font-weight);
   --segmented-line-height: var(--vd-typography-ui-label-small-line-height);
 }
 
 .root[data-size='small'] {
-  --segmented-height: var(--vd-sizing-28);
-  --segmented-radius: var(--vd-radius-6);
+  --segmented-height: #{control-size.token(small, height)};
+  --segmented-radius: #{control-size.token(small, radius)};
   --segmented-item-radius: var(--vd-radius-4);
-  --segmented-padding-inline: var(--vd-spacing-12);
+  --segmented-padding-inline: #{control-size.token(small, padding-inline)};
   --segmented-font-family: var(--vd-typography-ui-label-small-font-family);
-  --segmented-font-size: var(--vd-typography-ui-label-small-font-size);
+  --segmented-font-size: #{control-size.token(small, font-size)};
   --segmented-font-weight: var(--vd-typography-ui-label-small-font-weight);
   --segmented-line-height: var(--vd-typography-ui-label-small-line-height);
 }
 
 .root[data-size='medium'] {
-  --segmented-height: var(--vd-sizing-36);
-  --segmented-radius: var(--vd-radius-8);
+  --segmented-height: #{control-size.token(medium, height)};
+  --segmented-radius: #{control-size.token(medium, radius)};
   --segmented-item-radius: var(--vd-radius-6);
-  --segmented-padding-inline: var(--vd-spacing-16);
+  --segmented-padding-inline: #{control-size.token(medium, padding-inline)};
+  --segmented-font-size: #{control-size.token(medium, font-size)};
 }
 
 .root[data-size='large'] {
-  --segmented-height: var(--vd-sizing-44);
-  --segmented-radius: var(--vd-radius-10);
+  --segmented-height: #{control-size.token(large, height)};
+  --segmented-radius: #{control-size.token(large, radius)};
   --segmented-item-radius: var(--vd-radius-8);
-  --segmented-padding-inline: var(--vd-spacing-20);
+  --segmented-padding-inline: #{control-size.token(large, padding-inline)};
+  --segmented-font-size: #{control-size.token(large, font-size)};
 }
 
 .root[data-variant='outline'],

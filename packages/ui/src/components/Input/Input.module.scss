@@ -1,3 +1,4 @@
+@use '../../internal/form/control-size';
 @use '../../internal/form/clear-control';
 @use '../../internal/form/control-focus';
 @use '../../internal/form/control-hover';
@@ -5,7 +6,7 @@
 .root {
   --input-background: var(--vd-surface-default);
   --input-border: var(--vd-border-default);
-  --input-border-hover: var(--vd-border-strong);
+  --input-border-hover: #{control-hover.$color};
   --input-border-focus: #{control-focus.$color};
   --input-foreground: var(--vd-text-primary);
   --input-placeholder: var(--vd-text-placeholder);
@@ -69,53 +70,53 @@
 }
 
 .root[data-size='mini'] {
-  --input-height: var(--vd-sizing-24);
-  --input-padding-block: var(--vd-spacing-2);
-  --input-padding-inline: var(--vd-spacing-8);
-  --input-radius: var(--vd-radius-6);
-  --input-icon-size: var(--vd-sizing-12);
-  --input-gap: var(--vd-spacing-4);
+  --input-height: #{control-size.token(mini, height)};
+  --input-padding-block: #{control-size.token(mini, padding-block)};
+  --input-padding-inline: #{control-size.token(mini, padding-inline)};
+  --input-radius: #{control-size.token(mini, radius)};
+  --input-icon-size: #{control-size.token(mini, icon-size)};
+  --input-gap: #{control-size.token(mini, gap)};
   --input-font-family: var(--vd-typography-ui-body-small-font-family);
-  --input-font-size: var(--vd-typography-ui-body-small-font-size);
+  --input-font-size: #{control-size.token(mini, font-size)};
   --input-font-weight: var(--vd-typography-ui-body-small-font-weight);
   --input-line-height: var(--vd-typography-ui-body-small-line-height);
 }
 
 .root[data-size='small'] {
-  --input-height: var(--vd-sizing-28);
-  --input-padding-block: var(--vd-spacing-2);
-  --input-padding-inline: var(--vd-spacing-8);
-  --input-radius: var(--vd-radius-6);
-  --input-icon-size: var(--vd-sizing-16);
-  --input-gap: var(--vd-spacing-6);
+  --input-height: #{control-size.token(small, height)};
+  --input-padding-block: #{control-size.token(small, padding-block)};
+  --input-padding-inline: #{control-size.token(small, padding-inline)};
+  --input-radius: #{control-size.token(small, radius)};
+  --input-icon-size: #{control-size.token(small, icon-size)};
+  --input-gap: #{control-size.token(small, gap)};
   --input-font-family: var(--vd-typography-ui-body-small-font-family);
-  --input-font-size: var(--vd-typography-ui-body-small-font-size);
+  --input-font-size: #{control-size.token(small, font-size)};
   --input-font-weight: var(--vd-typography-ui-body-small-font-weight);
   --input-line-height: var(--vd-typography-ui-body-small-line-height);
 }
 
 .root[data-size='medium'] {
-  --input-height: var(--vd-sizing-36);
-  --input-padding-block: var(--vd-spacing-4);
-  --input-padding-inline: var(--vd-spacing-12);
-  --input-radius: var(--vd-radius-8);
-  --input-icon-size: var(--vd-sizing-20);
-  --input-gap: var(--vd-spacing-6);
+  --input-height: #{control-size.token(medium, height)};
+  --input-padding-block: #{control-size.token(medium, padding-block)};
+  --input-padding-inline: #{control-size.token(medium, padding-inline)};
+  --input-radius: #{control-size.token(medium, radius)};
+  --input-icon-size: #{control-size.token(medium, icon-size)};
+  --input-gap: #{control-size.token(medium, gap)};
   --input-font-family: var(--vd-typography-ui-body-medium-font-family);
-  --input-font-size: var(--vd-typography-ui-body-medium-font-size);
+  --input-font-size: #{control-size.token(medium, font-size)};
   --input-font-weight: var(--vd-typography-ui-body-medium-font-weight);
   --input-line-height: var(--vd-typography-ui-body-medium-line-height);
 }
 
 .root[data-size='large'] {
-  --input-height: var(--vd-sizing-44);
-  --input-padding-block: var(--vd-spacing-6);
-  --input-padding-inline: var(--vd-spacing-16);
-  --input-radius: var(--vd-radius-10);
-  --input-icon-size: var(--vd-sizing-20);
-  --input-gap: var(--vd-spacing-8);
+  --input-height: #{control-size.token(large, height)};
+  --input-padding-block: #{control-size.token(large, padding-block)};
+  --input-padding-inline: #{control-size.token(large, padding-inline)};
+  --input-radius: #{control-size.token(large, radius)};
+  --input-icon-size: #{control-size.token(large, icon-size)};
+  --input-gap: #{control-size.token(large, gap)};
   --input-font-family: var(--vd-typography-ui-body-large-font-family);
-  --input-font-size: var(--vd-typography-ui-body-large-font-size);
+  --input-font-size: #{control-size.token(large, font-size)};
   --input-font-weight: var(--vd-typography-ui-body-large-font-weight);
   --input-line-height: var(--vd-typography-ui-body-large-line-height);
 }
