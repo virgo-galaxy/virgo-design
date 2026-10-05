@@ -1,7 +1,8 @@
-import { type RefObject, useLayoutEffect, useRef } from 'react';
+import { type RefObject, useContext, useLayoutEffect, useRef } from 'react';
 
 import { focusFirst, getTabbables } from './focus';
 import { containsFocusInLayerContentTree, isDescendantLayer, type OverlayLayer } from './layers';
+import { PortalContainerContext } from './Portal';
 
 type FocusScope = {
   layer: OverlayLayer;
@@ -32,6 +33,7 @@ export function useFocusScope({
   onOpenAutoFocus?: (event: Event) => void;
   onCloseAutoFocus?: (event: Event) => void;
 }) {
+  const containerRef = useContext(PortalContainerContext);
   const callbacks = useRef({ restoreFocus, onOpenAutoFocus, onCloseAutoFocus });
   const trappedRef = useRef(trapped);
   useLayoutEffect(() => {
@@ -67,6 +69,7 @@ export function useFocusScope({
 
     const focus = (event: FocusEvent) => {
       if (!trappedRef.current || !isTopTrappedScope() || !(event.target instanceof Node)) return;
+      if (containerRef?.current && !containerRef.current.contains(event.target)) return;
       if (containsFocusInLayerContentTree(layer, event.target)) {
         lastFocused = event.target as HTMLElement;
         return;
@@ -76,7 +79,11 @@ export function useFocusScope({
       pendingFocusCheck = true;
       queueMicrotask(() => {
         pendingFocusCheck = false;
-        if (isTopTrappedScope() && !containsFocusInLayerContentTree(layer, doc.activeElement)) {
+        if (
+          isTopTrappedScope() &&
+          !containsFocusInLayerContentTree(layer, doc.activeElement) &&
+          (!containerRef?.current || containerRef.current.contains(doc.activeElement))
+        ) {
           if (lastFocused.isConnected) lastFocused.focus({ preventScroll: true });
           else focusFirst(contentRef.current);
         }
@@ -124,5 +131,5 @@ export function useFocusScope({
         if (target?.isConnected) target.focus({ preventScroll: true });
       }
     };
-  }, [active, layer, contentRef]);
+  }, [active, layer, contentRef, containerRef]);
 }

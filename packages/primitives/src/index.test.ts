@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import * as primitives from './index';
 
 describe('@virgo-design/primitives public API', () => {
-  it('keeps overlay infrastructure and implementation subpaths private', () => {
+  it('exposes scoped portal configuration while keeping implementation subpaths private', () => {
     expect(Object.keys(primitives).sort()).toEqual(
       [
         'Slider',
@@ -37,6 +37,7 @@ describe('@virgo-design/primitives public API', () => {
         'NavigationMenu',
         'Pagination',
         'Popover',
+        'PortalProvider',
         'Radio',
         'Select',
         'Switch',

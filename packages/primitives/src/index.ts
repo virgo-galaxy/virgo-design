@@ -70,3 +70,4 @@ export { TimePicker, type TimePickerProps } from './components/TimePicker';
 export * from './components/Toast';
 export * from './components/Tooltip';
 export * from './components/Tree';
+export { PortalProvider, type PortalProviderProps } from './internal/overlay/Portal';

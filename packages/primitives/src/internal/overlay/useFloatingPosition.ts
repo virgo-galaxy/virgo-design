@@ -1,6 +1,7 @@
 import { type CSSProperties, type RefObject, useContext, useLayoutEffect, useState } from 'react';
 
 import { LayerScope } from './layers';
+import { PortalContainerContext } from './Portal';
 import { type OverlayPlacement, positionOverlay } from './positioning';
 
 export function useFloatingPosition({
@@ -20,6 +21,7 @@ export function useFloatingPosition({
   anchorRect?: { left: number; top: number; width: number; height: number };
 }) {
   const layer = useContext(LayerScope);
+  const containerRef = useContext(PortalContainerContext);
   let depth = 0;
   for (let current = layer?.parent; current; current = current.parent) depth++;
   const [position, setPosition] = useState<ReturnType<typeof positionOverlay> | null>(null);
@@ -38,7 +40,24 @@ export function useFloatingPosition({
       const dir = getComputedStyle(anchor).direction === 'rtl' ? 'rtl' : 'ltr';
       setDirection(dir);
       setTheme(anchor.closest('[data-theme]')?.getAttribute('data-theme') ?? undefined);
-      const referenceRect = anchorRect ?? anchor.getBoundingClientRect();
+      const container = containerRef?.current;
+      const bounds = container?.getBoundingClientRect();
+      const scaleX = container && bounds ? bounds.width / container.offsetWidth || 1 : 1;
+      const scaleY = container && bounds ? bounds.height / container.offsetHeight || 1 : 1;
+      const reference = anchorRect ?? anchor.getBoundingClientRect();
+      const referenceRect =
+        container && bounds
+          ? {
+              left:
+                (reference.left - bounds.left) / scaleX +
+                container.scrollLeft -
+                container.clientLeft,
+              top:
+                (reference.top - bounds.top) / scaleY + container.scrollTop - container.clientTop,
+              width: reference.width / scaleX,
+              height: reference.height / scaleY,
+            }
+          : reference;
       const rect = content.getBoundingClientRect();
       // Layout dimensions stay stable while a panel's enter/exit transform is scaling it.
       const width = content.offsetWidth || rect.width;
@@ -57,8 +76,9 @@ export function useFloatingPosition({
         referenceRect,
         { width, height, top: rect.top, left: rect.left },
         {
-          width: document.documentElement.clientWidth || window.innerWidth,
-          height: window.innerHeight,
+          width:
+            container?.clientWidth || document.documentElement.clientWidth || window.innerWidth,
+          height: container?.clientHeight || window.innerHeight,
         },
         placement,
         offset,
@@ -78,6 +98,7 @@ export function useFloatingPosition({
     const resize = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(update);
     resize?.observe(anchor);
     resize?.observe(content);
+    if (containerRef?.current) resize?.observe(containerRef.current);
     const viewport = content.querySelector('[data-overlay-viewport]');
     if (viewport) resize?.observe(viewport);
     const themeObserver = new MutationObserver(update);
@@ -106,13 +127,15 @@ export function useFloatingPosition({
       document.removeEventListener('animationend', updateAfterMotion, true);
       document.removeEventListener('transitionend', updateAfterMotion, true);
     };
-  }, [active, triggerRef, contentRef, placement, offset, anchorRect]);
+  }, [active, triggerRef, contentRef, placement, offset, anchorRect, containerRef]);
   const style = {
-    position: 'fixed',
+    position: containerRef ? 'absolute' : 'fixed',
     '--vd-overlay-layer': `calc(var(--vd-overlay-base-layer, 100) + ${depth})`,
     left: position?.left ?? 0,
     top: position?.top ?? 0,
-    maxWidth: 'calc(100vw - 16px)',
+    maxWidth: containerRef?.current
+      ? `${containerRef.current.clientWidth - 16}px`
+      : 'calc(100vw - 16px)',
     maxHeight: position?.maxHeight ?? 'calc(100vh - 16px)',
     visibility: position ? 'visible' : 'hidden',
     '--overlay-arrow-x': `${position?.arrowX ?? 0}px`,

@@ -53,3 +53,4 @@ export * from './components/Toolbar';
 export * from './components/Tooltip';
 export * from './components/Tree';
 export { UIControlLabelsProvider } from './shared/control-labels';
+export { PortalProvider, type PortalProviderProps } from '@virgo-design/primitives';
