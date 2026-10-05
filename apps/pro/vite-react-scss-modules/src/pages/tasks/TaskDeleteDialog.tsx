@@ -53,7 +53,7 @@ export function TaskDeleteDialog({
               />
             </Dialog.Body>
           ) : null}
-          <Dialog.Footer>
+          <Button.Group layout="custom" render={(groupProps) => <Dialog.Footer {...groupProps} />}>
             <Button variant="outline" size="medium" disabled={mutation.pending} onClick={close}>
               {t('tasks.cancel')}
             </Button>
@@ -70,7 +70,7 @@ export function TaskDeleteDialog({
             >
               {t('tasks.deleteSelected')}
             </Button>
-          </Dialog.Footer>
+          </Button.Group>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

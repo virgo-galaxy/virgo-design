@@ -394,21 +394,31 @@ export function TaskDialog({
               </div>
             </Form>
           </Dialog.Body>
-          <Dialog.Footer className={styles.taskDialogFooter}>
+          <Button.Group
+            layout="custom"
+            render={(groupProps) => (
+              <Dialog.Footer {...groupProps} className={styles.taskDialogFooter} />
+            )}
+          >
             {confirmDiscard ? (
               <Alert intent="warning" className={styles.discardNotice}>
                 <Alert.Content>
                   <Alert.Title>{t('tasks.discardUnsavedChanges')}</Alert.Title>
                   <Alert.Description>{t('tasks.theSavedTaskWillStayAsItIs')}</Alert.Description>
                 </Alert.Content>
-                <Alert.Action className={styles.discardActions!}>
+                <Button.Group
+                  layout="custom"
+                  render={(groupProps) => (
+                    <Alert.Action {...groupProps} className={styles.discardActions!} />
+                  )}
+                >
                   <Button variant="outline" size="medium" onClick={onClose}>
                     {t('tasks.discardChanges')}
                   </Button>
                   <Button size="medium" onClick={() => setConfirmDiscard(false)}>
                     {t('tasks.keepEditing')}
                   </Button>
-                </Alert.Action>
+                </Button.Group>
               </Alert>
             ) : (
               <>
@@ -432,7 +442,7 @@ export function TaskDialog({
                 </Button>
               </>
             )}
-          </Dialog.Footer>
+          </Button.Group>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

@@ -8,6 +8,8 @@ export function ProControlLabels({ children }: { children: ReactNode }) {
     <UIControlLabelsProvider
       labels={{
         filter: t('shared.controls.filter'),
+        search: t('shared.controls.search'),
+        searchColumn: t('shared.controls.searchColumn'),
         selectPageRows: t('shared.controls.selectPageRows'),
         selectionActions: t('shared.controls.selectionActions'),
         selectAllRows: t('shared.controls.selectAllRows'),

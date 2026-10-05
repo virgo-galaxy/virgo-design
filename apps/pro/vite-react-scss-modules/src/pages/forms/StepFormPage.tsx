@@ -252,7 +252,7 @@ export function StepFormPage({
                             v1: selected.length === 1 ? 'task' : 'tasks',
                           })}
                         </Tag>
-                        <div className={shared.actions}>
+                        <Button.Group layout="custom" className={shared.actions}>
                           <Button
                             size="medium"
                             variant="text"
@@ -274,7 +274,7 @@ export function StepFormPage({
                           >
                             {t('forms.clear')}
                           </Button>
-                        </div>
+                        </Button.Group>
                       </div>
                       <Tree
                         key={draft.projectId}
@@ -461,7 +461,7 @@ export function StepFormPage({
                 <span className={shared.caption}>
                   {t('forms.stepValueOf3DraftKeptInThisSession', { v0: stage + 1 })}
                 </span>
-                <div className={shared.actions}>
+                <Button.Group layout="custom" className={shared.actions}>
                   {stage > 0 ? (
                     <Button
                       size="medium"
@@ -480,7 +480,7 @@ export function StepFormPage({
                   >
                     {stage === 2 ? t('forms.prepareHandoff') : t('forms.continue')}
                   </Button>
-                </div>
+                </Button.Group>
               </div>
             </Form>
           </Panel>

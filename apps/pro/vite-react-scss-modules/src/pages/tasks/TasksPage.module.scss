@@ -10,6 +10,7 @@
 }
 .listActions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--vd-spacing-16);
@@ -310,6 +311,9 @@
   align-items: center;
   white-space: nowrap;
   gap: var(--vd-spacing-4);
+  > button[data-variant='text'] {
+    padding-inline: var(--vd-spacing-8);
+  }
 }
 .taskDetails {
   display: grid;
@@ -348,4 +352,50 @@
   --button-background-hover: color-mix(in srgb, var(--vd-status-danger-solid) 90%, black);
   --button-background-active: color-mix(in srgb, var(--vd-status-danger-solid) 80%, black);
   --button-foreground: var(--vd-status-danger-on-solid);
+}
+
+.listPanel {
+  justify-self: start;
+  width: 100%;
+}
+.listPanel .table {
+  min-width: 0;
+}
+.listPanel[data-table-size='mini'] {
+  --task-table-font-size: var(--vd-font-size-11);
+}
+.listPanel[data-table-size='small'] {
+  --task-table-font-size: var(--vd-font-size-12);
+}
+.listPanel[data-table-size='medium'] {
+  --task-table-font-size: var(--vd-font-size-12);
+}
+.listPanel[data-table-size='large'] {
+  --task-table-font-size: var(--vd-font-size-14);
+}
+.listPanel .table,
+.listPanel .taskTitle {
+  font-size: var(--task-table-font-size);
+}
+.listPanel[data-table-size='mini'] .listActions,
+.listPanel[data-table-size='mini'] .tableFooter {
+  padding-block: var(--vd-spacing-8);
+}
+.listPanel[data-table-size='small'] .listActions,
+.listPanel[data-table-size='small'] .tableFooter {
+  padding-block: var(--vd-spacing-12);
+}
+.listPanel[data-table-size='large'] .listActions,
+.listPanel[data-table-size='large'] .tableFooter {
+  padding-block: var(--vd-spacing-20);
+}
+.table [data-column-key='title'] {
+  overflow-wrap: anywhere;
+}
+.table [data-column-key='actions'] .rowActions {
+  flex-wrap: wrap;
+  white-space: normal;
+}
+.table th[draggable='true'] {
+  cursor: grab;
 }

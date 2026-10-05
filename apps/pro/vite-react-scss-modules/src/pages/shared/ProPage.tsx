@@ -1,6 +1,7 @@
 import { SearchIcon } from '@virgo-design/icons';
 import {
   Avatar,
+  type AvatarSize,
   Button,
   Empty,
   Field,
@@ -47,7 +48,11 @@ export function PageHeading({
         </div>
         <p>{description}</p>
       </div>
-      {actions ? <div className={styles.headingActions}>{actions}</div> : null}
+      {actions ? (
+        <Button.Group layout="custom" className={styles.headingActions}>
+          {actions}
+        </Button.Group>
+      ) : null}
     </header>
   );
   return variant === 'integrated' ? (
@@ -84,7 +89,11 @@ export function Panel({
           <h2>{title}</h2>
           {description ? <p>{description}</p> : null}
         </div>
-        {actions ? <div className={styles.actions}>{actions}</div> : null}
+        {actions ? (
+          <Button.Group layout="custom" className={styles.actions}>
+            {actions}
+          </Button.Group>
+        ) : null}
       </div>
       {children}
     </Surface>
@@ -179,14 +188,19 @@ export function MultiFilterSelect({
   );
 }
 
-export function Person({ id }: { id: string }) {
+export function Person({ id, size = 'md' }: { id: string; size?: AvatarSize }) {
   const { taskAssignees } = useProData();
 
   const { t } = useTranslation();
   const member = taskAssignees.find((person) => person.id === id);
   return (
     <span className={styles.person}>
-      <Avatar size="md" fallback={member?.initials ?? '?'} className={styles.avatar} />
+      <Avatar
+        src={member?.avatarUrl ?? ''}
+        size={size}
+        fallback={member?.initials ?? '?'}
+        className={styles.avatar}
+      />
       <span>{member?.name ?? t('shared.unassigned')}</span>
     </span>
   );

@@ -60,7 +60,12 @@ export function ResultPage({
           <Result.Description>
             {t(`results.receipts.${receipt.message}.description`)}
           </Result.Description>
-          <Result.Actions className={styles.primaryActions}>
+          <Button.Group
+            layout="custom"
+            render={(groupProps) => (
+              <Result.Actions {...groupProps} className={styles.primaryActions} />
+            )}
+          >
             {success ? (
               <>
                 <Button size="medium" onClick={() => navigate(projectDetailPath(project))}>
@@ -107,7 +112,7 @@ export function ResultPage({
                 </Button>
               </>
             )}
-          </Result.Actions>
+          </Button.Group>
         </Result.Root>
         <Separator decorative />
         <div className={styles.receiptBody}>

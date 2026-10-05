@@ -13,6 +13,7 @@ export interface ProData extends BootstrapData, AnalyticsOverviewDto, WorkplaceO
   revision: number;
   removeTasks: (ids: readonly string[]) => Promise<string[]>;
   refreshOverview: (signal: AbortSignal) => Promise<void>;
+  loadTaskCollection: (signal: AbortSignal) => Promise<boolean>;
   dispatch: (action: TaskAction) => Promise<Task>;
   saveProfile: (profile: ProfileDto | ((previous: ProfileDto) => ProfileDto)) => Promise<void>;
 }

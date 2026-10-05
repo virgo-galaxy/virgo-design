@@ -52,3 +52,18 @@ describe('task sorting', () => {
     ).toEqual(['a', 'b', 'c']);
   });
 });
+
+it.each(['ascending', 'descending'] as const)(
+  'sorts completion timestamps in %s with incomplete tasks last',
+  (direction) => {
+    const base = initialTaskState.tasks[0]!;
+    const rows = [
+      { ...base, id: 'a', completedAt: '2026-10-01T08:00:00Z' },
+      { ...base, id: 'b', completedAt: null },
+      { ...base, id: 'c', completedAt: '2026-10-01T12:00:00+08:00' },
+    ];
+    expect(sortTasks(rows, { column: 'completedAt', direction }).map((task) => task.id)).toEqual(
+      direction === 'ascending' ? ['c', 'a', 'b'] : ['a', 'c', 'b'],
+    );
+  },
+);

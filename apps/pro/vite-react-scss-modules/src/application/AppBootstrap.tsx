@@ -2,8 +2,8 @@ import { type ReactNode, useEffect, useState } from 'react';
 
 import { enableMocking } from '@/mock';
 
-import { ProDataProvider } from './ProDataProvider';
 import { RemoteState } from './RemoteState';
+import { SessionBoundary } from './SessionBoundary';
 export function AppBootstrap({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<unknown>(null);
@@ -33,5 +33,5 @@ export function AppBootstrap({ children }: { children: ReactNode }) {
         }}
       />
     );
-  return <ProDataProvider>{children}</ProDataProvider>;
+  return <SessionBoundary>{children}</SessionBoundary>;
 }

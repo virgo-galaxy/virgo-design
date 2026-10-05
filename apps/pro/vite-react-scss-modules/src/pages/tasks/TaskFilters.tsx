@@ -211,7 +211,7 @@ export function TaskFilters({
           <Alert.Description>{t(`data.validation.${error}`)}</Alert.Description>
         </Alert>
       ) : null}
-      <div className={styles.queryActions}>
+      <Button.Group layout="custom" className={styles.queryActions}>
         <span className={styles.queryHint}>{t('tasks.queryHint')}</span>
         <Button
           size="medium"
@@ -231,7 +231,7 @@ export function TaskFilters({
         <Button size="medium" type="submit" leadingIcon={<SearchIcon />}>
           {t('tasks.applyQuery')}
         </Button>
-      </div>
+      </Button.Group>
     </Form>
   );
 }

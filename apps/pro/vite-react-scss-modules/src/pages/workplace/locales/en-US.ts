@@ -43,7 +43,7 @@ export const workplaceEnUS = {
   filterTasksProjectsPeople: 'Filter tasks, projects, people…',
   recentWorkspaceTasks: 'Recent workspace tasks',
   contributors: 'Contributors',
-  avaChen: 'Ava Chen',
+  avaBrooks: 'Ava Brooks',
   leoPark: 'Leo Park',
   ninaWu: 'Nina Wu',
   eliMorgan: 'Eli Morgan',

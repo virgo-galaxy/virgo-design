@@ -181,15 +181,20 @@ export interface WorkflowReceipt {
 }
 export interface ProfileState {
   name: string;
+  displayName?: string;
   headline: string;
   bio: string;
   avatarColor: string;
   avatarImage: string;
+  botAvatarImage?: string;
   focusProject: string;
   digest: boolean;
   digestTime: string;
   reviewReminders: boolean;
   compactActivity: boolean;
+}
+export function accountAvatarImage(profile: ProfileState) {
+  return profile.avatarImage;
 }
 export function validateProfile(profile: ProfileState, projects: readonly Project[]) {
   const errors: Partial<Record<keyof ProfileState, keyof typeof profileEnUS.validation>> = {};

@@ -45,7 +45,7 @@ export const workplaceZhCN = {
   filterTasksProjectsPeople: '筛选任务、项目或成员…',
   recentWorkspaceTasks: '工作空间近期任务',
   contributors: '参与者',
-  avaChen: 'Ava Chen',
+  avaBrooks: 'Ava Brooks',
   leoPark: 'Leo Park',
   ninaWu: 'Nina Wu',
   eliMorgan: 'Eli Morgan',

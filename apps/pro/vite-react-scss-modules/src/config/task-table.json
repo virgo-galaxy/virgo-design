@@ -1,0 +1,248 @@
+{
+  "pageSize": 10,
+  "settings": {
+    "size": "medium",
+    "widthMode": "fill",
+    "showHeader": true,
+    "headerDividers": true,
+    "border": "rows",
+    "striped": false,
+    "hoverable": true,
+    "selection": true,
+    "showId": true,
+    "selectionMenu": true,
+    "selectionActions": ["all", "invert", "none", "odd", "even"],
+    "resizable": false,
+    "reorderColumns": false,
+    "stickyHeader": false,
+    "viewportHeight": 480,
+    "pagination": true,
+    "showTotal": true,
+    "showSizeChanger": true,
+    "showQuickJumper": true,
+    "paginationAlign": "right",
+    "pageSizeOptions": [10, 20, 50],
+    "pinnedColumns": {
+      "start": "title",
+      "end": "actions"
+    },
+    "columns": [
+      {
+        "key": "selection",
+        "visible": true,
+        "minWidth": 70,
+        "width": 75,
+        "maxWidth": 120,
+        "align": "start",
+        "controls": {
+          "layout": "separate",
+          "align": "end",
+          "sort": {
+            "enabled": false,
+            "mode": "both"
+          },
+          "filter": false,
+          "search": false
+        }
+      },
+      {
+        "key": "rowNumber",
+        "visible": true,
+        "minWidth": 70,
+        "width": 75,
+        "maxWidth": 120,
+        "align": "start",
+        "controls": {
+          "layout": "separate",
+          "align": "end",
+          "sort": {
+            "enabled": false,
+            "mode": "both"
+          },
+          "filter": false,
+          "search": false
+        }
+      },
+      {
+        "key": "title",
+        "visible": true,
+        "minWidth": 300,
+        "width": 360,
+        "maxWidth": 500,
+        "align": "start",
+        "controls": {
+          "layout": "separate",
+          "align": "end",
+          "sort": {
+            "enabled": false,
+            "mode": "both"
+          },
+          "filter": false,
+          "search": true
+        }
+      },
+      {
+        "key": "status",
+        "visible": true,
+        "minWidth": 180,
+        "width": 200,
+        "maxWidth": 300,
+        "align": "start",
+        "controls": {
+          "layout": "separate",
+          "align": "end",
+          "sort": {
+            "enabled": false,
+            "mode": "both"
+          },
+          "filter": true,
+          "search": false
+        }
+      },
+      {
+        "key": "priority",
+        "visible": true,
+        "minWidth": 180,
+        "width": 200,
+        "maxWidth": 300,
+        "align": "start",
+        "controls": {
+          "layout": "separate",
+          "align": "end",
+          "sort": {
+            "enabled": false,
+            "mode": "both"
+          },
+          "filter": true,
+          "search": false
+        }
+      },
+      {
+        "key": "project",
+        "visible": true,
+        "minWidth": 180,
+        "width": 200,
+        "maxWidth": 300,
+        "align": "start",
+        "controls": {
+          "layout": "separate",
+          "align": "end",
+          "sort": {
+            "enabled": false,
+            "mode": "both"
+          },
+          "filter": true,
+          "search": true
+        }
+      },
+      {
+        "key": "assignee",
+        "visible": true,
+        "minWidth": 180,
+        "width": 200,
+        "maxWidth": 300,
+        "align": "start",
+        "controls": {
+          "layout": "separate",
+          "align": "end",
+          "sort": {
+            "enabled": false,
+            "mode": "both"
+          },
+          "filter": true,
+          "search": false
+        }
+      },
+      {
+        "key": "estimateHours",
+        "visible": true,
+        "minWidth": 180,
+        "width": 200,
+        "maxWidth": 300,
+        "align": "end",
+        "controls": {
+          "layout": "separate",
+          "align": "end",
+          "sort": {
+            "enabled": true,
+            "mode": "both"
+          },
+          "filter": false,
+          "search": false
+        }
+      },
+      {
+        "key": "createdAt",
+        "visible": true,
+        "minWidth": 180,
+        "width": 220,
+        "maxWidth": 300,
+        "align": "start",
+        "controls": {
+          "layout": "separate",
+          "align": "end",
+          "sort": {
+            "enabled": true,
+            "mode": "descending"
+          },
+          "filter": false,
+          "search": false
+        }
+      },
+      {
+        "key": "dueDate",
+        "visible": true,
+        "minWidth": 180,
+        "width": 220,
+        "maxWidth": 300,
+        "align": "end",
+        "controls": {
+          "layout": "separate",
+          "align": "end",
+          "sort": {
+            "enabled": true,
+            "mode": "ascending"
+          },
+          "filter": false,
+          "search": false
+        }
+      },
+      {
+        "key": "completedAt",
+        "visible": true,
+        "minWidth": 180,
+        "width": 220,
+        "maxWidth": 300,
+        "align": "start",
+        "controls": {
+          "layout": "separate",
+          "align": "end",
+          "sort": {
+            "enabled": true,
+            "mode": "descending"
+          },
+          "filter": false,
+          "search": false
+        }
+      },
+      {
+        "key": "actions",
+        "visible": true,
+        "minWidth": 200,
+        "width": 250,
+        "maxWidth": 350,
+        "align": "start",
+        "controls": {
+          "layout": "separate",
+          "align": "end",
+          "sort": {
+            "enabled": false,
+            "mode": "both"
+          },
+          "filter": false,
+          "search": false
+        }
+      }
+    ]
+  }
+}

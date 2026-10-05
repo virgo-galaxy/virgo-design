@@ -72,7 +72,7 @@ export function WorkplaceWidget({
                 <Card.Title as="h2" id={titleId}>
                   {title}
                 </Card.Title>
-                <div className={styles.widgetActions}>
+                <Button.Group layout="custom" className={styles.widgetActions}>
                   <Tooltip>
                     <Collapsible.Trigger
                       ref={toggleRef}
@@ -123,7 +123,7 @@ export function WorkplaceWidget({
                       {t('workplace.removeFromWorkplace')}
                     </Tooltip.Content>
                   </Tooltip>
-                </div>
+                </Button.Group>
               </Card.Header>
               <Collapsible.Content
                 motion="collapse"

@@ -1,5 +1,6 @@
 import type { TokenUsageDayDto, TrendPointDto as TrendPoint } from '@/api/analytics';
 import type { MemberDto as Member } from '@/api/tasks';
+import { endpoint } from '@/mock/response';
 export const snapshot = {
   date: '2026-10-01',
   displayDate: 'Thursday, October 1, 2026',
@@ -26,12 +27,37 @@ export const tokenUsage: TokenUsageDayDto[] = Array.from({ length: 365 }, (_, in
   return { date, inputTokens, outputTokens: total - inputTokens };
 });
 
-export const members: [Member, Member, Member, Member] = [
-  { id: 'ava', name: 'Ava Chen', initials: 'AC' },
+const memberIdentities: Member[] = [
+  { id: 'ava', name: 'Ava Brooks', initials: 'AB' },
   { id: 'leo', name: 'Leo Park', initials: 'LP' },
   { id: 'nina', name: 'Nina Wu', initials: 'NW' },
   { id: 'eli', name: 'Eli Morgan', initials: 'EM' },
+  { id: 'mira', name: 'Mira Patel', initials: 'MP' },
+  { id: 'owen', name: 'Owen Hayes', initials: 'OH' },
+  { id: 'hana', name: 'Hana Kim', initials: 'HK' },
+  { id: 'noah', name: 'Noah Wilson', initials: 'NW' },
+  { id: 'sara', name: 'Sara Ahmed', initials: 'SA' },
+  { id: 'luca', name: 'Luca Rossi', initials: 'LR' },
+  { id: 'maya', name: 'Maya Singh', initials: 'MS' },
+  { id: 'theo', name: 'Theo Martin', initials: 'TM' },
+  { id: 'james', name: 'James Turner', initials: 'JT' },
+  { id: 'emma', name: 'Emma Scott', initials: 'ES' },
+  { id: 'oliver', name: 'Oliver Reed', initials: 'OR' },
+  { id: 'sophia', name: 'Sophia Carter', initials: 'SC' },
+  { id: 'daniel', name: 'Daniel Stone', initials: 'DS' },
+  { id: 'grace', name: 'Grace Lee', initials: 'GL' },
+  { id: 'lucas', name: 'Lucas Brown', initials: 'LB' },
+  { id: 'isla', name: 'Isla Moore', initials: 'IM' },
+  { id: 'ethan', name: 'Ethan Davis', initials: 'ED' },
+  { id: 'chloe', name: 'Chloe Martin', initials: 'CM' },
+  { id: 'henry', name: 'Henry Clark', initials: 'HC' },
+  { id: 'zoe', name: 'Zoe Taylor', initials: 'ZT' },
 ];
+
+export const members: Member[] = memberIdentities.map((member, index) => ({
+  ...member,
+  avatarUrl: endpoint(`/avatars/user_${index + 1}.png`),
+}));
 
 export const trendPoints: TrendPoint[] = [
   { date: '2026-09-18', completed: 6, planned: 10 },
@@ -53,7 +79,7 @@ export const trendPoints: TrendPoint[] = [
 export const activity = [
   {
     id: 'a1',
-    name: 'Ava Chen',
+    name: 'Ava Brooks',
     project: 'Workspace',
     time: '10:42',
     dateTime: '2026-10-01T10:42:00+08:00',

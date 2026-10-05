@@ -1,6 +1,6 @@
 import type { TaskDto as Task } from '@/api/tasks';
 type TaskState = { tasks: Task[]; nextId: number };
-import { createTaskHistory } from './task-history';
+import { createTaskHistory, taskHistoryCount } from './task-history';
 import { members } from './workplace';
 
 // Fixed reference date, IDs, ownership and copy. No UI imports.
@@ -8,7 +8,7 @@ export const taskReferenceDate = '2026-10-02';
 export const taskProjects = ['Workspace', 'Design system', 'Onboarding', 'Discovery'] as const;
 export const taskAssignees = members;
 export const initialTaskState: TaskState = {
-  nextId: 379,
+  nextId: 139 + taskHistoryCount,
   tasks: [
     {
       id: '49e7996a-311b',
@@ -20,6 +20,7 @@ export const initialTaskState: TaskState = {
       project: 'Workspace',
       assignee: 'nina',
       dueDate: '2026-10-02',
+      completedAt: null,
       createdAt: '2026-10-01T03:20:00Z',
       estimateHours: 4,
     },
@@ -33,6 +34,7 @@ export const initialTaskState: TaskState = {
       project: 'Discovery',
       assignee: 'leo',
       dueDate: '2026-10-07',
+      completedAt: null,
       createdAt: '2026-09-30T06:30:00Z',
       estimateHours: 12,
     },
@@ -46,6 +48,7 @@ export const initialTaskState: TaskState = {
       project: 'Onboarding',
       assignee: 'ava',
       dueDate: '2026-10-12',
+      completedAt: null,
       createdAt: '2026-09-30T02:10:00Z',
       estimateHours: 8,
     },
@@ -59,6 +62,7 @@ export const initialTaskState: TaskState = {
       project: 'Design system',
       assignee: 'eli',
       dueDate: '2026-10-03',
+      completedAt: null,
       createdAt: '2026-09-29T08:15:00Z',
       estimateHours: 6,
     },
@@ -72,6 +76,7 @@ export const initialTaskState: TaskState = {
       project: 'Workspace',
       assignee: 'leo',
       dueDate: '',
+      completedAt: null,
       createdAt: '2026-09-29T03:40:00Z',
       estimateHours: 3,
     },
@@ -85,6 +90,7 @@ export const initialTaskState: TaskState = {
       project: 'Design system',
       assignee: 'nina',
       dueDate: '2026-09-30',
+      completedAt: '2026-09-30T09:40:00Z',
       createdAt: '2026-09-28T07:20:00Z',
       estimateHours: 5,
     },
@@ -98,6 +104,7 @@ export const initialTaskState: TaskState = {
       project: 'Onboarding',
       assignee: 'eli',
       dueDate: '2026-10-09',
+      completedAt: null,
       createdAt: '2026-09-28T02:05:00Z',
       estimateHours: 2,
     },
@@ -111,6 +118,7 @@ export const initialTaskState: TaskState = {
       project: 'Discovery',
       assignee: 'ava',
       dueDate: '2026-10-08',
+      completedAt: null,
       createdAt: '2026-09-27T06:20:00Z',
       estimateHours: 10,
     },
@@ -124,6 +132,7 @@ export const initialTaskState: TaskState = {
       project: 'Workspace',
       assignee: 'nina',
       dueDate: '2026-09-29',
+      completedAt: '2026-09-29T06:25:00Z',
       createdAt: '2026-09-27T01:15:00Z',
       estimateHours: 1,
     },
@@ -137,6 +146,7 @@ export const initialTaskState: TaskState = {
       project: 'Workspace',
       assignee: 'eli',
       dueDate: '2026-10-01',
+      completedAt: null,
       createdAt: '2026-09-26T07:25:00Z',
       estimateHours: 4,
     },
@@ -150,6 +160,7 @@ export const initialTaskState: TaskState = {
       project: 'Workspace',
       assignee: 'ava',
       dueDate: '2026-10-02',
+      completedAt: null,
       createdAt: '2026-09-26T04:30:00Z',
       estimateHours: 16,
     },
@@ -163,6 +174,7 @@ export const initialTaskState: TaskState = {
       project: 'Onboarding',
       assignee: 'leo',
       dueDate: '2026-10-03',
+      completedAt: null,
       createdAt: '2026-09-25T07:00:00Z',
       estimateHours: 6,
     },
@@ -176,6 +188,7 @@ export const initialTaskState: TaskState = {
       project: 'Workspace',
       assignee: 'nina',
       dueDate: '2026-10-04',
+      completedAt: null,
       createdAt: '2026-09-25T03:50:00Z',
       estimateHours: 8,
     },
@@ -189,6 +202,7 @@ export const initialTaskState: TaskState = {
       project: 'Design system',
       assignee: 'eli',
       dueDate: '2026-10-01',
+      completedAt: '2026-10-01T11:10:00Z',
       createdAt: '2026-09-24T08:10:00Z',
       estimateHours: 12,
     },
@@ -202,6 +216,7 @@ export const initialTaskState: TaskState = {
       project: 'Discovery',
       assignee: 'ava',
       dueDate: '2026-10-05',
+      completedAt: null,
       createdAt: '2026-09-24T02:20:00Z',
       estimateHours: 2,
     },
@@ -215,6 +230,7 @@ export const initialTaskState: TaskState = {
       project: 'Design system',
       assignee: 'leo',
       dueDate: '2026-10-06',
+      completedAt: null,
       createdAt: '2026-09-23T06:00:00Z',
       estimateHours: 24,
     },

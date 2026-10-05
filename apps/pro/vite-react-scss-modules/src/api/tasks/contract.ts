@@ -16,16 +16,22 @@ export interface TaskDto extends TaskRequest {
   /** Server-assigned opaque identifier; Mock uses two hexadecimal segments (8-4). */
   id: string;
   createdAt: string;
+  /** Actual completion timestamp, cleared when the task is reopened. */
+  completedAt: string | null;
 }
 export interface MemberDto {
   id: string;
   name: string;
   initials: string;
+  /** Lightweight avatar reference; full personnel details are fetched by ID. */
+  avatarUrl?: string;
 }
 export interface TaskMetadataDto {
   members: MemberDto[];
   projects: string[];
   referenceDate: string;
+  /** Bounded distinct values for column filter menus; independent of the current page. */
+  columnFilterOptions?: Partial<Record<NonNullable<TaskListQuery['sortBy']>, string[]>>;
 }
 export interface TaskListQuery {
   search?: string;
@@ -39,15 +45,28 @@ export interface TaskListQuery {
   due?:
     'all' | 'overdue' | 'week' | 'unscheduled' | readonly ('overdue' | 'week' | 'unscheduled')[];
   minimumHours?: string;
-  sortBy?: 'createdAt' | 'estimateHours' | 'dueDate';
+  sortBy?:
+    | 'completedAt'
+    | 'title'
+    | 'status'
+    | 'priority'
+    | 'project'
+    | 'assignee'
+    | 'createdAt'
+    | 'estimateHours'
+    | 'dueDate';
+  /** JSON object of column names to exact values; AND across columns, OR within each column. */
+  columnFilters?: string;
+  /** JSON object of column names to substring queries. */
+  columnSearch?: string;
   sortDirection?: 'ascending' | 'descending';
-  page?: number;
+  pageNum?: number;
   pageSize?: number;
 }
 export interface TaskListDto {
   items: TaskDto[];
   total: number;
-  page: number;
+  pageNum: number;
   pageSize: number;
   overview: { total: number; inProgress: number; dueSoon: number; completed: number };
 }

@@ -2,6 +2,8 @@ import type { LocaleOf } from '@/i18n/locale-types';
 
 import type { controlsEnUS } from './en-US';
 export const controlsZhCN = {
+  search: '查询',
+  searchColumn: '查询{{column}}',
   filter: '筛选',
   selectPageRows: '选择当页',
   selectionActions: '批量选择',

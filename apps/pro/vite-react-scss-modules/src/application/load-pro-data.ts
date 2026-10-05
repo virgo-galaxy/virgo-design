@@ -5,12 +5,10 @@ import {
   getTaskMetadata,
   getWorkflowHistory,
   getWorkplaceOverview,
+  type TaskDto,
 } from '@/api';
-
-import { getAllTasks } from './task-queries';
 export async function loadProData(signal: AbortSignal) {
-  const [tasks, metadata, profile, projects, analytics, workplace, workflows] = await Promise.all([
-    getAllTasks({}, signal),
+  const [metadata, profile, projects, analytics, workplace, workflows] = await Promise.all([
     getTaskMetadata(signal),
     getProfile(signal),
     getProjects(signal),
@@ -18,5 +16,5 @@ export async function loadProData(signal: AbortSignal) {
     getWorkplaceOverview(signal),
     getWorkflowHistory(signal),
   ]);
-  return { tasks, metadata, profile, projects, analytics, workplace, workflows };
+  return { tasks: [] as TaskDto[], metadata, profile, projects, analytics, workplace, workflows };
 }

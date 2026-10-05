@@ -91,29 +91,33 @@ const statuses: TaskStatusDto[] = [
 const priorities: TaskPriorityDto[] = ['low', 'medium', 'medium', 'high', 'high', 'urgent'];
 const estimates = [0, 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 40];
 const day = 86_400_000;
+export const taskHistoryCount = 983;
 
 // Fixed history keeps reloads reproducible while giving every filter and page real records.
 export function createTaskHistory(
   projects: readonly string[],
   members: readonly MemberDto[],
 ): TaskDto[] {
-  return Array.from({ length: 240 }, (_, index) => {
+  return Array.from({ length: taskHistoryCount }, (_, index) => {
     const projectIndex = index % projects.length;
     const subject = subjects[projectIndex]![Math.floor(index / projects.length) % 10]!;
-    const phase = phases[Math.floor(index / 40)]!;
+    const phase = phases[Math.floor(index / 40) % phases.length]!;
     const variation = index * 7 + Math.floor(index / projects.length);
     const created =
       Date.UTC(2026, 8, 22, 2 + (index % 8), index % 60) - Math.floor(index / 3) * day;
     const due = Math.max(created + day, Date.UTC(2026, 9, 2) + (-18 + (variation % 50)) * day);
+    const status = statuses[variation % statuses.length]!;
     return {
       id: createMockTaskId(139 + index),
-      title: `${subject}: ${phase[0]}`,
+      title: `${subject}: ${phase[0]}${index < 240 ? '' : ` · Batch ${Math.floor(index / 240) + 1}`}`,
       description: `${phase[1]} Scope: ${subject.toLowerCase()} in ${projects[projectIndex]}. Include reproducible examples and a clear handoff to the next owner.`,
       project: projects[projectIndex]!,
       assignee: members[(Math.floor(index / projects.length) + projectIndex) % members.length]!.id,
-      status: statuses[variation % statuses.length]!,
+      status,
       priority: priorities[(variation + Math.floor(index / 10)) % priorities.length]!,
       estimateHours: estimates[(variation + projectIndex) % estimates.length]!,
+      completedAt:
+        status === 'done' ? new Date(created + (1 + (variation % 6)) * day).toISOString() : null,
       createdAt: new Date(created).toISOString(),
       dueDate: index % 11 === 0 ? '' : new Date(due).toISOString().slice(0, 10),
     };

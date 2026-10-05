@@ -1,5 +1,5 @@
-import { DownloadIcon, PlusIcon, TrashIcon } from '@virgo-design/icons';
-import { Button, Surface, Toast } from '@virgo-design/ui';
+import { DownloadIcon, PlusIcon, SettingsIcon, TrashIcon } from '@virgo-design/icons';
+import { Button, Surface, Toast, Toolbar, Tooltip } from '@virgo-design/ui';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
@@ -22,19 +22,27 @@ import {
   type Task,
   type TaskDispatch,
   type TaskDraft,
-  type TaskState,
 } from '@/data/tasks';
 import { createTasksCsv } from '@/data/tasks.export';
 import { type TaskSort } from '@/data/tasks.sort';
 import { WorkOverview } from '@/pages/shared/WorkOverview';
 import { getTaskExportLabels, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 
+import {
+  defaultTaskPageSize,
+  normalizeTaskPins,
+  type TaskDataColumn,
+  type TaskTableSettings,
+  visibleColumns,
+} from './table-settings';
+import { TableSettingsDialog } from './TableSettingsDialog';
 import { TaskDeleteDialog } from './TaskDeleteDialog';
 import { TaskDetailsDialog } from './TaskDetailsDialog';
 import { TaskDialog } from './TaskDialog';
 import { TaskFilters } from './TaskFilters';
 import styles from './TasksPage.module.scss';
 import { TaskTable } from './TaskTable';
+import { useTaskTableSettings } from './use-table-settings';
 
 type Editor = { kind: 'create' } | { kind: 'edit' | 'details'; id: string };
 interface Feedback {
@@ -44,7 +52,7 @@ interface Feedback {
   hidden: boolean;
 }
 
-export function TasksPage({ state, dispatch }: { state: TaskState; dispatch: TaskDispatch }) {
+export function TasksPage({ dispatch }: { dispatch: TaskDispatch }) {
   const { taskAssignees, taskReferenceDate, removeTasks } = useProData();
 
   const { t } = useTranslation();
@@ -54,7 +62,16 @@ export function TasksPage({ state, dispatch }: { state: TaskState; dispatch: Tas
   const [filters, setFilters] = useState(() => queryFromParams(params));
   const [selection, setSelection] = useState<string[]>([]);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(defaultTaskPageSize);
+  const {
+    settings: tableSettings,
+    setSettings: setTableSettings,
+    storageAvailable,
+  } = useTaskTableSettings();
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const settingsRef = useRef<HTMLButtonElement>(null);
+  const [columnFilters, setColumnFilters] = useState<Partial<Record<TaskDataColumn, string[]>>>({});
+  const [columnSearch, setColumnSearch] = useState<Partial<Record<TaskDataColumn, string>>>({});
   const [sort, setSort] = useState<TaskSort | null>(null);
   const [editor, setEditor] = useState<Editor | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
@@ -66,17 +83,35 @@ export function TasksPage({ state, dispatch }: { state: TaskState; dispatch: Tas
   const feedbackId = useRef(0);
   const newTaskRef = useRef<HTMLButtonElement>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
-  const matches = (task: Task) => matchesDataQuery(task, filters, taskAssignees, taskReferenceDate);
-  const tasks = state.tasks;
+  const matches = (task: Task) =>
+    matchesDataQuery(task, filters, taskAssignees, taskReferenceDate) &&
+    Object.entries(columnFilters).every(
+      ([key, values]) => !values.length || values.includes(String(task[key as TaskDataColumn])),
+    ) &&
+    Object.entries(columnSearch).every(([key, value]) => {
+      const text =
+        key === 'assignee'
+          ? (taskAssignees.find((member) => member.id === task.assignee)?.name ?? '')
+          : key === 'title'
+            ? `${task.id} ${task.title}`
+            : String(task[key as TaskDataColumn]).replaceAll('_', ' ');
+      return text.toLowerCase().includes(value.trim().toLowerCase());
+    });
   const query = {
     ...filters,
-    page,
-    pageSize,
+    pageNum: page,
+    pageSize: tableSettings.pagination ? pageSize : 100,
+    ...(Object.values(columnFilters).some((values) => values.length)
+      ? { columnFilters: JSON.stringify(columnFilters) }
+      : {}),
+    ...(Object.values(columnSearch).some((value) => value.trim())
+      ? { columnSearch: JSON.stringify(columnSearch) }
+      : {}),
     ...(sort && sort.direction !== 'none'
       ? { sortBy: sort.column, sortDirection: sort.direction }
       : {}),
   };
-  const resource = useTaskQuery(query);
+  const resource = useTaskQuery(query, !tableSettings.pagination);
   const visibleTasks = resource.data?.items ?? [];
   const overview = resource.data?.overview ?? { total: 0, inProgress: 0, dueSoon: 0, completed: 0 };
   const pageView = resource.data
@@ -92,9 +127,11 @@ export function TasksPage({ state, dispatch }: { state: TaskState; dispatch: Tas
     editor && editor.kind !== 'create'
       ? detail?.id === editor.id
         ? detail
-        : tasks.find((task) => task.id === editor.id)
+        : visibleTasks.find((task) => task.id === editor.id)
       : undefined;
   const filtered =
+    Object.values(columnFilters).some((values) => values.length) ||
+    Object.values(columnSearch).some((value) => value.trim()) ||
     hasTaskFilters(filters) ||
     Boolean(
       filters.createdFrom ||
@@ -102,6 +139,48 @@ export function TasksPage({ state, dispatch }: { state: TaskState; dispatch: Tas
       filters.minimumHours ||
       filterValues(filters.due).length,
     );
+  const changeTableSettings = (value: TaskTableSettings) => {
+    const next = normalizeTaskPins(value);
+    const sortColumn = next.columns.find((column) => column.key === sort?.column);
+    if (
+      sort &&
+      (!sortColumn?.visible ||
+        !sortColumn.controls.sort.enabled ||
+        (sortColumn.controls.sort.mode !== 'both' &&
+          sortColumn.controls.sort.mode !== sort.direction))
+    )
+      setSort(null);
+    if (!next.selection) setSelection([]);
+    setColumnFilters((current) =>
+      Object.fromEntries(
+        Object.entries(current).filter(([key]) =>
+          next.columns.some(
+            (column) => column.key === key && column.visible && column.controls.filter,
+          ),
+        ),
+      ),
+    );
+    setColumnSearch((current) =>
+      Object.fromEntries(
+        Object.entries(current).filter(([key]) =>
+          next.columns.some(
+            (column) => column.key === key && column.visible && column.controls.search,
+          ),
+        ),
+      ),
+    );
+    if (next.pagination !== tableSettings.pagination) setPage(1);
+    setTableSettings(next);
+  };
+  const resetFilters = () => {
+    setColumnFilters({});
+    setColumnSearch({});
+    changeFilters(emptyDataQuery);
+  };
+  const tableWidth = visibleColumns(tableSettings).reduce(
+    (total, column) => total + column.width,
+    0,
+  );
   const notify = (kind: Feedback['kind'], draft: Task) => {
     const hidden = !matches(draft);
     setFeedback({
@@ -134,7 +213,7 @@ export function TasksPage({ state, dispatch }: { state: TaskState; dispatch: Tas
       notify('updated', saved);
     } else {
       const saved = await dispatch({ type: 'create', draft });
-      if (matchesDataQuery(saved, filters, taskAssignees, taskReferenceDate)) setPage(1);
+      if (matches(saved)) setPage(1);
       notify('created', saved);
       setEditor(null);
     }
@@ -173,26 +252,42 @@ export function TasksPage({ state, dispatch }: { state: TaskState; dispatch: Tas
             },
           ]}
         />
-        <Surface
-          border="default"
-          radius={12}
-          className={styles.listPanel}
-          aria-busy={resource.loading}
-        >
-          <MutationFeedback pending={mutation.pending} error={mutation.error} />
+        <Surface border="default" radius={12}>
           <TaskFilters
             key={queryParams(filters).toString()}
             filters={filters}
             onApply={changeFilters}
-            onReset={() => changeFilters(emptyDataQuery)}
+            onReset={resetFilters}
           />
-          <div className={styles.listActions}>
-            <Button ref={newTaskRef} size="medium" leadingIcon={<PlusIcon />} onClick={openCreate}>
+        </Surface>
+        <Surface
+          border="default"
+          radius={12}
+          className={styles.listPanel}
+          data-table-size={tableSettings.size}
+          data-width-mode={tableSettings.widthMode}
+          style={
+            tableSettings.widthMode === 'content'
+              ? {
+                  width: `min(100%, calc(${tableWidth}px + 2 * var(--vd-spacing-20) + 2 * var(--vd-border-width-1)))`,
+                }
+              : undefined
+          }
+          aria-busy={resource.loading}
+        >
+          <MutationFeedback pending={mutation.pending} error={mutation.error} />
+          <Toolbar layout="custom" aria-label={t('tasks.toolbar')} className={styles.listActions}>
+            <Button
+              ref={newTaskRef}
+              size={tableSettings.size}
+              leadingIcon={<PlusIcon />}
+              onClick={openCreate}
+            >
               {t('tasks.newTask2')}
             </Button>
-            <div className={styles.bulkActions}>
+            <Button.Group layout="custom" className={styles.bulkActions}>
               <Button
-                size="medium"
+                size={tableSettings.size}
                 className={styles.deleteButton}
                 leadingIcon={<TrashIcon />}
                 disabled={selection.length === 0 || mutation.pending}
@@ -202,7 +297,7 @@ export function TasksPage({ state, dispatch }: { state: TaskState; dispatch: Tas
               </Button>
               <Button
                 ref={exportRef}
-                size="medium"
+                size={tableSettings.size}
                 variant="outline"
                 leadingIcon={<DownloadIcon />}
                 disabled={visibleTasks.length === 0}
@@ -229,12 +324,45 @@ export function TasksPage({ state, dispatch }: { state: TaskState; dispatch: Tas
               >
                 {t('tasks.export')}
               </Button>
-            </div>
-          </div>
+              <Tooltip>
+                <Tooltip.Trigger
+                  ref={settingsRef}
+                  onClick={() => setSettingsOpen(true)}
+                  aria-label={t('tasks.tableSettings')}
+                  render={(props) => (
+                    <Button
+                      {...props}
+                      iconOnly
+                      size={tableSettings.size}
+                      variant="outline"
+                      aria-label={t('tasks.tableSettings')}
+                    >
+                      <SettingsIcon />
+                    </Button>
+                  )}
+                />
+                <Tooltip.Content placement="top">{t('tasks.tableSettings')}</Tooltip.Content>
+              </Tooltip>
+            </Button.Group>
+          </Toolbar>
           {resource.error || !resource.data ? (
             <RemoteState loading={resource.loading} error={resource.error} retry={resource.retry} />
           ) : (
             <TaskTable
+              settings={tableSettings}
+              onSettingsChange={changeTableSettings}
+              columnFilters={columnFilters}
+              onColumnFilterChange={(key, values) => {
+                setColumnFilters((current) => ({ ...current, [key]: values }));
+                setPage(1);
+                setSelection([]);
+              }}
+              columnSearch={columnSearch}
+              onColumnSearchChange={(key, value) => {
+                setColumnSearch((current) => ({ ...current, [key]: value }));
+                setPage(1);
+                setSelection([]);
+              }}
               selection={selection}
               onSelectionChange={setSelection}
               assigneeFilter={filterValues(filters.assignee)}
@@ -247,7 +375,7 @@ export function TasksPage({ state, dispatch }: { state: TaskState; dispatch: Tas
               tasks={pageView.tasks}
               matchingTotal={matchingTotal}
               page={pageView.page}
-              pageSize={pageSize}
+              pageSize={resource.data?.pageSize ?? pageSize}
               onPageChange={(nextPage, nextPageSize) => {
                 setPage(nextPage);
                 setPageSize(nextPageSize);
@@ -256,12 +384,22 @@ export function TasksPage({ state, dispatch }: { state: TaskState; dispatch: Tas
               selectedId={selectedTask?.id}
               onOpen={openTask}
               onEdit={(task, button) => openTask(task, button, 'edit')}
-              onReset={() => changeFilters(emptyDataQuery)}
+              onReset={resetFilters}
               onCreate={openCreate}
             />
           )}
         </Surface>
       </div>
+      {settingsOpen ? (
+        <TableSettingsDialog
+          settings={tableSettings}
+          previewTasks={visibleTasks}
+          onChange={changeTableSettings}
+          storageAvailable={storageAvailable}
+          onClose={() => setSettingsOpen(false)}
+          restoreFocus={() => settingsRef.current?.focus()}
+        />
+      ) : null}
       {editor?.kind === 'details' && selectedTask ? (
         <TaskDetailsDialog
           task={selectedTask}

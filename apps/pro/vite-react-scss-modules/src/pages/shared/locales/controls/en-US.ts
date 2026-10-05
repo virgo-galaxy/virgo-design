@@ -1,4 +1,6 @@
 export const controlsEnUS = {
+  search: 'Search',
+  searchColumn: 'Search {{column}}',
   filter: 'Filter',
   selectPageRows: 'Select current page',
   selectionActions: 'Selection actions',

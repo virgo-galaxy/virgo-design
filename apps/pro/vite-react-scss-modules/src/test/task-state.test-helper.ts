@@ -16,6 +16,7 @@ export function tasksReducer(state: LegacyTaskState, action: LegacyTaskAction): 
       ...normalizeTaskDraft(action.draft),
       id: createMockTaskId(state.nextId),
       createdAt: action.createdAt,
+      completedAt: null,
     };
     return { tasks: [task, ...state.tasks], nextId: state.nextId + 1 };
   }

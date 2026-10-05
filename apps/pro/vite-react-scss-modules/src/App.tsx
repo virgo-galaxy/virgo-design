@@ -8,6 +8,7 @@ import { AppShell } from '@/app/AppShell';
 import { type ProPageKey, proRouteConfig } from '@/app/routes.config';
 import { proRouting } from '@/app/routing';
 import { useProData } from '@/application/pro-data-context';
+import { TaskCollectionBoundary } from '@/application/TaskCollectionBoundary';
 import {
   handoffFromReceipt,
   initialHandoff,
@@ -118,7 +119,7 @@ export function App() {
   const pages = {
     workplace: <WorkplacePage />,
     analytics: <AnalyticsPage state={tasks} />,
-    tasks: <TasksPage state={tasks} dispatch={dispatch} />,
+    tasks: <TasksPage dispatch={dispatch} />,
     projects: <ProjectsPage state={tasks} />,
     'data-list': <DataListPage state={tasks} dispatch={dispatch} />,
     detail: <DetailPage state={tasks} dispatch={dispatch} />,
@@ -159,7 +160,20 @@ export function App() {
               path={route.path}
               element={
                 <Suspense key={route.id} fallback={<RouteLoading />}>
-                  {pages[route.page]}
+                  {[
+                    'analytics',
+                    'projects',
+                    'data-list',
+                    'detail',
+                    'step-form',
+                    'success',
+                    'error',
+                    'profile',
+                  ].includes(route.page) ? (
+                    <TaskCollectionBoundary>{pages[route.page]}</TaskCollectionBoundary>
+                  ) : (
+                    pages[route.page]
+                  )}
                 </Suspense>
               }
             />

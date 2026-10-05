@@ -40,6 +40,7 @@ const task: Task = {
   ...draft,
   id: createMockTaskId(initialTaskState.nextId),
   createdAt: '2026-10-02T08:00:00Z',
+  completedAt: null,
 };
 const visible = (tasks: Task[], filters: TaskFilters) =>
   tasks.filter((item) =>
@@ -62,7 +63,7 @@ describe('task filters', () => {
     'NESTED PANELS',
     ` ${task.id.toLowerCase()} `,
     'Workspace',
-    taskAssignees[0].name,
+    taskAssignees[0]!.name,
   ])('searches task content and ownership: %s', (search) => {
     expect(visible([task], { ...emptyTaskFilters, search })).toEqual([task]);
   });
@@ -93,7 +94,7 @@ describe('task filters', () => {
     expect(visible(initialTaskState.tasks, filters)).toEqual([]);
     expect(hasTaskFilters(emptyTaskFilters)).toBe(false);
     expect(hasTaskFilters({ ...emptyTaskFilters, search: '   ' })).toBe(false);
-    expect(visible(initialTaskState.tasks, emptyTaskFilters)).toHaveLength(256);
+    expect(visible(initialTaskState.tasks, emptyTaskFilters)).toHaveLength(999);
   });
   it('matches any selected value per field and intersects fields, with empty selections meaning all', () => {
     const filters: TaskFilters = {
@@ -114,36 +115,37 @@ describe('task filters', () => {
     expect(hasTaskFilters(filters)).toBe(true);
     const clear = { search: '', status: [], priority: [], project: [], assignee: [] };
     expect(hasTaskFilters(clear)).toBe(false);
-    expect(visible(initialTaskState.tasks, clear)).toHaveLength(256);
+    expect(visible(initialTaskState.tasks, clear)).toHaveLength(999);
   });
 });
 
 describe('task pagination', () => {
+  const paginationState = { ...initialTaskState, tasks: initialTaskState.tasks.slice(0, 256) };
   it('returns distinct pages and the real range on a partial final page', () => {
-    const first = paginateTasks(initialTaskState.tasks, 1, 10);
-    const second = paginateTasks(initialTaskState.tasks, 26, 10);
-    expect(first.tasks).toEqual(initialTaskState.tasks.slice(0, 10));
+    const first = paginateTasks(paginationState.tasks, 1, 10);
+    const second = paginateTasks(paginationState.tasks, 26, 10);
+    expect(first.tasks).toEqual(paginationState.tasks.slice(0, 10));
     expect(first.range).toEqual([1, 10]);
-    expect(second.tasks).toEqual(initialTaskState.tasks.slice(250));
+    expect(second.tasks).toEqual(paginationState.tasks.slice(250));
     expect(second.range).toEqual([251, 256]);
     expect(second.pageCount).toBe(26);
     expect(new Set([...first.tasks, ...second.tasks].map((item) => item.id)).size).toBe(16);
   });
 
   it('paginates filtered data and clamps when the result or page size shrinks the page count', () => {
-    const filtered = visible(initialTaskState.tasks, { ...emptyTaskFilters, status: 'todo' });
+    const filtered = visible(paginationState.tasks, { ...emptyTaskFilters, status: 'todo' });
     const result = paginateTasks(filtered, 999, 10);
     const lastPage = Math.ceil(filtered.length / 10);
     expect(result.page).toBe(lastPage);
     expect(result.tasks).toEqual(filtered.slice((lastPage - 1) * 10));
     expect(result.range).toEqual([(lastPage - 1) * 10 + 1, filtered.length]);
-    expect(paginateTasks(initialTaskState.tasks, 26, 20).page).toBe(13);
-    expect(paginateTasks(initialTaskState.tasks, 26, 20).tasks).toHaveLength(16);
+    expect(paginateTasks(paginationState.tasks, 26, 20).page).toBe(13);
+    expect(paginateTasks(paginationState.tasks, 26, 20).tasks).toHaveLength(16);
     expect(paginateTasks([], 2, 10)).toEqual({ tasks: [], page: 1, pageCount: 1, range: [0, 0] });
   });
 
   it('includes a created task on page one and preserves an edit on the last page', () => {
-    const created = tasksReducer(initialTaskState, {
+    const created = tasksReducer(paginationState, {
       type: 'create',
       draft,
       createdAt: task.createdAt,
@@ -172,7 +174,7 @@ describe('task mutations', () => {
     });
     expect(state.tasks[0]).toEqual(task);
     expect(state.nextId).toBe(initialTaskState.nextId + 1);
-    expect(taskOverview(state.tasks, taskReferenceDate).total).toBe(257);
+    expect(taskOverview(state.tasks, taskReferenceDate).total).toBe(1000);
     expect(taskOverview(state.tasks, taskReferenceDate).dueSoon).toBe(
       taskOverview(before.tasks, taskReferenceDate).dueSoon + 1,
     );
@@ -313,7 +315,12 @@ describe('validation and dates', () => {
   });
 
   it('keeps the expanded fixture valid, deterministic and clear of future ID collisions', () => {
-    expect(new Set(initialTaskState.tasks.map((item) => item.id)).size).toBe(256);
+    expect(taskAssignees).toHaveLength(24);
+    expect(taskAssignees.some((member) => /\bChen\b/i.test(member.name))).toBe(false);
+    expect(new Set(initialTaskState.tasks.map((item) => item.assignee))).toEqual(
+      new Set(taskAssignees.map((member) => member.id)),
+    );
+    expect(new Set(initialTaskState.tasks.map((item) => item.id)).size).toBe(999);
     for (const item of initialTaskState.tasks) {
       expect(errors(item)).toEqual({});
       expect(item.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}$/);
@@ -321,7 +328,7 @@ describe('validation and dates', () => {
       expect(Number.isNaN(new Date(item.createdAt).getTime())).toBe(false);
     }
     expect(taskOverview(initialTaskState.tasks, taskReferenceDate)).toEqual({
-      total: 256,
+      total: 999,
       inProgress: initialTaskState.tasks.filter((item) => item.status === 'in_progress').length,
       dueSoon: initialTaskState.tasks.filter(
         (item) =>

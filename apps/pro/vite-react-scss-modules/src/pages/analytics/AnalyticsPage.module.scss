@@ -166,17 +166,20 @@
 }
 .owners {
   margin: 0;
-  padding: var(--vd-spacing-16) var(--vd-spacing-24);
+  padding: var(--vd-spacing-16) var(--vd-spacing-24) var(--vd-spacing-12);
+  min-height: 282px;
+  box-sizing: border-box;
   list-style: none;
   display: grid;
-  gap: var(--vd-spacing-24);
+  gap: var(--vd-spacing-16);
+  align-content: start;
   li {
     display: flex;
     align-items: center;
-    gap: var(--vd-spacing-16);
+    gap: var(--vd-spacing-12);
   }
   > li > strong {
-    font-size: var(--vd-font-size-18);
+    font-size: var(--vd-font-size-16);
     font-weight: 500;
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
@@ -189,6 +192,8 @@
   }
 }
 .rank {
+  flex: none;
+  width: 20px;
   color: var(--vd-text-tertiary);
   font-size: var(--vd-font-size-12);
   font-variant-numeric: tabular-nums;
@@ -198,10 +203,23 @@
   min-width: 0;
   display: grid;
   gap: var(--vd-spacing-6);
+}
+.ownerIdentity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vd-spacing-4) var(--vd-spacing-8);
   > small {
     color: var(--vd-text-tertiary);
-    font-size: var(--vd-font-size-10);
+    font-size: var(--vd-font-size-11);
+    white-space: nowrap;
   }
+}
+.ownerPagination {
+  padding: 0 var(--vd-spacing-24) var(--vd-spacing-12);
+  flex-wrap: wrap;
+  gap: var(--vd-spacing-8);
 }
 .ownerTrack {
   display: block;
@@ -292,6 +310,9 @@
     min-height: 250px;
   }
   .owners {
+    padding-inline: var(--vd-spacing-16);
+  }
+  .ownerPagination {
     padding-inline: var(--vd-spacing-16);
   }
 }

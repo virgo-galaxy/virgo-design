@@ -85,7 +85,7 @@ export function TokenUsageCalendar() {
               min={`${year}-01-01`}
               max={`${year}-12-31`}
               renderHeader={({ onMonthChange }) => (
-                <div className={styles.tokenCalendarControls}>
+                <Button.Group layout="custom" className={styles.tokenCalendarControls}>
                   <Button
                     iconOnly
                     size="medium"
@@ -130,7 +130,7 @@ export function TokenUsageCalendar() {
                   >
                     <ChevronRightIcon />
                   </Button>
-                </div>
+                </Button.Group>
               )}
               renderDateContent={(date) => {
                 if (!date.startsWith(month)) return null;

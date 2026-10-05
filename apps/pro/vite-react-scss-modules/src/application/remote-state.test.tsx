@@ -13,6 +13,7 @@ import { TaskDialog } from '@/pages/tasks/TaskDialog';
 
 import { useProData } from './pro-data-context';
 import { ProDataProvider } from './ProDataProvider';
+import { TaskCollectionBoundary } from './TaskCollectionBoundary';
 import { useRemoteData } from './use-remote-data';
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
@@ -66,7 +67,9 @@ describe('remote UI states', () => {
   it('retains the edited draft on API failure and saves successfully on retry', async () => {
     render(
       <ProDataProvider>
-        <Editor />
+        <TaskCollectionBoundary>
+          <Editor />
+        </TaskCollectionBoundary>
       </ProDataProvider>,
     );
     const title = await screen.findByRole('textbox', { name: 'Title' });

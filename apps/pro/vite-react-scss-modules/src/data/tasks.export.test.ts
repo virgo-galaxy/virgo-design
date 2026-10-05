@@ -22,7 +22,8 @@ describe('task CSV export', () => {
     expect(task.status).toBe('todo');
     expect(task.priority).toBe('urgent');
     expect(csv).toContain('"04a7780b-584a"');
-    expect(csv).toContain('"Estimate (h)","Created at"');
+    expect(csv).toContain('"Estimate (h)","Created at","Completed at"');
+    expect(csv).toContain('"2026-09-30T09:40:00Z"');
     expect(csv).toContain('"4","2026-10-01T03:20:00Z"');
     expect(createTasksCsv([{ ...task, dueDate: '' }], taskAssignees, labels)).toContain(
       '"Nina Wu","",',

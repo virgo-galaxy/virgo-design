@@ -28,6 +28,7 @@ export function createTasksCsv(
       'Due date',
       'Estimate (h)',
       'Created at',
+      'Completed at',
       'Description',
     ],
     ...tasks.map((task) => [
@@ -40,6 +41,7 @@ export function createTasksCsv(
       task.dueDate,
       String(task.estimateHours),
       task.createdAt,
+      task.completedAt ?? '',
       task.description,
     ]),
   ];

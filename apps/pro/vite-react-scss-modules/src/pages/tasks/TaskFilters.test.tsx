@@ -10,7 +10,7 @@ import { TaskFilters } from './TaskFilters';
 vi.mock('@/application/pro-data-context', () => ({
   useProData: () => ({
     taskAssignees: [
-      { id: 'ava', name: 'Ava Chen' },
+      { id: 'ava', name: 'Ava Brooks' },
       { id: 'nina', name: 'Nina Wu' },
     ],
     taskProjects: ['Workspace'],
@@ -45,7 +45,7 @@ describe('Task combination query', () => {
     const input = screen.getByRole('combobox', { name: 'Assignee' });
     await user.type(input, 'nin');
     expect(screen.getByRole('option', { name: 'Nina Wu' })).toBeInTheDocument();
-    expect(screen.queryByRole('option', { name: 'Ava Chen' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('option', { name: 'Ava Brooks' })).not.toBeInTheDocument();
     await user.keyboard('{Enter}');
     expect(input).toHaveValue('Nina Wu');
     expect(apply).not.toHaveBeenCalled();
@@ -65,7 +65,7 @@ describe('Task combination query', () => {
       />,
     );
     const input = screen.getByRole('combobox', { name: 'Assignee' });
-    expect(input).toHaveValue('Ava Chen');
+    expect(input).toHaveValue('Ava Brooks');
     await user.clear(input);
     await user.type(input, 'unknown');
     expect(screen.getByText('No team member matches')).toBeVisible();

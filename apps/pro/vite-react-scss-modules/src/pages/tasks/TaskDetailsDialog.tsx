@@ -138,9 +138,25 @@ export function TaskDetailsDialog({
                   </time>
                 </dd>
               </div>
+              <div>
+                <dt>{t('tasks.completedAt')}</dt>
+                <dd>
+                  {task.completedAt ? (
+                    <time dateTime={task.completedAt}>
+                      {new Intl.DateTimeFormat(i18n.language, {
+                        dateStyle: 'medium',
+                        timeStyle: 'short',
+                        timeZone: 'UTC',
+                      }).format(new Date(task.completedAt))}
+                    </time>
+                  ) : (
+                    '—'
+                  )}
+                </dd>
+              </div>
             </dl>
           </Dialog.Body>
-          <Dialog.Footer>
+          <Button.Group layout="custom" render={(groupProps) => <Dialog.Footer {...groupProps} />}>
             <Dialog.Close size="medium">{t('tasks.close')}</Dialog.Close>
             <Button
               size="medium"
@@ -151,7 +167,7 @@ export function TaskDetailsDialog({
             >
               {t('tasks.edit')}
             </Button>
-          </Dialog.Footer>
+          </Button.Group>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

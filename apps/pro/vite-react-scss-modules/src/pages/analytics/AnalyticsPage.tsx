@@ -1,6 +1,6 @@
 import { Chart } from '@virgo-design/charts';
-import { Statistic, Surface } from '@virgo-design/ui';
-import { useMemo } from 'react';
+import { Pagination, Statistic, Surface } from '@virgo-design/ui';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useProData } from '@/application/pro-data-context';
@@ -10,12 +10,14 @@ import { deliveryAnalysis } from '@/data/analytics';
 import { type TaskState, taskStatuses } from '@/data/tasks';
 import { formatDueDate } from '@/data/workplace';
 import { Panel, Person } from '@/pages/shared/ProPage';
+import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
 
 import { getTaskStatusLabel } from '../tasks/task-presentation';
 import styles from './AnalyticsPage.module.scss';
 
 const chartColors = [1, 8, 6, 7, 3].map((index) => `var(--vd-data-categorical-${index})`);
 const deliveryColors = [6, 5, 4, 3].map((index) => `var(--vd-data-sequential-${index})`);
+const ownerPageSize = 5;
 const percent = (value: number) => `${Math.round(value)}%`;
 const signedPercent = (value: number) => {
   const rounded = Math.round(value);
@@ -25,6 +27,8 @@ const signedPercent = (value: number) => {
 export function AnalyticsPage({ state }: { state: TaskState }) {
   const { projects, taskAssignees, trendPoints, projectDelivery } = useProData();
   const { t, i18n } = useTranslation();
+  const paginationLabels = usePaginationLabels();
+  const [ownerPage, setOwnerPage] = useState(1);
   const overview = useOverviewRefresh();
   const analysis = deliveryAnalysis('14d', trendPoints);
   const { points } = analysis;
@@ -51,6 +55,12 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
     })
     .sort((a, b) => b.hours - a.hours);
   const maxHours = Math.max(1, ...owners.map((owner) => owner.hours));
+  const currentOwnerPage = Math.min(
+    ownerPage,
+    Math.max(1, Math.ceil(owners.length / ownerPageSize)),
+  );
+  const ownerStart = (currentOwnerPage - 1) * ownerPageSize;
+  const visibleOwners = owners.slice(ownerStart, ownerStart + ownerPageSize);
   const attainmentData = [
     { name: t('analytics.delivered'), value: analysis.delivered },
     {
@@ -314,21 +324,29 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
           title={t('analytics.ownershipCapacity')}
           description={t('analytics.ownerDescription')}
         >
-          <ol className={styles.owners}>
-            {owners.map((owner, index) => (
+          <ol
+            className={styles.owners}
+            start={ownerStart + 1}
+            aria-label={t('analytics.ownershipCapacity')}
+          >
+            {visibleOwners.map((owner, index) => (
               <li key={owner.member.id}>
-                <span className={styles.rank}>{String(index + 1).padStart(2, '0')}</span>
+                <span className={styles.rank}>
+                  {String(ownerStart + index + 1).padStart(2, '0')}
+                </span>
                 <div className={styles.ownerDetail}>
-                  <Person id={owner.member.id} />
+                  <div className={styles.ownerIdentity}>
+                    <Person id={owner.member.id} size="sm" />
+                    <small>{t('analytics.valueOpenTasks', { v0: owner.count })}</small>
+                  </div>
                   <span className={styles.ownerTrack}>
                     <span
                       style={{
                         width: `${(owner.hours / maxHours) * 100}%`,
-                        background: chartColors[index],
+                        background: chartColors[(ownerStart + index) % chartColors.length],
                       }}
                     />
                   </span>
-                  <small>{t('analytics.valueOpenTasks', { v0: owner.count })}</small>
                 </div>
                 <strong>
                   {number.format(owner.hours)}
@@ -337,6 +355,22 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
               </li>
             ))}
           </ol>
+          {owners.length > ownerPageSize ? (
+            <Pagination
+              className={styles.ownerPagination}
+              aria-label={t('analytics.ownerPages')}
+              labels={paginationLabels}
+              size="small"
+              align="right"
+              total={owners.length}
+              pageSize={ownerPageSize}
+              page={currentOwnerPage}
+              onChange={setOwnerPage}
+              showTotal={(total, range) =>
+                t('analytics.ownerRange', { start: range[0], end: range[1], total })
+              }
+            />
+          ) : null}
           <p className={styles.ownerNote}>{t('analytics.estimateNote')}</p>
         </Panel>
       </div>

@@ -24,6 +24,8 @@ export interface TaskDraft {
 export interface Task extends TaskDraft {
   id: string;
   createdAt: string;
+  /** Actual completion timestamp, cleared when the task is reopened. */
+  completedAt: string | null;
 }
 
 export interface TaskFilters {

@@ -1,0 +1,26 @@
+.screen {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: var(--vd-spacing-24);
+  background: var(--vd-surface-background);
+  color: var(--vd-text-primary);
+}
+.card {
+  width: min(100%, 400px);
+  padding: var(--vd-spacing-32);
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-12);
+  background: var(--vd-surface-default);
+  text-align: center;
+  h1 {
+    margin: 0 0 var(--vd-spacing-12);
+    font-size: var(--vd-font-size-24);
+  }
+  p {
+    margin: 0 0 var(--vd-spacing-24);
+    color: var(--vd-text-secondary);
+    font-size: var(--vd-font-size-14);
+    line-height: var(--vd-line-height-4);
+  }
+}

@@ -23,6 +23,8 @@ export const analyticsEnUS = {
   ownershipCapacity: 'Team capacity',
   ownerDescription: 'Open work by estimated effort.',
   valueOpenTasks: '{{v0}} open tasks',
+  ownerPages: 'Team capacity pages',
+  ownerRange: '{{start}}–{{end}} of {{total}} people',
   h: 'h',
   estimateNote: 'Estimated hours, rather than time logged.',
 } as const;

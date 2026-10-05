@@ -64,7 +64,7 @@ describe('consumer → API → Axios → MSW', () => {
     expect(result.total).toBe(expected.length);
     expect(result.items).toEqual(expected.slice(0, 5));
     expect(await getAllTasks(query)).toEqual(expected);
-    expect((await getTasks({ status: [], priority: [] })).total).toBe(256);
+    expect((await getTasks({ status: [], priority: [] })).total).toBe(999);
     await expect(getTasks({ status: ['todo', 'invalid'] as never })).rejects.toMatchObject({
       code: API_ERROR_CODES.INVALID_QUERY,
     });
@@ -87,10 +87,10 @@ describe('consumer → API → Axios → MSW', () => {
     expect((await getTasks()).total).toBe(before.total);
     expect(await getTask(ids[0]!)).toEqual(before.items[0]);
     expect(await deleteTasks({ ids: [...ids, ids[0]!] })).toEqual({ deletedIds: ids });
-    const after = await getTasks({ page: 26, pageSize: 10 });
+    const after = await getTasks({ pageNum: 100, pageSize: 10 });
     expect(after.total).toBe(before.total - 2);
     expect(after.overview.total).toBe(before.overview.total - 2);
-    expect(after.items).toHaveLength(4);
+    expect(after.items).toHaveLength(7);
     await expect(getTask(ids[0]!)).rejects.toMatchObject({ code: API_ERROR_CODES.TASK_NOT_FOUND });
     expect((await getAllTasks()).some((task) => ids.includes(task.id))).toBe(false);
     await expect(deleteTasks({ ids: [] })).rejects.toMatchObject({
@@ -102,16 +102,16 @@ describe('consumer → API → Axios → MSW', () => {
     expect((await getTasks()).total).toBe(before.total - 2);
   });
   it('unwraps list data and performs stateful create/detail/edit/status updates', async () => {
-    const before = await getTasks({ page: 1, pageSize: 5 });
+    const before = await getTasks({ pageNum: 1, pageSize: 5 });
     expect(before.items).toHaveLength(5);
-    expect(before.total).toBe(256);
-    const finalPage = await getTasks({ page: 26, pageSize: 10 });
-    expect(finalPage.items).toHaveLength(6);
-    expect(finalPage.page).toBe(26);
+    expect(before.total).toBe(999);
+    const finalPage = await getTasks({ pageNum: 100, pageSize: 10 });
+    expect(finalPage.items).toHaveLength(9);
+    expect(finalPage.pageNum).toBe(100);
     const allTasks = await getAllTasks({});
-    expect(allTasks).toHaveLength(256);
-    expect(new Set(allTasks.map((item) => item.id)).size).toBe(256);
-    expect(new Set(allTasks.map((item) => item.title)).size).toBe(256);
+    expect(allTasks).toHaveLength(999);
+    expect(new Set(allTasks.map((item) => item.id)).size).toBe(999);
+    expect(new Set(allTasks.map((item) => item.title)).size).toBe(999);
     expect([...new Set(allTasks.map((item) => item.status))].sort()).toEqual(
       [...TASK_STATUS_CODES].sort(),
     );
@@ -140,12 +140,12 @@ describe('consumer → API → Axios → MSW', () => {
       search: 'Edited through HTTP',
       status: 'done',
       project: 'Workspace',
-      page: 1,
+      pageNum: 1,
       pageSize: 5,
     });
     expect(matching.total).toBe(1);
     expect(matching.items[0]?.status).toBe('done');
-    expect(matching.overview.total).toBe(257);
+    expect(matching.overview.total).toBe(1000);
   });
   it.each([
     ['status', 'In Progress'],
@@ -170,7 +170,7 @@ describe('consumer → API → Axios → MSW', () => {
       code: API_ERROR_CODES.INVALID_REQUEST,
       status: 400,
     });
-    await expect(http.get('/tasks', { params: { page: 'invalid' } })).rejects.toMatchObject({
+    await expect(http.get('/tasks', { params: { pageNum: 'invalid' } })).rejects.toMatchObject({
       kind: 'api',
       code: API_ERROR_CODES.INVALID_QUERY,
       status: 400,
@@ -196,17 +196,17 @@ describe('consumer → API → Axios → MSW', () => {
     const first = await getTasks({
       sortBy: 'estimateHours',
       sortDirection: 'descending',
-      page: 1,
+      pageNum: 1,
       pageSize: 3,
     });
     const second = await getTasks({
       sortBy: 'estimateHours',
       sortDirection: 'descending',
-      page: 2,
+      pageNum: 2,
       pageSize: 3,
     });
     expect(first.items.map((task) => task.estimateHours)).toEqual([40, 40, 40]);
-    expect(second.page).toBe(2);
+    expect(second.pageNum).toBe(2);
     expect(second.items.every((task) => !first.items.some((item) => item.id === task.id))).toBe(
       true,
     );
@@ -246,7 +246,7 @@ describe('consumer → API → Axios → MSW', () => {
       status: 404,
       data: { detail: 'Task not found' },
     });
-    expect((await getTasks()).total).toBe(256);
+    expect((await getTasks()).total).toBe(999);
   });
   it('loads projects/metadata/analytics and persists profile patches through HTTP', async () => {
     const [projects, metadata, analytics, profile] = await Promise.all([
@@ -256,7 +256,7 @@ describe('consumer → API → Axios → MSW', () => {
       getProfile(),
     ]);
     expect(projects).toHaveLength(4);
-    expect(metadata.members).toHaveLength(4);
+    expect(metadata.members).toHaveLength(24);
     expect(analytics.trendPoints).toHaveLength(14);
     expect(analytics.projectDelivery).toHaveLength(14);
     for (const [index, day] of analytics.projectDelivery.entries()) {
@@ -309,7 +309,7 @@ describe('consumer → API → Axios → MSW', () => {
     expect((await getWorkplaceOverview()).snapshot).toMatchObject({
       activeProjects: 4,
       openTasks: initialTaskState.tasks.filter((item) => item.status !== 'done').length,
-      teamMembers: 4,
+      teamMembers: 24,
     });
   });
   it('submits workflow operations to the fake backend', async () => {
@@ -417,4 +417,44 @@ describe('consumer → API → Axios → MSW', () => {
     controller.abort();
     await expect(pending).rejects.toMatchObject({ kind: 'cancelled' });
   });
+});
+
+it('combines column search and exact filters before sorting and all-page export', async () => {
+  const query = {
+    columnFilters: JSON.stringify({ status: ['todo', 'in_progress'] }),
+    columnSearch: JSON.stringify({ project: 'work', title: 'support' }),
+    sortBy: 'title' as const,
+    sortDirection: 'ascending' as const,
+  };
+  const result = await getTasks(query);
+  expect(result.total).toBeGreaterThan(0);
+  for (const task of result.items) {
+    expect(['todo', 'in_progress']).toContain(task.status);
+    expect(task.project.toLowerCase()).toContain('work');
+    expect(task.title.toLowerCase()).toContain('support');
+  }
+  expect(result.items.map((task) => task.title)).toEqual(
+    result.items.map((task) => task.title).sort((a, b) => a.localeCompare(b)),
+  );
+  expect((await getAllTasks(query)).length).toBe(result.total);
+  await expect(getTasks({ columnFilters: '{invalid' })).rejects.toThrow();
+});
+
+it('records completion once, preserves it on edits, clears it on reopen, and creates completed tasks with a timestamp', async () => {
+  const created = await createTask(draft);
+  expect(created.completedAt).toBeNull();
+  const completed = await updateTaskStatus(created.id, 'done');
+  expect(Number.isFinite(Date.parse(completed.completedAt!))).toBe(true);
+  expect((await updateTask(created.id, { title: 'Updated completed task' })).completedAt).toBe(
+    completed.completedAt,
+  );
+  expect((await updateTaskStatus(created.id, 'todo')).completedAt).toBeNull();
+  const completedOnCreate = await createTask({ ...draft, status: 'done' });
+  expect(completedOnCreate.completedAt).toBeTruthy();
+  const rows = await getAllTasks({ sortBy: 'completedAt', sortDirection: 'descending' });
+  const times = rows
+    .filter((task) => task.completedAt)
+    .map((task) => Date.parse(task.completedAt!));
+  expect(times).toEqual([...times].sort((a, b) => b - a));
+  expect(rows.at(-1)?.completedAt).toBeNull();
 });

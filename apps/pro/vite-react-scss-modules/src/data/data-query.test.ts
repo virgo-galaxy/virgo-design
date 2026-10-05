@@ -41,7 +41,7 @@ describe('complex task queries', () => {
         createdFrom: '2026-09-23',
       }),
     ).toEqual([]);
-    expect(find({ search: 'Ava Chen' })).toHaveLength(
+    expect(find({ search: 'Ava Brooks' })).toHaveLength(
       initialTaskState.tasks.filter((task) => task.assignee === 'ava').length,
     );
   });

@@ -68,7 +68,7 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
     scope: scope === 'open' || scope === 'review' || scope === 'done' ? scope : 'all',
     sortBy: order === 'due' ? 'dueDate' : order === 'effort' ? 'estimateHours' : 'createdAt',
     sortDirection: order === 'due' ? 'ascending' : 'descending',
-    page,
+    pageNum: page,
     pageSize: 6,
   });
   const matchingTotal = resource.data?.total ?? 0;

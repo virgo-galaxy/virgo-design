@@ -76,7 +76,7 @@ describe('work request entering the shared register', () => {
       status: 'todo',
     });
     expect(stored.tasks[0]).not.toHaveProperty('acceptanceConfirmed');
-    expect(initialTaskState.tasks).toHaveLength(256);
+    expect(initialTaskState.tasks).toHaveLength(999);
   });
 });
 

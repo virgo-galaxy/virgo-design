@@ -3,7 +3,23 @@ import type { TFunction } from 'i18next';
 
 import type { TaskPriority, TaskStatus } from '@/data/tasks';
 
+import type { TaskColumnKey } from './table-settings';
+
 export { default as taskLabelStyles } from './task-label.module.scss';
+
+export function taskColumnLabel(key: TaskColumnKey, t: TFunction) {
+  return t(
+    key === 'rowNumber'
+      ? 'tasks.id'
+      : key === 'selection'
+        ? 'tasks.settings.selectionColumn'
+        : key === 'title'
+          ? 'tasks.task'
+          : key === 'estimateHours'
+            ? 'tasks.estimateH'
+            : `tasks.${key}`,
+  );
+}
 
 export const taskStatusIntent: Record<TaskStatus, TagIntent> = {
   backlog: 'neutral',

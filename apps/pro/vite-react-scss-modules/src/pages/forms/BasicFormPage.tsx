@@ -270,7 +270,7 @@ export function BasicFormPage({
                   </Field.Message>
                 ) : null}
               </Field>
-              <div className={shared.actions}>
+              <Button.Group layout="custom" className={shared.actions}>
                 <Button
                   size="medium"
                   variant="text"
@@ -290,7 +290,7 @@ export function BasicFormPage({
                 >
                   {t('forms.submitRequest')}
                 </Button>
-              </div>
+              </Button.Group>
             </div>
           </Form>
         </Surface>

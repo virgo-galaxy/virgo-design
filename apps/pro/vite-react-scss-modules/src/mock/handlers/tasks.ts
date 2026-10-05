@@ -18,6 +18,7 @@ import {
   taskReferenceDate,
 } from '../fixtures/tasks';
 import { endpoint, failure, success } from '../response';
+import { sortTasks, type TaskSortColumn } from '../task-sort';
 let tasks: TaskDto[] = structuredClone(initialTaskState.tasks);
 let nextId = initialTaskState.nextId;
 export function resetTasks() {
@@ -88,6 +89,34 @@ function taskRequest(body: unknown): TaskRequest {
 function overdue(task: TaskDto) {
   return task.status !== 'done' && Boolean(task.dueDate) && task.dueDate < taskReferenceDate;
 }
+const dataColumns = [
+  'completedAt',
+  'title',
+  'status',
+  'priority',
+  'project',
+  'assignee',
+  'estimateHours',
+  'createdAt',
+  'dueDate',
+] as const;
+function columnConditions(params: URLSearchParams, name: string): Record<string, unknown> {
+  const raw = params.get(name);
+  if (!raw) return {};
+  const value: unknown = JSON.parse(raw);
+  if (
+    !isRecord(value) ||
+    Object.entries(value).some(
+      ([key, entry]) =>
+        !dataColumns.some((column) => column === key) ||
+        (name === 'columnSearch'
+          ? typeof entry !== 'string'
+          : !Array.isArray(entry) || !entry.every((item) => typeof item === 'string')),
+    )
+  )
+    throw new Error('Invalid column conditions');
+  return value;
+}
 function list(params: URLSearchParams): TaskListDto {
   const week = new Date(`${taskReferenceDate}T00:00:00Z`);
   week.setUTCDate(week.getUTCDate() + 7);
@@ -101,6 +130,8 @@ function list(params: URLSearchParams): TaskListDto {
     ).length,
   };
   const search = (params.get('search') ?? '').trim().toLowerCase();
+  const filters = columnConditions(params, 'columnFilters');
+  const queries = columnConditions(params, 'columnSearch');
   let matching = tasks.filter((task) => {
     for (const key of ['status', 'priority', 'project', 'assignee'] as const) {
       const values = params.getAll(key).filter((value) => value !== 'all');
@@ -115,6 +146,18 @@ function list(params: URLSearchParams): TaskListDto {
         .includes(search)
     )
       return false;
+    for (const key of dataColumns) {
+      const values = filters[key] as string[] | undefined;
+      if (values?.length && !values.includes(String(task[key] ?? ''))) return false;
+      const query = (queries[key] as string | undefined)?.trim().toLowerCase();
+      const text =
+        key === 'assignee'
+          ? `${task.assignee} ${name}`
+          : key === 'title'
+            ? `${task.id} ${task.title}`
+            : String(task[key] ?? '').replaceAll('_', ' ');
+      if (query && !text.toLowerCase().includes(query)) return false;
+    }
     const scope = params.get('scope');
     if (
       (scope === 'open' && task.status === 'done') ||
@@ -148,31 +191,46 @@ function list(params: URLSearchParams): TaskListDto {
     return true;
   });
   const column = params.get('sortBy');
-  const sign = params.get('sortDirection') === 'ascending' ? 1 : -1;
-  if (column === 'createdAt' || column === 'dueDate' || column === 'estimateHours')
-    matching = [...matching].sort((a, b) => {
-      if (column === 'dueDate' && (!a.dueDate || !b.dueDate))
-        return Number(!a.dueDate) - Number(!b.dueDate);
-      if (column === 'estimateHours') return sign * (a.estimateHours - b.estimateHours);
-      return sign * a[column].localeCompare(b[column]);
-    });
+  if (column && dataColumns.some((key) => key === column)) {
+    if (column === 'assignee') {
+      const sign = params.get('sortDirection') === 'ascending' ? 1 : -1;
+      const names = new Map(taskAssignees.map((member) => [member.id, member.name]));
+      matching = [...matching].sort(
+        (a, b) => sign * (names.get(a.assignee) ?? '').localeCompare(names.get(b.assignee) ?? ''),
+      );
+    } else
+      matching = sortTasks(matching, {
+        column: column as TaskSortColumn,
+        direction: params.get('sortDirection') === 'ascending' ? 'ascending' : 'descending',
+      });
+  }
   const total = matching.length;
   const pageSize = Math.min(100, Math.max(1, Number(params.get('pageSize')) || 10));
   const page = Math.min(
-    Math.max(1, Number(params.get('page')) || 1),
+    Math.max(1, Number(params.get('pageNum')) || 1),
     Math.max(1, Math.ceil(total / pageSize)),
   );
   return {
     items: matching.slice((page - 1) * pageSize, page * pageSize),
     total,
-    page,
+    pageNum: page,
     pageSize,
     overview,
   };
 }
 export const tasksHandlers = [
   http.get(endpoint('/tasks/metadata'), () =>
-    success({ members: taskAssignees, projects: taskProjects, referenceDate: taskReferenceDate }),
+    success({
+      members: taskAssignees,
+      projects: taskProjects,
+      referenceDate: taskReferenceDate,
+      columnFilterOptions: Object.fromEntries(
+        dataColumns.map((key) => [
+          key,
+          [...new Set(tasks.map((task) => String(task[key] ?? '')))].sort().slice(0, 100),
+        ]),
+      ),
+    }),
   ),
   http.get(endpoint('/tasks'), ({ request }) => {
     const params = new URL(request.url).searchParams;
@@ -190,7 +248,7 @@ export const tasksHandlers = [
           fields: { [key]: ['Use a supported domain code'] },
         });
     }
-    for (const key of ['page', 'pageSize', 'minimumHours']) {
+    for (const key of ['pageNum', 'pageSize', 'minimumHours']) {
       const value = params.get(key);
       if (value && (!/^\d+$/.test(value) || (key !== 'minimumHours' && Number(value) < 1)))
         return failure({
@@ -200,7 +258,15 @@ export const tasksHandlers = [
           fields: { [key]: ['Use a positive integer'] },
         });
     }
-    return success(list(params));
+    try {
+      return success(list(params));
+    } catch {
+      return failure({
+        status: 422,
+        code: API_ERROR_CODES.INVALID_REQUEST,
+        detail: 'Invalid column conditions',
+      });
+    }
   }),
   http.get(endpoint('/tasks/:id'), ({ params }) => {
     const task = tasks.find((t) => t.id === params.id);
@@ -267,6 +333,7 @@ export const tasksHandlers = [
       ...taskRequest(body),
       id: createMockTaskId(nextId++),
       createdAt: new Date().toISOString(),
+      completedAt: (body as TaskRequest).status === 'done' ? new Date().toISOString() : null,
     };
     tasks.unshift(task);
     return success(task, 201);
@@ -304,7 +371,13 @@ export const tasksHandlers = [
         detail: 'Invalid task',
         fields,
       });
-    const task: TaskDto = { ...tasks[index]!, ...taskRequest(merged) };
+    const previous = tasks[index]!;
+    const task: TaskDto = {
+      ...previous,
+      ...taskRequest(merged),
+      completedAt:
+        merged.status === 'done' ? (previous.completedAt ?? new Date().toISOString()) : null,
+    };
     tasks[index] = task;
     return success(task);
   }),

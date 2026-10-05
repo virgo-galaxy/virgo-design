@@ -26,6 +26,8 @@ export const analyticsZhCN = {
   ownershipCapacity: '团队投入',
   ownerDescription: '按未完成任务的预估工时排序。',
   valueOpenTasks: '{{v0}} 个未完成任务',
+  ownerPages: '团队投入分页',
+  ownerRange: '{{start}}–{{end}} / {{total}} 人',
   h: '小时',
   estimateNote: '工时为任务预估，并非实际用时。',
 } satisfies LocaleOf<typeof analyticsEnUS>;

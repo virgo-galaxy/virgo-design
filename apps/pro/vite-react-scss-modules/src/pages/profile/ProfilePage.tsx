@@ -29,6 +29,7 @@ import { MutationFeedback } from '@/application/MutationFeedback';
 import { useProData } from '@/application/pro-data-context';
 import { useMutation } from '@/application/use-mutation';
 import {
+  accountAvatarImage,
   avatarFileError,
   avatarForeground,
   profileInitials,
@@ -152,10 +153,13 @@ function ProfileEditor({
               <div className={styles.photoRow}>
                 <Avatar
                   size="md"
+                  shape="square"
                   fallback={profileInitials(draft.name)}
                   {...(draft.avatarImage ? { src: draft.avatarImage } : {})}
                   style={{
-                    background: draft.avatarColor,
+                    background: draft.avatarImage ? 'transparent' : draft.avatarColor,
+                    border: 'none',
+                    borderRadius: 0,
                     color: avatarForeground(draft.avatarColor),
                   }}
                 />
@@ -306,12 +310,20 @@ function ProfileEditor({
               </Field>
             </Form>
           </Drawer.Body>
-          <Drawer.Footer className={styles.drawerFooter}>
+          <Button.Group
+            layout="custom"
+            render={(groupProps) => (
+              <Drawer.Footer {...groupProps} className={styles.drawerFooter} />
+            )}
+          >
             {discard ? (
               <Alert intent="warning">
                 <Alert.Title>{t('profile.discardProfileChanges')}</Alert.Title>
                 <Alert.Description>{t('profile.yourSavedProfileWillStayAsItIs')}</Alert.Description>
-                <Alert.Action>
+                <Button.Group
+                  layout="custom"
+                  render={(groupProps) => <Alert.Action {...groupProps} />}
+                >
                   <Button
                     size="medium"
                     variant="outline"
@@ -325,7 +337,7 @@ function ProfileEditor({
                   <Button size="medium" onClick={() => setDiscard(false)}>
                     {t('profile.keepEditing')}
                   </Button>
-                </Alert.Action>
+                </Button.Group>
               </Alert>
             ) : (
               <>
@@ -342,7 +354,7 @@ function ProfileEditor({
                 </Button>
               </>
             )}
-          </Drawer.Footer>
+          </Button.Group>
         </Drawer.Content>
       </Drawer.Portal>
     </Drawer.Root>
@@ -390,11 +402,14 @@ export function ProfilePage({
             <Badge dot intent="success">
               <Avatar
                 size="md"
+                shape="square"
                 className={styles.heroAvatar!}
-                {...(profile.avatarImage ? { src: profile.avatarImage } : {})}
+                {...(accountAvatarImage(profile) ? { src: accountAvatarImage(profile) } : {})}
                 fallback={profileInitials(profile.name)}
                 style={{
-                  background: profile.avatarColor,
+                  background: accountAvatarImage(profile) ? 'transparent' : profile.avatarColor,
+                  border: 'none',
+                  borderRadius: 0,
                   color: avatarForeground(profile.avatarColor),
                 }}
               />
@@ -403,17 +418,17 @@ export function ProfilePage({
               <span className={shared.eyebrow}>{t('profile.virgoStudioWorkspaceOwner')}</span>
               <h1>{profile.name}</h1>
               <p>{profile.headline}</p>
-              <div className={shared.actions}>
+              <Button.Group layout="custom" className={shared.actions}>
                 <Tag size="md" intent="brand">
                   {t('profile.owner')}
                 </Tag>
                 <Tag size="md" variant="outline">
                   {t('profile.productDesign')}
                 </Tag>
-              </div>
+              </Button.Group>
             </div>
           </div>
-          <div className={styles.identityActions}>
+          <Button.Group layout="custom" className={styles.identityActions}>
             <span className={shared.caption}>{t('profile.memberSinceSeptember2026')}</span>
             <Button
               ref={editRef}
@@ -424,7 +439,7 @@ export function ProfilePage({
             >
               {t('profile.editProfile')}
             </Button>
-          </div>
+          </Button.Group>
         </Surface>
         <Tabs defaultValue="overview" variant="line" className={styles.tabs!}>
           <Tabs.List aria-label={t('profile.profileSections')}>

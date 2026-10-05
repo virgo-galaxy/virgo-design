@@ -15,10 +15,21 @@ import type { TaskAction } from '@/data/tasks';
 import { loadProData } from './load-pro-data';
 import { type BootstrapData, ProDataContext } from './pro-data-context';
 import { RemoteState } from './RemoteState';
+import { getAllTasks } from './task-queries';
 import { useRemoteData } from './use-remote-data';
 function ReadyData({ initial, children }: { initial: BootstrapData; children: ReactNode }) {
   const [data, setData] = useState(initial);
   const [revision, setRevision] = useState(0);
+  const loadTaskCollection = useCallback(
+    async (signal: AbortSignal) => {
+      // Legacy collection-based pages load only on entry, not during application bootstrap.
+      void revision;
+      const tasks = await getAllTasks({}, signal);
+      if (!signal.aborted) setData((previous) => ({ ...previous, tasks }));
+      return true;
+    },
+    [revision],
+  );
   const refreshOverview = useCallback(async (signal: AbortSignal) => {
     const [workplace, analytics] = await Promise.all([
       getWorkplaceOverview(signal),
@@ -71,6 +82,7 @@ function ReadyData({ initial, children }: { initial: BootstrapData; children: Re
         removeTasks,
         revision,
         refreshOverview,
+        loadTaskCollection,
         saveProfile,
       }}
     >
