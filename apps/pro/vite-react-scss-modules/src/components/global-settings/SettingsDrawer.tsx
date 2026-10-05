@@ -455,12 +455,12 @@ export function SettingsDrawer({
               ? t('settings.changesApplyImmediatelyAndSaveInThisBrowser')
               : t('settings.changesApplyForThisSessionBrowserStorageIsUnavailable')}
           </p>
-          <div className={styles.footerActions}>
+          <Button.Group layout="custom" className={styles.footerActions}>
             <Button variant="outline" onClick={onReset}>
               {t('settings.restoreDefaults')}
             </Button>
             <Drawer.Close variant="primary">{t('settings.done')}</Drawer.Close>
-          </div>
+          </Button.Group>
         </Drawer.Footer>
         <Tooltip>
           <Tooltip.Trigger

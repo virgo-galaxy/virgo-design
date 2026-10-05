@@ -9,6 +9,7 @@ import { type ProPageKey, proRouteConfig } from '@/app/routes.config';
 import { proRouting } from '@/app/routing';
 import { useProData } from '@/application/pro-data-context';
 import { TaskCollectionBoundary } from '@/application/TaskCollectionBoundary';
+import { useAgentMode } from '@/application/use-agent-mode';
 import {
   handoffFromReceipt,
   initialHandoff,
@@ -69,6 +70,7 @@ function RouteLoading() {
   );
 }
 export function App() {
+  const { agentMode, setAgentMode } = useAgentMode();
   const {
     state: tasks,
     dispatch,
@@ -146,7 +148,11 @@ export function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<AppShell profile={profile} />}>
+        <Route
+          element={
+            <AppShell profile={profile} agentMode={agentMode} onAgentModeChange={setAgentMode} />
+          }
+        >
           {proRouteConfig.redirects.map((redirect) => (
             <Route
               key={`redirect:${redirect.path}`}

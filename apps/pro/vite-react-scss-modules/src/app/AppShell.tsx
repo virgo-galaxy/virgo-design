@@ -1,6 +1,5 @@
 import {
   BellIcon,
-  ChevronDownIcon,
   MoonFilledIcon,
   SearchIcon,
   SunFilledIcon,
@@ -9,7 +8,6 @@ import {
 import virgoDesignLogo from '@virgo-design/icons/brands/virgo-design.svg';
 import { iconComponents } from '@virgo-design/icons/registry';
 import {
-  Avatar,
   Badge,
   Breadcrumb,
   Button,
@@ -20,12 +18,15 @@ import {
   Popover,
   Separator,
   Tag,
+  Toolbar,
   Tooltip,
 } from '@virgo-design/ui';
 import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router';
 
+import { AccountMenu } from '@/components/account-menu/AccountMenu';
+import { AiWorkspace } from '@/components/ai-workspace/AiWorkspace';
 import {
   type NotificationIndicator,
   sidebarWidthRanges,
@@ -33,7 +34,7 @@ import {
 import { SettingsDrawer, SettingsTrigger } from '@/components/global-settings/SettingsDrawer';
 import { useProSettings } from '@/components/global-settings/useProSettings';
 import { LanguageControl } from '@/components/language-control/LanguageControl';
-import { avatarForeground, profileInitials, type ProfileState } from '@/data/pro-workflows';
+import type { ProfileState } from '@/data/pro-workflows';
 
 import styles from './AppShell.module.scss';
 import { getGroupLabel, getPageLabel } from './navigation-labels';
@@ -132,7 +133,15 @@ function Notifications({
   );
 }
 
-export function AppShell({ profile }: { profile: ProfileState }) {
+export function AppShell({
+  profile,
+  agentMode,
+  onAgentModeChange,
+}: {
+  profile: ProfileState;
+  agentMode: boolean;
+  onAgentModeChange: (active: boolean) => void;
+}) {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -157,7 +166,6 @@ export function AppShell({ profile }: { profile: ProfileState }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [settingsTooltipOpen, setSettingsTooltipOpen] = useState(false);
   const [settingsAnchorY, setSettingsAnchorY] = useState(58);
-  const [accountOpen, setAccountOpen] = useState(false);
   const [navigationTooltipOpen, setNavigationTooltipOpen] = useState(false);
   const [narrow, setNarrow] = useState(() => window.matchMedia('(max-width: 1080px)').matches);
   const navigationToggle = useRef<HTMLButtonElement>(null);
@@ -209,333 +217,315 @@ export function AppShell({ profile }: { profile: ProfileState }) {
     },
   };
 
-  return (
-    <Tooltip.Provider size="medium" arrow={settings.showOverlayArrows}>
-      <Drawer
-        className={styles.settingsRoot}
-        open={settingsOpen}
-        onOpenChange={(open) => {
-          restoringSettingsFocus.current = !open;
-          settingsTooltipSuppressed.current = true;
-          setSettingsTooltipOpen(false);
-          setSettingsOpen(open);
-        }}
-      >
-        <Layout.SidebarProvider
-          id="pro-sidebar"
-          state={sidebarState}
-          onStateChange={setSidebarState}
-        >
-          <Layout
-            className={styles.shell!}
-            direction="vertical"
-            data-theme={theme}
-            style={
-              {
-                '--pro-header-height': settings.showHeader ? `${settings.headerHeight}px` : '0px',
-              } as CSSProperties
-            }
-            onKeyDown={(event) => {
-              if (
-                event.key === 'Escape' &&
-                narrow &&
-                sidebarState === 'expanded' &&
-                !event.defaultPrevented
-              ) {
-                setSidebarState('collapsed');
-                navigationToggle.current?.focus();
-              }
-            }}
-          >
-            <a className={styles.skipLink} href="#pro-main">
-              {t('app.skipToContent')}
-            </a>
-            <Layout.Header
-              className={styles.header!}
-              data-scale={settings.headerHeight > 64 ? 'large' : 'regular'}
-              hidden={!settings.showHeader}
-              height={settings.headerHeight}
-              gap={narrow ? 'var(--vd-spacing-12)' : 'var(--vd-spacing-24)'}
-              paddingInline={narrow ? 'var(--vd-spacing-12)' : 'var(--vd-spacing-24)'}
-              surface={{ tone: 'default', material: settings.headerMaterial, border: 'none' }}
-              logo={
-                <div className={styles.brand}>
-                  <Tooltip
-                    open={sidebarState === 'hidden' && navigationTooltipOpen}
-                    onOpenChange={setNavigationTooltipOpen}
-                  >
-                    <Tooltip.Trigger
-                      render={(props) => (
-                        <Layout.SidebarTrigger
-                          {...props}
-                          action="expand"
-                          className={styles.brandTrigger}
-                          aria-label={
-                            sidebarState === 'hidden'
-                              ? t('app.restoreNavigation')
-                              : t('app.virgoDesignProHome')
-                          }
-                          onClick={(event) => {
-                            props.onClick?.(event);
-                            if (!event.defaultPrevented) {
-                              if (sidebarState === 'hidden') {
-                                setSidebarWidth(224);
-                              } else {
-                                event.preventDefault();
-                                navigate(proRouteConfig.homePath);
-                              }
-                            }
-                          }}
-                        >
-                          <img src={virgoDesignLogo} alt="" width="590" height="470" />
-                        </Layout.SidebarTrigger>
-                      )}
-                    />
-                    <Tooltip.Content>{t('app.restoreNavigation')}</Tooltip.Content>
-                  </Tooltip>
-                  <Link
-                    to={proRouteConfig.homePath}
-                    className={styles.brandHome}
-                    aria-label={t('app.virgoDesignProHome')}
-                  >
-                    {t('app.virgoDesign')}
-                  </Link>
-                  <Tag size="md" intent="brand" variant="soft" className={styles.proBadge}>
-                    {t('app.pro')}
-                  </Tag>
-                </div>
-              }
-              actions={
-                <div className={styles.actions}>
-                  <LanguageControl />
-                  <Tooltip>
-                    <Tooltip.Trigger
-                      render={(props) => (
-                        <Button
-                          {...props}
-                          iconOnly
-                          variant="text"
-                          aria-label={theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
-                          onClick={(event) => {
-                            props.onClick?.(event);
-                            if (!event.defaultPrevented)
-                              updateSettings({ appearance: theme === 'light' ? 'dark' : 'light' });
-                          }}
-                        >
-                          {theme === 'light' ? <MoonFilledIcon /> : <SunFilledIcon />}
-                        </Button>
-                      )}
-                    />
-                    <Tooltip.Content>
-                      {theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
-                    </Tooltip.Content>
-                  </Tooltip>
-                  <Notifications
-                    showOverlayArrows={settings.showOverlayArrows}
-                    indicator={settings.notificationIndicator}
-                  />
-                  {settings.showHeader ? <SettingsTrigger {...settingsTriggerProps} /> : null}
-                  <Separator orientation="vertical" decorative className={styles.actionDivider} />
-                  <Popover open={accountOpen} onOpenChange={setAccountOpen}>
-                    <Popover.Trigger
-                      render={(props) => (
-                        <Button
-                          {...props}
-                          variant="text"
-                          size="medium"
-                          className={styles.account}
-                          aria-label={t('app.accountLabel', { name: profile.name })}
-                          trailingIcon={<ChevronDownIcon className={styles.accountChevron} />}
-                        >
-                          <Avatar
-                            size="md"
-                            fallback={profileInitials(profile.name).slice(0, 1)}
-                            {...(profile.avatarImage ? { src: profile.avatarImage } : {})}
-                            style={{
-                              background: profile.avatarColor,
-                              color: avatarForeground(profile.avatarColor),
-                            }}
-                            className={styles.userAvatar}
-                          />
-                          <span className={styles.accountName}>{profile.name}</span>
-                        </Button>
-                      )}
-                    />
-                    <Popover.Content
-                      className={styles.infoPanel}
-                      placement="bottomEnd"
-                      arrow={settings.showOverlayArrows}
-                    >
-                      <strong>{profile.name}</strong>
-                      <p>{t('app.workspaceOwnerVirgoStudio')}</p>
-                      <Separator decorative />
-                      <Button
-                        variant="text"
-                        onClick={() => {
-                          setAccountOpen(false);
-                          navigate('/profile');
-                        }}
-                      >
-                        {t('app.viewProfile')}
-                      </Button>
-                    </Popover.Content>
-                  </Popover>
-                </div>
-              }
-            >
-              <HeaderSearch />
-            </Layout.Header>
+  const footerBrand = (
+    <>
+      <VirgoDesignIcon size={16} />
+      <span>{t('app.virgoDesignPro')}</span>
+    </>
+  );
 
-            <Layout direction="horizontal" className={styles.body!}>
-              <Layout.Sidebar
-                className={styles.sidebar}
-                data-rail-icon-size={settings.sidebarRailWidth > 64 ? 'large' : 'regular'}
-                width={sidebarWidth}
-                resizable={settings.sidebarResizable}
-                minWidth={sidebarWidthRanges.expanded.min}
-                maxWidth={sidebarWidthRanges.expanded.max}
-                mode={narrow && sidebarState === 'expanded' ? 'overlay' : 'inline'}
-                {...(settings.sidebarSnap
-                  ? { resizeSnap: { collapseAt: 160, hideAt: 24, hysteresis: 16 } }
-                  : {})}
-                onWidthChange={setSidebarWidth}
-                collapsedWidth={settings.sidebarRailWidth}
-                collapsible
-                collapseBelow={1080}
-                surface={{
-                  tone: 'default',
-                  border: 'none',
-                  elevation: narrow && sidebarState === 'expanded' ? 2 : 0,
-                }}
-                trigger={
-                  <div className={styles.sidebarToggle}>
-                    {sidebarState === 'expanded' ? (
-                      <span className={styles.environment}>
-                        <Badge
-                          dot
-                          intent="success"
-                          animation={settings.breathe ? 'breathe' : 'none'}
-                          className={styles.statusDot}
-                        />
-                        {t('app.teamWorkspace')}
-                      </span>
-                    ) : null}
-                    <Tooltip className={styles.sidebarToggleHint}>
+  return (
+    <AiWorkspace
+      active={agentMode}
+      theme={theme}
+      onExit={() => onAgentModeChange(false)}
+      footer={
+        settings.showFooter ? <span className={styles.footerBrand}>{footerBrand}</span> : null
+      }
+    >
+      <Tooltip.Provider size="medium" arrow={settings.showOverlayArrows}>
+        <Drawer
+          className={styles.settingsRoot}
+          open={settingsOpen}
+          onOpenChange={(open) => {
+            restoringSettingsFocus.current = !open;
+            settingsTooltipSuppressed.current = true;
+            setSettingsTooltipOpen(false);
+            setSettingsOpen(open);
+          }}
+        >
+          <Layout.SidebarProvider
+            id="pro-sidebar"
+            state={sidebarState}
+            onStateChange={setSidebarState}
+          >
+            <Layout
+              className={styles.shell!}
+              direction="vertical"
+              data-theme={theme}
+              style={
+                {
+                  '--pro-header-height': settings.showHeader ? `${settings.headerHeight}px` : '0px',
+                } as CSSProperties
+              }
+              onKeyDown={(event) => {
+                if (
+                  event.key === 'Escape' &&
+                  narrow &&
+                  sidebarState === 'expanded' &&
+                  !event.defaultPrevented
+                ) {
+                  setSidebarState('collapsed');
+                  navigationToggle.current?.focus();
+                }
+              }}
+            >
+              <a className={styles.skipLink} href="#pro-main">
+                {t('app.skipToContent')}
+              </a>
+              <Layout.Header
+                className={styles.header!}
+                data-scale={settings.headerHeight > 64 ? 'large' : 'regular'}
+                hidden={!settings.showHeader}
+                height={settings.headerHeight}
+                gap={narrow ? 'var(--vd-spacing-12)' : 'var(--vd-spacing-24)'}
+                paddingInline={narrow ? 'var(--vd-spacing-12)' : 'var(--vd-spacing-24)'}
+                surface={{ tone: 'default', material: settings.headerMaterial, border: 'none' }}
+                logo={
+                  <div className={styles.brand}>
+                    <Tooltip
+                      open={sidebarState === 'hidden' && navigationTooltipOpen}
+                      onOpenChange={setNavigationTooltipOpen}
+                    >
                       <Tooltip.Trigger
-                        ref={navigationToggle}
                         render={(props) => (
                           <Layout.SidebarTrigger
                             {...props}
-                            className={styles.sidebarToggleButton}
-                          />
+                            action="expand"
+                            className={styles.brandTrigger}
+                            aria-label={
+                              sidebarState === 'hidden'
+                                ? t('app.restoreNavigation')
+                                : t('app.virgoDesignProHome')
+                            }
+                            onClick={(event) => {
+                              props.onClick?.(event);
+                              if (!event.defaultPrevented) {
+                                if (sidebarState === 'hidden') {
+                                  setSidebarWidth(224);
+                                } else {
+                                  event.preventDefault();
+                                  navigate(proRouteConfig.homePath);
+                                }
+                              }
+                            }}
+                          >
+                            <img src={virgoDesignLogo} alt="" width="590" height="470" />
+                          </Layout.SidebarTrigger>
                         )}
                       />
-                      <Tooltip.Content placement="right" offset={12}>
-                        {sidebarState !== 'expanded'
-                          ? t('app.expandSidebar')
-                          : t('app.collapseSidebar')}
-                      </Tooltip.Content>
+                      <Tooltip.Content>{t('app.restoreNavigation')}</Tooltip.Content>
                     </Tooltip>
+                    <Link
+                      to={proRouteConfig.homePath}
+                      className={styles.brandHome}
+                      aria-label={t('app.virgoDesignProHome')}
+                    >
+                      {t('app.virgoDesign')}
+                    </Link>
+                    <Tag size="md" intent="brand" variant="soft" className={styles.proBadge}>
+                      {t('app.pro')}
+                    </Tag>
                   </div>
                 }
-              >
-                {({ collapsed }) => (
-                  <SidebarNavigation
-                    collapsed={collapsed}
-                    pathname={pathname}
-                    showSubmenuHeader={settings.showSubmenuHeader}
-                    sidebarStyle={settings.sidebarStyle}
-                    showOverlayArrows={settings.showOverlayArrows}
-                  />
-                )}
-              </Layout.Sidebar>
-              {narrow && sidebarState === 'expanded' ? (
-                <Layout.SidebarTrigger
-                  action="collapse"
-                  className={styles.sidebarBackdrop}
-                  aria-label={t('app.closeNavigation')}
-                  onClick={() => navigationToggle.current?.focus()}
-                />
-              ) : null}
-              <Layout.Content
-                id="pro-main"
-                ref={contentRef}
-                tabIndex={-1}
-                scrollable
-                className={styles.main!}
-              >
-                <div className={styles.content} data-layout={currentPage?.contentLayout}>
-                  {settings.showBreadcrumb && currentPage?.display.breadcrumb ? (
-                    <div className={styles.contextBar}>
-                      <Breadcrumb aria-label={t('app.pageBreadcrumb')}>
-                        {CurrentGroupIcon && currentGroup ? (
-                          <Breadcrumb.Item
-                            aria-current={false}
-                            icon={<CurrentGroupIcon />}
-                            className={styles.breadcrumbIcon!}
+                actions={
+                  <Toolbar
+                    layout="custom"
+                    aria-label={t('app.globalActions')}
+                    className={styles.actions}
+                  >
+                    <LanguageControl />
+                    <Tooltip>
+                      <Tooltip.Trigger
+                        render={(props) => (
+                          <Button
+                            {...props}
+                            iconOnly
+                            variant="text"
+                            aria-label={theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
+                            onClick={(event) => {
+                              props.onClick?.(event);
+                              if (!event.defaultPrevented)
+                                updateSettings({
+                                  appearance: theme === 'light' ? 'dark' : 'light',
+                                });
+                            }}
                           >
-                            <span className={styles.breadcrumbIconLabel}>{currentGroup.label}</span>
-                          </Breadcrumb.Item>
-                        ) : null}
-                        {currentGroup && currentGroup.label !== currentPageLabel ? (
-                          <Breadcrumb.Item aria-current={false}>
-                            {currentGroup.label}
-                          </Breadcrumb.Item>
-                        ) : null}
-                        <Breadcrumb.Item
-                          {...(CurrentPageIcon ? { icon: <CurrentPageIcon /> } : {})}
-                        >
-                          {currentPageLabel}
-                        </Breadcrumb.Item>
-                      </Breadcrumb>
+                            {theme === 'light' ? <MoonFilledIcon /> : <SunFilledIcon />}
+                          </Button>
+                        )}
+                      />
+                      <Tooltip.Content>
+                        {theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
+                      </Tooltip.Content>
+                    </Tooltip>
+                    <Notifications
+                      showOverlayArrows={settings.showOverlayArrows}
+                      indicator={settings.notificationIndicator}
+                    />
+                    {settings.showHeader ? <SettingsTrigger {...settingsTriggerProps} /> : null}
+                    <Separator orientation="vertical" decorative className={styles.actionDivider} />
+                    <AccountMenu
+                      profile={profile}
+                      agentMode={agentMode}
+                      onAgentModeChange={onAgentModeChange}
+                    />
+                  </Toolbar>
+                }
+              >
+                <HeaderSearch />
+              </Layout.Header>
+
+              <Layout direction="horizontal" className={styles.body!}>
+                <Layout.Sidebar
+                  className={styles.sidebar}
+                  data-rail-icon-size={settings.sidebarRailWidth > 64 ? 'large' : 'regular'}
+                  width={sidebarWidth}
+                  resizable={settings.sidebarResizable}
+                  minWidth={sidebarWidthRanges.expanded.min}
+                  maxWidth={sidebarWidthRanges.expanded.max}
+                  mode={narrow && sidebarState === 'expanded' ? 'overlay' : 'inline'}
+                  {...(settings.sidebarSnap
+                    ? { resizeSnap: { collapseAt: 160, hideAt: 24, hysteresis: 16 } }
+                    : {})}
+                  onWidthChange={setSidebarWidth}
+                  collapsedWidth={settings.sidebarRailWidth}
+                  collapsible
+                  collapseBelow={1080}
+                  surface={{
+                    tone: 'default',
+                    border: 'none',
+                    elevation: narrow && sidebarState === 'expanded' ? 2 : 0,
+                  }}
+                  trigger={
+                    <div className={styles.sidebarToggle}>
+                      {sidebarState === 'expanded' ? (
+                        <span className={styles.environment}>
+                          <Badge
+                            dot
+                            intent="success"
+                            animation={settings.breathe ? 'breathe' : 'none'}
+                            className={styles.statusDot}
+                          />
+                          {t('app.teamWorkspace')}
+                        </span>
+                      ) : null}
+                      <Tooltip className={styles.sidebarToggleHint}>
+                        <Tooltip.Trigger
+                          ref={navigationToggle}
+                          render={(props) => (
+                            <Layout.SidebarTrigger
+                              {...props}
+                              className={styles.sidebarToggleButton}
+                            />
+                          )}
+                        />
+                        <Tooltip.Content placement="right" offset={12}>
+                          {sidebarState !== 'expanded'
+                            ? t('app.expandSidebar')
+                            : t('app.collapseSidebar')}
+                        </Tooltip.Content>
+                      </Tooltip>
                     </div>
-                  ) : null}
-                  <div className={styles.pageContent}>
-                    <Outlet context={{ showOverlayArrows: settings.showOverlayArrows }} />
+                  }
+                >
+                  {({ collapsed }) => (
+                    <SidebarNavigation
+                      collapsed={collapsed}
+                      pathname={pathname}
+                      showSubmenuHeader={settings.showSubmenuHeader}
+                      sidebarStyle={settings.sidebarStyle}
+                      showOverlayArrows={settings.showOverlayArrows}
+                    />
+                  )}
+                </Layout.Sidebar>
+                {narrow && sidebarState === 'expanded' ? (
+                  <Layout.SidebarTrigger
+                    action="collapse"
+                    className={styles.sidebarBackdrop}
+                    aria-label={t('app.closeNavigation')}
+                    onClick={() => navigationToggle.current?.focus()}
+                  />
+                ) : null}
+                <Layout.Content
+                  id="pro-main"
+                  ref={contentRef}
+                  tabIndex={-1}
+                  scrollable
+                  className={styles.main!}
+                >
+                  <div className={styles.content} data-layout={currentPage?.contentLayout}>
+                    {settings.showBreadcrumb && currentPage?.display.breadcrumb ? (
+                      <div className={styles.contextBar}>
+                        <Breadcrumb aria-label={t('app.pageBreadcrumb')}>
+                          {CurrentGroupIcon && currentGroup ? (
+                            <Breadcrumb.Item
+                              aria-current={false}
+                              icon={<CurrentGroupIcon />}
+                              className={styles.breadcrumbIcon!}
+                            >
+                              <span className={styles.breadcrumbIconLabel}>
+                                {currentGroup.label}
+                              </span>
+                            </Breadcrumb.Item>
+                          ) : null}
+                          {currentGroup && currentGroup.label !== currentPageLabel ? (
+                            <Breadcrumb.Item aria-current={false}>
+                              {currentGroup.label}
+                            </Breadcrumb.Item>
+                          ) : null}
+                          <Breadcrumb.Item
+                            {...(CurrentPageIcon ? { icon: <CurrentPageIcon /> } : {})}
+                          >
+                            {currentPageLabel}
+                          </Breadcrumb.Item>
+                        </Breadcrumb>
+                      </div>
+                    ) : null}
+                    <div className={styles.pageContent}>
+                      <Outlet context={{ showOverlayArrows: settings.showOverlayArrows }} />
+                    </div>
+                    {settings.showFooter ? (
+                      <footer className={styles.contentFooter}>
+                        <Link to={proRouteConfig.homePath}>{footerBrand}</Link>
+                      </footer>
+                    ) : null}
                   </div>
-                  {settings.showFooter ? (
-                    <footer className={styles.contentFooter}>
-                      <Link to={proRouteConfig.homePath}>
-                        <VirgoDesignIcon size={16} />
-                        <span>{t('app.virgoDesignPro')}</span>
-                      </Link>
-                    </footer>
-                  ) : null}
-                </div>
-              </Layout.Content>
+                </Layout.Content>
+              </Layout>
+              {!settings.showHeader ? (
+                <SettingsTrigger {...settingsTriggerProps} anchorY={settingsAnchorY} />
+              ) : null}
             </Layout>
-            {!settings.showHeader ? (
-              <SettingsTrigger {...settingsTriggerProps} anchorY={settingsAnchorY} />
-            ) : null}
-          </Layout>
-        </Layout.SidebarProvider>
-        <SettingsDrawer
-          settings={settings}
-          theme={theme}
-          storageAvailable={storageAvailable}
-          onChange={updateSettings}
-          onReset={resetSettings}
-          onHeaderChange={(showHeader, anchorY) => {
-            updateSettings({ showHeader });
-            if (!showHeader) {
-              restoringSettingsFocus.current = true;
-              settingsTooltipSuppressed.current = true;
-              setSettingsAnchorY(anchorY);
-              setSettingsTooltipOpen(false);
-              setSettingsOpen(false);
-            }
-          }}
-          onCloseAutoFocus={(event) => {
-            event.preventDefault();
-            // Wait for modal isolation to release before focusing the surviving gear.
-            queueMicrotask(() => {
-              restoringSettingsFocus.current = true;
-              settingsTrigger.current?.focus({ preventScroll: true });
-              restoringSettingsFocus.current = false;
-            });
-          }}
-        />
-      </Drawer>
-    </Tooltip.Provider>
+          </Layout.SidebarProvider>
+          <SettingsDrawer
+            settings={settings}
+            theme={theme}
+            storageAvailable={storageAvailable}
+            onChange={updateSettings}
+            onReset={resetSettings}
+            onHeaderChange={(showHeader, anchorY) => {
+              updateSettings({ showHeader });
+              if (!showHeader) {
+                restoringSettingsFocus.current = true;
+                settingsTooltipSuppressed.current = true;
+                setSettingsAnchorY(anchorY);
+                setSettingsTooltipOpen(false);
+                setSettingsOpen(false);
+              }
+            }}
+            onCloseAutoFocus={(event) => {
+              event.preventDefault();
+              // Wait for modal isolation to release before focusing the surviving gear.
+              queueMicrotask(() => {
+                restoringSettingsFocus.current = true;
+                settingsTrigger.current?.focus({ preventScroll: true });
+                restoringSettingsFocus.current = false;
+              });
+            }}
+          />
+        </Drawer>
+      </Tooltip.Provider>
+    </AiWorkspace>
   );
 }
