@@ -22,7 +22,9 @@ export interface TableSortButtonProps extends ButtonHTMLAttributes<HTMLButtonEle
   direction?: TableSortDirection | undefined;
   /** Initial uncontrolled direction. @default 'none' */
   defaultDirection?: TableSortDirection | undefined;
-  /** Requests the next direction: none → ascending → descending → none. */
+  /** Enabled sort directions, cycled in order before returning to none. @default ['ascending', 'descending'] */
+  directions?: readonly Exclude<TableSortDirection, 'none'>[] | undefined;
+  /** Requests the next enabled direction, then none. */
   onDirectionChange?: ((direction: TableSortDirection) => void) | undefined;
 }
 export type TableCellProps = TdHTMLAttributes<HTMLTableCellElement>;

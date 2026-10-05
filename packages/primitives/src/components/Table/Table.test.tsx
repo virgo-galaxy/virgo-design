@@ -89,3 +89,17 @@ it('preserves controlled direction, cancellation and disabled behavior', async (
   await user.click(button);
   expect(changes).toEqual(['descending']);
 });
+
+it.each(['ascending', 'descending'] as const)(
+  'cycles a single %s direction back to none',
+  async (direction) => {
+    const user = (await import('@testing-library/user-event')).default.setup();
+    render(<Table.SortButton directions={[direction]}>Sort</Table.SortButton>);
+    const button = screen.getByRole('button', { name: 'Sort' });
+    expect(button).toHaveAttribute('data-direction', 'none');
+    await user.click(button);
+    expect(button).toHaveAttribute('data-direction', direction);
+    await user.click(button);
+    expect(button).toHaveAttribute('data-direction', 'none');
+  },
+);

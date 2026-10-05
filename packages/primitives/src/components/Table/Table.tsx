@@ -48,7 +48,14 @@ export const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(functi
 });
 export const TableSortButton = forwardRef<HTMLButtonElement, TableSortButtonProps>(
   function TableSortButton(
-    { direction, defaultDirection = 'none', onDirectionChange, onClick, ...props },
+    {
+      direction,
+      defaultDirection = 'none',
+      directions = ['ascending', 'descending'],
+      onDirectionChange,
+      onClick,
+      ...props
+    },
     ref,
   ) {
     const [value = 'none', setValue] = useControllableState(
@@ -65,9 +72,8 @@ export const TableSortButton = forwardRef<HTMLButtonElement, TableSortButtonProp
         onClick={(event) => {
           onClick?.(event);
           if (!event.defaultPrevented) {
-            setValue(
-              value === 'none' ? 'ascending' : value === 'ascending' ? 'descending' : 'none',
-            );
+            const sequence = [...new Set(directions)];
+            setValue(sequence[sequence.indexOf(value as 'ascending' | 'descending') + 1] ?? 'none');
           }
         }}
       />

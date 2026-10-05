@@ -1,3 +1,4 @@
+@use '../../internal/form/control-size';
 @use '../../internal/form/option-highlight';
 
 .root {
@@ -6,6 +7,14 @@
   --table-cell-padding-inline: var(--vd-spacing-16);
   --table-cell-padding-block: var(--vd-spacing-12);
   --table-header-height: var(--vd-sizing-44);
+  // Reserve space for a 24px header control without growing single-line headings.
+  --table-header-padding-block: min(
+    var(--table-cell-padding-block),
+    max(
+      0px,
+      calc((var(--table-header-height) - var(--vd-sizing-24) - var(--vd-border-width-1)) / 2)
+    )
+  );
   --table-row-height: var(--vd-sizing-48);
   --table-cell-vertical-align: middle;
   // Opaque, theme-aware layers keep header, hover and selection distinct.
@@ -16,6 +25,11 @@
   --table-header-font-weight: var(--vd-font-weight-500);
   --table-header-radius: var(--vd-radius-6);
   --table-separator-color: var(--vd-border-subtle);
+  --table-fixed-separator-color: var(--vd-border-default);
+  --table-fixed-shadow-color: color-mix(in srgb, var(--vd-text-primary) 12%, transparent);
+  --table-fixed-shadow-width: var(--vd-spacing-8);
+  --table-fixed-start-shadow-direction: to right;
+  --table-fixed-end-shadow-direction: to left;
   --table-header-background: color-mix(
     in srgb,
     var(--vd-text-primary) 3%,
@@ -33,7 +47,7 @@
   );
   --table-row-hover-background: color-mix(
     in srgb,
-    var(--vd-text-primary) 3%,
+    var(--vd-text-primary) 1.5%,
     var(--table-body-background)
   );
   --table-row-selected-background: color-mix(
@@ -55,15 +69,24 @@
   color: var(--vd-text-primary);
   background: var(--table-body-background);
   font-family: var(--vd-typography-ui-body-medium-font-family);
-  font-size: var(--vd-typography-ui-body-medium-font-size);
+  font-size: control-size.token(medium, font-size);
   line-height: var(--vd-typography-ui-body-medium-line-height);
+  &:where([data-density='mini']) {
+    --table-cell-padding-inline: var(--vd-spacing-8);
+    --table-cell-padding-block: var(--vd-spacing-4);
+    --table-header-height: var(--vd-sizing-28);
+    --table-row-height: var(--vd-sizing-32);
+    font-size: control-size.token(mini, font-size);
+  }
   &:where([data-density='compact']) {
+    font-size: control-size.token(small, font-size);
     --table-cell-padding-inline: var(--vd-spacing-12);
     --table-cell-padding-block: var(--vd-spacing-8);
     --table-header-height: var(--vd-sizing-36);
     --table-row-height: var(--vd-sizing-40);
   }
   &:where([data-density='comfortable']) {
+    font-size: control-size.token(large, font-size);
     --table-cell-padding-inline: var(--vd-spacing-20);
     --table-cell-padding-block: var(--vd-spacing-16);
     --table-header-height: calc(var(--vd-sizing-48) + var(--vd-spacing-4));
@@ -89,19 +112,24 @@
     border: var(--vd-border-width-1) solid var(--vd-border-default);
   }
   & .body > .row {
-    background: var(--table-body-background);
+    --table-cell-background: var(--table-body-background);
+    background: var(--table-cell-background);
   }
   &[data-striped='true'] .body > .row:nth-child(even) {
-    background: var(--table-row-striped-background);
+    --table-cell-background: var(--table-row-striped-background);
+    background: var(--table-cell-background);
   }
   &[data-hoverable='true'] .body > .row:is(:hover, :has(:focus-visible)) {
-    background: var(--table-row-hover-background);
+    --table-cell-background: var(--table-row-hover-background);
+    background: var(--table-cell-background);
   }
   & .body > .row[data-selected='true'] {
-    background: var(--table-row-selected-background);
+    --table-cell-background: var(--table-row-selected-background);
+    background: var(--table-cell-background);
   }
   &[data-hoverable='true'] .body > .row[data-selected='true']:is(:hover, :has(:focus-visible)) {
-    background: var(--table-row-selected-hover-background);
+    --table-cell-background: var(--table-row-selected-hover-background);
+    background: var(--table-cell-background);
   }
   &[data-sticky-header='true'] .header .cell {
     position: sticky;
@@ -139,6 +167,7 @@
   > .row > .cell {
     // Native th boldness does not inherit the weight declared on the section.
     font-weight: var(--table-header-font-weight);
+    padding-block: var(--table-header-padding-block);
     background: var(--table-header-background);
   }
   > .row:first-child > .cell:first-child {
@@ -180,6 +209,8 @@
 
 .sortButton {
   display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
   min-height: var(--vd-sizing-20);
   align-items: center;
   gap: var(--vd-spacing-6);
@@ -203,6 +234,18 @@
 .sortIndicator {
   flex: none;
   color: var(--vd-icon-primary);
+}
+.sortButton[data-icon-only='true'] {
+  width: var(--vd-sizing-24);
+  height: var(--vd-sizing-24);
+  justify-content: center;
+  flex: none;
+}
+.sortLabel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .sortIndicatorAnchor {
   display: inline-flex;
@@ -229,25 +272,57 @@
   background: var(--vd-border-default);
   pointer-events: none;
 }
+.root[data-header-dividers='true']:not([data-border='all'])
+  .header
+  > .row
+  > .cell:not(:last-child):has(> .resizeHandle:is(:hover, :focus))::after {
+  background: var(--vd-border-strong);
+}
 .headContent {
   display: flex;
   align-items: center;
   gap: var(--vd-spacing-8);
   min-width: 0;
 }
-.cell[data-align='end'] > .headContent {
+.headContent[data-layout='joined'][data-align='end'] {
   justify-content: flex-end;
 }
-.cell[data-align='center'] > .headContent {
+.headContent[data-layout='joined'][data-align='center'] {
   justify-content: center;
+}
+.headContent[data-layout='joined'] > .headControls {
+  flex: 0 0 auto;
+  max-width: 100%;
 }
 .headLabel {
   min-width: 0;
+  &:not(:has(input, button)) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
-.headActions {
+.headControls {
+  display: flex;
+  flex: 1 0 min(100%, var(--table-controls-width));
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  justify-content: safe flex-end;
+  &[data-align='start'] {
+    justify-content: flex-start;
+  }
+  &[data-align='center'] {
+    justify-content: safe center;
+  }
+}
+.controlsGroup {
   display: inline-flex;
   flex: none;
-  margin-inline-start: auto;
+  align-items: center;
+  gap: var(--vd-spacing-4);
+  button:focus-visible {
+    outline-offset: calc(-1 * var(--vd-spacing-2));
+  }
 }
 .resizeHandle {
   position: absolute;
@@ -259,12 +334,9 @@
   border: 0;
   padding: 0;
   background: transparent;
+  outline: none;
   cursor: col-resize;
   touch-action: none;
-  &:focus-visible {
-    outline: 1px solid var(--vd-border-focus);
-    outline-offset: -1px;
-  }
 }
 .filterButton {
   display: inline-flex;
@@ -333,6 +405,13 @@
 .root[data-column-widths='true'] .body .cell {
   overflow: hidden;
 }
+.root[data-column-widths='true'] .body .cell[data-fixed] {
+  overflow: visible;
+}
+.fixedCellContent {
+  min-width: 0;
+  overflow: hidden;
+}
 
 .selection {
   display: inline-flex;
@@ -353,5 +432,71 @@
   &:focus-visible:not(:disabled) {
     background: transparent;
     color: var(--vd-text-secondary);
+  }
+}
+
+.cell[data-fixed] {
+  position: sticky;
+  z-index: 1;
+  background: var(--table-cell-background, var(--table-body-background));
+}
+.header > .row > .cell[data-fixed] {
+  position: sticky;
+  z-index: 3;
+  background: var(--table-header-background);
+}
+
+.root:dir(rtl) {
+  --table-fixed-start-shadow-direction: to left;
+  --table-fixed-end-shadow-direction: to right;
+}
+
+// A horizontal gradient has constant opacity along the whole fixed edge.
+// Include the row border so adjacent bands meet without gaps or per-row blur.
+.cell[data-fixed='start']:not(:has(+ .cell[data-fixed='start']))::before,
+.cell[data-fixed='end']:first-child::before,
+.cell:not([data-fixed='end']) + .cell[data-fixed='end']::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-block-end: calc(-1 * var(--vd-border-width-1));
+  width: calc(var(--table-fixed-shadow-width) + var(--vd-border-width-1));
+  pointer-events: none;
+}
+.cell[data-fixed='start']::before {
+  inset-inline-end: calc(-1 * var(--table-fixed-shadow-width));
+  background: linear-gradient(
+    var(--table-fixed-start-shadow-direction),
+    var(--table-fixed-separator-color) 0 var(--vd-border-width-1),
+    var(--table-fixed-shadow-color) var(--vd-border-width-1),
+    transparent 100%
+  );
+}
+.cell[data-fixed='end']::before {
+  inset-inline-start: calc(-1 * var(--table-fixed-shadow-width));
+  background: linear-gradient(
+    var(--table-fixed-end-shadow-direction),
+    var(--table-fixed-separator-color) 0 var(--vd-border-width-1),
+    var(--table-fixed-shadow-color) var(--vd-border-width-1),
+    transparent 100%
+  );
+}
+.sortIndicator[data-mode='ascending'] [data-slot='sort-descending'],
+.sortIndicator[data-mode='descending'] [data-slot='sort-ascending'] {
+  display: none;
+}
+.sortIndicator[data-mode='ascending'] [data-slot='sort-ascending'] {
+  transform: translateY(5px);
+}
+.sortIndicator[data-mode='descending'] [data-slot='sort-descending'] {
+  transform: translateY(-5px);
+}
+.searchPanel {
+  width: 280px;
+  max-width: calc(100vw - 32px);
+  padding: var(--vd-spacing-12);
+  form {
+    display: grid;
+    gap: var(--vd-spacing-12);
   }
 }

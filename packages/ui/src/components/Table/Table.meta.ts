@@ -7,6 +7,7 @@ export const tableMetadata = {
     'Presents tabular data with native semantics, header dividers, optional column resizing and confirmed column filters.',
   import: "import { Table } from '@virgo-design/ui';",
   sizes: [
+    { name: 'mini', description: 'Extra compact presentation.' },
     { name: 'small', description: 'Compact presentation.' },
     { name: 'medium', description: 'Default presentation.' },
     { name: 'large', description: 'Spacious presentation.' },
@@ -14,10 +15,16 @@ export const tableMetadata = {
   states: ['default', 'hover', 'selected', 'ascending', 'descending', 'filtered', 'resizing'],
   anatomy: [
     {
+      name: 'header-controls',
+      description:
+        'Sorting, filter and search in fixed order with shared start, center or end alignment.',
+    },
+    {
       name: 'Table.Selection',
       description:
         'Select-page checkbox with an optional hover menu of built-in and custom selection actions.',
     },
+    { name: 'Table.Search', description: 'Confirmed column text search with controlled values.' },
     {
       name: 'Table.Filter',
       description: 'Checkbox filter popover with draft values, Confirm and Reset.',
@@ -75,6 +82,10 @@ export const tableMetadata = {
     sorting: true,
     filtering: true,
     columnResizing: true,
+    controlledColumnWidths: true,
+    fixedColumns: true,
+    singleDirectionSorting: true,
+    columnSearching: true,
     headerDividers: true,
     virtualization: false,
   },

@@ -12,6 +12,7 @@ import {
   TableSortButton,
   TableViewport,
 } from './Table';
+import { TableSearch } from './TableSearch';
 export const Table = Object.assign(TableRoot, {
   Root: TableRoot,
   Caption: TableCaption,
@@ -24,6 +25,7 @@ export const Table = Object.assign(TableRoot, {
   Viewport: TableViewport,
   SortButton: TableSortButton,
   Filter: TableFilter,
+  Search: TableSearch,
   Selection: TableSelection,
 });
 export type {
@@ -32,14 +34,19 @@ export type {
   TableDensity,
   TableFilterOption,
   TableFilterProps,
+  TableFixedCellProps,
+  TableHeaderControls,
+  TableHeaderSortControl,
   TableHeadProps,
   TableProps,
   TableRowProps,
+  TableSearchProps,
   TableSectionProps,
   TableSelectionAction,
   TableSelectionOption,
   TableSelectionProps,
   TableSortButtonProps,
   TableSortDirection,
+  TableSortMode,
   TableViewportProps,
 } from './Table.types';

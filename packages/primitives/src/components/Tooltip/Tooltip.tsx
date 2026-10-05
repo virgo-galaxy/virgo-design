@@ -34,6 +34,7 @@ type Context = {
   closeOnClick: boolean;
   id: string;
   triggerRef: React.RefObject<HTMLButtonElement | null>;
+  anchorRef: React.RefObject<HTMLElement | null>;
   contentRef: React.RefObject<HTMLDivElement | null>;
   focused: React.MutableRefObject<boolean>;
   hovered: React.MutableRefObject<boolean>;
@@ -62,6 +63,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
     openDelay = 100,
     closeOnClick = true,
     smoothTransition = false,
+    anchorRef: externalAnchorRef,
     children,
     ...props
   },
@@ -78,6 +80,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
   const [skipExit, setSkipExit] = useState(false);
   const open = !disabled && !superseded && Boolean(value);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const anchorRef = externalAnchorRef ?? triggerRef;
   const contentRef = useRef<HTMLDivElement | null>(null);
   const focused = useRef(false);
   const hovered = useRef(false);
@@ -85,7 +88,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
   const activationDismissed = useRef(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const id = useId();
-  const layer = useOverlayLayer(triggerRef, contentRef);
+  const layer = useOverlayLayer(anchorRef, contentRef);
   useLayerRegistration(layer, open);
   const cancelOpen = useCallback(() => {
     if (timer.current !== null) clearTimeout(timer.current);
@@ -107,7 +110,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
   const transition = useTooltipHandoff(
     open,
     smoothTransition,
-    triggerRef,
+    anchorRef,
     contentRef,
     (immediate) => {
       cancelOpen();
@@ -180,6 +183,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
         closeOnClick,
         id,
         triggerRef,
+        anchorRef,
         contentRef,
         focused,
         hovered,
@@ -319,11 +323,11 @@ export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
       pointer,
       active: context.open && present && !context.skipExit && following,
       contentRef: context.contentRef,
-      anchorRef: context.triggerRef,
+      anchorRef: context.anchorRef,
     });
     const floating = useFloatingPosition({
       active: present && !context.skipExit && !following,
-      triggerRef: anchorRef ?? context.triggerRef,
+      triggerRef: anchorRef ?? context.anchorRef,
       contentRef: context.contentRef,
       placement,
       offset,

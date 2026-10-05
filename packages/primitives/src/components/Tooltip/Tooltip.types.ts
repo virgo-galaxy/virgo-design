@@ -4,6 +4,8 @@ import type { OverlayPlacement } from '../../internal/overlay/positioning';
 
 export type TooltipPlacement = OverlayPlacement;
 export interface TooltipProps extends HTMLAttributes<HTMLDivElement> {
+  /** External anchor for controlled tooltips on existing elements; the consumer handles hover and focus. */
+  anchorRef?: RefObject<HTMLElement | null> | undefined;
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;

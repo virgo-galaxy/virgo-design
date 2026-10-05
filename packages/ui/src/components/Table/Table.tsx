@@ -2,6 +2,7 @@ import { ChevronDownIcon, FilterFilledIcon, SortIcon } from '@virgo-design/icons
 import { Table as PrimitiveTable } from '@virgo-design/primitives';
 import {
   createContext,
+  type CSSProperties,
   forwardRef,
   type PointerEvent,
   type ReactNode,
@@ -31,10 +32,14 @@ import type {
   TableSelectionAction,
   TableSelectionProps,
   TableSortButtonProps,
+  TableSortDirection,
   TableViewportProps,
 } from './Table.types';
+import { TableSearch } from './TableSearch';
+import { useColumnControlTooltip } from './use-column-control-tooltip';
 
 const sizeDensity: Record<NonNullable<TableProps['size']>, TableDensity> = {
+  mini: 'mini',
   small: 'compact',
   medium: 'default',
   large: 'comfortable',
@@ -43,7 +48,8 @@ const sizeDensity: Record<NonNullable<TableProps['size']>, TableDensity> = {
 type ColumnResizeContext = {
   enabled: boolean;
   minimum: number;
-  widths: number[] | null;
+  maximum: number;
+  widths: readonly number[] | null;
   setWidths: (widths: number[]) => void;
 };
 const ResizeContext = createContext<ColumnResizeContext | null>(null);
@@ -56,6 +62,9 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
     headerDividers = true,
     resizable = false,
     minColumnWidth = 80,
+    maxColumnWidth = Infinity,
+    columnWidths,
+    onColumnWidthsChange,
     striped = false,
     hoverable = false,
     stickyHeader = false,
@@ -67,10 +76,16 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
   ref,
 ) {
   const [widths, setWidths] = useState<number[] | null>(null);
-  const resized = resizable ? widths : null;
+  const resized = columnWidths ?? (resizable ? widths : null);
+  const minimum = Math.max(24, Number.isFinite(minColumnWidth) ? minColumnWidth : 80);
+  const maximum = Math.max(minimum, maxColumnWidth);
+  const updateWidths = (next: number[]) => {
+    if (columnWidths === undefined) setWidths(next);
+    onColumnWidthsChange?.(next);
+  };
   return (
     <ResizeContext.Provider
-      value={{ enabled: resizable, minimum: minColumnWidth, widths: resized, setWidths }}
+      value={{ enabled: resizable, minimum, maximum, widths: resized, setWidths: updateWidths }}
     >
       <PrimitiveTable
         {...props}
@@ -174,36 +189,100 @@ export const TableViewport = forwardRef<HTMLDivElement, TableViewportProps>(func
   );
 });
 export const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(function TableHead(
-  { align = 'start', className, children, actions, sortDirection, onSortChange, ...props },
+  {
+    align = 'start',
+    className,
+    children,
+    controls,
+    minWidth,
+    maxWidth,
+    fixed,
+    stickyOffset = 0,
+    style,
+    ...props
+  },
   ref,
 ) {
+  const [localDirection, setLocalDirection] = useState<TableSortDirection>('none');
+  const sorting = controls?.sort && controls.sort.enabled !== false ? controls.sort : null;
+  const requestedDirection = sorting?.direction ?? localDirection;
+  const direction =
+    sorting?.mode && sorting.mode !== 'both' && requestedDirection !== sorting.mode
+      ? 'none'
+      : requestedDirection;
+  const hasControls = Boolean(sorting || controls?.filter || controls?.search);
+  const controlCount =
+    Number(Boolean(sorting)) +
+    Number(Boolean(controls?.filter)) +
+    Number(Boolean(controls?.search));
+  const label = nodeText(children);
   return (
     <PrimitiveTable.Head
       {...props}
       ref={ref}
       data-align={align}
-      sortDirection={onSortChange ? (sortDirection ?? 'none') : sortDirection}
+      data-fixed={fixed}
+      style={{
+        ...style,
+        ...(fixed
+          ? { [fixed === 'start' ? 'insetInlineStart' : 'insetInlineEnd']: stickyOffset }
+          : {}),
+      }}
+      sortDirection={sorting ? direction : undefined}
       className={[styles.cell, className].filter(Boolean).join(' ')}
     >
-      <div className={styles.headContent}>
-        {onSortChange ? (
-          <TableSortButton direction={sortDirection ?? 'none'} onDirectionChange={onSortChange}>
-            {children}
-          </TableSortButton>
-        ) : (
-          <span className={styles.headLabel}>{children}</span>
-        )}
-        {actions ? <span className={styles.headActions}>{actions}</span> : null}
+      <div
+        className={styles.headContent}
+        data-layout={controls?.layout ?? (controls ? 'separate' : 'joined')}
+        data-align={controls?.align ?? (controls ? 'end' : align)}
+      >
+        <span className={styles.headLabel}>{children}</span>
+        {hasControls ? (
+          <div
+            className={styles.headControls}
+            data-align={controls?.align ?? 'end'}
+            style={
+              {
+                '--table-controls-width': `calc(${controlCount} * var(--vd-sizing-24) + ${controlCount - 1} * var(--vd-spacing-4))`,
+              } as CSSProperties
+            }
+          >
+            <div className={styles.controlsGroup} data-slot="header-controls">
+              {sorting ? (
+                <TableSortButton
+                  aria-label={label}
+                  sortMode={sorting.mode}
+                  direction={direction}
+                  onDirectionChange={(next) => {
+                    if (sorting.direction === undefined) setLocalDirection(next);
+                    sorting.onDirectionChange?.(next);
+                  }}
+                />
+              ) : null}
+              {controls?.filter ? <TableFilter {...controls.filter} label={label} /> : null}
+              {controls?.search ? <TableSearch {...controls.search} label={label} /> : null}
+            </div>
+          </div>
+        ) : null}
       </div>
       {props.scope !== 'row' && (!props.colSpan || props.colSpan === 1) ? (
-        <ColumnResizeHandle label={nodeText(children)} />
+        <ColumnResizeHandle label={nodeText(children)} minimum={minWidth} maximum={maxWidth} />
       ) : null}
     </PrimitiveTable.Head>
   );
 });
 export const TableSortButton = forwardRef<HTMLButtonElement, TableSortButtonProps>(
   function TableSortButton(
-    { direction, defaultDirection = 'none', onDirectionChange, className, children, ...props },
+    {
+      direction,
+      defaultDirection = 'none',
+      sortMode = 'both',
+      directions,
+      onDirectionChange,
+      className,
+      children,
+      ...props
+    },
     ref,
   ) {
     const [localDirection, setLocalDirection] = useState(defaultDirection);
@@ -211,10 +290,13 @@ export const TableSortButton = forwardRef<HTMLButtonElement, TableSortButtonProp
     const tooltipPresentation = useTooltipPresentation();
     const value = direction ?? localDirection;
     const labels = useControlLabels();
+    const sequence =
+      directions ?? (sortMode === 'both' ? (['ascending', 'descending'] as const) : [sortMode]);
+    const next = sequence[sequence.indexOf(value as 'ascending' | 'descending') + 1] ?? 'none';
     const action =
-      value === 'none'
+      next === 'ascending'
         ? labels.sortAscending
-        : value === 'ascending'
+        : next === 'descending'
           ? labels.sortDescending
           : labels.clearSorting;
     return (
@@ -226,17 +308,20 @@ export const TableSortButton = forwardRef<HTMLButtonElement, TableSortButtonProp
             <PrimitiveTable.SortButton
               {...triggerProps}
               direction={value}
+              directions={sequence}
               onDirectionChange={(next) => {
                 if (direction === undefined) setLocalDirection(next);
                 onDirectionChange?.(next);
               }}
               className={[styles.sortButton, className].filter(Boolean).join(' ')}
+              data-icon-only={children == null || undefined}
             >
-              {children}
+              {children != null ? <span className={styles.sortLabel}>{children}</span> : null}
               <span ref={indicatorRef} className={styles.sortIndicatorAnchor} aria-hidden="true">
                 <SortIcon
                   className={styles.sortIndicator}
                   data-slot="sort-indicator"
+                  data-mode={sortMode}
                   size={16}
                   direction={value}
                   activeColor="var(--vd-brand-link)"
@@ -257,7 +342,7 @@ export const TableSortButton = forwardRef<HTMLButtonElement, TableSortButtonProp
   },
 );
 export const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(function TableCell(
-  { align = 'start', className, ...props },
+  { align = 'start', className, fixed, stickyOffset = 0, style, children, ...props },
   ref,
 ) {
   return (
@@ -265,8 +350,17 @@ export const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(functi
       {...props}
       ref={ref}
       data-align={align}
+      data-fixed={fixed}
+      style={{
+        ...style,
+        ...(fixed
+          ? { [fixed === 'start' ? 'insetInlineStart' : 'insetInlineEnd']: stickyOffset }
+          : {}),
+      }}
       className={[styles.cell, className].filter(Boolean).join(' ')}
-    />
+    >
+      {fixed ? <div className={styles.fixedCellContent}>{children}</div> : children}
+    </PrimitiveTable.Cell>
   );
 });
 
@@ -278,7 +372,15 @@ function nodeText(node: ReactNode): string {
   return '';
 }
 
-function ColumnResizeHandle({ label }: { label: string }) {
+function ColumnResizeHandle({
+  label,
+  minimum,
+  maximum,
+}: {
+  label: string;
+  minimum?: number | undefined;
+  maximum?: number | undefined;
+}) {
   const context = useContext(ResizeContext);
   const labels = useControlLabels();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -291,6 +393,8 @@ function ColumnResizeHandle({ label }: { label: string }) {
     null,
   );
   if (!context?.enabled) return null;
+  const min = Math.max(24, minimum ?? context.minimum);
+  const max = Math.max(min, maximum ?? context.maximum);
   const capture = (button: HTMLButtonElement) => {
     const head = button.closest('th');
     const row = head?.parentElement;
@@ -305,7 +409,7 @@ function ColumnResizeHandle({ label }: { label: string }) {
   };
   const update = (snapshot: { index: number; widths: number[] }, width: number) => {
     const widths = [...snapshot.widths];
-    widths[snapshot.index] = Math.max(context.minimum, width);
+    widths[snapshot.index] = Math.max(min, Math.min(max, width));
     context.setWidths(widths);
   };
   const finish = (event: PointerEvent<HTMLButtonElement>, cancel: boolean) => {
@@ -322,7 +426,8 @@ function ColumnResizeHandle({ label }: { label: string }) {
       aria-valuenow={measuredWidth}
       aria-orientation="vertical"
       aria-label={labels.resizeColumn.replace('{{column}}', label)}
-      aria-valuemin={context.minimum}
+      aria-valuemin={min}
+      aria-valuemax={Number.isFinite(max) ? max : undefined}
       className={styles.resizeHandle}
       data-slot="column-resize-handle"
       onFocus={(event) => {
@@ -352,15 +457,17 @@ function ColumnResizeHandle({ label }: { label: string }) {
         drag.current = null;
       }}
       onKeyDown={(event) => {
-        if (!['ArrowLeft', 'ArrowRight', 'Home'].includes(event.key)) return;
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
         const snapshot = capture(event.currentTarget);
         if (!snapshot) return;
         event.preventDefault();
         update(
           snapshot,
           event.key === 'Home'
-            ? context.minimum
-            : snapshot.widths[snapshot.index]! +
+            ? min
+            : event.key === 'End' && Number.isFinite(max)
+              ? max
+              : snapshot.widths[snapshot.index]! +
                 (event.key === 'ArrowRight' ? 10 : -10) * snapshot.direction,
         );
       }}
@@ -387,10 +494,12 @@ export const TableFilter = forwardRef<HTMLDivElement, TableFilterProps>(function
   const applied = value ?? local;
   const [draft, setDraft] = useState<readonly string[]>(applied);
   const [open, setOpen] = useState(false);
+  const hint = useColumnControlTooltip(open, tooltip !== false);
   const accessibleLabel = labels.filterColumn.replace('{{column}}', label);
   const apply = (next: string[]) => {
     if (value === undefined) setLocal(next);
     onValueChange?.(next);
+    hint.dismiss();
     setOpen(false);
   };
   return (
@@ -401,11 +510,13 @@ export const TableFilter = forwardRef<HTMLDivElement, TableFilterProps>(function
       open={open}
       onOpenChange={(next) => {
         if (next) setDraft(applied);
+        hint.dismiss();
         setOpen(next);
       }}
     >
-      <Tooltip {...(open || tooltip === false ? { open: false } : {})}>
+      <Tooltip {...hint.tooltipProps}>
         <Tooltip.Trigger
+          {...hint.triggerProps}
           aria-label={accessibleLabel}
           render={(tooltipProps) => (
             <Popover.Trigger
@@ -450,7 +561,7 @@ export const TableFilter = forwardRef<HTMLDivElement, TableFilterProps>(function
             </Checkbox>
           ))}
         </div>
-        <div className={styles.filterActions}>
+        <Button.Group layout="custom" className={styles.filterActions}>
           <Button
             type="button"
             size={size}
@@ -463,7 +574,7 @@ export const TableFilter = forwardRef<HTMLDivElement, TableFilterProps>(function
           <Button type="button" size={size} onClick={() => apply([...draft])}>
             {labels.confirmFilter}
           </Button>
-        </div>
+        </Button.Group>
       </Popover.Content>
     </Popover>
   );

@@ -2,27 +2,34 @@ import type {
   TableCellProps as PrimitiveTableCellProps,
   TableHeadProps as PrimitiveTableHeadProps,
   TableProps as PrimitiveTableProps,
+  TableSortButtonProps as PrimitiveTableSortButtonProps,
   TableSortDirection,
 } from '@virgo-design/primitives';
 import type { HTMLAttributes, ReactNode } from 'react';
 
 import type { ButtonSize } from '../Button/Button.types';
 
-export type TableDensity = 'compact' | 'default' | 'comfortable';
+export type TableDensity = 'mini' | 'compact' | 'default' | 'comfortable';
 
 export interface TableProps extends Omit<PrimitiveTableProps, 'border'> {
   /** Cell padding and minimum header/body row heights. Takes precedence over size. @default 'default' */
   density?: TableDensity | undefined;
   /** Legacy density alias: small = compact, medium = default, large = comfortable. Prefer density. @default 'medium' */
-  size?: 'small' | 'medium' | 'large' | undefined;
+  size?: 'mini' | 'small' | 'medium' | 'large' | undefined;
   /** Border treatment. Separators divide adjacent rows without an outer edge. @default 'rows' */
   border?: 'none' | 'rows' | 'separators' | 'all' | undefined;
   /** Short vertical separators between column headings. @default true */
   headerDividers?: boolean | undefined;
-  /** Enables pointer and keyboard column resizing. @default false */
+  /** Enables pointer and keyboard resizing for all columns. @default false */
   resizable?: boolean | undefined;
   /** Minimum width in pixels when resizing a column. @default 80 */
   minColumnWidth?: number | undefined;
+  /** Maximum column width in pixels. @default Infinity */
+  maxColumnWidth?: number | undefined;
+  /** Controlled widths in visible column order. Kept when resizing is disabled. */
+  columnWidths?: readonly number[] | undefined;
+  /** Receives widths after pointer or keyboard resizing; data/column identity stays consumer-owned. */
+  onColumnWidthsChange?: ((widths: number[]) => void) | undefined;
   /** Alternating body row backgrounds. @default false */
   striped?: boolean | undefined;
   /** Highlights pointer-hovered rows. @default false */
@@ -30,15 +37,52 @@ export interface TableProps extends Omit<PrimitiveTableProps, 'border'> {
   /** Sticks column headings inside the nearest scrolling viewport. @default false */
   stickyHeader?: boolean | undefined;
 }
-export interface TableHeadProps extends Omit<PrimitiveTableHeadProps, 'align'> {
-  /** Trailing column controls, such as Table.Filter; kept outside the sorting button. */
-  actions?: ReactNode;
-  /** Makes the column heading a three-state sorting button. Data ordering is consumer-owned. */
-  onSortChange?: ((direction: TableSortDirection) => void) | undefined;
-  /** Logical alignment; end is useful for numeric columns. @default 'start' */
+export type TableSortMode = 'both' | 'ascending' | 'descending';
+export interface TableFixedCellProps {
+  /** Pins this cell to a logical edge of Table.Viewport. */
+  fixed?: 'start' | 'end' | undefined;
+  /** Cumulative widths of preceding pinned columns at the same edge, in pixels. @default 0 */
+  stickyOffset?: number | undefined;
+}
+export interface TableSortButtonProps extends PrimitiveTableSortButtonProps {
+  /** Both arrows and a three-state cycle, or a single arrow toggling that direction and none. @default 'both' */
+  sortMode?: TableSortMode | undefined;
+}
+export interface TableHeaderSortControl {
+  /** Shows the sorting button while retaining its mode when disabled. @default true */
+  enabled?: boolean | undefined;
+  /** Arrow shape and direction cycle. @default 'both' */
+  mode?: TableSortMode | undefined;
+  /** Controlled direction, also reflected in the heading's aria-sort. @default 'none' */
+  direction?: TableSortDirection | undefined;
+  /** Receives the requested direction; data ordering remains consumer-owned. */
+  onDirectionChange?: ((direction: TableSortDirection) => void) | undefined;
+}
+export interface TableHeaderControls {
+  /** Keeps the heading at the start, or aligns heading and controls as one group. @default 'separate' */
+  layout?: 'separate' | 'joined' | undefined;
+  /** Aligns controls in the remaining space, or the complete joined heading group. @default 'end' */
+  align?: 'start' | 'center' | 'end' | undefined;
+  /** Sorting control; omitted or false hides it. */
+  sort?: TableHeaderSortControl | false | undefined;
+  /** Filter control; the column name supplies its label. Omitted or false hides it. */
+  filter?: Omit<TableFilterProps, 'label'> | false | undefined;
+  /** Search control; the column name supplies its label. Omitted or false hides it. */
+  search?: Omit<TableSearchProps, 'label'> | false | undefined;
+}
+export interface TableHeadProps
+  extends TableFixedCellProps, Omit<PrimitiveTableHeadProps, 'align' | 'sortDirection'> {
+  /** Optional controls in fixed order: sorting, filter, search. Their alignment is shared. */
+  controls?: TableHeaderControls | undefined;
+  /** Per-column minimum resize width, overriding the table default. */
+  minWidth?: number | undefined;
+  /** Per-column maximum resize width, overriding the table default. */
+  maxWidth?: number | undefined;
+  /** Heading alignment when controls is omitted; otherwise controls.align owns alignment. @default 'start' */
   align?: 'start' | 'center' | 'end' | undefined;
 }
-export interface TableCellProps extends Omit<PrimitiveTableCellProps, 'align'> {
+export interface TableCellProps
+  extends TableFixedCellProps, Omit<PrimitiveTableCellProps, 'align'> {
   /** Logical alignment; end is useful for numeric columns. @default 'start' */
   align?: 'start' | 'center' | 'end' | undefined;
 }
@@ -46,7 +90,6 @@ export type {
   TableCaptionProps,
   TableRowProps,
   TableSectionProps,
-  TableSortButtonProps,
   TableSortDirection,
   TableViewportProps,
 } from '@virgo-design/primitives';
@@ -104,5 +147,26 @@ export interface TableSelectionProps extends Omit<HTMLAttributes<HTMLDivElement>
   /** Accessible name of the selection menu trigger. */
   menuLabel?: string | undefined;
   /** Disables the checkbox and menu. Empty rowKeys also disables them. @default false */
+  disabled?: boolean | undefined;
+}
+
+export interface TableSearchProps {
+  /** Column name used in accessible labels. */
+  label: string;
+  /** Controlled applied query. */
+  value?: string | undefined;
+  /** Initial uncontrolled query. @default '' */
+  defaultValue?: string | undefined;
+  /** Called when submitting or clearing the search. */
+  onValueChange?: ((value: string) => void) | undefined;
+  /** Optional input placeholder. */
+  placeholder?: string | undefined;
+  /** Custom tooltip; false hides it. */
+  tooltip?: ReactNode | false | undefined;
+  /** Size of the search controls. @default 'small' */
+  size?: ButtonSize | undefined;
+  /** Size of the search action buttons, overriding size when provided. */
+  actionSize?: ButtonSize | undefined;
+  /** Disables the search trigger. @default false */
   disabled?: boolean | undefined;
 }

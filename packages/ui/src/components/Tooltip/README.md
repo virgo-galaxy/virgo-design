@@ -28,6 +28,8 @@ Content supports `placement="top"`, `offset={8}`, `arrow={true}` and `tone="defa
 
 Pass `anchorRef` to Content to position the panel and arrow against a smaller element inside the trigger, such as a table's sorting indicator. Hover, keyboard focus, click handling and the accessible description remain on the full Trigger.
 
+For controlled hints on existing non-button controls, supply `anchorRef` on the Root and omit Trigger. The consumer manages `open`, pointer/focus handlers and the control's accessible description. The external anchor participates in positioning, overlay dismissal and tooltip handoff. `SegmentedControl.Item tooltip={label}` uses this path while preserving its native radio semantics.
+
 Content portals to the document body, inherits the nearest data-theme and direction, and repositions on scroll, resize and content resize. CSS motion respects reduced motion. During exit, content is inert and aria-hidden and the description is removed from Trigger.
 
 Use `Tooltip.Provider` to share presentation defaults across an application:

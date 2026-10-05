@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import type { CSSProperties } from 'react';
 import { describe, expect, it } from 'vitest';
 
@@ -122,7 +122,7 @@ it('composes a sortable heading, updates aria-sort and explains the next action'
       <Table>
         <Table.Header>
           <Table.Row>
-            <Table.Head sortDirection={direction} onSortChange={setDirection}>
+            <Table.Head controls={{ sort: { direction, onDirectionChange: setDirection } }}>
               Count
             </Table.Head>
           </Table.Row>
@@ -168,6 +168,41 @@ it('supports an independent uncontrolled SortButton, native handlers and button 
   expect(button).toHaveAttribute('data-direction', 'ascending');
 });
 
+it('renders header controls in fixed order and removes disabled controls independently', () => {
+  const fixture = (enabled: boolean) => (
+    <Table>
+      <Table.Header>
+        <Table.Row>
+          <Table.Head
+            controls={{
+              align: 'center',
+              sort: { enabled, mode: 'ascending' },
+              filter: { options: [{ value: 'open', label: 'Open' }] },
+              search: enabled ? {} : false,
+            }}
+          >
+            Status
+          </Table.Head>
+        </Table.Row>
+      </Table.Header>
+    </Table>
+  );
+  const { rerender } = render(fixture(true));
+  const head = screen.getByRole('columnheader');
+  expect(head).toHaveAttribute('aria-sort', 'none');
+  expect(
+    within(head)
+      .getAllByRole('button')
+      .map((button) => button.getAttribute('aria-label')),
+  ).toEqual(['Status', 'Filter Status', 'Search Status']);
+  fireEvent.click(within(head).getByRole('button', { name: 'Status' }));
+  expect(head).toHaveAttribute('aria-sort', 'ascending');
+  rerender(fixture(false));
+  expect(head).not.toHaveAttribute('aria-sort');
+  expect(within(head).getAllByRole('button')).toHaveLength(1);
+  expect(within(head).getByRole('button', { name: 'Filter Status' })).toBeInTheDocument();
+});
+
 it('shows header dividers by default and keeps resizing opt-in', () => {
   const fixture = (resizable = false, headerDividers = true) => (
     <Table resizable={resizable} headerDividers={headerDividers}>
@@ -199,20 +234,19 @@ it.each([undefined, 'medium'] as const)(
           <Table.Header>
             <Table.Row>
               <Table.Head
-                onSortChange={() => {}}
-                actions={
-                  <Table.Filter
-                    size={size}
-                    label="Owner"
-                    value={owners}
-                    onValueChange={setOwners}
-                    options={[
+                controls={{
+                  sort: { onDirectionChange: () => {} },
+                  filter: {
+                    size,
+                    value: owners,
+                    onValueChange: setOwners,
+                    options: [
                       { value: 'ava', label: 'Ava' },
                       { value: 'leo', label: 'Leo' },
                       { value: 'nina', label: 'Nina', disabled: true },
-                    ]}
-                  />
-                }
+                    ],
+                  },
+                }}
               >
                 Owner
               </Table.Head>
@@ -302,4 +336,135 @@ it('lets consumers customize or omit the filter hint', async () => {
   expect(await screen.findByRole('tooltip')).toHaveTextContent('Choose members');
   rerender(<Table.Filter label="Owner" options={[]} tooltip={false} />);
   expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+});
+
+it.each(['filter', 'search'] as const)(
+  'keeps the %s hint closed after applying and restoring trigger focus',
+  async (kind) => {
+    const user = (await import('@testing-library/user-event')).default.setup();
+    render(
+      <>
+        {kind === 'filter' ? (
+          <Table.Filter label="Owner" options={[{ value: 'ava', label: 'Ava' }]} />
+        ) : (
+          <Table.Search label="Owner" />
+        )}
+        <button>Next control</button>
+      </>,
+    );
+    const trigger = screen.getByRole('button', {
+      name: kind === 'filter' ? 'Filter Owner' : 'Search Owner',
+    });
+    await user.hover(trigger);
+    expect(await screen.findByRole('tooltip')).toBeInTheDocument();
+    await user.click(trigger);
+    if (kind === 'filter') await user.click(screen.getByRole('checkbox', { name: 'Ava' }));
+    else await user.type(screen.getByRole('textbox'), 'ava');
+    await user.click(
+      screen.getByRole('button', { name: kind === 'filter' ? 'Confirm' : 'Search' }),
+    );
+    expect(trigger).toHaveFocus();
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    await user.hover(trigger);
+    expect(await screen.findByRole('tooltip')).toBeInTheDocument();
+    await user.click(trigger);
+    await user.click(screen.getByRole('button', { name: 'Reset' }));
+    expect(trigger).toHaveFocus();
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    await user.tab();
+    await user.tab({ shift: true });
+    expect(await screen.findByRole('tooltip')).toBeInTheDocument();
+    await user.keyboard('{Enter}{Escape}');
+    expect(trigger).toHaveFocus();
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+  },
+);
+
+it.each(['ascending', 'descending'] as const)(
+  'renders and cycles the single %s indicator',
+  async (sortMode) => {
+    const user = (await import('@testing-library/user-event')).default.setup();
+    render(<Table.SortButton sortMode={sortMode}>Hours</Table.SortButton>);
+    const button = screen.getByRole('button', { name: 'Hours' });
+    expect(button.querySelector('[data-slot="sort-indicator"]')).toHaveAttribute(
+      'data-mode',
+      sortMode,
+    );
+    await user.click(button);
+    expect(button).toHaveAttribute('data-direction', sortMode);
+    await user.click(button);
+    expect(button).toHaveAttribute('data-direction', 'none');
+  },
+);
+
+it('enforces per-column resize bounds, keeps controlled widths and pins cell offsets', async () => {
+  const user = (await import('@testing-library/user-event')).default.setup();
+  const changes: number[][] = [];
+  const { rerender } = render(
+    <Table
+      resizable
+      columnWidths={[150, 100]}
+      onColumnWidthsChange={(value) => changes.push(value)}
+    >
+      <Table.Header>
+        <Table.Row>
+          <Table.Head fixed="start" stickyOffset={48} minWidth={120} maxWidth={180}>
+            Name
+          </Table.Head>
+          <Table.Head>Status</Table.Head>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        <Table.Row>
+          <Table.Cell fixed="start" stickyOffset={48}>
+            A
+          </Table.Cell>
+          <Table.Cell>Open</Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table>,
+  );
+  for (const head of screen.getAllByRole('columnheader'))
+    head.getBoundingClientRect = () => ({ width: 150 }) as DOMRect;
+  const handle = screen.getByRole('separator', { name: 'Resize Name column' });
+  expect(handle).toHaveAttribute('aria-valuemin', '120');
+  expect(handle).toHaveAttribute('aria-valuemax', '180');
+  expect(screen.getAllByRole('separator')).toHaveLength(2);
+  handle.focus();
+  await user.keyboard('{End}{Home}');
+  expect(changes).toEqual([
+    [180, 150],
+    [120, 150],
+  ]);
+  expect(document.querySelector('col')?.style.width).toBe('150px');
+  expect(screen.getByRole('cell', { name: 'A' }).style.insetInlineStart).toBe('48px');
+  rerender(
+    <Table resizable={false} columnWidths={[150, 100]}>
+      <Table.Header>
+        <Table.Row>
+          <Table.Head>Name</Table.Head>
+          <Table.Head>Status</Table.Head>
+        </Table.Row>
+      </Table.Header>
+    </Table>,
+  );
+  expect(screen.queryByRole('separator')).not.toBeInTheDocument();
+  expect(document.querySelector('col')?.style.width).toBe('150px');
+});
+
+it('applies column search only on submit and resets it through the public control', async () => {
+  const user = (await import('@testing-library/user-event')).default.setup();
+  const applied: string[] = [];
+  render(<Table.Search label="Name" onValueChange={(value) => applied.push(value)} />);
+  await user.click(screen.getByRole('button', { name: 'Search Name' }));
+  await user.type(screen.getByRole('textbox', { name: 'Search Name' }), '  release  ');
+  expect(applied).toEqual([]);
+  await user.click(screen.getByRole('button', { name: 'Search' }));
+  expect(applied).toEqual(['release']);
+  const trigger = screen.getByRole('button', { name: 'Search Name' });
+  expect(trigger).toHaveAttribute('data-active', 'true');
+  await user.click(trigger);
+  await user.click(screen.getByRole('button', { name: 'Reset' }));
+  expect(applied).toEqual(['release', '']);
+  expect(trigger).not.toHaveAttribute('data-active');
 });

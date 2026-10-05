@@ -2,6 +2,8 @@ import { createContext, type ReactNode, useContext } from 'react';
 
 const defaultLabels = {
   filter: 'Filter',
+  search: 'Search',
+  searchColumn: 'Search {{column}}',
   selectPageRows: 'Select current page',
   selectionActions: 'Selection actions',
   selectAllRows: 'Select all',
