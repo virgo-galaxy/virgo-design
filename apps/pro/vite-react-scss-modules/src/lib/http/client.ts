@@ -2,6 +2,7 @@ import axios, { type AxiosRequestConfig } from 'axios';
 
 import { apiError, protocolError } from './error';
 import { installHttpInterceptors } from './interceptors';
+import { prepareHttpRequest } from './preparation';
 import { API_SUCCESS_CODE, API_SUCCESS_MSG, isApiErrorData, isApiResponse } from './protocol';
 export function resolveApiBaseUrl(): string {
   const configured = import.meta.env.VITE_API_BASE_URL?.trim() || '/api/v1';
@@ -18,6 +19,7 @@ const client = axios.create({
 });
 installHttpInterceptors(client);
 async function request<T>(config: AxiosRequestConfig): Promise<T> {
+  await prepareHttpRequest();
   const response = await client.request<unknown>(config);
   const body = response.data;
   if (!isApiResponse(body)) throw protocolError(response, 'Invalid API response');
