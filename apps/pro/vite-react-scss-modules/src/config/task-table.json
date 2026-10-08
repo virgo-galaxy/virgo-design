@@ -136,6 +136,24 @@
         }
       },
       {
+        "key": "module",
+        "visible": true,
+        "minWidth": 180,
+        "width": 200,
+        "maxWidth": 300,
+        "align": "start",
+        "controls": {
+          "layout": "separate",
+          "align": "end",
+          "sort": {
+            "enabled": false,
+            "mode": "both"
+          },
+          "filter": true,
+          "search": true
+        }
+      },
+      {
         "key": "assignee",
         "visible": true,
         "minWidth": 180,

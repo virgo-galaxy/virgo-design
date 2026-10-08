@@ -8,25 +8,34 @@ import {
   type TaskListDto,
   type TaskRequest,
 } from '@/api/tasks';
+import { canManageProject, canViewTask, taskStatusChoices } from '@/lib/auth/permissions';
+import { businessLabel } from '@/lib/demo/labels';
 import { isRecord } from '@/lib/http/protocol';
 import { createMockTaskId } from '@/mock/fixtures/task-id';
 
-import {
-  initialTaskState,
-  taskAssignees,
-  taskProjects,
-  taskReferenceDate,
-} from '../fixtures/tasks';
+import { forbidden } from '../access';
+import { projects } from '../fixtures/projects';
+import { initialTaskState, taskAssignees, taskProjects } from '../fixtures/tasks';
+import { getDemoReferenceDate } from '../reporting-date';
 import { endpoint, failure, success } from '../response';
+import { requestUser, scopedTasks } from '../session';
+import { getDemoState, updateDemoState } from '../store';
+import { appendTaskRecord, seedNotifications, seedTaskRecords } from '../task-records';
 import { sortTasks, type TaskSortColumn } from '../task-sort';
-let tasks: TaskDto[] = structuredClone(initialTaskState.tasks);
-let nextId = initialTaskState.nextId;
 export function resetTasks() {
-  tasks = structuredClone(initialTaskState.tasks);
-  nextId = initialTaskState.nextId;
+  updateDemoState((previous) => ({
+    ...previous,
+    tasks: structuredClone(initialTaskState.tasks),
+    nextId: initialTaskState.nextId,
+    records: seedTaskRecords(initialTaskState.tasks),
+    notifications: seedNotifications(
+      initialTaskState.tasks,
+      seedTaskRecords(initialTaskState.tasks),
+    ),
+  }));
 }
 export function getBackendTasks(): TaskDto[] {
-  return structuredClone(tasks);
+  return structuredClone(getDemoState().tasks);
 }
 const statuses = TASK_STATUS_CODES;
 const priorities = TASK_PRIORITY_CODES;
@@ -62,6 +71,14 @@ function validateDraft(value: unknown): Record<string, string[]> {
     (value.assignee !== '' && !taskAssignees.some((member) => member.id === value.assignee))
   )
     fields.assignee = ['Assignee not found'];
+  const project = projects.find((entry) => entry.name === value.project);
+  if (
+    typeof value.module !== 'string' ||
+    !project?.modules.some((module) => module.id === value.module)
+  )
+    fields.module = ['Select a module in this project'];
+  if (value.assignee && !project?.memberIds.includes(String(value.assignee)))
+    fields.assignee = ['Select a member of this project'];
   if (typeof value.dueDate !== 'string' || (value.dueDate !== '' && !validDate(value.dueDate)))
     fields.dueDate = ['Invalid date'];
   if (
@@ -81,13 +98,14 @@ function taskRequest(body: unknown): TaskRequest {
     status: draft.status,
     priority: draft.priority,
     project: draft.project,
+    module: draft.module,
     assignee: draft.assignee,
     dueDate: draft.dueDate,
     estimateHours: draft.estimateHours,
   };
 }
 function overdue(task: TaskDto) {
-  return task.status !== 'done' && Boolean(task.dueDate) && task.dueDate < taskReferenceDate;
+  return task.status !== 'done' && Boolean(task.dueDate) && task.dueDate < getDemoReferenceDate();
 }
 const dataColumns = [
   'completedAt',
@@ -95,6 +113,7 @@ const dataColumns = [
   'status',
   'priority',
   'project',
+  'module',
   'assignee',
   'estimateHours',
   'createdAt',
@@ -117,8 +136,9 @@ function columnConditions(params: URLSearchParams, name: string): Record<string,
     throw new Error('Invalid column conditions');
   return value;
 }
-function list(params: URLSearchParams): TaskListDto {
-  const week = new Date(`${taskReferenceDate}T00:00:00Z`);
+function list(params: URLSearchParams, request: Request): TaskListDto {
+  const tasks = scopedTasks(getDemoState().tasks, request);
+  const week = new Date(`${getDemoReferenceDate()}T00:00:00Z`);
   week.setUTCDate(week.getUTCDate() + 7);
   const through = week.toISOString().slice(0, 10);
   const overview = {
@@ -126,21 +146,32 @@ function list(params: URLSearchParams): TaskListDto {
     inProgress: tasks.filter((t) => t.status === 'in_progress').length,
     completed: tasks.filter((t) => t.status === 'done').length,
     dueSoon: tasks.filter(
-      (t) => t.status !== 'done' && t.dueDate >= taskReferenceDate && t.dueDate <= through,
+      (t) => t.status !== 'done' && t.dueDate >= getDemoReferenceDate() && t.dueDate <= through,
     ).length,
   };
   const search = (params.get('search') ?? '').trim().toLowerCase();
   const filters = columnConditions(params, 'columnFilters');
   const queries = columnConditions(params, 'columnSearch');
   let matching = tasks.filter((task) => {
-    for (const key of ['status', 'priority', 'project', 'assignee'] as const) {
+    for (const key of ['status', 'priority', 'project', 'module', 'assignee'] as const) {
       const values = params.getAll(key).filter((value) => value !== 'all');
       if (values.length && !values.includes(task[key])) return false;
     }
     const name = taskAssignees.find((member) => member.id === task.assignee)?.name ?? '';
     if (
       search &&
-      ![task.id, task.title, task.description, task.project, task.status, task.priority, name]
+      ![
+        task.id,
+        task.title,
+        task.description,
+        task.project,
+        task.module,
+        projects.flatMap((p) => p.modules).find((m) => m.id === task.module)?.name ?? '',
+        task.status,
+        task.priority,
+        name,
+      ]
+        .flatMap((text) => [text, businessLabel(text, 'zh-CN')])
         .join(' ')
         .toLowerCase()
         .includes(search)
@@ -153,10 +184,15 @@ function list(params: URLSearchParams): TaskListDto {
       const text =
         key === 'assignee'
           ? `${task.assignee} ${name}`
-          : key === 'title'
-            ? `${task.id} ${task.title}`
-            : String(task[key] ?? '').replaceAll('_', ' ');
-      if (query && !text.toLowerCase().includes(query)) return false;
+          : key === 'module'
+            ? (projects
+                .flatMap((project) => project.modules)
+                .find((module) => module.id === task.module)?.name ?? task.module)
+            : key === 'title'
+              ? `${task.id} ${task.title} ${businessLabel(task.title, 'zh-CN')}`
+              : String(task[key] ?? '').replaceAll('_', ' ');
+      if (query && !`${text} ${businessLabel(text, 'zh-CN')}`.toLowerCase().includes(query))
+        return false;
     }
     const scope = params.get('scope');
     if (
@@ -183,7 +219,7 @@ function list(params: URLSearchParams): TaskListDto {
           (value === 'unscheduled' && !task.dueDate) ||
           (value === 'week' &&
             task.status !== 'done' &&
-            task.dueDate >= taskReferenceDate &&
+            task.dueDate >= getDemoReferenceDate() &&
             task.dueDate <= through),
       )
     )
@@ -219,19 +255,28 @@ function list(params: URLSearchParams): TaskListDto {
   };
 }
 export const tasksHandlers = [
-  http.get(endpoint('/tasks/metadata'), () =>
-    success({
-      members: taskAssignees,
-      projects: taskProjects,
-      referenceDate: taskReferenceDate,
+  http.get(endpoint('/tasks/metadata'), ({ request }) => {
+    const user = requestUser(request)!;
+    const tasks = scopedTasks(getDemoState().tasks, request);
+    return success({
+      members: taskAssignees.filter(
+        (member) =>
+          user.role === 'admin' ||
+          projects.some(
+            (project) =>
+              user.projects.includes(project.name) && project.memberIds.includes(member.id),
+          ),
+      ),
+      projects: taskProjects.filter((project) => user.projects.includes(project)),
+      referenceDate: getDemoReferenceDate(),
       columnFilterOptions: Object.fromEntries(
         dataColumns.map((key) => [
           key,
           [...new Set(tasks.map((task) => String(task[key] ?? '')))].sort().slice(0, 100),
         ]),
       ),
-    }),
-  ),
+    });
+  }),
   http.get(endpoint('/tasks'), ({ request }) => {
     const params = new URL(request.url).searchParams;
     for (const [key, codes] of [
@@ -259,7 +304,7 @@ export const tasksHandlers = [
         });
     }
     try {
-      return success(list(params));
+      return success(list(params, request));
     } catch {
       return failure({
         status: 422,
@@ -268,13 +313,41 @@ export const tasksHandlers = [
       });
     }
   }),
-  http.get(endpoint('/tasks/:id'), ({ params }) => {
+  http.get(endpoint('/tasks/:id/history'), ({ params, request }) => {
+    const state = getDemoState();
+    const task = state.tasks.find((task) => task.id === params.id);
+    if (!task)
+      return failure({
+        status: 404,
+        code: API_ERROR_CODES.TASK_NOT_FOUND,
+        detail: 'Task not found',
+      });
+    if (!canViewTask(requestUser(request), task)) return forbidden();
+    return success(
+      state.records
+        .filter((record) => record.taskId === task.id && record.kind !== 'assisted')
+        .sort((a, b) => b.recordedAt.localeCompare(a.recordedAt))
+        .map((record) => ({
+          id: record.id,
+          kind: record.kind,
+          actorId: record.userId,
+          actorName: taskAssignees.find((person) => person.id === record.userId)?.name ?? 'Admin',
+          recordedAt: record.recordedAt,
+          fromStatus: record.fromStatus,
+          toStatus: record.toStatus,
+        })),
+    );
+  }),
+  http.get(endpoint('/tasks/:id'), ({ params, request }) => {
+    const { tasks } = getDemoState();
     const task = tasks.find((t) => t.id === params.id);
+    if (task && !canViewTask(requestUser(request), task)) return forbidden();
     return task
       ? success(task)
       : failure({ status: 404, code: API_ERROR_CODES.TASK_NOT_FOUND, detail: 'Task not found' });
   }),
   http.post(endpoint('/tasks/batch-delete'), async ({ request }) => {
+    const { tasks } = getDemoState();
     let body: unknown;
     try {
       body = await request.json();
@@ -306,8 +379,20 @@ export const tasksHandlers = [
         detail: 'Task not found',
       });
     }
+    if (
+      ids.some(
+        (id) =>
+          !canManageProject(requestUser(request), tasks.find((task) => task.id === id)!.project),
+      )
+    )
+      return forbidden();
     const removed = new Set(ids);
-    tasks = tasks.filter((task) => !removed.has(task.id));
+    updateDemoState((previous) => {
+      let next = previous;
+      for (const task of previous.tasks.filter((task) => removed.has(task.id)))
+        next = appendTaskRecord(next, task, task, requestUser(request)!, true);
+      return { ...next, tasks: previous.tasks.filter((task) => !removed.has(task.id)) };
+    });
     return success({ deletedIds: ids });
   }),
   http.post(endpoint('/tasks'), async ({ request }) => {
@@ -329,16 +414,27 @@ export const tasksHandlers = [
         detail: 'Invalid task',
         fields,
       });
+    const user = requestUser(request);
+    if (
+      !canManageProject(user, (body as TaskRequest).project) ||
+      !taskStatusChoices(user).includes((body as TaskRequest).status)
+    )
+      return forbidden();
     const task: TaskDto = {
       ...taskRequest(body),
-      id: createMockTaskId(nextId++),
+      id: createMockTaskId(getDemoState().nextId),
       createdAt: new Date().toISOString(),
       completedAt: (body as TaskRequest).status === 'done' ? new Date().toISOString() : null,
     };
-    tasks.unshift(task);
+    updateDemoState((previous) => ({
+      ...appendTaskRecord(previous, undefined, task, user!),
+      nextId: previous.nextId + 1,
+      tasks: [task, ...previous.tasks],
+    }));
     return success(task, 201);
   }),
   http.patch(endpoint('/tasks/:id'), async ({ request, params }) => {
+    const { tasks } = getDemoState();
     const index = tasks.findIndex((t) => t.id === params.id);
     if (index === -1)
       return failure({
@@ -362,7 +458,8 @@ export const tasksHandlers = [
         code: API_ERROR_CODES.INVALID_REQUEST,
         detail: 'Expected a task object',
       });
-    const merged = { ...tasks[index], ...body };
+    const previous = tasks[index]!;
+    const merged = { ...previous, ...body };
     const fields = validateDraft(merged);
     if (Object.keys(fields).length)
       return failure({
@@ -371,14 +468,34 @@ export const tasksHandlers = [
         detail: 'Invalid task',
         fields,
       });
-    const previous = tasks[index]!;
+    const user = requestUser(request);
+    if (!canViewTask(user, previous) || !taskStatusChoices(user, previous).includes(merged.status))
+      return forbidden();
+    if (
+      user?.role === 'member' &&
+      [
+        'title',
+        'description',
+        'estimateHours',
+        'project',
+        'module',
+        'assignee',
+        'priority',
+        'dueDate',
+      ].some((key) => merged[key as keyof TaskDto] !== previous[key as keyof TaskDto])
+    )
+      return forbidden();
+    if (user?.role === 'manager' && !canManageProject(user, merged.project)) return forbidden();
     const task: TaskDto = {
       ...previous,
       ...taskRequest(merged),
       completedAt:
         merged.status === 'done' ? (previous.completedAt ?? new Date().toISOString()) : null,
     };
-    tasks[index] = task;
+    updateDemoState((previous) => ({
+      ...appendTaskRecord(previous, tasks[index], task, user!),
+      tasks: previous.tasks.map((entry) => (entry.id === task.id ? task : entry)),
+    }));
     return success(task);
   }),
 ];

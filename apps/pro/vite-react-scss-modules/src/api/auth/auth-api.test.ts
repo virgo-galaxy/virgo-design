@@ -34,7 +34,7 @@ describe('mock account session', () => {
   });
 
   it('ends the session through HTTP, rejects protected requests and restores the demo session', async () => {
-    expect(await getSession()).toEqual({ authenticated: true });
+    expect(await getSession()).toMatchObject({ authenticated: true, user: { id: 'admin' } });
     expect((await getProfile()).name).toBe('Administrator');
     expect(await logout()).toEqual({ authenticated: false });
     // A fresh session request (including after reloading the page) stays signed out.
@@ -44,7 +44,7 @@ describe('mock account session', () => {
       code: API_ERROR_CODES.AUTHENTICATION_REQUIRED,
     });
     expect(await logout()).toEqual({ authenticated: false });
-    expect(await enterDemoSession()).toEqual({ authenticated: true });
+    expect(await enterDemoSession()).toMatchObject({ authenticated: true, user: { id: 'admin' } });
     expect((await getProfile()).name).toBe('Administrator');
   });
 });

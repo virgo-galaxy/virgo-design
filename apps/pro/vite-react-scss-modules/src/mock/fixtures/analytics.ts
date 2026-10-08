@@ -1,30 +1,80 @@
-import type { ProjectDeliveryDayDto } from '@/api/analytics';
+import type { AnalyticsOverviewDto, TaskRecordDto } from '@/api/analytics';
+import type { TaskDto } from '@/api/tasks';
 
 import { projects } from './projects';
-import { trendPoints } from './workplace';
+import { initialTaskState, taskReferenceDate } from './tasks';
+import { members } from './team';
 
-// Daily historical output by project. Each row sums to the matching delivery trend day.
-const dailyCounts = [
-  [2, 1, 2, 1],
-  [1, 3, 2, 2],
-  [2, 2, 1, 2],
-  [4, 2, 3, 1],
-  [2, 1, 4, 2],
-  [3, 4, 2, 3],
-  [2, 3, 2, 3],
-  [1, 2, 2, 1],
-  [3, 1, 2, 3],
-  [2, 3, 1, 2],
-  [5, 2, 4, 3],
-  [2, 4, 3, 3],
-  [4, 5, 3, 5],
-  [6, 3, 5, 4],
-];
-
-export const projectDelivery: ProjectDeliveryDayDto[] = trendPoints.map((point, index) => ({
-  date: point.date,
-  deliveries: projects.map((project, projectIndex) => ({
-    projectId: project.id,
-    completed: dailyCounts[index]![projectIndex]!,
-  })),
-}));
+export function analyticsSnapshot(
+  tasks: readonly TaskDto[],
+  through = taskReferenceDate,
+  records?: readonly TaskRecordDto[],
+): AnalyticsOverviewDto {
+  const dates = Array.from({ length: 14 }, (_, index) => {
+    const date = new Date(`${through}T00:00:00Z`);
+    date.setUTCDate(date.getUTCDate() - 13 + index);
+    return date.toISOString().slice(0, 10);
+  });
+  return {
+    trendPoints: dates.map((date) => ({
+      date,
+      completed: tasks.filter(
+        (task) => task.status === 'done' && task.completedAt?.slice(0, 10) === date,
+      ).length,
+      planned: tasks.filter((task) => task.dueDate === date).length,
+    })),
+    projectDelivery: dates.map((date) => ({
+      date,
+      deliveries: projects.map((project) => ({
+        projectId: project.id,
+        completed: tasks.filter(
+          (task) =>
+            task.project === project.name &&
+            task.status === 'done' &&
+            task.completedAt?.slice(0, 10) === date,
+        ).length,
+      })),
+    })),
+    activity: records
+      ? [...records]
+          .filter((record) => record.kind !== 'assisted')
+          .sort((a, b) => b.recordedAt.localeCompare(a.recordedAt))
+          .slice(0, 3)
+          .map((record) => ({
+            id: record.id,
+            name: members.find((member) => member.id === record.userId)?.name ?? 'Admin',
+            project: record.project,
+            taskTitle: record.taskTitle,
+            action: record.kind,
+            time: record.recordedAt.slice(11, 16),
+            dateTime: record.recordedAt,
+            status:
+              record.kind === 'approved'
+                ? 'complete'
+                : record.kind === 'started'
+                  ? 'active'
+                  : 'pending',
+          }))
+      : [...tasks]
+          .sort((a, b) =>
+            (b.completedAt ?? b.createdAt).localeCompare(a.completedAt ?? a.createdAt),
+          )
+          .slice(0, 3)
+          .map((task) => ({
+            id: `activity-${task.id}`,
+            name: members.find((member) => member.id === task.assignee)?.name ?? 'Unassigned',
+            project: task.project,
+            taskTitle: task.title,
+            action: task.status === 'done' ? 'completed' : 'created',
+            time: (task.completedAt ?? task.createdAt).slice(11, 16),
+            dateTime: task.completedAt ?? task.createdAt,
+            status:
+              task.status === 'done'
+                ? 'complete'
+                : task.status === 'in_progress'
+                  ? 'active'
+                  : 'pending',
+          })),
+  };
+}
+export const { trendPoints, projectDelivery, activity } = analyticsSnapshot(initialTaskState.tasks);

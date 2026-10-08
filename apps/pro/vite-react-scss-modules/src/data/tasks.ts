@@ -1,10 +1,14 @@
+import type { ProjectDto } from '@/api/projects/contract';
 import {
   TASK_PRIORITY_CODES,
   TASK_STATUS_CODES,
   type TaskPriorityDto,
   type TaskStatusDto,
 } from '@/api/tasks';
+import { businessLabel } from '@/lib/demo/labels';
 import type { tasksEnUS } from '@/pages/tasks/locales/en-US';
+
+import { projectTaskErrors } from './task-catalog';
 export const taskStatuses = TASK_STATUS_CODES;
 export const taskPriorities = TASK_PRIORITY_CODES;
 export type TaskStatus = TaskStatusDto;
@@ -16,6 +20,7 @@ export interface TaskDraft {
   status: TaskStatus;
   priority: TaskPriority;
   project: string;
+  module: string;
   assignee: string;
   dueDate: string;
   estimateHours: number;
@@ -33,6 +38,7 @@ export interface TaskFilters {
   status: TaskStatus | 'all' | readonly TaskStatus[];
   priority: TaskPriority | 'all' | readonly TaskPriority[];
   project: string | readonly string[];
+  module: string | readonly string[];
   assignee: string | readonly string[];
 }
 
@@ -52,6 +58,7 @@ export const emptyTaskFilters: TaskFilters = {
   status: 'all',
   priority: 'all',
   project: 'all',
+  module: 'all',
   assignee: 'all',
 };
 export const emptyTaskDraft: TaskDraft = {
@@ -60,6 +67,7 @@ export const emptyTaskDraft: TaskDraft = {
   status: 'todo',
   priority: 'medium',
   project: '',
+  module: '',
   assignee: '',
   dueDate: '',
   estimateHours: 0,
@@ -83,6 +91,7 @@ export function taskDraft(task: Task): TaskDraft {
     status: task.status,
     priority: task.priority,
     project: task.project,
+    module: task.module,
     assignee: task.assignee,
     dueDate: task.dueDate,
     estimateHours: task.estimateHours,
@@ -99,8 +108,10 @@ export function validateTask(
   draft: TaskDraft,
   projects: readonly string[],
   assigneeIds: readonly string[],
+  catalog?: readonly ProjectDto[],
 ): TaskErrors {
-  const errors: TaskErrors = {};
+  const errors: TaskErrors = catalog ? projectTaskErrors(draft, catalog) : {};
+  if (!draft.module) errors.module = 'moduleRequired';
   if (!draft.title.trim()) errors.title = 'titleRequired';
   else if (draft.title.trim().length > 120) errors.title = 'titleTooLong';
   if (draft.description.length > 2000) errors.description = 'descriptionTooLong';
@@ -141,7 +152,18 @@ export function matchesTask(
   assigneeName: string,
 ) {
   const query = filters.search.trim().toLowerCase();
-  const text = [task.id ?? '', task.title, task.description, task.project, assigneeName]
+  const text = [
+    task.id ?? '',
+    task.title,
+    task.description,
+    task.project,
+    task.module,
+    assigneeName,
+    businessLabel(assigneeName, 'zh-CN'),
+    businessLabel(task.title, 'zh-CN'),
+    businessLabel(task.description, 'zh-CN'),
+    businessLabel(task.project, 'zh-CN'),
+  ]
     .join(' ')
     .toLowerCase();
   return (
@@ -149,6 +171,7 @@ export function matchesTask(
     matchesFilter(task.status, filters.status) &&
     matchesFilter(task.priority, filters.priority) &&
     matchesFilter(task.project, filters.project) &&
+    matchesFilter(task.module, filters.module) &&
     matchesFilter(task.assignee, filters.assignee)
   );
 }
@@ -163,6 +186,7 @@ export function hasTaskFilters(filters: TaskFilters) {
     (typeof filters.project === 'string'
       ? filters.project !== 'all'
       : filters.project.length > 0) ||
+    (typeof filters.module === 'string' ? filters.module !== 'all' : filters.module.length > 0) ||
     (typeof filters.assignee === 'string'
       ? filters.assignee !== 'all'
       : filters.assignee.length > 0)

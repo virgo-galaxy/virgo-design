@@ -8,6 +8,8 @@ export interface TaskRequest {
   status: TaskStatusDto;
   priority: TaskPriorityDto;
   project: string;
+  /** Stable module ID, scoped to the selected project. */
+  module: string;
   assignee: string;
   dueDate: string;
   estimateHours: number;
@@ -38,6 +40,7 @@ export interface TaskListQuery {
   status?: TaskStatusDto | 'all' | readonly TaskStatusDto[];
   priority?: TaskPriorityDto | 'all' | readonly TaskPriorityDto[];
   project?: string | readonly string[];
+  module?: string | readonly string[];
   assignee?: string | readonly string[];
   scope?: 'all' | 'open' | 'review' | 'done';
   createdFrom?: string;
@@ -51,6 +54,7 @@ export interface TaskListQuery {
     | 'status'
     | 'priority'
     | 'project'
+    | 'module'
     | 'assignee'
     | 'createdAt'
     | 'estimateHours'
@@ -76,4 +80,14 @@ export interface TaskDeleteRequest {
 }
 export interface TaskDeleteResult {
   deletedIds: string[];
+}
+
+export interface TaskHistoryEntry {
+  id: string;
+  kind: import('../analytics/contract').TaskRecordKind;
+  actorId: string;
+  actorName: string;
+  recordedAt: string;
+  fromStatus?: TaskStatusDto;
+  toStatus?: TaskStatusDto;
 }

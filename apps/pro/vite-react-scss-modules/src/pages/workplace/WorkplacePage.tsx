@@ -12,6 +12,7 @@ import clipboardCheckArtwork from '@/assets/illustrations/clipboard-check.svg';
 import folderDocumentArtwork from '@/assets/illustrations/folder-document.svg';
 import usersArtwork from '@/assets/illustrations/users.svg';
 import { shortcuts } from '@/data/workplace';
+import { businessLabel } from '@/lib/demo/labels';
 import { PageHeading } from '@/pages/shared/ProPage';
 import { getActivityActionLabel } from '@/pages/workplace/activity-presentation';
 
@@ -38,8 +39,9 @@ const completionValue = (value: number) => `${Math.round(value)}%`;
 export function WorkplacePage() {
   const { profile, activity, announcements, metrics, projectDistribution, snapshot } = useProData();
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const [reportYear, setReportYear] = useState(Number(snapshot.date.slice(0, 4)));
   const [hoveredShortcut, setHoveredShortcut] = useState<string | null>(null);
   const [focusedShortcut, setFocusedShortcut] = useState<string | null>(null);
   const [widgets, setWidgets] = useState<Record<WidgetId, WorkplaceWidgetState>>({
@@ -89,7 +91,7 @@ export function WorkplacePage() {
                 </>
               }
               description={t('workplace.goodWorkStartsWithAClearViewHereS')}
-              actions={<TokenUsageCalendar />}
+              actions={<TokenUsageCalendar year={reportYear} onYearChange={setReportYear} />}
             />
           </div>
 
@@ -117,7 +119,7 @@ export function WorkplacePage() {
             ))}
           </Surface>
 
-          <TokenUsageHeatmap />
+          <TokenUsageHeatmap year={reportYear} onYearChange={setReportYear} />
           <div className={styles.overviewPanels}>
             <DeliveryTrend />
             <RecentTasks allTasksRef={allTasksRef} />
@@ -172,7 +174,7 @@ export function WorkplacePage() {
                     <div className={styles.distributionLabel}>
                       <span>
                         <i style={{ background: `var(--vd-data-categorical-${project.color})` }} />
-                        {project.name}
+                        {businessLabel(project.name, i18n.language)}
                       </span>
                       <strong>{project.count}</strong>
                     </div>
@@ -181,7 +183,7 @@ export function WorkplacePage() {
                       value={project.count}
                       max={snapshot.openTasks}
                       aria-label={t('workplace.valueValueOfValueOpenTasks', {
-                        v0: project.name,
+                        v0: businessLabel(project.name, i18n.language),
                         v1: project.count,
                         v2: snapshot.openTasks,
                       })}
@@ -248,12 +250,14 @@ export function WorkplacePage() {
               <Timeline size="medium" aria-label={t('workplace.recentTeamActivity')}>
                 {activity.map((event) => (
                   <Timeline.Item key={event.id} status={event.status}>
-                    <Timeline.Title className={styles.activityTitle}>{event.name}</Timeline.Title>
+                    <Timeline.Title className={styles.activityTitle}>
+                      {businessLabel(event.name, i18n.language)}
+                    </Timeline.Title>
                     <Timeline.Description className={styles.activityDescription}>
-                      {getActivityActionLabel(t, event.id)}
+                      {getActivityActionLabel(t, event, i18n.language)}
                     </Timeline.Description>
                     <Timeline.Time dateTime={event.dateTime} className={styles.activityTime}>
-                      {event.time} · {event.project}
+                      {event.time} · {businessLabel(event.project, i18n.language)}
                     </Timeline.Time>
                   </Timeline.Item>
                 ))}

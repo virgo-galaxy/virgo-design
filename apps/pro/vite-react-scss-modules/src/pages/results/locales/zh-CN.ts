@@ -2,6 +2,8 @@ import type { LocaleOf } from '@/i18n/locale-types';
 
 import type { resultsEnUS } from './en-US';
 export const resultsZhCN = {
+  recordDetails: '结果记录',
+  recorded: '记录已保存',
   teamWorkspace: '团队工作空间',
   externalCollaborators: '外部协作者',
   keepTheWorkMoving: '继续推进工作',

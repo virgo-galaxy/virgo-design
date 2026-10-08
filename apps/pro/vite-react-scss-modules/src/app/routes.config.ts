@@ -17,11 +17,13 @@ export type ProContentLayout = 'flow' | 'fill';
 export type ProPageKey =
   | 'workplace'
   | 'analytics'
+  | 'task-cards'
   | 'tasks'
+  | 'task-create'
+  | 'task-edit'
+  | 'task-details'
   | 'projects'
-  | 'data-list'
   | 'detail'
-  | 'basic-form'
   | 'step-form'
   | 'success'
   | 'error'
@@ -80,7 +82,11 @@ export const proRouteConfig = {
     sidebar: true,
     breadcrumb: true,
   },
-  redirects: [{ path: '/', to: '/dashboard/workplace' }],
+  redirects: [
+    { path: '/', to: '/dashboard/workplace' },
+    { path: '/login', to: '/dashboard/workplace' },
+    { path: '/form/basic', to: '/work/tasks/new' },
+  ],
   groups: [
     {
       id: 'dashboard',
@@ -115,29 +121,54 @@ export const proRouteConfig = {
       routes: [
         { id: 'tasks', path: '/work/tasks', label: 'Tasks', page: 'tasks' },
         { id: 'projects', path: '/work/projects', label: 'Projects', page: 'projects' },
-      ],
-    },
-    {
-      id: 'data',
-      label: 'Data',
-      icon: 'database',
-      routes: [
-        { id: 'data-list', path: '/data/list', label: 'Data List', page: 'data-list' },
-        { id: 'detail', path: '/data/detail', label: 'Detail', page: 'detail' },
-      ],
-    },
-    {
-      id: 'form',
-      label: 'Form',
-      icon: 'form',
-      routes: [
-        { id: 'basic-form', path: '/form/basic', label: 'Basic Form', page: 'basic-form' },
-        { id: 'step-form', path: '/form/step', label: 'Step Form', page: 'step-form' },
+        {
+          id: 'task-cards',
+          path: '/work/task-cards',
+          label: 'Tasks',
+          page: 'task-cards',
+          display: { sidebar: false },
+        },
+        {
+          id: 'task-create',
+          path: '/work/tasks/new',
+          label: 'New task',
+          page: 'task-create',
+          display: { sidebar: false },
+        },
+        {
+          id: 'task-details',
+          path: '/work/tasks/:id',
+          label: 'Task details',
+          page: 'task-details',
+          display: { sidebar: false },
+        },
+        {
+          id: 'task-edit',
+          path: '/work/tasks/:id/edit',
+          label: 'Edit task',
+          page: 'task-edit',
+          display: { sidebar: false },
+        },
+        {
+          id: 'project-detail',
+          path: '/work/projects/:projectId',
+          label: 'Project details',
+          page: 'detail',
+          display: { sidebar: false },
+        },
+        {
+          id: 'project-handoff',
+          path: '/work/projects/:projectId/handoff',
+          label: 'Prepare handoff',
+          page: 'step-form',
+          display: { sidebar: false },
+        },
       ],
     },
     {
       id: 'result',
       label: 'Result',
+      contentLayout: 'fill',
       icon: 'receipt',
       display: { breadcrumb: false },
       routes: [

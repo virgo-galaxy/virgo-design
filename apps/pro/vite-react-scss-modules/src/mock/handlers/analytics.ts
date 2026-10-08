@@ -1,25 +1,32 @@
 import { http } from 'msw';
 
-import { projectDelivery } from '../fixtures/analytics';
+import { analyticsSnapshot } from '../fixtures/analytics';
 import { projects } from '../fixtures/projects';
 import { taskAssignees } from '../fixtures/tasks';
-import {
-  activity,
-  announcements,
-  metrics,
-  snapshot,
-  tokenUsage,
-  trendPoints,
-} from '../fixtures/workplace';
+import { announcements, metrics, snapshot } from '../fixtures/workplace';
 import { endpoint, success } from '../response';
+import { requestUser, scopedTasks } from '../session';
+import { getDemoState } from '../store';
+import { dailyTokenUsage, reportingDate, reportingYears, visibleRecords } from '../task-records';
 import { getBackendTasks } from './tasks';
 export const analyticsHandlers = [
-  http.get(endpoint('/analytics/overview'), () =>
-    success({ trendPoints, projectDelivery, activity }),
-  ),
-  http.get(endpoint('/workplace/overview'), () => {
-    const tasks = getBackendTasks();
-    const distribution = projects.map((project) => {
+  http.get(endpoint('/analytics/overview'), ({ request }) => {
+    const state = getDemoState();
+    return success(
+      analyticsSnapshot(
+        scopedTasks(state.tasks, request),
+        reportingDate(state.records),
+        visibleRecords(state.records, requestUser(request)!),
+      ),
+    );
+  }),
+  http.get(endpoint('/workplace/overview'), ({ request }) => {
+    const user = requestUser(request)!;
+    const visibleProjects = projects.filter((project) => user.projects.includes(project.name));
+    const tasks = scopedTasks(getBackendTasks(), request);
+    const records = visibleRecords(getDemoState().records, user);
+    const date = reportingDate(getDemoState().records);
+    const distribution = visibleProjects.map((project) => {
       const count = tasks.filter(
         (task) => task.project === project.name && task.status !== 'done',
       ).length;
@@ -35,13 +42,30 @@ export const analyticsHandlers = [
     const completed = tasks.filter((task) => task.status === 'done').length;
     const currentSnapshot = {
       ...snapshot,
-      activeProjects: projects.length,
+      date,
+      user: {
+        id: user.id,
+        name: user.name,
+        initials: user.name
+          .split(' ')
+          .map((part) => part[0])
+          .join(''),
+      },
+      activeProjects: visibleProjects.length,
       openTasks: tasks.length - completed,
-      teamMembers: taskAssignees.length,
+      teamMembers: taskAssignees.filter(
+        (member) =>
+          user.role === 'admin' ||
+          visibleProjects.some((project) => project.memberIds.includes(member.id)),
+      ).length,
       completionRate: tasks.length ? Math.round((completed / tasks.length) * 100) : 0,
     };
     return success({
-      tokenUsage,
+      tokenUsage: dailyTokenUsage(records),
+      tokenRecords: records,
+      reportingYears: reportingYears(getDemoState().records, date),
+      reportingScope:
+        user.role === 'admin' ? 'workspace' : user.role === 'manager' ? 'projects' : 'personal',
       snapshot: currentSnapshot,
       metrics: metrics.map((metric) => ({
         ...metric,

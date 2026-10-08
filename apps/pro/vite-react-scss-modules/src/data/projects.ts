@@ -3,19 +3,7 @@ import type { MemberDto } from '@/api/tasks';
 
 import { isOverdue, type Task } from './tasks';
 
-export interface Project {
-  id: string;
-  name: string;
-  code: string;
-  owner: string;
-  health: 'On track' | 'At risk' | 'Planning';
-  summary: string;
-  objective: string;
-  start: string;
-  due: string;
-  color: number;
-  milestones: Array<{ title: string; date: string; note: string }>;
-}
+export type Project = import('@/api/projects/contract').ProjectDto;
 
 // The four focus areas already used by Tasks and Workplace, with project-level context.
 export function projectSummary(
@@ -36,10 +24,7 @@ export function projectSummary(
     hours: related.reduce((sum, task) => sum + task.estimateHours, 0),
     overdue: related.filter((task) => isOverdue(task, taskReferenceDate)).length,
     review: related.filter((task) => task.status === 'in_review').length,
-    members: members.filter(
-      (member) =>
-        member.id === project.owner || related.some((task) => task.assignee === member.id),
-    ),
+    members: members.filter((member) => project.memberIds.includes(member.id)),
   };
 }
 
@@ -48,7 +33,7 @@ export function projectActivity(project: Project, activity: readonly ActivityDto
 }
 
 export function projectDetailPath(project: Project) {
-  return `/data/detail?project=${project.id}`;
+  return `/work/projects/${encodeURIComponent(project.id)}`;
 }
 export function projectTasksPath(project: Project) {
   return `/work/tasks?project=${encodeURIComponent(project.name)}`;

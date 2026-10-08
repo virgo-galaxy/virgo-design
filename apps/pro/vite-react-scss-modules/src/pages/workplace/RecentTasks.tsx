@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 
 import { useProData } from '@/application/pro-data-context';
 import { formatDueDate } from '@/data/workplace';
+import { businessLabel } from '@/lib/demo/labels';
 import {
   getTaskStatusLabel,
   taskLabelStyles,
@@ -47,9 +48,14 @@ export function RecentTasks({ allTasksRef }: { allTasksRef: Ref<HTMLButtonElemen
           {tasks.map((task) => (
             <li key={task.id} className={styles.compactTask}>
               <div className={styles.compactTaskIdentity}>
-                <strong title={task.title}>{task.title}</strong>
-                <span title={`${task.project} · ${task.assignee.name}`}>
-                  {task.project} · {task.assignee.name}
+                <strong title={businessLabel(task.title, i18n.language)}>
+                  {businessLabel(task.title, i18n.language)}
+                </strong>
+                <span
+                  title={`${businessLabel(task.project, i18n.language)} · ${businessLabel(task.assignee.name, i18n.language)}`}
+                >
+                  {businessLabel(task.project, i18n.language)} ·{' '}
+                  {businessLabel(task.assignee.name, i18n.language)}
                 </span>
               </div>
               <div className={styles.compactTaskStatus}>

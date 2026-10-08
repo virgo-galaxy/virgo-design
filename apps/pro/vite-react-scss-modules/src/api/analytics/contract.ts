@@ -8,13 +8,39 @@ export interface ActivityDto {
   id: string;
   name: string;
   project: string;
+  taskTitle?: string;
+  action?: TaskRecordKind | 'completed';
   time: string;
   dateTime: string;
   status: 'active' | 'complete' | 'pending';
 }
 export interface TokenUsageDayDto {
-  /** Reporting date (YYYY-MM-DD); counts are raw workspace-wide tokens. */
+  /** Reporting date (YYYY-MM-DD); raw totals in the current identity scope. */
   date: string;
+  inputTokens: number;
+  outputTokens: number;
+}
+export type TaskRecordKind =
+  | 'created'
+  | 'assigned'
+  | 'started'
+  | 'submitted'
+  | 'approved'
+  | 'returned'
+  | 'updated'
+  | 'deleted'
+  | 'assisted';
+export interface TaskRecordDto {
+  id: string;
+  taskId: string;
+  taskTitle: string;
+  project: string;
+  module: string;
+  userId: string;
+  kind: TaskRecordKind;
+  recordedAt: string;
+  fromStatus?: TaskStatusDto;
+  toStatus?: TaskStatusDto;
   inputTokens: number;
   outputTokens: number;
 }
@@ -29,6 +55,9 @@ export interface ProjectDeliveryDayDto {
 }
 export interface WorkplaceOverviewDto {
   tokenUsage: TokenUsageDayDto[];
+  tokenRecords: TaskRecordDto[];
+  reportingYears: number[];
+  reportingScope: 'workspace' | 'projects' | 'personal';
   snapshot: {
     date: string;
     displayDate: string;

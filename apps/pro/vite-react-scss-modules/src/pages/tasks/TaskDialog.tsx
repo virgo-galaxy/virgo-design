@@ -17,22 +17,23 @@ import { useTranslation } from 'react-i18next';
 
 import { MutationFeedback } from '@/application/MutationFeedback';
 import { useProData } from '@/application/pro-data-context';
+import { useCurrentUser } from '@/application/session-context';
 import { useMutation } from '@/application/use-mutation';
 import {
   draftHasChanges,
   emptyTaskDraft,
   isTaskPriority,
   isTaskStatus,
-  nextTaskStatus,
   normalizeTaskDraft,
   type Task,
   type TaskDraft,
   taskDraft,
   type TaskErrors,
   taskPriorities,
-  taskStatuses,
   validateTask,
 } from '@/data/tasks';
+import { taskStatusChoices } from '@/lib/auth/permissions';
+import { businessLabel } from '@/lib/demo/labels';
 import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 
 import { taskLabelStyles, taskStatusIntent } from './task-presentation';
@@ -53,8 +54,11 @@ export function TaskDialog({
   onClose: () => void;
   restoreFocus: () => void;
 }) {
-  const { taskAssignees, taskProjects } = useProData();
+  const { taskAssignees, taskProjects, projects } = useProData();
 
+  const user = useCurrentUser();
+  const assignmentLocked = user?.role === 'member';
+  const statusChoices = taskStatusChoices(user, task);
   const mutation = useMutation();
   const { t, i18n } = useTranslation();
   const [draft, setDraft] = useState<TaskDraft>(() =>
@@ -67,7 +71,11 @@ export function TaskDialog({
   const titleRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const dirty = draftHasChanges(draft, task ? taskDraft(task) : emptyTaskDraft);
-  const nextStatus = task ? nextTaskStatus(task.status) : undefined;
+  const nextStatus = statusChoices.find((status) => status !== task?.status);
+  const selectedProject = projects.find((project) => project.name === draft.project);
+  const eligibleMembers = selectedProject
+    ? taskAssignees.filter((member) => selectedProject.memberIds.includes(member.id))
+    : taskAssignees;
   const requestClose = () => {
     if (mutation.pending) return;
     if (dirty) setConfirmDiscard(true);
@@ -167,7 +175,7 @@ export function TaskDialog({
                           variant="outline"
                           trailingIcon={<ArrowRightIcon />}
                         >
-                          {t('tasks.moveToValue', { v0: nextStatus })}
+                          {t('tasks.moveToValue', { v0: getTaskStatusLabel(t, nextStatus) })}
                         </Button>
                       )}
                     />
@@ -204,6 +212,7 @@ export function TaskDialog({
                   draft,
                   taskProjects,
                   taskAssignees.map((member) => member.id),
+                  projects,
                 );
                 setErrors(nextErrors);
                 if (Object.keys(nextErrors).length) {
@@ -227,7 +236,7 @@ export function TaskDialog({
                   <Input
                     ref={titleRef}
                     name="title"
-                    value={draft.title}
+                    value={businessLabel(draft.title, i18n.language)}
                     onChange={(event) => update('title', event.target.value)}
                     placeholder={t('tasks.whatNeedsToBeDone')}
                   />
@@ -244,7 +253,7 @@ export function TaskDialog({
                   <Textarea
                     name="description"
                     rows={6}
-                    value={draft.description}
+                    value={businessLabel(draft.description, i18n.language)}
                     onChange={(event) => update('description', event.target.value)}
                     placeholder={t('tasks.contextAcceptanceCriteriaOrTheNextStep')}
                   />
@@ -260,6 +269,7 @@ export function TaskDialog({
                   <Field.Label>{t('tasks.status')}</Field.Label>
                   <Select
                     name="status"
+                    disabled={statusChoices.length <= 1}
                     value={draft.status}
                     onValueChange={(value) => {
                       if (isTaskStatus(value)) update('status', value);
@@ -267,7 +277,7 @@ export function TaskDialog({
                   >
                     <Select.Trigger />
                     <Select.Content>
-                      {taskStatuses.map((status) => (
+                      {statusChoices.map((status) => (
                         <Select.Option value={status} key={status}>
                           {getTaskStatusLabel(t, status)}
                         </Select.Option>
@@ -282,6 +292,7 @@ export function TaskDialog({
                   <Field.Label>{t('tasks.priority')}</Field.Label>
                   <Select
                     name="priority"
+                    disabled={assignmentLocked}
                     value={draft.priority}
                     onValueChange={(value) => {
                       if (isTaskPriority(value)) update('priority', value);
@@ -304,14 +315,26 @@ export function TaskDialog({
                   <Field.Label>{t('tasks.project')}</Field.Label>
                   <Select
                     name="project"
+                    disabled={assignmentLocked}
                     value={draft.project}
-                    onValueChange={(value) => update('project', value)}
+                    onValueChange={(value) => {
+                      const project = projects.find((entry) => entry.name === value);
+                      setDraft((current) => ({
+                        ...current,
+                        project: value,
+                        module: '',
+                        assignee: project?.memberIds.includes(current.assignee)
+                          ? current.assignee
+                          : '',
+                      }));
+                      setErrors({});
+                    }}
                   >
                     <Select.Trigger placeholder={t('tasks.chooseAProject')} />
                     <Select.Content>
                       {taskProjects.map((project) => (
                         <Select.Option value={project} key={project}>
-                          {project}
+                          {businessLabel(project, i18n.language)}
                         </Select.Option>
                       ))}
                     </Select.Content>
@@ -320,18 +343,40 @@ export function TaskDialog({
                     <Field.Message>{t(`tasks.validation.${errors.project}`)}</Field.Message>
                   ) : null}
                 </Field>
+                <Field required invalid={Boolean(errors.module)}>
+                  <Field.Label>{t('tasks.module')}</Field.Label>
+                  <Select
+                    name="module"
+                    disabled={assignmentLocked || !selectedProject}
+                    value={draft.module}
+                    onValueChange={(value) => update('module', value)}
+                  >
+                    <Select.Trigger placeholder={t('tasks.chooseAModule')} />
+                    <Select.Content>
+                      {(selectedProject?.modules ?? []).map((module) => (
+                        <Select.Option key={module.id} value={module.id}>
+                          {businessLabel(module.name, i18n.language)}
+                        </Select.Option>
+                      ))}
+                    </Select.Content>
+                  </Select>
+                  {errors.module ? (
+                    <Field.Message>{t(`tasks.validation.${errors.module}`)}</Field.Message>
+                  ) : null}
+                </Field>
                 <Field required invalid={Boolean(errors.assignee)}>
                   <Field.Label>{t('tasks.assignee')}</Field.Label>
                   <Select
                     name="assignee"
+                    disabled={assignmentLocked}
                     value={draft.assignee}
                     onValueChange={(value) => update('assignee', value)}
                   >
                     <Select.Trigger placeholder={t('tasks.chooseAnAssignee')} />
                     <Select.Content>
-                      {taskAssignees.map((member) => (
+                      {eligibleMembers.map((member) => (
                         <Select.Option value={member.id} key={member.id}>
-                          {member.name}
+                          {businessLabel(member.name, i18n.language)}
                         </Select.Option>
                       ))}
                     </Select.Content>
@@ -370,6 +415,7 @@ export function TaskDialog({
                   <Field.Label>{t('tasks.dueDate')}</Field.Label>
                   <DatePicker
                     name="dueDate"
+                    disabled={assignmentLocked}
                     value={draft.dueDate}
                     onValueChange={(value) => update('dueDate', value)}
                   >

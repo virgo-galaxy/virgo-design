@@ -4,9 +4,10 @@ import type { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import accessDenied from './art/access-denied.svg?raw';
-import pageNotFound from './art/page-not-found.svg?raw';
-import serverError from './art/server-error.svg?raw';
+import accessDenied from '@/assets/exceptions/access-denied.svg?raw';
+import pageNotFound from '@/assets/exceptions/page-not-found.svg?raw';
+import serverError from '@/assets/exceptions/server-error.svg?raw';
+
 import styles from './ExceptionPage.module.scss';
 
 function getExceptions(t: TFunction) {

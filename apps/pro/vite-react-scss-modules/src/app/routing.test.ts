@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
 
+import { canVisitPage } from '@/lib/auth/permissions';
+import { demoAccounts } from '@/mock/accounts';
+
 import { type ProRouteConfig, proRouteConfig } from './routes.config';
 import { createProRouting, proRouting } from './routing';
 
@@ -22,7 +25,7 @@ function sampleConfig(): ProRouteConfig {
             page: 'detail',
             display: { sidebar: false },
           },
-          { id: 'new-project', path: '/projects/new', label: 'New project', page: 'basic-form' },
+          { id: 'new-project', path: '/projects/new', label: 'New project', page: 'task-create' },
         ],
       },
     ],
@@ -37,6 +40,43 @@ function sampleConfig(): ProRouteConfig {
 }
 
 describe('configured Pro routing', () => {
+  it('keeps result and exception showcase routes exclusive to Admin for every business account', () => {
+    const showcaseRoutes = proRouting.routes.filter((route) =>
+      ['result', 'exception'].includes(route.group?.id ?? ''),
+    );
+    expect(showcaseRoutes).toHaveLength(5);
+    for (const user of demoAccounts) {
+      for (const route of showcaseRoutes)
+        expect(canVisitPage(user, route.page), `${user.account}: ${route.path}`).toBe(
+          user.role === 'admin',
+        );
+      expect(canVisitPage(user, 'tasks')).toBe(true);
+      expect(canVisitPage(user, 'projects')).toBe(true);
+      expect(canVisitPage(user, 'task-create')).toBe(user.role !== 'member');
+      expect(canVisitPage(user, 'step-form')).toBe(user.role !== 'member');
+    }
+    for (const route of showcaseRoutes) expect(canVisitPage(undefined, route.page)).toBe(false);
+  });
+  it('keeps business menus focused and matches standalone task and project routes', () => {
+    expect(proRouting.groups.map((group) => group.id)).not.toEqual(
+      expect.arrayContaining(['data', 'form']),
+    );
+    expect(proRouting.match('/work/task-cards')?.page).toBe('task-cards');
+    expect(proRouting.match('/work/task-cards')?.display.sidebar).toBe(false);
+    expect(
+      proRouting.groups.find((group) => group.id === 'work')?.pages.map((page) => page.id),
+    ).toEqual(['tasks', 'projects']);
+    for (const [path, page] of [
+      ['/work/tasks/new', 'task-create'],
+      ['/work/tasks/example/edit', 'task-edit'],
+      ['/work/tasks/example', 'task-details'],
+      ['/work/projects/online-store', 'detail'],
+      ['/work/projects/online-store/handoff', 'step-form'],
+    ]) {
+      expect(proRouting.match(path!)?.page).toBe(page);
+      expect(proRouting.match(path!)?.display.sidebar).toBe(false);
+    }
+  });
   it('omits breadcrumbs for Result and Exception while allowing them on other pages', () => {
     for (const group of proRouteConfig.groups)
       for (const route of group.routes)
@@ -98,7 +138,7 @@ describe('configured Pro routing', () => {
         ...config.groups[0]!,
         routes: [
           { id: 'detail', path: '/projects/:id', label: 'Project', page: 'detail' },
-          { id: 'files', path: '/files/*', label: 'Files', page: 'data-list' },
+          { id: 'files', path: '/files/*', label: 'Files', page: 'tasks' },
         ],
       },
     ];
@@ -128,7 +168,8 @@ describe('configured Pro routing', () => {
   it('fills Exception pages and allows an individual page to override its group layout', () => {
     for (const code of ['403', '404', '500'])
       expect(proRouting.match(`/exception/${code}`)?.contentLayout).toBe('fill');
-    expect(proRouting.match('/result/success')?.contentLayout).toBe('flow');
+    for (const path of ['/result/success', '/result/error'])
+      expect(proRouting.match(path)?.contentLayout).toBe('fill');
     expect(proRouting.match('/unmatched/path')?.contentLayout).toBe('fill');
     expect(proRouting.match('/unmatched/path')?.display.breadcrumb).toBe(false);
     const config = sampleConfig();

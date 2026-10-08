@@ -11,6 +11,7 @@ import { useTaskQuery } from '@/application/use-task-query';
 import { projectDetailPath } from '@/data/projects';
 import { isOverdue, type Task, type TaskDispatch, type TaskState } from '@/data/tasks';
 import { formatDueDate } from '@/data/workplace';
+import { businessLabel } from '@/lib/demo/labels';
 import {
   FilterSelect,
   MetricStrip,
@@ -58,6 +59,7 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
       task.project,
       taskAssignees.find((member) => member.id === task.assignee)?.name,
     ]
+      .flatMap((text) => (text ? [text, businessLabel(text, 'zh-CN')] : []))
       .join(' ')
       .toLowerCase()
       .includes(query);
@@ -172,7 +174,10 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
                 setPage(1);
               }}
               options={[
-                ...taskAssignees.map((member) => ({ value: member.id, label: member.name })),
+                ...taskAssignees.map((member) => ({
+                  value: member.id,
+                  label: businessLabel(member.name, i18n.language),
+                })),
               ]}
             />
             <FilterSelect
@@ -213,7 +218,10 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
               const related = projects.find((item) => item.name === task.project)!;
               return (
                 <li key={task.id}>
-                  <article className={styles.brief} aria-label={`${task.id}: ${task.title}`}>
+                  <article
+                    className={styles.brief}
+                    aria-label={`${task.id}: ${businessLabel(task.title, i18n.language)}`}
+                  >
                     <div className={styles.briefTop}>
                       <span className={shared.mono}>{task.id}</span>
                       <div>
@@ -241,14 +249,14 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
                         className={styles.briefTitle}
                         onClick={(event) => editor.open(task, event.currentTarget)}
                       >
-                        {task.title}
+                        {businessLabel(task.title, i18n.language)}
                       </Button>
                     </h3>
-                    <p>{task.description}</p>
+                    <p>{businessLabel(task.description, i18n.language)}</p>
                     <div className={styles.briefMeta}>
                       <Link to={projectDetailPath(related)} className={shared.link}>
                         <i style={{ background: `var(--vd-data-categorical-${related.color})` }} />
-                        {task.project}
+                        {businessLabel(task.project, i18n.language)}
                       </Link>
                       <span>{t('data.valueHEstimated', { v0: task.estimateHours })}</span>
                       <span data-overdue={isOverdue(task, taskReferenceDate)}>
@@ -348,7 +356,7 @@ export function DataListPage({ state, dispatch }: { state: TaskState; dispatch: 
                   <li key={item.id}>
                     <div>
                       <Link className={shared.link} to={projectDetailPath(item)}>
-                        {item.name}
+                        {businessLabel(item.name, i18n.language)}
                       </Link>
                       <span>{t('data.valueOpen', { v0: count })}</span>
                     </div>

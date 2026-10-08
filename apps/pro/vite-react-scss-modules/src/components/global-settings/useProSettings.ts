@@ -1,4 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+import { clearAppearance, currentAppearance } from '@/lib/appearance';
+import { demoResetEvent } from '@/lib/demo/reset';
 
 import {
   defaultProSettings,
@@ -8,10 +11,20 @@ import {
   settingsStorageKey,
 } from './settings';
 
-export function useProSettings() {
+export function useProSettings(canPersist = true) {
+  const resetting = useRef(false);
+  useEffect(() => {
+    const stopSaving = () => {
+      resetting.current = true;
+      clearAppearance();
+    };
+    window.addEventListener(demoResetEvent, stopSaving);
+    return () => window.removeEventListener(demoResetEvent, stopSaving);
+  }, []);
   const [settings, setSettings] = useState(() => {
     try {
-      return parseProSettings(window.localStorage.getItem(settingsStorageKey));
+      const saved = parseProSettings(window.localStorage.getItem(settingsStorageKey));
+      return { ...saved, ...(currentAppearance() ? { appearance: currentAppearance()! } : {}) };
     } catch {
       return { ...defaultProSettings };
     }
@@ -28,6 +41,7 @@ export function useProSettings() {
   }, []);
   useEffect(() => {
     const save = () => {
+      if (resetting.current || !canPersist) return;
       try {
         window.localStorage.setItem(settingsStorageKey, serializeProSettings(settings));
         setStorageAvailable(true);
@@ -42,7 +56,7 @@ export function useProSettings() {
       window.clearTimeout(timer);
       window.removeEventListener('pagehide', save);
     };
-  }, [settings]);
+  }, [settings, canPersist]);
   const updateSettings = useCallback((patch: Partial<ProSettings>) => {
     setSettings((previous) => {
       const next = { ...previous, ...patch };

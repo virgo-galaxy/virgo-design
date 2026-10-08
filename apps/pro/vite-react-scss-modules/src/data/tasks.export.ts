@@ -10,6 +10,8 @@ function csvCell(value: string) {
 
 export interface TaskExportLabels {
   status: (code: Task['status']) => string;
+  text?: (value: string) => string;
+  module?: (id: string) => string;
   priority: (code: Task['priority']) => string;
 }
 export function createTasksCsv(
@@ -24,6 +26,7 @@ export function createTasksCsv(
       'Status',
       'Priority',
       'Project',
+      'Module',
       'Assignee',
       'Due date',
       'Estimate (h)',
@@ -33,16 +36,21 @@ export function createTasksCsv(
     ],
     ...tasks.map((task) => [
       task.id,
-      task.title,
+      labels.text?.(task.title) ?? task.title,
       labels.status(task.status),
       labels.priority(task.priority),
-      task.project,
-      taskAssignees.find((member) => member.id === task.assignee)?.name ?? task.assignee,
+      labels.text?.(task.project) ?? task.project,
+      labels.module?.(task.module) ?? task.module,
+      labels.text?.(
+        taskAssignees.find((member) => member.id === task.assignee)?.name ?? task.assignee,
+      ) ??
+        taskAssignees.find((member) => member.id === task.assignee)?.name ??
+        task.assignee,
       task.dueDate,
       String(task.estimateHours),
       task.createdAt,
       task.completedAt ?? '',
-      task.description,
+      labels.text?.(task.description) ?? task.description,
     ]),
   ];
   // UTF-8 BOM preserves non-Latin task titles in spreadsheet applications.

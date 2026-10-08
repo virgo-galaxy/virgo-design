@@ -13,10 +13,14 @@ import { type ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useProData } from '@/application/pro-data-context';
+import { useCurrentUser } from '@/application/session-context';
 import { CopyableText } from '@/components/copyable-text';
+import { moduleName } from '@/data/task-catalog';
 import { isOverdue, type Task, taskPriorities, taskStatuses } from '@/data/tasks';
 import type { TaskSort } from '@/data/tasks.sort';
 import { formatDueDate } from '@/data/workplace';
+import { canCreateTask, canEditTask } from '@/lib/auth/permissions';
+import { businessLabel } from '@/lib/demo/labels';
 import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
 
 import {
@@ -91,12 +95,14 @@ export function TaskTable({
   onReset,
   onCreate,
 }: Props) {
-  const { taskAssignees, taskProjects, taskReferenceDate, metadata } = useProData();
+  const { taskAssignees, taskProjects, taskReferenceDate, metadata, projects } = useProData();
   const { t, i18n } = useTranslation();
   const paginationLabels = usePaginationLabels();
   const [draggedColumn, setDraggedColumn] = useState<TaskColumnKey | null>(null);
   const columns = visibleColumns(settings);
   const pinnedCells = taskPinnedCells(settings);
+  const user = useCurrentUser();
+  const canCreate = canCreateTask(user);
   const createdAtFormatter = new Intl.DateTimeFormat(i18n.language, {
     year: 'numeric',
     month: 'short',
@@ -133,10 +139,17 @@ export function TaskTable({
       return taskStatuses.map((value) => ({ value, label: getTaskStatusLabel(t, value) }));
     if (key === 'priority')
       return taskPriorities.map((value) => ({ value, label: getTaskPriorityLabel(t, value) }));
+    if (key === 'module')
+      return projects
+        .flatMap((project) => project.modules)
+        .map((module) => ({ value: module.id, label: businessLabel(module.name, i18n.language) }));
     if (key === 'assignee')
-      return taskAssignees.map((member) => ({ value: member.id, label: member.name }));
+      return taskAssignees.map((member) => ({
+        value: member.id,
+        label: businessLabel(member.name, i18n.language),
+      }));
     return (key === 'project' ? taskProjects : (metadata.columnFilterOptions?.[key] ?? [])).map(
-      (value) => ({ value, label: value || t('tasks.noDueDate') }),
+      (value) => ({ value, label: businessLabel(value, i18n.language) || t('tasks.noDueDate') }),
     );
   };
   const cellContent = (task: Task, key: TaskColumnKey, index: number): ReactNode => {
@@ -162,7 +175,10 @@ export function TaskTable({
         return (
           <div className={styles.taskIdentity}>
             <CopyableText value={task.id} className={styles.taskId} />
-            <CopyableText value={task.title} className={styles.taskTitle} />
+            <CopyableText
+              value={businessLabel(task.title, i18n.language)}
+              className={styles.taskTitle}
+            />
           </div>
         );
       case 'status':
@@ -187,7 +203,15 @@ export function TaskTable({
           </Tag>
         );
       case 'project':
-        return <span className={styles.projectName}>{task.project}</span>;
+        return (
+          <span className={styles.projectName}>{businessLabel(task.project, i18n.language)}</span>
+        );
+      case 'module':
+        return (
+          <span className={styles.projectName}>
+            {businessLabel(moduleName(task.module, projects), i18n.language)}
+          </span>
+        );
       case 'assignee':
         return assignee && presentation === 'table' ? (
           <TaskAssigneeCard member={assignee} size={tagSize} />
@@ -234,14 +258,16 @@ export function TaskTable({
       case 'actions':
         return (
           <Button.Group layout="custom" className={styles.rowActions}>
-            <Button
-              size={settings.size}
-              variant="text"
-              leadingIcon={<EditIcon />}
-              onClick={(event) => onEdit(task, event.currentTarget)}
-            >
-              {t('tasks.edit')}
-            </Button>
+            {canEditTask(user, task) ? (
+              <Button
+                size={settings.size}
+                variant="text"
+                leadingIcon={<EditIcon />}
+                onClick={(event) => onEdit(task, event.currentTarget)}
+              >
+                {t('tasks.edit')}
+              </Button>
+            ) : null}
             <Button
               size={settings.size}
               variant="text"
@@ -432,9 +458,15 @@ export function TaskTable({
               : t('tasks.createATaskToPlanTheNextPieceOf')}
           </Empty.Description>
           <Empty.Action>
-            <Button variant="outline" size={settings.size} onClick={filtered ? onReset : onCreate}>
-              {filtered ? t('tasks.resetFilters') : t('tasks.newTask2')}
-            </Button>
+            {filtered || canCreate ? (
+              <Button
+                variant="outline"
+                size={settings.size}
+                onClick={filtered ? onReset : onCreate}
+              >
+                {filtered ? t('tasks.resetFilters') : t('tasks.newTask2')}
+              </Button>
+            ) : null}
           </Empty.Action>
         </Empty>
       ) : null}

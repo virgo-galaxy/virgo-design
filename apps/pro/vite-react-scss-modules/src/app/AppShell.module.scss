@@ -456,3 +456,8 @@
     --pro-content-padding: var(--vd-spacing-16);
   }
 }
+
+.notificationPanel {
+  width: min(380px, calc(100vw - 24px));
+  font-size: 13px;
+}

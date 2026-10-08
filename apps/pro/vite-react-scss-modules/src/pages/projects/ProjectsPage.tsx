@@ -12,6 +12,7 @@ import triangleAlertArtwork from '@/assets/illustrations/triangle-alert.svg';
 import { type Project, projectDetailPath, projectSummary } from '@/data/projects';
 import type { TaskState } from '@/data/tasks';
 import { formatDueDate } from '@/data/workplace';
+import { businessLabel } from '@/lib/demo/labels';
 import { getProjectHealthLabel } from '@/pages/projects/project-presentation';
 import { MultiFilterSelect, NoResults, Panel, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
@@ -40,10 +41,10 @@ function ProjectCard({ project, state }: { project: Project; state: TaskState })
       </div>
       <h3>
         <Link className={shared.link} to={projectDetailPath(project)}>
-          {project.name}
+          {businessLabel(project.name, i18n.language)}
         </Link>
       </h3>
-      <p>{project.summary}</p>
+      <p>{businessLabel(project.summary, i18n.language)}</p>
       <div className={styles.owner}>
         <Person id={project.owner} />
         <span className={shared.caption}>{t('projects.projectLead')}</span>
@@ -55,7 +56,9 @@ function ProjectCard({ project, state }: { project: Project; state: TaskState })
       <Progress
         value={summary.progress}
         size="md"
-        aria-label={t('projects.valueTaskCompletion', { v0: project.name })}
+        aria-label={t('projects.valueTaskCompletion', {
+          v0: businessLabel(project.name, i18n.language),
+        })}
       />
       <dl className={styles.projectStats}>
         <div>
@@ -98,7 +101,7 @@ function ProjectCard({ project, state }: { project: Project; state: TaskState })
               <li key={task.id}>
                 <span>
                   <span className={shared.mono}>{task.id}</span>
-                  {task.title}
+                  {businessLabel(task.title, i18n.language)}
                 </span>
                 <Tag
                   size="md"
@@ -122,7 +125,7 @@ function ProjectCard({ project, state }: { project: Project; state: TaskState })
 export function ProjectsPage({ state }: { state: TaskState }) {
   const { taskReferenceDate, projects, taskAssignees } = useProData();
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [search, setSearch] = useState('');
   const [health, setHealth] = useState<string[]>([]);
   const [owner, setOwner] = useState<string[]>([]);
@@ -142,6 +145,7 @@ export function ProjectsPage({ state }: { state: TaskState }) {
         project.summary,
         taskAssignees.find((member) => member.id === project.owner)?.name,
       ]
+        .flatMap((text) => (text ? [text, businessLabel(text, 'zh-CN')] : []))
         .join(' ')
         .toLowerCase()
         .includes(query),
@@ -230,7 +234,12 @@ export function ProjectsPage({ state }: { state: TaskState }) {
             placeholder={t('projects.allLeads')}
             value={owner}
             onChange={setOwner}
-            options={[...taskAssignees.map((member) => ({ value: member.id, label: member.name }))]}
+            options={[
+              ...taskAssignees.map((member) => ({
+                value: member.id,
+                label: businessLabel(member.name, i18n.language),
+              })),
+            ]}
           />
         </div>
         {visible.length ? (

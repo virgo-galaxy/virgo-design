@@ -1,4 +1,6 @@
 export const resultsEnUS = {
+  recordDetails: 'Result record',
+  recorded: 'RECORDED',
   teamWorkspace: 'Team workspace',
   externalCollaborators: 'External collaborators',
   keepTheWorkMoving: 'Keep the work moving',

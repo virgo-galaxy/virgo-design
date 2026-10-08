@@ -1,0 +1,157 @@
+.page {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--vd-brand-primary);
+  font-size: 13px;
+  text-decoration: none;
+  width: fit-content;
+}
+.back svg {
+  width: 16px;
+  height: 16px;
+}
+.body {
+  padding: 24px;
+}
+.form {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+.formActions {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--vd-border-subtle);
+  justify-content: flex-end;
+  width: 100%;
+}
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(280px, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.stack {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.workflowActions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.workflowActions p {
+  margin: 0;
+  color: var(--vd-text-secondary);
+  font-size: 13px;
+}
+.description {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding: 24px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.metadata {
+  display: grid;
+  gap: 20px;
+  padding: 24px;
+  margin: 0;
+}
+.metadata div {
+  display: grid;
+  gap: 8px;
+}
+.metadata dt,
+.note {
+  font-size: 12px;
+  color: var(--vd-text-tertiary);
+}
+.metadata dd {
+  font-size: 13px;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.metadata a {
+  color: var(--vd-brand-primary);
+}
+.note {
+  margin: 0;
+}
+.viewControls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.roleTitle {
+  font-size: 14px;
+  font-weight: 600;
+}
+@media (max-width: 1000px) {
+  .form,
+  .columns {
+    grid-template-columns: 1fr;
+  }
+  .workflowActions {
+    align-items: start;
+    flex-direction: column;
+  }
+  .body {
+    padding: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .viewControls {
+    flex-wrap: wrap;
+  }
+}
+
+.adminStatus {
+  margin-top: 20px;
+  max-width: 240px;
+}
+
+.stepsViewport {
+  overflow-x: auto;
+}
+.progressSteps {
+  min-width: 550px;
+}
+.progressSteps > [data-slot='item'] {
+  position: relative;
+  font-size: 13px;
+}
+.progressSteps [data-slot='indicator'] {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--vd-surface-secondary);
+  border: 1px solid var(--vd-border-default);
+}
+.progressSteps [data-status='current'] [data-slot='indicator'],
+.progressSteps [data-status='complete'] [data-slot='indicator'] {
+  color: var(--vd-brand-foreground);
+  background: var(--vd-brand-primary);
+  border-color: var(--vd-brand-primary);
+}
+.progressSteps > [data-slot='item']:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 40px;
+  right: 8px;
+  height: 1px;
+  background: var(--vd-border-default);
+}

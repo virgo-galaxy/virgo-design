@@ -9,6 +9,7 @@ import { useOverviewRefresh } from '@/application/use-overview-refresh';
 import { deliveryAnalysis } from '@/data/analytics';
 import { type TaskState, taskStatuses } from '@/data/tasks';
 import { formatDueDate } from '@/data/workplace';
+import { businessLabel } from '@/lib/demo/labels';
 import { Panel, Person } from '@/pages/shared/ProPage';
 import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
 
@@ -220,7 +221,7 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
                   <Chart.Bar
                     key={project.id}
                     dataKey={project.id}
-                    name={project.name}
+                    name={businessLabel(project.name, i18n.language)}
                     stackId="delivery"
                     maxWidth={16}
                     color={deliveryColors[index % deliveryColors.length]!}

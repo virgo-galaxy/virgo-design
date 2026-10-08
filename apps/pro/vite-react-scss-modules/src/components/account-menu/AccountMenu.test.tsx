@@ -13,7 +13,10 @@ const { navigate, signOut, changeMode } = vi.hoisted(() => ({
   changeMode: vi.fn(),
 }));
 vi.mock('react-router', () => ({ useNavigate: () => navigate }));
-vi.mock('@/application/session-context', () => ({ useSession: () => ({ signOut }) }));
+vi.mock('@/application/session-context', () => ({
+  useSession: () => ({ signOut }),
+  useCurrentUser: () => ({ role: 'admin' }),
+}));
 
 beforeEach(async () => {
   vi.resetAllMocks();

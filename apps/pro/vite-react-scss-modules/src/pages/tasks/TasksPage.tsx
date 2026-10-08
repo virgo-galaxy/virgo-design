@@ -1,102 +1,176 @@
 import { DownloadIcon, PlusIcon, SettingsIcon, TrashIcon } from '@virgo-design/icons';
 import { Button, Surface, Toast, Toolbar, Tooltip } from '@virgo-design/ui';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 
-import { getTask } from '@/api/tasks';
 import { MutationFeedback } from '@/application/MutationFeedback';
 import { useProData } from '@/application/pro-data-context';
 import { RemoteState } from '@/application/RemoteState';
+import { useCurrentUser } from '@/application/session-context';
 import { getAllTasks, taskPageView } from '@/application/task-queries';
 import { useMutation } from '@/application/use-mutation';
 import { useTaskQuery } from '@/application/use-task-query';
-import calendarClockArtwork from '@/assets/illustrations/calendar-clock.svg';
-import documentStackArtwork from '@/assets/illustrations/document-stack.svg';
-import playCircleArtwork from '@/assets/illustrations/play-circle.svg';
-import shieldCheckArtwork from '@/assets/illustrations/shield-check.svg';
-import { emptyDataQuery, matchesDataQuery, queryFromParams, queryParams } from '@/data/data-query';
-import {
-  filterValues,
-  hasTaskFilters,
-  type Task,
-  type TaskDispatch,
-  type TaskDraft,
-} from '@/data/tasks';
+import { emptyDataQuery, queryFromParams, queryParams } from '@/data/data-query';
+import { moduleName } from '@/data/task-catalog';
+import { filterValues, hasTaskFilters, type Task, type TaskDispatch } from '@/data/tasks';
 import { createTasksCsv } from '@/data/tasks.export';
 import { type TaskSort } from '@/data/tasks.sort';
-import { WorkOverview } from '@/pages/shared/WorkOverview';
-import { getTaskExportLabels, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
+import { canCreateTask, isAdmin } from '@/lib/auth/permissions';
+import { businessLabel } from '@/lib/demo/labels';
+import { getTaskExportLabels } from '@/pages/tasks/task-presentation';
 
 import {
   defaultTaskPageSize,
   normalizeTaskPins,
+  taskColumnKeys,
   type TaskDataColumn,
   type TaskTableSettings,
   visibleColumns,
 } from './table-settings';
 import { TableSettingsDialog } from './TableSettingsDialog';
+import { taskDetailsPath } from './task-navigation';
 import { TaskDeleteDialog } from './TaskDeleteDialog';
-import { TaskDetailsDialog } from './TaskDetailsDialog';
-import { TaskDialog } from './TaskDialog';
 import { TaskFilters } from './TaskFilters';
 import styles from './TasksPage.module.scss';
 import { TaskTable } from './TaskTable';
+import { TaskViews } from './TaskViews';
+import pageStyles from './TaskWorkspace.module.scss';
 import { useTaskTableSettings } from './use-table-settings';
 
-type Editor = { kind: 'create' } | { kind: 'edit' | 'details'; id: string };
-interface Feedback {
-  id: number;
-  kind: 'created' | 'updated' | 'moved';
-  draft: Task;
-  hidden: boolean;
+function readTaskListJson<T>(
+  value: string | null,
+  fallback: T,
+  validate: (value: Record<string, unknown>) => boolean,
+): T {
+  try {
+    const parsed: unknown = value ? JSON.parse(value) : null;
+    return parsed &&
+      typeof parsed === 'object' &&
+      !Array.isArray(parsed) &&
+      validate(parsed as Record<string, unknown>)
+      ? (parsed as T)
+      : fallback;
+  } catch {
+    return fallback;
+  }
 }
+export function TasksPage(props: { dispatch: TaskDispatch }) {
+  void props;
+  const { taskAssignees, removeTasks, projects } = useProData();
 
-export function TasksPage({ dispatch }: { dispatch: TaskDispatch }) {
-  const { taskAssignees, taskReferenceDate, removeTasks } = useProData();
-
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const mutation = useMutation();
-  const [detail, setDetail] = useState<Task | undefined>();
-  const [params] = useSearchParams();
-  const [filters, setFilters] = useState(() => queryFromParams(params));
+  const navigate = useNavigate();
+  const [params, setParams] = useSearchParams();
+  const linkedTask = params.get('task');
+  const filters = queryFromParams(params);
+  const currentParams = useRef(params);
+  currentParams.current = params;
+  const updateParam = (key: string, value: string | null) => {
+    const next = new URLSearchParams(currentParams.current);
+    if (value) next.set(key, value);
+    else next.delete(key);
+    currentParams.current = next;
+    setParams(next, { replace: true });
+  };
   const [selection, setSelection] = useState<string[]>([]);
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(defaultTaskPageSize);
+  const requestedPage = Number(params.get('page'));
+  const page = Number.isSafeInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+  const setPage = (value: number) => updateParam('page', value === 1 ? null : String(value));
+  const pageSize = [10, 20, 50, 100].includes(Number(params.get('pageSize')))
+    ? Number(params.get('pageSize'))
+    : defaultTaskPageSize;
+  const setPageSize = (value: number) => updateParam('pageSize', String(value));
   const {
     settings: tableSettings,
     setSettings: setTableSettings,
     storageAvailable,
-  } = useTaskTableSettings();
+  } = useTaskTableSettings(isAdmin(useCurrentUser()));
+  const user = useCurrentUser();
+  const canManage = canCreateTask(user);
+  const admin = isAdmin(user);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const settingsRef = useRef<HTMLButtonElement>(null);
-  const [columnFilters, setColumnFilters] = useState<Partial<Record<TaskDataColumn, string[]>>>({});
-  const [columnSearch, setColumnSearch] = useState<Partial<Record<TaskDataColumn, string>>>({});
-  const [sort, setSort] = useState<TaskSort | null>(null);
-  const [editor, setEditor] = useState<Editor | null>(null);
-  const [feedback, setFeedback] = useState<Feedback | null>(null);
+  const columnFilters = readTaskListJson<Partial<Record<TaskDataColumn, string[]>>>(
+    params.get('columnFilters'),
+    {},
+    (value) =>
+      Object.entries(value).every(
+        ([key, items]) =>
+          taskColumnKeys.includes(key as TaskDataColumn) &&
+          !['selection', 'rowNumber', 'actions'].includes(key) &&
+          Array.isArray(items) &&
+          items.every((item) => typeof item === 'string'),
+      ),
+  );
+  const columnSearch = readTaskListJson<Partial<Record<TaskDataColumn, string>>>(
+    params.get('columnSearch'),
+    {},
+    (value) =>
+      Object.entries(value).every(
+        ([key, item]) =>
+          taskColumnKeys.includes(key as TaskDataColumn) &&
+          !['selection', 'rowNumber', 'actions'].includes(key) &&
+          typeof item === 'string',
+      ),
+  );
+  const sort = readTaskListJson<TaskSort | null>(
+    params.get('sort'),
+    null,
+    (value) =>
+      taskColumnKeys.includes(value.column as TaskDataColumn) &&
+      !['selection', 'rowNumber', 'actions'].includes(String(value.column)) &&
+      ['none', 'ascending', 'descending'].includes(String(value.direction)),
+  );
+  const setColumnFilters = (
+    change:
+      | Partial<Record<TaskDataColumn, string[]>>
+      | ((
+          current: Partial<Record<TaskDataColumn, string[]>>,
+        ) => Partial<Record<TaskDataColumn, string[]>>),
+  ) =>
+    updateParam(
+      'columnFilters',
+      JSON.stringify(typeof change === 'function' ? change(columnFilters) : change),
+    );
+  const setColumnSearch = (
+    change:
+      | Partial<Record<TaskDataColumn, string>>
+      | ((
+          current: Partial<Record<TaskDataColumn, string>>,
+        ) => Partial<Record<TaskDataColumn, string>>),
+  ) =>
+    updateParam(
+      'columnSearch',
+      JSON.stringify(typeof change === 'function' ? change(columnSearch) : change),
+    );
+  const setSort = (value: TaskSort | null) =>
+    updateParam('sort', value ? JSON.stringify(value) : null);
+  const returnTo = `/work/tasks${params.toString() ? '?' + params.toString() : ''}`;
   const [deleteIds, setDeleteIds] = useState<readonly string[] | null>(null);
   const [deletionFeedback, setDeletionFeedback] = useState<{ id: number; count: number } | null>(
     null,
   );
   const exportRef = useRef<HTMLButtonElement>(null);
   const feedbackId = useRef(0);
-  const newTaskRef = useRef<HTMLButtonElement>(null);
-  const opener = useRef<HTMLButtonElement | null>(null);
-  const matches = (task: Task) =>
-    matchesDataQuery(task, filters, taskAssignees, taskReferenceDate) &&
-    Object.entries(columnFilters).every(
-      ([key, values]) => !values.length || values.includes(String(task[key as TaskDataColumn])),
-    ) &&
-    Object.entries(columnSearch).every(([key, value]) => {
-      const text =
-        key === 'assignee'
-          ? (taskAssignees.find((member) => member.id === task.assignee)?.name ?? '')
-          : key === 'title'
-            ? `${task.id} ${task.title}`
-            : String(task[key as TaskDataColumn]).replaceAll('_', ' ');
-      return text.toLowerCase().includes(value.trim().toLowerCase());
-    });
+  useEffect(() => {
+    if (params.get('view') === 'cards') {
+      const next = new URLSearchParams(params);
+      next.delete('view');
+      navigate(`/work/task-cards${next.size ? '?' + next.toString() : ''}`, { replace: true });
+    }
+  }, [params, navigate]);
+  useEffect(() => {
+    if (linkedTask) {
+      const next = new URLSearchParams(params);
+      next.delete('task');
+      navigate(
+        taskDetailsPath(linkedTask, `/work/tasks${next.size ? '?' + next.toString() : ''}`),
+        { replace: true },
+      );
+    }
+  }, [linkedTask, params, navigate]);
   const query = {
     ...filters,
     pageNum: page,
@@ -113,22 +187,19 @@ export function TasksPage({ dispatch }: { dispatch: TaskDispatch }) {
   };
   const resource = useTaskQuery(query, !tableSettings.pagination);
   const visibleTasks = resource.data?.items ?? [];
-  const overview = resource.data?.overview ?? { total: 0, inProgress: 0, dueSoon: 0, completed: 0 };
   const pageView = resource.data
     ? taskPageView(resource.data)
     : { tasks: [], page: 1, range: [0, 0] as [number, number] };
   const matchingTotal = resource.data?.total ?? 0;
   const changeFilters = (next: typeof filters) => {
-    setFilters(next);
-    setPage(1);
+    const result = new URLSearchParams(currentParams.current);
+    for (const key of Object.keys(emptyDataQuery)) result.delete(key);
+    for (const [key, value] of queryParams(next)) result.append(key, value);
+    result.delete('page');
+    currentParams.current = result;
+    setParams(result, { replace: true });
     setSelection([]);
   };
-  const selectedTask =
-    editor && editor.kind !== 'create'
-      ? detail?.id === editor.id
-        ? detail
-        : visibleTasks.find((task) => task.id === editor.id)
-      : undefined;
   const filtered =
     Object.values(columnFilters).some((values) => values.length) ||
     Object.values(columnSearch).some((value) => value.trim()) ||
@@ -181,216 +252,179 @@ export function TasksPage({ dispatch }: { dispatch: TaskDispatch }) {
     (total, column) => total + column.width,
     0,
   );
-  const notify = (kind: Feedback['kind'], draft: Task) => {
-    const hidden = !matches(draft);
-    setFeedback({
-      id: ++feedbackId.current,
-      kind,
-      draft,
-      hidden,
-    });
-  };
-  const openCreate = () => {
-    opener.current = newTaskRef.current;
-    setEditor({ kind: 'create' });
-  };
-  const openTask = (
-    task: Task,
-    button: HTMLButtonElement,
-    kind: 'edit' | 'details' = 'details',
-  ) => {
-    opener.current = button;
-    void mutation.run(async () => {
-      const loaded = await getTask(task.id);
-      setDetail(loaded);
-      setEditor({ kind, id: task.id });
-    });
-  };
-  const save = async (draft: TaskDraft) => {
-    if (selectedTask) {
-      const saved = await dispatch({ type: 'edit', id: selectedTask.id, draft });
-      setDetail(saved);
-      notify('updated', saved);
-    } else {
-      const saved = await dispatch({ type: 'create', draft });
-      if (matches(saved)) setPage(1);
-      notify('created', saved);
-      setEditor(null);
-    }
-  };
+  const openCreate = () => navigate(`/work/tasks/new?returnTo=${encodeURIComponent(returnTo)}`);
+  const openTask = (task: Task, _button: HTMLButtonElement, kind: 'edit' | 'details' = 'details') =>
+    navigate(
+      kind === 'edit'
+        ? `/work/tasks/${encodeURIComponent(task.id)}/edit?returnTo=${encodeURIComponent(returnTo)}`
+        : taskDetailsPath(task.id, returnTo),
+    );
 
   return (
     <Toast.Provider>
-      <div className={styles.tasksPage}>
-        <h1 className={styles.srOnly}>{t('app.tasks')}</h1>
-        <WorkOverview
-          loading={!resource.data}
-          items={[
-            {
-              label: t('tasks.totalTasks'),
-              value: overview.total,
-              note: t('tasks.workspaceTotals'),
-              artwork: documentStackArtwork,
-            },
-            {
-              label: t('tasks.inProgress'),
-              value: overview.inProgress,
-              note: t('tasks.activeWork'),
-              artwork: playCircleArtwork,
-            },
-            {
-              label: t('tasks.dueSoon'),
-              value: overview.dueSoon,
-              note: t('tasks.next7Days'),
-              artwork: calendarClockArtwork,
-            },
-            {
-              label: t('tasks.completed'),
-              value: overview.completed,
-              note: t('tasks.deliveredWork'),
-              artwork: shieldCheckArtwork,
-            },
-          ]}
-        />
-        <Surface border="default" radius={12}>
-          <TaskFilters
-            key={queryParams(filters).toString()}
-            filters={filters}
-            onApply={changeFilters}
-            onReset={resetFilters}
-          />
-        </Surface>
-        <Surface
-          border="default"
-          radius={12}
-          className={styles.listPanel}
-          data-table-size={tableSettings.size}
-          data-width-mode={tableSettings.widthMode}
-          style={
-            tableSettings.widthMode === 'content'
-              ? {
-                  width: `min(100%, calc(${tableWidth}px + 2 * var(--vd-spacing-20) + 2 * var(--vd-border-width-1)))`,
-                }
-              : undefined
-          }
-          aria-busy={resource.loading}
-        >
-          <MutationFeedback pending={mutation.pending} error={mutation.error} />
-          <Toolbar layout="custom" aria-label={t('tasks.toolbar')} className={styles.listActions}>
-            <Button
-              ref={newTaskRef}
-              size={tableSettings.size}
-              leadingIcon={<PlusIcon />}
-              onClick={openCreate}
-            >
-              {t('tasks.newTask2')}
-            </Button>
-            <Button.Group layout="custom" className={styles.bulkActions}>
-              <Button
-                size={tableSettings.size}
-                className={styles.deleteButton}
-                leadingIcon={<TrashIcon />}
-                disabled={selection.length === 0 || mutation.pending}
-                onClick={() => setDeleteIds([...selection])}
-              >
-                {t('tasks.deleteSelected')}
-              </Button>
-              <Button
-                ref={exportRef}
-                size={tableSettings.size}
-                variant="outline"
-                leadingIcon={<DownloadIcon />}
-                disabled={visibleTasks.length === 0}
-                onClick={() => {
-                  void mutation.run(async () => {
-                    const matching = await getAllTasks(query);
-                    const rows = selection.length
-                      ? matching.filter((task) => selection.includes(task.id))
-                      : matching;
-                    const url = URL.createObjectURL(
-                      new Blob([createTasksCsv(rows, taskAssignees, getTaskExportLabels(t))], {
-                        type: 'text/csv;charset=utf-8',
-                      }),
-                    );
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = 'virgo-tasks.csv';
-                    document.body.append(link);
-                    link.click();
-                    link.remove();
-                    setTimeout(() => URL.revokeObjectURL(url), 0);
-                  });
-                }}
-              >
-                {t('tasks.export')}
-              </Button>
-              <Tooltip>
-                <Tooltip.Trigger
-                  ref={settingsRef}
-                  onClick={() => setSettingsOpen(true)}
-                  aria-label={t('tasks.tableSettings')}
-                  render={(props) => (
-                    <Button
-                      {...props}
-                      iconOnly
-                      size={tableSettings.size}
-                      variant="outline"
-                      aria-label={t('tasks.tableSettings')}
-                    >
-                      <SettingsIcon />
-                    </Button>
-                  )}
-                />
-                <Tooltip.Content placement="top">{t('tasks.tableSettings')}</Tooltip.Content>
-              </Tooltip>
-            </Button.Group>
-          </Toolbar>
-          {resource.error || !resource.data ? (
-            <RemoteState loading={resource.loading} error={resource.error} retry={resource.retry} />
-          ) : (
-            <TaskTable
-              settings={tableSettings}
-              onSettingsChange={changeTableSettings}
-              columnFilters={columnFilters}
-              onColumnFilterChange={(key, values) => {
-                setColumnFilters((current) => ({ ...current, [key]: values }));
-                setPage(1);
-                setSelection([]);
-              }}
-              columnSearch={columnSearch}
-              onColumnSearchChange={(key, value) => {
-                setColumnSearch((current) => ({ ...current, [key]: value }));
-                setPage(1);
-                setSelection([]);
-              }}
-              selection={selection}
-              onSelectionChange={setSelection}
-              assigneeFilter={filterValues(filters.assignee)}
-              onAssigneeFilterChange={(assignee) => changeFilters({ ...filters, assignee })}
-              sort={sort}
-              onSortChange={(next) => {
-                setSort(next.direction === 'none' ? null : next);
-                setPage(1);
-              }}
-              tasks={pageView.tasks}
-              matchingTotal={matchingTotal}
-              page={pageView.page}
-              pageSize={resource.data?.pageSize ?? pageSize}
-              onPageChange={(nextPage, nextPageSize) => {
-                setPage(nextPage);
-                setPageSize(nextPageSize);
-              }}
-              filtered={filtered}
-              selectedId={selectedTask?.id}
-              onOpen={openTask}
-              onEdit={(task, button) => openTask(task, button, 'edit')}
+      <TaskViews view="table" overview={resource.data?.overview} loading={!resource.data}>
+        <div className={styles.tasksPage}>
+          <h1 className={styles.srOnly}>{t('app.tasks')}</h1>
+
+          <Surface border="default" radius={12}>
+            <TaskFilters
+              key={queryParams(filters).toString()}
+              filters={filters}
+              onApply={changeFilters}
               onReset={resetFilters}
-              onCreate={openCreate}
             />
-          )}
-        </Surface>
-      </div>
-      {settingsOpen ? (
+          </Surface>
+          <Surface
+            border="default"
+            radius={12}
+            className={styles.listPanel}
+            data-table-size={tableSettings.size}
+            data-width-mode={tableSettings.widthMode}
+            style={
+              tableSettings.widthMode === 'content'
+                ? {
+                    width: `min(100%, calc(${tableWidth}px + 2 * var(--vd-spacing-20) + 2 * var(--vd-border-width-1)))`,
+                  }
+                : undefined
+            }
+            aria-busy={resource.loading}
+          >
+            <MutationFeedback pending={mutation.pending} error={mutation.error} />
+            <Toolbar layout="custom" aria-label={t('tasks.toolbar')} className={styles.listActions}>
+              {canManage ? (
+                <Button size={tableSettings.size} leadingIcon={<PlusIcon />} onClick={openCreate}>
+                  {t('tasks.newTask2')}
+                </Button>
+              ) : (
+                <span className={pageStyles.roleTitle}>{t('tasks.workspace.myTasks')}</span>
+              )}
+              <div className={pageStyles.viewControls}>
+                <Button.Group layout="custom" className={styles.bulkActions}>
+                  {canManage ? (
+                    <Button
+                      size={tableSettings.size}
+                      className={styles.deleteButton}
+                      leadingIcon={<TrashIcon />}
+                      disabled={selection.length === 0 || mutation.pending}
+                      onClick={() => setDeleteIds([...selection])}
+                    >
+                      {t('tasks.deleteSelected')}
+                    </Button>
+                  ) : null}
+                  <Button
+                    ref={exportRef}
+                    size={tableSettings.size}
+                    variant="outline"
+                    leadingIcon={<DownloadIcon />}
+                    disabled={visibleTasks.length === 0}
+                    onClick={() => {
+                      void mutation.run(async () => {
+                        const matching = await getAllTasks(query);
+                        const rows = selection.length
+                          ? matching.filter((task) => selection.includes(task.id))
+                          : matching;
+                        const url = URL.createObjectURL(
+                          new Blob(
+                            [
+                              createTasksCsv(rows, taskAssignees, {
+                                ...getTaskExportLabels(t),
+                                text: (value: string) => businessLabel(value, i18n.language),
+                                module: (id: string) =>
+                                  businessLabel(moduleName(id, projects), i18n.language),
+                              }),
+                            ],
+                            {
+                              type: 'text/csv;charset=utf-8',
+                            },
+                          ),
+                        );
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = 'virgo-tasks.csv';
+                        document.body.append(link);
+                        link.click();
+                        link.remove();
+                        setTimeout(() => URL.revokeObjectURL(url), 0);
+                      });
+                    }}
+                  >
+                    {t('tasks.export')}
+                  </Button>
+                  {admin ? (
+                    <Tooltip>
+                      <Tooltip.Trigger
+                        ref={settingsRef}
+                        onClick={() => setSettingsOpen(true)}
+                        aria-label={t('tasks.tableSettings')}
+                        render={(props) => (
+                          <Button
+                            {...props}
+                            iconOnly
+                            size={tableSettings.size}
+                            variant="outline"
+                            aria-label={t('tasks.tableSettings')}
+                          >
+                            <SettingsIcon />
+                          </Button>
+                        )}
+                      />
+                      <Tooltip.Content placement="top">{t('tasks.tableSettings')}</Tooltip.Content>
+                    </Tooltip>
+                  ) : null}
+                </Button.Group>
+              </div>
+            </Toolbar>
+            {resource.error || !resource.data ? (
+              <RemoteState
+                loading={resource.loading}
+                error={resource.error}
+                retry={resource.retry}
+              />
+            ) : (
+              <TaskTable
+                settings={tableSettings}
+                onSettingsChange={changeTableSettings}
+                columnFilters={columnFilters}
+                onColumnFilterChange={(key, values) => {
+                  setColumnFilters((current) => ({ ...current, [key]: values }));
+                  setPage(1);
+                  setSelection([]);
+                }}
+                columnSearch={columnSearch}
+                onColumnSearchChange={(key, value) => {
+                  setColumnSearch((current) => ({ ...current, [key]: value }));
+                  setPage(1);
+                  setSelection([]);
+                }}
+                selection={selection}
+                onSelectionChange={setSelection}
+                assigneeFilter={filterValues(filters.assignee)}
+                onAssigneeFilterChange={(assignee) => changeFilters({ ...filters, assignee })}
+                sort={sort}
+                onSortChange={(next) => {
+                  setSort(next.direction === 'none' ? null : next);
+                  setPage(1);
+                }}
+                tasks={pageView.tasks}
+                matchingTotal={matchingTotal}
+                page={pageView.page}
+                pageSize={resource.data?.pageSize ?? pageSize}
+                onPageChange={(nextPage, nextPageSize) => {
+                  setPage(nextPage);
+                  setPageSize(nextPageSize);
+                }}
+                filtered={filtered}
+                selectedId={undefined}
+                onOpen={openTask}
+                onEdit={(task, button) => openTask(task, button, 'edit')}
+                onReset={resetFilters}
+                onCreate={openCreate}
+              />
+            )}
+          </Surface>
+        </div>
+      </TaskViews>
+      {admin && settingsOpen ? (
         <TableSettingsDialog
           settings={tableSettings}
           previewTasks={visibleTasks}
@@ -398,32 +432,6 @@ export function TasksPage({ dispatch }: { dispatch: TaskDispatch }) {
           storageAvailable={storageAvailable}
           onClose={() => setSettingsOpen(false)}
           restoreFocus={() => settingsRef.current?.focus()}
-        />
-      ) : null}
-      {editor?.kind === 'details' && selectedTask ? (
-        <TaskDetailsDialog
-          task={selectedTask}
-          onEdit={() => setEditor({ kind: 'edit', id: selectedTask.id })}
-          onClose={() => setEditor(null)}
-          restoreFocus={() => opener.current?.focus()}
-        />
-      ) : editor ? (
-        <TaskDialog
-          key={editor.kind !== 'create' ? editor.id : 'create'}
-          task={selectedTask}
-          hiddenByFilters={Boolean(selectedTask && !matches(selectedTask))}
-          onSave={save}
-          onStatusChange={async (status) => {
-            if (!selectedTask) return;
-            const saved = await dispatch({ type: 'status', id: selectedTask.id, status });
-            setDetail(saved);
-            notify('moved', { ...selectedTask, status });
-          }}
-          onClose={() => setEditor(null)}
-          restoreFocus={() => {
-            const target = opener.current?.isConnected ? opener.current : newTaskRef.current;
-            target?.focus();
-          }}
         />
       ) : null}
       {deleteIds ? (
@@ -455,35 +463,6 @@ export function TasksPage({ dispatch }: { dispatch: TaskDispatch }) {
         </Toast.Root>
       ) : null}
       <Toast.Viewport placement="top-center" aria-label={t('tasks.taskFeedback')} />
-      {feedback ? (
-        <Toast.Root
-          key={feedback.id}
-          intent="success"
-          duration={6000}
-          onOpenChange={(open) => {
-            if (!open) setFeedback((current) => (current?.id === feedback.id ? null : current));
-          }}
-        >
-          <Toast.Title>
-            {feedback.kind === 'created'
-              ? t('tasks.taskCreated')
-              : feedback.kind === 'updated'
-                ? t('tasks.taskUpdated')
-                : t('tasks.movedTo', { status: getTaskStatusLabel(t, feedback.draft.status) })}
-          </Toast.Title>
-          <Toast.Description>
-            {feedback.hidden
-              ? t('tasks.valueIsSavedButDoesNotMatchYourCurrent', { v0: feedback.draft.id })
-              : `${feedback.draft.id} · ${feedback.draft.title}`}
-          </Toast.Description>
-          {feedback.hidden ? (
-            <Toast.Action onClick={() => changeFilters(emptyDataQuery)}>
-              {t('tasks.showAllTasks')}
-            </Toast.Action>
-          ) : null}
-          <Toast.Close aria-label={t('tasks.dismissTaskFeedback')} />
-        </Toast.Root>
-      ) : null}
     </Toast.Provider>
   );
 }

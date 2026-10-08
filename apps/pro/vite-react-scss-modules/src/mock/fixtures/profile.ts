@@ -10,7 +10,7 @@ export const initialProfile: ProfileState = {
   avatarColor: '#1664f9',
   avatarImage: adminHumanAvatar,
   botAvatarImage: grokBotAvatar,
-  focusProject: 'workspace',
+  focusProject: 'online-store',
   digest: true,
   digestTime: '09:00',
   reviewReminders: true,

@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
+import { demoResetEvent } from '@/lib/demo/reset';
 import { isRecord } from '@/lib/http/protocol';
 
 import {
@@ -115,7 +116,10 @@ export function parseTaskTableSettings(raw: string | null): TaskTableSettings {
     }
     for (const column of remaining.values()) {
       const beforeActions = columns.findIndex((entry) => entry.key === 'actions');
-      if (beforeActions !== -1) columns.splice(beforeActions, 0, column);
+      const afterProject =
+        column.key === 'module' ? columns.findIndex((entry) => entry.key === 'project') + 1 : -1;
+      if (afterProject > 0) columns.splice(afterProject, 0, column);
+      else if (beforeActions !== -1) columns.splice(beforeActions, 0, column);
       else columns.push(column);
     }
     if (
@@ -144,7 +148,15 @@ export function parseTaskTableSettings(raw: string | null): TaskTableSettings {
     return defaults;
   }
 }
-export function useTaskTableSettings() {
+export function useTaskTableSettings(canPersist = true) {
+  const resetting = useRef(false);
+  useEffect(() => {
+    const stopSaving = () => {
+      resetting.current = true;
+    };
+    window.addEventListener(demoResetEvent, stopSaving);
+    return () => window.removeEventListener(demoResetEvent, stopSaving);
+  }, []);
   const [settings, setSettings] = useState(() => {
     try {
       return parseTaskTableSettings(window.localStorage.getItem(taskTableStorageKey));
@@ -155,6 +167,7 @@ export function useTaskTableSettings() {
   const [storageAvailable, setStorageAvailable] = useState(true);
   useEffect(() => {
     const save = () => {
+      if (resetting.current || !canPersist) return;
       try {
         window.localStorage.setItem(
           taskTableStorageKey,
@@ -176,6 +189,6 @@ export function useTaskTableSettings() {
       window.clearTimeout(timer);
       window.removeEventListener('pagehide', save);
     };
-  }, [settings]);
+  }, [settings, canPersist]);
   return { settings, setSettings, storageAvailable };
 }

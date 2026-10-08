@@ -4,10 +4,12 @@ import {
   Button,
   Checkbox,
   DatePicker,
+  Empty,
   Field,
   Form,
   Input,
   Radio,
+  Skeleton,
   Steps,
   Surface,
   Tag,
@@ -15,12 +17,13 @@ import {
   TimePicker,
   Tree,
 } from '@virgo-design/ui';
-import { type Dispatch, type SetStateAction, useRef, useState } from 'react';
+import { type Dispatch, type SetStateAction, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 
 import { MutationFeedback } from '@/application/MutationFeedback';
 import { useProData } from '@/application/pro-data-context';
+import { useCurrentUser } from '@/application/session-context';
 import { useMutation } from '@/application/use-mutation';
 import {
   type HandoffDraft,
@@ -31,6 +34,8 @@ import {
   type WorkflowReceipt,
 } from '@/data/pro-workflows';
 import type { TaskState } from '@/data/tasks';
+import { isAdmin } from '@/lib/auth/permissions';
+import { businessLabel } from '@/lib/demo/labels';
 import { FilterSelect, Panel } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { getTaskStatusLabel } from '@/pages/tasks/task-presentation';
@@ -54,6 +59,13 @@ export function StepFormPage({
   onPrepare: () => Promise<WorkflowReceipt>;
 }) {
   const { projects } = useProData();
+  const { projectId } = useParams();
+  useEffect(() => {
+    if (projectId && projects.some((p) => p.id === projectId) && draft.projectId !== projectId) {
+      setDraft((current) => ({ ...current, projectId, taskIds: [], confirmed: false }));
+      setStage(0);
+    }
+  }, [projectId, projects, draft.projectId, setDraft, setStage]);
 
   const mutation = useMutation();
   const { t, i18n } = useTranslation();
@@ -63,6 +75,8 @@ export function StepFormPage({
     { title: t('forms.reviewAndPrepare'), description: t('forms.oneFinalCheck') },
   ];
   const navigate = useNavigate();
+  const admin = isAdmin(useCurrentUser());
+  const [submission, setSubmission] = useState<WorkflowReceipt | null>(null);
   const [errors, setErrors] = useState<ReturnType<typeof validateHandoff>>({});
   const [expanded, setExpanded] = useState<readonly string[]>([
     'scope-review',
@@ -88,6 +102,7 @@ export function StepFormPage({
       delete next[key];
       return next;
     });
+    setSubmission(null);
   };
   const move = (next: number) => {
     if (next > stage) {
@@ -104,9 +119,32 @@ export function StepFormPage({
     setErrors({});
     requestAnimationFrame(() => headingRef.current?.focus());
   };
+  if (projectId && !projects.some((item) => item.id === projectId))
+    return (
+      <Empty>
+        <Empty.Title>{t('data.projectNotFound')}</Empty.Title>
+        <Empty.Action>
+          <Link className={shared.link} to="/work/projects">
+            {t('data.backToProjects')}
+          </Link>
+        </Empty.Action>
+      </Empty>
+    );
+  if (projectId && draft.projectId !== projectId) return <Skeleton variant="text" />;
   return (
     <div className={shared.page}>
+      <Link className={shared.link} to={`/work/projects/${encodeURIComponent(draft.projectId)}`}>
+        {t('tasks.workspace.backToProject')}
+      </Link>
       <MutationFeedback pending={mutation.pending} error={mutation.error} />
+      {submission ? (
+        <Alert intent={submission.outcome === 'success' ? 'success' : 'error'}>
+          <Alert.Title>{t(`results.receipts.${submission.message}.title`)}</Alert.Title>
+          <Alert.Description>
+            {t(`results.receipts.${submission.message}.description`)}
+          </Alert.Description>
+        </Alert>
+      ) : null}
       <h1 className={shared.srOnly}>{t('app.stepForm')}</h1>
       <Surface border="default" radius={8} className={styles.wizardSurface}>
         <div className={styles.wizard}>
@@ -151,7 +189,10 @@ export function StepFormPage({
                 if (Object.keys(invalid).length) return;
                 void mutation.run(async () => {
                   const receipt = await onPrepare();
-                  if (receipt) navigate(`/result/${receipt.outcome}`);
+                  if (receipt) {
+                    if (admin) navigate(`/result/${receipt.outcome}`);
+                    else setSubmission(receipt);
+                  }
                 });
               }}
             >
@@ -178,7 +219,7 @@ export function StepFormPage({
                     <Field required invalid={Boolean(errors.title)}>
                       <Field.Label>{t('forms.handoffTitle')}</Field.Label>
                       <Input
-                        value={draft.title}
+                        value={businessLabel(draft.title, i18n.language)}
                         maxLength={100}
                         onChange={(event) => update('title', event.target.value)}
                       />
@@ -190,6 +231,8 @@ export function StepFormPage({
                       label={t('forms.handoffProject')}
                       value={draft.projectId}
                       onChange={(value) => {
+                        navigate(`/work/projects/${encodeURIComponent(value)}/handoff`);
+                        setStage(0);
                         setDraft((previous) => ({
                           ...previous,
                           projectId: value,
@@ -198,7 +241,10 @@ export function StepFormPage({
                         }));
                         setErrors({});
                       }}
-                      options={projects.map((item) => ({ value: item.id, label: item.name }))}
+                      options={projects.map((item) => ({
+                        value: item.id,
+                        label: businessLabel(item.name, i18n.language),
+                      }))}
                     />
                     <div className={styles.fieldGrid}>
                       <Field required invalid={Boolean(errors.date)}>
@@ -238,7 +284,7 @@ export function StepFormPage({
                     </div>
                     <p className={styles.stageCopy}>
                       {t('forms.valueYourSelectionsWillBeKeptWhileMovingBetween', {
-                        v0: project?.summary,
+                        v0: businessLabel(project?.summary ?? '', i18n.language),
                       })}
                     </p>
                   </>
@@ -315,7 +361,7 @@ export function StepFormPage({
                                 <Tree.Item
                                   key={task.id}
                                   value={task.id}
-                                  textValue={`${task.id} ${task.title}`}
+                                  textValue={`${task.id} ${businessLabel(task.title, i18n.language)}`}
                                 >
                                   <Tree.Label className={styles.treeLabel}>
                                     <span
@@ -325,7 +371,7 @@ export function StepFormPage({
                                       {draft.taskIds.includes(task.id) ? '✓' : '＋'}
                                     </span>
                                     <span className={styles.treeCopy}>
-                                      <span>{task.title}</span>
+                                      <span>{businessLabel(task.title, i18n.language)}</span>
                                       <span className={shared.mono}>
                                         {t('forms.valueValueH', {
                                           v0: task.id,
@@ -393,11 +439,11 @@ export function StepFormPage({
                       <dl className={styles.reviewMetadata}>
                         <div>
                           <dt>{t('forms.handoff')}</dt>
-                          <dd>{draft.title}</dd>
+                          <dd>{businessLabel(draft.title, i18n.language)}</dd>
                         </div>
                         <div>
                           <dt>{t('forms.project')}</dt>
-                          <dd>{project?.name}</dd>
+                          <dd>{businessLabel(project?.name ?? '', i18n.language)}</dd>
                         </div>
                         <div>
                           <dt>{t('forms.scheduleUtc0800')}</dt>
@@ -425,7 +471,7 @@ export function StepFormPage({
                             <li key={task.id}>
                               <span>
                                 <span className={shared.mono}>{task.id}</span>
-                                {task.title}
+                                {businessLabel(task.title, i18n.language)}
                               </span>
                               <Tag
                                 size="md"
@@ -440,7 +486,7 @@ export function StepFormPage({
                       </div>
                     </div>
                     {draft.notes ? <div className={styles.reviewNotes}>{draft.notes}</div> : null}
-                    {draft.audience === 'external' && draft.projectId === 'workspace' ? (
+                    {draft.audience === 'external' && draft.projectId === 'online-store' ? (
                       <Alert intent="warning">
                         <Alert.Title>{t('forms.externalAccessNeedsReview')}</Alert.Title>
                         <Alert.Description>

@@ -68,6 +68,11 @@ export function setAppLocalePreference(preference: LocalePreference) {
   for (const listener of preferenceListeners) listener();
   return i18nInstance.changeLanguage(detectedLocale(preference));
 }
+export function resetAppLocale() {
+  localePreference = 'en-US';
+  for (const listener of preferenceListeners) listener();
+  return i18nInstance.changeLanguage('en-US');
+}
 function onBrowserLanguageChange() {
   if (localePreference === 'auto') void i18nInstance.changeLanguage(detectedLocale('auto'));
 }

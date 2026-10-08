@@ -88,13 +88,13 @@ export const dataEnUS = {
   reviewRequestsIncludeAcceptanceNotesBeforeTheOctoberCheckpoint:
     'Review requests include acceptance notes before the October checkpoint.',
   openRisksAreHandedToTheProjectLeadBefore:
-    'Open risks are handed to the project lead before release.',
+    'Open risks are handed to the project manager before release.',
   deliveryProgress: 'Delivery progress',
   valueCompletedValueRemaining: '{{v0}} completed · {{v1}} remaining',
   valueHEstimateValue: '{{v0}}h estimate · {{v1}}',
   noTasksAreLinkedToThisProject: 'No tasks are linked to this project.',
   projectId: 'Project ID',
-  projectLead: 'Project lead',
+  projectLead: 'Project manager',
   workspace: 'Workspace',
   virgoStudio: 'Virgo Studio',
   started: 'Started',

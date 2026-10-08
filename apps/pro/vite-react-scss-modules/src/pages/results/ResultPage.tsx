@@ -1,5 +1,5 @@
 import { DownloadIcon } from '@virgo-design/icons';
-import { Accordion, Alert, Button, Result, Separator, Steps, Surface, Tag } from '@virgo-design/ui';
+import { Accordion, Alert, Button, Result, Steps, Surface, Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
 
@@ -8,9 +8,12 @@ import { useProData } from '@/application/pro-data-context';
 import { useMutation } from '@/application/use-mutation';
 import type { WorkflowReceipt } from '@/data/pro-workflows';
 import { projectDetailPath } from '@/data/projects';
+import { moduleName } from '@/data/task-catalog';
 import type { TaskState } from '@/data/tasks';
 import { createTasksCsv } from '@/data/tasks.export';
+import { businessLabel } from '@/lib/demo/labels';
 import { downloadCsv } from '@/pages/shared/download';
+import { Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { getTaskExportLabels, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 import { taskLabelStyles, taskStatusIntent } from '@/pages/tasks/task-presentation';
@@ -42,24 +45,31 @@ export function ResultPage({
   const project = projects.find((item) => item.id === receipt.projectId)!;
   const tasks = state.tasks.filter((task) => receipt.taskIds.includes(task.id));
   return (
-    <div className={shared.page}>
+    <div className={styles.page}>
       <MutationFeedback pending={mutation.pending} error={mutation.error} />
-      <Surface border="default" radius={12} className={styles.result}>
+      <Surface
+        border="default"
+        radius={12}
+        className={styles.result}
+        data-outcome={receipt.outcome}
+      >
         <Result.Root
           status={receipt.outcome}
           className={styles.resultHero}
           aria-labelledby="receipt-result-title"
         >
           <Result.Icon />
-          <Tag size="md" variant="outline">
-            {receipt.reference}
-          </Tag>
-          <Result.Title as="h1" id="receipt-result-title">
-            {t(`results.receipts.${receipt.message}.title`)}
-          </Result.Title>
-          <Result.Description>
-            {t(`results.receipts.${receipt.message}.description`)}
-          </Result.Description>
+          <div className={styles.heroCopy}>
+            <Tag size="md" variant="outline">
+              {receipt.reference}
+            </Tag>
+            <Result.Title as="h1" id="receipt-result-title">
+              {t(`results.receipts.${receipt.message}.title`)}
+            </Result.Title>
+            <Result.Description>
+              {t(`results.receipts.${receipt.message}.description`)}
+            </Result.Description>
+          </div>
           <Button.Group
             layout="custom"
             render={(groupProps) => (
@@ -92,7 +102,7 @@ export function ResultPage({
                   size="medium"
                   onClick={() => {
                     onRecover?.();
-                    navigate('/form/step');
+                    navigate(`/work/projects/${encodeURIComponent(project.id)}/handoff`);
                   }}
                 >
                   {t('results.reviewHandoffSettings')}
@@ -104,7 +114,11 @@ export function ResultPage({
                   onClick={() => {
                     void mutation.run(async () => {
                       const next = await onRetry?.();
-                      navigate(next ? '/result/success' : '/form/step');
+                      navigate(
+                        next
+                          ? '/result/success'
+                          : `/work/projects/${encodeURIComponent(project.id)}/handoff`,
+                      );
                     });
                   }}
                 >
@@ -114,58 +128,60 @@ export function ResultPage({
             )}
           </Button.Group>
         </Result.Root>
-        <Separator decorative />
         <div className={styles.receiptBody}>
-          <dl className={styles.receiptMetadata}>
-            <div>
-              <dt>{t('results.project')}</dt>
-              <dd>
-                <Link className={shared.link} to={projectDetailPath(project)}>
-                  {project.name}
-                </Link>
-              </dd>
-            </div>
-            <div>
-              <dt>{t('results.preparedBy')}</dt>
-              <dd>{receipt.requester}</dd>
-            </div>
-            <div>
-              <dt>{t('results.recordedUtc0800')}</dt>
-              <dd>
-                <time dateTime={receipt.recordedAt}>
-                  {receiptTime.format(new Date(receipt.recordedAt))}
-                </time>
-              </dd>
-            </div>
-            <div>
-              <dt>{t('results.audience')}</dt>
-              <dd>
-                {receipt.audience === 'team'
-                  ? t('results.teamWorkspace')
-                  : t('results.externalCollaborators')}
-              </dd>
-            </div>
-            {receipt.handoffTitle ? (
+          <section className={styles.metadataPanel} aria-labelledby="receipt-record-title">
+            <h2 id="receipt-record-title">{t('results.recordDetails')}</h2>
+            <dl className={styles.receiptMetadata}>
               <div>
-                <dt>{t('results.handoff')}</dt>
-                <dd>{receipt.handoffTitle}</dd>
-              </div>
-            ) : null}
-            {receipt.schedule ? (
-              <div>
-                <dt>{t('results.handoffSchedule')}</dt>
+                <dt>{t('results.project')}</dt>
                 <dd>
-                  <time dateTime={receipt.schedule}>
-                    {receiptTime.format(new Date(receipt.schedule))}
+                  <Link className={shared.link} to={projectDetailPath(project)}>
+                    {businessLabel(project.name, i18n.language)}
+                  </Link>
+                </dd>
+              </div>
+              <div>
+                <dt>{t('results.preparedBy')}</dt>
+                <dd>{receipt.requester}</dd>
+              </div>
+              <div>
+                <dt>{t('results.recordedUtc0800')}</dt>
+                <dd>
+                  <time dateTime={receipt.recordedAt}>
+                    {receiptTime.format(new Date(receipt.recordedAt))}
                   </time>
                 </dd>
               </div>
-            ) : null}
-            <div>
-              <dt>{t('results.scope')}</dt>
-              <dd>{t('results.linkedCount', { count: tasks.length })}</dd>
-            </div>
-          </dl>
+              <div>
+                <dt>{t('results.audience')}</dt>
+                <dd>
+                  {receipt.audience === 'team'
+                    ? t('results.teamWorkspace')
+                    : t('results.externalCollaborators')}
+                </dd>
+              </div>
+              {receipt.handoffTitle ? (
+                <div>
+                  <dt>{t('results.handoff')}</dt>
+                  <dd>{businessLabel(receipt.handoffTitle, i18n.language)}</dd>
+                </div>
+              ) : null}
+              {receipt.schedule ? (
+                <div>
+                  <dt>{t('results.handoffSchedule')}</dt>
+                  <dd>
+                    <time dateTime={receipt.schedule}>
+                      {receiptTime.format(new Date(receipt.schedule))}
+                    </time>
+                  </dd>
+                </div>
+              ) : null}
+              <div>
+                <dt>{t('results.scope')}</dt>
+                <dd>{t('results.linkedCount', { count: tasks.length })}</dd>
+              </div>
+            </dl>
+          </section>
           {success ? (
             <div className={styles.nextSteps}>
               <h3>
@@ -211,12 +227,14 @@ export function ResultPage({
           ) : (
             <div className={styles.recovery}>
               <Alert intent="error">
-                <Alert.Title>{t('results.permissionPolicyWsExport01')}</Alert.Title>
-                <Alert.Description>
-                  {t('results.theWorkspacePacketCanBePreparedForTeamReview')}
-                </Alert.Description>
+                <Alert.Content>
+                  <Alert.Title>{t('results.permissionPolicyWsExport01')}</Alert.Title>
+                  <Alert.Description>
+                    {t('results.theWorkspacePacketCanBePreparedForTeamReview')}
+                  </Alert.Description>
+                </Alert.Content>
               </Alert>
-              <Accordion type="single" variant="ghost" size="md">
+              <Accordion type="multiple" defaultValue={['why', 'draft']} variant="ghost" size="md">
                 <Accordion.Item value="why">
                   <Accordion.Trigger icon>{t('results.whyDidThisFail')}</Accordion.Trigger>
                   <Accordion.Content>
@@ -244,19 +262,26 @@ export function ResultPage({
           <ul>
             {tasks.map((task) => (
               <li key={task.id}>
-                <div>
+                <div className={styles.taskHeading}>
                   <span className={shared.mono}>{task.id}</span>
-                  <Link className={shared.link} to={`/work/tasks?search=${task.id}`}>
-                    {task.title}
-                  </Link>
+                  <Tag
+                    size="md"
+                    intent={taskStatusIntent[task.status]}
+                    className={taskLabelStyles.tag}
+                  >
+                    {getTaskStatusLabel(t, task.status)}
+                  </Tag>
                 </div>
-                <Tag
-                  size="md"
-                  intent={taskStatusIntent[task.status]}
-                  className={taskLabelStyles.tag}
-                >
-                  {getTaskStatusLabel(t, task.status)}
-                </Tag>
+                <Link className={styles.taskTitle} to={`/work/tasks?search=${task.id}`}>
+                  {businessLabel(task.title, i18n.language)}
+                </Link>
+                <p className={styles.taskDescription}>
+                  {businessLabel(task.description, i18n.language)}
+                </p>
+                <div className={styles.taskContext}>
+                  <span>{businessLabel(moduleName(task.module, projects), i18n.language)}</span>
+                  <Person id={task.assignee} />
+                </div>
               </li>
             ))}
           </ul>
@@ -268,9 +293,11 @@ export function ResultPage({
         </div>
         <div className={styles.resultFooter}>
           <span className={shared.mono}>
-            {t('results.virgoStudioValue', { v0: success ? 'RECORDED' : t('results.draftKept') })}
+            {t('results.virgoStudioValue', {
+              v0: success ? t('results.recorded') : t('results.draftKept'),
+            })}
           </span>
-          <Link className={shared.link} to={success ? '/form/basic' : '/work/projects'}>
+          <Link className={shared.link} to={success ? '/work/tasks/new' : '/work/projects'}>
             {success ? t('results.createAnotherRequest') : t('results.backToProjects')}
           </Link>
         </div>

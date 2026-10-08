@@ -2,21 +2,39 @@ import { http } from 'msw';
 
 import { API_ERROR_CODES } from '@/api/error-codes';
 import type { ProfileDto } from '@/api/profile';
+import { isAdmin } from '@/lib/auth/permissions';
 import { isRecord } from '@/lib/http/protocol';
 
+import { forbidden } from '../access';
 import { initialProfile } from '../fixtures/profile';
 import { projects } from '../fixtures/projects';
 import { endpoint, failure, success } from '../response';
-let profile: ProfileDto = { ...initialProfile };
+import { requestUser } from '../session';
+import { getDemoState, updateDemoState } from '../store';
 export function getBackendProfile(): ProfileDto {
-  return { ...profile };
+  return { ...getDemoState().profile };
 }
 export function resetProfile() {
-  profile = { ...initialProfile };
+  updateDemoState((previous) => ({ ...previous, profile: { ...initialProfile } }));
 }
 export const profileHandlers = [
-  http.get(endpoint('/profile'), () => success(profile)),
+  http.get(endpoint('/profile'), ({ request }) => {
+    const user = requestUser(request)!;
+    if (isAdmin(user)) return success(getDemoState().profile);
+    return success({
+      ...initialProfile,
+      name: user.name,
+      displayName: user.name,
+      headline: `${user.jobTitle} · Virgo Studio`,
+      bio: '',
+      avatarImage: user.avatarUrl ?? '',
+      focusProject:
+        projects.find((project) => project.name === user.projects[0])?.id ?? 'online-store',
+    });
+  }),
   http.patch(endpoint('/profile'), async ({ request }) => {
+    if (!isAdmin(requestUser(request))) return forbidden();
+    const profile = getDemoState().profile;
     let body: unknown;
     try {
       body = await request.json();
@@ -63,12 +81,13 @@ export const profileHandlers = [
         detail: 'Invalid profile',
         fields,
       });
-    profile = {
+    const saved = {
       ...next,
       name: next.name.trim(),
       headline: next.headline.trim(),
       bio: next.bio.trim(),
     };
-    return success(profile);
+    updateDemoState((previous) => ({ ...previous, profile: saved }));
+    return success(saved);
   }),
 ];

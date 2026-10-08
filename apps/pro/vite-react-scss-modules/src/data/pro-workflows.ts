@@ -1,3 +1,4 @@
+import type { ProjectDto } from '@/api/projects/contract';
 import type { MemberDto } from '@/api/tasks';
 import type { formsEnUS } from '@/pages/forms/locales/en-US';
 import type { profileEnUS } from '@/pages/profile/locales/en-US';
@@ -12,7 +13,8 @@ export interface WorkRequest extends TaskDraft {
 export const initialWorkRequest: WorkRequest = {
   title: '',
   description: '',
-  project: 'Workspace',
+  project: 'Online Store',
+  module: 'online-store-1',
   assignee: '',
   status: 'todo',
   priority: 'medium',
@@ -24,12 +26,14 @@ export function validateWorkRequest(
   draft: WorkRequest,
   taskProjects: readonly string[],
   taskAssignees: readonly MemberDto[],
+  projects?: readonly ProjectDto[],
 ) {
   return {
     ...validateTask(
       draft,
       taskProjects,
       taskAssignees.map((person) => person.id),
+      projects,
     ),
     ...(!draft.acceptanceConfirmed ? { acceptanceConfirmed: 'acceptanceRequired' as const } : {}),
   };
@@ -40,6 +44,7 @@ export function workRequestTask(draft: WorkRequest): TaskDraft {
     title: draft.title,
     description: draft.description,
     project: draft.project,
+    module: draft.module,
     assignee: draft.assignee,
     status: draft.status,
     priority: draft.priority,
@@ -60,7 +65,7 @@ export interface HandoffDraft {
 }
 export const initialHandoff: HandoffDraft = {
   title: 'October release handoff',
-  projectId: 'workspace',
+  projectId: 'online-store',
   date: '2026-10-06',
   time: '10:00',
   taskIds: [],

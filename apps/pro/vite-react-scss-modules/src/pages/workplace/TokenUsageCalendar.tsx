@@ -1,25 +1,41 @@
 import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from '@virgo-design/icons';
-import { Button, Calendar, Dialog, Select } from '@virgo-design/ui';
+import { Button, Calendar, Dialog, SegmentedControl, Select } from '@virgo-design/ui';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useProData } from '@/application/pro-data-context';
 import calendarChartArtwork from '@/assets/illustrations/calendar-chart.svg';
+import { businessLabel } from '@/lib/demo/labels';
 
 import { buildTokenUsageCalendar, formatTokenCount } from './token-usage-calendar';
 import styles from './WorkplacePage.module.scss';
 
-const highUsageThreshold = 100000000;
+const highUsageThreshold = 100000;
 
-export function TokenUsageCalendar() {
-  const { tokenUsage, snapshot } = useProData();
+export function TokenUsageCalendar({
+  year: reportYear,
+  onYearChange,
+}: {
+  year: number;
+  onYearChange: (year: number) => void;
+}) {
+  const { tokenUsage, snapshot, tokenRecords, reportingYears, reportingScope, taskAssignees } =
+    useProData();
   const { t, i18n } = useTranslation();
-  const openingDate = `${snapshot.date.slice(0, 4)}-09-07`;
-  const [month, setMonth] = useState(openingDate.slice(0, 7));
-  const [selected, setSelected] = useState(openingDate);
+  const openingDate =
+    reportYear === Number(snapshot.date.slice(0, 4)) ? snapshot.date : `${reportYear}-12-31`;
+  const [selectedMonth, setMonth] = useState(openingDate.slice(0, 7));
+  const month = selectedMonth.startsWith(String(reportYear))
+    ? selectedMonth
+    : openingDate.slice(0, 7);
+  const [selectedDate, setSelected] = useState(openingDate);
+  const selected = selectedDate.startsWith(String(reportYear)) ? selectedDate : openingDate;
+  const dayRecords = tokenRecords
+    .filter((record) => record.recordedAt.slice(0, 10) === selected)
+    .sort((a, b) => b.recordedAt.localeCompare(a.recordedAt));
   const { year, days } = useMemo(
-    () => buildTokenUsageCalendar(snapshot.date, tokenUsage),
-    [snapshot.date, tokenUsage],
+    () => buildTokenUsageCalendar(snapshot.date, tokenUsage, reportYear),
+    [snapshot.date, tokenUsage, reportYear],
   );
   const records = useMemo(() => new Map(days.map((day) => [day.date, day])), [days]);
   const total = days
@@ -58,7 +74,9 @@ export function TokenUsageCalendar() {
           <Dialog.Header className={styles.tokenCalendarHeader}>
             <div>
               <Dialog.Title>{t('workplace.monthlyTokenCalendar')}</Dialog.Title>
-              <Dialog.Description>{t('workplace.annualTokenUsageDescription')}</Dialog.Description>
+              <Dialog.Description>
+                {t(`workplace.tokenScopes.${reportingScope}`)}
+              </Dialog.Description>
             </div>
             <Dialog.Close aria-label={t('workplace.closeTokenCalendar')} variant="text">
               <CloseIcon />
@@ -66,6 +84,21 @@ export function TokenUsageCalendar() {
           </Dialog.Header>
           <Dialog.Body>
             <div className={styles.tokenMonthSummary}>
+              <SegmentedControl
+                size="small"
+                variant="soft"
+                motion="slide"
+                className={styles.yearSwitch!}
+                aria-label={t('workplace.reportingYear')}
+                value={String(year)}
+                onValueChange={(value) => onYearChange(Number(value))}
+              >
+                {reportingYears.map((year) => (
+                  <SegmentedControl.Item key={year} value={String(year)}>
+                    {year}
+                  </SegmentedControl.Item>
+                ))}
+              </SegmentedControl>
               <span>{fullMonth}</span>
               <strong>
                 {t('workplace.tokenUsageValue', { tokens: formatTokenCount(total, i18n.language) })}
@@ -180,6 +213,51 @@ export function TokenUsageCalendar() {
                 })}
               </span>
             </div>
+            <section className={styles.tokenRecordSection} aria-label={t('workplace.tokenRecords')}>
+              <h3>
+                {t('workplace.tokenRecords')} · {selected}
+              </h3>
+              <p>
+                {t('workplace.tokenRecordSummary', {
+                  count: dayRecords.length,
+                  input: formatTokenCount(
+                    dayRecords.reduce((sum, record) => sum + record.inputTokens, 0),
+                    i18n.language,
+                  ),
+                  output: formatTokenCount(
+                    dayRecords.reduce((sum, record) => sum + record.outputTokens, 0),
+                    i18n.language,
+                  ),
+                })}
+              </p>
+              <ul>
+                {dayRecords.length ? (
+                  dayRecords.map((record) => (
+                    <li key={record.id}>
+                      <span>
+                        <strong>{t(`app.inbox.kinds.${record.kind}`)}</strong>
+                        <span>{businessLabel(record.taskTitle, i18n.language)}</span>
+                        <small>
+                          {businessLabel(
+                            taskAssignees.find((person) => person.id === record.userId)?.name ??
+                              'Admin',
+                            i18n.language,
+                          )}{' '}
+                          · {businessLabel(record.project, i18n.language)}
+                        </small>
+                      </span>
+                      <span>
+                        {formatTokenCount(record.inputTokens + record.outputTokens, i18n.language)}{' '}
+                        Token
+                      </span>
+                    </li>
+                  ))
+                ) : (
+                  <li>{t('workplace.noTokenRecords')}</li>
+                )}
+              </ul>
+              <p className={styles.tokenDemoNote}>{t('workplace.tokenDemoNote')}</p>
+            </section>
           </Dialog.Body>
         </Dialog.Content>
       </Dialog.Portal>

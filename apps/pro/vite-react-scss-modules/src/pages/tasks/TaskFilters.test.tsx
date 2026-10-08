@@ -13,7 +13,7 @@ vi.mock('@/application/pro-data-context', () => ({
       { id: 'ava', name: 'Ava Brooks' },
       { id: 'nina', name: 'Nina Wu' },
     ],
-    taskProjects: ['Workspace'],
+    taskProjects: ['Online Store'],
     taskReferenceDate: '2026-10-02',
   }),
 }));

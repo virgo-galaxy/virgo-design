@@ -1,8 +1,9 @@
 import { Button, Empty, Progress, Surface, Tag, Timeline } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
-import { Link, useSearchParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 
 import { useProData } from '@/application/pro-data-context';
+import { useCurrentUser } from '@/application/session-context';
 import {
   projectActivity,
   projectDetailPath,
@@ -11,6 +12,8 @@ import {
 } from '@/data/projects';
 import type { TaskDispatch, TaskState } from '@/data/tasks';
 import { formatDueDate } from '@/data/workplace';
+import { canManageProject } from '@/lib/auth/permissions';
+import { businessLabel } from '@/lib/demo/labels';
 import { getProjectHealthLabel } from '@/pages/projects/project-presentation';
 import { healthIntent } from '@/pages/projects/project-presentation';
 import { FilterSelect, MetricStrip, Panel, Person } from '@/pages/shared/ProPage';
@@ -30,8 +33,10 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
   const { taskAssignees, activity, projects, taskReferenceDate } = useProData();
 
   const { t, i18n } = useTranslation();
-  const [params, setParams] = useSearchParams();
-  const project = projects.find((item) => item.id === (params.get('project') ?? 'workspace'));
+  const user = useCurrentUser();
+  const { projectId } = useParams();
+  const navigate = useNavigate();
+  const project = projects.find((item) => item.id === projectId);
   const editor = useTaskEditor(state, dispatch, (task) => task.project === project?.name);
   if (!project)
     return (
@@ -69,10 +74,21 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
               <FilterSelect
                 label={t('data.projectRecord')}
                 value={project.id}
-                onChange={(id) => setParams({ project: id })}
-                options={projects.map((item) => ({ value: item.id, label: item.name }))}
+                onChange={(id) => navigate(`/work/projects/${encodeURIComponent(id)}`)}
+                options={projects.map((item) => ({
+                  value: item.id,
+                  label: businessLabel(item.name, i18n.language),
+                }))}
               />
             </div>
+            {canManageProject(user, project.name) ? (
+              <Link
+                className={shared.link}
+                to={`/work/projects/${encodeURIComponent(project.id)}/handoff`}
+              >
+                {t('tasks.workspace.handoff')}
+              </Link>
+            ) : null}
             <Link className={shared.link} to="/work/projects">
               {t('data.projectPortfolio')}
             </Link>
@@ -115,7 +131,7 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
           >
             <div className={shared.body}>
               <span className={shared.eyebrow}>{t('data.objective')}</span>
-              <p className={styles.objective}>{project.objective}</p>
+              <p className={styles.objective}>{businessLabel(project.objective, i18n.language)}</p>
               <div className={styles.acceptance}>
                 <h3>{t('data.releaseAcceptance')}</h3>
                 <ul>
@@ -144,6 +160,20 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
               </div>
             </div>
           </Panel>
+          <Panel title={t('tasks.module')}>
+            <div className={shared.toolbar}>
+              {project.modules.map((module) => (
+                <Link
+                  key={module.id}
+                  className={shared.link}
+                  to={`/work/tasks?project=${encodeURIComponent(project.name)}&module=${encodeURIComponent(module.id)}`}
+                >
+                  {businessLabel(module.name, i18n.language)} ·{' '}
+                  {summary.tasks.filter((task) => task.module === module.id).length}
+                </Link>
+              ))}
+            </div>
+          </Panel>
           <Panel
             title={t('data.linkedTasks')}
             description={t('data.liveRecordsFromTheSharedTaskRegister')}
@@ -164,7 +194,7 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
                       className={styles.taskButton}
                       onClick={(event) => editor.open(task, event.currentTarget)}
                     >
-                      {task.title}
+                      {businessLabel(task.title, i18n.language)}
                     </Button>
                     <span className={shared.caption}>
                       {t('data.valueHEstimateValue', {
@@ -211,7 +241,9 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
             <div className={shared.body}>
               <Timeline
                 size="medium"
-                aria-label={t('data.valueMilestoneSchedule', { v0: project.name })}
+                aria-label={t('data.valueMilestoneSchedule', {
+                  v0: businessLabel(project.name, i18n.language),
+                })}
               >
                 {project.milestones.map((milestone, index) => (
                   <Timeline.Item
@@ -224,8 +256,10 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
                           : 'pending'
                     }
                   >
-                    <Timeline.Title>{milestone.title}</Timeline.Title>
-                    <Timeline.Description>{milestone.note}</Timeline.Description>
+                    <Timeline.Title>{businessLabel(milestone.title, i18n.language)}</Timeline.Title>
+                    <Timeline.Description>
+                      {businessLabel(milestone.note, i18n.language)}
+                    </Timeline.Description>
                     <Timeline.Time dateTime={milestone.date}>
                       {formatDueDate(milestone.date, i18n.language)}
                     </Timeline.Time>
@@ -308,9 +342,9 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
                 <Timeline size="medium" aria-label={t('data.projectTeamActivity')}>
                   {events.map((event) => (
                     <Timeline.Item key={event.id} status={event.status}>
-                      <Timeline.Title>{event.name}</Timeline.Title>
+                      <Timeline.Title>{businessLabel(event.name, i18n.language)}</Timeline.Title>
                       <Timeline.Description>
-                        {getActivityActionLabel(t, event.id)}
+                        {getActivityActionLabel(t, event, i18n.language)}
                       </Timeline.Description>
                       <Timeline.Time dateTime={event.dateTime}>
                         {t('data.oct1Value', { v0: event.time })}
@@ -332,7 +366,7 @@ export function DetailPage({ state, dispatch }: { state: TaskState; dispatch: Ta
                 .map((item) => (
                   <li key={item.id}>
                     <Link className={shared.link} to={projectDetailPath(item)}>
-                      {item.name}
+                      {businessLabel(item.name, i18n.language)}
                       <span aria-hidden="true">↗</span>
                     </Link>
                     <span className={shared.caption}>{item.summary}</span>

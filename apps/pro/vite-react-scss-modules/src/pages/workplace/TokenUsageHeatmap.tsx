@@ -1,4 +1,4 @@
-import { Card, Surface, Tooltip } from '@virgo-design/ui';
+import { Card, SegmentedControl, Surface, Tooltip } from '@virgo-design/ui';
 import {
   type CSSProperties,
   memo,
@@ -12,12 +12,13 @@ import { useTranslation } from 'react-i18next';
 
 import { useProData } from '@/application/pro-data-context';
 
-import { buildTokenUsageCalendar, formatTokenCount, tokenUsageLevel } from './token-usage-calendar';
+import { buildTokenUsageCalendar, formatTokenCount, tokenUsageScale } from './token-usage-calendar';
 import styles from './WorkplacePage.module.scss';
 
 type UsageDay = ReturnType<typeof buildTokenUsageCalendar>['days'][number];
 const TokenUsageCell = memo(function TokenUsageCell({
   day,
+  level,
   index,
   label,
   tooltipDate,
@@ -29,6 +30,7 @@ const TokenUsageCell = memo(function TokenUsageCell({
   onNavigate,
 }: {
   day: UsageDay;
+  level: number;
   index: number;
   label: string;
   tooltipDate: string;
@@ -50,7 +52,7 @@ const TokenUsageCell = memo(function TokenUsageCell({
       <Tooltip.Trigger
         render={(props) => <button {...props} />}
         className={styles.heatmapDay}
-        data-level={tokenUsageLevel(day.tokens)}
+        data-level={level}
         data-future={day.future || undefined}
         ref={(node) => {
           if (node) buttons.current.set(day.date, node);
@@ -85,14 +87,26 @@ const TokenUsageCell = memo(function TokenUsageCell({
   );
 });
 
-export function TokenUsageHeatmap() {
-  const { tokenUsage, snapshot } = useProData();
+export function TokenUsageHeatmap({
+  year: reportYear,
+  onYearChange,
+}: {
+  year: number;
+  onYearChange: (year: number) => void;
+}) {
+  const { tokenUsage, snapshot, reportingYears, reportingScope } = useProData();
   const { t, i18n } = useTranslation();
   const { year, days, weeks } = useMemo(
-    () => buildTokenUsageCalendar(snapshot.date, tokenUsage),
-    [snapshot.date, tokenUsage],
+    () => buildTokenUsageCalendar(snapshot.date, tokenUsage, reportYear),
+    [snapshot.date, tokenUsage, reportYear],
   );
+  const usageLevel = useMemo(() => tokenUsageScale(days.map((day) => day.tokens)), [days]);
   const [selectedDate, setSelectedDate] = useState(snapshot.date);
+  const focusedDate = selectedDate.startsWith(String(year))
+    ? selectedDate
+    : year < Number(snapshot.date.slice(0, 4))
+      ? `${year}-12-31`
+      : `${year}-01-01`;
   const [inspectedDate, setInspectedDate] = useState<string | null>(null);
   const dayButtons = useRef(new Map<string, HTMLButtonElement>());
   const lastRecordedIndex = days.filter((day) => !day.future).length - 1;
@@ -150,10 +164,30 @@ export function TokenUsageHeatmap() {
     <Card variant="outlined" className={styles.heatmapCard}>
       <Card.Header className={styles.panelHeader}>
         <div>
-          <Card.Title as="h2">{t('workplace.annualTokenUsage')}</Card.Title>
-          <Card.Description>{t('workplace.annualTokenUsageDescription')}</Card.Description>
+          <Card.Title as="h2">
+            {t(
+              reportingScope === 'personal'
+                ? 'workplace.personalAnnualTokenUsage'
+                : 'workplace.annualTokenUsage',
+            )}
+          </Card.Title>
+          <Card.Description>{t(`workplace.tokenScopes.${reportingScope}`)}</Card.Description>
         </div>
-        <span className={styles.heatmapYear}>{year}</span>
+        <SegmentedControl
+          size="small"
+          variant="soft"
+          motion="slide"
+          className={styles.yearSwitch!}
+          aria-label={t('workplace.reportingYear')}
+          value={String(year)}
+          onValueChange={(value) => onYearChange(Number(value))}
+        >
+          {reportingYears.map((year) => (
+            <SegmentedControl.Item key={year} value={String(year)}>
+              {year}
+            </SegmentedControl.Item>
+          ))}
+        </SegmentedControl>
       </Card.Header>
       <Card.Body>
         <div className={styles.heatmapViewport}>
@@ -184,11 +218,12 @@ export function TokenUsageHeatmap() {
                 <TokenUsageCell
                   key={day.date}
                   day={day}
+                  level={usageLevel(day.tokens)}
                   index={index}
                   label={dayLabel(day)}
                   tooltipDate={dayLabels.get(day.date)!.date}
                   tooltipValue={dayLabels.get(day.date)!.value}
-                  selected={selectedDate === day.date}
+                  selected={focusedDate === day.date}
                   buttons={dayButtons}
                   onSelect={setSelectedDate}
                   onInspect={setInspectedDate}
@@ -203,6 +238,7 @@ export function TokenUsageHeatmap() {
             {inspected
               ? dayLabel(inspected)
               : t('workplace.tokenUsageSummary', {
+                  year,
                   tokens: formatTokenCount(total, i18n.language),
                   days: activeDays,
                 })}

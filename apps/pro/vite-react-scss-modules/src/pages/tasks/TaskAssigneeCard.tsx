@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import type { MemberDto } from '@/api/tasks';
 import type { UserDetailsDto } from '@/api/users';
 import { userDetailsCache } from '@/application/user-details-cache';
+import { businessLabel } from '@/lib/demo/labels';
 
 import styles from './TaskAssigneeCard.module.scss';
 
@@ -12,7 +13,7 @@ type Resource =
   { status: 'loading' } | { status: 'error' } | { status: 'ready'; data: UserDetailsDto };
 
 function UserCardDetails({ userId }: { userId: string }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [resource, setResource] = useState<Resource>(() => {
     const data = userDetailsCache.peek(userId);
     return data ? { status: 'ready', data } : { status: 'loading' };
@@ -69,14 +70,14 @@ function UserCardDetails({ userId }: { userId: string }) {
       <div className={styles.identity}>
         <Avatar
           src={user.avatarUrl}
-          alt={user.name}
+          alt={businessLabel(user.name, i18n.language)}
           fallback={user.initials}
           size="lg"
           className={styles.photo}
         />
         <div className={styles.heading}>
-          <strong>{user.name}</strong>
-          <span>{user.jobTitle}</span>
+          <strong>{businessLabel(user.name, i18n.language)}</strong>
+          <span>{businessLabel(user.jobTitle, i18n.language)}</span>
           <span className={styles.employeeNumber}>
             {t('tasks.userCard.employeeNumber')} · {user.employeeNumber}
           </span>
@@ -85,7 +86,7 @@ function UserCardDetails({ userId }: { userId: string }) {
       <dl className={styles.fields}>
         <div>
           <dt>{t('tasks.userCard.department')}</dt>
-          <dd>{user.department}</dd>
+          <dd>{businessLabel(user.department, i18n.language)}</dd>
         </div>
         <div>
           <dt>{t('tasks.userCard.phone')}</dt>
@@ -100,12 +101,24 @@ function UserCardDetails({ userId }: { userId: string }) {
           </dd>
         </div>
       </dl>
+      {user.managedProjects?.length ? (
+        <div className={styles.projects}>
+          <span>{t('tasks.userCard.managedProjects')}</span>
+          <div>
+            {user.managedProjects.map((project) => (
+              <Tag key={project} size="sm">
+                {businessLabel(project, i18n.language)}
+              </Tag>
+            ))}
+          </div>
+        </div>
+      ) : null}
       <div className={styles.projects}>
         <span>{t('tasks.userCard.projects')}</span>
         <div>
           {user.projects.map((project) => (
             <Tag key={project} size="sm">
-              {project}
+              {businessLabel(project, i18n.language)}
             </Tag>
           ))}
         </div>
@@ -115,7 +128,7 @@ function UserCardDetails({ userId }: { userId: string }) {
 }
 
 export function TaskAssigneeCard({ member, size }: { member: MemberDto; size: AvatarSize }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   useEffect(() => () => clearTimeout(timer.current), []);
@@ -133,7 +146,7 @@ export function TaskAssigneeCard({ member, size }: { member: MemberDto; size: Av
       restoreFocusOnClose={false}
     >
       <Popover.Trigger
-        aria-label={t('tasks.userCard.view', { name: member.name })}
+        aria-label={t('tasks.userCard.view', { name: businessLabel(member.name, i18n.language) })}
         onPointerLeave={() => clearTimeout(timer.current)}
         onBlur={(event) => {
           if (!(event.relatedTarget as HTMLElement | null)?.closest('[data-user-card]')) {
@@ -149,13 +162,15 @@ export function TaskAssigneeCard({ member, size }: { member: MemberDto; size: Av
           fallback={member.initials}
           className={styles.avatar}
         />
-        <span>{member.name}</span>
+        <span title={businessLabel(member.name, i18n.language)}>
+          {businessLabel(member.name, i18n.language)}
+        </span>
       </Popover.Trigger>
       <Popover.Content
         data-user-card=""
         placement="bottomStart"
         className={styles.card}
-        aria-label={t('tasks.userCard.label', { name: member.name })}
+        aria-label={t('tasks.userCard.label', { name: businessLabel(member.name, i18n.language) })}
       >
         {open ? <UserCardDetails key={member.id} userId={member.id} /> : null}
       </Popover.Content>

@@ -9,4 +9,6 @@ export interface UserDetailsDto {
   email: string;
   avatarUrl: string;
   projects: string[];
+  /** Project names managed by this member; empty for other team members. */
+  managedProjects: string[];
 }

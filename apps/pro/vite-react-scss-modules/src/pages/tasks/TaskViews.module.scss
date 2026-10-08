@@ -1,0 +1,9 @@
+.page {
+  display: grid;
+  gap: var(--vd-spacing-20);
+  min-width: 0;
+}
+.panel {
+  padding-block-start: var(--vd-spacing-20);
+  min-width: 0;
+}

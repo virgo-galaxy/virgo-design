@@ -12,6 +12,9 @@ export default defineConfig({
       '@virgo-design/primitives': fileURLToPath(
         new URL('../../../packages/primitives/src/index.ts', import.meta.url),
       ),
+      '@virgo-design/icons/brands/virgo-design.svg': fileURLToPath(
+        new URL('../../../packages/icons/brands/virgo-design.svg', import.meta.url),
+      ),
       '@virgo-design/icons/artwork/grok-bot.svg': fileURLToPath(
         new URL('../../../packages/icons/artwork/grok-bot.svg', import.meta.url),
       ),

@@ -13,6 +13,11 @@
   white-space: nowrap;
   cursor: pointer;
   transition: color var(--vd-duration-120) var(--vd-easing-standard);
+  > span:last-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   &:hover,
   &[aria-expanded='true'] {
     color: var(--vd-text-primary);

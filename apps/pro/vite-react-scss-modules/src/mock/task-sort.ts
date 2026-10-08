@@ -10,6 +10,7 @@ export type TaskSortColumn =
   | 'status'
   | 'priority'
   | 'project'
+  | 'module'
   | 'assignee'
   | 'createdAt'
   | 'estimateHours'

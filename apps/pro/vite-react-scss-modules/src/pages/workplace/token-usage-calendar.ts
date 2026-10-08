@@ -2,15 +2,18 @@ import type { TokenUsageDayDto } from '@/api/analytics';
 
 const dayMs = 86400000;
 export function tokenUsageLevel(tokens: number) {
-  return tokens === 0
-    ? 0
-    : tokens < 10000000
-      ? 1
-      : tokens < 50000000
-        ? 2
-        : tokens < 100000000
-          ? 3
-          : 4;
+  return tokens === 0 ? 0 : tokens < 10000 ? 1 : tokens < 50000 ? 2 : tokens < 100000 ? 3 : 4;
+}
+
+// Rank nonzero days within the selected year and identity scope, so aggregate
+// charts retain useful contrast without changing the underlying token totals.
+export function tokenUsageScale(values: number[]) {
+  const positive = values.filter((value) => value > 0).sort((a, b) => a - b);
+  const thresholds = [0.25, 0.5, 0.75].map(
+    (fraction) => positive[Math.floor((positive.length - 1) * fraction)] ?? 0,
+  );
+  return (tokens: number) =>
+    tokens === 0 ? 0 : 1 + thresholds.filter((threshold) => tokens > threshold).length;
 }
 
 export function formatTokenCount(tokens: number, locale: string) {
@@ -27,8 +30,11 @@ export function formatTokenCount(tokens: number, locale: string) {
   );
 }
 
-export function buildTokenUsageCalendar(snapshotDate: string, usage: TokenUsageDayDto[]) {
-  const year = Number(snapshotDate.slice(0, 4));
+export function buildTokenUsageCalendar(
+  snapshotDate: string,
+  usage: TokenUsageDayDto[],
+  year = Number(snapshotDate.slice(0, 4)),
+) {
   const start = Date.UTC(year, 0, 1);
   const end = Date.UTC(year + 1, 0, 1);
   const offset = (new Date(start).getUTCDay() + 6) % 7;

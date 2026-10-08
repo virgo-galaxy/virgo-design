@@ -23,10 +23,12 @@ describe('task CSV export', () => {
     expect(task.priority).toBe('urgent');
     expect(csv).toContain('"04a7780b-584a"');
     expect(csv).toContain('"Estimate (h)","Created at","Completed at"');
-    expect(csv).toContain('"2026-09-30T09:40:00Z"');
-    expect(csv).toContain('"4","2026-10-01T03:20:00Z"');
+    expect(csv).toContain(
+      JSON.stringify(initialTaskState.tasks.find((task) => task.completedAt)!.completedAt),
+    );
+    expect(csv).toContain('"3","2026-10-01T03:20:00.000Z"');
     expect(createTasksCsv([{ ...task, dueDate: '' }], taskAssignees, labels)).toContain(
-      '"Nina Wu","",',
+      '"Ava Brooks","",',
     );
   });
 

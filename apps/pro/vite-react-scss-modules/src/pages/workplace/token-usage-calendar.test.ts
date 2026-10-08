@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildTokenUsageCalendar, formatTokenCount, tokenUsageLevel } from './token-usage-calendar';
+import {
+  buildTokenUsageCalendar,
+  formatTokenCount,
+  tokenUsageLevel,
+  tokenUsageScale,
+} from './token-usage-calendar';
 
 describe('annual token usage calendar', () => {
   it('places every date in a Monday-first week and preserves input/output totals', () => {
@@ -45,8 +50,15 @@ describe('annual token usage calendar', () => {
     expect(formatTokenCount(tokens, 'en-US')).toBe(english);
   });
   it('uses fixed comparable intensity thresholds across the year', () => {
-    expect(
-      [0, 9999999, 10000000, 49999999, 50000000, 99999999, 100000000].map(tokenUsageLevel),
-    ).toEqual([0, 1, 2, 2, 3, 3, 4]);
+    expect([0, 9999, 10000, 49999, 50000, 99999, 100000].map(tokenUsageLevel)).toEqual([
+      0, 1, 2, 2, 3, 3, 4,
+    ]);
   });
+});
+
+it('scales annual intensity within the current scope while preserving zero days and ties', () => {
+  const level = tokenUsageScale([0, 10, 20, 30, 40, 50, 60, 70, 80]);
+  expect([0, 10, 20, 30, 40, 50, 60, 70, 80].map(level)).toEqual([0, 1, 1, 2, 2, 3, 3, 4, 4]);
+  expect(tokenUsageScale([0, 0])(0)).toBe(0);
+  expect(tokenUsageScale([10, 10])(10)).toBe(1);
 });

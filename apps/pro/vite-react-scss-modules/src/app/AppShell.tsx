@@ -25,6 +25,7 @@ import { type CSSProperties, useCallback, useEffect, useRef, useState } from 're
 import { useTranslation } from 'react-i18next';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router';
 
+import { useCurrentUser } from '@/application/session-context';
 import { AccountMenu } from '@/components/account-menu/AccountMenu';
 import { AiWorkspace } from '@/components/ai-workspace/AiWorkspace';
 import {
@@ -34,7 +35,11 @@ import {
 import { SettingsDrawer, SettingsTrigger } from '@/components/global-settings/SettingsDrawer';
 import { useProSettings } from '@/components/global-settings/useProSettings';
 import { LanguageControl } from '@/components/language-control/LanguageControl';
+import { NotificationInbox } from '@/components/notifications/NotificationInbox';
+import { useNotificationInbox } from '@/components/notifications/use-notification-inbox';
 import type { ProfileState } from '@/data/pro-workflows';
+import { rememberAppearance } from '@/lib/appearance';
+import { isAdmin } from '@/lib/auth/permissions';
 
 import styles from './AppShell.module.scss';
 import { getGroupLabel, getPageLabel } from './navigation-labels';
@@ -64,6 +69,7 @@ function Notifications({
 }) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const inbox = useNotificationInbox();
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const tooltipSuppressed = useRef(false);
   const restoringFocus = useRef(false);
@@ -82,6 +88,7 @@ function Notifications({
         restoringFocus.current = !next;
         setTooltipOpen(false);
         setOpen(next);
+        if (next) inbox.retry();
         if (!next)
           queueMicrotask(() => {
             restoringFocus.current = false;
@@ -104,8 +111,8 @@ function Notifications({
               render={(props) => (
                 <Button {...props} iconOnly variant="text" aria-label={t('app.notifications')}>
                   <Badge
-                    dot={indicator === 'dot'}
-                    {...(indicator === 'count' ? { count: 1 } : {})}
+                    dot={indicator === 'dot' && Boolean(inbox.data?.unreadCount)}
+                    {...(indicator === 'count' ? { count: inbox.data?.unreadCount ?? 0 } : {})}
                     intent="danger"
                     className={styles.notificationBadge}
                   >
@@ -119,15 +126,12 @@ function Notifications({
         <Tooltip.Content placement="bottom">{t('app.notifications')}</Tooltip.Content>
       </Tooltip>
       <Popover.Content
-        className={styles.infoPanel}
+        className={styles.notificationPanel}
         placement="bottomEnd"
         aria-label={t('app.notifications')}
         arrow={showOverlayArrows}
       >
-        <strong>{t('app.notifications')}</strong>
-        <p>{t('app.welcomeToVirgoStudio')}</p>
-        <Separator decorative />
-        <p>{t('app.workplaceSnapshotOctober12026')}</p>
+        <NotificationInbox inbox={inbox} onNavigate={() => setOpen(false)} />
       </Popover.Content>
     </Popover>
   );
@@ -143,6 +147,7 @@ export function AppShell({
   onAgentModeChange: (active: boolean) => void;
 }) {
   const { t } = useTranslation();
+  const admin = isAdmin(useCurrentUser());
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const currentPage = proRouting.match(pathname);
@@ -153,7 +158,7 @@ export function AppShell({
   const CurrentGroupIcon = currentGroup ? iconComponents[currentGroup.icon] : undefined;
   const CurrentPageIcon = currentPage?.icon ? iconComponents[currentPage.icon] : undefined;
   const { settings, setSettings, updateSettings, resetSettings, theme, storageAvailable } =
-    useProSettings();
+    useProSettings(admin);
   const { sidebarState, sidebarWidth } = settings;
   const setSidebarState = useCallback(
     (sidebarState: LayoutSidebarDisplayState) => updateSettings({ sidebarState }),
@@ -183,6 +188,7 @@ export function AppShell({
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
+    rememberAppearance(theme);
   }, [theme]);
 
   useEffect(() => {
@@ -335,35 +341,41 @@ export function AppShell({
                     className={styles.actions}
                   >
                     <LanguageControl />
-                    <Tooltip>
-                      <Tooltip.Trigger
-                        render={(props) => (
-                          <Button
-                            {...props}
-                            iconOnly
-                            variant="text"
-                            aria-label={theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
-                            onClick={(event) => {
-                              props.onClick?.(event);
-                              if (!event.defaultPrevented)
-                                updateSettings({
-                                  appearance: theme === 'light' ? 'dark' : 'light',
-                                });
-                            }}
-                          >
-                            {theme === 'light' ? <MoonFilledIcon /> : <SunFilledIcon />}
-                          </Button>
-                        )}
-                      />
-                      <Tooltip.Content>
-                        {theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
-                      </Tooltip.Content>
-                    </Tooltip>
+                    {admin ? (
+                      <Tooltip>
+                        <Tooltip.Trigger
+                          render={(props) => (
+                            <Button
+                              {...props}
+                              iconOnly
+                              variant="text"
+                              aria-label={
+                                theme === 'light' ? t('app.darkMode') : t('app.lightMode')
+                              }
+                              onClick={(event) => {
+                                props.onClick?.(event);
+                                if (!event.defaultPrevented)
+                                  updateSettings({
+                                    appearance: theme === 'light' ? 'dark' : 'light',
+                                  });
+                              }}
+                            >
+                              {theme === 'light' ? <MoonFilledIcon /> : <SunFilledIcon />}
+                            </Button>
+                          )}
+                        />
+                        <Tooltip.Content>
+                          {theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
+                        </Tooltip.Content>
+                      </Tooltip>
+                    ) : null}
                     <Notifications
                       showOverlayArrows={settings.showOverlayArrows}
                       indicator={settings.notificationIndicator}
                     />
-                    {settings.showHeader ? <SettingsTrigger {...settingsTriggerProps} /> : null}
+                    {admin && settings.showHeader ? (
+                      <SettingsTrigger {...settingsTriggerProps} />
+                    ) : null}
                     <Separator orientation="vertical" decorative className={styles.actionDivider} />
                     <AccountMenu
                       profile={profile}
@@ -381,7 +393,7 @@ export function AppShell({
                   className={styles.sidebar}
                   data-rail-icon-size={settings.sidebarRailWidth > 64 ? 'large' : 'regular'}
                   width={sidebarWidth}
-                  resizable={settings.sidebarResizable}
+                  resizable={admin && settings.sidebarResizable}
                   minWidth={sidebarWidthRanges.expanded.min}
                   maxWidth={sidebarWidthRanges.expanded.max}
                   mode={narrow && sidebarState === 'expanded' ? 'overlay' : 'inline'}
@@ -498,32 +510,34 @@ export function AppShell({
               ) : null}
             </Layout>
           </Layout.SidebarProvider>
-          <SettingsDrawer
-            settings={settings}
-            theme={theme}
-            storageAvailable={storageAvailable}
-            onChange={updateSettings}
-            onReset={resetSettings}
-            onHeaderChange={(showHeader, anchorY) => {
-              updateSettings({ showHeader });
-              if (!showHeader) {
-                restoringSettingsFocus.current = true;
-                settingsTooltipSuppressed.current = true;
-                setSettingsAnchorY(anchorY);
-                setSettingsTooltipOpen(false);
-                setSettingsOpen(false);
-              }
-            }}
-            onCloseAutoFocus={(event) => {
-              event.preventDefault();
-              // Wait for modal isolation to release before focusing the surviving gear.
-              queueMicrotask(() => {
-                restoringSettingsFocus.current = true;
-                settingsTrigger.current?.focus({ preventScroll: true });
-                restoringSettingsFocus.current = false;
-              });
-            }}
-          />
+          {admin ? (
+            <SettingsDrawer
+              settings={settings}
+              theme={theme}
+              storageAvailable={storageAvailable}
+              onChange={updateSettings}
+              onReset={resetSettings}
+              onHeaderChange={(showHeader, anchorY) => {
+                updateSettings({ showHeader });
+                if (!showHeader) {
+                  restoringSettingsFocus.current = true;
+                  settingsTooltipSuppressed.current = true;
+                  setSettingsAnchorY(anchorY);
+                  setSettingsTooltipOpen(false);
+                  setSettingsOpen(false);
+                }
+              }}
+              onCloseAutoFocus={(event) => {
+                event.preventDefault();
+                // Wait for modal isolation to release before focusing the surviving gear.
+                queueMicrotask(() => {
+                  restoringSettingsFocus.current = true;
+                  settingsTrigger.current?.focus({ preventScroll: true });
+                  restoringSettingsFocus.current = false;
+                });
+              }}
+            />
+          ) : null}
         </Drawer>
       </Tooltip.Provider>
     </AiWorkspace>

@@ -4,8 +4,10 @@ import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useProData } from '@/application/pro-data-context';
+import { moduleName } from '@/data/task-catalog';
 import type { Task } from '@/data/tasks';
 import { formatDueDate } from '@/data/workplace';
+import { businessLabel } from '@/lib/demo/labels';
 
 import {
   getTaskPriorityLabel,
@@ -28,7 +30,7 @@ export function TaskDetailsDialog({
   restoreFocus: () => void;
 }) {
   const { t, i18n } = useTranslation();
-  const { taskAssignees } = useProData();
+  const { taskAssignees, projects } = useProData();
   const editing = useRef(false);
   const assignee = taskAssignees.find((member) => member.id === task.assignee);
   return (
@@ -52,7 +54,7 @@ export function TaskDetailsDialog({
             <div className={styles.dialogHeading}>
               <span className={styles.eyebrow}>{task.id}</span>
               <Dialog.Title>{t('tasks.taskDetails')}</Dialog.Title>
-              <Dialog.Description>{task.title}</Dialog.Description>
+              <Dialog.Description>{businessLabel(task.title, i18n.language)}</Dialog.Description>
             </div>
             <Dialog.Close
               aria-label={t('tasks.close')}
@@ -73,7 +75,7 @@ export function TaskDetailsDialog({
             <dl className={styles.taskDetails}>
               <div className={styles.detailFullWidth}>
                 <dt>{t('tasks.description')}</dt>
-                <dd>{task.description || '—'}</dd>
+                <dd>{businessLabel(task.description, i18n.language) || '—'}</dd>
               </div>
               <div>
                 <dt>{t('tasks.status')}</dt>
@@ -102,7 +104,11 @@ export function TaskDetailsDialog({
               </div>
               <div>
                 <dt>{t('tasks.project')}</dt>
-                <dd>{task.project}</dd>
+                <dd>{businessLabel(task.project, i18n.language)}</dd>
+              </div>
+              <div>
+                <dt>{t('tasks.module')}</dt>
+                <dd>{businessLabel(moduleName(task.module, projects), i18n.language)}</dd>
               </div>
               <div>
                 <dt>{t('tasks.assignee')}</dt>

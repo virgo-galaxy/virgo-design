@@ -40,7 +40,8 @@ const draft = {
   description: 'Network fixture',
   status: 'todo' as const,
   priority: 'high' as const,
-  project: 'Workspace',
+  project: 'Online Store',
+  module: 'online-store-1',
   assignee: 'ava',
   dueDate: '2026-10-06',
   estimateHours: 3,
@@ -50,7 +51,7 @@ describe('consumer → API → Axios → MSW', () => {
     const query = {
       status: ['todo', 'in_progress'] as const,
       priority: ['high', 'urgent'] as const,
-      project: ['Workspace', 'Discovery'],
+      project: ['Online Store', 'Inventory System'],
       assignee: ['ava', 'leo'],
     };
     const expected = initialTaskState.tasks.filter(
@@ -64,7 +65,7 @@ describe('consumer → API → Axios → MSW', () => {
     expect(result.total).toBe(expected.length);
     expect(result.items).toEqual(expected.slice(0, 5));
     expect(await getAllTasks(query)).toEqual(expected);
-    expect((await getTasks({ status: [], priority: [] })).total).toBe(999);
+    expect((await getTasks({ status: [], priority: [] })).total).toBe(240);
     await expect(getTasks({ status: ['todo', 'invalid'] as never })).rejects.toMatchObject({
       code: API_ERROR_CODES.INVALID_QUERY,
     });
@@ -90,7 +91,7 @@ describe('consumer → API → Axios → MSW', () => {
     const after = await getTasks({ pageNum: 100, pageSize: 10 });
     expect(after.total).toBe(before.total - 2);
     expect(after.overview.total).toBe(before.overview.total - 2);
-    expect(after.items).toHaveLength(7);
+    expect(after.items).toHaveLength(8);
     await expect(getTask(ids[0]!)).rejects.toMatchObject({ code: API_ERROR_CODES.TASK_NOT_FOUND });
     expect((await getAllTasks()).some((task) => ids.includes(task.id))).toBe(false);
     await expect(deleteTasks({ ids: [] })).rejects.toMatchObject({
@@ -104,14 +105,14 @@ describe('consumer → API → Axios → MSW', () => {
   it('unwraps list data and performs stateful create/detail/edit/status updates', async () => {
     const before = await getTasks({ pageNum: 1, pageSize: 5 });
     expect(before.items).toHaveLength(5);
-    expect(before.total).toBe(999);
+    expect(before.total).toBe(240);
     const finalPage = await getTasks({ pageNum: 100, pageSize: 10 });
-    expect(finalPage.items).toHaveLength(9);
-    expect(finalPage.pageNum).toBe(100);
+    expect(finalPage.items).toHaveLength(10);
+    expect(finalPage.pageNum).toBe(24);
     const allTasks = await getAllTasks({});
-    expect(allTasks).toHaveLength(999);
-    expect(new Set(allTasks.map((item) => item.id)).size).toBe(999);
-    expect(new Set(allTasks.map((item) => item.title)).size).toBe(999);
+    expect(allTasks).toHaveLength(240);
+    expect(new Set(allTasks.map((item) => item.id)).size).toBe(240);
+    expect(new Set(allTasks.map((item) => item.title)).size).toBe(240);
     expect([...new Set(allTasks.map((item) => item.status))].sort()).toEqual(
       [...TASK_STATUS_CODES].sort(),
     );
@@ -139,13 +140,14 @@ describe('consumer → API → Axios → MSW', () => {
     const matching = await getTasks({
       search: 'Edited through HTTP',
       status: 'done',
-      project: 'Workspace',
+      project: 'Online Store',
+      module: 'online-store-1',
       pageNum: 1,
       pageSize: 5,
     });
     expect(matching.total).toBe(1);
     expect(matching.items[0]?.status).toBe('done');
-    expect(matching.overview.total).toBe(1000);
+    expect(matching.overview.total).toBe(241);
   });
   it.each([
     ['status', 'In Progress'],
@@ -178,7 +180,7 @@ describe('consumer → API → Axios → MSW', () => {
     await expect(
       prepareHandoff({
         title: 'Invalid scope',
-        projectId: 'workspace',
+        projectId: 'booking-system',
         date: '2026-10-06',
         time: '10:00',
         taskIds: ['abb01fb9-ab2f'],
@@ -205,25 +207,24 @@ describe('consumer → API → Axios → MSW', () => {
       pageNum: 2,
       pageSize: 3,
     });
-    expect(first.items.map((task) => task.estimateHours)).toEqual([40, 40, 40]);
+    expect(first.items.map((task) => task.estimateHours)).toEqual([12, 12, 12]);
     expect(second.pageNum).toBe(2);
     expect(second.items.every((task) => !first.items.some((item) => item.id === task.id))).toBe(
       true,
     );
-    expect(
-      (
-        await getTasks({ assignee: 'nina', priority: 'urgent', createdFrom: '2026-09-23' })
-      ).items.map((task) => task.id),
-    ).toEqual(['49e7996a-311b']);
+    const ownerResult = await getTasks({
+      assignee: 'ava',
+      priority: 'urgent',
+      createdFrom: '2026-10-01',
+    });
+    expect(ownerResult.items.map((task) => task.id)).toEqual(['49e7996a-311b']);
     expect((await getTasks({ search: 'no matching task' })).total).toBe(0);
+    const overdue = await getAllTasks({ due: 'overdue' });
+    expect(overdue.length).toBeGreaterThan(0);
     expect(
-      (await getTasks({ due: 'overdue', createdFrom: '2026-09-23' })).items.map((task) => task.id),
-    ).toEqual(['b9f45231-7bd0']);
-    expect(
-      (await getTasks({ minimumHours: '20', createdFrom: '2026-09-23' })).items.map(
-        (task) => task.id,
-      ),
-    ).toEqual(['04a7780b-584a']);
+      overdue.every((task) => task.status !== 'done' && task.dueDate < taskReferenceDate),
+    ).toBe(true);
+    expect((await getTasks({ minimumHours: '20' })).items).toEqual([]);
   });
   it('returns API validation and not-found errors with field and tracing metadata', async () => {
     try {
@@ -246,7 +247,7 @@ describe('consumer → API → Axios → MSW', () => {
       status: 404,
       data: { detail: 'Task not found' },
     });
-    expect((await getTasks()).total).toBe(999);
+    expect((await getTasks()).total).toBe(240);
   });
   it('loads projects/metadata/analytics and persists profile patches through HTTP', async () => {
     const [projects, metadata, analytics, profile] = await Promise.all([
@@ -283,8 +284,19 @@ describe('consumer → API → Axios → MSW', () => {
     const task = await createTask(draft);
     await updateTaskStatus(task.id, 'done');
     const workplace = await getWorkplaceOverview();
-    expect(workplace.tokenUsage).toHaveLength(365);
-    expect(new Set(workplace.tokenUsage.map((day) => day.date)).size).toBe(365);
+    expect(workplace.reportingYears).toEqual([2025, 2026]);
+    expect(workplace.tokenUsage.length).toBeGreaterThan(1);
+    expect(new Set(workplace.tokenUsage.map((day) => day.date)).size).toBe(
+      workplace.tokenUsage.length,
+    );
+    expect(
+      workplace.tokenUsage.reduce((sum, day) => sum + day.inputTokens + day.outputTokens, 0),
+    ).toBe(
+      workplace.tokenRecords.reduce(
+        (sum, record) => sum + record.inputTokens + record.outputTokens,
+        0,
+      ),
+    );
     expect(
       workplace.tokenUsage.every(
         (day) =>
@@ -315,7 +327,7 @@ describe('consumer → API → Axios → MSW', () => {
   it('submits workflow operations to the fake backend', async () => {
     const receipt = await prepareHandoff({
       title: 'Team handoff',
-      projectId: 'workspace',
+      projectId: 'online-store',
       date: '2026-10-06',
       time: '10:00',
       taskIds: ['1bbcd880-f5e5'],
@@ -330,7 +342,7 @@ describe('consumer → API → Axios → MSW', () => {
     });
     const restricted = await prepareHandoff({
       title: 'External handoff',
-      projectId: 'workspace',
+      projectId: 'online-store',
       date: '2026-10-06',
       time: '10:00',
       taskIds: ['1bbcd880-f5e5'],
@@ -422,7 +434,7 @@ describe('consumer → API → Axios → MSW', () => {
 it('combines column search and exact filters before sorting and all-page export', async () => {
   const query = {
     columnFilters: JSON.stringify({ status: ['todo', 'in_progress'] }),
-    columnSearch: JSON.stringify({ project: 'work', title: 'support' }),
+    columnSearch: JSON.stringify({ project: 'store', title: 'main' }),
     sortBy: 'title' as const,
     sortDirection: 'ascending' as const,
   };
@@ -430,8 +442,8 @@ it('combines column search and exact filters before sorting and all-page export'
   expect(result.total).toBeGreaterThan(0);
   for (const task of result.items) {
     expect(['todo', 'in_progress']).toContain(task.status);
-    expect(task.project.toLowerCase()).toContain('work');
-    expect(task.title.toLowerCase()).toContain('support');
+    expect(task.project.toLowerCase()).toContain('store');
+    expect(task.title.toLowerCase()).toContain('main');
   }
   expect(result.items.map((task) => task.title)).toEqual(
     result.items.map((task) => task.title).sort((a, b) => a.localeCompare(b)),

@@ -2,52 +2,60 @@ import { http } from 'msw';
 
 import { API_ERROR_CODES } from '@/api/error-codes';
 import { resolveApiBaseUrl } from '@/lib/http';
+import { isRecord } from '@/lib/http/protocol';
 
+import { demoAccounts, demoPassword } from '../accounts';
 import { endpoint, failure, success } from '../response';
-
-const storageKey = 'virgo-pro.mock-session.signed-out';
-let authenticated = true;
-
-function isAuthenticated() {
-  try {
-    return sessionStorage.getItem(storageKey) !== 'true';
-  } catch {
-    return authenticated;
-  }
+import { createSession, requestUser, revokeSession } from '../session';
+export { resetSession } from '../session';
+export function endDemoSession() {
+  revokeSession();
 }
-
-function setAuthenticated(value: boolean) {
-  authenticated = value;
-  try {
-    if (value) sessionStorage.removeItem(storageKey);
-    else sessionStorage.setItem(storageKey, 'true');
-  } catch {
-    // Keep mock sessions working in memory when browser storage is unavailable.
-  }
-}
-
-export function resetSession() {
-  setAuthenticated(true);
-}
-
 export const authHandlers = [
-  http.get(endpoint('/auth/session'), () => success({ authenticated: isAuthenticated() })),
-  http.post(endpoint('/auth/logout'), () => {
-    setAuthenticated(false);
+  http.get(endpoint('/auth/demo-accounts'), () =>
+    success({ accounts: demoAccounts, password: demoPassword }),
+  ),
+  http.post(endpoint('/auth/login'), async ({ request }) => {
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return failure({
+        status: 400,
+        code: API_ERROR_CODES.INVALID_REQUEST,
+        detail: 'Invalid JSON',
+      });
+    }
+    const account =
+      isRecord(body) && typeof body.account === 'string' ? body.account.trim().toLowerCase() : '';
+    const user =
+      isRecord(body) && typeof body.account === 'string'
+        ? demoAccounts.find((user) => user.account === account)
+        : undefined;
+    if (!user || !isRecord(body) || body.password !== demoPassword)
+      return failure({
+        status: 401,
+        code: API_ERROR_CODES.INVALID_CREDENTIALS,
+        detail: 'Incorrect account or password',
+      });
+    return success(createSession(user));
+  }),
+  http.get(endpoint('/auth/session'), ({ request }) => {
+    const user = requestUser(request);
+    return success(user ? { authenticated: true, user } : { authenticated: false });
+  }),
+  http.post(endpoint('/auth/logout'), ({ request }) => {
+    revokeSession(request);
     return success({ authenticated: false });
   }),
-  http.post(endpoint('/auth/demo-login'), () => {
-    setAuthenticated(true);
-    return success({ authenticated: true });
-  }),
-  http.all(`${resolveApiBaseUrl() === '/' ? '' : resolveApiBaseUrl()}/*`, () => {
-    if (!isAuthenticated())
+  http.all(`${resolveApiBaseUrl() === '/' ? '' : resolveApiBaseUrl()}/*`, ({ request }) => {
+    if (new URL(request.url).pathname.includes('/avatars/')) return undefined;
+    if (!requestUser(request))
       return failure({
         status: 401,
         code: API_ERROR_CODES.AUTHENTICATION_REQUIRED,
         detail: 'Please sign in to continue',
       });
-    // Let the resource handler respond to authenticated requests.
     return undefined;
   }),
 ];

@@ -36,7 +36,13 @@ describe('shared project register', () => {
     expect(before.overdue).toBeGreaterThan(0);
     const next = tasksReducer(initialTaskState, {
       type: 'status',
-      id: 'b9f45231-7bd0',
+      id: initialTaskState.tasks.find(
+        (task) =>
+          task.project === project.name &&
+          task.status !== 'done' &&
+          task.dueDate &&
+          task.dueDate < taskReferenceDate,
+      )!.id,
       status: 'done',
     });
     expect(projectSummary(project, next.tasks, taskAssignees, taskReferenceDate)).toMatchObject({
@@ -68,7 +74,12 @@ describe('shared project register', () => {
     const moved = tasksReducer(initialTaskState, {
       type: 'edit',
       id: task.id,
-      draft: { ...taskDraft(task), project: 'Discovery', estimateHours: 9 },
+      draft: {
+        ...taskDraft(task),
+        project: 'Inventory System',
+        module: 'inventory-system-1',
+        estimateHours: 9,
+      },
     });
     expect(
       projectSummary(projects[0]!, moved.tasks, taskAssignees, taskReferenceDate),
@@ -96,15 +107,15 @@ describe('shared project register', () => {
       projectSummary(projects[0]!, [], taskAssignees, taskReferenceDate).members.map(
         (member) => member.id,
       ),
-    ).toEqual(['ava']);
+    ).toEqual(projects[0]!.memberIds);
   });
   it('deep links to an identified project and scopes historical activity correctly', () => {
-    expect(projectDetailPath(projects[1]!)).toBe('/data/detail?project=design-system');
+    expect(projectDetailPath(projects[1]!)).toBe('/work/projects/booking-system');
     expect(
       new URL(projectTasksPath(projects[1]!), 'https://example.test').searchParams.get('project'),
-    ).toBe('Design system');
+    ).toBe('Booking System');
     expect(
-      projectActivity(projects[0]!, activity).every((event) => event.project === 'Workspace'),
+      projectActivity(projects[0]!, activity).every((event) => event.project === 'Online Store'),
     ).toBe(true);
     expect(projectActivity(projects[3]!, activity)).toEqual([]);
   });

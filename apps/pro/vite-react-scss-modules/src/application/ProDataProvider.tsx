@@ -1,9 +1,10 @@
-import { type ReactNode, useCallback, useState } from 'react';
+import { type ReactNode, useCallback, useEffect, useState } from 'react';
 
 import {
   createTask,
   deleteTasks,
   getAnalyticsOverview,
+  getTaskMetadata,
   getWorkplaceOverview,
   type ProfileDto,
   updateProfile,
@@ -11,6 +12,7 @@ import {
   updateTaskStatus,
 } from '@/api';
 import type { TaskAction } from '@/data/tasks';
+import { demoDataStorageKey, tasksChangedEvent } from '@/lib/data-events';
 
 import { loadProData } from './load-pro-data';
 import { type BootstrapData, ProDataContext } from './pro-data-context';
@@ -20,6 +22,18 @@ import { useRemoteData } from './use-remote-data';
 function ReadyData({ initial, children }: { initial: BootstrapData; children: ReactNode }) {
   const [data, setData] = useState(initial);
   const [revision, setRevision] = useState(0);
+  useEffect(() => {
+    const update = () => setRevision((value) => value + 1);
+    const storage = (event: StorageEvent) => {
+      if (event.key === demoDataStorageKey) update();
+    };
+    window.addEventListener(tasksChangedEvent, update);
+    window.addEventListener('storage', storage);
+    return () => {
+      window.removeEventListener(tasksChangedEvent, update);
+      window.removeEventListener('storage', storage);
+    };
+  }, []);
   const loadTaskCollection = useCallback(
     async (signal: AbortSignal) => {
       // Legacy collection-based pages load only on entry, not during application bootstrap.
@@ -35,8 +49,23 @@ function ReadyData({ initial, children }: { initial: BootstrapData; children: Re
       getWorkplaceOverview(signal),
       getAnalyticsOverview(signal),
     ]);
-    if (!signal.aborted) setData((previous) => ({ ...previous, workplace, analytics }));
+    if (!signal.aborted)
+      setData((previous) => ({
+        ...previous,
+        workplace,
+        analytics,
+        metadata: { ...previous.metadata, referenceDate: workplace.snapshot.date },
+      }));
   }, []);
+  const refreshMetadata = useCallback(
+    async (signal: AbortSignal) => {
+      if (!revision) return;
+      const metadata = await getTaskMetadata(signal);
+      if (!signal.aborted) setData((previous) => ({ ...previous, metadata }));
+    },
+    [revision],
+  );
+  useRemoteData(refreshMetadata);
   const dispatch = async (action: TaskAction) => {
     const task =
       action.type === 'create'
@@ -51,7 +80,6 @@ function ReadyData({ initial, children }: { initial: BootstrapData; children: Re
           ? [task, ...previous.tasks]
           : previous.tasks.map((item) => (item.id === task.id ? task : item)),
     }));
-    setRevision((value) => value + 1);
     return task;
   };
   const removeTasks = async (ids: readonly string[]) => {
@@ -61,7 +89,6 @@ function ReadyData({ initial, children }: { initial: BootstrapData; children: Re
       ...previous,
       tasks: previous.tasks.filter((task) => !removed.has(task.id)),
     }));
-    setRevision((value) => value + 1);
     return deletedIds;
   };
   const saveProfile = async (next: ProfileDto | ((previous: ProfileDto) => ProfileDto)) => {

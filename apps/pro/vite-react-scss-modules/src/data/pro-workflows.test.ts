@@ -71,12 +71,13 @@ describe('work request entering the shared register', () => {
       id: createMockTaskId(initialTaskState.nextId),
       title: 'Review scope',
       description: 'Notes',
-      project: 'Workspace',
+      project: 'Online Store',
+      module: 'online-store-1',
       assignee: 'ava',
       status: 'todo',
     });
     expect(stored.tasks[0]).not.toHaveProperty('acceptanceConfirmed');
-    expect(initialTaskState.tasks).toHaveLength(999);
+    expect(initialTaskState.tasks).toHaveLength(240);
   });
 });
 
@@ -99,7 +100,7 @@ describe('handoff scope and stage validation', () => {
   );
 
   it('selects a complete branch, deselects one leaf, and clears the branch without touching other work', () => {
-    const groups = scopeGroups('workspace', tasks, projects);
+    const groups = scopeGroups('online-store', tasks, projects);
     const group = groups[0]!;
     const ids = group.tasks.map((task) => task.id);
     expect(reconcileScope([], [group.id], groups)).toEqual(ids);
@@ -123,7 +124,7 @@ describe('handoff scope and stage validation', () => {
   });
   it('filters invalid scope ids and does not fabricate groups for an empty project', () => {
     expect(scopeGroups('missing', tasks, projects)).toEqual([]);
-    const groups = scopeGroups('workspace', tasks, projects);
+    const groups = scopeGroups('online-store', tasks, projects);
     expect(scopeTreeValues(['missing', '1bbcd880-f5e5'], groups)).not.toContain('missing');
     expect(reconcileScope([], ['missing', '1bbcd880-f5e5'], groups)).toEqual(['1bbcd880-f5e5']);
   });
@@ -132,7 +133,7 @@ describe('handoff scope and stage validation', () => {
 describe('handoff result and recovery', () => {
   it('restores server receipt fields for review without confirming the handoff', () => {
     expect(handoffFromReceipt(sampleError)).toMatchObject({
-      projectId: 'workspace',
+      projectId: 'online-store',
       taskIds: ['1bbcd880-f5e5', 'df4de51e-ea0d'],
       audience: 'external',
       confirmed: false,

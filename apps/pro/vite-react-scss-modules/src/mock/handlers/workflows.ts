@@ -2,18 +2,33 @@ import { http } from 'msw';
 
 import { API_ERROR_CODES } from '@/api/error-codes';
 import type { HandoffRequest, WorkflowReceiptDto } from '@/api/workflows';
+import { canManageProject } from '@/lib/auth/permissions';
 import { isRecord } from '@/lib/http/protocol';
 
+import { forbidden } from '../access';
 import { projects } from '../fixtures/projects';
-import { sampleError, sampleSuccess } from '../fixtures/workflows';
 import { endpoint, failure, success } from '../response';
+import { requestUser } from '../session';
+import { getDemoState, updateDemoState } from '../store';
 import { getBackendProfile } from './profile';
 import { getBackendTasks } from './tasks';
-let sequence = 101;
 export const workflowsHandlers = [
-  http.get(endpoint('/workflows/latest'), () =>
-    success({ success: sampleSuccess, error: sampleError }),
-  ),
+  http.get(endpoint('/workflows/latest'), ({ request }) => {
+    const user = requestUser(request)!;
+    return success(
+      Object.fromEntries(
+        Object.entries(getDemoState().workflows).map(([key, receipt]) => [
+          key,
+          user.role === 'admin' ||
+          user.projects.includes(
+            projects.find((project) => project.id === receipt.projectId)?.name ?? '',
+          )
+            ? receipt
+            : { ...receipt, taskIds: [], projectId: '', requester: '' },
+        ]),
+      ),
+    );
+  }),
   http.post(endpoint('/workflows/handoffs'), async ({ request }) => {
     let body: unknown;
     try {
@@ -57,21 +72,27 @@ export const workflowsHandlers = [
         detail: 'Invalid handoff scope',
         fields: { taskIds: ['Select tasks in this project'] },
       });
-    const restricted = draft.projectId === 'workspace' && draft.audience === 'external';
+    if (!canManageProject(requestUser(request), project.name)) return forbidden();
+    const restricted = draft.projectId === 'online-store' && draft.audience === 'external';
     const receipt: WorkflowReceiptDto = {
       outcome: restricted ? 'error' : 'success',
       kind: 'handoff',
-      reference: `HOF-${sequence++}`,
+      reference: `HOF-${getDemoState().sequence}`,
       message: restricted ? 'externalHandoffDraft' : 'handoff',
       projectId: draft.projectId,
       taskIds: draft.taskIds,
       recordedAt: new Date().toISOString(),
-      requester: getBackendProfile().name,
+      requester: requestUser(request)?.name ?? getBackendProfile().name,
       audience: draft.audience,
       handoffTitle: draft.title.trim(),
       schedule: `${draft.date}T${draft.time}:00+08:00`,
       notes: draft.notes.trim(),
     };
+    updateDemoState((previous) => ({
+      ...previous,
+      sequence: previous.sequence + 1,
+      workflows: { ...previous.workflows, [receipt.outcome]: receipt },
+    }));
     return success(receipt);
   }),
 ];

@@ -17,8 +17,33 @@
   padding: var(--vd-spacing-16) var(--vd-spacing-20);
 }
 .listPanel {
+  --task-panel-background: #fff;
   min-width: 0;
   overflow: visible;
+  background: var(--task-panel-background);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--vd-text-primary) 5%, transparent);
+  .table {
+    --table-body-background: var(--task-panel-background);
+    --table-row-hover-background: color-mix(
+      in srgb,
+      var(--vd-brand-primary) 3%,
+      var(--table-body-background)
+    );
+  }
+  .table[data-hoverable='true'] tbody > tr[data-task-id] {
+    transition: box-shadow var(--vd-duration-180) var(--vd-easing-standard);
+    &:is(:hover, :focus-within) {
+      box-shadow: 0 3px 10px color-mix(in srgb, var(--vd-text-primary) 9%, transparent);
+    }
+  }
+}
+:global([data-theme='dark']) .listPanel {
+  --task-panel-background: var(--vd-surface-elevated);
+}
+@media (prefers-reduced-motion: reduce) {
+  .listPanel .table[data-hoverable='true'] tbody > tr[data-task-id] {
+    transition: none;
+  }
 }
 .filterToolbar {
   padding: var(--vd-spacing-20);

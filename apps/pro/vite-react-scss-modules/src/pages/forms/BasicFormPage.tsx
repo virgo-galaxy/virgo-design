@@ -9,6 +9,7 @@ import {
   Form,
   Input,
   Radio,
+  Select,
   Slider,
   Surface,
   Textarea,
@@ -19,10 +20,13 @@ import { Link, useNavigate } from 'react-router';
 
 import { MutationFeedback } from '@/application/MutationFeedback';
 import { useProData } from '@/application/pro-data-context';
+import { useCurrentUser } from '@/application/session-context';
 import { useMutation } from '@/application/use-mutation';
 import { initialWorkRequest, validateWorkRequest, type WorkRequest } from '@/data/pro-workflows';
 import { projectDetailPath } from '@/data/projects';
-import { isTaskPriority, taskPriorities } from '@/data/tasks';
+import { isTaskPriority, type Task,taskPriorities } from '@/data/tasks';
+import { isAdmin } from '@/lib/auth/permissions';
+import { businessLabel } from '@/lib/demo/labels';
 import { Panel, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { getTaskPriorityLabel } from '@/pages/tasks/task-presentation';
@@ -36,7 +40,7 @@ export function BasicFormPage({
 }: {
   draft: WorkRequest;
   setDraft: Dispatch<SetStateAction<WorkRequest>>;
-  onCreate: (draft: WorkRequest) => Promise<void>;
+  onCreate: (draft: WorkRequest) => Promise<Task>;
 }) {
   const { taskProjects, projects, taskAssignees } = useProData();
 
@@ -45,7 +49,8 @@ export function BasicFormPage({
   const [errors, setErrors] = useState<ReturnType<typeof validateWorkRequest>>({});
   const formRef = useRef<HTMLFormElement>(null);
   const navigate = useNavigate();
-  const project = projects.find((item) => item.name === draft.project)!;
+  const admin = isAdmin(useCurrentUser());
+  const project = projects.find((item) => item.name === draft.project) ?? projects[0]!;
   const update = <Key extends keyof WorkRequest>(key: Key, value: WorkRequest[Key]) => {
     setDraft((previous) => ({ ...previous, [key]: value }));
     setErrors((previous) => {
@@ -70,7 +75,7 @@ export function BasicFormPage({
             className={styles.requestForm}
             onSubmit={(event) => {
               event.preventDefault();
-              const next = validateWorkRequest(draft, taskProjects, taskAssignees);
+              const next = validateWorkRequest(draft, taskProjects, taskAssignees, projects);
               setErrors(next);
               if (Object.keys(next).length) {
                 requestAnimationFrame(() =>
@@ -79,9 +84,11 @@ export function BasicFormPage({
                 return;
               }
               void mutation.run(async () => {
-                await onCreate(draft);
+                const task = await onCreate(draft);
                 setDraft({ ...initialWorkRequest });
-                navigate('/result/success');
+                navigate(
+                  admin ? '/result/success' : `/work/tasks?task=${encodeURIComponent(task.id)}`,
+                );
               });
             }}
           >
@@ -94,7 +101,7 @@ export function BasicFormPage({
                 <Field required invalid={Boolean(errors.title)}>
                   <Field.Label>{t('forms.requestTitle')}</Field.Label>
                   <Input
-                    value={draft.title}
+                    value={businessLabel(draft.title, i18n.language)}
                     onChange={(event) => update('title', event.target.value)}
                     placeholder={t('forms.aSpecificOutcomeInAFewWords')}
                     maxLength={120}
@@ -113,7 +120,7 @@ export function BasicFormPage({
                   <Field.Label>{t('forms.contextAndAcceptanceNotes')}</Field.Label>
                   <Textarea
                     rows={5}
-                    value={draft.description}
+                    value={businessLabel(draft.description, i18n.language)}
                     onChange={(event) => update('description', event.target.value)}
                     placeholder={t('forms.describeTheProblemUsefulContextAndTheAcceptanceCriteria')}
                     maxLength={2000}
@@ -139,7 +146,18 @@ export function BasicFormPage({
                     <Combobox
                       size="medium"
                       value={draft.project}
-                      onValueChange={(value) => update('project', value)}
+                      onValueChange={(value) => {
+                        const project = projects.find((entry) => entry.name === value);
+                        setDraft((previous) => ({
+                          ...previous,
+                          project: value,
+                          module: '',
+                          assignee: project?.memberIds.includes(previous.assignee)
+                            ? previous.assignee
+                            : '',
+                        }));
+                        setErrors({});
+                      }}
                     >
                       <Combobox.Input placeholder={t('forms.findAProject')} />
                       <Combobox.Content>
@@ -147,10 +165,10 @@ export function BasicFormPage({
                           <Combobox.Option
                             key={item.id}
                             value={item.name}
-                            textValue={item.name}
+                            textValue={businessLabel(item.name, i18n.language)}
                             keywords={[item.code]}
                           >
-                            {item.name}
+                            {businessLabel(item.name, i18n.language)}
                             <span className={shared.mono}>{item.code}</span>
                           </Combobox.Option>
                         ))}
@@ -159,6 +177,22 @@ export function BasicFormPage({
                     </Combobox>
                     {errors.project ? (
                       <Field.Message>{t(`tasks.validation.${errors.project}`)}</Field.Message>
+                    ) : null}
+                  </Field>
+                  <Field required invalid={Boolean(errors.module)}>
+                    <Field.Label>{t('tasks.module')}</Field.Label>
+                    <Select value={draft.module} onValueChange={(value) => update('module', value)}>
+                      <Select.Trigger placeholder={t('tasks.chooseAModule')} />
+                      <Select.Content>
+                        {(project?.modules ?? []).map((module) => (
+                          <Select.Option key={module.id} value={module.id}>
+                            {businessLabel(module.name, i18n.language)}
+                          </Select.Option>
+                        ))}
+                      </Select.Content>
+                    </Select>
+                    {errors.module ? (
+                      <Field.Message>{t(`tasks.validation.${errors.module}`)}</Field.Message>
                     ) : null}
                   </Field>
                   <Field required invalid={Boolean(errors.assignee)}>
@@ -170,16 +204,18 @@ export function BasicFormPage({
                     >
                       <Combobox.Input placeholder={t('forms.findATeamMember')} />
                       <Combobox.Content>
-                        {taskAssignees.map((person) => (
-                          <Combobox.Option
-                            key={person.id}
-                            value={person.id}
-                            textValue={person.name}
-                            keywords={[person.initials]}
-                          >
-                            <Person id={person.id} />
-                          </Combobox.Option>
-                        ))}
+                        {taskAssignees
+                          .filter((person) => project?.memberIds.includes(person.id))
+                          .map((person) => (
+                            <Combobox.Option
+                              key={person.id}
+                              value={person.id}
+                              textValue={businessLabel(person.name, i18n.language)}
+                              keywords={[person.initials]}
+                            >
+                              <Person id={person.id} />
+                            </Combobox.Option>
+                          ))}
                         <Combobox.Empty>{t('forms.noTeamMemberMatches')}</Combobox.Empty>
                       </Combobox.Content>
                     </Combobox>

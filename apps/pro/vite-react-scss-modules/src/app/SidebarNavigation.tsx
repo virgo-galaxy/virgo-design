@@ -3,7 +3,9 @@ import { useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
+import { useCurrentUser } from '@/application/session-context';
 import type { SidebarStyle } from '@/components/global-settings/settings';
+import { canVisitPage } from '@/lib/auth/permissions';
 
 import styles from './AppShell.module.scss';
 import { navigationGroups as baseNavigationGroups } from './navigation';
@@ -24,11 +26,16 @@ export function SidebarNavigation({
   showOverlayArrows: boolean;
 }) {
   const { t } = useTranslation();
-  const navigationGroups = baseNavigationGroups.map((group) => ({
-    ...group,
-    label: getGroupLabel(t, group.id),
-    pages: group.pages.map((page) => ({ ...page, label: getPageLabel(t, page.page) })),
-  }));
+  const user = useCurrentUser();
+  const navigationGroups = baseNavigationGroups
+    .map((group) => ({
+      ...group,
+      label: getGroupLabel(t, group.id),
+      pages: group.pages
+        .filter((page) => canVisitPage(user, page.page))
+        .map((page) => ({ ...page, label: getPageLabel(t, page.page) })),
+    }))
+    .filter((group) => group.pages.length);
   const menuId = useId();
   const currentPage = proRouting.match(pathname);
   const currentGroup = currentPage?.group?.id;
@@ -51,7 +58,13 @@ export function SidebarNavigation({
       key={collapsed ? 'compact' : 'expanded'}
       orientation="vertical"
       submenu={collapsed ? 'popover' : 'inline'}
-      value={currentPage?.path ?? pathname}
+      value={
+        pathname.startsWith('/work/tasks/') || currentPage?.page === 'task-cards'
+          ? '/work/tasks'
+          : pathname.startsWith('/work/projects/')
+            ? '/work/projects'
+            : (currentPage?.path ?? pathname)
+      }
       className={styles.navigation}
       data-compact={collapsed}
       aria-label={t('app.mainNavigation')}

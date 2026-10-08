@@ -16,6 +16,7 @@ import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useProData } from '@/application/pro-data-context';
+import { businessLabel } from '@/lib/demo/labels';
 
 import styles from './ProPage.module.scss';
 
@@ -191,7 +192,7 @@ export function MultiFilterSelect({
 export function Person({ id, size = 'md' }: { id: string; size?: AvatarSize }) {
   const { taskAssignees } = useProData();
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const member = taskAssignees.find((person) => person.id === id);
   return (
     <span className={styles.person}>
@@ -201,7 +202,7 @@ export function Person({ id, size = 'md' }: { id: string; size?: AvatarSize }) {
         fallback={member?.initials ?? '?'}
         className={styles.avatar}
       />
-      <span>{member?.name ?? t('shared.unassigned')}</span>
+      <span>{member ? businessLabel(member.name, i18n.language) : t('shared.unassigned')}</span>
     </span>
   );
 }

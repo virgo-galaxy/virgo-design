@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useProData } from '@/application/pro-data-context';
 import { type DataQuery as Filters, emptyDataQuery, queryError } from '@/data/data-query';
 import { filterValues, taskPriorities, taskStatuses } from '@/data/tasks';
+import { businessLabel } from '@/lib/demo/labels';
 import { FilterSelect, MultiFilterSelect } from '@/pages/shared/ProPage';
 import {
   getTaskPriorityLabel,
@@ -110,8 +111,11 @@ export function TaskFilters({
           label={t('tasks.project')}
           placeholder={t('tasks.allProjects')}
           value={filterValues(draft.project)}
-          onChange={(project) => onChange({ ...draft, project })}
-          options={taskProjects.map((project) => ({ value: project, label: project }))}
+          onChange={(project) => onChange({ ...draft, project, module: 'all' })}
+          options={taskProjects.map((project) => ({
+            value: project,
+            label: businessLabel(project, i18n.language),
+          }))}
         />
         <Field invalid={assigneeError}>
           <Field.Label className={styles.filterLabel}>{t('tasks.assignee')}</Field.Label>
@@ -119,7 +123,7 @@ export function TaskFilters({
             size="medium"
             className={styles.assigneeAutocomplete}
             value={selectedAssignee}
-            inputValue={assigneeInput}
+            inputValue={businessLabel(assigneeInput, i18n.language)}
             open={assigneeOpen && Boolean(assigneeInput.trim())}
             onOpenChange={setAssigneeOpen}
             onInputValueChange={setAssigneeInput}
@@ -139,8 +143,12 @@ export function TaskFilters({
             />
             <Combobox.Content>
               {taskAssignees.map((member) => (
-                <Combobox.Option key={member.id} value={member.id} textValue={member.name}>
-                  {member.name}
+                <Combobox.Option
+                  key={member.id}
+                  value={member.id}
+                  textValue={businessLabel(member.name, i18n.language)}
+                >
+                  {businessLabel(member.name, i18n.language)}
                 </Combobox.Option>
               ))}
               <Combobox.Empty>{t('forms.noTeamMemberMatches')}</Combobox.Empty>

@@ -1,9 +1,11 @@
+import { announceTaskChange } from '@/lib/data-events';
 import { http } from '@/lib/http';
 
 import type {
   TaskDeleteRequest,
   TaskDeleteResult,
   TaskDto,
+  TaskHistoryEntry,
   TaskListDto,
   TaskListQuery,
   TaskMetadataDto,
@@ -20,11 +22,15 @@ export function getTasks(query: TaskListQuery = {}, signal?: AbortSignal): Promi
 export function getTask(id: string, signal?: AbortSignal): Promise<TaskDto> {
   return http.get(`/tasks/${encodeURIComponent(id)}`, signal ? { signal } : undefined);
 }
-export function createTask(request: TaskRequest): Promise<TaskDto> {
-  return http.post('/tasks', request);
+export async function createTask(request: TaskRequest): Promise<TaskDto> {
+  const task = await http.post<TaskDto>('/tasks', request);
+  announceTaskChange();
+  return task;
 }
-export function updateTask(id: string, request: Partial<TaskRequest>): Promise<TaskDto> {
-  return http.patch(`/tasks/${encodeURIComponent(id)}`, request);
+export async function updateTask(id: string, request: Partial<TaskRequest>): Promise<TaskDto> {
+  const task = await http.patch<TaskDto>(`/tasks/${encodeURIComponent(id)}`, request);
+  announceTaskChange();
+  return task;
 }
 export function updateTaskStatus(id: string, status: TaskStatusDto): Promise<TaskDto> {
   return updateTask(id, { status });
@@ -33,6 +39,12 @@ export function getTaskMetadata(signal?: AbortSignal): Promise<TaskMetadataDto> 
   return http.get('/tasks/metadata', signal ? { signal } : undefined);
 }
 
-export function deleteTasks(request: TaskDeleteRequest): Promise<TaskDeleteResult> {
-  return http.post('/tasks/batch-delete', request);
+export async function deleteTasks(request: TaskDeleteRequest): Promise<TaskDeleteResult> {
+  const result = await http.post<TaskDeleteResult>('/tasks/batch-delete', request);
+  announceTaskChange();
+  return result;
+}
+
+export function getTaskHistory(id: string, signal?: AbortSignal): Promise<TaskHistoryEntry[]> {
+  return http.get(`/tasks/${encodeURIComponent(id)}/history`, signal ? { signal } : undefined);
 }

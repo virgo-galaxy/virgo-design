@@ -141,7 +141,7 @@ describe('pro locale runtime', () => {
     expect(i18nInstance.t(`profile.validation.${errors.name!}`)).toContain('显示名称');
     expect(i18nInstance.t(`data.validation.${error}`)).toContain('整数');
     expect(i18nInstance.t(`results.receipts.${sampleSuccess.message}.title`)).toBe(
-      '键盘操作审查已完成',
+      '工作请求已受理',
     );
     expect(taskDraft(initialTaskState.tasks[0]!)).toEqual(draft);
   });

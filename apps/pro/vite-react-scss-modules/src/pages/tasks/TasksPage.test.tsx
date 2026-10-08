@@ -2,9 +2,10 @@
 import { createEvent, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
-import { MemoryRouter } from 'react-router';
+import { createMemoryRouter, Outlet, RouterProvider } from 'react-router';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { login } from '@/api/auth';
 import { getTasks } from '@/api/tasks';
 import { useProData } from '@/application/pro-data-context';
 import { ProDataProvider } from '@/application/ProDataProvider';
@@ -12,7 +13,9 @@ import { initialTaskState } from '@/mock/fixtures/tasks';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';
 
+import { TaskCardsPage } from './TaskCardsPage';
 import { TasksPage } from './TasksPage';
+import { TaskWorkspacePage } from './TaskWorkspacePage';
 import { taskTableStorageKey } from './use-table-settings';
 
 const server = setupServer(...handlers);
@@ -30,11 +33,27 @@ function Page() {
 }
 function renderPage(path = '/work/tasks') {
   render(
-    <MemoryRouter initialEntries={[path]}>
-      <ProDataProvider>
-        <Page />
-      </ProDataProvider>
-    </MemoryRouter>,
+    <RouterProvider
+      router={createMemoryRouter(
+        [
+          {
+            element: (
+              <ProDataProvider>
+                <Outlet />
+              </ProDataProvider>
+            ),
+            children: [
+              { path: '/work/tasks', element: <Page /> },
+              { path: '/work/task-cards', element: <TaskCardsPage /> },
+              { path: '/work/tasks/new', element: <TaskWorkspacePage mode="create" /> },
+              { path: '/work/tasks/:id', element: <TaskWorkspacePage mode="details" /> },
+              { path: '/work/tasks/:id/edit', element: <TaskWorkspacePage mode="edit" /> },
+            ],
+          },
+        ],
+        { initialEntries: [path] },
+      )}
+    />,
   );
 }
 
@@ -49,6 +68,7 @@ describe('Task row actions and batch deletion', () => {
     try {
       renderPage();
       await screen.findByRole('checkbox', { name: 'Select task 49e7996a-311b' });
+      expect(screen.queryByRole('radiogroup', { name: 'Task view' })).not.toBeInTheDocument();
       expect(requests).toHaveLength(1);
       expect(requests[0]!.searchParams.get('pageNum')).toBe('1');
       expect(requests[0]!.searchParams.get('pageSize')).toBe('10');
@@ -81,18 +101,18 @@ describe('Task row actions and batch deletion', () => {
     const first = await screen.findByRole('checkbox', { name: 'Select task 49e7996a-311b' });
     const navigation = screen.getByRole('navigation', { name: 'Task pages' });
     const summary = navigation.querySelector('[data-slot="total"]')!;
-    expect(summary).toHaveTextContent('Total 999 items');
+    expect(summary).toHaveTextContent('Total 240 items');
     expect(summary.querySelector('[data-slot="selected"]')).toBeNull();
     fireEvent.click(first);
-    expect(summary).toHaveTextContent('Total 999 items (Selected 1 items)');
+    expect(summary).toHaveTextContent('Total 240 items (Selected 1 items)');
     fireEvent.click(within(navigation).getByRole('button', { name: 'Page 2' }));
     const next = await screen.findByRole('checkbox', { name: 'Select task 1bbcd880-f5e5' });
-    expect(summary).toHaveTextContent('Total 999 items (Selected 1 items)');
+    expect(summary).toHaveTextContent('Total 240 items (Selected 1 items)');
     fireEvent.click(next);
-    expect(summary).toHaveTextContent('Total 999 items (Selected 2 items)');
+    expect(summary).toHaveTextContent('Total 240 items (Selected 2 items)');
   });
 
-  it('places actions after completion time and opens separate read-only details and editing flows', async () => {
+  it('places actions after completion time and navigates to separate task details and editing pages', async () => {
     renderPage();
     const table = await screen.findByRole('table', { name: /^Workspace tasks/ });
     await within(table).findAllByRole('button', { name: 'Details' });
@@ -103,20 +123,135 @@ describe('Task row actions and batch deletion', () => {
         .map((head) => head.textContent),
     ).toEqual(['Completed at', 'Actions']);
     fireEvent.click(within(table).getAllByRole('button', { name: 'Details' })[0]!);
-    const details = await screen.findByRole('dialog', { name: 'Task details' });
-    expect(within(details).queryByRole('textbox')).not.toBeInTheDocument();
-    expect(within(details).getByText('Nina Wu')).toBeInTheDocument();
-    fireEvent.click(within(details).getByRole('button', { name: 'Edit' }));
-    const editor = await screen.findByRole('dialog', { name: 'Edit task' });
-    expect(within(editor).getByRole('textbox', { name: 'Title' })).toHaveValue(
-      'Align release readiness with support',
-    );
-    fireEvent.click(within(editor).getAllByRole('button', { name: 'Close' })[0]!);
-    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
-    fireEvent.click(within(table).getAllByRole('button', { name: 'Edit' })[0]!);
-    expect(await screen.findByRole('dialog', { name: 'Edit task' })).toBeInTheDocument();
+    await screen.findByRole('heading', { name: 'Products: Plan delivery' });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+    expect(screen.getAllByText('Ava Brooks').length).toBeGreaterThan(0);
+    fireEvent.click(screen.getByRole('button', { name: 'Edit task' }));
+    await screen.findByRole('heading', { name: 'Edit task' });
+    expect(screen.getByRole('textbox', { name: 'Title' })).toHaveValue('Products: Plan delivery');
+    expect(screen.queryByRole('combobox', { name: 'Status' })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+    await screen.findByRole('heading', { name: 'Products: Plan delivery' });
+    fireEvent.click(screen.getByRole('link', { name: 'Back to tasks' }));
+    await screen.findByRole('table', { name: /^Workspace tasks/ });
   });
 
+  it('protects unsaved edits, preserves the draft after failure and returns to filtered list after saving', async () => {
+    renderPage('/work/tasks?search=49e7996a-311b');
+    const table = await screen.findByRole('table', { name: /^Workspace tasks/ });
+    fireEvent.click((await within(table).findAllByRole('button', { name: 'Edit' }))[0]!);
+    await screen.findByRole('heading', { name: 'Edit task' });
+    fireEvent.change(screen.getByRole('textbox', { name: 'Title' }), {
+      target: { value: 'Updated delivery task' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+    const warning = await screen.findByRole('dialog', { name: 'Discard unsaved changes?' });
+    fireEvent.click(within(warning).getByRole('button', { name: 'Keep editing' }));
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+    expect(screen.getByRole('textbox', { name: 'Title' })).toHaveValue('Updated delivery task');
+    server.use(
+      http.patch('*/tasks/:id', () =>
+        HttpResponse.json({ code: 'INTERNAL_ERROR', message: 'Save failed' }, { status: 500 }),
+      ),
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Save changes' }));
+    await screen.findByRole('alert');
+    expect(screen.getByRole('textbox', { name: 'Title' })).toHaveValue('Updated delivery task');
+    server.resetHandlers();
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Save changes' })).toBeEnabled());
+    fireEvent.click(screen.getByRole('button', { name: 'Save changes' }));
+    await screen.findByRole('heading', { name: 'Updated delivery task' });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('link', { name: 'Back to tasks' }));
+    await screen.findByRole('table', { name: /^Workspace tasks/ });
+    expect(screen.getByRole('textbox', { name: 'Search tasks' })).toHaveValue('49e7996a-311b');
+  });
+  it('recovers safely from malformed column and pagination parameters', async () => {
+    renderPage(
+      '/work/tasks?page=1.5&columnSearch=%7B%22title%22%3A42%7D&columnFilters=%7B%22status%22%3Afalse%7D&sort=%7B%22column%22%3A%22nope%22%7D',
+    );
+    await screen.findByRole('checkbox', { name: 'Select task 49e7996a-311b' });
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  });
+  it('gives an engineer only their workflow actions and no information editing', async () => {
+    await login({ account: 'hana', password: 'virgo123' });
+    const own = initialTaskState.tasks.find(
+      (task) => task.assignee === 'hana' && task.status === 'todo',
+    )!;
+    renderPage('/work/tasks/' + own.id);
+    await screen.findByRole('heading', { name: own.title });
+    expect(screen.queryByRole('button', { name: 'Edit task' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Confirm completion' })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Start task' }));
+    await screen.findByRole('button', { name: 'Submit for review' });
+    fireEvent.click(screen.getByRole('button', { name: 'Submit for review' }));
+    await waitFor(() =>
+      expect(screen.queryByRole('button', { name: 'Submit for review' })).not.toBeInTheDocument(),
+    );
+    expect(await screen.findByText(/Review requested/)).toBeInTheDocument();
+  });
+  it('keeps cards on their own route and restores the card filter after reading a task', async () => {
+    renderPage('/work/task-cards?search=49e7996a-311b');
+    const link = await screen.findByRole('link', { name: 'Products: Plan delivery' });
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
+    expect(screen.queryByRole('radiogroup', { name: 'Task view' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Delete' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Table settings' })).not.toBeInTheDocument();
+    fireEvent.click(link);
+    await screen.findByRole('heading', { name: 'Products: Plan delivery' });
+    fireEvent.click(screen.getByRole('link', { name: 'Back to task cards' }));
+    await screen.findByRole('link', { name: 'Products: Plan delivery' });
+    expect(screen.getByRole('textbox', { name: 'Search tasks' })).toHaveValue('49e7996a-311b');
+  });
+  it('switches the full search and content area while carrying shared filters without hidden table constraints', async () => {
+    renderPage('/work/tasks?search=49e7996a-311b&status=backlog&status=todo&priority=low');
+    const tabs = await screen.findByRole('tablist', { name: 'Task view' });
+    expect(within(tabs).getByRole('tab', { name: 'Task table' })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    );
+    expect(screen.getByRole('button', { name: 'Priority' })).toBeInTheDocument();
+    expect(screen.getByText('Total tasks')).toBeInTheDocument();
+    expect(within(screen.getByRole('tabpanel')).queryByText('Total tasks')).not.toBeInTheDocument();
+    fireEvent.click(within(tabs).getByRole('tab', { name: 'Task cards' }));
+    const task = await screen.findByRole('link', { name: 'Products: Plan delivery' });
+    expect(screen.getByRole('tab', { name: 'Task cards' })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    );
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Priority' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('textbox', { name: 'Assignee' })).not.toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Search tasks' })).toHaveValue('49e7996a-311b');
+    expect(screen.getByText('Total tasks')).toBeInTheDocument();
+    expect(within(screen.getByRole('tabpanel')).queryByText('Total tasks')).not.toBeInTheDocument();
+    const returnTo = new URL(task.getAttribute('href')!, 'http://localhost').searchParams.get(
+      'returnTo',
+    )!;
+    const cardParams = new URL(returnTo, 'http://localhost').searchParams;
+    expect(cardParams.getAll('status')).toEqual(['backlog', 'todo']);
+    expect(cardParams.has('priority')).toBe(false);
+    fireEvent.click(screen.getByRole('tab', { name: 'Task table' }));
+    await screen.findByRole('checkbox', { name: 'Select task 49e7996a-311b' });
+    expect(screen.getByRole('button', { name: 'Priority' })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: 'Task table' })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    );
+  });
+  it('redirects legacy card view bookmarks and keeps the regular task page as a table', async () => {
+    renderPage('/work/tasks?view=cards&search=49e7996a-311b');
+    await waitFor(() =>
+      expect(screen.getByRole('tab', { name: 'Task cards' })).toHaveAttribute(
+        'aria-selected',
+        'true',
+      ),
+    );
+    await screen.findByRole('link', { name: 'Products: Plan delivery' });
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
+    expect(screen.queryByRole('radiogroup', { name: 'Task view' })).not.toBeInTheDocument();
+  });
   it('keeps delete visible and disabled without selection, supports cancel and retains selection on failure before retrying', async () => {
     renderPage();
     const checkbox = await screen.findByRole('checkbox', { name: 'Select task 49e7996a-311b' });
@@ -132,7 +267,7 @@ describe('Task row actions and batch deletion', () => {
     expect(dialog).toHaveTextContent('Delete 1 selected task');
     fireEvent.click(within(dialog).getByRole('button', { name: 'Cancel' }));
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
-    expect((await getTasks()).total).toBe(999);
+    expect((await getTasks()).total).toBe(240);
     expect(checkbox).toBeChecked();
     server.use(
       http.post(
@@ -146,7 +281,7 @@ describe('Task row actions and batch deletion', () => {
     await within(dialog).findByText('Unable to delete');
     expect(screen.queryByText('Deleted 1 task')).not.toBeInTheDocument();
     expect(checkbox).toBeChecked();
-    expect((await getTasks()).total).toBe(999);
+    expect((await getTasks()).total).toBe(240);
     server.resetHandlers();
     fireEvent.click(within(dialog).getByRole('button', { name: 'Delete' }));
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
@@ -155,14 +290,14 @@ describe('Task row actions and batch deletion', () => {
         screen.queryByRole('checkbox', { name: 'Select task 49e7996a-311b' }),
       ).not.toBeInTheDocument(),
     );
-    expect((await getTasks()).total).toBe(998);
+    expect((await getTasks()).total).toBe(239);
     expect(screen.getByRole('button', { name: 'Delete' })).toBeDisabled();
     expect(
       screen
         .getByRole('navigation', { name: 'Task pages' })
         .querySelector('[data-slot="selected"]'),
     ).toBeNull();
-    expect(screen.getByText('Total 998 items')).toBeInTheDocument();
+    expect(screen.getByText('Total 239 items')).toBeInTheDocument();
     expect(screen.getByText('Deleted 1 task')).toBeInTheDocument();
     expect(screen.getByRole('region', { name: 'Task feedback' })).toHaveAttribute(
       'data-placement',
@@ -190,7 +325,7 @@ describe('Task row actions and batch deletion', () => {
         ).not.toBeInTheDocument(),
       );
     }
-    expect((await getTasks()).total).toBe(997);
+    expect((await getTasks()).total).toBe(238);
   });
 });
 
@@ -557,7 +692,7 @@ it('shows optional ID beside selection, completed timestamps and distinct defaul
   const row = table.querySelector('[data-task-id="32d238f5-9380"]')!;
   expect(row.querySelector('[data-column-key="completedAt"] time')).toHaveAttribute(
     'datetime',
-    '2026-09-30T09:40:00Z',
+    initialTaskState.tasks.find((task) => task.id === '32d238f5-9380')!.completedAt!,
   );
   expect(
     table.querySelector('[data-task-id="49e7996a-311b"] [data-column-key="completedAt"]'),
@@ -615,11 +750,22 @@ it('numbers rows continuously across pages and preserves UUID in the Task column
   expect(numbers()).toEqual(['11', '12', '13', '14', '15', '16', '17', '18', '19', '20']);
   fireEvent.click(
     within(screen.getByRole('navigation', { name: 'Task pages' })).getByRole('button', {
-      name: 'Page 100',
+      name: 'Page 24',
     }),
   );
   await waitFor(() =>
-    expect(numbers()).toEqual(['991', '992', '993', '994', '995', '996', '997', '998', '999']),
+    expect(numbers()).toEqual([
+      '231',
+      '232',
+      '233',
+      '234',
+      '235',
+      '236',
+      '237',
+      '238',
+      '239',
+      '240',
+    ]),
   );
   fireEvent.click(within(table).getByRole('button', { name: 'Created at' }));
   await within(table).findByRole('checkbox', { name: 'Select task 49e7996a-311b' });

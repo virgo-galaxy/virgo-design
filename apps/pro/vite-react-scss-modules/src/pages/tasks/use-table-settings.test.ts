@@ -300,7 +300,7 @@ it('repairs duplicate or missing columns, invalid bounds and hidden data columns
     }),
   );
   expect(result.size).toBe('medium');
-  expect(result.columns).toHaveLength(12);
+  expect(result.columns).toHaveLength(13);
   expect(result.selectionActions).toEqual(['odd']);
   expect(result.columns.find((column) => column.key === 'title')).toMatchObject({
     visible: true,

@@ -22,6 +22,7 @@ export const emptyDataQuery: DataQuery = {
   status: 'all',
   priority: 'all',
   project: 'all',
+  module: 'all',
   assignee: 'all',
   createdFrom: '',
   createdTo: '',
@@ -93,6 +94,7 @@ export function queryFromParams(params: URLSearchParams): DataQuery {
     values.length > 1 ? values : (values[0] ?? 'all');
   query.status = collapse(params.getAll('status').filter(isTaskStatus));
   query.priority = collapse(params.getAll('priority').filter(isTaskPriority));
+  query.module = collapse(params.getAll('module').filter((value) => value !== 'all'));
   query.project = collapse(params.getAll('project').filter((value) => value !== 'all'));
   query.assignee = collapse(params.getAll('assignee').filter((value) => value !== 'all'));
   query.due = collapse(

@@ -1,123 +1,95 @@
-import type { ProjectDto as Project } from '@/api/projects';
-export const projects: Project[] = [
+import type { ProjectDto } from '@/api/projects';
+
+import { projectNames, teamAssignments } from './team';
+
+const definitions = [
   {
-    id: 'workspace',
-    name: 'Workspace',
-    code: 'PRJ-01',
+    id: 'online-store',
+    start: '2025-06-02',
     owner: 'ava',
     health: 'At risk',
-    summary: 'A clearer workspace for everyday team delivery.',
+    summary: 'Browse products, place orders and pay online.',
     objective:
-      'Make navigation, ownership handoffs and release permissions predictable. Every destination should have a clear next action and a reliable path back.',
-    start: '2026-09-14',
-    due: '2026-10-06',
-    color: 1,
-    milestones: [
-      {
-        title: 'Scope agreed',
-        date: '2026-09-14',
-        note: 'Navigation and task handoffs are the release focus.',
-      },
-      {
-        title: 'Team review',
-        date: '2026-10-02',
-        note: 'Resolve the navigation review and overdue handoff checklist.',
-      },
-      {
-        title: 'October release checkpoint',
-        date: '2026-10-06',
-        note: 'Attach acceptance notes and confirm support readiness.',
-      },
-    ],
+      'Deliver a reliable shopping journey from product discovery to payment and after-sales support.',
+    modules: ['Products', 'Search', 'Cart', 'Orders', 'Payments', 'After-sales'],
+    due: '2026-10-20',
   },
   {
-    id: 'design-system',
-    name: 'Design system',
-    code: 'PRJ-02',
-    owner: 'eli',
-    health: 'On track',
-    summary: 'Consistent controls, accessible by default.',
-    objective:
-      'Validate keyboard behavior and publish density guidance so teams can compose busy product screens with confidence.',
-    start: '2026-09-16',
-    due: '2026-10-08',
-    color: 2,
-    milestones: [
-      {
-        title: 'Keyboard audit',
-        date: '2026-10-01',
-        note: 'Audit delivered; findings linked to shared controls.',
-      },
-      {
-        title: 'Acceptance review',
-        date: '2026-10-06',
-        note: 'Verify focus, appearance switching and error feedback.',
-      },
-      {
-        title: 'Guidelines handoff',
-        date: '2026-10-08',
-        note: 'Share control density patterns with the product team.',
-      },
-    ],
-  },
-  {
-    id: 'onboarding',
-    name: 'Onboarding',
-    code: 'PRJ-03',
+    id: 'booking-system',
+    start: '2025-09-08',
     owner: 'leo',
     health: 'On track',
-    summary: 'From the first invitation to the first meaningful action.',
-    objective:
-      'Reduce friction in invitations and welcome messages. Give every first-week touchpoint a single owner and measurable acceptance criteria.',
-    start: '2026-09-21',
-    due: '2026-10-14',
-    color: 3,
-    milestones: [
-      {
-        title: 'Touchpoint map',
-        date: '2026-10-03',
-        note: 'Agree on ownership between invitation and first delivery.',
-      },
-      {
-        title: 'Invitation copy',
-        date: '2026-10-09',
-        note: 'Make expired invitation recovery clear and safe.',
-      },
-      {
-        title: 'Activation review',
-        date: '2026-10-14',
-        note: 'Review first-week funnel findings with product.',
-      },
+    summary: 'Choose a service and reserve an available time.',
+    objective: 'Let customers book, reschedule and cancel appointments without time conflicts.',
+    modules: [
+      'Service catalog',
+      'Availability',
+      'Reservations',
+      'Rescheduling',
+      'Reminders',
+      'Administration',
     ],
+    due: '2026-10-23',
   },
   {
-    id: 'discovery',
-    name: 'Discovery',
-    code: 'PRJ-04',
-    owner: 'nina',
-    health: 'Planning',
-    summary: 'Help people find useful work without the noise.',
+    id: 'support-desk',
+    start: '2026-01-12',
+    owner: 'ava',
+    health: 'On track',
+    summary: 'Submit customer issues and track their resolution.',
     objective:
-      'Improve search result clarity, remove duplicate suggestions and document ranking signals for reproducible support cases.',
-    start: '2026-09-23',
-    due: '2026-10-12',
-    color: 4,
-    milestones: [
-      {
-        title: 'Search baseline',
-        date: '2026-09-23',
-        note: 'Review suggestion sources and empty-state recovery.',
-      },
-      {
-        title: 'Ranking documentation',
-        date: '2026-10-07',
-        note: 'Document recency, exact matches and project membership.',
-      },
-      {
-        title: 'Search quality review',
-        date: '2026-10-12',
-        note: 'Verify duplicate handling and recovery paths.',
-      },
+      'Give customers and support agents a clear path from a reported issue to a resolved ticket.',
+    modules: [
+      'Ticket intake',
+      'Routing',
+      'Collaboration',
+      'Notifications',
+      'Knowledge base',
+      'Reporting',
     ],
+    due: '2026-10-27',
   },
-];
+  {
+    id: 'inventory-system',
+    start: '2026-04-06',
+    owner: 'leo',
+    health: 'Planning',
+    summary: 'Track stock received, dispatched and counted.',
+    objective:
+      'Keep inventory accurate with traceable stock movements, reconciliation and low-stock alerts.',
+    modules: ['Item catalog', 'Receiving', 'Dispatch', 'Stocktaking', 'Stock alerts', 'Audit log'],
+    due: '2026-10-30',
+  },
+] as const;
+export const projects: ProjectDto[] = definitions.map((definition, index) => ({
+  ...definition,
+  name: projectNames[index]!,
+  code: `PRJ-0${index + 1}`,
+  memberIds: teamAssignments
+    .filter((person) => person.projects.includes(index))
+    .map((person) => person.id),
+  modules: definition.modules.map((name, moduleIndex) => ({
+    id: `${definition.id}-${moduleIndex + 1}`,
+    name,
+  })),
+  color: index + 1,
+  milestones: [
+    {
+      title: 'Requirements agreed',
+      date: new Date(Date.parse(`${definition.start}T00:00:00Z`) + 14 * 86400000)
+        .toISOString()
+        .slice(0, 10),
+      note: `Agree on the six modules and acceptance criteria for ${projectNames[index]}.`,
+    },
+    {
+      title: 'Integration review',
+      date: '2026-10-09',
+      note: 'Review the working screens, APIs and test results with the project manager.',
+    },
+    {
+      title: 'Release checkpoint',
+      date: definition.due,
+      note: 'Confirm delivery readiness, deployment and remaining follow-up tasks.',
+    },
+  ],
+}));

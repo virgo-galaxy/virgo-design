@@ -27,6 +27,7 @@ import { Link } from 'react-router';
 
 import { MutationFeedback } from '@/application/MutationFeedback';
 import { useProData } from '@/application/pro-data-context';
+import { useCurrentUser } from '@/application/session-context';
 import { useMutation } from '@/application/use-mutation';
 import {
   accountAvatarImage,
@@ -38,6 +39,8 @@ import {
 } from '@/data/pro-workflows';
 import { projectDetailPath } from '@/data/projects';
 import type { TaskState } from '@/data/tasks';
+import { isAdmin } from '@/lib/auth/permissions';
+import { businessLabel } from '@/lib/demo/labels';
 import { FilterSelect, Panel, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { getActivityActionLabel } from '@/pages/workplace/activity-presentation';
@@ -159,7 +162,6 @@ function ProfileEditor({
                   style={{
                     background: draft.avatarImage ? 'transparent' : draft.avatarColor,
                     border: 'none',
-                    borderRadius: 0,
                     color: avatarForeground(draft.avatarColor),
                   }}
                 />
@@ -373,7 +375,7 @@ export function ProfilePage({
   const { projects, activity } = useProData();
 
   const mutation = useMutation();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [editing, setEditing] = useState(false);
   const [preferences, setPreferences] = useState(profile);
   const [preferenceError, setPreferenceError] = useState<keyof typeof profileEnUS.validation | ''>(
@@ -383,6 +385,7 @@ export function ProfilePage({
     null,
   );
   const noticeId = useRef(0);
+  const admin = isAdmin(useCurrentUser());
   const editRef = useRef<HTMLButtonElement>(null);
   const notify = (kind: 'preferences' | 'profile') => setNotice({ id: ++noticeId.current, kind });
   const focusProject = projects.find((item) => item.id === profile.focusProject)!;
@@ -409,7 +412,6 @@ export function ProfilePage({
                 style={{
                   background: accountAvatarImage(profile) ? 'transparent' : profile.avatarColor,
                   border: 'none',
-                  borderRadius: 0,
                   color: avatarForeground(profile.avatarColor),
                 }}
               />
@@ -432,6 +434,7 @@ export function ProfilePage({
             <span className={shared.caption}>{t('profile.memberSinceSeptember2026')}</span>
             <Button
               ref={editRef}
+              disabled={!admin}
               size="medium"
               variant="outline"
               leadingIcon={<UserIcon />}
@@ -671,7 +674,7 @@ export function ProfilePage({
                   <Button
                     size="medium"
                     type="submit"
-                    disabled={mutation.pending || !preferenceDirty}
+                    disabled={!admin || mutation.pending || !preferenceDirty}
                   >
                     {t('profile.savePreferences')}
                   </Button>
@@ -694,12 +697,12 @@ export function ProfilePage({
                 >
                   {activity.map((event) => (
                     <Timeline.Item key={event.id} status={event.status}>
-                      <Timeline.Title>{event.name}</Timeline.Title>
+                      <Timeline.Title>{businessLabel(event.name, i18n.language)}</Timeline.Title>
                       <Timeline.Description>
-                        {getActivityActionLabel(t, event.id)}
+                        {getActivityActionLabel(t, event, i18n.language)}
                       </Timeline.Description>
                       <Timeline.Time dateTime={event.dateTime}>
-                        {event.time} · {event.project}
+                        {event.time} · {businessLabel(event.project, i18n.language)}
                       </Timeline.Time>
                     </Timeline.Item>
                   ))}

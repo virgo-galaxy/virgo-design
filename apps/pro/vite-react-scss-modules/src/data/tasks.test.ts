@@ -31,7 +31,8 @@ const draft: TaskDraft = {
   description: 'Check nested panels and return focus.',
   status: 'todo',
   priority: 'high',
-  project: 'Workspace',
+  project: 'Online Store',
+  module: 'online-store-1',
   assignee: 'ava',
   dueDate: '2026-10-05',
   estimateHours: 4,
@@ -62,7 +63,7 @@ describe('task filters', () => {
     'keyboard',
     'NESTED PANELS',
     ` ${task.id.toLowerCase()} `,
-    'Workspace',
+    'Online Store',
     taskAssignees[0]!.name,
   ])('searches task content and ownership: %s', (search) => {
     expect(visible([task], { ...emptyTaskFilters, search })).toEqual([task]);
@@ -73,7 +74,8 @@ describe('task filters', () => {
       search: 'keyboard',
       status: 'todo',
       priority: 'high',
-      project: 'Workspace',
+      project: 'Online Store',
+      module: 'all',
       assignee: 'ava',
     };
     expect(visible([task], filters)).toEqual([task]);
@@ -81,7 +83,7 @@ describe('task filters', () => {
       { search: 'missing' },
       { status: 'done' },
       { priority: 'low' },
-      { project: 'Discovery' },
+      { project: 'Inventory System' },
       { assignee: 'leo' },
     ];
     for (const mismatch of mismatches)
@@ -94,41 +96,41 @@ describe('task filters', () => {
     expect(visible(initialTaskState.tasks, filters)).toEqual([]);
     expect(hasTaskFilters(emptyTaskFilters)).toBe(false);
     expect(hasTaskFilters({ ...emptyTaskFilters, search: '   ' })).toBe(false);
-    expect(visible(initialTaskState.tasks, emptyTaskFilters)).toHaveLength(999);
+    expect(visible(initialTaskState.tasks, emptyTaskFilters)).toHaveLength(240);
   });
   it('matches any selected value per field and intersects fields, with empty selections meaning all', () => {
     const filters: TaskFilters = {
       ...emptyTaskFilters,
       status: ['todo', 'in_progress'],
       priority: ['high', 'urgent'],
-      project: ['Workspace', 'Discovery'],
+      project: ['Online Store', 'Inventory System'],
       assignee: ['ava', 'leo'],
     };
     const expected = initialTaskState.tasks.filter(
       (task) =>
         ['todo', 'in_progress'].includes(task.status) &&
         ['high', 'urgent'].includes(task.priority) &&
-        ['Workspace', 'Discovery'].includes(task.project) &&
+        ['Online Store', 'Inventory System'].includes(task.project) &&
         ['ava', 'leo'].includes(task.assignee),
     );
     expect(visible(initialTaskState.tasks, filters)).toEqual(expected);
     expect(hasTaskFilters(filters)).toBe(true);
-    const clear = { search: '', status: [], priority: [], project: [], assignee: [] };
+    const clear = { search: '', status: [], priority: [], project: [], module: [], assignee: [] };
     expect(hasTaskFilters(clear)).toBe(false);
-    expect(visible(initialTaskState.tasks, clear)).toHaveLength(999);
+    expect(visible(initialTaskState.tasks, clear)).toHaveLength(240);
   });
 });
 
 describe('task pagination', () => {
-  const paginationState = { ...initialTaskState, tasks: initialTaskState.tasks.slice(0, 256) };
+  const paginationState = { ...initialTaskState, tasks: initialTaskState.tasks.slice(0, 236) };
   it('returns distinct pages and the real range on a partial final page', () => {
     const first = paginateTasks(paginationState.tasks, 1, 10);
-    const second = paginateTasks(paginationState.tasks, 26, 10);
+    const second = paginateTasks(paginationState.tasks, 24, 10);
     expect(first.tasks).toEqual(paginationState.tasks.slice(0, 10));
     expect(first.range).toEqual([1, 10]);
-    expect(second.tasks).toEqual(paginationState.tasks.slice(250));
-    expect(second.range).toEqual([251, 256]);
-    expect(second.pageCount).toBe(26);
+    expect(second.tasks).toEqual(paginationState.tasks.slice(230));
+    expect(second.range).toEqual([231, 236]);
+    expect(second.pageCount).toBe(24);
     expect(new Set([...first.tasks, ...second.tasks].map((item) => item.id)).size).toBe(16);
   });
 
@@ -139,8 +141,8 @@ describe('task pagination', () => {
     expect(result.page).toBe(lastPage);
     expect(result.tasks).toEqual(filtered.slice((lastPage - 1) * 10));
     expect(result.range).toEqual([(lastPage - 1) * 10 + 1, filtered.length]);
-    expect(paginateTasks(paginationState.tasks, 26, 20).page).toBe(13);
-    expect(paginateTasks(paginationState.tasks, 26, 20).tasks).toHaveLength(16);
+    expect(paginateTasks(paginationState.tasks, 24, 20).page).toBe(12);
+    expect(paginateTasks(paginationState.tasks, 24, 20).tasks).toHaveLength(16);
     expect(paginateTasks([], 2, 10)).toEqual({ tasks: [], page: 1, pageCount: 1, range: [0, 0] });
   });
 
@@ -157,10 +159,10 @@ describe('task pagination', () => {
       id: last.id,
       draft: { ...taskDraft(last), title: 'Edited on the final page' },
     });
-    expect(paginateTasks(edited.tasks, 26, 10).tasks.at(-1)?.title).toBe(
+    expect(paginateTasks(edited.tasks, 24, 10).tasks.at(-1)?.title).toBe(
       'Edited on the final page',
     );
-    expect(paginateTasks(edited.tasks, 26, 10).range).toEqual([251, 257]);
+    expect(paginateTasks(edited.tasks, 24, 10).range).toEqual([231, 237]);
   });
 });
 
@@ -174,7 +176,7 @@ describe('task mutations', () => {
     });
     expect(state.tasks[0]).toEqual(task);
     expect(state.nextId).toBe(initialTaskState.nextId + 1);
-    expect(taskOverview(state.tasks, taskReferenceDate).total).toBe(1000);
+    expect(taskOverview(state.tasks, taskReferenceDate).total).toBe(241);
     expect(taskOverview(state.tasks, taskReferenceDate).dueSoon).toBe(
       taskOverview(before.tasks, taskReferenceDate).dueSoon + 1,
     );
@@ -194,7 +196,8 @@ describe('task mutations', () => {
       description: 'All acceptance checks passed.',
       status: 'done',
       priority: 'low',
-      project: 'Design system',
+      project: 'Booking System',
+      module: 'booking-system-1',
       assignee: 'eli',
       dueDate: '',
       estimateHours: 8,
@@ -211,7 +214,8 @@ describe('task mutations', () => {
       visible(state.tasks, {
         ...emptyTaskFilters,
         status: 'done',
-        project: 'Design system',
+        project: 'Booking System',
+        module: 'booking-system-1',
         assignee: 'eli',
       }),
     ).toHaveLength(1);
@@ -272,6 +276,7 @@ describe('validation and dates', () => {
     expect(errors(emptyTaskDraft)).toEqual({
       title: 'titleRequired',
       project: 'projectRequired',
+      module: 'moduleRequired',
       assignee: 'assigneeRequired',
     });
     expect(
@@ -320,7 +325,7 @@ describe('validation and dates', () => {
     expect(new Set(initialTaskState.tasks.map((item) => item.assignee))).toEqual(
       new Set(taskAssignees.map((member) => member.id)),
     );
-    expect(new Set(initialTaskState.tasks.map((item) => item.id)).size).toBe(999);
+    expect(new Set(initialTaskState.tasks.map((item) => item.id)).size).toBe(240);
     for (const item of initialTaskState.tasks) {
       expect(errors(item)).toEqual({});
       expect(item.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}$/);
@@ -328,13 +333,13 @@ describe('validation and dates', () => {
       expect(Number.isNaN(new Date(item.createdAt).getTime())).toBe(false);
     }
     expect(taskOverview(initialTaskState.tasks, taskReferenceDate)).toEqual({
-      total: 999,
+      total: 240,
       inProgress: initialTaskState.tasks.filter((item) => item.status === 'in_progress').length,
       dueSoon: initialTaskState.tasks.filter(
         (item) =>
           item.status !== 'done' &&
           item.dueDate >= taskReferenceDate &&
-          item.dueDate <= '2026-10-09',
+          item.dueDate <= '2026-10-12',
       ).length,
       completed: initialTaskState.tasks.filter((item) => item.status === 'done').length,
     });

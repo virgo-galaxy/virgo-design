@@ -9,6 +9,7 @@ export const taskColumnKeys = [
   'status',
   'priority',
   'project',
+  'module',
   'assignee',
   'estimateHours',
   'createdAt',
