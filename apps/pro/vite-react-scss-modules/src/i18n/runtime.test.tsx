@@ -139,9 +139,9 @@ describe('pro locale runtime', () => {
       '紧急',
     ]);
     expect(i18nInstance.t(`profile.validation.${errors.name!}`)).toContain('显示名称');
-    expect(i18nInstance.t(`data.validation.${error}`)).toContain('整数');
+    expect(i18nInstance.t(`tasks.query.validation.${error}`)).toContain('整数');
     expect(i18nInstance.t(`results.receipts.${sampleSuccess.message}.title`)).toBe(
-      '工作请求已受理',
+      '交接资料已准备',
     );
     expect(taskDraft(initialTaskState.tasks[0]!)).toEqual(draft);
   });

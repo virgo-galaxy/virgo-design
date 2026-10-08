@@ -2,7 +2,24 @@ import type { LocaleOf } from '@/i18n/locale-types';
 
 import type { tasksEnUS } from './en-US';
 export const tasksZhCN = {
+  query: {
+    dueCondition: '截止条件',
+    anyDueDate: '任何截止日期',
+    overdueOpenTasks: '已逾期 · 未完成任务',
+    next7DaysOpenTasks: '未来 7 天 · 未完成任务',
+    unscheduled: '未安排',
+    minimumEstimate: '最低预估工时',
+    validation: {
+      futureDates: '创建日期不能晚于今天。',
+      invalidDates: '请输入有效的创建日期。',
+      dateOrder: '开始日期不能晚于结束日期。',
+      invalidEstimate: '最低预估工时必须是 0 至 999 之间的整数。',
+    },
+    findATeamMember: '查找团队成员',
+    noTeamMemberMatches: '没有匹配的团队成员',
+  },
   workspace: {
+    backToResult: '返回结果',
     tableTitle: '任务表格',
     cardsTitle: '任务卡片',
     cardsDescription: '快速浏览任务概览，查看项目、分工和当前进度。',

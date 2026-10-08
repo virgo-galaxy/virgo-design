@@ -11,13 +11,11 @@ import { LoginPage } from './LoginPage';
 
 const server = setupServer(...handlers);
 beforeAll(() => {
-  window.matchMedia = vi
-    .fn()
-    .mockImplementation(() => ({
-      matches: false,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-    }));
+  window.matchMedia = vi.fn().mockImplementation(() => ({
+    matches: false,
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+  }));
   server.listen({ onUnhandledRequest: 'error' });
 });
 afterEach(() => server.resetHandlers());

@@ -1,33 +1,46 @@
 import { SearchIcon } from '@virgo-design/icons';
-import { Button, Collapsible, Input, Progress, Surface, Tag } from '@virgo-design/ui';
-import { useState } from 'react';
+import { Button, Input, Progress, Surface, Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 
 import { useProData } from '@/application/pro-data-context';
+import { useCurrentUser } from '@/application/session-context';
 import clipboardListArtwork from '@/assets/illustrations/clipboard-list.svg';
 import documentMagnifierArtwork from '@/assets/illustrations/document-magnifier.svg';
 import folderTargetArtwork from '@/assets/illustrations/folder-target.svg';
 import triangleAlertArtwork from '@/assets/illustrations/triangle-alert.svg';
-import { type Project, projectDetailPath, projectSummary } from '@/data/projects';
+import {
+  filterProjects,
+  type Project,
+  projectDetailPath,
+  projectSummary,
+  projectTasksPath,
+} from '@/data/projects';
 import type { TaskState } from '@/data/tasks';
-import { formatDueDate } from '@/data/workplace';
+import { canManageProject } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
-import { getProjectHealthLabel } from '@/pages/projects/project-presentation';
 import { MultiFilterSelect, NoResults, Panel, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { WorkOverview } from '@/pages/shared/WorkOverview';
-import { getTaskStatusLabel } from '@/pages/tasks/task-presentation';
-import { taskLabelStyles, taskStatusIntent } from '@/pages/tasks/task-presentation';
 
-import { healthIntent } from './project-presentation';
+import { formatProjectDate, getProjectHealthLabel, healthIntent } from './project-presentation';
 import styles from './ProjectsPage.module.scss';
 
-function ProjectCard({ project, state }: { project: Project; state: TaskState }) {
+function ProjectCard({
+  project,
+  state,
+  returnTo,
+}: {
+  project: Project;
+  state: TaskState;
+  returnTo: string;
+}) {
   const { taskAssignees, taskReferenceDate } = useProData();
-
+  const user = useCurrentUser()!;
   const { t, i18n } = useTranslation();
   const summary = projectSummary(project, state.tasks, taskAssignees, taskReferenceDate);
+  const tasksPath = projectTasksPath(project);
+  const detailsPath = `${projectDetailPath(project)}?returnTo=${encodeURIComponent(returnTo)}`;
   return (
     <Surface border="subtle" radius={8} className={styles.projectCard}>
       <div className={styles.cardHeading}>
@@ -40,7 +53,7 @@ function ProjectCard({ project, state }: { project: Project; state: TaskState })
         </Tag>
       </div>
       <h3>
-        <Link className={shared.link} to={projectDetailPath(project)}>
+        <Link className={shared.link} to={detailsPath}>
           {businessLabel(project.name, i18n.language)}
         </Link>
       </h3>
@@ -50,7 +63,9 @@ function ProjectCard({ project, state }: { project: Project; state: TaskState })
         <span className={shared.caption}>{t('projects.projectLead')}</span>
       </div>
       <div className={styles.progressLabel}>
-        <span>{t('projects.taskCompletion')}</span>
+        <span>
+          {t(user.role === 'member' ? 'projects.yourCompletion' : 'projects.taskCompletion')}
+        </span>
         <strong>{summary.progress}%</strong>
       </div>
       <Progress
@@ -60,99 +75,84 @@ function ProjectCard({ project, state }: { project: Project; state: TaskState })
           v0: businessLabel(project.name, i18n.language),
         })}
       />
+      <p className={styles.completion}>
+        {t('projects.completedOfTotal', { completed: summary.completed, total: summary.total })}
+      </p>
       <dl className={styles.projectStats}>
-        <div>
-          <dt>{t('projects.tasks')}</dt>
-          <dd>
-            {summary.completed}
-            <span>{t('projects.valueDone', { v0: summary.total })}</span>
-          </dd>
-        </div>
-        <div>
-          <dt>{t('projects.estimate')}</dt>
-          <dd>
-            {summary.hours}
-            <span>{t('projects.h')}</span>
-          </dd>
-        </div>
-        <div>
-          <dt>{t('projects.review')}</dt>
-          <dd>{summary.review}</dd>
-        </div>
+        {[
+          {
+            label: t('projects.openTasks'),
+            value: summary.open,
+            query: '&status=backlog&status=todo&status=in_progress&status=in_review',
+          },
+          { label: t('projects.review'), value: summary.review, query: '&status=in_review' },
+          { label: t('projects.overdue'), value: summary.overdue, query: '&due=overdue' },
+        ].map((metric) => (
+          <div key={metric.label}>
+            <dt>{metric.label}</dt>
+            <dd>
+              <Link
+                className={shared.link}
+                to={tasksPath + metric.query}
+                aria-label={`${metric.label} · ${businessLabel(project.name, i18n.language)} · ${metric.value}`}
+              >
+                {metric.value}
+              </Link>
+            </dd>
+          </div>
+        ))}
       </dl>
       <div className={styles.schedule}>
         <span>
-          {formatDueDate(project.start, i18n.language)} —{' '}
-          {formatDueDate(project.due, i18n.language)}
+          {formatProjectDate(project.start, i18n.language)} —{' '}
+          {formatProjectDate(project.due, i18n.language)}
         </span>
-        <span>
-          {summary.overdue
-            ? t('projects.overdueCount', { count: summary.overdue })
-            : t('projects.openTaskCount', { count: summary.open })}
-        </span>
+        <span>{t('projects.moduleCount', { count: project.modules.length })}</span>
       </div>
-      <Collapsible className={styles.expansion}>
-        <Collapsible.Trigger className={styles.expandTrigger}>
-          {t('projects.relatedWorkValueTasks', { v0: summary.total })}
-        </Collapsible.Trigger>
-        <Collapsible.Content>
-          <ul className={styles.relatedList}>
-            {summary.tasks.map((task) => (
-              <li key={task.id}>
-                <span>
-                  <span className={shared.mono}>{task.id}</span>
-                  {businessLabel(task.title, i18n.language)}
-                </span>
-                <Tag
-                  size="md"
-                  intent={taskStatusIntent[task.status]}
-                  className={taskLabelStyles.tag}
-                >
-                  {getTaskStatusLabel(t, task.status)}
-                </Tag>
-              </li>
-            ))}
-          </ul>
-          <Link className={shared.link} to={projectDetailPath(project)}>
-            {t('projects.openProjectDetails')}
+      <div className={styles.cardActions}>
+        <Link className={shared.link} to={detailsPath}>
+          {t('projects.openProjectDetails')}
+        </Link>
+        <Link className={shared.link} to={tasksPath}>
+          {t('projects.viewTasks')}
+        </Link>
+        {canManageProject(user, project.name) ? (
+          <Link className={shared.link} to={projectDetailPath(project) + '/handoff'}>
+            {t('projects.prepareHandoff')}
           </Link>
-        </Collapsible.Content>
-      </Collapsible>
+        ) : null}
+      </div>
     </Surface>
   );
 }
 
 export function ProjectsPage({ state }: { state: TaskState }) {
   const { taskReferenceDate, projects, taskAssignees } = useProData();
-
+  const user = useCurrentUser()!;
   const { t, i18n } = useTranslation();
-  const [search, setSearch] = useState('');
-  const [health, setHealth] = useState<string[]>([]);
-  const [owner, setOwner] = useState<string[]>([]);
-  const reset = () => {
-    setSearch('');
-    setHealth([]);
-    setOwner([]);
-  };
-  const query = search.trim().toLowerCase();
-  const visible = projects.filter(
-    (project) =>
-      (!health.length || health.includes(project.health)) &&
-      (!owner.length || owner.includes(project.owner)) &&
-      [
-        project.name,
-        project.code,
-        project.summary,
-        taskAssignees.find((member) => member.id === project.owner)?.name,
-      ]
-        .flatMap((text) => (text ? [text, businessLabel(text, 'zh-CN')] : []))
-        .join(' ')
-        .toLowerCase()
-        .includes(query),
-  );
+  const [params, setParams] = useSearchParams();
+  const search = params.get('search') ?? '';
+  const health = params.getAll('health');
+  const owner = params.getAll('lead');
+  const update = (key: string, values: string[]) =>
+    setParams(
+      (previous) => {
+        const next = new URLSearchParams(previous);
+        next.delete(key);
+        for (const value of values.filter(Boolean)) next.append(key, value);
+        return next;
+      },
+      { replace: true },
+    );
+  const reset = () => setParams({}, { replace: true });
+  const visible = filterProjects(projects, taskAssignees, { search, health, leads: owner });
   const summaries = projects.map((project) =>
     projectSummary(project, state.tasks, taskAssignees, taskReferenceDate),
   );
+  const leads = taskAssignees.filter((member) =>
+    projects.some((project) => project.owner === member.id),
+  );
+  const personal = user.role === 'member';
   return (
     <div className={shared.page}>
       <h1 className={shared.srOnly}>{t('app.projects')}</h1>
@@ -165,9 +165,9 @@ export function ProjectsPage({ state }: { state: TaskState }) {
             artwork: folderTargetArtwork,
           },
           {
-            label: t('projects.openTasks'),
+            label: t(personal ? 'projects.yourOpenTasks' : 'projects.openTasks'),
             value: summaries.reduce((sum, item) => sum + item.open, 0),
-            note: t('projects.acrossAllProjects'),
+            note: t(personal ? 'projects.assignedToYou' : 'projects.acrossAllProjects'),
             artwork: clipboardListArtwork,
           },
           {
@@ -186,7 +186,7 @@ export function ProjectsPage({ state }: { state: TaskState }) {
       />
       <Panel
         title={t('projects.activePortfolio')}
-        description={t('projects.fourFocusAreasOneSharedDeliveryPlan')}
+        description={t(personal ? 'projects.personalScope' : 'projects.portfolioScope')}
         actions={
           <Link className={shared.link} to="/work/tasks">
             {t('projects.openTaskQueue')}
@@ -202,7 +202,7 @@ export function ProjectsPage({ state }: { state: TaskState }) {
             value={search}
             clearable
             rootClassName={shared.search!}
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => update('search', [event.target.value])}
           />
           <span className={shared.count} aria-live="polite">
             {t('projects.valueProjectsMatch', { v0: visible.length })}
@@ -221,31 +221,32 @@ export function ProjectsPage({ state }: { state: TaskState }) {
             label={t('projects.projectHealth')}
             placeholder={t('projects.allHealthStates')}
             value={health}
-            onChange={setHealth}
-            options={[
-              ...(['On track', 'At risk', 'Planning'] as const).map((value) => ({
-                value,
-                label: getProjectHealthLabel(t, value),
-              })),
-            ]}
+            onChange={(values) => update('health', values)}
+            options={(['On track', 'At risk', 'Planning'] as const).map((value) => ({
+              value,
+              label: getProjectHealthLabel(t, value),
+            }))}
           />
           <MultiFilterSelect
             label={t('projects.projectLead')}
             placeholder={t('projects.allLeads')}
             value={owner}
-            onChange={setOwner}
-            options={[
-              ...taskAssignees.map((member) => ({
-                value: member.id,
-                label: businessLabel(member.name, i18n.language),
-              })),
-            ]}
+            onChange={(values) => update('lead', values)}
+            options={leads.map((member) => ({
+              value: member.id,
+              label: businessLabel(member.name, i18n.language),
+            }))}
           />
         </div>
         {visible.length ? (
           <div className={styles.projectGrid}>
             {visible.map((project) => (
-              <ProjectCard key={project.id} project={project} state={state} />
+              <ProjectCard
+                key={project.id}
+                project={project}
+                state={state}
+                returnTo={`/work/projects${params.size ? `?${params}` : ''}`}
+              />
             ))}
           </div>
         ) : (
@@ -254,7 +255,7 @@ export function ProjectsPage({ state }: { state: TaskState }) {
         <div className={shared.footer}>
           <span>{t('projects.completionIsCalculatedFromSavedTaskStatusHealthIs')}</span>
           <Tag size="md" variant="outline">
-            {t('projects.octoberCycle')}
+            {t(personal ? 'projects.yourWork' : 'projects.sharedRegister')}
           </Tag>
         </div>
       </Panel>

@@ -2,7 +2,23 @@ import type { LocaleOf } from '@/i18n/locale-types';
 
 import type { projectsEnUS } from './en-US';
 export const projectsZhCN = {
-  focusAreas: '业务方向',
+  overdue: '已逾期',
+  completedOfTotal: '{{total}} 个任务，已完成 {{completed}} 个',
+  moduleCount: '{{count}} 个模块',
+  viewTasks: '查看任务 →',
+  prepareHandoff: '准备交接 →',
+  yourOpenTasks: '我的未完成任务',
+  yourCompletion: '我的任务完成率',
+  assignedToYou: '分配给我的任务',
+  personalScope: '你参与的项目。任务数量与进度仅统计分配给你的任务。',
+  portfolioScope: '统一管理项目、模块和任务记录，查看交付进展并准备项目交接。',
+  yourWork: '我的工作',
+  sharedRegister: '共享任务台账',
+  moduleProgress: '各模块的任务完成情况与关联工作。',
+  taskPreview: '显示 {{total}} 个关联任务中的 {{count}} 个',
+  recentProjectActivity: '当前项目在你的权限范围内最近记录的动态。',
+
+  focusAreas: '项目',
   sharedWithTheTaskRegister: '与任务台账共享',
   openTasks: '未完成任务',
   acrossAllProjects: '所有项目汇总',
@@ -19,7 +35,7 @@ export const projectsZhCN = {
   onTrack: '正常推进',
   planning: '规划中',
   projectLead: '项目经理',
-  allLeads: '所有负责人',
+  allLeads: '所有项目经理',
   noProjectsMatchYourFilters: '没有符合筛选条件的项目',
   taskCompletion: '任务完成率',
   valueTaskCompletion: '{{v0}}任务完成率',

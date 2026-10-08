@@ -26,6 +26,7 @@ export default function App() {
             : t('examples.toast.details.documentIsInYourWorkspace')}
         </span>
         <Toast.Viewport
+          portal={false}
           aria-label={t('examples.toast.copy.archiveNotifications')}
           className={styles.viewport!}
         />

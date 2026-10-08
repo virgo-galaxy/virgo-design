@@ -38,6 +38,7 @@ export default function App() {
         </div>
         <div className={styles.stage2!}>
           <Toast.Viewport
+            portal={false}
             placement={placement}
             aria-label={t('examples.toast.copy.positionedNotifications')}
             className={styles.viewport!}

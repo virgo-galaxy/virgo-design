@@ -6,15 +6,15 @@ import { languageControlEnUS } from '../components/language-control/locales/en-U
 import { languageControlZhCN } from '../components/language-control/locales/zh-CN';
 import { analyticsEnUS } from '../pages/analytics/locales/en-US';
 import { analyticsZhCN } from '../pages/analytics/locales/zh-CN';
-import { dataEnUS } from '../pages/data/locales/en-US';
-import { dataZhCN } from '../pages/data/locales/zh-CN';
 import { exceptionsEnUS } from '../pages/exceptions/locales/en-US';
 import { exceptionsZhCN } from '../pages/exceptions/locales/zh-CN';
-import { formsEnUS } from '../pages/forms/locales/en-US';
-import { formsZhCN } from '../pages/forms/locales/zh-CN';
 import { profileEnUS } from '../pages/profile/locales/en-US';
 import { profileZhCN } from '../pages/profile/locales/zh-CN';
+import { projectDetailsEnUS } from '../pages/projects/locales/detail/en-US';
+import { projectDetailsZhCN } from '../pages/projects/locales/detail/zh-CN';
 import { projectsEnUS } from '../pages/projects/locales/en-US';
+import { handoffEnUS } from '../pages/projects/locales/handoff/en-US';
+import { handoffZhCN } from '../pages/projects/locales/handoff/zh-CN';
 import { projectsZhCN } from '../pages/projects/locales/zh-CN';
 import { resultsEnUS } from '../pages/results/locales/en-US';
 import { resultsZhCN } from '../pages/results/locales/zh-CN';
@@ -32,9 +32,9 @@ export const enUS = {
   settings: settingsEnUS,
   languageControl: languageControlEnUS,
   analytics: analyticsEnUS,
-  data: dataEnUS,
+  projectDetails: projectDetailsEnUS,
   exceptions: exceptionsEnUS,
-  forms: formsEnUS,
+  handoff: handoffEnUS,
   profile: profileEnUS,
   projects: projectsEnUS,
   results: resultsEnUS,
@@ -47,9 +47,9 @@ export const zhCN = {
   settings: settingsZhCN,
   languageControl: languageControlZhCN,
   analytics: analyticsZhCN,
-  data: dataZhCN,
+  projectDetails: projectDetailsZhCN,
   exceptions: exceptionsZhCN,
-  forms: formsZhCN,
+  handoff: handoffZhCN,
   profile: profileZhCN,
   projects: projectsZhCN,
   results: resultsZhCN,

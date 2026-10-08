@@ -26,7 +26,8 @@ export function AccountMenu({
   onAgentModeChange: (active: boolean) => void;
 }) {
   const { t, i18n } = useTranslation();
-  const admin = isAdmin(useCurrentUser());
+  const user = useCurrentUser()!;
+  const admin = isAdmin(user);
   const navigate = useNavigate();
   const { signOut, resetDemo } = useSession();
   const [resetOpen, setResetOpen] = useState(false);
@@ -72,7 +73,11 @@ export function AccountMenu({
             <Avatar {...avatarProps} size="md" />
             <div>
               <strong>{displayName}</strong>
-              <p>{businessLabel(profile.headline, i18n.language)}</p>
+              <p>
+                {t(`app.login.roles.${user.role}`)} ·{' '}
+                {businessLabel(user.department, i18n.language)}
+              </p>
+              <span className={styles.account}>{user.account}</span>
             </div>
           </div>
           <Dropdown.Separator />

@@ -9,10 +9,18 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--vd-spacing-20);
   padding: 0 var(--vd-spacing-20) var(--vd-spacing-20);
-  align-items: start;
+  align-items: stretch;
 }
 .projectCard {
   padding: var(--vd-spacing-20);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  transition: box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+  &:hover,
+  &:focus-within {
+    box-shadow: var(--vd-elevation-1);
+  }
   h3 {
     margin: var(--vd-spacing-16) 0 var(--vd-spacing-6);
     font-size: var(--vd-font-size-20);
@@ -88,39 +96,6 @@
   font-size: var(--vd-font-size-11);
   color: var(--vd-text-secondary);
 }
-.expansion {
-  margin-top: var(--vd-spacing-16);
-  border-top: 1px solid var(--vd-border-subtle);
-  padding-top: var(--vd-spacing-12);
-  [data-slot='content'] > a {
-    display: inline-block;
-    font-size: var(--vd-font-size-12);
-    margin-top: var(--vd-spacing-12);
-  }
-}
-.expandTrigger {
-  font-size: var(--vd-font-size-11);
-  color: var(--vd-text-secondary);
-  width: 100%;
-}
-.relatedList {
-  list-style: none;
-  margin: var(--vd-spacing-12) 0 0;
-  padding: 0;
-  display: grid;
-  gap: var(--vd-spacing-12);
-  li {
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
-    gap: var(--vd-spacing-16);
-    font-size: var(--vd-font-size-12);
-  }
-  li > span:first-child {
-    display: grid;
-    gap: var(--vd-spacing-4);
-  }
-}
 @media (max-width: 760px) {
   .projectGrid {
     grid-template-columns: minmax(0, 1fr);
@@ -140,13 +115,27 @@
   .owner > span:last-child {
     display: none;
   }
-  .relatedList li {
-    flex-wrap: wrap;
-    gap: var(--vd-spacing-6);
-  }
 }
 @media (max-width: 480px) {
   .filters {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.completion {
+  padding-top: var(--vd-spacing-8);
+}
+.cardActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vd-spacing-16);
+  border-top: 1px solid var(--vd-border-subtle);
+  padding-top: var(--vd-spacing-16);
+  margin-top: var(--vd-spacing-16);
+  font-size: var(--vd-font-size-12);
+}
+@media (prefers-reduced-motion: reduce) {
+  .projectCard {
+    transition: none;
   }
 }

@@ -133,7 +133,7 @@ export function TaskFilters({
             }}
           >
             <Combobox.Input
-              placeholder={t('forms.findATeamMember')}
+              placeholder={t('tasks.query.findATeamMember')}
               onFocus={(event) => event.preventDefault()}
               onClick={(event) => event.preventDefault()}
               onChange={() => {
@@ -151,7 +151,7 @@ export function TaskFilters({
                   {businessLabel(member.name, i18n.language)}
                 </Combobox.Option>
               ))}
-              <Combobox.Empty>{t('forms.noTeamMemberMatches')}</Combobox.Empty>
+              <Combobox.Empty>{t('tasks.query.noTeamMemberMatches')}</Combobox.Empty>
             </Combobox.Content>
             {assigneeInput ? <Combobox.Clear /> : null}
           </Combobox>
@@ -188,18 +188,20 @@ export function TaskFilters({
         </Field>
         <FilterSelect
           size="medium"
-          label={t('data.dueCondition')}
+          label={t('tasks.query.dueCondition')}
           value={Array.isArray(draft.due) ? (draft.due[0] ?? 'all') : (draft.due as string)}
           onChange={(value) => onChange({ ...draft, due: value as Filters['due'] })}
           options={[
-            { value: 'all', label: t('data.anyDueDate') },
-            { value: 'overdue', label: t('data.overdueOpenTasks') },
-            { value: 'week', label: t('data.next7DaysOpenTasks') },
-            { value: 'unscheduled', label: t('data.unscheduled') },
+            { value: 'all', label: t('tasks.query.anyDueDate') },
+            { value: 'overdue', label: t('tasks.query.overdueOpenTasks') },
+            { value: 'week', label: t('tasks.query.next7DaysOpenTasks') },
+            { value: 'unscheduled', label: t('tasks.query.unscheduled') },
           ]}
         />
         <Field>
-          <Field.Label className={styles.filterLabel}>{t('data.minimumEstimate')}</Field.Label>
+          <Field.Label className={styles.filterLabel}>
+            {t('tasks.query.minimumEstimate')}
+          </Field.Label>
           <Input
             size="medium"
             type="number"
@@ -216,7 +218,7 @@ export function TaskFilters({
       </div>
       {error ? (
         <Alert intent="error">
-          <Alert.Description>{t(`data.validation.${error}`)}</Alert.Description>
+          <Alert.Description>{t(`tasks.query.validation.${error}`)}</Alert.Description>
         </Alert>
       ) : null}
       <Button.Group layout="custom" className={styles.queryActions}>

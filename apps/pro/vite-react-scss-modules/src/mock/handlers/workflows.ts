@@ -44,6 +44,7 @@ export const workflowsHandlers = [
       !isRecord(body) ||
       typeof body.title !== 'string' ||
       !body.title.trim() ||
+      body.title.trim().length > 100 ||
       typeof body.projectId !== 'string' ||
       !projects.some((project) => project.id === body.projectId) ||
       typeof body.date !== 'string' ||
@@ -55,7 +56,9 @@ export const workflowsHandlers = [
       body.confirmed !== true ||
       !['team', 'external'].includes(String(body.audience)) ||
       !Array.isArray(body.taskIds) ||
-      !body.taskIds.length
+      !body.taskIds.length ||
+      !body.taskIds.every((id) => typeof id === 'string') ||
+      new Set(body.taskIds).size !== body.taskIds.length
     )
       return failure({
         status: 422,
@@ -65,6 +68,17 @@ export const workflowsHandlers = [
     const draft = body as unknown as HandoffRequest;
     const tasks = getBackendTasks();
     const project = projects.find((p) => p.id === draft.projectId)!;
+    const date = new Date(`${draft.date}T00:00:00Z`);
+    if (
+      !Number.isFinite(date.getTime()) ||
+      date.toISOString().slice(0, 10) !== draft.date ||
+      draft.date < project.start
+    )
+      return failure({
+        status: 422,
+        code: API_ERROR_CODES.HANDOFF_VALIDATION_FAILED,
+        detail: 'Invalid handoff date',
+      });
     if (draft.taskIds.some((id) => !tasks.some((t) => t.id === id && t.project === project.name)))
       return failure({
         status: 422,

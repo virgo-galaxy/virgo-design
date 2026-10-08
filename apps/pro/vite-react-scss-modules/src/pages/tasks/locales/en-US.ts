@@ -1,5 +1,22 @@
 export const tasksEnUS = {
+  query: {
+    dueCondition: 'Due condition',
+    anyDueDate: 'Any due date',
+    overdueOpenTasks: 'Overdue · open tasks',
+    next7DaysOpenTasks: 'Next 7 days · open tasks',
+    unscheduled: 'Unscheduled',
+    minimumEstimate: 'Minimum estimate',
+    validation: {
+      futureDates: 'Creation dates cannot be later than today.',
+      invalidDates: 'Enter valid creation dates.',
+      dateOrder: 'The start date must be on or before the end date.',
+      invalidEstimate: 'Minimum estimate must be a whole number between 0 and 999.',
+    },
+    findATeamMember: 'Find a team member',
+    noTeamMemberMatches: 'No team member matches',
+  },
   workspace: {
+    backToResult: 'Back to result',
     tableTitle: 'Task table',
     cardsTitle: 'Task cards',
     cardsDescription: 'Browse task context, assignments and progress at a glance.',

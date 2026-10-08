@@ -1,5 +1,10 @@
 // Display labels are localized; API identifiers and relationship keys stay stable.
 const zh: Record<string, string> = {
+  'October release handoff': '十月版本交接',
+  'Support release handoff': '客服版本交接',
+  'Review delivered support workflows with the team.': '与团队共同检查已交付的客服工作流程。',
+  'Review product, order and payment delivery before the online store release.':
+    '在商城发布前检查商品、订单与支付的交付情况。',
   'Online Store': '网上商城',
   'Booking System': '预约系统',
   'Support Desk': '客服工单系统',

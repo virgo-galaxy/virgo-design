@@ -15,3 +15,12 @@ const healthKeys = {
 export function getProjectHealthLabel(t: TFunction, health: Project['health']) {
   return t(healthKeys[health]);
 }
+
+export function formatProjectDate(date: string, locale: string) {
+  return new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(date + 'T00:00:00Z'));
+}

@@ -30,7 +30,6 @@ export function taskStatusChoices(user: SessionUser | undefined, task?: TaskDto)
 }
 export function canVisitPage(user: SessionUser | undefined, page: string) {
   if (isAdminShowcasePage(page)) return isAdmin(user);
-  if (['basic-form', 'step-form', 'task-create', 'task-edit'].includes(page))
-    return canCreateTask(user);
+  if (['project-handoff', 'task-create', 'task-edit'].includes(page)) return canCreateTask(user);
   return true;
 }

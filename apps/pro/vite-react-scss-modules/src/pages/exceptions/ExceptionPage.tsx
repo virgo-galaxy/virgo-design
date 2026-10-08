@@ -35,7 +35,7 @@ export function ExceptionPage({ code }: { code: keyof ReturnType<typeof getExcep
   const navigate = useNavigate();
   const exception = getExceptions(t)[code];
   return (
-    <Surface radius={8} className={styles.canvas}>
+    <Surface border="default" radius={12} className={styles.canvas}>
       <Result
         status={code}
         headingLevel={1}
@@ -45,6 +45,7 @@ export function ExceptionPage({ code }: { code: keyof ReturnType<typeof getExcep
         icon={
           <span
             className={styles.illustration}
+            aria-hidden="true"
             dangerouslySetInnerHTML={{ __html: exception.illustration }}
           />
         }

@@ -8,7 +8,7 @@ import {
   VirgoDesignIcon,
 } from '@virgo-design/icons';
 import virgoLogo from '@virgo-design/icons/brands/virgo-design.svg';
-import { Button, Field, Input, Select, Tag, Tooltip } from '@virgo-design/ui';
+import { Button, Field, Form, Input, Progress, Select, Tag, Tooltip } from '@virgo-design/ui';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -89,10 +89,10 @@ export function LoginPage({
             <Tag intent="brand" variant="soft">
               {t('app.login.workspace')}
             </Tag>
-            <h1 id="login-intro">
+            <h2 id="login-intro">
               {t('app.login.heroTitle')}
               <span>{t('app.login.heroAccent')}</span>
-            </h1>
+            </h2>
             <p className={styles.intro}>{t('app.login.heroDescription')}</p>
             <div className={styles.features}>
               {(['projects', 'collaboration', 'progress'] as const).map((feature) => (
@@ -133,15 +133,13 @@ export function LoginPage({
                   {t('tasks.statusLabels.inProgress')}
                 </Tag>
               </div>
-              <div className={styles.progress}>
-                <span />
-              </div>
+              <Progress className={styles.progress} value={66} size="sm" />
               <p className={styles.previewNote}>{t('app.login.previewNote')}</p>
             </div>
           </section>
           <section className={styles.card} aria-labelledby="login-title">
             <div className={styles.cardHeading}>
-              <h2 id="login-title">{t('app.login.welcome')}</h2>
+              <h1 id="login-title">{t('app.login.welcome')}</h1>
               <p>{t('app.login.description')}</p>
             </div>
             {expired ? (
@@ -149,7 +147,8 @@ export function LoginPage({
                 {t('app.login.expired')}
               </p>
             ) : null}
-            <form
+            <Form
+              size="large"
               onSubmit={(event) => {
                 event.preventDefault();
                 if (pending) return;
@@ -218,7 +217,7 @@ export function LoginPage({
               >
                 {t(pending ? 'app.login.signingIn' : 'app.login.signIn')}
               </Button>
-            </form>
+            </Form>
             {import.meta.env.VITE_API_MOCKING === 'true' ? (
               <div className={styles.demo}>
                 <div className={styles.demoTitle}>

@@ -1,25 +1,10 @@
-.requestLayout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
-  gap: var(--vd-spacing-20);
-  align-items: start;
-}
-.requestForm {
-  display: grid;
-  width: 100%;
-}
-.requestSurface,
 .wizardSurface {
   min-width: 0;
 }
-.formSection[data-border='default'],
 .wizardStage[data-border='default'] {
   border: 0;
   border-radius: 0;
   background: transparent;
-}
-.formSection + .formSection {
-  border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
 }
 .fields {
   padding: var(--vd-spacing-20);
@@ -48,52 +33,6 @@
   }
   p {
     margin: var(--vd-spacing-12) 0 0;
-  }
-}
-.submitBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--vd-spacing-16);
-  padding: var(--vd-spacing-16) var(--vd-spacing-20);
-  border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
-}
-.asideTitle {
-  margin: var(--vd-spacing-12) 0 var(--vd-spacing-8);
-  font-size: var(--vd-font-size-20);
-  font-weight: 600;
-}
-.asideCopy {
-  margin: 0 0 var(--vd-spacing-20);
-  color: var(--vd-text-secondary);
-  font-size: var(--vd-font-size-12);
-  line-height: 1.8;
-}
-.asideLink {
-  margin-top: var(--vd-spacing-20);
-  font-size: var(--vd-font-size-12);
-}
-.guidance {
-  list-style: none;
-  padding: var(--vd-spacing-20);
-  margin: 0;
-  display: grid;
-  gap: var(--vd-spacing-20);
-  li {
-    display: flex;
-    gap: var(--vd-spacing-12);
-    align-items: start;
-    color: var(--vd-text-secondary);
-    font-size: var(--vd-font-size-12);
-    line-height: 1.7;
-  }
-  svg {
-    color: var(--vd-status-success-accent);
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-    margin-top: var(--vd-spacing-2);
   }
 }
 .stepsFrame {
@@ -258,14 +197,6 @@
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
-@media (max-width: 1150px) {
-  .requestLayout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .requestLayout > aside {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
 @media (max-width: 760px) {
   .scopeLayout {
     grid-template-columns: minmax(0, 1fr);
@@ -284,12 +215,6 @@
   }
   .wizard {
     padding: var(--vd-spacing-16) 0;
-  }
-  .submitBar {
-    padding: var(--vd-spacing-16);
-  }
-  .requestLayout > aside {
-    grid-template-columns: minmax(0, 1fr);
   }
   .stepsFrame {
     padding: var(--vd-spacing-8);

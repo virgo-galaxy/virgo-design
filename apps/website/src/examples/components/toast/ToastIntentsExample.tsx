@@ -25,6 +25,7 @@ export default function App() {
           ))}
         </div>
         <Toast.Viewport
+          portal={false}
           aria-label={t('examples.toast.copy.statusNotifications')}
           className={styles.viewport!}
         />

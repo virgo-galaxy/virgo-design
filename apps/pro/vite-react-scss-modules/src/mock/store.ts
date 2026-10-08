@@ -21,6 +21,7 @@ export interface DemoState {
   tasks: TaskDto[];
   nextId: number;
   profile: ProfileDto;
+  profiles?: Record<string, ProfileDto>;
   workflows: { success: WorkflowReceiptDto; error: WorkflowReceiptDto };
   sequence: number;
   records: TaskRecordDto[];
@@ -31,6 +32,7 @@ function seed(): DemoState {
   return structuredClone({
     ...initialTaskState,
     profile: initialProfile,
+    profiles: {},
     workflows: { success: sampleSuccess, error: sampleError },
     sequence: 101,
     records,
@@ -53,6 +55,18 @@ function validSavedState(value: unknown): value is DemoState {
   const initial = seed();
   const profile = value.profile;
   const workflows = value.workflows;
+  if (
+    value.profiles !== undefined &&
+    (!isRecord(value.profiles) ||
+      Object.values(value.profiles).some(
+        (entry) =>
+          !isRecord(entry) ||
+          Object.entries(initial.profile).some(
+            ([key, field]) => typeof entry[key] !== typeof field,
+          ),
+      ))
+  )
+    return false;
   if (
     Object.entries(initial.profile).some(([key, entry]) => typeof profile[key] !== typeof entry) ||
     !projects.some((project) => project.id === profile.focusProject)

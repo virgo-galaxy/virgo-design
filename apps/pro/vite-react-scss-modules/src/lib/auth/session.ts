@@ -20,6 +20,9 @@ function saved(): LoginDto | undefined {
 export function getAccessToken(): string | undefined {
   return saved()?.accessToken;
 }
+export function getSessionExpiresAt(): string | undefined {
+  return saved()?.expiresAt;
+}
 export function getStoredUser(): SessionUser | undefined {
   return saved()?.user;
 }

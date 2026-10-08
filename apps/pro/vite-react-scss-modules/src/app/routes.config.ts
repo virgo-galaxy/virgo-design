@@ -23,8 +23,8 @@ export type ProPageKey =
   | 'task-edit'
   | 'task-details'
   | 'projects'
-  | 'detail'
-  | 'step-form'
+  | 'project-detail'
+  | 'project-handoff'
   | 'success'
   | 'error'
   | 'exception-403'
@@ -153,14 +153,14 @@ export const proRouteConfig = {
           id: 'project-detail',
           path: '/work/projects/:projectId',
           label: 'Project details',
-          page: 'detail',
+          page: 'project-detail',
           display: { sidebar: false },
         },
         {
           id: 'project-handoff',
           path: '/work/projects/:projectId/handoff',
           label: 'Prepare handoff',
-          page: 'step-form',
+          page: 'project-handoff',
           display: { sidebar: false },
         },
       ],

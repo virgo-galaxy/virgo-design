@@ -55,7 +55,11 @@ export function ToastPage() {
                   <Toast.Action>{t('examples.toast.copy.undo')}</Toast.Action>
                   <Toast.Close aria-label={t('examples.toast.copy.dismissNotification')} />
                 </Toast.Root>
-                <Toast.Viewport placement="top-start" className="toast-hero-viewport" />
+                <Toast.Viewport
+                  portal={false}
+                  placement="top-start"
+                  className="toast-hero-viewport"
+                />
               </Toast.Provider>
             </ReferenceSpecimen.Stage>
             <ReferenceSpecimen.Caption>

@@ -45,6 +45,7 @@ const Root = forwardRef<HTMLDivElement, ToastProps>(function ToastRoot(
       className={classes(styles.root, className)}
       data-intent={intent}
       data-appearance={appearance}
+      data-has-icon={Boolean(resolvedIcon)}
     >
       {resolvedIcon ? (
         <span className={styles.icon} aria-hidden="true">

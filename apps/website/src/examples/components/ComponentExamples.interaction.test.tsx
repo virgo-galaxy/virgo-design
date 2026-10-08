@@ -24,6 +24,8 @@ import RadioBasicExample from './radio/RadioBasicExample';
 import TabsEditableExample from './tabs/TabsEditableExample';
 import { tagExamples } from './tag/examples';
 import ToastIntentsExample from './toast/ToastIntentsExample';
+import ToastPlacementExample from './toast/ToastPlacementExample';
+import ToastStackExample from './toast/ToastStackExample';
 import ToastUndoExample from './toast/ToastUndoExample';
 
 describe('Independent component examples', () => {
@@ -218,6 +220,41 @@ describe('Independent component examples', () => {
     await user.click(within(archiveViewport).getByRole('button', { name: 'Undo' }));
     expect(screen.getByText('Document is in your workspace.')).toBeInTheDocument();
     expect(statusViewport.querySelectorAll('[data-toast-root]')).toHaveLength(1);
+  });
+
+  it.each([
+    [ToastIntentsExample, 'Status notifications'],
+    [ToastUndoExample, 'Archive notifications'],
+    [ToastStackExample, 'Stacked notifications'],
+    [ToastPlacementExample, 'Positioned notifications'],
+  ] as const)('keeps the %s viewport inside its preview canvas (%s)', (Example, name) => {
+    const { container } = render(<Example />);
+    expect(container).toContainElement(screen.getByRole('region', { name }));
+  });
+
+  it('stacks local toasts and dismisses only the selected notification', async () => {
+    const user = userEvent.setup();
+    render(<ToastStackExample />);
+    const viewport = screen.getByRole('region', { name: 'Stacked notifications' });
+    await user.click(screen.getByRole('button', { name: 'Add two toasts' }));
+    expect(within(viewport).getAllByRole('status')).toHaveLength(2);
+    await user.click(within(viewport).getAllByRole('button', { name: 'Dismiss notification' })[0]!);
+    expect(within(viewport).getAllByRole('status')).toHaveLength(1);
+    await user.click(screen.getByRole('button', { name: 'Add two toasts' }));
+    expect(within(viewport).getAllByRole('status')).toHaveLength(3);
+  });
+
+  it('reopens the positioned toast after dismissal and switches placement', async () => {
+    const user = userEvent.setup();
+    render(<ToastPlacementExample />);
+    const viewport = screen.getByRole('region', { name: 'Positioned notifications' });
+    for (const placement of ['top-start', 'bottom-center', 'top-start']) {
+      await user.click(screen.getByRole('button', { name: placement }));
+      expect(viewport).toHaveAttribute('data-placement', placement);
+      expect(within(viewport).getByRole('status', { name: placement })).toBeInTheDocument();
+      await user.click(within(viewport).getByRole('button', { name: 'Dismiss notification' }));
+      expect(within(viewport).queryByRole('status')).not.toBeInTheDocument();
+    }
   });
 
   it('starts action menus closed and reports local selection', async () => {

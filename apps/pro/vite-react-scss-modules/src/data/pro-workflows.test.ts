@@ -2,26 +2,20 @@ import { describe, expect, it } from 'vitest';
 
 import { initialProfile } from '@/mock/fixtures/profile';
 import { projects } from '@/mock/fixtures/projects';
-import { createMockTaskId } from '@/mock/fixtures/task-id';
-import { taskAssignees, taskProjects } from '@/mock/fixtures/tasks';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { sampleError } from '@/mock/fixtures/workflows';
-import { tasksReducer } from '@/test/task-state.test-helper';
 
 import { handoffFromReceipt } from './pro-workflows';
 import {
   avatarFileError,
   avatarForeground,
   initialHandoff,
-  initialWorkRequest,
   profileInitials,
   reconcileScope,
   scopeGroups,
   scopeTreeValues,
   validateHandoff,
   validateProfile,
-  validateWorkRequest,
-  workRequestTask,
 } from './pro-workflows';
 
 const tasks = initialTaskState.tasks;
@@ -33,54 +27,6 @@ const completeHandoff = {
   confirmed: true,
 };
 
-describe('work request entering the shared register', () => {
-  it('requires an owner and a ready brief in addition to existing task validation', () => {
-    expect(validateWorkRequest(initialWorkRequest, taskProjects, taskAssignees)).toHaveProperty(
-      'assignee',
-    );
-    expect(validateWorkRequest(initialWorkRequest, taskProjects, taskAssignees)).toHaveProperty(
-      'acceptanceConfirmed',
-    );
-    expect(
-      validateWorkRequest(
-        {
-          ...initialWorkRequest,
-          title: 'Review scope',
-          assignee: 'ava',
-          acceptanceConfirmed: true,
-        },
-        taskProjects,
-        taskAssignees,
-      ),
-    ).toEqual({});
-  });
-  it('normalizes the brief and excludes workflow-only metadata from task storage', () => {
-    const draft = {
-      ...initialWorkRequest,
-      title: '  Review scope  ',
-      description: '  Notes  ',
-      assignee: 'ava',
-      acceptanceConfirmed: true,
-    };
-    const stored = tasksReducer(initialTaskState, {
-      type: 'create',
-      draft: workRequestTask(draft),
-      createdAt: '2026-10-03T00:00:00Z',
-    });
-    expect(stored.tasks[0]).toMatchObject({
-      id: createMockTaskId(initialTaskState.nextId),
-      title: 'Review scope',
-      description: 'Notes',
-      project: 'Online Store',
-      module: 'online-store-1',
-      assignee: 'ava',
-      status: 'todo',
-    });
-    expect(stored.tasks[0]).not.toHaveProperty('acceptanceConfirmed');
-    expect(initialTaskState.tasks).toHaveLength(240);
-  });
-});
-
 describe('handoff scope and stage validation', () => {
   it('validates only the scope needed to advance, then requires final confirmation', () => {
     expect(validateHandoff(initialHandoff, tasks, 0, projects)).toEqual({});
@@ -90,7 +36,7 @@ describe('handoff scope and stage validation', () => {
     ).toHaveProperty('confirmed');
     expect(validateHandoff(completeHandoff, tasks, 2, projects)).toEqual({});
   });
-  it.each(['2026-10-02', '2026-02-30', 'not-a-date'])(
+  it.each(['2025-06-01', '2026-02-30', 'not-a-date'])(
     'rejects invalid or past handoff date %s',
     (date) => {
       expect(validateHandoff({ ...completeHandoff, date }, tasks, 2, projects)).toHaveProperty(

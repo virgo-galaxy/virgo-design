@@ -5,7 +5,7 @@
   width: 100%;
 }
 
-.viewport {
+.viewport[data-placement] {
   position: relative;
   inset: auto;
   transform: none;

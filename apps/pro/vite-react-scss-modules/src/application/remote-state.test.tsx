@@ -2,6 +2,7 @@
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { http as mswHttp, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
+import { createMemoryRouter, RouterProvider } from 'react-router';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { API_ERROR_CODES } from '@/api/error-codes';
@@ -9,7 +10,7 @@ import { getTask } from '@/api/tasks';
 import { i18nInstance } from '@/i18n/runtime';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';
-import { TaskDialog } from '@/pages/tasks/TaskDialog';
+import { TaskForm } from '@/pages/tasks/TaskForm';
 
 import { useProData } from './pro-data-context';
 import { ProDataProvider } from './ProDataProvider';
@@ -30,17 +31,12 @@ function Editor() {
   const { state, dispatch } = useProData();
   const task = state.tasks[0]!;
   return (
-    <TaskDialog
+    <TaskForm
       task={task}
-      hiddenByFilters={false}
       onSave={async (draft) => {
         await dispatch({ type: 'edit', id: task.id, draft });
       }}
-      onStatusChange={async (status) => {
-        await dispatch({ type: 'status', id: task.id, status });
-      }}
-      onClose={() => {}}
-      restoreFocus={() => {}}
+      onCancel={() => {}}
     />
   );
 }
@@ -66,11 +62,20 @@ describe('remote UI states', () => {
   });
   it('retains the edited draft on API failure and saves successfully on retry', async () => {
     render(
-      <ProDataProvider>
-        <TaskCollectionBoundary>
-          <Editor />
-        </TaskCollectionBoundary>
-      </ProDataProvider>,
+      <RouterProvider
+        router={createMemoryRouter([
+          {
+            path: '/',
+            element: (
+              <ProDataProvider>
+                <TaskCollectionBoundary>
+                  <Editor />
+                </TaskCollectionBoundary>
+              </ProDataProvider>
+            ),
+          },
+        ])}
+      />,
     );
     const title = await screen.findByRole('textbox', { name: 'Title' });
     fireEvent.change(title, { target: { value: 'Remote saved title' } });

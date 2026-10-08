@@ -8,7 +8,7 @@ import {
   SparklesIcon,
   WindowMoveIcon,
 } from '@virgo-design/icons';
-import { PortalProvider, Tooltip } from '@virgo-design/ui';
+import { Button, PortalProvider, Tooltip } from '@virgo-design/ui';
 import { gsap } from 'gsap';
 import {
   type CSSProperties,
@@ -459,15 +459,17 @@ export function AiWorkspace({
         }
       >
         <div className={styles.preview} aria-hidden="true" />
-        <button
+        <Button
+          variant="text"
+          size="small"
           type="button"
+          leadingIcon={<ArrowEnterIcon size={14} />}
           className={styles.previewCaption}
           disabled={returning}
           onClick={restore}
         >
-          <ArrowEnterIcon size={14} />
           {t('app.returnToWorkspace')}
-        </button>
+        </Button>
         <Tooltip className={styles.resizeHint} disabled={!active || returning}>
           <Tooltip.Trigger
             className={styles.resizeHandle}

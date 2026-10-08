@@ -212,7 +212,7 @@ The login page offers Admin plus the 24 business accounts. Accounts use the stab
 user, accessToken, expiresAt }`. Each login creates a random opaque token valid for eight hours;
 there is no JWT signing or fixed ENV token. `GET /auth/session` resolves the current bearer
 identity; `POST /auth/logout` revokes its token. The HTTP layer clears an expired session
-and returns to login on a protected 401 response. A denied operation returns 403.
+and returns to login on a protected 401 response. Invalid saved sessions also display the expiry notice; an idle-session timer returns to login at token expiry. A late 401 from an old token cannot sign out a newly authenticated account. A denied operation returns 403.
 
 Admin sees all data and owns global/table settings and demo reset. Ava manages Online Store
 and Support Desk; Leo manages Booking System and Inventory System. Managers see their
@@ -223,14 +223,14 @@ identity. Account switches clear view/member caches and leave the shared task re
 The five `/result/*` and `/exception/*` showcase routes are excluded from business accounts'
 navigation. Direct access redirects to the workplace without loading the showcase content.
 Admin retains these demonstrations. Task creation opens the created task details;
-step-form outcomes display inline rather than navigate to restricted result demonstrations.
+project handoff outcomes display inline rather than navigate to restricted result demonstrations.
 Actual denied business actions can still show an access-denied state to any affected account.
 
 Managers can create/assign tasks, move planned work to todo, and approve reviewed work or
 return it to progress. A member can start their own todo task and submit in-progress work for
 review. Members only change their own task progress; title, description, schedule, estimate, priority, project/module and assignment edits are forbidden. They cannot skip directly to done. A manager can also start and submit tasks assigned to themselves.
 The Mock gateway also enforces these rules; hiding a button is not the only guard. Admin has
-full task controls for demo inspection. Profile/settings writes are Admin-only.
+full task controls for demo inspection. Every account can edit its own profile and personal preferences. Profiles are persisted by user ID; a preferred project must belong to that account. Global/table settings and demo reset remain Admin-only.
 
 This remains a local demonstration with client-held Mock tokens, not a production authentication
 service. MSW is still the sole fake HTTP

@@ -1,4 +1,5 @@
 // @vitest-environment jsdom
+import { http as mockHttp, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
@@ -13,10 +14,13 @@ import {
   updateTask,
   updateTaskStatus,
 } from '@/api/tasks';
+import { prepareHandoff } from '@/api/workflows';
+import { projectSummary } from '@/data/projects';
 import { clearAuthSession, getAccessToken, sessionExpiredEvent } from '@/lib/auth/session';
+import { taskAssignees, taskReferenceDate } from '@/mock/fixtures/tasks';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { handlers } from '@/mock/handlers';
-import { resetDemoState } from '@/mock/store';
+import { resetDemoState, unloadDemoState } from '@/mock/store';
 
 import { getDemoAccounts, getSession, login, logout, resetDemo } from './index';
 const server = setupServer(...handlers);
@@ -96,10 +100,57 @@ describe('Bearer accounts and project permissions', () => {
       status: 403,
     });
     await expect(deleteTasks({ ids: [task.id] })).rejects.toMatchObject({ status: 403 });
-    await expect(updateProfile({ digest: false })).rejects.toMatchObject({ status: 403 });
+    expect((await updateProfile({ digest: false })).digest).toBe(false);
     await expect(resetDemo()).rejects.toMatchObject({ status: 403 });
     await signIn(task.project === 'Online Store' ? 'ava' : 'leo');
     expect((await updateTaskStatus(task.id, 'done')).status).toBe('done');
+  });
+  it('keeps project metrics and handoffs on the same saved task register', async () => {
+    await signIn('ava');
+    const project = (await getProjects())[0]!;
+    const load = async () => (await getTasks({ project: project.name, pageSize: 100 })).items;
+    const before = await load();
+    const task = before.find((item) => item.status === 'in_review')!;
+    const summary = projectSummary(project, before, taskAssignees, taskReferenceDate);
+    await updateTaskStatus(task.id, 'done');
+    expect(projectSummary(project, await load(), taskAssignees, taskReferenceDate)).toMatchObject({
+      completed: summary.completed + 1,
+      open: summary.open - 1,
+      review: summary.review - 1,
+    });
+    const handoff = {
+      title: 'Release review',
+      projectId: project.id,
+      date: project.due,
+      time: '10:00',
+      taskIds: [task.id],
+      audience: 'team' as const,
+      notes: '',
+      confirmed: true,
+    };
+    expect(await prepareHandoff(handoff)).toMatchObject({
+      outcome: 'success',
+      projectId: project.id,
+      taskIds: [task.id],
+    });
+    expect(await prepareHandoff({ ...handoff, audience: 'external' })).toMatchObject({
+      outcome: 'error',
+    });
+    const other = initialTaskState.tasks.find((item) => item.project !== project.name)!;
+    await expect(prepareHandoff({ ...handoff, taskIds: [other.id] })).rejects.toMatchObject({
+      status: 422,
+    });
+    await expect(prepareHandoff({ ...handoff, taskIds: [task.id, task.id] })).rejects.toMatchObject(
+      { status: 422 },
+    );
+    await expect(prepareHandoff({ ...handoff, date: '2026-02-30' })).rejects.toMatchObject({
+      status: 422,
+    });
+    await signIn(task.assignee);
+    expect((await getTask(task.id)).status).toBe('done');
+    await expect(prepareHandoff(handoff)).rejects.toMatchObject({ status: 403 });
+    await signIn('leo');
+    await expect(prepareHandoff(handoff)).rejects.toMatchObject({ status: 403 });
   });
   it('revokes the old token on logout and retains task changes across account switches', async () => {
     const session = await signIn('ava');
@@ -130,5 +181,68 @@ describe('Bearer accounts and project permissions', () => {
     expect(getAccessToken()).toBeUndefined();
     expect((await signIn('hana')).accessToken).not.toBe(session.accessToken);
     expect((await getSession()).user?.id).toBe('hana');
+  });
+  it('persists personal profiles independently across logout and browser-state reload', async () => {
+    await signIn('hana');
+    await updateProfile({ name: 'Hana Studio', bio: 'Frontend delivery', digest: false });
+    await logout();
+    await signIn('leo');
+    expect((await getProfile()).name).toBe('Leo Park');
+    await updateProfile({ bio: 'Project coordination' });
+    await expect(updateProfile({ focusProject: 'online-store' })).rejects.toMatchObject({
+      status: 422,
+    });
+    await logout();
+    unloadDemoState();
+    await signIn('hana');
+    expect(await getProfile()).toMatchObject({
+      name: 'Hana Studio',
+      displayName: 'Hana Studio',
+      bio: 'Frontend delivery',
+      digest: false,
+    });
+    await signIn('admin');
+    expect((await getProfile()).name).toBe('Administrator');
+  });
+  it('reports an invalid saved session as expired during bootstrap', async () => {
+    const session = await signIn('hana');
+    const tokens = JSON.parse(sessionStorage.getItem('virgo-pro.mock-tokens.v1')!);
+    delete tokens[session.accessToken];
+    sessionStorage.setItem('virgo-pro.mock-tokens.v1', JSON.stringify(tokens));
+    let expired = 0;
+    const listener = () => expired++;
+    window.addEventListener(sessionExpiredEvent, listener);
+    try {
+      expect(await getSession()).toEqual({ authenticated: false });
+      expect(expired).toBe(1);
+      expect(getAccessToken()).toBeUndefined();
+    } finally {
+      window.removeEventListener(sessionExpiredEvent, listener);
+    }
+  });
+  it('does not expire a newly signed-in account when an old request returns 401', async () => {
+    await signIn('hana');
+    let release!: () => void;
+    let started!: () => void;
+    const ready = new Promise<void>((resolve) => {
+      started = resolve;
+    });
+    const response = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    server.use(
+      mockHttp.get('/api/v1/tasks', async () => {
+        started();
+        await response;
+        return HttpResponse.json({ code: 40101, msg: 'Expired', data: null }, { status: 401 });
+      }),
+    );
+    const old = getTasks().catch((error: unknown) => error);
+    await ready;
+    const next = await signIn('leo');
+    release();
+    await old;
+    expect(getAccessToken()).toBe(next.accessToken);
+    expect((await getSession()).user?.id).toBe('leo');
   });
 });

@@ -7,7 +7,7 @@ import { MutationFeedback } from '@/application/MutationFeedback';
 import { useProData } from '@/application/pro-data-context';
 import { useMutation } from '@/application/use-mutation';
 import type { WorkflowReceipt } from '@/data/pro-workflows';
-import { projectDetailPath } from '@/data/projects';
+import { projectDetailPath, projectTasksPath } from '@/data/projects';
 import { moduleName } from '@/data/task-catalog';
 import type { TaskState } from '@/data/tasks';
 import { createTasksCsv } from '@/data/tasks.export';
@@ -15,6 +15,7 @@ import { businessLabel } from '@/lib/demo/labels';
 import { downloadCsv } from '@/pages/shared/download';
 import { Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
+import { taskDetailsPath } from '@/pages/tasks/task-navigation';
 import { getTaskExportLabels, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
 import { taskLabelStyles, taskStatusIntent } from '@/pages/tasks/task-presentation';
 
@@ -116,7 +117,7 @@ export function ResultPage({
                       const next = await onRetry?.();
                       navigate(
                         next
-                          ? '/result/success'
+                          ? `/result/${next.outcome}`
                           : `/work/projects/${encodeURIComponent(project.id)}/handoff`,
                       );
                     });
@@ -142,7 +143,7 @@ export function ResultPage({
               </div>
               <div>
                 <dt>{t('results.preparedBy')}</dt>
-                <dd>{receipt.requester}</dd>
+                <dd>{businessLabel(receipt.requester, i18n.language)}</dd>
               </div>
               <div>
                 <dt>{t('results.recordedUtc0800')}</dt>
@@ -248,8 +249,8 @@ export function ResultPage({
                   </Accordion.Content>
                 </Accordion.Item>
               </Accordion>
-              <Link className={shared.link} to="/work/tasks?search=df4de51e-ea0d">
-                {t('results.reviewThePermissionTask')}
+              <Link className={shared.link} to={projectTasksPath(project)}>
+                {t('results.openTaskQueue')}
               </Link>
             </div>
           )}
@@ -257,10 +258,14 @@ export function ResultPage({
         <div className={styles.scopeSection}>
           <div>
             <h3>{t('results.linkedWork')}</h3>
-            <span className={shared.caption}>{t('results.currentTaskRecordsForThisResult')}</span>
+            <span className={shared.caption}>
+              {tasks.length > 4
+                ? t('results.scopePreview', { shown: 4, total: tasks.length })
+                : t('results.currentTaskRecordsForThisResult')}
+            </span>
           </div>
           <ul>
-            {tasks.map((task) => (
+            {tasks.slice(0, 4).map((task) => (
               <li key={task.id}>
                 <div className={styles.taskHeading}>
                   <span className={shared.mono}>{task.id}</span>
@@ -272,7 +277,10 @@ export function ResultPage({
                     {getTaskStatusLabel(t, task.status)}
                   </Tag>
                 </div>
-                <Link className={styles.taskTitle} to={`/work/tasks?search=${task.id}`}>
+                <Link
+                  className={styles.taskTitle}
+                  to={taskDetailsPath(task.id, `/result/${receipt.outcome}`)}
+                >
                   {businessLabel(task.title, i18n.language)}
                 </Link>
                 <p className={styles.taskDescription}>

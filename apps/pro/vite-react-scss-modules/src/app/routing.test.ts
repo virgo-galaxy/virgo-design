@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { canVisitPage } from '@/lib/auth/permissions';
 import { demoAccounts } from '@/mock/accounts';
+import { taskDetailsPath, taskReturnPath } from '@/pages/tasks/task-navigation';
 
 import { type ProRouteConfig, proRouteConfig } from './routes.config';
 import { createProRouting, proRouting } from './routing';
@@ -22,7 +23,7 @@ function sampleConfig(): ProRouteConfig {
             id: 'project-detail',
             path: '/projects/:projectId',
             label: 'Project detail',
-            page: 'detail',
+            page: 'project-detail',
             display: { sidebar: false },
           },
           { id: 'new-project', path: '/projects/new', label: 'New project', page: 'task-create' },
@@ -53,7 +54,7 @@ describe('configured Pro routing', () => {
       expect(canVisitPage(user, 'tasks')).toBe(true);
       expect(canVisitPage(user, 'projects')).toBe(true);
       expect(canVisitPage(user, 'task-create')).toBe(user.role !== 'member');
-      expect(canVisitPage(user, 'step-form')).toBe(user.role !== 'member');
+      expect(canVisitPage(user, 'project-handoff')).toBe(user.role !== 'member');
     }
     for (const route of showcaseRoutes) expect(canVisitPage(undefined, route.page)).toBe(false);
   });
@@ -70,8 +71,8 @@ describe('configured Pro routing', () => {
       ['/work/tasks/new', 'task-create'],
       ['/work/tasks/example/edit', 'task-edit'],
       ['/work/tasks/example', 'task-details'],
-      ['/work/projects/online-store', 'detail'],
-      ['/work/projects/online-store/handoff', 'step-form'],
+      ['/work/projects/online-store', 'project-detail'],
+      ['/work/projects/online-store/handoff', 'project-handoff'],
     ]) {
       expect(proRouting.match(path!)?.page).toBe(page);
       expect(proRouting.match(path!)?.display.sidebar).toBe(false);
@@ -95,10 +96,10 @@ describe('configured Pro routing', () => {
         routes: [
           { id: 'projects', path: '/projects', label: 'Projects', page: 'projects' },
           {
-            id: 'detail',
+            id: 'project-detail',
             path: '/detail',
             label: 'Detail',
-            page: 'detail',
+            page: 'project-detail',
             display: { sidebar: false, breadcrumb: true },
           },
         ],
@@ -137,7 +138,7 @@ describe('configured Pro routing', () => {
       {
         ...config.groups[0]!,
         routes: [
-          { id: 'detail', path: '/projects/:id', label: 'Project', page: 'detail' },
+          { id: 'project-detail', path: '/projects/:id', label: 'Project', page: 'project-detail' },
           { id: 'files', path: '/files/*', label: 'Files', page: 'tasks' },
         ],
       },
@@ -180,10 +181,10 @@ describe('configured Pro routing', () => {
         routes: [
           { id: 'projects', path: '/projects', label: 'Projects', page: 'projects' },
           {
-            id: 'detail',
+            id: 'project-detail',
             path: '/detail',
             label: 'Detail',
-            page: 'detail',
+            page: 'project-detail',
             contentLayout: 'flow',
           },
         ],
@@ -193,4 +194,26 @@ describe('configured Pro routing', () => {
     expect(routing.match('/projects')?.contentLayout).toBe('fill');
     expect(routing.match('/detail')?.contentLayout).toBe('flow');
   });
+});
+
+it('returns task details to allowed business or result routes without accepting external targets', () => {
+  for (const path of [
+    '/result/success',
+    '/result/error',
+    '/work/projects/online-store',
+    '/work/tasks?project=Online+Store',
+  ]) {
+    expect(taskReturnPath(path)).toBe(path);
+    expect(
+      new URL(taskDetailsPath('task-1', path), 'https://example.test').searchParams.get('returnTo'),
+    ).toBe(path);
+  }
+  for (const path of [
+    'https://example.test',
+    '//example.test',
+    '/result/unknown',
+    '/result/success/../../login',
+    '/login',
+  ])
+    expect(taskReturnPath(path)).toBe('/work/tasks');
 });

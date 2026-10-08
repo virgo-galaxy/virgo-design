@@ -28,14 +28,18 @@ import { canVisitPage, isAdminShowcasePage } from '@/lib/auth/permissions';
 const AnalyticsPage = lazy(() =>
   import('@/pages/analytics/AnalyticsPage').then((module) => ({ default: module.AnalyticsPage })),
 );
-const DetailPage = lazy(() =>
-  import('@/pages/data/DetailPage').then((module) => ({ default: module.DetailPage })),
+const ProjectDetailPage = lazy(() =>
+  import('@/pages/projects/ProjectDetailPage').then((module) => ({
+    default: module.ProjectDetailPage,
+  })),
 );
 const ExceptionPage = lazy(() =>
   import('@/pages/exceptions/ExceptionPage').then((module) => ({ default: module.ExceptionPage })),
 );
-const StepFormPage = lazy(() =>
-  import('@/pages/forms/StepFormPage').then((module) => ({ default: module.StepFormPage })),
+const ProjectHandoffPage = lazy(() =>
+  import('@/pages/projects/ProjectHandoffPage').then((module) => ({
+    default: module.ProjectHandoffPage,
+  })),
 );
 const NotFoundPage = lazy(() =>
   import('@/pages/NotFoundPage').then((module) => ({ default: module.NotFoundPage })),
@@ -88,11 +92,13 @@ function ApplicationRoutes() {
     saveProfile: setProfile,
     projects,
     workflows,
+    taskReferenceDate,
   } = useProData();
   const [handoff, setHandoff] = useState<HandoffDraft>(() => ({
     ...initialHandoff,
     projectId: projects[0]?.id ?? initialHandoff.projectId,
     taskIds: [],
+    date: taskReferenceDate,
   }));
   const [stage, setStage] = useState(0);
   const [success, setSuccess] = useState<WorkflowReceipt>(workflows.success);
@@ -123,9 +129,9 @@ function ApplicationRoutes() {
     'task-edit': <TaskWorkspacePage mode="edit" />,
     'task-details': <TaskWorkspacePage mode="details" />,
     projects: <ProjectsPage state={tasks} />,
-    detail: <DetailPage state={tasks} dispatch={dispatch} />,
-    'step-form': (
-      <StepFormPage
+    'project-detail': <ProjectDetailPage state={tasks} />,
+    'project-handoff': (
+      <ProjectHandoffPage
         draft={handoff}
         setDraft={setHandoff}
         state={tasks}
@@ -175,8 +181,8 @@ function ApplicationRoutes() {
                 ) : [
                     'analytics',
                     'projects',
-                    'detail',
-                    'step-form',
+                    'project-detail',
+                    'project-handoff',
                     'success',
                     'error',
                     'profile',

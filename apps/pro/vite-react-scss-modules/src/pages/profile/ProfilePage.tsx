@@ -145,6 +145,7 @@ function ProfileEditor({
                   await onSave({
                     ...draft,
                     name: draft.name.trim(),
+                    displayName: draft.name.trim(),
                     headline: draft.headline.trim(),
                     bio: draft.bio.trim(),
                   });
@@ -296,8 +297,8 @@ function ProfileEditor({
                     className={styles.colorPanel}
                   >
                     <ColorPicker.Area
-                      saturationLabel="Avatar color saturation"
-                      brightnessLabel="Avatar color brightness"
+                      saturationLabel={t('profile.avatarColorSaturation')}
+                      brightnessLabel={t('profile.avatarColorBrightness')}
                     />
                     <ColorPicker.Hue aria-label={t('profile.avatarColorHue')} />
                     <ColorPicker.HexField aria-label={t('profile.pickerHexColor')} />
@@ -385,10 +386,13 @@ export function ProfilePage({
     null,
   );
   const noticeId = useRef(0);
-  const admin = isAdmin(useCurrentUser());
+  const user = useCurrentUser()!;
+  const admin = isAdmin(user);
+  const manager = admin || user.role === 'manager';
+  const roleLabel = t(`app.login.roles.${user.role}`);
   const editRef = useRef<HTMLButtonElement>(null);
   const notify = (kind: 'preferences' | 'profile') => setNotice({ id: ++noticeId.current, kind });
-  const focusProject = projects.find((item) => item.id === profile.focusProject)!;
+  const focusProject = projects.find((item) => item.id === profile.focusProject) ?? projects[0];
   const openReviews = state.tasks.filter((task) => task.status === 'in_review');
   const preferenceDirty =
     preferences.focusProject !== profile.focusProject ||
@@ -417,24 +421,25 @@ export function ProfilePage({
               />
             </Badge>
             <div>
-              <span className={shared.eyebrow}>{t('profile.virgoStudioWorkspaceOwner')}</span>
-              <h1>{profile.name}</h1>
-              <p>{profile.headline}</p>
+              <span className={shared.eyebrow}>
+                {t('profile.virgoStudio')} / {roleLabel}
+              </span>
+              <h1>{businessLabel(profile.name, i18n.language)}</h1>
+              <p>{businessLabel(profile.headline, i18n.language)}</p>
               <Button.Group layout="custom" className={shared.actions}>
                 <Tag size="md" intent="brand">
-                  {t('profile.owner')}
+                  {roleLabel}
                 </Tag>
                 <Tag size="md" variant="outline">
-                  {t('profile.productDesign')}
+                  {businessLabel(user.department, i18n.language)}
                 </Tag>
               </Button.Group>
             </div>
           </div>
           <Button.Group layout="custom" className={styles.identityActions}>
-            <span className={shared.caption}>{t('profile.memberSinceSeptember2026')}</span>
+            <span className={shared.caption}>{user.account}</span>
             <Button
               ref={editRef}
-              disabled={!admin}
               size="medium"
               variant="outline"
               leadingIcon={<UserIcon />}
@@ -458,7 +463,8 @@ export function ProfilePage({
                 <Panel title={t('profile.about')}>
                   <div className={shared.body}>
                     <p className={styles.bio}>
-                      {profile.bio || t('profile.addAnIntroductionSoYourTeamKnowsHowYou')}
+                      {businessLabel(profile.bio, i18n.language) ||
+                        t('profile.addAnIntroductionSoYourTeamKnowsHowYou')}
                     </p>
                     <dl className={styles.accountMetadata}>
                       <div>
@@ -467,11 +473,11 @@ export function ProfilePage({
                       </div>
                       <div>
                         <dt>{t('profile.role')}</dt>
-                        <dd>{t('profile.workspaceOwner')}</dd>
+                        <dd>{roleLabel}</dd>
                       </div>
                       <div>
                         <dt>{t('profile.team')}</dt>
-                        <dd>{t('profile.productDesign')}</dd>
+                        <dd>{businessLabel(user.department, i18n.language)}</dd>
                       </div>
                       <div>
                         <dt>{t('profile.timeZone')}</dt>
@@ -480,22 +486,28 @@ export function ProfilePage({
                     </dl>
                   </div>
                 </Panel>
-                <Panel
-                  title={t('profile.focusProject')}
-                  description={t('profile.yourPreferredStartingPoint')}
-                >
-                  <div className={shared.body}>
-                    <span className={shared.eyebrow}>{focusProject.code}</span>
-                    <h3 className={styles.focusTitle}>{focusProject.name}</h3>
-                    <p className={styles.bio}>{focusProject.summary}</p>
-                    <Person id={focusProject.owner} />
-                    <div className={styles.focusLink}>
-                      <Link className={shared.link} to={projectDetailPath(focusProject)}>
-                        {t('profile.openProjectRecord')}
-                      </Link>
+                {focusProject ? (
+                  <Panel
+                    title={t('profile.focusProject')}
+                    description={t('profile.yourPreferredStartingPoint')}
+                  >
+                    <div className={shared.body}>
+                      <span className={shared.eyebrow}>{focusProject.code}</span>
+                      <h3 className={styles.focusTitle}>
+                        {businessLabel(focusProject.name, i18n.language)}
+                      </h3>
+                      <p className={styles.bio}>
+                        {businessLabel(focusProject.summary, i18n.language)}
+                      </p>
+                      <Person id={focusProject.owner} />
+                      <div className={styles.focusLink}>
+                        <Link className={shared.link} to={projectDetailPath(focusProject)}>
+                          {t('profile.openProjectRecord')}
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                </Panel>
+                  </Panel>
+                ) : null}
               </div>
               <Panel
                 title={t('profile.yourWorkspaceResponsibilities')}
@@ -505,8 +517,10 @@ export function ProfilePage({
                   <li>
                     <span className={shared.mono}>01</span>
                     <div>
-                      <h3>{t('profile.maintainProjectDirection')}</h3>
-                      <p>{t('profile.fourFocusAreasShareOneOctoberDeliveryPlan')}</p>
+                      <h3>
+                        {t(manager ? 'profile.maintainProjectDirection' : 'profile.yourProjects')}
+                      </h3>
+                      <p>{t('profile.projectScope', { count: projects.length })}</p>
                       <Link className={shared.link} to="/work/projects">
                         {t('profile.projectPortfolio')}
                       </Link>
@@ -516,7 +530,7 @@ export function ProfilePage({
                     <span className={shared.mono}>02</span>
                     <div>
                       <h3>
-                        {t('profile.makeAcceptanceVisible')}
+                        {t(manager ? 'profile.makeAcceptanceVisible' : 'profile.yourReviews')}
                         <Badge count={openReviews.length} intent="warning" showZero />
                       </h3>
                       <p>{t('profile.reviewOwnershipAndTheNotesBehindPendingWork')}</p>
@@ -525,16 +539,32 @@ export function ProfilePage({
                       </Link>
                     </div>
                   </li>
-                  <li>
-                    <span className={shared.mono}>03</span>
-                    <div>
-                      <h3>{t('profile.prepareReliableHandoffs')}</h3>
-                      <p>{t('profile.bringScopeAudienceAndTheNextCheckpointTogether')}</p>
-                      <Link className={shared.link} to="/form/step">
-                        {t('profile.prepareAHandoff')}
-                      </Link>
-                    </div>
-                  </li>
+                  {manager && focusProject ? (
+                    <li>
+                      <span className={shared.mono}>03</span>
+                      <div>
+                        <h3>{t('profile.prepareReliableHandoffs')}</h3>
+                        <p>{t('profile.bringScopeAudienceAndTheNextCheckpointTogether')}</p>
+                        <Link
+                          className={shared.link}
+                          to={projectDetailPath(focusProject) + '/handoff'}
+                        >
+                          {t('profile.prepareAHandoff')}
+                        </Link>
+                      </div>
+                    </li>
+                  ) : (
+                    <li>
+                      <span className={shared.mono}>03</span>
+                      <div>
+                        <h3>{t('profile.yourTaskQueue')}</h3>
+                        <p>{t('profile.moveYourWorkForward')}</p>
+                        <Link className={shared.link} to="/work/tasks">
+                          {t('projects.viewTasks')}
+                        </Link>
+                      </div>
+                    </li>
+                  )}
                 </ul>
               </Panel>
             </div>
@@ -594,7 +624,10 @@ export function ProfilePage({
                       onChange={(value) =>
                         setPreferences((previous) => ({ ...previous, focusProject: value }))
                       }
-                      options={projects.map((item) => ({ value: item.id, label: item.name }))}
+                      options={projects.map((item) => ({
+                        value: item.id,
+                        label: businessLabel(item.name, i18n.language),
+                      }))}
                     />
                   </div>
                 </div>
@@ -674,7 +707,7 @@ export function ProfilePage({
                   <Button
                     size="medium"
                     type="submit"
-                    disabled={!admin || mutation.pending || !preferenceDirty}
+                    disabled={mutation.pending || !preferenceDirty}
                   >
                     {t('profile.savePreferences')}
                   </Button>
@@ -702,7 +735,13 @@ export function ProfilePage({
                         {getActivityActionLabel(t, event, i18n.language)}
                       </Timeline.Description>
                       <Timeline.Time dateTime={event.dateTime}>
-                        {event.time} · {businessLabel(event.project, i18n.language)}
+                        {new Intl.DateTimeFormat(i18n.language, {
+                          month: 'short',
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        }).format(new Date(event.dateTime))}{' '}
+                        · {businessLabel(event.project, i18n.language)}
                       </Timeline.Time>
                     </Timeline.Item>
                   ))}

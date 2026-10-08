@@ -2,7 +2,12 @@ import { type ReactNode, useEffect, useState } from 'react';
 
 import { getSession, type LoginDto, logout, resetDemo, type SessionDto } from '@/api/auth';
 import { resetAppLocale } from '@/i18n/runtime';
-import { clearAuthSession, sessionExpiredEvent } from '@/lib/auth/session';
+import {
+  clearAuthSession,
+  expireAuthSession,
+  getSessionExpiresAt,
+  sessionExpiredEvent,
+} from '@/lib/auth/session';
 
 import { saveAgentMode } from './agent-mode';
 import { LoginPage } from './LoginPage';
@@ -40,6 +45,15 @@ export function SessionBoundary({ children }: { children: ReactNode }) {
       clearAuthSession();
       window.history.replaceState(null, '', '/login');
     }
+  }, [current]);
+  useEffect(() => {
+    if (!current?.authenticated) return;
+    const expiresAt = getSessionExpiresAt();
+    if (!expiresAt) return;
+    const remaining = Date.parse(expiresAt) - Date.now();
+    if (!Number.isFinite(remaining)) return;
+    const timer = window.setTimeout(expireAuthSession, Math.max(0, remaining));
+    return () => window.clearTimeout(timer);
   }, [current]);
   if (!current)
     return <RemoteState loading={resource.loading} error={resource.error} retry={resource.retry} />;

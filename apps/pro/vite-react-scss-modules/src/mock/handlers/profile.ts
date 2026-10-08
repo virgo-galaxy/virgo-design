@@ -1,11 +1,11 @@
 import { http } from 'msw';
 
+import type { SessionUser } from '@/api/auth';
 import { API_ERROR_CODES } from '@/api/error-codes';
 import type { ProfileDto } from '@/api/profile';
 import { isAdmin } from '@/lib/auth/permissions';
 import { isRecord } from '@/lib/http/protocol';
 
-import { forbidden } from '../access';
 import { initialProfile } from '../fixtures/profile';
 import { projects } from '../fixtures/projects';
 import { endpoint, failure, success } from '../response';
@@ -17,24 +17,25 @@ export function getBackendProfile(): ProfileDto {
 export function resetProfile() {
   updateDemoState((previous) => ({ ...previous, profile: { ...initialProfile } }));
 }
-export const profileHandlers = [
-  http.get(endpoint('/profile'), ({ request }) => {
-    const user = requestUser(request)!;
-    if (isAdmin(user)) return success(getDemoState().profile);
-    return success({
+function profileFor(user: SessionUser): ProfileDto {
+  if (isAdmin(user)) return getBackendProfile();
+  return (
+    getDemoState().profiles?.[user.id] ?? {
       ...initialProfile,
       name: user.name,
       displayName: user.name,
       headline: `${user.jobTitle} · Virgo Studio`,
       bio: '',
       avatarImage: user.avatarUrl ?? '',
-      focusProject:
-        projects.find((project) => project.name === user.projects[0])?.id ?? 'online-store',
-    });
-  }),
+      focusProject: projects.find((project) => project.name === user.projects[0])?.id ?? '',
+    }
+  );
+}
+export const profileHandlers = [
+  http.get(endpoint('/profile'), ({ request }) => success(profileFor(requestUser(request)!))),
   http.patch(endpoint('/profile'), async ({ request }) => {
-    if (!isAdmin(requestUser(request))) return forbidden();
-    const profile = getDemoState().profile;
+    const user = requestUser(request)!;
+    const profile = profileFor(user);
     let body: unknown;
     try {
       body = await request.json();
@@ -70,7 +71,7 @@ export const profileHandlers = [
     if (next.headline.length > 100) fields.headline = ['Headline is too long'];
     if (next.bio.length > 600) fields.bio = ['Bio is too long'];
     if (!/^#[\da-f]{6}$/i.test(next.avatarColor)) fields.avatarColor = ['Invalid color'];
-    if (!projects.some((p) => p.id === next.focusProject))
+    if (!projects.some((p) => p.id === next.focusProject && user.projects.includes(p.name)))
       fields.focusProject = ['Project not found'];
     if (next.digest && !/^([01]\d|2[0-3]):[0-5]\d$/.test(next.digestTime))
       fields.digestTime = ['Invalid time'];
@@ -84,10 +85,20 @@ export const profileHandlers = [
     const saved = {
       ...next,
       name: next.name.trim(),
+      displayName:
+        typeof body.displayName === 'string'
+          ? body.displayName.trim()
+          : next.name !== profile.name
+            ? next.name.trim()
+            : (profile.displayName ?? next.name.trim()),
       headline: next.headline.trim(),
       bio: next.bio.trim(),
     };
-    updateDemoState((previous) => ({ ...previous, profile: saved }));
+    updateDemoState((previous) =>
+      isAdmin(user)
+        ? { ...previous, profile: saved }
+        : { ...previous, profiles: { ...previous.profiles, [user.id]: saved } },
+    );
     return success(saved);
   }),
 ];

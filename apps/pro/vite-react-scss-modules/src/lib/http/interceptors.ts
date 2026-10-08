@@ -1,4 +1,4 @@
-import type { AxiosInstance } from 'axios';
+import { type AxiosInstance, isAxiosError } from 'axios';
 
 import { expireAuthSession, getAccessToken } from '@/lib/auth/session';
 
@@ -14,7 +14,14 @@ export function installHttpInterceptors(client: AxiosInstance): void {
     (response) => response,
     (error: unknown) => {
       const normalized = normalizeHttpError(error);
-      if (normalized.status === 401 && getAccessToken()) expireAuthSession();
+      const token = getAccessToken();
+      if (
+        normalized.status === 401 &&
+        token &&
+        isAxiosError(error) &&
+        error.config?.headers.get('Authorization') === `Bearer ${token}`
+      )
+        expireAuthSession();
       return Promise.reject(normalized);
     },
   );

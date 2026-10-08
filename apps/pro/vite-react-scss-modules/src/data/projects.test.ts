@@ -6,7 +6,13 @@ import { initialTaskState, taskProjects } from '@/mock/fixtures/tasks';
 import { activity } from '@/mock/fixtures/workplace';
 import { tasksReducer } from '@/test/task-state.test-helper';
 
-import { projectActivity, projectDetailPath, projectSummary, projectTasksPath } from './projects';
+import {
+  filterProjects,
+  projectActivity,
+  projectDetailPath,
+  projectSummary,
+  projectTasksPath,
+} from './projects';
 import { taskDraft } from './tasks';
 
 describe('shared project register', () => {
@@ -118,5 +124,27 @@ describe('shared project register', () => {
       projectActivity(projects[0]!, activity).every((event) => event.project === 'Online Store'),
     ).toBe(true);
     expect(projectActivity(projects[3]!, activity)).toEqual([]);
+  });
+  it('combines bilingual search, health and actual project leads', () => {
+    expect(
+      filterProjects(projects, taskAssignees, { search: '网上商城', health: [], leads: [] }).map(
+        (project) => project.id,
+      ),
+    ).toEqual(['online-store']);
+    expect(
+      filterProjects(projects, taskAssignees, {
+        search: 'ava',
+        health: ['At risk'],
+        leads: ['ava'],
+      }).map((project) => project.id),
+    ).toEqual(['online-store']);
+    expect(
+      filterProjects(projects, taskAssignees, { search: '', health: ['Planning'], leads: ['ava'] }),
+    ).toEqual([]);
+    expect(
+      filterProjects(projects, taskAssignees, { search: 'PRJ-02', health: [], leads: ['leo'] }).map(
+        (project) => project.id,
+      ),
+    ).toEqual(['booking-system']);
   });
 });

@@ -11,8 +11,8 @@ const pageKeys = {
   'task-edit': 'tasks.editTask',
   'task-details': 'tasks.taskDetails',
   projects: 'app.projects',
-  detail: 'tasks.workspace.projectDetails',
-  'step-form': 'tasks.workspace.handoff',
+  'project-detail': 'tasks.workspace.projectDetails',
+  'project-handoff': 'tasks.workspace.handoff',
   success: 'app.success',
   error: 'app.error',
   'exception-403': 'app.exception403',
@@ -34,10 +34,6 @@ export function getGroupLabel(t: TFunction, id: string) {
       return t('app.visualization');
     case 'work':
       return t('app.work');
-    case 'data':
-      return t('app.data');
-    case 'form':
-      return t('app.form');
     case 'result':
       return t('app.result');
     case 'exception':

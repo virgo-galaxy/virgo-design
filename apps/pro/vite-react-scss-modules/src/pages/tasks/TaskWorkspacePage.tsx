@@ -70,13 +70,15 @@ function BackLink({ to }: { to: string }) {
     <Link className={styles.back} to={to}>
       <ArrowLeftIcon />
       {t(
-        to.startsWith('/work/task-cards')
-          ? 'tasks.workspace.backToCards'
-          : to.startsWith('/work/projects/')
-            ? 'tasks.workspace.backToProject'
-            : to.startsWith('/work/projects')
-              ? 'data.backToProjects'
-              : 'tasks.workspace.backToList',
+        to.startsWith('/result/')
+          ? 'tasks.workspace.backToResult'
+          : to.startsWith('/work/task-cards')
+            ? 'tasks.workspace.backToCards'
+            : to.startsWith('/work/projects/')
+              ? 'tasks.workspace.backToProject'
+              : to.startsWith('/work/projects')
+                ? 'projectDetails.backToProjects'
+                : 'tasks.workspace.backToList',
       )}
     </Link>
   );

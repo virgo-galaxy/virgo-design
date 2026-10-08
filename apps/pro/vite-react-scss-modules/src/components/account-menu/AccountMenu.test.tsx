@@ -15,7 +15,7 @@ const { navigate, signOut, changeMode } = vi.hoisted(() => ({
 vi.mock('react-router', () => ({ useNavigate: () => navigate }));
 vi.mock('@/application/session-context', () => ({
   useSession: () => ({ signOut }),
-  useCurrentUser: () => ({ role: 'admin' }),
+  useCurrentUser: () => ({ role: 'admin', account: 'admin', department: 'Platform' }),
 }));
 
 beforeEach(async () => {
@@ -64,7 +64,7 @@ describe('account menu', () => {
     fireEvent.click(trigger);
     const menu = await screen.findByRole('menu', { name: 'Admin account' });
     expect(menu.querySelector('[data-slot="arrow"]')).toBeNull();
-    expect(screen.getByText('Administrator · Virgo Studio')).toBeTruthy();
+    expect(screen.getByText('Administrator · Platform')).toBeTruthy();
     fireEvent.click(screen.getByRole('menuitem', { name: 'Personal center' }));
     expect(navigate).toHaveBeenCalledWith('/profile');
     await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());

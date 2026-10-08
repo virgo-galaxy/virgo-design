@@ -108,7 +108,9 @@
     gap: var(--vd-spacing-6);
   }
 }
-.taskButton[data-variant='text'] {
+.taskButton {
+  color: var(--vd-text-primary);
+  text-decoration: none;
   --button-foreground: var(--vd-text-primary);
   padding: 0;
   height: auto;
@@ -179,5 +181,40 @@
   }
   .metadata > div {
     grid-template-columns: 90px minmax(0, 1fr);
+  }
+}
+
+.moduleGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--vd-spacing-12);
+  padding: var(--vd-spacing-20);
+}
+.moduleCard {
+  display: grid;
+  gap: var(--vd-spacing-12);
+  min-width: 0;
+  padding: var(--vd-spacing-16);
+  border: 1px solid var(--vd-border-subtle);
+  border-radius: var(--vd-radius-8);
+  color: var(--vd-text-primary);
+  text-decoration: none;
+  font-size: var(--vd-font-size-13);
+  span {
+    color: var(--vd-text-secondary);
+    font-size: var(--vd-font-size-12);
+  }
+  &:hover {
+    background: var(--vd-surface-secondary);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--vd-brand-primary);
+    outline-offset: 2px;
+  }
+}
+@media (max-width: 640px) {
+  .moduleGrid {
+    grid-template-columns: 1fr;
+    padding: var(--vd-spacing-16);
   }
 }

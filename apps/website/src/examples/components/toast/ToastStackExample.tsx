@@ -22,6 +22,7 @@ export default function App() {
           {t('examples.toast.copy.addTwoToasts')}
         </Button>
         <Toast.Viewport
+          portal={false}
           aria-label={t('examples.toast.copy.stackedNotifications')}
           className={styles.viewport!}
         />

@@ -7,7 +7,7 @@ import { MutationFeedback } from '@/application/MutationFeedback';
 import { RemoteState } from '@/application/RemoteState';
 import { useMutation } from '@/application/use-mutation';
 import { businessLabel } from '@/lib/demo/labels';
-import {taskDetailsPath} from '@/pages/tasks/task-navigation';
+import { taskDetailsPath } from '@/pages/tasks/task-navigation';
 
 import styles from './NotificationInbox.module.scss';
 import type { useNotificationInbox } from './use-notification-inbox';
@@ -53,7 +53,9 @@ export function NotificationInbox({
           ) : (
             inbox.data.items.map((item) => (
               <li key={item.id} data-unread={!item.readAt || undefined}>
-                <button
+                <Button
+                  variant="text"
+                  className={styles.item}
                   type="button"
                   disabled={mutation.pending}
                   onClick={() =>
@@ -91,7 +93,7 @@ export function NotificationInbox({
                   {item.taskId && !item.available ? (
                     <span className={styles.unavailable}>{t('app.inbox.unavailable')}</span>
                   ) : null}
-                </button>
+                </Button>
               </li>
             ))
           )}

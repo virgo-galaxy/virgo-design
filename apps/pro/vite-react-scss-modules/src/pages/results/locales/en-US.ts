@@ -1,4 +1,6 @@
 export const resultsEnUS = {
+  scopePreview:
+    'Showing {{shown}} of {{total}} linked tasks. Download the task scope for the complete list.',
   recordDetails: 'Result record',
   recorded: 'RECORDED',
   teamWorkspace: 'Team workspace',

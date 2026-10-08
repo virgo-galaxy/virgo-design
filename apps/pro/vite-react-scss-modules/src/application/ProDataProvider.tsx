@@ -36,7 +36,7 @@ function ReadyData({ initial, children }: { initial: BootstrapData; children: Re
   }, []);
   const loadTaskCollection = useCallback(
     async (signal: AbortSignal) => {
-      // Legacy collection-based pages load only on entry, not during application bootstrap.
+      // Portfolio, reporting and profile share a scoped collection loaded only on entry.
       void revision;
       const tasks = await getAllTasks({}, signal);
       if (!signal.aborted) setData((previous) => ({ ...previous, tasks }));
@@ -60,8 +60,12 @@ function ReadyData({ initial, children }: { initial: BootstrapData; children: Re
   const refreshMetadata = useCallback(
     async (signal: AbortSignal) => {
       if (!revision) return;
-      const metadata = await getTaskMetadata(signal);
-      if (!signal.aborted) setData((previous) => ({ ...previous, metadata }));
+      const [metadata, workplace, analytics] = await Promise.all([
+        getTaskMetadata(signal),
+        getWorkplaceOverview(signal),
+        getAnalyticsOverview(signal),
+      ]);
+      if (!signal.aborted) setData((previous) => ({ ...previous, metadata, workplace, analytics }));
     },
     [revision],
   );

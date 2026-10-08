@@ -1,5 +1,23 @@
 export const projectsEnUS = {
-  focusAreas: 'Focus areas',
+  overdue: 'Overdue',
+  completedOfTotal: '{{completed}} of {{total}} tasks completed',
+  moduleCount: '{{count}} modules',
+  viewTasks: 'View tasks →',
+  prepareHandoff: 'Prepare handoff →',
+  yourOpenTasks: 'Your open tasks',
+  yourCompletion: 'Your task completion',
+  assignedToYou: 'assigned to you',
+  personalScope:
+    'Your work across the projects you participate in. Counts and progress reflect your assigned tasks.',
+  portfolioScope:
+    'One portfolio, shared modules and task records. Open a project to review delivery and prepare a handoff.',
+  yourWork: 'YOUR WORK',
+  sharedRegister: 'SHARED TASK REGISTER',
+  moduleProgress: 'Completion and linked work in each module.',
+  taskPreview: 'Showing {{count}} of {{total}} linked tasks',
+  recentProjectActivity: 'Recent recorded activity in this project and your current access scope.',
+
+  focusAreas: 'Projects',
   sharedWithTheTaskRegister: 'shared with the task register',
   openTasks: 'Open tasks',
   acrossAllProjects: 'across all projects',

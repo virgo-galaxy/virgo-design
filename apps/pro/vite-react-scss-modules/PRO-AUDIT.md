@@ -1,11 +1,64 @@
 # Virgo Design Pro — current product audit
 
-Updated October 3, 2026. Scope: `packages/*`, public Website documentation, and
+Updated October 8, 2026. Scope: `packages/*`, public Website documentation, and
 `apps/pro/vite-react-scss-modules` (Golden Pro). The other five Pro variants are not
 part of this pass. This document replaces the historical phase-by-phase issue log
 with the current capability and delivery boundaries.
 
 ## Resolved
+
+### Golden Pro product closure — October 8
+
+- Projects, Tasks, workplace reports and handoffs consume the same authenticated HTTP
+  register. Portfolio search (including Chinese labels), health and actual project-manager
+  filters compose together and live in the URL. Returning from project details retains
+  the portfolio filters. Open/review/overdue counts link to the matching task query.
+- Project details show live completion, open/review/overdue work, module-level progress,
+  a bounded linked-task preview, the full task register, team and dated milestones.
+  Cross-year project dates include the year. Health remains an explicitly labelled
+  project-manager assessment, separate from calculated overdue work.
+- Managers see their managed projects; members see participating projects with counts
+  and progress calculated from their own assigned tasks. Personal scope is stated on
+  the page. Handoff is available only to Admin and the managing project manager.
+  Its API checks project scope, unique task IDs and valid dates after project start;
+  manager receipts stay inline, while Admin can use the Result showcase routes.
+- Login uses Virgo Form/Input/Button/Progress and the shared theme/surface typography.
+  Account Menu shows the current name, actual role, department and account. Every role
+  can edit its own profile and preferences; profiles persist by user ID across logout,
+  reload and account switches. Global/table settings and reset remain Admin-only.
+- Session bootstrap reports invalid saved tokens as expired. An idle-session timer
+  returns to Login at expiry; protected 401 responses do the same. A late response
+  carrying a previous token cannot expire a newly signed-in account.
+- Shared Toast feedback aligns the title, status icon and close control on one row
+  without reserving an empty description row. Website's Toast specimens explicitly
+  use inline viewports; notifications remain in their preview canvases rather than
+  inheriting the global portal placement.
+- Success/Error and 403/404/500 use public Result, semantic Surface/Button styles,
+  consistent heading sizes and the actual Result spacing variables. Sample receipts
+  now demonstrate project handoff, including a real project manager and linked work.
+  Result previews at most four linked tasks, opens their dedicated details with a return link and
+  retains the complete scope in CSV export; bulk handoffs do not create an unbounded
+  result page.
+- Deleted DataListPage, BasicFormPage, TaskDialog, TaskDetailsDialog, use-task-editor
+  and the obsolete WorkRequest helpers. ProjectDetailPage and ProjectHandoffPage now
+  own their styles/locales under Projects. Old data/form URLs remain compatibility
+  redirects only; no production navigation or component import uses the old pages.
+
+### Production raw-control audit
+
+Scan: `src/**/*.{tsx,jsx}` excluding tests. **5 raw buttons remain; 0 raw input,
+select, textarea, details or summary controls.** Notification rows and the AI preview
+return action now use public Virgo Button.
+
+| Remaining location          | Reason                                                                                                                                                      |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TokenUsageHeatmap           | Tooltip render-prop trigger forwards public trigger props/ref onto a compact calendar cell; cell geometry, intensity and date interaction are domain-owned. |
+| TokenUsageCalendar          | Same public Tooltip trigger adapter for full-calendar day cells.                                                                                            |
+| TaskAssigneeCard            | Public Popover/Tooltip render adapter for a composed person trigger; the primitive owns overlay, keyboard and ARIA behaviour.                               |
+| AiWorkspace — resize handle | Public Tooltip trigger adapter wraps the pointer/keyboard resize handle; domain geometry is not a standard action-button layout.                            |
+| AiWorkspace — drag handle   | Public Tooltip trigger adapter wraps the pointer/keyboard drag handle for the workspace canvas.                                                             |
+
+These adapters do not duplicate public Button action controls or public overlay logic.
 
 ### Charts engine migration
 
@@ -93,8 +146,10 @@ with the current capability and delivery boundaries.
 - Missing values compile to null with connectNulls disabled; ECharts controls transition
   behavior across changes in topology without Virgo synthesizing observations.
 - Mock is an MSW v2 HTTP backend behind `src/api` and `src/lib/http` (Axios).
-  Task/profile mutations update in-memory backend state and reset on reload.
-  Historical team delivery remains distinct from the editable task register.
+  Tasks, per-user profiles, handoffs, task activity/Token records and notifications
+  persist in Pro-owned localStorage (versioned snapshots with an in-memory fallback).
+  Opaque session tokens live in sessionStorage; Admin reset clears only Pro-owned keys.
+  Reports derive from the same scoped task/activity records across 2025–2026.
   Set `VITE_API_MOCKING=false` to use the same APIs against a Gateway. See `API.md`.
 
 ## Leave to Interface Audit
@@ -124,20 +179,20 @@ with the current capability and delivery boundaries.
   are no advertised per-part JS/CSS entrypoints. CSS is a marked side effect; do not
   promise per-series CSS elimination.
 - UI source-barrel imports still retain unused component CSS. Route splitting does
-  not solve that packaging concern. Pro initial UI CSS is about 186 KB before gzip;
-  the initial token/font plus UI styles together are about 337 KB. Interface themes
+  not solve that packaging concern. Pro initial UI CSS is about 230 KB before gzip;
+  the initial token/font plus UI styles together are about 393 KB. Interface themes
   and public package styles need a separate delivery/entrypoint audit.
-- Pro's main entry remains about 399 KB before gzip; route and shared UI dependencies
+- Pro's main entry is about 557 KB before gzip; route and shared UI dependencies
   remain separate lazy chunks. This does not describe the complete first-page cost.
 - The modular ECharts adapter/runtime chunk is about 618 KB (212 KB gzip), requested
   by chart routes. It now crosses Vite's 500 KB warning threshold; this is documented
-  rather than hiding the warning. Website's advanced entry adds about 512 KB (166 KB
-  gzip) and is lazy. The translations chunk remains about 521 KB, a separate delivery
+  rather than hiding the warning. Website's advanced entry adds about 514 KB (166 KB
+  gzip) and is lazy. The translations chunk remains about 584 KB, a separate delivery
   concern. Native Sparkline has no ECharts request.
 
 ## Validation and readiness
 
-- Full repository tests: **195 files / 2,088 tests passed**. Typecheck and lint passed;
+- Full repository tests: **233 files / 2,607 tests passed**. Typecheck and lint passed;
   generated API and icon consistency checks passed. Production builds passed for
   packages, Website and Golden Pro.
 - ECharts migration browser validation covers production renderer registration,
@@ -147,9 +202,19 @@ with the current capability and delivery boundaries.
   reduced-motion/theme updates, instance reuse, resize and cleanup.
 - Earlier product validation also sampled nested ColorPicker dismissal/layering and
   paused route loading with a persistent shell and localized Skeleton.
-- Before this engine migration, Golden Pro: 15 routes × English/Chinese × 1440/390 px (60 loaded-page checks) had
-  no page-wide horizontal overflow, missing page heading or runtime page errors.
-  Native table scrolling remains local where appropriate.
-- Charts has no blocking dashboard/public-API gap for V1. Golden Pro is ready to
-  **enter Interface Audit**. Package publishing and production data-service
-  requirements remain explicitly separate from that readiness.
+- Golden Pro closure browser validation: **16 formal routes × English/Chinese ×
+  light/dark × 1440/390 px = 128 loaded-page checks**. No missing business-page
+  heading, untranslated resource key, runtime page error or page-wide horizontal
+  overflow was found. Tables retain local horizontal scrolling. Login, project
+  detail, Result, Exception and Profile were also inspected visually.
+- Business checks cover portfolio filters and return links, project/module → task
+  queries, member submission → manager completion, per-person notifications,
+  personal profile persistence, Account Menu → Profile → Sign out → another Demo
+  login, and expired-session recovery. API integration tests additionally exercise
+  handoff validation/permissions and late-401 account-switch isolation.
+- Toast regression checks cover local viewport containment, undo, individual dismissal,
+  stacking and reopening after dismissal. Browser checks verified all six placements
+  at 1440/390 px, Chinese dark-mode interaction and aligned Pro preference feedback.
+- **No remaining blocker for step ⑦ within Golden Pro's local Mock scope.** Backend
+  deployment/authentication, cross-device collaboration and release/packaging remain
+  separate boundaries. Desktop, Retro and Interface Audit were not started.

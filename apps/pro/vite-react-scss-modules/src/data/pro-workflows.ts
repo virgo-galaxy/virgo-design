@@ -1,57 +1,9 @@
-import type { ProjectDto } from '@/api/projects/contract';
-import type { MemberDto } from '@/api/tasks';
-import type { formsEnUS } from '@/pages/forms/locales/en-US';
 import type { profileEnUS } from '@/pages/profile/locales/en-US';
+import type { handoffEnUS } from '@/pages/projects/locales/handoff/en-US';
 import type { resultsEnUS } from '@/pages/results/locales/en-US';
 
 import type { Project } from './projects';
-import { normalizeTaskDraft, type Task, type TaskDraft, validateTask } from './tasks';
-
-export interface WorkRequest extends TaskDraft {
-  acceptanceConfirmed: boolean;
-}
-export const initialWorkRequest: WorkRequest = {
-  title: '',
-  description: '',
-  project: 'Online Store',
-  module: 'online-store-1',
-  assignee: '',
-  status: 'todo',
-  priority: 'medium',
-  dueDate: '',
-  estimateHours: 8,
-  acceptanceConfirmed: false,
-};
-export function validateWorkRequest(
-  draft: WorkRequest,
-  taskProjects: readonly string[],
-  taskAssignees: readonly MemberDto[],
-  projects?: readonly ProjectDto[],
-) {
-  return {
-    ...validateTask(
-      draft,
-      taskProjects,
-      taskAssignees.map((person) => person.id),
-      projects,
-    ),
-    ...(!draft.acceptanceConfirmed ? { acceptanceConfirmed: 'acceptanceRequired' as const } : {}),
-  };
-}
-export function workRequestTask(draft: WorkRequest): TaskDraft {
-  // Only public task fields enter the shared register.
-  return normalizeTaskDraft({
-    title: draft.title,
-    description: draft.description,
-    project: draft.project,
-    module: draft.module,
-    assignee: draft.assignee,
-    status: draft.status,
-    priority: draft.priority,
-    dueDate: draft.dueDate,
-    estimateHours: draft.estimateHours,
-  });
-}
+import type { Task } from './tasks';
 
 export interface HandoffDraft {
   title: string;
@@ -149,11 +101,11 @@ export function validateHandoff(
   throughStep: number,
   projects: readonly Project[],
 ) {
-  const errors: Partial<Record<keyof HandoffDraft, keyof typeof formsEnUS.validation>> = {};
+  const errors: Partial<Record<keyof HandoffDraft, keyof typeof handoffEnUS.validation>> = {};
   const project = projects.find((item) => item.id === draft.projectId);
   if (!draft.title.trim() || draft.title.trim().length > 100) errors.title = 'titleInvalid';
   if (!project) errors.projectId = 'projectInvalid';
-  if (!validDate(draft.date) || draft.date < '2026-10-03') errors.date = 'dateInvalid';
+  if (!validDate(draft.date) || draft.date < (project?.start ?? '')) errors.date = 'dateInvalid';
   if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(draft.time)) errors.time = 'timeInvalid';
   if (throughStep >= 1) {
     if (
