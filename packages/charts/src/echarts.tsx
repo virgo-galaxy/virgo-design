@@ -34,28 +34,26 @@ export function EChartsChart({
   const ref = useRef<HTMLDivElement>(null),
     theme = useChartTheme(ref),
     reduced = useReducedMotion();
-  const compiled = useMemo(
-    () =>
-      theme
+  const compiled = useMemo(() => {
+    if (!theme) return null;
+    const themed = advancedTheme(option, theme);
+    return {
+      ...themed,
+      animation: animated && !reduced && option.animation !== false,
+      ...(!animated || reduced
         ? {
-            ...advancedTheme(option, theme),
-            animation: animated && !reduced && option.animation !== false,
-            ...(!animated || reduced
-              ? {
-                  stateAnimation: { duration: 0 },
-                  axisPointer: { ...option.axisPointer, animation: false },
-                  series: (Array.isArray(option.series)
-                    ? option.series
-                    : option.series
-                      ? [option.series]
-                      : []
-                  ).map((series) => ({ ...series, animation: false, animationDurationUpdate: 0 })),
-                }
-              : {}),
+            stateAnimation: { duration: 0 },
+            axisPointer: { ...option.axisPointer, animation: false },
+            series: (Array.isArray(themed.series)
+              ? themed.series
+              : themed.series
+                ? [themed.series]
+                : []
+            ).map((series) => ({ ...series, animation: false, animationDurationUpdate: 0 })),
           }
-        : null,
-    [option, theme, animated, reduced],
-  );
+        : {}),
+    };
+  }, [option, theme, animated, reduced]);
   useChartRuntime({ ref, init: echarts.init, renderer, height, option: compiled, onReady });
   return (
     <div

@@ -780,10 +780,10 @@
 }
 .heatmapCard {
   --usage-empty: var(--vd-fill-hover);
-  --usage-1: var(--vd-blue-2);
-  --usage-2: var(--vd-blue-4);
-  --usage-3: var(--vd-blue-6);
-  --usage-4: var(--vd-blue-8);
+  --usage-1: var(--vd-data-sequential-2);
+  --usage-2: var(--vd-data-sequential-3);
+  --usage-3: var(--vd-data-sequential-4);
+  --usage-4: var(--vd-data-sequential-6);
   [data-level='0'] {
     background: var(--usage-empty);
   }
@@ -799,12 +799,6 @@
   [data-level='4'] {
     background: var(--usage-4);
   }
-}
-:global([data-theme='dark']) .heatmapCard {
-  --usage-1: var(--vd-blue-8);
-  --usage-2: var(--vd-blue-6);
-  --usage-3: var(--vd-blue-4);
-  --usage-4: var(--vd-blue-2);
 }
 .heatmapYear {
   font-family: var(--vd-font-family-mono);
@@ -862,8 +856,8 @@
   aspect-ratio: 1;
   min-width: 0;
   padding: 0;
-  border: 0;
-  border-radius: 3px;
+  border: var(--vd-stroke-width, 1px) solid var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-4, 3px);
   cursor: pointer;
   &:hover,
   &:focus-visible {
@@ -938,7 +932,8 @@
   i {
     width: 11px;
     height: 11px;
-    border-radius: 2px;
+    border: var(--vd-stroke-width, 1px) solid var(--vd-border-subtle);
+    border-radius: var(--vd-shape-radius-4, 2px);
   }
 }
 

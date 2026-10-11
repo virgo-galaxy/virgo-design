@@ -126,6 +126,11 @@ contract to their own token values. Desktop/Retro visual certification remains s
 Advanced heatmaps use `--chart-heatmap-empty` and `--chart-heatmap-1` …
 `--chart-heatmap-4` for neutral cells and sequential activity intensity. These
 resolve through the same theme contract; explicit ECharts visualMap colors still win.
+The four intensity levels use semantic sequential colors in both appearances.
+`--chart-heatmap-radius` and `--chart-heatmap-border-width` inherit theme geometry
+and stroke width; heatmap cell and hover borders use grid and axis colors.
+Explicit series styles still override these defaults. Resolved CSS `color(srgb ...)`
+values are converted to RGB syntax for compatibility with the ECharts color parser.
 
 ## Advanced ECharts entry
 

@@ -39,8 +39,8 @@ export const chartsZhCN = {
   interactions: '交互与动画',
   interactionDescription:
     '悬停或聚焦某个位置，查看同一位置的多个系列。方向键切换数据点，图例按钮切换系列显示。更新数值可查看图形的平滑过渡。',
-  responsive: '响应式与主题',
-  responsiveDescription: '调整容器宽度，查看自适应刻度。同一套语义样式支持浅色和深色主题。',
+  responsive: '响应式',
+  responsiveDescription: '调整容器宽度，查看自适应刻度。',
   width: '预览宽度',
   renderer: '渲染方式',
   edgeCases: '负值、零和缺失值',

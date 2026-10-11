@@ -10,10 +10,12 @@
   --chart-series-5: var(--vd-chart-series-5, var(--vd-data-categorical-5));
   --chart-series-6: var(--vd-chart-series-6, var(--vd-data-categorical-6));
   --chart-heatmap-empty: var(--vd-chart-heatmap-empty, var(--vd-fill-hover));
-  --chart-heatmap-1: var(--vd-chart-heatmap-1, var(--vd-blue-2));
-  --chart-heatmap-2: var(--vd-chart-heatmap-2, var(--vd-blue-4));
-  --chart-heatmap-3: var(--vd-chart-heatmap-3, var(--vd-blue-6));
-  --chart-heatmap-4: var(--vd-chart-heatmap-4, var(--vd-blue-8));
+  --chart-heatmap-1: var(--vd-chart-heatmap-1, var(--vd-data-sequential-2));
+  --chart-heatmap-2: var(--vd-chart-heatmap-2, var(--vd-data-sequential-3));
+  --chart-heatmap-3: var(--vd-chart-heatmap-3, var(--vd-data-sequential-4));
+  --chart-heatmap-4: var(--vd-chart-heatmap-4, var(--vd-data-sequential-6));
+  --chart-heatmap-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
+  --chart-heatmap-border-width: var(--vd-stroke-width, 1px);
   --chart-line-width: var(--vd-chart-line-width, 2);
   --chart-tooltip-surface: var(--vd-chart-tooltip-surface, var(--vd-surface-elevated));
   --chart-tooltip-border: var(--vd-chart-tooltip-border, var(--vd-border-default));
@@ -41,13 +43,6 @@
   color: var(--vd-text-primary);
   font-family: var(--vd-font-family-sans);
   font-size: var(--vd-font-size-12);
-}
-[data-theme='dark'] .root,
-.root[data-theme='dark'] {
-  --chart-heatmap-1: var(--vd-chart-heatmap-1, var(--vd-blue-8));
-  --chart-heatmap-2: var(--vd-chart-heatmap-2, var(--vd-blue-6));
-  --chart-heatmap-3: var(--vd-chart-heatmap-3, var(--vd-blue-4));
-  --chart-heatmap-4: var(--vd-chart-heatmap-4, var(--vd-blue-2));
 }
 .responsive,
 .plot {

@@ -305,19 +305,14 @@ export function ChartsPage() {
               onValueChange={setWidth}
             />
           </label>
-          <div style={{ width: `${width}%` }} className={styles.themeGrid}>
-            {(['light', 'dark'] as const).map((theme) => (
-              <Surface
-                key={theme}
-                data-theme={theme}
-                border="default"
-                radius={8}
-                className={styles.preview}
-              >
-                {sample('line', data, renderer)}
-              </Surface>
-            ))}
-          </div>
+          <Surface
+            style={{ width: `${width}%` }}
+            border="default"
+            radius={8}
+            className={styles.preview}
+          >
+            {sample('line', data, renderer)}
+          </Surface>
         </ArticleSection>
         <ArticleSection
           id="chart-edge-data"

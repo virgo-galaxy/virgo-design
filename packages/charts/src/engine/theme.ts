@@ -5,6 +5,8 @@ import { useLayoutEffect, useState } from 'react';
 export interface ChartTheme {
   palette: string[];
   heatmapPalette: string[];
+  heatmapRadius: number;
+  heatmapBorderWidth: number;
   colors?: Record<string, string>;
   axis: string;
   axisLabel: string;
@@ -25,6 +27,21 @@ export interface ChartTheme {
   updateDuration: number;
   interactionDuration: number;
 }
+
+// Browsers serialize color-mix(in srgb, ...) as color(srgb ...), which
+// ECharts' color parser cannot read. Keep resolved theme colors in RGB syntax.
+function engineColor(color: string): string {
+  const match = /^color\(srgb\s+([^)]*)\)$/.exec(color);
+  if (!match) return color;
+  const [channels, alpha] = match[1]!.split('/');
+  const rgb = channels!.trim().split(/\s+/).map(Number);
+  if (rgb.length !== 3 || rgb.some((channel) => !Number.isFinite(channel))) return color;
+  const values = rgb.map((channel) => Math.round(Math.max(0, Math.min(1, channel)) * 255));
+  return alpha === undefined
+    ? `rgb(${values.join(', ')})`
+    : `rgba(${values.join(', ')}, ${alpha.trim()})`;
+}
+
 export function readChartTheme(element: HTMLElement, customColors: string[] = []): ChartTheme {
   const css = getComputedStyle(element);
   const value = (key: string) => css.getPropertyValue(`--chart-${key}`).trim();
@@ -61,7 +78,7 @@ export function readChartTheme(element: HTMLElement, customColors: string[] = []
     return probe;
   });
   element.append(...probes);
-  const colors = probes.map((probe) => getComputedStyle(probe).color);
+  const colors = probes.map((probe) => engineColor(getComputedStyle(probe).color));
   probes.forEach((probe) => probe.remove());
   const custom = customColors.map((color) => {
     const probe = document.createElement('span');
@@ -69,7 +86,7 @@ export function readChartTheme(element: HTMLElement, customColors: string[] = []
     probe.style.visibility = 'hidden';
     probe.style.position = 'absolute';
     element.append(probe);
-    const resolved = getComputedStyle(probe).color;
+    const resolved = engineColor(getComputedStyle(probe).color);
     probe.remove();
     return [color, resolved];
   });
@@ -85,6 +102,8 @@ export function readChartTheme(element: HTMLElement, customColors: string[] = []
     tooltipSurface: colors[12]!,
     tooltipBorder: colors[13]!,
     heatmapPalette: colors.slice(14, 19),
+    heatmapRadius: number('heatmap-radius', 4),
+    heatmapBorderWidth: number('heatmap-border-width', 1),
     fontFamily: css.fontFamily,
     fontSize: parseFloat(css.fontSize) || 12,
     lineWidth: number('line-width', 2),

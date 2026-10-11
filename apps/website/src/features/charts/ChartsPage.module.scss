@@ -10,8 +10,7 @@
   color: var(--vd-text-secondary);
   line-height: 1.7;
 }
-.grid,
-.themeGrid {
+.grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--vd-spacing-24);
@@ -85,8 +84,7 @@
   font-size: var(--vd-font-size-13);
 }
 @media (max-width: 760px) {
-  .grid,
-  .themeGrid {
+  .grid {
     grid-template-columns: minmax(0, 1fr);
   }
 }

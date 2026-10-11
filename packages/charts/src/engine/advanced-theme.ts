@@ -74,6 +74,24 @@ export function advancedTheme(option: EChartsOption, theme: ChartTheme): ECharts
     animationDurationUpdate: theme.updateDuration,
     ...option,
   };
+  if (heatmap)
+    result.series = series.map((item) =>
+      item.type === 'heatmap'
+        ? merge(
+            {
+              itemStyle: {
+                borderRadius: theme.heatmapRadius,
+                borderWidth: theme.heatmapBorderWidth,
+                borderColor: theme.grid,
+              },
+              emphasis: {
+                itemStyle: { borderWidth: theme.heatmapBorderWidth + 1, borderColor: theme.axis },
+              },
+            },
+            item as Record<string, unknown>,
+          )
+        : item,
+    );
   for (const [key, fallback] of Object.entries(defaults)) {
     const own = (option as Record<string, unknown>)[key];
     if (own !== undefined)

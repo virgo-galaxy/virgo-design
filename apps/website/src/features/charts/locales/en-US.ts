@@ -36,9 +36,8 @@ export const chartsEnUS = {
   interactions: 'Interaction and motion',
   interactionDescription:
     'Hover or focus a position to inspect all visible series. Arrow keys move across points. Legend buttons toggle series. Update the values to see smooth geometry transitions.',
-  responsive: 'Responsive and theme',
-  responsiveDescription:
-    'Resize the container to check adaptive ticks. The same semantic contract supports light and dark.',
+  responsive: 'Responsive',
+  responsiveDescription: 'Resize the container to check adaptive ticks.',
   width: 'Preview width',
   renderer: 'Renderer',
   edgeCases: 'Negative, zero and missing values',

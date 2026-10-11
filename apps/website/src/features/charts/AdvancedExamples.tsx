@@ -125,10 +125,8 @@ function CalendarHeatmap() {
         type: 'heatmap',
         coordinateSystem: 'calendar',
         name: t('charts.activity'),
-        itemStyle: { borderWidth: 0, borderRadius: 4 },
-        emphasis: { itemStyle: { borderWidth: 1, borderColor: 'rgba(100, 116, 139, 0.65)' } },
         encode: { value: 1, tooltip: 2 },
-        data: dates.map((value) => ({ value, itemStyle: { opacity: value[1] === 0 ? 0.5 : 1 } })),
+        data: dates,
       },
     ],
   };

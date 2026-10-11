@@ -12,6 +12,8 @@ import type { ChartTheme } from './theme';
 const theme: ChartTheme = {
   palette: ['#1664f9', '#ed6b32', '#61ad79', '#8454da', '#13c2c2', '#f7ba1e'],
   heatmapPalette: ['#f4f4f4', '#cfdffb', '#7aa6f8', '#1664f9', '#0041b8'],
+  heatmapRadius: 4,
+  heatmapBorderWidth: 1,
   axis: '#aaa',
   axisLabel: '#555',
   grid: '#ddd',
@@ -212,5 +214,37 @@ describe('Virgo → ECharts compiler', () => {
     expect(themed.yAxis).toMatchObject({ axisLabel: { color: '#555' } });
     expect(option.yAxis).toEqual({ type: 'value' });
     expect(themed.series).toBe(option.series);
+  });
+  it('themes calendar cells and hover boundaries while preserving data and explicit overrides', () => {
+    const data = [['2026-10-01', 3]];
+    const option = {
+      calendar: {},
+      visualMap: { dimension: 1 },
+      series: [
+        { type: 'heatmap' as const, coordinateSystem: 'calendar' as const, data },
+        { type: 'heatmap' as const, itemStyle: { borderRadius: 9, borderColor: 'red' }, data },
+      ],
+    };
+    for (const [radius, width] of [
+      [0, 1],
+      [2, 2],
+    ]) {
+      const themed = advancedTheme(option, {
+        ...theme,
+        heatmapRadius: radius!,
+        heatmapBorderWidth: width!,
+      });
+      expect(themed.visualMap).toMatchObject({ inRange: { color: theme.heatmapPalette } });
+      expect(themed.series).toMatchObject([
+        {
+          itemStyle: { borderRadius: radius, borderWidth: width, borderColor: theme.grid },
+          emphasis: { itemStyle: { borderWidth: width! + 1, borderColor: theme.axis } },
+          data,
+        },
+        { itemStyle: { borderRadius: 9, borderColor: 'red' }, data },
+      ]);
+    }
+    expect(option.series[0]).not.toHaveProperty('itemStyle');
+    expect(option.series[0]!.data).toBe(data);
   });
 });
