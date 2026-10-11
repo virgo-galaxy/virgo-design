@@ -160,84 +160,84 @@
     "stored": "glass"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "light",
     "path": "/components/button",
     "sample": "button",
     "mainCount": 1,
-    "stored": "utility"
+    "stored": "retro"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "light",
     "path": "/components/table",
     "sample": "table",
     "mainCount": 1,
-    "stored": "utility"
+    "stored": "retro"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "light",
     "path": "/foundations/colors",
     "sample": "foundations",
     "mainCount": 1,
-    "stored": "utility"
+    "stored": "retro"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "light",
     "path": "/charts",
     "sample": "charts",
     "mainCount": 1,
-    "stored": "utility"
+    "stored": "retro"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "light",
     "path": "/examples/button-variants",
     "sample": "example",
     "mainCount": 1,
-    "stored": "utility"
+    "stored": "retro"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "path": "/components/button",
     "sample": "button",
     "mainCount": 1,
-    "stored": "high-contrast"
+    "stored": "contrast"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "path": "/components/table",
     "sample": "table",
     "mainCount": 1,
-    "stored": "high-contrast"
+    "stored": "contrast"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "path": "/foundations/colors",
     "sample": "foundations",
     "mainCount": 1,
-    "stored": "high-contrast"
+    "stored": "contrast"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "path": "/charts",
     "sample": "charts",
     "mainCount": 1,
-    "stored": "high-contrast"
+    "stored": "contrast"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "path": "/examples/button-variants",
     "sample": "example",
     "mainCount": 1,
-    "stored": "high-contrast"
+    "stored": "contrast"
   },
   {
     "theme": "virgo",
@@ -400,83 +400,83 @@
     "stored": "glass"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "dark",
     "path": "/components/button",
     "sample": "button",
     "mainCount": 1,
-    "stored": "utility"
+    "stored": "retro"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "dark",
     "path": "/components/table",
     "sample": "table",
     "mainCount": 1,
-    "stored": "utility"
+    "stored": "retro"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "dark",
     "path": "/foundations/colors",
     "sample": "foundations",
     "mainCount": 1,
-    "stored": "utility"
+    "stored": "retro"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "dark",
     "path": "/charts",
     "sample": "charts",
     "mainCount": 1,
-    "stored": "utility"
+    "stored": "retro"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "dark",
     "path": "/examples/button-variants",
     "sample": "example",
     "mainCount": 1,
-    "stored": "utility"
+    "stored": "retro"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "path": "/components/button",
     "sample": "button",
     "mainCount": 1,
-    "stored": "high-contrast"
+    "stored": "contrast"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "path": "/components/table",
     "sample": "table",
     "mainCount": 1,
-    "stored": "high-contrast"
+    "stored": "contrast"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "path": "/foundations/colors",
     "sample": "foundations",
     "mainCount": 1,
-    "stored": "high-contrast"
+    "stored": "contrast"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "path": "/charts",
     "sample": "charts",
     "mainCount": 1,
-    "stored": "high-contrast"
+    "stored": "contrast"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "path": "/examples/button-variants",
     "sample": "example",
     "mainCount": 1,
-    "stored": "high-contrast"
+    "stored": "contrast"
   }
 ]

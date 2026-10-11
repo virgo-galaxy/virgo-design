@@ -226,7 +226,7 @@
 
 .root[data-appearance='fader'] {
   // The fader uses its thin rail as the track, without the toggle's enclosing border.
-  :global([data-virgo-theme='high-contrast']) & {
+  :global([data-virgo-theme='contrast']) & {
     --vd-switch-border-width: 0px;
   }
 }

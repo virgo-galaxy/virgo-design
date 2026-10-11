@@ -21,12 +21,12 @@
       "triggerLabel": "Glass"
     },
     {
-      "selection": "Utility",
-      "triggerLabel": "Utility"
+      "selection": "Retro",
+      "triggerLabel": "Retro"
     },
     {
-      "selection": "High Contrast",
-      "triggerLabel": "High Contrast"
+      "selection": "Contrast",
+      "triggerLabel": "Contrast"
     }
   ]
 }

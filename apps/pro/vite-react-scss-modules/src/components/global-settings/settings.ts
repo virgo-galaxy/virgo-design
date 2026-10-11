@@ -10,7 +10,7 @@ export type HeaderMaterial = 'solid' | 'glass';
 /** Fixed themes override rendering without changing the saved material preference. */
 export function getFixedHeaderMaterial(theme: string): HeaderMaterial | undefined {
   if (theme === 'glass') return 'glass';
-  if (theme === 'retro' || theme === 'bold') return 'solid';
+  if (theme === 'retro' || theme === 'contrast') return 'solid';
   return undefined;
 }
 

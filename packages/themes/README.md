@@ -18,9 +18,13 @@ setTheme('soft');
 ```
 
 Official `ThemeId`s are `virgo`, `minimal`, `soft`, `glass`, `retro`,
-`bold`. The default is `virgo`. `themePresets` is an ordered immutable
+`contrast`. The default is `virgo`. `themePresets` is an ordered immutable
 list; `themeRegistry` maps the IDs to `ThemePreset` metadata including contract
 version and `['light', 'dark']` appearances.
+
+Contrast (`contrast`, Chinese: 高对比) emphasizes strong foreground/background
+separation, explicit boundaries and clear focus, selected and disabled states,
+with less reliance on shadows and subtle gray tones.
 
 The runtime sets `html[data-virgo-theme]`, persists by default under
 `virgo-design.theme-style.v1`, synchronizes storage events between tabs, and
@@ -32,8 +36,10 @@ light/dark/auto state. Pro's existing name for auto is `system`.
 `key`, `parse(raw)` and `serialize(id, raw)` to store a theme inside an existing
 settings record. Pro uses this to persist `theme` with appearance and layout in
 `virgo-pro:settings:v1`, with defaults from `src/config/settings.json`. It migrates
-and removes the former standalone theme key. Saved `utility` and `high-contrast`
-IDs migrate to `retro` and `bold`; new selections use the new IDs. Restoring Pro
+and removes the former standalone theme key. Saved `utility` migrates to `retro`;
+`bold` and `high-contrast` both migrate directly to `contrast`, including existing
+Website preferences and Pro settings JSON. Initialization writes canonical IDs back
+to storage. New selections and CSS scopes use only current IDs. Restoring Pro
 settings restores the configured theme; resetting demo data also clears the saved
 record and restores the live theme before returning to login.
 
@@ -105,7 +111,7 @@ initializeTheme(); // register before restoring a saved custom preference
 ```
 
 Complete hover, active, focus, disabled, status, surface and chart roles in both
-appearances. Official IDs cannot be replaced. Theme installation does not alter
+appearances. Official IDs and legacy migration IDs cannot be replaced. Theme installation does not alter
 component APIs or copy component implementations.
 
 ## Audit

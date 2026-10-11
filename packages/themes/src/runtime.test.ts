@@ -1,6 +1,14 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
 
-import { defaultTheme, getThemePreset, registerTheme, themePresets } from './registry';
+import {
+  defaultTheme,
+  getThemePreset,
+  registerTheme,
+  resolveThemeId,
+  type ThemeId,
+  themePresets,
+  themeRegistry,
+} from './registry';
 import { getTheme, initializeTheme, setTheme, subscribeTheme, themeStorageKey } from './runtime';
 
 beforeEach(() => {
@@ -16,12 +24,46 @@ afterEach(() => {
 describe('theme runtime', () => {
   it.each([
     ['utility', 'retro'],
-    ['high-contrast', 'bold'],
+    ['high-contrast', 'contrast'],
+    ['bold', 'contrast'],
   ])('upgrades saved %s to %s and rejects new selections with the old ID', (oldId, newId) => {
     localStorage.setItem(themeStorageKey, oldId!);
     expect(initializeTheme()).toBe(newId);
     expect(localStorage.getItem(themeStorageKey)).toBe(newId);
+    expect(document.documentElement.dataset.virgoTheme).toBe(newId);
+    expect(getThemePreset(oldId!)).toBeUndefined();
     expect(() => setTheme(oldId!)).toThrow(RangeError);
+  });
+  it.each(['bold', 'high-contrast'])('normalizes legacy %s received from another tab', (oldId) => {
+    const changed = vi.fn();
+    const stop = subscribeTheme(changed);
+    localStorage.setItem(themeStorageKey, oldId);
+    window.dispatchEvent(new StorageEvent('storage', { key: themeStorageKey, newValue: oldId }));
+    expect(getTheme()).toBe('contrast');
+    expect(document.documentElement.dataset.virgoTheme).toBe('contrast');
+    expect(localStorage.getItem(themeStorageKey)).toBe('contrast');
+    expect(changed).toHaveBeenCalledOnce();
+    stop();
+  });
+  it.each(['utility', 'bold', 'high-contrast'])(
+    'reserves legacy ID %s for migration only',
+    (id) => {
+      expect(() => registerTheme({ ...themePresets[0], id })).toThrow(
+        'Legacy theme ID is reserved',
+      );
+    },
+  );
+  it('exposes Contrast metadata only under its canonical registry key', () => {
+    expectTypeOf<ThemeId>().toEqualTypeOf<
+      'virgo' | 'minimal' | 'soft' | 'glass' | 'retro' | 'contrast'
+    >();
+    expect(themeRegistry.contrast).toMatchObject({
+      id: 'contrast',
+      name: 'Contrast',
+      descriptionKey: 'contrast',
+    });
+    expect(Object.keys(themeRegistry)).toEqual(themePresets.map((theme) => theme.id));
+    expect(resolveThemeId('contrast')).toBe('contrast');
   });
   it('restores a valid preference before rendering and preserves appearance', () => {
     document.documentElement.dataset.theme = 'dark';
@@ -50,10 +92,12 @@ describe('theme runtime', () => {
   it('synchronizes other tabs and reset events, then removes the storage listener', () => {
     const changed = vi.fn();
     const stop = subscribeTheme(changed);
-    window.dispatchEvent(new StorageEvent('storage', { key: themeStorageKey, newValue: 'bold' }));
-    expect(getTheme()).toBe('bold');
+    window.dispatchEvent(
+      new StorageEvent('storage', { key: themeStorageKey, newValue: 'contrast' }),
+    );
+    expect(getTheme()).toBe('contrast');
     window.dispatchEvent(new StorageEvent('storage', { key: 'unrelated', newValue: 'minimal' }));
-    expect(getTheme()).toBe('bold');
+    expect(getTheme()).toBe('contrast');
     window.dispatchEvent(new StorageEvent('storage', { key: null }));
     expect(getTheme()).toBe(defaultTheme);
     stop();
@@ -84,7 +128,7 @@ describe('theme runtime', () => {
       'soft',
       'glass',
       'retro',
-      'bold',
+      'contrast',
     ]);
     registerTheme({
       id: 'studio-test',

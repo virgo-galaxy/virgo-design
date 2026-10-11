@@ -3148,7 +3148,7 @@
     "sample": "profile"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "light",
     "path": "/dashboard/workplace",
     "mainCount": 1,
@@ -3565,11 +3565,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "workplace"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "light",
     "path": "/dashboard/analytics",
     "mainCount": 1,
@@ -3661,11 +3661,11 @@
       "rgb(36, 79, 133)",
       "rgb(49, 103, 104)"
     ],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "analytics"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "light",
     "path": "/work/tasks",
     "mainCount": 1,
@@ -3790,11 +3790,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "tasks"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "light",
     "path": "/work/projects",
     "mainCount": 1,
@@ -3820,11 +3820,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "projects"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "light",
     "path": "/work/tasks/new",
     "mainCount": 1,
@@ -3859,11 +3859,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "form"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "light",
     "path": "/result/success",
     "mainCount": 1,
@@ -3877,11 +3877,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "result"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "light",
     "path": "/exception/403",
     "mainCount": 1,
@@ -3895,11 +3895,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "exception"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "light",
     "path": "/profile",
     "mainCount": 1,
@@ -3931,11 +3931,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "profile"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "path": "/dashboard/workplace",
     "mainCount": 1,
@@ -4352,11 +4352,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "workplace"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "path": "/dashboard/analytics",
     "mainCount": 1,
@@ -4448,11 +4448,11 @@
       "rgb(0, 59, 156)",
       "rgb(0, 97, 107)"
     ],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "analytics"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "path": "/work/tasks",
     "mainCount": 1,
@@ -4577,11 +4577,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "tasks"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "path": "/work/projects",
     "mainCount": 1,
@@ -4607,11 +4607,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "projects"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "path": "/work/tasks/new",
     "mainCount": 1,
@@ -4646,11 +4646,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "form"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "path": "/result/success",
     "mainCount": 1,
@@ -4664,11 +4664,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "result"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "path": "/exception/403",
     "mainCount": 1,
@@ -4682,11 +4682,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "exception"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "path": "/profile",
     "mainCount": 1,
@@ -4718,7 +4718,7 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "profile"
   },
   {
@@ -7870,7 +7870,7 @@
     "sample": "profile"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "dark",
     "path": "/dashboard/workplace",
     "mainCount": 1,
@@ -8287,11 +8287,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "workplace"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "dark",
     "path": "/dashboard/analytics",
     "mainCount": 1,
@@ -8383,11 +8383,11 @@
       "rgb(175, 201, 240)",
       "rgb(165, 207, 208)"
     ],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "analytics"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "dark",
     "path": "/work/tasks",
     "mainCount": 1,
@@ -8512,11 +8512,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "tasks"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "dark",
     "path": "/work/projects",
     "mainCount": 1,
@@ -8542,11 +8542,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "projects"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "dark",
     "path": "/work/tasks/new",
     "mainCount": 1,
@@ -8581,11 +8581,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "form"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "dark",
     "path": "/result/success",
     "mainCount": 1,
@@ -8599,11 +8599,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "result"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "dark",
     "path": "/exception/403",
     "mainCount": 1,
@@ -8617,11 +8617,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "exception"
   },
   {
-    "theme": "utility",
+    "theme": "retro",
     "appearance": "dark",
     "path": "/profile",
     "mainCount": 1,
@@ -8653,11 +8653,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "utility",
+    "stored": "retro",
     "sample": "profile"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "path": "/dashboard/workplace",
     "mainCount": 1,
@@ -9074,11 +9074,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "workplace"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "path": "/dashboard/analytics",
     "mainCount": 1,
@@ -9170,11 +9170,11 @@
       "rgb(130, 221, 255)",
       "rgb(255, 167, 119)"
     ],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "analytics"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "path": "/work/tasks",
     "mainCount": 1,
@@ -9299,11 +9299,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "tasks"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "path": "/work/projects",
     "mainCount": 1,
@@ -9329,11 +9329,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "projects"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "path": "/work/tasks/new",
     "mainCount": 1,
@@ -9368,11 +9368,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "form"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "path": "/result/success",
     "mainCount": 1,
@@ -9386,11 +9386,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "result"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "path": "/exception/403",
     "mainCount": 1,
@@ -9404,11 +9404,11 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "exception"
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "path": "/profile",
     "mainCount": 1,
@@ -9440,7 +9440,7 @@
     },
     "chartInstances": [],
     "chartStrokes": [],
-    "stored": "high-contrast",
+    "stored": "contrast",
     "sample": "profile"
   }
 ]

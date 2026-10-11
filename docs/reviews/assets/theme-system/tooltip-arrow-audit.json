@@ -1,55 +1,55 @@
 [
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "side": "top",
     "clip": "none",
     "borders": ["0px", "2px", "2px", "0px"]
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "side": "bottom",
     "clip": "none",
     "borders": ["2px", "0px", "0px", "2px"]
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "side": "left",
     "clip": "none",
     "borders": ["2px", "2px", "0px", "0px"]
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "light",
     "side": "right",
     "clip": "none",
     "borders": ["0px", "0px", "2px", "2px"]
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "side": "top",
     "clip": "none",
     "borders": ["0px", "2px", "2px", "0px"]
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "side": "bottom",
     "clip": "none",
     "borders": ["2px", "0px", "0px", "2px"]
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "side": "left",
     "clip": "none",
     "borders": ["2px", "2px", "0px", "0px"]
   },
   {
-    "theme": "high-contrast",
+    "theme": "contrast",
     "appearance": "dark",
     "side": "right",
     "clip": "none",

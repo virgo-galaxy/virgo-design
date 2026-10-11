@@ -446,12 +446,12 @@
       "transform": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)"
     },
     {
-      "theme": "utility",
+      "theme": "retro",
       "mask": "none",
       "transform": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)"
     },
     {
-      "theme": "high-contrast",
+      "theme": "contrast",
       "mask": "none",
       "transform": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)"
     }

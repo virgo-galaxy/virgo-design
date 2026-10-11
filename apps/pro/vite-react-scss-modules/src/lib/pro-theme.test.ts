@@ -5,6 +5,7 @@ import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 
 import {
   defaultProSettings,
+  getFixedHeaderMaterial,
   serializeProSettings,
   settingsStorageKey,
 } from '@/components/global-settings/settings';
@@ -30,7 +31,8 @@ afterEach(() => {
 
 it.each([
   ['utility', 'retro'],
-  ['high-contrast', 'bold'],
+  ['high-contrast', 'contrast'],
+  ['bold', 'contrast'],
 ])('moves legacy theme %s into the settings JSON as %s', (oldId, newId) => {
   const record = JSON.parse(serializeProSettings({ ...defaultProSettings, sidebarWidth: 280 }));
   delete record.theme;
@@ -42,6 +44,37 @@ it.each([
     sidebarWidth: 280,
   });
   expect(localStorage.getItem(themeStorageKey)).toBeNull();
+  expect(document.documentElement.dataset.virgoTheme).toBe(newId);
+});
+
+it.each(['bold', 'high-contrast'])(
+  'canonicalizes saved settings theme %s directly to contrast',
+  (theme) => {
+    localStorage.setItem(
+      settingsStorageKey,
+      serializeProSettings({
+        ...defaultProSettings,
+        theme,
+        appearance: 'dark',
+        sidebarWidth: 280,
+        headerHeight: 80,
+      }),
+    );
+    localStorage.setItem(themeStorageKey, 'soft');
+    expect(initializeProTheme()).toBe('contrast');
+    expect(document.documentElement.dataset.virgoTheme).toBe('contrast');
+    expect(JSON.parse(localStorage.getItem(settingsStorageKey)!)).toMatchObject({
+      theme: 'contrast',
+      appearance: 'dark',
+      sidebarWidth: 280,
+      headerHeight: 80,
+    });
+    expect(localStorage.getItem(themeStorageKey)).toBeNull();
+  },
+);
+
+it('keeps the Contrast header opaque', () => {
+  expect(getFixedHeaderMaterial('contrast')).toBe('solid');
 });
 
 it('prefers the settings JSON, upgrades its IDs and never creates a separate theme key', () => {
@@ -51,9 +84,9 @@ it('prefers the settings JSON, upgrades its IDs and never creates a separate the
   );
   localStorage.setItem(themeStorageKey, 'high-contrast');
   expect(initializeProTheme()).toBe('retro');
-  setTheme('bold');
+  setTheme('contrast');
   expect(JSON.parse(localStorage.getItem(settingsStorageKey)!)).toMatchObject({
-    theme: 'bold',
+    theme: 'contrast',
     headerHeight: 80,
   });
   expect(localStorage.getItem(themeStorageKey)).toBeNull();
@@ -65,9 +98,9 @@ it('restores theme, appearance and layout together without a stale pending save'
   const { result, unmount } = renderHook(() => useProSettings());
   act(() => {
     result.current.updateSettings({ appearance: 'dark', sidebarWidth: 280 });
-    setTheme('bold');
+    setTheme('contrast');
   });
-  expect(result.current.settings.theme).toBe('bold');
+  expect(result.current.settings.theme).toBe('contrast');
   act(() => {
     result.current.resetSettings();
   });
@@ -91,7 +124,7 @@ it('synchronizes theme and layout together from another tab', () => {
   const { result, unmount } = renderHook(() => useProSettings());
   const incoming = serializeProSettings({
     ...defaultProSettings,
-    theme: 'retro',
+    theme: 'contrast',
     sidebarWidth: 280,
   });
   act(() => {
@@ -103,10 +136,10 @@ it('synchronizes theme and layout together from another tab', () => {
   act(() => {
     vi.advanceTimersByTime(500);
   });
-  expect(result.current.settings).toMatchObject({ theme: 'retro', sidebarWidth: 280 });
-  expect(getTheme()).toBe('retro');
+  expect(result.current.settings).toMatchObject({ theme: 'contrast', sidebarWidth: 280 });
+  expect(getTheme()).toBe('contrast');
   expect(JSON.parse(localStorage.getItem(settingsStorageKey)!)).toMatchObject({
-    theme: 'retro',
+    theme: 'contrast',
     sidebarWidth: 280,
   });
   unmount();
@@ -120,4 +153,28 @@ it('falls back safely when the settings JSON is malformed or storage is denied',
   });
   expect(initializeProTheme()).toBe(defaultProSettings.theme);
   expect(() => setTheme('glass')).not.toThrow();
+});
+
+it.each(['bold', 'high-contrast'])('normalizes %s settings received from another tab', (theme) => {
+  vi.useFakeTimers();
+  initializeProTheme();
+  const { result, unmount } = renderHook(() => useProSettings());
+  const incoming = serializeProSettings({ ...defaultProSettings, theme, sidebarWidth: 280 });
+  act(() => {
+    localStorage.setItem(settingsStorageKey, incoming);
+    window.dispatchEvent(
+      new StorageEvent('storage', { key: settingsStorageKey, newValue: incoming }),
+    );
+  });
+  act(() => {
+    vi.advanceTimersByTime(500);
+  });
+  expect(result.current.settings).toMatchObject({ theme: 'contrast', sidebarWidth: 280 });
+  expect(getTheme()).toBe('contrast');
+  expect(document.documentElement.dataset.virgoTheme).toBe('contrast');
+  expect(JSON.parse(localStorage.getItem(settingsStorageKey)!)).toMatchObject({
+    theme: 'contrast',
+    sidebarWidth: 280,
+  });
+  unmount();
 });

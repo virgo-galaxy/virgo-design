@@ -27,7 +27,7 @@ export const themePresets = Object.freeze([
   preset('soft', 'Soft', 'soft'),
   preset('glass', 'Glass', 'glass'),
   preset('retro', 'Retro', 'retro'),
-  preset('bold', 'Bold', 'bold'),
+  preset('contrast', 'Contrast', 'contrast'),
 ] as const);
 
 export type ThemeId = (typeof themePresets)[number]['id'];
@@ -37,6 +37,11 @@ export const themeRegistry = Object.freeze(
 ) as Readonly<Record<ThemeId, ThemePreset>>;
 
 const extensions = new Map<string, ThemePreset>();
+const legacyThemeIds = Object.freeze({
+  utility: 'retro',
+  'high-contrast': 'contrast',
+  bold: 'contrast',
+} satisfies Record<string, ThemeId>);
 
 export function getThemePreset(id: string): ThemePreset | undefined {
   return Object.hasOwn(themeRegistry, id) ? themeRegistry[id as ThemeId] : extensions.get(id);
@@ -45,16 +50,21 @@ export function getThemePreset(id: string): ThemePreset | undefined {
 /** Upgrade saved IDs; new selections must use the current registry IDs. */
 export function resolveThemeId(value: unknown): string | undefined {
   if (typeof value !== 'string') return undefined;
-  const id = value === 'utility' ? 'retro' : value === 'high-contrast' ? 'bold' : value;
+  const id = Object.hasOwn(legacyThemeIds, value)
+    ? legacyThemeIds[value as keyof typeof legacyThemeIds]
+    : value;
   return getThemePreset(id) ? id : undefined;
 }
 
-/** Register third-party CSS before initializing the runtime; official IDs are reserved. */
+/** Register third-party CSS before initializing the runtime; official and legacy IDs are reserved. */
 export function registerTheme(theme: ThemePreset): void {
   if (!/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(theme.id)) {
     throw new TypeError('Theme IDs must be lowercase kebab-case.');
   }
   if (getThemePreset(theme.id)) throw new Error(`Theme already registered: ${theme.id}`);
+  if (Object.hasOwn(legacyThemeIds, theme.id)) {
+    throw new Error(`Legacy theme ID is reserved: ${theme.id}`);
+  }
   if (
     theme.contractVersion !== THEME_CONTRACT_VERSION ||
     !theme.appearances.includes('light') ||

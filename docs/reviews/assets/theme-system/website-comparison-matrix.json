@@ -88,7 +88,7 @@
           ]
         },
         {
-          "id": "utility",
+          "id": "retro",
           "appearance": "light",
           "bg": "rgb(240, 240, 237)",
           "button": "0px",
@@ -105,7 +105,7 @@
           ]
         },
         {
-          "id": "high-contrast",
+          "id": "contrast",
           "appearance": "light",
           "bg": "rgb(255, 255, 255)",
           "button": "2px",
@@ -211,7 +211,7 @@
           ]
         },
         {
-          "id": "utility",
+          "id": "retro",
           "appearance": "light",
           "bg": "rgb(240, 240, 237)",
           "button": "0px",
@@ -228,7 +228,7 @@
           ]
         },
         {
-          "id": "high-contrast",
+          "id": "contrast",
           "appearance": "light",
           "bg": "rgb(255, 255, 255)",
           "button": "2px",
@@ -334,7 +334,7 @@
           ]
         },
         {
-          "id": "utility",
+          "id": "retro",
           "appearance": "light",
           "bg": "rgb(240, 240, 237)",
           "button": "0px",
@@ -351,7 +351,7 @@
           ]
         },
         {
-          "id": "high-contrast",
+          "id": "contrast",
           "appearance": "light",
           "bg": "rgb(255, 255, 255)",
           "button": "2px",
@@ -457,7 +457,7 @@
           ]
         },
         {
-          "id": "utility",
+          "id": "retro",
           "appearance": "light",
           "bg": "rgb(240, 240, 237)",
           "button": "0px",
@@ -474,7 +474,7 @@
           ]
         },
         {
-          "id": "high-contrast",
+          "id": "contrast",
           "appearance": "light",
           "bg": "rgb(255, 255, 255)",
           "button": "2px",
@@ -493,9 +493,9 @@
       ]
     },
     {
-      "theme": "utility",
+      "theme": "retro",
       "appearance": "light",
-      "stored": "utility",
+      "stored": "retro",
       "scopes": [
         {
           "id": "virgo",
@@ -580,7 +580,7 @@
           ]
         },
         {
-          "id": "utility",
+          "id": "retro",
           "appearance": "light",
           "bg": "rgb(240, 240, 237)",
           "button": "0px",
@@ -597,7 +597,7 @@
           ]
         },
         {
-          "id": "high-contrast",
+          "id": "contrast",
           "appearance": "light",
           "bg": "rgb(255, 255, 255)",
           "button": "2px",
@@ -616,9 +616,9 @@
       ]
     },
     {
-      "theme": "high-contrast",
+      "theme": "contrast",
       "appearance": "light",
-      "stored": "high-contrast",
+      "stored": "contrast",
       "scopes": [
         {
           "id": "virgo",
@@ -703,7 +703,7 @@
           ]
         },
         {
-          "id": "utility",
+          "id": "retro",
           "appearance": "light",
           "bg": "rgb(240, 240, 237)",
           "button": "0px",
@@ -720,7 +720,7 @@
           ]
         },
         {
-          "id": "high-contrast",
+          "id": "contrast",
           "appearance": "light",
           "bg": "rgb(255, 255, 255)",
           "button": "2px",
@@ -826,7 +826,7 @@
           ]
         },
         {
-          "id": "utility",
+          "id": "retro",
           "appearance": "dark",
           "bg": "rgb(45, 52, 41)",
           "button": "0px",
@@ -843,7 +843,7 @@
           ]
         },
         {
-          "id": "high-contrast",
+          "id": "contrast",
           "appearance": "dark",
           "bg": "rgb(0, 0, 0)",
           "button": "2px",
@@ -949,7 +949,7 @@
           ]
         },
         {
-          "id": "utility",
+          "id": "retro",
           "appearance": "dark",
           "bg": "rgb(45, 52, 41)",
           "button": "0px",
@@ -966,7 +966,7 @@
           ]
         },
         {
-          "id": "high-contrast",
+          "id": "contrast",
           "appearance": "dark",
           "bg": "rgb(0, 0, 0)",
           "button": "2px",
@@ -1072,7 +1072,7 @@
           ]
         },
         {
-          "id": "utility",
+          "id": "retro",
           "appearance": "dark",
           "bg": "rgb(45, 52, 41)",
           "button": "0px",
@@ -1089,7 +1089,7 @@
           ]
         },
         {
-          "id": "high-contrast",
+          "id": "contrast",
           "appearance": "dark",
           "bg": "rgb(0, 0, 0)",
           "button": "2px",
@@ -1195,7 +1195,7 @@
           ]
         },
         {
-          "id": "utility",
+          "id": "retro",
           "appearance": "dark",
           "bg": "rgb(45, 52, 41)",
           "button": "0px",
@@ -1212,7 +1212,7 @@
           ]
         },
         {
-          "id": "high-contrast",
+          "id": "contrast",
           "appearance": "dark",
           "bg": "rgb(0, 0, 0)",
           "button": "2px",
@@ -1231,9 +1231,9 @@
       ]
     },
     {
-      "theme": "utility",
+      "theme": "retro",
       "appearance": "dark",
-      "stored": "utility",
+      "stored": "retro",
       "scopes": [
         {
           "id": "virgo",
@@ -1318,7 +1318,7 @@
           ]
         },
         {
-          "id": "utility",
+          "id": "retro",
           "appearance": "dark",
           "bg": "rgb(45, 52, 41)",
           "button": "0px",
@@ -1335,7 +1335,7 @@
           ]
         },
         {
-          "id": "high-contrast",
+          "id": "contrast",
           "appearance": "dark",
           "bg": "rgb(0, 0, 0)",
           "button": "2px",
@@ -1354,9 +1354,9 @@
       ]
     },
     {
-      "theme": "high-contrast",
+      "theme": "contrast",
       "appearance": "dark",
-      "stored": "high-contrast",
+      "stored": "contrast",
       "scopes": [
         {
           "id": "virgo",
@@ -1441,7 +1441,7 @@
           ]
         },
         {
-          "id": "utility",
+          "id": "retro",
           "appearance": "dark",
           "bg": "rgb(45, 52, 41)",
           "button": "0px",
@@ -1458,7 +1458,7 @@
           ]
         },
         {
-          "id": "high-contrast",
+          "id": "contrast",
           "appearance": "dark",
           "bg": "rgb(0, 0, 0)",
           "button": "2px",
@@ -1477,5 +1477,5 @@
       ]
     }
   ],
-  "persistence": "high-contrast"
+  "persistence": "contrast"
 }

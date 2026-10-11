@@ -6,7 +6,7 @@ export const themeStyleControlEnUS = {
     soft: 'Soft',
     glass: 'Glass',
     retro: 'Retro',
-    bold: 'Bold',
+    contrast: 'Contrast',
   },
   descriptions: {
     virgo: 'Current default look',
@@ -14,6 +14,6 @@ export const themeStyleControlEnUS = {
     soft: 'Rounder and softer',
     glass: 'Translucent glass and floating layers',
     retro: 'Square corners, beveled borders and classic desktop styling',
-    bold: 'High contrast, clear boundaries and readability',
+    contrast: 'Strong contrast, clear boundaries and distinct focus, selected and disabled states',
   },
 } as const;

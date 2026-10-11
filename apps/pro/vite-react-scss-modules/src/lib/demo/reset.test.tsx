@@ -29,7 +29,7 @@ it('does not let pending settings writes or pagehide recreate old preferences af
   }));
   act(() => {
     result.current.global.updateSettings({ appearance: 'dark' });
-    setTheme('bold');
+    setTheme('contrast');
     result.current.table.setSettings((settings) => ({ ...settings, striped: true }));
   });
   act(() => {

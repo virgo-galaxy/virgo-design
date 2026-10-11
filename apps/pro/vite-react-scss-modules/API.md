@@ -240,7 +240,10 @@ using the same browser.
 Theme, appearance and layout share the versioned `virgo-pro:settings:v1` JSON record.
 `src/config/settings.json` supplies their defaults in appearance/theme, header, sidebar,
 page visibility and interaction order. The former standalone theme key is migrated
-and removed; legacy theme IDs `utility` and `high-contrast` become `retro` and `bold`.
+and removed; legacy theme ID `utility` becomes `retro`, while both `bold` and
+`high-contrast` migrate directly to `contrast`. Existing settings JSON is also
+normalized and saved with the canonical theme ID. The six official IDs are `virgo`,
+`minimal`, `soft`, `glass`, `retro` and `contrast` (Contrast / 高对比).
 Restore default settings restores the configured theme, appearance and layout while
 keeping the session and demo data. Reset demo data clears saved demo preferences,
 restores the live theme and ends the demo session.
@@ -248,7 +251,7 @@ restores the live theme and ends the demo session.
 `src/config/settings.json` defines the default `headerMaterial` preference (`solid` or
 `glass`); browser settings save the user's choice under the same field. Virgo, Minimal
 and Soft use that preference and show the header-material switch. Glass always renders
-a glass header; Retro and Bold always render an opaque header. Fixed-material
+a glass header; Retro and Contrast always render an opaque header. Fixed-material
 themes show an explanatory note instead of the switch. The effective material is derived
 from the theme during rendering, without overwriting or removing the saved preference.
 Returning to a customizable theme restores that preference, including after refresh.

@@ -42,8 +42,8 @@ export const themesEnUS = {
       'Neutral translucent white or black, real backdrop lensing, light specular edges and soft floating depth. Blue belongs to actions and selection. Opaque fallback remains readable.',
     retro:
       'Compact controls, square corners, hard boundaries, inset/outset shadows and visible pressed movement.',
-    bold:
-      'Strong text and surface separation, explicit borders, focus and selection, legible disabled states and no dependence on shadows.',
+    contrast:
+      'Strong foreground and background separation, explicit boundaries, clear focus, selected and disabled states, with less reliance on shadows and subtle gray tones.',
   },
   authoring: {
     title: 'Create a third-party theme',
@@ -54,7 +54,7 @@ export const themesEnUS = {
     scopes:
       'A local data-virgo-theme scope resets presentation overrides to Virgo defaults; data-theme chooses its appearance. Use the public PortalProvider when rendering independent comparison scopes, so local Dialogs and tooltips inherit their own recipe. Normal applications inherit from html, including body portals.',
     audit:
-      'Verify both appearances, keyboard focus, hover/pressed/disabled and selected states, long content, narrow viewports, reduced motion, chart updates and open portals. Glass uses a neutral translucent material, restrained optical depth and an opaque no-blur fallback. High Contrast is an explicit preset, separate from the browser forced-colors accessibility mode.',
+      'Verify both appearances, keyboard focus, hover/pressed/disabled and selected states, long content, narrow viewports, reduced motion, chart updates and open portals. Glass uses a neutral translucent material, restrained optical depth and an opaque no-blur fallback. Contrast is an explicit preset, separate from the browser forced-colors accessibility mode.',
   },
   specimen: {
     title: 'Theme preview',

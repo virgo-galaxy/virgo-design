@@ -70,7 +70,10 @@ function onStorage(event: StorageEvent) {
   if (event.storageArea && event.storageArea !== window.localStorage) return;
   if (event.key !== storage.key && event.key !== null) return;
   try {
-    apply(resolveThemeId(storage.parse(event.newValue)) ?? fallbackTheme);
+    const saved = storage.parse(event.newValue);
+    const resolved = resolveThemeId(saved);
+    if (resolved && resolved !== saved) persist(resolved);
+    apply(resolved ?? fallbackTheme);
   } catch {
     apply(fallbackTheme);
   }

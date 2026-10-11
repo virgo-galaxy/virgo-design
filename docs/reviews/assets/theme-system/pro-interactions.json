@@ -82,6 +82,6 @@
     "appearance": "dark"
   },
   "persistence": { "theme": "soft", "appearance": "dark", "stored": "soft" },
-  "portal": { "theme": "utility", "bg": "rgb(51, 60, 46)", "radius": "0px" },
+  "portal": { "theme": "retro", "bg": "rgb(51, 60, 46)", "radius": "0px" },
   "headerSynced": "true"
 }
