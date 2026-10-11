@@ -214,6 +214,7 @@ export function SettingsDrawer({
   const [resetting, setResetting] = useState(false);
   const [resetError, setResetError] = useState(false);
   const { theme: themeStyle, setTheme } = useThemeStyle();
+  const selectedTheme = themePresets.find((preset) => preset.id === themeStyle);
   const fixedHeaderMaterial = getFixedHeaderMaterial(themeStyle);
   const rail = settings.sidebarMode === 'collapsed';
   const widthRange = sidebarWidthRanges[settings.sidebarMode];
@@ -237,20 +238,6 @@ export function SettingsDrawer({
           <Drawer.Description>{t('settings.makeThisWorkspaceFeelRight')}</Drawer.Description>
         </Drawer.Header>
         <Drawer.Body className={styles.body}>
-          <section aria-labelledby={`${id}-theme-style`} className={styles.section}>
-            <h2 id={`${id}-theme-style`}>{t('themeStyleControl.label')}</h2>
-            <Select value={themeStyle} onValueChange={setTheme}>
-              <Select.Trigger aria-labelledby={`${id}-theme-style`} />
-              <Select.Content>
-                {themePresets.map((preset) => (
-                  <Select.Option key={preset.id} value={preset.id}>
-                    {preset.name}
-                  </Select.Option>
-                ))}
-              </Select.Content>
-            </Select>
-          </section>
-          <Separator decorative />
           <section aria-labelledby={`${id}-appearance`} className={styles.section}>
             <h2 id={`${id}-appearance`}>{t('settings.appearance')}</h2>
             <SegmentedControl
@@ -290,6 +277,28 @@ export function SettingsDrawer({
                   })
                 : t('settings.alsoAvailableFromTheHeaderAppearanceButton')}
             </p>
+          </section>
+          <Separator decorative />
+          <section aria-labelledby={`${id}-theme-style`} className={styles.section}>
+            <h2 id={`${id}-theme-style`}>{t('themeStyleControl.label')}</h2>
+            <Select value={themeStyle} onValueChange={setTheme}>
+              <Select.Trigger
+                aria-labelledby={`${id}-theme-style`}
+                aria-describedby={selectedTheme ? `${id}-theme-description` : undefined}
+              />
+              <Select.Content>
+                {themePresets.map((preset) => (
+                  <Select.Option key={preset.id} value={preset.id}>
+                    {t(`themeStyleControl.names.${preset.descriptionKey}`)}
+                  </Select.Option>
+                ))}
+              </Select.Content>
+            </Select>
+            {selectedTheme ? (
+              <p id={`${id}-theme-description`} className={styles.hint}>
+                {t(`themeStyleControl.descriptions.${selectedTheme.descriptionKey}`)}
+              </p>
+            ) : null}
           </section>
           <Separator decorative />
           <section aria-labelledby={`${id}-display`} className={styles.section}>

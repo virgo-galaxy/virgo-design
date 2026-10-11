@@ -38,7 +38,9 @@ export function ThemeExperience() {
     <Surface border="default" radius={16} className={styles.preview} data-theme-experience="">
       <header className={styles.previewHeader}>
         <div>
-          <span className={styles.themeName}>{preset?.name ?? theme}</span>
+          <span className={styles.themeName}>
+            {preset ? t(`themeStyleControl.names.${preset.descriptionKey}`) : theme}
+          </span>
           <h3>{t('themes.specimen.title')}</h3>
           <p>{t('themes.specimen.description')}</p>
         </div>

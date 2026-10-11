@@ -112,7 +112,7 @@ export function ThemesPage() {
                   <Table.Cell>
                     <code>{preset.id}</code>
                   </Table.Cell>
-                  <Table.Cell>{preset.name}</Table.Cell>
+                  <Table.Cell>{t(`themeStyleControl.names.${preset.descriptionKey}`)}</Table.Cell>
                   <Table.Cell>{t(`themes.directions.${preset.descriptionKey}`)}</Table.Cell>
                 </Table.Row>
               ))}
