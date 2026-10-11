@@ -22,6 +22,7 @@ const theme: ChartTheme = {
   legend: '#555',
   tooltipSurface: '#fff',
   tooltipBorder: '#ccc',
+  tooltipBackdropFilter: 'none',
   fontFamily: 'sans-serif',
   fontSize: 12,
   lineWidth: 2,
@@ -214,6 +215,17 @@ describe('Virgo → ECharts compiler', () => {
     expect(themed.yAxis).toMatchObject({ axisLabel: { color: '#555' } });
     expect(option.yAxis).toEqual({ type: 'value' });
     expect(themed.series).toBe(option.series);
+  });
+  it('shares the tooltip material with advanced charts while preserving explicit CSS', () => {
+    const material = { ...theme, tooltipBackdropFilter: 'blur(8px) saturate(1.04)' };
+    expect(advancedTheme({ tooltip: {} }, material).tooltip).toMatchObject({
+      backgroundColor: theme.tooltipSurface,
+      extraCssText:
+        'backdrop-filter:blur(8px) saturate(1.04);-webkit-backdrop-filter:blur(8px) saturate(1.04);',
+    });
+    expect(
+      advancedTheme({ tooltip: { extraCssText: 'backdrop-filter:none;' } }, material).tooltip,
+    ).toMatchObject({ extraCssText: 'backdrop-filter:none;' });
   });
   it('themes calendar cells and hover boundaries while preserving data and explicit overrides', () => {
     const data = [['2026-10-01', 3]];

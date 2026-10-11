@@ -16,6 +16,7 @@ export interface ChartTheme {
   legend: string;
   tooltipSurface: string;
   tooltipBorder: string;
+  tooltipBackdropFilter: string;
   fontFamily: string;
   fontSize: number;
   lineWidth: number;
@@ -101,6 +102,7 @@ export function readChartTheme(element: HTMLElement, customColors: string[] = []
     palette: colors.slice(6, 12),
     tooltipSurface: colors[12]!,
     tooltipBorder: colors[13]!,
+    tooltipBackdropFilter: value('tooltip-backdrop-filter') || 'none',
     heatmapPalette: colors.slice(14, 19),
     heatmapRadius: number('heatmap-radius', 4),
     heatmapBorderWidth: number('heatmap-border-width', 1),

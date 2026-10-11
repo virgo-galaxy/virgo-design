@@ -63,6 +63,7 @@ export function advancedTheme(option: EChartsOption, theme: ChartTheme): ECharts
     tooltip: {
       backgroundColor: theme.tooltipSurface,
       borderColor: theme.tooltipBorder,
+      extraCssText: `backdrop-filter:${theme.tooltipBackdropFilter};-webkit-backdrop-filter:${theme.tooltipBackdropFilter};`,
       textStyle: { color: theme.axisLabel, fontFamily: theme.fontFamily, fontSize: theme.fontSize },
     },
   };

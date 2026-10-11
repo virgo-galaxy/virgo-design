@@ -1,4 +1,4 @@
-import { Card, SegmentedControl, Surface, Tooltip } from '@virgo-design/ui';
+import { Card, SegmentedControl, Tooltip } from '@virgo-design/ui';
 import {
   type CSSProperties,
   memo,
@@ -72,16 +72,8 @@ const TokenUsageCell = memo(function TokenUsageCell({
         }}
       />
       <Tooltip.Content className={styles.heatmapTooltip} placement="top" offset={10} arrow={false}>
-        <Surface
-          material="glass"
-          tone="elevated"
-          radius={8}
-          elevation={2}
-          className={styles.heatmapTooltipSurface}
-        >
-          <time dateTime={day.date}>{tooltipDate}</time>
-          <strong>{tooltipValue}</strong>
-        </Surface>
+        <time dateTime={day.date}>{tooltipDate}</time>
+        <strong>{tooltipValue}</strong>
       </Tooltip.Content>
     </Tooltip>
   );

@@ -26,6 +26,12 @@
   background: transparent;
 }
 
+// Glass samples the backdrop once, on its material layer.
+.root[data-material='glass'] {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
 // Negative stacking levels stay inside the isolated root, above its background
 // and below normal-flow children. Children need no wrapper or imposed layout.
 .background,

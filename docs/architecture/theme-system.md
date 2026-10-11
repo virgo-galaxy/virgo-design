@@ -15,8 +15,6 @@ packages/themes/
     ├── index.ts
     ├── registry.ts
     ├── runtime.ts
-    ├── optics.ts
-    ├── optics.test.ts
     ├── runtime.test.ts
     ├── styles.scss
     └── themes/
@@ -83,6 +81,6 @@ Charts 保持 Virgo API → ECharts engine。CSS compiler 读取语义变量，�
 
 文字密集的 Select、Dropdown、Menu、Popover 和 picker 使用独立 popup 契约：88% 中性底色和 24px 模糊，遮蔽底层文字，同时保留微弱环境色。Dialog、Drawer 与大面积 Surface 继续使用清透材质。工作台窗口操作消费 `--vd-window-control-*` 契约，Glass 提供红黄实心圆点，悬停或键盘聚焦时显示符号；其他主题保留原有图标与共享交互。
 
-Glass 材质使用中性白／黑半透明表面，强调色与材质分离。Surface 使用 2px 的轻模糊，浮层与 chrome 使用 4px 模糊；高光和 elevation 使用中性光影。Chromium 初始化时安装一个不可交互、零尺寸的共享 SVG filter，通过二维 displacement map 轻微放大真实 backdrop；这不复制底层 DOM 或业务画面。其他引擎、仅加载 CSS 的消费者保留中性的 CSS blur recipe。浏览器无 blur 支持或用户选择 reduced transparency 时使用不透明中性表面。
+Glass 材质使用中性白／黑半透明表面，强调色与材质分离。Surface 使用 2px 的轻模糊，浮层与 chrome 使用 4px 模糊；高光和 elevation 使用中性光影。材质统一使用 CSS backdrop blur，移除 SVG displacement filter，避免图表与条形内容出现竖向折射残影。图表与热力图 Tooltip 使用独立的 78% 中性表面和 8px 模糊；热力图不再叠加内部 Surface，Surface 只由材质层模糊一次。浏览器无 blur 支持或用户选择 reduced transparency 时使用不透明中性表面。
 
 这是 Web 的材质表达，不调用 Apple 原生 Liquid Glass API。实现参考 [Apple 最新平台说明](https://developer.apple.com/videos/play/wwdc2026/102/) 与 [Liquid Glass 光学原则](https://developer.apple.com/videos/play/wwdc2025/219/)。

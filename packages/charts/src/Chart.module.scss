@@ -24,6 +24,7 @@
     var(--vd-shape-radius-6, var(--vd-radius-6))
   );
   --chart-tooltip-shadow: var(--vd-chart-tooltip-shadow, var(--vd-elevation-2));
+  --chart-tooltip-backdrop-filter: var(--vd-chart-tooltip-backdrop-filter, none);
   --chart-legend: var(--vd-chart-legend, var(--vd-text-secondary));
   --chart-active-point: var(--vd-chart-active-point, var(--vd-surface-default));
   --chart-muted-opacity: var(--vd-chart-muted-opacity, 0.3);
@@ -113,8 +114,8 @@
   border-radius: var(--chart-tooltip-radius);
   background: var(--chart-tooltip-surface);
   box-shadow: var(--chart-tooltip-shadow);
-  backdrop-filter: var(--vd-panel-backdrop-filter, none);
-  -webkit-backdrop-filter: var(--vd-panel-backdrop-filter, none);
+  backdrop-filter: var(--chart-tooltip-backdrop-filter);
+  -webkit-backdrop-filter: var(--chart-tooltip-backdrop-filter);
   pointer-events: none;
   overflow-wrap: anywhere;
 }

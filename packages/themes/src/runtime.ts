@@ -1,4 +1,3 @@
-import { initializeThemeOptics } from './optics';
 import { defaultTheme, getThemePreset, resolveThemeId } from './registry';
 
 export const themeStorageKey = 'virgo-design.theme-style.v1';
@@ -33,7 +32,6 @@ export function initializeTheme(
   if (!getThemePreset(fallbackTheme)) throw new RangeError(`Unknown theme: ${fallbackTheme}`);
   storage = options.storage ?? defaultStorage;
   if (typeof window === 'undefined') return currentTheme;
-  initializeThemeOptics();
   let saved: string | null = null;
   try {
     saved = storage.parse(window.localStorage.getItem(storage.key));

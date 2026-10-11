@@ -118,7 +118,7 @@ contract to their own token values. Desktop/Retro visual certification remains s
 `--chart-background`, `--chart-axis`, `--chart-axis-label`, `--chart-grid`,
 `--chart-series-1` … `--chart-series-6`, `--chart-line-width`,
 `--chart-tooltip-surface`, `--chart-tooltip-border`, `--chart-tooltip-radius`,
-`--chart-tooltip-shadow`, `--chart-legend`, `--chart-active-point`,
+`--chart-tooltip-shadow`, `--chart-tooltip-backdrop-filter`, `--chart-legend`, `--chart-active-point`,
 `--chart-muted-opacity`, `--chart-enter-duration`, `--chart-update-duration`,
 `--chart-interaction-duration`, `--chart-sector-offset`, `--chart-point-radius`,
 `--chart-active-point-radius`.

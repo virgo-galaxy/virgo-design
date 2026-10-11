@@ -869,37 +869,17 @@
     cursor: default;
   }
 }
-.deliveryTooltip {
-  --chart-tooltip-surface: var(
-    --vd-chart-tooltip-surface,
-    color-mix(in srgb, var(--vd-surface-default) 35%, transparent)
-  );
-  --chart-tooltip-border: var(--vd-chart-tooltip-border, var(--vd-border-subtle));
-  --chart-tooltip-radius: var(
-    --vd-chart-tooltip-radius,
-    var(--vd-shape-radius-8, var(--vd-radius-8))
-  );
-  color: var(--vd-text-primary);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-}
 .heatmapTooltip[data-size] {
-  --tooltip-background: transparent;
+  --tooltip-background: var(--vd-chart-tooltip-surface, var(--vd-surface-elevated));
   --tooltip-foreground: var(--vd-text-primary);
-  padding: 0;
-  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
-  box-shadow: none;
-  pointer-events: none;
-  [data-overlay-viewport] {
-    overflow: visible;
-  }
-}
-.heatmapTooltipSurface {
+  --vd-tooltip-backdrop-filter: var(--vd-chart-tooltip-backdrop-filter, none);
+  --material-radius: var(--vd-chart-tooltip-radius, var(--vd-shape-radius-8, var(--vd-radius-8)));
   min-width: 160px;
   padding: var(--vd-spacing-12);
-  &[data-material='glass'] > [data-slot='material'] {
-    background: color-mix(in srgb, var(--surface-tint) 96%, transparent);
-  }
+  border: var(--vd-stroke-width, 1px) solid var(--vd-chart-tooltip-border, var(--vd-border-subtle));
+  border-radius: var(--material-radius);
+  box-shadow: var(--vd-chart-tooltip-shadow, var(--vd-elevation-2));
+  pointer-events: none;
   time {
     display: block;
     color: var(--vd-text-secondary);

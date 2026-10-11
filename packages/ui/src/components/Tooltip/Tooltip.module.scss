@@ -8,11 +8,23 @@
 }
 .content {
   @include panel.surface(overlay);
-  --tooltip-background: var(--vd-tooltip-background, var(--vd-text-primary));
-  --tooltip-foreground: var(--vd-tooltip-foreground, var(--vd-text-inverse));
+  --tooltip-background: var(
+    --vd-tooltip-background,
+    var(--vd-tooltip-light-background, var(--vd-text-primary))
+  );
+  --tooltip-foreground: var(
+    --vd-tooltip-foreground,
+    var(--vd-tooltip-light-foreground, var(--vd-text-inverse))
+  );
   &:where([data-theme='dark'][data-tone='default']) {
-    --tooltip-background: var(--vd-tooltip-background, var(--vd-neutral-8));
-    --tooltip-foreground: var(--vd-tooltip-foreground, var(--vd-neutral-1));
+    --tooltip-background: var(
+      --vd-tooltip-background,
+      var(--vd-tooltip-dark-background, var(--vd-neutral-8))
+    );
+    --tooltip-foreground: var(
+      --vd-tooltip-foreground,
+      var(--vd-tooltip-dark-foreground, var(--vd-neutral-1))
+    );
   }
   --tooltip-arrow-size: var(--vd-sizing-12);
   --tooltip-arrow-half: var(--vd-spacing-6);
@@ -83,6 +95,16 @@
       --tooltip-background: var(--vd-status-#{$tone}-solid);
       --tooltip-foreground: var(--vd-status-#{$tone}-on-solid);
     }
+  }
+}
+// A bubble without an arrow needs no masked union layer. Blur on the bubble
+// itself also keeps backdrop sampling outside its opacity animation.
+.content:not(:has(> [data-slot='arrow'])) {
+  background: var(--tooltip-background);
+  -webkit-backdrop-filter: var(--vd-tooltip-backdrop-filter, var(--vd-panel-backdrop-filter));
+  backdrop-filter: var(--vd-tooltip-backdrop-filter, var(--vd-panel-backdrop-filter));
+  &::before {
+    display: none;
   }
 }
 // Small is opt-in; medium keeps the existing Tooltip presentation unchanged.

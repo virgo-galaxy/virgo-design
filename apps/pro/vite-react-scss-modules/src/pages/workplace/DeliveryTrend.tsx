@@ -67,7 +67,7 @@ export function DeliveryTrend() {
               curve="smooth"
               marker="muted"
             />
-            <Chart.Tooltip className={styles.deliveryTooltip ?? ''} />
+            <Chart.Tooltip />
             <Chart.Legend />
           </Chart.Cartesian>
         </Chart.Root>

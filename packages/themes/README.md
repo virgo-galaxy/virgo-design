@@ -130,10 +130,11 @@ surfaces retain their clear glass recipe. Window controls consume semantic
 presentation variables for filled red/yellow dots and hover/focus symbols.
 
 Glass uses neutral translucent white/black; blue is reserved for accent and
-interactive states. `initializeTheme()` installs a shared backdrop lens on
-Chromium, sampling actual background pixels with a small SVG displacement map.
-Other engines and CSS-only consumers use neutral backdrop blur. No content is
-cloned. No-blur and reduced-transparency modes use opaque neutral surfaces.
+interactive states. Material uses CSS backdrop blur without SVG displacement.
+Each glass Surface applies the blur only on its material layer. Chart tooltips
+use their own 78% coverage and 8px blur, independent of the surrounding panel;
+`--vd-chart-tooltip-backdrop-filter` controls that single layer. No-blur and
+reduced-transparency modes use opaque neutral surfaces.
 The website comparison includes identical artwork under each Surface so the
 material can be inspected directly. This is a Web implementation inspired by
 [Apple's latest Liquid Glass refinements](https://developer.apple.com/videos/play/wwdc2026/102/).
