@@ -1,6 +1,20 @@
 @use './recipe';
 
 [data-virgo-theme='soft'] {
+  --vd-cursor-color: var(--vd-text-primary);
+  --vd-cursor-stroke: var(--vd-surface-elevated);
+  --vd-cursor-filter: drop-shadow(
+    0 2px 4px color-mix(in srgb, var(--vd-text-primary) 16%, transparent)
+  );
+
+  --vd-chart-bar-radius: 4;
+  --vd-control-hover-background: var(--vd-fill-hover);
+  --vd-option-hover-background: var(--vd-fill-selected);
+  --vd-option-hover-foreground: var(--vd-text-primary);
+  --vd-option-selected-background: var(--vd-fill-selected);
+  --vd-option-selected-foreground: var(--vd-text-primary);
+  --vd-dock-background: var(--vd-popup-background, var(--vd-surface-elevated));
+
   --vd-select-tag-radius: 9999px;
   @include recipe.soft-overlay-arrows;
   @include recipe.soft-tooltip-arrows(3, 0.125);

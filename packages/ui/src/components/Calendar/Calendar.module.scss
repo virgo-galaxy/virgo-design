@@ -85,7 +85,7 @@
   }
   button:focus-visible {
     outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
-    outline-offset: -1px;
+    outline-offset: calc(var(--vd-focus-offset, 1px) * -1);
   }
   button:disabled {
     color: var(--vd-text-disabled);

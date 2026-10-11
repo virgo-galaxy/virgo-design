@@ -56,6 +56,7 @@
   }
 
   &:disabled {
+    border-style: var(--vd-disabled-border-style, solid);
     --textarea-background: var(--vd-fill-disabled);
     --textarea-border: var(--vd-border-disabled);
     --textarea-border-hover: var(--vd-border-disabled);

@@ -1,6 +1,32 @@
 @use './recipe';
 
 [data-virgo-theme='contrast'] {
+  --vd-control-hover-background: var(--vd-fill-hover);
+  --vd-option-hover-background: var(--vd-surface-strong);
+  --vd-option-hover-foreground: var(--vd-text-primary);
+  --vd-option-selected-background: var(--vd-text-primary);
+  --vd-option-selected-foreground: var(--vd-text-inverse);
+  --vd-cursor-color: var(--vd-text-primary);
+  --vd-cursor-stroke: var(--vd-surface-default);
+  --vd-cursor-stroke-width: 1.25;
+  --vd-cursor-filter: none;
+  --vd-dock-background: var(--vd-popup-background, var(--vd-surface-elevated));
+  --vd-chart-emphasis-shadow-scale: 0;
+  --vd-chart-point-symbol: rect;
+  --vd-color-picker-thumb-border: var(--vd-focus-width) solid var(--vd-text-primary);
+  --vd-color-picker-thumb-shadow: 0 0 0 var(--vd-stroke-width) var(--vd-surface-default);
+  --vd-table-fixed-shadow-color: transparent;
+  --vd-chart-border-width: 2;
+  --vd-chart-heatmap-active-border-width: 3;
+  --vd-chart-point-border-width: 3;
+  --vd-chart-active-point-border-width: 3;
+  --vd-chart-grid-line-type: solid;
+  --vd-chart-pointer-opacity: 1;
+  --vd-motion-duration-360: 0ms;
+  --vd-motion-duration-560: 0ms;
+  --vd-motion-duration-breathe: 0ms;
+  --vd-motion-loop-iterations: 0;
+
   --vd-tag-radius: 2px;
   --vd-tag-soft-border-opacity: 100%;
   --vd-tag-border-color: currentColor;

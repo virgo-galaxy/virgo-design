@@ -58,7 +58,7 @@
 
 .item[data-link='true']:focus-visible {
   outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
-  outline-offset: var(--vd-spacing-2);
+  outline-offset: var(--vd-focus-offset, var(--vd-spacing-2));
 }
 
 .item[data-current='true'] {

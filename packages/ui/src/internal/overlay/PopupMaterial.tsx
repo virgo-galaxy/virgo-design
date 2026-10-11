@@ -96,7 +96,10 @@ export function PopupMaterial() {
     const resize = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(update);
     resize?.observe(panel);
     const changes = new MutationObserver(update);
-    changes.observe(panel, { attributes: true, attributeFilter: ['style', 'data-side', 'class'] });
+    changes.observe(panel, {
+      attributes: true,
+      attributeFilter: ['style', 'data-side', 'class', 'data-theme', 'data-virgo-theme'],
+    });
     for (let ancestor = panel.parentElement; ancestor; ancestor = ancestor.parentElement) {
       changes.observe(ancestor, {
         attributes: true,

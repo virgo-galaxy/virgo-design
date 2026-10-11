@@ -1,6 +1,6 @@
 @use '../../internal/form/control-size';
 .root {
-  --carousel-duration: 360ms;
+  --carousel-duration: var(--vd-motion-duration-360, 360ms);
   --carousel-easing: var(--vd-motion-easing-standard);
   --carousel-indicator-color: var(--vd-brand-link);
   position: relative;
@@ -14,8 +14,8 @@
   touch-action: pan-y;
   outline: none;
   &:focus-visible {
-    outline: 2px solid var(--vd-border-focus);
-    outline-offset: 3px;
+    outline: var(--vd-focus-width, 2px) solid var(--vd-border-focus);
+    outline-offset: var(--vd-focus-offset, 3px);
   }
 }
 .track {
@@ -40,7 +40,7 @@
   justify-content: space-between;
   pointer-events: none;
   opacity: 0;
-  transition: opacity var(--vd-motion-duration-fast) var(--vd-motion-easing-standard);
+  transition: opacity var(--vd-motion-duration-120, 120ms) var(--vd-motion-easing-standard);
   > button[data-variant='outline'] {
     --button-height: var(--carousel-arrow-height, #{control-size.token(small, height)});
     --button-background: var(--carousel-control-background, transparent);
@@ -72,7 +72,7 @@
   > span {
     width: 6px;
     height: 6px;
-    border-radius: 50%;
+    border-radius: var(--vd-indicator-radius, 50%);
     background: var(--vd-text-tertiary);
     transition: background var(--carousel-duration);
   }
@@ -89,7 +89,7 @@
     inset-inline: 0;
     top: calc(50% - 1.5px);
     height: 3px;
-    border-radius: 999px;
+    border-radius: var(--vd-indicator-radius, 999px);
     background: var(
       --carousel-indicator-background,
       color-mix(in srgb, var(--vd-text-primary) 18%, transparent)
@@ -121,7 +121,7 @@
   z-index: 1;
   height: 3px;
   width: calc(100% / var(--carousel-count));
-  border-radius: 999px;
+  border-radius: var(--vd-indicator-radius, 999px);
   background: var(--carousel-indicator-color);
   transform: translateX(calc(var(--carousel-index) * 100%));
   transition: transform var(--carousel-duration) var(--carousel-easing);

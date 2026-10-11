@@ -148,6 +148,7 @@
   }
 
   &:disabled {
+    border-style: var(--vd-disabled-border-style, solid);
     cursor: not-allowed;
   }
 }
@@ -239,6 +240,7 @@
     outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
   }
   &:disabled {
+    border-style: var(--vd-disabled-border-style, solid);
     cursor: not-allowed;
     color: var(--vd-icon-disabled);
   }
@@ -261,20 +263,20 @@
 .option[data-multiple='true'] {
   justify-content: flex-start;
   gap: var(--vd-spacing-8);
+  &:hover:not([data-disabled='true']),
+  &:focus:not([data-disabled='true']) {
+    @include option-highlight.surface(hover);
+    .checkbox {
+      border-color: var(--checkbox-border-hover);
+    }
+  }
   &[data-selected='true']:not([data-disabled='true']) {
-    @include option-highlight.surface;
+    @include option-highlight.surface(selected);
     .checkbox {
       @include checkbox-indicator.checked-control;
     }
     .checkboxMark {
       @include checkbox-indicator.checked-mark;
-    }
-  }
-  &:hover:not([data-disabled='true']),
-  &:focus:not([data-disabled='true']) {
-    @include option-highlight.surface;
-    .checkbox {
-      border-color: var(--checkbox-border-hover);
     }
   }
 }
@@ -343,12 +345,12 @@
 
   &:hover:not([data-disabled='true']),
   &:focus:not([data-disabled='true']) {
-    @include option-highlight.surface;
+    @include option-highlight.surface(hover);
   }
 }
 
 .option[data-selected='true']:not([data-disabled='true']) {
-  @include option-highlight.surface;
+  @include option-highlight.surface(selected);
   font-weight: var(--vd-font-weight-500);
 }
 
@@ -418,7 +420,7 @@
   height: var(--select-icon-size);
   align-items: center;
   justify-content: center;
-  color: var(--vd-icon-primary);
+  color: inherit;
   opacity: 0;
 
   > svg {

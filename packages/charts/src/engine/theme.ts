@@ -1,3 +1,4 @@
+import type { EChartsOption } from 'echarts';
 import type { RefObject } from 'react';
 import { useLayoutEffect, useState } from 'react';
 
@@ -7,6 +8,7 @@ export interface ChartTheme {
   heatmapPalette: string[];
   heatmapRadius: number;
   heatmapBorderWidth: number;
+  heatmapActiveBorderWidth: number;
   colors?: Record<string, string>;
   axis: string;
   axisLabel: string;
@@ -16,6 +18,7 @@ export interface ChartTheme {
   legend: string;
   tooltipSurface: string;
   tooltipBorder: string;
+  tooltipForeground: string;
   tooltipBackdropFilter: string;
   fontFamily: string;
   fontSize: number;
@@ -27,6 +30,21 @@ export interface ChartTheme {
   enterDuration: number;
   updateDuration: number;
   interactionDuration: number;
+  borderWidth: number;
+  pointBorderWidth: number;
+  activePointBorderWidth: number;
+  emphasisShadowScale: number;
+  sectorShadowColor: string;
+  areaOpacity: number;
+  gridLineType: 'solid' | 'dashed' | 'dotted';
+  pointerOpacity: number;
+  pointSymbol: string;
+  barRadius: number;
+  enterEasing: NonNullable<EChartsOption['animationEasing']>;
+  updateEasing: NonNullable<EChartsOption['animationEasingUpdate']>;
+  interactionEasing: NonNullable<EChartsOption['animationEasing']>;
+  tooltipRadius: number;
+  tooltipShadow: string;
 }
 
 // Browsers serialize color-mix(in srgb, ...) as color(srgb ...), which
@@ -69,6 +87,8 @@ export function readChartTheme(element: HTMLElement, customColors: string[] = []
     'tooltip-border',
     'heatmap-empty',
     ...Array.from({ length: 4 }, (_, i) => `heatmap-${i + 1}`),
+    'sector-shadow-color',
+    'tooltip-foreground',
   ];
   const probes = keys.map((key) => {
     const probe = document.createElement('span');
@@ -91,6 +111,13 @@ export function readChartTheme(element: HTMLElement, customColors: string[] = []
     probe.remove();
     return [color, resolved];
   });
+  const shadowProbe = document.createElement('span');
+  shadowProbe.style.boxShadow = 'var(--chart-tooltip-shadow)';
+  shadowProbe.style.position = 'absolute';
+  shadowProbe.style.visibility = 'hidden';
+  element.append(shadowProbe);
+  const tooltipShadow = getComputedStyle(shadowProbe).boxShadow || 'none';
+  shadowProbe.remove();
   return {
     colors: Object.fromEntries(custom),
     axis: colors[0]!,
@@ -104,8 +131,11 @@ export function readChartTheme(element: HTMLElement, customColors: string[] = []
     tooltipBorder: colors[13]!,
     tooltipBackdropFilter: value('tooltip-backdrop-filter') || 'none',
     heatmapPalette: colors.slice(14, 19),
+    sectorShadowColor: colors[19]!,
+    tooltipForeground: colors[20]!,
     heatmapRadius: number('heatmap-radius', 4),
     heatmapBorderWidth: number('heatmap-border-width', 1),
+    heatmapActiveBorderWidth: number('heatmap-active-border-width', 2),
     fontFamily: css.fontFamily,
     fontSize: parseFloat(css.fontSize) || 12,
     lineWidth: number('line-width', 2),
@@ -116,6 +146,26 @@ export function readChartTheme(element: HTMLElement, customColors: string[] = []
     enterDuration: duration('enter-duration', 700),
     updateDuration: duration('update-duration', 400),
     interactionDuration: duration('interaction-duration', 120),
+    borderWidth: number('border-width', 1),
+    pointBorderWidth: number('point-border-width', 2),
+    activePointBorderWidth: number('active-point-border-width', 2.5),
+    emphasisShadowScale: number('emphasis-shadow-scale', 1),
+    areaOpacity: number('area-opacity', 0.2),
+    gridLineType:
+      value('grid-line-type') === 'solid'
+        ? 'solid'
+        : value('grid-line-type') === 'dotted'
+          ? 'dotted'
+          : 'dashed',
+    pointerOpacity: number('pointer-opacity', 0.6),
+    pointSymbol: value('point-symbol') || 'circle',
+    barRadius: number('bar-radius', 0),
+    enterEasing: (value('enter-easing') || 'linear') as ChartTheme['enterEasing'],
+    updateEasing: (value('update-easing') || 'cubicOut') as ChartTheme['updateEasing'],
+    interactionEasing: (value('interaction-easing') ||
+      'cubicOut') as ChartTheme['interactionEasing'],
+    tooltipRadius: number('tooltip-radius', 6),
+    tooltipShadow,
   };
 }
 export function useChartTheme(ref: RefObject<HTMLElement | null>, customColors: string[] = []) {

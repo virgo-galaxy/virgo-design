@@ -368,6 +368,7 @@ export const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(func
         ref={composeRefs(forwardedRef, contentRef)}
         id={context.contentId}
         data-theme={floating.theme}
+        data-virgo-theme={floating.themeStyle}
         dir={floating.direction}
         data-placement={floating.placement}
         data-side={floating.side}

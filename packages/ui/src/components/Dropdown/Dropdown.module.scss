@@ -68,10 +68,10 @@
   cursor: pointer;
   &:hover:not(:disabled),
   &:focus:not(:disabled) {
-    @include option-highlight.surface;
+    @include option-highlight.surface(hover);
   }
   &[data-checked='true']:not(:disabled) {
-    @include option-highlight.surface;
+    @include option-highlight.surface(selected);
     font-weight: var(--vd-font-weight-500);
   }
   &:disabled {
@@ -121,7 +121,7 @@
 .item[data-checked='true'] .check {
   opacity: 1;
 }
-.danger:not(:disabled) {
+.danger:not(:disabled):not([data-checked='true']) {
   color: var(--vd-status-danger-accent);
 }
 .trigger.danger:not(:disabled),

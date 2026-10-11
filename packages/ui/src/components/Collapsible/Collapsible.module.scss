@@ -1,5 +1,5 @@
 .root {
-  border: 1px solid var(--vd-border-subtle);
+  border: var(--vd-stroke-width, 1px) solid var(--vd-border-subtle);
   border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
 }
 .trigger {

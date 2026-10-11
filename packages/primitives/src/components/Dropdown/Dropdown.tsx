@@ -247,6 +247,7 @@ export const DropdownContent = forwardRef<HTMLDivElement, DropdownContentProps>(
           tabIndex={-1}
           aria-labelledby={context.triggerId}
           data-theme={floating.theme}
+          data-virgo-theme={floating.themeStyle}
           dir={floating.direction}
           data-placement={floating.placement}
           data-side={floating.side}

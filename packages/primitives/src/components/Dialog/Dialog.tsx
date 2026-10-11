@@ -5,6 +5,7 @@ import {
   useContext,
   useId,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -21,6 +22,7 @@ import {
 import { Portal } from '../../internal/overlay/Portal';
 import { useFocusScope } from '../../internal/overlay/useFocusScope';
 import { useModalIsolation } from '../../internal/overlay/useModalIsolation';
+import { usePortalEnvironment } from '../../internal/overlay/usePortalEnvironment';
 import { usePresence } from '../../internal/overlay/usePresence';
 import { composeRefs } from '../../internal/utils/composeRefs';
 import type {
@@ -45,6 +47,7 @@ type DialogContextValue = {
   closeAutoFocusPreventedRef: React.MutableRefObject<boolean>;
   triggerRef: React.RefObject<HTMLButtonElement | null>;
   contentRef: React.RefObject<HTMLDivElement | null>;
+  environment: ReturnType<typeof usePortalEnvironment>;
   layer: OverlayLayer;
   triggerId: string;
   contentId: string;
@@ -72,6 +75,21 @@ export const DialogRoot = forwardRef<HTMLDivElement, DialogProps>(function Dialo
   const open = Boolean(openState);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const rootForwardedRef = useMemo(() => {
+    if (typeof ref !== 'function') return composeRefs(ref, rootRef);
+    return (node: HTMLDivElement | null) => {
+      rootRef.current = node;
+      // ForwardedRef omits the cleanup return supported by React 19 callback refs.
+      const cleanup = (ref as React.RefCallback<HTMLDivElement>)(node);
+      if (typeof cleanup === 'function')
+        return () => {
+          rootRef.current = null;
+          cleanup();
+        };
+    };
+  }, [ref]);
+  const environment = usePortalEnvironment(rootRef, open);
   const closeReasonRef = useRef<CloseReason>('programmatic');
   const closeAutoFocusPreventedRef = useRef(false);
   const previousOpenRef = useRef(open);
@@ -121,6 +139,7 @@ export const DialogRoot = forwardRef<HTMLDivElement, DialogProps>(function Dialo
         closeAutoFocusPreventedRef,
         triggerRef,
         contentRef,
+        environment,
         layer,
         triggerId: `${generatedId}-trigger`,
         contentId: `${generatedId}-content`,
@@ -133,7 +152,7 @@ export const DialogRoot = forwardRef<HTMLDivElement, DialogProps>(function Dialo
       }}
     >
       <LayerScope.Provider value={layer}>
-        <div {...props} ref={ref} data-state={open ? 'open' : 'closed'}>
+        <div {...props} ref={rootForwardedRef} data-state={open ? 'open' : 'closed'}>
           {children}
         </div>
       </LayerScope.Provider>
@@ -182,11 +201,15 @@ export const DialogOverlay = forwardRef<HTMLDivElement, DialogOverlayProps>(func
   ref,
 ) {
   const context = useDialog('Dialog.Overlay');
+  const environment = context.environment;
   const overlayRef = useRef<HTMLDivElement | null>(null);
   useLayerBranch(context.layer, overlayRef, context.open && context.modal);
   if (!context.present || !context.modal) return null;
   return (
     <div
+      data-theme={environment.theme}
+      data-virgo-theme={environment.themeStyle}
+      dir={environment.direction}
       {...props}
       ref={composeRefs(ref, overlayRef)}
       aria-hidden="true"
@@ -211,6 +234,7 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(func
   ref,
 ) {
   const context = useDialog('Dialog.Content');
+  const environment = context.environment;
   useDismiss({
     open: context.open,
     layer: context.layer,
@@ -262,6 +286,9 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(func
 
   return (
     <div
+      data-theme={environment.theme}
+      data-virgo-theme={environment.themeStyle}
+      dir={environment.direction}
       {...props}
       ref={composeRefs(ref, context.contentRef)}
       id={context.contentId}

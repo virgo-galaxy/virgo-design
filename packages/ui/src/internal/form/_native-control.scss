@@ -43,6 +43,8 @@
     border-color: var(--vd-status-danger-border);
   }
   &:disabled {
+    border-style: var(--vd-disabled-border-style, solid);
+    border-color: var(--vd-border-disabled);
     color: var(--vd-text-disabled);
     background: var(--vd-fill-disabled);
     cursor: not-allowed;

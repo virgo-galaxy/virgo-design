@@ -59,7 +59,7 @@
 .track {
   height: var(--progress-height);
   overflow: hidden;
-  border-radius: var(--vd-radius-full);
+  border-radius: var(--vd-indicator-radius, var(--vd-radius-full));
   background: var(--vd-surface-secondary);
 }
 

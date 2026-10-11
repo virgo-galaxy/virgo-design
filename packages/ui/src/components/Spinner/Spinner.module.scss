@@ -10,7 +10,7 @@
   color: inherit;
   vertical-align: middle;
   animation: spinner-rotate var(--vd-motion-duration-560, var(--vd-duration-560))
-    var(--vd-easing-linear) infinite;
+    var(--vd-easing-linear) var(--vd-motion-loop-iterations, infinite);
 }
 
 .root[data-size='sm'] {

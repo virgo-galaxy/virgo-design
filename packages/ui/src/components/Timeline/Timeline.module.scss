@@ -38,7 +38,7 @@
     width: var(--vd-sizing-12);
     height: var(--vd-sizing-12);
     border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-default);
-    border-radius: var(--vd-radius-full);
+    border-radius: var(--vd-indicator-radius, var(--vd-radius-full));
     background: var(--vd-surface-default);
   }
   &[data-status='active']::after {

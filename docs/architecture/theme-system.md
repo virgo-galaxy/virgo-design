@@ -61,7 +61,11 @@ Pro 通过 `initializeTheme({ defaultTheme, storage })` 接入共享 settings JS
 
 主题 runtime 不管理 Light/Dark。Website 复用 AppearanceProvider，支持 light/dark/auto，沿用 `virgo-design-appearance`。Pro 复用原 settings 的 light/dark/system；System 即 Auto。两者继续设置现有 HTML `data-theme`，同时更新 color-scheme。
 
-HTML 属性让 body Portal 继承主题；并排对照通过现有 `PortalProvider` 将真实浮层放进对应 scope。
+公共浮层向 body Portal 转发来源最近 scope 的 `data-theme`、`data-virgo-theme` 和方向，并观察打开期间的属性变化；Dialog backdrop、Toast viewport 和 Cursor visual 同样遵守此约定。并排对照或任意局部 CSS 变量覆盖可继续通过 `PortalProvider` 将真实浮层放进对应容器。
+
+Portal 与 Floating 的环境读取/祖先监听共用内部 `portalEnvironment` 能力。Option 的 hover/focus 与 selected 分别使用 `--vd-option-hover-background / foreground` 和 `--vd-option-selected-background / foreground`，selected 在 hover/focus 时保持其配色；Contrast 的选中态采用黑白反转，品牌色保留在 focus/link/accent。
+
+第⑧步增加 indicator、control/option、ColorPicker thumb、Cursor、Dock、固定列表格边缘、循环动效和 Charts presentation roles，并修复已有契约未被消费的路径。完整逐组件结论、正式新增变量和浏览器矩阵见 [第⑧步 Audit](../reviews/step8-theme-contract-audit.md)。Contract 版本仍为 1，未执行 Token 架构重组。
 
 ## 应用消费
 

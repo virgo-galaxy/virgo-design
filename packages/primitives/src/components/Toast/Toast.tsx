@@ -13,6 +13,7 @@ import { createPortal } from 'react-dom';
 
 import { useControllableState } from '../../internal/hooks/useControllableState';
 import { Portal } from '../../internal/overlay/Portal';
+import { usePortalEnvironment } from '../../internal/overlay/usePortalEnvironment';
 import { usePresence } from '../../internal/overlay/usePresence';
 import type {
   ToastActionProps,
@@ -244,35 +245,7 @@ export const ToastViewport = forwardRef<HTMLDivElement, ToastViewportProps>(func
 ) {
   const context = useToastProvider('Toast.Viewport');
   const anchorRef = useRef<HTMLSpanElement>(null);
-  const [environment, setEnvironment] = useState<{
-    theme: string | undefined;
-    direction: string | undefined;
-  }>({ theme: undefined, direction: undefined });
-  useLayoutEffect(() => {
-    if (!portal || !anchorRef.current) return;
-    const anchor = anchorRef.current;
-    const update = () => {
-      const theme = anchor.closest('[data-theme]')?.getAttribute('data-theme') ?? undefined;
-      const direction =
-        anchor.ownerDocument.defaultView?.getComputedStyle(anchor).direction ||
-        anchor.closest('[dir]')?.getAttribute('dir') ||
-        undefined;
-      setEnvironment((previous) =>
-        previous.theme === theme && previous.direction === direction
-          ? previous
-          : { theme, direction },
-      );
-    };
-    update();
-    const observer = new MutationObserver(update);
-    for (let node = anchor.parentElement; node; node = node.parentElement) {
-      observer.observe(node, {
-        attributes: true,
-        attributeFilter: ['data-theme', 'dir', 'class', 'style'],
-      });
-    }
-    return () => observer.disconnect();
-  }, [portal]);
+  const environment = usePortalEnvironment(anchorRef, portal);
   const { setViewport } = context;
   const setViewportRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -285,6 +258,7 @@ export const ToastViewport = forwardRef<HTMLDivElement, ToastViewportProps>(func
   const viewport = (
     <div
       data-theme={portal ? environment.theme : undefined}
+      data-virgo-theme={portal ? environment.themeStyle : undefined}
       dir={portal ? environment.direction : undefined}
       {...props}
       ref={setViewportRef}

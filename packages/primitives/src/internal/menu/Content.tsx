@@ -46,6 +46,7 @@ export const MenuContent = forwardRef<HTMLDivElement, MenuContentProps>(function
         aria-orientation="vertical"
         data-state="open"
         data-theme={floating.theme}
+        data-virgo-theme={floating.themeStyle}
         dir={floating.direction}
         data-placement={floating.placement}
         data-side={floating.side}

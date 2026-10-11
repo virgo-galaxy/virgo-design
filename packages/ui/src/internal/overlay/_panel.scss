@@ -74,7 +74,8 @@ $layer: 100;
 @mixin popup-material {
   background: var(--vd-popup-background, var(--vd-surface-elevated));
   box-shadow:
-    var(--vd-popup-shadow, var(--vd-elevation-2)), var(--vd-panel-highlight, 0 0 0 transparent);
+    var(--vd-popup-shadow, var(--vd-panel-shadow, var(--vd-elevation-2))),
+    var(--vd-panel-highlight, 0 0 0 transparent);
   -webkit-backdrop-filter: var(--vd-popup-backdrop-filter, var(--vd-panel-backdrop-filter));
   backdrop-filter: var(--vd-popup-backdrop-filter, var(--vd-panel-backdrop-filter));
 }
@@ -88,7 +89,8 @@ $layer: 100;
   outline: none;
   color: var(--vd-text-primary);
   background: var(--vd-overlay-background, var(--vd-surface-elevated));
-  box-shadow: var(--vd-elevation-2), var(--vd-panel-highlight, 0 0 0 transparent);
+  box-shadow:
+    var(--vd-panel-shadow, var(--vd-elevation-2)), var(--vd-panel-highlight, 0 0 0 transparent);
   -webkit-backdrop-filter: var(--vd-panel-backdrop-filter);
   backdrop-filter: var(--vd-panel-backdrop-filter);
   @if $presentation == popup {
@@ -97,7 +99,8 @@ $layer: 100;
       var(--vd-overlay-background, var(--vd-surface-elevated))
     );
     box-shadow:
-      var(--vd-popup-shadow, var(--vd-elevation-2)), var(--vd-panel-highlight, 0 0 0 transparent);
+      var(--vd-popup-shadow, var(--vd-panel-shadow, var(--vd-elevation-2))),
+      var(--vd-panel-highlight, 0 0 0 transparent);
     -webkit-backdrop-filter: var(--vd-popup-backdrop-filter, var(--vd-panel-backdrop-filter));
     backdrop-filter: var(--vd-popup-backdrop-filter, var(--vd-panel-backdrop-filter));
     &:has(> [data-slot='arrow']) {
@@ -109,7 +112,7 @@ $layer: 100;
       );
       box-shadow: var(
         --vd-popup-arrowed-shadow,
-        var(--vd-popup-shadow, var(--vd-elevation-2)),
+        var(--vd-popup-shadow, var(--vd-panel-shadow, var(--vd-elevation-2))),
         var(--vd-panel-highlight, 0 0 0 transparent)
       );
       -webkit-backdrop-filter: var(

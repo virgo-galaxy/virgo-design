@@ -14,6 +14,7 @@ const theme: ChartTheme = {
   heatmapPalette: ['#f4f4f4', '#cfdffb', '#7aa6f8', '#1664f9', '#0041b8'],
   heatmapRadius: 4,
   heatmapBorderWidth: 1,
+  heatmapActiveBorderWidth: 2,
   axis: '#aaa',
   axisLabel: '#555',
   grid: '#ddd',
@@ -22,6 +23,7 @@ const theme: ChartTheme = {
   legend: '#555',
   tooltipSurface: '#fff',
   tooltipBorder: '#ccc',
+  tooltipForeground: '#222',
   tooltipBackdropFilter: 'none',
   fontFamily: 'sans-serif',
   fontSize: 12,
@@ -33,6 +35,21 @@ const theme: ChartTheme = {
   enterDuration: 700,
   updateDuration: 400,
   interactionDuration: 120,
+  borderWidth: 1,
+  pointBorderWidth: 2,
+  activePointBorderWidth: 2.5,
+  emphasisShadowScale: 1,
+  sectorShadowColor: 'rgba(0,0,0,0.2)',
+  areaOpacity: 0.2,
+  gridLineType: 'dashed',
+  pointerOpacity: 0.6,
+  pointSymbol: 'circle',
+  barRadius: 0,
+  enterEasing: 'linear',
+  updateEasing: 'cubicOut',
+  interactionEasing: 'cubicOut',
+  tooltipRadius: 6,
+  tooltipShadow: 'none',
 };
 const model: ChartDefinition = {
   data: [
@@ -61,6 +78,109 @@ const model: ChartDefinition = {
   legend: true,
 };
 describe('Virgo → ECharts compiler', () => {
+  it('keeps tooltip text and axis borders under the same presentation contract', () => {
+    const themed = compileOption(
+      model,
+      { ...theme, borderWidth: 3, tooltipForeground: '#fff' },
+      true,
+    );
+    expect(themed.tooltip).toMatchObject({ textStyle: { color: '#fff' } });
+    expect(themed.xAxis).toMatchObject({ axisLine: { lineStyle: { width: 3 } } });
+    expect(
+      advancedTheme({ tooltip: {} }, { ...theme, tooltipForeground: '#fff' }).tooltip,
+    ).toMatchObject({ textStyle: { color: '#fff' } });
+  });
+  it('themes radar presentation while preserving explicit styling and data', () => {
+    const data = [{ value: [82, 64, 75] }];
+    const option = { series: [{ type: 'radar' as const, areaStyle: { opacity: 0.18 }, data }] };
+    const themed = advancedTheme(option, { ...theme, pointSymbol: 'rect', lineWidth: 3 });
+    expect(themed.series).toMatchObject([
+      {
+        symbol: 'rect',
+        lineStyle: { width: 3 },
+        itemStyle: { borderWidth: theme.pointBorderWidth },
+        areaStyle: { opacity: 0.18 },
+        data,
+      },
+    ]);
+    expect(option.series[0]).not.toHaveProperty('symbol');
+    expect(option.series[0]!.data).toBe(data);
+  });
+  it('changes presentation of the same data through the theme contract, including emphasis', () => {
+    const contrast = {
+      ...theme,
+      borderWidth: 2,
+      pointBorderWidth: 3,
+      activePointBorderWidth: 3,
+      emphasisShadowScale: 0,
+      gridLineType: 'solid' as const,
+      pointerOpacity: 1,
+      pointSymbol: 'rect',
+      areaOpacity: 0.4,
+      enterDuration: 0,
+      updateDuration: 0,
+      interactionDuration: 0,
+      updateEasing: 'linear' as const,
+    };
+    const ordinary = compileOption(model, theme, true);
+    const themed = compileOption(model, contrast, true);
+    const series = themed.series as LineSeriesOption[];
+    expect(series.map((s) => s.data)).toEqual(
+      (ordinary.series as LineSeriesOption[]).map((s) => s.data),
+    );
+    expect(series[0]).toMatchObject({
+      type: 'line',
+      symbol: 'rect',
+      itemStyle: { borderWidth: 3 },
+      emphasis: { itemStyle: { borderWidth: 3, shadowBlur: 0 } },
+    });
+    expect(series[1]).toMatchObject({ areaStyle: { opacity: 0.4 } });
+    expect(themed).toMatchObject({
+      animationDuration: 0,
+      animationDurationUpdate: 0,
+      animationEasingUpdate: 'linear',
+      stateAnimation: { duration: 0 },
+      tooltip: { axisPointer: { lineStyle: { width: 2, type: 'solid', opacity: 1 } } },
+    });
+    const bar = compileOption(
+      { ...model, series: model.series.map((s) => ({ ...s, kind: 'bar' })) },
+      { ...contrast, barRadius: 4 },
+      true,
+    );
+    expect((bar.series as BarSeriesOption[])[0]).toMatchObject({
+      itemStyle: { borderRadius: 4 },
+      emphasis: { itemStyle: { shadowBlur: 0, shadowOffsetY: 0, borderWidth: 2 } },
+    });
+    const polar = { ...model, polar: { dataKey: 'a', nameKey: 'date' } };
+    expect((compileOption(polar, contrast, true).series as PieSeriesOption[])[0]).toMatchObject({
+      itemStyle: { borderWidth: 2 },
+      emphasis: { itemStyle: { shadowBlur: 0, shadowOffsetY: 0 } },
+      select: { itemStyle: { shadowBlur: 0, shadowOffsetY: 0 } },
+    });
+  });
+
+  it('applies advanced tooltip geometry, material and motion while honoring explicit options', () => {
+    const contract = {
+      ...theme,
+      tooltipRadius: 0,
+      tooltipShadow: 'none',
+      borderWidth: 2,
+      interactionDuration: 0,
+    };
+    expect(advancedTheme({ tooltip: {} }, contract)).toMatchObject({
+      tooltip: {
+        borderWidth: 2,
+        extraCssText: expect.stringContaining('border-radius:0px;box-shadow:none;'),
+      },
+      stateAnimation: { duration: 0 },
+    });
+    const custom = {
+      tooltip: { borderWidth: 5, extraCssText: 'border-radius:9px;' },
+      stateAnimation: { duration: 250 },
+    };
+    expect(advancedTheme(custom, contract)).toMatchObject(custom);
+    expect(custom.tooltip).toEqual({ borderWidth: 5, extraCssText: 'border-radius:9px;' });
+  });
   it('disables all pointer emphasis, tooltips and polar selection in static mode', () => {
     for (const kind of ['line', 'area', 'bar'] as const) {
       const option = compileOption(
@@ -221,7 +341,7 @@ describe('Virgo → ECharts compiler', () => {
     expect(advancedTheme({ tooltip: {} }, material).tooltip).toMatchObject({
       backgroundColor: theme.tooltipSurface,
       extraCssText:
-        'backdrop-filter:blur(8px) saturate(1.04);-webkit-backdrop-filter:blur(8px) saturate(1.04);',
+        'backdrop-filter:blur(8px) saturate(1.04);-webkit-backdrop-filter:blur(8px) saturate(1.04);border-radius:6px;box-shadow:none;',
     });
     expect(
       advancedTheme({ tooltip: { extraCssText: 'backdrop-filter:none;' } }, material).tooltip,
@@ -245,12 +365,13 @@ describe('Virgo → ECharts compiler', () => {
         ...theme,
         heatmapRadius: radius!,
         heatmapBorderWidth: width!,
+        heatmapActiveBorderWidth: width! + 2,
       });
       expect(themed.visualMap).toMatchObject({ inRange: { color: theme.heatmapPalette } });
       expect(themed.series).toMatchObject([
         {
           itemStyle: { borderRadius: radius, borderWidth: width, borderColor: theme.grid },
-          emphasis: { itemStyle: { borderWidth: width! + 1, borderColor: theme.axis } },
+          emphasis: { itemStyle: { borderWidth: width! + 2, borderColor: theme.axis } },
           data,
         },
         { itemStyle: { borderRadius: 9, borderColor: 'red' }, data },

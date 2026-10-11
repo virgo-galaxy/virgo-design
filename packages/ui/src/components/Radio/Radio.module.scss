@@ -73,7 +73,10 @@
 
 .native:focus-visible + .control {
   border-color: var(--radio-border-focus);
-  box-shadow: 0 0 0 var(--vd-stroke-width, var(--vd-border-width-1)) var(--radio-border-focus);
+  box-shadow: var(
+    --vd-control-focus-shadow,
+    0 0 0 var(--vd-focus-width, 2px) var(--radio-border-focus)
+  );
 }
 
 .native:checked + .control {
@@ -94,6 +97,7 @@
 }
 
 .native:disabled + .control {
+  border-style: var(--vd-disabled-border-style, solid);
   border-color: var(--vd-border-disabled);
   background: var(--vd-fill-disabled);
 }

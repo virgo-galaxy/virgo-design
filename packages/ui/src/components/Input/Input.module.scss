@@ -58,6 +58,7 @@
 
 .root[data-disabled='true'],
 .root:has(input:disabled) {
+  border-style: var(--vd-disabled-border-style, solid);
   --input-background: var(--vd-fill-disabled);
   --input-border: var(--vd-border-disabled);
   --input-border-hover: var(--vd-border-disabled);
@@ -210,7 +211,7 @@
   &:focus-visible {
     outline: var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-style-solid)
       var(--vd-border-focus);
-    outline-offset: var(--vd-spacing-2);
+    outline-offset: var(--vd-focus-offset, var(--vd-spacing-2));
   }
 
   &:disabled {
@@ -277,7 +278,7 @@
   }
   &:focus-visible {
     outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
-    outline-offset: -2px;
+    outline-offset: calc(var(--vd-focus-offset, 2px) * -1);
   }
   &:disabled {
     color: var(--vd-icon-disabled);

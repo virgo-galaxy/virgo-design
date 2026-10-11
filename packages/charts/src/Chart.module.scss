@@ -16,9 +16,25 @@
   --chart-heatmap-4: var(--vd-chart-heatmap-4, var(--vd-data-sequential-6));
   --chart-heatmap-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   --chart-heatmap-border-width: var(--vd-stroke-width, 1px);
+  --chart-heatmap-active-border-width: var(--vd-chart-heatmap-active-border-width, 2);
   --chart-line-width: var(--vd-chart-line-width, 2);
+  --chart-border-width: var(--vd-chart-border-width, 1);
+  --chart-point-border-width: var(--vd-chart-point-border-width, 2);
+  --chart-active-point-border-width: var(--vd-chart-active-point-border-width, 2.5);
+  --chart-emphasis-shadow-scale: var(--vd-chart-emphasis-shadow-scale, 1);
+  --chart-sector-shadow-color: var(--vd-chart-sector-shadow-color, rgb(0 0 0 / 20%));
+  --chart-area-opacity: var(--vd-chart-area-opacity, 0.2);
+  --chart-grid-line-type: var(--vd-chart-grid-line-type, dashed);
+  --chart-pointer-opacity: var(--vd-chart-pointer-opacity, 0.6);
+  --chart-point-symbol: var(--vd-chart-point-symbol, circle);
+  --chart-bar-radius: var(--vd-chart-bar-radius, 0);
+  --chart-enter-easing: var(--vd-chart-enter-easing, linear);
+  --chart-update-easing: var(--vd-chart-update-easing, cubicOut);
+  --chart-interaction-easing: var(--vd-chart-interaction-easing, cubicOut);
+
   --chart-tooltip-surface: var(--vd-chart-tooltip-surface, var(--vd-surface-elevated));
   --chart-tooltip-border: var(--vd-chart-tooltip-border, var(--vd-border-default));
+  --chart-tooltip-foreground: var(--vd-chart-tooltip-foreground, var(--vd-text-primary));
   --chart-tooltip-radius: var(
     --vd-chart-tooltip-radius,
     var(--vd-shape-radius-6, var(--vd-radius-6))
@@ -68,7 +84,7 @@
 .point {
   fill: var(--chart-color);
   stroke: var(--chart-active-point);
-  stroke-width: 2;
+  stroke-width: var(--chart-point-border-width);
   opacity: 0;
   r: var(--chart-point-radius);
 }
@@ -81,8 +97,8 @@
 .point[data-active='true'] {
   r: var(--chart-active-point-radius);
   opacity: 1;
-  stroke-width: 2.5;
-  filter: drop-shadow(0 0 3px var(--chart-color));
+  stroke-width: var(--chart-active-point-border-width);
+  filter: drop-shadow(0 0 calc(3px * var(--chart-emphasis-shadow-scale)) var(--chart-color));
 }
 .hit {
   fill: transparent;
@@ -113,6 +129,7 @@
   border: var(--vd-stroke-width, 1px) solid var(--chart-tooltip-border);
   border-radius: var(--chart-tooltip-radius);
   background: var(--chart-tooltip-surface);
+  color: var(--chart-tooltip-foreground);
   box-shadow: var(--chart-tooltip-shadow);
   backdrop-filter: var(--chart-tooltip-backdrop-filter);
   -webkit-backdrop-filter: var(--chart-tooltip-backdrop-filter);
@@ -146,7 +163,7 @@
 .legend i {
   width: 7px;
   height: 7px;
-  border-radius: 50%;
+  border-radius: var(--vd-indicator-radius, 50%);
   flex: none;
 }
 .legend {
@@ -179,8 +196,8 @@
   background: var(--vd-fill-hover);
 }
 .legend button:focus-visible {
-  outline: 2px solid var(--vd-border-focus);
-  outline-offset: 2px;
+  outline: var(--vd-focus-width, 2px) solid var(--vd-border-focus);
+  outline-offset: var(--vd-focus-offset, 2px);
 }
 .empty {
   display: grid;
@@ -212,17 +229,17 @@
 .data td {
   padding: var(--vd-spacing-8);
   text-align: start;
-  border-bottom: 1px solid var(--vd-border-subtle);
+  border-bottom: var(--vd-stroke-width, 1px) solid var(--vd-border-subtle);
 }
 .root[data-animated='true'] .series {
-  animation: chart-reveal var(--chart-enter-duration) linear both;
+  animation: chart-reveal var(--chart-enter-duration) var(--vd-motion-easing-standard, linear) both;
   animation-play-state: paused;
 }
 .root[data-chart-visible='true'] .series {
   animation-play-state: running;
 }
 .root[data-animated='true'] .line {
-  animation: chart-draw var(--chart-enter-duration) linear both;
+  animation: chart-draw var(--chart-enter-duration) var(--vd-motion-easing-standard, linear) both;
   animation-play-state: paused;
 }
 .root[data-chart-visible='true'] .line {
@@ -257,6 +274,6 @@
   min-width: 0;
 }
 .plot:focus-within {
-  outline: 2px solid var(--vd-border-focus);
-  outline-offset: 2px;
+  outline: var(--vd-focus-width, 2px) solid var(--vd-border-focus);
+  outline-offset: var(--vd-focus-offset, 2px);
 }

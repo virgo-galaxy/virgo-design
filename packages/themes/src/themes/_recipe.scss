@@ -8,6 +8,9 @@
   }
 }
 @mixin geometry($radius, $heights, $padding) {
+  --vd-indicator-radius: #{$radius};
+  --vd-tooltip-pointer-connection-radius: min(3px, #{$radius});
+  --vd-color-picker-thumb-radius: #{$radius};
   @each $step in (4, 6, 8, 10, 12, 16, 20, 24) {
     --vd-shape-radius-#{$step}: #{$radius};
   }

@@ -169,10 +169,12 @@
 }
 
 .native:focus-visible + .control {
-  box-shadow: 0 0 0 var(--vd-stroke-width, var(--vd-border-width-1)) var(--switch-focus);
+  box-shadow: var(--vd-control-focus-shadow, 0 0 0 var(--vd-focus-width, 2px) var(--switch-focus));
 }
 
 .native:disabled + .control {
+  border-style: var(--vd-disabled-border-style, solid);
+  border-color: var(--vd-border-disabled);
   background: var(--vd-fill-disabled);
 }
 
@@ -225,10 +227,8 @@
 }
 
 .root[data-appearance='fader'] {
-  // The fader uses its thin rail as the track, without the toggle's enclosing border.
-  :global([data-virgo-theme='contrast']) & {
-    --vd-switch-border-width: 0px;
-  }
+  // The fader uses its rail instead of the enclosing toggle border in every theme.
+  --vd-switch-border-width: 0px;
 }
 
 .root[data-appearance='fader'] .control {
@@ -277,6 +277,8 @@
 }
 
 .root[data-appearance='fader'] .native:disabled + .control {
+  border-style: var(--vd-disabled-border-style, solid);
+  border-color: var(--vd-border-disabled);
   background: transparent;
 }
 

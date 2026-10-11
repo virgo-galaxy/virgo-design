@@ -21,7 +21,8 @@
 
 .root[data-animated] {
   animation: skeleton-pulse var(--vd-motion-duration-560, var(--vd-duration-560))
-    var(--vd-motion-easing-standard, var(--vd-easing-standard)) infinite alternate;
+    var(--vd-motion-easing-standard, var(--vd-easing-standard))
+    var(--vd-motion-loop-iterations, infinite) alternate;
 }
 
 @keyframes skeleton-pulse {

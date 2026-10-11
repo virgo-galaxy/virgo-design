@@ -318,6 +318,7 @@ export const ComboboxContent = forwardRef<HTMLDivElement, ComboboxContentProps>(
         aria-labelledby={context.inputRef.current?.id ?? context.inputId}
         hidden={!context.open}
         data-theme={position.theme}
+        data-virgo-theme={position.themeStyle}
         dir={position.direction}
         data-placement={position.placement}
         style={{ ...position.style, ...style }}

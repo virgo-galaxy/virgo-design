@@ -43,6 +43,8 @@
     border-color: var(--vd-status-danger-accent);
   }
   &:disabled {
+    border-style: var(--vd-disabled-border-style, solid);
+    border-color: var(--vd-border-disabled);
     background: var(--vd-fill-disabled);
     color: var(--vd-text-disabled);
     cursor: not-allowed;
@@ -69,9 +71,11 @@
   border-radius: var(--combobox-radius);
   cursor: pointer;
   color: var(--vd-text-secondary);
-  &[data-highlighted='true']:not([aria-disabled='true']),
+  &[data-highlighted='true']:not([aria-disabled='true']) {
+    @include option-highlight.surface(hover);
+  }
   &[aria-selected='true']:not([aria-disabled='true']) {
-    @include option-highlight.surface;
+    @include option-highlight.surface(selected);
   }
   &[aria-selected='true'] {
     font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));

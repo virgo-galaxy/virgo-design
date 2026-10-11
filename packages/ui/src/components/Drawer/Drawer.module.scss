@@ -11,11 +11,14 @@
 
 .overlay[data-state='closed'] {
   animation: drawer-overlay-exit var(--vd-motion-duration-120, var(--vd-duration-120))
-    var(--vd-easing-accelerate) both;
+    var(--vd-motion-easing-exit, var(--vd-easing-accelerate)) both;
 }
 
 .content {
   @include panel.surface(overlay);
+  background: var(--vd-dialog-background, var(--vd-overlay-background, var(--vd-surface-elevated)));
+  -webkit-backdrop-filter: var(--vd-dialog-backdrop-filter, var(--vd-panel-backdrop-filter));
+  backdrop-filter: var(--vd-dialog-backdrop-filter, var(--vd-panel-backdrop-filter));
 
   --drawer-size: calc(var(--vd-sizing-80) * 6);
   --drawer-section-padding: var(--vd-spacing-24);
@@ -30,7 +33,8 @@
   overflow: hidden;
   flex-direction: column;
   border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
-  box-shadow: var(--vd-elevation-4), var(--vd-panel-highlight, 0 0 0 transparent);
+  box-shadow:
+    var(--vd-panel-shadow, var(--vd-elevation-4)), var(--vd-panel-highlight, 0 0 0 transparent);
   animation-duration: var(--vd-motion-duration-240, var(--vd-duration-240));
   animation-timing-function: var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized));
   animation-fill-mode: both;

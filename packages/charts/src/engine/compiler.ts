@@ -95,11 +95,21 @@ export function compileOption(
     borderWidth: 0,
     padding: 0,
     extraCssText: 'box-shadow:none;',
+    textStyle: {
+      color: theme.tooltipForeground,
+      fontFamily: theme.fontFamily,
+      fontSize: theme.fontSize,
+    },
     axisPointer: {
       type: model.tooltip?.crosshair === false ? 'none' : 'line',
       axis: 'x',
       animation: false,
-      lineStyle: { color: theme.axisLabel, width: 1, type: 'dashed', opacity: 0.6 },
+      lineStyle: {
+        color: theme.axisLabel,
+        width: theme.borderWidth,
+        type: theme.gridLineType,
+        opacity: theme.pointerOpacity,
+      },
     },
     formatter: (params) => {
       const item = Array.isArray(params) ? params[0] : params;
@@ -112,10 +122,13 @@ export function compileOption(
     textStyle: { fontFamily: theme.fontFamily, fontSize: theme.fontSize, color: theme.axisLabel },
     animation: animated,
     animationDuration: theme.enterDuration,
-    animationEasing: 'linear',
+    animationEasing: theme.enterEasing,
     animationDurationUpdate: theme.updateDuration,
-    animationEasingUpdate: 'cubicOut',
-    stateAnimation: { duration: animated ? theme.interactionDuration : 0, easing: 'cubicOut' },
+    animationEasingUpdate: theme.updateEasing,
+    stateAnimation: {
+      duration: animated ? theme.interactionDuration : 0,
+      easing: theme.interactionEasing,
+    },
     tooltip,
     legend: {
       show: false,
@@ -151,18 +164,26 @@ export function compileOption(
         show: polar.showLabels !== false && polar.labelLine !== false,
         length: 12,
         length2: 16,
-        lineStyle: { width: 1, opacity: 0.65 },
+        lineStyle: { width: theme.borderWidth, opacity: theme.pointerOpacity },
       },
-      itemStyle: { borderWidth: 1, borderColor: theme.background },
+      itemStyle: { borderWidth: theme.borderWidth, borderColor: theme.background },
       emphasis: {
         disabled: !interactive,
         scale: false,
         label: { fontWeight: 'normal' },
-        itemStyle: { shadowBlur: 8, shadowColor: 'rgba(0,0,0,0.2)', shadowOffsetY: 3 },
+        itemStyle: {
+          shadowBlur: 8 * theme.emphasisShadowScale,
+          shadowColor: theme.sectorShadowColor,
+          shadowOffsetY: 3 * theme.emphasisShadowScale,
+        },
       },
       select: {
         label: { fontWeight: 'normal' },
-        itemStyle: { shadowBlur: 8, shadowColor: 'rgba(0,0,0,0.2)', shadowOffsetY: 3 },
+        itemStyle: {
+          shadowBlur: 8 * theme.emphasisShadowScale,
+          shadowColor: theme.sectorShadowColor,
+          shadowOffsetY: 3 * theme.emphasisShadowScale,
+        },
       },
       data: model.data.map((datum, index) => ({
         id: `pie:${index}`,
@@ -197,7 +218,7 @@ export function compileOption(
       id: s.key,
       name: s.name,
       data,
-      itemStyle: { color: paint },
+      itemStyle: { color: paint, ...(s.kind === 'bar' ? { borderRadius: theme.barRadius } : {}) },
       universalTransition: true,
     };
     if (s.kind === 'bar')
@@ -212,11 +233,11 @@ export function compileOption(
         emphasis: {
           disabled: !interactive,
           itemStyle: {
-            shadowBlur: 6,
+            shadowBlur: 6 * theme.emphasisShadowScale,
             shadowColor: paint,
-            shadowOffsetY: 2,
+            shadowOffsetY: 2 * theme.emphasisShadowScale,
             borderColor: paint,
-            borderWidth: 1,
+            borderWidth: theme.borderWidth,
           },
         },
       };
@@ -226,12 +247,12 @@ export function compileOption(
       smooth: s.curve === 'smooth',
       connectNulls: false,
       showSymbol: s.marker === 'visible' || s.marker === 'muted',
-      symbol: 'circle',
+      symbol: theme.pointSymbol,
       symbolSize: theme.pointRadius * 2,
       itemStyle: {
         color: paint,
         borderColor: theme.activePoint,
-        borderWidth: 2,
+        borderWidth: theme.pointBorderWidth,
         opacity: s.marker === 'muted' ? theme.mutedOpacity : 1,
       },
       lineStyle: { color: paint, width: theme.lineWidth, cap: 'round', join: 'round' },
@@ -239,7 +260,12 @@ export function compileOption(
         disabled: !interactive,
         scale: theme.activePointRadius / theme.pointRadius,
         lineStyle: { width: theme.lineWidth },
-        itemStyle: { opacity: 1, borderWidth: 2.5, shadowBlur: 3, shadowColor: paint },
+        itemStyle: {
+          opacity: 1,
+          borderWidth: theme.activePointBorderWidth,
+          shadowBlur: 3 * theme.emphasisShadowScale,
+          shadowColor: paint,
+        },
       },
       ...(s.kind === 'area'
         ? {
@@ -255,7 +281,7 @@ export function compileOption(
                   { offset: 1, color: theme.background },
                 ],
               },
-              opacity: 0.2,
+              opacity: theme.areaOpacity,
             },
           }
         : {}),
@@ -270,7 +296,7 @@ export function compileOption(
       boundaryGap: kind === 'category' ? bar : [0, 0],
       scale: true,
       ...(kind === 'category' ? { data: model.data.map((d) => String(read(d, xKey) ?? '')) } : {}),
-      axisLine: { show: true, lineStyle: { color: theme.axis } },
+      axisLine: { show: true, lineStyle: { color: theme.axis, width: theme.borderWidth } },
       axisTick: { show: false },
       axisLabel: {
         color: theme.axisLabel,
@@ -287,7 +313,10 @@ export function compileOption(
           ),
       },
       ...(kind !== 'category' ? { splitNumber: model.xAxis?.tickCount ?? 5 } : {}),
-      splitLine: { show: !!model.grid?.vertical, lineStyle: { color: theme.grid, type: 'dashed' } },
+      splitLine: {
+        show: !!model.grid?.vertical,
+        lineStyle: { color: theme.grid, width: theme.borderWidth, type: theme.gridLineType },
+      },
       axisPointer: {
         show: interactive && !!model.tooltip && model.tooltip.crosshair !== false,
         snap: true,
@@ -305,7 +334,10 @@ export function compileOption(
         color: theme.axisLabel,
         formatter: (value: number) => (model.yAxis?.tickFormatter ?? model.value)(value),
       },
-      splitLine: { show: !!model.grid, lineStyle: { color: theme.grid, type: 'dashed' } },
+      splitLine: {
+        show: !!model.grid,
+        lineStyle: { color: theme.grid, width: theme.borderWidth, type: theme.gridLineType },
+      },
     },
     series,
   };

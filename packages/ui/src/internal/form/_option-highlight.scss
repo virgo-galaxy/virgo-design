@@ -5,7 +5,18 @@
   gap: var(--vd-spacing-2);
 }
 
-@mixin surface {
-  color: var(--vd-text-primary);
-  @include control-hover.surface(var(--vd-surface-elevated));
+@mixin surface($state) {
+  color: var(--vd-option-#{$state}-foreground, var(--vd-text-primary));
+  background: var(
+    --vd-option-#{$state}-background,
+    var(
+      --vd-control-hover-background,
+      color-mix(in srgb, var(--vd-text-primary) 3%, var(--vd-surface-elevated))
+    )
+  );
+  @if $state == selected {
+    // Rich option labels must remain readable when the selected surface is inverted.
+    --vd-text-secondary: currentColor;
+    --vd-text-tertiary: currentColor;
+  }
 }

@@ -18,7 +18,7 @@
   cursor: default;
   &:focus-visible > .label {
     outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
-    outline-offset: -2px;
+    outline-offset: calc(var(--vd-focus-offset, 2px) * -1);
   }
   &[aria-selected='true'] > .label {
     background: var(--vd-fill-selected);

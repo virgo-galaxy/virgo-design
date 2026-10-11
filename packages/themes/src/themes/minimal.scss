@@ -1,6 +1,18 @@
 @use './recipe';
 
 [data-virgo-theme='minimal'] {
+  --vd-cursor-color: var(--vd-text-primary);
+  --vd-cursor-stroke: var(--vd-surface-default);
+  --vd-cursor-filter: none;
+
+  --vd-control-hover-background: var(--vd-fill-hover);
+  --vd-option-hover-background: var(--vd-fill-selected);
+  --vd-option-hover-foreground: var(--vd-text-primary);
+  --vd-option-selected-background: var(--vd-fill-selected);
+  --vd-option-selected-foreground: var(--vd-text-primary);
+  --vd-dock-background: var(--vd-popup-background, var(--vd-surface-elevated));
+  --vd-chart-emphasis-shadow-scale: 0;
+
   --vd-tag-radius: 5px;
   --vd-tag-soft-border-opacity: 20%;
   --vd-content-surface: var(--vd-surface-default);

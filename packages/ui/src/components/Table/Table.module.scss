@@ -34,7 +34,10 @@
   --table-header-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   --table-separator-color: var(--vd-border-subtle);
   --table-fixed-separator-color: var(--vd-border-default);
-  --table-fixed-shadow-color: color-mix(in srgb, var(--vd-text-primary) 12%, transparent);
+  --table-fixed-shadow-color: var(
+    --vd-table-fixed-shadow-color,
+    color-mix(in srgb, var(--vd-text-primary) 12%, transparent)
+  );
   --table-fixed-shadow-width: var(--vd-spacing-8);
   --table-fixed-start-shadow-direction: to right;
   --table-fixed-end-shadow-direction: to left;
@@ -197,7 +200,7 @@
   min-width: 0;
   &:focus-visible {
     outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
-    outline-offset: var(--vd-spacing-2);
+    outline-offset: var(--vd-focus-offset, var(--vd-spacing-2));
   }
 }
 .row {
@@ -230,7 +233,7 @@
   cursor: pointer;
   &:focus-visible {
     outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
-    outline-offset: var(--vd-spacing-2);
+    outline-offset: var(--vd-focus-offset, var(--vd-spacing-2));
   }
   &:disabled {
     color: var(--vd-text-disabled);
@@ -388,9 +391,12 @@
   padding: var(--vd-spacing-4) var(--vd-spacing-12);
   border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   &:hover:not([data-disabled='true']),
-  &:has(:focus-visible):not([data-disabled='true']),
+  &:has(:focus-visible):not([data-disabled='true']) {
+    @include option-highlight.surface(hover);
+  }
   &:has(input[data-checked='true']):not([data-disabled='true']) {
-    @include option-highlight.surface;
+    @include option-highlight.surface(selected);
+    --checkbox-foreground: var(--vd-option-selected-foreground, var(--vd-text-primary));
   }
 }
 .filterActions {
@@ -398,7 +404,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--vd-spacing-12);
-  border-top: 1px solid var(--vd-border-subtle);
+  border-top: var(--vd-stroke-width, 1px) solid var(--vd-border-subtle);
   padding-top: var(--vd-spacing-8);
   padding-inline: var(--vd-spacing-8);
   padding-bottom: var(--vd-spacing-8);

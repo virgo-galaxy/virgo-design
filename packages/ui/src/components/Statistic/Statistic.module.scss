@@ -1,7 +1,7 @@
 .root {
   --statistic-animation-duration: var(--vd-motion-duration-560, var(--vd-duration-560));
   --statistic-animation-update-duration: var(--vd-motion-duration-360, var(--vd-duration-360));
-  --statistic-animation-easing: var(--vd-easing-decelerate);
+  --statistic-animation-easing: var(--vd-motion-easing-emphasized, var(--vd-easing-decelerate));
   --statistic-gap: var(--vd-spacing-6);
   --statistic-value-font-size: var(--vd-font-size-24);
   --statistic-value-font-family: var(--vd-font-family-mono);

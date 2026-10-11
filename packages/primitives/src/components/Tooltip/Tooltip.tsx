@@ -350,6 +350,7 @@ export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
           data-pointer-follow={following || undefined}
           aria-hidden={!context.open || floating.referenceHidden || undefined}
           data-theme={floating.theme}
+          data-virgo-theme={floating.themeStyle}
           dir={floating.direction}
           data-side={floating.side}
           data-placement={floating.placement}

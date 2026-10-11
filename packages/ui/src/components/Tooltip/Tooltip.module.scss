@@ -300,14 +300,14 @@
     }
   }
   &[data-side='bottom'] {
-    border-top-left-radius: 3px;
+    border-top-left-radius: var(--vd-tooltip-pointer-connection-radius, 3px);
     .arrow {
       top: -8px;
       clip-path: var(--vd-tooltip-arrow-clip-path, polygon(0 0, 100% 100%, 0 100%));
     }
   }
   &[data-side='top'] {
-    border-bottom-left-radius: 3px;
+    border-bottom-left-radius: var(--vd-tooltip-pointer-connection-radius, 3px);
     .arrow {
       bottom: -8px;
       clip-path: var(--vd-tooltip-arrow-clip-path, polygon(0 0, 100% 0, 0 100%));

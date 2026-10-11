@@ -40,13 +40,14 @@
   flex-direction: column;
   overflow: hidden;
   border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
-  box-shadow: var(--vd-elevation-4), var(--vd-panel-highlight, 0 0 0 transparent);
+  box-shadow:
+    var(--vd-panel-shadow, var(--vd-elevation-4)), var(--vd-panel-highlight, 0 0 0 transparent);
   transform: translate(-50%, -50%);
 
   &:focus-visible {
     outline: var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-style-solid)
       var(--vd-border-focus);
-    outline-offset: var(--vd-spacing-2);
+    outline-offset: var(--vd-focus-offset, var(--vd-spacing-2));
   }
 }
 

@@ -55,6 +55,11 @@ export const CursorProvider = forwardRef<HTMLDivElement, CursorProviderProps>(
           const theme = (target ?? scope).closest('[data-theme]')?.getAttribute('data-theme');
           if (theme) visual.dataset.theme = theme;
           else delete visual.dataset.theme;
+          const themeStyle = (target ?? scope)
+            .closest('[data-virgo-theme]')
+            ?.getAttribute('data-virgo-theme');
+          if (themeStyle) visual.dataset.virgoTheme = themeStyle;
+          else delete visual.dataset.virgoTheme;
         }
       };
       const stop = () => {
@@ -112,10 +117,13 @@ export const CursorProvider = forwardRef<HTMLDivElement, CursorProviderProps>(
         childList: true,
         subtree: true,
         attributes: true,
-        attributeFilter: ['data-theme'],
+        attributeFilter: ['data-theme', 'data-virgo-theme'],
       });
       for (let node: HTMLElement | null = scope.parentElement; node; node = node.parentElement) {
-        mutation.observe(node, { attributes: true, attributeFilter: ['data-theme'] });
+        mutation.observe(node, {
+          attributes: true,
+          attributeFilter: ['data-theme', 'data-virgo-theme'],
+        });
       }
       const unsubscribe = store.subscribe(paint);
       paint();

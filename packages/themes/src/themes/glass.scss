@@ -1,6 +1,20 @@
 @use './recipe';
 
 [data-virgo-theme='glass'] {
+  --vd-cursor-color: var(--vd-text-primary);
+  --vd-cursor-stroke: var(--vd-surface-elevated);
+  --vd-cursor-filter: drop-shadow(
+    0 2px 4px color-mix(in srgb, var(--vd-text-primary) 12%, transparent)
+  );
+
+  --vd-chart-bar-radius: 6;
+  --vd-control-hover-background: var(--vd-fill-hover);
+  --vd-option-hover-background: var(--vd-fill-selected);
+  --vd-option-hover-foreground: var(--vd-text-primary);
+  --vd-option-selected-background: var(--vd-fill-selected);
+  --vd-option-selected-foreground: var(--vd-text-primary);
+  --vd-dock-background: var(--vd-popup-background, var(--vd-surface-elevated));
+
   --vd-tag-soft-border-opacity: 25%;
   --vd-tag-background-opacity: 72%;
   --vd-tag-backdrop-filter: blur(4px) saturate(1.04);

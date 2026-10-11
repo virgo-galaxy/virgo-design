@@ -1,7 +1,10 @@
 $color: var(--vd-control-hover-color, #4096ff);
 
 @mixin surface($background: var(--vd-surface-default)) {
-  background: color-mix(in srgb, var(--vd-text-primary) 3%, #{$background});
+  background: var(
+    --vd-control-hover-background,
+    color-mix(in srgb, var(--vd-text-primary) 3%, #{$background})
+  );
 }
 
 @mixin transition {

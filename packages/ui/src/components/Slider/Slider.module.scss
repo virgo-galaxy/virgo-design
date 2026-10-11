@@ -9,7 +9,7 @@
   width: 100%;
   min-width: 0;
   margin: 0;
-  height: var(--vd-sizing-36);
+  height: var(--vd-control-medium-height, var(--vd-sizing-36));
   accent-color: var(--vd-brand-primary);
   cursor: pointer;
   background: transparent;
@@ -19,7 +19,7 @@
   }
   &::-webkit-slider-runnable-track {
     height: var(--vd-spacing-4);
-    border-radius: var(--vd-radius-full);
+    border-radius: var(--vd-indicator-radius, var(--vd-radius-full));
     background: linear-gradient(
       var(--slider-direction),
       var(--slider-color) var(--slider-progress),
@@ -32,13 +32,13 @@
     height: var(--vd-sizing-16);
     margin-top: calc((var(--vd-spacing-4) - var(--vd-sizing-16)) / 2);
     border: 0;
-    border-radius: var(--vd-radius-full);
+    border-radius: var(--vd-indicator-radius, var(--vd-radius-full));
     background: var(--slider-color);
   }
   &::-moz-range-track,
   &::-moz-range-progress {
     height: var(--vd-spacing-4);
-    border-radius: var(--vd-radius-full);
+    border-radius: var(--vd-indicator-radius, var(--vd-radius-full));
     background: var(--vd-border-default);
   }
   &::-moz-range-progress {
@@ -48,14 +48,14 @@
     width: var(--vd-sizing-16);
     height: var(--vd-sizing-16);
     border: 0;
-    border-radius: var(--vd-radius-full);
+    border-radius: var(--vd-indicator-radius, var(--vd-radius-full));
     background: var(--slider-color);
   }
   &[data-size='small'] {
-    height: var(--vd-sizing-28);
+    height: var(--vd-control-small-height, var(--vd-sizing-28));
   }
   &[data-size='large'] {
-    height: var(--vd-sizing-44);
+    height: var(--vd-control-large-height, var(--vd-sizing-44));
   }
   &:disabled {
     --slider-color: var(--vd-text-disabled);
@@ -67,7 +67,7 @@
   }
   &:focus-visible {
     outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
-    outline-offset: var(--vd-spacing-2);
+    outline-offset: var(--vd-focus-offset, var(--vd-spacing-2));
     border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   }
 }
@@ -76,22 +76,22 @@
   align-items: center;
   min-width: 0;
   width: 100%;
-  height: var(--vd-sizing-36);
+  height: var(--vd-control-medium-height, var(--vd-sizing-36));
   padding-inline: var(--vd-spacing-8);
   box-sizing: border-box;
   touch-action: none;
   cursor: pointer;
   &[data-size='small'] {
-    height: var(--vd-sizing-28);
+    height: var(--vd-control-small-height, var(--vd-sizing-28));
   }
   &[data-size='large'] {
-    height: var(--vd-sizing-44);
+    height: var(--vd-control-large-height, var(--vd-sizing-44));
   }
   [data-slot='track'] {
     position: relative;
     width: 100%;
     height: var(--vd-spacing-4);
-    border-radius: var(--vd-radius-full);
+    border-radius: var(--vd-indicator-radius, var(--vd-radius-full));
     background: var(--vd-border-default);
   }
   [data-slot='range'] {
@@ -110,7 +110,7 @@
     width: var(--vd-sizing-16);
     height: var(--vd-sizing-16);
     border: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-brand-primary);
-    border-radius: var(--vd-radius-full);
+    border-radius: var(--vd-indicator-radius, var(--vd-radius-full));
     background: var(--vd-surface-default);
     outline: none;
     &:hover,
@@ -119,7 +119,10 @@
       border-color: var(--vd-brand-primary-hover);
     }
     &:focus-visible {
-      box-shadow: 0 0 0 var(--vd-spacing-4) var(--vd-brand-subtle);
+      box-shadow: var(
+        --vd-control-focus-shadow,
+        0 0 0 var(--vd-focus-width, 2px) var(--vd-border-focus)
+      );
     }
     &:hover [data-slot='value'],
     &:focus [data-slot='value'] {
@@ -136,8 +139,8 @@
     transform: translateX(-50%);
     padding: var(--vd-spacing-4) var(--vd-spacing-8);
     border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
-    background: var(--vd-text-primary);
-    color: var(--vd-text-inverse);
+    background: var(--vd-tooltip-background, var(--vd-text-primary));
+    color: var(--vd-tooltip-foreground, var(--vd-text-inverse));
     font-size: var(--vd-font-size-12);
     line-height: var(--vd-line-height-3);
     white-space: nowrap;

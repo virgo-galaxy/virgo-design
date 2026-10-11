@@ -301,6 +301,7 @@ export const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
           aria-hidden={!open || undefined}
           data-state={open ? 'open' : 'closed'}
           data-theme={floating.theme}
+          data-virgo-theme={floating.themeStyle}
           dir={floating.direction}
           data-placement={floating.placement}
           data-side={floating.side}

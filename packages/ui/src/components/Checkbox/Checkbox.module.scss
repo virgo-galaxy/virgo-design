@@ -52,7 +52,10 @@
 
 .native:focus-visible + .control {
   border-color: var(--checkbox-border-focus);
-  box-shadow: 0 0 0 var(--vd-stroke-width, var(--vd-border-width-1)) var(--checkbox-border-focus);
+  box-shadow: var(
+    --vd-control-focus-shadow,
+    0 0 0 var(--vd-focus-width, 2px) var(--checkbox-border-focus)
+  );
 }
 
 .native:is([data-checked='true'], :not([data-checked]):checked):not([data-indeterminate='true'])

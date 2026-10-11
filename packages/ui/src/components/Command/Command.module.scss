@@ -8,7 +8,8 @@
   overflow: hidden;
   border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
   box-shadow:
-    var(--vd-popup-shadow, var(--vd-elevation-2)), var(--vd-panel-highlight, 0 0 0 transparent);
+    var(--vd-popup-shadow, var(--vd-panel-shadow, var(--vd-elevation-2))),
+    var(--vd-panel-highlight, 0 0 0 transparent);
 }
 
 .dialogContent {
@@ -20,7 +21,8 @@
 
 .dialogContent .root {
   width: 100%;
-  box-shadow: var(--vd-elevation-4), var(--vd-panel-highlight, 0 0 0 transparent);
+  box-shadow:
+    var(--vd-panel-shadow, var(--vd-elevation-4)), var(--vd-panel-highlight, 0 0 0 transparent);
 }
 
 .inputFrame {

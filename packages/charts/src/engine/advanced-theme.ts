@@ -30,9 +30,11 @@ export function advancedTheme(option: EChartsOption, theme: ChartTheme): ECharts
       : [];
   const heatmap = series.some((item) => item.type === 'heatmap');
   const axis = {
-    axisLine: { lineStyle: { color: theme.axis } },
+    axisLine: { lineStyle: { color: theme.axis, width: theme.borderWidth } },
     axisLabel: { color: theme.axisLabel },
-    splitLine: { lineStyle: { color: theme.grid } },
+    splitLine: {
+      lineStyle: { color: theme.grid, width: theme.borderWidth, type: theme.gridLineType },
+    },
     splitArea: { areaStyle: { color: [theme.background] } },
   };
   const defaults: Record<string, Record<string, unknown>> = {
@@ -49,7 +51,9 @@ export function advancedTheme(option: EChartsOption, theme: ChartTheme): ECharts
       monthLabel: { color: theme.axisLabel },
       yearLabel: { color: theme.axisLabel },
       itemStyle: { color: theme.background, borderColor: theme.grid },
-      splitLine: { lineStyle: { color: theme.grid } },
+      splitLine: {
+        lineStyle: { color: theme.grid, width: theme.borderWidth, type: theme.gridLineType },
+      },
     },
     geo: {
       label: { color: theme.axisLabel },
@@ -63,8 +67,13 @@ export function advancedTheme(option: EChartsOption, theme: ChartTheme): ECharts
     tooltip: {
       backgroundColor: theme.tooltipSurface,
       borderColor: theme.tooltipBorder,
-      extraCssText: `backdrop-filter:${theme.tooltipBackdropFilter};-webkit-backdrop-filter:${theme.tooltipBackdropFilter};`,
-      textStyle: { color: theme.axisLabel, fontFamily: theme.fontFamily, fontSize: theme.fontSize },
+      borderWidth: theme.borderWidth,
+      extraCssText: `backdrop-filter:${theme.tooltipBackdropFilter};-webkit-backdrop-filter:${theme.tooltipBackdropFilter};border-radius:${theme.tooltipRadius}px;box-shadow:${theme.tooltipShadow};`,
+      textStyle: {
+        color: theme.tooltipForeground,
+        fontFamily: theme.fontFamily,
+        fontSize: theme.fontSize,
+      },
     },
   };
   const result: Record<string, unknown> = {
@@ -73,26 +82,37 @@ export function advancedTheme(option: EChartsOption, theme: ChartTheme): ECharts
     textStyle: { fontFamily: theme.fontFamily, fontSize: theme.fontSize, color: theme.axisLabel },
     animationDuration: theme.enterDuration,
     animationDurationUpdate: theme.updateDuration,
+    animationEasing: theme.enterEasing,
+    animationEasingUpdate: theme.updateEasing,
+    stateAnimation: { duration: theme.interactionDuration, easing: theme.interactionEasing },
     ...option,
   };
-  if (heatmap)
-    result.series = series.map((item) =>
-      item.type === 'heatmap'
-        ? merge(
-            {
+  if (heatmap || series.some((item) => item.type === 'radar'))
+    result.series = series.map((item) => {
+      const fallback =
+        item.type === 'heatmap'
+          ? {
               itemStyle: {
                 borderRadius: theme.heatmapRadius,
                 borderWidth: theme.heatmapBorderWidth,
                 borderColor: theme.grid,
               },
               emphasis: {
-                itemStyle: { borderWidth: theme.heatmapBorderWidth + 1, borderColor: theme.axis },
+                itemStyle: { borderWidth: theme.heatmapActiveBorderWidth, borderColor: theme.axis },
               },
-            },
-            item as Record<string, unknown>,
-          )
-        : item,
-    );
+            }
+          : item.type === 'radar'
+            ? {
+                symbol: theme.pointSymbol,
+                symbolSize: theme.pointRadius * 2,
+                lineStyle: { width: theme.lineWidth },
+                itemStyle: { borderWidth: theme.pointBorderWidth, borderColor: theme.background },
+                areaStyle: { opacity: theme.areaOpacity },
+                emphasis: { itemStyle: { borderWidth: theme.activePointBorderWidth } },
+              }
+            : null;
+      return fallback ? merge(fallback, item as Record<string, unknown>) : item;
+    });
   for (const [key, fallback] of Object.entries(defaults)) {
     const own = (option as Record<string, unknown>)[key];
     if (own !== undefined)

@@ -21,7 +21,7 @@
   padding-inline: var(--vd-spacing-4);
   border: var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-style-solid)
     var(--vd-surface-default);
-  border-radius: var(--vd-radius-full);
+  border-radius: var(--vd-indicator-radius, var(--vd-radius-full));
   color: var(--badge-foreground);
   background: var(--badge-background);
   font-family: var(--vd-typography-ui-label-small-font-family);
@@ -56,18 +56,21 @@
 }
 
 .indicator[data-dot][data-animation='breathe'] {
-  --badge-breathe-duration: 2.8s;
-  animation: badge-breathe var(--badge-breathe-duration) ease-in-out infinite;
+  --badge-breathe-duration: var(--vd-motion-duration-breathe, 2800ms);
+  animation: badge-breathe var(--badge-breathe-duration) ease-in-out
+    var(--vd-motion-loop-iterations, infinite);
 
   &::after {
     box-sizing: border-box;
     content: '';
+    opacity: 0;
     position: absolute;
     inset: -2px;
     border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--badge-background);
     border-radius: inherit;
     pointer-events: none;
-    animation: badge-breathe-ring var(--badge-breathe-duration) ease-out infinite;
+    animation: badge-breathe-ring var(--badge-breathe-duration) ease-out
+      var(--vd-motion-loop-iterations, infinite);
   }
 }
 

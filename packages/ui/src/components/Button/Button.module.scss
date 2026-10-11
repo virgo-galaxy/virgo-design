@@ -127,7 +127,7 @@
   --button-gap: #{control-size.token(mini, gap)};
   --button-font-family: var(--vd-font-family-sans);
   --button-font-size: #{control-size.token(mini, font-size)};
-  --button-font-weight: var(--vd-font-weight-500);
+  --button-font-weight: var(--vd-control-font-weight, var(--vd-font-weight-500));
   --button-line-height: var(--vd-line-height-2);
 }
 

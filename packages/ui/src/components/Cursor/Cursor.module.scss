@@ -24,12 +24,15 @@
   --cursor-shadow: color-mix(in srgb, var(--vd-surface-overlay) 68%, transparent);
   display: block;
   overflow: visible;
-  color: color-mix(in srgb, var(--cursor-tint) 80%, transparent);
-  filter: drop-shadow(0 -0.35px 0 color-mix(in srgb, var(--vd-neutral-1) 30%, transparent))
-    drop-shadow(0 1px 1px var(--cursor-shadow)) drop-shadow(0 3px 5px var(--cursor-shadow));
+  color: var(--vd-cursor-color, color-mix(in srgb, var(--cursor-tint) 80%, transparent));
+  filter: var(
+    --vd-cursor-filter,
+    drop-shadow(0 -0.35px 0 color-mix(in srgb, var(--vd-neutral-1) 30%, transparent))
+      drop-shadow(0 1px 1px var(--cursor-shadow)) drop-shadow(0 3px 5px var(--cursor-shadow))
+  );
   path {
-    stroke: var(--cursor-edge);
-    stroke-width: 0.8;
+    stroke: var(--vd-cursor-stroke, var(--cursor-edge));
+    stroke-width: var(--vd-cursor-stroke-width, 0.8);
     stroke-linejoin: round;
     paint-order: stroke fill;
   }

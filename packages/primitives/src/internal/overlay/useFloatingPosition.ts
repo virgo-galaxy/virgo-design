@@ -2,6 +2,12 @@ import { type CSSProperties, type RefObject, useContext, useLayoutEffect, useSta
 
 import { LayerScope } from './layers';
 import { PortalContainerContext } from './Portal';
+import {
+  observePortalEnvironment,
+  type PortalEnvironment,
+  readPortalEnvironment,
+  samePortalEnvironment,
+} from './portalEnvironment';
 import { getArrowInset, type OverlayPlacement, positionOverlay } from './positioning';
 
 export function useFloatingPosition({
@@ -25,8 +31,11 @@ export function useFloatingPosition({
   let depth = 0;
   for (let current = layer?.parent; current; current = current.parent) depth++;
   const [position, setPosition] = useState<ReturnType<typeof positionOverlay> | null>(null);
-  const [theme, setTheme] = useState<string | undefined>();
-  const [direction, setDirection] = useState<'ltr' | 'rtl'>('ltr');
+  const [environment, setEnvironment] = useState<PortalEnvironment>({
+    theme: undefined,
+    themeStyle: undefined,
+    direction: 'ltr',
+  });
   const [triggerWidth, setTriggerWidth] = useState(0);
   useLayoutEffect(() => {
     if (!active) {
@@ -37,9 +46,10 @@ export function useFloatingPosition({
     const content = contentRef.current;
     if (!anchor || !content) return;
     const update = () => {
-      const dir = getComputedStyle(anchor).direction === 'rtl' ? 'rtl' : 'ltr';
-      setDirection(dir);
-      setTheme(anchor.closest('[data-theme]')?.getAttribute('data-theme') ?? undefined);
+      const nextEnvironment = readPortalEnvironment(anchor);
+      setEnvironment((previous) =>
+        samePortalEnvironment(previous, nextEnvironment) ? previous : nextEnvironment,
+      );
       const container = containerRef?.current;
       const bounds = container?.getBoundingClientRect();
       const scaleX = container && bounds ? bounds.width / container.offsetWidth || 1 : 1;
@@ -122,7 +132,7 @@ export function useFloatingPosition({
         },
         placement,
         offset,
-        dir,
+        nextEnvironment.direction,
         Boolean(arrow) && content.getAttribute('data-pointer-follow') !== 'true',
         arrowInset,
       );
@@ -141,13 +151,7 @@ export function useFloatingPosition({
     if (containerRef?.current) resize?.observe(containerRef.current);
     const viewport = content.querySelector('[data-overlay-viewport]');
     if (viewport) resize?.observe(viewport);
-    const themeObserver = new MutationObserver(update);
-    for (let node: HTMLElement | null = anchor; node; node = node.parentElement) {
-      themeObserver.observe(node, {
-        attributes: true,
-        attributeFilter: ['data-theme', 'data-virgo-theme', 'dir', 'class', 'style'],
-      });
-    }
+    const stopObservingEnvironment = observePortalEnvironment(anchor, update);
     const contentsObserver = new MutationObserver(update);
     contentsObserver.observe(content, { childList: true, subtree: true, characterData: true });
     // An ancestor's slide-in transform moves an anchor without resizing it.
@@ -160,7 +164,7 @@ export function useFloatingPosition({
     document.addEventListener('transitionend', updateAfterMotion, true);
     return () => {
       resize?.disconnect();
-      themeObserver.disconnect();
+      stopObservingEnvironment();
       contentsObserver.disconnect();
       window.removeEventListener('resize', update);
       document.removeEventListener('scroll', update, true);
@@ -184,8 +188,7 @@ export function useFloatingPosition({
   } as CSSProperties;
   return {
     style,
-    theme,
-    direction,
+    ...environment,
     positioned: position !== null,
     referenceHidden: position?.referenceHidden ?? false,
     placement: position?.placement ?? placement,

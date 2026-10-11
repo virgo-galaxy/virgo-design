@@ -49,7 +49,7 @@
   }
   &:focus-visible {
     outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
-    outline-offset: var(--vd-spacing-2);
+    outline-offset: var(--vd-focus-offset, var(--vd-spacing-2));
   }
   &:disabled {
     color: var(--vd-icon-disabled);
@@ -81,7 +81,7 @@
     position: absolute;
     inset-block: var(--vd-spacing-2);
     inset-inline-start: calc(var(--vd-spacing-4) * -1);
-    border-inline-start: 1px solid color-mix(in srgb, var(--vd-text-primary) 7%, transparent);
+    border-inline-start: var(--vd-stroke-width, 1px) solid var(--vd-border-subtle);
     pointer-events: none;
   }
 }
