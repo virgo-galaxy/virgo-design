@@ -1,11 +1,11 @@
 .layout {
   --layout-header-height: 76px;
-  --layout-page: var(--vd-page-background, #f4f5f7);
-  --layout-header: var(--vd-chrome-background, rgba(244, 245, 247, 0.86));
-  --layout-text: var(--vd-chrome-foreground, #111317);
-  --layout-secondary: var(--vd-chrome-secondary, #68707d);
-  --layout-line: var(--vd-chrome-border, rgba(17, 19, 23, 0.09));
-  --layout-accent: var(--vd-chrome-accent, #1664f9);
+  --layout-page: var(--website-page-background, #f4f5f7);
+  --layout-header: var(--website-chrome-background, rgba(244, 245, 247, 0.86));
+  --layout-text: var(--website-chrome-foreground, #111317);
+  --layout-secondary: var(--website-chrome-secondary, #68707d);
+  --layout-line: var(--website-chrome-border, rgba(17, 19, 23, 0.09));
+  --layout-accent: var(--website-chrome-accent, #1664f9);
 
   position: relative;
   min-width: 320px;
@@ -15,22 +15,26 @@
 }
 
 .layout[data-theme='dark'] {
-  --layout-page: var(--vd-page-background, #090a0c);
-  --layout-header: var(--vd-chrome-background, rgba(9, 10, 12, 0.86));
-  --layout-text: var(--vd-chrome-foreground, #f5f6f8);
-  --layout-secondary: var(--vd-chrome-secondary, #9da3ae);
-  --layout-line: var(--vd-chrome-border, rgba(255, 255, 255, 0.09));
+  --layout-page: var(--website-page-background, #090a0c);
+  --layout-header: var(--website-chrome-background, rgba(9, 10, 12, 0.86));
+  --layout-text: var(--website-chrome-foreground, #f5f6f8);
+  --layout-secondary: var(--website-chrome-secondary, #9da3ae);
+  --layout-line: var(--website-chrome-border, rgba(255, 255, 255, 0.09));
 }
 
 .header {
   z-index: 300;
   height: var(--layout-header-height);
   border-bottom: 1px solid color-mix(in srgb, var(--layout-line) 45%, transparent);
-  box-shadow: var(--vd-chrome-shadow, 0 1px 2px rgb(0 0 0 / 0.04), 0 3px 6px rgb(0 0 0 / 0.025));
+  box-shadow: var(
+    --website-chrome-shadow,
+    0 1px 2px rgb(0 0 0 / 0.04),
+    0 3px 6px rgb(0 0 0 / 0.025)
+  );
   color: var(--layout-text);
   background: var(--layout-header);
-  backdrop-filter: var(--vd-chrome-backdrop-filter, blur(22px) saturate(1.08));
-  -webkit-backdrop-filter: var(--vd-chrome-backdrop-filter, blur(22px) saturate(1.08));
+  backdrop-filter: var(--website-chrome-backdrop-filter, blur(22px) saturate(1.08));
+  -webkit-backdrop-filter: var(--website-chrome-backdrop-filter, blur(22px) saturate(1.08));
 }
 
 .brand {

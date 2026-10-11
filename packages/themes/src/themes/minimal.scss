@@ -1,3 +1,4 @@
+@use '../../../tokens/dist/css/compatibility' as theme-aliases;
 @use './recipe';
 
 [data-virgo-theme='minimal'] {
@@ -15,17 +16,6 @@
 
   --vd-tag-radius: 5px;
   --vd-tag-soft-border-opacity: 20%;
-  --vd-content-surface: var(--vd-surface-default);
-  --vd-content-surface-solid: var(--vd-table-body-background, var(--vd-surface-elevated));
-  --vd-content-surface-muted: var(--vd-surface-secondary);
-  --vd-content-foreground: var(--vd-text-primary);
-  --vd-content-secondary: var(--vd-text-secondary);
-  --vd-content-tertiary: var(--vd-text-tertiary);
-  --vd-content-border: var(--vd-border-subtle);
-  --vd-content-border-strong: var(--vd-border-default);
-  --vd-content-fill: var(--vd-fill-hover);
-  --vd-content-hover: var(--vd-fill-active);
-  --vd-content-decoration: none;
 
   --vd-panel-shadow: var(--vd-elevation-2);
   --vd-control-font-weight: 500;
@@ -51,15 +41,8 @@
   --vd-navigation-selected-foreground: var(--vd-text-primary);
   --vd-chart-line-width: 1.5;
   --vd-chart-tooltip-shadow: none;
-  --vd-motion-duration-120: 100ms;
-  --vd-chrome-background: var(--vd-surface-default);
-  --vd-chrome-shadow: none;
-  --vd-chrome-backdrop-filter: none;
-  --vd-page-background: var(--vd-surface-background);
-  --vd-chrome-foreground: var(--vd-text-primary);
-  --vd-chrome-secondary: var(--vd-text-secondary);
-  --vd-chrome-border: var(--vd-border-subtle);
-  --vd-chrome-accent: var(--vd-brand-link);
+  @include theme-aliases.role('--vd-motion-interaction-duration', (100ms));
+
   @include recipe.appearance(
     light,
     (

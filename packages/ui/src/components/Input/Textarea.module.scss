@@ -26,19 +26,20 @@
   background: var(--textarea-background);
   caret-color: var(--vd-brand-primary);
   font-family: var(--textarea-font-family);
+  letter-spacing: var(--textarea-letter-spacing, inherit);
   font-size: var(--textarea-font-size);
   font-weight: var(--textarea-font-weight);
   line-height: var(--textarea-line-height);
   resize: vertical;
 
   transition:
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    border-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+    box-shadow var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &::placeholder {
@@ -88,6 +89,7 @@
   --textarea-padding-inline: #{control-size.token(mini, padding-inline)};
   --textarea-radius: #{control-size.token(mini, radius)};
   --textarea-font-family: var(--vd-typography-ui-body-small-font-family);
+  --textarea-letter-spacing: var(--vd-typography-ui-body-small-letter-spacing, inherit);
   --textarea-font-size: #{control-size.token(mini, font-size)};
   --textarea-font-weight: var(--vd-typography-ui-body-small-font-weight);
   --textarea-line-height: var(--vd-typography-ui-body-small-line-height);
@@ -99,6 +101,7 @@
   --textarea-padding-inline: #{control-size.token(small, padding-inline)};
   --textarea-radius: #{control-size.token(small, radius)};
   --textarea-font-family: var(--vd-typography-ui-body-small-font-family);
+  --textarea-letter-spacing: var(--vd-typography-ui-body-small-letter-spacing, inherit);
   --textarea-font-size: #{control-size.token(small, font-size)};
   --textarea-font-weight: var(--vd-typography-ui-body-small-font-weight);
   --textarea-line-height: var(--vd-typography-ui-body-small-line-height);
@@ -110,6 +113,7 @@
   --textarea-padding-inline: #{control-size.token(medium, padding-inline)};
   --textarea-radius: #{control-size.token(medium, radius)};
   --textarea-font-family: var(--vd-typography-ui-body-medium-font-family);
+  --textarea-letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   --textarea-font-size: #{control-size.token(medium, font-size)};
   --textarea-font-weight: var(--vd-typography-ui-body-medium-font-weight);
   --textarea-line-height: var(--vd-typography-ui-body-medium-line-height);
@@ -121,6 +125,7 @@
   --textarea-padding-inline: #{control-size.token(large, padding-inline)};
   --textarea-radius: #{control-size.token(large, radius)};
   --textarea-font-family: var(--vd-typography-ui-body-large-font-family);
+  --textarea-letter-spacing: var(--vd-typography-ui-body-large-letter-spacing, inherit);
   --textarea-font-size: #{control-size.token(large, font-size)};
   --textarea-font-weight: var(--vd-typography-ui-body-large-font-weight);
   --textarea-line-height: var(--vd-typography-ui-body-large-line-height);

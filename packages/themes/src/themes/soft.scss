@@ -1,3 +1,4 @@
+@use '../../../tokens/dist/css/compatibility' as theme-aliases;
 @use './recipe';
 
 [data-virgo-theme='soft'] {
@@ -18,17 +19,6 @@
   --vd-select-tag-radius: 9999px;
   @include recipe.soft-overlay-arrows;
   @include recipe.soft-tooltip-arrows(3, 0.125);
-  --vd-content-surface: var(--vd-surface-default);
-  --vd-content-surface-solid: var(--vd-table-body-background, var(--vd-surface-elevated));
-  --vd-content-surface-muted: var(--vd-surface-secondary);
-  --vd-content-foreground: var(--vd-text-primary);
-  --vd-content-secondary: var(--vd-text-secondary);
-  --vd-content-tertiary: var(--vd-text-tertiary);
-  --vd-content-border: var(--vd-border-subtle);
-  --vd-content-border-strong: var(--vd-border-default);
-  --vd-content-fill: var(--vd-fill-hover);
-  --vd-content-hover: var(--vd-fill-active);
-  --vd-content-decoration: none;
 
   --vd-panel-shadow: var(--vd-elevation-2);
   --vd-control-font-weight: 500;
@@ -60,18 +50,11 @@
   --vd-table-header-background: var(--vd-surface-secondary);
   --vd-navigation-selected-background: var(--vd-fill-selected);
   --vd-navigation-selected-foreground: var(--vd-brand-link);
-  --vd-motion-duration-120: 160ms;
+  @include theme-aliases.role('--vd-motion-interaction-duration', (160ms));
   --vd-motion-easing-standard: cubic-bezier(0.22, 1, 0.36, 1);
   --vd-chart-tooltip-radius: 14px;
   --vd-chart-line-width: 2.5;
-  --vd-chrome-background: var(--vd-surface-background);
-  --vd-chrome-shadow: none;
-  --vd-chrome-backdrop-filter: none;
-  --vd-page-background: var(--vd-surface-background);
-  --vd-chrome-foreground: var(--vd-text-primary);
-  --vd-chrome-secondary: var(--vd-text-secondary);
-  --vd-chrome-border: var(--vd-border-subtle);
-  --vd-chrome-accent: var(--vd-brand-link);
+
   @include recipe.appearance(
     light,
     (

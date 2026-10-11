@@ -125,7 +125,9 @@ export const tokensZhCN = {
       eyebrow: '语义排版',
       title: '文档与界面语义排版',
       description: '正式的文档与界面角色引用排版基础值，不重复展示基础尺度。',
+      code: { title: '代码排版', description: '代码正文与说明的等宽角色；未指定时保持字距继承。' },
       columns: {
+        letterSpacing: '字距',
         role: '语义 Token',
         fontFamily: '字体族',
         fontSize: '字号',

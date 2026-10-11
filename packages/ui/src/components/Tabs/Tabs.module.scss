@@ -57,11 +57,11 @@
   pointer-events: none;
   transform: translateX(var(--tabs-indicator-x));
   transition:
-    transform var(--vd-motion-duration-180, var(--vd-duration-180))
+    transform var(--vd-motion-state-duration, var(--vd-duration-180))
       var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized)),
-    width var(--vd-motion-duration-180, var(--vd-duration-180))
+    width var(--vd-motion-state-duration, var(--vd-duration-180))
       var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized)),
-    opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+    opacity var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
@@ -94,17 +94,18 @@
   appearance: none;
   cursor: pointer;
   font-family: var(--vd-typography-ui-label-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-label-medium-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-label-medium-font-size);
   font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
   line-height: var(--vd-typography-ui-label-medium-line-height);
   user-select: none;
 
   transition:
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+    box-shadow var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
@@ -152,6 +153,7 @@
   padding-block-start: var(--vd-spacing-24);
   outline: 0;
   font-family: var(--vd-typography-ui-body-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-body-medium-font-size);
   font-weight: var(--vd-typography-ui-body-medium-font-weight);
   line-height: var(--vd-typography-ui-body-medium-line-height);
@@ -236,9 +238,9 @@
   background: color-mix(in srgb, var(--vd-surface-secondary) 50%, var(--vd-surface-default));
 
   transition:
-    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    border-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
@@ -285,11 +287,11 @@
   cursor: pointer;
 
   transition:
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+    box-shadow var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   > svg {

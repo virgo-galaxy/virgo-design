@@ -48,6 +48,9 @@ function TypographyTable({ description, locale, rows, title }: TypographyTablePr
               <Table.Head scope="col">
                 {t('tokens.typography.semanticTypography.columns.lineHeight')}
               </Table.Head>
+              <Table.Head scope="col">
+                {t('tokens.typography.semanticTypography.columns.letterSpacing')}
+              </Table.Head>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -64,6 +67,7 @@ function TypographyTable({ description, locale, rows, title }: TypographyTablePr
                   <Table.Cell>{resolved.fontSize}</Table.Cell>
                   <Table.Cell>{resolved.fontWeight}</Table.Cell>
                   <Table.Cell>{resolved.lineHeight.toFixed(2)}</Table.Cell>
+                  <Table.Cell>{resolved.letterSpacing ?? 'inherit'}</Table.Cell>
                 </Table.Row>
               );
             })}
@@ -133,6 +137,15 @@ export function SemanticTypographyTables() {
         description={t('tokens.typography.semanticTypography.ui.description')}
         locale={locale}
         rows={uiRows}
+      />
+      <TypographyTable
+        title={t('tokens.typography.semanticTypography.code.title')}
+        description={t('tokens.typography.semanticTypography.code.description')}
+        locale={locale}
+        rows={[
+          { group: 'code', label: 'code.body', recipe: typography.code.body },
+          { group: 'code', label: 'code.caption', recipe: typography.code.caption },
+        ]}
       />
     </div>
   );

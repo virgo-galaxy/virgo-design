@@ -183,3 +183,7 @@ ECharts and zrender are external in the package build. Import token CSS and char
 when consuming the built package; workspace source aliases import SCSS automatically.
 Bundled consumers load the modular engine in a separate chunk; Sparkline does not request it.
 The advanced entry has a larger runtime and should be loaded only where needed.
+
+## Token architecture
+
+Categorical 12 / sequential 10 / diverging 7 belong to Semantic data roles; chart geometry/material/interaction/Sparkline belong to the Component contract. Normal Virgo Charts, advanced ECharts and native Sparkline retain the same CSS-to-engine presentation source. Explicit option/style values stay consumer-owned. Layering, contract version and consumer adapters are defined in [Token architecture](../../docs/architecture/token-system.md).

@@ -27,6 +27,7 @@
   --dialog-section-padding: var(--vd-spacing-24);
   --dialog-section-gap: var(--vd-spacing-16);
   --dialog-title-font-family: var(--vd-typography-ui-title-medium-font-family);
+  --dialog-title-letter-spacing: var(--vd-typography-ui-title-medium-letter-spacing, inherit);
   --dialog-title-font-size: var(--vd-typography-ui-title-medium-font-size);
   --dialog-title-font-weight: var(--vd-typography-ui-title-medium-font-weight);
   --dialog-title-line-height: var(--vd-typography-ui-title-medium-line-height);
@@ -56,6 +57,7 @@
   --dialog-section-padding: var(--vd-spacing-16);
   --dialog-section-gap: var(--vd-spacing-12);
   --dialog-title-font-family: var(--vd-typography-ui-title-small-font-family);
+  --dialog-title-letter-spacing: var(--vd-typography-ui-title-small-letter-spacing, inherit);
   --dialog-title-font-size: var(--vd-typography-ui-title-small-font-size);
   --dialog-title-font-weight: var(--vd-typography-ui-title-small-font-weight);
   --dialog-title-line-height: var(--vd-typography-ui-title-small-line-height);
@@ -66,6 +68,7 @@
   --dialog-section-padding: var(--vd-spacing-32);
   --dialog-section-gap: var(--vd-spacing-20);
   --dialog-title-font-family: var(--vd-typography-ui-title-large-font-family);
+  --dialog-title-letter-spacing: var(--vd-typography-ui-title-large-letter-spacing, inherit);
   --dialog-title-font-size: var(--vd-typography-ui-title-large-font-size);
   --dialog-title-font-weight: var(--vd-typography-ui-title-large-font-weight);
   --dialog-title-line-height: var(--vd-typography-ui-title-large-line-height);
@@ -84,6 +87,7 @@
   margin: var(--vd-spacing-0);
   color: var(--vd-text-primary);
   font-family: var(--dialog-title-font-family);
+  letter-spacing: var(--dialog-title-letter-spacing, inherit);
   font-size: var(--dialog-title-font-size);
   font-weight: var(--dialog-title-font-weight);
   line-height: var(--dialog-title-line-height);

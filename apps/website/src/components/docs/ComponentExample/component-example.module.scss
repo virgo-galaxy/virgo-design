@@ -64,7 +64,7 @@
   justify-content: flex-end;
   gap: var(--vd-spacing-4);
   opacity: 0.48;
-  transition: opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+  transition: opacity var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
@@ -133,13 +133,13 @@
   opacity: 0;
   visibility: hidden;
   transition:
-    grid-template-rows var(--vd-motion-duration-240, var(--vd-duration-240))
+    grid-template-rows var(--vd-motion-collapse-duration, var(--vd-duration-240))
       var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized)),
-    margin-top var(--vd-motion-duration-240, var(--vd-duration-240))
+    margin-top var(--vd-motion-collapse-duration, var(--vd-duration-240))
       var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized)),
-    opacity var(--vd-motion-duration-180, var(--vd-duration-180))
+    opacity var(--vd-motion-state-duration, var(--vd-duration-180))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    visibility 0s linear var(--vd-motion-duration-240, var(--vd-duration-240));
+    visibility 0s linear var(--vd-motion-collapse-duration, var(--vd-duration-240));
 }
 
 .source[data-state='open'] {
@@ -208,7 +208,7 @@
 
 .language {
   color: var(--vd-text-secondary);
-  font-family: var(--vd-font-family-mono);
+  font-family: var(--vd-typography-code-body-font-family);
   font-size: var(--vd-font-size-12);
   font-weight: var(--vd-font-weight-500);
   line-height: var(--vd-line-height-3);
@@ -227,7 +227,7 @@
 }
 
 .source code {
-  font-family: var(--vd-font-family-mono);
+  font-family: var(--vd-typography-code-body-font-family);
   font-size: var(--vd-font-size-13);
   line-height: var(--vd-line-height-4);
   overflow-wrap: anywhere;

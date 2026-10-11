@@ -19,6 +19,7 @@
   color: var(--tag-foreground);
   @include surface.surface(var(--tag-background), var(--tag-border));
   font-family: var(--tag-font-family);
+  letter-spacing: var(--tag-letter-spacing, inherit);
   font-size: var(--tag-font-size);
   font-weight: var(--tag-font-weight);
   line-height: var(--tag-line-height);
@@ -67,6 +68,7 @@
   --tag-gap: var(--vd-spacing-4);
   --tag-icon-size: var(--vd-sizing-12);
   --tag-font-family: var(--vd-typography-ui-label-small-font-family);
+  --tag-letter-spacing: var(--vd-typography-ui-label-small-letter-spacing, inherit);
   --tag-font-size: var(--vd-typography-ui-label-small-font-size);
   --tag-font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-small-font-weight));
   --tag-line-height: var(--vd-typography-ui-label-small-line-height);
@@ -78,6 +80,7 @@
   --tag-gap: var(--vd-spacing-6);
   --tag-icon-size: var(--vd-sizing-16);
   --tag-font-family: var(--vd-typography-ui-label-small-font-family);
+  --tag-letter-spacing: var(--vd-typography-ui-label-small-letter-spacing, inherit);
   --tag-font-size: var(--vd-typography-ui-label-small-font-size);
   --tag-font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-small-font-weight));
   --tag-line-height: var(--vd-typography-ui-label-small-line-height);
@@ -89,6 +92,7 @@
   --tag-gap: var(--vd-spacing-8);
   --tag-icon-size: var(--vd-sizing-20);
   --tag-font-family: var(--vd-typography-ui-label-medium-font-family);
+  --tag-letter-spacing: var(--vd-typography-ui-label-medium-letter-spacing, inherit);
   --tag-font-size: var(--vd-typography-ui-label-medium-font-size);
   --tag-font-weight: var(
     --vd-control-font-weight,

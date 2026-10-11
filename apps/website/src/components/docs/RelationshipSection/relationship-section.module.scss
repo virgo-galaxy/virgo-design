@@ -51,9 +51,9 @@
 .card {
   height: 100%;
   transition:
-    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    border-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    transform var(--vd-motion-duration-120, var(--vd-duration-120))
+    transform var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 

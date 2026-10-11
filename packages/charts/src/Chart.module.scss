@@ -53,7 +53,7 @@
   --chart-update-duration: var(--vd-chart-update-duration, 400ms);
   --chart-interaction-duration: var(
     --vd-chart-interaction-duration,
-    var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-interaction-duration, var(--vd-duration-120))
   );
   --chart-sector-offset: var(--vd-chart-sector-offset, 8px);
   --chart-point-radius: var(--vd-chart-point-radius, 3px);

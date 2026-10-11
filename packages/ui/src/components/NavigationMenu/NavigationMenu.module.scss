@@ -15,6 +15,7 @@
   min-width: 0;
   color: var(--vd-text-primary);
   font-family: var(--vd-typography-ui-body-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-body-medium-font-size);
   font-weight: var(--vd-typography-ui-body-medium-font-weight);
   line-height: var(--vd-typography-ui-body-medium-line-height);
@@ -57,6 +58,7 @@
   padding: var(--vd-spacing-4);
   background: var(--vd-surface-secondary);
   font-family: var(--vd-typography-ui-label-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-label-medium-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-label-medium-font-size);
   font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
   line-height: var(--vd-typography-ui-label-medium-line-height);
@@ -136,11 +138,11 @@
   user-select: none;
 
   transition:
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+    box-shadow var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not(:disabled):not([aria-disabled='true']):not([data-active='true']) {
@@ -214,7 +216,7 @@
 
 .disclosureIndicator {
   transform: rotate(0deg);
-  transition: transform var(--vd-motion-duration-180, var(--vd-duration-180))
+  transition: transform var(--vd-motion-state-duration, var(--vd-duration-180))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &[data-direction='up'] {
@@ -251,7 +253,8 @@
   min-width: calc(var(--vd-sizing-80) * 2);
   max-width: calc(var(--vd-sizing-80) * 5);
   padding: var(--vd-spacing-4);
-  animation: navigation-menu-popover-enter var(--vd-motion-duration-120, var(--vd-duration-120))
+  animation: navigation-menu-popover-enter
+    var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &[data-state='closed'] {

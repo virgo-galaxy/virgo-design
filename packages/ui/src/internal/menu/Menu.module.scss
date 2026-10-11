@@ -90,6 +90,7 @@
   margin-inline-start: var(--vd-spacing-24);
   color: var(--vd-text-tertiary);
   font-family: var(--vd-typography-ui-body-small-font-family);
+  letter-spacing: var(--vd-typography-ui-body-small-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-body-small-font-size);
   white-space: nowrap;
 }

@@ -10,6 +10,7 @@
   gap: var(--vd-spacing-16);
   color: var(--vd-text-primary);
   font-family: var(--vd-typography-ui-body-small-font-family);
+  letter-spacing: var(--vd-typography-ui-body-small-letter-spacing, inherit);
   font-size: control-size.token(small, font-size);
   font-weight: var(--vd-typography-ui-body-small-font-weight);
   line-height: var(--vd-typography-ui-body-small-line-height);
@@ -68,11 +69,11 @@
   font-variant-numeric: inherit;
   cursor: pointer;
   transition:
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    border-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not(:disabled) {

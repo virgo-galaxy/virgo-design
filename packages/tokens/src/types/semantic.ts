@@ -2,6 +2,7 @@ import type {
   FontFamilyToken,
   FontSizeToken,
   FontWeightToken,
+  LetterSpacingToken,
   LineHeightToken,
 } from '../foundations/typography.js';
 import type {
@@ -22,6 +23,7 @@ export interface SemanticTypographyToken {
   fontSize: FontSizeToken;
   fontWeight: FontWeightToken;
   lineHeight: LineHeightToken;
+  letterSpacing?: LetterSpacingToken;
 }
 
 export interface ResolvedTypographyStyle {
@@ -29,6 +31,7 @@ export interface ResolvedTypographyStyle {
   fontSize: string;
   fontWeight: number;
   lineHeight: number;
+  letterSpacing?: string;
 }
 
 export type SemanticColorValue = string;

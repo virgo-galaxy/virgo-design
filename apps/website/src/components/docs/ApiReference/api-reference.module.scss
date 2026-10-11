@@ -11,7 +11,7 @@
 .eyebrow {
   margin: 0 0 var(--vd-spacing-8);
   color: var(--vd-text-tertiary);
-  font-family: var(--vd-font-family-mono);
+  font-family: var(--vd-typography-code-body-font-family);
   font-size: var(--vd-font-size-12);
   line-height: var(--vd-line-height-3);
   letter-spacing: 0.06em;
@@ -60,7 +60,7 @@
 }
 
 .declarationHeader h3 code {
-  font-family: var(--vd-font-family-mono);
+  font-family: var(--vd-typography-code-body-font-family);
 }
 
 .declarationHeader p {
@@ -73,7 +73,7 @@
 
 .kind {
   flex: none;
-  font-family: var(--vd-font-family-mono);
+  font-family: var(--vd-typography-code-body-font-family);
   text-transform: uppercase;
 }
 
@@ -84,7 +84,7 @@
   border-top: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   background: var(--vd-surface-secondary);
   color: var(--vd-text-secondary);
-  font-family: var(--vd-font-family-mono);
+  font-family: var(--vd-typography-code-body-font-family);
   font-size: var(--vd-font-size-12);
   line-height: var(--vd-line-height-4);
   white-space: pre-wrap;
@@ -146,7 +146,7 @@
 }
 
 .table code {
-  font-family: var(--vd-font-family-mono);
+  font-family: var(--vd-typography-code-body-font-family);
   font-size: var(--vd-font-size-12);
   line-height: inherit;
   white-space: normal;
@@ -176,7 +176,7 @@
 
 .inherited {
   color: var(--vd-text-tertiary);
-  font-family: var(--vd-font-family-mono);
+  font-family: var(--vd-typography-code-body-font-family);
   font-weight: var(--vd-font-weight-400);
 }
 
@@ -215,7 +215,7 @@
 
 .aliasesHeader span {
   color: var(--vd-text-tertiary);
-  font-family: var(--vd-font-family-mono);
+  font-family: var(--vd-typography-code-body-font-family);
   font-size: var(--vd-font-size-12);
 }
 
@@ -252,7 +252,7 @@
 }
 
 .aliasList code {
-  font-family: var(--vd-font-family-mono);
+  font-family: var(--vd-typography-code-body-font-family);
   font-size: var(--vd-font-size-12);
   line-height: var(--vd-line-height-4);
   white-space: pre-wrap;

@@ -24,7 +24,7 @@
   overscroll-behavior: contain;
   z-index: panel.$layer;
   outline: none;
-  animation: floating-actions-enter var(--vd-motion-duration-120, var(--vd-duration-120))
+  animation: floating-actions-enter var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 

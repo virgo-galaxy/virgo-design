@@ -1,6 +1,6 @@
 @use '../../internal/form/control-size';
 .root {
-  --carousel-duration: var(--vd-motion-duration-360, 360ms);
+  --carousel-duration: var(--vd-motion-overlay-duration, 360ms);
   --carousel-easing: var(--vd-motion-easing-standard);
   --carousel-indicator-color: var(--vd-brand-link);
   position: relative;
@@ -40,7 +40,7 @@
   justify-content: space-between;
   pointer-events: none;
   opacity: 0;
-  transition: opacity var(--vd-motion-duration-120, 120ms) var(--vd-motion-easing-standard);
+  transition: opacity var(--vd-motion-interaction-duration, 120ms) var(--vd-motion-easing-standard);
   > button[data-variant='outline'] {
     --button-height: var(--carousel-arrow-height, #{control-size.token(small, height)});
     --button-background: var(--carousel-control-background, transparent);

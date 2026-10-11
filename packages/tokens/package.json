@@ -44,7 +44,35 @@
     "./foundations.css": "./dist/css/foundations.css",
     "./semantic-typography.css": "./dist/css/semantic-typography.css",
     "./themes.css": "./dist/css/themes.css",
-    "./styles.css": "./dist/css/styles.css"
+    "./styles.css": "./dist/css/styles.css",
+    "./catalog": {
+      "types": "./dist/catalog.d.ts",
+      "import": "./dist/catalog.js",
+      "default": "./dist/catalog.js"
+    },
+    "./validation": {
+      "types": "./dist/validation.d.ts",
+      "import": "./dist/validation.js",
+      "default": "./dist/validation.js"
+    },
+    "./theme-contract": {
+      "types": "./dist/theme-contract.d.ts",
+      "import": "./dist/theme-contract.js",
+      "default": "./dist/theme-contract.js"
+    },
+    "./tailwind": {
+      "types": "./dist/tailwind.d.ts",
+      "import": "./dist/tailwind.js",
+      "default": "./dist/tailwind.js"
+    },
+    "./vanilla-extract": {
+      "types": "./dist/vanilla-extract.d.ts",
+      "import": "./dist/vanilla-extract.js",
+      "default": "./dist/vanilla-extract.js"
+    },
+    "./scss": "./dist/css/tokens.scss",
+    "./tokens.scss": "./dist/css/tokens.scss",
+    "./tailwind.css": "./dist/css/tailwind.css"
   },
   "publishConfig": {
     "access": "public"

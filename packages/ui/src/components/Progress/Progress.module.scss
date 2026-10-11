@@ -38,6 +38,7 @@
   justify-content: space-between;
   gap: var(--vd-spacing-12);
   font-family: var(--vd-typography-ui-label-small-font-family);
+  letter-spacing: var(--vd-typography-ui-label-small-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-label-small-font-size);
   font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-small-font-weight));
   line-height: var(--vd-typography-ui-label-small-line-height);

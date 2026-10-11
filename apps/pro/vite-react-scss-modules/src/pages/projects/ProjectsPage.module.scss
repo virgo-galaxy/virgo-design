@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-  transition: box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+  transition: box-shadow var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
   &:hover,
   &:focus-within {

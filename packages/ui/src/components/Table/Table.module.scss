@@ -74,6 +74,7 @@
   color: var(--vd-text-primary);
   background: var(--table-body-background);
   font-family: var(--vd-typography-ui-body-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   font-size: control-size.token(medium, font-size);
   line-height: var(--vd-typography-ui-body-medium-line-height);
   &:where([data-density='mini']) {
@@ -204,7 +205,7 @@
   }
 }
 .row {
-  transition: background var(--vd-motion-duration-120, var(--vd-duration-120))
+  transition: background var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 .body {

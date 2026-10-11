@@ -3,8 +3,24 @@ import { fileURLToPath, URL } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
+import { themeBootstrapPlugin } from '../../../config/theme-bootstrap-plugin';
+import defaults from './src/config/settings.json';
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    themeBootstrapPlugin({
+      defaultTheme: defaults.theme,
+      defaultAppearance: defaults.appearance as 'light' | 'dark' | 'system',
+      storage: {
+        key: 'virgo-pro:settings:v1',
+        version: 1,
+        themeField: 'theme',
+        appearanceField: 'appearance',
+        legacyThemeKey: 'virgo-design.theme-style.v1',
+      },
+    }),
+    react(),
+  ],
   server: {
     port: 6301,
     strictPort: true,

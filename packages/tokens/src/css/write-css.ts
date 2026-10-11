@@ -2,18 +2,21 @@ import { mkdir, readdir, unlink, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { generateTailwindCss } from '../tailwind.js';
 import {
   generateFoundationsCss,
   generateSemanticTypographyCss,
   generateStylesCss,
   generateThemesCss,
 } from './generate-css.js';
+import { generateCompatibilityScss, generateScss } from './generate-scss.js';
 
 export const cssOutputFiles = {
   'foundations.css': generateFoundationsCss,
   'semantic-typography.css': generateSemanticTypographyCss,
   'themes.css': generateThemesCss,
   'styles.css': generateStylesCss,
+  'tailwind.css': generateTailwindCss,
 } as const;
 
 export async function writeCssFiles(directory: string | URL) {
@@ -27,6 +30,13 @@ export async function writeCssFiles(directory: string | URL) {
     entries
       .filter((entry) => entry.isFile() && entry.name.endsWith('.css'))
       .map((entry) => unlink(resolve(outputDirectory, entry.name))),
+  );
+
+  await writeFile(resolve(outputDirectory, 'tokens.scss'), generateScss(), 'utf8');
+  await writeFile(
+    resolve(outputDirectory, 'compatibility.scss'),
+    generateCompatibilityScss(),
+    'utf8',
   );
 
   await Promise.all(

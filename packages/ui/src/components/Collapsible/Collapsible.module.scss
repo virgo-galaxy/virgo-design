@@ -19,7 +19,7 @@
   display: inline-flex;
   width: 16px;
   height: 16px;
-  transition: transform var(--vd-motion-duration-120, var(--vd-duration-120))
+  transition: transform var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 .trigger[data-state='open'] [data-slot='indicator'] {
@@ -27,7 +27,7 @@
 }
 .content {
   --collapsible-content-padding: var(--vd-spacing-12);
-  --collapsible-motion-duration: var(--vd-motion-duration-180, var(--vd-duration-180));
+  --collapsible-motion-duration: var(--vd-motion-state-duration, var(--vd-duration-180));
   --collapsible-motion-easing: var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 .content[data-motion='none']:not([hidden]) {

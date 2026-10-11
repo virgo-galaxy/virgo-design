@@ -4,9 +4,17 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 import { rawScssSourcePlugin } from '../../config/raw-scss-source-plugin.ts';
+import { themeBootstrapPlugin } from '../../config/theme-bootstrap-plugin.ts';
 
 export default defineConfig({
-  plugins: [rawScssSourcePlugin(), react()],
+  plugins: [
+    themeBootstrapPlugin({
+      appearanceStorageKey: 'virgo-design-appearance',
+      appearanceQuery: { pathPrefix: '/examples/', parameter: 'theme' },
+    }),
+    rawScssSourcePlugin(),
+    react(),
+  ],
 
   build: {
     rolldownOptions: {

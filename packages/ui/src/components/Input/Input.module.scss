@@ -30,13 +30,13 @@
   cursor: text;
 
   transition:
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    border-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+    box-shadow var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not([data-disabled='true']):not(:has(input:disabled)):not(:focus-within) {
@@ -84,6 +84,7 @@
   --input-icon-size: #{control-size.token(mini, icon-size)};
   --input-gap: #{control-size.token(mini, gap)};
   --input-font-family: var(--vd-typography-ui-body-small-font-family);
+  --input-letter-spacing: var(--vd-typography-ui-body-small-letter-spacing, inherit);
   --input-font-size: #{control-size.token(mini, font-size)};
   --input-font-weight: var(--vd-typography-ui-body-small-font-weight);
   --input-line-height: var(--vd-typography-ui-body-small-line-height);
@@ -97,6 +98,7 @@
   --input-icon-size: #{control-size.token(small, icon-size)};
   --input-gap: #{control-size.token(small, gap)};
   --input-font-family: var(--vd-typography-ui-body-small-font-family);
+  --input-letter-spacing: var(--vd-typography-ui-body-small-letter-spacing, inherit);
   --input-font-size: #{control-size.token(small, font-size)};
   --input-font-weight: var(--vd-typography-ui-body-small-font-weight);
   --input-line-height: var(--vd-typography-ui-body-small-line-height);
@@ -110,6 +112,7 @@
   --input-icon-size: #{control-size.token(medium, icon-size)};
   --input-gap: #{control-size.token(medium, gap)};
   --input-font-family: var(--vd-typography-ui-body-medium-font-family);
+  --input-letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   --input-font-size: #{control-size.token(medium, font-size)};
   --input-font-weight: var(--vd-typography-ui-body-medium-font-weight);
   --input-line-height: var(--vd-typography-ui-body-medium-line-height);
@@ -123,6 +126,7 @@
   --input-icon-size: #{control-size.token(large, icon-size)};
   --input-gap: #{control-size.token(large, gap)};
   --input-font-family: var(--vd-typography-ui-body-large-font-family);
+  --input-letter-spacing: var(--vd-typography-ui-body-large-letter-spacing, inherit);
   --input-font-size: #{control-size.token(large, font-size)};
   --input-font-weight: var(--vd-typography-ui-body-large-font-weight);
   --input-line-height: var(--vd-typography-ui-body-large-line-height);
@@ -141,6 +145,7 @@
   background: transparent;
   caret-color: var(--vd-brand-primary);
   font-family: var(--input-font-family);
+  letter-spacing: var(--input-letter-spacing, inherit);
   font-size: var(--input-font-size);
   font-weight: var(--input-font-weight);
   line-height: var(--input-line-height);
@@ -181,6 +186,7 @@
   min-width: var(--input-icon-size);
   height: auto;
   font-family: var(--input-font-family);
+  letter-spacing: var(--input-letter-spacing, inherit);
   font-size: var(--input-font-size);
   font-weight: var(--input-font-weight);
   line-height: var(--input-line-height);

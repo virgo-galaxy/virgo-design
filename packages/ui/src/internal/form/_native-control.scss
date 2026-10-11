@@ -17,6 +17,7 @@
   color: var(--vd-text-primary);
   background: var(--vd-surface-default);
   font-family: var(--vd-typography-ui-body-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   font-size: var(--native-control-font-size);
   line-height: var(--vd-typography-ui-body-medium-line-height);
   color-scheme: light;

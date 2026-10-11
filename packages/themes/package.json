@@ -18,13 +18,19 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./virgo.css": "./dist/virgo.css",
+    "./minimal.css": "./dist/minimal.css",
+    "./soft.css": "./dist/soft.css",
+    "./glass.css": "./dist/glass.css",
+    "./retro.css": "./dist/retro.css",
+    "./contrast.css": "./dist/contrast.css"
   },
   "dependencies": {
     "@virgo-design/tokens": "workspace:*"
   },
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json",
+    "build": "vite build && tsc -p tsconfig.build.json && node scripts/build-css.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "publishConfig": {

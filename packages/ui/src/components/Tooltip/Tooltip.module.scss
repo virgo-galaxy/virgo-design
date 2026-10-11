@@ -66,7 +66,7 @@
   font-size: var(--vd-typography-ui-body-small-font-size);
   line-height: var(--vd-typography-ui-body-small-line-height);
   text-align: start;
-  animation: tooltip-enter var(--vd-motion-duration-120, var(--vd-duration-120))
+  animation: tooltip-enter var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard)) both;
   &[data-side='top'] {
     transform-origin: var(--overlay-arrow-x) 100%;
@@ -81,7 +81,7 @@
     transform-origin: 0 var(--overlay-arrow-y);
   }
   &[data-continuous='true'][data-state='open'] {
-    animation: tooltip-handoff var(--vd-motion-duration-120, var(--vd-duration-120))
+    animation: tooltip-handoff var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)) both;
   }
   &[data-state='closed'] {

@@ -1,6 +1,6 @@
 # Virgo Design Theme System
 
-Theme System 的版本化契约由 `@virgo-design/tokens` 定义。`@virgo-design/themes` 提供视觉实现；UI、Charts 和应用消费变量。Foundation 保持原来的参考尺度，组件结构、交互、可访问性与布局留在各自组件中。
+Theme System 的版本化契约由 `@virgo-design/tokens` 定义。`@virgo-design/themes` 提供视觉实现；UI、Charts 和应用消费变量。Foundation 保持原来的参考尺度，组件结构、交互、可访问性与布局留在各自组件中。完整的分层、required/fallback、版本、SSR、首屏 bootstrap 与多技术栈消费规则见 [Token 与 Theme 架构](token-system.md)，历史兼容单列于 [迁移政策](theme-compatibility.md)。
 
 ## Package 与依赖
 
@@ -14,6 +14,11 @@ packages/themes/
 └── src/
     ├── index.ts
     ├── registry.ts
+    ├── resolution.ts
+    ├── bootstrap.ts
+    ├── theme-css.ts
+    ├── migration.ts
+    ├── compatibility/
     ├── runtime.ts
     ├── runtime.test.ts
     ├── styles.scss
@@ -27,7 +32,7 @@ packages/themes/
         └── contrast.scss
 ```
 
-导出 `@virgo-design/themes` 与 `@virgo-design/themes/styles.css`。构建遵循仓库的 Vite library + TypeScript declaration 约定。依赖为 themes → tokens、ui → tokens、charts → tokens；themes 不依赖 UI，UI/Charts 不导入 themes。官方主题 SCSS 只设置变量，没有组件 class 或业务页面选择器。
+JS root 不隐式加载 CSS，可直接用于 Node/SSR。CSS 导出 `styles.css` 合集与六套独立 `virgo.css/minimal.css/soft.css/glass.css/retro.css/contrast.css`。构建遵循仓库的 Vite library + TypeScript declaration 约定。依赖为 themes → tokens、ui → tokens、charts → tokens；themes 不依赖 UI，UI/Charts 不导入 themes。官方主题 SCSS 只设置变量，没有组件 class 或业务页面选择器。
 
 ## Contract
 
@@ -47,7 +52,7 @@ packages/themes/
 - action shadow、pressed shadow/offset、panel 与 Surface 材质、overlay、Tooltip 与 pointer。
 - 导航选择态；Table 的 header/body/stripe/hover/selected/footer、边界与密度。
 - motion duration/easing；Chart 的 axis/grid/legend/tooltip/palette/active point/heatmap、线宽与动画。
-- 应用周边 chrome/content presentation role，保留各应用 Virgo fallback。
+- 公共 surface/control/overlay presentation role；Website chrome/content 与 Pro widget composition 由应用拥有，保留各应用 Virgo fallback。
 
 Native Sparkline 继续使用 SVG；focus 复用语义 focus color/width，并消费 `--vd-chart-focus-dasharray`；area gradient 消费 `--vd-chart-area-opacity / area-end-opacity`。ECharts adapter 解析全部 data palette，advanced option 中正式 data color 变量在进入引擎前解析，显式 literal 配色仍优先。
 
@@ -57,17 +62,17 @@ Native Sparkline 继续使用 SVG；focus 复用语义 focus color/width，并�
 
 官方 `ThemeId` 固定为 `virgo`、`minimal`、`soft`、`glass`、`retro`、`contrast`。`ThemePreset` 与只读 registry 提供名称、description key、contract version 和 light/dark 支持。默认 Virgo。Contrast（`contrast`，中文“高对比”）强调强前后景分离、明确边界、清晰的 focus／selected／disabled 状态，减少依赖阴影与细微灰阶。
 
-`initializeTheme()` 默认在第一次 React render 前恢复 `virgo-design.theme-style.v1`，设置 HTML 的 `data-virgo-theme`。`setTheme()` 校验 ID、持久化、应用属性并通知订阅者。`subscribeTheme()` 可直接接入 `useSyncExternalStore`，Header 与 Settings 共用状态；storage event 同步其他同源页面，storage 不可用时仍可切换。第三方主题在初始化前通过 `registerTheme()` 注册，官方 ID 不可覆盖。
+`initializeTheme()` 默认在第一次 React render 前恢复 `virgo-design.theme-style.v1`，设置 HTML 的 `data-virgo-theme`。`setTheme()` 校验 ID、持久化、应用属性并通知订阅者。`subscribeTheme()` 可直接接入 `useSyncExternalStore`，Header 与 Settings 共用状态；storage event 同步其他同源页面，storage 不可用时仍可切换。第三方主题在初始化前通过 `registerTheme(preset, tokens)` 提交声明验证并注册，官方 ID 不可覆盖。`listThemes` 可枚举自定义主题，现有 app selectors 明确只展示官方 `themePresets`。
 
 Pro 通过 `initializeTheme({ defaultTheme, storage })` 接入共享 settings JSON：`theme`、`appearance` 与布局一起保存在 `virgo-pro:settings:v1`，默认值统一读取 `src/config/settings.json`。字段顺序为外观／主题、顶栏、侧栏、页面显示、交互。初始化迁移并删除旧的独立主题键，旧 ID `utility` 迁移为 `retro`，`bold` 与 `high-contrast` 均直接迁移为 `contrast`，Website 保存值与 Pro 已有 settings JSON 同样规范化并写回；旧 ID 仅用于读取迁移，新选择与 CSS scope 使用正式 ID。恢复默认设置同时恢复主题、外观和布局；重置演示数据清除保存记录、恢复实时主题并退出演示会话，待写入的旧状态不会重新覆盖默认值。
 
-主题 runtime 不管理 Light/Dark。Website 复用 AppearanceProvider，支持 light/dark/auto，沿用 `virgo-design-appearance`。Pro 复用原 settings 的 light/dark/system；System 即 Auto。两者继续设置现有 HTML `data-theme`，同时更新 color-scheme。
+普通 Theme 切换不改明暗偏好；显式 initial bootstrap/hydrate 才恢复 Theme 与 Appearance。Website 复用 AppearanceProvider，支持 light/dark/auto，沿用 `virgo-design-appearance`。Pro 复用原 settings 的 light/dark/system；System 即 Auto。两者继续设置现有 HTML `data-theme`，同时更新 color-scheme。
 
 公共浮层向 body Portal 转发来源最近 scope 的 `data-theme`、`data-virgo-theme` 和方向，并观察打开期间的属性变化；Dialog backdrop、Toast viewport 和 Cursor visual 同样遵守此约定。并排对照或任意局部 CSS 变量覆盖可继续通过 `PortalProvider` 将真实浮层放进对应容器。
 
 Portal 与 Floating 的环境读取/祖先监听共用内部 `portalEnvironment` 能力；pointer-follow Tooltip、Cursor visual 与 Follower 也复用它，同步 `data-theme / data-virgo-theme / dir`，局部属性移除后回退外层 scope。Option 的 hover/focus 与 selected 分别使用 `--vd-option-hover-background / foreground` 和 `--vd-option-selected-background / foreground`，selected 在 hover/focus 时保持其配色；Contrast 的选中态采用黑白反转，品牌色保留在 focus/link/accent。
 
-Theme Contract 审计增加 indicator、control/option、ColorPicker thumb、Cursor、Dock、固定列表格边缘、循环动效和 Charts presentation roles，并修复已有契约未被消费的路径。完整逐组件结论、正式新增变量和浏览器矩阵见 [Theme Contract 审计 Audit](../reviews/theme-contract-audit.md)。Contract 版本仍为 1，未执行 Token 架构重组。
+Theme Contract 审计增加 indicator、control/option、ColorPicker thumb、Cursor、Dock、固定列表格边缘、循环动效和 Charts presentation roles，并修复已有契约未被消费的路径。完整逐组件结论、正式新增变量和浏览器矩阵见 [Theme Contract 审计 Audit](../reviews/theme-contract-audit.md)。该审计时 Contract 版本为 1；当前架构收口保持 breaking major 1，统计与迁移见 [架构报告](../reviews/token-theme-architecture.md)。
 
 ## 应用消费
 
@@ -87,8 +92,12 @@ Charts 保持 Virgo API → ECharts engine。CSS compiler 读取语义变量，�
 
 底层浮层定位在面板短于箭头安全范围时保留请求的边缘对齐，不再为居中箭头重定位整个面板；因此 leftTop／left／leftBottom、rightTop／right／rightBottom 分别对应顶部、中心、底部对齐，所有主题遵循同一规则。箭头在该短边上保持居中，仍指向触发按钮内部。
 
-文字密集的 Select、Dropdown、Menu、Popover 和 picker 使用独立 popup 契约：88% 中性底色和 24px 模糊，遮蔽底层文字，同时保留微弱环境色。Dialog、Drawer 与大面积 Surface 继续使用清透材质。工作台窗口操作消费 `--vd-window-control-*` 契约，Glass 提供红黄实心圆点，悬停或键盘聚焦时显示符号；其他主题保留原有图标与共享交互。
+文字密集的 Select、Dropdown、Menu、Popover 和 picker 使用独立 popup 契约：88% 中性底色和 24px 模糊，遮蔽底层文字，同时保留微弱环境色。Dialog、Drawer 与大面积 Surface 继续使用清透材质。工作台窗口操作由 Pro 自有 `--pro-window-control-*` composition 表达，Glass 提供红黄实心圆点，悬停或键盘聚焦时显示符号；其他主题保留原有图标与共享交互。旧 `--vd-window-control-*` 仅留在独立兼容层，不属于当前正式 Theme Contract。
 
 Glass 材质使用中性白／黑半透明表面，强调色与材质分离。Surface 使用 2px 的轻模糊，浮层与 chrome 使用 4px 模糊；高光和 elevation 使用中性光影。材质统一使用 CSS backdrop blur，移除 SVG displacement filter，避免图表与条形内容出现竖向折射残影。图表与热力图 Tooltip 使用独立的 78% 中性表面和 8px 模糊；热力图不再叠加内部 Surface，Surface 只由材质层模糊一次。浏览器无 blur 支持或用户选择 reduced transparency 时使用不透明中性表面。
 
 这是 Web 的材质表达，不调用 Apple 原生 Liquid Glass API。实现参考 [Apple 最新平台说明](https://developer.apple.com/videos/play/wwdc2026/102/) 与 [Liquid Glass 光学原则](https://developer.apple.com/videos/play/wwdc2025/219/)。
+
+## 请求隔离与首屏恢复
+
+SSR 为每个请求创建 `createThemeRegistry` / `createThemeRuntime`，传递纯 `resolveTheme` state 与 `getThemeAttributes`，客户端稳定实例 hydrate 同一 snapshot。浏览器便捷 API 的状态只属于 Window；服务端便捷函数不会保留请求偏好。`getInitialThemeScript` 同步插在 charset 后、CSS/module 前，Website 与 Pro 共用 Vite hook，存储损坏/拒绝与 system 模式均有回归覆盖。详细示例见 Token 架构文档。

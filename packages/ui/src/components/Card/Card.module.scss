@@ -12,6 +12,7 @@
   --card-gap: var(--vd-spacing-12);
   --card-header-gap: var(--vd-spacing-2);
   --card-title-font-family: var(--vd-typography-ui-label-medium-font-family);
+  --card-title-letter-spacing: var(--vd-typography-ui-label-medium-letter-spacing, inherit);
   --card-title-font-size: var(--vd-typography-ui-label-medium-font-size);
   --card-title-font-weight: var(
     --vd-control-font-weight,
@@ -25,6 +26,7 @@
   --card-gap: var(--vd-spacing-16);
   --card-header-gap: var(--vd-spacing-4);
   --card-title-font-family: var(--vd-typography-ui-title-small-font-family);
+  --card-title-letter-spacing: var(--vd-typography-ui-title-small-letter-spacing, inherit);
   --card-title-font-size: var(--vd-typography-ui-title-small-font-size);
   --card-title-font-weight: var(--vd-typography-ui-title-small-font-weight);
   --card-title-line-height: var(--vd-typography-ui-title-small-line-height);
@@ -35,6 +37,7 @@
   --card-gap: var(--vd-spacing-20);
   --card-header-gap: var(--vd-spacing-6);
   --card-title-font-family: var(--vd-typography-ui-title-medium-font-family);
+  --card-title-letter-spacing: var(--vd-typography-ui-title-medium-letter-spacing, inherit);
   --card-title-font-size: var(--vd-typography-ui-title-medium-font-size);
   --card-title-font-weight: var(--vd-typography-ui-title-medium-font-weight);
   --card-title-line-height: var(--vd-typography-ui-title-medium-line-height);
@@ -65,6 +68,7 @@
   overflow-wrap: anywhere;
   color: var(--vd-text-primary);
   font-family: var(--card-title-font-family);
+  letter-spacing: var(--card-title-letter-spacing, inherit);
   font-size: var(--card-title-font-size);
   font-weight: var(--card-title-font-weight);
   line-height: var(--card-title-line-height);
@@ -75,6 +79,7 @@
   overflow-wrap: anywhere;
   color: var(--vd-text-secondary);
   font-family: var(--vd-typography-ui-body-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-body-medium-font-size);
   font-weight: var(--vd-typography-ui-body-medium-font-weight);
   line-height: var(--vd-typography-ui-body-medium-line-height);

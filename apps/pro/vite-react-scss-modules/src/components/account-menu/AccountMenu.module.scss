@@ -18,7 +18,7 @@
   }
 }
 .chevron {
-  transition: transform var(--vd-motion-duration-120, var(--vd-duration-120))
+  transition: transform var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 .name {

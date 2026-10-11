@@ -52,6 +52,40 @@ describe('CSS Style Bridge', () => {
   const themesCss = generateThemesCss();
   const stylesCss = generateStylesCss();
 
+  it('resets an inner theme typography recipe after an outer theme overrides it', () => {
+    const style = document.createElement('style');
+    style.textContent = `${semanticTypographyCss}
+      [data-virgo-theme='studio'] {
+        --vd-typography-ui-label-medium-font-family: monospace;
+        --vd-typography-ui-label-medium-letter-spacing: .2em;
+      }`;
+    const outer = document.createElement('section');
+    outer.dataset.virgoTheme = 'studio';
+    const inner = document.createElement('section');
+    inner.dataset.virgoTheme = 'virgo';
+    outer.append(inner);
+    document.head.append(style);
+    document.body.append(outer);
+    try {
+      expect(
+        getComputedStyle(outer).getPropertyValue('--vd-typography-ui-label-medium-font-family'),
+      ).toBe('monospace');
+      expect(
+        getComputedStyle(inner).getPropertyValue('--vd-typography-ui-label-medium-font-family'),
+      ).toBe('var(--vd-font-family-sans)');
+      // jsdom does not implement the guaranteed-invalid initial value for custom
+      // properties. Verify the reset declaration here; browser regression checks
+      // the actual var() fallback and ordinary tracking inheritance.
+      const reset = style.sheet!.cssRules[0] as CSSStyleRule;
+      expect(reset.style.getPropertyValue('--vd-typography-ui-label-medium-letter-spacing')).toBe(
+        'initial',
+      );
+    } finally {
+      style.remove();
+      outer.remove();
+    }
+  });
+
   it('generates representative Foundation custom properties without an Opacity Foundation', () => {
     expect(foundationsCss).toContain('--vd-red-1:');
     expect(foundationsCss).toContain('--vd-font-family-sans:');
@@ -82,7 +116,7 @@ describe('CSS Style Bridge', () => {
   it('generates every official Semantic Typography role from the formal typography API', () => {
     const roles = typographyRoleNames(typography);
 
-    expect(roles).toHaveLength(24);
+    expect(roles).toHaveLength(26);
 
     for (const role of roles) {
       expect(semanticTypographyCss).toContain(`--vd-typography-${role}-font-family:`);

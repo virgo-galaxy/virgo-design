@@ -45,11 +45,11 @@
   transform: translateY(1px);
 
   transition:
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    border-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+    box-shadow var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
@@ -61,9 +61,9 @@
   opacity: 0;
   transform: scale(0.5);
   transition:
-    opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+    opacity var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    transform var(--vd-motion-duration-120, var(--vd-duration-120))
+    transform var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
@@ -91,6 +91,7 @@
 
 .label {
   font-family: var(--vd-typography-ui-body-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-body-medium-font-size);
   font-weight: var(--vd-typography-ui-body-medium-font-weight);
   line-height: var(--vd-typography-ui-body-medium-line-height);

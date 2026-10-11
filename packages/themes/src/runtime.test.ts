@@ -1,3 +1,4 @@
+import { getDefaultThemeTokens } from '@virgo-design/tokens';
 import { afterEach, beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
 
 import {
@@ -130,13 +131,16 @@ describe('theme runtime', () => {
       'retro',
       'contrast',
     ]);
-    registerTheme({
-      id: 'studio-test',
-      name: 'Studio',
-      descriptionKey: 'studio',
-      contractVersion: 1,
-      appearances: ['light', 'dark'],
-    });
+    registerTheme(
+      {
+        id: 'studio-test',
+        name: 'Studio',
+        descriptionKey: 'studio',
+        contractVersion: 1,
+        appearances: ['light', 'dark'],
+      },
+      getDefaultThemeTokens(),
+    );
     setTheme('studio-test');
     expect(getThemePreset(getTheme())?.name).toBe('Studio');
     expect(() => registerTheme(themePresets[0])).toThrow('already registered');

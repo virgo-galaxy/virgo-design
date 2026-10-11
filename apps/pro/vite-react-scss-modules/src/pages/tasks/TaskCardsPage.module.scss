@@ -38,9 +38,9 @@
   gap: 12px;
   min-width: 0;
   transition:
-    transform var(--vd-motion-duration-180, var(--vd-duration-180))
+    transform var(--vd-motion-state-duration, var(--vd-duration-180))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    box-shadow var(--vd-motion-duration-180, var(--vd-duration-180))
+    box-shadow var(--vd-motion-state-duration, var(--vd-duration-180))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
   &:is(:hover, :focus-within) {
     transform: translateY(-2px);

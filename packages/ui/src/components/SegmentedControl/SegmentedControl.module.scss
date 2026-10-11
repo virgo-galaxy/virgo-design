@@ -7,6 +7,7 @@
   --segmented-indicator-x: 0px;
   --segmented-indicator-width: 0px;
   --segmented-font-family: var(--vd-typography-ui-label-medium-font-family);
+  --segmented-letter-spacing: var(--vd-typography-ui-label-medium-letter-spacing, inherit);
   --segmented-font-size: #{control-size.token(medium, font-size)};
   --segmented-font-weight: var(
     --vd-control-font-weight,
@@ -43,19 +44,19 @@
 
 .root[data-motion='slide'] .indicator {
   transition:
-    left var(--vd-motion-duration-180, var(--vd-duration-180))
+    left var(--vd-motion-state-duration, var(--vd-duration-180))
       var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized)),
-    width var(--vd-motion-duration-180, var(--vd-duration-180))
+    width var(--vd-motion-state-duration, var(--vd-duration-180))
       var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized)),
-    border-radius var(--vd-motion-duration-180, var(--vd-duration-180))
+    border-radius var(--vd-motion-state-duration, var(--vd-duration-180))
       var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized)),
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    border-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+    box-shadow var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
@@ -74,13 +75,13 @@
   user-select: none;
 
   transition:
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    border-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+    box-shadow var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
@@ -97,7 +98,7 @@
 
 .item::before {
   z-index: 0;
-  transition: background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+  transition: background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
@@ -121,6 +122,7 @@
   z-index: 3;
   overflow: hidden;
   font-family: var(--segmented-font-family);
+  letter-spacing: var(--segmented-letter-spacing, inherit);
   font-size: var(--segmented-font-size);
   font-weight: var(--segmented-font-weight);
   line-height: var(--segmented-line-height);
@@ -134,6 +136,7 @@
   --segmented-item-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   --segmented-padding-inline: #{control-size.token(mini, padding-inline)};
   --segmented-font-family: var(--vd-typography-ui-label-small-font-family);
+  --segmented-letter-spacing: var(--vd-typography-ui-label-small-letter-spacing, inherit);
   --segmented-font-size: #{control-size.token(mini, font-size)};
   --segmented-font-weight: var(
     --vd-control-font-weight,
@@ -148,6 +151,7 @@
   --segmented-item-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   --segmented-padding-inline: #{control-size.token(small, padding-inline)};
   --segmented-font-family: var(--vd-typography-ui-label-small-font-family);
+  --segmented-letter-spacing: var(--vd-typography-ui-label-small-letter-spacing, inherit);
   --segmented-font-size: #{control-size.token(small, font-size)};
   --segmented-font-weight: var(
     --vd-control-font-weight,

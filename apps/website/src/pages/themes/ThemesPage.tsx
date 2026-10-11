@@ -25,25 +25,24 @@ import { getTheme, getServerTheme, setTheme, subscribeTheme }
 const theme = useSyncExternalStore(subscribeTheme, getTheme, getServerTheme);
 // Header, Settings and other controls share this state.
 setTheme('glass');`;
-const customCode = `import { registerTheme, initializeTheme } from '@virgo-design/themes';
-import './studio-theme.css'; // after official CSS
+const customCode = `import { getDefaultThemeTokens, validateThemeContract } from '@virgo-design/tokens';
+import { getThemeCss, registerTheme, initializeTheme, listThemes } from '@virgo-design/themes';
 
+const defaults = getDefaultThemeTokens();
+const tokens = {
+  light: { ...defaults.light, '--vd-brand-primary': '#2252ad' },
+  dark: { ...defaults.dark, '--vd-brand-primary': '#9dbfff',
+    '--vd-brand-foreground': '#10203a' },
+};
+validateThemeContract({ contractVersion: 1, tokens });
+// Build studio-theme.css from getThemeCss('studio', tokens), then import it.
 registerTheme({
   id: 'studio', name: 'Studio', descriptionKey: 'studio',
   contractVersion: 1, appearances: ['light', 'dark'],
-});
+}, tokens);
 initializeTheme();
-
-/* studio-theme.css */
-[data-virgo-theme='studio'] {
-  --vd-control-medium-radius: 10px;
-  --vd-theme-light-brand-primary: #2252ad;
-  --vd-theme-light-brand-foreground: #ffffff;
-  --vd-theme-dark-brand-primary: #9dbfff;
-  --vd-theme-dark-brand-foreground: #10203a;
-}
-/* Complete hover, active, focus, disabled, overlays and chart roles,
-   then audit the same components in both appearances. */`;
+listThemes(); // official + registered themes; themePresets stays official-only
+// Local scopes carry data-virgo-theme and data-theme together.`;
 
 export function ThemesPage() {
   const { t } = useTranslation();

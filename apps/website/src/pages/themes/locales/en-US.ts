@@ -23,7 +23,7 @@ export const themesEnUS = {
     description:
       'Load Tokens first, official theme CSS next and component styles. Initialize the framework-neutral runtime before rendering.',
     persistence:
-      'The runtime writes data-virgo-theme on html and saves the choice under virgo-design.theme-style.v1. Header and Settings share one subscription; other tabs synchronize through storage events. Blocked storage leaves in-memory switching available. The runtime never changes data-theme or the appearance preference.',
+      'The runtime writes data-virgo-theme on html and saves the choice under virgo-design.theme-style.v1. Header and Settings share one subscription; other tabs synchronize through storage events. Blocked storage leaves in-memory switching available. Ordinary theme switching keeps the appearance preference. For SSR, create a registry/runtime per request and hydrate the same resolved state; install the synchronous head bootstrap before CSS for saved preferences.',
   },
   registry: {
     title: 'Theme Registry',
@@ -48,9 +48,9 @@ export const themesEnUS = {
   authoring: {
     title: 'Create a third-party theme',
     description:
-      'Implement CSS variables and register metadata. Reuse every existing component and business layout.',
+      'Validate light/dark declarations, generate scoped CSS and register metadata with the same tokens. Reuse existing components and business layouts.',
     contract:
-      'Import themeContract and THEME_CONTRACT_VERSION from Tokens for the public presentation surface. Semantic color and elevation overrides use --vd-theme-light-* and --vd-theme-dark-*. Controls, shape, motion, overlays, navigation, tables, chrome and charts use their --vd-* presentation roles. Existing public component CSS variables still allow deliberate per-instance customization.',
+      'Use themeContractRoles and THEME_CONTRACT_VERSION from Tokens for the current public contract. Semantic color and elevation overrides use --vd-theme-light-* and --vd-theme-dark-*. Controls, shape, motion, overlays, navigation, tables and charts use their --vd-* presentation roles. Existing public component CSS variables still allow deliberate per-instance customization.',
     scopes:
       'A local data-virgo-theme scope resets presentation overrides to Virgo defaults; data-theme chooses its appearance. Use the public PortalProvider when rendering independent comparison scopes, so local Dialogs and tooltips inherit their own recipe. Normal applications inherit from html, including body portals.',
     audit:

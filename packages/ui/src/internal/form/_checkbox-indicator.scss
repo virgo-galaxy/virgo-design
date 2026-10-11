@@ -27,11 +27,11 @@
   background: var(--checkbox-background);
   transform: translateY(1px);
   transition:
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    border-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+    box-shadow var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   @media (prefers-reduced-motion: reduce) {
@@ -48,7 +48,7 @@
   opacity: 0;
   // Keep a short visible start so a newly checked box never has an empty blue frame.
   clip-path: inset(0 70% 0 0);
-  transition: clip-path var(--vd-motion-duration-240, var(--vd-duration-240))
+  transition: clip-path var(--vd-motion-collapse-duration, var(--vd-duration-240))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   @media (prefers-reduced-motion: reduce) {

@@ -5,12 +5,12 @@
   z-index: panel.$layer;
   inset: var(--vd-spacing-0);
   background: var(--vd-surface-overlay);
-  animation: drawer-overlay-enter var(--vd-motion-duration-180, var(--vd-duration-180))
+  animation: drawer-overlay-enter var(--vd-motion-state-duration, var(--vd-duration-180))
     var(--vd-motion-easing-standard, var(--vd-easing-standard)) both;
 }
 
 .overlay[data-state='closed'] {
-  animation: drawer-overlay-exit var(--vd-motion-duration-120, var(--vd-duration-120))
+  animation: drawer-overlay-exit var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-exit, var(--vd-easing-accelerate)) both;
 }
 
@@ -24,6 +24,7 @@
   --drawer-section-padding: var(--vd-spacing-24);
   --drawer-section-gap: var(--vd-spacing-16);
   --drawer-title-font-family: var(--vd-typography-ui-title-medium-font-family);
+  --drawer-title-letter-spacing: var(--vd-typography-ui-title-medium-letter-spacing, inherit);
   --drawer-title-font-size: var(--vd-typography-ui-title-medium-font-size);
   --drawer-title-font-weight: var(--vd-typography-ui-title-medium-font-weight);
   --drawer-title-line-height: var(--vd-typography-ui-title-medium-line-height);
@@ -35,7 +36,7 @@
   border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
   box-shadow:
     var(--vd-panel-shadow, var(--vd-elevation-4)), var(--vd-panel-highlight, 0 0 0 transparent);
-  animation-duration: var(--vd-motion-duration-240, var(--vd-duration-240));
+  animation-duration: var(--vd-motion-collapse-duration, var(--vd-duration-240));
   animation-timing-function: var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized));
   animation-fill-mode: both;
 
@@ -51,6 +52,7 @@
   --drawer-section-padding: var(--vd-spacing-16);
   --drawer-section-gap: var(--vd-spacing-12);
   --drawer-title-font-family: var(--vd-typography-ui-title-small-font-family);
+  --drawer-title-letter-spacing: var(--vd-typography-ui-title-small-letter-spacing, inherit);
   --drawer-title-font-size: var(--vd-typography-ui-title-small-font-size);
   --drawer-title-font-weight: var(--vd-typography-ui-title-small-font-weight);
   --drawer-title-line-height: var(--vd-typography-ui-title-small-line-height);
@@ -61,6 +63,7 @@
   --drawer-section-padding: var(--vd-spacing-32);
   --drawer-section-gap: var(--vd-spacing-20);
   --drawer-title-font-family: var(--vd-typography-ui-title-large-font-family);
+  --drawer-title-letter-spacing: var(--vd-typography-ui-title-large-letter-spacing, inherit);
   --drawer-title-font-size: var(--vd-typography-ui-title-large-font-size);
   --drawer-title-font-weight: var(--vd-typography-ui-title-large-font-weight);
   --drawer-title-line-height: var(--vd-typography-ui-title-large-line-height);
@@ -138,6 +141,7 @@
   margin: var(--vd-spacing-0);
   color: var(--vd-text-primary);
   font-family: var(--drawer-title-font-family);
+  letter-spacing: var(--drawer-title-letter-spacing, inherit);
   font-size: var(--drawer-title-font-size);
   font-weight: var(--drawer-title-font-weight);
   line-height: var(--drawer-title-line-height);

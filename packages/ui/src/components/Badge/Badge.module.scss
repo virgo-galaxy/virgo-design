@@ -25,6 +25,7 @@
   color: var(--badge-foreground);
   background: var(--badge-background);
   font-family: var(--vd-typography-ui-label-small-font-family);
+  letter-spacing: var(--vd-typography-ui-label-small-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-label-small-font-size);
   font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-small-font-weight));
   line-height: var(--vd-typography-ui-label-small-line-height);
@@ -56,7 +57,7 @@
 }
 
 .indicator[data-dot][data-animation='breathe'] {
-  --badge-breathe-duration: var(--vd-motion-duration-breathe, 2800ms);
+  --badge-breathe-duration: var(--vd-motion-loop-duration, 2800ms);
   animation: badge-breathe var(--badge-breathe-duration) ease-in-out
     var(--vd-motion-loop-iterations, infinite);
 

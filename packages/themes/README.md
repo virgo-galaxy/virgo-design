@@ -1,146 +1,68 @@
 # Virgo Theme System
 
-`@virgo-design/themes` implements the public contract in `@virgo-design/tokens`.
-It depends only on Tokens. UI and Charts consume variables and never import a preset.
-
-```sh
-pnpm add @virgo-design/tokens @virgo-design/themes @virgo-design/ui
-```
+`@virgo-design/themes` implements the contract in `@virgo-design/tokens`. UI and Charts consume variables, independently of a preset. Official IDs are `virgo`, `minimal`, `soft`, `glass`, `retro`, `contrast`; all support Light/Dark.
 
 ```ts
 import '@virgo-design/tokens/styles.css';
-import '@virgo-design/themes/styles.css';
+import '@virgo-design/themes/styles.css'; // all six
+// Or import '@virgo-design/themes/virgo.css'; for Virgo alone.
 import '@virgo-design/ui/styles.css';
 import { initializeTheme, setTheme } from '@virgo-design/themes';
-
-initializeTheme(); // before rendering
+initializeTheme(); // before the SPA's first render
 setTheme('soft');
 ```
 
-Official `ThemeId`s are `virgo`, `minimal`, `soft`, `glass`, `retro`,
-`contrast`. The default is `virgo`. `themePresets` is an ordered immutable
-list; `themeRegistry` maps the IDs to `ThemePreset` metadata including contract
-version and `['light', 'dark']` appearances.
+The JS root is CSS-free and imports directly in Node/SSR. CSS exports include `styles.css` and all six single-theme `virgo.css/minimal.css/soft.css/glass.css/retro.css/contrast.css` files. A single file contains only that preset's scopes and contract-major-1 compatibility values.
 
-Contrast (`contrast`, Chinese: 高对比) emphasizes strong foreground/background
-separation, explicit boundaries and clear focus, selected and disabled states,
-with less reliance on shadows and subtle gray tones.
+## SPA runtime
 
-The runtime sets `html[data-virgo-theme]`, persists by default under
-`virgo-design.theme-style.v1`, synchronizes storage events between tabs, and
-continues in memory if storage is blocked. It never changes `data-theme`,
-`color-scheme`, or an appearance preference. Consumers retain their existing
-light/dark/auto state. Pro's existing name for auto is `system`.
+`getTheme/getServerTheme/subscribeTheme` work with React `useSyncExternalStore`. Each browser Window owns its runtime and registry; switching persists under `virgo-design.theme-style.v1`, synchronizes storage events, and works in memory if storage is denied. An external root `data-virgo-theme` change also synchronizes subscribed consumers. `initializeTheme({ defaultTheme, storage })` supports an existing versioned settings record through the `ThemeStorage` codec. Theme switching leaves Appearance in the consumer's existing state.
 
-`initializeTheme({ defaultTheme, storage })` accepts a `ThemeStorage` codec with
-`key`, `parse(raw)` and `serialize(id, raw)` to store a theme inside an existing
-settings record. Pro uses this to persist `theme` with appearance and layout in
-`virgo-pro:settings:v1`, with defaults from `src/config/settings.json`. It migrates
-and removes the former standalone theme key. Saved `utility` migrates to `retro`;
-`bold` and `high-contrast` both migrate directly to `contrast`, including existing
-Website preferences and Pro settings JSON. Initialization writes canonical IDs back
-to storage. New selections and CSS scopes use only current IDs. Restoring Pro
-settings restores the configured theme; resetting demo data also clears the saved
-record and restores the live theme before returning to login.
+## First paint and SSR
 
-```tsx
-import { useSyncExternalStore } from 'react';
-import { getTheme, getServerTheme, setTheme, subscribeTheme } from '@virgo-design/themes';
+`getInitialThemeScript(options)` provides a synchronous head bootstrap. Place it after charset and before styles/application modules, with your CSP nonce. It restores Theme + Appearance, supports independent keys or a versioned JSON record, recognizes auto/system and saved-value migrations, and sets color-scheme before rendering. Website and Golden Pro use the same Vite integration.
 
-const theme = useSyncExternalStore(subscribeTheme, getTheme, getServerTheme);
-```
+For SSR, use a request-owned `createThemeRegistry()` and `createThemeRuntime({ registry, initialTheme })`. The factory does not access browser state unless you pass `window`. `resolveTheme()` is pure; `getThemeAttributes()` supplies both scope attributes. Render the server preference, pass that state to the client, and `hydrateTheme(state)` on a stable client instance. Its `getServerTheme()` remains the hydration snapshot after later switches. If cookies are authoritative, bootstrap can use `respectServerAttributes: true`.
 
-For SSR, `getServerTheme` returns the configured default (Virgo unless specified). Render the preference in the initial
-HTML and initialize before hydration if avoiding a first-paint difference is
-required. This package does not invent a server-side preference source.
+The SPA convenience functions do not store mutable server preferences. Server `getTheme/getServerTheme` return Virgo; server `initializeTheme` returns only that call's result. Server `setTheme/registerTheme` require a request instance. Never use them as a Next.js request store.
 
-## Presentation contract
-
-Foundation scales stay immutable. `themeContract` and
-`THEME_CONTRACT_VERSION` in Tokens describe the presentation surface:
-
-- `--vd-theme-light-*` / `--vd-theme-dark-*`: all semantic color and elevation
-  roles, including status and categorical chart colors. The existing Tokens CSS
-  resolves the appropriate set on every `data-theme` appearance scope. Virgo
-  values are retained as exact fallbacks.
-- `--vd-shape-radius-*`, `--vd-control-{mini,small,medium,large}-*`: shape and
-  control geometry; foundation radius and spacing specimens remain accurate.
-- `--vd-stroke-width`, `--vd-focus-*`, `--vd-control-*`, `--vd-action-*`,
-  `--vd-disabled-*`: borders, focus, elevation and pressed/disabled presentation.
-- `--vd-panel-*`, `--vd-overlay-*`, `--vd-tooltip-*`, `--vd-surface-*`,
-  `--vd-glass-*`: ordinary and translucent surfaces, overlays and highlights.
-- `--vd-navigation-selected-*`, `--vd-table-*`: hierarchy and selected states.
-- `--vd-motion-*`: duration and easing, still respecting reduced motion.
-- `--vd-chart-*`: grid, axes, tooltip, legend, series and interaction geometry.
-- `--vd-tag-*`, `--vd-select-tag-radius`: shared tag borders, material, shadows
-  and geometry for standalone tags and removable selected values. Business pages
-  choose semantic intents, including `accent`, without repainting these surfaces.
-- `--vd-page-background`, `--vd-chrome-*`: consumer shell presentation, without
-  controlling route structure, layout, sidebar dimensions or business behavior.
-
-Each `data-virgo-theme` scope resets optional overrides. An `initial` value means
-the component's Virgo fallback applies. A preset only supplies variable values;
-its stylesheet has no component-class or business-page selectors. Public
-per-component variables and inline styles remain available for deliberate
-instance customization.
-
-## Third-party CSS
+## Third-party themes
 
 ```ts
-import './studio.css'; // after official styles
-import { registerTheme, initializeTheme } from '@virgo-design/themes';
-
-registerTheme({
-  id: 'studio',
-  name: 'Studio',
-  descriptionKey: 'studio',
-  contractVersion: 1,
-  appearances: ['light', 'dark'],
-});
-initializeTheme(); // register before restoring a saved custom preference
+import { getDefaultThemeTokens, validateThemeContract } from '@virgo-design/tokens';
+import { getThemeCss, registerTheme, listThemes } from '@virgo-design/themes';
+const base = getDefaultThemeTokens();
+const tokens = {
+  light: { ...base.light, '--vd-brand-primary': '#2252ad' },
+  dark: { ...base.dark, '--vd-brand-primary': '#9dbfff', '--vd-brand-foreground': '#10203a' },
+};
+const result = validateThemeContract({ contractVersion: 1, tokens });
+// Build/import studio.css from getThemeCss('studio', tokens).
+registerTheme(
+  {
+    id: 'studio',
+    name: 'Studio',
+    descriptionKey: 'studio',
+    contractVersion: 1,
+    appearances: ['light', 'dark'],
+  },
+  tokens,
+);
+listThemes(); // official + registered
 ```
 
-```css
-[data-virgo-theme='studio'] {
-  --vd-control-medium-radius: 10px;
-  --vd-theme-light-brand-primary: #2252ad;
-  --vd-theme-light-brand-foreground: #fff;
-  --vd-theme-dark-brand-primary: #9dbfff;
-  --vd-theme-dark-brand-foreground: #10203a;
-}
-```
+On the server, call these methods on your request registry. Registration validates actual declarations: version, required omissions, unknown/deprecated roles, invalid values and CSS alias cycles. All 94 semantic colors and 6 elevation values are required in both appearances; presentation/typography have optional fallbacks. `getDefaultThemeTokens` is an explicit author choice, not automatic registry filling. Metadata-only registration now reports missing roles.
 
-Complete hover, active, focus, disabled, status, surface and chart roles in both
-appearances. Official IDs and legacy migration IDs cannot be replaced. Theme installation does not alter
-component APIs or copy component implementations.
+Official and migration IDs are reserved; duplicate IDs throw. `themePresets/themeRegistry` remain immutable official-only data. Existing Website/Pro selectors intentionally list those six; custom selectors use `listThemes` and own their labels/translations. Registration does not install CSS.
 
-## Audit
+Local scopes carry **both** `data-virgo-theme` and `data-theme`; use `getThemeAttributes`. Portals propagate Theme/Appearance/direction, including pointer-follow paths and live ancestor changes. `PortalProvider` handles arbitrary local CSS variable overrides by placing the real portal in that container.
 
-Website `/themes` supplies one live specimen composition in six isolated scopes,
-including actual Dialog and Tooltip portals through the public `PortalProvider`.
-Normal applications put the theme on HTML so body portals inherit it directly.
-Inspect both appearances, focus, selection, disabled controls, keyboard behavior,
-reduced motion, narrow layouts and live ECharts updates. Explicit per-instance
-colors and branded/media artwork remain consumer-owned.
+## Contract and compatibility
 
-Reference directions: [Vercel neutral color system](https://vercel.com/geist/colors),
-[Apple Liquid Glass](https://developer.apple.com/documentation/technologyoverviews/liquid-glass),
-and [Windows contrast themes](https://learn.microsoft.com/en-us/windows/apps/design/accessibility/high-contrast-themes).
-The presets express these broad visual directions within Virgo's existing layout.
+`THEME_CONTRACT_VERSION` is a breaking CSS-contract major. Optional additions do not increase it. `tokenCatalog/themeContractRoles` describe current layers/required/fallback; `themeContract` retains major-1 compatibility keys. Foundation scales stay stable, while Semantic/Component roles express visual differences. Runtime behavior changes and the CSS-free JS root require package migration notes independently of the CSS major.
 
-### Glass material
+The complete ownership rules, typography, density, motion, Chart presentation, SSR and multi-stack examples are in [Token architecture](../../docs/architecture/token-system.md). Saved ID and deprecated role rules are separate in [Compatibility policy](../../docs/architecture/theme-compatibility.md). Verification and counts are in [Architecture report](../../docs/reviews/token-theme-architecture.md).
 
-Text-dense popups use a separate neutral material: 88% coverage and 24px blur,
-so underlying form labels do not interfere with menu options. Cards and large
-surfaces retain their clear glass recipe. Window controls consume semantic
-presentation variables for filled red/yellow dots and hover/focus symbols.
+## Glass material
 
-Glass uses neutral translucent white/black; blue is reserved for accent and
-interactive states. Material uses CSS backdrop blur without SVG displacement.
-Each glass Surface applies the blur only on its material layer. Chart tooltips
-use their own 78% coverage and 8px blur, independent of the surrounding panel;
-`--vd-chart-tooltip-backdrop-filter` controls that single layer. No-blur and
-reduced-transparency modes use opaque neutral surfaces.
-The website comparison includes identical artwork under each Surface so the
-material can be inspected directly. This is a Web implementation inspired by
-[Apple's latest Liquid Glass refinements](https://developer.apple.com/videos/play/wwdc2026/102/).
+Glass's dense popups use 88% neutral coverage / 24px blur; cards retain the larger-surface recipe. Chart tooltips use separate 78% coverage / 8px blur. Each surface applies blur to its own material layer; no-blur/reduced-transparency modes use opaque neutral surfaces. Window controls are a Pro widget composition, not a public Theme role. Contrast retains black/white option selection and explicit focus/boundaries.

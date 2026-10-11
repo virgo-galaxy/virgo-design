@@ -122,7 +122,13 @@ export const tokensEnUS = {
       title: 'Document and UI semantic typography',
       description:
         'Formal Document and UI roles reference Typography Foundation values without duplicating the Foundation scale.',
+      code: {
+        title: 'Code Typography',
+        description:
+          'Mono roles for code body and captions; letter spacing inherits unless specified.',
+      },
       columns: {
+        letterSpacing: 'Letter Spacing',
         role: 'Semantic Token',
         fontFamily: 'Font Family',
         fontSize: 'Font Size',

@@ -38,9 +38,9 @@
   opacity: var(--dock-chrome-opacity);
   pointer-events: none;
   transition:
-    opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+    opacity var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+    box-shadow var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
@@ -139,15 +139,15 @@
   appearance: none;
   transform: scale(var(--dock-handle-scale));
   transition:
-    opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+    opacity var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    transform var(--vd-motion-duration-120, var(--vd-duration-120))
+    transform var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    border-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not(:disabled) {
@@ -217,7 +217,7 @@
   gap: var(--vd-spacing-4);
   opacity: var(--dock-chrome-opacity);
   pointer-events: var(--dock-controls-pointer-events);
-  transition: opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+  transition: opacity var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 

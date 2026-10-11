@@ -99,7 +99,7 @@
   min-width: 0;
   min-height: 0;
   flex: 0 0 auto;
-  transition: width var(--vd-motion-duration-180, var(--vd-duration-180))
+  transition: width var(--vd-motion-state-duration, var(--vd-duration-180))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
@@ -177,9 +177,9 @@
   content: '';
   transform: translateX(-50%);
   transition:
-    width var(--vd-motion-duration-120, var(--vd-duration-120))
+    width var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
@@ -211,11 +211,11 @@
   background: var(--vd-surface-elevated);
   box-shadow: var(--vd-elevation-1);
   transition:
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    border-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not(:disabled) {
@@ -265,7 +265,7 @@
   );
   pointer-events: none;
   content: '';
-  transition: border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+  transition: border-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
@@ -335,9 +335,9 @@
   content: '';
   transform: translateX(-50%);
   transition:
-    width var(--vd-motion-duration-120, var(--vd-duration-120))
+    width var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 

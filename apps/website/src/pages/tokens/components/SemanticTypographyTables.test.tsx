@@ -12,6 +12,12 @@ describe('SemanticTypographyTables', () => {
 
     const documentTable = screen.getByRole('table', { name: 'Document Typography' });
     const uiTable = screen.getByRole('table', { name: 'UI Typography' });
+    const codeTable = screen.getByRole('table', { name: 'Code Typography' });
+    expect(within(codeTable).getAllByRole('row')).toHaveLength(3);
+    expect(within(codeTable).getByText('code.body').closest('tr')?.textContent).toContain(
+      'JetBrains Mono',
+    );
+    expect(within(codeTable).getByRole('columnheader', { name: 'Letter Spacing' })).toBeTruthy();
 
     expect(within(documentTable).getAllByRole('row')).toHaveLength(13);
     expect(within(uiTable).getAllByRole('row')).toHaveLength(13);

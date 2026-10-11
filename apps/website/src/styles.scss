@@ -1,9 +1,10 @@
+@use './styles/theme-composition';
 :root {
-  --app-page: var(--vd-page-background, #f4f5f7);
+  --app-page: var(--website-page-background, #f4f5f7);
 
   font-family: var(--app-font-family);
 
-  color: var(--vd-chrome-foreground, #15191f);
+  color: var(--vd-shell-foreground, #15191f);
   background: var(--app-page);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -66,7 +67,7 @@ html {
 }
 
 html[data-theme='dark'] {
-  --app-page: var(--vd-page-background, #090a0c);
+  --app-page: var(--website-page-background, #090a0c);
 
   color-scheme: dark;
 }

@@ -1,6 +1,7 @@
 .root {
   color: var(--vd-text-primary);
   font-family: var(--vd-typography-ui-body-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-body-medium-font-size);
   font-weight: var(--vd-typography-ui-body-medium-font-weight);
   line-height: var(--vd-typography-ui-body-medium-line-height);
@@ -44,7 +45,7 @@
   color: var(--vd-text-secondary);
   text-decoration: none;
 
-  transition: color var(--vd-motion-duration-120, var(--vd-duration-120))
+  transition: color var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 

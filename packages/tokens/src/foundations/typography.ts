@@ -118,3 +118,6 @@ export type SansLocale = keyof typeof sansLocaleMapping;
 export type FontSizeToken = keyof typeof fontSize;
 export type FontWeightToken = keyof typeof fontWeight;
 export type LineHeightToken = keyof typeof lineHeight;
+
+export const letterSpacing = { normal: 'normal', tight: '-0.02em', wide: '0.02em' } as const;
+export type LetterSpacingToken = keyof typeof letterSpacing;

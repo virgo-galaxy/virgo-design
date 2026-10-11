@@ -33,7 +33,7 @@
     );
   }
   .table[data-hoverable='true'] tbody > tr[data-task-id] {
-    transition: box-shadow var(--vd-motion-duration-180, var(--vd-duration-180))
+    transition: box-shadow var(--vd-motion-state-duration, var(--vd-duration-180))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
     &:is(:hover, :focus-within) {
       box-shadow: var(

@@ -24,7 +24,7 @@ export const themesZhCN = {
     description:
       '先加载 Tokens，再加载官方主题 CSS 和组件样式；在首次渲染前初始化与框架无关的运行时。',
     persistence:
-      '运行时在 html 设置 data-virgo-theme，并将选择保存在 virgo-design.theme-style.v1。顶栏与 Settings 共用订阅，其他标签页通过 storage 事件同步。存储不可用时仍可在当前页面切换。运行时不会修改 data-theme 或明暗偏好。',
+      '运行时在 html 设置 data-virgo-theme，并将选择保存在 virgo-design.theme-style.v1。顶栏与 Settings 共用订阅，其他标签页通过 storage 事件同步。存储不可用时仍可在当前页面切换。普通主题切换保留明暗偏好。SSR 为每个请求创建 registry/runtime，并 hydrate 同一个解析结果；保存偏好通过 CSS 前的同步 head bootstrap 恢复。',
   },
   registry: {
     title: '主题注册表',
@@ -44,9 +44,10 @@ export const themesZhCN = {
   },
   authoring: {
     title: '创建第三方主题',
-    description: '实现 CSS 变量并注册元数据，复用已有组件和业务布局。',
+    description:
+      '验证 Light/Dark 声明、生成作用域 CSS，并用同一组 token 注册元数据，复用已有组件和业务布局。',
     contract:
-      '从 Tokens 导入 themeContract 和 THEME_CONTRACT_VERSION 查看公开视觉契约。语义颜色与阴影通过 --vd-theme-light-* 和 --vd-theme-dark-* 覆盖；控件、形状、动效、浮层、导航、表格、界面框架与图表使用对应的 --vd-* 视觉角色。已有公共组件变量仍可用于明确的单实例定制。',
+      '从 Tokens 导入 themeContractRoles 和 THEME_CONTRACT_VERSION 查看当前正式契约。语义颜色与阴影通过 --vd-theme-light-* 和 --vd-theme-dark-* 覆盖；控件、形状、动效、浮层、导航、表格与图表使用对应的 --vd-* 视觉角色。已有公共组件变量仍可用于明确的单实例定制。',
     scopes:
       '局部 data-virgo-theme 作用域将视觉覆盖重置为 Virgo 默认值，data-theme 指定明暗外观。独立主题对照使用公共 PortalProvider，让 Dialog 与 Tooltip 继承各自的作用域；普通应用的 body 浮层直接继承 html。',
     audit:

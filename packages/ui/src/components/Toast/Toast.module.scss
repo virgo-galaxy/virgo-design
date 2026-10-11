@@ -49,12 +49,12 @@
   box-shadow:
     var(--vd-panel-shadow, var(--vd-elevation-3)), var(--vd-panel-highlight, 0 0 0 transparent);
   pointer-events: auto;
-  animation: toast-enter var(--vd-motion-duration-180, var(--vd-duration-180))
+  animation: toast-enter var(--vd-motion-state-duration, var(--vd-duration-180))
     var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized)) both;
 }
 
 .root[data-state='closed'] {
-  animation: toast-exit var(--vd-motion-duration-120, var(--vd-duration-120))
+  animation: toast-exit var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard)) both;
 }
 
@@ -131,6 +131,7 @@
   grid-column: 1;
   color: var(--vd-text-primary);
   font-family: var(--vd-typography-ui-label-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-label-medium-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-label-medium-font-size);
   font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
   line-height: var(--vd-typography-ui-label-medium-line-height);

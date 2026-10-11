@@ -12,7 +12,7 @@
   text-align: start;
   white-space: nowrap;
   cursor: pointer;
-  transition: color var(--vd-motion-duration-120, var(--vd-duration-120))
+  transition: color var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
   > span:last-child {
     min-width: 0;

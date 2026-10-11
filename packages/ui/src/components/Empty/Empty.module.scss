@@ -17,6 +17,7 @@
   --empty-gap: var(--vd-spacing-6);
   --empty-icon-size: var(--vd-sizing-28);
   --empty-title-font-family: var(--vd-typography-ui-label-medium-font-family);
+  --empty-title-letter-spacing: var(--vd-typography-ui-label-medium-letter-spacing, inherit);
   --empty-title-font-size: var(--vd-typography-ui-label-medium-font-size);
   --empty-title-font-weight: var(
     --vd-control-font-weight,
@@ -24,6 +25,7 @@
   );
   --empty-title-line-height: var(--vd-typography-ui-label-medium-line-height);
   --empty-description-font-family: var(--vd-typography-ui-body-small-font-family);
+  --empty-description-letter-spacing: var(--vd-typography-ui-body-small-letter-spacing, inherit);
   --empty-description-font-size: var(--vd-typography-ui-body-small-font-size);
   --empty-description-font-weight: var(--vd-typography-ui-body-small-font-weight);
   --empty-description-line-height: var(--vd-typography-ui-body-small-line-height);
@@ -34,10 +36,12 @@
   --empty-gap: var(--vd-spacing-8);
   --empty-icon-size: var(--vd-sizing-40);
   --empty-title-font-family: var(--vd-typography-ui-title-small-font-family);
+  --empty-title-letter-spacing: var(--vd-typography-ui-title-small-letter-spacing, inherit);
   --empty-title-font-size: var(--vd-typography-ui-title-small-font-size);
   --empty-title-font-weight: var(--vd-typography-ui-title-small-font-weight);
   --empty-title-line-height: var(--vd-typography-ui-title-small-line-height);
   --empty-description-font-family: var(--vd-typography-ui-body-medium-font-family);
+  --empty-description-letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   --empty-description-font-size: var(--vd-typography-ui-body-medium-font-size);
   --empty-description-font-weight: var(--vd-typography-ui-body-medium-font-weight);
   --empty-description-line-height: var(--vd-typography-ui-body-medium-line-height);
@@ -48,10 +52,12 @@
   --empty-gap: var(--vd-spacing-12);
   --empty-icon-size: var(--vd-sizing-56);
   --empty-title-font-family: var(--vd-typography-ui-title-medium-font-family);
+  --empty-title-letter-spacing: var(--vd-typography-ui-title-medium-letter-spacing, inherit);
   --empty-title-font-size: var(--vd-typography-ui-title-medium-font-size);
   --empty-title-font-weight: var(--vd-typography-ui-title-medium-font-weight);
   --empty-title-line-height: var(--vd-typography-ui-title-medium-line-height);
   --empty-description-font-family: var(--vd-typography-ui-body-large-font-family);
+  --empty-description-letter-spacing: var(--vd-typography-ui-body-large-letter-spacing, inherit);
   --empty-description-font-size: var(--vd-typography-ui-body-large-font-size);
   --empty-description-font-weight: var(--vd-typography-ui-body-large-font-weight);
   --empty-description-line-height: var(--vd-typography-ui-body-large-line-height);
@@ -74,6 +80,7 @@
   margin: var(--vd-spacing-0);
   overflow-wrap: anywhere;
   font-family: var(--empty-title-font-family);
+  letter-spacing: var(--empty-title-letter-spacing, inherit);
   font-size: var(--empty-title-font-size);
   font-weight: var(--empty-title-font-weight);
   line-height: var(--empty-title-line-height);
@@ -85,6 +92,7 @@
   overflow-wrap: anywhere;
   color: var(--vd-text-secondary);
   font-family: var(--empty-description-font-family);
+  letter-spacing: var(--empty-description-letter-spacing, inherit);
   font-size: var(--empty-description-font-size);
   font-weight: var(--empty-description-font-weight);
   line-height: var(--empty-description-line-height);

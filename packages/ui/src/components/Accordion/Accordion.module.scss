@@ -7,6 +7,7 @@
   --accordion-radius: #{control-size.token(medium, radius)};
   --accordion-icon-size: #{control-size.token(medium, icon-size)};
   --accordion-font-family: var(--vd-typography-ui-body-medium-font-family);
+  --accordion-letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   --accordion-font-size: #{control-size.token(medium, font-size)};
   --accordion-font-weight: var(--vd-typography-ui-body-medium-font-weight);
   --accordion-line-height: var(--vd-typography-ui-body-medium-line-height);
@@ -26,6 +27,7 @@
   --accordion-radius: #{control-size.token(small, radius)};
   --accordion-icon-size: #{control-size.token(small, icon-size)};
   --accordion-font-family: var(--vd-typography-ui-body-small-font-family);
+  --accordion-letter-spacing: var(--vd-typography-ui-body-small-letter-spacing, inherit);
   --accordion-font-size: #{control-size.token(small, font-size)};
   --accordion-font-weight: var(--vd-typography-ui-body-small-font-weight);
   --accordion-line-height: var(--vd-typography-ui-body-small-line-height);
@@ -39,6 +41,7 @@
   --accordion-radius: #{control-size.token(large, radius)};
   --accordion-icon-size: #{control-size.token(large, icon-size)};
   --accordion-font-family: var(--vd-typography-ui-body-large-font-family);
+  --accordion-letter-spacing: var(--vd-typography-ui-body-large-letter-spacing, inherit);
   --accordion-font-size: #{control-size.token(large, font-size)};
   --accordion-font-weight: var(--vd-typography-ui-body-large-font-weight);
   --accordion-line-height: var(--vd-typography-ui-body-large-line-height);
@@ -84,17 +87,18 @@
   appearance: none;
   cursor: pointer;
   font-family: var(--accordion-font-family);
+  letter-spacing: var(--accordion-letter-spacing, inherit);
   font-size: var(--accordion-font-size);
   font-weight: var(--accordion-font-weight);
   line-height: var(--accordion-line-height);
   text-align: start;
 
   transition:
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+    box-shadow var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not(:disabled) {
@@ -129,7 +133,7 @@
   justify-content: center;
   color: var(--vd-icon-secondary);
   transform: rotate(0deg);
-  transition: transform var(--vd-motion-duration-120, var(--vd-duration-120))
+  transition: transform var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   > svg {
@@ -145,6 +149,7 @@
 .content {
   color: var(--vd-text-secondary);
   font-family: var(--accordion-font-family);
+  letter-spacing: var(--accordion-letter-spacing, inherit);
   font-size: var(--accordion-font-size);
   font-weight: var(--accordion-font-weight);
   line-height: var(--accordion-line-height);
@@ -156,7 +161,7 @@
 }
 
 .content[data-state='open'] .contentInner {
-  animation: accordion-content-enter var(--vd-motion-duration-120, var(--vd-duration-120))
+  animation: accordion-content-enter var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 

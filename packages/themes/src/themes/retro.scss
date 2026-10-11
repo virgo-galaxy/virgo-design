@@ -1,3 +1,4 @@
+@use '../../../tokens/dist/css/compatibility' as theme-aliases;
 @use './recipe';
 
 [data-virgo-theme='retro'] {
@@ -21,17 +22,6 @@
   --vd-tag-border-color: currentColor;
   --vd-tag-shadow: var(--vd-action-shadow);
   --vd-switch-radius: 0px;
-  --vd-content-surface: var(--vd-surface-default);
-  --vd-content-surface-solid: var(--vd-table-body-background, var(--vd-surface-elevated));
-  --vd-content-surface-muted: var(--vd-surface-secondary);
-  --vd-content-foreground: var(--vd-text-primary);
-  --vd-content-secondary: var(--vd-text-secondary);
-  --vd-content-tertiary: var(--vd-text-tertiary);
-  --vd-content-border: var(--vd-border-subtle);
-  --vd-content-border-strong: var(--vd-border-default);
-  --vd-content-fill: var(--vd-fill-hover);
-  --vd-content-hover: var(--vd-fill-active);
-  --vd-content-decoration: none;
 
   --vd-panel-shadow: var(--vd-elevation-2);
   --vd-control-font-weight: 600;
@@ -84,20 +74,13 @@
   --vd-popup-arrow-shadow-color: rgb(0 0 0 / 32%);
   --vd-tooltip-pointer-backdrop-filter: none;
   --vd-tooltip-pointer-shadow: none;
-  --vd-motion-duration-120: 60ms;
-  --vd-motion-duration-180: 100ms;
-  --vd-motion-duration-240: 120ms;
+  @include theme-aliases.role('--vd-motion-interaction-duration', (60ms));
+  @include theme-aliases.role('--vd-motion-state-duration', (100ms));
+  @include theme-aliases.role('--vd-motion-collapse-duration', (120ms));
   --vd-chart-tooltip-radius: 0px;
   --vd-chart-line-width: 1.5;
   --vd-chart-point-radius: 2px;
-  --vd-chrome-background: var(--vd-surface-default);
-  --vd-chrome-shadow: var(--vd-elevation-1);
-  --vd-chrome-backdrop-filter: none;
-  --vd-page-background: var(--vd-surface-background);
-  --vd-chrome-foreground: var(--vd-text-primary);
-  --vd-chrome-secondary: var(--vd-text-secondary);
-  --vd-chrome-border: var(--vd-border-strong);
-  --vd-chrome-accent: var(--vd-brand-link);
+
   @include recipe.appearance(
     light,
     (

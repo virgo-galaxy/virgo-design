@@ -10,6 +10,7 @@
   background: var(--vd-surface-default);
   color: var(--vd-text-primary);
   font-family: var(--vd-typography-ui-body-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   font-size: var(--calendar-font-size);
   @include control-size.variables(calendar, medium);
   --calendar-day-height: var(--calendar-height);

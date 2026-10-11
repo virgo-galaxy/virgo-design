@@ -79,6 +79,7 @@
     padding: var(--vd-spacing-8) var(--vd-spacing-12) var(--vd-spacing-4);
     color: var(--vd-text-tertiary);
     font-family: var(--vd-typography-ui-label-small-font-family);
+    letter-spacing: var(--vd-typography-ui-label-small-letter-spacing, inherit);
     font-size: var(--vd-typography-ui-label-small-font-size);
     font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-small-font-weight));
     line-height: var(--vd-typography-ui-label-small-line-height);
@@ -96,9 +97,9 @@
   color: var(--vd-text-primary);
   outline: none;
   transition:
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &[data-active] {
@@ -119,6 +120,7 @@
   flex: none;
   color: var(--vd-text-tertiary);
   font-family: var(--vd-typography-ui-label-small-font-family);
+  letter-spacing: var(--vd-typography-ui-label-small-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-label-small-font-size);
   line-height: var(--vd-typography-ui-label-small-line-height);
 }

@@ -3,6 +3,7 @@ import {
   fontSize,
   fontWeight,
   internationalSans,
+  letterSpacing,
   lineHeight,
   sansLocaleMapping,
 } from '../../foundations/typography.js';
@@ -26,5 +27,6 @@ export function resolveTypography(
     fontSize: fontSize[token.fontSize],
     fontWeight: fontWeight[token.fontWeight],
     lineHeight: lineHeight[token.lineHeight],
+    ...(token.letterSpacing ? { letterSpacing: letterSpacing[token.letterSpacing] } : {}),
   };
 }

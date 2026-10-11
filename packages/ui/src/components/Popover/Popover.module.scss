@@ -13,7 +13,7 @@
   width: calc(var(--vd-sizing-80) * 4);
   padding: var(--vd-spacing-16);
   text-align: start;
-  animation: popover-enter var(--vd-motion-duration-120, var(--vd-duration-120))
+  animation: popover-enter var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
   &[data-state='closed'] {
     animation-name: popover-exit;

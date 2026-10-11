@@ -60,6 +60,7 @@
 .title {
   overflow-wrap: anywhere;
   font-family: var(--vd-typography-ui-label-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-label-medium-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-label-medium-font-size);
   font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
   line-height: var(--vd-typography-ui-label-medium-line-height);
@@ -69,6 +70,7 @@
   overflow-wrap: anywhere;
   color: var(--vd-text-secondary);
   font-family: var(--vd-typography-ui-body-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   font-size: var(--vd-typography-ui-body-medium-font-size);
   font-weight: var(--vd-typography-ui-body-medium-font-weight);
   line-height: var(--vd-typography-ui-body-medium-line-height);

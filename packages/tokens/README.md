@@ -1,5 +1,21 @@
 # Virgo Design Tokens
 
+## Architecture and consumption
+
+Foundation scales, Semantic roles, and Component presentation form one canonical `tokenCatalog`. `tokenVars` exports strictly typed CSS references; `tokenValues` exports the explicit Virgo baseline. Current contract roles are `themeContractRoles`; `themeContract` additionally keeps major-1 compatibility aliases. `THEME_CONTRACT_VERSION` means a breaking CSS-contract major, not an increment for each optional token.
+
+Exports: `styles.css` / existing Foundation and typography CSS; `/catalog`, `/validation`, `/theme-contract`; `/scss` or `/tokens.scss`; `/tailwind` for Tailwind 3 `theme.extend`, `/tailwind.css` for Tailwind 4 `@theme inline`; `/vanilla-extract` for the typed existing global contract. All derive from the same source, without separate color/size tables.
+
+```ts
+import { tokenVars, validateThemeContract, getDefaultThemeTokens } from '@virgo-design/tokens';
+tokenVars['--vd-text-primary']; // 'var(--vd-text-primary)'
+validateThemeContract({ contractVersion: 1, tokens: getDefaultThemeTokens() });
+```
+
+SCSS consumers can use `@use 'pkg:@virgo-design/tokens/scss' as vd` with Sass's NodePackageImporter, or their bundler's package resolver, and `vd.token('--vd-text-primary')`. Unknown names fail compilation. Themes can cover typography/geometry without altering Foundation specimens.
+
+See [Token architecture](../../docs/architecture/token-system.md) for where a new visual value belongs, request-isolated runtime/SSR, bootstrap, package exports and multi-stack examples; [compatibility](../../docs/architecture/theme-compatibility.md) is separate from current API usage.
+
 Foundations come from the existing Virgo palette. Semantic roles are resolved by `themes.light` and `themes.dark`; `pnpm build:tokens` generates the CSS bridge from those same values.
 
 ## Status colors

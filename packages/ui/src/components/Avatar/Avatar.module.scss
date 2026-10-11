@@ -12,6 +12,7 @@
   color: var(--vd-text-secondary);
   background: var(--vd-surface-secondary);
   font-family: var(--avatar-font-family);
+  letter-spacing: var(--avatar-letter-spacing, inherit);
   font-size: var(--avatar-font-size);
   font-weight: var(--avatar-font-weight);
   line-height: var(--avatar-line-height);
@@ -21,6 +22,7 @@
 .root[data-size='sm'] {
   --avatar-size: var(--vd-sizing-28);
   --avatar-font-family: var(--vd-typography-ui-label-small-font-family);
+  --avatar-letter-spacing: var(--vd-typography-ui-label-small-letter-spacing, inherit);
   --avatar-font-size: var(--vd-typography-ui-label-small-font-size);
   --avatar-font-weight: var(
     --vd-control-font-weight,
@@ -32,6 +34,7 @@
 .root[data-size='md'] {
   --avatar-size: var(--vd-sizing-40);
   --avatar-font-family: var(--vd-typography-ui-label-medium-font-family);
+  --avatar-letter-spacing: var(--vd-typography-ui-label-medium-letter-spacing, inherit);
   --avatar-font-size: var(--vd-typography-ui-label-medium-font-size);
   --avatar-font-weight: var(
     --vd-control-font-weight,
@@ -43,6 +46,7 @@
 .root[data-size='lg'] {
   --avatar-size: var(--vd-sizing-56);
   --avatar-font-family: var(--vd-typography-ui-body-large-font-family);
+  --avatar-letter-spacing: var(--vd-typography-ui-body-large-letter-spacing, inherit);
   --avatar-font-size: var(--vd-typography-ui-body-large-font-size);
   --avatar-font-weight: var(
     --vd-control-font-weight,

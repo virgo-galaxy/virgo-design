@@ -34,6 +34,7 @@
   background: var(--vd-surface-default);
   color: var(--vd-text-primary);
   font-family: var(--vd-typography-ui-body-medium-font-family);
+  letter-spacing: var(--vd-typography-ui-body-medium-letter-spacing, inherit);
   font-size: var(--combobox-font-size);
   @include control-hover.transition;
   &:focus:not(:disabled) {
@@ -120,7 +121,7 @@
   transform: translateY(-50%);
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+  transition: opacity var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
   .root:hover &,
   &:focus-visible {

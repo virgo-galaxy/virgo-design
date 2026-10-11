@@ -22,6 +22,7 @@
   border-radius: var(--button-radius);
 
   font-family: var(--button-font-family);
+  letter-spacing: var(--button-letter-spacing, inherit);
   font-size: var(--button-font-size);
   font-weight: var(--button-font-weight);
   line-height: var(--button-line-height);
@@ -36,13 +37,13 @@
   user-select: none;
 
   transition:
-    color var(--vd-motion-duration-120, var(--vd-duration-120))
+    color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    border-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+    box-shadow var(--vd-motion-interaction-duration, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not(:disabled) {
@@ -138,6 +139,7 @@
   --button-icon-size: #{control-size.token(small, icon-size)};
   --button-gap: #{control-size.token(small, gap)};
   --button-font-family: var(--vd-typography-ui-label-small-font-family);
+  --button-letter-spacing: var(--vd-typography-ui-label-small-letter-spacing, inherit);
   --button-font-size: #{control-size.token(small, font-size)};
   --button-font-weight: var(
     --vd-control-font-weight,
@@ -153,6 +155,7 @@
   --button-icon-size: #{control-size.token(medium, icon-size)};
   --button-gap: #{control-size.token(medium, gap)};
   --button-font-family: var(--vd-typography-ui-label-small-font-family);
+  --button-letter-spacing: var(--vd-typography-ui-label-small-letter-spacing, inherit);
   --button-font-size: #{control-size.token(medium, font-size)};
   --button-font-weight: var(
     --vd-control-font-weight,
@@ -168,6 +171,7 @@
   --button-icon-size: #{control-size.token(large, icon-size)};
   --button-gap: #{control-size.token(large, gap)};
   --button-font-family: var(--vd-typography-ui-label-medium-font-family);
+  --button-letter-spacing: var(--vd-typography-ui-label-medium-letter-spacing, inherit);
   --button-font-size: #{control-size.token(large, font-size)};
   --button-font-weight: var(
     --vd-control-font-weight,
