@@ -12,7 +12,7 @@
     "check:api-docs": "node scripts/generate-api-docs.mjs --check",
     "build:tokens": "pnpm --filter @virgo-design/colors build && pnpm --filter @virgo-design/tokens build",
     "build": "pnpm -r --if-present build",
-    "typecheck": "pnpm -r --if-present typecheck",
+    "typecheck": "tsc -p tsconfig.json --noEmit && pnpm -r --if-present typecheck",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
