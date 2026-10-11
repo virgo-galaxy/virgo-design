@@ -334,6 +334,48 @@ describe('Cursor', () => {
 });
 
 describe('Cursor + Tooltip', () => {
+  it('keeps the local preset, appearance and direction on stationary pointer portals', async () => {
+    const fixture = () => (
+      <section data-virgo-theme="virgo" data-theme="light" dir="ltr">
+        <div data-testid="local-scope" data-virgo-theme="glass" data-theme="dark" dir="rtl">
+          <Fixture follow={{ tooltip: true }} />
+        </div>
+      </section>
+    );
+    const { rerender, unmount } = render(fixture());
+    hover();
+    const panel = screen.getByRole('tooltip');
+    const scope = screen.getByTestId('local-scope');
+    const expectEnvironment = (theme: string, appearance: string, direction: string) => {
+      for (const element of [panel, visual()]) {
+        expect(element).toHaveAttribute('data-virgo-theme', theme);
+        expect(element).toHaveAttribute('data-theme', appearance);
+        expect(element).toHaveAttribute('dir', direction);
+      }
+      expect(panel).toHaveAttribute('data-pointer-follow', 'true');
+      expect(panel).toHaveStyle({ visibility: 'visible' });
+    };
+    expectEnvironment('glass', 'dark', 'rtl');
+    for (const theme of ['soft', 'contrast']) {
+      await act(async () => {
+        scope.dataset.virgoTheme = theme;
+        scope.dataset.theme = 'light';
+        scope.dir = 'ltr';
+      });
+      expectEnvironment(theme, 'light', 'ltr');
+    }
+    rerender(fixture());
+    expectEnvironment('contrast', 'light', 'ltr');
+    await act(async () => {
+      scope.removeAttribute('data-virgo-theme');
+      scope.removeAttribute('data-theme');
+      scope.removeAttribute('dir');
+    });
+    expectEnvironment('virgo', 'light', 'ltr');
+    unmount();
+    expect(panel).not.toBeInTheDocument();
+    expect(document.querySelector('[data-cursor-visual]')).toBeNull();
+  });
   it('does not change ordinary Tooltip lifetime when a Provider has follow disabled', () => {
     render(<Fixture follow={{ tooltip: false }} />);
     hover();

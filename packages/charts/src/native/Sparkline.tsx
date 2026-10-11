@@ -106,8 +106,8 @@ export function Sparkline({
               <>
                 <defs>
                   <linearGradient id={id} x2="0" y2="1">
-                    <stop stopColor={color} stopOpacity=".25" />
-                    <stop offset="1" stopColor={color} stopOpacity=".025" />
+                    <stop stopColor={color} className={styles.areaStart} />
+                    <stop offset="1" stopColor={color} className={styles.areaEnd} />
                   </linearGradient>
                 </defs>
                 <path d={areaPath(points, y(0))} fill={`url(#${id})`} />
@@ -115,13 +115,7 @@ export function Sparkline({
             ) : null}
             <path className={styles.line} d={linePath(points)} pathLength={1} />
             {current ? (
-              <circle
-                cx={current[0]}
-                cy={current[1]}
-                r="4.5"
-                className={styles.point}
-                data-active="true"
-              />
+              <circle cx={current[0]} cy={current[1]} className={styles.point} data-active="true" />
             ) : null}
           </g>
           {interactive

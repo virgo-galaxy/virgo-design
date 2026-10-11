@@ -112,16 +112,26 @@ figure title/description. `YAxis hidden` and `XAxis hidden` remove axes in micro
 
 Theme values resolve from computed CSS, including nested token references. Theme/class/style
 changes on the chart and its ancestors refresh ECharts options without replacing the instance.
-The adapter contains no hardcoded Classic theme: Classic/Desktop/Retro can resolve the same
-contract to their own token values. Desktop/Retro visual certification remains separate work.
+All six official themes (virgo, minimal, soft, glass, retro and contrast) implement the same
+contract in Light and Dark. Component and product verification is recorded in
+[the Theme Contract audit](../../docs/reviews/theme-contract-audit.md).
 
 `--chart-background`, `--chart-axis`, `--chart-axis-label`, `--chart-grid`,
-`--chart-series-1` … `--chart-series-6`, `--chart-line-width`,
+`--chart-series-1` … `--chart-series-12`, `--chart-line-width`,
 `--chart-tooltip-surface`, `--chart-tooltip-border`, `--chart-tooltip-radius`,
 `--chart-tooltip-shadow`, `--chart-tooltip-backdrop-filter`, `--chart-legend`, `--chart-active-point`,
 `--chart-muted-opacity`, `--chart-enter-duration`, `--chart-update-duration`,
 `--chart-interaction-duration`, `--chart-sector-offset`, `--chart-point-radius`,
-`--chart-active-point-radius`.
+`--chart-active-point-radius`, `--chart-area-opacity`, `--chart-area-end-opacity` and
+`--chart-focus-dasharray`. Native SVG Sparkline consumes these area/focus roles plus
+semantic focus color/width; Contrast uses a solid focus stroke. Reduced-motion behavior is retained.
+
+The complete data contract is categorical 1–12, sequential 1–10 and seven diverging
+roles (negative strong/default/subtle, neutral, positive subtle/default/strong).
+Ordinary series and advanced radar use the categorical palette. Non-heatmap advanced
+visualMap defaults use the sequential palette; explicit diverging palettes remain consumer choices.
+Formal `var(--vd-data-*)` and `var(--chart-series-*)` colors in the advanced option resolve
+from the active scope before reaching ECharts. Literal colors and explicit options retain priority.
 
 Advanced heatmaps use `--chart-heatmap-empty` and `--chart-heatmap-1` …
 `--chart-heatmap-4` for neutral cells and sequential activity intensity. These

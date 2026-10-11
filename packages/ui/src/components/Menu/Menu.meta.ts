@@ -5,7 +5,7 @@ export const menuMetadata = {
   category: 'Actions',
   description: 'Button-triggered actions with shared checkbox, radio and nested menu items.',
   import: "import { Menu } from '@virgo-design/ui';",
-  variants: [{ name: 'Classic', description: 'Token-based surface, elevation and menu rows.' }],
+  variants: [{ name: 'default', description: 'Token-based surface, elevation and menu rows.' }],
   sizes: ['mini', 'small', 'medium', 'large'].map((name) => ({
     name,
     description: 'Menu item density.',

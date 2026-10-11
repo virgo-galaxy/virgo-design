@@ -102,7 +102,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'AccordionVariant',
             required: false,
             defaultValue: "'default'",
-            description: 'Classic Virgo surface treatment.',
+            description: 'Theme Contract surface treatment.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.accordion.api.accordion-props.properties.variant.description',
@@ -185,7 +185,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'AccordionVariant',
             required: false,
             defaultValue: "'default'",
-            description: 'Classic Virgo surface treatment.',
+            description: 'Theme Contract surface treatment.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.accordion.api.accordion-root-props.properties.variant.description',
@@ -9026,7 +9026,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'NavigationMenuVariant',
             required: false,
             defaultValue: "'default'",
-            description: 'Classic Virgo navigation treatment.',
+            description: 'Theme Contract navigation treatment.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.navigation-menu.api.navigation-menu-props.properties.variant.description',
@@ -9098,7 +9098,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'NavigationMenuVariant',
             required: false,
             defaultValue: "'default'",
-            description: 'Classic Virgo navigation treatment.',
+            description: 'Theme Contract navigation treatment.',
             source: '@virgo-design/ui',
             descriptionTranslationKey:
               'components.navigation-menu.api.navigation-menu-root-props.properties.variant.description',

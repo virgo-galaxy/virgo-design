@@ -8,7 +8,7 @@ export const navigationMenuMetadata = {
     'Presents horizontal or vertical navigation links with active, disabled, and nested disclosure semantics.',
   import: "import { NavigationMenu } from '@virgo-design/ui';",
   variants: [
-    { name: 'default', description: 'Classic Virgo navigation treatment for links and groups.' },
+    { name: 'default', description: 'Theme Contract navigation treatment for links and groups.' },
     {
       name: 'segmented',
       description: 'Compact surface treatment for related section destinations.',

@@ -1,6 +1,11 @@
 import { forwardRef, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { Portal } from '../../internal/overlay/Portal';
+import {
+  applyPortalEnvironment,
+  observePortalEnvironment,
+  readPortalEnvironment,
+} from '../../internal/overlay/portalEnvironment';
 import { composeRefs } from '../../internal/utils/composeRefs';
 import { CursorContext, useCursorPointer } from './context';
 import type { CursorFollowerProps, CursorProviderProps, CursorSnapshot } from './Cursor.types';
@@ -52,14 +57,7 @@ export const CursorProvider = forwardRef<HTMLDivElement, CursorProviderProps>(
           visual.style.visibility = visible ? 'visible' : 'hidden';
           visual.style.transform = `translate3d(${state.x - hotspotX}px, ${state.y - hotspotY}px, 0)`;
           visual.dataset.pressed = String(state.buttons !== 0);
-          const theme = (target ?? scope).closest('[data-theme]')?.getAttribute('data-theme');
-          if (theme) visual.dataset.theme = theme;
-          else delete visual.dataset.theme;
-          const themeStyle = (target ?? scope)
-            .closest('[data-virgo-theme]')
-            ?.getAttribute('data-virgo-theme');
-          if (themeStyle) visual.dataset.virgoTheme = themeStyle;
-          else delete visual.dataset.virgoTheme;
+          applyPortalEnvironment(visual, readPortalEnvironment(target ?? scope));
         }
       };
       const stop = () => {
@@ -109,22 +107,14 @@ export const CursorProvider = forwardRef<HTMLDivElement, CursorProviderProps>(
       const navigate = (event: MouseEvent) => {
         if (event.target instanceof Element && event.target.closest('a[href]')) stop();
       };
-      const mutation = new MutationObserver(() => {
-        if (target && !target.isConnected) stop();
-        else paint();
-      });
-      mutation.observe(scope, {
-        childList: true,
-        subtree: true,
-        attributes: true,
-        attributeFilter: ['data-theme', 'data-virgo-theme'],
-      });
-      for (let node: HTMLElement | null = scope.parentElement; node; node = node.parentElement) {
-        mutation.observe(node, {
-          attributes: true,
-          attributeFilter: ['data-theme', 'data-virgo-theme'],
-        });
-      }
+      const stopEnvironment = observePortalEnvironment(
+        scope,
+        () => {
+          if (target && !target.isConnected) stop();
+          else paint();
+        },
+        true,
+      );
       const unsubscribe = store.subscribe(paint);
       paint();
       for (const name of ['pointerover', 'pointermove', 'pointerdown', 'pointerup'] as const)
@@ -143,7 +133,7 @@ export const CursorProvider = forwardRef<HTMLDivElement, CursorProviderProps>(
       return () => {
         stop();
         unsubscribe();
-        mutation.disconnect();
+        stopEnvironment();
         delete scope.dataset.cursorActive;
         for (const name of ['pointerover', 'pointermove', 'pointerdown', 'pointerup'] as const)
           doc.removeEventListener(name, track, true);

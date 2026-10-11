@@ -132,7 +132,7 @@ export const componentsEnUS = {
     cursor:
       'Scoped mouse tracking, a translucent Virgo pointer, and reusable pointer-follow feedback.',
     accordion:
-      'Organizes related sections into independently or exclusively expandable Classic Virgo panels.',
+      'Organizes related sections into independently or exclusively expandable theme-aware panels.',
     avatar: 'Represents a person, team, or entity with an image and resilient fallback.',
     badge: 'Attaches a compact count or status marker to another element, or renders inline.',
     card: 'Organizes a related group of content without adding interaction semantics.',

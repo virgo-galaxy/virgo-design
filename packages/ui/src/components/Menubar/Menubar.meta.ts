@@ -5,7 +5,7 @@ export const menubarMetadata = {
   category: 'Actions',
   description: 'Application action groups with horizontal focus and open-menu coordination.',
   import: "import { Menubar } from '@virgo-design/ui';",
-  variants: [{ name: 'Classic', description: 'Token-based surface, elevation and menu rows.' }],
+  variants: [{ name: 'default', description: 'Token-based surface, elevation and menu rows.' }],
   sizes: ['mini', 'small', 'medium', 'large'].map((name) => ({
     name,
     description: 'Menu item density.',

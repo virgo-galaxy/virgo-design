@@ -12,7 +12,7 @@ export const accordionEnUS = {
     referenceSpecimen: 'Reference specimen',
     ariaHeadings: 'ARIA headings',
     arrowNavigation: 'Arrow navigation',
-    classicStyle: 'Classic style',
+    defaultStyle: 'Default style',
   },
   variants: {
     title: 'Variants',

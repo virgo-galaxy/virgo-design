@@ -5,7 +5,7 @@ export const accordionMetadata = {
   package: '@virgo-design/ui',
   category: 'Data Display',
   description:
-    'Organizes related sections into independently or exclusively expandable Classic Virgo panels.',
+    'Organizes related sections into independently or exclusively expandable theme-aware panels.',
   import: "import { Accordion } from '@virgo-design/ui';",
   variants: [
     { name: 'default', description: 'Separated items without an enclosing border.' },

@@ -9,6 +9,9 @@
   --chart-series-4: var(--vd-chart-series-4, var(--vd-data-categorical-4));
   --chart-series-5: var(--vd-chart-series-5, var(--vd-data-categorical-5));
   --chart-series-6: var(--vd-chart-series-6, var(--vd-data-categorical-6));
+  @for $slot from 7 through 12 {
+    --chart-series-#{$slot}: var(--vd-data-categorical-#{$slot});
+  }
   --chart-heatmap-empty: var(--vd-chart-heatmap-empty, var(--vd-fill-hover));
   --chart-heatmap-1: var(--vd-chart-heatmap-1, var(--vd-data-sequential-2));
   --chart-heatmap-2: var(--vd-chart-heatmap-2, var(--vd-data-sequential-3));
@@ -24,6 +27,8 @@
   --chart-emphasis-shadow-scale: var(--vd-chart-emphasis-shadow-scale, 1);
   --chart-sector-shadow-color: var(--vd-chart-sector-shadow-color, rgb(0 0 0 / 20%));
   --chart-area-opacity: var(--vd-chart-area-opacity, 0.2);
+  --chart-area-end-opacity: var(--vd-chart-area-end-opacity);
+  --chart-focus-dasharray: var(--vd-chart-focus-dasharray);
   --chart-grid-line-type: var(--vd-chart-grid-line-type, dashed);
   --chart-pointer-opacity: var(--vd-chart-pointer-opacity, 0.6);
   --chart-point-symbol: var(--vd-chart-point-symbol, circle);
@@ -107,8 +112,14 @@
 }
 .hit:focus-visible {
   stroke: var(--vd-border-focus);
-  stroke-width: 1;
-  stroke-dasharray: 3 3;
+  stroke-width: var(--vd-focus-width);
+  stroke-dasharray: var(--chart-focus-dasharray);
+}
+.areaStart {
+  stop-opacity: var(--chart-area-opacity);
+}
+.areaEnd {
+  stop-opacity: var(--chart-area-end-opacity);
 }
 .center {
   position: absolute;

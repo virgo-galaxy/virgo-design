@@ -58,7 +58,7 @@ export const chartsZhCN = {
     '必填标题、描述、数据点名称、方向键焦点与原始数据表，让图表可独立于视觉表达被理解。减少动态效果设置会关闭绘制、变形与扇区位移动画。',
   theme: '语义样式',
   themeDescription:
-    '通过 --chart-* 变量覆盖坐标轴、网格、系列颜色、Tooltip、图例、激活点与动画时长，无需复制图形实现。Classic 浅色与深色默认值消费 Virgo tokens。',
+    '通过 --chart-* 变量覆盖坐标轴、网格、系列颜色、Tooltip、图例、激活点与动画时长，无需复制图形实现。Virgo、Minimal、Soft、Glass、Retro、Contrast 通过 Theme Contract 提供各自的 Light/Dark 视觉值。',
   basics: '图表类型',
   basicsDescription:
     '各种图形共用比例尺、格式化、主题和交互。饼图与环形图的激活扇区向外悬浮，并显示阴影和 Tooltip。',

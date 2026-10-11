@@ -11,7 +11,7 @@ export const dialogZhCN = {
     default: '默认',
     modal: '模态',
     style: '样式',
-    classic: '经典',
+    themeContract: 'Theme Contract',
   },
   specimen: {
     referenceSpecimen: '参考样例',

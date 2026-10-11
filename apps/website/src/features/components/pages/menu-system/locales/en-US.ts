@@ -32,7 +32,7 @@ export const menuSystemEnUS = {
   },
   menuDensity: {
     title: 'Density',
-    description: 'Classic menu rows inherit the root size and page theme.',
+    description: 'Themed menu rows inherit the root size and page theme.',
   },
   contextMenu: {
     overview: {

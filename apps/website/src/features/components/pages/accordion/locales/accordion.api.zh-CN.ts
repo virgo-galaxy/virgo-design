@@ -10,7 +10,7 @@ export const accordionApiZhCN = {
       '展开项目变化时调用。\n展开项目变化时调用。',
     'accordion-props.properties.heading-level.description': '各项目标题区使用的标题层级。',
     'accordion-props.properties.size.description': '所有项目共享的视觉密度。',
-    'accordion-props.properties.variant.description': '经典 Virgo 表面样式。',
+    'accordion-props.properties.variant.description': 'Theme Contract 表面样式。',
     'accordion-root-props.properties.value.description':
       '受控的展开项目值。全部项目关闭时使用空字符串。\n受控的展开项目值。',
     'accordion-root-props.properties.default-value.description':
@@ -19,7 +19,7 @@ export const accordionApiZhCN = {
       '展开项目变化时调用。\n展开项目变化时调用。',
     'accordion-root-props.properties.heading-level.description': '各项目标题区使用的标题层级。',
     'accordion-root-props.properties.size.description': '所有项目共享的视觉密度。',
-    'accordion-root-props.properties.variant.description': '经典 Virgo 表面样式。',
+    'accordion-root-props.properties.variant.description': 'Theme Contract 表面样式。',
     'accordion-item-props.properties.value.description': '用于与根节点协调此项目的稳定值。',
     'accordion-item-props.properties.disabled.description':
       '阻止切换此项目，并在方向键导航时跳过它。',

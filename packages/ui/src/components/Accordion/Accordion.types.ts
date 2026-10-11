@@ -13,7 +13,7 @@ export type AccordionProps = PrimitiveAccordionProps & {
   /** Visual density shared by every item. @default 'md' */
   size?: AccordionSize;
 
-  /** Classic Virgo surface treatment. @default 'default' */
+  /** Theme Contract surface treatment. @default 'default' */
   variant?: AccordionVariant;
 };
 

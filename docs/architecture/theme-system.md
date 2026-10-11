@@ -41,13 +41,15 @@ packages/themes/
 
 新增能力：
 
-- 语义背景、表面、文字、图标、边框、品牌、选择态、状态、分类色与序列色。
+- 语义背景、表面、文字、图标、边框、品牌、选择态、状态、分类色（1–12）、序列色（1–10）与 diverging 的负向三阶／中性／正向三阶；每套 Theme 完整声明双外观。
 - 独立 presentation radius；控件各尺寸的高度、padding、圆角、label weight。
 - stroke、focus width/offset、hover/focus color、focus shadow、disabled opacity/border。
 - action shadow、pressed shadow/offset、panel 与 Surface 材质、overlay、Tooltip 与 pointer。
 - 导航选择态；Table 的 header/body/stripe/hover/selected/footer、边界与密度。
 - motion duration/easing；Chart 的 axis/grid/legend/tooltip/palette/active point/heatmap、线宽与动画。
 - 应用周边 chrome/content presentation role，保留各应用 Virgo fallback。
+
+Native Sparkline 继续使用 SVG；focus 复用语义 focus color/width，并消费 `--vd-chart-focus-dasharray`；area gradient 消费 `--vd-chart-area-opacity / area-end-opacity`。ECharts adapter 解析全部 data palette，advanced option 中正式 data color 变量在进入引擎前解析，显式 literal 配色仍优先。
 
 组件公共实例变量与显式 props 继续优先。例如自定义 Table geometry、Chart `color`、Surface 的图片背景属于消费者的明确表达。
 
@@ -63,9 +65,9 @@ Pro 通过 `initializeTheme({ defaultTheme, storage })` 接入共享 settings JS
 
 公共浮层向 body Portal 转发来源最近 scope 的 `data-theme`、`data-virgo-theme` 和方向，并观察打开期间的属性变化；Dialog backdrop、Toast viewport 和 Cursor visual 同样遵守此约定。并排对照或任意局部 CSS 变量覆盖可继续通过 `PortalProvider` 将真实浮层放进对应容器。
 
-Portal 与 Floating 的环境读取/祖先监听共用内部 `portalEnvironment` 能力。Option 的 hover/focus 与 selected 分别使用 `--vd-option-hover-background / foreground` 和 `--vd-option-selected-background / foreground`，selected 在 hover/focus 时保持其配色；Contrast 的选中态采用黑白反转，品牌色保留在 focus/link/accent。
+Portal 与 Floating 的环境读取/祖先监听共用内部 `portalEnvironment` 能力；pointer-follow Tooltip、Cursor visual 与 Follower 也复用它，同步 `data-theme / data-virgo-theme / dir`，局部属性移除后回退外层 scope。Option 的 hover/focus 与 selected 分别使用 `--vd-option-hover-background / foreground` 和 `--vd-option-selected-background / foreground`，selected 在 hover/focus 时保持其配色；Contrast 的选中态采用黑白反转，品牌色保留在 focus/link/accent。
 
-第⑧步增加 indicator、control/option、ColorPicker thumb、Cursor、Dock、固定列表格边缘、循环动效和 Charts presentation roles，并修复已有契约未被消费的路径。完整逐组件结论、正式新增变量和浏览器矩阵见 [第⑧步 Audit](../reviews/step8-theme-contract-audit.md)。Contract 版本仍为 1，未执行 Token 架构重组。
+Theme Contract 审计增加 indicator、control/option、ColorPicker thumb、Cursor、Dock、固定列表格边缘、循环动效和 Charts presentation roles，并修复已有契约未被消费的路径。完整逐组件结论、正式新增变量和浏览器矩阵见 [Theme Contract 审计 Audit](../reviews/theme-contract-audit.md)。Contract 版本仍为 1，未执行 Token 架构重组。
 
 ## 应用消费
 

@@ -8,7 +8,7 @@ export const dialogEnUS = {
     default: 'Default',
     modal: 'Modal',
     style: 'Style',
-    classic: 'Classic',
+    themeContract: 'Theme Contract',
   },
   specimen: {
     referenceSpecimen: 'Reference specimen',

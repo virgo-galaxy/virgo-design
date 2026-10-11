@@ -26,8 +26,35 @@ it.each([
   const theme = readChartTheme(host, ['var(--vd-data-sequential-6)']);
   expect(theme.grid).toBe(expected);
   expect(theme.heatmapPalette).toEqual(Array(5).fill(expected));
+  expect(theme.palette).toEqual(Array(12).fill(expected));
+  expect(theme.sequentialPalette).toEqual(Array(10).fill(expected));
+  expect(theme.divergingPalette).toEqual(Array(7).fill(expected));
   expect(theme.colors?.['var(--vd-data-sequential-6)']).toBe(expected);
   expect(theme.heatmapRadius).toBe(0);
   expect(theme.heatmapBorderWidth).toBe(2);
+  expect(host.childElementCount).toBe(0);
+});
+
+it('reads high categorical, sequential and diverging slots from their own semantic properties', () => {
+  const host = document.createElement('div');
+  const calls: string[] = [];
+  vi.spyOn(window, 'getComputedStyle').mockImplementation((element) => {
+    const property = (element as HTMLElement).style.color;
+    calls.push(property);
+    return { color: property, getPropertyValue: () => '' } as unknown as CSSStyleDeclaration;
+  });
+  const theme = readChartTheme(host);
+  expect(theme.palette[11]).toBe('var(--chart-series-12)');
+  expect(theme.sequentialPalette[9]).toBe('var(--vd-data-sequential-10)');
+  expect(theme.divergingPalette).toEqual([
+    'var(--vd-data-diverging-negative-strong)',
+    'var(--vd-data-diverging-negative-default)',
+    'var(--vd-data-diverging-negative-subtle)',
+    'var(--vd-data-diverging-neutral)',
+    'var(--vd-data-diverging-positive-subtle)',
+    'var(--vd-data-diverging-positive-default)',
+    'var(--vd-data-diverging-positive-strong)',
+  ]);
+  expect(calls).toContain('var(--chart-tooltip-foreground)');
   expect(host.childElementCount).toBe(0);
 });

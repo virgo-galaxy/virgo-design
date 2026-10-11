@@ -143,7 +143,7 @@
   -webkit-backdrop-filter: var(--vd-tooltip-backdrop-filter, none);
   backdrop-filter: var(--vd-tooltip-backdrop-filter, none);
   clip-path: none;
-  // Utility paints a side face on the outward edge rather than depending on
+  // The bevel contract paints a side face on the outward edge rather than depending on
   // a drop shadow whose offset can run parallel to the pointer's diagonal.
   &::after {
     content: '';

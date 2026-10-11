@@ -15,7 +15,7 @@ export const accordionZhCN = {
     referenceSpecimen: '参考样例',
     ariaHeadings: 'ARIA 标题',
     arrowNavigation: '方向键导航',
-    classicStyle: '经典样式',
+    defaultStyle: '默认样式',
   },
   variants: {
     title: '变体',

@@ -5,6 +5,7 @@ import { useMemo, useRef } from 'react';
 
 import styles from './Chart.module.scss';
 import { advancedTheme } from './engine/advanced-theme';
+import { mapDataPaletteColors } from './engine/data-palette';
 import { useChartRuntime, useReducedMotion } from './engine/runtime';
 import { useChartTheme } from './engine/theme';
 import type { ChartRenderer } from './types';
@@ -31,12 +32,23 @@ export function EChartsChart({
   style,
   ...props
 }: EChartsChartProps) {
+  const dataColors = useMemo(() => {
+    const colors = new Set<string>();
+    mapDataPaletteColors(option, (color) => {
+      colors.add(color);
+      return color;
+    });
+    return [...colors];
+  }, [option]);
   const ref = useRef<HTMLDivElement>(null),
-    theme = useChartTheme(ref),
+    theme = useChartTheme(ref, dataColors),
     reduced = useReducedMotion();
   const compiled = useMemo(() => {
     if (!theme) return null;
-    const themed = advancedTheme(option, theme);
+    const themed = advancedTheme(
+      mapDataPaletteColors(option, (color) => theme.colors?.[color] ?? color),
+      theme,
+    );
     return {
       ...themed,
       animation: animated && !reduced && option.animation !== false,

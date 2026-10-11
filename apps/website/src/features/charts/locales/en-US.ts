@@ -57,7 +57,7 @@ export const chartsEnUS = {
     'A required title, description, named points, roving keyboard focus and a native data disclosure expose the chart independently of its picture. Reduced motion disables drawing, morphing and sector movement transitions.',
   theme: 'Semantic styling',
   themeDescription:
-    'Override --chart-* variables without copying geometry: axis, grid, series palette, tooltip, legend, active point and motion duration. Classic light/dark values inherit Virgo tokens.',
+    'Override --chart-* variables without copying geometry: axis, grid, series palette, tooltip, legend, active point and motion duration. Virgo, Minimal, Soft, Glass, Retro and Contrast supply their own Light/Dark values through the Theme Contract.',
   basics: 'Chart families',
   basicsDescription:
     'The primitive shapes share scales, formatters, theme and interaction. Pie and Donut lift the active sector outward, with a shadow and tooltip.',

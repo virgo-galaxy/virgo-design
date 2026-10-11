@@ -7,7 +7,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { Menu } from './index';
 
 describe('Menu UI', () => {
-  it('uses Classic classes, size, custom classes and theme through a portal', async () => {
+  it('uses themed classes, size, custom classes and theme through a portal', async () => {
     const user = userEvent.setup();
     const ref = createRef<HTMLDivElement>();
     render(

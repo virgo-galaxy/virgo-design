@@ -44,7 +44,7 @@ export function advancedTheme(option: EChartsOption, theme: ChartTheme): ECharts
     legend: { textStyle: { color: theme.legend } },
     visualMap: {
       textStyle: { color: theme.axisLabel },
-      inRange: { color: heatmap ? theme.heatmapPalette : [theme.grid, theme.palette[0]] },
+      inRange: { color: heatmap ? theme.heatmapPalette : theme.sequentialPalette },
     },
     calendar: {
       dayLabel: { color: theme.axisLabel },

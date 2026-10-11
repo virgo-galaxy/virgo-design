@@ -1,4 +1,4 @@
-$color: var(--vd-control-focus-color, #1677ff);
+$color: var(--vd-control-focus-color, var(--vd-border-focus));
 
 @mixin surface($border: $color, $background: var(--vd-surface-default)) {
   border-color: $border;

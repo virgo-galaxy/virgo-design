@@ -6,7 +6,7 @@ export const contextMenuMetadata = {
   description:
     'Actions for the invoking context, opened at a pointer position or with the keyboard.',
   import: "import { ContextMenu } from '@virgo-design/ui';",
-  variants: [{ name: 'Classic', description: 'Token-based surface, elevation and menu rows.' }],
+  variants: [{ name: 'default', description: 'Token-based surface, elevation and menu rows.' }],
   sizes: ['mini', 'small', 'medium', 'large'].map((name) => ({
     name,
     description: 'Menu item density.',

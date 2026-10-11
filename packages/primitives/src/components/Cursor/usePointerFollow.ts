@@ -1,5 +1,10 @@
 import { type CSSProperties, type RefObject, useEffect, useLayoutEffect, useRef } from 'react';
 
+import {
+  applyPortalEnvironment,
+  observePortalEnvironment,
+  readPortalEnvironment,
+} from '../../internal/overlay/portalEnvironment';
 import { type OverlayPlacement, positionOverlay } from '../../internal/overlay/positioning';
 import type { CursorPointer } from './Cursor.types';
 
@@ -76,14 +81,12 @@ export function usePointerFollow({
           (element.offsetHeight || rect.height) -
           viewport.offsetHeight
         : Math.max(element.scrollHeight, element.offsetHeight || rect.height);
-      const theme = anchor.closest('[data-theme]')?.getAttribute('data-theme');
-      if (theme) element.dataset.theme = theme;
-      else delete element.dataset.theme;
-      direction = win.getComputedStyle(anchor).direction === 'rtl' ? 'rtl' : 'ltr';
-      element.dir = direction;
+      const environment = readPortalEnvironment(anchor);
+      applyPortalEnvironment(element, environment);
+      direction = environment.direction;
       update();
     };
-    updateRef.current = update;
+    updateRef.current = measure;
     measure();
     const unsubscribe = pointer.subscribe(update);
     const resize = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(measure);
@@ -92,17 +95,14 @@ export function usePointerFollow({
     if (viewport) resize?.observe(viewport);
     const contents = new MutationObserver(measure);
     contents.observe(element, { childList: true, subtree: true, characterData: true });
-    const theme = new MutationObserver(measure);
-    for (let node: HTMLElement | null = anchor; node; node = node.parentElement) {
-      theme.observe(node, { attributes: true, attributeFilter: ['data-theme', 'dir'] });
-    }
+    const stopEnvironment = observePortalEnvironment(anchor, measure);
     win.addEventListener('resize', measure);
     return () => {
       updateRef.current = null;
       unsubscribe();
       resize?.disconnect();
       contents.disconnect();
-      theme.disconnect();
+      stopEnvironment();
       win.removeEventListener('resize', measure);
       element.style.removeProperty('translate');
       element.style.removeProperty('--pointer-anchor-x');

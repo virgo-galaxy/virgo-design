@@ -36,7 +36,7 @@ export function DialogPage() {
               </div>
               <div>
                 <dt>{t('components.dialog.facts.style')}</dt>
-                <dd>{t('components.dialog.facts.classic')}</dd>
+                <dd>{t('components.dialog.facts.themeContract')}</dd>
               </div>
             </dl>
           </div>

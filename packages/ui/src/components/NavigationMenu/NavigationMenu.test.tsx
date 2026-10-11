@@ -100,7 +100,7 @@ function SeparatorExample({ orientation }: { orientation: NavigationMenuOrientat
 afterEach(() => vi.useRealTimers());
 
 describe('NavigationMenu UI', () => {
-  it('uses the default Classic variant', () => {
+  it('uses the default theme-aware variant', () => {
     render(<Example />);
 
     expect(screen.getByTestId('navigation-menu')).toHaveAttribute('data-variant', 'default');

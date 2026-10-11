@@ -14,7 +14,7 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'accordion-props.properties.heading-level.description':
         'Heading level exposed by every item header.',
       'accordion-props.properties.size.description': 'Visual density shared by every item.',
-      'accordion-props.properties.variant.description': 'Classic Virgo surface treatment.',
+      'accordion-props.properties.variant.description': 'Theme Contract surface treatment.',
       'accordion-root-props.properties.value.description':
         'Controlled open item value. Use an empty string when every item is closed.\nControlled open item values.',
       'accordion-root-props.properties.default-value.description':
@@ -24,7 +24,7 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'accordion-root-props.properties.heading-level.description':
         'Heading level exposed by every item header.',
       'accordion-root-props.properties.size.description': 'Visual density shared by every item.',
-      'accordion-root-props.properties.variant.description': 'Classic Virgo surface treatment.',
+      'accordion-root-props.properties.variant.description': 'Theme Contract surface treatment.',
       'accordion-item-props.properties.value.description':
         'Stable value used to coordinate this item with the root.',
       'accordion-item-props.properties.disabled.description':
@@ -945,7 +945,8 @@ export const componentsApiEnUS: ApiDescriptionResources = {
   },
   'navigation-menu': {
     api: {
-      'navigation-menu-props.properties.variant.description': 'Classic Virgo navigation treatment.',
+      'navigation-menu-props.properties.variant.description':
+        'Theme Contract navigation treatment.',
       'navigation-menu-props.properties.submenu.description':
         'How nested navigation content is presented.',
       'navigation-menu-props.properties.orientation.description':
@@ -956,7 +957,7 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'navigation-menu-props.properties.on-value-change.description':
         'Called when a link activates an item.',
       'navigation-menu-root-props.properties.variant.description':
-        'Classic Virgo navigation treatment.',
+        'Theme Contract navigation treatment.',
       'navigation-menu-root-props.properties.submenu.description':
         'How nested navigation content is presented.',
       'navigation-menu-root-props.properties.orientation.description':

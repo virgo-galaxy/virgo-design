@@ -15,7 +15,7 @@ export type NavigationMenuVariant = 'default' | 'segmented';
 export type NavigationMenuSubmenu = 'inline' | 'popover';
 
 export interface NavigationMenuProps extends PrimitiveNavigationMenuProps {
-  /** Classic Virgo navigation treatment. @default 'default' */
+  /** Theme Contract navigation treatment. @default 'default' */
   variant?: NavigationMenuVariant;
 
   /** How nested navigation content is presented. @default 'inline' */

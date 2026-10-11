@@ -64,7 +64,7 @@ infrastructure. The public `@/i18n` barrel intentionally does not expose that in
 - `overlay/useHoverIntent.ts`: crossing delay and timer cleanup. Components choose whether focus should hold the panel open.
 - `overlay/usePresence.ts`: Popover's exit lifetime reads the actual CSS animation duration, making reduced-motion and unstyled content immediate.
 
-`ui/src/internal/overlay/_panel.scss` shares the existing Classic UI surface and arrow treatment. It adds no tokens or public Overlay component. Dropdown keeps its previous styling and immediate unmount behavior; Popover opts into entry/exit motion.
+`ui/src/internal/overlay/_panel.scss` shares the shared Theme Contract surface and arrow treatment. It adds no tokens or public Overlay component. Dropdown keeps its previous styling and immediate unmount behavior; Popover opts into entry/exit motion.
 
 Select only extracts refs, controllable state and outside dismissal in this pass. Its inline listbox, sizing and keyboard behavior remain intact. Checkbox only shares ref composition: native input state and group notification semantics remain unchanged. Tabs registration and Pagination's coupled page/size clamping are intentionally component-owned.
 

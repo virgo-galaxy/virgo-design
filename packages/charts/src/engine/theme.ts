@@ -5,6 +5,8 @@ import { useLayoutEffect, useState } from 'react';
 /** Engine-neutral contract. All values resolve from the consumer's current semantic theme. */
 export interface ChartTheme {
   palette: string[];
+  sequentialPalette: string[];
+  divergingPalette: string[];
   heatmapPalette: string[];
   heatmapRadius: number;
   heatmapBorderWidth: number;
@@ -74,7 +76,7 @@ export function readChartTheme(element: HTMLElement, customColors: string[] = []
     return Number.isFinite(parsed) ? parsed * (text.endsWith('ms') ? 1 : 1000) : fallback;
   };
   // CSS custom properties may still contain nested var() references. Resolve through CSS,
-  // rather than duplicating Classic/Desktop/Retro token lookup tables in JavaScript.
+  // rather than duplicating per-preset token lookup tables in JavaScript.
   const keys = [
     'axis',
     'axis-label',
@@ -82,7 +84,7 @@ export function readChartTheme(element: HTMLElement, customColors: string[] = []
     'background',
     'active-point',
     'legend',
-    ...Array.from({ length: 6 }, (_, i) => `series-${i + 1}`),
+    ...Array.from({ length: 12 }, (_, i) => `series-${i + 1}`),
     'tooltip-surface',
     'tooltip-border',
     'heatmap-empty',
@@ -90,9 +92,22 @@ export function readChartTheme(element: HTMLElement, customColors: string[] = []
     'sector-shadow-color',
     'tooltip-foreground',
   ];
-  const probes = keys.map((key) => {
+  const paletteKeys = [
+    ...Array.from({ length: 10 }, (_, i) => `sequential-${i + 1}`),
+    'diverging-negative-strong',
+    'diverging-negative-default',
+    'diverging-negative-subtle',
+    'diverging-neutral',
+    'diverging-positive-subtle',
+    'diverging-positive-default',
+    'diverging-positive-strong',
+  ];
+  const probes = [
+    ...keys.map((key) => `--chart-${key}`),
+    ...paletteKeys.map((key) => `--vd-data-${key}`),
+  ].map((property) => {
     const probe = document.createElement('span');
-    probe.style.color = `var(--chart-${key})`;
+    probe.style.color = `var(${property})`;
     probe.style.position = 'absolute';
     probe.style.visibility = 'hidden';
     probe.style.pointerEvents = 'none';
@@ -126,13 +141,15 @@ export function readChartTheme(element: HTMLElement, customColors: string[] = []
     background: colors[3]!,
     activePoint: colors[4]!,
     legend: colors[5]!,
-    palette: colors.slice(6, 12),
-    tooltipSurface: colors[12]!,
-    tooltipBorder: colors[13]!,
+    palette: colors.slice(6, 18),
+    sequentialPalette: colors.slice(27, 37),
+    divergingPalette: colors.slice(37, 44),
+    tooltipSurface: colors[18]!,
+    tooltipBorder: colors[19]!,
     tooltipBackdropFilter: value('tooltip-backdrop-filter') || 'none',
-    heatmapPalette: colors.slice(14, 19),
-    sectorShadowColor: colors[19]!,
-    tooltipForeground: colors[20]!,
+    heatmapPalette: colors.slice(20, 25),
+    sectorShadowColor: colors[25]!,
+    tooltipForeground: colors[26]!,
     heatmapRadius: number('heatmap-radius', 4),
     heatmapBorderWidth: number('heatmap-border-width', 1),
     heatmapActiveBorderWidth: number('heatmap-active-border-width', 2),

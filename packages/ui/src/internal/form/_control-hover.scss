@@ -1,4 +1,4 @@
-$color: var(--vd-control-hover-color, #4096ff);
+$color: var(--vd-control-hover-color, var(--vd-brand-primary-hover));
 
 @mixin surface($background: var(--vd-surface-default)) {
   background: var(

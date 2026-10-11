@@ -11,6 +11,8 @@ import { type ChartDefinition, compileOption } from './compiler';
 import type { ChartTheme } from './theme';
 const theme: ChartTheme = {
   palette: ['#1664f9', '#ed6b32', '#61ad79', '#8454da', '#13c2c2', '#f7ba1e'],
+  sequentialPalette: ['#f5f8ff', '#cfdffb', '#7aa6f8', '#1664f9', '#0041b8'],
+  divergingPalette: ['#a1002f', '#fff', '#005d35'],
   heatmapPalette: ['#f4f4f4', '#cfdffb', '#7aa6f8', '#1664f9', '#0041b8'],
   heatmapRadius: 4,
   heatmapBorderWidth: 1,
@@ -78,6 +80,23 @@ const model: ChartDefinition = {
   legend: true,
 };
 describe('Virgo → ECharts compiler', () => {
+  it('uses the sequential data palette for advanced visualMap and preserves explicit diverging colors', () => {
+    const option = {
+      visualMap: { min: 0, max: 10 },
+      series: [{ type: 'scatter' as const, data: [[1, 2]] }],
+    };
+    expect(advancedTheme(option, theme).visualMap).toMatchObject({
+      inRange: { color: theme.sequentialPalette },
+    });
+    const explicit = {
+      ...option,
+      visualMap: { ...option.visualMap, inRange: { color: theme.divergingPalette } },
+    };
+    expect(advancedTheme(explicit, theme).visualMap).toMatchObject({
+      inRange: { color: theme.divergingPalette },
+    });
+    expect(advancedTheme(option, theme).series).toBe(option.series);
+  });
   it('keeps tooltip text and axis borders under the same presentation contract', () => {
     const themed = compileOption(
       model,

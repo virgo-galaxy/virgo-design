@@ -78,8 +78,9 @@ These adapters do not duplicate public Button action controls or public overlay 
   axis pointer, bar emphasis, outward polar selection, keyboard inspection and data
   disclosure. Reduced motion disables engine transitions and is observed live.
 - The engine-neutral theme contract resolves the current `--chart-*` CSS variables
-  and Virgo tokens. Light/dark updates preserve the instance; Classic is not hardcoded
-  in the adapter. Desktop/Retro visual certification remains separate work.
+  and the Theme Contract. Light/dark updates preserve the instance across virgo,
+  minimal, soft, glass, retro and contrast. See the [Theme Contract audit](../../../docs/reviews/theme-contract-audit.md)
+  for current theme verification.
 - Sparkline stays lightweight native SVG, with no ECharts or GSAP imports. Both
   `Chart.Sparkline` and `@virgo-design/charts/sparkline` avoid requesting the engine.
 - `@virgo-design/charts/echarts` offers EChartsChart, full EChartsOption, onReady and
@@ -152,12 +153,12 @@ These adapters do not duplicate public Button action controls or public overlay 
   Reports derive from the same scoped task/activity records across 2025–2026.
   Set `VITE_API_MOCKING=false` to use the same APIs against a Gateway. See `API.md`.
 
-## Leave to Interface Audit
+## Theme audit follow-up
 
-- Audit the Classic light/dark semantic contract for chart/text/grid contrast,
-  Tooltip density, active treatment and small screens alongside all UI components.
-  Semantic overrides are available; Desktop/Retro interfaces are not claimed as
-  implemented or verified by this pass.
+- The original follow-up for chart/text/grid contrast, Tooltip density and active
+  treatment across the six official themes is covered by the
+  [Theme Contract audit](../../../docs/reviews/theme-contract-audit.md).
+  This report preserves the original Step ⑦ product and business boundaries.
 - Evaluate denser/longer real labels, tiny pie slices, extended palettes and precision
   formatters with representative product datasets. Choose additional chart behavior
   from actual consumer needs, including the large-data boundary above.
@@ -166,7 +167,7 @@ These adapters do not duplicate public Button action controls or public overlay 
   controllers; consumer-owned Tree group/cascade selection. No private component
   imports or copied public controls are required.
 - Review all public part attributes, custom variables, focus rings, motion and
-  overlay nesting as one interface contract. The Golden Pro is ready to provide
+  overlay nesting under the Theme Contract. The Golden Pro is ready to provide
   concrete consumer coverage for that audit.
 
 ## Leave to Release / Packaging
@@ -180,7 +181,7 @@ These adapters do not duplicate public Button action controls or public overlay 
   promise per-series CSS elimination.
 - UI source-barrel imports still retain unused component CSS. Route splitting does
   not solve that packaging concern. Pro initial UI CSS is about 230 KB before gzip;
-  the initial token/font plus UI styles together are about 393 KB. Interface themes
+  the initial token/font plus UI styles together are about 393 KB. Theme presets
   and public package styles need a separate delivery/entrypoint audit.
 - Pro's main entry is about 557 KB before gzip; route and shared UI dependencies
   remain separate lazy chunks. This does not describe the complete first-page cost.
@@ -217,4 +218,5 @@ These adapters do not duplicate public Button action controls or public overlay 
   at 1440/390 px, Chinese dark-mode interaction and aligned Pro preference feedback.
 - **No remaining blocker for step ⑦ within Golden Pro's local Mock scope.** Backend
   deployment/authentication, cross-device collaboration and release/packaging remain
-  separate boundaries. Desktop, Retro and Interface Audit were not started.
+  separate boundaries. Theme/component audit was a follow-up at the time of Step ⑦;
+  its current result is recorded in the Theme Contract audit linked above.

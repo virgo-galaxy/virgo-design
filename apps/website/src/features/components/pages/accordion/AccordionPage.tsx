@@ -87,7 +87,7 @@ export function AccordionPage() {
             <ReferenceSpecimen.Caption>
               <span>{t('components.accordion.specimen.ariaHeadings')}</span>
               <span>{t('components.accordion.specimen.arrowNavigation')}</span>
-              <span>{t('components.accordion.specimen.classicStyle')}</span>
+              <span>{t('components.accordion.specimen.defaultStyle')}</span>
               <ComponentExampleRuntimeControl />
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>

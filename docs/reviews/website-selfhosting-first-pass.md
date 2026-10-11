@@ -122,7 +122,7 @@ IconSelect 的键盘/typeahead/Escape 单独 contract test 通过。原生 draft
 
 ## 18. 明确延后
 
-Pro 的真实工作流、DataTable、最终 Component Token / Theme Architecture、Classic/macOS-like/Retro Interface Themes、Tailwind/SCSS 最终输出体系和 V1 npm Release 均未开始。未来通用 API 继续由真实重复需求、所属层实现和 contract 验证推动。
+本报告记录首次自托管时的历史边界：当时 Pro 的真实工作流、DataTable、正式 Theme Architecture、Tailwind/SCSS 最终输出体系和 V1 npm Release 均未开始。当前六套正式 Theme 与 Light/Dark 的验收结论见[Theme Contract 审计审计](theme-contract-audit.md)。未来通用 API 继续由真实重复需求、所属层实现和 contract 验证推动。
 
 本轮收口范围完成后，可以结束 Website 自举阶段，再进入下一阶段。
 

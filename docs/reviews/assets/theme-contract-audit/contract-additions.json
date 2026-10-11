@@ -1,7 +1,7 @@
 {
   "version": 1,
   "additive": true,
-  "count": 34,
+  "count": 36,
   "keys": [
     "--vd-indicator-radius",
     "--vd-cursor-color",
@@ -36,6 +36,8 @@
     "--vd-chart-interaction-easing",
     "--vd-motion-duration-breathe",
     "--vd-motion-loop-iterations",
-    "--vd-motion-easing-exit"
+    "--vd-motion-easing-exit",
+    "--vd-chart-area-end-opacity",
+    "--vd-chart-focus-dasharray"
   ]
 }

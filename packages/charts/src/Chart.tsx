@@ -52,7 +52,7 @@ function useRoot() {
   if (!root) throw new Error('Chart parts must be inside Chart.Root');
   return root;
 }
-const color = (index: number) => `var(--chart-series-${(index % 6) + 1})`;
+const color = (index: number) => `var(--chart-series-${(index % 12) + 1})`;
 function nodes(children: ReactNode): ReactElement[] {
   return Children.toArray(children).flatMap((node) =>
     isValidElement<{ children?: ReactNode }>(node)

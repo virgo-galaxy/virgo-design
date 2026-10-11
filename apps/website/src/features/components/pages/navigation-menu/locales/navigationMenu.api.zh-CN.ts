@@ -2,13 +2,13 @@ import type { ApiDescriptionResources } from '@/i18n/api-description-resources';
 
 export const navigationMenuApiZhCN = {
   api: {
-    'navigation-menu-props.properties.variant.description': '经典 Virgo 导航样式。',
+    'navigation-menu-props.properties.variant.description': 'Theme Contract 导航样式。',
     'navigation-menu-props.properties.submenu.description': '嵌套导航内容的呈现方式。',
     'navigation-menu-props.properties.orientation.description': '方向键导航使用的方向。',
     'navigation-menu-props.properties.value.description': '受控的激活项目值。',
     'navigation-menu-props.properties.default-value.description': '非受控模式下最初激活的项目值。',
     'navigation-menu-props.properties.on-value-change.description': '链接激活项目时调用。',
-    'navigation-menu-root-props.properties.variant.description': '经典 Virgo 导航样式。',
+    'navigation-menu-root-props.properties.variant.description': 'Theme Contract 导航样式。',
     'navigation-menu-root-props.properties.submenu.description': '嵌套导航内容的呈现方式。',
     'navigation-menu-root-props.properties.orientation.description': '方向键导航使用的方向。',
     'navigation-menu-root-props.properties.value.description': '受控的激活项目值。',

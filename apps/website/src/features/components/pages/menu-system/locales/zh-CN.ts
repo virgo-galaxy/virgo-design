@@ -34,7 +34,7 @@ export const menuSystemZhCN = {
   },
   menuDensity: {
     title: '密度',
-    description: '经典菜单行继承根节点尺寸与页面主题。',
+    description: '菜单行继承根节点尺寸与页面主题。',
   },
   contextMenu: {
     overview: {
