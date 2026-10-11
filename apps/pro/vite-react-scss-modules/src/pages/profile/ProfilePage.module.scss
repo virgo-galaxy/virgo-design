@@ -146,6 +146,9 @@
   padding: var(--vd-spacing-20) 0;
   border-top: 1px solid var(--vd-border-subtle);
 }
+.editorDialog {
+  --dialog-width: calc(var(--vd-sizing-80) * 8);
+}
 .editorHeader {
   display: flex;
   align-items: start;
@@ -155,12 +158,26 @@
 .editorForm {
   width: 100%;
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--vd-spacing-20);
+}
+.fullWidth {
+  grid-column: 1 / -1;
+}
+.photoLayout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vd-spacing-24);
 }
 .photoRow {
   display: flex;
   align-items: center;
   gap: var(--vd-spacing-16);
+  min-width: 0;
+  > div {
+    min-width: 0;
+  }
   strong {
     font-size: var(--vd-font-size-12);
   }
@@ -174,6 +191,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  flex-shrink: 0;
   gap: var(--vd-spacing-8);
 }
 .photoFilename {
@@ -212,6 +230,13 @@
   }
 }
 @media (max-width: 640px) {
+  .editorForm {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .photoLayout {
+    flex-wrap: wrap;
+    gap: var(--vd-spacing-12);
+  }
   .identity {
     padding: var(--vd-spacing-20);
     flex-direction: column;
