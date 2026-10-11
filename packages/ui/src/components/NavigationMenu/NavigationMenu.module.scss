@@ -69,7 +69,7 @@
 }
 
 .root[data-variant='segmented'] .control[data-active='true'] {
-  background: var(--vd-surface-default);
+  background: var(--vd-navigation-selected-background, var(--vd-surface-default));
   box-shadow: var(--vd-elevation-1);
 }
 
@@ -143,7 +143,7 @@
     box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
-  &:hover:not(:disabled):not([aria-disabled='true']) {
+  &:hover:not(:disabled):not([aria-disabled='true']):not([data-active='true']) {
     color: var(--vd-text-primary);
     background: var(--vd-fill-hover);
   }
@@ -185,6 +185,26 @@
     width: 100%;
     height: 100%;
   }
+}
+
+.control[data-active='true'] .icon,
+.control[data-active='true'] .indicator {
+  color: var(--vd-navigation-selected-foreground, var(--vd-icon-secondary));
+}
+
+.root[data-variant='segmented'] .control:focus-visible {
+  box-shadow: inset 0 0 0 var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-focus);
+}
+
+.root[data-variant='segmented'] .control[data-active='true']:focus-visible {
+  box-shadow:
+    inset 0 0 0 var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-focus),
+    inset 0 0 0
+      calc(
+        var(--vd-focus-width, var(--vd-border-width-2)) +
+          var(--vd-stroke-width, var(--vd-border-width-1))
+      )
+      currentColor;
 }
 
 .label {

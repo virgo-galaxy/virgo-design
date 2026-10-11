@@ -85,6 +85,11 @@
 
 .navigation [data-vd-navigation-menu-control][data-active='true'] {
   color: var(--layout-accent);
+  box-shadow: none;
+}
+
+.navigation [data-vd-navigation-menu-control]:focus-visible {
+  box-shadow: inset 0 0 0 var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-focus);
 }
 
 .navigation [data-vd-navigation-menu-control][data-active='true']::after {
