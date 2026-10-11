@@ -37,6 +37,7 @@ import { useProSettings } from '@/components/global-settings/useProSettings';
 import { LanguageControl } from '@/components/language-control/LanguageControl';
 import { NotificationInbox } from '@/components/notifications/NotificationInbox';
 import { useNotificationInbox } from '@/components/notifications/use-notification-inbox';
+import { ThemeStyleControl } from '@/components/theme-style-control/ThemeStyleControl';
 import type { ProfileState } from '@/data/pro-workflows';
 import { rememberAppearance } from '@/lib/appearance';
 import { isAdmin } from '@/lib/auth/permissions';
@@ -341,6 +342,7 @@ export function AppShell({
                     className={styles.actions}
                   >
                     <LanguageControl />
+                    <ThemeStyleControl />
                     {admin ? (
                       <Tooltip>
                         <Tooltip.Trigger

@@ -1,0 +1,24 @@
+.menu {
+  width: min(280px, calc(100vw - var(--vd-spacing-24)));
+
+  [data-dropdown-viewport] {
+    grid-auto-rows: max-content;
+    max-height: min(480px, calc(100dvh - var(--vd-sizing-80)));
+  }
+}
+
+.copy {
+  display: grid;
+  gap: var(--vd-spacing-2);
+  padding-block: var(--vd-spacing-2);
+}
+
+.name {
+  font-weight: var(--vd-font-weight-500);
+}
+
+.description {
+  color: var(--vd-text-secondary);
+  font-size: var(--vd-typography-ui-body-small-font-size);
+  line-height: var(--vd-typography-ui-body-small-line-height);
+}

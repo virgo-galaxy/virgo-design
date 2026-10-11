@@ -4,6 +4,8 @@ import { settingsEnUS } from '../components/global-settings/locales/en-US';
 import { settingsZhCN } from '../components/global-settings/locales/zh-CN';
 import { languageControlEnUS } from '../components/language-control/locales/en-US';
 import { languageControlZhCN } from '../components/language-control/locales/zh-CN';
+import { themeStyleControlEnUS } from '../components/theme-style-control/locales/en-US';
+import { themeStyleControlZhCN } from '../components/theme-style-control/locales/zh-CN';
 import { analyticsEnUS } from '../pages/analytics/locales/en-US';
 import { analyticsZhCN } from '../pages/analytics/locales/zh-CN';
 import { exceptionsEnUS } from '../pages/exceptions/locales/en-US';
@@ -31,6 +33,7 @@ export const enUS = {
   app: appEnUS,
   settings: settingsEnUS,
   languageControl: languageControlEnUS,
+  themeStyleControl: themeStyleControlEnUS,
   analytics: analyticsEnUS,
   projectDetails: projectDetailsEnUS,
   exceptions: exceptionsEnUS,
@@ -46,6 +49,7 @@ export const zhCN = {
   app: appZhCN,
   settings: settingsZhCN,
   languageControl: languageControlZhCN,
+  themeStyleControl: themeStyleControlZhCN,
   analytics: analyticsZhCN,
   projectDetails: projectDetailsZhCN,
   exceptions: exceptionsZhCN,
