@@ -65,6 +65,30 @@ describe('Overlay positioning', () => {
     expect(positionOverlay(anchor, tiny, viewport, 'bottomRight', 8).arrowX).toBe(12);
     expect(positionOverlay(anchor, tiny, viewport, 'rightBottom', 8).arrowY).toBe(12);
   });
+  it.each([26, 28])('keeps a wider pointer clear of themed corners with a %ipx inset', (inset) => {
+    const smallTrigger = { ...anchor, width: 24, height: 24 };
+    for (const placement of ['bottomEnd', 'bottomStart', 'rightTop', 'rightBottom'] as const) {
+      const result = positionOverlay(
+        smallTrigger,
+        menu,
+        viewport,
+        placement,
+        8,
+        'ltr',
+        true,
+        inset,
+      );
+      if (result.side === 'top' || result.side === 'bottom') {
+        expect(result.left + result.arrowX).toBe(smallTrigger.left + smallTrigger.width / 2);
+        expect(result.arrowX).toBeGreaterThanOrEqual(inset);
+        expect(menu.width - result.arrowX).toBeGreaterThanOrEqual(inset);
+      } else {
+        expect(result.top + result.arrowY).toBe(smallTrigger.top + smallTrigger.height / 2);
+        expect(result.arrowY).toBeGreaterThanOrEqual(inset);
+        expect(menu.height - result.arrowY).toBeGreaterThanOrEqual(inset);
+      }
+    }
+  });
   it.each<PhysicalPlacement>([
     'bottomLeft',
     'bottom',

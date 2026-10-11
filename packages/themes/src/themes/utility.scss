@@ -53,8 +53,18 @@
   --vd-material-tint-opacity: 100%;
   --vd-glass-tint-opacity: 100%;
   --vd-glass-backdrop-filter: none;
+  // A directional side face stays visible even when the arrow edge is parallel
+  // to the panel's lower-right shadow offset.
+  --vd-tooltip-shadow: var(--vd-elevation-2);
+  --vd-tooltip-arrow-shadow-display: block;
+  --vd-tooltip-arrow-shadow-size: 2px;
+  --vd-tooltip-arrow-shadow-clearance: calc(2px * 1.4142135624);
+  --vd-tooltip-arrow-shadow-color: rgb(0 0 0 / 32%);
+  --vd-popup-arrow-shadow-display: block;
+  --vd-popup-arrow-shadow-size: 2px;
+  --vd-popup-arrow-shadow-color: rgb(0 0 0 / 32%);
   --vd-tooltip-pointer-backdrop-filter: none;
-  --vd-tooltip-pointer-shadow: var(--vd-elevation-2);
+  --vd-tooltip-pointer-shadow: none;
   --vd-motion-duration-120: 60ms;
   --vd-motion-duration-180: 100ms;
   --vd-motion-duration-240: 120ms;

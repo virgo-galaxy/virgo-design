@@ -2,6 +2,7 @@
 
 [data-virgo-theme='soft'] {
   @include recipe.soft-overlay-arrows;
+  @include recipe.soft-tooltip-arrows;
   --vd-content-surface: var(--vd-surface-default);
   --vd-content-surface-solid: var(--vd-table-body-background, var(--vd-surface-elevated));
   --vd-content-surface-muted: var(--vd-surface-secondary);

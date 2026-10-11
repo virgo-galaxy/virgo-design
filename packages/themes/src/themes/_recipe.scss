@@ -1,3 +1,5 @@
+@use 'sass:string';
+
 // Values are implementations of the Tokens contract; no component selectors live here.
 @mixin appearance($mode, $values) {
   @each $name, $value in $values {
@@ -17,15 +19,98 @@
   }
 }
 
-// Rounded tip and concave shoulders; normalized SVG masks scale with arrow size.
+$overlay-arrow-curve: 'c4 0 5.5 -2 10.8 -6.1 q1.2 -1 2.4 0 c5.3 4.1 6.8 6.1 10.8 6.1';
+
+@function encode-spaces($value) {
+  $result: '';
+  @for $index from 1 through string.length($value) {
+    $character: string.slice($value, $index, $index);
+    $result: $result + if(sass($character == ' '): '%20'; else: $character);
+  }
+  @return $result;
+}
+
+@function overlay-mask($viewbox, $orientation, $outline: false) {
+  $path: encode-spaces('M0 7.5 #{$overlay-arrow-curve}');
+  $paint: 'fill%3D%22white%22';
+  @if $outline {
+    $paint: 'fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%221%22%20stroke-linecap%3D%22butt%22';
+  } @else {
+    $path: $path + '%20L24%208%20L0%208%20Z';
+  }
+  @return string.unquote(
+    "url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%22#{$viewbox}%22%3E%3Cpath%20#{$paint}%20transform%3D%22#{$orientation}%22%20d%3D%22#{$path}%22%2F%3E%3C%2Fsvg%3E')"
+  );
+}
+
+// One curve definition drives standalone arrows and the continuous glass outline.
 @mixin soft-overlay-arrows {
+  --vd-overlay-arrow-curve: '#{$overlay-arrow-curve}';
+  --vd-overlay-arrow-curve-width: 24;
+  --vd-overlay-arrow-curve-height: 8;
   --vd-overlay-arrow-clip-path: none;
-  --vd-overlay-arrow-transform-top: scale(1.15, 0.75) rotate(45deg);
-  --vd-overlay-arrow-transform-bottom: scale(1.15, 0.75) rotate(45deg);
-  --vd-overlay-arrow-transform-left: scale(0.75, 1.15) rotate(45deg);
-  --vd-overlay-arrow-transform-right: scale(0.75, 1.15) rotate(45deg);
-  --vd-overlay-arrow-mask-bottom: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22white%22%20transform%3D%22%22%20d%3D%22M0%20.8%20Q0%200%20.8%200%20C4%200%207%201.5%2012%200%20L12%2012%20L0%2012%20C1.5%207%200%204%200%20.8%20Z%22%2F%3E%3C%2Fsvg%3E');
-  --vd-overlay-arrow-mask-top: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22white%22%20transform%3D%22rotate%28180%206%206%29%22%20d%3D%22M0%20.8%20Q0%200%20.8%200%20C4%200%207%201.5%2012%200%20L12%2012%20L0%2012%20C1.5%207%200%204%200%20.8%20Z%22%2F%3E%3C%2Fsvg%3E');
-  --vd-overlay-arrow-mask-left: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22white%22%20transform%3D%22translate%2812%200%29%20scale%28-1%201%29%22%20d%3D%22M0%20.8%20Q0%200%20.8%200%20C4%200%207%201.5%2012%200%20L12%2012%20L0%2012%20C1.5%207%200%204%200%20.8%20Z%22%2F%3E%3C%2Fsvg%3E');
-  --vd-overlay-arrow-mask-right: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22white%22%20transform%3D%22translate%280%2012%29%20scale%281%20-1%29%22%20d%3D%22M0%20.8%20Q0%200%20.8%200%20C4%200%207%201.5%2012%200%20L12%2012%20L0%2012%20C1.5%207%200%204%200%20.8%20Z%22%2F%3E%3C%2Fsvg%3E');
+  --vd-overlay-arrow-contour-display: block;
+  --vd-overlay-arrow-background: transparent;
+  --vd-overlay-arrow-border: 0px;
+  --vd-overlay-arrow-box-mask: none;
+  --vd-overlay-arrow-width-scale: 2;
+  --vd-overlay-arrow-height-scale: 0.6666666667;
+  --vd-overlay-arrow-inset-scale: 0.6666666667;
+  @each $side,
+    $orientation
+      in (
+        bottom: '',
+        top: 'rotate%28180%2012%204%29',
+        right: 'matrix%280%20-1%201%200%200%2024%29',
+        left: 'matrix%280%201%20-1%200%208%200%29'
+      )
+  {
+    $viewbox: if(sass($side == top or $side == bottom): '0%200%2024%208'; else: '0%200%208%2024');
+    --vd-overlay-arrow-transform-#{$side}: none;
+    --vd-overlay-arrow-mask-#{$side}: #{overlay-mask($viewbox, $orientation)};
+    --vd-overlay-arrow-outline-#{$side}: #{overlay-mask($viewbox, $orientation, true)};
+  }
+}
+
+// Both arrow painting and a translucent material silhouette use this one profile.
+@function tooltip-mask($viewbox, $orientation, $projection: '') {
+  $path: 'M0%20.8%20Q0%200%20.8%200%20C4%200%207%201.5%2012%200%20L12%2012%20L0%2012%20C1.5%207%200%204%200%20.8%20Z';
+  @return string.unquote(
+    "url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%22#{$viewbox}%22%3E%3Cg%20transform%3D%22#{$projection}%22%3E%3Cpath%20fill%3D%22white%22%20transform%3D%22#{$orientation}%22%20d%3D%22#{$path}%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"
+  );
+}
+
+// Rounded tip and concave shoulders; normalized SVG masks scale with arrow size.
+@mixin soft-tooltip-arrows {
+  --vd-tooltip-arrow-clip-path: none;
+  --vd-tooltip-arrow-transform-top: scale(1.15, 0.75) rotate(45deg);
+  --vd-tooltip-arrow-transform-bottom: scale(1.15, 0.75) rotate(45deg);
+  --vd-tooltip-arrow-transform-left: scale(0.75, 1.15) rotate(45deg);
+  --vd-tooltip-arrow-transform-right: scale(0.75, 1.15) rotate(45deg);
+  @each $side,
+    $orientation
+      in (
+        bottom: '',
+        top: 'rotate%28180%206%206%29',
+        left: 'translate%2812%200%29%20scale%28-1%201%29',
+        right: 'translate%280%2012%29%20scale%281%20-1%29'
+      )
+  {
+    --vd-tooltip-arrow-mask-#{$side}: #{tooltip-mask('0%200%2012%2012', $orientation)};
+    // Bake the same CSS scale/rotation into the mask's coordinate system so it
+    // can join the body mask without changing the arrow's physical contour.
+    @if $side == top or $side == bottom {
+      --vd-tooltip-silhouette-arrow-mask-#{$side}: #{tooltip-mask(
+          '0%200%2024%2016',
+          $orientation,
+          'matrix%28.813172798%20.530330086%20-.813172798%20.530330086%2012%201.63603897%29'
+        )};
+    } @else {
+      --vd-tooltip-silhouette-arrow-mask-#{$side}: #{tooltip-mask(
+          '0%200%2016%2024',
+          $orientation,
+          'matrix%28.530330086%20.813172798%20-.530330086%20.813172798%208%202.24192642%29'
+        )};
+    }
+  }
 }

@@ -19,6 +19,9 @@
 
 .content {
   @include panel.surface(overlay);
+  background: var(--vd-dialog-background, var(--vd-overlay-background, var(--vd-surface-elevated)));
+  -webkit-backdrop-filter: var(--vd-dialog-backdrop-filter, var(--vd-panel-backdrop-filter));
+  backdrop-filter: var(--vd-dialog-backdrop-filter, var(--vd-panel-backdrop-filter));
 
   --dialog-width: calc(var(--vd-sizing-80) * 6);
   --dialog-section-padding: var(--vd-spacing-24);

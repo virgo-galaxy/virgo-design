@@ -26,6 +26,7 @@ export function positionOverlay(
   offset: number,
   direction: 'ltr' | 'rtl' = 'ltr',
   arrow = false,
+  arrowInset = 20,
 ) {
   const margin = 8;
   const side = (['bottom', 'top', 'left', 'right'] as const).find((value) =>
@@ -76,8 +77,8 @@ export function positionOverlay(
   left = Math.max(margin, Math.min(left, viewport.width - width - margin));
   top = Math.max(margin, Math.min(top, viewport.height - height - margin));
   // Leave room for the rotated arrow's base beside the panel's rounded corners.
-  const arrowInsetX = Math.min(20, width / 2);
-  const arrowInsetY = Math.min(20, height / 2);
+  const arrowInsetX = Math.min(arrowInset, width / 2);
+  const arrowInsetY = Math.min(arrowInset, height / 2);
   if (arrow) {
     // Shift the panel as well as its arrow so the tip still points at the trigger center.
     if (vertical) {

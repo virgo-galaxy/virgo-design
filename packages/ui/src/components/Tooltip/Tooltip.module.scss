@@ -1,4 +1,5 @@
 @use '../../internal/overlay/panel';
+@use '../../internal/overlay/silhouette';
 
 .root {
   display: inline-flex;
@@ -15,15 +16,40 @@
   }
   --tooltip-arrow-size: var(--vd-sizing-12);
   --tooltip-arrow-half: var(--vd-spacing-6);
+  --material-border: 0px;
+  --material-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
+  @include silhouette.arrow-position(
+    tooltip-silhouette,
+    calc(var(--tooltip-arrow-size) * 2),
+    calc(var(--tooltip-arrow-size) * 4 / 3),
+    calc(var(--tooltip-arrow-size) * 2 / 3)
+  );
   width: max-content;
   padding: var(--vd-spacing-8) var(--vd-spacing-12);
   border: var(--vd-tooltip-border, 0);
   border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
-  background: var(--tooltip-background);
+  background: var(--vd-tooltip-container-background, var(--tooltip-background));
   color: var(--tooltip-foreground);
-  // The opaque tooltip and its pointer share one fill; a panel inset highlight
+  // The tooltip and its pointer share one fill; a panel inset highlight
   // would leave pale slivers at the pointer's two joining corners.
-  box-shadow: var(--vd-elevation-2);
+  box-shadow: var(--vd-tooltip-shadow, var(--vd-elevation-2));
+  filter: var(--vd-tooltip-filter, none);
+  -webkit-backdrop-filter: var(
+    --vd-tooltip-container-backdrop-filter,
+    var(--vd-tooltip-backdrop-filter, var(--vd-panel-backdrop-filter))
+  );
+  backdrop-filter: var(
+    --vd-tooltip-container-backdrop-filter,
+    var(--vd-tooltip-backdrop-filter, var(--vd-panel-backdrop-filter))
+  );
+  &::before {
+    content: '';
+    display: var(--vd-tooltip-material-display, none);
+    @include silhouette.material;
+    background: var(--tooltip-background);
+    -webkit-backdrop-filter: var(--vd-tooltip-backdrop-filter, none);
+    backdrop-filter: var(--vd-tooltip-backdrop-filter, none);
+  }
   font-size: var(--vd-typography-ui-body-small-font-size);
   line-height: var(--vd-typography-ui-body-small-line-height);
   text-align: start;
@@ -61,6 +87,7 @@
 }
 // Small is opt-in; medium keeps the existing Tooltip presentation unchanged.
 .content[data-size='small'] {
+  --material-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   --tooltip-arrow-size: var(--vd-spacing-8);
   --tooltip-arrow-half: var(--vd-spacing-4);
   padding: var(--vd-spacing-4) var(--vd-spacing-8);
@@ -76,15 +103,64 @@
   overflow-wrap: anywhere;
 }
 .arrow {
-  @include panel.arrow(overlay);
+  @include panel.tooltip-arrow;
   // Overlap the panel edge so its border/highlight does not cross the pointer base.
   // Only the two outward edges are stroked; the inward half joins the bubble.
   box-sizing: border-box;
+  visibility: var(--vd-tooltip-arrow-visibility, visible);
   width: var(--tooltip-arrow-size);
   height: var(--tooltip-arrow-size);
   background: var(--tooltip-background);
   border: var(--vd-tooltip-border, 0);
+  -webkit-backdrop-filter: var(--vd-tooltip-backdrop-filter, none);
+  backdrop-filter: var(--vd-tooltip-backdrop-filter, none);
   clip-path: none;
+  // Utility paints a side face on the outward edge rather than depending on
+  // a drop shadow whose offset can run parallel to the pointer's diagonal.
+  &::after {
+    content: '';
+    display: var(--vd-tooltip-arrow-shadow-display, none);
+    position: absolute;
+    background: var(--vd-tooltip-arrow-shadow-color, transparent);
+  }
+  [data-side='top'] > &::after,
+  [data-side='left'] > &::after {
+    top: 0;
+    bottom: 0;
+    right: calc(var(--vd-tooltip-arrow-shadow-size, 0px) * -1);
+    width: var(--vd-tooltip-arrow-shadow-size, 0px);
+  }
+  [data-side='bottom'] > &::after {
+    left: 0;
+    right: 0;
+    top: calc(var(--vd-tooltip-arrow-shadow-size, 0px) * -1);
+    height: var(--vd-tooltip-arrow-shadow-size, 0px);
+  }
+  [data-side='right'] > &::after {
+    left: 0;
+    right: 0;
+    bottom: calc(var(--vd-tooltip-arrow-shadow-size, 0px) * -1);
+    height: var(--vd-tooltip-arrow-shadow-size, 0px);
+  }
+  // The panel already paints the first two shadow pixels below/right of its
+  // edge. Cut that region out of the pointer face to avoid a darker overlap.
+  [data-side='top'] > &::after {
+    clip-path: polygon(
+      100% calc(var(--vd-tooltip-arrow-shadow-clearance) - var(--vd-tooltip-arrow-shadow-size)),
+      100% 100%,
+      0 100%,
+      0 var(--vd-tooltip-arrow-shadow-clearance)
+    );
+  }
+  [data-side='left'] > &::after {
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100%
+        calc(100% + var(--vd-tooltip-arrow-shadow-size) - var(--vd-tooltip-arrow-shadow-clearance)),
+      0 calc(100% - var(--vd-tooltip-arrow-shadow-clearance))
+    );
+  }
   [data-side] > & {
     clip-path: none;
   }
@@ -159,6 +235,10 @@
     pointer-events: none !important;
   }
   animation: none;
+  background: var(--tooltip-background);
+  &::before {
+    display: none;
+  }
   border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   box-shadow: var(
     --vd-tooltip-pointer-shadow,
@@ -175,25 +255,29 @@
     --tooltip-foreground: var(--vd-tooltip-foreground, var(--vd-text-primary));
   }
   .arrow {
+    visibility: visible;
     left: clamp(-4px, calc(var(--pointer-anchor-x) + 2px), calc(100% - 12px));
     width: 16px;
     height: 12px;
     transform: none;
     border: 0;
+    &::after {
+      display: none;
+    }
   }
   &[data-side='bottom'] {
     border-top-left-radius: 3px;
     .arrow {
       top: -8px;
-      clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 100% 100%, 0 100%));
+      clip-path: var(--vd-tooltip-arrow-clip-path, polygon(0 0, 100% 100%, 0 100%));
     }
   }
   &[data-side='top'] {
     border-bottom-left-radius: 3px;
     .arrow {
       bottom: -8px;
-      clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 100% 0, 0 100%));
-      mask-image: var(--vd-overlay-arrow-mask-right, none);
+      clip-path: var(--vd-tooltip-arrow-clip-path, polygon(0 0, 100% 0, 0 100%));
+      mask-image: var(--vd-tooltip-arrow-mask-right, none);
     }
   }
   &[data-state='closed'] {

@@ -2,6 +2,7 @@
 
 [data-virgo-theme='glass'] {
   @include recipe.soft-overlay-arrows;
+  @include recipe.soft-tooltip-arrows;
   --vd-content-surface: var(--vd-surface-default);
   --vd-content-surface-solid: var(--vd-table-body-background, var(--vd-surface-elevated));
   --vd-content-surface-muted: var(--vd-surface-secondary);
@@ -59,6 +60,27 @@
   );
   --vd-popup-backdrop-filter: blur(24px) saturate(1.08);
   --vd-popup-shadow: 0 12px 32px rgb(0 0 0 / 18%), 0 2px 6px rgb(0 0 0 / 8%);
+  // Modal content needs more coverage than decorative glass surfaces.
+  --vd-dialog-background: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--vd-text-inverse) 86%, var(--vd-surface-background)) 76%,
+    transparent
+  );
+  --vd-dialog-backdrop-filter: blur(16px) saturate(1.04);
+  --vd-tooltip-background: rgb(32 32 34 / 84%);
+  --vd-tooltip-foreground: #fff;
+  --vd-tooltip-backdrop-filter: blur(12px) saturate(1.08);
+  // Paint the bubble and pointer as one glass surface using the shared contour.
+  --vd-tooltip-material-display: block;
+  --vd-tooltip-container-background: transparent;
+  --vd-tooltip-container-backdrop-filter: none;
+  --vd-tooltip-arrow-visibility: hidden;
+  --vd-popup-material-display: block;
+  --vd-popup-arrowed-background: transparent;
+  --vd-popup-arrowed-backdrop-filter: none;
+  --vd-popup-arrowed-border-color: transparent;
+  --vd-popup-arrowed-shadow: var(--vd-popup-shadow);
+  --vd-overlay-arrow-visibility: hidden;
   --vd-window-control-content: '';
   --vd-window-control-collapse-background: linear-gradient(#ffd85d, #ffbd2e);
   --vd-window-control-close-background: linear-gradient(#ff827c, #ff5f57);
@@ -228,8 +250,12 @@
     --vd-panel-backdrop-filter: none;
     --vd-popup-backdrop-filter: none;
     --vd-popup-background: var(--vd-surface-elevated);
+    --vd-dialog-background: var(--vd-surface-elevated);
+    --vd-dialog-backdrop-filter: none;
     --vd-glass-backdrop-filter: none;
     --vd-chrome-backdrop-filter: none;
+    --vd-tooltip-background: #202022;
+    --vd-tooltip-backdrop-filter: none;
     --vd-material-tint-opacity: 100%;
     --vd-glass-tint-opacity: 100%;
     @include recipe.appearance(

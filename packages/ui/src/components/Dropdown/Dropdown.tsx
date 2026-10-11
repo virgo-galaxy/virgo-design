@@ -2,6 +2,7 @@ import { CheckIcon, ChevronDownIcon, EllipsisIcon } from '@virgo-design/icons';
 import { Dropdown as PrimitiveDropdown } from '@virgo-design/primitives';
 import { createContext, forwardRef, useContext } from 'react';
 
+import { PopupMaterial } from '../../internal/overlay/PopupMaterial';
 import { Button, type ButtonSize } from '../Button';
 import styles from './Dropdown.module.scss';
 import type {
@@ -95,6 +96,7 @@ const Content = forwardRef<HTMLDivElement, DropdownContentProps>(function Dropdo
       className={classes(styles.content, className)}
     >
       {arrow ? <span className={styles.arrow} data-slot="arrow" aria-hidden="true" /> : null}
+      {arrow ? <PopupMaterial /> : null}
       <div className={styles.viewport} data-dropdown-viewport="" data-overlay-viewport="">
         {children}
       </div>

@@ -1,6 +1,7 @@
 import { Popover as PrimitivePopover } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
+import { PopupMaterial } from '../../internal/overlay/PopupMaterial';
 import { Button } from '../Button';
 import styles from './Popover.module.scss';
 import type {
@@ -60,6 +61,7 @@ const Content = forwardRef<HTMLDivElement, PopoverContentProps>(function Popover
       className={[styles.content, className].filter(Boolean).join(' ')}
     >
       {arrow ? <span className={styles.arrow} data-slot="arrow" aria-hidden="true" /> : null}
+      {arrow ? <PopupMaterial /> : null}
       <div className={styles.viewport} data-overlay-viewport="">
         {children}
       </div>

@@ -72,6 +72,32 @@ export function useFloatingPosition({
           contentHeight -
           (viewport.offsetHeight || viewport.getBoundingClientRect().height)
         : Math.max(contentHeight, content.scrollHeight);
+      const arrow = content.querySelector<HTMLElement>(':scope > [data-slot="arrow"]');
+      const panelStyle = getComputedStyle(content);
+      const cornerRadius = Math.max(
+        ...[
+          panelStyle.borderTopLeftRadius,
+          panelStyle.borderTopRightRadius,
+          panelStyle.borderBottomLeftRadius,
+          panelStyle.borderBottomRightRadius,
+        ].map((radius) => Number.parseFloat(radius) || 0),
+      );
+      const borderWidth = Math.max(
+        ...[
+          panelStyle.borderTopWidth,
+          panelStyle.borderRightWidth,
+          panelStyle.borderBottomWidth,
+          panelStyle.borderLeftWidth,
+        ].map((border) => Number.parseFloat(border) || 0),
+      );
+      // Reserve the arrow's full base beside the actual themed corner. Shift the
+      // panel with it so the tip remains aligned with the trigger.
+      const arrowInset = arrow
+        ? Math.max(
+            20,
+            cornerRadius + borderWidth + Math.max(arrow.offsetWidth, arrow.offsetHeight) / 2,
+          )
+        : 20;
       const next = positionOverlay(
         referenceRect,
         { width, height, top: rect.top, left: rect.left },
@@ -83,8 +109,8 @@ export function useFloatingPosition({
         placement,
         offset,
         dir,
-        Boolean(content.querySelector(':scope > [data-slot="arrow"]')) &&
-          content.getAttribute('data-pointer-follow') !== 'true',
+        Boolean(arrow) && content.getAttribute('data-pointer-follow') !== 'true',
+        arrowInset,
       );
       // Absolute arrow coordinates start inside the panel border, unlike viewport coordinates.
       next.arrowX -= content.clientLeft;

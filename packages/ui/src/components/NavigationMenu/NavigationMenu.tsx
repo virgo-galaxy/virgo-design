@@ -18,6 +18,7 @@ import {
   useState,
 } from 'react';
 
+import { PopupMaterial } from '../../internal/overlay/PopupMaterial';
 import { Separator as BaseSeparator } from '../Separator';
 import styles from './NavigationMenu.module.scss';
 import type {
@@ -481,6 +482,7 @@ const Content = forwardRef<HTMLUListElement, NavigationMenuContentProps>(
         placement={orientation === 'horizontal' && depth === 0 ? 'bottomStart' : 'rightTop'}
       >
         {arrow ? <span className={styles.arrow} data-slot="arrow" aria-hidden="true" /> : null}
+        {arrow ? <PopupMaterial /> : null}
         {content}
       </PrimitivePopover.Content>
     );

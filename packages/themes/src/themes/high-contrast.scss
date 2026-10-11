@@ -41,6 +41,8 @@
   --vd-disabled-opacity: 1;
   --vd-disabled-border-style: dashed;
   --vd-panel-highlight: 0 0 0 transparent;
+  // Match the tooltip's exposed diagonal ends at the arrow base.
+  --vd-overlay-arrow-clip-path: none;
   --vd-tooltip-border: 2px solid var(--vd-text-primary);
   --vd-tooltip-background: var(--vd-surface-default);
   --vd-tooltip-foreground: var(--vd-text-primary);

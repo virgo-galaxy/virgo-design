@@ -1,0 +1,85 @@
+// Union the rounded body and the existing arrow mask before painting translucent
+// material. Separate fills/backdrop filters otherwise tint their overlap twice.
+@mixin material {
+  position: absolute;
+  inset: calc((var(--material-padding) + var(--material-border, 0px)) * -1);
+  z-index: -1;
+  pointer-events: none;
+  mask-image:
+    linear-gradient(white, white), linear-gradient(white, white),
+    radial-gradient(circle closest-side, white calc(100% - 0.5px), transparent),
+    radial-gradient(circle closest-side, white calc(100% - 0.5px), transparent),
+    radial-gradient(circle closest-side, white calc(100% - 0.5px), transparent),
+    radial-gradient(circle closest-side, white calc(100% - 0.5px), transparent),
+    var(--material-arrow-mask, linear-gradient(transparent, transparent));
+  mask-size:
+    calc(100% - 2 * var(--material-padding) - 2 * var(--material-radius))
+      calc(100% - 2 * var(--material-padding)),
+    calc(100% - 2 * var(--material-padding))
+      calc(100% - 2 * var(--material-padding) - 2 * var(--material-radius)),
+    calc(2 * var(--material-radius)) calc(2 * var(--material-radius)),
+    calc(2 * var(--material-radius)) calc(2 * var(--material-radius)),
+    calc(2 * var(--material-radius)) calc(2 * var(--material-radius)),
+    calc(2 * var(--material-radius)) calc(2 * var(--material-radius)),
+    var(--material-arrow-width) var(--material-arrow-height);
+  mask-position:
+    center,
+    center,
+    left var(--material-padding) top var(--material-padding),
+    right var(--material-padding) top var(--material-padding),
+    left var(--material-padding) bottom var(--material-padding),
+    right var(--material-padding) bottom var(--material-padding),
+    var(--material-arrow-position, center);
+  mask-repeat: no-repeat;
+}
+
+@mixin arrow-position($profile, $width, $height, $inset) {
+  --material-padding: var(--vd-sizing-12);
+  --material-arrow-mask: linear-gradient(transparent, transparent);
+  --material-arrow-width: #{$width};
+  --material-arrow-height: #{$height};
+  &:has(> [data-slot='arrow']) {
+    @each $side in (top, bottom, left, right) {
+      &[data-side='#{$side}'] {
+        --material-arrow-mask: var(--vd-#{$profile}-arrow-mask-#{$side});
+      }
+    }
+    &[data-side='bottom'] {
+      --material-arrow-position: left
+        calc(
+          var(--material-padding) + var(--material-border, 0px) + var(--overlay-arrow-x) -
+            #{$width} / 2
+        )
+        top calc(var(--material-padding) + var(--material-border, 0px) - #{$inset});
+    }
+    &[data-side='top'] {
+      --material-arrow-position: left
+        calc(
+          var(--material-padding) + var(--material-border, 0px) + var(--overlay-arrow-x) -
+            #{$width} / 2
+        )
+        bottom calc(var(--material-padding) + var(--material-border, 0px) - #{$inset});
+    }
+    &[data-side='left'],
+    &[data-side='right'] {
+      --material-arrow-width: #{$height};
+      --material-arrow-height: #{$width};
+    }
+    &[data-side='left'] {
+      --material-arrow-position: right
+        calc(var(--material-padding) + var(--material-border, 0px) - #{$inset}) top
+        calc(
+          var(--material-padding) + var(--material-border, 0px) + var(--overlay-arrow-y) -
+            #{$width} / 2
+        );
+    }
+    &[data-side='right'] {
+      --material-arrow-position: left
+        calc(var(--material-padding) + var(--material-border, 0px) - #{$inset}) top
+        calc(
+          var(--material-padding) + var(--material-border, 0px) + var(--overlay-arrow-y) -
+            #{$width} / 2
+        );
+    }
+  }
+}

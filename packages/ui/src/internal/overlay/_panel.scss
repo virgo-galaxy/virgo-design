@@ -1,5 +1,76 @@
 $layer: 100;
 
+@mixin arrow-shadow {
+  // Paint outside the clipped arrow. Keep this face out of the panel's own
+  // shadow so the two translucent layers cannot darken their shared seam.
+  &::after {
+    --arrow-shadow-size: var(--vd-popup-arrow-shadow-size, 0px);
+    --arrow-shadow-base-clearance: calc(
+      var(--vd-stroke-width, var(--vd-border-width-1)) * 1.4142135624
+    );
+    --arrow-shadow-panel-clearance: calc(
+      (var(--arrow-shadow-size) + var(--vd-stroke-width, var(--vd-border-width-1))) * 1.4142135624
+    );
+    content: '';
+    display: var(--vd-popup-arrow-shadow-display, none);
+    position: absolute;
+    width: var(--vd-sizing-12);
+    height: var(--vd-sizing-12);
+    background: transparent;
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+  &[data-side='bottom']::after {
+    top: calc(var(--vd-spacing-6) * -1);
+    left: calc(var(--overlay-arrow-x) - var(--vd-spacing-6));
+    box-shadow: 0 calc(var(--arrow-shadow-size) * -1) 0
+      var(--vd-popup-arrow-shadow-color, transparent);
+    clip-path: polygon(
+      0 calc(var(--arrow-shadow-size) * -1),
+      100% calc(var(--arrow-shadow-size) * -1),
+      100% calc(var(--arrow-shadow-base-clearance) * -1),
+      calc(100% - var(--arrow-shadow-base-clearance)) 0,
+      0 0
+    );
+  }
+  &[data-side='top']::after {
+    bottom: calc(var(--vd-spacing-6) * -1);
+    left: calc(var(--overlay-arrow-x) - var(--vd-spacing-6));
+    box-shadow: var(--arrow-shadow-size) 0 0 var(--vd-popup-arrow-shadow-color, transparent);
+    clip-path: polygon(
+      100% var(--arrow-shadow-panel-clearance),
+      calc(100% + var(--arrow-shadow-size))
+        calc(var(--arrow-shadow-panel-clearance) - var(--arrow-shadow-size)),
+      calc(100% + var(--arrow-shadow-size)) 100%,
+      100% 100%
+    );
+  }
+  &[data-side='left']::after {
+    right: calc(var(--vd-spacing-6) * -1);
+    top: calc(var(--overlay-arrow-y) - var(--vd-spacing-6));
+    box-shadow: var(--arrow-shadow-size) 0 0 var(--vd-popup-arrow-shadow-color, transparent);
+    clip-path: polygon(
+      100% 0,
+      calc(100% + var(--arrow-shadow-size)) 0,
+      calc(100% + var(--arrow-shadow-size))
+        calc(100% - var(--arrow-shadow-panel-clearance) + var(--arrow-shadow-size)),
+      100% calc(100% - var(--arrow-shadow-panel-clearance))
+    );
+  }
+  &[data-side='right']::after {
+    left: calc(var(--vd-spacing-6) * -1);
+    top: calc(var(--overlay-arrow-y) - var(--vd-spacing-6));
+    box-shadow: 0 var(--arrow-shadow-size) 0 var(--vd-popup-arrow-shadow-color, transparent);
+    clip-path: polygon(
+      0 100%,
+      calc(100% - var(--arrow-shadow-base-clearance)) 100%,
+      100% calc(100% + var(--arrow-shadow-base-clearance)),
+      100% calc(100% + var(--arrow-shadow-size)),
+      0 calc(100% + var(--arrow-shadow-size))
+    );
+  }
+}
+
 @mixin popup-material {
   background: var(--vd-popup-background, var(--vd-surface-elevated));
   box-shadow:
@@ -29,6 +100,27 @@ $layer: 100;
       var(--vd-popup-shadow, var(--vd-elevation-2)), var(--vd-panel-highlight, 0 0 0 transparent);
     -webkit-backdrop-filter: var(--vd-popup-backdrop-filter, var(--vd-panel-backdrop-filter));
     backdrop-filter: var(--vd-popup-backdrop-filter, var(--vd-panel-backdrop-filter));
+    &:has(> [data-slot='arrow']) {
+      @include arrow-shadow;
+      border-color: var(--vd-popup-arrowed-border-color, var(--vd-border-subtle));
+      background: var(
+        --vd-popup-arrowed-background,
+        var(--vd-popup-background, var(--vd-surface-elevated))
+      );
+      box-shadow: var(
+        --vd-popup-arrowed-shadow,
+        var(--vd-popup-shadow, var(--vd-elevation-2)),
+        var(--vd-panel-highlight, 0 0 0 transparent)
+      );
+      -webkit-backdrop-filter: var(
+        --vd-popup-arrowed-backdrop-filter,
+        var(--vd-popup-backdrop-filter, var(--vd-panel-backdrop-filter))
+      );
+      backdrop-filter: var(
+        --vd-popup-arrowed-backdrop-filter,
+        var(--vd-popup-backdrop-filter, var(--vd-panel-backdrop-filter))
+      );
+    }
   }
   font-family: var(--vd-typography-ui-body-medium-font-family);
   font-size: var(--vd-typography-ui-body-medium-font-size);
@@ -37,17 +129,105 @@ $layer: 100;
 }
 
 @mixin arrow($presentation: popup) {
-  position: absolute;
-  width: var(--vd-sizing-12);
-  height: var(--vd-sizing-12);
-  background: var(--vd-overlay-background, var(--vd-surface-elevated));
+  --overlay-arrow-inline-size: calc(
+    var(--tooltip-arrow-size, var(--vd-sizing-12)) * var(--vd-overlay-arrow-width-scale, 1)
+  );
+  --overlay-arrow-block-size: calc(
+    var(--tooltip-arrow-size, var(--vd-sizing-12)) * var(--vd-overlay-arrow-height-scale, 1)
+  );
+  --overlay-arrow-inset: calc(
+    var(--tooltip-arrow-size, var(--vd-sizing-12)) * var(--vd-overlay-arrow-inset-scale, 0.5)
+  );
+  --overlay-arrow-fill: var(--vd-overlay-background, var(--vd-surface-elevated));
   @if $presentation == popup {
-    background: var(
+    --overlay-arrow-fill: var(
       --vd-popup-background,
       var(--vd-overlay-background, var(--vd-surface-elevated))
     );
   }
-  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+  position: absolute;
+  visibility: var(--vd-overlay-arrow-visibility, visible);
+  width: var(--overlay-arrow-inline-size);
+  height: var(--overlay-arrow-block-size);
+  background: var(--vd-overlay-arrow-background, var(--overlay-arrow-fill));
+  border: var(
+    --vd-overlay-arrow-border,
+    var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle)
+  );
+  transform: rotate(45deg);
+  pointer-events: none;
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  // Curved arrows paint the fill and its open outline separately. The base has
+  // no stroke, so it covers the panel border without leaving square shoulders.
+  &::before,
+  &::after {
+    content: '';
+    display: var(--vd-overlay-arrow-contour-display, none);
+    position: absolute;
+    inset: 0;
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+  }
+  &::before {
+    background: var(--overlay-arrow-fill);
+  }
+  &::after {
+    background: var(--overlay-arrow-stroke, var(--vd-border-subtle));
+  }
+  @each $side in (top, bottom, left, right) {
+    [data-side='#{$side}'] > & {
+      mask-image: var(--vd-overlay-arrow-box-mask, var(--vd-overlay-arrow-mask-#{$side}, none));
+      transform: var(--vd-overlay-arrow-transform-#{$side}, rotate(45deg));
+      &::before {
+        mask-image: var(--vd-overlay-arrow-mask-#{$side}, none);
+      }
+      &::after {
+        mask-image: var(--vd-overlay-arrow-outline-#{$side}, none);
+      }
+    }
+  }
+  [data-side='bottom'] > & {
+    top: calc(var(--overlay-arrow-inset) * -1);
+    left: calc(var(--overlay-arrow-x) - var(--overlay-arrow-inline-size) / 2);
+    border-right: 0;
+    border-bottom: 0;
+    clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 100% 0, 0 100%));
+  }
+  [data-side='top'] > & {
+    bottom: calc(var(--overlay-arrow-inset) * -1);
+    left: calc(var(--overlay-arrow-x) - var(--overlay-arrow-inline-size) / 2);
+    border-left: 0;
+    border-top: 0;
+    clip-path: var(--vd-overlay-arrow-clip-path, polygon(100% 0, 100% 100%, 0 100%));
+  }
+  [data-side='left'] > & {
+    width: var(--overlay-arrow-block-size);
+    height: var(--overlay-arrow-inline-size);
+    right: calc(var(--overlay-arrow-inset) * -1);
+    top: calc(var(--overlay-arrow-y) - var(--overlay-arrow-inline-size) / 2);
+    border-left: 0;
+    border-bottom: 0;
+    clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 100% 0, 100% 100%));
+  }
+  [data-side='right'] > & {
+    width: var(--overlay-arrow-block-size);
+    height: var(--overlay-arrow-inline-size);
+    left: calc(var(--overlay-arrow-inset) * -1);
+    top: calc(var(--overlay-arrow-y) - var(--overlay-arrow-inline-size) / 2);
+    border-right: 0;
+    border-top: 0;
+    clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 0 100%, 100% 100%));
+  }
+}
+
+// Tooltip keeps its existing pointer profile independently of bordered panels.
+@mixin tooltip-arrow {
+  position: absolute;
+  width: var(--vd-sizing-12);
+  height: var(--vd-sizing-12);
+  background: var(--tooltip-background);
+  border: var(--vd-tooltip-border, 0);
   transform: rotate(45deg);
   pointer-events: none;
   mask-size: 100% 100%;
@@ -58,35 +238,35 @@ $layer: 100;
     left: calc(var(--overlay-arrow-x) - var(--vd-spacing-6));
     border-right: 0;
     border-bottom: 0;
-    clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 100% 0, 0 100%));
-    mask-image: var(--vd-overlay-arrow-mask-bottom, none);
-    transform: var(--vd-overlay-arrow-transform-bottom, rotate(45deg));
+    clip-path: var(--vd-tooltip-arrow-clip-path, polygon(0 0, 100% 0, 0 100%));
+    mask-image: var(--vd-tooltip-arrow-mask-bottom, none);
+    transform: var(--vd-tooltip-arrow-transform-bottom, rotate(45deg));
   }
   [data-side='top'] > & {
     bottom: calc(var(--vd-spacing-6) * -1);
     left: calc(var(--overlay-arrow-x) - var(--vd-spacing-6));
     border-left: 0;
     border-top: 0;
-    clip-path: var(--vd-overlay-arrow-clip-path, polygon(100% 0, 100% 100%, 0 100%));
-    mask-image: var(--vd-overlay-arrow-mask-top, none);
-    transform: var(--vd-overlay-arrow-transform-top, rotate(45deg));
+    clip-path: var(--vd-tooltip-arrow-clip-path, polygon(100% 0, 100% 100%, 0 100%));
+    mask-image: var(--vd-tooltip-arrow-mask-top, none);
+    transform: var(--vd-tooltip-arrow-transform-top, rotate(45deg));
   }
   [data-side='left'] > & {
     right: calc(var(--vd-spacing-6) * -1);
     top: calc(var(--overlay-arrow-y) - var(--vd-spacing-6));
     border-left: 0;
     border-bottom: 0;
-    clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 100% 0, 100% 100%));
-    mask-image: var(--vd-overlay-arrow-mask-left, none);
-    transform: var(--vd-overlay-arrow-transform-left, rotate(45deg));
+    clip-path: var(--vd-tooltip-arrow-clip-path, polygon(0 0, 100% 0, 100% 100%));
+    mask-image: var(--vd-tooltip-arrow-mask-left, none);
+    transform: var(--vd-tooltip-arrow-transform-left, rotate(45deg));
   }
   [data-side='right'] > & {
     left: calc(var(--vd-spacing-6) * -1);
     top: calc(var(--overlay-arrow-y) - var(--vd-spacing-6));
     border-right: 0;
     border-top: 0;
-    clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 0 100%, 100% 100%));
-    mask-image: var(--vd-overlay-arrow-mask-right, none);
-    transform: var(--vd-overlay-arrow-transform-right, rotate(45deg));
+    clip-path: var(--vd-tooltip-arrow-clip-path, polygon(0 0, 0 100%, 100% 100%));
+    mask-image: var(--vd-tooltip-arrow-mask-right, none);
+    transform: var(--vd-tooltip-arrow-transform-right, rotate(45deg));
   }
 }
