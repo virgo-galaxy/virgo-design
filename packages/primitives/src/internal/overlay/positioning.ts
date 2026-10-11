@@ -18,6 +18,18 @@ type Rect = { left: number; top: number; width: number; height: number };
 type Side = 'top' | 'bottom' | 'left' | 'right';
 const opposite = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' } as const;
 
+/** Reserve space where the pointer's root meets the panel's rounded corner. */
+export function getArrowInset(
+  cornerRadius: number,
+  borderWidth: number,
+  rootHalfSize: number,
+  rootDepth = 0,
+) {
+  const depth = Math.max(0, Math.min(rootDepth, cornerRadius));
+  const cornerClearance = cornerRadius - Math.sqrt(depth * (2 * cornerRadius - depth));
+  return borderWidth + rootHalfSize + cornerClearance;
+}
+
 export function positionOverlay(
   anchor: Rect,
   menu: Rect,
@@ -81,15 +93,18 @@ export function positionOverlay(
   const arrowInsetY = Math.min(arrowInset, height / 2);
   if (arrow) {
     // Shift the panel as well as its arrow so the tip still points at the trigger center.
-    if (vertical) {
+    if (vertical && width > arrowInset * 2) {
       const center = anchor.left + anchor.width / 2;
       left = Math.max(center - width + arrowInsetX, Math.min(left, center - arrowInsetX));
       left = Math.max(margin, Math.min(left, viewport.width - width - margin));
-    } else {
+    } else if (!vertical && height > arrowInset * 2) {
       const center = anchor.top + anchor.height / 2;
       top = Math.max(center - height + arrowInsetY, Math.min(top, center - arrowInsetY));
       top = Math.max(margin, Math.min(top, viewport.height - height - margin));
     }
+    // A short panel has no room to move its arrow along the edge. Keep its
+    // requested alignment instead of collapsing Top/center/Bottom together;
+    // the centered pointer still lands within the trigger.
   }
   const arrowX = Math.max(
     arrowInsetX,

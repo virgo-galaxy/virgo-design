@@ -77,7 +77,9 @@ Charts 保持 Virgo API → ECharts engine。CSS compiler 读取语义变量，�
 
 ## Glass 光学材质
 
-浮层箭头通过共享 `--vd-overlay-arrow-*` 契约定义遮罩与比例。只有 Glass、Soft 提供曲线 SVG 遮罩：保留低矮三角轮廓，轻微柔化尖端和两侧连接。Tooltip（包含 pointer-follow）、Popover、Dropdown、NavigationMenu 消费同一套方位变量，其余四套主题继续使用原有几何。SVG 按归一化 viewBox 缩放，适用于小尺寸 Tooltip；组件不识别 preset 名称。
+浮层箭头通过共享 `--vd-overlay-arrow-*` 契约定义遮罩与比例。Glass、Soft 为 Popover、Dropdown、NavigationMenu 提供曲线 SVG 遮罩；Tooltip 使用独立的 `--vd-tooltip-arrow-*` 遮罩。Tooltip 保留各主题原来的气泡圆角和箭头尖端，Glass、Soft 仅收窄左右箭头的根部两翼，并将根部略微嵌入气泡。单独箭头与玻璃材质遮罩共用该轮廓。定位根据根部尺寸、嵌入深度与圆角的交点计算边缘空间，不再统一要求至少 20px；左右的 Top、居中、Bottom 箭头随对应对齐位置变化，上下箭头与其他浮层沿用原来的轮廓。
+
+底层浮层定位在面板短于箭头安全范围时保留请求的边缘对齐，不再为居中箭头重定位整个面板；因此 leftTop／left／leftBottom、rightTop／right／rightBottom 分别对应顶部、中心、底部对齐，所有主题遵循同一规则。箭头在该短边上保持居中，仍指向触发按钮内部。
 
 文字密集的 Select、Dropdown、Menu、Popover 和 picker 使用独立 popup 契约：88% 中性底色和 24px 模糊，遮蔽底层文字，同时保留微弱环境色。Dialog、Drawer 与大面积 Surface 继续使用清透材质。工作台窗口操作消费 `--vd-window-control-*` 契约，Glass 提供红黄实心圆点，悬停或键盘聚焦时显示符号；其他主题保留原有图标与共享交互。
 

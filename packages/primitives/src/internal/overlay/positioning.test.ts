@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { type PhysicalPlacement, positionOverlay } from './positioning';
+import { getArrowInset, type PhysicalPlacement, positionOverlay } from './positioning';
 
 describe('Overlay positioning', () => {
   const anchor = { left: 400, top: 300, width: 100, height: 40 };
@@ -64,6 +64,84 @@ describe('Overlay positioning', () => {
     const tiny = { ...menu, width: 24, height: 24 };
     expect(positionOverlay(anchor, tiny, viewport, 'bottomRight', 8).arrowX).toBe(12);
     expect(positionOverlay(anchor, tiny, viewport, 'rightBottom', 8).arrowY).toBe(12);
+  });
+  it.each(['left', 'right'] as const)(
+    'retains top, center and bottom alignment for a short %s tooltip',
+    (side) => {
+      const tooltip = { ...menu, height: 34 };
+      const positions = ['Top', '', 'Bottom'].map((alignment) =>
+        positionOverlay(
+          anchor,
+          tooltip,
+          viewport,
+          `${side}${alignment}` as PhysicalPlacement,
+          8,
+          'ltr',
+          true,
+          20,
+        ),
+      );
+      expect(positions.map(({ top }) => top)).toEqual([300, 303, 306]);
+      expect(positions.every(({ arrowY }) => arrowY === 17)).toBe(true);
+    },
+  );
+  it.each([7, 10, 12])(
+    'distinguishes upper, middle and lower pointers on short tooltips with a %ipx corner inset',
+    (inset) => {
+      const trigger = { ...anchor, height: 28 };
+      const tooltip = { ...menu, height: 34 };
+      for (const side of ['left', 'right'] as const) {
+        const positions = ['Top', '', 'Bottom'].map((alignment) =>
+          positionOverlay(
+            trigger,
+            tooltip,
+            viewport,
+            `${side}${alignment}` as PhysicalPlacement,
+            8,
+            'ltr',
+            true,
+            inset,
+          ),
+        );
+        expect(positions.map(({ top }) => top)).toEqual([300, 297, 294]);
+        expect(positions.map(({ arrowY }) => arrowY)).toEqual([14, 17, 20]);
+        expect(positions.every(({ top, arrowY }) => top + arrowY === 314)).toBe(true);
+      }
+    },
+  );
+  it.each([14, 16])(
+    'keeps horizontal alignment distinct beside a %ipx round corner with tucked shoulders',
+    (radius) => {
+      const trigger = { ...anchor, height: 28 };
+      const tooltip = { ...menu, height: 34 };
+      const rootHalfSize = (12 - 3) * 1.15 * Math.SQRT1_2;
+      const rootDepth = 1.5 + 3 * 0.75 * Math.SQRT1_2;
+      const inset = getArrowInset(radius, 0, rootHalfSize, rootDepth);
+      expect(inset).toBeLessThan(trigger.height / 2);
+      const cornerY = inset - rootHalfSize;
+      const cornerX = radius - Math.sqrt(radius ** 2 - (radius - cornerY) ** 2);
+      expect(cornerX).toBeCloseTo(rootDepth);
+      for (const side of ['left', 'right'] as const) {
+        const positions = ['Top', '', 'Bottom'].map((alignment) =>
+          positionOverlay(
+            trigger,
+            tooltip,
+            viewport,
+            `${side}${alignment}` as PhysicalPlacement,
+            8,
+            'ltr',
+            true,
+            inset,
+          ),
+        );
+        expect(positions.map(({ top }) => top)).toEqual([300, 297, 294]);
+        expect(positions.map(({ arrowY }) => arrowY)).toEqual([14, 17, 20]);
+      }
+    },
+  );
+  it('retains existing corner clearance for an arrow without an inset root', () => {
+    expect(getArrowInset(6, 0, 6)).toBe(12);
+    expect(getArrowInset(2, 2, 6)).toBe(10);
   });
   it.each([26, 28])('keeps a wider pointer clear of themed corners with a %ipx inset', (inset) => {
     const smallTrigger = { ...anchor, width: 24, height: 24 };

@@ -34,7 +34,8 @@
     tooltip-silhouette,
     calc(var(--tooltip-arrow-size) * 2),
     calc(var(--tooltip-arrow-size) * 4 / 3),
-    calc(var(--tooltip-arrow-size) * 2 / 3)
+    calc(var(--tooltip-arrow-size) * 2 / 3),
+    calc(var(--tooltip-arrow-size) * var(--vd-tooltip-arrow-inline-overlap-scale, 0))
   );
   width: max-content;
   padding: var(--vd-spacing-8) var(--vd-spacing-12);
@@ -126,6 +127,11 @@
 }
 .arrow {
   @include panel.tooltip-arrow;
+  --overlay-arrow-inline-root-depth-scale: var(--vd-tooltip-arrow-inline-root-depth-scale, 0);
+  --overlay-arrow-inline-root-half-size-scale: var(
+    --vd-tooltip-arrow-inline-root-half-size-scale,
+    0
+  );
   // Overlap the panel edge so its border/highlight does not cross the pointer base.
   // Only the two outward edges are stroked; the inward half joins the bubble.
   box-sizing: border-box;
@@ -199,13 +205,19 @@
     border-top: 0;
   }
   [data-side='left'] > & {
-    right: calc(var(--tooltip-arrow-half) * -1);
+    right: calc(
+      var(--tooltip-arrow-half) * -1 + var(--tooltip-arrow-size) *
+        var(--vd-tooltip-arrow-inline-overlap-scale, 0)
+    );
     top: calc(var(--overlay-arrow-y) - var(--tooltip-arrow-half));
     border-left: 0;
     border-bottom: 0;
   }
   [data-side='right'] > & {
-    left: calc(var(--tooltip-arrow-half) * -1);
+    left: calc(
+      var(--tooltip-arrow-half) * -1 + var(--tooltip-arrow-size) *
+        var(--vd-tooltip-arrow-inline-overlap-scale, 0)
+    );
     top: calc(var(--overlay-arrow-y) - var(--tooltip-arrow-half));
     border-right: 0;
     border-top: 0;

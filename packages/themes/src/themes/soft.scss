@@ -3,7 +3,7 @@
 [data-virgo-theme='soft'] {
   --vd-select-tag-radius: 9999px;
   @include recipe.soft-overlay-arrows;
-  @include recipe.soft-tooltip-arrows;
+  @include recipe.soft-tooltip-arrows(3, 0.125);
   --vd-content-surface: var(--vd-surface-default);
   --vd-content-surface-solid: var(--vd-table-body-background, var(--vd-surface-elevated));
   --vd-content-surface-muted: var(--vd-surface-secondary);

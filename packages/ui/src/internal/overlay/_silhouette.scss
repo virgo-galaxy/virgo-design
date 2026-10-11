@@ -33,7 +33,7 @@
   mask-repeat: no-repeat;
 }
 
-@mixin arrow-position($profile, $width, $height, $inset) {
+@mixin arrow-position($profile, $width, $height, $inset, $inline-overlap: 0px) {
   --material-padding: var(--vd-sizing-12);
   --material-arrow-mask: linear-gradient(transparent, transparent);
   --material-arrow-width: #{$width};
@@ -67,7 +67,8 @@
     }
     &[data-side='left'] {
       --material-arrow-position: right
-        calc(var(--material-padding) + var(--material-border, 0px) - #{$inset}) top
+        calc(var(--material-padding) + var(--material-border, 0px) - #{$inset} + #{$inline-overlap})
+        top
         calc(
           var(--material-padding) + var(--material-border, 0px) + var(--overlay-arrow-y) -
             #{$width} / 2
@@ -75,7 +76,8 @@
     }
     &[data-side='right'] {
       --material-arrow-position: left
-        calc(var(--material-padding) + var(--material-border, 0px) - #{$inset}) top
+        calc(var(--material-padding) + var(--material-border, 0px) - #{$inset} + #{$inline-overlap})
+        top
         calc(
           var(--material-padding) + var(--material-border, 0px) + var(--overlay-arrow-y) -
             #{$width} / 2

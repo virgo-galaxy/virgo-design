@@ -2,7 +2,7 @@ import { type CSSProperties, type RefObject, useContext, useLayoutEffect, useSta
 
 import { LayerScope } from './layers';
 import { PortalContainerContext } from './Portal';
-import { type OverlayPlacement, positionOverlay } from './positioning';
+import { getArrowInset, type OverlayPlacement, positionOverlay } from './positioning';
 
 export function useFloatingPosition({
   active,
@@ -90,14 +90,28 @@ export function useFloatingPosition({
           panelStyle.borderLeftWidth,
         ].map((border) => Number.parseFloat(border) || 0),
       );
-      // Reserve the arrow's full base beside the actual themed corner. Shift the
-      // panel with it so the tip remains aligned with the trigger.
-      const arrowInset = arrow
-        ? Math.max(
-            20,
-            cornerRadius + borderWidth + Math.max(arrow.offsetWidth, arrow.offsetHeight) / 2,
-          )
-        : 20;
+      let arrowInset = 20;
+      if (arrow) {
+        const arrowSize = Math.max(arrow.offsetWidth, arrow.offsetHeight);
+        const arrowStyle = getComputedStyle(arrow);
+        const horizontal = placement.startsWith('left') || placement.startsWith('right');
+        const rootDepthScale = horizontal
+          ? Number.parseFloat(
+              arrowStyle.getPropertyValue('--overlay-arrow-inline-root-depth-scale'),
+            ) || 0
+          : 0;
+        const rootHalfSizeScale = horizontal
+          ? Number.parseFloat(
+              arrowStyle.getPropertyValue('--overlay-arrow-inline-root-half-size-scale'),
+            ) || 0
+          : 0;
+        arrowInset = getArrowInset(
+          cornerRadius,
+          borderWidth,
+          arrowSize * (rootHalfSizeScale || 0.5),
+          arrowSize * rootDepthScale,
+        );
+      }
       const next = positionOverlay(
         referenceRect,
         { width, height, top: rect.top, left: rect.left },

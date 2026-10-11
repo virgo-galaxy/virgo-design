@@ -1,4 +1,5 @@
 @use 'sass:string';
+@use 'sass:math';
 
 // Values are implementations of the Tokens contract; no component selectors live here.
 @mixin appearance($mode, $values) {
@@ -73,15 +74,24 @@ $overlay-arrow-curve: 'c4 0 5.5 -2 10.8 -6.1 q1.2 -1 2.4 0 c5.3 4.1 6.8 6.1 10.8
 }
 
 // Both arrow painting and a translucent material silhouette use this one profile.
-@function tooltip-mask($viewbox, $orientation, $projection: '') {
-  $path: 'M0%20.8%20Q0%200%20.8%200%20C4%200%207%201.5%2012%200%20L12%2012%20L0%2012%20C1.5%207%200%204%200%20.8%20Z';
+@function tooltip-mask($viewbox, $orientation, $projection: '', $shoulder-inset: 0) {
+  $path: 'M0%20.8%20Q0%200%20.8%200%20C4%200%207%201.5%2012%20#{$shoulder-inset}%20L12%2012%20L#{$shoulder-inset}%2012%20C1.5%207%200%204%200%20.8%20Z';
   @return string.unquote(
     "url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%22#{$viewbox}%22%3E%3Cg%20transform%3D%22#{$projection}%22%3E%3Cpath%20fill%3D%22white%22%20transform%3D%22#{$orientation}%22%20d%3D%22#{$path}%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"
   );
 }
 
 // Rounded tip and concave shoulders; normalized SVG masks scale with arrow size.
-@mixin soft-tooltip-arrows {
+@mixin soft-tooltip-arrows($inline-shoulder-inset: 0, $inline-overlap: 0) {
+  @if $inline-shoulder-inset > 0 {
+    // Project the tucked shoulders through the same scale/rotation as their masks.
+    $inset-ratio: math.div($inline-shoulder-inset, 12);
+    $root-depth: $inline-overlap + 0.75 * math.sqrt(0.5) * $inset-ratio;
+    $root-half-size: 1.15 * math.sqrt(0.5) * (1 - $inset-ratio);
+    --vd-tooltip-arrow-inline-overlap-scale: #{$inline-overlap};
+    --vd-tooltip-arrow-inline-root-depth-scale: #{$root-depth};
+    --vd-tooltip-arrow-inline-root-half-size-scale: #{$root-half-size};
+  }
   --vd-tooltip-arrow-clip-path: none;
   --vd-tooltip-arrow-transform-top: scale(1.15, 0.75) rotate(45deg);
   --vd-tooltip-arrow-transform-bottom: scale(1.15, 0.75) rotate(45deg);
@@ -96,7 +106,14 @@ $overlay-arrow-curve: 'c4 0 5.5 -2 10.8 -6.1 q1.2 -1 2.4 0 c5.3 4.1 6.8 6.1 10.8
         right: 'translate%280%2012%29%20scale%281%20-1%29'
       )
   {
-    --vd-tooltip-arrow-mask-#{$side}: #{tooltip-mask('0%200%2012%2012', $orientation)};
+    // The short, rounded bubble needs inward shoulders on its horizontal pointers.
+    $shoulder-inset: if(sass($side == left or $side == right): $inline-shoulder-inset; else: 0);
+    --vd-tooltip-arrow-mask-#{$side}: #{tooltip-mask(
+        '0%200%2012%2012',
+        $orientation,
+        '',
+        $shoulder-inset
+      )};
     // Bake the same CSS scale/rotation into the mask's coordinate system so it
     // can join the body mask without changing the arrow's physical contour.
     @if $side == top or $side == bottom {
@@ -109,7 +126,8 @@ $overlay-arrow-curve: 'c4 0 5.5 -2 10.8 -6.1 q1.2 -1 2.4 0 c5.3 4.1 6.8 6.1 10.8
       --vd-tooltip-silhouette-arrow-mask-#{$side}: #{tooltip-mask(
           '0%200%2016%2024',
           $orientation,
-          'matrix%28.530330086%20.813172798%20-.530330086%20.813172798%208%202.24192642%29'
+          'matrix%28.530330086%20.813172798%20-.530330086%20.813172798%208%202.24192642%29',
+          $shoulder-inset
         )};
     }
   }
