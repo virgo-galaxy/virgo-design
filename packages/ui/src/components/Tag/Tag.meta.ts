@@ -12,7 +12,7 @@ export const tagMetadata = {
     { name: 'outline', description: 'Transparent surface with a semantic border.' },
   ],
   sizes: ['sm', 'md', 'lg'].map((name) => ({ name, description: 'Compact Tag density.' })),
-  intents: ['neutral', 'brand', 'success', 'warning', 'danger', 'info'].map((name) => ({
+  intents: ['neutral', 'brand', 'accent', 'success', 'warning', 'danger', 'info'].map((name) => ({
     name,
     description: 'Theme-aware semantic color intent.',
   })),

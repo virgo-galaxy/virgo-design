@@ -23,11 +23,7 @@ import { FilterSelect, MetricStrip, PageHeading, Panel, Person } from '@/pages/s
 import shared from '@/pages/shared/ProPage.module.scss';
 import { taskDetailsPath } from '@/pages/tasks/task-navigation';
 import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
-import {
-  taskLabelStyles,
-  taskPriorityIntent,
-  taskStatusIntent,
-} from '@/pages/tasks/task-presentation';
+import { taskPriorityIntent, taskStatusIntent } from '@/pages/tasks/task-presentation';
 import { getActivityActionLabel } from '@/pages/workplace/activity-presentation';
 
 import styles from './ProjectDetailPage.module.scss';
@@ -251,19 +247,10 @@ export function ProjectDetailPage({ state }: { state: TaskState }) {
                     </span>
                   </div>
                   <div className={styles.taskTags}>
-                    <Tag
-                      size="md"
-                      intent={taskStatusIntent[task.status]}
-                      className={taskLabelStyles.tag}
-                    >
+                    <Tag size="md" intent={taskStatusIntent[task.status]}>
                       {getTaskStatusLabel(t, task.status)}
                     </Tag>
-                    <Tag
-                      size="md"
-                      intent={taskPriorityIntent[task.priority]}
-                      className={taskLabelStyles.tag}
-                      variant="outline"
-                    >
+                    <Tag size="md" intent={taskPriorityIntent[task.priority]} variant="outline">
                       {getTaskPriorityLabel(t, task.priority)}
                     </Tag>
                   </div>

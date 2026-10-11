@@ -11,7 +11,6 @@ import { FilterSelect, MultiFilterSelect } from '@/pages/shared/ProPage';
 import {
   getTaskPriorityLabel,
   getTaskStatusLabel,
-  taskLabelStyles,
   taskPriorityIntent,
   taskStatusIntent,
 } from '@/pages/tasks/task-presentation';
@@ -68,7 +67,6 @@ export function TaskFilters({
         </Field>
         <MultiFilterSelect
           size="medium"
-          className={taskLabelStyles.filter}
           label={t('tasks.status')}
           placeholder={t('tasks.allStatuses')}
           value={filterValues(draft.status)}
@@ -88,7 +86,6 @@ export function TaskFilters({
         />
         <MultiFilterSelect
           size="medium"
-          className={taskLabelStyles.filter}
           label={t('tasks.priority')}
           placeholder={t('tasks.allPriorities')}
           value={filterValues(draft.priority)}

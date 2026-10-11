@@ -17,7 +17,7 @@ import { Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { taskDetailsPath } from '@/pages/tasks/task-navigation';
 import { getTaskExportLabels, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
-import { taskLabelStyles, taskStatusIntent } from '@/pages/tasks/task-presentation';
+import { taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import styles from './ResultPage.module.scss';
 
@@ -269,11 +269,7 @@ export function ResultPage({
               <li key={task.id}>
                 <div className={styles.taskHeading}>
                   <span className={shared.mono}>{task.id}</span>
-                  <Tag
-                    size="md"
-                    intent={taskStatusIntent[task.status]}
-                    className={taskLabelStyles.tag}
-                  >
+                  <Tag size="md" intent={taskStatusIntent[task.status]}>
                     {getTaskStatusLabel(t, task.status)}
                   </Tag>
                 </div>

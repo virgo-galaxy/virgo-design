@@ -66,6 +66,9 @@ Foundation scales stay immutable. `themeContract` and
 - `--vd-navigation-selected-*`, `--vd-table-*`: hierarchy and selected states.
 - `--vd-motion-*`: duration and easing, still respecting reduced motion.
 - `--vd-chart-*`: grid, axes, tooltip, legend, series and interaction geometry.
+- `--vd-tag-*`, `--vd-select-tag-radius`: shared tag borders, material, shadows
+  and geometry for standalone tags and removable selected values. Business pages
+  choose semantic intents, including `accent`, without repainting these surfaces.
 - `--vd-page-background`, `--vd-chrome-*`: consumer shell presentation, without
   controlling route structure, layout, sidebar dimensions or business behavior.
 

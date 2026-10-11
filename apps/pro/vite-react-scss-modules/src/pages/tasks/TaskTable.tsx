@@ -36,7 +36,6 @@ import {
   getTaskPriorityLabel,
   getTaskStatusLabel,
   taskColumnLabel,
-  taskLabelStyles,
   taskPriorityIntent,
   taskStatusIntent,
 } from './task-presentation';
@@ -183,22 +182,13 @@ export function TaskTable({
         );
       case 'status':
         return (
-          <Tag
-            size={tagSize}
-            intent={taskStatusIntent[task.status]}
-            className={taskLabelStyles.tag}
-          >
+          <Tag size={tagSize} intent={taskStatusIntent[task.status]}>
             {getTaskStatusLabel(t, task.status)}
           </Tag>
         );
       case 'priority':
         return (
-          <Tag
-            size={tagSize}
-            intent={taskPriorityIntent[task.priority]}
-            className={taskLabelStyles.tag}
-            variant="outline"
-          >
+          <Tag size={tagSize} intent={taskPriorityIntent[task.priority]} variant="outline">
             {getTaskPriorityLabel(t, task.priority)}
           </Tag>
         );

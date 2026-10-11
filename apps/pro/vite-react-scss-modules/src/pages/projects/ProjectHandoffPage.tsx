@@ -40,7 +40,7 @@ import { ExceptionPage } from '@/pages/exceptions/ExceptionPage';
 import { FilterSelect, Panel } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { getTaskStatusLabel } from '@/pages/tasks/task-presentation';
-import { taskLabelStyles, taskStatusIntent } from '@/pages/tasks/task-presentation';
+import { taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import styles from './ProjectHandoffPage.module.scss';
 
@@ -387,11 +387,7 @@ export function ProjectHandoffPage({
                                         })}
                                       </span>
                                     </span>
-                                    <Tag
-                                      size="md"
-                                      intent={taskStatusIntent[task.status]}
-                                      className={taskLabelStyles.tag}
-                                    >
+                                    <Tag size="md" intent={taskStatusIntent[task.status]}>
                                       {getTaskStatusLabel(t, task.status)}
                                     </Tag>
                                   </Tree.Label>
@@ -481,11 +477,7 @@ export function ProjectHandoffPage({
                                 <span className={shared.mono}>{task.id}</span>
                                 {businessLabel(task.title, i18n.language)}
                               </span>
-                              <Tag
-                                size="md"
-                                intent={taskStatusIntent[task.status]}
-                                className={taskLabelStyles.tag}
-                              >
+                              <Tag size="md" intent={taskStatusIntent[task.status]}>
                                 {getTaskStatusLabel(t, task.status)}
                               </Tag>
                             </li>

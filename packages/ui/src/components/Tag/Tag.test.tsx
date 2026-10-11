@@ -19,7 +19,7 @@ describe('Tag', () => {
     expect(screen.getByTestId('tag')).toHaveAttribute('data-size', 'md');
   });
 
-  it.each(['neutral', 'brand', 'success', 'warning', 'danger', 'info'] as const)(
+  it.each(['neutral', 'brand', 'accent', 'success', 'warning', 'danger', 'info'] as const)(
     'supports the %s intent',
     (intent) => {
       render(<Tag intent={intent}>{intent}</Tag>);

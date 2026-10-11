@@ -4,6 +4,7 @@
 @use '../../internal/form/control-hover';
 @use '../../internal/form/option-highlight';
 @use '../../internal/overlay/panel';
+@use '../../internal/tag/surface';
 
 .root {
   --select-background: var(--vd-surface-default);
@@ -188,6 +189,9 @@
   pointer-events: none;
 }
 .selectedTag {
+  --select-intent-background: var(--vd-fill-hover);
+  --select-intent-foreground: var(--vd-text-primary);
+  --select-intent-border: var(--vd-border-subtle);
   box-sizing: border-box;
   min-height: var(--select-tag-height);
   display: inline-flex;
@@ -196,11 +200,14 @@
   align-items: center;
   gap: var(--vd-spacing-4);
   padding: var(--vd-spacing-2) var(--vd-spacing-4) var(--vd-spacing-2) var(--vd-spacing-8);
-  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
-  background: var(--vd-fill-hover);
-  color: var(--vd-text-primary);
+  border: var(--vd-stroke-width, 1px) solid transparent;
+  border-radius: var(--vd-select-tag-radius, var(--vd-shape-radius-4, var(--vd-radius-4)));
+  @include surface.surface(var(--select-intent-background), var(--select-intent-border));
+  color: var(--select-intent-foreground);
   font-size: var(--select-font-size);
-  line-height: calc(var(--select-tag-height) - var(--vd-spacing-4));
+  line-height: calc(
+    var(--select-tag-height) - var(--vd-spacing-4) - 2 * var(--vd-stroke-width, 1px)
+  );
   > span {
     min-width: 0;
     overflow-wrap: anywhere;
@@ -215,7 +222,7 @@
   height: max(calc(var(--select-tag-height) - var(--vd-spacing-8)), var(--vd-sizing-12));
   padding: 0;
   border: 0;
-  border-radius: var(--vd-radius-full);
+  border-radius: var(--vd-select-tag-radius, var(--vd-shape-radius-4, var(--vd-radius-4)));
   color: var(--vd-icon-secondary);
   background: transparent;
   cursor: pointer;
@@ -364,10 +371,20 @@
 }
 
 // Option intent colors the selected representation; dropdown rows stay neutral.
+.selectedTag[data-intent='neutral'] {
+  --select-intent-background: var(--vd-surface-secondary);
+}
+
 .selectedTag[data-intent='brand'],
 .value[data-intent='brand'] {
   --select-intent-background: var(--vd-brand-subtle);
   --select-intent-foreground: var(--vd-brand-link);
+  --select-intent-border: var(--vd-brand-primary);
+}
+
+.selectedTag[data-intent='accent'],
+.value[data-intent='accent'] {
+  @include surface.accent('select-intent');
 }
 
 @each $intent in (success, warning, danger, info) {
@@ -375,12 +392,12 @@
   .value[data-intent='#{$intent}'] {
     --select-intent-background: var(--vd-status-#{$intent}-subtle);
     --select-intent-foreground: var(--vd-status-#{$intent}-text);
+    --select-intent-border: var(--vd-status-#{$intent}-border);
   }
 }
 
 .selectedTag[data-intent] {
   color: var(--select-intent-foreground, var(--vd-text-primary));
-  background: var(--select-intent-background, var(--vd-fill-hover));
 }
 
 .value[data-intent] {

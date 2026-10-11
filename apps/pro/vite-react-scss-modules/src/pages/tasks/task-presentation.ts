@@ -5,8 +5,6 @@ import type { TaskPriority, TaskStatus } from '@/data/tasks';
 
 import type { TaskColumnKey } from './table-settings';
 
-export { default as taskLabelStyles } from './task-label.module.scss';
-
 export function taskColumnLabel(key: TaskColumnKey, t: TFunction) {
   return t(
     key === 'rowNumber'
@@ -24,7 +22,7 @@ export function taskColumnLabel(key: TaskColumnKey, t: TFunction) {
 export const taskStatusIntent: Record<TaskStatus, TagIntent> = {
   backlog: 'neutral',
   todo: 'info',
-  in_progress: 'brand',
+  in_progress: 'accent',
   in_review: 'warning',
   done: 'success',
 };

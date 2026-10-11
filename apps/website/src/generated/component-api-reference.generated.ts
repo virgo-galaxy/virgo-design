@@ -13213,7 +13213,7 @@ export const componentApiReference: ApiReferenceRegistry = {
       {
         name: 'TagIntent',
         kind: 'type',
-        signature: "'neutral' | 'brand' | 'success' | 'warning' | 'danger' | 'info'",
+        signature: "'neutral' | 'brand' | 'accent' | 'success' | 'warning' | 'danger' | 'info'",
         description: '',
         source: '@virgo-design/ui',
         reExported: false,

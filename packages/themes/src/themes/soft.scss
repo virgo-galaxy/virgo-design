@@ -1,6 +1,7 @@
 @use './recipe';
 
 [data-virgo-theme='soft'] {
+  --vd-select-tag-radius: 9999px;
   @include recipe.soft-overlay-arrows;
   @include recipe.soft-tooltip-arrows;
   --vd-content-surface: var(--vd-surface-default);

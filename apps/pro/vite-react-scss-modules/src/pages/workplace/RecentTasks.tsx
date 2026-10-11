@@ -7,11 +7,7 @@ import { useNavigate } from 'react-router';
 import { useProData } from '@/application/pro-data-context';
 import { formatDueDate } from '@/data/workplace';
 import { businessLabel } from '@/lib/demo/labels';
-import {
-  getTaskStatusLabel,
-  taskLabelStyles,
-  taskStatusIntent,
-} from '@/pages/tasks/task-presentation';
+import { getTaskStatusLabel, taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import styles from './WorkplacePage.module.scss';
 
@@ -59,11 +55,7 @@ export function RecentTasks({ allTasksRef }: { allTasksRef: Ref<HTMLButtonElemen
                 </span>
               </div>
               <div className={styles.compactTaskStatus}>
-                <Tag
-                  intent={taskStatusIntent[task.status]}
-                  className={taskLabelStyles.tag}
-                  size="md"
-                >
+                <Tag intent={taskStatusIntent[task.status]} size="md">
                   {getTaskStatusLabel(t, task.status)}
                 </Tag>
               </div>

@@ -1,3 +1,5 @@
+@use '../../internal/tag/surface';
+
 .root {
   --tag-background: var(--vd-surface-secondary);
   --tag-foreground: var(--vd-text-primary);
@@ -13,15 +15,21 @@
   gap: var(--tag-gap);
   padding-inline: var(--tag-padding-inline);
   border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid) transparent;
-  border-radius: var(--vd-radius-full);
+  border-radius: var(--vd-tag-radius, var(--vd-radius-full));
   color: var(--tag-foreground);
-  background: var(--tag-background);
+  @include surface.surface(var(--tag-background), var(--tag-border));
   font-family: var(--tag-font-family);
   font-size: var(--tag-font-size);
   font-weight: var(--tag-font-weight);
   line-height: var(--tag-line-height);
   white-space: nowrap;
   vertical-align: middle;
+}
+
+.root[data-intent='accent'] {
+  @include surface.accent('tag');
+  --tag-solid: var(--tag-foreground);
+  --tag-on-solid: var(--vd-text-inverse);
 }
 
 .root[data-intent='brand'] {
@@ -49,7 +57,7 @@
 }
 
 .root[data-variant='outline'] {
-  border-color: var(--tag-border);
+  border-color: var(--vd-tag-border-color, var(--tag-border));
   background: transparent;
 }
 
@@ -114,7 +122,7 @@
   cursor: pointer;
   padding: var(--vd-spacing-0);
   border: 0;
-  border-radius: var(--vd-radius-full);
+  border-radius: var(--vd-tag-radius, var(--vd-radius-full));
   color: inherit;
   background: transparent;
 

@@ -1,6 +1,6 @@
 import type { HTMLAttributes, MouseEvent, ReactNode } from 'react';
 
-export type TagIntent = 'neutral' | 'brand' | 'success' | 'warning' | 'danger' | 'info';
+export type TagIntent = 'neutral' | 'brand' | 'accent' | 'success' | 'warning' | 'danger' | 'info';
 export type TagVariant = 'soft' | 'solid' | 'outline';
 export type TagSize = 'sm' | 'md' | 'lg';
 

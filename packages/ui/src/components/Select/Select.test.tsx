@@ -107,7 +107,7 @@ describe('Select', () => {
 
   it('shares option intent with removable tags and updates it without changing selection', async () => {
     const user = userEvent.setup();
-    const fixture = (intent: 'success' | 'warning') => (
+    const fixture = (intent: 'success' | 'warning' | 'accent') => (
       <Select.Multiple defaultValue={['done']}>
         <Select.Trigger aria-label="Status" />
         <Select.Content>
@@ -132,6 +132,13 @@ describe('Select', () => {
     expect(document.querySelector('[data-slot="selected-tag"]')).toHaveAttribute(
       'data-intent',
       'warning',
+    );
+    expect(option).toHaveAttribute('aria-selected', 'true');
+    rerender(fixture('accent'));
+    expect(option).toHaveAttribute('data-intent', 'accent');
+    expect(document.querySelector('[data-slot="selected-tag"]')).toHaveAttribute(
+      'data-intent',
+      'accent',
     );
     expect(option).toHaveAttribute('aria-selected', 'true');
     await user.keyboard('{Escape}');

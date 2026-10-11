@@ -1,6 +1,8 @@
 @use './recipe';
 
 [data-virgo-theme='minimal'] {
+  --vd-tag-radius: 5px;
+  --vd-tag-soft-border-opacity: 20%;
   --vd-content-surface: var(--vd-surface-default);
   --vd-content-surface-solid: var(--vd-table-body-background, var(--vd-surface-elevated));
   --vd-content-surface-muted: var(--vd-surface-secondary);

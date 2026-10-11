@@ -1,6 +1,9 @@
 @use './recipe';
 
 [data-virgo-theme='glass'] {
+  --vd-tag-soft-border-opacity: 25%;
+  --vd-tag-background-opacity: 72%;
+  --vd-tag-backdrop-filter: blur(4px) saturate(1.04);
   @include recipe.soft-overlay-arrows;
   @include recipe.soft-tooltip-arrows;
   --vd-content-surface: var(--vd-surface-default);
