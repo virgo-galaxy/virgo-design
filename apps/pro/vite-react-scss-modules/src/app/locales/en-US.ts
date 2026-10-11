@@ -77,12 +77,6 @@ export const appEnUS = {
     },
   },
 
-  resetDemo: 'Reset demo data',
-  resetDemoTitle: 'Restore the initial demo?',
-  resetDemoDescription:
-    'Restore the 240 tasks, initial profile and default settings. Local changes and the current session will be cleared.',
-  resettingDemo: 'Resetting…',
-  resetDemoFailed: 'Unable to reset demo data. Please retry.',
   globalActions: 'Global actions',
   loadingPage: 'Loading page…',
   searchPlaceholder: 'Please search',

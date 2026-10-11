@@ -1,5 +1,5 @@
-import { AiIcon, ChevronDownIcon, LogOutIcon, ResetIcon, UserIcon } from '@virgo-design/icons';
-import { Avatar, Button, Dialog, Dropdown } from '@virgo-design/ui';
+import { AiIcon, ChevronDownIcon, LogOutIcon, UserIcon } from '@virgo-design/icons';
+import { Avatar, Dropdown } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -29,10 +29,7 @@ export function AccountMenu({
   const user = useCurrentUser()!;
   const admin = isAdmin(user);
   const navigate = useNavigate();
-  const { signOut, resetDemo } = useSession();
-  const [resetOpen, setResetOpen] = useState(false);
-  const [resetting, setResetting] = useState(false);
-  const [resetError, setResetError] = useState(false);
+  const { signOut } = useSession();
   const [open, setOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
   const [error, setError] = useState(false);
@@ -104,20 +101,6 @@ export function AccountMenu({
               {t('app.agentMode')}
             </Dropdown.Item>
           ) : null}
-          {admin && import.meta.env.VITE_API_MOCKING === 'true' ? (
-            <Dropdown.Item
-              icon={<ResetIcon />}
-              danger
-              disabled={signingOut}
-              onSelect={() => {
-                setOpen(false);
-                setResetError(false);
-                setResetOpen(true);
-              }}
-            >
-              {t('app.resetDemo')}
-            </Dropdown.Item>
-          ) : null}
           <Dropdown.Item
             icon={<LogOutIcon />}
             danger
@@ -141,44 +124,6 @@ export function AccountMenu({
           ) : null}
         </Dropdown.Content>
       </Dropdown>
-      <Dialog.Root
-        open={resetOpen}
-        onOpenChange={(value) => {
-          if (!resetting) setResetOpen(value);
-        }}
-      >
-        <Dialog.Portal>
-          <Dialog.Overlay />
-          <Dialog.Content size="sm">
-            <Dialog.Header>
-              <Dialog.Title>{t('app.resetDemoTitle')}</Dialog.Title>
-              <Dialog.Description>{t('app.resetDemoDescription')}</Dialog.Description>
-            </Dialog.Header>
-            {resetError ? (
-              <Dialog.Body>
-                <p role="alert">{t('app.resetDemoFailed')}</p>
-              </Dialog.Body>
-            ) : null}
-            <Dialog.Footer>
-              <Dialog.Close disabled={resetting}>{t('tasks.cancel')}</Dialog.Close>
-              <Button
-                disabled={resetting}
-                aria-busy={resetting}
-                onClick={() => {
-                  setResetting(true);
-                  setResetError(false);
-                  void resetDemo().catch(() => {
-                    setResetting(false);
-                    setResetError(true);
-                  });
-                }}
-              >
-                {t(resetting ? 'app.resettingDemo' : 'app.resetDemo')}
-              </Button>
-            </Dialog.Footer>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
     </>
   );
 }

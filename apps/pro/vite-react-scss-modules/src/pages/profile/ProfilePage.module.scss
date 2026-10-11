@@ -146,10 +146,7 @@
   padding: var(--vd-spacing-20) 0;
   border-top: 1px solid var(--vd-border-subtle);
 }
-.drawer {
-  --drawer-width: 460px;
-}
-.drawerHeader {
+.editorHeader {
   display: flex;
   align-items: start;
   justify-content: space-between;
@@ -200,7 +197,7 @@
   display: grid;
   gap: var(--vd-spacing-12);
 }
-.drawerFooter {
+.editorFooter {
   display: flex;
   justify-content: space-between;
   gap: var(--vd-spacing-12);

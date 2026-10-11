@@ -5,7 +5,7 @@ import {
   Badge,
   Button,
   ColorPicker,
-  Drawer,
+  Dialog,
   Field,
   Form,
   Input,
@@ -96,34 +96,33 @@ function ProfileEditor({
     });
   };
   return (
-    <Drawer.Root
+    <Dialog.Root
       open
       onOpenChange={(open) => {
         if (!open) close();
       }}
     >
-      <Drawer.Portal>
-        <Drawer.Overlay />
-        <Drawer.Content
+      <Dialog.Portal>
+        <Dialog.Overlay />
+        <Dialog.Content
           size="md"
-          className={styles.drawer}
           onCloseAutoFocus={(event) => {
             event.preventDefault();
             restoreFocus();
           }}
         >
-          <Drawer.Header className={styles.drawerHeader}>
+          <Dialog.Header className={styles.editorHeader}>
             <div>
-              <Drawer.Title>{t('profile.editYourProfile')}</Drawer.Title>
-              <Drawer.Description>
+              <Dialog.Title>{t('profile.editYourProfile')}</Dialog.Title>
+              <Dialog.Description>
                 {t('profile.yourIdentityInTheVirgoStudioWorkspace')}
-              </Drawer.Description>
+              </Dialog.Description>
             </div>
-            <Drawer.Close aria-label={t('profile.closeProfileEditor')} variant="text">
+            <Dialog.Close aria-label={t('profile.closeProfileEditor')} variant="text">
               <CloseIcon />
-            </Drawer.Close>
-          </Drawer.Header>
-          <Drawer.Body>
+            </Dialog.Close>
+          </Dialog.Header>
+          <Dialog.Body>
             <MutationFeedback pending={mutation.pending} error={mutation.error} />
             <Form
               inert={mutation.pending}
@@ -344,11 +343,11 @@ function ProfileEditor({
                 </Field.Description>
               </Field>
             </Form>
-          </Drawer.Body>
+          </Dialog.Body>
           <Button.Group
             layout="custom"
             render={(groupProps) => (
-              <Drawer.Footer {...groupProps} className={styles.drawerFooter} />
+              <Dialog.Footer {...groupProps} className={styles.editorFooter} />
             )}
           >
             {discard ? (
@@ -390,9 +389,9 @@ function ProfileEditor({
               </>
             )}
           </Button.Group>
-        </Drawer.Content>
-      </Drawer.Portal>
-    </Drawer.Root>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
 

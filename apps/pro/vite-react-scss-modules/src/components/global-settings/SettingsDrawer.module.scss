@@ -121,7 +121,20 @@
 .footerActions {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: var(--vd-spacing-12);
+  > button {
+    margin-inline-start: auto;
+  }
+}
+.resetActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vd-spacing-12);
+}
+.dangerAction:not(:disabled) {
+  color: var(--vd-status-danger-accent);
+  border-color: var(--vd-status-danger-border);
 }
 @media (max-width: 480px) {
   .panel {

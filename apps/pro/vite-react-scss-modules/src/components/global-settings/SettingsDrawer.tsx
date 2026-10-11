@@ -2,6 +2,7 @@ import { MonitorIcon, MoonFilledIcon, SettingsIcon, SunFilledIcon } from '@virgo
 import { themePresets } from '@virgo-design/themes';
 import {
   Button,
+  Dialog,
   Drawer,
   Input,
   SegmentedControl,
@@ -14,6 +15,7 @@ import {
 import { type CSSProperties, forwardRef, useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useSession } from '@/application/session-context';
 import { useThemeStyle } from '@/lib/use-theme-style';
 
 import {
@@ -207,6 +209,10 @@ export function SettingsDrawer({
 }) {
   const { t } = useTranslation();
   const id = useId();
+  const { resetDemo } = useSession();
+  const [resetOpen, setResetOpen] = useState(false);
+  const [resetting, setResetting] = useState(false);
+  const [resetError, setResetError] = useState(false);
   const { theme: themeStyle, setTheme } = useThemeStyle();
   const fixedHeaderMaterial = getFixedHeaderMaterial(themeStyle);
   const rail = settings.sidebarMode === 'collapsed';
@@ -496,12 +502,64 @@ export function SettingsDrawer({
               ? t('settings.changesApplyImmediatelyAndSaveInThisBrowser')
               : t('settings.changesApplyForThisSessionBrowserStorageIsUnavailable')}
           </p>
-          <Button.Group layout="custom" className={styles.footerActions}>
-            <Button variant="outline" onClick={onReset}>
-              {t('settings.restoreDefaults')}
-            </Button>
+          <div className={styles.footerActions}>
+            <Button.Group layout="custom" className={styles.resetActions}>
+              <Button variant="outline" onClick={onReset}>
+                {t('settings.restoreDefaults')}
+              </Button>
+              {import.meta.env.VITE_API_MOCKING === 'true' ? (
+                <Dialog.Root
+                  open={resetOpen}
+                  onOpenChange={(value) => {
+                    if (!resetting) setResetOpen(value);
+                  }}
+                >
+                  <Dialog.Trigger
+                    className={styles.dangerAction}
+                    onClick={() => setResetError(false)}
+                  >
+                    {t('settings.resetDemo')}
+                  </Dialog.Trigger>
+                  <Dialog.Portal>
+                    <Dialog.Overlay />
+                    <Dialog.Content size="sm">
+                      <Dialog.Header>
+                        <Dialog.Title>{t('settings.resetDemoTitle')}</Dialog.Title>
+                        <Dialog.Description>
+                          {t('settings.resetDemoDescription')}
+                        </Dialog.Description>
+                      </Dialog.Header>
+                      {resetError ? (
+                        <Dialog.Body>
+                          <p role="alert">{t('settings.resetDemoFailed')}</p>
+                        </Dialog.Body>
+                      ) : null}
+                      <Dialog.Footer>
+                        <Dialog.Close disabled={resetting}>{t('tasks.cancel')}</Dialog.Close>
+                        <Button
+                          variant="outline"
+                          className={styles.dangerAction}
+                          disabled={resetting}
+                          aria-busy={resetting}
+                          onClick={() => {
+                            setResetting(true);
+                            setResetError(false);
+                            void resetDemo().catch(() => {
+                              setResetting(false);
+                              setResetError(true);
+                            });
+                          }}
+                        >
+                          {t(resetting ? 'settings.resettingDemo' : 'settings.resetDemo')}
+                        </Button>
+                      </Dialog.Footer>
+                    </Dialog.Content>
+                  </Dialog.Portal>
+                </Dialog.Root>
+              ) : null}
+            </Button.Group>
             <Drawer.Close variant="primary">{t('settings.done')}</Drawer.Close>
-          </Button.Group>
+          </div>
         </Drawer.Footer>
         <Tooltip>
           <Tooltip.Trigger

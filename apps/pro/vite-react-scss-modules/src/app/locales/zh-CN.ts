@@ -79,11 +79,6 @@ export const appZhCN = {
     },
   },
 
-  resetDemo: '重置演示数据',
-  resetDemoTitle: '恢复初始演示状态？',
-  resetDemoDescription: '恢复初始 240 条任务、个人资料和默认设置，清除本地修改并退出当前登录。',
-  resettingDemo: '正在重置…',
-  resetDemoFailed: '重置演示数据失败，请重试。',
   globalActions: '全局操作',
   loadingPage: '正在加载页面…',
   searchPlaceholder: '请输入搜索内容',
