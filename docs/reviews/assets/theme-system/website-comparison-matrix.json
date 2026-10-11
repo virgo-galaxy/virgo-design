@@ -1,0 +1,1481 @@
+{
+  "records": [
+    {
+      "theme": "virgo",
+      "appearance": "light",
+      "stored": "virgo",
+      "scopes": [
+        {
+          "id": "virgo",
+          "appearance": "light",
+          "bg": "rgb(250, 250, 251)",
+          "button": "8px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "minimal",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "5px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "soft",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "14px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "glass",
+          "appearance": "light",
+          "bg": "rgba(255, 255, 255, 0.76)",
+          "button": "16px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "utility",
+          "appearance": "light",
+          "bg": "rgb(240, 240, 237)",
+          "button": "0px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "high-contrast",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "2px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "minimal",
+      "appearance": "light",
+      "stored": "minimal",
+      "scopes": [
+        {
+          "id": "virgo",
+          "appearance": "light",
+          "bg": "rgb(250, 250, 251)",
+          "button": "8px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "minimal",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "5px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "soft",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "14px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "glass",
+          "appearance": "light",
+          "bg": "rgba(255, 255, 255, 0.76)",
+          "button": "16px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "utility",
+          "appearance": "light",
+          "bg": "rgb(240, 240, 237)",
+          "button": "0px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "high-contrast",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "2px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "soft",
+      "appearance": "light",
+      "stored": "soft",
+      "scopes": [
+        {
+          "id": "virgo",
+          "appearance": "light",
+          "bg": "rgb(250, 250, 251)",
+          "button": "8px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "minimal",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "5px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "soft",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "14px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "glass",
+          "appearance": "light",
+          "bg": "rgba(255, 255, 255, 0.76)",
+          "button": "16px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "utility",
+          "appearance": "light",
+          "bg": "rgb(240, 240, 237)",
+          "button": "0px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "high-contrast",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "2px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "glass",
+      "appearance": "light",
+      "stored": "glass",
+      "scopes": [
+        {
+          "id": "virgo",
+          "appearance": "light",
+          "bg": "rgb(250, 250, 251)",
+          "button": "8px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "minimal",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "5px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "soft",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "14px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "glass",
+          "appearance": "light",
+          "bg": "rgba(255, 255, 255, 0.76)",
+          "button": "16px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "utility",
+          "appearance": "light",
+          "bg": "rgb(240, 240, 237)",
+          "button": "0px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "high-contrast",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "2px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "utility",
+      "appearance": "light",
+      "stored": "utility",
+      "scopes": [
+        {
+          "id": "virgo",
+          "appearance": "light",
+          "bg": "rgb(250, 250, 251)",
+          "button": "8px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "minimal",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "5px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "soft",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "14px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "glass",
+          "appearance": "light",
+          "bg": "rgba(255, 255, 255, 0.76)",
+          "button": "16px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "utility",
+          "appearance": "light",
+          "bg": "rgb(240, 240, 237)",
+          "button": "0px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "high-contrast",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "2px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "high-contrast",
+      "appearance": "light",
+      "stored": "high-contrast",
+      "scopes": [
+        {
+          "id": "virgo",
+          "appearance": "light",
+          "bg": "rgb(250, 250, 251)",
+          "button": "8px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "minimal",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "5px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "soft",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "14px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "glass",
+          "appearance": "light",
+          "bg": "rgba(255, 255, 255, 0.76)",
+          "button": "16px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "utility",
+          "appearance": "light",
+          "bg": "rgb(240, 240, 237)",
+          "button": "0px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "high-contrast",
+          "appearance": "light",
+          "bg": "rgb(255, 255, 255)",
+          "button": "2px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "virgo",
+      "appearance": "dark",
+      "stored": "virgo",
+      "scopes": [
+        {
+          "id": "virgo",
+          "appearance": "dark",
+          "bg": "rgb(36, 38, 45)",
+          "button": "8px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "minimal",
+          "appearance": "dark",
+          "bg": "rgb(17, 17, 17)",
+          "button": "5px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "soft",
+          "appearance": "dark",
+          "bg": "rgb(41, 43, 40)",
+          "button": "14px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "glass",
+          "appearance": "dark",
+          "bg": "rgba(27, 44, 66, 0.82)",
+          "button": "16px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "utility",
+          "appearance": "dark",
+          "bg": "rgb(45, 52, 41)",
+          "button": "0px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "high-contrast",
+          "appearance": "dark",
+          "bg": "rgb(0, 0, 0)",
+          "button": "2px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "minimal",
+      "appearance": "dark",
+      "stored": "minimal",
+      "scopes": [
+        {
+          "id": "virgo",
+          "appearance": "dark",
+          "bg": "rgb(36, 38, 45)",
+          "button": "8px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "minimal",
+          "appearance": "dark",
+          "bg": "rgb(17, 17, 17)",
+          "button": "5px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "soft",
+          "appearance": "dark",
+          "bg": "rgb(41, 43, 40)",
+          "button": "14px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "glass",
+          "appearance": "dark",
+          "bg": "rgba(27, 44, 66, 0.82)",
+          "button": "16px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "utility",
+          "appearance": "dark",
+          "bg": "rgb(45, 52, 41)",
+          "button": "0px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "high-contrast",
+          "appearance": "dark",
+          "bg": "rgb(0, 0, 0)",
+          "button": "2px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "soft",
+      "appearance": "dark",
+      "stored": "soft",
+      "scopes": [
+        {
+          "id": "virgo",
+          "appearance": "dark",
+          "bg": "rgb(36, 38, 45)",
+          "button": "8px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "minimal",
+          "appearance": "dark",
+          "bg": "rgb(17, 17, 17)",
+          "button": "5px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "soft",
+          "appearance": "dark",
+          "bg": "rgb(41, 43, 40)",
+          "button": "14px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "glass",
+          "appearance": "dark",
+          "bg": "rgba(27, 44, 66, 0.82)",
+          "button": "16px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "utility",
+          "appearance": "dark",
+          "bg": "rgb(45, 52, 41)",
+          "button": "0px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "high-contrast",
+          "appearance": "dark",
+          "bg": "rgb(0, 0, 0)",
+          "button": "2px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "glass",
+      "appearance": "dark",
+      "stored": "glass",
+      "scopes": [
+        {
+          "id": "virgo",
+          "appearance": "dark",
+          "bg": "rgb(36, 38, 45)",
+          "button": "8px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "minimal",
+          "appearance": "dark",
+          "bg": "rgb(17, 17, 17)",
+          "button": "5px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "soft",
+          "appearance": "dark",
+          "bg": "rgb(41, 43, 40)",
+          "button": "14px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "glass",
+          "appearance": "dark",
+          "bg": "rgba(27, 44, 66, 0.82)",
+          "button": "16px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "utility",
+          "appearance": "dark",
+          "bg": "rgb(45, 52, 41)",
+          "button": "0px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "high-contrast",
+          "appearance": "dark",
+          "bg": "rgb(0, 0, 0)",
+          "button": "2px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "utility",
+      "appearance": "dark",
+      "stored": "utility",
+      "scopes": [
+        {
+          "id": "virgo",
+          "appearance": "dark",
+          "bg": "rgb(36, 38, 45)",
+          "button": "8px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "minimal",
+          "appearance": "dark",
+          "bg": "rgb(17, 17, 17)",
+          "button": "5px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "soft",
+          "appearance": "dark",
+          "bg": "rgb(41, 43, 40)",
+          "button": "14px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "glass",
+          "appearance": "dark",
+          "bg": "rgba(27, 44, 66, 0.82)",
+          "button": "16px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "utility",
+          "appearance": "dark",
+          "bg": "rgb(45, 52, 41)",
+          "button": "0px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "high-contrast",
+          "appearance": "dark",
+          "bg": "rgb(0, 0, 0)",
+          "button": "2px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "high-contrast",
+      "appearance": "dark",
+      "stored": "high-contrast",
+      "scopes": [
+        {
+          "id": "virgo",
+          "appearance": "dark",
+          "bg": "rgb(36, 38, 45)",
+          "button": "8px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "minimal",
+          "appearance": "dark",
+          "bg": "rgb(17, 17, 17)",
+          "button": "5px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "soft",
+          "appearance": "dark",
+          "bg": "rgb(41, 43, 40)",
+          "button": "14px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "glass",
+          "appearance": "dark",
+          "bg": "rgba(27, 44, 66, 0.82)",
+          "button": "16px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "utility",
+          "appearance": "dark",
+          "bg": "rgb(45, 52, 41)",
+          "button": "0px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        },
+        {
+          "id": "high-contrast",
+          "appearance": "dark",
+          "bg": "rgb(0, 0, 0)",
+          "button": "2px",
+          "slots": [
+            "BUTTON",
+            "BUTTON",
+            "BUTTON",
+            "INPUT",
+            "BUTTON",
+            "INPUT",
+            "TABLE",
+            "BUTTON",
+            "BUTTON"
+          ]
+        }
+      ]
+    }
+  ],
+  "persistence": "high-contrast"
+}

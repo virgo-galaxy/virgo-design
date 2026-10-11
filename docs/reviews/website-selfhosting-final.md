@@ -103,8 +103,7 @@ ColorPicker 的二维编辑、复制按钮、disclosure 与 segmented 选择不�
   Collapsible 可键盘展开。检查结果均为一个 main。
 
 抽样页面没有页面级横向溢出或 pageerror，ColorPicker 的 8 组检查没有悬空 ARIA 引用。
-浏览器数据见 [严格检查记录](assets/website-selfhosting/strict-browser-checks.json)；
-人工复核的窄屏深色 picker 见 [截图](assets/website-selfhosting/strict-color-picker-dark.png)。
+浏览器数据见 [严格检查记录](assets/website-selfhosting/strict-browser-checks.json)。
 
 IconSelect 目前没有可达的生产路由挂载：现有 IconsExplorer 用法已传入 iconId/customIcon。
 它的 UI Select 定制与既有 keyboard/typeahead/Escape/focus integration tests 已通过，

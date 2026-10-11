@@ -1,0 +1,32 @@
+{
+  "recoveredWithoutReload": true,
+  "stableAfterRepeatedHotUpdate": true,
+  "initialVirgoLabel": true,
+  "triggerMatchesSelectedOption": true,
+  "selections": [
+    {
+      "selection": "Virgo",
+      "triggerLabel": "Virgo"
+    },
+    {
+      "selection": "Minimal",
+      "triggerLabel": "Minimal"
+    },
+    {
+      "selection": "Soft",
+      "triggerLabel": "Soft"
+    },
+    {
+      "selection": "Glass",
+      "triggerLabel": "Glass"
+    },
+    {
+      "selection": "Utility",
+      "triggerLabel": "Utility"
+    },
+    {
+      "selection": "High Contrast",
+      "triggerLabel": "High Contrast"
+    }
+  ]
+}

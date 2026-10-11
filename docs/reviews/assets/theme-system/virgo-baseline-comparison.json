@@ -1,0 +1,26 @@
+{
+  "elements": 426,
+  "compositionEqual": true,
+  "matches": {
+    "background": 426,
+    "color": 426,
+    "border": 426,
+    "radius": 426,
+    "shadow": 426,
+    "padding": 426,
+    "font": 426,
+    "width": 426,
+    "height": 426
+  },
+  "differences": {
+    "background": [],
+    "color": [],
+    "border": [],
+    "radius": [],
+    "shadow": [],
+    "padding": [],
+    "font": [],
+    "width": [],
+    "height": []
+  }
+}

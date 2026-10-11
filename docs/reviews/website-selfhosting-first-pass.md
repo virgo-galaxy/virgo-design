@@ -62,7 +62,7 @@ Primitive / UI 两层验证单一 main、div 输出、ref、native props 与 cla
 
 覆盖 en-US/zh-CN、Light/Dark、1440/960/390px（中文覆盖桌面与窄屏），共 120 组前后截图与 DOM/computed-style 记录。抽样比较 layout、字体、颜色、padding、圆角和几何尺寸，尺寸容差 1px。最后变更的四个页面另外复核 40 组。
 
-颜色弹层另外在四种主题/宽度组合中直接比较修改前后 bounding box 和计算样式；位置、尺寸、font、color、background、border、radius 与 padding 全部一致。保存一组原始截图：[迁移前](assets/website-selfhosting/picker-before.png)、[迁移后](assets/website-selfhosting/picker-after.png)。
+颜色弹层另外在四种主题/宽度组合中直接比较修改前后 bounding box 和计算样式；位置、尺寸、font、color、background、border、radius 与 padding 全部一致。
 
 非新增内容的抽样指标保持一致。Layout API 表新增 `as` 行造成内容高度与后续表格位置增长，是预期文档变化。新增可见 focus、loading/status 反馈与碰撞避免属于交互/可访问性增强。截图不是逐像素黄金测试；字体栅格化、悬停和动画状态的局部差异结合计算样式与人工截图复核，未将“用了组件”作为视觉变化理由。
 
@@ -144,8 +144,6 @@ override、contract test 及现有密度/边框示例同步。新增能力属于
 页的 API 区域；覆盖中英文、Light/Dark、1440/390px，共 32 组。声明、别名外框、表头和
 所有单元格的几何、字体、颜色、padding、圆角、边框计算值均无差异。32 对截图中 24 对
 像素完全一致；8 对仅圆角处 36–44 个像素出现最多 1/255 的色值差异，未出现布局变形。
-窄屏深色样本：[修改前](assets/website-selfhosting/api-frame-before.png)、
-[修改后](assets/website-selfhosting/api-frame-after.png)。
 
 在 Light/Dark、1440/390px 下验证 9 种分隔线结构，共 36 次通过；额外检查命名滚动区域的
 键盘横向滚动、2px focus outline 与内收 offset、页面溢出和 ARIA 引用，均通过。浏览器
@@ -164,11 +162,7 @@ Panel switching，不重复正式组件名。目录卡片的说明及组件 meta
 分类标题保持不变。
 
 在中英文、Light/Dark 下逐项检查两套侧栏，共 8 组、336 个链接检查；中文名称、英文原语
-Headless、连续序号及当前链接高亮均通过。截图：
-[组件中文](assets/website-selfhosting/sidebar-components-zh-CN.png)、
-[组件英文](assets/website-selfhosting/sidebar-components-en-US.png)、
-[原语中文](assets/website-selfhosting/sidebar-primitives-zh-CN.png)、
-[原语英文](assets/website-selfhosting/sidebar-primitives-en-US.png)。
+Headless、连续序号及当前链接高亮均通过。
 后续文案调整的 Website typecheck、lint、locale checks、相关组件/原语测试及生产构建均通过。
 
 ## 加载反馈追加修复
@@ -192,8 +186,6 @@ Headless、连续序号及当前链接高亮均通过。截图：
 独立示例和关联模块。中英文、Light/Dark、1440/390px 共 48 组，全部完成 pending → ready；
 没有可见加载文字、横向溢出、重复 main、缺失 ARIA 引用或 page error，reduced-motion 下
 骨架动画为 0s。正常模式继承既有 560ms pulse；文档切换保持 main DOM，ready 后无骨架残留。
-截图：[深色文档](assets/website-selfhosting/loading-document-dark.png)、
-[窄屏文档](assets/website-selfhosting/loading-document-narrow.png)。
 
 视觉复核发现 Skeleton 文本/圆形默认规则的属性选择器优先级会压过使用方 className 设置的
 几何尺寸。UI 层改用低优先级 `:where` 选择器；默认形状保持，使用方自定义高度/宽度正常
@@ -260,15 +252,6 @@ Button/Table 组件页及 Button/Dialog 原语页的 API 区域，在八种语�
 Table 分隔线与命名可聚焦滚动区域保持，无 clipping 或页面溢出。加上前述原语和交互，
 以上浏览器复核共 384 组。
 
-截图：[统一 hero](assets/website-selfhosting/round2-hero-form-narrow.png)、
-[版本与状态 Tag](assets/website-selfhosting/round2-sidebar-tags-dark.png)、
-[居中 Dialog 表单](assets/website-selfhosting/round2-dialog-form-narrow.png)、
-[Drawer 表单](assets/website-selfhosting/round2-drawer-form-narrow.png)、
-[原语 API Card](assets/website-selfhosting/round2-public-api-card-dark.png)、
-[局部 Spinner](assets/website-selfhosting/round2-spinner-narrow.png)、
-[Dock SegmentedControl](assets/website-selfhosting/round2-dock-control-narrow.png)、
-[API kind Tag](assets/website-selfhosting/round2-api-kind-narrow.png)。
-
 ### Dock 框体宽度根因修复
 
 窄屏截图另发现到达边界末端时，“检查器”被压成三行。绝对定位的 UI Dock 使用 auto 宽度，
@@ -284,5 +267,3 @@ left 锚点接近 100% 时 shrink-to-fit 可用空间趋于零，因此框体随
 不改变框体宽高，Range 文本矩形均为单行，框体保持在 Boundary 内；pin 后坐标、尺寸不
 跳动且仍在原边界内。额外核对 Website Foundations/Tokens 导航共 16 组，固定导航保持在
 视口内且原有链接正常。没有 page error。加入这些复核后，本轮共完成 432 组浏览器检查。
-[Dock 修复前](assets/website-selfhosting/round2-dock-width-before.png)、
-[Dock 修复后](assets/website-selfhosting/round2-dock-control-narrow.png)。

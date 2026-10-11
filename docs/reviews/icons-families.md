@@ -19,13 +19,13 @@ the remaining pairs stay static. Filled Gauge animates its negative-space needle
 contour without moving the dial. Metadata validation enforces animation agreement
 within each family.
 
-[Motion contact sheet](./icons-families-motion.contact.png) compares both members
+The motion review compared both members
 at 0%, 25% and 55% of the shared cycle on light and dark backgrounds. Browser
 sampling of 21 phases for all 24 animated pair members confirms actual movement
 and keeps sampled path points within the 24-unit canvas. The animation catalogue
 contains 34 families / 46 variants, with paired members sharing motion descriptions.
 
-[Contact sheet](./icons-families.contact.png) shows every pair at 16, 20, 24 and
+The optical review compared every pair at 16, 20, 24 and
 32px on light and dark backgrounds. The 20/24px samples are the primary optical
 review; 16px is diagnostic. All 576 rendered SVG samples fit within the 24-unit
 canvas. Filled status icons, fields, pigment wells, lock holes and gauge markings

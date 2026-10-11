@@ -21,7 +21,7 @@ and `pnpm all` enforce validation and freshness.
 
 ## Optical review
 
-[Contact sheet](./icons-platform.contact.png) shows each icon at **20px (left) / 24px (right)** on
+The optical review compared each icon at **20px (left) / 24px (right)** on
 light and dark backgrounds. [Bounds inventory](./icons-platform.bounds.json) records all 63 browser
 SVG bounds and path counts. No geometry exceeds the canonical canvas. Bounds do not substitute
 for optical judgment; the contact sheet was visually inspected for recognition, visual weight,

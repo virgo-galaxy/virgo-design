@@ -1,0 +1,20 @@
+[
+  {
+    "app": "website",
+    "iconVariant": "outline",
+    "iconStableOnOpen": true,
+    "iconStableOnClose": true,
+    "iconStableAfterSelection": true,
+    "themeSelectionWorks": true,
+    "menuOptions": 6
+  },
+  {
+    "app": "pro",
+    "iconVariant": "outline",
+    "iconStableOnOpen": true,
+    "iconStableOnClose": true,
+    "iconStableAfterSelection": true,
+    "themeSelectionWorks": true,
+    "menuOptions": 6
+  }
+]

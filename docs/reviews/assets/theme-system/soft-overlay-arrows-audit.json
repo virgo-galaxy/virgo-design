@@ -1,0 +1,459 @@
+{
+  "themes": ["glass", "soft"],
+  "records": [
+    {
+      "theme": "soft",
+      "appearance": "light",
+      "side": "top",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "soft",
+      "appearance": "light",
+      "side": "bottom",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "soft",
+      "appearance": "light",
+      "side": "left",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "soft",
+      "appearance": "light",
+      "side": "right",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "top",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "bottom",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "left",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "right",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "glass",
+      "appearance": "light",
+      "side": "top",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "glass",
+      "appearance": "light",
+      "side": "bottom",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "glass",
+      "appearance": "light",
+      "side": "left",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "glass",
+      "appearance": "light",
+      "side": "right",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "top",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "bottom",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "left",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "right",
+      "clip": "none",
+      "borders": ["0px", "0px", "0px", "0px"]
+    },
+    {
+      "kind": "popover",
+      "theme": "soft",
+      "appearance": "light",
+      "side": "top",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "soft",
+      "appearance": "light",
+      "side": "bottom",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "soft",
+      "appearance": "light",
+      "side": "left",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "soft",
+      "appearance": "light",
+      "side": "left",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "top",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "bottom",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "left",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "left",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "glass",
+      "appearance": "light",
+      "side": "top",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "glass",
+      "appearance": "light",
+      "side": "bottom",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "glass",
+      "appearance": "light",
+      "side": "left",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "glass",
+      "appearance": "light",
+      "side": "left",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "top",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "bottom",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "left",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "popover",
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "left",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "soft",
+      "appearance": "light",
+      "side": "top",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "soft",
+      "appearance": "light",
+      "side": "bottom",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "soft",
+      "appearance": "light",
+      "side": "left",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "soft",
+      "appearance": "light",
+      "side": "right",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "top",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "bottom",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "left",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "right",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "glass",
+      "appearance": "light",
+      "side": "top",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "glass",
+      "appearance": "light",
+      "side": "bottom",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "glass",
+      "appearance": "light",
+      "side": "left",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "glass",
+      "appearance": "light",
+      "side": "right",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "top",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "bottom",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "left",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "dropdown",
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "right",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "navigation-menu",
+      "theme": "soft",
+      "appearance": "light",
+      "side": "right",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "navigation-menu",
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "right",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "navigation-menu",
+      "theme": "glass",
+      "appearance": "light",
+      "side": "right",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "navigation-menu",
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "right",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "pointer-tooltip",
+      "theme": "glass",
+      "appearance": "light",
+      "side": "bottom",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "pointer-tooltip",
+      "theme": "glass",
+      "appearance": "dark",
+      "side": "bottom",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "pointer-tooltip",
+      "theme": "soft",
+      "appearance": "light",
+      "side": "bottom",
+      "clip": "none",
+      "masked": true
+    },
+    {
+      "kind": "pointer-tooltip",
+      "theme": "soft",
+      "appearance": "dark",
+      "side": "bottom",
+      "clip": "none",
+      "masked": true
+    }
+  ],
+  "unchangedOtherThemes": [
+    {
+      "theme": "virgo",
+      "mask": "none",
+      "transform": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)"
+    },
+    {
+      "theme": "minimal",
+      "mask": "none",
+      "transform": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)"
+    },
+    {
+      "theme": "utility",
+      "mask": "none",
+      "transform": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)"
+    },
+    {
+      "theme": "high-contrast",
+      "mask": "none",
+      "transform": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)"
+    }
+  ]
+}
