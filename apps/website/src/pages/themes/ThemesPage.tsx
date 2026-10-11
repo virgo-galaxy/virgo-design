@@ -1,14 +1,11 @@
 import { themePresets } from '@virgo-design/themes';
-import { SegmentedControl, Surface, Table } from '@virgo-design/ui';
-import { useState } from 'react';
+import { Surface, Table } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import { DocumentationCatalogue } from '@/components/docs/DocumentationCatalogue';
-import type { Appearance } from '@/shared/theme/types';
-import { useAppearance } from '@/shared/theme/use-appearance';
 
-import { ThemeComparison } from './ThemeComparison';
+import { ThemeExperience } from './ThemeExperience';
 import styles from './themes-page.module.scss';
 
 const installCode = `pnpm add @virgo-design/tokens @virgo-design/themes @virgo-design/ui`;
@@ -50,13 +47,10 @@ initializeTheme();
 
 export function ThemesPage() {
   const { t } = useTranslation();
-  const { appearance } = useAppearance();
-  const [comparisonAppearance, setComparisonAppearance] = useState<Appearance | null>(null);
-  const comparison = comparisonAppearance ?? appearance;
   return (
     <DocumentationCatalogue
       pageId="themes"
-      eyebrow="Virgo Design"
+      eyebrow="@virgo-design/themes"
       title={t('themes.title')}
       description={t('themes.description')}
     >
@@ -73,22 +67,12 @@ export function ThemesPage() {
         </Surface>
       </ArticleSection>
       <ArticleSection
-        id="theme-comparison"
+        id="theme-experience"
         index="02"
-        title={t('themes.comparison.title')}
-        description={t('themes.comparison.description')}
+        title={t('themes.experience.title')}
+        description={t('themes.experience.description')}
       >
-        <SegmentedControl
-          value={comparison}
-          onValueChange={(value) => {
-            if (value === 'light' || value === 'dark') setComparisonAppearance(value);
-          }}
-          aria-label={t('themes.comparison.appearance')}
-        >
-          <SegmentedControl.Item value="light">{t('app.controls.light')}</SegmentedControl.Item>
-          <SegmentedControl.Item value="dark">{t('app.controls.dark')}</SegmentedControl.Item>
-        </SegmentedControl>
-        <ThemeComparison appearance={comparison} />
+        <ThemeExperience />
       </ArticleSection>
       <ArticleSection
         id="theme-install"

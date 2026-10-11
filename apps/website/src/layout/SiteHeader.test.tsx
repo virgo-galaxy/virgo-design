@@ -83,7 +83,7 @@ describe('SiteHeader', () => {
     expect(await screen.findByRole('group', { name: '全局控制' })).toBeInTheDocument();
   });
 
-  it('presents Primitives as a top-level product area instead of Resources', () => {
+  it('orders the product areas from Foundations and Tokens through Themes to Charts', () => {
     renderHeader();
 
     const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
@@ -95,10 +95,10 @@ describe('SiteHeader', () => {
     ).toEqual([
       ['Foundations', '/foundations'],
       ['Tokens', '/tokens'],
+      ['Themes', '/themes'],
       ['Primitives', '/primitives'],
       ['Components', '/components'],
       ['Charts', '/charts'],
-      ['Themes', '/themes'],
     ]);
     expect(within(navigation).queryByRole('link', { name: 'Resources' })).not.toBeInTheDocument();
   });

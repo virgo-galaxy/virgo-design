@@ -1,39 +1,66 @@
-.comparison {
+.preview {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--vd-spacing-24);
-}
-.scope {
-  position: relative;
-  min-width: 0;
-  color-scheme: light;
-}
-.scope[data-theme='dark'] {
-  color-scheme: dark;
-}
-.specimen {
-  display: grid;
-  gap: var(--vd-spacing-12);
-  padding: var(--vd-spacing-24);
+  padding: var(--vd-spacing-32);
   min-width: 0;
   color: var(--vd-text-primary);
-  label {
-    font-size: var(--vd-font-size-13);
-  }
 }
-.specimenHeader {
+.previewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--vd-spacing-20);
   h3 {
-    margin: 0;
-    font-size: var(--vd-font-size-20);
-  }
-  code {
-    color: var(--vd-text-secondary);
-    font-size: var(--vd-font-size-11);
+    margin: var(--vd-spacing-8) 0 0;
+    font-size: var(--vd-font-size-24);
   }
   p {
     margin-block: var(--vd-spacing-8) 0;
     color: var(--vd-text-secondary);
     font-size: var(--vd-font-size-13);
+  }
+}
+.themeName {
+  color: var(--vd-brand-primary);
+  font-size: var(--vd-font-size-13);
+  font-weight: var(--vd-font-weight-600);
+}
+.previewColumns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: var(--vd-spacing-20);
+}
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vd-spacing-20);
+  padding: var(--vd-spacing-24);
+  min-width: 0;
+}
+.panel h4,
+.tableExample h4 {
+  margin: 0;
+  font-size: var(--vd-font-size-16);
+}
+.field {
+  display: grid;
+  gap: var(--vd-spacing-8);
+  font-size: var(--vd-font-size-13);
+}
+.tableExample {
+  display: grid;
+  gap: var(--vd-spacing-16);
+  min-width: 0;
+}
+.popoverExample {
+  display: grid;
+  gap: var(--vd-spacing-12);
+  padding: var(--vd-spacing-8);
+  p {
+    max-width: 28ch;
+    margin: 0;
   }
 }
 .actions {
@@ -62,12 +89,18 @@
   font: var(--vd-font-size-13) / var(--vd-line-height-4) var(--vd-font-family-mono);
 }
 @media (max-width: 800px) {
-  .comparison {
+  .preview {
+    padding: var(--vd-spacing-20);
+  }
+  .previewColumns {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .panel {
+    padding: var(--vd-spacing-16);
   }
 }
 
-// Identical content under every preset makes actual backdrop sampling visible.
+// Keep real content beneath the surface so backdrop materials are visible.
 .materialScene {
   position: relative;
   height: 168px;
@@ -115,5 +148,11 @@
   }
   span {
     font-size: var(--vd-font-size-13);
+  }
+}
+@media (max-width: 480px) {
+  .materialLens {
+    inset-inline: var(--vd-spacing-16);
+    padding: var(--vd-spacing-16);
   }
 }

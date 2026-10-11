@@ -22,10 +22,10 @@ export const ROUTE_PATHS = {
 export const PRIMARY_NAVIGATION_ITEMS = [
   { path: ROUTE_PATHS.foundations, label: 'app.navigation.foundations' },
   { path: ROUTE_PATHS.tokens, label: 'app.navigation.tokens' },
+  { path: ROUTE_PATHS.themes, label: 'app.navigation.themes' },
   { path: ROUTE_PATHS.primitives, label: 'app.navigation.primitives' },
   { path: ROUTE_PATHS.components, label: 'app.navigation.components' },
   { path: ROUTE_PATHS.charts, label: 'app.navigation.charts' },
-  { path: ROUTE_PATHS.themes, label: 'app.navigation.themes' },
 ] as const;
 
 export const FOUNDATION_NAVIGATION_ITEMS = [
