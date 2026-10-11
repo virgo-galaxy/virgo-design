@@ -2,11 +2,11 @@
   width: 100%;
   height: 400px;
   overflow: hidden;
-  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-8);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
 }
 .header {
-  border-block-end: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-block-end: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   padding-inline: var(--vd-spacing-12);
   gap: var(--vd-spacing-12);
   font-size: var(--vd-font-size-13);

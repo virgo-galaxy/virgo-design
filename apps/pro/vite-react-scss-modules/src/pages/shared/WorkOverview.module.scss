@@ -20,7 +20,7 @@
     position: absolute;
     inset-inline-end: 0;
     top: 50%;
-    width: var(--vd-border-width-1);
+    width: var(--vd-stroke-width, var(--vd-border-width-1));
     height: 64px;
     background: var(--vd-border-subtle);
     transform: translateY(-50%);
@@ -50,7 +50,7 @@
     display: none;
   }
   .metric:nth-child(-n + 2) {
-    border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+    border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   }
 }
 @container (max-width: 480px) {
@@ -66,7 +66,7 @@
     }
   }
   .metric:not(:last-child) {
-    border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+    border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   }
   .artwork {
     width: 48px;

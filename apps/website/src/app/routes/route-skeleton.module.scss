@@ -16,7 +16,7 @@
   align-content: start;
   gap: var(--vd-spacing-40);
   padding: var(--vd-spacing-32) var(--vd-spacing-24);
-  border-inline-end: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-inline-end: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   background: var(--vd-surface-default);
 }
 .group {

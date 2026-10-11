@@ -5,14 +5,15 @@
   max-width: 100%;
   padding: 0;
   border: 0;
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   background: transparent;
   color: var(--vd-text-secondary);
   font: inherit;
   text-align: start;
   white-space: nowrap;
   cursor: pointer;
-  transition: color var(--vd-duration-120) var(--vd-easing-standard);
+  transition: color var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
   > span:last-child {
     min-width: 0;
     overflow: hidden;
@@ -72,7 +73,7 @@
   gap: var(--vd-spacing-12);
   margin: 0;
   padding-block: var(--vd-spacing-16);
-  border-block: var(--vd-border-width-1) solid var(--vd-border-default);
+  border-block: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-default);
   > div {
     display: grid;
     grid-template-columns: 52px minmax(0, 1fr);

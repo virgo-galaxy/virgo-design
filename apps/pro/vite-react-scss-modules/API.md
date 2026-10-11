@@ -232,6 +232,14 @@ review. Members only change their own task progress; title, description, schedul
 The Mock gateway also enforces these rules; hiding a button is not the only guard. Admin has
 full task controls for demo inspection. Every account can edit its own profile and personal preferences. Profiles are persisted by user ID; a preferred project must belong to that account. Global/table settings and demo reset remain Admin-only.
 
+`src/config/settings.json` defines the default `headerMaterial` preference (`solid` or
+`glass`); browser settings save the user's choice under the same field. Virgo, Minimal
+and Soft use that preference and show the header-material switch. Glass always renders
+a glass header; Utility and High Contrast always render an opaque header. Fixed-material
+themes show an explanatory note instead of the switch. The effective material is derived
+from the theme during rendering, without overwriting or removing the saved preference.
+Returning to a customizable theme restores that preference, including after refresh.
+
 This remains a local demonstration with client-held Mock tokens, not a production authentication
 service. MSW is still the sole fake HTTP
 gateway; pages never bypass the typed API to read fixtures or storage.

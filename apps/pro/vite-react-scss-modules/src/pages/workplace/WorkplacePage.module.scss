@@ -14,7 +14,7 @@
   margin-block: -25px;
   padding: 0;
   border: 0;
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   background: transparent;
   cursor: pointer;
   img {
@@ -73,7 +73,7 @@
     gap: var(--vd-spacing-6);
     align-items: center;
     justify-content: center;
-    border-radius: var(--vd-radius-8);
+    border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
     padding: var(--vd-spacing-8) var(--vd-spacing-4);
     &:has([data-token-level='normal']) {
       background: var(--vd-status-success-subtle);
@@ -230,7 +230,7 @@
     position: absolute;
     inset-inline-end: 0;
     top: 50%;
-    width: var(--vd-border-width-1);
+    width: var(--vd-stroke-width, var(--vd-border-width-1));
     height: 64px;
     max-height: calc(100% - 48px);
     background: var(--vd-border-subtle);
@@ -260,8 +260,10 @@
   gap: var(--vd-spacing-20);
   align-items: start;
   transition:
-    grid-template-columns var(--vd-duration-180) var(--vd-easing-standard),
-    column-gap var(--vd-duration-180) var(--vd-easing-standard);
+    grid-template-columns var(--vd-motion-duration-180, var(--vd-duration-180))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    column-gap var(--vd-motion-duration-180, var(--vd-duration-180))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 .primaryColumn,
 .secondaryColumn {
@@ -280,7 +282,7 @@
     display: none;
   }
   .metric:nth-child(-n + 2) {
-    border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+    border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   }
 }
 @container (max-width: 480px) {
@@ -291,7 +293,7 @@
     display: none;
   }
   .metric:not(:last-child) {
-    border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+    border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   }
 }
 .secondaryColumn {
@@ -350,11 +352,45 @@
   gap: var(--vd-spacing-2);
 }
 .widgetControl[data-variant='text'] {
+  position: relative;
   --button-height: var(--vd-sizing-24);
   width: var(--button-height);
   height: var(--button-height);
   padding: 0;
   --button-foreground: var(--vd-icon-secondary);
+  --button-icon-size: var(--vd-window-control-icon-size, var(--vd-sizing-12));
+  --window-control-background: var(--vd-window-control-collapse-background, transparent);
+
+  &[data-window-action='collapse'] {
+    color: var(--vd-window-control-collapse-foreground, var(--vd-text-primary));
+  }
+  &[data-window-action='close'] {
+    --window-control-background: var(--vd-window-control-close-background, transparent);
+    color: var(--vd-window-control-close-foreground, var(--vd-icon-secondary));
+  }
+  &::before {
+    position: absolute;
+    width: var(--vd-window-control-size);
+    height: var(--vd-window-control-size);
+    box-sizing: border-box;
+    border: 1px solid var(--vd-window-control-border, transparent);
+    border-radius: var(--vd-radius-full);
+    background: var(--window-control-background);
+    box-shadow: var(--vd-window-control-shadow, none);
+    content: var(--vd-window-control-content);
+    pointer-events: none;
+  }
+  > [data-slot='icon'] {
+    position: relative;
+    opacity: var(--vd-window-control-symbol-opacity);
+  }
+  &:focus-visible > [data-slot='icon'] {
+    opacity: 1;
+  }
+}
+.widgetActions:hover .widgetControl > [data-slot='icon'],
+.widgetActions:focus-within .widgetControl > [data-slot='icon'] {
+  opacity: 1;
 }
 .widgetBodyInner {
   padding-block-start: var(--vd-spacing-16);
@@ -417,7 +453,7 @@
 }
 .compactTaskHeading {
   padding-block-end: var(--vd-spacing-8);
-  border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   color: var(--vd-text-tertiary);
   font-size: var(--vd-font-size-11);
 }
@@ -428,7 +464,7 @@
 }
 .compactTask {
   padding-block: var(--vd-spacing-12);
-  border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   &:last-child {
     border: 0;
   }
@@ -485,7 +521,7 @@
 .taskFooter {
   color: var(--vd-text-tertiary);
   font-size: var(--vd-font-size-11);
-  border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-top: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   padding-block-start: var(--vd-spacing-12);
   justify-content: space-between;
   > span {
@@ -526,7 +562,7 @@
   gap: 3px;
   height: var(--vd-spacing-8);
   overflow: hidden;
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   margin-block-end: var(--vd-spacing-24);
 }
 .distributionList {
@@ -555,7 +591,7 @@
   i {
     width: 6px;
     height: 6px;
-    border-radius: var(--vd-radius-4);
+    border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   }
   strong {
     font-family: var(--vd-font-family-mono);
@@ -613,7 +649,7 @@
     width: var(--vd-sizing-32);
     height: var(--vd-sizing-32);
     background: var(--vd-surface-secondary);
-    border-radius: var(--vd-radius-6);
+    border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
     svg {
       width: var(--vd-sizing-16);
       height: var(--vd-sizing-16);
@@ -665,7 +701,7 @@
   width: 3px;
   align-self: stretch;
   background: var(--vd-brand-primary);
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   flex: none;
 }
 .srOnly {
@@ -840,9 +876,15 @@
   }
 }
 .deliveryTooltip {
-  --chart-tooltip-surface: color-mix(in srgb, var(--vd-surface-default) 35%, transparent);
-  --chart-tooltip-border: var(--vd-border-subtle);
-  --chart-tooltip-radius: var(--vd-radius-8);
+  --chart-tooltip-surface: var(
+    --vd-chart-tooltip-surface,
+    color-mix(in srgb, var(--vd-surface-default) 35%, transparent)
+  );
+  --chart-tooltip-border: var(--vd-chart-tooltip-border, var(--vd-border-subtle));
+  --chart-tooltip-radius: var(
+    --vd-chart-tooltip-radius,
+    var(--vd-shape-radius-8, var(--vd-radius-8))
+  );
   color: var(--vd-text-primary);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
@@ -851,7 +893,7 @@
   --tooltip-background: transparent;
   --tooltip-foreground: var(--vd-text-primary);
   padding: 0;
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   box-shadow: none;
   pointer-events: none;
   [data-overlay-viewport] {

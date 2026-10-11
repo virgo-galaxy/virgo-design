@@ -59,7 +59,7 @@ describe('SiteHeader', () => {
     const controls = screen.getByRole('group', { name: 'Global controls' });
     expect(controls).toHaveAttribute('data-material', 'glass');
     const controlButtons = within(controls).getAllByRole('button');
-    expect(controlButtons).toHaveLength(2);
+    expect(controlButtons).toHaveLength(3);
     controlButtons.forEach((button) => expect(button).toHaveAttribute('data-size', 'small'));
     expect(controls.querySelector('[data-orientation="vertical"]')).toHaveAttribute(
       'data-decorative',
@@ -98,6 +98,7 @@ describe('SiteHeader', () => {
       ['Primitives', '/primitives'],
       ['Components', '/components'],
       ['Charts', '/charts'],
+      ['Themes', '/themes'],
     ]);
     expect(within(navigation).queryByRole('link', { name: 'Resources' })).not.toBeInTheDocument();
   });

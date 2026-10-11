@@ -4,6 +4,7 @@
 @use '../../internal/form/control-hover';
 
 .root {
+  box-shadow: var(--vd-control-shadow, none);
   --input-background: var(--vd-surface-default);
   --input-border: var(--vd-border-default);
   --input-border-hover: #{control-hover.$color};
@@ -21,17 +22,22 @@
   gap: var(--input-gap);
   padding-block: var(--input-padding-block);
   padding-inline: var(--input-padding-inline);
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--input-border);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--input-border);
   border-radius: var(--input-radius);
   color: var(--input-foreground);
   background: var(--input-background);
   cursor: text;
 
   transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    border-color var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not([data-disabled='true']):not(:has(input:disabled)):not(:focus-within) {
     border-color: var(--input-border-hover);
@@ -202,7 +208,8 @@
   }
 
   &:focus-visible {
-    outline: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-style-solid)
+      var(--vd-border-focus);
     outline-offset: var(--vd-spacing-2);
   }
 
@@ -241,7 +248,7 @@
   grid-template-rows: 1fr 1fr;
   flex: none;
   width: var(--input-stepper-width, var(--vd-sizing-24));
-  height: calc(var(--input-height) - var(--vd-border-width-1) * 2);
+  height: calc(var(--input-height) - var(--vd-stroke-width, var(--vd-border-width-1)) * 2);
 }
 
 .stepper {
@@ -252,7 +259,7 @@
   justify-content: center;
   padding: 0;
   border: 0;
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   color: var(--input-icon);
   background: transparent;
   cursor: pointer;
@@ -269,7 +276,7 @@
     background: var(--vd-fill-active);
   }
   &:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
     outline-offset: -2px;
   }
   &:disabled {

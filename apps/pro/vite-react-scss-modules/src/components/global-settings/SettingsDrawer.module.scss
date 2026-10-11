@@ -133,7 +133,8 @@
   z-index: 5;
   width: var(--vd-sizing-36);
   height: var(--vd-sizing-36);
-  border-radius: var(--vd-radius-4) 0 0 var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4)) 0 0
+    var(--vd-shape-radius-4, var(--vd-radius-4));
   > [data-slot='icon'] {
     --button-icon-size: var(--vd-sizing-28);
   }

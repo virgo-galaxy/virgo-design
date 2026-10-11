@@ -50,6 +50,8 @@ export const settingsEnUS = {
   valueValuePixels: '{{v0}}–{{v1}} pixels.',
   opaque: 'Opaque',
   frostedGlass: 'Frosted glass',
+  themeUsesGlassHeader: 'This theme uses a glass header.',
+  themeUsesOpaqueHeader: 'This theme uses an opaque header.',
   softenContentScrollingBeneathTheHeader: 'Soften content scrolling beneath the header.',
   expanded: 'Expanded',
   iconRail: 'Icon rail',

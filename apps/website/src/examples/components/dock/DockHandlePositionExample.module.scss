@@ -24,8 +24,8 @@
 
 .boundary {
   height: 280px;
-  border: var(--vd-border-width-1) dashed var(--vd-border-default);
-  border-radius: var(--vd-radius-12);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) dashed var(--vd-border-default);
+  border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
   background: var(--vd-surface-secondary);
 }
 

@@ -37,7 +37,7 @@
 .acceptance {
   padding: var(--vd-spacing-16);
   border: 1px solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   background: var(--vd-surface-secondary);
   h3 {
     margin: 0 0 var(--vd-spacing-12);
@@ -196,7 +196,7 @@
   min-width: 0;
   padding: var(--vd-spacing-16);
   border: 1px solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   color: var(--vd-text-primary);
   text-decoration: none;
   font-size: var(--vd-font-size-13);

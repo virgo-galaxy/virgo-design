@@ -25,6 +25,12 @@ export default defineConfig({
         new URL('../../../packages/icons/src/index.ts', import.meta.url),
       ),
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@virgo-design/themes/styles.css': fileURLToPath(
+        new URL('../../../packages/themes/src/styles.scss', import.meta.url),
+      ),
+      '@virgo-design/themes': fileURLToPath(
+        new URL('../../../packages/themes/src/index.ts', import.meta.url),
+      ),
       '@virgo-design/tokens': fileURLToPath(
         new URL('../../../packages/tokens/src/index.ts', import.meta.url),
       ),

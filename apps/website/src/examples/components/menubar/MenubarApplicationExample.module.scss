@@ -10,7 +10,7 @@
   width: 100%;
   min-height: 120px;
   background: var(--vd-surface-secondary);
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
 }
 
 .text {

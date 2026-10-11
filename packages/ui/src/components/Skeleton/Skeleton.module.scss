@@ -3,14 +3,14 @@
   display: inline-block;
   width: 100%;
   height: var(--vd-sizing-20);
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   background: var(--vd-fill-disabled);
   vertical-align: middle;
 }
 
 .root:where([data-variant='text']) {
   height: 1em;
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
 }
 
 .root:where([data-variant='circle']) {
@@ -20,7 +20,8 @@
 }
 
 .root[data-animated] {
-  animation: skeleton-pulse var(--vd-duration-560) var(--vd-easing-standard) infinite alternate;
+  animation: skeleton-pulse var(--vd-motion-duration-560, var(--vd-duration-560))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard)) infinite alternate;
 }
 
 @keyframes skeleton-pulse {

@@ -1,5 +1,6 @@
 export const layoutEnUS = {
   navigation: {
+    themes: 'Themes',
     charts: 'Charts',
     skipToContent: 'Skip to main content',
     label: 'Primary navigation',
@@ -9,6 +10,10 @@ export const layoutEnUS = {
     primitives: 'Primitives',
   },
   controls: {
+    appearance: 'Appearance',
+    light: 'Light',
+    dark: 'Dark',
+    auto: 'Auto · follow system',
     loadingPage: 'Loading page…',
     globalControls: 'Global controls',
     switchToChinese: 'Switch to Chinese',

@@ -9,8 +9,8 @@
   min-width: 0;
   padding: var(--vd-spacing-24);
   box-sizing: border-box;
-  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-12);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
   background: var(--vd-surface-default);
 }
 @media (max-width: 640px) {

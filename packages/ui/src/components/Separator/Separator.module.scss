@@ -8,11 +8,11 @@
 
 .root[data-orientation='horizontal'] {
   width: 100%;
-  height: var(--vd-border-width-1);
+  height: var(--vd-stroke-width, var(--vd-border-width-1));
 }
 
 .root[data-orientation='vertical'] {
-  width: var(--vd-border-width-1);
+  width: var(--vd-stroke-width, var(--vd-border-width-1));
   min-height: var(--vd-sizing-20);
   align-self: stretch;
 }
@@ -33,7 +33,7 @@
   &::after {
     content: '';
     min-width: var(--vd-spacing-16);
-    height: var(--vd-border-width-1);
+    height: var(--vd-stroke-width, var(--vd-border-width-1));
     flex: 1 0 var(--vd-spacing-16);
     background: var(--vd-border-subtle);
   }

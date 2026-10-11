@@ -21,7 +21,7 @@
   }
 }
 .label {
-  font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
   padding-block: var(--vd-spacing-4);
 }
 .description,

@@ -76,6 +76,12 @@ export default defineConfig({
       '@virgo-design/primitives': fileURLToPath(
         new URL('../../packages/primitives/src/index.ts', import.meta.url),
       ),
+      '@virgo-design/themes/styles.css': fileURLToPath(
+        new URL('../../packages/themes/src/styles.scss', import.meta.url),
+      ),
+      '@virgo-design/themes': fileURLToPath(
+        new URL('../../packages/themes/src/index.ts', import.meta.url),
+      ),
       '@virgo-design/tokens/styles.css': fileURLToPath(
         new URL('../../packages/tokens/dist/css/styles.css', import.meta.url),
       ),

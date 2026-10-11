@@ -3,7 +3,7 @@
   width: 100%;
   height: var(--vd-sizing-32);
   margin-block-start: calc(-1 * var(--vd-spacing-16));
-  border-radius: var(--vd-radius-6);
+  border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   background: var(--vd-surface-strong);
 }
 

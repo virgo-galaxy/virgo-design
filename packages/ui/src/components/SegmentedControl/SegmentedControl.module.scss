@@ -2,13 +2,16 @@
 .root {
   --segmented-height: #{control-size.token(medium, height)};
   --segmented-radius: #{control-size.token(medium, radius)};
-  --segmented-item-radius: var(--vd-radius-6);
+  --segmented-item-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   --segmented-padding-inline: #{control-size.token(medium, padding-inline)};
   --segmented-indicator-x: 0px;
   --segmented-indicator-width: 0px;
   --segmented-font-family: var(--vd-typography-ui-label-medium-font-family);
   --segmented-font-size: #{control-size.token(medium, font-size)};
-  --segmented-font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  --segmented-font-weight: var(
+    --vd-control-font-weight,
+    var(--vd-typography-ui-label-medium-font-weight)
+  );
   --segmented-line-height: var(--vd-typography-ui-label-medium-line-height);
 
   position: relative;
@@ -29,7 +32,7 @@
   left: var(--segmented-indicator-x);
   box-sizing: border-box;
   width: var(--segmented-indicator-width);
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) transparent;
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid) transparent;
   opacity: 0;
   pointer-events: none;
 }
@@ -40,13 +43,20 @@
 
 .root[data-motion='slide'] .indicator {
   transition:
-    left var(--vd-duration-180) var(--vd-easing-emphasized),
-    width var(--vd-duration-180) var(--vd-easing-emphasized),
-    border-radius var(--vd-duration-180) var(--vd-easing-emphasized),
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    border-color var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+    left var(--vd-motion-duration-180, var(--vd-duration-180))
+      var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized)),
+    width var(--vd-motion-duration-180, var(--vd-duration-180))
+      var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized)),
+    border-radius var(--vd-motion-duration-180, var(--vd-duration-180))
+      var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized)),
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .item {
@@ -64,10 +74,14 @@
   user-select: none;
 
   transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    border-color var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 // Paint hover below the moving indicator, and keep text and focus above it.
@@ -83,7 +97,8 @@
 
 .item::before {
   z-index: 0;
-  transition: background-color var(--vd-duration-120) var(--vd-easing-standard);
+  transition: background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .item::after {
@@ -116,29 +131,35 @@
 .root[data-size='mini'] {
   --segmented-height: #{control-size.token(mini, height)};
   --segmented-radius: #{control-size.token(mini, radius)};
-  --segmented-item-radius: var(--vd-radius-4);
+  --segmented-item-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   --segmented-padding-inline: #{control-size.token(mini, padding-inline)};
   --segmented-font-family: var(--vd-typography-ui-label-small-font-family);
   --segmented-font-size: #{control-size.token(mini, font-size)};
-  --segmented-font-weight: var(--vd-typography-ui-label-small-font-weight);
+  --segmented-font-weight: var(
+    --vd-control-font-weight,
+    var(--vd-typography-ui-label-small-font-weight)
+  );
   --segmented-line-height: var(--vd-typography-ui-label-small-line-height);
 }
 
 .root[data-size='small'] {
   --segmented-height: #{control-size.token(small, height)};
   --segmented-radius: #{control-size.token(small, radius)};
-  --segmented-item-radius: var(--vd-radius-4);
+  --segmented-item-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   --segmented-padding-inline: #{control-size.token(small, padding-inline)};
   --segmented-font-family: var(--vd-typography-ui-label-small-font-family);
   --segmented-font-size: #{control-size.token(small, font-size)};
-  --segmented-font-weight: var(--vd-typography-ui-label-small-font-weight);
+  --segmented-font-weight: var(
+    --vd-control-font-weight,
+    var(--vd-typography-ui-label-small-font-weight)
+  );
   --segmented-line-height: var(--vd-typography-ui-label-small-line-height);
 }
 
 .root[data-size='medium'] {
   --segmented-height: #{control-size.token(medium, height)};
   --segmented-radius: #{control-size.token(medium, radius)};
-  --segmented-item-radius: var(--vd-radius-6);
+  --segmented-item-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   --segmented-padding-inline: #{control-size.token(medium, padding-inline)};
   --segmented-font-size: #{control-size.token(medium, font-size)};
 }
@@ -146,7 +167,7 @@
 .root[data-size='large'] {
   --segmented-height: #{control-size.token(large, height)};
   --segmented-radius: #{control-size.token(large, radius)};
-  --segmented-item-radius: var(--vd-radius-8);
+  --segmented-item-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   --segmented-padding-inline: #{control-size.token(large, padding-inline)};
   --segmented-font-size: #{control-size.token(large, font-size)};
 }
@@ -163,7 +184,8 @@
   z-index: 1;
   inset: 0;
   box-sizing: border-box;
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-default);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-default);
   border-radius: inherit;
   content: '';
   pointer-events: none;
@@ -171,7 +193,7 @@
 
 .root[data-variant='outline'] .item + .item::before,
 .root[data-variant='solid'] .item + .item::before {
-  border-inline-start: var(--vd-border-width-1) var(--vd-border-style-solid)
+  border-inline-start: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
     var(--vd-border-default);
 }
 
@@ -262,13 +284,18 @@
 }
 
 .item:has(.native:focus-visible)::after {
-  box-shadow: inset 0 0 0 var(--vd-border-width-2) var(--vd-border-focus);
+  box-shadow: inset 0 0 0 var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-focus);
 }
 
 .root[data-variant='solid'] .item:has(.native:checked:focus-visible)::after {
   box-shadow:
-    inset 0 0 0 var(--vd-border-width-2) var(--vd-brand-primary),
-    inset 0 0 0 calc(var(--vd-border-width-2) + var(--vd-border-width-1)) var(--vd-brand-foreground);
+    inset 0 0 0 var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-brand-primary),
+    inset 0 0 0
+      calc(
+        var(--vd-focus-width, var(--vd-border-width-2)) +
+          var(--vd-stroke-width, var(--vd-border-width-1))
+      )
+      var(--vd-brand-foreground);
 }
 
 .item:has(.native:disabled),

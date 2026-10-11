@@ -46,7 +46,8 @@
 
 .root[data-variant='bordered'] {
   overflow: hidden;
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-default);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-default);
   border-radius: var(--accordion-radius);
   background: var(--vd-surface-default);
 }
@@ -57,7 +58,8 @@
 
 .root[data-variant='default'] .item,
 .root[data-variant='bordered'] .item:not(:last-child) {
-  border-block-end: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+  border-block-end: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-subtle);
 }
 
 .item > [data-slot='header'] {
@@ -88,9 +90,12 @@
   text-align: start;
 
   transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not(:disabled) {
     background: var(--vd-fill-hover);
@@ -98,7 +103,7 @@
 
   &:focus-visible {
     outline: 0;
-    box-shadow: inset 0 0 0 var(--vd-border-width-2) var(--vd-border-focus);
+    box-shadow: inset 0 0 0 var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-focus);
   }
 
   &:disabled {
@@ -124,7 +129,8 @@
   justify-content: center;
   color: var(--vd-icon-secondary);
   transform: rotate(0deg);
-  transition: transform var(--vd-duration-120) var(--vd-easing-standard);
+  transition: transform var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   > svg {
     width: 100%;
@@ -150,7 +156,8 @@
 }
 
 .content[data-state='open'] .contentInner {
-  animation: accordion-content-enter var(--vd-duration-120) var(--vd-easing-standard);
+  animation: accordion-content-enter var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 @keyframes accordion-content-enter {

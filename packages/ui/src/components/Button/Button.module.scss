@@ -3,9 +3,9 @@
   --button-background: var(--vd-brand-primary);
   --button-background-hover: var(--vd-brand-primary-hover);
   --button-background-active: var(--vd-brand-primary-active);
-  --button-border: transparent;
-  --button-border-hover: transparent;
-  --button-border-active: transparent;
+  --button-border: var(--vd-action-border, transparent);
+  --button-border-hover: var(--vd-action-border, transparent);
+  --button-border-active: var(--vd-action-border, transparent);
   --button-foreground: var(--vd-brand-foreground);
 
   box-sizing: border-box;
@@ -17,7 +17,8 @@
   height: var(--button-height);
   margin: 0;
   padding-inline: var(--button-padding-inline);
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--button-border);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--button-border);
   border-radius: var(--button-radius);
 
   font-family: var(--button-font-family);
@@ -29,15 +30,20 @@
 
   color: var(--button-foreground);
   background: var(--button-background);
+  box-shadow: var(--vd-action-shadow, none);
   appearance: none;
   cursor: pointer;
   user-select: none;
 
   transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    border-color var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not(:disabled) {
     border-color: var(--button-border-hover);
@@ -47,15 +53,20 @@
   &:active:not(:disabled) {
     border-color: var(--button-border-active);
     background: var(--button-background-active);
+    box-shadow: var(--vd-action-pressed-shadow, none);
+    translate: 0 var(--vd-action-pressed-offset, 0px);
   }
 
   &:focus-visible {
-    outline: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-border-focus);
-    outline-offset: var(--vd-spacing-2);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-style-solid)
+      var(--vd-border-focus);
+    outline-offset: var(--vd-focus-offset, var(--vd-spacing-2));
   }
 
   &:disabled {
     border-color: var(--vd-border-disabled);
+    border-style: var(--vd-disabled-border-style, solid);
+    box-shadow: none;
     color: var(--vd-text-disabled);
     background: var(--vd-fill-disabled);
     cursor: not-allowed;
@@ -84,6 +95,10 @@
 }
 
 .root[data-variant='text'] {
+  box-shadow: none;
+  --button-border: transparent;
+  --button-border-hover: transparent;
+  --button-border-active: transparent;
   --button-background: transparent;
   --button-background-hover: var(--vd-fill-hover);
   --button-background-active: var(--vd-fill-active);
@@ -124,7 +139,10 @@
   --button-gap: #{control-size.token(small, gap)};
   --button-font-family: var(--vd-typography-ui-label-small-font-family);
   --button-font-size: #{control-size.token(small, font-size)};
-  --button-font-weight: var(--vd-typography-ui-label-small-font-weight);
+  --button-font-weight: var(
+    --vd-control-font-weight,
+    var(--vd-typography-ui-label-small-font-weight)
+  );
   --button-line-height: var(--vd-typography-ui-label-small-line-height);
 }
 
@@ -136,7 +154,10 @@
   --button-gap: #{control-size.token(medium, gap)};
   --button-font-family: var(--vd-typography-ui-label-small-font-family);
   --button-font-size: #{control-size.token(medium, font-size)};
-  --button-font-weight: var(--vd-typography-ui-label-small-font-weight);
+  --button-font-weight: var(
+    --vd-control-font-weight,
+    var(--vd-typography-ui-label-small-font-weight)
+  );
   --button-line-height: var(--vd-typography-ui-label-small-line-height);
 }
 
@@ -148,7 +169,10 @@
   --button-gap: #{control-size.token(large, gap)};
   --button-font-family: var(--vd-typography-ui-label-medium-font-family);
   --button-font-size: #{control-size.token(large, font-size)};
-  --button-font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  --button-font-weight: var(
+    --vd-control-font-weight,
+    var(--vd-typography-ui-label-medium-font-weight)
+  );
   --button-line-height: var(--vd-typography-ui-label-medium-line-height);
 }
 

@@ -2,16 +2,16 @@
   scroll-snap-align: start;
   scroll-snap-stop: always;
 
-  --gallery-page: #f4f5f7;
-  --gallery-surface: rgba(255, 255, 255, 0.88);
-  --gallery-surface-solid: #ffffff;
-  --gallery-surface-muted: #f7f8fa;
-  --gallery-text: #111317;
-  --gallery-secondary: #6d727d;
-  --gallery-tertiary: #9ca2ad;
-  --gallery-line: rgba(17, 19, 23, 0.09);
-  --gallery-line-strong: rgba(17, 19, 23, 0.16);
-  --gallery-shadow: 0 28px 80px rgba(29, 35, 48, 0.1);
+  --gallery-page: var(--vd-page-background, #f4f5f7);
+  --gallery-surface: var(--vd-content-surface, rgba(255, 255, 255, 0.88));
+  --gallery-surface-solid: var(--vd-content-surface-solid, #ffffff);
+  --gallery-surface-muted: var(--vd-content-surface-muted, #f7f8fa);
+  --gallery-text: var(--vd-content-foreground, #111317);
+  --gallery-secondary: var(--vd-content-secondary, #6d727d);
+  --gallery-tertiary: var(--vd-content-tertiary, #9ca2ad);
+  --gallery-line: var(--vd-content-border, rgba(17, 19, 23, 0.09));
+  --gallery-line-strong: var(--vd-content-border-strong, rgba(17, 19, 23, 0.16));
+  --gallery-shadow: var(--vd-panel-shadow, 0 28px 80px rgba(29, 35, 48, 0.1));
 
   position: relative;
   min-height: calc(150svh - var(--layout-header-height));
@@ -25,16 +25,16 @@
 }
 
 .gallery[data-theme='dark'] {
-  --gallery-page: #090a0c;
-  --gallery-surface: rgba(18, 20, 24, 0.9);
-  --gallery-surface-solid: #121418;
-  --gallery-surface-muted: #17191e;
-  --gallery-text: #f5f6f8;
-  --gallery-secondary: #a8adb7;
-  --gallery-tertiary: #737985;
-  --gallery-line: rgba(255, 255, 255, 0.08);
-  --gallery-line-strong: rgba(255, 255, 255, 0.15);
-  --gallery-shadow: 0 34px 100px rgba(0, 0, 0, 0.38);
+  --gallery-page: var(--vd-page-background, #090a0c);
+  --gallery-surface: var(--vd-content-surface, rgba(18, 20, 24, 0.9));
+  --gallery-surface-solid: var(--vd-content-surface-solid, #121418);
+  --gallery-surface-muted: var(--vd-content-surface-muted, #17191e);
+  --gallery-text: var(--vd-content-foreground, #f5f6f8);
+  --gallery-secondary: var(--vd-content-secondary, #a8adb7);
+  --gallery-tertiary: var(--vd-content-tertiary, #737985);
+  --gallery-line: var(--vd-content-border, rgba(255, 255, 255, 0.08));
+  --gallery-line-strong: var(--vd-content-border-strong, rgba(255, 255, 255, 0.15));
+  --gallery-shadow: var(--vd-panel-shadow, 0 34px 100px rgba(0, 0, 0, 0.38));
 
   background:
     radial-gradient(circle at 20% 32%, rgba(22, 100, 249, 0.12), transparent 34rem),

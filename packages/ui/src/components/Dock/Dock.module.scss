@@ -27,16 +27,18 @@
   position: absolute;
   z-index: -1;
   inset: calc(var(--vd-spacing-4) * -1);
-  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-12);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
   background: color-mix(in srgb, var(--vd-surface-default) 88%, transparent);
   box-shadow: var(--vd-elevation-1);
   content: '';
   opacity: var(--dock-chrome-opacity);
   pointer-events: none;
   transition:
-    opacity var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+    opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .root[data-pinned] {
@@ -125,8 +127,8 @@
   place-items: center;
   margin: 0;
   padding: 0;
-  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-6);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   background: var(--vd-surface-secondary);
   color: var(--vd-icon-secondary);
   cursor: grab;
@@ -134,11 +136,16 @@
   appearance: none;
   transform: scale(var(--dock-handle-scale));
   transition:
-    opacity var(--vd-duration-120) var(--vd-easing-standard),
-    transform var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    border-color var(--vd-duration-120) var(--vd-easing-standard),
-    color var(--vd-duration-120) var(--vd-easing-standard);
+    opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    transform var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not(:disabled) {
     border-color: var(--vd-border-default);
@@ -147,7 +154,7 @@
   }
 
   &:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
     outline-offset: var(--vd-spacing-2);
   }
 
@@ -176,7 +183,7 @@
 }
 
 .grip {
-  width: var(--vd-border-width-2);
+  width: var(--vd-focus-width, var(--vd-border-width-2));
   height: var(--vd-sizing-16);
   border-radius: var(--vd-radius-full);
   background: currentColor;
@@ -187,7 +194,7 @@
 
 .root[data-orientation='vertical'] .grip {
   width: var(--vd-sizing-16);
-  height: var(--vd-border-width-2);
+  height: var(--vd-focus-width, var(--vd-border-width-2));
   box-shadow:
     0 calc(var(--vd-spacing-2) * -1) 0 color-mix(in srgb, currentColor 62%, transparent),
     0 var(--vd-spacing-2) 0 color-mix(in srgb, currentColor 62%, transparent);
@@ -207,7 +214,8 @@
   gap: var(--vd-spacing-4);
   opacity: var(--dock-chrome-opacity);
   pointer-events: var(--dock-controls-pointer-events);
-  transition: opacity var(--vd-duration-120) var(--vd-easing-standard);
+  transition: opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .root[data-orientation='vertical'] .controls {

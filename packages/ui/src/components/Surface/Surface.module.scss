@@ -6,6 +6,19 @@
   color: var(--vd-text-primary);
   background: var(--surface-tone);
   box-shadow: var(--surface-elevation);
+  background-image: var(--vd-surface-highlight, none);
+  -webkit-backdrop-filter: var(--vd-surface-backdrop-filter, none);
+  backdrop-filter: var(--vd-surface-backdrop-filter, none);
+}
+
+// Optional optical edge stays separate from the instance's elevation and content.
+.root::before {
+  content: var(--vd-surface-edge-content, none);
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: var(--vd-surface-edge-shadow, none);
 }
 
 .root[data-material='translucent'],
@@ -35,19 +48,29 @@
 
   // Usable fallback even without color-mix or backdrop-filter support.
   background: var(--surface-tone);
-  background: color-mix(in srgb, var(--surface-tint) 84%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--surface-tint) var(--vd-material-tint-opacity, 84%),
+    transparent
+  );
 }
 
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .root[data-material='glass'] > .material {
-    background: color-mix(in srgb, var(--surface-tint) 66%, transparent);
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
+    background: color-mix(
+      in srgb,
+      var(--surface-tint) var(--vd-glass-tint-opacity, 66%),
+      transparent
+    );
+    -webkit-backdrop-filter: var(--vd-glass-backdrop-filter, blur(16px));
+    backdrop-filter: var(--vd-glass-backdrop-filter, blur(16px));
   }
 }
 
 @each $border in (subtle, default, strong) {
   .root[data-border='#{$border}'] {
-    border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-#{$border});
+    border: var(--vd-stroke-width, var(--vd-border-width-1))
+      var(--vd-border-style-solid)
+      var(--vd-border-#{$border});
   }
 }

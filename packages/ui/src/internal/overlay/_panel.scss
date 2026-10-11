@@ -1,56 +1,92 @@
 $layer: 100;
 
-@mixin surface {
+@mixin popup-material {
+  background: var(--vd-popup-background, var(--vd-surface-elevated));
+  box-shadow:
+    var(--vd-popup-shadow, var(--vd-elevation-2)), var(--vd-panel-highlight, 0 0 0 transparent);
+  -webkit-backdrop-filter: var(--vd-popup-backdrop-filter, var(--vd-panel-backdrop-filter));
+  backdrop-filter: var(--vd-popup-backdrop-filter, var(--vd-panel-backdrop-filter));
+}
+
+@mixin surface($presentation: popup) {
   box-sizing: border-box;
   display: flex;
   z-index: var(--vd-overlay-layer, #{$layer});
-  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-8);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   outline: none;
   color: var(--vd-text-primary);
-  background: var(--vd-surface-elevated);
-  box-shadow: var(--vd-elevation-2);
+  background: var(--vd-overlay-background, var(--vd-surface-elevated));
+  box-shadow: var(--vd-elevation-2), var(--vd-panel-highlight, 0 0 0 transparent);
+  -webkit-backdrop-filter: var(--vd-panel-backdrop-filter);
+  backdrop-filter: var(--vd-panel-backdrop-filter);
+  @if $presentation == popup {
+    background: var(
+      --vd-popup-background,
+      var(--vd-overlay-background, var(--vd-surface-elevated))
+    );
+    box-shadow:
+      var(--vd-popup-shadow, var(--vd-elevation-2)), var(--vd-panel-highlight, 0 0 0 transparent);
+    -webkit-backdrop-filter: var(--vd-popup-backdrop-filter, var(--vd-panel-backdrop-filter));
+    backdrop-filter: var(--vd-popup-backdrop-filter, var(--vd-panel-backdrop-filter));
+  }
   font-family: var(--vd-typography-ui-body-medium-font-family);
   font-size: var(--vd-typography-ui-body-medium-font-size);
   font-weight: var(--vd-typography-ui-body-medium-font-weight);
   line-height: var(--vd-typography-ui-body-medium-line-height);
 }
 
-@mixin arrow {
+@mixin arrow($presentation: popup) {
   position: absolute;
   width: var(--vd-sizing-12);
   height: var(--vd-sizing-12);
-  background: var(--vd-surface-elevated);
-  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  background: var(--vd-overlay-background, var(--vd-surface-elevated));
+  @if $presentation == popup {
+    background: var(
+      --vd-popup-background,
+      var(--vd-overlay-background, var(--vd-surface-elevated))
+    );
+  }
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   transform: rotate(45deg);
   pointer-events: none;
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
   // Keep only the outward triangle so its diagonal borders stop at the panel edge.
   [data-side='bottom'] > & {
     top: calc(var(--vd-spacing-6) * -1);
     left: calc(var(--overlay-arrow-x) - var(--vd-spacing-6));
     border-right: 0;
     border-bottom: 0;
-    clip-path: polygon(0 0, 100% 0, 0 100%);
+    clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 100% 0, 0 100%));
+    mask-image: var(--vd-overlay-arrow-mask-bottom, none);
+    transform: var(--vd-overlay-arrow-transform-bottom, rotate(45deg));
   }
   [data-side='top'] > & {
     bottom: calc(var(--vd-spacing-6) * -1);
     left: calc(var(--overlay-arrow-x) - var(--vd-spacing-6));
     border-left: 0;
     border-top: 0;
-    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    clip-path: var(--vd-overlay-arrow-clip-path, polygon(100% 0, 100% 100%, 0 100%));
+    mask-image: var(--vd-overlay-arrow-mask-top, none);
+    transform: var(--vd-overlay-arrow-transform-top, rotate(45deg));
   }
   [data-side='left'] > & {
     right: calc(var(--vd-spacing-6) * -1);
     top: calc(var(--overlay-arrow-y) - var(--vd-spacing-6));
     border-left: 0;
     border-bottom: 0;
-    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 100% 0, 100% 100%));
+    mask-image: var(--vd-overlay-arrow-mask-left, none);
+    transform: var(--vd-overlay-arrow-transform-left, rotate(45deg));
   }
   [data-side='right'] > & {
     left: calc(var(--vd-spacing-6) * -1);
     top: calc(var(--overlay-arrow-y) - var(--vd-spacing-6));
     border-right: 0;
     border-top: 0;
-    clip-path: polygon(0 0, 0 100%, 100% 100%);
+    clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 0 100%, 100% 100%));
+    mask-image: var(--vd-overlay-arrow-mask-right, none);
+    transform: var(--vd-overlay-arrow-transform-right, rotate(45deg));
   }
 }

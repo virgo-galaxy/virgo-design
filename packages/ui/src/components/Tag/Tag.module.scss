@@ -12,7 +12,7 @@
   align-items: center;
   gap: var(--tag-gap);
   padding-inline: var(--tag-padding-inline);
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) transparent;
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid) transparent;
   border-radius: var(--vd-radius-full);
   color: var(--tag-foreground);
   background: var(--tag-background);
@@ -60,7 +60,7 @@
   --tag-icon-size: var(--vd-sizing-12);
   --tag-font-family: var(--vd-typography-ui-label-small-font-family);
   --tag-font-size: var(--vd-typography-ui-label-small-font-size);
-  --tag-font-weight: var(--vd-typography-ui-label-small-font-weight);
+  --tag-font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-small-font-weight));
   --tag-line-height: var(--vd-typography-ui-label-small-line-height);
 }
 
@@ -71,7 +71,7 @@
   --tag-icon-size: var(--vd-sizing-16);
   --tag-font-family: var(--vd-typography-ui-label-small-font-family);
   --tag-font-size: var(--vd-typography-ui-label-small-font-size);
-  --tag-font-weight: var(--vd-typography-ui-label-small-font-weight);
+  --tag-font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-small-font-weight));
   --tag-line-height: var(--vd-typography-ui-label-small-line-height);
 }
 
@@ -82,7 +82,10 @@
   --tag-icon-size: var(--vd-sizing-20);
   --tag-font-family: var(--vd-typography-ui-label-medium-font-family);
   --tag-font-size: var(--vd-typography-ui-label-medium-font-size);
-  --tag-font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  --tag-font-weight: var(
+    --vd-control-font-weight,
+    var(--vd-typography-ui-label-medium-font-weight)
+  );
   --tag-line-height: var(--vd-typography-ui-label-medium-line-height);
 }
 
@@ -120,7 +123,8 @@
   }
 
   &:focus-visible {
-    outline: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-style-solid)
+      var(--vd-border-focus);
     outline-offset: var(--vd-spacing-2);
   }
 

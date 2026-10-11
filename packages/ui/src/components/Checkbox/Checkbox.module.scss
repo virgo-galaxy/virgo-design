@@ -40,8 +40,10 @@
   opacity: 0;
   transform: scale(0.5);
   transition:
-    opacity var(--vd-duration-120) var(--vd-easing-standard),
-    transform var(--vd-duration-240) var(--vd-easing-standard);
+    opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    transform var(--vd-motion-duration-240, var(--vd-duration-240))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .root:hover .native:not(:disabled) + .control {
@@ -50,7 +52,7 @@
 
 .native:focus-visible + .control {
   border-color: var(--checkbox-border-focus);
-  box-shadow: 0 0 0 var(--vd-border-width-1) var(--checkbox-border-focus);
+  box-shadow: 0 0 0 var(--vd-stroke-width, var(--vd-border-width-1)) var(--checkbox-border-focus);
 }
 
 .native:is([data-checked='true'], :not([data-checked]):checked):not([data-indeterminate='true'])

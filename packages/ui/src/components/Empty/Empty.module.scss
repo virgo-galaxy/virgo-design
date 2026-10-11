@@ -18,7 +18,10 @@
   --empty-icon-size: var(--vd-sizing-28);
   --empty-title-font-family: var(--vd-typography-ui-label-medium-font-family);
   --empty-title-font-size: var(--vd-typography-ui-label-medium-font-size);
-  --empty-title-font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  --empty-title-font-weight: var(
+    --vd-control-font-weight,
+    var(--vd-typography-ui-label-medium-font-weight)
+  );
   --empty-title-line-height: var(--vd-typography-ui-label-medium-line-height);
   --empty-description-font-family: var(--vd-typography-ui-body-small-font-family);
   --empty-description-font-size: var(--vd-typography-ui-body-small-font-size);

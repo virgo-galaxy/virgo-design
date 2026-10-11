@@ -6,8 +6,9 @@
   min-width: 0;
   flex-direction: column;
   overflow: hidden;
-  border-radius: var(--vd-radius-12);
-  box-shadow: var(--vd-elevation-2);
+  border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
+  box-shadow:
+    var(--vd-popup-shadow, var(--vd-elevation-2)), var(--vd-panel-highlight, 0 0 0 transparent);
 }
 
 .dialogContent {
@@ -19,7 +20,7 @@
 
 .dialogContent .root {
   width: 100%;
-  box-shadow: var(--vd-elevation-4);
+  box-shadow: var(--vd-elevation-4), var(--vd-panel-highlight, 0 0 0 transparent);
 }
 
 .inputFrame {
@@ -27,7 +28,8 @@
   align-items: center;
   gap: var(--vd-spacing-12);
   padding-inline: var(--vd-spacing-16);
-  border-block-end: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+  border-block-end: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-subtle);
 }
 
 .searchIcon,
@@ -76,7 +78,7 @@
     color: var(--vd-text-tertiary);
     font-family: var(--vd-typography-ui-label-small-font-family);
     font-size: var(--vd-typography-ui-label-small-font-size);
-    font-weight: var(--vd-typography-ui-label-small-font-weight);
+    font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-small-font-weight));
     line-height: var(--vd-typography-ui-label-small-line-height);
   }
 }
@@ -88,12 +90,14 @@
   align-items: center;
   gap: var(--vd-spacing-12);
   padding: var(--vd-spacing-6) var(--vd-spacing-12);
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   color: var(--vd-text-primary);
   outline: none;
   transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard);
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &[data-active] {
     background: var(--vd-surface-secondary);
@@ -118,7 +122,7 @@
 }
 
 .separator {
-  height: var(--vd-border-width-1);
+  height: var(--vd-stroke-width, var(--vd-border-width-1));
   margin: var(--vd-spacing-6) var(--vd-spacing-8);
   background: var(--vd-border-subtle);
 }

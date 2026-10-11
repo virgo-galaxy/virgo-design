@@ -20,7 +20,7 @@
   min-width: 0;
 }
 .integratedHeading {
-  border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
 }
 .headingCopy {
   flex: 1;

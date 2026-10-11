@@ -60,7 +60,7 @@
   align-items: center;
   justify-content: center;
   padding: 0 var(--vd-spacing-6);
-  border: var(--vd-border-width-1) solid transparent;
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid transparent;
   border-radius: var(--pagination-item-radius);
   color: inherit;
   background: transparent;
@@ -68,9 +68,12 @@
   font-variant-numeric: inherit;
   cursor: pointer;
   transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    border-color var(--vd-duration-120) var(--vd-easing-standard);
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not(:disabled) {
     background: var(--vd-fill-hover);
@@ -79,7 +82,7 @@
     background: var(--vd-fill-active);
   }
   &:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
     outline-offset: var(--vd-spacing-2);
   }
   &[aria-current='page'] {

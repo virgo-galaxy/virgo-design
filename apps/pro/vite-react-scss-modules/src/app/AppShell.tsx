@@ -29,6 +29,7 @@ import { useCurrentUser } from '@/application/session-context';
 import { AccountMenu } from '@/components/account-menu/AccountMenu';
 import { AiWorkspace } from '@/components/ai-workspace/AiWorkspace';
 import {
+  getFixedHeaderMaterial,
   type NotificationIndicator,
   sidebarWidthRanges,
 } from '@/components/global-settings/settings';
@@ -41,6 +42,7 @@ import { ThemeStyleControl } from '@/components/theme-style-control/ThemeStyleCo
 import type { ProfileState } from '@/data/pro-workflows';
 import { rememberAppearance } from '@/lib/appearance';
 import { isAdmin } from '@/lib/auth/permissions';
+import { useThemeStyle } from '@/lib/use-theme-style';
 
 import styles from './AppShell.module.scss';
 import { getGroupLabel, getPageLabel } from './navigation-labels';
@@ -160,6 +162,8 @@ export function AppShell({
   const CurrentPageIcon = currentPage?.icon ? iconComponents[currentPage.icon] : undefined;
   const { settings, setSettings, updateSettings, resetSettings, theme, storageAvailable } =
     useProSettings(admin);
+  const { theme: themeStyle } = useThemeStyle();
+  const headerMaterial = getFixedHeaderMaterial(themeStyle) ?? settings.headerMaterial;
   const { sidebarState, sidebarWidth } = settings;
   const setSidebarState = useCallback(
     (sidebarState: LayoutSidebarDisplayState) => updateSettings({ sidebarState }),
@@ -189,6 +193,7 @@ export function AppShell({
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
     rememberAppearance(theme);
   }, [theme]);
 
@@ -287,7 +292,7 @@ export function AppShell({
                 height={settings.headerHeight}
                 gap={narrow ? 'var(--vd-spacing-12)' : 'var(--vd-spacing-24)'}
                 paddingInline={narrow ? 'var(--vd-spacing-12)' : 'var(--vd-spacing-24)'}
-                surface={{ tone: 'default', material: settings.headerMaterial, border: 'none' }}
+                surface={{ tone: 'default', material: headerMaterial, border: 'none' }}
                 logo={
                   <div className={styles.brand}>
                     <Tooltip

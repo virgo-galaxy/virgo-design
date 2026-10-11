@@ -17,7 +17,7 @@
   outline: none;
   cursor: default;
   &:focus-visible > .label {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
     outline-offset: -2px;
   }
   &[aria-selected='true'] > .label {
@@ -37,7 +37,7 @@
   gap: var(--vd-spacing-6);
   min-height: var(--tree-row-height);
   padding-inline: var(--vd-spacing-8);
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   &:hover {
     background: var(--vd-fill-hover);
   }
@@ -60,7 +60,8 @@
   background: transparent;
   cursor: pointer;
   > svg {
-    transition: transform var(--vd-duration-120) var(--vd-easing-standard);
+    transition: transform var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
   }
   &:disabled {
     cursor: not-allowed;

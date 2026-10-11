@@ -5,8 +5,9 @@ body:has(.components-documentation) {
     gap: var(--vd-spacing-20);
     margin: var(--vd-spacing-32);
     padding: var(--vd-spacing-20);
-    border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
-    border-radius: var(--vd-radius-12);
+    border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+      var(--vd-border-subtle);
+    border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
   }
 
   .skeleton-card-copy {

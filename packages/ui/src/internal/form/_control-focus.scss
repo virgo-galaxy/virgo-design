@@ -3,7 +3,10 @@ $color: var(--vd-control-focus-color, #1677ff);
 @mixin surface($border: $color, $background: var(--vd-surface-default)) {
   border-color: $border;
   outline: none;
-  box-shadow: 0 0 0 var(--vd-spacing-2) color-mix(in srgb, #{$border} 10%, transparent);
+  box-shadow: var(
+    --vd-control-focus-shadow,
+    0 0 0 var(--vd-spacing-2) color-mix(in srgb, #{$border} 10%, transparent)
+  );
   background: $background;
   transition: none;
 }

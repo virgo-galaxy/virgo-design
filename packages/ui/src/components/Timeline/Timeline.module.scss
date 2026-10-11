@@ -24,7 +24,7 @@
     inset-inline-start: 7px;
     top: var(--vd-spacing-12);
     bottom: 0;
-    width: var(--vd-border-width-1);
+    width: var(--vd-stroke-width, var(--vd-border-width-1));
     background: var(--vd-border-default);
   }
   &:last-child {
@@ -37,7 +37,7 @@
     top: var(--vd-spacing-4);
     width: var(--vd-sizing-12);
     height: var(--vd-sizing-12);
-    border: var(--vd-border-width-1) solid var(--vd-border-default);
+    border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-default);
     border-radius: var(--vd-radius-full);
     background: var(--vd-surface-default);
   }
@@ -55,7 +55,7 @@
 }
 .title {
   font-size: var(--vd-typography-ui-label-medium-font-size);
-  font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
   margin: 0 0 var(--vd-spacing-4);
 }
 .description {

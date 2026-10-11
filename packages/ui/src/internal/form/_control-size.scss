@@ -4,7 +4,7 @@
 $sizes: (
   mini: (
     height: var(--vd-sizing-24),
-    radius: var(--vd-radius-6),
+    radius: var(--vd-shape-radius-6, var(--vd-radius-6)),
     font-size: var(--vd-font-size-11),
     padding-inline: var(--vd-spacing-8),
     padding-block: var(--vd-spacing-2),
@@ -13,7 +13,7 @@ $sizes: (
   ),
   small: (
     height: var(--vd-sizing-28),
-    radius: var(--vd-radius-6),
+    radius: var(--vd-shape-radius-6, var(--vd-radius-6)),
     font-size: var(--vd-font-size-13),
     padding-inline: var(--vd-spacing-8),
     padding-block: var(--vd-spacing-2),
@@ -22,7 +22,7 @@ $sizes: (
   ),
   medium: (
     height: var(--vd-sizing-36),
-    radius: var(--vd-radius-8),
+    radius: var(--vd-shape-radius-8, var(--vd-radius-8)),
     font-size: var(--vd-font-size-14),
     padding-inline: var(--vd-spacing-12),
     padding-block: var(--vd-spacing-4),
@@ -31,7 +31,7 @@ $sizes: (
   ),
   large: (
     height: var(--vd-sizing-44),
-    radius: var(--vd-radius-10),
+    radius: var(--vd-shape-radius-10, var(--vd-radius-10)),
     font-size: var(--vd-font-size-16),
     padding-inline: var(--vd-spacing-16),
     padding-block: var(--vd-spacing-6),
@@ -41,11 +41,23 @@ $sizes: (
 );
 
 @function token($size, $metric) {
-  @return map.get($sizes, $size, $metric);
+  $fallback: map.get($sizes, $size, $metric);
+  @if $metric ==
+    height or
+    $metric ==
+    radius or
+    $metric ==
+    padding-inline or
+    $metric ==
+    padding-block
+  {
+    @return var(--vd-control-#{$size}-#{$metric}, #{$fallback});
+  }
+  @return $fallback;
 }
 
 @mixin variables($prefix, $size) {
   @each $metric, $value in map.get($sizes, $size) {
-    --#{$prefix}-#{$metric}: #{$value};
+    --#{$prefix}-#{$metric}: #{token($size, $metric)};
   }
 }

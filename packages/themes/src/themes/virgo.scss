@@ -1,0 +1,6 @@
+// Virgo is the exact pre-theme-system baseline supplied by Tokens and component defaults.
+// The Tokens scope reset restores it even inside a comparison of another preset.
+[data-virgo-theme='virgo'] {
+  --vd-action-shadow: none;
+  --vd-control-shadow: none;
+}

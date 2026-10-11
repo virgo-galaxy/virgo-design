@@ -6,6 +6,7 @@ import { useAppearance } from '@/shared/theme/use-appearance';
 import { AppearanceControl } from './AppearanceControl';
 import styles from './global-controls.module.scss';
 import { LanguageControl } from './LanguageControl';
+import { ThemeStyleControl } from './ThemeStyleControl';
 
 export function GlobalControls() {
   const { t } = useTranslation();
@@ -26,6 +27,8 @@ export function GlobalControls() {
       <LanguageControl />
       <Separator className={styles.separator} decorative orientation="vertical" />
       <AppearanceControl value={appearance} onChange={setAppearance} />
+      <Separator className={styles.separator} decorative orientation="vertical" />
+      <ThemeStyleControl />
     </Button.Group>
   );
 }

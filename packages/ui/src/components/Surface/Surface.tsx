@@ -49,7 +49,7 @@ export const Surface = forwardRef<HTMLDivElement, SurfaceProps>(function Surface
 ) {
   const surfaceStyle: SurfaceStyle = {
     '--surface-tone': `var(--vd-surface-${tone})`,
-    '--surface-radius': `var(--vd-radius-${radius})`,
+    '--surface-radius': `var(--vd-shape-radius-${radius}, var(--vd-radius-${radius}))`,
     '--surface-elevation': `var(--vd-elevation-${elevation})`,
     ...style,
   };

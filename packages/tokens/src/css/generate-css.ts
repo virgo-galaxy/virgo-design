@@ -19,6 +19,7 @@ import {
   VIRGO_NEUTRAL_SCALE,
 } from '../foundations/index.js';
 import { typography } from '../semantic/typography/index.js';
+import { themeContract } from '../theme-contract.js';
 import { themes } from '../themes/index.js';
 import type { SemanticTypographyToken } from '../types/semantic.js';
 
@@ -193,15 +194,33 @@ function themeDeclarations(theme: (typeof themes)[keyof typeof themes]) {
 }
 
 export function generateThemesCss() {
+  const bridge = (appearance: keyof typeof themes) =>
+    themeDeclarations(themes[appearance]).map(({ name, value }) => ({
+      name,
+      value: `var(--vd-theme-${appearance}-${name.slice(5)}, ${value})`,
+    }));
+  const reset = [
+    ...Object.entries(themeContract).map(([name, value]) => ({ name, value })),
+    ...(['light', 'dark'] as const).flatMap((appearance) =>
+      themeDeclarations(themes[appearance]).map(({ name }) => ({
+        name: `--vd-theme-${appearance}-${name.slice(5)}`,
+        value: 'initial',
+      })),
+    ),
+  ];
   return [
     '/* Generated from @virgo-design/tokens Light and Dark Theme data. Do not edit. */',
+    ':root, [data-virgo-theme] {',
+    renderDeclarations(reset),
+    '}',
+    '',
     ':root,',
     "[data-theme='light'] {",
-    renderDeclarations(themeDeclarations(themes.light)),
+    renderDeclarations(bridge('light')),
     '}',
     '',
     "[data-theme='dark'] {",
-    renderDeclarations(themeDeclarations(themes.dark)),
+    renderDeclarations(bridge('dark')),
     '}',
     '',
   ].join('\n');

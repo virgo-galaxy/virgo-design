@@ -6,8 +6,10 @@ $color: var(--vd-control-hover-color, #4096ff);
 
 @mixin transition {
   transition:
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    border-color var(--vd-duration-120) var(--vd-easing-standard);
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   @media (prefers-reduced-motion: reduce) {
     transition-duration: var(--vd-duration-0);

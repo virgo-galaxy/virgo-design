@@ -18,7 +18,7 @@
 }
 
 .content {
-  @include panel.surface;
+  @include panel.surface(overlay);
 
   --dialog-width: calc(var(--vd-sizing-80) * 6);
   --dialog-section-padding: var(--vd-spacing-24);
@@ -36,12 +36,13 @@
   max-height: calc(100vh - var(--vd-spacing-48));
   flex-direction: column;
   overflow: hidden;
-  border-radius: var(--vd-radius-12);
-  box-shadow: var(--vd-elevation-4);
+  border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
+  box-shadow: var(--vd-elevation-4), var(--vd-panel-highlight, 0 0 0 transparent);
   transform: translate(-50%, -50%);
 
   &:focus-visible {
-    outline: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-style-solid)
+      var(--vd-border-focus);
     outline-offset: var(--vd-spacing-2);
   }
 }
@@ -71,7 +72,8 @@
   flex: none;
   gap: var(--vd-spacing-6);
   padding: var(--dialog-section-padding);
-  border-block-end: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+  border-block-end: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-subtle);
 }
 
 .title {
@@ -103,7 +105,8 @@
   justify-content: flex-end;
   gap: var(--vd-spacing-8);
   padding: var(--dialog-section-gap) var(--dialog-section-padding);
-  border-block-start: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+  border-block-start: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-subtle);
 }
 
 .close {

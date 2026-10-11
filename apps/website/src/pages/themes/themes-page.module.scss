@@ -1,0 +1,119 @@
+.comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--vd-spacing-24);
+}
+.scope {
+  position: relative;
+  min-width: 0;
+  color-scheme: light;
+}
+.scope[data-theme='dark'] {
+  color-scheme: dark;
+}
+.specimen {
+  display: grid;
+  gap: var(--vd-spacing-12);
+  padding: var(--vd-spacing-24);
+  min-width: 0;
+  color: var(--vd-text-primary);
+  label {
+    font-size: var(--vd-font-size-13);
+  }
+}
+.specimenHeader {
+  h3 {
+    margin: 0;
+    font-size: var(--vd-font-size-20);
+  }
+  code {
+    color: var(--vd-text-secondary);
+    font-size: var(--vd-font-size-11);
+  }
+  p {
+    margin-block: var(--vd-spacing-8) 0;
+    color: var(--vd-text-secondary);
+    font-size: var(--vd-font-size-13);
+  }
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vd-spacing-8);
+}
+.explanation {
+  padding: var(--vd-spacing-24);
+  p {
+    margin: 0;
+  }
+  p + p {
+    margin-top: var(--vd-spacing-12);
+  }
+}
+.code {
+  overflow: auto;
+  padding: var(--vd-spacing-20);
+  margin: 0;
+  border: var(--vd-stroke-width, 1px) solid var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
+  color: var(--vd-text-primary);
+  background: var(--vd-surface-default);
+  font: var(--vd-font-size-13) / var(--vd-line-height-4) var(--vd-font-family-mono);
+}
+@media (max-width: 800px) {
+  .comparison {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+// Identical content under every preset makes actual backdrop sampling visible.
+.materialScene {
+  position: relative;
+  height: 168px;
+  overflow: hidden;
+  border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
+  background: linear-gradient(125deg, #d9b49b, #eddbbd 35%, #769184 74%, #435c55);
+}
+.sceneContent {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  span {
+    position: absolute;
+    inset: 45px -8px auto;
+    color: rgb(255 255 255 / 75%);
+    font-size: 64px;
+    font-weight: 750;
+    letter-spacing: 0.12em;
+    line-height: 1;
+  }
+  i {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    inset: -45px 20px auto auto;
+    border-radius: 50%;
+    background: #ba7664;
+  }
+  i:last-child {
+    inset: auto auto -50px 30px;
+    width: 150px;
+    height: 150px;
+    background: #cdb284;
+  }
+}
+.materialLens {
+  position: absolute;
+  inset: 32px 24px;
+  display: grid;
+  align-content: center;
+  gap: var(--vd-spacing-8);
+  padding: var(--vd-spacing-20);
+  strong {
+    font-size: var(--vd-font-size-20);
+  }
+  span {
+    font-size: var(--vd-font-size-13);
+  }
+}

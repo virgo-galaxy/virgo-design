@@ -61,13 +61,16 @@
   width: var(--switch-width);
   height: var(--switch-height);
   align-items: center;
-  border-radius: var(--vd-radius-full);
+  border-radius: var(--vd-switch-radius, var(--vd-radius-full));
   background: var(--switch-background);
+  border: var(--vd-switch-border-width, 0px) solid var(--vd-border-default);
   overflow: hidden;
 
   transition:
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .rail {
@@ -80,17 +83,21 @@
 .thumb {
   position: absolute;
   z-index: 2;
-  top: var(--switch-thumb-inset);
-  left: var(--switch-thumb-inset);
+  // Measure the thumb inset from the outer edge, including the theme's border.
+  top: calc(var(--switch-thumb-inset) - var(--vd-switch-border-width, 0px));
+  left: calc(var(--switch-thumb-inset) - var(--vd-switch-border-width, 0px));
   width: var(--switch-thumb-width);
   height: var(--switch-thumb-height);
-  border-radius: var(--vd-radius-full);
+  border-radius: var(--vd-switch-radius, var(--vd-radius-full));
   background: var(--switch-thumb-background);
 
   transition:
-    transform var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    border-color var(--vd-duration-120) var(--vd-easing-standard);
+    transform var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .contents {
@@ -100,7 +107,7 @@
   color: var(--vd-brand-foreground);
   font-family: var(--vd-typography-ui-label-small-font-family);
   font-size: var(--vd-typography-ui-label-small-font-size);
-  font-weight: var(--vd-typography-ui-label-small-font-weight);
+  font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-small-font-weight));
   line-height: var(--vd-typography-ui-label-small-line-height);
   pointer-events: none;
 }
@@ -116,7 +123,8 @@
   overflow: hidden;
   white-space: nowrap;
   transform: translateY(-50%);
-  transition: opacity var(--vd-duration-120) var(--vd-easing-standard);
+  transition: opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .checkedContent {
@@ -161,7 +169,7 @@
 }
 
 .native:focus-visible + .control {
-  box-shadow: 0 0 0 var(--vd-border-width-1) var(--switch-focus);
+  box-shadow: 0 0 0 var(--vd-stroke-width, var(--vd-border-width-1)) var(--switch-focus);
 }
 
 .native:disabled + .control {
@@ -216,6 +224,13 @@
   --switch-thumb-travel: var(--vd-sizing-16);
 }
 
+.root[data-appearance='fader'] {
+  // The fader uses its thin rail as the track, without the toggle's enclosing border.
+  :global([data-virgo-theme='high-contrast']) & {
+    --vd-switch-border-width: 0px;
+  }
+}
+
 .root[data-appearance='fader'] .control {
   overflow: visible;
   background: transparent;
@@ -227,16 +242,18 @@
   bottom: auto;
   left: var(--vd-spacing-2);
   height: var(--vd-spacing-4);
-  border-radius: var(--vd-radius-full);
+  border-radius: var(--vd-switch-radius, var(--vd-radius-full));
   background: var(--vd-border-strong);
   transform: translateY(-50%);
-  transition: background-color var(--vd-duration-120) var(--vd-easing-standard);
+  transition: background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .root[data-appearance='fader'] .thumb {
   top: 50%;
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-strong);
-  border-radius: var(--vd-radius-4);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-strong);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   background: var(--vd-surface-default);
   transform: translateY(-50%);
 }

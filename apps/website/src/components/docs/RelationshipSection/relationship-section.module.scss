@@ -3,7 +3,7 @@
   gap: var(--vd-spacing-20);
   min-width: 0;
   padding-top: var(--vd-spacing-32);
-  border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-top: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
 }
 
 .header {
@@ -51,8 +51,10 @@
 .card {
   height: 100%;
   transition:
-    border-color var(--vd-duration-120) var(--vd-easing-standard),
-    transform var(--vd-duration-120) var(--vd-easing-standard);
+    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    transform var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .cardBody {
@@ -76,7 +78,7 @@
 }
 
 .link:focus-visible {
-  border-radius: var(--vd-radius-12);
+  border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
   outline: var(--vd-border-width-2) solid var(--vd-border-focus);
   outline-offset: var(--vd-spacing-2);
 }

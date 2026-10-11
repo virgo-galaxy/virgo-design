@@ -12,8 +12,8 @@
   height: 320px;
   overflow: auto;
   overscroll-behavior: contain;
-  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-12);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
   background: var(--vd-surface-secondary);
 
   &:focus-visible {
@@ -33,8 +33,8 @@
   flex-direction: column;
   justify-content: center;
   padding: var(--vd-spacing-8) var(--vd-spacing-12);
-  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-8);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   background: var(--vd-surface-default);
   box-shadow: var(--vd-elevation-1);
   color: var(--vd-text-primary);
@@ -61,7 +61,7 @@
 
 .placeholder {
   height: 112px;
-  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-8);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   background: var(--vd-surface-default);
 }

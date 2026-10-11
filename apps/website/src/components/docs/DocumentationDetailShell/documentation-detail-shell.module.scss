@@ -31,7 +31,7 @@
 
 .footer {
   padding-block: var(--vd-spacing-24);
-  border-top: var(--vd-border-width-1) solid var(--layout-line);
+  border-top: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--layout-line);
   color: var(--layout-secondary);
   background: var(--layout-header);
   font-size: var(--vd-font-size-13);
@@ -55,7 +55,7 @@
   --button-background-hover: var(--vd-surface-default);
   --button-foreground: var(--layout-secondary);
   --button-border-hover: var(--vd-border-default);
-  --button-radius: var(--vd-radius-4);
+  --button-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   --button-font-weight: var(--vd-font-weight-400);
 
   &:hover,
@@ -68,8 +68,10 @@
   filter: grayscale(1);
   opacity: 0.65;
   transition:
-    filter var(--vd-duration-120) var(--vd-easing-standard),
-    opacity var(--vd-duration-120) var(--vd-easing-standard);
+    filter var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .poweredBy:hover [data-slot='leading-icon'],
@@ -102,7 +104,7 @@
 .footer a:focus-visible {
   outline: var(--vd-border-width-2) solid var(--vd-border-focus);
   outline-offset: var(--vd-spacing-4);
-  border-radius: var(--vd-radius-2);
+  border-radius: var(--vd-shape-radius-2, var(--vd-radius-2));
 }
 
 .copyright {

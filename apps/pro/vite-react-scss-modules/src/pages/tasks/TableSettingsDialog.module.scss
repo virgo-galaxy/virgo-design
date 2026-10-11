@@ -47,7 +47,7 @@
   margin: 0;
   padding: var(--vd-spacing-16);
   border: 1px solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   legend {
     padding-inline: var(--vd-spacing-6);
     font-size: var(--vd-font-size-12);
@@ -81,7 +81,7 @@
   gap: var(--vd-spacing-8);
   padding-inline: var(--vd-spacing-4);
   border: 1px solid transparent;
-  border-radius: var(--vd-radius-6);
+  border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   &[data-dragging='true'] {
     opacity: 0.5;
   }
@@ -158,12 +158,19 @@
   min-width: 0;
   box-sizing: border-box;
   padding: var(--vd-spacing-16);
-  border: var(--vd-border-width-1) solid var(--vd-border-default);
-  border-radius: var(--vd-radius-8);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-default);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   background-color: var(--vd-surface-default);
   background-image:
-    linear-gradient(var(--vd-border-subtle) var(--vd-border-width-1), transparent 1px),
-    linear-gradient(90deg, var(--vd-border-subtle) var(--vd-border-width-1), transparent 1px);
+    linear-gradient(
+      var(--vd-border-subtle) var(--vd-stroke-width, var(--vd-border-width-1)),
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      var(--vd-border-subtle) var(--vd-stroke-width, var(--vd-border-width-1)),
+      transparent 1px
+    );
   background-size: var(--vd-spacing-24) var(--vd-spacing-24);
   > [role='region'] {
     min-height: 0;

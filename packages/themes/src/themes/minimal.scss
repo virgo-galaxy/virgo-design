@@ -1,0 +1,179 @@
+@use './recipe';
+
+[data-virgo-theme='minimal'] {
+  --vd-content-surface: var(--vd-surface-default);
+  --vd-content-surface-solid: var(--vd-table-body-background, var(--vd-surface-elevated));
+  --vd-content-surface-muted: var(--vd-surface-secondary);
+  --vd-content-foreground: var(--vd-text-primary);
+  --vd-content-secondary: var(--vd-text-secondary);
+  --vd-content-tertiary: var(--vd-text-tertiary);
+  --vd-content-border: var(--vd-border-subtle);
+  --vd-content-border-strong: var(--vd-border-default);
+  --vd-content-fill: var(--vd-fill-hover);
+  --vd-content-hover: var(--vd-fill-active);
+  --vd-content-decoration: none;
+
+  --vd-panel-shadow: var(--vd-elevation-2);
+  --vd-control-font-weight: 500;
+  @include recipe.geometry(
+    5px,
+    (
+      mini: 24px,
+      small: 28px,
+      medium: 36px,
+      large: 44px,
+    ),
+    (
+      mini: 8px,
+      small: 8px,
+      medium: 12px,
+      large: 16px,
+    )
+  );
+  --vd-control-hover-color: var(--vd-border-strong);
+  --vd-control-focus-color: var(--vd-text-primary);
+  --vd-control-focus-shadow: 0 0 0 2px var(--vd-surface-default), 0 0 0 3px var(--vd-border-focus);
+  --vd-navigation-selected-background: var(--vd-fill-selected);
+  --vd-navigation-selected-foreground: var(--vd-text-primary);
+  --vd-chart-line-width: 1.5;
+  --vd-chart-tooltip-shadow: none;
+  --vd-motion-duration-120: 100ms;
+  --vd-chrome-background: var(--vd-surface-default);
+  --vd-chrome-shadow: none;
+  --vd-chrome-backdrop-filter: none;
+  --vd-page-background: var(--vd-surface-background);
+  --vd-chrome-foreground: var(--vd-text-primary);
+  --vd-chrome-secondary: var(--vd-text-secondary);
+  --vd-chrome-border: var(--vd-border-subtle);
+  --vd-chrome-accent: var(--vd-brand-link);
+  @include recipe.appearance(
+    light,
+    (
+      data-sequential-1: color-mix(in srgb, #343434 12%, #fafafa),
+      data-sequential-2: color-mix(in srgb, #343434 24%, #fafafa),
+      data-sequential-3: color-mix(in srgb, #343434 40%, #fafafa),
+      data-sequential-4: color-mix(in srgb, #343434 58%, #fafafa),
+      data-sequential-5: color-mix(in srgb, #343434 76%, #fafafa),
+      data-sequential-6: color-mix(in srgb, #343434 100%, #fafafa),
+      data-categorical-1: #343434,
+      data-categorical-2: #536a86,
+      data-categorical-3: #8c6553,
+      data-categorical-4: #557762,
+      data-categorical-5: #7a628e,
+      data-categorical-6: #8b783f,
+      data-categorical-7: #343434,
+      data-categorical-8: #536a86,
+      data-categorical-9: #8c6553,
+      data-categorical-10: #557762,
+      data-categorical-11: #7a628e,
+      data-categorical-12: #8b783f,
+
+      surface-background: #fafafa,
+      surface-default: #fff,
+      surface-secondary: #f5f5f5,
+      surface-strong: #eaeaea,
+      surface-elevated: #fff,
+      text-primary: #171717,
+      text-secondary: #525252,
+      text-tertiary: #737373,
+      text-placeholder: #737373,
+      text-inverse: #fff,
+      text-disabled: #737373,
+      icon-primary: #171717,
+      icon-secondary: #525252,
+      icon-tertiary: #737373,
+      icon-inverse: #fff,
+      icon-disabled: #737373,
+      border-default: #dedede,
+      border-subtle: #ededed,
+      border-strong: #a3a3a3,
+      border-disabled: #dedede,
+      border-focus: #171717,
+      brand-primary: #171717,
+      brand-primary-hover: #333,
+      brand-primary-active: #000,
+      brand-foreground: #fff,
+      brand-link: #171717,
+      brand-link-hover: #333,
+      brand-focus: #171717,
+      brand-subtle: #e9e9e9,
+      brand-subtle-hover: #e9e9e9,
+      fill-selected: #e9e9e9,
+      fill-selected-hover: #e9e9e9,
+      fill-hover: #f5f5f5,
+      fill-active: #eaeaea,
+      fill-disabled: #f5f5f5,
+      elevation-0: none,
+      elevation-1: none,
+      elevation-2: 0 2px 5px rgb(0 0 0 / 6%),
+      elevation-3: none,
+      elevation-4: 0 4px 14px rgb(0 0 0 / 9%),
+      elevation-5: none,
+    )
+  );
+  @include recipe.appearance(
+    dark,
+    (
+      data-sequential-1: color-mix(in srgb, #eee 12%, #0a0a0a),
+      data-sequential-2: color-mix(in srgb, #eee 24%, #0a0a0a),
+      data-sequential-3: color-mix(in srgb, #eee 40%, #0a0a0a),
+      data-sequential-4: color-mix(in srgb, #eee 58%, #0a0a0a),
+      data-sequential-5: color-mix(in srgb, #eee 76%, #0a0a0a),
+      data-sequential-6: color-mix(in srgb, #eee 100%, #0a0a0a),
+      data-categorical-1: #eee,
+      data-categorical-2: #aabbd2,
+      data-categorical-3: #d8b6a1,
+      data-categorical-4: #a5c5b2,
+      data-categorical-5: #c1adce,
+      data-categorical-6: #d6c28a,
+      data-categorical-7: #eee,
+      data-categorical-8: #aabbd2,
+      data-categorical-9: #d8b6a1,
+      data-categorical-10: #a5c5b2,
+      data-categorical-11: #c1adce,
+      data-categorical-12: #d6c28a,
+
+      surface-background: #0a0a0a,
+      surface-default: #111,
+      surface-secondary: #1b1b1b,
+      surface-strong: #2a2a2a,
+      surface-elevated: #181818,
+      text-primary: #fafafa,
+      text-secondary: #b4b4b4,
+      text-tertiary: #929292,
+      text-placeholder: #929292,
+      text-inverse: #111,
+      text-disabled: #929292,
+      icon-primary: #fafafa,
+      icon-secondary: #b4b4b4,
+      icon-tertiary: #929292,
+      icon-inverse: #111,
+      icon-disabled: #929292,
+      border-default: #393939,
+      border-subtle: #292929,
+      border-strong: #737373,
+      border-disabled: #393939,
+      border-focus: #fafafa,
+      brand-primary: #fafafa,
+      brand-primary-hover: #dedede,
+      brand-primary-active: #ccc,
+      brand-foreground: #111,
+      brand-link: #ededed,
+      brand-link-hover: #dedede,
+      brand-focus: #fafafa,
+      brand-subtle: #2e2e2e,
+      brand-subtle-hover: #2e2e2e,
+      fill-selected: #2e2e2e,
+      fill-selected-hover: #2e2e2e,
+      fill-hover: #1b1b1b,
+      fill-active: #2a2a2a,
+      fill-disabled: #1b1b1b,
+      elevation-0: none,
+      elevation-1: none,
+      elevation-2: 0 2px 5px rgb(0 0 0 / 6%),
+      elevation-3: none,
+      elevation-4: 0 4px 14px rgb(0 0 0 / 9%),
+      elevation-5: none,
+    )
+  );
+}

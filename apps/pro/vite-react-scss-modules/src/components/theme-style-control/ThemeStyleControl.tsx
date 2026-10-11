@@ -1,26 +1,17 @@
-import { PaletteIcon } from '@virgo-design/icons';
+import { ShirtIcon } from '@virgo-design/icons';
+import { themePresets } from '@virgo-design/themes';
 import { Dropdown, Tooltip } from '@virgo-design/ui';
 import { useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useThemeStyle } from '@/lib/use-theme-style';
+
 import styles from './ThemeStyleControl.module.scss';
-
-const themeStyles = [
-  { value: 'virgo', name: 'Virgo' },
-  { value: 'minimal', name: 'Minimal' },
-  { value: 'soft', name: 'Soft' },
-  { value: 'glass', name: 'Glass' },
-  { value: 'utility', name: 'Utility' },
-  { value: 'highContrast', name: 'High Contrast' },
-] as const;
-
-type ThemeStyle = (typeof themeStyles)[number]['value'];
 
 export function ThemeStyleControl() {
   const { t } = useTranslation();
   const id = useId();
-  // Selection is UI-only until the theme styles are implemented.
-  const [selected, setSelected] = useState<ThemeStyle>('virgo');
+  const { theme: selected, setTheme } = useThemeStyle();
   const [menuOpen, setMenuOpen] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const tooltipSuppressed = useRef(false);
@@ -54,7 +45,7 @@ export function ThemeStyleControl() {
               variant="text"
               aria-label={t('themeStyleControl.label')}
             >
-              <PaletteIcon />
+              <ShirtIcon />
             </Dropdown.Trigger>
           )}
         />
@@ -66,18 +57,18 @@ export function ThemeStyleControl() {
         aria-label={t('themeStyleControl.label')}
         className={styles.menu}
       >
-        {themeStyles.map(({ value, name }) => (
+        {themePresets.map(({ id: value, name, descriptionKey }) => (
           <Dropdown.Item
             key={value}
             checked={selected === value}
             aria-label={name}
             aria-describedby={`${id}-${value}`}
-            onSelect={() => setSelected(value)}
+            onSelect={() => setTheme(value)}
           >
             <span className={styles.copy}>
               <span className={styles.name}>{name}</span>
               <span className={styles.description} id={`${id}-${value}`}>
-                {t(`themeStyleControl.descriptions.${value}`)}
+                {t(`themeStyleControl.descriptions.${descriptionKey}`)}
               </span>
             </span>
           </Dropdown.Item>

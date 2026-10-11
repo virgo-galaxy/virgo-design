@@ -94,7 +94,7 @@
   border-radius: 14px;
   background: transparent;
   color: var(--vd-text-secondary);
-  box-shadow: 0 12px 36px rgb(0 0 0 / 14%);
+  box-shadow: var(--vd-panel-shadow, 0 12px 36px rgb(0 0 0 / 14%));
   &::after {
     content: '';
     position: absolute;
@@ -156,7 +156,7 @@
   border-radius: 6px;
   color: var(--vd-text-secondary);
   background: color-mix(in srgb, var(--vd-surface-default) 70%, transparent);
-  box-shadow: 0 1px 4px rgb(0 0 0 / 4%);
+  box-shadow: var(--vd-panel-shadow, 0 1px 4px rgb(0 0 0 / 4%));
   backdrop-filter: blur(4px);
   pointer-events: auto;
   touch-action: none;

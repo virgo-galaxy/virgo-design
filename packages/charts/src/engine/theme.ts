@@ -112,7 +112,7 @@ export function useChartTheme(ref: RefObject<HTMLElement | null>, customColors: 
     for (let ancestor: HTMLElement | null = element; ancestor; ancestor = ancestor.parentElement)
       observer.observe(ancestor, {
         attributes: true,
-        attributeFilter: ['class', 'style', 'data-theme'],
+        attributeFilter: ['class', 'style', 'data-theme', 'data-virgo-theme'],
       });
     const scheme = window.matchMedia?.('(prefers-color-scheme: dark)');
     scheme?.addEventListener('change', refresh);

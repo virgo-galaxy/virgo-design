@@ -105,7 +105,7 @@ export function useFloatingPosition({
     for (let node: HTMLElement | null = anchor; node; node = node.parentElement) {
       themeObserver.observe(node, {
         attributes: true,
-        attributeFilter: ['data-theme', 'dir', 'class', 'style'],
+        attributeFilter: ['data-theme', 'data-virgo-theme', 'dir', 'class', 'style'],
       });
     }
     const contentsObserver = new MutationObserver(update);

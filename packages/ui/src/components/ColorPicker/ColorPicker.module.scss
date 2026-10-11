@@ -28,7 +28,7 @@
   width: var(--vd-sizing-64);
   height: var(--color-height);
   padding: var(--vd-spacing-4);
-  border: var(--vd-border-width-1) solid var(--vd-border-default);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-default);
   border-radius: var(--color-radius);
   background: var(--vd-surface-default);
   font-family: var(--vd-font-family-sans);
@@ -40,10 +40,10 @@
   cursor: pointer;
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: var(--vd-disabled-opacity, 0.5);
   }
   &:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
     outline-offset: var(--vd-spacing-2);
   }
 }
@@ -53,23 +53,23 @@
   display: inline-block;
   width: var(--color-height);
   height: var(--color-height);
-  border: var(--vd-border-width-1) solid var(--vd-border-default);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-default);
   border-radius: var(--color-radius);
 }
 .swatch {
   padding: 0;
   cursor: pointer;
   &[aria-pressed='true'] {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
     outline-offset: var(--vd-spacing-2);
   }
   &:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
     outline-offset: var(--vd-spacing-2);
   }
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: var(--vd-disabled-opacity, 0.5);
   }
 }
 
@@ -79,8 +79,8 @@
   width: var(--color-picker-panel-width, 238px);
   padding: var(--vd-spacing-12);
   border: 1px solid var(--vd-border-default);
-  border-radius: var(--vd-radius-12);
-  background: var(--vd-surface-elevated);
+  border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
+  background: var(--vd-popup-background, var(--vd-surface-elevated));
   color: var(--vd-text-primary);
   box-shadow: var(--vd-elevation-3);
 }
@@ -116,7 +116,7 @@
 .area {
   position: relative;
   height: var(--color-picker-area-height, 137px);
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   background:
     linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, transparent),
     hsl(var(--color-picker-hue) 100% 50%);
@@ -180,5 +180,5 @@
 .textField:disabled,
 .trigger:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: var(--vd-disabled-opacity, 0.5);
 }

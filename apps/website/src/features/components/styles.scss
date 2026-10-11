@@ -40,8 +40,8 @@
   .tabs-content-panel {
     min-height: var(--vd-sizing-64);
     padding: var(--vd-spacing-16);
-    border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-    border-radius: var(--vd-radius-8);
+    border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+    border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
     background: var(--vd-surface-secondary);
   }
 
@@ -186,7 +186,7 @@
   }
 
   .specimen-toolbar {
-    border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+    border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   }
 
   .specimen-toolbar code {
@@ -199,16 +199,23 @@
     flex: 1;
     place-items: center;
     background-image:
-      linear-gradient(var(--vd-border-subtle) var(--vd-border-width-1), transparent 1px),
-      linear-gradient(90deg, var(--vd-border-subtle) var(--vd-border-width-1), transparent 1px);
+      linear-gradient(
+        var(--vd-border-subtle) var(--vd-stroke-width, var(--vd-border-width-1)),
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        var(--vd-border-subtle) var(--vd-stroke-width, var(--vd-border-width-1)),
+        transparent 1px
+      );
     background-size: var(--vd-spacing-24) var(--vd-spacing-24);
   }
 
   .hero-stage::before {
     position: absolute;
     inset: var(--vd-spacing-32);
-    border: var(--vd-border-width-1) dashed var(--vd-border-default);
-    border-radius: var(--vd-radius-12);
+    border: var(--vd-stroke-width, var(--vd-border-width-1)) dashed var(--vd-border-default);
+    border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
     content: '';
     pointer-events: none;
   }
@@ -216,7 +223,7 @@
   .specimen-caption {
     justify-content: flex-start;
     gap: var(--vd-spacing-16);
-    border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+    border-top: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   }
 
   @media (max-width: 1040px) {

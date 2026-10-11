@@ -15,8 +15,9 @@ body:has(.components-documentation) {
     height: var(--vd-sizing-40);
     place-items: center;
     padding-inline: var(--vd-spacing-8);
-    border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
-    border-radius: var(--vd-radius-10);
+    border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+      var(--vd-border-subtle);
+    border-radius: var(--vd-shape-radius-10, var(--vd-radius-10));
     color: var(--vd-text-secondary);
     background: var(--vd-surface-secondary);
 

@@ -29,7 +29,8 @@
     }
   },
   "dependencies": {
-    "echarts": "6.1.0"
+    "echarts": "6.1.0",
+    "@virgo-design/tokens": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

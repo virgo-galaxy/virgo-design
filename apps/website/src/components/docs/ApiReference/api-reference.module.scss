@@ -81,7 +81,7 @@
   overflow-x: auto;
   margin: 0;
   padding: var(--vd-spacing-12) var(--vd-spacing-20);
-  border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-top: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   background: var(--vd-surface-secondary);
   color: var(--vd-text-secondary);
   font-family: var(--vd-font-family-mono);
@@ -92,7 +92,7 @@
 }
 
 .tableViewport {
-  border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-top: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
 }
 
 .tableViewport:focus-visible {
@@ -155,7 +155,7 @@
 
 .table td code {
   padding: 1px var(--vd-spacing-4);
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   background: var(--vd-surface-secondary);
   box-decoration-break: clone;
 }
@@ -222,7 +222,7 @@
 .aliasList {
   display: grid;
   margin: 0;
-  border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-top: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
 }
 
 .aliasList > div {
@@ -233,7 +233,7 @@
 }
 
 .aliasList > div + div {
-  border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-top: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
 }
 
 .aliasList dt,

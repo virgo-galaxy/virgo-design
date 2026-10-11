@@ -46,3 +46,13 @@ themes.dark.color.status.success.solid;
 ```
 
 JavaScript role `onSolid` exports as CSS `on-solid`. Package CSS and Website's CSS export use the same naming convention. No legacy role is removed or silently remapped.
+
+## Theme System
+
+Tokens owns `themeContract` and `THEME_CONTRACT_VERSION`, with Virgo fallbacks
+and appearance-aware semantic variable bridges. Official style implementations
+live in `@virgo-design/themes`. `themes.light` / `themes.dark` remain the
+backward-compatible Virgo appearance data; they are not the six style presets.
+Theme presentation uses separate `--vd-shape-*`, `--vd-control-*`, `--vd-motion-*`
+and component roles, so Foundation color/spacing/radius/motion scales stay intact.
+See [the theme package](../themes/README.md) and Website `/themes`.

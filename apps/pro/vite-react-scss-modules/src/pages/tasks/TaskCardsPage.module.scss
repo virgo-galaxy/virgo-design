@@ -11,8 +11,11 @@
   gap: 20px;
   padding: 20px;
   min-width: 0;
-  background: #fff;
-  box-shadow: 0 4px 18px color-mix(in srgb, var(--vd-text-primary) 5%, transparent);
+  background: var(--vd-overlay-background, #fff);
+  box-shadow: var(
+    --vd-panel-shadow,
+    0 4px 18px color-mix(in srgb, var(--vd-text-primary) 5%, transparent)
+  );
 }
 :global([data-theme='dark']) .panel {
   background: var(--vd-surface-elevated);
@@ -35,11 +38,16 @@
   gap: 12px;
   min-width: 0;
   transition:
-    transform var(--vd-duration-180) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-180) var(--vd-easing-standard);
+    transform var(--vd-motion-duration-180, var(--vd-duration-180))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-180, var(--vd-duration-180))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
   &:is(:hover, :focus-within) {
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px color-mix(in srgb, var(--vd-text-primary) 10%, transparent);
+    box-shadow: var(
+      --vd-panel-shadow,
+      0 6px 18px color-mix(in srgb, var(--vd-text-primary) 10%, transparent)
+    );
   }
 }
 .cardHeader,

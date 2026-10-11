@@ -19,13 +19,14 @@
   align-items: center;
   justify-content: center;
   padding-inline: var(--vd-spacing-4);
-  border: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-surface-default);
+  border: var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-style-solid)
+    var(--vd-surface-default);
   border-radius: var(--vd-radius-full);
   color: var(--badge-foreground);
   background: var(--badge-background);
   font-family: var(--vd-typography-ui-label-small-font-family);
   font-size: var(--vd-typography-ui-label-small-font-size);
-  font-weight: var(--vd-typography-ui-label-small-font-weight);
+  font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-small-font-weight));
   line-height: var(--vd-typography-ui-label-small-line-height);
   white-space: nowrap;
   pointer-events: none;
@@ -44,7 +45,7 @@
   min-width: var(--vd-spacing-8);
   height: var(--vd-spacing-8);
   padding: var(--vd-spacing-0);
-  border-width: var(--vd-border-width-1);
+  border-width: var(--vd-stroke-width, var(--vd-border-width-1));
 }
 
 .root[data-standalone] {
@@ -63,7 +64,7 @@
     content: '';
     position: absolute;
     inset: -2px;
-    border: var(--vd-border-width-1) solid var(--badge-background);
+    border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--badge-background);
     border-radius: inherit;
     pointer-events: none;
     animation: badge-breathe-ring var(--badge-breathe-duration) ease-out infinite;

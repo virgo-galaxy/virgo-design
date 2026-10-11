@@ -12,7 +12,7 @@ body:has(.components-documentation) {
     margin: 0;
     overflow-x: auto;
     padding: var(--vd-spacing-16);
-    border-radius: var(--vd-radius-8);
+    border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
     background: var(--vd-fill-hover);
     font-size: var(--vd-font-size-12);
   }

@@ -3,6 +3,7 @@
 @use '../../internal/form/control-hover';
 
 .root {
+  box-shadow: var(--vd-control-shadow, none);
   --textarea-background: var(--vd-surface-default);
   --textarea-border: var(--vd-border-default);
   --textarea-border-hover: #{control-hover.$color};
@@ -17,7 +18,8 @@
   min-height: var(--textarea-min-height);
   margin: 0;
   padding: var(--textarea-padding-block) var(--textarea-padding-inline);
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--textarea-border);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--textarea-border);
   border-radius: var(--textarea-radius);
   outline: 0;
   color: var(--textarea-foreground);
@@ -30,10 +32,14 @@
   resize: vertical;
 
   transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    border-color var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &::placeholder {
     color: var(--textarea-placeholder);

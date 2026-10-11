@@ -238,6 +238,8 @@ import {
 } from '@/features/primitives/api-description-locales';
 import { primitivesEnUS } from '@/features/primitives/locales/en-US';
 import { primitivesZhCN } from '@/features/primitives/locales/zh-CN';
+import { themeStyleControlEnUS } from '@/layout/components/global-controls/locales/en-US';
+import { themeStyleControlZhCN } from '@/layout/components/global-controls/locales/zh-CN';
 import { layoutEnUS } from '@/layout/locales/en-US';
 import { layoutZhCN } from '@/layout/locales/zh-CN';
 import { foundationColorsEnUS } from '@/pages/colors/locales/en-US';
@@ -246,6 +248,8 @@ import { standaloneEnUS } from '@/pages/examples/locales/en-US';
 import { standaloneZhCN } from '@/pages/examples/locales/zh-CN';
 import { foundationsEnUS } from '@/pages/foundations/locales/en-US';
 import { foundationsZhCN } from '@/pages/foundations/locales/zh-CN';
+import { themesEnUS } from '@/pages/themes/locales/en-US';
+import { themesZhCN } from '@/pages/themes/locales/zh-CN';
 import { tokensEnUS } from '@/pages/tokens/locales/en-US';
 import { tokensZhCN } from '@/pages/tokens/locales/zh-CN';
 import { controlsEnUS } from '@/shared/locales/controls/en-US';
@@ -256,6 +260,8 @@ import { chartsZhCN } from '../features/charts/locales/zh-CN';
 import type { LocaleOf } from './locale-types';
 
 export const enUS = {
+  themes: themesEnUS,
+  themeStyleControl: themeStyleControlEnUS,
   charts: chartsEnUS,
   icons: iconsEnUS,
   shared: { controls: controlsEnUS },
@@ -401,6 +407,8 @@ export const enUS = {
 } as const;
 
 export const zhCN = {
+  themes: themesZhCN,
+  themeStyleControl: themeStyleControlZhCN,
   charts: chartsZhCN,
   icons: iconsZhCN,
   shared: { controls: controlsZhCN },

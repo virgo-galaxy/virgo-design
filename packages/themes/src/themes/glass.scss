@@ -1,0 +1,262 @@
+@use './recipe';
+
+[data-virgo-theme='glass'] {
+  @include recipe.soft-overlay-arrows;
+  --vd-content-surface: var(--vd-surface-default);
+  --vd-content-surface-solid: var(--vd-table-body-background, var(--vd-surface-elevated));
+  --vd-content-surface-muted: var(--vd-surface-secondary);
+  --vd-content-foreground: var(--vd-text-primary);
+  --vd-content-secondary: var(--vd-text-secondary);
+  --vd-content-tertiary: var(--vd-text-tertiary);
+  --vd-content-border: var(--vd-border-subtle);
+  --vd-content-border-strong: var(--vd-border-default);
+  --vd-content-fill: var(--vd-fill-hover);
+  --vd-content-hover: var(--vd-fill-active);
+  --vd-content-decoration: none;
+
+  --vd-panel-shadow: var(--vd-elevation-2);
+  --vd-control-font-weight: 500;
+  @include recipe.geometry(
+    16px,
+    (
+      mini: 24px,
+      small: 28px,
+      medium: 36px,
+      large: 44px,
+    ),
+    (
+      mini: 8px,
+      small: 10px,
+      medium: 14px,
+      large: 18px,
+    )
+  );
+  --vd-shape-radius-4: 5px;
+  --vd-shape-radius-24: 24px;
+  --vd-control-hover-color: var(--vd-brand-link);
+  --vd-control-focus-color: var(--vd-brand-link);
+  --vd-panel-backdrop-filter: var(--vd-optical-refraction,) blur(4px) saturate(1.04);
+  --vd-panel-highlight: inset 0 1px 0 rgb(255 255 255 / 55%), inset 0 -1px 0 rgb(255 255 255 / 10%);
+  --vd-surface-backdrop-filter: var(--vd-optical-refraction,) blur(2px) saturate(1.03);
+  --vd-surface-highlight: linear-gradient(
+    165deg,
+    rgb(255 255 255 / 15%),
+    transparent 24%,
+    transparent 76%,
+    rgb(255 255 255 / 4%)
+  );
+  --vd-action-shadow: inset 0 1px 0 rgb(255 255 255 / 25%), 0 2px 8px rgb(0 0 0 / 9%);
+  --vd-action-border: color-mix(in srgb, var(--vd-brand-primary) 70%, white);
+  --vd-action-pressed-shadow: inset 0 1px 4px rgb(0 0 0 / 15%);
+  --vd-action-pressed-offset: 1px;
+  --vd-control-shadow: inset 0 1px 0 rgb(255 255 255 / 18%), inset 0 -1px 1px rgb(0 0 0 / 4%);
+  --vd-overlay-background: var(--vd-surface-elevated);
+  // Text-dense menus need thicker neutral material than broad glass surfaces.
+  --vd-popup-background: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--vd-text-inverse) 80%, var(--vd-surface-background)) 88%,
+    transparent
+  );
+  --vd-popup-backdrop-filter: blur(24px) saturate(1.08);
+  --vd-popup-shadow: 0 12px 32px rgb(0 0 0 / 18%), 0 2px 6px rgb(0 0 0 / 8%);
+  --vd-window-control-content: '';
+  --vd-window-control-collapse-background: linear-gradient(#ffd85d, #ffbd2e);
+  --vd-window-control-close-background: linear-gradient(#ff827c, #ff5f57);
+  --vd-window-control-collapse-foreground: #825500;
+  --vd-window-control-close-foreground: #8c1813;
+  --vd-window-control-border: rgb(0 0 0 / 15%);
+  --vd-window-control-shadow: inset 0 1px 0 rgb(255 255 255 / 25%), 0 1px 2px rgb(0 0 0 / 12%);
+  --vd-window-control-symbol-opacity: 0;
+  --vd-window-control-icon-size: 10px;
+  // Fixed table columns must occlude scrolling content even when surrounding cards are glass.
+  --vd-table-body-background: var(--vd-surface-background);
+  --vd-glass-backdrop-filter: var(--vd-optical-refraction,) blur(4px) saturate(1.04);
+  --vd-glass-tint-opacity: 48%;
+  --vd-material-tint-opacity: 58%;
+  --vd-surface-edge-content: '';
+  --vd-surface-edge-shadow: var(--vd-panel-highlight);
+  --vd-chart-tooltip-radius: 16px;
+  --vd-chart-tooltip-surface: var(--vd-surface-elevated);
+  --vd-chart-tooltip-shadow: var(--vd-elevation-2), var(--vd-panel-highlight);
+  --vd-motion-duration-120: 180ms;
+  --vd-motion-easing-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  --vd-chrome-background: var(--vd-surface-default);
+  --vd-chrome-shadow: var(--vd-elevation-1), var(--vd-panel-highlight);
+  --vd-chrome-backdrop-filter: var(--vd-optical-refraction,) blur(4px) saturate(1.04);
+  --vd-page-background: var(--vd-surface-background);
+  --vd-chrome-foreground: var(--vd-text-primary);
+  --vd-chrome-secondary: var(--vd-text-secondary);
+  --vd-chrome-border: var(--vd-border-default);
+  --vd-chrome-accent: var(--vd-brand-link);
+  @include recipe.appearance(
+    light,
+    (
+      data-sequential-1: color-mix(in srgb, #286bd3 12%, #eeeeef),
+      data-sequential-2: color-mix(in srgb, #286bd3 24%, #eeeeef),
+      data-sequential-3: color-mix(in srgb, #286bd3 40%, #eeeeef),
+      data-sequential-4: color-mix(in srgb, #286bd3 58%, #eeeeef),
+      data-sequential-5: color-mix(in srgb, #286bd3 76%, #eeeeef),
+      data-sequential-6: color-mix(in srgb, #286bd3 100%, #eeeeef),
+      data-categorical-1: #286bd3,
+      data-categorical-2: #067e89,
+      data-categorical-3: #ae529b,
+      data-categorical-4: #b7731f,
+      data-categorical-5: #5855ba,
+      data-categorical-6: #247b52,
+      data-categorical-7: #286bd3,
+      data-categorical-8: #067e89,
+      data-categorical-9: #ae529b,
+      data-categorical-10: #b7731f,
+      data-categorical-11: #5855ba,
+      data-categorical-12: #247b52,
+
+      surface-background: #eeeeef,
+      surface-default: rgb(255 255 255 / 22%),
+      surface-secondary: rgb(255 255 255 / 22%),
+      surface-strong: rgb(255 255 255 / 58%),
+      surface-elevated: rgb(255 255 255 / 34%),
+      surface-overlay: rgb(0 0 0 / 12%),
+      text-primary: #202023,
+      text-secondary: #55555b,
+      text-tertiary: #75757c,
+      text-placeholder: #75757c,
+      text-inverse: #fff,
+      text-disabled: #75757c,
+      icon-primary: #202023,
+      icon-secondary: #55555b,
+      icon-tertiary: #75757c,
+      icon-inverse: #fff,
+      icon-disabled: #75757c,
+      border-default: rgb(255 255 255 / 58%),
+      border-subtle: rgb(0 0 0 / 10%),
+      border-strong: rgb(0 0 0 / 22%),
+      border-disabled: rgb(255 255 255 / 58%),
+      border-focus: #255bc6,
+      brand-primary: #255bc6,
+      brand-primary-hover: #174dab,
+      brand-primary-active: #113d8a,
+      brand-foreground: #fff,
+      brand-link: #174eaa,
+      brand-link-hover: #174dab,
+      brand-focus: #255bc6,
+      brand-subtle: rgb(104 166 255 / 22%),
+      brand-subtle-hover: rgb(104 166 255 / 22%),
+      fill-selected: rgb(104 166 255 / 22%),
+      fill-selected-hover: rgb(104 166 255 / 22%),
+      fill-hover: rgb(255 255 255 / 22%),
+      fill-active: rgb(255 255 255 / 58%),
+      fill-disabled: rgb(255 255 255 / 22%),
+      elevation-0: none,
+      elevation-1: 0 4px 12px rgb(0 0 0 / 7%),
+      elevation-2: 0 8px 24px rgb(0 0 0 / 10%),
+      elevation-3: 0 12px 36px rgb(0 0 0 / 13%),
+      elevation-4: 0 16px 48px rgb(0 0 0 / 16%),
+      elevation-5: 0 20px 60px rgb(0 0 0 / 19%),
+    )
+  );
+  @include recipe.appearance(
+    dark,
+    (
+      data-sequential-1: color-mix(in srgb, #95c4ff 12%, #151516),
+      data-sequential-2: color-mix(in srgb, #95c4ff 24%, #151516),
+      data-sequential-3: color-mix(in srgb, #95c4ff 40%, #151516),
+      data-sequential-4: color-mix(in srgb, #95c4ff 58%, #151516),
+      data-sequential-5: color-mix(in srgb, #95c4ff 76%, #151516),
+      data-sequential-6: color-mix(in srgb, #95c4ff 100%, #151516),
+      data-categorical-1: #95c4ff,
+      data-categorical-2: #74dce7,
+      data-categorical-3: #f0a5df,
+      data-categorical-4: #f4c380,
+      data-categorical-5: #bab5ff,
+      data-categorical-6: #9be0bd,
+      data-categorical-7: #95c4ff,
+      data-categorical-8: #74dce7,
+      data-categorical-9: #f0a5df,
+      data-categorical-10: #f4c380,
+      data-categorical-11: #bab5ff,
+      data-categorical-12: #9be0bd,
+
+      surface-background: #151516,
+      surface-default: rgb(16 16 18 / 25%),
+      surface-secondary: rgb(255 255 255 / 5%),
+      surface-strong: rgb(255 255 255 / 10%),
+      surface-elevated: rgb(16 16 18 / 38%),
+      surface-overlay: rgb(0 0 0 / 26%),
+      text-primary: #f5f5f7,
+      text-secondary: #c2c2c7,
+      text-tertiary: #a0a0a8,
+      text-placeholder: #a0a0a8,
+      text-inverse: #111112,
+      text-disabled: #a0a0a8,
+      icon-primary: #f5f5f7,
+      icon-secondary: #c2c2c7,
+      icon-tertiary: #a0a0a8,
+      icon-inverse: #111112,
+      icon-disabled: #a0a0a8,
+      border-default: rgb(255 255 255 / 20%),
+      border-subtle: rgb(255 255 255 / 10%),
+      border-strong: rgb(255 255 255 / 30%),
+      border-disabled: rgb(255 255 255 / 20%),
+      border-focus: #accdff,
+      brand-primary: #accdff,
+      brand-primary-hover: #c3dbff,
+      brand-primary-active: #93bdfb,
+      brand-foreground: #101018,
+      brand-link: #accdff,
+      brand-link-hover: #c3dbff,
+      brand-focus: #accdff,
+      brand-subtle: rgb(100 166 255 / 25%),
+      brand-subtle-hover: rgb(100 166 255 / 25%),
+      fill-selected: rgb(100 166 255 / 25%),
+      fill-selected-hover: rgb(100 166 255 / 25%),
+      fill-hover: rgb(255 255 255 / 5%),
+      fill-active: rgb(255 255 255 / 10%),
+      fill-disabled: rgb(255 255 255 / 5%),
+      elevation-0: none,
+      elevation-1: 0 4px 12px rgb(0 0 0 / 7%),
+      elevation-2: 0 8px 24px rgb(0 0 0 / 10%),
+      elevation-3: 0 12px 36px rgb(0 0 0 / 13%),
+      elevation-4: 0 16px 48px rgb(0 0 0 / 16%),
+      elevation-5: 0 20px 60px rgb(0 0 0 / 19%),
+    )
+  );
+}
+
+@mixin opaque-surfaces {
+  [data-virgo-theme='glass'] {
+    --vd-surface-backdrop-filter: none;
+    --vd-panel-backdrop-filter: none;
+    --vd-popup-backdrop-filter: none;
+    --vd-popup-background: var(--vd-surface-elevated);
+    --vd-glass-backdrop-filter: none;
+    --vd-chrome-backdrop-filter: none;
+    --vd-material-tint-opacity: 100%;
+    --vd-glass-tint-opacity: 100%;
+    @include recipe.appearance(
+      light,
+      (
+        surface-default: #f6f6f7,
+        surface-elevated: #fafafb,
+        surface-secondary: #e8e8eb,
+        surface-strong: #dedee2,
+        border-default: rgb(0 0 0 / 22%),
+      )
+    );
+    @include recipe.appearance(
+      dark,
+      (
+        surface-default: #242426,
+        surface-elevated: #2c2c2f,
+        surface-secondary: #343437,
+        surface-strong: #424246,
+        border-default: rgb(255 255 255 / 30%),
+      )
+    );
+  }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  @include opaque-surfaces;
+}
+@media (prefers-reduced-transparency: reduce) {
+  @include opaque-surfaces;
+}

@@ -2,7 +2,7 @@
   --checkbox-control-size: var(--vd-sizing-16);
   --checkbox-hit-size: var(--vd-sizing-24);
   --checkbox-gap: var(--vd-spacing-8);
-  --checkbox-radius: var(--vd-radius-4);
+  --checkbox-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   --checkbox-background: var(--vd-surface-default);
   --checkbox-border: var(--vd-border-default);
   --checkbox-border-hover: var(--vd-brand-primary);
@@ -20,15 +20,19 @@
   height: var(--checkbox-control-size);
   place-items: center;
   overflow: hidden;
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--checkbox-border);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--checkbox-border);
   border-radius: var(--checkbox-radius);
   color: var(--checkbox-mark);
   background: var(--checkbox-background);
   transform: translateY(1px);
   transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    border-color var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   @media (prefers-reduced-motion: reduce) {
     transition-duration: var(--vd-duration-0);
@@ -44,7 +48,8 @@
   opacity: 0;
   // Keep a short visible start so a newly checked box never has an empty blue frame.
   clip-path: inset(0 70% 0 0);
-  transition: clip-path var(--vd-duration-240) var(--vd-easing-standard);
+  transition: clip-path var(--vd-motion-duration-240, var(--vd-duration-240))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   @media (prefers-reduced-motion: reduce) {
     transition-duration: var(--vd-duration-0);
@@ -62,6 +67,7 @@
 }
 
 @mixin disabled-control {
+  border-style: var(--vd-disabled-border-style, solid);
   border-color: var(--vd-border-disabled);
   color: var(--vd-icon-disabled);
   background: var(--vd-fill-disabled);

@@ -101,11 +101,17 @@ describe('CSS Style Bridge', () => {
     expect(themesCss).toContain("[data-theme='dark'] {");
 
     for (const theme of Object.values(themes)) {
-      expect(themesCss).toContain(`--vd-text-primary: ${theme.color.text.primary};`);
-      expect(themesCss).toContain(`--vd-fill-hover: ${theme.color.fill.hover};`);
+      expect(themesCss).toContain(
+        `--vd-text-primary: var(--vd-theme-${theme.mode}-text-primary, ${theme.color.text.primary});`,
+      );
+      expect(themesCss).toContain(
+        `--vd-fill-hover: var(--vd-theme-${theme.mode}-fill-hover, ${theme.color.fill.hover});`,
+      );
 
       for (const [level, shadow] of Object.entries(theme.elevation)) {
-        expect(themesCss).toContain(`--vd-elevation-${level}: ${shadow};`);
+        expect(themesCss).toContain(
+          `--vd-elevation-${level}: var(--vd-theme-${theme.mode}-elevation-${level}, ${shadow});`,
+        );
       }
     }
   });
@@ -129,10 +135,18 @@ describe('CSS Style Bridge', () => {
       const block = themesCss.split("[data-theme='dark']")[theme.mode === 'light' ? 0 : 1];
       for (const family of statusColorFamilies) {
         const status = theme.color.status[family];
-        expect(block).toContain(`--vd-status-${family}-solid: ${status.solid};`);
-        expect(block).toContain(`--vd-status-${family}-on-solid: ${status.onSolid};`);
-        expect(block).toContain(`--vd-status-${family}-accent: ${status.accent};`);
-        expect(block).toContain(`--vd-status-${family}-foreground: ${status.foreground};`);
+        expect(block).toContain(
+          `--vd-status-${family}-solid: var(--vd-theme-${theme.mode}-status-${family}-solid, ${status.solid});`,
+        );
+        expect(block).toContain(
+          `--vd-status-${family}-on-solid: var(--vd-theme-${theme.mode}-status-${family}-on-solid, ${status.onSolid});`,
+        );
+        expect(block).toContain(
+          `--vd-status-${family}-accent: var(--vd-theme-${theme.mode}-status-${family}-accent, ${status.accent});`,
+        );
+        expect(block).toContain(
+          `--vd-status-${family}-foreground: var(--vd-theme-${theme.mode}-status-${family}-foreground, ${status.foreground});`,
+        );
       }
     }
     expect(themesCss).not.toContain('-onSolid:');

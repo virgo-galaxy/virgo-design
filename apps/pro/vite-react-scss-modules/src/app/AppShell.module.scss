@@ -12,7 +12,7 @@
   inset-block-start: 0;
   inset-inline: 0;
   flex: none;
-  border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   z-index: 4;
   &[hidden] {
     display: none;
@@ -105,7 +105,7 @@
 }
 .sidebar {
   margin-block-start: var(--pro-header-height);
-  border-inline-end: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-inline-end: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
   &[data-resizable] {
     border-inline-end: 0;
   }
@@ -151,7 +151,7 @@
     min-width: calc(var(--vd-sizing-12) + var(--vd-spacing-2));
     height: calc(var(--vd-sizing-12) + var(--vd-spacing-2));
     padding-inline: var(--vd-spacing-2);
-    border-width: var(--vd-border-width-1);
+    border-width: var(--vd-stroke-width, var(--vd-border-width-1));
     font-size: var(--vd-font-size-10);
     line-height: var(--vd-sizing-12);
   }
@@ -195,8 +195,8 @@
   }
 }
 .navigation {
-  --navigation-menu-control-height: var(--vd-sizing-36);
-  --navigation-menu-radius: var(--vd-radius-6);
+  --navigation-menu-control-height: var(--vd-control-medium-height, var(--vd-sizing-36));
+  --navigation-menu-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   --navigation-menu-icon-size: var(--vd-sizing-16);
   padding: var(--vd-spacing-4) var(--vd-spacing-8);
   font-size: var(--vd-font-size-13);
@@ -247,8 +247,8 @@
   }
 }
 .subnavigation {
-  --navigation-menu-control-height: var(--vd-sizing-36);
-  --navigation-menu-radius: var(--vd-radius-6);
+  --navigation-menu-control-height: var(--vd-control-medium-height, var(--vd-sizing-36));
+  --navigation-menu-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   font-size: var(--vd-font-size-13);
 }
 // Inline submenus, fixed-label lists and rail flyouts share leaf selection styling.
@@ -286,8 +286,10 @@
   font: inherit;
   font-weight: var(--vd-font-weight-600);
   transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard);
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
   &:hover {
     background: var(--vd-fill-hover);
   }
@@ -406,7 +408,7 @@
     &:focus-visible {
       outline: var(--vd-border-width-2) solid var(--vd-border-focus);
       outline-offset: var(--vd-spacing-4);
-      border-radius: var(--vd-radius-4);
+      border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
     }
   }
 }

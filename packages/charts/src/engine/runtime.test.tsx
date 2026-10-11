@@ -85,3 +85,38 @@ it('resizes through ResizeObserver and cleans the observer and ready callback', 
   expect(cleanup).toHaveBeenCalledOnce();
   expect(chart.dispose).toHaveBeenCalledOnce();
 });
+
+it('refreshes presentation when the root theme style changes without recreating ECharts', async () => {
+  const compute = window.getComputedStyle.bind(window);
+  vi.spyOn(window, 'getComputedStyle').mockImplementation((element) => {
+    const css = compute(element);
+    return {
+      getPropertyValue: (name: string) => css.getPropertyValue(name),
+      color: css.color,
+      fontFamily: css.fontFamily,
+      fontSize: document.documentElement.dataset.virgoTheme === 'soft' ? '15px' : '12px',
+    } as CSSStyleDeclaration;
+  });
+  const chart = { setOption: vi.fn(), resize: vi.fn(), dispose: vi.fn() };
+  const init = vi.fn(() => chart as unknown as EChartsType);
+  function Harness() {
+    const ref = useRef<HTMLDivElement>(null);
+    const theme = useChartTheme(ref);
+    const option = useMemo(
+      () => (theme ? { textStyle: { fontSize: theme.fontSize } } : null),
+      [theme],
+    );
+    useChartRuntime({ ref, init, renderer: 'svg', height: 100, option });
+    return <div ref={ref} />;
+  }
+  const { unmount } = render(<Harness />);
+  await waitFor(() => expect(chart.setOption.mock.calls.at(-1)?.[0].textStyle.fontSize).toBe(12));
+  act(() => {
+    document.documentElement.dataset.virgoTheme = 'soft';
+  });
+  await waitFor(() => expect(chart.setOption.mock.calls.at(-1)?.[0].textStyle.fontSize).toBe(15));
+  expect(init).toHaveBeenCalledOnce();
+  unmount();
+  delete document.documentElement.dataset.virgoTheme;
+  vi.restoreAllMocks();
+});

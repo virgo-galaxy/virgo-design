@@ -23,12 +23,13 @@
   }
 }
 .input {
+  box-shadow: var(--vd-control-shadow, none);
   box-sizing: border-box;
   width: 100%;
   height: var(--combobox-height);
   padding-inline: var(--combobox-padding-inline)
     calc(var(--combobox-icon-size) + 2 * var(--combobox-padding-inline));
-  border: var(--vd-border-width-1) solid var(--vd-border-default);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-default);
   border-radius: var(--combobox-radius);
   background: var(--vd-surface-default);
   color: var(--vd-text-primary);
@@ -73,7 +74,7 @@
     @include option-highlight.surface;
   }
   &[aria-selected='true'] {
-    font-weight: var(--vd-typography-ui-label-medium-font-weight);
+    font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
   }
   &[aria-disabled='true'] {
     color: var(--vd-text-disabled);
@@ -115,7 +116,8 @@
   transform: translateY(-50%);
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--vd-duration-120) var(--vd-easing-standard);
+  transition: opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
   .root:hover &,
   &:focus-visible {
     opacity: 1;
@@ -137,7 +139,7 @@
   min-width: 0;
   box-sizing: border-box;
   height: var(--combobox-height);
-  border: var(--vd-border-width-1) solid var(--vd-border-default);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-default);
   border-radius: var(--combobox-radius);
   background: var(--vd-surface-default);
   @include control-hover.transition;

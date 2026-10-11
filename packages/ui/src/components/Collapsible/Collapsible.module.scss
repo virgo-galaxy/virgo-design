@@ -1,6 +1,6 @@
 .root {
   border: 1px solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
 }
 .trigger {
   width: 100%;
@@ -19,15 +19,16 @@
   display: inline-flex;
   width: 16px;
   height: 16px;
-  transition: transform var(--vd-duration-120) var(--vd-easing-standard);
+  transition: transform var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 .trigger[data-state='open'] [data-slot='indicator'] {
   transform: rotate(180deg);
 }
 .content {
   --collapsible-content-padding: var(--vd-spacing-12);
-  --collapsible-motion-duration: var(--vd-duration-180);
-  --collapsible-motion-easing: var(--vd-easing-standard);
+  --collapsible-motion-duration: var(--vd-motion-duration-180, var(--vd-duration-180));
+  --collapsible-motion-easing: var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 .content[data-motion='none']:not([hidden]) {
   padding: var(--collapsible-content-padding);

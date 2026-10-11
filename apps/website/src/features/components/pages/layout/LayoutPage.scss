@@ -10,7 +10,7 @@ body:has(.components-documentation) {
     position: relative;
     min-width: 0;
     overflow: hidden;
-    border-radius: var(--vd-radius-8);
+    border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   }
 
   .layout-demo {

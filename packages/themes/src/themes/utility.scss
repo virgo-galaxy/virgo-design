@@ -1,0 +1,202 @@
+@use './recipe';
+
+[data-virgo-theme='utility'] {
+  --vd-switch-radius: 0px;
+  --vd-content-surface: var(--vd-surface-default);
+  --vd-content-surface-solid: var(--vd-table-body-background, var(--vd-surface-elevated));
+  --vd-content-surface-muted: var(--vd-surface-secondary);
+  --vd-content-foreground: var(--vd-text-primary);
+  --vd-content-secondary: var(--vd-text-secondary);
+  --vd-content-tertiary: var(--vd-text-tertiary);
+  --vd-content-border: var(--vd-border-subtle);
+  --vd-content-border-strong: var(--vd-border-default);
+  --vd-content-fill: var(--vd-fill-hover);
+  --vd-content-hover: var(--vd-fill-active);
+  --vd-content-decoration: none;
+
+  --vd-panel-shadow: var(--vd-elevation-2);
+  --vd-control-font-weight: 600;
+  @include recipe.geometry(
+    0px,
+    (
+      mini: 22px,
+      small: 26px,
+      medium: 32px,
+      large: 40px,
+    ),
+    (
+      mini: 6px,
+      small: 6px,
+      medium: 10px,
+      large: 12px,
+    )
+  );
+  --vd-stroke-width: 1px;
+  --vd-control-hover-color: var(--vd-border-strong);
+  --vd-control-focus-color: var(--vd-brand-link);
+  --vd-control-shadow: inset 1px 1px 0 rgb(0 0 0 / 22%), inset -1px -1px 0 rgb(255 255 255 / 28%);
+  --vd-control-focus-shadow: inset 1px 1px 0 rgb(0 0 0 / 22%), 0 0 0 2px var(--vd-border-focus);
+  --vd-action-border: var(--vd-border-strong);
+  --vd-action-shadow:
+    inset 1px 1px 0 rgb(255 255 255 / 48%), inset -1px -1px 0 rgb(0 0 0 / 30%),
+    1px 1px 0 rgb(0 0 0 / 20%);
+  --vd-action-pressed-shadow:
+    inset 1px 1px 0 rgb(0 0 0 / 38%), inset -1px -1px 0 rgb(255 255 255 / 25%);
+  --vd-action-pressed-offset: 1px;
+  --vd-navigation-selected-shadow: inset 1px 1px 0 rgb(0 0 0 / 28%);
+  --vd-table-row-height: 40px;
+  --vd-table-header-height: 36px;
+  --vd-table-padding-block: 8px;
+  --vd-table-padding-inline: 12px;
+  --vd-table-header-background: var(--vd-surface-secondary);
+  --vd-table-header-font-weight: 600;
+  --vd-material-tint-opacity: 100%;
+  --vd-glass-tint-opacity: 100%;
+  --vd-glass-backdrop-filter: none;
+  --vd-tooltip-pointer-backdrop-filter: none;
+  --vd-tooltip-pointer-shadow: var(--vd-elevation-2);
+  --vd-motion-duration-120: 60ms;
+  --vd-motion-duration-180: 100ms;
+  --vd-motion-duration-240: 120ms;
+  --vd-chart-tooltip-radius: 0px;
+  --vd-chart-line-width: 1.5;
+  --vd-chart-point-radius: 2px;
+  --vd-chrome-background: var(--vd-surface-default);
+  --vd-chrome-shadow: var(--vd-elevation-1);
+  --vd-chrome-backdrop-filter: none;
+  --vd-page-background: var(--vd-surface-background);
+  --vd-chrome-foreground: var(--vd-text-primary);
+  --vd-chrome-secondary: var(--vd-text-secondary);
+  --vd-chrome-border: var(--vd-border-strong);
+  --vd-chrome-accent: var(--vd-brand-link);
+  @include recipe.appearance(
+    light,
+    (
+      data-sequential-1: color-mix(in srgb, #244f85 12%, #e6e7e5),
+      data-sequential-2: color-mix(in srgb, #244f85 24%, #e6e7e5),
+      data-sequential-3: color-mix(in srgb, #244f85 40%, #e6e7e5),
+      data-sequential-4: color-mix(in srgb, #244f85 58%, #e6e7e5),
+      data-sequential-5: color-mix(in srgb, #244f85 76%, #e6e7e5),
+      data-sequential-6: color-mix(in srgb, #244f85 100%, #e6e7e5),
+      data-categorical-1: #244f85,
+      data-categorical-2: #76582e,
+      data-categorical-3: #42623d,
+      data-categorical-4: #824548,
+      data-categorical-5: #5f5186,
+      data-categorical-6: #316768,
+      data-categorical-7: #244f85,
+      data-categorical-8: #76582e,
+      data-categorical-9: #42623d,
+      data-categorical-10: #824548,
+      data-categorical-11: #5f5186,
+      data-categorical-12: #316768,
+
+      surface-background: #e6e7e5,
+      surface-default: #f0f0ed,
+      surface-secondary: #dadbd7,
+      surface-strong: #c6c8c2,
+      surface-elevated: #f0f0ed,
+      text-primary: #1c211b,
+      text-secondary: #444b41,
+      text-tertiary: #626c5d,
+      text-placeholder: #626c5d,
+      text-inverse: #f0f0ed,
+      text-disabled: #626c5d,
+      icon-primary: #1c211b,
+      icon-secondary: #444b41,
+      icon-tertiary: #626c5d,
+      icon-inverse: #f0f0ed,
+      icon-disabled: #626c5d,
+      border-default: #72796b,
+      border-subtle: #a5aba0,
+      border-strong: #30382c,
+      border-disabled: #72796b,
+      border-focus: #243e6b,
+      brand-primary: #243e6b,
+      brand-primary-hover: #304f86,
+      brand-primary-active: #192f53,
+      brand-foreground: #fff,
+      brand-link: #1e447f,
+      brand-link-hover: #304f86,
+      brand-focus: #243e6b,
+      brand-subtle: #cbd7e8,
+      brand-subtle-hover: #cbd7e8,
+      fill-selected: #cbd7e8,
+      fill-selected-hover: #cbd7e8,
+      fill-hover: #dadbd7,
+      fill-active: #c6c8c2,
+      fill-disabled: #dadbd7,
+      elevation-0: none,
+      elevation-1: 1px 1px 0 rgb(0 0 0 / 32%),
+      elevation-2: 2px 2px 0 rgb(0 0 0 / 32%),
+      elevation-3: 3px 3px 0 rgb(0 0 0 / 32%),
+      elevation-4: 4px 4px 0 rgb(0 0 0 / 32%),
+      elevation-5: 5px 5px 0 rgb(0 0 0 / 32%),
+    )
+  );
+  @include recipe.appearance(
+    dark,
+    (
+      data-sequential-1: color-mix(in srgb, #afc9f0 12%, #20251e),
+      data-sequential-2: color-mix(in srgb, #afc9f0 24%, #20251e),
+      data-sequential-3: color-mix(in srgb, #afc9f0 40%, #20251e),
+      data-sequential-4: color-mix(in srgb, #afc9f0 58%, #20251e),
+      data-sequential-5: color-mix(in srgb, #afc9f0 76%, #20251e),
+      data-sequential-6: color-mix(in srgb, #afc9f0 100%, #20251e),
+      data-categorical-1: #afc9f0,
+      data-categorical-2: #d1bd96,
+      data-categorical-3: #b4cba7,
+      data-categorical-4: #dab0b2,
+      data-categorical-5: #c1b7df,
+      data-categorical-6: #a5cfd0,
+      data-categorical-7: #afc9f0,
+      data-categorical-8: #d1bd96,
+      data-categorical-9: #b4cba7,
+      data-categorical-10: #dab0b2,
+      data-categorical-11: #c1b7df,
+      data-categorical-12: #a5cfd0,
+
+      surface-background: #20251e,
+      surface-default: #2d3429,
+      surface-secondary: #3d4537,
+      surface-strong: #4c5843,
+      surface-elevated: #333c2e,
+      text-primary: #f0f3eb,
+      text-secondary: #c1cbb7,
+      text-tertiary: #9ba98e,
+      text-placeholder: #9ba98e,
+      text-inverse: #2d3429,
+      text-disabled: #9ba98e,
+      icon-primary: #f0f3eb,
+      icon-secondary: #c1cbb7,
+      icon-tertiary: #9ba98e,
+      icon-inverse: #2d3429,
+      icon-disabled: #9ba98e,
+      border-default: #93a684,
+      border-subtle: #62705a,
+      border-strong: #d5dfcc,
+      border-disabled: #93a684,
+      border-focus: #afc9f0,
+      brand-primary: #afc9f0,
+      brand-primary-hover: #c9dcf9,
+      brand-primary-active: #95b5e3,
+      brand-foreground: #142338,
+      brand-link: #afc9f0,
+      brand-link-hover: #c9dcf9,
+      brand-focus: #afc9f0,
+      brand-subtle: #435a79,
+      brand-subtle-hover: #435a79,
+      fill-selected: #435a79,
+      fill-selected-hover: #435a79,
+      fill-hover: #3d4537,
+      fill-active: #4c5843,
+      fill-disabled: #3d4537,
+      elevation-0: none,
+      elevation-1: 1px 1px 0 rgb(0 0 0 / 32%),
+      elevation-2: 2px 2px 0 rgb(0 0 0 / 32%),
+      elevation-3: 3px 3px 0 rgb(0 0 0 / 32%),
+      elevation-4: 4px 4px 0 rgb(0 0 0 / 32%),
+      elevation-5: 5px 5px 0 rgb(0 0 0 / 32%),
+    )
+  );
+}

@@ -6,7 +6,8 @@
   flex: none;
   overflow: hidden;
   place-items: center;
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-subtle);
   border-radius: var(--avatar-radius);
   color: var(--vd-text-secondary);
   background: var(--vd-surface-secondary);
@@ -21,7 +22,10 @@
   --avatar-size: var(--vd-sizing-28);
   --avatar-font-family: var(--vd-typography-ui-label-small-font-family);
   --avatar-font-size: var(--vd-typography-ui-label-small-font-size);
-  --avatar-font-weight: var(--vd-typography-ui-label-small-font-weight);
+  --avatar-font-weight: var(
+    --vd-control-font-weight,
+    var(--vd-typography-ui-label-small-font-weight)
+  );
   --avatar-line-height: var(--vd-typography-ui-label-small-line-height);
 }
 
@@ -29,7 +33,10 @@
   --avatar-size: var(--vd-sizing-40);
   --avatar-font-family: var(--vd-typography-ui-label-medium-font-family);
   --avatar-font-size: var(--vd-typography-ui-label-medium-font-size);
-  --avatar-font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  --avatar-font-weight: var(
+    --vd-control-font-weight,
+    var(--vd-typography-ui-label-medium-font-weight)
+  );
   --avatar-line-height: var(--vd-typography-ui-label-medium-line-height);
 }
 
@@ -46,7 +53,7 @@
 }
 
 .root[data-shape='square'] {
-  --avatar-radius: var(--vd-radius-8);
+  --avatar-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
 }
 
 .image {
@@ -72,6 +79,6 @@
   }
 
   > .root {
-    box-shadow: 0 0 0 var(--vd-border-width-2) var(--vd-surface-default);
+    box-shadow: 0 0 0 var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-surface-default);
   }
 }

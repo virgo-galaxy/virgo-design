@@ -1,7 +1,7 @@
 .dock-hero-stage {
   min-height: 220px;
-  border: var(--vd-border-width-1) dashed var(--vd-border-subtle);
-  border-radius: var(--vd-radius-12);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) dashed var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
   background: var(--vd-surface-secondary);
 }
 
@@ -10,8 +10,8 @@
   min-height: var(--vd-sizing-36);
   align-items: center;
   padding-inline: var(--vd-spacing-12);
-  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-8);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   background: var(--vd-surface-default);
   box-shadow: var(--vd-elevation-1);
   color: var(--vd-text-primary);

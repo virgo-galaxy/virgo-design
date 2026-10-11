@@ -12,6 +12,6 @@
   min-height: 180px;
   padding: var(--vd-spacing-16);
   border: 1px solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-12);
+  border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
   background: var(--vd-surface-elevated);
 }

@@ -40,11 +40,12 @@
   min-width: 0;
   align-items: center;
   gap: var(--vd-spacing-6);
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   color: var(--vd-text-secondary);
   text-decoration: none;
 
-  transition: color var(--vd-duration-120) var(--vd-easing-standard);
+  transition: color var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .item[data-link='true'] {
@@ -56,7 +57,7 @@
 }
 
 .item[data-link='true']:focus-visible {
-  outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+  outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
   outline-offset: var(--vd-spacing-2);
 }
 

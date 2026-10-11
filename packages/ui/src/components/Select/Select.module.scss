@@ -3,6 +3,7 @@
 @use '../../internal/form/control-focus';
 @use '../../internal/form/control-hover';
 @use '../../internal/form/option-highlight';
+@use '../../internal/overlay/panel';
 
 .root {
   --select-background: var(--vd-surface-default);
@@ -101,6 +102,7 @@
 }
 
 .trigger {
+  box-shadow: var(--vd-control-shadow, none);
   box-sizing: border-box;
   display: inline-flex;
   width: 100%;
@@ -111,7 +113,8 @@
   gap: var(--select-gap);
   margin: 0;
   padding: 0 var(--select-padding-inline);
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--select-border);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--select-border);
   border-radius: var(--select-radius);
   outline: 0;
   color: var(--select-foreground);
@@ -124,10 +127,14 @@
   text-align: start;
 
   transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    border-color var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not(:disabled) {
     border-color: var(--select-border-hover);
@@ -189,7 +196,7 @@
   align-items: center;
   gap: var(--vd-spacing-4);
   padding: var(--vd-spacing-2) var(--vd-spacing-4) var(--vd-spacing-2) var(--vd-spacing-8);
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   background: var(--vd-fill-hover);
   color: var(--vd-text-primary);
   font-size: var(--select-font-size);
@@ -222,7 +229,7 @@
     color: var(--vd-text-primary);
   }
   &:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
   }
   &:disabled {
     cursor: not-allowed;
@@ -273,7 +280,8 @@
   align-items: center;
   justify-content: center;
   color: var(--select-icon);
-  transition: transform var(--vd-duration-120) var(--vd-easing-standard);
+  transition: transform var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   > svg {
     width: 100%;
@@ -292,12 +300,13 @@
   max-height: calc(var(--select-option-height) * 6 + var(--vd-spacing-8));
   overflow: auto;
   padding: var(--vd-spacing-4);
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-default);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-default);
   border-radius: var(--select-radius);
   outline: 0;
-  background: var(--vd-surface-elevated);
-  box-shadow: var(--vd-elevation-2);
-  animation: select-content-in var(--vd-duration-120) var(--vd-easing-standard);
+  @include panel.popup-material;
+  animation: select-content-in var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .viewport {
@@ -313,7 +322,10 @@
   justify-content: space-between;
   gap: var(--select-gap);
   padding: var(--vd-spacing-4) var(--select-padding-inline);
-  border-radius: max(calc(var(--select-radius) - var(--vd-spacing-2)), var(--vd-radius-6));
+  border-radius: max(
+    calc(var(--select-radius) - var(--vd-spacing-2)),
+    var(--vd-shape-radius-6, var(--vd-radius-6))
+  );
   outline: 0;
   color: var(--vd-text-secondary);
   cursor: pointer;

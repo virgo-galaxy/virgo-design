@@ -13,7 +13,8 @@
   width: 100%;
   min-width: 0;
   align-items: flex-end;
-  border-block-end: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+  border-block-end: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-subtle);
 }
 
 .list[data-align='start'] {
@@ -29,7 +30,8 @@
   width: 100%;
   min-width: 0;
   align-items: flex-end;
-  border-block-end: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+  border-block-end: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-subtle);
 }
 
 .editableList[data-align='center'] {
@@ -45,19 +47,22 @@
 .indicator {
   position: absolute;
   z-index: 2;
-  bottom: calc(var(--vd-border-width-1) * -1);
+  bottom: calc(var(--vd-stroke-width, var(--vd-border-width-1)) * -1);
   left: 0;
   width: var(--tabs-indicator-width);
-  height: var(--vd-border-width-2);
+  height: var(--vd-focus-width, var(--vd-border-width-2));
   border-radius: var(--vd-radius-full);
   background: var(--vd-brand-primary);
   opacity: 0;
   pointer-events: none;
   transform: translateX(var(--tabs-indicator-x));
   transition:
-    transform var(--vd-duration-180) var(--vd-easing-emphasized),
-    width var(--vd-duration-180) var(--vd-easing-emphasized),
-    opacity var(--vd-duration-120) var(--vd-easing-standard);
+    transform var(--vd-motion-duration-180, var(--vd-duration-180))
+      var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized)),
+    width var(--vd-motion-duration-180, var(--vd-duration-180))
+      var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized)),
+    opacity var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .list[data-indicator-ready='true'] .indicator {
@@ -90,14 +95,17 @@
   cursor: pointer;
   font-family: var(--vd-typography-ui-label-medium-font-family);
   font-size: var(--vd-typography-ui-label-medium-font-size);
-  font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
   line-height: var(--vd-typography-ui-label-medium-line-height);
   user-select: none;
 
   transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .tab:hover:not(:disabled) {
@@ -110,7 +118,7 @@
 
 .tab:focus-visible {
   z-index: 3;
-  box-shadow: inset 0 0 0 var(--vd-border-width-2) var(--vd-border-focus);
+  box-shadow: inset 0 0 0 var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-focus);
 }
 
 .tab:disabled {
@@ -151,8 +159,8 @@
 }
 
 .panel:focus-visible {
-  border-radius: var(--vd-radius-6);
-  box-shadow: 0 0 0 var(--vd-border-width-2) var(--vd-border-focus);
+  border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
+  box-shadow: 0 0 0 var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-focus);
 }
 
 .list[data-variant='plain'] {
@@ -172,7 +180,7 @@
   position: absolute;
   inset-inline-start: calc(var(--vd-spacing-6) * -1);
   inset-block-start: 50%;
-  width: var(--vd-border-width-1);
+  width: var(--vd-stroke-width, var(--vd-border-width-1));
   height: var(--vd-sizing-16);
   border-radius: var(--vd-radius-full);
   background: var(--vd-border-subtle);
@@ -185,7 +193,7 @@
   height: var(--vd-sizing-32);
   gap: var(--vd-spacing-8);
   padding-inline: var(--vd-spacing-8);
-  border-radius: var(--vd-radius-6);
+  border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   color: var(--vd-text-secondary);
 }
 
@@ -219,16 +227,19 @@
 
 .list[data-variant='card'] .item {
   height: var(--vd-sizing-36);
-  margin-block-end: calc(var(--vd-border-width-1) * -1);
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-default);
+  margin-block-end: calc(var(--vd-stroke-width, var(--vd-border-width-1)) * -1);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-default);
   border-block-end-color: var(--vd-border-subtle);
-  border-start-start-radius: var(--vd-radius-8);
-  border-start-end-radius: var(--vd-radius-8);
+  border-start-start-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
+  border-start-end-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   background: color-mix(in srgb, var(--vd-surface-secondary) 50%, var(--vd-surface-default));
 
   transition:
-    border-color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard);
+    border-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 
 .list[data-variant='card'] .item:has(.tab[aria-selected='true']) {
@@ -245,8 +256,12 @@
 
 .list[data-variant='card'] .tab {
   height: 100%;
-  border-start-start-radius: calc(var(--vd-radius-8) - var(--vd-border-width-1));
-  border-start-end-radius: calc(var(--vd-radius-8) - var(--vd-border-width-1));
+  border-start-start-radius: calc(
+    var(--vd-shape-radius-8, var(--vd-radius-8)) - var(--vd-stroke-width, var(--vd-border-width-1))
+  );
+  border-start-end-radius: calc(
+    var(--vd-shape-radius-8, var(--vd-radius-8)) - var(--vd-stroke-width, var(--vd-border-width-1))
+  );
 }
 
 .list[data-variant='card'] .tab[aria-selected='true'] {
@@ -270,9 +285,12 @@
   cursor: pointer;
 
   transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   > svg {
     width: var(--vd-sizing-16);
@@ -281,7 +299,7 @@
 
   &:focus-visible {
     outline: 0;
-    box-shadow: inset 0 0 0 var(--vd-border-width-2) var(--vd-border-focus);
+    box-shadow: inset 0 0 0 var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-focus);
   }
 
   &:disabled {
@@ -302,7 +320,7 @@
   right: var(--vd-spacing-6);
   width: var(--vd-sizing-20);
   height: var(--vd-sizing-20);
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   transform: translateY(-50%);
 
   > svg {
@@ -315,9 +333,10 @@
   flex: none;
   width: var(--vd-sizing-36);
   height: var(--vd-sizing-36);
-  margin-block-end: calc(var(--vd-border-width-1) * -1);
+  margin-block-end: calc(var(--vd-stroke-width, var(--vd-border-width-1)) * -1);
   margin-inline-start: var(--vd-spacing-4);
-  border-radius: var(--vd-radius-8) var(--vd-radius-8) 0 0;
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8))
+    var(--vd-shape-radius-8, var(--vd-radius-8)) 0 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

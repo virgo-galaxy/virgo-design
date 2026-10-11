@@ -27,7 +27,7 @@
     background: color-mix(in srgb, var(--vd-text-primary) 24%, transparent);
   }
   &:focus-visible {
-    outline: var(--vd-border-width-2) solid control-focus.$color;
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid control-focus.$color;
     outline-offset: var(--vd-spacing-2);
   }
   &:disabled {

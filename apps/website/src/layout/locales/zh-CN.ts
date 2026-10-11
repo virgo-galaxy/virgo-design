@@ -4,6 +4,7 @@ import { layoutEnUS } from './en-US';
 
 export const layoutZhCN = {
   navigation: {
+    themes: '主题',
     charts: '图表',
     skipToContent: '跳转到主要内容',
     label: '主导航',
@@ -13,6 +14,10 @@ export const layoutZhCN = {
     primitives: '原语',
   },
   controls: {
+    appearance: '明暗外观',
+    light: '浅色',
+    dark: '深色',
+    auto: '自动 · 跟随系统',
     loadingPage: '页面加载中…',
     globalControls: '全局控制',
     switchToChinese: '切换到中文',

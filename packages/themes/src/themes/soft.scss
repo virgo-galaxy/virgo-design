@@ -1,0 +1,189 @@
+@use './recipe';
+
+[data-virgo-theme='soft'] {
+  @include recipe.soft-overlay-arrows;
+  --vd-content-surface: var(--vd-surface-default);
+  --vd-content-surface-solid: var(--vd-table-body-background, var(--vd-surface-elevated));
+  --vd-content-surface-muted: var(--vd-surface-secondary);
+  --vd-content-foreground: var(--vd-text-primary);
+  --vd-content-secondary: var(--vd-text-secondary);
+  --vd-content-tertiary: var(--vd-text-tertiary);
+  --vd-content-border: var(--vd-border-subtle);
+  --vd-content-border-strong: var(--vd-border-default);
+  --vd-content-fill: var(--vd-fill-hover);
+  --vd-content-hover: var(--vd-fill-active);
+  --vd-content-decoration: none;
+
+  --vd-panel-shadow: var(--vd-elevation-2);
+  --vd-control-font-weight: 500;
+  @include recipe.geometry(
+    14px,
+    (
+      mini: 26px,
+      small: 30px,
+      medium: 38px,
+      large: 46px,
+    ),
+    (
+      mini: 10px,
+      small: 10px,
+      medium: 14px,
+      large: 18px,
+    )
+  );
+  --vd-shape-radius-4: 6px;
+  --vd-shape-radius-16: 18px;
+  --vd-shape-radius-20: 22px;
+  --vd-shape-radius-24: 26px;
+  --vd-control-hover-color: var(--vd-border-strong);
+  --vd-control-focus-color: var(--vd-brand-link);
+  --vd-control-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--vd-border-focus) 18%, transparent);
+  --vd-overlay-background: var(--vd-surface-elevated);
+  --vd-table-row-height: 50px;
+  --vd-table-padding-block: 13px;
+  --vd-table-header-background: var(--vd-surface-secondary);
+  --vd-navigation-selected-background: var(--vd-fill-selected);
+  --vd-navigation-selected-foreground: var(--vd-brand-link);
+  --vd-motion-duration-120: 160ms;
+  --vd-motion-easing-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --vd-chart-tooltip-radius: 14px;
+  --vd-chart-line-width: 2.5;
+  --vd-chrome-background: var(--vd-surface-background);
+  --vd-chrome-shadow: none;
+  --vd-chrome-backdrop-filter: none;
+  --vd-page-background: var(--vd-surface-background);
+  --vd-chrome-foreground: var(--vd-text-primary);
+  --vd-chrome-secondary: var(--vd-text-secondary);
+  --vd-chrome-border: var(--vd-border-subtle);
+  --vd-chrome-accent: var(--vd-brand-link);
+  @include recipe.appearance(
+    light,
+    (
+      data-sequential-1: color-mix(in srgb, #45684a 12%, #f7f7f5),
+      data-sequential-2: color-mix(in srgb, #45684a 24%, #f7f7f5),
+      data-sequential-3: color-mix(in srgb, #45684a 40%, #f7f7f5),
+      data-sequential-4: color-mix(in srgb, #45684a 58%, #f7f7f5),
+      data-sequential-5: color-mix(in srgb, #45684a 76%, #f7f7f5),
+      data-sequential-6: color-mix(in srgb, #45684a 100%, #f7f7f5),
+      data-categorical-1: #45684a,
+      data-categorical-2: #81658d,
+      data-categorical-3: #ac7651,
+      data-categorical-4: #5c8290,
+      data-categorical-5: #817943,
+      data-categorical-6: #a46571,
+      data-categorical-7: #45684a,
+      data-categorical-8: #81658d,
+      data-categorical-9: #ac7651,
+      data-categorical-10: #5c8290,
+      data-categorical-11: #817943,
+      data-categorical-12: #a46571,
+
+      surface-background: #f7f7f5,
+      surface-default: #fff,
+      surface-secondary: #f0f0ed,
+      surface-strong: #e6e6e2,
+      surface-elevated: #fff,
+      text-primary: #292a27,
+      text-secondary: #61645e,
+      text-tertiary: #777b73,
+      text-placeholder: #777b73,
+      text-inverse: #fff,
+      text-disabled: #777b73,
+      icon-primary: #292a27,
+      icon-secondary: #61645e,
+      icon-tertiary: #777b73,
+      icon-inverse: #fff,
+      icon-disabled: #777b73,
+      border-default: #e4e5df,
+      border-subtle: #eeeee8,
+      border-strong: #b5b8af,
+      border-disabled: #e4e5df,
+      border-focus: #30382f,
+      brand-primary: #30382f,
+      brand-primary-hover: #424d3f,
+      brand-primary-active: #20281f,
+      brand-foreground: #fff,
+      brand-link: #365c3a,
+      brand-link-hover: #424d3f,
+      brand-focus: #30382f,
+      brand-subtle: #e4ece1,
+      brand-subtle-hover: #e4ece1,
+      fill-selected: #e4ece1,
+      fill-selected-hover: #e4ece1,
+      fill-hover: #f0f0ed,
+      fill-active: #e6e6e2,
+      fill-disabled: #f0f0ed,
+      elevation-0: none,
+      elevation-1: 0 3px 10px rgb(0 0 0 / 6%),
+      elevation-2: 0 6px 20px rgb(0 0 0 / 8%),
+      elevation-3: 0 9px 30px rgb(0 0 0 / 10%),
+      elevation-4: 0 12px 40px rgb(0 0 0 / 12%),
+      elevation-5: 0 15px 50px rgb(0 0 0 / 14%),
+    )
+  );
+  @include recipe.appearance(
+    dark,
+    (
+      data-sequential-1: color-mix(in srgb, #b3d2a7 12%, #20211f),
+      data-sequential-2: color-mix(in srgb, #b3d2a7 24%, #20211f),
+      data-sequential-3: color-mix(in srgb, #b3d2a7 40%, #20211f),
+      data-sequential-4: color-mix(in srgb, #b3d2a7 58%, #20211f),
+      data-sequential-5: color-mix(in srgb, #b3d2a7 76%, #20211f),
+      data-sequential-6: color-mix(in srgb, #b3d2a7 100%, #20211f),
+      data-categorical-1: #b3d2a7,
+      data-categorical-2: #cbb6df,
+      data-categorical-3: #d9b599,
+      data-categorical-4: #a8ced6,
+      data-categorical-5: #d4cd9f,
+      data-categorical-6: #e0b0be,
+      data-categorical-7: #b3d2a7,
+      data-categorical-8: #cbb6df,
+      data-categorical-9: #d9b599,
+      data-categorical-10: #a8ced6,
+      data-categorical-11: #d4cd9f,
+      data-categorical-12: #e0b0be,
+
+      surface-background: #20211f,
+      surface-default: #292b28,
+      surface-secondary: #333630,
+      surface-strong: #40433c,
+      surface-elevated: #343730,
+      text-primary: #f1f3ed,
+      text-secondary: #bdc2b7,
+      text-tertiary: #979f90,
+      text-placeholder: #979f90,
+      text-inverse: #292b28,
+      text-disabled: #979f90,
+      icon-primary: #f1f3ed,
+      icon-secondary: #bdc2b7,
+      icon-tertiary: #979f90,
+      icon-inverse: #292b28,
+      icon-disabled: #979f90,
+      border-default: #454b40,
+      border-subtle: #363b32,
+      border-strong: #788570,
+      border-disabled: #454b40,
+      border-focus: #b3d2a7,
+      brand-primary: #b3d2a7,
+      brand-primary-hover: #c6e2bb,
+      brand-primary-active: #97bd8a,
+      brand-foreground: #172313,
+      brand-link: #b3d2a7,
+      brand-link-hover: #c6e2bb,
+      brand-focus: #b3d2a7,
+      brand-subtle: #3b4d33,
+      brand-subtle-hover: #3b4d33,
+      fill-selected: #3b4d33,
+      fill-selected-hover: #3b4d33,
+      fill-hover: #333630,
+      fill-active: #40433c,
+      fill-disabled: #333630,
+      elevation-0: none,
+      elevation-1: 0 3px 10px rgb(0 0 0 / 6%),
+      elevation-2: 0 6px 20px rgb(0 0 0 / 8%),
+      elevation-3: 0 9px 30px rgb(0 0 0 / 10%),
+      elevation-4: 0 12px 40px rgb(0 0 0 / 12%),
+      elevation-5: 0 15px 50px rgb(0 0 0 / 14%),
+    )
+  );
+}

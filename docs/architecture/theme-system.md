@@ -1,0 +1,86 @@
+# Virgo Design Theme System
+
+Theme System 的版本化契约由 `@virgo-design/tokens` 定义。`@virgo-design/themes` 提供视觉实现；UI、Charts 和应用消费变量。Foundation 保持原来的参考尺度，组件结构、交互、可访问性与布局留在各自组件中。
+
+## Package 与依赖
+
+```text
+packages/themes/
+├── package.json
+├── README.md
+├── tsconfig.json
+├── tsconfig.build.json
+├── vite.config.ts
+└── src/
+    ├── index.ts
+    ├── registry.ts
+    ├── runtime.ts
+    ├── optics.ts
+    ├── optics.test.ts
+    ├── runtime.test.ts
+    ├── styles.scss
+    └── themes/
+        ├── _recipe.scss
+        ├── virgo.scss
+        ├── minimal.scss
+        ├── soft.scss
+        ├── glass.scss
+        ├── utility.scss
+        └── high-contrast.scss
+```
+
+导出 `@virgo-design/themes` 与 `@virgo-design/themes/styles.css`。构建遵循仓库的 Vite library + TypeScript declaration 约定。依赖为 themes → tokens、ui → tokens、charts → tokens；themes 不依赖 UI，UI/Charts 不导入 themes。官方主题 SCSS 只设置变量，没有组件 class 或业务页面选择器。
+
+## Contract
+
+`packages/tokens/src/theme-contract.ts` 导出 `THEME_CONTRACT_VERSION = 1`、`themeContract` 和变量类型。原有 Light/Dark 语义颜色与 elevation 通过 appearance alias 解析，例如：
+
+```css
+--vd-text-primary: var(--vd-theme-light-text-primary /* 原始 Virgo 值 */);
+```
+
+主题提供 light、dark 两套 alias；现有 `[data-theme]` scope 选择自己的外观。局部 `[data-virgo-theme]` 重置可选视觉覆盖，避免同页对照中的 Virgo 从根部其他主题继承残留值。`initial` 让组件原有 fallback 生效。没有主题 CSS 时，原有 Tokens + UI 仍可使用。
+
+新增能力：
+
+- 语义背景、表面、文字、图标、边框、品牌、选择态、状态、分类色与序列色。
+- 独立 presentation radius；控件各尺寸的高度、padding、圆角、label weight。
+- stroke、focus width/offset、hover/focus color、focus shadow、disabled opacity/border。
+- action shadow、pressed shadow/offset、panel 与 Surface 材质、overlay、Tooltip 与 pointer。
+- 导航选择态；Table 的 header/body/stripe/hover/selected/footer、边界与密度。
+- motion duration/easing；Chart 的 axis/grid/legend/tooltip/palette/active point/heatmap、线宽与动画。
+- 应用周边 chrome/content presentation role，保留各应用 Virgo fallback。
+
+组件公共实例变量与显式 props 继续优先。例如自定义 Table geometry、Chart `color`、Surface 的图片背景属于消费者的明确表达。
+
+## Runtime 与 Appearance
+
+官方 `ThemeId` 固定为 `virgo`、`minimal`、`soft`、`glass`、`utility`、`high-contrast`。`ThemePreset` 与只读 registry 提供名称、description key、contract version 和 light/dark 支持。默认 Virgo。
+
+`initializeTheme()` 在第一次 React render 前恢复 `virgo-design.theme-style.v1`，设置 HTML 的 `data-virgo-theme`。`setTheme()` 校验 ID、持久化、应用属性并通知订阅者。`subscribeTheme()` 可直接接入 `useSyncExternalStore`，Header 与 Settings 共用状态；storage event 同步其他同源页面，storage 不可用时仍可切换。第三方主题在初始化前通过 `registerTheme()` 注册，官方 ID 不可覆盖。
+
+主题 runtime 不管理 Light/Dark。Website 复用 AppearanceProvider，支持 light/dark/auto，沿用 `virgo-design-appearance`。Pro 复用原 settings 的 light/dark/system；System 即 Auto。两者继续设置现有 HTML `data-theme`，同时更新 color-scheme。
+
+HTML 属性让 body Portal 继承主题；并排对照通过现有 `PortalProvider` 将真实浮层放进对应 scope。
+
+## 应用消费
+
+两个 app 入口按 Tokens、Themes、应用 styles 的顺序加载 CSS，并在渲染前初始化 runtime。两边 selector 使用同一个 registry；Pro Settings 也使用同一个外部 store。Pro Header 的语言 → Theme Style → Appearance → 通知 → 设置顺序保持，Shirt 始终使用 Outline，点击及打开菜单时保持空心。
+
+Website `/themes` 提供中英文说明、安装、runtime/React 示例、第三方注册和同一套 Button/Input/Select/Checkbox/Table/Dialog/Tooltip/Surface/Chart 的六主题对照。Foundation 标本中的原始色阶与尺度仍展示参考值；其周边界面与真实组件跟随主题。
+
+Pro 顶栏材质按主题决定：Virgo、Minimal、Soft 保留“不透明／磨砂玻璃”选择；Glass 固定玻璃；Utility、High Contrast 固定不透明。固定材质时，Settings 隐藏切换控件并显示说明，顶栏高度设置继续保留。`src/config/settings.json` 的 `headerMaterial` 定义可自定义主题的默认偏好，浏览器保存同名字段记录用户选择。实际材质在渲染时由共享的 `getFixedHeaderMaterial()` 规则与偏好共同决定，不另行持久化，也不因切换主题覆盖偏好；切回可自定义主题时恢复原选择。第三方主题默认允许使用该偏好。
+
+Charts 保持 Virgo API → ECharts engine。CSS compiler 读取语义变量，祖先 class/style/data-theme/data-virgo-theme 或系统外观变化时刷新 options，同一实例通过 setOption 更新。
+
+详见 [Package 使用说明](../../packages/themes/README.md) 与 [视觉验收记录](../reviews/theme-system.md)。
+
+## Glass 光学材质
+
+浮层箭头通过共享 `--vd-overlay-arrow-*` 契约定义遮罩与比例。只有 Glass、Soft 提供曲线 SVG 遮罩：保留低矮三角轮廓，轻微柔化尖端和两侧连接。Tooltip（包含 pointer-follow）、Popover、Dropdown、NavigationMenu 消费同一套方位变量，其余四套主题继续使用原有几何。SVG 按归一化 viewBox 缩放，适用于小尺寸 Tooltip；组件不识别 preset 名称。
+
+文字密集的 Select、Dropdown、Menu、Popover 和 picker 使用独立 popup 契约：88% 中性底色和 24px 模糊，遮蔽底层文字，同时保留微弱环境色。Dialog、Drawer 与大面积 Surface 继续使用清透材质。工作台窗口操作消费 `--vd-window-control-*` 契约，Glass 提供红黄实心圆点，悬停或键盘聚焦时显示符号；其他主题保留原有图标与共享交互。
+
+Glass 材质使用中性白／黑半透明表面，强调色与材质分离。Surface 使用 2px 的轻模糊，浮层与 chrome 使用 4px 模糊；高光和 elevation 使用中性光影。Chromium 初始化时安装一个不可交互、零尺寸的共享 SVG filter，通过二维 displacement map 轻微放大真实 backdrop；这不复制底层 DOM 或业务画面。其他引擎、仅加载 CSS 的消费者保留中性的 CSS blur recipe。浏览器无 blur 支持或用户选择 reduced transparency 时使用不透明中性表面。
+
+这是 Web 的材质表达，不调用 Apple 原生 Liquid Glass API。实现参考 [Apple 最新平台说明](https://developer.apple.com/videos/play/wwdc2026/102/) 与 [Liquid Glass 光学原则](https://developer.apple.com/videos/play/wwdc2025/219/)。

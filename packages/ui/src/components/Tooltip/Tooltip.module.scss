@@ -6,25 +6,29 @@
   vertical-align: middle;
 }
 .content {
-  @include panel.surface;
-  --tooltip-background: var(--vd-text-primary);
-  --tooltip-foreground: var(--vd-text-inverse);
+  @include panel.surface(overlay);
+  --tooltip-background: var(--vd-tooltip-background, var(--vd-text-primary));
+  --tooltip-foreground: var(--vd-tooltip-foreground, var(--vd-text-inverse));
   &:where([data-theme='dark'][data-tone='default']) {
-    --tooltip-background: var(--vd-neutral-8);
-    --tooltip-foreground: var(--vd-neutral-1);
+    --tooltip-background: var(--vd-tooltip-background, var(--vd-neutral-8));
+    --tooltip-foreground: var(--vd-tooltip-foreground, var(--vd-neutral-1));
   }
   --tooltip-arrow-size: var(--vd-sizing-12);
   --tooltip-arrow-half: var(--vd-spacing-6);
   width: max-content;
   padding: var(--vd-spacing-8) var(--vd-spacing-12);
-  border: 0;
-  border-radius: var(--vd-radius-6);
+  border: var(--vd-tooltip-border, 0);
+  border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   background: var(--tooltip-background);
   color: var(--tooltip-foreground);
+  // The opaque tooltip and its pointer share one fill; a panel inset highlight
+  // would leave pale slivers at the pointer's two joining corners.
+  box-shadow: var(--vd-elevation-2);
   font-size: var(--vd-typography-ui-body-small-font-size);
   line-height: var(--vd-typography-ui-body-small-line-height);
   text-align: start;
-  animation: tooltip-enter var(--vd-duration-120) var(--vd-easing-standard) both;
+  animation: tooltip-enter var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard)) both;
   &[data-side='top'] {
     transform-origin: var(--overlay-arrow-x) 100%;
   }
@@ -38,7 +42,8 @@
     transform-origin: 0 var(--overlay-arrow-y);
   }
   &[data-continuous='true'][data-state='open'] {
-    animation: tooltip-handoff var(--vd-duration-120) var(--vd-easing-standard) both;
+    animation: tooltip-handoff var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)) both;
   }
   &[data-state='closed'] {
     animation-name: tooltip-exit;
@@ -59,7 +64,7 @@
   --tooltip-arrow-size: var(--vd-spacing-8);
   --tooltip-arrow-half: var(--vd-spacing-4);
   padding: var(--vd-spacing-4) var(--vd-spacing-8);
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   font-size: var(--vd-font-size-12);
   line-height: var(--vd-line-height-3);
 }
@@ -71,27 +76,42 @@
   overflow-wrap: anywhere;
 }
 .arrow {
-  @include panel.arrow;
+  @include panel.arrow(overlay);
+  // Overlap the panel edge so its border/highlight does not cross the pointer base.
+  // Only the two outward edges are stroked; the inward half joins the bubble.
+  box-sizing: border-box;
   width: var(--tooltip-arrow-size);
   height: var(--tooltip-arrow-size);
+  background: var(--tooltip-background);
+  border: var(--vd-tooltip-border, 0);
+  clip-path: none;
+  [data-side] > & {
+    clip-path: none;
+  }
   [data-side='bottom'] > & {
     top: calc(var(--tooltip-arrow-half) * -1);
     left: calc(var(--overlay-arrow-x) - var(--tooltip-arrow-half));
+    border-right: 0;
+    border-bottom: 0;
   }
   [data-side='top'] > & {
     bottom: calc(var(--tooltip-arrow-half) * -1);
     left: calc(var(--overlay-arrow-x) - var(--tooltip-arrow-half));
+    border-left: 0;
+    border-top: 0;
   }
   [data-side='left'] > & {
     right: calc(var(--tooltip-arrow-half) * -1);
     top: calc(var(--overlay-arrow-y) - var(--tooltip-arrow-half));
+    border-left: 0;
+    border-bottom: 0;
   }
   [data-side='right'] > & {
     left: calc(var(--tooltip-arrow-half) * -1);
     top: calc(var(--overlay-arrow-y) - var(--tooltip-arrow-half));
+    border-right: 0;
+    border-top: 0;
   }
-  background: var(--tooltip-background);
-  border: 0;
 }
 @keyframes tooltip-enter {
   from {
@@ -139,15 +159,20 @@
     pointer-events: none !important;
   }
   animation: none;
-  border-radius: var(--vd-radius-8);
-  box-shadow:
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
+  box-shadow: var(
+    --vd-tooltip-pointer-shadow,
     0 3px 12px rgb(20 39 68 / 14%),
-    inset 0 1px 0 rgb(255 255 255 / 28%);
-  backdrop-filter: blur(12px) saturate(1.12);
+    inset 0 1px 0 rgb(255 255 255 / 28%)
+  );
+  backdrop-filter: var(--vd-tooltip-pointer-backdrop-filter, blur(12px) saturate(1.12));
   &[data-tone='default'] {
     --tooltip-tint: color-mix(in srgb, var(--vd-surface-elevated) 94%, var(--vd-brand-primary));
-    --tooltip-background: color-mix(in srgb, var(--tooltip-tint) 88%, transparent);
-    --tooltip-foreground: var(--vd-text-primary);
+    --tooltip-background: var(
+      --vd-tooltip-background,
+      color-mix(in srgb, var(--tooltip-tint) 88%, transparent)
+    );
+    --tooltip-foreground: var(--vd-tooltip-foreground, var(--vd-text-primary));
   }
   .arrow {
     left: clamp(-4px, calc(var(--pointer-anchor-x) + 2px), calc(100% - 12px));
@@ -160,14 +185,15 @@
     border-top-left-radius: 3px;
     .arrow {
       top: -8px;
-      clip-path: polygon(0 0, 100% 100%, 0 100%);
+      clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 100% 100%, 0 100%));
     }
   }
   &[data-side='top'] {
     border-bottom-left-radius: 3px;
     .arrow {
       bottom: -8px;
-      clip-path: polygon(0 0, 100% 0, 0 100%);
+      clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 100% 0, 0 100%));
+      mask-image: var(--vd-overlay-arrow-mask-right, none);
     }
   }
   &[data-state='closed'] {

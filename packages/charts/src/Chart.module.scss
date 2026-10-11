@@ -1,33 +1,39 @@
 .root {
-  --chart-background: transparent;
-  --chart-axis: var(--vd-border-default);
-  --chart-axis-label: var(--vd-text-secondary);
-  --chart-grid: var(--vd-border-subtle);
-  --chart-series-1: var(--vd-data-categorical-1);
-  --chart-series-2: var(--vd-data-categorical-2);
-  --chart-series-3: var(--vd-data-categorical-3);
-  --chart-series-4: var(--vd-data-categorical-4);
-  --chart-series-5: var(--vd-data-categorical-5);
-  --chart-series-6: var(--vd-data-categorical-6);
-  --chart-heatmap-empty: var(--vd-fill-hover);
-  --chart-heatmap-1: var(--vd-blue-2);
-  --chart-heatmap-2: var(--vd-blue-4);
-  --chart-heatmap-3: var(--vd-blue-6);
-  --chart-heatmap-4: var(--vd-blue-8);
-  --chart-line-width: 2;
-  --chart-tooltip-surface: var(--vd-surface-elevated);
-  --chart-tooltip-border: var(--vd-border-default);
-  --chart-tooltip-radius: var(--vd-radius-6);
-  --chart-tooltip-shadow: var(--vd-elevation-2);
-  --chart-legend: var(--vd-text-secondary);
-  --chart-active-point: var(--vd-surface-default);
-  --chart-muted-opacity: 0.3;
-  --chart-enter-duration: 700ms;
-  --chart-update-duration: 400ms;
-  --chart-interaction-duration: var(--vd-duration-120);
-  --chart-sector-offset: 8px;
-  --chart-point-radius: 3px;
-  --chart-active-point-radius: 4.5px;
+  --chart-background: var(--vd-chart-background, transparent);
+  --chart-axis: var(--vd-chart-axis, var(--vd-border-default));
+  --chart-axis-label: var(--vd-chart-axis-label, var(--vd-text-secondary));
+  --chart-grid: var(--vd-chart-grid, var(--vd-border-subtle));
+  --chart-series-1: var(--vd-chart-series-1, var(--vd-data-categorical-1));
+  --chart-series-2: var(--vd-chart-series-2, var(--vd-data-categorical-2));
+  --chart-series-3: var(--vd-chart-series-3, var(--vd-data-categorical-3));
+  --chart-series-4: var(--vd-chart-series-4, var(--vd-data-categorical-4));
+  --chart-series-5: var(--vd-chart-series-5, var(--vd-data-categorical-5));
+  --chart-series-6: var(--vd-chart-series-6, var(--vd-data-categorical-6));
+  --chart-heatmap-empty: var(--vd-chart-heatmap-empty, var(--vd-fill-hover));
+  --chart-heatmap-1: var(--vd-chart-heatmap-1, var(--vd-blue-2));
+  --chart-heatmap-2: var(--vd-chart-heatmap-2, var(--vd-blue-4));
+  --chart-heatmap-3: var(--vd-chart-heatmap-3, var(--vd-blue-6));
+  --chart-heatmap-4: var(--vd-chart-heatmap-4, var(--vd-blue-8));
+  --chart-line-width: var(--vd-chart-line-width, 2);
+  --chart-tooltip-surface: var(--vd-chart-tooltip-surface, var(--vd-surface-elevated));
+  --chart-tooltip-border: var(--vd-chart-tooltip-border, var(--vd-border-default));
+  --chart-tooltip-radius: var(
+    --vd-chart-tooltip-radius,
+    var(--vd-shape-radius-6, var(--vd-radius-6))
+  );
+  --chart-tooltip-shadow: var(--vd-chart-tooltip-shadow, var(--vd-elevation-2));
+  --chart-legend: var(--vd-chart-legend, var(--vd-text-secondary));
+  --chart-active-point: var(--vd-chart-active-point, var(--vd-surface-default));
+  --chart-muted-opacity: var(--vd-chart-muted-opacity, 0.3);
+  --chart-enter-duration: var(--vd-chart-enter-duration, 700ms);
+  --chart-update-duration: var(--vd-chart-update-duration, 400ms);
+  --chart-interaction-duration: var(
+    --vd-chart-interaction-duration,
+    var(--vd-motion-duration-120, var(--vd-duration-120))
+  );
+  --chart-sector-offset: var(--vd-chart-sector-offset, 8px);
+  --chart-point-radius: var(--vd-chart-point-radius, 3px);
+  --chart-active-point-radius: var(--vd-chart-active-point-radius, 4.5px);
   position: relative;
   min-width: 0;
   margin: 0;
@@ -38,10 +44,10 @@
 }
 [data-theme='dark'] .root,
 .root[data-theme='dark'] {
-  --chart-heatmap-1: var(--vd-blue-8);
-  --chart-heatmap-2: var(--vd-blue-6);
-  --chart-heatmap-3: var(--vd-blue-4);
-  --chart-heatmap-4: var(--vd-blue-2);
+  --chart-heatmap-1: var(--vd-chart-heatmap-1, var(--vd-blue-8));
+  --chart-heatmap-2: var(--vd-chart-heatmap-2, var(--vd-blue-6));
+  --chart-heatmap-3: var(--vd-chart-heatmap-3, var(--vd-blue-4));
+  --chart-heatmap-4: var(--vd-chart-heatmap-4, var(--vd-blue-2));
 }
 .responsive,
 .plot {
@@ -108,10 +114,12 @@
   box-sizing: border-box;
   min-width: min(180px, 100%);
   padding: var(--vd-spacing-12);
-  border: 1px solid var(--chart-tooltip-border);
+  border: var(--vd-stroke-width, 1px) solid var(--chart-tooltip-border);
   border-radius: var(--chart-tooltip-radius);
   background: var(--chart-tooltip-surface);
   box-shadow: var(--chart-tooltip-shadow);
+  backdrop-filter: var(--vd-panel-backdrop-filter, none);
+  -webkit-backdrop-filter: var(--vd-panel-backdrop-filter, none);
   pointer-events: none;
   overflow-wrap: anywhere;
 }
@@ -159,7 +167,7 @@
   gap: var(--vd-spacing-6);
   border: 0;
   padding: var(--vd-spacing-4);
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   color: var(--chart-legend);
   background: transparent;
   font: inherit;

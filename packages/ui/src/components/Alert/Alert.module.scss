@@ -11,8 +11,9 @@
   align-items: flex-start;
   gap: var(--vd-spacing-12);
   padding: var(--vd-spacing-16);
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--alert-border);
-  border-radius: var(--vd-radius-10);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--alert-border);
+  border-radius: var(--vd-shape-radius-10, var(--vd-radius-10));
   color: var(--vd-text-primary);
   background: var(--alert-background);
 }
@@ -60,7 +61,7 @@
   overflow-wrap: anywhere;
   font-family: var(--vd-typography-ui-label-medium-font-family);
   font-size: var(--vd-typography-ui-label-medium-font-size);
-  font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
   line-height: var(--vd-typography-ui-label-medium-line-height);
 }
 
@@ -91,7 +92,7 @@
   margin: calc(var(--vd-spacing-2) * -1);
   padding: var(--vd-spacing-0);
   border: 0;
-  border-radius: var(--vd-radius-6);
+  border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   color: var(--vd-text-tertiary);
   background: transparent;
 
@@ -101,7 +102,8 @@
   }
 
   &:focus-visible {
-    outline: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-style-solid)
+      var(--vd-border-focus);
     outline-offset: var(--vd-spacing-2);
   }
 

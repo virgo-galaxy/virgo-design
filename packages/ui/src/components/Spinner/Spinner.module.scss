@@ -9,17 +9,18 @@
   border-radius: var(--vd-radius-full);
   color: inherit;
   vertical-align: middle;
-  animation: spinner-rotate var(--vd-duration-560) var(--vd-easing-linear) infinite;
+  animation: spinner-rotate var(--vd-motion-duration-560, var(--vd-duration-560))
+    var(--vd-easing-linear) infinite;
 }
 
 .root[data-size='sm'] {
   --spinner-size: var(--vd-sizing-16);
-  --spinner-stroke: var(--vd-border-width-2);
+  --spinner-stroke: var(--vd-focus-width, var(--vd-border-width-2));
 }
 
 .root[data-size='md'] {
   --spinner-size: var(--vd-sizing-20);
-  --spinner-stroke: var(--vd-border-width-2);
+  --spinner-stroke: var(--vd-focus-width, var(--vd-border-width-2));
 }
 
 .root[data-size='lg'] {

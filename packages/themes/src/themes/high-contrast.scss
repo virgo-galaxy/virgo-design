@@ -1,0 +1,273 @@
+@use './recipe';
+
+[data-virgo-theme='high-contrast'] {
+  --vd-switch-radius: 2px;
+  --vd-content-surface: var(--vd-surface-default);
+  --vd-content-surface-solid: var(--vd-table-body-background, var(--vd-surface-elevated));
+  --vd-content-surface-muted: var(--vd-surface-secondary);
+  --vd-content-foreground: var(--vd-text-primary);
+  --vd-content-secondary: var(--vd-text-secondary);
+  --vd-content-tertiary: var(--vd-text-tertiary);
+  --vd-content-border: var(--vd-border-subtle);
+  --vd-content-border-strong: var(--vd-border-default);
+  --vd-content-fill: var(--vd-fill-hover);
+  --vd-content-hover: var(--vd-fill-active);
+  --vd-content-decoration: none;
+
+  --vd-panel-shadow: var(--vd-elevation-2);
+  --vd-control-font-weight: 600;
+  @include recipe.geometry(
+    2px,
+    (
+      mini: 24px,
+      small: 28px,
+      medium: 36px,
+      large: 44px,
+    ),
+    (
+      mini: 8px,
+      small: 8px,
+      medium: 12px,
+      large: 16px,
+    )
+  );
+  --vd-stroke-width: 2px;
+  --vd-focus-width: 3px;
+  --vd-focus-offset: 3px;
+  --vd-control-hover-color: var(--vd-text-primary);
+  --vd-control-focus-color: var(--vd-border-focus);
+  --vd-control-focus-shadow: 0 0 0 2px var(--vd-surface-default), 0 0 0 5px var(--vd-border-focus);
+  --vd-action-border: var(--vd-text-primary);
+  --vd-disabled-opacity: 1;
+  --vd-disabled-border-style: dashed;
+  --vd-panel-highlight: 0 0 0 transparent;
+  --vd-tooltip-border: 2px solid var(--vd-text-primary);
+  --vd-tooltip-background: var(--vd-surface-default);
+  --vd-tooltip-foreground: var(--vd-text-primary);
+  --vd-tooltip-pointer-backdrop-filter: none;
+  --vd-tooltip-pointer-shadow: none;
+  --vd-navigation-selected-background: var(--vd-brand-primary);
+  --vd-navigation-selected-foreground: var(--vd-brand-foreground);
+  --vd-navigation-selected-shadow: inset 0 0 0 2px var(--vd-text-primary);
+  --vd-table-header-background: var(--vd-surface-default);
+  --vd-table-header-foreground: var(--vd-text-primary);
+  --vd-table-header-font-weight: 700;
+  --vd-table-footer-background: var(--vd-surface-secondary);
+  --vd-table-stripe-background: var(--vd-surface-secondary);
+  --vd-table-hover-background: var(--vd-surface-strong);
+  --vd-table-selected-background: var(--vd-fill-selected);
+  --vd-table-selected-hover-background: var(--vd-fill-selected-hover);
+  --vd-table-selected-foreground: var(--vd-text-primary);
+  --vd-table-selected-shadow: inset 3px 0 0 var(--vd-brand-primary);
+  --vd-material-tint-opacity: 100%;
+  --vd-glass-tint-opacity: 100%;
+  --vd-glass-backdrop-filter: none;
+  --vd-switch-border-width: 2px;
+  --vd-chart-grid: var(--vd-border-default);
+  --vd-chart-axis: var(--vd-text-primary);
+  --vd-chart-line-width: 3;
+  --vd-chart-muted-opacity: 0.65;
+  --vd-chart-point-radius: 4px;
+  --vd-chart-active-point-radius: 6px;
+  --vd-chart-tooltip-radius: 2px;
+  --vd-chart-enter-duration: 0ms;
+  --vd-chart-update-duration: 0ms;
+  --vd-chart-interaction-duration: 0ms;
+  --vd-motion-duration-120: 0ms;
+  --vd-motion-duration-180: 0ms;
+  --vd-motion-duration-240: 0ms;
+  --vd-chrome-background: var(--vd-surface-default);
+  --vd-chrome-shadow: none;
+  --vd-chrome-backdrop-filter: none;
+  --vd-page-background: var(--vd-surface-background);
+  --vd-chrome-foreground: var(--vd-text-primary);
+  --vd-chrome-secondary: var(--vd-text-secondary);
+  --vd-chrome-border: var(--vd-border-default);
+  --vd-chrome-accent: var(--vd-brand-link);
+  @include recipe.appearance(
+    light,
+    (
+      surface-background: #fff,
+      surface-default: #fff,
+      surface-secondary: #f1f1f1,
+      surface-strong: #ddd,
+      surface-elevated: #fff,
+      text-primary: #000,
+      text-secondary: #242424,
+      text-tertiary: #4a4a4a,
+      text-placeholder: #4a4a4a,
+      text-inverse: #fff,
+      text-disabled: #595959,
+      icon-primary: #000,
+      icon-secondary: #242424,
+      icon-tertiary: #4a4a4a,
+      icon-inverse: #fff,
+      icon-disabled: #595959,
+      border-default: #000,
+      border-subtle: #333,
+      border-strong: #000,
+      border-disabled: #595959,
+      border-focus: #003b9c,
+      brand-primary: #003b9c,
+      brand-primary-hover: #002b78,
+      brand-primary-active: #001f5e,
+      brand-foreground: #fff,
+      brand-link: #003b9c,
+      brand-link-hover: #002b78,
+      brand-focus: #003b9c,
+      brand-subtle: #e5edff,
+      brand-subtle-hover: #e5edff,
+      fill-selected: #e5edff,
+      fill-selected-hover: #e5edff,
+      fill-hover: #f1f1f1,
+      fill-active: #ddd,
+      fill-disabled: #f1f1f1,
+      elevation-0: none,
+      elevation-1: none,
+      elevation-2: none,
+      elevation-3: none,
+      elevation-4: none,
+      elevation-5: none,
+      surface-overlay: rgb(0 0 0 / 75%),
+      data-sequential-1: color-mix(in srgb, #003b9c 12%, #fff),
+      data-sequential-2: color-mix(in srgb, #003b9c 24%, #fff),
+      data-sequential-3: color-mix(in srgb, #003b9c 40%, #fff),
+      data-sequential-4: color-mix(in srgb, #003b9c 58%, #fff),
+      data-sequential-5: color-mix(in srgb, #003b9c 76%, #fff),
+      data-sequential-6: color-mix(in srgb, #003b9c 100%, #fff),
+      data-categorical-1: #003b9c,
+      data-categorical-2: #a1002f,
+      data-categorical-3: #005d35,
+      data-categorical-4: #6b249e,
+      data-categorical-5: #7c5200,
+      data-categorical-6: #00616b,
+      data-categorical-7: #003b9c,
+      data-categorical-8: #a1002f,
+      data-categorical-9: #005d35,
+      data-categorical-10: #6b249e,
+      data-categorical-11: #7c5200,
+      data-categorical-12: #00616b,
+      status-success-solid: #005d35,
+      status-success-on-solid: #fff,
+      status-success-accent: #005d35,
+      status-success-foreground: #fff,
+      status-success-subtle: #fff,
+      status-success-border: #005d35,
+      status-success-text: #005d35,
+      status-warning-solid: #7c5200,
+      status-warning-on-solid: #fff,
+      status-warning-accent: #7c5200,
+      status-warning-foreground: #fff,
+      status-warning-subtle: #fff,
+      status-warning-border: #7c5200,
+      status-warning-text: #7c5200,
+      status-danger-solid: #a1002f,
+      status-danger-on-solid: #fff,
+      status-danger-accent: #a1002f,
+      status-danger-foreground: #fff,
+      status-danger-subtle: #fff,
+      status-danger-border: #a1002f,
+      status-danger-text: #a1002f,
+      status-info-solid: #003b9c,
+      status-info-on-solid: #fff,
+      status-info-accent: #003b9c,
+      status-info-foreground: #fff,
+      status-info-subtle: #fff,
+      status-info-border: #003b9c,
+      status-info-text: #003b9c,
+    )
+  );
+  @include recipe.appearance(
+    dark,
+    (
+      surface-background: #000,
+      surface-default: #000,
+      surface-secondary: #171717,
+      surface-strong: #292929,
+      surface-elevated: #000,
+      text-primary: #fff,
+      text-secondary: #eee,
+      text-tertiary: #c0c0c0,
+      text-placeholder: #c0c0c0,
+      text-inverse: #000,
+      text-disabled: #b5b5b5,
+      icon-primary: #fff,
+      icon-secondary: #eee,
+      icon-tertiary: #c0c0c0,
+      icon-inverse: #000,
+      icon-disabled: #b5b5b5,
+      border-default: #fff,
+      border-subtle: #dedede,
+      border-strong: #fff,
+      border-disabled: #b5b5b5,
+      border-focus: #ffe45e,
+      brand-primary: #ffe45e,
+      brand-primary-hover: #fff09b,
+      brand-primary-active: #ffd530,
+      brand-foreground: #000,
+      brand-link: #82ddff,
+      brand-link-hover: #fff09b,
+      brand-focus: #ffe45e,
+      brand-subtle: #343124,
+      brand-subtle-hover: #343124,
+      fill-selected: #343124,
+      fill-selected-hover: #343124,
+      fill-hover: #171717,
+      fill-active: #292929,
+      fill-disabled: #171717,
+      elevation-0: none,
+      elevation-1: none,
+      elevation-2: none,
+      elevation-3: none,
+      elevation-4: none,
+      elevation-5: none,
+      surface-overlay: rgb(0 0 0 / 75%),
+      data-sequential-1: color-mix(in srgb, #82ddff 12%, #000),
+      data-sequential-2: color-mix(in srgb, #82ddff 24%, #000),
+      data-sequential-3: color-mix(in srgb, #82ddff 40%, #000),
+      data-sequential-4: color-mix(in srgb, #82ddff 58%, #000),
+      data-sequential-5: color-mix(in srgb, #82ddff 76%, #000),
+      data-sequential-6: color-mix(in srgb, #82ddff 100%, #000),
+      data-categorical-1: #82ddff,
+      data-categorical-2: #ff91b3,
+      data-categorical-3: #70f3ae,
+      data-categorical-4: #d8b0ff,
+      data-categorical-5: #ffe45e,
+      data-categorical-6: #ffa777,
+      data-categorical-7: #82ddff,
+      data-categorical-8: #ff91b3,
+      data-categorical-9: #70f3ae,
+      data-categorical-10: #d8b0ff,
+      data-categorical-11: #ffe45e,
+      data-categorical-12: #ffa777,
+      status-success-solid: #70f3ae,
+      status-success-on-solid: #000,
+      status-success-accent: #70f3ae,
+      status-success-foreground: #000,
+      status-success-subtle: #000,
+      status-success-border: #70f3ae,
+      status-success-text: #70f3ae,
+      status-warning-solid: #ffe45e,
+      status-warning-on-solid: #000,
+      status-warning-accent: #ffe45e,
+      status-warning-foreground: #000,
+      status-warning-subtle: #000,
+      status-warning-border: #ffe45e,
+      status-warning-text: #ffe45e,
+      status-danger-solid: #ff91b3,
+      status-danger-on-solid: #000,
+      status-danger-accent: #ff91b3,
+      status-danger-foreground: #000,
+      status-danger-subtle: #000,
+      status-danger-border: #ff91b3,
+      status-danger-text: #ff91b3,
+      status-info-solid: #82ddff,
+      status-info-on-solid: #000,
+      status-info-accent: #82ddff,
+      status-info-foreground: #000,
+      status-info-subtle: #000,
+      status-info-border: #82ddff,
+      status-info-text: #82ddff,
+    )
+  );
+}

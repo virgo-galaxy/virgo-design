@@ -1,0 +1,31 @@
+// Values are implementations of the Tokens contract; no component selectors live here.
+@mixin appearance($mode, $values) {
+  @each $name, $value in $values {
+    --vd-theme-#{$mode}-#{$name}: #{$value};
+  }
+}
+@mixin geometry($radius, $heights, $padding) {
+  @each $step in (4, 6, 8, 10, 12, 16, 20, 24) {
+    --vd-shape-radius-#{$step}: #{$radius};
+  }
+  @each $size, $height in $heights {
+    --vd-control-#{$size}-height: #{$height};
+    --vd-control-#{$size}-radius: #{$radius};
+  }
+  @each $size, $value in $padding {
+    --vd-control-#{$size}-padding-inline: #{$value};
+  }
+}
+
+// Rounded tip and concave shoulders; normalized SVG masks scale with arrow size.
+@mixin soft-overlay-arrows {
+  --vd-overlay-arrow-clip-path: none;
+  --vd-overlay-arrow-transform-top: scale(1.15, 0.75) rotate(45deg);
+  --vd-overlay-arrow-transform-bottom: scale(1.15, 0.75) rotate(45deg);
+  --vd-overlay-arrow-transform-left: scale(0.75, 1.15) rotate(45deg);
+  --vd-overlay-arrow-transform-right: scale(0.75, 1.15) rotate(45deg);
+  --vd-overlay-arrow-mask-bottom: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22white%22%20transform%3D%22%22%20d%3D%22M0%20.8%20Q0%200%20.8%200%20C4%200%207%201.5%2012%200%20L12%2012%20L0%2012%20C1.5%207%200%204%200%20.8%20Z%22%2F%3E%3C%2Fsvg%3E');
+  --vd-overlay-arrow-mask-top: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22white%22%20transform%3D%22rotate%28180%206%206%29%22%20d%3D%22M0%20.8%20Q0%200%20.8%200%20C4%200%207%201.5%2012%200%20L12%2012%20L0%2012%20C1.5%207%200%204%200%20.8%20Z%22%2F%3E%3C%2Fsvg%3E');
+  --vd-overlay-arrow-mask-left: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22white%22%20transform%3D%22translate%2812%200%29%20scale%28-1%201%29%22%20d%3D%22M0%20.8%20Q0%200%20.8%200%20C4%200%207%201.5%2012%200%20L12%2012%20L0%2012%20C1.5%207%200%204%200%20.8%20Z%22%2F%3E%3C%2Fsvg%3E');
+  --vd-overlay-arrow-mask-right: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22white%22%20transform%3D%22translate%280%2012%29%20scale%281%20-1%29%22%20d%3D%22M0%20.8%20Q0%200%20.8%200%20C4%200%207%201.5%2012%200%20L12%2012%20L0%2012%20C1.5%207%200%204%200%20.8%20Z%22%2F%3E%3C%2Fsvg%3E');
+}

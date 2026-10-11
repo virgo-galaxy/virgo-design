@@ -4,7 +4,10 @@
   gap: 24px;
   padding: 20px 24px;
   text-align: left;
-  box-shadow: 0 8px 32px color-mix(in srgb, var(--vd-brand-primary) 7%, transparent);
+  box-shadow: var(
+    --vd-panel-shadow,
+    0 8px 32px color-mix(in srgb, var(--vd-brand-primary) 7%, transparent)
+  );
 }
 .status {
   flex: 1;

@@ -7,8 +7,8 @@ body:has(.components-documentation) {
     gap: var(--vd-spacing-16);
     min-height: calc(var(--vd-sizing-80) * 2);
     padding: var(--vd-spacing-32);
-    border: var(--vd-border-width-1) dashed var(--vd-border-default);
-    border-radius: var(--vd-radius-8);
+    border: var(--vd-stroke-width, var(--vd-border-width-1)) dashed var(--vd-border-default);
+    border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
     background: var(--vd-surface-secondary);
     color: var(--vd-text-secondary);
     &:focus-visible {
@@ -28,8 +28,8 @@ body:has(.components-documentation) {
     gap: var(--vd-spacing-16);
     width: min(100%, calc(var(--vd-sizing-80) * 4));
     padding: var(--vd-spacing-24);
-    border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-    border-radius: var(--vd-radius-12);
+    border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+    border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
     background: var(--vd-surface-default);
   }
 }

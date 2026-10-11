@@ -13,7 +13,10 @@
   --card-header-gap: var(--vd-spacing-2);
   --card-title-font-family: var(--vd-typography-ui-label-medium-font-family);
   --card-title-font-size: var(--vd-typography-ui-label-medium-font-size);
-  --card-title-font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  --card-title-font-weight: var(
+    --vd-control-font-weight,
+    var(--vd-typography-ui-label-medium-font-weight)
+  );
   --card-title-line-height: var(--vd-typography-ui-label-medium-line-height);
 }
 

@@ -4,61 +4,63 @@
 .root {
   // Public geometry: inline style or consumer className can override these values.
   // Native table row height is a minimum; wrapped content grows the row naturally.
-  --table-cell-padding-inline: var(--vd-spacing-16);
-  --table-cell-padding-block: var(--vd-spacing-12);
-  --table-header-height: var(--vd-sizing-44);
+  --table-cell-padding-inline: var(--vd-table-padding-inline, var(--vd-spacing-16));
+  --table-cell-padding-block: var(--vd-table-padding-block, var(--vd-spacing-12));
+  --table-header-height: var(--vd-table-header-height, var(--vd-sizing-44));
   // Reserve space for a 24px header control without growing single-line headings.
   --table-header-padding-block: min(
     var(--table-cell-padding-block),
     max(
       0px,
-      calc((var(--table-header-height) - var(--vd-sizing-24) - var(--vd-border-width-1)) / 2)
+      calc(
+        (
+            var(--table-header-height) - var(--vd-sizing-24) - var(
+                --vd-stroke-width,
+                var(--vd-border-width-1)
+              )
+          ) /
+          2
+      )
     )
   );
-  --table-row-height: var(--vd-sizing-48);
+  --table-row-height: var(--vd-table-row-height, var(--vd-sizing-48));
   --table-cell-vertical-align: middle;
   // Opaque, theme-aware layers keep header, hover and selection distinct.
-  --table-body-background: var(--vd-surface-default);
+  --table-body-background: var(--vd-table-body-background, var(--vd-surface-default));
   // Sky-blue row tints stay distinct from the deeper brand used by controls.
   --table-selection-color: hsl(from var(--vd-brand-link) 205 s l);
-  --table-header-foreground: var(--vd-text-primary);
-  --table-header-font-weight: var(--vd-font-weight-500);
-  --table-header-radius: var(--vd-radius-6);
+  --table-header-foreground: var(--vd-table-header-foreground, var(--vd-text-primary));
+  --table-header-font-weight: var(--vd-table-header-font-weight, var(--vd-font-weight-500));
+  --table-header-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   --table-separator-color: var(--vd-border-subtle);
   --table-fixed-separator-color: var(--vd-border-default);
   --table-fixed-shadow-color: color-mix(in srgb, var(--vd-text-primary) 12%, transparent);
   --table-fixed-shadow-width: var(--vd-spacing-8);
   --table-fixed-start-shadow-direction: to right;
   --table-fixed-end-shadow-direction: to left;
-  --table-header-background: color-mix(
-    in srgb,
-    var(--vd-text-primary) 3%,
-    var(--table-body-background)
+  --table-header-background: var(
+    --vd-table-header-background,
+    color-mix(in srgb, var(--vd-text-primary) 3%, var(--table-body-background))
   );
-  --table-footer-background: color-mix(
-    in srgb,
-    var(--vd-text-primary) 5%,
-    var(--table-body-background)
+  --table-footer-background: var(
+    --vd-table-footer-background,
+    color-mix(in srgb, var(--vd-text-primary) 5%, var(--table-body-background))
   );
-  --table-row-striped-background: color-mix(
-    in srgb,
-    var(--vd-text-primary) 3%,
-    var(--table-body-background)
+  --table-row-striped-background: var(
+    --vd-table-stripe-background,
+    color-mix(in srgb, var(--vd-text-primary) 3%, var(--table-body-background))
   );
-  --table-row-hover-background: color-mix(
-    in srgb,
-    var(--vd-text-primary) 1.5%,
-    var(--table-body-background)
+  --table-row-hover-background: var(
+    --vd-table-hover-background,
+    color-mix(in srgb, var(--vd-text-primary) 1.5%, var(--table-body-background))
   );
-  --table-row-selected-background: color-mix(
-    in srgb,
-    var(--table-selection-color) 8%,
-    var(--table-body-background)
+  --table-row-selected-background: var(
+    --vd-table-selected-background,
+    color-mix(in srgb, var(--table-selection-color) 8%, var(--table-body-background))
   );
-  --table-row-selected-hover-background: color-mix(
-    in srgb,
-    var(--table-selection-color) 24%,
-    var(--table-body-background)
+  --table-row-selected-hover-background: var(
+    --vd-table-selected-hover-background,
+    color-mix(in srgb, var(--table-selection-color) 24%, var(--table-body-background))
   );
   // Keep the existing shorthand as an override surface for older consumers.
   --table-padding: var(--table-cell-padding-block) var(--table-cell-padding-inline);
@@ -93,7 +95,8 @@
     --table-row-height: var(--vd-sizing-56);
   }
   &[data-border='rows'] .cell {
-    border-bottom: var(--vd-border-width-1) solid var(--table-separator-color);
+    border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid
+      var(--table-separator-color);
   }
   // Internal rules work with or without headings, and skip empty table sections.
   &[data-border='separators'] > :is(thead, tbody, tfoot) > .row + .row > .cell,
@@ -102,14 +105,14 @@
     ~ :is(thead, tbody, tfoot)
     > .row:first-child
     > .cell {
-    border-top: var(--vd-border-width-1) solid var(--table-separator-color);
+    border-top: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--table-separator-color);
   }
   // Preserve a single shared grid line for the fully bordered treatment.
   &[data-border='all'] {
     border-collapse: collapse;
   }
   &[data-border='all'] .cell {
-    border: var(--vd-border-width-1) solid var(--vd-border-default);
+    border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-default);
   }
   & .body > .row {
     --table-cell-background: var(--table-body-background);
@@ -124,6 +127,8 @@
     background: var(--table-cell-background);
   }
   & .body > .row[data-selected='true'] {
+    box-shadow: var(--vd-table-selected-shadow, none);
+    color: var(--vd-table-selected-foreground, var(--vd-text-primary));
     --table-cell-background: var(--table-row-selected-background);
     background: var(--table-cell-background);
   }
@@ -159,7 +164,7 @@
 }
 .header,
 .footer {
-  font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
 }
 .header {
   color: var(--table-header-foreground);
@@ -191,12 +196,13 @@
   max-width: 100%;
   min-width: 0;
   &:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
     outline-offset: var(--vd-spacing-2);
   }
 }
 .row {
-  transition: background var(--vd-duration-120) var(--vd-easing-standard);
+  transition: background var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 .body {
   vertical-align: inherit;
@@ -216,14 +222,14 @@
   gap: var(--vd-spacing-6);
   padding: 0;
   border: 0;
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   color: inherit;
   background: transparent;
   font: inherit;
   text-align: inherit;
   cursor: pointer;
   &:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
     outline-offset: var(--vd-spacing-2);
   }
   &:disabled {
@@ -346,7 +352,7 @@
   height: var(--vd-sizing-24);
   padding: 0;
   border: 0;
-  border-radius: var(--vd-radius-4);
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   color: var(--vd-icon-primary);
   background: transparent;
   cursor: pointer;
@@ -358,7 +364,7 @@
     color: var(--vd-brand-link);
   }
   &:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
   }
   &:disabled {
     color: var(--vd-icon-disabled);
@@ -380,7 +386,7 @@
   width: 100%;
   min-height: var(--vd-sizing-36);
   padding: var(--vd-spacing-4) var(--vd-spacing-12);
-  border-radius: var(--vd-radius-6);
+  border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   &:hover:not([data-disabled='true']),
   &:has(:focus-visible):not([data-disabled='true']),
   &:has(input[data-checked='true']):not([data-disabled='true']) {
@@ -459,16 +465,16 @@
   content: '';
   position: absolute;
   inset-block-start: 0;
-  inset-block-end: calc(-1 * var(--vd-border-width-1));
-  width: calc(var(--table-fixed-shadow-width) + var(--vd-border-width-1));
+  inset-block-end: calc(-1 * var(--vd-stroke-width, var(--vd-border-width-1)));
+  width: calc(var(--table-fixed-shadow-width) + var(--vd-stroke-width, var(--vd-border-width-1)));
   pointer-events: none;
 }
 .cell[data-fixed='start']::before {
   inset-inline-end: calc(-1 * var(--table-fixed-shadow-width));
   background: linear-gradient(
     var(--table-fixed-start-shadow-direction),
-    var(--table-fixed-separator-color) 0 var(--vd-border-width-1),
-    var(--table-fixed-shadow-color) var(--vd-border-width-1),
+    var(--table-fixed-separator-color) 0 var(--vd-stroke-width, var(--vd-border-width-1)),
+    var(--table-fixed-shadow-color) var(--vd-stroke-width, var(--vd-border-width-1)),
     transparent 100%
   );
 }
@@ -476,8 +482,8 @@
   inset-inline-start: calc(-1 * var(--table-fixed-shadow-width));
   background: linear-gradient(
     var(--table-fixed-end-shadow-direction),
-    var(--table-fixed-separator-color) 0 var(--vd-border-width-1),
-    var(--table-fixed-shadow-color) var(--vd-border-width-1),
+    var(--table-fixed-separator-color) 0 var(--vd-stroke-width, var(--vd-border-width-1)),
+    var(--table-fixed-shadow-color) var(--vd-stroke-width, var(--vd-border-width-1)),
     transparent 100%
   );
 }

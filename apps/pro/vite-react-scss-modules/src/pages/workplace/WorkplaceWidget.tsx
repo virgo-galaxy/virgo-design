@@ -88,6 +88,7 @@ export function WorkplaceWidget({
                               variant="text"
                               size="mini"
                               iconOnly
+                              data-window-action="collapse"
                               className={[tooltipProps.className, styles.widgetControl]
                                 .filter(Boolean)
                                 .join(' ')}
@@ -113,6 +114,7 @@ export function WorkplaceWidget({
                           variant="text"
                           size="mini"
                           iconOnly
+                          data-window-action="close"
                           className={styles.widgetControl}
                         >
                           <CloseIcon />

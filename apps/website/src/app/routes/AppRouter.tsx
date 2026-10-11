@@ -7,6 +7,10 @@ import { ROUTE_PATHS } from '@/shared/routes/route-config';
 
 import { RouteSkeleton } from './RouteSkeleton';
 
+const ThemesPage = lazy(() =>
+  import('@/pages/themes/ThemesPage').then((module) => ({ default: module.ThemesPage })),
+);
+
 const ChartsPage = lazy(() =>
   import('@/features/charts/ChartsPage').then((module) => ({ default: module.ChartsPage })),
 );
@@ -103,6 +107,7 @@ export function AppRouter() {
           path={ROUTE_PATHS.foundations}
           element={<Navigate to={ROUTE_PATHS.foundationColors} replace />}
         />
+        <Route path={ROUTE_PATHS.themes} element={<ThemesPage />} />
         <Route path={ROUTE_PATHS.charts} element={<ChartsPage />} />
         <Route path={ROUTE_PATHS.foundationColors} element={<ColorsPage />} />
         <Route path={ROUTE_PATHS.foundationTypography} element={<TypographyPage />} />

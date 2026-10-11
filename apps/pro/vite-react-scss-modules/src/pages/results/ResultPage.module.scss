@@ -11,7 +11,10 @@
   flex-direction: column;
   min-width: 0;
   width: 100%;
-  box-shadow: 0 4px 18px color-mix(in srgb, var(--vd-text-primary) 4%, transparent);
+  box-shadow: var(
+    --vd-panel-shadow,
+    0 4px 18px color-mix(in srgb, var(--vd-text-primary) 4%, transparent)
+  );
   &[data-outcome='error'] {
     --result-accent: var(--vd-status-danger-accent);
   }

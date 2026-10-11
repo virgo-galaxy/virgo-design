@@ -115,7 +115,7 @@ describe('Surface', () => {
     (radius) => {
       render(<Surface radius={radius} data-testid="surface" />);
       expect(screen.getByTestId('surface').style.getPropertyValue('--surface-radius')).toBe(
-        `var(--vd-radius-${radius})`,
+        `var(--vd-shape-radius-${radius}, var(--vd-radius-${radius}))`,
       );
     },
   );

@@ -5,6 +5,14 @@ import configuredDefaults from '@/config/settings.json';
 export type Appearance = 'light' | 'dark' | 'system';
 export type SidebarStyle = 'collapsible' | 'labels';
 export type HeaderMaterial = 'solid' | 'glass';
+
+/** Fixed themes override rendering without changing the saved material preference. */
+export function getFixedHeaderMaterial(theme: string): HeaderMaterial | undefined {
+  if (theme === 'glass') return 'glass';
+  if (theme === 'utility' || theme === 'high-contrast') return 'solid';
+  return undefined;
+}
+
 export type NotificationIndicator = 'dot' | 'count' | 'none';
 export const headerHeightRange = {
   min: 48,
@@ -18,6 +26,7 @@ export const sidebarWidthRanges = {
 export interface ProSettings {
   appearance: Appearance;
   headerHeight: number;
+  /** Preferred material for themes that allow customization, not the effective material. */
   headerMaterial: HeaderMaterial;
   sidebarState: LayoutSidebarDisplayState;
   sidebarMode: Exclude<LayoutSidebarDisplayState, 'hidden'>;

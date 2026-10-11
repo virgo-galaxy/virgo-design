@@ -3,11 +3,11 @@
 .root,
 .popoverContent {
   // Portalled submenus need the same defaults as the navigation landmark.
-  --navigation-menu-control-height: var(--vd-sizing-36);
+  --navigation-menu-control-height: var(--vd-control-medium-height, var(--vd-sizing-36));
   --navigation-menu-control-padding: var(--vd-spacing-12);
   --navigation-menu-gap: var(--vd-spacing-4);
   --navigation-menu-icon-size: var(--vd-sizing-20);
-  --navigation-menu-radius: var(--vd-radius-8);
+  --navigation-menu-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
 }
 
 .root {
@@ -46,18 +46,19 @@
 .root[data-variant='segmented'] {
   --navigation-menu-control-height: var(--vd-sizing-32);
   --navigation-menu-icon-size: var(--vd-sizing-16);
-  --navigation-menu-radius: var(--vd-radius-8);
+  --navigation-menu-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
 
   width: max-content;
   max-width: 100%;
   overflow-x: auto;
-  border: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
-  border-radius: var(--vd-radius-12);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
   padding: var(--vd-spacing-4);
   background: var(--vd-surface-secondary);
   font-family: var(--vd-typography-ui-label-medium-font-family);
   font-size: var(--vd-typography-ui-label-medium-font-size);
-  font-weight: var(--vd-typography-ui-label-medium-font-weight);
+  font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
   line-height: var(--vd-typography-ui-label-medium-line-height);
 }
 
@@ -135,9 +136,12 @@
   user-select: none;
 
   transition:
-    color var(--vd-duration-120) var(--vd-easing-standard),
-    background-color var(--vd-duration-120) var(--vd-easing-standard),
-    box-shadow var(--vd-duration-120) var(--vd-easing-standard);
+    color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    background-color var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
+    box-shadow var(--vd-motion-duration-120, var(--vd-duration-120))
+      var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &:hover:not(:disabled):not([aria-disabled='true']) {
     color: var(--vd-text-primary);
@@ -146,12 +150,13 @@
 
   &:focus-visible {
     outline: 0;
-    box-shadow: inset 0 0 0 var(--vd-border-width-2) var(--vd-border-focus);
+    box-shadow: inset 0 0 0 var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-focus);
   }
 
   &[data-active='true'] {
-    color: var(--vd-brand-link);
-    background: var(--vd-brand-subtle-hover);
+    color: var(--vd-navigation-selected-foreground, var(--vd-brand-link));
+    background: var(--vd-navigation-selected-background, var(--vd-brand-subtle-hover));
+    box-shadow: var(--vd-navigation-selected-shadow, none);
   }
 
   &:disabled,
@@ -189,7 +194,8 @@
 
 .disclosureIndicator {
   transform: rotate(0deg);
-  transition: transform var(--vd-duration-180) var(--vd-easing-standard);
+  transition: transform var(--vd-motion-duration-180, var(--vd-duration-180))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &[data-direction='up'] {
     transform: rotate(180deg);
@@ -207,7 +213,8 @@
   margin-block-start: var(--vd-spacing-4);
   margin-inline-start: var(--navigation-menu-control-padding);
   padding-inline-start: var(--vd-spacing-8);
-  border-inline-start: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+  border-inline-start: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-subtle);
 
   &[hidden] {
     display: none;
@@ -224,7 +231,8 @@
   min-width: calc(var(--vd-sizing-80) * 2);
   max-width: calc(var(--vd-sizing-80) * 5);
   padding: var(--vd-spacing-4);
-  animation: navigation-menu-popover-enter var(--vd-duration-120) var(--vd-easing-standard);
+  animation: navigation-menu-popover-enter var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 
   &[data-state='closed'] {
     // Navigation switches between sibling panels immediately; retaining an exit
@@ -240,7 +248,7 @@
   }
 
   &:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
     outline-offset: var(--vd-spacing-2);
   }
 }
@@ -250,19 +258,19 @@
 
   // Keep only the outward half so the rotated square cannot cover menu rows.
   [data-side='right'] > & {
-    clip-path: polygon(0 0, 100% 100%, 0 100%);
+    clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 100% 100%, 0 100%));
   }
 
   [data-side='left'] > & {
-    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 100% 0, 100% 100%));
   }
 
   [data-side='bottom'] > & {
-    clip-path: polygon(0 0, 100% 0, 0 100%);
+    clip-path: var(--vd-overlay-arrow-clip-path, polygon(0 0, 100% 0, 0 100%));
   }
 
   [data-side='top'] > & {
-    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    clip-path: var(--vd-overlay-arrow-clip-path, polygon(100% 0, 100% 100%, 0 100%));
   }
 }
 

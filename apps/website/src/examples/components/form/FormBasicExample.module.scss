@@ -16,6 +16,6 @@
   display: grid;
   gap: var(--vd-spacing-8);
   padding: var(--vd-spacing-12);
-  border: var(--vd-border-width-1) solid var(--vd-border-default);
-  border-radius: var(--vd-radius-6);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-default);
+  border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
 }

@@ -59,7 +59,7 @@
   gap: var(--vd-spacing-8);
   padding: var(--vd-spacing-6) var(--vd-spacing-12);
   border: 0;
-  border-radius: var(--vd-radius-6);
+  border-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   outline: none;
   background: transparent;
   color: var(--vd-text-secondary);
@@ -129,7 +129,7 @@
   border-color: var(--vd-status-danger-border);
 }
 .separator {
-  height: var(--vd-border-width-1);
+  height: var(--vd-stroke-width, var(--vd-border-width-1));
   margin: var(--vd-spacing-4) var(--vd-spacing-8);
   background: var(--vd-border-subtle);
 }
@@ -147,7 +147,7 @@
   width: auto;
   border-start-start-radius: 0;
   border-end-start-radius: 0;
-  margin-inline-start: calc(var(--vd-border-width-1) * -1);
+  margin-inline-start: calc(var(--vd-stroke-width, var(--vd-border-width-1)) * -1);
 }
 .split > :focus-visible,
 .splitTrigger[aria-expanded='true'] {

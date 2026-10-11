@@ -18,7 +18,8 @@
   }
 }
 .chevron {
-  transition: transform var(--vd-duration-120) var(--vd-easing-standard);
+  transition: transform var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
 .name {
   max-width: clamp(60px, 10vw, 140px);

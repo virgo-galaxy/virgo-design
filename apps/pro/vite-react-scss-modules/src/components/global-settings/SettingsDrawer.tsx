@@ -1,9 +1,11 @@
 import { MonitorIcon, MoonFilledIcon, SettingsIcon, SunFilledIcon } from '@virgo-design/icons';
+import { themePresets } from '@virgo-design/themes';
 import {
   Button,
   Drawer,
   Input,
   SegmentedControl,
+  Select,
   Separator,
   Slider,
   Switch,
@@ -12,7 +14,14 @@ import {
 import { type CSSProperties, forwardRef, useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { headerHeightRange, type ProSettings, sidebarWidthRanges } from './settings';
+import { useThemeStyle } from '@/lib/use-theme-style';
+
+import {
+  getFixedHeaderMaterial,
+  headerHeightRange,
+  type ProSettings,
+  sidebarWidthRanges,
+} from './settings';
 import styles from './SettingsDrawer.module.scss';
 
 function PixelInput({
@@ -198,6 +207,8 @@ export function SettingsDrawer({
 }) {
   const { t } = useTranslation();
   const id = useId();
+  const { theme: themeStyle, setTheme } = useThemeStyle();
+  const fixedHeaderMaterial = getFixedHeaderMaterial(themeStyle);
   const rail = settings.sidebarMode === 'collapsed';
   const widthRange = sidebarWidthRanges[settings.sidebarMode];
   const widthLabel = rail ? t('settings.railWidth') : t('settings.expandedWidth');
@@ -220,6 +231,20 @@ export function SettingsDrawer({
           <Drawer.Description>{t('settings.makeThisWorkspaceFeelRight')}</Drawer.Description>
         </Drawer.Header>
         <Drawer.Body className={styles.body}>
+          <section aria-labelledby={`${id}-theme-style`} className={styles.section}>
+            <h2 id={`${id}-theme-style`}>{t('themeStyleControl.label')}</h2>
+            <Select value={themeStyle} onValueChange={setTheme}>
+              <Select.Trigger aria-labelledby={`${id}-theme-style`} />
+              <Select.Content>
+                {themePresets.map((preset) => (
+                  <Select.Option key={preset.id} value={preset.id}>
+                    {preset.name}
+                  </Select.Option>
+                ))}
+              </Select.Content>
+            </Select>
+          </section>
+          <Separator decorative />
           <section aria-labelledby={`${id}-appearance`} className={styles.section}>
             <h2 id={`${id}-appearance`}>{t('settings.appearance')}</h2>
             <SegmentedControl
@@ -348,22 +373,38 @@ export function SettingsDrawer({
                 })}
               </p>
             </div>
-            <SegmentedControl
-              aria-label={t('settings.headerMaterial')}
-              motion="slide"
-              value={settings.headerMaterial}
-              onValueChange={(value) => {
-                if (value === 'solid' || value === 'glass') onChange({ headerMaterial: value });
-              }}
-              className={styles.segments!}
-              size="medium"
-            >
-              <SegmentedControl.Item value="solid">{t('settings.opaque')}</SegmentedControl.Item>
-              <SegmentedControl.Item value="glass">
-                {t('settings.frostedGlass')}
-              </SegmentedControl.Item>
-            </SegmentedControl>
-            <p className={styles.hint}>{t('settings.softenContentScrollingBeneathTheHeader')}</p>
+            {fixedHeaderMaterial ? (
+              <p className={styles.hint}>
+                {t(
+                  fixedHeaderMaterial === 'glass'
+                    ? 'settings.themeUsesGlassHeader'
+                    : 'settings.themeUsesOpaqueHeader',
+                )}
+              </p>
+            ) : (
+              <>
+                <SegmentedControl
+                  aria-label={t('settings.headerMaterial')}
+                  motion="slide"
+                  value={settings.headerMaterial}
+                  onValueChange={(value) => {
+                    if (value === 'solid' || value === 'glass') onChange({ headerMaterial: value });
+                  }}
+                  className={styles.segments!}
+                  size="medium"
+                >
+                  <SegmentedControl.Item value="solid">
+                    {t('settings.opaque')}
+                  </SegmentedControl.Item>
+                  <SegmentedControl.Item value="glass">
+                    {t('settings.frostedGlass')}
+                  </SegmentedControl.Item>
+                </SegmentedControl>
+                <p className={styles.hint}>
+                  {t('settings.softenContentScrollingBeneathTheHeader')}
+                </p>
+              </>
+            )}
           </section>
           <Separator decorative />
           <section aria-labelledby={`${id}-navigation`} className={styles.section}>

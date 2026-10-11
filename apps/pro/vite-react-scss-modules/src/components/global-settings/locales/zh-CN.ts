@@ -50,6 +50,8 @@ export const settingsZhCN = {
   valueValuePixels: '{{v0}}–{{v1}} 像素。',
   opaque: '不透明',
   frostedGlass: '磨砂玻璃',
+  themeUsesGlassHeader: '当前主题固定使用玻璃顶栏。',
+  themeUsesOpaqueHeader: '当前主题固定使用不透明顶栏。',
   softenContentScrollingBeneathTheHeader: '柔化顶栏下方滚动的内容。',
   expanded: '展开',
   iconRail: '图标栏',

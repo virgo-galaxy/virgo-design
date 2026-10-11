@@ -37,7 +37,7 @@
 }
 .stepsFrame {
   padding: var(--vd-spacing-16);
-  border-bottom: var(--vd-border-width-1) solid var(--vd-border-subtle);
+  border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
 }
 .steps {
   [data-slot='trigger'] {
@@ -132,7 +132,7 @@
 .choice {
   padding: var(--vd-spacing-12);
   border: 1px solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   font-size: var(--vd-font-size-12);
 }
 .reviewGrid {
@@ -144,7 +144,7 @@
   margin: 0;
   padding: var(--vd-spacing-16);
   border: 1px solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   display: grid;
   gap: var(--vd-spacing-16);
   > div {
@@ -190,7 +190,7 @@
 }
 .reviewNotes {
   background: var(--vd-surface-secondary);
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   padding: var(--vd-spacing-16);
   color: var(--vd-text-secondary);
   font-size: var(--vd-font-size-12);

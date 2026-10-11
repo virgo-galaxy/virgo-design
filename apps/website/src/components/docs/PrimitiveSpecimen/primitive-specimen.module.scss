@@ -7,7 +7,7 @@
   min-height: 112px;
   padding: 24px;
   border: 1px dashed var(--layout-line);
-  border-radius: var(--vd-radius-8);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   color: CanvasText;
   background: Canvas;
   color-scheme: light;

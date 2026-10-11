@@ -5,15 +5,17 @@
   z-index: panel.$layer;
   inset: var(--vd-spacing-0);
   background: var(--vd-surface-overlay);
-  animation: drawer-overlay-enter var(--vd-duration-180) var(--vd-easing-standard) both;
+  animation: drawer-overlay-enter var(--vd-motion-duration-180, var(--vd-duration-180))
+    var(--vd-motion-easing-standard, var(--vd-easing-standard)) both;
 }
 
 .overlay[data-state='closed'] {
-  animation: drawer-overlay-exit var(--vd-duration-120) var(--vd-easing-accelerate) both;
+  animation: drawer-overlay-exit var(--vd-motion-duration-120, var(--vd-duration-120))
+    var(--vd-easing-accelerate) both;
 }
 
 .content {
-  @include panel.surface;
+  @include panel.surface(overlay);
 
   --drawer-size: calc(var(--vd-sizing-80) * 6);
   --drawer-section-padding: var(--vd-spacing-24);
@@ -27,14 +29,15 @@
   display: flex;
   overflow: hidden;
   flex-direction: column;
-  border-radius: var(--vd-radius-12);
-  box-shadow: var(--vd-elevation-4);
-  animation-duration: var(--vd-duration-240);
-  animation-timing-function: var(--vd-easing-emphasized);
+  border-radius: var(--vd-shape-radius-12, var(--vd-radius-12));
+  box-shadow: var(--vd-elevation-4), var(--vd-panel-highlight, 0 0 0 transparent);
+  animation-duration: var(--vd-motion-duration-240, var(--vd-duration-240));
+  animation-timing-function: var(--vd-motion-easing-emphasized, var(--vd-easing-emphasized));
   animation-fill-mode: both;
 
   &:focus-visible {
-    outline: var(--vd-border-width-2) var(--vd-border-style-solid) var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) var(--vd-border-style-solid)
+      var(--vd-border-focus);
     outline-offset: calc(var(--vd-spacing-2) * -1);
   }
 }
@@ -75,8 +78,8 @@
 
 .content[data-placement='left'] {
   left: var(--vd-spacing-0);
-  border-top-left-radius: var(--vd-radius-0);
-  border-bottom-left-radius: var(--vd-radius-0);
+  border-top-left-radius: var(--vd-shape-radius-0, var(--vd-radius-0));
+  border-bottom-left-radius: var(--vd-shape-radius-0, var(--vd-radius-0));
   animation-name: drawer-enter-left;
 }
 
@@ -86,8 +89,8 @@
 
 .content[data-placement='right'] {
   right: var(--vd-spacing-0);
-  border-top-right-radius: var(--vd-radius-0);
-  border-bottom-right-radius: var(--vd-radius-0);
+  border-top-right-radius: var(--vd-shape-radius-0, var(--vd-radius-0));
+  border-bottom-right-radius: var(--vd-shape-radius-0, var(--vd-radius-0));
   animation-name: drawer-enter-right;
 }
 
@@ -97,8 +100,8 @@
 
 .content[data-placement='top'] {
   top: var(--vd-spacing-0);
-  border-top-left-radius: var(--vd-radius-0);
-  border-top-right-radius: var(--vd-radius-0);
+  border-top-left-radius: var(--vd-shape-radius-0, var(--vd-radius-0));
+  border-top-right-radius: var(--vd-shape-radius-0, var(--vd-radius-0));
   animation-name: drawer-enter-top;
 }
 
@@ -108,8 +111,8 @@
 
 .content[data-placement='bottom'] {
   bottom: var(--vd-spacing-0);
-  border-bottom-left-radius: var(--vd-radius-0);
-  border-bottom-right-radius: var(--vd-radius-0);
+  border-bottom-left-radius: var(--vd-shape-radius-0, var(--vd-radius-0));
+  border-bottom-right-radius: var(--vd-shape-radius-0, var(--vd-radius-0));
   animation-name: drawer-enter-bottom;
 }
 
@@ -123,7 +126,8 @@
   gap: var(--vd-spacing-6);
   padding: var(--drawer-section-padding);
   padding-inline-end: calc(var(--drawer-section-padding) + var(--vd-sizing-36));
-  border-block-end: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+  border-block-end: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-subtle);
 }
 
 .title {
@@ -156,7 +160,8 @@
   justify-content: flex-end;
   gap: var(--vd-spacing-8);
   padding: var(--drawer-section-gap) var(--drawer-section-padding);
-  border-block-start: var(--vd-border-width-1) var(--vd-border-style-solid) var(--vd-border-subtle);
+  border-block-start: var(--vd-stroke-width, var(--vd-border-width-1)) var(--vd-border-style-solid)
+    var(--vd-border-subtle);
 }
 
 .close {

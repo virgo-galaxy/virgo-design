@@ -5,8 +5,8 @@
   max-width: 100%;
   width: 20rem;
   padding: var(--vd-spacing-16);
-  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
-  border-radius: var(--vd-radius-8);
+  border: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   background: var(--vd-surface-default);
   color: var(--vd-text-primary);
   font-family: var(--vd-typography-ui-body-medium-font-family);
@@ -30,7 +30,7 @@
   [data-calendar-header] h2 {
     margin: 0;
     font-size: var(--vd-typography-ui-label-medium-font-size);
-    font-weight: var(--vd-typography-ui-label-medium-font-weight);
+    font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
   }
   [data-calendar-navigation] {
     display: inline-flex;
@@ -39,7 +39,7 @@
     width: var(--vd-sizing-28);
     height: var(--vd-sizing-28);
     border: 0;
-    border-radius: var(--vd-radius-4);
+    border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
     background: transparent;
     color: inherit;
     cursor: pointer;
@@ -71,8 +71,8 @@
     width: 100%;
     height: var(--calendar-day-height);
     padding: 0;
-    border: var(--vd-border-width-1) solid transparent;
-    border-radius: var(--vd-radius-4);
+    border: var(--vd-stroke-width, var(--vd-border-width-1)) solid transparent;
+    border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
     background: transparent;
     color: inherit;
     cursor: pointer;
@@ -84,7 +84,7 @@
     background: var(--vd-fill-hover);
   }
   button:focus-visible {
-    outline: var(--vd-border-width-2) solid var(--vd-border-focus);
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
     outline-offset: -1px;
   }
   button:disabled {
@@ -129,7 +129,7 @@
       padding-inline: var(--vd-spacing-8);
     }
     td {
-      border-top: var(--vd-border-width-1) solid var(--vd-border-subtle);
+      border-top: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
     }
     [data-calendar-date],
     [data-calendar-month] {
