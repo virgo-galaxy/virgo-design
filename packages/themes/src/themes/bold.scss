@@ -1,6 +1,6 @@
 @use './recipe';
 
-[data-virgo-theme='high-contrast'] {
+[data-virgo-theme='bold'] {
   --vd-switch-radius: 2px;
   --vd-content-surface: var(--vd-surface-default);
   --vd-content-surface-solid: var(--vd-table-body-background, var(--vd-surface-elevated));

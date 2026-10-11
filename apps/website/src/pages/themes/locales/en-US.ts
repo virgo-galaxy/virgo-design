@@ -40,9 +40,9 @@ export const themesEnUS = {
     soft: 'Gentle gray tones, rounder controls, relaxed control geometry and soft elevation.',
     glass:
       'Neutral translucent white or black, real backdrop lensing, light specular edges and soft floating depth. Blue belongs to actions and selection. Opaque fallback remains readable.',
-    utility:
+    retro:
       'Compact controls, square corners, hard boundaries, inset/outset shadows and visible pressed movement.',
-    highContrast:
+    bold:
       'Strong text and surface separation, explicit borders, focus and selection, legible disabled states and no dependence on shadows.',
   },
   authoring: {

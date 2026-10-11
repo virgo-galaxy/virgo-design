@@ -6,15 +6,15 @@ import '@virgo-design/themes/styles.css';
 import './styles/global.scss';
 import './i18n/runtime';
 
-import { initializeTheme } from '@virgo-design/themes';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { App } from '@/App';
 import { ProControlLabels } from '@/app/ProControlLabels';
 import { AppBootstrap } from '@/application/AppBootstrap';
+import { initializeProTheme } from '@/lib/pro-theme';
 
-initializeTheme();
+initializeProTheme();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

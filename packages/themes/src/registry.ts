@@ -26,8 +26,8 @@ export const themePresets = Object.freeze([
   preset('minimal', 'Minimal', 'minimal'),
   preset('soft', 'Soft', 'soft'),
   preset('glass', 'Glass', 'glass'),
-  preset('utility', 'Utility', 'utility'),
-  preset('high-contrast', 'High Contrast', 'highContrast'),
+  preset('retro', 'Retro', 'retro'),
+  preset('bold', 'Bold', 'bold'),
 ] as const);
 
 export type ThemeId = (typeof themePresets)[number]['id'];
@@ -40,6 +40,13 @@ const extensions = new Map<string, ThemePreset>();
 
 export function getThemePreset(id: string): ThemePreset | undefined {
   return Object.hasOwn(themeRegistry, id) ? themeRegistry[id as ThemeId] : extensions.get(id);
+}
+
+/** Upgrade saved IDs; new selections must use the current registry IDs. */
+export function resolveThemeId(value: unknown): string | undefined {
+  if (typeof value !== 'string') return undefined;
+  const id = value === 'utility' ? 'retro' : value === 'high-contrast' ? 'bold' : value;
+  return getThemePreset(id) ? id : undefined;
 }
 
 /** Register third-party CSS before initializing the runtime; official IDs are reserved. */

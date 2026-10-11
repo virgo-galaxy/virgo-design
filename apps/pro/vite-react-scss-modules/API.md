@@ -232,15 +232,23 @@ review. Members only change their own task progress; title, description, schedul
 The Mock gateway also enforces these rules; hiding a button is not the only guard. Admin has
 full task controls for demo inspection. Every account can edit its own profile and personal preferences. Profiles are persisted by user ID; a preferred project must belong to that account. Global/table settings and demo reset remain Admin-only.
 
-Language, theme style and the light/dark toggle are available to every role. Non-Admin
-accounts persist only the appearance field in browser settings, preserving Admin's
-saved layout configuration. Appearance survives refresh and is shared by accounts
+Language, theme and the light/dark toggle are available to every role. Non-Admin
+accounts persist appearance and theme fields in browser settings, preserving Admin's
+saved layout configuration. Appearance and theme survive refresh and are shared by accounts
 using the same browser.
+
+Theme, appearance and layout share the versioned `virgo-pro:settings:v1` JSON record.
+`src/config/settings.json` supplies their defaults in appearance/theme, header, sidebar,
+page visibility and interaction order. The former standalone theme key is migrated
+and removed; legacy theme IDs `utility` and `high-contrast` become `retro` and `bold`.
+Restore default settings restores the configured theme, appearance and layout while
+keeping the session and demo data. Reset demo data clears saved demo preferences,
+restores the live theme and ends the demo session.
 
 `src/config/settings.json` defines the default `headerMaterial` preference (`solid` or
 `glass`); browser settings save the user's choice under the same field. Virgo, Minimal
 and Soft use that preference and show the header-material switch. Glass always renders
-a glass header; Utility and High Contrast always render an opaque header. Fixed-material
+a glass header; Retro and Bold always render an opaque header. Fixed-material
 themes show an explanatory note instead of the switch. The effective material is derived
 from the theme during rendering, without overwriting or removing the saved preference.
 Returning to a customizable theme restores that preference, including after refresh.

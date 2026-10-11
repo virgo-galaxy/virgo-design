@@ -14,6 +14,15 @@ afterEach(() => {
 });
 
 describe('theme runtime', () => {
+  it.each([
+    ['utility', 'retro'],
+    ['high-contrast', 'bold'],
+  ])('upgrades saved %s to %s and rejects new selections with the old ID', (oldId, newId) => {
+    localStorage.setItem(themeStorageKey, oldId!);
+    expect(initializeTheme()).toBe(newId);
+    expect(localStorage.getItem(themeStorageKey)).toBe(newId);
+    expect(() => setTheme(oldId!)).toThrow(RangeError);
+  });
   it('restores a valid preference before rendering and preserves appearance', () => {
     document.documentElement.dataset.theme = 'dark';
     localStorage.setItem(themeStorageKey, 'soft');
@@ -33,7 +42,7 @@ describe('theme runtime', () => {
     expect(getTheme()).toBe('glass');
     expect(localStorage.getItem(themeStorageKey)).toBe('glass');
     stopHeader();
-    setTheme('utility');
+    setTheme('retro');
     expect(header).toHaveBeenCalledOnce();
     expect(settings).toHaveBeenCalledTimes(2);
     stopSettings();
@@ -41,12 +50,10 @@ describe('theme runtime', () => {
   it('synchronizes other tabs and reset events, then removes the storage listener', () => {
     const changed = vi.fn();
     const stop = subscribeTheme(changed);
-    window.dispatchEvent(
-      new StorageEvent('storage', { key: themeStorageKey, newValue: 'high-contrast' }),
-    );
-    expect(getTheme()).toBe('high-contrast');
+    window.dispatchEvent(new StorageEvent('storage', { key: themeStorageKey, newValue: 'bold' }));
+    expect(getTheme()).toBe('bold');
     window.dispatchEvent(new StorageEvent('storage', { key: 'unrelated', newValue: 'minimal' }));
-    expect(getTheme()).toBe('high-contrast');
+    expect(getTheme()).toBe('bold');
     window.dispatchEvent(new StorageEvent('storage', { key: null }));
     expect(getTheme()).toBe(defaultTheme);
     stop();
@@ -76,8 +83,8 @@ describe('theme runtime', () => {
       'minimal',
       'soft',
       'glass',
-      'utility',
-      'high-contrast',
+      'retro',
+      'bold',
     ]);
     registerTheme({
       id: 'studio-test',

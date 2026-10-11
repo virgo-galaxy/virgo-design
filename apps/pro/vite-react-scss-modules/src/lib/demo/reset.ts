@@ -1,3 +1,7 @@
+import { themeStorageKey } from '@virgo-design/themes';
+
+import { initializeProTheme } from '@/lib/pro-theme';
+
 export const demoResetEvent = 'virgo-pro:demo-reset';
 
 export function clearDemoStorage() {
@@ -8,4 +12,6 @@ export function clearDemoStorage() {
     for (const key of keys)
       if (key?.startsWith('virgo-pro.') || key?.startsWith('virgo-pro:')) storage.removeItem(key);
   }
+  window.localStorage.removeItem(themeStorageKey);
+  initializeProTheme();
 }

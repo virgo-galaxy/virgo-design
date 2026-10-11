@@ -17,16 +17,25 @@ initializeTheme(); // before rendering
 setTheme('soft');
 ```
 
-Official `ThemeId`s are `virgo`, `minimal`, `soft`, `glass`, `utility`,
-`high-contrast`. The default is `virgo`. `themePresets` is an ordered immutable
+Official `ThemeId`s are `virgo`, `minimal`, `soft`, `glass`, `retro`,
+`bold`. The default is `virgo`. `themePresets` is an ordered immutable
 list; `themeRegistry` maps the IDs to `ThemePreset` metadata including contract
 version and `['light', 'dark']` appearances.
 
-The runtime sets `html[data-virgo-theme]`, persists under
+The runtime sets `html[data-virgo-theme]`, persists by default under
 `virgo-design.theme-style.v1`, synchronizes storage events between tabs, and
 continues in memory if storage is blocked. It never changes `data-theme`,
 `color-scheme`, or an appearance preference. Consumers retain their existing
 light/dark/auto state. Pro's existing name for auto is `system`.
+
+`initializeTheme({ defaultTheme, storage })` accepts a `ThemeStorage` codec with
+`key`, `parse(raw)` and `serialize(id, raw)` to store a theme inside an existing
+settings record. Pro uses this to persist `theme` with appearance and layout in
+`virgo-pro:settings:v1`, with defaults from `src/config/settings.json`. It migrates
+and removes the former standalone theme key. Saved `utility` and `high-contrast`
+IDs migrate to `retro` and `bold`; new selections use the new IDs. Restoring Pro
+settings restores the configured theme; resetting demo data also clears the saved
+record and restores the live theme before returning to login.
 
 ```tsx
 import { useSyncExternalStore } from 'react';
@@ -35,7 +44,7 @@ import { getTheme, getServerTheme, setTheme, subscribeTheme } from '@virgo-desig
 const theme = useSyncExternalStore(subscribeTheme, getTheme, getServerTheme);
 ```
 
-For SSR, `getServerTheme` returns Virgo. Render the preference in the initial
+For SSR, `getServerTheme` returns the configured default (Virgo unless specified). Render the preference in the initial
 HTML and initialize before hydration if avoiding a first-paint difference is
 required. This package does not invent a server-side preference source.
 

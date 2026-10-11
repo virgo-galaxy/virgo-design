@@ -25,8 +25,8 @@ packages/themes/
         ├── minimal.scss
         ├── soft.scss
         ├── glass.scss
-        ├── utility.scss
-        └── high-contrast.scss
+        ├── retro.scss
+        └── bold.scss
 ```
 
 导出 `@virgo-design/themes` 与 `@virgo-design/themes/styles.css`。构建遵循仓库的 Vite library + TypeScript declaration 约定。依赖为 themes → tokens、ui → tokens、charts → tokens；themes 不依赖 UI，UI/Charts 不导入 themes。官方主题 SCSS 只设置变量，没有组件 class 或业务页面选择器。
@@ -55,9 +55,11 @@ packages/themes/
 
 ## Runtime 与 Appearance
 
-官方 `ThemeId` 固定为 `virgo`、`minimal`、`soft`、`glass`、`utility`、`high-contrast`。`ThemePreset` 与只读 registry 提供名称、description key、contract version 和 light/dark 支持。默认 Virgo。
+官方 `ThemeId` 固定为 `virgo`、`minimal`、`soft`、`glass`、`retro`、`bold`。`ThemePreset` 与只读 registry 提供名称、description key、contract version 和 light/dark 支持。默认 Virgo。
 
-`initializeTheme()` 在第一次 React render 前恢复 `virgo-design.theme-style.v1`，设置 HTML 的 `data-virgo-theme`。`setTheme()` 校验 ID、持久化、应用属性并通知订阅者。`subscribeTheme()` 可直接接入 `useSyncExternalStore`，Header 与 Settings 共用状态；storage event 同步其他同源页面，storage 不可用时仍可切换。第三方主题在初始化前通过 `registerTheme()` 注册，官方 ID 不可覆盖。
+`initializeTheme()` 默认在第一次 React render 前恢复 `virgo-design.theme-style.v1`，设置 HTML 的 `data-virgo-theme`。`setTheme()` 校验 ID、持久化、应用属性并通知订阅者。`subscribeTheme()` 可直接接入 `useSyncExternalStore`，Header 与 Settings 共用状态；storage event 同步其他同源页面，storage 不可用时仍可切换。第三方主题在初始化前通过 `registerTheme()` 注册，官方 ID 不可覆盖。
+
+Pro 通过 `initializeTheme({ defaultTheme, storage })` 接入共享 settings JSON：`theme`、`appearance` 与布局一起保存在 `virgo-pro:settings:v1`，默认值统一读取 `src/config/settings.json`。字段顺序为外观／主题、顶栏、侧栏、页面显示、交互。初始化迁移并删除旧的独立主题键，旧 ID `utility`／`high-contrast` 迁移为 `retro`／`bold`；新选择只接受新 ID。恢复默认设置同时恢复主题、外观和布局；重置演示数据清除保存记录、恢复实时主题并退出演示会话，待写入的旧状态不会重新覆盖默认值。
 
 主题 runtime 不管理 Light/Dark。Website 复用 AppearanceProvider，支持 light/dark/auto，沿用 `virgo-design-appearance`。Pro 复用原 settings 的 light/dark/system；System 即 Auto。两者继续设置现有 HTML `data-theme`，同时更新 color-scheme。
 
@@ -67,9 +69,9 @@ HTML 属性让 body Portal 继承主题；并排对照通过现有 `PortalProvid
 
 两个 app 入口按 Tokens、Themes、应用 styles 的顺序加载 CSS，并在渲染前初始化 runtime。两边 selector 使用同一个 registry；Pro Settings 也使用同一个外部 store。Pro Header 的语言 → Theme Style → Appearance → 通知 → 设置顺序保持，Shirt 始终使用 Outline，点击及打开菜单时保持空心。
 
-Website `/themes` 提供中英文说明、安装、runtime/React 示例、第三方注册和同一套 Button/Input/Select/Checkbox/Table/Dialog/Tooltip/Surface/Chart 的六主题对照。Foundation 标本中的原始色阶与尺度仍展示参考值；其周边界面与真实组件跟随主题。
+Website `/themes` 提供中英文说明、安装、runtime/React 示例、第三方注册和同一套 Button/Input/Select/Checkbox/Table/Dialog/Tooltip/Surface/Chart 的完整展示，通过顶栏切换六种主题。Foundation 标本中的原始色阶与尺度仍展示参考值；其周边界面与真实组件跟随主题。
 
-Pro 顶栏材质按主题决定：Virgo、Minimal、Soft 保留“不透明／磨砂玻璃”选择；Glass 固定玻璃；Utility、High Contrast 固定不透明。固定材质时，Settings 隐藏切换控件并显示说明，顶栏高度设置继续保留。`src/config/settings.json` 的 `headerMaterial` 定义可自定义主题的默认偏好，浏览器保存同名字段记录用户选择。实际材质在渲染时由共享的 `getFixedHeaderMaterial()` 规则与偏好共同决定，不另行持久化，也不因切换主题覆盖偏好；切回可自定义主题时恢复原选择。第三方主题默认允许使用该偏好。
+Pro 顶栏材质按主题决定：Virgo、Minimal、Soft 保留“不透明／磨砂玻璃”选择；Glass 固定玻璃；Retro、Bold 固定不透明。固定材质时，Settings 隐藏切换控件并显示说明，顶栏高度设置继续保留。`src/config/settings.json` 的 `headerMaterial` 定义可自定义主题的默认偏好，浏览器保存同名字段记录用户选择。实际材质在渲染时由共享的 `getFixedHeaderMaterial()` 规则与偏好共同决定，不另行持久化，也不因切换主题覆盖偏好；切回可自定义主题时恢复原选择。第三方主题默认允许使用该偏好。
 
 Charts 保持 Virgo API → ECharts engine。CSS compiler 读取语义变量，祖先 class/style/data-theme/data-virgo-theme 或系统外观变化时刷新 options，同一实例通过 setOption 更新。
 

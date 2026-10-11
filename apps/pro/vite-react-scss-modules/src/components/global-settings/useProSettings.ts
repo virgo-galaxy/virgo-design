@@ -1,7 +1,9 @@
+import { getTheme, setTheme } from '@virgo-design/themes';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { clearAppearance, currentAppearance } from '@/lib/appearance';
 import { demoResetEvent } from '@/lib/demo/reset';
+import { useThemeStyle } from '@/lib/use-theme-style';
 
 import {
   defaultProSettings,
@@ -12,6 +14,7 @@ import {
 } from './settings';
 
 export function useProSettings(canPersist = true) {
+  const { theme: themeStyle } = useThemeStyle();
   const resetting = useRef(false);
   useEffect(() => {
     const stopSaving = () => {
@@ -30,6 +33,15 @@ export function useProSettings(canPersist = true) {
     }
   });
   const [storageAvailable, setStorageAvailable] = useState(true);
+  useEffect(() => {
+    const syncSettings = (event: StorageEvent) => {
+      if (event.storageArea && event.storageArea !== window.localStorage) return;
+      if (event.key === settingsStorageKey || event.key === null)
+        setSettings(parseProSettings(event.newValue));
+    };
+    window.addEventListener('storage', syncSettings);
+    return () => window.removeEventListener('storage', syncSettings);
+  }, []);
   const [systemDark, setSystemDark] = useState(
     () => window.matchMedia('(prefers-color-scheme: dark)').matches,
   );
@@ -43,12 +55,13 @@ export function useProSettings(canPersist = true) {
     const save = () => {
       if (resetting.current) return;
       try {
-        // Every role can save appearance; only Admin can persist global layout settings.
+        // Every role can save theme and appearance; only Admin can persist global layout settings.
         const saved = canPersist
-          ? settings
+          ? { ...settings, theme: getTheme() }
           : {
               ...parseProSettings(window.localStorage.getItem(settingsStorageKey)),
               appearance: settings.appearance,
+              theme: getTheme(),
             };
         window.localStorage.setItem(settingsStorageKey, serializeProSettings(saved));
         setStorageAvailable(true);
@@ -63,8 +76,9 @@ export function useProSettings(canPersist = true) {
       window.clearTimeout(timer);
       window.removeEventListener('pagehide', save);
     };
-  }, [settings, canPersist]);
+  }, [settings, canPersist, themeStyle]);
   const updateSettings = useCallback((patch: Partial<ProSettings>) => {
+    if (patch.theme !== undefined) setTheme(patch.theme);
     setSettings((previous) => {
       const next = { ...previous, ...patch };
       if (next.sidebarState !== 'hidden') next.sidebarMode = next.sidebarState;
@@ -75,8 +89,19 @@ export function useProSettings(canPersist = true) {
         : next;
     });
   }, []);
-  const resetSettings = () => setSettings({ ...defaultProSettings });
+  const resetSettings = () => {
+    clearAppearance();
+    setTheme(defaultProSettings.theme);
+    setSettings({ ...defaultProSettings });
+  };
   const theme =
     settings.appearance === 'system' ? (systemDark ? 'dark' : 'light') : settings.appearance;
-  return { settings, setSettings, updateSettings, resetSettings, theme, storageAvailable };
+  return {
+    settings: { ...settings, theme: themeStyle },
+    setSettings,
+    updateSettings,
+    resetSettings,
+    theme,
+    storageAvailable,
+  };
 }

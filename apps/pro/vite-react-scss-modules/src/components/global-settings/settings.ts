@@ -1,3 +1,4 @@
+import { getThemePreset, resolveThemeId } from '@virgo-design/themes';
 import type { LayoutSidebarDisplayState } from '@virgo-design/ui';
 
 import configuredDefaults from '@/config/settings.json';
@@ -9,7 +10,7 @@ export type HeaderMaterial = 'solid' | 'glass';
 /** Fixed themes override rendering without changing the saved material preference. */
 export function getFixedHeaderMaterial(theme: string): HeaderMaterial | undefined {
   if (theme === 'glass') return 'glass';
-  if (theme === 'utility' || theme === 'high-contrast') return 'solid';
+  if (theme === 'retro' || theme === 'bold') return 'solid';
   return undefined;
 }
 
@@ -24,6 +25,7 @@ export const sidebarWidthRanges = {
   collapsed: { min: 48, max: 80, default: configuredDefaults.sidebarRailWidth },
 } as const;
 export interface ProSettings {
+  theme: string;
   appearance: Appearance;
   headerHeight: number;
   /** Preferred material for themes that allow customization, not the effective material. */
@@ -46,6 +48,7 @@ export interface ProSettings {
 export const settingsStorageKey = 'virgo-pro:settings:v1';
 function readDefaultSettings(): ProSettings {
   const {
+    theme,
     appearance,
     headerMaterial,
     sidebarState,
@@ -54,6 +57,7 @@ function readDefaultSettings(): ProSettings {
     notificationIndicator,
   } = configuredDefaults;
   if (
+    !getThemePreset(theme) ||
     (appearance !== 'light' && appearance !== 'dark' && appearance !== 'system') ||
     (headerMaterial !== 'solid' && headerMaterial !== 'glass') ||
     (sidebarState !== 'expanded' && sidebarState !== 'collapsed' && sidebarState !== 'hidden') ||
@@ -75,6 +79,7 @@ function readDefaultSettings(): ProSettings {
   }
   return {
     ...configuredDefaults,
+    theme,
     appearance,
     headerMaterial,
     sidebarState,
@@ -92,6 +97,7 @@ export function parseProSettings(raw: string | null): ProSettings {
     if (!data || typeof data !== 'object' || !('version' in data) || data.version !== 1)
       return settings;
     const record = data as Record<string, unknown>;
+    settings.theme = resolveThemeId(record.theme) ?? settings.theme;
     if (
       record.appearance === 'light' ||
       record.appearance === 'dark' ||

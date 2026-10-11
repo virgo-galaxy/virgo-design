@@ -1,8 +1,20 @@
 import { initializeThemeOptics } from './optics';
-import { defaultTheme, getThemePreset } from './registry';
+import { defaultTheme, getThemePreset, resolveThemeId } from './registry';
 
 export const themeStorageKey = 'virgo-design.theme-style.v1';
 let currentTheme: string = defaultTheme;
+let fallbackTheme: string = defaultTheme;
+export interface ThemeStorage {
+  readonly key: string;
+  parse(raw: string | null): string | null;
+  serialize(id: string, raw: string | null): string;
+}
+const defaultStorage: ThemeStorage = {
+  key: themeStorageKey,
+  parse: (raw) => raw,
+  serialize: (id) => id,
+};
+let storage: ThemeStorage = defaultStorage;
 const listeners = new Set<() => void>();
 
 function apply(id: string) {
@@ -14,41 +26,56 @@ function apply(id: string) {
 }
 
 /** Call before the first render. Never reads or writes the appearance preference. */
-export function initializeTheme(): string {
+export function initializeTheme(
+  options: { defaultTheme?: string; storage?: ThemeStorage } = {},
+): string {
+  fallbackTheme = options.defaultTheme ?? defaultTheme;
+  if (!getThemePreset(fallbackTheme)) throw new RangeError(`Unknown theme: ${fallbackTheme}`);
+  storage = options.storage ?? defaultStorage;
   if (typeof window === 'undefined') return currentTheme;
   initializeThemeOptics();
   let saved: string | null = null;
   try {
-    saved = window.localStorage.getItem(themeStorageKey);
+    saved = storage.parse(window.localStorage.getItem(storage.key));
   } catch {
     /* Storage can be denied. */
   }
-  return apply(saved && getThemePreset(saved) ? saved : defaultTheme);
+  const id = resolveThemeId(saved) ?? fallbackTheme;
+  if (saved && id !== saved && resolveThemeId(saved)) persist(id);
+  return apply(id);
 }
 
 export function getTheme(): string {
   return currentTheme;
 }
 export function getServerTheme(): string {
-  return defaultTheme;
+  return fallbackTheme;
+}
+
+function persist(id: string) {
+  if (typeof window === 'undefined') return;
+  try {
+    const raw = window.localStorage.getItem(storage.key);
+    window.localStorage.setItem(storage.key, storage.serialize(id, raw));
+  } catch {
+    /* Switching still works when storage is blocked. */
+  }
 }
 
 export function setTheme(id: string): void {
   if (!getThemePreset(id)) throw new RangeError(`Unknown theme: ${id}`);
-  if (typeof window !== 'undefined') {
-    try {
-      window.localStorage.setItem(themeStorageKey, id);
-    } catch {
-      /* Switching still works. */
-    }
-  }
+  persist(id);
   apply(id);
 }
 
 function onStorage(event: StorageEvent) {
   if (event.storageArea && event.storageArea !== window.localStorage) return;
-  if (event.key !== themeStorageKey && event.key !== null) return;
-  apply(event.newValue && getThemePreset(event.newValue) ? event.newValue : defaultTheme);
+  if (event.key !== storage.key && event.key !== null) return;
+  try {
+    apply(resolveThemeId(storage.parse(event.newValue)) ?? fallbackTheme);
+  } catch {
+    apply(fallbackTheme);
+  }
 }
 
 /** Compatible with useSyncExternalStore, without a React dependency or a second state. */
