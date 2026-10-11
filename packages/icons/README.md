@@ -34,6 +34,12 @@ packages/icons/src/generated/
 
 The package entry point is generated from the available canonical icons.
 
+`ShirtIcon` / `ShirtFilledIcon` form the theme-style control family. Their clipped
+neckline, chamfered sleeves and negative-space construction follow the existing
+cyber-geometric language. Pro and Website always use Outline for the theme-style
+control, including while its menu is open. Both variants share a fine geometric Messi-inspired
+chest emblem, rendered as solid lines in Outline and transparent lines in Filled.
+
 `ChartLineIcon` is a single outline family for analytics and data visualization navigation.
 It pairs with the dial-shaped `GaugeIcon` for dashboard navigation, using open axes and a rising
 line to keep the two destinations visually distinct at small sizes.
@@ -315,7 +321,7 @@ not an SVG stroke API; the existing viewBox, weight, chamfers, curves, negative-
 optical-size rules apply to both. There is no runtime `<Icon variant="">` abstraction.
 The generator validates family membership and variant naming before writing components.
 
-Only these 37 families have a Filled variant:
+Only these 38 families have a Filled variant:
 
 ```text
 bell, bot, briefcase, calendar,
@@ -323,7 +329,7 @@ circle-check, circle-info, circle-x, triangle-alert,
 dashboard, database, filter, form, gauge, home, layers, layout, widgets,
 eye, eye-closed, lock, unlock, pin, unpin, microphone, monitor,
 sun, moon, play, pause, stop,
-palette, receipt, settings, shapes, studio-tools, trash, user
+palette, receipt, settings, shapes, shirt, studio-tools, trash, user
 ```
 
 Other icons retain their existing single regular shape and record `variant: 'outline'`;

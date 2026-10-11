@@ -1,5 +1,12 @@
 # Third-party notices
 
+## Messi-inspired chest emblem
+
+The fine chest emblem in `icons/shirt.svg` and `icons/shirt-filled.svg` is a
+hand-drawn geometric outline inspired by Lionel Messi's personal mark.
+Visual reference: [Messi personal mark](https://www.brandcrowd.com/blog/instagram-logos-from-the-top-20-influencers).
+The Messi name and personal mark belong to their respective rights holders.
+
 ## GitHub mark
 
 `icons/github.svg` and the generated `GithubIcon` use the geometry of

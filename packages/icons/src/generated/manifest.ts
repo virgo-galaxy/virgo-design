@@ -1273,6 +1273,32 @@ export const iconManifest = [
     componentName: 'ShapesFilledIcon',
   },
   {
+    id: 'shirt',
+    family: 'shirt',
+    variant: 'outline',
+    category: 'design',
+    tags: ['theme', 'appearance', 'clothing', 'shirt', 'style'],
+    aliases: ['t-shirt', 'clothes', 'theme-style'],
+    status: 'stable',
+    description:
+      'An outlined top with chamfered sleeves, an angular neckline, a fine Messi-inspired chest emblem and a solid hem seam for theme and appearance controls.',
+    animated: false,
+    componentName: 'ShirtIcon',
+  },
+  {
+    id: 'shirt-filled',
+    family: 'shirt',
+    variant: 'filled',
+    category: 'design',
+    tags: ['theme', 'appearance', 'clothing', 'shirt', 'style'],
+    aliases: ['t-shirt-filled'],
+    status: 'stable',
+    description:
+      'The filled shirt silhouette with clipped shoulders, an angular neckline, a fine negative-space Messi-inspired chest emblem and hem seam.',
+    animated: false,
+    componentName: 'ShirtFilledIcon',
+  },
+  {
     id: 'sidebar-collapse',
     family: 'sidebar-collapse',
     variant: 'outline',

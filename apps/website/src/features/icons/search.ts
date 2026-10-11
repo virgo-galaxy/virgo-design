@@ -83,6 +83,7 @@ export const chineseIconKeywords = {
   search: ['搜索', '查找'],
   settings: ['设置', '齿轮', '配置', '偏好'],
   shapes: ['形状', '几何'],
+  shirt: ['衣服', '上衣', '短袖', '服装', '主题', '主题样式', '换肤'],
   'sidebar-collapse': ['收起侧栏'],
   'sidebar-expand': ['展开侧栏'],
   sort: ['排序', '升序', '降序', '上下三角', '三态', '表格'],

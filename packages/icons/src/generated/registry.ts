@@ -104,6 +104,8 @@ import { SettingsFilledIcon } from './SettingsFilledIcon.js';
 import { SettingsIcon } from './SettingsIcon.js';
 import { ShapesFilledIcon } from './ShapesFilledIcon.js';
 import { ShapesIcon } from './ShapesIcon.js';
+import { ShirtFilledIcon } from './ShirtFilledIcon.js';
+import { ShirtIcon } from './ShirtIcon.js';
 import { SidebarCollapseIcon } from './SidebarCollapseIcon.js';
 import { SidebarExpandIcon } from './SidebarExpandIcon.js';
 import { SortIcon } from './SortIcon.js';
@@ -237,6 +239,8 @@ export const iconComponents = {
   settings: SettingsIcon,
   'shapes-filled': ShapesFilledIcon,
   shapes: ShapesIcon,
+  'shirt-filled': ShirtFilledIcon,
+  shirt: ShirtIcon,
   'sidebar-collapse': SidebarCollapseIcon,
   'sidebar-expand': SidebarExpandIcon,
   sort: SortIcon,

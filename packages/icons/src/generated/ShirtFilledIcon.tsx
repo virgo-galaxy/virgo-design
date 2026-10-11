@@ -1,0 +1,30 @@
+/* This file is generated from icons/shirt-filled.svg by scripts/generate.ts. Do not edit. */
+import { forwardRef } from 'react';
+
+import type { IconProps } from '../icon-props.js';
+
+export type ShirtFilledIconProps = IconProps;
+
+export const ShirtFilledIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, ShirtFilledIconProps>(
+  function ShirtFilledIcon({ size = 24, ...props }: ShirtFilledIconProps, ref) {
+    return (
+      <svg
+        ref={ref}
+        aria-hidden={props['aria-label'] || props['aria-labelledby'] ? undefined : true}
+        {...props}
+        fill="currentColor"
+        height={size}
+        viewBox="0 0 24 24"
+        width={size}
+      >
+        <path
+          d={
+            'M7 3h2l.5 1.5L11 5.5h2l1.5-1L15 3h2l5 3 .5 1-2 4-.75.25-2.25-1.1V20l-.5.5H7l-.5-.5v-9.85l-2.25 1.1L3.5 11l-2-4L2 6z M9.7 17h4.6l.2.2v1.1l-.2.2H9.7l-.2-.2v-1.1z M8.8 8.45 9.6 8.87 9.24 8.75 9.43 9.07 V9.59 L9.6 10.05 8.92 9.52 V8.73 Z M9.02 8.8 9.3 8.93 9.31 9.1 V9.61 L9.36 9.71 9.04 9.46 V8.8 Z M11.2 8.45 10.4 8.87 10.76 8.75 10.57 9.07 V9.59 L10.4 10.05 11.08 9.52 V8.73 Z M10.98 8.8 10.7 8.93 10.69 9.1 V9.61 L10.64 9.71 10.96 9.46 V8.8 Z M9.75 9.35 10 9.6 10.25 9.35 V10.37 L10 10.6 9.75 10.37 Z M9.87 9.64 10 9.77 10.13 9.64 V10.32 L10 10.44 9.87 10.32 Z'
+          }
+          fillRule="evenodd"
+        />
+      </svg>
+    );
+  },
+);
+ShirtFilledIcon.displayName = 'ShirtFilledIcon';

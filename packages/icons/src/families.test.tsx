@@ -43,13 +43,14 @@ const dualFamilies = [
   'receipt',
   'settings',
   'shapes',
+  'shirt',
   'studio-tools',
   'trash',
   'user',
 ] as const;
 
 describe('Outline / Filled families', () => {
-  it('provides exactly the intended 37 pairs and keeps every other family single', () => {
+  it('provides exactly the intended 38 pairs and keeps every other family single', () => {
     expect(
       iconManifest
         .filter((icon) => icon.variant === 'filled')

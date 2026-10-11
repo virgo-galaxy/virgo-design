@@ -148,6 +148,8 @@ export {
 export { SettingsIcon, type SettingsIconProps } from './generated/SettingsIcon.js';
 export { ShapesFilledIcon, type ShapesFilledIconProps } from './generated/ShapesFilledIcon.js';
 export { ShapesIcon, type ShapesIconProps } from './generated/ShapesIcon.js';
+export { ShirtFilledIcon, type ShirtFilledIconProps } from './generated/ShirtFilledIcon.js';
+export { ShirtIcon, type ShirtIconProps } from './generated/ShirtIcon.js';
 export {
   SidebarCollapseIcon,
   type SidebarCollapseIconProps,
