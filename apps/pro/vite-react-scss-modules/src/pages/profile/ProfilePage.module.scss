@@ -173,6 +173,19 @@
     margin: var(--vd-spacing-6) 0 0;
   }
 }
+.photoActions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--vd-spacing-8);
+}
+.photoFilename {
+  min-width: 0;
+  margin: 0;
+  color: var(--vd-text-secondary);
+  font-size: var(--vd-font-size-12);
+  overflow-wrap: anywhere;
+}
 .colorRow {
   display: flex;
   align-items: center;

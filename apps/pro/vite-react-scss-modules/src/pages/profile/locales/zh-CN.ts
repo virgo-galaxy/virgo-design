@@ -45,6 +45,7 @@ export const profileZhCN = {
   profilePhoto: '头像',
   pngJpegOrWebpUpTo2Mb: 'PNG、JPEG 或 WebP · 不超过 2 MB',
   chooseAPhoto: '选择照片',
+  changePhoto: '更换照片',
   theSelectedPhotoIsKeptInThisSession: '头像按账号保存在当前浏览器中。',
   removePhoto: '移除照片',
   displayName: '显示名称',

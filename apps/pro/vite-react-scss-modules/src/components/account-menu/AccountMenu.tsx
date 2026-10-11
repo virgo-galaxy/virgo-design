@@ -91,17 +91,19 @@ export function AccountMenu({
           >
             {t('app.userCenter')}
           </Dropdown.Item>
-          <Dropdown.Item
-            icon={<AiIcon />}
-            disabled={signingOut}
-            onSelect={(event) => {
-              event.preventDefault();
-              setOpen(false);
-              onAgentModeChange(!agentMode);
-            }}
-          >
-            {t('app.agentMode')}
-          </Dropdown.Item>
+          {admin ? (
+            <Dropdown.Item
+              icon={<AiIcon />}
+              disabled={signingOut}
+              onSelect={(event) => {
+                event.preventDefault();
+                setOpen(false);
+                onAgentModeChange(!agentMode);
+              }}
+            >
+              {t('app.agentMode')}
+            </Dropdown.Item>
+          ) : null}
           {admin && import.meta.env.VITE_API_MOCKING === 'true' ? (
             <Dropdown.Item
               icon={<ResetIcon />}

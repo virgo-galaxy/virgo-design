@@ -24,7 +24,7 @@ import {
   initialHandoff,
   type WorkflowReceipt,
 } from '@/data/pro-workflows';
-import { canVisitPage, isAdminShowcasePage } from '@/lib/auth/permissions';
+import { canVisitPage, isAdmin, isAdminShowcasePage } from '@/lib/auth/permissions';
 const AnalyticsPage = lazy(() =>
   import('@/pages/analytics/AnalyticsPage').then((module) => ({ default: module.AnalyticsPage })),
 );
@@ -84,7 +84,7 @@ function RouteLoading() {
 }
 function ApplicationRoutes() {
   const user = useCurrentUser();
-  const { agentMode, setAgentMode } = useAgentMode();
+  const { agentMode, setAgentMode } = useAgentMode(isAdmin(user));
   const {
     state: tasks,
     dispatch,

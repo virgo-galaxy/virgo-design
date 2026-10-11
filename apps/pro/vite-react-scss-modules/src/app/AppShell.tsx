@@ -150,7 +150,8 @@ export function AppShell({
   onAgentModeChange: (active: boolean) => void;
 }) {
   const { t } = useTranslation();
-  const admin = isAdmin(useCurrentUser());
+  const user = useCurrentUser();
+  const admin = isAdmin(user);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const currentPage = proRouting.match(pathname);
@@ -238,7 +239,7 @@ export function AppShell({
 
   return (
     <AiWorkspace
-      active={agentMode}
+      active={admin && agentMode}
       theme={theme}
       onExit={() => onAgentModeChange(false)}
       footer={
@@ -347,35 +348,31 @@ export function AppShell({
                     className={styles.actions}
                   >
                     <LanguageControl />
+                    <Tooltip>
+                      <Tooltip.Trigger
+                        render={(props) => (
+                          <Button
+                            {...props}
+                            iconOnly
+                            variant="text"
+                            aria-label={theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
+                            onClick={(event) => {
+                              props.onClick?.(event);
+                              if (!event.defaultPrevented)
+                                updateSettings({
+                                  appearance: theme === 'light' ? 'dark' : 'light',
+                                });
+                            }}
+                          >
+                            {theme === 'light' ? <MoonFilledIcon /> : <SunFilledIcon />}
+                          </Button>
+                        )}
+                      />
+                      <Tooltip.Content>
+                        {theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
+                      </Tooltip.Content>
+                    </Tooltip>
                     <ThemeStyleControl />
-                    {admin ? (
-                      <Tooltip>
-                        <Tooltip.Trigger
-                          render={(props) => (
-                            <Button
-                              {...props}
-                              iconOnly
-                              variant="text"
-                              aria-label={
-                                theme === 'light' ? t('app.darkMode') : t('app.lightMode')
-                              }
-                              onClick={(event) => {
-                                props.onClick?.(event);
-                                if (!event.defaultPrevented)
-                                  updateSettings({
-                                    appearance: theme === 'light' ? 'dark' : 'light',
-                                  });
-                              }}
-                            >
-                              {theme === 'light' ? <MoonFilledIcon /> : <SunFilledIcon />}
-                            </Button>
-                          )}
-                        />
-                        <Tooltip.Content>
-                          {theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
-                        </Tooltip.Content>
-                      </Tooltip>
-                    ) : null}
                     <Notifications
                       showOverlayArrows={settings.showOverlayArrows}
                       indicator={settings.notificationIndicator}
@@ -426,7 +423,7 @@ export function AppShell({
                             animation={settings.breathe ? 'breathe' : 'none'}
                             className={styles.statusDot}
                           />
-                          {t('app.teamWorkspace')}
+                          {t(`app.workspaces.${user?.role ?? 'member'}`)}
                         </span>
                       ) : null}
                       <Tooltip className={styles.sidebarToggleHint}>

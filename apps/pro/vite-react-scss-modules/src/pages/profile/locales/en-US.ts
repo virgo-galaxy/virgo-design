@@ -44,6 +44,7 @@ export const profileEnUS = {
   profilePhoto: 'Profile photo',
   pngJpegOrWebpUpTo2Mb: 'PNG, JPEG or WebP · up to 2 MB',
   chooseAPhoto: 'Choose a photo',
+  changePhoto: 'Change photo',
   theSelectedPhotoIsKeptInThisSession: 'Your photo is saved for this account on this browser.',
   removePhoto: 'Remove photo',
   displayName: 'Display name',

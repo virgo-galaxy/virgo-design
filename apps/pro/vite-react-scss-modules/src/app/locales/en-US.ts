@@ -127,7 +127,11 @@ export const appEnUS = {
   pro: 'PRO',
   workspaceOwnerVirgoStudio: 'Workspace owner · Virgo Studio',
   viewProfile: 'View profile',
-  teamWorkspace: 'TEAM WORKSPACE',
+  workspaces: {
+    member: 'MEMBER WORKSPACE',
+    manager: 'PROJECT WORKSPACE',
+    admin: 'PLATFORM WORKSPACE',
+  },
   accountLabel: '{{name}} account',
   userCenter: 'Personal center',
   agentMode: 'Agent mode',

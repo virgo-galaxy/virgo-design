@@ -41,9 +41,16 @@ export function useProSettings(canPersist = true) {
   }, []);
   useEffect(() => {
     const save = () => {
-      if (resetting.current || !canPersist) return;
+      if (resetting.current) return;
       try {
-        window.localStorage.setItem(settingsStorageKey, serializeProSettings(settings));
+        // Every role can save appearance; only Admin can persist global layout settings.
+        const saved = canPersist
+          ? settings
+          : {
+              ...parseProSettings(window.localStorage.getItem(settingsStorageKey)),
+              appearance: settings.appearance,
+            };
+        window.localStorage.setItem(settingsStorageKey, serializeProSettings(saved));
         setStorageAvailable(true);
       } catch {
         setStorageAvailable(false);

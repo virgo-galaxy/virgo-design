@@ -66,8 +66,10 @@ function ProfileEditor({
   const [errors, setErrors] = useState<ReturnType<typeof validateProfile>>({});
   const [discard, setDiscard] = useState(false);
   const [reading, setReading] = useState(false);
+  const [photoName, setPhotoName] = useState('');
   const [imageError, setImageError] = useState<keyof typeof profileEnUS.validation | ''>('');
   const formRef = useRef<HTMLFormElement>(null);
+  const photoInput = useRef<HTMLInputElement>(null);
   const photoRevision = useRef(0);
   const alive = useRef(true);
   useEffect(() => {
@@ -154,34 +156,36 @@ function ProfileEditor({
                 });
               }}
             >
-              <div className={styles.photoRow}>
-                <Avatar
-                  size="md"
-                  shape="square"
-                  fallback={profileInitials(draft.name)}
-                  {...(draft.avatarImage ? { src: draft.avatarImage } : {})}
-                  style={{
-                    background: draft.avatarImage ? 'transparent' : draft.avatarColor,
-                    border: 'none',
-                    color: avatarForeground(draft.avatarColor),
-                  }}
-                />
-                <div>
-                  <strong>{t('profile.profilePhoto')}</strong>
-                  <p>{t('profile.pngJpegOrWebpUpTo2Mb')}</p>
-                </div>
-                {reading ? (
-                  <Spinner size="md" aria-label={t('profile.readingProfilePhoto')} />
-                ) : null}
-              </div>
               <Field invalid={Boolean(imageError)}>
-                <Field.Label>{t('profile.chooseAPhoto')}</Field.Label>
-                <Input
+                <div className={styles.photoRow}>
+                  <Avatar
+                    size="md"
+                    shape="square"
+                    fallback={profileInitials(draft.name)}
+                    {...(draft.avatarImage ? { src: draft.avatarImage } : {})}
+                    style={{
+                      background: draft.avatarImage ? 'transparent' : draft.avatarColor,
+                      border: 'none',
+                      color: avatarForeground(draft.avatarColor),
+                    }}
+                  />
+                  <div>
+                    <strong>{t('profile.profilePhoto')}</strong>
+                    <p>{t('profile.pngJpegOrWebpUpTo2Mb')}</p>
+                  </div>
+                  {reading ? (
+                    <Spinner size="md" aria-label={t('profile.readingProfilePhoto')} />
+                  ) : null}
+                </div>
+                <input
+                  ref={photoInput}
+                  hidden
                   type="file"
                   accept="image/png,image/jpeg,image/webp"
-                  size="medium"
                   onChange={async (event) => {
-                    const file = event.target.files?.[0];
+                    const file = event.currentTarget.files?.[0];
+                    // Allow choosing the same file again after removal or a failed read.
+                    event.currentTarget.value = '';
                     if (!file) return;
                     const invalid = avatarFileError(file);
                     const revision = ++photoRevision.current;
@@ -201,8 +205,10 @@ function ProfileEditor({
                       const image = new Image();
                       image.src = url;
                       await image.decode();
-                      if (alive.current && revision === photoRevision.current)
+                      if (alive.current && revision === photoRevision.current) {
                         update('avatarImage', url);
+                        setPhotoName(file.name);
+                      }
                     } catch {
                       if (alive.current && revision === photoRevision.current)
                         setImageError('imageUnreadable');
@@ -210,8 +216,48 @@ function ProfileEditor({
                       if (alive.current && revision === photoRevision.current) setReading(false);
                     }
                   }}
-                  prefix={<UploadIcon />}
                 />
+                <div className={styles.photoActions}>
+                  <Field.Control
+                    render={(attributes) => (
+                      <Button
+                        id={attributes.id}
+                        aria-describedby={attributes['aria-describedby']}
+                        aria-invalid={attributes['aria-invalid']}
+                        aria-busy={reading}
+                        disabled={reading}
+                        type="button"
+                        size="medium"
+                        variant="outline"
+                        leadingIcon={<UploadIcon />}
+                        onClick={() => photoInput.current?.click()}
+                      >
+                        {draft.avatarImage ? t('profile.changePhoto') : t('profile.chooseAPhoto')}
+                      </Button>
+                    )}
+                  />
+                  {draft.avatarImage ? (
+                    <Button
+                      size="medium"
+                      variant="text"
+                      type="button"
+                      onClick={() => {
+                        photoRevision.current++;
+                        setReading(false);
+                        setImageError('');
+                        setPhotoName('');
+                        update('avatarImage', '');
+                      }}
+                    >
+                      {t('profile.removePhoto')}
+                    </Button>
+                  ) : null}
+                </div>
+                {photoName ? (
+                  <p className={styles.photoFilename} role="status">
+                    {photoName}
+                  </p>
+                ) : null}
                 {imageError ? (
                   <Field.Message>{t(`profile.validation.${imageError}`)}</Field.Message>
                 ) : (
@@ -220,20 +266,6 @@ function ProfileEditor({
                   </Field.Description>
                 )}
               </Field>
-              {draft.avatarImage ? (
-                <Button
-                  size="medium"
-                  variant="text"
-                  type="button"
-                  onClick={() => {
-                    photoRevision.current++;
-                    setReading(false);
-                    update('avatarImage', '');
-                  }}
-                >
-                  {t('profile.removePhoto')}
-                </Button>
-              ) : null}
               <Separator decorative />
               <Field required invalid={Boolean(errors.name)}>
                 <Field.Label>{t('profile.displayName')}</Field.Label>

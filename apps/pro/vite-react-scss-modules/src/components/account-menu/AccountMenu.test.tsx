@@ -7,24 +7,39 @@ import { initialProfile } from '@/mock/fixtures/profile';
 
 import { AccountMenu } from './AccountMenu';
 
-const { navigate, signOut, changeMode } = vi.hoisted(() => ({
+const { navigate, signOut, changeMode, currentUser } = vi.hoisted(() => ({
   navigate: vi.fn(),
   signOut: vi.fn(),
   changeMode: vi.fn(),
+  currentUser: { role: 'admin', account: 'admin', department: 'Platform' },
 }));
 vi.mock('react-router', () => ({ useNavigate: () => navigate }));
 vi.mock('@/application/session-context', () => ({
   useSession: () => ({ signOut }),
-  useCurrentUser: () => ({ role: 'admin', account: 'admin', department: 'Platform' }),
+  useCurrentUser: () => currentUser,
 }));
 
 beforeEach(async () => {
   vi.resetAllMocks();
+  currentUser.role = 'admin';
   await i18nInstance.changeLanguage('en-US');
 });
 afterEach(cleanup);
 
 describe('account menu', () => {
+  it.each(['member', 'manager'])('hides Agent mode for %s accounts', async (role) => {
+    currentUser.role = role;
+    render(
+      <AccountMenu profile={initialProfile} agentMode={true} onAgentModeChange={changeMode} />,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Admin account' }));
+    await screen.findByRole('menu');
+    expect(screen.queryByRole('menuitem', { name: 'Agent mode' })).toBeNull();
+    expect(screen.getByRole('menuitem', { name: 'Personal center' })).toBeTruthy();
+    expect(screen.getByRole('menuitem', { name: 'Sign out' })).toBeTruthy();
+    expect(changeMode).not.toHaveBeenCalled();
+  });
+
   it('enters and leaves Agent mode while preserving the account name and avatar', async () => {
     const { rerender } = render(
       <AccountMenu profile={initialProfile} agentMode={false} onAgentModeChange={changeMode} />,

@@ -128,7 +128,11 @@ export const appZhCN = {
   pro: 'PRO',
   workspaceOwnerVirgoStudio: '工作空间负责人 · Virgo Studio',
   viewProfile: '查看个人资料',
-  teamWorkspace: '团队工作空间',
+  workspaces: {
+    member: '成员工作空间',
+    manager: '项目管理工作空间',
+    admin: '平台管理工作空间',
+  },
   accountLabel: '{{name}}的账户',
   userCenter: '个人中心',
   agentMode: 'Agent 模式',

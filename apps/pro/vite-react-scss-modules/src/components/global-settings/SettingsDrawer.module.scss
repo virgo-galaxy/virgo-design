@@ -56,21 +56,28 @@
   line-height: var(--vd-line-height-4);
 }
 .row {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--vd-spacing-16);
+  column-gap: var(--vd-spacing-16);
   > div {
-    min-width: 0;
+    display: contents;
+    > label {
+      grid-column: 1;
+      grid-row: 1;
+    }
   }
   label {
     color: var(--vd-text-primary);
   }
   p {
+    grid-column: 1;
+    grid-row: 2;
     margin-block-start: var(--vd-spacing-4);
   }
   > label {
-    flex: none;
+    grid-column: 2;
+    grid-row: 1;
   }
 }
 .width {

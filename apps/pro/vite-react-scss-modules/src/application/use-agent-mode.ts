@@ -1,13 +1,23 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { readAgentMode, saveAgentMode } from './agent-mode';
 
-export function useAgentMode() {
-  const [agentMode, setMode] = useState(readAgentMode);
-  const setAgentMode = useCallback((active: boolean) => {
-    // Save immediately so a navigation right after clicking retains the mode.
-    saveAgentMode(active);
-    setMode(active);
-  }, []);
-  return { agentMode, setAgentMode };
+export function useAgentMode(allowed: boolean) {
+  const [agentMode, setMode] = useState(() => allowed && readAgentMode());
+  useEffect(() => {
+    if (!allowed) {
+      saveAgentMode(false);
+      setMode(false);
+    }
+  }, [allowed]);
+  const setAgentMode = useCallback(
+    (active: boolean) => {
+      const next = allowed && active;
+      // Save immediately so a navigation right after clicking retains the mode.
+      saveAgentMode(next);
+      setMode(next);
+    },
+    [allowed],
+  );
+  return { agentMode: allowed && agentMode, setAgentMode };
 }

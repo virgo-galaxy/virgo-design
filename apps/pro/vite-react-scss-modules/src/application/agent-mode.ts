@@ -1,6 +1,6 @@
 const storageKey = 'virgo-pro.workspace.agent-mode';
 
-// Presentation state belongs to this browser tab, independently of account data and routes.
+// This tab retains the presentation mode across routes; useAgentMode checks admin access.
 export function readAgentMode(): boolean {
   try {
     return window.sessionStorage.getItem(storageKey) === 'true';
