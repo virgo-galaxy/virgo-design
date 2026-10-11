@@ -47,7 +47,7 @@ export const themesZhCN = {
     description:
       '验证 Light/Dark 声明、生成作用域 CSS，并用同一组 token 注册元数据，复用已有组件和业务布局。',
     contract:
-      '从 Tokens 导入 themeContractRoles 和 THEME_CONTRACT_VERSION 查看当前正式契约。语义颜色与阴影通过 --vd-theme-light-* 和 --vd-theme-dark-* 覆盖；控件、形状、动效、浮层、导航、表格与图表使用对应的 --vd-* 视觉角色。已有公共组件变量仍可用于明确的单实例定制。',
+      '从 Tokens 导入 themeContractRoles 和 THEME_CONTRACT_VERSION 查看当前正式契约。验证会列出缺失的 optional role 和覆盖率，允许合法的部分视觉实现。注册实际 token 声明，并让 server、首屏 bootstrap 和 client hydration 使用同一 registry 定义。名称与描述翻译由消费者维护；已有公共组件变量仍可用于明确的单实例定制。',
     scopes:
       '局部 data-virgo-theme 作用域将视觉覆盖重置为 Virgo 默认值，data-theme 指定明暗外观。独立主题对照使用公共 PortalProvider，让 Dialog 与 Tooltip 继承各自的作用域；普通应用的 body 浮层直接继承 html。',
     audit:

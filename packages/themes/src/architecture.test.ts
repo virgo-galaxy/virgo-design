@@ -1,8 +1,8 @@
-import { getDefaultThemeTokens } from '@virgo-design/tokens';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { getDefaultThemeTokens, type ThemeTokens } from '@virgo-design/tokens';
+import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
 
 import { getInitialThemeScript } from './bootstrap';
-import { createThemeRegistry, themePresets } from './registry';
+import { createThemeRegistry, registerTheme, type ThemePreset, themePresets } from './registry';
 import { getThemeAttributes, resolveTheme } from './resolution';
 import { createThemeRuntime, getTheme, initializeTheme, setTheme } from './runtime';
 import { getThemeCss } from './theme-css';
@@ -13,6 +13,7 @@ afterEach(() => {
   localStorage.clear();
   document.documentElement.removeAttribute('data-theme');
   document.documentElement.removeAttribute('data-virgo-theme');
+  document.documentElement.removeAttribute('dir');
 });
 
 describe('request isolation and hydration', () => {
@@ -72,6 +73,28 @@ describe('request isolation and hydration', () => {
 });
 
 describe('registry and scoped theme CSS', () => {
+  it('requires token implementations in both registration APIs and keeps metadata consumer-neutral', () => {
+    const registry = createThemeRegistry();
+    expectTypeOf<typeof registerTheme>().parameters.toEqualTypeOf<[ThemePreset, ThemeTokens]>();
+    expectTypeOf<typeof registry.registerTheme>().parameters.toEqualTypeOf<
+      [ThemePreset, ThemeTokens]
+    >();
+    const preset: ThemePreset = {
+      id: 'plain',
+      name: 'Plain',
+      contractVersion: 1,
+      appearances: ['light', 'dark'],
+    };
+    registry.registerTheme(preset, getDefaultThemeTokens());
+    expect(registry.getThemePreset('plain')).toEqual(preset);
+    expect(registry.listThemes().at(-1)).toEqual(preset);
+    expect(themePresets.every((theme) => !Object.hasOwn(theme, 'descriptionKey'))).toBe(true);
+    // JavaScript callers still receive a diagnostic if they omit the implementation.
+    expect(() => {
+      // @ts-expect-error Token implementations are mandatory in the public TypeScript API.
+      registry.registerTheme({ ...preset, id: 'missing-tokens' });
+    }).toThrow('missingRequiredRoles');
+  });
   it('enumerates registered themes while preserving immutable official selectors', () => {
     const registry = createThemeRegistry();
     const tokens = getDefaultThemeTokens();
@@ -84,9 +107,9 @@ describe('registry and scoped theme CSS', () => {
     expect(() => registry.registerTheme({ ...themePresets[0], id: 'studio' }, tokens)).toThrow(
       'already registered',
     );
-    expect(() => registry.registerTheme({ ...themePresets[0], id: 'incomplete' })).toThrow(
-      'missingRequiredRoles',
-    );
+    expect(() =>
+      registry.registerTheme({ ...themePresets[0], id: 'incomplete' }, { light: {}, dark: {} }),
+    ).toThrow('missingRequiredRoles');
     const css = getThemeCss('studio', {
       light: { ...tokens.light, '--vd-control-shadow': 'none' },
       dark: { ...tokens.dark, '--vd-control-shadow': '0 1px 3px #000' },
@@ -121,6 +144,58 @@ describe('synchronous initial theme bootstrap', () => {
     });
     expect(document.documentElement.style.colorScheme).toBe(appearance);
   });
+  it.each([
+    ['saved', 'light'],
+    ['saved', 'dark'],
+    ['initial', 'light'],
+    ['initial', 'dark'],
+  ] as const)(
+    'restores a custom %s/%s theme on the first write and hydrates the same registry',
+    (source, appearance) => {
+      const registry = createThemeRegistry();
+      registry.registerTheme(
+        { id: 'studio', name: 'Studio', contractVersion: 1, appearances: ['light', 'dark'] },
+        getDefaultThemeTokens(),
+      );
+      if (source === 'saved') {
+        localStorage.setItem('custom-theme', 'studio');
+        localStorage.setItem('custom-appearance', appearance);
+      }
+      document.documentElement.dir = 'rtl';
+      const write = vi.spyOn(document.documentElement, 'setAttribute');
+      execute(
+        getInitialThemeScript({
+          registry,
+          defaultTheme: source === 'initial' ? 'studio' : 'virgo',
+          defaultAppearance: appearance,
+          storage: { key: 'custom-theme' },
+          appearanceStorageKey: 'custom-appearance',
+        }),
+      );
+      expect(write.mock.calls.filter(([name]) => name === 'data-virgo-theme')).toEqual([
+        ['data-virgo-theme', 'studio'],
+      ]);
+      expect(document.documentElement.dataset).toMatchObject({
+        virgoTheme: 'studio',
+        theme: appearance,
+      });
+      expect(document.documentElement.dir).toBe('rtl');
+      expect(document.documentElement.style.colorScheme).toBe(appearance);
+      const state = resolveTheme(
+        {
+          theme: document.documentElement.dataset.virgoTheme,
+          appearance: document.documentElement.dataset.theme,
+        },
+        registry,
+      );
+      const runtime = createThemeRuntime({ registry, window, initialTheme: state.theme });
+      runtime.hydrateTheme(state);
+      expect(runtime.getTheme()).toBe('studio');
+      expect(runtime.getServerTheme()).toBe('studio');
+      expect(runtime.registry.getThemePreset('studio')?.name).toBe('Studio');
+      runtime.dispose();
+    },
+  );
   it('restores Pro JSON and legacy IDs without destroying unrelated settings', () => {
     const raw = JSON.stringify({
       version: 1,

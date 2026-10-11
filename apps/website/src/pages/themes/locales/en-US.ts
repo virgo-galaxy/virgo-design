@@ -50,7 +50,7 @@ export const themesEnUS = {
     description:
       'Validate light/dark declarations, generate scoped CSS and register metadata with the same tokens. Reuse existing components and business layouts.',
     contract:
-      'Use themeContractRoles and THEME_CONTRACT_VERSION from Tokens for the current public contract. Semantic color and elevation overrides use --vd-theme-light-* and --vd-theme-dark-*. Controls, shape, motion, overlays, navigation, tables and charts use their --vd-* presentation roles. Existing public component CSS variables still allow deliberate per-instance customization.',
+      'Use themeContractRoles and THEME_CONTRACT_VERSION from Tokens for the current public contract. Validation reports missing optional roles and coverage without rejecting partial presentation implementations. Register the same authored tokens and use the same registry definition for server, initial bootstrap and client hydration. Localized labels and descriptions belong to the consumer. Existing public component CSS variables still allow deliberate per-instance customization.',
     scopes:
       'A local data-virgo-theme scope resets presentation overrides to Virgo defaults; data-theme chooses its appearance. Use the public PortalProvider when rendering independent comparison scopes, so local Dialogs and tooltips inherit their own recipe. Normal applications inherit from html, including body portals.',
     audit:

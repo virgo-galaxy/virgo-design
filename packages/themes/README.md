@@ -14,6 +14,8 @@ setTheme('soft');
 
 The JS root is CSS-free and imports directly in Node/SSR. CSS exports include `styles.css` and all six single-theme `virgo.css/minimal.css/soft.css/glass.css/retro.css/contrast.css` files. A single file contains only that preset's scopes and contract-major-1 compatibility values.
 
+Each CSS entry compiles its Theme SCSS source plus the selected compatibility mixin. No compiled CSS blocks are extracted; `@supports`, `@media`, selector scope and declaration order are retained. The aggregate retains its original source order.
+
 ## SPA runtime
 
 `getTheme/getServerTheme/subscribeTheme` work with React `useSyncExternalStore`. Each browser Window owns its runtime and registry; switching persists under `virgo-design.theme-style.v1`, synchronizes storage events, and works in memory if storage is denied. An external root `data-virgo-theme` change also synchronizes subscribed consumers. `initializeTheme({ defaultTheme, storage })` supports an existing versioned settings record through the `ThemeStorage` codec. Theme switching leaves Appearance in the consumer's existing state.
@@ -42,7 +44,6 @@ registerTheme(
   {
     id: 'studio',
     name: 'Studio',
-    descriptionKey: 'studio',
     contractVersion: 1,
     appearances: ['light', 'dark'],
   },
@@ -51,7 +52,53 @@ registerTheme(
 listThemes(); // official + registered
 ```
 
-On the server, call these methods on your request registry. Registration validates actual declarations: version, required omissions, unknown/deprecated roles, invalid values and CSS alias cycles. All 94 semantic colors and 6 elevation values are required in both appearances; presentation/typography have optional fallbacks. `getDefaultThemeTokens` is an explicit author choice, not automatic registry filling. Metadata-only registration now reports missing roles.
+Both registry and browser convenience APIs require `registerTheme(theme: ThemePreset, tokens: ThemeTokens): void`. On the server, call the method on your request registry. Registration validates actual declarations: version, required omissions, unknown/deprecated roles, invalid values and CSS alias cycles. All 94 semantic colors and 6 elevation values are required in both appearances; presentation/typography have optional fallbacks. `getDefaultThemeTokens` is an explicit author choice, not automatic registry filling. TypeScript rejects metadata-only registration; JavaScript misuse still reports missing roles.
+
+Validation returns `missingOptionalRoles.light/dark` without making a partial theme invalid. `completeness.required/optional/overall` each reports `{ implemented, total, percentage }`: one role in one appearance is one slot (200 required + 708 optional = 908 overall). Unknown/deprecated/invalid values do not increase coverage. Only-required implementations remain valid; omitted optional roles are visibly listed as shared baseline/component fallbacks.
+
+`ThemePreset` contains only `id`, `name`, `contractVersion` and `appearances`. It has no consumer translation keys. Website/Pro maintain their own localized labels and descriptions keyed by official ID; third-party authors supply a generic display name.
+
+### Third-party first paint
+
+```ts
+import { getDefaultThemeTokens } from '@virgo-design/tokens';
+import {
+  createThemeRegistry,
+  createThemeRuntime,
+  getInitialThemeScript,
+  getThemeAttributes,
+  resolveTheme,
+} from '@virgo-design/themes';
+
+// Share this definition between build, server and client, not its mutable instance.
+export function createAppThemeRegistry() {
+  const registry = createThemeRegistry();
+  registry.registerTheme(
+    {
+      id: 'studio',
+      name: 'Studio',
+      contractVersion: 1,
+      appearances: ['light', 'dark'],
+    },
+    getDefaultThemeTokens(),
+  ); // Supply the same authored tokens in every environment.
+  return registry;
+}
+const serverRegistry = createAppThemeRegistry();
+const state = resolveTheme({ theme: 'studio', appearance: 'dark' }, serverRegistry);
+const attributes = getThemeAttributes(state, serverRegistry);
+const script = getInitialThemeScript({
+  registry: serverRegistry,
+  defaultTheme: 'studio',
+  defaultAppearance: 'dark',
+  respectServerAttributes: true,
+}); // Put synchronously before CSS; render attributes and serialize state.
+const clientRegistry = createAppThemeRegistry();
+const runtime = createThemeRuntime({ registry: clientRegistry, initialTheme: state.theme, window });
+runtime.hydrateTheme(state); // Before rendering; retain this stable client instance.
+```
+
+For saved SPA preferences, generate the script with the same full registry and the relevant storage keys. Its first attribute write recognizes registered third-party IDs. It preserves an existing `dir`; language direction belongs to the consumer. Load the custom CSS at first paint as well: registration/bootstrap do not download a stylesheet. See the architecture example for server/client snapshot boundaries.
 
 Official and migration IDs are reserved; duplicate IDs throw. `themePresets/themeRegistry` remain immutable official-only data. Existing Website/Pro selectors intentionally list those six; custom selectors use `listThemes` and own their labels/translations. Registration does not install CSS.
 

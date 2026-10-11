@@ -57,18 +57,18 @@ export function ThemeStyleControl() {
         aria-label={t('themeStyleControl.label')}
         className={styles.menu}
       >
-        {themePresets.map(({ id: value, descriptionKey }) => (
+        {themePresets.map(({ id: value }) => (
           <Dropdown.Item
             key={value}
             checked={selected === value}
-            aria-label={t(`themeStyleControl.names.${descriptionKey}`)}
+            aria-label={t(`themeStyleControl.names.${value}`)}
             aria-describedby={`${id}-${value}`}
             onSelect={() => setTheme(value)}
           >
             <span className={styles.copy}>
-              <span className={styles.name}>{t(`themeStyleControl.names.${descriptionKey}`)}</span>
+              <span className={styles.name}>{t(`themeStyleControl.names.${value}`)}</span>
               <span className={styles.description} id={`${id}-${value}`}>
-                {t(`themeStyleControl.descriptions.${descriptionKey}`)}
+                {t(`themeStyleControl.descriptions.${value}`)}
               </span>
             </span>
           </Dropdown.Item>

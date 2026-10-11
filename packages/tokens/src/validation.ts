@@ -1,5 +1,6 @@
 import {
   deprecatedThemeRoles,
+  optionalThemeRoles,
   requiredThemeRoles,
   themeContractRoles,
   tokenValues,
@@ -12,11 +13,24 @@ export interface ThemeContractInput {
   readonly contractVersion: number;
   readonly tokens?: ThemeTokens;
 }
+export interface ThemeRoleCoverage {
+  readonly implemented: number;
+  readonly total: number;
+  /** Percentage rounded to two decimal places; each appearance is one implementation slot. */
+  readonly percentage: number;
+}
+export interface ThemeCompleteness {
+  readonly required: ThemeRoleCoverage;
+  readonly optional: ThemeRoleCoverage;
+  readonly overall: ThemeRoleCoverage;
+}
 export interface ThemeValidationResult {
   readonly valid: boolean;
   readonly expectedVersion: number;
   readonly receivedVersion: number;
   readonly missingRequiredRoles: Readonly<Record<'light' | 'dark', readonly string[]>>;
+  readonly missingOptionalRoles: Readonly<Record<'light' | 'dark', readonly string[]>>;
+  readonly completeness: ThemeCompleteness;
   readonly unknownRoles: Readonly<Record<'light' | 'dark', readonly string[]>>;
   readonly deprecatedRoles: Readonly<Record<'light' | 'dark', readonly string[]>>;
   readonly invalidValues: Readonly<Record<'light' | 'dark', readonly string[]>>;
@@ -25,6 +39,7 @@ export interface ThemeValidationResult {
 /** Validate declarations, never computed CSS that might have silently inherited Virgo. */
 export function validateThemeContract(input: ThemeContractInput): ThemeValidationResult {
   const missingRequiredRoles = { light: [] as string[], dark: [] as string[] };
+  const missingOptionalRoles = { light: [] as string[], dark: [] as string[] };
   const unknownRoles = { light: [] as string[], dark: [] as string[] };
   const deprecatedRoles = { light: [] as string[], dark: [] as string[] };
   const invalidValues = { light: [] as string[], dark: [] as string[] };
@@ -32,6 +47,9 @@ export function validateThemeContract(input: ThemeContractInput): ThemeValidatio
     const values = input.tokens?.[appearance] ?? {};
     for (const name of requiredThemeRoles) {
       if (!Object.hasOwn(values, name)) missingRequiredRoles[appearance].push(name);
+    }
+    for (const name of optionalThemeRoles) {
+      if (!Object.hasOwn(values, name)) missingOptionalRoles[appearance].push(name);
     }
     for (const [name, value] of Object.entries(values)) {
       if (Object.hasOwn(deprecatedThemeRoles, name)) deprecatedRoles[appearance].push(name);
@@ -62,6 +80,24 @@ export function validateThemeContract(input: ThemeContractInput): ThemeValidatio
       if (reaches(name, name, new Set()) && !invalidValues[appearance].includes(name))
         invalidValues[appearance].push(name);
   }
+  const coverage = (roles: readonly string[]): ThemeRoleCoverage => {
+    const implemented = (['light', 'dark'] as const).reduce(
+      (count, appearance) =>
+        count +
+        roles.filter(
+          (name) =>
+            Object.hasOwn(input.tokens?.[appearance] ?? {}, name) &&
+            !invalidValues[appearance].includes(name),
+        ).length,
+      0,
+    );
+    const total = roles.length * 2;
+    return Object.freeze({
+      implemented,
+      total,
+      percentage: total ? Math.round((implemented / total) * 10000) / 100 : 100,
+    });
+  };
   return Object.freeze({
     valid:
       input.contractVersion === THEME_CONTRACT_VERSION &&
@@ -71,6 +107,12 @@ export function validateThemeContract(input: ThemeContractInput): ThemeValidatio
     expectedVersion: THEME_CONTRACT_VERSION,
     receivedVersion: input.contractVersion,
     missingRequiredRoles,
+    missingOptionalRoles,
+    completeness: Object.freeze({
+      required: coverage(requiredThemeRoles),
+      optional: coverage(optionalThemeRoles),
+      overall: coverage([...requiredThemeRoles, ...optionalThemeRoles]),
+    }),
     unknownRoles,
     deprecatedRoles,
     invalidValues,

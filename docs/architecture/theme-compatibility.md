@@ -16,7 +16,9 @@
 
 ## 第三方注册变化
 
-原 metadata-only `registerTheme(preset)` 无法识别遗漏色板，现要求 `registerTheme(preset, tokens)` 提供实际声明，缺失时抛出包含完整验证结果的错误。先用 `getDefaultThemeTokens()` 明确选基线，再覆盖并 `validateThemeContract`；用同一 declarations 生成 `getThemeCss` 与注册。这个行为修正需要在发布说明中列明；CSS contract major 不因此变化。
+原 metadata-only `registerTheme(preset)` 无法识别遗漏色板，现要求 `registerTheme(preset, tokens)` 提供实际声明，TypeScript 参数也为必传；JavaScript 缺失时抛出包含完整验证结果的错误。先用 `getDefaultThemeTokens()` 明确选基线，再覆盖并 `validateThemeContract`；用同一 declarations 生成 `getThemeCss` 与注册。Missing optional 不阻止注册，`missingOptionalRoles` 与 `completeness` 明确报告 fallback 和声明覆盖率。这个行为修正需要在发布说明中列明；CSS contract major 不因此变化。
+
+`ThemePreset.descriptionKey` 已从核心 API 移除。官方名称/描述翻译由 Website/Pro 按 id 查询自有资源；第三方只需通用 `name`。这是 package TypeScript metadata API 的迁移，不改变 CSS contract major。
 
 ## JS/CSS 入口变化
 

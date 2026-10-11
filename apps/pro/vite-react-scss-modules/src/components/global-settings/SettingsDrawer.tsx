@@ -289,14 +289,14 @@ export function SettingsDrawer({
               <Select.Content>
                 {themePresets.map((preset) => (
                   <Select.Option key={preset.id} value={preset.id}>
-                    {t(`themeStyleControl.names.${preset.descriptionKey}`)}
+                    {t(`themeStyleControl.names.${preset.id}`)}
                   </Select.Option>
                 ))}
               </Select.Content>
             </Select>
             {selectedTheme ? (
               <p id={`${id}-theme-description`} className={styles.hint}>
-                {t(`themeStyleControl.descriptions.${selectedTheme.descriptionKey}`)}
+                {t(`themeStyleControl.descriptions.${selectedTheme.id}`)}
               </p>
             ) : null}
           </section>

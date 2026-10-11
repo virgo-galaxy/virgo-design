@@ -3,7 +3,14 @@ import { resolve } from 'node:path';
 import { compileString, NodePackageImporter } from 'sass';
 import { describe, expect, expectTypeOf, it } from 'vitest';
 
-import { tokenCatalog, tokenValues, type TokenVariable, tokenVars } from './catalog.js';
+import {
+  optionalThemeRoles,
+  requiredThemeRoles,
+  tokenCatalog,
+  tokenValues,
+  type TokenVariable,
+  tokenVars,
+} from './catalog.js';
 import { generateCompatibilityScss, generateScss } from './css/generate-scss.js';
 import { generateTailwindCss, tailwindTheme } from './tailwind.js';
 import { deprecatedThemeRoles } from './theme-contract.js';
@@ -37,7 +44,14 @@ it('generates SCSS, TypeScript, Tailwind and vanilla-extract references to the s
 describe('theme declaration validation', () => {
   it('accepts explicit defaults and additive optional roles without increasing the major', () => {
     const tokens = getDefaultThemeTokens();
-    expect(validateThemeContract({ contractVersion: 1, tokens }).valid).toBe(true);
+    const result = validateThemeContract({ contractVersion: 1, tokens });
+    expect(result.valid).toBe(true);
+    expect(result.missingOptionalRoles).toEqual({ light: [], dark: [] });
+    expect(result.completeness).toEqual({
+      required: { implemented: 200, total: 200, percentage: 100 },
+      optional: { implemented: 708, total: 708, percentage: 100 },
+      overall: { implemented: 908, total: 908, percentage: 100 },
+    });
     expect(validateThemeContract({ contractVersion: 2, tokens }).valid).toBe(false);
   });
   it('reports required omissions, typos, invalid values and compatibility usage independently', () => {
@@ -62,6 +76,74 @@ describe('theme declaration validation', () => {
     expect(result.invalidValues.light).toEqual(['--vd-text-primary']);
     expect(result.deprecatedRoles.light).toEqual(['--vd-chrome-background']);
     expect(result.missingRequiredRoles.dark).toEqual([]);
+    expect(result.completeness.required).toEqual({ implemented: 198, total: 200, percentage: 99 });
+  });
+  it('accepts required-only themes and exposes every optional fallback per appearance', () => {
+    const base = getDefaultThemeTokens();
+    const tokens = {
+      light: Object.fromEntries(requiredThemeRoles.map((name) => [name, base.light[name]!])),
+      dark: Object.fromEntries(requiredThemeRoles.map((name) => [name, base.dark[name]!])),
+    };
+    const result = validateThemeContract({ contractVersion: 1, tokens });
+    expect(result.valid).toBe(true);
+    expect(result.missingOptionalRoles).toEqual({
+      light: optionalThemeRoles,
+      dark: optionalThemeRoles,
+    });
+    expect(result.completeness).toEqual({
+      required: { implemented: 200, total: 200, percentage: 100 },
+      optional: { implemented: 0, total: 708, percentage: 0 },
+      overall: { implemented: 200, total: 908, percentage: 22.03 },
+    });
+  });
+  it('counts asymmetric optional declarations without counting unknown or deprecated roles', () => {
+    const base = getDefaultThemeTokens();
+    const light = Object.fromEntries(
+      [...requiredThemeRoles, ...optionalThemeRoles.slice(0, 2)].map((name) => [
+        name,
+        base.light[name]!,
+      ]),
+    );
+    const dark = Object.fromEntries(
+      [...requiredThemeRoles, ...optionalThemeRoles.slice(0, 3)].map((name) => [
+        name,
+        base.dark[name]!,
+      ]),
+    );
+    const result = validateThemeContract({
+      contractVersion: 1,
+      tokens: { light: { ...light, '--vd-chrome-background': '#fff' }, dark },
+    });
+    expect(result.valid).toBe(true);
+    expect(result.deprecatedRoles.light).toEqual(['--vd-chrome-background']);
+    expect(result.missingOptionalRoles.light).toEqual(optionalThemeRoles.slice(2));
+    expect(result.missingOptionalRoles.dark).toEqual(optionalThemeRoles.slice(3));
+    expect(result.completeness.optional).toEqual({ implemented: 5, total: 708, percentage: 0.71 });
+    const unknown = validateThemeContract({
+      contractVersion: 1,
+      tokens: {
+        light: { ...light, '--vd-typo-one': '1px', '--vd-typo-two': '2px' },
+        dark: { ...dark, '--vd-typo-three': '3px' },
+      },
+    });
+    expect(unknown.valid).toBe(false);
+    expect(unknown.unknownRoles).toEqual({
+      light: ['--vd-typo-one', '--vd-typo-two'],
+      dark: ['--vd-typo-three'],
+    });
+    expect(unknown.completeness).toEqual(result.completeness);
+  });
+  it('does not count invalid optional values as implemented', () => {
+    const base = getDefaultThemeTokens();
+    const name = optionalThemeRoles[0]!;
+    const result = validateThemeContract({
+      contractVersion: 1,
+      tokens: { light: { ...base.light, [name]: '; broken' }, dark: base.dark },
+    });
+    expect(result.valid).toBe(false);
+    expect(result.missingOptionalRoles.light).toEqual([]);
+    expect(result.invalidValues.light).toEqual([name]);
+    expect(result.completeness.optional.implemented).toBe(707);
   });
 });
 

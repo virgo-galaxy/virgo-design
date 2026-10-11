@@ -60,7 +60,7 @@ Native Sparkline 继续使用 SVG；focus 复用语义 focus color/width，并�
 
 ## Runtime 与 Appearance
 
-官方 `ThemeId` 固定为 `virgo`、`minimal`、`soft`、`glass`、`retro`、`contrast`。`ThemePreset` 与只读 registry 提供名称、description key、contract version 和 light/dark 支持。默认 Virgo。Contrast（`contrast`，中文“高对比”）强调强前后景分离、明确边界、清晰的 focus／selected／disabled 状态，减少依赖阴影与细微灰阶。
+官方 `ThemeId` 固定为 `virgo`、`minimal`、`soft`、`glass`、`retro`、`contrast`。`ThemePreset` 与只读 registry 提供 id、通用 name、contractVersion 和 appearances；中英文名称/描述资源由 Website/Pro 自有 i18n 层按 id 维护。默认 Virgo。Contrast（`contrast`，中文“高对比”）强调强前后景分离、明确边界、清晰的 focus／selected／disabled 状态，减少依赖阴影与细微灰阶。
 
 `initializeTheme()` 默认在第一次 React render 前恢复 `virgo-design.theme-style.v1`，设置 HTML 的 `data-virgo-theme`。`setTheme()` 校验 ID、持久化、应用属性并通知订阅者。`subscribeTheme()` 可直接接入 `useSyncExternalStore`，Header 与 Settings 共用状态；storage event 同步其他同源页面，storage 不可用时仍可切换。第三方主题在初始化前通过 `registerTheme(preset, tokens)` 提交声明验证并注册，官方 ID 不可覆盖。`listThemes` 可枚举自定义主题，现有 app selectors 明确只展示官方 `themePresets`。
 

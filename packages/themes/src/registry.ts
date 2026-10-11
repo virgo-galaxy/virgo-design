@@ -9,29 +9,23 @@ import { legacyThemeIds } from './migration';
 export interface ThemePreset {
   readonly id: string;
   readonly name: string;
-  readonly descriptionKey: string;
   readonly contractVersion: number;
   readonly appearances: readonly ['light', 'dark'];
 }
-const preset = <Id extends string, Description extends string>(
-  id: Id,
-  name: string,
-  descriptionKey: Description,
-) =>
+const preset = <Id extends string>(id: Id, name: string) =>
   Object.freeze({
     id,
     name,
-    descriptionKey,
     contractVersion: THEME_CONTRACT_VERSION,
     appearances: Object.freeze(['light', 'dark'] as const),
   });
 export const themePresets = Object.freeze([
-  preset('virgo', 'Virgo', 'virgo'),
-  preset('minimal', 'Minimal', 'minimal'),
-  preset('soft', 'Soft', 'soft'),
-  preset('glass', 'Glass', 'glass'),
-  preset('retro', 'Retro', 'retro'),
-  preset('contrast', 'Contrast', 'contrast'),
+  preset('virgo', 'Virgo'),
+  preset('minimal', 'Minimal'),
+  preset('soft', 'Soft'),
+  preset('glass', 'Glass'),
+  preset('retro', 'Retro'),
+  preset('contrast', 'Contrast'),
 ] as const);
 export type ThemeId = (typeof themePresets)[number]['id'];
 export const defaultTheme: ThemeId = 'virgo';
@@ -43,7 +37,7 @@ export interface ThemeRegistry {
   getThemePreset(id: string): ThemePreset | undefined;
   resolveThemeId(value: unknown): string | undefined;
   listThemes(): readonly ThemePreset[];
-  registerTheme(theme: ThemePreset, tokens?: ThemeTokens): void;
+  registerTheme(theme: ThemePreset, tokens: ThemeTokens): void;
   getThemeTokens(id: string): ThemeTokens | undefined;
 }
 /** One registry per SSR request, or one explicitly shared registry per browser. */
@@ -63,7 +57,7 @@ export function createThemeRegistry(): ThemeRegistry {
     listThemes: () =>
       Object.freeze([...themePresets, ...[...extensions.values()].map(({ preset }) => preset)]),
     getThemeTokens: (id: string) => extensions.get(id)?.tokens,
-    registerTheme(theme: ThemePreset, tokens?: ThemeTokens) {
+    registerTheme(theme: ThemePreset, tokens: ThemeTokens) {
       if (!/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(theme.id))
         throw new TypeError('Theme IDs must be lowercase kebab-case.');
       if (getThemePreset(theme.id)) throw new Error(`Theme already registered: ${theme.id}`);
@@ -77,18 +71,23 @@ export function createThemeRegistry(): ThemeRegistry {
         throw new TypeError('Themes need a name and light/dark appearances.');
       const validation = validateThemeContract({
         contractVersion: theme.contractVersion,
-        ...(tokens ? { tokens } : {}),
+        tokens,
       });
       if (!validation.valid)
         throw new TypeError(
           `Invalid theme contract for ${theme.id}: ${JSON.stringify(validation)}`,
         );
       const immutableTokens = Object.freeze({
-        light: Object.freeze({ ...tokens!.light }),
-        dark: Object.freeze({ ...tokens!.dark }),
+        light: Object.freeze({ ...tokens.light }),
+        dark: Object.freeze({ ...tokens.dark }),
       });
       extensions.set(theme.id, {
-        preset: Object.freeze({ ...theme, appearances: Object.freeze(['light', 'dark'] as const) }),
+        preset: Object.freeze({
+          id: theme.id,
+          name: theme.name,
+          contractVersion: theme.contractVersion,
+          appearances: Object.freeze(['light', 'dark'] as const),
+        }),
         tokens: immutableTokens,
       });
     },
@@ -110,7 +109,7 @@ export const getThemePreset = (id: string) => currentRegistry().getThemePreset(i
 export const resolveThemeId = (value: unknown) => currentRegistry().resolveThemeId(value);
 /** Includes third-party metadata. Existing official selectors intentionally use themePresets. */
 export const listThemes = () => currentRegistry().listThemes();
-export function registerTheme(theme: ThemePreset, tokens?: ThemeTokens): void {
+export function registerTheme(theme: ThemePreset, tokens: ThemeTokens): void {
   if (typeof window === 'undefined')
     throw new Error('SSR must register themes on a request-owned createThemeRegistry().');
   currentRegistry().registerTheme(theme, tokens);

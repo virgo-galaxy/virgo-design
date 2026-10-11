@@ -1,5 +1,7 @@
 # Virgo Design Theme Contract 审计
 
+本文件保留截至 `751f00b` 的组件审计快照与当时验证数字。当前 Token / Theme Architecture 及后续 CSS packaging、validation、registry、SSR 结果见 [架构收口报告](token-theme-architecture.md)。
+
 2026-10-11 首轮，2026-10-12 最终收口。最终验货基线：`virgo-design-current(20261011-153627)`；产品基线：`apps/pro/vite-react-scss-modules`。范围：UI、Charts、Themes、Tokens 中现有契约，并检查实现 Portal 的 primitives。正式主题为 Virgo / Minimal / Soft / Glass / Retro / Contrast，全部覆盖 Light / Dark。
 
 ## 结论与计数口径

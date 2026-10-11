@@ -12,6 +12,8 @@ tokenVars['--vd-text-primary']; // 'var(--vd-text-primary)'
 validateThemeContract({ contractVersion: 1, tokens: getDefaultThemeTokens() });
 ```
 
+Validation reports missing required and optional roles per appearance, unknown/deprecated roles, invalid values and version mismatch. Missing optional roles remain valid and list the roles that use shared fallbacks. `completeness.required/optional/overall` expose implemented/total/percentage, counting each appearance separately (200 required, 708 optional); unknown/deprecated/invalid declarations never inflate coverage.
+
 SCSS consumers can use `@use 'pkg:@virgo-design/tokens/scss' as vd` with Sass's NodePackageImporter, or their bundler's package resolver, and `vd.token('--vd-text-primary')`. Unknown names fail compilation. Themes can cover typography/geometry without altering Foundation specimens.
 
 See [Token architecture](../../docs/architecture/token-system.md) for where a new visual value belongs, request-isolated runtime/SSR, bootstrap, package exports and multi-stack examples; [compatibility](../../docs/architecture/theme-compatibility.md) is separate from current API usage.

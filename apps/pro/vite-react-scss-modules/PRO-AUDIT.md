@@ -1,6 +1,6 @@
 # Virgo Design Pro — current product audit
 
-Updated October 8, 2026. Scope: `packages/*`, public Website documentation, and
+Updated October 12, 2026. Scope: `packages/*`, public Website documentation, and
 `apps/pro/vite-react-scss-modules` (Golden Pro). The other five Pro variants are not
 part of this pass. This document replaces the historical phase-by-phase issue log
 with the current capability and delivery boundaries.
@@ -80,7 +80,8 @@ These adapters do not duplicate public Button action controls or public overlay 
 - The engine-neutral theme contract resolves the current `--chart-*` CSS variables
   and the Theme Contract. Light/dark updates preserve the instance across virgo,
   minimal, soft, glass, retro and contrast. See the [Theme Contract audit](../../../docs/reviews/theme-contract-audit.md)
-  for current theme verification.
+  for the component-audit snapshot. Current packaging, registry and SSR verification
+  is recorded in the [Token / Theme Architecture report](../../../docs/reviews/token-theme-architecture.md).
 - Sparkline stays lightweight native SVG, with no ECharts or GSAP imports. Both
   `Chart.Sparkline` and `@virgo-design/charts/sparkline` avoid requesting the engine.
 - `@virgo-design/charts/echarts` offers EChartsChart, full EChartsOption, onReady and
@@ -193,9 +194,14 @@ These adapters do not duplicate public Button action controls or public overlay 
 
 ## Validation and readiness
 
-- Full repository tests: **233 files / 2,607 tests passed**. Typecheck and lint passed;
-  generated API and icon consistency checks passed. Production builds passed for
-  packages, Website and Golden Pro.
+- Current repository verification (October 12): **246 files / 2,770 tests passed**
+  (`pnpm test --maxWorkers=4`). Typecheck, lint, formatting, generated API and icon
+  consistency checks passed. Production builds passed for packages, Website and Golden Pro.
+- Current Theme follow-up: Website and Pro header selectors each passed all six
+  official themes in light/dark; Pro Settings passed the same 12 combinations with
+  names and descriptions intact. Shared single-theme CSS keeps conditional rules,
+  and official/third-party bootstrap and hydration tests pass. See the architecture
+  report linked above for exact scope; this did not rerun every earlier business check.
 - ECharts migration browser validation covers production renderer registration,
   shared-x Tooltip/active dots/guideline, keyboard inspection, data updates, native
   legend selection, polar lift/label lines, SVG/Canvas, nested light/dark, advanced
@@ -203,7 +209,7 @@ These adapters do not duplicate public Button action controls or public overlay 
   reduced-motion/theme updates, instance reuse, resize and cleanup.
 - Earlier product validation also sampled nested ColorPicker dismissal/layering and
   paused route loading with a persistent shell and localized Skeleton.
-- Golden Pro closure browser validation: **16 formal routes × English/Chinese ×
+- Golden Pro closure browser validation (October 8 snapshot): **16 formal routes × English/Chinese ×
   light/dark × 1440/390 px = 128 loaded-page checks**. No missing business-page
   heading, untranslated resource key, runtime page error or page-wide horizontal
   overflow was found. Tables retain local horizontal scrolling. Login, project
@@ -219,4 +225,5 @@ These adapters do not duplicate public Button action controls or public overlay 
 - **No remaining blocker for step ⑦ within Golden Pro's local Mock scope.** Backend
   deployment/authentication, cross-device collaboration and release/packaging remain
   separate boundaries. Theme/component audit was a follow-up at the time of Step ⑦;
-  its current result is recorded in the Theme Contract audit linked above.
+  its component result is recorded in the Theme Contract audit, and current Token /
+  Theme Architecture follow-up in the architecture report linked above.

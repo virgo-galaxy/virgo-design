@@ -49,7 +49,7 @@ describe('theme runtime', () => {
   it.each(['utility', 'bold', 'high-contrast'])(
     'reserves legacy ID %s for migration only',
     (id) => {
-      expect(() => registerTheme({ ...themePresets[0], id })).toThrow(
+      expect(() => registerTheme({ ...themePresets[0], id }, getDefaultThemeTokens())).toThrow(
         'Legacy theme ID is reserved',
       );
     },
@@ -61,7 +61,6 @@ describe('theme runtime', () => {
     expect(themeRegistry.contrast).toMatchObject({
       id: 'contrast',
       name: 'Contrast',
-      descriptionKey: 'contrast',
     });
     expect(Object.keys(themeRegistry)).toEqual(themePresets.map((theme) => theme.id));
     expect(resolveThemeId('contrast')).toBe('contrast');
@@ -135,7 +134,6 @@ describe('theme runtime', () => {
       {
         id: 'studio-test',
         name: 'Studio',
-        descriptionKey: 'studio',
         contractVersion: 1,
         appearances: ['light', 'dark'],
       },
@@ -143,6 +141,8 @@ describe('theme runtime', () => {
     );
     setTheme('studio-test');
     expect(getThemePreset(getTheme())?.name).toBe('Studio');
-    expect(() => registerTheme(themePresets[0])).toThrow('already registered');
+    expect(() => registerTheme(themePresets[0], getDefaultThemeTokens())).toThrow(
+      'already registered',
+    );
   });
 });

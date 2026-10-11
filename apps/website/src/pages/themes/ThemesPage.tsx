@@ -26,7 +26,8 @@ const theme = useSyncExternalStore(subscribeTheme, getTheme, getServerTheme);
 // Header, Settings and other controls share this state.
 setTheme('glass');`;
 const customCode = `import { getDefaultThemeTokens, validateThemeContract } from '@virgo-design/tokens';
-import { getThemeCss, registerTheme, initializeTheme, listThemes } from '@virgo-design/themes';
+import { createThemeRegistry, createThemeRuntime, getThemeCss,
+  getInitialThemeScript, getThemeAttributes, resolveTheme } from '@virgo-design/themes';
 
 const defaults = getDefaultThemeTokens();
 const tokens = {
@@ -34,15 +35,29 @@ const tokens = {
   dark: { ...defaults.dark, '--vd-brand-primary': '#9dbfff',
     '--vd-brand-foreground': '#10203a' },
 };
-validateThemeContract({ contractVersion: 1, tokens });
-// Build studio-theme.css from getThemeCss('studio', tokens), then import it.
-registerTheme({
-  id: 'studio', name: 'Studio', descriptionKey: 'studio',
-  contractVersion: 1, appearances: ['light', 'dark'],
-}, tokens);
-initializeTheme();
-listThemes(); // official + registered themes; themePresets stays official-only
-// Local scopes carry data-virgo-theme and data-theme together.`;
+const diagnostics = validateThemeContract({ contractVersion: 1, tokens });
+diagnostics.missingOptionalRoles; // fallback roles per appearance
+diagnostics.completeness; // required / optional / overall coverage
+// Build/import studio.css from getThemeCss('studio', tokens).
+export function createAppThemeRegistry() {
+  const registry = createThemeRegistry();
+  registry.registerTheme({
+    id: 'studio', name: 'Studio', contractVersion: 1,
+    appearances: ['light', 'dark'],
+  }, tokens);
+  return registry;
+}
+const serverRegistry = createAppThemeRegistry();
+const state = resolveTheme({ theme: 'studio', appearance: 'dark' }, serverRegistry);
+getThemeAttributes(state, serverRegistry); // Render attributes and serialize state.
+getInitialThemeScript({ registry: serverRegistry, defaultTheme: state.theme,
+  defaultAppearance: state.appearance, respectServerAttributes: true });
+// Install synchronously before CSS; use the same registry definition on the client.
+const clientRegistry = createAppThemeRegistry();
+const runtime = createThemeRuntime({ registry: clientRegistry,
+  initialTheme: state.theme, window });
+runtime.hydrateTheme(state); // before rendering, with the serialized server snapshot
+clientRegistry.listThemes(); // official + registered; themePresets stays official-only`;
 
 export function ThemesPage() {
   const { t } = useTranslation();
@@ -111,8 +126,8 @@ export function ThemesPage() {
                   <Table.Cell>
                     <code>{preset.id}</code>
                   </Table.Cell>
-                  <Table.Cell>{t(`themeStyleControl.names.${preset.descriptionKey}`)}</Table.Cell>
-                  <Table.Cell>{t(`themes.directions.${preset.descriptionKey}`)}</Table.Cell>
+                  <Table.Cell>{t(`themeStyleControl.names.${preset.id}`)}</Table.Cell>
+                  <Table.Cell>{t(`themes.directions.${preset.id}`)}</Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>

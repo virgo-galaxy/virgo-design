@@ -1,5 +1,7 @@
 # Theme System 验收记录
 
+本文件是正式 Themes 建立及后续改名的历史验收记录，测试数字保留各轮原值。当前架构与验证结果见 [Token / Theme Architecture 收口报告](token-theme-architecture.md)。
+
 2026-10-11。本次建立正式 `@virgo-design/themes`，六套主题均提供 Light/Dark；Theme Style 与 Appearance 分离。架构和使用方式见 [Theme System](../architecture/theme-system.md)、[Themes README](../../packages/themes/README.md)，Website 实际文档路由为 `/themes`。
 
 ## 视觉方向

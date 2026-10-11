@@ -53,7 +53,27 @@ Chart 的 enter/update/interaction duration/easing 是引擎 presentation：CSS 
 
 当前 required 是 94 个语义颜色 + 6 个 elevation，共 100 项，Light/Dark 都必须声明。Typography 和 presentation 是 optional，已有明确 fallback；`initial` 在这些 optional overrides 中表示使用组件 recipe 的 fallback。Required 颜色/elevation 不能用 `initial/inherit/unset/revert` 假装实现。Foundation 不是 Theme 可改写的 required surface；主题通过 Semantic / Component 覆盖视觉。
 
-`validateThemeContract({ contractVersion, tokens })` 返回版本、missingRequiredRoles、unknownRoles、deprecatedRoles、invalidValues。Unknown/missing/version mismatch/invalid value 都使 `valid=false`；deprecated 单独报告为迁移提示。验证输入声明，不能把浏览器已经 fallback 的 computed values 当成主题声明。
+`validateThemeContract({ contractVersion, tokens })` 返回以下诊断：
+
+```ts
+{
+  valid,
+  expectedVersion,
+  receivedVersion,
+  missingRequiredRoles: { light: [], dark: [] },
+  missingOptionalRoles: { light: [], dark: [] },
+  unknownRoles: { light: [], dark: [] },
+  deprecatedRoles: { light: [], dark: [] },
+  invalidValues: { light: [], dark: [] },
+  completeness: {
+    required: { implemented, total, percentage },
+    optional: { implemented, total, percentage },
+    overall: { implemented, total, percentage },
+  },
+}
+```
+
+版本不符、缺 required、unknown 或 invalid value 使 `valid=false`；deprecated 与缺 optional 是可观察的提示，不阻止注册。`missingOptionalRoles` 按外观列出没有显式声明、将使用共享基线/组件 fallback 的角色。Coverage 统计有效的显式声明；一个角色 × 一个外观为一个槽位，所以当前 required 总数为 200、optional 为 708、overall 为 908。Unknown/deprecated/无效值不增加覆盖率，百分比保留两位小数；显式选择默认值也算声明，覆盖率不代表主题的视觉差异程度。验证输入声明，不能把浏览器已经 fallback 的 computed values 当成主题声明。
 
 旧 writer slot 与新名字的映射在同一 compatibility source 中。生成的 SCSS mixin / `getThemeCss` 为官方或第三方样式复制同一个值给兼容名称；canonical 默认还能读取旧 writer 值。避免双向 `var()` 环造成无效值。纯 consumer composition 的旧变量只在 major 1 compatibility 层保留，当前 app 使用自身变量。
 
@@ -66,6 +86,8 @@ Theme 控制视觉语言；Appearance 控制 light/dark。局部 scope 同时设
 ## Registry、第三方 Theme
 
 官方六项 `themePresets` / `themeRegistry` 不可变。`listThemes()` 或 request registry 的 `listThemes()` 返回官方 + 已注册主题，注册不会替换官方/迁移保留 ID，重复注册报错。Website/Pro 现有 selector 明确使用官方 `themePresets`，不会自动显示第三方 Theme；自定义 selector 可以使用 `listThemes()`，其名称/描述翻译由消费者负责。
+
+`ThemePreset` 仅包含 `id: string`、`name: string`、`contractVersion: number`、`appearances: readonly ['light', 'dark']`。`name` 是通用显示名称；Website/Pro 自己按官方 id 维护中英文名称和描述资源。核心不携带消费者的翻译 key。两种注册入口都要求 `registerTheme(theme: ThemePreset, tokens: ThemeTokens): void`。
 
 ```ts
 import { getDefaultThemeTokens, validateThemeContract } from '@virgo-design/tokens';
@@ -82,7 +104,6 @@ registry.registerTheme(
   {
     id: 'studio',
     name: 'Studio',
-    descriptionKey: 'studio',
     contractVersion: 1,
     appearances: ['light', 'dark'],
   },
@@ -91,7 +112,7 @@ registry.registerTheme(
 const css = getThemeCss('studio', tokens); // save/import at build time; or SSR style with CSP nonce
 ```
 
-`getDefaultThemeTokens()` 是作者明确选择的基线，包含完整数据色板；不是注册器替遗漏角色自动填值。注册器要求传实际 declarations，旧的 metadata-only 注册会得到可诊断的错误。颜色定义生成 Appearance bridge slots；共同 presentation 生成 scope 值，不同外观的 optional 值使用同一 scope 上的两种属性。不会输出能覆盖另一局部 Theme 的祖先业务选择器。CSS 的安装仍由消费者负责，注册不会在浏览器暗中插入 stylesheet。
+`getDefaultThemeTokens()` 是作者明确选择的基线，包含完整数据色板；不是注册器替遗漏角色自动填值。注册器要求传实际 declarations，TypeScript 拒绝 metadata-only 调用，绕过类型的 JavaScript 调用仍得到验证错误。仅实现 required 的第三方主题合法，optional fallback 由诊断完整列出。颜色定义生成 Appearance bridge slots；共同 presentation 生成 scope 值，不同外观的 optional 值使用同一 scope 上的两种属性。不会输出能覆盖另一局部 Theme 的祖先业务选择器。CSS 的安装仍由消费者负责，注册不会在浏览器暗中插入 stylesheet。
 
 ## Runtime、SSR 与 Hydration
 
@@ -129,6 +150,56 @@ const runtime = createThemeRuntime({ registry, initialTheme: state.theme });
 Website 的 Vite hook 读取独立 Theme/Appearance key，并保留 `/examples/` 明暗 query 规则。Pro hook 从统一 settings JSON 恢复 theme/appearance，默认值来自配置，兼容旧独立 key；运行时继续负责规范化保存值。两处共用 `config/theme-bootstrap-plugin.ts`，实现来自 Themes。脚本早于 React，所以保存 Glass + Dark 的刷新不先渲染 Virgo + Light。
 
 SSR 若 cookies 是权威来源，直接在 HTML 输出 `getThemeAttributes(state)`，脚本可选择 `respectServerAttributes: true`；客户端 hydrate 同一 state。若服务器不知道本地偏好，bootstrap 只能先修复 HTML 视觉，依赖 Theme 的 React 文本仍需以明确一致的 snapshot 渲染。不要用 suppressHydrationWarning 掩盖整个组件树的不一致。Next.js 的 cookie读取、nonce与请求传递属于宿主，不由本包发明全局 server store。
+
+第三方 Theme 也必须在生成 bootstrap 前注册。Server、bootstrap 和 client 使用同一 **registry definition**，各自创建实例；不传递服务端的可变实例，不混用官方-only 便捷 registry。
+
+```ts
+import { getDefaultThemeTokens } from '@virgo-design/tokens';
+import {
+  createThemeRegistry,
+  createThemeRuntime,
+  getInitialThemeScript,
+  getThemeAttributes,
+  resolveTheme,
+} from '@virgo-design/themes';
+
+// Shared definition; a fresh instance for each request/client owner.
+export function createAppThemeRegistry() {
+  const registry = createThemeRegistry();
+  registry.registerTheme(
+    {
+      id: 'studio',
+      name: 'Studio',
+      contractVersion: 1,
+      appearances: ['light', 'dark'],
+    },
+    getDefaultThemeTokens(),
+  ); // Replace with the same authored declarations on both sides.
+  return registry;
+}
+
+// Server: resolve validated cookies/preferences and render attributes + snapshot.
+const serverRegistry = createAppThemeRegistry();
+const state = resolveTheme({ theme: 'studio', appearance: 'dark' }, serverRegistry);
+const attributes = getThemeAttributes(state, serverRegistry);
+const script = getInitialThemeScript({
+  registry: serverRegistry,
+  defaultTheme: 'studio',
+  defaultAppearance: 'dark',
+  respectServerAttributes: true,
+}); // Synchronous head script before CSS; attach the host's nonce.
+
+// Client: before render, hydrate the serialized server snapshot with identical IDs/tokens.
+const clientRegistry = createAppThemeRegistry();
+const runtime = createThemeRuntime({ registry: clientRegistry, window, initialTheme: state.theme });
+runtime.hydrateTheme(state);
+```
+
+对于持久化偏好的 SPA，也向 `getInitialThemeScript({ registry, storage, appearanceStorageKey })` 传完整 registry；脚本的第一轮写入即可使用自定义 id，而不是先回到 Virgo。语言层提前设置的 `dir` 保持不变。自定义 CSS 必须同时在首屏加载；注册/脚本只解析属性，不会替宿主下载样式。
+
+## Theme CSS 构建
+
+合集由六个 `src/themes/*.scss` 和 `src/compatibility/styles.scss` 编译。兼容配方集中在 `compatibility/_recipes.scss` 的结构化 mixin；合集按既有 content/chrome/环境规则顺序 include，单 Theme 直接编译对应 Theme source + `recipes.theme(id)`。不从编译后的 CSS 中拆 selector/block。Sass 保留 `@supports`、`@media` 和 scope，单 Theme 的完整规则树与合集中的对应 scope 一致。
 
 ## 多技术栈消费
 

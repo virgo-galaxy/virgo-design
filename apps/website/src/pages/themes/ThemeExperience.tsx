@@ -39,7 +39,7 @@ export function ThemeExperience() {
       <header className={styles.previewHeader}>
         <div>
           <span className={styles.themeName}>
-            {preset ? t(`themeStyleControl.names.${preset.descriptionKey}`) : theme}
+            {preset ? t(`themeStyleControl.names.${preset.id}`) : theme}
           </span>
           <h3>{t('themes.specimen.title')}</h3>
           <p>{t('themes.specimen.description')}</p>
