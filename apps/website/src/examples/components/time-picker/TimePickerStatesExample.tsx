@@ -9,7 +9,7 @@ export default function App() {
       <>
         <Field>
           <Field.Label>{t('examples.timePicker.copy.seconds')}</Field.Label>
-          <TimePicker step={1} defaultValue="12:30:15" size="small" />
+          <TimePicker showSeconds showClear showConfirm defaultValue="12:30:15" size="small" />
         </Field>
         <Field readOnly>
           <Field.Label>{t('examples.timePicker.copy.readonly')}</Field.Label>

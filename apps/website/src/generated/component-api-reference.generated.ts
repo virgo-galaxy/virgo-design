@@ -13429,6 +13429,48 @@ export const componentApiReference: ApiReferenceRegistry = {
         reExported: false,
         properties: [
           {
+            name: 'loop',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description:
+              'Wrap keyboard navigation between enabled options and wheel scrolling at list edges.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.time-picker.api.time-picker-props.properties.loop.description',
+          },
+          {
+            name: 'showSeconds',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Show the seconds column; when true, step defaults to 1 second. When omitted, infer from value or step precision.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.time-picker.api.time-picker-props.properties.show-seconds.description',
+          },
+          {
+            name: 'showClear',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Show the clear action; required fields cannot be cleared.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.time-picker.api.time-picker-props.properties.show-clear.description',
+          },
+          {
+            name: 'showConfirm',
+            type: 'boolean | undefined',
+            required: false,
+            defaultValue: 'false',
+            description: 'Show a close action. Values still update immediately when selected.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.time-picker.api.time-picker-props.properties.show-confirm.description',
+          },
+          {
             name: 'size',
             type: "'small' | 'medium' | 'large' | undefined",
             required: false,

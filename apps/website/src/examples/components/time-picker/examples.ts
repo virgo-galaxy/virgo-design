@@ -22,7 +22,8 @@ export const timePickerExamples = {
     id: 'time-picker-states',
     title: 'Seconds and field states',
     titleTranslationKey: 'examples.timePicker.copy.title1',
-    description: 'Seconds are enabled by native step precision.',
+    description:
+      'Use showSeconds and optional clear/confirm actions; native step precision remains available.',
     descriptionTranslationKey: 'examples.timePicker.copy.description1',
     Component: TimePickerStatesExample,
     source: createExampleSource(source1),

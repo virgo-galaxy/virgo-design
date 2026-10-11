@@ -4,7 +4,7 @@ export const timePickerMetadata = {
   package: '@virgo-design/ui',
   category: 'Forms',
   description:
-    'Local time entry with native segmented editing, precision and browser constraint validation.',
+    'Local time entry with native editing and validation, plus a themed hour, minute and second popover.',
   import: "import { TimePicker } from '@virgo-design/ui';",
   sizes: [
     {
@@ -25,7 +25,7 @@ export const timePickerMetadata = {
     {
       name: 'TimePicker',
       description:
-        'Local time entry with native segmented editing, precision and browser constraint validation.',
+        'Local time entry with native editing and validation, plus a themed hour, minute and second popover.',
     },
   ],
   capabilities: {
@@ -33,7 +33,7 @@ export const timePickerMetadata = {
     controlledValue: true,
   },
   accessibility: [
-    'Local time entry with native segmented editing, precision and browser constraint validation.',
+    'Local time entry with native editing and validation, plus a themed hour, minute and second popover.',
   ],
   examples: [],
 } as const satisfies ComponentMetadata;

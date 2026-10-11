@@ -1461,6 +1461,14 @@ export const componentsApiEnUS: ApiDescriptionResources = {
   },
   'time-picker': {
     api: {
+      'time-picker-props.properties.loop.description':
+        'Wrap keyboard navigation between enabled options and wheel scrolling at list edges.',
+      'time-picker-props.properties.show-seconds.description':
+        'Show the seconds column; when true, step defaults to 1 second. When omitted, infer from value or step precision.',
+      'time-picker-props.properties.show-clear.description':
+        'Show the clear action; required fields cannot be cleared.',
+      'time-picker-props.properties.show-confirm.description':
+        'Show a close action. Values still update immediately when selected.',
       'time-picker-props.properties.size.description': 'Visual density.',
       'time-picker-props.properties.value.description':
         'Controlled local wall-clock time in HH:mm or HH:mm:ss form. No timezone conversion.',

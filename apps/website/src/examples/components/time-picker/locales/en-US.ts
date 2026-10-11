@@ -8,6 +8,7 @@ export const timePickerExamplesEnUS = {
     title0: 'Local time and precision',
     description0: 'Values use HH:mm; native min/max/step remain available.',
     title1: 'Seconds and field states',
-    description1: 'Seconds are enabled by native step precision.',
+    description1:
+      'Use showSeconds and optional clear/confirm actions; native step precision remains available.',
   },
 } as const;

@@ -11,6 +11,6 @@ export const timePickerExamplesZhCN = {
     title0: '本地时间与精度',
     description0: '值使用 HH:mm，保留原生 min/max/step。',
     title1: '秒与字段状态',
-    description1: '通过原生 step 精度启用秒。',
+    description1: '使用 showSeconds 和可选清空、完成操作，仍可通过原生 step 设置精度。',
   },
 } satisfies LocaleOf<typeof timePickerExamplesEnUS>;

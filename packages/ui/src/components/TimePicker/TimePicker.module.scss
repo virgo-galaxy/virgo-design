@@ -21,32 +21,118 @@
   position: relative;
   padding-inline-end: var(--vd-sizing-36);
 
-  // Keep the native picker hit target beneath the decorative Virgo glyph.
+  // The Virgo popover replaces the browser-owned time menu.
   &::-webkit-calendar-picker-indicator {
-    position: absolute;
-    inset-inline-end: var(--vd-spacing-12);
-    top: 50%;
-    width: var(--vd-sizing-20);
-    height: var(--vd-sizing-20);
-    padding: 0;
-    margin: 0;
-    transform: translateY(-50%);
-    opacity: 0;
-    cursor: pointer;
+    display: none;
   }
 }
 
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset-inline-end: var(--vd-spacing-8);
+  top: 50%;
+  width: var(--vd-sizing-24);
+  height: var(--vd-sizing-24);
+  padding: 0;
+  border: 0;
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
+  background: transparent;
+  color: var(--vd-icon-secondary);
+  transform: translateY(-50%);
+  cursor: pointer;
+  &:hover:not(:disabled) {
+    background: var(--vd-fill-hover);
+    color: var(--vd-icon-primary);
+  }
+  &:focus-visible {
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
+    outline-offset: var(--vd-spacing-2);
+  }
+  &:disabled {
+    color: var(--vd-icon-disabled);
+    cursor: not-allowed;
+  }
+}
 .icon {
   width: var(--time-picker-icon-size);
   height: var(--time-picker-icon-size);
-  position: absolute;
-  inset-inline-end: var(--vd-spacing-12);
-  top: 50%;
-  color: var(--vd-icon-secondary);
-  transform: translateY(-50%);
-  pointer-events: none;
-
-  .wrapper:has(input:disabled) & {
-    color: var(--vd-icon-disabled);
+}
+.content.content {
+  width: max-content;
+  min-width: 0;
+  display: block;
+  padding: var(--vd-spacing-8);
+  max-width: calc(100vw - var(--vd-spacing-24));
+}
+.columns {
+  display: flex;
+  gap: var(--vd-spacing-8);
+}
+.column {
+  position: relative;
+  display: grid;
+  gap: var(--vd-spacing-6);
+  min-width: var(--vd-sizing-64);
+  & + &::before {
+    content: '';
+    position: absolute;
+    inset-block: var(--vd-spacing-2);
+    inset-inline-start: calc(var(--vd-spacing-4) * -1);
+    border-inline-start: 1px solid color-mix(in srgb, var(--vd-text-primary) 7%, transparent);
+    pointer-events: none;
   }
+}
+.columnLabel {
+  text-align: center;
+  color: var(--vd-text-secondary);
+  font-size: var(--vd-font-size-12);
+}
+.list {
+  position: relative;
+  max-height: min(224px, 40vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--vd-border-default) transparent;
+}
+.option {
+  display: block;
+  width: 100%;
+  min-height: var(--vd-control-small-height, var(--vd-sizing-32));
+  padding: var(--vd-spacing-4) var(--vd-spacing-12);
+  border: 0;
+  border-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  color: var(--vd-text-primary);
+  background: transparent;
+  cursor: pointer;
+  &:hover:not(:disabled):not([aria-selected='true']) {
+    background: var(--vd-fill-hover);
+  }
+  &[aria-selected='true'] {
+    color: var(--vd-brand-foreground);
+    background: var(--vd-brand-primary);
+  }
+  &:focus-visible {
+    outline: var(--vd-focus-width, var(--vd-border-width-2)) solid var(--vd-border-focus);
+    outline-offset: calc(var(--vd-focus-width, var(--vd-border-width-2)) * -1);
+  }
+  &:disabled {
+    color: var(--vd-text-disabled);
+    background: transparent;
+    cursor: not-allowed;
+  }
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vd-spacing-8);
+  margin-block-start: var(--vd-spacing-8);
+  padding-block-start: var(--vd-spacing-8);
+  border-block-start: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
 }

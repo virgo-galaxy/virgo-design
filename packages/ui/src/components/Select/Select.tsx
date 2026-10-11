@@ -61,7 +61,14 @@ function collectOptionLabels(
       return;
     }
 
-    if (child.type === SelectOption) {
+    // Fast Refresh can leave existing elements pointing at the previous component object.
+    if (
+      child.type === SelectOption ||
+      (((typeof child.type === 'object' && child.type !== null) ||
+        typeof child.type === 'function') &&
+        'displayName' in child.type &&
+        child.type.displayName === 'Select.Option')
+    ) {
       const optionProps = child.props as SelectOptionProps;
       labels.set(optionProps.value, optionProps.children);
       intents.set(optionProps.value, optionProps.intent);

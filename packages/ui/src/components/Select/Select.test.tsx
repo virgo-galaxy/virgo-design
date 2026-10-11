@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createRef, useState } from 'react';
+import { createRef, forwardRef, useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Select } from './index';
-import type { SelectProps, SelectSize } from './Select.types';
+import type { SelectOptionProps, SelectProps, SelectSize } from './Select.types';
 
 const options: ReadonlyArray<{ value: string; label: string; disabled?: boolean }> = [
   { value: 'design', label: 'Virgo Design' },
@@ -33,6 +33,78 @@ function SelectExample({ label, placeholder, ...props }: SelectExampleProps) {
 }
 
 describe('Select', () => {
+  it.each(['controlled', 'uncontrolled'] as const)(
+    'keeps %s selection labels when options retain their pre-refresh component identity',
+    async (mode) => {
+      const user = userEvent.setup();
+      const PreviousOption = forwardRef<HTMLDivElement, SelectOptionProps>((props, ref) => (
+        <Select.Option {...props} ref={ref} />
+      ));
+      PreviousOption.displayName = 'Select.Option';
+
+      function Example() {
+        const [value, setValue] = useState('design');
+        return (
+          <Select
+            value={mode === 'controlled' ? value : undefined}
+            defaultValue={mode === 'uncontrolled' ? 'design' : undefined}
+            onValueChange={setValue}
+          >
+            <Select.Trigger aria-label="Project" />
+            <Select.Content>
+              <>
+                <PreviousOption value="design" intent="success">
+                  Virgo Design
+                </PreviousOption>
+                <PreviousOption value="docs">Virgo Cloud Docs</PreviousOption>
+              </>
+            </Select.Content>
+          </Select>
+        );
+      }
+
+      render(<Example />);
+      const trigger = screen.getByRole('button', { name: 'Project' });
+      expect(trigger).toHaveTextContent('Virgo Design');
+      expect(trigger.querySelector('[data-slot="value"]')).not.toHaveAttribute('data-placeholder');
+      expect(trigger.querySelector('[data-slot="value"]')).toHaveAttribute(
+        'data-intent',
+        'success',
+      );
+      await user.click(trigger);
+      expect(screen.getByRole('option', { name: 'Virgo Design' })).toHaveAttribute(
+        'aria-selected',
+        'true',
+      );
+      await user.click(screen.getByRole('option', { name: 'Virgo Cloud Docs' }));
+      expect(trigger).toHaveTextContent('Virgo Cloud Docs');
+      expect(trigger.querySelector('[data-slot="value"]')).not.toHaveAttribute('data-placeholder');
+    },
+  );
+
+  it('keeps multi-value labels and removal names for pre-refresh option identities', () => {
+    const PreviousOption = forwardRef<HTMLDivElement, SelectOptionProps>((props, ref) => (
+      <Select.Option {...props} ref={ref} />
+    ));
+    PreviousOption.displayName = 'Select.Option';
+    render(
+      <Select.Multiple defaultValue={['design']}>
+        <Select.Trigger aria-label="Projects" />
+        <Select.Content>
+          <PreviousOption value="design" intent="success">
+            Virgo Design
+          </PreviousOption>
+        </Select.Content>
+      </Select.Multiple>,
+    );
+    expect(document.querySelector('[data-slot="selected-tag"]')).toHaveTextContent('Virgo Design');
+    expect(document.querySelector('[data-slot="selected-tag"]')).toHaveAttribute(
+      'data-intent',
+      'success',
+    );
+    expect(screen.getByRole('button', { name: 'Remove Virgo Design' })).toBeInTheDocument();
+  });
+
   it('shares option intent with removable tags and updates it without changing selection', async () => {
     const user = userEvent.setup();
     const fixture = (intent: 'success' | 'warning') => (

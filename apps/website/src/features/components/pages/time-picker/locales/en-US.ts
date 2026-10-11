@@ -1,7 +1,7 @@
 export const timePickerEnUS = {
   overview: {
     description:
-      'Local time entry with native segmented editing, precision and browser constraint validation.',
+      'Themed time selection with native editing and validation. Configure looping, seconds and optional clear/close actions.',
   },
   specimen: {
     referenceSpecimen: 'Reference specimen',
