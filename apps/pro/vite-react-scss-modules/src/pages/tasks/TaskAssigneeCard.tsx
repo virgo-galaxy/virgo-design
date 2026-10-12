@@ -4,8 +4,10 @@ import { useTranslation } from 'react-i18next';
 
 import type { MemberDto } from '@/api/tasks';
 import type { UserDetailsDto } from '@/api/users';
+import { useTaskCatalog } from '@/application/pro-data-context';
 import { userDetailsCache } from '@/application/user-details-cache';
 import { UserGenderIcon } from '@/components/user-gender/UserGenderIcon';
+import { projectName } from '@/data/task-catalog';
 import { businessLabel, formatWorkLocation } from '@/lib/demo/labels';
 
 import styles from './TaskAssigneeCard.module.scss';
@@ -15,6 +17,7 @@ type Resource =
 
 function UserCardDetails({ userId }: { userId: string }) {
   const { t, i18n } = useTranslation();
+  const { projects } = useTaskCatalog();
   const [resource, setResource] = useState<Resource>(() => {
     const data = userDetailsCache.peek(userId);
     return data ? { status: 'ready', data } : { status: 'loading' };
@@ -117,7 +120,7 @@ function UserCardDetails({ userId }: { userId: string }) {
           <div>
             {user.managedProjects.map((project) => (
               <Tag key={project} size="sm">
-                {businessLabel(project, i18n.language)}
+                {businessLabel(projectName(project, projects), i18n.language)}
               </Tag>
             ))}
           </div>
@@ -128,7 +131,7 @@ function UserCardDetails({ userId }: { userId: string }) {
         <div>
           {user.projects.map((project) => (
             <Tag key={project} size="sm">
-              {businessLabel(project, i18n.language)}
+              {businessLabel(projectName(project, projects), i18n.language)}
             </Tag>
           ))}
         </div>

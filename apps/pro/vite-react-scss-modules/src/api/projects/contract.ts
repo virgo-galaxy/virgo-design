@@ -18,3 +18,19 @@ export interface ProjectDto {
   color: number;
   milestones: { title: string; date: string; note: string }[];
 }
+
+export interface ProjectOverviewDto {
+  projectId: string;
+  total: number;
+  completed: number;
+  open: number;
+  progress: number;
+  hours: number;
+  overdue: number;
+  review: number;
+  modules: { id: string; total: number; completed: number }[];
+  memberTaskCounts: Record<string, number>;
+  /** At most eight scoped tasks; this is a preview, never the full register. */
+  tasks: import('../tasks/contract').TaskDto[];
+  activity: import('../analytics/contract').ActivityDto[];
+}

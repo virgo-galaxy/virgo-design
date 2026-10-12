@@ -1,7 +1,6 @@
 import { createContext, useContext } from 'react';
 
 import type { SessionUser } from '@/api/auth';
-import { getStoredUser } from '@/lib/auth/session';
 
 export const SessionContext = createContext<{
   user: SessionUser;
@@ -16,5 +15,5 @@ export function useSession() {
 }
 
 export function useCurrentUser() {
-  return useContext(SessionContext)?.user ?? getStoredUser();
+  return useSession().user;
 }

@@ -7,11 +7,11 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } 
 
 import { login } from '@/api/auth';
 import { getTasks } from '@/api/tasks';
-import { useProData } from '@/application/pro-data-context';
 import { ProDataProvider } from '@/application/ProDataProvider';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';
+import { TestSessionProvider } from '@/test/TestSessionProvider';
 
 import { TaskCardsPage } from './TaskCardsPage';
 import { TasksPage } from './TasksPage';
@@ -28,8 +28,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 function Page() {
-  const { dispatch } = useProData();
-  return <TasksPage dispatch={dispatch} />;
+  return <TasksPage />;
 }
 function renderPage(path = '/work/tasks') {
   render(
@@ -38,9 +37,11 @@ function renderPage(path = '/work/tasks') {
         [
           {
             element: (
-              <ProDataProvider>
-                <Outlet />
-              </ProDataProvider>
+              <TestSessionProvider>
+                <ProDataProvider>
+                  <Outlet />
+                </ProDataProvider>
+              </TestSessionProvider>
             ),
             children: [
               { path: '/work/tasks', element: <Page /> },
@@ -379,6 +380,7 @@ it('disabling pagination exposes the entire task collection rather than only the
         data: {
           items: records.slice((pageNum - 1) * pageSize, pageNum * pageSize),
           total: records.length,
+          snapshotId: 'test-snapshot',
           pageNum,
           pageSize,
           overview: { total: records.length, inProgress: 0, completed: 0, dueSoon: 0 },

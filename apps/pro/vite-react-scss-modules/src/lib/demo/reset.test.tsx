@@ -3,8 +3,8 @@ import { act, renderHook } from '@testing-library/react';
 import { getTheme, initializeTheme, setTheme, themeStorageKey } from '@virgo-design/themes';
 import { afterEach, expect, it, vi } from 'vitest';
 
-import { defaultProSettings, settingsStorageKey } from '@/components/global-settings/settings';
-import { useProSettings } from '@/components/global-settings/useProSettings';
+import { defaultProSettings, settingsStorageKey } from '@/application/settings/model';
+import { useProSettings } from '@/application/settings/useProSettings';
 import { initializeProTheme } from '@/lib/pro-theme';
 import { taskTableStorageKey, useTaskTableSettings } from '@/pages/tasks/use-table-settings';
 

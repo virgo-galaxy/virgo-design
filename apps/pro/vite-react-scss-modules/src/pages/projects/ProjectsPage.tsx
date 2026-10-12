@@ -3,23 +3,22 @@ import { Button, Input, Progress, Surface, Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router';
 
-import { useProData } from '@/application/pro-data-context';
+import type { ProjectOverviewDto } from '@/api/projects/contract';
+import { getProjectOverviews } from '@/api/projects/projects-api';
+import { CatalogBoundary } from '@/application/CatalogBoundary';
+import { useTaskCatalog } from '@/application/pro-data-context';
+import { RemoteState } from '@/application/RemoteState';
 import { useCurrentUser } from '@/application/session-context';
+import { useResourceQuery } from '@/application/use-resource-query';
 import clipboardListArtwork from '@/assets/illustrations/clipboard-list.svg';
 import documentMagnifierArtwork from '@/assets/illustrations/document-magnifier.svg';
 import folderTargetArtwork from '@/assets/illustrations/folder-target.svg';
 import triangleAlertArtwork from '@/assets/illustrations/triangle-alert.svg';
-import {
-  filterProjects,
-  type Project,
-  projectDetailPath,
-  projectSummary,
-  projectTasksPath,
-} from '@/data/projects';
-import type { TaskState } from '@/data/tasks';
+import { Person } from '@/components/person/Person';
+import { filterProjects, type Project, projectDetailPath, projectTasksPath } from '@/data/projects';
 import { canManageProject } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
-import { MultiFilterSelect, NoResults, Panel, Person } from '@/pages/shared/ProPage';
+import { MultiFilterSelect, NoResults, Panel } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { WorkOverview } from '@/pages/shared/WorkOverview';
 
@@ -28,17 +27,15 @@ import styles from './ProjectsPage.module.scss';
 
 function ProjectCard({
   project,
-  state,
+  summary,
   returnTo,
 }: {
   project: Project;
-  state: TaskState;
+  summary: ProjectOverviewDto;
   returnTo: string;
 }) {
-  const { taskAssignees, taskReferenceDate } = useProData();
   const user = useCurrentUser()!;
   const { t, i18n } = useTranslation();
-  const summary = projectSummary(project, state.tasks, taskAssignees, taskReferenceDate);
   const tasksPath = projectTasksPath(project);
   const detailsPath = `${projectDetailPath(project)}?returnTo=${encodeURIComponent(returnTo)}`;
   return (
@@ -116,7 +113,7 @@ function ProjectCard({
         <Link className={shared.link} to={tasksPath}>
           {t('projects.viewTasks')}
         </Link>
-        {canManageProject(user, project.name) ? (
+        {canManageProject(user, project.id) ? (
           <Link className={shared.link} to={projectDetailPath(project) + '/handoff'}>
             {t('projects.prepareHandoff')}
           </Link>
@@ -126,8 +123,9 @@ function ProjectCard({
   );
 }
 
-export function ProjectsPage({ state }: { state: TaskState }) {
-  const { taskReferenceDate, projects, taskAssignees } = useProData();
+function ProjectsPageView({ summaries }: { summaries: ProjectOverviewDto[] }) {
+  const { projects, metadata } = useTaskCatalog();
+  const { members: taskAssignees } = metadata;
   const user = useCurrentUser()!;
   const { t, i18n } = useTranslation();
   const [params, setParams] = useSearchParams();
@@ -146,9 +144,6 @@ export function ProjectsPage({ state }: { state: TaskState }) {
     );
   const reset = () => setParams({}, { replace: true });
   const visible = filterProjects(projects, taskAssignees, { search, health, leads: owner });
-  const summaries = projects.map((project) =>
-    projectSummary(project, state.tasks, taskAssignees, taskReferenceDate),
-  );
   const leads = taskAssignees.filter((member) =>
     projects.some((project) => project.owner === member.id),
   );
@@ -244,7 +239,7 @@ export function ProjectsPage({ state }: { state: TaskState }) {
               <ProjectCard
                 key={project.id}
                 project={project}
-                state={state}
+                summary={summaries.find((item) => item.projectId === project.id)!}
                 returnTo={`/work/projects${params.size ? `?${params}` : ''}`}
               />
             ))}
@@ -260,5 +255,24 @@ export function ProjectsPage({ state }: { state: TaskState }) {
         </div>
       </Panel>
     </div>
+  );
+}
+
+const loadProjectOverviews = (signal: AbortSignal) => getProjectOverviews(undefined, signal);
+function ProjectsResource() {
+  const resource = useResourceQuery(loadProjectOverviews);
+  if (!resource.data) return <RemoteState {...resource} />;
+  return (
+    <>
+      {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
+      <ProjectsPageView summaries={resource.data} />
+    </>
+  );
+}
+export function ProjectsPage() {
+  return (
+    <CatalogBoundary>
+      <ProjectsResource />
+    </CatalogBoundary>
   );
 }

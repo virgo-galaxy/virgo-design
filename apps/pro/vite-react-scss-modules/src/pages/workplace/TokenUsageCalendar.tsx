@@ -3,11 +3,13 @@ import { Button, Calendar, Dialog, SegmentedControl, Select } from '@virgo-desig
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useProData } from '@/application/pro-data-context';
+import { useTaskCatalog } from '@/application/pro-data-context';
 import calendarChartArtwork from '@/assets/illustrations/calendar-chart.svg';
+import { projectName } from '@/data/task-catalog';
 import { businessLabel } from '@/lib/demo/labels';
 
 import { buildTokenUsageCalendar, formatTokenCount } from './token-usage-calendar';
+import { useWorkplaceData } from './workplace-context';
 import styles from './WorkplacePage.module.scss';
 
 const highUsageThreshold = 100000;
@@ -19,8 +21,9 @@ export function TokenUsageCalendar({
   year: number;
   onYearChange: (year: number) => void;
 }) {
-  const { tokenUsage, snapshot, tokenRecords, reportingYears, reportingScope, taskAssignees } =
-    useProData();
+  const { tokenUsage, snapshot, tokenRecords, reportingYears, reportingScope } = useWorkplaceData();
+  const { projects, metadata } = useTaskCatalog();
+  const taskAssignees = metadata.members;
   const { t, i18n } = useTranslation();
   const openingDate =
     reportYear === Number(snapshot.date.slice(0, 4)) ? snapshot.date : `${reportYear}-12-31`;
@@ -243,7 +246,7 @@ export function TokenUsageCalendar({
                               'Admin',
                             i18n.language,
                           )}{' '}
-                          · {businessLabel(record.project, i18n.language)}
+                          · {businessLabel(projectName(record.project, projects), i18n.language)}
                         </small>
                       </span>
                       <span>

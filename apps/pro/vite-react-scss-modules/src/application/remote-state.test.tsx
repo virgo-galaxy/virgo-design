@@ -11,10 +11,11 @@ import { i18nInstance } from '@/i18n/runtime';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';
 import { TaskForm } from '@/pages/tasks/TaskForm';
+import { TestSessionProvider } from '@/test/TestSessionProvider';
 
-import { useProData } from './pro-data-context';
+import { CatalogBoundary } from './CatalogBoundary';
+import { useTaskOperations } from './pro-data-context';
 import { ProDataProvider } from './ProDataProvider';
-import { TaskCollectionBoundary } from './TaskCollectionBoundary';
 import { useRemoteData } from './use-remote-data';
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
@@ -27,9 +28,12 @@ afterEach(() => {
   server.resetHandlers();
 });
 afterAll(() => server.close());
+const loadEditorTask = (signal: AbortSignal) => getTask('49e7996a-311b', signal);
 function Editor() {
-  const { state, dispatch } = useProData();
-  const task = state.tasks[0]!;
+  const { dispatch } = useTaskOperations();
+  const resource = useRemoteData(loadEditorTask);
+  if (!resource.data) return null;
+  const task = resource.data;
   return (
     <TaskForm
       task={task}
@@ -44,14 +48,18 @@ describe('remote UI states', () => {
   it('shows bootstrap error and retries through the API', async () => {
     server.use(
       mswHttp.get(
-        '/api/v1/profile',
+        '/api/v1/tasks/metadata',
         () => new HttpResponse('Gateway unavailable', { status: 503 }),
       ),
     );
     render(
-      <ProDataProvider>
-        <p>Remote application ready</p>
-      </ProDataProvider>,
+      <TestSessionProvider>
+        <ProDataProvider>
+          <CatalogBoundary>
+            <p>Remote application ready</p>
+          </CatalogBoundary>
+        </ProDataProvider>
+      </TestSessionProvider>,
     );
     expect(screen.getByRole('status')).toBeTruthy();
     await screen.findByText('Unable to load data');
@@ -67,11 +75,13 @@ describe('remote UI states', () => {
           {
             path: '/',
             element: (
-              <ProDataProvider>
-                <TaskCollectionBoundary>
-                  <Editor />
-                </TaskCollectionBoundary>
-              </ProDataProvider>
+              <TestSessionProvider>
+                <ProDataProvider>
+                  <CatalogBoundary>
+                    <Editor />
+                  </CatalogBoundary>
+                </ProDataProvider>
+              </TestSessionProvider>
             ),
           },
         ])}
@@ -130,4 +140,26 @@ describe('remote UI states', () => {
     await act(async () => resolveFirst?.('Old result'));
     expect(screen.queryByText('Old result')).toBeNull();
   });
+});
+
+it('keeps a successful mutation result when an older read resolves afterwards', async () => {
+  let resolveRead: ((value: string) => void) | undefined;
+  const load = () =>
+    new Promise<string>((resolve) => {
+      resolveRead = resolve;
+    });
+  function View() {
+    const resource = useRemoteData(load);
+    return (
+      <>
+        <p>{resource.data ?? 'Reading'}</p>
+        <button onClick={() => resource.setData('Saved mutation')}>Save result</button>
+      </>
+    );
+  }
+  render(<View />);
+  fireEvent.click(screen.getByRole('button', { name: 'Save result' }));
+  await act(async () => resolveRead?.('Older read'));
+  expect(screen.getByText('Saved mutation')).toBeInTheDocument();
+  expect(screen.queryByText('Older read')).not.toBeInTheDocument();
 });

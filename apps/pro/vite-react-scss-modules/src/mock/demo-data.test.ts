@@ -34,7 +34,7 @@ describe('coherent demonstration catalog', () => {
     expect(projects).toHaveLength(4);
     expect(
       projects.map(
-        (project) => initialTaskState.tasks.filter((task) => task.project === project.name).length,
+        (project) => initialTaskState.tasks.filter((task) => task.project === project.id).length,
       ),
     ).toEqual([68, 54, 60, 58]);
     expect(teamAssignments).toHaveLength(24);
@@ -49,7 +49,7 @@ describe('coherent demonstration catalog', () => {
       expect(project.modules).toHaveLength(6);
       expect(project.memberIds).toContain(project.owner);
       expect(users.find((user) => user.id === project.owner)?.managedProjects).toContain(
-        project.name,
+        project.id,
       );
       for (const module of project.modules)
         expect(initialTaskState.tasks.some((task) => task.module === module.id)).toBe(true);
@@ -83,7 +83,7 @@ describe('coherent demonstration catalog', () => {
     expect(await getTask(initialTaskState.tasks[0]!.id)).toEqual(initialTaskState.tasks[0]);
     const result = await getTasks({ module: 'online-store-1' });
     expect(result.total).toBe(12);
-    expect(result.items.every((task) => task.project === 'Online Store')).toBe(true);
+    expect(result.items.every((task) => task.project === 'online-store')).toBe(true);
     expect((await getTasks({ search: '制定交付计划' })).total).toBe(24);
     expect((await getTasks({ search: '阿妮卡' })).total).toBeGreaterThan(0);
   });

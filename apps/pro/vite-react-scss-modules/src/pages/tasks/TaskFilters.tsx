@@ -3,8 +3,9 @@ import { Alert, Button, Combobox, DatePicker, Field, Form, Input } from '@virgo-
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useProData } from '@/application/pro-data-context';
+import { useTaskCatalog } from '@/application/pro-data-context';
 import { type DataQuery as Filters, emptyDataQuery, queryError } from '@/data/data-query';
+import { projectName } from '@/data/task-catalog';
 import { filterValues, taskPriorities, taskStatuses } from '@/data/tasks';
 import { businessLabel } from '@/lib/demo/labels';
 import { FilterSelect, MultiFilterSelect } from '@/pages/shared/ProPage';
@@ -26,7 +27,12 @@ export function TaskFilters({
   onApply: (filters: Filters) => void;
   onReset: () => void;
 }) {
-  const { taskAssignees, taskProjects, taskReferenceDate } = useProData();
+  const { projects, metadata } = useTaskCatalog();
+  const {
+    members: taskAssignees,
+    projects: taskProjects,
+    referenceDate: taskReferenceDate,
+  } = metadata;
   const [draft, onChange] = useState(filters);
   const [error, setError] = useState<ReturnType<typeof queryError>>('');
   const [assigneeInput, setAssigneeInput] = useState(
@@ -111,7 +117,7 @@ export function TaskFilters({
           onChange={(project) => onChange({ ...draft, project, module: 'all' })}
           options={taskProjects.map((project) => ({
             value: project,
-            label: businessLabel(project, i18n.language),
+            label: businessLabel(projectName(project, projects), i18n.language),
           }))}
         />
         <Field invalid={assigneeError}>

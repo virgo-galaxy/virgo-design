@@ -47,7 +47,7 @@ function receipt(
 }
 export function seedTaskRecords(tasks: readonly TaskDto[]): TaskRecordDto[] {
   return tasks.flatMap((task) => {
-    const manager = projects.find((project) => project.name === task.project)!.owner;
+    const manager = projects.find((project) => project.id === task.project)!.owner;
     const start = Date.parse(task.createdAt);
     const end = Date.parse(task.completedAt ?? `${taskReferenceDate}T10:00:00Z`);
     const at = (fraction: number) =>
@@ -85,9 +85,9 @@ function notificationFor(
   record: TaskRecordDto,
   task: TaskDto,
   kind: NotificationKind = record.kind,
-): Omit<NotificationDto, 'available'> | undefined {
+): Omit<NotificationDto, 'available' | 'projectName'> | undefined {
   const recipientId = ['started', 'submitted'].includes(kind)
-    ? projects.find((project) => project.name === task.project)?.owner
+    ? projects.find((project) => project.id === task.project)?.owner
     : task.assignee;
   if (!recipientId || recipientId === record.userId) return undefined;
   return {
@@ -102,7 +102,7 @@ function notificationFor(
     readAt: null,
   };
 }
-export type StoredNotification = Omit<NotificationDto, 'available'>;
+export type StoredNotification = Omit<NotificationDto, 'available' | 'projectName'>;
 export function seedNotifications(
   tasks: readonly TaskDto[],
   records: readonly TaskRecordDto[],
@@ -239,6 +239,7 @@ export function currentInbox(state: DemoState, user: SessionUser) {
     .filter((item) => item.recipientId === user.id)
     .map((item) => ({
       ...item,
+      projectName: projects.find((project) => project.id === item.project)?.name ?? item.project,
       available:
         item.taskId !== null &&
         state.tasks.some((task) => task.id === item.taskId && canViewTask(user, task)),

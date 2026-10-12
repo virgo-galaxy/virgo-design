@@ -7,7 +7,9 @@ export interface NotificationDto {
   kind: NotificationKind;
   taskId: string | null;
   taskTitle: string;
+  /** Stable project ID. */
   project: string;
+  projectName: string;
   createdAt: string;
   readAt: string | null;
   available: boolean;

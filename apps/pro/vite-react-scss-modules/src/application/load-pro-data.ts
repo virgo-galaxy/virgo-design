@@ -1,20 +1,6 @@
-import {
-  getAnalyticsOverview,
-  getProfile,
-  getProjects,
-  getTaskMetadata,
-  getWorkflowHistory,
-  getWorkplaceOverview,
-  type TaskDto,
-} from '@/api';
+import { getProjects, getTaskMetadata } from '@/api';
+// Only the shared task catalog is grouped. Reports, profile and workflows own their failures.
 export async function loadProData(signal: AbortSignal) {
-  const [metadata, profile, projects, analytics, workplace, workflows] = await Promise.all([
-    getTaskMetadata(signal),
-    getProfile(signal),
-    getProjects(signal),
-    getAnalyticsOverview(signal),
-    getWorkplaceOverview(signal),
-    getWorkflowHistory(signal),
-  ]);
-  return { tasks: [] as TaskDto[], metadata, profile, projects, analytics, workplace, workflows };
+  const [metadata, projects] = await Promise.all([getTaskMetadata(signal), getProjects(signal)]);
+  return { metadata, projects };
 }

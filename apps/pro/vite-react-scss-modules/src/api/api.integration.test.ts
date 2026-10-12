@@ -40,7 +40,7 @@ const draft = {
   description: 'Network fixture',
   status: 'todo' as const,
   priority: 'high' as const,
-  project: 'Online Store',
+  project: 'online-store',
   module: 'online-store-1',
   assignee: 'ava',
   dueDate: '2026-10-06',
@@ -51,7 +51,7 @@ describe('consumer → API → Axios → MSW', () => {
     const query = {
       status: ['todo', 'in_progress'] as const,
       priority: ['high', 'urgent'] as const,
-      project: ['Online Store', 'Inventory System'],
+      project: ['online-store', 'inventory-system'],
       assignee: ['ava', 'leo'],
     };
     const expected = initialTaskState.tasks.filter(
@@ -140,7 +140,7 @@ describe('consumer → API → Axios → MSW', () => {
     const matching = await getTasks({
       search: 'Edited through HTTP',
       status: 'done',
-      project: 'Online Store',
+      project: 'online-store',
       module: 'online-store-1',
       pageNum: 1,
       pageSize: 5,

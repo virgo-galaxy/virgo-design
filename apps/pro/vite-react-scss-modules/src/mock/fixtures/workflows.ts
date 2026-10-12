@@ -6,7 +6,7 @@ import { users } from './team';
 const requester = users.find((user) => user.id === 'ava')!.name;
 
 const receivedTask = initialTaskState.tasks.find(
-  (task) => task.project === 'Support Desk' && task.status === 'done',
+  (task) => task.project === 'support-desk' && task.status === 'done',
 )!;
 
 export const sampleSuccess: WorkflowReceipt = {

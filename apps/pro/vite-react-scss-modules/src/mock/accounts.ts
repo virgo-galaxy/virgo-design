@@ -1,7 +1,7 @@
 import type { SessionUser } from '@/api/auth/contract';
 import adminAvatar from '@/assets/avatars/admin.svg';
 
-import { users } from './fixtures/team';
+import { projectIds, users } from './fixtures/team';
 export const demoPassword = 'virgo123';
 export const demoAccounts: SessionUser[] = [
   {
@@ -11,7 +11,7 @@ export const demoAccounts: SessionUser[] = [
     role: 'admin',
     jobTitle: 'Administrator',
     department: 'Platform',
-    projects: ['Online Store', 'Booking System', 'Support Desk', 'Inventory System'],
+    projects: [...projectIds],
     managedProjects: [],
     avatarUrl: adminAvatar,
   },

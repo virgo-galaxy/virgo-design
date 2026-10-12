@@ -5,18 +5,21 @@ import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useNavigate, useParams, useSearchParams } from 'react-router';
 
 import { getTask, getTaskHistory } from '@/api/tasks';
+import { CatalogBoundary } from '@/application/CatalogBoundary';
 import { MutationFeedback } from '@/application/MutationFeedback';
-import { useProData } from '@/application/pro-data-context';
+import { useTaskOperations, useTaskRevision } from '@/application/pro-data-context';
+import { useTaskCatalog } from '@/application/pro-data-context';
 import { RemoteState } from '@/application/RemoteState';
 import { useCurrentUser } from '@/application/session-context';
 import { useMutation } from '@/application/use-mutation';
 import { useRemoteData } from '@/application/use-remote-data';
+import { Person } from '@/components/person/Person';
 import { projectDetailPath } from '@/data/projects';
-import { moduleName } from '@/data/task-catalog';
+import { moduleName, projectName } from '@/data/task-catalog';
 import { type Task } from '@/data/tasks';
 import { canCreateTask, canEditTask, isAdmin, taskStatusChoices } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
-import { FilterSelect, PageHeading, Panel, Person } from '@/pages/shared/ProPage';
+import { FilterSelect, PageHeading, Panel } from '@/pages/shared/ProPage';
 
 import { taskDetailsPath, taskReturnPath } from './task-navigation';
 import {
@@ -28,11 +31,11 @@ import {
 import { TaskForm } from './TaskForm';
 import styles from './TaskWorkspace.module.scss';
 const stages = ['backlog', 'todo', 'in_progress', 'in_review', 'done'] as const;
-export function TaskWorkspacePage({ mode }: { mode: 'create' | 'edit' | 'details' }) {
+function TaskWorkspacePageView({ mode }: { mode: 'create' | 'edit' | 'details' }) {
   const { id = '' } = useParams();
   const [params] = useSearchParams();
   const returnTo = taskReturnPath(params.get('returnTo'));
-  const { revision } = useProData();
+  const revision = useTaskRevision();
   const load = useCallback(
     async (signal: AbortSignal) => {
       void revision;
@@ -49,7 +52,7 @@ export function TaskWorkspacePage({ mode }: { mode: 'create' | 'edit' | 'details
     ) : (
       <Navigate to={returnTo} replace />
     );
-  if (resource.error || !resource.data || resource.data.id !== id)
+  if (!resource.data || resource.data.id !== id)
     return (
       <div className={styles.page}>
         <BackLink to={returnTo} />
@@ -58,11 +61,19 @@ export function TaskWorkspacePage({ mode }: { mode: 'create' | 'edit' | 'details
     );
   if (mode === 'edit')
     return canEditTask(user, resource.data) ? (
-      <TaskEditor key={id} task={resource.data} returnTo={returnTo} />
+      <>
+        {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
+        <TaskEditor key={id} task={resource.data} returnTo={returnTo} />
+      </>
     ) : (
       <Navigate to={taskDetailsPath(id, returnTo)} replace />
     );
-  return <TaskDetails task={resource.data} returnTo={returnTo} refreshing={resource.loading} />;
+  return (
+    <>
+      {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
+      <TaskDetails task={resource.data} returnTo={returnTo} refreshing={resource.loading} />
+    </>
+  );
 }
 function BackLink({ to }: { to: string }) {
   const { t } = useTranslation();
@@ -85,7 +96,7 @@ function BackLink({ to }: { to: string }) {
 }
 function TaskEditor({ task, returnTo }: { task?: Task | undefined; returnTo: string }) {
   const { t, i18n } = useTranslation();
-  const { dispatch } = useProData();
+  const { dispatch } = useTaskOperations();
   const navigate = useNavigate();
   const cancel = () => navigate(task ? taskDetailsPath(task.id, returnTo) : returnTo);
   return (
@@ -128,7 +139,9 @@ function TaskDetails({
 }) {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const { projects, dispatch, revision } = useProData();
+  const { projects } = useTaskCatalog();
+  const { dispatch } = useTaskOperations();
+  const revision = useTaskRevision();
   const user = useCurrentUser();
   const mutation = useMutation();
   const load = useCallback(
@@ -139,7 +152,7 @@ function TaskDetails({
     [task.id, revision],
   );
   const history = useRemoteData(load);
-  const project = projects.find((p) => p.name === task.project);
+  const project = projects.find((p) => p.id === task.project);
   const allowed = taskStatusChoices(user, task).filter((status) => status !== task.status);
   const actionName = (status: Task['status']) =>
     status === 'done'
@@ -314,16 +327,18 @@ function TaskDetails({
               <dd>
                 {project ? (
                   <Link to={projectDetailPath(project)}>
-                    {businessLabel(task.project, i18n.language)}
+                    {businessLabel(projectName(task.project, projects), i18n.language)}
                   </Link>
                 ) : (
-                  businessLabel(task.project, i18n.language)
+                  businessLabel(projectName(task.project, projects), i18n.language)
                 )}
               </dd>
             </div>
             <div>
               <dt>{t('tasks.module')}</dt>
-              <dd>{businessLabel(moduleName(task.module, projects), i18n.language)}</dd>
+              <dd>
+                {businessLabel(moduleName(task.project, task.module, projects), i18n.language)}
+              </dd>
             </div>
             <div>
               <dt>{t('tasks.assignee')}</dt>
@@ -367,5 +382,13 @@ function TaskDetails({
         </Panel>
       </div>
     </div>
+  );
+}
+
+export function TaskWorkspacePage(props: { mode: 'create' | 'edit' | 'details' }) {
+  return (
+    <CatalogBoundary>
+      <TaskWorkspacePageView {...props} />
+    </CatalogBoundary>
   );
 }

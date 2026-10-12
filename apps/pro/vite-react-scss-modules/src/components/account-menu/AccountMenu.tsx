@@ -22,7 +22,7 @@ export function AccountMenu({
   agentMode,
   onAgentModeChange,
 }: {
-  profile: ProfileState;
+  profile: Pick<ProfileState, 'name' | 'displayName' | 'avatarColor' | 'avatarImage'>;
   agentMode: boolean;
   onAgentModeChange: (active: boolean) => void;
 }) {

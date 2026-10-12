@@ -1,6 +1,7 @@
 import { http } from 'msw';
 
 import { API_ERROR_CODES } from '@/api/error-codes';
+import { legacyProjectIds } from '@/api/projects/legacy-project-ids';
 import {
   TASK_PRIORITY_CODES,
   TASK_STATUS_CODES,
@@ -71,7 +72,7 @@ function validateDraft(value: unknown): Record<string, string[]> {
     (value.assignee !== '' && !taskAssignees.some((member) => member.id === value.assignee))
   )
     fields.assignee = ['Assignee not found'];
-  const project = projects.find((entry) => entry.name === value.project);
+  const project = projects.find((entry) => entry.id === value.project);
   if (
     typeof value.module !== 'string' ||
     !project?.modules.some((module) => module.id === value.module)
@@ -136,7 +137,7 @@ function columnConditions(params: URLSearchParams, name: string): Record<string,
     throw new Error('Invalid column conditions');
   return value;
 }
-function list(params: URLSearchParams, request: Request): TaskListDto {
+function list(params: URLSearchParams, request: Request, all = false): TaskListDto {
   const tasks = scopedTasks(getDemoState().tasks, request);
   const week = new Date(`${getDemoReferenceDate()}T00:00:00Z`);
   week.setUTCDate(week.getUTCDate() + 7);
@@ -153,9 +154,25 @@ function list(params: URLSearchParams, request: Request): TaskListDto {
   const filters = columnConditions(params, 'columnFilters');
   const queries = columnConditions(params, 'columnSearch');
   let matching = tasks.filter((task) => {
+    const ids = params.getAll('ids');
+    if (ids.length && !ids.includes(task.id)) return false;
     for (const key of ['status', 'priority', 'project', 'module', 'assignee'] as const) {
       const values = params.getAll(key).filter((value) => value !== 'all');
-      if (values.length && !values.includes(task[key])) return false;
+      const keys =
+        key === 'project'
+          ? values.map(
+              (value) =>
+                legacyProjectIds[value] ??
+                projects.find((project) => project.name === value)?.id ??
+                value,
+            )
+          : values;
+      if (
+        keys.length &&
+        !keys.includes(task[key]) &&
+        !(key === 'module' && keys.includes(JSON.stringify([task.project, task.module])))
+      )
+        return false;
     }
     const name = taskAssignees.find((member) => member.id === task.assignee)?.name ?? '';
     if (
@@ -164,9 +181,10 @@ function list(params: URLSearchParams, request: Request): TaskListDto {
         task.id,
         task.title,
         task.description,
-        task.project,
+        projects.find((project) => project.id === task.project)?.name ?? task.project,
         task.module,
-        projects.flatMap((p) => p.modules).find((m) => m.id === task.module)?.name ?? '',
+        projects.find((p) => p.id === task.project)?.modules.find((m) => m.id === task.module)
+          ?.name ?? '',
         task.status,
         task.priority,
         name,
@@ -179,18 +197,26 @@ function list(params: URLSearchParams, request: Request): TaskListDto {
       return false;
     for (const key of dataColumns) {
       const values = filters[key] as string[] | undefined;
-      if (values?.length && !values.includes(String(task[key] ?? ''))) return false;
+      if (
+        values?.length &&
+        !values.includes(
+          key === 'module' ? JSON.stringify([task.project, task.module]) : String(task[key] ?? ''),
+        )
+      )
+        return false;
       const query = (queries[key] as string | undefined)?.trim().toLowerCase();
       const text =
         key === 'assignee'
           ? `${task.assignee} ${name}`
           : key === 'module'
             ? (projects
-                .flatMap((project) => project.modules)
-                .find((module) => module.id === task.module)?.name ?? task.module)
-            : key === 'title'
-              ? `${task.id} ${task.title} ${businessLabel(task.title, 'zh-CN')}`
-              : String(task[key] ?? '').replaceAll('_', ' ');
+                .find((project) => project.id === task.project)
+                ?.modules.find((module) => module.id === task.module)?.name ?? task.module)
+            : key === 'project'
+              ? (projects.find((project) => project.id === task.project)?.name ?? task.project)
+              : key === 'title'
+                ? `${task.id} ${task.title} ${businessLabel(task.title, 'zh-CN')}`
+                : String(task[key] ?? '').replaceAll('_', ' ');
       if (query && !`${text} ${businessLabel(text, 'zh-CN')}`.toLowerCase().includes(query))
         return false;
     }
@@ -247,11 +273,27 @@ function list(params: URLSearchParams, request: Request): TaskListDto {
     Math.max(1, Math.ceil(total / pageSize)),
   );
   return {
-    items: matching.slice((page - 1) * pageSize, page * pageSize),
+    items: all ? matching : matching.slice((page - 1) * pageSize, page * pageSize),
     total,
     pageNum: page,
     pageSize,
     overview,
+  };
+}
+type CollectionSnapshot = { owner: string; expiresAt: number; data: TaskListDto };
+const collectionSnapshots = new Map<string, CollectionSnapshot>();
+function snapshotPage(params: URLSearchParams, snapshotId: string, data: TaskListDto): TaskListDto {
+  const pageSize = Math.min(100, Math.max(1, Number(params.get('pageSize')) || 10));
+  const pageNum = Math.min(
+    Math.max(1, Number(params.get('pageNum')) || 1),
+    Math.max(1, Math.ceil(data.total / pageSize)),
+  );
+  return {
+    ...data,
+    snapshotId,
+    pageSize,
+    pageNum,
+    items: data.items.slice((pageNum - 1) * pageSize, pageNum * pageSize),
   };
 }
 export const tasksHandlers = [
@@ -264,7 +306,7 @@ export const tasksHandlers = [
           user.role === 'admin' ||
           projects.some(
             (project) =>
-              user.projects.includes(project.name) && project.memberIds.includes(member.id),
+              user.projects.includes(project.id) && project.memberIds.includes(member.id),
           ),
       ),
       projects: taskProjects.filter((project) => user.projects.includes(project)),
@@ -272,7 +314,17 @@ export const tasksHandlers = [
       columnFilterOptions: Object.fromEntries(
         dataColumns.map((key) => [
           key,
-          [...new Set(tasks.map((task) => String(task[key] ?? '')))].sort().slice(0, 100),
+          [
+            ...new Set(
+              tasks.map((task) =>
+                key === 'module'
+                  ? JSON.stringify([task.project, task.module])
+                  : String(task[key] ?? ''),
+              ),
+            ),
+          ]
+            .sort()
+            .slice(0, 100),
         ]),
       ),
     });
@@ -304,6 +356,32 @@ export const tasksHandlers = [
         });
     }
     try {
+      const token = params.get('snapshot');
+      if (token) {
+        const user = requestUser(request)!;
+        for (const [id, entry] of collectionSnapshots)
+          if (entry.expiresAt <= Date.now()) collectionSnapshots.delete(id);
+        if (token === 'create') {
+          const snapshotId = crypto.randomUUID();
+          const data = structuredClone(list(params, request, true));
+          if (collectionSnapshots.size >= 20)
+            collectionSnapshots.delete(collectionSnapshots.keys().next().value!);
+          collectionSnapshots.set(snapshotId, {
+            owner: user.id,
+            expiresAt: Date.now() + 5 * 60 * 1000,
+            data,
+          });
+          return success(snapshotPage(params, snapshotId, data));
+        }
+        const entry = collectionSnapshots.get(token);
+        if (!entry || entry.owner !== user.id)
+          return failure({
+            status: 409,
+            code: API_ERROR_CODES.INVALID_QUERY,
+            detail: 'Task snapshot expired or unavailable; retry the collection',
+          });
+        return success(snapshotPage(params, token, entry.data));
+      }
       return success(list(params, request));
     } catch {
       return failure({

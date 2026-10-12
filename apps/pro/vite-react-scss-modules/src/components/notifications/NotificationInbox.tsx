@@ -79,7 +79,7 @@ export function NotificationInbox({
                       : businessLabel(item.taskTitle, i18n.language)}
                   </span>
                   <span className={styles.meta}>
-                    {businessLabel(item.project, i18n.language)}
+                    {businessLabel(item.projectName, i18n.language)}
                     {item.project ? ' · ' : ''}
                     <time dateTime={item.createdAt}>
                       {new Intl.DateTimeFormat(i18n.language, {

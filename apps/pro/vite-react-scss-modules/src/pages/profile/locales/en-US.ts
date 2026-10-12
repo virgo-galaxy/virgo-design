@@ -1,3 +1,4 @@
+import type { ProfileValidationCode } from '@/api/profile/contract';
 export const profileEnUS = {
   avatarColorSaturation: 'Avatar color saturation',
   avatarColorBrightness: 'Avatar color brightness',
@@ -118,5 +119,5 @@ export const profileEnUS = {
     unsupportedFile: 'Choose a PNG, JPEG or WebP image.',
     fileTooLarge: 'Choose an image smaller than 2 MB.',
     imageUnreadable: 'This image could not be read. Choose another photo.',
-  },
+  } satisfies Record<ProfileValidationCode, string>,
 } as const;

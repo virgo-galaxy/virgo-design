@@ -27,7 +27,7 @@ function profileFor(user: SessionUser): ProfileDto {
       headline: `${user.jobTitle} · Virgo Studio`,
       bio: '',
       avatarImage: user.avatarUrl ?? '',
-      focusProject: projects.find((project) => project.name === user.projects[0])?.id ?? '',
+      focusProject: projects.find((project) => project.id === user.projects[0])?.id ?? '',
     }
   );
 }
@@ -71,7 +71,7 @@ export const profileHandlers = [
     if (next.headline.length > 100) fields.headline = ['Headline is too long'];
     if (next.bio.length > 600) fields.bio = ['Bio is too long'];
     if (!/^#[\da-f]{6}$/i.test(next.avatarColor)) fields.avatarColor = ['Invalid color'];
-    if (!projects.some((p) => p.id === next.focusProject && user.projects.includes(p.name)))
+    if (!projects.some((p) => p.id === next.focusProject && user.projects.includes(p.id)))
       fields.focusProject = ['Project not found'];
     if (next.digest && !/^([01]\d|2[0-3]):[0-5]\d$/.test(next.digestTime))
       fields.digestTime = ['Invalid time'];

@@ -1,16 +1,18 @@
 import { Empty, Progress, Surface, Tag, Timeline } from '@virgo-design/ui';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
 
-import { useProData } from '@/application/pro-data-context';
+import type { ProjectOverviewDto } from '@/api/projects/contract';
+import { getProjectOverviews } from '@/api/projects/projects-api';
+import { CatalogBoundary } from '@/application/CatalogBoundary';
+import { useTaskCatalog } from '@/application/pro-data-context';
+import { RemoteState } from '@/application/RemoteState';
 import { useCurrentUser } from '@/application/session-context';
-import {
-  projectActivity,
-  projectDetailPath,
-  projectSummary,
-  projectTasksPath,
-} from '@/data/projects';
-import type { TaskState } from '@/data/tasks';
+import { useResourceQuery } from '@/application/use-resource-query';
+import { Person } from '@/components/person/Person';
+import { projectDetailPath, projectTasksPath } from '@/data/projects';
+import { moduleFilterKey } from '@/data/task-catalog';
 import { formatDueDate } from '@/data/workplace';
 import { canManageProject } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
@@ -19,7 +21,7 @@ import {
   getProjectHealthLabel,
   healthIntent,
 } from '@/pages/projects/project-presentation';
-import { FilterSelect, MetricStrip, PageHeading, Panel, Person } from '@/pages/shared/ProPage';
+import { FilterSelect, MetricStrip, PageHeading, Panel } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { taskDetailsPath } from '@/pages/tasks/task-navigation';
 import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
@@ -28,8 +30,9 @@ import { getActivityActionLabel } from '@/pages/workplace/activity-presentation'
 
 import styles from './ProjectDetailPage.module.scss';
 
-export function ProjectDetailPage({ state }: { state: TaskState }) {
-  const { taskAssignees, activity, projects, taskReferenceDate } = useProData();
+function ProjectDetailPageView({ overview }: { overview: ProjectOverviewDto | undefined }) {
+  const { projects, metadata } = useTaskCatalog();
+  const { members: taskAssignees, referenceDate: taskReferenceDate } = metadata;
 
   const { t, i18n } = useTranslation();
   const user = useCurrentUser()!;
@@ -40,7 +43,7 @@ export function ProjectDetailPage({ state }: { state: TaskState }) {
   const portfolioPath =
     candidate && /^\/work\/projects(?:\?[^#]*)?$/.test(candidate) ? candidate : '/work/projects';
   const project = projects.find((item) => item.id === projectId);
-  if (!project)
+  if (!project || !overview)
     return (
       <div className={shared.page}>
         <h1 className={shared.srOnly}>{t('tasks.workspace.projectDetails')}</h1>
@@ -57,8 +60,9 @@ export function ProjectDetailPage({ state }: { state: TaskState }) {
         </Empty>
       </div>
     );
-  const summary = projectSummary(project, state.tasks, taskAssignees, taskReferenceDate);
-  const events = projectActivity(project, activity);
+  const summary = overview;
+  const members = taskAssignees.filter((member) => project.memberIds.includes(member.id));
+  const events = summary.activity;
   return (
     <div className={shared.page}>
       <Surface border="default" radius={8} className={styles.recordSummary}>
@@ -88,7 +92,7 @@ export function ProjectDetailPage({ state }: { state: TaskState }) {
                 }))}
               />
             </div>
-            {canManageProject(user, project.name) ? (
+            {canManageProject(user, project.id) ? (
               <Link
                 className={shared.link}
                 to={`/work/projects/${encodeURIComponent(project.id)}/handoff`}
@@ -193,20 +197,23 @@ export function ProjectDetailPage({ state }: { state: TaskState }) {
           <Panel title={t('tasks.module')} description={t('projects.moduleProgress')}>
             <div className={styles.moduleGrid}>
               {project.modules.map((module) => {
-                const tasks = summary.tasks.filter((task) => task.module === module.id);
-                const done = tasks.filter((task) => task.status === 'done').length;
+                const count = summary.modules.find((item) => item.id === module.id);
+                const total = count?.total ?? 0;
+                const done = count?.completed ?? 0;
                 return (
                   <Link
                     key={module.id}
                     className={styles.moduleCard}
-                    to={projectTasksPath(project) + '&module=' + encodeURIComponent(module.id)}
+                    to={
+                      projectTasksPath(project) +
+                      '&module=' +
+                      encodeURIComponent(moduleFilterKey(project.id, module.id))
+                    }
                   >
                     <strong>{businessLabel(module.name, i18n.language)}</strong>
-                    <span>
-                      {t('projects.completedOfTotal', { completed: done, total: tasks.length })}
-                    </span>
+                    <span>{t('projects.completedOfTotal', { completed: done, total })}</span>
                     <Progress
-                      value={tasks.length ? Math.round((done / tasks.length) * 100) : 0}
+                      value={total ? Math.round((done / total) * 100) : 0}
                       size="sm"
                       aria-label={businessLabel(module.name, i18n.language)}
                     />
@@ -360,14 +367,14 @@ export function ProjectDetailPage({ state }: { state: TaskState }) {
             description={t('projectDetails.leadAndTaskOwnersInThisProject')}
           >
             <ul className={styles.team}>
-              {summary.members.map((member) => (
+              {members.map((member) => (
                 <li key={member.id}>
                   <Person id={member.id} />
                   <span>
                     {member.id === project.owner
                       ? t('projectDetails.lead')
                       : t('projectDetails.valueTasks', {
-                          v0: summary.tasks.filter((task) => task.assignee === member.id).length,
+                          v0: summary.memberTaskCounts[member.id] ?? 0,
                         })}
                   </span>
                 </li>
@@ -425,5 +432,30 @@ export function ProjectDetailPage({ state }: { state: TaskState }) {
         </div>
       </div>
     </div>
+  );
+}
+
+function ProjectDetailResource() {
+  const { projectId } = useParams();
+  const load = useCallback(
+    (signal: AbortSignal) => getProjectOverviews(projectId, signal),
+    [projectId],
+  );
+  const resource = useResourceQuery(load);
+  if (!resource.data) return <RemoteState {...resource} />;
+  return (
+    <>
+      {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
+      <ProjectDetailPageView
+        overview={resource.data.find((item) => item.projectId === projectId)}
+      />
+    </>
+  );
+}
+export function ProjectDetailPage() {
+  return (
+    <CatalogBoundary>
+      <ProjectDetailResource />
+    </CatalogBoundary>
   );
 }

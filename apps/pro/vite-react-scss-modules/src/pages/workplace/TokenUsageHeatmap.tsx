@@ -10,9 +10,8 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useProData } from '@/application/pro-data-context';
-
 import { buildTokenUsageCalendar, formatTokenCount, tokenUsageScale } from './token-usage-calendar';
+import { useWorkplaceData } from './workplace-context';
 import styles from './WorkplacePage.module.scss';
 
 type UsageDay = ReturnType<typeof buildTokenUsageCalendar>['days'][number];
@@ -86,7 +85,7 @@ export function TokenUsageHeatmap({
   year: number;
   onYearChange: (year: number) => void;
 }) {
-  const { tokenUsage, snapshot, reportingYears, reportingScope } = useProData();
+  const { tokenUsage, snapshot, reportingYears, reportingScope } = useWorkplaceData();
   const { t, i18n } = useTranslation();
   const { year, days, weeks } = useMemo(
     () => buildTokenUsageCalendar(snapshot.date, tokenUsage, reportYear),

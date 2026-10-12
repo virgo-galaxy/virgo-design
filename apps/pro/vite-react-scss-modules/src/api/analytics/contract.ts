@@ -45,6 +45,9 @@ export interface TaskRecordDto {
   outputTokens: number;
 }
 export interface AnalyticsOverviewDto {
+  taskCount: number;
+  statusDistribution: { status: TaskStatusDto; count: number }[];
+  ownerCapacity: { memberId: string; count: number; hours: number }[];
   trendPoints: TrendPointDto[];
   projectDelivery: ProjectDeliveryDayDto[];
   activity: ActivityDto[];

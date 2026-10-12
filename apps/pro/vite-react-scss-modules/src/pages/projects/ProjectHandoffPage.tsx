@@ -17,14 +17,26 @@ import {
   TimePicker,
   Tree,
 } from '@virgo-design/ui';
-import { type Dispatch, type SetStateAction, useEffect, useRef, useState } from 'react';
+import {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router';
 
+import { CatalogBoundary } from '@/application/CatalogBoundary';
+import { useHandoffSession } from '@/application/handoff-session-context';
 import { MutationFeedback } from '@/application/MutationFeedback';
-import { useProData } from '@/application/pro-data-context';
+import { useTaskCatalog } from '@/application/pro-data-context';
+import { RemoteState } from '@/application/RemoteState';
 import { useCurrentUser } from '@/application/session-context';
+import { getTaskCollection } from '@/application/task-queries';
 import { useMutation } from '@/application/use-mutation';
+import { useResourceQuery } from '@/application/use-resource-query';
 import {
   type HandoffDraft,
   reconcileScope,
@@ -44,7 +56,7 @@ import { taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import styles from './ProjectHandoffPage.module.scss';
 
-export function ProjectHandoffPage({
+function ProjectHandoffPageView({
   draft,
   setDraft,
   state,
@@ -59,7 +71,7 @@ export function ProjectHandoffPage({
   setStage: Dispatch<SetStateAction<number>>;
   onPrepare: () => Promise<WorkflowReceipt>;
 }) {
-  const { projects } = useProData();
+  const { projects } = useTaskCatalog();
   const { projectId } = useParams();
   useEffect(() => {
     if (projectId && projects.some((p) => p.id === projectId) && draft.projectId !== projectId) {
@@ -136,7 +148,7 @@ export function ProjectHandoffPage({
         </Empty.Action>
       </Empty>
     );
-  if (project && !canManageProject(user, project.name)) return <ExceptionPage code="403" />;
+  if (project && !canManageProject(user, project.id)) return <ExceptionPage code="403" />;
   if (projectId && draft.projectId !== projectId) return <Skeleton variant="text" />;
   return (
     <div className={shared.page}>
@@ -226,7 +238,7 @@ export function ProjectHandoffPage({
                     <Field required invalid={Boolean(errors.title)}>
                       <Field.Label>{t('handoff.handoffTitle')}</Field.Label>
                       <Input
-                        value={businessLabel(draft.title, i18n.language)}
+                        value={draft.title}
                         maxLength={100}
                         onChange={(event) => update('title', event.target.value)}
                       />
@@ -533,5 +545,45 @@ export function ProjectHandoffPage({
         </div>
       </Surface>
     </div>
+  );
+}
+
+function HandoffResource() {
+  const { projectId } = useParams();
+  const session = useHandoffSession();
+  const { projects, metadata } = useTaskCatalog();
+  const { initialize } = session;
+  useEffect(
+    () => initialize(metadata.referenceDate, projectId ?? projects[0]?.id ?? ''),
+    [initialize, metadata.referenceDate, projectId, projects],
+  );
+  const project = projects.find((item) => item.id === projectId);
+  const id = project?.id;
+  const load = useCallback(
+    async (signal: AbortSignal) =>
+      id ? (await getTaskCollection({ project: id }, signal)).items : [],
+    [id],
+  );
+  const resource = useResourceQuery(load);
+  if (!resource.data) return <RemoteState {...resource} />;
+  return (
+    <>
+      {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
+      <ProjectHandoffPageView
+        draft={session.draft}
+        setDraft={session.setDraft}
+        stage={session.stage}
+        setStage={session.setStage}
+        onPrepare={() => session.prepare()}
+        state={{ tasks: resource.data }}
+      />
+    </>
+  );
+}
+export function ProjectHandoffPage() {
+  return (
+    <CatalogBoundary>
+      <HandoffResource />
+    </CatalogBoundary>
   );
 }

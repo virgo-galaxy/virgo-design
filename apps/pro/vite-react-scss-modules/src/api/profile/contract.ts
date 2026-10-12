@@ -13,3 +13,14 @@ export interface ProfileDto {
   compactActivity: boolean;
 }
 export type UpdateProfileRequest = Partial<ProfileDto>;
+
+export type ProfileValidationCode =
+  | 'nameInvalid'
+  | 'headlineTooLong'
+  | 'bioTooLong'
+  | 'colorInvalid'
+  | 'projectInvalid'
+  | 'digestTimeInvalid'
+  | 'unsupportedFile'
+  | 'fileTooLarge'
+  | 'imageUnreadable';

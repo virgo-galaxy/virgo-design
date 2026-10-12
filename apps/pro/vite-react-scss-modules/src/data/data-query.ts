@@ -1,14 +1,4 @@
-import type { MemberDto } from '@/api/tasks';
-
-import {
-  filterValues,
-  isOverdue,
-  isTaskPriority,
-  isTaskStatus,
-  matchesTask,
-  type Task,
-  type TaskFilters,
-} from './tasks';
+import { isTaskPriority, isTaskStatus, type TaskFilters } from './tasks';
 
 export type DueCondition = 'overdue' | 'week' | 'unscheduled';
 export interface DataQuery extends TaskFilters {
@@ -59,34 +49,6 @@ export function queryError(query: DataQuery, limits?: { maxCreatedDate?: string 
     return 'invalidEstimate';
   return '';
 }
-export function matchesDataQuery(
-  task: Task,
-  query: DataQuery,
-  taskAssignees: readonly MemberDto[],
-  taskReferenceDate: string,
-) {
-  const created = task.createdAt.slice(0, 10);
-  const cutoff = new Date(`${taskReferenceDate}T00:00:00Z`);
-  cutoff.setUTCDate(cutoff.getUTCDate() + 7);
-  const member = taskAssignees.find((person) => person.id === task.assignee);
-  return (
-    matchesTask(task, query, member?.name ?? '') &&
-    (!query.createdFrom || created >= query.createdFrom) &&
-    (!query.createdTo || created <= query.createdTo) &&
-    (!query.minimumHours || task.estimateHours >= Number(query.minimumHours)) &&
-    (!filterValues(query.due).length ||
-      filterValues(query.due).some(
-        (due) =>
-          (due === 'overdue' && isOverdue(task, taskReferenceDate)) ||
-          (due === 'unscheduled' && !task.dueDate) ||
-          (due === 'week' &&
-            task.status !== 'done' &&
-            task.dueDate >= taskReferenceDate &&
-            task.dueDate <= cutoff.toISOString().slice(0, 10)),
-      ))
-  );
-}
-
 export function queryFromParams(params: URLSearchParams): DataQuery {
   const query = { ...emptyDataQuery };
   query.search = params.get('search') ?? '';

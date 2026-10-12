@@ -13,9 +13,8 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { getDemoAccounts, login, type LoginDto } from '@/api/auth';
-import { useProSettings } from '@/components/global-settings/useProSettings';
+import { useProSettings } from '@/application/settings/useProSettings';
 import { LanguageControl } from '@/components/language-control/LanguageControl';
-import { rememberAppearance } from '@/lib/appearance';
 import { businessLabel } from '@/lib/demo/labels';
 import { isHttpError } from '@/lib/http/error';
 
@@ -34,7 +33,6 @@ export function LoginPage({
   const { theme, updateSettings } = useProSettings(false);
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    rememberAppearance(theme);
   }, [theme]);
   const demo = useRemoteData(loadAccounts);
   const [account, setAccount] = useState(

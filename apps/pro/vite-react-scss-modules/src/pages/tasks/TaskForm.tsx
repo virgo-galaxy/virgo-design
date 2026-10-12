@@ -4,8 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useBlocker } from 'react-router';
 
 import { MutationFeedback } from '@/application/MutationFeedback';
-import { useProData } from '@/application/pro-data-context';
+import { useTaskCatalog } from '@/application/pro-data-context';
 import { useMutation } from '@/application/use-mutation';
+import { projectName } from '@/data/task-catalog';
 import {
   draftHasChanges,
   emptyTaskDraft,
@@ -33,7 +34,12 @@ export function TaskForm({
   onSave: (draft: TaskDraft) => Promise<void>;
   onCancel: () => void;
 }) {
-  const { taskAssignees, taskProjects, projects, taskReferenceDate } = useProData();
+  const { projects, metadata } = useTaskCatalog();
+  const {
+    members: taskAssignees,
+    projects: taskProjects,
+    referenceDate: taskReferenceDate,
+  } = metadata;
   const { t, i18n } = useTranslation();
   const [draft, setDraft] = useState<TaskDraft>(() =>
     task
@@ -41,7 +47,7 @@ export function TaskForm({
       : {
           ...emptyTaskDraft,
           project: taskProjects[0] ?? '',
-          module: projects.find((p) => p.name === taskProjects[0])?.modules[0]?.id ?? '',
+          module: projects.find((p) => p.id === taskProjects[0])?.modules[0]?.id ?? '',
         },
   );
   const [errors, setErrors] = useState<TaskErrors>({});
@@ -66,7 +72,7 @@ export function TaskForm({
     return () => window.removeEventListener('beforeunload', beforeUnload);
   }, [dirty]);
   const statusChoices = ['backlog', 'todo'] as const;
-  const selectedProject = projects.find((p) => p.name === draft.project);
+  const selectedProject = projects.find((p) => p.id === draft.project);
   const eligibleMembers = selectedProject
     ? taskAssignees.filter((p) => selectedProject.memberIds.includes(p.id))
     : taskAssignees;
@@ -114,7 +120,7 @@ export function TaskForm({
             <Input
               ref={titleRef}
               name="title"
-              value={businessLabel(draft.title, i18n.language)}
+              value={draft.title}
               onChange={(event) => update('title', event.target.value)}
               placeholder={t('tasks.whatNeedsToBeDone')}
             />
@@ -131,7 +137,7 @@ export function TaskForm({
             <Textarea
               name="description"
               rows={6}
-              value={businessLabel(draft.description, i18n.language)}
+              value={draft.description}
               onChange={(event) => update('description', event.target.value)}
               placeholder={t('tasks.contextAcceptanceCriteriaOrTheNextStep')}
             />
@@ -198,7 +204,7 @@ export function TaskForm({
               disabled={mutation.pending}
               value={draft.project}
               onValueChange={(value) => {
-                const project = projects.find((entry) => entry.name === value);
+                const project = projects.find((entry) => entry.id === value);
                 setDraft((current) => ({
                   ...current,
                   project: value,
@@ -212,7 +218,7 @@ export function TaskForm({
               <Select.Content>
                 {taskProjects.map((project) => (
                   <Select.Option value={project} key={project}>
-                    {businessLabel(project, i18n.language)}
+                    {businessLabel(projectName(project, projects), i18n.language)}
                   </Select.Option>
                 ))}
               </Select.Content>

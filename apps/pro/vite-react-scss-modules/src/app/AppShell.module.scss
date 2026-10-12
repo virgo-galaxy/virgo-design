@@ -463,3 +463,17 @@
   width: min(380px, calc(100vw - 24px));
   font-size: 13px;
 }
+
+.recoveryControls {
+  position: fixed;
+  top: var(--vd-spacing-8);
+  right: var(--vd-spacing-48);
+  z-index: 10;
+  display: flex;
+  gap: var(--vd-spacing-8);
+  align-items: center;
+  padding: var(--vd-spacing-4);
+  background: var(--vd-surface-default);
+  border-radius: var(--vd-radius-8);
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+}

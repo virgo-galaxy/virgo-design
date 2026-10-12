@@ -25,22 +25,21 @@ import { type CSSProperties, useCallback, useEffect, useRef, useState } from 're
 import { useTranslation } from 'react-i18next';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router';
 
+import { useProfileResource } from '@/application/pro-data-context';
 import { useCurrentUser } from '@/application/session-context';
-import { AccountMenu } from '@/components/account-menu/AccountMenu';
-import { AiWorkspace } from '@/components/ai-workspace/AiWorkspace';
 import {
   getFixedHeaderMaterial,
   type NotificationIndicator,
   sidebarWidthRanges,
-} from '@/components/global-settings/settings';
+} from '@/application/settings/model';
+import { useProSettings } from '@/application/settings/useProSettings';
+import { AccountMenu } from '@/components/account-menu/AccountMenu';
+import { AiWorkspace } from '@/components/ai-workspace/AiWorkspace';
 import { SettingsDrawer, SettingsTrigger } from '@/components/global-settings/SettingsDrawer';
-import { useProSettings } from '@/components/global-settings/useProSettings';
 import { LanguageControl } from '@/components/language-control/LanguageControl';
 import { NotificationInbox } from '@/components/notifications/NotificationInbox';
 import { useNotificationInbox } from '@/components/notifications/use-notification-inbox';
 import { ThemeStyleControl } from '@/components/theme-style-control/ThemeStyleControl';
-import type { ProfileState } from '@/data/pro-workflows';
-import { rememberAppearance } from '@/lib/appearance';
 import { isAdmin } from '@/lib/auth/permissions';
 import { useThemeStyle } from '@/lib/use-theme-style';
 
@@ -141,17 +140,22 @@ function Notifications({
 }
 
 export function AppShell({
-  profile,
   agentMode,
   onAgentModeChange,
 }: {
-  profile: ProfileState;
   agentMode: boolean;
   onAgentModeChange: (active: boolean) => void;
 }) {
   const { t } = useTranslation();
   const user = useCurrentUser();
   const admin = isAdmin(user);
+  const profileResource = useProfileResource();
+  const profile = profileResource.data ?? {
+    name: user!.name,
+    displayName: user!.name,
+    avatarColor: '#165dff',
+    avatarImage: user!.avatarUrl ?? '',
+  };
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const currentPage = proRouting.match(pathname);
@@ -195,7 +199,6 @@ export function AppShell({
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
-    rememberAppearance(theme);
   }, [theme]);
 
   useEffect(() => {
@@ -509,8 +512,23 @@ export function AppShell({
                   </div>
                 </Layout.Content>
               </Layout>
-              {!settings.showHeader ? (
-                <SettingsTrigger {...settingsTriggerProps} anchorY={settingsAnchorY} />
+              {admin && !settings.showHeader ? (
+                <>
+                  <div className={styles.recoveryControls}>
+                    <Button
+                      variant="outline"
+                      onClick={() => updateSettings({ showHeader: true, sidebarState: 'expanded' })}
+                    >
+                      {t('app.restoreNavigation')}
+                    </Button>
+                    <AccountMenu
+                      profile={profile}
+                      agentMode={agentMode}
+                      onAgentModeChange={onAgentModeChange}
+                    />
+                  </div>
+                  <SettingsTrigger {...settingsTriggerProps} anchorY={settingsAnchorY} />
+                </>
               ) : null}
             </Layout>
           </Layout.SidebarProvider>

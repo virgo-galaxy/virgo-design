@@ -7,6 +7,7 @@ export interface TaskRequest {
   description: string;
   status: TaskStatusDto;
   priority: TaskPriorityDto;
+  /** Stable ProjectDto.id; the project display name is never a relationship key. */
   project: string;
   /** Stable module ID, scoped to the selected project. */
   module: string;
@@ -36,6 +37,9 @@ export interface TaskMetadataDto {
   columnFilterOptions?: Partial<Record<NonNullable<TaskListQuery['sortBy']>, string[]>>;
 }
 export interface TaskListQuery {
+  ids?: readonly string[];
+  /** "create" starts an immutable, identity-scoped collection snapshot; subsequent pages reuse its ID. */
+  snapshot?: string;
   search?: string;
   status?: TaskStatusDto | 'all' | readonly TaskStatusDto[];
   priority?: TaskPriorityDto | 'all' | readonly TaskPriorityDto[];
@@ -68,6 +72,7 @@ export interface TaskListQuery {
   pageSize?: number;
 }
 export interface TaskListDto {
+  snapshotId?: string;
   items: TaskDto[];
   total: number;
   pageNum: number;
@@ -91,3 +96,16 @@ export interface TaskHistoryEntry {
   fromStatus?: TaskStatusDto;
   toStatus?: TaskStatusDto;
 }
+
+export type TaskValidationCode =
+  | 'moduleRequired'
+  | 'projectMemberRequired'
+  | 'titleRequired'
+  | 'titleTooLong'
+  | 'descriptionTooLong'
+  | 'invalidStatus'
+  | 'invalidPriority'
+  | 'projectRequired'
+  | 'assigneeRequired'
+  | 'invalidEstimate'
+  | 'invalidDueDate';

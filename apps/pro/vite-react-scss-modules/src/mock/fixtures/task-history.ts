@@ -168,7 +168,7 @@ export function createTaskHistory(): TaskDto[] {
           id: stableIds[index] ?? createMockTaskId(index + 139),
           title: `${module.name}: ${action.title}`,
           description: `${action.acceptance} Scope: ${module.name} in ${project.name}. The project manager confirms delivery after submission.`,
-          project: project.name,
+          project: project.id,
           module: module.id,
           assignee,
           status,

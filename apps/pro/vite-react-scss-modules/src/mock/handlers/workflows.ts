@@ -19,10 +19,7 @@ export const workflowsHandlers = [
       Object.fromEntries(
         Object.entries(getDemoState().workflows).map(([key, receipt]) => [
           key,
-          user.role === 'admin' ||
-          user.projects.includes(
-            projects.find((project) => project.id === receipt.projectId)?.name ?? '',
-          )
+          user.role === 'admin' || user.projects.includes(receipt.projectId)
             ? receipt
             : { ...receipt, taskIds: [], projectId: '', requester: '' },
         ]),
@@ -79,14 +76,14 @@ export const workflowsHandlers = [
         code: API_ERROR_CODES.HANDOFF_VALIDATION_FAILED,
         detail: 'Invalid handoff date',
       });
-    if (draft.taskIds.some((id) => !tasks.some((t) => t.id === id && t.project === project.name)))
+    if (draft.taskIds.some((id) => !tasks.some((t) => t.id === id && t.project === project.id)))
       return failure({
         status: 422,
         code: API_ERROR_CODES.HANDOFF_SCOPE_INVALID,
         detail: 'Invalid handoff scope',
         fields: { taskIds: ['Select tasks in this project'] },
       });
-    if (!canManageProject(requestUser(request), project.name)) return forbidden();
+    if (!canManageProject(requestUser(request), project.id)) return forbidden();
     const restricted = draft.projectId === 'online-store' && draft.audience === 'external';
     const receipt: WorkflowReceiptDto = {
       outcome: restricted ? 'error' : 'success',

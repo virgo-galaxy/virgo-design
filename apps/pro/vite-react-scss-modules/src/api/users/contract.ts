@@ -18,7 +18,8 @@ export interface UserDetailsDto {
   phone: string;
   email: string;
   avatarUrl: string;
+  /** Stable project IDs, resolved to names by the application catalog. */
   projects: string[];
-  /** Project names managed by this member; empty for other team members. */
+  /** Project IDs managed by this member; empty for other team members. */
   managedProjects: string[];
 }

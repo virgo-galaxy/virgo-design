@@ -3,13 +3,13 @@ import { Card, SegmentedControl } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useProData } from '@/application/pro-data-context';
 import { formatDueDate, type TrendPeriod } from '@/data/workplace';
 
+import { useWorkplaceData } from './workplace-context';
 import styles from './WorkplacePage.module.scss';
 
 export function DeliveryTrend() {
-  const { trendPoints } = useProData();
+  const { trendPoints } = useWorkplaceData();
 
   const { t, i18n } = useTranslation();
   const [period, setPeriod] = useState<TrendPeriod>('7d');

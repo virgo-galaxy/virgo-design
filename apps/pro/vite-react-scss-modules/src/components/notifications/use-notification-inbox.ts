@@ -1,27 +1,28 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { getNotifications } from '@/api/notifications';
+import { useNotificationRevision } from '@/application/pro-data-context';
 import { useRemoteData } from '@/application/use-remote-data';
-import { demoDataStorageKey, tasksChangedEvent } from '@/lib/data-events';
 export function useNotificationInbox() {
-  const resource = useRemoteData(getNotifications);
+  const revision = useNotificationRevision();
+  const load = useCallback(
+    (signal: AbortSignal) => {
+      void revision;
+      return getNotifications(signal);
+    },
+    [revision],
+  );
+  const resource = useRemoteData(load);
   const { retry } = resource;
   useEffect(() => {
     const refresh = () => retry();
     const visibility = () => {
       if (document.visibilityState === 'visible') refresh();
     };
-    const storage = (event: StorageEvent) => {
-      if (event.key === demoDataStorageKey) refresh();
-    };
-    window.addEventListener(tasksChangedEvent, refresh);
     window.addEventListener('focus', refresh);
-    window.addEventListener('storage', storage);
     document.addEventListener('visibilitychange', visibility);
     return () => {
-      window.removeEventListener(tasksChangedEvent, refresh);
       window.removeEventListener('focus', refresh);
-      window.removeEventListener('storage', storage);
       document.removeEventListener('visibilitychange', visibility);
     };
   }, [retry]);

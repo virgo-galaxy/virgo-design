@@ -1,5 +1,6 @@
 import type { TaskRecordDto } from '@/api/analytics';
 import type { ProfileDto } from '@/api/profile';
+import { legacyProjectIds } from '@/api/projects/legacy-project-ids';
 import type { TaskDto } from '@/api/tasks';
 import type { WorkflowReceiptDto } from '@/api/workflows';
 import { isRecord } from '@/lib/http/protocol';
@@ -85,7 +86,7 @@ function validSavedState(value: unknown): value is DemoState {
   return value.tasks.every((task: unknown) => {
     if (!isRecord(task) || typeof task.id !== 'string' || ids.has(task.id)) return false;
     ids.add(task.id);
-    const project = projects.find((entry) => entry.name === task.project);
+    const project = projects.find((entry) => entry.id === task.project);
     return (
       ['title', 'description', 'module', 'assignee', 'createdAt', 'dueDate'].every(
         (key) => typeof task[key] === 'string',
@@ -109,9 +110,22 @@ export function getDemoState(): DemoState {
     state = seed();
     try {
       const saved: unknown = JSON.parse(localStorage.getItem(demoStorageKey) ?? 'null');
+      if (isRecord(saved) && isRecord(saved.state) && [1, 2].includes(Number(saved.version))) {
+        const names = new Map([
+          ...projects.map((project) => [project.name, project.id] as const),
+          ...Object.entries(legacyProjectIds),
+        ]);
+        for (const key of ['tasks', 'records', 'notifications']) {
+          const entries = saved.state[key];
+          if (Array.isArray(entries))
+            for (const entry of entries)
+              if (isRecord(entry) && typeof entry.project === 'string')
+                entry.project = names.get(entry.project) ?? entry.project;
+        }
+      }
       if (
         isRecord(saved) &&
-        [1, 2].includes(Number(saved.version)) &&
+        [1, 2, 3].includes(Number(saved.version)) &&
         validSavedState(saved.state)
       ) {
         if (saved.version === 1) {
@@ -167,7 +181,7 @@ export function updateDemoState(update: (previous: DemoState) => DemoState) {
   const next = update(structuredClone(getDemoState()));
   try {
     if (typeof localStorage !== 'undefined')
-      localStorage.setItem(demoStorageKey, JSON.stringify({ version: 2, state: next }));
+      localStorage.setItem(demoStorageKey, JSON.stringify({ version: 3, state: next }));
   } catch {
     // Continue the demo when browser storage is unavailable.
   }

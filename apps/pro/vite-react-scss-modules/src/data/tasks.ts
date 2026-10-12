@@ -5,8 +5,7 @@ import {
   type TaskPriorityDto,
   type TaskStatusDto,
 } from '@/api/tasks';
-import { businessLabel } from '@/lib/demo/labels';
-import type { tasksEnUS } from '@/pages/tasks/locales/en-US';
+import type { TaskDto, TaskRequest, TaskValidationCode } from '@/api/tasks/contract';
 
 import { projectTaskErrors } from './task-catalog';
 export const taskStatuses = TASK_STATUS_CODES;
@@ -14,24 +13,9 @@ export const taskPriorities = TASK_PRIORITY_CODES;
 export type TaskStatus = TaskStatusDto;
 export type TaskPriority = TaskPriorityDto;
 
-export interface TaskDraft {
-  title: string;
-  description: string;
-  status: TaskStatus;
-  priority: TaskPriority;
-  project: string;
-  module: string;
-  assignee: string;
-  dueDate: string;
-  estimateHours: number;
-}
+export type TaskDraft = TaskRequest;
 
-export interface Task extends TaskDraft {
-  id: string;
-  createdAt: string;
-  /** Actual completion timestamp, cleared when the task is reopened. */
-  completedAt: string | null;
-}
+export type Task = TaskDto;
 
 export interface TaskFilters {
   search: string;
@@ -49,8 +33,7 @@ export type TaskAction =
   | { type: 'create'; draft: TaskDraft }
   | { type: 'edit'; id: string; draft: TaskDraft }
   | { type: 'status'; id: string; status: TaskStatus };
-export type TaskDispatch = (action: TaskAction) => Promise<Task>;
-export type TaskErrorKey = keyof typeof tasksEnUS.validation;
+export type TaskErrorKey = TaskValidationCode;
 export type TaskErrors = Partial<Record<keyof TaskDraft, TaskErrorKey>>;
 
 export const emptyTaskFilters: TaskFilters = {
@@ -137,43 +120,8 @@ export function validateTask(
   return errors;
 }
 
-function matchesFilter(value: string, filter: string | readonly string[]) {
-  return typeof filter === 'string'
-    ? filter === 'all' || value === filter
-    : !filter.length || filter.includes(value);
-}
 export function filterValues(filter: string | readonly string[]): readonly string[] {
   return typeof filter === 'string' ? (filter === 'all' ? [] : [filter]) : filter;
-}
-
-export function matchesTask(
-  task: TaskDraft & { id?: string },
-  filters: TaskFilters,
-  assigneeName: string,
-) {
-  const query = filters.search.trim().toLowerCase();
-  const text = [
-    task.id ?? '',
-    task.title,
-    task.description,
-    task.project,
-    task.module,
-    assigneeName,
-    businessLabel(assigneeName, 'zh-CN'),
-    businessLabel(task.title, 'zh-CN'),
-    businessLabel(task.description, 'zh-CN'),
-    businessLabel(task.project, 'zh-CN'),
-  ]
-    .join(' ')
-    .toLowerCase();
-  return (
-    (!query || text.includes(query)) &&
-    matchesFilter(task.status, filters.status) &&
-    matchesFilter(task.priority, filters.priority) &&
-    matchesFilter(task.project, filters.project) &&
-    matchesFilter(task.module, filters.module) &&
-    matchesFilter(task.assignee, filters.assignee)
-  );
 }
 
 export function hasTaskFilters(filters: TaskFilters) {
@@ -195,35 +143,4 @@ export function hasTaskFilters(filters: TaskFilters) {
 
 export function isOverdue(task: Task, today: string) {
   return task.status !== 'done' && task.dueDate !== '' && task.dueDate < today;
-}
-
-export function taskOverview(tasks: readonly Task[], today: string) {
-  const cutoff = new Date(`${today}T00:00:00Z`);
-  cutoff.setUTCDate(cutoff.getUTCDate() + 7);
-  const weekEnd = cutoff.toISOString().slice(0, 10);
-  return {
-    total: tasks.length,
-    inProgress: tasks.filter((task) => task.status === 'in_progress').length,
-    dueSoon: tasks.filter(
-      (task) => task.status !== 'done' && task.dueDate >= today && task.dueDate <= weekEnd,
-    ).length,
-    completed: tasks.filter((task) => task.status === 'done').length,
-  };
-}
-
-export function nextTaskStatus(status: TaskStatus): TaskStatus | undefined {
-  return taskStatuses[taskStatuses.indexOf(status) + 1];
-}
-
-export function paginateTasks(tasks: Task[], requestedPage: number, pageSize: number) {
-  const pageCount = Math.max(1, Math.ceil(tasks.length / pageSize));
-  const page = Math.max(1, Math.min(requestedPage, pageCount));
-  const start = (page - 1) * pageSize;
-  const items = tasks.slice(start, start + pageSize);
-  return {
-    tasks: items,
-    page,
-    pageCount,
-    range: [items.length ? start + 1 : 0, start + items.length] as const,
-  };
 }

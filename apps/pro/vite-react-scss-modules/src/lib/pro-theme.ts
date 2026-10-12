@@ -10,7 +10,7 @@ import {
   parseProSettings,
   serializeProSettings,
   settingsStorageKey,
-} from '@/components/global-settings/settings';
+} from '@/application/settings/model';
 
 const storage: ThemeStorage = {
   key: settingsStorageKey,

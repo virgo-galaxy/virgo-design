@@ -8,8 +8,8 @@ import {
   getFixedHeaderMaterial,
   serializeProSettings,
   settingsStorageKey,
-} from '@/components/global-settings/settings';
-import { useProSettings } from '@/components/global-settings/useProSettings';
+} from '@/application/settings/model';
+import { useProSettings } from '@/application/settings/useProSettings';
 
 import { initializeProTheme } from './pro-theme';
 

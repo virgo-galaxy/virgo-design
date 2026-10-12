@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
 import { useCurrentUser } from '@/application/session-context';
-import type { SidebarStyle } from '@/components/global-settings/settings';
+import type { SidebarStyle } from '@/application/settings/model';
 import { canVisitPage } from '@/lib/auth/permissions';
 
 import styles from './AppShell.module.scss';

@@ -6,6 +6,12 @@ import {
 } from '@/mock/avatars/preset-manifest';
 import { endpoint } from '@/mock/response';
 
+export const projectIds = [
+  'online-store',
+  'booking-system',
+  'support-desk',
+  'inventory-system',
+] as const;
 export const projectNames = [
   'Online Store',
   'Booking System',
@@ -240,9 +246,9 @@ export const users: UserDetailsDto[] = teamAssignments.map((person, index) => ({
   phone: `+1 202 555 ${String(100 + index).padStart(4, '0')}`,
   email: `${person.name.toLowerCase().replaceAll(' ', '.')}@virgo.example`,
   avatarUrl: endpoint(`/avatars/${systemPresetAvatarManifest[person.id].apiId}.webp`),
-  projects: person.projects.map((project) => projectNames[project]!),
+  projects: person.projects.map((project) => projectIds[project]!),
   managedProjects:
-    person.job === 'manager' ? person.projects.map((project) => projectNames[project]!) : [],
+    person.job === 'manager' ? person.projects.map((project) => projectIds[project]!) : [],
 }));
 export const members: MemberDto[] = users.map(({ id, name, initials, avatarUrl }) => ({
   id,

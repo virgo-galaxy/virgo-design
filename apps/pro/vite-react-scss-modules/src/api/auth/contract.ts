@@ -8,6 +8,7 @@ export interface SessionUser {
   department: string;
   gender?: UserGender;
   workLocation?: WorkLocationDto;
+  /** Project IDs in this identity scope. */
   projects: string[];
   managedProjects: string[];
   avatarUrl?: string;

@@ -1,19 +1,29 @@
 import { DownloadIcon } from '@virgo-design/icons';
 import { Accordion, Alert, Button, Result, Steps, Surface, Tag } from '@virgo-design/ui';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
 
+import { getTasks } from '@/api/tasks';
+import { getWorkflowHistory } from '@/api/workflows';
+import { CatalogBoundary } from '@/application/CatalogBoundary';
+import { useHandoffSession } from '@/application/handoff-session-context';
 import { MutationFeedback } from '@/application/MutationFeedback';
-import { useProData } from '@/application/pro-data-context';
+import { useWorkflowRevision } from '@/application/pro-data-context';
+import { useTaskCatalog } from '@/application/pro-data-context';
+import { RemoteState } from '@/application/RemoteState';
+import { getAllTasks } from '@/application/task-queries';
 import { useMutation } from '@/application/use-mutation';
+import { useRemoteData } from '@/application/use-remote-data';
+import { useResourceQuery } from '@/application/use-resource-query';
+import { Person } from '@/components/person/Person';
 import type { WorkflowReceipt } from '@/data/pro-workflows';
 import { projectDetailPath, projectTasksPath } from '@/data/projects';
-import { moduleName } from '@/data/task-catalog';
+import { moduleName, projectName } from '@/data/task-catalog';
 import type { TaskState } from '@/data/tasks';
 import { createTasksCsv } from '@/data/tasks.export';
 import { businessLabel } from '@/lib/demo/labels';
 import { downloadCsv } from '@/pages/shared/download';
-import { Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { taskDetailsPath } from '@/pages/tasks/task-navigation';
 import { getTaskExportLabels, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
@@ -21,18 +31,21 @@ import { taskStatusIntent } from '@/pages/tasks/task-presentation';
 
 import styles from './ResultPage.module.scss';
 
-export function ResultPage({
+function ResultPageView({
   receipt,
   state,
+  scopeCount,
   onRecover,
   onRetry,
 }: {
   receipt: WorkflowReceipt;
   state: TaskState;
+  scopeCount: number;
   onRecover?: () => void;
   onRetry?: () => Promise<WorkflowReceipt>;
 }) {
-  const { taskAssignees, projects } = useProData();
+  const { projects, metadata } = useTaskCatalog();
+  const { members: taskAssignees } = metadata;
 
   const mutation = useMutation();
   const { t, i18n } = useTranslation();
@@ -88,10 +101,18 @@ export function ResultPage({
                   leadingIcon={<DownloadIcon />}
                   disabled={!tasks.length}
                   onClick={() =>
-                    downloadCsv(
-                      createTasksCsv(tasks, taskAssignees, getTaskExportLabels(t)),
-                      `virgo-${receipt.reference.toLowerCase()}-scope.csv`,
-                    )
+                    void mutation.run(async () => {
+                      const fullScope = await getAllTasks({ ids: receipt.taskIds });
+                      downloadCsv(
+                        createTasksCsv(fullScope, taskAssignees, {
+                          ...getTaskExportLabels(t),
+                          project: (id) => businessLabel(projectName(id, projects), i18n.language),
+                          module: (projectId, id) =>
+                            businessLabel(moduleName(projectId, id, projects), i18n.language),
+                        }),
+                        `virgo-${receipt.reference.toLowerCase()}-scope.csv`,
+                      );
+                    })
                   }
                 >
                   {t('results.downloadTaskScope')}
@@ -179,7 +200,7 @@ export function ResultPage({
               ) : null}
               <div>
                 <dt>{t('results.scope')}</dt>
-                <dd>{t('results.linkedCount', { count: tasks.length })}</dd>
+                <dd>{t('results.linkedCount', { count: scopeCount })}</dd>
               </div>
             </dl>
           </section>
@@ -259,8 +280,8 @@ export function ResultPage({
           <div>
             <h3>{t('results.linkedWork')}</h3>
             <span className={shared.caption}>
-              {tasks.length > 4
-                ? t('results.scopePreview', { shown: 4, total: tasks.length })
+              {scopeCount > 4
+                ? t('results.scopePreview', { shown: 4, total: scopeCount })
                 : t('results.currentTaskRecordsForThisResult')}
             </span>
           </div>
@@ -283,7 +304,9 @@ export function ResultPage({
                   {businessLabel(task.description, i18n.language)}
                 </p>
                 <div className={styles.taskContext}>
-                  <span>{businessLabel(moduleName(task.module, projects), i18n.language)}</span>
+                  <span>
+                    {businessLabel(moduleName(task.project, task.module, projects), i18n.language)}
+                  </span>
                   <Person id={task.assignee} />
                 </div>
               </li>
@@ -307,5 +330,57 @@ export function ResultPage({
         </div>
       </Surface>
     </div>
+  );
+}
+
+function ResultTasks({ receipt }: { receipt: WorkflowReceipt }) {
+  const session = useHandoffSession();
+  const load = useCallback(
+    async (signal: AbortSignal) =>
+      receipt.taskIds.length
+        ? getTasks({ ids: receipt.taskIds, pageSize: 4 }, signal)
+        : { items: [], total: 0 },
+    [receipt.taskIds],
+  );
+  const resource = useResourceQuery(load);
+  if (!resource.data) return <RemoteState {...resource} />;
+  return (
+    <>
+      {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
+      <ResultPageView
+        receipt={receipt}
+        state={{ tasks: resource.data.items }}
+        scopeCount={resource.data.total}
+        onRecover={() => session.recover(receipt)}
+        onRetry={() => session.retry(receipt)}
+      />
+    </>
+  );
+}
+function ResultResource({ outcome }: { outcome: 'success' | 'error' }) {
+  const session = useHandoffSession();
+  const revision = useWorkflowRevision();
+  const receipt = session.receipts[outcome];
+  const load = useCallback(
+    async (signal: AbortSignal) => {
+      void revision;
+      return receipt ?? (await getWorkflowHistory(signal))[outcome];
+    },
+    [receipt, outcome, revision],
+  );
+  const resource = useRemoteData(load);
+  if (!resource.data) return <RemoteState {...resource} />;
+  return (
+    <>
+      {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
+      <ResultTasks receipt={resource.data} />
+    </>
+  );
+}
+export function ResultPage({ outcome }: { outcome: 'success' | 'error' }) {
+  return (
+    <CatalogBoundary>
+      <ResultResource key={outcome} outcome={outcome} />
+    </CatalogBoundary>
   );
 }

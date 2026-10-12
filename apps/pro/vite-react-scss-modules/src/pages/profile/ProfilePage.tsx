@@ -1,416 +1,66 @@
-import { CloseIcon, SettingsIcon, UploadIcon, UserIcon } from '@virgo-design/icons';
+import { SettingsIcon, UserIcon } from '@virgo-design/icons';
 import {
   Alert,
   Avatar,
   Badge,
   Button,
-  ColorPicker,
-  Dialog,
   Field,
   Form,
-  Input,
   Radio,
-  Separator,
-  Spinner,
   Surface,
   Switch,
   Tabs,
   Tag,
-  Textarea,
   Timeline,
   TimePicker,
   Toast,
 } from '@virgo-design/ui';
-import { type CSSProperties, useEffect, useRef, useState } from 'react';
+import { type CSSProperties, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
+import { getActivity } from '@/api/analytics/analytics-api';
+import { getTasks } from '@/api/tasks';
+import { CatalogBoundary } from '@/application/CatalogBoundary';
 import { MutationFeedback } from '@/application/MutationFeedback';
-import { useProData } from '@/application/pro-data-context';
+import { useProfileResource } from '@/application/pro-data-context';
+import { useTaskCatalog } from '@/application/pro-data-context';
+import { RemoteState } from '@/application/RemoteState';
 import { useCurrentUser } from '@/application/session-context';
 import { useMutation } from '@/application/use-mutation';
+import { useResourceQuery } from '@/application/use-resource-query';
+import { Person } from '@/components/person/Person';
 import { UserGenderIcon } from '@/components/user-gender/UserGenderIcon';
 import {
   accountAvatarImage,
-  avatarFileError,
   avatarForeground,
   profileInitials,
   type ProfileState,
   validateProfile,
 } from '@/data/pro-workflows';
 import { projectDetailPath } from '@/data/projects';
-import type { TaskState } from '@/data/tasks';
+import { projectName } from '@/data/task-catalog';
 import { isAdmin } from '@/lib/auth/permissions';
 import { businessLabel, formatWorkLocation } from '@/lib/demo/labels';
-import { FilterSelect, Panel, Person } from '@/pages/shared/ProPage';
+import { FilterSelect, Panel } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { getActivityActionLabel } from '@/pages/workplace/activity-presentation';
 
 import type { profileEnUS } from './locales/en-US';
+import { ProfileEditor } from './ProfileEditor';
 import styles from './ProfilePage.module.scss';
 
-function ProfileEditor({
-  profile,
-  onSave,
-  onClose,
-  restoreFocus,
-}: {
-  profile: ProfileState;
-  onSave: (profile: ProfileState) => Promise<void>;
-  onClose: () => void;
-  restoreFocus: () => void;
-}) {
-  const { projects } = useProData();
-  const mutation = useMutation();
-  const { t } = useTranslation();
-  const [draft, setDraft] = useState(profile);
-  const [errors, setErrors] = useState<ReturnType<typeof validateProfile>>({});
-  const [discard, setDiscard] = useState(false);
-  const [reading, setReading] = useState(false);
-  const [photoName, setPhotoName] = useState('');
-  const [imageError, setImageError] = useState<keyof typeof profileEnUS.validation | ''>('');
-  const formRef = useRef<HTMLFormElement>(null);
-  const photoInput = useRef<HTMLInputElement>(null);
-  const photoRevision = useRef(0);
-  const alive = useRef(true);
-  useEffect(() => {
-    alive.current = true;
-    return () => {
-      alive.current = false;
-    };
-  }, []);
-  const dirty = JSON.stringify(draft) !== JSON.stringify(profile);
-  const close = () => {
-    if (dirty) setDiscard(true);
-    else {
-      alive.current = false;
-      onClose();
-    }
-  };
-  const update = <Key extends keyof ProfileState>(key: Key, value: ProfileState[Key]) => {
-    setDraft((previous) => ({ ...previous, [key]: value }));
-    setDiscard(false);
-    setErrors((previous) => {
-      const next = { ...previous };
-      delete next[key];
-      return next;
-    });
-  };
-  return (
-    <Dialog.Root
-      open
-      onOpenChange={(open) => {
-        if (!open) close();
-      }}
-    >
-      <Dialog.Portal>
-        <Dialog.Overlay />
-        <Dialog.Content
-          size="md"
-          className={styles.editorDialog}
-          onCloseAutoFocus={(event) => {
-            event.preventDefault();
-            restoreFocus();
-          }}
-        >
-          <Dialog.Header className={styles.editorHeader}>
-            <div>
-              <Dialog.Title>{t('profile.editYourProfile')}</Dialog.Title>
-              <Dialog.Description>
-                {t('profile.yourIdentityInTheVirgoStudioWorkspace')}
-              </Dialog.Description>
-            </div>
-            <Dialog.Close aria-label={t('profile.closeProfileEditor')} variant="text">
-              <CloseIcon />
-            </Dialog.Close>
-          </Dialog.Header>
-          <Dialog.Body>
-            <MutationFeedback pending={mutation.pending} error={mutation.error} />
-            <Form
-              inert={mutation.pending}
-              aria-busy={mutation.pending}
-              ref={formRef}
-              id="profile-editor"
-              size="medium"
-              noValidate
-              className={styles.editorForm}
-              onSubmit={(event) => {
-                event.preventDefault();
-                const invalid = validateProfile(draft, projects);
-                setErrors(invalid);
-                if (Object.keys(invalid).length) {
-                  requestAnimationFrame(() =>
-                    formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus(),
-                  );
-                  return;
-                }
-                void mutation.run(async () => {
-                  await onSave({
-                    ...draft,
-                    name: draft.name.trim(),
-                    displayName: draft.name.trim(),
-                    headline: draft.headline.trim(),
-                    bio: draft.bio.trim(),
-                  });
-                  alive.current = false;
-                  onClose();
-                });
-              }}
-            >
-              <Field invalid={Boolean(imageError)} className={styles.fullWidth}>
-                <div className={styles.photoLayout}>
-                  <div className={styles.photoRow}>
-                    <Avatar
-                      size="md"
-                      shape="square"
-                      fallback={profileInitials(draft.name)}
-                      {...(draft.avatarImage ? { src: draft.avatarImage } : {})}
-                      style={{
-                        background: draft.avatarImage ? 'transparent' : draft.avatarColor,
-                        border: 'none',
-                        color: avatarForeground(draft.avatarColor),
-                      }}
-                    />
-                    <div>
-                      <strong>{t('profile.profilePhoto')}</strong>
-                      <p>{t('profile.pngJpegOrWebpUpTo2Mb')}</p>
-                    </div>
-                    {reading ? (
-                      <Spinner size="md" aria-label={t('profile.readingProfilePhoto')} />
-                    ) : null}
-                  </div>
-                  <input
-                    ref={photoInput}
-                    hidden
-                    type="file"
-                    accept="image/png,image/jpeg,image/webp"
-                    onChange={async (event) => {
-                      const file = event.currentTarget.files?.[0];
-                      // Allow choosing the same file again after removal or a failed read.
-                      event.currentTarget.value = '';
-                      if (!file) return;
-                      const invalid = avatarFileError(file);
-                      const revision = ++photoRevision.current;
-                      setImageError(invalid);
-                      if (invalid) {
-                        setReading(false);
-                        return;
-                      }
-                      setReading(true);
-                      try {
-                        const url = await new Promise<string>((resolve, reject) => {
-                          const reader = new FileReader();
-                          reader.onload = () => resolve(String(reader.result));
-                          reader.onerror = () => reject(new Error('read'));
-                          reader.readAsDataURL(file);
-                        });
-                        const image = new Image();
-                        image.src = url;
-                        await image.decode();
-                        if (alive.current && revision === photoRevision.current) {
-                          update('avatarImage', url);
-                          setPhotoName(file.name);
-                        }
-                      } catch {
-                        if (alive.current && revision === photoRevision.current)
-                          setImageError('imageUnreadable');
-                      } finally {
-                        if (alive.current && revision === photoRevision.current) setReading(false);
-                      }
-                    }}
-                  />
-                  <div className={styles.photoActions}>
-                    <Field.Control
-                      render={(attributes) => (
-                        <Button
-                          id={attributes.id}
-                          aria-describedby={attributes['aria-describedby']}
-                          aria-invalid={attributes['aria-invalid']}
-                          aria-busy={reading}
-                          disabled={reading}
-                          type="button"
-                          size="medium"
-                          variant="outline"
-                          leadingIcon={<UploadIcon />}
-                          onClick={() => photoInput.current?.click()}
-                        >
-                          {draft.avatarImage ? t('profile.changePhoto') : t('profile.chooseAPhoto')}
-                        </Button>
-                      )}
-                    />
-                    {draft.avatarImage ? (
-                      <Button
-                        size="medium"
-                        variant="text"
-                        type="button"
-                        onClick={() => {
-                          photoRevision.current++;
-                          setReading(false);
-                          setImageError('');
-                          setPhotoName('');
-                          update('avatarImage', '');
-                        }}
-                      >
-                        {t('profile.removePhoto')}
-                      </Button>
-                    ) : null}
-                  </div>
-                </div>
-                {photoName ? (
-                  <p className={styles.photoFilename} role="status">
-                    {photoName}
-                  </p>
-                ) : null}
-                {imageError ? (
-                  <Field.Message>{t(`profile.validation.${imageError}`)}</Field.Message>
-                ) : (
-                  <Field.Description>
-                    {t('profile.theSelectedPhotoIsKeptInThisSession')}
-                  </Field.Description>
-                )}
-              </Field>
-              <Separator decorative className={styles.fullWidth} />
-              <Field required invalid={Boolean(errors.name)}>
-                <Field.Label>{t('profile.displayName')}</Field.Label>
-                <Input
-                  value={draft.name}
-                  maxLength={60}
-                  onChange={(event) => update('name', event.target.value)}
-                />
-                {errors.name ? (
-                  <Field.Message>{t(`profile.validation.${errors.name}`)}</Field.Message>
-                ) : null}
-              </Field>
-              <Field invalid={Boolean(errors.headline)}>
-                <Field.Label>{t('profile.headline')}</Field.Label>
-                <Input
-                  value={draft.headline}
-                  maxLength={100}
-                  onChange={(event) => update('headline', event.target.value)}
-                />
-                {errors.headline ? (
-                  <Field.Message>{t(`profile.validation.${errors.headline}`)}</Field.Message>
-                ) : null}
-              </Field>
-              <Field invalid={Boolean(errors.bio)} className={styles.fullWidth}>
-                <Field.Label>{t('profile.aboutYou')}</Field.Label>
-                <Textarea
-                  rows={4}
-                  value={draft.bio}
-                  maxLength={600}
-                  onChange={(event) => update('bio', event.target.value)}
-                />
-                <Field.Description>
-                  {t('profile.value600Characters', { v0: draft.bio.length })}
-                </Field.Description>
-                {errors.bio ? (
-                  <Field.Message>{t(`profile.validation.${errors.bio}`)}</Field.Message>
-                ) : null}
-              </Field>
-              <Field invalid={Boolean(errors.avatarColor)} className={styles.fullWidth}>
-                <Field.Label>{t('profile.avatarBackground')}</Field.Label>
-                <ColorPicker
-                  size="medium"
-                  value={draft.avatarColor}
-                  onValueChange={(value) => update('avatarColor', value)}
-                >
-                  <div className={styles.colorRow}>
-                    <ColorPicker.Trigger aria-label={t('profile.chooseAvatarColor')} />
-                    <ColorPicker.HexField aria-label={t('profile.avatarHexColor')} />
-                    {['#1664f9', '#127d55', '#824bc2', '#bf432a'].map((color) => (
-                      <ColorPicker.Swatch
-                        key={color}
-                        value={color}
-                        aria-label={t('profile.avatarColorValue', { v0: color })}
-                      />
-                    ))}
-                  </div>
-                  <ColorPicker.Panel
-                    variant="simple"
-                    aria-label={t('profile.avatarColorPicker')}
-                    labels={{
-                      saturation: t('profile.avatarColorSaturation'),
-                      brightness: t('profile.avatarColorBrightness'),
-                      hue: t('profile.avatarColorHue'),
-                      hex: t('profile.pickerHexColor'),
-                      opacity: t('profile.pickerOpacity'),
-                      format: t('profile.pickerFormat'),
-                      red: t('profile.pickerRed'),
-                      green: t('profile.pickerGreen'),
-                      blue: t('profile.pickerBlue'),
-                    }}
-                  />
-                </ColorPicker>
-                {errors.avatarColor ? (
-                  <Field.Message>{t(`profile.validation.${errors.avatarColor}`)}</Field.Message>
-                ) : null}
-                <Field.Description>
-                  {t('profile.shownBehindYourInitialsWhenNoPhotoIsSelected')}
-                </Field.Description>
-              </Field>
-            </Form>
-          </Dialog.Body>
-          <Button.Group
-            layout="custom"
-            render={(groupProps) => (
-              <Dialog.Footer {...groupProps} className={styles.editorFooter} />
-            )}
-          >
-            {discard ? (
-              <Alert intent="warning">
-                <Alert.Title>{t('profile.discardProfileChanges')}</Alert.Title>
-                <Alert.Description>{t('profile.yourSavedProfileWillStayAsItIs')}</Alert.Description>
-                <Button.Group
-                  layout="custom"
-                  render={(groupProps) => <Alert.Action {...groupProps} />}
-                >
-                  <Button
-                    size="medium"
-                    variant="outline"
-                    onClick={() => {
-                      alive.current = false;
-                      onClose();
-                    }}
-                  >
-                    {t('profile.discardChanges')}
-                  </Button>
-                  <Button size="medium" onClick={() => setDiscard(false)}>
-                    {t('profile.keepEditing')}
-                  </Button>
-                </Button.Group>
-              </Alert>
-            ) : (
-              <>
-                <span className={shared.caption}>
-                  {dirty ? t('profile.unsavedChanges') : t('profile.yourProfileIsUpToDate')}
-                </span>
-                <Button
-                  size="medium"
-                  type="submit"
-                  form="profile-editor"
-                  disabled={mutation.pending || !dirty || reading}
-                >
-                  {t('profile.saveProfile')}
-                </Button>
-              </>
-            )}
-          </Button.Group>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
-  );
-}
-
-export function ProfilePage({
+function ProfilePageView({
   profile,
   setProfile,
-  state,
 }: {
   profile: ProfileState;
   setProfile: (next: ProfileState | ((previous: ProfileState) => ProfileState)) => Promise<void>;
-  state: TaskState;
 }) {
-  const { projects, activity } = useProData();
+  const { projects } = useTaskCatalog();
+  const activityResource = useResourceQuery(getActivity);
+  const reviewsResource = useResourceQuery(loadReviewCount);
+  const activity = activityResource.data ?? [];
 
   const mutation = useMutation();
   const { t, i18n } = useTranslation();
@@ -430,7 +80,6 @@ export function ProfilePage({
   const editRef = useRef<HTMLButtonElement>(null);
   const notify = (kind: 'preferences' | 'profile') => setNotice({ id: ++noticeId.current, kind });
   const focusProject = projects.find((item) => item.id === profile.focusProject) ?? projects[0];
-  const openReviews = state.tasks.filter((task) => task.status === 'in_review');
   const preferenceDirty =
     preferences.focusProject !== profile.focusProject ||
     preferences.digest !== profile.digest ||
@@ -577,7 +226,18 @@ export function ProfilePage({
                     <div>
                       <h3>
                         {t(manager ? 'profile.makeAcceptanceVisible' : 'profile.yourReviews')}
-                        <Badge count={openReviews.length} intent="warning" showZero />
+                        {reviewsResource.error ? (
+                          <RemoteState
+                            error={reviewsResource.error}
+                            retry={reviewsResource.retry}
+                          />
+                        ) : (
+                          <Badge
+                            count={reviewsResource.data?.total ?? 0}
+                            intent="warning"
+                            showZero
+                          />
+                        )}
                       </h3>
                       <p>{t('profile.reviewOwnershipAndTheNotesBehindPendingWork')}</p>
                       <Link className={shared.link} to="/work/tasks?status=in_review">
@@ -762,6 +422,9 @@ export function ProfilePage({
             </Panel>
           </Tabs.Panel>
           <Tabs.Panel value="activity">
+            {activityResource.error || !activityResource.data ? (
+              <RemoteState {...activityResource} />
+            ) : null}
             <Panel
               title={t('profile.aroundYourWorkspace')}
               description={t('profile.recordedTeamActivityOctober12026')}
@@ -787,7 +450,7 @@ export function ProfilePage({
                           hour: '2-digit',
                           minute: '2-digit',
                         }).format(new Date(event.dateTime))}{' '}
-                        · {businessLabel(event.project, i18n.language)}
+                        · {businessLabel(projectName(event.project, projects), i18n.language)}
                       </Timeline.Time>
                     </Timeline.Item>
                   ))}
@@ -827,5 +490,24 @@ export function ProfilePage({
         </Toast.Root>
       ) : null}
     </Toast.Provider>
+  );
+}
+
+const loadReviewCount = (signal: AbortSignal) => getTasks({ scope: 'review', pageSize: 1 }, signal);
+function ProfileResource() {
+  const resource = useProfileResource();
+  if (!resource.data) return <RemoteState {...resource} />;
+  return (
+    <>
+      {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
+      <ProfilePageView profile={resource.data} setProfile={resource.saveProfile} />
+    </>
+  );
+}
+export function ProfilePage() {
+  return (
+    <CatalogBoundary>
+      <ProfileResource />
+    </CatalogBoundary>
   );
 }

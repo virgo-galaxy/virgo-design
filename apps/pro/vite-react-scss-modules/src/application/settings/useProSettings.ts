@@ -1,7 +1,7 @@
 import { getTheme, setTheme } from '@virgo-design/themes';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { clearAppearance, currentAppearance } from '@/lib/appearance';
+import { clearAppearance, currentAppearance, rememberAppearance } from '@/lib/appearance';
 import { demoResetEvent } from '@/lib/demo/reset';
 import { useThemeStyle } from '@/lib/use-theme-style';
 
@@ -11,9 +11,9 @@ import {
   type ProSettings,
   serializeProSettings,
   settingsStorageKey,
-} from './settings';
+} from './model';
 
-export function useProSettings(canPersist = true) {
+export function useProSettings(canManageLayout = true) {
   const { theme: themeStyle } = useThemeStyle();
   const resetting = useRef(false);
   useEffect(() => {
@@ -25,13 +25,16 @@ export function useProSettings(canPersist = true) {
     return () => window.removeEventListener(demoResetEvent, stopSaving);
   }, []);
   const [settings, setSettings] = useState(() => {
+    let saved = { ...defaultProSettings };
     try {
-      const saved = parseProSettings(window.localStorage.getItem(settingsStorageKey));
-      return { ...saved, ...(currentAppearance() ? { appearance: currentAppearance()! } : {}) };
+      saved = parseProSettings(window.localStorage.getItem(settingsStorageKey));
     } catch {
-      return { ...defaultProSettings };
+      /* Use the tab's preference when storage is denied. */
     }
+    const appearance = currentAppearance();
+    return { ...saved, ...(appearance ? { appearance } : {}) };
   });
+  useEffect(() => rememberAppearance(settings.appearance), [settings.appearance]);
   const [storageAvailable, setStorageAvailable] = useState(true);
   useEffect(() => {
     const syncSettings = (event: StorageEvent) => {
@@ -56,7 +59,7 @@ export function useProSettings(canPersist = true) {
       if (resetting.current) return;
       try {
         // Every role can save theme and appearance; only Admin can persist global layout settings.
-        const saved = canPersist
+        const saved = canManageLayout
           ? { ...settings, theme: getTheme() }
           : {
               ...parseProSettings(window.localStorage.getItem(settingsStorageKey)),
@@ -76,7 +79,7 @@ export function useProSettings(canPersist = true) {
       window.clearTimeout(timer);
       window.removeEventListener('pagehide', save);
     };
-  }, [settings, canPersist, themeStyle]);
+  }, [settings, canManageLayout, themeStyle]);
   const updateSettings = useCallback((patch: Partial<ProSettings>) => {
     if (patch.theme !== undefined) setTheme(patch.theme);
     setSettings((previous) => {
@@ -97,7 +100,17 @@ export function useProSettings(canPersist = true) {
   const theme =
     settings.appearance === 'system' ? (systemDark ? 'dark' : 'light') : settings.appearance;
   return {
-    settings: { ...settings, theme: themeStyle },
+    settings: {
+      ...settings,
+      theme: themeStyle,
+      ...(!canManageLayout
+        ? {
+            showHeader: true,
+            sidebarState:
+              settings.sidebarState === 'hidden' ? ('expanded' as const) : settings.sidebarState,
+          }
+        : {}),
+    },
     setSettings,
     updateSettings,
     resetSettings,

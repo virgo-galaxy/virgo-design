@@ -1,7 +1,5 @@
 import { SearchIcon } from '@virgo-design/icons';
 import {
-  Avatar,
-  type AvatarSize,
   Button,
   Empty,
   Field,
@@ -14,9 +12,6 @@ import {
 } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { useProData } from '@/application/pro-data-context';
-import { businessLabel } from '@/lib/demo/labels';
 
 import styles from './ProPage.module.scss';
 
@@ -189,23 +184,6 @@ export function MultiFilterSelect({
   );
 }
 
-export function Person({ id, size = 'md' }: { id: string; size?: AvatarSize }) {
-  const { taskAssignees } = useProData();
-
-  const { t, i18n } = useTranslation();
-  const member = taskAssignees.find((person) => person.id === id);
-  return (
-    <span className={styles.person}>
-      <Avatar
-        src={member?.avatarUrl ?? ''}
-        size={size}
-        fallback={member?.initials ?? '?'}
-        className={styles.avatar}
-      />
-      <span>{member ? businessLabel(member.name, i18n.language) : t('shared.unassigned')}</span>
-    </span>
-  );
-}
 export function NoResults({ onReset, title }: { onReset: () => void; title?: string }) {
   const { t } = useTranslation();
   return (

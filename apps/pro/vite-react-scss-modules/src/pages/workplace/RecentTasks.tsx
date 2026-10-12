@@ -4,16 +4,19 @@ import type { Ref } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { useProData } from '@/application/pro-data-context';
+import { useTaskCatalog } from '@/application/pro-data-context';
+import { projectName } from '@/data/task-catalog';
 import { formatDueDate } from '@/data/workplace';
 import { businessLabel } from '@/lib/demo/labels';
 import { getTaskStatusLabel, taskStatusIntent } from '@/pages/tasks/task-presentation';
 
+import { useWorkplaceData } from './workplace-context';
 import styles from './WorkplacePage.module.scss';
 
 export function RecentTasks({ allTasksRef }: { allTasksRef: Ref<HTMLButtonElement> }) {
-  const { recentTasks, snapshot } = useProData();
+  const { recentTasks, snapshot } = useWorkplaceData();
   const tasks = recentTasks.slice(0, 5);
+  const { projects } = useTaskCatalog();
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
@@ -48,9 +51,9 @@ export function RecentTasks({ allTasksRef }: { allTasksRef: Ref<HTMLButtonElemen
                   {businessLabel(task.title, i18n.language)}
                 </strong>
                 <span
-                  title={`${businessLabel(task.project, i18n.language)} · ${businessLabel(task.assignee.name, i18n.language)}`}
+                  title={`${businessLabel(projectName(task.project, projects), i18n.language)} · ${businessLabel(task.assignee.name, i18n.language)}`}
                 >
-                  {businessLabel(task.project, i18n.language)} ·{' '}
+                  {businessLabel(projectName(task.project, projects), i18n.language)} ·{' '}
                   {businessLabel(task.assignee.name, i18n.language)}
                 </span>
               </div>

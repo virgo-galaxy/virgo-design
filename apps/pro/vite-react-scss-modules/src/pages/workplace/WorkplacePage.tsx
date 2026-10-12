@@ -4,13 +4,12 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { useProData } from '@/application/pro-data-context';
-import { RemoteState } from '@/application/RemoteState';
-import { useOverviewRefresh } from '@/application/use-overview-refresh';
+import { useTaskCatalog } from '@/application/pro-data-context';
 import checkBadgeArtwork from '@/assets/illustrations/check-badge.svg';
 import clipboardCheckArtwork from '@/assets/illustrations/clipboard-check.svg';
 import folderDocumentArtwork from '@/assets/illustrations/folder-document.svg';
 import usersArtwork from '@/assets/illustrations/users.svg';
+import { projectName } from '@/data/task-catalog';
 import { shortcuts } from '@/data/workplace';
 import { businessLabel } from '@/lib/demo/labels';
 import { PageHeading } from '@/pages/shared/ProPage';
@@ -20,6 +19,8 @@ import { DeliveryTrend } from './DeliveryTrend';
 import { RecentTasks } from './RecentTasks';
 import { TokenUsageCalendar } from './TokenUsageCalendar';
 import { TokenUsageHeatmap } from './TokenUsageHeatmap';
+import { useWorkplaceData } from './workplace-context';
+import { WorkplaceDataBoundary } from './workplace-data';
 import styles from './WorkplacePage.module.scss';
 import { WorkplaceWidget, type WorkplaceWidgetState } from './WorkplaceWidget';
 import { WorkspaceCarousel } from './WorkspaceCarousel';
@@ -36,9 +37,10 @@ const metricArtwork = {
 const shortcutIcons = { tasks: CircleCheckIcon, projects: LayersIcon, analytics: GaugeIcon };
 const completionValue = (value: number) => `${Math.round(value)}%`;
 
-export function WorkplacePage() {
-  const { profile, activity, announcements, metrics, projectDistribution, snapshot } = useProData();
+function WorkplacePageView() {
+  const { activity, announcements, metrics, projectDistribution, snapshot } = useWorkplaceData();
 
+  const { projects } = useTaskCatalog();
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [reportYear, setReportYear] = useState(Number(snapshot.date.slice(0, 4)));
@@ -72,9 +74,7 @@ export function WorkplacePage() {
     onRemove: () => removeWidget(id),
     onRemoved: () => changeWidget(id, 'removed'),
   });
-  const overview = useOverviewRefresh();
-  if (overview.error || !overview.data)
-    return <RemoteState loading={overview.loading} error={overview.error} retry={overview.retry} />;
+
   return (
     <div className={styles.workplace}>
       <div
@@ -86,7 +86,7 @@ export function WorkplacePage() {
             <PageHeading
               title={
                 <>
-                  {t('workplace.welcomeBack', { name: profile.name })}
+                  {t('workplace.welcomeBack', { name: snapshot.user.name })}
                   <span className={styles.welcomeDot}>.</span>
                 </>
               }
@@ -257,7 +257,8 @@ export function WorkplacePage() {
                       {getActivityActionLabel(t, event, i18n.language)}
                     </Timeline.Description>
                     <Timeline.Time dateTime={event.dateTime} className={styles.activityTime}>
-                      {event.time} · {businessLabel(event.project, i18n.language)}
+                      {event.time} ·{' '}
+                      {businessLabel(projectName(event.project, projects), i18n.language)}
                     </Timeline.Time>
                   </Timeline.Item>
                 ))}
@@ -267,5 +268,13 @@ export function WorkplacePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export function WorkplacePage() {
+  return (
+    <WorkplaceDataBoundary>
+      <WorkplacePageView />
+    </WorkplaceDataBoundary>
   );
 }

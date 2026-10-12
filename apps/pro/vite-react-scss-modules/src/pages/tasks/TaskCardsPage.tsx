@@ -2,18 +2,20 @@ import { SearchIcon } from '@virgo-design/icons';
 import { Button, Field, Form, Input, Pagination, Surface, Tag } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useSearchParams } from 'react-router';
+import { Link } from 'react-router';
 
-import { useProData } from '@/application/pro-data-context';
+import { CatalogBoundary } from '@/application/CatalogBoundary';
+import { useTaskCatalog } from '@/application/pro-data-context';
 import { RemoteState } from '@/application/RemoteState';
 import { taskPageView } from '@/application/task-queries';
 import { useTaskQuery } from '@/application/use-task-query';
+import { Person } from '@/components/person/Person';
 import { queryFromParams } from '@/data/data-query';
-import { moduleName } from '@/data/task-catalog';
+import { moduleName, projectName } from '@/data/task-catalog';
 import { filterValues, taskStatuses } from '@/data/tasks';
 import { formatDueDate } from '@/data/workplace';
 import { businessLabel } from '@/lib/demo/labels';
-import { MultiFilterSelect, NoResults, Person } from '@/pages/shared/ProPage';
+import { MultiFilterSelect, NoResults } from '@/pages/shared/ProPage';
 import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
 
 import { taskDetailsPath } from './task-navigation';
@@ -25,11 +27,13 @@ import {
 } from './task-presentation';
 import styles from './TaskCardsPage.module.scss';
 import { TaskViews } from './TaskViews';
+import { useTaskSearchParams } from './use-task-search-params';
 
-export function TaskCardsPage() {
+function TaskCardsPageView() {
   const { t, i18n } = useTranslation();
-  const { projects, taskProjects } = useProData();
-  const [params, setParams] = useSearchParams();
+  const { projects, metadata } = useTaskCatalog();
+  const { projects: taskProjects } = metadata;
+  const [params, setParams] = useTaskSearchParams();
   const [search, setSearch] = useState(params.get('search') ?? '');
   const filters = queryFromParams(params);
   const requestedPage = Number(params.get('page'));
@@ -95,7 +99,7 @@ export function TaskCardsPage() {
               options={[
                 ...taskProjects.map((project) => ({
                   value: project,
-                  label: businessLabel(project, i18n.language),
+                  label: businessLabel(projectName(project, projects), i18n.language),
                 })),
               ]}
             />
@@ -127,8 +131,11 @@ export function TaskCardsPage() {
                       {businessLabel(task.title, i18n.language)}
                     </Link>
                     <p className={styles.context}>
-                      {businessLabel(task.project, i18n.language)} ·{' '}
-                      {businessLabel(moduleName(task.module, projects), i18n.language)}
+                      {businessLabel(projectName(task.project, projects), i18n.language)} ·{' '}
+                      {businessLabel(
+                        moduleName(task.project, task.module, projects),
+                        i18n.language,
+                      )}
                     </p>
                     <p className={styles.description}>
                       {businessLabel(task.description, i18n.language) || '—'}
@@ -167,5 +174,13 @@ export function TaskCardsPage() {
         </Surface>
       </div>
     </TaskViews>
+  );
+}
+
+export function TaskCardsPage() {
+  return (
+    <CatalogBoundary>
+      <TaskCardsPageView />
+    </CatalogBoundary>
   );
 }

@@ -1,4 +1,3 @@
-import { announceTaskChange } from '@/lib/data-events';
 import { http } from '@/lib/http';
 
 import type {
@@ -24,12 +23,10 @@ export function getTask(id: string, signal?: AbortSignal): Promise<TaskDto> {
 }
 export async function createTask(request: TaskRequest): Promise<TaskDto> {
   const task = await http.post<TaskDto>('/tasks', request);
-  announceTaskChange();
   return task;
 }
 export async function updateTask(id: string, request: Partial<TaskRequest>): Promise<TaskDto> {
   const task = await http.patch<TaskDto>(`/tasks/${encodeURIComponent(id)}`, request);
-  announceTaskChange();
   return task;
 }
 export function updateTaskStatus(id: string, status: TaskStatusDto): Promise<TaskDto> {
@@ -41,7 +38,6 @@ export function getTaskMetadata(signal?: AbortSignal): Promise<TaskMetadataDto> 
 
 export async function deleteTasks(request: TaskDeleteRequest): Promise<TaskDeleteResult> {
   const result = await http.post<TaskDeleteResult>('/tasks/batch-delete', request);
-  announceTaskChange();
   return result;
 }
 

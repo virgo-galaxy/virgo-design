@@ -2,18 +2,20 @@ import { DownloadIcon, PlusIcon, SettingsIcon, TrashIcon } from '@virgo-design/i
 import { Button, Surface, Toast, Toolbar, Tooltip } from '@virgo-design/ui';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useSearchParams } from 'react-router';
+import { useNavigate } from 'react-router';
 
+import { CatalogBoundary } from '@/application/CatalogBoundary';
 import { MutationFeedback } from '@/application/MutationFeedback';
-import { useProData } from '@/application/pro-data-context';
+import { useTaskOperations } from '@/application/pro-data-context';
+import { useTaskCatalog } from '@/application/pro-data-context';
 import { RemoteState } from '@/application/RemoteState';
 import { useCurrentUser } from '@/application/session-context';
 import { getAllTasks, taskPageView } from '@/application/task-queries';
 import { useMutation } from '@/application/use-mutation';
 import { useTaskQuery } from '@/application/use-task-query';
 import { emptyDataQuery, queryFromParams, queryParams } from '@/data/data-query';
-import { moduleName } from '@/data/task-catalog';
-import { filterValues, hasTaskFilters, type Task, type TaskDispatch } from '@/data/tasks';
+import { moduleName, projectName } from '@/data/task-catalog';
+import { filterValues, hasTaskFilters, type Task } from '@/data/tasks';
 import { createTasksCsv } from '@/data/tasks.export';
 import { type TaskSort } from '@/data/tasks.sort';
 import { canCreateTask, isAdmin } from '@/lib/auth/permissions';
@@ -37,6 +39,7 @@ import { TaskTable } from './TaskTable';
 import { TaskViews } from './TaskViews';
 import pageStyles from './TaskWorkspace.module.scss';
 import { useTaskTableSettings } from './use-table-settings';
+import { useTaskSearchParams } from './use-task-search-params';
 
 function readTaskListJson<T>(
   value: string | null,
@@ -55,14 +58,15 @@ function readTaskListJson<T>(
     return fallback;
   }
 }
-export function TasksPage(props: { dispatch: TaskDispatch }) {
-  void props;
-  const { taskAssignees, removeTasks, projects } = useProData();
+function TasksPageView() {
+  const { projects, metadata } = useTaskCatalog();
+  const { members: taskAssignees } = metadata;
+  const { removeTasks } = useTaskOperations();
 
   const { t, i18n } = useTranslation();
   const mutation = useMutation();
   const navigate = useNavigate();
-  const [params, setParams] = useSearchParams();
+  const [params, setParams] = useTaskSearchParams();
   const linkedTask = params.get('task');
   const filters = queryFromParams(params);
   const currentParams = useRef(params);
@@ -329,8 +333,10 @@ export function TasksPage(props: { dispatch: TaskDispatch }) {
                               createTasksCsv(rows, taskAssignees, {
                                 ...getTaskExportLabels(t),
                                 text: (value: string) => businessLabel(value, i18n.language),
-                                module: (id: string) =>
-                                  businessLabel(moduleName(id, projects), i18n.language),
+                                project: (id: string) =>
+                                  businessLabel(projectName(id, projects), i18n.language),
+                                module: (projectId: string, id: string) =>
+                                  businessLabel(moduleName(projectId, id, projects), i18n.language),
                               }),
                             ],
                             {
@@ -464,5 +470,13 @@ export function TasksPage(props: { dispatch: TaskDispatch }) {
       ) : null}
       <Toast.Viewport placement="top-center" aria-label={t('tasks.taskFeedback')} />
     </Toast.Provider>
+  );
+}
+
+export function TasksPage() {
+  return (
+    <CatalogBoundary>
+      <TasksPageView />
+    </CatalogBoundary>
   );
 }

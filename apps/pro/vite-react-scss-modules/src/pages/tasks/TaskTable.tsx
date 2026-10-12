@@ -12,10 +12,10 @@ import {
 import { type ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useProData } from '@/application/pro-data-context';
+import { useTaskCatalog } from '@/application/pro-data-context';
 import { useCurrentUser } from '@/application/session-context';
 import { CopyableText } from '@/components/copyable-text';
-import { moduleName } from '@/data/task-catalog';
+import { moduleFilterKey, moduleName, projectName } from '@/data/task-catalog';
 import { isOverdue, type Task, taskPriorities, taskStatuses } from '@/data/tasks';
 import type { TaskSort } from '@/data/tasks.sort';
 import { formatDueDate } from '@/data/workplace';
@@ -94,7 +94,12 @@ export function TaskTable({
   onReset,
   onCreate,
 }: Props) {
-  const { taskAssignees, taskProjects, taskReferenceDate, metadata, projects } = useProData();
+  const { metadata, projects } = useTaskCatalog();
+  const {
+    members: taskAssignees,
+    projects: taskProjects,
+    referenceDate: taskReferenceDate,
+  } = metadata;
   const { t, i18n } = useTranslation();
   const paginationLabels = usePaginationLabels();
   const [draggedColumn, setDraggedColumn] = useState<TaskColumnKey | null>(null);
@@ -139,16 +144,27 @@ export function TaskTable({
     if (key === 'priority')
       return taskPriorities.map((value) => ({ value, label: getTaskPriorityLabel(t, value) }));
     if (key === 'module')
-      return projects
-        .flatMap((project) => project.modules)
-        .map((module) => ({ value: module.id, label: businessLabel(module.name, i18n.language) }));
+      return projects.flatMap((project) =>
+        project.modules.map((module) => ({
+          value: moduleFilterKey(project.id, module.id),
+          label:
+            businessLabel(module.name, i18n.language) +
+            ' · ' +
+            businessLabel(project.name, i18n.language),
+        })),
+      );
     if (key === 'assignee')
       return taskAssignees.map((member) => ({
         value: member.id,
         label: businessLabel(member.name, i18n.language),
       }));
     return (key === 'project' ? taskProjects : (metadata.columnFilterOptions?.[key] ?? [])).map(
-      (value) => ({ value, label: businessLabel(value, i18n.language) || t('tasks.noDueDate') }),
+      (value) => ({
+        value,
+        label:
+          businessLabel(key === 'project' ? projectName(value, projects) : value, i18n.language) ||
+          t('tasks.noDueDate'),
+      }),
     );
   };
   const cellContent = (task: Task, key: TaskColumnKey, index: number): ReactNode => {
@@ -194,12 +210,14 @@ export function TaskTable({
         );
       case 'project':
         return (
-          <span className={styles.projectName}>{businessLabel(task.project, i18n.language)}</span>
+          <span className={styles.projectName}>
+            {businessLabel(projectName(task.project, projects), i18n.language)}
+          </span>
         );
       case 'module':
         return (
           <span className={styles.projectName}>
-            {businessLabel(moduleName(task.module, projects), i18n.language)}
+            {businessLabel(moduleName(task.project, task.module, projects), i18n.language)}
           </span>
         );
       case 'assignee':

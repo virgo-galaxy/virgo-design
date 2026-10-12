@@ -11,7 +11,8 @@ function csvCell(value: string) {
 export interface TaskExportLabels {
   status: (code: Task['status']) => string;
   text?: (value: string) => string;
-  module?: (id: string) => string;
+  project?: (id: string) => string;
+  module?: (projectId: string, id: string) => string;
   priority: (code: Task['priority']) => string;
 }
 export function createTasksCsv(
@@ -39,8 +40,8 @@ export function createTasksCsv(
       labels.text?.(task.title) ?? task.title,
       labels.status(task.status),
       labels.priority(task.priority),
-      labels.text?.(task.project) ?? task.project,
-      labels.module?.(task.module) ?? task.module,
+      labels.project?.(task.project) ?? task.project,
+      labels.module?.(task.project, task.module) ?? task.module,
       labels.text?.(
         taskAssignees.find((member) => member.id === task.assignee)?.name ?? task.assignee,
       ) ??

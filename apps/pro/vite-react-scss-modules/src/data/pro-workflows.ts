@@ -1,20 +1,14 @@
-import type { profileEnUS } from '@/pages/profile/locales/en-US';
-import type { handoffEnUS } from '@/pages/projects/locales/handoff/en-US';
-import type { resultsEnUS } from '@/pages/results/locales/en-US';
+import type { ProfileDto, ProfileValidationCode } from '@/api/profile/contract';
+import type {
+  HandoffRequest,
+  HandoffValidationCode,
+  WorkflowReceiptDto,
+} from '@/api/workflows/contract';
 
 import type { Project } from './projects';
 import type { Task } from './tasks';
 
-export interface HandoffDraft {
-  title: string;
-  projectId: string;
-  date: string;
-  time: string;
-  taskIds: string[];
-  audience: 'team' | 'external';
-  notes: string;
-  confirmed: boolean;
-}
+export type HandoffDraft = HandoffRequest;
 export const initialHandoff: HandoffDraft = {
   title: 'October release handoff',
   projectId: 'online-store',
@@ -40,20 +34,20 @@ export function scopeGroups(
     {
       id: 'scope-review',
       title: 'Awaiting acceptance',
-      tasks: tasks.filter((task) => task.project === project?.name && task.status === 'in_review'),
+      tasks: tasks.filter((task) => task.project === project?.id && task.status === 'in_review'),
     },
     {
       id: 'scope-open',
       title: 'Work in motion',
       tasks: tasks.filter(
         (task) =>
-          task.project === project?.name && task.status !== 'done' && task.status !== 'in_review',
+          task.project === project?.id && task.status !== 'done' && task.status !== 'in_review',
       ),
     },
     {
       id: 'scope-done',
       title: 'Delivered work',
-      tasks: tasks.filter((task) => task.project === project?.name && task.status === 'done'),
+      tasks: tasks.filter((task) => task.project === project?.id && task.status === 'done'),
     },
   ];
   return groups.filter((group) => group.tasks.length > 0);
@@ -101,7 +95,7 @@ export function validateHandoff(
   throughStep: number,
   projects: readonly Project[],
 ) {
-  const errors: Partial<Record<keyof HandoffDraft, keyof typeof handoffEnUS.validation>> = {};
+  const errors: Partial<Record<keyof HandoffDraft, HandoffValidationCode>> = {};
   const project = projects.find((item) => item.id === draft.projectId);
   if (!draft.title.trim() || draft.title.trim().length > 100) errors.title = 'titleInvalid';
   if (!project) errors.projectId = 'projectInvalid';
@@ -111,7 +105,7 @@ export function validateHandoff(
     if (
       !draft.taskIds.length ||
       draft.taskIds.some(
-        (id) => !tasks.some((task) => task.id === id && task.project === project?.name),
+        (id) => !tasks.some((task) => task.id === id && task.project === project?.id),
       )
     )
       errors.taskIds = 'scopeRequired';
@@ -122,39 +116,13 @@ export function validateHandoff(
   if (throughStep >= 2 && !draft.confirmed) errors.confirmed = 'confirmationRequired';
   return errors;
 }
-export interface WorkflowReceipt {
-  outcome: 'success' | 'error';
-  kind: 'task' | 'handoff';
-  reference: string;
-  message: keyof typeof resultsEnUS.receipts;
-  projectId: string;
-  taskIds: string[];
-  recordedAt: string;
-  requester: string;
-  audience: 'team' | 'external';
-  handoffTitle?: string;
-  schedule?: string;
-  notes?: string;
-}
-export interface ProfileState {
-  name: string;
-  displayName?: string;
-  headline: string;
-  bio: string;
-  avatarColor: string;
-  avatarImage: string;
-  botAvatarImage?: string;
-  focusProject: string;
-  digest: boolean;
-  digestTime: string;
-  reviewReminders: boolean;
-  compactActivity: boolean;
-}
-export function accountAvatarImage(profile: ProfileState) {
+export type WorkflowReceipt = WorkflowReceiptDto;
+export type ProfileState = ProfileDto;
+export function accountAvatarImage(profile: Pick<ProfileState, 'avatarImage'>) {
   return profile.avatarImage;
 }
 export function validateProfile(profile: ProfileState, projects: readonly Project[]) {
-  const errors: Partial<Record<keyof ProfileState, keyof typeof profileEnUS.validation>> = {};
+  const errors: Partial<Record<keyof ProfileState, ProfileValidationCode>> = {};
   if (!profile.name.trim() || profile.name.trim().length > 60) errors.name = 'nameInvalid';
   if (profile.headline.length > 100) errors.headline = 'headlineTooLong';
   if (profile.bio.length > 600) errors.bio = 'bioTooLong';

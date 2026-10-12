@@ -8,13 +8,16 @@ import { emptyDataQuery } from '@/data/data-query';
 import { TaskFilters } from './TaskFilters';
 
 vi.mock('@/application/pro-data-context', () => ({
-  useProData: () => ({
-    taskAssignees: [
-      { id: 'ava', name: 'Anika Rao' },
-      { id: 'nina', name: 'Nina Wu' },
-    ],
-    taskProjects: ['Online Store'],
-    taskReferenceDate: '2026-10-02',
+  useTaskCatalog: () => ({
+    projects: [],
+    metadata: {
+      members: [
+        { id: 'ava', name: 'Anika Rao' },
+        { id: 'nina', name: 'Nina Wu' },
+      ],
+      projects: ['online-store'],
+      referenceDate: '2026-10-02',
+    },
   }),
 }));
 

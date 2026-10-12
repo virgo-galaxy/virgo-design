@@ -1,25 +1,49 @@
 import { createContext, useContext } from 'react';
 
-import type { AnalyticsOverviewDto, ProfileDto, WorkplaceOverviewDto } from '@/api';
-import type { Task, TaskAction, TaskState } from '@/data/tasks';
+import type { ProfileDto, ProjectDto, TaskMetadataDto } from '@/api';
+import type { Task, TaskAction } from '@/data/tasks';
 
-import type { loadProData } from './load-pro-data';
-export type BootstrapData = Awaited<ReturnType<typeof loadProData>>;
-export interface ProData extends BootstrapData, AnalyticsOverviewDto, WorkplaceOverviewDto {
-  taskAssignees: BootstrapData['metadata']['members'];
-  taskProjects: string[];
-  taskReferenceDate: string;
-  state: TaskState;
-  revision: number;
-  removeTasks: (ids: readonly string[]) => Promise<string[]>;
-  refreshOverview: (signal: AbortSignal) => Promise<void>;
-  loadTaskCollection: (signal: AbortSignal) => Promise<boolean>;
-  dispatch: (action: TaskAction) => Promise<Task>;
-  saveProfile: (profile: ProfileDto | ((previous: ProfileDto) => ProfileDto)) => Promise<void>;
+import type { RemoteData } from './use-remote-data';
+
+export interface CatalogData {
+  metadata: TaskMetadataDto;
+  projects: ProjectDto[];
 }
-export const ProDataContext = createContext<ProData | null>(null);
-export function useProData(): ProData {
-  const value = useContext(ProDataContext);
+export interface TaskOperations {
+  dispatch: (action: TaskAction) => Promise<Task>;
+  removeTasks: (ids: readonly string[]) => Promise<string[]>;
+}
+export const CatalogResourceContext = createContext<RemoteData<CatalogData> | null>(null);
+export const TaskOperationsContext = createContext<TaskOperations | null>(null);
+export const TaskRevisionContext = createContext(0);
+export const NotificationRevisionContext = createContext(0);
+export const WorkflowRevisionContext = createContext(0);
+export const ProfileResourceContext = createContext<
+  | (RemoteData<ProfileDto> & {
+      saveProfile: (next: ProfileDto | ((previous: ProfileDto) => ProfileDto)) => Promise<void>;
+    })
+  | null
+>(null);
+export function useCatalogResource() {
+  const value = useContext(CatalogResourceContext);
   if (!value) throw new Error('ProDataProvider is required');
   return value;
 }
+export function useTaskCatalog() {
+  const resource = useCatalogResource();
+  if (!resource.data) throw new Error('CatalogBoundary is required');
+  return resource.data;
+}
+export function useTaskOperations() {
+  const value = useContext(TaskOperationsContext);
+  if (!value) throw new Error('ProDataProvider is required');
+  return value;
+}
+export function useProfileResource() {
+  const value = useContext(ProfileResourceContext);
+  if (!value) throw new Error('ProDataProvider is required');
+  return value;
+}
+export const useTaskRevision = () => useContext(TaskRevisionContext);
+export const useNotificationRevision = () => useContext(NotificationRevisionContext);
+export const useWorkflowRevision = () => useContext(WorkflowRevisionContext);

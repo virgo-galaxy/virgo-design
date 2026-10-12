@@ -26,3 +26,14 @@ export interface HandoffRequest {
   notes: string;
   confirmed: boolean;
 }
+
+export type HandoffValidationCode =
+  | 'acceptanceRequired'
+  | 'titleInvalid'
+  | 'projectInvalid'
+  | 'dateInvalid'
+  | 'timeInvalid'
+  | 'scopeRequired'
+  | 'notesTooLong'
+  | 'audienceInvalid'
+  | 'confirmationRequired';

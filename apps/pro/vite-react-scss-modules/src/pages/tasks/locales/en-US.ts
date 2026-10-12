@@ -1,3 +1,4 @@
+import type { TaskValidationCode } from '@/api/tasks/contract';
 export const tasksEnUS = {
   query: {
     dueCondition: 'Due condition',
@@ -306,5 +307,5 @@ export const tasksEnUS = {
     assigneeRequired: 'Choose an assignee.',
     invalidEstimate: 'Enter whole hours between 0 and 999.',
     invalidDueDate: 'Enter a valid due date.',
-  },
+  } satisfies Record<TaskValidationCode, string>,
 } as const;

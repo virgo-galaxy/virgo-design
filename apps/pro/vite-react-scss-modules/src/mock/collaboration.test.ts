@@ -30,7 +30,7 @@ const sum = (items: readonly { inputTokens: number; outputTokens: number }[]) =>
 const task = initialTaskState.tasks.find(
   (task) => task.assignee === 'hana' && task.status === 'todo',
 )!;
-const manager = task.project === 'Online Store' ? 'ava' : 'leo';
+const manager = task.project === 'online-store' ? 'ava' : 'leo';
 
 describe('task collaboration notifications', () => {
   it('routes start/review/approval to the right identities and retains read state through logout/reload', async () => {

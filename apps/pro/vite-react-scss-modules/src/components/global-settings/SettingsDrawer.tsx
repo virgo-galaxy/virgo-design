@@ -16,14 +16,14 @@ import { type CSSProperties, forwardRef, useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSession } from '@/application/session-context';
-import { useThemeStyle } from '@/lib/use-theme-style';
-
 import {
   getFixedHeaderMaterial,
   headerHeightRange,
   type ProSettings,
   sidebarWidthRanges,
-} from './settings';
+} from '@/application/settings/model';
+import { useThemeStyle } from '@/lib/use-theme-style';
+
 import styles from './SettingsDrawer.module.scss';
 
 function PixelInput({

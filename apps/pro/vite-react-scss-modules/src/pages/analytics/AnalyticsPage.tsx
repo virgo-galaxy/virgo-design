@@ -3,14 +3,18 @@ import { Pagination, Statistic, Surface } from '@virgo-design/ui';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useProData } from '@/application/pro-data-context';
+import { getAnalyticsOverview } from '@/api/analytics/analytics-api';
+import type { AnalyticsOverviewDto } from '@/api/analytics/contract';
+import { CatalogBoundary } from '@/application/CatalogBoundary';
+import { useTaskCatalog } from '@/application/pro-data-context';
 import { RemoteState } from '@/application/RemoteState';
-import { useOverviewRefresh } from '@/application/use-overview-refresh';
+import { useResourceQuery } from '@/application/use-resource-query';
+import { Person } from '@/components/person/Person';
 import { deliveryAnalysis } from '@/data/analytics';
-import { type TaskState, taskStatuses } from '@/data/tasks';
+import { taskStatuses } from '@/data/tasks';
 import { formatDueDate } from '@/data/workplace';
 import { businessLabel } from '@/lib/demo/labels';
-import { Panel, Person } from '@/pages/shared/ProPage';
+import { Panel } from '@/pages/shared/ProPage';
 import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
 
 import { getTaskStatusLabel } from '../tasks/task-presentation';
@@ -25,18 +29,18 @@ const signedPercent = (value: number) => {
   return `${rounded > 0 ? '+' : ''}${rounded}%`;
 };
 
-export function AnalyticsPage({ state }: { state: TaskState }) {
-  const { projects, taskAssignees, trendPoints, projectDelivery } = useProData();
+export function AnalyticsPageView({ overview }: { overview: AnalyticsOverviewDto }) {
+  const { projects, metadata } = useTaskCatalog();
+  const taskAssignees = metadata.members;
+  const { trendPoints, projectDelivery, taskCount } = overview;
   const { t, i18n } = useTranslation();
   const paginationLabels = usePaginationLabels();
   const [ownerPage, setOwnerPage] = useState(1);
-  const overview = useOverviewRefresh();
   const analysis = deliveryAnalysis('14d', trendPoints);
   const { points } = analysis;
-  const openTasks = state.tasks.filter((task) => task.status !== 'done');
   const distributions = taskStatuses.map((status, index) => ({
     name: getTaskStatusLabel(t, status),
-    value: state.tasks.filter((task) => task.status === status).length,
+    value: overview.statusDistribution.find((item) => item.status === status)?.count ?? 0,
     color: chartColors[index]!,
   }));
   const projectData = projectDelivery.map((day) => {
@@ -47,11 +51,11 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
   });
   const owners = taskAssignees
     .map((member) => {
-      const tasks = openTasks.filter((task) => task.assignee === member.id);
+      const capacity = overview.ownerCapacity.find((item) => item.memberId === member.id);
       return {
         member,
-        count: tasks.length,
-        hours: tasks.reduce((sum, task) => sum + task.estimateHours, 0),
+        count: capacity?.count ?? 0,
+        hours: capacity?.hours ?? 0,
       };
     })
     .sort((a, b) => b.hours - a.hours);
@@ -110,8 +114,6 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
       note: t('analytics.momentumNote'),
     },
   ];
-  if (overview.error || !overview.data)
-    return <RemoteState loading={overview.loading} error={overview.error} retry={overview.retry} />;
   return (
     <div className={styles.page}>
       <header className={styles.heading}>
@@ -236,7 +238,7 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
         <Panel
           className={styles.panel!}
           title={t('analytics.taskDistribution')}
-          description={t('analytics.currentRegisterValueTasks', { v0: state.tasks.length })}
+          description={t('analytics.currentRegisterValueTasks', { v0: taskCount })}
         >
           <div className={styles.distribution}>
             <Chart.Root
@@ -253,7 +255,7 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
                 innerRadius={0.76}
                 center={
                   <>
-                    <strong>{state.tasks.length}</strong>
+                    <strong>{taskCount}</strong>
                     <span>{t('analytics.tasks')}</span>
                   </>
                 }
@@ -269,9 +271,7 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
                     {item.name}
                   </span>
                   <strong>{item.value}</strong>
-                  <small>
-                    {state.tasks.length ? Math.round((item.value / state.tasks.length) * 100) : 0}%
-                  </small>
+                  <small>{taskCount ? Math.round((item.value / taskCount) * 100) : 0}%</small>
                 </li>
               ))}
             </ul>
@@ -376,5 +376,23 @@ export function AnalyticsPage({ state }: { state: TaskState }) {
         </Panel>
       </div>
     </div>
+  );
+}
+
+function AnalyticsResource() {
+  const resource = useResourceQuery(getAnalyticsOverview);
+  if (!resource.data) return <RemoteState {...resource} />;
+  return (
+    <>
+      {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
+      <AnalyticsPageView overview={resource.data} />
+    </>
+  );
+}
+export function AnalyticsPage() {
+  return (
+    <CatalogBoundary>
+      <AnalyticsResource />
+    </CatalogBoundary>
   );
 }

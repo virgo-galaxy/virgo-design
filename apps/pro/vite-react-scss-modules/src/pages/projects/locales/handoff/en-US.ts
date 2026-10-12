@@ -1,3 +1,4 @@
+import type { HandoffValidationCode } from '@/api/workflows/contract';
 export const handoffEnUS = {
   selectedTasks: '{{count}} tasks selected',
 
@@ -66,5 +67,5 @@ export const handoffEnUS = {
     notesTooLong: 'Keep handoff notes within 1,500 characters.',
     audienceInvalid: 'Choose an audience.',
     confirmationRequired: 'Confirm the scope and handoff details before preparing the packet.',
-  },
+  } satisfies Record<HandoffValidationCode, string>,
 } as const;

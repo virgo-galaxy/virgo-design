@@ -10,6 +10,16 @@ import { getDemoState } from '../store';
 import { dailyTokenUsage, reportingDate, reportingYears, visibleRecords } from '../task-records';
 import { getBackendTasks } from './tasks';
 export const analyticsHandlers = [
+  http.get(endpoint('/activity'), ({ request }) => {
+    const state = getDemoState();
+    return success(
+      analyticsSnapshot(
+        scopedTasks(state.tasks, request),
+        reportingDate(state.records),
+        visibleRecords(state.records, requestUser(request)!),
+      ).activity,
+    );
+  }),
   http.get(endpoint('/analytics/overview'), ({ request }) => {
     const state = getDemoState();
     return success(
@@ -22,13 +32,13 @@ export const analyticsHandlers = [
   }),
   http.get(endpoint('/workplace/overview'), ({ request }) => {
     const user = requestUser(request)!;
-    const visibleProjects = projects.filter((project) => user.projects.includes(project.name));
+    const visibleProjects = projects.filter((project) => user.projects.includes(project.id));
     const tasks = scopedTasks(getBackendTasks(), request);
     const records = visibleRecords(getDemoState().records, user);
     const date = reportingDate(getDemoState().records);
     const distribution = visibleProjects.map((project) => {
       const count = tasks.filter(
-        (task) => task.project === project.name && task.status !== 'done',
+        (task) => task.project === project.id && task.status !== 'done',
       ).length;
       return {
         name: project.name,

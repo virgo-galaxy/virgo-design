@@ -10,20 +10,15 @@ import {
   useSearchParams,
 } from 'react-router';
 
-import { prepareHandoff as prepareRemoteHandoff } from '@/api/workflows';
+import { legacyProjectIds } from '@/api/projects/legacy-project-ids';
 import { AppShell } from '@/app/AppShell';
 import { type ProPageKey, proRouteConfig } from '@/app/routes.config';
 import { proRouting } from '@/app/routing';
-import { useProData } from '@/application/pro-data-context';
+import { CatalogBoundary } from '@/application/CatalogBoundary';
+import { HandoffSessionProvider } from '@/application/HandoffSession';
+import { useTaskCatalog } from '@/application/pro-data-context';
 import { useCurrentUser } from '@/application/session-context';
-import { TaskCollectionBoundary } from '@/application/TaskCollectionBoundary';
 import { useAgentMode } from '@/application/use-agent-mode';
-import {
-  type HandoffDraft,
-  handoffFromReceipt,
-  initialHandoff,
-  type WorkflowReceipt,
-} from '@/data/pro-workflows';
 import { canVisitPage, isAdmin, isAdminShowcasePage } from '@/lib/auth/permissions';
 const AnalyticsPage = lazy(() =>
   import('@/pages/analytics/AnalyticsPage').then((module) => ({ default: module.AnalyticsPage })),
@@ -85,80 +80,53 @@ function RouteLoading() {
 function ApplicationRoutes() {
   const user = useCurrentUser();
   const { agentMode, setAgentMode } = useAgentMode(isAdmin(user));
-  const {
-    state: tasks,
-    dispatch,
-    profile,
-    saveProfile: setProfile,
-    projects,
-    workflows,
-    taskReferenceDate,
-  } = useProData();
-  const [handoff, setHandoff] = useState<HandoffDraft>(() => ({
-    ...initialHandoff,
-    projectId: projects[0]?.id ?? initialHandoff.projectId,
-    taskIds: [],
-    date: taskReferenceDate,
-  }));
-  const [stage, setStage] = useState(0);
-  const [success, setSuccess] = useState<WorkflowReceipt>(workflows.success);
-  const [error, setError] = useState<WorkflowReceipt>(workflows.error);
-  const prepare = async (draft = handoff) => {
-    const receipt = await prepareRemoteHandoff(draft);
-    if (receipt.outcome === 'success') setSuccess(receipt);
-    else setError(receipt);
-    return receipt;
-  };
-  const recover = () => {
-    setHandoff(handoffFromReceipt(error));
-    setStage(1);
-  };
-  const retry = async () => {
-    const draft = { ...handoffFromReceipt(error), audience: 'team' as const, confirmed: true };
-    setHandoff(draft);
-    const receipt = await prepare(draft);
-    setStage(receipt ? 2 : 1);
-    return receipt;
-  };
   const pages: Record<ProPageKey, ReactElement> = {
     workplace: <WorkplacePage />,
-    analytics: <AnalyticsPage state={tasks} />,
-    tasks: <TasksPage dispatch={dispatch} />,
+    analytics: <AnalyticsPage />,
+    tasks: <TasksPage />,
     'task-cards': <TaskCardsPage />,
     'task-create': <TaskWorkspacePage mode="create" />,
     'task-edit': <TaskWorkspacePage mode="edit" />,
     'task-details': <TaskWorkspacePage mode="details" />,
-    projects: <ProjectsPage state={tasks} />,
-    'project-detail': <ProjectDetailPage state={tasks} />,
-    'project-handoff': (
-      <ProjectHandoffPage
-        draft={handoff}
-        setDraft={setHandoff}
-        state={tasks}
-        stage={stage}
-        setStage={setStage}
-        onPrepare={() => prepare()}
-      />
-    ),
-    success: <ResultPage receipt={success} state={tasks} />,
-    error: <ResultPage receipt={error} state={tasks} onRecover={recover} onRetry={retry} />,
+    projects: <ProjectsPage />,
+    'project-detail': <ProjectDetailPage />,
+    'project-handoff': <ProjectHandoffPage />,
+    success: <ResultPage outcome="success" />,
+    error: <ResultPage outcome="error" />,
     'exception-403': <ExceptionPage code="403" />,
     'exception-404': <ExceptionPage code="404" />,
     'exception-500': <ExceptionPage code="500" />,
-    profile: <ProfilePage profile={profile} setProfile={setProfile} state={tasks} />,
+    profile: <ProfilePage />,
     'not-found': <NotFoundPage />,
   };
 
   return (
     <Routes>
-      <Route
-        element={
-          <AppShell profile={profile} agentMode={agentMode} onAgentModeChange={setAgentMode} />
-        }
-      >
-        <Route path="/data/list" element={<LegacyRedirect kind="tasks" />} />
-        <Route path="/data/detail" element={<LegacyRedirect kind="project" />} />
-        <Route path="/form/step" element={<LegacyRedirect kind="handoff" />} />
+      <Route element={<AppShell agentMode={agentMode} onAgentModeChange={setAgentMode} />}>
+        <Route
+          path="/data/list"
+          element={
+            <CatalogBoundary>
+              <LegacyRedirect kind="tasks" />
+            </CatalogBoundary>
+          }
+        />
+        <Route
+          path="/data/detail"
+          element={
+            <CatalogBoundary>
+              <LegacyRedirect kind="project" />
+            </CatalogBoundary>
+          }
+        />
+        <Route
+          path="/form/step"
+          element={
+            <CatalogBoundary>
+              <LegacyRedirect kind="handoff" />
+            </CatalogBoundary>
+          }
+        />
         {proRouteConfig.redirects.map((redirect) => (
           <Route
             key={`redirect:${redirect.path}`}
@@ -178,16 +146,6 @@ function ApplicationRoutes() {
                   ) : (
                     <ExceptionPage code="403" />
                   )
-                ) : [
-                    'analytics',
-                    'projects',
-                    'project-detail',
-                    'project-handoff',
-                    'success',
-                    'error',
-                    'profile',
-                  ].includes(route.page) ? (
-                  <TaskCollectionBoundary>{pages[route.page]}</TaskCollectionBoundary>
                 ) : (
                   pages[route.page]
                 )}
@@ -202,13 +160,17 @@ function ApplicationRoutes() {
 
 function LegacyRedirect({ kind }: { kind: 'tasks' | 'project' | 'handoff' }) {
   const [params] = useSearchParams();
-  const { projects } = useProData();
+  const { projects } = useTaskCatalog();
   if (kind === 'tasks') {
     const next = new URLSearchParams(params);
     next.delete('view');
     return <Navigate to={`/work/task-cards${next.size ? '?' + next.toString() : ''}`} replace />;
   }
-  const project = projects.find((p) => p.id === params.get('project')) ?? projects[0];
+  const legacyId = legacyProjectIds[params.get('project') ?? ''];
+  const project =
+    projects.find(
+      (p) => p.id === (legacyId ?? params.get('project')) || p.name === params.get('project'),
+    ) ?? projects[0];
   return (
     <Navigate
       to={
@@ -227,5 +189,11 @@ export function App() {
     setRouter(instance);
     return () => instance.dispose();
   }, []);
-  return router ? <RouterProvider router={router} /> : <RouteLoading />;
+  return router ? (
+    <HandoffSessionProvider>
+      <RouterProvider router={router} />
+    </HandoffSessionProvider>
+  ) : (
+    <RouteLoading />
+  );
 }

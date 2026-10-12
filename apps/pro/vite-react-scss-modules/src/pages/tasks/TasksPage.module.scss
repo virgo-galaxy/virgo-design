@@ -159,51 +159,7 @@
     color: var(--vd-text-tertiary);
   }
 }
-.taskDialog[data-size='md'] {
-  --dialog-width: calc(var(--vd-sizing-80) * 10);
-  --dialog-section-padding: var(--vd-spacing-24);
-  --dialog-title-font-size: var(--vd-font-size-20);
-  height: min(calc(var(--vd-sizing-80) * 8.5), calc(100dvh - var(--vd-spacing-48)));
-  max-height: calc(100dvh - var(--vd-spacing-48));
-  inset-block-start: 50%;
-  transform: translate(-50%, -50%);
-}
-.taskDetailsDialog[data-size='md'] {
-  --dialog-width: calc(var(--vd-sizing-80) * 7.5);
-}
-.dialogHeader {
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: start;
-}
-.dialogHeading {
-  display: grid;
-  gap: var(--vd-spacing-6);
-}
-.taskDialogBody {
-  flex: 1;
-  display: grid;
-  align-content: start;
-  gap: var(--vd-spacing-20);
-  scrollbar-width: thin;
-}
-.workflow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--vd-spacing-12);
-  padding-block-end: var(--vd-spacing-16);
-  border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
-  > div {
-    display: grid;
-    gap: var(--vd-spacing-6);
-    justify-items: start;
-  }
-  > div > span:last-child {
-    color: var(--vd-text-tertiary);
-    font-size: var(--vd-font-size-10);
-  }
-}
+
 .completedNote {
   font-size: var(--vd-font-size-11);
   color: var(--vd-status-success-text);
@@ -228,9 +184,6 @@
   align-items: start;
 }
 
-.taskDialogFooter {
-  min-height: var(--vd-sizing-72);
-}
 .saveState {
   margin-inline-end: auto;
   color: var(--vd-text-tertiary);
@@ -296,9 +249,7 @@
   .listActions {
     padding: var(--vd-spacing-16);
   }
-  .taskDialog[data-size='md'] {
-    --dialog-section-padding: var(--vd-spacing-20);
-  }
+
   .formGrid {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -346,33 +297,8 @@
     padding-inline: var(--vd-spacing-8);
   }
 }
-.taskDetails {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--vd-spacing-20);
-  margin: 0;
-  > div {
-    display: grid;
-    align-content: start;
-    gap: var(--vd-spacing-8);
-    min-width: 0;
-  }
-  dt {
-    color: var(--vd-text-tertiary);
-  }
-  dd {
-    margin: 0;
-    overflow-wrap: anywhere;
-    white-space: pre-wrap;
-  }
-}
-.detailFullWidth {
-  grid-column: 1 / -1;
-}
+
 @media (max-width: 640px) {
-  .taskDetails {
-    grid-template-columns: minmax(0, 1fr);
-  }
   .listActions {
     flex-wrap: wrap;
   }

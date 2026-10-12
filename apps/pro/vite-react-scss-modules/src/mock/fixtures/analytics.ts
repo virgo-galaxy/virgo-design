@@ -1,5 +1,5 @@
 import type { AnalyticsOverviewDto, TaskRecordDto } from '@/api/analytics';
-import type { TaskDto } from '@/api/tasks';
+import { TASK_STATUS_CODES, type TaskDto } from '@/api/tasks';
 
 import { projects } from './projects';
 import { initialTaskState, taskReferenceDate } from './tasks';
@@ -16,6 +16,19 @@ export function analyticsSnapshot(
     return date.toISOString().slice(0, 10);
   });
   return {
+    taskCount: tasks.length,
+    statusDistribution: TASK_STATUS_CODES.map((status) => ({
+      status,
+      count: tasks.filter((task) => task.status === status).length,
+    })),
+    ownerCapacity: members.map((member) => {
+      const open = tasks.filter((task) => task.assignee === member.id && task.status !== 'done');
+      return {
+        memberId: member.id,
+        count: open.length,
+        hours: open.reduce((sum, task) => sum + task.estimateHours, 0),
+      };
+    }),
     trendPoints: dates.map((date) => ({
       date,
       completed: tasks.filter(
@@ -29,7 +42,7 @@ export function analyticsSnapshot(
         projectId: project.id,
         completed: tasks.filter(
           (task) =>
-            task.project === project.name &&
+            task.project === project.id &&
             task.status === 'done' &&
             task.completedAt?.slice(0, 10) === date,
         ).length,

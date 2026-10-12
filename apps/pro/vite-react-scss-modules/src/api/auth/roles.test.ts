@@ -6,6 +6,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from
 import { getWorkplaceOverview } from '@/api/analytics';
 import { getProfile, updateProfile } from '@/api/profile';
 import { getProjects } from '@/api/projects';
+import { getProjectOverviews } from '@/api/projects/projects-api';
 import {
   createTask,
   deleteTasks,
@@ -15,9 +16,7 @@ import {
   updateTaskStatus,
 } from '@/api/tasks';
 import { prepareHandoff } from '@/api/workflows';
-import { projectSummary } from '@/data/projects';
 import { clearAuthSession, getAccessToken, sessionExpiredEvent } from '@/lib/auth/session';
-import { taskAssignees, taskReferenceDate } from '@/mock/fixtures/tasks';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { handlers } from '@/mock/handlers';
 import { resetDemoState, unloadDemoState } from '@/mock/store';
@@ -64,7 +63,7 @@ describe('Bearer accounts and project permissions', () => {
       expect(tasks.items.every((task) => session.user.managedProjects.includes(task.project))).toBe(
         true,
       );
-      expect((await getProjects()).map((project) => project.name)).toEqual(
+      expect((await getProjects()).map((project) => project.id)).toEqual(
         session.user.managedProjects,
       );
       const other = initialTaskState.tasks.find(
@@ -92,7 +91,7 @@ describe('Bearer accounts and project permissions', () => {
     await expect(
       updateTask(task.id, {
         ...task,
-        assignee: task.project === 'Online Store' ? 'ava' : 'leo',
+        assignee: task.project === 'online-store' ? 'ava' : 'leo',
         status: 'in_review',
       }),
     ).rejects.toMatchObject({ status: 403 });
@@ -102,18 +101,18 @@ describe('Bearer accounts and project permissions', () => {
     await expect(deleteTasks({ ids: [task.id] })).rejects.toMatchObject({ status: 403 });
     expect((await updateProfile({ digest: false })).digest).toBe(false);
     await expect(resetDemo()).rejects.toMatchObject({ status: 403 });
-    await signIn(task.project === 'Online Store' ? 'ava' : 'leo');
+    await signIn(task.project === 'online-store' ? 'ava' : 'leo');
     expect((await updateTaskStatus(task.id, 'done')).status).toBe('done');
   });
   it('keeps project metrics and handoffs on the same saved task register', async () => {
     await signIn('ava');
     const project = (await getProjects())[0]!;
-    const load = async () => (await getTasks({ project: project.name, pageSize: 100 })).items;
+    const load = async () => (await getTasks({ project: project.id, pageSize: 100 })).items;
     const before = await load();
     const task = before.find((item) => item.status === 'in_review')!;
-    const summary = projectSummary(project, before, taskAssignees, taskReferenceDate);
+    const summary = (await getProjectOverviews(project.id))[0]!;
     await updateTaskStatus(task.id, 'done');
-    expect(projectSummary(project, await load(), taskAssignees, taskReferenceDate)).toMatchObject({
+    expect((await getProjectOverviews(project.id))[0]).toMatchObject({
       completed: summary.completed + 1,
       open: summary.open - 1,
       review: summary.review - 1,
@@ -136,7 +135,7 @@ describe('Bearer accounts and project permissions', () => {
     expect(await prepareHandoff({ ...handoff, audience: 'external' })).toMatchObject({
       outcome: 'error',
     });
-    const other = initialTaskState.tasks.find((item) => item.project !== project.name)!;
+    const other = initialTaskState.tasks.find((item) => item.project !== project.id)!;
     await expect(prepareHandoff({ ...handoff, taskIds: [other.id] })).rejects.toMatchObject({
       status: 422,
     });
@@ -154,7 +153,7 @@ describe('Bearer accounts and project permissions', () => {
   });
   it('revokes the old token on logout and retains task changes across account switches', async () => {
     const session = await signIn('ava');
-    const task = initialTaskState.tasks.find((task) => task.project === 'Online Store')!;
+    const task = initialTaskState.tasks.find((task) => task.project === 'online-store')!;
     await updateTask(task.id, { ...task, title: 'Persisted across users' });
     await logout();
     expect(getAccessToken()).toBeUndefined();

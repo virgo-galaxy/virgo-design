@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { initialTaskState } from '@/mock/fixtures/tasks';
 
-import { sortTasks } from './tasks.sort';
+import { sortTasks } from './task-sort';
 
 describe('task sorting', () => {
   it('sorts hours numerically across the full set without mutating data, and restores order on cancel', () => {

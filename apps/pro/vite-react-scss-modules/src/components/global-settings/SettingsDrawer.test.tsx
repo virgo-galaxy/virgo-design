@@ -3,7 +3,8 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 import { Drawer } from '@virgo-design/ui';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { defaultProSettings } from './settings';
+import { defaultProSettings } from '@/application/settings/model';
+
 import { SettingsDrawer } from './SettingsDrawer';
 
 const { resetDemo, onReset } = vi.hoisted(() => ({ resetDemo: vi.fn(), onReset: vi.fn() }));

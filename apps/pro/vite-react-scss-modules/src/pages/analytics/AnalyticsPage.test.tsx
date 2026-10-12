@@ -2,10 +2,11 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 
+import { analyticsSnapshot } from '@/mock/fixtures/analytics';
 import { initialTaskState } from '@/mock/fixtures/tasks';
-import { members, trendPoints } from '@/mock/fixtures/workplace';
+import { members } from '@/mock/fixtures/workplace';
 
-import { AnalyticsPage } from './AnalyticsPage';
+import { AnalyticsPageView } from './AnalyticsPage';
 
 vi.mock('@virgo-design/charts', () => ({
   Chart: Object.fromEntries(
@@ -25,14 +26,11 @@ vi.mock('@virgo-design/charts', () => ({
   ),
 }));
 vi.mock('@/application/pro-data-context', () => ({
-  useProData: () => ({ projects: [], taskAssignees: members, trendPoints, projectDelivery: [] }),
-}));
-vi.mock('@/application/use-overview-refresh', () => ({
-  useOverviewRefresh: () => ({ data: true, loading: false, error: null }),
+  useTaskCatalog: () => ({ projects: [], metadata: { members } }),
 }));
 
 it('pages through all owners with continuous ranks, colored effort bars and a shared team scale', () => {
-  render(<AnalyticsPage state={initialTaskState} />);
+  render(<AnalyticsPageView overview={analyticsSnapshot(initialTaskState.tasks)} />);
   const owners = members
     .map((member) => ({
       member,
