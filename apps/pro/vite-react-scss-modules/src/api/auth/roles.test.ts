@@ -81,7 +81,7 @@ describe('Bearer accounts and project permissions', () => {
     const expected = initialTaskState.tasks.filter((task) => task.assignee === 'hana');
     expect(tasks.total).toBe(expected.length);
     expect(tasks.items.every((task) => task.assignee === 'hana')).toBe(true);
-    expect((await getProfile()).name).toBe('Hana Kim');
+    expect((await getProfile()).name).toBe('Maya Singh');
     expect((await getWorkplaceOverview()).snapshot.openTasks).toBe(
       expected.filter((task) => task.status !== 'done').length,
     );
@@ -187,7 +187,7 @@ describe('Bearer accounts and project permissions', () => {
     await updateProfile({ name: 'Hana Studio', bio: 'Frontend delivery', digest: false });
     await logout();
     await signIn('leo');
-    expect((await getProfile()).name).toBe('Leo Park');
+    expect((await getProfile()).name).toBe('Leo Martin');
     await updateProfile({ bio: 'Project coordination' });
     await expect(updateProfile({ focusProject: 'online-store' })).rejects.toMatchObject({
       status: 422,

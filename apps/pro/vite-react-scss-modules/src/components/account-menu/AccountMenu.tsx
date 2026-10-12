@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { useCurrentUser, useSession } from '@/application/session-context';
+import { UserGenderIcon } from '@/components/user-gender/UserGenderIcon';
 import {
   accountAvatarImage,
   avatarForeground,
@@ -69,7 +70,9 @@ export function AccountMenu({
           <div className={styles.identity}>
             <Avatar {...avatarProps} size="md" />
             <div>
-              <strong>{displayName}</strong>
+              <strong>
+                {displayName} <UserGenderIcon gender={user.gender} />
+              </strong>
               <p>
                 {t(`app.login.roles.${user.role}`)} ·{' '}
                 {businessLabel(user.department, i18n.language)}

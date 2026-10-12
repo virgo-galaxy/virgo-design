@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import type { MemberDto } from '@/api/tasks';
 import type { UserDetailsDto } from '@/api/users';
 import { userDetailsCache } from '@/application/user-details-cache';
-import { businessLabel } from '@/lib/demo/labels';
+import { UserGenderIcon } from '@/components/user-gender/UserGenderIcon';
+import { businessLabel, formatWorkLocation } from '@/lib/demo/labels';
 
 import styles from './TaskAssigneeCard.module.scss';
 
@@ -76,7 +77,10 @@ function UserCardDetails({ userId }: { userId: string }) {
           className={styles.photo}
         />
         <div className={styles.heading}>
-          <strong>{businessLabel(user.name, i18n.language)}</strong>
+          <strong>
+            {businessLabel(user.name, i18n.language)}
+            <UserGenderIcon gender={user.gender} />
+          </strong>
           <span>{businessLabel(user.jobTitle, i18n.language)}</span>
           <span className={styles.employeeNumber}>
             {t('tasks.userCard.employeeNumber')} · {user.employeeNumber}
@@ -84,6 +88,12 @@ function UserCardDetails({ userId }: { userId: string }) {
         </div>
       </div>
       <dl className={styles.fields}>
+        {user.workLocation ? (
+          <div>
+            <dt>{t('shared.workLocation')}</dt>
+            <dd>{formatWorkLocation(user.workLocation, i18n.language)}</dd>
+          </div>
+        ) : null}
         <div>
           <dt>{t('tasks.userCard.department')}</dt>
           <dd>{businessLabel(user.department, i18n.language)}</dd>

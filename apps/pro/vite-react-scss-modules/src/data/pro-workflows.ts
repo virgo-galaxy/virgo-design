@@ -174,7 +174,7 @@ export function profileInitials(name: string) {
           .slice(0, 2)
           .map((part) => part[0])
           .join('')
-    ).toUpperCase() || 'MY'
+    ).toUpperCase() || 'EX'
   );
 }
 export function avatarForeground(color: string) {

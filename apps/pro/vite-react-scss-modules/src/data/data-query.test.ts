@@ -102,7 +102,7 @@ describe('complex task queries', () => {
         createdFrom: '2026-09-23',
       }),
     ).toEqual([]);
-    expect(find({ search: 'Ava Brooks' })).toHaveLength(
+    expect(find({ search: 'Anika Rao' })).toHaveLength(
       queryTasks.filter((task) => task.assignee === 'ava').length,
     );
   });

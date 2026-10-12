@@ -6,6 +6,8 @@ export interface SessionUser {
   role: UserRole;
   jobTitle: string;
   department: string;
+  gender?: UserGender;
+  workLocation?: WorkLocationDto;
   projects: string[];
   managedProjects: string[];
   avatarUrl?: string;
@@ -27,3 +29,4 @@ export interface DemoAccountsDto {
   accounts: SessionUser[];
   password: string;
 }
+import type { UserGender, WorkLocationDto } from '../users/contract';

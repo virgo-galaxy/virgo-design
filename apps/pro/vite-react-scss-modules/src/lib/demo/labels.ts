@@ -1,5 +1,36 @@
+import type { WorkLocationDto } from '@/api/users';
+
 // Display labels are localized; API identifiers and relationship keys stay stable.
 const zh: Record<string, string> = {
+  China: '中国',
+  'United Kingdom': '英国',
+  Japan: '日本',
+  India: '印度',
+  Indonesia: '印度尼西亚',
+  Philippines: '菲律宾',
+  'United Arab Emirates': '阿联酋',
+  Ghana: '加纳',
+  'United States': '美国',
+  Nigeria: '尼日利亚',
+  'South Korea': '韩国',
+  Germany: '德国',
+  Brazil: '巴西',
+  Mexico: '墨西哥',
+  Singapore: '新加坡',
+  Shanghai: '上海',
+  Tokyo: '东京',
+  Bengaluru: '班加罗尔',
+  Jakarta: '雅加达',
+  Manila: '马尼拉',
+  Dubai: '迪拜',
+  Accra: '阿克拉',
+  'New York': '纽约',
+  Lagos: '拉各斯',
+  London: '伦敦',
+  Seoul: '首尔',
+  Berlin: '柏林',
+  'São Paulo': '圣保罗',
+  'Mexico City': '墨西哥城',
   'October release handoff': '十月版本交接',
   'Support release handoff': '客服版本交接',
   'Review delivered support workflows with the team.': '与团队共同检查已交付的客服工作流程。',
@@ -101,30 +132,30 @@ const zh: Record<string, string> = {
     '与项目经理共同检查页面、接口和测试结果。',
   'Confirm delivery readiness, deployment and remaining follow-up tasks.':
     '确认交付准备、部署安排和剩余跟进任务。',
-  'Ava Brooks': 'Ava Brooks（艾娃）',
-  'Leo Park': 'Leo Park（利奥）',
+  'Anika Rao': 'Anika Rao（阿妮卡）',
+  'Leo Martin': 'Leo Martin（利奥）',
   'Nina Wu': 'Nina Wu（妮娜）',
-  'Eli Morgan': 'Eli Morgan（伊莱）',
-  'Mira Patel': 'Mira Patel（米拉）',
-  'Owen Hayes': 'Owen Hayes（欧文）',
-  'Hana Kim': 'Hana Kim（哈娜）',
-  'Noah Wilson': 'Noah Wilson（诺亚）',
-  'Sara Ahmed': 'Sara Ahmed（萨拉）',
-  'Luca Rossi': 'Luca Rossi（卢卡）',
+  'Ren Sato': 'Ren Sato（莲）',
+  'Mei Lin': 'Mei Lin（美琳）',
+  'Arjun Mehta': 'Arjun Mehta（阿尔琼）',
   'Maya Singh': 'Maya Singh（玛雅）',
-  'Theo Martin': 'Theo Martin（西奥）',
-  'James Turner': 'James Turner（詹姆斯）',
-  'Emma Scott': 'Emma Scott（艾玛）',
-  'Oliver Reed': 'Oliver Reed（奥利弗）',
-  'Sophia Carter': 'Sophia Carter（索菲娅）',
-  'Daniel Stone': 'Daniel Stone（丹尼尔）',
-  'Grace Lee': 'Grace Lee（格蕾丝）',
-  'Lucas Brown': 'Lucas Brown（卢卡斯）',
-  'Isla Moore': 'Isla Moore（艾拉）',
-  'Ethan Davis': 'Ethan Davis（伊桑）',
-  'Chloe Martin': 'Chloe Martin（克洛伊）',
-  'Henry Clark': 'Henry Clark（亨利）',
-  'Zoe Taylor': 'Zoe Taylor（佐伊）',
+  'Adi Pratama': 'Adi Pratama（阿迪）',
+  'Linh Nguyen': 'Linh Nguyen（琳）',
+  'Paolo Santos': 'Paolo Santos（保罗）',
+  'Nour Haddad': 'Nour Haddad（努尔）',
+  'Omar Nasser': 'Omar Nasser（奥马尔）',
+  'Salma Mansour': 'Salma Mansour（萨尔玛）',
+  'Kwame Mensah': 'Kwame Mensah（夸梅）',
+  'Ama Boateng': 'Ama Boateng（阿玛）',
+  'Malik Johnson': 'Malik Johnson（马利克）',
+  'Zuri Okafor': 'Zuri Okafor（祖里）',
+  'Ethan Reed': 'Ethan Reed（伊桑）',
+  'Clara Evans': 'Clara Evans（克拉拉）',
+  'Jun Park': 'Jun Park（俊）',
+  'Elena Meyer': 'Elena Meyer（埃琳娜）',
+  'Mateo Silva': 'Mateo Silva（马特奥）',
+  'Lucia Moreno': 'Lucia Moreno（露西亚）',
+  'Alex Rivera': 'Alex Rivera（亚历克斯）',
 };
 export function businessLabel(value: string, language: string): string {
   if (!language.startsWith('zh')) return value;
@@ -143,4 +174,13 @@ export function businessLabel(value: string, language: string): string {
   const milestone = value.match(/^Agree on the six modules and acceptance criteria for (.+)\.$/);
   if (milestone && zh[milestone[1]!]) return `确认${zh[milestone[1]!]}的六个模块与验收标准。`;
   return value;
+}
+
+export function formatWorkLocation({ region, city }: WorkLocationDto, language: string): string {
+  const regionLabel = businessLabel(region, language);
+  const cityLabel = businessLabel(city, language);
+  if (region === city) return cityLabel;
+  return language.startsWith('zh')
+    ? `${regionLabel} · ${cityLabel}`
+    : `${cityLabel}, ${regionLabel}`;
 }

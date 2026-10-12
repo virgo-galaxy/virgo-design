@@ -59,6 +59,8 @@ import { FormFilledIcon } from './FormFilledIcon.js';
 import { FormIcon } from './FormIcon.js';
 import { GaugeFilledIcon } from './GaugeFilledIcon.js';
 import { GaugeIcon } from './GaugeIcon.js';
+import { GenderFemaleIcon } from './GenderFemaleIcon.js';
+import { GenderMaleIcon } from './GenderMaleIcon.js';
 import { GithubIcon } from './GithubIcon.js';
 import { GlobeIcon } from './GlobeIcon.js';
 import { GripIcon } from './GripIcon.js';
@@ -194,6 +196,8 @@ export const iconComponents = {
   form: FormIcon,
   'gauge-filled': GaugeFilledIcon,
   gauge: GaugeIcon,
+  'gender-female': GenderFemaleIcon,
+  'gender-male': GenderMaleIcon,
   github: GithubIcon,
   globe: GlobeIcon,
   grip: GripIcon,

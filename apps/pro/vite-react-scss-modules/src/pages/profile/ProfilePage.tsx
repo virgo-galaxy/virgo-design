@@ -29,6 +29,7 @@ import { MutationFeedback } from '@/application/MutationFeedback';
 import { useProData } from '@/application/pro-data-context';
 import { useCurrentUser } from '@/application/session-context';
 import { useMutation } from '@/application/use-mutation';
+import { UserGenderIcon } from '@/components/user-gender/UserGenderIcon';
 import {
   accountAvatarImage,
   avatarFileError,
@@ -40,7 +41,7 @@ import {
 import { projectDetailPath } from '@/data/projects';
 import type { TaskState } from '@/data/tasks';
 import { isAdmin } from '@/lib/auth/permissions';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel, formatWorkLocation } from '@/lib/demo/labels';
 import { FilterSelect, Panel, Person } from '@/pages/shared/ProPage';
 import shared from '@/pages/shared/ProPage.module.scss';
 import { getActivityActionLabel } from '@/pages/workplace/activity-presentation';
@@ -314,9 +315,7 @@ function ProfileEditor({
                   onValueChange={(value) => update('avatarColor', value)}
                 >
                   <div className={styles.colorRow}>
-                    <ColorPicker.Trigger aria-label={t('profile.chooseAvatarColor')}>
-                      <ColorPicker.Preview />
-                    </ColorPicker.Trigger>
+                    <ColorPicker.Trigger aria-label={t('profile.chooseAvatarColor')} />
                     <ColorPicker.HexField aria-label={t('profile.avatarHexColor')} />
                     {['#1664f9', '#127d55', '#824bc2', '#bf432a'].map((color) => (
                       <ColorPicker.Swatch
@@ -326,17 +325,21 @@ function ProfileEditor({
                       />
                     ))}
                   </div>
-                  <ColorPicker.Content
+                  <ColorPicker.Panel
+                    variant="simple"
                     aria-label={t('profile.avatarColorPicker')}
-                    className={styles.colorPanel}
-                  >
-                    <ColorPicker.Area
-                      saturationLabel={t('profile.avatarColorSaturation')}
-                      brightnessLabel={t('profile.avatarColorBrightness')}
-                    />
-                    <ColorPicker.Hue aria-label={t('profile.avatarColorHue')} />
-                    <ColorPicker.HexField aria-label={t('profile.pickerHexColor')} />
-                  </ColorPicker.Content>
+                    labels={{
+                      saturation: t('profile.avatarColorSaturation'),
+                      brightness: t('profile.avatarColorBrightness'),
+                      hue: t('profile.avatarColorHue'),
+                      hex: t('profile.pickerHexColor'),
+                      opacity: t('profile.pickerOpacity'),
+                      format: t('profile.pickerFormat'),
+                      red: t('profile.pickerRed'),
+                      green: t('profile.pickerGreen'),
+                      blue: t('profile.pickerBlue'),
+                    }}
+                  />
                 </ColorPicker>
                 {errors.avatarColor ? (
                   <Field.Message>{t(`profile.validation.${errors.avatarColor}`)}</Field.Message>
@@ -458,7 +461,10 @@ export function ProfilePage({
               <span className={shared.eyebrow}>
                 {t('profile.virgoStudio')} / {roleLabel}
               </span>
-              <h1>{businessLabel(profile.name, i18n.language)}</h1>
+              <h1>
+                {businessLabel(profile.name, i18n.language)}
+                <UserGenderIcon gender={user.gender} />
+              </h1>
               <p>{businessLabel(profile.headline, i18n.language)}</p>
               <Button.Group layout="custom" className={shared.actions}>
                 <Tag size="md" intent="brand">
@@ -501,6 +507,12 @@ export function ProfilePage({
                         t('profile.addAnIntroductionSoYourTeamKnowsHowYou')}
                     </p>
                     <dl className={styles.accountMetadata}>
+                      {user.workLocation ? (
+                        <div>
+                          <dt>{t('shared.workLocation')}</dt>
+                          <dd>{formatWorkLocation(user.workLocation, i18n.language)}</dd>
+                        </div>
+                      ) : null}
                       <div>
                         <dt>{t('profile.workspace')}</dt>
                         <dd>{t('profile.virgoStudio')}</dd>

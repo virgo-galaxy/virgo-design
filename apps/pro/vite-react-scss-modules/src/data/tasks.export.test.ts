@@ -28,7 +28,7 @@ describe('task CSV export', () => {
     );
     expect(csv).toContain('"3","2026-10-01T03:20:00.000Z"');
     expect(createTasksCsv([{ ...task, dueDate: '' }], taskAssignees, labels)).toContain(
-      '"Ava Brooks","",',
+      '"Anika Rao","",',
     );
   });
 

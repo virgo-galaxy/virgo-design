@@ -112,9 +112,9 @@ describe('profile identity and photo constraints', () => {
     );
   });
   it('keeps initials legible for a single name, multiple words and an empty name', () => {
-    expect(profileInitials('Mystic')).toBe('MY');
+    expect(profileInitials('Example')).toBe('EX');
     expect(profileInitials('  Ava Thompson ')).toBe('AT');
-    expect(profileInitials(' ')).toBe('MY');
+    expect(profileInitials(' ')).toBe('EX');
     expect(avatarForeground('#ffffff')).toBe('#000000');
     expect(avatarForeground('#000000')).toBe('#ffffff');
     expect(avatarForeground('#1664f9')).toBe('#ffffff');

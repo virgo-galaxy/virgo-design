@@ -157,7 +157,7 @@
         "key": "assignee",
         "visible": true,
         "minWidth": 180,
-        "width": 200,
+        "width": 220,
         "maxWidth": 300,
         "align": "start",
         "controls": {

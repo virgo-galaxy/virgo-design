@@ -59,6 +59,9 @@
   color: var(--vd-text-secondary);
   font-size: var(--vd-font-size-12);
   strong {
+    display: flex;
+    align-items: center;
+    gap: var(--vd-spacing-8);
     color: var(--vd-text-primary);
     font-size: var(--vd-font-size-16);
     font-weight: var(--vd-font-weight-600);
@@ -76,7 +79,7 @@
   border-block: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-default);
   > div {
     display: grid;
-    grid-template-columns: 52px minmax(0, 1fr);
+    grid-template-columns: 92px minmax(0, 1fr);
     gap: var(--vd-spacing-12);
   }
   dt {

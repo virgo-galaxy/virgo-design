@@ -3,7 +3,7 @@ import { http } from 'msw';
 import { analyticsSnapshot } from '../fixtures/analytics';
 import { projects } from '../fixtures/projects';
 import { taskAssignees } from '../fixtures/tasks';
-import { announcements, metrics, snapshot } from '../fixtures/workplace';
+import { announcements } from '../fixtures/workplace';
 import { endpoint, success } from '../response';
 import { requestUser, scopedTasks } from '../session';
 import { getDemoState } from '../store';
@@ -41,8 +41,12 @@ export const analyticsHandlers = [
     });
     const completed = tasks.filter((task) => task.status === 'done').length;
     const currentSnapshot = {
-      ...snapshot,
       date,
+      displayDate: new Intl.DateTimeFormat('en-US', {
+        dateStyle: 'full',
+        timeZone: 'UTC',
+      }).format(new Date(`${date}T00:00:00Z`)),
+      workspace: 'Virgo Studio',
       user: {
         id: user.id,
         name: user.name,
@@ -67,17 +71,12 @@ export const analyticsHandlers = [
       reportingScope:
         user.role === 'admin' ? 'workspace' : user.role === 'manager' ? 'projects' : 'personal',
       snapshot: currentSnapshot,
-      metrics: metrics.map((metric) => ({
-        ...metric,
-        value:
-          metric.icon === 'projects'
-            ? currentSnapshot.activeProjects
-            : metric.icon === 'tasks'
-              ? currentSnapshot.openTasks
-              : metric.icon === 'members'
-                ? currentSnapshot.teamMembers
-                : `${currentSnapshot.completionRate}%`,
-      })),
+      metrics: [
+        { icon: 'projects', value: currentSnapshot.activeProjects },
+        { icon: 'tasks', value: currentSnapshot.openTasks },
+        { icon: 'members', value: currentSnapshot.teamMembers },
+        { icon: 'completion', value: `${currentSnapshot.completionRate}%` },
+      ],
       projectDistribution: distribution,
       recentTasks: tasks.slice(0, 6).map((task) => ({
         id: task.id,

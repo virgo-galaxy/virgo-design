@@ -86,7 +86,7 @@ export function WorkplacePage() {
             <PageHeading
               title={
                 <>
-                  {t('workplace.welcomeBackMystic', { name: profile.name })}
+                  {t('workplace.welcomeBack', { name: profile.name })}
                   <span className={styles.welcomeDot}>.</span>
                 </>
               }

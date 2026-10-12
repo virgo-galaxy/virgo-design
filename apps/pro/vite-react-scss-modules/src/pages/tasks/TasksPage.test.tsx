@@ -126,7 +126,7 @@ describe('Task row actions and batch deletion', () => {
     await screen.findByRole('heading', { name: 'Products: Plan delivery' });
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
-    expect(screen.getAllByText('Ava Brooks').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Anika Rao').length).toBeGreaterThan(0);
     fireEvent.click(screen.getByRole('button', { name: 'Edit task' }));
     await screen.findByRole('heading', { name: 'Edit task' });
     expect(screen.getByRole('textbox', { name: 'Title' })).toHaveValue('Products: Plan delivery');

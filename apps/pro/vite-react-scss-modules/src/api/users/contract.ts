@@ -1,3 +1,11 @@
+export type UserGender = 'male' | 'female';
+
+/** Current work base, independent of nationality or birthplace. */
+export interface WorkLocationDto {
+  region: string;
+  city: string;
+}
+
 export interface UserDetailsDto {
   id: string;
   name: string;
@@ -5,6 +13,8 @@ export interface UserDetailsDto {
   employeeNumber: string;
   jobTitle: string;
   department: string;
+  gender?: UserGender;
+  workLocation?: WorkLocationDto;
   phone: string;
   email: string;
   avatarUrl: string;

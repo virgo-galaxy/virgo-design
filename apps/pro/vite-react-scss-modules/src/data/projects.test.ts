@@ -133,7 +133,7 @@ describe('shared project register', () => {
     ).toEqual(['online-store']);
     expect(
       filterProjects(projects, taskAssignees, {
-        search: 'ava',
+        search: 'Anika',
         health: ['At risk'],
         leads: ['ava'],
       }).map((project) => project.id),

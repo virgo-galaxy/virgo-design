@@ -85,6 +85,8 @@ export { FormFilledIcon, type FormFilledIconProps } from './generated/FormFilled
 export { FormIcon, type FormIconProps } from './generated/FormIcon.js';
 export { GaugeFilledIcon, type GaugeFilledIconProps } from './generated/GaugeFilledIcon.js';
 export { GaugeIcon, type GaugeIconProps } from './generated/GaugeIcon.js';
+export { GenderFemaleIcon, type GenderFemaleIconProps } from './generated/GenderFemaleIcon.js';
+export { GenderMaleIcon, type GenderMaleIconProps } from './generated/GenderMaleIcon.js';
 export { GithubIcon, type GithubIconProps } from './generated/GithubIcon.js';
 export { GlobeIcon, type GlobeIconProps } from './generated/GlobeIcon.js';
 export { GripIcon, type GripIconProps } from './generated/GripIcon.js';

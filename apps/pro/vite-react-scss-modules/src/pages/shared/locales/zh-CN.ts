@@ -2,6 +2,8 @@ import type { LocaleOf } from '@/i18n/locale-types';
 
 import type { sharedEnUS } from './en-US';
 export const sharedZhCN = {
+  gender: { male: '男', female: '女' },
+  workLocation: '工作地',
   copy: {
     copy: '复制',
     copied: '已复制',

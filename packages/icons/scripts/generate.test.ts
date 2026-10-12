@@ -60,6 +60,8 @@ describe('icons generator', () => {
       'filter.svg',
       'form.svg',
       'gauge.svg',
+      'gender-female.svg',
+      'gender-male.svg',
       'github.svg',
       'globe.svg',
       'grip.svg',

@@ -74,7 +74,7 @@ it('updates old column widths once while preserving the rest of the saved config
   )) {
     expect(column).toMatchObject({
       minWidth: 180,
-      width: ['createdAt', 'dueDate', 'completedAt'].includes(column.key) ? 220 : 200,
+      width: ['assignee', 'createdAt', 'dueDate', 'completedAt'].includes(column.key) ? 220 : 200,
       maxWidth: 300,
     });
   }

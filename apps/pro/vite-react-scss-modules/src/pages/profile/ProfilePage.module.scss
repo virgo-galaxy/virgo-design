@@ -12,6 +12,9 @@
   gap: var(--vd-spacing-24);
   min-width: 0;
   h1 {
+    display: flex;
+    align-items: center;
+    gap: var(--vd-spacing-8);
     margin: var(--vd-spacing-8) 0 var(--vd-spacing-6);
     font-size: var(--vd-font-size-24);
     letter-spacing: -0.5px;
@@ -209,11 +212,6 @@
   > input {
     width: 110px;
   }
-}
-.colorPanel {
-  width: min(260px, calc(100vw - 32px));
-  display: grid;
-  gap: var(--vd-spacing-12);
 }
 .editorFooter {
   display: flex;

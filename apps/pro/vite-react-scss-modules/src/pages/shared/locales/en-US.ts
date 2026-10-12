@@ -1,4 +1,6 @@
 export const sharedEnUS = {
+  gender: { male: 'Male', female: 'Female' },
+  workLocation: 'Work location',
   copy: {
     copy: 'Copy',
     copied: 'Copied',

@@ -68,7 +68,7 @@ describe('coherent demonstration catalog', () => {
       if (task.completedAt) expect(task.createdAt < task.completedAt).toBe(true);
     }
     expect(businessLabel('Custom user title', 'zh-CN')).toBe('Custom user title');
-    expect(businessLabel('Ava Brooks', 'zh-CN')).toBe('Ava Brooks（艾娃）');
+    expect(businessLabel('Anika Rao', 'zh-CN')).toBe('Anika Rao（阿妮卡）');
   });
 
   it('rejects cross-project modules and non-participating people without mutating records', async () => {
@@ -85,7 +85,7 @@ describe('coherent demonstration catalog', () => {
     expect(result.total).toBe(12);
     expect(result.items.every((task) => task.project === 'Online Store')).toBe(true);
     expect((await getTasks({ search: '制定交付计划' })).total).toBe(24);
-    expect((await getTasks({ search: '艾娃' })).total).toBeGreaterThan(0);
+    expect((await getTasks({ search: '阿妮卡' })).total).toBeGreaterThan(0);
   });
 });
 

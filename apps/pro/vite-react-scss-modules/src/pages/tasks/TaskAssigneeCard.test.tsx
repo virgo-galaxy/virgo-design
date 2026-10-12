@@ -46,9 +46,12 @@ describe('assignee profile card', () => {
     const card = await screen.findByRole('dialog', { name: 'Nina Wu profile' });
     await within(card).findByText('nina.wu@virgo.example');
     expect(card).toHaveTextContent('VD-0003');
+    expect(card).toHaveTextContent('Work location');
+    expect(card).toHaveTextContent('Shanghai, China');
+    expect(within(card).getByRole('img', { name: 'Female' })).toBeInTheDocument();
     expect(within(card).getByRole('img', { name: 'Nina Wu' })).toHaveAttribute(
       'src',
-      '/api/v1/avatars/user_3.png',
+      '/api/v1/avatars/user_3.webp',
     );
     expect(load).toHaveBeenCalledTimes(1);
   });

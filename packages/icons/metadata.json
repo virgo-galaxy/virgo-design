@@ -660,6 +660,28 @@
     "animated": true
   },
   {
+    "id": "gender-female",
+    "family": "gender-female",
+    "variant": "outline",
+    "category": "system",
+    "tags": ["gender", "female", "person", "profile"],
+    "aliases": ["venus"],
+    "status": "stable",
+    "description": "A circular ring with a lower cross for female gender.",
+    "animated": false
+  },
+  {
+    "id": "gender-male",
+    "family": "gender-male",
+    "variant": "outline",
+    "category": "system",
+    "tags": ["gender", "male", "person", "profile"],
+    "aliases": ["mars"],
+    "status": "stable",
+    "description": "A circular ring with a northeast arrow for male gender.",
+    "animated": false
+  },
+  {
     "id": "github",
     "family": "github",
     "variant": "outline",

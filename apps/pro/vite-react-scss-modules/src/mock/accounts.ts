@@ -22,6 +22,8 @@ export const demoAccounts: SessionUser[] = [
     role: user.managedProjects.length ? ('manager' as const) : ('member' as const),
     jobTitle: user.jobTitle,
     department: user.department,
+    ...(user.gender ? { gender: user.gender } : {}),
+    ...(user.workLocation ? { workLocation: user.workLocation } : {}),
     projects: user.projects,
     managedProjects: user.managedProjects,
     avatarUrl: user.avatarUrl,

@@ -1,17 +1,19 @@
-import { http, HttpResponse } from 'msw';
+import { bypass, http, HttpResponse } from 'msw';
 
-import { getMockAvatarPng, mockAvatarId } from '../avatar-images';
+import { getSystemPresetAvatar } from '../avatars/preset-manifest';
 import { endpoint } from '../response';
 
 export const avatarsHandlers = [
   http.get(endpoint('/avatars/:filename'), async ({ params }) => {
-    const id = typeof params.filename === 'string' ? mockAvatarId(params.filename) : undefined;
-    if (id === undefined) return new HttpResponse(null, { status: 404 });
+    const source =
+      typeof params.filename === 'string' ? getSystemPresetAvatar(params.filename) : undefined;
+    if (!source) return new HttpResponse(null, { status: 404 });
     try {
-      const png = await getMockAvatarPng(id);
-      return HttpResponse.arrayBuffer(png, {
+      const image = await fetch(bypass(new URL(source, import.meta.url)));
+      if (!image.ok) throw new Error('Preset avatar asset is unavailable');
+      return HttpResponse.arrayBuffer(await image.arrayBuffer(), {
         headers: {
-          'Content-Type': 'image/png',
+          'Content-Type': 'image/webp',
           'Cache-Control': 'public, max-age=86400',
         },
       });

@@ -92,6 +92,8 @@ export const chineseIconKeywords = {
   trash: ['删除', '垃圾桶'],
   'triangle-alert': ['警告', '危险'],
   type: ['字体', '文字', '排版'],
+  'gender-male': ['性别', '男', '男性'],
+  'gender-female': ['性别', '女', '女性'],
   user: ['用户', '账户', '个人'],
   upload: ['上传', '导入'],
   download: ['下载', '导出'],
