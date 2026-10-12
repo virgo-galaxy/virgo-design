@@ -2,8 +2,8 @@ import '@virgo-design/tokens/styles.css';
 import './styles.scss';
 import './platform.scss';
 
-import type { IconAnimation, IconProps } from '@virgo-design/icons';
-import { Button, Input, Select, Slider, Switch, Tag } from '@virgo-design/ui';
+import { type IconAnimation, type IconProps, ResetIcon } from '@virgo-design/icons';
+import { Button, ColorPicker, Select, Slider, Switch, Tag } from '@virgo-design/ui';
 import { type CSSProperties, type ReactElement, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -187,20 +187,47 @@ export function IconsExplorer({
           </div>
           <div className="color-control">
             <span className="control-label">{t('icons.color')}</span>
-            <Input
-              aria-label={t('icons.color')}
-              disabled={colored}
-              placeholder={colored ? originalColorsLabel : 'currentColor'}
-              value={color}
-              leadingIcon={
-                <span
-                  className="color-swatch"
-                  style={{ backgroundColor: color || 'var(--vd-icon-primary)' }}
-                  aria-hidden="true"
-                />
+            <ColorPicker
+              value={
+                /^#[\da-f]{6}(?:[\da-f]{2})?$/i.test(color)
+                  ? color
+                  : appearance === 'dark'
+                    ? '#f4f5f7'
+                    : '#26282f'
               }
-              onChange={(event) => setColor(event.target.value)}
-            />
+              onValueChange={setColor}
+              disabled={colored}
+            >
+              <ColorPicker.Trigger
+                variant="value"
+                valueLabel={colored ? originalColorsLabel : color ? undefined : 'currentColor'}
+                aria-label={t('icons.chooseColor')}
+              />
+              <Button
+                iconOnly
+                variant="outline"
+                aria-label={t('icons.resetColor')}
+                disabled={colored}
+                onClick={() => setColor('')}
+              >
+                <ResetIcon aria-hidden="true" />
+              </Button>
+              <ColorPicker.Panel
+                alpha
+                aria-label={t('icons.colorPicker')}
+                labels={{
+                  saturation: t('icons.colorSaturation'),
+                  brightness: t('icons.colorBrightness'),
+                  hue: t('icons.colorHue'),
+                  opacity: t('icons.colorOpacity'),
+                  format: t('icons.colorFormat'),
+                  hex: t('icons.colorHex'),
+                  red: t('icons.colorRed'),
+                  green: t('icons.colorGreen'),
+                  blue: t('icons.colorBlue'),
+                }}
+              />
+            </ColorPicker>
           </div>
 
           {supportsAnimation ? (

@@ -11,7 +11,7 @@ export interface ColorPickerProps extends Omit<
   defaultOpen?: boolean | undefined;
   /** Called when the panel opens or closes. */
   onOpenChange?: ((open: boolean) => void) | undefined;
-  /** Controlled opaque sRGB color, formatted as #rrggbb. */
+  /** Controlled sRGB color, formatted as #rrggbb or #rrggbbaa. */
   value?: string | undefined;
   /** Initial color. @default '#000000' */
   defaultValue?: string | undefined;
@@ -29,10 +29,14 @@ export type ColorPickerInputProps = Omit<
   'type' | 'value' | 'defaultValue'
 >;
 export interface ColorPickerSwatchProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  /** Opaque sRGB HEX color represented by this button. */
+  /** sRGB HEX color represented by this button, with optional alpha. */
   value: string;
 }
 export type ColorPickerPreviewProps = HTMLAttributes<HTMLSpanElement>;
+export interface ColorPickerValueProps extends HTMLAttributes<HTMLSpanElement> {
+  /** Display letter case. @default 'upper' */
+  letterCase?: 'lower' | 'upper';
+}
 
 export type ColorPickerTriggerProps = PopoverTriggerProps;
 export type ColorPickerContentProps = PopoverContentProps;
@@ -42,10 +46,12 @@ export interface ColorPickerHexFieldProps extends Omit<
 > {
   /** Display letter case; submitted colors remain canonical lowercase. @default 'lower' */
   letterCase?: 'lower' | 'upper';
+  /** Include the alpha byte in the text; false preserves it during RGB edits. @default true */
+  includeAlpha?: boolean;
 }
 export interface ColorPickerChannelFieldProps extends Omit<
   ColorPickerHexFieldProps,
-  'letterCase' | 'min' | 'max' | 'step'
+  'letterCase' | 'includeAlpha' | 'min' | 'max' | 'step'
 > {
   /** sRGB channel edited as an integer from 0 to 255. */
   channel: 'r' | 'g' | 'b';
@@ -60,3 +66,5 @@ export type ColorPickerHueProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'type' | 'value' | 'defaultValue' | 'min' | 'max' | 'step' | 'readOnly'
 >;
+export type ColorPickerOpacityProps = ColorPickerHueProps;
+export type ColorPickerAlphaFieldProps = Omit<ColorPickerChannelFieldProps, 'channel'>;

@@ -36,7 +36,7 @@ describe('Icons platform', () => {
       'viewBox',
       '8.25 8.25 112.1 113.5',
     );
-    expect(screen.getByRole('textbox', { name: 'Color / currentColor' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Choose icon color' })).toBeDisabled();
     expect(document.querySelector('.icon-code-panel code')).toHaveTextContent(
       "import { GrokBotIcon } from '@virgo-design/icons'",
     );
@@ -60,7 +60,7 @@ describe('Icons platform', () => {
     expect(screen.getByTestId('large-icon-glyph').querySelectorAll('linearGradient')).toHaveLength(
       3,
     );
-    expect(screen.getByRole('textbox', { name: 'Color / currentColor' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Choose icon color' })).toBeDisabled();
     expect(document.querySelector('.icon-code-panel code')).toHaveTextContent(
       "import { VirgoDesignLogo } from '@virgo-design/icons/brands'",
     );

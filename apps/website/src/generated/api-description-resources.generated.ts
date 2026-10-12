@@ -295,7 +295,7 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'color-picker-props.properties.on-open-change.description':
         'Called when the panel opens or closes.',
       'color-picker-props.properties.value.description':
-        'Controlled opaque sRGB color, formatted as #rrggbb.',
+        'Controlled sRGB color, formatted as #rrggbb or #rrggbbaa.',
       'color-picker-props.properties.default-value.description': 'Initial color.',
       'color-picker-props.properties.on-value-change.description':
         'Called when any picker part chooses a valid HEX color.',
@@ -304,6 +304,24 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'color-picker-props.properties.disabled.description': 'Disable the picker and swatches.',
       'color-picker-props.properties.read-only.description':
         'Prevent color edits while retaining the current form value.',
+      'color-picker-trigger-props.properties.variant.description':
+        'Built-in compact swatch or fixed-width swatch-and-value trigger.',
+      'color-picker-trigger-props.properties.value-label.description':
+        'Optional display label, such as currentColor, instead of the selected HEX value.',
+      'color-picker-trigger-props.properties.render.description':
+        'Supply a button which forwards the provided native props and ref.',
+      'color-picker-panel-props.properties.size.description':
+        'Density of the built-in panel controls.',
+      'color-picker-panel-props.properties.variant.description':
+        'Built-in simple HEX editor or full HEX/RGB editor.',
+      'color-picker-panel-props.properties.alpha.description':
+        'Show opacity controls. Defaults to true for full panels and false for simple panels.',
+      'color-picker-panel-props.properties.labels.description':
+        'Localized accessible names for the built-in panel controls.',
+      'color-picker-panel-props.properties.placement.description':
+        "Logical Start/End alignments follow the trigger's direction.",
+      'color-picker-panel-props.properties.offset.description':
+        'Space between the trigger and panel, in pixels.',
       'color-picker-area-props.properties.saturation-label.description':
         'Accessible name for the independently keyboard-operable saturation slider.',
       'color-picker-area-props.properties.brightness-label.description':
@@ -316,10 +334,11 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Space between the trigger and panel, in pixels.',
       'color-picker-hex-field-props.properties.letter-case.description':
         'Display letter case; submitted colors remain canonical lowercase.',
+      'color-picker-hex-field-props.properties.include-alpha.description':
+        'Include the alpha byte in the text; false preserves it during RGB edits.',
       'color-picker-swatch-props.properties.value.description':
-        'Opaque sRGB HEX color represented by this button.',
-      'color-picker-trigger-props.properties.render.description':
-        'Supply a button which forwards the provided native props and ref.',
+        'sRGB HEX color represented by this button, with optional alpha.',
+      'color-picker-value-props.properties.letter-case.description': 'Display letter case.',
     },
   },
   combobox: {
@@ -1612,7 +1631,7 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
       'color-picker-props.properties.on-open-change.description':
         'Called when the panel opens or closes.',
       'color-picker-props.properties.value.description':
-        'Controlled opaque sRGB color, formatted as #rrggbb.',
+        'Controlled sRGB color, formatted as #rrggbb or #rrggbbaa.',
       'color-picker-props.properties.default-value.description': 'Initial color.',
       'color-picker-props.properties.on-value-change.description':
         'Called when any picker part chooses a valid HEX color.',
@@ -1622,7 +1641,8 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
       'color-picker-props.properties.read-only.description':
         'Prevent color edits while retaining the current form value.',
       'color-picker-swatch-props.properties.value.description':
-        'Opaque sRGB HEX color represented by this button.',
+        'sRGB HEX color represented by this button, with optional alpha.',
+      'color-picker-value-props.properties.letter-case.description': 'Display letter case.',
       'color-picker-trigger-props.properties.render.description':
         'Supply a button which forwards the provided native props and ref.',
       'color-picker-content-props.properties.placement.description':
@@ -1631,6 +1651,8 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
         'Space between the trigger and panel, in pixels.',
       'color-picker-hex-field-props.properties.letter-case.description':
         'Display letter case; submitted colors remain canonical lowercase.',
+      'color-picker-hex-field-props.properties.include-alpha.description':
+        'Include the alpha byte in the text; false preserves it during RGB edits.',
       'color-picker-channel-field-props.properties.channel.description':
         'sRGB channel edited as an integer from 0 to 255.',
       'color-picker-area-props.properties.saturation-label.description':

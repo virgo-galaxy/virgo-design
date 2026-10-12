@@ -12,16 +12,19 @@ export * from './components/Checkbox';
 export * from './components/Collapsible';
 export {
   ColorPicker,
+  type ColorPickerAlphaFieldProps,
   type ColorPickerAreaProps,
   type ColorPickerChannelFieldProps,
   type ColorPickerContentProps,
   type ColorPickerHexFieldProps,
   type ColorPickerHueProps,
   type ColorPickerInputProps,
+  type ColorPickerOpacityProps,
   type ColorPickerPreviewProps,
   type ColorPickerProps,
   type ColorPickerSwatchProps,
   type ColorPickerTriggerProps,
+  type ColorPickerValueProps,
 } from './components/ColorPicker';
 export * from './components/Combobox';
 export * from './components/Command';

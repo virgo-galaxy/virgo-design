@@ -1,22 +1,28 @@
 import {
   ColorPicker as Root,
+  ColorPickerAlphaField,
   ColorPickerArea,
   ColorPickerChannelField,
   ColorPickerContent,
   ColorPickerHexField,
   ColorPickerHue,
   ColorPickerInput,
+  ColorPickerOpacity,
   ColorPickerPreview,
   ColorPickerSwatch,
   ColorPickerTrigger,
+  ColorPickerValue,
 } from './ColorPicker';
 export const ColorPicker = Object.assign(Root, {
   Root,
+  AlphaField: ColorPickerAlphaField,
   Area: ColorPickerArea,
   ChannelField: ColorPickerChannelField,
   Content: ColorPickerContent,
   HexField: ColorPickerHexField,
   Hue: ColorPickerHue,
+  Opacity: ColorPickerOpacity,
+  Value: ColorPickerValue,
   Trigger: ColorPickerTrigger,
 
   Input: ColorPickerInput,
@@ -24,14 +30,17 @@ export const ColorPicker = Object.assign(Root, {
   Preview: ColorPickerPreview,
 });
 export type {
+  ColorPickerAlphaFieldProps,
   ColorPickerAreaProps,
   ColorPickerChannelFieldProps,
   ColorPickerContentProps,
   ColorPickerHexFieldProps,
   ColorPickerHueProps,
   ColorPickerInputProps,
+  ColorPickerOpacityProps,
   ColorPickerPreviewProps,
   ColorPickerProps,
   ColorPickerSwatchProps,
   ColorPickerTriggerProps,
+  ColorPickerValueProps,
 } from './ColorPicker.types';

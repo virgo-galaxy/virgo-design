@@ -6,31 +6,32 @@ import styles from './ColorPickerPanelExample.module.scss';
 export default function App() {
   const { t } = useTranslation();
   const [value, setValue] = useState('#1664f9');
+  const labels = {
+    saturation: t('examples.colorPicker.copy.saturation'),
+    brightness: t('examples.colorPicker.copy.brightness'),
+    hue: t('examples.colorPicker.copy.hue'),
+    opacity: t('examples.colorPicker.copy.opacity'),
+    format: t('examples.colorPicker.copy.format'),
+    hex: t('examples.colorPicker.copy.hex'),
+    red: t('examples.colorPicker.copy.red'),
+    green: t('examples.colorPicker.copy.green'),
+    blue: t('examples.colorPicker.copy.blue'),
+  };
   return (
-    <ColorPicker className={styles.root} value={value} onValueChange={setValue}>
-      <ColorPicker.Trigger aria-label={t('examples.colorPicker.copy.open')}>
-        <ColorPicker.Preview />
-      </ColorPicker.Trigger>
-      <ColorPicker.HexField aria-label={t('examples.colorPicker.copy.hex')} />
-      <ColorPicker.Content
-        className={styles.panel}
-        aria-label={t('examples.colorPicker.copy.panel')}
-      >
-        <ColorPicker.Area
-          saturationLabel={t('examples.colorPicker.copy.saturation')}
-          brightnessLabel={t('examples.colorPicker.copy.brightness')}
-        />
-        <ColorPicker.Hue aria-label={t('examples.colorPicker.copy.hue')} />
-        <div className={styles.fields}>
-          <ColorPicker.HexField aria-label={t('examples.colorPicker.copy.hex')} />
-          {(['r', 'g', 'b'] as const).map((channel) => (
-            <label key={channel}>
-              {channel.toUpperCase()}
-              <ColorPicker.ChannelField channel={channel} />
-            </label>
-          ))}
-        </div>
-      </ColorPicker.Content>
-    </ColorPicker>
+    <div className={styles.root}>
+      {(['value', 'swatch'] as const).map((variant) => (
+        <ColorPicker key={variant} value={value} onValueChange={setValue}>
+          <ColorPicker.Trigger
+            variant={variant}
+            aria-label={t(`examples.colorPicker.copy.${variant}`)}
+          />
+          <ColorPicker.Panel
+            alpha
+            labels={labels}
+            aria-label={t('examples.colorPicker.copy.panel')}
+          />
+        </ColorPicker>
+      ))}
+    </div>
   );
 }

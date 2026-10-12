@@ -7,15 +7,28 @@ import source0 from './ColorPickerControlledExample.tsx?raw';
 import ColorPickerPanelExample from './ColorPickerPanelExample';
 import style2 from './ColorPickerPanelExample.module.scss?virgo-raw';
 import source2 from './ColorPickerPanelExample.tsx?raw';
+import ColorPickerSimpleExample from './ColorPickerSimpleExample';
+import style3 from './ColorPickerSimpleExample.module.scss?virgo-raw';
+import source3 from './ColorPickerSimpleExample.tsx?raw';
 import ColorPickerStatesExample from './ColorPickerStatesExample';
 import style1 from './ColorPickerStatesExample.module.scss?virgo-raw';
 import source1 from './ColorPickerStatesExample.tsx?raw';
 export const colorPickerExamples = {
+  example3: {
+    id: 'color-picker-simple',
+    title: 'Simple HEX panel',
+    titleTranslationKey: 'examples.colorPicker.copy.title3',
+    description: 'A compact built-in panel for saturation, brightness, hue and HEX editing.',
+    descriptionTranslationKey: 'examples.colorPicker.copy.description3',
+    Component: ColorPickerSimpleExample,
+    source: createExampleSource(source3),
+    styleSource: style3,
+  },
   example2: {
     id: 'color-picker-panel',
-    title: 'Custom picker panel',
+    title: 'Swatch and value triggers',
     titleTranslationKey: 'examples.colorPicker.copy.title2',
-    description: 'Shared HEX/RGB editing and keyboard-operable saturation, brightness and hue.',
+    description: 'Two trigger variants share HEX/RGB editing, hue and opacity controls.',
     descriptionTranslationKey: 'examples.colorPicker.copy.description2',
     Component: ColorPickerPanelExample,
     source: createExampleSource(source2),
@@ -23,9 +36,9 @@ export const colorPickerExamples = {
   },
   example0: {
     id: 'color-picker-controlled',
-    title: 'Native picker and swatches',
+    title: 'Color picker and swatches',
     titleTranslationKey: 'examples.colorPicker.copy.title0',
-    description: 'A single HEX value connects the native control, swatches and preview.',
+    description: 'A shared HEX value connects the built-in panel, value trigger and swatches.',
     descriptionTranslationKey: 'examples.colorPicker.copy.description0',
     Component: ColorPickerControlledExample,
     source: createExampleSource(source0),

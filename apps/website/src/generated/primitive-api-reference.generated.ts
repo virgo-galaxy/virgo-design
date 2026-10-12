@@ -238,7 +238,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'string | undefined',
             required: false,
             defaultValue: '',
-            description: 'Controlled opaque sRGB color, formatted as #rrggbb.',
+            description: 'Controlled sRGB color, formatted as #rrggbb or #rrggbbaa.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.color-picker.api.color-picker-props.properties.value.description',
@@ -321,7 +321,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'string',
             required: true,
             defaultValue: '',
-            description: 'Opaque sRGB HEX color represented by this button.',
+            description: 'sRGB HEX color represented by this button, with optional alpha.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'primitives.color-picker.api.color-picker-swatch-props.properties.value.description',
@@ -340,6 +340,28 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         properties: [],
         descriptionTranslationKey:
           'primitives.color-picker.api.color-picker-preview-props.description',
+      },
+      {
+        name: 'ColorPickerValueProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLSpanElement>',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'letterCase',
+            type: "'lower' | 'upper'",
+            required: false,
+            defaultValue: "'upper'",
+            description: 'Display letter case.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.color-picker.api.color-picker-value-props.properties.letter-case.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'primitives.color-picker.api.color-picker-value-props.description',
       },
       {
         name: 'ColorPickerTriggerProps',
@@ -414,6 +436,16 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             descriptionTranslationKey:
               'primitives.color-picker.api.color-picker-hex-field-props.properties.letter-case.description',
           },
+          {
+            name: 'includeAlpha',
+            type: 'boolean',
+            required: false,
+            defaultValue: 'true',
+            description: 'Include the alpha byte in the text; false preserves it during RGB edits.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'primitives.color-picker.api.color-picker-hex-field-props.properties.include-alpha.description',
+          },
         ],
         descriptionTranslationKey:
           'primitives.color-picker.api.color-picker-hex-field-props.description',
@@ -422,7 +454,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         name: 'ColorPickerChannelFieldProps',
         kind: 'interface',
         signature:
-          "extends Omit< ColorPickerHexFieldProps, 'letterCase' | 'min' | 'max' | 'step' >",
+          "extends Omit< ColorPickerHexFieldProps, 'letterCase' | 'includeAlpha' | 'min' | 'max' | 'step' >",
         description: '',
         source: '@virgo-design/primitives',
         reExported: false,
@@ -485,6 +517,28 @@ export const primitiveApiReference: ApiReferenceRegistry = {
         reExported: false,
         properties: [],
         descriptionTranslationKey: 'primitives.color-picker.api.color-picker-hue-props.description',
+      },
+      {
+        name: 'ColorPickerOpacityProps',
+        kind: 'type',
+        signature: 'ColorPickerHueProps',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey:
+          'primitives.color-picker.api.color-picker-opacity-props.description',
+      },
+      {
+        name: 'ColorPickerAlphaFieldProps',
+        kind: 'type',
+        signature: "Omit<ColorPickerChannelFieldProps, 'channel'>",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [],
+        descriptionTranslationKey:
+          'primitives.color-picker.api.color-picker-alpha-field-props.description',
       },
     ],
   },

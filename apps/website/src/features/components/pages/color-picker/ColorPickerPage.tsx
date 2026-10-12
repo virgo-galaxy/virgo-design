@@ -63,6 +63,14 @@ export function ColorPickerPage() {
         >
           <ComponentExample example={colorPickerExamples.example2} showCaption={false} />
         </ArticleSection>
+        <ArticleSection
+          id="color-picker-4"
+          index="04"
+          title={t('examples.colorPicker.copy.title3')}
+          description={t('examples.colorPicker.copy.description3')}
+        >
+          <ComponentExample example={colorPickerExamples.example3} showCaption={false} />
+        </ArticleSection>
       </div>
     </ComponentExampleRuntimeProvider>
   );

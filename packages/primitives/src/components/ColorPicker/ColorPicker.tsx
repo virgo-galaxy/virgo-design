@@ -5,21 +5,27 @@ import { useControllableState } from '../../internal/hooks/useControllableState'
 import { Popover } from '../Popover';
 import {
   clamp,
+  colorToAlpha,
   colorToHsv,
   colorToRgb,
   hsvToColor,
+  isColor,
   normalizeColor,
   rgbToColor,
+  withAlpha,
 } from './color-model';
 import type {
+  ColorPickerAlphaFieldProps,
   ColorPickerAreaProps,
   ColorPickerChannelFieldProps,
   ColorPickerHexFieldProps,
   ColorPickerHueProps,
   ColorPickerInputProps,
+  ColorPickerOpacityProps,
   ColorPickerPreviewProps,
   ColorPickerProps,
   ColorPickerSwatchProps,
+  ColorPickerValueProps,
 } from './ColorPicker.types';
 const normalize = normalizeColor;
 const Context = createContext<{
@@ -63,7 +69,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(function
   const [hint, setHint] = useState(() => ({ value, ...colorToHsv(value) }));
   const hsv = hint.value === value ? hint : colorToHsv(value);
   const setValue = (next: string) => {
-    if (!disabled && !readOnly && /^#[0-9a-f]{6}$/i.test(next)) {
+    if (!disabled && !readOnly && isColor(next)) {
       const normalized = normalize(next);
       const nextHsv = colorToHsv(normalized);
       setHint({ value: normalized, ...nextHsv, h: nextHsv.s ? nextHsv.h : hsv.h });
@@ -80,7 +86,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(function
         hsv,
         setHsv: (next) => {
           if (disabled || readOnly) return;
-          const normalized = hsvToColor(next);
+          const normalized = withAlpha(hsvToColor(next), colorToAlpha(value));
           setHint({ ...next, value: normalized });
           setRaw(normalized);
         },
@@ -112,7 +118,7 @@ export const ColorPickerInput = forwardRef<HTMLInputElement, ColorPickerInputPro
         {...field}
         ref={ref}
         type="color"
-        value={context.value}
+        value={context.value.slice(0, 7)}
         disabled={context.disabled || field.disabled}
         aria-readonly={context.readOnly || field.readOnly || undefined}
         onClick={(event) => {
@@ -122,7 +128,8 @@ export const ColorPickerInput = forwardRef<HTMLInputElement, ColorPickerInputPro
         onChange={(event) => {
           if (context.readOnly || field.readOnly) return;
           onChange?.(event);
-          if (!event.defaultPrevented) context.setValue(event.currentTarget.value);
+          if (!event.defaultPrevented)
+            context.setValue(withAlpha(event.currentTarget.value, colorToAlpha(context.value)));
         }}
       />
     );
@@ -157,7 +164,13 @@ export const ColorPickerPreview = forwardRef<HTMLSpanElement, ColorPickerPreview
         {...props}
         ref={ref}
         data-color={context.value}
-        style={{ backgroundColor: context.value, ...style }}
+        style={
+          {
+            backgroundColor: context.value,
+            '--color-picker-color': context.value,
+            ...style,
+          } as React.CSSProperties
+        }
       />
     );
   },
@@ -165,19 +178,43 @@ export const ColorPickerPreview = forwardRef<HTMLSpanElement, ColorPickerPreview
 
 export const ColorPickerTrigger = Popover.Trigger;
 export const ColorPickerContent = Popover.Content;
+export const ColorPickerValue = forwardRef<HTMLSpanElement, ColorPickerValueProps>(function Value(
+  { letterCase = 'upper', ...props },
+  ref,
+) {
+  const { value } = useColor();
+  return (
+    <span {...props} ref={ref} data-slot="value">
+      {letterCase === 'upper' ? value.toUpperCase() : value}
+    </span>
+  );
+});
 export const ColorPickerHexField = forwardRef<HTMLInputElement, ColorPickerHexFieldProps>(
   function HexField(
-    { letterCase = 'lower', onChange, onBlur, onKeyDown, disabled, readOnly, ...props },
+    {
+      letterCase = 'lower',
+      includeAlpha = true,
+      onChange,
+      onBlur,
+      onKeyDown,
+      disabled,
+      readOnly,
+      ...props
+    },
     ref,
   ) {
     const context = useColor();
-    const format = (value: string) => (letterCase === 'upper' ? value.toUpperCase() : value);
+    const format = (value: string) => {
+      const color = includeAlpha ? value : value.slice(0, 7);
+      return letterCase === 'upper' ? color.toUpperCase() : color;
+    };
     const [draft, setDraft] = useState<{ color: string; text: string } | null>(null);
     const text = draft?.color === context.value ? draft.text : format(context.value);
     const field = useFieldControl({ ...props, disabled, readOnly });
     const blocked = context.disabled || field.disabled || context.readOnly || field.readOnly;
     const commit = () => {
-      if (!blocked && /^#[0-9a-f]{6}$/i.test(text)) context.setValue(text);
+      if (!blocked && isColor(text))
+        context.setValue(includeAlpha ? text : withAlpha(text, colorToAlpha(context.value)));
       setDraft(null);
     };
     return (
@@ -214,65 +251,81 @@ export const ColorPickerHexField = forwardRef<HTMLInputElement, ColorPickerHexFi
     );
   },
 );
-export const ColorPickerChannelField = forwardRef<HTMLInputElement, ColorPickerChannelFieldProps>(
-  function ChannelField(
-    { channel, onChange, onBlur, onKeyDown, disabled, readOnly, ...props },
-    ref,
-  ) {
-    const context = useColor();
-    const rgb = colorToRgb(context.value);
-    const [draft, setDraft] = useState<{
-      color: string;
-      text: string;
-      channel: typeof channel;
-    } | null>(null);
-    const text =
-      draft?.color === context.value && draft.channel === channel
-        ? draft.text
-        : String(rgb[channel]);
-    const field = useFieldControl({ ...props, disabled, readOnly });
-    const blocked = context.disabled || field.disabled || context.readOnly || field.readOnly;
-    const commit = () => {
-      const parsed = text.trim() === '' ? NaN : Number(text);
-      if (!blocked && Number.isFinite(parsed))
-        context.setValue(rgbToColor({ ...rgb, [channel]: parsed }));
-      setDraft(null);
-    };
-    return (
-      <input
-        {...field}
-        ref={ref}
-        type="number"
-        min={0}
-        max={255}
-        step={1}
-        data-slot="channel-field"
-        value={text}
-        disabled={context.disabled || field.disabled}
-        readOnly={context.readOnly || field.readOnly}
-        onChange={(event) => {
-          onChange?.(event);
-          if (event.defaultPrevented || blocked) return;
-          const raw = event.currentTarget.value;
-          setDraft({ color: context.value, channel, text: raw });
-          if (raw.trim() !== '' && Number.isFinite(Number(raw)))
-            context.setValue(rgbToColor({ ...rgb, [channel]: Number(raw) }));
-        }}
-        onBlur={(event) => {
-          onBlur?.(event);
-          if (!event.defaultPrevented) commit();
-        }}
-        onKeyDown={(event) => {
-          onKeyDown?.(event);
-          if (event.defaultPrevented || event.nativeEvent.isComposing) return;
-          if (event.key === 'Enter') {
-            event.preventDefault();
-            commit();
-          }
-          if (event.key === 'Escape') setDraft(null);
-        }}
-      />
+const ColorPickerChannelInput = forwardRef<
+  HTMLInputElement,
+  Omit<ColorPickerChannelFieldProps, 'channel'> & { channel: 'r' | 'g' | 'b' | 'alpha' }
+>(function ChannelField(
+  { channel, onChange, onBlur, onKeyDown, disabled, readOnly, ...props },
+  ref,
+) {
+  const context = useColor();
+  const rgb = colorToRgb(context.value);
+  const maximum = channel === 'alpha' ? 100 : 255;
+  const current =
+    channel === 'alpha' ? Math.round((colorToAlpha(context.value) / 255) * 100) : rgb[channel];
+  const changeChannel = (value: number) =>
+    context.setValue(
+      channel === 'alpha'
+        ? withAlpha(context.value, (value / 100) * 255)
+        : withAlpha(rgbToColor({ ...rgb, [channel]: value }), colorToAlpha(context.value)),
     );
+  const [draft, setDraft] = useState<{
+    color: string;
+    text: string;
+    channel: typeof channel;
+  } | null>(null);
+  const text =
+    draft?.color === context.value && draft.channel === channel ? draft.text : String(current);
+  const field = useFieldControl({ ...props, disabled, readOnly });
+  const blocked = context.disabled || field.disabled || context.readOnly || field.readOnly;
+  const commit = () => {
+    const parsed = text.trim() === '' ? NaN : Number(text);
+    if (!blocked && Number.isFinite(parsed)) changeChannel(parsed);
+    setDraft(null);
+  };
+  return (
+    <input
+      {...field}
+      ref={ref}
+      type="number"
+      min={0}
+      max={maximum}
+      step={1}
+      data-slot={channel === 'alpha' ? 'alpha-field' : 'channel-field'}
+      value={text}
+      disabled={context.disabled || field.disabled}
+      readOnly={context.readOnly || field.readOnly}
+      onChange={(event) => {
+        onChange?.(event);
+        if (event.defaultPrevented || blocked) return;
+        const raw = event.currentTarget.value;
+        setDraft({ color: context.value, channel, text: raw });
+        if (raw.trim() !== '' && Number.isFinite(Number(raw))) changeChannel(Number(raw));
+      }}
+      onBlur={(event) => {
+        onBlur?.(event);
+        if (!event.defaultPrevented) commit();
+      }}
+      onKeyDown={(event) => {
+        onKeyDown?.(event);
+        if (event.defaultPrevented || event.nativeEvent.isComposing) return;
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          commit();
+        }
+        if (event.key === 'Escape') setDraft(null);
+      }}
+    />
+  );
+});
+export const ColorPickerChannelField = forwardRef<HTMLInputElement, ColorPickerChannelFieldProps>(
+  function ChannelField(props, ref) {
+    return <ColorPickerChannelInput {...props} ref={ref} />;
+  },
+);
+export const ColorPickerAlphaField = forwardRef<HTMLInputElement, ColorPickerAlphaFieldProps>(
+  function AlphaField(props, ref) {
+    return <ColorPickerChannelInput {...props} channel="alpha" ref={ref} />;
   },
 );
 export const ColorPickerArea = forwardRef<HTMLDivElement, ColorPickerAreaProps>(function Area(
@@ -410,3 +463,44 @@ export const ColorPickerHue = forwardRef<HTMLInputElement, ColorPickerHueProps>(
     />
   );
 });
+
+export const ColorPickerOpacity = forwardRef<HTMLInputElement, ColorPickerOpacityProps>(
+  function Opacity({ onChange, onKeyDown, onPointerDown, style, ...props }, ref) {
+    const context = useColor();
+    return (
+      <input
+        {...props}
+        ref={ref}
+        type="range"
+        data-slot="opacity"
+        min={0}
+        max={100}
+        step={1}
+        value={Math.round((colorToAlpha(context.value) / 255) * 100)}
+        disabled={context.disabled || props.disabled}
+        aria-readonly={context.readOnly || undefined}
+        style={
+          {
+            '--color-picker-opaque-color': context.value.slice(0, 7),
+            ...style,
+          } as React.CSSProperties
+        }
+        onKeyDown={(event) => {
+          onKeyDown?.(event);
+          if (context.readOnly) event.preventDefault();
+        }}
+        onPointerDown={(event) => {
+          onPointerDown?.(event);
+          if (context.readOnly) event.preventDefault();
+        }}
+        onChange={(event) => {
+          onChange?.(event);
+          if (!event.defaultPrevented)
+            context.setValue(
+              withAlpha(context.value, (Number(event.currentTarget.value) / 100) * 255),
+            );
+        }}
+      />
+    );
+  },
+);

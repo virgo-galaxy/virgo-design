@@ -1,6 +1,15 @@
-export const normalizeColor = (value: string) =>
-  /^#[0-9a-f]{6}$/i.test(value) ? value.toLowerCase() : '#000000';
+export const isColor = (value: string) => /^#[0-9a-f]{6}(?:[0-9a-f]{2})?$/i.test(value);
+export const normalizeColor = (value: string) => (isColor(value) ? value.toLowerCase() : '#000000');
 export const clamp = (value: number, max: number) => Math.min(max, Math.max(0, value));
+export function colorToAlpha(value: string) {
+  const color = normalizeColor(value);
+  return color.length === 9 ? parseInt(color.slice(7), 16) : 255;
+}
+export function withAlpha(value: string, alpha: number) {
+  const color = normalizeColor(value).slice(0, 7);
+  const byte = Math.round(clamp(alpha, 255));
+  return color + (byte === 255 ? '' : byte.toString(16).padStart(2, '0'));
+}
 export function colorToRgb(value: string) {
   const hex = normalizeColor(value).slice(1);
   return {

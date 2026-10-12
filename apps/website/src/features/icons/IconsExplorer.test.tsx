@@ -22,6 +22,22 @@ function renderIcons(appearance: 'light' | 'dark' = 'light') {
 }
 
 describe('Icons foundation', () => {
+  it('opens the component color picker, applies a color and restores currentColor', async () => {
+    const user = userEvent.setup();
+    renderIcons();
+    await user.click(screen.getByRole('button', { name: 'Choose icon color' }));
+    expect(screen.getByRole('dialog', { name: 'Icon color picker' })).toBeInTheDocument();
+    const hex = screen.getByRole('textbox', { name: 'Hex color' });
+    fireEvent.change(hex, { target: { value: '#127d55' } });
+    fireEvent.blur(hex);
+    expect(screen.getByTestId('large-icon-glyph')).toHaveStyle({ color: '#127d55' });
+    expect(screen.getByRole('button', { name: 'Choose icon color' })).toHaveTextContent('#127D55');
+    await user.click(screen.getByRole('button', { name: 'Use currentColor' }));
+    expect(screen.getByRole('button', { name: 'Choose icon color' })).toHaveTextContent(
+      'currentColor',
+    );
+    expect(screen.getByTestId('large-icon-glyph').style.color).toBe('');
+  });
   it('defaults the canonical review board to Plus', () => {
     renderIcons();
 
@@ -207,7 +223,11 @@ describe('Icons foundation', () => {
     expect(screen.queryByRole('button', { name: 'Light' })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Dark' })).not.toBeInTheDocument();
 
-    await user.type(screen.getByRole('textbox', { name: 'Color / currentColor' }), '#7060ff');
+    await user.click(screen.getByRole('button', { name: 'Choose icon color' }));
+    await user.clear(screen.getByRole('textbox', { name: 'Hex color' }));
+    await user.type(screen.getByRole('textbox', { name: 'Hex color' }), '#7060ff');
+    await user.tab();
+    await user.keyboard('{Escape}');
     fireEvent.change(screen.getByRole('slider', { name: 'Size' }), { target: { value: '40' } });
     await user.click(screen.getByLabelText('Toggle grid'));
     expect(document.documentElement).toHaveAttribute('data-theme', 'light');
@@ -221,7 +241,7 @@ describe('Icons foundation', () => {
     expect(screen.getByLabelText('Current background')).toHaveTextContent('Light');
     expect(screen.getByLabelText('Current background')).toHaveAttribute('data-variant', 'soft');
     expect(screen.getByTestId('icon-canvas')).toHaveAttribute('data-grid', 'false');
-    expect(screen.getByRole('textbox', { name: 'Color / currentColor' })).toHaveValue('#7060ff');
+    expect(screen.getByRole('button', { name: 'Choose icon color' })).toHaveTextContent('#7060FF');
     expect(screen.getByRole('slider', { name: 'Size' })).toHaveValue('40');
   });
 });

@@ -4,7 +4,7 @@ export const colorPickerMetadata = {
   package: '@virgo-design/ui',
   category: 'Forms',
   description:
-    'Opaque sRGB color selection with native input, swatches and a composable HEX/RGB/HSV editing panel.',
+    'sRGB color selection with swatch or value triggers, HEX/RGB editing, hue and optional opacity.',
   import: "import { ColorPicker } from '@virgo-design/ui';",
   sizes: [
     {
@@ -25,7 +25,7 @@ export const colorPickerMetadata = {
     {
       name: 'ColorPicker',
       description:
-        'Opaque sRGB color selection with native input, swatches and a composable HEX/RGB/HSV editing panel.',
+        'sRGB color selection with swatch or value triggers, HEX/RGB editing, hue and optional opacity.',
     },
     {
       name: 'ColorPicker.Input',
@@ -39,7 +39,14 @@ export const colorPickerMetadata = {
       name: 'ColorPicker.Preview',
       description: 'Preview composition part.',
     },
-    { name: 'ColorPicker.Trigger', description: 'Composable picker part.' },
+    { name: 'ColorPicker.Trigger', description: 'Compact swatch or swatch-and-value button.' },
+    {
+      name: 'ColorPicker.Panel',
+      description: 'Built-in color, format and optional opacity controls.',
+    },
+    { name: 'ColorPicker.Value', description: 'Selected HEX readout.' },
+    { name: 'ColorPicker.Opacity', description: 'Keyboard-operable opacity slider.' },
+    { name: 'ColorPicker.AlphaField', description: 'Opacity percentage editor.' },
     { name: 'ColorPicker.Content', description: 'Composable picker part.' },
     { name: 'ColorPicker.Area', description: 'Composable picker part.' },
     { name: 'ColorPicker.Hue', description: 'Composable picker part.' },
@@ -51,7 +58,7 @@ export const colorPickerMetadata = {
     controlledValue: true,
   },
   accessibility: [
-    'Opaque sRGB color selection with native input, swatches and a composable HEX/RGB/HSV editing panel.',
+    'sRGB color selection with swatch or value triggers, HEX/RGB editing, hue and optional opacity.',
   ],
   examples: [],
 } as const satisfies ComponentMetadata;

@@ -13,11 +13,27 @@ export default function App() {
           {t('examples.colorPicker.copy.label')}: {value}
         </Field.Label>
         <ColorPicker value={value} onValueChange={setValue} name="accent">
-          <ColorPicker.Input />
-          {['#1a5cff', '#16a34a', '#dc2626', '#9333ea'].map((color) => (
-            <ColorPicker.Swatch key={color} value={color} />
-          ))}
-          <ColorPicker.Preview />
+          <ColorPicker.Trigger variant="value" aria-label={t('examples.colorPicker.copy.open')} />
+          <ColorPicker.Panel
+            alpha
+            aria-label={t('examples.colorPicker.copy.panel')}
+            labels={{
+              saturation: t('examples.colorPicker.copy.saturation'),
+              brightness: t('examples.colorPicker.copy.brightness'),
+              hue: t('examples.colorPicker.copy.hue'),
+              opacity: t('examples.colorPicker.copy.opacity'),
+              format: t('examples.colorPicker.copy.format'),
+              hex: t('examples.colorPicker.copy.hex'),
+              red: t('examples.colorPicker.copy.red'),
+              green: t('examples.colorPicker.copy.green'),
+              blue: t('examples.colorPicker.copy.blue'),
+            }}
+          />
+          <div className={styles.swatches}>
+            {['#1a5cff', '#16a34a', '#dc2626', '#9333ea'].map((color) => (
+              <ColorPicker.Swatch key={color} value={color} />
+            ))}
+          </div>
         </ColorPicker>
         <Field.Description>{t('examples.colorPicker.copy.hint')}</Field.Description>
       </Field>

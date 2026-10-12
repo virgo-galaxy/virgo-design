@@ -2431,7 +2431,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'string | undefined',
             required: false,
             defaultValue: '',
-            description: 'Controlled opaque sRGB color, formatted as #rrggbb.',
+            description: 'Controlled sRGB color, formatted as #rrggbb or #rrggbbaa.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.color-picker.api.color-picker-props.properties.value.description',
@@ -2490,6 +2490,133 @@ export const componentApiReference: ApiReferenceRegistry = {
         descriptionTranslationKey: 'components.color-picker.api.color-picker-props.description',
       },
       {
+        name: 'ColorPickerTriggerProps',
+        kind: 'interface',
+        signature: 'extends PrimitiveTriggerProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'variant',
+            type: "'swatch' | 'value' | undefined",
+            required: false,
+            defaultValue: "'swatch'",
+            description: 'Built-in compact swatch or fixed-width swatch-and-value trigger.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-trigger-props.properties.variant.description',
+          },
+          {
+            name: 'valueLabel',
+            type: 'string | undefined',
+            required: false,
+            defaultValue: '',
+            description:
+              'Optional display label, such as currentColor, instead of the selected HEX value.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-trigger-props.properties.value-label.description',
+          },
+          {
+            name: 'render',
+            type: '(\n    props: ButtonHTMLAttributes<HTMLButtonElement> & { ref: Ref<HTMLButtonElement> },\n  ) => ReactElement',
+            required: false,
+            defaultValue: '',
+            description: 'Supply a button which forwards the provided native props and ref.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-trigger-props.properties.render.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'components.color-picker.api.color-picker-trigger-props.description',
+      },
+      {
+        name: 'ColorPickerPanelProps',
+        kind: 'interface',
+        signature: 'extends ColorPickerContentProps',
+        description: '',
+        source: '@virgo-design/ui',
+        reExported: false,
+        properties: [
+          {
+            name: 'size',
+            type: "'small' | 'medium' | 'large' | undefined",
+            required: false,
+            defaultValue: "'small'",
+            description: 'Density of the built-in panel controls.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-panel-props.properties.size.description',
+          },
+          {
+            name: 'variant',
+            type: "'simple' | 'full'",
+            required: false,
+            defaultValue: "'full'",
+            description: 'Built-in simple HEX editor or full HEX/RGB editor.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-panel-props.properties.variant.description',
+          },
+          {
+            name: 'alpha',
+            type: 'boolean',
+            required: false,
+            defaultValue: '',
+            description:
+              'Show opacity controls. Defaults to true for full panels and false for simple panels.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-panel-props.properties.alpha.description',
+          },
+          {
+            name: 'labels',
+            type: '{\n    saturation: string;\n    brightness: string;\n    hue: string;\n    opacity: string;\n    format: string;\n    hex: string;\n    red: string;\n    green: string;\n    blue: string;\n  }',
+            required: true,
+            defaultValue: '',
+            description: 'Localized accessible names for the built-in panel controls.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-panel-props.properties.labels.description',
+          },
+          {
+            name: 'placement',
+            type: 'PopoverPlacement',
+            required: false,
+            defaultValue: "'bottomStart'",
+            description: "Logical Start/End alignments follow the trigger's direction.",
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-panel-props.properties.placement.description',
+          },
+          {
+            name: 'offset',
+            type: 'number',
+            required: false,
+            defaultValue: '8',
+            description: 'Space between the trigger and panel, in pixels.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-panel-props.properties.offset.description',
+          },
+        ],
+        descriptionTranslationKey:
+          'components.color-picker.api.color-picker-panel-props.description',
+      },
+      {
+        name: 'ColorPickerAlphaFieldProps',
+        kind: 'type',
+        signature: "Omit<ColorPickerChannelFieldProps, 'channel'>",
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey:
+          'components.color-picker.api.color-picker-alpha-field-props.description',
+      },
+      {
         name: 'ColorPickerAreaProps',
         kind: 'interface',
         signature: 'extends HTMLAttributes<HTMLDivElement>',
@@ -2527,7 +2654,7 @@ export const componentApiReference: ApiReferenceRegistry = {
         name: 'ColorPickerChannelFieldProps',
         kind: 'interface',
         signature:
-          "extends Omit< ColorPickerHexFieldProps, 'letterCase' | 'min' | 'max' | 'step' >",
+          "extends Omit< ColorPickerHexFieldProps, 'letterCase' | 'includeAlpha' | 'min' | 'max' | 'step' >",
         description: '',
         source: '@virgo-design/primitives',
         reExported: true,
@@ -2597,6 +2724,16 @@ export const componentApiReference: ApiReferenceRegistry = {
             descriptionTranslationKey:
               'components.color-picker.api.color-picker-hex-field-props.properties.letter-case.description',
           },
+          {
+            name: 'includeAlpha',
+            type: 'boolean',
+            required: false,
+            defaultValue: 'true',
+            description: 'Include the alpha byte in the text; false preserves it during RGB edits.',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey:
+              'components.color-picker.api.color-picker-hex-field-props.properties.include-alpha.description',
+          },
         ],
         descriptionTranslationKey:
           'components.color-picker.api.color-picker-hex-field-props.description',
@@ -2625,6 +2762,17 @@ export const componentApiReference: ApiReferenceRegistry = {
           'components.color-picker.api.color-picker-input-props.description',
       },
       {
+        name: 'ColorPickerOpacityProps',
+        kind: 'type',
+        signature: 'ColorPickerHueProps',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: true,
+        properties: [],
+        descriptionTranslationKey:
+          'components.color-picker.api.color-picker-opacity-props.description',
+      },
+      {
         name: 'ColorPickerPreviewProps',
         kind: 'type',
         signature: 'HTMLAttributes<HTMLSpanElement>',
@@ -2648,7 +2796,7 @@ export const componentApiReference: ApiReferenceRegistry = {
             type: 'string',
             required: true,
             defaultValue: '',
-            description: 'Opaque sRGB HEX color represented by this button.',
+            description: 'sRGB HEX color represented by this button, with optional alpha.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
               'components.color-picker.api.color-picker-swatch-props.properties.value.description',
@@ -2658,26 +2806,26 @@ export const componentApiReference: ApiReferenceRegistry = {
           'components.color-picker.api.color-picker-swatch-props.description',
       },
       {
-        name: 'ColorPickerTriggerProps',
-        kind: 'type',
-        signature: 'PopoverTriggerProps',
+        name: 'ColorPickerValueProps',
+        kind: 'interface',
+        signature: 'extends HTMLAttributes<HTMLSpanElement>',
         description: '',
         source: '@virgo-design/primitives',
         reExported: true,
         properties: [
           {
-            name: 'render',
-            type: '(\n    props: ButtonHTMLAttributes<HTMLButtonElement> & { ref: Ref<HTMLButtonElement> },\n  ) => ReactElement',
+            name: 'letterCase',
+            type: "'lower' | 'upper'",
             required: false,
-            defaultValue: '',
-            description: 'Supply a button which forwards the provided native props and ref.',
+            defaultValue: "'upper'",
+            description: 'Display letter case.',
             source: '@virgo-design/primitives',
             descriptionTranslationKey:
-              'components.color-picker.api.color-picker-trigger-props.properties.render.description',
+              'components.color-picker.api.color-picker-value-props.properties.letter-case.description',
           },
         ],
         descriptionTranslationKey:
-          'components.color-picker.api.color-picker-trigger-props.description',
+          'components.color-picker.api.color-picker-value-props.description',
       },
     ],
   },

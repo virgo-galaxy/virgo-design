@@ -1,18 +1,23 @@
 import { ColorPicker as PrimitiveColorPicker } from '@virgo-design/primitives';
-import { createContext, forwardRef, useContext } from 'react';
+import { createContext, forwardRef, useContext, useState } from 'react';
 
+import { Select } from '../Select';
 import styles from './ColorPicker.module.scss';
 import type {
+  ColorPickerAlphaFieldProps,
   ColorPickerAreaProps,
   ColorPickerChannelFieldProps,
   ColorPickerContentProps,
   ColorPickerHexFieldProps,
   ColorPickerHueProps,
   ColorPickerInputProps,
+  ColorPickerOpacityProps,
+  ColorPickerPanelProps,
   ColorPickerPreviewProps,
   ColorPickerProps,
   ColorPickerSwatchProps,
   ColorPickerTriggerProps,
+  ColorPickerValueProps,
 } from './ColorPicker.types';
 const SizeContext = createContext<NonNullable<ColorPickerProps['size']>>('medium');
 export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(function ColorPicker(
@@ -121,17 +126,121 @@ export const ColorPickerChannelField = forwardRef<HTMLInputElement, ColorPickerC
 );
 
 export const ColorPickerTrigger = forwardRef<HTMLButtonElement, ColorPickerTriggerProps>(
-  function Trigger({ className, ...props }, ref) {
+  function Trigger({ className, variant = 'swatch', valueLabel, children, ...props }, ref) {
     return (
       <PrimitiveColorPicker.Trigger
         data-slot="trigger"
         {...props}
         ref={ref}
+        data-variant={variant}
         className={[styles.trigger, className].filter(Boolean).join(' ')}
+      >
+        {children ?? (
+          <>
+            <ColorPickerPreview />
+            {variant === 'value' ? (
+              <span className={styles.triggerValue} title={valueLabel}>
+                {valueLabel ?? <ColorPickerValue />}
+              </span>
+            ) : null}
+          </>
+        )}
+      </PrimitiveColorPicker.Trigger>
+    );
+  },
+);
+
+export const ColorPickerValue = forwardRef<HTMLSpanElement, ColorPickerValueProps>(
+  function Value(props, ref) {
+    return <PrimitiveColorPicker.Value {...props} ref={ref} />;
+  },
+);
+export const ColorPickerOpacity = forwardRef<HTMLInputElement, ColorPickerOpacityProps>(
+  function Opacity({ className, ...props }, ref) {
+    return (
+      <PrimitiveColorPicker.Opacity
+        {...props}
+        ref={ref}
+        className={[styles.opacity, className].filter(Boolean).join(' ')}
       />
     );
   },
 );
+export const ColorPickerAlphaField = forwardRef<HTMLInputElement, ColorPickerAlphaFieldProps>(
+  function AlphaField({ className, ...props }, ref) {
+    return (
+      <PrimitiveColorPicker.AlphaField
+        {...props}
+        ref={ref}
+        className={[styles.textField, className].filter(Boolean).join(' ')}
+      />
+    );
+  },
+);
+export const ColorPickerPanel = forwardRef<HTMLDivElement, ColorPickerPanelProps>(function Panel(
+  {
+    labels,
+    size = 'small',
+    variant = 'full',
+    alpha = variant === 'full',
+    className,
+    children,
+    ...props
+  },
+  ref,
+) {
+  const [format, setFormat] = useState('hex');
+  return (
+    <SizeContext.Provider value={size}>
+      <ColorPickerContent
+        {...props}
+        ref={ref}
+        data-variant={variant}
+        className={[styles.panel, className].filter(Boolean).join(' ')}
+      >
+        <ColorPickerArea saturationLabel={labels.saturation} brightnessLabel={labels.brightness} />
+        <div className={styles.tracks}>
+          <ColorPickerHue aria-label={labels.hue} />
+          {alpha ? <ColorPickerOpacity aria-label={labels.opacity} /> : null}
+        </div>
+        {variant === 'full' ? <ColorPickerPreview className={styles.panelPreview} /> : null}
+        <div className={styles.panelFields} data-format={variant === 'simple' ? 'hex' : format}>
+          {variant === 'full' ? (
+            <Select size={size} value={format} onValueChange={setFormat}>
+              <Select.Trigger aria-label={labels.format} />
+              <Select.Content className={styles.formatMenu}>
+                <Select.Option value="hex">HEX</Select.Option>
+                <Select.Option value="rgb">RGB</Select.Option>
+              </Select.Content>
+            </Select>
+          ) : null}
+          <div className={styles.colorFields}>
+            {variant === 'simple' || format === 'hex' ? (
+              <ColorPickerHexField
+                aria-label={labels.hex}
+                includeAlpha={false}
+                letterCase="upper"
+              />
+            ) : (
+              <>
+                <ColorPickerChannelField channel="r" aria-label={labels.red} />
+                <ColorPickerChannelField channel="g" aria-label={labels.green} />
+                <ColorPickerChannelField channel="b" aria-label={labels.blue} />
+              </>
+            )}
+          </div>
+          {alpha ? (
+            <label className={styles.alphaField}>
+              <ColorPickerAlphaField aria-label={labels.opacity} />
+              <span aria-hidden="true">%</span>
+            </label>
+          ) : null}
+        </div>
+        {children ? <div className={styles.panelExtra}>{children}</div> : null}
+      </ColorPickerContent>
+    </SizeContext.Provider>
+  );
+});
 
 export const ColorPickerContent = forwardRef<HTMLDivElement, ColorPickerContentProps>(
   function Content({ className, ...props }, ref) {
