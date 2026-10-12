@@ -9,11 +9,11 @@ import { Dialog, type DialogProps } from './index';
 function Example(props: DialogProps) {
   return (
     <Dialog.Root {...props}>
-      <Dialog.Trigger>Edit profile</Dialog.Trigger>
+      <Dialog.Trigger>Edit details</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay data-testid="overlay" />
         <Dialog.Content>
-          <Dialog.Title>Profile</Dialog.Title>
+          <Dialog.Title>Details</Dialog.Title>
           <Dialog.Description>Update your public details.</Dialog.Description>
           <input aria-label="Name" />
           <Dialog.Close>Done</Dialog.Close>
@@ -28,12 +28,12 @@ describe('Dialog primitive', () => {
     const user = userEvent.setup();
     const onOpenChange = vi.fn();
     const { container } = render(<Example onOpenChange={onOpenChange} />);
-    const trigger = screen.getByRole('button', { name: 'Edit profile' });
+    const trigger = screen.getByRole('button', { name: 'Edit details' });
 
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
     await user.click(trigger);
 
-    const dialog = screen.getByRole('dialog', { name: 'Profile' });
+    const dialog = screen.getByRole('dialog', { name: 'Details' });
     expect(container).not.toContainElement(dialog);
     expect(trigger).toHaveAttribute('aria-controls', dialog.id);
     expect(screen.getByRole('textbox', { name: 'Name' })).toHaveFocus();
@@ -49,7 +49,7 @@ describe('Dialog primitive', () => {
     const onOpenChange = vi.fn();
     const { rerender } = render(<Example open={false} onOpenChange={onOpenChange} />);
 
-    await user.click(screen.getByRole('button', { name: 'Edit profile' }));
+    await user.click(screen.getByRole('button', { name: 'Edit details' }));
     expect(onOpenChange).toHaveBeenCalledExactlyOnceWith(true);
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 
@@ -61,7 +61,7 @@ describe('Dialog primitive', () => {
 
     rerender(<Example open={false} onOpenChange={onOpenChange} />);
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Edit profile' })).toHaveFocus();
+    expect(screen.getByRole('button', { name: 'Edit details' })).toHaveFocus();
   });
 
   it('closes only the top layer on Escape and allows Escape cancellation', async () => {
@@ -85,7 +85,7 @@ describe('Dialog primitive', () => {
   it('closes on Escape and returns focus to its trigger', async () => {
     const user = userEvent.setup();
     render(<Example />);
-    const trigger = screen.getByRole('button', { name: 'Edit profile' });
+    const trigger = screen.getByRole('button', { name: 'Edit details' });
     await user.click(trigger);
     await user.keyboard('{Escape}');
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
@@ -114,10 +114,10 @@ describe('Dialog primitive', () => {
   it('adds dialog relationships and isolates the modal background', async () => {
     const user = userEvent.setup();
     const { container } = render(<Example />);
-    await user.click(screen.getByRole('button', { name: 'Edit profile' }));
+    await user.click(screen.getByRole('button', { name: 'Edit details' }));
 
-    const dialog = screen.getByRole('dialog', { name: 'Profile' });
-    const title = screen.getByRole('heading', { name: 'Profile' });
+    const dialog = screen.getByRole('dialog', { name: 'Details' });
+    const title = screen.getByRole('heading', { name: 'Details' });
     const description = screen.getByText('Update your public details.');
     expect(dialog).toHaveAttribute('aria-modal', 'true');
     expect(dialog).toHaveAttribute('aria-labelledby', title.id);
@@ -159,7 +159,7 @@ describe('Dialog primitive', () => {
         <button>Outside</button>
       </>,
     );
-    await user.click(screen.getByRole('button', { name: 'Edit profile' }));
+    await user.click(screen.getByRole('button', { name: 'Edit details' }));
     const dialog = screen.getByRole('dialog');
     expect(dialog).not.toHaveAttribute('aria-modal');
     expect(screen.queryByTestId('overlay')).not.toBeInTheDocument();

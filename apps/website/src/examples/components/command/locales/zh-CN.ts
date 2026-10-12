@@ -4,8 +4,8 @@ import type { commandExamplesEnUS } from './en-US';
 export const commandExamplesZhCN = {
   copy: {
     noMatchingCommands: '没有匹配命令。',
-    openDashboard: '打开仪表盘',
-    switchWorkspace: '切换工作区',
+    openDashboard: '打开视图 A',
+    switchWorkspace: '切换示例区域',
     openPreferences: '打开偏好设置',
     unavailableCommand: '不可用命令',
     openCommandPalette: '打开命令面板',
@@ -14,7 +14,7 @@ export const commandExamplesZhCN = {
     typeACommand: '输入命令…',
     selected: '已选择：',
     prefixFilter: '前缀过滤',
-    tryPref: '试试 pref…',
+    tryPref: '试试 option-b…',
     noPrefixMatch: '没有匹配前缀。',
     searchInlineCommands: '搜索行内命令',
     searchCommands: '搜索命令…',
@@ -27,7 +27,7 @@ export const commandExamplesZhCN = {
     heroCommandSearch: '主样例命令搜索',
   },
   details: {
-    workspace: '工作区',
+    workspace: '示例区域',
     settings: '设置',
     noCommandSelected: '尚未选择命令。',
     none: '无',

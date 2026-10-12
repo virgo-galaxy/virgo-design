@@ -1,9 +1,9 @@
 export const dialogExamplesEnUS = {
   copy: {
-    editWorkspace: 'Edit workspace',
-    workspaceSettings: 'Workspace settings',
-    updateTheNameShownThroughoutVirgoDesign: 'Update the name shown throughout Virgo Design.',
-    workspaceName: 'Workspace name',
+    editWorkspace: 'Edit example',
+    workspaceSettings: 'Example settings',
+    updateTheNameShownThroughoutVirgoDesign: 'Update the example value.',
+    workspaceName: 'Example name',
     cancel: 'Cancel',
     saveChanges: 'Save changes',
     open: 'Open',
@@ -20,13 +20,13 @@ export const dialogExamplesEnUS = {
     controlledStateLetsFormSubmissionCloseTheDialogAfterHandling:
       'Controlled state lets form submission close the dialog after handling the data.',
     openDialog: 'Open dialog',
-    inviteCollaborators: 'Invite collaborators',
-    shareThisWorkspaceWithPeopleOnYourTeam: 'Share this workspace with people on your team.',
+    inviteCollaborators: 'Confirm entries',
+    shareThisWorkspaceWithPeopleOnYourTeam: 'This dialog contains example text and controls.',
     invitationsUseEachCollaboratorSWorkspaceEmailAddress:
-      "Invitations use each collaborator's workspace email address.",
+      'The control remains associated with its description.',
     continue: 'Continue',
   },
   details: {
-    virgoWorkspace: 'Virgo workspace',
+    virgoWorkspace: 'Example value',
   },
 } as const;

@@ -212,7 +212,7 @@ describe('NavigationMenu UI', () => {
       <NavigationMenu.Root aria-label="Compact navigation" submenu="popover" orientation="vertical">
         <NavigationMenu.List>
           <NavigationMenu.Item value="projects">
-            <NavigationMenu.Trigger indicator={false}>Projects</NavigationMenu.Trigger>
+            <NavigationMenu.Trigger indicator={false}>Items</NavigationMenu.Trigger>
             <NavigationMenu.Content>
               <NavigationMenu.Item value="cloud">
                 <NavigationMenu.Link href="#cloud">Cloud</NavigationMenu.Link>
@@ -223,7 +223,7 @@ describe('NavigationMenu UI', () => {
       </NavigationMenu.Root>,
     );
 
-    expect(screen.getByRole('button', { name: 'Projects' })).not.toContainElement(
+    expect(screen.getByRole('button', { name: 'Items' })).not.toContainElement(
       document.querySelector('[data-slot="indicator"]'),
     );
   });
@@ -570,13 +570,13 @@ describe('NavigationMenu groups', () => {
               ref={labelRef}
               id="workspace-label"
               className="custom-label"
-              title="Workspace destinations"
+              title="Example destinations"
             >
-              Workspace
+              Example
             </NavigationMenu.GroupLabel>
             <NavigationMenu.List>
               <NavigationMenu.Item value="projects">
-                <NavigationMenu.Link href="#projects">Projects</NavigationMenu.Link>
+                <NavigationMenu.Link href="#items">Items</NavigationMenu.Link>
               </NavigationMenu.Item>
             </NavigationMenu.List>
           </NavigationMenu.Group>
@@ -584,7 +584,7 @@ describe('NavigationMenu groups', () => {
         </NavigationMenu.List>
       </NavigationMenu.Root>,
     );
-    const group = screen.getByRole('group', { name: 'Workspace' });
+    const group = screen.getByRole('group', { name: 'Example' });
     expect(groupRef.current).toBe(group);
     expect(group.tagName).toBe('DIV');
     expect(group.parentElement?.tagName).toBe('LI');
@@ -592,9 +592,9 @@ describe('NavigationMenu groups', () => {
     expect(group.parentElement?.parentElement?.tagName).toBe('UL');
     expect(group).toHaveClass('custom-group');
     expect(group).toHaveStyle({ marginTop: '12px' });
-    expect(labelRef.current).toBe(screen.getByText('Workspace'));
+    expect(labelRef.current).toBe(screen.getByText('Example'));
     expect(labelRef.current).toHaveAttribute('data-slot', 'group-label');
-    expect(labelRef.current).toHaveAttribute('title', 'Workspace destinations');
+    expect(labelRef.current).toHaveAttribute('title', 'Example destinations');
     expect(labelRef.current).toHaveClass('custom-label');
     expect(screen.getByRole('link').parentElement?.parentElement?.parentElement).toBe(group);
     expect(screen.getByTestId('group-divider').parentElement).toBe(
@@ -608,13 +608,13 @@ describe('NavigationMenu groups', () => {
     render(
       <NavigationMenu.Root orientation="vertical" defaultValue="overview">
         <NavigationMenu.List>
-          {['Workspace', 'Settings'].map((name, index) => (
+          {['Example', 'Settings'].map((name, index) => (
             <NavigationMenu.Group key={name} aria-labelledby={`${name}-label`}>
               <NavigationMenu.GroupLabel id={`${name}-label`}>{name}</NavigationMenu.GroupLabel>
               <NavigationMenu.List>
                 <NavigationMenu.Item value={index === 0 ? 'overview' : 'profile'}>
-                  <NavigationMenu.Link href={index === 0 ? '#overview' : '#profile'}>
-                    {index === 0 ? 'Overview' : 'Profile'}
+                  <NavigationMenu.Link href={index === 0 ? '#overview' : '#details'}>
+                    {index === 0 ? 'Overview' : 'Details'}
                   </NavigationMenu.Link>
                 </NavigationMenu.Item>
                 <NavigationMenu.Item disabled value={`${name}-disabled`}>
@@ -630,7 +630,7 @@ describe('NavigationMenu groups', () => {
       </NavigationMenu.Root>,
     );
     const overview = screen.getByRole('link', { name: 'Overview' });
-    const profile = screen.getByRole('link', { name: 'Profile' });
+    const profile = screen.getByRole('link', { name: 'Details' });
     expect(overview).toHaveAttribute('aria-current', 'page');
     await user.click(profile);
     expect(profile).toHaveAttribute('aria-current', 'page');

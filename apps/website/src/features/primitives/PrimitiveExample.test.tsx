@@ -34,7 +34,7 @@ describe('Primitive examples', () => {
   });
 
   it.each([
-    ['dialog', 'Edit profile', 'dialog', 'button', 'Done'],
+    ['dialog', 'Edit details', 'dialog', 'button', 'Done'],
     ['menu', 'Open menu', 'menu', 'menuitem', 'Copy'],
   ] as const)(
     'opens and closes the %s example',

@@ -19,7 +19,7 @@ describe('styled form composition', () => {
           <Textarea />
         </Field>
         <Field>
-          <Field.Label>Project</Field.Label>
+          <Field.Label>Item</Field.Label>
           <Select>
             <Select.Trigger placeholder="Choose" />
             <Select.Content>
@@ -41,7 +41,7 @@ describe('styled form composition', () => {
         </Field>
       </Form>,
     );
-    for (const label of ['Email', 'Notes', 'Project', 'Accept', 'Choice', 'Notify'])
+    for (const label of ['Email', 'Notes', 'Item', 'Accept', 'Choice', 'Notify'])
       expect(screen.getByLabelText(new RegExp(`^${label}`))).toBeInTheDocument();
     expect(screen.getByLabelText(/^Email/)).toHaveAttribute('aria-invalid', 'true');
     expect(screen.getByLabelText('Notes')).toBeDisabled();
@@ -66,11 +66,11 @@ describe('styled form composition', () => {
     render(
       <Field readOnly>
         <Field.Label>Name</Field.Label>
-        <Input clearable defaultValue="Virgo" />
+        <Input clearable defaultValue="Example" />
       </Field>,
     );
     expect(screen.queryByRole('button', { name: 'Clear input' })).not.toBeInTheDocument();
     await user.click(screen.getByLabelText('Name'));
-    expect(screen.getByLabelText('Name')).toHaveValue('Virgo');
+    expect(screen.getByLabelText('Name')).toHaveValue('Example');
   });
 });

@@ -47,7 +47,7 @@ export const layoutEnUS = {
   floatingSidebar: {
     title: 'Floating sidebar',
     description:
-      'A detached sidebar sits inside full-width Content. Collapse it into a capsule, or open Projects to explore its submenu.',
+      'A detached sidebar sits inside full-width Content. Collapse it into a capsule, or open Items to explore its submenu.',
   },
   floatingActions: {
     title: 'Floating actions',

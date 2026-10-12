@@ -19,7 +19,7 @@ export const navigationMenuZhCN = {
   },
   navigationOrientations: {
     title: '导航方向',
-    description: '同一项目模型支持紧凑顶部行或垂直目标列表。',
+    description: '同一条目模型支持紧凑顶部行或垂直目标列表。',
   },
   navigationSegmented: {
     title: '分段导航',

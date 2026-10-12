@@ -69,7 +69,7 @@ describe('Textarea', () => {
         className="consumer-textarea"
         name="description"
         onChange={onChange}
-        placeholder="Describe the project"
+        placeholder="Describe the item"
         rows={4}
       />,
     );
@@ -78,11 +78,11 @@ describe('Textarea', () => {
 
     expect(textarea).toHaveClass('consumer-textarea');
     expect(textarea).toHaveAttribute('name', 'description');
-    expect(textarea).toHaveAttribute('placeholder', 'Describe the project');
+    expect(textarea).toHaveAttribute('placeholder', 'Describe the item');
     expect(textarea).toHaveAttribute('rows', '4');
     expect(ref.current).toBe(textarea);
 
-    await user.type(textarea, 'Virgo');
+    await user.type(textarea, 'Example');
 
     expect(onChange).toHaveBeenCalled();
   });

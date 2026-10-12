@@ -23,7 +23,7 @@ export const avatarEnUS = {
   },
   sizes: {
     title: 'Sizes and shapes',
-    description: 'Three stable sizes support circular profile and square entity silhouettes.',
+    description: 'Three stable sizes support circular details and square entity silhouettes.',
   },
   composition: {
     title: 'Badge and group composition',

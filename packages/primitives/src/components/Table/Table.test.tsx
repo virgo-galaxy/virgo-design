@@ -7,7 +7,7 @@ describe('native Table', () => {
     render(
       <Table.Viewport aria-label="Records">
         <Table>
-          <Table.Caption>Projects</Table.Caption>
+          <Table.Caption>Items</Table.Caption>
           <Table.Header>
             <Table.Row>
               <Table.Head>Name</Table.Head>
@@ -28,7 +28,7 @@ describe('native Table', () => {
         </Table>
       </Table.Viewport>,
     );
-    expect(screen.getByRole('table', { name: 'Projects' }).tagName).toBe('TABLE');
+    expect(screen.getByRole('table', { name: 'Items' }).tagName).toBe('TABLE');
     expect(screen.getByRole('columnheader', { name: 'Name' })).toHaveAttribute('scope', 'col');
     expect(screen.getByRole('rowheader', { name: 'Alpha' })).toHaveAttribute('scope', 'row');
     expect(screen.getByText('Alpha').closest('tr')).toHaveAttribute('data-selected', 'true');

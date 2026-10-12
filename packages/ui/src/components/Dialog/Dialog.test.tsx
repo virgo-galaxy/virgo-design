@@ -14,15 +14,15 @@ describe('Dialog UI', () => {
     render(
       <Dialog.Root className="custom-root" onOpenChange={onOpenChange}>
         <Dialog.Trigger className="custom-trigger" size="small" variant="text">
-          Edit profile
+          Edit details
         </Dialog.Trigger>
         <Dialog.Portal>
           <Dialog.Overlay className="custom-overlay" data-testid="overlay" />
           <Dialog.Content ref={contentRef} className="custom-content" size="lg">
             <Dialog.Header className="custom-header">
-              <Dialog.Title className="custom-title">Profile</Dialog.Title>
+              <Dialog.Title className="custom-title">Details</Dialog.Title>
               <Dialog.Description className="custom-description">
-                Update your profile details.
+                Update your details details.
               </Dialog.Description>
             </Dialog.Header>
             <Dialog.Body className="custom-body">
@@ -37,21 +37,21 @@ describe('Dialog UI', () => {
       </Dialog.Root>,
     );
 
-    const trigger = screen.getByRole('button', { name: 'Edit profile' });
+    const trigger = screen.getByRole('button', { name: 'Edit details' });
     expect(trigger).toHaveAttribute('data-size', 'small');
     expect(trigger).toHaveAttribute('data-variant', 'text');
     expect(trigger).toHaveClass('custom-trigger');
     expect(trigger.parentElement).toHaveClass('custom-root');
 
     await user.click(trigger);
-    const dialog = screen.getByRole('dialog', { name: 'Profile' });
+    const dialog = screen.getByRole('dialog', { name: 'Details' });
     expect(contentRef.current).toBe(dialog);
     expect(dialog).toHaveAttribute('data-size', 'lg');
     expect(dialog).toHaveClass('custom-content');
     expect(dialog).toHaveAttribute('aria-modal', 'true');
     expect(screen.getByTestId('overlay')).toHaveClass('custom-overlay');
-    expect(screen.getByRole('heading', { name: 'Profile' })).toHaveClass('custom-title');
-    expect(screen.getByText('Update your profile details.')).toHaveClass('custom-description');
+    expect(screen.getByRole('heading', { name: 'Details' })).toHaveClass('custom-title');
+    expect(screen.getByText('Update your details details.')).toHaveClass('custom-description');
     expect(screen.getByRole('textbox', { name: 'Name' })).toHaveFocus();
     expect(screen.getByRole('textbox').parentElement).toHaveClass('custom-body');
     expect(screen.getByRole('button', { name: 'Cancel' }).parentElement).toHaveClass(

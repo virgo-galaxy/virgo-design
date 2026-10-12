@@ -8,8 +8,8 @@ export default function App() {
 
   return (
     <Card className={styles.root!}>
-      <Avatar fallback="VD" />
-      <Card.Title as="h3">{t('examples.card.copy.virgoDesignCore')}</Card.Title>
+      <Avatar fallback="EX" />
+      <Card.Title as="h3">{t('examples.card.copy.exampleTitle')}</Card.Title>
       <Tag intent="brand">{t('examples.card.copy.coveragePass')}</Tag>
       <p className={styles.text!}>
         {t('examples.card.copy.directChildrenParticipateInTheCardSStructuralFlow')}

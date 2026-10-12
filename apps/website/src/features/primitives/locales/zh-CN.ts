@@ -157,13 +157,13 @@ export const primitivesZhCN = {
     command: {
       description: '支持过滤、选择与键盘导航的可搜索命令集合。',
       behaviors: {
-        item1: '通过可覆盖的过滤函数筛选项目值、标签与关键词。',
+        item1: '通过可覆盖的过滤函数筛选条目值、标签与关键词。',
         item2: '焦点保留在输入框中；方向键、Home、End 和 Enter 用于导航与选择。',
-        item3: '支持受控搜索、当前值状态和动态项目注册。',
+        item3: '支持受控搜索、当前值状态和动态条目注册。',
       },
       accessibility: {
         item1: '将 combobox 输入连接到 listbox，并暴露当前后代元素。',
-        item2: '项目使用 option 语义，包括选中与禁用状态。',
+        item2: '条目使用 option 语义，包括选中与禁用状态。',
       },
     },
     checkbox: {
@@ -239,11 +239,11 @@ export const primitivesZhCN = {
       behaviors: {
         item1: '支持受控或非受控的单项与多项展开模式。',
         item2: '方向键、Home 和 End 在已启用触发器间移动焦点。',
-        item3: '禁用项目无法切换，循环焦点会跳过它们。',
+        item3: '禁用条目无法切换，循环焦点会跳过它们。',
       },
       accessibility: {
         item1: '各触发器与内容区域通过稳定的无障碍 id 关联。',
-        item2: '项目触发器位于可配置的语义标题层级内。',
+        item2: '条目触发器位于可配置的语义标题层级内。',
       },
     },
     collapsible: {
@@ -269,14 +269,14 @@ export const primitivesZhCN = {
       },
     },
     breadcrumb: {
-      description: '带标签的面包屑导航，包含有序项目与当前页面语义。',
+      description: '带标签的面包屑导航，包含有序条目与当前页面语义。',
       behaviors: {
-        item1: '按路径顺序渲染项目，并插入对辅助技术隐藏的分隔符。',
-        item2: '存在 href 时项目为原生链接，否则为表示当前页面的 span。',
+        item1: '按路径顺序渲染条目，并插入对辅助技术隐藏的分隔符。',
+        item2: '存在 href 时条目为原生链接，否则为表示当前页面的 span。',
       },
       accessibility: {
         item1: '使用带标签的导航地标和有序列表。',
-        item2: '当前项目默认 aria-current="page"。',
+        item2: '当前条目默认 aria-current="page"。',
       },
     },
     'navigation-menu': {
@@ -294,7 +294,7 @@ export const primitivesZhCN = {
     pagination: {
       description: '为有限结果集合提供有边界的页面状态与原生页码控件。',
       behaviors: {
-        item1: '计算有边界的页码范围，并为较大总数提供紧凑项目序列。',
+        item1: '计算有边界的页码范围，并为较大总数提供紧凑条目序列。',
         item2: '支持受控或非受控页码与每页条数状态。',
         item3: '总数变化时将无效或过期页码限制在范围内。',
       },
@@ -308,11 +308,11 @@ export const primitivesZhCN = {
       behaviors: {
         item1: '在指针坐标打开，再次调用时重新定位。',
         item2: '也可通过 Shift+F10 或上下文菜单键打开。',
-        item3: '复用 Menu 的项目、选中状态、选择、子菜单与关闭行为。',
+        item3: '复用 Menu 的条目、选中状态、选择、子菜单与关闭行为。',
       },
       accessibility: {
         item1: '打开时焦点移入菜单，关闭时恢复到上下文目标。',
-        item2: '项目按需暴露 menuitem、menuitemcheckbox 或 menuitemradio 语义。',
+        item2: '条目按需暴露 menuitem、menuitemcheckbox 或 menuitemradio 语义。',
       },
     },
     dropdown: {
@@ -324,14 +324,14 @@ export const primitivesZhCN = {
       },
       accessibility: {
         item1: '触发器管理带标签的菜单并暴露展开状态。',
-        item2: '焦点进入启用的菜单项目，并在适当时返回触发器。',
+        item2: '焦点进入启用的菜单条目，并在适当时返回触发器。',
       },
     },
     menu: {
-      description: '可组合的操作菜单，支持选择、输入搜索、选中项目与子菜单。',
+      description: '可组合的操作菜单，支持选择、输入搜索、选中条目与子菜单。',
       behaviors: {
         item1: '支持受控或非受控打开状态、输入搜索、循环焦点与可取消选择。',
-        item2: '复选与单选项目默认保持选择而不关闭。',
+        item2: '复选与单选条目默认保持选择而不关闭。',
         item3: '嵌套子菜单协调指针路径、键盘方向与分层 Escape 关闭。',
       },
       accessibility: {
@@ -342,7 +342,7 @@ export const primitivesZhCN = {
     menubar: {
       description: '通过循环焦点与跨菜单键盘导航协调的一行菜单。',
       behaviors: {
-        item1: '协调一个打开的顶层菜单，并共享完整 Menu 项目实现。',
+        item1: '协调一个打开的顶层菜单，并共享完整 Menu 条目实现。',
         item2: '水平方向键、Home 和 End 在菜单触发器间移动唯一的 Tab 停靠点。',
         item3: '打开的菜单通过按键或悬停切换；空闲菜单栏保持关闭。',
       },
@@ -389,11 +389,11 @@ export const primitivesZhCN = {
       },
     },
     toast: {
-      description: '通过 portal 呈现实时区域通知，支持定时关闭、暂停与焦点快捷键。',
+      description: '通过 portal 呈现实时区域消息，支持定时关闭、暂停与焦点快捷键。',
       behaviors: {
-        item1: '通过 portal 将打开的通知放入共享视口，支持受控或非受控状态。',
+        item1: '通过 portal 将打开的消息放入共享视口，支持受控或非受控状态。',
         item2: '指针或焦点位于内部时，自动关闭计时暂停。',
-        item3: '多条通知可堆叠，provider 快捷键将焦点移入视口。',
+        item3: '多条消息可堆叠，provider 快捷键将焦点移入视口。',
       },
       accessibility: {
         item1: '使用礼貌 status 或即时 alert 实时区域语义。',
@@ -441,7 +441,7 @@ export const primitivesZhCN = {
     frequency: '频率',
     daily: '每日',
     weekly: '每周',
-    projectDetails: '项目详情',
+    projectDetails: '条目详情',
     createdWithATriggerAndADisclosureRegion: '通过触发器与展开区域创建。',
     findACommand: '查找命令',
     searchCommands: '搜索命令',
@@ -452,8 +452,8 @@ export const primitivesZhCN = {
     rightClickThisFile: '右键点击此文件',
     rename: '重命名',
     duplicate: '创建副本',
-    editProfile: '编辑个人资料',
-    profile: '个人资料',
+    editProfile: '编辑示例详情',
+    profile: '示例详情',
     updateYourPublicDetails: '更新公开信息。',
     displayName: '显示名称',
     done: '完成',
@@ -489,21 +489,21 @@ export const primitivesZhCN = {
     density: '密度',
     compact: '紧凑',
     comfortable: '舒适',
-    project: '项目',
-    chooseProject: '选择项目',
-    virgoDocs: 'Virgo Docs',
+    project: '条目',
+    chooseProject: '选择条目',
+    virgoDocs: 'Item A',
     primitiveInformation: '原语信息',
     aHeadlessTabPanel: '无样式的标签页面板。',
     composableRootListTabAndPanelParts: '可组合的 root、list、tab 与 panel 部分。',
-    showToast: '显示通知',
+    showToast: '显示消息',
     saved: '已保存',
     yourChangesAreReady: '更改已就绪。',
     dismiss: '关闭',
     hoverOrFocus: '悬停或聚焦',
     helpfulContext: '上下文提示',
     nativeButton: '原生按钮',
-    projectName: '项目名称',
-    notifications: '通知',
+    projectName: '条目名称',
+    notifications: '消息',
     notes: '备注',
     moveYourMouseHere: '将鼠标移到这里',
     pointerFeedback: '指针反馈',

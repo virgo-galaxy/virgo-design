@@ -4,12 +4,12 @@ import type { formExamplesEnUS } from './en-US';
 export const formExamplesZhCN = {
   copy: {
     email: '邮箱',
-    private: '仅用于项目更新。',
-    project: '项目',
-    choose: '选择项目',
+    private: '示例辅助文本。',
+    project: '条目',
+    choose: '选择条目',
     notes: '备注',
     accept: '接受条款',
-    notify: '启用通知',
+    notify: '启用消息',
     plan: '方案',
     basic: '基础',
     pro: '专业',

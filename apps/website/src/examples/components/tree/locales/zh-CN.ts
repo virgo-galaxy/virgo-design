@@ -3,7 +3,7 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { treeExamplesEnUS } from './en-US';
 export const treeExamplesZhCN = {
   copy: {
-    files: '工作区文件',
+    files: '示例区域文件',
     source: '源文件',
     components: '组件',
     locked: '锁定文件',

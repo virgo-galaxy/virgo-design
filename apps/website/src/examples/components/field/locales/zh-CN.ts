@@ -4,7 +4,7 @@ import type { fieldExamplesEnUS } from './en-US';
 export const fieldExamplesZhCN = {
   copy: {
     email: '邮箱',
-    private: '我们不会分享你的邮箱。',
+    private: '示例辅助文本。',
     error: '请输入有效的邮箱地址。',
     validate: '校验',
     disabled: '禁用名称',

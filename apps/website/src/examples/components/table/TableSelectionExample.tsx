@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './TableSelectionExample.module.scss';
 
-const rows = ['Virgo Design', 'Cloud Docs', 'Virgo Studio', 'Design System'];
+const rows = ['Item A', 'Item D', 'Example', 'Item E'];
 
 export default function App() {
   const { t } = useTranslation();

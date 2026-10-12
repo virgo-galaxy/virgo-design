@@ -19,7 +19,7 @@ export const accordionZhCN = {
   },
   variants: {
     title: '变体',
-    description: 'default 使用分隔线，bordered 将项目归入同一表面，ghost 移除视觉分隔。',
+    description: 'default 使用分隔线，bordered 将条目归入同一表面，ghost 移除视觉分隔。',
   },
   sizes: {
     title: '尺寸',

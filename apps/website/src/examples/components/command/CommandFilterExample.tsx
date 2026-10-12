@@ -19,7 +19,7 @@ export default function App() {
         />
         <Command.List>
           <Command.Empty>{t('examples.command.copy.noPrefixMatch')}</Command.Empty>
-          {['preferences', 'projects', 'profile'].map((value) => (
+          {['option-a', 'option-b', 'option-c'].map((value) => (
             <Command.Item key={value} value={value} onSelect={setSelection}>
               {value}
             </Command.Item>

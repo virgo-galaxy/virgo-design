@@ -11,11 +11,11 @@ export default function App() {
         <Combobox.Input placeholder={t('examples.combobox.copy.search')} />
         <Combobox.Clear />
         <Combobox.Content>
-          <Combobox.Option value="design" textValue="Virgo Design">
-            Virgo Design
+          <Combobox.Option value="design" textValue="Item A">
+            Item A
           </Combobox.Option>
-          <Combobox.Option value="pro" textValue="Virgo Pro">
-            Virgo Pro
+          <Combobox.Option value="pro" textValue="Item B">
+            Item B
           </Combobox.Option>
           <Combobox.Option value="legacy" textValue="Legacy" disabled>
             {t('examples.combobox.copy.unavailable')}

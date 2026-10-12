@@ -252,8 +252,7 @@ export const primitivesEnUS = {
       },
     },
     switch: {
-      description:
-        'A native checkbox enhanced with switch semantics and checked-state notifications.',
+      description: 'A native checkbox enhanced with switch semantics and checked-state messages.',
       partNote:
         'A single native checkbox input with switch semantics; there are no compound parts.',
       behaviors: {
@@ -460,7 +459,7 @@ export const primitivesEnUS = {
     },
     toast: {
       description:
-        'Portalled live-region notifications with timed dismissal, pause, and focus hotkey support.',
+        'Portalled live-region messages with timed dismissal, pause, and focus hotkey support.',
       behaviors: {
         item1:
           'Portals open toasts into a shared viewport and supports controlled or uncontrolled state.',
@@ -528,7 +527,7 @@ export const primitivesEnUS = {
     frequency: 'Frequency',
     daily: 'Daily',
     weekly: 'Weekly',
-    projectDetails: 'Project details',
+    projectDetails: 'Item details',
     createdWithATriggerAndADisclosureRegion: 'Created with a trigger and a disclosure region.',
     findACommand: 'Find a command',
     searchCommands: 'Search commands',
@@ -539,8 +538,8 @@ export const primitivesEnUS = {
     rightClickThisFile: 'Right-click this file',
     rename: 'Rename',
     duplicate: 'Duplicate',
-    editProfile: 'Edit profile',
-    profile: 'Profile',
+    editProfile: 'Edit details',
+    profile: 'Details',
     updateYourPublicDetails: 'Update your public details.',
     displayName: 'Display name',
     done: 'Done',
@@ -576,9 +575,9 @@ export const primitivesEnUS = {
     density: 'Density',
     compact: 'Compact',
     comfortable: 'Comfortable',
-    project: 'Project',
-    chooseProject: 'Choose project',
-    virgoDocs: 'Virgo Docs',
+    project: 'Item',
+    chooseProject: 'Choose item',
+    virgoDocs: 'Item A',
     primitiveInformation: 'Primitive information',
     aHeadlessTabPanel: 'A headless tab panel.',
     composableRootListTabAndPanelParts: 'Composable root, list, tab, and panel parts.',
@@ -589,8 +588,8 @@ export const primitivesEnUS = {
     hoverOrFocus: 'Hover or focus',
     helpfulContext: 'Helpful context',
     nativeButton: 'Native button',
-    projectName: 'Project name',
-    notifications: 'Notifications',
+    projectName: 'Item name',
+    notifications: 'Messages',
     notes: 'Notes',
     moveYourMouseHere: 'Move your mouse here',
     pointerFeedback: 'Pointer feedback',

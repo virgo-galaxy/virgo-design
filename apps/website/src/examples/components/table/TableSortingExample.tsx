@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './TableSortingExample.module.scss';
 const records = [
-  { name: 'Virgo Design', count: 48 },
-  { name: 'Virgo Pro', count: 8 },
-  { name: 'Virgo Icons', count: 67 },
+  { name: 'Item A', count: 48 },
+  { name: 'Item B', count: 8 },
+  { name: 'Item C', count: 67 },
 ];
 export default function TableSortingExample() {
   const { t } = useTranslation();

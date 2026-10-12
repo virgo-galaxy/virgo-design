@@ -77,7 +77,7 @@ export const badgeExamples = {
     id: 'badge-standalone',
     title: 'Standalone badges',
     titleTranslationKey: 'examples.badge.copy.standaloneBadges',
-    description: 'Use an inline count or release label without an attached host.',
+    description: 'Use an inline count or step C label without an attached host.',
     descriptionTranslationKey:
       'examples.badge.copy.useAnInlineCountOrReleaseLabelWithoutAnAttached',
     Component: BadgeStandaloneExample,

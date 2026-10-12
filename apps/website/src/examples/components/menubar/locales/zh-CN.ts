@@ -26,7 +26,7 @@ export const menubarExamplesZhCN = {
     shortcutLabelsAreDisplayOnlyThisDemoDoesNotBind: '快捷键标签仅用于显示，此演示不绑定全局按键。',
     applicationMenus: '应用菜单',
     arrowKeysSwitchGroupsItemActionsAndPersistentPreferencesShare:
-      '方向键切换分组；项目操作与持续生效偏好共享菜单协议。',
+      '方向键切换分组；条目操作与持续生效偏好共享菜单协议。',
   },
   details: {
     new: '新建',

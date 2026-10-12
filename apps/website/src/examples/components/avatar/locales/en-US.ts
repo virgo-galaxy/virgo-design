@@ -1,13 +1,13 @@
 export const avatarExamplesEnUS = {
   copy: {
-    projectMembers: 'Project members',
-    pokeya: 'Pokeya',
-    uiTeam: 'UI team',
-    teamMember: 'Team member',
+    exampleCollection: 'Example collection',
+    demoUser: 'Demo User',
+    exampleB: 'Example B',
+    exampleAvatar: 'Example avatar',
     unavailablePortrait: 'Unavailable portrait',
     online: 'Online',
     person: 'Person',
-    workspace: 'Workspace',
+    exampleLabel: 'Example',
     smallAvatar: 'Small avatar',
     mediumAvatar: 'Medium avatar',
     largeAvatar: 'Large avatar',
@@ -17,7 +17,7 @@ export const avatarExamplesEnUS = {
     useTheThreeTokenSizesWithoutChangingIdentityContent:
       'Use the three token sizes without changing identity content.',
     shapes: 'Shapes',
-    circleForAPersonSquareForATeamOrEntity: 'Circle for a person; square for a team or entity.',
+    circleForAPersonSquareForATeamOrEntity: 'Circle for a person; square for a group or entity.',
     presenceBadge: 'Presence badge',
     aBadgeSuppliesPresenceWithoutExpandingTheAvatarApi:
       'A Badge supplies presence without expanding the Avatar API.',

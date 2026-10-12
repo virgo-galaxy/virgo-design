@@ -4,7 +4,7 @@ export const tagExamplesEnUS = {
     closableTagCollection: 'Closable tag collection',
     locked: 'Locked',
     resetTags: 'Reset tags',
-    workspace: 'Workspace',
+    workspace: 'Example',
     stable: 'Stable',
     configuration: 'Configuration',
     semanticIntents: 'Semantic intents',
@@ -22,7 +22,7 @@ export const tagExamplesEnUS = {
     closableCollection: 'Closable collection',
     theApplicationRemovesTheSelectedItemAndCanRestoreThe:
       'The application removes the selected item and can restore the collection.',
-    designSystem: 'Design System',
+    designSystem: 'Item E',
     removePrototype: 'Remove Prototype',
     prototype: 'Prototype',
   },

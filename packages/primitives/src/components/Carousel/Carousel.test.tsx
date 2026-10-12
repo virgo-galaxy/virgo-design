@@ -32,7 +32,7 @@ function Controls() {
 }
 function Example(props: Partial<CarouselProps>) {
   return (
-    <Carousel count={3} aria-label="Workspaces" {...props}>
+    <Carousel count={3} aria-label="Examples" {...props}>
       <Carousel.Viewport data-testid="viewport">
         <Carousel.Track>
           {[0, 1, 2].map((index) => (
@@ -47,7 +47,7 @@ function Example(props: Partial<CarouselProps>) {
     </Carousel>
   );
 }
-const root = () => screen.getByRole('region', { name: 'Workspaces' });
+const root = () => screen.getByRole('region', { name: 'Examples' });
 it('preserves drafts and makes inactive slides inert; keyboard does not take over inputs', () => {
   render(<Example />);
   const input = screen.getByRole('textbox', { name: 'Draft 0' });

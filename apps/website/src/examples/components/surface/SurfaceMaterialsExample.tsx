@@ -2,6 +2,7 @@ import { Button, Surface } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { surfaceImageFixture } from './fixtures';
 import styles from './SurfaceMaterialsExample.module.scss';
 
 export default function App() {
@@ -12,7 +13,12 @@ export default function App() {
     <div className={styles.root!}>
       <div className={styles.stage!}>
         {(['solid', 'translucent', 'glass'] as const).map((material) => (
-          <div key={material} className={styles.stage2!}>
+          <Surface
+            key={material}
+            background={{ type: 'image', src: surfaceImageFixture }}
+            radius={16}
+            className={styles.stage2!}
+          >
             <Surface material={material} radius={12} className={styles.surface!}>
               <strong>{material}</strong>
               <span>{t('examples.surface.copy.sameSceneDifferentMaterial')}</span>
@@ -20,7 +26,7 @@ export default function App() {
                 {t('examples.surface.copy.interact')}
               </Button>
             </Surface>
-          </div>
+          </Surface>
         ))}
       </div>
       <p role="status" className={styles.text!}>

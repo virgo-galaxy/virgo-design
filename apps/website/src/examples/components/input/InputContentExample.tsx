@@ -9,10 +9,10 @@ export default function App() {
   return (
     <div className={styles.root!}>
       <Input
-        aria-label={t('examples.input.copy.projectName')}
-        placeholder={t('examples.input.copy.untitledProject')}
+        aria-label={t('examples.input.copy.exampleValue')}
+        placeholder={t('examples.input.copy.emptyValue')}
       />
-      <Input aria-label={t('examples.input.copy.workspaceName')} defaultValue="Virgo Design" />
+      <Input aria-label={t('examples.input.copy.exampleName')} defaultValue="Item A" />
     </div>
   );
 }

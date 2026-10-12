@@ -40,7 +40,7 @@ export const paginationZhCN = {
   },
   total: {
     title: '总数与范围',
-    description: '可单独显示总数，也可通过 total 回调呈现可见项目范围。',
+    description: '可单独显示总数，也可通过 total 回调呈现可见条目范围。',
   },
   all: {
     title: '全部选项',
@@ -57,6 +57,6 @@ export const paginationZhCN = {
   },
   states: {
     title: '禁用与空状态',
-    description: '所有控件遵循禁用状态。空集合保持稳定的第一页布局，项目范围为零。',
+    description: '所有控件遵循禁用状态。空集合保持稳定的第一页布局，条目范围为零。',
   },
 } satisfies LocaleOf<typeof paginationEnUS>;

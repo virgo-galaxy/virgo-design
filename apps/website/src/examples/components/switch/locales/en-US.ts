@@ -1,7 +1,7 @@
 export const switchExamplesEnUS = {
   copy: {
-    notificationsOff: 'Notifications off',
-    notificationsOn: 'Notifications on',
+    notificationsOff: 'Messages off',
+    notificationsOn: 'Messages on',
     verified: 'Verified',
     defaultSwitch: 'Default switch',
     smallSwitch: 'Small switch',

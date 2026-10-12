@@ -3,10 +3,10 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { dialogExamplesEnUS } from './en-US';
 export const dialogExamplesZhCN = {
   copy: {
-    editWorkspace: '编辑工作区',
-    workspaceSettings: '工作区设置',
-    updateTheNameShownThroughoutVirgoDesign: '更新 Virgo Design 中显示的名称。',
-    workspaceName: '工作区名称',
+    editWorkspace: '编辑示例区域',
+    workspaceSettings: '示例区域设置',
+    updateTheNameShownThroughoutVirgoDesign: '更新示例值。',
+    workspaceName: '示例区域名称',
     cancel: '取消',
     saveChanges: '保存更改',
     open: '打开',
@@ -21,12 +21,12 @@ export const dialogExamplesZhCN = {
     controlledStateLetsFormSubmissionCloseTheDialogAfterHandling:
       '受控状态允许表单处理数据后关闭对话框。',
     openDialog: '打开对话框',
-    inviteCollaborators: '邀请协作者',
-    shareThisWorkspaceWithPeopleOnYourTeam: '与团队成员共享此工作区。',
-    invitationsUseEachCollaboratorSWorkspaceEmailAddress: '邀请使用各协作者的工作区邮箱地址。',
+    inviteCollaborators: '确认条目',
+    shareThisWorkspaceWithPeopleOnYourTeam: '此对话框包含示例文本和控件。',
+    invitationsUseEachCollaboratorSWorkspaceEmailAddress: '控件与其说明保持关联。',
     continue: '继续',
   },
   details: {
-    virgoWorkspace: 'Virgo 工作区',
+    virgoWorkspace: '示例值',
   },
 } satisfies LocaleOf<typeof dialogExamplesEnUS>;

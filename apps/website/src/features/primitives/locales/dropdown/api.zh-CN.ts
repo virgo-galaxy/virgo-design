@@ -8,7 +8,7 @@ export const dropdownApiZhCN = {
     'dropdown-content-props.properties.placement.description':
       '首选物理位置；在视口边缘翻转与偏移。',
     'dropdown-item-props.properties.checked.description':
-      '提供 checked 时，项目变为 menuitemradio。',
+      '提供 checked 时，条目变为 menuitemradio。',
     'dropdown-item-props.properties.on-select.description': '阻止事件默认行为可保持菜单打开。',
   },
 } satisfies ApiDescriptionResources[string];

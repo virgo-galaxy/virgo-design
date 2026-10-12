@@ -18,7 +18,7 @@ import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 export function PopoverPage() {
   const { t } = useTranslation();
 
-  const [name] = useState('Virgo workspace');
+  const [name] = useState('Example value');
   const [savedName] = useState(name);
   return (
     <ComponentExampleRuntimeProvider>

@@ -16,8 +16,8 @@ export default function App() {
         <Select name="project">
           <Select.Trigger placeholder={t('examples.form.copy.choose')} />
           <Select.Content>
-            <Select.Option value="design">Virgo Design</Select.Option>
-            <Select.Option value="pro">Virgo Pro</Select.Option>
+            <Select.Option value="design">Item A</Select.Option>
+            <Select.Option value="pro">Item B</Select.Option>
           </Select.Content>
         </Select>
       </Field>

@@ -15,7 +15,7 @@ function CommandItems({ select }: { select: (value: string) => void }) {
       <Command.Empty>{t('examples.command.copy.noMatchingCommands')}</Command.Empty>
       <Command.Group heading={t('examples.command.details.workspace')}>
         <Command.Item
-          value="open-dashboard"
+          value="action-a"
           keywords={['home']}
           icon={<DashboardIcon />}
           shortcut="G D"
@@ -23,12 +23,7 @@ function CommandItems({ select }: { select: (value: string) => void }) {
         >
           {t('examples.command.copy.openDashboard')}
         </Command.Item>
-        <Command.Item
-          value="switch-workspace"
-          icon={<LayoutIcon />}
-          shortcut="⌘ W"
-          onSelect={select}
-        >
+        <Command.Item value="action-b" icon={<LayoutIcon />} shortcut="⌘ W" onSelect={select}>
           {t('examples.command.copy.switchWorkspace')}
         </Command.Item>
       </Command.Group>

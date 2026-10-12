@@ -6,7 +6,7 @@ export const treeApiZhCN = {
     'tree-props.properties.default-expanded-values.description': '非受控模式下初始展开的分支。',
     'tree-props.properties.on-expanded-values-change.description': '展开或收起分支时调用。',
     'tree-props.properties.selected-values.description': '选中项的值，单选模式最多保留一个值。',
-    'tree-props.properties.default-selected-values.description': '非受控模式下初始选中的项目。',
+    'tree-props.properties.default-selected-values.description': '非受控模式下初始选中的条目。',
     'tree-props.properties.on-selected-values-change.description':
       '显式选择时调用，与焦点移动相互独立。',
     'tree-props.properties.selection-mode.description': '单选、无需修饰键的多选，或仅导航模式。',

@@ -3,8 +3,8 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { tooltipExamplesEnUS } from './en-US';
 export const tooltipExamplesZhCN = {
   copy: {
-    workspaceSettings: '工作区设置',
-    openWorkspaceSettings: '打开工作区设置',
+    workspaceSettings: '示例区域设置',
+    openWorkspaceSettings: '打开示例区域设置',
     settingsOpened: '设置打开次数：',
     toggleDetails: '切换详情',
     theDescriptionChangesWithoutClosingTheTooltip: '描述原位变化，不关闭提示。',
@@ -16,7 +16,7 @@ export const tooltipExamplesZhCN = {
     customViolet: '自定义紫色',
     customBackgroundAndForeground: '自定义背景与前景。',
     rtlPreview: 'RTL 预览',
-    workspaceDetails: 'مساحة العمل · 工作区详情',
+    workspaceDetails: 'مساحة العمل · 示例区域详情',
     disabledTooltip: '禁用提示',
     unavailable: '不可用',
     changingDescription: '动态描述',
@@ -30,7 +30,7 @@ export const tooltipExamplesZhCN = {
     mediumTooltip: '中型提示',
     defaultDescription: '默认描述',
     smoothTransition: '平滑过渡',
-    exploreYourWorkspace: '探索工作区。',
+    exploreYourWorkspace: '探索示例区域。',
     description: '描述',
     cursorIntegration: 'Cursor 集成',
     theCursorProviderOwnsTheCustomVisualAndEnablesPointer:
@@ -67,10 +67,10 @@ export const tooltipExamplesZhCN = {
     hideDetails: '隐藏详情',
     showDetails: '显示详情',
     workspaceDetailsAreReadyTheTooltipKeepsItsArrowConnected:
-      '工作区详情已就绪。描述变长时，提示箭头仍保持相连。',
-    workspaceDetails: '工作区详情',
+      '示例区域详情已就绪。描述变长时，提示箭头仍保持相连。',
+    workspaceDetails: '示例区域详情',
     overview: '概览',
-    members: '成员',
+    members: '条目',
     activity: '活动',
     settings: '设置',
   },

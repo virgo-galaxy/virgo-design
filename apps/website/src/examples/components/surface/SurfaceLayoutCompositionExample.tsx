@@ -1,18 +1,23 @@
 import { Layout, Surface } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
+import { surfaceImageFixture } from './fixtures';
 import styles from './SurfaceLayoutCompositionExample.module.scss';
 
 export default function App() {
   const { t } = useTranslation();
 
   return (
-    <div className={styles.root!}>
+    <Surface
+      background={{ type: 'image', src: surfaceImageFixture }}
+      radius={16}
+      className={styles.root!}
+    >
       <Layout surface={{ material: 'glass', radius: 12, border: 'subtle' }}>
         <Layout.Header
           contentAlign="center"
           surface={{ material: 'glass', border: 'subtle' }}
-          logo={<strong>Virgo</strong>}
+          logo={<strong>Example</strong>}
         >
           {t('examples.surface.copy.workspace')}
         </Layout.Header>
@@ -28,6 +33,6 @@ export default function App() {
           </Layout.Content>
         </Layout>
       </Layout>
-    </div>
+    </Surface>
   );
 }

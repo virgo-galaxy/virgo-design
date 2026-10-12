@@ -124,7 +124,7 @@ describe('Field association and inheritance', () => {
     const user = userEvent.setup();
     render(
       <Field readOnly invalid required>
-        <Field.Label>Project</Field.Label>
+        <Field.Label>Item</Field.Label>
         <Select>
           <Select.Trigger>Choose</Select.Trigger>
           <Select.Content>
@@ -134,7 +134,7 @@ describe('Field association and inheritance', () => {
         <Field.Description>Help</Field.Description>
       </Field>,
     );
-    const trigger = screen.getByLabelText(/^Project/);
+    const trigger = screen.getByLabelText(/^Item/);
     expect(trigger).toHaveAttribute('aria-invalid', 'true');
     expect(trigger).toHaveAttribute('aria-required', 'true');
     expect(trigger).toHaveAttribute('aria-describedby');

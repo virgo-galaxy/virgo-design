@@ -8,11 +8,11 @@ export default function App() {
     <div className={styles.root!}>
       <Field disabled>
         <Field.Label>{t('examples.field.copy.disabled')}</Field.Label>
-        <Input defaultValue="Virgo" />
+        <Input defaultValue="Example" />
       </Field>
       <Field readOnly>
         <Field.Label>{t('examples.field.copy.readonly')}</Field.Label>
-        <Input clearable defaultValue="Virgo Design" />
+        <Input clearable defaultValue="Item A" />
       </Field>
       <Field invalid>
         <Field.Label>{t('examples.field.copy.custom')}</Field.Label>

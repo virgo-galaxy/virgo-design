@@ -8,12 +8,12 @@ export const surfaceExamplesZhCN = {
     customGradient: '自定义渐变',
     consumersOwnTheForegroundContrast: '前景对比度由使用方负责。',
     level: '层级',
-    decorativeLandscape: '装饰风景',
+    visualTestCard: '视觉测试卡',
     useAnImgWithAltTextWhenThePictureCarries: '图像承载信息时，使用带 alt 文本的 img。',
     containRightCenterNoRepeat: 'Contain · 右侧居中 · 不重复',
     imageGlass: '图像与玻璃',
     theDecorativeSceneIsSoftenedWithoutApplyingABlurTo: '柔化装饰场景，不对内容应用模糊。',
-    workspace: '工作区',
+    workspace: '示例区域',
     sidebar: '侧栏',
     content: '内容',
     aNestedSemanticSurface: '嵌套的语义表面。',
@@ -29,20 +29,20 @@ export const surfaceExamplesZhCN = {
     containerTonesFollowTheActiveThemeSizingAndPaddingRemain:
       '容器色调遵循当前主题；尺寸与内边距仍由使用方提供。',
     solidTranslucentAndGlass: 'Solid、translucent 与 glass',
-    compareThreeMaterialsOverTheSameOfflineLandscapeWithoutBlurring:
-      '在相同离线风景上比较三种材质，内容不会被模糊。',
+    compareThreeMaterialsOverTheSameVisualTestCardWithoutBlurring:
+      '在相同视觉测试卡上比较三种材质，内容不会被模糊。',
     colorAndGradientBackgrounds: '颜色与渐变背景',
     provideADecorativeFoundationAndChooseAForegroundThatRemains:
       '提供装饰基础，并选择保持易读的前景色。',
     imageBackground: '图像背景',
-    thisDecorativeLandscapeIsEmbeddedSvgNoRemoteImageOr:
-      '此装饰风景为内嵌 SVG，无需远程图像或私有资源。',
+    thisVisualTestCardIsEmbeddedSvgNoExternalResourcesAreRequired:
+      '此视觉测试卡为内嵌 SVG，无需外部资源。',
     imageWithGlassMaterial: '图像与玻璃材质',
     theImageSitsBelowTheMaterialWhileTextAndInteractive:
       '图像位于材质下方，文字和交互内容仍保持清晰。',
     containAndPosition: 'Contain 与定位',
-    containKeepsTheWholeLandscapeVisibleAndPositionsItWithout:
-      'Contain 保留完整风景，并在不重复的情况下定位。',
+    containKeepsTheWholeTestCardVisibleAndPositionsItWithout:
+      'Contain 保留完整测试卡，并在不重复的情况下定位。',
     elevation: '层级',
     sixExistingElevationLevelsAreInterpretedByTheActiveTheme: '六种现有层级由当前主题解释。',
     borderStrength: '边框强度',

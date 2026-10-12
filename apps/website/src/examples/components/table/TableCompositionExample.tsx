@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import styles from './TableCompositionExample.module.scss';
 
 const records = [
-  { project: 'Virgo Design', count: 48, assignee: 'Ava Chen' },
-  { project: 'Virgo Pro', count: 8, assignee: 'Nina Wu' },
-  { project: 'Virgo Icons', count: 67, assignee: 'Leo Park' },
+  { project: 'Item A', count: 48, assignee: 'Sample A' },
+  { project: 'Item B', count: 8, assignee: 'Sample C' },
+  { project: 'Item C', count: 67, assignee: 'Sample B' },
 ];
 type Column = keyof (typeof records)[number];
 

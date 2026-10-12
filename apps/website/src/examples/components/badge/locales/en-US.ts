@@ -1,9 +1,9 @@
 export const badgeExamplesEnUS = {
   copy: {
-    inbox: 'Inbox',
+    inbox: 'Content',
     updates: 'Updates',
-    release: 'Release',
-    inboxOpened: 'Inbox opened:',
+    release: 'Label A',
+    inboxOpened: 'Content opened:',
     queued: 'Queued',
     zeroHidden: 'Zero hidden',
     zeroShown: 'Zero shown',
@@ -21,11 +21,11 @@ export const badgeExamplesEnUS = {
       'The attached indicator does not intercept the button’s click.',
     standaloneBadges: 'Standalone badges',
     useAnInlineCountOrReleaseLabelWithoutAnAttached:
-      'Use an inline count or release label without an attached host.',
+      'Use an inline count or label without an attached host.',
     online: 'Online',
   },
   details: {
     valueStatus: '{{v0}} status',
-    valueMember: '{{v0}} member',
+    valueMember: '{{v0}} entry',
   },
 } as const;

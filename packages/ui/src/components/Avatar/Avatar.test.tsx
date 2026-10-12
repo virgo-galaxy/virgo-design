@@ -5,21 +5,21 @@ import { Avatar } from './index';
 
 describe('Avatar', () => {
   it('renders an image with accessible alt text', () => {
-    render(<Avatar src="/avatar.png" alt="Pokeya" fallback="PK" />);
-    expect(screen.getByRole('img', { name: 'Pokeya' })).toHaveAttribute('src', '/avatar.png');
-    expect(screen.queryByText('PK')).not.toBeInTheDocument();
+    render(<Avatar src="/avatar.png" alt="Demo User" fallback="DU" />);
+    expect(screen.getByRole('img', { name: 'Demo User' })).toHaveAttribute('src', '/avatar.png');
+    expect(screen.queryByText('DU')).not.toBeInTheDocument();
   });
 
   it('renders fallback content without an image', () => {
-    render(<Avatar fallback="PK" />);
-    expect(screen.getByText('PK')).toBeInTheDocument();
+    render(<Avatar fallback="DU" />);
+    expect(screen.getByText('DU')).toBeInTheDocument();
   });
 
   it('falls back after an image load failure', () => {
-    render(<Avatar src="/missing.png" alt="Pokeya" fallback="PK" />);
-    fireEvent.error(screen.getByRole('img', { name: 'Pokeya' }));
+    render(<Avatar src="/missing.png" alt="Demo User" fallback="DU" />);
+    fireEvent.error(screen.getByRole('img', { name: 'Demo User' }));
     expect(screen.queryByRole('img')).not.toBeInTheDocument();
-    expect(screen.getByText('PK')).toBeInTheDocument();
+    expect(screen.getByText('DU')).toBeInTheDocument();
   });
 
   it.each(['sm', 'md', 'lg'] as const)('supports the %s size', (size) => {

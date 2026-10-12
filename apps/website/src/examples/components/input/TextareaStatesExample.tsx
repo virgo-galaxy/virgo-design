@@ -10,7 +10,7 @@ export default function App() {
     <div className={styles.root!}>
       <Textarea
         aria-label={t('examples.input.copy.defaultTextarea')}
-        placeholder={t('examples.input.copy.describeTheProject')}
+        placeholder={t('examples.input.copy.describeTheContent')}
         rows={4}
       />
       <Textarea
@@ -22,7 +22,7 @@ export default function App() {
       <Textarea
         readOnly
         aria-label={t('examples.input.copy.readOnlyTextarea')}
-        defaultValue="Virgo Design keeps UI assets close to their source of truth."
+        defaultValue="This is an example of multiline content."
         rows={4}
       />
       <Textarea

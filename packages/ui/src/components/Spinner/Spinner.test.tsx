@@ -11,8 +11,8 @@ describe('Spinner', () => {
   });
 
   it('supports an accessible loading label', () => {
-    render(<Spinner aria-label="Loading profile" />);
-    const spinner = screen.getByRole('status', { name: 'Loading profile' });
+    render(<Spinner aria-label="Loading details" />);
+    const spinner = screen.getByRole('status', { name: 'Loading details' });
     expect(spinner).not.toHaveAttribute('aria-hidden');
   });
 

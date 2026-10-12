@@ -9,7 +9,7 @@ export default function App() {
 
   const formId = useId();
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState('Virgo workspace');
+  const [name, setName] = useState('Example value');
   const [savedName, setSavedName] = useState(name);
   return (
     <div className={styles.root!}>

@@ -65,7 +65,7 @@ export const drawerExamples = {
     id: 'drawer-non-modal',
     title: 'Non-modal inspector',
     titleTranslationKey: 'examples.drawer.copy.nonModalInspector',
-    description: 'Keep the surrounding workspace directly interactive.',
+    description: 'Keep the surrounding example directly interactive.',
     descriptionTranslationKey:
       'examples.drawer.copy.keepTheSurroundingWorkspaceDirectlyInteractive',
     Component: DrawerNonModalExample,

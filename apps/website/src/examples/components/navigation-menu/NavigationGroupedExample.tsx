@@ -26,7 +26,7 @@ export default function App() {
               </NavigationMenu.Link>
             </NavigationMenu.Item>
             <NavigationMenu.Item value="projects">
-              <NavigationMenu.Link href="#grouped-projects">
+              <NavigationMenu.Link href="#grouped-items">
                 {t('examples.navigationMenu.copy.projects')}
               </NavigationMenu.Link>
             </NavigationMenu.Item>
@@ -39,12 +39,12 @@ export default function App() {
           </NavigationMenu.GroupLabel>
           <NavigationMenu.List>
             <NavigationMenu.Item value="profile">
-              <NavigationMenu.Link href="#grouped-profile">
+              <NavigationMenu.Link href="#grouped-details">
                 {t('examples.navigationMenu.copy.profile')}
               </NavigationMenu.Link>
             </NavigationMenu.Item>
             <NavigationMenu.Item value="billing" disabled>
-              <NavigationMenu.Link href="#grouped-billing">
+              <NavigationMenu.Link href="#grouped-section B">
                 {t('examples.navigationMenu.copy.billing')}
               </NavigationMenu.Link>
             </NavigationMenu.Item>

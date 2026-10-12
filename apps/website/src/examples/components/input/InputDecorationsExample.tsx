@@ -16,12 +16,12 @@ export default function App() {
       />
       <Input
         aria-label={t('examples.input.copy.approvedName')}
-        defaultValue="Virgo"
+        defaultValue="Example"
         suffix={<CheckIcon />}
       />
       <Input
         aria-label={t('examples.input.copy.account')}
-        defaultValue="mystic"
+        defaultValue="example"
         prefix={<UserIcon />}
         suffix={<CheckIcon />}
       />
@@ -29,14 +29,14 @@ export default function App() {
         aria-label={t('examples.input.copy.amount')}
         inputMode="decimal"
         defaultValue="100"
-        prefix="¥"
-        suffix="RMB"
+        prefix="#"
+        suffix="units"
       />
       <Input
         aria-label={t('examples.input.copy.disabledAmount')}
         defaultValue="100"
-        prefix="¥"
-        suffix="RMB"
+        prefix="#"
+        suffix="units"
         disabled
       />
       <Input

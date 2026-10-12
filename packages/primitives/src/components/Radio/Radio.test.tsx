@@ -79,12 +79,12 @@ describe('Radio primitive', () => {
 
   it('exposes group orientation semantics', () => {
     render(
-      <Radio.Group orientation="vertical" aria-label="Fruit">
+      <Radio.Group orientation="vertical" aria-label="Options">
         <Radio aria-label="Apple" value="apple" />
       </Radio.Group>,
     );
 
-    expect(screen.getByRole('radiogroup', { name: 'Fruit' })).toHaveAttribute(
+    expect(screen.getByRole('radiogroup', { name: 'Options' })).toHaveAttribute(
       'aria-orientation',
       'vertical',
     );

@@ -4,7 +4,7 @@ export const layoutExamplesEnUS = {
     content: 'Content',
     footer: 'Footer',
     logo: 'Logo',
-    workspaceNavigation: 'Workspace navigation',
+    workspaceNavigation: 'Example navigation',
     externalSidebarControlRegion: 'External sidebar control region',
     help: 'Help',
     quickActions: 'Quick actions',

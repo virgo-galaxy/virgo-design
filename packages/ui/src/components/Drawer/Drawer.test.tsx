@@ -16,11 +16,11 @@ function Example({ modal = true }: { modal?: boolean }) {
           <Drawer.Header className="custom-header">
             <Drawer.Title className="custom-title">Settings</Drawer.Title>
             <Drawer.Description className="custom-description">
-              Configure workspace settings.
+              Configure example settings.
             </Drawer.Description>
           </Drawer.Header>
           <Drawer.Body className="custom-body">
-            <input aria-label="Workspace name" />
+            <input aria-label="Example name" />
           </Drawer.Body>
           <Drawer.Footer className="custom-footer">Footer content</Drawer.Footer>
           <Drawer.Close className="custom-close" />
@@ -73,7 +73,7 @@ describe('Drawer UI', () => {
 
     const drawer = screen.getByRole('dialog', { name: 'Settings' });
     const title = screen.getByRole('heading', { name: 'Settings' });
-    const description = screen.getByText('Configure workspace settings.');
+    const description = screen.getByText('Configure example settings.');
     expect(drawer).toHaveAttribute('data-placement', 'right');
     expect(drawer).toHaveAttribute('data-size', 'md');
     expect(drawer).toHaveAttribute('aria-modal', 'true');

@@ -27,7 +27,7 @@ export const popoverZhCN = {
   },
   form: {
     title: '就地编辑',
-    description: '包含真实表单的受控面板。保存会更新工作区名称，并将焦点返回 Edit workspace。',
+    description: '包含真实表单的受控面板。保存会更新示例区域名称，并将焦点返回 Edit example。',
   },
   placement: {
     title: '位置与偏移',

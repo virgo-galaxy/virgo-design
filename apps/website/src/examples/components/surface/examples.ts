@@ -53,9 +53,9 @@ export const surfaceExamples = {
     title: 'Solid, translucent, and glass',
     titleTranslationKey: 'examples.surface.copy.solidTranslucentAndGlass',
     description:
-      'Compare three materials over the same offline landscape without blurring the content.',
+      'Compare three materials over the same visual test card without blurring the content.',
     descriptionTranslationKey:
-      'examples.surface.copy.compareThreeMaterialsOverTheSameOfflineLandscapeWithoutBlurring',
+      'examples.surface.copy.compareThreeMaterialsOverTheSameVisualTestCardWithoutBlurring',
     Component: SurfaceMaterialsExample,
     source: createExampleSource(surfaceMaterialsSource),
     styleSource: surfaceMaterialsStyles,
@@ -75,10 +75,9 @@ export const surfaceExamples = {
     id: 'surface-image-background',
     title: 'Image background',
     titleTranslationKey: 'examples.surface.copy.imageBackground',
-    description:
-      'This decorative landscape is embedded SVG; no remote image or private asset is required.',
+    description: 'This visual test card is embedded SVG; no external resources are required.',
     descriptionTranslationKey:
-      'examples.surface.copy.thisDecorativeLandscapeIsEmbeddedSvgNoRemoteImageOr',
+      'examples.surface.copy.thisVisualTestCardIsEmbeddedSvgNoExternalResourcesAreRequired',
     Component: SurfaceImageBackgroundExample,
     source: createExampleSource(surfaceImageBackgroundSource),
     styleSource: surfaceImageBackgroundStyles,
@@ -99,9 +98,9 @@ export const surfaceExamples = {
     id: 'surface-image-contain',
     title: 'Contain and position',
     titleTranslationKey: 'examples.surface.copy.containAndPosition',
-    description: 'Contain keeps the whole landscape visible and positions it without repeating.',
+    description: 'Contain keeps the whole test card visible and positions it without repeating.',
     descriptionTranslationKey:
-      'examples.surface.copy.containKeepsTheWholeLandscapeVisibleAndPositionsItWithout',
+      'examples.surface.copy.containKeepsTheWholeTestCardVisibleAndPositionsItWithout',
     Component: SurfaceImageContainExample,
     source: createExampleSource(surfaceImageContainSource),
     styleSource: surfaceImageContainStyles,

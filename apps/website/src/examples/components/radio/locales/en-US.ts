@@ -1,12 +1,12 @@
 export const radioExamplesEnUS = {
   copy: {
-    apple: 'Apple',
-    pear: 'Pear',
+    optionA: 'Option A',
+    optionB: 'Option B',
     disabledUnchecked: 'Disabled unchecked',
     disabledChecked: 'Disabled checked',
-    horizontalFruit: 'Horizontal fruit',
-    orange: 'Orange',
-    verticalFruit: 'Vertical fruit',
+    horizontalOptions: 'Horizontal options',
+    optionC: 'Option C',
+    verticalOptions: 'Vertical options',
     nativeRadioSelection: 'Native radio selection',
     aNativeNameGroupsMutuallyExclusiveOptions: 'A native name groups mutually exclusive options.',
     horizontalGroup: 'Horizontal group',
@@ -15,7 +15,7 @@ export const radioExamplesEnUS = {
     verticalGroup: 'Vertical group',
     disabledSelection: 'Disabled selection',
     disabledOptionsPreserveTheirSelectionState: 'Disabled options preserve their selection state.',
-    fruit: 'Fruit',
+    options: 'Options',
     bodyMedium: 'Body Medium',
   },
 } as const;

@@ -40,7 +40,7 @@ describe('Textarea', () => {
         data-testid="description-textarea"
         name="description"
         onChange={onChange}
-        placeholder="Describe the project"
+        placeholder="Describe the item"
         rows={4}
       />,
     );
@@ -48,10 +48,10 @@ describe('Textarea', () => {
     const textarea = screen.getByTestId('description-textarea');
 
     expect(textarea).toHaveAttribute('name', 'description');
-    expect(textarea).toHaveAttribute('placeholder', 'Describe the project');
+    expect(textarea).toHaveAttribute('placeholder', 'Describe the item');
     expect(textarea).toHaveAttribute('rows', '4');
 
-    await user.type(textarea, 'Virgo');
+    await user.type(textarea, 'Example');
 
     expect(onChange).toHaveBeenCalled();
   });

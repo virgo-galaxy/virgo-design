@@ -10,7 +10,7 @@ export const statisticEnUS = {
     'Compose labels and values while keeping the product grid outside the component.',
   label: 'Revenue',
   support: 'Compared with the previous month',
-  other: 'Active projects',
+  other: 'Active items',
   loading: 'Pending total',
   animation: 'Numeric animation',
   animationDescription:

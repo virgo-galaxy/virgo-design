@@ -1,18 +1,18 @@
 export const toastExamplesEnUS = {
   copy: {
-    dismissNotification: 'Dismiss notification',
+    dismissNotification: 'Dismiss message',
     show: 'Show',
-    statusNotifications: 'Status notifications',
-    notification: 'Notification #',
+    statusNotifications: 'Status messages',
+    notification: 'Message #',
     usesSemanticStatusTokens: 'uses semantic status tokens.',
-    positionedNotifications: 'Positioned notifications',
+    positionedNotifications: 'Positioned messages',
     thisExamplePositionsItsViewportInsideTheCanvas:
       'This example positions its viewport inside the canvas.',
     addTwoToasts: 'Add two toasts',
-    stackedNotifications: 'Stacked notifications',
+    stackedNotifications: 'Stacked messages',
     hoverOrFocusToPauseItsTimer: 'Hover or focus to pause its timer.',
     archiveWithUndo: 'Archive with Undo',
-    archiveNotifications: 'Archive notifications',
+    archiveNotifications: 'Archive messages',
     documentArchived: 'Document archived',
     youCanUndoThisAction: 'You can undo this action.',
     undo: 'Undo',
@@ -31,8 +31,8 @@ export const toastExamplesEnUS = {
     yourDocumentMovedToTheArchive: 'Your document moved to the archive.',
   },
   details: {
-    notification: 'Notification',
+    notification: 'Message',
     documentIsArchived: 'Document is archived.',
-    documentIsInYourWorkspace: 'Document is in your workspace.',
+    documentIsInYourWorkspace: 'Document is in your example.',
   },
 } as const;

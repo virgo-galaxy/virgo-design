@@ -237,7 +237,7 @@ describe('Layout primitive', () => {
     const ref = createRef<HTMLDivElement>();
 
     render(
-      <Layout.Lane ref={ref} direction="horizontal" data-testid="lane" aria-label="Workspace lane">
+      <Layout.Lane ref={ref} direction="horizontal" data-testid="lane" aria-label="Example lane">
         <span>Lane content</span>
       </Layout.Lane>,
     );
@@ -247,7 +247,7 @@ describe('Layout primitive', () => {
     expect(lane.tagName).toBe('DIV');
     expect(lane).toHaveAttribute('data-vd-layout-lane', '');
     expect(lane).toHaveAttribute('data-direction', 'horizontal');
-    expect(lane).toHaveAttribute('aria-label', 'Workspace lane');
+    expect(lane).toHaveAttribute('aria-label', 'Example lane');
   });
 
   it('uses semantic region elements and forwards region refs and props', () => {

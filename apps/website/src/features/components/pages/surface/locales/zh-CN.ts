@@ -27,7 +27,7 @@ export const surfaceZhCN = {
   material: {
     title: '材质',
     description:
-      '每个表面后方使用相同风景：solid 保留语义填充，translucent 透出场景，glass 使其柔化。切换上方浅色 / 深色模式比较色调。',
+      '每个表面后方使用相同视觉测试卡：solid 保留语义填充，translucent 透出场景，glass 使其柔化。切换上方浅色 / 深色模式比较色调。',
   },
   background: {
     title: '背景',

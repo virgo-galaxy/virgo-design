@@ -1,7 +1,7 @@
 export const fieldExamplesEnUS = {
   copy: {
     email: 'Email',
-    private: 'We never share your email.',
+    private: 'Example helper text.',
     error: 'Enter a valid email address.',
     validate: 'Validate',
     disabled: 'Disabled name',

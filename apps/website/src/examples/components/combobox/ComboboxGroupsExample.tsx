@@ -9,13 +9,13 @@ export default function App() {
       <Combobox.Input aria-label={t('examples.combobox.copy.project')} />
       <Combobox.Content>
         <Combobox.Group label={t('examples.combobox.copy.current')}>
-          <Combobox.Option value="design" textValue="Virgo Design">
-            Virgo Design
+          <Combobox.Option value="design" textValue="Item A">
+            Item A
           </Combobox.Option>
         </Combobox.Group>
         <Combobox.Group label={t('examples.combobox.copy.future')}>
-          <Combobox.Option value="pro" textValue="Virgo Pro">
-            Virgo Pro
+          <Combobox.Option value="pro" textValue="Item B">
+            Item B
           </Combobox.Option>
         </Combobox.Group>
         <Combobox.Empty>{t('examples.combobox.copy.empty')}</Combobox.Empty>

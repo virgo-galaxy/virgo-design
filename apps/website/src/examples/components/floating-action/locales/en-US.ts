@@ -2,7 +2,7 @@ export const floatingActionExamplesEnUS = {
   copy: {
     settingsUnavailable: 'Settings unavailable',
     quickActions: 'Quick actions',
-    openDashboard: 'Open dashboard',
+    openDashboard: 'Open view A',
     showHelp: 'Show help',
     selected: 'Selected:',
     actionVariants: 'Action variants',
@@ -21,7 +21,7 @@ export const floatingActionExamplesEnUS = {
   },
   details: {
     chooseAnAction: 'Choose an action.',
-    dashboard: 'Dashboard',
+    dashboard: 'View A',
     help: 'Help',
     toggleValueActions: 'Toggle {{v0}} actions',
     valueActions: '{{v0}} actions',

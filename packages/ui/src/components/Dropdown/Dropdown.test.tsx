@@ -68,7 +68,7 @@ describe('Dropdown UI', () => {
       <Dropdown size="small">
         <Dropdown.Trigger ref={ref}>Actions</Dropdown.Trigger>
         <Dropdown.Content arrow placement="topRight">
-          <Dropdown.Item icon={<UserIcon />}>Profile</Dropdown.Item>
+          <Dropdown.Item icon={<UserIcon />}>Details</Dropdown.Item>
           <Dropdown.Item danger>Delete</Dropdown.Item>
           <Dropdown.Item checked>Current</Dropdown.Item>
         </Dropdown.Content>
@@ -80,7 +80,7 @@ describe('Dropdown UI', () => {
     const menu = screen.getByRole('menu');
     expect(menu).toHaveAttribute('data-size', 'small');
     expect(menu.querySelector('[data-slot="arrow"]')).toHaveAttribute('aria-hidden', 'true');
-    expect(screen.getByRole('menuitem', { name: 'Profile' }).querySelector('svg')).toHaveAttribute(
+    expect(screen.getByRole('menuitem', { name: 'Details' }).querySelector('svg')).toHaveAttribute(
       'viewBox',
       '0 0 24 24',
     );

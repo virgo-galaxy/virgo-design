@@ -3,8 +3,8 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { switchExamplesEnUS } from './en-US';
 export const switchExamplesZhCN = {
   copy: {
-    notificationsOff: '通知关闭',
-    notificationsOn: '通知开启',
+    notificationsOff: '消息关闭',
+    notificationsOn: '消息开启',
     verified: '已验证',
     defaultSwitch: '默认开关',
     smallSwitch: '小型开关',

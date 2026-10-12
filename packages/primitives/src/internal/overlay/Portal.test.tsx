@@ -9,7 +9,7 @@ import { PortalProvider } from './Portal';
 
 afterEach(() => vi.restoreAllMocks());
 
-describe('workspace portal boundary', () => {
+describe('example portal boundary', () => {
   it('positions a popup in local coordinates while its window moves and scales', async () => {
     let scale = 0.2;
     let x = 800;
@@ -58,7 +58,7 @@ describe('workspace portal boundary', () => {
     expect(popup).toHaveStyle({ left: '1000px', top: '88px' });
   });
 
-  it('isolates modal content inside the workspace while the agent controls remain usable', async () => {
+  it('isolates modal content inside the example while the agent controls remain usable', async () => {
     function Workspace() {
       const ref = useRef<HTMLDivElement>(null);
       return (

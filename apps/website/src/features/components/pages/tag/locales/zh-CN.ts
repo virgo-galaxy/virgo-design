@@ -28,6 +28,6 @@ export const tagZhCN = {
   },
   composition: {
     title: '图标与可关闭集合',
-    description: '图标仅用于装饰。关闭按钮通知使用方，本示例通过应用状态移除对应项目。',
+    description: '图标仅用于装饰。关闭按钮通知使用方，本示例通过应用状态移除对应条目。',
   },
 } satisfies LocaleOf<typeof tagEnUS>;

@@ -72,7 +72,7 @@ describe('Checkbox', () => {
     const onValueChange = vi.fn();
 
     render(
-      <Checkbox.Group defaultValue={['pear']} onValueChange={onValueChange} aria-label="Fruit">
+      <Checkbox.Group defaultValue={['pear']} onValueChange={onValueChange} aria-label="Options">
         <Checkbox value="apple">Apple</Checkbox>
         <Checkbox value="pear">Pear</Checkbox>
         <Checkbox value="orange">Orange</Checkbox>

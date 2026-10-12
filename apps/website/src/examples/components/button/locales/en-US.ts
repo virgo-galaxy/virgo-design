@@ -34,6 +34,6 @@ export const buttonExamplesEnUS = {
     disabledState: 'Disabled state',
     disabledButtonsRemainVisibleWhilePreventingInteraction:
       'Disabled buttons remain visible while preventing interaction.',
-    createProject: 'Create project',
+    createProject: 'Create item',
   },
 } as const;

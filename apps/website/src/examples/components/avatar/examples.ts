@@ -43,7 +43,7 @@ export const avatarExamples = {
     id: 'avatar-shapes',
     title: 'Shapes',
     titleTranslationKey: 'examples.avatar.copy.shapes',
-    description: 'Circle for a person; square for a team or entity.',
+    description: 'Circle for a person; square for a group or entity.',
     descriptionTranslationKey: 'examples.avatar.copy.circleForAPersonSquareForATeamOrEntity',
     Component: AvatarShapesExample,
     source: createExampleSource(avatarShapesSource),

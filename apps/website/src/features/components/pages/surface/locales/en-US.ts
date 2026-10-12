@@ -23,7 +23,7 @@ export const surfaceEnUS = {
   material: {
     title: 'Material',
     description:
-      'The same landscape sits behind each surface: solid retains its semantic fill, translucent lets the scene through, and glass diffuses it. Switch Light / Dark above to compare the tint.',
+      'The same visual test card sits behind each surface: solid retains its semantic fill, translucent lets the scene through, and glass diffuses it. Switch Light / Dark above to compare the tint.',
   },
   background: {
     title: 'Background',

@@ -23,7 +23,7 @@ export const dropdownZhCN = {
   },
   triggers: {
     title: '悬停与点击',
-    description: '两种激活模式。禁用项目不可操作；破坏性操作使用 danger 样式。',
+    description: '两种激活模式。禁用条目不可操作；破坏性操作使用 danger 样式。',
   },
   placement: {
     title: '位置与箭头',

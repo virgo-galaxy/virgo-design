@@ -86,7 +86,7 @@ export default function App() {
               </NavigationMenu.Link>
             </NavigationMenu.Item>
             <NavigationMenu.Item value="account">
-              <NavigationMenu.Link href="#navigation-account">
+              <NavigationMenu.Link href="#navigation-section">
                 {t('examples.navigationMenu.copy.account')}
               </NavigationMenu.Link>
             </NavigationMenu.Item>

@@ -49,7 +49,7 @@ export function CardPage() {
               <div className="card-hero-card">
                 <Card variant="outlined">
                   <Card.Header>
-                    <Card.Title as="h3">Virgo Design</Card.Title>
+                    <Card.Title as="h3">Item A</Card.Title>
                     <Card.Description>
                       {t('examples.card.copy.structureASmallRelatedBlockOfContent')}
                     </Card.Description>

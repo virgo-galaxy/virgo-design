@@ -8,12 +8,12 @@ import { Select } from './index';
 function PrimitiveSelectExample({ onValueChange }: { onValueChange?: (value: string) => void }) {
   return (
     <Select defaultValue="design" onValueChange={onValueChange}>
-      <Select.Trigger aria-label="Project">Choose project</Select.Trigger>
+      <Select.Trigger aria-label="Item">Choose item</Select.Trigger>
       <Select.Content>
-        <Select.Option value="design">Virgo Design</Select.Option>
-        <Select.Option value="docs">Virgo Cloud Docs</Select.Option>
+        <Select.Option value="design">Item A</Select.Option>
+        <Select.Option value="docs">Item B</Select.Option>
         <Select.Option disabled value="retro">
-          Virgo Retro
+          Item C
         </Select.Option>
       </Select.Content>
     </Select>
@@ -60,7 +60,7 @@ describe('Select primitive', () => {
 
     render(<PrimitiveSelectExample onValueChange={onValueChange} />);
 
-    const trigger = screen.getByRole('button', { name: 'Project' });
+    const trigger = screen.getByRole('button', { name: 'Item' });
 
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
 
@@ -68,12 +68,9 @@ describe('Select primitive', () => {
 
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getByRole('listbox')).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: 'Virgo Design' })).toHaveAttribute(
-      'aria-selected',
-      'true',
-    );
+    expect(screen.getByRole('option', { name: 'Item A' })).toHaveAttribute('aria-selected', 'true');
 
-    await user.click(screen.getByRole('option', { name: 'Virgo Cloud Docs' }));
+    await user.click(screen.getByRole('option', { name: 'Item B' }));
 
     expect(onValueChange).toHaveBeenCalledWith('docs');
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
@@ -86,13 +83,13 @@ describe('Select primitive', () => {
 
     render(<PrimitiveSelectExample onValueChange={onValueChange} />);
 
-    const trigger = screen.getByRole('button', { name: 'Project' });
+    const trigger = screen.getByRole('button', { name: 'Item' });
     trigger.focus();
 
     await user.keyboard('{ArrowDown}');
 
-    const design = screen.getByRole('option', { name: 'Virgo Design' });
-    const docs = screen.getByRole('option', { name: 'Virgo Cloud Docs' });
+    const design = screen.getByRole('option', { name: 'Item A' });
+    const docs = screen.getByRole('option', { name: 'Item B' });
 
     expect(design).toHaveFocus();
 
@@ -110,7 +107,7 @@ describe('Select primitive', () => {
     expect(trigger).toHaveFocus();
 
     await user.keyboard('{ArrowUp}');
-    expect(screen.getByRole('option', { name: 'Virgo Cloud Docs' })).toHaveFocus();
+    expect(screen.getByRole('option', { name: 'Item B' })).toHaveFocus();
 
     await user.keyboard('{Escape}');
     expect(trigger).toHaveFocus();
@@ -122,13 +119,13 @@ describe('Select primitive', () => {
 
     render(<PrimitiveSelectExample />);
 
-    const trigger = screen.getByRole('button', { name: 'Project' });
+    const trigger = screen.getByRole('button', { name: 'Item' });
     trigger.focus();
 
     await user.keyboard('{ArrowDown}');
-    await user.keyboard('v');
+    await user.keyboard('i');
 
-    expect(screen.getByRole('option', { name: 'Virgo Cloud Docs' })).toHaveFocus();
+    expect(screen.getByRole('option', { name: 'Item B' })).toHaveFocus();
   });
 
   it('does not select disabled options', async () => {
@@ -137,9 +134,9 @@ describe('Select primitive', () => {
 
     render(<PrimitiveSelectExample onValueChange={onValueChange} />);
 
-    await user.click(screen.getByRole('button', { name: 'Project' }));
+    await user.click(screen.getByRole('button', { name: 'Item' }));
 
-    const disabledOption = screen.getByRole('option', { name: 'Virgo Retro' });
+    const disabledOption = screen.getByRole('option', { name: 'Item C' });
     expect(disabledOption).toHaveAttribute('aria-disabled', 'true');
 
     await user.click(disabledOption);
@@ -157,10 +154,10 @@ describe('Select primitive', () => {
 
       return (
         <Select value={value} onValueChange={setValue} open={open} onOpenChange={setOpen}>
-          <Select.Trigger aria-label="Controlled project">{value}</Select.Trigger>
+          <Select.Trigger aria-label="Controlled item">{value}</Select.Trigger>
           <Select.Content>
-            <Select.Option value="design">Virgo Design</Select.Option>
-            <Select.Option value="docs">Virgo Cloud Docs</Select.Option>
+            <Select.Option value="design">Item A</Select.Option>
+            <Select.Option value="docs">Item B</Select.Option>
           </Select.Content>
         </Select>
       );
@@ -168,11 +165,11 @@ describe('Select primitive', () => {
 
     render(<ControlledSelect />);
 
-    const trigger = screen.getByRole('button', { name: 'Controlled project' });
+    const trigger = screen.getByRole('button', { name: 'Controlled item' });
     expect(trigger).toHaveTextContent('design');
 
     await user.click(trigger);
-    await user.click(screen.getByRole('option', { name: 'Virgo Cloud Docs' }));
+    await user.click(screen.getByRole('option', { name: 'Item B' }));
 
     expect(trigger).toHaveTextContent('docs');
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
@@ -180,16 +177,16 @@ describe('Select primitive', () => {
 
   it('disables the trigger and can submit the selected value through a hidden input', () => {
     const { container } = render(
-      <Select disabled defaultValue="design" name="project">
-        <Select.Trigger aria-label="Disabled project">Choose project</Select.Trigger>
+      <Select disabled defaultValue="design" name="item">
+        <Select.Trigger aria-label="Disabled item">Choose item</Select.Trigger>
         <Select.Content>
-          <Select.Option value="design">Virgo Design</Select.Option>
+          <Select.Option value="design">Item A</Select.Option>
         </Select.Content>
       </Select>,
     );
 
-    expect(screen.getByRole('button', { name: 'Disabled project' })).toBeDisabled();
-    expect(container.querySelector('input[name="project"]')).toHaveValue('design');
+    expect(screen.getByRole('button', { name: 'Disabled item' })).toBeDisabled();
+    expect(container.querySelector('input[name="item"]')).toHaveValue('design');
   });
 });
 
@@ -230,7 +227,7 @@ it('portals, inherits theme and flips near the bottom viewport boundary', async 
         <PrimitiveSelectExample />
       </div>,
     );
-    await userEvent.setup().click(screen.getByRole('button', { name: 'Project' }));
+    await userEvent.setup().click(screen.getByRole('button', { name: 'Item' }));
     const content = screen.getByRole('listbox');
     expect(container).not.toContainElement(content);
     expect(content).toHaveAttribute('data-theme', 'dark');

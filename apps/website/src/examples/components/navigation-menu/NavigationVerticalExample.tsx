@@ -15,12 +15,12 @@ export default function App() {
     >
       <NavigationMenu.List>
         <NavigationMenu.Item value="dashboard" icon={<DashboardIcon />}>
-          <NavigationMenu.Link href="#navigation-dashboard">
+          <NavigationMenu.Link href="#navigation-view A">
             {t('examples.navigationMenu.copy.dashboard')}
           </NavigationMenu.Link>
         </NavigationMenu.Item>
         <NavigationMenu.Item value="projects" icon={<LayoutIcon />}>
-          <NavigationMenu.Link href="#navigation-projects">
+          <NavigationMenu.Link href="#navigation-items">
             {t('examples.navigationMenu.copy.projects')}
           </NavigationMenu.Link>
         </NavigationMenu.Item>
@@ -30,7 +30,7 @@ export default function App() {
           </NavigationMenu.Link>
         </NavigationMenu.Item>
         <NavigationMenu.Item disabled value="billing" icon={<GlobeIcon />}>
-          <NavigationMenu.Link href="#navigation-billing">
+          <NavigationMenu.Link href="#navigation-section B">
             {t('examples.navigationMenu.copy.billing')}
           </NavigationMenu.Link>
         </NavigationMenu.Item>

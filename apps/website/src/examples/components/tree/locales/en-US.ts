@@ -1,6 +1,6 @@
 export const treeExamplesEnUS = {
   copy: {
-    files: 'Workspace files',
+    files: 'Example files',
     source: 'Source',
     components: 'Components',
     locked: 'Locked file',

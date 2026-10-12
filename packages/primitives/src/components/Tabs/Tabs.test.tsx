@@ -16,7 +16,7 @@ function TabsExample({
 }) {
   return (
     <Tabs value={value} defaultValue={defaultValue} onValueChange={onValueChange}>
-      <Tabs.List aria-label="Project sections">
+      <Tabs.List aria-label="Item sections">
         <Tabs.Tab value="overview">Overview</Tabs.Tab>
         <Tabs.Tab disabled value="settings">
           Settings

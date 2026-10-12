@@ -18,11 +18,11 @@ export default function App() {
             </Table.Header>
             <Table.Body>
               <Table.Row>
-                <Table.Cell>Virgo Design</Table.Cell>
+                <Table.Cell>Item A</Table.Cell>
                 <Table.Cell align="end">48</Table.Cell>
               </Table.Row>
               <Table.Row>
-                <Table.Cell>Virgo Pro</Table.Cell>
+                <Table.Cell>Item B</Table.Cell>
                 <Table.Cell align="end">8</Table.Cell>
               </Table.Row>
             </Table.Body>
@@ -55,11 +55,11 @@ export default function App() {
           </Table.Header>
           <Table.Body>
             <Table.Row>
-              <Table.Cell>Virgo Design</Table.Cell>
+              <Table.Cell>Item A</Table.Cell>
               <Table.Cell align="end">48</Table.Cell>
             </Table.Row>
             <Table.Row>
-              <Table.Cell>Virgo Pro</Table.Cell>
+              <Table.Cell>Item B</Table.Cell>
               <Table.Cell align="end">8</Table.Cell>
             </Table.Row>
           </Table.Body>

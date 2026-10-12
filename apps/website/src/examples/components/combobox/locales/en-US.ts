@@ -1,6 +1,6 @@
 export const comboboxExamplesEnUS = {
   copy: {
-    project: 'Project',
+    project: 'Item',
     search: 'Search suggestions',
     unavailable: 'Legacy — unavailable',
     empty: 'No matching options',

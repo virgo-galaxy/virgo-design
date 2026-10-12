@@ -92,12 +92,12 @@ describe('Layout', () => {
         ref={ref}
         collapsible
         className="custom-sidebar"
-        header={({ collapsed }) => (collapsed ? 'V' : 'Virgo Design')}
+        header={({ collapsed }) => (collapsed ? 'V' : 'Item A')}
         footer={<a href="#settings">Settings</a>}
       >
         {({ collapsed }) => (
-          <a href="#projects" aria-label="Projects">
-            {collapsed ? 'P' : 'Projects'}
+          <a href="#items" aria-label="Items">
+            {collapsed ? 'P' : 'Items'}
           </a>
         )}
       </Layout.Sidebar>,
@@ -106,13 +106,13 @@ describe('Layout', () => {
     expect(ref.current?.style.getPropertyValue('--vd-layout-sidebar-width')).toBe(
       'calc(var(--vd-sizing-80) * 3)',
     );
-    expect(screen.getByText('Virgo Design')).toBeVisible();
+    expect(screen.getByText('Item A')).toBeVisible();
     const trigger = screen.getByRole('button', { name: 'Collapse sidebar' });
     const initialIcon = trigger.querySelector('svg')?.innerHTML;
     await user.click(trigger);
     expect(ref.current).toHaveAttribute('data-state', 'collapsed');
     expect(screen.getByText('V')).toBeVisible();
-    expect(screen.getByRole('link', { name: 'Projects' })).toHaveTextContent('P');
+    expect(screen.getByRole('link', { name: 'Items' })).toHaveTextContent('P');
     expect(trigger.querySelector('svg')?.innerHTML).not.toBe(initialIcon);
     expect(trigger).toHaveFocus();
   });
@@ -121,7 +121,7 @@ describe('Layout', () => {
     const user = userEvent.setup();
     render(
       <Layout.Sidebar collapsible collapsedWidth={0} triggerPlacement="edge">
-        <a href="#projects">Projects</a>
+        <a href="#items">Items</a>
       </Layout.Sidebar>,
     );
 
@@ -135,7 +135,7 @@ describe('Layout', () => {
     expect(aside).toHaveAttribute('data-state', 'collapsed');
     expect(contents).toHaveAttribute('hidden');
     expect(contents).toHaveAttribute('inert');
-    expect(screen.queryByRole('link', { name: 'Projects' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Items' })).not.toBeInTheDocument();
     expect(trigger).toHaveAccessibleName('Expand sidebar');
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
     expect(trigger).toHaveFocus();
@@ -143,7 +143,7 @@ describe('Layout', () => {
     await user.keyboard(' ');
     expect(aside).toHaveAttribute('data-state', 'expanded');
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByRole('link', { name: 'Projects' })).toBeVisible();
+    expect(screen.getByRole('link', { name: 'Items' })).toBeVisible();
   });
 
   it('supports zero-width controlled overlay and custom external controls', () => {
@@ -180,8 +180,8 @@ describe('Layout', () => {
           height="var(--vd-sizing-72)"
           position="sticky"
           top={8}
-          logo="Virgo"
-          actions={<button>Account</button>}
+          logo="Example"
+          actions={<button>Section</button>}
           surface={{
             tone: 'elevated',
             material: 'glass',
@@ -216,8 +216,8 @@ describe('Layout', () => {
         gap="clamp(20px, 3vw, 64px)"
         paddingInline={32}
         contentAlign="center"
-        logo={<a href="#home">Virgo</a>}
-        actions={<button>Account</button>}
+        logo={<a href="#home">Example</a>}
+        actions={<button>Section</button>}
       >
         Navigation
       </Layout.Header>,
@@ -231,11 +231,11 @@ describe('Layout', () => {
     expect(header.style.getPropertyValue('--vd-layout-header-gap')).toBe('clamp(20px, 3vw, 64px)');
     expect(header.style.getPropertyValue('--vd-layout-header-padding-inline')).toBe('32px');
     expect(header.querySelector('[data-slot="header-logo"]')).toContainElement(
-      screen.getByRole('link', { name: 'Virgo' }),
+      screen.getByRole('link', { name: 'Example' }),
     );
     expect(header.querySelector('[data-slot="header-content"]')).toHaveTextContent('Navigation');
     expect(header.querySelector('[data-slot="header-actions"]')).toContainElement(
-      screen.getByRole('button', { name: 'Account' }),
+      screen.getByRole('button', { name: 'Section' }),
     );
   });
 
@@ -249,19 +249,19 @@ describe('Layout', () => {
     expect(header.querySelector('[data-slot="header-content"]')).toHaveTextContent('Navigation');
     expect(header.querySelector('[data-slot="header-actions"]')).not.toBeInTheDocument();
 
-    rerender(<Layout.Header logo="Virgo" />);
+    rerender(<Layout.Header logo="Example" />);
     header = screen.getByRole('banner');
-    expect(header.querySelector('[data-slot="header-logo"]')).toHaveTextContent('Virgo');
+    expect(header.querySelector('[data-slot="header-logo"]')).toHaveTextContent('Example');
     expect(header.querySelector('[data-slot="header-content"]')).not.toBeInTheDocument();
     expect(header.querySelector('[data-slot="header-actions"]')).not.toBeInTheDocument();
 
-    rerender(<Layout.Header actions={<button>Account</button>} contentAlign="end" />);
+    rerender(<Layout.Header actions={<button>Section</button>} contentAlign="end" />);
     header = screen.getByRole('banner');
     expect(header).toHaveAttribute('data-content-align', 'end');
     expect(header.querySelector('[data-slot="header-logo"]')).not.toBeInTheDocument();
     expect(header.querySelector('[data-slot="header-content"]')).not.toBeInTheDocument();
     expect(header.querySelector('[data-slot="header-actions"]')).toContainElement(
-      screen.getByRole('button', { name: 'Account' }),
+      screen.getByRole('button', { name: 'Section' }),
     );
 
     rerender(<Layout.Header />);

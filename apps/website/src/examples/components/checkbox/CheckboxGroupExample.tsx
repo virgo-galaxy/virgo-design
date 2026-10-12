@@ -10,13 +10,13 @@ export default function App() {
   const name = useId();
   return (
     <Checkbox.Group
-      defaultValue={['pear', 'orange']}
+      defaultValue={['option-b', 'option-c']}
       name={name}
-      aria-label={t('examples.checkbox.copy.fruit')}
+      aria-label={t('examples.checkbox.copy.options')}
     >
-      <Checkbox value="apple">{t('examples.checkbox.copy.apple')}</Checkbox>
-      <Checkbox value="pear">{t('examples.checkbox.copy.pear')}</Checkbox>
-      <Checkbox value="orange">{t('examples.checkbox.copy.orange')}</Checkbox>
+      <Checkbox value="option-a">{t('examples.checkbox.copy.optionA')}</Checkbox>
+      <Checkbox value="option-b">{t('examples.checkbox.copy.optionB')}</Checkbox>
+      <Checkbox value="option-c">{t('examples.checkbox.copy.optionC')}</Checkbox>
     </Checkbox.Group>
   );
 }

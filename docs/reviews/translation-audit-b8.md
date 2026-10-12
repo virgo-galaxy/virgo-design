@@ -9,7 +9,7 @@
 | 必须翻译           | 修复 12 处直接 JSX 文案：7 个普通 specimen 说明、2 个 BASE、STEP 6、Solid、Subtle；翻译状态色区域的动态 aria-label；修复 Card 初始状态和操作反馈、已经本地化的示例反馈切回英文、复制反馈随语言更新。补译 16 个英中相同的普通界面 locale 值，并修正相关标题措辞。 |
 | 合理保留英文       | 公开组件名称与导入名称一致，如 Button、ContextMenu、Textarea；图标名用于资产识别；用户可编辑的示例工作区名称作为示例数据保留。                                                                                                                                   |
 | 技术标识           | API、React、SCSS、PDF、PNG、SVG、属性名、枚举值、token 路径、单位、快捷键和 DOM ID 保留。实际朗读的 aria-label 与 DOM ID 分开审查。                                                                                                                              |
-| 品牌/代码 specimen | Virgo Design、Virgo、GitHub、Pokeya 等品牌或身份；代码签名、代码源码和字体多语种样张保留。字体样张中的简繁中文、日文、韩文不属于界面漏译。                                                                                                                       |
+| 品牌/代码 specimen | Virgo Design、Virgo、GitHub、Demo User 等品牌或身份；代码签名、代码源码和字体多语种样张保留。字体样张中的简繁中文、日文、韩文不属于界面漏译。                                                                                                                    |
 
 初始直接 JSX 及字面量属性清单共有 134 处候选，逐项归类见 [审计清单](translation-audit-b8.inventory.json)：必须翻译 12、合理保留英文 33、技术标识 66、品牌/代码 specimen 23。这些是候选出现次数，不是全部翻译键数量；动态属性、模板字符串、state、metadata 和 API 另行检查。
 

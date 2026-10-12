@@ -1,11 +1,11 @@
 export const breadcrumbExamplesEnUS = {
   copy: {
     home: 'Home',
-    applicationCenter: 'Application Center',
-    applicationList: 'Application List',
-    anApplication: 'An Application',
-    userIdentifier: 'User identifier',
-    users: 'Users',
+    applicationCenter: 'Section A',
+    applicationList: 'Section B',
+    anApplication: 'Item A',
+    userIdentifier: 'Item identifier',
+    users: 'Items',
     basicHierarchy: 'Basic hierarchy',
     theFinalItemIdentifiesTheCurrentPage: 'The final item identifies the current page.',
     itemIcons: 'Item icons',
@@ -18,6 +18,6 @@ export const breadcrumbExamplesEnUS = {
       'Runtime values render through normal React children.',
   },
   details: {
-    newUser: 'New user',
+    newUser: 'New item',
   },
 } as const;

@@ -16,11 +16,11 @@ export default function App() {
         </Table.Header>
         <Table.Body>
           <Table.Row selected>
-            <Table.Head scope="row">Virgo Design</Table.Head>
+            <Table.Head scope="row">Item A</Table.Head>
             <Table.Cell align="end">48</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Head scope="row">Virgo Pro</Table.Head>
+            <Table.Head scope="row">Item B</Table.Head>
             <Table.Cell align="end">8</Table.Cell>
           </Table.Row>
         </Table.Body>

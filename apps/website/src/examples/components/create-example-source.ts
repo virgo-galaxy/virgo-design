@@ -1,9 +1,21 @@
 import { enUS } from '@/i18n/registry';
 
+import avatarFixturesSource from './avatar/fixtures.ts?raw';
 import paginationLabelsSource from './pagination/use-pagination-labels.ts?raw';
+import surfaceFixturesSource from './surface/fixtures.ts?raw';
 
 // Copied examples use canonical English and carry no website-only imports.
 export function createExampleSource(source: string): string {
+  // Flatten these local image fixtures only at the copy boundary.
+  for (const [name, fixtureSource] of [
+    ['avatarImageFixture', avatarFixturesSource],
+    ['surfaceImageFixture', surfaceFixturesSource],
+  ] as const) {
+    source = source.replace(
+      `import { ${name} } from './fixtures';`,
+      fixtureSource.replace(/^export /gm, ''),
+    );
+  }
   source = source
     .replace(/^import[^;]+from ['"]@\/i18n['"];?\s*\n/gm, '')
     .replace(/useAppLocale\(\)/g, "'en-US'");

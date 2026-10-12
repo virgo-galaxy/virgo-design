@@ -8,7 +8,7 @@ export const accordionExamplesZhCN = {
       'Root 协调 Item、Trigger 和 Content，不管理应用内容。',
     behavior: '行为',
     stateCanBeControlledOrUncontrolledWithOneOrSeveral:
-      '状态可受控或非受控，支持展开一个或多个项目。',
+      '状态可受控或非受控，支持展开一个或多个条目。',
     keyboard: '键盘',
     arrowKeysHomeAndEndMoveFocusBetweenEnabledHeadings:
       '方向键、Home 和 End 在启用标题之间移动焦点。',

@@ -7,7 +7,7 @@ export const breadcrumbZhCN = {
     description: '通过原生链接、有序列表语义和明确的当前页面标记，表达层级中的当前位置。',
   },
   facts: {
-    items: '项目',
+    items: '条目',
     separator: '分隔符',
     custom: '自定义',
     semantics: '语义',
@@ -25,14 +25,14 @@ export const breadcrumbZhCN = {
   },
   icons: {
     title: '图标',
-    description: '装饰图标可与项目标签组合，不改变默认分隔符或链接语义。',
+    description: '装饰图标可与条目标签组合，不改变默认分隔符或链接语义。',
   },
   separator: {
     title: '分隔符',
-    description: '仅改变装饰分隔符；项目内容与层级保持一致。',
+    description: '仅改变装饰分隔符；条目内容与层级保持一致。',
   },
   dynamicValue: {
     title: '动态值',
-    description: '运行时值可通过 ReactNode 项目内容自然呈现，无需集成路由。',
+    description: '运行时值可通过 ReactNode 条目内容自然呈现，无需集成路由。',
   },
 } satisfies LocaleOf<typeof breadcrumbEnUS>;

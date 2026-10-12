@@ -4,7 +4,7 @@ import type { menuSystemEnUS } from './en-US';
 
 export const menuSystemZhCN = {
   facts: {
-    items: '项目',
+    items: '条目',
     shared: '共享',
     input: '输入',
     keyboard: '键盘',
@@ -29,7 +29,7 @@ export const menuSystemZhCN = {
     description: '点击 Actions。悬停 Export → Image，或使用方向键导航。Escape 每次返回一层。',
   },
   menuPreferences: {
-    title: '复选与单选项目',
+    title: '复选与单选条目',
     description: '选择后偏好设置菜单保持打开。快捷键标签仅用于显示。',
   },
   menuDensity: {
@@ -51,8 +51,8 @@ export const menuSystemZhCN = {
     description: '弹出层锚定指针，并在视口边缘调整位置。键盘打开时锚定已聚焦目标。',
   },
   contextSettings: {
-    title: '共享项目系统',
-    description: '上下文菜单支持相同的持续生效复选项目与分组单选项目。',
+    title: '共享条目系统',
+    description: '上下文菜单支持相同的持续生效复选条目与分组单选条目。',
   },
   menubar: {
     overview: {

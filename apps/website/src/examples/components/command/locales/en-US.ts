@@ -1,8 +1,8 @@
 export const commandExamplesEnUS = {
   copy: {
     noMatchingCommands: 'No matching commands.',
-    openDashboard: 'Open dashboard',
-    switchWorkspace: 'Switch workspace',
+    openDashboard: 'Open view A',
+    switchWorkspace: 'Switch example',
     openPreferences: 'Open preferences',
     unavailableCommand: 'Unavailable command',
     openCommandPalette: 'Open command palette',
@@ -11,7 +11,7 @@ export const commandExamplesEnUS = {
     typeACommand: 'Type a command…',
     selected: 'Selected:',
     prefixFilter: 'Prefix filter',
-    tryPref: 'Try pref…',
+    tryPref: 'Try option-b…',
     noPrefixMatch: 'No prefix match.',
     searchInlineCommands: 'Search inline commands',
     searchCommands: 'Search commands…',
@@ -26,7 +26,7 @@ export const commandExamplesEnUS = {
     heroCommandSearch: 'Hero command search',
   },
   details: {
-    workspace: 'Workspace',
+    workspace: 'Example',
     settings: 'Settings',
     noCommandSelected: 'No command selected.',
     none: 'None',

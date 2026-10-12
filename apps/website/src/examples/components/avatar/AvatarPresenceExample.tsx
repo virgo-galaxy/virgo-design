@@ -8,7 +8,7 @@ export default function App() {
 
   return (
     <Badge dot intent="success" aria-label={t('examples.avatar.copy.online')}>
-      <Avatar fallback="PK" aria-label={t('examples.avatar.copy.pokeya')} />
+      <Avatar fallback="DU" aria-label={t('examples.avatar.copy.demoUser')} />
     </Badge>
   );
 }

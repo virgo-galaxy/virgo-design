@@ -7,9 +7,9 @@ import { Select } from './index';
 import type { SelectOptionProps, SelectProps, SelectSize } from './Select.types';
 
 const options: ReadonlyArray<{ value: string; label: string; disabled?: boolean }> = [
-  { value: 'design', label: 'Virgo Design' },
-  { value: 'docs', label: 'Virgo Cloud Docs' },
-  { value: 'retro', label: 'Virgo Retro', disabled: true },
+  { value: 'design', label: 'Item A' },
+  { value: 'docs', label: 'Item B' },
+  { value: 'retro', label: 'Item C', disabled: true },
 ];
 
 type SelectExampleProps = Omit<SelectProps, 'children'> & {
@@ -50,13 +50,13 @@ describe('Select', () => {
             defaultValue={mode === 'uncontrolled' ? 'design' : undefined}
             onValueChange={setValue}
           >
-            <Select.Trigger aria-label="Project" />
+            <Select.Trigger aria-label="Item" />
             <Select.Content>
               <>
                 <PreviousOption value="design" intent="success">
-                  Virgo Design
+                  Item A
                 </PreviousOption>
-                <PreviousOption value="docs">Virgo Cloud Docs</PreviousOption>
+                <PreviousOption value="docs">Item B</PreviousOption>
               </>
             </Select.Content>
           </Select>
@@ -64,20 +64,20 @@ describe('Select', () => {
       }
 
       render(<Example />);
-      const trigger = screen.getByRole('button', { name: 'Project' });
-      expect(trigger).toHaveTextContent('Virgo Design');
+      const trigger = screen.getByRole('button', { name: 'Item' });
+      expect(trigger).toHaveTextContent('Item A');
       expect(trigger.querySelector('[data-slot="value"]')).not.toHaveAttribute('data-placeholder');
       expect(trigger.querySelector('[data-slot="value"]')).toHaveAttribute(
         'data-intent',
         'success',
       );
       await user.click(trigger);
-      expect(screen.getByRole('option', { name: 'Virgo Design' })).toHaveAttribute(
+      expect(screen.getByRole('option', { name: 'Item A' })).toHaveAttribute(
         'aria-selected',
         'true',
       );
-      await user.click(screen.getByRole('option', { name: 'Virgo Cloud Docs' }));
-      expect(trigger).toHaveTextContent('Virgo Cloud Docs');
+      await user.click(screen.getByRole('option', { name: 'Item B' }));
+      expect(trigger).toHaveTextContent('Item B');
       expect(trigger.querySelector('[data-slot="value"]')).not.toHaveAttribute('data-placeholder');
     },
   );
@@ -89,20 +89,20 @@ describe('Select', () => {
     PreviousOption.displayName = 'Select.Option';
     render(
       <Select.Multiple defaultValue={['design']}>
-        <Select.Trigger aria-label="Projects" />
+        <Select.Trigger aria-label="Items" />
         <Select.Content>
           <PreviousOption value="design" intent="success">
-            Virgo Design
+            Item A
           </PreviousOption>
         </Select.Content>
       </Select.Multiple>,
     );
-    expect(document.querySelector('[data-slot="selected-tag"]')).toHaveTextContent('Virgo Design');
+    expect(document.querySelector('[data-slot="selected-tag"]')).toHaveTextContent('Item A');
     expect(document.querySelector('[data-slot="selected-tag"]')).toHaveAttribute(
       'data-intent',
       'success',
     );
-    expect(screen.getByRole('button', { name: 'Remove Virgo Design' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Remove Item A' })).toBeInTheDocument();
   });
 
   it('shares option intent with removable tags and updates it without changing selection', async () => {
@@ -164,14 +164,14 @@ describe('Select', () => {
     const user = userEvent.setup();
     render(
       <Select.Multiple>
-        <Select.Trigger aria-label="Projects" placeholder="All projects" />
+        <Select.Trigger aria-label="Items" placeholder="All items" />
         <Select.Content>
           <Select.Option value="design">Design</Select.Option>
           <Select.Option value="docs">Docs</Select.Option>
         </Select.Content>
       </Select.Multiple>,
     );
-    const trigger = screen.getByRole('button', { name: 'Projects' });
+    const trigger = screen.getByRole('button', { name: 'Items' });
     await user.click(trigger);
     await user.click(screen.getByRole('option', { name: 'Design' }));
     await user.click(screen.getByRole('option', { name: 'Docs' }));
@@ -187,7 +187,7 @@ describe('Select', () => {
     expect(trigger).toHaveFocus();
     expect(screen.queryByRole('button', { name: 'Remove Design' })).toBeNull();
     await user.click(screen.getByRole('button', { name: 'Remove Docs' }));
-    expect(trigger).toHaveTextContent('All projects');
+    expect(trigger).toHaveTextContent('All items');
   });
 
   it('supports controlled multi-values and disables removal when read-only or disabled', async () => {
@@ -195,7 +195,7 @@ describe('Select', () => {
     const change = vi.fn();
     const fixture = (props: { disabled?: boolean; readOnly?: boolean }) => (
       <Select.Multiple {...props} value={['design']} onValueChange={change}>
-        <Select.Trigger aria-label="Projects" />
+        <Select.Trigger aria-label="Items" />
         <Select.Content>
           <Select.Option value="design">Design</Select.Option>
           <Select.Option value="docs">Docs</Select.Option>
@@ -208,19 +208,19 @@ describe('Select', () => {
     expect(screen.getByRole('button', { name: 'Remove Design' })).toBeInTheDocument();
     rerender(fixture({ readOnly: true }));
     expect(screen.getByRole('button', { name: 'Remove Design' })).toBeDisabled();
-    await user.click(screen.getByRole('button', { name: 'Projects' }));
+    await user.click(screen.getByRole('button', { name: 'Items' }));
     expect(screen.queryByRole('listbox')).toBeNull();
     rerender(fixture({ disabled: true }));
-    expect(screen.getByRole('button', { name: 'Projects' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Items' })).toBeDisabled();
     expect(screen.getByRole('button', { name: 'Remove Design' })).toBeDisabled();
   });
   it('uses the default medium size and placeholder', () => {
-    render(<SelectExample label="Project" placeholder="Choose a project" />);
+    render(<SelectExample label="Item" placeholder="Choose an item" />);
 
-    const trigger = screen.getByRole('button', { name: 'Project' });
+    const trigger = screen.getByRole('button', { name: 'Item' });
 
     expect(trigger.parentElement).toHaveAttribute('data-size', 'medium');
-    expect(trigger).toHaveTextContent('Choose a project');
+    expect(trigger).toHaveTextContent('Choose an item');
   });
 
   it.each<SelectSize>(['mini', 'small', 'medium', 'large'])('supports the %s size', (size) => {
@@ -236,16 +236,16 @@ describe('Select', () => {
     const user = userEvent.setup();
     const onValueChange = vi.fn();
 
-    render(<SelectExample label="Project" defaultValue="design" onValueChange={onValueChange} />);
+    render(<SelectExample label="Item" defaultValue="design" onValueChange={onValueChange} />);
 
-    const trigger = screen.getByRole('button', { name: 'Project' });
-    expect(trigger).toHaveTextContent('Virgo Design');
+    const trigger = screen.getByRole('button', { name: 'Item' });
+    expect(trigger).toHaveTextContent('Item A');
 
     await user.click(trigger);
-    await user.click(screen.getByRole('option', { name: 'Virgo Cloud Docs' }));
+    await user.click(screen.getByRole('option', { name: 'Item B' }));
 
     expect(onValueChange).toHaveBeenCalledWith('docs');
-    expect(trigger).toHaveTextContent('Virgo Cloud Docs');
+    expect(trigger).toHaveTextContent('Item B');
   });
 
   it('supports controlled values', async () => {
@@ -254,30 +254,30 @@ describe('Select', () => {
     function ControlledSelect() {
       const [value, setValue] = useState('design');
 
-      return <SelectExample label="Controlled project" onValueChange={setValue} value={value} />;
+      return <SelectExample label="Controlled item" onValueChange={setValue} value={value} />;
     }
 
     render(<ControlledSelect />);
 
-    const trigger = screen.getByRole('button', { name: 'Controlled project' });
-    expect(trigger).toHaveTextContent('Virgo Design');
+    const trigger = screen.getByRole('button', { name: 'Controlled item' });
+    expect(trigger).toHaveTextContent('Item A');
 
     await user.click(trigger);
-    await user.click(screen.getByRole('option', { name: 'Virgo Cloud Docs' }));
+    await user.click(screen.getByRole('option', { name: 'Item B' }));
 
-    expect(trigger).toHaveTextContent('Virgo Cloud Docs');
+    expect(trigger).toHaveTextContent('Item B');
   });
 
   it('preserves disabled and invalid states', () => {
-    const { rerender } = render(<SelectExample disabled label="Project" />);
+    const { rerender } = render(<SelectExample disabled label="Item" />);
 
-    let trigger = screen.getByRole('button', { name: 'Project' });
+    let trigger = screen.getByRole('button', { name: 'Item' });
     expect(trigger).toBeDisabled();
     expect(trigger.parentElement).toHaveAttribute('data-disabled', 'true');
 
-    rerender(<SelectExample invalid label="Project" />);
+    rerender(<SelectExample invalid label="Item" />);
 
-    trigger = screen.getByRole('button', { name: 'Project' });
+    trigger = screen.getByRole('button', { name: 'Item' });
     expect(trigger).toHaveAttribute('aria-invalid', 'true');
     expect(trigger.parentElement).toHaveAttribute('data-invalid', 'true');
   });
@@ -286,11 +286,11 @@ describe('Select', () => {
     const user = userEvent.setup();
     const onValueChange = vi.fn();
 
-    render(<SelectExample label="Project" defaultValue="design" onValueChange={onValueChange} />);
+    render(<SelectExample label="Item" defaultValue="design" onValueChange={onValueChange} />);
 
-    await user.click(screen.getByRole('button', { name: 'Project' }));
+    await user.click(screen.getByRole('button', { name: 'Item' }));
 
-    const disabledOption = screen.getByRole('option', { name: 'Virgo Retro' });
+    const disabledOption = screen.getByRole('option', { name: 'Item C' });
     expect(disabledOption).toHaveAttribute('aria-disabled', 'true');
 
     await user.click(disabledOption);
@@ -301,21 +301,18 @@ describe('Select', () => {
   it('supports open state, keyboard navigation, and selected check semantics', async () => {
     const user = userEvent.setup();
 
-    render(<SelectExample label="Project" defaultValue="design" />);
+    render(<SelectExample label="Item" defaultValue="design" />);
 
-    const trigger = screen.getByRole('button', { name: 'Project' });
+    const trigger = screen.getByRole('button', { name: 'Item' });
     trigger.focus();
     await user.keyboard('{ArrowDown}');
 
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByRole('option', { name: 'Virgo Design' })).toHaveAttribute(
-      'aria-selected',
-      'true',
-    );
+    expect(screen.getByRole('option', { name: 'Item A' })).toHaveAttribute('aria-selected', 'true');
 
     await user.keyboard('{ArrowDown}{Enter}');
 
-    expect(trigger).toHaveTextContent('Virgo Cloud Docs');
+    expect(trigger).toHaveTextContent('Item B');
     expect(trigger).toHaveFocus();
   });
 
@@ -323,8 +320,8 @@ describe('Select', () => {
     const rootRef = createRef<HTMLDivElement>();
     const triggerRef = createRef<HTMLButtonElement>();
     const { container } = render(
-      <Select ref={rootRef} className="consumer-select" defaultValue="design" name="project">
-        <Select.Trigger ref={triggerRef} aria-label="Project" />
+      <Select ref={rootRef} className="consumer-select" defaultValue="design" name="item">
+        <Select.Trigger ref={triggerRef} aria-label="Item" />
         <Select.Content>
           {options.map((option) => (
             <Select.Option disabled={option.disabled} key={option.value} value={option.value}>
@@ -336,8 +333,8 @@ describe('Select', () => {
     );
 
     expect(rootRef.current).toHaveClass('consumer-select');
-    expect(triggerRef.current).toBe(screen.getByRole('button', { name: 'Project' }));
-    expect(container.querySelector('input[name="project"]')).toHaveValue('design');
+    expect(triggerRef.current).toBe(screen.getByRole('button', { name: 'Item' }));
+    expect(container.querySelector('input[name="item"]')).toHaveValue('design');
   });
 });
 
@@ -346,7 +343,7 @@ it('customizes selected rendering and indicator slots without changing option na
   render(
     <Select defaultValue="design">
       <Select.Trigger
-        aria-label="Project"
+        aria-label="Item"
         indicator={<span>+</span>}
         renderValue={(value, label) => (
           <span data-testid="selection">
@@ -361,8 +358,8 @@ it('customizes selected rendering and indicator slots without changing option na
     </Select>,
   );
   expect(screen.getByTestId('selection')).toHaveTextContent('design: Design');
-  await user.click(screen.getByRole('button', { name: 'Project' }));
+  await user.click(screen.getByRole('button', { name: 'Item' }));
   await user.keyboard('{ArrowDown}{Enter}');
   expect(screen.getByTestId('selection')).toHaveTextContent('docs: Docs');
-  expect(screen.getByRole('button', { name: 'Project' })).toHaveFocus();
+  expect(screen.getByRole('button', { name: 'Item' })).toHaveFocus();
 });

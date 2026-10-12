@@ -17,7 +17,7 @@ describe('Radio', () => {
     const onValueChange = vi.fn();
 
     render(
-      <Radio.Group defaultValue="pear" onValueChange={onValueChange} aria-label="Fruit">
+      <Radio.Group defaultValue="pear" onValueChange={onValueChange} aria-label="Options">
         <Radio value="apple">Apple</Radio>
         <Radio value="pear">Pear</Radio>
         <Radio value="orange">Orange</Radio>
@@ -58,7 +58,7 @@ describe('Radio', () => {
     const ref = createRef<HTMLInputElement>();
 
     render(
-      <Radio.Group aria-label="Fruit">
+      <Radio.Group aria-label="Options">
         <Radio ref={ref} value="apple" name="fruit">
           Apple
         </Radio>

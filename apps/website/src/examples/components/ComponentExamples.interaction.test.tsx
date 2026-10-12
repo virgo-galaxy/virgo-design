@@ -82,20 +82,20 @@ describe('Independent component examples', () => {
   it('keeps check-all state local to each mounted use case', () => {
     render(
       <>
-        <section aria-label="First fruit">
+        <section aria-label="First options">
           <CheckboxCheckAllExample />
         </section>
-        <section aria-label="Second fruit">
+        <section aria-label="Second options">
           <CheckboxCheckAllExample />
         </section>
       </>,
     );
-    const first = within(screen.getByRole('region', { name: 'First fruit' }));
-    const second = within(screen.getByRole('region', { name: 'Second fruit' }));
+    const first = within(screen.getByRole('region', { name: 'First options' }));
+    const second = within(screen.getByRole('region', { name: 'Second options' }));
     expect(first.getByRole('checkbox', { name: 'Check all' })).toBePartiallyChecked();
     fireEvent.click(first.getByRole('checkbox', { name: 'Check all' }));
-    expect(first.getByRole('checkbox', { name: 'Pear' })).toBeChecked();
-    expect(second.getByRole('checkbox', { name: 'Pear' })).not.toBeChecked();
+    expect(first.getByRole('checkbox', { name: 'Option B' })).toBeChecked();
+    expect(second.getByRole('checkbox', { name: 'Option B' })).not.toBeChecked();
     expect(second.getByRole('checkbox', { name: 'Check all' })).toBePartiallyChecked();
   });
 
@@ -112,12 +112,12 @@ describe('Independent component examples', () => {
     );
     const first = within(screen.getByRole('region', { name: 'First radio' }));
     const second = within(screen.getByRole('region', { name: 'Second radio' }));
-    expect(first.getByRole('radio', { name: 'Pear' }).getAttribute('name')).not.toBe(
-      second.getByRole('radio', { name: 'Pear' }).getAttribute('name'),
+    expect(first.getByRole('radio', { name: 'Option B' }).getAttribute('name')).not.toBe(
+      second.getByRole('radio', { name: 'Option B' }).getAttribute('name'),
     );
-    fireEvent.click(first.getByRole('radio', { name: 'Apple' }));
-    expect(first.getByRole('radio', { name: 'Apple' })).toBeChecked();
-    expect(second.getByRole('radio', { name: 'Pear' })).toBeChecked();
+    fireEvent.click(first.getByRole('radio', { name: 'Option A' }));
+    expect(first.getByRole('radio', { name: 'Option A' })).toBeChecked();
+    expect(second.getByRole('radio', { name: 'Option B' })).toBeChecked();
   });
 
   it('retains a closable collection through bulk source disclosure without changing its sibling', () => {
@@ -159,21 +159,21 @@ describe('Independent component examples', () => {
   ] as const)('preserves the %s form through source disclosure', async (_name, example) => {
     const user = userEvent.setup();
     render(<ComponentExample example={example} />);
-    await user.click(screen.getByRole('button', { name: 'Edit workspace' }));
-    const input = screen.getByRole('textbox', { name: 'Workspace name' });
+    await user.click(screen.getByRole('button', { name: 'Edit example' }));
+    const input = screen.getByRole('textbox', { name: 'Example name' });
     expect(input).toHaveAttribute('name', 'workspaceName');
     expect(input.closest('form')).toHaveAttribute('data-layout', 'vertical');
     const save = screen.getByRole('button', { name: 'Save changes' });
     expect((save as HTMLButtonElement).form).toBe(input.closest('form'));
     await user.clear(input);
-    await user.type(input, 'Independent workspace');
+    await user.type(input, 'Independent example');
     await user.click(screen.getByRole('button', { name: 'Save changes' }));
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
     await user.click(screen.getByRole('button', { name: `View source for ${example.title}` }));
     await user.click(screen.getByRole('button', { name: `Hide source for ${example.title}` }));
-    await user.click(screen.getByRole('button', { name: 'Edit workspace' }));
-    expect(screen.getByRole('textbox', { name: 'Workspace name' })).toHaveValue(
-      'Independent workspace',
+    await user.click(screen.getByRole('button', { name: 'Edit example' }));
+    expect(screen.getByRole('textbox', { name: 'Example name' })).toHaveValue(
+      'Independent example',
     );
   });
 
@@ -196,9 +196,9 @@ describe('Independent component examples', () => {
     fireEvent.change(screen.getByRole('combobox', { name: 'Search command palette' }), {
       target: { value: 'home' },
     });
-    fireEvent.click(await screen.findByRole('option', { name: 'Open dashboard' }));
+    fireEvent.click(await screen.findByRole('option', { name: 'Open view A' }));
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
-    expect(screen.getByText('Selected: open-dashboard')).toBeInTheDocument();
+    expect(screen.getByText('Selected: action-a')).toBeInTheDocument();
     expect(screen.getByText('Selected: No command selected.')).toBeInTheDocument();
   });
 
@@ -211,34 +211,34 @@ describe('Independent component examples', () => {
       </>,
     );
     await user.click(screen.getByRole('button', { name: 'Show success' }));
-    const statusViewport = screen.getByRole('region', { name: 'Status notifications' });
-    const archiveViewport = screen.getByRole('region', { name: 'Archive notifications' });
+    const statusViewport = screen.getByRole('region', { name: 'Status messages' });
+    const archiveViewport = screen.getByRole('region', { name: 'Archive messages' });
     expect(statusViewport.querySelectorAll('[data-toast-root]')).toHaveLength(1);
     expect(archiveViewport.querySelectorAll('[data-toast-root]')).toHaveLength(0);
     await user.click(screen.getByRole('button', { name: 'Archive with Undo' }));
     expect(archiveViewport.querySelectorAll('[data-toast-root]')).toHaveLength(1);
     await user.click(within(archiveViewport).getByRole('button', { name: 'Undo' }));
-    expect(screen.getByText('Document is in your workspace.')).toBeInTheDocument();
+    expect(screen.getByText('Document is in your example.')).toBeInTheDocument();
     expect(statusViewport.querySelectorAll('[data-toast-root]')).toHaveLength(1);
   });
 
   it.each([
-    [ToastIntentsExample, 'Status notifications'],
-    [ToastUndoExample, 'Archive notifications'],
-    [ToastStackExample, 'Stacked notifications'],
-    [ToastPlacementExample, 'Positioned notifications'],
+    [ToastIntentsExample, 'Status messages'],
+    [ToastUndoExample, 'Archive messages'],
+    [ToastStackExample, 'Stacked messages'],
+    [ToastPlacementExample, 'Positioned messages'],
   ] as const)('keeps the %s viewport inside its preview canvas (%s)', (Example, name) => {
     const { container } = render(<Example />);
     expect(container).toContainElement(screen.getByRole('region', { name }));
   });
 
-  it('stacks local toasts and dismisses only the selected notification', async () => {
+  it('stacks local toasts and dismisses only the selected message', async () => {
     const user = userEvent.setup();
     render(<ToastStackExample />);
-    const viewport = screen.getByRole('region', { name: 'Stacked notifications' });
+    const viewport = screen.getByRole('region', { name: 'Stacked messages' });
     await user.click(screen.getByRole('button', { name: 'Add two toasts' }));
     expect(within(viewport).getAllByRole('status')).toHaveLength(2);
-    await user.click(within(viewport).getAllByRole('button', { name: 'Dismiss notification' })[0]!);
+    await user.click(within(viewport).getAllByRole('button', { name: 'Dismiss message' })[0]!);
     expect(within(viewport).getAllByRole('status')).toHaveLength(1);
     await user.click(screen.getByRole('button', { name: 'Add two toasts' }));
     expect(within(viewport).getAllByRole('status')).toHaveLength(3);
@@ -247,12 +247,12 @@ describe('Independent component examples', () => {
   it('reopens the positioned toast after dismissal and switches placement', async () => {
     const user = userEvent.setup();
     render(<ToastPlacementExample />);
-    const viewport = screen.getByRole('region', { name: 'Positioned notifications' });
+    const viewport = screen.getByRole('region', { name: 'Positioned messages' });
     for (const placement of ['top-start', 'bottom-center', 'top-start']) {
       await user.click(screen.getByRole('button', { name: placement }));
       expect(viewport).toHaveAttribute('data-placement', placement);
       expect(within(viewport).getByRole('status', { name: placement })).toBeInTheDocument();
-      await user.click(within(viewport).getByRole('button', { name: 'Dismiss notification' }));
+      await user.click(within(viewport).getByRole('button', { name: 'Dismiss message' }));
       expect(within(viewport).queryByRole('status')).not.toBeInTheDocument();
     }
   });

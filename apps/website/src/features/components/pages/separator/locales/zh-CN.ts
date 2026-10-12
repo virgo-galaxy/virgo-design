@@ -29,7 +29,7 @@ export const separatorZhCN = {
   },
   vertical: {
     title: '垂直',
-    description: '垂直分隔线在相邻行内项目之间自然伸展。',
+    description: '垂直分隔线在相邻行内条目之间自然伸展。',
   },
   decorative: {
     title: '内容块之间的装饰分隔',

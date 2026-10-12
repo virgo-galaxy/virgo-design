@@ -14,19 +14,19 @@ export default function App() {
         <SegmentedControl
           key={variant}
           variant={variant}
-          defaultValue="pear"
-          aria-label={t('examples.segmentedControl.details.valueFruit', {
+          defaultValue="option-b"
+          aria-label={t('examples.segmentedControl.details.valueOptions', {
             v0: translateExampleText(t, 'segmentedControl', String(variant)),
           })}
         >
-          <SegmentedControl.Item value="apple">
-            {t('examples.segmentedControl.copy.apple')}
+          <SegmentedControl.Item value="option-a">
+            {t('examples.segmentedControl.copy.optionA')}
           </SegmentedControl.Item>
-          <SegmentedControl.Item value="pear">
-            {t('examples.segmentedControl.copy.pear')}
+          <SegmentedControl.Item value="option-b">
+            {t('examples.segmentedControl.copy.optionB')}
           </SegmentedControl.Item>
-          <SegmentedControl.Item value="orange">
-            {t('examples.segmentedControl.copy.orange')}
+          <SegmentedControl.Item value="option-c">
+            {t('examples.segmentedControl.copy.optionC')}
           </SegmentedControl.Item>
         </SegmentedControl>
       ))}

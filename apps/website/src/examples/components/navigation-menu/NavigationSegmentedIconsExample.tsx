@@ -21,7 +21,7 @@ export default function App() {
         </NavigationMenu.Item>
         <NavigationMenu.Separator />
         <NavigationMenu.Item value="projects" icon={<LayoutIcon />}>
-          <NavigationMenu.Link href="#navigation-projects">
+          <NavigationMenu.Link href="#navigation-items">
             {t('examples.navigationMenu.copy.projects')}
           </NavigationMenu.Link>
         </NavigationMenu.Item>

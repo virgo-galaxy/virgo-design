@@ -8,8 +8,8 @@ export default function App() {
 
   return (
     <div className={styles.root!}>
-      <Avatar shape="circle" fallback="PK" aria-label={t('examples.avatar.copy.person')} />
-      <Avatar shape="square" fallback="VD" aria-label={t('examples.avatar.copy.workspace')} />
+      <Avatar shape="circle" fallback="DU" aria-label={t('examples.avatar.copy.person')} />
+      <Avatar shape="square" fallback="EX" aria-label={t('examples.avatar.copy.exampleLabel')} />
     </div>
   );
 }

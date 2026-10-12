@@ -9,7 +9,7 @@ export const progressExamplesEnUS = {
       'Track thickness changes without changing the semantic value.',
     semanticIntents: 'Semantic intents',
     statusColorsExpressMeaningfulTaskOutcomes: 'Status colors express meaningful task outcomes.',
-    deployingDesignTokens: 'Deploying design tokens',
+    deployingDesignTokens: 'Example progress',
     threeOfFourChecks: 'Three of four checks',
   },
   details: {

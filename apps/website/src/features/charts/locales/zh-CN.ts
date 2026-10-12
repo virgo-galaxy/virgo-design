@@ -29,7 +29,7 @@ export const chartsZhCN = {
   declarative: 'A. Virgo 声明式 API',
   advanced: 'B. 原生 EChartsOption',
   advancedDescription:
-    '独立入口支持雷达图、仪表盘、散点图、热力图、桑基图、矩形树图、漏斗图、K 线图、关系图、地理图和 DataZoom。仅在使用高级用法时加载完整引擎。',
+    '独立入口支持雷达图、视图 A、散点图、热力图、桑基图、矩形树图、漏斗图、K 线图、关系图、地理图和 DataZoom。仅在使用高级用法时加载完整引擎。',
   loadingAdvanced: '高级示例加载中…',
   radar: '雷达图',
   heatmap: '日历热力图',

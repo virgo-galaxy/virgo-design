@@ -33,15 +33,15 @@ export function FormPage() {
                 <Form onSubmit={(event) => event.preventDefault()}>
                   <Field required>
                     <Field.Label>{t('examples.form.copy.email')}</Field.Label>
-                    <Input type="email" placeholder="team@virgo.design" />
+                    <Input type="email" placeholder="example@example.test" />
                   </Field>
                   <Field>
                     <Field.Label>{t('examples.form.copy.project')}</Field.Label>
                     <Select>
                       <Select.Trigger placeholder={t('examples.form.copy.choose')} />
                       <Select.Content>
-                        <Select.Option value="design">Virgo Design</Select.Option>
-                        <Select.Option value="pro">Virgo Pro</Select.Option>
+                        <Select.Option value="design">Item A</Select.Option>
+                        <Select.Option value="pro">Item B</Select.Option>
                       </Select.Content>
                     </Select>
                   </Field>

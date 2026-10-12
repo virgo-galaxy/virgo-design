@@ -5,23 +5,23 @@ export const navigationMenuApiZhCN = {
     'navigation-menu-props.properties.variant.description': 'Theme Contract 导航样式。',
     'navigation-menu-props.properties.submenu.description': '嵌套导航内容的呈现方式。',
     'navigation-menu-props.properties.orientation.description': '方向键导航使用的方向。',
-    'navigation-menu-props.properties.value.description': '受控的激活项目值。',
-    'navigation-menu-props.properties.default-value.description': '非受控模式下最初激活的项目值。',
-    'navigation-menu-props.properties.on-value-change.description': '链接激活项目时调用。',
+    'navigation-menu-props.properties.value.description': '受控的激活条目值。',
+    'navigation-menu-props.properties.default-value.description': '非受控模式下最初激活的条目值。',
+    'navigation-menu-props.properties.on-value-change.description': '链接激活条目时调用。',
     'navigation-menu-root-props.properties.variant.description': 'Theme Contract 导航样式。',
     'navigation-menu-root-props.properties.submenu.description': '嵌套导航内容的呈现方式。',
     'navigation-menu-root-props.properties.orientation.description': '方向键导航使用的方向。',
-    'navigation-menu-root-props.properties.value.description': '受控的激活项目值。',
+    'navigation-menu-root-props.properties.value.description': '受控的激活条目值。',
     'navigation-menu-root-props.properties.default-value.description':
-      '非受控模式下最初激活的项目值。',
-    'navigation-menu-root-props.properties.on-value-change.description': '链接激活项目时调用。',
+      '非受控模式下最初激活的条目值。',
+    'navigation-menu-root-props.properties.on-value-change.description': '链接激活条目时调用。',
     'navigation-menu-item-props.properties.icon.description':
-      '此项目的 Link 或 Trigger 共用的装饰图标。',
+      '此条目的 Link 或 Trigger 共用的装饰图标。',
     'navigation-menu-item-props.properties.value.description':
-      '用于与根节点激活状态协调此项目的稳定值。',
+      '用于与根节点激活状态协调此条目的稳定值。',
     'navigation-menu-item-props.properties.disabled.description':
-      '阻止激活此项目的链接或展开触发器。',
-    'navigation-menu-item-props.properties.expanded.description': '此项目嵌套内容的受控展开状态。',
+      '阻止激活此条目的链接或展开触发器。',
+    'navigation-menu-item-props.properties.expanded.description': '此条目嵌套内容的受控展开状态。',
     'navigation-menu-item-props.properties.default-expanded.description':
       '非受控模式下的初始展开状态。',
     'navigation-menu-item-props.properties.on-expanded-change.description':

@@ -11,7 +11,7 @@ export const progressExamplesZhCN = {
     trackThicknessChangesWithoutChangingTheSemanticValue: '轨道厚度变化不改变语义值。',
     semanticIntents: '语义意图',
     statusColorsExpressMeaningfulTaskOutcomes: '状态颜色表达有意义的任务结果。',
-    deployingDesignTokens: '正在部署设计 token',
+    deployingDesignTokens: '示例进度',
     threeOfFourChecks: '四项检查中完成三项',
   },
   details: {

@@ -45,12 +45,12 @@ describe('Input', () => {
 
     render(
       <Input
-        aria-label="Project name"
+        aria-label="Item name"
         autoComplete="off"
         data-testid="project-input"
         name="project"
         onChange={onChange}
-        placeholder="Virgo"
+        placeholder="Example"
       />,
     );
 
@@ -58,7 +58,7 @@ describe('Input', () => {
 
     expect(input).toHaveAttribute('name', 'project');
     expect(input).toHaveAttribute('autocomplete', 'off');
-    expect(input).toHaveAttribute('placeholder', 'Virgo');
+    expect(input).toHaveAttribute('placeholder', 'Example');
 
     await user.type(input, 'Design');
 

@@ -51,7 +51,7 @@ export function DocumentationDetailShell({ breadcrumb, children }: Documentation
                 <span>GitHub</span>
               </a>
             </nav>
-            <span className={styles.copyright}>© {new Date().getFullYear()} Virgo Design</span>
+            <span className={styles.copyright}>© {new Date().getFullYear()} Item A</span>
           </div>
         </Layout.Lane>
       </Layout.Footer>

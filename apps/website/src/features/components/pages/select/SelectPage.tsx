@@ -19,10 +19,10 @@ type DemoOption = {
   disabled?: boolean;
 };
 const projectOptions = [
-  { value: 'design', label: 'Virgo Design' },
-  { value: 'docs', label: 'Virgo Cloud Docs' },
-  { value: 'nsh', label: 'Neural Semantic Highlighting' },
-  { value: 'retro', label: 'Virgo Retro' },
+  { value: 'design', label: 'Item A' },
+  { value: 'docs', label: 'Item A' },
+  { value: 'nsh', label: 'Item B' },
+  { value: 'retro', label: 'Item C' },
 ] as const satisfies ReadonlyArray<DemoOption>;
 type DemoSelectProps = Omit<SelectProps, 'children'> & {
   'aria-label': string;
@@ -80,7 +80,7 @@ export function SelectPage() {
             <ReferenceSpecimen.Stage>
               <div className="select-demo-width select-demo-width--hero">
                 <DemoSelect
-                  aria-label={t('examples.select.copy.referenceProject')}
+                  aria-label={t('examples.select.copy.referenceItem')}
                   defaultValue="design"
                   options={projectOptions}
                 />

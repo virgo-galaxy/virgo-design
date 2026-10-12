@@ -8,28 +8,28 @@ import styles from './AlertIntentsExample.module.scss';
 const intents = [
   {
     intent: 'default',
-    title: 'Workspace notice',
+    title: 'Example notice',
     description: 'This message remains part of the page until its owner removes it.',
   },
   {
     intent: 'info',
     title: 'New settings available',
-    description: 'Review the latest workspace preferences when convenient.',
+    description: 'Review the latest example preferences when convenient.',
   },
   {
     intent: 'success',
-    title: 'Deployment complete',
-    description: 'The production workspace is running the latest version.',
+    title: 'Action complete',
+    description: 'The example action completed successfully.',
   },
   {
     intent: 'warning',
     title: 'Configuration problem',
-    description: 'Update the settings before the next deployment.',
+    description: 'Check the example value and try again.',
   },
   {
     intent: 'error',
     title: 'Connection failed',
-    description: 'Virgo could not reach the deployment service.',
+    description: 'The example action could not be completed.',
   },
 ] as const satisfies ReadonlyArray<{
   intent: AlertIntent;

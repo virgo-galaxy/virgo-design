@@ -70,9 +70,9 @@ describe('Input', () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
 
-    render(<Input clearable aria-label="Project" defaultValue="Virgo" onChange={onChange} />);
+    render(<Input clearable aria-label="Item" defaultValue="Example" onChange={onChange} />);
 
-    const input = screen.getByRole('textbox', { name: 'Project' });
+    const input = screen.getByRole('textbox', { name: 'Item' });
     await user.click(screen.getByRole('button', { name: 'Clear input' }));
 
     expect(input).toHaveValue('');
@@ -86,12 +86,12 @@ describe('Input', () => {
     const onChange = vi.fn();
 
     function ControlledInput() {
-      const [value, setValue] = useState('Virgo');
+      const [value, setValue] = useState('Example');
 
       return (
         <Input
           clearable
-          aria-label="Project"
+          aria-label="Item"
           value={value}
           onChange={(event) => {
             onChange(event.currentTarget.value);
@@ -103,7 +103,7 @@ describe('Input', () => {
 
     render(<ControlledInput />);
 
-    const input = screen.getByRole('textbox', { name: 'Project' });
+    const input = screen.getByRole('textbox', { name: 'Item' });
     await user.click(screen.getByRole('button', { name: 'Clear input' }));
 
     expect(input).toHaveValue('');
@@ -151,19 +151,19 @@ describe('Input', () => {
     render(
       <Input
         ref={ref}
-        aria-label="Project name"
+        aria-label="Item name"
         className="consumer-input"
         name="project"
         onChange={onChange}
-        placeholder="Virgo"
+        placeholder="Example"
       />,
     );
 
-    const input = screen.getByRole('textbox', { name: 'Project name' });
+    const input = screen.getByRole('textbox', { name: 'Item name' });
 
     expect(input).toHaveClass('consumer-input');
     expect(input).toHaveAttribute('name', 'project');
-    expect(input).toHaveAttribute('placeholder', 'Virgo');
+    expect(input).toHaveAttribute('placeholder', 'Example');
     expect(ref.current).toBe(input);
 
     await user.type(input, 'Design');
@@ -270,7 +270,7 @@ describe('Input numeric steppers', () => {
 });
 
 describe('Input held stepping', () => {
-  it('steps immediately, waits for the delay, repeats, and stops on release without a final extra click', () => {
+  it('steps immediately, waits for the delay, repeats, and stops on step C without a final extra click', () => {
     vi.useFakeTimers();
     try {
       render(<Input type="number" steppers aria-label="Count" defaultValue={4} max={20} />);

@@ -65,7 +65,7 @@ export const cardExamples = {
   },
   cardProfile: {
     id: 'card-profile',
-    title: 'Profile composition',
+    title: 'Details composition',
     titleTranslationKey: 'examples.card.copy.profileComposition',
     description: 'Combine an identity, description, and status inside a Card.',
     descriptionTranslationKey:

@@ -7,7 +7,7 @@ import source from './CarouselContentExample.tsx?raw';
 export const carouselExamples = {
   example0: {
     id: 'carousel-content',
-    title: 'Content and workspaces',
+    title: 'Content and examples',
     titleTranslationKey: 'examples.carousel.copy.title0',
     description: 'Automatic playback and interactive pages share one shell.',
     descriptionTranslationKey: 'examples.carousel.copy.description0',

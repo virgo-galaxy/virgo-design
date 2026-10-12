@@ -20,11 +20,11 @@ export default function App() {
       >
         <Combobox.Input aria-label={t('examples.combobox.copy.project')} />
         <Combobox.Content>
-          <Combobox.Option value="design" textValue="Virgo Design">
-            Virgo Design
+          <Combobox.Option value="design" textValue="Item A">
+            Item A
           </Combobox.Option>
-          <Combobox.Option value="pro" textValue="Virgo Pro">
-            Virgo Pro
+          <Combobox.Option value="pro" textValue="Item B">
+            Item B
           </Combobox.Option>
           <Combobox.Empty>{t('examples.combobox.copy.empty')}</Combobox.Empty>
         </Combobox.Content>

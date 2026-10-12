@@ -10,32 +10,32 @@ describe('Form public contract', () => {
   it('renders a native form, forwards its ref and preserves native attributes', () => {
     const ref = createRef<HTMLFormElement>();
     render(
-      <Form ref={ref} aria-label="Profile" id="profile" action="/profile" method="post" noValidate>
-        <input name="name" defaultValue="Virgo" />
+      <Form ref={ref} aria-label="Details" id="profile" action="/details" method="post" noValidate>
+        <input name="name" defaultValue="Example" />
       </Form>,
     );
-    const form = screen.getByRole('form', { name: 'Profile' });
+    const form = screen.getByRole('form', { name: 'Details' });
     expect(form.tagName).toBe('FORM');
     expect(ref.current).toBe(form);
     expect(form).toHaveAttribute('id', 'profile');
-    expect(form).toHaveAttribute('action', '/profile');
+    expect(form).toHaveAttribute('action', '/details');
     expect(form).toHaveAttribute('method', 'post');
     expect(form).toHaveAttribute('novalidate');
   });
 
   it('updates its state data attributes without adding unsupported native form attributes', () => {
-    const { rerender } = render(<Form aria-label="Profile" disabled />);
-    const form = screen.getByRole('form', { name: 'Profile' });
+    const { rerender } = render(<Form aria-label="Details" disabled />);
+    const form = screen.getByRole('form', { name: 'Details' });
     expect(form).toHaveAttribute('data-disabled', 'true');
     expect(form).not.toHaveAttribute('data-readonly');
     expect(form).not.toHaveAttribute('disabled');
 
-    rerender(<Form aria-label="Profile" readOnly />);
+    rerender(<Form aria-label="Details" readOnly />);
     expect(form).not.toHaveAttribute('data-disabled');
     expect(form).toHaveAttribute('data-readonly', 'true');
     expect(form).not.toHaveAttribute('readonly');
 
-    rerender(<Form aria-label="Profile" disabled={false} readOnly={false} />);
+    rerender(<Form aria-label="Details" disabled={false} readOnly={false} />);
     expect(form).not.toHaveAttribute('data-disabled');
     expect(form).not.toHaveAttribute('data-readonly');
   });
@@ -83,13 +83,13 @@ describe('Form public contract', () => {
     const submit = vi.fn((event: FormEvent<HTMLFormElement>) => {
       expect(event.currentTarget).toBe(ref.current);
       expect(event.defaultPrevented).toBe(false);
-      expect(new FormData(event.currentTarget).get('name')).toBe('Virgo');
+      expect(new FormData(event.currentTarget).get('name')).toBe('Example');
       event.preventDefault();
     });
     render(
       <div onSubmit={bubble}>
         <Form ref={ref} onSubmit={submit}>
-          <Input name="name" aria-label="Name" defaultValue="Virgo" />
+          <Input name="name" aria-label="Name" defaultValue="Example" />
           <button type="submit">Save</button>
         </Form>
       </div>,

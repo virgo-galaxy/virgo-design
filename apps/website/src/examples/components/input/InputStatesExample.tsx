@@ -20,12 +20,12 @@ export default function App() {
       <Input
         readOnly
         aria-label={t('examples.input.copy.readOnlyInput')}
-        defaultValue="virgo-galaxy"
+        defaultValue="example-value"
       />
       <Input
         invalid
         aria-label={t('examples.input.copy.invalidInput')}
-        defaultValue="virgo design"
+        defaultValue="example value"
       />
     </div>
   );

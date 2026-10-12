@@ -44,10 +44,10 @@ export function RadioPage() {
               <code>horizontal · standard</code>
             </ReferenceSpecimen.Toolbar>
             <ReferenceSpecimen.Stage>
-              <Radio.Group defaultValue="pear" aria-label={t('examples.radio.copy.fruit')}>
-                <Radio value="apple">{t('examples.radio.copy.apple')}</Radio>
-                <Radio value="pear">{t('examples.radio.copy.pear')}</Radio>
-                <Radio value="orange">{t('examples.radio.copy.orange')}</Radio>
+              <Radio.Group defaultValue="option-b" aria-label={t('examples.radio.copy.options')}>
+                <Radio value="option-a">{t('examples.radio.copy.optionA')}</Radio>
+                <Radio value="option-b">{t('examples.radio.copy.optionB')}</Radio>
+                <Radio value="option-c">{t('examples.radio.copy.optionC')}</Radio>
               </Radio.Group>
             </ReferenceSpecimen.Stage>
             <ReferenceSpecimen.Caption>

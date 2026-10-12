@@ -23,11 +23,11 @@ export const toastEnUS = {
   stack: {
     title: 'Action and stacking',
     description:
-      'Create several notifications. Hover or focus a toast to pause only its remaining duration.',
+      'Create several messages. Hover or focus a toast to pause only its remaining duration.',
   },
   placement: {
     title: 'Viewport placement',
     description:
-      'Choose a position to show a notification inside the preview canvas. Other examples keep their own viewports and notifications.',
+      'Choose a position to show a message inside the preview canvas. Other examples keep their own viewports and messages.',
   },
 } as const;

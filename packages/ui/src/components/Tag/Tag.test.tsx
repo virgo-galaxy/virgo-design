@@ -44,7 +44,7 @@ describe('Tag', () => {
   });
 
   it('renders a decorative icon', () => {
-    render(<Tag icon={<LayoutIcon data-testid="icon" />}>Workspace</Tag>);
+    render(<Tag icon={<LayoutIcon data-testid="icon" />}>Example</Tag>);
     expect(screen.getByTestId('icon').parentElement).toHaveAttribute('aria-hidden', 'true');
   });
 

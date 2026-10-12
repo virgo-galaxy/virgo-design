@@ -413,7 +413,7 @@ const option: EChartsOption = {
   radar: { indicator: [{ name: 'Design', max: 100 }, { name: 'Engineering', max: 100 }, { name: 'Research', max: 100 }] },
   series: [{ type: 'radar', data: [{ value: [82, 64, 75] }] }],
 };
-<EChartsChart option={option} renderer="svg" aria-label="Team profile" />;`}</code>
+<EChartsChart option={option} renderer="svg" aria-label="Group details" />;`}</code>
           </pre>
           <p>{t('charts.advancedDescription')}</p>
         </ArticleSection>

@@ -11,7 +11,7 @@ export const statisticZhCN = {
   compositionDescription: '组合标签和数值，指标网格仍由产品页面组织。',
   label: '收入',
   support: '与上个月相比',
-  other: '活跃项目',
+  other: '活跃条目',
   loading: '待加载总数',
   animation: '数字动画',
   animationDescription:

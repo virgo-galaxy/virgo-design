@@ -44,7 +44,7 @@ it('provides circular navigation, direct indicators and explicit playback contro
       <Carousel.Indicators
         variant="bar"
         placement="inside"
-        getSlideLabel={(index) => `Workspace ${index + 1}`}
+        getSlideLabel={(index) => `Example ${index + 1}`}
       />
       <Carousel.Playback />
     </Carousel>,
@@ -59,15 +59,9 @@ it('provides circular navigation, direct indicators and explicit playback contro
   expect(next).toHaveAttribute('data-variant', 'outline');
   expect(next).toHaveAttribute('data-shape', 'circle');
   fireEvent.click(next);
-  expect(screen.getByRole('button', { name: 'Workspace 2' })).toHaveAttribute(
-    'aria-current',
-    'step',
-  );
-  fireEvent.click(screen.getByRole('button', { name: 'Workspace 1' }));
-  expect(screen.getByRole('button', { name: 'Workspace 1' })).toHaveAttribute(
-    'aria-current',
-    'step',
-  );
+  expect(screen.getByRole('button', { name: 'Example 2' })).toHaveAttribute('aria-current', 'step');
+  fireEvent.click(screen.getByRole('button', { name: 'Example 1' }));
+  expect(screen.getByRole('button', { name: 'Example 1' })).toHaveAttribute('aria-current', 'step');
   fireEvent.click(screen.getByRole('button', { name: 'Pause slideshow' }));
   expect(screen.getByRole('button', { name: 'Resume slideshow' })).toBeInTheDocument();
 });

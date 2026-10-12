@@ -112,7 +112,7 @@ describe('Toolbar', () => {
         <Dropdown>
           <Dropdown.Trigger render={(props) => <Button {...props}>More</Button>} />
           <Dropdown.Content>
-            <Dropdown.Item>Profile</Dropdown.Item>
+            <Dropdown.Item>Details</Dropdown.Item>
             <Dropdown.Item>Settings</Dropdown.Item>
           </Dropdown.Content>
         </Dropdown>
@@ -121,7 +121,7 @@ describe('Toolbar', () => {
     );
     await user.tab();
     await user.keyboard('{ArrowRight}{ArrowDown}');
-    expect(await screen.findByRole('menuitem', { name: 'Profile' })).toHaveFocus();
+    expect(await screen.findByRole('menuitem', { name: 'Details' })).toHaveFocus();
     await user.keyboard('{ArrowDown}');
     expect(screen.getByRole('menuitem', { name: 'Settings' })).toHaveFocus();
     await user.keyboard('{Escape}');

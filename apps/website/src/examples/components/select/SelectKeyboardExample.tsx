@@ -10,12 +10,12 @@ export default function App() {
     <div className={styles.root!}>
       <Select>
         <Select.Trigger
-          aria-label={t('examples.select.copy.keyboardProject')}
+          aria-label={t('examples.select.copy.keyboardItem')}
           placeholder={t('examples.select.copy.focusThenUseArrowdown')}
         />
         <Select.Content>
-          <Select.Option value="design">Virgo Design</Select.Option>
-          <Select.Option value="docs">{t('examples.select.copy.cloudDocs')}</Select.Option>
+          <Select.Option value="design">Item A</Select.Option>
+          <Select.Option value="docs">{t('examples.select.copy.itemD')}</Select.Option>
           <Select.Option value="runtime">{t('examples.select.copy.runtime')}</Select.Option>
         </Select.Content>
       </Select>

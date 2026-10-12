@@ -7,7 +7,7 @@ import { Combobox } from './index';
 function Fixture(props: ComboboxProps) {
   return (
     <Combobox {...props}>
-      <Combobox.Input aria-label="Project" />
+      <Combobox.Input aria-label="Item" />
       <Combobox.Clear aria-label="Clear" />
       <Combobox.Content>
         <Combobox.Option value="alpha" textValue="Alpha">
@@ -28,7 +28,7 @@ describe('Combobox interaction', () => {
   it('filters, highlights enabled options, selects and keeps DOM focus on input', async () => {
     const user = userEvent.setup();
     const selected = vi.fn();
-    render(<Fixture onValueChange={selected} name="project" />);
+    render(<Fixture onValueChange={selected} name="item" />);
     const input = screen.getByRole('combobox');
     await user.click(input);
     expect(input).toHaveAttribute('aria-expanded', 'true');
@@ -45,7 +45,7 @@ describe('Combobox interaction', () => {
     expect(input).toHaveValue('Gamma');
     expect(input).toHaveFocus();
     expect(selected).toHaveBeenCalledWith('gamma');
-    expect(document.querySelector('input[name="project"]')).toHaveValue('gamma');
+    expect(document.querySelector('input[name="item"]')).toHaveValue('gamma');
     expect(input).toHaveAttribute('aria-expanded', 'false');
     expect(input).not.toHaveAttribute('aria-activedescendant');
     await user.type(input, 'zz');
@@ -161,7 +161,7 @@ describe('Combobox interaction', () => {
     const user = userEvent.setup();
     const { rerender } = render(
       <Combobox>
-        <Combobox.Input aria-label="Project" readOnly />
+        <Combobox.Input aria-label="Item" readOnly />
         <Combobox.Content>
           <Combobox.Option value="a" textValue="Alpha">
             Alpha
@@ -174,9 +174,9 @@ describe('Combobox interaction', () => {
     expect(screen.queryByRole('listbox')).toBeNull();
     rerender(
       <Combobox>
-        <Combobox.Input aria-label="Project" />
+        <Combobox.Input aria-label="Item" />
         <Combobox.Content>
-          <Combobox.Group label="Projects">
+          <Combobox.Group label="Items">
             <Combobox.Option id="custom-option" value="a" textValue="Alpha">
               Alpha
             </Combobox.Option>
@@ -199,7 +199,7 @@ describe('Combobox interaction', () => {
     expect(screen.getAllByRole('option')).toHaveLength(3);
     rerender(
       <Combobox defaultOpen>
-        <Combobox.Input aria-label="Project" />
+        <Combobox.Input aria-label="Item" />
         <Combobox.Content>
           <Combobox.Empty>None</Combobox.Empty>
         </Combobox.Content>

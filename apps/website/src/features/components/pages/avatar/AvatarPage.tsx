@@ -3,7 +3,6 @@ import './AvatarPage.scss';
 import { Avatar, Badge } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
-import avatarImage from '@/assets/examples/avatar/icon.png';
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
   ComponentExample,
@@ -12,6 +11,7 @@ import {
 } from '@/components/docs/ComponentExample';
 import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { avatarExamples } from '@/examples/components/avatar/examples';
+import { avatarImageFixture } from '@/examples/components/avatar/fixtures';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
@@ -49,13 +49,17 @@ export function AvatarPage() {
             <ReferenceSpecimen.Stage>
               <div className="avatar-stage avatar-hero-stage">
                 <Badge dot intent="success" aria-label={t('examples.avatar.copy.online')}>
-                  <Avatar src={avatarImage} alt="Virgo Design" size="lg" />
+                  <Avatar
+                    src={avatarImageFixture}
+                    alt={t('examples.avatar.copy.exampleAvatar')}
+                    size="lg"
+                  />
                 </Badge>
-                <Avatar fallback="PK" aria-label={t('examples.avatar.copy.pokeya')} size="lg" />
-                <Avatar.Group aria-label={t('examples.avatar.copy.projectMembers')}>
-                  <Avatar fallback="VD" />
-                  <Avatar fallback="UI" />
-                  <Avatar fallback="DS" />
+                <Avatar fallback="DU" aria-label={t('examples.avatar.copy.demoUser')} size="lg" />
+                <Avatar.Group aria-label={t('examples.avatar.copy.exampleCollection')}>
+                  <Avatar fallback="EX" />
+                  <Avatar fallback="AB" />
+                  <Avatar fallback="CD" />
                 </Avatar.Group>
               </div>
             </ReferenceSpecimen.Stage>

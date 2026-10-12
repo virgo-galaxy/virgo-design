@@ -25,10 +25,10 @@ export const toastZhCN = {
   },
   stack: {
     title: '操作与堆叠',
-    description: '创建多条通知。悬停或聚焦某条通知时，仅暂停该通知的剩余时长。',
+    description: '创建多条消息。悬停或聚焦某条消息时，仅暂停该消息的剩余时长。',
   },
   placement: {
     title: '视口位置',
-    description: '选择位置，在预览画布中显示通知。其他示例保留各自的视口与通知。',
+    description: '选择位置，在预览画布中显示消息。其他示例保留各自的视口与消息。',
   },
 } satisfies LocaleOf<typeof toastEnUS>;

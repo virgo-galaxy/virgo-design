@@ -8,7 +8,7 @@ export const resultEnUS = {
   compositionDescription:
     'Replace the icon or add business content without rebuilding the outcome layout.',
   title: 'Changes saved',
-  support: 'The project is ready for the next review.',
+  support: 'The item is ready for the next review.',
   primary: 'Continue',
   secondary: 'Go back',
   extra: 'Reference: VD-2026',

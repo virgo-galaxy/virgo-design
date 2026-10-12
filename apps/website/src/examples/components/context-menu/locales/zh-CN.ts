@@ -30,7 +30,7 @@ export const contextMenuExamplesZhCN = {
     objectContext: '对象上下文',
     rightClickTheTargetOrFocusItAndPressShift: '右键点击目标，或聚焦后按 Shift+F10。',
     contextPreferences: '上下文偏好',
-    contextMenusShareThePersistentCheckboxItemModel: '上下文菜单共享持续生效的复选项目模型。',
+    contextMenusShareThePersistentCheckboxItemModel: '上下文菜单共享持续生效的复选条目模型。',
     contextUnits: '上下文单位',
     aNamedRadioGroupSuppliesMutuallyExclusivePreferences: '命名单选组提供互斥偏好。',
   },

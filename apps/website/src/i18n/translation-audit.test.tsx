@@ -38,14 +38,14 @@ describe('B8 translation audit regressions', () => {
   it('switches the existing Card initial and action feedback in both directions', async () => {
     await setAppLocale('zh-CN');
     render(<CardActionsExample />);
-    expect(screen.getByText('邀请协作者加入此工作区。')).toBeInTheDocument();
-    await userEvent.click(screen.getByRole('button', { name: '邀请' }));
-    expect(screen.getByText('邀请已准备。这是本地演示。')).toBeInTheDocument();
+    expect(screen.getByText('使用下方的页脚操作。')).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: '确认' }));
+    expect(screen.getByText('操作已完成。')).toBeInTheDocument();
     await act(() => setAppLocale('en-US'));
-    expect(screen.getByText('Invitation prepared. This is a local demo.')).toBeInTheDocument();
+    expect(screen.getByText('Action completed.')).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: 'Cancel' }));
     await act(() => setAppLocale('zh-CN'));
-    expect(screen.getByText('邀请已取消。')).toBeInTheDocument();
+    expect(screen.getByText('操作已取消。')).toBeInTheDocument();
   });
 
   it('updates an already-visible color copy toast without copying again', async () => {

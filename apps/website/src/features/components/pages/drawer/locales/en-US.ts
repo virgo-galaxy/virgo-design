@@ -1,7 +1,7 @@
 export const drawerEnUS = {
   overview: {
     description:
-      "Open a temporary inspector, settings surface, or secondary workspace from any screen edge while retaining Dialog's interaction model.",
+      "Open a temporary inspector, settings surface, or secondary example from any screen edge while retaining Dialog's interaction model.",
   },
   facts: {
     placements: 'Placements',
@@ -18,7 +18,7 @@ export const drawerEnUS = {
   placements: {
     title: 'Placements',
     description:
-      'Choose the physical screen edge that best preserves context for the underlying workspace.',
+      'Choose the physical screen edge that best preserves context for the underlying example.',
   },
   sizes: {
     title: 'Sizes',
@@ -37,6 +37,6 @@ export const drawerEnUS = {
   nonModal: {
     title: 'Non-modal drawer',
     description:
-      'Use non-modal behavior when the surrounding workspace must remain directly interactive.',
+      'Use non-modal behavior when the surrounding example must remain directly interactive.',
   },
 } as const;

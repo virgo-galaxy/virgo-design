@@ -10,11 +10,11 @@ export default function App() {
   const name = useId();
   return (
     <div className={styles.root!}>
-      <Radio name={name} value="apple">
-        {t('examples.radio.copy.apple')}
+      <Radio name={name} value="option-a">
+        {t('examples.radio.copy.optionA')}
       </Radio>
-      <Radio name={name} value="pear" defaultChecked>
-        {t('examples.radio.copy.pear')}
+      <Radio name={name} value="option-b" defaultChecked>
+        {t('examples.radio.copy.optionB')}
       </Radio>
     </div>
   );

@@ -16,7 +16,7 @@ export const spinnerExamplesEnUS = {
     themeEnvironments: 'Theme environments',
     semanticColorsFollowTheContainingTheme: 'Semantic colors follow the containing theme.',
     saving: 'Saving',
-    loadingAccountData: 'Loading account data',
+    loadingAccountData: 'Loading section data',
   },
   details: {
     saving: 'Saving',

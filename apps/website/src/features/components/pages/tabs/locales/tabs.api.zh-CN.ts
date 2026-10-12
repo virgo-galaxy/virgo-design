@@ -16,7 +16,7 @@ export const tabsApiZhCN = {
     'tab-list-props.properties.class-name.description': '应用到 TabList 根节点的自定义 class。',
     'tab-props.properties.children.description': '可见标签页标签。',
     'tab-props.properties.icon.description': '标签页标签之前的可选装饰图标。',
-    'tab-props.properties.class-name.description': '应用到标签项目包裹元素的自定义 class。',
+    'tab-props.properties.class-name.description': '应用到标签条目包裹元素的自定义 class。',
     'tab-props.properties.value.description': '将此标签页与其面板关联的值。',
     'tab-props.properties.closable.description':
       '为 card 标签页显示指针关闭操作，并启用 Delete 键。',

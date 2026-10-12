@@ -31,6 +31,6 @@ export const checkboxZhCN = {
   },
   checkAll: {
     title: '全选',
-    description: '不确定状态自然表达分组中部分项目已选中。',
+    description: '不确定状态自然表达分组中部分条目已选中。',
   },
 } satisfies LocaleOf<typeof checkboxEnUS>;

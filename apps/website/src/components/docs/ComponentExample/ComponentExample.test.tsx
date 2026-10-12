@@ -558,15 +558,15 @@ export default function App() {
   it('keeps stateful Dialog behavior and source disclosure independent', async () => {
     const user = userEvent.setup();
     render(<ComponentExample example={dialogExamples.form} />);
-    await user.click(screen.getByRole('button', { name: 'Edit workspace' }));
-    const input = screen.getByRole('textbox', { name: 'Workspace name' });
+    await user.click(screen.getByRole('button', { name: 'Edit example' }));
+    const input = screen.getByRole('textbox', { name: 'Example name' });
     await user.clear(input);
-    await user.type(input, 'My workspace');
+    await user.type(input, 'My example');
     await user.click(screen.getByRole('button', { name: 'Save changes' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'View source for Form dialog' }));
     await user.click(screen.getByRole('button', { name: 'Hide source for Form dialog' }));
-    await user.click(screen.getByRole('button', { name: 'Edit workspace' }));
-    expect(screen.getByRole('textbox', { name: 'Workspace name' })).toHaveValue('My workspace');
+    await user.click(screen.getByRole('button', { name: 'Edit example' }));
+    expect(screen.getByRole('textbox', { name: 'Example name' })).toHaveValue('My example');
   });
 });

@@ -11,7 +11,7 @@ export default function App() {
       <Input.Password
         aria-label={t('examples.input.copy.currentPassword')}
         autoComplete="current-password"
-        defaultValue="virgo-password"
+        defaultValue="example-value"
       />
     </div>
   );

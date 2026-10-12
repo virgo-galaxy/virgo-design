@@ -17,8 +17,8 @@ describe('Card', () => {
     render(
       <Card>
         <Card.Header>
-          <Card.Title as="h2">Project</Card.Title>
-          <Card.Description>Project description</Card.Description>
+          <Card.Title as="h2">Item</Card.Title>
+          <Card.Description>Item description</Card.Description>
         </Card.Header>
         <Card.Body>Content</Card.Body>
         <Card.Footer>
@@ -26,8 +26,8 @@ describe('Card', () => {
         </Card.Footer>
       </Card>,
     );
-    expect(screen.getByRole('heading', { name: 'Project', level: 2 })).toBeInTheDocument();
-    expect(screen.getByText('Project description')).toHaveProperty('tagName', 'P');
+    expect(screen.getByRole('heading', { name: 'Item', level: 2 })).toBeInTheDocument();
+    expect(screen.getByText('Item description')).toHaveProperty('tagName', 'P');
     expect(screen.getByText('Content')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Open' })).toBeInTheDocument();
   });
@@ -90,12 +90,12 @@ describe('Card', () => {
   it('composes arbitrary children without making the card interactive', () => {
     render(
       <Card data-testid="card">
-        <Avatar fallback="PK" />
-        <Card.Title>Pokeya</Card.Title>
+        <Avatar fallback="DU" />
+        <Card.Title>Demo User</Card.Title>
         <Badge count="Online" intent="success" />
       </Card>,
     );
-    expect(screen.getByTestId('card')).toHaveTextContent('PKPokeyaOnline');
+    expect(screen.getByTestId('card')).toHaveTextContent('DUDemo UserOnline');
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 

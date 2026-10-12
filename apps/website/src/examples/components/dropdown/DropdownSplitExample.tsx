@@ -56,9 +56,9 @@ export default function App() {
         </Dropdown>
         <Dropdown>
           <Dropdown.Button
-            menuLabel="Account actions"
+            menuLabel="Section actions"
             menuIcon={<UserIcon />}
-            onClick={() => setAction('Account opened')}
+            onClick={() => setAction('Section opened')}
           >
             {t('examples.dropdown.copy.account')}
           </Dropdown.Button>

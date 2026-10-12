@@ -10,7 +10,7 @@ export const resultZhCN = {
   composition: '组合结构',
   compositionDescription: '替换图标或添加业务内容，无需重建结果页布局。',
   title: '更改已保存',
-  support: '项目已经准备好进入下一次评审。',
+  support: '条目已经准备好进入下一次评审。',
   primary: '继续',
   secondary: '返回',
   extra: '参考编号：VD-2026',

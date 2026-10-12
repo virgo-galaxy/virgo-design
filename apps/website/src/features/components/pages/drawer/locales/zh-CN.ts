@@ -4,7 +4,8 @@ import type { drawerEnUS } from './en-US';
 
 export const drawerZhCN = {
   overview: {
-    description: '从任意屏幕边缘打开临时检查器、设置面板或辅助工作区，同时保留 Dialog 的交互模型。',
+    description:
+      '从任意屏幕边缘打开临时检查器、设置面板或辅助示例区域，同时保留 Dialog 的交互模型。',
   },
   facts: {
     placements: '位置',
@@ -20,7 +21,7 @@ export const drawerZhCN = {
   },
   placements: {
     title: '位置',
-    description: '选择最能保留下层工作区上下文的物理屏幕边缘。',
+    description: '选择最能保留下层示例区域上下文的物理屏幕边缘。',
   },
   sizes: {
     title: '尺寸',
@@ -36,6 +37,6 @@ export const drawerZhCN = {
   },
   nonModal: {
     title: '非模态抽屉',
-    description: '周围工作区需要保持直接交互时，使用非模态行为。',
+    description: '周围示例区域需要保持直接交互时，使用非模态行为。',
   },
 } satisfies LocaleOf<typeof drawerEnUS>;

@@ -18,7 +18,7 @@ export const spinnerExamplesZhCN = {
     themeEnvironments: '主题环境',
     semanticColorsFollowTheContainingTheme: '语义颜色遵循所在主题。',
     saving: '正在保存',
-    loadingAccountData: '正在加载账户数据',
+    loadingAccountData: '正在加载分组数据',
   },
   details: {
     saving: '正在保存',

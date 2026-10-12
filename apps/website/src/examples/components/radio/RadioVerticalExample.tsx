@@ -8,13 +8,13 @@ export default function App() {
 
   return (
     <Radio.Group
-      defaultValue="pear"
+      defaultValue="option-b"
       orientation="vertical"
-      aria-label={t('examples.radio.copy.verticalFruit')}
+      aria-label={t('examples.radio.copy.verticalOptions')}
     >
-      <Radio value="apple">{t('examples.radio.copy.apple')}</Radio>
-      <Radio value="pear">{t('examples.radio.copy.pear')}</Radio>
-      <Radio value="orange">{t('examples.radio.copy.orange')}</Radio>
+      <Radio value="option-a">{t('examples.radio.copy.optionA')}</Radio>
+      <Radio value="option-b">{t('examples.radio.copy.optionB')}</Radio>
+      <Radio value="option-c">{t('examples.radio.copy.optionC')}</Radio>
     </Radio.Group>
   );
 }

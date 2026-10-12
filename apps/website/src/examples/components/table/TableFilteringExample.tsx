@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import styles from './TableFilteringExample.module.scss';
 
 const rows = [
-  { project: 'Virgo Design', owner: 'Ava Chen' },
-  { project: 'Cloud Docs', owner: 'Leo Park' },
-  { project: 'Virgo Studio', owner: 'Nina Wu' },
-  { project: 'Design System', owner: 'Ava Chen' },
+  { project: 'Item A', owner: 'Sample A' },
+  { project: 'Item D', owner: 'Sample B' },
+  { project: 'Example', owner: 'Sample C' },
+  { project: 'Item E', owner: 'Sample A' },
 ];
-const options = ['Ava Chen', 'Leo Park', 'Nina Wu'].map((value) => ({ value, label: value }));
+const options = ['Sample A', 'Sample B', 'Sample C'].map((value) => ({ value, label: value }));
 
 export default function App() {
   const { t } = useTranslation();

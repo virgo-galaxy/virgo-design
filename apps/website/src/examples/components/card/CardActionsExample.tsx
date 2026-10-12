@@ -9,19 +9,19 @@ import styles from './CardActionsExample.module.scss';
 export default function App() {
   const { t } = useTranslation();
 
-  const [message, setMessage] = useState('Invite collaborators to this workspace.');
+  const [message, setMessage] = useState('Use the footer actions below.');
   return (
     <Card className={styles.root!}>
       <Card.Header>
-        <Card.Title as="h3">{t('examples.card.copy.projectAccess')}</Card.Title>
+        <Card.Title as="h3">{t('examples.card.copy.exampleActions')}</Card.Title>
         <Card.Description>{translateExampleText(t, 'card', message)}</Card.Description>
       </Card.Header>
       <Button.Group layout="custom" render={(groupProps) => <Card.Footer {...groupProps} />}>
-        <Button variant="text" onClick={() => setMessage('Invitation cancelled.')}>
+        <Button variant="text" onClick={() => setMessage('Action cancelled.')}>
           {t('examples.card.copy.cancel')}
         </Button>
-        <Button onClick={() => setMessage('Invitation prepared. This is a local demo.')}>
-          {t('examples.card.copy.invite')}
+        <Button onClick={() => setMessage('Action completed.')}>
+          {t('examples.card.copy.confirm')}
         </Button>
       </Button.Group>
     </Card>

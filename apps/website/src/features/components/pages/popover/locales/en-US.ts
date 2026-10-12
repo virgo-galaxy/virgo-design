@@ -26,7 +26,7 @@ export const popoverEnUS = {
   form: {
     title: 'Edit in context',
     description:
-      'A controlled panel with a real form. Save updates the workspace name and returns focus to Edit workspace.',
+      'A controlled panel with a real form. Save updates the example name and returns focus to Edit example.',
   },
   placement: {
     title: 'Placement & offset',

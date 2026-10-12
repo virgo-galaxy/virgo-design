@@ -8,11 +8,7 @@ export default function App() {
 
   return (
     <div className={styles.root!}>
-      <Input
-        clearable
-        aria-label={t('examples.input.copy.clearableProjectName')}
-        defaultValue="Virgo Design"
-      />
+      <Input clearable aria-label={t('examples.input.copy.clearableValue')} defaultValue="Item A" />
     </div>
   );
 }

@@ -17,7 +17,7 @@ export default function App() {
     >
       <Field required>
         <Field.Label>{t('examples.form.copy.email')}</Field.Label>
-        <Input name="email" type="email" defaultValue="team@virgo.design" />
+        <Input name="email" type="email" defaultValue="example@example.test" />
       </Field>
       <Button type="submit">{t('examples.form.copy.save')}</Button>
       <p role="status">

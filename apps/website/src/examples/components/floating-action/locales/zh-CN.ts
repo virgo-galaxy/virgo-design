@@ -5,7 +5,7 @@ export const floatingActionExamplesZhCN = {
   copy: {
     settingsUnavailable: '设置不可用',
     quickActions: '快捷操作',
-    openDashboard: '打开仪表盘',
+    openDashboard: '打开视图 A',
     showHelp: '显示帮助',
     selected: '已选择：',
     actionVariants: '操作变体',
@@ -22,7 +22,7 @@ export const floatingActionExamplesZhCN = {
   },
   details: {
     chooseAnAction: '请选择操作。',
-    dashboard: '仪表盘',
+    dashboard: '视图 A',
     help: '帮助',
     toggleValueActions: '切换 {{v0}} 操作',
     valueActions: '{{v0}} 操作',

@@ -195,7 +195,7 @@ function DialogExample() {
           </Dialog.Description>
           <label>
             {t('primitives.examples.displayName')}
-            <input defaultValue="Virgo" />
+            <input defaultValue="Example" />
           </label>{' '}
           <Dialog.Close>{t('primitives.examples.done')}</Dialog.Close>
         </Dialog.Content>
@@ -406,7 +406,7 @@ function SelectExample() {
         {t('primitives.examples.chooseProject')}
       </Select.Trigger>
       <Select.Content {...portalProps}>
-        <Select.Option value="design">Virgo Design</Select.Option>
+        <Select.Option value="design">Item A</Select.Option>
         <Select.Option value="docs">{t('primitives.examples.virgoDocs')}</Select.Option>
       </Select.Content>
     </Select>
@@ -581,8 +581,8 @@ export function PrimitiveExample({ slug }: { slug: PrimitiveSlug }) {
         <Combobox data-docs-primitive="combobox">
           <Combobox.Input aria-label={t('primitives.examples.displayName')} />
           <Combobox.Content {...portalProps}>
-            <Combobox.Option value="virgo" textValue="Virgo">
-              Virgo
+            <Combobox.Option value="virgo" textValue="Example">
+              Example
             </Combobox.Option>
             <Combobox.Option value="design" textValue="Design">
               Design
@@ -617,7 +617,7 @@ export function PrimitiveExample({ slug }: { slug: PrimitiveSlug }) {
       return (
         <label>
           {t('primitives.examples.projectName')}
-          <Input data-docs-primitive="input" defaultValue="Virgo Design" />
+          <Input data-docs-primitive="input" defaultValue="Item A" />
         </label>
       );
     case 'layout':

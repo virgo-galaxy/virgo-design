@@ -1,7 +1,7 @@
 export const tooltipExamplesEnUS = {
   copy: {
-    workspaceSettings: 'Workspace settings',
-    openWorkspaceSettings: 'Open workspace settings',
+    workspaceSettings: 'Example settings',
+    openWorkspaceSettings: 'Open example settings',
     settingsOpened: 'Settings opened:',
     toggleDetails: 'Toggle details',
     theDescriptionChangesWithoutClosingTheTooltip:
@@ -14,7 +14,7 @@ export const tooltipExamplesEnUS = {
     customViolet: 'Custom violet',
     customBackgroundAndForeground: 'Custom background and foreground.',
     rtlPreview: 'RTL preview',
-    workspaceDetails: 'مساحة العمل · Workspace details',
+    workspaceDetails: 'مساحة العمل · Example details',
     disabledTooltip: 'Disabled tooltip',
     unavailable: 'Unavailable',
     changingDescription: 'Changing description',
@@ -28,7 +28,7 @@ export const tooltipExamplesEnUS = {
     mediumTooltip: 'Medium tooltip',
     defaultDescription: 'Default description',
     smoothTransition: 'Smooth transition',
-    exploreYourWorkspace: 'Explore your workspace.',
+    exploreYourWorkspace: 'Explore your example.',
     description: 'description',
     cursorIntegration: 'Cursor integration',
     theCursorProviderOwnsTheCustomVisualAndEnablesPointer:
@@ -73,10 +73,10 @@ export const tooltipExamplesEnUS = {
     hideDetails: 'Hide details',
     showDetails: 'Show details',
     workspaceDetailsAreReadyTheTooltipKeepsItsArrowConnected:
-      'Workspace details are ready. The tooltip keeps its arrow connected as this description becomes longer.',
-    workspaceDetails: 'Workspace details',
+      'Example details are ready. The tooltip keeps its arrow connected as this description becomes longer.',
+    workspaceDetails: 'Example details',
     overview: 'Overview',
-    members: 'Members',
+    members: 'Entries',
     activity: 'Activity',
     settings: 'Settings',
   },

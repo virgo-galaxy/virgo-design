@@ -9,10 +9,10 @@ export default function App() {
   return (
     <Card variant="outlined" className={styles.root!}>
       <div className={styles.stage!}>
-        <Avatar fallback="PK" size="lg" />
+        <Avatar fallback="DU" size="lg" />
         <div className={styles.stage2!}>
-          <Card.Title as="h3">{t('examples.card.copy.pokeya')}</Card.Title>
-          <Card.Description>{t('examples.card.copy.designSystemMaintainer')}</Card.Description>
+          <Card.Title as="h3">{t('examples.card.copy.demoUser')}</Card.Title>
+          <Card.Description>{t('examples.card.copy.exampleDescription')}</Card.Description>
         </div>
         <Badge count="Online" intent="success" />
       </div>

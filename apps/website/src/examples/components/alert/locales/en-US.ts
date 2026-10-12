@@ -1,18 +1,17 @@
 export const alertExamplesEnUS = {
   copy: {
-    deploymentFailed: 'Deployment failed',
-    retryAfterCheckingTheServiceConnection: 'Retry after checking the service connection.',
+    deploymentFailed: 'Action failed',
+    retryAfterCheckingTheServiceConnection: 'Try the example action again.',
     retry: 'Retry',
     retryRequests: 'Retry requests:',
-    reviewRequested: 'Review requested',
-    aTeammateRequestedFeedbackOnThisWorkspace: 'A teammate requested feedback on this workspace.',
+    reviewRequested: 'Example message',
+    aTeammateRequestedFeedbackOnThisWorkspace: 'This is a dismissible example message.',
     restoreAlert: 'Restore alert',
     changesSaved: 'Changes saved',
-    scheduledMaintenance: 'Scheduled maintenance',
-    editingWillBeUnavailableForApproximatelyTenMinutes:
-      'Editing will be unavailable for approximately ten minutes.',
-    workspacePolicy: 'Workspace policy',
-    thisProjectFollowsTheSharedRetentionPolicy: 'This project follows the shared retention policy.',
+    scheduledMaintenance: 'Warning example',
+    editingWillBeUnavailableForApproximatelyTenMinutes: 'This is an example warning message.',
+    workspacePolicy: 'Example policy',
+    thisProjectFollowsTheSharedRetentionPolicy: 'This is an additional example description.',
     semanticIntents: 'Semantic intents',
     iconsReinforceStatusWithoutRelyingOnlyOnColor:
       'Icons reinforce status without relying only on color.',
@@ -28,21 +27,20 @@ export const alertExamplesEnUS = {
     customIcon: 'Custom icon',
     useADomainIconWhileIntentContinuesToOwnColor: 'Use a custom icon with semantic colors.',
     configurationProblem: 'Configuration problem',
-    updateTheSettingsBeforeDeploy: 'Update the settings before deploy.',
+    updateTheSettingsBeforeDeploy: 'Check the example value and try again.',
   },
   details: {
-    workspaceNotice: 'Workspace notice',
+    workspaceNotice: 'Example notice',
     thisMessageRemainsPartOfThePageUntilItsOwner:
       'This message remains part of the page until its owner removes it.',
     newSettingsAvailable: 'New settings available',
     reviewTheLatestWorkspacePreferencesWhenConvenient:
-      'Review the latest workspace preferences when convenient.',
-    deploymentComplete: 'Deployment complete',
-    theProductionWorkspaceIsRunningTheLatestVersion:
-      'The production workspace is running the latest version.',
+      'Review the latest example preferences when convenient.',
+    deploymentComplete: 'Action complete',
+    theProductionWorkspaceIsRunningTheLatestVersion: 'The example action completed successfully.',
     configurationProblem: 'Configuration problem',
-    updateTheSettingsBeforeTheNextDeployment: 'Update the settings before the next deployment.',
+    updateTheSettingsBeforeTheNextDeployment: 'Check the example value and try again.',
     connectionFailed: 'Connection failed',
-    virgoCouldNotReachTheDeploymentService: 'Virgo could not reach the deployment service.',
+    virgoCouldNotReachTheDeploymentService: 'The example action could not be completed.',
   },
 } as const;

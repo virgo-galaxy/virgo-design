@@ -26,7 +26,7 @@ function Example({
         <Accordion.Trigger {...(icon === undefined ? {} : { icon })}>
           Design system
         </Accordion.Trigger>
-        <Accordion.Content>Virgo Design</Accordion.Content>
+        <Accordion.Content>Item A</Accordion.Content>
       </Accordion.Item>
     </Accordion.Root>
   );
@@ -96,7 +96,7 @@ describe('Accordion UI', () => {
             Design system
           </Accordion.Trigger>
           <Accordion.Content ref={contentRef} className="consumer-content">
-            Virgo Design
+            Item A
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>,
@@ -114,7 +114,7 @@ describe('Accordion UI', () => {
     render(<Example icon />);
 
     const trigger = screen.getByRole('button', { name: 'Design system' });
-    const content = screen.getByText('Virgo Design').parentElement;
+    const content = screen.getByText('Item A').parentElement;
     expect(content).toHaveAttribute('hidden');
     expect(trigger).toHaveAttribute('aria-controls', content?.id);
 

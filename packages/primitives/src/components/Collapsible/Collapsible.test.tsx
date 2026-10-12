@@ -83,12 +83,12 @@ describe('Collapsible primitive', () => {
   it('respects an explicit content heading independently of the trigger label', () => {
     render(
       <Collapsible defaultOpen>
-        <h2 id="panel-title">Project distribution</h2>
+        <h2 id="panel-title">Item distribution</h2>
         <Collapsible.Trigger>Minimize</Collapsible.Trigger>
-        <Collapsible.Content aria-labelledby="panel-title">Project totals</Collapsible.Content>
+        <Collapsible.Content aria-labelledby="panel-title">Item totals</Collapsible.Content>
       </Collapsible>,
     );
-    expect(screen.getByRole('region')).toHaveAccessibleName('Project distribution');
+    expect(screen.getByRole('region')).toHaveAccessibleName('Item distribution');
     expect(screen.getByRole('button')).toHaveAttribute(
       'aria-controls',
       screen.getByRole('region').id,

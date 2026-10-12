@@ -52,10 +52,10 @@ describe('Badge', () => {
     const onClick = vi.fn();
     render(
       <Badge count={3}>
-        <Button onClick={onClick}>Inbox</Button>
+        <Button onClick={onClick}>Content</Button>
       </Badge>,
     );
-    await user.click(screen.getByRole('button', { name: 'Inbox' }));
+    await user.click(screen.getByRole('button', { name: 'Content' }));
     expect(onClick).toHaveBeenCalledOnce();
   });
 
@@ -87,15 +87,15 @@ describe('Badge', () => {
     const onClick = vi.fn();
     render(
       <Badge dot intent="info" animation="breathe" aria-label="Syncing">
-        <Button onClick={onClick}>Open workspace</Button>
+        <Button onClick={onClick}>Open example</Button>
       </Badge>,
     );
     expect(screen.getByRole('img', { name: 'Syncing' })).toHaveAttribute(
       'data-animation',
       'breathe',
     );
-    await user.click(screen.getByRole('button', { name: 'Open workspace' }));
+    await user.click(screen.getByRole('button', { name: 'Open example' }));
     expect(onClick).toHaveBeenCalledOnce();
-    expect(screen.getByRole('button', { name: 'Open workspace' })).toHaveFocus();
+    expect(screen.getByRole('button', { name: 'Open example' })).toHaveFocus();
   });
 });

@@ -1,17 +1,17 @@
 export const cardExamplesEnUS = {
   copy: {
-    projectAccess: 'Project access',
+    exampleActions: 'Example actions',
     cancel: 'Cancel',
-    invite: 'Invite',
-    aCompactGroupOfRelatedProjectInformation: 'A compact group of related project information.',
-    virgoDesignCore: 'Virgo Design Core',
+    confirm: 'Confirm',
+    aCompactGroupOfRelatedProjectInformation: 'A compact group of related item information.',
+    exampleTitle: 'Example title',
     coveragePass: 'Coverage Pass',
     directChildrenParticipateInTheCardSStructuralFlow:
       'Direct children participate in the Card’s structural flow.',
-    sharedUiComponentsAndDesignTokens: 'Shared UI components and design tokens.',
-    aConsistentFoundationForYourProduct: 'A consistent foundation for your product.',
-    pokeya: 'Pokeya',
-    designSystemMaintainer: 'Design system maintainer',
+    sharedUiComponentsAndDesignTokens: 'Example body content.',
+    aConsistentFoundationForYourProduct: 'Additional example content.',
+    demoUser: 'Demo User',
+    exampleDescription: 'Example description',
     outlined: 'Outlined',
     subtleBorderAndSmallStructuralSpacing: 'Subtle border and small structural spacing.',
     elevated: 'Elevated',
@@ -27,7 +27,7 @@ export const cardExamplesEnUS = {
     outlinedAndElevated: 'Outlined and elevated',
     surfaceBackedTreatmentsWithDifferentStructuralSpacing:
       'Surface-backed treatments with different structural spacing.',
-    profileComposition: 'Profile composition',
+    profileComposition: 'Details composition',
     combineAnIdentityDescriptionAndStatusInsideACard:
       'Combine an identity, description, and status inside a Card.',
     arbitraryChildren: 'Arbitrary children',
@@ -40,8 +40,8 @@ export const cardExamplesEnUS = {
     review: 'Review',
   },
   details: {
-    inviteCollaboratorsToThisWorkspace: 'Invite collaborators to this workspace.',
-    invitationCancelled: 'Invitation cancelled.',
-    invitationPreparedThisIsALocalDemo: 'Invitation prepared. This is a local demo.',
+    useTheFooterActions: 'Use the footer actions below.',
+    actionCancelled: 'Action cancelled.',
+    actionCompleted: 'Action completed.',
   },
 } as const;

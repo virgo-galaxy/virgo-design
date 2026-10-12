@@ -29,35 +29,35 @@ describe('Popover UI', () => {
             ref={ref}
             className="avatar"
             style={{ borderRadius: '50%', direction: 'rtl' }}
-            aria-label="Profile"
+            aria-label="Details"
             aria-describedby="profile-hint"
-            title="Workspace profile"
+            title="Example details"
             onClick={onClick}
             onKeyDown={onKeyDown}
             render={(props) => <CustomTrigger {...props} />}
           >
-            VD
+            EX
           </Popover.Trigger>
           <Popover.Content>
-            Profile details<Popover.Close>Done</Popover.Close>
+            Details details<Popover.Close>Done</Popover.Close>
           </Popover.Content>
         </Popover>
-        <span id="profile-hint">Open workspace profile</span>
+        <span id="profile-hint">Open example details</span>
         <button>Outside</button>
       </>,
     );
-    const trigger = screen.getByRole('button', { name: 'Profile' });
+    const trigger = screen.getByRole('button', { name: 'Details' });
     expect(ref.current).toBe(trigger);
     expect(trigger).toHaveAttribute('class', 'avatar');
-    expect(trigger).toHaveTextContent('VD');
-    expect(trigger).toHaveAttribute('title', 'Workspace profile');
+    expect(trigger).toHaveTextContent('EX');
+    expect(trigger).toHaveAttribute('title', 'Example details');
     expect(trigger).toHaveAttribute('aria-describedby', 'profile-hint');
     expect(trigger).not.toHaveAttribute('data-variant');
     expect(trigger).toHaveStyle({ borderRadius: '50%' });
     await user.click(trigger);
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onOpenChange).toHaveBeenCalledExactlyOnceWith(true);
-    const panel = screen.getByRole('dialog', { name: 'Profile' });
+    const panel = screen.getByRole('dialog', { name: 'Details' });
     expect(trigger).toHaveAttribute('aria-haspopup', 'dialog');
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
     expect(trigger).toHaveAttribute('aria-controls', panel.id);
@@ -94,7 +94,7 @@ describe('Popover UI', () => {
             }}
             render={(props) => <button {...props} />}
           >
-            Profile
+            Details
           </Popover.Trigger>
           <Popover.Content>Details</Popover.Content>
         </Popover>

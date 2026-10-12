@@ -1,12 +1,12 @@
 export const formExamplesEnUS = {
   copy: {
     email: 'Email',
-    private: 'Used only for project updates.',
-    project: 'Project',
-    choose: 'Choose a project',
+    private: 'Example helper text.',
+    project: 'Item',
+    choose: 'Choose an item',
     notes: 'Notes',
     accept: 'Accept terms',
-    notify: 'Enable notifications',
+    notify: 'Enable messages',
     plan: 'Plan',
     basic: 'Basic',
     pro: 'Professional',

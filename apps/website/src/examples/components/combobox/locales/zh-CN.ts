@@ -3,7 +3,7 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { comboboxExamplesEnUS } from './en-US';
 export const comboboxExamplesZhCN = {
   copy: {
-    project: '项目',
+    project: '条目',
     search: '搜索建议',
     unavailable: '旧版 — 不可用',
     empty: '没有匹配的选项',

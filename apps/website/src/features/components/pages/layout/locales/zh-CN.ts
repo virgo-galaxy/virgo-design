@@ -45,7 +45,7 @@ export const layoutZhCN = {
   },
   floatingSidebar: {
     title: '浮动侧栏',
-    description: '独立侧栏位于全宽 Content 内。可折叠成胶囊形，也可打开 Projects 查看子菜单。',
+    description: '独立侧栏位于全宽 Content 内。可折叠成胶囊形，也可打开 Items 查看子菜单。',
   },
   floatingActions: {
     title: '浮动操作',

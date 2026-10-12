@@ -9,7 +9,7 @@ export default function App() {
   return (
     <Card className={styles.root!}>
       <Card.Header>
-        <Card.Title as="h3">Virgo Design</Card.Title>
+        <Card.Title as="h3">Item A</Card.Title>
         <Card.Description>
           {t('examples.card.copy.sharedUiComponentsAndDesignTokens')}
         </Card.Description>

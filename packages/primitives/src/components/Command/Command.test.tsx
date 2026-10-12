@@ -11,11 +11,11 @@ function Example() {
       <Command.Input aria-label="Search commands" />
       <Command.List aria-label="Commands">
         <Command.Empty>No commands found.</Command.Empty>
-        <Command.Group heading="Workspace">
+        <Command.Group heading="Example">
           <Command.Item value="new" keywords={['create']}>
-            New project
+            New item
           </Command.Item>
-          <Command.Item value="open">Open project</Command.Item>
+          <Command.Item value="open">Open item</Command.Item>
           <Command.Item value="disabled" disabled>
             Disabled action
           </Command.Item>
@@ -34,13 +34,13 @@ describe('Command primitive', () => {
     const input = screen.getByRole('combobox', { name: 'Search commands' });
 
     await user.type(input, 'create');
-    expect(screen.getByRole('option', { name: 'New project' })).toBeVisible();
-    expect(screen.queryByRole('option', { name: 'Open project' })).not.toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'New item' })).toBeVisible();
+    expect(screen.queryByRole('option', { name: 'Open item' })).not.toBeInTheDocument();
 
     await user.clear(input);
     await user.type(input, 'missing');
     expect(screen.getByText('No commands found.')).toBeVisible();
-    expect(screen.queryByRole('group', { name: 'Workspace' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('group', { name: 'Example' })).not.toBeInTheDocument();
   });
 
   it('keeps focus in the input while arrows wrap over enabled visible items', async () => {
@@ -56,7 +56,7 @@ describe('Command primitive', () => {
       'true',
     );
     await user.keyboard('{ArrowDown}');
-    expect(screen.getByRole('option', { name: 'New project' })).toHaveAttribute(
+    expect(screen.getByRole('option', { name: 'New item' })).toHaveAttribute(
       'aria-selected',
       'true',
     );

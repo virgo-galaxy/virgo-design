@@ -10,31 +10,31 @@ export default function App() {
     <div className={styles.root!}>
       <Select>
         <Select.Trigger
-          aria-label={t('examples.select.copy.defaultProject')}
-          placeholder={t('examples.select.copy.project')}
+          aria-label={t('examples.select.copy.defaultItem')}
+          placeholder={t('examples.select.copy.item')}
         />
         <Select.Content>
-          <Select.Option value="design">Virgo Design</Select.Option>
-          <Select.Option value="docs">{t('examples.select.copy.cloudDocs')}</Select.Option>
+          <Select.Option value="design">Item A</Select.Option>
+          <Select.Option value="docs">{t('examples.select.copy.itemD')}</Select.Option>
           <Select.Option value="runtime">{t('examples.select.copy.runtime')}</Select.Option>
         </Select.Content>
       </Select>
       <Select disabled defaultValue="design">
-        <Select.Trigger aria-label={t('examples.select.copy.disabledProject')} />
+        <Select.Trigger aria-label={t('examples.select.copy.disabledItem')} />
         <Select.Content>
-          <Select.Option value="design">Virgo Design</Select.Option>
-          <Select.Option value="docs">{t('examples.select.copy.cloudDocs')}</Select.Option>
+          <Select.Option value="design">Item A</Select.Option>
+          <Select.Option value="docs">{t('examples.select.copy.itemD')}</Select.Option>
           <Select.Option value="runtime">{t('examples.select.copy.runtime')}</Select.Option>
         </Select.Content>
       </Select>
       <Select invalid>
         <Select.Trigger
-          aria-label={t('examples.select.copy.invalidProject')}
-          placeholder={t('examples.select.copy.chooseAProject')}
+          aria-label={t('examples.select.copy.invalidItem')}
+          placeholder={t('examples.select.copy.chooseAnItem')}
         />
         <Select.Content>
-          <Select.Option value="design">Virgo Design</Select.Option>
-          <Select.Option value="docs">{t('examples.select.copy.cloudDocs')}</Select.Option>
+          <Select.Option value="design">Item A</Select.Option>
+          <Select.Option value="docs">{t('examples.select.copy.itemD')}</Select.Option>
           <Select.Option value="runtime">{t('examples.select.copy.runtime')}</Select.Option>
         </Select.Content>
       </Select>

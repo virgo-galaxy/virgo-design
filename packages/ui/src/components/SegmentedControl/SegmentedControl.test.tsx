@@ -7,7 +7,7 @@ import { SegmentedControl } from './index';
 
 function renderControl(props?: Partial<ComponentProps<typeof SegmentedControl>>) {
   return render(
-    <SegmentedControl defaultValue="pear" aria-label="Fruit" {...props}>
+    <SegmentedControl defaultValue="pear" aria-label="Options" {...props}>
       <SegmentedControl.Item value="apple">Apple</SegmentedControl.Item>
       <SegmentedControl.Item value="pear">Pear</SegmentedControl.Item>
       <SegmentedControl.Item value="orange">Orange</SegmentedControl.Item>
@@ -72,7 +72,7 @@ describe('SegmentedControl', () => {
   it('renders a radio-backed single-selection group', () => {
     renderControl();
 
-    expect(screen.getByRole('radiogroup', { name: 'Fruit' })).toBeInTheDocument();
+    expect(screen.getByRole('radiogroup', { name: 'Options' })).toBeInTheDocument();
     expect(screen.getByRole('radio', { name: 'Pear' })).toBeChecked();
   });
 
@@ -102,7 +102,7 @@ describe('SegmentedControl', () => {
     const user = userEvent.setup();
 
     render(
-      <SegmentedControl defaultValue="apple" aria-label="Fruit">
+      <SegmentedControl defaultValue="apple" aria-label="Options">
         <SegmentedControl.Item value="apple">Apple</SegmentedControl.Item>
         <SegmentedControl.Item disabled value="orange">
           Orange
@@ -119,7 +119,7 @@ describe('SegmentedControl', () => {
   it('exposes variant, size, and motion independently', () => {
     renderControl({ variant: 'soft', size: 'small', motion: 'slide' });
 
-    const group = screen.getByRole('radiogroup', { name: 'Fruit' });
+    const group = screen.getByRole('radiogroup', { name: 'Options' });
 
     expect(group).toHaveAttribute('data-variant', 'soft');
     expect(group).toHaveAttribute('data-size', 'small');
@@ -130,7 +130,7 @@ describe('SegmentedControl', () => {
   it('uses medium size and static motion by default', () => {
     renderControl();
 
-    const group = screen.getByRole('radiogroup', { name: 'Fruit' });
+    const group = screen.getByRole('radiogroup', { name: 'Options' });
 
     expect(group).toHaveAttribute('data-size', 'medium');
     expect(group).toHaveAttribute('data-motion', 'none');
@@ -178,7 +178,7 @@ describe('SegmentedControl', () => {
     );
     try {
       const { unmount } = renderControl({ style: { width: '320px' } });
-      const group = screen.getByRole('radiogroup', { name: 'Fruit' });
+      const group = screen.getByRole('radiogroup', { name: 'Options' });
       const selected = screen.getByRole('radio', { name: 'Pear' }).closest('label')!;
       vi.spyOn(group, 'getBoundingClientRect').mockReturnValue(rect(100, 320));
       const measure = vi
@@ -201,7 +201,7 @@ describe('SegmentedControl', () => {
 
   it.each([0.9, 1, 1.25])('measures local coordinates inside an ancestor scaled by %s', (scale) => {
     renderControl({ style: { width: '320px' } });
-    const group = screen.getByRole('radiogroup', { name: 'Fruit' });
+    const group = screen.getByRole('radiogroup', { name: 'Options' });
     const selected = screen.getByRole('radio', { name: 'Pear' }).closest('label')!;
     vi.spyOn(group, 'getBoundingClientRect').mockReturnValue(rect(100, 320 * scale));
     vi.spyOn(selected, 'getBoundingClientRect').mockReturnValue(

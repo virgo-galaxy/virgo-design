@@ -3,17 +3,17 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { cardExamplesEnUS } from './en-US';
 export const cardExamplesZhCN = {
   copy: {
-    projectAccess: '项目访问权限',
+    exampleActions: '示例操作',
     cancel: '取消',
-    invite: '邀请',
-    aCompactGroupOfRelatedProjectInformation: '一组紧凑的相关项目信息。',
-    virgoDesignCore: 'Virgo Design Core',
+    confirm: '确认',
+    aCompactGroupOfRelatedProjectInformation: '一组紧凑的相关条目信息。',
+    exampleTitle: 'Example title',
     coveragePass: '覆盖检查',
     directChildrenParticipateInTheCardSStructuralFlow: '直接子内容参与 Card 的结构布局。',
-    sharedUiComponentsAndDesignTokens: '共享 UI 组件与设计 token。',
-    aConsistentFoundationForYourProduct: '为产品提供一致的基础。',
-    pokeya: 'Pokeya',
-    designSystemMaintainer: '设计系统维护者',
+    sharedUiComponentsAndDesignTokens: '示例正文内容。',
+    aConsistentFoundationForYourProduct: '补充示例内容。',
+    demoUser: 'Demo User',
+    exampleDescription: '示例说明',
     outlined: '描边',
     subtleBorderAndSmallStructuralSpacing: '柔和边框与小型结构间距。',
     elevated: '层级',
@@ -27,7 +27,7 @@ export const cardExamplesZhCN = {
       '按钮是显式子内容，而非隐式卡片交互。',
     outlinedAndElevated: '描边与层级',
     surfaceBackedTreatmentsWithDifferentStructuralSpacing: '基于 Surface 的样式配合不同结构间距。',
-    profileComposition: '个人信息组合',
+    profileComposition: '信息组合',
     combineAnIdentityDescriptionAndStatusInsideACard: '在 Card 中组合身份、描述与状态。',
     arbitraryChildren: '任意子内容',
     normalChildrenCanParticipateWithoutEveryCompoundSlot:
@@ -38,8 +38,8 @@ export const cardExamplesZhCN = {
     review: '评审',
   },
   details: {
-    inviteCollaboratorsToThisWorkspace: '邀请协作者加入此工作区。',
-    invitationCancelled: '邀请已取消。',
-    invitationPreparedThisIsALocalDemo: '邀请已准备。这是本地演示。',
+    useTheFooterActions: '使用下方的页脚操作。',
+    actionCancelled: '操作已取消。',
+    actionCompleted: '操作已完成。',
   },
 } satisfies LocaleOf<typeof cardExamplesEnUS>;

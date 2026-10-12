@@ -4,7 +4,6 @@ import { Button, Layout, Surface } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import landscapeImage from '@/assets/examples/surface/landscape.svg';
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import {
   ComponentExample,
@@ -13,6 +12,7 @@ import {
 } from '@/components/docs/ComponentExample';
 import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { surfaceExamples } from '@/examples/components/surface/examples';
+import { surfaceImageFixture } from '@/examples/components/surface/fixtures';
 import { translateExampleText } from '@/i18n/translate-example-text';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
@@ -51,7 +51,7 @@ export function SurfacePage() {
             </ReferenceSpecimen.Toolbar>
             <div
               className="surface-backdrop surface-hero-stage"
-              style={{ backgroundImage: `url("${landscapeImage}")` }}
+              style={{ backgroundImage: `url("${surfaceImageFixture}")` }}
             >
               <Layout>
                 <Layout.Header>

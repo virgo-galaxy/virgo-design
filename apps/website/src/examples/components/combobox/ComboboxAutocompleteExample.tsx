@@ -11,7 +11,7 @@ export default function App() {
       <Combobox inputValue={query} onInputValueChange={setQuery} shouldFilter={false}>
         <Combobox.Input aria-label={t('examples.combobox.copy.search')} />
         <Combobox.Content>
-          {['design.virgo.dev', 'docs.virgo.dev', 'pro.virgo.dev']
+          {['option-a.example.test', 'option-b.example.test', 'option-c.example.test']
             .filter((text) => text.includes(query.toLowerCase()))
             .map((text) => (
               <Combobox.Option key={text} value={text} textValue={text}>

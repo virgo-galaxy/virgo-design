@@ -3,7 +3,7 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { buttonExamplesEnUS } from './en-US';
 export const buttonExamplesZhCN = {
   copy: {
-    addItem: '添加项目',
+    addItem: '添加条目',
     settings: '设置',
     secondarySettings: '次要设置',
     outlinedSettings: '描边设置',
@@ -33,6 +33,6 @@ export const buttonExamplesZhCN = {
       '纯图标控件通过 aria-label 保留无障碍名称。',
     disabledState: '禁用状态',
     disabledButtonsRemainVisibleWhilePreventingInteraction: '禁用按钮仍保持可见，但无法交互。',
-    createProject: '创建项目',
+    createProject: '创建条目',
   },
 } satisfies LocaleOf<typeof buttonExamplesEnUS>;

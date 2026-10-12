@@ -23,7 +23,7 @@ export default function App() {
         <FloatingAction.Content aria-label={t('examples.floatingAction.copy.quickActions')}>
           <FloatingAction
             aria-label={t('examples.floatingAction.copy.openDashboard')}
-            onClick={() => select('Dashboard')}
+            onClick={() => select('View A')}
           >
             <DashboardIcon />
           </FloatingAction>

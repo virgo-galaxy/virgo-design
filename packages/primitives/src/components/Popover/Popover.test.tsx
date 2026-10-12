@@ -37,7 +37,7 @@ describe('Popover primitive', () => {
     expect(trigger).toHaveAttribute('aria-haspopup', 'dialog');
     expect(trigger).toHaveAttribute('aria-controls', dialog.id);
     expect(screen.getByRole('textbox')).toHaveFocus();
-    await user.type(screen.getByRole('textbox'), 'Virgo');
+    await user.type(screen.getByRole('textbox'), 'Example');
     await user.click(screen.getByRole('button', { name: 'Done' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();
