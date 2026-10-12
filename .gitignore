@@ -1,9 +1,24 @@
-node_modules
-dist
-coverage
-.vite
-.DS_Store
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+coverage/
+.vite/
+.next/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Local environment
 *.local
+
+# macOS
+.DS_Store
+
+# IDE
 .idea/
+
+# Vim
 *.swp
 *.swo

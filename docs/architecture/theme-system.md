@@ -72,7 +72,10 @@ Pro 通过 `initializeTheme({ defaultTheme, storage })` 接入共享 settings JS
 
 Portal 与 Floating 的环境读取/祖先监听共用内部 `portalEnvironment` 能力；pointer-follow Tooltip、Cursor visual 与 Follower 也复用它，同步 `data-theme / data-virgo-theme / dir`，局部属性移除后回退外层 scope。Option 的 hover/focus 与 selected 分别使用 `--vd-option-hover-background / foreground` 和 `--vd-option-selected-background / foreground`，selected 在 hover/focus 时保持其配色；Contrast 的选中态采用黑白反转，品牌色保留在 focus/link/accent。
 
-Theme Contract 审计增加 indicator、control/option、ColorPicker thumb、Cursor、Dock、固定列表格边缘、循环动效和 Charts presentation roles，并修复已有契约未被消费的路径。完整逐组件结论、正式新增变量和浏览器矩阵见 [Theme Contract 审计 Audit](../reviews/theme-contract-audit.md)。该审计时 Contract 版本为 1；当前架构收口保持 breaking major 1，统计与迁移见 [架构报告](../reviews/token-theme-architecture.md)。
+Indicator、control/option、ColorPicker thumb、Cursor、Dock、固定列表格边缘、循环动效和 Charts
+presentation 由所属正式角色控制。Foundation 色阶标本、用户选取的颜色、照片、品牌 artwork、
+显式 circle/shape、布局定位和点击区域保持内容或消费者语义；周边表面与交互继续消费主题。
+Contract 的角色归属、版本和 fallback 规则见 [Token 架构](token-system.md)。
 
 ## 应用消费
 
@@ -84,7 +87,7 @@ Pro 顶栏材质按主题决定：Virgo、Minimal、Soft 保留“不透明／�
 
 Charts 保持 Virgo API → ECharts engine。CSS compiler 读取语义变量，祖先 class/style/data-theme/data-virgo-theme 或系统外观变化时刷新 options，同一实例通过 setOption 更新。
 
-详见 [Package 使用说明](../../packages/themes/README.md) 与 [视觉验收记录](../reviews/theme-system.md)。
+详见 [Package 使用说明](../../packages/themes/README.md)。
 
 ## Glass 光学材质
 

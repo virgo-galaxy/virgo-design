@@ -39,6 +39,10 @@ Section gap、content spacing 可以引用 Foundation 或自己的组件变量�
 
 Foundation radius/border 仍是尺度。Theme 用 `shape-radius-*`、`stroke-width`、`focus-width/offset`、disabled border style、control radius、共享 surface/popup material 表达视觉语言。Elevation 的 level 0–5 是稳定尺度，具体 Light/Dark 阴影属于 Semantic；popup/dialog/tooltip 在确有独立材质需求时有 Component override。共享 popup 箭头的曲线、mask、轮廓与投影属于 Component 家族，不属于 Foundation，也不是通用颜色语义。
 
+Dark elevation 使用阴影加细微 rim，保持与 Light 相同的 offset、blur、spread 和稳定 level 0–5。
+Focus ring 与边界不作为 elevation。Alpha 的含义依赖表面、遮罩、阴影或瞬态动画的具体用途，
+不建立独立的通用 Opacity Foundation，也不因局部数值重复而扩展公开尺度。
+
 ## Motion 与交互
 
 当前正式用途名是 `motion-interaction-duration`、`motion-state-duration`、`motion-collapse-duration`、`motion-overlay-duration`、`motion-enter-duration` 和 `motion-loop-duration`，分别保留原有 120/180/240/360/560/2800ms 基线。interaction 覆盖 hover/pressed/focus，state 覆盖普通状态更新与退出；exit/standard/emphasized easing 各有稳定用途。较长 enter、overlay、collapse 与 looping 的现有消费者已迁移，Theme 保留原值或自己的覆盖。
@@ -236,7 +240,5 @@ Data palette 的 categorical 12、sequential 10、diverging negative/neutral/pos
 `packages/themes/src/contrast.test.ts` 编译正式 Theme SCSS，解析源值及 alpha/sRGB color-mix，检查六主题 × Light/Dark 的 text/background、muted/surface、primary/foreground、selected/foreground、option 两态、focus，以及四类 status 的 solid/subtle 配对。普通文字 4.5:1，focus 3:1，focus width 至少 2px。数学测试固定黑白 21:1 与 premultiplied alpha，避免只检查 source hex 而忽略透明叠加。
 
 当前迁移政策见 [Theme compatibility](theme-compatibility.md)。移除旧名称要有 replacement/owner、声明 deprecation、保留 major 内读写兼容、迁移当前 consumers、测试两方向；下个 breaking major 才能真正删 CSS/API。兼容 id 只允许读取迁移，不能用于新选择/注册。当前用户说明以正式角色为主，历史兼容单独记录。
-
-完整统计、逐组件分类、CSS/引用审计和当前验证结果见 [架构收口报告](../reviews/token-theme-architecture.md)。
 
 映射语法依据 [Tailwind Theme variables](https://tailwindcss.com/docs/theme) 与 [vanilla-extract assignVars](https://vanilla-extract.style/documentation/api/assign-vars/) 的官方接口。

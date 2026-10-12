@@ -180,64 +180,15 @@ No Shiki, Prism, highlight.js, editor or syntax-highlighting dependency is intro
 Virgo highlighter can replace the code renderer without changing where the source comes from.
 No new global theme state is introduced; the docs and portalled Tooltips use the existing theme.
 
-## Example inventory
+## Example ownership
 
 All manifests live at `apps/website/src/examples/components/<component>/examples.ts`.
 Each entry imports a neighboring `*Example.tsx` normally and as `?raw`, plus the matching
-`*Example.module.scss?virgo-raw`. Every executable example imports that same SCSS file for its actual rendering.
-
-| Component family    | Executable examples |
-| ------------------- | ------------------: |
-| `accordion`         |                   4 |
-| `alert`             |                   5 |
-| `avatar`            |                   5 |
-| `badge`             |                   5 |
-| `breadcrumb`        |                   4 |
-| `button`            |                   5 |
-| `calendar`          |                   2 |
-| `card`              |                   6 |
-| `checkbox`          |                   4 |
-| `color-picker`      |                   3 |
-| `collapsible`       |                   1 |
-| `combobox`          |                   4 |
-| `command`           |                   3 |
-| `context-menu`      |                   3 |
-| `cursor`            |                   7 |
-| `date-picker`       |                   2 |
-| `dialog`            |                   2 |
-| `dock`              |                   5 |
-| `drawer`            |                   5 |
-| `dropdown`          |                   9 |
-| `empty`             |                   3 |
-| `field`             |                   3 |
-| `floating-action`   |                   4 |
-| `form`              |                   3 |
-| `input`             |                   8 |
-| `layout`            |                  16 |
-| `menu`              |                   4 |
-| `menubar`           |                   1 |
-| `navigation-menu`   |                   7 |
-| `pagination`        |                  12 |
-| `popover`           |                   7 |
-| `progress`          |                   3 |
-| `radio`             |                   4 |
-| `segmented-control` |                   5 |
-| `select`            |                   6 |
-| `separator`         |                   4 |
-| `skeleton`          |                   3 |
-| `slider`            |                   2 |
-| `spinner`           |                   4 |
-| `steps`             |                   1 |
-| `surface`           |                  11 |
-| `switch`            |                   6 |
-| `table`             |                   3 |
-| `tabs`              |                   7 |
-| `tag`               |                   5 |
-| `time-picker`       |                   2 |
-| `timeline`          |                   2 |
-| `toast`             |                   4 |
-| `tooltip`           |                  13 |
-| `tree`              |                   3 |
+`*Example.module.scss?virgo-raw`. Every executable example imports that SCSS file for rendering.
+Examples use neutral values such as Item A, Option A, Example value and Demo User with matching
+Chinese labels. Component terminology still explains behavior. Fixtures, accessible labels,
+translations, displayed source and expectations stay co-owned and consistent; Pro business seed
+data belongs to its mock backend.
 
 There is no extra bottom-of-page `Examples` section. Relationships remain outside the page content
 at the existing end-of-document location. Hero specimens remain compact component introductions,
@@ -259,24 +210,12 @@ not registered code examples.
   Floating actions stay within Layout.Content while actual overlay components retain their public
   portal/focus/dismissal behavior.
 
-## Cleanup
-
-All 136 legacy `ReviewSection` call sites have been replaced by article sections containing actual
-source-backed examples. The unused `ReviewSection` and `PlacementCompass` helpers are removed.
-Layout's old page-owned example modules are removed after their use cases move to executable
-sources. The retained Layout hero is still a page-owned specimen.
-
-Dead review-card, measurement, demo-form, grid, and page-layout styles have been removed. Remaining
-page SCSS styles the hero and documentation shell only; it is not a hidden dependency of copied
-examples. The empty FloatingAction page stylesheet is removed together with its import.
-The legacy hard-coded Surface `<details>` source block and 105 duplicate metadata snippets are gone.
-
 ## Verification
 
 Repository tests cover article structure, exact paired React / SCSS raw sources, disclosure semantics,
 unique panel IDs, keyboard disclosure actions, source-tab switching, the synchronized Expand all /
 Collapse all runtime control, real Virgo icons/Tooltip, copy-to-check feedback, clipboard
-success/failure/pending/retry/unmount behavior, stateful Dialog integration, duplicate instance registration/unregistration, all 50 pages in both
+success/failure/pending/retry/unmount behavior, stateful Dialog integration, duplicate instance registration/unregistration, component pages in both
 themes, and representative independent form/menu/tab/notification examples. Manifest tests pair
 all executable modules with their normalized React source and exact SCSS source, and check public
 dependency boundaries in the consumer React source.
@@ -292,11 +231,11 @@ Clipboard `writeText` API. Clipboard access is subject to the browser's secure-c
 ## Website self-hosting boundary
 
 Component route metadata keeps lazy page components. Opening a catalogue does not load all
-50 detail pages and their live examples/raw source. Each detail page renders inside the existing
+detail pages and their live examples/raw source. Each detail page renders inside the existing
 DocumentationDetailShell with a localized Suspense status. Standalone examples retain their
 existing lazy glob registry and route contract.
 
 The page wrapper is `component-page`, article anchors use `data-docs-section`, and ArticleSection
-retains `data-article-section`. These are current documentation concepts rather than the former
-review board. Genuine icon geometry and semantic color review tools retain their review names.
+retains `data-article-section`. Icon geometry and semantic color review tools retain names that
+explain their product behavior.
 Layout examples and specimens use `Layout.Content as="div"` under the document's single main.

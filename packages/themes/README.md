@@ -108,7 +108,7 @@ Local scopes carry **both** `data-virgo-theme` and `data-theme`; use `getThemeAt
 
 `THEME_CONTRACT_VERSION` is a breaking CSS-contract major. Optional additions do not increase it. `tokenCatalog/themeContractRoles` describe current layers/required/fallback; `themeContract` retains major-1 compatibility keys. Foundation scales stay stable, while Semantic/Component roles express visual differences. Runtime behavior changes and the CSS-free JS root require package migration notes independently of the CSS major.
 
-The complete ownership rules, typography, density, motion, Chart presentation, SSR and multi-stack examples are in [Token architecture](../../docs/architecture/token-system.md). Saved ID and deprecated role rules are separate in [Compatibility policy](../../docs/architecture/theme-compatibility.md). Verification and counts are in [Architecture report](../../docs/reviews/token-theme-architecture.md).
+The complete ownership rules, typography, density, motion, Chart presentation, SSR and multi-stack examples are in [Token architecture](../../docs/architecture/token-system.md). Saved ID and deprecated role rules are separate in [Compatibility policy](../../docs/architecture/theme-compatibility.md).
 
 ## Glass material
 

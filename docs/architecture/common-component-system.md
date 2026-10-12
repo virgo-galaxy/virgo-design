@@ -1,10 +1,9 @@
 # Common component system
 
-The next component layer adds Form, Field, Table, Tree, Combobox, Slider,
-ColorPicker, TimePicker, DatePicker, Calendar and Timeline to both public packages. The
-existing package roots, metadata entry, generated API reference, example runtime and locale registry
-remain the integration points. Calendar and Clock icons are added for the date and time controls;
-no dependencies, themes or global tokens are added.
+Form, Field, Table, Tree, Combobox, Slider, ColorPicker, TimePicker, DatePicker, Calendar
+and Timeline provide shared form and data-presentation capabilities. Public package roots,
+metadata, generated API references, executable examples and co-located locales describe their
+contracts. Component-owned README files document detailed composition behavior.
 
 ## Form and Field
 
@@ -33,11 +32,14 @@ consumers that require associations before hydration should pass an explicit `co
 
 Table retains native table semantics: Caption, Header, Body, Footer, Row, Head and Cell. Head defaults
 to column scope; consumers can set row scope. Viewport is a named, keyboard-scrollable region.
-UI adds three densities, logical alignment, none/rows/separators/all borders, stripes, row hover, selected-row
+UI adds four densities, logical alignment, none/rows/separators/all borders, stripes, row hover, selected-row
 presentation and sticky headers inside a constrained viewport. Empty and summary content compose
 through native spanning cells and Footer. Selection is presentation, not a grid interaction model.
 
-Sorting, filtering, paging, visibility, resizing and virtualization remain outside Table. The
+Table supplies controlled sorting/filter/search controls, page-key selection, column resizing
+and fixed-column presentation. Consumers own data ordering, filtering, pagination, visibility,
+reordering and persistence; Table does not become a virtualized grid. See the
+[Table composition contract](../../packages/ui/src/components/Table/README.md). The
 Website's generated API reference composes Surface frames with Table without changing the generated
 data model. The UI-only `separators` border mode divides adjacent rows within and across nonempty
 table sections, leaving outer edges unbordered. It also supports headerless tables; `rows` retains
@@ -79,23 +81,21 @@ Remote cancellation, debounce, loading/error handling and creation of new values
 
 ## Slider, color and time input
 
-Slider is one native numeric range control. The browser owns pointer and keyboard movement;
-Virgo supplies controlled/uncontrolled numeric state, field association, read-only guards, three
-sizes, existing focus/color tokens and RTL-compatible native behavior. It submits through its
-native name/value. Multi-thumb ranges await a concrete consumer contract.
+Slider is a native single-value range control. `Slider.Range` supports ordered multiple values,
+neighbor-constrained thumbs, pointer cancellation, RTL and keyboard adjustment. Both share
+controlled/uncontrolled state, Field/Form defaults and native submission; numeric domains and
+business meaning remain consumer-owned. See the
+[Slider contract](../../packages/ui/src/components/Slider/README.md).
 
-ColorPicker composes Input (native color dialog), Swatch and Preview around a shared controlled
-or uncontrolled value. Values are canonical opaque sRGB #rrggbb. Named submission uses a hidden
-native input; disabled state excludes it. Swatches expose pressed state and an accessible color
-name. Input keeps the browser/OS native dialog. The shared root also composes Trigger and Popover Content,
-a pointer-driven saturation/value Area with two keyboard-accessible ranges, a Hue range, HexField,
-and RGB ChannelField parts. HSV and RGB conversions stay inside ColorPicker; its public value
-remains canonical opaque sRGB. Hue/saturation survive black while the editor is active. Valid HEX
-commits on Enter/blur; invalid drafts reset on blur or Escape. RGB fields clamp to 0–255 and update
-the same value. Controlled state, form submission, Field association, disabled/read-only guards and
-Popover dismissal/focus behavior are shared across parts. Alpha and wide-gamut values remain deferred.
-Part classes, stable data slots and panel/area/hue/thumb CSS variables let consumers restyle the
-panel without reimplementing its interaction or conversions.
+ColorPicker shares controlled or uncontrolled sRGB values in `#rrggbb` or `#rrggbbaa` form.
+Input retains the browser's native color dialog; Trigger and Content compose a custom editor
+with Area, Hue, Opacity, HexField, ChannelField, AlphaField and Preview. Area includes named
+saturation and brightness ranges for keyboard access. RGB/HSV conversion, draft commit/reset,
+form submission, Field association and disabled/read-only guards belong to the primitive.
+UI `ColorPicker.Panel` provides full HEX/RGB and simple HEX editors; opacity is enabled by
+default in the full panel and can be configured independently. The value Trigger has a stable
+width. Part classes, data slots and CSS variables customize presentation without duplicating
+editor behavior. Wide-gamut output remains outside this sRGB contract.
 
 TimePicker uses native time segments and validation with a controlled/uncontrolled string,
 min/max/step, name, required and inherited field state. Values are local HH:mm or HH:mm:ss;
@@ -118,7 +118,8 @@ DatePicker composes a native date Input, Trigger and nonmodal Popover Content co
 same Calendar. Selection and constraints are shared; input keeps native name/required validation.
 Opening focuses the selected available day, choosing closes, and Popover returns focus to Trigger.
 Escape, outside dismissal, portal, collision positioning, layer registration and theme/RTL context
-come from the existing overlay infrastructure. Date ranges and time-zone conversion are deferred.
+come from the existing overlay infrastructure. `DatePicker.Range` composes paired date inputs
+and the shared calendar for a civil-date interval; time-zone conversion stays consumer-owned.
 The UI Trigger defaults to a decorative Calendar icon; consumers can still replace its children.
 
 ## Timeline
@@ -130,10 +131,8 @@ interactive scheduling and Gantt editing need a different, demonstrated consumer
 
 ## Documentation and adoption
 
-Eleven styled pages and eleven headless pages use existing catalogue/sidebar/detail infrastructure.
-Twenty-eight added examples bring the component runtime to 240 examples across 50 component pages
-and 36 primitive pages. Catalogue/sidebar ordinals are continuous 01–50 using the existing group
-order and formal component names. Existing URLs remain stable.
+Styled and headless documentation use the existing catalogue/sidebar/detail infrastructure
+and stable component routes. Executable examples belong to their component manifests.
 Generated public API descriptions and co-located English/Chinese locales follow the existing schema.
 Construction relationships remain factual; a separately labeled composition list explains common
 combinations without claiming runtime dependencies.
@@ -146,38 +145,28 @@ navigation implementation.
 
 ## DataTable and later stages
 
-DataTable is deliberately deferred. API documentation is a static semantic table, and the current
-Website has no repeated data-management screen needing a shared sort/filter/selection/page contract.
-The new Table foundation alone is not evidence for inventing that contract. Revisit after Virgo
-Design Pro has at least two real screens, such as a project/file list and member/audit management,
-with overlapping toolbar, sort/filter, row selection, paging and loading/empty behavior. Compare
-client/server ownership, stable row/column IDs, large-data constraints and accessible interaction
-before choosing the public abstraction.
+DataTable remains a separate potential abstraction. Pro currently composes public Table controls
+with its API-owned queries and product-owned selection, column and preference state. A shared
+DataTable needs repeated consumer requirements for client/server ownership, stable row/column IDs,
+loading, paging, large-data constraints and accessible interaction before defining a public API.
 
-Pro should exercise Tree with deep/lazy explorer data and Combobox with remote/large result sets
-before adding virtualization or asynchronous APIs. Theme/Token audit can then compare the existing
-local row-height, form-gap, label-width and popup-surface variables across real use. This stage does
-not establish a new component-token architecture or platform-themed interface.
+Tree virtualization, asynchronous Combobox protocols and scheduling editors likewise require
+concrete consumers. Existing local geometry and composition variables do not imply a new global
+component-token architecture.
 
-## Validation record
-
-See [component-system-review.md](component-system-review.md) for the final verification matrix,
-visual review findings and follow-up boundaries.
-
-## Website self-hosting closure
+## Website self-hosting
 
 The current Website ownership, deliberate native fixtures, landmark policy and loading boundaries
-are specified in [Website self-hosting](website-selfhosting.md). The closure audit is kept separately
-from the historical common-component review. Typography tables now use Table with their original
+are specified in [Website self-hosting](website-selfhosting.md). Typography tables use Table with their
 local composition styles; Layout.Content exposes the general main/div semantic choice.
 
-## Strict consumer additions
+## Consumer composition contracts
 
 Steps and UI Collapsible are public families with co-located types, styles, metadata, tests,
 generated API, bilingual documentation and executable examples. Steps is an ordered presentation
 pattern with optional Button actions; progress and navigation stay consumer-owned. Collapsible
-reuses the existing Primitive and UI Button. There are still 36 Primitive document families.
-ColorPicker now composes a real HEX/RGB/HSV panel; no native input API is removed. Select exposes
+reuses the existing Primitive and UI Button.
+ColorPicker composes its shared editor panel while retaining the native Input API. Select exposes
 selected-value/indicator customization and stable part slots; Tabs exposes native-button/label
 classes; Input exposes frame className independently of the native control. These are general
 consumer capabilities, not Website-only variants. See website-selfhosting.md for strict boundaries.

@@ -113,8 +113,8 @@ figure title/description. `YAxis hidden` and `XAxis hidden` remove axes in micro
 Theme values resolve from computed CSS, including nested token references. Theme/class/style
 changes on the chart and its ancestors refresh ECharts options without replacing the instance.
 All six official themes (virgo, minimal, soft, glass, retro and contrast) implement the same
-contract in Light and Dark. Component and product verification is recorded in
-[the Theme Contract audit](../../docs/reviews/theme-contract-audit.md).
+contract in Light and Dark. Shared presentation and scope rules are described in
+[Theme architecture](../../docs/architecture/theme-system.md).
 
 `--chart-background`, `--chart-axis`, `--chart-axis-label`, `--chart-grid`,
 `--chart-series-1` … `--chart-series-12`, `--chart-line-width`,

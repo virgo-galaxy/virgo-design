@@ -57,7 +57,7 @@ title in sorting, filter, search order.
     search: { value: query, onValueChange: setQuery },
   }}
 >
-  Project
+  Item
 </Table.Head>
 ```
 

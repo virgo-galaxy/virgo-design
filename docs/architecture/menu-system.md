@@ -4,7 +4,7 @@ Menu offers actions; ContextMenu offers actions for the invoking object; Menubar
 
 ## Shared protocol
 
-`packages/primitives/src/internal/menu` owns the item collection, keyboard movement/typeahead, menu context, active child relationship, and shared item implementations. Menu, ContextMenu and Menubar export the same Item, CheckboxItem, RadioItem, RadioGroup, Group, Separator and Submenu parts, rather than copies. Dropdown retains its existing API; this addition does not migrate Dropdown consumers.
+`packages/primitives/src/internal/menu` owns the item collection, keyboard movement/typeahead, menu context, active child relationship, and shared item implementations. Menu, ContextMenu and Menubar export the same Item, CheckboxItem, RadioItem, RadioGroup, Group, Separator and Submenu parts, rather than copies. Dropdown has its own public API and retains its menu-specific behavior.
 
 All popup levels reuse existing overlay Portal, useFloatingPosition, useDismiss and LayerScope. A virtual anchor rectangle extends the position hook for ContextMenu while the actual target still supplies document, direction and theme. No additional overlay manager is installed. Submenu siblings are coordinated so only one is visible, and pointer travel has a short existing hover-intent close grace period. Panels unmount immediately on close, avoiding overlapping exit ghosts.
 

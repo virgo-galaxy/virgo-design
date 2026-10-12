@@ -1,8 +1,8 @@
 # Website self-hosting
 
-The Website uses Virgo public packages for reusable interaction and presentation while retaining
-its established visual contract. A migration is complete only when layout, typography, dimensions,
-colors, responsive behavior and focus behavior have been checked against the original page.
+The Website uses Virgo public packages for reusable interaction and presentation. Website-owned
+composition defines document geometry and typography; public components own state, keyboard,
+focus and semantic behavior.
 
 ## Ownership
 
@@ -41,14 +41,12 @@ panels. Consumer classes style the native tab, item and label separately without
 relationships. Icon selection uses UI Select with `renderValue`, `indicator` and stable value,
 option-label, check and viewport slots; it retains the existing glyph/text layout.
 
-Color Studio consumes UI ColorPicker: Trigger, Content, Area, Hue, HexField, ChannelField and Preview
-share one opaque sRGB value. The primitive owns conversions, draft commit/reset, read-only/disabled
-state, native submission and Popover behavior. Area exposes separate, named saturation and brightness
-range controls for keyboard/assistive-technology users and a pointer plane. UI owns their styling.
-Public CSS variables control panel width, area/hue height and thumb size. Website owns its palette
-and geometry classes, not a second color editor implementation. No react-colorful dependency remains.
-HEX/RGB/HSV editing does not imply alpha, wide-gamut support or OKLCH output; those remain explicit
-future contracts. Existing native ColorPicker.Input and Swatch usage remain compatible.
+Color Studio consumes UI ColorPicker's compound editor for its opaque sRGB palette. The primitive
+owns RGB/HSV conversion, draft commit/reset, read-only/disabled state, native submission and
+Popover behavior. Area supplies named saturation and brightness keyboard ranges and a pointer
+plane. UI owns styling and exposes panel/area/hue/thumb CSS variables. Other consumers can use
+alpha values and the built-in full or simple Panel without maintaining a second editor.
+Wide-gamut and OKLCH output remain outside the component contract.
 
 Palette mode, color model, export format and scale naming use SegmentedControl. Reset, copy, scroll,
 family selection and color-step actions use UI Button with consumer classes and the named label/icon
@@ -67,7 +65,7 @@ Family Editor is inert while hidden. Native links retain real href navigation or
 2. A missing public styling/behavior capability is repaired in the owning component with contract
    coverage; it is not a reason to fall back to headless or raw HTML controls.
 3. A reusable pattern absent from UI becomes a public component, as with Steps and Collapsible.
-4. Native/domain implementations need a narrow, explicit reason recorded in the current inventory.
+4. Native/domain implementations need a narrow, explicit reason in their owning source or contract.
    “Different style”, “editorial” or “Website composition” alone are insufficient.
 
 Production modules have no direct Primitive imports. Primitive documentation and intentional
@@ -81,7 +79,7 @@ Color data calculation, swatch geometry, palette visualization, typography speci
 containers remain domain presentation. Their ordinary buttons/inputs still consume UI. Three native
 links retain actual href/rel/download semantics. Family-row pointer/focus capture selects the color
 identity associated with its Input; it is not a separate unlabeled keyboard action. Carousel enter/
-leave/focus capture pauses its local motion. The inventory lists those non-control event containers.
+leave/focus capture pauses its local motion; these containers do not implement separate controls.
 
 Tree, Calendar, DatePicker, TimePicker and Timeline are demonstrated in their documentation without
 inventing an unrelated Website workflow. General component APIs remain driven by an actual consumer.
@@ -133,8 +131,7 @@ delay, progress percentage or new public Skeleton API.
 Framework, i18n engine, motion and translation resources have explicit cacheable chunk groups.
 This preserves synchronous locale registration and avoids per-key/per-example dynamic imports.
 The implementation uses the installed bundler's [code splitting groups](https://rolldown.rs/reference/OutputOptions.codeSplitting);
-chunk warning thresholds are unchanged. Measured byte counts and final validation belong in the
-closure audit, not in this continuing specification.
+chunk warning thresholds are unchanged.
 
 ## Reference compositions and remaining controls
 
@@ -158,9 +155,9 @@ parts. It reuses Dialog behavior through composition, preserving native props an
 intrinsic frame sizing independently from its normalized anchor position; when pinned, its maximum
 dimensions use the existing captured insets so constraints still refer to the original Boundary.
 
-## Boundaries after closure
+## Product boundaries
 
-Strict Website self-hosting does not establish Pro, DataTable, final component tokens, a Theme Contract, interface
-themes or a release pipeline. Pro should supply repeated real workflows before adding those
-abstractions. The Website's large multilingual font CSS and eagerly registered bilingual text
-remain explicit future performance considerations rather than reasons to redesign the theme system.
+Website self-hosting defines the Website consumer boundary. Shared visual ownership is described
+in [Token architecture](token-system.md). DataTable and release delivery need their own consumer
+requirements. Multilingual font CSS and eagerly registered bilingual text remain performance
+considerations for Website loading.

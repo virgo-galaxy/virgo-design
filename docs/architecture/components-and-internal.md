@@ -66,15 +66,11 @@ infrastructure. The public `@/i18n` barrel intentionally does not expose that in
 
 `ui/src/internal/overlay/_panel.scss` shares the shared Theme Contract surface and arrow treatment. It adds no tokens or public Overlay component. Dropdown keeps its previous styling and immediate unmount behavior; Popover opts into entry/exit motion.
 
-Select only extracts refs, controllable state and outside dismissal in this pass. Its inline listbox, sizing and keyboard behavior remain intact. Checkbox only shares ref composition: native input state and group notification semantics remain unchanged. Tabs registration and Pagination's coupled page/size clamping are intentionally component-owned.
+Select reuses shared portal, positioning and dismissal while retaining its own listbox keyboard
+semantics. Checkbox's native state/group notification, Tabs registration and Pagination's coupled
+page/size clamping remain component-owned.
 
 New overlay consumers should first reuse these small capabilities. Do not export internal utilities, invent a public Overlay API or generalize component-specific keyboard semantics into the positioning layer.
-
-## Migration and verification
-
-Source directories now use PascalCase family names. Root imports such as `import { Button, Dropdown, Popover } from '@virgo-design/ui'` remain stable, as do the existing metadata and CSS entry points. Apps resolve those entry points rather than component file paths. Old flat directories and Dropdown-local positioning code are removed; documentation links follow their new paths.
-
-Verification covers the existing component suites, public export boundaries, shared positioning/listener lifecycle, nested overlays, Popover focus/controlled state/motion/theme/RTL, Playground integration and `pnpm all` (including the website and all playground builds).
 
 ## Website consumer boundary
 

@@ -8,7 +8,7 @@ import { Input, Popover } from '@virgo-design/ui';
 <Popover>
   <Popover.Trigger>Edit workspace</Popover.Trigger>
   <Popover.Content aria-label="Workspace settings" arrow>
-    <Input aria-label="Workspace name" defaultValue="Virgo" />
+    <Input aria-label="Workspace name" defaultValue="Example value" />
     <Popover.Close>Done</Popover.Close>
   </Popover.Content>
 </Popover>;
@@ -29,7 +29,8 @@ Content portals to `document.body`, escaping ancestor overflow clipping. Its nea
 
 UI uses a short opacity enter/exit animation from existing motion tokens, disabled by reduced motion. Closed content is immediately inert and aria-hidden, then unmounts after its CSS exit duration. The unstyled primitive has no animation delay unless given animated CSS.
 
-The styled content viewport scrolls when constrained. Nested floating controls should portal their popup, as Dropdown does. Select still uses its existing inline listbox in this release and can be clipped by this scrolling viewport; its overlay migration is deferred.
+The styled content viewport scrolls when constrained. Nested Dropdown, Select and other floating
+controls use their own portals to escape this viewport while participating in shared layer dismissal.
 
 ## Custom trigger
 
@@ -40,7 +41,7 @@ Without `render`, Trigger remains a Virgo Button. Supplying `render` delegates d
   <Popover.Trigger
     aria-label="Profile"
     className="avatar-trigger"
-    render={(props) => <button {...props}>VD</button>}
+    render={(props) => <button {...props}>Demo User</button>}
   />
   <Popover.Content>Profile details</Popover.Content>
 </Popover>
