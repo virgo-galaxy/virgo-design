@@ -13,8 +13,11 @@ const { navigate, signOut, changeMode, currentUser } = vi.hoisted(() => ({
   changeMode: vi.fn(),
   currentUser: { role: 'admin', account: 'admin', department: 'Platform' },
 }));
-vi.mock('react-router', () => ({ useNavigate: () => navigate }));
-vi.mock('@/application/session-context', () => ({
+vi.mock('react-router', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('react-router')>()),
+  useNavigate: () => navigate,
+}));
+vi.mock('@/features/auth/session-context', () => ({
   useSession: () => ({ signOut }),
   useCurrentUser: () => currentUser,
 }));

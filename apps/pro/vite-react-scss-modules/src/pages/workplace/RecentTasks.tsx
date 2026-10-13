@@ -4,14 +4,14 @@ import type { Ref } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { projectName } from '@/data/task-catalog';
-import { formatDueDate } from '@/data/workplace';
+import { projectName, useTaskCatalog } from '@/features/catalog';
+import { getTaskStatusLabel, taskStatusIntent } from '@/features/tasks';
 import { businessLabel } from '@/lib/demo/labels';
-import { getTaskStatusLabel, taskStatusIntent } from '@/pages/tasks/task-presentation';
+import { formatDueDate } from '@/lib/format-due-date';
+import { routePath } from '@/routing';
 
+import styles from './RecentTasks.module.scss';
 import { useWorkplaceData } from './workplace-context';
-import styles from './WorkplacePage.module.scss';
 
 export function RecentTasks({ allTasksRef }: { allTasksRef: Ref<HTMLButtonElement> }) {
   const { recentTasks, snapshot } = useWorkplaceData();
@@ -32,7 +32,7 @@ export function RecentTasks({ allTasksRef }: { allTasksRef: Ref<HTMLButtonElemen
           variant="text"
           size="medium"
           trailingIcon={<ArrowRightIcon />}
-          onClick={() => navigate('/work/tasks')}
+          onClick={() => navigate(routePath('tasks'))}
         >
           {t('workplace.allTasks')}
         </Button>

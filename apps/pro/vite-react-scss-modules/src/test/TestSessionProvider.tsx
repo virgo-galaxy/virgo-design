@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { SessionContext } from '@/application/session-context';
+import { SessionContext } from '@/features/auth';
 import { getStoredUser } from '@/lib/auth/session';
 
 /** Tests choose the authenticated identity explicitly; production reads only SessionContext. */

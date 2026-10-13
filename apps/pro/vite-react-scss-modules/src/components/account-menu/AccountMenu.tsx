@@ -4,16 +4,12 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { useCurrentUser, useSession } from '@/application/session-context';
 import { UserGenderIcon } from '@/components/user-gender/UserGenderIcon';
-import {
-  accountAvatarImage,
-  avatarForeground,
-  profileInitials,
-  type ProfileState,
-} from '@/data/pro-workflows';
+import { useCurrentUser, useSession } from '@/features/auth';
+import { avatarForeground, profileInitials, type ProfileState } from '@/features/profile';
 import { isAdmin } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
+import { routePath } from '@/routing';
 
 import styles from './AccountMenu.module.scss';
 
@@ -35,7 +31,7 @@ export function AccountMenu({
   const [signingOut, setSigningOut] = useState(false);
   const [error, setError] = useState(false);
   const displayName = businessLabel(profile.displayName || profile.name, i18n.language);
-  const avatarImage = accountAvatarImage(profile);
+  const avatarImage = profile.avatarImage;
   const avatarProps = {
     shape: 'square' as const,
     fallback: profileInitials(profile.name).slice(0, 1),
@@ -86,7 +82,7 @@ export function AccountMenu({
             disabled={signingOut}
             onSelect={() => {
               setOpen(false);
-              navigate('/profile');
+              navigate(routePath('profile'));
             }}
           >
             {t('app.userCenter')}

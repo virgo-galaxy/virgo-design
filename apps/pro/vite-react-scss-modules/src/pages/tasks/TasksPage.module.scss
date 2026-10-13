@@ -2,12 +2,7 @@
   display: grid;
   gap: var(--vd-spacing-20);
 }
-.eyebrow {
-  color: var(--vd-text-tertiary);
-  font-family: var(--vd-font-family-mono);
-  font-size: var(--vd-font-size-10);
-  letter-spacing: 1px;
-}
+
 .listActions {
   display: flex;
   flex-wrap: wrap;
@@ -16,6 +11,7 @@
   gap: var(--vd-spacing-16);
   padding: var(--vd-spacing-16) var(--vd-spacing-20);
 }
+
 .listPanel {
   --task-panel-background: var(--vd-overlay-background, #fff);
   min-width: 0;
@@ -25,14 +21,14 @@
     --vd-panel-shadow,
     0 4px 18px color-mix(in srgb, var(--vd-text-primary) 5%, transparent)
   );
-  .table {
+  :global([data-pro-task-table]) {
     --table-body-background: var(--vd-table-body-background, var(--task-panel-background));
     --table-row-hover-background: var(
       --vd-table-hover-background,
       color-mix(in srgb, var(--vd-brand-primary) 3%, var(--table-body-background))
     );
   }
-  .table[data-hoverable='true'] tbody > tr[data-task-id] {
+  :global([data-pro-task-table])[data-hoverable='true'] tbody > tr[data-task-id] {
     transition: box-shadow var(--vd-motion-state-duration, var(--vd-duration-180))
       var(--vd-motion-easing-standard, var(--vd-easing-standard));
     &:is(:hover, :focus-within) {
@@ -43,165 +39,17 @@
     }
   }
 }
+
 :global([data-theme='dark']) .listPanel {
   --task-panel-background: var(--vd-surface-elevated);
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .listPanel .table[data-hoverable='true'] tbody > tr[data-task-id] {
+  .listPanel :global([data-pro-task-table])[data-hoverable='true'] tbody > tr[data-task-id] {
     transition: none;
   }
 }
-.filterToolbar {
-  padding: var(--vd-spacing-20);
-  border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
-}
-.searchRow {
-  display: flex;
-  gap: var(--vd-spacing-12);
-  align-items: center;
-  margin-block-end: var(--vd-spacing-16);
-}
-.search {
-  width: 100%;
-  max-width: 410px;
-}
-.resultCount {
-  margin-inline-start: auto;
-  white-space: nowrap;
-  color: var(--vd-text-tertiary);
-  font-family: var(--vd-font-family-mono);
-  font-size: var(--vd-font-size-11);
-}
-.filterGrid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--vd-spacing-16);
-}
-.filterLabel {
-  font-size: var(--vd-font-size-11);
-  color: var(--vd-text-secondary);
-}
-.tableViewport {
-  margin-inline: var(--vd-spacing-20);
-  scrollbar-width: thin;
-}
-.table {
-  min-width: 1300px;
-  font-size: var(--vd-font-size-12);
-  th {
-    white-space: nowrap;
-  }
-}
-.taskIdentity {
-  display: grid;
-  gap: var(--vd-spacing-4);
-}
-.taskId {
-  font-family: var(--vd-font-family-mono);
-  font-size: var(--vd-font-size-10);
-  color: var(--vd-text-tertiary);
-}
-.taskTitle {
-  max-width: 340px;
-  font-size: var(--vd-font-size-12);
-  overflow-wrap: anywhere;
-}
-.projectName {
-  white-space: nowrap;
-  color: var(--vd-text-secondary);
-}
-.person {
-  display: flex;
-  align-items: center;
-  gap: var(--vd-spacing-8);
-  white-space: nowrap;
-  color: var(--vd-text-secondary);
-}
-.avatar {
-  font-family: var(--vd-font-family-mono);
-}
-.estimateHours {
-  font-variant-numeric: tabular-nums;
-}
-.createdAt {
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-  color: var(--vd-text-secondary);
-  font-size: var(--vd-font-size-11);
-}
-.dueDate {
-  display: grid;
-  gap: var(--vd-spacing-4);
-  white-space: nowrap;
-  font-size: var(--vd-font-size-11);
-  color: var(--vd-text-secondary);
-  &[data-overdue='true'] {
-    color: var(--vd-status-danger-text);
-  }
-}
-.overdueLabel {
-  font-size: var(--vd-font-size-10);
-}
-.tableFooter {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--vd-spacing-12);
-  padding: var(--vd-spacing-16) var(--vd-spacing-20);
-  color: var(--vd-text-tertiary);
-  font-size: var(--vd-font-size-11);
-  align-items: center;
-  flex-wrap: wrap;
-}
-.pagination {
-  width: 100%;
 
-  [data-slot='total'] {
-    color: var(--vd-text-tertiary);
-  }
-}
-
-.completedNote {
-  font-size: var(--vd-font-size-11);
-  color: var(--vd-status-success-text);
-}
-.taskForm {
-  width: 100%;
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  align-items: start;
-  gap: var(--vd-spacing-24);
-}
-.taskEditorContent {
-  display: grid;
-  align-content: start;
-  gap: var(--vd-spacing-20);
-  min-width: 0;
-}
-.formGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--vd-spacing-16);
-  align-items: start;
-}
-
-.saveState {
-  margin-inline-end: auto;
-  color: var(--vd-text-tertiary);
-  font-size: var(--vd-font-size-11);
-}
-.discardNotice {
-  width: 100%;
-  align-items: center;
-  gap: var(--vd-spacing-16);
-}
-.discardActions {
-  justify-content: flex-end;
-}
-@media (max-width: 640px) {
-  .discardActions {
-    width: 100%;
-  }
-}
 .srOnly {
   position: absolute;
   width: 1px;
@@ -212,69 +60,11 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
-@media (max-width: 850px) {
-  .filterGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (max-width: 720px) {
-  .taskForm {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
+
 @media (max-width: 640px) {
-  .searchRow {
-    flex-wrap: wrap;
-  }
-  .search {
-    max-width: none;
-  }
-  .resultCount {
-    margin-inline-start: 0;
-    margin-inline-end: auto;
-  }
-  .filterToolbar {
-    padding: var(--vd-spacing-16);
-  }
-  .filterGrid {
-    gap: var(--vd-spacing-12);
-  }
-  .tableViewport {
-    margin-inline: var(--vd-spacing-16);
-  }
-  .tableFooter {
-    flex-direction: column;
-    gap: var(--vd-spacing-4);
-  }
   .listActions {
     padding: var(--vd-spacing-16);
   }
-
-  .formGrid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .filterGrid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-.queryActions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--vd-spacing-12);
-  margin-top: var(--vd-spacing-20);
-}
-.queryHint {
-  margin-inline-end: auto;
-  color: var(--vd-text-tertiary);
-  font-size: var(--vd-font-size-11);
-}
-.selectionCell {
-  width: 68px;
 }
 
 .bulkActions {
@@ -285,18 +75,6 @@
   gap: var(--vd-spacing-12);
   margin-inline-start: auto;
 }
-.operationsCell {
-  width: 200px;
-}
-.rowActions {
-  display: inline-flex;
-  align-items: center;
-  white-space: nowrap;
-  gap: var(--vd-spacing-4);
-  > button[data-variant='text'] {
-    padding-inline: var(--vd-spacing-8);
-  }
-}
 
 @media (max-width: 640px) {
   .listActions {
@@ -304,55 +82,64 @@
   }
 }
 
-.deleteButton[data-variant='primary'] {
-  --button-background: var(--vd-status-danger-solid);
-  --button-background-hover: color-mix(in srgb, var(--vd-status-danger-solid) 90%, black);
-  --button-background-active: color-mix(in srgb, var(--vd-status-danger-solid) 80%, black);
-  --button-foreground: var(--vd-status-danger-on-solid);
-}
-
 .listPanel {
   justify-self: start;
   width: 100%;
 }
-.listPanel .table {
+
+.listPanel :global([data-pro-task-table]) {
   min-width: 0;
 }
+
 .listPanel[data-table-size='mini'] {
   --task-table-font-size: var(--vd-font-size-11);
 }
+
 .listPanel[data-table-size='small'] {
   --task-table-font-size: var(--vd-font-size-12);
 }
+
 .listPanel[data-table-size='medium'] {
   --task-table-font-size: var(--vd-font-size-12);
 }
+
 .listPanel[data-table-size='large'] {
   --task-table-font-size: var(--vd-font-size-14);
 }
-.listPanel .table,
-.listPanel .taskTitle {
+
+.listPanel :global([data-pro-task-table]),
+.listPanel :global([data-pro-task-title]) {
   font-size: var(--task-table-font-size);
 }
+
 .listPanel[data-table-size='mini'] .listActions,
-.listPanel[data-table-size='mini'] .tableFooter {
+.listPanel[data-table-size='mini'] :global([data-pro-task-footer]) {
   padding-block: var(--vd-spacing-8);
 }
+
 .listPanel[data-table-size='small'] .listActions,
-.listPanel[data-table-size='small'] .tableFooter {
+.listPanel[data-table-size='small'] :global([data-pro-task-footer]) {
   padding-block: var(--vd-spacing-12);
 }
+
 .listPanel[data-table-size='large'] .listActions,
-.listPanel[data-table-size='large'] .tableFooter {
+.listPanel[data-table-size='large'] :global([data-pro-task-footer]) {
   padding-block: var(--vd-spacing-20);
 }
-.table [data-column-key='title'] {
-  overflow-wrap: anywhere;
+
+.viewControls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
-.table [data-column-key='actions'] .rowActions {
-  flex-wrap: wrap;
-  white-space: normal;
+
+.roleTitle {
+  font-size: 14px;
+  font-weight: 600;
 }
-.table th[draggable='true'] {
-  cursor: grab;
+
+@media (max-width: 600px) {
+  .viewControls {
+    flex-wrap: wrap;
+  }
 }

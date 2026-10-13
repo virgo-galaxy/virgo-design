@@ -3,8 +3,7 @@ import { useSearchParams } from 'react-router';
 
 import type { ProjectDto } from '@/api/projects';
 import { legacyProjectIds } from '@/api/projects/legacy-project-ids';
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { moduleFilterKey } from '@/data/task-catalog';
+import { moduleFilterKey, useTaskCatalog } from '@/features/catalog';
 import { isRecord } from '@/lib/http/protocol';
 
 /** Preserve bookmarked name-based queries from the previous demonstration contract. */

@@ -1,0 +1,110 @@
+// Workplace widget actions are a Pro composition, not public Window components.
+.widgetShell {
+  --pro-window-control-content: none;
+  --pro-window-control-size: 14px;
+  --pro-window-control-collapse-background: initial;
+  --pro-window-control-close-background: initial;
+  --pro-window-control-collapse-foreground: initial;
+  --pro-window-control-close-foreground: initial;
+  --pro-window-control-border: initial;
+  --pro-window-control-shadow: initial;
+  --pro-window-control-symbol-opacity: 1;
+  --pro-window-control-icon-size: initial;
+}
+:global([data-virgo-theme='glass']) .widgetShell {
+  --pro-window-control-content: '';
+  --pro-window-control-collapse-background: linear-gradient(#ffd85d, #ffbd2e);
+  --pro-window-control-close-background: linear-gradient(#ff827c, #ff5f57);
+  --pro-window-control-collapse-foreground: #825500;
+  --pro-window-control-close-foreground: #8c1813;
+  --pro-window-control-border: rgb(0 0 0 / 15%);
+  --pro-window-control-shadow: inset 0 1px 0 rgb(255 255 255 / 25%), 0 1px 2px rgb(0 0 0 / 12%);
+  --pro-window-control-symbol-opacity: 0;
+  --pro-window-control-icon-size: 10px;
+}
+
+.widgetCard[data-size='md'] {
+  align-content: start;
+  --card-padding: var(--vd-spacing-20);
+  --card-title-font-size: var(--vd-font-size-14);
+  --card-gap: var(--vd-spacing-20);
+}
+
+.widgetShell,
+.widgetDisclosure {
+  border: 0;
+  border-radius: 0;
+  min-width: 0;
+}
+
+.widgetPresence,
+.widgetBody {
+  --collapsible-content-padding: 0;
+}
+
+.widgetSpacing {
+  padding-block-end: var(--vd-spacing-20);
+}
+
+.widgetHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vd-spacing-8);
+}
+
+.widgetActions {
+  display: flex;
+  flex: none;
+  gap: var(--vd-spacing-2);
+}
+
+.widgetControl[data-variant='text'] {
+  position: relative;
+  --button-height: var(--vd-sizing-24);
+  width: var(--button-height);
+  height: var(--button-height);
+  padding: 0;
+  --button-foreground: var(--vd-icon-secondary);
+  --button-icon-size: var(--pro-window-control-icon-size, var(--vd-sizing-12));
+  --window-control-background: var(--pro-window-control-collapse-background, transparent);
+
+  &[data-window-action='collapse'] {
+    color: var(--pro-window-control-collapse-foreground, var(--vd-text-primary));
+  }
+  &[data-window-action='close'] {
+    --window-control-background: var(--pro-window-control-close-background, transparent);
+    color: var(--pro-window-control-close-foreground, var(--vd-icon-secondary));
+  }
+  &::before {
+    position: absolute;
+    width: var(--pro-window-control-size);
+    height: var(--pro-window-control-size);
+    box-sizing: border-box;
+    border: 1px solid var(--pro-window-control-border, transparent);
+    border-radius: var(--vd-radius-full);
+    background: var(--window-control-background);
+    box-shadow: var(--pro-window-control-shadow, none);
+    content: var(--pro-window-control-content);
+    pointer-events: none;
+  }
+  > [data-slot='icon'] {
+    position: relative;
+    opacity: var(--pro-window-control-symbol-opacity);
+  }
+  &:focus-visible > [data-slot='icon'] {
+    opacity: 1;
+  }
+}
+
+.widgetActions:hover .widgetControl > [data-slot='icon'],
+.widgetActions:focus-within .widgetControl > [data-slot='icon'] {
+  opacity: 1;
+}
+
+.widgetBodyInner {
+  padding-block-start: var(--vd-spacing-16);
+  > p {
+    margin-block-end: var(--vd-spacing-16);
+  }
+}

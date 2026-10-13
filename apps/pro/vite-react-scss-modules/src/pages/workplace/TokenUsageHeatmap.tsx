@@ -11,8 +11,8 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { buildTokenUsageCalendar, formatTokenCount, tokenUsageScale } from './token-usage-calendar';
+import styles from './TokenUsageHeatmap.module.scss';
 import { useWorkplaceData } from './workplace-context';
-import styles from './WorkplacePage.module.scss';
 
 type UsageDay = ReturnType<typeof buildTokenUsageCalendar>['days'][number];
 const TokenUsageCell = memo(function TokenUsageCell({

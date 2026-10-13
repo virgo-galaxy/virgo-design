@@ -15,13 +15,13 @@ import {
 import { type CSSProperties, forwardRef, useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useSession } from '@/application/session-context';
+import { useSession } from '@/features/auth';
 import {
   getFixedHeaderMaterial,
   headerHeightRange,
   type ProSettings,
   sidebarWidthRanges,
-} from '@/application/settings/model';
+} from '@/features/settings';
 import { useThemeStyle } from '@/lib/use-theme-style';
 
 import styles from './SettingsDrawer.module.scss';

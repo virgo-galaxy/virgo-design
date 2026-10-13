@@ -3,11 +3,12 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
-import { emptyDataQuery } from '@/data/data-query';
+import { emptyTaskQuery } from '@/features/tasks';
 
 import { TaskFilters } from './TaskFilters';
 
-vi.mock('@/application/pro-data-context', () => ({
+vi.mock('@/features/catalog', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/features/catalog')>()),
   useTaskCatalog: () => ({
     projects: [],
     metadata: {
@@ -24,7 +25,7 @@ vi.mock('@/application/pro-data-context', () => ({
 describe('Task combination query', () => {
   it('opens assignee suggestions only after typing, including the empty result state', async () => {
     const user = userEvent.setup();
-    render(<TaskFilters filters={emptyDataQuery} onApply={vi.fn()} onReset={vi.fn()} />);
+    render(<TaskFilters filters={emptyTaskQuery} onApply={vi.fn()} onReset={vi.fn()} />);
     const input = screen.getByRole('combobox', { name: 'Assignee' });
     await user.click(input);
     expect(input).toHaveAttribute('aria-expanded', 'false');
@@ -44,7 +45,7 @@ describe('Task combination query', () => {
   it('autocompletes assignees by name and applies the selected member ID', async () => {
     const user = userEvent.setup();
     const apply = vi.fn();
-    render(<TaskFilters filters={emptyDataQuery} onApply={apply} onReset={vi.fn()} />);
+    render(<TaskFilters filters={emptyTaskQuery} onApply={apply} onReset={vi.fn()} />);
     const input = screen.getByRole('combobox', { name: 'Assignee' });
     await user.type(input, 'nin');
     expect(screen.getByRole('option', { name: 'Nina Wu' })).toBeInTheDocument();
@@ -53,7 +54,7 @@ describe('Task combination query', () => {
     expect(input).toHaveValue('Nina Wu');
     expect(apply).not.toHaveBeenCalled();
     await user.click(screen.getByRole('button', { name: 'Search' }));
-    expect(apply).toHaveBeenLastCalledWith({ ...emptyDataQuery, assignee: ['nina'] });
+    expect(apply).toHaveBeenLastCalledWith({ ...emptyTaskQuery, assignee: ['nina'] });
     await user.click(screen.getByRole('button', { name: 'Reset' }));
     expect(input).toHaveValue('');
   });
@@ -62,7 +63,7 @@ describe('Task combination query', () => {
     const apply = vi.fn();
     render(
       <TaskFilters
-        filters={{ ...emptyDataQuery, assignee: ['ava'] }}
+        filters={{ ...emptyTaskQuery, assignee: ['ava'] }}
         onApply={apply}
         onReset={vi.fn()}
       />,
@@ -77,13 +78,13 @@ describe('Task combination query', () => {
     expect(screen.getByText('Choose an assignee.')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Clear input' }));
     await user.click(screen.getByRole('button', { name: 'Search' }));
-    expect(apply).toHaveBeenLastCalledWith({ ...emptyDataQuery, assignee: [] });
+    expect(apply).toHaveBeenLastCalledWith({ ...emptyTaskQuery, assignee: [] });
   });
   it('keeps conditions as a draft until Apply, then resets both the draft and results', async () => {
     const user = userEvent.setup();
     const apply = vi.fn();
     const reset = vi.fn();
-    render(<TaskFilters filters={emptyDataQuery} onApply={apply} onReset={reset} />);
+    render(<TaskFilters filters={emptyTaskQuery} onApply={apply} onReset={reset} />);
     await user.type(screen.getByRole('textbox', { name: 'Search tasks' }), 'release');
     fireEvent.change(screen.getByLabelText('Created between'), { target: { value: '2026-09-01' } });
     fireEvent.change(screen.getByLabelText('End date'), { target: { value: '2026-09-30' } });
@@ -98,7 +99,7 @@ describe('Task combination query', () => {
     expect(apply).not.toHaveBeenCalled();
     await user.click(screen.getByRole('button', { name: 'Search' }));
     expect(apply).toHaveBeenLastCalledWith({
-      ...emptyDataQuery,
+      ...emptyTaskQuery,
       search: 'release',
       status: ['todo'],
       priority: ['high'],
@@ -117,7 +118,7 @@ describe('Task combination query', () => {
   it('limits both creation endpoints to today and rejects manually entered future dates', async () => {
     const user = userEvent.setup();
     const apply = vi.fn();
-    render(<TaskFilters filters={emptyDataQuery} onApply={apply} onReset={vi.fn()} />);
+    render(<TaskFilters filters={emptyTaskQuery} onApply={apply} onReset={vi.fn()} />);
     const from = screen.getByLabelText('Created between');
     const to = screen.getByLabelText('End date');
     expect(from.getAttribute('max')).toMatch(/^\d{4}-\d{2}-\d{2}$/);
@@ -136,7 +137,7 @@ describe('Task combination query', () => {
   it('rejects invalid intervals without applying them and accepts open-ended dates', async () => {
     const user = userEvent.setup();
     const apply = vi.fn();
-    render(<TaskFilters filters={emptyDataQuery} onApply={apply} onReset={vi.fn()} />);
+    render(<TaskFilters filters={emptyTaskQuery} onApply={apply} onReset={vi.fn()} />);
     fireEvent.change(screen.getByLabelText('Created between'), { target: { value: '2026-10-02' } });
     fireEvent.change(screen.getByLabelText('End date'), { target: { value: '2026-09-01' } });
     await user.click(screen.getByRole('button', { name: 'Search' }));
@@ -144,6 +145,6 @@ describe('Task combination query', () => {
     expect(screen.getByRole('alert')).toBeInTheDocument();
     fireEvent.change(screen.getByLabelText('End date'), { target: { value: '' } });
     await user.click(screen.getByRole('button', { name: 'Search' }));
-    expect(apply).toHaveBeenCalledWith({ ...emptyDataQuery, createdFrom: '2026-10-02' });
+    expect(apply).toHaveBeenCalledWith({ ...emptyTaskQuery, createdFrom: '2026-10-02' });
   });
 });

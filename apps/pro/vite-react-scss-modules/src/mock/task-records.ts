@@ -7,7 +7,7 @@ import { canViewTask } from '@/lib/auth/permissions';
 import { projects } from './fixtures/projects';
 import { taskReferenceDate } from './fixtures/tasks';
 import { users } from './fixtures/team';
-import type { DemoState } from './store';
+import type { DemoState, StoredNotification } from './state';
 
 // These are simulated AI assistance receipts, attributed to the person who performed
 // each task operation. They are never obtained by counting HTTP requests or deadlines.
@@ -102,7 +102,6 @@ function notificationFor(
     readAt: null,
   };
 }
-export type StoredNotification = Omit<NotificationDto, 'available' | 'projectName'>;
 export function seedNotifications(
   tasks: readonly TaskDto[],
   records: readonly TaskRecordDto[],

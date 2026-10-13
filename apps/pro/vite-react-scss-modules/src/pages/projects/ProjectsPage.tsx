@@ -5,22 +5,30 @@ import { Link, useSearchParams } from 'react-router';
 
 import type { ProjectOverviewDto } from '@/api/projects/contract';
 import { getProjectOverviews } from '@/api/projects/projects-api';
-import { CatalogBoundary } from '@/application/CatalogBoundary';
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { RemoteState } from '@/application/RemoteState';
-import { useCurrentUser } from '@/application/session-context';
-import { useResourceQuery } from '@/application/use-resource-query';
 import clipboardListArtwork from '@/assets/illustrations/clipboard-list.svg';
 import documentMagnifierArtwork from '@/assets/illustrations/document-magnifier.svg';
 import folderTargetArtwork from '@/assets/illustrations/folder-target.svg';
 import triangleAlertArtwork from '@/assets/illustrations/triangle-alert.svg';
+import { MultiFilterSelect } from '@/components/filters/MultiFilterSelect';
+import { NoResults } from '@/components/page/NoResults';
+import { Panel } from '@/components/page/Panel';
 import { Person } from '@/components/person/Person';
-import { filterProjects, type Project, projectDetailPath, projectTasksPath } from '@/data/projects';
+import { WorkOverview } from '@/components/work-overview/WorkOverview';
+import { useCurrentUser } from '@/features/auth';
+import { CatalogBoundary, useTaskCatalog } from '@/features/catalog';
+import {
+  filterProjects,
+  type Project,
+  projectDetailPath,
+  projectHandoffPath,
+  projectTasksPath,
+} from '@/features/projects';
+import { useTaskDependentQuery } from '@/features/tasks';
 import { canManageProject } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
-import { MultiFilterSelect, NoResults, Panel } from '@/pages/shared/ProPage';
-import shared from '@/pages/shared/ProPage.module.scss';
-import { WorkOverview } from '@/pages/shared/WorkOverview';
+import { routePath, routeWithQuery } from '@/routing';
+import { RemoteState } from '@/shared/async/RemoteState';
+import shared from '@/styles/product-layout.module.scss';
 
 import { formatProjectDate, getProjectHealthLabel, healthIntent } from './project-presentation';
 import styles from './ProjectsPage.module.scss';
@@ -114,7 +122,7 @@ function ProjectCard({
           {t('projects.viewTasks')}
         </Link>
         {canManageProject(user, project.id) ? (
-          <Link className={shared.link} to={projectDetailPath(project) + '/handoff'}>
+          <Link className={shared.link} to={projectHandoffPath(project.id)}>
             {t('projects.prepareHandoff')}
           </Link>
         ) : null}
@@ -183,7 +191,7 @@ function ProjectsPageView({ summaries }: { summaries: ProjectOverviewDto[] }) {
         title={t('projects.activePortfolio')}
         description={t(personal ? 'projects.personalScope' : 'projects.portfolioScope')}
         actions={
-          <Link className={shared.link} to="/work/tasks">
+          <Link className={shared.link} to={routePath('tasks')}>
             {t('projects.openTaskQueue')}
           </Link>
         }
@@ -240,7 +248,7 @@ function ProjectsPageView({ summaries }: { summaries: ProjectOverviewDto[] }) {
                 key={project.id}
                 project={project}
                 summary={summaries.find((item) => item.projectId === project.id)!}
-                returnTo={`/work/projects${params.size ? `?${params}` : ''}`}
+                returnTo={routeWithQuery(routePath('projects'), params)}
               />
             ))}
           </div>
@@ -260,7 +268,7 @@ function ProjectsPageView({ summaries }: { summaries: ProjectOverviewDto[] }) {
 
 const loadProjectOverviews = (signal: AbortSignal) => getProjectOverviews(undefined, signal);
 function ProjectsResource() {
-  const resource = useResourceQuery(loadProjectOverviews);
+  const resource = useTaskDependentQuery(loadProjectOverviews);
   if (!resource.data) return <RemoteState {...resource} />;
   return (
     <>

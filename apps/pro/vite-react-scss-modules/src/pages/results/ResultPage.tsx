@@ -6,28 +6,29 @@ import { Link, useNavigate } from 'react-router';
 
 import { getTasks } from '@/api/tasks';
 import { getWorkflowHistory } from '@/api/workflows';
-import { CatalogBoundary } from '@/application/CatalogBoundary';
-import { useHandoffSession } from '@/application/handoff-session-context';
-import { MutationFeedback } from '@/application/MutationFeedback';
-import { useWorkflowRevision } from '@/application/pro-data-context';
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { RemoteState } from '@/application/RemoteState';
-import { getAllTasks } from '@/application/task-queries';
-import { useMutation } from '@/application/use-mutation';
-import { useRemoteData } from '@/application/use-remote-data';
-import { useResourceQuery } from '@/application/use-resource-query';
 import { Person } from '@/components/person/Person';
-import type { WorkflowReceipt } from '@/data/pro-workflows';
-import { projectDetailPath, projectTasksPath } from '@/data/projects';
-import { moduleName, projectName } from '@/data/task-catalog';
-import type { TaskState } from '@/data/tasks';
-import { createTasksCsv } from '@/data/tasks.export';
+import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
+import type { WorkflowReceipt } from '@/features/handoff';
+import { useHandoffSession, useWorkflowRevision } from '@/features/handoff';
+import { projectDetailPath, projectHandoffPath, projectTasksPath } from '@/features/projects';
+import type { TaskState } from '@/features/tasks';
+import {
+  createTasksCsv,
+  getAllTasks,
+  getTaskExportLabels,
+  getTaskStatusLabel,
+  taskDetailsPath,
+  taskStatusIntent,
+  useTaskDependentQuery,
+} from '@/features/tasks';
+import { downloadCsv } from '@/lib/browser/download';
 import { businessLabel } from '@/lib/demo/labels';
-import { downloadCsv } from '@/pages/shared/download';
-import shared from '@/pages/shared/ProPage.module.scss';
-import { taskDetailsPath } from '@/pages/tasks/task-navigation';
-import { getTaskExportLabels, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
-import { taskStatusIntent } from '@/pages/tasks/task-presentation';
+import { routePath } from '@/routing';
+import { MutationFeedback } from '@/shared/async/MutationFeedback';
+import { RemoteState } from '@/shared/async/RemoteState';
+import { useMutation } from '@/shared/async/use-mutation';
+import { useRemoteData } from '@/shared/async/use-remote-data';
+import shared from '@/styles/product-layout.module.scss';
 
 import styles from './ResultPage.module.scss';
 
@@ -124,7 +125,7 @@ function ResultPageView({
                   size="medium"
                   onClick={() => {
                     onRecover?.();
-                    navigate(`/work/projects/${encodeURIComponent(project.id)}/handoff`);
+                    navigate(projectHandoffPath(project.id));
                   }}
                 >
                   {t('results.reviewHandoffSettings')}
@@ -136,11 +137,7 @@ function ResultPageView({
                   onClick={() => {
                     void mutation.run(async () => {
                       const next = await onRetry?.();
-                      navigate(
-                        next
-                          ? `/result/${next.outcome}`
-                          : `/work/projects/${encodeURIComponent(project.id)}/handoff`,
-                      );
+                      navigate(next ? routePath(next.outcome) : projectHandoffPath(project.id));
                     });
                   }}
                 >
@@ -242,7 +239,7 @@ function ResultPageView({
                   </Steps.Description>
                 </Steps.Item>
               </Steps>
-              <Link className={shared.link} to="/work/tasks">
+              <Link className={shared.link} to={routePath('tasks')}>
                 {t('results.openTaskQueue')}
               </Link>
             </div>
@@ -296,7 +293,7 @@ function ResultPageView({
                 </div>
                 <Link
                   className={styles.taskTitle}
-                  to={taskDetailsPath(task.id, `/result/${receipt.outcome}`)}
+                  to={taskDetailsPath(task.id, routePath(receipt.outcome))}
                 >
                   {businessLabel(task.title, i18n.language)}
                 </Link>
@@ -324,7 +321,10 @@ function ResultPageView({
               v0: success ? t('results.recorded') : t('results.draftKept'),
             })}
           </span>
-          <Link className={shared.link} to={success ? '/work/tasks/new' : '/work/projects'}>
+          <Link
+            className={shared.link}
+            to={success ? routePath('task-create') : routePath('projects')}
+          >
             {success ? t('results.createAnotherRequest') : t('results.backToProjects')}
           </Link>
         </div>
@@ -342,7 +342,7 @@ function ResultTasks({ receipt }: { receipt: WorkflowReceipt }) {
         : { items: [], total: 0 },
     [receipt.taskIds],
   );
-  const resource = useResourceQuery(load);
+  const resource = useTaskDependentQuery(load);
   if (!resource.data) return <RemoteState {...resource} />;
   return (
     <>

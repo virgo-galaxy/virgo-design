@@ -3,17 +3,23 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { I18nextProvider, useTranslation } from 'react-i18next';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { validateProfile } from '@/features/profile';
+import {
+  emptyTaskQuery,
+  getTaskPriorityLabel,
+  getTaskStatusLabel,
+  queryError,
+  taskDraft,
+  taskPriorities,
+  taskStatuses,
+} from '@/features/tasks';
+import { formatDueDate } from '@/lib/format-due-date';
 import { initialProfile } from '@/mock/fixtures/profile';
 import { projects } from '@/mock/fixtures/projects';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { sampleSuccess } from '@/mock/fixtures/workflows';
+import { proRouting, routePath } from '@/routing';
 
-import { getPageLabel } from '../app/navigation-labels';
-import { emptyDataQuery, queryError } from '../data/data-query';
-import { validateProfile } from '../data/pro-workflows';
-import { taskDraft, taskPriorities, taskStatuses } from '../data/tasks';
-import { formatDueDate } from '../data/workplace';
-import { getTaskPriorityLabel, getTaskStatusLabel } from '../pages/tasks/task-presentation';
 import { getLocaleFontFamily, normalizeAppLocale, resolveAppLocale } from './locale';
 import {
   getLocalePreference,
@@ -39,7 +45,7 @@ function LocalePreview() {
       <button onClick={() => void setAppLocale(locale === 'en-US' ? 'zh-CN' : 'en-US')}>
         {t('settings.language')}
       </button>
-      <h1>{getPageLabel(t, 'tasks')}</h1>
+      <h1>{t(proRouting.match(routePath('tasks'))!.labelKey)}</h1>
       <p>{getTaskStatusLabel(t, 'in_progress')}</p>
       <p>{formatDueDate('2026-10-01', locale)}</p>
     </>
@@ -120,7 +126,7 @@ describe('pro locale runtime', () => {
       'Urgent',
     ]);
     const errors = validateProfile({ ...initialProfile, name: '' }, projects);
-    const error = queryError({ ...emptyDataQuery, minimumHours: '-1' });
+    const error = queryError({ ...emptyTaskQuery, minimumHours: '-1' });
     expect(errors.name).toBe('nameInvalid');
     expect(error).toBe('invalidEstimate');
     if (!error) throw new Error('Expected a validation error');

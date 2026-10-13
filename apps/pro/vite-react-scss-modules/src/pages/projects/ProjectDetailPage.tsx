@@ -5,28 +5,34 @@ import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
 
 import type { ProjectOverviewDto } from '@/api/projects/contract';
 import { getProjectOverviews } from '@/api/projects/projects-api';
-import { CatalogBoundary } from '@/application/CatalogBoundary';
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { RemoteState } from '@/application/RemoteState';
-import { useCurrentUser } from '@/application/session-context';
-import { useResourceQuery } from '@/application/use-resource-query';
+import { FilterSelect } from '@/components/filters/FilterSelect';
+import { MetricStrip } from '@/components/page/MetricStrip';
+import { PageHeading } from '@/components/page/PageHeading';
+import { Panel } from '@/components/page/Panel';
 import { Person } from '@/components/person/Person';
-import { projectDetailPath, projectTasksPath } from '@/data/projects';
-import { moduleFilterKey } from '@/data/task-catalog';
-import { formatDueDate } from '@/data/workplace';
+import { getActivityActionLabel } from '@/features/activity';
+import { useCurrentUser } from '@/features/auth';
+import { CatalogBoundary, moduleFilterKey, useTaskCatalog } from '@/features/catalog';
+import { projectDetailPath, projectHandoffPath, projectTasksPath } from '@/features/projects';
+import {
+  getTaskPriorityLabel,
+  getTaskStatusLabel,
+  taskDetailsPath,
+  taskPriorityIntent,
+  taskStatusIntent,
+  useTaskDependentQuery,
+} from '@/features/tasks';
 import { canManageProject } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
+import { formatDueDate } from '@/lib/format-due-date';
 import {
   formatProjectDate,
   getProjectHealthLabel,
   healthIntent,
 } from '@/pages/projects/project-presentation';
-import { FilterSelect, MetricStrip, PageHeading, Panel } from '@/pages/shared/ProPage';
-import shared from '@/pages/shared/ProPage.module.scss';
-import { taskDetailsPath } from '@/pages/tasks/task-navigation';
-import { getTaskPriorityLabel, getTaskStatusLabel } from '@/pages/tasks/task-presentation';
-import { taskPriorityIntent, taskStatusIntent } from '@/pages/tasks/task-presentation';
-import { getActivityActionLabel } from '@/pages/workplace/activity-presentation';
+import { routePath } from '@/routing';
+import { RemoteState } from '@/shared/async/RemoteState';
+import shared from '@/styles/product-layout.module.scss';
 
 import styles from './ProjectDetailPage.module.scss';
 
@@ -41,7 +47,9 @@ function ProjectDetailPageView({ overview }: { overview: ProjectOverviewDto | un
   const [params] = useSearchParams();
   const candidate = params.get('returnTo');
   const portfolioPath =
-    candidate && /^\/work\/projects(?:\?[^#]*)?$/.test(candidate) ? candidate : '/work/projects';
+    candidate && new RegExp('^' + routePath('projects') + '(?:\\?[^#]*)?$').test(candidate)
+      ? candidate
+      : routePath('projects');
   const project = projects.find((item) => item.id === projectId);
   if (!project || !overview)
     return (
@@ -83,7 +91,9 @@ function ProjectDetailPageView({ overview }: { overview: ProjectOverviewDto | un
                 value={project.id}
                 onChange={(id) =>
                   navigate(
-                    `/work/projects/${encodeURIComponent(id)}?returnTo=${encodeURIComponent(portfolioPath)}`,
+                    routePath('project-detail', { projectId: id }) +
+                      '?returnTo=' +
+                      encodeURIComponent(portfolioPath),
                   )
                 }
                 options={projects.map((item) => ({
@@ -93,10 +103,7 @@ function ProjectDetailPageView({ overview }: { overview: ProjectOverviewDto | un
               />
             </div>
             {canManageProject(user, project.id) ? (
-              <Link
-                className={shared.link}
-                to={`/work/projects/${encodeURIComponent(project.id)}/handoff`}
-              >
+              <Link className={shared.link} to={projectHandoffPath(project.id)}>
                 {t('tasks.workspace.handoff')}
               </Link>
             ) : null}
@@ -441,7 +448,7 @@ function ProjectDetailResource() {
     (signal: AbortSignal) => getProjectOverviews(projectId, signal),
     [projectId],
   );
-  const resource = useResourceQuery(load);
+  const resource = useTaskDependentQuery(load);
   if (!resource.data) return <RemoteState {...resource} />;
   return (
     <>

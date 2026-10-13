@@ -1,4 +1,5 @@
-import { type DemoState, getDemoState } from './store';
+import type { DemoState } from './state';
+import { getDemoState } from './store';
 import { reportingDate } from './task-records';
 let previous: DemoState | undefined;
 let date = '';

@@ -1,4 +1,5 @@
-import type { MemberDto, TaskPriorityDto, TaskStatusDto } from '../tasks/contract';
+import type { MemberDto, TaskPriorityDto, TaskRecordKind, TaskStatusDto } from '../tasks/contract';
+export type { TaskRecordKind } from '../tasks/contract';
 export interface TrendPointDto {
   date: string;
   completed: number;
@@ -20,16 +21,6 @@ export interface TokenUsageDayDto {
   inputTokens: number;
   outputTokens: number;
 }
-export type TaskRecordKind =
-  | 'created'
-  | 'assigned'
-  | 'started'
-  | 'submitted'
-  | 'approved'
-  | 'returned'
-  | 'updated'
-  | 'deleted'
-  | 'assisted';
 export interface TaskRecordDto {
   id: string;
   taskId: string;

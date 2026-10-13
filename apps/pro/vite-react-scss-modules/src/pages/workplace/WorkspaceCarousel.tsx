@@ -1,7 +1,7 @@
 import { Carousel } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
-import { workplaceImages } from '@/data/workplace-images';
+import { workplaceImages } from '@/pages/workplace/workplace-images';
 
 import styles from './WorkspaceCarousel.module.scss';
 

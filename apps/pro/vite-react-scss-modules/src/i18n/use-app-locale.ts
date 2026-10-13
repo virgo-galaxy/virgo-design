@@ -1,3 +1,4 @@
+import { useSyncExternalStore } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type AppLocale, normalizeAppLocale } from './locale';
@@ -12,4 +13,3 @@ export function useAppLocale(): AppLocale {
 
   return normalizeAppLocale(i18n.resolvedLanguage ?? i18n.language);
 }
-import { useSyncExternalStore } from 'react';

@@ -21,30 +21,29 @@ import { Link } from 'react-router';
 
 import { getActivity } from '@/api/analytics/analytics-api';
 import { getTasks } from '@/api/tasks';
-import { CatalogBoundary } from '@/application/CatalogBoundary';
-import { MutationFeedback } from '@/application/MutationFeedback';
-import { useProfileResource } from '@/application/pro-data-context';
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { RemoteState } from '@/application/RemoteState';
-import { useCurrentUser } from '@/application/session-context';
-import { useMutation } from '@/application/use-mutation';
-import { useResourceQuery } from '@/application/use-resource-query';
+import { FilterSelect } from '@/components/filters/FilterSelect';
+import { Panel } from '@/components/page/Panel';
 import { Person } from '@/components/person/Person';
 import { UserGenderIcon } from '@/components/user-gender/UserGenderIcon';
+import { getActivityActionLabel } from '@/features/activity';
+import { useCurrentUser } from '@/features/auth';
+import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
 import {
-  accountAvatarImage,
   avatarForeground,
   profileInitials,
   type ProfileState,
+  useProfileResource,
   validateProfile,
-} from '@/data/pro-workflows';
-import { projectDetailPath } from '@/data/projects';
-import { projectName } from '@/data/task-catalog';
+} from '@/features/profile';
+import { projectDetailPath, projectHandoffPath } from '@/features/projects';
+import { useTaskDependentQuery } from '@/features/tasks';
 import { isAdmin } from '@/lib/auth/permissions';
 import { businessLabel, formatWorkLocation } from '@/lib/demo/labels';
-import { FilterSelect, Panel } from '@/pages/shared/ProPage';
-import shared from '@/pages/shared/ProPage.module.scss';
-import { getActivityActionLabel } from '@/pages/workplace/activity-presentation';
+import { routePath } from '@/routing';
+import { MutationFeedback } from '@/shared/async/MutationFeedback';
+import { RemoteState } from '@/shared/async/RemoteState';
+import { useMutation } from '@/shared/async/use-mutation';
+import shared from '@/styles/product-layout.module.scss';
 
 import type { profileEnUS } from './locales/en-US';
 import { ProfileEditor } from './ProfileEditor';
@@ -58,8 +57,8 @@ function ProfilePageView({
   setProfile: (next: ProfileState | ((previous: ProfileState) => ProfileState)) => Promise<void>;
 }) {
   const { projects } = useTaskCatalog();
-  const activityResource = useResourceQuery(getActivity);
-  const reviewsResource = useResourceQuery(loadReviewCount);
+  const activityResource = useTaskDependentQuery(getActivity);
+  const reviewsResource = useTaskDependentQuery(loadReviewCount);
   const activity = activityResource.data ?? [];
 
   const mutation = useMutation();
@@ -97,10 +96,10 @@ function ProfilePageView({
                 size="md"
                 shape="square"
                 className={styles.heroAvatar!}
-                {...(accountAvatarImage(profile) ? { src: accountAvatarImage(profile) } : {})}
+                {...(profile.avatarImage ? { src: profile.avatarImage } : {})}
                 fallback={profileInitials(profile.name)}
                 style={{
-                  background: accountAvatarImage(profile) ? 'transparent' : profile.avatarColor,
+                  background: profile.avatarImage ? 'transparent' : profile.avatarColor,
                   border: 'none',
                   color: avatarForeground(profile.avatarColor),
                 }}
@@ -216,7 +215,7 @@ function ProfilePageView({
                         {t(manager ? 'profile.maintainProjectDirection' : 'profile.yourProjects')}
                       </h3>
                       <p>{t('profile.projectScope', { count: projects.length })}</p>
-                      <Link className={shared.link} to="/work/projects">
+                      <Link className={shared.link} to={routePath('projects')}>
                         {t('profile.projectPortfolio')}
                       </Link>
                     </div>
@@ -240,7 +239,7 @@ function ProfilePageView({
                         )}
                       </h3>
                       <p>{t('profile.reviewOwnershipAndTheNotesBehindPendingWork')}</p>
-                      <Link className={shared.link} to="/work/tasks?status=in_review">
+                      <Link className={shared.link} to={routePath('tasks') + '?status=in_review'}>
                         {t('profile.reviewQueue')}
                       </Link>
                     </div>
@@ -251,10 +250,7 @@ function ProfilePageView({
                       <div>
                         <h3>{t('profile.prepareReliableHandoffs')}</h3>
                         <p>{t('profile.bringScopeAudienceAndTheNextCheckpointTogether')}</p>
-                        <Link
-                          className={shared.link}
-                          to={projectDetailPath(focusProject) + '/handoff'}
-                        >
+                        <Link className={shared.link} to={projectHandoffPath(focusProject.id)}>
                           {t('profile.prepareAHandoff')}
                         </Link>
                       </div>
@@ -265,7 +261,7 @@ function ProfilePageView({
                       <div>
                         <h3>{t('profile.yourTaskQueue')}</h3>
                         <p>{t('profile.moveYourWorkForward')}</p>
-                        <Link className={shared.link} to="/work/tasks">
+                        <Link className={shared.link} to={routePath('tasks')}>
                           {t('projects.viewTasks')}
                         </Link>
                       </div>

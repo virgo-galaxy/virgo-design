@@ -3,7 +3,7 @@ import { delay, http as mswHttp, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
-import { getAllTasks } from '@/application/task-queries';
+import { getAllTasks } from '@/features/tasks';
 import { http, HttpError } from '@/lib/http';
 import { createMockTaskId } from '@/mock/fixtures/task-id';
 import { initialTaskState, taskReferenceDate } from '@/mock/fixtures/tasks';

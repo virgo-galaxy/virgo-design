@@ -4,23 +4,32 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { CatalogBoundary } from '@/application/CatalogBoundary';
-import { MutationFeedback } from '@/application/MutationFeedback';
-import { useTaskOperations } from '@/application/pro-data-context';
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { RemoteState } from '@/application/RemoteState';
-import { useCurrentUser } from '@/application/session-context';
-import { getAllTasks, taskPageView } from '@/application/task-queries';
-import { useMutation } from '@/application/use-mutation';
-import { useTaskQuery } from '@/application/use-task-query';
-import { emptyDataQuery, queryFromParams, queryParams } from '@/data/data-query';
-import { moduleName, projectName } from '@/data/task-catalog';
-import { filterValues, hasTaskFilters, type Task } from '@/data/tasks';
-import { createTasksCsv } from '@/data/tasks.export';
-import { type TaskSort } from '@/data/tasks.sort';
+import { useCurrentUser } from '@/features/auth';
+import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
+import {
+  createTasksCsv,
+  emptyTaskQuery,
+  filterValues,
+  getAllTasks,
+  getTaskExportLabels,
+  hasTaskFilters,
+  queryFromParams,
+  queryParams,
+  type Task,
+  taskCreatePath,
+  taskDetailsPath,
+  taskEditPath,
+  taskPageView,
+  type TaskSort,
+  useTaskOperations,
+  useTaskQuery,
+} from '@/features/tasks';
 import { canCreateTask, isAdmin } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
-import { getTaskExportLabels } from '@/pages/tasks/task-presentation';
+import { routePath, routeWithQuery } from '@/routing';
+import { MutationFeedback } from '@/shared/async/MutationFeedback';
+import { RemoteState } from '@/shared/async/RemoteState';
+import { useMutation } from '@/shared/async/use-mutation';
 
 import {
   defaultTaskPageSize,
@@ -31,13 +40,12 @@ import {
   visibleColumns,
 } from './table-settings';
 import { TableSettingsDialog } from './TableSettingsDialog';
-import { taskDetailsPath } from './task-navigation';
+import taskActions from './TaskActions.module.scss';
 import { TaskDeleteDialog } from './TaskDeleteDialog';
 import { TaskFilters } from './TaskFilters';
 import styles from './TasksPage.module.scss';
 import { TaskTable } from './TaskTable';
 import { TaskViews } from './TaskViews';
-import pageStyles from './TaskWorkspace.module.scss';
 import { useTaskTableSettings } from './use-table-settings';
 import { useTaskSearchParams } from './use-task-search-params';
 
@@ -151,7 +159,7 @@ function TasksPageView() {
     );
   const setSort = (value: TaskSort | null) =>
     updateParam('sort', value ? JSON.stringify(value) : null);
-  const returnTo = `/work/tasks${params.toString() ? '?' + params.toString() : ''}`;
+  const returnTo = routeWithQuery(routePath('tasks'), params);
   const [deleteIds, setDeleteIds] = useState<readonly string[] | null>(null);
   const [deletionFeedback, setDeletionFeedback] = useState<{ id: number; count: number } | null>(
     null,
@@ -162,17 +170,16 @@ function TasksPageView() {
     if (params.get('view') === 'cards') {
       const next = new URLSearchParams(params);
       next.delete('view');
-      navigate(`/work/task-cards${next.size ? '?' + next.toString() : ''}`, { replace: true });
+      navigate(routeWithQuery(routePath('task-cards'), next), { replace: true });
     }
   }, [params, navigate]);
   useEffect(() => {
     if (linkedTask) {
       const next = new URLSearchParams(params);
       next.delete('task');
-      navigate(
-        taskDetailsPath(linkedTask, `/work/tasks${next.size ? '?' + next.toString() : ''}`),
-        { replace: true },
-      );
+      navigate(taskDetailsPath(linkedTask, routeWithQuery(routePath('tasks'), next)), {
+        replace: true,
+      });
     }
   }, [linkedTask, params, navigate]);
   const query = {
@@ -197,7 +204,7 @@ function TasksPageView() {
   const matchingTotal = resource.data?.total ?? 0;
   const changeFilters = (next: typeof filters) => {
     const result = new URLSearchParams(currentParams.current);
-    for (const key of Object.keys(emptyDataQuery)) result.delete(key);
+    for (const key of Object.keys(emptyTaskQuery)) result.delete(key);
     for (const [key, value] of queryParams(next)) result.append(key, value);
     result.delete('page');
     currentParams.current = result;
@@ -250,18 +257,16 @@ function TasksPageView() {
   const resetFilters = () => {
     setColumnFilters({});
     setColumnSearch({});
-    changeFilters(emptyDataQuery);
+    changeFilters(emptyTaskQuery);
   };
   const tableWidth = visibleColumns(tableSettings).reduce(
     (total, column) => total + column.width,
     0,
   );
-  const openCreate = () => navigate(`/work/tasks/new?returnTo=${encodeURIComponent(returnTo)}`);
+  const openCreate = () => navigate(taskCreatePath(returnTo));
   const openTask = (task: Task, _button: HTMLButtonElement, kind: 'edit' | 'details' = 'details') =>
     navigate(
-      kind === 'edit'
-        ? `/work/tasks/${encodeURIComponent(task.id)}/edit?returnTo=${encodeURIComponent(returnTo)}`
-        : taskDetailsPath(task.id, returnTo),
+      kind === 'edit' ? taskEditPath(task.id, returnTo) : taskDetailsPath(task.id, returnTo),
     );
 
   return (
@@ -300,14 +305,14 @@ function TasksPageView() {
                   {t('tasks.newTask2')}
                 </Button>
               ) : (
-                <span className={pageStyles.roleTitle}>{t('tasks.workspace.myTasks')}</span>
+                <span className={styles.roleTitle}>{t('tasks.workspace.myTasks')}</span>
               )}
-              <div className={pageStyles.viewControls}>
+              <div className={styles.viewControls}>
                 <Button.Group layout="custom" className={styles.bulkActions}>
                   {canManage ? (
                     <Button
                       size={tableSettings.size}
-                      className={styles.deleteButton}
+                      className={taskActions.deleteButton}
                       leadingIcon={<TrashIcon />}
                       disabled={selection.length === 0 || mutation.pending}
                       onClick={() => setDeleteIds([...selection])}
@@ -420,7 +425,6 @@ function TasksPageView() {
                   setPageSize(nextPageSize);
                 }}
                 filtered={filtered}
-                selectedId={undefined}
                 onOpen={openTask}
                 onEdit={(task, button) => openTask(task, button, 'edit')}
                 onReset={resetFilters}

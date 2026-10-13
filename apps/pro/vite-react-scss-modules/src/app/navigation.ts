@@ -1,6 +1,6 @@
 import { iconComponents } from '@virgo-design/icons/registry';
 
-import { proRouting } from './routing';
+import { proRouting } from '@/routing';
 
 /** The public registry resolves serializable icon IDs into optional React icons. */
 export const navigationGroups = proRouting.groups.map((group) => ({

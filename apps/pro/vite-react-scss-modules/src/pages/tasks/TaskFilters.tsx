@@ -3,20 +3,24 @@ import { Alert, Button, Combobox, DatePicker, Field, Form, Input } from '@virgo-
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { type DataQuery as Filters, emptyDataQuery, queryError } from '@/data/data-query';
-import { projectName } from '@/data/task-catalog';
-import { filterValues, taskPriorities, taskStatuses } from '@/data/tasks';
-import { businessLabel } from '@/lib/demo/labels';
-import { FilterSelect, MultiFilterSelect } from '@/pages/shared/ProPage';
+import { FilterSelect } from '@/components/filters/FilterSelect';
+import { MultiFilterSelect } from '@/components/filters/MultiFilterSelect';
+import { projectName, useTaskCatalog } from '@/features/catalog';
 import {
+  emptyTaskQuery,
+  filterValues,
   getTaskPriorityLabel,
   getTaskStatusLabel,
+  queryError,
+  taskPriorities,
   taskPriorityIntent,
+  type TaskQuery as Filters,
+  taskStatuses,
   taskStatusIntent,
-} from '@/pages/tasks/task-presentation';
+} from '@/features/tasks';
+import { businessLabel } from '@/lib/demo/labels';
 
-import styles from './TasksPage.module.scss';
+import styles from './TaskFilters.module.scss';
 
 export function TaskFilters({
   filters,
@@ -231,7 +235,7 @@ export function TaskFilters({
           variant="outline"
           leadingIcon={<ResetIcon />}
           onClick={() => {
-            onChange(emptyDataQuery);
+            onChange(emptyTaskQuery);
             setError('');
             setAssigneeInput('');
             setAssigneeError(false);

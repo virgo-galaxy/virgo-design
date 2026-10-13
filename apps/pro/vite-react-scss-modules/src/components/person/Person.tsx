@@ -1,7 +1,7 @@
 import { Avatar, type AvatarSize } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
-import { useTaskCatalog } from '@/application/pro-data-context';
+import { useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/demo/labels';
 
 import styles from './Person.module.scss';

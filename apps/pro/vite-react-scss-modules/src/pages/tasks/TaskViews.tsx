@@ -7,7 +7,8 @@ import calendarClockArtwork from '@/assets/illustrations/calendar-clock.svg';
 import documentStackArtwork from '@/assets/illustrations/document-stack.svg';
 import playCircleArtwork from '@/assets/illustrations/play-circle.svg';
 import shieldCheckArtwork from '@/assets/illustrations/shield-check.svg';
-import { WorkOverview } from '@/pages/shared/WorkOverview';
+import { WorkOverview } from '@/components/work-overview/WorkOverview';
+import { routePath, routeWithQuery } from '@/routing';
 
 import styles from './TaskViews.module.scss';
 
@@ -65,9 +66,7 @@ export function TaskViews({
           // Carry only filters represented in both views, never hidden table constraints.
           for (const key of ['search', 'status', 'project'])
             for (const value of params.getAll(key)) next.append(key, value);
-          navigate(
-            `${nextView === 'cards' ? '/work/task-cards' : '/work/tasks'}${next.size ? '?' + next.toString() : ''}`,
-          );
+          navigate(routeWithQuery(routePath(nextView === 'cards' ? 'task-cards' : 'tasks'), next));
         }}
       >
         <Tabs.List aria-label={t('tasks.workspace.view')}>

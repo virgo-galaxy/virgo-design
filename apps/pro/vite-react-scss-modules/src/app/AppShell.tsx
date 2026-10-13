@@ -25,28 +25,25 @@ import { type CSSProperties, useCallback, useEffect, useRef, useState } from 're
 import { useTranslation } from 'react-i18next';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router';
 
-import { useProfileResource } from '@/application/pro-data-context';
-import { useCurrentUser } from '@/application/session-context';
-import {
-  getFixedHeaderMaterial,
-  type NotificationIndicator,
-  sidebarWidthRanges,
-} from '@/application/settings/model';
-import { useProSettings } from '@/application/settings/useProSettings';
 import { AccountMenu } from '@/components/account-menu/AccountMenu';
 import { AiWorkspace } from '@/components/ai-workspace/AiWorkspace';
 import { SettingsDrawer, SettingsTrigger } from '@/components/global-settings/SettingsDrawer';
 import { LanguageControl } from '@/components/language-control/LanguageControl';
-import { NotificationInbox } from '@/components/notifications/NotificationInbox';
-import { useNotificationInbox } from '@/components/notifications/use-notification-inbox';
 import { ThemeStyleControl } from '@/components/theme-style-control/ThemeStyleControl';
+import { useCurrentUser } from '@/features/auth';
+import { NotificationInbox, useNotificationInbox } from '@/features/notifications';
+import { useProfileResource } from '@/features/profile';
+import {
+  getFixedHeaderMaterial,
+  type NotificationIndicator,
+  sidebarWidthRanges,
+  useProSettings,
+} from '@/features/settings';
 import { isAdmin } from '@/lib/auth/permissions';
 import { useThemeStyle } from '@/lib/use-theme-style';
+import { proRouteConfig, proRouting } from '@/routing';
 
 import styles from './AppShell.module.scss';
-import { getGroupLabel, getPageLabel } from './navigation-labels';
-import { proRouteConfig } from './routes.config';
-import { proRouting } from './routing';
 import { SidebarNavigation } from './SidebarNavigation';
 
 function HeaderSearch() {
@@ -160,9 +157,9 @@ export function AppShell({
   const navigate = useNavigate();
   const currentPage = proRouting.match(pathname);
   const currentGroup = currentPage?.group
-    ? { ...currentPage.group, label: getGroupLabel(t, currentPage.group.id) }
+    ? { ...currentPage.group, label: t(currentPage.group.labelKey) }
     : undefined;
-  const currentPageLabel = currentPage ? getPageLabel(t, currentPage.page) : t('app.pageNotFound');
+  const currentPageLabel = currentPage ? t(currentPage.labelKey) : t('app.pageNotFound');
   const CurrentGroupIcon = currentGroup ? iconComponents[currentGroup.icon] : undefined;
   const CurrentPageIcon = currentPage?.icon ? iconComponents[currentPage.icon] : undefined;
   const { settings, setSettings, updateSettings, resetSettings, theme, storageAvailable } =
@@ -451,6 +448,7 @@ export function AppShell({
                   {({ collapsed }) => (
                     <SidebarNavigation
                       collapsed={collapsed}
+                      railIconSize={settings.sidebarRailWidth > 64 ? 'large' : 'regular'}
                       pathname={pathname}
                       showSubmenuHeader={settings.showSubmenuHeader}
                       sidebarStyle={settings.sidebarStyle}

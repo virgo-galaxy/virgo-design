@@ -5,29 +5,33 @@ import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useNavigate, useParams, useSearchParams } from 'react-router';
 
 import { getTask, getTaskHistory } from '@/api/tasks';
-import { CatalogBoundary } from '@/application/CatalogBoundary';
-import { MutationFeedback } from '@/application/MutationFeedback';
-import { useTaskOperations, useTaskRevision } from '@/application/pro-data-context';
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { RemoteState } from '@/application/RemoteState';
-import { useCurrentUser } from '@/application/session-context';
-import { useMutation } from '@/application/use-mutation';
-import { useRemoteData } from '@/application/use-remote-data';
+import { FilterSelect } from '@/components/filters/FilterSelect';
+import { PageHeading } from '@/components/page/PageHeading';
+import { Panel } from '@/components/page/Panel';
 import { Person } from '@/components/person/Person';
-import { projectDetailPath } from '@/data/projects';
-import { moduleName, projectName } from '@/data/task-catalog';
-import { type Task } from '@/data/tasks';
-import { canCreateTask, canEditTask, isAdmin, taskStatusChoices } from '@/lib/auth/permissions';
-import { businessLabel } from '@/lib/demo/labels';
-import { FilterSelect, PageHeading, Panel } from '@/pages/shared/ProPage';
-
-import { taskDetailsPath, taskReturnPath } from './task-navigation';
+import { useCurrentUser } from '@/features/auth';
+import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
+import { projectDetailPath } from '@/features/projects';
 import {
   getTaskPriorityLabel,
   getTaskStatusLabel,
+  type Task,
+  taskDetailsPath,
+  taskEditPath,
   taskPriorityIntent,
+  taskReturnPath,
   taskStatusIntent,
-} from './task-presentation';
+  useTaskOperations,
+  useTaskRevision,
+} from '@/features/tasks';
+import { canCreateTask, canEditTask, isAdmin, taskStatusChoices } from '@/lib/auth/permissions';
+import { businessLabel } from '@/lib/demo/labels';
+import { routePath } from '@/routing';
+import { MutationFeedback } from '@/shared/async/MutationFeedback';
+import { RemoteState } from '@/shared/async/RemoteState';
+import { useMutation } from '@/shared/async/use-mutation';
+import { useRemoteData } from '@/shared/async/use-remote-data';
+
 import { TaskForm } from './TaskForm';
 import styles from './TaskWorkspace.module.scss';
 const stages = ['backlog', 'todo', 'in_progress', 'in_review', 'done'] as const;
@@ -81,13 +85,13 @@ function BackLink({ to }: { to: string }) {
     <Link className={styles.back} to={to}>
       <ArrowLeftIcon />
       {t(
-        to.startsWith('/result/')
+        [routePath('success'), routePath('error')].includes(to)
           ? 'tasks.workspace.backToResult'
-          : to.startsWith('/work/task-cards')
+          : to.startsWith(routePath('task-cards'))
             ? 'tasks.workspace.backToCards'
-            : to.startsWith('/work/projects/')
+            : to.startsWith(routePath('projects') + '/')
               ? 'tasks.workspace.backToProject'
-              : to.startsWith('/work/projects')
+              : to.startsWith(routePath('projects'))
                 ? 'projectDetails.backToProjects'
                 : 'tasks.workspace.backToList',
       )}
@@ -189,14 +193,7 @@ function TaskDetails({
           <>
             <Tag intent={taskStatusIntent[task.status]}>{getTaskStatusLabel(t, task.status)}</Tag>
             {canEditTask(user, task) ? (
-              <Button
-                variant="outline"
-                onClick={() =>
-                  navigate(
-                    `/work/tasks/${encodeURIComponent(task.id)}/edit?returnTo=${encodeURIComponent(returnTo)}`,
-                  )
-                }
-              >
+              <Button variant="outline" onClick={() => navigate(taskEditPath(task.id, returnTo))}>
                 {t('tasks.editTask')}
               </Button>
             ) : null}

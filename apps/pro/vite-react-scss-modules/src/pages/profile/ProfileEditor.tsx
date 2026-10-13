@@ -15,20 +15,20 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { MutationFeedback } from '@/application/MutationFeedback';
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { useMutation } from '@/application/use-mutation';
+import { useTaskCatalog } from '@/features/catalog';
 import {
   avatarFileError,
   avatarForeground,
   profileInitials,
   type ProfileState,
   validateProfile,
-} from '@/data/pro-workflows';
-import shared from '@/pages/shared/ProPage.module.scss';
+} from '@/features/profile';
+import { MutationFeedback } from '@/shared/async/MutationFeedback';
+import { useMutation } from '@/shared/async/use-mutation';
+import shared from '@/styles/product-layout.module.scss';
 
 import type { profileEnUS } from './locales/en-US';
-import styles from './ProfilePage.module.scss';
+import styles from './ProfileEditor.module.scss';
 
 export function ProfileEditor({
   profile,

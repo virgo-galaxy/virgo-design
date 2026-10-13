@@ -4,10 +4,9 @@ import { useTranslation } from 'react-i18next';
 
 import type { MemberDto } from '@/api/tasks';
 import type { UserDetailsDto } from '@/api/users';
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { userDetailsCache } from '@/application/user-details-cache';
 import { UserGenderIcon } from '@/components/user-gender/UserGenderIcon';
-import { projectName } from '@/data/task-catalog';
+import { projectName, useTaskCatalog } from '@/features/catalog';
+import { userDetailsCache } from '@/features/users';
 import { businessLabel, formatWorkLocation } from '@/lib/demo/labels';
 
 import styles from './TaskAssigneeCard.module.scss';

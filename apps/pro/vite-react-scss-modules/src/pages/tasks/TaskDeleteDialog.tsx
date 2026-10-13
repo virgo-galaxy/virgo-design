@@ -1,10 +1,10 @@
 import { Button, Dialog } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
-import { MutationFeedback } from '@/application/MutationFeedback';
-import { useMutation } from '@/application/use-mutation';
+import { MutationFeedback } from '@/shared/async/MutationFeedback';
+import { useMutation } from '@/shared/async/use-mutation';
 
-import styles from './TasksPage.module.scss';
+import taskActions from './TaskActions.module.scss';
 
 export function TaskDeleteDialog({
   ids,
@@ -58,7 +58,7 @@ export function TaskDeleteDialog({
               {t('tasks.cancel')}
             </Button>
             <Button
-              className={styles.deleteButton}
+              className={taskActions.deleteButton}
               size="medium"
               disabled={mutation.pending}
               onClick={() => {

@@ -4,19 +4,18 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { useTaskCatalog } from '@/application/pro-data-context';
 import checkBadgeArtwork from '@/assets/illustrations/check-badge.svg';
 import clipboardCheckArtwork from '@/assets/illustrations/clipboard-check.svg';
 import folderDocumentArtwork from '@/assets/illustrations/folder-document.svg';
 import usersArtwork from '@/assets/illustrations/users.svg';
-import { projectName } from '@/data/task-catalog';
-import { shortcuts } from '@/data/workplace';
+import { PageHeading } from '@/components/page/PageHeading';
+import { getActivityActionLabel } from '@/features/activity';
+import { projectName, useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/demo/labels';
-import { PageHeading } from '@/pages/shared/ProPage';
-import { getActivityActionLabel } from '@/pages/workplace/activity-presentation';
 
 import { DeliveryTrend } from './DeliveryTrend';
 import { RecentTasks } from './RecentTasks';
+import { shortcuts } from './shortcuts';
 import { TokenUsageCalendar } from './TokenUsageCalendar';
 import { TokenUsageHeatmap } from './TokenUsageHeatmap';
 import { useWorkplaceData } from './workplace-context';

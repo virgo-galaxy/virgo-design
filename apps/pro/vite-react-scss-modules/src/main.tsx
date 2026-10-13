@@ -10,9 +10,9 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { App } from '@/App';
+import { AppBootstrap } from '@/app/AppBootstrap';
 import { ProControlLabels } from '@/app/ProControlLabels';
-import { AppBootstrap } from '@/application/AppBootstrap';
-import { initializeProTheme } from '@/lib/pro-theme';
+import { initializeProTheme } from '@/features/settings';
 
 initializeProTheme();
 

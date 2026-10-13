@@ -25,7 +25,8 @@ vi.mock('@virgo-design/charts', () => ({
     ].map((name) => [name, () => null]),
   ),
 }));
-vi.mock('@/application/pro-data-context', () => ({
+vi.mock('@/features/catalog', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/features/catalog')>()),
   useTaskCatalog: () => ({ projects: [], metadata: { members } }),
 }));
 

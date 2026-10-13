@@ -11,8 +11,6 @@ export const canViewTask = (user: SessionUser | undefined, task: TaskDto) =>
 export const canEditTask = (user: SessionUser | undefined, task: TaskDto) =>
   canViewTask(user, task) && canManageProject(user, task.project);
 export const canCreateTask = (user?: SessionUser) => isAdmin(user) || user?.role === 'manager';
-export const isAdminShowcasePage = (page: string) =>
-  ['success', 'error', 'exception-403', 'exception-404', 'exception-500'].includes(page);
 export function taskStatusChoices(user: SessionUser | undefined, task?: TaskDto): TaskStatusDto[] {
   if (isAdmin(user)) return ['backlog', 'todo', 'in_progress', 'in_review', 'done'];
   if (!task) return canCreateTask(user) ? ['backlog', 'todo'] : [];
@@ -27,9 +25,4 @@ export function taskStatusChoices(user: SessionUser | undefined, task?: TaskDto)
     if (task.status === 'in_progress') next.push('in_review');
   }
   return [task.status, ...next];
-}
-export function canVisitPage(user: SessionUser | undefined, page: string) {
-  if (isAdminShowcasePage(page)) return isAdmin(user);
-  if (['project-handoff', 'task-create', 'task-edit'].includes(page)) return canCreateTask(user);
-  return true;
 }

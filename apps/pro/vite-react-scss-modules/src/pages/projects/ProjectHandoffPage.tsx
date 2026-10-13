@@ -28,31 +28,35 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router';
 
-import { CatalogBoundary } from '@/application/CatalogBoundary';
-import { useHandoffSession } from '@/application/handoff-session-context';
-import { MutationFeedback } from '@/application/MutationFeedback';
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { RemoteState } from '@/application/RemoteState';
-import { useCurrentUser } from '@/application/session-context';
-import { getTaskCollection } from '@/application/task-queries';
-import { useMutation } from '@/application/use-mutation';
-import { useResourceQuery } from '@/application/use-resource-query';
+import { ExceptionState } from '@/components/exception-state/ExceptionState';
+import { FilterSelect } from '@/components/filters/FilterSelect';
+import { Panel } from '@/components/page/Panel';
+import { useCurrentUser } from '@/features/auth';
+import { CatalogBoundary, useTaskCatalog } from '@/features/catalog';
 import {
   type HandoffDraft,
   reconcileScope,
   scopeGroups,
   scopeTreeValues,
+  useHandoffSession,
   validateHandoff,
   type WorkflowReceipt,
-} from '@/data/pro-workflows';
-import type { TaskState } from '@/data/tasks';
+} from '@/features/handoff';
+import { projectHandoffPath } from '@/features/projects';
+import type { TaskState } from '@/features/tasks';
+import {
+  getTaskCollection,
+  getTaskStatusLabel,
+  taskStatusIntent,
+  useTaskDependentQuery,
+} from '@/features/tasks';
 import { canManageProject, isAdmin } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
-import { ExceptionPage } from '@/pages/exceptions/ExceptionPage';
-import { FilterSelect, Panel } from '@/pages/shared/ProPage';
-import shared from '@/pages/shared/ProPage.module.scss';
-import { getTaskStatusLabel } from '@/pages/tasks/task-presentation';
-import { taskStatusIntent } from '@/pages/tasks/task-presentation';
+import { routePath } from '@/routing';
+import { MutationFeedback } from '@/shared/async/MutationFeedback';
+import { RemoteState } from '@/shared/async/RemoteState';
+import { useMutation } from '@/shared/async/use-mutation';
+import shared from '@/styles/product-layout.module.scss';
 
 import styles from './ProjectHandoffPage.module.scss';
 
@@ -142,17 +146,20 @@ function ProjectHandoffPageView({
       <Empty>
         <Empty.Title>{t('projectDetails.projectNotFound')}</Empty.Title>
         <Empty.Action>
-          <Link className={shared.link} to="/work/projects">
+          <Link className={shared.link} to={routePath('projects')}>
             {t('projectDetails.backToProjects')}
           </Link>
         </Empty.Action>
       </Empty>
     );
-  if (project && !canManageProject(user, project.id)) return <ExceptionPage code="403" />;
+  if (project && !canManageProject(user, project.id)) return <ExceptionState code="403" />;
   if (projectId && draft.projectId !== projectId) return <Skeleton variant="text" />;
   return (
     <div className={shared.page}>
-      <Link className={shared.link} to={`/work/projects/${encodeURIComponent(draft.projectId)}`}>
+      <Link
+        className={shared.link}
+        to={routePath('project-detail', { projectId: draft.projectId })}
+      >
         {t('tasks.workspace.backToProject')}
       </Link>
       <MutationFeedback pending={mutation.pending} error={mutation.error} />
@@ -209,7 +216,7 @@ function ProjectHandoffPageView({
                 void mutation.run(async () => {
                   const receipt = await onPrepare();
                   if (receipt) {
-                    if (admin) navigate(`/result/${receipt.outcome}`);
+                    if (admin) navigate(routePath(receipt.outcome));
                     else setSubmission(receipt);
                   }
                 });
@@ -250,7 +257,7 @@ function ProjectHandoffPageView({
                       label={t('handoff.handoffProject')}
                       value={draft.projectId}
                       onChange={(value) => {
-                        navigate(`/work/projects/${encodeURIComponent(value)}/handoff`);
+                        navigate(projectHandoffPath(value));
                         setStage(0);
                         setDraft((previous) => ({
                           ...previous,
@@ -564,7 +571,7 @@ function HandoffResource() {
       id ? (await getTaskCollection({ project: id }, signal)).items : [],
     [id],
   );
-  const resource = useResourceQuery(load);
+  const resource = useTaskDependentQuery(load);
   if (!resource.data) return <RemoteState {...resource} />;
   return (
     <>

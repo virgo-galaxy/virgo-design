@@ -89,7 +89,7 @@ export interface TaskDeleteResult {
 
 export interface TaskHistoryEntry {
   id: string;
-  kind: import('../analytics/contract').TaskRecordKind;
+  kind: TaskRecordKind;
   actorId: string;
   actorName: string;
   recordedAt: string;
@@ -109,3 +109,14 @@ export type TaskValidationCode =
   | 'assigneeRequired'
   | 'invalidEstimate'
   | 'invalidDueDate';
+
+export type TaskRecordKind =
+  | 'created'
+  | 'assigned'
+  | 'started'
+  | 'submitted'
+  | 'approved'
+  | 'returned'
+  | 'updated'
+  | 'deleted'
+  | 'assisted';

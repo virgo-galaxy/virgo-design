@@ -3,23 +3,23 @@ import { useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
-import { useCurrentUser } from '@/application/session-context';
-import type { SidebarStyle } from '@/application/settings/model';
-import { canVisitPage } from '@/lib/auth/permissions';
+import { useCurrentUser } from '@/features/auth';
+import type { SidebarStyle } from '@/features/settings';
+import { canVisitPage, proRouting } from '@/routing';
 
-import styles from './AppShell.module.scss';
 import { navigationGroups as baseNavigationGroups } from './navigation';
-import { getGroupLabel, getPageLabel } from './navigation-labels';
-import { proRouting } from './routing';
+import styles from './SidebarNavigation.module.scss';
 
 export function SidebarNavigation({
   collapsed,
+  railIconSize,
   pathname,
   showSubmenuHeader,
   sidebarStyle,
   showOverlayArrows,
 }: {
   collapsed: boolean;
+  railIconSize: 'regular' | 'large';
   pathname: string;
   showSubmenuHeader: boolean;
   sidebarStyle: SidebarStyle;
@@ -30,10 +30,10 @@ export function SidebarNavigation({
   const navigationGroups = baseNavigationGroups
     .map((group) => ({
       ...group,
-      label: getGroupLabel(t, group.id),
+      label: t(group.labelKey),
       pages: group.pages
         .filter((page) => canVisitPage(user, page.page))
-        .map((page) => ({ ...page, label: getPageLabel(t, page.page) })),
+        .map((page) => ({ ...page, label: t(page.labelKey) })),
     }))
     .filter((group) => group.pages.length);
   const menuId = useId();
@@ -59,14 +59,14 @@ export function SidebarNavigation({
       orientation="vertical"
       submenu={collapsed ? 'popover' : 'inline'}
       value={
-        pathname.startsWith('/work/tasks/') || currentPage?.page === 'task-cards'
-          ? '/work/tasks'
-          : pathname.startsWith('/work/projects/')
-            ? '/work/projects'
-            : (currentPage?.path ?? pathname)
+        currentPage?.activePage
+          ? (proRouting.routes.find((route) => route.page === currentPage.activePage)?.path ??
+            pathname)
+          : (currentPage?.path ?? pathname)
       }
       className={styles.navigation}
       data-compact={collapsed}
+      data-rail-icon-size={railIconSize}
       aria-label={t('app.mainNavigation')}
     >
       <NavigationMenu.List>

@@ -7,7 +7,7 @@ import { enterDemoSession, getSession, logout, resetDemo } from '@/api/auth';
 import { getProfile, updateProfile } from '@/api/profile';
 import { createTask, deleteTasks, getTask, getTasks, updateTask } from '@/api/tasks';
 import { getWorkflowHistory, prepareHandoff } from '@/api/workflows';
-import { taskDraft, validateTask } from '@/data/tasks';
+import { taskDraft, validateTask } from '@/features/tasks';
 import { businessLabel } from '@/lib/demo/labels';
 import { clearDemoStorage } from '@/lib/demo/reset';
 

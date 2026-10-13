@@ -1,9 +1,9 @@
 import { type ReactNode } from 'react';
 
 import { getAnalyticsOverview, getWorkplaceOverview } from '@/api/analytics/analytics-api';
-import { CatalogBoundary } from '@/application/CatalogBoundary';
-import { RemoteState } from '@/application/RemoteState';
-import { useResourceQuery } from '@/application/use-resource-query';
+import { CatalogBoundary } from '@/features/catalog';
+import { useTaskDependentQuery } from '@/features/tasks';
+import { RemoteState } from '@/shared/async/RemoteState';
 
 import type { WorkplaceData } from './workplace-context';
 import { WorkplaceContext } from './workplace-context';
@@ -16,7 +16,7 @@ async function loadWorkplace(signal: AbortSignal): Promise<WorkplaceData> {
   return { ...workplace, activity: analytics.activity, trendPoints: analytics.trendPoints };
 }
 function WorkplaceResource({ children }: { children: ReactNode }) {
-  const resource = useResourceQuery(loadWorkplace);
+  const resource = useTaskDependentQuery(loadWorkplace);
   if (!resource.data) return <RemoteState {...resource} />;
   return (
     <WorkplaceContext value={resource.data}>

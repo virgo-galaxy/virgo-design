@@ -1,6 +1,6 @@
 import type { TFunction } from 'i18next';
 
-import type { Project } from '@/data/projects';
+import type { Project } from '@/features/projects';
 export const healthIntent = {
   'At risk': 'warning',
   'On track': 'success',

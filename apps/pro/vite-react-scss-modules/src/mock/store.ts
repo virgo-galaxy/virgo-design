@@ -1,33 +1,16 @@
 import type { TaskRecordDto } from '@/api/analytics';
-import type { ProfileDto } from '@/api/profile';
 import { legacyProjectIds } from '@/api/projects/legacy-project-ids';
 import type { TaskDto } from '@/api/tasks';
-import type { WorkflowReceiptDto } from '@/api/workflows';
 import { isRecord } from '@/lib/http/protocol';
 
 import { initialProfile } from './fixtures/profile';
 import { projects } from './fixtures/projects';
 import { initialTaskState } from './fixtures/tasks';
 import { sampleError, sampleSuccess } from './fixtures/workflows';
-import {
-  recordKinds,
-  seedNotifications,
-  seedTaskRecords,
-  type StoredNotification,
-  validRecordPerson,
-} from './task-records';
+import type { DemoState } from './state';
+import { recordKinds, seedNotifications, seedTaskRecords, validRecordPerson } from './task-records';
 
 export const demoStorageKey = 'virgo-pro.demo-data.v1';
-export interface DemoState {
-  tasks: TaskDto[];
-  nextId: number;
-  profile: ProfileDto;
-  profiles?: Record<string, ProfileDto>;
-  workflows: { success: WorkflowReceiptDto; error: WorkflowReceiptDto };
-  sequence: number;
-  records: TaskRecordDto[];
-  notifications: StoredNotification[];
-}
 function seed(): DemoState {
   const records = seedTaskRecords(initialTaskState.tasks);
   return structuredClone({

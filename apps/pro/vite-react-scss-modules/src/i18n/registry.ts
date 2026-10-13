@@ -1,3 +1,8 @@
+import { controlsEnUS } from '@/i18n/locales/shared/controls/en-US';
+import { controlsZhCN } from '@/i18n/locales/shared/controls/zh-CN';
+import { sharedEnUS } from '@/i18n/locales/shared/en-US';
+import { sharedZhCN } from '@/i18n/locales/shared/zh-CN';
+
 import { appEnUS } from '../app/locales/en-US';
 import { appZhCN } from '../app/locales/zh-CN';
 import { settingsEnUS } from '../components/global-settings/locales/en-US';
@@ -20,10 +25,6 @@ import { handoffZhCN } from '../pages/projects/locales/handoff/zh-CN';
 import { projectsZhCN } from '../pages/projects/locales/zh-CN';
 import { resultsEnUS } from '../pages/results/locales/en-US';
 import { resultsZhCN } from '../pages/results/locales/zh-CN';
-import { controlsEnUS } from '../pages/shared/locales/controls/en-US';
-import { controlsZhCN } from '../pages/shared/locales/controls/zh-CN';
-import { sharedEnUS } from '../pages/shared/locales/en-US';
-import { sharedZhCN } from '../pages/shared/locales/zh-CN';
 import { tasksEnUS } from '../pages/tasks/locales/en-US';
 import { tasksZhCN } from '../pages/tasks/locales/zh-CN';
 import { workplaceEnUS } from '../pages/workplace/locales/en-US';

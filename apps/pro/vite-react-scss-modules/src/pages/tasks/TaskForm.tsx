@@ -3,13 +3,12 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBlocker } from 'react-router';
 
-import { MutationFeedback } from '@/application/MutationFeedback';
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { useMutation } from '@/application/use-mutation';
-import { projectName } from '@/data/task-catalog';
+import { projectName, useTaskCatalog } from '@/features/catalog';
 import {
   draftHasChanges,
   emptyTaskDraft,
+  getTaskPriorityLabel,
+  getTaskStatusLabel,
   isTaskPriority,
   isTaskStatus,
   normalizeTaskDraft,
@@ -19,12 +18,12 @@ import {
   type TaskErrors,
   taskPriorities,
   validateTask,
-} from '@/data/tasks';
+} from '@/features/tasks';
 import { businessLabel } from '@/lib/demo/labels';
+import { MutationFeedback } from '@/shared/async/MutationFeedback';
+import { useMutation } from '@/shared/async/use-mutation';
 
-import { getTaskPriorityLabel, getTaskStatusLabel } from './task-presentation';
-import styles from './TasksPage.module.scss';
-import pageStyles from './TaskWorkspace.module.scss';
+import styles from './TaskForm.module.scss';
 export function TaskForm({
   task,
   onSave,
@@ -90,7 +89,7 @@ export function TaskForm({
         ref={formRef}
         size="medium"
         noValidate
-        className={pageStyles.form}
+        className={styles.form}
         onSubmit={(event) => {
           event.preventDefault();
           const nextErrors = validateTask(
@@ -321,7 +320,7 @@ export function TaskForm({
           </Field>
         </div>
       </Form>
-      <Button.Group className={pageStyles.formActions}>
+      <Button.Group className={styles.formActions}>
         <Button variant="outline" disabled={mutation.pending} onClick={onCancel}>
           {t('tasks.cancel')}
         </Button>

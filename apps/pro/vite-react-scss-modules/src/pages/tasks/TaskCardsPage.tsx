@@ -4,27 +4,28 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
-import { CatalogBoundary } from '@/application/CatalogBoundary';
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { RemoteState } from '@/application/RemoteState';
-import { taskPageView } from '@/application/task-queries';
-import { useTaskQuery } from '@/application/use-task-query';
+import { MultiFilterSelect } from '@/components/filters/MultiFilterSelect';
+import { NoResults } from '@/components/page/NoResults';
 import { Person } from '@/components/person/Person';
-import { queryFromParams } from '@/data/data-query';
-import { moduleName, projectName } from '@/data/task-catalog';
-import { filterValues, taskStatuses } from '@/data/tasks';
-import { formatDueDate } from '@/data/workplace';
-import { businessLabel } from '@/lib/demo/labels';
-import { MultiFilterSelect, NoResults } from '@/pages/shared/ProPage';
-import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
-
-import { taskDetailsPath } from './task-navigation';
+import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
 import {
+  filterValues,
   getTaskPriorityLabel,
   getTaskStatusLabel,
+  queryFromParams,
+  taskDetailsPath,
+  taskPageView,
   taskPriorityIntent,
+  taskStatuses,
   taskStatusIntent,
-} from './task-presentation';
+  useTaskQuery,
+} from '@/features/tasks';
+import { usePaginationLabels } from '@/i18n/use-pagination-labels';
+import { businessLabel } from '@/lib/demo/labels';
+import { formatDueDate } from '@/lib/format-due-date';
+import { routePath, routeWithQuery } from '@/routing';
+import { RemoteState } from '@/shared/async/RemoteState';
+
 import styles from './TaskCardsPage.module.scss';
 import { TaskViews } from './TaskViews';
 import { useTaskSearchParams } from './use-task-search-params';
@@ -41,7 +42,7 @@ function TaskCardsPageView() {
   const resource = useTaskQuery({ ...filters, pageNum: page, pageSize: 12 });
   const labels = usePaginationLabels();
   const view = resource.data ? taskPageView(resource.data) : null;
-  const returnTo = `/work/task-cards${params.size ? '?' + params.toString() : ''}`;
+  const returnTo = routeWithQuery(routePath('task-cards'), params);
   const change = (key: string, value: string | string[]) => {
     setParams(
       (current) => {

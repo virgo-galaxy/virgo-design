@@ -1,5 +1,5 @@
-import { ExceptionPage } from '@/pages/exceptions/ExceptionPage';
+import { ExceptionState } from '@/components/exception-state/ExceptionState';
 
 export function NotFoundPage() {
-  return <ExceptionPage code="404" />;
+  return <ExceptionState code="404" />;
 }

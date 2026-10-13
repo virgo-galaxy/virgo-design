@@ -28,8 +28,9 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { Task } from '@/data/tasks';
+import type { Task } from '@/features/tasks';
 
+import { taskColumnLabel } from './column-label';
 import type { tasksEnUS } from './locales/en-US';
 import {
   defaultTableSettings,
@@ -41,7 +42,6 @@ import {
   type TaskTableSettings,
 } from './table-settings';
 import styles from './TableSettingsDialog.module.scss';
-import { taskColumnLabel } from './task-presentation';
 import { TaskColumnPreview } from './TaskColumnPreview';
 
 function AlignmentChoices({

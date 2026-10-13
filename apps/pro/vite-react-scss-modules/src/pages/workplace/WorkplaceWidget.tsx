@@ -3,7 +3,7 @@ import { Button, Card, Collapsible, Tooltip } from '@virgo-design/ui';
 import { type ReactNode, type Ref, useEffect, useId, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import styles from './WorkplacePage.module.scss';
+import styles from './WorkplaceWidget.module.scss';
 
 export type WorkplaceWidgetState = 'expanded' | 'minimized' | 'removing' | 'removed';
 

@@ -5,9 +5,8 @@ import { afterAll, afterEach, beforeAll, beforeEach, expect, it } from 'vitest';
 
 import { getProjectOverviews, getProjects } from '@/api/projects';
 import { createTask, getTasks, updateTask, updateTaskStatus } from '@/api/tasks';
-import { getTaskCollection } from '@/application/task-queries';
-import { moduleFilterKey, moduleName } from '@/data/task-catalog';
-import { taskDraft } from '@/data/tasks';
+import { moduleFilterKey, moduleName } from '@/features/catalog';
+import { getTaskCollection, taskDraft } from '@/features/tasks';
 import { projects } from '@/mock/fixtures/projects';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';

@@ -5,19 +5,16 @@ import { useTranslation } from 'react-i18next';
 
 import { getAnalyticsOverview } from '@/api/analytics/analytics-api';
 import type { AnalyticsOverviewDto } from '@/api/analytics/contract';
-import { CatalogBoundary } from '@/application/CatalogBoundary';
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { RemoteState } from '@/application/RemoteState';
-import { useResourceQuery } from '@/application/use-resource-query';
+import { Panel } from '@/components/page/Panel';
 import { Person } from '@/components/person/Person';
-import { deliveryAnalysis } from '@/data/analytics';
-import { taskStatuses } from '@/data/tasks';
-import { formatDueDate } from '@/data/workplace';
+import { deliveryAnalysis } from '@/features/analytics';
+import { CatalogBoundary, useTaskCatalog } from '@/features/catalog';
+import { getTaskStatusLabel, taskStatuses, useTaskDependentQuery } from '@/features/tasks';
+import { usePaginationLabels } from '@/i18n/use-pagination-labels';
 import { businessLabel } from '@/lib/demo/labels';
-import { Panel } from '@/pages/shared/ProPage';
-import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
+import { formatDueDate } from '@/lib/format-due-date';
+import { RemoteState } from '@/shared/async/RemoteState';
 
-import { getTaskStatusLabel } from '../tasks/task-presentation';
 import styles from './AnalyticsPage.module.scss';
 
 const chartColors = [1, 8, 6, 7, 3].map((index) => `var(--vd-data-categorical-${index})`);
@@ -380,7 +377,7 @@ export function AnalyticsPageView({ overview }: { overview: AnalyticsOverviewDto
 }
 
 function AnalyticsResource() {
-  const resource = useResourceQuery(getAnalyticsOverview);
+  const resource = useTaskDependentQuery(getAnalyticsOverview);
   if (!resource.data) return <RemoteState {...resource} />;
   return (
     <>

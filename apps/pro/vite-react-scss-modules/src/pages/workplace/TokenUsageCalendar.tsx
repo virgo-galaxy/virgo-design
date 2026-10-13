@@ -3,14 +3,13 @@ import { Button, Calendar, Dialog, SegmentedControl, Select } from '@virgo-desig
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useTaskCatalog } from '@/application/pro-data-context';
 import calendarChartArtwork from '@/assets/illustrations/calendar-chart.svg';
-import { projectName } from '@/data/task-catalog';
+import { projectName, useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/demo/labels';
 
 import { buildTokenUsageCalendar, formatTokenCount } from './token-usage-calendar';
+import styles from './TokenUsageCalendar.module.scss';
 import { useWorkplaceData } from './workplace-context';
-import styles from './WorkplacePage.module.scss';
 
 const highUsageThreshold = 100000;
 

@@ -1,0 +1,6 @@
+.deleteButton[data-variant='primary'] {
+  --button-background: var(--vd-status-danger-solid);
+  --button-background-hover: color-mix(in srgb, var(--vd-status-danger-solid) 90%, black);
+  --button-background-active: color-mix(in srgb, var(--vd-status-danger-solid) 80%, black);
+  --button-foreground: var(--vd-status-danger-on-solid);
+}

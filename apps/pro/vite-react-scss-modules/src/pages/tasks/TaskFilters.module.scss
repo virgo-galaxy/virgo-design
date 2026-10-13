@@ -1,0 +1,51 @@
+.filterToolbar {
+  padding: var(--vd-spacing-20);
+  border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
+}
+
+.filterGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--vd-spacing-16);
+}
+
+.filterLabel {
+  font-size: var(--vd-font-size-11);
+  color: var(--vd-text-secondary);
+}
+
+@media (max-width: 850px) {
+  .filterGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .filterToolbar {
+    padding: var(--vd-spacing-16);
+  }
+
+  .filterGrid {
+    gap: var(--vd-spacing-12);
+  }
+}
+
+@media (max-width: 480px) {
+  .filterGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.queryActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vd-spacing-12);
+  margin-top: var(--vd-spacing-20);
+}
+
+.queryHint {
+  margin-inline-end: auto;
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-font-size-11);
+}

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import type { Task } from '@/data/tasks';
-import type { TaskSort } from '@/data/tasks.sort';
+import type { Task, TaskSort } from '@/features/tasks';
 
 import type { TaskColumnSettings, TaskDataColumn, TaskTableSettings } from './table-settings';
 import { TaskTable } from './TaskTable';
@@ -67,7 +66,6 @@ export function TaskColumnPreview({
       pageSize={1}
       onPageChange={noop}
       filtered={false}
-      selectedId={undefined}
       onOpen={noop}
       onEdit={noop}
       onReset={noop}

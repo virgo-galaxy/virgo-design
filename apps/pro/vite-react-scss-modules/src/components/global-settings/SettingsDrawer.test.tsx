@@ -3,12 +3,12 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 import { Drawer } from '@virgo-design/ui';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { defaultProSettings } from '@/application/settings/model';
+import { defaultProSettings } from '@/features/settings';
 
 import { SettingsDrawer } from './SettingsDrawer';
 
 const { resetDemo, onReset } = vi.hoisted(() => ({ resetDemo: vi.fn(), onReset: vi.fn() }));
-vi.mock('@/application/session-context', () => ({ useSession: () => ({ resetDemo }) }));
+vi.mock('@/features/auth/session-context', () => ({ useSession: () => ({ resetDemo }) }));
 
 function renderSettings() {
   return render(

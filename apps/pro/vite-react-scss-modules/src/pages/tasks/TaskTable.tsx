@@ -12,17 +12,26 @@ import {
 import { type ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useTaskCatalog } from '@/application/pro-data-context';
-import { useCurrentUser } from '@/application/session-context';
 import { CopyableText } from '@/components/copyable-text';
-import { moduleFilterKey, moduleName, projectName } from '@/data/task-catalog';
-import { isOverdue, type Task, taskPriorities, taskStatuses } from '@/data/tasks';
-import type { TaskSort } from '@/data/tasks.sort';
-import { formatDueDate } from '@/data/workplace';
+import { useCurrentUser } from '@/features/auth';
+import { moduleFilterKey, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
+import type { TaskSort } from '@/features/tasks';
+import {
+  getTaskPriorityLabel,
+  getTaskStatusLabel,
+  isOverdue,
+  type Task,
+  taskPriorities,
+  taskPriorityIntent,
+  taskStatuses,
+  taskStatusIntent,
+} from '@/features/tasks';
+import { usePaginationLabels } from '@/i18n/use-pagination-labels';
 import { canCreateTask, canEditTask } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
-import { usePaginationLabels } from '@/pages/shared/use-pagination-labels';
+import { formatDueDate } from '@/lib/format-due-date';
 
+import { taskColumnLabel } from './column-label';
 import {
   isLeadingTaskColumn,
   moveTaskColumn,
@@ -32,15 +41,8 @@ import {
   type TaskTableSettings,
   visibleColumns,
 } from './table-settings';
-import {
-  getTaskPriorityLabel,
-  getTaskStatusLabel,
-  taskColumnLabel,
-  taskPriorityIntent,
-  taskStatusIntent,
-} from './task-presentation';
 import { TaskAssigneeCard } from './TaskAssigneeCard';
-import styles from './TasksPage.module.scss';
+import styles from './TaskTable.module.scss';
 
 interface Props {
   presentation?: 'table' | 'column-preview';
@@ -62,7 +64,6 @@ interface Props {
   pageSize: number;
   onPageChange: (page: number, pageSize: number) => void;
   filtered: boolean;
-  selectedId: string | undefined;
   onOpen: (task: Task, opener: HTMLButtonElement) => void;
   onEdit: (task: Task, opener: HTMLButtonElement) => void;
   onReset: () => void;
@@ -88,7 +89,6 @@ export function TaskTable({
   pageSize,
   onPageChange,
   filtered,
-  selectedId,
   onOpen,
   onEdit,
   onReset,
@@ -192,6 +192,7 @@ export function TaskTable({
             <CopyableText value={task.id} className={styles.taskId} />
             <CopyableText
               value={businessLabel(task.title, i18n.language)}
+              data-pro-task-title=""
               className={styles.taskTitle}
             />
           </div>
@@ -319,6 +320,7 @@ export function TaskTable({
               }),
             })
           }
+          data-pro-task-table=""
           className={styles.table}
         >
           <Table.Caption className={styles.srOnly}>
@@ -435,9 +437,7 @@ export function TaskTable({
               <Table.Row
                 key={task.id}
                 data-task-id={task.id}
-                selected={
-                  (settings.selection && selection.includes(task.id)) || selectedId === task.id
-                }
+                selected={settings.selection && selection.includes(task.id)}
               >
                 {columns.map((column) => (
                   <Table.Cell
@@ -479,7 +479,7 @@ export function TaskTable({
         </Empty>
       ) : null}
       {settings.pagination ? (
-        <div className={styles.tableFooter}>
+        <div data-pro-task-footer="" className={styles.tableFooter}>
           <Pagination
             size={settings.size}
             labels={paginationLabels}

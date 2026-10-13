@@ -4,7 +4,7 @@ import { delay, http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { userDetailsCache } from '@/application/user-details-cache';
+import { userDetailsCache } from '@/features/users';
 import { projects } from '@/mock/fixtures/projects';
 import { users } from '@/mock/fixtures/users';
 import { members } from '@/mock/fixtures/workplace';
@@ -12,7 +12,10 @@ import { handlers } from '@/mock/handlers';
 
 import { TaskAssigneeCard } from './TaskAssigneeCard';
 
-vi.mock('@/application/pro-data-context', () => ({ useTaskCatalog: () => ({ projects }) }));
+vi.mock('@/features/catalog', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/features/catalog')>()),
+  useTaskCatalog: () => ({ projects }),
+}));
 
 const server = setupServer(...handlers);
 const nina = members.find((member) => member.id === 'nina')!;
