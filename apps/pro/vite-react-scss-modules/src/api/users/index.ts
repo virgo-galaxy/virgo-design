@@ -1,2 +1,2 @@
-export type { UserDetailsDto, UserGender, WorkLocationDto } from './contract';
+export type { UserDetailsDto, UserGender, WorkLocationDto } from '../../contracts/users';
 export { getUser } from './users-api';

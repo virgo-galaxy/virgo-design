@@ -1,10 +1,10 @@
-import type { ProjectDto as Project } from '@/api/projects/contract';
-import type { TaskDto as Task } from '@/api/tasks/contract';
+import type { ProjectDto as Project } from '@/contracts/projects';
+import type { TaskDto as Task } from '@/contracts/tasks';
 import type {
   HandoffRequest,
   HandoffValidationCode,
   WorkflowReceiptDto,
-} from '@/api/workflows/contract';
+} from '@/contracts/workflows';
 export type HandoffDraft = HandoffRequest;
 export const initialHandoff: HandoffDraft = {
   title: 'October release handoff',

@@ -1,7 +1,7 @@
 import { getThemePreset, resolveThemeId } from '@virgo-design/themes';
 import type { LayoutSidebarDisplayState } from '@virgo-design/ui';
 
-import configuredDefaults from '@/config/settings.json';
+import configuredDefaults from './config/settings.json';
 
 export type Appearance = 'light' | 'dark' | 'system';
 export type SidebarStyle = 'collapsible' | 'labels';

@@ -1,4 +1,4 @@
-import type { WorkLocationDto } from '@/api/users';
+import type { WorkLocationDto } from '@/contracts/users';
 
 // Display labels are localized; API identifiers and relationship keys stay stable.
 const zh: Record<string, string> = {

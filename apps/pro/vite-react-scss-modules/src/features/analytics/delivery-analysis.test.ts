@@ -10,7 +10,7 @@ const trendPoints = demoTrend.map((point, index) => ({
   planned: planned[index]!,
 }));
 
-import { deliveryAnalysis } from '@/features/analytics/delivery-analysis';
+import { deliveryAnalysis } from './delivery-analysis';
 
 describe('team delivery analysis', () => {
   it('shares Workplace history and switches all aggregates with the time range', () => {

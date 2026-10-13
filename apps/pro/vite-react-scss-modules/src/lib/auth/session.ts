@@ -1,10 +1,13 @@
-import type { LoginDto, SessionUser } from '@/api/auth/contract';
+import type { LoginDto, SessionUser } from '@/contracts/auth';
+import { sessionStorageAccess } from '@/lib/storage';
 const storageKey = 'virgo-pro.auth-session.v1';
 export const sessionExpiredEvent = 'virgo-pro:session-expired';
 let memory: LoginDto | undefined;
 function saved(): LoginDto | undefined {
   try {
-    const value = JSON.parse(sessionStorage.getItem(storageKey) ?? 'null');
+    const saved = sessionStorageAccess.get(storageKey);
+    if (!saved.ok) return memory;
+    const value = JSON.parse(saved.value ?? 'null');
     if (
       value?.authenticated === true &&
       typeof value.accessToken === 'string' &&
@@ -29,18 +32,14 @@ export function getStoredUser(): SessionUser | undefined {
 export function saveAuthSession(session: LoginDto) {
   memory = session;
   try {
-    sessionStorage.setItem(storageKey, JSON.stringify(session));
+    sessionStorageAccess.set(storageKey, JSON.stringify(session));
   } catch {
-    /* memory fallback */
+    // Retain the in-memory session if serialization fails.
   }
 }
 export function clearAuthSession() {
   memory = undefined;
-  try {
-    sessionStorage.removeItem(storageKey);
-  } catch {
-    /* memory fallback */
-  }
+  sessionStorageAccess.remove(storageKey);
 }
 export function expireAuthSession() {
   clearAuthSession();

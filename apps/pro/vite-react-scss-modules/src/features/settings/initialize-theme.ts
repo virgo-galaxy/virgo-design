@@ -5,13 +5,15 @@ import {
   themeStorageKey,
 } from '@virgo-design/themes';
 
+import { demoResetCompleteEvent } from '@/lib/demo/reset';
+import { localStorageAccess } from '@/lib/storage';
+
 import {
   defaultProSettings,
   parseProSettings,
   serializeProSettings,
   settingsStorageKey,
-} from '@/features/settings/model';
-import { demoResetCompleteEvent } from '@/lib/demo/reset';
+} from './model';
 
 const storage: ThemeStorage = {
   key: settingsStorageKey,
@@ -25,7 +27,7 @@ export function initializeProTheme() {
   window.removeEventListener(demoResetCompleteEvent, initializeProTheme);
   window.addEventListener(demoResetCompleteEvent, initializeProTheme);
   try {
-    const raw = localStorage.getItem(settingsStorageKey);
+    const raw = localStorageAccess.get(settingsStorageKey).value;
     let record;
     try {
       record = raw ? JSON.parse(raw) : null;
@@ -33,12 +35,13 @@ export function initializeProTheme() {
       record = null;
     }
     const saved = record?.version === 1 ? resolveThemeId(record.theme) : undefined;
-    const legacy = resolveThemeId(localStorage.getItem(themeStorageKey));
+    const legacy = resolveThemeId(localStorageAccess.get(themeStorageKey).value);
     const theme = saved ?? legacy;
     if (theme && record?.theme !== theme) {
-      localStorage.setItem(settingsStorageKey, storage.serialize(theme, raw));
+      if (!localStorageAccess.set(settingsStorageKey, storage.serialize(theme, raw)))
+        return initializeTheme({ defaultTheme: defaultProSettings.theme, storage });
     }
-    localStorage.removeItem(themeStorageKey);
+    localStorageAccess.remove(themeStorageKey);
   } catch {
     // A damaged record or denied storage must not prevent the workspace opening.
   }

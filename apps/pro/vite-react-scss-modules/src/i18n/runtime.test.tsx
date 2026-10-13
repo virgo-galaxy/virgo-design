@@ -6,12 +6,11 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { validateProfile } from '@/features/profile';
 import {
   emptyTaskQuery,
-  getTaskPriorityLabel,
-  getTaskStatusLabel,
   queryError,
   taskDraft,
   taskPriorities,
   taskStatuses,
+  taskStatusLabelNames,
 } from '@/features/tasks';
 import { formatDueDate } from '@/lib/format-due-date';
 import { initialProfile } from '@/mock/fixtures/profile';
@@ -46,7 +45,7 @@ function LocalePreview() {
         {t('settings.language')}
       </button>
       <h1>{t(proRouting.match(routePath('tasks'))!.labelKey)}</h1>
-      <p>{getTaskStatusLabel(t, 'in_progress')}</p>
+      <p>{t(`tasks.statusLabels.${taskStatusLabelNames['in_progress']}`)}</p>
       <p>{formatDueDate('2026-10-01', locale)}</p>
     </>
   );
@@ -111,15 +110,12 @@ describe('pro locale runtime', () => {
   it('keeps domain values and validation codes stable while displaying translated feedback', async () => {
     const draft = taskDraft(initialTaskState.tasks[0]!);
     expect(draft).toMatchObject({ status: 'todo', priority: 'urgent' });
-    const english = i18nInstance.getFixedT('en-US');
-    expect(taskStatuses.map((code) => getTaskStatusLabel(english, code))).toEqual([
-      'Backlog',
-      'Todo',
-      'In Progress',
-      'In Review',
-      'Done',
-    ]);
-    expect(taskPriorities.map((code) => getTaskPriorityLabel(english, code))).toEqual([
+    await setAppLocale('en-US');
+    const english = i18nInstance.t;
+    expect(
+      taskStatuses.map((code) => english(`tasks.statusLabels.${taskStatusLabelNames[code]}`)),
+    ).toEqual(['Backlog', 'Todo', 'In Progress', 'In Review', 'Done']);
+    expect(taskPriorities.map((code) => english(`tasks.priorityLabels.${code}`))).toEqual([
       'Low',
       'Medium',
       'High',
@@ -131,14 +127,12 @@ describe('pro locale runtime', () => {
     expect(error).toBe('invalidEstimate');
     if (!error) throw new Error('Expected a validation error');
     await setAppLocale('zh-CN');
-    expect(taskStatuses.map((code) => getTaskStatusLabel(i18nInstance.t, code))).toEqual([
-      '待规划',
-      '待办',
-      '进行中',
-      '待评审',
-      '已完成',
-    ]);
-    expect(taskPriorities.map((code) => getTaskPriorityLabel(i18nInstance.t, code))).toEqual([
+    expect(
+      taskStatuses.map((code) =>
+        i18nInstance.t(`tasks.statusLabels.${taskStatusLabelNames[code]}`),
+      ),
+    ).toEqual(['待规划', '待办', '进行中', '待评审', '已完成']);
+    expect(taskPriorities.map((code) => i18nInstance.t(`tasks.priorityLabels.${code}`))).toEqual([
       '低',
       '中',
       '高',

@@ -1,2 +1,2 @@
-export * from './contract';
+export * from '../../contracts/tasks';
 export * from './tasks-api';

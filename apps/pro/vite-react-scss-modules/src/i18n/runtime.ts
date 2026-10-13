@@ -1,5 +1,7 @@
-import { createInstance } from 'i18next';
+import { createInstance, type Resource } from 'i18next';
 import { initReactI18next } from 'react-i18next';
+
+import { localStorageAccess } from '@/lib/storage';
 
 import {
   type AppLocale,
@@ -8,16 +10,11 @@ import {
   normalizeAppLocale,
   resolveAppLocale,
 } from './locale';
-import { enUS, zhCN } from './registry';
 
 export const localeStorageKey = 'virgo-pro:locale:v1';
 function getInitialPreference(): LocalePreference {
-  try {
-    const saved = window.localStorage.getItem(localeStorageKey);
-    return saved === 'auto' || saved === 'zh-CN' ? saved : 'en-US';
-  } catch {
-    return 'en-US';
-  }
+  const saved = localStorageAccess.get(localeStorageKey).value;
+  return saved === 'auto' || saved === 'zh-CN' ? saved : 'en-US';
 }
 function detectedLocale(preference: LocalePreference): AppLocale {
   return resolveAppLocale(
@@ -42,16 +39,15 @@ function applyDocumentLocale(locale: AppLocale) {
 export const i18nInstance = createInstance();
 const initialLocale = detectedLocale(localePreference);
 applyDocumentLocale(initialLocale);
-void i18nInstance.use(initReactI18next).init({
-  resources: {
-    'en-US': { translation: enUS },
-    'zh-CN': { translation: zhCN },
-  },
-  lng: initialLocale,
-  fallbackLng: 'en-US',
-  returnNull: false,
-  interpolation: { escapeValue: false },
-});
+export function initializeI18n(resources: Resource) {
+  return i18nInstance.use(initReactI18next).init({
+    resources,
+    lng: initialLocale,
+    fallbackLng: 'en-US',
+    returnNull: false,
+    interpolation: { escapeValue: false },
+  });
+}
 i18nInstance.on('languageChanged', (language) => {
   applyDocumentLocale(normalizeAppLocale(language));
 });
@@ -60,11 +56,7 @@ export function setAppLocale(locale: AppLocale) {
 }
 export function setAppLocalePreference(preference: LocalePreference) {
   localePreference = preference;
-  try {
-    window.localStorage.setItem(localeStorageKey, preference);
-  } catch {
-    // Language switching still works when browser storage is unavailable.
-  }
+  localStorageAccess.set(localeStorageKey, preference);
   for (const listener of preferenceListeners) listener();
   return i18nInstance.changeLanguage(detectedLocale(preference));
 }

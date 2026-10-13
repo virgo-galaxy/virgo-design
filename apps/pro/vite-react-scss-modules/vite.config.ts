@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 import { themeBootstrapPlugin } from '../../../config/theme-bootstrap-plugin';
-import defaults from './src/config/settings.json';
+import defaults from './src/features/settings/config/settings.json';
 
 export default defineConfig({
   plugins: [

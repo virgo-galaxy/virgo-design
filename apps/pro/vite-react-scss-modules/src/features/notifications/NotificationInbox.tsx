@@ -25,7 +25,7 @@ export function NotificationInbox({
     <div>
       <div className={styles.heading}>
         <strong>
-          {t('app.notifications')} {inbox.data?.unreadCount ? `(${inbox.data.unreadCount})` : ''}
+          {t('notifications.title')} {inbox.data?.unreadCount ? `(${inbox.data.unreadCount})` : ''}
         </strong>
         <Button
           size="small"
@@ -38,7 +38,7 @@ export function NotificationInbox({
             })
           }
         >
-          {t('app.inbox.readAll')}
+          {t('notifications.inbox.readAll')}
         </Button>
       </div>
       <MutationFeedback pending={mutation.pending} error={mutation.error} />
@@ -49,7 +49,7 @@ export function NotificationInbox({
       {inbox.data ? (
         <ul className={styles.list}>
           {!inbox.data.items.length ? (
-            <li className={styles.empty}>{t('app.inbox.empty')}</li>
+            <li className={styles.empty}>{t('notifications.inbox.empty')}</li>
           ) : (
             inbox.data.items.map((item) => (
               <li key={item.id} data-unread={!item.readAt || undefined}>
@@ -71,11 +71,11 @@ export function NotificationInbox({
                 >
                   <span className={styles.itemHeading}>
                     <span className={styles.dot} aria-hidden="true" />
-                    <strong>{t(`app.inbox.kinds.${item.kind}`)}</strong>
+                    <strong>{t(`notifications.inbox.kinds.${item.kind}`)}</strong>
                   </span>
                   <span className={styles.task}>
                     {item.kind === 'welcome'
-                      ? t('app.inbox.welcome')
+                      ? t('notifications.inbox.welcome')
                       : businessLabel(item.taskTitle, i18n.language)}
                   </span>
                   <span className={styles.meta}>
@@ -91,7 +91,9 @@ export function NotificationInbox({
                     </time>
                   </span>
                   {item.taskId && !item.available ? (
-                    <span className={styles.unavailable}>{t('app.inbox.unavailable')}</span>
+                    <span className={styles.unavailable}>
+                      {t('notifications.inbox.unavailable')}
+                    </span>
                   ) : null}
                 </Button>
               </li>

@@ -9,20 +9,19 @@ import clipboardCheckArtwork from '@/assets/illustrations/clipboard-check.svg';
 import folderDocumentArtwork from '@/assets/illustrations/folder-document.svg';
 import usersArtwork from '@/assets/illustrations/users.svg';
 import { PageHeading } from '@/components/page/PageHeading';
-import { getActivityActionLabel } from '@/features/activity';
 import { projectName, useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/demo/labels';
 
-import { DeliveryTrend } from './DeliveryTrend';
-import { RecentTasks } from './RecentTasks';
-import { shortcuts } from './shortcuts';
-import { TokenUsageCalendar } from './TokenUsageCalendar';
-import { TokenUsageHeatmap } from './TokenUsageHeatmap';
-import { useWorkplaceData } from './workplace-context';
-import { WorkplaceDataBoundary } from './workplace-data';
+import { DeliveryTrend } from './components/DeliveryTrend';
+import { RecentTasks } from './components/RecentTasks';
+import { TokenUsageCalendar } from './components/TokenUsageCalendar';
+import { TokenUsageHeatmap } from './components/TokenUsageHeatmap';
+import { WorkplaceWidget, type WorkplaceWidgetState } from './components/WorkplaceWidget';
+import { WorkspaceCarousel } from './components/WorkspaceCarousel';
+import { shortcuts } from './config/shortcuts';
+import { useWorkplaceData } from './data/workplace-context';
+import { WorkplaceDataBoundary } from './data/workplace-data';
 import styles from './WorkplacePage.module.scss';
-import { WorkplaceWidget, type WorkplaceWidgetState } from './WorkplaceWidget';
-import { WorkspaceCarousel } from './WorkspaceCarousel';
 
 const widgetIds = ['distribution', 'shortcuts', 'inspiration', 'activity'] as const;
 type WidgetId = (typeof widgetIds)[number];
@@ -253,7 +252,11 @@ function WorkplacePageView() {
                       {businessLabel(event.name, i18n.language)}
                     </Timeline.Title>
                     <Timeline.Description className={styles.activityDescription}>
-                      {getActivityActionLabel(t, event, i18n.language)}
+                      {event.taskTitle && event.action
+                        ? t(`workplace.activityActions.${event.action}`, {
+                            title: businessLabel(event.taskTitle, i18n.language),
+                          })
+                        : t('workplace.activityUpdated')}
                     </Timeline.Description>
                     <Timeline.Time dateTime={event.dateTime} className={styles.activityTime}>
                       {event.time} ·{' '}

@@ -1,5 +1,5 @@
-import type { SessionUser } from '@/api/auth/contract';
 import adminAvatar from '@/assets/avatars/admin.svg';
+import type { SessionUser } from '@/contracts/auth';
 
 import { projectIds, users } from './fixtures/team';
 export const demoPassword = 'virgo123';

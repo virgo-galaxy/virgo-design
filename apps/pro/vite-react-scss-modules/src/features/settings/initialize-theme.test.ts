@@ -3,14 +3,14 @@ import { act, renderHook } from '@testing-library/react';
 import { getTheme, initializeTheme, setTheme, themeStorageKey } from '@virgo-design/themes';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 
+import { initializeProTheme } from './initialize-theme';
 import {
   defaultProSettings,
   getFixedHeaderMaterial,
-  initializeProTheme,
   serializeProSettings,
   settingsStorageKey,
-  useProSettings,
-} from '@/features/settings';
+} from './model';
+import { useProSettings } from './useProSettings';
 
 beforeEach(() => {
   localStorage.clear();

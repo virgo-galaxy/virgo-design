@@ -4,7 +4,7 @@ import '@virgo-design/fonts/mono/jetbrains-mono.css';
 import '@virgo-design/tokens/styles.css';
 import '@virgo-design/themes/styles.css';
 import './styles/global.scss';
-import './i18n/runtime';
+import './app/composition/i18n/initialize';
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';

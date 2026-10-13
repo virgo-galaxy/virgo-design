@@ -1,4 +1,4 @@
-import type { SessionUser } from '@/api/auth/contract';
+import type { SessionUser } from '@/contracts/auth';
 
 import { proRouting, type ResolvedProRoute } from './match';
 export function canAccessRoute(user: SessionUser | undefined, route: ResolvedProRoute) {

@@ -2,6 +2,7 @@ import type { TaskRecordDto } from '@/api/analytics';
 import { legacyProjectIds } from '@/api/projects/legacy-project-ids';
 import type { TaskDto } from '@/api/tasks';
 import { isRecord } from '@/lib/http/protocol';
+import { localStorageAccess } from '@/lib/storage';
 
 import { initialProfile } from './fixtures/profile';
 import { projects } from './fixtures/projects';
@@ -92,7 +93,7 @@ export function getDemoState(): DemoState {
   if (!state) {
     state = seed();
     try {
-      const saved: unknown = JSON.parse(localStorage.getItem(demoStorageKey) ?? 'null');
+      const saved: unknown = JSON.parse(localStorageAccess.get(demoStorageKey).value ?? 'null');
       if (isRecord(saved) && isRecord(saved.state) && [1, 2].includes(Number(saved.version))) {
         const names = new Map([
           ...projects.map((project) => [project.name, project.id] as const),
@@ -163,8 +164,7 @@ export function getDemoState(): DemoState {
 export function updateDemoState(update: (previous: DemoState) => DemoState) {
   const next = update(structuredClone(getDemoState()));
   try {
-    if (typeof localStorage !== 'undefined')
-      localStorage.setItem(demoStorageKey, JSON.stringify({ version: 3, state: next }));
+    localStorageAccess.set(demoStorageKey, JSON.stringify({ version: 3, state: next }));
   } catch {
     // Continue the demo when browser storage is unavailable.
   }
@@ -174,7 +174,7 @@ export function updateDemoState(update: (previous: DemoState) => DemoState) {
 export function resetDemoState() {
   state = seed();
   try {
-    localStorage.removeItem(demoStorageKey);
+    localStorageAccess.remove(demoStorageKey);
   } catch {
     /* Storage can be unavailable. */
   }

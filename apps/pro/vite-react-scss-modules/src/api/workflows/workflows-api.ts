@@ -1,6 +1,10 @@
 import { http } from '@/lib/http';
 
-import type { HandoffRequest, WorkflowHistoryDto, WorkflowReceiptDto } from './contract';
+import type {
+  HandoffRequest,
+  WorkflowHistoryDto,
+  WorkflowReceiptDto,
+} from '../../contracts/workflows';
 export function getWorkflowHistory(signal?: AbortSignal): Promise<WorkflowHistoryDto> {
   return http.get('/workflows/latest', signal ? { signal } : undefined);
 }

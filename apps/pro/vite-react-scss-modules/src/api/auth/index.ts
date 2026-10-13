@@ -6,8 +6,8 @@ import {
 } from '@/lib/auth/session';
 import { http } from '@/lib/http';
 
-import type { DemoAccountsDto, LoginDto, LoginRequest, SessionDto } from './contract';
-export * from './contract';
+import type { DemoAccountsDto, LoginDto, LoginRequest, SessionDto } from '../../contracts/auth';
+export * from '../../contracts/auth';
 
 export async function login(draft: LoginRequest): Promise<LoginDto> {
   const session = await http.post<LoginDto>('/auth/login', draft);

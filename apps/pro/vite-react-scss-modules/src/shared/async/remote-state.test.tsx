@@ -7,13 +7,13 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } 
 
 import { API_ERROR_CODES } from '@/api/error-codes';
 import { getTask } from '@/api/tasks';
-import { ProResourcesProvider } from '@/app/ProResourcesProvider';
+import { ProResourcesProvider } from '@/app/composition/providers/ProResourcesProvider';
 import { CatalogBoundary } from '@/features/catalog';
 import { useTaskOperations } from '@/features/tasks';
+import { TaskForm } from '@/features/tasks/components/TaskForm';
 import { i18nInstance } from '@/i18n/runtime';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';
-import { TaskForm } from '@/pages/tasks/TaskForm';
 import { useRemoteData } from '@/shared/async/use-remote-data';
 import { TestSessionProvider } from '@/test/TestSessionProvider';
 const server = setupServer(...handlers);

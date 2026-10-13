@@ -5,17 +5,14 @@ import { createMemoryRouter, RouterProvider } from 'react-router';
 import { afterAll, afterEach, beforeAll, beforeEach, expect, it, vi } from 'vitest';
 
 import { login } from '@/api/auth';
-import { AppShell } from '@/app/AppShell';
 import { ProfileResourceContext } from '@/features/profile';
-import {
-  defaultProSettings,
-  serializeProSettings,
-  settingsStorageKey,
-} from '@/features/settings/model';
-import { useProSettings } from '@/features/settings/useProSettings';
+import { AppShell } from '@/layout/AppShell';
 import { clearAppearance } from '@/lib/appearance';
 import { handlers } from '@/mock/handlers';
 import { TestSessionProvider } from '@/test/TestSessionProvider';
+
+import { defaultProSettings, serializeProSettings, settingsStorageKey } from './model';
+import { useProSettings } from './useProSettings';
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 afterAll(() => server.close());

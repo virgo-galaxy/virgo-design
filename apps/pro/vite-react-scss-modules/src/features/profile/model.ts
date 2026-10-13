@@ -1,5 +1,5 @@
-import type { ProfileDto, ProfileValidationCode } from '@/api/profile/contract';
-import type { ProjectDto as Project } from '@/api/projects/contract';
+import type { ProfileDto, ProfileValidationCode } from '@/contracts/profile';
+import type { ProjectDto as Project } from '@/contracts/projects';
 export type ProfileState = ProfileDto;
 export function validateProfile(profile: ProfileState, projects: readonly Project[]) {
   const errors: Partial<Record<keyof ProfileState, ProfileValidationCode>> = {};

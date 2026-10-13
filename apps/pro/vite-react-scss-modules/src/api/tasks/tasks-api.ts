@@ -10,7 +10,7 @@ import type {
   TaskMetadataDto,
   TaskRequest,
   TaskStatusDto,
-} from './contract';
+} from '../../contracts/tasks';
 export function getTasks(query: TaskListQuery = {}, signal?: AbortSignal): Promise<TaskListDto> {
   return http.get('/tasks', {
     params: query,

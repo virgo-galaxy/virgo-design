@@ -1,13 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-  avatarFileError,
-  avatarForeground,
-  profileInitials,
-  validateProfile,
-} from '@/features/profile';
 import { initialProfile } from '@/mock/fixtures/profile';
 import { projects } from '@/mock/fixtures/projects';
+
+import { avatarFileError, avatarForeground, profileInitials, validateProfile } from './model';
 
 describe('profile identity and photo constraints', () => {
   it('validates identity, color, project and enabled digest time', () => {

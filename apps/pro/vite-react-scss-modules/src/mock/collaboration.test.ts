@@ -13,7 +13,7 @@ import {
   updateTask,
   updateTaskStatus,
 } from '@/api/tasks';
-import { buildTokenUsageCalendar } from '@/pages/workplace/token-usage-calendar';
+import { buildTokenUsageCalendar } from '@/pages/workplace/model/token-usage-calendar';
 
 import { initialTaskState } from './fixtures/tasks';
 import { users } from './fixtures/team';

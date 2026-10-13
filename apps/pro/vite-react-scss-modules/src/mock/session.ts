@@ -1,7 +1,8 @@
-import type { LoginDto, SessionUser } from '@/api/auth/contract';
-import type { TaskDto } from '@/api/tasks/contract';
+import type { LoginDto, SessionUser } from '@/contracts/auth';
+import type { TaskDto } from '@/contracts/tasks';
 import { canViewTask } from '@/lib/auth/permissions';
 import { clearAuthSession, saveAuthSession } from '@/lib/auth/session';
+import { sessionStorageAccess } from '@/lib/storage';
 
 import { demoAccounts } from './accounts';
 const key = 'virgo-pro.mock-tokens.v1';
@@ -9,7 +10,9 @@ type RecordEntry = { userId: string; expiresAt: string };
 let tokens: Record<string, RecordEntry> = {};
 function readTokens() {
   try {
-    const saved = JSON.parse(sessionStorage.getItem(key) ?? '{}');
+    const stored = sessionStorageAccess.get(key);
+    if (!stored.ok) return tokens;
+    const saved = JSON.parse(stored.value ?? '{}');
     if (saved && typeof saved === 'object' && !Array.isArray(saved)) tokens = saved;
   } catch {
     /* memory fallback */
@@ -18,8 +21,8 @@ function readTokens() {
 }
 function saveTokens() {
   try {
-    if (Object.keys(tokens).length === 0) sessionStorage.removeItem(key);
-    else sessionStorage.setItem(key, JSON.stringify(tokens));
+    if (Object.keys(tokens).length === 0) sessionStorageAccess.remove(key);
+    else sessionStorageAccess.set(key, JSON.stringify(tokens));
   } catch {
     /* memory fallback */
   }

@@ -1,6 +1,6 @@
 import { http } from '@/lib/http';
 
-import type { ProjectDto, ProjectOverviewDto } from './contract';
+import type { ProjectDto, ProjectOverviewDto } from '../../contracts/projects';
 export function getProjects(signal?: AbortSignal): Promise<ProjectDto[]> {
   return http.get('/projects', signal ? { signal } : undefined);
 }

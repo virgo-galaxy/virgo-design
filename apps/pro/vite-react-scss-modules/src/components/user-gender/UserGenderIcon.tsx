@@ -1,7 +1,7 @@
 import { GenderFemaleIcon, GenderMaleIcon } from '@virgo-design/icons';
 import { useTranslation } from 'react-i18next';
 
-import type { UserGender } from '@/api/users';
+import type { UserGender } from '@/contracts/users';
 
 import styles from './UserGenderIcon.module.scss';
 

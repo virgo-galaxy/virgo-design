@@ -1,6 +1,10 @@
 import { http } from '@/lib/http';
 
-import type { ActivityDto, AnalyticsOverviewDto, WorkplaceOverviewDto } from './contract';
+import type {
+  ActivityDto,
+  AnalyticsOverviewDto,
+  WorkplaceOverviewDto,
+} from '../../contracts/analytics';
 export function getAnalyticsOverview(signal?: AbortSignal): Promise<AnalyticsOverviewDto> {
   return http.get('/analytics/overview', signal ? { signal } : undefined);
 }

@@ -1,16 +1,18 @@
 import { getTheme, setTheme } from '@virgo-design/themes';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { clearAppearance, currentAppearance, rememberAppearance } from '@/lib/appearance';
+import { demoResetEvent } from '@/lib/demo/reset';
+import { localStorageAccess } from '@/lib/storage';
+import { useThemeStyle } from '@/lib/use-theme-style';
+
 import {
   defaultProSettings,
   parseProSettings,
   type ProSettings,
   serializeProSettings,
   settingsStorageKey,
-} from '@/features/settings/model';
-import { clearAppearance, currentAppearance, rememberAppearance } from '@/lib/appearance';
-import { demoResetEvent } from '@/lib/demo/reset';
-import { useThemeStyle } from '@/lib/use-theme-style';
+} from './model';
 
 export function useProSettings(canManageLayout = true) {
   const { theme: themeStyle } = useThemeStyle();
@@ -26,7 +28,7 @@ export function useProSettings(canManageLayout = true) {
   const [settings, setSettings] = useState(() => {
     let saved = { ...defaultProSettings };
     try {
-      saved = parseProSettings(window.localStorage.getItem(settingsStorageKey));
+      saved = parseProSettings(localStorageAccess.get(settingsStorageKey).value);
     } catch {
       /* Use the tab's preference when storage is denied. */
     }
@@ -37,7 +39,7 @@ export function useProSettings(canManageLayout = true) {
   const [storageAvailable, setStorageAvailable] = useState(true);
   useEffect(() => {
     const syncSettings = (event: StorageEvent) => {
-      if (event.storageArea && event.storageArea !== window.localStorage) return;
+      if (!localStorageAccess.matchesEvent(event)) return;
       if (event.key === settingsStorageKey || event.key === null)
         setSettings(parseProSettings(event.newValue));
     };
@@ -61,12 +63,13 @@ export function useProSettings(canManageLayout = true) {
         const saved = canManageLayout
           ? { ...settings, theme: getTheme() }
           : {
-              ...parseProSettings(window.localStorage.getItem(settingsStorageKey)),
+              ...parseProSettings(localStorageAccess.get(settingsStorageKey).value),
               appearance: settings.appearance,
               theme: getTheme(),
             };
-        window.localStorage.setItem(settingsStorageKey, serializeProSettings(saved));
-        setStorageAvailable(true);
+        setStorageAvailable(
+          localStorageAccess.set(settingsStorageKey, serializeProSettings(saved)),
+        );
       } catch {
         setStorageAvailable(false);
       }

@@ -1,0 +1,22 @@
+export const aiWorkspaceEnUS = {
+  workRequestAccepted: 'Work request accepted',
+  yourBriefIsNowATodoTaskWithA:
+    'Your brief is now a Todo task with a clear owner. It is ready for the team’s next delivery.',
+  agentMode: 'Agent mode',
+  returnToWorkspace: 'Return to workspace',
+  previewHandle: 'Drag window',
+  previewResize: 'Resize proportionally',
+  voicePrompt: 'What would you like to work on?',
+  voiceReady: 'Start a voice conversation',
+  listening: 'Listening…',
+  microphoneRequest: 'Waiting for microphone access…',
+  voiceHint: 'Click the microphone to start speaking',
+  recordingHint: 'Click stop when you have finished speaking',
+  startRecording: 'Start recording',
+  stopRecording: 'Stop recording',
+  voiceRecording: 'Your voice recording',
+  discardRecording: 'Discard recording',
+  microphoneUnsupported: 'Microphone recording is unavailable in this browser.',
+  microphoneDenied: 'Unable to use the microphone. Please check your browser permissions.',
+  accountModeFailed: 'Unable to switch modes. Please try again.',
+} as const;

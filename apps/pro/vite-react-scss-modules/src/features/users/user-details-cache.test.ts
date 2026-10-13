@@ -1,8 +1,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import type { UserDetailsDto } from '@/api/users';
-import { createUserDetailsCache } from '@/features/users/user-details-cache';
 import { users } from '@/mock/fixtures/users';
+
+import { createUserDetailsCache } from './user-details-cache';
 
 afterEach(() => vi.restoreAllMocks());
 const nina = users.find((user) => user.id === 'nina')!;

@@ -4,8 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { Navigate, useSearchParams } from 'react-router';
 
 import { legacyProjectIds } from '@/api/projects/legacy-project-ids';
+import { loadAnalyticsPage } from '@/features/analytics/routes';
 import { useCurrentUser } from '@/features/auth';
 import { useTaskCatalog } from '@/features/catalog';
+import { loadProjectHandoffPage } from '@/features/handoff/routes';
+import { loadProfilePage } from '@/features/profile/routes';
+import { loadProjectDetailPage, loadProjectsPage } from '@/features/projects/routes';
+import { loadTaskCardsPage, loadTasksPage, loadTaskWorkspacePage } from '@/features/tasks/routes';
 import {
   canAccessRoute,
   type ProPageKey,
@@ -15,45 +20,23 @@ import {
 } from '@/routing';
 import type { ResolvedProRoute } from '@/routing/match';
 
-const AnalyticsPage = lazy(() =>
-  import('@/pages/analytics/AnalyticsPage').then((module) => ({ default: module.AnalyticsPage })),
-);
-const ProjectDetailPage = lazy(() =>
-  import('@/pages/projects/ProjectDetailPage').then((module) => ({
-    default: module.ProjectDetailPage,
-  })),
-);
+const AnalyticsPage = lazy(loadAnalyticsPage);
+const ProjectDetailPage = lazy(loadProjectDetailPage);
 const ExceptionPage = lazy(() =>
   import('@/pages/exceptions/ExceptionPage').then((module) => ({ default: module.ExceptionPage })),
 );
-const ProjectHandoffPage = lazy(() =>
-  import('@/pages/projects/ProjectHandoffPage').then((module) => ({
-    default: module.ProjectHandoffPage,
-  })),
-);
+const ProjectHandoffPage = lazy(loadProjectHandoffPage);
 const NotFoundPage = lazy(() =>
   import('@/pages/NotFoundPage').then((module) => ({ default: module.NotFoundPage })),
 );
-const ProfilePage = lazy(() =>
-  import('@/pages/profile/ProfilePage').then((module) => ({ default: module.ProfilePage })),
-);
-const ProjectsPage = lazy(() =>
-  import('@/pages/projects/ProjectsPage').then((module) => ({ default: module.ProjectsPage })),
-);
+const ProfilePage = lazy(loadProfilePage);
+const ProjectsPage = lazy(loadProjectsPage);
 const ResultPage = lazy(() =>
   import('@/pages/results/ResultPage').then((module) => ({ default: module.ResultPage })),
 );
-const TaskWorkspacePage = lazy(() =>
-  import('@/pages/tasks/TaskWorkspacePage').then((module) => ({
-    default: module.TaskWorkspacePage,
-  })),
-);
-const TaskCardsPage = lazy(() =>
-  import('@/pages/tasks/TaskCardsPage').then((module) => ({ default: module.TaskCardsPage })),
-);
-const TasksPage = lazy(() =>
-  import('@/pages/tasks/TasksPage').then((module) => ({ default: module.TasksPage })),
-);
+const TaskWorkspacePage = lazy(loadTaskWorkspacePage);
+const TaskCardsPage = lazy(loadTaskCardsPage);
+const TasksPage = lazy(loadTasksPage);
 const WorkplacePage = lazy(() =>
   import('@/pages/workplace/WorkplacePage').then((module) => ({ default: module.WorkplacePage })),
 );

@@ -5,8 +5,9 @@ import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, expect, it, vi } from 'vitest';
 
 import { ProControlLabels } from '@/app/ProControlLabels';
-import { LoginPage } from '@/features/auth/LoginPage';
 import { handlers } from '@/mock/handlers';
+
+import { LoginPage } from './LoginPage';
 
 const server = setupServer(...handlers);
 beforeAll(() => {

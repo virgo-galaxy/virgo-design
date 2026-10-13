@@ -14,12 +14,13 @@ import { useTranslation } from 'react-i18next';
 
 import { getDemoAccounts, login, type LoginDto } from '@/api/auth';
 import { LanguageControl } from '@/components/language-control/LanguageControl';
-import styles from '@/features/auth/LoginPage.module.scss';
 import { useProSettings } from '@/features/settings';
 import { businessLabel } from '@/lib/demo/labels';
 import { isHttpError } from '@/lib/http/error';
 import { routePaths } from '@/routing';
 import { useRemoteData } from '@/shared/async/use-remote-data';
+
+import styles from './LoginPage.module.scss';
 const loadAccounts = (signal: AbortSignal) =>
   import.meta.env.VITE_API_MOCKING === 'true' ? getDemoAccounts(signal) : Promise.resolve(null);
 export function LoginPage({
@@ -45,7 +46,7 @@ export function LoginPage({
   const [error, setError] = useState('');
   const selected = demo.data?.accounts.find((user) => user.account === account);
   useEffect(() => {
-    document.title = `${t('app.login.signIn')} · Virgo Design Pro`;
+    document.title = `${t('auth.login.signIn')} · Virgo Design Pro`;
   }, [t]);
   return (
     <Tooltip.Provider>
@@ -58,7 +59,7 @@ export function LoginPage({
               PRO
             </Tag>
           </a>
-          <Button.Group size="medium" gap={8} aria-label={t('app.login.pageControls')}>
+          <Button.Group size="medium" gap={8} aria-label={t('auth.login.pageControls')}>
             <LanguageControl />
             <Tooltip>
               <Tooltip.Trigger
@@ -85,19 +86,19 @@ export function LoginPage({
         <div className={styles.layout}>
           <section className={styles.story} aria-labelledby="login-intro">
             <Tag intent="brand" variant="soft">
-              {t('app.login.workspace')}
+              {t('auth.login.workspace')}
             </Tag>
             <h2 id="login-intro">
-              {t('app.login.heroTitle')}
-              <span>{t('app.login.heroAccent')}</span>
+              {t('auth.login.heroTitle')}
+              <span>{t('auth.login.heroAccent')}</span>
             </h2>
-            <p className={styles.intro}>{t('app.login.heroDescription')}</p>
+            <p className={styles.intro}>{t('auth.login.heroDescription')}</p>
             <div className={styles.features}>
               {(['projects', 'collaboration', 'progress'] as const).map((feature) => (
                 <div key={feature}>
                   <CheckIcon />
-                  <strong>{t(`app.login.features.${feature}.title`)}</strong>
-                  <p>{t(`app.login.features.${feature}.description`)}</p>
+                  <strong>{t(`auth.login.features.${feature}.title`)}</strong>
+                  <p>{t(`auth.login.features.${feature}.description`)}</p>
                 </div>
               ))}
             </div>
@@ -105,7 +106,7 @@ export function LoginPage({
               <div className={styles.previewHeading}>
                 <span className={styles.liveDot} />
                 <strong>Virgo Studio</strong>
-                <span>{t('app.login.teamWorkspace')}</span>
+                <span>{t('auth.login.teamWorkspace')}</span>
               </div>
               <div className={styles.metrics}>
                 {(
@@ -117,32 +118,32 @@ export function LoginPage({
                 ).map(([value, label]) => (
                   <div key={label}>
                     <strong>{value}</strong>
-                    <span>{t(`app.login.${label}`)}</span>
+                    <span>{t(`auth.login.${label}`)}</span>
                   </div>
                 ))}
               </div>
               <div className={styles.previewRow}>
                 <span className={styles.projectIcon}>01</span>
                 <div>
-                  <strong>{t('app.login.sampleTask')}</strong>
-                  <span>{t('app.login.sampleProject')}</span>
+                  <strong>{t('auth.login.sampleTask')}</strong>
+                  <span>{t('auth.login.sampleProject')}</span>
                 </div>
                 <Tag intent="brand" variant="soft">
                   {t('tasks.statusLabels.inProgress')}
                 </Tag>
               </div>
               <Progress className={styles.progress} value={66} size="sm" />
-              <p className={styles.previewNote}>{t('app.login.previewNote')}</p>
+              <p className={styles.previewNote}>{t('auth.login.previewNote')}</p>
             </div>
           </section>
           <section className={styles.card} aria-labelledby="login-title">
             <div className={styles.cardHeading}>
-              <h1 id="login-title">{t('app.login.welcome')}</h1>
-              <p>{t('app.login.description')}</p>
+              <h1 id="login-title">{t('auth.login.welcome')}</h1>
+              <p>{t('auth.login.description')}</p>
             </div>
             {expired ? (
               <p className={styles.notice} role="status">
-                {t('app.login.expired')}
+                {t('auth.login.expired')}
               </p>
             ) : null}
             <Form
@@ -157,15 +158,15 @@ export function LoginPage({
                   .catch((failure) =>
                     setError(
                       isHttpError(failure) && failure.status === 401
-                        ? t('app.login.invalidCredentials')
-                        : t('app.login.failed'),
+                        ? t('auth.login.invalidCredentials')
+                        : t('auth.login.failed'),
                     ),
                   )
                   .finally(() => setPending(false));
               }}
             >
               <Field required>
-                <Field.Label htmlFor="login-account">{t('app.login.account')}</Field.Label>
+                <Field.Label htmlFor="login-account">{t('auth.login.account')}</Field.Label>
                 <Input
                   id="login-account"
                   name="username"
@@ -178,12 +179,12 @@ export function LoginPage({
                   }}
                   disabled={pending}
                   required
-                  placeholder={t('app.login.accountPlaceholder')}
+                  placeholder={t('auth.login.accountPlaceholder')}
                   size="large"
                 />
               </Field>
               <Field required>
-                <Field.Label htmlFor="login-password">{t('app.login.password')}</Field.Label>
+                <Field.Label htmlFor="login-password">{t('auth.login.password')}</Field.Label>
                 <Input.Password
                   id="login-password"
                   name="password"
@@ -196,7 +197,7 @@ export function LoginPage({
                   }}
                   disabled={pending}
                   required
-                  placeholder={t('app.login.passwordPlaceholder')}
+                  placeholder={t('auth.login.passwordPlaceholder')}
                   size="large"
                 />
               </Field>
@@ -213,20 +214,20 @@ export function LoginPage({
                 aria-busy={pending}
                 trailingIcon={<ArrowRightIcon />}
               >
-                {t(pending ? 'app.login.signingIn' : 'app.login.signIn')}
+                {t(pending ? 'auth.login.signingIn' : 'auth.login.signIn')}
               </Button>
             </Form>
             {import.meta.env.VITE_API_MOCKING === 'true' ? (
               <div className={styles.demo}>
                 <div className={styles.demoTitle}>
-                  <strong>{t('app.login.demoTitle')}</strong>
-                  <Tag variant="soft">{t('app.login.demoBadge')}</Tag>
+                  <strong>{t('auth.login.demoTitle')}</strong>
+                  <Tag variant="soft">{t('auth.login.demoBadge')}</Tag>
                 </div>
-                <p>{t('app.login.demoDescription')}</p>
+                <p>{t('auth.login.demoDescription')}</p>
                 {demo.data ? (
                   <>
                     <Field>
-                      <Field.Label>{t('app.login.chooseAccount')}</Field.Label>
+                      <Field.Label>{t('auth.login.chooseAccount')}</Field.Label>
                       <Select
                         value={selected?.id ?? ''}
                         disabled={pending}
@@ -239,13 +240,13 @@ export function LoginPage({
                           }
                         }}
                       >
-                        <Select.Trigger placeholder={t('app.login.chooseAccount')} />
+                        <Select.Trigger placeholder={t('auth.login.chooseAccount')} />
                         <Select.Content>
                           {demo.data.accounts.map((user) => (
                             <Select.Option key={user.id} value={user.id}>
                               <span>
                                 {businessLabel(user.name, i18n.language)} ·{' '}
-                                {t(`app.login.roles.${user.role}`)}
+                                {t(`auth.login.roles.${user.role}`)}
                               </span>
                             </Select.Option>
                           ))}
@@ -254,7 +255,7 @@ export function LoginPage({
                     </Field>
                     <div className={styles.demoHint}>
                       <code>{demo.data.password}</code>
-                      <span>{t('app.login.sharedPassword')}</span>
+                      <span>{t('auth.login.sharedPassword')}</span>
                       <Button
                         type="button"
                         variant="text"
@@ -262,14 +263,14 @@ export function LoginPage({
                         onClick={() => setPassword(demo.data!.password)}
                         disabled={pending}
                       >
-                        {t('app.login.fillPassword')}
+                        {t('auth.login.fillPassword')}
                       </Button>
                     </div>
                     {selected ? (
                       <p className={styles.identity}>
                         {businessLabel(selected.jobTitle, i18n.language)} ·{' '}
                         {selected.role === 'admin'
-                          ? t('app.login.allProjects')
+                          ? t('auth.login.allProjects')
                           : selected.projects
                               .map((project) => businessLabel(project, i18n.language))
                               .join(' / ')}
@@ -278,17 +279,17 @@ export function LoginPage({
                   </>
                 ) : demo.error ? (
                   <Button variant="text" onClick={demo.retry}>
-                    {t('app.login.retryAccounts')}
+                    {t('auth.login.retryAccounts')}
                   </Button>
                 ) : (
-                  <p role="status">{t('app.login.loadingAccounts')}</p>
+                  <p role="status">{t('auth.login.loadingAccounts')}</p>
                 )}
               </div>
             ) : null}
           </section>
         </div>
         <footer className={styles.footer}>
-          <span>{t('app.login.footer')}</span>
+          <span>{t('auth.login.footer')}</span>
           <span className={styles.footerBrand}>
             <VirgoDesignIcon size={16} />
             Virgo Design Pro

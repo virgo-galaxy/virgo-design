@@ -1,14 +1,15 @@
 import { createBrowserRouter, Navigate, type RouteObject } from 'react-router';
 
 import { CatalogBoundary } from '@/features/catalog';
+import { LoginRoute, ProtectedLayout } from '@/layout';
 import { proRouteConfig, proRouting } from '@/routing';
 
+import { SessionProvider } from './composition/providers/SessionProvider';
 import { LegacyRedirect, PageRoute } from './RouteViews';
-import { LoginRoute, ProtectedLayout, SessionLayout } from './SessionLayout';
 export function createAppRoutes(): RouteObject[] {
   return [
     {
-      element: <SessionLayout />,
+      element: <SessionProvider />,
       children: [
         { path: proRouteConfig.loginPath, element: <LoginRoute /> },
         {

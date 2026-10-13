@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router';
 
 import { getTasks } from '@/api/tasks';
 import { getWorkflowHistory } from '@/api/workflows';
-import { Person } from '@/components/person/Person';
+import { Person } from '@/features/catalog';
 import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
 import type { WorkflowReceipt } from '@/features/handoff';
 import { useHandoffSession, useWorkflowRevision } from '@/features/handoff';
@@ -15,10 +15,9 @@ import type { TaskState } from '@/features/tasks';
 import {
   createTasksCsv,
   getAllTasks,
-  getTaskExportLabels,
-  getTaskStatusLabel,
   taskDetailsPath,
   taskStatusIntent,
+  taskStatusLabelNames,
   useTaskDependentQuery,
 } from '@/features/tasks';
 import { downloadCsv } from '@/lib/browser/download';
@@ -106,7 +105,8 @@ function ResultPageView({
                       const fullScope = await getAllTasks({ ids: receipt.taskIds });
                       downloadCsv(
                         createTasksCsv(fullScope, taskAssignees, {
-                          ...getTaskExportLabels(t),
+                          status: (code) => t(`tasks.statusLabels.${taskStatusLabelNames[code]}`),
+                          priority: (code) => t(`tasks.priorityLabels.${code}`),
                           project: (id) => businessLabel(projectName(id, projects), i18n.language),
                           module: (projectId, id) =>
                             businessLabel(moduleName(projectId, id, projects), i18n.language),
@@ -288,7 +288,7 @@ function ResultPageView({
                 <div className={styles.taskHeading}>
                   <span className={shared.mono}>{task.id}</span>
                   <Tag size="md" intent={taskStatusIntent[task.status]}>
-                    {getTaskStatusLabel(t, task.status)}
+                    {t(`tasks.statusLabels.${taskStatusLabelNames[task.status]}`)}
                   </Tag>
                 </div>
                 <Link

@@ -1,7 +1,7 @@
 import { Statistic, Surface } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
 
-import styles from '@/components/work-overview/WorkOverview.module.scss';
+import styles from './WorkOverview.module.scss';
 
 export function WorkOverview({
   items,
