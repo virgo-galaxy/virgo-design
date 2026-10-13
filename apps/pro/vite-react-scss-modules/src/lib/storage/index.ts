@@ -1,1 +1,5 @@
-export { localStorageAccess, sessionStorageAccess, type StorageRead } from './browser-storage';
+export {
+  localStorageAccess,
+  sessionStorageAccess,
+  type StorageRead,
+} from './browser/browser-storage';

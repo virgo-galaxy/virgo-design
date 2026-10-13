@@ -1,6 +1,5 @@
 export * from './analytics';
 export * from './auth';
-export * from './error-codes';
 export * from './notifications';
 export * from './profile';
 export * from './projects';

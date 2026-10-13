@@ -1,7 +1,7 @@
 import {
   getInitialThemeScript,
   type InitialThemeScriptOptions,
-} from '../packages/themes/src/bootstrap';
+} from '../packages/themes/src/bootstrap.ts';
 
 /** Shared Vite integration; the bootstrap implementation remains in Themes. */
 export function themeBootstrapPlugin(options: InitialThemeScriptOptions) {

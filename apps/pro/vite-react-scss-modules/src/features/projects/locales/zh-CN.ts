@@ -1,4 +1,4 @@
-import type { LocaleOf } from '@/i18n/locale-types';
+import type { LocaleOf } from '@/i18n';
 
 import type { projectsEnUS } from './en-US';
 export const projectsZhCN = {
@@ -27,7 +27,6 @@ export const projectsZhCN = {
   atRisk: '有风险',
   projectLeadAssessment: '项目经理评估',
   activePortfolio: '当前项目组合',
-  fourFocusAreasOneSharedDeliveryPlan: '四个业务方向，共享一份交付计划。',
   searchProjects: '搜索项目',
   searchProjectsLeadsOrIds: '搜索项目、负责人或编号…',
   projectHealth: '项目健康状况',
@@ -40,18 +39,12 @@ export const projectsZhCN = {
   taskCompletion: '任务完成率',
   valueTaskCompletion: '{{v0}}任务完成率',
   tasks: '任务',
-  valueDone: '/ {{v0}} 已完成',
-  estimate: '预估',
   h: '小时',
   review: '评审',
-  relatedWorkValueTasks: '相关工作 · {{v0}} 个任务',
   openProjectDetails: '打开项目详情 →',
   valueProjectsMatch: '匹配到 {{v0}} 个项目',
   resetFilters: '重置筛选',
   completionIsCalculatedFromSavedTaskStatusHealthIs:
     '完成率根据已保存的任务状态计算，健康状况来自项目经理的评估。',
-  octoberCycle: '十月周期',
   openTaskQueue: '打开任务队列 →',
-  overdueCount: '{{count}} 个已逾期',
-  openTaskCount: '{{count}} 个未完成任务',
 } satisfies LocaleOf<typeof projectsEnUS>;

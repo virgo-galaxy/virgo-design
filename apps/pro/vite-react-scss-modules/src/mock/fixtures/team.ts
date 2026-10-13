@@ -4,7 +4,8 @@ import {
   systemPresetAvatarManifest,
   type SystemPresetUserId,
 } from '@/mock/avatars/preset-manifest';
-import { endpoint } from '@/mock/response';
+
+import { endpoint } from '../http/response';
 
 export const projectIds = [
   'online-store',

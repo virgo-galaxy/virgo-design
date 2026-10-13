@@ -21,10 +21,10 @@
     "@virgo-design/themes": "workspace:*"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "pnpm -w build:tokens && vite",
     "build": "vite build",
     "lint": "eslint src",
-    "test": "vitest run --root ../.. --config vitest.config.ts apps/website/src",
+    "test": "pnpm -w build:tokens && vitest run --root ../.. --config vitest.config.ts apps/website/src",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   }
 }

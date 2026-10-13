@@ -16,7 +16,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "vitest run",
+    "test": "pnpm --filter @virgo-design/themes... --if-present build && vitest run",
     "all": "pnpm check:icons && pnpm check:api-docs && pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build",
     "lint:fix": "eslint . --fix",
     "check:icons": "pnpm --filter @virgo-design/icons check"

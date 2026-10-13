@@ -1,10 +1,7 @@
 import type { HandoffValidationCode } from '@/contracts/workflows';
 export const handoffEnUS = {
   selectedTasks: '{{count}} tasks selected',
-
-  findATeamMember: 'Find a team member',
   project: 'Project',
-  noTeamMemberMatches: 'No team member matches',
   defineTheHandoff: 'Define the handoff',
   projectAndSchedule: 'Project and schedule',
   buildTheScope: 'Build the scope',

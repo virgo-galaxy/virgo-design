@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router';
 import { projectName, useTaskCatalog } from '@/features/catalog';
 import { taskStatusIntent, taskStatusLabelNames } from '@/features/tasks';
 import { businessLabel } from '@/lib/demo/labels';
-import { formatDueDate } from '@/lib/format-due-date';
-import { routePath } from '@/routing';
+import { formatDueDate } from '@/lib/formatting/format-due-date';
+import { routePath } from '@/routes';
 
 import { useWorkplaceData } from '../data/workplace-context';
 import styles from './RecentTasks.module.scss';

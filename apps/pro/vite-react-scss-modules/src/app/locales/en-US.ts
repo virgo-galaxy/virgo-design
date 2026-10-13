@@ -29,7 +29,6 @@ export const appEnUS = {
   profile: 'Profile',
   virgoDesign: 'Virgo Design',
   pro: 'PRO',
-  viewProfile: 'View profile',
   workspaces: {
     member: 'MEMBER WORKSPACE',
     manager: 'PROJECT WORKSPACE',

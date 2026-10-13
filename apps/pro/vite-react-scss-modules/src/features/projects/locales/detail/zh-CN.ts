@@ -1,12 +1,8 @@
-import type { LocaleOf } from '@/i18n/locale-types';
+import type { LocaleOf } from '@/i18n';
 
 import type { projectDetailsEnUS } from './en-US';
 export const projectDetailsZhCN = {
-  project: '项目',
-  overdue: '· 已逾期',
   unscheduled: '未安排',
-  open: '未完成',
-  all: '全部',
   dueValue: '截止 {{v0}}',
   projectRecord: '项目记录',
   taskCompletion: '任务完成率',

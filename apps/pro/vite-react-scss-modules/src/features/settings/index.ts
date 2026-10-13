@@ -1,3 +1,3 @@
-export * from './initialize-theme';
-export * from './model';
-export * from './useProSettings';
+export * from './bootstrap/initialize-theme';
+export * from './hooks/useProSettings';
+export * from './model/settings';

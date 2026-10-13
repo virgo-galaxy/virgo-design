@@ -1,4 +1,4 @@
-import type { LocaleOf } from '@/i18n/locale-types';
+import type { LocaleOf } from '@/i18n';
 
 import type { exceptionsEnUS } from './en-US';
 export const exceptionsZhCN = {

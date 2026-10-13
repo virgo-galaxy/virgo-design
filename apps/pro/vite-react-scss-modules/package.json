@@ -21,11 +21,11 @@
     "@virgo-design/themes": "workspace:*"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "pnpm -w build:tokens && vite",
     "build": "vite build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint src vite.config.ts vitest.config.ts",
-    "test": "vitest run --config vitest.config.ts"
+    "test": "pnpm -w build:tokens && vitest run --config vitest.config.ts"
   },
   "msw": {
     "workerDirectory": [

@@ -9,7 +9,7 @@ import { useCurrentUser, useSession } from '@/features/auth';
 import { avatarForeground, profileInitials, type ProfileState } from '@/features/profile';
 import { isAdmin } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
-import { routePath } from '@/routing';
+import { routePath } from '@/routes';
 
 import styles from './AccountMenu.module.scss';
 

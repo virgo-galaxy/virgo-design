@@ -1,12 +1,9 @@
-import type { LocaleOf } from '@/i18n/locale-types';
+import type { LocaleOf } from '@/i18n';
 
 import type { handoffEnUS } from './en-US';
 export const handoffZhCN = {
   selectedTasks: '已选择 {{count}} 个任务',
-
-  findATeamMember: '查找团队成员',
   project: '项目',
-  noTeamMemberMatches: '没有匹配的团队成员',
   defineTheHandoff: '定义交接',
   projectAndSchedule: '项目与计划',
   buildTheScope: '确定范围',

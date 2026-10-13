@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 
-import { getAnalyticsOverview, getWorkplaceOverview } from '@/api/analytics/analytics-api';
+import { getAnalyticsOverview, getWorkplaceOverview } from '@/api/analytics';
 import { CatalogBoundary } from '@/features/catalog';
 import { useTaskDependentQuery } from '@/features/tasks';
 import { RemoteState } from '@/shared/async/RemoteState';

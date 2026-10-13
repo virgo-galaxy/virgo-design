@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { i18nInstance } from '@/i18n/runtime';
+import { i18nInstance } from '@/i18n';
 import { initialTaskState, taskAssignees } from '@/mock/fixtures/tasks';
 
 import { taskStatusLabelNames } from '../presentation/task-presentation';

@@ -1,2 +1,2 @@
-export * from './model';
-export * from './resource';
+export * from './context/resource';
+export * from './model/profile';

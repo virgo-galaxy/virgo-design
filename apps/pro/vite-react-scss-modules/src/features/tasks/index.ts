@@ -7,5 +7,5 @@ export * from './model/export';
 export * from './model/query-params';
 export * from './model/sort';
 export * from './model/task';
-export * from './navigation';
 export * from './presentation/task-presentation';
+export * from './routes/navigation';

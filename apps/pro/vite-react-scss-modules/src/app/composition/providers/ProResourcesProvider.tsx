@@ -5,7 +5,7 @@ import { WorkflowRevisionContext } from '@/features/handoff';
 import { NotificationRevisionContext } from '@/features/notifications';
 import { ProfileResourceContext, useProfileData } from '@/features/profile';
 import { TaskOperationsContext, TaskRevisionContext, useTaskCommands } from '@/features/tasks';
-import { demoDataStorageKey } from '@/lib/data-events';
+import { demoDataStorageKey } from '@/lib/demo/data-events';
 import { localStorageAccess } from '@/lib/storage';
 
 import { demoStorageChanges } from './demo-storage-changes';

@@ -17,7 +17,7 @@ import {
 } from '@/features/projects/locales';
 import { settingsEnUS, settingsZhCN } from '@/features/settings/locales';
 import { tasksEnUS, tasksZhCN } from '@/features/tasks/locales';
-import type { LocaleOf } from '@/i18n/locale-types';
+import type { LocaleOf } from '@/i18n';
 import { controlsEnUS } from '@/i18n/locales/shared/controls/en-US';
 import { controlsZhCN } from '@/i18n/locales/shared/controls/zh-CN';
 import { sharedEnUS } from '@/i18n/locales/shared/en-US';

@@ -6,6 +6,15 @@ export default defineConfig({
   root: fileURLToPath(new URL('.', import.meta.url)),
   resolve: {
     alias: {
+      '@virgo-design/charts/echarts': fileURLToPath(
+        new URL('../../../packages/charts/src/echarts.tsx', import.meta.url),
+      ),
+      '@virgo-design/charts/sparkline': fileURLToPath(
+        new URL('../../../packages/charts/src/native/Sparkline.tsx', import.meta.url),
+      ),
+      '@virgo-design/charts': fileURLToPath(
+        new URL('../../../packages/charts/src/index.ts', import.meta.url),
+      ),
       '@virgo-design/ui': fileURLToPath(
         new URL('../../../packages/ui/src/index.ts', import.meta.url),
       ),
@@ -33,6 +42,9 @@ export default defineConfig({
       ),
       '@virgo-design/themes': fileURLToPath(
         new URL('../../../packages/themes/src/index.ts', import.meta.url),
+      ),
+      '@virgo-design/tokens/styles.css': fileURLToPath(
+        new URL('../../../packages/tokens/dist/css/styles.css', import.meta.url),
       ),
       '@virgo-design/tokens': fileURLToPath(
         new URL('../../../packages/tokens/src/index.ts', import.meta.url),

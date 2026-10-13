@@ -1,4 +1,4 @@
-import type { LocaleOf } from '@/i18n/locale-types';
+import type { LocaleOf } from '@/i18n';
 
 import type { themeStyleControlEnUS } from './en-US';
 

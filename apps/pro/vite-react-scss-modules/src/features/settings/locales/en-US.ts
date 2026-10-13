@@ -66,8 +66,5 @@ export const settingsEnUS = {
   resettingDemo: 'Resetting…',
   resetDemoFailed: 'Unable to reset demo data. Please retry.',
   done: 'Done',
-  language: 'Language',
   followingSystem: 'Following system · {{theme}}',
-  english: 'English',
-  simplifiedChinese: '简体中文',
 } as const;

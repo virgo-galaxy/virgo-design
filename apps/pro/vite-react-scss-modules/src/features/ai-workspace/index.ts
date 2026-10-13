@@ -1,3 +1,3 @@
-export { saveAgentMode } from './agent-mode';
-export { AiWorkspace } from './AiWorkspace';
-export { useAgentMode } from './use-agent-mode';
+export { AiWorkspace } from './components/AiWorkspace/AiWorkspace';
+export { useAgentMode } from './hooks/use-agent-mode';
+export { saveAgentMode } from './model/agent-mode';

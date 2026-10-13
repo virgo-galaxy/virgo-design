@@ -13,21 +13,21 @@ import { Person } from '@/features/catalog';
 import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
 import { canCreateTask, canEditTask, isAdmin, taskStatusChoices } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
-import { routePath } from '@/routing';
+import { routePath } from '@/routes';
 import { MutationFeedback } from '@/shared/async/MutationFeedback';
 import { RemoteState } from '@/shared/async/RemoteState';
 import { useMutation } from '@/shared/async/use-mutation';
 import { useRemoteData } from '@/shared/async/use-remote-data';
 
-import { TaskForm } from '../components/TaskForm';
+import { TaskForm } from '../components/TaskForm/TaskForm';
 import { useTaskOperations, useTaskRevision } from '../data/operations';
 import { type Task } from '../model/task';
-import { taskDetailsPath, taskEditPath, taskReturnPath } from '../navigation';
 import {
   taskPriorityIntent,
   taskStatusIntent,
   taskStatusLabelNames,
 } from '../presentation/task-presentation';
+import { taskDetailsPath, taskEditPath, taskReturnPath } from '../routes/navigation';
 import styles from './TaskWorkspace.module.scss';
 const stages = ['backlog', 'todo', 'in_progress', 'in_review', 'done'] as const;
 function TaskWorkspacePageView({ mode }: { mode: 'create' | 'edit' | 'details' }) {

@@ -3,8 +3,8 @@ import { fileURLToPath, URL } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-import { themeBootstrapPlugin } from '../../../config/theme-bootstrap-plugin';
-import defaults from './src/features/settings/config/settings.json';
+import { themeBootstrapPlugin } from '../../../config/theme-bootstrap-plugin.ts';
+import defaults from './src/features/settings/config/index.ts';
 
 export default defineConfig({
   plugins: [

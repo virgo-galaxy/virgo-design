@@ -1,4 +1,4 @@
-import type { LocaleOf } from '@/i18n/locale-types';
+import type { LocaleOf } from '@/i18n';
 
 import type { authEnUS } from './en-US';
 
@@ -63,8 +63,4 @@ export const authZhCN = {
   signOut: '退出系统',
   signingOut: '正在退出…',
   signOutFailed: '退出失败，请重试。',
-  signedOut: '已退出系统',
-  signedOutDescription: '当前工作空间会话已结束，请重新登录后继续。',
-  enterDemoWorkspace: '进入演示工作空间',
-  signInFailed: '暂时无法进入工作空间，请重试。',
 } satisfies LocaleOf<typeof authEnUS>;

@@ -1,1 +1,1 @@
-export * from './delivery-analysis';
+export * from './model/delivery-analysis';

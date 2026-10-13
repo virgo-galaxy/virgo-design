@@ -1,2 +1,2 @@
-export * from './model';
-export * from './navigation';
+export * from './model/project';
+export * from './routes/navigation';

@@ -1,7 +1,7 @@
-import { legacyThemeIds } from './migration';
-import { defaultTheme, themePresets, type ThemeRegistry } from './registry';
-import type { AppearancePreference } from './resolution';
-import { themeStorageKey } from './runtime';
+import { legacyThemeIds } from './migration.ts';
+import { defaultTheme, themePresets, type ThemeRegistry } from './registry.ts';
+import type { AppearancePreference } from './resolution.ts';
+import { themeStorageKey } from './runtime.ts';
 
 export interface InitialThemeScriptOptions {
   defaultTheme?: string;

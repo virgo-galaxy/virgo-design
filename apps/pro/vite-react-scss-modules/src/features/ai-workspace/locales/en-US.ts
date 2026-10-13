@@ -1,7 +1,4 @@
 export const aiWorkspaceEnUS = {
-  workRequestAccepted: 'Work request accepted',
-  yourBriefIsNowATodoTaskWithA:
-    'Your brief is now a Todo task with a clear owner. It is ready for the team’s next delivery.',
   agentMode: 'Agent mode',
   returnToWorkspace: 'Return to workspace',
   previewHandle: 'Drag window',

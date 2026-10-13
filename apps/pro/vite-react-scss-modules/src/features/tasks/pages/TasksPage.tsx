@@ -8,16 +8,15 @@ import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
 import { canCreateTask, isAdmin } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
-import { routePath, routeWithQuery } from '@/routing';
+import { routePath, routeWithQuery } from '@/routes';
 import { MutationFeedback } from '@/shared/async/MutationFeedback';
 import { RemoteState } from '@/shared/async/RemoteState';
 import { useMutation } from '@/shared/async/use-mutation';
 
-import { TableSettingsDialog } from '../components/TableSettingsDialog';
-import taskActions from '../components/TaskActions.module.scss';
+import { TableSettingsDialog } from '../components/TableSettingsDialog/TableSettingsDialog';
 import { TaskDeleteDialog } from '../components/TaskDeleteDialog';
-import { TaskFilters } from '../components/TaskFilters';
-import { TaskTable } from '../components/TaskTable';
+import { TaskFilters } from '../components/TaskFilters/TaskFilters';
+import { TaskTable } from '../components/TaskTable/TaskTable';
 import { TaskViews } from '../components/TaskViews';
 import {
   defaultTaskPageSize,
@@ -36,8 +35,9 @@ import { createTasksCsv } from '../model/export';
 import { emptyTaskQuery, queryFromParams, queryParams } from '../model/query-params';
 import { type TaskSort } from '../model/sort';
 import { filterValues, hasTaskFilters, type Task } from '../model/task';
-import { taskCreatePath, taskDetailsPath, taskEditPath } from '../navigation';
 import { taskStatusLabelNames } from '../presentation/task-presentation';
+import { taskCreatePath, taskDetailsPath, taskEditPath } from '../routes/navigation';
+import taskActions from '../styles/TaskActions.module.scss';
 import styles from './TasksPage.module.scss';
 
 function readTaskListJson<T>(

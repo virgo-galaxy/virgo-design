@@ -1,5 +1,6 @@
-import type { LocaleOf } from '@/i18n/locale-types';
 import type { sharedEnUS } from '@/i18n/locales/shared/en-US';
+
+import type { LocaleOf } from '../../model/locale-types';
 export const sharedZhCN = {
   gender: { male: '男', female: '女' },
   workLocation: '工作地',
@@ -24,8 +25,6 @@ export const sharedZhCN = {
   tryABroaderSearchOrResetTheFilters: '尝试扩大搜索范围或重置筛选条件。',
   resetFilters: '重置筛选',
   noResults: '没有符合条件的结果',
-  taskSaved: '{{id}} 已保存，更改已同步到整个工作空间。',
-  taskMoved: '{{id}} 已移至{{status}}。',
   pagination: {
     navigation: '分页',
     previous: '上一页',

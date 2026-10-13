@@ -1,1 +1,1 @@
-export { enableMocking } from './startup';
+export { enableMocking } from './runtime/startup';

@@ -1,4 +1,4 @@
-import type { LocaleOf } from '@/i18n/locale-types';
+import type { LocaleOf } from '@/i18n';
 
 import type { settingsEnUS } from './en-US';
 export const settingsZhCN = {
@@ -65,8 +65,5 @@ export const settingsZhCN = {
   resettingDemo: '正在重置…',
   resetDemoFailed: '重置演示数据失败，请重试。',
   done: '完成',
-  language: '语言',
   followingSystem: '跟随系统 · {{theme}}',
-  english: 'English',
-  simplifiedChinese: '简体中文',
 } satisfies LocaleOf<typeof settingsEnUS>;

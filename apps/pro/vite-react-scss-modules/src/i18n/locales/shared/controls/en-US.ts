@@ -35,7 +35,6 @@ export const controlsEnUS = {
   timeMinutes: 'Minutes',
   timeSeconds: 'Seconds',
   confirmTime: 'Done',
-  notifications: 'Notifications',
   expandSidebar: 'Expand sidebar',
   collapseSidebar: 'Collapse sidebar',
   hideSidebar: 'Hide sidebar',

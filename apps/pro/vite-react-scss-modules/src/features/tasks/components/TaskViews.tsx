@@ -8,7 +8,7 @@ import documentStackArtwork from '@/assets/illustrations/document-stack.svg';
 import playCircleArtwork from '@/assets/illustrations/play-circle.svg';
 import shieldCheckArtwork from '@/assets/illustrations/shield-check.svg';
 import { WorkOverview } from '@/components/work-overview/WorkOverview';
-import { routePath, routeWithQuery } from '@/routing';
+import { routePath, routeWithQuery } from '@/routes';
 
 import styles from './TaskViews.module.scss';
 

@@ -4,7 +4,7 @@ import { Dropdown, Tooltip } from '@virgo-design/ui';
 import { useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useThemeStyle } from '@/lib/use-theme-style';
+import { useThemeStyle } from '@/lib/theme/use-theme-style';
 
 import styles from './ThemeStyleControl.module.scss';
 

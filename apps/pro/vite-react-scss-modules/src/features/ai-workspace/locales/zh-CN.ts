@@ -1,11 +1,8 @@
-import type { LocaleOf } from '@/i18n/locale-types';
+import type { LocaleOf } from '@/i18n';
 
 import type { aiWorkspaceEnUS } from './en-US';
 
 export const aiWorkspaceZhCN = {
-  workRequestAccepted: '工作请求已受理',
-  yourBriefIsNowATodoTaskWithA:
-    '你的需求已创建为待办任务，并指定了负责人，可以开始团队的下一次交付。',
   agentMode: 'Agent 模式',
   returnToWorkspace: '返回工作台',
   previewHandle: '拖动窗口',

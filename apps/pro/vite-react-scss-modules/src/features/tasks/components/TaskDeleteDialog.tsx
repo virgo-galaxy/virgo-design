@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { MutationFeedback } from '@/shared/async/MutationFeedback';
 import { useMutation } from '@/shared/async/use-mutation';
 
-import taskActions from './TaskActions.module.scss';
+import taskActions from '../styles/TaskActions.module.scss';
 
 export function TaskDeleteDialog({
   ids,

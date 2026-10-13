@@ -1,4 +1,4 @@
-import type { LocaleOf } from '@/i18n/locale-types';
+import type { LocaleOf } from '@/i18n';
 
 import type { resultsEnUS } from './en-US';
 export const resultsZhCN = {
@@ -42,7 +42,6 @@ export const resultsZhCN = {
   whatHappensToMyDraft: '我的草稿会怎样？',
   yourScopeScheduleAndNotesAreKeptReviewThe:
     '范围、计划和说明都会保留。检查设置，或为团队准备相同范围的资料。',
-  reviewThePermissionTask: '查看权限任务 →',
   linkedWork: '关联工作',
   currentTaskRecordsForThisResult: '此结果对应的当前任务记录',
   theseTasksHaveMovedOutOfTheCurrentRegister: '这些任务已移出当前台账，请查看项目以继续。',

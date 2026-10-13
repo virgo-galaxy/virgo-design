@@ -1,4 +1,4 @@
-import { createThemeRegistry, defaultTheme, type ThemeRegistry } from './registry';
+import { createThemeRegistry, defaultTheme, type ThemeRegistry } from './registry.ts';
 
 export type Appearance = 'light' | 'dark';
 export type AppearancePreference = Appearance | 'auto' | 'system';

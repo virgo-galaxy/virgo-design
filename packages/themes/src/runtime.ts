@@ -3,8 +3,8 @@ import {
   defaultTheme,
   getBrowserThemeRegistry,
   type ThemeRegistry,
-} from './registry';
-import { getThemeAttributes, type ResolvedTheme } from './resolution';
+} from './registry.ts';
+import { getThemeAttributes, type ResolvedTheme } from './resolution.ts';
 
 export const themeStorageKey = 'virgo-design.theme-style.v1';
 export interface ThemeStorage {

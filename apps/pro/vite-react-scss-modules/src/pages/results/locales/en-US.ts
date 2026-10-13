@@ -40,7 +40,6 @@ export const resultsEnUS = {
   whatHappensToMyDraft: 'What happens to my draft?',
   yourScopeScheduleAndNotesAreKeptReviewThe:
     'Your scope, schedule and notes are kept. Review the settings, or prepare the same scope for the team.',
-  reviewThePermissionTask: 'Review the permission task →',
   linkedWork: 'Linked work',
   currentTaskRecordsForThisResult: 'Current task records for this result',
   theseTasksHaveMovedOutOfTheCurrentRegister:

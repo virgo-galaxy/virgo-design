@@ -1,3 +1,3 @@
-export { NotificationInbox } from './NotificationInbox';
-export * from './revision';
-export { useNotificationInbox } from './use-notification-inbox';
+export { NotificationInbox } from './components/NotificationInbox';
+export * from './context/revision';
+export { useNotificationInbox } from './hooks/use-notification-inbox';

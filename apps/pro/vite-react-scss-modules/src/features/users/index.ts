@@ -1,1 +1,1 @@
-export * from './user-details-cache';
+export * from './data/user-details-cache';

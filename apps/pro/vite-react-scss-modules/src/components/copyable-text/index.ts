@@ -1,1 +1,1 @@
-export { CopyableText, type CopyableTextProps } from './CopyableText';
+export { CopyableText, type CopyableTextProps } from './component/CopyableText';

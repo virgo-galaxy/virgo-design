@@ -8,10 +8,10 @@ import { MultiFilterSelect } from '@/components/filters/MultiFilterSelect';
 import { NoResults } from '@/components/page/NoResults';
 import { Person } from '@/features/catalog';
 import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
-import { usePaginationLabels } from '@/i18n/use-pagination-labels';
+import { usePaginationLabels } from '@/i18n';
 import { businessLabel } from '@/lib/demo/labels';
-import { formatDueDate } from '@/lib/format-due-date';
-import { routePath, routeWithQuery } from '@/routing';
+import { formatDueDate } from '@/lib/formatting/format-due-date';
+import { routePath, routeWithQuery } from '@/routes';
 import { RemoteState } from '@/shared/async/RemoteState';
 
 import { TaskViews } from '../components/TaskViews';
@@ -20,12 +20,12 @@ import { useTaskQuery } from '../hooks/use-task-query';
 import { useTaskSearchParams } from '../hooks/use-task-search-params';
 import { queryFromParams } from '../model/query-params';
 import { filterValues, taskStatuses } from '../model/task';
-import { taskDetailsPath } from '../navigation';
 import {
   taskPriorityIntent,
   taskStatusIntent,
   taskStatusLabelNames,
 } from '../presentation/task-presentation';
+import { taskDetailsPath } from '../routes/navigation';
 import styles from './TaskCardsPage.module.scss';
 
 function TaskCardsPageView() {

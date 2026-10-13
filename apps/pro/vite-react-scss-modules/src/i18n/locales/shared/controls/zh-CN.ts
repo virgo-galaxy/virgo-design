@@ -1,5 +1,6 @@
-import type { LocaleOf } from '@/i18n/locale-types';
 import type { controlsEnUS } from '@/i18n/locales/shared/controls/en-US';
+
+import type { LocaleOf } from '../../../model/locale-types';
 export const controlsZhCN = {
   search: '查询',
   searchColumn: '查询{{column}}',
@@ -37,7 +38,6 @@ export const controlsZhCN = {
   timeMinutes: '分钟',
   timeSeconds: '秒',
   confirmTime: '完成',
-  notifications: '通知',
   expandSidebar: '展开侧栏',
   collapseSidebar: '收起侧栏',
   hideSidebar: '隐藏侧栏',

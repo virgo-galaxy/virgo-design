@@ -1,9 +1,5 @@
 export const projectDetailsEnUS = {
-  project: 'Project',
-  overdue: '· overdue',
   unscheduled: 'Unscheduled',
-  open: 'Open',
-  all: 'All',
   dueValue: 'Due {{v0}}',
   projectRecord: 'Project record',
   taskCompletion: 'Task completion',

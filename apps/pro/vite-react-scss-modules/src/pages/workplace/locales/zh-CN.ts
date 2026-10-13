@@ -1,4 +1,4 @@
-import type { LocaleOf } from '@/i18n/locale-types';
+import type { LocaleOf } from '@/i18n';
 
 import type { workplaceEnUS } from './en-US';
 export const workplaceZhCN = {
@@ -22,7 +22,6 @@ export const workplaceZhCN = {
   tokenCalendarZero: '0 Token',
   tokenCalendarNormal: '低于 {{tokens}} Token',
   tokenCalendarHigh: '{{tokens}} Token 及以上',
-  annualTokenUsageDescription: '工作空间每日输入与输出 Token 总量。',
   tokenUsageCalendar: '{{year}} 年每日 Token 消耗。使用方向键查看日期。',
   tokenUsageDay: '{{date}} · {{tokens}} Token（{{exact}}）',
   tokenUsageValue: '{{tokens}} Token',
@@ -35,8 +34,6 @@ export const workplaceZhCN = {
   noRecentTasks: '暂无近期任务。',
   deliveryPeriod: '交付周期',
   deliveryChart: '交付图表',
-  last7Days: '最近 7 天',
-  last14Days: '最近 14 天',
   deliveryPulse: '交付脉搏',
   keepTheWorkMovingOneDayAtATime: '每天推进一点，让工作持续向前。',
   text7Days: '7 天',
@@ -45,31 +42,14 @@ export const workplaceZhCN = {
   valueOfPlan: '计划达成 {{v0}}%',
   delivered: '已交付',
   planned: '计划',
-  dailyTaskDeliveryValue: '每日任务交付，{{v0}}',
-  valueTasksDeliveredAgainstValuePlannedFromValueTo:
-    '从 {{v2}} 到 {{v3}}，已交付 {{v0}} 个任务，计划 {{v1}} 个。下方无障碍表格提供每日数据。',
-  valueValueDeliveredValuePlanned: '{{v0}}：已交付 {{v1}} / 计划 {{v2}}',
-  dailyCompletedTasks: '每日完成任务',
   dailyDeliveryData: '每日交付数据',
-  date: '日期',
-  filterRecentTasks: '筛选近期任务',
-  filterTasksProjectsPeople: '筛选任务、项目或成员…',
   recentWorkspaceTasks: '工作空间近期任务',
-  contributors: '参与者',
   onTheRadar: '近期关注',
   recentTasksAcrossYourWorkspace: '工作空间中的近期任务。',
   allTasks: '所有任务',
-  valueOfValueTasks: '{{v0}} / {{v1}} 个任务',
-  recentTasksTaskProjectStatusPriorityAssigneeAndDue:
-    '近期任务：任务、项目、状态、优先级、负责人和截止日期',
   task: '任务',
-  project: '项目',
   status: '状态',
-  priority: '优先级',
-  assignee: '负责人',
   dueDate: '截止日期',
-  noTasksMatchValue: '没有匹配“{{v0}}”的任务。',
-  clearFilter: '清空筛选',
   aWorkspaceSnapshotOctober1: '工作空间快照 · {{date}}',
   goodWorkStartsWithAClearViewHereS: '清晰的视野让工作更顺畅。这里是团队的当前进展。',
   projectDistribution: '项目分布',
@@ -79,7 +59,6 @@ export const workplaceZhCN = {
   aroundTheTeam: '团队动态',
   recentTeamActivity: '近期团队动态',
   welcomeBack: '欢迎回来，{{name}}',
-  oct12026: '2026 年 10 月 1 日',
   teamNote: '团队通知',
   openTasks: '个未完成任务',
   across4FocusAreas: '涵盖 {{count}} 个业务方向',
@@ -138,9 +117,6 @@ export const workplaceZhCN = {
 
     created: '创建了 {{title}}',
     completed: '完成了 {{title}}',
-    a1: '发起了导航评审。',
-    a2: '完成了键盘操作审查。',
-    a3: '更新了入职引导需求。',
   },
   announcement: {
     title: '发布检查点 · 10 月 6 日',

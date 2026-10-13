@@ -22,8 +22,6 @@ export const sharedEnUS = {
   tryABroaderSearchOrResetTheFilters: 'Try a broader search or reset the filters.',
   resetFilters: 'Reset filters',
   noResults: 'No results match this view',
-  taskSaved: '{{id}} saved. Changes are shared across the workspace.',
-  taskMoved: '{{id}} moved to {{status}}.',
   pagination: {
     navigation: 'Pagination',
     previous: 'Previous page',

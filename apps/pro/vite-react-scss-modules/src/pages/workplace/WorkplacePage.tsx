@@ -14,9 +14,12 @@ import { businessLabel } from '@/lib/demo/labels';
 
 import { DeliveryTrend } from './components/DeliveryTrend';
 import { RecentTasks } from './components/RecentTasks';
-import { TokenUsageCalendar } from './components/TokenUsageCalendar';
-import { TokenUsageHeatmap } from './components/TokenUsageHeatmap';
-import { WorkplaceWidget, type WorkplaceWidgetState } from './components/WorkplaceWidget';
+import { TokenUsageCalendar } from './components/TokenUsageCalendar/TokenUsageCalendar';
+import { TokenUsageHeatmap } from './components/TokenUsageHeatmap/TokenUsageHeatmap';
+import {
+  WorkplaceWidget,
+  type WorkplaceWidgetState,
+} from './components/WorkplaceWidget/WorkplaceWidget';
 import { WorkspaceCarousel } from './components/WorkspaceCarousel';
 import { shortcuts } from './config/shortcuts';
 import { useWorkplaceData } from './data/workplace-context';

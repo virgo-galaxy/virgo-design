@@ -3,7 +3,7 @@ import { Card, SegmentedControl } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { formatDueDate } from '@/lib/format-due-date';
+import { formatDueDate } from '@/lib/formatting/format-due-date';
 type TrendPeriod = '7d' | '14d';
 
 import { useWorkplaceData } from '../data/workplace-context';

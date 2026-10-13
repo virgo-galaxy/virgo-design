@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 import accessDenied from '@/assets/exceptions/access-denied.svg?raw';
 import pageNotFound from '@/assets/exceptions/page-not-found.svg?raw';
 import serverError from '@/assets/exceptions/server-error.svg?raw';
-import { routePath } from '@/routing';
+import { routePath } from '@/routes';
 
 import styles from './ExceptionState.module.scss';
 

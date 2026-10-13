@@ -4,6 +4,9 @@
     "types": ["vite/client", "node"],
     "paths": {
       "@/*": ["./src/*"],
+      "@virgo-design/charts": ["../../../packages/charts/src/index.ts"],
+      "@virgo-design/charts/echarts": ["../../../packages/charts/src/echarts.tsx"],
+      "@virgo-design/charts/sparkline": ["../../../packages/charts/src/native/Sparkline.tsx"],
       "@virgo-design/colors": ["../../../packages/colors/src/index.ts"],
       "@virgo-design/icons": ["../../../packages/icons/src/index.ts"],
       "@virgo-design/primitives": ["../../../packages/primitives/src/index.ts"],

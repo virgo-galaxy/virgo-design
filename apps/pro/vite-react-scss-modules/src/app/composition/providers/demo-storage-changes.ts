@@ -1,4 +1,4 @@
-import { isRecord } from '@/lib/http/protocol';
+import { isRecord } from '@/lib/http';
 function state(raw: string | null) {
   try {
     const record: unknown = JSON.parse(raw ?? 'null');

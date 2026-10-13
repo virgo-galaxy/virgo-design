@@ -22,7 +22,7 @@ import {
 } from '@/features/tasks';
 import { downloadCsv } from '@/lib/browser/download';
 import { businessLabel } from '@/lib/demo/labels';
-import { routePath } from '@/routing';
+import { routePath } from '@/routes';
 import { MutationFeedback } from '@/shared/async/MutationFeedback';
 import { RemoteState } from '@/shared/async/RemoteState';
 import { useMutation } from '@/shared/async/use-mutation';

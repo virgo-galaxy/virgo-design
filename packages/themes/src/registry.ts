@@ -4,7 +4,7 @@ import {
   validateThemeContract,
 } from '@virgo-design/tokens';
 
-import { legacyThemeIds } from './migration';
+import { legacyThemeIds } from './migration.ts';
 
 export interface ThemePreset {
   readonly id: string;

@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
 
-import type { ProjectDto } from '@/api/projects';
-import { legacyProjectIds } from '@/api/projects/legacy-project-ids';
+import { legacyProjectIds, type ProjectDto } from '@/api/projects';
 import { moduleFilterKey, useTaskCatalog } from '@/features/catalog';
-import { isRecord } from '@/lib/http/protocol';
+import { isRecord } from '@/lib/http';
 
 /** Preserve bookmarked name-based queries from the previous demonstration contract. */
 export function canonicalTaskParams(params: URLSearchParams, projects: readonly ProjectDto[]) {

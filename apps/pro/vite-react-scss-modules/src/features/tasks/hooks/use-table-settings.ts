@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { demoResetEvent } from '@/lib/demo/reset';
-import { isRecord } from '@/lib/http/protocol';
+import { isRecord } from '@/lib/http';
 import { localStorageAccess } from '@/lib/storage';
 
 import {

@@ -59,8 +59,4 @@ export const authEnUS = {
   signOut: 'Sign out',
   signingOut: 'Signing out…',
   signOutFailed: 'Unable to sign out. Please try again.',
-  signedOut: 'You have signed out',
-  signedOutDescription: 'Your workspace session has ended. Sign in again to continue.',
-  enterDemoWorkspace: 'Enter demo workspace',
-  signInFailed: 'Unable to enter the workspace. Please try again.',
 } as const;

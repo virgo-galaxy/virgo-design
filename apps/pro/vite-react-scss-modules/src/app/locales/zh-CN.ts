@@ -1,4 +1,4 @@
-import type { LocaleOf } from '@/i18n/locale-types';
+import type { LocaleOf } from '@/i18n';
 
 import type { appEnUS } from './en-US';
 
@@ -33,7 +33,6 @@ export const appZhCN = {
   profile: '个人资料',
   virgoDesign: 'Virgo Design',
   pro: 'PRO',
-  viewProfile: '查看个人资料',
   workspaces: {
     member: '成员工作空间',
     manager: '项目管理工作空间',

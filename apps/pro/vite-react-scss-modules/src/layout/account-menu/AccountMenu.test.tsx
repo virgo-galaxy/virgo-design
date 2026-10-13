@@ -2,7 +2,7 @@
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { i18nInstance } from '@/i18n/runtime';
+import { i18nInstance } from '@/i18n';
 import { initialProfile } from '@/mock/fixtures/profile';
 
 import { AccountMenu } from './AccountMenu';
@@ -17,7 +17,8 @@ vi.mock('react-router', async (importOriginal) => ({
   ...(await importOriginal<typeof import('react-router')>()),
   useNavigate: () => navigate,
 }));
-vi.mock('@/features/auth/session-context', () => ({
+vi.mock('@/features/auth', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/features/auth')>()),
   useSession: () => ({ signOut }),
   useCurrentUser: () => currentUser,
 }));

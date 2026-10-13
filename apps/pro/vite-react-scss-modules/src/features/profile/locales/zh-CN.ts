@@ -1,4 +1,4 @@
-import type { LocaleOf } from '@/i18n/locale-types';
+import type { LocaleOf } from '@/i18n';
 
 import type { profileEnUS } from './en-US';
 export const profileZhCN = {
@@ -12,7 +12,6 @@ export const profileZhCN = {
 
   closeProfileEditor: '关闭资料编辑器',
   readingProfilePhoto: '正在读取头像',
-  thisImageCouldNotBeReadChooseAnotherPhoto: '无法读取此图片，请选择其他照片。',
   chooseAvatarColor: '选择头像颜色',
   avatarHexColor: '头像十六进制颜色',
   avatarColorPicker: '头像颜色选择器',
@@ -65,10 +64,6 @@ export const profileZhCN = {
   discardChanges: '放弃更改',
   keepEditing: '继续编辑',
   saveProfile: '保存资料',
-  virgoStudioWorkspaceOwner: 'VIRGO STUDIO / 工作空间负责人',
-  owner: '负责人',
-  productDesign: '产品与设计',
-  memberSinceSeptember2026: '自 2026 年 9 月加入',
   editProfile: '编辑资料',
   overview: '概览',
   preferences: '偏好',
@@ -76,13 +71,11 @@ export const profileZhCN = {
   workspace: '工作空间',
   virgoStudio: 'Virgo Studio',
   role: '角色',
-  workspaceOwner: '工作空间负责人',
   team: '团队',
   timeZone: '时区',
   asiaShanghaiUtc0800: 'Asia/Shanghai · UTC+08:00',
   openProjectRecord: '打开项目记录 →',
   maintainProjectDirection: '维护项目方向',
-  fourFocusAreasShareOneOctoberDeliveryPlan: '四个业务方向共享十月交付计划。',
   projectPortfolio: '项目组合 →',
   makeAcceptanceVisible: '让验收进度清晰可见',
   reviewOwnershipAndTheNotesBehindPendingWork: '检查待处理工作的负责人和相关说明。',

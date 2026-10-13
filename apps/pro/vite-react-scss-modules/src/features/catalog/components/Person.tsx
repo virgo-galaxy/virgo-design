@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { businessLabel } from '@/lib/demo/labels';
 
-import { useTaskCatalog } from '../resource';
+import { useTaskCatalog } from '../context/resource';
 import styles from './Person.module.scss';
 
 export function Person({ id, size = 'md' }: { id: string; size?: AvatarSize }) {
