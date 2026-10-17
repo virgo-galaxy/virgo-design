@@ -14,7 +14,7 @@ describe('complex task queries', () => {
       ...emptyTaskQuery,
       status: ['todo', 'in_progress'],
       priority: ['high', 'urgent'],
-      project: ['Online Store', 'Inventory System'],
+      project: ['online-store', 'inventory-system'],
       assignee: ['ava', 'leo'],
       due: ['overdue', 'unscheduled'],
     };
@@ -34,7 +34,7 @@ describe('complex task queries', () => {
   it('round trips applied conditions through URL history and omits defaults', () => {
     const query = {
       ...emptyTaskQuery,
-      project: 'Booking System',
+      project: 'booking-system',
       module: 'booking-system-1',
       status: 'in_review' as const,
       priority: 'high' as const,
@@ -46,8 +46,8 @@ describe('complex task queries', () => {
     expect(queryParams(query).get('status')).toBe('in_review');
     expect(queryParams(query).get('priority')).toBe('high');
     expect(queryParams(emptyTaskQuery).toString()).toBe('');
-    expect(queryFromParams(new URLSearchParams('project=Online+Store')).project).toBe(
-      'Online Store',
+    expect(queryFromParams(new URLSearchParams('project=online-store')).project).toBe(
+      'online-store',
     );
   });
   it('ignores invalid enums, dates and estimates while preserving backend-owned catalog IDs', () => {

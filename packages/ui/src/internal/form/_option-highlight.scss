@@ -1,5 +1,3 @@
-@use 'control-hover';
-
 @mixin viewport {
   display: grid;
   gap: var(--vd-spacing-2);

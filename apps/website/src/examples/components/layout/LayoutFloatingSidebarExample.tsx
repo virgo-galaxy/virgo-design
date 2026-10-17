@@ -1,5 +1,5 @@
 import { LayoutIcon } from '@virgo-design/icons';
-import { Layout, NavigationMenu, Surface } from '@virgo-design/ui';
+import { Layout, type LayoutSidebarDisplayState, NavigationMenu, Surface } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -7,16 +7,15 @@ import styles from './LayoutFloatingSidebarExample.module.scss';
 
 export default function App() {
   const { t } = useTranslation();
-
   const [value, setValue] = useState('menu-1');
-  const [collapsed, setCollapsed] = useState(true);
+  const [sidebarState, setSidebarState] = useState<LayoutSidebarDisplayState>('collapsed');
 
   const sidebarWidth = 224;
   const collapsedSidebarWidth = 64;
   const sidebarOffset = 16;
 
   return (
-    <div className={styles.root!} data-sidebar-state={collapsed ? 'collapsed' : 'expanded'}>
+    <div className={styles.root!} data-sidebar-state={sidebarState}>
       <Layout className={styles.layout!}>
         <Layout.Header
           contentAlign="center"
@@ -39,8 +38,8 @@ export default function App() {
           <Layout.Sidebar
             aria-label={t('examples.layout.copy.floatingSidebar')}
             mode="floating"
-            collapsed={collapsed}
-            onCollapsedChange={setCollapsed}
+            state={sidebarState}
+            onStateChange={setSidebarState}
             collapsible
             width={sidebarWidth}
             collapsedWidth={collapsedSidebarWidth}

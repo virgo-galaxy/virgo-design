@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useId } from 'react';
 
 import styles from './Progress.module.scss';
 import type { ProgressProps } from './Progress.types';
@@ -27,6 +27,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
   },
   ref,
 ) {
+  const labelId = useId();
   const normalizedMax = Number.isFinite(max) && max > 0 ? max : 100;
   const normalizedValue = Math.min(Math.max(finiteOr(value, 0), 0), normalizedMax);
   const percentage = (normalizedValue / normalizedMax) * 100;
@@ -42,7 +43,11 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
     >
       {label !== undefined || showValue ? (
         <div className={styles.header}>
-          {label !== undefined ? <span className={styles.label}>{label}</span> : <span />}
+          {label !== undefined ? (
+            <span id={labelId} className={styles.label}>{label}</span>
+          ) : (
+            <span />
+          )}
           {showValue ? <span className={styles.value}>{displayedPercentage}%</span> : null}
         </div>
       ) : null}
@@ -50,7 +55,9 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
         className={styles.track}
         role="progressbar"
         aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
+        aria-labelledby={
+          ariaLabelledBy ?? (ariaLabel === undefined && label !== undefined ? labelId : undefined)
+        }
         aria-valuetext={ariaValueText}
         aria-valuemin={0}
         aria-valuemax={normalizedMax}

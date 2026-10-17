@@ -8,21 +8,25 @@ import {
   type ApiResponse,
   resolveApiBaseUrl,
 } from '@/lib/http';
+
 export function endpoint(path: string): string {
   return `${resolveApiBaseUrl() === '/' ? '' : resolveApiBaseUrl()}${path}`;
 }
+
 function headers() {
   return {
     'x-request-id': crypto.randomUUID(),
     traceparent: `00-${crypto.randomUUID().replaceAll('-', '')}-${crypto.randomUUID().replaceAll('-', '').slice(0, 16)}-01`,
   };
 }
+
 export function success<T>(data: T, status = 200): Response {
   return HttpResponse.json<ApiResponse<T>>(
     { code: API_SUCCESS_CODE, msg: API_SUCCESS_MSG, data },
     { status, headers: headers() },
   );
 }
+
 export function failure({
   status,
   code,

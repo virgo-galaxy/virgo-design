@@ -17,7 +17,8 @@ import {
   useState,
 } from 'react';
 
-import { useControlLabels } from '../../shared/control-labels';
+import { useComposedRefs } from '../../internal/utils/composeRefs';
+import { useLocale } from '../../locale/context/locale-context';
 import styles from './Input.module.scss';
 import type { InputPasswordProps, InputProps } from './Input.types';
 
@@ -39,18 +40,7 @@ function hasInputValue(value: InputProps['value'] | InputProps['defaultValue']) 
 
 function useInputRef(forwardedRef: ForwardedRef<HTMLInputElement>) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const composedRef = useCallback(
-    (node: HTMLInputElement | null) => {
-      inputRef.current = node;
-
-      if (typeof forwardedRef === 'function') {
-        forwardedRef(node);
-      } else if (forwardedRef) {
-        forwardedRef.current = node;
-      }
-    },
-    [forwardedRef],
-  );
+  const composedRef = useComposedRefs(forwardedRef, inputRef);
 
   return [inputRef, composedRef] as const;
 }
@@ -83,8 +73,6 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
     steppers = false,
     stepperRepeat = true,
     stepperReverse = false,
-    leadingIcon,
-    trailingIcon,
     invalid = false,
     disabled,
     readOnly,
@@ -100,14 +88,12 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
   },
   forwardedRef,
 ) {
-  const labels = useControlLabels();
+  const labels = useLocale().input;
   const isInvalid = invalid || hasAriaInvalidValue(ariaInvalid);
   const isControlled = value !== undefined;
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
   const currentValue = isControlled ? value : uncontrolledValue;
   const [inputRef, composedRef] = useInputRef(forwardedRef);
-  const resolvedPrefix = prefix ?? leadingIcon;
-  const resolvedSuffix = suffix ?? trailingIcon;
   const showsClearAction = clearable && hasInputValue(currentValue) && !disabled && !readOnly;
   const showsSteppers = steppers && props.type === 'number' && props.step !== 'any';
   const upDirection = stepperReverse ? -1 : 1;
@@ -191,13 +177,13 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
       data-steppers={showsSteppers || undefined}
       data-stepper-reverse={(showsSteppers && stepperReverse) || undefined}
     >
-      {resolvedPrefix !== undefined && resolvedPrefix !== null ? (
+      {prefix !== undefined && prefix !== null ? (
         <span
           className={styles.adornment}
-          data-slot={prefix !== undefined ? 'prefix' : 'leading-icon'}
+          data-slot="prefix"
           aria-hidden="true"
         >
-          {resolvedPrefix}
+          {prefix}
         </span>
       ) : null}
 
@@ -292,13 +278,13 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
         </button>
       ) : null}
 
-      {resolvedSuffix !== undefined && resolvedSuffix !== null ? (
+      {suffix !== undefined && suffix !== null ? (
         <span
           className={styles.adornment}
-          data-slot={suffix !== undefined ? 'suffix' : 'trailing-icon'}
+          data-slot="suffix"
           aria-hidden="true"
         >
-          {resolvedSuffix}
+          {suffix}
         </span>
       ) : null}
 
@@ -333,7 +319,7 @@ const InputPasswordCore = forwardRef<HTMLInputElement, InputPasswordProps>(funct
   { disabled, ...props },
   forwardedRef,
 ) {
-  const labels = useControlLabels();
+  const labels = useLocale().input;
   const [isVisible, setIsVisible] = useState(false);
   const [inputRef, composedRef] = useInputRef(forwardedRef);
 

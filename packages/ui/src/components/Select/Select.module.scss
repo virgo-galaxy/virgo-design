@@ -182,6 +182,7 @@
     @include control-hover.surface(var(--select-background));
   }
 }
+
 .selectedValues {
   grid-area: 1 / 1;
   z-index: 1;
@@ -194,6 +195,7 @@
     calc(var(--select-padding-inline) + var(--select-icon-size) + var(--select-gap));
   pointer-events: none;
 }
+
 .selectedTag {
   --select-intent-background: var(--vd-fill-hover);
   --select-intent-foreground: var(--vd-text-primary);
@@ -219,6 +221,7 @@
     overflow-wrap: anywhere;
   }
 }
+
 .remove {
   display: inline-flex;
   flex: none;
@@ -250,6 +253,7 @@
     color: var(--vd-icon-disabled);
   }
 }
+
 .srOnly {
   position: absolute;
   width: 1px;
@@ -258,13 +262,16 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
 .checkbox {
   @include checkbox-indicator.variables;
   @include checkbox-indicator.control;
 }
+
 .checkboxMark {
   @include checkbox-indicator.mark;
 }
+
 .option[data-multiple='true'] {
   justify-content: flex-start;
   gap: var(--vd-spacing-8);

@@ -21,20 +21,24 @@
     color: var(--vd-text-disabled);
   }
 }
+
 .label {
   font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
   padding-block: var(--vd-spacing-4);
 }
+
 .description,
 .message {
   grid-column: var(--field-copy-column, 1);
   font-size: var(--vd-typography-ui-body-small-font-size);
   color: var(--vd-text-secondary);
 }
+
 .root[data-invalid='true'] .message,
 .label [data-field-required] {
   color: var(--vd-status-danger-text);
 }
+
 @media (max-width: 640px) {
   .root[data-layout='horizontal'] {
     --field-columns: minmax(0, 1fr);

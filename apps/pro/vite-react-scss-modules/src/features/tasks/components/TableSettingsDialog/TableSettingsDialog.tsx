@@ -3,12 +3,12 @@ import { Button, Checkbox, Dialog, Field, Tabs } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import type { tasksEnUS } from '../../locales/en-US';
 import {
   defaultTableSettings,
   type TaskColumnKey,
   type TaskTableSettings,
-} from '../../config/table-settings';
-import type { tasksEnUS } from '../../locales/en-US';
+} from '../../model/table-settings';
 import type { Task } from '../../model/task';
 import styles from './TableSettingsDialog.module.scss';
 import { AlignmentChoices, Choice, NumberSetting, Toggle } from './TableSettingsFields';
@@ -47,6 +47,7 @@ export function TableSettingsDialog({
           }
         : {}),
     });
+
   return (
     <Dialog.Root
       open

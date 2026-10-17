@@ -1,6 +1,7 @@
 import { CloseIcon } from '@virgo-design/icons';
 import { forwardRef } from 'react';
 
+import { useLocale } from '../../locale/context/locale-context';
 import styles from './Tag.module.scss';
 import type { TagProps } from './Tag.types';
 
@@ -16,7 +17,7 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
     icon,
     closable = false,
     disabled = false,
-    closeLabel = 'Remove tag',
+    closeLabel,
     onClose,
     className,
     children,
@@ -24,6 +25,8 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
   },
   ref,
 ) {
+  const locale = useLocale();
+
   return (
     <span
       {...props}
@@ -44,7 +47,7 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
         <button
           className={styles.close}
           type="button"
-          aria-label={closeLabel}
+          aria-label={closeLabel ?? locale.tag.remove}
           disabled={disabled}
           onClick={(event) => {
             event.stopPropagation();

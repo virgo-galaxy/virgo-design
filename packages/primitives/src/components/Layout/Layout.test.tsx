@@ -47,10 +47,10 @@ describe('Layout primitive', () => {
 
   it('coordinates an uncontrolled sidebar with its keyboard trigger and render state', async () => {
     const user = userEvent.setup();
-    const onCollapsedChange = vi.fn();
+    const onStateChange = vi.fn();
     render(
       <Layout.Root>
-        <Layout.Sidebar id="navigation-region" onCollapsedChange={onCollapsedChange}>
+        <Layout.Sidebar id="navigation-region" onStateChange={onStateChange}>
           {({ collapsed }) => (
             <>
               <span>{collapsed ? 'Compact' : 'Expanded'}</span>
@@ -69,14 +69,14 @@ describe('Layout primitive', () => {
     expect(trigger).toHaveFocus();
     await user.keyboard(' ');
     expect(screen.getByText('Expanded')).toBeVisible();
-    expect(onCollapsedChange.mock.calls).toEqual([[true], [false]]);
+    expect(onStateChange.mock.calls).toEqual([['collapsed'], ['expanded']]);
   });
 
   it('honors controlled state, custom rendering, disabled and canceled triggers', async () => {
     const user = userEvent.setup();
-    const onCollapsedChange = vi.fn();
-    const example = (collapsed: boolean, disabled = false, cancel = false) => (
-      <Layout.Sidebar collapsed={collapsed} onCollapsedChange={onCollapsedChange}>
+    const onStateChange = vi.fn();
+    const example = (state: 'expanded' | 'collapsed', disabled = false, cancel = false) => (
+      <Layout.Sidebar state={state} onStateChange={onStateChange}>
         <Layout.SidebarTrigger
           disabled={disabled}
           onClick={(event) => {
@@ -86,26 +86,26 @@ describe('Layout primitive', () => {
         />
       </Layout.Sidebar>
     );
-    const { rerender } = render(example(false));
+    const { rerender } = render(example('expanded'));
     await user.click(screen.getByRole('button'));
-    expect(onCollapsedChange).toHaveBeenCalledWith(true);
+    expect(onStateChange).toHaveBeenCalledWith('collapsed');
     expect(screen.getByRole('button')).toHaveAttribute('aria-expanded', 'true');
-    rerender(example(true));
+    rerender(example('collapsed'));
     expect(screen.getByRole('button')).toHaveAccessibleName('Expand sidebar');
     expect(screen.getByRole('button')).toHaveAttribute('data-custom', 'true');
-    onCollapsedChange.mockClear();
-    rerender(example(true, true));
+    onStateChange.mockClear();
+    rerender(example('collapsed', true));
     await user.click(screen.getByRole('button'));
-    rerender(example(true, false, true));
+    rerender(example('collapsed', false, true));
     await user.click(screen.getByRole('button'));
-    expect(onCollapsedChange).not.toHaveBeenCalled();
+    expect(onStateChange).not.toHaveBeenCalled();
   });
 
-  it('keeps multiple sidebars independent and supports defaultCollapsed', async () => {
+  it('keeps multiple sidebars independent and supports an initial display state', async () => {
     const user = userEvent.setup();
     render(
       <Layout direction="horizontal">
-        <Layout.Sidebar defaultCollapsed>
+        <Layout.Sidebar defaultState="collapsed">
           <Layout.SidebarTrigger />
         </Layout.Sidebar>
         <Layout.Sidebar>
@@ -120,6 +120,7 @@ describe('Layout primitive', () => {
     expect(collapse).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getAllByRole('button', { name: 'Collapse sidebar' })).toHaveLength(2);
   });
+
   it('shares three states with external provider triggers while honoring controlled state', async () => {
     const user = userEvent.setup();
     const change = vi.fn();
@@ -153,7 +154,7 @@ describe('Layout primitive', () => {
     expect(sidebar).not.toHaveAttribute('inert');
   });
 
-  it('isolates provider scopes and uses explicit three-state control over legacy collapsed', async () => {
+  it('isolates provider scopes from each other and standalone sidebars', async () => {
     const user = userEvent.setup();
     render(
       <>
@@ -165,7 +166,7 @@ describe('Layout primitive', () => {
           <Layout.SidebarTrigger action="collapse">Second</Layout.SidebarTrigger>
           <Layout.Sidebar aria-label="Second navigation" />
         </Layout.SidebarProvider>
-        <Layout.Sidebar state="expanded" collapsed aria-label="Legacy precedence" />
+        <Layout.Sidebar state="expanded" aria-label="Standalone navigation" />
       </>,
     );
     const buttons = screen.getAllByRole('button');
@@ -182,7 +183,7 @@ describe('Layout primitive', () => {
       'data-state',
       'collapsed',
     );
-    expect(screen.getByRole('complementary', { name: 'Legacy precedence' })).toHaveAttribute(
+    expect(screen.getByRole('complementary', { name: 'Standalone navigation' })).toHaveAttribute(
       'data-state',
       'expanded',
     );

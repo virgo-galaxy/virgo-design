@@ -1,14 +1,14 @@
 import type { TaskListQuery } from '@/contracts/tasks';
 import { isRecord } from '@/lib/validation/is-record';
 
+import { emptyTaskQuery, queryFromParams, queryParams, type TaskQuery } from './query-params';
+import type { TaskSort } from './sort';
 import {
   defaultTaskPageSize,
   taskColumnKeys,
   type TaskDataColumn,
   type TaskTableSettings,
-} from '../config/table-settings';
-import { emptyTaskQuery, queryFromParams, queryParams, type TaskQuery } from './query-params';
-import type { TaskSort } from './sort';
+} from './table-settings';
 import { filterValues, hasTaskFilters } from './task';
 
 export type TaskColumnFilters = Partial<Record<TaskDataColumn, string[]>>;
@@ -21,11 +21,13 @@ function readJson<T>(
 ): T {
   try {
     const parsed: unknown = JSON.parse(value ?? 'null');
+
     return isRecord(parsed) && validate(parsed) ? (parsed as T) : fallback;
   } catch {
     return fallback;
   }
 }
+
 function isDataColumn(value: unknown): value is TaskDataColumn {
   return (
     taskColumnKeys.some((column) => column === value) &&
@@ -33,15 +35,17 @@ function isDataColumn(value: unknown): value is TaskDataColumn {
   );
 }
 
-/** URL state belongs to the task list; transport and table presentation consume its result. */
 export function taskTableQueryFromParams(params: URLSearchParams) {
   const requestedPage = Number(params.get('page'));
+  const requestedPageSize = Number(params.get('pageSize'));
+
   return {
     filters: queryFromParams(params),
     page: Number.isSafeInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1,
-    pageSize: [10, 20, 50, 100].includes(Number(params.get('pageSize')))
-      ? Number(params.get('pageSize'))
-      : defaultTaskPageSize,
+    pageSize:
+      Number.isSafeInteger(requestedPageSize) && requestedPageSize > 0 && requestedPageSize <= 100
+        ? requestedPageSize
+        : defaultTaskPageSize,
     columnFilters: readJson<TaskColumnFilters>(params.get('columnFilters'), {}, (value) =>
       Object.entries(value).every(
         ([key, items]) =>
@@ -62,6 +66,7 @@ export function taskTableQueryFromParams(params: URLSearchParams) {
     ),
   };
 }
+
 export function taskListQuery(
   state: ReturnType<typeof taskTableQueryFromParams>,
   pagination: boolean,
@@ -81,8 +86,10 @@ export function taskListQuery(
       : {}),
   };
 }
+
 export function hasTaskTableFilters(state: ReturnType<typeof taskTableQueryFromParams>) {
   const { filters, columnFilters, columnSearch } = state;
+
   return (
     Object.values(columnFilters).some((values) => values.length) ||
     Object.values(columnSearch).some((value) => value.trim()) ||
@@ -95,19 +102,22 @@ export function hasTaskTableFilters(state: ReturnType<typeof taskTableQueryFromP
     )
   );
 }
+
 export function withTaskFilters(params: URLSearchParams, filters: TaskQuery) {
   const next = new URLSearchParams(params);
+
   for (const key of Object.keys(emptyTaskQuery)) next.delete(key);
   for (const [key, value] of queryParams(filters)) next.append(key, value);
   next.delete('page');
+
   return next;
 }
+
 export function setTaskTableParam(params: URLSearchParams, key: string, value: unknown) {
   if (value === null || (isRecord(value) && !Object.keys(value).length)) params.delete(key);
   else params.set(key, JSON.stringify(value));
 }
 
-/** Disabling a column control must also remove its hidden constraints from the request. */
 export function reconcileTaskTableQuery(
   params: URLSearchParams,
   previous: TaskTableSettings,
@@ -115,6 +125,7 @@ export function reconcileTaskTableQuery(
 ) {
   const next = new URLSearchParams(params);
   const { columnFilters, columnSearch, sort } = taskTableQueryFromParams(params);
+
   for (const [key, values, control] of [
     ['columnFilters', columnFilters, 'filter'],
     ['columnSearch', columnSearch, 'search'],
@@ -131,6 +142,7 @@ export function reconcileTaskTableQuery(
       ),
     );
   }
+
   const column = settings.columns.find((column) => column.key === sort?.column);
   if (
     sort &&
@@ -139,6 +151,8 @@ export function reconcileTaskTableQuery(
       (column.controls.sort.mode !== 'both' && column.controls.sort.mode !== sort.direction))
   )
     next.delete('sort');
+
   if (previous.pagination !== settings.pagination) next.delete('page');
+
   return next;
 }

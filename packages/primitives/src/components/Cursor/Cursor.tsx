@@ -21,12 +21,14 @@ export const CursorProvider = forwardRef<HTMLDivElement, CursorProviderProps>(
     const visualRef = useRef<HTMLDivElement>(null);
     const [store] = useState(createPointerStore);
     const frame = useRef<number | null>(null);
+
     const reset = useCallback(() => {
       const win = scopeRef.current?.ownerDocument.defaultView;
       if (frame.current !== null) win?.cancelAnimationFrame(frame.current);
       frame.current = null;
       store.update({ ...store.getSnapshot(), active: false, visible: false, buttons: 0 });
     }, [store]);
+
     const pointer = useMemo(
       () => ({
         getSnapshot: store.getSnapshot,
@@ -48,6 +50,7 @@ export const CursorProvider = forwardRef<HTMLDivElement, CursorProviderProps>(
       const win = doc.defaultView!;
       let target: Element | null = null;
       let pending: CursorSnapshot | null = null;
+
       const paint = () => {
         const state = store.getSnapshot();
         const visible = state.visible && hasVisual;
@@ -60,11 +63,13 @@ export const CursorProvider = forwardRef<HTMLDivElement, CursorProviderProps>(
           applyPortalEnvironment(visual, readPortalEnvironment(target ?? scope));
         }
       };
+
       const stop = () => {
         pending = null;
         target = null;
         reset();
       };
+
       const track = (event: PointerEvent) => {
         const element = event.target instanceof Element ? event.target : null;
         if (
@@ -94,19 +99,23 @@ export const CursorProvider = forwardRef<HTMLDivElement, CursorProviderProps>(
           pending = null;
         });
       };
+
       const leave = (event: PointerEvent) => {
         const next = event.relatedTarget;
         if (!(next instanceof Element) || next.closest('[data-cursor-scope]') !== scope) stop();
       };
+
       const key = (event: KeyboardEvent) => {
         if (!['Shift', 'Control', 'Alt', 'Meta'].includes(event.key)) {
           stop();
           store.update({ ...store.getSnapshot(), pointerType: 'keyboard' });
         }
       };
+
       const navigate = (event: MouseEvent) => {
         if (event.target instanceof Element && event.target.closest('a[href]')) stop();
       };
+
       const stopEnvironment = observePortalEnvironment(
         scope,
         () => {
@@ -117,6 +126,7 @@ export const CursorProvider = forwardRef<HTMLDivElement, CursorProviderProps>(
       );
       const unsubscribe = store.subscribe(paint);
       paint();
+
       for (const name of ['pointerover', 'pointermove', 'pointerdown', 'pointerup'] as const)
         doc.addEventListener(name, track, true);
       doc.addEventListener('pointerout', leave, true);
@@ -130,6 +140,7 @@ export const CursorProvider = forwardRef<HTMLDivElement, CursorProviderProps>(
       win.addEventListener('pagehide', stop);
       win.addEventListener('popstate', stop);
       win.addEventListener('hashchange', stop);
+
       return () => {
         stop();
         unsubscribe();
@@ -150,9 +161,11 @@ export const CursorProvider = forwardRef<HTMLDivElement, CursorProviderProps>(
         win.removeEventListener('hashchange', stop);
       };
     }, [disabled, store, reset, hasVisual, hotspotX, hotspotY]);
+
     useLayoutEffect(() => {
       reset();
     }, [reset, resetKey]);
+
     return (
       <CursorContext.Provider value={pointer}>
         <div {...props} ref={composeRefs(ref, scopeRef)} data-cursor-scope="">
@@ -188,6 +201,7 @@ export const CursorFollower = forwardRef<HTMLDivElement, CursorFollowerProps>(
     const pointer = useCursorPointer();
     const contentRef = useRef<HTMLDivElement>(null);
     const fallbackRef = useRef<HTMLDivElement>(null);
+
     usePointerFollow({
       pointer,
       active: Boolean(pointer),
@@ -199,6 +213,7 @@ export const CursorFollower = forwardRef<HTMLDivElement, CursorFollowerProps>(
       decorative: true,
     });
     if (!pointer) return null;
+
     return (
       <Portal>
         <div

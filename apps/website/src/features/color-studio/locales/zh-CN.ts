@@ -7,9 +7,6 @@ export const colorStudioZhCN = {
     carousel: { chromatic: '彩色编辑工作区', brandNeutral: '品牌与中性编辑工作区' },
     baseLabel: '基础色',
     picker: {
-      saturation: '饱和度',
-      brightness: '明度',
-      hue: '色相',
       hex: 'HEX 颜色',
       open: '打开颜色选择器',
       title: '颜色选择器',

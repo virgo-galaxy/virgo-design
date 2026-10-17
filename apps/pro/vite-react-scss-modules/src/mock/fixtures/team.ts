@@ -1,10 +1,7 @@
 import type { MemberDto } from '@/contracts/tasks';
 import type { UserDetailsDto, UserGender, WorkLocationDto } from '@/contracts/users';
-import {
-  systemPresetAvatarManifest,
-  type SystemPresetUserId,
-} from '@/mock/avatars/preset-manifest';
 
+import { systemPresetAvatarManifest, type SystemPresetUserId } from '../avatars/preset-manifest';
 import { endpoint } from '../http/response';
 
 export const projectIds = [
@@ -30,7 +27,6 @@ const jobs: Record<TeamJob, [string, string]> = {
   qa: ['QA engineer', 'Quality assurance'],
   operations: ['DevOps engineer', 'Operations'],
 };
-// Explicit project participation is independent of current task assignments.
 export const teamAssignments: {
   id: SystemPresetUserId;
   name: string;

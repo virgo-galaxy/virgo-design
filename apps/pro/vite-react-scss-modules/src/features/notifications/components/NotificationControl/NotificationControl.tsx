@@ -20,6 +20,7 @@ export function NotificationControl({
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const tooltipSuppressed = useRef(false);
   const restoringFocus = useRef(false);
+
   const showFreshTooltip = () => {
     if (!open && !restoringFocus.current && tooltipSuppressed.current) {
       tooltipSuppressed.current = false;
@@ -35,6 +36,7 @@ export function NotificationControl({
         restoringFocus.current = !next;
         setTooltipOpen(false);
         setOpen(next);
+
         if (next) inbox.retry();
         if (!next)
           queueMicrotask(() => {

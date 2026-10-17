@@ -12,6 +12,7 @@ import { createContext, forwardRef, useContext, useId } from 'react';
 
 import styles from './Result.module.scss';
 import type { ResultProps, ResultStatus, ResultTitleProps } from './Result.types';
+
 const classes = (...values: (string | undefined)[]) => values.filter(Boolean).join(' ');
 const Context = createContext<ResultStatus>('info');
 const icons = {
@@ -23,12 +24,14 @@ const icons = {
   '404': SearchIcon,
   '500': MonitorIcon,
 };
+
 const Icon = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(function ResultIcon(
   { children, className, ...props },
   ref,
 ) {
-  const status = useContext(Context),
-    Glyph = icons[status];
+  const status = useContext(Context);
+  const Glyph = icons[status];
+
   return (
     <div
       {...props}
@@ -41,6 +44,7 @@ const Icon = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(function
     </div>
   );
 });
+
 const Title = forwardRef<HTMLHeadingElement, ResultTitleProps>(function ResultTitle(
   { as: Heading = 'h2', className, ...props },
   ref,
@@ -49,6 +53,7 @@ const Title = forwardRef<HTMLHeadingElement, ResultTitleProps>(function ResultTi
     <Heading {...props} ref={ref} className={classes(styles.title, className)} data-slot="title" />
   );
 });
+
 const Description = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
   function ResultDescription({ className, ...props }, ref) {
     return (
@@ -69,6 +74,7 @@ const Actions = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(funct
     <div {...props} ref={ref} className={classes(styles.actions, className)} data-slot="actions" />
   );
 });
+
 const Extra = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(function ResultExtra(
   { className, ...props },
   ref,
@@ -77,6 +83,7 @@ const Extra = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(functio
     <div {...props} ref={ref} className={classes(styles.extra, className)} data-slot="extra" />
   );
 });
+
 const Root = forwardRef<HTMLDivElement, ResultProps>(function Result(
   {
     status = 'info',
@@ -94,6 +101,7 @@ const Root = forwardRef<HTMLDivElement, ResultProps>(function Result(
   ref,
 ) {
   const id = useId();
+
   return (
     <Context.Provider value={status}>
       <div
@@ -130,4 +138,5 @@ const Root = forwardRef<HTMLDivElement, ResultProps>(function Result(
     </Context.Provider>
   );
 });
+
 export const Result = Object.assign(Root, { Root, Icon, Title, Description, Actions, Extra });

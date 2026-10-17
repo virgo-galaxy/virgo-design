@@ -1,4 +1,5 @@
 @use '../../internal/form/control-size';
+
 .root {
   box-sizing: border-box;
   min-width: 0;
@@ -14,6 +15,7 @@
   font-size: var(--calendar-font-size);
   @include control-size.variables(calendar, medium);
   --calendar-day-height: var(--calendar-height);
+
   &[data-size='small'] {
     @include control-size.variables(calendar, small);
     padding: var(--vd-spacing-12);
@@ -150,14 +152,17 @@
     }
   }
 }
+
 .root [data-calendar-date-content] {
   display: block;
   width: 100%;
   min-width: 0;
 }
+
 .selector {
   width: auto;
 }
+
 .selectorOptions {
   min-width: 120px;
 }

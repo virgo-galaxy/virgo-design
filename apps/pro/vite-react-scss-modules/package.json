@@ -8,6 +8,7 @@
     "@virgo-design/charts": "workspace:*",
     "@virgo-design/fonts": "workspace:*",
     "@virgo-design/icons": "workspace:*",
+    "@virgo-design/themes": "workspace:*",
     "@virgo-design/tokens": "workspace:*",
     "@virgo-design/ui": "workspace:*",
     "axios": "^1.20.0",
@@ -18,7 +19,7 @@
     "react-dom": "^19.2.8",
     "react-i18next": "^17.0.13",
     "react-router": "8.4.0",
-    "@virgo-design/themes": "workspace:*"
+    "zustand": "^5.0.15"
   },
   "scripts": {
     "dev": "pnpm -w build:tokens && vite",

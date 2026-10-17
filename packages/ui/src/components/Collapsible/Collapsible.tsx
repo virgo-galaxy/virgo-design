@@ -9,7 +9,9 @@ import type {
   CollapsibleProps,
   CollapsibleTriggerProps,
 } from './Collapsible.types';
+
 const classes = (...values: Array<string | undefined>) => values.filter(Boolean).join(' ');
+
 export const CollapsibleRoot = forwardRef<HTMLDivElement, CollapsibleProps>(function Collapsible(
   { className, ...props },
   ref,
@@ -23,6 +25,7 @@ export const CollapsibleRoot = forwardRef<HTMLDivElement, CollapsibleProps>(func
     />
   );
 });
+
 export const CollapsibleTrigger = forwardRef<HTMLButtonElement, CollapsibleTriggerProps>(
   function Trigger(
     { indicator = <ChevronDownIcon />, className, children, render, ...props },
@@ -51,6 +54,7 @@ export const CollapsibleTrigger = forwardRef<HTMLButtonElement, CollapsibleTrigg
     );
   },
 );
+
 export const CollapsibleContent = forwardRef<HTMLDivElement, CollapsibleContentProps>(
   function Content({ motion = 'none', keepMounted = false, className, children, ...props }, ref) {
     return (

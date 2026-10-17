@@ -3,6 +3,7 @@ import { setupServer } from 'msw/node';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
 import { enterDemoSession, getSession, logout, resetDemo } from '@/api/auth';
+import { getNotifications, readAllNotifications } from '@/api/notifications';
 import { updateProfileIdentity, updateProfilePreferences } from '@/api/profile';
 import { getTaskSummary } from '@/api/tasks';
 import { createTask, deleteTasks, getTask, getTasks, updateTask } from '@/api/tasks';
@@ -17,8 +18,9 @@ import { demoStorageKey, getDemoState, resetDemoState, unloadDemoState } from '.
 import { initialProfile } from '../fixtures/profile';
 import { projects } from '../fixtures/projects';
 import { createTaskHistory } from '../fixtures/task-history';
+import { createMockTaskId } from '../fixtures/task-id';
 import { initialTaskState, taskAssignees, taskProjects } from '../fixtures/tasks';
-import { teamAssignments, users } from '../fixtures/team';
+import { users } from '../fixtures/team';
 import { handlers } from '../handlers';
 import { resetSession } from '../handlers/auth';
 
@@ -32,29 +34,18 @@ beforeEach(() => {
 });
 
 describe('coherent demonstration catalog', () => {
-  it('has four projects, six modules each and 240 unique valid tasks assigned to participating people', () => {
-    expect(projects).toHaveLength(4);
-    expect(
-      projects.map(
-        (project) => initialTaskState.tasks.filter((task) => task.project === project.id).length,
-      ),
-    ).toEqual([68, 54, 60, 58]);
-    expect(teamAssignments).toHaveLength(24);
-    expect(
-      teamAssignments
-        .filter((person) => person.job === 'manager')
-        .map((person) => person.projects.length),
-    ).toEqual([2, 2]);
-    expect(new Set(initialTaskState.tasks.map((task) => task.title)).size).toBe(240);
+  it('keeps seed IDs, project membership, task dates and translations internally consistent', () => {
+    expect(projects.length).toBeGreaterThan(0);
+    const ids = new Set(initialTaskState.tasks.map((task) => task.id));
+    expect(ids.size).toBe(initialTaskState.tasks.length);
+    expect(ids.has(createMockTaskId(initialTaskState.nextId))).toBe(false);
     expect(createTaskHistory()).toEqual(initialTaskState.tasks);
     for (const project of projects) {
-      expect(project.modules).toHaveLength(6);
+      expect(new Set(project.modules.map((module) => module.id)).size).toBe(project.modules.length);
       expect(project.memberIds).toContain(project.owner);
       expect(users.find((user) => user.id === project.owner)?.managedProjects).toContain(
         project.id,
       );
-      for (const module of project.modules)
-        expect(initialTaskState.tasks.some((task) => task.module === module.id)).toBe(true);
     }
     for (const task of initialTaskState.tasks) {
       expect(
@@ -67,6 +58,7 @@ describe('coherent demonstration catalog', () => {
       ).toEqual({});
       expect(businessLabel(task.title, 'zh-CN')).not.toBe(task.title);
       expect(businessLabel(task.description, 'zh-CN')).not.toBe(task.description);
+      expect(Number.isFinite(Date.parse(task.createdAt))).toBe(true);
       if (task.completedAt) expect(task.createdAt < task.completedAt).toBe(true);
     }
     expect(businessLabel('Custom user title', 'zh-CN')).toBe('Custom user title');
@@ -81,12 +73,14 @@ describe('coherent demonstration catalog', () => {
     await expect(
       updateTask(initialTaskState.tasks[0]!.id, { assignee: 'leo' }),
     ).rejects.toMatchObject({ data: { fields: { assignee: expect.any(Array) } } });
-    expect((await getTasks()).total).toBe(240);
+    expect((await getTasks()).total).toBe(initialTaskState.tasks.length);
     expect(await getTask(initialTaskState.tasks[0]!.id)).toEqual(initialTaskState.tasks[0]);
     const result = await getTasks({ module: 'online-store-1' });
-    expect(result.total).toBe(12);
+    expect(result.total).toBe(
+      initialTaskState.tasks.filter((task) => task.module === 'online-store-1').length,
+    );
     expect(result.items.every((task) => task.project === 'online-store')).toBe(true);
-    expect((await getTasks({ search: '制定交付计划' })).total).toBe(24);
+    expect((await getTasks({ search: '制定交付计划' })).total).toBeGreaterThan(0);
     expect((await getTasks({ search: '阿妮卡' })).total).toBeGreaterThan(0);
   });
 });
@@ -124,14 +118,20 @@ describe('local demonstration persistence', () => {
     const analytics = await readAnalytics();
     const date = finished.completedAt!.slice(0, 10);
     expect(analytics.trendPoints.find((point) => point.date === date)?.completed).toBe(1);
-    expect(await getTaskSummary()).toMatchObject({ total: 240, completed: 81 });
+    expect(await getTaskSummary()).toMatchObject({
+      total: initialTaskState.tasks.length,
+      completed: initialTaskState.tasks.filter((task) => task.status === 'done').length + 1,
+    });
     const next = await createTask({ ...taskDraft(finished), title: 'Next task' });
     expect(next.id).not.toBe(task.id);
   });
 
   it('clears only Pro data/settings and ends the session; re-entry restores the full seed', async () => {
+    const initial = structuredClone(getDemoState());
+    const unreadCount = (await getNotifications()).unreadCount;
     await deleteTasks({ ids: initialTaskState.tasks.slice(0, 3).map((task) => task.id) });
     await updateProfileIdentity({ name: 'Changed' });
+    await readAllNotifications();
     localStorage.setItem('virgo-pro:settings:v1', 'custom');
     localStorage.setItem('virgo-pro.tasks-table.v1', 'custom');
     sessionStorage.setItem('virgo-pro.workspace.agent-mode', 'true');
@@ -147,16 +147,19 @@ describe('local demonstration persistence', () => {
     expect((await getSession()).authenticated).toBe(false);
     unloadDemoState();
     await enterDemoSession();
-    expect((await getTasks()).total).toBe(240);
+    expect(getDemoState().tasks).toEqual(initial.tasks);
+    expect(getDemoState().records).toEqual(initial.records);
+    expect((await getNotifications()).unreadCount).toBe(unreadCount);
+    expect((await getTasks()).total).toBe(initialTaskState.tasks.length);
     expect(await readProfile()).toEqual(initialProfile);
   });
 
   it('recovers safely from damaged, unsupported and inconsistent stored snapshots', () => {
     for (const raw of [
       '{',
-      JSON.stringify({ version: 3, state: getDemoState() }),
+      JSON.stringify({ version: 2, state: getDemoState() }),
       JSON.stringify({
-        version: 1,
+        version: 3,
         state: {
           ...getDemoState(),
           tasks: [{ ...initialTaskState.tasks[0], module: 'wrong-project' }],

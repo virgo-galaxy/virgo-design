@@ -3,12 +3,13 @@ import type { CSSProperties } from 'react';
 import { describe, expect, it } from 'vitest';
 
 import { Table } from './index';
+
 describe('styled Table', () => {
-  it.each(['small', 'medium', 'large'] as const)(
+  it.each(['mini', 'compact', 'default', 'comfortable'] as const)(
     'preserves semantics and %s density with visual options',
-    (size) => {
+    (density) => {
       render(
-        <Table size={size} border="all" striped hoverable stickyHeader className="custom">
+        <Table density={density} border="all" striped hoverable stickyHeader className="custom">
           <Table.Caption>Records</Table.Caption>
           <Table.Header>
             <Table.Row>
@@ -23,36 +24,13 @@ describe('styled Table', () => {
         </Table>,
       );
       const table = screen.getByRole('table');
-      expect(table).toHaveAttribute('data-size', size);
-      expect(table).toHaveAttribute(
-        'data-density',
-        { small: 'compact', medium: 'default', large: 'comfortable' }[size],
-      );
+      expect(table).toHaveAttribute('data-density', density);
+      expect(table).not.toHaveAttribute('density');
       expect(table).toHaveAttribute('data-border', 'all');
       expect(table).toHaveClass('custom');
       expect(screen.getByRole('columnheader')).toHaveAttribute('scope', 'col');
       expect(screen.getByRole('cell')).toHaveAttribute('data-align', 'end');
       expect(screen.getByRole('cell').closest('tr')).toHaveAttribute('data-selected', 'true');
-    },
-  );
-
-  it.each(['compact', 'default', 'comfortable'] as const)(
-    'supports explicit %s density independently of the legacy size',
-    (density) => {
-      render(
-        <Table density={density} size="large" aria-label="Density override">
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell>Record</Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        </Table>,
-      );
-      const table = screen.getByRole('table', { name: 'Density override' });
-      expect(table).toHaveAttribute('data-density', density);
-      expect(table).not.toHaveAttribute('density');
-      expect(table).not.toHaveAttribute('size');
-      expect(screen.getByRole('cell').closest('tr')?.parentElement?.parentElement).toBe(table);
     },
   );
 

@@ -67,6 +67,9 @@ export default defineConfig({
       '@virgo-design/ui/metadata': fileURLToPath(
         new URL('./packages/ui/src/metadata/index.ts', import.meta.url),
       ),
+      '@virgo-design/ui/locale': fileURLToPath(
+        new URL('./packages/ui/src/locale/index.ts', import.meta.url),
+      ),
       '@virgo-design/ui': fileURLToPath(new URL('./packages/ui/src/index.ts', import.meta.url)),
     },
   },

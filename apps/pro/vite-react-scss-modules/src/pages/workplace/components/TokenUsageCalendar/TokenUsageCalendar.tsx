@@ -28,6 +28,7 @@ function TokenUsageCalendarView({
   const { projects, metadata } = useTaskCatalog();
   const taskAssignees = metadata.members;
   const { t, i18n } = useTranslation();
+
   const openingDate =
     reportYear === Number(referenceDate.slice(0, 4)) ? referenceDate : `${reportYear}-12-31`;
   const [selectedMonth, setMonth] = useState(openingDate.slice(0, 7));
@@ -36,9 +37,11 @@ function TokenUsageCalendarView({
     : openingDate.slice(0, 7);
   const [selectedDate, setSelected] = useState(openingDate);
   const selected = selectedDate.startsWith(String(reportYear)) ? selectedDate : openingDate;
+
   const dayRecords = tokenRecords
     .filter((record) => record.recordedAt.slice(0, 10) === selected)
     .sort((a, b) => b.recordedAt.localeCompare(a.recordedAt));
+
   const { year, days } = useMemo(
     () => buildTokenUsageCalendar(referenceDate, tokenUsage, reportYear),
     [referenceDate, tokenUsage, reportYear],
@@ -47,6 +50,7 @@ function TokenUsageCalendarView({
   const total = days
     .filter((day) => day.date.startsWith(month))
     .reduce((sum, day) => sum + day.tokens, 0);
+
   const fullMonth = new Intl.DateTimeFormat(i18n.language, {
     year: 'numeric',
     month: 'long',
@@ -58,6 +62,7 @@ function TokenUsageCalendarView({
     (_, index) => `${year}-${String(index + 1).padStart(2, '0')}`,
   );
   const monthIndex = months.indexOf(month);
+
   return (
     <Dialog
       onOpenChange={(open) => {
@@ -129,7 +134,7 @@ function TokenUsageCalendarView({
                     iconOnly
                     size="medium"
                     variant="text"
-                    aria-label={t('shared.controls.previousMonth')}
+                    aria-label={t('workplace.previousMonth')}
                     disabled={monthIndex <= 0}
                     onClick={() => {
                       const previous = months[monthIndex - 1];
@@ -145,7 +150,7 @@ function TokenUsageCalendarView({
                       if (next) onMonthChange(next);
                     }}
                   >
-                    <Select.Trigger aria-label={t('shared.controls.chooseMonth')}>
+                    <Select.Trigger aria-label={t('workplace.chooseMonth')}>
                       {monthName.format(new Date(`${month}-01T00:00:00Z`))}
                     </Select.Trigger>
                     <Select.Content className={styles.tokenCalendarMonthOptions}>
@@ -160,7 +165,7 @@ function TokenUsageCalendarView({
                     iconOnly
                     size="medium"
                     variant="text"
-                    aria-label={t('shared.controls.nextMonth')}
+                    aria-label={t('workplace.nextMonth')}
                     disabled={monthIndex >= 11}
                     onClick={() => {
                       const next = months[monthIndex + 1];
@@ -173,10 +178,12 @@ function TokenUsageCalendarView({
               )}
               renderDateContent={(date) => {
                 if (!date.startsWith(month)) return null;
+
                 const day = records.get(date);
                 const tokens = day?.tokens ?? 0;
                 const amount = day?.future ? '—' : formatTokenCount(tokens, i18n.language);
                 const unit = day?.future ? '' : (amount.match(/[^\d.,]+$/)?.[0] ?? '');
+
                 return (
                   <span
                     data-token-level={
@@ -276,6 +283,7 @@ export function TokenUsageCalendar(props: {
   onYearChange: (year: number) => void;
 }) {
   const resource = useTokenUsageResource();
+
   return (
     <ResourceContent resource={resource}>
       {(report) => (

@@ -65,8 +65,6 @@
     --vd-table-selected-hover-background,
     color-mix(in srgb, var(--table-selection-color) 24%, var(--table-body-background))
   );
-  // Keep the existing shorthand as an override surface for older consumers.
-  --table-padding: var(--table-cell-padding-block) var(--table-cell-padding-inline);
 
   width: 100%;
   border-collapse: separate;
@@ -148,7 +146,7 @@
   }
 }
 .cell {
-  padding: var(--table-padding);
+  padding: var(--table-cell-padding-block) var(--table-cell-padding-inline);
   vertical-align: var(--table-cell-vertical-align);
   text-align: start;
   &[data-align='end'] {

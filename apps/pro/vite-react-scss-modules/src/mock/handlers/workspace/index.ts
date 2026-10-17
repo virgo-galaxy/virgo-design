@@ -17,6 +17,7 @@ export const workspaceHandlers = [
     const tasks = scopedTasks(state.tasks, request);
     const completed = tasks.filter((task) => task.status === 'done').length;
     const date = reportingDate(state.records);
+
     return success({
       date,
       activeProjects: visibleProjects.length,

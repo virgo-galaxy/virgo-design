@@ -14,4 +14,5 @@ export interface FloatingActionTriggerProps extends PopoverTriggerProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
 }
+
 export type FloatingActionContentProps = PopoverContentProps;

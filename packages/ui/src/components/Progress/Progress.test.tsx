@@ -49,8 +49,16 @@ describe('Progress', () => {
   );
 
   it('renders a visible label and consumer className', () => {
-    render(<Progress className="custom" data-testid="root" value={25} label="Uploading" />);
+    const { rerender } = render(
+      <Progress className="custom" data-testid="root" value={25} label="Uploading" />,
+    );
+
     expect(screen.getByText('Uploading')).toBeInTheDocument();
+    expect(screen.getByRole('progressbar', { name: 'Uploading' })).toBeInTheDocument();
     expect(screen.getByTestId('root')).toHaveClass('custom');
+
+    rerender(<Progress value={25} label="Uploading" aria-label="Upload progress" />);
+
+    expect(screen.getByRole('progressbar', { name: 'Upload progress' })).toBeInTheDocument();
   });
 });

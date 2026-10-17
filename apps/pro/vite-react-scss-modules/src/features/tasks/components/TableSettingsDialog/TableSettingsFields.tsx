@@ -25,6 +25,7 @@ export function AlignmentChoices({
     >
       {(['start', 'center', 'end'] as const).map((alignment, index) => {
         const Icon = [AlignLeftIcon, AlignCenterIcon, AlignRightIcon][index]!;
+
         return (
           <SegmentedControl.Item
             key={alignment}
@@ -69,6 +70,7 @@ export function Choice({
     </Field>
   );
 }
+
 export function NumberSetting({
   label,
   value,
@@ -86,14 +88,17 @@ export function NumberSetting({
 }) {
   const [draft, setDraft] = useState(String(value));
   useEffect(() => setDraft(String(value)), [value]);
+
   const commit = () => {
     const next = Number(draft);
+
     if (draft && Number.isFinite(next)) {
       const clamped = Math.max(min, Math.min(max, Math.round(next)));
       setDraft(String(clamped));
       onChange(clamped);
     } else setDraft(String(value));
   };
+
   return (
     <Field className={className}>
       <Field.Label>{label}</Field.Label>
@@ -116,6 +121,7 @@ export function NumberSetting({
     </Field>
   );
 }
+
 export function Toggle({
   label,
   checked,

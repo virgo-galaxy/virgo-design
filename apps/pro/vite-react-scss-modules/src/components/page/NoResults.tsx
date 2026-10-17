@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 export function NoResults({ onReset, title }: { onReset: () => void; title?: string }) {
   const { t } = useTranslation();
+
   return (
     <Empty size="md">
       <Empty.Icon>

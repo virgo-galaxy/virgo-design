@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useRef } from 'react';
 
 import { ActionGroup } from '../../internal/action-group/ActionGroup';
+import { useComposedRefs } from '../../internal/utils/composeRefs';
 import type { ToolbarProps } from './Toolbar.types';
 
 const controlSelector = 'button, a[href], input, select, textarea, [role="button"], [tabindex]';
@@ -12,9 +13,12 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(function Toolbar
   const rootRef = useRef<HTMLDivElement | null>(null);
   const currentRef = useRef<HTMLElement | null>(null);
   const controlsRef = useRef<HTMLElement[]>([]);
+  const composedRef = useComposedRefs(forwardedRef, rootRef);
+
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
+
     const original = new Map<HTMLElement, string | null>();
     const update = () => {
       const controls = [...root.querySelectorAll<HTMLElement>(controlSelector)].filter(
@@ -33,7 +37,9 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(function Toolbar
         control.tabIndex = control === current ? 0 : -1;
       }
     };
+
     update();
+
     const observer = new MutationObserver(update);
     observer.observe(root, {
       childList: true,
@@ -41,6 +47,7 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(function Toolbar
       attributes: true,
       attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'class', 'style'],
     });
+
     return () => {
       observer.disconnect();
       for (const [control, tabIndex] of original) {
@@ -50,17 +57,14 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(function Toolbar
       controlsRef.current = [];
     };
   }, []);
+
   return (
     <ActionGroup
       {...props}
       orientation={orientation}
       role="toolbar"
       aria-orientation={orientation}
-      ref={(node) => {
-        rootRef.current = node;
-        if (typeof forwardedRef === 'function') forwardedRef(node);
-        else if (forwardedRef) forwardedRef.current = node;
-      }}
+      ref={composedRef}
       onFocus={(event) => {
         onFocus?.(event);
         const target = event.target as HTMLElement;
@@ -104,4 +108,5 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(function Toolbar
     />
   );
 });
+
 Toolbar.displayName = 'Toolbar';

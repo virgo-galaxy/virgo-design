@@ -1,4 +1,5 @@
 import type { TimePickerProps as PrimitiveProps } from '@virgo-design/primitives';
+
 export interface TimePickerProps extends PrimitiveProps {
   /** Wrap keyboard navigation between enabled options and wheel scrolling at list edges. @default false */
   loop?: boolean | undefined;

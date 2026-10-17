@@ -6,8 +6,7 @@ import { Link, useNavigate } from 'react-router';
 
 import { getTasks } from '@/api/tasks';
 import { getLatestWorkflow } from '@/api/workflows';
-import { Person } from '@/features/catalog';
-import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
+import { CatalogBoundary, moduleName, Person, projectName, useTaskCatalog } from '@/features/catalog';
 import type { WorkflowReceipt } from '@/features/handoff';
 import { useHandoffSession, useWorkflowRevision } from '@/features/handoff';
 import { projectDetailPath, projectHandoffPath, projectTasksPath } from '@/features/projects';
@@ -49,6 +48,7 @@ function ResultPageView({
 
   const mutation = useMutation();
   const { t, i18n } = useTranslation();
+
   const receiptTime = new Intl.DateTimeFormat(i18n.language, {
     dateStyle: 'medium',
     timeStyle: 'short',
@@ -58,6 +58,7 @@ function ResultPageView({
   const navigate = useNavigate();
   const project = projects.find((item) => item.id === receipt.projectId)!;
   const tasks = state.tasks.filter((task) => receipt.taskIds.includes(task.id));
+
   return (
     <div className={styles.page}>
       <MutationFeedback pending={mutation.pending} error={mutation.error} />
@@ -103,6 +104,7 @@ function ResultPageView({
                   onClick={() =>
                     void mutation.run(async () => {
                       const fullScope = await getAllTasks({ ids: receipt.taskIds });
+
                       downloadCsv(
                         createTasksCsv(fullScope, taskAssignees, {
                           status: (code) => t(`tasks.statusLabels.${taskStatusLabelNames[code]}`),
@@ -343,7 +345,9 @@ function ResultTasks({ receipt }: { receipt: WorkflowReceipt }) {
     [receipt.taskIds],
   );
   const resource = useTaskDependentQuery(load, receipt.reference);
+
   if (!resource.data) return <RemoteState {...resource} />;
+
   return (
     <>
       {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
@@ -357,16 +361,17 @@ function ResultTasks({ receipt }: { receipt: WorkflowReceipt }) {
     </>
   );
 }
+
 function ResultResource({ outcome }: { outcome: 'success' | 'error' }) {
   const revision = useWorkflowRevision();
   const load = useCallback(
-    async (signal: AbortSignal) => {
-      return getLatestWorkflow(outcome, signal);
-    },
+    (signal: AbortSignal) => getLatestWorkflow(outcome, signal),
     [outcome],
   );
   const resource = useRemoteData(load, { key: outcome, revision });
+
   if (!resource.data) return <RemoteState {...resource} />;
+
   return (
     <>
       {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
@@ -374,7 +379,9 @@ function ResultResource({ outcome }: { outcome: 'success' | 'error' }) {
     </>
   );
 }
+
 export function ResultPage({ outcome }: { outcome: 'success' | 'error' }) {
+
   return (
     <CatalogBoundary>
       <ResultResource key={outcome} outcome={outcome} />

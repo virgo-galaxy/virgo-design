@@ -13,6 +13,7 @@
     --field-copy-column: 2;
   }
 }
+
 @media (max-width: 640px) {
   .root[data-layout='horizontal'] {
     --field-columns: minmax(0, 1fr);

@@ -25,17 +25,18 @@ export function TaskCardFilters({
   const { projects, metadata } = useTaskCatalog();
   const taskProjects = metadata.projects;
   const [search, setSearch] = useState(filters.search);
-  const change = onChange;
+
   const reset = () => {
     setSearch('');
     onReset();
   };
+
   return (
     <Form
       className={styles.filterForm}
       onSubmit={(event) => {
         event.preventDefault();
-        change('search', search.trim());
+        onChange('search', search.trim());
       }}
     >
       <Field>
@@ -50,25 +51,21 @@ export function TaskCardFilters({
         label={t('tasks.status')}
         value={filterValues(filters.status)}
         placeholder={t('tasks.allStatuses')}
-        onChange={(value) => change('status', value)}
-        options={[
-          ...taskStatuses.map((status) => ({
+        onChange={(value) => onChange('status', value)}
+        options={taskStatuses.map((status) => ({
             value: status,
             label: t(`tasks.statusLabels.${taskStatusLabelNames[status]}`),
-          })),
-        ]}
+          }))}
       />
       <MultiFilterSelect
         label={t('tasks.project')}
         value={filterValues(filters.project)}
         placeholder={t('tasks.allProjects')}
-        onChange={(value) => change('project', value)}
-        options={[
-          ...taskProjects.map((project) => ({
+        onChange={(value) => onChange('project', value)}
+        options={taskProjects.map((project) => ({
             value: project,
             label: businessLabel(projectName(project, projects), i18n.language),
-          })),
-        ]}
+          }))}
       />
       <Button.Group>
         <Button type="button" variant="outline" onClick={reset}>

@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import { RemoteState } from './RemoteState';
 import type { RemoteData } from './use-remote-data';
 
-/** Independent capabilities render and retry independently, retaining successful data on refresh. */
 export function ResourceContent<T>({
   resource,
   children,
@@ -12,6 +11,7 @@ export function ResourceContent<T>({
   children: (data: T) => ReactNode;
 }) {
   if (resource.data === null) return <RemoteState {...resource} />;
+
   return (
     <>
       {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}

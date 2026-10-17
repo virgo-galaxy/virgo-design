@@ -1,20 +1,24 @@
 import { isRecord } from '@/lib/validation/is-record';
+
 function state(raw: string | null) {
   try {
     const record: unknown = JSON.parse(raw ?? 'null');
+
     return isRecord(record) && isRecord(record.state) ? record.state : null;
   } catch {
     return null;
   }
 }
-// The demo backend writes one record; the application invalidates only affected resources.
+
 export function demoStorageChanges(oldValue: string | null, newValue: string | null) {
   const oldState = state(oldValue),
     next = state(newValue);
+
   const changed = (...keys: string[]) =>
     !oldState ||
     !next ||
     keys.some((key) => JSON.stringify(oldState[key]) !== JSON.stringify(next[key]));
+
   return {
     tasks: changed('tasks', 'records'),
     catalog: changed('projects'),

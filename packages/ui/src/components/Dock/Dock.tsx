@@ -2,7 +2,7 @@ import { LockIcon, PinIcon, UnlockIcon, UnpinIcon } from '@virgo-design/icons';
 import { Dock as PrimitiveDock, type DockState } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import { useControlLabels } from '../../shared/control-labels';
+import { useLocale } from '../../locale/context/locale-context';
 import { Button } from '../Button';
 import { Tooltip } from '../Tooltip';
 import { useTooltipPresentation } from '../Tooltip/TooltipContext';
@@ -55,7 +55,7 @@ const Root = forwardRef<HTMLDivElement, DockRootProps>(function DockRoot(
 Root.displayName = 'Dock';
 
 function DockControls({ state, disabled }: { state: DockState; disabled: boolean | undefined }) {
-  const labels = useControlLabels();
+  const labels = useLocale().dock;
   const tooltipPresentation = useTooltipPresentation();
   const { locked, pinned, setLocked, setPinned } = state;
   const actions = [
@@ -104,14 +104,17 @@ function DockControls({ state, disabled }: { state: DockState; disabled: boolean
 }
 
 const Handle = forwardRef<HTMLButtonElement, DockHandleProps>(function DockHandle(
-  { className, children, ...props },
+  { className, children, 'aria-label': ariaLabel, ...props },
   forwardedRef,
 ) {
+  const locale = useLocale();
+
   return (
     <PrimitiveDock.Handle
       {...props}
       ref={forwardedRef}
       className={classes(styles.handle, className)}
+      aria-label={ariaLabel ?? locale.dock.moveDock}
     >
       {children ?? <span className={styles.grip} aria-hidden="true" />}
     </PrimitiveDock.Handle>

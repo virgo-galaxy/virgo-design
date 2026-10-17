@@ -12,10 +12,8 @@ import type { ButtonSize } from '../Button/Button.types';
 export type TableDensity = 'mini' | 'compact' | 'default' | 'comfortable';
 
 export interface TableProps extends Omit<PrimitiveTableProps, 'border'> {
-  /** Cell padding and minimum header/body row heights. Takes precedence over size. @default 'default' */
+  /** Cell padding and minimum header/body row heights. @default 'default' */
   density?: TableDensity | undefined;
-  /** Legacy density alias: small = compact, medium = default, large = comfortable. Prefer density. @default 'medium' */
-  size?: 'mini' | 'small' | 'medium' | 'large' | undefined;
   /** Border treatment. Separators divide adjacent rows without an outer edge. @default 'rows' */
   border?: 'none' | 'rows' | 'separators' | 'all' | undefined;
   /** Short vertical separators between column headings. @default true */
@@ -37,6 +35,7 @@ export interface TableProps extends Omit<PrimitiveTableProps, 'border'> {
   /** Sticks column headings inside the nearest scrolling viewport. @default false */
   stickyHeader?: boolean | undefined;
 }
+
 export type TableSortMode = 'both' | 'ascending' | 'descending';
 export interface TableFixedCellProps {
   /** Pins this cell to a logical edge of Table.Viewport. */
@@ -44,10 +43,12 @@ export interface TableFixedCellProps {
   /** Cumulative widths of preceding pinned columns at the same edge, in pixels. @default 0 */
   stickyOffset?: number | undefined;
 }
+
 export interface TableSortButtonProps extends PrimitiveTableSortButtonProps {
   /** Both arrows and a three-state cycle, or a single arrow toggling that direction and none. @default 'both' */
   sortMode?: TableSortMode | undefined;
 }
+
 export interface TableHeaderSortControl {
   /** Shows the sorting button while retaining its mode when disabled. @default true */
   enabled?: boolean | undefined;
@@ -58,6 +59,7 @@ export interface TableHeaderSortControl {
   /** Receives the requested direction; data ordering remains consumer-owned. */
   onDirectionChange?: ((direction: TableSortDirection) => void) | undefined;
 }
+
 export interface TableHeaderControls {
   /** Keeps the heading at the start, or aligns heading and controls as one group. @default 'separate' */
   layout?: 'separate' | 'joined' | undefined;
@@ -70,6 +72,7 @@ export interface TableHeaderControls {
   /** Search control; the column name supplies its label. Omitted or false hides it. */
   search?: Omit<TableSearchProps, 'label'> | false | undefined;
 }
+
 export interface TableHeadProps
   extends TableFixedCellProps, Omit<PrimitiveTableHeadProps, 'align' | 'sortDirection'> {
   /** Optional controls in fixed order: sorting, filter, search. Their alignment is shared. */
@@ -81,11 +84,13 @@ export interface TableHeadProps
   /** Heading alignment when controls is omitted; otherwise controls.align owns alignment. @default 'start' */
   align?: 'start' | 'center' | 'end' | undefined;
 }
+
 export interface TableCellProps
   extends TableFixedCellProps, Omit<PrimitiveTableCellProps, 'align'> {
   /** Logical alignment; end is useful for numeric columns. @default 'start' */
   align?: 'start' | 'center' | 'end' | undefined;
 }
+
 export type {
   TableCaptionProps,
   TableRowProps,
@@ -99,6 +104,7 @@ export interface TableFilterOption {
   label: ReactNode;
   disabled?: boolean | undefined;
 }
+
 export interface TableFilterProps {
   /** Tooltip content. Defaults to the generic localized Filter label; false hides the hint. */
   tooltip?: ReactNode | false | undefined;
@@ -131,6 +137,7 @@ export interface TableSelectionOption {
   /** Disables this action. @default false */
   disabled?: boolean | undefined;
 }
+
 export interface TableSelectionProps extends Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue'> {
   /** Selectable keys on the current page, in display order. Exclude disabled rows. */
   rowKeys: readonly string[];

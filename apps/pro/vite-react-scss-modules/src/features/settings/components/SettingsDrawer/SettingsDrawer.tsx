@@ -15,14 +15,13 @@ import {
 import { type CSSProperties, forwardRef, useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useThemeStyle } from '@/lib/theme/use-theme-style';
-
 import {
+  type AppPreferences,
   getFixedHeaderMaterial,
   headerHeightRange,
-  type ProSettings,
   sidebarWidthRanges,
-} from '../../model/settings';
+} from '@/preferences';
+
 import styles from './SettingsDrawer.module.scss';
 
 function PixelInput({
@@ -41,13 +40,15 @@ function PixelInput({
   onChange: (width: number) => void;
 }) {
   const { t } = useTranslation();
-  // Associate a draft with the current width so slider changes replace stale input.
   const [draft, setDraft] = useState<{ width: number; text: string } | null>(null);
   const text = draft?.width === width ? draft.text : String(width);
+
   const commit = (value: string) => {
     const number = Number(value);
+
     if (/^\d+$/.test(value) && Number.isFinite(number))
       onChange(Math.min(max, Math.max(min, number)));
+
     setDraft(null);
   };
 
@@ -71,7 +72,9 @@ function PixelInput({
         const value = event.currentTarget.value;
         const number = Number(value);
         const valid = /^\d+$/.test(value) && number >= min && number <= max;
+
         setDraft({ width: valid ? number : width, text: value });
+
         if (valid) onChange(number);
       }}
       onBlur={(event) => commit(event.currentTarget.value)}
@@ -80,7 +83,6 @@ function PixelInput({
           event.preventDefault();
           event.currentTarget.blur();
         } else if (event.key === 'Escape') {
-          // Cancel the draft without also dismissing the settings drawer.
           event.preventDefault();
           event.stopPropagation();
           event.currentTarget.value = String(width);
@@ -105,6 +107,7 @@ function SettingToggle({
 }) {
   const id = useId();
   const pointerY = useRef<number | null>(null);
+
   return (
     <div
       className={styles.row}
@@ -134,7 +137,6 @@ function SettingToggle({
   );
 }
 
-// The shell swaps this trigger between its header and the viewport edge.
 export const SettingsTrigger = forwardRef<
   HTMLButtonElement,
   {
@@ -149,13 +151,13 @@ export const SettingsTrigger = forwardRef<
 ) {
   const { t } = useTranslation();
   const docked = anchorY !== undefined;
+
   return (
     <Tooltip open={tooltipOpen} onOpenChange={onTooltipOpenChange}>
       <Tooltip.Trigger
         ref={ref}
         onFocus={onTooltipInteraction}
         onPointerMove={(event) => {
-          // Overlay removal can send enter events without any user pointer movement.
           if (event.pointerType === 'mouse' && (event.movementX !== 0 || event.movementY !== 0))
             onTooltipInteraction();
         }}
@@ -199,10 +201,10 @@ export function SettingsDrawer({
   onHeaderChange,
   onCloseAutoFocus,
 }: {
-  settings: ProSettings;
+  settings: AppPreferences;
   theme: 'light' | 'dark';
   storageAvailable: boolean;
-  onChange: (patch: Partial<ProSettings>) => void;
+  onChange: (patch: Partial<AppPreferences>) => void;
   onReset: () => void;
   onResetDemo: () => Promise<void>;
   onHeaderChange: (showHeader: boolean, anchorY: number) => void;
@@ -213,15 +215,18 @@ export function SettingsDrawer({
   const [resetOpen, setResetOpen] = useState(false);
   const [resetting, setResetting] = useState(false);
   const [resetError, setResetError] = useState(false);
-  const { theme: themeStyle, setTheme } = useThemeStyle();
+
+  const themeStyle = settings.theme;
   const selectedTheme = themePresets.find((preset) => preset.id === themeStyle);
   const fixedHeaderMaterial = getFixedHeaderMaterial(themeStyle);
   const rail = settings.sidebarMode === 'collapsed';
   const widthRange = sidebarWidthRanges[settings.sidebarMode];
   const widthLabel = rail ? t('settings.railWidth') : t('settings.expandedWidth');
   const sidebarWidth = rail ? settings.sidebarRailWidth : settings.sidebarWidth;
+
   const changeWidth = (width: number) =>
     onChange(rail ? { sidebarRailWidth: width } : { sidebarWidth: width });
+
   return (
     <Drawer.Portal>
       <Drawer.Overlay />
@@ -281,7 +286,7 @@ export function SettingsDrawer({
           <Separator decorative />
           <section aria-labelledby={`${id}-theme-style`} className={styles.section}>
             <h2 id={`${id}-theme-style`}>{t('themeStyleControl.label')}</h2>
-            <Select value={themeStyle} onValueChange={setTheme}>
+            <Select value={themeStyle} onValueChange={(theme) => onChange({ theme })}>
               <Select.Trigger
                 aria-labelledby={`${id}-theme-style`}
                 aria-describedby={selectedTheme ? `${id}-theme-description` : undefined}

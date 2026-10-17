@@ -26,7 +26,7 @@ import {
   localeStorageKey,
   setAppLocale,
   setAppLocalePreference,
-} from '../runtime/runtime';
+} from '../runtime/locale';
 
 afterEach(async () => {
   cleanup();

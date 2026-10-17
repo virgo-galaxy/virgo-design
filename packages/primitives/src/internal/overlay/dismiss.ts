@@ -20,13 +20,17 @@ export function useDismiss({
 }) {
   const containerRef = useContext(PortalContainerContext);
   const callback = useRef(onDismiss);
+
   useLayoutEffect(() => {
     callback.current = onDismiss;
   }, [onDismiss]);
+
   useEffect(() => {
     if (!open) return;
+
     const doc = layer.contentRef.current?.ownerDocument ?? layer.triggerRef.current?.ownerDocument;
     if (!doc) return;
+
     const pointer = (event: PointerEvent) => {
       if (
         containerRef?.current &&
@@ -58,9 +62,11 @@ export function useDismiss({
         event.preventDefault();
       }
     };
+
     doc.addEventListener('pointerdown', pointer);
     doc.addEventListener('focusin', focus);
     doc.addEventListener('keydown', key);
+
     return () => {
       doc.removeEventListener('pointerdown', pointer);
       doc.removeEventListener('focusin', focus);

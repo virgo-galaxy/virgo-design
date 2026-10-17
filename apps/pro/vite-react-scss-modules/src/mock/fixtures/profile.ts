@@ -3,6 +3,7 @@ import grokBotAvatar from '@virgo-design/icons/artwork/grok-bot.svg';
 import adminHumanAvatar from '@/assets/avatars/admin.svg';
 
 import type { ProfileRecord } from '../model/state';
+
 export const initialProfile: ProfileRecord = {
   name: 'Administrator',
   displayName: 'Admin',

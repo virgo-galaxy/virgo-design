@@ -1,3 +1,4 @@
+export { type ProRouteIcon, routeIcons } from './definitions/icons';
 export { routePath, routeWithQuery } from './definitions/paths';
 export {
   type ProContentLayout,

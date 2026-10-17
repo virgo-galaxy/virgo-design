@@ -1,6 +1,5 @@
 export type UserGender = 'male' | 'female';
 
-/** Current work base, independent of nationality or birthplace. */
 export interface WorkLocationDto {
   region: string;
   city: string;
@@ -18,8 +17,6 @@ export interface UserDetailsDto {
   phone: string;
   email: string;
   avatarUrl: string;
-  /** Stable project IDs, resolved to names by the application catalog. */
   projects: string[];
-  /** Project IDs managed by this member; empty for other team members. */
   managedProjects: string[];
 }

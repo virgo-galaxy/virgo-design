@@ -14,15 +14,17 @@ import { useTranslation } from 'react-i18next';
 
 import { getDemoAccounts, login, type LoginDto } from '@/api/auth';
 import { LanguageControl } from '@/components/language-control/LanguageControl';
-import { useProSettings } from '@/features/settings';
 import { businessLabel } from '@/lib/demo/labels';
 import { isHttpError } from '@/lib/http';
+import { useAppPreferences } from '@/preferences';
 import { routePaths } from '@/routes';
 import { useRemoteData } from '@/shared/async/use-remote-data';
 
 import styles from './LoginPage.module.scss';
+
 const loadAccounts = (signal: AbortSignal) =>
   import.meta.env.VITE_API_MOCKING === 'true' ? getDemoAccounts(signal) : Promise.resolve(null);
+
 export function LoginPage({
   onLogin,
   expired,
@@ -31,11 +33,9 @@ export function LoginPage({
   expired: boolean;
 }) {
   const { t, i18n } = useTranslation();
-  const { theme, updateSettings } = useProSettings(false);
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-  }, [theme]);
+  const { appearance, updatePreferences } = useAppPreferences(false);
   const demo = useRemoteData(loadAccounts);
+
   const [account, setAccount] = useState(
     import.meta.env.VITE_API_MOCKING === 'true' ? 'admin' : '',
   );
@@ -44,10 +44,13 @@ export function LoginPage({
   );
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<'invalidCredentials' | 'failed' | ''>('');
+
   const selected = demo.data?.accounts.find((user) => user.account === account);
+
   useEffect(() => {
     document.title = `${t('auth.login.signIn')} · Virgo Design Pro`;
   }, [t]);
+
   return (
     <Tooltip.Provider>
       <main className={styles.page}>
@@ -68,17 +71,17 @@ export function LoginPage({
                     {...props}
                     iconOnly
                     variant="text"
-                    aria-label={theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
+                    aria-label={appearance === 'light' ? t('app.darkMode') : t('app.lightMode')}
                     onClick={() =>
-                      updateSettings({ appearance: theme === 'light' ? 'dark' : 'light' })
+                      updatePreferences({ appearance: appearance === 'light' ? 'dark' : 'light' })
                     }
                   >
-                    {theme === 'light' ? <MoonFilledIcon /> : <SunFilledIcon />}
+                    {appearance === 'light' ? <MoonFilledIcon /> : <SunFilledIcon />}
                   </Button>
                 )}
               />
               <Tooltip.Content>
-                {theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
+                {appearance === 'light' ? t('app.darkMode') : t('app.lightMode')}
               </Tooltip.Content>
             </Tooltip>
           </Button.Group>
@@ -150,9 +153,12 @@ export function LoginPage({
               size="large"
               onSubmit={(event) => {
                 event.preventDefault();
+
                 if (pending) return;
+
                 setPending(true);
                 setError('');
+
                 void login({ account, password })
                   .then(onLogin)
                   .catch((failure) =>

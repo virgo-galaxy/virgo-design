@@ -61,27 +61,19 @@ function useSidebarController({
   state: controlledState,
   defaultState,
   onStateChange,
-  collapsed,
-  defaultCollapsed,
-  onCollapsedChange,
 }: {
   [Key in keyof LayoutSidebarProps]?: LayoutSidebarProps[Key] | undefined;
 }): SidebarContextValue {
   const generatedId = useId();
   const triggers = useRef(new Set<HTMLButtonElement>());
   const focusedInside = useRef(false);
-  const controlled =
-    controlledState ?? (collapsed === undefined ? undefined : collapsed ? 'collapsed' : 'expanded');
   const [value = 'expanded', setState] = useControllableState<LayoutSidebarDisplayState>(
-    controlled,
-    defaultState ?? (defaultCollapsed ? 'collapsed' : 'expanded'),
-    (next) => {
-      onStateChange?.(next);
-      if ((next !== 'expanded') !== (value !== 'expanded'))
-        onCollapsedChange?.(next !== 'expanded');
-    },
+    controlledState,
+    defaultState ?? 'expanded',
+    onStateChange,
   );
   const sidebarId = id ?? `vd-sidebar-${generatedId}`;
+
   useLayoutEffect(() => {
     if (value !== 'hidden') return;
     const sidebar = document.getElementById(sidebarId);
@@ -97,12 +89,12 @@ function useSidebarController({
     external?.focus();
     focusedInside.current = false;
   }, [value, sidebarId]);
+
   return {
     id: sidebarId,
     state: value,
     setState,
     collapsed: value !== 'expanded',
-    setCollapsed: (next) => setState(next ? 'collapsed' : 'expanded'),
     triggers,
     focusedInside,
   };
@@ -110,8 +102,10 @@ function useSidebarController({
 
 export function LayoutSidebarProvider(props: LayoutSidebarProviderProps) {
   const context = useSidebarController(props);
+
   return <SidebarContext.Provider value={context}>{props.children}</SidebarContext.Provider>;
 }
+
 LayoutSidebarProvider.displayName = 'Layout.SidebarProvider';
 
 export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(function LayoutSidebar(
@@ -120,9 +114,6 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
     state: controlledState,
     defaultState,
     onStateChange,
-    collapsed,
-    defaultCollapsed,
-    onCollapsedChange,
     children,
     ...props
   },
@@ -134,11 +125,9 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
     state: controlledState,
     defaultState,
     onStateChange,
-    collapsed,
-    defaultCollapsed,
-    onCollapsedChange,
   });
   const state = provider ?? local;
+
   return (
     <SidebarContext.Provider value={state}>
       <aside
@@ -166,6 +155,7 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
     </SidebarContext.Provider>
   );
 });
+
 LayoutSidebar.displayName = 'Layout.Sidebar';
 
 export const LayoutSidebarTrigger = forwardRef<HTMLButtonElement, LayoutSidebarTriggerProps>(
@@ -173,19 +163,23 @@ export const LayoutSidebarTrigger = forwardRef<HTMLButtonElement, LayoutSidebarT
     const context = useContext(SidebarContext);
     const triggerRef = useRef<HTMLButtonElement>(null);
     const registeredTriggers = context?.triggers;
+
     useLayoutEffect(() => {
       const button = triggerRef.current;
       if (!button || !registeredTriggers || action === 'hide' || action === 'collapse') return;
       const triggers = registeredTriggers.current;
       triggers.add(button);
+
       return () => {
         triggers.delete(button);
       };
     }, [registeredTriggers, action]);
+
     if (!context)
       throw new Error(
         'Layout.SidebarTrigger must be used inside Layout.Sidebar or Layout.SidebarProvider.',
       );
+
     const buttonProps = {
       type: 'button' as const,
       'aria-label':
@@ -220,9 +214,11 @@ export const LayoutSidebarTrigger = forwardRef<HTMLButtonElement, LayoutSidebarT
           );
       },
     };
+
     return render ? render(buttonProps) : <button {...buttonProps} />;
   },
 );
+
 LayoutSidebarTrigger.displayName = 'Layout.SidebarTrigger';
 
 export const LayoutContent = forwardRef<HTMLElement, LayoutContentProps>(function LayoutContent(
@@ -236,6 +232,7 @@ export const LayoutContent = forwardRef<HTMLElement, LayoutContentProps>(functio
     },
     [forwardedRef],
   );
+
   return <Component {...props} ref={setRef} />;
 });
 

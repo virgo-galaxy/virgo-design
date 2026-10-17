@@ -6,6 +6,7 @@
     cursor: none !important;
   }
 }
+
 .visual {
   z-index: panel.$layer + 2;
   width: max-content;
@@ -17,6 +18,7 @@
     pointer-events: none !important;
   }
 }
+
 .glyph {
   // Appearance resolves semantic tokens on the portal's inherited data-theme.
   --cursor-tint: color-mix(in srgb, var(--vd-text-primary) 94%, var(--vd-brand-primary));
@@ -37,6 +39,7 @@
     paint-order: stroke fill;
   }
 }
+
 .follower {
   z-index: panel.$layer + 1;
   &,
@@ -44,6 +47,7 @@
     pointer-events: none !important;
   }
 }
+
 @media (forced-colors: active) {
   .glyph {
     color: Canvas;

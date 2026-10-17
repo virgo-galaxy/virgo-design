@@ -2,15 +2,16 @@
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, expect, it } from 'vitest';
 
+import { http } from '@/lib/http';
+import { handlers } from '@/mock/handlers';
+import { resetProfile } from '@/mock/handlers/profile';
+
 import {
   getProfileIdentity,
   getProfilePreferences,
   updateProfileIdentity,
   updateProfilePreferences,
-} from '@/api/profile';
-import { http } from '@/lib/http';
-import { handlers } from '@/mock/handlers';
-import { resetProfile } from '@/mock/handlers/profile';
+} from '..';
 
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));

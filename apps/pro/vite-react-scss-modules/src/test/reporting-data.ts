@@ -10,7 +10,6 @@ import { getProjectDistribution } from '@/api/projects';
 import { getTasks } from '@/api/tasks';
 import { getWorkspaceSummary } from '@/api/workspace';
 
-/** Integration assertions compare independent endpoints against the same persisted register. */
 export async function readAnalytics() {
   const [status, ownerCapacity, trendPoints, projectDelivery, activity] = await Promise.all([
     getTaskStatusSummary(),

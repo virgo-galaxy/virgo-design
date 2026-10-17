@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
+
 export type ResultStatus = 'success' | 'error' | 'warning' | 'info' | '403' | '404' | '500';
 export interface ResultProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** Outcome or exception status. */

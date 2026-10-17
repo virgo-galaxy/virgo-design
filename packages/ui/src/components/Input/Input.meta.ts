@@ -44,8 +44,6 @@ export const inputMetadata = {
   capabilities: {
     prefix: true,
     suffix: true,
-    leadingIcon: true,
-    trailingIcon: true,
     invalid: true,
     readOnly: true,
     clearable: true,

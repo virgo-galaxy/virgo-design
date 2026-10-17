@@ -13,6 +13,7 @@ export function DeliveryTrendPanel({ trendPoints }: { trendPoints: TrendPointDto
   const { t, i18n } = useTranslation();
   const analysis = deliveryAnalysis('14d', trendPoints);
   const { points } = analysis;
+
   return (
     <Panel
       className={styles.panel!}

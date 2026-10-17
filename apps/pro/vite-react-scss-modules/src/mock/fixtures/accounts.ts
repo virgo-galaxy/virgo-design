@@ -2,6 +2,7 @@ import adminAvatar from '@/assets/avatars/admin.svg';
 import type { SessionUser } from '@/contracts/auth';
 
 import { projectIds, users } from './team';
+
 export const demoPassword = 'virgo123';
 export const demoAccounts: SessionUser[] = [
   {

@@ -112,6 +112,8 @@ import { tooltipExamplesEnUS } from '@/examples/components/tooltip/locales/en-US
 import { tooltipExamplesZhCN } from '@/examples/components/tooltip/locales/zh-CN';
 import { treeExamplesEnUS } from '@/examples/components/tree/locales/en-US';
 import { treeExamplesZhCN } from '@/examples/components/tree/locales/zh-CN';
+import { chartsEnUS } from '@/features/charts/locales/en-US';
+import { chartsZhCN } from '@/features/charts/locales/zh-CN';
 import { colorStudioEnUS } from '@/features/color-studio/locales/en-US';
 import { colorStudioZhCN } from '@/features/color-studio/locales/zh-CN';
 import {
@@ -252,11 +254,7 @@ import { themesEnUS } from '@/pages/themes/locales/en-US';
 import { themesZhCN } from '@/pages/themes/locales/zh-CN';
 import { tokensEnUS } from '@/pages/tokens/locales/en-US';
 import { tokensZhCN } from '@/pages/tokens/locales/zh-CN';
-import { controlsEnUS } from '@/shared/locales/controls/en-US';
-import { controlsZhCN } from '@/shared/locales/controls/zh-CN';
 
-import { chartsEnUS } from '../features/charts/locales/en-US';
-import { chartsZhCN } from '../features/charts/locales/zh-CN';
 import type { LocaleOf } from './locale-types';
 
 export const enUS = {
@@ -264,7 +262,6 @@ export const enUS = {
   themeStyleControl: themeStyleControlEnUS,
   charts: chartsEnUS,
   icons: iconsEnUS,
-  shared: { controls: controlsEnUS },
   app: layoutEnUS,
   foundations: {
     ...foundationsEnUS,
@@ -411,7 +408,6 @@ export const zhCN = {
   themeStyleControl: themeStyleControlZhCN,
   charts: chartsZhCN,
   icons: iconsZhCN,
-  shared: { controls: controlsZhCN },
   app: layoutZhCN,
   foundations: {
     ...foundationsZhCN,

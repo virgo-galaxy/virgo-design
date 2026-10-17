@@ -12,6 +12,7 @@ export function Person({ id, size = 'md' }: { id: string; size?: AvatarSize }) {
 
   const { t, i18n } = useTranslation();
   const member = taskAssignees.find((person) => person.id === id);
+
   return (
     <span className={styles.person}>
       <Avatar

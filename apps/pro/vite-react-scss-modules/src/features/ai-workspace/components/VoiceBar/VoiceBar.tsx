@@ -12,9 +12,11 @@ export function VoiceBar({ enabled }: { enabled: boolean }) {
   const { t } = useTranslation();
   const voice = useVoiceRecorder(enabled);
   const audio = useRef<HTMLAudioElement>(null);
+
   useEffect(() => {
     if (!enabled) audio.current?.pause();
   }, [enabled]);
+
   return (
     <div>
       <Surface tone="elevated" border="default" radius={24} className={styles.bar}>

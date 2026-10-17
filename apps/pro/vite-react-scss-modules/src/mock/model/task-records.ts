@@ -9,8 +9,6 @@ import { taskReferenceDate } from '../fixtures/tasks';
 import { users } from '../fixtures/team';
 import type { DemoState, StoredNotification } from './state';
 
-// These are simulated AI assistance receipts, attributed to the person who performed
-// each task operation. They are never obtained by counting HTTP requests or deadlines.
 const rates: Record<TaskRecordKind, [number, number]> = {
   created: [1800, 600],
   assigned: [800, 200],
@@ -22,7 +20,9 @@ const rates: Record<TaskRecordKind, [number, number]> = {
   deleted: [400, 100],
   assisted: [6000, 2000],
 };
+
 export const recordKinds = Object.keys(rates) as TaskRecordKind[];
+
 function receipt(
   task: TaskDto,
   userId: string,
@@ -32,6 +32,7 @@ function receipt(
 ): TaskRecordDto {
   const [input, output] = rates[kind];
   const factor = Math.max(1, task.estimateHours / 4);
+
   return {
     id,
     taskId: task.id,
@@ -45,6 +46,7 @@ function receipt(
     outputTokens: Math.round(output * factor),
   };
 }
+
 export function seedTaskRecords(tasks: readonly TaskDto[]): TaskRecordDto[] {
   return tasks.flatMap((task) => {
     const manager = projects.find((project) => project.id === task.project)!.owner;
@@ -59,6 +61,7 @@ export function seedTaskRecords(tasks: readonly TaskDto[]): TaskRecordDto[] {
       records.push(receipt(task, task.assignee, 'submitted', at(0.8), `seed-${task.id}-submitted`));
     if (task.status === 'done')
       records.push(receipt(task, manager, 'approved', at(1), `seed-${task.id}-approved`));
+
     if (task.assignee) {
       const sessions = 8 + task.estimateHours;
       const phase = ['done', 'in_review'].includes(task.status) ? 0.75 : 0.95;
@@ -78,9 +81,11 @@ export function seedTaskRecords(tasks: readonly TaskDto[]): TaskRecordDto[] {
         });
       }
     }
+
     return records;
   });
 }
+
 function notificationFor(
   record: TaskRecordDto,
   task: TaskDto,
@@ -89,7 +94,9 @@ function notificationFor(
   const recipientId = ['started', 'submitted'].includes(kind)
     ? projects.find((project) => project.id === task.project)?.owner
     : task.assignee;
+
   if (!recipientId || recipientId === record.userId) return undefined;
+
   return {
     id: `notice-${record.id}`,
     recipientId,
@@ -102,6 +109,7 @@ function notificationFor(
     readAt: null,
   };
 }
+
 export function seedNotifications(
   tasks: readonly TaskDto[],
   records: readonly TaskRecordDto[],
@@ -119,6 +127,7 @@ export function seedNotifications(
       readAt: null,
     },
   ];
+
   for (const record of records) {
     const task = tasks.find((task) => task.id === record.taskId)!;
     const notification = notificationFor(
@@ -126,6 +135,7 @@ export function seedNotifications(
       task,
       record.kind === 'created' && task.status === 'todo' ? 'ready' : record.kind,
     );
+
     if (notification) {
       const waiting =
         (record.kind === 'submitted' && task.status === 'in_review') ||
@@ -133,8 +143,23 @@ export function seedNotifications(
       result.push({ ...notification, readAt: waiting ? null : record.recordedAt });
     }
   }
+
   return result;
 }
+function taskRecordKind(before: TaskDto | undefined, task: TaskDto, deleted: boolean): TaskRecordKind {
+  if (deleted) return 'deleted';
+  if (!before) return 'created';
+  if (before.assignee !== task.assignee) return 'assigned';
+  if (before.status === task.status) return 'updated';
+
+  if (task.status === 'done') return 'approved';
+  if (task.status === 'in_review') return 'submitted';
+  if (before.status === 'in_review') return 'returned';
+  if (task.status === 'in_progress') return 'started';
+
+  return 'updated';
+}
+
 export function appendTaskRecord(
   state: DemoState,
   before: TaskDto | undefined,
@@ -156,24 +181,10 @@ export function appendTaskRecord(
       'estimateHours',
       'dueDate',
     ].some((key) => before[key as keyof TaskDto] !== task[key as keyof TaskDto]);
+
   if (!changed) return state;
-  const kind: TaskRecordKind = deleted
-    ? 'deleted'
-    : !before
-      ? 'created'
-      : before.assignee !== task.assignee
-        ? 'assigned'
-        : before.status !== task.status
-          ? task.status === 'done'
-            ? 'approved'
-            : task.status === 'in_review'
-              ? 'submitted'
-              : before.status === 'in_review'
-                ? 'returned'
-                : task.status === 'in_progress'
-                  ? 'started'
-                  : 'updated'
-          : 'updated';
+
+  const kind = taskRecordKind(before, task, deleted);
   const record = receipt(
     task,
     user.id,
@@ -186,6 +197,7 @@ export function appendTaskRecord(
     task,
     before?.status === 'backlog' && task.status === 'todo' ? 'ready' : kind,
   );
+
   return {
     ...state,
     records: [
@@ -195,6 +207,7 @@ export function appendTaskRecord(
     notifications: notification ? [...state.notifications, notification] : state.notifications,
   };
 }
+
 export function visibleRecords(
   records: readonly TaskRecordDto[],
   user: SessionUser,
@@ -207,8 +220,10 @@ export function visibleRecords(
         : record.userId === user.id),
   );
 }
+
 export function dailyTokenUsage(records: readonly TaskRecordDto[]): TokenUsageDayDto[] {
   const days = new Map<string, TokenUsageDayDto>();
+
   for (const record of records) {
     const date = record.recordedAt.slice(0, 10);
     const entry = days.get(date) ?? { date, inputTokens: 0, outputTokens: 0 };
@@ -216,8 +231,10 @@ export function dailyTokenUsage(records: readonly TaskRecordDto[]): TokenUsageDa
     entry.outputTokens += record.outputTokens;
     days.set(date, entry);
   }
+
   return [...days.values()].sort((a, b) => a.date.localeCompare(b.date));
 }
+
 export function reportingDate(records: readonly TaskRecordDto[]) {
   return records.reduce(
     (date, record) =>
@@ -225,14 +242,17 @@ export function reportingDate(records: readonly TaskRecordDto[]) {
     taskReferenceDate,
   );
 }
+
 export function reportingYears(records: readonly TaskRecordDto[], date: string) {
   const start = Math.min(
     Number(date.slice(0, 4)) - 1,
     ...projects.map((project) => Number(project.start.slice(0, 4))),
     ...records.map((record) => Number(record.recordedAt.slice(0, 4))),
   );
+
   return Array.from({ length: Number(date.slice(0, 4)) - start + 1 }, (_, index) => start + index);
 }
+
 export function currentInbox(state: DemoState, user: SessionUser) {
   const items = state.notifications
     .filter((item) => item.recipientId === user.id)
@@ -244,7 +264,9 @@ export function currentInbox(state: DemoState, user: SessionUser) {
         state.tasks.some((task) => task.id === item.taskId && canViewTask(user, task)),
     }))
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt) || b.id.localeCompare(a.id));
+
   return { items, unreadCount: items.filter((item) => !item.readAt).length };
 }
+
 export const validRecordPerson = (id: string) =>
   id === 'admin' || users.some((user) => user.id === id);

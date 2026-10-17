@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
+import type { TaskSort } from '../../model/sort';
 import type {
   TaskColumnSettings,
   TaskDataColumn,
   TaskTableSettings,
-} from '../../config/table-settings';
-import type { TaskSort } from '../../model/sort';
+} from '../../model/table-settings';
 import type { Task } from '../../model/task';
 import { TaskTable } from '../TaskTable/TaskTable';
 
@@ -26,11 +26,13 @@ export function TaskColumnPreview({
   const [filters, setFilters] = useState<Partial<Record<TaskDataColumn, string[]>>>({});
   const [search, setSearch] = useState<Partial<Record<TaskDataColumn, string>>>({});
   const [selection, setSelection] = useState<readonly string[]>([]);
+
   const currentSort =
     !column.controls.sort.enabled ||
     (column.controls.sort.mode !== 'both' && sort?.direction !== column.controls.sort.mode)
       ? null
       : sort;
+
   return (
     <TaskTable
       presentation="column-preview"

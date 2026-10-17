@@ -22,6 +22,7 @@ import {
 import styles from './TokenUsageHeatmap.module.scss';
 
 type UsageDay = ReturnType<typeof buildTokenUsageCalendar>['days'][number];
+
 const TokenUsageCell = memo(function TokenUsageCell({
   day,
   level,
@@ -101,6 +102,7 @@ function TokenUsageHeatmapView({
     [referenceDate, tokenUsage, reportYear],
   );
   const usageLevel = useMemo(() => tokenUsageScale(days.map((day) => day.tokens)), [days]);
+
   const [selectedDate, setSelectedDate] = useState(referenceDate);
   const focusedDate = selectedDate.startsWith(String(year))
     ? selectedDate
@@ -109,7 +111,9 @@ function TokenUsageHeatmapView({
       : `${year}-01-01`;
   const [inspectedDate, setInspectedDate] = useState<string | null>(null);
   const dayButtons = useRef(new Map<string, HTMLButtonElement>());
+
   const lastRecordedIndex = days.filter((day) => !day.future).length - 1;
+
   const navigateDay = useCallback(
     (key: string, index: number) => {
       const step = { ArrowLeft: -7, ArrowRight: 7, ArrowUp: -1, ArrowDown: 1 }[key];
@@ -121,16 +125,21 @@ function TokenUsageHeatmapView({
             : step !== undefined
               ? Math.max(0, Math.min(lastRecordedIndex, index + step))
               : null;
+
       if (next === null) return false;
+
       dayButtons.current.get(days[next]!.date)?.focus();
+
       return true;
     },
     [days, lastRecordedIndex],
   );
+
   const activeDays = days.filter((day) => day.tokens > 0).length;
   const total = days.reduce((sum, day) => sum + day.tokens, 0);
   const monthName = new Intl.DateTimeFormat(i18n.language, { month: 'short', timeZone: 'UTC' });
   const weekdayName = new Intl.DateTimeFormat(i18n.language, { weekday: 'short', timeZone: 'UTC' });
+
   const dayLabels = useMemo(() => {
     const fullDate = new Intl.DateTimeFormat(i18n.language, { dateStyle: 'long', timeZone: 'UTC' });
     const shortDate = new Intl.DateTimeFormat(i18n.language, {
@@ -139,6 +148,7 @@ function TokenUsageHeatmapView({
       timeZone: 'UTC',
     });
     const exactCount = new Intl.NumberFormat(i18n.language);
+
     return new Map(
       days.map((day) => [
         day.date,
@@ -156,6 +166,7 @@ function TokenUsageHeatmapView({
       ]),
     );
   }, [days, i18n.language, t]);
+
   const dayLabel = (day: UsageDay) => dayLabels.get(day.date)!.label;
   const inspected = days.find((day) => day.date === inspectedDate);
   const months = days.filter((day) => day.date.endsWith('-01'));
@@ -261,6 +272,7 @@ export function TokenUsageHeatmap(props: {
   onYearChange: (year: number) => void;
 }) {
   const resource = useTokenUsageResource();
+
   return (
     <ResourceContent resource={resource}>
       {(report) => (

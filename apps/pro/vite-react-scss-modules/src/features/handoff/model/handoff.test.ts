@@ -4,14 +4,8 @@ import { projects } from '@/mock/fixtures/projects';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { sampleError } from '@/mock/fixtures/workflows';
 
-import {
-  handoffFromReceipt,
-  initialHandoff,
-  reconcileScope,
-  scopeGroups,
-  scopeTreeValues,
-  validateHandoff,
-} from './handoff';
+import { handoffFromReceipt, initialHandoff } from './handoff';
+import { reconcileScope, scopeGroups, scopeTreeValues, validateHandoff } from './handoff';
 
 const tasks = initialTaskState.tasks;
 const completeHandoff = {

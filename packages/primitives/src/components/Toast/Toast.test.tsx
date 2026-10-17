@@ -19,6 +19,30 @@ function Example({ duration = 0, onOpenChange = vi.fn() }) {
 }
 
 describe('Toast primitive', () => {
+  it('keeps accessible relationships synchronized with custom title and description IDs', () => {
+    const notification = (titleId: string, descriptionId: string) => (
+      <Toast.Provider>
+        <Toast.Root duration={0}>
+          <Toast.Title id={titleId}>Saved</Toast.Title>
+          <Toast.Description id={descriptionId}>Your changes are ready.</Toast.Description>
+        </Toast.Root>
+        <Toast.Viewport />
+      </Toast.Provider>
+    );
+    const { rerender } = render(notification('save-title', 'save-description'));
+    const toast = screen.getByRole('status', { name: 'Saved' });
+
+    expect(toast).toHaveAccessibleDescription('Your changes are ready.');
+    expect(toast).toHaveAttribute('aria-labelledby', 'save-title');
+
+    rerender(notification('updated-title', 'updated-description'));
+
+    expect(toast).toHaveAccessibleName('Saved');
+    expect(toast).toHaveAccessibleDescription('Your changes are ready.');
+    expect(toast).toHaveAttribute('aria-labelledby', 'updated-title');
+    expect(toast).toHaveAttribute('aria-describedby', 'updated-description');
+  });
+
   it('keeps the default viewport inline', () => {
     const { container } = render(<Example />);
     expect(container).toContainElement(screen.getByRole('region'));

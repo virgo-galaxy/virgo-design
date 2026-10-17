@@ -10,6 +10,7 @@ import type {
   TimelineTimeProps,
   TimelineTitleProps,
 } from './Timeline.types';
+
 export const Timeline = forwardRef<HTMLOListElement, TimelineProps>(function Timeline(
   { size = 'medium', className, ...props },
   ref,
@@ -23,6 +24,7 @@ export const Timeline = forwardRef<HTMLOListElement, TimelineProps>(function Tim
     />
   );
 });
+
 export const TimelineItem = forwardRef<HTMLLIElement, TimelineItemProps>(function Item(
   { status = 'pending', className, ...props },
   ref,
@@ -36,6 +38,7 @@ export const TimelineItem = forwardRef<HTMLLIElement, TimelineItemProps>(functio
     />
   );
 });
+
 export const TimelineTitle = forwardRef<HTMLHeadingElement, TimelineTitleProps>(function Title(
   { className, ...props },
   ref,
@@ -48,6 +51,7 @@ export const TimelineTitle = forwardRef<HTMLHeadingElement, TimelineTitleProps>(
     />
   );
 });
+
 export const TimelineDescription = forwardRef<HTMLDivElement, TimelineDescriptionProps>(
   function Description({ className, ...props }, ref) {
     return (
@@ -59,6 +63,7 @@ export const TimelineDescription = forwardRef<HTMLDivElement, TimelineDescriptio
     );
   },
 );
+
 export const TimelineTime = forwardRef<HTMLTimeElement, TimelineTimeProps>(function Time(
   { className, ...props },
   ref,
@@ -71,6 +76,7 @@ export const TimelineTime = forwardRef<HTMLTimeElement, TimelineTimeProps>(funct
     />
   );
 });
+
 export const TimelineIndicator = forwardRef<HTMLSpanElement, TimelineIndicatorProps>(
   function Indicator({ className, ...props }, ref) {
     return (

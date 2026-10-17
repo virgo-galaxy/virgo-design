@@ -91,9 +91,7 @@ export const tableApiZhCN = {
     'table-sort-button-props.properties.on-direction-change.description':
       '请求下一个排序方向：未排序 → 升序 → 降序 → 未排序。',
     'table-props.properties.density.description':
-      '统一控制单元格内边距及表头、数据行的最小高度，优先于 size。',
-    'table-props.properties.size.description':
-      '兼容旧的密度别名：small = compact、medium = default、large = comfortable。建议使用 density。',
+      '统一控制单元格内边距及表头、数据行的最小高度。',
     'table-props.properties.border.description':
       '边框样式。separators 仅分隔相邻行，不绘制外边缘。',
     'table-props.properties.striped.description': '交替显示表格主体行的背景。',

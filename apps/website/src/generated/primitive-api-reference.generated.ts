@@ -5405,8 +5405,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Current resolved display state.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.layout.api.layout-sidebar-state.properties.state.description',
+            descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-state.properties.state.description',
           },
           {
             name: 'setState',
@@ -5415,8 +5414,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Requests a display-state change.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.layout.api.layout-sidebar-state.properties.set-state.description',
+            descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-state.properties.set-state.description',
           },
           {
             name: 'collapsed',
@@ -5425,18 +5423,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.layout.api.layout-sidebar-state.properties.collapsed.description',
-          },
-          {
-            name: 'setCollapsed',
-            type: '(collapsed: boolean) => void',
-            required: true,
-            defaultValue: '',
-            description: '',
-            source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.layout.api.layout-sidebar-state.properties.set-collapsed.description',
+            descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-state.properties.collapsed.description',
           },
         ],
         descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-state.description',
@@ -5519,61 +5506,27 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             type: 'LayoutSidebarDisplayState',
             required: false,
             defaultValue: '',
-            description: 'Three-state control. Takes precedence over legacy collapsed.',
+            description: 'Controlled display state.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.layout.api.layout-sidebar-props.properties.state.description',
+            descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-props.properties.state.description',
           },
           {
             name: 'defaultState',
             type: 'LayoutSidebarDisplayState',
             required: false,
-            defaultValue: '',
-            description: 'Initial uncontrolled state. Takes precedence over defaultCollapsed.',
+            defaultValue: "'expanded'",
+            description: 'Initial uncontrolled display state.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.layout.api.layout-sidebar-props.properties.default-state.description',
+            descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-props.properties.default-state.description',
           },
           {
             name: 'onStateChange',
             type: '(state: LayoutSidebarDisplayState) => void',
             required: false,
             defaultValue: '',
-            description:
-              'Called when the standalone Sidebar requests a state change. Place state control on SidebarProvider when using a shared scope.',
+            description: 'Called when the standalone Sidebar requests a state change. Place state control on SidebarProvider when using a shared scope.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.layout.api.layout-sidebar-props.properties.on-state-change.description',
-          },
-          {
-            name: 'collapsed',
-            type: 'boolean',
-            required: false,
-            defaultValue: '',
-            description: '',
-            source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.layout.api.layout-sidebar-props.properties.collapsed.description',
-          },
-          {
-            name: 'defaultCollapsed',
-            type: 'boolean',
-            required: false,
-            defaultValue: '',
-            description: '',
-            source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.layout.api.layout-sidebar-props.properties.default-collapsed.description',
-          },
-          {
-            name: 'onCollapsedChange',
-            type: '(collapsed: boolean) => void',
-            required: false,
-            defaultValue: '',
-            description: '',
-            source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.layout.api.layout-sidebar-props.properties.on-collapsed-change.description',
+            descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-props.properties.on-state-change.description',
           },
           {
             name: 'children',
@@ -5582,8 +5535,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.layout.api.layout-sidebar-props.properties.children.description',
+            descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-props.properties.children.description',
           },
         ],
         descriptionTranslationKey: 'primitives.layout.api.layout-sidebar-props.description',
@@ -6942,10 +6894,38 @@ export const primitiveApiReference: ApiReferenceRegistry = {
     packageName: '@virgo-design/primitives',
     declarations: [
       {
+        name: 'SelectState',
+        kind: 'type',
+        signature: '| { readonly multiple: false; readonly value: string | undefined } | { readonly multiple: true; readonly value: readonly string[] }',
+        description: '',
+        source: '@virgo-design/primitives',
+        reExported: false,
+        properties: [
+          {
+            name: 'multiple',
+            type: 'boolean',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey: 'primitives.select.api.select-state.properties.multiple.description',
+          },
+          {
+            name: 'value',
+            type: 'string | readonly string[]',
+            required: true,
+            defaultValue: '',
+            description: '',
+            source: '@virgo-design/primitives',
+            descriptionTranslationKey: 'primitives.select.api.select-state.properties.value.description',
+          },
+        ],
+        descriptionTranslationKey: 'primitives.select.api.select-state.description',
+      },
+      {
         name: 'SelectProps',
         kind: 'interface',
-        signature:
-          "extends Omit< HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'id' | 'onChange' >",
+        signature: "extends Omit< HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'id' | 'onChange' >",
         description: '',
         source: '@virgo-design/primitives',
         reExported: false,
@@ -6957,8 +6937,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-props.properties.children.description',
+            descriptionTranslationKey: 'primitives.select.api.select-props.properties.children.description',
           },
           {
             name: 'id',
@@ -6967,8 +6946,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Identifier applied to the interactive trigger.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-props.properties.id.description',
+            descriptionTranslationKey: 'primitives.select.api.select-props.properties.id.description',
           },
           {
             name: 'value',
@@ -6977,8 +6955,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-props.properties.value.description',
+            descriptionTranslationKey: 'primitives.select.api.select-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -6987,8 +6964,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-props.properties.default-value.description',
+            descriptionTranslationKey: 'primitives.select.api.select-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -6997,8 +6973,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-props.properties.on-value-change.description',
+            descriptionTranslationKey: 'primitives.select.api.select-props.properties.on-value-change.description',
           },
           {
             name: 'open',
@@ -7007,8 +6982,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-props.properties.open.description',
+            descriptionTranslationKey: 'primitives.select.api.select-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -7017,8 +6991,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-props.properties.default-open.description',
+            descriptionTranslationKey: 'primitives.select.api.select-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -7027,8 +7000,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-props.properties.on-open-change.description',
+            descriptionTranslationKey: 'primitives.select.api.select-props.properties.on-open-change.description',
           },
           {
             name: 'disabled',
@@ -7037,8 +7009,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-props.properties.disabled.description',
+            descriptionTranslationKey: 'primitives.select.api.select-props.properties.disabled.description',
           },
           {
             name: 'readOnly',
@@ -7047,8 +7018,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Prevents opening or changing selection while remaining focusable.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-props.properties.read-only.description',
+            descriptionTranslationKey: 'primitives.select.api.select-props.properties.read-only.description',
           },
           {
             name: 'name',
@@ -7057,8 +7027,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-props.properties.name.description',
+            descriptionTranslationKey: 'primitives.select.api.select-props.properties.name.description',
           },
         ],
         descriptionTranslationKey: 'primitives.select.api.select-props.description',
@@ -7088,8 +7057,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Controlled selected values; an empty array means no selection.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-multiple-props.properties.value.description',
+            descriptionTranslationKey: 'primitives.select.api.select-multiple-props.properties.value.description',
           },
           {
             name: 'defaultValue',
@@ -7098,8 +7066,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Initially selected values.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-multiple-props.properties.default-value.description',
+            descriptionTranslationKey: 'primitives.select.api.select-multiple-props.properties.default-value.description',
           },
           {
             name: 'onValueChange',
@@ -7108,8 +7075,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Called when an option is toggled or a selected value is removed.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-multiple-props.properties.on-value-change.description',
+            descriptionTranslationKey: 'primitives.select.api.select-multiple-props.properties.on-value-change.description',
           },
           {
             name: 'id',
@@ -7118,8 +7084,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Identifier applied to the interactive trigger.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-multiple-props.properties.id.description',
+            descriptionTranslationKey: 'primitives.select.api.select-multiple-props.properties.id.description',
           },
           {
             name: 'children',
@@ -7128,8 +7093,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-multiple-props.properties.children.description',
+            descriptionTranslationKey: 'primitives.select.api.select-multiple-props.properties.children.description',
           },
           {
             name: 'disabled',
@@ -7138,8 +7102,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-multiple-props.properties.disabled.description',
+            descriptionTranslationKey: 'primitives.select.api.select-multiple-props.properties.disabled.description',
           },
           {
             name: 'name',
@@ -7148,8 +7111,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-multiple-props.properties.name.description',
+            descriptionTranslationKey: 'primitives.select.api.select-multiple-props.properties.name.description',
           },
           {
             name: 'readOnly',
@@ -7158,8 +7120,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Prevents opening or changing selection while remaining focusable.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-multiple-props.properties.read-only.description',
+            descriptionTranslationKey: 'primitives.select.api.select-multiple-props.properties.read-only.description',
           },
           {
             name: 'open',
@@ -7168,8 +7129,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-multiple-props.properties.open.description',
+            descriptionTranslationKey: 'primitives.select.api.select-multiple-props.properties.open.description',
           },
           {
             name: 'defaultOpen',
@@ -7178,8 +7138,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-multiple-props.properties.default-open.description',
+            descriptionTranslationKey: 'primitives.select.api.select-multiple-props.properties.default-open.description',
           },
           {
             name: 'onOpenChange',
@@ -7188,8 +7147,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-multiple-props.properties.on-open-change.description',
+            descriptionTranslationKey: 'primitives.select.api.select-multiple-props.properties.on-open-change.description',
           },
         ],
         descriptionTranslationKey: 'primitives.select.api.select-multiple-props.description',
@@ -7209,8 +7167,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Selected value to remove; returns focus to the trigger.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-remove-props.properties.value.description',
+            descriptionTranslationKey: 'primitives.select.api.select-remove-props.properties.value.description',
           },
         ],
         descriptionTranslationKey: 'primitives.select.api.select-remove-props.description',
@@ -7230,8 +7187,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: 'Preferred placement; flips and shifts at viewport boundaries.',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-content-props.properties.placement.description',
+            descriptionTranslationKey: 'primitives.select.api.select-content-props.properties.placement.description',
           },
           {
             name: 'offset',
@@ -7240,8 +7196,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-content-props.properties.offset.description',
+            descriptionTranslationKey: 'primitives.select.api.select-content-props.properties.offset.description',
           },
         ],
         descriptionTranslationKey: 'primitives.select.api.select-content-props.description',
@@ -7261,8 +7216,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-option-props.properties.value.description',
+            descriptionTranslationKey: 'primitives.select.api.select-option-props.properties.value.description',
           },
           {
             name: 'disabled',
@@ -7271,8 +7225,7 @@ export const primitiveApiReference: ApiReferenceRegistry = {
             defaultValue: '',
             description: '',
             source: '@virgo-design/primitives',
-            descriptionTranslationKey:
-              'primitives.select.api.select-option-props.properties.disabled.description',
+            descriptionTranslationKey: 'primitives.select.api.select-option-props.properties.disabled.description',
           },
         ],
         descriptionTranslationKey: 'primitives.select.api.select-option-props.description',

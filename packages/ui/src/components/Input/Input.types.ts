@@ -49,12 +49,6 @@ export interface InputProps extends Omit<PrimitiveInputProps, 'prefix' | 'size'>
   /** Reverses numeric arrow actions: up decreases and down increases, including held buttons and keyboard arrows. @default false */
   stepperReverse?: boolean;
 
-  /** @deprecated Use prefix instead. */
-  leadingIcon?: ReactNode;
-
-  /** @deprecated Use suffix instead. */
-  trailingIcon?: ReactNode;
-
   /**
    * Applies the invalid visual treatment and sets aria-invalid when true.
    *

@@ -4,6 +4,7 @@
 @use '../../internal/form/control-hover';
 @use '../../internal/form/option-highlight';
 @use '../../internal/overlay/panel';
+
 .root {
   position: relative;
   min-width: 0;
@@ -22,6 +23,7 @@
     @include control-size.variables(combobox, large);
   }
 }
+
 .input {
   box-shadow: var(--vd-control-shadow, none);
   box-sizing: border-box;
@@ -54,6 +56,7 @@
     background: var(--vd-surface-secondary);
   }
 }
+
 .content {
   @include panel.surface;
   @include option-highlight.viewport;
@@ -64,6 +67,7 @@
     display: none;
   }
 }
+
 .option {
   display: flex;
   align-items: center;
@@ -89,12 +93,15 @@
     display: none;
   }
 }
+
 .content[data-size='small'] .option {
   min-height: var(--vd-sizing-28);
 }
+
 .content[data-size='large'] .option {
   min-height: var(--vd-sizing-44);
 }
+
 .empty {
   padding: var(--vd-spacing-12);
   color: var(--vd-text-secondary);
@@ -102,17 +109,20 @@
     display: none;
   }
 }
+
 .group {
   @include option-highlight.viewport;
   &[hidden] {
     display: none;
   }
 }
+
 .group > :first-child {
   padding: var(--vd-spacing-6) var(--vd-spacing-8);
   color: var(--vd-text-secondary);
   font-size: var(--vd-typography-ui-body-small-font-size);
 }
+
 .clear {
   @include clear-control.surface;
   position: absolute;
@@ -149,23 +159,29 @@
   background: var(--vd-surface-default);
   @include control-hover.transition;
 }
+
 .root:hover:not([data-disabled='true']) > .inputFrame:not(:has(:disabled)):not(:focus-within) {
   border-color: var(--combobox-border-hover);
   @include control-hover.surface;
 }
+
 .inputFrame:focus-within:not(:has(:disabled)) {
   @include control-focus.surface(var(--combobox-border-focus));
 }
+
 .inputFrame:has([aria-invalid='true']) {
   border-color: var(--vd-status-danger-accent);
 }
+
 .inputFrame:has(:disabled) {
   background: var(--vd-fill-disabled);
   color: var(--vd-text-disabled);
 }
+
 .inputFrame:has(input[readonly]):not(:has(:disabled)) {
   background: var(--vd-surface-secondary);
 }
+
 .inputFrame .input {
   flex: 1;
   width: 0;
@@ -175,14 +191,17 @@
   background: transparent;
   padding-inline-start: var(--vd-spacing-12);
 }
+
 .inputFrame:has(.prefix) .input {
   padding-inline-start: var(--vd-spacing-8);
 }
+
 .inputFrame .input:focus:not(:disabled) {
   outline: none;
   box-shadow: none;
   background: transparent;
 }
+
 .prefix {
   display: inline-flex;
   flex: none;
@@ -191,6 +210,7 @@
   padding-inline-start: var(--vd-spacing-12);
   color: var(--vd-icon-secondary);
 }
+
 .prefix > svg {
   width: var(--vd-sizing-16);
   height: var(--vd-sizing-16);

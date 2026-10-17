@@ -6,6 +6,7 @@ import { menuUIParts } from '../../internal/menu/parts';
 import { Button } from '../Button';
 import styles from './Menubar.module.scss';
 import type { MenubarProps, MenubarTriggerProps } from './Menubar.types';
+
 const Root = forwardRef<HTMLDivElement, MenubarProps>(function MenubarRoot(
   { size = 'medium', className, ...props },
   ref,
@@ -16,6 +17,7 @@ const Root = forwardRef<HTMLDivElement, MenubarProps>(function MenubarRoot(
     </MenuSizeContext.Provider>
   );
 });
+
 const Trigger = forwardRef<HTMLButtonElement, MenubarTriggerProps>(function MenubarTrigger(
   { render, className, ...props },
   ref,
@@ -42,6 +44,7 @@ const Trigger = forwardRef<HTMLButtonElement, MenubarTriggerProps>(function Menu
     />
   );
 });
+
 export const Menubar = Object.assign(Root, {
   Root,
   Menu: PrimitiveMenubar.Menu,

@@ -1,6 +1,5 @@
 import { MoonFilledIcon, SearchIcon, SunFilledIcon, VirgoDesignIcon } from '@virgo-design/icons';
 import virgoDesignLogo from '@virgo-design/icons/brands/virgo-design.svg';
-import { iconComponents } from '@virgo-design/icons/registry';
 import {
   Badge,
   Breadcrumb,
@@ -24,11 +23,10 @@ import { AiWorkspace } from '@/features/ai-workspace';
 import { useCurrentUser, useSession } from '@/features/auth';
 import { NotificationControl } from '@/features/notifications';
 import { useProfileIdentityResource } from '@/features/profile';
-import { getFixedHeaderMaterial, sidebarWidthRanges, useProSettings } from '@/features/settings';
-import { SettingsDrawer, SettingsTrigger } from '@/features/settings/view';
+import { SettingsDrawer, SettingsTrigger } from '@/features/settings';
 import { isAdmin } from '@/lib/auth/permissions';
-import { useThemeStyle } from '@/lib/theme/use-theme-style';
-import { proRouteConfig, proRouting } from '@/routes';
+import { getFixedHeaderMaterial, sidebarWidthRanges, useAppPreferences } from '@/preferences';
+import { proRouteConfig, proRouting, routeIcons } from '@/routes';
 
 import { AccountMenu } from '../account-menu/AccountMenu';
 import { SidebarNavigation } from '../navigation/SidebarNavigation';
@@ -36,6 +34,7 @@ import styles from './AppShell.module.scss';
 
 function HeaderSearch() {
   const { t } = useTranslation();
+
   return (
     <Input
       rootClassName={styles.search!}
@@ -65,6 +64,7 @@ export function AppShell({
     avatarColor: '#165dff',
     avatarImage: user!.avatarUrl ?? '',
   };
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const currentPage = proRouting.match(pathname);
@@ -72,26 +72,43 @@ export function AppShell({
     ? { ...currentPage.group, label: t(currentPage.group.labelKey) }
     : undefined;
   const currentPageLabel = currentPage ? t(currentPage.labelKey) : t('app.pageNotFound');
-  const CurrentGroupIcon = currentGroup ? iconComponents[currentGroup.icon] : undefined;
-  const CurrentPageIcon = currentPage?.icon ? iconComponents[currentPage.icon] : undefined;
-  const { settings, setSettings, updateSettings, resetSettings, theme, storageAvailable } =
-    useProSettings(admin);
-  const { theme: themeStyle } = useThemeStyle();
-  const headerMaterial = getFixedHeaderMaterial(themeStyle) ?? settings.headerMaterial;
-  const { sidebarState, sidebarWidth } = settings;
-  const setSidebarState = useCallback(
-    (sidebarState: LayoutSidebarDisplayState) => updateSettings({ sidebarState }),
-    [updateSettings],
-  );
+  const CurrentGroupIcon = currentGroup ? routeIcons[currentGroup.icon] : undefined;
+  const CurrentPageIcon = currentPage?.icon ? routeIcons[currentPage.icon] : undefined;
+
+  const {
+    preferences: settings,
+    updatePreferences: updateSettings,
+    resetPreferences: resetSettings,
+    appearance: theme,
+    storageAvailable,
+  } = useAppPreferences(admin);
+
+  const headerMaterial = getFixedHeaderMaterial(settings.theme) ?? settings.headerMaterial;
+  const { sidebarWidth } = settings;
+  const [sidebarOverride, setSidebarOverride] = useState<LayoutSidebarDisplayState | null>(null);
   const setSidebarWidth = useCallback(
     (sidebarWidth: number) => updateSettings({ sidebarWidth }),
     [updateSettings],
   );
+
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [settingsTooltipOpen, setSettingsTooltipOpen] = useState(false);
   const [settingsAnchorY, setSettingsAnchorY] = useState(58);
   const [navigationTooltipOpen, setNavigationTooltipOpen] = useState(false);
   const [narrow, setNarrow] = useState(() => window.matchMedia('(max-width: 1080px)').matches);
+
+  const sidebarState =
+    settings.sidebarState === 'hidden'
+      ? 'hidden'
+      : (sidebarOverride ?? (narrow ? 'collapsed' : settings.sidebarState));
+  const setSidebarState = useCallback(
+    (sidebarState: LayoutSidebarDisplayState) => {
+      if (admin && !narrow) updateSettings({ sidebarState });
+      else setSidebarOverride(sidebarState);
+    },
+    [admin, narrow, updateSettings],
+  );
+
   const navigationToggle = useRef<HTMLButtonElement>(null);
   const settingsTrigger = useRef<HTMLButtonElement>(null);
   const restoringSettingsFocus = useRef(false);
@@ -101,23 +118,17 @@ export function AppShell({
   useEffect(() => {
     const media = window.matchMedia('(max-width: 1080px)');
     const update = () => setNarrow(media.matches);
+
     media.addEventListener('change', update);
+
     return () => media.removeEventListener('change', update);
   }, []);
 
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.style.colorScheme = theme;
-  }, [theme]);
+  const mobilePath = narrow ? pathname : null;
 
   useEffect(() => {
-    if (narrow)
-      setSettings((current) =>
-        current.sidebarState === 'hidden' || current.sidebarState === 'collapsed'
-          ? current
-          : { ...current, sidebarState: 'collapsed', sidebarMode: 'collapsed' },
-      );
-  }, [pathname, narrow, setSettings]);
+    setSidebarOverride(null);
+  }, [mobilePath]);
 
   useEffect(() => {
     document.title = t('app.valueVirgoDesignPro', { v0: currentPageLabel });
@@ -225,6 +236,7 @@ export function AppShell({
                             }
                             onClick={(event) => {
                               props.onClick?.(event);
+
                               if (!event.defaultPrevented) {
                                 if (sidebarState === 'hidden') {
                                   setSidebarWidth(224);
@@ -270,6 +282,7 @@ export function AppShell({
                             aria-label={theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
                             onClick={(event) => {
                               props.onClick?.(event);
+
                               if (!event.defaultPrevented)
                                 updateSettings({
                                   appearance: theme === 'light' ? 'dark' : 'light',
@@ -319,7 +332,6 @@ export function AppShell({
                   onWidthChange={setSidebarWidth}
                   collapsedWidth={settings.sidebarRailWidth}
                   collapsible
-                  collapseBelow={1080}
                   surface={{
                     tone: 'default',
                     border: 'none',
@@ -452,6 +464,7 @@ export function AppShell({
               onResetDemo={resetDemo}
               onHeaderChange={(showHeader, anchorY) => {
                 updateSettings({ showHeader });
+
                 if (!showHeader) {
                   restoringSettingsFocus.current = true;
                   settingsTooltipSuppressed.current = true;
@@ -462,7 +475,6 @@ export function AppShell({
               }}
               onCloseAutoFocus={(event) => {
                 event.preventDefault();
-                // Wait for modal isolation to release before focusing the surviving gear.
                 queueMicrotask(() => {
                   restoringSettingsFocus.current = true;
                   settingsTrigger.current?.focus({ preventScroll: true });

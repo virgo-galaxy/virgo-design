@@ -1,6 +1,7 @@
 import { ColorPicker as PrimitiveColorPicker } from '@virgo-design/primitives';
 import { createContext, forwardRef, useContext, useState } from 'react';
 
+import { useLocale } from '../../locale/context/locale-context';
 import { Select } from '../Select';
 import styles from './ColorPicker.module.scss';
 import type {
@@ -19,7 +20,9 @@ import type {
   ColorPickerTriggerProps,
   ColorPickerValueProps,
 } from './ColorPicker.types';
+
 const SizeContext = createContext<NonNullable<ColorPickerProps['size']>>('medium');
+
 export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(function ColorPicker(
   { size = 'medium', className, ...props },
   ref,
@@ -35,6 +38,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(function
     </SizeContext.Provider>
   );
 });
+
 export const ColorPickerInput = forwardRef<HTMLInputElement, ColorPickerInputProps>(function Input(
   { className, ...props },
   ref,
@@ -48,6 +52,7 @@ export const ColorPickerInput = forwardRef<HTMLInputElement, ColorPickerInputPro
     />
   );
 });
+
 export const ColorPickerSwatch = forwardRef<HTMLButtonElement, ColorPickerSwatchProps>(
   function Swatch({ className, value, style, ...props }, ref) {
     return (
@@ -62,6 +67,7 @@ export const ColorPickerSwatch = forwardRef<HTMLButtonElement, ColorPickerSwatch
     );
   },
 );
+
 export const ColorPickerPreview = forwardRef<HTMLSpanElement, ColorPickerPreviewProps>(
   function Preview({ className, ...props }, ref) {
     return (
@@ -79,9 +85,13 @@ export const ColorPickerArea = forwardRef<HTMLDivElement, ColorPickerAreaProps>(
   { className, ...props },
   ref,
 ) {
+  const labels = useLocale().colorPicker;
+
   return (
     <PrimitiveColorPicker.Area
       {...props}
+      saturationLabel={props.saturationLabel ?? labels.saturation}
+      brightnessLabel={props.brightnessLabel ?? labels.brightness}
       ref={ref}
       className={[styles.area, className].filter(Boolean).join(' ')}
     />
@@ -92,9 +102,12 @@ export const ColorPickerHue = forwardRef<HTMLInputElement, ColorPickerHueProps>(
   { className, ...props },
   ref,
 ) {
+  const labels = useLocale().colorPicker;
+
   return (
     <PrimitiveColorPicker.Hue
       {...props}
+      aria-label={props['aria-label'] ?? labels.hue}
       ref={ref}
       className={[styles.hue, className].filter(Boolean).join(' ')}
     />
@@ -127,10 +140,15 @@ export const ColorPickerChannelField = forwardRef<HTMLInputElement, ColorPickerC
 
 export const ColorPickerTrigger = forwardRef<HTMLButtonElement, ColorPickerTriggerProps>(
   function Trigger({ className, variant = 'swatch', valueLabel, children, ...props }, ref) {
+    const labels = useLocale().colorPicker;
+
     return (
       <PrimitiveColorPicker.Trigger
         data-slot="trigger"
         {...props}
+        aria-label={
+          props['aria-label'] ?? (children === undefined ? labels.chooseColor : undefined)
+        }
         ref={ref}
         data-variant={variant}
         className={[styles.trigger, className].filter(Boolean).join(' ')}
@@ -155,17 +173,22 @@ export const ColorPickerValue = forwardRef<HTMLSpanElement, ColorPickerValueProp
     return <PrimitiveColorPicker.Value {...props} ref={ref} />;
   },
 );
+
 export const ColorPickerOpacity = forwardRef<HTMLInputElement, ColorPickerOpacityProps>(
   function Opacity({ className, ...props }, ref) {
+    const labels = useLocale().colorPicker;
+
     return (
       <PrimitiveColorPicker.Opacity
         {...props}
+        aria-label={props['aria-label'] ?? labels.opacity}
         ref={ref}
         className={[styles.opacity, className].filter(Boolean).join(' ')}
       />
     );
   },
 );
+
 export const ColorPickerAlphaField = forwardRef<HTMLInputElement, ColorPickerAlphaFieldProps>(
   function AlphaField({ className, ...props }, ref) {
     return (
@@ -177,9 +200,10 @@ export const ColorPickerAlphaField = forwardRef<HTMLInputElement, ColorPickerAlp
     );
   },
 );
+
 export const ColorPickerPanel = forwardRef<HTMLDivElement, ColorPickerPanelProps>(function Panel(
   {
-    labels,
+    labels: providedLabels,
     size = 'small',
     variant = 'full',
     alpha = variant === 'full',
@@ -189,7 +213,10 @@ export const ColorPickerPanel = forwardRef<HTMLDivElement, ColorPickerPanelProps
   },
   ref,
 ) {
+  const locale = useLocale();
+  const labels = { ...locale.colorPicker, ...providedLabels };
   const [format, setFormat] = useState('hex');
+
   return (
     <SizeContext.Provider value={size}>
       <ColorPickerContent
@@ -245,6 +272,7 @@ export const ColorPickerPanel = forwardRef<HTMLDivElement, ColorPickerPanelProps
 export const ColorPickerContent = forwardRef<HTMLDivElement, ColorPickerContentProps>(
   function Content({ className, ...props }, ref) {
     const size = useContext(SizeContext);
+
     return (
       <PrimitiveColorPicker.Content
         {...props}

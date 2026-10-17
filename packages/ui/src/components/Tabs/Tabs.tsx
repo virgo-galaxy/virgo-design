@@ -1,6 +1,7 @@
 import { Tabs as PrimitiveTabs } from '@virgo-design/primitives';
 import { forwardRef, useMemo } from 'react';
 
+import { useLocale } from '../../locale/context/locale-context';
 import styles from './Tabs.module.scss';
 import type { TabsProps } from './Tabs.types';
 import { TabsVisualContext } from './TabsContext';
@@ -15,12 +16,15 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
     align = 'start',
     addable = false,
     onAdd,
-    addLabel = 'Add tab',
+    addLabel: addLabelProp,
     className,
     ...props
   },
   forwardedRef,
 ) {
+  const locale = useLocale();
+  const addLabel = addLabelProp ?? locale.tabs.add;
+
   const contextValue = useMemo(
     () => ({ variant, align, addable, onAdd, addLabel }),
     [addLabel, addable, align, onAdd, variant],

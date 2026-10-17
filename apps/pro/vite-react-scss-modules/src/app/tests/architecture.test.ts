@@ -80,14 +80,15 @@ const graph = new Map(
   ]),
 );
 
-// Cross-layer dependencies point downward; same-layer dependencies must remain acyclic.
 const layerRanks: Record<string, number> = {
   contracts: 0,
   assets: 0,
   styles: 0,
+  config: 0,
   lib: 1,
   api: 2,
   i18n: 2,
+  preferences: 2,
   shared: 3,
   routes: 3,
   mock: 3,
@@ -95,11 +96,15 @@ const layerRanks: Record<string, number> = {
   features: 5,
   pages: 6,
   layout: 6,
-  app: 7,
-  entry: 8,
+  composition: 7,
+  app: 8,
+  entry: 9,
 };
 function layer(file: string) {
   const path = relative(root, file);
+  if (/^i18n\/(bootstrap\/|locales\/resources\.ts$|types\/i18next\.d\.ts$)/.test(path))
+    return 'composition';
+  if (path.startsWith('store/')) return 'composition';
   return path.includes('/') ? path.split('/')[0]! : 'entry';
 }
 
@@ -127,6 +132,7 @@ it('keeps every production dependency directed by layer without reverse-dependen
 it('has no cycles after collapsing files into product layers and individual feature owners', () => {
   function owner(file: string) {
     const path = relative(root, file);
+    if (layer(file) === 'composition') return 'composition';
     return path.startsWith('features/') ? path.split('/').slice(0, 2).join('/') : layer(file);
   }
   const owners = new Map<string, Set<string>>();
@@ -185,7 +191,7 @@ it('keeps feature consumers on explicit public boundaries and local code off its
         continue;
       }
       expect(
-        ['index.ts', 'routes/index.ts', 'view/index.ts', 'locales/index.ts'].some(
+        ['index.ts', 'routes/index.ts', 'view/index.ts', 'locales/index.ts', 'store/index.ts'].some(
           (entry) => to === owner + entry,
         ),
         `${from} → private ${to}`,
@@ -222,24 +228,40 @@ it('resolves every local production import, including lazy and type-only depende
         expect(resolveImport(file, path), `${relative(root, file)} → ${path}`).toBeDefined();
 });
 
-it('keeps the browser entry on the app public surface', () => {
-  expect(imports(join(root, 'main.tsx')).sort()).toEqual(['@/app', 'react', 'react-dom/client']);
-  expect(existsSync(join(root, 'App.tsx'))).toBe(false);
-  expect(existsSync(join(root, 'routing'))).toBe(false);
+it('keeps module roots limited to index entries and groups implementations by responsibility', () => {
+  const expectEntry = (directory: string, typescriptOnly = false) => {
+    for (const entry of readdirSync(directory, { withFileTypes: true }))
+      if (entry.isFile() && (!typescriptOnly || /\.tsx?$/.test(entry.name)))
+        expect(entry.name, relative(root, join(directory, entry.name))).toBe('index.ts');
+  };
+  for (const module of readdirSync(root, { withFileTypes: true })) {
+    if (!module.isDirectory() || module.name === 'test') continue;
+    expectEntry(join(root, module.name), true);
+  }
+  for (const feature of readdirSync(join(root, 'features')))
+    expectEntry(join(root, 'features', feature));
+  for (const owner of storeOwners) expectEntry(join(root, owner));
 });
 
-it('keeps source module roots on directory responsibilities and public index entries', () => {
-  for (const module of readdirSync(root, { withFileTypes: true })) {
-    // Test infrastructure is an execution environment, not a production module surface.
-    if (!module.isDirectory() || module.name === 'test') continue;
-    for (const entry of readdirSync(join(root, module.name), { withFileTypes: true }))
-      if (entry.isFile() && /\.tsx?$/.test(entry.name))
-        expect(entry.name, `${module.name}/${entry.name}`).toBe('index.ts');
+it('keeps locale runtime and preferences independent of application assembly and feature implementations', () => {
+  for (const entry of ['i18n/index.ts', 'preferences/index.ts']) {
+    const visited = new Set<string>();
+    function visit(file: string) {
+      if (visited.has(file)) return;
+      visited.add(file);
+      const path = relative(root, file);
+      expect(
+        ['app', 'composition', 'features', 'pages', 'layout'].includes(layer(file)),
+        `${entry} → ${path}`,
+      ).toBe(false);
+      for (const dependency of graph.get(file) ?? []) visit(dependency);
+    }
+    visit(join(root, entry));
   }
 });
 
-it('keeps route, i18n runtime and HTTP consumers on public entries', () => {
-  const boundaries = ['routes', 'i18n', 'lib/http'];
+it('keeps route, locale, preferences and HTTP consumers on explicit public entries', () => {
+  const boundaries = ['app', 'routes', 'i18n', 'preferences', 'lib/http'];
   for (const file of sources(root, true)) {
     const from = relative(root, file);
     for (const path of imports(file)) {
@@ -247,27 +269,20 @@ it('keeps route, i18n runtime and HTTP consumers on public entries', () => {
       if (!dependency) continue;
       const to = relative(root, dependency);
       for (const boundary of boundaries) {
+        if (boundary === 'app' && !graph.has(file)) continue;
         if (!to.startsWith(boundary + '/') || from.startsWith(boundary + '/')) continue;
-        // Translation fragments are public data owned beside their locales.
-        if (boundary === 'i18n' && to.startsWith('i18n/locales/')) continue;
+        if (
+          boundary === 'i18n' &&
+          (to === 'i18n/bootstrap/index.ts' || to === 'i18n/react/index.ts')
+        ) {
+          expect(
+            from.startsWith('app/') || from.startsWith('test/'),
+            `${from} → locale integration`,
+          ).toBe(true);
+          continue;
+        }
         expect(to, `${from} → private ${to}`).toBe(boundary + '/index.ts');
       }
-    }
-  }
-});
-
-it('groups feature implementations by responsibility without root locale shims', () => {
-  for (const feature of readdirSync(join(root, 'features'))) {
-    const directory = join(root, 'features', feature);
-    for (const entry of readdirSync(directory, { withFileTypes: true })) {
-      if (entry.isDirectory()) {
-        expect(
-          readdirSync(join(directory, entry.name)),
-          `${feature}/${entry.name}`,
-        ).not.toHaveLength(0);
-        continue;
-      }
-      expect(entry.name, `${feature}/${entry.name}`).toBe('index.ts');
     }
   }
 });
@@ -293,12 +308,13 @@ it('keeps model, domain and base modules independent of presentation, including 
   }
 });
 
-it('uses index files as public entries without private helpers or setup', () => {
+it('uses index files as public entries and limits side-effect imports to the app entry', () => {
   for (const file of files.filter((file) => {
     const from = relative(root, file);
     return (
-      /^(app|api|contracts|features|components|layout|lib|routes|i18n)\//.test(from) &&
-      file.endsWith('/index.ts')
+      /^(app|api|contracts|features|components|layout|lib|routes|i18n|preferences|store)\//.test(
+        from,
+      ) && file.endsWith('/index.ts')
     );
   })) {
     const from = relative(root, file);
@@ -308,7 +324,8 @@ it('uses index files as public entries without private helpers or setup', () => 
         (statement) =>
           ts.isExportDeclaration(statement) ||
           ts.isExportAssignment(statement) ||
-          (ts.isImportDeclaration(statement) && statement.importClause !== undefined) ||
+          (ts.isImportDeclaration(statement) &&
+            (statement.importClause !== undefined || from === 'app/index.ts')) ||
           (ts.canHaveModifiers(statement) &&
             ts
               .getModifiers(statement)
@@ -316,9 +333,6 @@ it('uses index files as public entries without private helpers or setup', () => 
       ),
       from,
     ).toBe(true);
-    expect(/\/features\/[^/]+\/(components|hooks|utils)\/.*index\.ts$/.test(file), from).toBe(
-      false,
-    );
   }
 });
 
@@ -343,33 +357,41 @@ it('centralizes browser storage access and application route literals', () => {
   }
 });
 
-it('keeps translation ownership visible without namespaces or translator wrappers', () => {
-  for (const file of files) {
+const storeOwners = [
+  'preferences/store',
+  ...readdirSync(join(root, 'features'))
+    .filter((feature) => existsSync(join(root, 'features', feature, 'store')))
+    .map((feature) => `features/${feature}/store`),
+];
+
+it('keeps stores with their owning modules and application store assembly separate', () => {
+  for (const entry of readdirSync(join(root, 'store'), { withFileTypes: true }))
+    if (entry.isDirectory())
+      expect(['bootstrap', 'session'], `store/${entry.name}`).toContain(entry.name);
+  for (const file of sources(root, true)) {
     const from = relative(root, file);
-    const ast = ts.createSourceFile(file, readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true);
-    function visit(node: ts.Node) {
-      if (ts.isIdentifier(node))
-        expect(
-          ['keyPrefix', 'getFixedT', 'createScopedT', 'TFunction'].includes(node.text),
-          from,
-        ).toBe(false);
-      if (ts.isCallExpression(node)) {
-        const name = ts.isIdentifier(node.expression)
-          ? node.expression.text
-          : ts.isPropertyAccessExpression(node.expression)
-            ? node.expression.name.text
-            : '';
-        if (name === 'useTranslation') expect(node.arguments, from).toHaveLength(0);
-        if (name === 't') {
-          const key = node.arguments[0];
-          if (key && (ts.isStringLiteral(key) || ts.isNoSubstitutionTemplateLiteral(key)))
-            expect(key.text, from).toMatch(/^[a-zA-Z]+\./);
-          if (key && ts.isTemplateExpression(key))
-            expect(key.head.text, from).toMatch(/^[a-zA-Z]+\./);
-        }
+    const sourceOwner = storeOwners.find((owner) => from.startsWith(owner + '/'));
+    for (const path of imports(file)) {
+      if (path === 'zustand' || path.startsWith('zustand/'))
+        expect(sourceOwner, `${from} → ${path}`).toBeDefined();
+      const dependency = resolveImport(file, path);
+      if (!dependency) continue;
+      const to = relative(root, dependency);
+      if (sourceOwner && graph.has(file))
+        expect(to.startsWith('api/'), `${from} → API command ${to}`).toBe(false);
+      const targetOwner = storeOwners.find((owner) => to.startsWith(owner + '/'));
+      if (targetOwner) {
+        if (sourceOwner === targetOwner)
+          expect(to, `${from} → own store barrel`).not.toBe(targetOwner + '/index.ts');
+        else expect(to, `${from} → private ${to}`).toBe(targetOwner + '/index.ts');
+      } else if (to.startsWith('store/') && !from.startsWith('store/')) {
+        if (to === 'store/bootstrap/index.ts')
+          expect(
+            from.startsWith('app/') || from.startsWith('test/'),
+            `${from} → store startup`,
+          ).toBe(true);
+        else expect(to, `${from} → private application store ${to}`).toBe('store/index.ts');
       }
-      ts.forEachChild(node, visit);
     }
-    visit(ast);
   }
 });

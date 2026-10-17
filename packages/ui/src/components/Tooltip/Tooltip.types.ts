@@ -8,6 +8,7 @@ import type { ReactNode } from 'react';
 import type { ButtonSize, ButtonVariant } from '../Button';
 
 export type { TooltipPlacement } from '@virgo-design/primitives';
+
 export type TooltipProps = PrimitiveProps;
 export type TooltipSize = 'small' | 'medium';
 export type TooltipTone = 'default' | 'brand' | 'success' | 'warning' | 'danger' | 'info';
@@ -18,10 +19,12 @@ export interface TooltipProviderProps {
   /** Default arrow visibility for descendant tooltips. */
   arrow?: boolean;
 }
+
 export interface TooltipTriggerProps extends PrimitiveTriggerProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
 }
+
 export interface TooltipContentProps extends PrimitiveContentProps {
   /** Content density, independent of Tooltip.Trigger's button size. @default 'medium' */
   size?: TooltipSize;

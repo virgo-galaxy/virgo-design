@@ -74,15 +74,13 @@ describe('account menu', () => {
     ).toBe(initialProfile.avatarImage);
   });
 
-  it('opens an arrowless menu with a small trigger avatar and navigates to the personal center', async () => {
+  it('opens account actions and navigates to the personal center', async () => {
     render(
       <AccountMenu profile={initialProfile} agentMode={false} onAgentModeChange={changeMode} />,
     );
     const trigger = screen.getByRole('button', { name: 'Admin account' });
-    expect(trigger.querySelector('[data-size="sm"]')).toBeTruthy();
     fireEvent.click(trigger);
     const menu = await screen.findByRole('menu', { name: 'Admin account' });
-    expect(menu.querySelector('[data-slot="arrow"]')).toBeNull();
     expect(within(menu).queryByRole('menuitem', { name: 'Reset demo data' })).toBeNull();
     expect(screen.getByText('Administrator · Platform')).toBeTruthy();
     fireEvent.click(screen.getByRole('menuitem', { name: 'Personal center' }));

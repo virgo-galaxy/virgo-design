@@ -1,5 +1,5 @@
 import { CheckIcon, ChevronDownIcon, CloseIcon } from '@virgo-design/icons';
-import { Select as PrimitiveSelect } from '@virgo-design/primitives';
+import { Select as PrimitiveSelect, useSelectState } from '@virgo-design/primitives';
 import {
   Children,
   createContext,
@@ -8,10 +8,9 @@ import {
   type ReactNode,
   useContext,
   useMemo,
-  useState,
 } from 'react';
 
-import { useControlLabels } from '../../shared/control-labels';
+import { useLocale } from '../../locale/context/locale-context';
 import styles from './Select.module.scss';
 import type {
   SelectContentProps,
@@ -34,9 +33,6 @@ type SelectVisualContextValue = {
   size: SelectProps['size'];
   labels: ReadonlyMap<string, ReactNode>;
   intents: ReadonlyMap<string, SelectOptionProps['intent']>;
-  value: string | undefined;
-  values: readonly string[];
-  multiple: boolean;
 };
 
 const SelectVisualContext = createContext<SelectVisualContextValue | null>(null);
@@ -92,20 +88,9 @@ function optionText(label: ReactNode): string {
 }
 
 export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
-  {
-    children,
-    value: controlledValue,
-    defaultValue,
-    onValueChange,
-    size = 'medium',
-    invalid = false,
-    className,
-    ...props
-  },
+  { children, size = 'medium', invalid = false, className, ...props },
   forwardedRef,
 ) {
-  const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
-  const value = controlledValue === undefined ? uncontrolledValue : controlledValue;
   const { labels, intents } = useMemo(() => collectOptionLabels(children), [children]);
 
   return (
@@ -114,9 +99,6 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
         invalid,
         labels,
         intents,
-        value,
-        values: value === undefined ? [] : [value],
-        multiple: false,
         size,
       }}
     >
@@ -126,15 +108,6 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(function Select(
         className={joinClassNames(styles.root, className)}
         data-invalid={invalid || undefined}
         data-size={size}
-        defaultValue={defaultValue}
-        value={controlledValue}
-        onValueChange={(nextValue) => {
-          if (controlledValue === undefined) {
-            setUncontrolledValue(nextValue);
-          }
-
-          onValueChange?.(nextValue);
-        }}
       >
         {children}
       </PrimitiveSelect>
@@ -146,37 +119,19 @@ Select.displayName = 'Select';
 
 export const SelectMultiple = forwardRef<HTMLDivElement, SelectMultipleProps>(
   function SelectMultiple(
-    {
-      children,
-      value: controlledValue,
-      defaultValue = [],
-      onValueChange,
-      size = 'medium',
-      invalid = false,
-      className,
-      ...props
-    },
+    { children, size = 'medium', invalid = false, className, ...props },
     ref,
   ) {
-    const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
-    const values = controlledValue ?? uncontrolledValue;
     const { labels, intents } = useMemo(() => collectOptionLabels(children), [children]);
+
     return (
-      <SelectVisualContext.Provider
-        value={{ invalid, labels, intents, value: undefined, values, multiple: true, size }}
-      >
+      <SelectVisualContext.Provider value={{ invalid, labels, intents, size }}>
         <PrimitiveSelect.Multiple
           {...props}
           ref={ref}
           className={joinClassNames(styles.root, className)}
           data-invalid={invalid || undefined}
           data-size={size}
-          defaultValue={defaultValue}
-          value={controlledValue}
-          onValueChange={(next) => {
-            if (controlledValue === undefined) setUncontrolledValue(next);
-            onValueChange?.(next);
-          }}
         >
           {children}
         </PrimitiveSelect.Multiple>
@@ -184,6 +139,7 @@ export const SelectMultiple = forwardRef<HTMLDivElement, SelectMultipleProps>(
     );
   },
 );
+
 SelectMultiple.displayName = 'Select.Multiple';
 
 export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
@@ -192,7 +148,7 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
       children,
       renderValue,
       indicator = <ChevronDownIcon />,
-      placeholder = 'Select an option',
+      placeholder: providedPlaceholder,
       className,
       'aria-invalid': ariaInvalid,
       ...props
@@ -200,12 +156,16 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
     forwardedRef,
   ) {
     const context = useSelectVisualContext('Select.Trigger');
-    const controlLabels = useControlLabels();
+    const selection = useSelectState();
+    const value = selection.multiple ? undefined : selection.value;
+    const values = selection.multiple ? selection.value : [];
+
+    const controlLabels = useLocale().select;
+    const placeholder = providedPlaceholder ?? controlLabels.placeholder;
     const isInvalid = context.invalid || hasAriaInvalidValue(ariaInvalid);
-    const selectedLabel =
-      context.value === undefined ? undefined : context.labels.get(context.value);
+    const selectedLabel = value === undefined ? undefined : context.labels.get(value);
     const visibleValue = renderValue
-      ? renderValue(context.value, selectedLabel ?? placeholder)
+      ? renderValue(value, selectedLabel ?? placeholder)
       : (selectedLabel ?? children ?? placeholder);
 
     const trigger = (
@@ -218,13 +178,13 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
         <span
           className={styles.value}
           data-slot="value"
-          data-intent={context.value === undefined ? undefined : context.intents.get(context.value)}
+          data-intent={value === undefined ? undefined : context.intents.get(value)}
           data-placeholder={selectedLabel === undefined || undefined}
         >
-          {context.multiple ? (
-            context.values.length ? (
+          {selection.multiple ? (
+            values.length ? (
               <span className={styles.srOnly}>
-                {context.values
+                {values
                   .map((value) => optionText(context.labels.get(value)) || value)
                   .join(', ')}
               </span>
@@ -240,15 +200,18 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
         </span>
       </PrimitiveSelect.Trigger>
     );
-    if (!context.multiple) return trigger;
+
+    if (!selection.multiple) return trigger;
+
     return (
       <div className={styles.multipleControl}>
         {trigger}
-        {context.values.length ? (
+        {values.length ? (
           <div className={styles.selectedValues}>
-            {context.values.map((value) => {
+            {values.map((value) => {
               const label = context.labels.get(value) ?? value;
               const text = optionText(label) || value;
+
               return (
                 <span
                   className={styles.selectedTag}
@@ -260,7 +223,7 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
                   <PrimitiveSelect.Remove
                     value={value}
                     className={styles.remove}
-                    aria-label={controlLabels.removeSelection.replace('{{value}}', text)}
+                    aria-label={controlLabels.removeSelection(text)}
                   >
                     <CloseIcon size={12} aria-hidden="true" />
                   </PrimitiveSelect.Remove>
@@ -281,6 +244,7 @@ export const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(func
   forwardedRef,
 ) {
   const context = useSelectVisualContext('Select.Content');
+
   return (
     <PrimitiveSelect.Content
       {...props}
@@ -301,16 +265,18 @@ export const SelectOption = forwardRef<HTMLDivElement, SelectOptionProps>(functi
   { children, className, intent, ...props },
   forwardedRef,
 ) {
-  const context = useSelectVisualContext('Select.Option');
+  useSelectVisualContext('Select.Option');
+  const selection = useSelectState();
+
   return (
     <PrimitiveSelect.Option
       {...props}
       ref={forwardedRef}
       className={joinClassNames(styles.option, className)}
-      data-multiple={context.multiple || undefined}
+      data-multiple={selection.multiple || undefined}
       data-intent={intent}
     >
-      {context.multiple ? (
+      {selection.multiple ? (
         <span className={styles.checkbox} data-slot="checkbox" aria-hidden="true">
           <CheckIcon className={styles.checkboxMark} />
         </span>
@@ -318,7 +284,7 @@ export const SelectOption = forwardRef<HTMLDivElement, SelectOptionProps>(functi
       <span className={styles.optionLabel} data-slot="option-label">
         {children}
       </span>
-      {context.multiple ? null : (
+      {selection.multiple ? null : (
         <span className={styles.check} data-slot="check" aria-hidden="true">
           <CheckIcon />
         </span>

@@ -23,6 +23,7 @@ export function ProjectDeliveryPanel({
       ...Object.fromEntries(day.deliveries.map((entry) => [entry.projectId, entry.completed])),
     };
   });
+
   return (
     <Panel
       className={styles.panel!}

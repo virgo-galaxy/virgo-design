@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { createRef, useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { UIControlLabelsProvider } from '../../shared/control-labels';
+import { LocaleProvider, zhCN } from '../../locale';
 import { Input } from './Input';
 import type { InputSize } from './Input.types';
 
@@ -22,22 +22,6 @@ describe('Input', () => {
     expect(screen.getByRole('textbox', { name: `${size} input` }).parentElement).toHaveAttribute(
       'data-size',
       size,
-    );
-  });
-
-  it('renders leading and trailing icons as decorative content', () => {
-    render(
-      <Input
-        aria-label="Search"
-        leadingIcon={<svg data-testid="leading-icon" />}
-        trailingIcon={<svg data-testid="trailing-icon" />}
-      />,
-    );
-
-    expect(screen.getByTestId('leading-icon').parentElement).toHaveAttribute('aria-hidden', 'true');
-    expect(screen.getByTestId('trailing-icon').parentElement).toHaveAttribute(
-      'aria-hidden',
-      'true',
     );
   });
 
@@ -170,6 +154,19 @@ describe('Input', () => {
 
     expect(onChange).toHaveBeenCalled();
   });
+
+  it('releases resources returned by a consumer ref when the input unmounts', () => {
+    const release = vi.fn();
+    const attach = vi.fn(() => release);
+    const { unmount } = render(<Input ref={attach} aria-label="Observed input" />);
+
+    expect(attach).toHaveBeenCalledWith(screen.getByRole('textbox'));
+
+    unmount();
+
+    expect(release).toHaveBeenCalledOnce();
+    expect(attach).toHaveBeenCalledOnce();
+  });
 });
 
 describe('Input numeric steppers', () => {
@@ -256,9 +253,9 @@ describe('Input numeric steppers', () => {
   it('supports localized labels and keyboard activation without changing input focus behavior', async () => {
     const user = userEvent.setup();
     render(
-      <UIControlLabelsProvider labels={{ increaseValue: '增加数值', decreaseValue: '减少数值' }}>
+      <LocaleProvider locale={zhCN}>
         <Input type="number" steppers aria-label="高度" defaultValue={64} />
-      </UIControlLabelsProvider>,
+      </LocaleProvider>,
     );
     await user.tab();
     await user.tab();

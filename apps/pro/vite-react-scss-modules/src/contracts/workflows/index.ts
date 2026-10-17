@@ -12,6 +12,7 @@ export interface WorkflowReceiptDto {
   schedule?: string;
   notes?: string;
 }
+
 export interface HandoffRequest {
   title: string;
   projectId: string;

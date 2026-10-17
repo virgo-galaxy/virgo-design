@@ -98,7 +98,7 @@ export function ApiReference({
                 aria-label={t('docs.apiReference.propertiesRegion', { name: declaration.name })}
                 tabIndex={0}
               >
-                <Table border="separators" size="small" className={styles.table}>
+                <Table border="separators" density="compact" className={styles.table}>
                   <Table.Caption className={styles.visuallyHidden}>
                     {t('docs.apiReference.propertiesRegion', { name: declaration.name })}
                   </Table.Caption>

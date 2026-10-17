@@ -14,8 +14,10 @@ function projectFor(request: Request, id: unknown) {
     (project) => project.id === id && requestUser(request)?.projects.includes(project.id),
   );
 }
+
 const missingProject = () =>
   failure({ status: 404, code: API_ERROR_CODES.PROJECT_NOT_FOUND, detail: 'Project not found' });
+
 function summarizeProject(
   projectId: string,
   tasks: readonly import('@/contracts/tasks').TaskDto[],
@@ -23,6 +25,7 @@ function summarizeProject(
   const date = getDemoReferenceDate();
   const related = tasks.filter((task) => task.project === projectId);
   const completed = related.filter((task) => task.status === 'done').length;
+
   return {
     projectId,
     total: related.length,
@@ -35,9 +38,11 @@ function summarizeProject(
     review: related.filter((task) => task.status === 'in_review').length,
   };
 }
+
 export const projectsHandlers = [
   http.get(endpoint('/projects/:id/summary'), ({ request, params }) => {
     const project = projectFor(request, params.id);
+
     return project
       ? success(summarizeProject(project.id, scopedTasks(getDemoState().tasks, request)))
       : missingProject();
@@ -47,11 +52,13 @@ export const projectsHandlers = [
     const open = scopedTasks(getDemoState().tasks, request).filter(
       (task) => task.status !== 'done',
     );
+
     return success(
       projects
         .filter((project) => user.projects.includes(project.id))
         .map((project) => {
           const count = open.filter((task) => task.project === project.id).length;
+
           return {
             projectId: project.id,
             name: project.name,
@@ -65,24 +72,27 @@ export const projectsHandlers = [
   http.get(endpoint('/projects/summaries'), ({ request }) => {
     const user = requestUser(request)!;
     const projectId = new URL(request.url).searchParams.get('projectId');
+
     const tasks = scopedTasks(getDemoState().tasks, request);
+
     return success(
       projects
         .filter(
           (project) =>
             user.projects.includes(project.id) && (!projectId || project.id === projectId),
         )
-        .map((project): ProjectSummaryDto => {
-          return summarizeProject(project.id, tasks);
-        }),
+        .map((project) => summarizeProject(project.id, tasks)),
     );
   }),
   http.get(endpoint('/projects/:id/module-stats'), ({ request, params }) => {
     const project = projectFor(request, params.id);
+
     if (!project) return missingProject();
+
     const tasks = scopedTasks(getDemoState().tasks, request).filter(
       (task) => task.project === project.id,
     );
+
     return success(
       project.modules.map((module) => ({
         id: module.id,
@@ -94,10 +104,13 @@ export const projectsHandlers = [
   }),
   http.get(endpoint('/projects/:id/member-stats'), ({ request, params }) => {
     const project = projectFor(request, params.id);
+
     if (!project) return missingProject();
+
     const tasks = scopedTasks(getDemoState().tasks, request).filter(
       (task) => task.project === project.id,
     );
+
     return success(
       project.memberIds.map((memberId) => ({
         memberId,

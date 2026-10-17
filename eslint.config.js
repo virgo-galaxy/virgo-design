@@ -58,6 +58,14 @@ export default tseslint.config(
   },
 
   {
+    files: ['apps/pro/vite-react-scss-modules/**/*.{ts,tsx}'],
+
+    rules: {
+      'no-empty': ['error', { allowEmptyCatch: true }],
+    },
+  },
+
+  {
     files: [
       'apps/website/src/components/**/*.{ts,tsx}',
       'apps/website/src/domain/**/*.{ts,tsx}',

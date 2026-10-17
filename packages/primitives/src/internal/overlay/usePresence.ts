@@ -7,6 +7,7 @@ function milliseconds(duration: string) {
 /** Keep closing content only for its CSS exit animation; reduced motion / unstyled content exits immediately. */
 export function usePresence(open: boolean, ref: RefObject<HTMLElement | null>) {
   const [retained, setRetained] = useState(open);
+
   useLayoutEffect(() => {
     const content = ref.current;
     if (open) {
@@ -14,6 +15,7 @@ export function usePresence(open: boolean, ref: RefObject<HTMLElement | null>) {
       setRetained(true);
       return;
     }
+
     content?.setAttribute('inert', '');
     const style = content ? getComputedStyle(content) : null;
     const duration =
@@ -21,12 +23,16 @@ export function usePresence(open: boolean, ref: RefObject<HTMLElement | null>) {
         ? Math.max(...style.animationDuration.split(',').map(milliseconds)) +
           Math.max(0, ...style.animationDelay.split(',').map(milliseconds))
         : 0;
+
     if (!duration || !Number.isFinite(duration)) {
       setRetained(false);
       return;
     }
+
     const timer = setTimeout(() => setRetained(false), duration);
+
     return () => clearTimeout(timer);
   }, [open, ref]);
+
   return open || retained;
 }

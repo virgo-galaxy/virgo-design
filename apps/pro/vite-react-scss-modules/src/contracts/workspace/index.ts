@@ -5,6 +5,7 @@ export interface WorkspaceSummaryDto {
   teamMembers: number;
   completionRate: number;
 }
+
 export interface AnnouncementDto {
   id: 'release';
 }

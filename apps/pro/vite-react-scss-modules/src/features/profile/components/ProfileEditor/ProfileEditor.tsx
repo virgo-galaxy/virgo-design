@@ -43,23 +43,29 @@ export function ProfileEditor({
 }) {
   const mutation = useMutation();
   const { t } = useTranslation();
+
   const [draft, setDraft] = useState(() => profileIdentity(profile));
   const [errors, setErrors] = useState<ReturnType<typeof validateProfileIdentity>>({});
   const [discard, setDiscard] = useState(false);
   const [reading, setReading] = useState(false);
   const [photoName, setPhotoName] = useState('');
   const [imageError, setImageError] = useState<keyof typeof profileEnUS.validation | ''>('');
+
   const formRef = useRef<HTMLFormElement>(null);
   const photoInput = useRef<HTMLInputElement>(null);
   const photoRevision = useRef(0);
   const alive = useRef(true);
+
   useEffect(() => {
     alive.current = true;
+
     return () => {
       alive.current = false;
     };
   }, []);
+
   const dirty = JSON.stringify(draft) !== JSON.stringify(profileIdentity(profile));
+
   const close = () => {
     if (dirty) setDiscard(true);
     else {
@@ -67,15 +73,18 @@ export function ProfileEditor({
       onClose();
     }
   };
+
   const update = <Key extends keyof ProfileIdentity>(key: Key, value: ProfileIdentity[Key]) => {
     setDraft((previous) => ({ ...previous, [key]: value }));
     setDiscard(false);
     setErrors((previous) => {
       const next = { ...previous };
       delete next[key];
+
       return next;
     });
   };
+
   return (
     <Dialog.Root
       open
@@ -116,14 +125,18 @@ export function ProfileEditor({
               className={styles.editorForm}
               onSubmit={(event) => {
                 event.preventDefault();
+
                 const invalid = validateProfileIdentity(draft);
                 setErrors(invalid);
+
                 if (Object.keys(invalid).length) {
                   requestAnimationFrame(() =>
                     formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus(),
                   );
+
                   return;
                 }
+
                 void mutation.run(async () => {
                   await onSave({
                     ...draft,
@@ -131,6 +144,7 @@ export function ProfileEditor({
                     headline: draft.headline.trim(),
                     bio: draft.bio.trim(),
                   });
+
                   alive.current = false;
                   onClose();
                 });
@@ -165,17 +179,22 @@ export function ProfileEditor({
                     accept="image/png,image/jpeg,image/webp"
                     onChange={async (event) => {
                       const file = event.currentTarget.files?.[0];
-                      // Allow choosing the same file again after removal or a failed read.
                       event.currentTarget.value = '';
+
                       if (!file) return;
+
                       const invalid = avatarFileError(file);
                       const revision = ++photoRevision.current;
                       setImageError(invalid);
+
                       if (invalid) {
                         setReading(false);
+
                         return;
                       }
+
                       setReading(true);
+
                       try {
                         const url = await new Promise<string>((resolve, reject) => {
                           const reader = new FileReader();
@@ -183,17 +202,21 @@ export function ProfileEditor({
                           reader.onerror = () => reject(new Error('read'));
                           reader.readAsDataURL(file);
                         });
+
                         const image = new Image();
                         image.src = url;
                         await image.decode();
+
                         if (alive.current && revision === photoRevision.current) {
                           update('avatarImage', url);
                           setPhotoName(file.name);
                         }
                       } catch {
+
                         if (alive.current && revision === photoRevision.current)
                           setImageError('imageUnreadable');
                       } finally {
+
                         if (alive.current && revision === photoRevision.current) setReading(false);
                       }
                     }}
@@ -307,17 +330,6 @@ export function ProfileEditor({
                   <ColorPicker.Panel
                     variant="simple"
                     aria-label={t('profile.avatarColorPicker')}
-                    labels={{
-                      saturation: t('profile.avatarColorSaturation'),
-                      brightness: t('profile.avatarColorBrightness'),
-                      hue: t('profile.avatarColorHue'),
-                      hex: t('profile.pickerHexColor'),
-                      opacity: t('profile.pickerOpacity'),
-                      format: t('profile.pickerFormat'),
-                      red: t('profile.pickerRed'),
-                      green: t('profile.pickerGreen'),
-                      blue: t('profile.pickerBlue'),
-                    }}
                   />
                 </ColorPicker>
                 {errors.avatarColor ? (

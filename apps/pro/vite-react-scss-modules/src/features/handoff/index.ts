@@ -1,4 +1,3 @@
-export * from './context/handoff-session-context';
-export * from './context/HandoffSession';
 export * from './context/revision';
+export { useHandoffSession } from './hooks/use-handoff-session';
 export * from './model/handoff';

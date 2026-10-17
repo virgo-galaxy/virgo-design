@@ -22,18 +22,4 @@ export const sharedEnUS = {
   tryABroaderSearchOrResetTheFilters: 'Try a broader search or reset the filters.',
   resetFilters: 'Reset filters',
   noResults: 'No results match this view',
-  pagination: {
-    navigation: 'Pagination',
-    previous: 'Previous page',
-    next: 'Next page',
-    page: 'Page {{page}}',
-    jumpBackward: 'Jump back 5 pages',
-    jumpForward: 'Jump forward 5 pages',
-    pageSize: 'Items per page',
-    itemsPerPage: '{{size}} / page',
-    jumpTo: 'Go to',
-    pageUnit: 'page',
-    selected: '(Selected {{count}} items)',
-    total: 'Total {{count}} items',
-  },
 } as const;

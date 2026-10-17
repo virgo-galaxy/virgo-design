@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 
-import { useControlLabels } from '../../shared/control-labels';
+import { useLocale } from '../../locale/context/locale-context';
 import { Button } from '../Button';
 import styles from './Carousel.module.scss';
 import type {
@@ -19,9 +19,11 @@ import type {
   CarouselTrackProps,
   CarouselViewportProps,
 } from './Carousel.types';
+
 const classes = (...values: Array<string | undefined>) => values.filter(Boolean).join(' ');
 const ArrowContext = createContext<NonNullable<CarouselProps['arrows']>>('none');
 const SizeContext = createContext<NonNullable<CarouselProps['size']>>('small');
+
 export const CarouselRoot = forwardRef<HTMLDivElement, CarouselProps>(function Carousel(
   {
     motion = 'slide',
@@ -35,14 +37,18 @@ export const CarouselRoot = forwardRef<HTMLDivElement, CarouselProps>(function C
   ref,
 ) {
   const [stacked, setStacked] = useState(false);
+
   useEffect(() => {
     if (stackBelow === undefined || !window.matchMedia) return;
+
     const media = window.matchMedia(`(max-width: ${stackBelow}px)`);
     const update = () => setStacked(media.matches);
     update();
     media.addEventListener?.('change', update);
+
     return () => media.removeEventListener?.('change', update);
   }, [stackBelow]);
+
   return (
     <SizeContext.Provider value={size}>
       <ArrowContext.Provider value={arrows}>
@@ -60,6 +66,7 @@ export const CarouselRoot = forwardRef<HTMLDivElement, CarouselProps>(function C
     </SizeContext.Provider>
   );
 });
+
 export const CarouselViewport = forwardRef<HTMLDivElement, CarouselViewportProps>(function Viewport(
   { className, children, ...props },
   ref,
@@ -67,7 +74,8 @@ export const CarouselViewport = forwardRef<HTMLDivElement, CarouselViewportProps
   const state = useCarouselState();
   const arrows = useContext(ArrowContext);
   const size = useContext(SizeContext);
-  const labels = useControlLabels();
+  const labels = useLocale().carousel;
+
   return (
     <PrimitiveCarousel.Viewport
       {...props}
@@ -105,6 +113,7 @@ export const CarouselViewport = forwardRef<HTMLDivElement, CarouselViewportProps
     </PrimitiveCarousel.Viewport>
   );
 });
+
 export const CarouselTrack = forwardRef<HTMLDivElement, CarouselTrackProps>(function Track(
   { className, ...props },
   ref,
@@ -118,6 +127,7 @@ export const CarouselTrack = forwardRef<HTMLDivElement, CarouselTrackProps>(func
     />
   );
 });
+
 export const CarouselItem = forwardRef<HTMLDivElement, CarouselItemProps>(function Item(
   { className, ...props },
   ref,
@@ -131,6 +141,7 @@ export const CarouselItem = forwardRef<HTMLDivElement, CarouselItemProps>(functi
     />
   );
 });
+
 export const CarouselIndicators = forwardRef<HTMLDivElement, CarouselIndicatorsProps>(
   function Indicators(
     { variant = 'dots', placement = 'outside', getSlideLabel, className, style, ...props },
@@ -138,8 +149,10 @@ export const CarouselIndicators = forwardRef<HTMLDivElement, CarouselIndicatorsP
   ) {
     const state = useCarouselState();
     const size = useContext(SizeContext);
-    const labels = useControlLabels();
+    const labels = useLocale().carousel;
+
     if (state.layout === 'stacked' || state.count < 2) return null;
+
     return (
       <div
         {...props}
@@ -159,7 +172,7 @@ export const CarouselIndicators = forwardRef<HTMLDivElement, CarouselIndicatorsP
             variant="text"
             size={size}
             iconOnly
-            aria-label={getSlideLabel?.(index) ?? `${labels.goToSlide} ${index + 1}`}
+            aria-label={getSlideLabel?.(index) ?? labels.goToSlide(index + 1)}
             aria-current={state.index === index ? 'step' : undefined}
             data-active={state.index === index}
             onClick={() => state.goTo(index)}
@@ -172,11 +185,14 @@ export const CarouselIndicators = forwardRef<HTMLDivElement, CarouselIndicatorsP
     );
   },
 );
+
 export function CarouselPlayback() {
   const state = useCarouselState();
   const size = useContext(SizeContext);
-  const labels = useControlLabels();
+  const labels = useLocale().carousel;
+
   if (!state.autoPlay || state.layout === 'stacked' || state.count < 2) return null;
+
   return (
     <Button
       data-slot="playback"

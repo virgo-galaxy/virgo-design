@@ -2,6 +2,7 @@ import { SearchIcon } from '@virgo-design/icons';
 import { Command as PrimitiveCommand } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
+import { useLocale } from '../../locale/context/locale-context';
 import { Dialog } from '../Dialog';
 import styles from './Command.module.scss';
 import type {
@@ -113,9 +114,11 @@ function CommandDialog({
   className,
   contentClassName,
   overlayClassName,
-  'aria-label': ariaLabel = 'Command palette',
+  'aria-label': ariaLabel,
   children,
 }: CommandDialogProps) {
+  const locale = useLocale();
+
   return (
     <Dialog.Root
       {...(open === undefined ? {} : { open })}
@@ -128,7 +131,7 @@ function CommandDialog({
         <Dialog.Content
           size="md"
           className={classes(styles.dialogContent, contentClassName)}
-          aria-label={ariaLabel}
+          aria-label={ariaLabel ?? locale.command.dialog}
         >
           <Root
             className={className}

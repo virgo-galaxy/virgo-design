@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
 import { useCurrentUser } from '@/features/auth';
-import type { SidebarStyle } from '@/features/settings';
+import type { SidebarStyle } from '@/preferences';
 import { canVisitPage, proRouting } from '@/routes';
 
 import { navigationGroups as baseNavigationGroups } from './navigation';
@@ -27,6 +27,7 @@ export function SidebarNavigation({
 }) {
   const { t } = useTranslation();
   const user = useCurrentUser();
+
   const navigationGroups = baseNavigationGroups
     .map((group) => ({
       ...group,
@@ -36,6 +37,7 @@ export function SidebarNavigation({
         .map((page) => ({ ...page, label: t(page.labelKey) })),
     }))
     .filter((group) => group.pages.length);
+
   const menuId = useId();
   const currentPage = proRouting.match(pathname);
   const currentGroup = currentPage?.group?.id;
@@ -44,10 +46,9 @@ export function SidebarNavigation({
   );
   const [previousPath, setPreviousPath] = useState(pathname);
 
-  // Direct routes, links and browser history reveal the destination's group.
-  // Keep manual disclosure choices until the route changes again.
   if (previousPath !== pathname) {
     setPreviousPath(pathname);
+
     if (currentGroup && !expandedGroups.includes(currentGroup)) {
       setExpandedGroups([...expandedGroups, currentGroup]);
     }

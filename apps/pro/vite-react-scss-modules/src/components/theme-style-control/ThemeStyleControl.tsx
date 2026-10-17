@@ -4,14 +4,15 @@ import { Dropdown, Tooltip } from '@virgo-design/ui';
 import { useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useThemeStyle } from '@/lib/theme/use-theme-style';
+import { usePreferencesStore } from '@/preferences';
 
 import styles from './ThemeStyleControl.module.scss';
 
 export function ThemeStyleControl() {
   const { t } = useTranslation();
   const id = useId();
-  const { theme: selected, setTheme } = useThemeStyle();
+  const selected = usePreferencesStore((state) => state.preferences.theme);
+  const updatePreferences = usePreferencesStore((state) => state.updatePreferences);
   const [menuOpen, setMenuOpen] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const tooltipSuppressed = useRef(false);
@@ -63,7 +64,7 @@ export function ThemeStyleControl() {
             checked={selected === value}
             aria-label={t(`themeStyleControl.names.${value}`)}
             aria-describedby={`${id}-${value}`}
-            onSelect={() => setTheme(value)}
+            onSelect={() => updatePreferences({ theme: value })}
           >
             <span className={styles.copy}>
               <span className={styles.name}>{t(`themeStyleControl.names.${value}`)}</span>

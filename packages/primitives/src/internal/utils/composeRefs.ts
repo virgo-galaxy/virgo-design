@@ -1,12 +1,23 @@
-import type { ForwardedRef, MutableRefObject } from 'react';
+import type { Ref } from 'react';
 
-export function composeRefs<T>(
-  forwardedRef: ForwardedRef<T>,
-  internalRef: MutableRefObject<T | null>,
-) {
+function assignRef<T>(ref: Ref<T> | undefined, node: T | null) {
+  if (typeof ref === 'function') return ref(node);
+  if (ref) ref.current = node;
+}
+
+export function composeRefs<T>(first: Ref<T> | undefined, second: Ref<T> | undefined) {
   return (node: T | null) => {
-    internalRef.current = node;
-    if (typeof forwardedRef === 'function') forwardedRef(node);
-    else if (forwardedRef) forwardedRef.current = node;
+    const firstCleanup = assignRef(first, node);
+    const secondCleanup = assignRef(second, node);
+
+    if (typeof firstCleanup === 'function' || typeof secondCleanup === 'function') {
+      return () => {
+        if (typeof firstCleanup === 'function') firstCleanup();
+        else assignRef(first, null);
+
+        if (typeof secondCleanup === 'function') secondCleanup();
+        else assignRef(second, null);
+      };
+    }
   };
 }

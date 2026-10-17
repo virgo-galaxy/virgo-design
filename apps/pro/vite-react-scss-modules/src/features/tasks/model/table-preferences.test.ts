@@ -1,5 +1,6 @@
 import { expect, it } from 'vitest';
 
+import { parseTaskTableSettings, serializeTaskTableSettings } from './table-preferences';
 import {
   defaultTableSettings,
   moveTaskColumn,
@@ -7,109 +8,11 @@ import {
   pinTaskColumns,
   taskPinnedCells,
   visibleColumns,
-} from '../config/table-settings';
-import {
-  parseTaskTableSettings,
-  taskColumnWidthsVersion,
-  taskHeaderControlsVersion,
-} from './table-preferences';
+} from './table-settings';
 
 it('restores defaults for corrupt or unsupported saved preferences', () => {
   for (const raw of [null, '{', '[]', '{"version":2,"settings":{}}'])
     expect(parseTaskTableSettings(raw)).toEqual(defaultTableSettings());
-});
-
-it('updates old column widths once while preserving the rest of the saved configuration', () => {
-  const settings = defaultTableSettings();
-  settings.columns.reverse();
-  settings.striped = true;
-  const title = settings.columns.find((column) => column.key === 'title')!;
-  title.visible = false;
-  title.controls.search = true;
-  const saved = {
-    ...settings,
-    columns: settings.columns.map((column) =>
-      column.key === 'selection'
-        ? { ...column, width: 100 }
-        : { ...column, minWidth: 80, width: 130, maxWidth: 600 },
-    ),
-  };
-  const restored = parseTaskTableSettings(JSON.stringify({ version: 1, settings: saved }));
-  expect(restored.striped).toBe(true);
-  expect(restored.columns.map((column) => column.key)).toEqual([
-    'selection',
-    'rowNumber',
-    ...settings.columns
-      .filter((column) => column.key !== 'selection' && column.key !== 'rowNumber')
-      .map((column) => column.key),
-  ]);
-  expect(restored.columns.find((column) => column.key === 'selection')).toMatchObject({
-    minWidth: 70,
-    width: 75,
-    maxWidth: 120,
-  });
-  expect(restored.columns.find((column) => column.key === 'title')).toMatchObject({
-    visible: false,
-    controls: { search: true },
-    minWidth: 300,
-    width: 360,
-    maxWidth: 500,
-  });
-  expect(restored.columns.find((column) => column.key === 'actions')).toMatchObject({
-    minWidth: 200,
-    width: 250,
-    maxWidth: 350,
-  });
-  for (const column of restored.columns.filter(
-    (column) => !['selection', 'rowNumber', 'title', 'actions'].includes(column.key),
-  )) {
-    expect(column).toMatchObject({
-      minWidth: 180,
-      width: ['assignee', 'createdAt', 'dueDate', 'completedAt'].includes(column.key) ? 220 : 200,
-      maxWidth: 300,
-    });
-  }
-  restored.columns.find((column) => column.key === 'priority')!.width = 240;
-  expect(
-    parseTaskTableSettings(
-      JSON.stringify({
-        version: 1,
-        columnWidthsVersion: taskColumnWidthsVersion,
-        headerControlsVersion: taskHeaderControlsVersion,
-        settings: restored,
-      }),
-    ),
-  ).toEqual(restored);
-});
-
-it('migrates the former internal-divider choice to row dividers', () => {
-  const settings = defaultTableSettings();
-  settings.striped = true;
-  const restored = parseTaskTableSettings(
-    JSON.stringify({
-      version: 1,
-      columnWidthsVersion: taskColumnWidthsVersion,
-      headerControlsVersion: taskHeaderControlsVersion,
-      settings: { ...settings, border: 'separators' },
-    }),
-  );
-  expect(restored).toEqual(settings);
-});
-
-it('drops the removed row-reordering preference while preserving other settings', () => {
-  const settings = defaultTableSettings();
-  settings.reorderColumns = true;
-  settings.paginationAlign = 'center';
-  const restored = parseTaskTableSettings(
-    JSON.stringify({
-      version: 1,
-      columnWidthsVersion: taskColumnWidthsVersion,
-      headerControlsVersion: taskHeaderControlsVersion,
-      settings: { ...settings, reorderRows: true },
-    }),
-  );
-  expect(restored).toEqual(settings);
-  expect(restored).not.toHaveProperty('reorderRows');
 });
 
 it('preserves composition, order and empty optional menu choices across reloads', () => {
@@ -128,8 +31,6 @@ it('preserves composition, order and empty optional menu choices across reloads'
   const restored = parseTaskTableSettings(
     JSON.stringify({
       version: 1,
-      columnWidthsVersion: taskColumnWidthsVersion,
-      headerControlsVersion: taskHeaderControlsVersion,
       settings,
     }),
   );
@@ -156,18 +57,12 @@ it('preserves selection visibility and configuration while restoring its first p
     {
       visible: false,
       width: 100,
-      resizable: true,
-      controls: undefined,
-      fixed: 'end',
-      filter: true,
-      search: true,
+      controls: { ...settings.columns[0]!.controls, filter: true, search: true },
     },
   );
   const restored = parseTaskTableSettings(
     JSON.stringify({
       version: 1,
-      columnWidthsVersion: taskColumnWidthsVersion,
-      headerControlsVersion: taskHeaderControlsVersion,
       settings,
     }),
   );
@@ -176,98 +71,8 @@ it('preserves selection visibility and configuration while restoring its first p
     width: 100,
     controls: { filter: true, search: true },
   });
-  expect(restored.columns[0]).not.toHaveProperty('fixed');
-  expect(restored.columns[0]).not.toHaveProperty('resizable');
   expect(restored.selection).toBe(false);
   expect(visibleColumns(restored).some((column) => column.key === 'selection')).toBe(false);
-});
-
-it('ignores legacy fixed positions and keeps table order identical to the column list', () => {
-  const settings = defaultTableSettings();
-  settings.columns.reverse();
-  Object.assign(
-    settings.columns.find((column) => column.key === 'title')!,
-    { fixed: 'start' },
-  );
-  const restored = parseTaskTableSettings(
-    JSON.stringify({
-      version: 1,
-      columnWidthsVersion: taskColumnWidthsVersion,
-      headerControlsVersion: taskHeaderControlsVersion,
-      settings,
-    }),
-  );
-  expect(visibleColumns(restored).map((column) => column.key)).toEqual(
-    restored.columns.map((column) => column.key),
-  );
-  expect(restored.columns.some((column) => 'fixed' in column)).toBe(false);
-});
-
-it('ignores legacy per-column resizing flags and preserves the global preference', () => {
-  const settings = defaultTableSettings();
-  const saved = {
-    ...settings,
-    columns: settings.columns.map((column) => ({ ...column, resizable: false })),
-  };
-  for (const resizable of [true, false]) {
-    const restored = parseTaskTableSettings(
-      JSON.stringify({
-        version: 1,
-        columnWidthsVersion: taskColumnWidthsVersion,
-        headerControlsVersion: taskHeaderControlsVersion,
-        settings: { ...saved, resizable },
-      }),
-    );
-    expect(restored.resizable).toBe(resizable);
-    expect(restored.columns).toEqual(settings.columns);
-    expect(restored.columns.some((column) => 'resizable' in column)).toBe(false);
-  }
-});
-
-it('migrates legacy header choices into the fixed-order control configuration', () => {
-  const settings = defaultTableSettings();
-  const columns = settings.columns.map(({ controls, ...column }) => ({
-    ...column,
-    sortMode: controls.sort.enabled ? controls.sort.mode : 'none',
-    filter: controls.filter,
-    search: controls.search,
-    actionsPlacement: 'start',
-  }));
-  Object.assign(columns[1]!, { sortMode: 'descending', filter: true, search: true });
-  const restored = parseTaskTableSettings(
-    JSON.stringify({
-      version: 1,
-      columnWidthsVersion: taskColumnWidthsVersion,
-      headerControlsVersion: taskHeaderControlsVersion,
-      settings: { ...settings, columns },
-    }),
-  );
-  expect(restored.columns[1]?.controls).toEqual({
-    layout: 'separate',
-    align: 'start',
-    sort: { enabled: true, mode: 'descending' },
-    filter: true,
-    search: true,
-  });
-  expect(restored.columns[1]).not.toHaveProperty('sortMode');
-  expect(restored.columns[1]).not.toHaveProperty('actionsPlacement');
-});
-
-it('keeps existing header alignment when saved preferences have no layout mode', () => {
-  const settings = defaultTableSettings();
-  const columns = settings.columns.map((column) => ({
-    ...column,
-    controls: { ...column.controls, layout: undefined, align: 'center' },
-  }));
-  const restored = parseTaskTableSettings(
-    JSON.stringify({
-      version: 1,
-      columnWidthsVersion: taskColumnWidthsVersion,
-      headerControlsVersion: taskHeaderControlsVersion,
-      settings: { ...settings, columns },
-    }),
-  );
-  expect(restored.columns[1]?.controls).toMatchObject({ layout: 'separate', align: 'center' });
 });
 
 it('repairs duplicate or missing columns, invalid bounds and hidden data columns', () => {
@@ -285,8 +90,6 @@ it('repairs duplicate or missing columns, invalid bounds and hidden data columns
   const result = parseTaskTableSettings(
     JSON.stringify({
       version: 1,
-      columnWidthsVersion: taskColumnWidthsVersion,
-      headerControlsVersion: taskHeaderControlsVersion,
       settings,
     }),
   );
@@ -299,61 +102,6 @@ it('repairs duplicate or missing columns, invalid bounds and hidden data columns
     minWidth: 40,
     maxWidth: 100,
   });
-});
-
-it('adds identity and completion to legacy settings, applies header examples once, and preserves later edits', () => {
-  const settings = defaultTableSettings();
-  settings.striped = true;
-  const columns = settings.columns
-    .filter((column) => !['rowNumber', 'completedAt'].includes(column.key))
-    .map((column) => ({
-      ...column,
-      width: column.key === 'title' ? 420 : column.width,
-      controls: {
-        ...column.controls,
-        layout: 'joined',
-        align: 'center',
-        filter: false,
-        search: false,
-        sort: { enabled: true, mode: 'both' },
-      },
-    }));
-  const restored = parseTaskTableSettings(
-    JSON.stringify({
-      version: 1,
-      columnWidthsVersion: taskColumnWidthsVersion,
-      settings: { ...settings, columns },
-    }),
-  );
-  expect(restored.striped).toBe(true);
-  expect(restored.columns.slice(0, 2).map((column) => column.key)).toEqual([
-    'selection',
-    'rowNumber',
-  ]);
-  expect(restored.columns.slice(-2).map((column) => column.key)).toEqual([
-    'completedAt',
-    'actions',
-  ]);
-  expect(restored.columns.find((column) => column.key === 'title')).toMatchObject({
-    width: 420,
-    controls: { layout: 'joined', align: 'center', search: true, sort: { enabled: false } },
-  });
-  expect(restored.columns.find((column) => column.key === 'createdAt')?.controls.sort).toEqual({
-    enabled: true,
-    mode: 'descending',
-  });
-  restored.columns.find((column) => column.key === 'title')!.controls.search = false;
-  restored.showId = false;
-  expect(
-    parseTaskTableSettings(
-      JSON.stringify({
-        version: 1,
-        columnWidthsVersion: taskColumnWidthsVersion,
-        headerControlsVersion: taskHeaderControlsVersion,
-        settings: restored,
-      }),
-    ),
-  ).toEqual(restored);
 });
 
 it('keeps selection and ID adjacent while allowing both to be hidden independently', () => {
@@ -371,39 +119,6 @@ it('keeps selection and ID adjacent while allowing both to be hidden independent
   expect(
     visibleColumns(settings).some((column) => ['selection', 'rowNumber'].includes(column.key)),
   ).toBe(false);
-});
-
-it('preserves the earlier Task minimum migration while applying the new current width', () => {
-  const settings = defaultTableSettings();
-  const title = settings.columns.find((column) => column.key === 'title')!;
-  Object.assign(title, { minWidth: 280, width: 420, maxWidth: 600 });
-  settings.columns.find((column) => column.key === 'priority')!.width = 240;
-  settings.striped = true;
-  const restored = parseTaskTableSettings(
-    JSON.stringify({
-      version: 1,
-      columnWidthsVersion: 2,
-      headerControlsVersion: taskHeaderControlsVersion,
-      settings,
-    }),
-  );
-  expect(restored).toEqual({
-    ...settings,
-    columns: settings.columns.map((column) =>
-      column.key === 'title' ? { ...column, minWidth: 300, width: 360 } : column,
-    ),
-  });
-  restored.columns.find((column) => column.key === 'title')!.width = 360;
-  expect(
-    parseTaskTableSettings(
-      JSON.stringify({
-        version: 1,
-        columnWidthsVersion: taskColumnWidthsVersion,
-        headerControlsVersion: taskHeaderControlsVersion,
-        settings: restored,
-      }),
-    ),
-  ).toEqual(restored);
 });
 
 it('pins inclusive column ranges and computes offsets from visible current widths', () => {
@@ -443,8 +158,6 @@ it('restores pin boundaries including explicit unpinning, and ignores invalid sa
   const save = (pinnedColumns: unknown) =>
     JSON.stringify({
       version: 1,
-      columnWidthsVersion: taskColumnWidthsVersion,
-      headerControlsVersion: taskHeaderControlsVersion,
       settings: { ...settings, pinnedColumns },
     });
   expect(parseTaskTableSettings(save({ start: null, end: 'completedAt' })).pinnedColumns).toEqual({
@@ -456,43 +169,18 @@ it('restores pin boundaries including explicit unpinning, and ignores invalid sa
   );
 });
 
-it('updates only the four requested current widths in saved settings and preserves later edits', () => {
+it('round trips current column widths and header controls without applying width presets', () => {
   const settings = defaultTableSettings();
-  settings.striped = true;
   const title = settings.columns.find((column) => column.key === 'title')!;
-  Object.assign(title, { minWidth: 280, width: 300, maxWidth: 600 });
-  for (const column of settings.columns)
-    if (['createdAt', 'dueDate', 'completedAt'].includes(column.key)) column.width = 200;
+  Object.assign(title, { minWidth: 280, width: 420, maxWidth: 600 });
+  title.controls = {
+    layout: 'joined',
+    align: 'center',
+    sort: { enabled: true, mode: 'ascending' },
+    filter: false,
+    search: false,
+  };
   settings.columns.find((column) => column.key === 'priority')!.width = 240;
-  const restored = parseTaskTableSettings(
-    JSON.stringify({
-      version: 1,
-      columnWidthsVersion: 3,
-      headerControlsVersion: taskHeaderControlsVersion,
-      settings,
-    }),
-  );
-  expect(restored).toEqual({
-    ...settings,
-    columns: settings.columns.map((column) => ({
-      ...column,
-      width:
-        column.key === 'title'
-          ? 360
-          : ['createdAt', 'dueDate', 'completedAt'].includes(column.key)
-            ? 220
-            : column.width,
-    })),
-  });
-  restored.columns.find((column) => column.key === 'title')!.width = 400;
-  expect(
-    parseTaskTableSettings(
-      JSON.stringify({
-        version: 1,
-        columnWidthsVersion: taskColumnWidthsVersion,
-        headerControlsVersion: taskHeaderControlsVersion,
-        settings: restored,
-      }),
-    ),
-  ).toEqual(restored);
+  settings.striped = true;
+  expect(parseTaskTableSettings(serializeTaskTableSettings(settings))).toEqual(settings);
 });

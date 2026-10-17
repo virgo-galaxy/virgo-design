@@ -3,19 +3,20 @@ import { Card, SegmentedControl } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { formatDueDate } from '@/lib/formatting/format-due-date';
-type TrendPeriod = '7d' | '14d';
-
 import { getDeliveryTrend } from '@/api/analytics';
 import type { TrendPointDto } from '@/contracts/analytics';
 import { useTaskDependentQuery } from '@/features/tasks';
+import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { ResourceContent } from '@/shared/async/ResourceContent';
 
 import styles from './DeliveryTrend.module.scss';
 
+type TrendPeriod = '7d' | '14d';
+
 function DeliveryTrendView({ trendPoints }: { trendPoints: TrendPointDto[] }) {
   const { t, i18n } = useTranslation();
   const [period, setPeriod] = useState<TrendPeriod>('7d');
+
   const points = period === '7d' ? trendPoints.slice(-7) : trendPoints;
   const completed = points.reduce((sum, point) => sum + point.completed, 0);
   const planned = points.reduce((sum, point) => sum + point.planned, 0);
@@ -81,6 +82,7 @@ function DeliveryTrendView({ trendPoints }: { trendPoints: TrendPointDto[] }) {
 
 export function DeliveryTrend() {
   const resource = useTaskDependentQuery(getDeliveryTrend);
+
   return (
     <ResourceContent resource={resource}>
       {(trendPoints) => <DeliveryTrendView trendPoints={trendPoints} />}

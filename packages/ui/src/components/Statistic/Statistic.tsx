@@ -6,7 +6,9 @@ import { Skeleton } from '../Skeleton';
 import styles from './Statistic.module.scss';
 import type { StatisticProps, StatisticTrendProps, StatisticValueProps } from './Statistic.types';
 import { StatisticNumber } from './StatisticNumber';
+
 const classes = (...values: (string | undefined)[]) => values.filter(Boolean).join(' ');
+
 const Label = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(function StatisticLabel(
   { className, ...props },
   ref,
@@ -15,6 +17,7 @@ const Label = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(functio
     <div {...props} ref={ref} className={classes(styles.label, className)} data-slot="label" />
   );
 });
+
 const Value = forwardRef<HTMLDivElement, StatisticValueProps>(function StatisticValue(
   { className, value, animation, formatter, children, ...props },
   ref,
@@ -28,6 +31,7 @@ const Value = forwardRef<HTMLDivElement, StatisticValueProps>(function Statistic
     </div>
   );
 });
+
 const Description = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   function StatisticDescription({ className, ...props }, ref) {
     return (
@@ -61,6 +65,7 @@ const Trend = forwardRef<HTMLSpanElement, StatisticTrendProps>(function Statisti
     </span>
   );
 });
+
 const Root = forwardRef<HTMLDivElement, StatisticProps>(function Statistic(
   {
     label,
@@ -120,4 +125,5 @@ const Root = forwardRef<HTMLDivElement, StatisticProps>(function Statistic(
     </div>
   );
 });
+
 export const Statistic = Object.assign(Root, { Root, Label, Value, Trend, Description });

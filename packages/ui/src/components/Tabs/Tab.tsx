@@ -2,6 +2,7 @@ import { CloseIcon } from '@virgo-design/icons';
 import { Tabs as PrimitiveTabs } from '@virgo-design/primitives';
 import { forwardRef, useCallback } from 'react';
 
+import { useLocale } from '../../locale/context/locale-context';
 import styles from './Tabs.module.scss';
 import type { TabProps } from './Tabs.types';
 import { useTabsVisualContext } from './TabsContext';
@@ -16,7 +17,7 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
     icon,
     closable = false,
     onClose,
-    closeLabel = 'Close tab',
+    closeLabel,
     disabled,
     children,
     className,
@@ -27,6 +28,7 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
   },
   forwardedRef,
 ) {
+  const locale = useLocale();
   const { variant } = useTabsVisualContext('Tab');
   const showsCloseAction = variant === 'card' && closable;
 
@@ -91,7 +93,7 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
         <button
           className={styles.closeAction}
           type="button"
-          aria-label={closeLabel}
+          aria-label={closeLabel ?? locale.tabs.close}
           data-slot="close-action"
           disabled={disabled}
           tabIndex={-1}

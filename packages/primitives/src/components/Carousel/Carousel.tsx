@@ -17,15 +17,21 @@ type Context = CarouselState & {
   dragging: boolean;
   setDragging: (value: boolean) => void;
 };
+
 const CarouselContext = createContext<Context | null>(null);
+
 export function useCarouselState(): CarouselState {
   return useCarouselContext();
 }
+
 function useCarouselContext() {
   const value = useContext(CarouselContext);
+
   if (!value) throw new Error('Carousel parts must be used inside Carousel.Root.');
+
   return value;
 }
+
 const interactive = (target: EventTarget | null) =>
   target instanceof Element &&
   !!target.closest(
@@ -68,9 +74,11 @@ export const CarouselRoot = forwardRef<HTMLDivElement, CarouselProps>(function C
   const [focused, setFocused] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [suspended, setSuspended] = useState(false);
+
   useEffect(() => {
     if (controlledIndex === undefined) reset(index);
   }, [controlledIndex, index, reset]);
+
   useEffect(() => {
     const media = window.matchMedia?.('(prefers-reduced-motion: reduce)');
     const update = () => setSuspended(document.hidden || (media?.matches ?? false));
@@ -82,10 +90,12 @@ export const CarouselRoot = forwardRef<HTMLDivElement, CarouselProps>(function C
       media?.removeEventListener?.('change', update);
     };
   }, []);
+
   const goTo = (next: number) => {
     if (layout === 'stacked' || count < 2 || !Number.isFinite(next)) return;
     setValue(loop ? ((Math.floor(next) % count) + count) % count : clamp(next, count));
   };
+
   const playing =
     autoPlay &&
     count > 1 &&
@@ -114,6 +124,7 @@ export const CarouselRoot = forwardRef<HTMLDivElement, CarouselProps>(function C
     dragging,
     setDragging,
   };
+
   useEffect(() => {
     if (!playing) return;
     const timer = window.setTimeout(
@@ -122,6 +133,7 @@ export const CarouselRoot = forwardRef<HTMLDivElement, CarouselProps>(function C
     );
     return () => window.clearTimeout(timer);
   }, [playing, interval, index, count, loop, setValue]);
+
   return (
     <CarouselContext.Provider value={state}>
       <div
@@ -165,17 +177,22 @@ export const CarouselViewport = forwardRef<HTMLDivElement, CarouselViewportProps
     const state = useCarouselContext();
     const localRef = useRef<HTMLDivElement>(null);
     const latest = useRef(state);
+
     useEffect(() => {
       latest.current = state;
     });
+
     const gesture = useRef<{ x: number; y: number; id: number; horizontal: boolean } | null>(null);
+
     useEffect(() => {
       if (!state.wheel || state.layout === 'stacked') return;
       const node = localRef.current;
       if (!node) return;
+
       let delta = 0;
       let locked = false;
       let timer: number | undefined;
+
       const onWheel = (event: WheelEvent) => {
         const x = event.shiftKey && Math.abs(event.deltaX) < 1 ? event.deltaY : event.deltaX;
         if (
@@ -200,12 +217,15 @@ export const CarouselViewport = forwardRef<HTMLDivElement, CarouselViewportProps
           locked = true;
         }
       };
+
       node.addEventListener('wheel', onWheel, { passive: false });
+
       return () => {
         node.removeEventListener('wheel', onWheel);
         window.clearTimeout(timer);
       };
     }, [state.wheel, state.layout]);
+
     const finish = (node: HTMLDivElement, cancelled: boolean) => {
       const current = gesture.current;
       if (!current) return;
@@ -219,6 +239,7 @@ export const CarouselViewport = forwardRef<HTMLDivElement, CarouselViewportProps
         else state.previous();
       }
     };
+
     return (
       <div
         {...props}
@@ -261,8 +282,8 @@ export const CarouselViewport = forwardRef<HTMLDivElement, CarouselViewportProps
           onPointerMove?.(event);
           const current = gesture.current;
           if (event.defaultPrevented || !current || current.id !== event.pointerId) return;
-          const x = event.clientX - current.x,
-            y = event.clientY - current.y;
+          const x = event.clientX - current.x;
+          const y = event.clientY - current.y;
           if (!current.horizontal) {
             if (Math.abs(y) > Math.max(8, Math.abs(x))) {
               gesture.current = null;
@@ -289,20 +310,24 @@ export const CarouselViewport = forwardRef<HTMLDivElement, CarouselViewportProps
     );
   },
 );
+
 export const CarouselTrack = forwardRef<HTMLDivElement, CarouselTrackProps>(
   function CarouselTrack(props, ref) {
     const state = useCarouselContext();
+
     return (
       <div {...props} ref={ref} aria-live={state.playing ? 'off' : 'polite'} aria-atomic="false" />
     );
   },
 );
+
 export const CarouselItem = forwardRef<HTMLDivElement, CarouselItemProps>(function CarouselItem(
   { index, ...props },
   ref,
 ) {
   const state = useCarouselContext();
   const active = state.layout === 'stacked' || index === state.index;
+
   return (
     <div
       {...props}

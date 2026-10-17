@@ -1,5 +1,6 @@
 import type { SessionUser } from '@/contracts/auth';
 import type { TaskDto, TaskStatusDto } from '@/contracts/tasks';
+
 export const isAdmin = (user?: SessionUser) => user?.role === 'admin';
 export const canManageProject = (user: SessionUser | undefined, project: string) =>
   isAdmin(user) || Boolean(user?.managedProjects.includes(project));
@@ -15,14 +16,18 @@ export function taskStatusChoices(user: SessionUser | undefined, task?: TaskDto)
   if (isAdmin(user)) return ['backlog', 'todo', 'in_progress', 'in_review', 'done'];
   if (!task) return canCreateTask(user) ? ['backlog', 'todo'] : [];
   if (!canViewTask(user, task)) return [];
+
   const next: TaskStatusDto[] = [];
+
   if (user?.role === 'manager') {
     if (task.status === 'backlog') next.push('todo');
     if (task.status === 'in_review') next.push('done', 'in_progress');
   }
+
   if (user?.id === task.assignee) {
     if (task.status === 'todo') next.push('in_progress');
     if (task.status === 'in_progress') next.push('in_review');
   }
+
   return [task.status, ...next];
 }

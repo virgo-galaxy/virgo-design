@@ -11,10 +11,12 @@ import styles from '../styles/workplace.module.scss';
 export function ProjectDistribution() {
   const resource = useTaskDependentQuery(getProjectDistribution);
   const { t, i18n } = useTranslation();
+
   return (
     <ResourceContent resource={resource}>
       {(projectDistribution) => {
         const openTasks = projectDistribution.reduce((sum, project) => sum + project.count, 0);
+
         return (
           <>
             <div className={styles.distributionSummary}>

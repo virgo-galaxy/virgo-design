@@ -2,6 +2,10 @@ import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
 
 import type { OverlayPlacement } from '../../internal/overlay/positioning';
 
+export type SelectState =
+  | { readonly multiple: false; readonly value: string | undefined }
+  | { readonly multiple: true; readonly value: readonly string[] };
+
 export interface SelectProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'defaultValue' | 'id' | 'onChange'

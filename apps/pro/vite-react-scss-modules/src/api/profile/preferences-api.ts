@@ -4,6 +4,7 @@ import { http } from '@/lib/http';
 export function getProfilePreferences(signal?: AbortSignal): Promise<ProfilePreferencesDto> {
   return http.get('/profile/preferences', signal ? { signal } : undefined);
 }
+
 export function updateProfilePreferences(
   patch: UpdateProfilePreferencesRequest,
 ): Promise<ProfilePreferencesDto> {

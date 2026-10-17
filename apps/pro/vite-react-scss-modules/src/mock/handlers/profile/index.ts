@@ -11,14 +11,18 @@ import { initialProfile } from '../../fixtures/profile';
 import { projects } from '../../fixtures/projects';
 import { endpoint, failure, success } from '../../http/response';
 import type { ProfileRecord } from '../../model/state';
+
 export function getBackendProfile(): ProfileRecord {
   return { ...getDemoState().profile };
 }
+
 export function resetProfile() {
   updateDemoState((previous) => ({ ...previous, profile: { ...initialProfile } }));
 }
+
 function profileFor(user: SessionUser): ProfileRecord {
   if (isAdmin(user)) return getBackendProfile();
+
   return (
     getDemoState().profiles?.[user.id] ?? {
       ...initialProfile,
@@ -31,6 +35,7 @@ function profileFor(user: SessionUser): ProfileRecord {
     }
   );
 }
+
 const identityFields = [
   'name',
   'displayName',
@@ -40,6 +45,7 @@ const identityFields = [
   'avatarImage',
   'botAvatarImage',
 ] as const;
+
 const preferenceFields = [
   'focusProject',
   'digest',
@@ -47,8 +53,10 @@ const preferenceFields = [
   'reviewReminders',
   'compactActivity',
 ] as const;
+
 const capabilities = { identity: identityFields, preferences: preferenceFields };
 type Capability = keyof typeof capabilities;
+
 function selectProfile(profile: ProfileRecord, capability: Capability) {
   return Object.fromEntries(
     capabilities[capability].flatMap((key) =>
@@ -56,6 +64,7 @@ function selectProfile(profile: ProfileRecord, capability: Capability) {
     ),
   );
 }
+
 export const profileHandlers = (Object.keys(capabilities) as Capability[]).flatMap((capability) => [
   http.get(endpoint(`/profile/${capability}`), ({ request }) =>
     success(selectProfile(profileFor(requestUser(request)!), capability)),
@@ -63,7 +72,9 @@ export const profileHandlers = (Object.keys(capabilities) as Capability[]).flatM
   http.patch(endpoint(`/profile/${capability}`), async ({ request }) => {
     const user = requestUser(request)!;
     const profile = profileFor(user);
+
     let body: unknown;
+
     try {
       body = await request.json();
     } catch {
@@ -73,25 +84,31 @@ export const profileHandlers = (Object.keys(capabilities) as Capability[]).flatM
         detail: 'Invalid JSON',
       });
     }
+
     if (!isRecord(body))
       return failure({
         status: 400,
         code: API_ERROR_CODES.INVALID_REQUEST,
         detail: 'Expected a profile object',
       });
+
     const allowed: readonly string[] = capabilities[capability];
     const fields: Record<string, string[]> = {};
     const next = { ...profile };
+
     for (const [key, value] of Object.entries(body)) {
       if (!allowed.includes(key)) {
         fields[key] = [`Field does not belong to profile ${capability}`];
+
         continue;
       }
+
       const field = key as keyof ProfileRecord;
       const expected = typeof profile[field] === 'boolean' ? 'boolean' : 'string';
       if (typeof value !== expected) fields[key] = ['Invalid value'];
       else Object.assign(next, { [key]: value });
     }
+
     if (capability === 'identity') {
       if (!next.name.trim() || next.name.length > 60)
         fields.name = ['Use a name between 1 and 60 characters'];
@@ -104,6 +121,7 @@ export const profileHandlers = (Object.keys(capabilities) as Capability[]).flatM
       if (next.digest && !/^([01]\d|2[0-3]):[0-5]\d$/.test(next.digestTime))
         fields.digestTime = ['Invalid time'];
     }
+
     if (Object.keys(fields).length)
       return failure({
         status: 422,
@@ -111,6 +129,7 @@ export const profileHandlers = (Object.keys(capabilities) as Capability[]).flatM
         detail: 'Invalid profile',
         fields,
       });
+
     const saved =
       capability === 'identity'
         ? {
@@ -126,11 +145,13 @@ export const profileHandlers = (Object.keys(capabilities) as Capability[]).flatM
             bio: next.bio.trim(),
           }
         : next;
+
     updateDemoState((previous) =>
       isAdmin(user)
         ? { ...previous, profile: saved }
         : { ...previous, profiles: { ...previous.profiles, [user.id]: saved } },
     );
+
     return success(selectProfile(saved, capability));
   }),
 ]);

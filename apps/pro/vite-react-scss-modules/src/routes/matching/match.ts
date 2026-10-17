@@ -18,7 +18,6 @@ export interface ResolvedProRoute extends ProPageRoute {
   group?: Pick<ProRouteGroup, 'id' | 'labelKey' | 'icon'>;
 }
 
-/** Resolve policy once; route matching and navigation share the same descriptors. */
 export function createProRouting(config: ProRouteConfig) {
   const routes: ResolvedProRoute[] = [
     ...config.groups.flatMap((group) =>
@@ -39,6 +38,7 @@ export function createProRouting(config: ProRouteConfig) {
       contentLayout: config.fallback.contentLayout ?? 'flow',
     },
   ];
+
   const groups = config.groups.flatMap((group) => {
     const pages = routes.filter(
       (route) =>
@@ -47,10 +47,12 @@ export function createProRouting(config: ProRouteConfig) {
         !route.path.includes(':') &&
         !route.path.includes('*'),
     );
+
     return pages.length
       ? [{ id: group.id, labelKey: group.labelKey, icon: group.icon, pages }]
       : [];
   });
+
   const matchableRoutes = routes.map((route) => ({ path: route.path, handle: route }));
 
   return {
@@ -58,6 +60,7 @@ export function createProRouting(config: ProRouteConfig) {
     groups,
     match(pathname: string) {
       const match = matchRoutes(matchableRoutes, pathname)?.at(-1);
+
       return match ? { ...match.route.handle, params: match.params } : undefined;
     },
   };

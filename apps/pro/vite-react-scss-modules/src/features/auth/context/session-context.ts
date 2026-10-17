@@ -10,7 +10,9 @@ export const SessionContext = createContext<{
 
 export function useSession() {
   const session = useContext(SessionContext);
+
   if (!session) throw new Error('An authenticated session is required');
+
   return session;
 }
 

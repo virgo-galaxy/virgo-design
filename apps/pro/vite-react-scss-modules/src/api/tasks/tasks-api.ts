@@ -1,5 +1,3 @@
-import { http } from '@/lib/http';
-
 import type {
   TaskDeleteRequest,
   TaskDeleteResult,
@@ -11,7 +9,9 @@ import type {
   TaskRequest,
   TaskStatusDto,
   TaskSummaryDto,
-} from '../../contracts/tasks';
+} from '@/contracts/tasks';
+import { http } from '@/lib/http';
+
 export function getTasks(query: TaskListQuery = {}, signal?: AbortSignal): Promise<TaskListDto> {
   return http.get('/tasks', {
     params: query,
@@ -19,18 +19,23 @@ export function getTasks(query: TaskListQuery = {}, signal?: AbortSignal): Promi
     ...(signal ? { signal } : {}),
   });
 }
+
 export function getTask(id: string, signal?: AbortSignal): Promise<TaskDto> {
   return http.get(`/tasks/${encodeURIComponent(id)}`, signal ? { signal } : undefined);
 }
+
 export function createTask(request: TaskRequest): Promise<TaskDto> {
   return http.post<TaskDto>('/tasks', request);
 }
+
 export function updateTask(id: string, request: Partial<TaskRequest>): Promise<TaskDto> {
   return http.patch<TaskDto>(`/tasks/${encodeURIComponent(id)}`, request);
 }
+
 export function updateTaskStatus(id: string, status: TaskStatusDto): Promise<TaskDto> {
   return updateTask(id, { status });
 }
+
 export function getTaskMetadata(signal?: AbortSignal): Promise<TaskMetadataDto> {
   return http.get('/tasks/metadata', signal ? { signal } : undefined);
 }

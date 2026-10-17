@@ -23,6 +23,7 @@ export const sampleSuccess: WorkflowReceipt = {
   schedule: '2026-10-09T10:00:00+08:00',
   notes: 'Review delivered support workflows with the team.',
 };
+
 export const sampleError: WorkflowReceipt = {
   outcome: 'error',
   kind: 'handoff',

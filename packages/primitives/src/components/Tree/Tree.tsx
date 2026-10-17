@@ -18,8 +18,10 @@ import type {
   TreeProps,
   TreeToggleProps,
 } from './Tree.types';
+
 const emptyValues: readonly string[] = [];
-type Context = {
+
+type TreeContextValue = {
   expanded: readonly string[];
   selected: readonly string[];
   disabled: boolean;
@@ -27,7 +29,8 @@ type Context = {
   toggle: (value: string) => void;
   select: (value: string) => void;
 };
-const TreeContext = createContext<Context | null>(null);
+
+const TreeContext = createContext<TreeContextValue | null>(null);
 const ItemContext = createContext<{
   value: string;
   expanded: boolean;
@@ -36,16 +39,23 @@ const ItemContext = createContext<{
   setLabelId: (id: string) => void;
   branch: boolean;
 } | null>(null);
+
 function useTree() {
   const context = useContext(TreeContext);
+
   if (!context) throw new Error('Tree parts require Tree.');
+
   return context;
 }
+
 function useItem() {
   const context = useContext(ItemContext);
+
   if (!context) throw new Error('Tree item parts require Tree.Item.');
+
   return context;
 }
+
 function visibleItems(root: HTMLElement) {
   return Array.from(root.querySelectorAll<HTMLElement>('[role="treeitem"]')).filter(
     (node) =>
@@ -54,6 +64,7 @@ function visibleItems(root: HTMLElement) {
       node.getAttribute('aria-disabled') !== 'true',
   );
 }
+
 export const Tree = forwardRef<HTMLDivElement, TreeProps>(function Tree(
   {
     expandedValues,
@@ -81,6 +92,7 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps>(function Tree(
     defaultSelectedValues,
     onSelectedValuesChange,
   );
+
   const selected =
     selectionMode === 'none'
       ? emptyValues
@@ -91,24 +103,31 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps>(function Tree(
   const lastFocused = useRef<HTMLElement | null>(null);
   const query = useRef('');
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
   const toggle = (value: string) =>
     setExpanded(
       expanded.includes(value) ? expanded.filter((x) => x !== value) : [...expanded, value],
     );
+
   const select = (value: string) => {
     if (disabled || selectionMode === 'none') return;
+
     const next =
       selectionMode === 'single'
         ? [value]
         : selected.includes(value)
           ? selected.filter((x) => x !== value)
           : [...selected, value];
+
     if (next.join('\0') !== selected.join('\0')) setSelected(next);
   };
+
   useEffect(() => () => clearTimeout(timer.current), []);
+
   useLayoutEffect(() => {
     const root = rootRef.current;
     if (!root) return;
+
     const sync = () => {
       const items = disabled ? [] : visibleItems(root);
       let target = lastFocused.current;
@@ -124,7 +143,9 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps>(function Tree(
       if (restore && target !== lastFocused.current) target?.focus();
       lastFocused.current = target;
     };
+
     sync();
+
     const observer = new MutationObserver(sync);
     observer.observe(root, {
       childList: true,
@@ -132,8 +153,10 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps>(function Tree(
       attributes: true,
       attributeFilter: ['hidden', 'aria-disabled'],
     });
+
     return () => observer.disconnect();
   }, [disabled, expanded]);
+
   return (
     <TreeContext.Provider
       value={{ expanded, selected, disabled, mode: selectionMode, toggle, select }}
@@ -218,6 +241,7 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps>(function Tree(
     </TreeContext.Provider>
   );
 });
+
 export const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeItem(
   { value, branch = false, disabled = false, textValue, children, onClick, ...props },
   ref,
@@ -228,6 +252,7 @@ export const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeI
   const parent = useContext(ItemContext);
   const expanded = branch && tree.expanded.includes(value);
   const isDisabled = disabled || tree.disabled || Boolean(parent?.disabled);
+
   return (
     <ItemContext.Provider
       value={{ value, expanded, disabled: isDisabled, labelId, setLabelId, branch }}
@@ -262,27 +287,34 @@ export const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeI
     </ItemContext.Provider>
   );
 });
+
 export const TreeLabel = forwardRef<HTMLDivElement, TreeLabelProps>(function TreeLabel(
   { id, ...props },
   ref,
 ) {
   const item = useItem();
   const setLabelId = item.setLabelId;
+
   useLayoutEffect(() => {
     if (id) setLabelId(id);
   }, [id, setLabelId]);
+
   return <div {...props} ref={ref} id={id ?? item.labelId} data-tree-label="" />;
 });
+
 export const TreeGroup = forwardRef<HTMLDivElement, TreeGroupProps>(function TreeGroup(props, ref) {
   const item = useItem();
+
   return <div {...props} ref={ref} role="group" hidden={!item.expanded} />;
 });
+
 export const TreeToggle = forwardRef<HTMLButtonElement, TreeToggleProps>(function TreeToggle(
   { onClick, ...props },
   ref,
 ) {
   const item = useItem();
   const tree = useTree();
+
   return (
     <button
       type="button"

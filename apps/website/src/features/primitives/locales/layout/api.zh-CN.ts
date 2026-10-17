@@ -18,9 +18,9 @@ export const layoutApiZhCN = {
       '此作用域内的 Sidebar 及内部或外部触发器。',
     'layout-sidebar-trigger-props.properties.action.description':
       '与 Sidebar 或外层 SidebarProvider 共享的操作。',
-    'layout-sidebar-props.properties.state.description': '三种状态的受控属性，优先于旧 collapsed。',
+    'layout-sidebar-props.properties.state.description': '受控显示状态。',
     'layout-sidebar-props.properties.default-state.description':
-      '初始非受控状态，优先于 defaultCollapsed。',
+      '初始非受控显示状态。',
     'layout-sidebar-props.properties.on-state-change.description':
       '独立 Sidebar 请求改变状态时调用；共享作用域中的状态控制应放在 SidebarProvider。',
     'layout-content-props.properties.as.description': '页面主要区域或嵌入内容区域使用的语义元素。',

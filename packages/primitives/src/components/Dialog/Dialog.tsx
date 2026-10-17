@@ -76,19 +76,7 @@ export const DialogRoot = forwardRef<HTMLDivElement, DialogProps>(function Dialo
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const rootForwardedRef = useMemo(() => {
-    if (typeof ref !== 'function') return composeRefs(ref, rootRef);
-    return (node: HTMLDivElement | null) => {
-      rootRef.current = node;
-      // ForwardedRef omits the cleanup return supported by React 19 callback refs.
-      const cleanup = (ref as React.RefCallback<HTMLDivElement>)(node);
-      if (typeof cleanup === 'function')
-        return () => {
-          rootRef.current = null;
-          cleanup();
-        };
-    };
-  }, [ref]);
+  const rootForwardedRef = useMemo(() => composeRefs(ref, rootRef), [ref]);
   const environment = usePortalEnvironment(rootRef, open);
   const closeReasonRef = useRef<CloseReason>('programmatic');
   const closeAutoFocusPreventedRef = useRef(false);

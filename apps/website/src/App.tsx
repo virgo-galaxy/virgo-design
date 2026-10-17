@@ -1,7 +1,7 @@
 import { BrowserRouter, useLocation } from 'react-router-dom';
 
 import { AppRouter } from '@/app/routes/AppRouter';
-import { WebsiteControlLabels } from '@/app/WebsiteControlLabels';
+import { LocaleProvider } from '@/i18n/react';
 import { AppLayout } from '@/layout/AppLayout';
 
 function RoutedApp() {
@@ -19,10 +19,10 @@ function RoutedApp() {
 
 export function App() {
   return (
-    <WebsiteControlLabels>
+    <LocaleProvider>
       <BrowserRouter>
         <RoutedApp />
       </BrowserRouter>
-    </WebsiteControlLabels>
+    </LocaleProvider>
   );
 }

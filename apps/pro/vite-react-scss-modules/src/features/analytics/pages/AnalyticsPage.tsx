@@ -24,10 +24,12 @@ export function AnalyticsPage() {
   const projects = useTaskDependentQuery(getProjectDelivery);
   const status = useTaskDependentQuery(getTaskStatusSummary);
   const capacity = useTaskDependentQuery(getOwnerCapacity);
+
   const points = delivery.data ?? [];
   const dateRange = points.length
     ? `${formatDueDate(points[0]!.date, i18n.language)} – ${formatDueDate(points.at(-1)!.date, i18n.language)}`
     : '';
+
   return (
     <div className={styles.page}>
       <header className={styles.heading}>

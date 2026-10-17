@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import * as ui from './index';
 
 describe('@virgo-design/ui public API', () => {
-  it('keeps internal helpers private and exposes component families and host label configuration', () => {
+  it('keeps internal helpers private and exposes component families and locale configuration', () => {
     expect(Object.keys(ui).sort()).toEqual(
       [
         'Steps',
@@ -63,7 +63,7 @@ describe('@virgo-design/ui public API', () => {
         'Textarea',
         'Tooltip',
         'Toast',
-        'UIControlLabelsProvider',
+        'LocaleProvider',
       ].sort(),
     );
     expect(

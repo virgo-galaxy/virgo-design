@@ -7,6 +7,7 @@ export interface ProfileIdentityDto {
   avatarImage: string;
   botAvatarImage?: string;
 }
+
 export interface ProfilePreferencesDto {
   focusProject: string;
   digest: boolean;
@@ -14,6 +15,7 @@ export interface ProfilePreferencesDto {
   reviewReminders: boolean;
   compactActivity: boolean;
 }
+
 export type UpdateProfileIdentityRequest = Partial<ProfileIdentityDto>;
 export type UpdateProfilePreferencesRequest = Partial<ProfilePreferencesDto>;
 

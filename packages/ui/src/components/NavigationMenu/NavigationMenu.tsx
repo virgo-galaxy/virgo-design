@@ -7,7 +7,6 @@ import {
   createContext,
   forwardRef,
   type ReactNode,
-  type Ref,
   type SyntheticEvent,
   useCallback,
   useContext,
@@ -19,6 +18,7 @@ import {
 } from 'react';
 
 import { PopupMaterial } from '../../internal/overlay/PopupMaterial';
+import { composeRefs } from '../../internal/utils/composeRefs';
 import { Separator as BaseSeparator } from '../Separator';
 import styles from './NavigationMenu.module.scss';
 import type {
@@ -37,15 +37,6 @@ import type {
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');
-}
-
-function composeRefs<T>(...refs: Array<Ref<T> | undefined>) {
-  return (node: T | null) => {
-    for (const ref of refs) {
-      if (typeof ref === 'function') ref(node);
-      else if (ref) ref.current = node;
-    }
-  };
 }
 
 function composeHandlers<Event extends SyntheticEvent>(

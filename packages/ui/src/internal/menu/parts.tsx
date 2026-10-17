@@ -19,6 +19,7 @@ const Content = forwardRef<HTMLDivElement, MenuContentProps>(function MenuConten
   ref,
 ) {
   const size = useContext(MenuSizeContext);
+
   return (
     <PrimitiveMenu.Content
       {...props}
@@ -28,6 +29,7 @@ const Content = forwardRef<HTMLDivElement, MenuContentProps>(function MenuConten
     />
   );
 });
+
 function ItemLabel({
   icon,
   children,
@@ -55,6 +57,7 @@ function ItemLabel({
     </>
   );
 }
+
 const Item = forwardRef<HTMLButtonElement, MenuItemProps>(function MenuItem(
   { icon, shortcut, danger, className, children, ...props },
   ref,
@@ -71,6 +74,7 @@ const Item = forwardRef<HTMLButtonElement, MenuItemProps>(function MenuItem(
     </PrimitiveMenu.Item>
   );
 });
+
 const CheckboxItem = forwardRef<HTMLButtonElement, MenuCheckboxItemProps>(function MenuCheckboxItem(
   { icon, shortcut, danger, className, children, ...props },
   ref,
@@ -90,6 +94,7 @@ const CheckboxItem = forwardRef<HTMLButtonElement, MenuCheckboxItemProps>(functi
     </PrimitiveMenu.CheckboxItem>
   );
 });
+
 const RadioItem = forwardRef<HTMLButtonElement, MenuRadioItemProps>(function MenuRadioItem(
   { icon, shortcut, danger, className, children, ...props },
   ref,
@@ -109,6 +114,7 @@ const RadioItem = forwardRef<HTMLButtonElement, MenuRadioItemProps>(function Men
     </PrimitiveMenu.RadioItem>
   );
 });
+
 const SubmenuTrigger = forwardRef<HTMLButtonElement, MenuSubmenuTriggerProps>(
   function MenuSubmenuTrigger({ icon, className, children, render, ...props }, ref) {
     const content = (
@@ -131,6 +137,7 @@ const SubmenuTrigger = forwardRef<HTMLButtonElement, MenuSubmenuTriggerProps>(
     );
   },
 );
+
 const Separator = forwardRef<HTMLDivElement, MenuGroupProps>(function MenuSeparator(
   { className, ...props },
   ref,
@@ -145,6 +152,7 @@ const Group = forwardRef<HTMLDivElement, MenuUIGroupProps>(function MenuGroup(
   ref,
 ) {
   const id = useId();
+
   return (
     <PrimitiveMenu.Group
       {...props}
@@ -160,6 +168,7 @@ const Group = forwardRef<HTMLDivElement, MenuUIGroupProps>(function MenuGroup(
     </PrimitiveMenu.Group>
   );
 });
+
 export const menuUIParts = {
   Content,
   Item,

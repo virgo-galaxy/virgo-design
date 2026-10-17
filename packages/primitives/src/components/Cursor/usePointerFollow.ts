@@ -39,15 +39,18 @@ export function usePointerFollow({
   decorative?: boolean;
 }) {
   const updateRef = useRef<(() => void) | null>(null);
+
   useEffect(() => {
     const element = contentRef.current;
     const anchor = anchorRef.current;
     if (!active || !pointer || !element || !anchor) return;
+
     const doc = anchor.ownerDocument;
     const win = doc.defaultView!;
     let width = 0;
     let height = 0;
     let direction: 'ltr' | 'rtl' = 'ltr';
+
     const update = () => {
       const state = pointer.getSnapshot();
       const visible =
@@ -55,6 +58,7 @@ export function usePointerFollow({
       element.style.visibility = visible ? 'visible' : 'hidden';
       element.setAttribute('aria-hidden', String(decorative || !visible));
       if (!visible) return;
+
       const result = positionOverlay(
         { left: state.x + offsetX, top: state.y, width: 0, height: 0 },
         { left: 0, top: 0, width, height },
@@ -72,6 +76,7 @@ export function usePointerFollow({
       element.dataset.side = result.side;
       element.dataset.placement = result.placement;
     };
+
     const measure = () => {
       const rect = element.getBoundingClientRect();
       width = element.offsetWidth || rect.width;
@@ -86,8 +91,10 @@ export function usePointerFollow({
       direction = environment.direction;
       update();
     };
+
     updateRef.current = measure;
     measure();
+
     const unsubscribe = pointer.subscribe(update);
     const resize = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(measure);
     resize?.observe(element);
@@ -97,6 +104,7 @@ export function usePointerFollow({
     contents.observe(element, { childList: true, subtree: true, characterData: true });
     const stopEnvironment = observePortalEnvironment(anchor, measure);
     win.addEventListener('resize', measure);
+
     return () => {
       updateRef.current = null;
       unsubscribe();
@@ -109,6 +117,7 @@ export function usePointerFollow({
       element.style.visibility = 'hidden';
     };
   }, [pointer, active, contentRef, anchorRef, placement, offset, offsetX, decorative]);
+
   useLayoutEffect(() => {
     updateRef.current?.();
   });

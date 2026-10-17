@@ -1,4 +1,7 @@
 export const workplaceEnUS = {
+  previousMonth: 'Previous month',
+  nextMonth: 'Next month',
+  chooseMonth: 'Choose month',
   activityUpdated: 'Updated workspace activity',
   personalAnnualTokenUsage: 'My annual token usage',
   reportingYear: 'Reporting year',

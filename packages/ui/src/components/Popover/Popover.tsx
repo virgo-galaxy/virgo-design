@@ -2,6 +2,7 @@ import { Popover as PrimitivePopover } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
 import { PopupMaterial } from '../../internal/overlay/PopupMaterial';
+import { useLocale } from '../../locale/context/locale-context';
 import { Button } from '../Button';
 import styles from './Popover.module.scss';
 import type {
@@ -23,6 +24,7 @@ const Root = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     />
   );
 });
+
 const Trigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>(function PopoverTrigger(
   { render, variant = 'outline', size = 'medium', className, children, ...props },
   ref,
@@ -33,6 +35,7 @@ const Trigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>(function Popo
         {children}
       </PrimitivePopover.Trigger>
     );
+
   return (
     <PrimitivePopover.Trigger
       {...props}
@@ -50,6 +53,7 @@ const Trigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>(function Popo
     />
   );
 });
+
 const Content = forwardRef<HTMLDivElement, PopoverContentProps>(function PopoverContent(
   { arrow = false, className, children, ...props },
   ref,
@@ -68,18 +72,22 @@ const Content = forwardRef<HTMLDivElement, PopoverContentProps>(function Popover
     </PrimitivePopover.Content>
   );
 });
+
 const Close = forwardRef<HTMLButtonElement, PopoverCloseProps>(function PopoverClose(
-  { className, children = 'Close', ...props },
+  { className, children, ...props },
   ref,
 ) {
+  const locale = useLocale();
+
   return (
     <PrimitivePopover.Close
       {...props}
       ref={ref}
       className={[styles.close, className].filter(Boolean).join(' ')}
     >
-      {children}
+      {children === undefined ? locale.popover.close : children}
     </PrimitivePopover.Close>
   );
 });
+
 export const Popover = Object.assign(Root, { Trigger, Content, Close });

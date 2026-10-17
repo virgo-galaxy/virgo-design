@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { readdirSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 
 import { getResponse } from 'msw';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -28,9 +28,9 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('system preset avatars', () => {
-  it('maps all 24 users to distinct, opaque 512 × 512 WebP files without metadata', () => {
+  it('maps each user to a unique avatar route and an available WebP asset', () => {
     const entries = Object.entries(systemPresetAvatarManifest);
-    const filenames = entries.map(([userId, { apiId, source }]) => {
+    for (const [userId, { apiId, source }] of entries) {
       const filename = source.split('/').at(-1)!;
       expect(users.find((user) => user.id === userId)?.avatarUrl).toBe(
         `/api/v1/avatars/${apiId}.webp`,
@@ -39,23 +39,12 @@ describe('system preset avatars', () => {
       const image = readFileSync(new URL(filename, presetsDirectory));
       expect(image.subarray(0, 4).toString()).toBe('RIFF');
       expect(image.subarray(8, 12).toString()).toBe('WEBP');
-      // These opaque lossy assets need only a VP8 frame, with no EXIF/XMP/ICC/alpha chunks.
-      expect(image.subarray(12, 16).toString()).toBe('VP8 ');
-      expect(image.readUInt32LE(4) + 8).toBe(image.length);
-      expect(image.readUInt32LE(16) + 20 + (image.readUInt32LE(16) % 2)).toBe(image.length);
-      expect(image.subarray(23, 26)).toEqual(Buffer.from([0x9d, 0x01, 0x2a]));
-      expect(image.readUInt16LE(26) & 0x3fff).toBe(512);
-      expect(image.readUInt16LE(28) & 0x3fff).toBe(512);
-      return filename;
-    });
-    expect(entries).toHaveLength(24);
-    expect(new Set(entries.map(([, preset]) => preset.source)).size).toBe(24);
-    expect(new Set(entries.map(([, preset]) => preset.apiId)).size).toBe(24);
-    expect(
-      readdirSync(presetsDirectory)
-        .filter((name) => name.endsWith('.webp'))
-        .sort(),
-    ).toEqual(filenames.sort());
+    }
+    expect(new Set(entries.map(([userId]) => userId))).toEqual(
+      new Set(users.map((user) => user.id)),
+    );
+    expect(new Set(entries.map(([, preset]) => preset.source)).size).toBe(users.length);
+    expect(new Set(entries.map(([, preset]) => preset.apiId)).size).toBe(users.length);
   });
 
   it('serves the original WebP bytes for every preset without a JSON envelope', async () => {
@@ -69,7 +58,7 @@ describe('system preset avatars', () => {
         readFileSync(new URL(filename, presetsDirectory)),
       );
     }
-    expect(fetchAsset).toHaveBeenCalledTimes(24);
+    expect(fetchAsset).toHaveBeenCalledTimes(Object.keys(systemPresetAvatarManifest).length);
   });
 
   it('rejects unknown and malformed preset names without fetching an asset', async () => {

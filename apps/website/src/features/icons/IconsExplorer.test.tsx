@@ -27,7 +27,7 @@ describe('Icons foundation', () => {
     renderIcons();
     await user.click(screen.getByRole('button', { name: 'Choose icon color' }));
     expect(screen.getByRole('dialog', { name: 'Icon color picker' })).toBeInTheDocument();
-    const hex = screen.getByRole('textbox', { name: 'Hex color' });
+    const hex = screen.getByRole('textbox', { name: 'HEX color' });
     fireEvent.change(hex, { target: { value: '#127d55' } });
     fireEvent.blur(hex);
     expect(screen.getByTestId('large-icon-glyph')).toHaveStyle({ color: '#127d55' });
@@ -224,8 +224,8 @@ describe('Icons foundation', () => {
     expect(screen.queryByRole('button', { name: 'Dark' })).not.toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Choose icon color' }));
-    await user.clear(screen.getByRole('textbox', { name: 'Hex color' }));
-    await user.type(screen.getByRole('textbox', { name: 'Hex color' }), '#7060ff');
+    await user.clear(screen.getByRole('textbox', { name: 'HEX color' }));
+    await user.type(screen.getByRole('textbox', { name: 'HEX color' }), '#7060ff');
     await user.tab();
     await user.keyboard('{Escape}');
     fireEvent.change(screen.getByRole('slider', { name: 'Size' }), { target: { value: '40' } });

@@ -29,7 +29,7 @@ function CurrentPath() {
 beforeAll(async () => {
   await Promise.all([
     import('@/features/components/ComponentsDocumentation'),
-    import('@/app/relationships/DocumentationRelationships'),
+    import('../relationships/DocumentationRelationships'),
   ]);
 }, 30_000);
 

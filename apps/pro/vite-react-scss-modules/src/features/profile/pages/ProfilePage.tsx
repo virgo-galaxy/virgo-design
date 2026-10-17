@@ -10,8 +10,7 @@ import { Panel } from '@/components/page/Panel';
 import { UserGenderIcon } from '@/components/user-gender/UserGenderIcon';
 import type { ProfileIdentityDto, UpdateProfileIdentityRequest } from '@/contracts/profile';
 import { useCurrentUser } from '@/features/auth';
-import { Person } from '@/features/catalog';
-import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
+import { CatalogBoundary, Person, projectName, useTaskCatalog } from '@/features/catalog';
 import { projectDetailPath, projectHandoffPath } from '@/features/projects';
 import { useTaskDependentQuery } from '@/features/tasks';
 import { isAdmin } from '@/lib/auth/permissions';
@@ -47,15 +46,18 @@ function ProfilePageView({
     null,
   );
   const noticeId = useRef(0);
+
   const user = useCurrentUser()!;
   const admin = isAdmin(user);
   const manager = admin || user.role === 'manager';
   const roleLabel = t(`auth.login.roles.${user.role}`);
   const editRef = useRef<HTMLButtonElement>(null);
+
   const notify = (kind: 'preferences' | 'profile') => setNotice({ id: ++noticeId.current, kind });
   const focusProject = preferenceResource.data
     ? projects.find((item) => item.id === preferenceResource.data?.focusProject)
     : undefined;
+
   return (
     <Toast.Provider>
       <div className={shared.page}>
@@ -331,10 +333,13 @@ function ProfilePageView({
 }
 
 const loadReviewCount = (signal: AbortSignal) => getTasks({ scope: 'review', pageSize: 1 }, signal);
+
 function ProfileResource() {
   const resource = useProfileIdentityResource();
   const preferences = useProfilePreferencesData();
+
   if (!resource.data) return <RemoteState {...resource} />;
+
   return (
     <>
       {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
@@ -346,7 +351,9 @@ function ProfileResource() {
     </>
   );
 }
+
 export function ProfilePage() {
+
   return (
     <CatalogBoundary>
       <ProfileResource />

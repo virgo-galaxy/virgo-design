@@ -27,9 +27,11 @@ export function AccountMenu({
   const admin = isAdmin(user);
   const navigate = useNavigate();
   const { signOut } = useSession();
+
   const [open, setOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
   const [error, setError] = useState(false);
+
   const displayName = businessLabel(profile.displayName || profile.name, i18n.language);
   const avatarImage = profile.avatarImage;
   const avatarProps = {
@@ -49,6 +51,7 @@ export function AccountMenu({
         open={open}
         onOpenChange={(next) => {
           setOpen(next);
+
           if (next) setError(false);
         }}
       >
@@ -106,8 +109,10 @@ export function AccountMenu({
             disabled={signingOut}
             onSelect={(event) => {
               event.preventDefault();
+
               setSigningOut(true);
               setError(false);
+
               void signOut().catch(() => {
                 setSigningOut(false);
                 setError(true);

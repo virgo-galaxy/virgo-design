@@ -2,6 +2,7 @@ import { Button, Result, Skeleton } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { isHttpError } from '@/lib/http';
+
 export function RemoteState({
   loading,
   error,
@@ -12,6 +13,7 @@ export function RemoteState({
   retry: () => void;
 }) {
   const { t } = useTranslation();
+
   if (loading)
     return (
       <div
@@ -24,6 +26,7 @@ export function RemoteState({
         <Skeleton style={{ height: 220 }} />
       </div>
     );
+
   return (
     <Result
       status="error"

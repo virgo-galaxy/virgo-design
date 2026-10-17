@@ -7,10 +7,14 @@ export const avatarsHandlers = [
   http.get(endpoint('/avatars/:filename'), async ({ params }) => {
     const source =
       typeof params.filename === 'string' ? getSystemPresetAvatar(params.filename) : undefined;
+
     if (!source) return new HttpResponse(null, { status: 404 });
+
     try {
       const image = await fetch(bypass(new URL(source, import.meta.url)));
+
       if (!image.ok) throw new Error('Preset avatar asset is unavailable');
+
       return HttpResponse.arrayBuffer(await image.arrayBuffer(), {
         headers: {
           'Content-Type': 'image/webp',

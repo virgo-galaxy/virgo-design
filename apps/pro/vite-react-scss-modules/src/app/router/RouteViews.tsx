@@ -1,24 +1,16 @@
 import { Skeleton } from '@virgo-design/ui';
 import { lazy, type ReactElement, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate, useSearchParams } from 'react-router';
+import { Navigate } from 'react-router';
 
-import { legacyProjectIds } from '@/api/projects';
 import { loadAnalyticsPage } from '@/features/analytics/routes';
 import { useCurrentUser } from '@/features/auth';
-import { useTaskCatalog } from '@/features/catalog';
 import { loadProjectHandoffPage } from '@/features/handoff/routes';
 import { loadProfilePage } from '@/features/profile/routes';
 import { loadProjectDetailPage, loadProjectsPage } from '@/features/projects/routes';
 import { loadTaskCardsPage, loadTasksPage, loadTaskWorkspacePage } from '@/features/tasks/routes';
 import type { ResolvedProRoute } from '@/routes';
-import {
-  canAccessRoute,
-  type ProPageKey,
-  proRouteConfig,
-  routePath,
-  routeWithQuery,
-} from '@/routes';
+import { canAccessRoute, type ProPageKey, proRouteConfig } from '@/routes';
 
 const AnalyticsPage = lazy(loadAnalyticsPage);
 const ProjectDetailPage = lazy(loadProjectDetailPage);
@@ -43,6 +35,7 @@ const WorkplacePage = lazy(() =>
 
 export function RouteLoading() {
   const { t } = useTranslation();
+
   return (
     <div
       role="status"
@@ -55,8 +48,10 @@ export function RouteLoading() {
     </div>
   );
 }
+
 export function PageRoute({ route }: { route: ResolvedProRoute }) {
   const user = useCurrentUser();
+
   const pages: Record<ProPageKey, ReactElement> = {
     workplace: <WorkplacePage />,
     analytics: <AnalyticsPage />,
@@ -89,32 +84,5 @@ export function PageRoute({ route }: { route: ResolvedProRoute }) {
         pages[route.page]
       )}
     </Suspense>
-  );
-}
-
-export function LegacyRedirect({ kind }: { kind: 'tasks' | 'project' | 'handoff' }) {
-  const [params] = useSearchParams();
-  const { projects } = useTaskCatalog();
-  if (kind === 'tasks') {
-    const next = new URLSearchParams(params);
-    next.delete('view');
-    return <Navigate to={routeWithQuery(routePath('task-cards'), next)} replace />;
-  }
-  const legacyId = legacyProjectIds[params.get('project') ?? ''];
-  const project =
-    projects.find(
-      (p) => p.id === (legacyId ?? params.get('project')) || p.name === params.get('project'),
-    ) ?? projects[0];
-  return (
-    <Navigate
-      to={
-        project
-          ? routePath(kind === 'handoff' ? 'project-handoff' : 'project-detail', {
-              projectId: project.id,
-            })
-          : routePath('projects')
-      }
-      replace
-    />
   );
 }

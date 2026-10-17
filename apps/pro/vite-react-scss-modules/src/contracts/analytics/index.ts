@@ -1,10 +1,13 @@
-import type { TaskRecordKind, TaskStatusDto } from '../tasks';
-export type { TaskRecordKind } from '../tasks';
+import type { TaskRecordKind, TaskStatusDto } from '@/contracts/tasks';
+
+export type { TaskRecordKind } from '@/contracts/tasks';
+
 export interface TrendPointDto {
   date: string;
   completed: number;
   planned: number;
 }
+
 export interface ActivityDto {
   id: string;
   name: string;
@@ -15,12 +18,13 @@ export interface ActivityDto {
   dateTime: string;
   status: 'active' | 'complete' | 'pending';
 }
+
 export interface TokenUsageDayDto {
-  /** Reporting date (YYYY-MM-DD); raw totals in the current identity scope. */
   date: string;
   inputTokens: number;
   outputTokens: number;
 }
+
 export interface TaskRecordDto {
   id: string;
   taskId: string;
@@ -35,15 +39,18 @@ export interface TaskRecordDto {
   inputTokens: number;
   outputTokens: number;
 }
+
 export interface TaskStatusSummaryDto {
   taskCount: number;
   statusDistribution: { status: TaskStatusDto; count: number }[];
 }
+
 export interface OwnerCapacityDto {
   memberId: string;
   count: number;
   hours: number;
 }
+
 export interface TokenUsageReportDto {
   referenceDate: string;
   tokenUsage: TokenUsageDayDto[];
@@ -51,6 +58,7 @@ export interface TokenUsageReportDto {
   reportingYears: number[];
   reportingScope: 'workspace' | 'projects' | 'personal';
 }
+
 export interface ProjectDeliveryDayDto {
   date: string;
   deliveries: { projectId: string; completed: number }[];

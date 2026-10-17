@@ -9,7 +9,8 @@ import {
   useState,
 } from 'react';
 
-import { useControlLabels } from '../../shared/control-labels';
+import { useComposedRefs } from '../../internal/utils/composeRefs';
+import { useLocale } from '../../locale/context/locale-context';
 import { Surface } from '../Surface';
 import styles from './Layout.module.scss';
 import type {
@@ -263,6 +264,7 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
   ref,
 ) {
   const sidebarRef = useRef<HTMLElement | null>(null);
+  const composedRef = useComposedRefs(ref, sidebarRef);
   const [resizedWidth, setResizedWidth] = useState<number | null>(null);
   const [resizing, setResizing] = useState(false);
 
@@ -275,11 +277,7 @@ export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(functio
   return (
     <PrimitiveLayout.Sidebar
       {...props}
-      ref={(node) => {
-        sidebarRef.current = node;
-        if (typeof ref === 'function') ref(node);
-        else if (ref) ref.current = node;
-      }}
+      ref={composedRef}
       className={joinClassNames(styles.sidebar, styles.surfaceRegion, className)}
       data-mode={mode}
       data-side={side}
@@ -344,7 +342,7 @@ LayoutSidebar.displayName = 'Layout.Sidebar';
 
 export const LayoutSidebarTrigger = forwardRef<HTMLButtonElement, LayoutSidebarTriggerProps>(
   function LayoutSidebarTrigger({ className, children, render, ...props }, ref) {
-    const labels = useControlLabels();
+    const labels = useLocale().layout;
     return (
       <PrimitiveLayout.SidebarTrigger
         {...props}

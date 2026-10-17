@@ -81,11 +81,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
   const [root, setRoot] = useState<HTMLDivElement | null>(null);
   const rootRef = useMemo(() => ({ current: root }), [root]);
   const composedRootRef = useMemo(
-    () => (node: HTMLDivElement | null) => {
-      setRoot(node);
-      if (typeof ref === 'function') ref(node);
-      else if (ref) ref.current = node;
-    },
+    () => composeRefs(ref, setRoot),
     [ref],
   );
   const anchorRef = anchor === 'root' ? rootRef : triggerRef;

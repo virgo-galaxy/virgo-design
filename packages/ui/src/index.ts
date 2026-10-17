@@ -52,5 +52,5 @@ export * from './components/Toast';
 export * from './components/Toolbar';
 export * from './components/Tooltip';
 export * from './components/Tree';
-export { UIControlLabelsProvider } from './shared/control-labels';
+export { LocaleProvider, type LocaleProviderProps, type UILocale } from './locale';
 export { PortalProvider, type PortalProviderProps } from '@virgo-design/primitives';

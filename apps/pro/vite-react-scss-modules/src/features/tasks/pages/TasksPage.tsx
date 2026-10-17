@@ -1,6 +1,6 @@
 import { DownloadIcon, PlusIcon, SettingsIcon, TrashIcon } from '@virgo-design/icons';
 import { Button, Surface, Toast, Toolbar, Tooltip } from '@virgo-design/ui';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
@@ -19,21 +19,17 @@ import { TaskDeleteDialog } from '../components/TaskDeleteDialog';
 import { TaskFilters } from '../components/TaskFilters/TaskFilters';
 import { TaskTable } from '../components/TaskTable/TaskTable';
 import { TaskViews } from '../components/TaskViews';
-import {
-  normalizeTaskPins,
-  type TaskTableSettings,
-  visibleColumns,
-} from '../config/table-settings';
 import { useTaskOperations } from '../data/operations';
 import { getAllTasks, taskPageView } from '../data/queries';
-import { useTaskTableSettings } from '../hooks/use-table-settings';
 import { useTaskQuery } from '../hooks/use-task-query';
 import { useTaskTableQuery } from '../hooks/use-task-table-query';
 import { createTasksCsv } from '../model/export';
 import { queryParams, type TaskQuery } from '../model/query-params';
+import { normalizeTaskPins, type TaskTableSettings, visibleColumns } from '../model/table-settings';
 import { filterValues, type Task } from '../model/task';
 import { taskStatusLabelNames } from '../presentation/task-presentation';
 import { taskCreatePath, taskDetailsPath, taskEditPath } from '../routes/navigation';
+import { useTaskTableSettings } from '../store';
 import taskActions from '../styles/TaskActions.module.scss';
 import styles from './TasksPage.module.scss';
 
@@ -50,15 +46,18 @@ function TasksPageView() {
     settings: tableSettings,
     setSettings: setTableSettings,
     storageAvailable,
-  } = useTaskTableSettings(isAdmin(user));
+  } = useTaskTableSettings();
+
   const canManage = canCreateTask(user);
   const admin = isAdmin(user);
+
   const [settingsOpen, setSettingsOpen] = useState(false);
   const settingsRef = useRef<HTMLButtonElement>(null);
+
   const tableQuery = useTaskTableQuery(tableSettings);
   const { params, filters, columnFilters, columnSearch, sort, pageSize, query, filtered } =
     tableQuery;
-  // Selection spans pages of one matching set, never a different set restored through browser history.
+
   const selectionKey = JSON.stringify([filters, columnFilters, columnSearch]);
   const [selected, setSelected] = useState({ key: selectionKey, ids: [] as string[] });
   const selection = selected.key === selectionKey ? selected.ids : [];
@@ -70,7 +69,7 @@ function TasksPageView() {
           ? change(previous.key === selectionKey ? previous.ids : [])
           : change,
     }));
-  const linkedTask = params.get('task');
+
   const returnTo = routeWithQuery(routePath('tasks'), params);
   const [deleteIds, setDeleteIds] = useState<readonly string[] | null>(null);
   const [deletionFeedback, setDeletionFeedback] = useState<{ id: number; count: number } | null>(
@@ -78,46 +77,38 @@ function TasksPageView() {
   );
   const exportRef = useRef<HTMLButtonElement>(null);
   const feedbackId = useRef(0);
-  useEffect(() => {
-    if (params.get('view') === 'cards') {
-      const next = new URLSearchParams(params);
-      next.delete('view');
-      navigate(routeWithQuery(routePath('task-cards'), next), { replace: true });
-    }
-  }, [params, navigate]);
-  useEffect(() => {
-    if (linkedTask) {
-      const next = new URLSearchParams(params);
-      next.delete('task');
-      navigate(taskDetailsPath(linkedTask, routeWithQuery(routePath('tasks'), next)), {
-        replace: true,
-      });
-    }
-  }, [linkedTask, params, navigate]);
+
   const resource = useTaskQuery(query, tableSettings.pagination ? 'page' : 'collection');
   const visibleTasks = resource.data?.items ?? [];
   const pageView = resource.data
     ? taskPageView(resource.data)
     : { tasks: [], page: 1, range: [0, 0] as [number, number] };
   const matchingTotal = resource.data?.total ?? 0;
+
   const changeFilters = (next: TaskQuery) => {
     tableQuery.changeFilters(next);
     setSelection([]);
   };
+
   const changeTableSettings = (value: TaskTableSettings) => {
     const next = normalizeTaskPins(value);
     tableQuery.reconcileSettings(next);
+
     if (!next.selection) setSelection([]);
+
     setTableSettings(next);
   };
+
   const resetFilters = () => {
     tableQuery.resetFilters();
     setSelection([]);
   };
+
   const tableWidth = visibleColumns(tableSettings).reduce(
     (total, column) => total + column.width,
     0,
   );
+
   const openCreate = () => navigate(taskCreatePath(returnTo));
   const openTask = (task: Task, _button: HTMLButtonElement, kind: 'edit' | 'details' = 'details') =>
     navigate(
@@ -287,6 +278,7 @@ function TasksPageView() {
           restoreFocus={() => exportRef.current?.focus()}
           onDelete={async (ids) => {
             const deletedIds = await removeTasks(ids);
+
             setSelection((current) => current.filter((id) => !deletedIds.includes(id)));
             setDeletionFeedback({ id: ++feedbackId.current, count: deletedIds.length });
           }}

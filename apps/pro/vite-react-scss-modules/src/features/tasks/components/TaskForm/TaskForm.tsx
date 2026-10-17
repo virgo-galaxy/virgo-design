@@ -1,5 +1,5 @@
 import { Button, DatePicker, Dialog, Field, Form, Input, Select, Textarea } from '@virgo-design/ui';
-import { useEffect, useId, useRef, useState } from 'react';
+import { type FormEvent, useEffect, useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBlocker } from 'react-router';
 
@@ -23,6 +23,7 @@ import {
 } from '../../model/task';
 import { taskStatusLabelNames } from '../../presentation/task-presentation';
 import styles from './TaskForm.module.scss';
+
 export function TaskForm({
   task,
   onSave,
@@ -39,6 +40,8 @@ export function TaskForm({
     referenceDate: taskReferenceDate,
   } = metadata;
   const { t, i18n } = useTranslation();
+  const mutation = useMutation();
+
   const [draft, setDraft] = useState<TaskDraft>(() =>
     task
       ? taskDraft(task)
@@ -49,12 +52,13 @@ export function TaskForm({
         },
   );
   const [errors, setErrors] = useState<TaskErrors>({});
-  const mutation = useMutation();
+  const [saved, setSaved] = useState(false);
+
   const formId = useId();
   const formRef = useRef<HTMLFormElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
-  const [saved, setSaved] = useState(false);
   const initial = useRef(draft);
+
   const dirty = !saved && draftHasChanges(draft, initial.current);
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
@@ -63,21 +67,55 @@ export function TaskForm({
       (currentLocation.pathname !== nextLocation.pathname ||
         currentLocation.search !== nextLocation.search),
   );
+
   useEffect(() => {
     if (!dirty) return;
+
     const beforeUnload = (event: BeforeUnloadEvent) => event.preventDefault();
     window.addEventListener('beforeunload', beforeUnload);
+
     return () => window.removeEventListener('beforeunload', beforeUnload);
   }, [dirty]);
+
   const statusChoices = ['backlog', 'todo'] as const;
   const selectedProject = projects.find((p) => p.id === draft.project);
   const eligibleMembers = selectedProject
     ? taskAssignees.filter((p) => selectedProject.memberIds.includes(p.id))
     : taskAssignees;
+
   const update = <Key extends keyof TaskDraft>(key: Key, value: TaskDraft[Key]) => {
     setDraft((current) => ({ ...current, [key]: value }));
     setErrors((current) => ({ ...current, [key]: undefined }));
   };
+
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const nextErrors = validateTask(
+      draft,
+      taskProjects,
+      taskAssignees.map((member) => member.id),
+      projects,
+    );
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length) {
+      requestAnimationFrame(() =>
+        formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus(),
+      );
+
+      return;
+    }
+
+    const normalized = normalizeTaskDraft(draft);
+
+    void mutation.run(async () => {
+      await onSave(normalized);
+      setSaved(true);
+      setDraft(normalized);
+    });
+  };
+
   return (
     <>
       <MutationFeedback pending={mutation.pending} error={mutation.error} />
@@ -89,28 +127,7 @@ export function TaskForm({
         size="medium"
         noValidate
         className={styles.form}
-        onSubmit={(event) => {
-          event.preventDefault();
-          const nextErrors = validateTask(
-            draft,
-            taskProjects,
-            taskAssignees.map((member) => member.id),
-            projects,
-          );
-          setErrors(nextErrors);
-          if (Object.keys(nextErrors).length) {
-            requestAnimationFrame(() =>
-              formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus(),
-            );
-            return;
-          }
-          const normalized = normalizeTaskDraft(draft);
-          void mutation.run(async () => {
-            await onSave(normalized);
-            setSaved(true);
-            setDraft(normalized);
-          });
-        }}
+        onSubmit={submit}
       >
         <div className={styles.taskEditorContent}>
           <Field required invalid={Boolean(errors.title)}>

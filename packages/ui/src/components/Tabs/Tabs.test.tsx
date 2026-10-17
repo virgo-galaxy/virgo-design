@@ -70,44 +70,48 @@ describe('Tabs', () => {
     );
   });
 
-  it('updates the sliding indicator position and width when the active tab changes', async () => {
-    const user = userEvent.setup();
-    const rect = (left: number, width: number) =>
-      ({
-        left,
-        width,
-        right: left + width,
-        top: 0,
-        bottom: 36,
-        height: 36,
-        x: left,
-        y: 0,
-        toJSON() {},
-      }) as DOMRect;
+  it.each([0.9, 1, 1.25])(
+    'keeps indicator coordinates local under scale %s when tabs change',
+    async (scale) => {
+      const user = userEvent.setup();
+      const rect = (left: number, width: number) =>
+        ({
+          left,
+          width,
+          right: left + width,
+          top: 0,
+          bottom: 36,
+          height: 36,
+          x: left,
+          y: 0,
+          toJSON() {},
+        }) as DOMRect;
 
-    renderTabs();
+      renderTabs();
 
-    const list = screen.getByRole('tablist', { name: 'Sections' });
-    const overview = screen.getByRole('tab', { name: 'Overview' });
-    const api = screen.getByRole('tab', { name: 'API' });
-    vi.spyOn(list, 'getBoundingClientRect').mockReturnValue(rect(20, 300));
-    vi.spyOn(overview, 'getBoundingClientRect').mockReturnValue(rect(44, 96));
-    vi.spyOn(api, 'getBoundingClientRect').mockReturnValue(rect(164, 72));
+      const list = screen.getByRole('tablist', { name: 'Sections' });
+      const overview = screen.getByRole('tab', { name: 'Overview' });
+      const api = screen.getByRole('tab', { name: 'API' });
+      list.style.width = '300px';
+      vi.spyOn(list, 'getBoundingClientRect').mockReturnValue(rect(20, 300 * scale));
+      vi.spyOn(overview, 'getBoundingClientRect').mockReturnValue(rect(20 + 24 * scale, 96 * scale));
+      vi.spyOn(api, 'getBoundingClientRect').mockReturnValue(rect(20 + 144 * scale, 72 * scale));
 
-    window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event('resize'));
 
-    await waitFor(() => expect(list).toHaveAttribute('data-indicator-ready', 'true'));
-    expect(list.style.getPropertyValue('--tabs-indicator-x')).toBe('24px');
-    expect(list.style.getPropertyValue('--tabs-indicator-width')).toBe('96px');
-    expect(list.querySelector('[data-slot="indicator"]')).toHaveAttribute('aria-hidden', 'true');
+      await waitFor(() => expect(list).toHaveAttribute('data-indicator-ready', 'true'));
+      expect(parseFloat(list.style.getPropertyValue('--tabs-indicator-x'))).toBeCloseTo(24);
+      expect(parseFloat(list.style.getPropertyValue('--tabs-indicator-width'))).toBeCloseTo(96);
+      expect(list.querySelector('[data-slot="indicator"]')).toHaveAttribute('aria-hidden', 'true');
 
-    await user.click(api);
+      await user.click(api);
 
-    await waitFor(() => {
-      expect(list.style.getPropertyValue('--tabs-indicator-x')).toBe('144px');
-      expect(list.style.getPropertyValue('--tabs-indicator-width')).toBe('72px');
-    });
-  });
+      await waitFor(() => {
+        expect(parseFloat(list.style.getPropertyValue('--tabs-indicator-x'))).toBeCloseTo(144);
+        expect(parseFloat(list.style.getPropertyValue('--tabs-indicator-width'))).toBeCloseTo(72);
+      });
+    },
+  );
 
   it('renders and invokes a card add action', async () => {
     const user = userEvent.setup();

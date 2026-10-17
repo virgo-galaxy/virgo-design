@@ -15,9 +15,11 @@ export function getProjectSummaries(
     ...(signal ? { signal } : {}),
   });
 }
+
 export function getProjectDistribution(signal?: AbortSignal): Promise<ProjectDistributionDto[]> {
   return http.get('/projects/distribution', signal ? { signal } : undefined);
 }
+
 export function getProjectModuleStats(
   projectId: string,
   signal?: AbortSignal,
@@ -27,6 +29,7 @@ export function getProjectModuleStats(
     signal ? { signal } : undefined,
   );
 }
+
 export function getProjectMemberStats(
   projectId: string,
   signal?: AbortSignal,

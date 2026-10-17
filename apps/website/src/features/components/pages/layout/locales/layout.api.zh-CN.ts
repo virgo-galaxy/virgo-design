@@ -35,9 +35,9 @@ export const layoutApiZhCN = {
       '按需启用图标栏与隐藏吸附阈值；最小与最大宽度仍仅约束展开宽度。',
     'layout-sidebar-props.properties.on-resize-end.description':
       '指针释放、取消或一次键盘调整结束时调用。',
-    'layout-sidebar-props.properties.state.description': '三种状态的受控属性，优先于旧 collapsed。',
+    'layout-sidebar-props.properties.state.description': '受控显示状态。',
     'layout-sidebar-props.properties.default-state.description':
-      '初始非受控状态，优先于 defaultCollapsed。',
+      '初始非受控显示状态。',
     'layout-sidebar-props.properties.on-state-change.description':
       '独立 Sidebar 请求改变状态时调用；共享作用域中的状态控制应放在 SidebarProvider。',
     'layout-surface.description': 'Surface 渲染全部背景与材质。',

@@ -1,11 +1,9 @@
 import { Pagination, Surface, Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 
 import { NoResults } from '@/components/page/NoResults';
-import { Person } from '@/features/catalog';
-import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
-import { usePaginationLabels } from '@/i18n';
+import { CatalogBoundary, moduleName, Person, projectName, useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/demo/labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { routePath, routeWithQuery } from '@/routes';
@@ -15,7 +13,6 @@ import { TaskCardFilters } from '../components/TaskCardFilters';
 import { TaskViews } from '../components/TaskViews';
 import { taskPageView } from '../data/queries';
 import { useTaskQuery } from '../hooks/use-task-query';
-import { useTaskSearchParams } from '../hooks/use-task-search-params';
 import { queryFromParams } from '../model/query-params';
 import {
   taskPriorityIntent,
@@ -28,30 +25,36 @@ import styles from '../styles/TaskCards.module.scss';
 function TaskCardsPageView() {
   const { t, i18n } = useTranslation();
   const { projects } = useTaskCatalog();
-  const [params, setParams] = useTaskSearchParams();
+  const [params, setParams] = useSearchParams();
+
   const filters = queryFromParams(params);
   const requestedPage = Number(params.get('page'));
   const page = Number.isSafeInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
   const resource = useTaskQuery({ ...filters, pageNum: page, pageSize: 12 });
-  const labels = usePaginationLabels();
   const view = resource.data ? taskPageView(resource.data) : null;
   const returnTo = routeWithQuery(routePath('task-cards'), params);
+
   const change = (key: string, value: string | string[]) => {
     setParams(
       (current) => {
         const next = new URLSearchParams(current);
         next.delete(key);
+
         for (const item of Array.isArray(value) ? value : [value])
           if (item && item !== 'all') next.append(key, item);
+
         if (key !== 'page') next.delete('page');
+
         return next;
       },
       { replace: true },
     );
   };
+
   const reset = () => {
     setParams({}, { replace: true });
   };
+
   return (
     <TaskViews view="cards">
       <div className={styles.page} aria-busy={resource.loading}>
@@ -113,7 +116,6 @@ function TaskCardsPageView() {
                 total={resource.data!.total}
                 page={view.page}
                 pageSize={12}
-                labels={labels}
                 showTotal
                 align="right"
                 onChange={(next) => change('page', String(next))}
@@ -129,6 +131,7 @@ function TaskCardsPageView() {
 }
 
 export function TaskCardsPage() {
+
   return (
     <CatalogBoundary>
       <TaskCardsPageView />

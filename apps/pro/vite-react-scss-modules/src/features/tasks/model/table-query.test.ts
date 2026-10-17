@@ -1,6 +1,5 @@
 import { expect, it } from 'vitest';
 
-import { defaultTableSettings } from '../config/table-settings';
 import { emptyTaskQuery } from './query-params';
 import {
   reconcileTaskTableQuery,
@@ -8,6 +7,7 @@ import {
   taskTableQueryFromParams,
   withTaskFilters,
 } from './table-query';
+import { defaultTableSettings } from './table-settings';
 
 it('recovers from malformed and structural column parameters without sending them to the API', () => {
   const params = new URLSearchParams({
@@ -37,6 +37,19 @@ it('replaces business filters and resets pagination while preserving unrelated U
   expect(next.get('pageSize')).toBe('20');
   expect(next.get('returnTo')).toBe('portfolio');
   expect(params.get('page')).toBe('4');
+});
+
+it('keeps configurable page sizes in the URL and the API query', () => {
+  const state = taskTableQueryFromParams(new URLSearchParams('pageSize=25'));
+
+  expect(state.pageSize).toBe(25);
+  expect(taskListQuery(state, true).pageSize).toBe(25);
+
+  for (const pageSize of ['0', '101', '1.5']) {
+    const invalid = taskTableQueryFromParams(new URLSearchParams({ pageSize }));
+
+    expect(invalid.pageSize).toBe(10);
+  }
 });
 
 it('removes disabled column constraints and incompatible sorting together with a pagination reset', () => {

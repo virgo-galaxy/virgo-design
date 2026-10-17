@@ -14,11 +14,14 @@ export const Select = Object.assign(SelectRoot, {
   Content: SelectContent,
   Option: SelectOption,
 });
+
+export { useSelectState } from './Select';
 export type {
   SelectContentProps,
   SelectMultipleProps,
   SelectOptionProps,
   SelectProps,
   SelectRemoveProps,
+  SelectState,
   SelectTriggerProps,
 } from './Select.types';

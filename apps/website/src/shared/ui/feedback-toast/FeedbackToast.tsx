@@ -1,6 +1,4 @@
 import { Toast, type ToastIntent } from '@virgo-design/ui';
-import { createPortal } from 'react-dom';
-import { useTranslation } from 'react-i18next';
 
 import styles from './feedback-toast.module.scss';
 
@@ -15,7 +13,6 @@ export function FeedbackToast({
   duration?: number;
   onOpenChange?: (open: boolean) => void;
 }) {
-  const { t } = useTranslation();
   return (
     <Toast.Provider hotkey={[]}>
       <Toast.Root
@@ -26,15 +23,7 @@ export function FeedbackToast({
       >
         <Toast.Title>{message}</Toast.Title>
       </Toast.Root>
-      {typeof document !== 'undefined' &&
-        createPortal(
-          <Toast.Viewport
-            placement="top-center"
-            aria-label={t('shared.controls.notifications')}
-            className={styles.viewport}
-          />,
-          document.body,
-        )}
+      <Toast.Viewport placement="top-center" className={styles.viewport} />
     </Toast.Provider>
   );
 }

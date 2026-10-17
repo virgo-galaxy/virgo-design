@@ -1,6 +1,7 @@
 import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
 
 import { failure } from '../http/response';
+
 export function forbidden() {
   return failure({
     status: 403,

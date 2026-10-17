@@ -5,19 +5,21 @@ import { createMockTaskId } from './task-id';
 import { teamAssignments, type TeamJob } from './team';
 
 export const taskHistoryCount = 240;
+
 const moduleCounts = [
   [12, 10, 11, 12, 12, 11],
   [9, 9, 10, 8, 9, 9],
   [10, 10, 10, 10, 10, 10],
   [10, 10, 10, 10, 9, 9],
 ];
-// Completed, backlog, ready, active and review tasks total 80, 64, 48, 32 and 16.
+
 const stateCounts = [
   [23, 18, 13, 9, 5],
   [18, 14, 11, 7, 4],
   [20, 16, 12, 8, 4],
   [19, 16, 12, 8, 3],
 ];
+
 const statuses: TaskStatusDto[] = ['done', 'backlog', 'todo', 'in_progress', 'in_review'];
 const actions: { job: TeamJob; title: string; hours: number; acceptance: string }[] = [
   {
@@ -93,9 +95,8 @@ const actions: { job: TeamJob; title: string; hours: number; acceptance: string 
     acceptance: 'Verify small screens, long labels and the dense table layout.',
   },
 ];
+
 const day = 86_400_000;
-const hoursByMember = new Map<string, number>();
-const activeByMember = new Map<string, number>();
 const stableIds = [
   '49e7996a-311b',
   'abb01fb9-ab2f',
@@ -117,13 +118,15 @@ const stableIds = [
 ];
 
 export function createTaskHistory(): TaskDto[] {
-  hoursByMember.clear();
-  activeByMember.clear();
+  const hoursByMember = new Map<string, number>();
+  const activeByMember = new Map<string, number>();
   const result: TaskDto[] = [];
+
   projects.forEach((project, projectIndex) => {
     const counts = stateCounts[projectIndex]!;
     const total = moduleCounts[projectIndex]!.reduce((sum, count) => sum + count, 0);
     let ordinal = 0;
+
     project.modules.forEach((module, moduleIndex) => {
       actions.slice(0, moduleCounts[projectIndex]![moduleIndex]).forEach((action) => {
         const position = (ordinal * 37 + counts[0]! + counts[1]!) % total;
@@ -135,6 +138,7 @@ export function createTaskHistory(): TaskDto[] {
               return remaining < 0;
             })
           ]!;
+
         const candidates = teamAssignments.filter(
           (person) => person.job === action.job && person.projects.includes(projectIndex),
         );
@@ -144,16 +148,17 @@ export function createTaskHistory(): TaskDto[] {
               ? (activeByMember.get(a.id) ?? 0) - (activeByMember.get(b.id) ?? 0)
               : 0) || (hoursByMember.get(a.id) ?? 0) - (hoursByMember.get(b.id) ?? 0),
         );
+
         const assignee = candidates[0]!.id;
         hoursByMember.set(assignee, (hoursByMember.get(assignee) ?? 0) + action.hours);
         if (status === 'in_progress')
           activeByMember.set(assignee, (activeByMember.get(assignee) ?? 0) + 1);
+
         const index = result.length;
         const projectStart = Date.parse(`${project.start}T02:00:00Z`);
         const reference = Date.UTC(2026, 9, 5, 10);
         const span = reference - projectStart;
         const historyPosition = (ordinal * 19 + moduleIndex * 7) % total;
-        // Completed work includes earlier releases and a recent delivery cycle.
         const recent = status === 'done' && ordinal % 3 === 0;
         const completed = recent
           ? reference - (1 + (ordinal % 13)) * day
@@ -164,6 +169,7 @@ export function createTaskHistory(): TaskDto[] {
             : status === 'done'
               ? Math.max(projectStart, completed - (3 + (ordinal % 12)) * day)
               : projectStart + Math.floor((historyPosition / total) * (span - 5 * day));
+
         result.push({
           id: stableIds[index] ?? createMockTaskId(index + 139),
           title: `${module.name}: ${action.title}`,
@@ -186,9 +192,11 @@ export function createTaskHistory(): TaskDto[] {
                   .toISOString()
                   .slice(0, 10),
         });
+
         ordinal++;
       });
     });
   });
+
   return result;
 }

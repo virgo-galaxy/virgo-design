@@ -9,7 +9,7 @@ import {
   pinTaskColumns,
   type TaskColumnKey,
   type TaskTableSettings,
-} from '../../config/table-settings';
+} from '../../model/table-settings';
 import { taskColumnLabelName } from '../../presentation/column-label';
 import styles from './TableSettingsDialog.module.scss';
 
@@ -31,22 +31,28 @@ export function TaskColumnOrder({
     edge: 'before' | 'after';
     index: number;
   } | null>(null);
+
   const dragImageRef = useRef<HTMLElement | null>(null);
+
   useEffect(
     () => () => {
       dragImageRef.current?.remove();
     },
     [],
   );
+
   const clearDragImage = () => {
     dragImageRef.current?.remove();
     dragImageRef.current = null;
   };
+
   const moveColumn = (key: TaskColumnKey, to: number) =>
     onChange({ ...settings, columns: moveTaskColumn(settings.columns, key, to) });
+
   const visibleDataCount = settings.columns.filter(
     (entry) => entry.visible && !isLeadingTaskColumn(entry.key) && entry.key !== 'actions',
   ).length;
+
   const setColumnVisible = (key: TaskColumnKey, visible: boolean) =>
     onChange({
       ...settings,
@@ -57,6 +63,7 @@ export function TaskColumnOrder({
           : {}),
       columns: settings.columns.map((entry) => (entry.key === key ? { ...entry, visible } : entry)),
     });
+
   return (
     <div className={styles.columnSidebar}>
       <div
@@ -65,8 +72,10 @@ export function TaskColumnOrder({
         aria-label={t('tasks.settings.columnOrder')}
         onDragOver={(event) => {
           if (!draggedColumn) return;
+
           event.preventDefault();
           event.dataTransfer.dropEffect = 'move';
+
           const rows = Array.from(event.currentTarget.children);
           const hit = rows.findIndex((row) => event.clientY < row.getBoundingClientRect().bottom);
           const index = hit === -1 ? rows.length - 1 : hit;
@@ -75,6 +84,7 @@ export function TaskColumnOrder({
           const from = settings.columns.findIndex((item) => item.key === draggedColumn);
           const boundary = index + (edge === 'after' ? 1 : 0);
           const destination = boundary - (from < boundary ? 1 : 0);
+
           setDropTarget(
             destination < 2 || destination === from
               ? null
@@ -82,14 +92,18 @@ export function TaskColumnOrder({
           );
         }}
         onDrop={(event) => {
+
           event.preventDefault();
+
           if (draggedColumn && dropTarget) moveColumn(draggedColumn, dropTarget.index);
+
           setDraggedColumn(null);
           setDropTarget(null);
           clearDragImage();
         }}
         onDragLeave={(event) => {
           const rect = event.currentTarget.getBoundingClientRect();
+
           if (
             !event.currentTarget.contains(event.relatedTarget as Node | null) &&
             (event.clientX < rect.left ||
@@ -123,20 +137,25 @@ export function TaskColumnOrder({
               onDragStart={(event) => {
                 if (isLeadingTaskColumn(entry.key)) {
                   event.preventDefault();
+
                   return;
                 }
+
                 clearDragImage();
                 setDropTarget(null);
+
                 const row = event.currentTarget.closest('[role="listitem"]') as HTMLElement;
                 const image = row.cloneNode(true) as HTMLElement;
                 const rect = row.getBoundingClientRect();
                 const rowStyle = getComputedStyle(row);
                 const dialog = row.closest('[role="dialog"]')!;
+
                 image.setAttribute('aria-hidden', 'true');
                 image.removeAttribute('data-dragging');
                 image.removeAttribute('data-drop-position');
                 image.inert = true;
                 image.querySelectorAll('[id]').forEach((element) => element.removeAttribute('id'));
+
                 Object.assign(image.style, {
                   position: 'fixed',
                   left: '-10000px',
@@ -144,7 +163,6 @@ export function TaskColumnOrder({
                   width: `${rect.width}px`,
                   height: `${rect.height}px`,
                   font: rowStyle.font,
-                  // Composite the row tint over an opaque surface, including in dark mode.
                   backgroundColor: getComputedStyle(dialog).backgroundColor,
                   backgroundImage: `linear-gradient(${rowStyle.backgroundColor}, ${rowStyle.backgroundColor})`,
                   boxSizing: 'border-box',
@@ -154,6 +172,7 @@ export function TaskColumnOrder({
                   boxShadow: 'none',
                   opacity: '1',
                 });
+
                 document.body.append(image);
                 dragImageRef.current = image;
                 event.dataTransfer.setDragImage(
@@ -161,6 +180,7 @@ export function TaskColumnOrder({
                   event.clientX - rect.left,
                   event.clientY - rect.top,
                 );
+
                 setDraggedColumn(entry.key);
                 event.dataTransfer.effectAllowed = 'move';
                 event.dataTransfer.setData('text/plain', entry.key);
@@ -168,10 +188,12 @@ export function TaskColumnOrder({
               onDragEnd={() => {
                 setDraggedColumn(null);
                 setDropTarget(null);
+
                 clearDragImage();
               }}
               onKeyDown={(event) => {
                 if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
+
                 event.preventDefault();
                 moveColumn(entry.key, index + (event.key === 'ArrowUp' ? -1 : 1));
               }}

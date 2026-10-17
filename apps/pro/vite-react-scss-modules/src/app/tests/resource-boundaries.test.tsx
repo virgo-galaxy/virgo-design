@@ -6,6 +6,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router';
 import { afterAll, afterEach, beforeAll, beforeEach, expect, it } from 'vitest';
 
 import { getDeliveryTrend } from '@/api/analytics';
+import { login } from '@/api/auth';
 import { CatalogBoundary } from '@/features/catalog';
 import { useNotificationInbox } from '@/features/notifications';
 import { useProfileIdentityResource } from '@/features/profile';
@@ -85,7 +86,22 @@ function QueryProbe() {
     </>
   );
 }
-it('opens tasks despite profile/report/workflow failures without preloading those pages', async () => {
+it('retries a failed task catalog without replacing the application shell', async () => {
+  server.use(mswHttp.get('/api/v1/tasks/metadata', () => new HttpResponse(null, { status: 503 })));
+  mount(
+    <CatalogBoundary>
+      <p>Task catalog ready</p>
+    </CatalogBoundary>,
+  );
+  await screen.findByText('Unable to load data');
+  expect(screen.getByText('Application shell ready')).toBeInTheDocument();
+  expect(screen.queryByText('Task catalog ready')).not.toBeInTheDocument();
+  server.resetHandlers();
+  fireEvent.click(screen.getByRole('button', { name: 'Retry' }));
+  await screen.findByText('Task catalog ready');
+});
+
+it('keeps tasks usable when their summary fails without preloading unrelated capabilities', async () => {
   paths.length = 0;
   server.use(
     ...[
@@ -93,14 +109,17 @@ it('opens tasks despite profile/report/workflow failures without preloading thos
       'analytics/delivery-trend',
       'workspace/summary',
       'workflows/latest',
+      'tasks/summary',
     ].map((path) => mswHttp.get(`/api/v1/${path}`, () => new HttpResponse(null, { status: 503 }))),
   );
   mount(<TasksPage />);
   expect(screen.getByText('Application shell ready')).toBeInTheDocument();
   await screen.findByRole('checkbox', { name: 'Select task 49e7996a-311b' });
+  await screen.findByText('Unable to load data');
   expect(paths).not.toContain('/api/v1/analytics/delivery-trend');
   expect(paths).not.toContain('/api/v1/workspace/summary');
   expect(paths).not.toContain('/api/v1/workflows/latest');
+  expect(paths).not.toContain('/api/v1/profile/preferences');
 });
 it('invalidates each mounted affected resource once after one mutation', async () => {
   mount(
@@ -179,7 +198,7 @@ it('opens project, profile and result views with scoped reads and bounded previe
   const { loadProfilePage } = await import('@/features/profile/routes');
   const { default: ProfilePage } = await loadProfilePage();
   const { ResultPage } = await import('@/pages/results/ResultPage');
-  const { HandoffSessionProvider } = await import('@/features/handoff');
+  const { HandoffStoreProvider } = await import('@/features/handoff/store');
   const cases = [
     { page: <ProjectsPage />, path: '/work/projects', pattern: '*', ready: 'Online Store' },
     {
@@ -191,9 +210,9 @@ it('opens project, profile and result views with scoped reads and bounded previe
     { page: <ProfilePage />, path: '/profile', pattern: '*', ready: 'Administrator' },
     {
       page: (
-        <HandoffSessionProvider>
+        <HandoffStoreProvider>
           <ResultPage outcome="success" />
-        </HandoffSessionProvider>
+        </HandoffStoreProvider>
       ),
       path: '/result/success',
       pattern: '*',
@@ -232,10 +251,12 @@ it('opens project, profile and result views with scoped reads and bounded previe
     view.unmount();
   }
 });
-it('loads only the selected project for handoff and preserves its raw title across locale changes', async () => {
+it('limits a manager’s handoff projects, loads the selected scope and preserves its raw title across locale changes', async () => {
+  await login({ account: 'ava', password: 'virgo123' });
+
   const { loadProjectHandoffPage } = await import('@/features/handoff/routes');
   const { default: ProjectHandoffPage } = await loadProjectHandoffPage();
-  const { HandoffSessionProvider } = await import('@/features/handoff');
+  const { HandoffStoreProvider } = await import('@/features/handoff/store');
   const requests: URL[] = [];
   const capture = ({ request }: { request: Request }) => {
     const url = new URL(request.url);
@@ -252,9 +273,9 @@ it('loads only the selected project for handoff and preserves its raw title acro
               element: (
                 <TestSessionProvider>
                   <ProResourcesProvider>
-                    <HandoffSessionProvider>
+                    <HandoffStoreProvider>
                       <ProjectHandoffPage />
-                    </HandoffSessionProvider>
+                    </HandoffStoreProvider>
                   </ProResourcesProvider>
                 </TestSessionProvider>
               ),
@@ -266,6 +287,13 @@ it('loads only the selected project for handoff and preserves its raw title acro
     );
     const title = await screen.findByRole('textbox', { name: 'Handoff title' });
     const raw = (title as HTMLInputElement).value;
+
+    fireEvent.click(screen.getByRole('button', { name: 'Handoff project' }));
+    expect(screen.getByRole('option', { name: 'Online Store' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'Support Desk' })).toBeInTheDocument();
+    expect(screen.queryByRole('option', { name: 'Booking System' })).not.toBeInTheDocument();
+    fireEvent.keyDown(screen.getByRole('listbox'), { key: 'Escape' });
+
     await act(() => i18nInstance.changeLanguage('zh-CN'));
     expect(title).toHaveValue(raw);
     expect(requests).toHaveLength(1);

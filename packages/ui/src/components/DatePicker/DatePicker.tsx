@@ -2,7 +2,7 @@ import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from '@virgo-design/i
 import { DatePicker as PrimitiveDatePicker } from '@virgo-design/primitives';
 import { createContext, forwardRef, useContext } from 'react';
 
-import { useControlLabels } from '../../shared/control-labels';
+import { useLocale } from '../../locale/context/locale-context';
 import calendarStyles from '../Calendar/Calendar.module.scss';
 import styles from './DatePicker.module.scss';
 import type {
@@ -12,7 +12,9 @@ import type {
   DatePickerProps,
   DatePickerTriggerProps,
 } from './DatePicker.types';
+
 export const SizeContext = createContext<DatePickerProps['size']>('medium');
+
 export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(function DatePicker(
   { size = 'medium', className, ...props },
   ref,
@@ -28,11 +30,13 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(function D
     </SizeContext.Provider>
   );
 });
+
 export const DatePickerInput = forwardRef<HTMLInputElement, DatePickerInputProps>(function Input(
   { className, ...props },
   ref,
 ) {
   const size = useContext(SizeContext);
+
   return (
     <PrimitiveDatePicker.Input
       {...props}
@@ -42,9 +46,11 @@ export const DatePickerInput = forwardRef<HTMLInputElement, DatePickerInputProps
     />
   );
 });
+
 export const DatePickerTrigger = forwardRef<HTMLButtonElement, DatePickerTriggerProps>(
   function Trigger({ className, children, 'aria-label': label, ...props }, ref) {
-    const labels = useControlLabels();
+    const labels = useLocale().datePicker;
+
     return (
       <PrimitiveDatePicker.Trigger
         {...props}
@@ -57,6 +63,7 @@ export const DatePickerTrigger = forwardRef<HTMLButtonElement, DatePickerTrigger
     );
   },
 );
+
 export const DatePickerContent = forwardRef<HTMLDivElement, DatePickerContentProps>(
   function Content({ className, ...props }, ref) {
     return (
@@ -68,17 +75,22 @@ export const DatePickerContent = forwardRef<HTMLDivElement, DatePickerContentPro
     );
   },
 );
+
 export const DatePickerCalendar = forwardRef<HTMLDivElement, DatePickerCalendarProps>(
   function Calendar({ className, ...props }, ref) {
     const size = useContext(SizeContext);
-    const labels = useControlLabels();
+    const { calendar: labels, locale } = useLocale();
+
     return (
       <PrimitiveDatePicker.Calendar
         previousMonthLabel={labels.previousMonth}
         nextMonthLabel={labels.nextMonth}
+        previousYearLabel={labels.previousYear}
+        nextYearLabel={labels.nextYear}
         previousMonthContent={<ChevronLeftIcon size={16} />}
         nextMonthContent={<ChevronRightIcon size={16} />}
         {...props}
+        locale={props.locale ?? locale}
         ref={ref}
         data-size={size}
         className={[calendarStyles.root, className].filter(Boolean).join(' ')}

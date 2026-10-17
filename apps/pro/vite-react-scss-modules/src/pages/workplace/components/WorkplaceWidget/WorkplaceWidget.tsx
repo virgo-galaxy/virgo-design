@@ -7,7 +7,6 @@ import styles from './WorkplaceWidget.module.scss';
 
 export type WorkplaceWidgetState = 'expanded' | 'minimized' | 'removing' | 'removed';
 
-// Workplace composition: Card supplies the surface, Collapsible owns disclosure and motion.
 export function WorkplaceWidget({
   title,
   description,
@@ -36,7 +35,7 @@ export function WorkplaceWidget({
 
   useEffect(() => {
     if (visible || !presenceRef.current) return;
-    // Also finish removal when reduced motion or a cancelled transition emits no end event.
+
     const duration = Math.max(
       ...getComputedStyle(presenceRef.current)
         .transitionDuration.split(',')
@@ -44,7 +43,9 @@ export function WorkplaceWidget({
           value.trim().endsWith('ms') ? Number.parseFloat(value) : Number.parseFloat(value) * 1000,
         ),
     );
+
     const timer = window.setTimeout(onRemoved, duration ? duration + 32 : 0);
+
     return () => window.clearTimeout(timer);
   }, [visible, onRemoved]);
 

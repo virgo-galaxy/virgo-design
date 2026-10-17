@@ -56,10 +56,12 @@
     cursor: not-allowed;
   }
 }
+
 .icon {
   width: var(--time-picker-icon-size);
   height: var(--time-picker-icon-size);
 }
+
 .content.content {
   width: max-content;
   min-width: 0;
@@ -67,10 +69,12 @@
   padding: var(--vd-spacing-8);
   max-width: calc(100vw - var(--vd-spacing-24));
 }
+
 .columns {
   display: flex;
   gap: var(--vd-spacing-8);
 }
+
 .column {
   position: relative;
   display: grid;
@@ -85,11 +89,13 @@
     pointer-events: none;
   }
 }
+
 .columnLabel {
   text-align: center;
   color: var(--vd-text-secondary);
   font-size: var(--vd-font-size-12);
 }
+
 .list {
   position: relative;
   max-height: min(224px, 40vh);
@@ -98,6 +104,7 @@
   scrollbar-width: thin;
   scrollbar-color: var(--vd-border-default) transparent;
 }
+
 .option {
   display: block;
   width: 100%;
@@ -127,6 +134,7 @@
     cursor: not-allowed;
   }
 }
+
 .footer {
   display: flex;
   align-items: center;

@@ -10,6 +10,7 @@ import {
 } from 'react';
 
 import { useControllableState } from '../../internal/hooks/useControllableState';
+import { composeRefs } from '../../internal/utils/composeRefs';
 import type {
   CommandEmptyProps,
   CommandFilter,
@@ -51,7 +52,9 @@ const EMPTY_KEYWORDS: readonly string[] = [];
 
 function useCommand(part: string) {
   const context = useContext(CommandContext);
+
   if (!context) throw new Error(`${part} must be used inside Command.Root.`);
+
   return context;
 }
 
@@ -61,7 +64,9 @@ function normalize(value: string) {
 
 const defaultFilter: CommandFilter = (value, search, keywords) => {
   const query = normalize(search);
+
   if (!query) return true;
+
   return normalize([value, ...keywords].join(' ')).includes(query);
 };
 
@@ -73,6 +78,7 @@ function textFromChildren(children: React.ReactNode): string {
       (children as React.ReactElement<{ children?: React.ReactNode }>).props.children,
     );
   }
+
   return '';
 }
 
@@ -105,6 +111,7 @@ export const CommandRoot = forwardRef<HTMLDivElement, CommandProps>(function Com
   const records = useRef(new Map<string, CommandRecord>());
   const [revision, setRevision] = useState(0);
   const listId = `${useId()}-list`;
+
   const matches = useCallback(
     (value: string, keywords: readonly string[], text: string) =>
       !shouldFilter || filter(value, search, [...keywords, text]),
@@ -126,6 +133,7 @@ export const CommandRoot = forwardRef<HTMLDivElement, CommandProps>(function Com
   const register = useCallback((record: CommandRecord) => {
     records.current.set(record.id, record);
     setRevision((current) => current + 1);
+
     return () => {
       records.current.delete(record.id);
       setRevision((current) => current + 1);
@@ -141,7 +149,9 @@ export const CommandRoot = forwardRef<HTMLDivElement, CommandProps>(function Com
 
   const move = (key: 'ArrowDown' | 'ArrowUp' | 'Home' | 'End') => {
     const enabled = enabledVisible();
+
     if (!enabled.length) return;
+
     const current = enabled.findIndex((record) => record.value === activeValue);
     const next =
       key === 'Home'
@@ -152,16 +162,22 @@ export const CommandRoot = forwardRef<HTMLDivElement, CommandProps>(function Com
             ? (current + 1 + enabled.length) % enabled.length
             : (current - 1 + enabled.length) % enabled.length;
     const record = enabled[next];
+
     if (!record) return;
+
     setActiveValue(record.value);
     record.node.scrollIntoView?.({ block: 'nearest' });
   };
+
   const select = (value: string, onSelect?: (value: string) => void) => {
     const record = [...records.current.values()].find((candidate) => candidate.value === value);
+
     if (!record || record.disabled || !matches(record.value, record.keywords, record.text)) return;
+
     setActiveValue(value);
     (onSelect ?? record.onSelect)?.(value);
   };
+
   const getActiveId = () =>
     [...records.current.values()].find(
       (record) =>
@@ -184,6 +200,7 @@ export const CommandRoot = forwardRef<HTMLDivElement, CommandProps>(function Com
     select,
     getActiveId,
   };
+
   return (
     <CommandContext.Provider value={context}>
       <div {...props} ref={ref} data-command-root="">
@@ -198,6 +215,7 @@ export const CommandInput = forwardRef<HTMLInputElement, CommandInputProps>(func
   ref,
 ) {
   const context = useCommand('Command.Input');
+
   return (
     <input
       {...props}
@@ -232,6 +250,7 @@ export const CommandInput = forwardRef<HTMLInputElement, CommandInputProps>(func
 export const CommandList = forwardRef<HTMLDivElement, CommandListProps>(
   function CommandList(props, ref) {
     const context = useCommand('Command.List');
+
     return <div {...props} ref={ref} id={context.listId} role="listbox" />;
   },
 );
@@ -239,7 +258,9 @@ export const CommandList = forwardRef<HTMLDivElement, CommandListProps>(
 export const CommandEmpty = forwardRef<HTMLDivElement, CommandEmptyProps>(
   function CommandEmpty(props, ref) {
     const context = useCommand('Command.Empty');
+
     if (context.visibleCount > 0) return null;
+
     return <div {...props} ref={ref} role={props.role ?? 'status'} />;
   },
 );
@@ -252,17 +273,15 @@ export const CommandGroup = forwardRef<HTMLDivElement, CommandGroupProps>(functi
   const headingId = `${useId()}-heading`;
   const localRef = useRef<HTMLDivElement | null>(null);
   const [empty, setEmpty] = useState(false);
+
   useLayoutEffect(() => {
     setEmpty(!localRef.current?.querySelector('[data-command-item]:not([hidden])'));
   }, [context.search, context.revision]);
+
   return (
     <div
       {...props}
-      ref={(node) => {
-        localRef.current = node;
-        if (typeof ref === 'function') ref(node);
-        else if (ref) ref.current = node;
-      }}
+      ref={composeRefs(ref, localRef)}
       role="group"
       aria-labelledby={heading ? headingId : props['aria-labelledby']}
       hidden={empty || props.hidden}
@@ -293,9 +312,12 @@ export const CommandItem = forwardRef<HTMLDivElement, CommandItemProps>(function
   const localRef = useRef<HTMLDivElement | null>(null);
   const text = textValue ?? textFromChildren(children);
   const visible = context.matches(value, keywords, text);
+
   useLayoutEffect(() => {
     const node = localRef.current;
+
     if (!node) return;
+
     return register({
       id,
       value,
@@ -306,14 +328,11 @@ export const CommandItem = forwardRef<HTMLDivElement, CommandItemProps>(function
       ...(onSelect ? { onSelect } : {}),
     });
   }, [disabled, id, keywords, onSelect, register, text, textValue, value]);
+
   return (
     <div
       {...props}
-      ref={(node) => {
-        localRef.current = node;
-        if (typeof ref === 'function') ref(node);
-        else if (ref) ref.current = node;
-      }}
+      ref={composeRefs(ref, localRef)}
       id={id}
       role="option"
       aria-selected={context.activeValue === value}

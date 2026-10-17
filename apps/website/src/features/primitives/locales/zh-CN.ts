@@ -431,6 +431,11 @@ export const primitivesZhCN = {
     },
   },
   examples: {
+    previousSlide: '上一页',
+    nextSlide: '下一页',
+    previousMonth: '上个月',
+    nextMonth: '下个月',
+    chooseDate: '选择日期',
     overview: '概览',
     accordionContentIsDisclosedByItsTrigger: 'Accordion 内容由其触发器展开。',
     details: '详情',

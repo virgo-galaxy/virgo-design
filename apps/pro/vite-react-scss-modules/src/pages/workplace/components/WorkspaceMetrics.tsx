@@ -17,10 +17,13 @@ const metricArtwork = {
   members: usersArtwork,
   completion: checkBadgeArtwork,
 };
+
 const completionValue = (value: number) => `${Math.round(value)}%`;
+
 export function WorkspaceMetrics() {
   const resource = useTaskDependentQuery(getWorkspaceSummary);
   const { t } = useTranslation();
+
   return (
     <ResourceContent resource={resource}>
       {(snapshot) => {
@@ -30,6 +33,7 @@ export function WorkspaceMetrics() {
           { icon: 'members', value: snapshot.teamMembers },
           { icon: 'completion', value: snapshot.completionRate },
         ] as const;
+
         return (
           <Surface border="default" radius={12} className={styles.metrics}>
             {metrics.map((metric) => (

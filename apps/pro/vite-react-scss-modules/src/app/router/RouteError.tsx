@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router';
 
 import { proRouteConfig } from '@/routes';
 
-/** Route failures stay within their outlet so navigation and session resources survive. */
 export function RouteError() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
   return (
     <Result
       status="error"

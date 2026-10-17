@@ -7,6 +7,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
+        'locale/index': fileURLToPath(new URL('./src/locale/index.ts', import.meta.url)),
         'metadata/index': fileURLToPath(new URL('./src/metadata/index.ts', import.meta.url)),
       },
       formats: ['es'],

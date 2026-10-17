@@ -10,7 +10,9 @@ import type {
   StepsTitleProps,
   StepsTriggerProps,
 } from './Steps.types';
+
 const classes = (...values: Array<string | undefined>) => values.filter(Boolean).join(' ');
+
 export const StepsRoot = forwardRef<HTMLOListElement, StepsProps>(function Steps(
   { orientation = 'horizontal', className, ...props },
   ref,
@@ -26,6 +28,7 @@ export const StepsRoot = forwardRef<HTMLOListElement, StepsProps>(function Steps
     />
   );
 });
+
 export const StepsItem = forwardRef<HTMLLIElement, StepsItemProps>(function Item(
   { status = 'upcoming', className, ...props },
   ref,
@@ -41,6 +44,7 @@ export const StepsItem = forwardRef<HTMLLIElement, StepsItemProps>(function Item
     />
   );
 });
+
 export const StepsTrigger = forwardRef<HTMLButtonElement, StepsTriggerProps>(function Trigger(
   { className, ...props },
   ref,
@@ -55,6 +59,7 @@ export const StepsTrigger = forwardRef<HTMLButtonElement, StepsTriggerProps>(fun
     />
   );
 });
+
 export const StepsIndicator = forwardRef<HTMLSpanElement, StepsIndicatorProps>(function Indicator(
   { className, ...props },
   ref,
@@ -69,6 +74,7 @@ export const StepsIndicator = forwardRef<HTMLSpanElement, StepsIndicatorProps>(f
     />
   );
 });
+
 export const StepsTitle = forwardRef<HTMLSpanElement, StepsTitleProps>(function Title(
   { className, ...props },
   ref,
@@ -77,6 +83,7 @@ export const StepsTitle = forwardRef<HTMLSpanElement, StepsTitleProps>(function 
     <span {...props} ref={ref} data-slot="title" className={classes(styles.title, className)} />
   );
 });
+
 export const StepsDescription = forwardRef<HTMLSpanElement, StepsDescriptionProps>(
   function Description({ className, ...props }, ref) {
     return (

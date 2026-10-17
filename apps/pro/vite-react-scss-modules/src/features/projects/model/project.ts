@@ -9,6 +9,7 @@ export function filterProjects(
   filters: { search: string; health: readonly string[]; leads: readonly string[] },
 ) {
   const query = filters.search.trim().toLowerCase();
+
   return projects.filter(
     (project) =>
       (!filters.health.length || filters.health.includes(project.health)) &&

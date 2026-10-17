@@ -16,6 +16,7 @@ export function TaskDistributionPanel({ summary }: { summary: TaskStatusSummaryD
     value: summary.statusDistribution.find((item) => item.status === status)?.count ?? 0,
     color: chartColors[index]!,
   }));
+
   return (
     <Panel
       className={styles.panel!}

@@ -10,6 +10,7 @@ import type {
   TreeProps,
   TreeToggleProps,
 } from './Tree.types';
+
 export const Tree = forwardRef<HTMLDivElement, TreeProps>(function Tree(
   { size = 'medium', className, ...props },
   ref,
@@ -23,6 +24,7 @@ export const Tree = forwardRef<HTMLDivElement, TreeProps>(function Tree(
     />
   );
 });
+
 export const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeItem(
   { className, ...props },
   ref,
@@ -35,6 +37,7 @@ export const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeI
     />
   );
 });
+
 export const TreeLabel = forwardRef<HTMLDivElement, TreeLabelProps>(function TreeLabel(
   { className, ...props },
   ref,
@@ -47,6 +50,7 @@ export const TreeLabel = forwardRef<HTMLDivElement, TreeLabelProps>(function Tre
     />
   );
 });
+
 export const TreeGroup = forwardRef<HTMLDivElement, TreeGroupProps>(function TreeGroup(
   { className, ...props },
   ref,
@@ -59,6 +63,7 @@ export const TreeGroup = forwardRef<HTMLDivElement, TreeGroupProps>(function Tre
     />
   );
 });
+
 export const TreeToggle = forwardRef<HTMLButtonElement, TreeToggleProps>(function TreeToggle(
   { children, className, ...props },
   ref,

@@ -2,8 +2,6 @@ import type { LocaleOf } from '@/i18n';
 
 import type { profileEnUS } from './en-US';
 export const profileZhCN = {
-  avatarColorSaturation: '头像颜色饱和度',
-  avatarColorBrightness: '头像颜色亮度',
   projectScope: '当前工作视图包含 {{count}} 个项目。',
   yourProjects: '我参与的项目',
   yourReviews: '我提交的工作',
@@ -15,13 +13,6 @@ export const profileZhCN = {
   chooseAvatarColor: '选择头像颜色',
   avatarHexColor: '头像十六进制颜色',
   avatarColorPicker: '头像颜色选择器',
-  avatarColorHue: '头像色相',
-  pickerHexColor: '选择器十六进制颜色',
-  pickerOpacity: '不透明度',
-  pickerFormat: '颜色格式',
-  pickerRed: '红色通道',
-  pickerGreen: '绿色通道',
-  pickerBlue: '蓝色通道',
   unsavedChanges: '有未保存的更改',
   yourProfileIsUpToDate: '你的资料已是最新',
   profileSections: '资料分区',

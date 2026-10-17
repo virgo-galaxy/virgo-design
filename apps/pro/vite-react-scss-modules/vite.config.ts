@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 import { themeBootstrapPlugin } from '../../../config/theme-bootstrap-plugin.ts';
-import defaults from './src/features/settings/config/index.ts';
+import defaults from './src/config/settings.json';
 
 export default defineConfig({
   plugins: [
@@ -16,7 +16,6 @@ export default defineConfig({
         version: 1,
         themeField: 'theme',
         appearanceField: 'appearance',
-        legacyThemeKey: 'virgo-design.theme-style.v1',
       },
     }),
     react(),
@@ -75,6 +74,9 @@ export default defineConfig({
       ),
       '@virgo-design/tokens': fileURLToPath(
         new URL('../../../packages/tokens/src/index.ts', import.meta.url),
+      ),
+      '@virgo-design/ui/locale': fileURLToPath(
+        new URL('../../../packages/ui/src/locale/index.ts', import.meta.url),
       ),
       '@virgo-design/ui': fileURLToPath(
         new URL('../../../packages/ui/src/index.ts', import.meta.url),

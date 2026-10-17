@@ -6,8 +6,7 @@ import { useNavigate } from 'react-router';
 
 import type { TaskDto } from '@/contracts/tasks';
 import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
-import { taskStatusIntent, taskStatusLabelNames } from '@/features/tasks';
-import { useTaskQuery } from '@/features/tasks';
+import { taskStatusIntent, taskStatusLabelNames, useTaskQuery } from '@/features/tasks';
 import { businessLabel } from '@/lib/demo/labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { routePath } from '@/routes';
@@ -23,10 +22,11 @@ function RecentTasksView({
   tasks: TaskDto[];
 }) {
   const { projects, metadata } = useTaskCatalog();
-  const memberName = (id: string) =>
-    metadata.members.find((member) => member.id === id)?.name ?? id;
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+
+  const memberName = (id: string) =>
+    metadata.members.find((member) => member.id === id)?.name ?? id;
 
   return (
     <Card variant="outlined" className={styles.tasksCard}>
@@ -97,6 +97,7 @@ function RecentTasksView({
 
 export function RecentTasks({ allTasksRef }: { allTasksRef: Ref<HTMLButtonElement> }) {
   const resource = useTaskQuery({ pageSize: 5 });
+
   return (
     <ResourceContent resource={resource}>
       {(data) => (

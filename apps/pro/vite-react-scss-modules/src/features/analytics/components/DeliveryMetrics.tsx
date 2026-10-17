@@ -12,8 +12,10 @@ import styles from '../styles/analytics.module.scss';
 const percent = (value: number) => `${Math.round(value)}%`;
 const signedPercent = (value: number) => {
   const rounded = Math.round(value);
+
   return `${rounded > 0 ? '+' : ''}${rounded}%`;
 };
+
 export function DeliveryMetrics({ trendPoints }: { trendPoints: TrendPointDto[] }) {
   const { t, i18n } = useTranslation();
   const analysis = deliveryAnalysis('14d', trendPoints);
@@ -25,6 +27,7 @@ export function DeliveryMetrics({ trendPoints }: { trendPoints: TrendPointDto[] 
       value: Math.max(0, analysis.planned - analysis.delivered),
     },
   ];
+
   const number = useMemo(
     () => new Intl.NumberFormat(i18n.language, { maximumFractionDigits: 1 }),
     [i18n.language],
@@ -33,6 +36,7 @@ export function DeliveryMetrics({ trendPoints }: { trendPoints: TrendPointDto[] 
     () => new Intl.NumberFormat(i18n.language, { maximumFractionDigits: 0 }),
     [i18n.language],
   );
+
   const metrics = [
     {
       key: 'delivery',
@@ -63,6 +67,7 @@ export function DeliveryMetrics({ trendPoints }: { trendPoints: TrendPointDto[] 
       note: t('analytics.momentumNote'),
     },
   ];
+
   return (
     <div className={styles.metrics}>
       {metrics.map((metric) => (

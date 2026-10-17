@@ -10,8 +10,8 @@ export function LanguageControl() {
   const preference = useAppLocalePreference();
   const [menuOpen, setMenuOpen] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
-  // Returning focus after a menu selection must not reopen its tooltip.
   const tooltipSuppressed = useRef(false);
+
   return (
     <Dropdown
       trigger="click"

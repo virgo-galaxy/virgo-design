@@ -15,6 +15,14 @@ import { IconSelect, type IconSelectOption } from './components/IconSelect';
 const canonicalRenderSize = 24;
 const largePreviewSize = 288;
 const gridCoordinates = Array.from({ length: 25 }, (_, coordinate) => coordinate);
+const playbackModes = {
+  off: undefined,
+  once: true,
+  three: 3,
+  always: 'always',
+} as const satisfies Record<string, IconAnimation | undefined>;
+
+type PlaybackMode = keyof typeof playbackModes;
 
 const iconOptions = iconManifest.map((icon) => ({
   id: icon.id,
@@ -47,9 +55,10 @@ export function IconsExplorer({
   const [showGrid, setShowGrid] = useState(true);
   const [size, setSize] = useState(24);
   const [color, setColor] = useState('');
-  const [animationMode, setAnimationMode] = useState('off');
+  const [animationMode, setAnimationMode] = useState<PlaybackMode>('off');
   const [animationRun, setAnimationRun] = useState(0);
   const { appearance } = useAppearance();
+
   const selectedIcon =
     customIcon ??
     iconOptions.find((icon) => icon.id === (iconId ?? selectedIconId)) ??
@@ -60,14 +69,7 @@ export function IconsExplorer({
     selectedIcon.id === 'grok-bot' ? 'icons.originalArtworkColors' : 'icons.originalBrandColors',
   );
   const supportsAnimation = 'animated' in selectedIcon && selectedIcon.animated;
-  const animated: IconAnimation | undefined =
-    !supportsAnimation || animationMode === 'off'
-      ? undefined
-      : animationMode === 'always'
-        ? 'always'
-        : animationMode === 'once'
-          ? true
-          : 3;
+  const animated = supportsAnimation ? playbackModes[animationMode] : undefined;
   const animationProps = animated === undefined ? {} : { animated };
   const iconStyle = { color: color || undefined };
   const sliderStyle = { '--size-progress': `${((size - 12) / 52) * 100}%` } as CSSProperties;
@@ -215,17 +217,6 @@ export function IconsExplorer({
               <ColorPicker.Panel
                 alpha
                 aria-label={t('icons.colorPicker')}
-                labels={{
-                  saturation: t('icons.colorSaturation'),
-                  brightness: t('icons.colorBrightness'),
-                  hue: t('icons.colorHue'),
-                  opacity: t('icons.colorOpacity'),
-                  format: t('icons.colorFormat'),
-                  hex: t('icons.colorHex'),
-                  red: t('icons.colorRed'),
-                  green: t('icons.colorGreen'),
-                  blue: t('icons.colorBlue'),
-                }}
               />
             </ColorPicker>
           </div>
@@ -236,17 +227,11 @@ export function IconsExplorer({
               <Select
                 value={animationMode}
                 onValueChange={(value) => {
-                  setAnimationMode(value);
+                  const mode = value as PlaybackMode;
+
+                  setAnimationMode(mode);
                   setAnimationRun((count) => count + 1);
-                  onAnimationChange?.(
-                    value === 'off'
-                      ? undefined
-                      : value === 'always'
-                        ? 'always'
-                        : value === 'once'
-                          ? true
-                          : 3,
-                  );
+                  onAnimationChange?.(playbackModes[mode]);
                 }}
               >
                 <Select.Trigger aria-label={t('icons.animationPlayback')} />

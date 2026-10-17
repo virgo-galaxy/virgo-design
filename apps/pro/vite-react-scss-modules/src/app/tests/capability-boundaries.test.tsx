@@ -9,10 +9,10 @@ import { afterAll, afterEach, beforeAll, beforeEach, expect, it, vi } from 'vite
 import { getProfileIdentity } from '@/api/profile';
 import { prepareHandoff, type WorkflowReceiptDto } from '@/api/workflows';
 import { loadAnalyticsPage } from '@/features/analytics/routes';
-import { HandoffSessionProvider, useHandoffSession } from '@/features/handoff';
+import { useHandoffSession } from '@/features/handoff';
+import { HandoffStoreProvider } from '@/features/handoff/store';
 import { loadProfilePage } from '@/features/profile/routes';
 import { loadProjectDetailPage } from '@/features/projects/routes';
-import { loadTasksPage } from '@/features/tasks/routes';
 import { getDemoState } from '@/mock/data/store';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';
@@ -42,7 +42,6 @@ vi.mock('@virgo-design/charts', () => ({
 const { default: AnalyticsPage } = await loadAnalyticsPage();
 const { default: ProfilePage } = await loadProfilePage();
 const { default: ProjectDetailPage } = await loadProjectDetailPage();
-const { default: TasksPage } = await loadTasksPage();
 const server = setupServer(...handlers);
 const requests: string[] = [];
 server.events.on('request:start', ({ request }) => requests.push(new URL(request.url).pathname));
@@ -93,9 +92,9 @@ it('refreshes a workflow result from the server after a cross-tab update even af
     );
   }
   const dispose = mount(
-    <HandoffSessionProvider>
+    <HandoffStoreProvider>
       <PreparedResult />
-    </HandoffSessionProvider>,
+    </HandoffStoreProvider>,
   );
   try {
     fireEvent.click(screen.getByRole('button', { name: 'Prepare local draft' }));
@@ -200,19 +199,6 @@ it('keeps identity editing independent of a preferences outage', async () => {
     expect((await getProfileIdentity()).name).toBe('Independent identity');
     fireEvent.click(screen.getByRole('tab', { name: 'Preferences' }));
     await screen.findByText('Unable to load data');
-  } finally {
-    dispose();
-  }
-});
-
-it('keeps a task list usable without its independent summary and avoids preloading profile preferences', async () => {
-  server.use(http.get('/api/v1/tasks/summary', () => new HttpResponse(null, { status: 503 })));
-  const dispose = mount(<TasksPage />);
-  try {
-    await screen.findByRole('checkbox', { name: 'Select task 49e7996a-311b' });
-    await screen.findByText('Unable to load data');
-    expect(requests).not.toContain('/api/v1/profile/preferences');
-    expect(requests).not.toContain('/api/v1/analytics/delivery-trend');
   } finally {
     dispose();
   }

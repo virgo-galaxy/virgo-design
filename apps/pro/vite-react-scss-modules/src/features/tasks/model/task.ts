@@ -12,6 +12,7 @@ export function projectTaskErrors(
   projects: readonly ProjectDto[],
 ) {
   const project = projects.find((entry) => entry.id === draft.project);
+
   return {
     ...(!project?.modules.some((module) => module.id === draft.module)
       ? { module: 'moduleRequired' as const }
@@ -43,6 +44,7 @@ export interface TaskFilters {
 export interface TaskState {
   tasks: Task[];
 }
+
 export type TaskAction =
   | { type: 'create'; draft: TaskDraft }
   | { type: 'edit'; id: string; draft: TaskDraft }
@@ -64,6 +66,7 @@ export const emptyTaskDraft: TaskDraft = {
 export function isTaskStatus(value: string): value is TaskStatus {
   return taskStatuses.some((status) => status === value);
 }
+
 export function isTaskPriority(value: string): value is TaskPriority {
   return taskPriorities.some((priority) => priority === value);
 }
@@ -99,22 +102,28 @@ export function validateTask(
   catalog?: readonly ProjectDto[],
 ): TaskErrors {
   const errors: TaskErrors = catalog ? projectTaskErrors(draft, catalog) : {};
+
   if (!draft.module) errors.module = 'moduleRequired';
+
   if (!draft.title.trim()) errors.title = 'titleRequired';
   else if (draft.title.trim().length > 120) errors.title = 'titleTooLong';
+
   if (draft.description.length > 2000) errors.description = 'descriptionTooLong';
   if (!isTaskStatus(draft.status)) errors.status = 'invalidStatus';
   if (!isTaskPriority(draft.priority)) errors.priority = 'invalidPriority';
   if (!projects.includes(draft.project)) errors.project = 'projectRequired';
   if (!assigneeIds.includes(draft.assignee)) errors.assignee = 'assigneeRequired';
+
   if (
     !Number.isInteger(draft.estimateHours) ||
     draft.estimateHours < 0 ||
     draft.estimateHours > 999
   )
     errors.estimateHours = 'invalidEstimate';
+
   if (draft.dueDate) {
     const date = new Date(`${draft.dueDate}T00:00:00Z`);
+
     if (
       !/^\d{4}-\d{2}-\d{2}$/.test(draft.dueDate) ||
       Number.isNaN(date.getTime()) ||
@@ -122,6 +131,7 @@ export function validateTask(
     )
       errors.dueDate = 'invalidDueDate';
   }
+
   return errors;
 }
 

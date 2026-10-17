@@ -1,4 +1,5 @@
-import type { TaskColumnKey } from '../config/table-settings';
+import type { TaskColumnKey } from '../model/table-settings';
+
 export function taskColumnLabelName(key: TaskColumnKey) {
   return key === 'rowNumber'
     ? 'id'

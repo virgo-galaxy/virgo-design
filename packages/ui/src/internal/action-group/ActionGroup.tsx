@@ -37,6 +37,7 @@ export const ActionGroup = forwardRef<HTMLDivElement, ActionGroupProps>(function
           } as CSSProperties),
     children,
   };
+
   return (
     <ActionGroupSizeContext.Provider value={size ?? inheritedSize}>
       {render ? render(rootProps) : <div {...rootProps} />}

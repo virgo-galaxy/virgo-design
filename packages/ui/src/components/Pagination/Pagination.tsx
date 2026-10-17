@@ -8,25 +8,11 @@ import {
 import { Pagination as PrimitivePagination, type PaginationState } from '@virgo-design/primitives';
 import { forwardRef, useEffect, useState } from 'react';
 
+import { useLocale } from '../../locale/context/locale-context';
 import { Dropdown } from '../Dropdown';
 import { Input } from '../Input';
 import styles from './Pagination.module.scss';
 import type { PaginationLabels, PaginationProps } from './Pagination.types';
-
-const defaultLabels = {
-  navigation: 'Pagination',
-  previous: 'Previous page',
-  next: 'Next page',
-  page: (page) => `Page ${page}`,
-  jumpBackward: 'Jump back 5 pages',
-  jumpForward: 'Jump forward 5 pages',
-  pageSize: 'Items per page',
-  itemsPerPage: (size) => `${size} / page`,
-  jumpTo: 'Go to',
-  pageUnit: 'page',
-  selected: (count: number) => `(Selected ${count} items)`,
-  total: (total: number) => `Total ${total} items`,
-} satisfies PaginationLabels;
 
 function QuickJumper({
   state,
@@ -95,7 +81,8 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
   },
   forwardedRef,
 ) {
-  const labels = { ...defaultLabels, ...customLabels };
+  const locale = useLocale();
+  const labels = { ...locale.pagination, ...customLabels };
 
   return (
     <PrimitivePagination
@@ -118,7 +105,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
               {selectedCount > 0 ? (
                 <span data-slot="selected">
                   {' '}
-                  {(labels.selected ?? defaultLabels.selected)(selectedCount)}
+                  {(labels.selected ?? locale.pagination.selected)(selectedCount)}
                 </span>
               ) : null}
             </span>

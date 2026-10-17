@@ -6,13 +6,12 @@ import { afterAll, afterEach, beforeAll, beforeEach, expect, it } from 'vitest';
 import { getProjectModuleStats, getProjects, getProjectSummaries } from '@/api/projects';
 import { createTask, getTasks, updateTask, updateTaskStatus } from '@/api/tasks';
 import { moduleFilterKey, moduleName } from '@/features/catalog';
-import { demoStorageKey, getDemoState, unloadDemoState, updateDemoState } from '@/mock/data/store';
+import { getDemoState, updateDemoState } from '@/mock/data/store';
 import { projects } from '@/mock/fixtures/projects';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';
 
 import { getTaskCollection } from '../data/queries';
-import { canonicalTaskParams } from '../hooks/use-task-search-params';
 import { taskDraft } from '../model/task';
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
@@ -65,12 +64,6 @@ it('keeps relations and permissions stable through display-name changes and reso
   expect(moduleFilterKey(catalog[0]!.id, 'shared-module')).not.toBe(
     moduleFilterKey(catalog[1]!.id, 'shared-module'),
   );
-  expect(
-    canonicalTaskParams(
-      new URLSearchParams('project=Online+Store&module=online-store-1'),
-      projects,
-    ).getAll('module'),
-  ).toEqual([moduleFilterKey('online-store', 'online-store-1')]);
 });
 it('serves bounded project summaries and synchronizes them with real saved completion', async () => {
   const before = (await getProjectSummaries('online-store'))[0]!;
@@ -85,25 +78,6 @@ it('serves bounded project summaries and synchronizes them with real saved compl
   expect(
     (await getProjectModuleStats('online-store')).reduce((total, item) => total + item.total, 0),
   ).toBe(after.total);
-});
-it('migrates version-2 name associations without losing task edits or history', () => {
-  const saved = structuredClone(getDemoState());
-  saved.tasks[0]!.title = 'Local edited title';
-  for (const entries of [saved.tasks, saved.records, saved.notifications])
-    for (const entry of entries)
-      entry.project =
-        projects.find((project) => project.id === entry.project)?.name ?? entry.project;
-  localStorage.setItem(demoStorageKey, JSON.stringify({ version: 2, state: saved }));
-  unloadDemoState();
-  const loaded = getDemoState();
-  expect(loaded.tasks[0]!.title).toBe('Local edited title');
-  expect(loaded.tasks[0]!.project).toBe('online-store');
-  expect(loaded.records.map((record) => record.id)).toEqual(
-    saved.records.map((record) => record.id),
-  );
-  expect(
-    loaded.records.every((record) => projects.some((project) => project.id === record.project)),
-  ).toBe(true);
 });
 it('reads an immutable snapshot with at most three active page requests during concurrent mutation', async () => {
   const template = getDemoState().tasks[0]!;
@@ -149,16 +123,4 @@ it('rejects an expired snapshot and never silently returns a partial collection'
     ),
   );
   await expect(getTaskCollection()).rejects.toThrow('consistent server snapshot');
-});
-it('creates normalized records through the current API and manages completion timestamps', async () => {
-  const draft = taskDraft(getDemoState().tasks[0]!);
-  const created = await createTask({ ...draft, status: 'todo', title: '  Normalized task  ' });
-  expect(created.title).toBe('Normalized task');
-  expect(created.completedAt).toBeNull();
-  const completed = await updateTaskStatus(created.id, 'done');
-  expect(completed.completedAt).toBeTruthy();
-  expect((await updateTask(created.id, { title: 'Edited after completion' })).completedAt).toBe(
-    completed.completedAt,
-  );
-  expect((await updateTaskStatus(created.id, 'todo')).completedAt).toBeNull();
 });

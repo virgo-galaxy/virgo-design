@@ -42,6 +42,7 @@ export const SliderRange = forwardRef<HTMLDivElement, SliderRangeProps>(function
     (input.length >= 2 ? input : [input[0] ?? lower, upper])
       .map((number) => snap(Number.isFinite(number) ? number : lower))
       .sort((a, b) => a - b);
+
   const initial = normalize(defaultValue ?? [lower, upper]);
   const [raw, setValue, resetValue] = useControllableState(
     controlled === undefined ? undefined : [...controlled],
@@ -56,6 +57,7 @@ export const SliderRange = forwardRef<HTMLDivElement, SliderRangeProps>(function
   const lastThumb = useRef(0);
   const initialRef = useRef(initial);
   initialRef.current = initial;
+
   useEffect(() => {
     const form = trackRef.current?.closest('form');
     const reset = () => {
@@ -64,6 +66,7 @@ export const SliderRange = forwardRef<HTMLDivElement, SliderRangeProps>(function
     form?.addEventListener('reset', reset);
     return () => form?.removeEventListener('reset', reset);
   }, [controlled, resetValue]);
+
   const change = (index: number, number: number) => {
     const current = valuesRef.current;
     const next = [...current];
@@ -72,9 +75,11 @@ export const SliderRange = forwardRef<HTMLDivElement, SliderRangeProps>(function
       Math.min(current[index + 1] ?? upper, snap(number)),
     );
     if (next[index] === current[index]) return;
+
     if (controlled === undefined) valuesRef.current = next;
     setValue(next);
   };
+
   const atPointer = (x: number) => {
     const track = trackRef.current!;
     const rect = track.getBoundingClientRect();
@@ -83,8 +88,10 @@ export const SliderRange = forwardRef<HTMLDivElement, SliderRangeProps>(function
       lower + (getComputedStyle(track).direction === 'rtl' ? 1 - ratio : ratio) * (upper - lower)
     );
   };
+
   const percentage = (number: number) =>
     upper > lower ? `${((number - lower) / (upper - lower)) * 100}%` : '0%';
+
   return (
     <div
       {...field}

@@ -27,7 +27,6 @@ describe('Mock client activation', () => {
     expect(worker.postMessage).toHaveBeenCalledExactlyOnceWith('MOCK_ACTIVATE');
     acknowledge();
     await first;
-    // Registration/controller can remain unchanged while the SW restarts.
     const next = activate();
     expect(worker.postMessage).toHaveBeenCalledTimes(2);
     acknowledge();

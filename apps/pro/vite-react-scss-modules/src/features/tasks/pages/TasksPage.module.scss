@@ -14,6 +14,8 @@
 
 .listPanel {
   --task-panel-background: var(--vd-overlay-background, #fff);
+  justify-self: start;
+  width: 100%;
   min-width: 0;
   overflow: visible;
   background: var(--task-panel-background);
@@ -74,17 +76,6 @@
   justify-content: flex-end;
   gap: var(--vd-spacing-12);
   margin-inline-start: auto;
-}
-
-@media (max-width: 640px) {
-  .listActions {
-    flex-wrap: wrap;
-  }
-}
-
-.listPanel {
-  justify-self: start;
-  width: 100%;
 }
 
 .listPanel :global([data-pro-task-table]) {

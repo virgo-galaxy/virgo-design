@@ -160,13 +160,13 @@
   backdrop-filter: blur(4px);
   pointer-events: auto;
   touch-action: none;
+  cursor: grab;
+
   &:focus-visible {
     outline: 2px solid var(--vd-text-secondary);
     outline-offset: 2px;
   }
-}
-.handle {
-  cursor: grab;
+
   &[data-dragging] {
     cursor: grabbing;
   }

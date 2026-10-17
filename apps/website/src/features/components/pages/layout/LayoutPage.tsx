@@ -90,9 +90,10 @@ export function LayoutPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'layout-structures'}
-          index={'01'}
+          id="layout-structures"
+          index="01"
           title={t('components.layout.structures.title')}
           description={t('components.layout.structures.description')}
         >
@@ -102,9 +103,10 @@ export function LayoutPage() {
           <ComponentExample example={layoutExamples.layoutRailSidebar} />
           <ComponentExample example={layoutExamples.layoutFullHeightSidebar} />
         </ArticleSection>
+
         <ArticleSection
-          id={'layout-behaviors'}
-          index={'02'}
+          id="layout-behaviors"
+          index="02"
           title={t('components.layout.behaviors.title')}
           description={t('components.layout.behaviors.description')}
         >
@@ -122,54 +124,61 @@ export function LayoutPage() {
           <h2 id="layout-examples-title">{t('examples.layout.copy.typicalExamples')}</h2>
           <p>{t('components.layout.behaviors.note')}</p>
         </section>
+
         <ArticleSection
-          id={'layout-header'}
-          index={'03'}
+          id="layout-header"
+          index="03"
           title={t('components.layout.header.title')}
           description={t('components.layout.header.description')}
         >
           <ComponentExample example={layoutExamples.layoutHeader} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'layout-sidebar'}
-          index={'04'}
+          id="layout-sidebar"
+          index="04"
           title={t('components.layout.sidebar.title')}
           description={t('components.layout.sidebar.description')}
         >
           <ComponentExample example={layoutExamples.layoutSidebar} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'layout-controlled'}
-          index={'05'}
+          id="layout-controlled"
+          index="05"
           title={t('components.layout.controlled.title')}
           description={t('components.layout.controlled.description')}
         >
           <ComponentExample example={layoutExamples.layoutControlledSidebar} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'layout-overlay'}
-          index={'06'}
+          id="layout-overlay"
+          index="06"
           title={t('components.layout.overlay.title')}
           description={t('components.layout.overlay.description')}
         >
           <ComponentExample example={layoutExamples.layoutOverlaySidebar} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'layout-floating-sidebar'}
-          index={'07'}
+          id="layout-floating-sidebar"
+          index="07"
           title={t('components.layout.floatingSidebar.title')}
           description={t('components.layout.floatingSidebar.description')}
         >
           <ComponentExample example={layoutExamples.layoutFloatingSidebar} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'layout-floating-actions'}
-          index={'08'}
+          id="layout-floating-actions"
+          index="08"
           title={t('components.layout.floatingActions.title')}
           description={t('components.layout.floatingActions.description')}
         >
           <ComponentExample example={layoutExamples.layoutFloatingActions} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="layout-grouped-sidebar"
           index="09"

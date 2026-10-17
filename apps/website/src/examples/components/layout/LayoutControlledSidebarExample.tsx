@@ -1,9 +1,7 @@
 import { LayoutIcon, SidebarCollapseIcon, SidebarExpandIcon } from '@virgo-design/icons';
-import { Button, Layout, NavigationMenu, Surface } from '@virgo-design/ui';
+import { Button, Layout, type LayoutSidebarDisplayState, NavigationMenu, Surface } from '@virgo-design/ui';
 import { useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { translateExampleText } from '@/i18n/translate-example-text';
 
 import styles from './LayoutControlledSidebarExample.module.scss';
 
@@ -15,8 +13,8 @@ function SidebarBrand() {
 
 function Navigation({ compact = false }: { compact?: boolean }) {
   const { t } = useTranslation();
-
   const [value, setValue] = useState('menu-1');
+
   return (
     <NavigationMenu
       orientation="vertical"
@@ -33,7 +31,7 @@ function Navigation({ compact = false }: { compact?: boolean }) {
           <NavigationMenu.Item key={id} value={id} icon={<LayoutIcon />}>
             <NavigationMenu.Link
               href={`#${id}`}
-              aria-label={translateExampleText(t, 'layout', label)}
+              aria-label={label}
               title={compact ? label : undefined}
               onClick={(event) => {
                 event.preventDefault();
@@ -52,15 +50,16 @@ function Navigation({ compact = false }: { compact?: boolean }) {
 export default function App() {
   const { t } = useTranslation();
 
-  const [collapsed, setCollapsed] = useState(false);
+  const [sidebarState, setSidebarState] = useState<LayoutSidebarDisplayState>('expanded');
+  const collapsed = sidebarState !== 'expanded';
   const sidebarId = useId();
 
   return (
     <div className={styles.stage!}>
       <Layout direction="horizontal" className={styles.layout!}>
         <Layout.Sidebar
-          collapsed={collapsed}
-          onCollapsedChange={setCollapsed}
+          state={sidebarState}
+          onStateChange={setSidebarState}
           id={sidebarId}
           trigger={null}
           collapsible
@@ -88,7 +87,9 @@ export default function App() {
                 }
                 aria-expanded={!collapsed}
                 aria-controls={sidebarId}
-                onClick={() => setCollapsed((value) => !value)}
+                onClick={() =>
+                  setSidebarState((state) => state === 'expanded' ? 'collapsed' : 'expanded')
+                }
               >
                 {collapsed ? <SidebarExpandIcon /> : <SidebarCollapseIcon />}
               </Button>

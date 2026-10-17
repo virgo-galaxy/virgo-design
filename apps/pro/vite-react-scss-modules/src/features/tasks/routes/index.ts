@@ -1,4 +1,3 @@
-// Public route entry: each page keeps its existing lazy loading boundary.
 export const loadTaskWorkspacePage = () =>
   import('../pages/TaskWorkspacePage').then((module) => ({ default: module.TaskWorkspacePage }));
 export const loadTaskCardsPage = () =>

@@ -292,99 +292,59 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'color-picker-props.properties.size.description': 'Visual density.',
       'color-picker-props.properties.open.description': 'Controlled panel open state.',
       'color-picker-props.properties.default-open.description': 'Initial panel open state.',
-      'color-picker-props.properties.on-open-change.description':
-        'Called when the panel opens or closes.',
-      'color-picker-props.properties.value.description':
-        'Controlled sRGB color, formatted as #rrggbb or #rrggbbaa.',
+      'color-picker-props.properties.on-open-change.description': 'Called when the panel opens or closes.',
+      'color-picker-props.properties.value.description': 'Controlled sRGB color, formatted as #rrggbb or #rrggbbaa.',
       'color-picker-props.properties.default-value.description': 'Initial color.',
-      'color-picker-props.properties.on-value-change.description':
-        'Called when any picker part chooses a valid HEX color.',
-      'color-picker-props.properties.name.description':
-        'Native form name for the selected HEX color.',
+      'color-picker-props.properties.on-value-change.description': 'Called when any picker part chooses a valid HEX color.',
+      'color-picker-props.properties.name.description': 'Native form name for the selected HEX color.',
       'color-picker-props.properties.disabled.description': 'Disable the picker and swatches.',
-      'color-picker-props.properties.read-only.description':
-        'Prevent color edits while retaining the current form value.',
-      'color-picker-trigger-props.properties.variant.description':
-        'Built-in compact swatch or fixed-width swatch-and-value trigger.',
-      'color-picker-trigger-props.properties.value-label.description':
-        'Optional display label, such as currentColor, instead of the selected HEX value.',
-      'color-picker-trigger-props.properties.render.description':
-        'Supply a button which forwards the provided native props and ref.',
-      'color-picker-panel-props.properties.size.description':
-        'Density of the built-in panel controls.',
-      'color-picker-panel-props.properties.variant.description':
-        'Built-in simple HEX editor or full HEX/RGB editor.',
-      'color-picker-panel-props.properties.alpha.description':
-        'Show opacity controls. Defaults to true for full panels and false for simple panels.',
-      'color-picker-panel-props.properties.labels.description':
-        'Localized accessible names for the built-in panel controls.',
-      'color-picker-panel-props.properties.placement.description':
-        "Logical Start/End alignments follow the trigger's direction.",
-      'color-picker-panel-props.properties.offset.description':
-        'Space between the trigger and panel, in pixels.',
-      'color-picker-area-props.properties.saturation-label.description':
-        'Accessible name for the independently keyboard-operable saturation slider.',
-      'color-picker-area-props.properties.brightness-label.description':
-        'Accessible name for the independently keyboard-operable brightness slider.',
-      'color-picker-channel-field-props.properties.channel.description':
-        'sRGB channel edited as an integer from 0 to 255.',
-      'color-picker-content-props.properties.placement.description':
-        "Logical Start/End alignments follow the trigger's direction.",
-      'color-picker-content-props.properties.offset.description':
-        'Space between the trigger and panel, in pixels.',
-      'color-picker-hex-field-props.properties.letter-case.description':
-        'Display letter case; submitted colors remain canonical lowercase.',
-      'color-picker-hex-field-props.properties.include-alpha.description':
-        'Include the alpha byte in the text; false preserves it during RGB edits.',
-      'color-picker-swatch-props.properties.value.description':
-        'sRGB HEX color represented by this button, with optional alpha.',
+      'color-picker-props.properties.read-only.description': 'Prevent color edits while retaining the current form value.',
+      'color-picker-trigger-props.properties.variant.description': 'Built-in compact swatch or fixed-width swatch-and-value trigger.',
+      'color-picker-trigger-props.properties.value-label.description': 'Optional display label, such as currentColor, instead of the selected HEX value.',
+      'color-picker-trigger-props.properties.render.description': 'Supply a button which forwards the provided native props and ref.',
+      'color-picker-panel-props.properties.size.description': 'Density of the built-in panel controls.',
+      'color-picker-panel-props.properties.variant.description': 'Built-in simple HEX editor or full HEX/RGB editor.',
+      'color-picker-panel-props.properties.alpha.description': 'Show opacity controls. Defaults to true for full panels and false for simple panels.',
+      'color-picker-panel-props.properties.labels.description': 'Localized accessible names for the built-in panel controls.',
+      'color-picker-panel-props.properties.placement.description': "Logical Start/End alignments follow the trigger's direction.",
+      'color-picker-panel-props.properties.offset.description': 'Space between the trigger and panel, in pixels.',
+      'color-picker-area-props.properties.saturation-label.description': 'Accessible name for the independently keyboard-operable saturation slider.',
+      'color-picker-area-props.properties.brightness-label.description': 'Accessible name for the independently keyboard-operable brightness slider.',
+      'color-picker-channel-field-props.properties.channel.description': 'sRGB channel edited as an integer from 0 to 255.',
+      'color-picker-content-props.properties.placement.description': "Logical Start/End alignments follow the trigger's direction.",
+      'color-picker-content-props.properties.offset.description': 'Space between the trigger and panel, in pixels.',
+      'color-picker-hex-field-props.properties.letter-case.description': 'Display letter case; submitted colors remain canonical lowercase.',
+      'color-picker-hex-field-props.properties.include-alpha.description': 'Include the alpha byte in the text; false preserves it during RGB edits.',
+      'color-picker-swatch-props.properties.value.description': 'sRGB HEX color represented by this button, with optional alpha.',
       'color-picker-value-props.properties.letter-case.description': 'Display letter case.',
     },
   },
   combobox: {
     api: {
       'combobox-props.properties.size.description': 'Input and option density.',
-      'combobox-props.properties.value.description':
-        'Selected option value. An empty string represents no selection.',
+      'combobox-props.properties.value.description': 'Selected option value. An empty string represents no selection.',
       'combobox-props.properties.default-value.description': 'Initial selected value.',
-      'combobox-props.properties.on-value-change.description':
-        'Called on option selection or explicit clear, not on typing.',
-      'combobox-props.properties.input-value.description':
-        'Current input text, independent of the selected value.',
-      'combobox-props.properties.default-input-value.description':
-        'Initial input text for autocomplete usage.',
-      'combobox-props.properties.on-input-value-change.description':
-        'Called when input text changes or an option fills the input.',
+      'combobox-props.properties.on-value-change.description': 'Called on option selection or explicit clear, not on typing.',
+      'combobox-props.properties.input-value.description': 'Current input text, independent of the selected value.',
+      'combobox-props.properties.default-input-value.description': 'Initial input text for autocomplete usage.',
+      'combobox-props.properties.on-input-value-change.description': 'Called when input text changes or an option fills the input.',
       'combobox-props.properties.open.description': 'Controlled popup state.',
       'combobox-props.properties.default-open.description': 'Initial popup state.',
-      'combobox-props.properties.on-open-change.description':
-        'Called when the popup is requested to open or close.',
+      'combobox-props.properties.on-open-change.description': 'Called when the popup is requested to open or close.',
       'combobox-props.properties.disabled.description': 'Disables input, selection and clear.',
-      'combobox-props.properties.read-only.description':
-        'Keeps the input focusable while preventing edits and selection.',
-      'combobox-props.properties.name.description':
-        'Name of the hidden selected-value form control.',
-      'combobox-props.properties.should-filter.description':
-        'Disable client filtering for consumer-owned or remote result lists.',
-      'combobox-props.properties.filter.description':
-        'Custom synchronous filter; defaults to case-insensitive substring matching.',
+      'combobox-props.properties.read-only.description': 'Keeps the input focusable while preventing edits and selection.',
+      'combobox-props.properties.name.description': 'Name of the hidden selected-value form control.',
+      'combobox-props.properties.should-filter.description': 'Disable client filtering for consumer-owned or remote result lists.',
+      'combobox-props.properties.filter.description': 'Custom synchronous filter; defaults to case-insensitive substring matching.',
       'combobox-content-props.properties.portal.description': 'Render in the document-body portal.',
-      'combobox-content-props.properties.placement.description':
-        'Preferred logical popup placement; collision handling may flip or shift it.',
-      'combobox-content-props.properties.offset.description':
-        'Gap between input and popup in pixels.',
-      'combobox-group-props.properties.label.description':
-        'Visible group heading and accessible name.',
+      'combobox-content-props.properties.placement.description': 'Preferred logical popup placement; collision handling may flip or shift it.',
+      'combobox-content-props.properties.offset.description': 'Gap between input and popup in pixels.',
+      'combobox-group-props.properties.label.description': 'Visible group heading and accessible name.',
       'combobox-option-props.properties.value.description': 'Unique, nonempty selected value.',
-      'combobox-option-props.properties.text-value.description':
-        'Plain text used for filtering and filling the input.',
+      'combobox-option-props.properties.text-value.description': 'Plain text used for filtering and filling the input.',
       'combobox-option-props.properties.keywords.description': 'Additional search terms.',
-      'combobox-option-props.properties.disabled.description':
-        'Visible but not selectable or highlightable.',
-      'combobox-input-props.properties.prefix.description':
-        'Decorative content placed before the native text control.',
-      'combobox-input-props.properties.leading-icon.description':
-        'Decorative leading icon; prefix takes precedence.',
+      'combobox-option-props.properties.disabled.description': 'Visible but not selectable or highlightable.',
+      'combobox-input-props.properties.prefix.description': 'Decorative content placed before the native text control.',
     },
   },
   command: {
@@ -890,9 +850,9 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'layout-sidebar-props.properties.offset.description':
         "Distance from the containing region's edges in floating mode.",
       'layout-sidebar-props.properties.state.description':
-        'Three-state control. Takes precedence over legacy collapsed.',
+        'Controlled display state.',
       'layout-sidebar-props.properties.default-state.description':
-        'Initial uncontrolled state. Takes precedence over defaultCollapsed.',
+        'Initial uncontrolled display state.',
       'layout-sidebar-props.properties.on-state-change.description':
         'Called when the standalone Sidebar requests a state change. Place state control on SidebarProvider when using a shared scope.',
       'layout-content-props.properties.class-name.description':
@@ -1022,7 +982,7 @@ export const componentsApiEnUS: ApiDescriptionResources = {
       'pagination-props.properties.page-size-options.description':
         'Positive integer choices; the current page size is always included.',
       'pagination-props.properties.labels.description':
-        'Visible copy and accessible names; defaults to English.',
+        'Overrides visible copy and accessible names from LocaleProvider.',
     },
   },
   popover: {
@@ -1300,124 +1260,72 @@ export const componentsApiEnUS: ApiDescriptionResources = {
   },
   table: {
     api: {
-      'table-props.properties.density.description':
-        'Cell padding and minimum header/body row heights. Takes precedence over size.',
-      'table-props.properties.size.description':
-        'Legacy density alias: small = compact, medium = default, large = comfortable. Prefer density.',
-      'table-props.properties.border.description':
-        'Border treatment. Separators divide adjacent rows without an outer edge.',
-      'table-props.properties.header-dividers.description':
-        'Short vertical separators between column headings.',
-      'table-props.properties.resizable.description':
-        'Enables pointer and keyboard resizing for all columns.',
-      'table-props.properties.min-column-width.description':
-        'Minimum width in pixels when resizing a column.',
+      'table-props.properties.density.description': 'Cell padding and minimum header/body row heights.',
+      'table-props.properties.border.description': 'Border treatment. Separators divide adjacent rows without an outer edge.',
+      'table-props.properties.header-dividers.description': 'Short vertical separators between column headings.',
+      'table-props.properties.resizable.description': 'Enables pointer and keyboard resizing for all columns.',
+      'table-props.properties.min-column-width.description': 'Minimum width in pixels when resizing a column.',
       'table-props.properties.max-column-width.description': 'Maximum column width in pixels.',
-      'table-props.properties.column-widths.description':
-        'Controlled widths in visible column order. Kept when resizing is disabled.',
-      'table-props.properties.on-column-widths-change.description':
-        'Receives widths after pointer or keyboard resizing; data/column identity stays consumer-owned.',
+      'table-props.properties.column-widths.description': 'Controlled widths in visible column order. Kept when resizing is disabled.',
+      'table-props.properties.on-column-widths-change.description': 'Receives widths after pointer or keyboard resizing; data/column identity stays consumer-owned.',
       'table-props.properties.striped.description': 'Alternating body row backgrounds.',
       'table-props.properties.hoverable.description': 'Highlights pointer-hovered rows.',
-      'table-props.properties.sticky-header.description':
-        'Sticks column headings inside the nearest scrolling viewport.',
-      'table-fixed-cell-props.properties.fixed.description':
-        'Pins this cell to a logical edge of Table.Viewport.',
-      'table-fixed-cell-props.properties.sticky-offset.description':
-        'Cumulative widths of preceding pinned columns at the same edge, in pixels.',
-      'table-sort-button-props.properties.sort-mode.description':
-        'Both arrows and a three-state cycle, or a single arrow toggling that direction and none.',
+      'table-props.properties.sticky-header.description': 'Sticks column headings inside the nearest scrolling viewport.',
+      'table-fixed-cell-props.properties.fixed.description': 'Pins this cell to a logical edge of Table.Viewport.',
+      'table-fixed-cell-props.properties.sticky-offset.description': 'Cumulative widths of preceding pinned columns at the same edge, in pixels.',
+      'table-sort-button-props.properties.sort-mode.description': 'Both arrows and a three-state cycle, or a single arrow toggling that direction and none.',
       'table-sort-button-props.properties.direction.description': 'Controlled sort direction.',
-      'table-sort-button-props.properties.default-direction.description':
-        'Initial uncontrolled direction.',
-      'table-sort-button-props.properties.directions.description':
-        'Enabled sort directions, cycled in order before returning to none.',
-      'table-sort-button-props.properties.on-direction-change.description':
-        'Requests the next enabled direction, then none.',
-      'table-header-sort-control.properties.enabled.description':
-        'Shows the sorting button while retaining its mode when disabled.',
+      'table-sort-button-props.properties.default-direction.description': 'Initial uncontrolled direction.',
+      'table-sort-button-props.properties.directions.description': 'Enabled sort directions, cycled in order before returning to none.',
+      'table-sort-button-props.properties.on-direction-change.description': 'Requests the next enabled direction, then none.',
+      'table-header-sort-control.properties.enabled.description': 'Shows the sorting button while retaining its mode when disabled.',
       'table-header-sort-control.properties.mode.description': 'Arrow shape and direction cycle.',
-      'table-header-sort-control.properties.direction.description':
-        "Controlled direction, also reflected in the heading's aria-sort.",
-      'table-header-sort-control.properties.on-direction-change.description':
-        'Receives the requested direction; data ordering remains consumer-owned.',
-      'table-header-controls.properties.layout.description':
-        'Keeps the heading at the start, or aligns heading and controls as one group.',
-      'table-header-controls.properties.align.description':
-        'Aligns controls in the remaining space, or the complete joined heading group.',
-      'table-header-controls.properties.sort.description':
-        'Sorting control; omitted or false hides it.',
-      'table-header-controls.properties.filter.description':
-        'Filter control; the column name supplies its label. Omitted or false hides it.',
-      'table-header-controls.properties.search.description':
-        'Search control; the column name supplies its label. Omitted or false hides it.',
-      'table-head-props.properties.controls.description':
-        'Optional controls in fixed order: sorting, filter, search. Their alignment is shared.',
-      'table-head-props.properties.min-width.description':
-        'Per-column minimum resize width, overriding the table default.',
-      'table-head-props.properties.max-width.description':
-        'Per-column maximum resize width, overriding the table default.',
-      'table-head-props.properties.align.description':
-        'Heading alignment when controls is omitted; otherwise controls.align owns alignment.',
-      'table-head-props.properties.fixed.description':
-        'Pins this cell to a logical edge of Table.Viewport.',
-      'table-head-props.properties.sticky-offset.description':
-        'Cumulative widths of preceding pinned columns at the same edge, in pixels.',
-      'table-cell-props.properties.align.description':
-        'Logical alignment; end is useful for numeric columns.',
-      'table-cell-props.properties.fixed.description':
-        'Pins this cell to a logical edge of Table.Viewport.',
-      'table-cell-props.properties.sticky-offset.description':
-        'Cumulative widths of preceding pinned columns at the same edge, in pixels.',
-      'table-row-props.properties.selected.description':
-        'Consumer-owned selected appearance; does not add grid selection semantics.',
-      'table-filter-props.properties.tooltip.description':
-        'Tooltip content. Defaults to the generic localized Filter label; false hides the hint.',
-      'table-filter-props.properties.size.description':
-        'Size of the Confirm and Reset action buttons.',
-      'table-filter-props.properties.label.description':
-        'Column name used to label the filter button and popover.',
+      'table-header-sort-control.properties.direction.description': "Controlled direction, also reflected in the heading's aria-sort.",
+      'table-header-sort-control.properties.on-direction-change.description': 'Receives the requested direction; data ordering remains consumer-owned.',
+      'table-header-controls.properties.layout.description': 'Keeps the heading at the start, or aligns heading and controls as one group.',
+      'table-header-controls.properties.align.description': 'Aligns controls in the remaining space, or the complete joined heading group.',
+      'table-header-controls.properties.sort.description': 'Sorting control; omitted or false hides it.',
+      'table-header-controls.properties.filter.description': 'Filter control; the column name supplies its label. Omitted or false hides it.',
+      'table-header-controls.properties.search.description': 'Search control; the column name supplies its label. Omitted or false hides it.',
+      'table-head-props.properties.controls.description': 'Optional controls in fixed order: sorting, filter, search. Their alignment is shared.',
+      'table-head-props.properties.min-width.description': 'Per-column minimum resize width, overriding the table default.',
+      'table-head-props.properties.max-width.description': 'Per-column maximum resize width, overriding the table default.',
+      'table-head-props.properties.align.description': 'Heading alignment when controls is omitted; otherwise controls.align owns alignment.',
+      'table-head-props.properties.fixed.description': 'Pins this cell to a logical edge of Table.Viewport.',
+      'table-head-props.properties.sticky-offset.description': 'Cumulative widths of preceding pinned columns at the same edge, in pixels.',
+      'table-cell-props.properties.align.description': 'Logical alignment; end is useful for numeric columns.',
+      'table-cell-props.properties.fixed.description': 'Pins this cell to a logical edge of Table.Viewport.',
+      'table-cell-props.properties.sticky-offset.description': 'Cumulative widths of preceding pinned columns at the same edge, in pixels.',
+      'table-row-props.properties.selected.description': 'Consumer-owned selected appearance; does not add grid selection semantics.',
+      'table-filter-props.properties.tooltip.description': 'Tooltip content. Defaults to the generic localized Filter label; false hides the hint.',
+      'table-filter-props.properties.size.description': 'Size of the Confirm and Reset action buttons.',
+      'table-filter-props.properties.label.description': 'Column name used to label the filter button and popover.',
       'table-filter-props.properties.options.description': 'Available checkbox choices.',
-      'table-filter-props.properties.value.description':
-        'Controlled applied values. An empty array means no filter.',
-      'table-filter-props.properties.default-value.description':
-        'Initial applied values when uncontrolled.',
-      'table-filter-props.properties.on-value-change.description':
-        'Called on Confirm or Reset; checking a box only changes the draft.',
+      'table-filter-props.properties.value.description': 'Controlled applied values. An empty array means no filter.',
+      'table-filter-props.properties.default-value.description': 'Initial applied values when uncontrolled.',
+      'table-filter-props.properties.on-value-change.description': 'Called on Confirm or Reset; checking a box only changes the draft.',
       'table-filter-props.properties.disabled.description': 'Disables the filter trigger.',
-      'table-filter-props.properties.class-name.description':
-        'Consumer class applied to the filter root.',
+      'table-filter-props.properties.class-name.description': 'Consumer class applied to the filter root.',
       'table-selection-option.properties.key.description': 'Stable custom action identifier.',
       'table-selection-option.properties.label.description': 'Menu item content.',
-      'table-selection-option.properties.on-select.description':
-        'Returns the next selected keys from the selectable page keys and current selection.',
+      'table-selection-option.properties.on-select.description': 'Returns the next selected keys from the selectable page keys and current selection.',
       'table-selection-option.properties.disabled.description': 'Disables this action.',
-      'table-selection-props.properties.row-keys.description':
-        'Selectable keys on the current page, in display order. Exclude disabled rows.',
-      'table-selection-props.properties.value.description':
-        'Controlled selected keys, including selections from other pages.',
-      'table-selection-props.properties.default-value.description':
-        'Initial selected keys when uncontrolled.',
-      'table-selection-props.properties.on-value-change.description':
-        'Called once when the checkbox or a menu action changes selection.',
-      'table-selection-props.properties.selections.description':
-        'Optional selection menu: true shows all, invert and none; an array orders built-in and custom actions. false or an empty array hides the arrow.',
-      'table-selection-props.properties.label.description':
-        'Accessible name of the select-page checkbox.',
-      'table-selection-props.properties.menu-label.description':
-        'Accessible name of the selection menu trigger.',
-      'table-selection-props.properties.disabled.description':
-        'Disables the checkbox and menu. Empty rowKeys also disables them.',
+      'table-selection-props.properties.row-keys.description': 'Selectable keys on the current page, in display order. Exclude disabled rows.',
+      'table-selection-props.properties.value.description': 'Controlled selected keys, including selections from other pages.',
+      'table-selection-props.properties.default-value.description': 'Initial selected keys when uncontrolled.',
+      'table-selection-props.properties.on-value-change.description': 'Called once when the checkbox or a menu action changes selection.',
+      'table-selection-props.properties.selections.description': 'Optional selection menu: true shows all, invert and none; an array orders built-in and custom actions. false or an empty array hides the arrow.',
+      'table-selection-props.properties.label.description': 'Accessible name of the select-page checkbox.',
+      'table-selection-props.properties.menu-label.description': 'Accessible name of the selection menu trigger.',
+      'table-selection-props.properties.disabled.description': 'Disables the checkbox and menu. Empty rowKeys also disables them.',
       'table-search-props.properties.label.description': 'Column name used in accessible labels.',
       'table-search-props.properties.value.description': 'Controlled applied query.',
       'table-search-props.properties.default-value.description': 'Initial uncontrolled query.',
-      'table-search-props.properties.on-value-change.description':
-        'Called when submitting or clearing the search.',
+      'table-search-props.properties.on-value-change.description': 'Called when submitting or clearing the search.',
       'table-search-props.properties.placeholder.description': 'Optional input placeholder.',
       'table-search-props.properties.tooltip.description': 'Custom tooltip; false hides it.',
       'table-search-props.properties.size.description': 'Size of the search controls.',
-      'table-search-props.properties.action-size.description':
-        'Size of the search action buttons, overriding size when provided.',
+      'table-search-props.properties.action-size.description': 'Size of the search action buttons, overriding size when provided.',
       'table-search-props.properties.disabled.description': 'Disables the search trigger.',
     },
   },
@@ -2222,9 +2130,9 @@ export const primitivesApiEnUS: ApiDescriptionResources = {
       'layout-sidebar-provider-props.properties.children.description':
         'Sidebar and any internal or external triggers within this scope.',
       'layout-sidebar-props.properties.state.description':
-        'Three-state control. Takes precedence over legacy collapsed.',
+        'Controlled display state.',
       'layout-sidebar-props.properties.default-state.description':
-        'Initial uncontrolled state. Takes precedence over defaultCollapsed.',
+        'Initial uncontrolled display state.',
       'layout-sidebar-props.properties.on-state-change.description':
         'Called when the standalone Sidebar requests a state change. Place state control on SidebarProvider when using a shared scope.',
       'layout-sidebar-trigger-props.properties.action.description':

@@ -27,20 +27,26 @@ import type {
   ColorPickerSwatchProps,
   ColorPickerValueProps,
 } from './ColorPicker.types';
-const normalize = normalizeColor;
-const Context = createContext<{
+
+type ColorPickerContextValue = {
   hsv: { h: number; s: number; v: number };
   setHsv: (value: { h: number; s: number; v: number }) => void;
   value: string;
   disabled: boolean;
   readOnly: boolean;
   setValue: (value: string) => void;
-} | null>(null);
+};
+
+const ColorPickerContext = createContext<ColorPickerContextValue | null>(null);
+
 function useColor() {
-  const context = useContext(Context);
+  const context = useContext(ColorPickerContext);
+
   if (!context) throw new Error('ColorPicker parts require ColorPicker.');
+
   return context;
 }
+
 export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(function ColorPicker(
   {
     value: controlled,
@@ -62,22 +68,24 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(function
   const readOnly = localReadOnly ?? field.readOnly ?? false;
   const [raw = '', setRaw] = useControllableState(
     controlled,
-    normalize(defaultValue),
+    normalizeColor(defaultValue),
     onValueChange,
   );
-  const value = normalize(raw);
+  const value = normalizeColor(raw);
   const [hint, setHint] = useState(() => ({ value, ...colorToHsv(value) }));
   const hsv = hint.value === value ? hint : colorToHsv(value);
+
   const setValue = (next: string) => {
     if (!disabled && !readOnly && isColor(next)) {
-      const normalized = normalize(next);
+      const normalized = normalizeColor(next);
       const nextHsv = colorToHsv(normalized);
       setHint({ value: normalized, ...nextHsv, h: nextHsv.s ? nextHsv.h : hsv.h });
       setRaw(normalized);
     }
   };
+
   return (
-    <Context.Provider
+    <ColorPickerContext.Provider
       value={{
         value,
         disabled,
@@ -106,13 +114,15 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(function
         {name ? <input type="hidden" name={name} value={value} disabled={disabled} /> : null}
         {children}
       </Popover>
-    </Context.Provider>
+    </ColorPickerContext.Provider>
   );
 });
+
 export const ColorPickerInput = forwardRef<HTMLInputElement, ColorPickerInputProps>(
   function ColorPickerInput({ onChange, onClick, ...props }, ref) {
     const context = useColor();
     const field = useFieldControl(props);
+
     return (
       <input
         {...field}
@@ -135,18 +145,20 @@ export const ColorPickerInput = forwardRef<HTMLInputElement, ColorPickerInputPro
     );
   },
 );
+
 export const ColorPickerSwatch = forwardRef<HTMLButtonElement, ColorPickerSwatchProps>(
   function ColorPickerSwatch({ value, onClick, ...props }, ref) {
     const context = useColor();
+
     return (
       <button
         type="button"
         aria-label={value}
         {...props}
         ref={ref}
-        aria-pressed={context.value === normalize(value)}
+        aria-pressed={context.value === normalizeColor(value)}
         disabled={context.disabled || context.readOnly || props.disabled}
-        data-color={normalize(value)}
+        data-color={normalizeColor(value)}
         onClick={(event) => {
           onClick?.(event);
           if (!event.defaultPrevented) context.setValue(value);
@@ -155,9 +167,11 @@ export const ColorPickerSwatch = forwardRef<HTMLButtonElement, ColorPickerSwatch
     );
   },
 );
+
 export const ColorPickerPreview = forwardRef<HTMLSpanElement, ColorPickerPreviewProps>(
   function ColorPickerPreview({ style, ...props }, ref) {
     const context = useColor();
+
     return (
       <span
         aria-hidden="true"
@@ -183,12 +197,14 @@ export const ColorPickerValue = forwardRef<HTMLSpanElement, ColorPickerValueProp
   ref,
 ) {
   const { value } = useColor();
+
   return (
     <span {...props} ref={ref} data-slot="value">
       {letterCase === 'upper' ? value.toUpperCase() : value}
     </span>
   );
 });
+
 export const ColorPickerHexField = forwardRef<HTMLInputElement, ColorPickerHexFieldProps>(
   function HexField(
     {
@@ -212,11 +228,14 @@ export const ColorPickerHexField = forwardRef<HTMLInputElement, ColorPickerHexFi
     const text = draft?.color === context.value ? draft.text : format(context.value);
     const field = useFieldControl({ ...props, disabled, readOnly });
     const blocked = context.disabled || field.disabled || context.readOnly || field.readOnly;
+
+
     const commit = () => {
       if (!blocked && isColor(text))
         context.setValue(includeAlpha ? text : withAlpha(text, colorToAlpha(context.value)));
       setDraft(null);
     };
+
     return (
       <input
         {...field}
@@ -278,11 +297,13 @@ const ColorPickerChannelInput = forwardRef<
     draft?.color === context.value && draft.channel === channel ? draft.text : String(current);
   const field = useFieldControl({ ...props, disabled, readOnly });
   const blocked = context.disabled || field.disabled || context.readOnly || field.readOnly;
+
   const commit = () => {
     const parsed = text.trim() === '' ? NaN : Number(text);
     if (!blocked && Number.isFinite(parsed)) changeChannel(parsed);
     setDraft(null);
   };
+
   return (
     <input
       {...field}
@@ -318,16 +339,19 @@ const ColorPickerChannelInput = forwardRef<
     />
   );
 });
+
 export const ColorPickerChannelField = forwardRef<HTMLInputElement, ColorPickerChannelFieldProps>(
   function ChannelField(props, ref) {
     return <ColorPickerChannelInput {...props} ref={ref} />;
   },
 );
+
 export const ColorPickerAlphaField = forwardRef<HTMLInputElement, ColorPickerAlphaFieldProps>(
   function AlphaField(props, ref) {
     return <ColorPickerChannelInput {...props} channel="alpha" ref={ref} />;
   },
 );
+
 export const ColorPickerArea = forwardRef<HTMLDivElement, ColorPickerAreaProps>(function Area(
   {
     saturationLabel,
@@ -343,6 +367,7 @@ export const ColorPickerArea = forwardRef<HTMLDivElement, ColorPickerAreaProps>(
 ) {
   const context = useColor();
   const blocked = context.disabled || context.readOnly;
+
   const update = (event: React.PointerEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     if (blocked || !rect.width || !rect.height) return;
@@ -352,6 +377,7 @@ export const ColorPickerArea = forwardRef<HTMLDivElement, ColorPickerAreaProps>(
       v: clamp((1 - (event.clientY - rect.top) / rect.height) * 100, 100),
     });
   };
+
   return (
     <div
       {...props}
@@ -430,11 +456,13 @@ export const ColorPickerArea = forwardRef<HTMLDivElement, ColorPickerAreaProps>(
     </div>
   );
 });
+
 export const ColorPickerHue = forwardRef<HTMLInputElement, ColorPickerHueProps>(function Hue(
   { onChange, onKeyDown, onPointerDown, ...props },
   ref,
 ) {
   const context = useColor();
+
   return (
     <input
       {...props}
@@ -467,6 +495,7 @@ export const ColorPickerHue = forwardRef<HTMLInputElement, ColorPickerHueProps>(
 export const ColorPickerOpacity = forwardRef<HTMLInputElement, ColorPickerOpacityProps>(
   function Opacity({ onChange, onKeyDown, onPointerDown, style, ...props }, ref) {
     const context = useColor();
+
     return (
       <input
         {...props}

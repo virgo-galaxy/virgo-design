@@ -10,10 +10,12 @@ export function createPointerStore() {
     buttons: 0,
   };
   const listeners = new Set<() => void>();
+
   return {
     getSnapshot: () => snapshot,
     subscribe: (listener: () => void) => {
       listeners.add(listener);
+
       return () => {
         listeners.delete(listener);
       };
@@ -25,6 +27,7 @@ export function createPointerStore() {
         )
       )
         return;
+
       snapshot = next;
       listeners.forEach((listener) => listener());
     },

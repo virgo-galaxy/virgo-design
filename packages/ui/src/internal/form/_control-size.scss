@@ -1,3 +1,4 @@
+@use 'sass:list';
 @use 'sass:map';
 
 // Shared size presets reference existing Foundation Tokens directly.
@@ -42,17 +43,11 @@ $sizes: (
 
 @function token($size, $metric) {
   $fallback: map.get($sizes, $size, $metric);
-  @if $metric ==
-    height or
-    $metric ==
-    radius or
-    $metric ==
-    padding-inline or
-    $metric ==
-    padding-block
-  {
+
+  @if list.index((height, radius, padding-inline, padding-block), $metric) {
     @return var(--vd-control-#{$size}-#{$metric}, #{$fallback});
   }
+
   @return $fallback;
 }
 

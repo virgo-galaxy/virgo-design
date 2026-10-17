@@ -1,6 +1,7 @@
 @use '../../internal/form/native-control';
 @use '../../internal/form/control-size';
 @use '../../internal/overlay/panel';
+
 .root {
   @include control-size.variables(date-picker, medium);
   &[data-size='small'] {
@@ -14,12 +15,14 @@
   gap: var(--vd-spacing-6);
   min-width: 0;
 }
+
 .input {
   @include native-control.control;
   &::-webkit-calendar-picker-indicator {
     display: none;
   }
 }
+
 .trigger {
   display: inline-flex;
   flex: none;
@@ -46,12 +49,14 @@
     cursor: not-allowed;
   }
 }
+
 .content {
   @include panel.surface;
   display: block;
   padding: var(--vd-spacing-4);
   max-width: calc(100vw - var(--vd-spacing-24));
 }
+
 .range {
   @include native-control.control;
   display: flex;
@@ -81,6 +86,7 @@
     }
   }
 }
+
 .rangeInput {
   width: 0;
   min-width: 0;
@@ -103,6 +109,7 @@
     color: var(--vd-text-tertiary);
   }
 }
+
 .content [data-date-picker-range-calendar] {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -126,6 +133,7 @@
     color: var(--vd-brand-foreground);
   }
 }
+
 @media (max-width: 560px) {
   .content [data-date-picker-range-calendar] {
     grid-template-columns: minmax(0, 1fr);

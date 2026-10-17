@@ -13,6 +13,7 @@ import styles from '../styles/workplace.module.scss';
 function TeamActivityView({ activity }: { activity: ActivityDto[] }) {
   const { projects } = useTaskCatalog();
   const { t, i18n } = useTranslation();
+
   return (
     <>
       <Tag size="md" variant="outline" className={styles.activityDate}>
@@ -40,8 +41,10 @@ function TeamActivityView({ activity }: { activity: ActivityDto[] }) {
     </>
   );
 }
+
 export function TeamActivity() {
   const resource = useTaskDependentQuery(getActivity);
+
   return (
     <ResourceContent resource={resource}>
       {(activity) => (

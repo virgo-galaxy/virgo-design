@@ -7,8 +7,7 @@ import { MetricStrip } from '@/components/page/MetricStrip';
 import { PageHeading } from '@/components/page/PageHeading';
 import { Panel } from '@/components/page/Panel';
 import { useCurrentUser } from '@/features/auth';
-import { Person } from '@/features/catalog';
-import { CatalogBoundary, moduleFilterKey, useTaskCatalog } from '@/features/catalog';
+import { CatalogBoundary, moduleFilterKey, Person, useTaskCatalog } from '@/features/catalog';
 import {
   taskDetailsPath,
   taskPriorityIntent,
@@ -44,12 +43,14 @@ function ProjectDetailPageView({
   const { projectId } = useParams();
   const navigate = useNavigate();
   const [params] = useSearchParams();
+
   const candidate = params.get('returnTo');
   const portfolioPath =
     candidate && new RegExp('^' + routePath('projects') + '(?:\\?[^#]*)?$').test(candidate)
       ? candidate
       : routePath('projects');
   const project = projects.find((item) => item.id === projectId);
+
   if (!project)
     return (
       <div className={shared.page}>
@@ -67,7 +68,9 @@ function ProjectDetailPageView({
         </Empty>
       </div>
     );
+
   const members = taskAssignees.filter((member) => project.memberIds.includes(member.id));
+
   return (
     <div className={shared.page}>
       <Surface border="default" radius={8} className={styles.recordSummary}>
@@ -214,6 +217,7 @@ function ProjectDetailPageView({
                     const count = modules.find((item) => item.id === module.id);
                     const total = count?.total ?? 0;
                     const done = count?.completed ?? 0;
+
                     return (
                       <Link
                         key={module.id}
@@ -480,9 +484,12 @@ function ProjectDetailPageView({
 function ProjectDetailResource() {
   const { projectId = '' } = useParams();
   const resources = useProjectResources(projectId);
+
   return <ProjectDetailPageView resources={resources} />;
 }
+
 export function ProjectDetailPage() {
+
   return (
     <CatalogBoundary>
       <ProjectDetailResource />

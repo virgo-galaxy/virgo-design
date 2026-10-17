@@ -2,6 +2,7 @@ import { CloseIcon } from '@virgo-design/icons';
 import { Dialog as PrimitiveDialog } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
+import { useLocale } from '../../locale/context/locale-context';
 import { Button } from '../Button';
 import { Dialog } from '../Dialog';
 import styles from './Drawer.module.scss';
@@ -99,6 +100,8 @@ const Close = forwardRef<HTMLButtonElement, DrawerCloseProps>(function DrawerClo
   { render, variant, size, className, children, 'aria-label': ariaLabel, ...props },
   ref,
 ) {
+  const locale = useLocale();
+
   if (render) {
     return (
       <PrimitiveDialog.Close
@@ -140,7 +143,7 @@ const Close = forwardRef<HTMLButtonElement, DrawerCloseProps>(function DrawerClo
       render={(buttonProps) => (
         <Button
           {...buttonProps}
-          aria-label={ariaLabel ?? 'Close drawer'}
+          aria-label={ariaLabel ?? locale.drawer.close}
           className={classes(styles.close, className)}
           iconOnly
           size={size ?? 'small'}

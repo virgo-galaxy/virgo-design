@@ -24,14 +24,16 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemProps>(function Me
   },
   ref,
 ) {
-  const c = useMenu();
+  const menu = useMenu();
   const nodeRef = useRef<HTMLButtonElement | null>(null);
   const id = useId();
   const textRef = useRef(textValue);
+
   useLayoutEffect(() => {
     textRef.current = textValue;
   }, [textValue]);
-  const { register } = c.collection;
+  const { register } = menu.collection;
+
   useLayoutEffect(() => {
     const node = nodeRef.current;
     if (!node) return;
@@ -44,7 +46,9 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemProps>(function Me
         '',
     });
   }, [id, register]);
-  const blocked = disabled || c.disabled;
+
+  const blocked = disabled || menu.disabled;
+
   return (
     <button
       {...props}
@@ -63,11 +67,11 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemProps>(function Me
         if (event.defaultPrevented) return;
         onSelect?.(event);
         if (event.defaultPrevented) return;
-        if (closeOnSelect) c.closeAll(true);
+        if (closeOnSelect) menu.closeAll(true);
       }}
       onFocus={(event) => {
         onFocus?.(event);
-        if (!event.defaultPrevented) c.setActiveChild(null);
+        if (!event.defaultPrevented) menu.setActiveChild(null);
       }}
       onPointerMove={(event) => {
         onPointerMove?.(event);
@@ -77,6 +81,7 @@ export const MenuItem = forwardRef<HTMLButtonElement, MenuItemProps>(function Me
     />
   );
 });
+
 export const MenuCheckboxItem = forwardRef<HTMLButtonElement, MenuCheckboxItemProps>(
   function MenuCheckboxItem(
     {
@@ -94,6 +99,7 @@ export const MenuCheckboxItem = forwardRef<HTMLButtonElement, MenuCheckboxItemPr
       defaultChecked,
       onCheckedChange ? (next) => onCheckedChange(next === true) : undefined,
     );
+
     return (
       <MenuItem
         {...props}
@@ -110,16 +116,20 @@ export const MenuCheckboxItem = forwardRef<HTMLButtonElement, MenuCheckboxItemPr
     );
   },
 );
+
 const RadioContext = createContext<{
   value: string | undefined;
   setValue: (value: string) => void;
 } | null>(null);
+
 export const MenuGroup = forwardRef<HTMLDivElement, MenuGroupProps>(function MenuGroup(props, ref) {
   return <div {...props} ref={ref} role="group" />;
 });
+
 export const MenuRadioGroup = forwardRef<HTMLDivElement, MenuRadioGroupProps>(
   function MenuRadioGroup({ value: controlled, defaultValue, onValueChange, ...props }, ref) {
     const [value, setValue] = useControllableState(controlled, defaultValue, onValueChange);
+
     return (
       <RadioContext.Provider value={{ value, setValue }}>
         <MenuGroup {...props} ref={ref} />
@@ -131,7 +141,9 @@ export const MenuRadioItem = forwardRef<HTMLButtonElement, MenuRadioItemProps>(
   function MenuRadioItem({ value, onSelect, closeOnSelect = false, ...props }, ref) {
     const context = useContext(RadioContext);
     if (!context) throw new Error('RadioItem must be used inside RadioGroup.');
+
     const checked = context.value === value;
+
     return (
       <MenuItem
         {...props}

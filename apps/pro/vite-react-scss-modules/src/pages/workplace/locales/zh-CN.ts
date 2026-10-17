@@ -2,6 +2,9 @@ import type { LocaleOf } from '@/i18n';
 
 import type { workplaceEnUS } from './en-US';
 export const workplaceZhCN = {
+  previousMonth: '上个月',
+  nextMonth: '下个月',
+  chooseMonth: '选择月份',
   activityUpdated: '更新了工作空间动态',
   personalAnnualTokenUsage: '我的全年 Token 消耗',
   reportingYear: '统计年份',

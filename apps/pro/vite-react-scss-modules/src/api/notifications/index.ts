@@ -1,2 +1,2 @@
-export * from '../../contracts/notifications';
 export * from './notifications-api';
+export * from '@/contracts/notifications';

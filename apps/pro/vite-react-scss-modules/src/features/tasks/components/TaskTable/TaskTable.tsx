@@ -6,6 +6,7 @@ import {
   Empty,
   Pagination,
   Table,
+  type TableDensity,
   type TableSelectionOption,
   Tag,
 } from '@virgo-design/ui';
@@ -15,11 +16,11 @@ import { useTranslation } from 'react-i18next';
 import { CopyableText } from '@/components/copyable-text';
 import { useCurrentUser } from '@/features/auth';
 import { moduleFilterKey, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
-import { usePaginationLabels } from '@/i18n';
 import { canCreateTask, canEditTask } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 
+import type { TaskSort } from '../../model/sort';
 import {
   isLeadingTaskColumn,
   moveTaskColumn,
@@ -28,8 +29,7 @@ import {
   taskPinnedCells,
   type TaskTableSettings,
   visibleColumns,
-} from '../../config/table-settings';
-import type { TaskSort } from '../../model/sort';
+} from '../../model/table-settings';
 import { isOverdue, type Task, taskPriorities, taskStatuses } from '../../model/task';
 import { taskColumnLabelName } from '../../presentation/column-label';
 import {
@@ -39,6 +39,13 @@ import {
 } from '../../presentation/task-presentation';
 import { TaskAssigneeCard } from '../TaskAssigneeCard/TaskAssigneeCard';
 import styles from './TaskTable.module.scss';
+
+const densityByControlSize = {
+  mini: 'mini',
+  small: 'compact',
+  medium: 'default',
+  large: 'comfortable',
+} as const satisfies Record<TaskTableSettings['size'], TableDensity>;
 
 interface Props {
   presentation?: 'table' | 'column-preview';
@@ -66,6 +73,7 @@ interface Props {
   onReset: () => void;
   onCreate: () => void;
 }
+
 export function TaskTable({
   presentation = 'table',
   settings,
@@ -99,12 +107,13 @@ export function TaskTable({
     referenceDate: taskReferenceDate,
   } = metadata;
   const { t, i18n } = useTranslation();
-  const paginationLabels = usePaginationLabels();
   const [draggedColumn, setDraggedColumn] = useState<TaskColumnKey | null>(null);
+
   const columns = visibleColumns(settings);
   const pinnedCells = taskPinnedCells(settings);
   const user = useCurrentUser();
   const canCreate = canCreateTask(user);
+
   const createdAtFormatter = new Intl.DateTimeFormat(i18n.language, {
     year: 'numeric',
     month: 'short',
@@ -114,10 +123,13 @@ export function TaskTable({
     hourCycle: 'h23',
     timeZone: 'UTC',
   });
+
   const compact = settings.size === 'small' || settings.size === 'mini';
   const tagSize = compact ? 'sm' : settings.size === 'large' ? 'lg' : 'md';
+
   const selections = settings.selectionActions.map((action) => {
     if (action === 'all' || action === 'invert' || action === 'none') return action;
+
     return {
       key: action,
       label: t(action === 'odd' ? 'tasks.selectOddRows' : 'tasks.selectEvenRows'),
@@ -127,6 +139,7 @@ export function TaskTable({
       ],
     } satisfies TableSelectionOption;
   });
+
   const moveColumn = (from: TaskColumnKey, to: TaskColumnKey) =>
     onSettingsChange({
       ...settings,
@@ -136,14 +149,17 @@ export function TaskTable({
         settings.columns.findIndex((column) => column.key === to),
       ),
     });
+
   const filterOptions = (key: TaskDataColumn) => {
     if (key === 'status')
       return taskStatuses.map((value) => ({
         value,
         label: t(`tasks.statusLabels.${taskStatusLabelNames[value]}`),
       }));
+
     if (key === 'priority')
       return taskPriorities.map((value) => ({ value, label: t(`tasks.priorityLabels.${value}`) }));
+
     if (key === 'module')
       return projects.flatMap((project) =>
         project.modules.map((module) => ({
@@ -154,11 +170,13 @@ export function TaskTable({
             businessLabel(project.name, i18n.language),
         })),
       );
+
     if (key === 'assignee')
       return taskAssignees.map((member) => ({
         value: member.id,
         label: businessLabel(member.name, i18n.language),
       }));
+
     return (key === 'project' ? taskProjects : (metadata.columnFilterOptions?.[key] ?? [])).map(
       (value) => ({
         value,
@@ -168,8 +186,10 @@ export function TaskTable({
       }),
     );
   };
+
   const cellContent = (task: Task, key: TaskColumnKey, index: number): ReactNode => {
     const assignee = taskAssignees.find((member) => member.id === task.assignee);
+
     switch (key) {
       case 'selection':
         return (
@@ -291,6 +311,7 @@ export function TaskTable({
         );
     }
   };
+
   return (
     <>
       <Table.Viewport
@@ -306,7 +327,7 @@ export function TaskTable({
         <Table
           aria-label={presentation === 'column-preview' ? t('tasks.settings.preview') : undefined}
           resizable={settings.resizable}
-          size={settings.size}
+          density={densityByControlSize[settings.size]}
           border={settings.border}
           striped={settings.striped}
           hoverable={settings.hoverable}
@@ -318,6 +339,7 @@ export function TaskTable({
               ...settings,
               columns: settings.columns.map((column) => {
                 const index = columns.findIndex((entry) => entry.key === column.key);
+
                 return index === -1 ? column : { ...column, width: widths[index]! };
               }),
             })
@@ -337,6 +359,7 @@ export function TaskTable({
                     !isLeadingTaskColumn(column.key) && column.key !== 'actions'
                       ? column.key
                       : null;
+
                   return (
                     <Table.Head
                       key={column.key}
@@ -353,8 +376,10 @@ export function TaskTable({
                           )
                         ) {
                           event.preventDefault();
+
                           return;
                         }
+
                         setDraggedColumn(column.key);
                         event.dataTransfer.setData('application/x-virgo-column', column.key);
                       }}
@@ -485,7 +510,6 @@ export function TaskTable({
         <div data-pro-task-footer="" className={styles.tableFooter}>
           <Pagination
             size={settings.size}
-            labels={paginationLabels}
             aria-label={t('tasks.taskPages')}
             total={matchingTotal}
             page={page}

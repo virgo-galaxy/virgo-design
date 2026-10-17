@@ -6,6 +6,7 @@ import {
   useEffect,
   useId,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -15,6 +16,7 @@ import { useControllableState } from '../../internal/hooks/useControllableState'
 import { Portal } from '../../internal/overlay/Portal';
 import { usePortalEnvironment } from '../../internal/overlay/usePortalEnvironment';
 import { usePresence } from '../../internal/overlay/usePresence';
+import { composeRefs } from '../../internal/utils/composeRefs';
 import type {
   ToastActionProps,
   ToastCloseProps,
@@ -32,12 +34,10 @@ type ToastProviderContextValue = {
 
 type ToastContextValue = {
   close: () => void;
-  titleId: string;
-  descriptionId: string;
-  titleMounted: boolean;
-  descriptionMounted: boolean;
-  setTitleMounted: (mounted: boolean) => void;
-  setDescriptionMounted: (mounted: boolean) => void;
+  defaultTitleId: string;
+  defaultDescriptionId: string;
+  setTitleId: (id: string | undefined) => void;
+  setDescriptionId: (id: string | undefined) => void;
 };
 
 const ToastProviderContext = createContext<ToastProviderContextValue | null>(null);
@@ -96,8 +96,8 @@ export const ToastRoot = forwardRef<HTMLDivElement, ToastProps>(function ToastRo
   const [openState, setOpen] = useControllableState(controlledOpen, defaultOpen, onOpenChange);
   const open = Boolean(openState);
   const id = useId();
-  const [titleMounted, setTitleMounted] = useState(false);
-  const [descriptionMounted, setDescriptionMounted] = useState(false);
+  const [titleId, setTitleId] = useState<string>();
+  const [descriptionId, setDescriptionId] = useState<string>();
   const [pointerPaused, setPointerPaused] = useState(false);
   const [focusPaused, setFocusPaused] = useState(false);
   const paused = pointerPaused || focusPaused;
@@ -125,27 +125,21 @@ export const ToastRoot = forwardRef<HTMLDivElement, ToastProps>(function ToastRo
   if (!present || !provider.viewport) return null;
   const context: ToastContextValue = {
     close,
-    titleId: `${id}-title`,
-    descriptionId: `${id}-description`,
-    titleMounted,
-    descriptionMounted,
-    setTitleMounted,
-    setDescriptionMounted,
+    defaultTitleId: `${id}-title`,
+    defaultDescriptionId: `${id}-description`,
+    setTitleId,
+    setDescriptionId,
   };
   return createPortal(
     <ToastContext.Provider value={context}>
       <div
         {...props}
-        ref={(node) => {
-          localRef.current = node;
-          if (typeof ref === 'function') ref(node);
-          else if (ref) ref.current = node;
-        }}
+        ref={composeRefs(ref, localRef)}
         role={priority === 'assertive' ? 'alert' : 'status'}
         aria-live={priority}
         aria-atomic="true"
-        aria-labelledby={titleMounted ? context.titleId : undefined}
-        aria-describedby={descriptionMounted ? context.descriptionId : undefined}
+        aria-labelledby={props['aria-labelledby'] ?? (props['aria-label'] ? undefined : titleId)}
+        aria-describedby={props['aria-describedby'] ?? descriptionId}
         data-toast-root=""
         data-state={open ? 'open' : 'closed'}
         onPointerEnter={(event) => {
@@ -179,23 +173,31 @@ export const ToastTitle = forwardRef<HTMLDivElement, ToastTitleProps>(function T
   ref,
 ) {
   const context = useToast('Toast.Title');
-  const { setTitleMounted } = context;
+  const titleId = id ?? context.defaultTitleId;
+  const { setTitleId } = context;
+
   useLayoutEffect(() => {
-    setTitleMounted(true);
-    return () => setTitleMounted(false);
-  }, [setTitleMounted]);
-  return <div {...props} ref={ref} id={id ?? context.titleId} />;
+    setTitleId(titleId);
+
+    return () => setTitleId(undefined);
+  }, [setTitleId, titleId]);
+
+  return <div {...props} ref={ref} id={titleId} />;
 });
 
 export const ToastDescription = forwardRef<HTMLDivElement, ToastDescriptionProps>(
   function ToastDescription({ id, ...props }, ref) {
     const context = useToast('Toast.Description');
-    const { setDescriptionMounted } = context;
+    const descriptionId = id ?? context.defaultDescriptionId;
+    const { setDescriptionId } = context;
+
     useLayoutEffect(() => {
-      setDescriptionMounted(true);
-      return () => setDescriptionMounted(false);
-    }, [setDescriptionMounted]);
-    return <div {...props} ref={ref} id={id ?? context.descriptionId} />;
+      setDescriptionId(descriptionId);
+
+      return () => setDescriptionId(undefined);
+    }, [setDescriptionId, descriptionId]);
+
+    return <div {...props} ref={ref} id={descriptionId} />;
   },
 );
 
@@ -247,12 +249,8 @@ export const ToastViewport = forwardRef<HTMLDivElement, ToastViewportProps>(func
   const anchorRef = useRef<HTMLSpanElement>(null);
   const environment = usePortalEnvironment(anchorRef, portal);
   const { setViewport } = context;
-  const setViewportRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      setViewport(node);
-      if (typeof ref === 'function') ref(node);
-      else if (ref) ref.current = node;
-    },
+  const setViewportRef = useMemo(
+    () => composeRefs(ref, setViewport),
     [ref, setViewport],
   );
   const viewport = (

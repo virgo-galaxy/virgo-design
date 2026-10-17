@@ -53,7 +53,7 @@ describe('Layout', () => {
     expect(helpContainer).toHaveAttribute('data-placement', 'bottom-end');
     expect(helpContainer?.parentElement).toBe(screen.getByRole('main'));
     rerender(
-      <Layout.Sidebar mode="floating" defaultCollapsed surface={{ radius: 8, elevation: 0 }}>
+      <Layout.Sidebar mode="floating" defaultState="collapsed" surface={{ radius: 8, elevation: 0 }}>
         Tools
       </Layout.Sidebar>,
     );
@@ -149,7 +149,7 @@ describe('Layout', () => {
   it('supports zero-width controlled overlay and custom external controls', () => {
     const { rerender } = render(
       <Layout.Sidebar
-        collapsed
+        state="collapsed"
         collapsedWidth={0}
         width="18rem"
         mode="overlay"
@@ -166,7 +166,7 @@ describe('Layout', () => {
     expect(aside.style.getPropertyValue('--vd-layout-sidebar-width')).toBe('18rem');
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     rerender(
-      <Layout.Sidebar collapsed={false} collapsedWidth={0} trigger={null}>
+      <Layout.Sidebar state="expanded" collapsedWidth={0} trigger={null}>
         <button>Tool</button>
       </Layout.Sidebar>,
     );
@@ -305,22 +305,22 @@ describe('Layout', () => {
   });
 
   it('requests responsive changes without overriding controlled state', () => {
-    const onCollapsedChange = vi.fn();
+    const onStateChange = vi.fn();
     vi.stubGlobal(
       'matchMedia',
       vi.fn(() => ({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() })),
     );
     render(
       <Layout.Sidebar
-        collapsed={false}
-        onCollapsedChange={onCollapsedChange}
+        state="expanded"
+        onStateChange={onStateChange}
         collapseBelow={800}
         collapsible
       >
         Content
       </Layout.Sidebar>,
     );
-    expect(onCollapsedChange).toHaveBeenCalledWith(true);
+    expect(onStateChange).toHaveBeenCalledWith('collapsed');
     expect(screen.getByRole('button')).toHaveAttribute('aria-expanded', 'true');
   });
   it('sizes a lane independently from its children and exposes configurable edge inset', () => {

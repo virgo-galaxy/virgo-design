@@ -9,8 +9,7 @@ import { FilterSelect } from '@/components/filters/FilterSelect';
 import { PageHeading } from '@/components/page/PageHeading';
 import { Panel } from '@/components/page/Panel';
 import { useCurrentUser } from '@/features/auth';
-import { Person } from '@/features/catalog';
-import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
+import { CatalogBoundary, moduleName, Person, projectName, useTaskCatalog } from '@/features/catalog';
 import { canCreateTask, canEditTask, isAdmin, taskStatusChoices } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
 import { routePath } from '@/routes';
@@ -29,27 +28,33 @@ import {
 } from '../presentation/task-presentation';
 import { taskDetailsPath, taskEditPath, taskReturnPath } from '../routes/navigation';
 import styles from './TaskWorkspace.module.scss';
+
 const stages = ['backlog', 'todo', 'in_progress', 'in_review', 'done'] as const;
+
 function TaskWorkspacePageView({ mode }: { mode: 'create' | 'edit' | 'details' }) {
   const { id = '' } = useParams();
   const [params] = useSearchParams();
   const returnTo = taskReturnPath(params.get('returnTo'));
   const revision = useTaskRevision();
+
   const load = useCallback(
     async (signal: AbortSignal) => {
       if (mode === 'create') return null;
+
       return getTask(id, signal);
     },
     [id, mode],
   );
   const resource = useRemoteData(load, { key: `${mode}:${id}`, revision });
   const user = useCurrentUser();
+
   if (mode === 'create')
     return canCreateTask(user) ? (
       <TaskEditor returnTo={returnTo} />
     ) : (
       <Navigate to={returnTo} replace />
     );
+
   if (!resource.data || resource.data.id !== id)
     return (
       <div className={styles.page}>
@@ -57,6 +62,7 @@ function TaskWorkspacePageView({ mode }: { mode: 'create' | 'edit' | 'details' }
         <RemoteState loading={resource.loading} error={resource.error} retry={resource.retry} />
       </div>
     );
+
   if (mode === 'edit')
     return canEditTask(user, resource.data) ? (
       <>
@@ -66,6 +72,7 @@ function TaskWorkspacePageView({ mode }: { mode: 'create' | 'edit' | 'details' }
     ) : (
       <Navigate to={taskDetailsPath(id, returnTo)} replace />
     );
+
   return (
     <>
       {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
@@ -73,8 +80,10 @@ function TaskWorkspacePageView({ mode }: { mode: 'create' | 'edit' | 'details' }
     </>
   );
 }
+
 function BackLink({ to }: { to: string }) {
   const { t } = useTranslation();
+
   return (
     <Link className={styles.back} to={to}>
       <ArrowLeftIcon />
@@ -92,11 +101,13 @@ function BackLink({ to }: { to: string }) {
     </Link>
   );
 }
+
 function TaskEditor({ task, returnTo }: { task?: Task | undefined; returnTo: string }) {
   const { t, i18n } = useTranslation();
   const { dispatch } = useTaskOperations();
   const navigate = useNavigate();
   const cancel = () => navigate(task ? taskDetailsPath(task.id, returnTo) : returnTo);
+
   return (
     <div className={styles.page}>
       <PageHeading
@@ -126,6 +137,7 @@ function TaskEditor({ task, returnTo }: { task?: Task | undefined; returnTo: str
     </div>
   );
 }
+
 function TaskDetails({
   task,
   returnTo,
@@ -142,8 +154,10 @@ function TaskDetails({
   const revision = useTaskRevision();
   const user = useCurrentUser();
   const mutation = useMutation();
+
   const load = useCallback((signal: AbortSignal) => getTaskHistory(task.id, signal), [task.id]);
   const history = useRemoteData(load, { key: task.id, revision });
+
   const project = projects.find((p) => p.id === task.project);
   const allowed = taskStatusChoices(user, task).filter((status) => status !== task.status);
   const actionName = (status: Task['status']) =>
@@ -158,6 +172,7 @@ function TaskDetails({
             : status === 'todo'
               ? 'publish'
               : 'plan';
+
   const normalNext: Partial<Record<Task['status'], Task['status'][]>> = {
     backlog: ['todo'],
     todo: ['in_progress'],
@@ -167,10 +182,12 @@ function TaskDetails({
   const actions = allowed.filter(
     (status) => !isAdmin(user) || normalNext[task.status]?.includes(status),
   );
+
   const date = (value: string) =>
     new Intl.DateTimeFormat(i18n.language, { dateStyle: 'medium', timeStyle: 'short' }).format(
       new Date(value),
     );
+
   return (
     <div className={styles.page}>
       <BackLink to={returnTo} />
@@ -375,6 +392,7 @@ function TaskDetails({
 }
 
 export function TaskWorkspacePage(props: { mode: 'create' | 'edit' | 'details' }) {
+
   return (
     <CatalogBoundary>
       <TaskWorkspacePageView {...props} />

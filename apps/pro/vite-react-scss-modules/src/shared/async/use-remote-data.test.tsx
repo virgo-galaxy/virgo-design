@@ -103,3 +103,29 @@ it('reports a loader that throws before returning its promise through the resour
   await waitFor(() => expect(result.current.error).toBe(failure));
   expect(result.current.loading).toBe(false);
 });
+
+it('aborts a replaced loader and ignores its late result', async () => {
+  const previous = deferred<string>();
+  let previousSignal: AbortSignal | undefined;
+  const first = (signal: AbortSignal) => {
+    previousSignal = signal;
+    return previous.promise;
+  };
+  const { result, rerender } = renderHook(({ load }) => useRemoteData(load), {
+    initialProps: { load: first },
+  });
+  rerender({ load: async () => 'Newest result' });
+  await waitFor(() => expect(result.current.data).toBe('Newest result'));
+  expect(previousSignal?.aborted).toBe(true);
+  await act(async () => previous.resolve('Old result'));
+  expect(result.current.data).toBe('Newest result');
+});
+
+it('keeps a successful save when an older read resolves afterwards', async () => {
+  const previous = deferred<string>();
+  const load = () => previous.promise;
+  const { result } = renderHook(() => useRemoteData(load));
+  act(() => result.current.setData('Saved mutation'));
+  await act(async () => previous.resolve('Older read'));
+  expect(result.current.data).toBe('Saved mutation');
+});

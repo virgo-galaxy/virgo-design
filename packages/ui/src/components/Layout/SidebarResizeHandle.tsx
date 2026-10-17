@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react';
 
-import { useControlLabels } from '../../shared/control-labels';
+import { useLocale } from '../../locale/context/locale-context';
 import styles from './Layout.module.scss';
 import type {
   LayoutLength,
@@ -29,7 +29,7 @@ type Props = {
 };
 
 export function SidebarResizeHandle(props: Props) {
-  const labels = useControlLabels();
+  const labels = useLocale().layout;
   const latest = useRef(props);
   const cleanup = useRef<(() => void) | null>(null);
   const keyboardWidth = useRef<number | null>(null);

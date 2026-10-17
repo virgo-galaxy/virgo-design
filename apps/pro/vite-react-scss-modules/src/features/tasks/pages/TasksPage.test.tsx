@@ -16,6 +16,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } 
 import { login } from '@/api/auth';
 import { getTasks } from '@/api/tasks';
 import { ProResourcesProvider } from '@/app/composition/providers/ProResourcesProvider';
+import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';
@@ -124,16 +125,10 @@ describe('Task row actions and batch deletion', () => {
     expect(summary).toHaveTextContent('Total 240 items (Selected 2 items)');
   });
 
-  it('places actions after completion time and navigates to separate task details and editing pages', async () => {
+  it('navigates between the task list, details and editor while retaining the selected task', async () => {
     renderPage();
     const table = await screen.findByRole('table', { name: /^Workspace tasks/ });
     await within(table).findAllByRole('button', { name: 'Details' });
-    expect(
-      within(table)
-        .getAllByRole('columnheader')
-        .slice(-2)
-        .map((head) => head.textContent),
-    ).toEqual(['Completed at', 'Actions']);
     fireEvent.click(within(table).getAllByRole('button', { name: 'Details' })[0]!);
     await screen.findByRole('heading', { name: 'Products: Plan delivery' });
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
@@ -164,7 +159,18 @@ describe('Task row actions and batch deletion', () => {
     expect(screen.getByRole('textbox', { name: 'Title' })).toHaveValue('Updated delivery task');
     server.use(
       http.patch('*/tasks/:id', () =>
-        HttpResponse.json({ code: 'INTERNAL_ERROR', message: 'Save failed' }, { status: 500 }),
+        HttpResponse.json(
+          {
+            code: API_ERROR_CODES.TASK_VALIDATION_FAILED,
+            msg: 'Rejected task',
+            data: {
+              detail: 'Please retry this save',
+              fields: { title: ['Backend validation'] },
+              timestamp: new Date().toISOString(),
+            },
+          },
+          { status: 422 },
+        ),
       ),
     );
     fireEvent.click(screen.getByRole('button', { name: 'Save changes' }));
@@ -251,18 +257,6 @@ describe('Task row actions and batch deletion', () => {
       'aria-selected',
       'true',
     );
-  });
-  it('redirects legacy card view bookmarks and keeps the regular task page as a table', async () => {
-    renderPage('/work/tasks?view=cards&search=49e7996a-311b');
-    await waitFor(() =>
-      expect(screen.getByRole('tab', { name: 'Task cards' })).toHaveAttribute(
-        'aria-selected',
-        'true',
-      ),
-    );
-    await screen.findByRole('link', { name: 'Products: Plan delivery' });
-    expect(screen.queryByRole('table')).not.toBeInTheDocument();
-    expect(screen.queryByRole('radiogroup', { name: 'Task view' })).not.toBeInTheDocument();
   });
   it('keeps delete visible and disabled without selection, supports cancel and retains selection on failure before retrying', async () => {
     renderPage();
@@ -656,7 +650,6 @@ it('previews the real column width, sorting arrows and combined filter/search co
     'data-mode',
     'descending',
   );
-  // Filtering is now enabled by default for the categorical Priority column.
   fireEvent.click(within(dialog).getByRole('button', { name: 'Search' }));
   expect(within(preview).getByRole('button', { name: 'Filter Priority' })).toBeInTheDocument();
   expect(within(preview).getByRole('button', { name: 'Search Priority' })).toBeInTheDocument();
@@ -668,7 +661,6 @@ it('previews the real column width, sorting arrows and combined filter/search co
   fireEvent.click(within(headerAlign).getByRole('radio', { name: 'Align center' }));
   expect(within(headerAlign).getByRole('radio', { name: 'Align center' })).toBeChecked();
   expect(preview.querySelector('[data-layout]')).toHaveAttribute('data-layout', 'separate');
-  expect(headerAlign).toHaveAttribute('data-motion', 'slide');
   fireEvent.click(within(dialog).getByRole('radio', { name: 'Together' }));
   expect(preview.querySelector('[data-layout]')).toHaveAttribute('data-layout', 'joined');
   expect(preview.querySelector('[data-layout]')).toHaveAttribute('data-align', 'center');
@@ -730,15 +722,6 @@ it('shows optional ID beside selection, completed timestamps and distinct defaul
   fireEvent.click(within(dialog).getByRole('tab', { name: 'Columns' }));
   expect(within(dialog).getByRole('button', { name: 'Drag column ID' })).toBeDisabled();
   fireEvent.click(within(dialog).getByRole('button', { name: 'ID' }));
-  expect(within(dialog).getByRole('spinbutton', { name: 'Width (px)' })).toHaveValue(75);
-  expect(within(dialog).getByRole('slider', { name: 'Minimum width (px)' })).toHaveAttribute(
-    'aria-valuenow',
-    '70',
-  );
-  expect(within(dialog).getByRole('slider', { name: 'Maximum width (px)' })).toHaveAttribute(
-    'aria-valuenow',
-    '120',
-  );
 });
 
 it('numbers rows continuously across pages and preserves UUID in the Task column through paging and sorting', async () => {

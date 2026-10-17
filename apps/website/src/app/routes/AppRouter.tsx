@@ -44,12 +44,12 @@ const PrimitiveDetailPage = lazy(() =>
   })),
 );
 const ComponentRelationships = lazy(() =>
-  import('@/app/relationships/DocumentationRelationships').then((module) => ({
+  import('../relationships/DocumentationRelationships').then((module) => ({
     default: module.ComponentRelationships,
   })),
 );
 const PrimitiveRelationships = lazy(() =>
-  import('@/app/relationships/DocumentationRelationships').then((module) => ({
+  import('../relationships/DocumentationRelationships').then((module) => ({
     default: module.PrimitiveRelationships,
   })),
 );
@@ -71,6 +71,7 @@ const IconsPage = lazy(() =>
     default: module.IconsPage,
   })),
 );
+
 function ComponentsDocumentationRoute() {
   return (
     <ComponentsDocumentation

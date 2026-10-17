@@ -39,6 +39,7 @@ export function PageHeading({
       ) : null}
     </header>
   );
+
   return variant === 'integrated' ? (
     heading
   ) : (

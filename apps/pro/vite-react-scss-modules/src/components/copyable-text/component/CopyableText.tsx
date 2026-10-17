@@ -6,9 +6,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './CopyableText.module.scss';
 
 export interface CopyableTextProps extends HTMLAttributes<HTMLDivElement> {
-  /** Plain text written to the clipboard. */
   value: string;
-  /** Optional display content; defaults to value. */
   children?: ReactNode;
 }
 
@@ -33,18 +31,23 @@ function CopyableTextValue({ value, children, className, ...props }: CopyableTex
 
   const copy = async () => {
     if (busy.current) return;
+
     busy.current = true;
     const id = ++request.current;
     clearTimeout(timer.current);
     setFeedback(null);
+
     let next: 'copied' | 'error';
+
     try {
       await navigator.clipboard.writeText(value);
       next = 'copied';
     } catch {
       next = 'error';
     }
+
     if (id !== request.current) return;
+
     busy.current = false;
     setFeedback({ value, state: next });
     timer.current = setTimeout(() => setFeedback(null), 2000);

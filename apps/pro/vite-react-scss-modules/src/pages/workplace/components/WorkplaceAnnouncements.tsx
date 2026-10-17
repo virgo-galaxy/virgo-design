@@ -10,6 +10,7 @@ import styles from '../styles/workplace.module.scss';
 export function WorkplaceAnnouncements() {
   const resource = useRemoteData(getAnnouncements);
   const { t } = useTranslation();
+
   return (
     <ResourceContent resource={resource}>
       {(announcements) => (

@@ -18,6 +18,7 @@ const Root = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
     />
   );
 });
+
 const Trigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>(function TooltipTrigger(
   { render, variant = 'outline', size = 'medium', ...props },
   ref,
@@ -37,6 +38,7 @@ const Trigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>(function Tool
     />
   );
 });
+
 const Content = forwardRef<HTMLDivElement, TooltipContentProps>(function TooltipContent(
   { arrow: arrowProp, tone = 'default', size: sizeProp, className, children, ...props },
   ref,
@@ -44,6 +46,7 @@ const Content = forwardRef<HTMLDivElement, TooltipContentProps>(function Tooltip
   const presentation = useTooltipPresentation();
   const size = sizeProp ?? presentation.size ?? 'medium';
   const arrow = arrowProp ?? presentation.arrow ?? true;
+
   return (
     <PrimitiveTooltip.Content
       {...props}
@@ -59,4 +62,5 @@ const Content = forwardRef<HTMLDivElement, TooltipContentProps>(function Tooltip
     </PrimitiveTooltip.Content>
   );
 });
+
 export const Tooltip = Object.assign(Root, { Trigger, Content, Provider: TooltipProvider });

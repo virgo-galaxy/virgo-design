@@ -5,9 +5,11 @@
   min-width: 0;
   vertical-align: middle;
 }
+
 .trigger[aria-expanded='true'] {
   border-color: var(--vd-border-focus);
 }
+
 .content {
   @include panel.surface;
   width: calc(var(--vd-sizing-80) * 4);
@@ -23,6 +25,7 @@
     outline-offset: var(--vd-focus-offset, var(--vd-spacing-2));
   }
 }
+
 .viewport {
   position: relative;
   box-sizing: border-box;
@@ -35,9 +38,11 @@
   overflow: auto;
   overscroll-behavior: contain;
 }
+
 .arrow {
   @include panel.arrow;
 }
+
 .close {
   display: inline-flex;
   align-items: center;
@@ -62,6 +67,7 @@
     cursor: not-allowed;
   }
 }
+
 @keyframes popover-enter {
   from {
     opacity: 0;
@@ -70,6 +76,7 @@
     opacity: 1;
   }
 }
+
 @keyframes popover-exit {
   from {
     opacity: 1;
@@ -78,6 +85,7 @@
     opacity: 0;
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .content {
     animation: none;

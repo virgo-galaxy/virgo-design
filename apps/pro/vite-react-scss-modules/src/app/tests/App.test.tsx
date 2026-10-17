@@ -4,7 +4,7 @@ import { StrictMode } from 'react';
 import { createMemoryRouter } from 'react-router';
 import { beforeEach, expect, it, vi } from 'vitest';
 
-import { App } from '../root/App';
+import { App } from '../index';
 
 const { enableMocking, createAppRouter } = vi.hoisted(() => ({
   enableMocking: vi.fn<() => Promise<void>>(),

@@ -36,6 +36,7 @@ export function useFocusScope({
   const containerRef = useContext(PortalContainerContext);
   const callbacks = useRef({ restoreFocus, onOpenAutoFocus, onCloseAutoFocus });
   const trappedRef = useRef(trapped);
+
   useLayoutEffect(() => {
     callbacks.current = { restoreFocus, onOpenAutoFocus, onCloseAutoFocus };
     trappedRef.current = trapped;
@@ -43,12 +44,15 @@ export function useFocusScope({
 
   useLayoutEffect(() => {
     const content = contentRef.current;
+
     if (!active || !content) return;
+
     const doc = content.ownerDocument;
     const previouslyFocused = doc.activeElement instanceof HTMLElement ? doc.activeElement : null;
     const scope = { layer, contentRef, trappedRef };
     const scopes = scopesByDocument.get(doc) ?? [];
     scopesByDocument.set(doc, scopes);
+
     const childIndex = scopes.findIndex((candidate) => isDescendantLayer(candidate.layer, layer));
     scopes.splice(childIndex < 0 ? scopes.length : childIndex, 0, scope);
     const isTopTrappedScope = () => {
@@ -58,6 +62,7 @@ export function useFocusScope({
       }
       return false;
     };
+
     let lastFocused = content;
     let pendingFocusCheck = false;
 
@@ -99,12 +104,14 @@ export function useFocusScope({
         !content.contains(event.target)
       )
         return;
+
       const tabbables = getTabbables(content);
       if (!tabbables.length) {
         event.preventDefault();
         content.focus({ preventScroll: true });
         return;
       }
+
       const first = tabbables[0]!;
       const last = tabbables.at(-1)!;
       if (event.shiftKey && (doc.activeElement === first || doc.activeElement === content)) {
@@ -115,14 +122,17 @@ export function useFocusScope({
         first.focus({ preventScroll: true });
       }
     };
+
     doc.addEventListener('focusin', focus);
     doc.addEventListener('keydown', key);
+
     return () => {
       const index = scopes.indexOf(scope);
       if (index !== -1) scopes.splice(index, 1);
       if (!scopes.length) scopesByDocument.delete(doc);
       doc.removeEventListener('focusin', focus);
       doc.removeEventListener('keydown', key);
+
       const closeEvent = createAutoFocusEvent('dialog.closeAutoFocus');
       callbacks.current.onCloseAutoFocus?.(closeEvent);
       if (!closeEvent.defaultPrevented) {

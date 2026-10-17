@@ -2,7 +2,7 @@ import { CloseIcon } from '@virgo-design/icons';
 import { Combobox as PrimitiveCombobox } from '@virgo-design/primitives';
 import { createContext, forwardRef, useContext } from 'react';
 
-import { useControlLabels } from '../../shared/control-labels';
+import { useLocale } from '../../locale/context/locale-context';
 import styles from './Combobox.module.scss';
 import type {
   ComboboxClearProps,
@@ -13,7 +13,9 @@ import type {
   ComboboxOptionProps,
   ComboboxProps,
 } from './Combobox.types';
+
 const SizeContext = createContext<ComboboxProps['size']>('medium');
+
 export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(function Combobox(
   { size = 'medium', className, ...props },
   ref,
@@ -29,14 +31,14 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(function Combo
     </SizeContext.Provider>
   );
 });
+
 export const ComboboxInput = forwardRef<HTMLInputElement, ComboboxInputProps>(
-  function ComboboxInput({ className, prefix, leadingIcon, ...props }, ref) {
-    const adornment = prefix ?? leadingIcon;
+  function ComboboxInput({ className, prefix, ...props }, ref) {
     return (
       <div className={styles.inputFrame} data-slot="input-frame">
-        {adornment !== undefined ? (
+        {prefix !== undefined ? (
           <span className={styles.prefix} aria-hidden="true" data-slot="prefix">
-            {adornment}
+            {prefix}
           </span>
         ) : null}
         <PrimitiveCombobox.Input
@@ -48,9 +50,11 @@ export const ComboboxInput = forwardRef<HTMLInputElement, ComboboxInputProps>(
     );
   },
 );
+
 export const ComboboxContent = forwardRef<HTMLDivElement, ComboboxContentProps>(
   function ComboboxContent({ className, ...props }, ref) {
     const size = useContext(SizeContext);
+
     return (
       <PrimitiveCombobox.Content
         {...props}
@@ -61,6 +65,7 @@ export const ComboboxContent = forwardRef<HTMLDivElement, ComboboxContentProps>(
     );
   },
 );
+
 export const ComboboxOption = forwardRef<HTMLDivElement, ComboboxOptionProps>(
   function ComboboxOption({ className, ...props }, ref) {
     return (
@@ -72,6 +77,7 @@ export const ComboboxOption = forwardRef<HTMLDivElement, ComboboxOptionProps>(
     );
   },
 );
+
 export const ComboboxEmpty = forwardRef<HTMLDivElement, ComboboxEmptyProps>(function ComboboxEmpty(
   { className, ...props },
   ref,
@@ -84,6 +90,7 @@ export const ComboboxEmpty = forwardRef<HTMLDivElement, ComboboxEmptyProps>(func
     />
   );
 });
+
 export const ComboboxGroup = forwardRef<HTMLDivElement, ComboboxGroupProps>(function ComboboxGroup(
   { className, ...props },
   ref,
@@ -96,9 +103,11 @@ export const ComboboxGroup = forwardRef<HTMLDivElement, ComboboxGroupProps>(func
     />
   );
 });
+
 export const ComboboxClear = forwardRef<HTMLButtonElement, ComboboxClearProps>(
   function ComboboxClear({ children, className, 'aria-label': label, ...props }, ref) {
-    const labels = useControlLabels();
+    const labels = useLocale().input;
+
     return (
       <PrimitiveCombobox.Clear
         {...props}

@@ -517,6 +517,11 @@ export const primitivesEnUS = {
     },
   },
   examples: {
+    previousSlide: 'Previous slide',
+    nextSlide: 'Next slide',
+    previousMonth: 'Previous month',
+    nextMonth: 'Next month',
+    chooseDate: 'Choose date',
     overview: 'Overview',
     accordionContentIsDisclosedByItsTrigger: 'Accordion content is disclosed by its trigger.',
     details: 'Details',

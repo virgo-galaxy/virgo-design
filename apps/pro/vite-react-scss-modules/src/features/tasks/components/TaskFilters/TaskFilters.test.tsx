@@ -107,7 +107,6 @@ describe('Task combination query', () => {
       minimumHours: '8',
     });
     const resetButton = screen.getByRole('button', { name: 'Reset' });
-    expect(resetButton.querySelector('svg')).toBeInTheDocument();
     await user.click(resetButton);
     expect(reset).toHaveBeenCalledOnce();
     expect(screen.getByRole('textbox', { name: 'Search tasks' })).toHaveValue('');

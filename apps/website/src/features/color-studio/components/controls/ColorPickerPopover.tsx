@@ -5,18 +5,15 @@ import styles from './color-picker-popover.module.scss';
 
 export function ColorPickerPopover() {
   const { t } = useTranslation();
+
   return (
     <ColorPicker.Content
       className={styles.popover}
       aria-label={t('foundations.colorStudio.picker.title')}
     >
       <div className={styles.canvas}>
-        <ColorPicker.Area
-          className={styles.area}
-          saturationLabel={t('foundations.colorStudio.picker.saturation')}
-          brightnessLabel={t('foundations.colorStudio.picker.brightness')}
-        />
-        <ColorPicker.Hue aria-label={t('foundations.colorStudio.picker.hue')} />
+        <ColorPicker.Area className={styles.area} />
+        <ColorPicker.Hue />
       </div>
       <div className={styles.hexRow}>
         <ColorPicker.Preview className={styles.preview} />

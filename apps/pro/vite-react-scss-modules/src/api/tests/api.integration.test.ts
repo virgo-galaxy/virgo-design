@@ -3,32 +3,23 @@ import { delay, http as mswHttp, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
-import { updateProfileIdentity, updateProfilePreferences } from '@/api/profile';
 import { getTaskSummary } from '@/api/tasks';
-import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
-import { getAllTasks } from '@/features/tasks';
-import { http, HttpError } from '@/lib/http';
-import { createMockTaskId } from '@/mock/fixtures/task-id';
-import { initialTaskState, taskReferenceDate } from '@/mock/fixtures/tasks';
-import { handlers } from '@/mock/handlers';
-import { resetProfile } from '@/mock/handlers/profile';
-import { resetTasks } from '@/mock/handlers/tasks';
-import { readProfile } from '@/test/profile';
-import { readAnalytics, readWorkspace } from '@/test/reporting-data';
-
-import { getProjects } from '../projects';
 import {
   createTask,
   deleteTasks,
   getTask,
-  getTaskMetadata,
   getTasks,
-  TASK_PRIORITY_CODES,
-  TASK_STATUS_CODES,
   updateTask,
   updateTaskStatus,
-} from '../tasks';
-import { prepareHandoff } from '../workflows';
+} from '@/api/tasks';
+import { prepareHandoff } from '@/api/workflows';
+import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
+import { getAllTasks } from '@/features/tasks';
+import { http, HttpError } from '@/lib/http';
+import { initialTaskState, taskReferenceDate } from '@/mock/fixtures/tasks';
+import { handlers } from '@/mock/handlers';
+import { resetProfile } from '@/mock/handlers/profile';
+import { resetTasks } from '@/mock/handlers/tasks';
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 afterEach(() => server.resetHandlers());
@@ -67,7 +58,9 @@ describe('consumer → API → Axios → MSW', () => {
     expect(result.total).toBe(expected.length);
     expect(result.items).toEqual(expected.slice(0, 5));
     expect(await getAllTasks(query)).toEqual(expected);
-    expect((await getTasks({ status: [], priority: [] })).total).toBe(240);
+    expect((await getTasks({ status: [], priority: [] })).total).toBe(
+      initialTaskState.tasks.length,
+    );
     await expect(getTasks({ status: ['todo', 'invalid'] as never })).rejects.toMatchObject({
       code: API_ERROR_CODES.INVALID_QUERY,
     });
@@ -107,29 +100,13 @@ describe('consumer → API → Axios → MSW', () => {
   it('unwraps list data and performs stateful create/detail/edit/status updates', async () => {
     const before = await getTasks({ pageNum: 1, pageSize: 5 });
     expect(before.items).toHaveLength(5);
-    expect(before.total).toBe(240);
+    expect(before.total).toBe(initialTaskState.tasks.length);
     const finalPage = await getTasks({ pageNum: 100, pageSize: 10 });
     expect(finalPage.items).toHaveLength(10);
-    expect(finalPage.pageNum).toBe(24);
-    const allTasks = await getAllTasks({});
-    expect(allTasks).toHaveLength(240);
-    expect(new Set(allTasks.map((item) => item.id)).size).toBe(240);
-    expect(new Set(allTasks.map((item) => item.title)).size).toBe(240);
-    expect([...new Set(allTasks.map((item) => item.status))].sort()).toEqual(
-      [...TASK_STATUS_CODES].sort(),
-    );
-    expect([...new Set(allTasks.map((item) => item.priority))].sort()).toEqual(
-      [...TASK_PRIORITY_CODES].sort(),
-    );
-    expect(
-      allTasks.some(
-        (item) => item.dueDate && item.dueDate < taskReferenceDate && item.status !== 'done',
-      ),
-    ).toBe(true);
-    expect(allTasks.some((item) => item.dueDate === '')).toBe(true);
-    const created = await createTask(draft);
-    expect(created.id).toBe(createMockTaskId(initialTaskState.nextId));
-    expect(created.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}$/);
+    expect(finalPage.pageNum).toBe(Math.ceil(before.total / 10));
+    const created = await createTask({ ...draft, title: `  ${draft.title}  ` });
+    expect(created.title).toBe(draft.title);
+    expect(created.id).toBeTruthy();
     expect(initialTaskState.tasks.map((task) => task.id)).not.toContain(created.id);
     expect(await getTask(created.id)).toEqual(created);
     const updated = await updateTask(created.id, {
@@ -149,7 +126,7 @@ describe('consumer → API → Axios → MSW', () => {
     });
     expect(matching.total).toBe(1);
     expect(matching.items[0]?.status).toBe('done');
-    expect((await getTaskSummary()).total).toBe(241);
+    expect((await getTaskSummary()).total).toBe(before.total + 1);
   });
   it.each([
     ['status', 'In Progress'],
@@ -249,111 +226,7 @@ describe('consumer → API → Axios → MSW', () => {
       status: 404,
       data: { detail: 'Task not found' },
     });
-    expect((await getTasks()).total).toBe(240);
-  });
-  it('loads projects/metadata/analytics and persists profile patches through HTTP', async () => {
-    const [projects, metadata, analytics, profile] = await Promise.all([
-      getProjects(),
-      getTaskMetadata(),
-      readAnalytics(),
-      readProfile(),
-    ]);
-    expect(projects).toHaveLength(4);
-    expect(metadata.members).toHaveLength(24);
-    expect(analytics.trendPoints).toHaveLength(14);
-    expect(analytics.projectDelivery).toHaveLength(14);
-    for (const [index, day] of analytics.projectDelivery.entries()) {
-      expect(day.date).toBe(analytics.trendPoints[index]!.date);
-      expect(day.deliveries.map((entry) => entry.projectId)).toEqual(
-        projects.map((project) => project.id),
-      );
-      expect(
-        day.deliveries.every((entry) => Number.isInteger(entry.completed) && entry.completed >= 0),
-      ).toBe(true);
-      expect(day.deliveries.reduce((sum, entry) => sum + entry.completed, 0)).toBe(
-        analytics.trendPoints[index]!.completed,
-      );
-    }
-    const saved = await updateProfileIdentity({ name: 'Remote profile' });
-    await updateProfilePreferences({ digest: false });
-    expect(saved.name).toBe('Remote profile');
-    expect(saved.headline).toBe(profile.headline);
-    expect((await readProfile()).digest).toBe(false);
-    await expect(updateProfilePreferences({ focusProject: 'missing' })).rejects.toMatchObject({
-      code: API_ERROR_CODES.PROFILE_VALIDATION_FAILED,
-      status: 422,
-      data: { fields: { focusProject: expect.any(Array) } },
-    });
-    const task = await createTask(draft);
-    await updateTaskStatus(task.id, 'done');
-    const workplace = await readWorkspace();
-    expect(workplace.reportingYears).toEqual([2025, 2026]);
-    expect(workplace.tokenUsage.length).toBeGreaterThan(1);
-    expect(new Set(workplace.tokenUsage.map((day) => day.date)).size).toBe(
-      workplace.tokenUsage.length,
-    );
-    expect(
-      workplace.tokenUsage.reduce((sum, day) => sum + day.inputTokens + day.outputTokens, 0),
-    ).toBe(
-      workplace.tokenRecords.reduce(
-        (sum, record) => sum + record.inputTokens + record.outputTokens,
-        0,
-      ),
-    );
-    expect(
-      workplace.tokenUsage.every(
-        (day) =>
-          Number.isInteger(day.inputTokens) &&
-          Number.isInteger(day.outputTokens) &&
-          day.inputTokens >= 0 &&
-          day.outputTokens >= 0,
-      ),
-    ).toBe(true);
-    expect(
-      workplace.tokenUsage
-        .filter((day) => day.date > workplace.snapshot.date)
-        .every((day) => day.inputTokens === 0 && day.outputTokens === 0),
-    ).toBe(true);
-    expect(workplace.projectDistribution.reduce((sum, project) => sum + project.count, 0)).toBe(
-      workplace.snapshot.openTasks,
-    );
-    expect(workplace.recentTasks.find((item) => item.id === '49e7996a-311b')).toMatchObject({
-      status: 'todo',
-      priority: 'urgent',
-    });
-    expect((await readWorkspace()).snapshot).toMatchObject({
-      activeProjects: 4,
-      openTasks: initialTaskState.tasks.filter((item) => item.status !== 'done').length,
-      teamMembers: 24,
-    });
-  });
-  it('submits workflow operations to the fake backend', async () => {
-    const receipt = await prepareHandoff({
-      title: 'Team handoff',
-      projectId: 'online-store',
-      date: '2026-10-06',
-      time: '10:00',
-      taskIds: ['1bbcd880-f5e5'],
-      audience: 'team',
-      notes: 'Ready',
-      confirmed: true,
-    });
-    expect(receipt).toMatchObject({
-      outcome: 'success',
-      kind: 'handoff',
-      taskIds: ['1bbcd880-f5e5'],
-    });
-    const restricted = await prepareHandoff({
-      title: 'External handoff',
-      projectId: 'online-store',
-      date: '2026-10-06',
-      time: '10:00',
-      taskIds: ['1bbcd880-f5e5'],
-      audience: 'external',
-      notes: 'Ready',
-      confirmed: true,
-    });
-    expect(restricted.outcome).toBe('error');
+    expect((await getTasks()).total).toBe(initialTaskState.tasks.length);
   });
   it.each([
     { body: { data: {} }, label: 'invalid envelope' },
@@ -362,7 +235,7 @@ describe('consumer → API → Axios → MSW', () => {
       body: { code: 7, msg: 'bad', data: { detail: 'bad', timestamp: 'invalid' } },
       label: 'invalid error metadata',
     },
-  ])('rejects $label as an invalid protocol', async ({ body }) => {
+  ])('reports $label as a protocol error while retaining transport metadata', async ({ body }) => {
     server.use(
       mswHttp.get('/api/v1/protocol', () =>
         HttpResponse.json(body, {

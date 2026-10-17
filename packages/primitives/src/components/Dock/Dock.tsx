@@ -3,7 +3,6 @@ import {
   type CSSProperties,
   forwardRef,
   type MutableRefObject,
-  type Ref,
   useCallback,
   useContext,
   useEffect,
@@ -14,6 +13,7 @@ import {
 } from 'react';
 
 import { useControllableState } from '../../internal/hooks/useControllableState';
+import { composeRefs } from '../../internal/utils/composeRefs';
 import type {
   DockBoundaryProps,
   DockContentProps,
@@ -38,15 +38,6 @@ const DEFAULT_SNAP_DIVISIONS = 12;
 const DOCK_PERSISTENCE_PREFIX = 'vd:dock';
 const DOCK_PERSISTENCE_VERSION = 'v1';
 const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
-
-function composeRefs<T>(...refs: Array<Ref<T> | undefined>) {
-  return (node: T | null) => {
-    for (const ref of refs) {
-      if (typeof ref === 'function') ref(node);
-      else if (ref) ref.current = node;
-    }
-  };
-}
 
 function orientationForEdge(edge: DockEdge): DockOrientation {
   return edge === 'top' || edge === 'bottom' ? 'horizontal' : 'vertical';
@@ -239,7 +230,7 @@ export const DockBoundary = forwardRef<HTMLDivElement, DockBoundaryProps>(
 
     return (
       <DockBoundaryContext.Provider value={boundaryRef}>
-        <div {...props} ref={composeRefs(boundaryRef, forwardedRef)} data-vd-dock-boundary="" />
+        <div {...props} ref={composeRefs(forwardedRef, boundaryRef)} data-vd-dock-boundary="" />
       </DockBoundaryContext.Provider>
     );
   },
@@ -282,6 +273,9 @@ export const DockRoot = forwardRef<HTMLDivElement, DockRootProps>(function DockR
     onPinnedChange,
   );
   const [pinnedInsets, setPinnedInsets] = useState<DockPinnedInsets | null>(null);
+  const [hydratedPersistenceIdentity, setHydratedPersistenceIdentity] = useState<string | null>(
+    null,
+  );
 
   useIsomorphicLayoutEffect(() => {
     const root = rootRef.current;
@@ -302,9 +296,7 @@ export const DockRoot = forwardRef<HTMLDivElement, DockRootProps>(function DockR
       left: boundaryRect.left - fixedRect.left,
     });
   }, [pinned, boundaryRef]);
-  const [hydratedPersistenceIdentity, setHydratedPersistenceIdentity] = useState<string | null>(
-    null,
-  );
+
   const allowedEdges = useMemo(() => normalizeAllowedEdges(allowedEdgesProp), [allowedEdgesProp]);
   const [rawPlacement, setRawPlacement, setUncontrolledPlacement] = useControllableState(
     controlledPlacement,
@@ -428,7 +420,7 @@ export const DockRoot = forwardRef<HTMLDivElement, DockRootProps>(function DockR
     <DockRootContext.Provider value={context}>
       <div
         {...props}
-        ref={composeRefs(rootRef, forwardedRef)}
+        ref={composeRefs(forwardedRef, rootRef)}
         data-vd-dock-root=""
         data-edge={placement.edge}
         data-orientation={orientation}

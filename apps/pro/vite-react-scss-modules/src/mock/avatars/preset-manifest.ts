@@ -23,7 +23,6 @@ import wavesRoseTop from '@/assets/avatars/presets/waves-rose-top.webp';
 import wavesSageBlouse from '@/assets/avatars/presets/waves-sage-blouse.webp';
 import wavesSagePolo from '@/assets/avatars/presets/waves-sage-polo.webp';
 
-// Avatars belong to user identities, independently of team ordering, jobs, and project roles.
 export const systemPresetAvatarManifest = {
   ava: { apiId: 'user_1', source: wavesSageBlouse },
   leo: { apiId: 'user_2', source: curlsCharcoalOvershirt },

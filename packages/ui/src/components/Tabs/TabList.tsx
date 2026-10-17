@@ -2,6 +2,7 @@ import { PlusIcon } from '@virgo-design/icons';
 import { Tabs as PrimitiveTabs } from '@virgo-design/primitives';
 import { forwardRef, useCallback, useLayoutEffect, useRef } from 'react';
 
+import { useComposedRefs } from '../../internal/utils/composeRefs';
 import styles from './Tabs.module.scss';
 import type { TabListProps } from './Tabs.types';
 import { useTabsVisualContext } from './TabsContext';
@@ -17,18 +18,7 @@ export const TabList = forwardRef<HTMLDivElement, TabListProps>(function TabList
   const { variant, align, addable, addLabel, onAdd } = useTabsVisualContext('TabList');
   const listRef = useRef<HTMLDivElement | null>(null);
 
-  const setListRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      listRef.current = node;
-
-      if (typeof forwardedRef === 'function') {
-        forwardedRef(node);
-      } else if (forwardedRef) {
-        forwardedRef.current = node;
-      }
-    },
-    [forwardedRef],
-  );
+  const setListRef = useComposedRefs(forwardedRef, listRef);
 
   const updateIndicator = useCallback(() => {
     const list = listRef.current;
@@ -41,9 +31,14 @@ export const TabList = forwardRef<HTMLDivElement, TabListProps>(function TabList
 
     const listRect = list.getBoundingClientRect();
     const tabRect = selectedTab.getBoundingClientRect();
+    const localWidth = Number.parseFloat(getComputedStyle(list).width);
+    const scaleX = localWidth > 0 && listRect.width > 0 ? listRect.width / localWidth : 1;
 
-    list.style.setProperty('--tabs-indicator-x', `${tabRect.left - listRect.left}px`);
-    list.style.setProperty('--tabs-indicator-width', `${tabRect.width}px`);
+    list.style.setProperty(
+      '--tabs-indicator-x',
+      `${(tabRect.left - listRect.left) / scaleX - list.clientLeft}px`,
+    );
+    list.style.setProperty('--tabs-indicator-width', `${tabRect.width / scaleX}px`);
     list.dataset.indicatorReady = 'true';
   }, [variant]);
 

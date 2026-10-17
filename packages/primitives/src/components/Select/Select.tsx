@@ -21,6 +21,7 @@ import type {
   SelectOptionProps,
   SelectProps,
   SelectRemoveProps,
+  SelectState,
   SelectTriggerProps,
 } from './Select.types';
 
@@ -55,6 +56,14 @@ function useSelectContext(componentName: string) {
   }
 
   return context;
+}
+
+export function useSelectState(): SelectState {
+  const context = useSelectContext('useSelectState');
+
+  return context.multiple
+    ? { multiple: true, value: Array.isArray(context.value) ? context.value : [] }
+    : { multiple: false, value: typeof context.value === 'string' ? context.value : undefined };
 }
 
 type SelectRootProps = Omit<SelectProps, 'value' | 'defaultValue' | 'onValueChange'> & {

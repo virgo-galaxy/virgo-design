@@ -1,18 +1,21 @@
-import { isRecord } from '../../validation/is-record';
+import { isRecord } from '@/lib/validation/is-record';
 
 export const API_SUCCESS_CODE = 0;
 export const API_SUCCESS_MSG = 'success';
+
 export interface ApiResponse<T> {
   code: number;
   msg: string;
   data: T;
 }
+
 export interface ApiErrorData {
   detail: string;
   fields?: Record<string, string[]>;
   source?: { file?: string; function?: string; line?: number };
   timestamp: string;
 }
+
 export function isApiResponse(value: unknown): value is ApiResponse<unknown> {
   return (
     isRecord(value) &&
@@ -21,6 +24,7 @@ export function isApiResponse(value: unknown): value is ApiResponse<unknown> {
     Object.hasOwn(value, 'data')
   );
 }
+
 export function isApiErrorData(value: unknown): value is ApiErrorData {
   if (
     !isRecord(value) ||
@@ -29,6 +33,7 @@ export function isApiErrorData(value: unknown): value is ApiErrorData {
     !Number.isFinite(Date.parse(value.timestamp))
   )
     return false;
+
   if (
     value.fields !== undefined &&
     (!isRecord(value.fields) ||
@@ -37,9 +42,11 @@ export function isApiErrorData(value: unknown): value is ApiErrorData {
       ))
   )
     return false;
+
   if (value.source !== undefined) {
     if (!isRecord(value.source)) return false;
     const source = value.source;
+
     if (
       (source.file !== undefined && typeof source.file !== 'string') ||
       (source.function !== undefined && typeof source.function !== 'string') ||
@@ -47,5 +54,6 @@ export function isApiErrorData(value: unknown): value is ApiErrorData {
     )
       return false;
   }
+
   return true;
 }

@@ -1,6 +1,5 @@
 import type { WorkLocationDto } from '@/contracts/users';
 
-// Display labels are localized; API identifiers and relationship keys stay stable.
 const zh: Record<string, string> = {
   China: '中国',
   'United Kingdom': '英国',
@@ -160,7 +159,6 @@ const zh: Record<string, string> = {
 export function businessLabel(value: string, language: string): string {
   if (!language.startsWith('zh')) return value;
   if (zh[value]) return zh[value];
-  // Only translate known seed phrases. User-authored text stays exactly as entered.
   if (value.endsWith(' · Virgo Studio'))
     return `${businessLabel(value.slice(0, -15), language)} · Virgo Studio`;
   const titleParts = value.split(': ');

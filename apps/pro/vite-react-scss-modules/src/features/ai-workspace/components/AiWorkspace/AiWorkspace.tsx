@@ -63,6 +63,7 @@ export function AiWorkspace({
   footer?: ReactNode;
 }) {
   const { t } = useTranslation();
+
   const root = useRef<HTMLDivElement>(null);
   const workbench = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLElement>(null);
@@ -94,9 +95,11 @@ export function AiWorkspace({
   const { contextSafe } = useGSAP({ scope: root });
   const previousFocus = useRef<HTMLElement | null>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
+
   const [size, setSize] = useState(viewport);
   const [returning, setReturning] = useState(false);
   const [returnError, setReturnError] = useState(false);
+
   const preview = workspacePreview(size.width, size.height, cornerRef.current, zoom);
   const ResizeIcon = resizeIcons[corner];
 
@@ -108,8 +111,10 @@ export function AiWorkspace({
       setDragging(false);
       setSize(viewport());
     };
+
     window.addEventListener('resize', update);
     media.addEventListener('change', update);
+
     return () => {
       window.removeEventListener('resize', update);
       media.removeEventListener('change', update);
@@ -122,17 +127,19 @@ export function AiWorkspace({
       const stageNode = stage.current!;
       const previewNode = previewFrame.current!;
       const target = workspacePreview(size.width, size.height, cornerRef.current, zoomRef.current);
+
       moveTween.current?.kill();
       gsap.set(previewNode, { x: target.x, y: target.y });
+
       const duration = size.reduced ? 0.001 : 0.72;
       const focusAi = () => {
         root.current?.setAttribute('data-phase', 'ai');
         windowNode.inert = false;
         windowNode.removeAttribute('aria-hidden');
         windowNode.style.willChange = 'auto';
-        // Focus the region; focusing the microphone would open its tooltip on entry.
         stageNode.focus({ preventScroll: true });
       };
+
       const focusWorkbench = () => {
         windowNode.inert = false;
         windowNode.removeAttribute('aria-hidden');
@@ -140,16 +147,20 @@ export function AiWorkspace({
         ['transform', 'border-radius', 'will-change'].forEach((property) =>
           windowNode.style.removeProperty(property),
         );
+
         const target = previousFocus.current?.isConnected
           ? previousFocus.current
           : windowNode.querySelector<HTMLElement>('[data-ai-mode-trigger]');
+
         target?.focus({ preventScroll: true });
       };
+
       const animation = gsap.timeline({
         paused: true,
         onComplete: focusAi,
         onReverseComplete: focusWorkbench,
       });
+
       animation
         .fromTo(
           windowNode,
@@ -182,10 +193,13 @@ export function AiWorkspace({
           { autoAlpha: 1, duration: size.reduced ? 0.001 : 0.18 },
           size.reduced ? 0 : 0.54,
         );
+
       windowTween.current = animation.getChildren(false, true, false)[0] as gsap.core.Tween;
       timeline.current = animation;
       animation.progress(active ? 1 : 0, true);
+
       if (!active) gsap.set(windowNode, { clearProps: 'transform,borderRadius' });
+
       return () => {
         moveTween.current?.kill();
         windowTween.current = null;
@@ -199,7 +213,9 @@ export function AiWorkspace({
     () => {
       const animation = timeline.current;
       const node = workbench.current;
+
       if (!animation || !node) return;
+
       if (active) {
         const focused = document.activeElement;
         previousFocus.current =
@@ -210,6 +226,7 @@ export function AiWorkspace({
         node.setAttribute('aria-hidden', 'true');
         root.current?.setAttribute('data-phase', 'entering');
         node.style.willChange = 'transform';
+
         if (animation.progress() === 1) {
           node.inert = false;
           node.removeAttribute('aria-hidden');
@@ -227,13 +244,15 @@ export function AiWorkspace({
     { scope: root, dependencies: [active] },
   );
 
-  // Keep the reverse animation anchored to the thumbnail's current position.
   const retargetReturn = () => {
     const tween = windowTween.current;
     const animation = timeline.current;
+
     if (!tween || !animation || !workbench.current) return;
+
     tween.vars.x = Number(gsap.getProperty(workbench.current, 'x'));
     tween.vars.y = Number(gsap.getProperty(workbench.current, 'y'));
+
     const scale = Number(gsap.getProperty(workbench.current, 'scaleX'));
     tween.vars.scale = scale;
     tween.vars.borderRadius = 14 / scale;
@@ -243,7 +262,9 @@ export function AiWorkspace({
   const dockPreview = contextSafe((next: PreviewCorner) => {
     cornerRef.current = next;
     setCorner(next);
+
     moveTween.current?.kill();
+
     const target = workspacePreview(size.width, size.height, next, zoomRef.current);
     moveTween.current = gsap.to([workbench.current, previewFrame.current], {
       x: target.x,
@@ -256,6 +277,7 @@ export function AiWorkspace({
 
   const startDrag = (event: PointerEvent<HTMLButtonElement>) => {
     if (event.button !== 0 || returning || root.current?.dataset.phase !== 'ai') return;
+
     moveTween.current?.kill();
     drag.current = {
       pointer: event.pointerId,
@@ -265,17 +287,23 @@ export function AiWorkspace({
       y: Number(gsap.getProperty(workbench.current, 'y')),
       moved: false,
     };
+
     event.currentTarget.setPointerCapture(event.pointerId);
   };
 
   const moveDrag = contextSafe((event: PointerEvent<HTMLButtonElement>) => {
     const gesture = drag.current;
+
     if (!gesture || gesture.pointer !== event.pointerId) return;
+
     const dx = event.clientX - gesture.clientX;
     const dy = event.clientY - gesture.clientY;
+
     if (!gesture.moved && Math.hypot(dx, dy) < 4) return;
+
     gesture.moved = true;
     setDragging(true);
+
     const x = Math.max(
       preview.inset,
       Math.min(size.width - preview.width - preview.inset, gesture.x + dx),
@@ -284,17 +312,23 @@ export function AiWorkspace({
       preview.inset,
       Math.min(size.height - preview.height - preview.inset, gesture.y + dy),
     );
+
     gsap.set([workbench.current, previewFrame.current], { x, y });
   });
 
   const finishDrag = (event: PointerEvent<HTMLButtonElement>, cancelled = false) => {
     const gesture = drag.current;
+
     if (!gesture || gesture.pointer !== event.pointerId) return;
+
     drag.current = null;
     setDragging(false);
+
     if (event.currentTarget.hasPointerCapture(event.pointerId))
       event.currentTarget.releasePointerCapture(event.pointerId);
+
     if (!gesture.moved) return;
+
     dockPreview(
       cancelled
         ? cornerRef.current
@@ -312,6 +346,7 @@ export function AiWorkspace({
     const next = clampPreviewZoom(nextZoom);
     zoomRef.current = next;
     setZoom(next);
+
     const target = workspacePreview(size.width, size.height, cornerRef.current, next);
     gsap.set(workbench.current, {
       x: target.x,
@@ -324,6 +359,7 @@ export function AiWorkspace({
 
   const startResize = (event: PointerEvent<HTMLButtonElement>) => {
     if (event.button !== 0 || returning || root.current?.dataset.phase !== 'ai') return;
+
     moveTween.current?.kill();
     resizeGesture.current = {
       pointer: event.pointerId,
@@ -334,12 +370,15 @@ export function AiWorkspace({
       zoom: zoomRef.current,
       corner: cornerRef.current,
     };
+
     event.currentTarget.setPointerCapture(event.pointerId);
   };
 
   const moveResize = (event: PointerEvent<HTMLButtonElement>) => {
     const gesture = resizeGesture.current;
+
     if (!gesture || gesture.pointer !== event.pointerId) return;
+
     applyPreviewZoom(
       resizePreviewZoom(
         gesture.zoom,
@@ -354,23 +393,32 @@ export function AiWorkspace({
 
   const finishResize = (event: PointerEvent<HTMLButtonElement>, cancelled = false) => {
     const gesture = resizeGesture.current;
+
     if (!gesture || gesture.pointer !== event.pointerId) return;
+
     resizeGesture.current = null;
+
     if (event.currentTarget.hasPointerCapture(event.pointerId))
       event.currentTarget.releasePointerCapture(event.pointerId);
+
     if (cancelled) applyPreviewZoom(gesture.zoom);
     retargetReturn();
   };
 
   const restore = useCallback(() => {
     if (returning) return;
+
     drag.current = null;
+
     resizeGesture.current = null;
     setDragging(false);
+
     moveTween.current?.kill();
     if (root.current?.dataset.phase === 'ai') retargetReturn();
+
     setReturning(true);
     setReturnError(false);
+
     void Promise.resolve()
       .then(onExit)
       .catch(() => setReturnError(true))
@@ -379,13 +427,16 @@ export function AiWorkspace({
 
   useEffect(() => {
     if (!active) return;
+
     const escape = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && !event.defaultPrevented) {
         event.preventDefault();
         restore();
       }
     };
+
     window.addEventListener('keydown', escape);
+
     return () => window.removeEventListener('keydown', escape);
   }, [active, restore]);
 
@@ -426,6 +477,7 @@ export function AiWorkspace({
         className={styles.workbench}
         onDoubleClick={(event) => {
           if (!active || event.defaultPrevented || root.current?.dataset.phase !== 'ai') return;
+
           if (
             event.target instanceof Element &&
             event.target.closest(
@@ -433,6 +485,7 @@ export function AiWorkspace({
             )
           )
             return;
+
           event.preventDefault();
           restore();
         }}
@@ -482,7 +535,9 @@ export function AiWorkspace({
             onKeyDown={(event) => {
               const increase = ['ArrowUp', 'ArrowRight', '+', '='].includes(event.key);
               const decrease = ['ArrowDown', 'ArrowLeft', '-'].includes(event.key);
+
               if (!increase && !decrease && event.key !== 'Home') return;
+
               event.preventDefault();
               moveTween.current?.kill();
               applyPreviewZoom(

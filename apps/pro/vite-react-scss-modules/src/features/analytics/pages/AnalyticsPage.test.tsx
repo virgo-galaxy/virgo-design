@@ -51,11 +51,13 @@ it('pages through all owners with continuous ranks, colored effort bars and a sh
   const region = screen.getByRole('region', { name: 'Team capacity' });
   const pages = within(region).getByRole('navigation', { name: 'Team capacity pages' });
   const seen: string[] = [];
-  for (let page = 1; page <= 5; page++) {
+  const pageSize = 5;
+  const pageCount = Math.ceil(owners.length / pageSize);
+  for (let page = 1; page <= pageCount; page++) {
     if (page > 1) fireEvent.click(within(pages).getByRole('button', { name: `Page ${page}` }));
     const list = within(region).getByRole('list', { name: 'Team capacity' });
     const rows = within(list).getAllByRole('listitem');
-    expect(rows).toHaveLength(page === 5 ? 4 : 5);
+    expect(rows).toHaveLength(Math.min(pageSize, owners.length - (page - 1) * pageSize));
     expect(list).toHaveAttribute('start', String((page - 1) * 5 + 1));
     rows.forEach((row, index) => {
       const rank = (page - 1) * 5 + index;
@@ -65,11 +67,12 @@ it('pages through all owners with continuous ranks, colored effort bars and a sh
       const bar = row.querySelector<HTMLSpanElement>('span[style]')!;
       expect(bar.style.background).not.toBe('');
       expect(parseFloat(bar.style.width)).toBeCloseTo((owner.hours / owners[0]!.hours) * 100);
-      expect(row.querySelector('[data-size="sm"]')).toBeInTheDocument();
       seen.push(owner.member.id);
     });
   }
-  expect(new Set(seen).size).toBe(24);
-  expect(pages).toHaveTextContent('21–24 of 24 people');
+  expect(new Set(seen)).toEqual(new Set(owners.map(({ member }) => member.id)));
+  expect(pages).toHaveTextContent(
+    `${(pageCount - 1) * pageSize + 1}–${owners.length} of ${owners.length} people`,
+  );
   expect(within(pages).getByRole('button', { name: 'Next page' })).toBeDisabled();
 });

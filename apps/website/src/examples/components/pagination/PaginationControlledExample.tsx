@@ -2,13 +2,10 @@ import { Pagination, type PaginationProps, Select, Switch } from '@virgo-design/
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { usePaginationLabels } from '@/examples/components/pagination/use-pagination-labels';
-
 import styles from './PaginationControlledExample.module.scss';
 
 export default function App() {
   const { t } = useTranslation();
-  const paginationLabels = usePaginationLabels();
 
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -44,7 +41,6 @@ export default function App() {
         </Select>
       </div>
       <Pagination
-        labels={paginationLabels}
         total={85}
         page={page}
         pageSize={pageSize}

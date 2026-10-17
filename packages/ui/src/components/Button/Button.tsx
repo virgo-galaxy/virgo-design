@@ -26,6 +26,7 @@ const ButtonRoot = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 ) {
   const inheritedSize = useContext(ActionGroupSizeContext);
   const size = sizeProp ?? inheritedSize ?? 'medium';
+
   return (
     <PrimitiveButton
       {...props}

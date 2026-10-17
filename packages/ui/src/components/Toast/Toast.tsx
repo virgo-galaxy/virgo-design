@@ -8,6 +8,7 @@ import {
 import { Toast as PrimitiveToast } from '@virgo-design/primitives';
 import { forwardRef, type ReactNode } from 'react';
 
+import { useLocale } from '../../locale/context/locale-context';
 import styles from './Toast.module.scss';
 import type {
   ToastActionProps,
@@ -28,6 +29,7 @@ function defaultIcon(intent: ToastIntent): ReactNode {
   if (intent === 'info') return <CircleInfoIcon />;
   if (intent === 'warning') return <TriangleAlertIcon />;
   if (intent === 'error') return <CircleXIcon />;
+
   return null;
 }
 
@@ -38,6 +40,7 @@ const Root = forwardRef<HTMLDivElement, ToastProps>(function ToastRoot(
   ref,
 ) {
   const resolvedIcon = icon === false ? null : (icon ?? defaultIcon(intent));
+
   return (
     <PrimitiveToast.Root
       {...props}
@@ -87,15 +90,17 @@ const Action = forwardRef<HTMLButtonElement, ToastActionProps>(function ToastAct
 });
 
 const Close = forwardRef<HTMLButtonElement, ToastCloseProps>(function ToastClose(
-  { className, children, 'aria-label': ariaLabel = 'Dismiss notification', ...props },
+  { className, children, 'aria-label': ariaLabel, ...props },
   ref,
 ) {
+  const locale = useLocale();
+
   return (
     <PrimitiveToast.Close
       {...props}
       ref={ref}
       className={classes(styles.close, className)}
-      aria-label={ariaLabel}
+      aria-label={ariaLabel ?? locale.toast.dismiss}
     >
       {children ?? <CloseIcon aria-hidden="true" />}
     </PrimitiveToast.Close>
@@ -103,9 +108,11 @@ const Close = forwardRef<HTMLButtonElement, ToastCloseProps>(function ToastClose
 });
 
 const Viewport = forwardRef<HTMLDivElement, ToastViewportProps>(function ToastViewport(
-  { placement = 'bottom-end', portal = true, className, ...props },
+  { placement = 'bottom-end', portal = true, className, 'aria-label': ariaLabel, ...props },
   ref,
 ) {
+  const locale = useLocale();
+
   return (
     <PrimitiveToast.Viewport
       {...props}
@@ -113,6 +120,7 @@ const Viewport = forwardRef<HTMLDivElement, ToastViewportProps>(function ToastVi
       ref={ref}
       className={classes(styles.viewport, className)}
       data-placement={placement}
+      aria-label={ariaLabel ?? locale.toast.notifications}
     />
   );
 });

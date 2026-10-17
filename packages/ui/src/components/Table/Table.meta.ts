@@ -1,4 +1,5 @@
 import type { ComponentMetadata } from '../../metadata/ComponentMetadata';
+
 export const tableMetadata = {
   name: 'Table',
   package: '@virgo-design/ui',
@@ -8,9 +9,9 @@ export const tableMetadata = {
   import: "import { Table } from '@virgo-design/ui';",
   sizes: [
     { name: 'mini', description: 'Extra compact presentation.' },
-    { name: 'small', description: 'Compact presentation.' },
-    { name: 'medium', description: 'Default presentation.' },
-    { name: 'large', description: 'Spacious presentation.' },
+    { name: 'compact', description: 'Compact presentation.' },
+    { name: 'default', description: 'Default presentation.' },
+    { name: 'comfortable', description: 'Spacious presentation.' },
   ],
   states: ['default', 'hover', 'selected', 'ascending', 'descending', 'filtered', 'resizing'],
   anatomy: [

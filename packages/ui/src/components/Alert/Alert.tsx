@@ -7,6 +7,7 @@ import {
 } from '@virgo-design/icons';
 import { createContext, forwardRef, type ReactNode, useContext } from 'react';
 
+import { useLocale } from '../../locale/context/locale-context';
 import styles from './Alert.module.scss';
 import type {
   AlertActionProps,
@@ -28,6 +29,7 @@ function defaultIcon(intent: AlertIntent): ReactNode {
   if (intent === 'info') return <CircleInfoIcon />;
   if (intent === 'warning') return <TriangleAlertIcon />;
   if (intent === 'error') return <CircleXIcon />;
+
   return null;
 }
 
@@ -40,7 +42,9 @@ const AlertContext = createContext<AlertContextValue | null>(null);
 
 function useAlert(part: string) {
   const context = useContext(AlertContext);
+
   if (!context) throw new Error(`${part} must be used inside Alert.Root.`);
+
   return context;
 }
 
@@ -49,6 +53,7 @@ const Root = forwardRef<HTMLDivElement, AlertProps>(function AlertRoot(
   ref,
 ) {
   const semanticRole = intent === 'error' || intent === 'warning' ? 'alert' : 'status';
+
   return (
     <AlertContext.Provider value={{ icon, intent }}>
       <div
@@ -71,7 +76,9 @@ const Icon = forwardRef<HTMLSpanElement, AlertIconProps>(function AlertIcon(
 ) {
   const context = useAlert('Alert.Icon');
   const icon = context.icon === false ? null : (context.icon ?? defaultIcon(context.intent));
+
   if (!icon) return null;
+
   return (
     <span {...props} ref={ref} className={classes(styles.icon, className)} aria-hidden="true">
       {icon}
@@ -108,16 +115,18 @@ const Action = forwardRef<HTMLDivElement, AlertActionProps>(function AlertAction
 });
 
 const Close = forwardRef<HTMLButtonElement, AlertCloseProps>(function AlertClose(
-  { className, children, 'aria-label': ariaLabel = 'Close alert', onClick, ...props },
+  { className, children, 'aria-label': ariaLabel, onClick, ...props },
   ref,
 ) {
+  const locale = useLocale();
+
   return (
     <button
       {...props}
       ref={ref}
       className={classes(styles.close, className)}
       type="button"
-      aria-label={ariaLabel}
+      aria-label={ariaLabel ?? locale.alert.close}
       onClick={(event) => {
         event.stopPropagation();
         onClick?.(event);

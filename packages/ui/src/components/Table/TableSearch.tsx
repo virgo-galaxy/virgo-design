@@ -1,7 +1,7 @@
 import { SearchIcon } from '@virgo-design/icons';
 import { useState } from 'react';
 
-import { useControlLabels } from '../../shared/control-labels';
+import { useLocale } from '../../locale/context/locale-context';
 import { Button } from '../Button';
 import { Input } from '../Input';
 import { Popover } from '../Popover';
@@ -21,19 +21,21 @@ export function TableSearch({
   actionSize = size,
   disabled = false,
 }: TableSearchProps) {
-  const labels = useControlLabels();
+  const labels = useLocale().table;
   const [local, setLocal] = useState(defaultValue);
   const applied = value ?? local;
   const [draft, setDraft] = useState(applied);
   const [open, setOpen] = useState(false);
   const hint = useColumnControlTooltip(open, tooltip !== false);
-  const accessibleLabel = labels.searchColumn.replace('{{column}}', label);
+  const accessibleLabel = labels.searchColumn(label);
+
   const apply = (next: string) => {
     if (value === undefined) setLocal(next);
     onValueChange?.(next);
     hint.dismiss();
     setOpen(false);
   };
+
   return (
     <Popover
       open={open}

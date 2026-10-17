@@ -2,7 +2,7 @@ import { useSyncExternalStore } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type AppLocale, normalizeAppLocale } from '../model/locale';
-import { getLocalePreference, subscribeLocalePreference } from '../runtime/runtime';
+import { getLocalePreference, subscribeLocalePreference } from '../runtime/locale';
 
 export function useAppLocalePreference() {
   return useSyncExternalStore(subscribeLocalePreference, getLocalePreference, getLocalePreference);

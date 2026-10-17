@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
+
 export interface StatisticAnimationOptions {
   /** Starting value for the first numeric animation. @default 0 */
   from?: number;
@@ -7,6 +8,7 @@ export interface StatisticAnimationOptions {
   /** Duration of subsequent value changes in milliseconds. Defaults to the 360 ms motion token. */
   updateDuration?: number;
 }
+
 export interface StatisticProps extends Omit<HTMLAttributes<HTMLDivElement>, 'prefix'> {
   /** The accessible metric label. */
   label?: ReactNode;
@@ -27,6 +29,7 @@ export interface StatisticProps extends Omit<HTMLAttributes<HTMLDivElement>, 'pr
   /** Replaces the value with a Skeleton and exposes aria-busy. */
   loading?: boolean;
 }
+
 export interface StatisticValueProps extends HTMLAttributes<HTMLDivElement> {
   /** Numeric value for the compound slot. Explicit children take precedence. */
   value?: number;
@@ -35,6 +38,7 @@ export interface StatisticValueProps extends HTMLAttributes<HTMLDivElement> {
   /** Formats the numeric value and its animation frames. */
   formatter?: (value: number) => string;
 }
+
 export interface StatisticTrendProps extends HTMLAttributes<HTMLSpanElement> {
   /** Direction of change, independent of semantic intent. */
   direction?: 'up' | 'down' | 'neutral';

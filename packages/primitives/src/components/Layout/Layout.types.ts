@@ -29,7 +29,6 @@ export interface LayoutSidebarState {
   /** Requests a display-state change. */
   setState: (state: LayoutSidebarDisplayState) => void;
   collapsed: boolean;
-  setCollapsed: (collapsed: boolean) => void;
 }
 
 /** Shared state and external trigger scope for one Sidebar. Provider state takes precedence over nested Sidebar state props. */
@@ -47,15 +46,12 @@ export interface LayoutSidebarProviderProps {
 }
 
 export interface LayoutSidebarProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
-  /** Three-state control. Takes precedence over legacy collapsed. */
+  /** Controlled display state. */
   state?: LayoutSidebarDisplayState;
-  /** Initial uncontrolled state. Takes precedence over defaultCollapsed. */
+  /** Initial uncontrolled display state. @default 'expanded' */
   defaultState?: LayoutSidebarDisplayState;
   /** Called when the standalone Sidebar requests a state change. Place state control on SidebarProvider when using a shared scope. */
   onStateChange?: (state: LayoutSidebarDisplayState) => void;
-  collapsed?: boolean;
-  defaultCollapsed?: boolean;
-  onCollapsedChange?: (collapsed: boolean) => void;
   children?: ReactNode | ((state: LayoutSidebarState) => ReactNode);
 }
 

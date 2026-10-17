@@ -21,6 +21,7 @@ export function workspacePreview(
   );
   const previewWidth = width * scale;
   const previewHeight = height * scale;
+
   return {
     x: corner.endsWith('left') ? inset : width - previewWidth - inset,
     y: corner.startsWith('top') ? inset : height - previewHeight - inset,
@@ -39,6 +40,7 @@ export function nearestPreviewCorner(
   zoom = DEFAULT_PREVIEW_ZOOM,
 ): PreviewCorner {
   const preview = workspacePreview(width, height, 'top-right', zoom);
+
   return `${y + preview.height / 2 < height / 2 ? 'top' : 'bottom'}-${x + preview.width / 2 < width / 2 ? 'left' : 'right'}`;
 }
 
@@ -54,5 +56,6 @@ export function resizePreviewZoom(
   const vertical = corner.startsWith('top') ? 1 : -1;
   const change =
     (dx * horizontal * width + dy * vertical * height) / (width * width + height * height);
+
   return clampPreviewZoom(zoom * (1 + change));
 }

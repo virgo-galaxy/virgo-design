@@ -3,9 +3,6 @@ export const colorStudioEnUS = {
     carousel: { chromatic: 'Chromatic workspace', brandNeutral: 'Brand and neutral workspace' },
     baseLabel: 'BASE',
     picker: {
-      saturation: 'Saturation',
-      brightness: 'Brightness',
-      hue: 'Hue',
       hex: 'HEX color',
       open: 'Open color picker',
       title: 'Color picker',

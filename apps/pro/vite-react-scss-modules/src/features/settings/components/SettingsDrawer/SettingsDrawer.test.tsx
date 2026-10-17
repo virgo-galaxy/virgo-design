@@ -3,7 +3,8 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 import { Drawer } from '@virgo-design/ui';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { defaultProSettings } from '../../model/settings';
+import { defaultPreferences } from '@/preferences';
+
 import { SettingsDrawer } from './SettingsDrawer';
 
 const { resetDemo, onReset } = vi.hoisted(() => ({ resetDemo: vi.fn(), onReset: vi.fn() }));
@@ -12,7 +13,7 @@ function renderSettings() {
   return render(
     <Drawer.Root defaultOpen>
       <SettingsDrawer
-        settings={defaultProSettings}
+        settings={defaultPreferences}
         theme="light"
         storageAvailable
         onChange={vi.fn()}

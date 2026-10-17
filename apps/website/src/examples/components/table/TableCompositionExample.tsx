@@ -32,7 +32,7 @@ export default function TableCompositionExample() {
   return (
     <Table.Viewport className={styles.root!} aria-label={t('examples.table.copy.records')}>
       <Table
-        size="small"
+        density="compact"
         stickyHeader
         hoverable
         resizable

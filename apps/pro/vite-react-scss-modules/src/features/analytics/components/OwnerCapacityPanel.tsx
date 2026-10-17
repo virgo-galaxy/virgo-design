@@ -5,25 +5,26 @@ import { useTranslation } from 'react-i18next';
 import { Panel } from '@/components/page/Panel';
 import type { OwnerCapacityDto } from '@/contracts/analytics';
 import { Person, useTaskCatalog } from '@/features/catalog';
-import { usePaginationLabels } from '@/i18n';
 
 import { chartColors } from '../presentation/chart-colors';
 import styles from '../styles/analytics.module.scss';
 
 const ownerPageSize = 5;
+
 export function OwnerCapacityPanel({ capacity }: { capacity: OwnerCapacityDto[] }) {
   const { metadata } = useTaskCatalog();
   const taskAssignees = metadata.members;
   const { t, i18n } = useTranslation();
-  const paginationLabels = usePaginationLabels();
   const [ownerPage, setOwnerPage] = useState(1);
   const number = useMemo(
     () => new Intl.NumberFormat(i18n.language, { maximumFractionDigits: 1 }),
     [i18n.language],
   );
+
   const owners = taskAssignees
     .map((member) => {
       const entry = capacity.find((item) => item.memberId === member.id);
+
       return {
         member,
         count: entry?.count ?? 0,
@@ -38,6 +39,7 @@ export function OwnerCapacityPanel({ capacity }: { capacity: OwnerCapacityDto[] 
   );
   const ownerStart = (currentOwnerPage - 1) * ownerPageSize;
   const visibleOwners = owners.slice(ownerStart, ownerStart + ownerPageSize);
+
   return (
     <Panel
       className={styles.panel!}
@@ -77,7 +79,6 @@ export function OwnerCapacityPanel({ capacity }: { capacity: OwnerCapacityDto[] 
         <Pagination
           className={styles.ownerPagination}
           aria-label={t('analytics.ownerPages')}
-          labels={paginationLabels}
           size="small"
           align="right"
           total={owners.length}

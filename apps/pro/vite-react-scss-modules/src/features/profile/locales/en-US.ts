@@ -1,7 +1,5 @@
 import type { ProfileValidationCode } from '@/contracts/profile';
 export const profileEnUS = {
-  avatarColorSaturation: 'Avatar color saturation',
-  avatarColorBrightness: 'Avatar color brightness',
   projectScope: '{{count}} projects in your current workspace view.',
   yourProjects: 'Your project participation',
   yourReviews: 'Your submitted work',
@@ -13,13 +11,6 @@ export const profileEnUS = {
   chooseAvatarColor: 'Choose avatar color',
   avatarHexColor: 'Avatar hex color',
   avatarColorPicker: 'Avatar color picker',
-  avatarColorHue: 'Avatar color hue',
-  pickerHexColor: 'Picker hex color',
-  pickerOpacity: 'Opacity',
-  pickerFormat: 'Color format',
-  pickerRed: 'Red',
-  pickerGreen: 'Green',
-  pickerBlue: 'Blue',
   unsavedChanges: 'Unsaved changes',
   yourProfileIsUpToDate: 'Your profile is up to date',
   profileSections: 'Profile sections',

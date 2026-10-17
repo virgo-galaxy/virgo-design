@@ -22,7 +22,6 @@ describe('team delivery analysis', () => {
     expect(week).toMatchObject({ delivered: 84, planned: 100, attainment: 84, average: 12 });
   });
   it('compares equal-length halves for momentum in odd-length ranges', () => {
-    // Last 3 days = 47 delivered, first 3 = 23; the middle day is excluded.
     expect(deliveryAnalysis('7d', trendPoints).momentum).toBe(104);
     expect(deliveryAnalysis('14d', trendPoints).momentum).toBe(35);
   });

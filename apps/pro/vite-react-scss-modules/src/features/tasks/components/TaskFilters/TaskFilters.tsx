@@ -32,6 +32,7 @@ export function TaskFilters({
     projects: taskProjects,
     referenceDate: taskReferenceDate,
   } = metadata;
+
   const [draft, onChange] = useState(filters);
   const [error, setError] = useState<ReturnType<typeof queryError>>('');
   const [assigneeInput, setAssigneeInput] = useState(
@@ -45,6 +46,7 @@ export function TaskFilters({
   const { t, i18n } = useTranslation();
   const now = new Date();
   const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
   return (
     <Form
       size="medium"
@@ -52,10 +54,13 @@ export function TaskFilters({
       aria-label={t('tasks.queryTasks')}
       onSubmit={(event) => {
         event.preventDefault();
+
         const missingAssignee = Boolean(assigneeInput.trim() && !selectedAssignee);
         setAssigneeError(missingAssignee);
+
         const invalid = queryError(draft, { maxCreatedDate: today });
         setError(invalid);
+
         if (!invalid && !missingAssignee) onApply(draft);
       }}
     >

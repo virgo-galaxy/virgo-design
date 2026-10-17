@@ -21,6 +21,7 @@ export interface ToastProps extends PrimitiveProps {
   /** Overrides the status icon. Use false to hide it. */
   icon?: ReactNode | false;
 }
+
 export type ToastRootProps = ToastProps;
 export type ToastTitleProps = PrimitiveTitleProps;
 export type ToastDescriptionProps = PrimitiveDescriptionProps;

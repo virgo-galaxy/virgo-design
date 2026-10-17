@@ -1,6 +1,7 @@
 import { Radio as PrimitiveRadio } from '@virgo-design/primitives';
 import { forwardRef, useCallback, useLayoutEffect, useRef, useState } from 'react';
 
+import { useComposedRefs } from '../../internal/utils/composeRefs';
 import styles from './SegmentedControl.module.scss';
 import type { SegmentedControlProps } from './SegmentedControl.types';
 
@@ -28,18 +29,7 @@ export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps
     const [internalValue, setInternalValue] = useState(defaultValue);
     const selectedValue = isControlled ? value : internalValue;
 
-    const setRootRef = useCallback(
-      (node: HTMLDivElement | null) => {
-        rootRef.current = node;
-
-        if (typeof forwardedRef === 'function') {
-          forwardedRef(node);
-        } else if (forwardedRef) {
-          forwardedRef.current = node;
-        }
-      },
-      [forwardedRef],
-    );
+    const setRootRef = useComposedRefs(forwardedRef, rootRef);
 
     const updateIndicator = useCallback(() => {
       const root = rootRef.current;

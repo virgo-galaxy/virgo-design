@@ -1,2 +1,2 @@
-export * from '../../contracts/workflows';
 export * from './workflows-api';
+export * from '@/contracts/workflows';

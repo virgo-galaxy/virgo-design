@@ -124,7 +124,6 @@
     padding-inline: var(--vd-spacing-4);
   }
   &[data-state='collapsed'][data-rail-icon-size='large'] {
-    // Grow the artwork inside the existing centered slots, preserving row geometry.
     .sidebarToggleButton > svg {
       flex: none;
       width: var(--vd-sizing-20);

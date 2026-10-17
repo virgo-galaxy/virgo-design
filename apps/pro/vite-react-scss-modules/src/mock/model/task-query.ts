@@ -1,4 +1,3 @@
-import { legacyProjectIds } from '@/contracts/projects/legacy-project-ids';
 import type { TaskDto, TaskListDto } from '@/contracts/tasks';
 import { businessLabel } from '@/lib/demo/labels';
 import { isRecord } from '@/lib/validation/is-record';
@@ -10,6 +9,7 @@ import { sortTasks, type TaskSortColumn } from './task-sort';
 function overdue(task: TaskDto, referenceDate: string) {
   return task.status !== 'done' && Boolean(task.dueDate) && task.dueDate < referenceDate;
 }
+
 export const taskDataColumns = [
   'completedAt',
   'title',
@@ -22,10 +22,14 @@ export const taskDataColumns = [
   'createdAt',
   'dueDate',
 ] as const;
+
 function columnConditions(params: URLSearchParams, name: string): Record<string, unknown> {
   const raw = params.get(name);
+
   if (!raw) return {};
+
   const value: unknown = JSON.parse(raw);
+
   if (
     !isRecord(value) ||
     Object.entries(value).some(
@@ -37,8 +41,10 @@ function columnConditions(params: URLSearchParams, name: string): Record<string,
     )
   )
     throw new Error('Invalid column conditions');
+
   return value;
 }
+
 export function queryTasks(
   tasks: readonly TaskDto[],
   params: URLSearchParams,
@@ -51,27 +57,22 @@ export function queryTasks(
   const search = (params.get('search') ?? '').trim().toLowerCase();
   const filters = columnConditions(params, 'columnFilters');
   const queries = columnConditions(params, 'columnSearch');
+
   let matching = tasks.filter((task) => {
+
     const ids = params.getAll('ids');
     if (ids.length && !ids.includes(task.id)) return false;
+
     for (const key of ['status', 'priority', 'project', 'module', 'assignee'] as const) {
       const values = params.getAll(key).filter((value) => value !== 'all');
-      const keys =
-        key === 'project'
-          ? values.map(
-              (value) =>
-                legacyProjectIds[value] ??
-                projects.find((project) => project.name === value)?.id ??
-                value,
-            )
-          : values;
       if (
-        keys.length &&
-        !keys.includes(task[key]) &&
-        !(key === 'module' && keys.includes(JSON.stringify([task.project, task.module])))
+        values.length &&
+        !values.includes(task[key]) &&
+        !(key === 'module' && values.includes(JSON.stringify([task.project, task.module])))
       )
         return false;
     }
+
     const name = taskAssignees.find((member) => member.id === task.assignee)?.name ?? '';
     if (
       search &&
@@ -93,6 +94,7 @@ export function queryTasks(
         .includes(search)
     )
       return false;
+
     for (const key of taskDataColumns) {
       const values = filters[key] as string[] | undefined;
       if (
@@ -118,6 +120,7 @@ export function queryTasks(
       if (query && !`${text} ${businessLabel(text, 'zh-CN')}`.toLowerCase().includes(query))
         return false;
     }
+
     const scope = params.get('scope');
     if (
       (scope === 'open' && task.status === 'done') ||
@@ -125,15 +128,17 @@ export function queryTasks(
       (scope === 'done' && task.status !== 'done')
     )
       return false;
-    const from = params.get('createdFrom'),
-      to = params.get('createdTo'),
-      minimum = params.get('minimumHours');
+
+    const from = params.get('createdFrom');
+    const to = params.get('createdTo');
+    const minimum = params.get('minimumHours');
     if (
       (from && task.createdAt.slice(0, 10) < from) ||
       (to && task.createdAt.slice(0, 10) > to) ||
       (minimum && task.estimateHours < Number(minimum))
     )
       return false;
+
     const due = params.getAll('due').filter((value) => value !== 'all');
     if (
       due.length &&
@@ -148,8 +153,10 @@ export function queryTasks(
       )
     )
       return false;
+
     return true;
   });
+
   const column = params.get('sortBy');
   if (column && taskDataColumns.some((key) => key === column)) {
     if (column === 'assignee') {
@@ -164,12 +171,14 @@ export function queryTasks(
         direction: params.get('sortDirection') === 'ascending' ? 'ascending' : 'descending',
       });
   }
+
   const total = matching.length;
   const pageSize = Math.min(100, Math.max(1, Number(params.get('pageSize')) || 10));
   const page = Math.min(
     Math.max(1, Number(params.get('pageNum')) || 1),
     Math.max(1, Math.ceil(total / pageSize)),
   );
+
   return {
     items: all ? matching : matching.slice((page - 1) * pageSize, page * pageSize),
     total,

@@ -5,7 +5,7 @@ import { expect, it } from 'vitest';
 
 import { CatalogResourceContext } from '@/features/catalog';
 
-import { defaultTableSettings } from '../config/table-settings';
+import { defaultTableSettings } from '../model/table-settings';
 import { useTaskTableQuery } from './use-task-table-query';
 
 it('commits one complete navigation per table action and reads browser navigation back into state', async () => {

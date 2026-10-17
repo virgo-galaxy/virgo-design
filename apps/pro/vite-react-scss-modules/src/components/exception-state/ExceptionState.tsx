@@ -30,6 +30,7 @@ export function ExceptionState({ code }: { code: '403' | '404' | '500' }) {
       illustration: serverError,
     },
   }[code];
+
   return (
     <Surface border="default" radius={12} className={styles.canvas}>
       <Result

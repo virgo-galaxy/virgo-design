@@ -19,9 +19,11 @@ export function TaskDeleteDialog({
 }) {
   const { t } = useTranslation();
   const mutation = useMutation();
+
   const close = () => {
     if (!mutation.pending) onClose();
   };
+
   return (
     <Dialog.Root
       open

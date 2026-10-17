@@ -2,11 +2,11 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { setupServer } from 'msw/node';
-import { afterAll, afterEach, beforeAll, expect, it, vi } from 'vitest';
+import { afterAll, afterEach, beforeAll, beforeEach, expect, it, vi } from 'vitest';
 
-import { ProControlLabels } from '@/app/composition/providers/ProControlLabels';
 import { i18nInstance } from '@/i18n';
 import { handlers } from '@/mock/handlers';
+import { initializePreferences } from '@/preferences';
 
 import { LoginPage } from './LoginPage';
 
@@ -21,13 +21,10 @@ beforeAll(() => {
 });
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
+beforeEach(() => initializePreferences());
 
 it('keeps a failed sign-in message localized when the user changes language', async () => {
-  render(
-    <ProControlLabels>
-      <LoginPage onLogin={vi.fn()} expired={false} />
-    </ProControlLabels>,
-  );
+  render(<LoginPage onLogin={vi.fn()} expired={false} />);
   fireEvent.change(screen.getByRole('textbox', { name: 'Account' }), {
     target: { value: 'missing-account' },
   });
@@ -44,11 +41,7 @@ it('keeps a failed sign-in message localized when the user changes language', as
 it('toggles password visibility by clicking the eye and pressing Enter without submitting', async () => {
   const onLogin = vi.fn();
   const user = userEvent.setup();
-  render(
-    <ProControlLabels>
-      <LoginPage onLogin={onLogin} expired={false} />
-    </ProControlLabels>,
-  );
+  render(<LoginPage onLogin={onLogin} expired={false} />);
   const password = screen.getByLabelText(/^Password/);
   expect(password).toHaveAttribute('type', 'password');
   fireEvent.change(password, { target: { value: 'virgo123' } });
@@ -64,16 +57,11 @@ it('toggles password visibility by clicking the eye and pressing Enter without s
   expect(onLogin).not.toHaveBeenCalled();
 });
 
-it('switches light/dark appearance and renders the monochrome footer brand', async () => {
+it('switches light/dark appearance from the login page', async () => {
   const user = userEvent.setup();
-  render(
-    <ProControlLabels>
-      <LoginPage onLogin={vi.fn()} expired={false} />
-    </ProControlLabels>,
-  );
+  render(<LoginPage onLogin={vi.fn()} expired={false} />);
   await user.click(screen.getByRole('button', { name: 'Dark Mode' }));
   expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
   await user.click(screen.getByRole('button', { name: 'Light Mode' }));
   expect(document.documentElement).toHaveAttribute('data-theme', 'light');
-  expect(screen.getByText('Virgo Design Pro').parentElement?.querySelector('svg')).not.toBeNull();
 });

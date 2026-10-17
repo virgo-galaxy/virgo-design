@@ -15,6 +15,7 @@
     --timeline-gap: var(--vd-spacing-32);
   }
 }
+
 .item {
   position: relative;
   padding-inline-start: var(--vd-spacing-32);
@@ -54,20 +55,24 @@
     display: none;
   }
 }
+
 .title {
   font-size: var(--vd-typography-ui-label-medium-font-size);
   font-weight: var(--vd-control-font-weight, var(--vd-typography-ui-label-medium-font-weight));
   margin: 0 0 var(--vd-spacing-4);
 }
+
 .description {
   color: var(--vd-text-secondary);
 }
+
 .time {
   display: block;
   color: var(--vd-text-tertiary);
   font-size: var(--vd-typography-ui-body-small-font-size);
   margin-bottom: var(--vd-spacing-4);
 }
+
 .indicator {
   position: absolute;
   inset-inline-start: 0;

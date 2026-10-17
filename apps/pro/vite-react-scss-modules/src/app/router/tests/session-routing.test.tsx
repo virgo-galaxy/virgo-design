@@ -6,7 +6,6 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } 
 
 import { login } from '@/api/auth';
 import { sessionExpiredEvent } from '@/lib/auth/session';
-import { clearAppearance } from '@/lib/theme/appearance';
 import { handlers } from '@/mock/handlers';
 import { routePath } from '@/routes';
 
@@ -75,7 +74,6 @@ beforeEach(() => {
   projectFailure.current = false;
   localStorage.clear();
   sessionStorage.clear();
-  clearAppearance();
   vi.stubGlobal('matchMedia', () => ({
     matches: false,
     addEventListener() {},
@@ -163,14 +161,14 @@ describe('one data router owns session and protected navigation', () => {
     await act(() => router.navigate(routePath('success')));
     await screen.findByRole('heading', { name: 'Workplace route' });
   });
-  it('keeps legacy query redirects and encoded project selection', async () => {
+  it('uses the canonical task-card and project routes with encoded query conditions', async () => {
     await login({ account: 'admin', password: 'virgo123' });
-    start('/data/list?status=todo&view=cards');
+    start(routePath('task-cards') + '?status=todo');
     await screen.findByRole('heading', { name: 'Task cards route' });
     expect(router.state.location.pathname + router.state.location.search).toBe(
       routePath('task-cards') + '?status=todo',
     );
-    await act(() => router.navigate('/data/detail?project=Online+Store'));
+    await act(() => router.navigate(routePath('project-detail', { projectId: 'online-store' })));
     await screen.findByRole('heading', { name: 'Project route' });
     expect(router.state.location.pathname).toBe(
       routePath('project-detail', { projectId: 'online-store' }),

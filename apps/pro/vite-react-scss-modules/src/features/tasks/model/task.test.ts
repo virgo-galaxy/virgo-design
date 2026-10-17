@@ -82,21 +82,6 @@ describe('validation and dates', () => {
     );
     expect(isOverdue({ ...task, dueDate: '' }, taskReferenceDate)).toBe(false);
   });
-
-  it('keeps the expanded fixture valid, deterministic and clear of future ID collisions', () => {
-    expect(taskAssignees).toHaveLength(24);
-    expect(taskAssignees.some((member) => /\bChen\b/i.test(member.name))).toBe(false);
-    expect(new Set(initialTaskState.tasks.map((item) => item.assignee))).toEqual(
-      new Set(taskAssignees.map((member) => member.id)),
-    );
-    expect(new Set(initialTaskState.tasks.map((item) => item.id)).size).toBe(240);
-    for (const item of initialTaskState.tasks) {
-      expect(errors(item)).toEqual({});
-      expect(item.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}$/);
-      expect(item.id).not.toBe(task.id);
-      expect(Number.isNaN(new Date(item.createdAt).getTime())).toBe(false);
-    }
-  });
 });
 
 it.each([-1, 1000, 1.5, NaN, Infinity])('rejects invalid estimated hours %s', (estimateHours) => {

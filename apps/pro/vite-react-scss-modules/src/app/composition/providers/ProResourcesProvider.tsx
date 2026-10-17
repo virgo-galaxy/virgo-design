@@ -20,28 +20,37 @@ export function ProResourcesProvider({ children }: { children: ReactNode }) {
   const [profileRevision, setProfileRevision] = useState(0);
   const [notificationRevision, setNotificationRevision] = useState(0);
   const [workflowRevision, setWorkflowRevision] = useState(0);
+
   const catalog = useCatalogData(catalogRevision);
   const profile = useProfileIdentityData(profileRevision);
+
   const invalidateTasks = useCallback(() => {
     setTaskRevision((value) => value + 1);
     setCatalogRevision((value) => value + 1);
     setNotificationRevision((value) => value + 1);
   }, []);
+
   useEffect(() => {
     const sync = (event: StorageEvent) => {
       if (!localStorageAccess.matchesEvent(event)) return;
       if (event.key !== demoDataStorageKey && event.key !== null) return;
+
       const changes = demoStorageChanges(event.oldValue, event.newValue);
+
       if (changes.tasks) invalidateTasks();
       else if (changes.notifications) setNotificationRevision((value) => value + 1);
       if (changes.catalog) setCatalogRevision((value) => value + 1);
       if (changes.profile) setProfileRevision((value) => value + 1);
       if (changes.workflows) setWorkflowRevision((value) => value + 1);
     };
+
     window.addEventListener('storage', sync);
+
     return () => window.removeEventListener('storage', sync);
   }, [invalidateTasks]);
+
   const operations = useTaskCommands(invalidateTasks);
+
   return (
     <TaskOperationsContext.Provider value={operations}>
       <TaskRevisionContext.Provider value={taskRevision}>

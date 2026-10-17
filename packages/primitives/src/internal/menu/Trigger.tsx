@@ -1,6 +1,7 @@
 import type { ButtonHTMLAttributes, Ref } from 'react';
 import { forwardRef, useLayoutEffect, useRef } from 'react';
 
+import { composeRefs } from '../utils/composeRefs';
 import { useMenu } from './context';
 import type { ContextMenuTriggerProps, MenuTriggerProps } from './types';
 
@@ -17,49 +18,51 @@ export const MenuTrigger = forwardRef<HTMLButtonElement, MenuTriggerProps>(funct
   },
   ref,
 ) {
-  const c = useMenu();
-  const entryId = c.id;
-  const { register } = c.parent?.collection ?? c.collection;
-  const isSub = c.mode === 'submenu';
-  const isBar = c.mode === 'menubar';
-  const isDisabled = disabled || c.disabled;
-  const latest = useRef(c);
+  const menu = useMenu();
+  const entryId = menu.id;
+  const { register } = menu.parent?.collection ?? menu.collection;
+  const isSub = menu.mode === 'submenu';
+  const isBar = menu.mode === 'menubar';
+  const isDisabled = disabled || menu.disabled;
+
+  const latest = useRef(menu);
+
   useLayoutEffect(() => {
-    latest.current = c;
+    latest.current = menu;
   });
+
   useLayoutEffect(() => {
-    const node = c.triggerRef.current as HTMLButtonElement | null;
+    const node = menu.triggerRef.current as HTMLButtonElement | null;
     if (!node || !isSub) return;
     return register(entryId, {
       node,
       text: () => node.querySelector('[data-menu-label]')?.textContent ?? node.textContent ?? '',
     });
-  }, [register, entryId, isSub, c.triggerRef]);
-  const barRegister = c.bar?.register;
-  const barValue = c.barValue;
+  }, [register, entryId, isSub, menu.triggerRef]);
+
+  const barRegister = menu.bar?.register;
+  const barValue = menu.barValue;
+
   useLayoutEffect(() => {
-    const node = c.triggerRef.current as HTMLButtonElement | null;
+    const node = menu.triggerRef.current as HTMLButtonElement | null;
     if (!node || !isBar || barValue === undefined) return;
     return barRegister?.(barValue, { node, open: (intent) => latest.current.requestOpen(intent) });
-  }, [barRegister, barValue, isBar, c.triggerRef]);
+  }, [barRegister, barValue, isBar, menu.triggerRef]);
+
   const buttonProps: ButtonHTMLAttributes<HTMLButtonElement> & { ref: Ref<HTMLButtonElement> } = {
     ...props,
-    ref: (node: HTMLButtonElement | null) => {
-      c.triggerRef.current = node;
-      if (typeof ref === 'function') ref(node);
-      else if (ref) ref.current = node;
-    },
-    id: c.triggerId,
+    ref: composeRefs(ref, menu.triggerRef),
+    id: menu.triggerId,
     type: 'button',
     role: isSub || isBar ? 'menuitem' : props.role,
     disabled: !isSub && !isBar && isDisabled,
     'aria-disabled': isDisabled || undefined,
-    tabIndex: isSub ? -1 : isBar ? (c.bar?.focused === c.barValue ? 0 : -1) : props.tabIndex,
+    tabIndex: isSub ? -1 : isBar ? (menu.bar?.focused === menu.barValue ? 0 : -1) : props.tabIndex,
     'aria-haspopup': 'menu',
-    'aria-expanded': c.open,
-    'aria-controls': c.open ? c.contentId : undefined,
+    'aria-expanded': menu.open,
+    'aria-controls': menu.open ? menu.contentId : undefined,
     // Portalled submenus remain owned by their invoking menuitem.
-    'aria-owns': isSub && c.open ? c.contentId : undefined,
+    'aria-owns': isSub && menu.open ? menu.contentId : undefined,
     onClick: (event) => {
       if (isDisabled) {
         event.preventDefault();
@@ -67,14 +70,14 @@ export const MenuTrigger = forwardRef<HTMLButtonElement, MenuTriggerProps>(funct
       }
       onClick?.(event);
       if (event.defaultPrevented) return;
-      if (c.open && !isSub) c.close();
-      else c.requestOpen('first');
+      if (menu.open && !isSub) menu.close();
+      else menu.requestOpen('first');
     },
     onFocus: (event) => {
       onFocus?.(event);
       if (event.defaultPrevented) return;
-      if (isSub) c.parent?.setActiveChild(c.open ? c.id : null);
-      if (isBar && c.barValue !== undefined) c.bar?.setFocused(c.barValue);
+      if (isSub) menu.parent?.setActiveChild(menu.open ? menu.id : null);
+      if (isBar && menu.barValue !== undefined) menu.bar?.setFocused(menu.barValue);
     },
     onKeyDown: (event) => {
       onKeyDown?.(event);
@@ -83,13 +86,13 @@ export const MenuTrigger = forwardRef<HTMLButtonElement, MenuTriggerProps>(funct
       if (isSub && event.key === (rtl ? 'ArrowLeft' : 'ArrowRight')) {
         event.preventDefault();
         event.stopPropagation();
-        c.requestOpen('first');
+        menu.requestOpen('first');
       } else if (!isSub && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
         event.preventDefault();
-        c.requestOpen(event.key === 'ArrowUp' ? 'last' : 'first');
+        menu.requestOpen(event.key === 'ArrowUp' ? 'last' : 'first');
       } else if (isSub && (event.key === 'Enter' || event.key === ' ')) {
         event.preventDefault();
-        c.requestOpen('first');
+        menu.requestOpen('first');
       }
     },
     onPointerMove: (event) => {
@@ -97,17 +100,18 @@ export const MenuTrigger = forwardRef<HTMLButtonElement, MenuTriggerProps>(funct
       if (event.defaultPrevented || event.pointerType === 'touch') return;
       if (isSub) {
         event.currentTarget.focus({ preventScroll: true });
-        if (!isDisabled) c.requestOpen('none');
-      } else if (isBar && c.bar?.value !== null && !isDisabled) {
+        if (!isDisabled) menu.requestOpen('none');
+      } else if (isBar && menu.bar?.value !== null && !isDisabled) {
         event.currentTarget.focus({ preventScroll: true });
-        c.requestOpen('none');
+        menu.requestOpen('none');
       }
     },
     onPointerLeave: (event) => {
       onPointerLeave?.(event);
-      if (!event.defaultPrevented && isSub) c.scheduleClose();
+      if (!event.defaultPrevented && isSub) menu.scheduleClose();
     },
   };
+
   return render ? render(buttonProps) : <button {...buttonProps} />;
 });
 
@@ -116,38 +120,35 @@ export const ContextTrigger = forwardRef<HTMLDivElement, ContextMenuTriggerProps
     { render, disabled, tabIndex = 0, onContextMenu, onKeyDown, ...props },
     ref,
   ) {
-    const c = useMenu();
-    const blocked = disabled || c.disabled;
+    const menu = useMenu();
+    const blocked = disabled || menu.disabled;
     const triggerProps = {
       ...props,
-      ref: (node: HTMLDivElement | null) => {
-        c.triggerRef.current = node;
-        if (typeof ref === 'function') ref(node);
-        else if (ref) ref.current = node;
-      },
-      id: c.triggerId,
+      ref: composeRefs(ref, menu.triggerRef),
+      id: menu.triggerId,
       tabIndex: blocked ? -1 : tabIndex,
       'aria-disabled': blocked || undefined,
       'aria-haspopup': 'menu' as const,
-      'aria-expanded': c.open,
-      'aria-controls': c.open ? c.contentId : undefined,
+      'aria-expanded': menu.open,
+      'aria-controls': menu.open ? menu.contentId : undefined,
       onContextMenu: (event: React.MouseEvent<HTMLDivElement>) => {
         onContextMenu?.(event);
         if (event.defaultPrevented || blocked) return;
         event.preventDefault();
-        c.setPoint({ left: event.clientX, top: event.clientY, width: 0, height: 0 });
-        c.requestOpen('first');
+        menu.setPoint({ left: event.clientX, top: event.clientY, width: 0, height: 0 });
+        menu.requestOpen('first');
       },
       onKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => {
         onKeyDown?.(event);
         if (event.defaultPrevented || blocked) return;
         if (event.key === 'ContextMenu' || (event.shiftKey && event.key === 'F10')) {
           event.preventDefault();
-          c.setPoint(undefined);
-          c.requestOpen('first');
+          menu.setPoint(undefined);
+          menu.requestOpen('first');
         }
       },
     };
+
     return render ? render(triggerProps) : <div {...triggerProps} />;
   },
 );

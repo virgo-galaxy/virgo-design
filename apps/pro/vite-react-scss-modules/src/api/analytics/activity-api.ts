@@ -1,5 +1,6 @@
 import type { ActivityDto } from '@/contracts/analytics';
 import { http } from '@/lib/http';
+
 export function getActivity(signal?: AbortSignal): Promise<ActivityDto[]> {
   return http.get('/activity', signal ? { signal } : undefined);
 }

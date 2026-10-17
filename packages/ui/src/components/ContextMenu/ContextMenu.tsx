@@ -4,6 +4,7 @@ import { forwardRef } from 'react';
 import { MenuSizeContext } from '../../internal/menu/context';
 import { menuUIParts } from '../../internal/menu/parts';
 import type { ContextMenuProps } from './ContextMenu.types';
+
 const Root = forwardRef<HTMLDivElement, ContextMenuProps>(function ContextMenuRoot(
   { size = 'medium', ...props },
   ref,
@@ -14,6 +15,7 @@ const Root = forwardRef<HTMLDivElement, ContextMenuProps>(function ContextMenuRo
     </MenuSizeContext.Provider>
   );
 });
+
 export const ContextMenu = Object.assign(Root, {
   Root,
   Trigger: PrimitiveContextMenu.Trigger,

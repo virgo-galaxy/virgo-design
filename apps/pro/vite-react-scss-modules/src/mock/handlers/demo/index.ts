@@ -12,9 +12,11 @@ import { endDemoSession } from '../auth';
 export const demoHandlers = [
   http.post(endpoint('/demo/reset'), ({ request }) => {
     if (!isAdmin(requestUser(request))) return forbidden();
+
     clearDemoStorage();
     resetDemoState();
     endDemoSession();
+
     return success({ authenticated: false });
   }),
 ];

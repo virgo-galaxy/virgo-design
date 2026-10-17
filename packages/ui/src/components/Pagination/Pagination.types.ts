@@ -33,6 +33,6 @@ export interface PaginationProps extends Omit<PrimitivePaginationProps, 'childre
   pageSizeOptions?: readonly number[];
   previousLabel?: ReactNode;
   nextLabel?: ReactNode;
-  /** Visible copy and accessible names; defaults to English. */
+  /** Overrides visible copy and accessible names from LocaleProvider. */
   labels?: Partial<PaginationLabels>;
 }

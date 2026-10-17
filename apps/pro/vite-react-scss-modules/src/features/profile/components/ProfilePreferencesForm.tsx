@@ -32,13 +32,15 @@ export function ProfilePreferencesForm({
   const { t, i18n } = useTranslation();
   const mutation = useMutation();
   const [preferenceChanges, setPreferenceChanges] = useState<Partial<ProfilePreferences>>({});
-  const preferences = { ...profilePreferences(profile), ...preferenceChanges };
   const [preferenceError, setPreferenceError] = useState<keyof typeof profileEnUS.validation | ''>(
     '',
   );
+
+  const preferences = { ...profilePreferences(profile), ...preferenceChanges };
   const preferenceDirty = Object.entries(preferenceChanges).some(
     ([key, value]) => value !== profile[key as keyof ProfilePreferences],
   );
+
   return (
     <Panel
       title={t('profile.workspacePreferences')}
@@ -52,13 +54,18 @@ export function ProfilePreferencesForm({
         className={styles.preferencesForm}
         onSubmit={(event) => {
           event.preventDefault();
+
           const invalid = validateProfilePreferences(preferences, projects);
+
           if (Object.keys(invalid).length) {
             setPreferenceError(Object.values(invalid)[0]!);
+
             return;
           }
+
           void mutation.run(async () => {
             await savePreferences(preferenceChanges);
+
             setPreferenceChanges({});
             setPreferenceError('');
             onSaved();

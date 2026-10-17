@@ -1,3 +1,1 @@
-export * from './bootstrap/initialize-theme';
-export * from './hooks/useProSettings';
-export * from './model/settings';
+export { SettingsDrawer, SettingsTrigger } from './components/SettingsDrawer/SettingsDrawer';

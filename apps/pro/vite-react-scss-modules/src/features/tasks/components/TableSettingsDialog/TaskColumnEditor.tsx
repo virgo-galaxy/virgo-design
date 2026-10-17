@@ -3,13 +3,13 @@ import { Button, Dropdown, Radio, Slider } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import type { tasksEnUS } from '../../locales/en-US';
 import {
   isLeadingTaskColumn,
   type TaskColumnKey,
   type TaskColumnSettings,
   type TaskTableSettings,
-} from '../../config/table-settings';
-import type { tasksEnUS } from '../../locales/en-US';
+} from '../../model/table-settings';
 import type { Task } from '../../model/task';
 import { taskColumnLabelName } from '../../presentation/column-label';
 import styles from './TableSettingsDialog.module.scss';
@@ -31,20 +31,25 @@ export function TaskColumnEditor({
   const text = (key: keyof typeof tasksEnUS.settings) => t(`tasks.settings.${key}`);
   const [sortMenuOpen, setSortMenuOpen] = useState(false);
   const [widthTarget, setWidthTarget] = useState<'minWidth' | 'width' | 'maxWidth'>('width');
+
   const column = settings.columns.find((entry) => entry.key === columnKey)!;
   const columnIsData = !isLeadingTaskColumn(column.key) && column.key !== 'actions';
+
   const updateColumn = (patch: Partial<TaskColumnSettings>) => {
     const next = { ...column, ...patch };
     next.minWidth = Math.max(24, next.minWidth);
     next.maxWidth = Math.max(next.minWidth, next.maxWidth);
     next.width = Math.max(next.minWidth, Math.min(next.maxWidth, next.width));
+
     onChange({
       ...settings,
       columns: settings.columns.map((entry) => (entry.key === columnKey ? next : entry)),
     });
   };
+
   const updateControls = (patch: Partial<TaskColumnSettings['controls']>) =>
     updateColumn({ controls: { ...column.controls, ...patch } });
+
   return (
     <section
       className={styles.columnDetail}
@@ -119,6 +124,7 @@ export function TaskColumnEditor({
               open={sortMenuOpen && column.controls.sort.enabled}
               onOpenChange={(open) => {
                 setSortMenuOpen(open);
+
                 if (open && !column.controls.sort.enabled) {
                   updateControls({
                     sort: { ...column.controls.sort, enabled: true },
@@ -130,6 +136,7 @@ export function TaskColumnEditor({
                 aria-pressed={column.controls.sort.enabled}
                 onClick={(event) => {
                   event.preventDefault();
+
                   const enabled = !column.controls.sort.enabled;
                   setSortMenuOpen(enabled);
                   updateControls({

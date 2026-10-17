@@ -11,6 +11,7 @@ import { useMutation } from '@/shared/async/use-mutation';
 
 import type { useNotificationInbox } from '../hooks/use-notification-inbox';
 import styles from './NotificationInbox.module.scss';
+
 export function NotificationInbox({
   inbox,
   onNavigate,
@@ -21,6 +22,7 @@ export function NotificationInbox({
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const mutation = useMutation();
+
   return (
     <div>
       <div className={styles.heading}>
@@ -61,7 +63,9 @@ export function NotificationInbox({
                   onClick={() =>
                     void mutation.run(async () => {
                       if (!item.readAt) await readNotification(item.id);
+
                       inbox.retry();
+
                       if (item.available && item.taskId) {
                         onNavigate();
                         navigate(taskDetailsPath(item.taskId));

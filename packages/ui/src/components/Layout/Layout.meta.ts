@@ -41,7 +41,7 @@ export const layoutMetadata = {
     {
       name: 'Layout.Sidebar',
       description:
-        'Semantic aside with controlled or uncontrolled expanded/rail/hidden state, header/body/footer slots, bounded resizing, optional snap thresholds and resize-end callbacks. Legacy collapsed control remains supported.',
+        'Semantic aside with controlled or uncontrolled expanded/rail/hidden state, header/body/footer slots, bounded resizing, optional snap thresholds and resize-end callbacks.',
     },
     {
       name: 'Layout.SidebarTrigger',

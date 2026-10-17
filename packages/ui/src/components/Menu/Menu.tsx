@@ -6,6 +6,7 @@ import styles from '../../internal/menu/Menu.module.scss';
 import { menuUIParts } from '../../internal/menu/parts';
 import { Button } from '../Button';
 import type { MenuProps, MenuTriggerProps } from './Menu.types';
+
 const Root = forwardRef<HTMLDivElement, MenuProps>(function MenuRoot(
   { size = 'medium', className, ...props },
   ref,
@@ -16,6 +17,7 @@ const Root = forwardRef<HTMLDivElement, MenuProps>(function MenuRoot(
     </MenuSizeContext.Provider>
   );
 });
+
 const Trigger = forwardRef<HTMLButtonElement, MenuTriggerProps>(function MenuTrigger(
   { variant = 'outline', render, ...props },
   ref,
@@ -41,4 +43,5 @@ const Trigger = forwardRef<HTMLButtonElement, MenuTriggerProps>(function MenuTri
     />
   );
 });
+
 export const Menu = Object.assign(Root, { Root, Trigger, ...menuUIParts });

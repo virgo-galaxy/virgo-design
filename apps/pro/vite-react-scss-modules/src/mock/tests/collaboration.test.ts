@@ -2,7 +2,7 @@
 import { setupServer } from 'msw/node';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
-import { login, logout, resetDemo } from '@/api/auth';
+import { login, logout } from '@/api/auth';
 import { getNotifications, readAllNotifications, readNotification } from '@/api/notifications';
 import {
   deleteTasks,
@@ -15,7 +15,7 @@ import {
 import { buildTokenUsageCalendar } from '@/pages/workplace/model/token-usage-calendar';
 import { readAnalytics, readWorkspace } from '@/test/reporting-data';
 
-import { demoStorageKey, getDemoState, resetDemoState, unloadDemoState } from '../data/store';
+import { resetDemoState, unloadDemoState } from '../data/store';
 import { initialTaskState } from '../fixtures/tasks';
 import { users } from '../fixtures/team';
 import { handlers } from '../handlers';
@@ -181,22 +181,43 @@ describe('record-based reporting across years', () => {
   it('spans project histories, reconciles raw totals and scopes every person/project independently', async () => {
     await signIn('admin');
     const workspace = await readWorkspace();
+    const analytics = await readAnalytics();
     expect(workspace.reportingScope).toBe('workspace');
-    expect(workspace.reportingYears).toEqual([2025, 2026]);
+    const years = [
+      ...new Set(workspace.tokenRecords.map((record) => Number(record.recordedAt.slice(0, 4)))),
+    ].sort();
+    expect(workspace.reportingYears).toEqual(years);
     expect(sum(workspace.tokenUsage)).toBe(sum(workspace.tokenRecords));
-    expect(workspace.tokenUsage[0]!.date >= '2025-06-02').toBe(true);
+    expect(years.length).toBeGreaterThan(1);
+    expect(new Set(workspace.tokenUsage.map((day) => day.date)).size).toBe(
+      workspace.tokenUsage.length,
+    );
     expect(
-      workspace.tokenUsage.filter((day) => day.date.startsWith('2025')).length,
-    ).toBeGreaterThan(80);
-    expect(
-      workspace.tokenUsage.filter((day) => day.date.startsWith('2026')).length,
-    ).toBeGreaterThan(150);
-    const calendar = buildTokenUsageCalendar(workspace.snapshot.date, workspace.tokenUsage, 2025);
-    expect(calendar.year).toBe(2025);
+      workspace.tokenUsage
+        .filter((day) => day.date > workspace.snapshot.date)
+        .every((day) => day.inputTokens === 0 && day.outputTokens === 0),
+    ).toBe(true);
+    expect(workspace.projectDistribution.reduce((total, project) => total + project.count, 0)).toBe(
+      workspace.snapshot.openTasks,
+    );
+    expect(analytics.projectDelivery.map((day) => day.date)).toEqual(
+      analytics.trendPoints.map((day) => day.date),
+    );
+    for (const [index, day] of analytics.projectDelivery.entries()) {
+      expect(
+        day.deliveries.every((entry) => Number.isInteger(entry.completed) && entry.completed >= 0),
+      ).toBe(true);
+      expect(day.deliveries.reduce((total, entry) => total + entry.completed, 0)).toBe(
+        analytics.trendPoints[index]!.completed,
+      );
+    }
+    const year = years[0]!;
+    const calendar = buildTokenUsageCalendar(workspace.snapshot.date, workspace.tokenUsage, year);
+    expect(calendar.year).toBe(year);
     expect(calendar.days.some((day) => day.tokens > 0)).toBe(true);
     expect(calendar.days.every((day) => !day.future)).toBe(true);
     expect(sum(calendar.days)).toBe(
-      sum(workspace.tokenUsage.filter((day) => day.date.startsWith('2025'))),
+      sum(workspace.tokenUsage.filter((day) => day.date.startsWith(String(year)))),
     );
     for (const account of ['ava', 'leo', 'hana', 'noah']) {
       const session = await signIn(account);
@@ -239,43 +260,5 @@ describe('record-based reporting across years', () => {
     );
     await signIn('hana');
     expect(sum((await readWorkspace()).tokenUsage)).toBe(sum(submitted.tokenUsage));
-  });
-  it('preserves edited legacy tasks while migrating old dates and resets receipts/read state with demo data', async () => {
-    const seed = getDemoState();
-    const index = seed.tasks.findIndex((task) => task.status === 'done');
-    const existing = seed.tasks[index]!;
-    const completed = Date.UTC(2026, 8, 18 + (index % 14), 9 + (index % 7));
-    const created = Date.UTC(2026, 8, 30 - Math.floor(index / 10), 2 + (index % 8), index % 60);
-    const old = {
-      ...seed,
-      tasks: seed.tasks.map((task, i) =>
-        i === index
-          ? {
-              ...task,
-              title: 'Keep my custom title',
-              createdAt: new Date(Math.min(created, completed - 3 * 86400000)).toISOString(),
-              completedAt: new Date(completed).toISOString(),
-              dueDate: new Date(completed).toISOString().slice(0, 10),
-            }
-          : task,
-      ),
-    };
-    localStorage.setItem(demoStorageKey, JSON.stringify({ version: 1, state: old }));
-    unloadDemoState();
-    const migrated = getDemoState();
-    expect(migrated.tasks[index]).toMatchObject({
-      title: 'Keep my custom title',
-      createdAt: existing.createdAt,
-      completedAt: existing.completedAt,
-    });
-    expect(migrated.records.some((record) => record.kind === 'assisted')).toBe(true);
-    await signIn('admin');
-    await updateTask(initialTaskState.tasks[0]!.id, { title: 'Changed after migration' });
-    await readAllNotifications();
-    await resetDemo();
-    await signIn('admin');
-    expect(getDemoState().tasks).toEqual(initialTaskState.tasks);
-    expect(getDemoState().records.every((record) => record.id.startsWith('seed-'))).toBe(true);
-    expect((await getNotifications()).unreadCount).toBe(1);
   });
 });

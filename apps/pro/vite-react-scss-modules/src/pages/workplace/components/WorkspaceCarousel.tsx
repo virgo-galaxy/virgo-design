@@ -6,6 +6,7 @@ import styles from './WorkspaceCarousel.module.scss';
 
 export function WorkspaceCarousel() {
   const { t } = useTranslation();
+
   return (
     <Carousel
       size="medium"

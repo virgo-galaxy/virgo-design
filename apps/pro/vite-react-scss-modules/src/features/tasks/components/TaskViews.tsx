@@ -21,6 +21,7 @@ export function TaskViews({ view, children }: { view: 'table' | 'cards'; childre
   const overview = summary.data;
   const navigate = useNavigate();
   const [params] = useSearchParams();
+
   return (
     <div className={styles.page}>
       <WorkOverview
@@ -58,10 +59,11 @@ export function TaskViews({ view, children }: { view: 'table' | 'cards'; childre
         variant="line"
         onValueChange={(nextView) => {
           if (nextView === view) return;
+
           const next = new URLSearchParams();
-          // Carry only filters represented in both views, never hidden table constraints.
           for (const key of ['search', 'status', 'project'])
             for (const value of params.getAll(key)) next.append(key, value);
+
           navigate(routeWithQuery(routePath(nextView === 'cards' ? 'task-cards' : 'tasks'), next));
         }}
       >

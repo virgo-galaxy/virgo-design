@@ -5,9 +5,11 @@ import { useRemoteData } from '@/shared/async/use-remote-data';
 
 import { useTaskRevision } from '../data/operations';
 import { getTaskCollection } from '../data/queries';
+
 export function useTaskQuery(query: TaskListQuery, mode: 'page' | 'collection' = 'page') {
   const revision = useTaskRevision();
   const key = JSON.stringify(query);
+
   const load = useCallback(
     async (signal: AbortSignal) => ({
       key,
@@ -19,9 +21,10 @@ export function useTaskQuery(query: TaskListQuery, mode: 'page' | 'collection' =
     }),
     [key, mode],
   );
-  // Keep the mounted table and its focused header controls while its query refreshes.
+
   const resource = useRemoteData(load, { revision });
   const current = resource.data?.key === key && resource.data.mode === mode;
+
   return {
     data: resource.data?.result ?? null,
     error: resource.error,

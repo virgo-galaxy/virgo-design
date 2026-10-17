@@ -3,16 +3,17 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFilter,
   TableFooter,
   TableHead,
   TableHeader,
   TableRow,
-  TableSelection,
-  TableSortButton,
   TableViewport,
 } from './Table';
+import { TableFilter } from './TableFilter';
 import { TableSearch } from './TableSearch';
+import { TableSelection } from './TableSelection';
+import { TableSortButton } from './TableSortButton';
+
 export const Table = Object.assign(TableRoot, {
   Root: TableRoot,
   Caption: TableCaption,

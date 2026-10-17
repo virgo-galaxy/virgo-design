@@ -28,8 +28,10 @@ export function useFloatingPosition({
 }) {
   const layer = useContext(LayerScope);
   const containerRef = useContext(PortalContainerContext);
+
   let depth = 0;
   for (let current = layer?.parent; current; current = current.parent) depth++;
+
   const [position, setPosition] = useState<ReturnType<typeof positionOverlay> | null>(null);
   const [environment, setEnvironment] = useState<PortalEnvironment>({
     theme: undefined,
@@ -37,19 +39,23 @@ export function useFloatingPosition({
     direction: 'ltr',
   });
   const [triggerWidth, setTriggerWidth] = useState(0);
+
   useLayoutEffect(() => {
     if (!active) {
       setPosition(null);
       return;
     }
+
     const anchor = triggerRef.current;
     const content = contentRef.current;
     if (!anchor || !content) return;
+
     const update = () => {
       const nextEnvironment = readPortalEnvironment(anchor);
       setEnvironment((previous) =>
         samePortalEnvironment(previous, nextEnvironment) ? previous : nextEnvironment,
       );
+
       const container = containerRef?.current;
       const bounds = container?.getBoundingClientRect();
       const scaleX = container && bounds ? bounds.width / container.offsetWidth || 1 : 1;
@@ -68,6 +74,7 @@ export function useFloatingPosition({
               height: reference.height / scaleY,
             }
           : reference;
+
       const rect = content.getBoundingClientRect();
       // Layout dimensions stay stable while a panel's enter/exit transform is scaling it.
       const width = content.offsetWidth || rect.width;
@@ -82,6 +89,7 @@ export function useFloatingPosition({
           contentHeight -
           (viewport.offsetHeight || viewport.getBoundingClientRect().height)
         : Math.max(contentHeight, content.scrollHeight);
+
       const arrow = content.querySelector<HTMLElement>(':scope > [data-slot="arrow"]');
       const panelStyle = getComputedStyle(content);
       const cornerRadius = Math.max(
@@ -100,6 +108,7 @@ export function useFloatingPosition({
           panelStyle.borderLeftWidth,
         ].map((border) => Number.parseFloat(border) || 0),
       );
+
       let arrowInset = 20;
       if (arrow) {
         const arrowSize = Math.max(arrow.offsetWidth, arrow.offsetHeight);
@@ -122,6 +131,7 @@ export function useFloatingPosition({
           arrowSize * rootDepthScale,
         );
       }
+
       const next = positionOverlay(
         referenceRect,
         { width, height, top: rect.top, left: rect.left },
@@ -144,13 +154,16 @@ export function useFloatingPosition({
         JSON.stringify(previous) === JSON.stringify(next) ? previous : next,
       );
     };
+
     update();
+
     const resize = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(update);
     resize?.observe(anchor);
     resize?.observe(content);
     if (containerRef?.current) resize?.observe(containerRef.current);
     const viewport = content.querySelector('[data-overlay-viewport]');
     if (viewport) resize?.observe(viewport);
+
     const stopObservingEnvironment = observePortalEnvironment(anchor, update);
     const contentsObserver = new MutationObserver(update);
     contentsObserver.observe(content, { childList: true, subtree: true, characterData: true });
@@ -162,6 +175,7 @@ export function useFloatingPosition({
     document.addEventListener('scroll', update, true);
     document.addEventListener('animationend', updateAfterMotion, true);
     document.addEventListener('transitionend', updateAfterMotion, true);
+
     return () => {
       resize?.disconnect();
       stopObservingEnvironment();
@@ -172,6 +186,7 @@ export function useFloatingPosition({
       document.removeEventListener('transitionend', updateAfterMotion, true);
     };
   }, [active, triggerRef, contentRef, placement, offset, anchorRect, containerRef]);
+
   const style = {
     position: containerRef ? 'absolute' : 'fixed',
     '--vd-overlay-layer': `calc(var(--vd-overlay-base-layer, 100) + ${depth})`,
@@ -186,6 +201,7 @@ export function useFloatingPosition({
     '--overlay-arrow-y': `${position?.arrowY ?? 0}px`,
     '--overlay-trigger-width': `${triggerWidth}px`,
   } as CSSProperties;
+
   return {
     style,
     ...environment,

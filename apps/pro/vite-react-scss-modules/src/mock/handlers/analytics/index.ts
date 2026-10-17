@@ -28,14 +28,17 @@ export const analyticsHandlers = [
     const records = visibleRecords(state.records, requestUser(request)!).filter(
       (record) => !projectId || record.project === projectId,
     );
+
     return success(recentActivity(tasks, records));
   }),
   http.get(endpoint('/analytics/delivery-trend'), ({ request }) => {
     const state = getDemoState();
+
     return success(deliveryTrend(scopedTasks(state.tasks, request), reportingDate(state.records)));
   }),
   http.get(endpoint('/analytics/project-delivery'), ({ request }) => {
     const state = getDemoState();
+
     return success(
       projectDelivery(
         scopedTasks(state.tasks, request),
@@ -63,6 +66,7 @@ export const analyticsHandlers = [
     const state = getDemoState();
     const records = visibleRecords(state.records, user);
     const referenceDate = reportingDate(state.records);
+
     return success({
       referenceDate,
       tokenUsage: dailyTokenUsage(records),

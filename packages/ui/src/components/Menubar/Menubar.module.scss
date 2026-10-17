@@ -8,9 +8,11 @@
   color: var(--vd-text-primary);
   background: var(--vd-surface-default);
 }
+
 .trigger[aria-expanded='true'] {
   background: var(--vd-fill-hover);
 }
+
 .trigger[aria-disabled='true'] {
   color: var(--vd-text-disabled);
   cursor: not-allowed;

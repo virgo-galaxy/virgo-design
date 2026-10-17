@@ -23,6 +23,7 @@ describe('@virgo-design/primitives public API', () => {
         'Checkbox',
         'Carousel',
         'useCarouselState',
+        'useSelectState',
         'Collapsible',
         'Command',
         'Cursor',

@@ -14,8 +14,7 @@ import { Panel } from '@/components/page/Panel';
 import { WorkOverview } from '@/components/work-overview/WorkOverview';
 import type { ProjectSummaryDto } from '@/contracts/projects';
 import { useCurrentUser } from '@/features/auth';
-import { Person } from '@/features/catalog';
-import { CatalogBoundary, useTaskCatalog } from '@/features/catalog';
+import { CatalogBoundary, Person, useTaskCatalog } from '@/features/catalog';
 import { useTaskDependentQuery } from '@/features/tasks';
 import { canManageProject } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
@@ -43,8 +42,10 @@ function ProjectCard({
 }) {
   const user = useCurrentUser()!;
   const { t, i18n } = useTranslation();
+
   const tasksPath = projectTasksPath(project);
   const detailsPath = `${projectDetailPath(project)}?returnTo=${encodeURIComponent(returnTo)}`;
+
   return (
     <Surface border="subtle" radius={8} className={styles.projectCard}>
       <div className={styles.cardHeading}>
@@ -136,25 +137,31 @@ function ProjectsPageView({ summaries }: { summaries: ProjectSummaryDto[] }) {
   const user = useCurrentUser()!;
   const { t, i18n } = useTranslation();
   const [params, setParams] = useSearchParams();
+
   const search = params.get('search') ?? '';
   const health = params.getAll('health');
   const owner = params.getAll('lead');
+
   const update = (key: string, values: string[]) =>
     setParams(
       (previous) => {
         const next = new URLSearchParams(previous);
         next.delete(key);
+
         for (const value of values.filter(Boolean)) next.append(key, value);
+
         return next;
       },
       { replace: true },
     );
   const reset = () => setParams({}, { replace: true });
+
   const visible = filterProjects(projects, taskAssignees, { search, health, leads: owner });
   const leads = taskAssignees.filter((member) =>
     projects.some((project) => project.owner === member.id),
   );
   const personal = user.role === 'member';
+
   return (
     <div className={shared.page}>
       <h1 className={shared.srOnly}>{t('app.projects')}</h1>
@@ -266,9 +273,12 @@ function ProjectsPageView({ summaries }: { summaries: ProjectSummaryDto[] }) {
 }
 
 const loadProjectSummaries = (signal: AbortSignal) => getProjectSummaries(undefined, signal);
+
 function ProjectsResource() {
   const resource = useTaskDependentQuery(loadProjectSummaries);
+
   if (!resource.data) return <RemoteState {...resource} />;
+
   return (
     <>
       {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
@@ -276,7 +286,9 @@ function ProjectsResource() {
     </>
   );
 }
+
 export function ProjectsPage() {
+
   return (
     <CatalogBoundary>
       <ProjectsResource />

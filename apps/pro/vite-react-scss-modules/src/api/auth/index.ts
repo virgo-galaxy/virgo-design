@@ -1,2 +1,2 @@
-export * from '../../contracts/auth';
 export * from './auth-api';
+export * from '@/contracts/auth';

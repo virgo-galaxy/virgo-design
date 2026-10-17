@@ -140,60 +140,6 @@
   inset-inline-end: var(--vd-layout-sidebar-offset);
 }
 
-.sidebar[data-mode='floating'] .sidebar[data-mode='inline'][data-resizable] {
-  position: relative;
-  z-index: 1;
-}
-
-.sidebar[data-resizing] {
-  transition: none;
-}
-
-.sidebarResizeHandle {
-  position: absolute;
-  inset-block: 0;
-  inset-inline-end: -4px;
-  z-index: 4;
-  width: 8px;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  cursor: col-resize;
-  touch-action: none;
-}
-
-.sidebarResizeHandle[data-side='end'] {
-  inset-inline-start: -4px;
-  inset-inline-end: auto;
-}
-
-.sidebarResizeHandle::after {
-  position: absolute;
-  inset-block: 0;
-  inset-inline-start: 50%;
-  width: var(--vd-stroke-width, var(--vd-border-width-1));
-  background: var(--vd-border-default);
-  content: '';
-  transform: translateX(-50%);
-  transition:
-    width var(--vd-motion-interaction-duration, var(--vd-duration-120))
-      var(--vd-motion-easing-standard, var(--vd-easing-standard)),
-    background-color var(--vd-motion-interaction-duration, var(--vd-duration-120))
-      var(--vd-motion-easing-standard, var(--vd-easing-standard));
-}
-
-.sidebarResizeHandle:hover::after,
-.sidebarResizeHandle:focus-visible::after,
-.sidebar[data-resizing] .sidebarResizeHandle::after {
-  width: var(--vd-focus-width, var(--vd-border-width-2));
-  background: var(--vd-brand-primary);
-}
-
-.sidebarContents {
-  padding-block: var(--vd-spacing-16);
-}
-
 .sidebar[data-mode='floating'] .sidebarControls {
   position: relative;
   min-height: var(--vd-sizing-36);
@@ -353,6 +299,7 @@
   height: 100%;
   min-height: 0;
   flex-direction: column;
+  padding-block: var(--vd-spacing-16);
 }
 
 .sidebarContents[hidden] {
@@ -527,12 +474,15 @@
 .floating[data-placement^='top'] {
   inset-block-start: var(--vd-layout-floating-offset);
 }
+
 .floating[data-placement^='bottom'] {
   inset-block-end: var(--vd-layout-floating-offset);
 }
+
 .floating[data-placement$='start'] {
   inset-inline-start: var(--vd-layout-floating-offset);
 }
+
 .floating[data-placement$='end'] {
   inset-inline-end: var(--vd-layout-floating-offset);
 }

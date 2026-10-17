@@ -8,6 +8,7 @@ import {
   sessionExpiredEvent,
 } from '@/lib/auth/session';
 import { useRemoteData } from '@/shared/async/use-remote-data';
+
 export function useSessionState({
   onSessionEnd,
   onSessionStart,
@@ -21,11 +22,13 @@ export function useSessionState({
   const [session, setSession] = useState<SessionDto | null>(null);
   const [expired, setExpired] = useState(false);
   const current = session ?? resource.data;
+
   const finish = () => {
     clearAuthSession();
     onSessionEnd();
     setSession({ authenticated: false });
   };
+
   useEffect(() => {
     const onExpired = () => {
       clearAuthSession();
@@ -33,23 +36,32 @@ export function useSessionState({
       setSession({ authenticated: false });
       setExpired(true);
     };
+
     window.addEventListener(sessionExpiredEvent, onExpired);
+
     return () => window.removeEventListener(sessionExpiredEvent, onExpired);
   }, [onSessionEnd]);
+
   useEffect(() => {
     if (current && !current.authenticated) {
       clearAuthSession();
     }
   }, [current]);
+
   useEffect(() => {
     if (!current?.authenticated) return;
+
     const expiresAt = getSessionExpiresAt();
     if (!expiresAt) return;
+
     const remaining = Date.parse(expiresAt) - Date.now();
     if (!Number.isFinite(remaining)) return;
+
     const timer = window.setTimeout(expireAuthSession, Math.max(0, remaining));
+
     return () => window.clearTimeout(timer);
   }, [current]);
+
   return {
     current,
     expired,
@@ -61,13 +73,16 @@ export function useSessionState({
     },
     async signOut() {
       await logout();
+
       setExpired(false);
       finish();
     },
     async resetDemo() {
       const next = await resetDemo();
       if (next.authenticated) throw new Error('Demo reset did not end the session');
+
       await onDemoReset();
+
       setExpired(false);
       finish();
     },

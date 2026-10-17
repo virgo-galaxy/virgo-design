@@ -1,6 +1,5 @@
-import type { sharedEnUS } from '@/i18n/locales/shared/en-US';
-
 import type { LocaleOf } from '../../model/locale-types';
+import type { sharedEnUS } from './en-US';
 export const sharedZhCN = {
   gender: { male: '男', female: '女' },
   workLocation: '工作地',
@@ -25,18 +24,4 @@ export const sharedZhCN = {
   tryABroaderSearchOrResetTheFilters: '尝试扩大搜索范围或重置筛选条件。',
   resetFilters: '重置筛选',
   noResults: '没有符合条件的结果',
-  pagination: {
-    navigation: '分页',
-    previous: '上一页',
-    next: '下一页',
-    page: '第 {{page}} 页',
-    jumpBackward: '向前跳 5 页',
-    jumpForward: '向后跳 5 页',
-    pageSize: '每页条数',
-    itemsPerPage: '{{size}} 条 / 页',
-    jumpTo: '跳转到',
-    pageUnit: '页',
-    selected: '（已选 {{count}} 项）',
-    total: '共 {{count}} 项',
-  },
 } satisfies LocaleOf<typeof sharedEnUS>;

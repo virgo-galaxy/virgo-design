@@ -19,12 +19,14 @@ function UserCardDetails({ userId }: { userId: string }) {
   const { projects } = useTaskCatalog();
   const [resource, setResource] = useState<Resource>(() => {
     const data = userDetailsCache.peek(userId);
+
     return data ? { status: 'ready', data } : { status: 'loading' };
   });
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     let active = true;
+
     void userDetailsCache.get(userId).then(
       (data) => {
         if (active) setResource({ status: 'ready', data });
@@ -33,7 +35,7 @@ function UserCardDetails({ userId }: { userId: string }) {
         if (active) setResource({ status: 'error' });
       },
     );
-    // Shared requests continue populating the cache after an individual card closes.
+
     return () => {
       active = false;
     };
@@ -50,6 +52,7 @@ function UserCardDetails({ userId }: { userId: string }) {
         </div>
       </div>
     );
+
   if (resource.status === 'error')
     return (
       <div className={styles.error}>
@@ -68,6 +71,7 @@ function UserCardDetails({ userId }: { userId: string }) {
     );
 
   const user = resource.data;
+
   return (
     <div className={styles.details}>
       <div className={styles.identity}>
@@ -143,6 +147,7 @@ export function TaskAssigneeCard({ member, size }: { member: MemberDto; size: Av
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
   useEffect(() => () => clearTimeout(timer.current), []);
 
   return (

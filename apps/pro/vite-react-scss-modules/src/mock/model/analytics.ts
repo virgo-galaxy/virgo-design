@@ -15,9 +15,11 @@ function reportDates(through: string) {
   return Array.from({ length: 14 }, (_, index) => {
     const date = new Date(`${through}T00:00:00Z`);
     date.setUTCDate(date.getUTCDate() - 13 + index);
+
     return date.toISOString().slice(0, 10);
   });
 }
+
 export function taskStatusSummary(tasks: readonly TaskDto[]): TaskStatusSummaryDto {
   return {
     taskCount: tasks.length,
@@ -27,6 +29,7 @@ export function taskStatusSummary(tasks: readonly TaskDto[]): TaskStatusSummaryD
     })),
   };
 }
+
 export function ownerCapacity(
   tasks: readonly TaskDto[],
   memberIds?: readonly string[],
@@ -35,6 +38,7 @@ export function ownerCapacity(
     .filter((member) => !memberIds || memberIds.includes(member.id))
     .map((member) => {
       const open = tasks.filter((task) => task.assignee === member.id && task.status !== 'done');
+
       return {
         memberId: member.id,
         count: open.length,
@@ -42,6 +46,7 @@ export function ownerCapacity(
       };
     });
 }
+
 export function deliveryTrend(tasks: readonly TaskDto[], through: string): TrendPointDto[] {
   return reportDates(through).map((date) => ({
     date,
@@ -51,6 +56,7 @@ export function deliveryTrend(tasks: readonly TaskDto[], through: string): Trend
     planned: tasks.filter((task) => task.dueDate === date).length,
   }));
 }
+
 export function projectDelivery(
   tasks: readonly TaskDto[],
   through: string,
@@ -71,6 +77,7 @@ export function projectDelivery(
       })),
   }));
 }
+
 export function recentActivity(
   tasks: readonly TaskDto[],
   records?: readonly TaskRecordDto[],

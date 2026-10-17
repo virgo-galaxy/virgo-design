@@ -1,4 +1,5 @@
 @use '../../internal/form/control-size';
+
 .root {
   --pagination-item-height: #{control-size.token(small, height)};
   --pagination-item-radius: #{control-size.token(small, radius)};
@@ -16,16 +17,19 @@
   line-height: var(--vd-typography-ui-body-small-line-height);
   font-variant-numeric: tabular-nums;
 }
+
 .root[data-size='mini'] {
   --pagination-item-height: #{control-size.token(mini, height)};
   font-size: control-size.token(mini, font-size);
   gap: var(--vd-spacing-8);
 }
+
 .root[data-size='medium'] {
   --pagination-item-height: #{control-size.token(medium, height)};
   --pagination-item-radius: #{control-size.token(medium, radius)};
   font-size: control-size.token(medium, font-size);
 }
+
 .root[data-size='large'] {
   --pagination-item-height: #{control-size.token(large, height)};
   --pagination-item-radius: #{control-size.token(large, radius)};
@@ -35,6 +39,7 @@
 .root[data-align='center'] {
   justify-content: center;
 }
+
 .root[data-align='right'] {
   justify-content: flex-end;
 
@@ -104,10 +109,12 @@
   position: relative;
   color: var(--vd-text-tertiary);
 }
+
 .jumpIcon {
   position: absolute;
   opacity: 0;
 }
+
 .more:hover:not(:disabled),
 .more:focus-visible {
   .ellipsis {
@@ -121,13 +128,16 @@
 .total {
   white-space: nowrap;
 }
+
 .root .sizeChanger {
   width: auto;
   min-width: calc(var(--vd-sizing-56) * 2);
 }
+
 .root .sizeChangerTrigger {
   font: inherit;
 }
+
 .jumper {
   display: inline-flex;
   align-items: center;

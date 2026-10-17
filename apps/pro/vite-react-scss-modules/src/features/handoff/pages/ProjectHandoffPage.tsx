@@ -49,7 +49,7 @@ import { RemoteState } from '@/shared/async/RemoteState';
 import { useMutation } from '@/shared/async/use-mutation';
 import shared from '@/styles/product-layout.module.scss';
 
-import { useHandoffSession } from '../context/handoff-session-context';
+import { useHandoffSession } from '../hooks/use-handoff-session';
 import {
   type HandoffDraft,
   reconcileScope,
@@ -77,17 +77,7 @@ function ProjectHandoffPageView({
 }) {
   const { projects } = useTaskCatalog();
   const { projectId } = useParams();
-  useEffect(() => {
-    if (projectId && projects.some((p) => p.id === projectId) && draft.projectId !== projectId) {
-      setDraft((current) => ({ ...current, projectId, taskIds: [], confirmed: false }));
-      setStage(0);
-    }
-  }, [projectId, projects, draft.projectId, setDraft, setStage]);
 
-  useEffect(() => {
-    setSubmission(null);
-    setErrors({});
-  }, [projectId]);
   const mutation = useMutation();
   const { t, i18n } = useTranslation();
   const stages = [
@@ -98,6 +88,7 @@ function ProjectHandoffPageView({
   const navigate = useNavigate();
   const user = useCurrentUser()!;
   const admin = isAdmin(user);
+
   const [submission, setSubmission] = useState<WorkflowReceipt | null>(null);
   const [errors, setErrors] = useState<ReturnType<typeof validateHandoff>>({});
   const [expanded, setExpanded] = useState<readonly string[]>([
@@ -105,42 +96,60 @@ function ProjectHandoffPageView({
     'scope-open',
     'scope-done',
   ]);
+
   const headingRef = useRef<HTMLHeadingElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (projectId && projects.some((p) => p.id === projectId) && draft.projectId !== projectId) {
+      setDraft((current) => ({ ...current, projectId, taskIds: [], confirmed: false }));
+      setStage(0);
+    }
+  }, [projectId, projects, draft.projectId, setDraft, setStage]);
+
   const groups = scopeGroups(draft.projectId, state.tasks, projects);
   const selected = groups
     .flatMap((group) => group.tasks)
     .filter((task) => draft.taskIds.includes(task.id));
   const treeValues = scopeTreeValues(draft.taskIds, groups);
   const project = projects.find((item) => item.id === draft.projectId)!;
+
   const update = <Key extends keyof HandoffDraft>(key: Key, value: HandoffDraft[Key]) => {
     setDraft((previous) => ({
       ...previous,
       [key]: value,
       confirmed: key === 'confirmed' ? Boolean(value) : false,
     }));
+
     setErrors((previous) => {
       const next = { ...previous };
       delete next[key];
+
       return next;
     });
+
     setSubmission(null);
   };
+
   const move = (next: number) => {
     if (next > stage) {
       const invalid = validateHandoff(draft, state.tasks, next - 1, projects);
       setErrors(invalid);
+
       if (Object.keys(invalid).length) {
         requestAnimationFrame(() =>
           formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus(),
         );
+
         return;
       }
     }
+
     setStage(next);
     setErrors({});
     requestAnimationFrame(() => headingRef.current?.focus());
   };
+
   if (projectId && !projects.some((item) => item.id === projectId))
     return (
       <Empty>
@@ -152,8 +161,11 @@ function ProjectHandoffPageView({
         </Empty.Action>
       </Empty>
     );
+
   if (project && !canManageProject(user, project.id)) return <ExceptionState code="403" />;
+
   if (projectId && draft.projectId !== projectId) return <Skeleton variant="text" />;
+
   return (
     <div className={shared.page}>
       <Link
@@ -206,15 +218,21 @@ function ProjectHandoffPageView({
               noValidate
               onSubmit={(event) => {
                 event.preventDefault();
+
                 if (stage < 2) {
                   move(stage + 1);
+
                   return;
                 }
+
                 const invalid = validateHandoff(draft, state.tasks, 2, projects);
                 setErrors(invalid);
+
                 if (Object.keys(invalid).length) return;
+
                 void mutation.run(async () => {
                   const receipt = await onPrepare();
+
                   if (receipt) {
                     if (admin) navigate(routePath(receipt.outcome));
                     else setSubmission(receipt);
@@ -268,7 +286,7 @@ function ProjectHandoffPageView({
                         setErrors({});
                       }}
                       options={projects
-                        .filter((item) => canManageProject(user, item.name))
+                        .filter((item) => canManageProject(user, item.id))
                         .map((item) => ({
                           value: item.id,
                           label: businessLabel(item.name, i18n.language),
@@ -560,10 +578,12 @@ function HandoffResource() {
   const session = useHandoffSession();
   const { projects, metadata } = useTaskCatalog();
   const { initialize } = session;
+
   useEffect(
     () => initialize(metadata.referenceDate, projectId ?? projects[0]?.id ?? ''),
     [initialize, metadata.referenceDate, projectId, projects],
   );
+
   const project = projects.find((item) => item.id === projectId);
   const id = project?.id;
   const load = useCallback(
@@ -572,11 +592,14 @@ function HandoffResource() {
     [id],
   );
   const resource = useTaskDependentQuery(load, projectId);
+
   if (!resource.data) return <RemoteState {...resource} />;
+
   return (
     <>
       {resource.error ? <RemoteState error={resource.error} retry={resource.retry} /> : null}
       <ProjectHandoffPageView
+        key={projectId}
         draft={session.draft}
         setDraft={session.setDraft}
         stage={session.stage}
@@ -587,6 +610,7 @@ function HandoffResource() {
     </>
   );
 }
+
 export function ProjectHandoffPage() {
   return (
     <CatalogBoundary>
