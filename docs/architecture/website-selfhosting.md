@@ -142,7 +142,7 @@ stages retain their own public behavior. Version metadata and sidebar status use
 only retain typography where the document requires it.
 
 DocumentationSidebar delegates its native trigger, collapsed state, ARIA relationships and action
-labels to Layout.SidebarTrigger and the existing UIControlLabelsProvider. It supplies the edge
+labels to Layout.SidebarTrigger and the UI LocaleProvider. It supplies the edge
 placement and chevron presentation. Dock selection examples compose SegmentedControl; overlay form
 examples compose Form/Field while retaining native form submission and external footer submit buttons.
 

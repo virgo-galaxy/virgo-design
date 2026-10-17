@@ -5,6 +5,31 @@ and Timeline provide shared form and data-presentation capabilities. Public pack
 metadata, generated API references, executable examples and co-located locales describe their
 contracts. Component-owned README files document detailed composition behavior.
 
+## UI localization
+
+UI owns its built-in component text and supplies `enUS` and `zhCN` language packs through
+`@virgo-design/ui/locale`. Each pack implements the complete `UILocale` contract, grouped by
+component. Dynamic labels are typed functions, so the UI package needs no application translation
+engine or translation keys. Applications select a pack from their current language:
+
+```tsx
+import { LocaleProvider } from '@virgo-design/ui';
+import { enUS, zhCN } from '@virgo-design/ui/locale';
+
+<LocaleProvider locale={language === 'zh-CN' ? zhCN : enUS}>{children}</LocaleProvider>;
+```
+
+Components use English when no provider is present. Providers can be nested to scope another pack;
+changing the pack updates text without remounting children. Consumer wording overrides extend a
+complete pack. Calendar and DatePicker calendar formatting also use the pack's locale, while explicit
+component locale and label props retain precedence. Business text and headless primitive example
+copy remain in their owning application's translation resources.
+
+Pro and Website connect their i18n runtime through an application `LocaleProvider` exposed by
+`@/i18n/react`. Their App components only compose that provider around their content. The HTML
+`lang` supplies the initial default; saved language preferences take precedence. Subsequent language
+changes update application text, the selected UI pack and the document language together.
+
 ## Form and Field
 
 `Form` is a native form plus disabled/read-only defaults. Submission, business values, validation,
@@ -38,9 +63,8 @@ through native spanning cells and Footer. Selection is presentation, not a grid 
 
 Table supplies controlled sorting/filter/search controls, page-key selection, column resizing
 and fixed-column presentation. Consumers own data ordering, filtering, pagination, visibility,
-reordering and persistence; Table does not become a virtualized grid. See the
-[Table composition contract](../../packages/ui/src/components/Table/README.md). The
-Website's generated API reference composes Surface frames with Table without changing the generated
+reordering and persistence; Table does not become a virtualized grid. The Website's generated API
+reference composes Surface frames with Table without changing the generated
 data model. The UI-only `separators` border mode divides adjacent rows within and across nonempty
 table sections, leaving outer edges unbordered. It also supports headerless tables; `rows` retains
 its existing bottom-border behavior. Container framing belongs to Surface, not Table or a docs variant.
@@ -84,8 +108,7 @@ Remote cancellation, debounce, loading/error handling and creation of new values
 Slider is a native single-value range control. `Slider.Range` supports ordered multiple values,
 neighbor-constrained thumbs, pointer cancellation, RTL and keyboard adjustment. Both share
 controlled/uncontrolled state, Field/Form defaults and native submission; numeric domains and
-business meaning remain consumer-owned. See the
-[Slider contract](../../packages/ui/src/components/Slider/README.md).
+business meaning remain consumer-owned.
 
 ColorPicker shares controlled or uncontrolled sRGB values in `#rrggbb` or `#rrggbbaa` form.
 Input retains the browser's native color dialog; Trigger and Content compose a custom editor
