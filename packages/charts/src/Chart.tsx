@@ -33,6 +33,7 @@ import type {
 } from './types';
 
 const EngineView = lazy(() => import('./engine/EngineView'));
+
 interface RootState extends Omit<ChartDefinition, 'legend'> {
   title: string;
   height: number;
@@ -42,17 +43,23 @@ interface RootState extends Omit<ChartDefinition, 'legend'> {
   empty: ReactNode;
   toggle: (key: string) => void;
 }
+
 const RootContext = createContext<RootState | null>(null);
 const ResponsiveContext = createContext<{
   height?: number | undefined;
   renderer?: ChartRenderer | undefined;
 }>({});
+
 function useRoot() {
   const root = useContext(RootContext);
+
   if (!root) throw new Error('Chart parts must be inside Chart.Root');
+
   return root;
 }
+
 const color = (index: number) => `var(--chart-series-${(index % 12) + 1})`;
+
 function nodes(children: ReactNode): ReactElement[] {
   return Children.toArray(children).flatMap((node) =>
     isValidElement<{ children?: ReactNode }>(node)
@@ -62,6 +69,7 @@ function nodes(children: ReactNode): ReactElement[] {
       : [],
   );
 }
+
 function gather(children: ReactNode, data: readonly ChartDatum[], output: SeriesDefinition[] = []) {
   for (const child of nodes(children)) {
     if (child.type === Line || child.type === Area || child.type === Bar) {
@@ -87,8 +95,10 @@ function gather(children: ReactNode, data: readonly ChartDatum[], output: Series
       );
     } else gather((child.props as { children?: ReactNode }).children, data, output);
   }
+
   return output;
 }
+
 export function Root({
   data,
   title,
@@ -110,17 +120,18 @@ export function Root({
   className,
   ...props
 }: ChartRootProps) {
-  const [hidden, setHidden] = useState(new Set<string>()),
-    ref = useRef<HTMLElement>(null),
-    [visible, setVisible] = useState(() => typeof IntersectionObserver === 'undefined');
+  const ref = useRef<HTMLElement>(null);
+  const [hidden, setHidden] = useState(() => new Set<string>());
+  const [visible, setVisible] = useState(() => typeof IntersectionObserver === 'undefined');
+
   const number = useMemo(
-      () => new Intl.NumberFormat(locale, { maximumFractionDigits: 2 }),
-      [locale],
-    ),
-    date = useMemo(
-      () => new Intl.DateTimeFormat(locale, { month: 'short', day: 'numeric' }),
-      [locale],
-    );
+    () => new Intl.NumberFormat(locale, { maximumFractionDigits: 2 }),
+    [locale],
+  );
+  const date = useMemo(
+    () => new Intl.DateTimeFormat(locale, { month: 'short', day: 'numeric' }),
+    [locale],
+  );
   const format: ChartFormatter = (value) =>
     value == null
       ? missingLabel
@@ -132,8 +143,10 @@ export function Root({
           ? date.format(value)
           : String(value);
   const series = gather(children, data);
+
   useEffect(() => {
     if (!ref.current || typeof IntersectionObserver === 'undefined') return;
+
     const observer = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) {
         setVisible(true);
@@ -141,8 +154,10 @@ export function Root({
       }
     });
     observer.observe(ref.current);
+
     return () => observer.disconnect();
   }, []);
+
   const context: RootState = {
     data,
     series,
@@ -160,12 +175,15 @@ export function Root({
     toggle: (key) =>
       setHidden((previous) => {
         const next = new Set(previous);
+
         if (next.has(key)) next.delete(key);
         else next.add(key);
+
         return next;
       }),
   };
   const columns = [...new Set(data.flatMap((datum) => Object.keys(datum)))];
+
   return (
     <RootContext.Provider value={context}>
       <figure
@@ -213,6 +231,7 @@ export function Root({
     </RootContext.Provider>
   );
 }
+
 export function Responsive({
   height,
   renderer,
@@ -223,6 +242,7 @@ export function Responsive({
   children: ReactNode;
 }) {
   const inherited = useContext(ResponsiveContext);
+
   return (
     <ResponsiveContext.Provider
       value={{ height: height ?? inherited.height, renderer: renderer ?? inherited.renderer }}
@@ -231,10 +251,12 @@ export function Responsive({
     </ResponsiveContext.Provider>
   );
 }
+
 function Plot({ children, height, className, polar }: CartesianProps & { polar?: PieProps }) {
-  const root = useRoot(),
-    responsive = useContext(ResponsiveContext),
-    parts = nodes(children);
+  const root = useRoot();
+  const responsive = useContext(ResponsiveContext);
+  const parts = nodes(children);
+
   const definition: ChartDefinition = {
     ...root,
     polar,
@@ -254,6 +276,7 @@ function Plot({ children, height, className, polar }: CartesianProps & { polar?:
       );
   const plotHeight = height ?? responsive.height ?? root.height;
   const placeholder = <div className={styles.empty} style={{ height: plotHeight }} />;
+
   return (
     <div className={className} style={{ position: 'relative' }}>
       {hasData ? (
@@ -284,37 +307,46 @@ function Plot({ children, height, className, polar }: CartesianProps & { polar?:
     </div>
   );
 }
+
 export function Cartesian(props: CartesianProps) {
   return <Plot {...props} />;
 }
+
 export function Grid(_props: { vertical?: boolean }) {
   void _props;
   return null;
 }
+
 export function XAxis(_props: XAxisProps) {
   void _props;
   return null;
 }
+
 export function YAxis(_props: YAxisProps) {
   void _props;
   return null;
 }
+
 export function Line(_props: SeriesProps) {
   void _props;
   return null;
 }
+
 export function Area(_props: SeriesProps) {
   void _props;
   return null;
 }
+
 export function Bar(_props: BarProps) {
   void _props;
   return null;
 }
+
 export function Tooltip(_props: TooltipProps) {
   void _props;
   return null;
 }
+
 export function Pie(props: PieProps) {
   return (
     <Plot polar={props} {...(props.height === undefined ? {} : { height: props.height })}>
@@ -322,11 +354,14 @@ export function Pie(props: PieProps) {
     </Plot>
   );
 }
+
 export function Donut({ innerRadius = 0.64, ...props }: PieProps) {
   return <Pie {...props} innerRadius={innerRadius} />;
 }
+
 export function Legend({ className, toggleLabel }: LegendProps) {
   const root = useRoot();
+
   return (
     <div className={[styles.legend, className].filter(Boolean).join(' ')}>
       {root.series.map((series) =>
@@ -351,6 +386,7 @@ export function Legend({ className, toggleLabel }: LegendProps) {
     </div>
   );
 }
+
 export const Chart = {
   Root,
   Responsive,

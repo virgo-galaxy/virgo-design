@@ -80,6 +80,26 @@ const model: ChartDefinition = {
   legend: true,
 };
 describe('Virgo → ECharts compiler', () => {
+  it('resolves all twelve categorical colors when custom color resolution is absent', () => {
+    const palette = Array.from({ length: 12 }, (_, index) => `rgb(${index}, 0, 0)`);
+    const option = compileOption(
+      {
+        ...model,
+        series: palette.map((_, index) => ({
+          ...model.series[0]!,
+          key: `series-${index}`,
+          color: `var(--chart-series-${index + 1})`,
+        })),
+      },
+      { ...theme, palette },
+      false,
+    );
+
+    expect((option.series as LineSeriesOption[]).map((series) => series.lineStyle?.color)).toEqual(
+      palette,
+    );
+  });
+
   it('uses the sequential data palette for advanced visualMap and preserves explicit diverging colors', () => {
     const option = {
       visualMap: { min: 0, max: 10 },

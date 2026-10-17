@@ -34,12 +34,18 @@ export function Sparkline({
   void _renderer;
   void _margins;
   void _children;
-  const ref = useRef<HTMLElement>(null),
-    [width, setWidth] = useState(640),
-    [active, setActive] = useState<number | null>(null),
-    id = useId().replace(/:/g, '');
+
+  const ref = useRef<HTMLElement>(null);
+  const [width, setWidth] = useState(640);
+  const [active, setActive] = useState<number | null>(null);
+  const id = useId().replace(/:/g, '');
+
   const number = useMemo(
     () => new Intl.NumberFormat(locale, { maximumFractionDigits: 2 }),
+    [locale],
+  );
+  const date = useMemo(
+    () => new Intl.DateTimeFormat(locale, { month: 'short', day: 'numeric' }),
     [locale],
   );
   const format: ChartFormatter = (value) =>
@@ -48,32 +54,45 @@ export function Sparkline({
       : typeof value === 'number'
         ? number.format(value)
         : value instanceof Date
-          ? new Intl.DateTimeFormat(locale, { month: 'short', day: 'numeric' }).format(value)
+          ? date.format(value)
           : String(value);
-  const label = labelFormatter ?? format,
-    value = valueFormatter ?? format;
+  const label = labelFormatter ?? format;
+  const value = valueFormatter ?? format;
+
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const measure = () => setWidth(Math.max(1, el.clientWidth || 640));
+    const element = ref.current;
+
+    if (!element) return;
+
+    const measure = () => setWidth(Math.max(1, element.clientWidth || 640));
+
     measure();
+
     const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure);
-    observer?.observe(el);
+
+    observer?.observe(element);
+
     if (!observer) window.addEventListener('resize', measure);
+
     return () => {
       observer?.disconnect();
       window.removeEventListener('resize', measure);
     };
   }, []);
-  const values = data.map((d) => numeric(read(d, dataKey))),
-    finite = values.filter((v): v is number => v !== null),
-    low = Math.min(0, ...finite),
-    high = Math.max(0, ...finite),
-    x = linear([0, data.length - 1], [6, Math.max(6, width - 6)]),
-    y = linear([low, high || 1], [height - 6, 6]),
-    points = values.map((v, i) => (v === null ? null : ([x(i), y(v)] as const))),
-    current = !interactive || active === null ? null : points[active],
-    datum = !interactive || active === null ? null : data[active];
+
+  const values = data.map((datum) => numeric(read(datum, dataKey)));
+  const finite = values.filter((value): value is number => value !== null);
+  const low = Math.min(0, ...finite);
+  const high = Math.max(0, ...finite);
+  const x = linear([0, data.length - 1], [6, Math.max(6, width - 6)]);
+  const y = linear([low, high || 1], [height - 6, 6]);
+  const points = values.map((value, index) =>
+    value === null ? null : ([x(index), y(value)] as const),
+  );
+  const activeIndex = interactive && active !== null && active < data.length ? active : null;
+  const current = activeIndex === null ? null : points[activeIndex];
+  const datum = activeIndex === null ? null : data[activeIndex];
+
   return (
     <figure
       {...props}
@@ -133,7 +152,7 @@ export function Sparkline({
                       (index ? (x(index - 1) + x(index)) / 2 : 0),
                   )}
                   height={height}
-                  tabIndex={index === (active ?? 0) ? 0 : -1}
+                  tabIndex={index === (activeIndex ?? 0) ? 0 : -1}
                   aria-label={`${label(read(d, xKey))}: ${dataKey} ${value(read(d, dataKey))}`}
                   onPointerEnter={() => setActive(index)}
                   onFocus={() => setActive(index)}
@@ -141,8 +160,10 @@ export function Sparkline({
                     if (event.key === 'Escape') {
                       setActive(null);
                       event.currentTarget.blur();
+
                       return;
                     }
+
                     const next =
                       event.key === 'ArrowRight'
                         ? Math.min(data.length - 1, index + 1)
@@ -153,6 +174,7 @@ export function Sparkline({
                             : event.key === 'End'
                               ? data.length - 1
                               : null;
+
                     if (next !== null) {
                       event.preventDefault();
                       event.currentTarget.ownerSVGElement
@@ -175,7 +197,7 @@ export function Sparkline({
           className={styles.tooltip}
           style={{
             position: 'absolute',
-            left: Math.max(4, Math.min(x(active!) + 16, width - 196)),
+            left: Math.max(4, Math.min(x(activeIndex!) + 16, width - 196)),
             top: 0,
           }}
         >

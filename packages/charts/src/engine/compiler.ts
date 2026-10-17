@@ -26,6 +26,7 @@ export interface SeriesDefinition extends BarProps {
   kind: 'line' | 'area' | 'bar' | 'pie';
   color: string;
 }
+
 export interface ChartDefinition {
   interactive?: boolean;
   data: readonly ChartDatum[];
@@ -41,14 +42,20 @@ export interface ChartDefinition {
   legend: boolean;
   polar?: PieProps | undefined;
 }
+
 function resolveColor(color: string, theme: ChartTheme) {
   if (theme.colors?.[color]) return theme.colors[color]!;
-  const index = /var\(--chart-series-(\d)\)/.exec(color)?.[1];
-  return index ? theme.palette[Number(index) - 1]! : color;
+
+  const index = /^var\(--chart-series-(\d+)\)$/.exec(color)?.[1];
+
+  return index ? theme.palette[Number(index) - 1] ?? color : color;
 }
+
 function tooltipCard(model: ChartDefinition, theme: ChartTheme, index: number) {
   const datum = model.data[index];
+
   if (!datum) return '';
+
   const card = document.createElement('div');
   card.className = [styles.tooltip, model.tooltip?.className].filter(Boolean).join(' ');
   card.setAttribute('role', 'tooltip');
@@ -57,25 +64,32 @@ function tooltipCard(model: ChartDefinition, theme: ChartTheme, index: number) {
     read(datum, model.polar?.nameKey ?? model.xAxis?.dataKey ?? Object.keys(datum)[0] ?? ''),
   );
   card.append(heading);
+
   const list = document.createElement('dl');
   const items = model.polar
     ? [model.series[index]!]
     : model.series.filter((s) => !model.hidden.has(s.key));
+
   for (const item of items) {
     if (!item) continue;
-    const row = document.createElement('div'),
-      name = document.createElement('dt'),
-      dot = document.createElement('i'),
-      value = document.createElement('dd');
+
+    const row = document.createElement('div');
+    const name = document.createElement('dt');
+    const dot = document.createElement('i');
+    const value = document.createElement('dd');
+
     dot.style.background = resolveColor(item.color, theme);
     name.append(dot, document.createTextNode(item.name));
     value.textContent = model.value(read(datum, item.dataKey));
     row.append(name, value);
     list.append(row);
   }
+
   card.append(list);
+
   return card;
 }
+
 export function compileOption(
   model: ChartDefinition,
   theme: ChartTheme,
@@ -137,10 +151,12 @@ export function compileOption(
       textStyle: { color: theme.legend, fontFamily: theme.fontFamily },
     },
   };
+
   if (model.polar) {
-    const polar = model.polar,
-      outer = '64%',
-      inner = polar.innerRadius ?? 0;
+    const polar = model.polar;
+    const outer = '64%';
+    const inner = polar.innerRadius ?? 0;
+
     const pie: PieSeriesOption = {
       id: 'virgo-pie',
       type: 'pie',
@@ -192,22 +208,26 @@ export function compileOption(
         itemStyle: { color: resolveColor(model.series[index]?.color ?? '', theme) },
       })),
     };
+
     return { ...common, series: [pie] };
   }
-  const xKey = model.xAxis?.dataKey ?? Object.keys(model.data[0] ?? {})[0] ?? '',
-    kind = model.xAxis?.type ?? 'category',
-    bar = model.series.some((s) => s.kind === 'bar');
+
+  const xKey = model.xAxis?.dataKey ?? Object.keys(model.data[0] ?? {})[0] ?? '';
+  const kind = model.xAxis?.type ?? 'category';
+  const bar = model.series.some((series) => series.kind === 'bar');
+
   const series = model.series.map((s): BarSeriesOption | LineSeriesOption => {
     const paint = resolveColor(s.color, theme);
     const data = model.data.map((datum, index) => {
-      const rawX = read(datum, xKey),
-        y = numeric(read(datum, s.dataKey));
+      const rawX = read(datum, xKey);
+      const y = numeric(read(datum, s.dataKey));
       const x =
         kind === 'time'
           ? rawX instanceof Date
             ? rawX.getTime()
             : Date.parse(String(rawX))
           : Number(rawX);
+
       return {
         name: String(rawX ?? index),
         value: kind === 'category' ? y : [Number.isFinite(x) ? x : null, y],
@@ -221,6 +241,7 @@ export function compileOption(
       itemStyle: { color: paint, ...(s.kind === 'bar' ? { borderRadius: theme.barRadius } : {}) },
       universalTransition: true,
     };
+
     if (s.kind === 'bar')
       return {
         ...base,
@@ -241,6 +262,7 @@ export function compileOption(
           },
         },
       };
+
     return {
       ...base,
       type: 'line',
@@ -287,6 +309,7 @@ export function compileOption(
         : {}),
     };
   });
+
   return {
     ...common,
     grid: { ...model.margins, containLabel: false },

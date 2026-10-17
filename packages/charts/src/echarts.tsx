@@ -12,6 +12,7 @@ import type { ChartRenderer } from './types';
 
 export type { EChartsOption, EChartsType } from 'echarts';
 export { connect, disconnect, getMap, registerMap, registerTheme } from 'echarts';
+
 export interface EChartsChartProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   option: EChartsOption;
   renderer?: ChartRenderer;
@@ -20,6 +21,7 @@ export interface EChartsChartProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   animated?: boolean;
   onReady?: (chart: EChartsType) => (() => void) | void;
 }
+
 /** Full ECharts escape hatch. This entry is never imported by the ordinary Chart API. */
 export function EChartsChart({
   option,
@@ -40,15 +42,19 @@ export function EChartsChart({
     });
     return [...colors];
   }, [option]);
-  const ref = useRef<HTMLDivElement>(null),
-    theme = useChartTheme(ref, dataColors),
-    reduced = useReducedMotion();
+
+  const ref = useRef<HTMLDivElement>(null);
+  const theme = useChartTheme(ref, dataColors);
+  const reduced = useReducedMotion();
+
   const compiled = useMemo(() => {
     if (!theme) return null;
+
     const themed = advancedTheme(
       mapDataPaletteColors(option, (color) => theme.colors?.[color] ?? color),
       theme,
     );
+
     return {
       ...themed,
       animation: animated && !reduced && option.animation !== false,
@@ -66,7 +72,9 @@ export function EChartsChart({
         : {}),
     };
   }, [option, theme, animated, reduced]);
+
   useChartRuntime({ ref, init: echarts.init, renderer, height, option: compiled, onReady });
+
   return (
     <div
       {...props}

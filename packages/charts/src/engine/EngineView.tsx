@@ -23,14 +23,13 @@ export default function EngineView({
   animated,
   title,
 }: EngineViewProps) {
-  const ref = useRef<HTMLDivElement>(null),
-    theme = useChartTheme(
-      ref,
-      definition.series.map((s) => s.color),
-    ),
-    reduced = useReducedMotion(),
-    [active, setActive] = useState<number | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const theme = useChartTheme(ref, definition.series.map((series) => series.color));
+  const reduced = useReducedMotion();
+  const [active, setActive] = useState<number | null>(null);
+
   const interactive = definition.interactive !== false;
+
   const onReady = useCallback((instance: EChartsType) => {
     const enter = (event: { seriesType?: string; seriesIndex?: number; dataIndex?: number }) => {
       if (event.seriesType === 'pie')
@@ -50,30 +49,37 @@ export default function EngineView({
     };
     instance.on('mouseover', enter);
     instance.on('mouseout', leave);
+
     return () => {
       if (instance.isDisposed?.()) return;
       instance.off('mouseover', enter);
       instance.off('mouseout', leave);
     };
   }, []);
+
   const option = useMemo(
     () => (theme ? compileOption(definition, theme, animated && !reduced) : null),
     [definition, theme, animated, reduced],
   );
   const chart = useChartRuntime({ ref, init, renderer, height, option });
+
   useEffect(() => {
     const instance = chart.current;
     if (interactive && instance) return onReady(instance);
   }, [chart, interactive, onReady, renderer]);
+
   const inspect = (index: number | null) => {
     const instance = chart.current;
     instance?.dispatchAction({ type: 'downplay' });
     if (definition.polar) instance?.dispatchAction({ type: 'unselect', seriesIndex: 0 });
     setActive(index);
+
     if (index === null) {
       instance?.dispatchAction({ type: 'hideTip' });
+
       return;
     }
+
     const seriesIndex = definition.polar
       ? 0
       : Math.max(
@@ -94,6 +100,7 @@ export default function EngineView({
     if (definition.tooltip)
       instance?.dispatchAction({ type: 'showTip', seriesIndex, dataIndex: index });
   };
+
   const xKey =
     definition.polar?.nameKey ??
     definition.xAxis?.dataKey ??
@@ -110,20 +117,26 @@ export default function EngineView({
     .filter((index) => index >= 0);
   const pointLabel = (index: number) => {
     const datum = definition.data[index];
+
     if (!datum) return '';
+
     const series = definition.polar
       ? [definition.series[index]!]
       : definition.series.filter((s) => !definition.hidden.has(s.key));
     const values = series
       .map((s) => `${s.name} ${definition.value(read(datum, s.dataKey))}`)
       .join(', ');
+
     if (!definition.polar) return `${definition.label(read(datum, xKey))}: ${values}`;
+
     const total = visible.reduce(
       (sum, i) => sum + (numeric(read(definition.data[i]!, definition.polar!.dataKey)) ?? 0),
       0,
     );
+
     return `${definition.label(read(datum, xKey))}: ${definition.value(read(datum, definition.polar.dataKey))} (${Math.round(((numeric(read(datum, definition.polar.dataKey)) ?? 0) / total) * 100)}%)`;
   };
+
   return (
     <div
       className={styles.plot}
@@ -158,15 +171,17 @@ export default function EngineView({
                 if (event.key === 'Escape') {
                   inspect(null);
                   event.currentTarget.blur();
+
                   return;
                 }
-                const position = visible.indexOf(index),
-                  direction =
-                    event.key === 'ArrowRight' || event.key === 'ArrowDown'
-                      ? 1
-                      : event.key === 'ArrowLeft' || event.key === 'ArrowUp'
-                        ? -1
-                        : 0;
+
+                const position = visible.indexOf(index);
+                const direction =
+                  event.key === 'ArrowRight' || event.key === 'ArrowDown'
+                    ? 1
+                    : event.key === 'ArrowLeft' || event.key === 'ArrowUp'
+                      ? -1
+                      : 0;
                 const next =
                   event.key === 'Home'
                     ? visible[0]
@@ -175,6 +190,7 @@ export default function EngineView({
                       : direction
                         ? visible[Math.max(0, Math.min(visible.length - 1, position + direction))]
                         : undefined;
+
                 if (next !== undefined) {
                   event.preventDefault();
                   event.currentTarget.parentElement

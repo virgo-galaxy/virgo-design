@@ -11,6 +11,7 @@ import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer, SVGRenderer } from 'echarts/renderers';
 
 let registered = false;
+
 export function init(...args: Parameters<typeof createChart>) {
   if (!registered) {
     registerECharts([
@@ -29,5 +30,6 @@ export function init(...args: Parameters<typeof createChart>) {
     ]);
     registered = true;
   }
+
   return createChart(...args);
 }

@@ -86,6 +86,36 @@ it('resizes through ResizeObserver and cleans the observer and ready callback', 
   expect(chart.dispose).toHaveBeenCalledOnce();
 });
 
+it('replaces ready subscriptions without recreating the engine and cleans before disposal', () => {
+  const chart = { setOption: vi.fn(), resize: vi.fn(), dispose: vi.fn() };
+  const init = vi.fn(() => chart as unknown as EChartsType);
+  const firstCleanup = vi.fn();
+  const secondCleanup = vi.fn(() => expect(chart.dispose).not.toHaveBeenCalled());
+  const first = vi.fn(() => firstCleanup);
+  const second = vi.fn(() => secondCleanup);
+
+  function Harness({ ready }: { ready: (instance: EChartsType) => () => void }) {
+    const ref = useRef<HTMLDivElement>(null);
+
+    useChartRuntime({ ref, init, renderer: 'svg', height: 100, option: null, onReady: ready });
+
+    return <div ref={ref} />;
+  }
+
+  const { rerender, unmount } = render(<Harness ready={first} />);
+
+  rerender(<Harness ready={second} />);
+
+  expect(init).toHaveBeenCalledOnce();
+  expect(firstCleanup).toHaveBeenCalledOnce();
+  expect(second).toHaveBeenCalledExactlyOnceWith(chart);
+
+  unmount();
+
+  expect(secondCleanup).toHaveBeenCalledOnce();
+  expect(chart.dispose).toHaveBeenCalledOnce();
+});
+
 it('refreshes presentation when the root theme style changes without recreating ECharts', async () => {
   const compute = window.getComputedStyle.bind(window);
   vi.spyOn(window, 'getComputedStyle').mockImplementation((element) => {

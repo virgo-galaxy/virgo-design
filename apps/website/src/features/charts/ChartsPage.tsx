@@ -1,63 +1,15 @@
 import { Chart } from '@virgo-design/charts';
 import { Button, Slider, Surface } from '@virgo-design/ui';
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import { DocumentationCatalogue } from '@/components/docs/DocumentationCatalogue';
 
 import styles from './ChartsPage.module.scss';
-const AdvancedExamples = lazy(() => import('./AdvancedExamples'));
-function AdvancedPreview() {
-  const { t } = useTranslation(),
-    ref = useRef<HTMLDivElement>(null),
-    [visible, setVisible] = useState(false);
-  useEffect(() => {
-    if (typeof IntersectionObserver === 'undefined') {
-      setVisible(true);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '200px' },
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-  const placeholder = (
-    <div className={styles.grid}>
-      {(['radar', 'heatmap'] as const).map((kind) => (
-        <Surface
-          key={kind}
-          border="default"
-          radius={8}
-          className={[styles.preview, kind === 'heatmap' ? styles.heatmapPreview : ''].join(' ')}
-        >
-          <h3>{t(`charts.${kind}`)}</h3>
-          <div className={styles.advancedLoading} role="status">
-            {t('charts.loadingAdvanced')}
-          </div>
-        </Surface>
-      ))}
-    </div>
-  );
-  return (
-    <div ref={ref} id="chart-advanced-previews">
-      {visible ? (
-        <Suspense fallback={placeholder}>
-          <AdvancedExamples />
-        </Suspense>
-      ) : (
-        placeholder
-      )}
-    </div>
-  );
-}
+import { AdvancedPreview } from './components/AdvancedPreview';
+import { CartesianExample } from './components/CartesianExample';
+
 const initial = [
   { date: '2026-09-25', created: 12, completed: 8 },
   { date: '2026-09-26', created: 18, completed: 14 },
@@ -67,6 +19,14 @@ const initial = [
   { date: '2026-09-30', created: 29, completed: 24 },
   { date: '2026-10-01', created: 25, completed: 28 },
 ];
+const edge = [
+  { date: 'A', created: 6, completed: -3 },
+  { date: 'B', created: 0, completed: 4 },
+  { date: 'C', created: null, completed: -5 },
+  { date: 'D', created: -2, completed: 3 },
+  { date: 'E', created: 7, completed: 2 },
+];
+
 const code = `import { Chart } from '@virgo-design/charts';
 import '@virgo-design/charts/styles.css';
 
@@ -83,6 +43,7 @@ import '@virgo-design/charts/styles.css';
     </Chart.Cartesian>
   </Chart.Responsive>
 </Chart.Root>`;
+
 const api = [
   [
     'Root',
@@ -105,72 +66,19 @@ const api = [
   ['Legend', 'toggleLabel', 'Visibility toggles'],
   ['Sparkline', 'data, title, dataKey, xKey, area, color', 'Compact trends'],
 ];
+
 export function ChartsPage() {
-  const { t, i18n } = useTranslation(),
-    [data, setData] = useState(initial),
-    [width, setWidth] = useState(100),
-    [labelLine, setLabelLine] = useState(true),
-    [renderer, setRenderer] = useState<'svg' | 'canvas'>('svg');
-  const labels = { created: t('charts.created'), completed: t('charts.completed') };
+  const { t, i18n } = useTranslation();
+  const [data, setData] = useState(initial);
+  const [width, setWidth] = useState(100);
+  const [labelLine, setLabelLine] = useState(true);
+  const [renderer, setRenderer] = useState<'svg' | 'canvas'>('svg');
+
   const pieData = [
     { name: t('charts.alpha'), value: 36 },
     { name: t('charts.beta'), value: 48 },
     { name: t('charts.gamma'), value: 16 },
   ];
-  const edge = [
-    { date: 'A', created: 6, completed: -3 },
-    { date: 'B', created: 0, completed: 4 },
-    { date: 'C', created: null, completed: -5 },
-    { date: 'D', created: -2, completed: 3 },
-    { date: 'E', created: 7, completed: 2 },
-  ];
-  const sample = (
-    kind: 'line' | 'area' | 'bar' | 'grouped' | 'stacked',
-    source: readonly object[] = data,
-    plotRenderer: 'svg' | 'canvas' = 'svg',
-  ) => (
-    <Chart.Root
-      data={source}
-      title={t(`charts.${kind}`)}
-      locale={i18n.language}
-      renderer={plotRenderer}
-      empty={t('charts.empty')}
-      showData
-      dataTableLabel={t('charts.data')}
-    >
-      <Chart.Cartesian>
-        <Chart.Grid />
-        <Chart.XAxis dataKey="date" />
-        <Chart.YAxis />
-        {kind === 'line' ? (
-          <Chart.Line dataKey="created" name={labels.created} marker="muted" curve="linear" />
-        ) : kind === 'area' ? (
-          <Chart.Area dataKey="created" name={labels.created} curve="smooth" />
-        ) : (
-          <Chart.Bar
-            dataKey="created"
-            name={labels.created}
-            {...(kind === 'stacked' ? { stackId: 'total' } : {})}
-          />
-        )}{' '}
-        {kind === 'line' || kind === 'area' ? (
-          <Chart.Line
-            dataKey="completed"
-            name={labels.completed}
-            curve={kind === 'line' ? 'linear' : 'smooth'}
-          />
-        ) : kind !== 'bar' ? (
-          <Chart.Bar
-            dataKey="completed"
-            name={labels.completed}
-            {...(kind === 'stacked' ? { stackId: 'total' } : {})}
-          />
-        ) : null}
-        <Chart.Tooltip />
-        <Chart.Legend />
-      </Chart.Cartesian>
-    </Chart.Root>
-  );
   return (
     <DocumentationCatalogue
       pageId="charts"
@@ -205,7 +113,7 @@ export function ChartsPage() {
             </Button>
           </Button.Group>
           <Surface border="default" radius={8} className={styles.preview}>
-            {sample('area')}
+            <CartesianExample kind="area" data={data} />
           </Surface>
         </ArticleSection>
         <ArticleSection
@@ -228,7 +136,7 @@ export function ChartsPage() {
             {(['line', 'area', 'bar', 'grouped', 'stacked'] as const).map((kind) => (
               <Surface key={kind} border="default" radius={8} className={styles.preview}>
                 <h3>{t(`charts.${kind}`)}</h3>
-                {sample(kind)}
+                <CartesianExample kind={kind} data={data} />
               </Surface>
             ))}
             {(['pie', 'donut'] as const).map((kind) => (
@@ -311,7 +219,7 @@ export function ChartsPage() {
             radius={8}
             className={styles.preview}
           >
-            {sample('line', data, renderer)}
+            <CartesianExample kind="line" data={data} renderer={renderer} />
           </Surface>
         </ArticleSection>
         <ArticleSection
@@ -321,8 +229,8 @@ export function ChartsPage() {
           description={t('charts.edgeDescription')}
         >
           <div className={styles.grid}>
-            {sample('area', edge)}
-            {sample('stacked', edge)}
+            <CartesianExample kind="area" data={edge} />
+            <CartesianExample kind="stacked" data={edge} />
           </div>
         </ArticleSection>
         <ArticleSection

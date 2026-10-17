@@ -178,6 +178,20 @@ describe('React ECharts integration', () => {
     expect(container.querySelector('[data-chart-engine="native"] svg')).toBeTruthy();
     expect(engine.init).not.toHaveBeenCalled();
   });
+
+  it('keeps a keyboard entry point when Sparkline data shrinks past the active point', () => {
+    const { rerender } = render(
+      <Chart.Sparkline data={data} dataKey="b" xKey="date" title="Micro" />,
+    );
+
+    fireEvent.focus(screen.getByRole('button', { name: 'Wed: b 3' }));
+    expect(screen.getByRole('tooltip')).toHaveTextContent('Wed');
+
+    rerender(<Chart.Sparkline data={data.slice(0, 1)} dataKey="b" xKey="date" title="Micro" />);
+
+    expect(screen.getByRole('button', { name: 'Mon: b 0' })).toHaveAttribute('tabindex', '0');
+    expect(screen.queryByRole('tooltip')).toBeNull();
+  });
   it('keeps accessible polar percentages and outward selection through engine actions', async () => {
     render(
       <Chart.Root
