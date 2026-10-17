@@ -3,7 +3,7 @@
 Form, Field, Table, Tree, Combobox, Slider, ColorPicker, TimePicker, DatePicker, Calendar
 and Timeline provide shared form and data-presentation capabilities. Public package roots,
 metadata, generated API references, executable examples and co-located locales describe their
-contracts. Component-owned README files document detailed composition behavior.
+contracts and composition behavior.
 
 ## UI localization
 
