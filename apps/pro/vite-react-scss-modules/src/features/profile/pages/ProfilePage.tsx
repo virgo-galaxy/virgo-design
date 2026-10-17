@@ -7,6 +7,8 @@ import { Link } from 'react-router';
 import { getActivity } from '@/api/analytics';
 import { getTasks } from '@/api/tasks';
 import { Panel } from '@/components/panel/Panel';
+import { RemoteState } from '@/components/remote-state/RemoteState';
+import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import { UserGenderIcon } from '@/components/user-gender-icon/UserGenderIcon';
 import type { ProfileIdentityDto, UpdateProfileIdentityRequest } from '@/contracts/profile';
 import { useCurrentUser } from '@/features/auth';
@@ -16,8 +18,6 @@ import { useTaskDependentQuery } from '@/features/tasks';
 import { isAdmin } from '@/lib/auth/permissions';
 import { businessLabel, formatWorkLocation } from '@/lib/demo/labels';
 import { routePath } from '@/routes';
-import { RemoteState } from '@/shared/async/RemoteState';
-import { ResourceContent } from '@/shared/async/ResourceContent';
 import shared from '@/styles/product-layout.module.scss';
 
 import { ProfileEditor } from '../components/ProfileEditor/ProfileEditor';

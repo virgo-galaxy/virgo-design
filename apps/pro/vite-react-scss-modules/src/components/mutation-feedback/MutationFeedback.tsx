@@ -3,15 +3,13 @@ import { useTranslation } from 'react-i18next';
 
 import { isHttpError } from '@/lib/http';
 
-export function MutationFeedback({
-  pending,
-  error,
-  title,
-}: {
+interface MutationFeedbackProps {
   pending: boolean;
   error: unknown;
   title?: string;
-}) {
+}
+
+export function MutationFeedback({ pending, error, title }: MutationFeedbackProps) {
   const { t } = useTranslation();
 
   if (pending)

@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect, useState } from 'react';
 
+import { RemoteState } from '@/components/remote-state/RemoteState';
 import { enableMocking } from '@/mock';
-import { RemoteState } from '@/shared/async/RemoteState';
 
 export function AppBootstrap({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);

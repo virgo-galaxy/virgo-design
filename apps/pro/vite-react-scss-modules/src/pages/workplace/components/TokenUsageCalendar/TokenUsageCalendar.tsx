@@ -4,10 +4,10 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import calendarChartArtwork from '@/assets/illustrations/calendar-chart.svg';
+import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import type { TokenUsageReportDto } from '@/contracts/analytics';
 import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/demo/labels';
-import { ResourceContent } from '@/shared/async/ResourceContent';
 
 import { useTokenUsageResource } from '../../data/token-usage-context';
 import { buildTokenUsageCalendar, formatTokenCount } from '../../model/token-usage-calendar';

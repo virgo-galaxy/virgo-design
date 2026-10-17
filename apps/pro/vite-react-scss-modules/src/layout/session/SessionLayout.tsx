@@ -1,10 +1,10 @@
 import { Navigate, Outlet, useOutletContext } from 'react-router';
 
+import { RemoteState } from '@/components/remote-state/RemoteState';
 import { useAgentMode } from '@/features/ai-workspace/store';
 import type { useSessionState } from '@/features/auth';
 import { LoginPage } from '@/features/auth/routes';
 import { proRouteConfig } from '@/routes';
-import { RemoteState } from '@/shared/async/RemoteState';
 
 import { AppShell } from '../shell/AppShell';
 

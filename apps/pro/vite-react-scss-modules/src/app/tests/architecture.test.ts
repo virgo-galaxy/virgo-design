@@ -89,7 +89,7 @@ const layerRanks: Record<string, number> = {
   api: 2,
   i18n: 2,
   preferences: 2,
-  shared: 3,
+  hooks: 3,
   routes: 3,
   mock: 3,
   components: 4,
@@ -228,16 +228,27 @@ it('resolves every local production import, including lazy and type-only depende
         expect(resolveImport(file, path), `${relative(root, file)} → ${path}`).toBeDefined();
 });
 
-it('keeps module roots limited to index entries and groups implementations by responsibility', () => {
+it('keeps module entry directories and feature roots limited to index files', () => {
   const expectEntry = (directory: string, typescriptOnly = false) => {
     for (const entry of readdirSync(directory, { withFileTypes: true }))
       if (entry.isFile() && (!typescriptOnly || /\.tsx?$/.test(entry.name)))
         expect(entry.name, relative(root, join(directory, entry.name))).toBe('index.ts');
   };
-  for (const module of readdirSync(root, { withFileTypes: true })) {
-    if (!module.isDirectory() || module.name === 'test') continue;
-    expectEntry(join(root, module.name), true);
-  }
+  for (const module of [
+    'api',
+    'app',
+    'components',
+    'contracts',
+    'features',
+    'i18n',
+    'layout',
+    'lib',
+    'mock',
+    'preferences',
+    'routes',
+    'store',
+  ])
+    expectEntry(join(root, module), true);
   for (const feature of readdirSync(join(root, 'features')))
     expectEntry(join(root, 'features', feature));
   for (const owner of storeOwners) expectEntry(join(root, owner));

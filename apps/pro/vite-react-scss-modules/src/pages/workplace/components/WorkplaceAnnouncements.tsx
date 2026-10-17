@@ -2,8 +2,8 @@ import { Surface, Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { getAnnouncements } from '@/api/workspace';
-import { ResourceContent } from '@/shared/async/ResourceContent';
-import { useRemoteData } from '@/shared/async/use-remote-data';
+import { ResourceContent } from '@/components/resource-content/ResourceContent';
+import { useRemoteData } from '@/hooks/use-remote-data';
 
 import styles from '../styles/workplace.module.scss';
 

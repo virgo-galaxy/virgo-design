@@ -15,8 +15,8 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { MutationFeedback } from '@/shared/async/MutationFeedback';
-import { useMutation } from '@/shared/async/use-mutation';
+import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedback';
+import { useMutation } from '@/hooks/use-mutation';
 import shared from '@/styles/product-layout.module.scss';
 
 import type { profileEnUS } from '../../locales/en-US';

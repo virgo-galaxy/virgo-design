@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
 import type { TokenUsageReportDto } from '@/contracts/analytics';
-import type { RemoteData } from '@/shared/async/use-remote-data';
+import type { RemoteData } from '@/hooks/use-remote-data';
 
 export const TokenUsageResourceContext = createContext<RemoteData<TokenUsageReportDto> | null>(
   null,

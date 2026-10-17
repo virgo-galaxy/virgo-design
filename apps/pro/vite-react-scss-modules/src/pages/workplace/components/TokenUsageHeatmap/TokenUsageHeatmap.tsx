@@ -10,8 +10,8 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import type { TokenUsageReportDto } from '@/contracts/analytics';
-import { ResourceContent } from '@/shared/async/ResourceContent';
 
 import { useTokenUsageResource } from '../../data/token-usage-context';
 import {

@@ -6,8 +6,8 @@ import checkBadgeArtwork from '@/assets/illustrations/check-badge.svg';
 import clipboardCheckArtwork from '@/assets/illustrations/clipboard-check.svg';
 import folderDocumentArtwork from '@/assets/illustrations/folder-document.svg';
 import usersArtwork from '@/assets/illustrations/users.svg';
+import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import { useTaskDependentQuery } from '@/features/tasks';
-import { ResourceContent } from '@/shared/async/ResourceContent';
 
 import styles from '../styles/workplace.module.scss';
 

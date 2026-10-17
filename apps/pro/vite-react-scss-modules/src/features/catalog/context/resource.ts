@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 
 import type { ProjectDto } from '@/api/projects';
 import type { TaskMetadataDto } from '@/api/tasks';
-import { type RemoteData, useRemoteData } from '@/shared/async/use-remote-data';
+import { type RemoteData, useRemoteData } from '@/hooks/use-remote-data';
 
 import { loadCatalog } from '../data/load-catalog';
 

@@ -14,11 +14,11 @@ import { useTranslation } from 'react-i18next';
 
 import { getDemoAccounts, login, type LoginDto } from '@/api/auth';
 import { LanguageControl } from '@/components/language-control/LanguageControl';
+import { useRemoteData } from '@/hooks/use-remote-data';
 import { businessLabel } from '@/lib/demo/labels';
 import { isHttpError } from '@/lib/http';
 import { useAppPreferences } from '@/preferences';
 import { routePaths } from '@/routes';
-import { useRemoteData } from '@/shared/async/use-remote-data';
 
 import styles from './LoginPage.module.scss';
 

@@ -6,6 +6,7 @@ import { FilterSelect } from '@/components/filter-select/FilterSelect';
 import { MetricStrip } from '@/components/metric-strip/MetricStrip';
 import { PageHeading } from '@/components/page-heading/PageHeading';
 import { Panel } from '@/components/panel/Panel';
+import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, moduleFilterKey, Person, useTaskCatalog } from '@/features/catalog';
 import {
@@ -18,7 +19,6 @@ import { canManageProject } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { routePath } from '@/routes';
-import { ResourceContent } from '@/shared/async/ResourceContent';
 import shared from '@/styles/product-layout.module.scss';
 
 import { useProjectResources } from '../hooks/use-project-resources';

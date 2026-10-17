@@ -4,13 +4,13 @@ import type { Ref } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
+import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import type { TaskDto } from '@/contracts/tasks';
 import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
 import { taskStatusIntent, taskStatusLabelNames, useTaskQuery } from '@/features/tasks';
 import { businessLabel } from '@/lib/demo/labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { routePath } from '@/routes';
-import { ResourceContent } from '@/shared/async/ResourceContent';
 
 import styles from './RecentTasks.module.scss';
 

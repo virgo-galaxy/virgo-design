@@ -6,6 +6,8 @@ import { Link, useNavigate } from 'react-router';
 
 import { getTasks } from '@/api/tasks';
 import { getLatestWorkflow } from '@/api/workflows';
+import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedback';
+import { RemoteState } from '@/components/remote-state/RemoteState';
 import {
   CatalogBoundary,
   moduleName,
@@ -25,13 +27,11 @@ import {
   taskStatusLabelNames,
   useTaskDependentQuery,
 } from '@/features/tasks';
+import { useMutation } from '@/hooks/use-mutation';
+import { useRemoteData } from '@/hooks/use-remote-data';
 import { downloadCsv } from '@/lib/browser/download';
 import { businessLabel } from '@/lib/demo/labels';
 import { routePath } from '@/routes';
-import { MutationFeedback } from '@/shared/async/MutationFeedback';
-import { RemoteState } from '@/shared/async/RemoteState';
-import { useMutation } from '@/shared/async/use-mutation';
-import { useRemoteData } from '@/shared/async/use-remote-data';
 import shared from '@/styles/product-layout.module.scss';
 
 import styles from './ResultPage.module.scss';

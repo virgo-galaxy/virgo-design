@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { readAllNotifications, readNotification } from '@/api/notifications';
+import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedback';
+import { RemoteState } from '@/components/remote-state/RemoteState';
 import { taskDetailsPath } from '@/features/tasks';
+import { useMutation } from '@/hooks/use-mutation';
 import { businessLabel } from '@/lib/demo/labels';
-import { MutationFeedback } from '@/shared/async/MutationFeedback';
-import { RemoteState } from '@/shared/async/RemoteState';
-import { useMutation } from '@/shared/async/use-mutation';
 
 import type { useNotificationInbox } from '../hooks/use-notification-inbox';
 import styles from './NotificationInbox.module.scss';

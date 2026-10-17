@@ -1,4 +1,4 @@
-import { useRemoteData } from '@/shared/async/use-remote-data';
+import { useRemoteData } from '@/hooks/use-remote-data';
 
 import { useTaskRevision } from '../data/operations';
 export function useTaskDependentQuery<T>(load: (signal: AbortSignal) => Promise<T>, key?: string) {

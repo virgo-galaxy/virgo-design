@@ -30,7 +30,9 @@ import { Link, useNavigate, useParams } from 'react-router';
 
 import { ExceptionState } from '@/components/exception-state/ExceptionState';
 import { FilterSelect } from '@/components/filter-select/FilterSelect';
+import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedback';
 import { Panel } from '@/components/panel/Panel';
+import { RemoteState } from '@/components/remote-state/RemoteState';
 import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, useTaskCatalog } from '@/features/catalog';
 import { projectHandoffPath } from '@/features/projects';
@@ -41,12 +43,10 @@ import {
   taskStatusLabelNames,
   useTaskDependentQuery,
 } from '@/features/tasks';
+import { useMutation } from '@/hooks/use-mutation';
 import { canManageProject, isAdmin } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
 import { routePath } from '@/routes';
-import { MutationFeedback } from '@/shared/async/MutationFeedback';
-import { RemoteState } from '@/shared/async/RemoteState';
-import { useMutation } from '@/shared/async/use-mutation';
 import shared from '@/styles/product-layout.module.scss';
 
 import { useHandoffSession } from '../hooks/use-handoff-session';

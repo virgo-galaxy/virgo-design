@@ -8,9 +8,9 @@ import calendarClockArtwork from '@/assets/illustrations/calendar-clock.svg';
 import documentStackArtwork from '@/assets/illustrations/document-stack.svg';
 import playCircleArtwork from '@/assets/illustrations/play-circle.svg';
 import shieldCheckArtwork from '@/assets/illustrations/shield-check.svg';
+import { RemoteState } from '@/components/remote-state/RemoteState';
 import { WorkOverview } from '@/components/work-overview/WorkOverview';
 import { routePath, routeWithQuery } from '@/routes';
-import { RemoteState } from '@/shared/async/RemoteState';
 
 import { useTaskDependentQuery } from '../hooks/use-task-dependent-query';
 import styles from './TaskViews.module.scss';

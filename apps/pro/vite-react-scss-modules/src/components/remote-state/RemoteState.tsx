@@ -3,15 +3,13 @@ import { useTranslation } from 'react-i18next';
 
 import { isHttpError } from '@/lib/http';
 
-export function RemoteState({
-  loading,
-  error,
-  retry,
-}: {
+interface RemoteStateProps {
   loading?: boolean;
   error?: unknown;
   retry: () => void;
-}) {
+}
+
+export function RemoteState({ loading, error, retry }: RemoteStateProps) {
   const { t } = useTranslation();
 
   if (loading)

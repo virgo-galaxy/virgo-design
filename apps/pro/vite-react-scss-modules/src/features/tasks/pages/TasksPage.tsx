@@ -4,15 +4,15 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
+import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedback';
+import { RemoteState } from '@/components/remote-state/RemoteState';
 import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
+import { useMutation } from '@/hooks/use-mutation';
 import { canCreateTask, isAdmin } from '@/lib/auth/permissions';
 import { downloadCsv } from '@/lib/browser/download';
 import { businessLabel } from '@/lib/demo/labels';
 import { routePath, routeWithQuery } from '@/routes';
-import { MutationFeedback } from '@/shared/async/MutationFeedback';
-import { RemoteState } from '@/shared/async/RemoteState';
-import { useMutation } from '@/shared/async/use-mutation';
 
 import { TableSettingsDialog } from '../components/TableSettingsDialog/TableSettingsDialog';
 import { TaskDeleteDialog } from '../components/TaskDeleteDialog';

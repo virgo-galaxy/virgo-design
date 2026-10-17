@@ -6,8 +6,10 @@ import { Link, Navigate, useNavigate, useParams, useSearchParams } from 'react-r
 
 import { getTask, getTaskHistory } from '@/api/tasks';
 import { FilterSelect } from '@/components/filter-select/FilterSelect';
+import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedback';
 import { PageHeading } from '@/components/page-heading/PageHeading';
 import { Panel } from '@/components/panel/Panel';
+import { RemoteState } from '@/components/remote-state/RemoteState';
 import { useCurrentUser } from '@/features/auth';
 import {
   CatalogBoundary,
@@ -16,13 +18,11 @@ import {
   projectName,
   useTaskCatalog,
 } from '@/features/catalog';
+import { useMutation } from '@/hooks/use-mutation';
+import { useRemoteData } from '@/hooks/use-remote-data';
 import { canCreateTask, canEditTask, isAdmin, taskStatusChoices } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
 import { routePath } from '@/routes';
-import { MutationFeedback } from '@/shared/async/MutationFeedback';
-import { RemoteState } from '@/shared/async/RemoteState';
-import { useMutation } from '@/shared/async/use-mutation';
-import { useRemoteData } from '@/shared/async/use-remote-data';
 
 import { TaskForm } from '../components/TaskForm/TaskForm';
 import { useTaskOperations, useTaskRevision } from '../data/operations';

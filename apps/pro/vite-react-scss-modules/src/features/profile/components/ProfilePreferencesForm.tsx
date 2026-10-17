@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { FilterSelect } from '@/components/filter-select/FilterSelect';
+import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedback';
 import { Panel } from '@/components/panel/Panel';
 import type { UpdateProfilePreferencesRequest } from '@/contracts/profile';
 import { useTaskCatalog } from '@/features/catalog';
+import { useMutation } from '@/hooks/use-mutation';
 import { businessLabel } from '@/lib/demo/labels';
-import { MutationFeedback } from '@/shared/async/MutationFeedback';
-import { useMutation } from '@/shared/async/use-mutation';
 import shared from '@/styles/product-layout.module.scss';
 
 import type { profileEnUS } from '../locales/en-US';

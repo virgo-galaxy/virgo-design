@@ -2,9 +2,9 @@ import { Progress } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { getProjectDistribution } from '@/api/projects';
+import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import { useTaskDependentQuery } from '@/features/tasks';
 import { businessLabel } from '@/lib/demo/labels';
-import { ResourceContent } from '@/shared/async/ResourceContent';
 
 import styles from '../styles/workplace.module.scss';
 

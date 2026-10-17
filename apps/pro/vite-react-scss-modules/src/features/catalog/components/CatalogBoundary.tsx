@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { RemoteState } from '@/shared/async/RemoteState';
+import { RemoteState } from '@/components/remote-state/RemoteState';
 
 import { useCatalogResource } from '../context/resource';
 

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { getNotifications } from '@/api/notifications';
-import { useRemoteData } from '@/shared/async/use-remote-data';
+import { useRemoteData } from '@/hooks/use-remote-data';
 
 import { useNotificationRevision } from '../context/revision';
 

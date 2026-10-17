@@ -11,6 +11,7 @@ import triangleAlertArtwork from '@/assets/illustrations/triangle-alert.svg';
 import { MultiFilterSelect } from '@/components/multi-filter-select/MultiFilterSelect';
 import { NoResults } from '@/components/no-results/NoResults';
 import { Panel } from '@/components/panel/Panel';
+import { RemoteState } from '@/components/remote-state/RemoteState';
 import { WorkOverview } from '@/components/work-overview/WorkOverview';
 import type { ProjectSummaryDto } from '@/contracts/projects';
 import { useCurrentUser } from '@/features/auth';
@@ -19,7 +20,6 @@ import { useTaskDependentQuery } from '@/features/tasks';
 import { canManageProject } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
 import { routePath, routeWithQuery } from '@/routes';
-import { RemoteState } from '@/shared/async/RemoteState';
 import shared from '@/styles/product-layout.module.scss';
 
 import { filterProjects, type Project } from '../model/project';

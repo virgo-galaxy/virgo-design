@@ -9,7 +9,7 @@ import {
   updateProfilePreferences,
   type UpdateProfilePreferencesRequest,
 } from '@/api/profile';
-import { type RemoteData, useRemoteData } from '@/shared/async/use-remote-data';
+import { type RemoteData, useRemoteData } from '@/hooks/use-remote-data';
 
 export const ProfileRevisionContext = createContext(0);
 

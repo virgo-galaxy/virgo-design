@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
 import { getSession, type LoginDto, logout, resetDemo, type SessionDto } from '@/api/auth';
+import { useRemoteData } from '@/hooks/use-remote-data';
 import {
   clearAuthSession,
   expireAuthSession,
   getSessionExpiresAt,
   sessionExpiredEvent,
 } from '@/lib/auth/session';
-import { useRemoteData } from '@/shared/async/use-remote-data';
 
 export function useSessionState({
   onSessionEnd,

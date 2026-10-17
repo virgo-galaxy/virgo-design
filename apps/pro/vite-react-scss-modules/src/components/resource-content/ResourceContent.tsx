@@ -1,15 +1,14 @@
 import type { ReactNode } from 'react';
 
-import { RemoteState } from './RemoteState';
-import type { RemoteData } from './use-remote-data';
+import { RemoteState } from '@/components/remote-state/RemoteState';
+import type { RemoteData } from '@/hooks/use-remote-data';
 
-export function ResourceContent<T>({
-  resource,
-  children,
-}: {
+interface ResourceContentProps<T> {
   resource: Pick<RemoteData<T>, 'data' | 'error' | 'loading' | 'retry'>;
   children: (data: T) => ReactNode;
-}) {
+}
+
+export function ResourceContent<T>({ resource, children }: ResourceContentProps<T>) {
   if (resource.data === null) return <RemoteState {...resource} />;
 
   return (

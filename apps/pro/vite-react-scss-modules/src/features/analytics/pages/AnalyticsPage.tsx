@@ -6,10 +6,10 @@ import {
   getProjectDelivery,
   getTaskStatusSummary,
 } from '@/api/analytics';
+import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import { CatalogBoundary } from '@/features/catalog';
 import { useTaskDependentQuery } from '@/features/tasks';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
-import { ResourceContent } from '@/shared/async/ResourceContent';
 
 import { DeliveryMetrics } from '../components/DeliveryMetrics';
 import { DeliveryTrendPanel } from '../components/DeliveryTrendPanel';

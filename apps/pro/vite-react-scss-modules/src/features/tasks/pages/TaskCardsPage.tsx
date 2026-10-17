@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router';
 
 import { NoResults } from '@/components/no-results/NoResults';
+import { RemoteState } from '@/components/remote-state/RemoteState';
 import {
   CatalogBoundary,
   moduleName,
@@ -13,7 +14,6 @@ import {
 import { businessLabel } from '@/lib/demo/labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { routePath, routeWithQuery } from '@/routes';
-import { RemoteState } from '@/shared/async/RemoteState';
 
 import { TaskCardFilters } from '../components/TaskCardFilters';
 import { TaskViews } from '../components/TaskViews';

@@ -2,11 +2,11 @@ import { Tag, Timeline } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { getActivity } from '@/api/analytics';
+import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import type { ActivityDto } from '@/contracts/analytics';
 import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
 import { useTaskDependentQuery } from '@/features/tasks';
 import { businessLabel } from '@/lib/demo/labels';
-import { ResourceContent } from '@/shared/async/ResourceContent';
 
 import styles from '../styles/workplace.module.scss';
 
