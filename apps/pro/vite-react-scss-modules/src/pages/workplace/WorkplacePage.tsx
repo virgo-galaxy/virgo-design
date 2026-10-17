@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { PageHeading } from '@/components/page/PageHeading';
+import { PageHeading } from '@/components/page-heading/PageHeading';
 import { useCurrentUser } from '@/features/auth';
 
 import { DeliveryTrend } from './components/DeliveryTrend';

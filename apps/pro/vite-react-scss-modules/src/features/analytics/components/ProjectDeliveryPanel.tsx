@@ -1,7 +1,7 @@
 import { Chart } from '@virgo-design/charts';
 import { useTranslation } from 'react-i18next';
 
-import { Panel } from '@/components/page/Panel';
+import { Panel } from '@/components/panel/Panel';
 import type { ProjectDeliveryDayDto } from '@/contracts/analytics';
 import { useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/demo/labels';

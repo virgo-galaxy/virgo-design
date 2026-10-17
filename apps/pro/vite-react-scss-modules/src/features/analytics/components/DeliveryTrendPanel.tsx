@@ -1,7 +1,7 @@
 import { Chart } from '@virgo-design/charts';
 import { useTranslation } from 'react-i18next';
 
-import { Panel } from '@/components/page/Panel';
+import { Panel } from '@/components/panel/Panel';
 import type { TrendPointDto } from '@/contracts/analytics';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 

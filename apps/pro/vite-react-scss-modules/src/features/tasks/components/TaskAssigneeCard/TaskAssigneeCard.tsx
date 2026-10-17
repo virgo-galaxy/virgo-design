@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { MemberDto } from '@/api/tasks';
 import type { UserDetailsDto } from '@/api/users';
-import { UserGenderIcon } from '@/components/user-gender/UserGenderIcon';
+import { UserGenderIcon } from '@/components/user-gender-icon/UserGenderIcon';
 import { projectName, useTaskCatalog } from '@/features/catalog';
 import { userDetailsCache } from '@/features/users';
 import { businessLabel, formatWorkLocation } from '@/lib/demo/labels';

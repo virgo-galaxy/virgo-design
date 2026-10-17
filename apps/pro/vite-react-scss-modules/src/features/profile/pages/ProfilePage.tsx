@@ -6,8 +6,8 @@ import { Link } from 'react-router';
 
 import { getActivity } from '@/api/analytics';
 import { getTasks } from '@/api/tasks';
-import { Panel } from '@/components/page/Panel';
-import { UserGenderIcon } from '@/components/user-gender/UserGenderIcon';
+import { Panel } from '@/components/panel/Panel';
+import { UserGenderIcon } from '@/components/user-gender-icon/UserGenderIcon';
 import type { ProfileIdentityDto, UpdateProfileIdentityRequest } from '@/contracts/profile';
 import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, Person, projectName, useTaskCatalog } from '@/features/catalog';

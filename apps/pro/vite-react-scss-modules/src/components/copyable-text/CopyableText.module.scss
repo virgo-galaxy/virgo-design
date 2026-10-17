@@ -6,10 +6,12 @@
   align-items: center;
   gap: var(--vd-spacing-4);
 }
+
 .text {
   min-width: 0;
   overflow-wrap: anywhere;
 }
+
 .copyButton[data-variant='text'] {
   --button-foreground: var(--vd-text-tertiary);
   opacity: 0;
@@ -17,14 +19,17 @@
   transition: opacity var(--vd-motion-interaction-duration, var(--vd-duration-120))
     var(--vd-motion-easing-standard, var(--vd-easing-standard));
 }
+
 .root:is(:hover, :has(:focus-visible)) .copyButton,
 .root:not([data-copy-state='idle']) .copyButton {
   opacity: 1;
   pointer-events: auto;
 }
+
 .root[data-copy-state='copied'] .copyButton {
   --button-foreground: var(--vd-status-success-accent);
 }
+
 .announcement {
   position: absolute;
   width: 1px;
@@ -33,12 +38,14 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
 @media (hover: none) {
   .root .copyButton {
     opacity: 1;
     pointer-events: auto;
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .copyButton {
     transition: none;

@@ -2,7 +2,7 @@ import { Pagination } from '@virgo-design/ui';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Panel } from '@/components/page/Panel';
+import { Panel } from '@/components/panel/Panel';
 import type { OwnerCapacityDto } from '@/contracts/analytics';
 import { Person, useTaskCatalog } from '@/features/catalog';
 

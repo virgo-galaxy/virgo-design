@@ -5,7 +5,11 @@ import type { UserGender } from '@/contracts/users';
 
 import styles from './UserGenderIcon.module.scss';
 
-export function UserGenderIcon({ gender }: { gender?: UserGender | undefined }) {
+interface UserGenderIconProps {
+  gender?: UserGender | undefined;
+}
+
+export function UserGenderIcon({ gender }: UserGenderIconProps) {
   const { t } = useTranslation();
 
   if (!gender) return null;

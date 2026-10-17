@@ -1,6 +1,14 @@
 import { Field, Select, type SelectOptionProps, type SelectSize } from '@virgo-design/ui';
 
-import styles from './filters.module.scss';
+import styles from './FilterSelect.module.scss';
+
+interface FilterSelectProps {
+  size?: SelectSize;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: readonly { value: string; label: string; intent?: SelectOptionProps['intent'] }[];
+}
 
 export function FilterSelect({
   label,
@@ -8,13 +16,7 @@ export function FilterSelect({
   onChange,
   options,
   size = 'medium',
-}: {
-  size?: SelectSize;
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  options: readonly { value: string; label: string; intent?: SelectOptionProps['intent'] }[];
-}) {
+}: FilterSelectProps) {
   return (
     <Field>
       <Field.Label className={styles.filterLabel}>{label}</Field.Label>

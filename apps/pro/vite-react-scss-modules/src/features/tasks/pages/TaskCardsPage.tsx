@@ -2,7 +2,7 @@ import { Pagination, Surface, Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router';
 
-import { NoResults } from '@/components/page/NoResults';
+import { NoResults } from '@/components/no-results/NoResults';
 import {
   CatalogBoundary,
   moduleName,

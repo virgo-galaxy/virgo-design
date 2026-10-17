@@ -3,13 +3,12 @@ import type { ReactNode } from 'react';
 
 import styles from './WorkOverview.module.scss';
 
-export function WorkOverview({
-  items,
-  loading = false,
-}: {
+interface WorkOverviewProps {
   items: Array<{ label: string; value: ReactNode; note: string; artwork: string }>;
   loading?: boolean;
-}) {
+}
+
+export function WorkOverview({ items, loading = false }: WorkOverviewProps) {
   return (
     <div className={styles.container}>
       <Surface border="default" radius={12} className={styles.grid} data-slot="work-overview">

@@ -16,11 +16,13 @@
   gap: var(--vd-spacing-16);
   padding: var(--vd-spacing-20);
   border-bottom: 1px solid var(--vd-border-subtle);
+
   h2 {
     margin: 0;
     font-size: var(--vd-font-size-14);
     font-weight: 600;
   }
+
   p {
     margin: var(--vd-spacing-4) 0 0;
     font-size: var(--vd-font-size-12);

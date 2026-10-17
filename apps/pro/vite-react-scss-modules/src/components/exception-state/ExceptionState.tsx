@@ -10,7 +10,11 @@ import { routePath } from '@/routes';
 
 import styles from './ExceptionState.module.scss';
 
-export function ExceptionState({ code }: { code: '403' | '404' | '500' }) {
+interface ExceptionStateProps {
+  code: '403' | '404' | '500';
+}
+
+export function ExceptionState({ code }: ExceptionStateProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const exception = {

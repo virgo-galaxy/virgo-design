@@ -1,9 +1,10 @@
 import { ShirtIcon } from '@virgo-design/icons';
 import { themePresets } from '@virgo-design/themes';
-import { Dropdown, Tooltip } from '@virgo-design/ui';
-import { useId, useRef, useState } from 'react';
+import { Dropdown } from '@virgo-design/ui';
+import { useId } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { MenuControl } from '@/components/menu-control/MenuControl';
 import { usePreferencesStore } from '@/preferences';
 
 import styles from './ThemeStyleControl.module.scss';
@@ -13,45 +14,9 @@ export function ThemeStyleControl() {
   const id = useId();
   const selected = usePreferencesStore((state) => state.preferences.theme);
   const updatePreferences = usePreferencesStore((state) => state.updatePreferences);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [tooltipOpen, setTooltipOpen] = useState(false);
-  const tooltipSuppressed = useRef(false);
 
   return (
-    <Dropdown
-      trigger="click"
-      open={menuOpen}
-      onOpenChange={(open) => {
-        tooltipSuppressed.current = true;
-        setTooltipOpen(false);
-        setMenuOpen(open);
-      }}
-    >
-      <Tooltip
-        open={!menuOpen && tooltipOpen}
-        onOpenChange={(open) => setTooltipOpen(open && !menuOpen && !tooltipSuppressed.current)}
-      >
-        <Tooltip.Trigger
-          onPointerEnter={() => {
-            if (!menuOpen) tooltipSuppressed.current = false;
-          }}
-          onBlur={() => {
-            if (!menuOpen) tooltipSuppressed.current = false;
-            setTooltipOpen(false);
-          }}
-          render={(triggerProps) => (
-            <Dropdown.Trigger
-              {...triggerProps}
-              iconOnly
-              variant="text"
-              aria-label={t('themeStyleControl.label')}
-            >
-              <ShirtIcon />
-            </Dropdown.Trigger>
-          )}
-        />
-        <Tooltip.Content placement="bottom">{t('themeStyleControl.label')}</Tooltip.Content>
-      </Tooltip>
+    <MenuControl label={t('themeStyleControl.label')} icon={<ShirtIcon />}>
       <Dropdown.Content
         placement="bottomRight"
         arrow={false}
@@ -75,6 +40,6 @@ export function ThemeStyleControl() {
           </Dropdown.Item>
         ))}
       </Dropdown.Content>
-    </Dropdown>
+    </MenuControl>
   );
 }

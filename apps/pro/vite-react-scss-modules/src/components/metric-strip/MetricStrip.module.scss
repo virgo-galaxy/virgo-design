@@ -14,6 +14,7 @@
 @media (max-width: 1050px) {
   .metrics {
     gap: var(--vd-spacing-16);
+
     > .caption {
       display: none;
     }

@@ -2,7 +2,12 @@ import { SearchIcon } from '@virgo-design/icons';
 import { Button, Empty } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
-export function NoResults({ onReset, title }: { onReset: () => void; title?: string }) {
+interface NoResultsProps {
+  onReset: () => void;
+  title?: string;
+}
+
+export function NoResults({ onReset, title }: NoResultsProps) {
   const { t } = useTranslation();
 
   return (

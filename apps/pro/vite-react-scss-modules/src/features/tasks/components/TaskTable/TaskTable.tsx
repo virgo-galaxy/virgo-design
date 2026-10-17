@@ -13,7 +13,7 @@ import {
 import { type ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { CopyableText } from '@/components/copyable-text';
+import { CopyableText } from '@/components/copyable-text/CopyableText';
 import { useCurrentUser } from '@/features/auth';
 import { moduleFilterKey, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
 import { canCreateTask, canEditTask } from '@/lib/auth/permissions';

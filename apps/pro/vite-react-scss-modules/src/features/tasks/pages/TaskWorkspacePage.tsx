@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useNavigate, useParams, useSearchParams } from 'react-router';
 
 import { getTask, getTaskHistory } from '@/api/tasks';
-import { FilterSelect } from '@/components/filters/FilterSelect';
-import { PageHeading } from '@/components/page/PageHeading';
-import { Panel } from '@/components/page/Panel';
+import { FilterSelect } from '@/components/filter-select/FilterSelect';
+import { PageHeading } from '@/components/page-heading/PageHeading';
+import { Panel } from '@/components/panel/Panel';
 import { useCurrentUser } from '@/features/auth';
 import {
   CatalogBoundary,

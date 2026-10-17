@@ -1,6 +1,16 @@
 import { Field, Select, type SelectOptionProps, type SelectSize } from '@virgo-design/ui';
 
-import styles from './filters.module.scss';
+import styles from './MultiFilterSelect.module.scss';
+
+interface MultiFilterSelectProps {
+  className?: string | undefined;
+  size?: SelectSize;
+  label: string;
+  value: readonly string[];
+  onChange: (value: string[]) => void;
+  options: readonly { value: string; label: string; intent?: SelectOptionProps['intent'] }[];
+  placeholder: string;
+}
 
 export function MultiFilterSelect({
   label,
@@ -10,15 +20,7 @@ export function MultiFilterSelect({
   placeholder,
   size = 'medium',
   className,
-}: {
-  className?: string | undefined;
-  size?: SelectSize;
-  label: string;
-  value: readonly string[];
-  onChange: (value: string[]) => void;
-  options: readonly { value: string; label: string; intent?: SelectOptionProps['intent'] }[];
-  placeholder: string;
-}) {
+}: MultiFilterSelectProps) {
   return (
     <Field>
       <Field.Label className={styles.filterLabel}>{label}</Field.Label>

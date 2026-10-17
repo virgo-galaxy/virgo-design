@@ -4,6 +4,7 @@
   justify-content: space-between;
   gap: var(--vd-spacing-20);
   padding: var(--vd-spacing-20);
+
   p {
     margin: var(--vd-spacing-8) 0 0;
     color: var(--vd-text-secondary);
@@ -40,6 +41,7 @@
   display: flex;
   align-items: center;
   gap: var(--vd-spacing-12);
+
   h1 {
     margin: 0;
     font-size: var(--vd-typography-ui-display-small-font-size);

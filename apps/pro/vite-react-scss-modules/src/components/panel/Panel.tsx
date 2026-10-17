@@ -3,19 +3,15 @@ import type { ReactNode } from 'react';
 
 import styles from './Panel.module.scss';
 
-export function Panel({
-  title,
-  description,
-  actions,
-  children,
-  className,
-}: {
+interface PanelProps {
   title: string;
   description?: string;
   actions?: ReactNode;
   children: ReactNode;
   className?: string;
-}) {
+}
+
+export function Panel({ title, description, actions, children, className }: PanelProps) {
   return (
     <Surface
       role="region"

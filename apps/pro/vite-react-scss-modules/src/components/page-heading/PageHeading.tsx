@@ -3,19 +3,21 @@ import type { ReactNode } from 'react';
 
 import styles from './PageHeading.module.scss';
 
+interface PageHeadingProps {
+  title: ReactNode;
+  description: string;
+  count?: number;
+  actions?: ReactNode;
+  variant?: 'surface' | 'integrated';
+}
+
 export function PageHeading({
   title,
   description,
   count,
   actions,
   variant = 'surface',
-}: {
-  title: ReactNode;
-  description: string;
-  count?: number;
-  actions?: ReactNode;
-  variant?: 'surface' | 'integrated';
-}) {
+}: PageHeadingProps) {
   const heading = (
     <header
       className={`${styles.heading} ${variant === 'integrated' ? styles.integratedHeading : ''}`}

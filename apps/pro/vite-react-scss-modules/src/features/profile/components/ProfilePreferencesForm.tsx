@@ -2,8 +2,8 @@ import { Alert, Button, Field, Form, Radio, Switch, TimePicker } from '@virgo-de
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { FilterSelect } from '@/components/filters/FilterSelect';
-import { Panel } from '@/components/page/Panel';
+import { FilterSelect } from '@/components/filter-select/FilterSelect';
+import { Panel } from '@/components/panel/Panel';
 import type { UpdateProfilePreferencesRequest } from '@/contracts/profile';
 import { useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/demo/labels';

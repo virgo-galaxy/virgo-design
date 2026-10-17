@@ -3,7 +3,7 @@ import { Button, Field, Form, Input } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { MultiFilterSelect } from '@/components/filters/MultiFilterSelect';
+import { MultiFilterSelect } from '@/components/multi-filter-select/MultiFilterSelect';
 import { projectName, useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/demo/labels';
 

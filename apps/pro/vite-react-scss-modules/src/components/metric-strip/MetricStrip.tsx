@@ -3,15 +3,13 @@ import type { ReactNode } from 'react';
 
 import styles from './MetricStrip.module.scss';
 
-export function MetricStrip({
-  items,
-  note,
-  className,
-}: {
+interface MetricStripProps {
   items: Array<{ label: string; value: ReactNode; note?: string }>;
   note?: string;
   className?: string;
-}) {
+}
+
+export function MetricStrip({ items, note, className }: MetricStripProps) {
   return (
     <Surface border="default" radius={8} className={`${styles.metrics} ${className ?? ''}`}>
       <div className={styles.metricGrid}>
