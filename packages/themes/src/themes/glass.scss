@@ -1,4 +1,3 @@
-@use '../../../tokens/dist/css/compatibility' as theme-aliases;
 @use './recipe';
 
 [data-virgo-theme='glass'] {
@@ -105,7 +104,7 @@
   );
   --vd-chart-tooltip-backdrop-filter: blur(8px) saturate(1.04);
   --vd-chart-tooltip-shadow: var(--vd-elevation-2), var(--vd-panel-highlight);
-  @include theme-aliases.role('--vd-motion-interaction-duration', (180ms));
+  --vd-motion-interaction-duration: 180ms;
   --vd-motion-easing-standard: cubic-bezier(0.16, 1, 0.3, 1);
 
   @include recipe.appearance(

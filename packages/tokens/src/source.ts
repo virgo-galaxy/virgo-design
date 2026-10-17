@@ -57,6 +57,7 @@ export function flattenTokenValues(value: unknown, path: string[] = []): TokenDe
   if (typeof value === 'string' || typeof value === 'number')
     return [{ name: `--vd-${path.map(kebabCase).join('-')}`, value }];
   if (!value || typeof value !== 'object') return [];
+
   return Object.entries(value).flatMap(([name, child]) =>
     flattenTokenValues(child, [...path, name]),
   );
@@ -74,6 +75,7 @@ function typographyRoles(
   path: string[] = [],
 ): { name: string; token: SemanticTypographyToken }[] {
   if (!value || typeof value !== 'object') return [];
+
   if (
     'fontFamily' in value &&
     'fontSize' in value &&
@@ -81,6 +83,7 @@ function typographyRoles(
     'lineHeight' in value
   )
     return [{ name: path.join('-'), token: value as SemanticTypographyToken }];
+
   return Object.entries(value).flatMap(([name, child]) => typographyRoles(child, [...path, name]));
 }
 
@@ -111,6 +114,7 @@ export function typographyDeclarations(): TokenDeclaration[] {
 type Kebab<S extends string> = S extends `${infer First}${infer Rest}`
   ? `${First extends Lowercase<First> ? First : `-${Lowercase<First>}`}${Kebab<Rest>}`
   : S;
+
 export type FlattenNames<T, Prefix extends string = ''> = {
   [Key in keyof T & (string | number)]: T[Key] extends string | number
     ? `${Prefix}${Kebab<`${Key}`>}`
@@ -121,10 +125,12 @@ export type FoundationVariable = `--vd-${FlattenNames<typeof foundationGroups>}`
 export type SemanticColorVariable =
   | `--vd-${FlattenNames<typeof themes.light.color>}`
   | `--vd-elevation-${keyof typeof themes.light.elevation}`;
+
 type TypographyNames<T, Prefix extends string = ''> = {
   [Key in keyof T & (string | number)]: T[Key] extends SemanticTypographyToken
     ? `${Prefix}${Key}`
     : TypographyNames<T[Key], `${Prefix}${Key}-`>;
 }[keyof T & (string | number)];
+
 export type TypographyVariable =
   `--vd-typography-${TypographyNames<typeof typography>}-${'font-family' | 'font-size' | 'font-weight' | 'line-height' | 'letter-spacing'}`;

@@ -26,6 +26,15 @@ describe('Family editor', () => {
     await user.type(red, '#123456');
     await user.tab();
     expect(onChange).toHaveBeenCalledWith('red', '#123456');
+
+    onChange.mockClear();
+    await user.click(red);
+    await user.clear(red);
+    await user.type(red, '#ABCDEF{Escape}');
+    expect(red).toHaveValue(VIRGO_CHROMATIC_BASES.red.toUpperCase());
+    expect(red).toHaveFocus();
+    expect(onChange).not.toHaveBeenCalled();
+
     rerender(view(false));
     expect(container.querySelector('aside')).toHaveAttribute('inert');
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();

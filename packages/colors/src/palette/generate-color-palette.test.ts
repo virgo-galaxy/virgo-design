@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { generateColorScale } from '../generate.js';
-import { CHROMATIC_FAMILY_COUNT, CHROMATIC_HUE_STEP, COLOR_FAMILIES } from './constants.js';
+import { CHROMATIC_FAMILIES, CHROMATIC_FAMILY_COUNT, CHROMATIC_HUE_STEP } from './constants.js';
 import { generateColorPalette } from './generate-color-palette.js';
 import {
   VIRGO_BRAND_BASE,
@@ -15,7 +15,7 @@ describe('chromatic foundation', () => {
   it('uses the twelve classic one-word chromatic families', () => {
     expect(CHROMATIC_FAMILY_COUNT).toBe(12);
     expect(CHROMATIC_HUE_STEP).toBe(30);
-    expect(COLOR_FAMILIES).toEqual([
+    expect(CHROMATIC_FAMILIES).toEqual([
       'red',
       'vermilion',
       'orange',
@@ -32,7 +32,7 @@ describe('chromatic foundation', () => {
   });
 
   it('ships a complete frozen Virgo Design base palette', () => {
-    expect(Object.keys(VIRGO_CHROMATIC_BASES)).toEqual(COLOR_FAMILIES);
+    expect(Object.keys(VIRGO_CHROMATIC_BASES)).toEqual(CHROMATIC_FAMILIES);
     expect(VIRGO_CHROMATIC_BASES.blue).toBe('#2b7eea');
     expect(VIRGO_CHROMATIC_BASES.magenta).toBe('#d936b8');
   });
@@ -44,7 +44,7 @@ describe('chromatic foundation', () => {
       bases: VIRGO_CHROMATIC_BASES,
     });
 
-    for (const family of COLOR_FAMILIES) {
+    for (const family of CHROMATIC_FAMILIES) {
       expect(Object.keys(palette.scales[family])).toHaveLength(10);
       expect(palette.scales[family][6]).toBe(VIRGO_CHROMATIC_BASES[family]);
     }
@@ -62,7 +62,7 @@ describe('brand and neutral foundation', () => {
 
   it('ships exactly 140 foundation colors', () => {
     const total =
-      COLOR_FAMILIES.length * 10 +
+      CHROMATIC_FAMILIES.length * 10 +
       Object.keys(VIRGO_BRAND_SCALE).length +
       Object.keys(VIRGO_NEUTRAL_SCALE).length;
 

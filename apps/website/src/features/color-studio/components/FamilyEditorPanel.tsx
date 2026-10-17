@@ -1,6 +1,6 @@
-import { COLOR_FAMILIES, type ColorFamily, type ColorFamilyBases } from '@virgo-design/colors';
+import { CHROMATIC_FAMILIES, type ColorFamily, type ColorFamilyBases } from '@virgo-design/colors';
 import { Input } from '@virgo-design/ui';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from '../styles/color-studio.module.scss';
@@ -14,19 +14,15 @@ interface FamilyHexInputProps {
 }
 
 function FamilyHexInput({ label, value, onChange }: FamilyHexInputProps) {
-  const [draft, setDraft] = useState(value.toUpperCase());
-
-  useEffect(() => {
-    setDraft(value.toUpperCase());
-  }, [value]);
+  const [draft, setDraft] = useState<{ source: string; text: string } | null>(null);
+  const text = draft?.source === value ? draft.text : value.toUpperCase();
 
   const commit = () => {
-    if (HEX_PATTERN.test(draft)) {
-      onChange(draft.toUpperCase());
-      return;
+    if (HEX_PATTERN.test(text) && text.toUpperCase() !== value.toUpperCase()) {
+      onChange(text.toUpperCase());
     }
 
-    setDraft(value.toUpperCase());
+    setDraft(null);
   };
 
   return (
@@ -34,18 +30,20 @@ function FamilyHexInput({ label, value, onChange }: FamilyHexInputProps) {
       rootClassName={styles.familyInputFrame!}
       aria-label={label}
       className={styles.familyEditorInput!}
-      value={draft}
+      value={text}
       spellCheck={false}
-      onChange={(event) => setDraft(event.target.value)}
+      onChange={(event) => setDraft({ source: value, text: event.currentTarget.value })}
       onBlur={commit}
       onKeyDown={(event) => {
+        if (event.nativeEvent.isComposing) return;
+
         if (event.key === 'Enter') {
           event.currentTarget.blur();
         }
 
         if (event.key === 'Escape') {
-          setDraft(value.toUpperCase());
-          event.currentTarget.blur();
+          event.preventDefault();
+          setDraft(null);
         }
       }}
     />
@@ -87,7 +85,7 @@ export function FamilyEditorPanel({
       </header>
 
       <div className={styles.familyEditorList!}>
-        {COLOR_FAMILIES.map((family, index) => {
+        {CHROMATIC_FAMILIES.map((family, index) => {
           const selected = family === selectedFamily;
 
           return (

@@ -9,7 +9,7 @@ import {
   generateStylesCss,
   generateThemesCss,
 } from './generate-css.js';
-import { generateCompatibilityScss, generateScss } from './generate-scss.js';
+import { generateScss } from './generate-scss.js';
 
 export const cssOutputFiles = {
   'foundations.css': generateFoundationsCss,
@@ -33,11 +33,6 @@ export async function writeCssFiles(directory: string | URL) {
   );
 
   await writeFile(resolve(outputDirectory, 'tokens.scss'), generateScss(), 'utf8');
-  await writeFile(
-    resolve(outputDirectory, 'compatibility.scss'),
-    generateCompatibilityScss(),
-    'utf8',
-  );
 
   await Promise.all(
     Object.entries(cssOutputFiles).map(([fileName, generate]) =>

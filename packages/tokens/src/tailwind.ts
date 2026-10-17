@@ -11,6 +11,7 @@ const semanticColors = Object.fromEntries(
     )
     .map(({ name }) => [name.slice(5), tokenVars[name]]),
 );
+
 /** Tailwind 3 theme.extend mapping. Color opacity syntax remains consumer-owned. */
 export const tailwindTheme = Object.freeze({
   colors: semanticColors,
@@ -22,6 +23,7 @@ export const tailwindTheme = Object.freeze({
   ),
   fontFamily: { sans: 'var(--vd-font-family-sans)', mono: 'var(--vd-font-family-mono)' },
 });
+
 export function generateTailwindCss(): string {
   const declarations = [
     ...Object.entries(tailwindTheme.colors).map(([name, value]) => `  --color-${name}: ${value};`),
@@ -35,5 +37,6 @@ export function generateTailwindCss(): string {
       ([name, value]) => `  --font-${name}: ${value};`,
     ),
   ];
+
   return `/* Generated Tailwind 4 mapping; load after tailwindcss. */\n@theme inline {\n${declarations.join('\n')}\n}\n`;
 }

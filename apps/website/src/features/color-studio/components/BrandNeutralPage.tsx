@@ -40,6 +40,7 @@ export function BrandNeutralPage({
       <section
         className={`${styles.foundationPanel} ${disabled ? styles.foundationPanelDisabled : ''}`}
         onPointerDown={onBrandSelect}
+        onFocusCapture={onBrandSelect}
       >
         <header className={styles.panelHeader}>
           <div>
@@ -81,6 +82,7 @@ export function BrandNeutralPage({
       <section
         className={`${styles.foundationPanel} ${disabled ? styles.foundationPanelDisabled : ''}`}
         onPointerDown={onNeutralSelect}
+        onFocusCapture={onNeutralSelect}
       >
         <header className={styles.panelHeader}>
           <div>

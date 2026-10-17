@@ -13,12 +13,6 @@ export const CHROMATIC_FAMILIES = [
   'magenta',
 ] as const;
 
-/**
- * Backward-compatible public name used by the current website and API.
- * The values are specifically the twelve chromatic hue families.
- */
-export const COLOR_FAMILIES = CHROMATIC_FAMILIES;
-
 export type ColorFamily = (typeof CHROMATIC_FAMILIES)[number];
 
 export const CHROMATIC_FAMILY_COUNT = CHROMATIC_FAMILIES.length;

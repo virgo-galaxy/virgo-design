@@ -1,4 +1,4 @@
-import { COLOR_FAMILIES, type ColorFamily, type ColorFamilyBases } from '@virgo-design/colors';
+import { CHROMATIC_FAMILIES, type ColorFamily, type ColorFamilyBases } from '@virgo-design/colors';
 import { Button } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,18 +19,20 @@ export function ColorFamilyCarousel({
   onSelectedFamilyChange,
 }: ColorFamilyCarouselProps) {
   const { t } = useTranslation();
-  const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const paused = hovered || focused;
 
   return (
     <div className={styles.familyCarousel}>
       <div
         className={styles.familyCarouselViewport}
-        onPointerEnter={() => setPaused(true)}
-        onPointerLeave={() => setPaused(false)}
-        onFocusCapture={() => setPaused(true)}
+        onPointerEnter={() => setHovered(true)}
+        onPointerLeave={() => setHovered(false)}
+        onFocusCapture={() => setFocused(true)}
         onBlurCapture={(event) => {
           if (!event.currentTarget.contains(event.relatedTarget)) {
-            setPaused(false);
+            setFocused(false);
           }
         }}
       >
@@ -45,7 +47,7 @@ export function ColorFamilyCarousel({
               key={copyIndex}
               aria-hidden={copyIndex === 1 ? true : undefined}
             >
-              {COLOR_FAMILIES.map((family) => {
+              {CHROMATIC_FAMILIES.map((family) => {
                 const selected = family === selectedFamily;
 
                 return (

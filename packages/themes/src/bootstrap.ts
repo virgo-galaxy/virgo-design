@@ -1,4 +1,3 @@
-import { legacyThemeIds } from './migration.ts';
 import { defaultTheme, themePresets, type ThemeRegistry } from './registry.ts';
 import type { AppearancePreference } from './resolution.ts';
 import { themeStorageKey } from './runtime.ts';
@@ -12,7 +11,6 @@ export interface InitialThemeScriptOptions {
     themeField?: string;
     appearanceField?: string;
     version?: number;
-    legacyThemeKey?: string;
   };
   appearanceStorageKey?: string;
   /** Preserve server-resolved attributes when cookies are authoritative. */
@@ -28,7 +26,6 @@ interface BootstrapConfiguration {
   respectServerAttributes: boolean;
   appearanceQuery?: InitialThemeScriptOptions['appearanceQuery'];
   ids: string[];
-  migrations: typeof legacyThemeIds;
 }
 // This function is serialized. Keep it synchronous and free of module bindings.
 function bootstrap(config: BootstrapConfiguration) {
@@ -59,15 +56,7 @@ function bootstrap(config: BootstrapConfiguration) {
       /* Use defaults for malformed JSON. */
     }
   } else theme = raw;
-  const canonical = (value: unknown) =>
-    typeof value === 'string'
-      ? Object.hasOwn(config.migrations, value)
-        ? config.migrations[value as keyof typeof config.migrations]
-        : value
-      : undefined;
-  let id = canonical(theme);
-  if ((!id || !config.ids.includes(id)) && config.storage.legacyThemeKey)
-    id = canonical(read(config.storage.legacyThemeKey));
+  let id = typeof theme === 'string' ? theme : undefined;
   if (config.appearanceStorageKey) appearance = read(config.appearanceStorageKey);
   if (
     config.appearanceQuery &&
@@ -77,7 +66,7 @@ function bootstrap(config: BootstrapConfiguration) {
     if (query === 'light' || query === 'dark') appearance = query;
   }
   if (config.respectServerAttributes) {
-    const server = canonical(root.getAttribute('data-virgo-theme'));
+    const server = root.getAttribute('data-virgo-theme');
     if (server && config.ids.includes(server)) id = server;
     const serverAppearance = root.getAttribute('data-theme');
     if (serverAppearance === 'light' || serverAppearance === 'dark') appearance = serverAppearance;
@@ -112,7 +101,6 @@ export function getInitialThemeScript(options: InitialThemeScriptOptions = {}): 
     ...(options.appearanceStorageKey ? { appearanceStorageKey: options.appearanceStorageKey } : {}),
     ...(options.appearanceQuery ? { appearanceQuery: options.appearanceQuery } : {}),
     ids,
-    migrations: legacyThemeIds,
   };
   const json = JSON.stringify(configuration)
     .replace(/</g, '\\u003c')

@@ -3,7 +3,6 @@ import { foundationDeclarations, semanticDeclarations, typographyDeclarations } 
 import type { PresentationVariable } from './theme-contract.js';
 import {
   componentThemeContract,
-  deprecatedThemeRoles,
   presentationContract,
   semanticThemeContract,
 } from './theme-contract.js';
@@ -19,6 +18,7 @@ export interface TokenDefinition {
 }
 
 const dark = new Map(semanticDeclarations('dark').map(({ name, value }) => [name, String(value)]));
+
 function definitions(
   layer: TokenLayer,
   entries: { name: string; value: string | number }[],
@@ -37,7 +37,7 @@ function definitions(
   );
 }
 
-/** Canonical public tokens only. CSS appearance bridge slots and deprecated aliases are adapters. */
+/** Canonical public tokens. CSS appearance bridge slots are generated separately. */
 export const tokenCatalog: readonly TokenDefinition[] = Object.freeze([
   ...definitions('foundation', foundationDeclarations()),
   ...definitions('semantic', semanticDeclarations('light'), true),
@@ -51,9 +51,11 @@ export const tokenCatalog: readonly TokenDefinition[] = Object.freeze([
     Object.entries(componentThemeContract).map(([name, value]) => ({ name, value })),
   ),
 ]);
+
 export const tokenVars = Object.freeze(
   Object.fromEntries(tokenCatalog.map(({ name }) => [name, `var(${name})`])),
 ) as { readonly [Name in TokenVariable]: `var(${Name})` };
+
 export const tokenValues = Object.freeze(
   Object.fromEntries(
     (['light', 'dark'] as const).map((appearance) => [
@@ -64,17 +66,21 @@ export const tokenValues = Object.freeze(
     ]),
   ),
 ) as Readonly<Record<'light' | 'dark', Readonly<Record<TokenVariable, string>>>>;
+
 export const themeContractRoles = Object.freeze(
   Object.fromEntries(
     tokenCatalog.filter(({ layer }) => layer !== 'foundation').map((role) => [role.name, role]),
   ),
 ) as Readonly<Record<Exclude<TokenVariable, FoundationVariable>, TokenDefinition>>;
+
 export const requiredThemeRoles = Object.freeze(
   tokenCatalog.filter(({ required }) => required).map(({ name }) => name),
 );
+
 export const optionalThemeRoles = Object.freeze(
   tokenCatalog
     .filter(({ layer, required }) => layer !== 'foundation' && !required)
     .map(({ name }) => name),
 );
-export { deprecatedThemeRoles, presentationContract };
+
+export { presentationContract };

@@ -7,16 +7,19 @@ import {
 import { getThemeAttributes, type ResolvedTheme } from './resolution.ts';
 
 export const themeStorageKey = 'virgo-design.theme-style.v1';
+
 export interface ThemeStorage {
   readonly key: string;
   parse(raw: string | null): string | null;
   serialize(id: string, raw: string | null): string;
 }
+
 const defaultStorage: ThemeStorage = Object.freeze({
   key: themeStorageKey,
   parse: (raw: string | null) => raw,
   serialize: (id: string) => id,
 });
+
 export interface ThemeRuntimeOptions {
   defaultTheme?: string;
   initialTheme?: string;
@@ -37,13 +40,16 @@ export function createThemeRuntime(options: ThemeRuntimeOptions = {}) {
   let serverTheme = currentTheme;
   let storage = options.storage ?? defaultStorage;
   const listeners = new Set<() => void>();
+
   let observer: MutationObserver | undefined;
   const requireId = (id: string) => {
     if (!registry.getThemePreset(id)) throw new RangeError(`Unknown theme: ${id}`);
     return id;
   };
+
   requireId(fallbackTheme);
   requireId(currentTheme);
+
   const apply = (id: string) => {
     const changed = currentTheme !== id;
     currentTheme = id;
@@ -51,6 +57,7 @@ export function createThemeRuntime(options: ThemeRuntimeOptions = {}) {
     if (changed) listeners.forEach((listener) => listener());
     return id;
   };
+
   const persist = (id: string) => {
     if (!browser) return;
     try {
@@ -60,23 +67,26 @@ export function createThemeRuntime(options: ThemeRuntimeOptions = {}) {
       /* Denied storage never prevents switching. */
     }
   };
+
   const onStorage = (event: StorageEvent) => {
     if (event.key !== storage.key && event.key !== null) return;
     try {
       if (event.storageArea && event.storageArea !== browser!.localStorage) return;
-      const saved = storage.parse(event.newValue),
-        id = registry.resolveThemeId(saved);
-      if (id && saved !== id) persist(id);
+      const saved = storage.parse(event.newValue);
+      const id = registry.resolveThemeId(saved);
+
       apply(id ?? fallbackTheme);
     } catch {
       apply(fallbackTheme);
     }
   };
+
   const stopObserving = () => {
     browser?.removeEventListener('storage', onStorage);
     observer?.disconnect();
     observer = undefined;
   };
+
   return Object.freeze({
     registry,
     initializeTheme(initialization: ThemeInitializationOptions = {}) {
@@ -85,16 +95,19 @@ export function createThemeRuntime(options: ThemeRuntimeOptions = {}) {
       );
       storage = initialization.storage ?? options.storage ?? defaultStorage;
       if (!browser) return apply(fallbackTheme);
+
       let saved: string | null = null;
       try {
         saved = storage.parse(browser.localStorage.getItem(storage.key));
       } catch {
         /* Storage may be unavailable. */
       }
+
       const id = registry.resolveThemeId(saved) ?? fallbackTheme;
-      if (saved && id !== saved && registry.resolveThemeId(saved)) persist(id);
+
       return apply(id);
     },
+
     /** Adopt server/bootstrap attributes without re-resolving a different local preference. */
     hydrateTheme(state?: ResolvedTheme) {
       const id = requireId(
@@ -106,14 +119,18 @@ export function createThemeRuntime(options: ThemeRuntimeOptions = {}) {
         root.dataset.theme = attributes['data-theme'];
         root.style.colorScheme = attributes['data-theme'];
       }
+
       return apply(id);
     },
+
     getTheme: () => currentTheme,
     getServerTheme: () => serverTheme,
+
     setTheme(id: string) {
       persist(requireId(id));
       apply(id);
     },
+
     subscribeTheme(listener: () => void) {
       if (!listeners.size && browser && root) {
         browser.addEventListener('storage', onStorage);
@@ -128,31 +145,39 @@ export function createThemeRuntime(options: ThemeRuntimeOptions = {}) {
         if (!listeners.size) stopObserving();
       };
     },
+
     dispose() {
       listeners.clear();
       stopObserving();
     },
   });
 }
+
 export type ThemeRuntime = ReturnType<typeof createThemeRuntime>;
 const browserRuntimes = new WeakMap<Window, ThemeRuntime>();
+
 function getBrowserRuntime(): ThemeRuntime {
   let runtime = browserRuntimes.get(window);
+
   if (!runtime) {
     runtime = createThemeRuntime({ window, registry: getBrowserThemeRegistry(window) });
     browserRuntimes.set(window, runtime);
   }
+
   return runtime;
 }
-/** SPA compatibility API; SSR must keep the instance returned by createThemeRuntime. */
+
+/** SPA convenience API; SSR must keep the instance returned by createThemeRuntime. */
 export function initializeTheme(options: ThemeInitializationOptions = {}): string {
   if (typeof window !== 'undefined') return getBrowserRuntime().initializeTheme(options);
   return createThemeRuntime(options).initializeTheme(options);
 }
+
 export const getTheme = () =>
   typeof window === 'undefined' ? defaultTheme : getBrowserRuntime().getTheme();
 export const getServerTheme = () =>
   typeof window === 'undefined' ? defaultTheme : getBrowserRuntime().getServerTheme();
+
 export function hydrateTheme(state?: ResolvedTheme): string {
   if (typeof window === 'undefined')
     return createThemeRuntime({ ...(state ? { initialTheme: state.theme } : {}) }).hydrateTheme(
@@ -160,11 +185,13 @@ export function hydrateTheme(state?: ResolvedTheme): string {
     );
   return getBrowserRuntime().hydrateTheme(state);
 }
+
 export function setTheme(id: string): void {
   if (typeof window === 'undefined')
     throw new Error('SSR must mutate only a request-owned createThemeRuntime().');
   getBrowserRuntime().setTheme(id);
 }
+
 export function subscribeTheme(listener: () => void): () => void {
   if (typeof window === 'undefined') return () => {};
   return getBrowserRuntime().subscribeTheme(listener);

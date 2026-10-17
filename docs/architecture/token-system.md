@@ -67,7 +67,6 @@ Chart 的 enter/update/interaction duration/easing 是引擎 presentation：CSS 
   missingRequiredRoles: { light: [], dark: [] },
   missingOptionalRoles: { light: [], dark: [] },
   unknownRoles: { light: [], dark: [] },
-  deprecatedRoles: { light: [], dark: [] },
   invalidValues: { light: [], dark: [] },
   completeness: {
     required: { implemented, total, percentage },
@@ -77,7 +76,7 @@ Chart 的 enter/update/interaction duration/easing 是引擎 presentation：CSS 
 }
 ```
 
-版本不符、缺 required、unknown 或 invalid value 使 `valid=false`；deprecated 与缺 optional 是可观察的提示，不阻止注册。`missingOptionalRoles` 按外观列出没有显式声明、将使用共享基线/组件 fallback 的角色。Coverage 统计有效的显式声明；一个角色 × 一个外观为一个槽位，所以当前 required 总数为 200、optional 为 708、overall 为 908。Unknown/deprecated/无效值不增加覆盖率，百分比保留两位小数；显式选择默认值也算声明，覆盖率不代表主题的视觉差异程度。验证输入声明，不能把浏览器已经 fallback 的 computed values 当成主题声明。
+版本不符、缺 required、unknown 或 invalid value 使 `valid=false`；缺 optional 是可观察的提示，不阻止注册。`missingOptionalRoles` 按外观列出没有显式声明、将使用共享基线/组件 fallback 的角色。Coverage 统计有效的显式声明；一个角色 × 一个外观为一个槽位，所以当前 required 总数为 200、optional 为 708、overall 为 908。Unknown/无效值不增加覆盖率，百分比保留两位小数；显式选择默认值也算声明，覆盖率不代表主题的视觉差异程度。验证输入声明，不能把浏览器已经 fallback 的 computed values 当成主题声明。
 
 旧 writer slot 与新名字的映射在同一 compatibility source 中。生成的 SCSS mixin / `getThemeCss` 为官方或第三方样式复制同一个值给兼容名称；canonical 默认还能读取旧 writer 值。避免双向 `var()` 环造成无效值。纯 consumer composition 的旧变量只在 major 1 compatibility 层保留，当前 app 使用自身变量。
 
@@ -203,7 +202,7 @@ runtime.hydrateTheme(state);
 
 ## Theme CSS 构建
 
-合集由六个 `src/themes/*.scss` 和 `src/compatibility/styles.scss` 编译。兼容配方集中在 `compatibility/_recipes.scss` 的结构化 mixin；合集按既有 content/chrome/环境规则顺序 include，单 Theme 直接编译对应 Theme source + `recipes.theme(id)`。不从编译后的 CSS 中拆 selector/block。Sass 保留 `@supports`、`@media` 和 scope，单 Theme 的完整规则树与合集中的对应 scope 一致。
+合集由六个 `src/themes/*.scss` 编译，单 Theme 直接编译对应的 SCSS 源文件。不从编译后的 CSS 中拆 selector/block。Sass 保留 `@supports`、`@media` 和 scope，单 Theme 的完整规则树与合集中的对应 scope 一致。
 
 ## 多技术栈消费
 

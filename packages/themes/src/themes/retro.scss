@@ -1,4 +1,3 @@
-@use '../../../tokens/dist/css/compatibility' as theme-aliases;
 @use './recipe';
 
 [data-virgo-theme='retro'] {
@@ -74,9 +73,9 @@
   --vd-popup-arrow-shadow-color: rgb(0 0 0 / 32%);
   --vd-tooltip-pointer-backdrop-filter: none;
   --vd-tooltip-pointer-shadow: none;
-  @include theme-aliases.role('--vd-motion-interaction-duration', (60ms));
-  @include theme-aliases.role('--vd-motion-state-duration', (100ms));
-  @include theme-aliases.role('--vd-motion-collapse-duration', (120ms));
+  --vd-motion-interaction-duration: 60ms;
+  --vd-motion-state-duration: 100ms;
+  --vd-motion-collapse-duration: 120ms;
   --vd-chart-tooltip-radius: 0px;
   --vd-chart-line-width: 1.5;
   --vd-chart-point-radius: 2px;

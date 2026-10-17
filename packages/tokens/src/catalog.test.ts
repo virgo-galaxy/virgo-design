@@ -11,18 +11,16 @@ import {
   type TokenVariable,
   tokenVars,
 } from './catalog.js';
-import { generateCompatibilityScss, generateScss } from './css/generate-scss.js';
+import { generateScss } from './css/generate-scss.js';
 import { generateTailwindCss, tailwindTheme } from './tailwind.js';
-import { deprecatedThemeRoles } from './theme-contract.js';
 import { getDefaultThemeTokens, validateThemeContract } from './validation.js';
 import { vanillaExtractContract } from './vanilla-extract.js';
 
-it('has unique classified canonical names and separates compatibility roles', () => {
+it('has unique classified canonical names', () => {
   expect(new Set(tokenCatalog.map(({ name }) => name)).size).toBe(tokenCatalog.length);
   expect(
     tokenCatalog.every(({ layer }) => ['foundation', 'semantic', 'component'].includes(layer)),
   ).toBe(true);
-  expect(tokenCatalog.some(({ name }) => Object.hasOwn(deprecatedThemeRoles, name))).toBe(false);
   expectTypeOf<keyof typeof tokenVars>().toEqualTypeOf<TokenVariable>();
   expectTypeOf<(typeof tokenVars)['--vd-text-primary']>().toEqualTypeOf<'var(--vd-text-primary)'>();
 });
@@ -54,7 +52,7 @@ describe('theme declaration validation', () => {
     });
     expect(validateThemeContract({ contractVersion: 2, tokens }).valid).toBe(false);
   });
-  it('reports required omissions, typos, invalid values and compatibility usage independently', () => {
+  it('reports required omissions, unknown roles and invalid values independently', () => {
     const tokens = getDefaultThemeTokens();
     const { '--vd-data-sequential-10': omitted, ...light } = tokens.light;
     expect(omitted).toBeDefined();
@@ -72,9 +70,8 @@ describe('theme declaration validation', () => {
     });
     expect(result.valid).toBe(false);
     expect(result.missingRequiredRoles.light).toEqual(['--vd-data-sequential-10']);
-    expect(result.unknownRoles.light).toEqual(['--vd-unknown']);
+    expect(result.unknownRoles.light).toEqual(['--vd-unknown', '--vd-chrome-background']);
     expect(result.invalidValues.light).toEqual(['--vd-text-primary']);
-    expect(result.deprecatedRoles.light).toEqual(['--vd-chrome-background']);
     expect(result.missingRequiredRoles.dark).toEqual([]);
     expect(result.completeness.required).toEqual({ implemented: 198, total: 200, percentage: 99 });
   });
@@ -96,7 +93,7 @@ describe('theme declaration validation', () => {
       overall: { implemented: 200, total: 908, percentage: 22.03 },
     });
   });
-  it('counts asymmetric optional declarations without counting unknown or deprecated roles', () => {
+  it('counts asymmetric optional declarations without counting unknown roles', () => {
     const base = getDefaultThemeTokens();
     const light = Object.fromEntries(
       [...requiredThemeRoles, ...optionalThemeRoles.slice(0, 2)].map((name) => [
@@ -114,8 +111,8 @@ describe('theme declaration validation', () => {
       contractVersion: 1,
       tokens: { light: { ...light, '--vd-chrome-background': '#fff' }, dark },
     });
-    expect(result.valid).toBe(true);
-    expect(result.deprecatedRoles.light).toEqual(['--vd-chrome-background']);
+    expect(result.valid).toBe(false);
+    expect(result.unknownRoles.light).toEqual(['--vd-chrome-background']);
     expect(result.missingOptionalRoles.light).toEqual(optionalThemeRoles.slice(2));
     expect(result.missingOptionalRoles.dark).toEqual(optionalThemeRoles.slice(3));
     expect(result.completeness.optional).toEqual({ implemented: 5, total: 708, percentage: 0.71 });
@@ -145,17 +142,6 @@ describe('theme declaration validation', () => {
     expect(result.invalidValues.light).toEqual([name]);
     expect(result.completeness.optional.implemented).toBe(707);
   });
-});
-
-it('generates both writer names from one alias value and keeps old-writer fallback readable', () => {
-  const css = compileString(
-    `${generateCompatibilityScss()}\n.theme { @include role('--vd-motion-interaction-duration', 32ms); }`,
-  ).css;
-  expect(css).toContain('--vd-motion-interaction-duration: 32ms');
-  expect(css).toContain('--vd-motion-duration-120: 32ms');
-  expect(tokenValues.light['--vd-motion-interaction-duration']).toBe(
-    'var(--vd-motion-duration-120, 120ms)',
-  );
 });
 
 it('rejects cycles in declaration aliases instead of allowing a silent invalid color', () => {

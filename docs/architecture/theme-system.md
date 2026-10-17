@@ -1,6 +1,6 @@
 # Virgo Design Theme System
 
-Theme System 的版本化契约由 `@virgo-design/tokens` 定义。`@virgo-design/themes` 提供视觉实现；UI、Charts 和应用消费变量。Foundation 保持原来的参考尺度，组件结构、交互、可访问性与布局留在各自组件中。完整的分层、required/fallback、版本、SSR、首屏 bootstrap 与多技术栈消费规则见 [Token 与 Theme 架构](token-system.md)，历史兼容单列于 [迁移政策](theme-compatibility.md)。
+Theme System 的版本化契约由 `@virgo-design/tokens` 定义。`@virgo-design/themes` 提供视觉实现；UI、Charts 和应用消费变量。Foundation 保持原来的参考尺度，组件结构、交互、可访问性与布局留在各自组件中。完整的分层、required/fallback、版本、SSR、首屏 bootstrap 与多技术栈消费规则见 [Token 与 Theme 架构](token-system.md)，当前声明与保存值规则见 [契约政策](theme-compatibility.md)。
 
 ## Package 与依赖
 
@@ -17,8 +17,6 @@ packages/themes/
     ├── resolution.ts
     ├── bootstrap.ts
     ├── theme-css.ts
-    ├── migration.ts
-    ├── compatibility/
     ├── runtime.ts
     ├── runtime.test.ts
     ├── styles.scss
@@ -64,7 +62,7 @@ Native Sparkline 继续使用 SVG；focus 复用语义 focus color/width，并�
 
 `initializeTheme()` 默认在第一次 React render 前恢复 `virgo-design.theme-style.v1`，设置 HTML 的 `data-virgo-theme`。`setTheme()` 校验 ID、持久化、应用属性并通知订阅者。`subscribeTheme()` 可直接接入 `useSyncExternalStore`，Header 与 Settings 共用状态；storage event 同步其他同源页面，storage 不可用时仍可切换。第三方主题在初始化前通过 `registerTheme(preset, tokens)` 提交声明验证并注册，官方 ID 不可覆盖。`listThemes` 可枚举自定义主题，现有 app selectors 明确只展示官方 `themePresets`。
 
-Pro 通过 `initializeTheme({ defaultTheme, storage })` 接入共享 settings JSON：`theme`、`appearance` 与布局一起保存在 `virgo-pro:settings:v1`，默认值统一读取 `src/config/settings.json`。字段顺序为外观／主题、顶栏、侧栏、页面显示、交互。初始化迁移并删除旧的独立主题键，旧 ID `utility` 迁移为 `retro`，`bold` 与 `high-contrast` 均直接迁移为 `contrast`，Website 保存值与 Pro 已有 settings JSON 同样规范化并写回；旧 ID 仅用于读取迁移，新选择与 CSS scope 使用正式 ID。恢复默认设置同时恢复主题、外观和布局；重置演示数据清除保存记录、恢复实时主题并退出演示会话，待写入的旧状态不会重新覆盖默认值。
+Pro 的 preferences 模块拥有主题、外观与布局状态，通过 `initializePreferences()` 恢复 `virgo-pro:settings:v1`，再使用 `resolveTheme()` / `hydrateTheme()` 应用主题；默认值统一读取 `src/config/settings.json`。字段顺序为外观／主题、顶栏、侧栏、页面显示、交互。首屏脚本和运行时只读取当前格式与正式主题 ID，不转换旧名称，也不读取或删除旧的独立主题键。恢复默认设置同时恢复主题、外观和布局；重置演示数据清除 Pro 保存记录、恢复实时主题并退出演示会话，待写入的状态不会重新覆盖默认值。
 
 普通 Theme 切换不改明暗偏好；显式 initial bootstrap/hydrate 才恢复 Theme 与 Appearance。Website 复用 AppearanceProvider，支持 light/dark/auto，沿用 `virgo-design-appearance`。Pro 复用原 settings 的 light/dark/system；System 即 Auto。两者继续设置现有 HTML `data-theme`，同时更新 color-scheme。
 

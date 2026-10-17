@@ -11,7 +11,7 @@ import {
   oklchToHex,
 } from './color-space.js';
 import {
-  COLOR_FAMILIES,
+  CHROMATIC_FAMILIES,
   type ColorFamily,
   DEFAULT_ANCHOR_FAMILY,
   DEFAULT_DISTRIBUTION_CURVE,
@@ -86,8 +86,8 @@ export function generateLinkedColorBases({
 }: GenerateLinkedBasesOptions): ColorFamilyBases {
   const normalizedAnchor = normalizeHex(anchor);
 
-  const familyCount = COLOR_FAMILIES.length;
-  const anchorIndex = COLOR_FAMILIES.indexOf(anchorFamily);
+  const familyCount = CHROMATIC_FAMILIES.length;
+  const anchorIndex = CHROMATIC_FAMILIES.indexOf(anchorFamily);
 
   if (anchorIndex === -1) {
     throw new Error(`Unknown anchor family: ${anchorFamily}`);
@@ -102,7 +102,7 @@ export function generateLinkedColorBases({
   const anchorOklch = hexToOklch(normalizedAnchor);
 
   return Object.fromEntries(
-    COLOR_FAMILIES.map((family, familyIndex) => {
+    CHROMATIC_FAMILIES.map((family, familyIndex) => {
       if (family === anchorFamily) {
         return [family, normalizedAnchor];
       }

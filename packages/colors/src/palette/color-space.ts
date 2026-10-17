@@ -363,16 +363,13 @@ export function findPeakOklchLightness(hue: number): number {
   }
 
   let low = Math.max(minimumLightness, bestLightness - step);
-
   let high = Math.min(maximumLightness, bestLightness + step);
 
   for (let index = 0; index < 5; index += 1) {
     const left = low + (high - low) / 3;
-
     const right = high - (high - low) / 3;
 
     const leftChroma = findMaxOklchChroma(left, h);
-
     const rightChroma = findMaxOklchChroma(right, h);
 
     if (leftChroma < rightChroma) {

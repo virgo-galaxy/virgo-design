@@ -1,6 +1,6 @@
 import { normalizeHex } from './color-space.js';
 import {
-  COLOR_FAMILIES,
+  CHROMATIC_FAMILIES,
   DEFAULT_ANCHOR_FAMILY,
   DEFAULT_DISTRIBUTION_CURVE,
   DEFAULT_HUE_SPREAD,
@@ -26,11 +26,11 @@ export function generateColorPalette(config: ColorPaletteConfig): GeneratedColor
         distributionCurve: config.distributionCurve ?? DEFAULT_DISTRIBUTION_CURVE,
       })
     : (Object.fromEntries(
-        COLOR_FAMILIES.map((family) => [family, normalizeHex(config.bases[family])]),
+        CHROMATIC_FAMILIES.map((family) => [family, normalizeHex(config.bases[family])]),
       ) as ColorFamilyBases);
 
   const scales = Object.fromEntries(
-    COLOR_FAMILIES.map((family) => [family, generateColorScaleByModel(bases[family], model)]),
+    CHROMATIC_FAMILIES.map((family) => [family, generateColorScaleByModel(bases[family], model)]),
   ) as ColorFamilyScales;
 
   return {

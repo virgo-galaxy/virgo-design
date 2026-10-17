@@ -80,6 +80,7 @@ export function generateThemesCss() {
       })),
     ),
   ];
+
   return [
     '/* Generated from @virgo-design/tokens Light and Dark Theme data. Do not edit. */',
     ':root, [data-virgo-theme] {',

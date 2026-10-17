@@ -1,4 +1,3 @@
-@use '../../../tokens/dist/css/compatibility' as theme-aliases;
 @use './recipe';
 
 [data-virgo-theme='contrast'] {
@@ -24,9 +23,9 @@
   --vd-chart-grid-line-type: solid;
   --vd-chart-focus-dasharray: none;
   --vd-chart-pointer-opacity: 1;
-  @include theme-aliases.role('--vd-motion-overlay-duration', (0ms));
-  @include theme-aliases.role('--vd-motion-enter-duration', (0ms));
-  @include theme-aliases.role('--vd-motion-loop-duration', (0ms));
+  --vd-motion-overlay-duration: 0ms;
+  --vd-motion-enter-duration: 0ms;
+  --vd-motion-loop-duration: 0ms;
   --vd-motion-loop-iterations: 0;
 
   --vd-tag-radius: 2px;
@@ -95,9 +94,9 @@
   --vd-chart-enter-duration: 0ms;
   --vd-chart-update-duration: 0ms;
   --vd-chart-interaction-duration: 0ms;
-  @include theme-aliases.role('--vd-motion-interaction-duration', (0ms));
-  @include theme-aliases.role('--vd-motion-state-duration', (0ms));
-  @include theme-aliases.role('--vd-motion-collapse-duration', (0ms));
+  --vd-motion-interaction-duration: 0ms;
+  --vd-motion-state-duration: 0ms;
+  --vd-motion-collapse-duration: 0ms;
 
   @include recipe.appearance(
     light,

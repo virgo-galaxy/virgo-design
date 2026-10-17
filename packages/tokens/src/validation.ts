@@ -1,5 +1,4 @@
 import {
-  deprecatedThemeRoles,
   optionalThemeRoles,
   requiredThemeRoles,
   themeContractRoles,
@@ -32,7 +31,6 @@ export interface ThemeValidationResult {
   readonly missingOptionalRoles: Readonly<Record<'light' | 'dark', readonly string[]>>;
   readonly completeness: ThemeCompleteness;
   readonly unknownRoles: Readonly<Record<'light' | 'dark', readonly string[]>>;
-  readonly deprecatedRoles: Readonly<Record<'light' | 'dark', readonly string[]>>;
   readonly invalidValues: Readonly<Record<'light' | 'dark', readonly string[]>>;
 }
 
@@ -41,7 +39,6 @@ export function validateThemeContract(input: ThemeContractInput): ThemeValidatio
   const missingRequiredRoles = { light: [] as string[], dark: [] as string[] };
   const missingOptionalRoles = { light: [] as string[], dark: [] as string[] };
   const unknownRoles = { light: [] as string[], dark: [] as string[] };
-  const deprecatedRoles = { light: [] as string[], dark: [] as string[] };
   const invalidValues = { light: [] as string[], dark: [] as string[] };
   for (const appearance of ['light', 'dark'] as const) {
     const values = input.tokens?.[appearance] ?? {};
@@ -52,8 +49,7 @@ export function validateThemeContract(input: ThemeContractInput): ThemeValidatio
       if (!Object.hasOwn(values, name)) missingOptionalRoles[appearance].push(name);
     }
     for (const [name, value] of Object.entries(values)) {
-      if (Object.hasOwn(deprecatedThemeRoles, name)) deprecatedRoles[appearance].push(name);
-      else if (!Object.hasOwn(themeContractRoles, name)) unknownRoles[appearance].push(name);
+      if (!Object.hasOwn(themeContractRoles, name)) unknownRoles[appearance].push(name);
       if (
         typeof value !== 'string' ||
         !value.trim() ||
@@ -114,7 +110,6 @@ export function validateThemeContract(input: ThemeContractInput): ThemeValidatio
       overall: coverage([...requiredThemeRoles, ...optionalThemeRoles]),
     }),
     unknownRoles,
-    deprecatedRoles,
     invalidValues,
   });
 }

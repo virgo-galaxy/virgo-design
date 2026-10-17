@@ -1,4 +1,3 @@
-@use '../../../tokens/dist/css/compatibility' as theme-aliases;
 @use './recipe';
 
 [data-virgo-theme='minimal'] {
@@ -41,7 +40,7 @@
   --vd-navigation-selected-foreground: var(--vd-text-primary);
   --vd-chart-line-width: 1.5;
   --vd-chart-tooltip-shadow: none;
-  @include theme-aliases.role('--vd-motion-interaction-duration', (100ms));
+  --vd-motion-interaction-duration: 100ms;
 
   @include recipe.appearance(
     light,

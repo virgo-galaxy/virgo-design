@@ -1,5 +1,5 @@
 import {
-  COLOR_FAMILIES,
+  CHROMATIC_FAMILIES,
   type ColorScale,
   type ColorScaleStep,
   type GeneratedColorPalette,
@@ -37,7 +37,7 @@ function foundationEntries(
   naming: FoundationScaleNaming,
 ) {
   const scales = [
-    ...COLOR_FAMILIES.map((family) => [family, palette.scales[family]] as const),
+    ...CHROMATIC_FAMILIES.map((family) => [family, palette.scales[family]] as const),
     ['brand', brandScale] as const,
     ['neutral', neutralScale] as const,
   ];

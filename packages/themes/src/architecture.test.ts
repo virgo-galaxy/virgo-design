@@ -119,7 +119,7 @@ describe('registry and scoped theme CSS', () => {
   });
   it('resolves saved IDs and explicit appearance without reading browser storage', () => {
     expect(
-      resolveTheme({ theme: 'utility', appearance: 'system', systemAppearance: 'dark' }),
+      resolveTheme({ theme: 'retro', appearance: 'system', systemAppearance: 'dark' }),
     ).toEqual({ theme: 'retro', appearance: 'dark' });
     expect(getThemeAttributes({ theme: 'glass', appearance: 'dark' })).toEqual({
       'data-virgo-theme': 'glass',
@@ -196,10 +196,10 @@ describe('synchronous initial theme bootstrap', () => {
       runtime.dispose();
     },
   );
-  it('restores Pro JSON and legacy IDs without destroying unrelated settings', () => {
+  it('restores the current Pro JSON record without changing stored settings', () => {
     const raw = JSON.stringify({
       version: 1,
-      theme: 'bold',
+      theme: 'contrast',
       appearance: 'dark',
       sidebarWidth: 256,
     });
@@ -234,18 +234,18 @@ describe('synchronous initial theme bootstrap', () => {
   });
 });
 
-it('generates reverse aliases without cycles for canonical defaults and explicit new values', () => {
+it('generates only declared canonical roles with distinct appearance overrides', () => {
   const defaults = getDefaultThemeTokens();
   const css = getThemeCss('studio', {
     light: { ...defaults.light, '--vd-motion-interaction-duration': '32ms' },
     dark: defaults.dark,
   });
-  expect(css).toContain('--vd-motion-duration-120: 32ms');
-  expect(css).toContain('--vd-motion-duration-120: 120ms');
-  expect(css).not.toContain('--vd-motion-duration-120: var(--vd-motion-duration-120');
+  expect(css).toContain('--vd-motion-interaction-duration: 32ms');
+  expect(css).toContain('--vd-motion-interaction-duration: var(--vd-duration-120, 120ms)');
+  expect(css).not.toContain('--vd-motion-duration-120');
 });
 
-it('rejects an alias cycle introduced by compatibility normalization', () => {
+it('rejects unknown roles instead of translating them into current declarations', () => {
   const defaults = getDefaultThemeTokens();
   const { '--vd-motion-interaction-duration': omitted, ...light } = defaults.light;
   expect(omitted).toBeDefined();
@@ -257,5 +257,5 @@ it('rejects an alias cycle introduced by compatibility normalization', () => {
       },
       dark: defaults.dark,
     }),
-  ).toThrow('Invalid theme aliases');
+  ).toThrow('unknownRoles');
 });

@@ -32,7 +32,7 @@ function scopedRules(css: string, id: string) {
     conditions: { type: number; condition: string }[];
     declarations: string;
     variables: Record<string, string>;
-    chromeFilter: string;
+    panelFilter: string;
   }[] = [];
   const visit = (rules: CSSRuleList, conditions: (typeof records)[number]['conditions']) => {
     for (const rule of Array.from(rules)) {
@@ -49,7 +49,7 @@ function scopedRules(css: string, id: string) {
                 return [name, scoped.style.getPropertyValue(name)];
               }),
             ),
-            chromeFilter: scoped.style.getPropertyValue('--vd-chrome-backdrop-filter'),
+            panelFilter: scoped.style.getPropertyValue('--vd-panel-backdrop-filter'),
           });
       } else if ('cssRules' in rule) {
         const group = rule as CSSConditionRule;
@@ -95,9 +95,9 @@ describe('built theme consumption', () => {
       expect(singleRules).toEqual(scopedRules(all, id));
     },
   );
-  it('keeps Glass compatibility fallback inside supports/media and the normal blur unconditional', async () => {
+  it('keeps Glass opaque fallback inside supports/media and the normal blur unconditional', async () => {
     const rules = scopedRules(await readFile('packages/themes/dist/glass.css', 'utf8'), 'glass');
-    const fallback = rules.filter(({ chromeFilter }) => chromeFilter === 'none');
+    const fallback = rules.filter(({ panelFilter }) => panelFilter === 'none');
     expect(fallback).toHaveLength(2);
     expect(fallback.map(({ conditions }) => conditions.map(({ type }) => type))).toEqual([
       [CSSRule.SUPPORTS_RULE],
@@ -106,8 +106,8 @@ describe('built theme consumption', () => {
     expect(fallback[0]!.conditions[0]!.condition).toContain('backdrop-filter');
     expect(fallback[1]!.conditions[0]!.condition).toContain('prefers-reduced-transparency');
     expect(
-      rules.filter(({ conditions, chromeFilter }) => !conditions.length && chromeFilter),
-    ).toMatchObject([{ chromeFilter: 'blur(4px) saturate(1.04)' }]);
+      rules.filter(({ conditions, panelFilter }) => !conditions.length && panelFilter),
+    ).toMatchObject([{ panelFilter: 'blur(4px) saturate(1.04)' }]);
   });
   it.each(themePresets)(
     '$id reports its declared optional coverage over the shared required baseline',

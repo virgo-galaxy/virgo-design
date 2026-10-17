@@ -1,5 +1,8 @@
-import { VIRGO_BRAND_SCALE, VIRGO_NEUTRAL_SCALE } from '../../foundations/color.js';
-import { VIRGO_CHROMATIC_SCALES } from '../../foundations/color.js';
+import {
+  VIRGO_BRAND_SCALE,
+  VIRGO_CHROMATIC_SCALES,
+  VIRGO_NEUTRAL_SCALE,
+} from '../../foundations/color.js';
 import type { ColorSemanticTheme } from '../../types/semantic.js';
 import { withAlpha } from '../color-utils.js';
 

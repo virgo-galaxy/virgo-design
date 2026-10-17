@@ -23,37 +23,28 @@ afterEach(() => {
 });
 
 describe('theme runtime', () => {
-  it.each([
-    ['utility', 'retro'],
-    ['high-contrast', 'contrast'],
-    ['bold', 'contrast'],
-  ])('upgrades saved %s to %s and rejects new selections with the old ID', (oldId, newId) => {
-    localStorage.setItem(themeStorageKey, oldId!);
-    expect(initializeTheme()).toBe(newId);
-    expect(localStorage.getItem(themeStorageKey)).toBe(newId);
-    expect(document.documentElement.dataset.virgoTheme).toBe(newId);
-    expect(getThemePreset(oldId!)).toBeUndefined();
-    expect(() => setTheme(oldId!)).toThrow(RangeError);
-  });
-  it.each(['bold', 'high-contrast'])('normalizes legacy %s received from another tab', (oldId) => {
+  it.each(['utility', 'bold', 'high-contrast'])(
+    'rejects unregistered saved theme %s without rewriting storage',
+    (id) => {
+      localStorage.setItem(themeStorageKey, id);
+      expect(initializeTheme()).toBe(defaultTheme);
+      expect(localStorage.getItem(themeStorageKey)).toBe(id);
+      expect(resolveThemeId(id)).toBeUndefined();
+      expect(getThemePreset(id)).toBeUndefined();
+      expect(() => setTheme(id)).toThrow(RangeError);
+    },
+  );
+  it('falls back for an unregistered theme received from another tab without rewriting it', () => {
+    setTheme('soft');
     const changed = vi.fn();
     const stop = subscribeTheme(changed);
-    localStorage.setItem(themeStorageKey, oldId);
-    window.dispatchEvent(new StorageEvent('storage', { key: themeStorageKey, newValue: oldId }));
-    expect(getTheme()).toBe('contrast');
-    expect(document.documentElement.dataset.virgoTheme).toBe('contrast');
-    expect(localStorage.getItem(themeStorageKey)).toBe('contrast');
+    localStorage.setItem(themeStorageKey, 'bold');
+    window.dispatchEvent(new StorageEvent('storage', { key: themeStorageKey, newValue: 'bold' }));
+    expect(getTheme()).toBe(defaultTheme);
+    expect(localStorage.getItem(themeStorageKey)).toBe('bold');
     expect(changed).toHaveBeenCalledOnce();
     stop();
   });
-  it.each(['utility', 'bold', 'high-contrast'])(
-    'reserves legacy ID %s for migration only',
-    (id) => {
-      expect(() => registerTheme({ ...themePresets[0], id }, getDefaultThemeTokens())).toThrow(
-        'Legacy theme ID is reserved',
-      );
-    },
-  );
   it('exposes Contrast metadata only under its canonical registry key', () => {
     expectTypeOf<ThemeId>().toEqualTypeOf<
       'virgo' | 'minimal' | 'soft' | 'glass' | 'retro' | 'contrast'
