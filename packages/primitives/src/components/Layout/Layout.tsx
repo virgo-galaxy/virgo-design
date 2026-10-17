@@ -109,14 +109,7 @@ export function LayoutSidebarProvider(props: LayoutSidebarProviderProps) {
 LayoutSidebarProvider.displayName = 'Layout.SidebarProvider';
 
 export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(function LayoutSidebar(
-  {
-    id,
-    state: controlledState,
-    defaultState,
-    onStateChange,
-    children,
-    ...props
-  },
+  { id, state: controlledState, defaultState, onStateChange, children, ...props },
   ref,
 ) {
   const provider = useContext(SidebarContext);

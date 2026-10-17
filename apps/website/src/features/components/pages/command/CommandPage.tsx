@@ -30,11 +30,7 @@ function CommandItems() {
         >
           {t('examples.command.copy.openDashboard')}
         </Command.Item>
-        <Command.Item
-          value="switch-workspace"
-          icon={<LayoutIcon />}
-          shortcut="⌘ W"
-        >
+        <Command.Item value="switch-workspace" icon={<LayoutIcon />} shortcut="⌘ W">
           {t('examples.command.copy.switchWorkspace')}
         </Command.Item>
       </Command.Group>

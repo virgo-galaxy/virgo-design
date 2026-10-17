@@ -44,7 +44,9 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
       {label !== undefined || showValue ? (
         <div className={styles.header}>
           {label !== undefined ? (
-            <span id={labelId} className={styles.label}>{label}</span>
+            <span id={labelId} className={styles.label}>
+              {label}
+            </span>
           ) : (
             <span />
           )}

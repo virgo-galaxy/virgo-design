@@ -10,12 +10,7 @@ export default function App() {
 
   return (
     <div className={styles.root}>
-      <Calendar
-        value={value}
-        onValueChange={setValue}
-        defaultMonth="2026-10"
-        weekStartsOn={1}
-      />
+      <Calendar value={value} onValueChange={setValue} defaultMonth="2026-10" weekStartsOn={1} />
       <p role="status">
         {t('examples.calendar.copy.selected')}: {value || '—'}
       </p>

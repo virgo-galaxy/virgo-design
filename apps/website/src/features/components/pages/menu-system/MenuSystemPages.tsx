@@ -89,9 +89,7 @@ function SharedItems() {
         <Menu.Item icon={<PlusIcon />} shortcut="⌘N">
           {t('examples.menuSystem.copy.new')}
         </Menu.Item>
-        <Menu.Item shortcut="F2">
-          {t('examples.menuSystem.copy.rename')}
-        </Menu.Item>
+        <Menu.Item shortcut="F2">{t('examples.menuSystem.copy.rename')}</Menu.Item>
         <Menu.Item disabled>{t('examples.menuSystem.copy.paste')}</Menu.Item>
       </Menu.Group>
       <Menu.Separator />
@@ -113,12 +111,8 @@ function SharedItems() {
       <Menu.Submenu>
         <Menu.SubmenuTrigger>{t('examples.menuSystem.copy.share')}</Menu.SubmenuTrigger>
         <Menu.SubmenuContent>
-          <Menu.Item>
-            {t('examples.menuSystem.copy.copyLink')}
-          </Menu.Item>
-          <Menu.Item>
-            {t('examples.menuSystem.copy.copySelection')}
-          </Menu.Item>
+          <Menu.Item>{t('examples.menuSystem.copy.copyLink')}</Menu.Item>
+          <Menu.Item>{t('examples.menuSystem.copy.copySelection')}</Menu.Item>
         </Menu.SubmenuContent>
       </Menu.Submenu>
       <Menu.Separator />

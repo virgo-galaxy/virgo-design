@@ -1,4 +1,8 @@
-import { CHROMATIC_FAMILIES, type ColorScale, type GeneratedColorPalette } from '@virgo-design/colors';
+import {
+  CHROMATIC_FAMILIES,
+  type ColorScale,
+  type GeneratedColorPalette,
+} from '@virgo-design/colors';
 
 import type { FoundationGroup } from './types';
 

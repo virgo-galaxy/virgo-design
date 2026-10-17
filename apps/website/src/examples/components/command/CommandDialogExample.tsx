@@ -88,7 +88,8 @@ export default function App() {
         </Command.List>
       </Command.Dialog>
       <span role="status">
-        {t('examples.command.copy.selected')} {selection ?? t('examples.command.details.noCommandSelected')}
+        {t('examples.command.copy.selected')}{' '}
+        {selection ?? t('examples.command.details.noCommandSelected')}
       </span>
     </div>
   );

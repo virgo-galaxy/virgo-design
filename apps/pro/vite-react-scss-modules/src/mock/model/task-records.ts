@@ -146,7 +146,11 @@ export function seedNotifications(
 
   return result;
 }
-function taskRecordKind(before: TaskDto | undefined, task: TaskDto, deleted: boolean): TaskRecordKind {
+function taskRecordKind(
+  before: TaskDto | undefined,
+  task: TaskDto,
+  deleted: boolean,
+): TaskRecordKind {
   if (deleted) return 'deleted';
   if (!before) return 'created';
   if (before.assignee !== task.assignee) return 'assigned';

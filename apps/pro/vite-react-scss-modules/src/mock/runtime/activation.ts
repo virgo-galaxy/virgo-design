@@ -25,7 +25,6 @@ export function createMockActivation(
       };
 
       const timeout = setTimeout(() => {
-
         cleanup();
         reject(new Error('Mock Service Worker activation timed out'));
       }, 2000);
@@ -35,7 +34,6 @@ export function createMockActivation(
       try {
         worker.postMessage('MOCK_ACTIVATE');
       } catch (error) {
-
         cleanup();
         reject(error);
       }

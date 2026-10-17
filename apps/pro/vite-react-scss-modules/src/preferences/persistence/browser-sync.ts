@@ -53,7 +53,6 @@ export function startPreferencesSync(store: PreferencesStore) {
         Object.is(previous[key as keyof AppPreferences], value),
       )
     )
-
       return;
 
     restoring = true;
@@ -87,7 +86,6 @@ export function startPreferencesSync(store: PreferencesStore) {
   };
 
   const unsubscribe = store.subscribe((state, previous) => {
-
     if (
       state.preferences.theme !== previous.preferences.theme ||
       state.preferences.appearance !== previous.preferences.appearance ||

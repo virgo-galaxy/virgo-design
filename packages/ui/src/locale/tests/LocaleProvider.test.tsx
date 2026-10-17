@@ -58,7 +58,9 @@ describe('LocaleProvider', () => {
           <Breadcrumb.Item>Home</Breadcrumb.Item>
         </Breadcrumb>
         <Tag closable>Virgo</Tag>
-        <Tag closable closeLabel="Remove filter">Filter</Tag>
+        <Tag closable closeLabel="Remove filter">
+          Filter
+        </Tag>
         <Tabs variant="card" defaultValue="one" addable onAdd={vi.fn()}>
           <Tabs.List>
             <Tabs.Tab value="one" closable onClose={vi.fn()}>
@@ -77,7 +79,14 @@ describe('LocaleProvider', () => {
     );
     const { rerender } = render(<LocaleProvider locale={zhCN}>{content}</LocaleProvider>);
 
-    const chineseActions = ['关闭提示', '移除标签', '添加标签页', '关闭标签页', '关闭通知', 'Remove filter'];
+    const chineseActions = [
+      '关闭提示',
+      '移除标签',
+      '添加标签页',
+      '关闭标签页',
+      '关闭通知',
+      'Remove filter',
+    ];
 
     for (const name of chineseActions) {
       expect(screen.getByRole('button', { name })).toBeInTheDocument();
@@ -104,7 +113,9 @@ describe('LocaleProvider', () => {
   });
 
   it('localizes pagination and keeps explicit wording overrides when the locale changes', () => {
-    const pagination = <Pagination total={25} showAll selectedCount={2} labels={{ next: 'Forward' }} />;
+    const pagination = (
+      <Pagination total={25} showAll selectedCount={2} labels={{ next: 'Forward' }} />
+    );
     const { rerender } = render(<LocaleProvider locale={zhCN}>{pagination}</LocaleProvider>);
 
     expect(screen.getByRole('navigation', { name: '分页' })).toHaveTextContent('共 25 项');
@@ -114,7 +125,9 @@ describe('LocaleProvider', () => {
 
     rerender(<LocaleProvider locale={enUS}>{pagination}</LocaleProvider>);
 
-    expect(screen.getByRole('navigation', { name: 'Pagination' })).toHaveTextContent('Total 25 items');
+    expect(screen.getByRole('navigation', { name: 'Pagination' })).toHaveTextContent(
+      'Total 25 items',
+    );
     expect(screen.getByText('(Selected 2 items)')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Page 2' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Forward' })).toBeInTheDocument();

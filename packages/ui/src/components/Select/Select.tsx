@@ -184,9 +184,7 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
           {selection.multiple ? (
             values.length ? (
               <span className={styles.srOnly}>
-                {values
-                  .map((value) => optionText(context.labels.get(value)) || value)
-                  .join(', ')}
+                {values.map((value) => optionText(context.labels.get(value)) || value).join(', ')}
               </span>
             ) : (
               (children ?? placeholder)

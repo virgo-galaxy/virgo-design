@@ -61,7 +61,8 @@ export default function App() {
         </Command.List>
       </Command>
       <p role="status" className={styles.text!}>
-        {t('examples.command.copy.selected')} {selection ?? t('examples.command.details.noCommandSelected')}
+        {t('examples.command.copy.selected')}{' '}
+        {selection ?? t('examples.command.details.noCommandSelected')}
       </p>
     </div>
   );

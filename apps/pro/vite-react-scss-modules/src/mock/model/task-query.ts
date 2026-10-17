@@ -59,7 +59,6 @@ export function queryTasks(
   const queries = columnConditions(params, 'columnSearch');
 
   let matching = tasks.filter((task) => {
-
     const ids = params.getAll('ids');
     if (ids.length && !ids.includes(task.id)) return false;
 

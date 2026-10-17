@@ -53,7 +53,11 @@ describe('Layout', () => {
     expect(helpContainer).toHaveAttribute('data-placement', 'bottom-end');
     expect(helpContainer?.parentElement).toBe(screen.getByRole('main'));
     rerender(
-      <Layout.Sidebar mode="floating" defaultState="collapsed" surface={{ radius: 8, elevation: 0 }}>
+      <Layout.Sidebar
+        mode="floating"
+        defaultState="collapsed"
+        surface={{ radius: 8, elevation: 0 }}
+      >
         Tools
       </Layout.Sidebar>,
     );

@@ -229,7 +229,6 @@ export const ColorPickerHexField = forwardRef<HTMLInputElement, ColorPickerHexFi
     const field = useFieldControl({ ...props, disabled, readOnly });
     const blocked = context.disabled || field.disabled || context.readOnly || field.readOnly;
 
-
     const commit = () => {
       if (!blocked && isColor(text))
         context.setValue(includeAlpha ? text : withAlpha(text, colorToAlpha(context.value)));

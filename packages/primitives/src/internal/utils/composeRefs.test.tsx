@@ -9,7 +9,14 @@ describe('composeRefs', () => {
     const firstRelease = vi.fn();
     const secondRelease = vi.fn();
     const { unmount } = render(
-      <button ref={composeRefs(() => firstRelease, () => secondRelease)}>Action</button>,
+      <button
+        ref={composeRefs(
+          () => firstRelease,
+          () => secondRelease,
+        )}
+      >
+        Action
+      </button>,
     );
 
     unmount();

@@ -92,7 +92,6 @@ export function TaskColumnOrder({
           );
         }}
         onDrop={(event) => {
-
           event.preventDefault();
 
           if (draggedColumn && dropTarget) moveColumn(draggedColumn, dropTarget.index);

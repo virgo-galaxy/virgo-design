@@ -90,7 +90,6 @@ export function normalizeHttpError(error: unknown): HttpError {
     }
 
     if (error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT')
-
       return new HttpError({ kind: 'timeout', msg: 'Request timeout', cause: error });
   }
 

@@ -8,10 +8,7 @@ export default function App() {
 
   return (
     <div className={styles.root!}>
-      <Pagination
-        total={50}
-        aria-label={t('examples.pagination.copy.basicPagination')}
-      />
+      <Pagination total={50} aria-label={t('examples.pagination.copy.basicPagination')} />
     </div>
   );
 }

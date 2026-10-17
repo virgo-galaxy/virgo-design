@@ -366,7 +366,6 @@ export const tasksHandlers = [
     return success({ deletedIds: ids });
   }),
   http.post(endpoint('/tasks'), async ({ request }) => {
-
     let body: unknown;
 
     try {

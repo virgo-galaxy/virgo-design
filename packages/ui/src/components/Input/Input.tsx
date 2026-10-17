@@ -178,11 +178,7 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
       data-stepper-reverse={(showsSteppers && stepperReverse) || undefined}
     >
       {prefix !== undefined && prefix !== null ? (
-        <span
-          className={styles.adornment}
-          data-slot="prefix"
-          aria-hidden="true"
-        >
+        <span className={styles.adornment} data-slot="prefix" aria-hidden="true">
           {prefix}
         </span>
       ) : null}
@@ -279,11 +275,7 @@ const InputCore = forwardRef<HTMLInputElement, InputCoreProps>(function InputCor
       ) : null}
 
       {suffix !== undefined && suffix !== null ? (
-        <span
-          className={styles.adornment}
-          data-slot="suffix"
-          aria-hidden="true"
-        >
+        <span className={styles.adornment} data-slot="suffix" aria-hidden="true">
           {suffix}
         </span>
       ) : null}

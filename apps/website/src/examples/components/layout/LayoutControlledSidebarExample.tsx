@@ -1,5 +1,11 @@
 import { LayoutIcon, SidebarCollapseIcon, SidebarExpandIcon } from '@virgo-design/icons';
-import { Button, Layout, type LayoutSidebarDisplayState, NavigationMenu, Surface } from '@virgo-design/ui';
+import {
+  Button,
+  Layout,
+  type LayoutSidebarDisplayState,
+  NavigationMenu,
+  Surface,
+} from '@virgo-design/ui';
 import { useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -88,7 +94,7 @@ export default function App() {
                 aria-expanded={!collapsed}
                 aria-controls={sidebarId}
                 onClick={() =>
-                  setSidebarState((state) => state === 'expanded' ? 'collapsed' : 'expanded')
+                  setSidebarState((state) => (state === 'expanded' ? 'collapsed' : 'expanded'))
                 }
               >
                 {collapsed ? <SidebarExpandIcon /> : <SidebarCollapseIcon />}

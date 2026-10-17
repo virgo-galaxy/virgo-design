@@ -26,9 +26,7 @@ export default function App() {
           onChange={(event) => setEmail(event.target.value)}
           aria-describedby={descriptionId}
         />
-        <Field.Description id={descriptionId}>
-          {t('examples.field.copy.private')}
-        </Field.Description>
+        <Field.Description id={descriptionId}>{t('examples.field.copy.private')}</Field.Description>
         {invalid ? <Field.Message>{t('examples.field.copy.error')}</Field.Message> : null}
       </Field>
       <Button type="submit">{t('examples.field.copy.validate')}</Button>

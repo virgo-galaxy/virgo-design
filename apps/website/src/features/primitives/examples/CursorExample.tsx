@@ -9,9 +9,7 @@ export function CursorExample() {
   return (
     <Cursor.Provider data-docs-primitive="cursor">
       <button type="button">{t('primitives.examples.moveYourMouseHere')}</button>
-      <Cursor.Follower {...portalProps}>
-        {t('primitives.examples.pointerFeedback')}
-      </Cursor.Follower>
+      <Cursor.Follower {...portalProps}>{t('primitives.examples.pointerFeedback')}</Cursor.Follower>
     </Cursor.Provider>
   );
 }

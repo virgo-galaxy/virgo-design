@@ -23,27 +23,17 @@ function Actions({ onAction }: { onAction: (action: DemoAction) => void }) {
 
   return (
     <>
-      <Dropdown.Item
-        icon={<UserIcon />}
-        onSelect={() => onAction('profileSelected')}
-      >
+      <Dropdown.Item icon={<UserIcon />} onSelect={() => onAction('profileSelected')}>
         {t('examples.dropdown.copy.profile')}
       </Dropdown.Item>
-      <Dropdown.Item
-        icon={<SettingsIcon />}
-        onSelect={() => onAction('settingsSelected')}
-      >
+      <Dropdown.Item icon={<SettingsIcon />} onSelect={() => onAction('settingsSelected')}>
         {t('examples.dropdown.copy.settings')}
       </Dropdown.Item>
       <Dropdown.Item disabled icon={<UserIcon />}>
         {t('examples.dropdown.copy.inviteMember')}
       </Dropdown.Item>
       <Dropdown.Separator />
-      <Dropdown.Item
-        danger
-        icon={<TrashIcon />}
-        onSelect={() => onAction('deleteSelected')}
-      >
+      <Dropdown.Item danger icon={<TrashIcon />} onSelect={() => onAction('deleteSelected')}>
         {t('examples.dropdown.copy.deleteWorkspace')}
       </Dropdown.Item>
     </>

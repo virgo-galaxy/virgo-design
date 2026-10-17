@@ -288,7 +288,6 @@ function ProjectsResource() {
 }
 
 export function ProjectsPage() {
-
   return (
     <CatalogBoundary>
       <ProjectsResource />

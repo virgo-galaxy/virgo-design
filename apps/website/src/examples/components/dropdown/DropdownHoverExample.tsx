@@ -22,11 +22,7 @@ function Actions({ onAction }: { onAction: (action: DemoAction) => void }) {
         {t('examples.dropdown.copy.inviteMember')}
       </Dropdown.Item>
       <Dropdown.Separator />
-      <Dropdown.Item
-        danger
-        icon={<TrashIcon />}
-        onSelect={() => onAction('deleteSelected')}
-      >
+      <Dropdown.Item danger icon={<TrashIcon />} onSelect={() => onAction('deleteSelected')}>
         {t('examples.dropdown.copy.deleteWorkspace')}
       </Dropdown.Item>
     </>

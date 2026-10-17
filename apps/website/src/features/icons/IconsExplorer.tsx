@@ -214,10 +214,7 @@ export function IconsExplorer({
               >
                 <ResetIcon aria-hidden="true" />
               </Button>
-              <ColorPicker.Panel
-                alpha
-                aria-label={t('icons.colorPicker')}
-              />
+              <ColorPicker.Panel alpha aria-label={t('icons.colorPicker')} />
             </ColorPicker>
           </div>
 

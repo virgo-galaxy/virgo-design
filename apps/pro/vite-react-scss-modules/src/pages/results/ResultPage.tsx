@@ -6,7 +6,13 @@ import { Link, useNavigate } from 'react-router';
 
 import { getTasks } from '@/api/tasks';
 import { getLatestWorkflow } from '@/api/workflows';
-import { CatalogBoundary, moduleName, Person, projectName, useTaskCatalog } from '@/features/catalog';
+import {
+  CatalogBoundary,
+  moduleName,
+  Person,
+  projectName,
+  useTaskCatalog,
+} from '@/features/catalog';
 import type { WorkflowReceipt } from '@/features/handoff';
 import { useHandoffSession, useWorkflowRevision } from '@/features/handoff';
 import { projectDetailPath, projectHandoffPath, projectTasksPath } from '@/features/projects';
@@ -364,10 +370,7 @@ function ResultTasks({ receipt }: { receipt: WorkflowReceipt }) {
 
 function ResultResource({ outcome }: { outcome: 'success' | 'error' }) {
   const revision = useWorkflowRevision();
-  const load = useCallback(
-    (signal: AbortSignal) => getLatestWorkflow(outcome, signal),
-    [outcome],
-  );
+  const load = useCallback((signal: AbortSignal) => getLatestWorkflow(outcome, signal), [outcome]);
   const resource = useRemoteData(load, { key: outcome, revision });
 
   if (!resource.data) return <RemoteState {...resource} />;
@@ -381,7 +384,6 @@ function ResultResource({ outcome }: { outcome: 'success' | 'error' }) {
 }
 
 export function ResultPage({ outcome }: { outcome: 'success' | 'error' }) {
-
   return (
     <CatalogBoundary>
       <ResultResource key={outcome} outcome={outcome} />

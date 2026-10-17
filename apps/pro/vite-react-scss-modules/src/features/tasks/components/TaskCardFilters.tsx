@@ -53,9 +53,9 @@ export function TaskCardFilters({
         placeholder={t('tasks.allStatuses')}
         onChange={(value) => onChange('status', value)}
         options={taskStatuses.map((status) => ({
-            value: status,
-            label: t(`tasks.statusLabels.${taskStatusLabelNames[status]}`),
-          }))}
+          value: status,
+          label: t(`tasks.statusLabels.${taskStatusLabelNames[status]}`),
+        }))}
       />
       <MultiFilterSelect
         label={t('tasks.project')}
@@ -63,9 +63,9 @@ export function TaskCardFilters({
         placeholder={t('tasks.allProjects')}
         onChange={(value) => onChange('project', value)}
         options={taskProjects.map((project) => ({
-            value: project,
-            label: businessLabel(projectName(project, projects), i18n.language),
-          }))}
+          value: project,
+          label: businessLabel(projectName(project, projects), i18n.language),
+        }))}
       />
       <Button.Group>
         <Button type="button" variant="outline" onClick={reset}>

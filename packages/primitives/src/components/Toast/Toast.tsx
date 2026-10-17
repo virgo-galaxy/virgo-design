@@ -249,10 +249,7 @@ export const ToastViewport = forwardRef<HTMLDivElement, ToastViewportProps>(func
   const anchorRef = useRef<HTMLSpanElement>(null);
   const environment = usePortalEnvironment(anchorRef, portal);
   const { setViewport } = context;
-  const setViewportRef = useMemo(
-    () => composeRefs(ref, setViewport),
-    [ref, setViewport],
-  );
+  const setViewportRef = useMemo(() => composeRefs(ref, setViewport), [ref, setViewport]);
   const viewport = (
     <div
       data-theme={portal ? environment.theme : undefined}

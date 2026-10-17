@@ -212,11 +212,9 @@ export function ProfileEditor({
                           setPhotoName(file.name);
                         }
                       } catch {
-
                         if (alive.current && revision === photoRevision.current)
                           setImageError('imageUnreadable');
                       } finally {
-
                         if (alive.current && revision === photoRevision.current) setReading(false);
                       }
                     }}
@@ -327,10 +325,7 @@ export function ProfileEditor({
                       />
                     ))}
                   </div>
-                  <ColorPicker.Panel
-                    variant="simple"
-                    aria-label={t('profile.avatarColorPicker')}
-                  />
+                  <ColorPicker.Panel variant="simple" aria-label={t('profile.avatarColorPicker')} />
                 </ColorPicker>
                 {errors.avatarColor ? (
                   <Field.Message>{t(`profile.validation.${errors.avatarColor}`)}</Field.Message>

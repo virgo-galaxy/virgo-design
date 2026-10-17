@@ -9,7 +9,13 @@ import { FilterSelect } from '@/components/filters/FilterSelect';
 import { PageHeading } from '@/components/page/PageHeading';
 import { Panel } from '@/components/page/Panel';
 import { useCurrentUser } from '@/features/auth';
-import { CatalogBoundary, moduleName, Person, projectName, useTaskCatalog } from '@/features/catalog';
+import {
+  CatalogBoundary,
+  moduleName,
+  Person,
+  projectName,
+  useTaskCatalog,
+} from '@/features/catalog';
 import { canCreateTask, canEditTask, isAdmin, taskStatusChoices } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
 import { routePath } from '@/routes';
@@ -392,7 +398,6 @@ function TaskDetails({
 }
 
 export function TaskWorkspacePage(props: { mode: 'create' | 'edit' | 'details' }) {
-
   return (
     <CatalogBoundary>
       <TaskWorkspacePageView {...props} />

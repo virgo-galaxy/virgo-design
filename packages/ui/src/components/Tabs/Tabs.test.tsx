@@ -94,7 +94,9 @@ describe('Tabs', () => {
       const api = screen.getByRole('tab', { name: 'API' });
       list.style.width = '300px';
       vi.spyOn(list, 'getBoundingClientRect').mockReturnValue(rect(20, 300 * scale));
-      vi.spyOn(overview, 'getBoundingClientRect').mockReturnValue(rect(20 + 24 * scale, 96 * scale));
+      vi.spyOn(overview, 'getBoundingClientRect').mockReturnValue(
+        rect(20 + 24 * scale, 96 * scale),
+      );
       vi.spyOn(api, 'getBoundingClientRect').mockReturnValue(rect(20 + 144 * scale, 72 * scale));
 
       window.dispatchEvent(new Event('resize'));

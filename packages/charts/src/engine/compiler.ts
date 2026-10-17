@@ -48,7 +48,7 @@ function resolveColor(color: string, theme: ChartTheme) {
 
   const index = /^var\(--chart-series-(\d+)\)$/.exec(color)?.[1];
 
-  return index ? theme.palette[Number(index) - 1] ?? color : color;
+  return index ? (theme.palette[Number(index) - 1] ?? color) : color;
 }
 
 function tooltipCard(model: ChartDefinition, theme: ChartTheme, index: number) {

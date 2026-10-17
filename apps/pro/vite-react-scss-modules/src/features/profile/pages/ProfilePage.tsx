@@ -353,7 +353,6 @@ function ProfileResource() {
 }
 
 export function ProfilePage() {
-
   return (
     <CatalogBoundary>
       <ProfileResource />

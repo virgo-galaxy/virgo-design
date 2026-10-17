@@ -24,7 +24,10 @@ export default function EngineView({
   title,
 }: EngineViewProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const theme = useChartTheme(ref, definition.series.map((series) => series.color));
+  const theme = useChartTheme(
+    ref,
+    definition.series.map((series) => series.color),
+  );
   const reduced = useReducedMotion();
   const [active, setActive] = useState<number | null>(null);
 

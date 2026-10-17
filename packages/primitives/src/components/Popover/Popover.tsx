@@ -80,10 +80,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const [root, setRoot] = useState<HTMLDivElement | null>(null);
   const rootRef = useMemo(() => ({ current: root }), [root]);
-  const composedRootRef = useMemo(
-    () => composeRefs(ref, setRoot),
-    [ref],
-  );
+  const composedRootRef = useMemo(() => composeRefs(ref, setRoot), [ref]);
   const anchorRef = anchor === 'root' ? rootRef : triggerRef;
   const contentRef = useRef<HTMLDivElement | null>(null);
   const focusOnOpen = useRef(true);

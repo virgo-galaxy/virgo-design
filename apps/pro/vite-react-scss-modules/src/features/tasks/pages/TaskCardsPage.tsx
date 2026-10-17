@@ -3,7 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router';
 
 import { NoResults } from '@/components/page/NoResults';
-import { CatalogBoundary, moduleName, Person, projectName, useTaskCatalog } from '@/features/catalog';
+import {
+  CatalogBoundary,
+  moduleName,
+  Person,
+  projectName,
+  useTaskCatalog,
+} from '@/features/catalog';
 import { businessLabel } from '@/lib/demo/labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { routePath, routeWithQuery } from '@/routes';
@@ -131,7 +137,6 @@ function TaskCardsPageView() {
 }
 
 export function TaskCardsPage() {
-
   return (
     <CatalogBoundary>
       <TaskCardsPageView />
