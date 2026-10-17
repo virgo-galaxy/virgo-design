@@ -72,25 +72,27 @@ export function AvatarPage() {
           </ReferenceSpecimen>
         </section>
         <ArticleSection
-          id={'avatar-content'}
-          index={'01'}
+          id="avatar-content"
+          index="01"
           title={t('components.avatar.content.title')}
           description={t('components.avatar.content.description')}
         >
           <ComponentExample example={avatarExamples.avatarImageFallback} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'avatar-sizes'}
-          index={'02'}
+          id="avatar-sizes"
+          index="02"
           title={t('components.avatar.sizes.title')}
           description={t('components.avatar.sizes.description')}
         >
           <ComponentExample example={avatarExamples.avatarSizes} />
           <ComponentExample example={avatarExamples.avatarShapes} />
         </ArticleSection>
+
         <ArticleSection
-          id={'avatar-composition'}
-          index={'03'}
+          id="avatar-composition"
+          index="03"
           title={t('components.avatar.composition.title')}
           description={t('components.avatar.composition.description')}
         >

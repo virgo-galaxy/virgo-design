@@ -15,7 +15,7 @@ export default function App() {
     >
       <NavigationMenu.List>
         <NavigationMenu.Item value="dashboard" icon={<DashboardIcon />}>
-          <NavigationMenu.Link href="#navigation-view A">
+          <NavigationMenu.Link href="#navigation-view-a">
             {t('examples.navigationMenu.copy.dashboard')}
           </NavigationMenu.Link>
         </NavigationMenu.Item>
@@ -30,7 +30,7 @@ export default function App() {
           </NavigationMenu.Link>
         </NavigationMenu.Item>
         <NavigationMenu.Item disabled value="billing" icon={<GlobeIcon />}>
-          <NavigationMenu.Link href="#navigation-section B">
+          <NavigationMenu.Link href="#navigation-section-b">
             {t('examples.navigationMenu.copy.billing')}
           </NavigationMenu.Link>
         </NavigationMenu.Item>

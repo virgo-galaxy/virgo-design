@@ -13,7 +13,6 @@ import {
 import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { surfaceExamples } from '@/examples/components/surface/examples';
 import { surfaceImageFixture } from '@/examples/components/surface/fixtures';
-import { translateExampleText } from '@/i18n/translate-example-text';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
@@ -21,6 +20,7 @@ export function SurfacePage() {
   const { t } = useTranslation();
 
   const [actions, setActions] = useState(0);
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="component-page" id="surface-page">
@@ -76,7 +76,7 @@ export function SurfacePage() {
                       {actions === 0
                         ? t('examples.surface.details.contentStaysInteractive')
                         : t('examples.surface.details.valueSuccessfulInteractions', {
-                            v0: translateExampleText(t, 'surface', String(actions)),
+                            v0: actions,
                           })}
                     </span>
                   </Surface>
@@ -91,25 +91,28 @@ export function SurfacePage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'surface-semantic'}
-          index={'01'}
+          id="surface-semantic"
+          index="01"
           title={t('components.surface.semantic.title')}
           description={t('components.surface.semantic.description')}
         >
           <ComponentExample example={surfaceExamples.surfaceTones} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'surface-material'}
-          index={'02'}
+          id="surface-material"
+          index="02"
           title={t('components.surface.material.title')}
           description={t('components.surface.material.description')}
         >
           <ComponentExample example={surfaceExamples.surfaceMaterials} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'surface-background'}
-          index={'03'}
+          id="surface-background"
+          index="03"
           title={t('components.surface.background.title')}
           description={t('components.surface.background.description')}
         >
@@ -118,9 +121,10 @@ export function SurfacePage() {
           <ComponentExample example={surfaceExamples.surfaceImageMaterial} />
           <ComponentExample example={surfaceExamples.surfaceImageContain} />
         </ArticleSection>
+
         <ArticleSection
-          id={'surface-depth'}
-          index={'04'}
+          id="surface-depth"
+          index="04"
           title={t('components.surface.depth.title')}
           description={t('components.surface.depth.description')}
         >
@@ -128,9 +132,10 @@ export function SurfacePage() {
           <ComponentExample example={surfaceExamples.surfaceBorders} />
           <ComponentExample example={surfaceExamples.surfaceRadius} />
         </ArticleSection>
+
         <ArticleSection
-          id={'surface-composition'}
-          index={'05'}
+          id="surface-composition"
+          index="05"
           title={t('components.surface.composition.title')}
           description={t('components.surface.composition.description')}
         >

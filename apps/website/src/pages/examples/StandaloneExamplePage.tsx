@@ -1,10 +1,9 @@
-import type { ComponentType } from 'react';
-import { useEffect, useState } from 'react';
+import { Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useParams, useSearchParams } from 'react-router-dom';
 
 import { PageSkeleton } from '@/components/loading/PageSkeleton';
-import { loadStandaloneExample } from '@/examples/components/standalone-example-registry';
+import { getStandaloneExample } from '@/examples/components/standalone-example-registry';
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
 import type { Appearance } from '@/shared/theme/types';
 import { useAppearance } from '@/shared/theme/use-appearance';
@@ -20,22 +19,9 @@ export function StandaloneExamplePage() {
   const { exampleId = '' } = useParams();
   const [searchParams] = useSearchParams();
   const { appearance } = useAppearance();
-  const [Example, setExample] = useState<ComponentType | null>();
+  const Example = getStandaloneExample(exampleId);
 
-  useEffect(() => {
-    let active = true;
-    setExample(undefined);
-
-    void loadStandaloneExample(exampleId).then((component) => {
-      if (active) setExample(() => component ?? null);
-    });
-
-    return () => {
-      active = false;
-    };
-  }, [exampleId]);
-
-  if (Example === null) {
+  if (!Example) {
     return <Navigate to={ROUTE_PATHS.components} replace />;
   }
 
@@ -48,7 +34,9 @@ export function StandaloneExamplePage() {
       data-standalone-example={exampleId}
       aria-label={t('examples.standalone.label', { id: exampleId })}
     >
-      {Example ? <Example /> : <PageSkeleton variant="example" />}
+      <Suspense fallback={<PageSkeleton variant="example" />}>
+        <Example />
+      </Suspense>
     </main>
   );
 }

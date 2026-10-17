@@ -67,25 +67,28 @@ export function SkeletonPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'skeleton-variants'}
-          index={'01'}
+          id="skeleton-variants"
+          index="01"
           title={t('components.skeleton.variants.title')}
           description={t('components.skeleton.variants.description')}
         >
           <ComponentExample example={skeletonExamples.skeletonShapes} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'skeleton-card'}
-          index={'02'}
+          id="skeleton-card"
+          index="02"
           title={t('components.skeleton.card.title')}
           description={t('components.skeleton.card.description')}
         >
           <ComponentExample example={skeletonExamples.skeletonCard} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'skeleton-motion'}
-          index={'03'}
+          id="skeleton-motion"
+          index="03"
           title={t('components.skeleton.motion.title')}
           description={t('components.skeleton.motion.description')}
         >

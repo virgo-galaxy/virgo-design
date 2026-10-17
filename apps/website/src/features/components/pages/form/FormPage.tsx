@@ -54,6 +54,7 @@ export function FormPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
           id="form-1"
           index="01"
@@ -62,6 +63,7 @@ export function FormPage() {
         >
           <ComponentExample example={formExamples.example0} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="form-2"
           index="02"
@@ -70,6 +72,7 @@ export function FormPage() {
         >
           <ComponentExample example={formExamples.example1} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="form-3"
           index="03"

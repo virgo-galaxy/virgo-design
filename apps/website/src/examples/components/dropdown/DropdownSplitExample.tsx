@@ -3,25 +3,24 @@ import { Dropdown } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { translateExampleText } from '@/i18n/translate-example-text';
-
 import styles from './DropdownSplitExample.module.scss';
 
-function Actions({ onAction }: { onAction: (action: string) => void }) {
+type DemoAction =
+  | 'profileSelected'
+  | 'settingsSelected'
+  | 'deleteSelected'
+  | 'saved'
+  | 'accountOpened';
+
+function Actions({ onAction }: { onAction: (action: DemoAction) => void }) {
   const { t } = useTranslation();
 
   return (
     <>
-      <Dropdown.Item
-        icon={<UserIcon />}
-        onSelect={() => onAction(t('examples.dropdown.details.profileSelected'))}
-      >
+      <Dropdown.Item icon={<UserIcon />} onSelect={() => onAction('profileSelected')}>
         {t('examples.dropdown.copy.profile')}
       </Dropdown.Item>
-      <Dropdown.Item
-        icon={<SettingsIcon />}
-        onSelect={() => onAction(t('examples.dropdown.details.settingsSelected'))}
-      >
+      <Dropdown.Item icon={<SettingsIcon />} onSelect={() => onAction('settingsSelected')}>
         {t('examples.dropdown.copy.settings')}
       </Dropdown.Item>
       <Dropdown.Item disabled icon={<UserIcon />}>
@@ -31,7 +30,7 @@ function Actions({ onAction }: { onAction: (action: string) => void }) {
       <Dropdown.Item
         danger
         icon={<TrashIcon />}
-        onSelect={() => onAction(t('examples.dropdown.details.deleteSelected'))}
+        onSelect={() => onAction('deleteSelected')}
       >
         {t('examples.dropdown.copy.deleteWorkspace')}
       </Dropdown.Item>
@@ -42,12 +41,13 @@ function Actions({ onAction }: { onAction: (action: string) => void }) {
 export default function App() {
   const { t } = useTranslation();
 
-  const [action, setAction] = useState('Choose an action.');
+  const [action, setAction] = useState<DemoAction | null>(null);
+
   return (
     <div className={styles.root!}>
       <div className={styles.stage!}>
         <Dropdown>
-          <Dropdown.Button menuLabel="More save actions" onClick={() => setAction('Saved')}>
+          <Dropdown.Button menuLabel="More save actions" onClick={() => setAction('saved')}>
             {t('examples.dropdown.copy.save')}
           </Dropdown.Button>
           <Dropdown.Content>
@@ -58,7 +58,7 @@ export default function App() {
           <Dropdown.Button
             menuLabel="Section actions"
             menuIcon={<UserIcon />}
-            onClick={() => setAction('Section opened')}
+            onClick={() => setAction('accountOpened')}
           >
             {t('examples.dropdown.copy.account')}
           </Dropdown.Button>
@@ -67,7 +67,7 @@ export default function App() {
           </Dropdown.Content>
         </Dropdown>
       </div>
-      <span role="status">{translateExampleText(t, 'dropdown', action)}</span>
+      <span role="status">{t(`examples.dropdown.details.${action ?? 'chooseAnAction'}`)}</span>
     </div>
   );
 }

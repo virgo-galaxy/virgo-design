@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSourceCopy } from '@/shared/hooks/use-source-copy';
-import { copyTextToClipboard } from '@/shared/lib/clipboard';
 import { SourceCopyButton } from '@/shared/ui/source-copy-button/SourceCopyButton';
 
 import { downloadIconSvg } from './download';
@@ -31,7 +30,7 @@ export function IconCodePanel({
     `import { ${name} } from '@virgo-design/icons';\n\nexport default function Example() {\n  return <${name} size={24}${animated === true ? ' animated' : animated === 'always' ? ' animated="always"' : typeof animated === 'number' ? ` animated={${animated}}` : ''} />;\n}`;
   const displaySvg = svg.replace(/></g, '>\n  <').replace(/\n {2}<\/svg>/, '\n</svg>');
   const source = format === 'svg' ? displaySvg : usage;
-  const { state, copy, reset } = useSourceCopy(source, copyTextToClipboard);
+  const { state, copy, reset } = useSourceCopy(source);
   const copyHint =
     state === 'success'
       ? t('icons.copied')

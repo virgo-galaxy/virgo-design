@@ -54,42 +54,47 @@ export function SwitchPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'switch-basic'}
-          index={'01'}
+          id="switch-basic"
+          index="01"
           title={t('components.switch.basic.title')}
           description={t('components.switch.basic.description')}
         >
           <ComponentExample example={switchExamples.switchBasic} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'switch-sizes'}
-          index={'02'}
+          id="switch-sizes"
+          index="02"
           title={t('components.switch.sizes.title')}
           description={t('components.switch.sizes.description')}
         >
           <ComponentExample example={switchExamples.switchSizes} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'switch-content'}
-          index={'03'}
+          id="switch-content"
+          index="03"
           title={t('components.switch.content.title')}
           description={t('components.switch.content.description')}
         >
           <ComponentExample example={switchExamples.switchText} />
           <ComponentExample example={switchExamples.switchIcons} />
         </ArticleSection>
+
         <ArticleSection
-          id={'switch-appearances'}
-          index={'04'}
+          id="switch-appearances"
+          index="04"
           title={t('components.switch.appearances.title')}
           description={t('components.switch.appearances.description')}
         >
           <ComponentExample example={switchExamples.switchAppearances} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'switch-disabled'}
-          index={'05'}
+          id="switch-disabled"
+          index="05"
           title={t('components.switch.disabled.title')}
           description={t('components.switch.disabled.description')}
         >

@@ -8,6 +8,7 @@ export default function App() {
   const { t } = useTranslation();
 
   const [userId, setUserId] = useState('1');
+
   return (
     <div className={styles.root!}>
       <Input

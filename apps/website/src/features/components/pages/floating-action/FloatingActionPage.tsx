@@ -59,17 +59,18 @@ export function FloatingActionPage() {
           </ReferenceSpecimen>
         </section>
         <ArticleSection
-          id={'floating-action-basic'}
-          index={'01'}
+          id="floating-action-basic"
+          index="01"
           title={t('components.floatingAction.basic.title')}
           description={t('components.floatingAction.basic.description')}
         >
           <ComponentExample example={floatingActionExamples.floatingActionVariants} />
           <ComponentExample example={floatingActionExamples.floatingActionDisabled} />
         </ArticleSection>
+
         <ArticleSection
-          id={'floating-action-group'}
-          index={'02'}
+          id="floating-action-group"
+          index="02"
           title={t('components.floatingAction.group.title')}
           description={t('components.floatingAction.group.description')}
         >
@@ -78,9 +79,10 @@ export function FloatingActionPage() {
             showCaption={false}
           />
         </ArticleSection>
+
         <ArticleSection
-          id={'floating-action-placement'}
-          index={'03'}
+          id="floating-action-placement"
+          index="03"
           title={t('components.floatingAction.placement.title')}
           description={t('components.floatingAction.placement.description')}
         >

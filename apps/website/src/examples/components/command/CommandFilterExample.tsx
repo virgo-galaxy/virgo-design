@@ -2,14 +2,13 @@ import { Command } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { translateExampleText } from '@/i18n/translate-example-text';
-
 import styles from './CommandFilterExample.module.scss';
 
 export default function App() {
   const { t } = useTranslation();
 
-  const [selection, setSelection] = useState('None');
+  const [selection, setSelection] = useState<string | null>(null);
+
   return (
     <div className={styles.root!}>
       <Command filter={(value, search) => value.startsWith(search.toLowerCase())}>
@@ -27,7 +26,7 @@ export default function App() {
         </Command.List>
       </Command>
       <span role="status">
-        {t('examples.command.copy.selected')} {translateExampleText(t, 'command', selection)}
+        {t('examples.command.copy.selected')} {selection ?? t('examples.command.details.none')}
       </span>
     </div>
   );

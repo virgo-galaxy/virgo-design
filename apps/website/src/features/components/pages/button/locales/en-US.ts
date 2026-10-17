@@ -21,8 +21,8 @@ export const buttonEnUS = {
   specimen: {
     referenceSpecimen: 'Reference specimen',
     '36pxHeight': '36px height',
-    '12pxLabel': '12px label',
-    radius6: 'Radius 6',
+    '14pxLabel': '14px label',
+    radius8: 'Radius 8',
   },
   variants: {
     title: 'Variants',

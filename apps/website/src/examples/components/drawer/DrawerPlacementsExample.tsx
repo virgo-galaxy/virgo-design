@@ -19,13 +19,13 @@ function DrawerFrame({
   return (
     <Drawer.Root>
       <Drawer.Trigger size="small">
-        {t('examples.drawer.copy.open')} {translateExampleText(t, 'drawer', title)}
+        {t('examples.drawer.copy.open')} {title}
       </Drawer.Trigger>
       <Drawer.Portal>
         <Drawer.Overlay />
         <Drawer.Content placement={placement} size={size}>
           <Drawer.Header>
-            <Drawer.Title>{translateExampleText(t, 'drawer', title)}</Drawer.Title>
+            <Drawer.Title>{title}</Drawer.Title>
             <Drawer.Description>
               {t('examples.drawer.copy.a')} {size} {t('examples.drawer.copy.panelEnteringFromThe')}{' '}
               {placement} {t('examples.drawer.copy.edge')}

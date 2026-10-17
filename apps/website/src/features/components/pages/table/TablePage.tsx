@@ -39,6 +39,7 @@ export function TablePage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
           id="table-1"
           index="01"
@@ -47,6 +48,7 @@ export function TablePage() {
         >
           <ComponentExample example={tableExamples.example0} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="table-2"
           index="02"
@@ -55,6 +57,7 @@ export function TablePage() {
         >
           <ComponentExample example={tableExamples.example1} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="table-3"
           index="03"
@@ -63,6 +66,7 @@ export function TablePage() {
         >
           <ComponentExample example={tableExamples.example2} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="table-sorting"
           index="04"
@@ -71,6 +75,7 @@ export function TablePage() {
         >
           <ComponentExample example={tableExamples.sorting} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="table-filtering"
           index="05"
@@ -79,6 +84,7 @@ export function TablePage() {
         >
           <ComponentExample example={tableExamples.filtering} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="table-selection"
           index="06"
@@ -87,6 +93,7 @@ export function TablePage() {
         >
           <ComponentExample example={tableExamples.selection} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="table-composition"
           index="07"

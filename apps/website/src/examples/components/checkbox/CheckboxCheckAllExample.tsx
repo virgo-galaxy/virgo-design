@@ -13,6 +13,7 @@ export default function App() {
   const [selected, setSelected] = useState<string[]>(['option-a', 'option-c']);
   const allChecked = selected.length === values.length;
   const partiallyChecked = selected.length > 0 && !allChecked;
+
   return (
     <div className={styles.root!}>
       <Checkbox

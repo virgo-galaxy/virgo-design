@@ -61,6 +61,7 @@ clientRegistry.listThemes(); // official + registered; themePresets stays offici
 
 export function ThemesPage() {
   const { t } = useTranslation();
+
   return (
     <DocumentationCatalogue
       pageId="themes"
@@ -80,6 +81,7 @@ export function ThemesPage() {
           <p>{t('themes.model.baseline')}</p>
         </Surface>
       </ArticleSection>
+
       <ArticleSection
         id="theme-experience"
         index="02"
@@ -88,6 +90,7 @@ export function ThemesPage() {
       >
         <ThemeExperience />
       </ArticleSection>
+
       <ArticleSection
         id="theme-install"
         index="03"
@@ -105,6 +108,7 @@ export function ThemesPage() {
           <code>{reactCode}</code>
         </pre>
       </ArticleSection>
+
       <ArticleSection
         id="theme-registry"
         index="04"
@@ -138,6 +142,7 @@ export function ThemesPage() {
 import type { ThemeId, ThemePreset } from '@virgo-design/themes';`}</code>
         </pre>
       </ArticleSection>
+
       <ArticleSection
         id="theme-authoring"
         index="05"

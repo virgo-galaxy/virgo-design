@@ -1,12 +1,15 @@
 import { Button, Field, Form, Input } from '@virgo-design/ui';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './FieldValidationExample.module.scss';
+
 export default function App() {
   const { t } = useTranslation();
+  const descriptionId = useId();
   const [email, setEmail] = useState('');
   const [invalid, setInvalid] = useState(false);
+
   return (
     <Form
       className={styles.root!}
@@ -21,9 +24,9 @@ export default function App() {
         <Input
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          aria-describedby="validation-note"
+          aria-describedby={descriptionId}
         />
-        <Field.Description id="validation-note">
+        <Field.Description id={descriptionId}>
           {t('examples.field.copy.private')}
         </Field.Description>
         {invalid ? <Field.Message>{t('examples.field.copy.error')}</Field.Message> : null}

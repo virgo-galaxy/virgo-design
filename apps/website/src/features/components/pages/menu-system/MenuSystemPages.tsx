@@ -15,7 +15,6 @@ import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { contextMenuExamples } from '@/examples/components/context-menu/examples';
 import { menuExamples } from '@/examples/components/menu/examples';
 import { menubarExamples } from '@/examples/components/menubar/examples';
-import { translateExampleText } from '@/i18n/translate-example-text';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
@@ -43,7 +42,7 @@ function Page({
           <div className="overview-copy">
             <ComponentPageMetadata />
             <h1>{name}</h1>
-            <p>{translateExampleText(t, 'menuSystem', description)}</p>
+            <p>{description}</p>
             <dl className="component-facts">
               <div>
                 <dt>{t('components.menuSystem.facts.items')}</dt>
@@ -69,7 +68,7 @@ function Page({
             </ReferenceSpecimen.Stage>
             <ReferenceSpecimen.Caption>
               {specimenCaption.map((item) => (
-                <span key={item}>{translateExampleText(t, 'menuSystem', item)}</span>
+                <span key={item}>{item}</span>
               ))}
               <ComponentExampleRuntimeControl />
             </ReferenceSpecimen.Caption>
@@ -81,16 +80,16 @@ function Page({
   );
 }
 
-function SharedItems({ select }: { select: (name: string) => void }) {
+function SharedItems() {
   const { t } = useTranslation();
 
   return (
     <>
       <Menu.Group label={t('examples.menuSystem.copy.actions')}>
-        <Menu.Item icon={<PlusIcon />} shortcut="⌘N" onSelect={() => select('New')}>
+        <Menu.Item icon={<PlusIcon />} shortcut="⌘N">
           {t('examples.menuSystem.copy.new')}
         </Menu.Item>
-        <Menu.Item shortcut="F2" onSelect={() => select('Rename')}>
+        <Menu.Item shortcut="F2">
           {t('examples.menuSystem.copy.rename')}
         </Menu.Item>
         <Menu.Item disabled>{t('examples.menuSystem.copy.paste')}</Menu.Item>
@@ -101,12 +100,12 @@ function SharedItems({ select }: { select: (name: string) => void }) {
           {t('examples.menuSystem.copy.export')}
         </Menu.SubmenuTrigger>
         <Menu.SubmenuContent>
-          <Menu.Item onSelect={() => select('Export PDF')}>PDF</Menu.Item>
+          <Menu.Item>PDF</Menu.Item>
           <Menu.Submenu>
             <Menu.SubmenuTrigger>{t('examples.menuSystem.copy.image')}</Menu.SubmenuTrigger>
             <Menu.SubmenuContent>
-              <Menu.Item onSelect={() => select('Export PNG')}>PNG</Menu.Item>
-              <Menu.Item onSelect={() => select('Export SVG')}>SVG</Menu.Item>
+              <Menu.Item>PNG</Menu.Item>
+              <Menu.Item>SVG</Menu.Item>
             </Menu.SubmenuContent>
           </Menu.Submenu>
         </Menu.SubmenuContent>
@@ -114,16 +113,16 @@ function SharedItems({ select }: { select: (name: string) => void }) {
       <Menu.Submenu>
         <Menu.SubmenuTrigger>{t('examples.menuSystem.copy.share')}</Menu.SubmenuTrigger>
         <Menu.SubmenuContent>
-          <Menu.Item onSelect={() => select('Copy link')}>
+          <Menu.Item>
             {t('examples.menuSystem.copy.copyLink')}
           </Menu.Item>
-          <Menu.Item onSelect={() => select('Copy selection')}>
+          <Menu.Item>
             {t('examples.menuSystem.copy.copySelection')}
           </Menu.Item>
         </Menu.SubmenuContent>
       </Menu.Submenu>
       <Menu.Separator />
-      <Menu.Item danger icon={<TrashIcon />} onSelect={() => select('Delete')}>
+      <Menu.Item danger icon={<TrashIcon />}>
         {t('examples.menuSystem.copy.delete')}
       </Menu.Item>
     </>
@@ -148,7 +147,7 @@ export function MenuPage() {
           <Menu>
             <Menu.Trigger>{t('examples.menuSystem.copy.actions')}</Menu.Trigger>
             <Menu.Content>
-              <SharedItems select={() => {}} />
+              <SharedItems />
             </Menu.Content>
           </Menu>
         </div>
@@ -208,7 +207,7 @@ export function ContextMenuPage() {
               <span>{t('examples.menuSystem.copy.rightClickHereShiftF10')}</span>
             </ContextMenu.Trigger>
             <ContextMenu.Content aria-label={t('examples.menuSystem.copy.documentActions')}>
-              <SharedItems select={() => {}} />
+              <SharedItems />
             </ContextMenu.Content>
           </ContextMenu>
         </div>

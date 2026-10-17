@@ -1,7 +1,6 @@
 import './PopoverPage.scss';
 
 import { Popover } from '@virgo-design/ui';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
@@ -18,8 +17,6 @@ import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 export function PopoverPage() {
   const { t } = useTranslation();
 
-  const [name] = useState('Example value');
-  const [savedName] = useState(name);
   return (
     <ComponentExampleRuntimeProvider>
       <div className="component-page popover-page" id="popover-page">
@@ -53,7 +50,7 @@ export function PopoverPage() {
                 <Popover.Trigger>{t('examples.popover.copy.workspaceDetails')}</Popover.Trigger>
                 <Popover.Content arrow>
                   <div className="popover-demo-content">
-                    <strong>{savedName}</strong>
+                    <strong>{t('examples.popover.details.virgoWorkspace')}</strong>
                     <p>{t('examples.popover.copy.aSharedSpaceForYourTeamSDesignsComponentsAnd')}</p>
                     <Popover.Close>{t('examples.popover.copy.gotIt')}</Popover.Close>
                   </div>
@@ -68,9 +65,10 @@ export function PopoverPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'popover-triggers'}
-          index={'01'}
+          id="popover-triggers"
+          index="01"
           title={t('components.popover.triggers.title')}
           description={t('components.popover.triggers.description')}
         >
@@ -79,25 +77,28 @@ export function PopoverPage() {
           <ComponentExample example={popoverExamples.popoverDisabled} />
           <ComponentExample example={popoverExamples.popoverCustomTrigger} />
         </ArticleSection>
+
         <ArticleSection
-          id={'popover-form'}
-          index={'02'}
+          id="popover-form"
+          index="02"
           title={t('components.popover.form.title')}
           description={t('components.popover.form.description')}
         >
           <ComponentExample example={popoverExamples.popoverForm} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'popover-placement'}
-          index={'03'}
+          id="popover-placement"
+          index="03"
           title={t('components.popover.placement.title')}
           description={t('components.popover.placement.description')}
         >
           <ComponentExample example={popoverExamples.popoverPlacement} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'popover-nested'}
-          index={'04'}
+          id="popover-nested"
+          index="04"
           title={t('components.popover.nested.title')}
           description={t('components.popover.nested.description')}
         >

@@ -91,40 +91,44 @@ export function DrawerPage() {
           </ReferenceSpecimen>
         </section>
         <ArticleSection
-          id={'drawer-placements'}
-          index={'01'}
+          id="drawer-placements"
+          index="01"
           title={t('components.drawer.placements.title')}
           description={t('components.drawer.placements.description')}
         >
           <ComponentExample example={drawerExamples.drawerPlacements} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'drawer-sizes'}
-          index={'02'}
+          id="drawer-sizes"
+          index="02"
           title={t('components.drawer.sizes.title')}
           description={t('components.drawer.sizes.description')}
         >
           <ComponentExample example={drawerExamples.drawerSizes} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'drawer-anatomy'}
-          index={'03'}
+          id="drawer-anatomy"
+          index="03"
           title={t('components.drawer.anatomy.title')}
           description={t('components.drawer.anatomy.description')}
         >
           <ComponentExample example={drawerExamples.drawerAnatomy} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'drawer-form'}
-          index={'04'}
+          id="drawer-form"
+          index="04"
           title={t('components.drawer.form.title')}
           description={t('components.drawer.form.description')}
         >
           <ComponentExample example={drawerExamples.drawerForm} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'drawer-non-modal'}
-          index={'05'}
+          id="drawer-non-modal"
+          index="05"
           title={t('components.drawer.nonModal.title')}
           description={t('components.drawer.nonModal.description')}
         >

@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react';
+import { type ComponentType, lazy } from 'react';
 
 type StandaloneExampleModule = { default: ComponentType };
 
@@ -16,15 +16,12 @@ function exampleIdFromPath(path: string) {
     .toLowerCase();
 }
 
-const loaders = new Map(
-  Object.entries(modules).map(([path, load]) => [exampleIdFromPath(path), load] as const),
+const examples = new Map(
+  Object.entries(modules).map(([path, load]) => [exampleIdFromPath(path), lazy(load)] as const),
 );
 
-export const standaloneExampleIds = new Set(loaders.keys());
+export const standaloneExampleIds = new Set(examples.keys());
 
-export async function loadStandaloneExample(exampleId: string) {
-  const load = loaders.get(exampleId);
-  if (!load) return undefined;
-  const module = await load();
-  return module.default;
+export function getStandaloneExample(exampleId: string) {
+  return examples.get(exampleId);
 }

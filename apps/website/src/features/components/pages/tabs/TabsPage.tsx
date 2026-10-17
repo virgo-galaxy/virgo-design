@@ -14,17 +14,10 @@ import { translateExampleText } from '@/i18n/translate-example-text';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
-const baseTabs = [
-  { value: 'overview', label: 'Overview' },
-  { value: 'api', label: 'API' },
-  { value: 'accessibility', label: 'Accessibility' },
-] as const;
 function ContentPanel({ title, children }: { title: string; children: ReactNode }) {
-  const { t } = useTranslation();
-
   return (
     <div className="tabs-content-panel">
-      <strong>{translateExampleText(t, 'tabs', title)}</strong>
+      <strong>{title}</strong>
       <p>{children}</p>
     </div>
   );
@@ -32,6 +25,11 @@ function ContentPanel({ title, children }: { title: string; children: ReactNode 
 
 function BasicTabs({ align = 'start' }: { align?: 'start' | 'center' }) {
   const { t } = useTranslation();
+  const tabs = [
+    { value: 'overview', label: t('examples.tabs.copy.overview') },
+    { value: 'api', label: 'API' },
+    { value: 'accessibility', label: t('examples.tabs.copy.accessibility') },
+  ];
 
   return (
     <Tabs align={align} defaultValue="overview">
@@ -40,9 +38,9 @@ function BasicTabs({ align = 'start' }: { align?: 'start' | 'center' }) {
           v0: translateExampleText(t, 'tabs', String(align)),
         })}
       >
-        {baseTabs.map((tab) => (
+        {tabs.map((tab) => (
           <Tabs.Tab key={tab.value} value={tab.value}>
-            {translateExampleText(t, 'tabs', tab.label)}
+            {tab.label}
           </Tabs.Tab>
         ))}
       </Tabs.List>
@@ -107,57 +105,64 @@ export function TabsPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'tabs-basic'}
-          index={'01'}
+          id="tabs-basic"
+          index="01"
           title={t('components.tabs.basic.title')}
           description={t('components.tabs.basic.description')}
         >
           <ComponentExample example={tabsExamples.tabsBasic} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tabs-disabled'}
-          index={'02'}
+          id="tabs-disabled"
+          index="02"
           title={t('components.tabs.disabled.title')}
           description={t('components.tabs.disabled.description')}
         >
           <ComponentExample example={tabsExamples.tabsDisabled} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tabs-alignment'}
-          index={'03'}
+          id="tabs-alignment"
+          index="03"
           title={t('components.tabs.alignment.title')}
           description={t('components.tabs.alignment.description')}
         >
           <ComponentExample example={tabsExamples.tabsAlignment} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tabs-icons'}
-          index={'04'}
+          id="tabs-icons"
+          index="04"
           title={t('components.tabs.icons.title')}
           description={t('components.tabs.icons.description')}
         >
           <ComponentExample example={tabsExamples.tabsIcons} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tabs-plain'}
-          index={'05'}
+          id="tabs-plain"
+          index="05"
           title={t('components.tabs.plain.title')}
           description={t('components.tabs.plain.description')}
         >
           <ComponentExample example={tabsExamples.tabsPlain} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tabs-card'}
-          index={'06'}
+          id="tabs-card"
+          index="06"
           title={t('components.tabs.card.title')}
           description={t('components.tabs.card.description')}
         >
           <ComponentExample example={tabsExamples.tabsCard} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tabs-editable-card'}
-          index={'07'}
+          id="tabs-editable-card"
+          index="07"
           title={t('components.tabs.editableCard.title')}
           description={t('components.tabs.editableCard.description')}
         >

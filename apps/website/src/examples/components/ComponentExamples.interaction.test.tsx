@@ -9,24 +9,23 @@ import {
   ComponentExampleRuntimeControl,
   ComponentExampleRuntimeProvider,
 } from '@/components/docs/ComponentExample';
-
-import CheckboxCheckAllExample from './checkbox/CheckboxCheckAllExample';
-import CommandDialogExample from './command/CommandDialogExample';
-import { dialogExamples } from './dialog/examples';
-import DockControlledExample from './dock/DockControlledExample';
-import DockHandlePositionExample from './dock/DockHandlePositionExample';
-import DockLockPinExample from './dock/DockLockPinExample';
-import { drawerExamples } from './drawer/examples';
-import LayoutControlledSidebarExample from './layout/LayoutControlledSidebarExample';
-import MenuActionsExample from './menu/MenuActionsExample';
-import { popoverExamples } from './popover/examples';
-import RadioBasicExample from './radio/RadioBasicExample';
-import TabsEditableExample from './tabs/TabsEditableExample';
-import { tagExamples } from './tag/examples';
-import ToastIntentsExample from './toast/ToastIntentsExample';
-import ToastPlacementExample from './toast/ToastPlacementExample';
-import ToastStackExample from './toast/ToastStackExample';
-import ToastUndoExample from './toast/ToastUndoExample';
+import CheckboxCheckAllExample from '@/examples/components/checkbox/CheckboxCheckAllExample';
+import CommandDialogExample from '@/examples/components/command/CommandDialogExample';
+import { dialogExamples } from '@/examples/components/dialog/examples';
+import DockControlledExample from '@/examples/components/dock/DockControlledExample';
+import DockHandlePositionExample from '@/examples/components/dock/DockHandlePositionExample';
+import DockLockPinExample from '@/examples/components/dock/DockLockPinExample';
+import { drawerExamples } from '@/examples/components/drawer/examples';
+import LayoutControlledSidebarExample from '@/examples/components/layout/LayoutControlledSidebarExample';
+import MenuActionsExample from '@/examples/components/menu/MenuActionsExample';
+import { popoverExamples } from '@/examples/components/popover/examples';
+import RadioBasicExample from '@/examples/components/radio/RadioBasicExample';
+import TabsEditableExample from '@/examples/components/tabs/TabsEditableExample';
+import { tagExamples } from '@/examples/components/tag/examples';
+import ToastIntentsExample from '@/examples/components/toast/ToastIntentsExample';
+import ToastPlacementExample from '@/examples/components/toast/ToastPlacementExample';
+import ToastStackExample from '@/examples/components/toast/ToastStackExample';
+import ToastUndoExample from '@/examples/components/toast/ToastUndoExample';
 
 describe('Independent component examples', () => {
   it('keeps controlled Dock placement and segment selection synchronized after keyboard movement', async () => {

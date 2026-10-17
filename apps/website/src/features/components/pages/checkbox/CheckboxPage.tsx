@@ -55,32 +55,35 @@ export function CheckboxPage() {
           </ReferenceSpecimen>
         </section>
         <ArticleSection
-          id={'checkbox-basic'}
-          index={'01'}
+          id="checkbox-basic"
+          index="01"
           title={t('components.checkbox.basic.title')}
           description={t('components.checkbox.basic.description')}
         >
           <ComponentExample example={checkboxExamples.checkboxBasic} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'checkbox-disabled'}
-          index={'02'}
+          id="checkbox-disabled"
+          index="02"
           title={t('components.checkbox.disabled.title')}
           description={t('components.checkbox.disabled.description')}
         >
           <ComponentExample example={checkboxExamples.checkboxDisabled} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'checkbox-group'}
-          index={'03'}
+          id="checkbox-group"
+          index="03"
           title={t('components.checkbox.group.title')}
           description={t('components.checkbox.group.description')}
         >
           <ComponentExample example={checkboxExamples.checkboxGroup} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'checkbox-check-all'}
-          index={'04'}
+          id="checkbox-check-all"
+          index="04"
           title={t('components.checkbox.checkAll.title')}
           description={t('components.checkbox.checkAll.description')}
         >

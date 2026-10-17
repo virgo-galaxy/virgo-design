@@ -69,25 +69,28 @@ export function ProgressPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'progress-values'}
-          index={'01'}
+          id="progress-values"
+          index="01"
           title={t('components.progress.values.title')}
           description={t('components.progress.values.description')}
         >
           <ComponentExample example={progressExamples.progressValues} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'progress-sizes'}
-          index={'02'}
+          id="progress-sizes"
+          index="02"
           title={t('components.progress.sizes.title')}
           description={t('components.progress.sizes.description')}
         >
           <ComponentExample example={progressExamples.progressSizes} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'progress-intents'}
-          index={'03'}
+          id="progress-intents"
+          index="03"
           title={t('components.progress.intents.title')}
           description={t('components.progress.intents.description')}
         >

@@ -8,6 +8,7 @@ export default function App() {
   const { t } = useTranslation();
 
   const [retries, setRetries] = useState(0);
+
   return (
     <div className={styles.root!}>
       <Alert intent="error">

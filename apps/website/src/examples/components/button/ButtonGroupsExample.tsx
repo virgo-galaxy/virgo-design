@@ -5,6 +5,7 @@ import styles from './ButtonGroupsExample.module.scss';
 
 export default function ButtonGroupsExample() {
   const { t } = useTranslation();
+
   return (
     <div className={styles.root}>
       <Button.Group aria-label={t('components.button.groups.title')} align="between">

@@ -9,6 +9,7 @@ export default function App() {
   const { t } = useTranslation();
 
   const [created, setCreated] = useState(false);
+
   return created ? (
     <div className={styles.root!}>
       <p role="status">{t('examples.empty.copy.documentCreated')}</p>

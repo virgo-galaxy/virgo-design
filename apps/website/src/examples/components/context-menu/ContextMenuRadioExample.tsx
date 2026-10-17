@@ -8,6 +8,7 @@ export default function App() {
   const { t } = useTranslation();
 
   const [units, setUnits] = useState('pixels');
+
   return (
     <div className={styles.root!}>
       <ContextMenu>

@@ -71,24 +71,26 @@ export function EmptyPage() {
           </ReferenceSpecimen>
         </section>
         <ArticleSection
-          id={'empty-basic'}
-          index={'01'}
+          id="empty-basic"
+          index="01"
           title={t('components.empty.basic.title')}
           description={t('components.empty.basic.description')}
         >
           <ComponentExample example={emptyExamples.emptyBasic} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'empty-complete'}
-          index={'02'}
+          id="empty-complete"
+          index="02"
           title={t('components.empty.complete.title')}
           description={t('components.empty.complete.description')}
         >
           <ComponentExample example={emptyExamples.emptyAction} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'empty-search-compact'}
-          index={'03'}
+          id="empty-search-compact"
+          index="03"
           title={t('components.empty.searchCompact.title')}
           description={t('components.empty.searchCompact.description')}
         >

@@ -62,50 +62,56 @@ export function InputPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'input-sizes'}
-          index={'01'}
+          id="input-sizes"
+          index="01"
           title={t('components.input.sizes.title')}
           description={t('components.input.sizes.description')}
         >
           <ComponentExample example={inputExamples.inputSizes} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'input-content'}
-          index={'02'}
+          id="input-content"
+          index="02"
           title={t('components.input.content.title')}
           description={t('components.input.content.description')}
         >
           <ComponentExample example={inputExamples.inputContent} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'input-icons'}
-          index={'03'}
+          id="input-icons"
+          index="03"
           title={t('components.input.icons.title')}
           description={t('components.input.icons.description')}
         >
           <ComponentExample example={inputExamples.inputDecorations} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'input-actions'}
-          index={'04'}
+          id="input-actions"
+          index="04"
           title={t('components.input.actions.title')}
           description={t('components.input.actions.description')}
         >
           <ComponentExample example={inputExamples.inputClearable} />
           <ComponentExample example={inputExamples.inputPassword} />
         </ArticleSection>
+
         <ArticleSection
-          id={'input-states'}
-          index={'05'}
+          id="input-states"
+          index="05"
           title={t('components.input.states.title')}
           description={t('components.input.states.description')}
         >
           <ComponentExample example={inputExamples.inputStates} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'input-textarea'}
-          index={'06'}
+          id="input-textarea"
+          index="06"
           title={t('components.input.textarea.title')}
           description={t('components.input.textarea.description')}
         >

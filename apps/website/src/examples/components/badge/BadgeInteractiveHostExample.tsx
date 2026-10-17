@@ -8,6 +8,7 @@ export default function App() {
   const { t } = useTranslation();
 
   const [opens, setOpens] = useState(0);
+
   return (
     <div className={styles.root!}>
       <Badge count={3} intent="danger">

@@ -8,6 +8,7 @@ export default function App() {
   const { t } = useTranslation();
 
   const id = useId();
+
   return (
     <NavigationMenu.Root
       aria-label={t('examples.navigationMenu.copy.groupedNavigation')}
@@ -44,7 +45,7 @@ export default function App() {
               </NavigationMenu.Link>
             </NavigationMenu.Item>
             <NavigationMenu.Item value="billing" disabled>
-              <NavigationMenu.Link href="#grouped-section B">
+              <NavigationMenu.Link href="#grouped-section-b">
                 {t('examples.navigationMenu.copy.billing')}
               </NavigationMenu.Link>
             </NavigationMenu.Item>

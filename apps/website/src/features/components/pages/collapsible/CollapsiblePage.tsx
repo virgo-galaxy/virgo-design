@@ -14,6 +14,7 @@ import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 export function CollapsiblePage() {
   const { t } = useTranslation();
   const Reference = collapsibleExamples.example0.Component;
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="component-page">

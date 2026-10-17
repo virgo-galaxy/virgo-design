@@ -3,9 +3,11 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './ComboboxAutocompleteExample.module.scss';
+
 export default function App() {
   const { t } = useTranslation();
   const [query, setQuery] = useState('');
+
   return (
     <div className={styles.root!}>
       <Combobox inputValue={query} onInputValueChange={setQuery} shouldFilter={false}>

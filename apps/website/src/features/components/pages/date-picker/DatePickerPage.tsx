@@ -11,9 +11,11 @@ import { datePickerExamples } from '@/examples/components/date-picker/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 import styles from './DatePickerPage.module.scss';
+
 export function DatePickerPage() {
   const { t } = useTranslation();
   const Reference = datePickerExamples.example0.Component;
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className={['component-page', styles.board].join(' ')}>
@@ -47,6 +49,7 @@ export function DatePickerPage() {
         >
           <ComponentExample example={datePickerExamples.example0} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="date-picker-2"
           index="02"
@@ -55,6 +58,7 @@ export function DatePickerPage() {
         >
           <ComponentExample example={datePickerExamples.example1} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="date-picker-3"
           index="03"

@@ -11,9 +11,11 @@ import { colorPickerExamples } from '@/examples/components/color-picker/examples
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 import styles from './ColorPickerPage.module.scss';
+
 export function ColorPickerPage() {
   const { t } = useTranslation();
   const Reference = colorPickerExamples.example0.Component;
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className={['component-page', styles.board].join(' ')}>
@@ -47,6 +49,7 @@ export function ColorPickerPage() {
         >
           <ComponentExample example={colorPickerExamples.example0} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="color-picker-2"
           index="02"
@@ -55,6 +58,7 @@ export function ColorPickerPage() {
         >
           <ComponentExample example={colorPickerExamples.example1} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="color-picker-3"
           index="03"
@@ -63,6 +67,7 @@ export function ColorPickerPage() {
         >
           <ComponentExample example={colorPickerExamples.example2} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="color-picker-4"
           index="04"

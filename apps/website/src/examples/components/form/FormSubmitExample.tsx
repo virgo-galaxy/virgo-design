@@ -3,9 +3,11 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './FormSubmitExample.module.scss';
+
 export default function App() {
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
+
   return (
     <Form
       className={styles.root!}

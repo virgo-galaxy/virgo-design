@@ -72,32 +72,35 @@ export function BreadcrumbPage() {
           </ReferenceSpecimen>
         </section>
         <ArticleSection
-          id={'breadcrumb-basic'}
-          index={'01'}
+          id="breadcrumb-basic"
+          index="01"
           title={t('components.breadcrumb.basic.title')}
           description={t('components.breadcrumb.basic.description')}
         >
           <ComponentExample example={breadcrumbExamples.breadcrumbBasic} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'breadcrumb-icons'}
-          index={'02'}
+          id="breadcrumb-icons"
+          index="02"
           title={t('components.breadcrumb.icons.title')}
           description={t('components.breadcrumb.icons.description')}
         >
           <ComponentExample example={breadcrumbExamples.breadcrumbIcons} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'breadcrumb-separator'}
-          index={'03'}
+          id="breadcrumb-separator"
+          index="03"
           title={t('components.breadcrumb.separator.title')}
           description={t('components.breadcrumb.separator.description')}
         >
           <ComponentExample example={breadcrumbExamples.breadcrumbSeparator} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'breadcrumb-dynamic-value'}
-          index={'04'}
+          id="breadcrumb-dynamic-value"
+          index="04"
           title={t('components.breadcrumb.dynamicValue.title')}
           description={t('components.breadcrumb.dynamicValue.description')}
         >

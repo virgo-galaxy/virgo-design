@@ -2,7 +2,7 @@ import { Layout } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import styles from '../foundations/foundation-tokens.module.scss';
+import styles from '@/pages/foundations/foundation-tokens.module.scss';
 
 interface TokenPageProps {
   title: string;
@@ -20,6 +20,7 @@ interface TokenSectionProps {
 
 export function TokenPage({ title, description, children }: TokenPageProps) {
   const { t } = useTranslation();
+
   return (
     <section className={styles.page}>
       <Layout.Lane

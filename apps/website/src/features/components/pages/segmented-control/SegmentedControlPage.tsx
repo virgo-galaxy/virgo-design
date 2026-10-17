@@ -67,9 +67,10 @@ export function SegmentedControlPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'segmented-variants'}
-          index={'01'}
+          id="segmented-variants"
+          index="01"
           title={t('components.segmentedControl.segmentedVariants.title')}
           description={t('components.segmentedControl.segmentedVariants.description')}
         >
@@ -78,9 +79,10 @@ export function SegmentedControlPage() {
             showCaption={false}
           />
         </ArticleSection>
+
         <ArticleSection
-          id={'segmented-motion'}
-          index={'02'}
+          id="segmented-motion"
+          index="02"
           title={t('components.segmentedControl.segmentedMotion.title')}
           description={t('components.segmentedControl.segmentedMotion.description')}
         >
@@ -89,17 +91,19 @@ export function SegmentedControlPage() {
             showCaption={false}
           />
         </ArticleSection>
+
         <ArticleSection
-          id={'segmented-sizes'}
-          index={'03'}
+          id="segmented-sizes"
+          index="03"
           title={t('components.segmentedControl.segmentedSizes.title')}
           description={t('components.segmentedControl.segmentedSizes.description')}
         >
           <ComponentExample example={segmentedControlExamples.segmentedSizes} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'segmented-content'}
-          index={'04'}
+          id="segmented-content"
+          index="04"
           title={t('components.segmentedControl.segmentedContent.title')}
           description={t('components.segmentedControl.segmentedContent.description')}
         >

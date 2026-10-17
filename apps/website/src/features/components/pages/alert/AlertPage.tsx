@@ -65,40 +65,44 @@ export function AlertPage() {
           </ReferenceSpecimen>
         </section>
         <ArticleSection
-          id={'alert-intents'}
-          index={'01'}
+          id="alert-intents"
+          index="01"
           title={t('components.alert.intents.title')}
           description={t('components.alert.intents.description')}
         >
           <ComponentExample example={alertExamples.alertIntents} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'alert-content'}
-          index={'02'}
+          id="alert-content"
+          index="02"
           title={t('components.alert.content.title')}
           description={t('components.alert.content.description')}
         >
           <ComponentExample example={alertExamples.alertContent} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'alert-action'}
-          index={'03'}
+          id="alert-action"
+          index="03"
           title={t('components.alert.action.title')}
           description={t('components.alert.action.description')}
         >
           <ComponentExample example={alertExamples.alertAction} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'alert-close'}
-          index={'04'}
+          id="alert-close"
+          index="04"
           title={t('components.alert.close.title')}
           description={t('components.alert.close.description')}
         >
           <ComponentExample example={alertExamples.alertClosable} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'alert-custom-icon'}
-          index={'05'}
+          id="alert-custom-icon"
+          index="05"
           title={t('components.alert.customIcon.title')}
           description={t('components.alert.customIcon.description')}
         >

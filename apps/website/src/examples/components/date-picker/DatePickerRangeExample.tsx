@@ -2,13 +2,12 @@ import { DatePicker, type DateRange, Field } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useAppLocale } from '@/i18n';
-
 import styles from './DatePickerRangeExample.module.scss';
+
 export default function App() {
   const { t } = useTranslation();
-  const locale = useAppLocale();
   const [value, setValue] = useState<DateRange>(['2026-08-05', '2026-09-28']);
+
   return (
     <div className={styles.root}>
       <Field>
@@ -30,7 +29,7 @@ export default function App() {
             aria-label={t('examples.datePicker.copy.rangeLabel')}
             placement="bottomStart"
           >
-            <DatePicker.RangeCalendar locale={locale} weekStartsOn={1} />
+            <DatePicker.RangeCalendar weekStartsOn={1} />
           </DatePicker.Content>
         </DatePicker.Range>
         <Field.Description>{t('examples.datePicker.copy.rangeHint')}</Field.Description>

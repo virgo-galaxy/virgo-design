@@ -60,6 +60,7 @@ export default function App() {
   const { t } = useTranslation();
 
   const [action, setAction] = useState('No context action selected.');
+
   return (
     <div className={styles.root!}>
       <ContextMenu>

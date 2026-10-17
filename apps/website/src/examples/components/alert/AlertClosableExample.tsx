@@ -8,6 +8,7 @@ export default function App() {
   const { t } = useTranslation();
 
   const [visible, setVisible] = useState(true);
+
   return (
     <div className={styles.root!}>
       {visible ? (

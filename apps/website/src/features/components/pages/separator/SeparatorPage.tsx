@@ -60,33 +60,37 @@ export function SeparatorPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'separator-horizontal'}
-          index={'01'}
+          id="separator-horizontal"
+          index="01"
           title={t('components.separator.horizontal.title')}
           description={t('components.separator.horizontal.description')}
         >
           <ComponentExample example={separatorExamples.separatorHorizontal} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'separator-label'}
-          index={'02'}
+          id="separator-label"
+          index="02"
           title={t('components.separator.label.title')}
           description={t('components.separator.label.description')}
         >
           <ComponentExample example={separatorExamples.separatorLabel} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'separator-vertical'}
-          index={'03'}
+          id="separator-vertical"
+          index="03"
           title={t('components.separator.vertical.title')}
           description={t('components.separator.vertical.description')}
         >
           <ComponentExample example={separatorExamples.separatorVertical} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'separator-decorative'}
-          index={'04'}
+          id="separator-decorative"
+          index="04"
           title={t('components.separator.decorative.title')}
           description={t('components.separator.decorative.description')}
         >

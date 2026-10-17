@@ -13,9 +13,11 @@ import { useAppLocale } from '@/i18n';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 import styles from './CalendarPage.module.scss';
+
 export function CalendarPage() {
   const { t } = useTranslation();
   const locale = useAppLocale();
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className={['component-page', styles.board].join(' ')}>
@@ -49,6 +51,7 @@ export function CalendarPage() {
         >
           <ComponentExample example={calendarExamples.example2} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="calendar-2"
           index="02"
@@ -57,6 +60,7 @@ export function CalendarPage() {
         >
           <ComponentExample example={calendarExamples.example0} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="calendar-3"
           index="03"

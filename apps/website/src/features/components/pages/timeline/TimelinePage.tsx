@@ -39,6 +39,7 @@ export function TimelinePage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
           id="timeline-1"
           index="01"
@@ -47,6 +48,7 @@ export function TimelinePage() {
         >
           <ComponentExample example={timelineExamples.example0} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="timeline-2"
           index="02"

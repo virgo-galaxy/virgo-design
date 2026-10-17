@@ -13,24 +13,25 @@ import {
 } from '@/components/docs/ComponentExample';
 import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { dropdownExamples } from '@/examples/components/dropdown/examples';
-import { translateExampleText } from '@/i18n/translate-example-text';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
-function Actions({ onAction }: { onAction: (action: string) => void }) {
+type DemoAction = 'profileSelected' | 'settingsSelected' | 'deleteSelected';
+
+function Actions({ onAction }: { onAction: (action: DemoAction) => void }) {
   const { t } = useTranslation();
 
   return (
     <>
       <Dropdown.Item
         icon={<UserIcon />}
-        onSelect={() => onAction(t('examples.dropdown.details.profileSelected'))}
+        onSelect={() => onAction('profileSelected')}
       >
         {t('examples.dropdown.copy.profile')}
       </Dropdown.Item>
       <Dropdown.Item
         icon={<SettingsIcon />}
-        onSelect={() => onAction(t('examples.dropdown.details.settingsSelected'))}
+        onSelect={() => onAction('settingsSelected')}
       >
         {t('examples.dropdown.copy.settings')}
       </Dropdown.Item>
@@ -41,7 +42,7 @@ function Actions({ onAction }: { onAction: (action: string) => void }) {
       <Dropdown.Item
         danger
         icon={<TrashIcon />}
-        onSelect={() => onAction(t('examples.dropdown.details.deleteSelected'))}
+        onSelect={() => onAction('deleteSelected')}
       >
         {t('examples.dropdown.copy.deleteWorkspace')}
       </Dropdown.Item>
@@ -51,8 +52,8 @@ function Actions({ onAction }: { onAction: (action: string) => void }) {
 
 export function DropdownPage() {
   const { t } = useTranslation();
+  const [action, setAction] = useState<DemoAction | null>(null);
 
-  const [action, setAction] = useState('Choose an action to try the menu.');
   return (
     <ComponentExampleRuntimeProvider>
       <div className="component-page dropdown-page" id="dropdown-page">
@@ -99,11 +100,13 @@ export function DropdownPage() {
           </ReferenceSpecimen>
         </section>
         <div className="dropdown-feedback" role="status">
-          {translateExampleText(t, 'dropdown', action)}
+          {action
+            ? t(`examples.dropdown.details.${action}`)
+            : t('examples.dropdown.details.chooseAnActionToTryTheMenu')}
         </div>
         <ArticleSection
-          id={'dropdown-triggers'}
-          index={'01'}
+          id="dropdown-triggers"
+          index="01"
           title={t('components.dropdown.triggers.title')}
           description={t('components.dropdown.triggers.description')}
         >
@@ -111,17 +114,19 @@ export function DropdownPage() {
           <ComponentExample example={dropdownExamples.dropdownHover} />
           <ComponentExample example={dropdownExamples.dropdownDisabled} />
         </ArticleSection>
+
         <ArticleSection
-          id={'dropdown-placement'}
-          index={'02'}
+          id="dropdown-placement"
+          index="02"
           title={t('components.dropdown.placement.title')}
           description={t('components.dropdown.placement.description')}
         >
           <ComponentExample example={dropdownExamples.dropdownPlacement} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'dropdown-split'}
-          index={'03'}
+          id="dropdown-split"
+          index="03"
           title={t('components.dropdown.split.title')}
           description={t('components.dropdown.split.description')}
         >
@@ -129,17 +134,19 @@ export function DropdownPage() {
           <ComponentExample example={dropdownExamples.dropdownSplitStates} />
           <ComponentExample example={dropdownExamples.dropdownCustomTrigger} />
         </ArticleSection>
+
         <ArticleSection
-          id={'dropdown-controlled'}
-          index={'04'}
+          id="dropdown-controlled"
+          index="04"
           title={t('components.dropdown.controlled.title')}
           description={t('components.dropdown.controlled.description')}
         >
           <ComponentExample example={dropdownExamples.dropdownControlled} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'dropdown-density'}
-          index={'05'}
+          id="dropdown-density"
+          index="05"
           title={t('components.dropdown.density.title')}
           description={t('components.dropdown.density.description')}
         >

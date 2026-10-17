@@ -3,11 +3,13 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './ComboboxControlledExample.module.scss';
+
 export default function App() {
   const { t } = useTranslation();
   const [value, setValue] = useState('');
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
+
   return (
     <div className={styles.root!}>
       <Combobox

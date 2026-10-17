@@ -8,6 +8,7 @@ export default function App() {
   const { t } = useTranslation();
 
   const [clicks, setClicks] = useState(0);
+
   return (
     <div className={styles.root!}>
       <Drawer.Root modal={false}>

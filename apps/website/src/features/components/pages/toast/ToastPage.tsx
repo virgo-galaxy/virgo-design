@@ -70,26 +70,29 @@ export function ToastPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'toast-status'}
-          index={'01'}
+          id="toast-status"
+          index="01"
           title={t('components.toast.status.title')}
           description={t('components.toast.status.description')}
         >
           <ComponentExample example={toastExamples.toastIntents} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'toast-stack'}
-          index={'02'}
+          id="toast-stack"
+          index="02"
           title={t('components.toast.stack.title')}
           description={t('components.toast.stack.description')}
         >
           <ComponentExample example={toastExamples.toastUndo} />
           <ComponentExample example={toastExamples.toastStack} />
         </ArticleSection>
+
         <ArticleSection
-          id={'toast-placement'}
-          index={'03'}
+          id="toast-placement"
+          index="03"
           title={t('components.toast.placement.title')}
           description={t('components.toast.placement.description')}
         >

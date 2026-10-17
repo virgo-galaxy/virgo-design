@@ -11,6 +11,7 @@ export default function App() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('Example value');
   const [savedName, setSavedName] = useState(name);
+
   return (
     <div className={styles.root!}>
       <Drawer.Root open={open} onOpenChange={setOpen}>

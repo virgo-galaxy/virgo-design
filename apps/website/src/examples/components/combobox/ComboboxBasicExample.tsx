@@ -2,8 +2,10 @@ import { Combobox, Field } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import styles from './ComboboxBasicExample.module.scss';
+
 export default function App() {
   const { t } = useTranslation();
+
   return (
     <Field className={styles.root!}>
       <Field.Label>{t('examples.combobox.copy.project')}</Field.Label>

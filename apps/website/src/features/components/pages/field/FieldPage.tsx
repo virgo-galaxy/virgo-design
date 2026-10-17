@@ -11,9 +11,11 @@ import { fieldExamples } from '@/examples/components/field/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 import styles from './FieldPage.module.scss';
+
 export function FieldPage() {
   const { t } = useTranslation();
   const Reference = fieldExamples.example0.Component;
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className={['component-page', styles.board].join(' ')}>
@@ -47,6 +49,7 @@ export function FieldPage() {
         >
           <ComponentExample example={fieldExamples.example0} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="field-2"
           index="02"
@@ -55,6 +58,7 @@ export function FieldPage() {
         >
           <ComponentExample example={fieldExamples.example1} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="field-3"
           index="03"

@@ -294,11 +294,13 @@ export default function App() {
     expect(toggle).toHaveAttribute('aria-expanded', 'false');
     expect(panel).toHaveAttribute('data-state', 'closed');
     expect(panel).toHaveAttribute('aria-hidden', 'true');
+    expect(panel).toHaveAttribute('inert');
     await user.click(toggle);
     expect(toggle).toHaveAttribute('aria-expanded', 'true');
     expect(toggle).toHaveAccessibleName('Hide source for Basic variants');
     expect(panel).toHaveAttribute('data-state', 'open');
     expect(panel).toHaveAttribute('aria-hidden', 'false');
+    expect(panel).not.toHaveAttribute('inert');
     expect(panel).toBeVisible();
     await user.click(toggle);
     expect(toggle).toHaveAttribute('aria-expanded', 'false');

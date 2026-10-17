@@ -23,8 +23,8 @@ export const buttonZhCN = {
   specimen: {
     referenceSpecimen: '参考样例',
     '36pxHeight': '高度 36px',
-    '12pxLabel': '标签字号 12px',
-    radius6: '圆角 6',
+    '14pxLabel': '标签字号 14px',
+    radius8: '圆角 8',
   },
   variants: {
     title: '变体',

@@ -8,6 +8,7 @@ export default function App() {
   const { t } = useTranslation();
 
   const name = useId();
+
   return (
     <Checkbox.Group
       defaultValue={['option-b', 'option-c']}

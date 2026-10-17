@@ -51,8 +51,8 @@ export function ButtonPage() {
             </ReferenceSpecimen.Stage>
             <ReferenceSpecimen.Caption>
               <span>{t('components.button.specimen.36pxHeight')}</span>
-              <span>{t('components.button.specimen.12pxLabel')}</span>
-              <span>{t('components.button.specimen.radius6')}</span>
+              <span>{t('components.button.specimen.14pxLabel')}</span>
+              <span>{t('components.button.specimen.radius8')}</span>
               <ComponentExampleRuntimeControl />
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
@@ -94,6 +94,7 @@ export function ButtonPage() {
         >
           <ComponentExample example={buttonExamples.states} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="groups"
           index="05"

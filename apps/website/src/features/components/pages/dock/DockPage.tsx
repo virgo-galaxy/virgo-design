@@ -83,6 +83,7 @@ export function DockPage() {
         >
           <ComponentExample example={dockExamples.dockControlled} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="dock-free-positioning"
           index="02"
@@ -91,6 +92,7 @@ export function DockPage() {
         >
           <ComponentExample example={dockExamples.dockFreePositioning} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="dock-persistent-placement"
           index="03"
@@ -99,6 +101,7 @@ export function DockPage() {
         >
           <ComponentExample example={dockExamples.dockPersistence} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="dock-handle-position"
           index="04"
@@ -107,6 +110,7 @@ export function DockPage() {
         >
           <ComponentExample example={dockExamples.dockHandlePosition} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="dock-lock-pin"
           index="05"

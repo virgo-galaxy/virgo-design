@@ -61,9 +61,10 @@ export function TooltipPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'tooltip-basic'}
-          index={'01'}
+          id="tooltip-basic"
+          index="01"
           title={t('components.tooltip.basic.title')}
           description={t('components.tooltip.basic.description')}
         >
@@ -71,64 +72,72 @@ export function TooltipPage() {
           <ComponentExample example={tooltipExamples.tooltipInstant} />
           <ComponentExample example={tooltipExamples.tooltipDisabled} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tooltip-smooth-transition'}
-          index={'02'}
+          id="tooltip-smooth-transition"
+          index="02"
           title={t('components.tooltip.smoothTransition.title')}
           description={t('components.tooltip.smoothTransition.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipSmooth} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tooltip-placement'}
-          index={'03'}
+          id="tooltip-placement"
+          index="03"
           title={t('components.tooltip.placement.title')}
           description={t('components.tooltip.placement.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipPlacement} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tooltip-tone'}
-          index={'04'}
+          id="tooltip-tone"
+          index="04"
           title={t('components.tooltip.tone.title')}
           description={t('components.tooltip.tone.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipTones} />
           <ComponentExample example={tooltipExamples.tooltipCustomColor} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tooltip-actions'}
-          index={'05'}
+          id="tooltip-actions"
+          index="05"
           title={t('components.tooltip.actions.title')}
           description={t('components.tooltip.actions.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipAction} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tooltip-dynamic'}
-          index={'06'}
+          id="tooltip-dynamic"
+          index="06"
           title={t('components.tooltip.dynamic.title')}
           description={t('components.tooltip.dynamic.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipDynamic} />
           <ComponentExample example={tooltipExamples.tooltipDirection} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tooltip-sizes'}
-          index={'07'}
+          id="tooltip-sizes"
+          index="07"
           title={t('components.tooltip.sizes.title')}
           description={t('components.tooltip.sizes.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipSizes} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tooltip-activation'}
-          index={'08'}
+          id="tooltip-activation"
+          index="08"
           title={t('components.tooltip.activation.title')}
           description={t('components.tooltip.activation.description')}
         >
           <ComponentExample example={tooltipExamples.tooltipActivation} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="tooltip-cursor"
           index="09"

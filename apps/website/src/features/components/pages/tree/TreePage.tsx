@@ -39,6 +39,7 @@ export function TreePage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
           id="tree-1"
           index="01"
@@ -47,6 +48,7 @@ export function TreePage() {
         >
           <ComponentExample example={treeExamples.example0} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="tree-2"
           index="02"
@@ -55,6 +57,7 @@ export function TreePage() {
         >
           <ComponentExample example={treeExamples.example1} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="tree-3"
           index="03"

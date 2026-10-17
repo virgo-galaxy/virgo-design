@@ -5,6 +5,7 @@ import styles from './CarouselContentExample.module.scss';
 
 export default function CarouselContentExample() {
   const { t } = useTranslation();
+
   return (
     <div className={styles.examples}>
       <Carousel

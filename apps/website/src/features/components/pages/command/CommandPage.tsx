@@ -15,7 +15,7 @@ import { commandExamples } from '@/examples/components/command/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 
-function CommandItems({ select }: { select: (value: string) => void }) {
+function CommandItems() {
   const { t } = useTranslation();
 
   return (
@@ -27,7 +27,6 @@ function CommandItems({ select }: { select: (value: string) => void }) {
           keywords={['home']}
           icon={<DashboardIcon />}
           shortcut="G D"
-          onSelect={select}
         >
           {t('examples.command.copy.openDashboard')}
         </Command.Item>
@@ -35,7 +34,6 @@ function CommandItems({ select }: { select: (value: string) => void }) {
           value="switch-workspace"
           icon={<LayoutIcon />}
           shortcut="⌘ W"
-          onSelect={select}
         >
           {t('examples.command.copy.switchWorkspace')}
         </Command.Item>
@@ -47,7 +45,6 @@ function CommandItems({ select }: { select: (value: string) => void }) {
           keywords={['settings']}
           icon={<SettingsIcon />}
           shortcut="⌘ ,"
-          onSelect={select}
         >
           {t('examples.command.copy.openPreferences')}
         </Command.Item>
@@ -97,7 +94,7 @@ export function CommandPage() {
                   placeholder={t('examples.command.copy.searchCommands')}
                 />
                 <Command.List>
-                  <CommandItems select={() => {}} />
+                  <CommandItems />
                 </Command.List>
               </Command>
             </ReferenceSpecimen.Stage>
@@ -110,24 +107,26 @@ export function CommandPage() {
           </ReferenceSpecimen>
         </section>
         <ArticleSection
-          id={'command-inline'}
-          index={'01'}
+          id="command-inline"
+          index="01"
           title={t('components.command.inline.title')}
           description={t('components.command.inline.description')}
         >
           <ComponentExample example={commandExamples.commandInline} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'command-dialog'}
-          index={'02'}
+          id="command-dialog"
+          index="02"
           title={t('components.command.dialog.title')}
           description={t('components.command.dialog.description')}
         >
           <ComponentExample example={commandExamples.commandDialog} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'command-filter'}
-          index={'03'}
+          id="command-filter"
+          index="03"
           title={t('components.command.filter.title')}
           description={t('components.command.filter.description')}
         >

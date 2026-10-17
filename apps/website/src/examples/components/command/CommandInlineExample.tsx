@@ -3,8 +3,6 @@ import { Command } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { translateExampleText } from '@/i18n/translate-example-text';
-
 import styles from './CommandInlineExample.module.scss';
 
 function CommandItems({ select }: { select: (value: string) => void }) {
@@ -49,7 +47,8 @@ function CommandItems({ select }: { select: (value: string) => void }) {
 export default function App() {
   const { t } = useTranslation();
 
-  const [selection, setSelection] = useState('No command selected.');
+  const [selection, setSelection] = useState<string | null>(null);
+
   return (
     <div className={styles.root!}>
       <Command>
@@ -62,7 +61,7 @@ export default function App() {
         </Command.List>
       </Command>
       <p role="status" className={styles.text!}>
-        {t('examples.command.copy.selected')} {translateExampleText(t, 'command', selection)}
+        {t('examples.command.copy.selected')} {selection ?? t('examples.command.details.noCommandSelected')}
       </p>
     </div>
   );

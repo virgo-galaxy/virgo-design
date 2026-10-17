@@ -16,6 +16,7 @@ export default function App() {
     setStatus(action);
     setOpen(false);
   };
+
   return (
     <div className={styles.root!}>
       <FloatingAction.Group open={open} onOpenChange={setOpen}>

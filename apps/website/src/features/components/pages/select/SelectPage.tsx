@@ -94,34 +94,38 @@ export function SelectPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'select-sizes'}
-          index={'01'}
+          id="select-sizes"
+          index="01"
           title={t('components.select.sizes.title')}
           description={t('components.select.sizes.description')}
         >
           <ComponentExample example={selectExamples.selectSizes} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'select-content'}
-          index={'02'}
+          id="select-content"
+          index="02"
           title={t('components.select.content.title')}
           description={t('components.select.content.description')}
         >
           <ComponentExample example={selectExamples.selectContent} showCaption={false} />
           <ComponentExample example={selectExamples.selectMultiple} />
         </ArticleSection>
+
         <ArticleSection
-          id={'select-states'}
-          index={'03'}
+          id="select-states"
+          index="03"
           title={t('components.select.states.title')}
           description={t('components.select.states.description')}
         >
           <ComponentExample example={selectExamples.selectStates} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'select-options'}
-          index={'04'}
+          id="select-options"
+          index="04"
           title={t('components.select.options.title')}
           description={t('components.select.options.description')}
         >

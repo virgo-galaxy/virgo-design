@@ -76,33 +76,36 @@ export function CardPage() {
           </ReferenceSpecimen>
         </section>
         <ArticleSection
-          id={'card-structure'}
-          index={'01'}
+          id="card-structure"
+          index="01"
           title={t('components.card.structure.title')}
           description={t('components.card.structure.description')}
         >
           <ComponentExample example={cardExamples.cardBasic} />
           <ComponentExample example={cardExamples.cardHeader} />
         </ArticleSection>
+
         <ArticleSection
-          id={'card-actions'}
-          index={'02'}
+          id="card-actions"
+          index="02"
           title={t('components.card.actions.title')}
           description={t('components.card.actions.description')}
         >
           <ComponentExample example={cardExamples.cardActions} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'card-variants'}
-          index={'03'}
+          id="card-variants"
+          index="03"
           title={t('components.card.variants.title')}
           description={t('components.card.variants.description')}
         >
           <ComponentExample example={cardExamples.cardVariants} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'card-composition'}
-          index={'04'}
+          id="card-composition"
+          index="04"
           title={t('components.card.composition.title')}
           description={t('components.card.composition.description')}
         >

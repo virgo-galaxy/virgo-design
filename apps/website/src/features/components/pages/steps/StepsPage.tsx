@@ -39,6 +39,7 @@ export function StepsPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
           id="steps-1"
           index="01"

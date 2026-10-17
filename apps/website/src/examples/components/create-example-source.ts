@@ -1,8 +1,51 @@
+import avatarFixturesSource from '@/examples/components/avatar/fixtures.ts?raw';
+import surfaceFixturesSource from '@/examples/components/surface/fixtures.ts?raw';
 import { enUS } from '@/i18n/registry';
 
-import avatarFixturesSource from './avatar/fixtures.ts?raw';
-import paginationLabelsSource from './pagination/use-pagination-labels.ts?raw';
-import surfaceFixturesSource from './surface/fixtures.ts?raw';
+function canonicalValue(key: string): unknown {
+  let value: unknown = enUS;
+
+  for (const part of key.split('.')) {
+    if (!value || typeof value !== 'object') return undefined;
+    value = (value as Record<string, unknown>)[part];
+  }
+
+  return value;
+}
+
+function canonicalMessage(key: string): string {
+  const value = canonicalValue(key);
+
+  if (typeof value !== 'string') throw new Error(`Missing canonical example message: ${key}`);
+
+  return value;
+}
+
+function remainingMessages(source: string): Record<string, string> {
+  const messages: Record<string, string> = {};
+  const keys = source.matchAll(/(['"])((?:examples|components)\.[\w.-]+)\1/g);
+
+  for (const [, , key] of keys) {
+    messages[key!] = canonicalMessage(key!);
+  }
+
+  const prefixes = source.matchAll(/`((?:examples|components)\.[\w.-]*)\$\{/g);
+
+  for (const [, prefix] of prefixes) {
+    const parentKey = prefix!.slice(0, prefix!.lastIndexOf('.'));
+    const values = canonicalValue(parentKey);
+
+    if (!values || typeof values !== 'object') continue;
+
+    for (const [name, value] of Object.entries(values)) {
+      const key = `${parentKey}.${name}`;
+
+      if (key.startsWith(prefix!) && typeof value === 'string') messages[key] = value;
+    }
+  }
+
+  return messages;
+}
 
 // Copied examples use canonical English and carry no website-only imports.
 export function createExampleSource(source: string): string {
@@ -16,51 +59,39 @@ export function createExampleSource(source: string): string {
       fixtureSource.replace(/^export /gm, ''),
     );
   }
+
   source = source
     .replace(/^import[^;]+from ['"]@\/i18n['"];?\s*\n/gm, '')
     .replace(/useAppLocale\(\)/g, "'en-US'");
-  const pagination = source.includes('@/examples/components/pagination/use-pagination-labels');
   let result = source.replace(
-    /^import[^;]+from ['"](?:react-i18next|@\/i18n\/translate-example-text|@\/examples\/components\/pagination\/use-pagination-labels)['"];?\s*\n/gm,
+    /^import[^;]+from ['"](?:react-i18next|@\/i18n\/translate-example-text)['"];?\s*\n/gm,
     '',
   );
-  if (pagination) {
-    result +=
-      '\n' +
-      paginationLabelsSource
-        .replace(/^import[^;]+;\s*\n/gm, '')
-        .replace(
-          'export function usePaginationLabels(): PaginationLabels',
-          'function usePaginationLabels()',
-        );
-  }
-  const keys = [...result.matchAll(/\bt\(['"]([^'"]+)['"]/g)].map((match) => match[1]!);
-  const resolve = (key: string): string => {
-    let value: unknown = enUS;
-    for (const part of key.split('.')) value = (value as Record<string, unknown>)[part];
-    if (typeof value !== 'string') throw new Error(`Missing canonical example message: ${key}`);
-    return value;
-  };
+
   result = result.replace(/\bt\(['"]([^'"]+)['"]\)/g, (_, key: string) =>
-    JSON.stringify(resolve(key)),
+    JSON.stringify(canonicalMessage(key)),
   );
-  result = result.replace(/const \{ t \} = useTranslation\(\);/g, '');
+  result = result.replace(/^\s*const \{ t \} = useTranslation\(\);\n/gm, '\n');
+
   const needsTranslation = /\bt\(/.test(result) || result.includes('translateExampleText(');
   let helpers = '';
+
   if (needsTranslation) {
-    const messages = Object.fromEntries(
-      keys
-        .filter((key) => result.includes(`t('${key}',`) || result.includes(`t("${key}",`))
-        .map((key) => [key, resolve(key)]),
-    );
+    const messages = remainingMessages(result);
+
     helpers += `const messages: Record<string, string> = ${JSON.stringify(messages, null, 2)};\n
 function t(key: string, values: Record<string, unknown> = {}): string {
-  return (messages[key] ?? key).replace(/\\{\\{(\\w+)\\}\\}/g, (_, name: string) => String(values[name] ?? ''));
+  return (messages[key] ?? key).replace(
+    /\\{\\{(\\w+)\\}\\}/g,
+    (_, name: string) => String(values[name] ?? ''),
+  );
 }\n`;
   }
+
   if (result.includes('translateExampleText(')) {
     helpers +=
       '\nfunction translateExampleText(_translate: unknown, _group: string, text: string): string { return text; }\n';
   }
+
   return result.trimEnd() + '\n' + helpers;
 }

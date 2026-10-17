@@ -178,6 +178,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
         data-state={sourceOpen ? 'open' : 'closed'}
         data-example-source
         aria-hidden={!sourceOpen}
+        inert={!sourceOpen}
       >
         <div className={styles.sourceInner} data-example-source-inner>
           {hasScss ? (

@@ -3,8 +3,6 @@ import { Layout, NavigationMenu, Surface } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { translateExampleText } from '@/i18n/translate-example-text';
-
 import styles from './LayoutHeaderExample.module.scss';
 
 export default function App() {
@@ -43,7 +41,7 @@ export default function App() {
                         setSelected(id);
                       }}
                     >
-                      {translateExampleText(t, 'layout', label)}
+                      {label}
                     </NavigationMenu.Link>
                   </NavigationMenu.Item>
                 ))}

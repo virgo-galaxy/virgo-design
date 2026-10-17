@@ -39,6 +39,7 @@ export function SliderPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
           id="slider-1"
           index="01"
@@ -47,6 +48,7 @@ export function SliderPage() {
         >
           <ComponentExample example={sliderExamples.example0} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="slider-2"
           index="02"
@@ -55,6 +57,7 @@ export function SliderPage() {
         >
           <ComponentExample example={sliderExamples.example1} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="slider-3"
           index="03"

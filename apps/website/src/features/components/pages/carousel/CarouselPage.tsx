@@ -14,6 +14,7 @@ import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 export function CarouselPage() {
   const { t } = useTranslation();
   const Reference = carouselExamples.example0.Component;
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className="component-page">

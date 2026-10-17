@@ -2,13 +2,12 @@ import { DatePicker, Field } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useAppLocale } from '@/i18n';
-
 import styles from './DatePickerBasicExample.module.scss';
+
 export default function App() {
   const { t } = useTranslation();
   const [value, setValue] = useState('2026-10-06');
-  const locale = useAppLocale();
+
   return (
     <div className={styles.root}>
       <Field>
@@ -23,7 +22,7 @@ export default function App() {
           <DatePicker.Input />
           <DatePicker.Trigger />
           <DatePicker.Content aria-label={t('examples.datePicker.copy.label')}>
-            <DatePicker.Calendar locale={locale} weekStartsOn={1} />
+            <DatePicker.Calendar weekStartsOn={1} />
           </DatePicker.Content>
         </DatePicker>
         <Field.Description>

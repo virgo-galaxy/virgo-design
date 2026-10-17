@@ -2,8 +2,10 @@ import { Field, Input } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import styles from './FieldStatesExample.module.scss';
+
 export default function App() {
   const { t } = useTranslation();
+
   return (
     <div className={styles.root!}>
       <Field disabled>

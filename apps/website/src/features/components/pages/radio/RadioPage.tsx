@@ -58,26 +58,29 @@ export function RadioPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'radio-basic'}
-          index={'01'}
+          id="radio-basic"
+          index="01"
           title={t('components.radio.basic.title')}
           description={t('components.radio.basic.description')}
         >
           <ComponentExample example={radioExamples.radioBasic} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'radio-orientation'}
-          index={'02'}
+          id="radio-orientation"
+          index="02"
           title={t('components.radio.orientation.title')}
           description={t('components.radio.orientation.description')}
         >
           <ComponentExample example={radioExamples.radioHorizontal} />
           <ComponentExample example={radioExamples.radioVertical} />
         </ArticleSection>
+
         <ArticleSection
-          id={'radio-disabled'}
-          index={'03'}
+          id="radio-disabled"
+          index="03"
           title={t('components.radio.disabled.title')}
           description={t('components.radio.disabled.description')}
         >

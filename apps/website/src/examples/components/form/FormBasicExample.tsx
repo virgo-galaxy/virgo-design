@@ -2,8 +2,10 @@ import { Checkbox, Field, Form, Input, Radio, Select, Switch, Textarea } from '@
 import { useTranslation } from 'react-i18next';
 
 import styles from './FormBasicExample.module.scss';
+
 export default function App() {
   const { t } = useTranslation();
+
   return (
     <Form className={styles.root!}>
       <Field required>

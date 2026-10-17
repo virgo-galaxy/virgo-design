@@ -41,6 +41,7 @@ export function ResultPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
           id="result-variants"
           index="01"
@@ -49,6 +50,7 @@ export function ResultPage() {
         >
           <ComponentExample example={resultExamples.variants} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="result-composition"
           index="02"

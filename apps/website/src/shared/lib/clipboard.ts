@@ -12,10 +12,14 @@ export const copyTextToClipboard = async (text: string): Promise<void> => {
   textarea.style.pointerEvents = 'none';
 
   document.body.appendChild(textarea);
-  textarea.select();
+  let copied: boolean;
 
-  const copied = document.execCommand('copy');
-  textarea.remove();
+  try {
+    textarea.select();
+    copied = document.execCommand('copy');
+  } finally {
+    textarea.remove();
+  }
 
   if (!copied) {
     throw new Error('Unable to copy text to clipboard');

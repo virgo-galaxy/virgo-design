@@ -109,27 +109,30 @@ export function NavigationMenuPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'navigation-orientations'}
-          index={'01'}
+          id="navigation-orientations"
+          index="01"
           title={t('components.navigationMenu.navigationOrientations.title')}
           description={t('components.navigationMenu.navigationOrientations.description')}
         >
           <ComponentExample example={navigationMenuExamples.navigationHorizontal} />
           <ComponentExample example={navigationMenuExamples.navigationVertical} />
         </ArticleSection>
+
         <ArticleSection
-          id={'navigation-segmented'}
-          index={'02'}
+          id="navigation-segmented"
+          index="02"
           title={t('components.navigationMenu.navigationSegmented.title')}
           description={t('components.navigationMenu.navigationSegmented.description')}
         >
           <ComponentExample example={navigationMenuExamples.navigationSegmented} />
           <ComponentExample example={navigationMenuExamples.navigationSegmentedIcons} />
         </ArticleSection>
+
         <ArticleSection
-          id={'navigation-popover'}
-          index={'03'}
+          id="navigation-popover"
+          index="03"
           title={t('components.navigationMenu.navigationPopover.title')}
           description={t('components.navigationMenu.navigationPopover.description')}
         >
@@ -138,14 +141,16 @@ export function NavigationMenuPage() {
             showCaption={false}
           />
         </ArticleSection>
+
         <ArticleSection
-          id={'navigation-nested'}
-          index={'04'}
+          id="navigation-nested"
+          index="04"
           title={t('components.navigationMenu.navigationNested.title')}
           description={t('components.navigationMenu.navigationNested.description')}
         >
           <ComponentExample example={navigationMenuExamples.navigationNested} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="navigation-grouped"
           index="05"

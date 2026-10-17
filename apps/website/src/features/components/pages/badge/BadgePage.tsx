@@ -73,26 +73,28 @@ export function BadgePage() {
           </ReferenceSpecimen>
         </section>
         <ArticleSection
-          id={'badge-counts'}
-          index={'01'}
+          id="badge-counts"
+          index="01"
           title={t('components.badge.counts.title')}
           description={t('components.badge.counts.description')}
         >
           <ComponentExample example={badgeExamples.badgeCounts} />
           <ComponentExample example={badgeExamples.badgeZero} />
         </ArticleSection>
+
         <ArticleSection
-          id={'badge-status'}
-          index={'02'}
+          id="badge-status"
+          index="02"
           title={t('components.badge.status.title')}
           description={t('components.badge.status.description')}
         >
           <ComponentExample example={badgeExamples.badgeStatus} showCaption={false} />
           <ComponentExample example={badgeExamples.badgeMotion} />
         </ArticleSection>
+
         <ArticleSection
-          id={'badge-composition'}
-          index={'03'}
+          id="badge-composition"
+          index="03"
           title={t('components.badge.composition.title')}
           description={t('components.badge.composition.description')}
         >

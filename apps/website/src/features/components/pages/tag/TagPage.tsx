@@ -68,26 +68,29 @@ export function TagPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'tag-intents'}
-          index={'01'}
+          id="tag-intents"
+          index="01"
           title={t('components.tag.intents.title')}
           description={t('components.tag.intents.description')}
         >
           <ComponentExample example={tagExamples.tagIntents} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tag-variants'}
-          index={'02'}
+          id="tag-variants"
+          index="02"
           title={t('components.tag.variants.title')}
           description={t('components.tag.variants.description')}
         >
           <ComponentExample example={tagExamples.tagVariants} />
           <ComponentExample example={tagExamples.tagSizes} />
         </ArticleSection>
+
         <ArticleSection
-          id={'tag-composition'}
-          index={'03'}
+          id="tag-composition"
+          index="03"
           title={t('components.tag.composition.title')}
           description={t('components.tag.composition.description')}
         >

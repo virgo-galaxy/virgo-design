@@ -3,8 +3,6 @@ import { Layout, NavigationMenu, Surface } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { translateExampleText } from '@/i18n/translate-example-text';
-
 import styles from './LayoutSidebarExample.module.scss';
 
 function SidebarBrand() {
@@ -17,6 +15,7 @@ function Navigation({ compact = false }: { compact?: boolean }) {
   const { t } = useTranslation();
 
   const [value, setValue] = useState('menu-1');
+
   return (
     <NavigationMenu
       orientation="vertical"
@@ -33,7 +32,7 @@ function Navigation({ compact = false }: { compact?: boolean }) {
           <NavigationMenu.Item key={id} value={id} icon={<LayoutIcon />}>
             <NavigationMenu.Link
               href={`#${id}`}
-              aria-label={translateExampleText(t, 'layout', label)}
+              aria-label={label}
               title={compact ? label : undefined}
               onClick={(event) => {
                 event.preventDefault();

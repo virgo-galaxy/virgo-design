@@ -46,6 +46,7 @@ export function StatisticPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
           id="statistic-variants"
           index="01"
@@ -54,6 +55,7 @@ export function StatisticPage() {
         >
           <ComponentExample example={statisticExamples.variants} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="statistic-animation"
           index="02"
@@ -62,6 +64,7 @@ export function StatisticPage() {
         >
           <ComponentExample example={statisticExamples.animation} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="statistic-composition"
           index="03"

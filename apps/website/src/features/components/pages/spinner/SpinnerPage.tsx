@@ -68,26 +68,29 @@ export function SpinnerPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
-          id={'spinner-sizes'}
-          index={'01'}
+          id="spinner-sizes"
+          index="01"
           title={t('components.spinner.sizes.title')}
           description={t('components.spinner.sizes.description')}
         >
           <ComponentExample example={spinnerExamples.spinnerSizes} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'spinner-composition'}
-          index={'02'}
+          id="spinner-composition"
+          index="02"
           title={t('components.spinner.composition.title')}
           description={t('components.spinner.composition.description')}
         >
           <ComponentExample example={spinnerExamples.spinnerInline} />
           <ComponentExample example={spinnerExamples.spinnerButton} />
         </ArticleSection>
+
         <ArticleSection
-          id={'spinner-environments'}
-          index={'03'}
+          id="spinner-environments"
+          index="03"
           title={t('components.spinner.environments.title')}
           description={t('components.spinner.environments.description')}
         >

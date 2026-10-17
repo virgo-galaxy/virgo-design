@@ -11,6 +11,7 @@ export default function App() {
   const { t } = useTranslation();
 
   const [selected, setSelected] = useState('none');
+
   return (
     <div className={styles.root!}>
       {(['primary', 'secondary', 'outline', 'text'] as const).map((variant) => (

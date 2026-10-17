@@ -93,24 +93,26 @@ export function AccordionPage() {
           </ReferenceSpecimen>
         </section>
         <ArticleSection
-          id={'accordion-variants'}
-          index={'01'}
+          id="accordion-variants"
+          index="01"
           title={t('components.accordion.variants.title')}
           description={t('components.accordion.variants.description')}
         >
           <ComponentExample example={accordionExamples.accordionVariants} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'accordion-sizes'}
-          index={'02'}
+          id="accordion-sizes"
+          index="02"
           title={t('components.accordion.sizes.title')}
           description={t('components.accordion.sizes.description')}
         >
           <ComponentExample example={accordionExamples.accordionSizes} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
-          id={'accordion-modes'}
-          index={'03'}
+          id="accordion-modes"
+          index="03"
           title={t('components.accordion.modes.title')}
           description={t('components.accordion.modes.description')}
         >

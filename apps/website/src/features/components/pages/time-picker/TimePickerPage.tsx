@@ -39,6 +39,7 @@ export function TimePickerPage() {
             </ReferenceSpecimen.Caption>
           </ReferenceSpecimen>
         </section>
+
         <ArticleSection
           id="time-picker-1"
           index="01"
@@ -47,6 +48,7 @@ export function TimePickerPage() {
         >
           <ComponentExample example={timePickerExamples.example0} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="time-picker-2"
           index="02"

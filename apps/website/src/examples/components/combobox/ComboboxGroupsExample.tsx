@@ -2,8 +2,10 @@ import { Combobox } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import styles from './ComboboxGroupsExample.module.scss';
+
 export default function App() {
   const { t } = useTranslation();
+
   return (
     <Combobox className={styles.root!} size="small">
       <Combobox.Input aria-label={t('examples.combobox.copy.project')} />

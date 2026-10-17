@@ -11,9 +11,11 @@ import { comboboxExamples } from '@/examples/components/combobox/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
 import styles from './ComboboxPage.module.scss';
+
 export function ComboboxPage() {
   const { t } = useTranslation();
   const Reference = comboboxExamples.example0.Component;
+
   return (
     <ComponentExampleRuntimeProvider>
       <div className={['component-page', styles.board].join(' ')}>
@@ -47,6 +49,7 @@ export function ComboboxPage() {
         >
           <ComponentExample example={comboboxExamples.example0} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="combobox-2"
           index="02"
@@ -55,6 +58,7 @@ export function ComboboxPage() {
         >
           <ComponentExample example={comboboxExamples.example1} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="combobox-3"
           index="03"
@@ -63,6 +67,7 @@ export function ComboboxPage() {
         >
           <ComponentExample example={comboboxExamples.example2} showCaption={false} />
         </ArticleSection>
+
         <ArticleSection
           id="combobox-4"
           index="04"
