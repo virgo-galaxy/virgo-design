@@ -1,4 +1,4 @@
-import type { ProjectDto } from '@/contracts/projects';
+import type { ProjectDto } from '@/api/projects/types';
 
 import { projectNames, teamAssignments } from './team';
 

@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 import { afterEach, expect, it, vi } from 'vitest';
 
 import { prepareHandoff } from '@/api/workflows';
-import type { WorkflowReceiptDto } from '@/contracts/workflows';
+import type { WorkflowReceiptDto } from '@/api/workflows/types';
 import { sampleError, sampleSuccess } from '@/mock/fixtures/workflows';
 
 import { HandoffStoreProvider } from '../store';

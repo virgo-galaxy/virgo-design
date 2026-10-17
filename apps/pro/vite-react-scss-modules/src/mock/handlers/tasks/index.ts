@@ -1,13 +1,8 @@
 import { http } from 'msw';
 
-import {
-  TASK_PRIORITY_CODES,
-  TASK_STATUS_CODES,
-  type TaskDto,
-  type TaskListDto,
-  type TaskRequest,
-} from '@/api/tasks';
-import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
+import { API_ERROR_CODES } from '@/api/gateway/constants';
+import { TASK_PRIORITY_CODES, TASK_STATUS_CODES } from '@/api/tasks/constants';
+import type { TaskDto, TaskListDto, TaskRequest } from '@/api/tasks/types';
 import { canManageProject, canViewTask, taskStatusChoices } from '@/lib/auth/permissions';
 import { isRecord } from '@/lib/validation/is-record';
 

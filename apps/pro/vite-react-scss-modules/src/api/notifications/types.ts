@@ -1,4 +1,4 @@
-import type { TaskRecordKind } from '@/contracts/analytics';
+import type { TaskRecordKind } from '@/api/analytics/types';
 
 export type NotificationKind = TaskRecordKind | 'ready' | 'welcome';
 

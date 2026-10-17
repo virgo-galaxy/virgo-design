@@ -1,5 +1,5 @@
-import type { LoginDto, SessionUser } from '@/contracts/auth';
-import type { TaskDto } from '@/contracts/tasks';
+import type { LoginDto, SessionUser } from '@/api/auth/types';
+import type { TaskDto } from '@/api/tasks/types';
 import { canViewTask } from '@/lib/auth/permissions';
 import { clearAuthSession, saveAuthSession } from '@/lib/auth/session';
 import { sessionStorageAccess } from '@/lib/storage';

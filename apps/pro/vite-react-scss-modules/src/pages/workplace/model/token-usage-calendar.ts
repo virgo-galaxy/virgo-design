@@ -1,4 +1,4 @@
-import type { TokenUsageDayDto } from '@/api/analytics';
+import type { TokenUsageDayDto } from '@/api/analytics/types';
 
 const dayMs = 86400000;
 

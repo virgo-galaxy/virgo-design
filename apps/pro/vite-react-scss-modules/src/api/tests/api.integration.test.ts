@@ -3,23 +3,24 @@ import { delay, http as mswHttp, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
-import { getTaskSummary } from '@/api/tasks';
+import { API_ERROR_CODES } from '@/api/gateway/constants';
 import {
   createTask,
   deleteTasks,
   getTask,
   getTasks,
+  getTaskSummary,
   updateTask,
   updateTaskStatus,
 } from '@/api/tasks';
 import { prepareHandoff } from '@/api/workflows';
-import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
 import { getAllTasks } from '@/features/tasks';
 import { http, HttpError } from '@/lib/http';
 import { initialTaskState, taskReferenceDate } from '@/mock/fixtures/tasks';
 import { handlers } from '@/mock/handlers';
 import { resetProfile } from '@/mock/handlers/profile';
 import { resetTasks } from '@/mock/handlers/tasks';
+
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 afterEach(() => server.resetHandlers());

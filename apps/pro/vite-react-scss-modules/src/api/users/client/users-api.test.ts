@@ -2,8 +2,8 @@
 import { setupServer } from 'msw/node';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
+import { API_ERROR_CODES } from '@/api/gateway/constants';
 import { getTaskMetadata } from '@/api/tasks';
-import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
 import {
   systemPresetAvatarManifest,
   type SystemPresetUserId,

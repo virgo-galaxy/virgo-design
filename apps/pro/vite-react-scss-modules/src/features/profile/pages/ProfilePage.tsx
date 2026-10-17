@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
 import { getActivity } from '@/api/analytics';
+import type { ProfileIdentityDto, UpdateProfileIdentityRequest } from '@/api/profile/types';
 import { getTasks } from '@/api/tasks';
 import { Panel } from '@/components/panel/Panel';
 import { RemoteState } from '@/components/remote-state/RemoteState';
 import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import { UserGenderIcon } from '@/components/user-gender-icon/UserGenderIcon';
-import type { ProfileIdentityDto, UpdateProfileIdentityRequest } from '@/contracts/profile';
 import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, Person, projectName, useTaskCatalog } from '@/features/catalog';
 import { projectDetailPath, projectHandoffPath } from '@/features/projects';

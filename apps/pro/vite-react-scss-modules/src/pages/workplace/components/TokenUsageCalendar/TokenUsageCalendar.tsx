@@ -3,9 +3,9 @@ import { Button, Calendar, Dialog, SegmentedControl, Select } from '@virgo-desig
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import type { TokenUsageReportDto } from '@/api/analytics/types';
 import calendarChartArtwork from '@/assets/illustrations/calendar-chart.svg';
 import { ResourceContent } from '@/components/resource-content/ResourceContent';
-import type { TokenUsageReportDto } from '@/contracts/analytics';
 import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/demo/labels';
 

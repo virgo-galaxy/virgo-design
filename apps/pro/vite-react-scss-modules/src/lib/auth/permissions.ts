@@ -1,5 +1,5 @@
-import type { SessionUser } from '@/contracts/auth';
-import type { TaskDto, TaskStatusDto } from '@/contracts/tasks';
+import type { SessionUser } from '@/api/auth/types';
+import type { TaskDto, TaskStatusDto } from '@/api/tasks/types';
 
 export const isAdmin = (user?: SessionUser) => user?.role === 'admin';
 export const canManageProject = (user: SessionUser | undefined, project: string) =>

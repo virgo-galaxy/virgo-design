@@ -1,4 +1,4 @@
-import type { TaskListQuery } from '@/contracts/tasks';
+import type { TaskListQuery } from '@/api/tasks/types';
 import { isRecord } from '@/lib/validation/is-record';
 
 import { emptyTaskQuery, queryFromParams, queryParams, type TaskQuery } from './query-params';

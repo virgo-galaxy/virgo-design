@@ -1,3 +1,5 @@
+import { http } from '@/lib/http';
+
 import type {
   TaskDeleteRequest,
   TaskDeleteResult,
@@ -9,8 +11,7 @@ import type {
   TaskRequest,
   TaskStatusDto,
   TaskSummaryDto,
-} from '@/contracts/tasks';
-import { http } from '@/lib/http';
+} from './types';
 
 export function getTasks(query: TaskListQuery = {}, signal?: AbortSignal): Promise<TaskListDto> {
   return http.get('/tasks', {

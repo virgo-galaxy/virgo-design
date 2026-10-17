@@ -13,5 +13,3 @@ export const API_ERROR_CODES = {
   HANDOFF_VALIDATION_FAILED: 40001,
   HANDOFF_SCOPE_INVALID: 40002,
 } as const;
-
-export type ApiErrorCode = (typeof API_ERROR_CODES)[keyof typeof API_ERROR_CODES];

@@ -14,9 +14,9 @@ import { createMemoryRouter, Outlet, RouterProvider } from 'react-router';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { login } from '@/api/auth';
+import { API_ERROR_CODES } from '@/api/gateway/constants';
 import { getTasks } from '@/api/tasks';
 import { ProResourcesProvider } from '@/app/composition/providers/ProResourcesProvider';
-import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';

@@ -1,5 +1,6 @@
-import type { OwnerCapacityDto, TaskStatusSummaryDto } from '@/contracts/analytics';
 import { http } from '@/lib/http';
+
+import type { OwnerCapacityDto, TaskStatusSummaryDto } from './types';
 
 export function getOwnerCapacity(signal?: AbortSignal): Promise<OwnerCapacityDto[]> {
   return http.get('/analytics/owner-capacity', signal ? { signal } : undefined);

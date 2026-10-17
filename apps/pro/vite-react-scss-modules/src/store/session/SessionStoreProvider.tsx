@@ -1,6 +1,6 @@
 import { type ReactNode, useState } from 'react';
 
-import type { SessionUser } from '@/contracts/auth';
+import type { SessionUser } from '@/api/auth/types';
 import { WorkspaceStoreProvider } from '@/features/ai-workspace/store';
 import { HandoffStoreProvider } from '@/features/handoff/store';
 import { TaskTableStoreProvider } from '@/features/tasks/store';

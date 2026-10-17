@@ -4,7 +4,7 @@ import { getTheme } from '@virgo-design/themes';
 import type { ReactNode } from 'react';
 import { afterEach, expect, it, vi } from 'vitest';
 
-import type { SessionUser } from '@/contracts/auth';
+import type { SessionUser } from '@/api/auth/types';
 import { useAgentMode } from '@/features/ai-workspace/store';
 import { useHandoffStore } from '@/features/handoff/store';
 import { useTaskTableSettings } from '@/features/tasks/store';

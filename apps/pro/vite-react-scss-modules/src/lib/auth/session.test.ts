@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { afterEach, expect, it, vi } from 'vitest';
 
-import type { LoginDto } from '@/contracts/auth';
+import type { LoginDto } from '@/api/auth/types';
 
 import {
   clearAuthSession,

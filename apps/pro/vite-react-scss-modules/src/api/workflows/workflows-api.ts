@@ -1,5 +1,6 @@
-import type { HandoffRequest, WorkflowReceiptDto } from '@/contracts/workflows';
 import { http } from '@/lib/http';
+
+import type { HandoffRequest, WorkflowReceiptDto } from './types';
 
 export function getLatestWorkflow(
   outcome: 'success' | 'error',

@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
-import { getTasks, type TaskListQuery } from '@/api/tasks';
+import { getTasks } from '@/api/tasks';
+import type { TaskListQuery } from '@/api/tasks/types';
 import { useRemoteData } from '@/hooks/use-remote-data';
 
 import { useTaskRevision } from '../data/operations';

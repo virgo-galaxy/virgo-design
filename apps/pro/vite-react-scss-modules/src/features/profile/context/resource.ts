@@ -3,12 +3,14 @@ import { createContext, useCallback, useContext } from 'react';
 import {
   getProfileIdentity,
   getProfilePreferences,
-  type ProfileIdentityDto,
   updateProfileIdentity,
-  type UpdateProfileIdentityRequest,
   updateProfilePreferences,
-  type UpdateProfilePreferencesRequest,
 } from '@/api/profile';
+import type {
+  ProfileIdentityDto,
+  UpdateProfileIdentityRequest,
+  UpdateProfilePreferencesRequest,
+} from '@/api/profile/types';
 import { type RemoteData, useRemoteData } from '@/hooks/use-remote-data';
 
 export const ProfileRevisionContext = createContext(0);

@@ -1,4 +1,4 @@
-import type { LoginDto, SessionUser } from '@/contracts/auth';
+import type { LoginDto, SessionUser } from '@/api/auth/types';
 import { sessionStorageAccess } from '@/lib/storage';
 
 const storageKey = 'virgo-pro.auth-session.v1';

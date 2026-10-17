@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import type { SessionUser } from '@/api/auth';
+import type { SessionUser } from '@/api/auth/types';
 
 export const SessionContext = createContext<{
   user: SessionUser;

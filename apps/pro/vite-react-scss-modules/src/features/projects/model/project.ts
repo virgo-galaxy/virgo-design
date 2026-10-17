@@ -1,7 +1,7 @@
-import type { MemberDto } from '@/api/tasks';
+import type { MemberDto } from '@/api/tasks/types';
 import { businessLabel } from '@/lib/demo/labels';
 
-export type Project = import('@/contracts/projects').ProjectDto;
+export type Project = import('@/api/projects/types').ProjectDto;
 
 export function filterProjects(
   projects: readonly Project[],

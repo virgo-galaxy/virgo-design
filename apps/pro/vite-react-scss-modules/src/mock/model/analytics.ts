@@ -5,8 +5,9 @@ import type {
   TaskRecordDto,
   TaskStatusSummaryDto,
   TrendPointDto,
-} from '@/contracts/analytics';
-import { TASK_STATUS_CODES, type TaskDto } from '@/contracts/tasks';
+} from '@/api/analytics/types';
+import { TASK_STATUS_CODES } from '@/api/tasks/constants';
+import type { TaskDto } from '@/api/tasks/types';
 
 import { projects } from '../fixtures/projects';
 import { members } from '../fixtures/team';

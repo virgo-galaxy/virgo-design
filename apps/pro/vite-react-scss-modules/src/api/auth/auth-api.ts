@@ -1,4 +1,3 @@
-import type { DemoAccountsDto, LoginDto, LoginRequest, SessionDto } from '@/contracts/auth';
 import {
   clearAuthSession,
   expireAuthSession,
@@ -6,6 +5,8 @@ import {
   saveAuthSession,
 } from '@/lib/auth/session';
 import { http } from '@/lib/http';
+
+import type { DemoAccountsDto, LoginDto, LoginRequest, SessionDto } from './types';
 
 export async function login(draft: LoginRequest): Promise<LoginDto> {
   const session = await http.post<LoginDto>('/auth/login', draft);

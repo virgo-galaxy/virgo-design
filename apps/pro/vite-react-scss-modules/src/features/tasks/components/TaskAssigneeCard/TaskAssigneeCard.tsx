@@ -2,8 +2,8 @@ import { Avatar, type AvatarSize, Button, Popover, Skeleton, Tag } from '@virgo-
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { MemberDto } from '@/api/tasks';
-import type { UserDetailsDto } from '@/api/users';
+import type { MemberDto } from '@/api/tasks/types';
+import type { UserDetailsDto } from '@/api/users/types';
 import { UserGenderIcon } from '@/components/user-gender-icon/UserGenderIcon';
 import { projectName, useTaskCatalog } from '@/features/catalog';
 import { userDetailsCache } from '@/features/users';

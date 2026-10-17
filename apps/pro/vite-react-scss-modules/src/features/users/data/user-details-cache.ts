@@ -1,4 +1,5 @@
-import { getUser, type UserDetailsDto } from '@/api/users';
+import { getUser } from '@/api/users';
+import type { UserDetailsDto } from '@/api/users/types';
 
 const ttl = 5 * 60 * 1000;
 const maxEntries = 100;

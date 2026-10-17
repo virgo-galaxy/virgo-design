@@ -1,4 +1,4 @@
-import type { MemberDto } from '@/api/tasks';
+import type { MemberDto } from '@/api/tasks/types';
 
 import type { Task } from './task';
 

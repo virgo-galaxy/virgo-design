@@ -1,4 +1,4 @@
-import type { TaskListQuery } from '@/api/tasks';
+import type { TaskListQuery } from '@/api/tasks/types';
 
 export type TaskSortColumn = NonNullable<TaskListQuery['sortBy']>;
 

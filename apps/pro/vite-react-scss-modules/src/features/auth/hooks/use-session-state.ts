@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { getSession, type LoginDto, logout, resetDemo, type SessionDto } from '@/api/auth';
+import { getSession, logout, resetDemo } from '@/api/auth';
+import type { LoginDto, SessionDto } from '@/api/auth/types';
 import { useRemoteData } from '@/hooks/use-remote-data';
 import {
   clearAuthSession,

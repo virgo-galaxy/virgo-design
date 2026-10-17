@@ -1,4 +1,4 @@
-import type { TaskRecordDto } from '@/api/analytics';
+import type { TaskRecordDto } from '@/api/analytics/types';
 import { localStorageAccess } from '@/lib/storage';
 import { isRecord } from '@/lib/validation/is-record';
 

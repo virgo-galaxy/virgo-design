@@ -1,10 +1,11 @@
+import { http } from '@/lib/http';
+
 import type {
   ProjectDistributionDto,
   ProjectMemberStatsDto,
   ProjectModuleStatsDto,
   ProjectSummaryDto,
-} from '@/contracts/projects';
-import { http } from '@/lib/http';
+} from './types';
 
 export function getProjectSummaries(
   projectId?: string,

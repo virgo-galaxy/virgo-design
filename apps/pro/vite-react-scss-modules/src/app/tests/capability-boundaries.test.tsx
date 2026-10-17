@@ -7,7 +7,8 @@ import { createMemoryRouter, RouterProvider } from 'react-router';
 import { afterAll, afterEach, beforeAll, beforeEach, expect, it, vi } from 'vitest';
 
 import { getProfileIdentity } from '@/api/profile';
-import { prepareHandoff, type WorkflowReceiptDto } from '@/api/workflows';
+import { prepareHandoff } from '@/api/workflows';
+import type { WorkflowReceiptDto } from '@/api/workflows/types';
 import { loadAnalyticsPage } from '@/features/analytics/routes';
 import { useHandoffSession } from '@/features/handoff';
 import { HandoffStoreProvider } from '@/features/handoff/store';

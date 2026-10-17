@@ -1,5 +1,6 @@
-import type { AnnouncementDto, WorkspaceSummaryDto } from '@/contracts/workspace';
 import { http } from '@/lib/http';
+
+import type { AnnouncementDto, WorkspaceSummaryDto } from './types';
 
 export function getWorkspaceSummary(signal?: AbortSignal): Promise<WorkspaceSummaryDto> {
   return http.get('/workspace/summary', signal ? { signal } : undefined);

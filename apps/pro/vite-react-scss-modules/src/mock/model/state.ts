@@ -1,8 +1,8 @@
-import type { TaskRecordDto } from '@/contracts/analytics';
-import type { NotificationDto } from '@/contracts/notifications';
-import type { ProfileIdentityDto, ProfilePreferencesDto } from '@/contracts/profile';
-import type { TaskDto } from '@/contracts/tasks';
-import type { WorkflowReceiptDto } from '@/contracts/workflows';
+import type { TaskRecordDto } from '@/api/analytics/types';
+import type { NotificationDto } from '@/api/notifications/types';
+import type { ProfileIdentityDto, ProfilePreferencesDto } from '@/api/profile/types';
+import type { TaskDto } from '@/api/tasks/types';
+import type { WorkflowReceiptDto } from '@/api/workflows/types';
 
 export type ProfileRecord = ProfileIdentityDto & ProfilePreferencesDto;
 export type StoredNotification = Omit<NotificationDto, 'available' | 'projectName'>;

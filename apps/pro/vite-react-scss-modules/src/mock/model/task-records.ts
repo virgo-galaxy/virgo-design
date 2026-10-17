@@ -1,7 +1,7 @@
-import type { TaskRecordDto, TaskRecordKind, TokenUsageDayDto } from '@/contracts/analytics';
-import type { SessionUser } from '@/contracts/auth';
-import type { NotificationDto, NotificationKind } from '@/contracts/notifications';
-import type { TaskDto } from '@/contracts/tasks';
+import type { TaskRecordDto, TaskRecordKind, TokenUsageDayDto } from '@/api/analytics/types';
+import type { SessionUser } from '@/api/auth/types';
+import type { NotificationDto, NotificationKind } from '@/api/notifications/types';
+import type { TaskDto } from '@/api/tasks/types';
 import { canViewTask } from '@/lib/auth/permissions';
 
 import { projects } from '../fixtures/projects';

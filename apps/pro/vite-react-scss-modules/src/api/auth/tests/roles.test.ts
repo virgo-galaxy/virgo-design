@@ -6,12 +6,12 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from
 import { getOwnerCapacity, getProjectDelivery } from '@/api/analytics';
 import { updateProfileIdentity, updateProfilePreferences } from '@/api/profile';
 import { getProjects, getProjectSummaries } from '@/api/projects';
-import { getTaskSummary } from '@/api/tasks';
 import {
   createTask,
   deleteTasks,
   getTask,
   getTasks,
+  getTaskSummary,
   updateTask,
   updateTaskStatus,
 } from '@/api/tasks';
@@ -24,6 +24,7 @@ import { handlers } from '@/mock/handlers';
 import { readProfile } from '@/test/profile';
 
 import { getDemoAccounts, getSession, login, logout, resetDemo } from '..';
+
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 afterAll(() => server.close());

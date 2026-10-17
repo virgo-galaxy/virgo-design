@@ -1,8 +1,8 @@
 import { Chart } from '@virgo-design/charts';
 import { useTranslation } from 'react-i18next';
 
+import type { ProjectDeliveryDayDto } from '@/api/analytics/types';
 import { Panel } from '@/components/panel/Panel';
-import type { ProjectDeliveryDayDto } from '@/contracts/analytics';
 import { useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/demo/labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';

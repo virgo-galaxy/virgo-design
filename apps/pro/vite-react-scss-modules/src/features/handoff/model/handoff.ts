@@ -1,10 +1,10 @@
-import type { ProjectDto as Project } from '@/contracts/projects';
-import type { TaskDto as Task } from '@/contracts/tasks';
+import type { ProjectDto as Project } from '@/api/projects/types';
+import type { TaskDto as Task } from '@/api/tasks/types';
 import type {
   HandoffRequest,
   HandoffValidationCode,
   WorkflowReceiptDto,
-} from '@/contracts/workflows';
+} from '@/api/workflows/types';
 
 export type HandoffDraft = HandoffRequest;
 

@@ -1,4 +1,4 @@
-import type { SessionUser } from '@/contracts/auth';
+import type { SessionUser } from '@/api/auth/types';
 
 import { proRouting, type ResolvedProRoute } from './match';
 

@@ -1,4 +1,4 @@
-import type { TrendPointDto as TrendPoint } from '@/api/analytics';
+import type { TrendPointDto as TrendPoint } from '@/api/analytics/types';
 
 type TrendPeriod = '7d' | '14d';
 

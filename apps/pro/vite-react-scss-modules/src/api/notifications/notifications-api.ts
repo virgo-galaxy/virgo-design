@@ -1,5 +1,6 @@
-import type { NotificationDto, NotificationInboxDto } from '@/contracts/notifications';
 import { http } from '@/lib/http';
+
+import type { NotificationDto, NotificationInboxDto } from './types';
 
 export const getNotifications = (signal?: AbortSignal) =>
   http.get<NotificationInboxDto>('/notifications', signal ? { signal } : undefined);

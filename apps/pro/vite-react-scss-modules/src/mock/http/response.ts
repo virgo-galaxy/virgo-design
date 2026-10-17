@@ -1,6 +1,6 @@
 import { HttpResponse } from 'msw';
 
-import type { ApiErrorCode } from '@/contracts/gateway/error-codes';
+import type { ApiErrorCode } from '@/api/gateway/types';
 import {
   API_SUCCESS_CODE,
   API_SUCCESS_MSG,

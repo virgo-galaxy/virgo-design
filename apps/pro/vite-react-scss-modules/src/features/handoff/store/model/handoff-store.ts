@@ -1,6 +1,6 @@
 import { createStore } from 'zustand/vanilla';
 
-import type { HandoffRequest } from '@/contracts/workflows';
+import type { HandoffRequest } from '@/api/workflows/types';
 
 import { initialHandoff } from '../../model/handoff';
 

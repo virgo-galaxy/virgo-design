@@ -1,8 +1,8 @@
 import {
   TASK_PRIORITY_CODES as taskPriorities,
   TASK_STATUS_CODES as taskStatuses,
-  type TaskDto as Task,
-} from '@/contracts/tasks';
+} from '@/api/tasks/constants';
+import type { TaskDto as Task } from '@/api/tasks/types';
 
 export type TaskSortColumn =
   | 'completedAt'

@@ -1,4 +1,5 @@
-import { getTasks, type TaskDto, type TaskListDto, type TaskListQuery } from '@/api/tasks';
+import { getTasks } from '@/api/tasks';
+import type { TaskDto, TaskListDto, TaskListQuery } from '@/api/tasks/types';
 
 export async function getTaskCollection(
   query: TaskListQuery = {},

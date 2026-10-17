@@ -1,7 +1,7 @@
 import { http } from 'msw';
 
-import type { HandoffRequest, WorkflowReceiptDto } from '@/api/workflows';
-import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
+import { API_ERROR_CODES } from '@/api/gateway/constants';
+import type { HandoffRequest, WorkflowReceiptDto } from '@/api/workflows/types';
 import { canManageProject } from '@/lib/auth/permissions';
 import { isRecord } from '@/lib/validation/is-record';
 

@@ -1,5 +1,5 @@
-import type { TaskRecordDto } from '@/contracts/analytics';
-import type { TaskDto } from '@/contracts/tasks';
+import type { TaskRecordDto } from '@/api/analytics/types';
+import type { TaskDto } from '@/api/tasks/types';
 
 import {
   deliveryTrend,

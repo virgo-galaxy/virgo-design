@@ -1,4 +1,4 @@
-import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
+import { API_ERROR_CODES } from '@/api/gateway/constants';
 
 import { failure } from '../http/response';
 

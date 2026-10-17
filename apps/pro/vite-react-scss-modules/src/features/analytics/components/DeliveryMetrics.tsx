@@ -3,7 +3,7 @@ import { Statistic, Surface } from '@virgo-design/ui';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { TrendPointDto } from '@/contracts/analytics';
+import type { TrendPointDto } from '@/api/analytics/types';
 
 import { deliveryAnalysis } from '../model/delivery-analysis';
 import { chartColors } from '../presentation/chart-colors';

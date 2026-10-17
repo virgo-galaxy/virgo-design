@@ -81,7 +81,7 @@ const graph = new Map(
 );
 
 const layerRanks: Record<string, number> = {
-  contracts: 0,
+  apiDefinitions: 0,
   assets: 0,
   styles: 0,
   config: 0,
@@ -100,8 +100,13 @@ const layerRanks: Record<string, number> = {
   app: 8,
   entry: 9,
 };
+function isApiDefinition(file: string) {
+  return /^api\/[^/]+\/(types|constants)\.ts$/.test(file);
+}
+
 function layer(file: string) {
   const path = relative(root, file);
+  if (isApiDefinition(path)) return 'apiDefinitions';
   if (/^i18n\/(bootstrap\/|locales\/resources\.ts$|types\/i18next\.d\.ts$)/.test(path))
     return 'composition';
   if (path.startsWith('store/')) return 'composition';
@@ -201,7 +206,7 @@ it('keeps feature consumers on explicit public boundaries and local code off its
   }
 });
 
-it('keeps production API consumers on domain public entries', () => {
+it('keeps API requests and reusable definitions on explicit public entries', () => {
   for (const file of files) {
     const from = relative(root, file);
     for (const path of imports(file)) {
@@ -209,6 +214,13 @@ it('keeps production API consumers on domain public entries', () => {
       if (!dependency) continue;
       const to = relative(root, dependency);
       if (!to.startsWith('api/')) continue;
+      if (isApiDefinition(to)) {
+        const owner = to.split('/').slice(0, 2).join('/') + '/';
+        if (!from.startsWith(owner))
+          expect(path, `${from} → API definition ${to}`).toBe('@/' + to.replace(/\.ts$/, ''));
+        continue;
+      }
+      expect(from.startsWith('mock/'), `${from} → request client ${to}`).toBe(false);
       if (to === 'api/index.ts') {
         expect(from.startsWith('api/'), `${from} → API root barrel`).toBe(true);
         continue;
@@ -238,7 +250,6 @@ it('keeps module entry directories and feature roots limited to index files', ()
     'api',
     'app',
     'components',
-    'contracts',
     'features',
     'i18n',
     'layout',
@@ -323,9 +334,8 @@ it('uses index files as public entries and limits side-effect imports to the app
   for (const file of files.filter((file) => {
     const from = relative(root, file);
     return (
-      /^(app|api|contracts|features|components|layout|lib|routes|i18n|preferences|store)\//.test(
-        from,
-      ) && file.endsWith('/index.ts')
+      /^(app|api|features|components|layout|lib|routes|i18n|preferences|store)\//.test(from) &&
+      file.endsWith('/index.ts')
     );
   })) {
     const from = relative(root, file);
@@ -389,7 +399,7 @@ it('keeps stores with their owning modules and application store assembly separa
       if (!dependency) continue;
       const to = relative(root, dependency);
       if (sourceOwner && graph.has(file))
-        expect(to.startsWith('api/'), `${from} → API command ${to}`).toBe(false);
+        expect(layer(dependency), `${from} → API command ${to}`).not.toBe('api');
       const targetOwner = storeOwners.find((owner) => to.startsWith(owner + '/'));
       if (targetOwner) {
         if (sourceOwner === targetOwner)

@@ -1,4 +1,4 @@
-import type { UserGender, WorkLocationDto } from '@/contracts/users';
+import type { UserGender, WorkLocationDto } from '@/api/users/types';
 
 export type UserRole = 'admin' | 'manager' | 'member';
 

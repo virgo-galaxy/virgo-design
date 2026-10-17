@@ -1,4 +1,5 @@
-import type { TaskValidationCode } from '@/contracts/tasks';
+import type { TaskValidationCode } from '@/api/tasks/types';
+
 export const tasksEnUS = {
   query: {
     dueCondition: 'Due condition',

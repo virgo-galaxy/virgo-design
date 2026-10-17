@@ -1,4 +1,5 @@
-import type { HandoffValidationCode } from '@/contracts/workflows';
+import type { HandoffValidationCode } from '@/api/workflows/types';
+
 export const handoffEnUS = {
   selectedTasks: '{{count}} tasks selected',
   project: 'Project',

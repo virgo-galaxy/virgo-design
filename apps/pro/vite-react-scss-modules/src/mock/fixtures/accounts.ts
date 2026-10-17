@@ -1,5 +1,5 @@
+import type { SessionUser } from '@/api/auth/types';
 import adminAvatar from '@/assets/avatars/admin.svg';
-import type { SessionUser } from '@/contracts/auth';
 
 import { projectIds, users } from './team';
 

@@ -1,11 +1,12 @@
-import {
-  TASK_PRIORITY_CODES,
-  TASK_STATUS_CODES,
-  type TaskPriorityDto,
-  type TaskStatusDto,
-} from '@/api/tasks';
-import type { ProjectDto } from '@/contracts/projects';
-import type { TaskDto, TaskRequest, TaskValidationCode } from '@/contracts/tasks';
+import type { ProjectDto } from '@/api/projects/types';
+import { TASK_PRIORITY_CODES, TASK_STATUS_CODES } from '@/api/tasks/constants';
+import type {
+  TaskDto,
+  TaskPriorityDto,
+  TaskRequest,
+  TaskStatusDto,
+  TaskValidationCode,
+} from '@/api/tasks/types';
 
 export function projectTaskErrors(
   draft: { project: string; module: string; assignee: string },

@@ -1,4 +1,5 @@
-import type { ProfileValidationCode } from '@/contracts/profile';
+import type { ProfileValidationCode } from '@/api/profile/types';
+
 export const profileEnUS = {
   projectScope: '{{count}} projects in your current workspace view.',
   yourProjects: 'Your project participation',

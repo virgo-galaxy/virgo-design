@@ -1,4 +1,4 @@
-import type { ProjectDto } from '@/contracts/projects';
+import type { ProjectDto } from '@/api/projects/types';
 
 export function projectName(id: string, projects: readonly ProjectDto[]) {
   return projects.find((project) => project.id === id)?.name ?? id;

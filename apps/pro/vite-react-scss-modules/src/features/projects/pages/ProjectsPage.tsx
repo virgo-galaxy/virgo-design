@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router';
 
 import { getProjectSummaries } from '@/api/projects';
+import type { ProjectSummaryDto } from '@/api/projects/types';
 import clipboardListArtwork from '@/assets/illustrations/clipboard-list.svg';
 import documentMagnifierArtwork from '@/assets/illustrations/document-magnifier.svg';
 import folderTargetArtwork from '@/assets/illustrations/folder-target.svg';
@@ -13,7 +14,6 @@ import { NoResults } from '@/components/no-results/NoResults';
 import { Panel } from '@/components/panel/Panel';
 import { RemoteState } from '@/components/remote-state/RemoteState';
 import { WorkOverview } from '@/components/work-overview/WorkOverview';
-import type { ProjectSummaryDto } from '@/contracts/projects';
 import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, Person, useTaskCatalog } from '@/features/catalog';
 import { useTaskDependentQuery } from '@/features/tasks';

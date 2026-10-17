@@ -1,4 +1,4 @@
-import type { TaskDto, TaskStatusDto } from '@/contracts/tasks';
+import type { TaskDto, TaskStatusDto } from '@/api/tasks/types';
 
 import { projects } from './projects';
 import { createMockTaskId } from './task-id';

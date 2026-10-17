@@ -1,4 +1,4 @@
-import type { WorkLocationDto } from '@/contracts/users';
+import type { WorkLocationDto } from '@/api/users/types';
 
 const zh: Record<string, string> = {
   China: '中国',

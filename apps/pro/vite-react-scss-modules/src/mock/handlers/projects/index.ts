@@ -1,7 +1,7 @@
 import { http } from 'msw';
 
-import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
-import type { ProjectSummaryDto } from '@/contracts/projects';
+import { API_ERROR_CODES } from '@/api/gateway/constants';
+import type { ProjectSummaryDto } from '@/api/projects/types';
 
 import { requestUser, scopedTasks } from '../../auth/session';
 import { getDemoReferenceDate } from '../../data/reporting-date';
@@ -20,7 +20,7 @@ const missingProject = () =>
 
 function summarizeProject(
   projectId: string,
-  tasks: readonly import('@/contracts/tasks').TaskDto[],
+  tasks: readonly import('@/api/tasks/types').TaskDto[],
 ): ProjectSummaryDto {
   const date = getDemoReferenceDate();
   const related = tasks.filter((task) => task.project === projectId);

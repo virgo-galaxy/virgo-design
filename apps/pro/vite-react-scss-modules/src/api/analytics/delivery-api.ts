@@ -1,5 +1,6 @@
-import type { ProjectDeliveryDayDto, TrendPointDto } from '@/contracts/analytics';
 import { http } from '@/lib/http';
+
+import type { ProjectDeliveryDayDto, TrendPointDto } from './types';
 
 export function getDeliveryTrend(signal?: AbortSignal): Promise<TrendPointDto[]> {
   return http.get('/analytics/delivery-trend', signal ? { signal } : undefined);

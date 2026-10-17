@@ -5,8 +5,14 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { enterDemoSession, getSession, logout, resetDemo } from '@/api/auth';
 import { getNotifications, readAllNotifications } from '@/api/notifications';
 import { updateProfileIdentity, updateProfilePreferences } from '@/api/profile';
-import { getTaskSummary } from '@/api/tasks';
-import { createTask, deleteTasks, getTask, getTasks, updateTask } from '@/api/tasks';
+import {
+  createTask,
+  deleteTasks,
+  getTask,
+  getTasks,
+  getTaskSummary,
+  updateTask,
+} from '@/api/tasks';
 import { getLatestWorkflow, prepareHandoff } from '@/api/workflows';
 import { taskDraft, validateTask } from '@/features/tasks';
 import { businessLabel } from '@/lib/demo/labels';

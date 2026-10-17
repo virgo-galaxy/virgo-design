@@ -1,4 +1,4 @@
-import type { TaskDto, TaskListDto } from '@/contracts/tasks';
+import type { TaskDto, TaskListDto } from '@/api/tasks/types';
 import { businessLabel } from '@/lib/demo/labels';
 import { isRecord } from '@/lib/validation/is-record';
 

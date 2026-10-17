@@ -12,7 +12,8 @@ import { Button, Field, Form, Input, Progress, Select, Tag, Tooltip } from '@vir
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { getDemoAccounts, login, type LoginDto } from '@/api/auth';
+import { getDemoAccounts, login } from '@/api/auth';
+import type { LoginDto } from '@/api/auth/types';
 import { LanguageControl } from '@/components/language-control/LanguageControl';
 import { useRemoteData } from '@/hooks/use-remote-data';
 import { businessLabel } from '@/lib/demo/labels';

@@ -1,6 +1,6 @@
 import { http } from 'msw';
 
-import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
+import { API_ERROR_CODES } from '@/api/gateway/constants';
 import { resolveApiBaseUrl } from '@/lib/http';
 import { isRecord } from '@/lib/validation/is-record';
 

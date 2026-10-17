@@ -4,8 +4,8 @@ import type { Ref } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
+import type { TaskDto } from '@/api/tasks/types';
 import { ResourceContent } from '@/components/resource-content/ResourceContent';
-import type { TaskDto } from '@/contracts/tasks';
 import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
 import { taskStatusIntent, taskStatusLabelNames, useTaskQuery } from '@/features/tasks';
 import { businessLabel } from '@/lib/demo/labels';

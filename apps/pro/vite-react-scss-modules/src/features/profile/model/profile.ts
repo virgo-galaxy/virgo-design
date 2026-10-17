@@ -2,8 +2,8 @@ import type {
   ProfileIdentityDto,
   ProfilePreferencesDto,
   ProfileValidationCode,
-} from '@/contracts/profile';
-import type { ProjectDto as Project } from '@/contracts/projects';
+} from '@/api/profile/types';
+import type { ProjectDto as Project } from '@/api/projects/types';
 
 export type ProfileIdentity = ProfileIdentityDto;
 export type ProfilePreferences = ProfilePreferencesDto;

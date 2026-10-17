@@ -1,7 +1,7 @@
 import { http } from 'msw';
 
-import type { SessionUser } from '@/api/auth';
-import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
+import type { SessionUser } from '@/api/auth/types';
+import { API_ERROR_CODES } from '@/api/gateway/constants';
 import { isAdmin } from '@/lib/auth/permissions';
 import { isRecord } from '@/lib/validation/is-record';
 

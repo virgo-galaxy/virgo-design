@@ -1,6 +1,6 @@
-import type { TaskRecordKind, TaskStatusDto } from '@/contracts/tasks';
+import type { TaskRecordKind, TaskStatusDto } from '@/api/tasks/types';
 
-export type { TaskRecordKind } from '@/contracts/tasks';
+export type { TaskRecordKind } from '@/api/tasks/types';
 
 export interface TrendPointDto {
   date: string;

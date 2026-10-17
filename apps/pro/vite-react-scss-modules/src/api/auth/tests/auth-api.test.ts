@@ -2,7 +2,7 @@
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
+import { API_ERROR_CODES } from '@/api/gateway/constants';
 import { handlers } from '@/mock/handlers';
 import { resetSession } from '@/mock/handlers/auth';
 import { resetProfile } from '@/mock/handlers/profile';
