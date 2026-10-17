@@ -6,12 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 type TrendPeriod = '7d' | '14d';
 
-import { useWorkplaceData } from '../data/workplace-context';
+import { getDeliveryTrend } from '@/api/analytics';
+import type { TrendPointDto } from '@/contracts/analytics';
+import { useTaskDependentQuery } from '@/features/tasks';
+import { ResourceContent } from '@/shared/async/ResourceContent';
+
 import styles from './DeliveryTrend.module.scss';
 
-export function DeliveryTrend() {
-  const { trendPoints } = useWorkplaceData();
-
+function DeliveryTrendView({ trendPoints }: { trendPoints: TrendPointDto[] }) {
   const { t, i18n } = useTranslation();
   const [period, setPeriod] = useState<TrendPeriod>('7d');
   const points = period === '7d' ? trendPoints.slice(-7) : trendPoints;
@@ -74,5 +76,14 @@ export function DeliveryTrend() {
         </Chart.Root>
       </Card.Body>
     </Card>
+  );
+}
+
+export function DeliveryTrend() {
+  const resource = useTaskDependentQuery(getDeliveryTrend);
+  return (
+    <ResourceContent resource={resource}>
+      {(trendPoints) => <DeliveryTrendView trendPoints={trendPoints} />}
+    </ResourceContent>
   );
 }

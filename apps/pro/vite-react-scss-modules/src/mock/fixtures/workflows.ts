@@ -1,4 +1,4 @@
-import type { WorkflowReceiptDto as WorkflowReceipt } from '@/api/workflows';
+import type { WorkflowReceiptDto as WorkflowReceipt } from '@/contracts/workflows';
 
 import { initialTaskState } from './tasks';
 import { users } from './team';

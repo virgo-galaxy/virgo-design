@@ -49,6 +49,7 @@ interface Props {
   columnSearch: Partial<Record<TaskDataColumn, string>>;
   onColumnSearchChange: (key: TaskDataColumn, value: string) => void;
   selection: readonly string[];
+  selectionDisabled?: boolean;
   onSelectionChange: (values: string[]) => void;
   assigneeFilter: readonly string[];
   onAssigneeFilterChange: (values: string[]) => void;
@@ -74,6 +75,7 @@ export function TaskTable({
   columnSearch,
   onColumnSearchChange,
   selection,
+  selectionDisabled = false,
   onSelectionChange,
   sort,
   onSortChange,
@@ -174,6 +176,7 @@ export function TaskTable({
           <Checkbox
             aria-label={t('tasks.selectTask', { id: task.id })}
             checked={selection.includes(task.id)}
+            disabled={selectionDisabled}
             onChange={(event) =>
               onSelectionChange(
                 event.target.checked
@@ -419,6 +422,7 @@ export function TaskTable({
                           label={t('tasks.selectPage')}
                           rowKeys={tasks.map((task) => task.id)}
                           value={selection}
+                          disabled={selectionDisabled}
                           onValueChange={onSelectionChange}
                           selections={settings.selectionMenu ? selections : false}
                         />

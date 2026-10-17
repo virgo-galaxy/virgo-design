@@ -11,7 +11,8 @@ import {
 } from '@/features/settings';
 import { clearDemoStorage } from '@/lib/demo/reset';
 
-import { taskTableStorageKey, useTaskTableSettings } from '../hooks/use-table-settings';
+import { useTaskTableSettings } from '../hooks/use-table-settings';
+import { taskTableStorageKey } from '../model/table-preferences';
 
 afterEach(() => {
   vi.useRealTimers();

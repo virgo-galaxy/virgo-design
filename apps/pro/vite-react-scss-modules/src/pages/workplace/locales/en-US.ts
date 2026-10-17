@@ -64,6 +64,8 @@ export const workplaceEnUS = {
   valueValueOfValueOpenTasks: '{{v0}}: {{v1}} of {{v2}} open tasks',
   valueOfOpenTasks: '{{v0}}% of open tasks',
   today: 'TODAY',
+  minimizeValue: 'Minimize {{v0}}',
+  expandValue: 'Expand {{v0}}',
   minimize: 'Minimize',
   expand: 'Expand',
   removeValue: 'Remove {{v0}}',

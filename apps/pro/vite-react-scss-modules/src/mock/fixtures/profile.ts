@@ -1,8 +1,9 @@
 import grokBotAvatar from '@virgo-design/icons/artwork/grok-bot.svg';
 
-import type { ProfileDto as ProfileState } from '@/api/profile';
 import adminHumanAvatar from '@/assets/avatars/admin.svg';
-export const initialProfile: ProfileState = {
+
+import type { ProfileRecord } from '../model/state';
+export const initialProfile: ProfileRecord = {
   name: 'Administrator',
   displayName: 'Admin',
   headline: 'Administrator · Virgo Studio',

@@ -42,9 +42,9 @@ describe('real Gateway mode', () => {
       vi.resetModules();
       const { enableMocking } = await import('@/mock');
       await enableMocking();
-      const { getProfile } = await import('../profile');
-      expect((await getProfile()).name).toBe('Gateway profile');
-      expect(received).toBe('/api/v1/profile');
+      const { getProfileIdentity } = await import('../profile');
+      expect((await getProfileIdentity()).name).toBe('Gateway profile');
+      expect(received).toBe('/api/v1/profile/identity');
     } finally {
       await new Promise<void>((resolve, reject) =>
         server.close((error) => (error ? reject(error) : resolve())),

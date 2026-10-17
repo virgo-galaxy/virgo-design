@@ -2,7 +2,6 @@
 import { setupServer } from 'msw/node';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
-import { getAnalyticsOverview, getWorkplaceOverview } from '@/api/analytics';
 import { login, logout, resetDemo } from '@/api/auth';
 import { getNotifications, readAllNotifications, readNotification } from '@/api/notifications';
 import {
@@ -14,6 +13,7 @@ import {
   updateTaskStatus,
 } from '@/api/tasks';
 import { buildTokenUsageCalendar } from '@/pages/workplace/model/token-usage-calendar';
+import { readAnalytics, readWorkspace } from '@/test/reporting-data';
 
 import { demoStorageKey, getDemoState, resetDemoState, unloadDemoState } from '../data/store';
 import { initialTaskState } from '../fixtures/tasks';
@@ -51,7 +51,7 @@ describe('task collaboration notifications', () => {
       available: true,
       readAt: null,
     });
-    expect((await getAnalyticsOverview()).activity[0]).toMatchObject({
+    expect((await readAnalytics()).activity[0]).toMatchObject({
       taskTitle: task.title,
       action: 'submitted',
     });
@@ -121,9 +121,7 @@ describe('task collaboration notifications', () => {
     expect(
       history.every((record) => !('inputTokens' in record) && !('outputTokens' in record)),
     ).toBe(true);
-    expect((await getTaskMetadata()).referenceDate).toBe(
-      (await getWorkplaceOverview()).snapshot.date,
-    );
+    expect((await getTaskMetadata()).referenceDate).toBe((await readWorkspace()).snapshot.date);
     await signIn(manager === 'ava' ? 'leo' : 'ava');
     await expect(getTaskHistory(task.id)).rejects.toMatchObject({ status: 403 });
     await signIn('hana');
@@ -182,7 +180,7 @@ describe('task collaboration notifications', () => {
 describe('record-based reporting across years', () => {
   it('spans project histories, reconciles raw totals and scopes every person/project independently', async () => {
     await signIn('admin');
-    const workspace = await getWorkplaceOverview();
+    const workspace = await readWorkspace();
     expect(workspace.reportingScope).toBe('workspace');
     expect(workspace.reportingYears).toEqual([2025, 2026]);
     expect(sum(workspace.tokenUsage)).toBe(sum(workspace.tokenRecords));
@@ -202,7 +200,7 @@ describe('record-based reporting across years', () => {
     );
     for (const account of ['ava', 'leo', 'hana', 'noah']) {
       const session = await signIn(account);
-      const result = await getWorkplaceOverview();
+      const result = await readWorkspace();
       const expected = workspace.tokenRecords.filter((record) =>
         session.user.role === 'manager'
           ? session.user.managedProjects.includes(record.project)
@@ -211,36 +209,36 @@ describe('record-based reporting across years', () => {
       expect(result.tokenRecords).toEqual(expected);
       expect(sum(result.tokenUsage)).toBe(sum(expected));
       expect(sum(result.tokenUsage)).toBeLessThan(sum(workspace.tokenUsage));
-      expect(result.snapshot.user.id).toBe(account);
+      expect(result.snapshot).not.toHaveProperty('user');
     }
   });
   it('charges only successful changed operations, preserves ownership across reassignment and updates delivery counts', async () => {
     await signIn('hana');
-    const initial = await getWorkplaceOverview();
+    const initial = await readWorkspace();
     await getNotifications();
-    await getWorkplaceOverview();
-    await getAnalyticsOverview();
+    await readWorkspace();
+    await readAnalytics();
     await updateTaskStatus(task.id, 'todo');
-    expect(sum((await getWorkplaceOverview()).tokenUsage)).toBe(sum(initial.tokenUsage));
+    expect(sum((await readWorkspace()).tokenUsage)).toBe(sum(initial.tokenUsage));
     await expect(updateTaskStatus(task.id, 'done')).rejects.toMatchObject({ status: 403 });
-    expect(sum((await getWorkplaceOverview()).tokenUsage)).toBe(sum(initial.tokenUsage));
+    expect(sum((await readWorkspace()).tokenUsage)).toBe(sum(initial.tokenUsage));
     await updateTaskStatus(task.id, 'in_progress');
     await updateTaskStatus(task.id, 'in_review');
-    const submitted = await getWorkplaceOverview();
+    const submitted = await readWorkspace();
     expect(submitted.tokenRecords.filter((record) => !record.id.startsWith('seed-'))).toHaveLength(
       2,
     );
     expect(submitted.tokenRecords.every((record) => record.userId === 'hana')).toBe(true);
     expect(sum(submitted.tokenUsage)).toBeGreaterThan(sum(initial.tokenUsage));
     await signIn(manager);
-    const before = await getAnalyticsOverview();
+    const before = await readAnalytics();
     await updateTaskStatus(task.id, 'done');
-    const after = await getAnalyticsOverview();
+    const after = await readAnalytics();
     expect(after.trendPoints.reduce((sum, point) => sum + point.completed, 0)).toBe(
       before.trendPoints.reduce((sum, point) => sum + point.completed, 0) + 1,
     );
     await signIn('hana');
-    expect(sum((await getWorkplaceOverview()).tokenUsage)).toBe(sum(submitted.tokenUsage));
+    expect(sum((await readWorkspace()).tokenUsage)).toBe(sum(submitted.tokenUsage));
   });
   it('preserves edited legacy tasks while migrating old dates and resets receipts/read state with demo data', async () => {
     const seed = getDemoState();

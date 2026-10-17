@@ -1,12 +1,32 @@
-import type { ProfileDto, ProfileValidationCode } from '@/contracts/profile';
+import type {
+  ProfileIdentityDto,
+  ProfilePreferencesDto,
+  ProfileValidationCode,
+} from '@/contracts/profile';
 import type { ProjectDto as Project } from '@/contracts/projects';
-export type ProfileState = ProfileDto;
-export function validateProfile(profile: ProfileState, projects: readonly Project[]) {
-  const errors: Partial<Record<keyof ProfileState, ProfileValidationCode>> = {};
+export type ProfileIdentity = ProfileIdentityDto;
+export type ProfilePreferences = ProfilePreferencesDto;
+export function profileIdentity(profile: ProfileIdentityDto): ProfileIdentityDto {
+  const { name, headline, bio, avatarColor, avatarImage } = profile;
+  return { name, headline, bio, avatarColor, avatarImage };
+}
+export function profilePreferences(profile: ProfilePreferencesDto): ProfilePreferencesDto {
+  const { focusProject, digest, digestTime, reviewReminders, compactActivity } = profile;
+  return { focusProject, digest, digestTime, reviewReminders, compactActivity };
+}
+export function validateProfileIdentity(profile: ProfileIdentityDto) {
+  const errors: Partial<Record<keyof ProfileIdentityDto, ProfileValidationCode>> = {};
   if (!profile.name.trim() || profile.name.trim().length > 60) errors.name = 'nameInvalid';
   if (profile.headline.length > 100) errors.headline = 'headlineTooLong';
   if (profile.bio.length > 600) errors.bio = 'bioTooLong';
   if (!/^#[\da-f]{6}$/i.test(profile.avatarColor)) errors.avatarColor = 'colorInvalid';
+  return errors;
+}
+export function validateProfilePreferences(
+  profile: ProfilePreferencesDto,
+  projects: readonly Project[],
+) {
+  const errors: Partial<Record<keyof ProfilePreferencesDto, ProfileValidationCode>> = {};
   if (!projects.some((project) => project.id === profile.focusProject))
     errors.focusProject = 'projectInvalid';
   if (profile.digest && !/^([01]\d|2[0-3]):[0-5]\d$/.test(profile.digestTime))

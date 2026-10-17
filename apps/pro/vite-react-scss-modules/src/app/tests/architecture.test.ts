@@ -282,7 +282,7 @@ it('keeps model, domain and base modules independent of presentation, including 
       visited.add(dependency);
       const to = relative(root, dependency);
       expect(
-        /(^|\/)(pages|layout|components)\/|(?:Page|Presentation)\.tsx$|\/presentation\.tsx?$/.test(
+        /(^|\/)(pages|layout|components|presentation)\/|(?:Page|Presentation)\.tsx$|\/presentation\.tsx?$/.test(
           to,
         ),
         `${from} → ${to}`,

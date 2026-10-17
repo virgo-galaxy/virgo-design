@@ -18,14 +18,7 @@ export function useHandoffState() {
     setDraft((previous) => ({ ...previous, date, projectId }));
   }, []);
   const [stage, setStage] = useState(0);
-  const [receipts, setReceipts] = useState<Partial<Record<'success' | 'error', WorkflowReceipt>>>(
-    {},
-  );
-  const prepare = async (next = draft) => {
-    const receipt = await prepareHandoff(next);
-    setReceipts((previous) => ({ ...previous, [receipt.outcome]: receipt }));
-    return receipt;
-  };
+  const prepare = (next = draft) => prepareHandoff(next);
   const recover = (receipt: WorkflowReceipt) => {
     started.current = true;
     setDraft(handoffFromReceipt(receipt));
@@ -39,7 +32,7 @@ export function useHandoffState() {
     setStage(result.outcome === 'success' ? 2 : 1);
     return result;
   };
-  return { initialize, draft, setDraft, stage, setStage, receipts, prepare, recover, retry };
+  return { initialize, draft, setDraft, stage, setStage, prepare, recover, retry };
 }
 export const HandoffSessionContext = createContext<ReturnType<typeof useHandoffState> | null>(null);
 export function useHandoffSession() {

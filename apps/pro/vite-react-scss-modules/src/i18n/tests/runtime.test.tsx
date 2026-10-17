@@ -3,7 +3,7 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { I18nextProvider, useTranslation } from 'react-i18next';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { validateProfile } from '@/features/profile';
+import { validateProfileIdentity } from '@/features/profile';
 import {
   emptyTaskQuery,
   queryError,
@@ -14,7 +14,6 @@ import {
 } from '@/features/tasks';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { initialProfile } from '@/mock/fixtures/profile';
-import { projects } from '@/mock/fixtures/projects';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { sampleSuccess } from '@/mock/fixtures/workflows';
 import { proRouting, routePath } from '@/routes';
@@ -121,7 +120,7 @@ describe('pro locale runtime', () => {
       'High',
       'Urgent',
     ]);
-    const errors = validateProfile({ ...initialProfile, name: '' }, projects);
+    const errors = validateProfileIdentity({ ...initialProfile, name: '' });
     const error = queryError({ ...emptyTaskQuery, minimumHours: '-1' });
     expect(errors.name).toBe('nameInvalid');
     expect(error).toBe('invalidEstimate');

@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext } from 'react';
+import { createContext, useContext } from 'react';
 
 import type { ProjectDto } from '@/api/projects';
 import type { TaskMetadataDto } from '@/api/tasks';
@@ -22,12 +22,5 @@ export function useTaskCatalog() {
 }
 
 export function useCatalogData(revision: number) {
-  const load = useCallback(
-    (signal: AbortSignal) => {
-      void revision;
-      return loadCatalog(signal);
-    },
-    [revision],
-  );
-  return useRemoteData(load);
+  return useRemoteData(loadCatalog, { revision });
 }

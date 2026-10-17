@@ -5,7 +5,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router';
 import { afterAll, afterEach, beforeAll, beforeEach, expect, it, vi } from 'vitest';
 
 import { login } from '@/api/auth';
-import { ProfileResourceContext } from '@/features/profile';
+import { ProfileIdentityResourceContext } from '@/features/profile';
 import { AppShell } from '@/layout/shell/AppShell';
 import { clearAppearance } from '@/lib/theme/appearance';
 import { handlers } from '@/mock/handlers';
@@ -98,14 +98,14 @@ it('retains an account menu and a working restore control for hidden admin heade
 function renderShell() {
   return render(
     <TestSessionProvider>
-      <ProfileResourceContext
+      <ProfileIdentityResourceContext
         value={{
           data: null,
           error: null,
           loading: true,
           retry: () => {},
           setData: () => {},
-          saveProfile: async () => {},
+          saveIdentity: async () => {},
         }}
       >
         <RouterProvider
@@ -119,7 +119,7 @@ function renderShell() {
             { initialEntries: ['/work/tasks'] },
           )}
         />
-      </ProfileResourceContext>
+      </ProfileIdentityResourceContext>
     </TestSessionProvider>,
   );
 }

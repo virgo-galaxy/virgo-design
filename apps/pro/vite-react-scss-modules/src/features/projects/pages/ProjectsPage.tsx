@@ -3,7 +3,7 @@ import { Button, Input, Progress, Surface, Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router';
 
-import { getProjectOverviews } from '@/api/projects';
+import { getProjectSummaries } from '@/api/projects';
 import clipboardListArtwork from '@/assets/illustrations/clipboard-list.svg';
 import documentMagnifierArtwork from '@/assets/illustrations/document-magnifier.svg';
 import folderTargetArtwork from '@/assets/illustrations/folder-target.svg';
@@ -12,7 +12,7 @@ import { MultiFilterSelect } from '@/components/filters/MultiFilterSelect';
 import { NoResults } from '@/components/page/NoResults';
 import { Panel } from '@/components/page/Panel';
 import { WorkOverview } from '@/components/work-overview/WorkOverview';
-import type { ProjectOverviewDto } from '@/contracts/projects';
+import type { ProjectSummaryDto } from '@/contracts/projects';
 import { useCurrentUser } from '@/features/auth';
 import { Person } from '@/features/catalog';
 import { CatalogBoundary, useTaskCatalog } from '@/features/catalog';
@@ -38,7 +38,7 @@ function ProjectCard({
   returnTo,
 }: {
   project: Project;
-  summary: ProjectOverviewDto;
+  summary: ProjectSummaryDto;
   returnTo: string;
 }) {
   const user = useCurrentUser()!;
@@ -130,7 +130,7 @@ function ProjectCard({
   );
 }
 
-function ProjectsPageView({ summaries }: { summaries: ProjectOverviewDto[] }) {
+function ProjectsPageView({ summaries }: { summaries: ProjectSummaryDto[] }) {
   const { projects, metadata } = useTaskCatalog();
   const { members: taskAssignees } = metadata;
   const user = useCurrentUser()!;
@@ -265,9 +265,9 @@ function ProjectsPageView({ summaries }: { summaries: ProjectOverviewDto[] }) {
   );
 }
 
-const loadProjectOverviews = (signal: AbortSignal) => getProjectOverviews(undefined, signal);
+const loadProjectSummaries = (signal: AbortSignal) => getProjectSummaries(undefined, signal);
 function ProjectsResource() {
-  const resource = useTaskDependentQuery(loadProjectOverviews);
+  const resource = useTaskDependentQuery(loadProjectSummaries);
   if (!resource.data) return <RemoteState {...resource} />;
   return (
     <>

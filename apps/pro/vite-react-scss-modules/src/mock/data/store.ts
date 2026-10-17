@@ -1,8 +1,8 @@
 import type { TaskRecordDto } from '@/api/analytics';
 import { legacyProjectIds } from '@/api/projects';
 import type { TaskDto } from '@/api/tasks';
-import { isRecord } from '@/lib/http';
 import { localStorageAccess } from '@/lib/storage';
+import { isRecord } from '@/lib/validation/is-record';
 
 import { initialProfile } from '../fixtures/profile';
 import { projects } from '../fixtures/projects';

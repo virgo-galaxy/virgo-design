@@ -43,7 +43,7 @@ export function LoginPage({
     import.meta.env.VITE_API_MOCKING === 'true' ? 'virgo123' : '',
   );
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<'invalidCredentials' | 'failed' | ''>('');
   const selected = demo.data?.accounts.find((user) => user.account === account);
   useEffect(() => {
     document.title = `${t('auth.login.signIn')} · Virgo Design Pro`;
@@ -158,8 +158,8 @@ export function LoginPage({
                   .catch((failure) =>
                     setError(
                       isHttpError(failure) && failure.status === 401
-                        ? t('auth.login.invalidCredentials')
-                        : t('auth.login.failed'),
+                        ? 'invalidCredentials'
+                        : 'failed',
                     ),
                   )
                   .finally(() => setPending(false));
@@ -203,7 +203,7 @@ export function LoginPage({
               </Field>
               {error ? (
                 <p className={styles.error} role="alert">
-                  {error}
+                  {t(`auth.login.${error}`)}
                 </p>
               ) : null}
               <Button

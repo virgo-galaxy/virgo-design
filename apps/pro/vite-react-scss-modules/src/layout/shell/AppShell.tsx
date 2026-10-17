@@ -1,10 +1,4 @@
-import {
-  BellIcon,
-  MoonFilledIcon,
-  SearchIcon,
-  SunFilledIcon,
-  VirgoDesignIcon,
-} from '@virgo-design/icons';
+import { MoonFilledIcon, SearchIcon, SunFilledIcon, VirgoDesignIcon } from '@virgo-design/icons';
 import virgoDesignLogo from '@virgo-design/icons/brands/virgo-design.svg';
 import { iconComponents } from '@virgo-design/icons/registry';
 import {
@@ -15,7 +9,6 @@ import {
   Input,
   Layout,
   type LayoutSidebarDisplayState,
-  Popover,
   Separator,
   Tag,
   Toolbar,
@@ -29,14 +22,9 @@ import { LanguageControl } from '@/components/language-control/LanguageControl';
 import { ThemeStyleControl } from '@/components/theme-style-control/ThemeStyleControl';
 import { AiWorkspace } from '@/features/ai-workspace';
 import { useCurrentUser, useSession } from '@/features/auth';
-import { NotificationInbox, useNotificationInbox } from '@/features/notifications';
-import { useProfileResource } from '@/features/profile';
-import {
-  getFixedHeaderMaterial,
-  type NotificationIndicator,
-  sidebarWidthRanges,
-  useProSettings,
-} from '@/features/settings';
+import { NotificationControl } from '@/features/notifications';
+import { useProfileIdentityResource } from '@/features/profile';
+import { getFixedHeaderMaterial, sidebarWidthRanges, useProSettings } from '@/features/settings';
 import { SettingsDrawer, SettingsTrigger } from '@/features/settings/view';
 import { isAdmin } from '@/lib/auth/permissions';
 import { useThemeStyle } from '@/lib/theme/use-theme-style';
@@ -59,83 +47,6 @@ function HeaderSearch() {
   );
 }
 
-function Notifications({
-  showOverlayArrows,
-  indicator,
-}: {
-  showOverlayArrows: boolean;
-  indicator: NotificationIndicator;
-}) {
-  const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
-  const inbox = useNotificationInbox();
-  const [tooltipOpen, setTooltipOpen] = useState(false);
-  const tooltipSuppressed = useRef(false);
-  const restoringFocus = useRef(false);
-  const showFreshTooltip = () => {
-    if (!open && !restoringFocus.current && tooltipSuppressed.current) {
-      tooltipSuppressed.current = false;
-      setTooltipOpen(true);
-    }
-  };
-
-  return (
-    <Popover
-      open={open}
-      onOpenChange={(next) => {
-        tooltipSuppressed.current = true;
-        restoringFocus.current = !next;
-        setTooltipOpen(false);
-        setOpen(next);
-        if (next) inbox.retry();
-        if (!next)
-          queueMicrotask(() => {
-            restoringFocus.current = false;
-          });
-      }}
-    >
-      <Tooltip
-        open={tooltipOpen && !open}
-        onOpenChange={(next) => setTooltipOpen(next && !open && !tooltipSuppressed.current)}
-      >
-        <Tooltip.Trigger
-          onFocus={showFreshTooltip}
-          onPointerMove={(event) => {
-            if (event.pointerType === 'mouse' && (event.movementX !== 0 || event.movementY !== 0))
-              showFreshTooltip();
-          }}
-          render={(tooltipProps) => (
-            <Popover.Trigger
-              {...tooltipProps}
-              render={(props) => (
-                <Button {...props} iconOnly variant="text" aria-label={t('notifications.title')}>
-                  <Badge
-                    dot={indicator === 'dot' && Boolean(inbox.data?.unreadCount)}
-                    {...(indicator === 'count' ? { count: inbox.data?.unreadCount ?? 0 } : {})}
-                    intent="danger"
-                    className={styles.notificationBadge}
-                  >
-                    <BellIcon />
-                  </Badge>
-                </Button>
-              )}
-            />
-          )}
-        />
-        <Tooltip.Content placement="bottom">{t('notifications.title')}</Tooltip.Content>
-      </Tooltip>
-      <Popover.Content
-        className={styles.notificationPanel}
-        placement="bottomEnd"
-        aria-label={t('notifications.title')}
-        arrow={showOverlayArrows}
-      >
-        <NotificationInbox inbox={inbox} onNavigate={() => setOpen(false)} />
-      </Popover.Content>
-    </Popover>
-  );
-}
-
 export function AppShell({
   agentMode,
   onAgentModeChange,
@@ -147,7 +58,7 @@ export function AppShell({
   const user = useCurrentUser();
   const { resetDemo } = useSession();
   const admin = isAdmin(user);
-  const profileResource = useProfileResource();
+  const profileResource = useProfileIdentityResource();
   const profile = profileResource.data ?? {
     name: user!.name,
     displayName: user!.name,
@@ -374,7 +285,7 @@ export function AppShell({
                       </Tooltip.Content>
                     </Tooltip>
                     <ThemeStyleControl />
-                    <Notifications
+                    <NotificationControl
                       showOverlayArrows={settings.showOverlayArrows}
                       indicator={settings.notificationIndicator}
                     />

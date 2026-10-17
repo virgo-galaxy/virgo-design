@@ -2,14 +2,16 @@
 import { setupServer } from 'msw/node';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
-import { getAnalyticsOverview } from '@/api/analytics';
 import { enterDemoSession, getSession, logout, resetDemo } from '@/api/auth';
-import { getProfile, updateProfile } from '@/api/profile';
+import { updateProfileIdentity, updateProfilePreferences } from '@/api/profile';
+import { getTaskSummary } from '@/api/tasks';
 import { createTask, deleteTasks, getTask, getTasks, updateTask } from '@/api/tasks';
-import { getWorkflowHistory, prepareHandoff } from '@/api/workflows';
+import { getLatestWorkflow, prepareHandoff } from '@/api/workflows';
 import { taskDraft, validateTask } from '@/features/tasks';
 import { businessLabel } from '@/lib/demo/labels';
 import { clearDemoStorage } from '@/lib/demo/reset';
+import { readProfile } from '@/test/profile';
+import { readAnalytics } from '@/test/reporting-data';
 
 import { demoStorageKey, getDemoState, resetDemoState, unloadDemoState } from '../data/store';
 import { initialProfile } from '../fixtures/profile';
@@ -98,7 +100,8 @@ describe('local demonstration persistence', () => {
     const finished = await updateTask(task.id, { status: 'done', title: 'Saved completion' });
     const deleted = initialTaskState.tasks.find((task) => task.status !== 'done')!;
     await deleteTasks({ ids: [deleted.id] });
-    await updateProfile({ name: 'Saved Admin', digest: false });
+    await updateProfileIdentity({ name: 'Saved Admin' });
+    await updateProfilePreferences({ digest: false });
     const receipt = await prepareHandoff({
       title: 'Saved handoff',
       projectId: 'online-store',
@@ -116,19 +119,19 @@ describe('local demonstration persistence', () => {
     await enterDemoSession();
     expect(await getTask(task.id)).toEqual(finished);
     await expect(getTask(deleted.id)).rejects.toMatchObject({ status: 404 });
-    expect((await getProfile()).name).toBe('Saved Admin');
-    expect((await getWorkflowHistory()).success.reference).toBe(receipt.reference);
-    const analytics = await getAnalyticsOverview();
+    expect((await readProfile()).name).toBe('Saved Admin');
+    expect((await getLatestWorkflow('success')).reference).toBe(receipt.reference);
+    const analytics = await readAnalytics();
     const date = finished.completedAt!.slice(0, 10);
     expect(analytics.trendPoints.find((point) => point.date === date)?.completed).toBe(1);
-    expect((await getTasks()).overview).toMatchObject({ total: 240, completed: 81 });
+    expect(await getTaskSummary()).toMatchObject({ total: 240, completed: 81 });
     const next = await createTask({ ...taskDraft(finished), title: 'Next task' });
     expect(next.id).not.toBe(task.id);
   });
 
   it('clears only Pro data/settings and ends the session; re-entry restores the full seed', async () => {
     await deleteTasks({ ids: initialTaskState.tasks.slice(0, 3).map((task) => task.id) });
-    await updateProfile({ name: 'Changed' });
+    await updateProfileIdentity({ name: 'Changed' });
     localStorage.setItem('virgo-pro:settings:v1', 'custom');
     localStorage.setItem('virgo-pro.tasks-table.v1', 'custom');
     sessionStorage.setItem('virgo-pro.workspace.agent-mode', 'true');
@@ -145,7 +148,7 @@ describe('local demonstration persistence', () => {
     unloadDemoState();
     await enterDemoSession();
     expect((await getTasks()).total).toBe(240);
-    expect(await getProfile()).toEqual(initialProfile);
+    expect(await readProfile()).toEqual(initialProfile);
   });
 
   it('recovers safely from damaged, unsupported and inconsistent stored snapshots', () => {

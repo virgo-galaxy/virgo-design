@@ -32,7 +32,7 @@ export function WorkplaceWidget({
   const presenceRef = useRef<HTMLDivElement>(null);
   const open = state === 'expanded';
   const visible = state !== 'removing';
-  const toggleLabel = `${open ? 'Minimize' : 'Expand'} ${title}`;
+  const toggleLabel = t(open ? 'workplace.minimizeValue' : 'workplace.expandValue', { v0: title });
 
   useEffect(() => {
     if (visible || !presenceRef.current) return;

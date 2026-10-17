@@ -3,7 +3,7 @@ import { delay, http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, expect, it } from 'vitest';
 
-import { getProjectOverviews, getProjects } from '@/api/projects';
+import { getProjectModuleStats, getProjects, getProjectSummaries } from '@/api/projects';
 import { createTask, getTasks, updateTask, updateTaskStatus } from '@/api/tasks';
 import { moduleFilterKey, moduleName } from '@/features/catalog';
 import { demoStorageKey, getDemoState, unloadDemoState, updateDemoState } from '@/mock/data/store';
@@ -73,14 +73,18 @@ it('keeps relations and permissions stable through display-name changes and reso
   ).toEqual([moduleFilterKey('online-store', 'online-store-1')]);
 });
 it('serves bounded project summaries and synchronizes them with real saved completion', async () => {
-  const before = (await getProjectOverviews('online-store'))[0]!;
-  expect(before.tasks.length).toBeLessThanOrEqual(8);
+  const before = (await getProjectSummaries('online-store'))[0]!;
+  expect(
+    (await getTasks({ project: 'online-store', pageSize: 8 })).items.length,
+  ).toBeLessThanOrEqual(8);
   const task = (await getTasks({ project: 'online-store', status: 'todo' })).items[0]!;
   await updateTaskStatus(task.id, 'done');
-  const after = (await getProjectOverviews('online-store'))[0]!;
+  const after = (await getProjectSummaries('online-store'))[0]!;
   expect(after.completed).toBe(before.completed + 1);
   expect(after.open).toBe(before.open - 1);
-  expect(after.modules.reduce((total, item) => total + item.total, 0)).toBe(after.total);
+  expect(
+    (await getProjectModuleStats('online-store')).reduce((total, item) => total + item.total, 0),
+  ).toBe(after.total);
 });
 it('migrates version-2 name associations without losing task edits or history', () => {
   const saved = structuredClone(getDemoState());

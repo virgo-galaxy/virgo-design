@@ -1,10 +1,11 @@
 // @vitest-environment jsdom
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, expect, it, vi } from 'vitest';
 
 import { ProControlLabels } from '@/app/composition/providers/ProControlLabels';
+import { i18nInstance } from '@/i18n';
 import { handlers } from '@/mock/handlers';
 
 import { LoginPage } from './LoginPage';
@@ -20,6 +21,25 @@ beforeAll(() => {
 });
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
+
+it('keeps a failed sign-in message localized when the user changes language', async () => {
+  render(
+    <ProControlLabels>
+      <LoginPage onLogin={vi.fn()} expired={false} />
+    </ProControlLabels>,
+  );
+  fireEvent.change(screen.getByRole('textbox', { name: 'Account' }), {
+    target: { value: 'missing-account' },
+  });
+  fireEvent.change(screen.getByPlaceholderText('Enter your password'), {
+    target: { value: 'wrong-password' },
+  });
+  fireEvent.click(screen.getByRole('button', { name: 'Sign in to workspace' }));
+  const error = await screen.findByRole('alert');
+  expect(error).toHaveTextContent(i18nInstance.t('auth.login.invalidCredentials'));
+  await act(() => i18nInstance.changeLanguage('zh-CN'));
+  expect(error).toHaveTextContent(i18nInstance.t('auth.login.invalidCredentials'));
+});
 
 it('toggles password visibility by clicking the eye and pressing Enter without submitting', async () => {
   const onLogin = vi.fn();

@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { getNotifications } from '@/api/notifications';
 import { useRemoteData } from '@/shared/async/use-remote-data';
@@ -6,14 +6,7 @@ import { useRemoteData } from '@/shared/async/use-remote-data';
 import { useNotificationRevision } from '../context/revision';
 export function useNotificationInbox() {
   const revision = useNotificationRevision();
-  const load = useCallback(
-    (signal: AbortSignal) => {
-      void revision;
-      return getNotifications(signal);
-    },
-    [revision],
-  );
-  const resource = useRemoteData(load);
+  const resource = useRemoteData(getNotifications, { revision });
   const { retry } = resource;
   useEffect(() => {
     const refresh = () => retry();

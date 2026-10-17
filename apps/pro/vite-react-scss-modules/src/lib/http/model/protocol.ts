@@ -1,3 +1,5 @@
+import { isRecord } from '../../validation/is-record';
+
 export const API_SUCCESS_CODE = 0;
 export const API_SUCCESS_MSG = 'success';
 export interface ApiResponse<T> {
@@ -10,9 +12,6 @@ export interface ApiErrorData {
   fields?: Record<string, string[]>;
   source?: { file?: string; function?: string; line?: number };
   timestamp: string;
-}
-export function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 export function isApiResponse(value: unknown): value is ApiResponse<unknown> {
   return (

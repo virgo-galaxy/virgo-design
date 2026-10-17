@@ -65,6 +65,8 @@ export const workplaceZhCN = {
   valueValueOfValueOpenTasks: '{{v0}}：{{v2}} 个未完成任务中的 {{v1}} 个',
   valueOfOpenTasks: '占未完成任务的 {{v0}}%',
   today: '今天',
+  minimizeValue: '最小化{{v0}}',
+  expandValue: '展开{{v0}}',
   minimize: '最小化',
   expand: '展开',
   removeValue: '移除{{v0}}',

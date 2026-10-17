@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 
 import { UserGenderIcon } from '@/components/user-gender/UserGenderIcon';
 import { useCurrentUser, useSession } from '@/features/auth';
-import { avatarForeground, profileInitials, type ProfileState } from '@/features/profile';
+import { avatarForeground, type ProfileIdentity, profileInitials } from '@/features/profile';
 import { isAdmin } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/demo/labels';
 import { routePath } from '@/routes';
@@ -18,7 +18,7 @@ export function AccountMenu({
   agentMode,
   onAgentModeChange,
 }: {
-  profile: Pick<ProfileState, 'name' | 'displayName' | 'avatarColor' | 'avatarImage'>;
+  profile: Pick<ProfileIdentity, 'name' | 'displayName' | 'avatarColor' | 'avatarImage'>;
   agentMode: boolean;
   onAgentModeChange: (active: boolean) => void;
 }) {

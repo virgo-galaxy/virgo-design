@@ -5,6 +5,12 @@ import type { appEnUS } from './en-US';
 export const appZhCN = {
   globalActions: '全局操作',
   loadingPage: '正在加载页面…',
+  routeError: {
+    title: '暂时无法打开此页面',
+    description: '你可以打开其他页面，或重新加载后再试。',
+    reload: '重新加载页面',
+    home: '前往工作台',
+  },
   searchPlaceholder: '请输入搜索内容',
   pageNotFound: '页面未找到',
   restoreNavigation: '恢复导航',

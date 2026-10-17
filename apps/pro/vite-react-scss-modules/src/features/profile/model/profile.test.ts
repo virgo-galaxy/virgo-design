@@ -3,31 +3,30 @@ import { describe, expect, it } from 'vitest';
 import { initialProfile } from '@/mock/fixtures/profile';
 import { projects } from '@/mock/fixtures/projects';
 
-import { avatarFileError, avatarForeground, profileInitials, validateProfile } from './profile';
+import {
+  avatarFileError,
+  avatarForeground,
+  profileInitials,
+  validateProfileIdentity,
+  validateProfilePreferences,
+} from './profile';
 
 describe('profile identity and photo constraints', () => {
-  it('validates identity, color, project and enabled digest time', () => {
-    expect(validateProfile(initialProfile, projects)).toEqual({});
+  it('validates identity independently from project and notification preferences', () => {
+    expect(validateProfileIdentity(initialProfile)).toEqual({});
     expect(
-      validateProfile(
-        {
-          ...initialProfile,
-          name: ' ',
-          avatarColor: 'red',
-          focusProject: 'missing',
-          digestTime: '25:00',
-        },
+      validateProfileIdentity({ ...initialProfile, name: ' ', avatarColor: 'red' }),
+    ).toMatchObject({ name: 'nameInvalid', avatarColor: 'colorInvalid' });
+    expect(validateProfilePreferences(initialProfile, projects)).toEqual({});
+    expect(
+      validateProfilePreferences(
+        { ...initialProfile, focusProject: 'missing', digestTime: '25:00' },
         projects,
       ),
-    ).toMatchObject({
-      name: expect.any(String),
-      avatarColor: expect.any(String),
-      focusProject: expect.any(String),
-      digestTime: expect.any(String),
-    });
-    expect(validateProfile({ ...initialProfile, digest: false, digestTime: '' }, projects)).toEqual(
-      {},
-    );
+    ).toMatchObject({ focusProject: 'projectInvalid', digestTime: 'digestTimeInvalid' });
+    expect(
+      validateProfilePreferences({ ...initialProfile, digest: false, digestTime: '' }, projects),
+    ).toEqual({});
   });
   it('keeps initials legible for a single name, multiple words and an empty name', () => {
     expect(profileInitials('Example')).toBe('EX');

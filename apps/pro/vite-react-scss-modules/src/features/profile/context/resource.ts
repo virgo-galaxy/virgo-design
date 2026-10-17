@@ -1,37 +1,48 @@
 import { createContext, useCallback, useContext } from 'react';
 
-import { getProfile, type ProfileDto, updateProfile } from '@/api/profile';
+import {
+  getProfileIdentity,
+  getProfilePreferences,
+  type ProfileIdentityDto,
+  updateProfileIdentity,
+  type UpdateProfileIdentityRequest,
+  updateProfilePreferences,
+  type UpdateProfilePreferencesRequest,
+} from '@/api/profile';
 import { type RemoteData, useRemoteData } from '@/shared/async/use-remote-data';
-export const ProfileResourceContext = createContext<
-  | (RemoteData<ProfileDto> & {
-      saveProfile: (next: ProfileDto | ((previous: ProfileDto) => ProfileDto)) => Promise<void>;
+
+export const ProfileRevisionContext = createContext(0);
+export const ProfileIdentityResourceContext = createContext<
+  | (RemoteData<ProfileIdentityDto> & {
+      saveIdentity: (patch: UpdateProfileIdentityRequest) => Promise<void>;
     })
   | null
 >(null);
-export function useProfileResource() {
-  const value = useContext(ProfileResourceContext);
-  if (!value) throw new Error('Profile resource provider is required');
+export function useProfileIdentityResource() {
+  const value = useContext(ProfileIdentityResourceContext);
+  if (!value) throw new Error('Profile identity resource provider is required');
   return value;
 }
-
-export function useProfileData(revision: number) {
-  const load = useCallback(
-    (signal: AbortSignal) => {
-      void revision;
-      return getProfile(signal);
+export function useProfileIdentityData(revision: number) {
+  const resource = useRemoteData(getProfileIdentity, { revision });
+  const { setData } = resource;
+  const saveIdentity = useCallback(
+    async (patch: UpdateProfileIdentityRequest) => {
+      setData(await updateProfileIdentity(patch));
     },
-    [revision],
+    [setData],
   );
-  const profile = useRemoteData(load);
-  const { setData: setProfileData } = profile;
-  const saveProfile = useCallback(
-    async (next: ProfileDto | ((previous: ProfileDto) => ProfileDto)) => {
-      if (typeof next === 'function' && !profile.data)
-        throw new Error('Profile must be loaded before saving');
-      const saved = await updateProfile(typeof next === 'function' ? next(profile.data!) : next);
-      setProfileData(saved);
+  return { ...resource, saveIdentity };
+}
+export function useProfilePreferencesData() {
+  const revision = useContext(ProfileRevisionContext);
+  const resource = useRemoteData(getProfilePreferences, { revision });
+  const { setData } = resource;
+  const savePreferences = useCallback(
+    async (patch: UpdateProfilePreferencesRequest) => {
+      setData(await updateProfilePreferences(patch));
     },
-    [profile.data, setProfileData],
+    [setData],
   );
-  return { ...profile, saveProfile };
+  return { ...resource, savePreferences };
 }

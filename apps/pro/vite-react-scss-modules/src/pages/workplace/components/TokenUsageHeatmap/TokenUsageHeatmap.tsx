@@ -10,7 +10,10 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useWorkplaceData } from '../../data/workplace-context';
+import type { TokenUsageReportDto } from '@/contracts/analytics';
+import { ResourceContent } from '@/shared/async/ResourceContent';
+
+import { useTokenUsageResource } from '../../data/token-usage-context';
 import {
   buildTokenUsageCalendar,
   formatTokenCount,
@@ -82,24 +85,26 @@ const TokenUsageCell = memo(function TokenUsageCell({
   );
 });
 
-export function TokenUsageHeatmap({
+function TokenUsageHeatmapView({
   year: reportYear,
   onYearChange,
+  report,
 }: {
+  report: TokenUsageReportDto;
   year: number;
   onYearChange: (year: number) => void;
 }) {
-  const { tokenUsage, snapshot, reportingYears, reportingScope } = useWorkplaceData();
+  const { tokenUsage, referenceDate, reportingYears, reportingScope } = report;
   const { t, i18n } = useTranslation();
   const { year, days, weeks } = useMemo(
-    () => buildTokenUsageCalendar(snapshot.date, tokenUsage, reportYear),
-    [snapshot.date, tokenUsage, reportYear],
+    () => buildTokenUsageCalendar(referenceDate, tokenUsage, reportYear),
+    [referenceDate, tokenUsage, reportYear],
   );
   const usageLevel = useMemo(() => tokenUsageScale(days.map((day) => day.tokens)), [days]);
-  const [selectedDate, setSelectedDate] = useState(snapshot.date);
+  const [selectedDate, setSelectedDate] = useState(referenceDate);
   const focusedDate = selectedDate.startsWith(String(year))
     ? selectedDate
-    : year < Number(snapshot.date.slice(0, 4))
+    : year < Number(referenceDate.slice(0, 4))
       ? `${year}-12-31`
       : `${year}-01-01`;
   const [inspectedDate, setInspectedDate] = useState<string | null>(null);
@@ -248,5 +253,23 @@ export function TokenUsageHeatmap({
         </div>
       </Card.Body>
     </Card>
+  );
+}
+
+export function TokenUsageHeatmap(props: {
+  year: number | null;
+  onYearChange: (year: number) => void;
+}) {
+  const resource = useTokenUsageResource();
+  return (
+    <ResourceContent resource={resource}>
+      {(report) => (
+        <TokenUsageHeatmapView
+          report={report}
+          year={props.year ?? Number(report.referenceDate.slice(0, 4))}
+          onYearChange={props.onYearChange}
+        />
+      )}
+    </ResourceContent>
   );
 }

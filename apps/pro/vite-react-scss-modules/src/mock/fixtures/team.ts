@@ -1,5 +1,5 @@
-import type { MemberDto } from '@/api/tasks';
-import type { UserDetailsDto, UserGender, WorkLocationDto } from '@/api/users';
+import type { MemberDto } from '@/contracts/tasks';
+import type { UserDetailsDto, UserGender, WorkLocationDto } from '@/contracts/users';
 import {
   systemPresetAvatarManifest,
   type SystemPresetUserId,

@@ -15,7 +15,6 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useTaskCatalog } from '@/features/catalog';
 import { MutationFeedback } from '@/shared/async/MutationFeedback';
 import { useMutation } from '@/shared/async/use-mutation';
 import shared from '@/styles/product-layout.module.scss';
@@ -24,9 +23,10 @@ import type { profileEnUS } from '../../locales/en-US';
 import {
   avatarFileError,
   avatarForeground,
+  type ProfileIdentity,
+  profileIdentity,
   profileInitials,
-  type ProfileState,
-  validateProfile,
+  validateProfileIdentity,
 } from '../../model/profile';
 import styles from './ProfileEditor.module.scss';
 
@@ -36,16 +36,15 @@ export function ProfileEditor({
   onClose,
   restoreFocus,
 }: {
-  profile: ProfileState;
-  onSave: (profile: ProfileState) => Promise<void>;
+  profile: ProfileIdentity;
+  onSave: (profile: ProfileIdentity) => Promise<void>;
   onClose: () => void;
   restoreFocus: () => void;
 }) {
-  const { projects } = useTaskCatalog();
   const mutation = useMutation();
   const { t } = useTranslation();
-  const [draft, setDraft] = useState(profile);
-  const [errors, setErrors] = useState<ReturnType<typeof validateProfile>>({});
+  const [draft, setDraft] = useState(() => profileIdentity(profile));
+  const [errors, setErrors] = useState<ReturnType<typeof validateProfileIdentity>>({});
   const [discard, setDiscard] = useState(false);
   const [reading, setReading] = useState(false);
   const [photoName, setPhotoName] = useState('');
@@ -60,7 +59,7 @@ export function ProfileEditor({
       alive.current = false;
     };
   }, []);
-  const dirty = JSON.stringify(draft) !== JSON.stringify(profile);
+  const dirty = JSON.stringify(draft) !== JSON.stringify(profileIdentity(profile));
   const close = () => {
     if (dirty) setDiscard(true);
     else {
@@ -68,7 +67,7 @@ export function ProfileEditor({
       onClose();
     }
   };
-  const update = <Key extends keyof ProfileState>(key: Key, value: ProfileState[Key]) => {
+  const update = <Key extends keyof ProfileIdentity>(key: Key, value: ProfileIdentity[Key]) => {
     setDraft((previous) => ({ ...previous, [key]: value }));
     setDiscard(false);
     setErrors((previous) => {
@@ -117,7 +116,7 @@ export function ProfileEditor({
               className={styles.editorForm}
               onSubmit={(event) => {
                 event.preventDefault();
-                const invalid = validateProfile(draft, projects);
+                const invalid = validateProfileIdentity(draft);
                 setErrors(invalid);
                 if (Object.keys(invalid).length) {
                   requestAnimationFrame(() =>
@@ -129,7 +128,6 @@ export function ProfileEditor({
                   await onSave({
                     ...draft,
                     name: draft.name.trim(),
-                    displayName: draft.name.trim(),
                     headline: draft.headline.trim(),
                     bio: draft.bio.trim(),
                   });

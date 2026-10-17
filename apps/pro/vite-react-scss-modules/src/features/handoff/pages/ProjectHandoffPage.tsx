@@ -571,7 +571,7 @@ function HandoffResource() {
       id ? (await getTaskCollection({ project: id }, signal)).items : [],
     [id],
   );
-  const resource = useTaskDependentQuery(load);
+  const resource = useTaskDependentQuery(load, projectId);
   if (!resource.data) return <RemoteState {...resource} />;
   return (
     <>

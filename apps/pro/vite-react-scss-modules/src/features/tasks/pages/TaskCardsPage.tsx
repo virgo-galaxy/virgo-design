@@ -1,10 +1,7 @@
-import { SearchIcon } from '@virgo-design/icons';
-import { Button, Field, Form, Input, Pagination, Surface, Tag } from '@virgo-design/ui';
-import { useState } from 'react';
+import { Pagination, Surface, Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
-import { MultiFilterSelect } from '@/components/filters/MultiFilterSelect';
 import { NoResults } from '@/components/page/NoResults';
 import { Person } from '@/features/catalog';
 import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
@@ -14,26 +11,24 @@ import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { routePath, routeWithQuery } from '@/routes';
 import { RemoteState } from '@/shared/async/RemoteState';
 
+import { TaskCardFilters } from '../components/TaskCardFilters';
 import { TaskViews } from '../components/TaskViews';
 import { taskPageView } from '../data/queries';
 import { useTaskQuery } from '../hooks/use-task-query';
 import { useTaskSearchParams } from '../hooks/use-task-search-params';
 import { queryFromParams } from '../model/query-params';
-import { filterValues, taskStatuses } from '../model/task';
 import {
   taskPriorityIntent,
   taskStatusIntent,
   taskStatusLabelNames,
 } from '../presentation/task-presentation';
 import { taskDetailsPath } from '../routes/navigation';
-import styles from './TaskCardsPage.module.scss';
+import styles from '../styles/TaskCards.module.scss';
 
 function TaskCardsPageView() {
   const { t, i18n } = useTranslation();
-  const { projects, metadata } = useTaskCatalog();
-  const { projects: taskProjects } = metadata;
+  const { projects } = useTaskCatalog();
   const [params, setParams] = useTaskSearchParams();
-  const [search, setSearch] = useState(params.get('search') ?? '');
   const filters = queryFromParams(params);
   const requestedPage = Number(params.get('page'));
   const page = Number.isSafeInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
@@ -55,62 +50,19 @@ function TaskCardsPageView() {
     );
   };
   const reset = () => {
-    setSearch('');
     setParams({}, { replace: true });
   };
   return (
-    <TaskViews view="cards" overview={resource.data?.overview} loading={!resource.data}>
+    <TaskViews view="cards">
       <div className={styles.page} aria-busy={resource.loading}>
         <h1 className={styles.srOnly}>{t('app.tasks')}</h1>
         <Surface border="default" radius={12} className={styles.filters}>
-          <Form
-            className={styles.filterForm}
-            onSubmit={(event) => {
-              event.preventDefault();
-              change('search', search.trim());
-            }}
-          >
-            <Field>
-              <Field.Label>{t('tasks.searchTasks')}</Field.Label>
-              <Input
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder={t('tasks.searchTasksIdsDescriptionsOrPeople')}
-              />
-            </Field>
-            <MultiFilterSelect
-              label={t('tasks.status')}
-              value={filterValues(filters.status)}
-              placeholder={t('tasks.allStatuses')}
-              onChange={(value) => change('status', value)}
-              options={[
-                ...taskStatuses.map((status) => ({
-                  value: status,
-                  label: t(`tasks.statusLabels.${taskStatusLabelNames[status]}`),
-                })),
-              ]}
-            />
-            <MultiFilterSelect
-              label={t('tasks.project')}
-              value={filterValues(filters.project)}
-              placeholder={t('tasks.allProjects')}
-              onChange={(value) => change('project', value)}
-              options={[
-                ...taskProjects.map((project) => ({
-                  value: project,
-                  label: businessLabel(projectName(project, projects), i18n.language),
-                })),
-              ]}
-            />
-            <Button.Group>
-              <Button type="button" variant="outline" onClick={reset}>
-                {t('tasks.resetQuery')}
-              </Button>
-              <Button type="submit" leadingIcon={<SearchIcon />}>
-                {t('tasks.applyQuery')}
-              </Button>
-            </Button.Group>
-          </Form>
+          <TaskCardFilters
+            key={filters.search}
+            filters={filters}
+            onChange={change}
+            onReset={reset}
+          />
         </Surface>
         <Surface border="default" radius={12} className={styles.panel}>
           {resource.error || !view ? (

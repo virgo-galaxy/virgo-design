@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
 
 import { getTasks } from '@/api/tasks';
-import { getWorkflowHistory } from '@/api/workflows';
+import { getLatestWorkflow } from '@/api/workflows';
 import { Person } from '@/features/catalog';
 import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
 import type { WorkflowReceipt } from '@/features/handoff';
@@ -342,7 +342,7 @@ function ResultTasks({ receipt }: { receipt: WorkflowReceipt }) {
         : { items: [], total: 0 },
     [receipt.taskIds],
   );
-  const resource = useTaskDependentQuery(load);
+  const resource = useTaskDependentQuery(load, receipt.reference);
   if (!resource.data) return <RemoteState {...resource} />;
   return (
     <>
@@ -358,17 +358,14 @@ function ResultTasks({ receipt }: { receipt: WorkflowReceipt }) {
   );
 }
 function ResultResource({ outcome }: { outcome: 'success' | 'error' }) {
-  const session = useHandoffSession();
   const revision = useWorkflowRevision();
-  const receipt = session.receipts[outcome];
   const load = useCallback(
     async (signal: AbortSignal) => {
-      void revision;
-      return receipt ?? (await getWorkflowHistory(signal))[outcome];
+      return getLatestWorkflow(outcome, signal);
     },
-    [receipt, outcome, revision],
+    [outcome],
   );
-  const resource = useRemoteData(load);
+  const resource = useRemoteData(load, { key: outcome, revision });
   if (!resource.data) return <RemoteState {...resource} />;
   return (
     <>

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
 import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
 import { canCreateTask, isAdmin } from '@/lib/auth/permissions';
+import { downloadCsv } from '@/lib/browser/download';
 import { businessLabel } from '@/lib/demo/labels';
 import { routePath, routeWithQuery } from '@/routes';
 import { MutationFeedback } from '@/shared/async/MutationFeedback';
@@ -19,10 +20,7 @@ import { TaskFilters } from '../components/TaskFilters/TaskFilters';
 import { TaskTable } from '../components/TaskTable/TaskTable';
 import { TaskViews } from '../components/TaskViews';
 import {
-  defaultTaskPageSize,
   normalizeTaskPins,
-  taskColumnKeys,
-  type TaskDataColumn,
   type TaskTableSettings,
   visibleColumns,
 } from '../config/table-settings';
@@ -30,33 +28,15 @@ import { useTaskOperations } from '../data/operations';
 import { getAllTasks, taskPageView } from '../data/queries';
 import { useTaskTableSettings } from '../hooks/use-table-settings';
 import { useTaskQuery } from '../hooks/use-task-query';
-import { useTaskSearchParams } from '../hooks/use-task-search-params';
+import { useTaskTableQuery } from '../hooks/use-task-table-query';
 import { createTasksCsv } from '../model/export';
-import { emptyTaskQuery, queryFromParams, queryParams } from '../model/query-params';
-import { type TaskSort } from '../model/sort';
-import { filterValues, hasTaskFilters, type Task } from '../model/task';
+import { queryParams, type TaskQuery } from '../model/query-params';
+import { filterValues, type Task } from '../model/task';
 import { taskStatusLabelNames } from '../presentation/task-presentation';
 import { taskCreatePath, taskDetailsPath, taskEditPath } from '../routes/navigation';
 import taskActions from '../styles/TaskActions.module.scss';
 import styles from './TasksPage.module.scss';
 
-function readTaskListJson<T>(
-  value: string | null,
-  fallback: T,
-  validate: (value: Record<string, unknown>) => boolean,
-): T {
-  try {
-    const parsed: unknown = value ? JSON.parse(value) : null;
-    return parsed &&
-      typeof parsed === 'object' &&
-      !Array.isArray(parsed) &&
-      validate(parsed as Record<string, unknown>)
-      ? (parsed as T)
-      : fallback;
-  } catch {
-    return fallback;
-  }
-}
 function TasksPageView() {
   const { projects, metadata } = useTaskCatalog();
   const { members: taskAssignees } = metadata;
@@ -65,91 +45,32 @@ function TasksPageView() {
   const { t, i18n } = useTranslation();
   const mutation = useMutation();
   const navigate = useNavigate();
-  const [params, setParams] = useTaskSearchParams();
-  const linkedTask = params.get('task');
-  const filters = queryFromParams(params);
-  const currentParams = useRef(params);
-  currentParams.current = params;
-  const updateParam = (key: string, value: string | null) => {
-    const next = new URLSearchParams(currentParams.current);
-    if (value) next.set(key, value);
-    else next.delete(key);
-    currentParams.current = next;
-    setParams(next, { replace: true });
-  };
-  const [selection, setSelection] = useState<string[]>([]);
-  const requestedPage = Number(params.get('page'));
-  const page = Number.isSafeInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
-  const setPage = (value: number) => updateParam('page', value === 1 ? null : String(value));
-  const pageSize = [10, 20, 50, 100].includes(Number(params.get('pageSize')))
-    ? Number(params.get('pageSize'))
-    : defaultTaskPageSize;
-  const setPageSize = (value: number) => updateParam('pageSize', String(value));
+  const user = useCurrentUser();
   const {
     settings: tableSettings,
     setSettings: setTableSettings,
     storageAvailable,
-  } = useTaskTableSettings(isAdmin(useCurrentUser()));
-  const user = useCurrentUser();
+  } = useTaskTableSettings(isAdmin(user));
   const canManage = canCreateTask(user);
   const admin = isAdmin(user);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const settingsRef = useRef<HTMLButtonElement>(null);
-  const columnFilters = readTaskListJson<Partial<Record<TaskDataColumn, string[]>>>(
-    params.get('columnFilters'),
-    {},
-    (value) =>
-      Object.entries(value).every(
-        ([key, items]) =>
-          taskColumnKeys.includes(key as TaskDataColumn) &&
-          !['selection', 'rowNumber', 'actions'].includes(key) &&
-          Array.isArray(items) &&
-          items.every((item) => typeof item === 'string'),
-      ),
-  );
-  const columnSearch = readTaskListJson<Partial<Record<TaskDataColumn, string>>>(
-    params.get('columnSearch'),
-    {},
-    (value) =>
-      Object.entries(value).every(
-        ([key, item]) =>
-          taskColumnKeys.includes(key as TaskDataColumn) &&
-          !['selection', 'rowNumber', 'actions'].includes(key) &&
-          typeof item === 'string',
-      ),
-  );
-  const sort = readTaskListJson<TaskSort | null>(
-    params.get('sort'),
-    null,
-    (value) =>
-      taskColumnKeys.includes(value.column as TaskDataColumn) &&
-      !['selection', 'rowNumber', 'actions'].includes(String(value.column)) &&
-      ['none', 'ascending', 'descending'].includes(String(value.direction)),
-  );
-  const setColumnFilters = (
-    change:
-      | Partial<Record<TaskDataColumn, string[]>>
-      | ((
-          current: Partial<Record<TaskDataColumn, string[]>>,
-        ) => Partial<Record<TaskDataColumn, string[]>>),
-  ) =>
-    updateParam(
-      'columnFilters',
-      JSON.stringify(typeof change === 'function' ? change(columnFilters) : change),
-    );
-  const setColumnSearch = (
-    change:
-      | Partial<Record<TaskDataColumn, string>>
-      | ((
-          current: Partial<Record<TaskDataColumn, string>>,
-        ) => Partial<Record<TaskDataColumn, string>>),
-  ) =>
-    updateParam(
-      'columnSearch',
-      JSON.stringify(typeof change === 'function' ? change(columnSearch) : change),
-    );
-  const setSort = (value: TaskSort | null) =>
-    updateParam('sort', value ? JSON.stringify(value) : null);
+  const tableQuery = useTaskTableQuery(tableSettings);
+  const { params, filters, columnFilters, columnSearch, sort, pageSize, query, filtered } =
+    tableQuery;
+  // Selection spans pages of one matching set, never a different set restored through browser history.
+  const selectionKey = JSON.stringify([filters, columnFilters, columnSearch]);
+  const [selected, setSelected] = useState({ key: selectionKey, ids: [] as string[] });
+  const selection = selected.key === selectionKey ? selected.ids : [];
+  const setSelection = (change: string[] | ((current: string[]) => string[])) =>
+    setSelected((previous) => ({
+      key: selectionKey,
+      ids:
+        typeof change === 'function'
+          ? change(previous.key === selectionKey ? previous.ids : [])
+          : change,
+    }));
+  const linkedTask = params.get('task');
   const returnTo = routeWithQuery(routePath('tasks'), params);
   const [deleteIds, setDeleteIds] = useState<readonly string[] | null>(null);
   const [deletionFeedback, setDeletionFeedback] = useState<{ id: number; count: number } | null>(
@@ -173,82 +94,25 @@ function TasksPageView() {
       });
     }
   }, [linkedTask, params, navigate]);
-  const query = {
-    ...filters,
-    pageNum: page,
-    pageSize: tableSettings.pagination ? pageSize : 100,
-    ...(Object.values(columnFilters).some((values) => values.length)
-      ? { columnFilters: JSON.stringify(columnFilters) }
-      : {}),
-    ...(Object.values(columnSearch).some((value) => value.trim())
-      ? { columnSearch: JSON.stringify(columnSearch) }
-      : {}),
-    ...(sort && sort.direction !== 'none'
-      ? { sortBy: sort.column, sortDirection: sort.direction }
-      : {}),
-  };
-  const resource = useTaskQuery(query, !tableSettings.pagination);
+  const resource = useTaskQuery(query, tableSettings.pagination ? 'page' : 'collection');
   const visibleTasks = resource.data?.items ?? [];
   const pageView = resource.data
     ? taskPageView(resource.data)
     : { tasks: [], page: 1, range: [0, 0] as [number, number] };
   const matchingTotal = resource.data?.total ?? 0;
-  const changeFilters = (next: typeof filters) => {
-    const result = new URLSearchParams(currentParams.current);
-    for (const key of Object.keys(emptyTaskQuery)) result.delete(key);
-    for (const [key, value] of queryParams(next)) result.append(key, value);
-    result.delete('page');
-    currentParams.current = result;
-    setParams(result, { replace: true });
+  const changeFilters = (next: TaskQuery) => {
+    tableQuery.changeFilters(next);
     setSelection([]);
   };
-  const filtered =
-    Object.values(columnFilters).some((values) => values.length) ||
-    Object.values(columnSearch).some((value) => value.trim()) ||
-    hasTaskFilters(filters) ||
-    Boolean(
-      filters.createdFrom ||
-      filters.createdTo ||
-      filters.minimumHours ||
-      filterValues(filters.due).length,
-    );
   const changeTableSettings = (value: TaskTableSettings) => {
     const next = normalizeTaskPins(value);
-    const sortColumn = next.columns.find((column) => column.key === sort?.column);
-    if (
-      sort &&
-      (!sortColumn?.visible ||
-        !sortColumn.controls.sort.enabled ||
-        (sortColumn.controls.sort.mode !== 'both' &&
-          sortColumn.controls.sort.mode !== sort.direction))
-    )
-      setSort(null);
+    tableQuery.reconcileSettings(next);
     if (!next.selection) setSelection([]);
-    setColumnFilters((current) =>
-      Object.fromEntries(
-        Object.entries(current).filter(([key]) =>
-          next.columns.some(
-            (column) => column.key === key && column.visible && column.controls.filter,
-          ),
-        ),
-      ),
-    );
-    setColumnSearch((current) =>
-      Object.fromEntries(
-        Object.entries(current).filter(([key]) =>
-          next.columns.some(
-            (column) => column.key === key && column.visible && column.controls.search,
-          ),
-        ),
-      ),
-    );
-    if (next.pagination !== tableSettings.pagination) setPage(1);
     setTableSettings(next);
   };
   const resetFilters = () => {
-    setColumnFilters({});
-    setColumnSearch({});
-    changeFilters(emptyTaskQuery);
+    tableQuery.resetFilters();
+    setSelection([]);
   };
   const tableWidth = visibleColumns(tableSettings).reduce(
     (total, column) => total + column.width,
@@ -262,7 +126,7 @@ function TasksPageView() {
 
   return (
     <Toast.Provider>
-      <TaskViews view="table" overview={resource.data?.overview} loading={!resource.data}>
+      <TaskViews view="table">
         <div className={styles.tasksPage}>
           <h1 className={styles.srOnly}>{t('app.tasks')}</h1>
 
@@ -305,7 +169,7 @@ function TasksPageView() {
                       size={tableSettings.size}
                       className={taskActions.deleteButton}
                       leadingIcon={<TrashIcon />}
-                      disabled={selection.length === 0 || mutation.pending}
+                      disabled={selection.length === 0 || resource.loading || mutation.pending}
                       onClick={() => setDeleteIds([...selection])}
                     >
                       {t('tasks.deleteSelected')}
@@ -323,32 +187,18 @@ function TasksPageView() {
                         const rows = selection.length
                           ? matching.filter((task) => selection.includes(task.id))
                           : matching;
-                        const url = URL.createObjectURL(
-                          new Blob(
-                            [
-                              createTasksCsv(rows, taskAssignees, {
-                                status: (code) =>
-                                  t(`tasks.statusLabels.${taskStatusLabelNames[code]}`),
-                                priority: (code) => t(`tasks.priorityLabels.${code}`),
-                                text: (value: string) => businessLabel(value, i18n.language),
-                                project: (id: string) =>
-                                  businessLabel(projectName(id, projects), i18n.language),
-                                module: (projectId: string, id: string) =>
-                                  businessLabel(moduleName(projectId, id, projects), i18n.language),
-                              }),
-                            ],
-                            {
-                              type: 'text/csv;charset=utf-8',
-                            },
-                          ),
+                        downloadCsv(
+                          createTasksCsv(rows, taskAssignees, {
+                            status: (code) => t(`tasks.statusLabels.${taskStatusLabelNames[code]}`),
+                            priority: (code) => t(`tasks.priorityLabels.${code}`),
+                            text: (value: string) => businessLabel(value, i18n.language),
+                            project: (id: string) =>
+                              businessLabel(projectName(id, projects), i18n.language),
+                            module: (projectId: string, id: string) =>
+                              businessLabel(moduleName(projectId, id, projects), i18n.language),
+                          }),
+                          'virgo-tasks.csv',
                         );
-                        const link = document.createElement('a');
-                        link.href = url;
-                        link.download = 'virgo-tasks.csv';
-                        document.body.append(link);
-                        link.click();
-                        link.remove();
-                        setTimeout(() => URL.revokeObjectURL(url), 0);
                       });
                     }}
                   >
@@ -390,33 +240,26 @@ function TasksPageView() {
                 onSettingsChange={changeTableSettings}
                 columnFilters={columnFilters}
                 onColumnFilterChange={(key, values) => {
-                  setColumnFilters((current) => ({ ...current, [key]: values }));
-                  setPage(1);
+                  tableQuery.changeColumnFilter(key, values);
                   setSelection([]);
                 }}
                 columnSearch={columnSearch}
                 onColumnSearchChange={(key, value) => {
-                  setColumnSearch((current) => ({ ...current, [key]: value }));
-                  setPage(1);
+                  tableQuery.changeColumnSearch(key, value);
                   setSelection([]);
                 }}
                 selection={selection}
+                selectionDisabled={resource.loading}
                 onSelectionChange={setSelection}
                 assigneeFilter={filterValues(filters.assignee)}
                 onAssigneeFilterChange={(assignee) => changeFilters({ ...filters, assignee })}
                 sort={sort}
-                onSortChange={(next) => {
-                  setSort(next.direction === 'none' ? null : next);
-                  setPage(1);
-                }}
+                onSortChange={tableQuery.changeSort}
                 tasks={pageView.tasks}
                 matchingTotal={matchingTotal}
                 page={pageView.page}
                 pageSize={resource.data?.pageSize ?? pageSize}
-                onPageChange={(nextPage, nextPageSize) => {
-                  setPage(nextPage);
-                  setPageSize(nextPageSize);
-                }}
+                onPageChange={tableQuery.changePage}
                 filtered={filtered}
                 onOpen={openTask}
                 onEdit={(task, button) => openTask(task, button, 'edit')}

@@ -1,4 +1,4 @@
-import type { MemberDto, TaskPriorityDto, TaskRecordKind, TaskStatusDto } from '../tasks';
+import type { TaskRecordKind, TaskStatusDto } from '../tasks';
 export type { TaskRecordKind } from '../tasks';
 export interface TrendPointDto {
   date: string;
@@ -35,43 +35,23 @@ export interface TaskRecordDto {
   inputTokens: number;
   outputTokens: number;
 }
-export interface AnalyticsOverviewDto {
+export interface TaskStatusSummaryDto {
   taskCount: number;
   statusDistribution: { status: TaskStatusDto; count: number }[];
-  ownerCapacity: { memberId: string; count: number; hours: number }[];
-  trendPoints: TrendPointDto[];
-  projectDelivery: ProjectDeliveryDayDto[];
-  activity: ActivityDto[];
 }
-export interface ProjectDeliveryDayDto {
-  date: string;
-  deliveries: { projectId: string; completed: number }[];
+export interface OwnerCapacityDto {
+  memberId: string;
+  count: number;
+  hours: number;
 }
-export interface WorkplaceOverviewDto {
+export interface TokenUsageReportDto {
+  referenceDate: string;
   tokenUsage: TokenUsageDayDto[];
   tokenRecords: TaskRecordDto[];
   reportingYears: number[];
   reportingScope: 'workspace' | 'projects' | 'personal';
-  snapshot: {
-    date: string;
-    displayDate: string;
-    workspace: string;
-    user: MemberDto;
-    activeProjects: number;
-    openTasks: number;
-    teamMembers: number;
-    completionRate: number;
-  };
-  metrics: { value: number | string; icon: 'projects' | 'tasks' | 'members' | 'completion' }[];
-  recentTasks: {
-    id: string;
-    title: string;
-    project: string;
-    status: TaskStatusDto;
-    priority: TaskPriorityDto;
-    assignee: MemberDto;
-    due: string;
-  }[];
-  projectDistribution: { name: string; count: number; share: number; color: number }[];
-  announcements: { id: 'release' }[];
+}
+export interface ProjectDeliveryDayDto {
+  date: string;
+  deliveries: { projectId: string; completed: number }[];
 }

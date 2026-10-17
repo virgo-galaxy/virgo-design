@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router';
 
 import { legacyProjectIds, type ProjectDto } from '@/api/projects';
 import { moduleFilterKey, useTaskCatalog } from '@/features/catalog';
-import { isRecord } from '@/lib/http';
+import { isRecord } from '@/lib/validation/is-record';
 
 /** Preserve bookmarked name-based queries from the previous demonstration contract. */
 export function canonicalTaskParams(params: URLSearchParams, projects: readonly ProjectDto[]) {

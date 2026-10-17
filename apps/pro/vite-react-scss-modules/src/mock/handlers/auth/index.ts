@@ -2,7 +2,7 @@ import { http } from 'msw';
 
 import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
 import { resolveApiBaseUrl } from '@/lib/http';
-import { isRecord } from '@/lib/http';
+import { isRecord } from '@/lib/validation/is-record';
 
 import { createSession, requestUser, revokeSession } from '../../auth/session';
 import { demoAccounts, demoPassword } from '../../fixtures/accounts';

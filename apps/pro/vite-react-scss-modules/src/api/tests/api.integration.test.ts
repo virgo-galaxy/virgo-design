@@ -3,6 +3,8 @@ import { delay, http as mswHttp, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
+import { updateProfileIdentity, updateProfilePreferences } from '@/api/profile';
+import { getTaskSummary } from '@/api/tasks';
 import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
 import { getAllTasks } from '@/features/tasks';
 import { http, HttpError } from '@/lib/http';
@@ -11,9 +13,9 @@ import { initialTaskState, taskReferenceDate } from '@/mock/fixtures/tasks';
 import { handlers } from '@/mock/handlers';
 import { resetProfile } from '@/mock/handlers/profile';
 import { resetTasks } from '@/mock/handlers/tasks';
+import { readProfile } from '@/test/profile';
+import { readAnalytics, readWorkspace } from '@/test/reporting-data';
 
-import { getAnalyticsOverview, getWorkplaceOverview } from '../analytics';
-import { getProfile, updateProfile } from '../profile';
 import { getProjects } from '../projects';
 import {
   createTask,
@@ -90,7 +92,7 @@ describe('consumer → API → Axios → MSW', () => {
     expect(await deleteTasks({ ids: [...ids, ids[0]!] })).toEqual({ deletedIds: ids });
     const after = await getTasks({ pageNum: 100, pageSize: 10 });
     expect(after.total).toBe(before.total - 2);
-    expect(after.overview.total).toBe(before.overview.total - 2);
+    expect((await getTaskSummary()).total).toBe(before.total - 2);
     expect(after.items).toHaveLength(8);
     await expect(getTask(ids[0]!)).rejects.toMatchObject({ code: API_ERROR_CODES.TASK_NOT_FOUND });
     expect((await getAllTasks()).some((task) => ids.includes(task.id))).toBe(false);
@@ -147,7 +149,7 @@ describe('consumer → API → Axios → MSW', () => {
     });
     expect(matching.total).toBe(1);
     expect(matching.items[0]?.status).toBe('done');
-    expect(matching.overview.total).toBe(241);
+    expect((await getTaskSummary()).total).toBe(241);
   });
   it.each([
     ['status', 'In Progress'],
@@ -253,8 +255,8 @@ describe('consumer → API → Axios → MSW', () => {
     const [projects, metadata, analytics, profile] = await Promise.all([
       getProjects(),
       getTaskMetadata(),
-      getAnalyticsOverview(),
-      getProfile(),
+      readAnalytics(),
+      readProfile(),
     ]);
     expect(projects).toHaveLength(4);
     expect(metadata.members).toHaveLength(24);
@@ -272,18 +274,19 @@ describe('consumer → API → Axios → MSW', () => {
         analytics.trendPoints[index]!.completed,
       );
     }
-    const saved = await updateProfile({ name: 'Remote profile', digest: false });
+    const saved = await updateProfileIdentity({ name: 'Remote profile' });
+    await updateProfilePreferences({ digest: false });
     expect(saved.name).toBe('Remote profile');
     expect(saved.headline).toBe(profile.headline);
-    expect((await getProfile()).digest).toBe(false);
-    await expect(updateProfile({ focusProject: 'missing' })).rejects.toMatchObject({
+    expect((await readProfile()).digest).toBe(false);
+    await expect(updateProfilePreferences({ focusProject: 'missing' })).rejects.toMatchObject({
       code: API_ERROR_CODES.PROFILE_VALIDATION_FAILED,
       status: 422,
       data: { fields: { focusProject: expect.any(Array) } },
     });
     const task = await createTask(draft);
     await updateTaskStatus(task.id, 'done');
-    const workplace = await getWorkplaceOverview();
+    const workplace = await readWorkspace();
     expect(workplace.reportingYears).toEqual([2025, 2026]);
     expect(workplace.tokenUsage.length).toBeGreaterThan(1);
     expect(new Set(workplace.tokenUsage.map((day) => day.date)).size).toBe(
@@ -318,7 +321,7 @@ describe('consumer → API → Axios → MSW', () => {
       status: 'todo',
       priority: 'urgent',
     });
-    expect((await getWorkplaceOverview()).snapshot).toMatchObject({
+    expect((await readWorkspace()).snapshot).toMatchObject({
       activeProjects: 4,
       openTasks: initialTaskState.tasks.filter((item) => item.status !== 'done').length,
       teamMembers: 24,

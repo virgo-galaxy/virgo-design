@@ -8,6 +8,7 @@ import { projectsHandlers } from './projects';
 import { tasksHandlers } from './tasks';
 import { usersHandlers } from './users';
 import { workflowsHandlers } from './workflows';
+import { workspaceHandlers } from './workspace';
 export const handlers = [
   ...authHandlers,
   ...demoHandlers,
@@ -16,6 +17,7 @@ export const handlers = [
   ...usersHandlers,
   ...projectsHandlers,
   ...analyticsHandlers,
+  ...workspaceHandlers,
   ...notificationHandlers,
   ...profileHandlers,
   ...workflowsHandlers,

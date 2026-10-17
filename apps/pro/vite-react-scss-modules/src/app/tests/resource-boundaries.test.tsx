@@ -5,10 +5,10 @@ import { setupServer } from 'msw/node';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 import { afterAll, afterEach, beforeAll, beforeEach, expect, it } from 'vitest';
 
-import { getAnalyticsOverview } from '@/api/analytics';
+import { getDeliveryTrend } from '@/api/analytics';
 import { CatalogBoundary } from '@/features/catalog';
 import { useNotificationInbox } from '@/features/notifications';
-import { useProfileResource } from '@/features/profile';
+import { useProfileIdentityResource } from '@/features/profile';
 import { useTaskDependentQuery, useTaskOperations, useTaskQuery } from '@/features/tasks';
 import { loadTasksPage, loadTaskWorkspacePage } from '@/features/tasks/routes';
 import { i18nInstance } from '@/i18n';
@@ -64,9 +64,9 @@ function ChangeTask() {
 }
 function QueryProbe() {
   const tasks = useTaskQuery({ pageSize: 10 });
-  const analytics = useTaskDependentQuery(getAnalyticsOverview);
+  const analytics = useTaskDependentQuery(getDeliveryTrend);
   const notifications = useNotificationInbox();
-  const profile = useProfileResource();
+  const profile = useProfileIdentityResource();
   return (
     <>
       <output>
@@ -88,15 +88,18 @@ function QueryProbe() {
 it('opens tasks despite profile/report/workflow failures without preloading those pages', async () => {
   paths.length = 0;
   server.use(
-    ...['profile', 'analytics/overview', 'workplace/overview', 'workflows/latest'].map((path) =>
-      mswHttp.get(`/api/v1/${path}`, () => new HttpResponse(null, { status: 503 })),
-    ),
+    ...[
+      'profile/identity',
+      'analytics/delivery-trend',
+      'workspace/summary',
+      'workflows/latest',
+    ].map((path) => mswHttp.get(`/api/v1/${path}`, () => new HttpResponse(null, { status: 503 }))),
   );
   mount(<TasksPage />);
   expect(screen.getByText('Application shell ready')).toBeInTheDocument();
   await screen.findByRole('checkbox', { name: 'Select task 49e7996a-311b' });
-  expect(paths).not.toContain('/api/v1/analytics/overview');
-  expect(paths).not.toContain('/api/v1/workplace/overview');
+  expect(paths).not.toContain('/api/v1/analytics/delivery-trend');
+  expect(paths).not.toContain('/api/v1/workspace/summary');
   expect(paths).not.toContain('/api/v1/workflows/latest');
 });
 it('invalidates each mounted affected resource once after one mutation', async () => {
@@ -110,14 +113,14 @@ it('invalidates each mounted affected resource once after one mutation', async (
   fireEvent.click(screen.getByRole('button', { name: 'Change task' }));
   await waitFor(() => expect(paths.filter((path) => path === '/api/v1/tasks')).toHaveLength(1));
   await waitFor(() =>
-    expect(paths.filter((path) => path === '/api/v1/analytics/overview')).toHaveLength(1),
+    expect(paths.filter((path) => path === '/api/v1/analytics/delivery-trend')).toHaveLength(1),
   );
   await screen.findByText('Resources ready');
   expect(paths.filter((path) => path === '/api/v1/notifications')).toHaveLength(1);
   expect(paths.filter((path) => path === '/api/v1/tasks/metadata')).toHaveLength(1);
   expect(paths.filter((path) => path === '/api/v1/projects')).toHaveLength(1);
-  expect(paths).not.toContain('/api/v1/profile');
-  expect(paths).not.toContain('/api/v1/workplace/overview');
+  expect(paths).not.toContain('/api/v1/profile/identity');
+  expect(paths).not.toContain('/api/v1/workspace/summary');
 });
 it('retains the raw editor draft across locale changes and failed background refresh', async () => {
   mount(
@@ -165,7 +168,7 @@ it('refreshes only profile for a profile-only cross-tab storage change', async (
       new StorageEvent('storage', { key: 'virgo-pro.demo-data.v1', oldValue, newValue }),
     ),
   );
-  await waitFor(() => expect(paths).toEqual(['/api/v1/profile']));
+  await waitFor(() => expect(paths).toEqual(['/api/v1/profile/identity']));
 });
 
 it('opens project, profile and result views with scoped reads and bounded previews', async () => {
@@ -219,7 +222,11 @@ it('opens project, profile and result views with scoped reads and bounded previe
     expect((await screen.findAllByText(item.ready)).length).toBeGreaterThan(0);
     await waitFor(() =>
       expect(paths.filter((path) => path === '/api/v1/tasks')).toHaveLength(
-        item.path.startsWith('/profile') || item.path.startsWith('/result') ? 1 : 0,
+        item.path.startsWith('/profile') ||
+          item.path.startsWith('/result') ||
+          item.path === '/work/projects/online-store'
+          ? 1
+          : 0,
       ),
     );
     view.unmount();

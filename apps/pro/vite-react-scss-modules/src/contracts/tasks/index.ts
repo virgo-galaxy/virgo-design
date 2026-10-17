@@ -77,7 +77,6 @@ export interface TaskListDto {
   total: number;
   pageNum: number;
   pageSize: number;
-  overview: { total: number; inProgress: number; dueSoon: number; completed: number };
 }
 
 export interface TaskDeleteRequest {
@@ -120,3 +119,10 @@ export type TaskRecordKind =
   | 'updated'
   | 'deleted'
   | 'assisted';
+
+export interface TaskSummaryDto {
+  total: number;
+  inProgress: number;
+  dueSoon: number;
+  completed: number;
+}

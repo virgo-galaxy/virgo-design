@@ -2,7 +2,7 @@ import {
   TASK_PRIORITY_CODES as taskPriorities,
   TASK_STATUS_CODES as taskStatuses,
   type TaskDto as Task,
-} from '@/api/tasks';
+} from '@/contracts/tasks';
 
 export type TaskSortColumn =
   | 'completedAt'

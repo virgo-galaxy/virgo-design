@@ -4,28 +4,32 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import calendarChartArtwork from '@/assets/illustrations/calendar-chart.svg';
-import { projectName, useTaskCatalog } from '@/features/catalog';
+import type { TokenUsageReportDto } from '@/contracts/analytics';
+import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/demo/labels';
+import { ResourceContent } from '@/shared/async/ResourceContent';
 
-import { useWorkplaceData } from '../../data/workplace-context';
+import { useTokenUsageResource } from '../../data/token-usage-context';
 import { buildTokenUsageCalendar, formatTokenCount } from '../../model/token-usage-calendar';
 import styles from './TokenUsageCalendar.module.scss';
 
 const highUsageThreshold = 100000;
 
-export function TokenUsageCalendar({
+function TokenUsageCalendarView({
   year: reportYear,
   onYearChange,
+  report,
 }: {
+  report: TokenUsageReportDto;
   year: number;
   onYearChange: (year: number) => void;
 }) {
-  const { tokenUsage, snapshot, tokenRecords, reportingYears, reportingScope } = useWorkplaceData();
+  const { tokenUsage, referenceDate, tokenRecords, reportingYears, reportingScope } = report;
   const { projects, metadata } = useTaskCatalog();
   const taskAssignees = metadata.members;
   const { t, i18n } = useTranslation();
   const openingDate =
-    reportYear === Number(snapshot.date.slice(0, 4)) ? snapshot.date : `${reportYear}-12-31`;
+    reportYear === Number(referenceDate.slice(0, 4)) ? referenceDate : `${reportYear}-12-31`;
   const [selectedMonth, setMonth] = useState(openingDate.slice(0, 7));
   const month = selectedMonth.startsWith(String(reportYear))
     ? selectedMonth
@@ -36,8 +40,8 @@ export function TokenUsageCalendar({
     .filter((record) => record.recordedAt.slice(0, 10) === selected)
     .sort((a, b) => b.recordedAt.localeCompare(a.recordedAt));
   const { year, days } = useMemo(
-    () => buildTokenUsageCalendar(snapshot.date, tokenUsage, reportYear),
-    [snapshot.date, tokenUsage, reportYear],
+    () => buildTokenUsageCalendar(referenceDate, tokenUsage, reportYear),
+    [referenceDate, tokenUsage, reportYear],
   );
   const records = useMemo(() => new Map(days.map((day) => [day.date, day])), [days]);
   const total = days
@@ -264,5 +268,25 @@ export function TokenUsageCalendar({
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog>
+  );
+}
+
+export function TokenUsageCalendar(props: {
+  year: number | null;
+  onYearChange: (year: number) => void;
+}) {
+  const resource = useTokenUsageResource();
+  return (
+    <ResourceContent resource={resource}>
+      {(report) => (
+        <CatalogBoundary>
+          <TokenUsageCalendarView
+            report={report}
+            year={props.year ?? Number(report.referenceDate.slice(0, 4))}
+            onYearChange={props.onYearChange}
+          />
+        </CatalogBoundary>
+      )}
+    </ResourceContent>
   );
 }

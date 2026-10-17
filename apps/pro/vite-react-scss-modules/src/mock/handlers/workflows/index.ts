@@ -3,28 +3,26 @@ import { http } from 'msw';
 import type { HandoffRequest, WorkflowReceiptDto } from '@/api/workflows';
 import { API_ERROR_CODES } from '@/contracts/gateway/error-codes';
 import { canManageProject } from '@/lib/auth/permissions';
-import { isRecord } from '@/lib/http';
+import { isRecord } from '@/lib/validation/is-record';
 
 import { forbidden } from '../../auth/access';
 import { requestUser } from '../../auth/session';
 import { getDemoState, updateDemoState } from '../../data/store';
 import { projects } from '../../fixtures/projects';
 import { endpoint, failure, success } from '../../http/response';
-import { getBackendProfile } from '../profile';
-import { getBackendTasks } from '../tasks';
 export const workflowsHandlers = [
   http.get(endpoint('/workflows/latest'), ({ request }) => {
+    const outcome = new URL(request.url).searchParams.get('outcome');
+    if (outcome !== 'success' && outcome !== 'error')
+      return failure({
+        status: 400,
+        code: API_ERROR_CODES.INVALID_QUERY,
+        detail: 'Choose a workflow outcome',
+      });
     const user = requestUser(request)!;
-    return success(
-      Object.fromEntries(
-        Object.entries(getDemoState().workflows).map(([key, receipt]) => [
-          key,
-          user.role === 'admin' || user.projects.includes(receipt.projectId)
-            ? receipt
-            : { ...receipt, taskIds: [], projectId: '', requester: '' },
-        ]),
-      ),
-    );
+    const receipt = getDemoState().workflows[outcome];
+    if (user.role !== 'admin' && !user.projects.includes(receipt.projectId)) return forbidden();
+    return success(receipt);
   }),
   http.post(endpoint('/workflows/handoffs'), async ({ request }) => {
     let body: unknown;
@@ -63,7 +61,7 @@ export const workflowsHandlers = [
         detail: 'Invalid handoff',
       });
     const draft = body as unknown as HandoffRequest;
-    const tasks = getBackendTasks();
+    const tasks = getDemoState().tasks;
     const project = projects.find((p) => p.id === draft.projectId)!;
     const date = new Date(`${draft.date}T00:00:00Z`);
     if (
@@ -93,7 +91,7 @@ export const workflowsHandlers = [
       projectId: draft.projectId,
       taskIds: draft.taskIds,
       recordedAt: new Date().toISOString(),
-      requester: requestUser(request)?.name ?? getBackendProfile().name,
+      requester: requestUser(request)?.name ?? getDemoState().profile.name,
       audience: draft.audience,
       handoffTitle: draft.title.trim(),
       schedule: `${draft.date}T${draft.time}:00+08:00`,

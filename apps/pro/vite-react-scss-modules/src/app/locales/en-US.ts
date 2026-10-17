@@ -1,6 +1,12 @@
 export const appEnUS = {
   globalActions: 'Global actions',
   loadingPage: 'Loading page…',
+  routeError: {
+    title: 'Unable to open this page',
+    description: 'You can open another page or reload to try again.',
+    reload: 'Reload page',
+    home: 'Go to workplace',
+  },
   searchPlaceholder: 'Please search',
   pageNotFound: 'Page not found',
   restoreNavigation: 'Restore navigation',

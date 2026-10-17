@@ -12,10 +12,6 @@ export interface WorkflowReceiptDto {
   schedule?: string;
   notes?: string;
 }
-export interface WorkflowHistoryDto {
-  success: WorkflowReceiptDto;
-  error: WorkflowReceiptDto;
-}
 export interface HandoffRequest {
   title: string;
   projectId: string;

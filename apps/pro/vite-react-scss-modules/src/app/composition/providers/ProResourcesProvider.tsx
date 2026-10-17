@@ -3,7 +3,11 @@ import { type ReactNode, useCallback, useEffect, useState } from 'react';
 import { CatalogResourceContext, useCatalogData } from '@/features/catalog';
 import { WorkflowRevisionContext } from '@/features/handoff';
 import { NotificationRevisionContext } from '@/features/notifications';
-import { ProfileResourceContext, useProfileData } from '@/features/profile';
+import {
+  ProfileIdentityResourceContext,
+  ProfileRevisionContext,
+  useProfileIdentityData,
+} from '@/features/profile';
 import { TaskOperationsContext, TaskRevisionContext, useTaskCommands } from '@/features/tasks';
 import { demoDataStorageKey } from '@/lib/demo/data-events';
 import { localStorageAccess } from '@/lib/storage';
@@ -17,7 +21,7 @@ export function ProResourcesProvider({ children }: { children: ReactNode }) {
   const [notificationRevision, setNotificationRevision] = useState(0);
   const [workflowRevision, setWorkflowRevision] = useState(0);
   const catalog = useCatalogData(catalogRevision);
-  const profile = useProfileData(profileRevision);
+  const profile = useProfileIdentityData(profileRevision);
   const invalidateTasks = useCallback(() => {
     setTaskRevision((value) => value + 1);
     setCatalogRevision((value) => value + 1);
@@ -44,9 +48,11 @@ export function ProResourcesProvider({ children }: { children: ReactNode }) {
         <NotificationRevisionContext.Provider value={notificationRevision}>
           <WorkflowRevisionContext.Provider value={workflowRevision}>
             <CatalogResourceContext.Provider value={catalog}>
-              <ProfileResourceContext.Provider value={profile}>
-                {children}
-              </ProfileResourceContext.Provider>
+              <ProfileRevisionContext value={profileRevision}>
+                <ProfileIdentityResourceContext.Provider value={profile}>
+                  {children}
+                </ProfileIdentityResourceContext.Provider>
+              </ProfileRevisionContext>
             </CatalogResourceContext.Provider>
           </WorkflowRevisionContext.Provider>
         </NotificationRevisionContext.Provider>

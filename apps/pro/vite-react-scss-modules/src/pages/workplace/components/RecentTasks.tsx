@@ -4,19 +4,27 @@ import type { Ref } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { projectName, useTaskCatalog } from '@/features/catalog';
+import type { TaskDto } from '@/contracts/tasks';
+import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
 import { taskStatusIntent, taskStatusLabelNames } from '@/features/tasks';
+import { useTaskQuery } from '@/features/tasks';
 import { businessLabel } from '@/lib/demo/labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { routePath } from '@/routes';
+import { ResourceContent } from '@/shared/async/ResourceContent';
 
-import { useWorkplaceData } from '../data/workplace-context';
 import styles from './RecentTasks.module.scss';
 
-export function RecentTasks({ allTasksRef }: { allTasksRef: Ref<HTMLButtonElement> }) {
-  const { recentTasks, snapshot } = useWorkplaceData();
-  const tasks = recentTasks.slice(0, 5);
-  const { projects } = useTaskCatalog();
+function RecentTasksView({
+  allTasksRef,
+  tasks,
+}: {
+  allTasksRef: Ref<HTMLButtonElement>;
+  tasks: TaskDto[];
+}) {
+  const { projects, metadata } = useTaskCatalog();
+  const memberName = (id: string) =>
+    metadata.members.find((member) => member.id === id)?.name ?? id;
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
@@ -51,10 +59,10 @@ export function RecentTasks({ allTasksRef }: { allTasksRef: Ref<HTMLButtonElemen
                   {businessLabel(task.title, i18n.language)}
                 </strong>
                 <span
-                  title={`${businessLabel(projectName(task.project, projects), i18n.language)} · ${businessLabel(task.assignee.name, i18n.language)}`}
+                  title={`${businessLabel(projectName(task.project, projects), i18n.language)} · ${businessLabel(memberName(task.assignee), i18n.language)}`}
                 >
                   {businessLabel(projectName(task.project, projects), i18n.language)} ·{' '}
-                  {businessLabel(task.assignee.name, i18n.language)}
+                  {businessLabel(memberName(task.assignee), i18n.language)}
                 </span>
               </div>
               <div className={styles.compactTaskStatus}>
@@ -63,8 +71,8 @@ export function RecentTasks({ allTasksRef }: { allTasksRef: Ref<HTMLButtonElemen
                 </Tag>
               </div>
               <div className={styles.compactTaskDue}>
-                {task.due ? (
-                  <time dateTime={task.due}>{formatDueDate(task.due, i18n.language)}</time>
+                {task.dueDate ? (
+                  <time dateTime={task.dueDate}>{formatDueDate(task.dueDate, i18n.language)}</time>
                 ) : (
                   <span>{t('workplace.noDueDate')}</span>
                 )}
@@ -79,10 +87,23 @@ export function RecentTasks({ allTasksRef }: { allTasksRef: Ref<HTMLButtonElemen
       <Card.Footer className={styles.taskFooter}>
         <span>
           {t('workplace.aWorkspaceSnapshotOctober1', {
-            date: formatDueDate(snapshot.date, i18n.language),
+            date: formatDueDate(metadata.referenceDate, i18n.language),
           })}
         </span>
       </Card.Footer>
     </Card>
+  );
+}
+
+export function RecentTasks({ allTasksRef }: { allTasksRef: Ref<HTMLButtonElement> }) {
+  const resource = useTaskQuery({ pageSize: 5 });
+  return (
+    <ResourceContent resource={resource}>
+      {(data) => (
+        <CatalogBoundary>
+          <RecentTasksView tasks={data.items} allTasksRef={allTasksRef} />
+        </CatalogBoundary>
+      )}
+    </ResourceContent>
   );
 }

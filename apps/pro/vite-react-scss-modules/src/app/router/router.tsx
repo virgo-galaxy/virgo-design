@@ -5,11 +5,13 @@ import { LoginRoute, ProtectedLayout } from '@/layout';
 import { proRouteConfig, proRouting } from '@/routes';
 
 import { SessionProvider } from '../composition/providers/SessionProvider';
+import { RouteError } from './RouteError';
 import { LegacyRedirect, PageRoute } from './RouteViews';
 export function createAppRoutes(): RouteObject[] {
   return [
     {
       element: <SessionProvider />,
+      errorElement: <RouteError />,
       children: [
         { path: proRouteConfig.loginPath, element: <LoginRoute /> },
         {
@@ -30,6 +32,7 @@ export function createAppRoutes(): RouteObject[] {
               id: route.id,
               path: route.path,
               element: <PageRoute route={route} />,
+              errorElement: <RouteError />,
             })),
           ],
         },

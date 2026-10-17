@@ -37,13 +37,12 @@ function TaskWorkspacePageView({ mode }: { mode: 'create' | 'edit' | 'details' }
   const revision = useTaskRevision();
   const load = useCallback(
     async (signal: AbortSignal) => {
-      void revision;
       if (mode === 'create') return null;
       return getTask(id, signal);
     },
-    [id, mode, revision],
+    [id, mode],
   );
-  const resource = useRemoteData(load);
+  const resource = useRemoteData(load, { key: `${mode}:${id}`, revision });
   const user = useCurrentUser();
   if (mode === 'create')
     return canCreateTask(user) ? (
@@ -143,14 +142,8 @@ function TaskDetails({
   const revision = useTaskRevision();
   const user = useCurrentUser();
   const mutation = useMutation();
-  const load = useCallback(
-    (signal: AbortSignal) => {
-      void revision;
-      return getTaskHistory(task.id, signal);
-    },
-    [task.id, revision],
-  );
-  const history = useRemoteData(load);
+  const load = useCallback((signal: AbortSignal) => getTaskHistory(task.id, signal), [task.id]);
+  const history = useRemoteData(load, { key: task.id, revision });
   const project = projects.find((p) => p.id === task.project);
   const allowed = taskStatusChoices(user, task).filter((status) => status !== task.status);
   const actionName = (status: Task['status']) =>

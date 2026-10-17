@@ -1,14 +1,15 @@
-import type { TaskRecordDto } from '@/api/analytics';
-import type { NotificationDto } from '@/api/notifications';
-import type { ProfileDto } from '@/api/profile';
-import type { TaskDto } from '@/api/tasks';
-import type { WorkflowReceiptDto } from '@/api/workflows';
+import type { TaskRecordDto } from '@/contracts/analytics';
+import type { NotificationDto } from '@/contracts/notifications';
+import type { ProfileIdentityDto, ProfilePreferencesDto } from '@/contracts/profile';
+export type ProfileRecord = ProfileIdentityDto & ProfilePreferencesDto;
+import type { TaskDto } from '@/contracts/tasks';
+import type { WorkflowReceiptDto } from '@/contracts/workflows';
 export type StoredNotification = Omit<NotificationDto, 'available' | 'projectName'>;
 export interface DemoState {
   tasks: TaskDto[];
   nextId: number;
-  profile: ProfileDto;
-  profiles?: Record<string, ProfileDto>;
+  profile: ProfileRecord;
+  profiles?: Record<string, ProfileRecord>;
   workflows: { success: WorkflowReceiptDto; error: WorkflowReceiptDto };
   sequence: number;
   records: TaskRecordDto[];

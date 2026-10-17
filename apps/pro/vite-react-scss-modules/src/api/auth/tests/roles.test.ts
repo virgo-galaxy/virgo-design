@@ -3,9 +3,10 @@ import { http as mockHttp, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
-import { getWorkplaceOverview } from '@/api/analytics';
-import { getProfile, updateProfile } from '@/api/profile';
-import { getProjectOverviews, getProjects } from '@/api/projects';
+import { getOwnerCapacity, getProjectDelivery } from '@/api/analytics';
+import { updateProfileIdentity, updateProfilePreferences } from '@/api/profile';
+import { getProjects, getProjectSummaries } from '@/api/projects';
+import { getTaskSummary } from '@/api/tasks';
 import {
   createTask,
   deleteTasks,
@@ -15,10 +16,12 @@ import {
   updateTaskStatus,
 } from '@/api/tasks';
 import { prepareHandoff } from '@/api/workflows';
+import { getWorkspaceSummary } from '@/api/workspace';
 import { clearAuthSession, getAccessToken, sessionExpiredEvent } from '@/lib/auth/session';
 import { resetDemoState, unloadDemoState } from '@/mock/data/store';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { handlers } from '@/mock/handlers';
+import { readProfile } from '@/test/profile';
 
 import { getDemoAccounts, getSession, login, logout, resetDemo } from '..';
 const server = setupServer(...handlers);
@@ -58,13 +61,23 @@ describe('Bearer accounts and project permissions', () => {
       );
       const tasks = await getTasks({ pageSize: 100 });
       expect(tasks.total).toBe(expected.length);
-      expect(tasks.overview.total).toBe(expected.length);
+      expect((await getTaskSummary()).total).toBe(expected.length);
       expect(tasks.items.every((task) => session.user.managedProjects.includes(task.project))).toBe(
         true,
       );
       expect((await getProjects()).map((project) => project.id)).toEqual(
         session.user.managedProjects,
       );
+      const visibleProjects = await getProjects();
+      const memberIds = new Set(visibleProjects.flatMap((project) => project.memberIds));
+      expect((await getOwnerCapacity()).every((member) => memberIds.has(member.memberId))).toBe(
+        true,
+      );
+      expect(
+        (await getProjectDelivery()).every((day) =>
+          day.deliveries.every((project) => session.user.projects.includes(project.projectId)),
+        ),
+      ).toBe(true);
       const other = initialTaskState.tasks.find(
         (task) => !session.user.managedProjects.includes(task.project),
       )!;
@@ -79,8 +92,8 @@ describe('Bearer accounts and project permissions', () => {
     const expected = initialTaskState.tasks.filter((task) => task.assignee === 'hana');
     expect(tasks.total).toBe(expected.length);
     expect(tasks.items.every((task) => task.assignee === 'hana')).toBe(true);
-    expect((await getProfile()).name).toBe('Maya Singh');
-    expect((await getWorkplaceOverview()).snapshot.openTasks).toBe(
+    expect((await readProfile()).name).toBe('Maya Singh');
+    expect((await getWorkspaceSummary()).openTasks).toBe(
       expected.filter((task) => task.status !== 'done').length,
     );
     const task = expected.find((task) => task.status === 'todo')!;
@@ -98,7 +111,7 @@ describe('Bearer accounts and project permissions', () => {
       status: 403,
     });
     await expect(deleteTasks({ ids: [task.id] })).rejects.toMatchObject({ status: 403 });
-    expect((await updateProfile({ digest: false })).digest).toBe(false);
+    expect((await updateProfilePreferences({ digest: false })).digest).toBe(false);
     await expect(resetDemo()).rejects.toMatchObject({ status: 403 });
     await signIn(task.project === 'online-store' ? 'ava' : 'leo');
     expect((await updateTaskStatus(task.id, 'done')).status).toBe('done');
@@ -109,9 +122,9 @@ describe('Bearer accounts and project permissions', () => {
     const load = async () => (await getTasks({ project: project.id, pageSize: 100 })).items;
     const before = await load();
     const task = before.find((item) => item.status === 'in_review')!;
-    const summary = (await getProjectOverviews(project.id))[0]!;
+    const summary = (await getProjectSummaries(project.id))[0]!;
     await updateTaskStatus(task.id, 'done');
-    expect((await getProjectOverviews(project.id))[0]).toMatchObject({
+    expect((await getProjectSummaries(project.id))[0]).toMatchObject({
       completed: summary.completed + 1,
       open: summary.open - 1,
       review: summary.review - 1,
@@ -182,25 +195,26 @@ describe('Bearer accounts and project permissions', () => {
   });
   it('persists personal profiles independently across logout and browser-state reload', async () => {
     await signIn('hana');
-    await updateProfile({ name: 'Hana Studio', bio: 'Frontend delivery', digest: false });
+    await updateProfileIdentity({ name: 'Hana Studio', bio: 'Frontend delivery' });
+    await updateProfilePreferences({ digest: false });
     await logout();
     await signIn('leo');
-    expect((await getProfile()).name).toBe('Leo Martin');
-    await updateProfile({ bio: 'Project coordination' });
-    await expect(updateProfile({ focusProject: 'online-store' })).rejects.toMatchObject({
+    expect((await readProfile()).name).toBe('Leo Martin');
+    await updateProfileIdentity({ bio: 'Project coordination' });
+    await expect(updateProfilePreferences({ focusProject: 'online-store' })).rejects.toMatchObject({
       status: 422,
     });
     await logout();
     unloadDemoState();
     await signIn('hana');
-    expect(await getProfile()).toMatchObject({
+    expect(await readProfile()).toMatchObject({
       name: 'Hana Studio',
       displayName: 'Hana Studio',
       bio: 'Frontend delivery',
       digest: false,
     });
     await signIn('admin');
-    expect((await getProfile()).name).toBe('Administrator');
+    expect((await readProfile()).name).toBe('Administrator');
   });
   it('reports an invalid saved session as expired during bootstrap', async () => {
     const session = await signIn('hana');

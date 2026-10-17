@@ -12,6 +12,8 @@ import { routePath } from '@/routes';
 
 import { createAppRoutes } from '../router';
 
+const projectFailure = vi.hoisted(() => ({ current: false }));
+
 vi.mock('@/layout/shell/AppShell', async () => {
   const { Outlet } = await import('react-router');
   const { useSession } = await import('@/features/auth');
@@ -32,7 +34,12 @@ vi.mock('@/pages/workplace/WorkplacePage', () => ({
 }));
 vi.mock('@/features/projects/routes', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@/features/projects/routes')>()),
-  loadProjectDetailPage: async () => ({ default: () => <h1>Project route</h1> }),
+  loadProjectDetailPage: async () => ({
+    default: () => {
+      if (projectFailure.current) throw new Error('Broken project view');
+      return <h1>Project route</h1>;
+    },
+  }),
 }));
 vi.mock('@/pages/exceptions/ExceptionPage', () => ({
   ExceptionPage: ({ code }: { code: string }) => <h1>Exception {code}</h1>,
@@ -65,6 +72,7 @@ beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 afterAll(() => server.close());
 let router: ReturnType<typeof createMemoryRouter>;
 beforeEach(() => {
+  projectFailure.current = false;
   localStorage.clear();
   sessionStorage.clear();
   clearAppearance();
@@ -73,6 +81,25 @@ beforeEach(() => {
     addEventListener() {},
     removeEventListener() {},
   }));
+});
+
+it('isolates a broken page while keeping the authenticated shell and home navigation usable', async () => {
+  const errors = vi.spyOn(console, 'error').mockImplementation(() => {});
+  try {
+    await login({ account: 'admin', password: 'virgo123' });
+    projectFailure.current = true;
+    start(routePath('project-detail', { projectId: 'online-store' }));
+    await screen.findByText('Unable to open this page');
+    expect(screen.getByRole('button', { name: 'Sign out' })).toBeInTheDocument();
+    expect(screen.queryByText('Broken project view')).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Reload page' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Go to workplace' }));
+    await screen.findByRole('heading', { name: 'Workplace route' });
+    expect(router.state.location.pathname).toBe(routePath('workplace'));
+  } finally {
+    projectFailure.current = false;
+    errors.mockRestore();
+  }
 });
 afterEach(() => {
   router?.dispose();

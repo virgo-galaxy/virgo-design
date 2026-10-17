@@ -4,10 +4,4 @@ export { prepareHttpRequest, setHttpPreparation } from './client/preparation';
 export type { HttpErrorKind } from './model/error';
 export { HttpError, isHttpError } from './model/error';
 export type { ApiErrorData, ApiResponse } from './model/protocol';
-export {
-  API_SUCCESS_CODE,
-  API_SUCCESS_MSG,
-  isApiErrorData,
-  isApiResponse,
-  isRecord,
-} from './model/protocol';
+export { API_SUCCESS_CODE, API_SUCCESS_MSG, isApiErrorData, isApiResponse } from './model/protocol';

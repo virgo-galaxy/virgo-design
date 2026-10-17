@@ -1,5 +1,13 @@
 // @vitest-environment jsdom
-import { createEvent, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import {
+  act,
+  createEvent,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { createMemoryRouter, Outlet, RouterProvider } from 'react-router';
@@ -13,7 +21,7 @@ import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';
 import { TestSessionProvider } from '@/test/TestSessionProvider';
 
-import { taskTableStorageKey } from '../hooks/use-table-settings';
+import { taskTableStorageKey } from '../model/table-preferences';
 import { TaskCardsPage } from './TaskCardsPage';
 import { TasksPage } from './TasksPage';
 import { TaskWorkspacePage } from './TaskWorkspacePage';
@@ -24,38 +32,41 @@ beforeEach(() => {
   resetTasks();
   window.localStorage.removeItem(taskTableStorageKey);
 });
-afterEach(() => server.resetHandlers());
+const routers: ReturnType<typeof createMemoryRouter>[] = [];
+afterEach(() => {
+  server.resetHandlers();
+  for (const router of routers.splice(0)) router.dispose();
+});
 afterAll(() => server.close());
 
 function Page() {
   return <TasksPage />;
 }
 function renderPage(path = '/work/tasks') {
-  render(
-    <RouterProvider
-      router={createMemoryRouter(
-        [
-          {
-            element: (
-              <TestSessionProvider>
-                <ProResourcesProvider>
-                  <Outlet />
-                </ProResourcesProvider>
-              </TestSessionProvider>
-            ),
-            children: [
-              { path: '/work/tasks', element: <Page /> },
-              { path: '/work/task-cards', element: <TaskCardsPage /> },
-              { path: '/work/tasks/new', element: <TaskWorkspacePage mode="create" /> },
-              { path: '/work/tasks/:id', element: <TaskWorkspacePage mode="details" /> },
-              { path: '/work/tasks/:id/edit', element: <TaskWorkspacePage mode="edit" /> },
-            ],
-          },
+  const router = createMemoryRouter(
+    [
+      {
+        element: (
+          <TestSessionProvider>
+            <ProResourcesProvider>
+              <Outlet />
+            </ProResourcesProvider>
+          </TestSessionProvider>
+        ),
+        children: [
+          { path: '/work/tasks', element: <Page /> },
+          { path: '/work/task-cards', element: <TaskCardsPage /> },
+          { path: '/work/tasks/new', element: <TaskWorkspacePage mode="create" /> },
+          { path: '/work/tasks/:id', element: <TaskWorkspacePage mode="details" /> },
+          { path: '/work/tasks/:id/edit', element: <TaskWorkspacePage mode="edit" /> },
         ],
-        { initialEntries: [path] },
-      )}
-    />,
+      },
+    ],
+    { initialEntries: [path] },
   );
+  routers.push(router);
+  render(<RouterProvider router={router} />);
+  return router;
 }
 
 describe('Task row actions and batch deletion', () => {
@@ -383,7 +394,6 @@ it('disabling pagination exposes the entire task collection rather than only the
           snapshotId: 'test-snapshot',
           pageNum,
           pageSize,
-          overview: { total: records.length, inProgress: 0, completed: 0, dueSoon: 0 },
         },
       });
     }),
@@ -813,4 +823,49 @@ it('sets left/right fixed ranges through pin menus and updates sticky offsets af
   expect(table.querySelector('td[data-column-key="completedAt"]')).toHaveStyle({
     insetInlineEnd: '250px',
   });
+});
+
+it('updates the card search draft when browser navigation restores a different query on the same route', async () => {
+  const router = renderPage('/work/task-cards?search=49e7996a-311b');
+  expect(await screen.findByRole('textbox', { name: 'Search tasks' })).toHaveValue('49e7996a-311b');
+  await act(() => router.navigate('/work/task-cards?search=restored'));
+  expect(screen.getByRole('textbox', { name: 'Search tasks' })).toHaveValue('restored');
+});
+it('does not retain actionable selections when browser navigation changes the matching task set', async () => {
+  const router = renderPage();
+  fireEvent.click(await screen.findByRole('checkbox', { name: 'Select task 49e7996a-311b' }));
+  expect(screen.getByRole('button', { name: 'Delete' })).toBeEnabled();
+  await act(() => router.navigate('/work/tasks?status=in_review'));
+  expect(screen.getByRole('button', { name: 'Delete' })).toBeDisabled();
+});
+
+it('prevents selecting retained rows during a different query and recovers after a failed read', async () => {
+  const router = renderPage();
+  const first = await screen.findByRole('checkbox', { name: 'Select task 49e7996a-311b' });
+  let release!: () => void;
+  const pending = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  server.use(
+    http.get('/api/v1/tasks', async () => {
+      await pending;
+      return new HttpResponse(null, { status: 503 });
+    }),
+  );
+  try {
+    await act(() => router.navigate('/work/tasks?status=in_review'));
+    expect(first).toBeInTheDocument();
+    expect(first).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Delete' })).toBeDisabled();
+    release();
+    await screen.findByText('Unable to load data');
+    expect(first).not.toBeInTheDocument();
+    server.resetHandlers();
+    fireEvent.click(screen.getByRole('button', { name: 'Retry' }));
+    await waitFor(() =>
+      expect(screen.getAllByRole('checkbox', { name: /^Select task / })[0]).toBeEnabled(),
+    );
+  } finally {
+    release();
+  }
 });

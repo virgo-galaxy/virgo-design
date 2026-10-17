@@ -7,7 +7,7 @@ import { analyticsSnapshot } from '@/mock/fixtures/analytics';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { members } from '@/mock/fixtures/workplace';
 
-import { AnalyticsPageView } from './AnalyticsPage';
+import { OwnerCapacityPanel } from '../components/OwnerCapacityPanel';
 
 vi.mock('@virgo-design/charts', () => ({
   Chart: Object.fromEntries(
@@ -37,7 +37,7 @@ it('pages through all owners with continuous ranks, colored effort bars and a sh
         setData: vi.fn(),
       }}
     >
-      <AnalyticsPageView overview={analyticsSnapshot(initialTaskState.tasks)} />
+      <OwnerCapacityPanel capacity={analyticsSnapshot(initialTaskState.tasks).ownerCapacity} />
     </CatalogResourceContext.Provider>,
   );
   const owners = members
