@@ -187,7 +187,7 @@ function ProfileContent({
                         {t(manager ? 'profile.maintainProjectDirection' : 'profile.yourProjects')}
                       </h3>
                       <p>{t('profile.projectScope', { count: projects.length })}</p>
-                      <Link className={shared.link} to={routePath('projects')}>
+                      <Link className={shared.link} to={routePath('work.projects')}>
                         {t('profile.projectPortfolio')}
                       </Link>
                     </div>
@@ -211,7 +211,10 @@ function ProfileContent({
                         )}
                       </h3>
                       <p>{t('profile.reviewOwnershipAndTheNotesBehindPendingWork')}</p>
-                      <Link className={shared.link} to={routePath('tasks') + '?status=in_review'}>
+                      <Link
+                        className={shared.link}
+                        to={routePath('work.tasks') + '?status=in_review'}
+                      >
                         {t('profile.reviewQueue')}
                       </Link>
                     </div>
@@ -233,7 +236,7 @@ function ProfileContent({
                       <div>
                         <h3>{t('profile.yourTaskQueue')}</h3>
                         <p>{t('profile.moveYourWorkForward')}</p>
-                        <Link className={shared.link} to={routePath('tasks')}>
+                        <Link className={shared.link} to={routePath('work.tasks')}>
                           {t('projects.viewTasks')}
                         </Link>
                       </div>

@@ -40,7 +40,7 @@ function RecentTasksView({
           variant="text"
           size="medium"
           trailingIcon={<ArrowRightIcon />}
-          onClick={() => navigate(routePath('tasks'))}
+          onClick={() => navigate(routePath('work.tasks'))}
         >
           {t('workplace.allTasks')}
         </Button>

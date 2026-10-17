@@ -19,7 +19,7 @@ import { useRemoteData } from '@/hooks/use-remote-data';
 import { businessLabel } from '@/lib/demo/labels';
 import { isHttpError } from '@/lib/http';
 import { useAppPreferences } from '@/preferences';
-import { routePaths } from '@/routes';
+import { proRouteConfig, routePath } from '@/routes';
 
 import styles from './LoginForm.module.scss';
 
@@ -56,7 +56,7 @@ export function LoginForm({
     <Tooltip.Provider>
       <main className={styles.page}>
         <header className={styles.header}>
-          <a href={routePaths.root} className={styles.brand}>
+          <a href={routePath(proRouteConfig.home)} className={styles.brand}>
             <img src={virgoLogo} alt="" />
             <strong>Virgo Design</strong>
             <Tag intent="brand" variant="soft">

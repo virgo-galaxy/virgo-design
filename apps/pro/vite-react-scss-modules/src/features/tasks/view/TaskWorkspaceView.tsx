@@ -94,13 +94,13 @@ function BackLink({ to }: { to: string }) {
     <Link className={styles.back} to={to}>
       <ArrowLeftIcon />
       {t(
-        [routePath('success'), routePath('error')].includes(to)
+        [routePath('result.success'), routePath('result.error')].includes(to)
           ? 'tasks.workspace.backToResult'
-          : to.startsWith(routePath('task-cards'))
+          : to.startsWith(routePath('work.task-cards'))
             ? 'tasks.workspace.backToCards'
-            : to.startsWith(routePath('projects') + '/')
+            : to.startsWith(routePath('work.projects') + '/')
               ? 'tasks.workspace.backToProject'
-              : to.startsWith(routePath('projects'))
+              : to.startsWith(routePath('work.projects'))
                 ? 'projectDetails.backToProjects'
                 : 'tasks.workspace.backToList',
       )}
@@ -338,7 +338,7 @@ function TaskDetails({
               <dt>{t('tasks.project')}</dt>
               <dd>
                 {project ? (
-                  <Link to={routePath('project-detail', { projectId: project.id })}>
+                  <Link to={routePath('work.projects.[projectId]', { projectId: project.id })}>
                     {businessLabel(projectName(task.project, projects), i18n.language)}
                   </Link>
                 ) : (

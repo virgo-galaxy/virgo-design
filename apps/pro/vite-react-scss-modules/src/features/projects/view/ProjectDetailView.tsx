@@ -46,9 +46,9 @@ function ProjectDetailContent({
 
   const candidate = params.get('returnTo');
   const portfolioPath =
-    candidate && new RegExp('^' + routePath('projects') + '(?:\\?[^#]*)?$').test(candidate)
+    candidate && new RegExp('^' + routePath('work.projects') + '(?:\\?[^#]*)?$').test(candidate)
       ? candidate
-      : routePath('projects');
+      : routePath('work.projects');
   const project = projects.find((item) => item.id === projectId);
 
   if (!project)
@@ -91,7 +91,7 @@ function ProjectDetailContent({
                 value={project.id}
                 onChange={(id) =>
                   navigate(
-                    routePath('project-detail', { projectId: id }) +
+                    routePath('work.projects.[projectId]', { projectId: id }) +
                       '?returnTo=' +
                       encodeURIComponent(portfolioPath),
                   )

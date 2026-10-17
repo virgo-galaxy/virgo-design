@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 import { useCurrentUser } from '@/features/auth';
 import type { SidebarStyle } from '@/preferences';
-import { canVisitPage, proRouting } from '@/routes';
+import { canVisitRoute, proRouting } from '@/routes';
 
 import { navigationGroups as baseNavigationGroups } from './navigation';
 import styles from './SidebarNavigation.module.scss';
@@ -33,7 +33,7 @@ export function SidebarNavigation({
       ...group,
       label: t(group.labelKey),
       pages: group.pages
-        .filter((page) => canVisitPage(user, page.page))
+        .filter((page) => canVisitRoute(user, page.key))
         .map((page) => ({ ...page, label: t(page.labelKey) })),
     }))
     .filter((group) => group.pages.length);
@@ -59,12 +59,7 @@ export function SidebarNavigation({
       key={collapsed ? 'compact' : 'expanded'}
       orientation="vertical"
       submenu={collapsed ? 'popover' : 'inline'}
-      value={
-        currentPage?.activePage
-          ? (proRouting.routes.find((route) => route.page === currentPage.activePage)?.path ??
-            pathname)
-          : (currentPage?.path ?? pathname)
-      }
+      value={currentPage?.activeMenu ?? currentPage?.key ?? pathname}
       className={styles.navigation}
       data-compact={collapsed}
       data-rail-icon-size={railIconSize}
@@ -75,8 +70,8 @@ export function SidebarNavigation({
           const labelId = `${menuId}-${group.id}-label`;
           const destinations = group.pages.map((page) => (
             <NavigationMenu.Item
-              key={page.id}
-              value={page.path}
+              key={page.key}
+              value={page.key}
               {...(page.icon ? { icon: <page.icon /> } : {})}
             >
               <NavigationMenu.Link

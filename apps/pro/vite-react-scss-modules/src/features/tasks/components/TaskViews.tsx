@@ -64,7 +64,12 @@ export function TaskViews({ view, children }: { view: 'table' | 'cards'; childre
           for (const key of ['search', 'status', 'project'])
             for (const value of params.getAll(key)) next.append(key, value);
 
-          navigate(routeWithQuery(routePath(nextView === 'cards' ? 'task-cards' : 'tasks'), next));
+          navigate(
+            routeWithQuery(
+              routePath(nextView === 'cards' ? 'work.task-cards' : 'work.tasks'),
+              next,
+            ),
+          );
         }}
       >
         <Tabs.List aria-label={t('tasks.workspace.view')}>

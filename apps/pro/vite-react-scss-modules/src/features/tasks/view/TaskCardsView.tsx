@@ -38,7 +38,7 @@ function TaskCardsContent() {
   const page = Number.isSafeInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
   const resource = useTaskQuery({ ...filters, pageNum: page, pageSize: 12 });
   const view = resource.data ? taskPageView(resource.data) : null;
-  const returnTo = routeWithQuery(routePath('task-cards'), params);
+  const returnTo = routeWithQuery(routePath('work.task-cards'), params);
 
   const change = (key: string, value: string | string[]) => {
     setParams(

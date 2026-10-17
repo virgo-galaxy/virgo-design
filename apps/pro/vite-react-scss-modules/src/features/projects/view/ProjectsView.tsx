@@ -197,7 +197,7 @@ function ProjectsContent({ summaries }: { summaries: ProjectSummaryDto[] }) {
         title={t('projects.activePortfolio')}
         description={t(personal ? 'projects.personalScope' : 'projects.portfolioScope')}
         actions={
-          <Link className={shared.link} to={routePath('tasks')}>
+          <Link className={shared.link} to={routePath('work.tasks')}>
             {t('projects.openTaskQueue')}
           </Link>
         }
@@ -254,7 +254,7 @@ function ProjectsContent({ summaries }: { summaries: ProjectSummaryDto[] }) {
                 key={project.id}
                 project={project}
                 summary={summaries.find((item) => item.projectId === project.id)!}
-                returnTo={routeWithQuery(routePath('projects'), params)}
+                returnTo={routeWithQuery(routePath('work.projects'), params)}
               />
             ))}
           </div>

@@ -2,7 +2,7 @@ import { Button, Result } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { proRouteConfig } from '@/routes';
+import { proRouteConfig, routePath } from '@/routes';
 
 export function RouteError() {
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ export function RouteError() {
         <Button onClick={() => window.location.reload()}>{t('app.routeError.reload')}</Button>
       }
       secondaryAction={
-        <Button onClick={() => void navigate(proRouteConfig.homePath)}>
+        <Button onClick={() => void navigate(routePath(proRouteConfig.home))}>
           {t('app.routeError.home')}
         </Button>
       }

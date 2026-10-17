@@ -5,22 +5,21 @@ import { Navigate } from 'react-router';
 
 import { useCurrentUser } from '@/features/auth';
 import type { ResolvedProRoute } from '@/routes';
-import { canAccessRoute, proRouteConfig, proRouting } from '@/routes';
+import { canAccessRoute, proRouteConfig, proRouting, routePath } from '@/routes';
 
 const pageModules = import.meta.glob<{ default: ComponentType }>('/src/pages/**/index.tsx');
 
-function createPage(path: string) {
-  const directory = path === '*' ? '/not-found' : path.replace(/:([^/]+)/g, '[$1]');
-  const load = pageModules[`/src/pages${directory}/index.tsx`];
+function createPage(key: string) {
+  const load = pageModules[`/src/pages/${key.replaceAll('.', '/')}/index.tsx`];
 
-  if (!load) throw new Error(`No page entry for route "${path}".`);
+  if (!load) throw new Error(`No page entry for route "${key}".`);
 
   return lazy(load);
 }
 
-const pages = new Map(proRouting.routes.map((route) => [route.page, createPage(route.path)]));
-const LoginPage = createPage(proRouteConfig.loginPath);
-const ForbiddenPage = pages.get('exception-403')!;
+const pages = new Map(proRouting.routes.map((route) => [route.key, createPage(route.key)]));
+const LoginPage = createPage(proRouteConfig.login);
+const ForbiddenPage = pages.get('exception.403')!;
 
 export function RouteLoading() {
   const { t } = useTranslation();
@@ -40,13 +39,13 @@ export function RouteLoading() {
 
 export function PageRoute({ route }: { route: ResolvedProRoute }) {
   const user = useCurrentUser();
-  const Page = pages.get(route.page)!;
+  const Page = pages.get(route.key)!;
 
   return (
-    <Suspense key={route.id} fallback={<RouteLoading />}>
+    <Suspense key={route.key} fallback={<RouteLoading />}>
       {!canAccessRoute(user, route) ? (
         route.deniedDestination === 'home' ? (
-          <Navigate to={proRouteConfig.homePath} replace />
+          <Navigate to={routePath(proRouteConfig.home)} replace />
         ) : (
           <ForbiddenPage />
         )

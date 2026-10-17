@@ -9,8 +9,8 @@ export function canAccessRoute(user: SessionUser | undefined, route: ResolvedPro
   return true;
 }
 
-export function canVisitPage(user: SessionUser | undefined, page: string) {
-  const route = proRouting.routes.find((route) => route.page === page);
+export function canVisitRoute(user: SessionUser | undefined, key: string) {
+  const route = proRouting.routes.find((route) => route.key === key);
 
   return route ? canAccessRoute(user, route) : false;
 }

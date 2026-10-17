@@ -155,7 +155,7 @@ function ProjectHandoffContent({
       <Empty>
         <Empty.Title>{t('projectDetails.projectNotFound')}</Empty.Title>
         <Empty.Action>
-          <Link className={shared.link} to={routePath('projects')}>
+          <Link className={shared.link} to={routePath('work.projects')}>
             {t('projectDetails.backToProjects')}
           </Link>
         </Empty.Action>
@@ -170,7 +170,7 @@ function ProjectHandoffContent({
     <div className={shared.page}>
       <Link
         className={shared.link}
-        to={routePath('project-detail', { projectId: draft.projectId })}
+        to={routePath('work.projects.[projectId]', { projectId: draft.projectId })}
       >
         {t('tasks.workspace.backToProject')}
       </Link>
@@ -234,7 +234,7 @@ function ProjectHandoffContent({
                   const receipt = await onPrepare();
 
                   if (receipt) {
-                    if (admin) navigate(routePath(receipt.outcome));
+                    if (admin) navigate(routePath(`result.${receipt.outcome}`));
                     else setSubmission(receipt);
                   }
                 });

@@ -43,7 +43,7 @@ function LocalePreview() {
       <button onClick={() => void setAppLocale(locale === 'en-US' ? 'zh-CN' : 'en-US')}>
         {t('languageControl.label')}
       </button>
-      <h1>{t(proRouting.match(routePath('tasks'))!.labelKey)}</h1>
+      <h1>{t(proRouting.match(routePath('work.tasks'))!.labelKey)}</h1>
       <p>{t(`tasks.statusLabels.${taskStatusLabelNames['in_progress']}`)}</p>
       <p>{formatDueDate('2026-10-01', locale)}</p>
     </>

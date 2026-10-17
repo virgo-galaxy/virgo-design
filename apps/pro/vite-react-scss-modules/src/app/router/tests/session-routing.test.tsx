@@ -87,14 +87,14 @@ it('isolates a broken page while keeping the authenticated shell and home naviga
   try {
     await login({ account: 'admin', password: 'virgo123' });
     projectFailure.current = true;
-    start(routePath('project-detail', { projectId: 'online-store' }));
+    start(routePath('work.projects.[projectId]', { projectId: 'online-store' }));
     await screen.findByText('Unable to open this page');
     expect(screen.getByRole('button', { name: 'Sign out' })).toBeInTheDocument();
     expect(screen.queryByText('Broken project view')).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Reload page' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Go to workplace' }));
     await screen.findByRole('heading', { name: 'Workplace route' });
-    expect(router.state.location.pathname).toBe(routePath('workplace'));
+    expect(router.state.location.pathname).toBe(routePath('dashboard.workplace'));
   } finally {
     projectFailure.current = false;
     errors.mockRestore();
@@ -112,7 +112,7 @@ function start(path: string) {
 
 describe('one data router owns session and protected navigation', () => {
   it('redirects a signed-out deep link to Login, then replaces it with Workplace after sign-in', async () => {
-    start(routePath('tasks') + '?status=todo');
+    start(routePath('work.tasks') + '?status=todo');
     await screen.findByRole('heading', { name: 'Welcome back' });
     expect(router.state.location.pathname).toBe(routePath('login'));
     fireEvent.change(screen.getByRole('textbox', { name: 'Account' }), {
@@ -123,21 +123,21 @@ describe('one data router owns session and protected navigation', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: 'Sign in to workspace' }));
     await screen.findByRole('heading', { name: 'Workplace route' });
-    expect(router.state.location.pathname).toBe(routePath('workplace'));
+    expect(router.state.location.pathname).toBe(routePath('dashboard.workplace'));
   });
   it('restores an authenticated deep link and treats Login as a home redirect', async () => {
     await login({ account: 'admin', password: 'virgo123' });
-    start(routePath('tasks'));
+    start(routePath('work.tasks'));
     await screen.findByRole('heading', { name: 'Tasks route' });
     await act(() => router.navigate(routePath('login')));
     await screen.findByRole('heading', { name: 'Workplace route' });
-    expect(router.state.location.pathname).toBe(routePath('workplace'));
+    expect(router.state.location.pathname).toBe(routePath('dashboard.workplace'));
   });
   it('signs out through router state and keeps browser back navigation protected', async () => {
     await login({ account: 'admin', password: 'virgo123' });
-    start(routePath('workplace'));
+    start(routePath('dashboard.workplace'));
     await screen.findByRole('heading', { name: 'Workplace route' });
-    await act(() => router.navigate(routePath('tasks')));
+    await act(() => router.navigate(routePath('work.tasks')));
     await screen.findByRole('heading', { name: 'Tasks route' });
     fireEvent.click(screen.getByRole('button', { name: 'Sign out' }));
     await screen.findByRole('heading', { name: 'Welcome back' });
@@ -148,7 +148,7 @@ describe('one data router owns session and protected navigation', () => {
   });
   it('navigates to Login with the expired-session notice', async () => {
     await login({ account: 'admin', password: 'virgo123' });
-    start(routePath('tasks'));
+    start(routePath('work.tasks'));
     await screen.findByRole('heading', { name: 'Tasks route' });
     act(() => window.dispatchEvent(new Event(sessionExpiredEvent)));
     await screen.findByRole('heading', { name: 'Welcome back' });
@@ -157,33 +157,35 @@ describe('one data router owns session and protected navigation', () => {
   });
   it('preserves permission fallback for member editing and admin showcase routes', async () => {
     await login({ account: 'nina', password: 'virgo123' });
-    start(routePath('task-create'));
+    start(routePath('work.tasks.new'));
     await screen.findByRole('heading', { name: 'Exception 403' });
-    await act(() => router.navigate(routePath('success')));
+    await act(() => router.navigate(routePath('result.success')));
     await screen.findByRole('heading', { name: 'Workplace route' });
   });
   it('uses the canonical task-card and project routes with encoded query conditions', async () => {
     await login({ account: 'admin', password: 'virgo123' });
-    start(routePath('task-cards') + '?status=todo');
+    start(routePath('work.task-cards') + '?status=todo');
     await screen.findByRole('heading', { name: 'Task cards route' });
     expect(router.state.location.pathname + router.state.location.search).toBe(
-      routePath('task-cards') + '?status=todo',
+      routePath('work.task-cards') + '?status=todo',
     );
-    await act(() => router.navigate(routePath('project-detail', { projectId: 'online-store' })));
+    await act(() =>
+      router.navigate(routePath('work.projects.[projectId]', { projectId: 'online-store' })),
+    );
     await screen.findByRole('heading', { name: 'Project route' });
     expect(router.state.location.pathname).toBe(
-      routePath('project-detail', { projectId: 'online-store' }),
+      routePath('work.projects.[projectId]', { projectId: 'online-store' }),
     );
   });
   it('retains data-router navigation blocking and proceeds after discard', async () => {
     await login({ account: 'admin', password: 'virgo123' });
-    start(routePath('task-create'));
+    start(routePath('work.tasks.new'));
     await screen.findByRole('heading', { name: 'Unsaved task' });
     fireEvent.click(screen.getByRole('button', { name: 'Edit task' }));
-    await act(() => router.navigate(routePath('tasks')));
-    expect(router.state.location.pathname).toBe(routePath('task-create'));
+    await act(() => router.navigate(routePath('work.tasks')));
+    expect(router.state.location.pathname).toBe(routePath('work.tasks.new'));
     fireEvent.click(screen.getByRole('button', { name: 'Discard and leave' }));
     await screen.findByRole('heading', { name: 'Tasks route' });
-    expect(router.state.location.pathname).toBe(routePath('tasks'));
+    expect(router.state.location.pathname).toBe(routePath('work.tasks'));
   });
 });

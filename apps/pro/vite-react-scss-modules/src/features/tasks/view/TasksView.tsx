@@ -70,7 +70,7 @@ function TasksContent() {
           : change,
     }));
 
-  const returnTo = routeWithQuery(routePath('tasks'), params);
+  const returnTo = routeWithQuery(routePath('work.tasks'), params);
   const [deleteIds, setDeleteIds] = useState<readonly string[] | null>(null);
   const [deletionFeedback, setDeletionFeedback] = useState<{ id: number; count: number } | null>(
     null,

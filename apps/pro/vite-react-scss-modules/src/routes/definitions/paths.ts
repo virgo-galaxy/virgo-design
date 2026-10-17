@@ -1,14 +1,15 @@
 import { generatePath } from 'react-router';
 
-import { type ProPageKey, routePaths } from './routes.config';
+import type { ProRouteKey } from './routes.config';
 
-export function routePath(page: ProPageKey | 'login', params: Record<string, string> = {}) {
-  return generatePath(
-    routePaths[page],
-    Object.fromEntries(
-      Object.entries(params).map(([key, value]) => [key, encodeURIComponent(value)]),
-    ),
-  );
+export function routePattern(key: string) {
+  const segments = key.split('.').map((segment) => segment.replace(/^\[([^\]]+)\]$/, ':$1'));
+
+  return '/' + segments.join('/');
+}
+
+export function routePath(key: ProRouteKey, params: Record<string, string> = {}) {
+  return generatePath(routePattern(key), params);
 }
 
 export function routeWithQuery(path: string, params: URLSearchParams) {

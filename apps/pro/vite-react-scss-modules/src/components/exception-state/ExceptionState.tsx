@@ -58,7 +58,10 @@ export function ExceptionState({ code }: ExceptionStateProps) {
           ) : undefined
         }
         primaryAction={
-          <Button leadingIcon={<ArrowLeftIcon />} onClick={() => navigate(routePath('workplace'))}>
+          <Button
+            leadingIcon={<ArrowLeftIcon />}
+            onClick={() => navigate(routePath('dashboard.workplace'))}
+          >
             {t('exceptions.backToWorkplace')}
           </Button>
         }

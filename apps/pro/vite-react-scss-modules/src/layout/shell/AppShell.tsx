@@ -26,7 +26,7 @@ import { useProfileIdentityResource } from '@/features/profile';
 import { SettingsDrawer, SettingsTrigger } from '@/features/settings';
 import { isAdmin } from '@/lib/auth/permissions';
 import { getFixedHeaderMaterial, sidebarWidthRanges, useAppPreferences } from '@/preferences';
-import { proRouteConfig, proRouting, routeIcons } from '@/routes';
+import { proRouteConfig, proRouting, routeIcons, routePath } from '@/routes';
 
 import { AccountMenu } from '../account-menu/AccountMenu';
 import { SidebarNavigation } from '../navigation/SidebarNavigation';
@@ -242,7 +242,7 @@ export function AppShell({
                                   setSidebarWidth(224);
                                 } else {
                                   event.preventDefault();
-                                  navigate(proRouteConfig.homePath);
+                                  navigate(routePath(proRouteConfig.home));
                                 }
                               }
                             }}
@@ -254,7 +254,7 @@ export function AppShell({
                       <Tooltip.Content>{t('app.restoreNavigation')}</Tooltip.Content>
                     </Tooltip>
                     <Link
-                      to={proRouteConfig.homePath}
+                      to={routePath(proRouteConfig.home)}
                       className={styles.brandHome}
                       aria-label={t('app.virgoDesignProHome')}
                     >
@@ -396,7 +396,7 @@ export function AppShell({
                   className={styles.main!}
                 >
                   <div className={styles.content} data-layout={currentPage?.contentLayout}>
-                    {settings.showBreadcrumb && currentPage?.display.breadcrumb ? (
+                    {settings.showBreadcrumb && currentPage?.breadcrumb ? (
                       <div className={styles.contextBar}>
                         <Breadcrumb aria-label={t('app.pageBreadcrumb')}>
                           {CurrentGroupIcon && currentGroup ? (
@@ -428,7 +428,7 @@ export function AppShell({
                     </div>
                     {settings.showFooter ? (
                       <footer className={styles.contentFooter}>
-                        <Link to={proRouteConfig.homePath}>{footerBrand}</Link>
+                        <Link to={routePath(proRouteConfig.home)}>{footerBrand}</Link>
                       </footer>
                     ) : null}
                   </div>

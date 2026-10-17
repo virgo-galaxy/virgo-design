@@ -146,7 +146,9 @@ function ResultContent({
                   onClick={() => {
                     void mutation.run(async () => {
                       const next = await onRetry?.();
-                      navigate(next ? routePath(next.outcome) : projectHandoffPath(project.id));
+                      navigate(
+                        next ? routePath(`result.${next.outcome}`) : projectHandoffPath(project.id),
+                      );
                     });
                   }}
                 >
@@ -248,7 +250,7 @@ function ResultContent({
                   </Steps.Description>
                 </Steps.Item>
               </Steps>
-              <Link className={shared.link} to={routePath('tasks')}>
+              <Link className={shared.link} to={routePath('work.tasks')}>
                 {t('results.openTaskQueue')}
               </Link>
             </div>
@@ -302,7 +304,7 @@ function ResultContent({
                 </div>
                 <Link
                   className={styles.taskTitle}
-                  to={taskDetailsPath(task.id, routePath(receipt.outcome))}
+                  to={taskDetailsPath(task.id, routePath(`result.${receipt.outcome}`))}
                 >
                   {businessLabel(task.title, i18n.language)}
                 </Link>
@@ -332,7 +334,7 @@ function ResultContent({
           </span>
           <Link
             className={shared.link}
-            to={success ? routePath('task-create') : routePath('projects')}
+            to={success ? routePath('work.tasks.new') : routePath('work.projects')}
           >
             {success ? t('results.createAnotherRequest') : t('results.backToProjects')}
           </Link>

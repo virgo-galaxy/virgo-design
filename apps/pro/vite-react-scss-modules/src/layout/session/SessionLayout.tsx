@@ -3,7 +3,7 @@ import { Navigate, Outlet, useOutletContext } from 'react-router';
 import { RemoteState } from '@/components/remote-state/RemoteState';
 import { useAgentMode } from '@/features/ai-workspace/store';
 import type { useSessionState } from '@/features/auth';
-import { proRouteConfig } from '@/routes';
+import { proRouteConfig, routePath } from '@/routes';
 
 import { AppShell } from '../shell/AppShell';
 
@@ -34,6 +34,6 @@ export function ProtectedLayout() {
   return state.current?.authenticated && state.current.user ? (
     <AuthenticatedShell />
   ) : (
-    <Navigate to={proRouteConfig.loginPath} replace />
+    <Navigate to={routePath(proRouteConfig.login)} replace />
   );
 }
