@@ -1,37 +1,26 @@
 import { Skeleton } from '@virgo-design/ui';
-import { lazy, type ReactElement, Suspense } from 'react';
+import { type ComponentType, lazy, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router';
 
-import { loadAnalyticsPage } from '@/features/analytics/routes';
 import { useCurrentUser } from '@/features/auth';
-import { loadProjectHandoffPage } from '@/features/handoff/routes';
-import { loadProfilePage } from '@/features/profile/routes';
-import { loadProjectDetailPage, loadProjectsPage } from '@/features/projects/routes';
-import { loadTaskCardsPage, loadTasksPage, loadTaskWorkspacePage } from '@/features/tasks/routes';
 import type { ResolvedProRoute } from '@/routes';
-import { canAccessRoute, type ProPageKey, proRouteConfig } from '@/routes';
+import { canAccessRoute, proRouteConfig, proRouting } from '@/routes';
 
-const AnalyticsPage = lazy(loadAnalyticsPage);
-const ProjectDetailPage = lazy(loadProjectDetailPage);
-const ExceptionPage = lazy(() =>
-  import('@/pages/exceptions/ExceptionPage').then((module) => ({ default: module.ExceptionPage })),
-);
-const ProjectHandoffPage = lazy(loadProjectHandoffPage);
-const NotFoundPage = lazy(() =>
-  import('@/pages/not-found/NotFoundPage').then((module) => ({ default: module.NotFoundPage })),
-);
-const ProfilePage = lazy(loadProfilePage);
-const ProjectsPage = lazy(loadProjectsPage);
-const ResultPage = lazy(() =>
-  import('@/pages/results/ResultPage').then((module) => ({ default: module.ResultPage })),
-);
-const TaskWorkspacePage = lazy(loadTaskWorkspacePage);
-const TaskCardsPage = lazy(loadTaskCardsPage);
-const TasksPage = lazy(loadTasksPage);
-const WorkplacePage = lazy(() =>
-  import('@/pages/workplace/WorkplacePage').then((module) => ({ default: module.WorkplacePage })),
-);
+const pageModules = import.meta.glob<{ default: ComponentType }>('/src/pages/**/index.tsx');
+
+function createPage(path: string) {
+  const directory = path === '*' ? '/not-found' : path.replace(/:([^/]+)/g, '[$1]');
+  const load = pageModules[`/src/pages${directory}/index.tsx`];
+
+  if (!load) throw new Error(`No page entry for route "${path}".`);
+
+  return lazy(load);
+}
+
+const pages = new Map(proRouting.routes.map((route) => [route.page, createPage(route.path)]));
+const LoginPage = createPage(proRouteConfig.loginPath);
+const ForbiddenPage = pages.get('exception-403')!;
 
 export function RouteLoading() {
   const { t } = useTranslation();
@@ -51,26 +40,7 @@ export function RouteLoading() {
 
 export function PageRoute({ route }: { route: ResolvedProRoute }) {
   const user = useCurrentUser();
-
-  const pages: Record<ProPageKey, ReactElement> = {
-    workplace: <WorkplacePage />,
-    analytics: <AnalyticsPage />,
-    tasks: <TasksPage />,
-    'task-cards': <TaskCardsPage />,
-    'task-create': <TaskWorkspacePage mode="create" />,
-    'task-edit': <TaskWorkspacePage mode="edit" />,
-    'task-details': <TaskWorkspacePage mode="details" />,
-    projects: <ProjectsPage />,
-    'project-detail': <ProjectDetailPage />,
-    'project-handoff': <ProjectHandoffPage />,
-    success: <ResultPage outcome="success" />,
-    error: <ResultPage outcome="error" />,
-    'exception-403': <ExceptionPage code="403" />,
-    'exception-404': <ExceptionPage code="404" />,
-    'exception-500': <ExceptionPage code="500" />,
-    profile: <ProfilePage />,
-    'not-found': <NotFoundPage />,
-  };
+  const Page = pages.get(route.page)!;
 
   return (
     <Suspense key={route.id} fallback={<RouteLoading />}>
@@ -78,11 +48,19 @@ export function PageRoute({ route }: { route: ResolvedProRoute }) {
         route.deniedDestination === 'home' ? (
           <Navigate to={proRouteConfig.homePath} replace />
         ) : (
-          <ExceptionPage code="403" />
+          <ForbiddenPage />
         )
       ) : (
-        pages[route.page]
+        <Page />
       )}
+    </Suspense>
+  );
+}
+
+export function LoginRoute() {
+  return (
+    <Suspense fallback={<RouteLoading />}>
+      <LoginPage />
     </Suspense>
   );
 }

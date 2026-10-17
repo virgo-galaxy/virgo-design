@@ -28,42 +28,43 @@ vi.mock('@/layout/shell/AppShell', async () => {
     },
   };
 });
-vi.mock('@/pages/workplace/WorkplacePage', () => ({
-  WorkplacePage: () => <h1>Workplace route</h1>,
+vi.mock('@/pages/dashboard/workplace', () => ({
+  default: () => <h1>Workplace route</h1>,
 }));
-vi.mock('@/features/projects/routes', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('@/features/projects/routes')>()),
-  loadProjectDetailPage: async () => ({
-    default: () => {
-      if (projectFailure.current) throw new Error('Broken project view');
-      return <h1>Project route</h1>;
-    },
-  }),
+vi.mock('@/pages/work/projects/[projectId]', () => ({
+  default: () => {
+    if (projectFailure.current) throw new Error('Broken project view');
+    return <h1>Project route</h1>;
+  },
 }));
-vi.mock('@/pages/exceptions/ExceptionPage', () => ({
-  ExceptionPage: ({ code }: { code: string }) => <h1>Exception {code}</h1>,
+vi.mock('@/pages/exception/403', () => ({
+  default: () => <h1>Exception 403</h1>,
 }));
-vi.mock('@/features/tasks/routes', async () => {
+vi.mock('@/pages/work/tasks', () => ({
+  default: () => <h1>Tasks route</h1>,
+}));
+vi.mock('@/pages/work/task-cards', () => ({
+  default: () => <h1>Task cards route</h1>,
+}));
+vi.mock('@/pages/work/tasks/new', async () => {
   const { useBlocker } = await import('react-router');
   const { useState } = await import('react');
+
   return {
-    loadTasksPage: async () => ({ default: () => <h1>Tasks route</h1> }),
-    loadTaskCardsPage: async () => ({ default: () => <h1>Task cards route</h1> }),
-    loadTaskWorkspacePage: async () => ({
-      default: function UnsavedWorkspace() {
-        const [dirty, setDirty] = useState(false);
-        const blocker = useBlocker(dirty);
-        return (
-          <>
-            <h1>Unsaved task</h1>
-            <button onClick={() => setDirty(true)}>Edit task</button>
-            {blocker.state === 'blocked' ? (
-              <button onClick={() => blocker.proceed()}>Discard and leave</button>
-            ) : null}
-          </>
-        );
-      },
-    }),
+    default: function UnsavedWorkspace() {
+      const [dirty, setDirty] = useState(false);
+      const blocker = useBlocker(dirty);
+
+      return (
+        <>
+          <h1>Unsaved task</h1>
+          <button onClick={() => setDirty(true)}>Edit task</button>
+          {blocker.state === 'blocked' ? (
+            <button onClick={() => blocker.proceed()}>Discard and leave</button>
+          ) : null}
+        </>
+      );
+    },
   };
 });
 const server = setupServer(...handlers);

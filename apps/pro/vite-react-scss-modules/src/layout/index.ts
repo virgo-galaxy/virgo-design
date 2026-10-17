@@ -1,1 +1,1 @@
-export { LoginRoute, ProtectedLayout, SessionLayout } from './session/SessionLayout';
+export { ProtectedLayout, SessionLayout } from './session/SessionLayout';

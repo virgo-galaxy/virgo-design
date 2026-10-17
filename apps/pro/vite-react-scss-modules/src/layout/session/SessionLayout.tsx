@@ -3,7 +3,6 @@ import { Navigate, Outlet, useOutletContext } from 'react-router';
 import { RemoteState } from '@/components/remote-state/RemoteState';
 import { useAgentMode } from '@/features/ai-workspace/store';
 import type { useSessionState } from '@/features/auth';
-import { LoginPage } from '@/features/auth/routes';
 import { proRouteConfig } from '@/routes';
 
 import { AppShell } from '../shell/AppShell';
@@ -21,16 +20,6 @@ export function SessionLayout({ state }: { state: SessionState }) {
     );
 
   return <Outlet context={state} />;
-}
-
-export function LoginRoute() {
-  const state = useOutletContext<SessionState>();
-
-  return state.current?.authenticated ? (
-    <Navigate to={proRouteConfig.homePath} replace />
-  ) : (
-    <LoginPage expired={state.expired} onLogin={state.onLogin} />
-  );
 }
 
 function AuthenticatedShell() {

@@ -1,11 +1,11 @@
 import { createBrowserRouter, Navigate, type RouteObject } from 'react-router';
 
-import { LoginRoute, ProtectedLayout } from '@/layout';
+import { ProtectedLayout } from '@/layout';
 import { proRouteConfig, proRouting } from '@/routes';
 
 import { SessionProvider } from '../composition/providers/SessionProvider';
 import { RouteError } from './RouteError';
-import { PageRoute } from './RouteViews';
+import { LoginRoute, PageRoute } from './RouteViews';
 
 export function createAppRoutes(): RouteObject[] {
   return [

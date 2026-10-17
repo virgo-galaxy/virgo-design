@@ -43,6 +43,16 @@ function imports(file: string) {
     else if (
       ts.isCallExpression(node) &&
       ts.isPropertyAccessExpression(node.expression) &&
+      ts.isMetaProperty(node.expression.expression) &&
+      node.expression.name.text === 'glob' &&
+      node.arguments[0] &&
+      ts.isStringLiteral(node.arguments[0]) &&
+      node.arguments[0].text === '/src/pages/**/index.tsx'
+    )
+      paths.push(...sources(join(root, 'pages')).map((page) => '@/' + relative(root, page)));
+    else if (
+      ts.isCallExpression(node) &&
+      ts.isPropertyAccessExpression(node.expression) &&
       ts.isIdentifier(node.expression.expression) &&
       node.expression.expression.text === 'vi' &&
       ['mock', 'doMock', 'unmock', 'doUnmock'].includes(node.expression.name.text) &&
@@ -196,7 +206,7 @@ it('keeps feature consumers on explicit public boundaries and local code off its
         continue;
       }
       expect(
-        ['index.ts', 'routes/index.ts', 'view/index.ts', 'locales/index.ts', 'store/index.ts'].some(
+        ['index.ts', 'view/index.ts', 'locales/index.ts', 'store/index.ts'].some(
           (entry) => to === owner + entry,
         ),
         `${from} → private ${to}`,
@@ -319,7 +329,7 @@ it('keeps model, domain and base modules independent of presentation, including 
       visited.add(dependency);
       const to = relative(root, dependency);
       expect(
-        /(^|\/)(pages|layout|components|presentation)\/|(?:Page|Presentation)\.tsx$|\/presentation\.tsx?$/.test(
+        /(^|\/)(pages|layout|components|presentation|view)\/|(?:Page|Presentation)\.tsx$|\/presentation\.tsx?$/.test(
           to,
         ),
         `${from} → ${to}`,
@@ -369,7 +379,9 @@ it('centralizes browser storage access and application route literals', () => {
         (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node))
       )
         expect(
-          /^\/(dashboard|work|result|exception|login|profile)(\/|$|\?)/.test(node.text),
+          /^\/(dashboard|visualization|work|result|exception|login|profile)(\/|$|\?)/.test(
+            node.text,
+          ),
           from,
         ).toBe(false);
       ts.forEachChild(node, visit);

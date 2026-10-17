@@ -12,7 +12,7 @@ import {
   updateTask,
   updateTaskStatus,
 } from '@/api/tasks';
-import { buildTokenUsageCalendar } from '@/pages/workplace/model/token-usage-calendar';
+import { buildTokenUsageCalendar } from '@/features/workplace';
 import { readAnalytics, readWorkspace } from '@/test/reporting-data';
 
 import { resetDemoState, unloadDemoState } from '../data/store';

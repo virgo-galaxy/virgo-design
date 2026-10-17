@@ -5,7 +5,7 @@ import type { ProRouteIcon } from './icons';
 export const routePaths = {
   root: '/',
   workplace: '/dashboard/workplace',
-  analytics: '/dashboard/analytics',
+  analytics: '/visualization/analytics',
   tasks: '/work/tasks',
   projects: '/work/projects',
   'task-cards': '/work/task-cards',

@@ -9,16 +9,16 @@ import { afterAll, afterEach, beforeAll, beforeEach, expect, it, vi } from 'vite
 import { getProfileIdentity } from '@/api/profile';
 import { prepareHandoff } from '@/api/workflows';
 import type { WorkflowReceiptDto } from '@/api/workflows/types';
-import { loadAnalyticsPage } from '@/features/analytics/routes';
 import { useHandoffSession } from '@/features/handoff';
 import { HandoffStoreProvider } from '@/features/handoff/store';
-import { loadProfilePage } from '@/features/profile/routes';
-import { loadProjectDetailPage } from '@/features/projects/routes';
 import { getDemoState } from '@/mock/data/store';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';
-import { ResultPage } from '@/pages/results/ResultPage';
-import { WorkplacePage } from '@/pages/workplace/WorkplacePage';
+import WorkplacePage from '@/pages/dashboard/workplace';
+import ProfilePage from '@/pages/profile';
+import SuccessPage from '@/pages/result/success';
+import AnalyticsPage from '@/pages/visualization/analytics';
+import ProjectDetailPage from '@/pages/work/projects/[projectId]';
 import { TestSessionProvider } from '@/test/TestSessionProvider';
 
 import { ProResourcesProvider } from '../composition/providers/ProResourcesProvider';
@@ -40,9 +40,6 @@ vi.mock('@virgo-design/charts', () => ({
     ].map((name) => [name, () => null]),
   ),
 }));
-const { default: AnalyticsPage } = await loadAnalyticsPage();
-const { default: ProfilePage } = await loadProfilePage();
-const { default: ProjectDetailPage } = await loadProjectDetailPage();
 const server = setupServer(...handlers);
 const requests: string[] = [];
 server.events.on('request:start', ({ request }) => requests.push(new URL(request.url).pathname));
@@ -78,7 +75,7 @@ it('refreshes a workflow result from the server after a cross-tab update even af
     const session = useHandoffSession();
     const [ready, setReady] = useState(false);
     return ready ? (
-      <ResultPage outcome="success" />
+      <SuccessPage />
     ) : (
       <button
         onClick={() =>

@@ -11,17 +11,16 @@ import { CatalogBoundary } from '@/features/catalog';
 import { useNotificationInbox } from '@/features/notifications';
 import { useProfileIdentityResource } from '@/features/profile';
 import { useTaskDependentQuery, useTaskOperations, useTaskQuery } from '@/features/tasks';
-import { loadTasksPage, loadTaskWorkspacePage } from '@/features/tasks/routes';
 import { i18nInstance } from '@/i18n';
 import { getDemoState } from '@/mock/data/store';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';
+import TasksPage from '@/pages/work/tasks';
+import EditTaskPage from '@/pages/work/tasks/[id]/edit';
 import { TestSessionProvider } from '@/test/TestSessionProvider';
 
 import { demoStorageChanges } from '../composition/providers/demo-storage-changes';
 import { ProResourcesProvider } from '../composition/providers/ProResourcesProvider';
-const { default: TasksPage } = await loadTasksPage();
-const { default: TaskWorkspacePage } = await loadTaskWorkspacePage();
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 beforeEach(() => resetTasks());
@@ -145,7 +144,7 @@ it('retains the raw editor draft across locale changes and failed background ref
   mount(
     <>
       <ChangeTask />
-      <TaskWorkspacePage mode="edit" />
+      <EditTaskPage />
     </>,
     '/work/tasks/:id/edit',
   );
@@ -191,13 +190,10 @@ it('refreshes only profile for a profile-only cross-tab storage change', async (
 });
 
 it('opens project, profile and result views with scoped reads and bounded previews', async () => {
-  const { loadProjectsPage } = await import('@/features/projects/routes');
-  const { default: ProjectsPage } = await loadProjectsPage();
-  const { loadProjectDetailPage } = await import('@/features/projects/routes');
-  const { default: ProjectDetailPage } = await loadProjectDetailPage();
-  const { loadProfilePage } = await import('@/features/profile/routes');
-  const { default: ProfilePage } = await loadProfilePage();
-  const { ResultPage } = await import('@/pages/results/ResultPage');
+  const { default: ProjectsPage } = await import('@/pages/work/projects');
+  const { default: ProjectDetailPage } = await import('@/pages/work/projects/[projectId]');
+  const { default: ProfilePage } = await import('@/pages/profile');
+  const { default: SuccessPage } = await import('@/pages/result/success');
   const { HandoffStoreProvider } = await import('@/features/handoff/store');
   const cases = [
     { page: <ProjectsPage />, path: '/work/projects', pattern: '*', ready: 'Online Store' },
@@ -211,7 +207,7 @@ it('opens project, profile and result views with scoped reads and bounded previe
     {
       page: (
         <HandoffStoreProvider>
-          <ResultPage outcome="success" />
+          <SuccessPage />
         </HandoffStoreProvider>
       ),
       path: '/result/success',
@@ -254,8 +250,7 @@ it('opens project, profile and result views with scoped reads and bounded previe
 it('limits a manager’s handoff projects, loads the selected scope and preserves its raw title across locale changes', async () => {
   await login({ account: 'ava', password: 'virgo123' });
 
-  const { loadProjectHandoffPage } = await import('@/features/handoff/routes');
-  const { default: ProjectHandoffPage } = await loadProjectHandoffPage();
+  const { default: ProjectHandoffPage } = await import('@/pages/work/projects/[projectId]/handoff');
   const { HandoffStoreProvider } = await import('@/features/handoff/store');
   const requests: URL[] = [];
   const capture = ({ request }: { request: Request }) => {

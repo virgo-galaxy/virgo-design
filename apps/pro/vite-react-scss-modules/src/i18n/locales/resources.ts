@@ -1,3 +1,4 @@
+import { exceptionsEnUS, exceptionsZhCN } from '@/components/exception-state/locales';
 import { languageControlEnUS, languageControlZhCN } from '@/components/language-control/locales';
 import {
   themeStyleControlEnUS,
@@ -6,7 +7,7 @@ import {
 import { aiWorkspaceEnUS, aiWorkspaceZhCN } from '@/features/ai-workspace/locales';
 import { analyticsEnUS, analyticsZhCN } from '@/features/analytics/locales';
 import { authEnUS, authZhCN } from '@/features/auth/locales';
-import { handoffEnUS, handoffZhCN } from '@/features/handoff/locales';
+import { handoffEnUS, handoffZhCN, resultsEnUS, resultsZhCN } from '@/features/handoff/locales';
 import { notificationsEnUS, notificationsZhCN } from '@/features/notifications/locales';
 import { profileEnUS, profileZhCN } from '@/features/profile/locales';
 import {
@@ -17,9 +18,7 @@ import {
 } from '@/features/projects/locales';
 import { settingsEnUS, settingsZhCN } from '@/features/settings/locales';
 import { tasksEnUS, tasksZhCN } from '@/features/tasks/locales';
-import { exceptionsEnUS, exceptionsZhCN } from '@/pages/exceptions/locales';
-import { resultsEnUS, resultsZhCN } from '@/pages/results/locales';
-import { workplaceEnUS, workplaceZhCN } from '@/pages/workplace/locales';
+import { workplaceEnUS, workplaceZhCN } from '@/features/workplace/locales';
 
 import type { LocaleOf } from '../model/locale-types';
 import { appEnUS } from './app/en-US';
