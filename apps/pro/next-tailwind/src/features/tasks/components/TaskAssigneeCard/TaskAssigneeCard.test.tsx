@@ -5,10 +5,10 @@ import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { userDetailsCache } from '@/features/users';
-import { projects } from '@/mock/fixtures/projects';
-import { users } from '@/mock/fixtures/users';
-import { members } from '@/mock/fixtures/workplace';
-import { handlers } from '@/mock/handlers';
+import { projects } from '@/server/demo/fixtures/projects';
+import { users } from '@/server/demo/fixtures/users';
+import { members } from '@/server/demo/fixtures/workplace';
+import { handlers } from '@/test/demo-handlers';
 
 import { TaskAssigneeCard } from './TaskAssigneeCard';
 

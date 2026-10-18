@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-import { trendPoints as demoTrend } from '@/mock/fixtures/workplace';
+import { trendPoints as demoTrend } from '@/server/demo/fixtures/workplace';
 
 const completed = [8, 9, 9, 9, 9, 9, 9, 7, 8, 8, 14, 14, 16, 17];
 const planned = [10, 11, 12, 13, 14, 14, 14, 10, 11, 11, 14, 16, 18, 20];
+
 const trendPoints = demoTrend.map((point, index) => ({
   date: point.date,
   completed: completed[index]!,

@@ -3,9 +3,9 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 
 import { CatalogResourceContext } from '@/features/catalog';
-import { analyticsSnapshot } from '@/mock/fixtures/analytics';
-import { initialTaskState } from '@/mock/fixtures/tasks';
-import { members } from '@/mock/fixtures/workplace';
+import { analyticsSnapshot } from '@/server/demo/fixtures/analytics';
+import { initialTaskState } from '@/server/demo/fixtures/tasks';
+import { members } from '@/server/demo/fixtures/workplace';
 
 import { OwnerCapacityPanel } from './OwnerCapacityPanel';
 

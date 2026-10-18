@@ -5,10 +5,10 @@ import type { ReactNode } from 'react';
 import { afterEach, expect, it, vi } from 'vitest';
 
 import type { SessionUser } from '@/api/auth/types';
+import { clearDemoStorage } from '@/demo/client/reset';
 import { useAgentMode } from '@/features/ai-workspace/store';
 import { useHandoffStore } from '@/features/handoff/store';
 import { useTaskTableSettings } from '@/features/tasks/store';
-import { clearDemoStorage } from '@/mock/data/reset';
 import { defaultPreferences, preferencesStorageKey, useAppPreferences } from '@/preferences';
 import {
   type ResourceChanges,

@@ -4,6 +4,7 @@ import Page4 from '@/app/(pro)/dashboard/workplace/page';
 import Page14 from '@/app/(pro)/exception/403/page';
 import Page15 from '@/app/(pro)/exception/404/page';
 import Page13 from '@/app/(pro)/exception/500/page';
+import ProLayout from '@/app/(pro)/layout';
 import Page0 from '@/app/(pro)/profile/page';
 import Page3 from '@/app/(pro)/result/error/page';
 import Page2 from '@/app/(pro)/result/success/page';
@@ -18,11 +19,12 @@ import Page8 from '@/app/(pro)/work/tasks/new/page';
 import Page5 from '@/app/(pro)/work/tasks/page';
 import LoginPage from '@/app/login/page';
 import { ExceptionState } from '@/components/feedback/exception-state';
+import { subscribeToDemoChanges } from '@/demo';
 import { AppSessionProvider } from '@/features/auth/context/AppSessionProvider';
 import { proRouting } from '@/routes';
 import { PageAccess } from '@/routes/components/PageAccess';
-import { ProtectedLayout } from '@/routes/components/ProtectedLayout';
 import { RouteError } from '@/routes/components/RouteError';
+
 const pages = [
   { key: 'profile', Page: Page0 },
   { key: 'visualization.analytics', Page: Page1 },
@@ -41,11 +43,16 @@ const pages = [
   { key: 'exception.403', Page: Page14 },
   { key: 'exception.404', Page: Page15 },
 ];
+
 export function createAppRoutes(): RouteObject[] {
   return [
     {
       element: (
-        <AppSessionProvider>
+        <AppSessionProvider
+          subscribeToChanges={
+            process.env.NEXT_PUBLIC_DEMO_API === 'true' ? subscribeToDemoChanges : undefined
+          }
+        >
           <Outlet />
         </AppSessionProvider>
       ),
@@ -54,9 +61,9 @@ export function createAppRoutes(): RouteObject[] {
         { path: '/login', element: <LoginPage /> },
         {
           element: (
-            <ProtectedLayout>
+            <ProLayout>
               <Outlet />
-            </ProtectedLayout>
+            </ProLayout>
           ),
           children: [
             { path: '/', element: <Navigate to="/dashboard/workplace" replace /> },

@@ -22,6 +22,7 @@ import { shortcuts } from '../config/shortcuts';
 import { TokenUsageDataProvider } from '../data/token-usage-data';
 
 const widgetIds = ['distribution', 'shortcuts', 'inspiration', 'activity'] as const;
+
 type WidgetId = (typeof widgetIds)[number];
 
 function WorkplaceContent() {

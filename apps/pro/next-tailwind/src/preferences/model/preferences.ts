@@ -16,6 +16,7 @@ export function getFixedHeaderMaterial(theme: string): HeaderMaterial | undefine
 }
 
 export type NotificationIndicator = 'dot' | 'count' | 'none';
+
 export const headerHeightRange = {
   min: 48,
   max: 96,

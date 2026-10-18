@@ -4,6 +4,12 @@ import { Skeleton } from '@virgo-design/ui';
 import { type ReactNode, useEffect, useState } from 'react';
 
 import { RemoteState } from '@/components/feedback/remote-state';
+import {
+  initializeDemoClient,
+  retireMockWorker,
+  startDemoSync,
+  subscribeToDemoChanges,
+} from '@/demo';
 import { AppSessionProvider } from '@/features/auth/context/AppSessionProvider';
 import { initializeAppLocale } from '@/i18n/bootstrap';
 import { LocaleProvider } from '@/i18n/react';
@@ -12,12 +18,13 @@ import { NavigationProvider } from '@/routes/navigation';
 import { disposeAppStores, initializeAppStores } from '@/store/bootstrap';
 
 let starting: Promise<void> | undefined;
+
 function initializeClient() {
   starting ??= (async () => {
     await initializeAppLocale();
-    if (process.env.NEXT_PUBLIC_API_MOCKING === 'true') {
-      const { startMocking } = await import('@/mock');
-      await startMocking();
+    await retireMockWorker();
+    if (process.env.NEXT_PUBLIC_DEMO_API === 'true') {
+      await initializeDemoClient();
     }
   })().catch((error: unknown) => {
     starting = undefined;
@@ -34,6 +41,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     let active = true;
     initializeAppStores();
     const stopLocaleSync = startLocaleSync();
+    const stopDemoSync = process.env.NEXT_PUBLIC_DEMO_API === 'true' ? startDemoSync() : undefined;
     void initializeClient().then(
       () => {
         if (active) {
@@ -49,6 +57,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
       active = false;
       disposeAppStores();
       stopLocaleSync();
+      stopDemoSync?.();
     };
   }, [attempt]);
   if (!ready)
@@ -68,7 +77,13 @@ export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <LocaleProvider>
       <NavigationProvider>
-        <AppSessionProvider>{children}</AppSessionProvider>
+        <AppSessionProvider
+          subscribeToChanges={
+            process.env.NEXT_PUBLIC_DEMO_API === 'true' ? subscribeToDemoChanges : undefined
+          }
+        >
+          {children}
+        </AppSessionProvider>
       </NavigationProvider>
     </LocaleProvider>
   );

@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import { createMockTaskId } from '@/mock/fixtures/task-id';
+import { createDemoTaskId } from '@/server/demo/fixtures/task-id';
 import {
   initialTaskState,
   taskAssignees,
   taskProjects,
   taskReferenceDate,
-} from '@/mock/fixtures/tasks';
+} from '@/server/demo/fixtures/tasks';
 
 import {
   draftHasChanges,
@@ -29,12 +29,14 @@ const draft: TaskDraft = {
   dueDate: '2026-10-05',
   estimateHours: 4,
 };
+
 const task: Task = {
   ...draft,
-  id: createMockTaskId(initialTaskState.nextId),
+  id: createDemoTaskId(initialTaskState.nextId),
   createdAt: '2026-10-02T08:00:00Z',
   completedAt: null,
 };
+
 const errors = (value: TaskDraft) =>
   validateTask(
     value,

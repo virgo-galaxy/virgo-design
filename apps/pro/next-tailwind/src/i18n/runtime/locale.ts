@@ -12,6 +12,7 @@ import {
 } from '../model/locale';
 
 export const localeStorageKey = 'virgo-pro:locale';
+
 const defaultLocale = normalizeAppLocale(
   typeof document === 'undefined' ? undefined : document.documentElement.lang,
 );
@@ -94,6 +95,7 @@ function onBrowserLanguageChange() {
 }
 
 let syncing = false;
+
 export function startLocaleSync() {
   if (typeof window === 'undefined') return () => {};
   if (!syncing) window.addEventListener('languagechange', onBrowserLanguageChange);

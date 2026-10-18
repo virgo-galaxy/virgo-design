@@ -22,11 +22,12 @@ import {
 } from '@/api/tasks';
 import { prepareHandoff } from '@/api/workflows';
 import { getWorkspaceSummary } from '@/api/workspace';
+import { getDemoAccounts, resetDemo } from '@/demo/client';
 import { clearAuthSession, getAccessToken, sessionExpiredEvent } from '@/lib/auth/session';
-import { getDemoAccounts, resetDemo } from '@/mock/client';
-import { resetDemoState, unloadDemoState } from '@/mock/data/store';
-import { initialTaskState } from '@/mock/fixtures/tasks';
-import { handlers } from '@/mock/handlers';
+import { resetDemoState } from '@/server/demo/data/store';
+import { initialTaskState } from '@/server/demo/fixtures/tasks';
+import { getDemoSandbox } from '@/server/demo/runtime/context';
+import { handlers } from '@/test/demo-handlers';
 
 import { getSession, login, logout } from '..';
 
@@ -184,9 +185,7 @@ describe('Bearer accounts and project permissions', () => {
   });
   it('rejects an expired token, emits a sign-in event and permits a new login', async () => {
     const session = await signIn('hana');
-    const tokens = JSON.parse(sessionStorage.getItem('virgo-pro.mock-tokens')!);
-    tokens[session.accessToken].expiresAt = '2000-01-01T00:00:00Z';
-    sessionStorage.setItem('virgo-pro.mock-tokens', JSON.stringify(tokens));
+    getDemoSandbox().tokens.get(session.accessToken)!.expiresAt = '2000-01-01T00:00:00Z';
     let expired = false;
     const listener = () => {
       expired = true;
@@ -211,7 +210,6 @@ describe('Bearer accounts and project permissions', () => {
       status: 422,
     });
     await logout();
-    unloadDemoState();
     await signIn('hana');
     expect(await getProfileIdentity()).toMatchObject({
       name: 'Hana Studio',
@@ -224,9 +222,7 @@ describe('Bearer accounts and project permissions', () => {
   });
   it('reports an invalid saved session as expired during bootstrap', async () => {
     const session = await signIn('hana');
-    const tokens = JSON.parse(sessionStorage.getItem('virgo-pro.mock-tokens')!);
-    delete tokens[session.accessToken];
-    sessionStorage.setItem('virgo-pro.mock-tokens', JSON.stringify(tokens));
+    getDemoSandbox().tokens.delete(session.accessToken);
     let expired = 0;
     const listener = () => expired++;
     window.addEventListener(sessionExpiredEvent, listener);

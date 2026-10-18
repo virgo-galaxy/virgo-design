@@ -13,11 +13,13 @@ export function taskCreatePath(returnTo: string) {
 }
 
 const escapePattern = (path: string) => path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 const returnRoots = [
   routePath('work.tasks'),
   routePath('work.task-cards'),
   routePath('work.projects'),
 ];
+
 const businessReturn = new RegExp(
   '^(?:' + returnRoots.map(escapePattern).join('|') + ')(?:\\?[^#]*|/[^?#]+(?:\\?[^#]*)?)?$',
 );

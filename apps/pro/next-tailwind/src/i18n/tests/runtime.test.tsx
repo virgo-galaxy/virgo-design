@@ -13,10 +13,10 @@ import {
   taskStatusLabelNames,
 } from '@/features/tasks';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
-import { initialProfile } from '@/mock/fixtures/profile';
-import { initialTaskState } from '@/mock/fixtures/tasks';
-import { sampleSuccess } from '@/mock/fixtures/workflows';
 import { proRouting, routePath } from '@/routes';
+import { initialProfile } from '@/server/demo/fixtures/profile';
+import { initialTaskState } from '@/server/demo/fixtures/tasks';
+import { sampleSuccess } from '@/server/demo/fixtures/workflows';
 
 import { useAppLocale, useAppLocalePreference } from '../hooks/use-app-locale';
 import { getLocaleFontFamily, normalizeAppLocale, resolveAppLocale } from '../model/locale';
@@ -49,6 +49,7 @@ function LocalePreview() {
     </>
   );
 }
+
 function PreferencePreview() {
   return <output>{useAppLocalePreference()}</output>;
 }

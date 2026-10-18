@@ -1,15 +1,16 @@
 import { describe, expect, it } from 'vitest';
 
-import { demoDate } from '@/mock/fixtures/dates';
-import { projects } from '@/mock/fixtures/projects';
-import { initialTaskState, taskReferenceDate } from '@/mock/fixtures/tasks';
-import { sampleError } from '@/mock/fixtures/workflows';
+import { demoDate } from '@/server/demo/fixtures/dates';
+import { projects } from '@/server/demo/fixtures/projects';
+import { initialTaskState, taskReferenceDate } from '@/server/demo/fixtures/tasks';
+import { sampleError } from '@/server/demo/fixtures/workflows';
 
 import { handoffFromReceipt, initialHandoff } from './handoff';
 import { reconcileScope, scopeGroups, scopeTreeValues, validateHandoff } from './handoff';
 
 const tasks = initialTaskState.tasks;
 const initializedHandoff = { ...initialHandoff, date: taskReferenceDate };
+
 const completeHandoff = {
   ...initializedHandoff,
   title: '  Workspace acceptance checkpoint  ',

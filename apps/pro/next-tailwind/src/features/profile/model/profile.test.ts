@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { initialProfile } from '@/mock/fixtures/profile';
-import { projects } from '@/mock/fixtures/projects';
+import { initialProfile } from '@/server/demo/fixtures/profile';
+import { projects } from '@/server/demo/fixtures/projects';
 
 import {
   avatarFileError,

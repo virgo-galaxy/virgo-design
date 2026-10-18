@@ -6,16 +6,16 @@ import { createMemoryRouter, RouterProvider } from 'react-router';
 import { afterAll, afterEach, beforeAll, beforeEach, expect, it, vi } from 'vitest';
 
 import { login } from '@/api/auth';
-import { handlers } from '@/mock/handlers';
 import {
   defaultPreferences,
   initializePreferences,
   preferencesStorageKey,
   serializePreferences,
 } from '@/preferences';
+import { handlers } from '@/test/demo-handlers';
 import { createAppRoutes } from '@/test/router';
 
-vi.hoisted(() => vi.stubEnv('NEXT_PUBLIC_API_MOCKING', 'true'));
+vi.hoisted(() => vi.stubEnv('NEXT_PUBLIC_DEMO_API', 'true'));
 
 vi.mock('@/app/(pro)/work/tasks/page', () => ({ default: () => <h1>Tasks content</h1> }));
 vi.mock('@/app/(pro)/work/tasks/[id]/edit/page', () => ({

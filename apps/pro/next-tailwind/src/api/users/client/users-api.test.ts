@@ -7,9 +7,9 @@ import { getTaskMetadata } from '@/api/tasks';
 import {
   systemPresetAvatarManifest,
   type SystemPresetUserId,
-} from '@/mock/avatars/preset-manifest';
-import { demoAccounts } from '@/mock/fixtures/accounts';
-import { handlers } from '@/mock/handlers';
+} from '@/server/demo/avatars/preset-manifest';
+import { demoAccounts } from '@/server/demo/fixtures/accounts';
+import { handlers } from '@/test/demo-handlers';
 
 import { getUser } from './users-api';
 

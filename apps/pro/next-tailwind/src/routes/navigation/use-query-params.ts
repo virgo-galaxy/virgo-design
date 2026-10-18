@@ -1,10 +1,12 @@
 'use client';
+
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
 
 import { useAppNavigation } from './use-app-navigation';
 
 type QueryValue = URLSearchParams | Record<string, string>;
+
 export function useQueryParams() {
   const pathname = usePathname();
   const nativeParams = useSearchParams();

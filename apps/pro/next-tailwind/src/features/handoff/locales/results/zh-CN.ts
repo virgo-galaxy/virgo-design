@@ -1,6 +1,7 @@
 import type { LocaleOf } from '@/i18n';
 
 import type { resultsEnUS } from './en-US';
+
 export const resultsZhCN = {
   scopePreview: '预览 {{shown}} / {{total}} 个关联任务，下载任务范围可查看完整列表。',
   recordDetails: '结果记录',

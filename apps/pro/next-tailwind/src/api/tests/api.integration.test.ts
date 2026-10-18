@@ -16,10 +16,10 @@ import {
 import { prepareHandoff } from '@/api/workflows';
 import { getAllTasks } from '@/features/tasks';
 import { http, HttpError } from '@/lib/http';
-import { initialTaskState, taskReferenceDate } from '@/mock/fixtures/tasks';
-import { handlers } from '@/mock/handlers';
-import { resetProfile } from '@/mock/handlers/profile';
-import { resetTasks } from '@/mock/handlers/tasks';
+import { initialTaskState, taskReferenceDate } from '@/server/demo/fixtures/tasks';
+import { resetProfile } from '@/server/demo/handlers/profile';
+import { resetTasks } from '@/server/demo/handlers/tasks';
+import { handlers } from '@/test/demo-handlers';
 
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
@@ -29,6 +29,7 @@ beforeEach(() => {
   resetProfile();
 });
 afterAll(() => server.close());
+
 const draft = {
   title: 'Created through Axios',
   description: 'Network fixture',
@@ -40,7 +41,8 @@ const draft = {
   dueDate: '2026-10-06',
   estimateHours: 3,
 };
-describe('consumer → API → Axios → MSW', () => {
+
+describe('consumer → API → Axios → native demo handlers', () => {
   it('combines multi-value filters as OR within a field and AND across fields, including all-page export', async () => {
     const query = {
       status: ['todo', 'in_progress'] as const,

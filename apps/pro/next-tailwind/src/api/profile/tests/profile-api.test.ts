@@ -3,8 +3,8 @@ import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, expect, it } from 'vitest';
 
 import { http } from '@/lib/http';
-import { handlers } from '@/mock/handlers';
-import { resetProfile } from '@/mock/handlers/profile';
+import { resetProfile } from '@/server/demo/handlers/profile';
+import { handlers } from '@/test/demo-handlers';
 
 import {
   getProfileIdentity,

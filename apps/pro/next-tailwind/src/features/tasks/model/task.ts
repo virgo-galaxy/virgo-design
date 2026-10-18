@@ -26,6 +26,7 @@ export function projectTaskErrors(
 
 export const taskStatuses = TASK_STATUS_CODES;
 export const taskPriorities = TASK_PRIORITY_CODES;
+
 export type TaskStatus = TaskStatusDto;
 export type TaskPriority = TaskPriorityDto;
 
@@ -50,6 +51,7 @@ export type TaskAction =
   | { type: 'create'; draft: TaskDraft }
   | { type: 'edit'; id: string; draft: TaskDraft }
   | { type: 'status'; id: string; status: TaskStatus };
+
 export type TaskErrors = Partial<Record<keyof TaskDraft, TaskValidationCode>>;
 
 export const emptyTaskDraft: TaskDraft = {

@@ -10,15 +10,14 @@ import { login } from '@/api/auth';
 import EditTaskPage from '@/app/(pro)/work/tasks/[id]/edit/page';
 import TasksPage from '@/app/(pro)/work/tasks/page';
 import { useNotificationInbox } from '@/components/layout/notification/hooks/use-notification-inbox';
+import { subscribeToDemoChanges } from '@/demo/client/resource-sync';
+import { changesFromHeader, demoChangeKey } from '@/demo/client/storage-changes';
 import { CatalogBoundary, CatalogProvider } from '@/features/catalog';
 import { ProfileIdentityProvider, useProfileIdentityResource } from '@/features/profile';
 import { useTaskDependentQuery, useTaskOperations, useTaskQuery } from '@/features/tasks';
 import { i18nInstance } from '@/i18n';
-import { getDemoState } from '@/mock/data/store';
-import { handlers } from '@/mock/handlers';
-import { resetTasks } from '@/mock/handlers/tasks';
-import { subscribeToDemoChanges } from '@/mock/runtime/resource-sync';
-import { demoStorageChanges } from '@/mock/runtime/storage-changes';
+import { resetTasks } from '@/server/demo/handlers/tasks';
+import { handlers } from '@/test/demo-handlers';
 import { TestSessionProvider } from '@/test/TestSessionProvider';
 
 const server = setupServer(...handlers);
@@ -30,6 +29,7 @@ const paths: string[] = [];
 server.events.on('request:start', ({ request }) => {
   if (request.method === 'GET') paths.push(new URL(request.url).pathname);
 });
+
 function mount(page: React.ReactNode, path = '/') {
   return render(
     <RouterProvider
@@ -54,6 +54,7 @@ function mount(page: React.ReactNode, path = '/') {
     />,
   );
 }
+
 function ChangeTask() {
   const { dispatch } = useTaskOperations();
   return (
@@ -64,6 +65,7 @@ function ChangeTask() {
     </button>
   );
 }
+
 function QueryProbe() {
   const tasks = useTaskQuery({ pageSize: 10 });
   const analytics = useTaskDependentQuery(getDeliveryTrend);
@@ -87,6 +89,7 @@ function QueryProbe() {
     </>
   );
 }
+
 it('retries a failed task catalog without replacing the application shell', async () => {
   server.use(mswHttp.get('/api/v1/tasks/metadata', () => new HttpResponse(null, { status: 503 })));
   mount(
@@ -171,11 +174,9 @@ it('refreshes only profile for a profile-only cross-tab storage change', async (
     </CatalogBoundary>,
   );
   await screen.findByText('Resources ready');
-  const oldState = structuredClone(getDemoState());
-  const nextState = { ...oldState, profile: { ...oldState.profile, headline: 'New headline' } };
-  const oldValue = JSON.stringify(oldState);
-  const newValue = JSON.stringify(nextState);
-  expect(demoStorageChanges(oldValue, newValue)).toEqual({
+  const changes = changesFromHeader('profile');
+  const newValue = JSON.stringify({ id: 'other-tab', changes });
+  expect(changes).toEqual({
     tasks: false,
     catalog: false,
     profile: true,
@@ -183,11 +184,7 @@ it('refreshes only profile for a profile-only cross-tab storage change', async (
     notifications: false,
   });
   paths.length = 0;
-  act(() =>
-    window.dispatchEvent(
-      new StorageEvent('storage', { key: 'virgo-pro.demo-data', oldValue, newValue }),
-    ),
-  );
+  act(() => window.dispatchEvent(new StorageEvent('storage', { key: demoChangeKey, newValue })));
   await waitFor(() => expect(paths).toEqual(['/api/v1/profile/identity']));
 });
 

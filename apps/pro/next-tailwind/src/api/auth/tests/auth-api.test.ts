@@ -4,10 +4,10 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } 
 
 import { API_ERROR_CODES } from '@/api/gateway/constants';
 import { getProfileIdentity, getProfilePreferences } from '@/api/profile';
-import { enterDemoSession } from '@/mock/client';
-import { handlers } from '@/mock/handlers';
-import { resetSession } from '@/mock/handlers/auth';
-import { resetProfile } from '@/mock/handlers/profile';
+import { enterDemoSession } from '@/demo/client';
+import { resetProfile } from '@/server/demo/handlers/profile';
+import { handlers } from '@/test/demo-handlers';
+import { resetSession } from '@/test/demo-session';
 
 import { getSession, logout } from '..';
 
@@ -24,7 +24,7 @@ afterEach(() => {
 });
 afterAll(() => server.close());
 
-describe('mock account session', () => {
+describe('demo account session', () => {
   it('keeps sign-in and sign-out consistent when session storage writes and removals fail', async () => {
     vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
       throw new Error('Storage unavailable');

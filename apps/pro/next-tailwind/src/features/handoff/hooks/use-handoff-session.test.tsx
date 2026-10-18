@@ -5,7 +5,7 @@ import { afterEach, expect, it, vi } from 'vitest';
 
 import { prepareHandoff } from '@/api/workflows';
 import type { WorkflowReceiptDto } from '@/api/workflows/types';
-import { sampleError, sampleSuccess } from '@/mock/fixtures/workflows';
+import { sampleError, sampleSuccess } from '@/server/demo/fixtures/workflows';
 
 import { HandoffStoreProvider } from '../store';
 import { useHandoffSession } from './use-handoff-session';

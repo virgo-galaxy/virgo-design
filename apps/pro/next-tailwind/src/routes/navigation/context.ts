@@ -6,10 +6,12 @@ export interface NavigationLocation {
   pathname: string;
   search: string;
 }
+
 export type NavigationPredicate = (locations: {
   currentLocation: NavigationLocation;
   nextLocation: NavigationLocation;
 }) => boolean;
+
 export interface NavigationContextValue {
   request: (url: string, action: () => void) => void;
   register: (predicate: NavigationPredicate) => () => void;
@@ -17,7 +19,9 @@ export interface NavigationContextValue {
   reset: () => void;
   proceed: () => void;
 }
+
 export const NavigationContext = createContext<NavigationContextValue | null>(null);
+
 export function useNavigationContext() {
   const context = useContext(NavigationContext);
   if (!context) throw new Error('NavigationProvider is required');

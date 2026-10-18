@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-li
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { i18nInstance } from '@/i18n';
-import { initialProfile } from '@/mock/fixtures/profile';
+import { initialProfile } from '@/server/demo/fixtures/profile';
 
 import { AccountMenu } from './AccountMenu';
 
@@ -14,6 +14,7 @@ const { navigate, signOut, changeMode, currentUser, profileResource } = vi.hoist
   currentUser: { name: 'Admin', role: 'admin', account: 'admin', department: 'Platform' },
   profileResource: vi.fn(),
 }));
+
 vi.mock('react-router', async (importOriginal) => ({
   ...(await importOriginal<typeof import('react-router')>()),
   useNavigate: () => navigate,

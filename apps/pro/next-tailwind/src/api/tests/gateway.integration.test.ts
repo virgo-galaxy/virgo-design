@@ -1,6 +1,7 @@
 import { createServer } from 'node:http';
 
 import { afterEach, describe, expect, it, vi } from 'vitest';
+
 afterEach(() => {
   vi.unstubAllEnvs();
   vi.resetModules();
@@ -38,7 +39,7 @@ describe('real Gateway mode', () => {
       const address = server.address();
       if (!address || typeof address === 'string') throw new Error('Missing port');
       vi.stubEnv('NEXT_PUBLIC_API_BASE_URL', `http://127.0.0.1:${address.port}/api/v1`);
-      vi.stubEnv('NEXT_PUBLIC_API_MOCKING', 'false');
+      vi.stubEnv('NEXT_PUBLIC_DEMO_API', 'false');
       vi.resetModules();
       const { getProfileIdentity } = await import('@/api/profile');
       expect((await getProfileIdentity()).name).toBe('Gateway profile');

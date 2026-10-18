@@ -6,10 +6,10 @@ import { afterAll, afterEach, beforeAll, beforeEach, expect, it, vi } from 'vite
 import { getProjectModuleStats, getProjects, getProjectSummaries } from '@/api/projects';
 import { createTask, getTasks, updateTask, updateTaskStatus } from '@/api/tasks';
 import { moduleFilterKey, moduleName } from '@/features/catalog';
-import { getDemoState, updateDemoState } from '@/mock/data/store';
-import * as projectFixtures from '@/mock/fixtures/projects';
-import { handlers } from '@/mock/handlers';
-import { resetTasks } from '@/mock/handlers/tasks';
+import { getDemoState, updateDemoState } from '@/server/demo/data/store';
+import * as projectFixtures from '@/server/demo/fixtures/projects';
+import { resetTasks } from '@/server/demo/handlers/tasks';
+import { handlers } from '@/test/demo-handlers';
 
 import { getTaskCollection } from '../data/queries';
 import { taskDraft } from '../model/task';

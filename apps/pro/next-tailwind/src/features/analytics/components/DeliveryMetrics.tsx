@@ -9,6 +9,7 @@ import { deliveryAnalysis } from '../model/delivery-analysis';
 import { chartColors } from '../presentation/chart-colors';
 
 const percent = (value: number) => `${Math.round(value)}%`;
+
 const signedPercent = (value: number) => {
   const rounded = Math.round(value);
 

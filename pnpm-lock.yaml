@@ -107,9 +107,6 @@ importers:
       i18next:
         specifier: ^26.4.2
         version: 26.4.2(typescript@6.0.3)
-      msw:
-        specifier: ^2.15.0
-        version: 2.15.0(@types/node@24.13.3)(typescript@6.0.3)
       next:
         specifier: ^16.4.2
         version: 16.4.2(@babel/core@7.29.7)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.104.0)
@@ -129,6 +126,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.3.3
         version: 4.3.3
+      msw:
+        specifier: ^2.15.0
+        version: 2.15.0(@types/node@24.13.3)(typescript@6.0.3)
       react-router:
         specifier: 8.4.0
         version: 8.4.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)

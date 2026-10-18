@@ -6,8 +6,12 @@ export default defineConfig({
   plugins: [
     {
       name: 'next-static-images',
+      resolveId(source) {
+        if (source === 'server-only') return '\0server-only';
+      },
       enforce: 'pre',
       load(id) {
+        if (id === '\0server-only') return 'export {};';
         if (/\.(webp|png|jpe?g|svg)$/.test(id))
           return `export default {src: ${JSON.stringify(id)}};`;
       },
@@ -69,7 +73,7 @@ export default defineConfig({
     environment: 'node',
     setupFiles: [
       fileURLToPath(new URL('./src/test/setup.ts', import.meta.url)),
-      fileURLToPath(new URL('./src/mock/tests/setup.ts', import.meta.url)),
+      fileURLToPath(new URL('./src/test/demo-setup.ts', import.meta.url)),
     ],
     include: ['src/**/*.test.{ts,tsx}'],
   },

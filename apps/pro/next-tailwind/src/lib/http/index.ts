@@ -1,6 +1,6 @@
 export type { HttpRequestConfig } from './client/client';
 export { http, resolveApiBaseUrl } from './client/client';
-export { prepareHttpRequest, setHttpPreparation } from './client/preparation';
+export { subscribeToHttpResponses } from './client/responses';
 export type { HttpErrorKind } from './model/error';
 export { HttpError, isHttpError } from './model/error';
 export type { ApiErrorData, ApiResponse } from './model/protocol';

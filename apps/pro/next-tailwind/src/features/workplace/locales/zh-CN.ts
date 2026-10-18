@@ -1,6 +1,7 @@
 import type { LocaleOf } from '@/i18n';
 
 import type { workplaceEnUS } from './en-US';
+
 export const workplaceZhCN = {
   previousMonth: '上个月',
   nextMonth: '下个月',

@@ -3,7 +3,7 @@ import { act, renderHook } from '@testing-library/react';
 import { getTheme } from '@virgo-design/themes';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 
-import { clearDemoStorage } from '@/mock/data/reset';
+import { clearDemoStorage } from '@/demo/client/reset';
 
 import { disposePreferences, initializePreferences } from '../bootstrap/initialize-preferences';
 import { useAppPreferences } from '../hooks/use-app-preferences';

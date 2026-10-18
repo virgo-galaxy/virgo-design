@@ -14,14 +14,14 @@ import ProfilePage from '@/app/(pro)/profile/page';
 import SuccessPage from '@/app/(pro)/result/success/page';
 import AnalyticsPage from '@/app/(pro)/visualization/analytics/page';
 import ProjectDetailPage from '@/app/(pro)/work/projects/[projectId]/page';
+import { subscribeToDemoChanges } from '@/demo/client/resource-sync';
+import { changesFromHeader, demoChangeKey } from '@/demo/client/storage-changes';
 import { CatalogProvider } from '@/features/catalog';
 import { useHandoffSession } from '@/features/handoff';
 import { HandoffStoreProvider } from '@/features/handoff/store';
 import { ProfileIdentityProvider } from '@/features/profile';
-import { getDemoState } from '@/mock/data/store';
-import { handlers } from '@/mock/handlers';
-import { resetTasks } from '@/mock/handlers/tasks';
-import { subscribeToDemoChanges } from '@/mock/runtime/resource-sync';
+import { resetTasks } from '@/server/demo/handlers/tasks';
+import { handlers } from '@/test/demo-handlers';
 import { TestSessionProvider } from '@/test/TestSessionProvider';
 
 vi.mock('@virgo-design/charts', () => ({
@@ -100,14 +100,9 @@ it('refreshes a workflow result from the server after a cross-tab update even af
     fireEvent.click(screen.getByRole('button', { name: 'Prepare local draft' }));
     await waitFor(() => expect(first).toBeDefined());
     await screen.findAllByText(first!.reference);
-    const oldValue = JSON.stringify(getDemoState());
     const next = await prepareHandoff({ ...draft, title: 'Updated in another tab' });
-    const newValue = JSON.stringify(getDemoState());
-    act(() =>
-      window.dispatchEvent(
-        new StorageEvent('storage', { key: 'virgo-pro.demo-data', oldValue, newValue }),
-      ),
-    );
+    const newValue = JSON.stringify({ id: 'another-tab', changes: changesFromHeader('workflows') });
+    act(() => window.dispatchEvent(new StorageEvent('storage', { key: demoChangeKey, newValue })));
     await screen.findAllByText(next.reference);
     expect(screen.queryByText(first!.reference)).not.toBeInTheDocument();
     expect(requests.filter((path) => path === '/api/v1/workflows/latest')).toHaveLength(2);
@@ -115,6 +110,7 @@ it('refreshes a workflow result from the server after a cross-tab update even af
     dispose();
   }
 });
+
 function mount(page: ReactNode, path = '/') {
   const router = createMemoryRouter(
     [

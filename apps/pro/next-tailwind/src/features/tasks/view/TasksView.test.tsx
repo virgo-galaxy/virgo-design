@@ -17,9 +17,9 @@ import { login } from '@/api/auth';
 import { API_ERROR_CODES } from '@/api/gateway/constants';
 import { getTasks } from '@/api/tasks';
 import { CatalogProvider } from '@/features/catalog';
-import { initialTaskState } from '@/mock/fixtures/tasks';
-import { handlers } from '@/mock/handlers';
-import { resetTasks } from '@/mock/handlers/tasks';
+import { initialTaskState } from '@/server/demo/fixtures/tasks';
+import { resetTasks } from '@/server/demo/handlers/tasks';
+import { handlers } from '@/test/demo-handlers';
 import { TestSessionProvider } from '@/test/TestSessionProvider';
 
 import { taskTableStorageKey } from '../model/table-preferences';
@@ -43,6 +43,7 @@ afterAll(() => server.close());
 function Page() {
   return <TasksView />;
 }
+
 function renderPage(path = '/work/tasks') {
   const router = createMemoryRouter(
     [

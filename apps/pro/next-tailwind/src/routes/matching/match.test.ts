@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { taskDetailsPath, taskReturnPath } from '@/features/tasks';
-import { demoAccounts } from '@/mock/fixtures/accounts';
+import { demoAccounts } from '@/server/demo/fixtures/accounts';
 
 import { routePath } from '../definitions/paths';
 import type { ProRouteConfig } from '../definitions/routes.config';

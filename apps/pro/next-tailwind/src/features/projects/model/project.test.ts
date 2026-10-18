@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { projects } from '@/mock/fixtures/projects';
-import { taskAssignees } from '@/mock/fixtures/tasks';
+import { projects } from '@/server/demo/fixtures/projects';
+import { taskAssignees } from '@/server/demo/fixtures/tasks';
 
 import { projectDetailPath, projectTasksPath } from '../routes/navigation';
 import { filterProjects } from './project';
+
 describe('project presentation', () => {
   it('uses stable IDs in links independently of display names', () => {
     const renamed = { ...projects[1]!, name: 'A renamed project' };

@@ -6,10 +6,10 @@ import { afterAll, afterEach, beforeAll, expect, it } from 'vitest';
 
 import { getTokenUsageReport } from '@/api/analytics';
 import { CatalogProvider } from '@/features/catalog';
-import { demoDate } from '@/mock/fixtures/dates';
-import { handlers } from '@/mock/handlers';
-import { success } from '@/mock/http/response';
-import { dailyTokenUsage } from '@/mock/model/task-records';
+import { demoDate } from '@/server/demo/fixtures/dates';
+import { success } from '@/server/demo/http/response';
+import { dailyTokenUsage } from '@/server/demo/model/task-records';
+import { handlers } from '@/test/demo-handlers';
 import { TestSessionProvider } from '@/test/TestSessionProvider';
 
 import { TokenUsageDataProvider } from '../../data/token-usage-data';

@@ -12,9 +12,9 @@ import {
   updateProfilePreferences,
 } from '@/api/profile';
 import { CatalogProvider } from '@/features/catalog';
-import { handlers } from '@/mock/handlers';
-import { resetProfile } from '@/mock/handlers/profile';
+import { resetProfile } from '@/server/demo/handlers/profile';
 import { useInvalidateResources } from '@/store/resources';
+import { handlers } from '@/test/demo-handlers';
 import { TestSessionProvider } from '@/test/TestSessionProvider';
 
 import { ProfileIdentityProvider } from '../context/ProfileIdentityProvider';
@@ -35,6 +35,7 @@ function RefreshProfile({ children }: { children: ReactNode }) {
     </>
   );
 }
+
 function mount() {
   const router = createMemoryRouter([
     {

@@ -5,6 +5,7 @@ import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 import { NavigationContext, type NavigationLocation, type NavigationPredicate } from './context';
 
 const indexKey = '__virgoNavigationIndex';
+
 function location(url: string): NavigationLocation {
   const parsed = new URL(url, window.location.href);
   return { pathname: parsed.pathname, search: parsed.search };

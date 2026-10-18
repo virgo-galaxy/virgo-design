@@ -6,8 +6,8 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } 
 
 import { login } from '@/api/auth';
 import { sessionExpiredEvent } from '@/lib/auth/session';
-import { handlers } from '@/mock/handlers';
 import { routePath } from '@/routes';
+import { handlers } from '@/test/demo-handlers';
 import { createAppRoutes } from '@/test/router';
 
 const projectFailure = vi.hoisted(() => ({ current: false }));
@@ -111,6 +111,7 @@ afterEach(() => {
   server.resetHandlers();
   vi.unstubAllGlobals();
 });
+
 function start(path: string) {
   router = createMemoryRouter(createAppRoutes(), { initialEntries: [path] });
   render(<RouterProvider router={router} />);

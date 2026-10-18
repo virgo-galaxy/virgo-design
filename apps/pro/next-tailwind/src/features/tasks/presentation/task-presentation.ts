@@ -9,6 +9,7 @@ export const taskStatusIntent: Record<TaskStatus, TagIntent> = {
   in_review: 'warning',
   done: 'success',
 };
+
 export const taskPriorityIntent: Record<TaskPriority, TagIntent> = {
   low: 'neutral',
   medium: 'info',

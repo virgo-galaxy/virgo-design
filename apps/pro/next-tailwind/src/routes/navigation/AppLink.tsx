@@ -1,13 +1,16 @@
 'use client';
+
 import NextLink from 'next/link';
 import type { ComponentProps } from 'react';
 
 import { useAppNavigation } from './use-app-navigation';
 
 type NativeLinkProps = ComponentProps<typeof NextLink>;
+
 type AppLinkProps = { [Key in keyof NativeLinkProps]: NativeLinkProps[Key] | undefined } & {
   href: NativeLinkProps['href'];
 };
+
 export function AppLink({ href, onNavigate, ...props }: AppLinkProps) {
   const navigate = useAppNavigation();
   const definedProps = Object.fromEntries(

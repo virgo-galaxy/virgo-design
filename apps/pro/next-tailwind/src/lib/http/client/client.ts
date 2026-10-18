@@ -8,7 +8,7 @@ import {
   isApiResponse,
 } from '../model/protocol';
 import { installHttpInterceptors } from './interceptors';
-import { prepareHttpRequest } from './preparation';
+import { notifyHttpResponse } from './responses';
 
 export function resolveApiBaseUrl(): string {
   const configured = process.env.NEXT_PUBLIC_API_BASE_URL?.trim() || '/api/v1';
@@ -30,8 +30,6 @@ const client = axios.create({
 installHttpInterceptors(client);
 
 async function request<T>(config: AxiosRequestConfig): Promise<T> {
-  await prepareHttpRequest();
-
   const response = await client.request<unknown>(config);
   const body = response.data;
 
@@ -45,6 +43,7 @@ async function request<T>(config: AxiosRequestConfig): Promise<T> {
 
   if (body.msg !== API_SUCCESS_MSG) throw protocolError(response, 'Invalid API success response');
 
+  notifyHttpResponse(response);
   return body.data as T;
 }
 

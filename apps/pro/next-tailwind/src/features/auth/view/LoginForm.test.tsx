@@ -5,8 +5,8 @@ import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, expect, it, vi } from 'vitest';
 
 import { i18nInstance } from '@/i18n';
-import { handlers } from '@/mock/handlers';
 import { initializePreferences } from '@/preferences';
+import { handlers } from '@/test/demo-handlers';
 
 import { LoginForm } from './LoginForm';
 
