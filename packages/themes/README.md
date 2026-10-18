@@ -22,5 +22,5 @@ setTheme('soft');
 - Theme scopes use `data-virgo-theme` for the preset and `data-theme` for appearance.
 
 Initialize the browser runtime before rendering. Applications choose appearance and
-configure preference storage. See [theme architecture](../../docs/architecture/theme-system.md)
+configure preference storage. See [token and theme architecture](../../docs/architecture/token-system.md)
 for first-paint, nested scope and server-rendering setup.

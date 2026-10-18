@@ -23,5 +23,5 @@ const validation = validateThemeContract({
 - `/catalog`, `/validation` and `/theme-contract`: focused data and validation entries.
 - `/scss`, `/tailwind`, `/tailwind.css` and `/vanilla-extract`: styling integrations.
 
-See [token architecture](../../docs/architecture/token-system.md) for ownership and
+See [token and theme architecture](../../docs/architecture/token-system.md) for ownership and
 contract rules. Official theme implementations live in `@virgo-design/themes`.

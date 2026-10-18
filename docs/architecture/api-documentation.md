@@ -1,73 +1,59 @@
-# API documentation
+# API documentation generation
 
-Virgo Design API reference is generated from the public TypeScript surfaces in
-`@virgo-design/ui` and `@virgo-design/primitives`.
+Website API references are generated from the public TypeScript surfaces in
+`@virgo-design/ui` and `@virgo-design/primitives`. The
+[generator](../../scripts/generate-api-docs.mjs) owns API facts; Website owns their presentation.
 
-## Source of truth
+## Canonical source
 
-Public `*.types.ts` files are the source of truth for prop names, required state, type signatures,
-JSDoc descriptions, and `@default` values. Component and primitive documentation should not keep a
-second handwritten prop table.
+Public `*.types.ts` files and their English JSDoc define prop names, required state, signatures,
+descriptions and `@default` values. Update those declarations when an API changes. Do not maintain
+handwritten prop tables in architecture documents or edit generated output directly.
 
-Generated declarations and properties also carry a stable `descriptionTranslationKey` under the
-corresponding `components.<slug>.api.*` or `primitives.<slug>.api.*` domain. `ApiReference` asks the
-default translation tree for that key and falls back to the generated English JSDoc description.
-The generator therefore remains the source of API facts while a business-owned locale can override
-only the description text.
+React/DOM inherited attributes remain in the exported signature but are omitted from property rows.
+Virgo-specific inherited primitive props are included. Component and Primitive detail routes render
+their own generated registry through the shared `ApiReference` component.
 
-Changing a Chinese description override does not require generation. English API descriptions
-are generated from canonical JSDoc; co-located `zh-CN` files override the generated keys. Changes
-to the public API or its JSDoc still require regeneration. Do not add Chinese JSDoc to package
-sources or generate separate English and Chinese API registries.
+## Workflow
 
-The generator intentionally omits React and DOM inherited attributes from property rows. Their
-heritage remains visible in the exported type signature, while Virgo-specific inherited props from
-`@virgo-design/primitives` are included.
-
-## Generate
+After changing public types or JSDoc, run from the repository root:
 
 ```bash
 pnpm gen:api-docs
-```
-
-This writes:
-
-```text
-apps/website/src/generated/api-reference.generated.ts              # compatibility barrel
-apps/website/src/generated/component-api-reference.generated.ts  # UI facts
-apps/website/src/generated/primitive-api-reference.generated.ts  # primitive facts
-apps/website/src/generated/api-description-resources.generated.ts # English description text
-```
-
-Do not edit generated files by hand. The i18n registry imports only the lean English description
-resources and business-owned Chinese overrides. UI and primitive detail features import their
-own fact registry. This avoids pulling types, default values and full declaration metadata into
-the initial translation bundle. The equivalence test checks every generated English description
-against the canonical full registry; the check command validates all four outputs.
-
-## Verify
-
-```bash
 pnpm check:api-docs
 ```
 
-`pnpm all` runs this check before typecheck, lint, tests, and build so API reference data cannot drift
-silently after a public type change.
+The generator writes these files under `apps/website/src/generated/`:
 
-## Rendering
+| File                                     | Purpose                                  |
+| ---------------------------------------- | ---------------------------------------- |
+| `component-api-reference.generated.ts`   | UI declaration and property facts        |
+| `primitive-api-reference.generated.ts`   | Primitive declaration and property facts |
+| `api-description-resources.generated.ts` | Lean English description resources       |
+| `api-reference.generated.ts`             | Re-export barrel for the fact registries |
 
-`ApiReference` is shared by the website documentation surfaces:
+Commit regenerated output with its source change. If generated imports or output structure need
+to change, update the generator and regenerate. `pnpm check:api-docs` compares every output with
+canonical source without rewriting it; `pnpm all` includes this check.
 
-- every Components detail route renders the `@virgo-design/ui` API after its examples;
-- every Primitives detail route renders the `@virgo-design/primitives` API while retaining its
-  compact public-export summary.
+## Localization
 
-Declaration and public-type frames use Virgo Surface (`tone="default"`, `border="subtle"`,
-`radius={12}`). Explicit named regions preserve their accessible section semantics without adding
-wrappers or changing Surface's neutral default. Surface owns the fill, outer border and radius;
-Website owns content layout and overflow clipping.
+Generated declarations and properties carry stable `descriptionTranslationKey` values in
+`components.<slug>.api.*` or `primitives.<slug>.api.*`. English descriptions come from canonical
+JSDoc. Co-located Website Chinese resources override those keys without creating another API
+registry or adding Chinese JSDoc to package source.
 
-Inside each declaration, Virgo Table preserves native table semantics and a named scroll viewport.
-`border="separators"` supplies internal row rules without duplicating Surface's outer edge.
-Column ratios, code typography, content padding and dividers between title/signature/table regions
-remain Website composition styles. This presentation is independent of the generated API model.
+Changing only a Chinese description does not require regeneration. Changing public API facts or
+English JSDoc does. `ApiReference` resolves translated descriptions and falls back to generated
+English text. The description-resource equivalence test guards agreement with the full registries.
+
+## Loading and presentation
+
+The i18n registry imports lean description resources and Chinese overrides. Detail features import
+their own fact registry, keeping full signatures and declaration metadata out of the initial
+translation bundle.
+
+Surface owns declaration frames; Table owns table semantics, internal separators and a named
+scroll viewport. Website styles own content geometry and typography. Presentation changes do not
+change API facts or require another generator. See [Website maintenance](website-maintenance.md)
+for composition and example ownership.
