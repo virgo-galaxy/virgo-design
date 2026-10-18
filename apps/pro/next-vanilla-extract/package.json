@@ -1,0 +1,22 @@
+{
+  "name": "@virgo-design/pro-next-vanilla-extract",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 6306",
+    "build": "next build",
+    "start": "next start --port 6306",
+    "typecheck": "next typegen && tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src next.config.ts"
+  },
+  "dependencies": {
+    "@vanilla-extract/css": "^1.21.3",
+    "next": "^16.4.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@vanilla-extract/next-plugin": "^2.5.2"
+  }
+}

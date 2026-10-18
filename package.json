@@ -11,6 +11,7 @@
     "dev:pro-vite-react-vanilla-extract": "pnpm --filter @virgo-design/pro-vite-react-vanilla-extract dev",
     "dev:pro-next-scss-modules": "pnpm --filter @virgo-design/pro-next-scss-modules dev",
     "dev:pro-next-tailwind": "pnpm --filter @virgo-design/pro-next-tailwind dev",
+    "dev:pro-next-vanilla-extract": "pnpm --filter @virgo-design/pro-next-vanilla-extract dev",
     "gen:icons": "pnpm --filter @virgo-design/icons generate",
     "gen:api-docs": "node scripts/generate-api-docs.mjs",
     "check:api-docs": "node scripts/generate-api-docs.mjs --check",

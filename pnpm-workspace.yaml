@@ -4,5 +4,6 @@ packages:
   - apps/pro/*
 allowBuilds:
   '@parcel/watcher': true
+  '@swc/core': true
   esbuild: true
   msw: false
