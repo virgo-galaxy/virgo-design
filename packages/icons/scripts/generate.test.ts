@@ -73,6 +73,8 @@ describe('icons generator', () => {
       'layout.svg',
       'lock.svg',
       'log-out.svg',
+      'mail-open.svg',
+      'mail.svg',
       'maximize.svg',
       'microphone.svg',
       'minus.svg',
@@ -114,7 +116,7 @@ describe('icons generator', () => {
       'window-move.svg',
     ];
     const filledFamilies =
-      'bell bot briefcase calendar circle-check circle-info circle-x triangle-alert dashboard database filter form gauge home layers layout widgets eye eye-closed lock unlock pin unpin microphone monitor sun moon play pause stop palette receipt settings shapes shirt studio-tools trash user'.split(
+      'bell bot briefcase calendar circle-check circle-info circle-x triangle-alert dashboard database filter form gauge home layers layout widgets eye eye-closed lock unlock pin unpin mail mail-open microphone monitor sun moon play pause stop palette receipt settings shapes shirt studio-tools trash user'.split(
         ' ',
       );
     expect(files).toEqual(

@@ -1,0 +1,36 @@
+name: Version packages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: version-packages
+  cancel-in-progress: false
+
+env:
+  HUSKY: '0'
+
+jobs:
+  version:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - uses: pnpm/action-setup@v6
+      - run: pnpm install --frozen-lockfile
+      - uses: changesets/action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version: pnpm version:packages
+          title: 'chore(release): version packages'
+          commit: 'chore(release): version packages'

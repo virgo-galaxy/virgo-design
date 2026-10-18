@@ -30,10 +30,22 @@
     "@virgo-design/tokens": "workspace:*"
   },
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json && node scripts/build-css.mjs",
+    "build": "vite build && node ../../scripts/build-declarations.mjs && node scripts/build-css.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "publishConfig": {
-    "access": "public"
-  }
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "description": "Theme presets, CSS generation and browser/SSR theme runtime for Virgo Design.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virgo-galaxy/virgo-design.git",
+    "directory": "packages/themes"
+  },
+  "homepage": "https://github.com/virgo-galaxy/virgo-design/tree/main/packages/themes#readme",
+  "bugs": {
+    "url": "https://github.com/virgo-galaxy/virgo-design/issues"
+  },
+  "license": "MIT"
 }

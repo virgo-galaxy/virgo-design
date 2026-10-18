@@ -1,5 +1,5 @@
 import { Dialog as PrimitiveDialog } from '@virgo-design/primitives';
-import { forwardRef } from 'react';
+import { forwardRef, type JSX } from 'react';
 
 import { Button } from '../Button';
 import type {
@@ -10,6 +10,7 @@ import type {
   DialogFooterProps,
   DialogHeaderProps,
   DialogOverlayProps,
+  DialogPortalProps,
   DialogProps,
   DialogTitleProps,
   DialogTriggerProps,
@@ -58,7 +59,7 @@ const Trigger = forwardRef<HTMLButtonElement, DialogTriggerProps>(function Dialo
   );
 });
 
-const Portal = PrimitiveDialog.Portal;
+const Portal: (props: DialogPortalProps) => JSX.Element | null = PrimitiveDialog.Portal;
 
 const Overlay = forwardRef<HTMLDivElement, DialogOverlayProps>(function DialogOverlay(
   { className, ...props },

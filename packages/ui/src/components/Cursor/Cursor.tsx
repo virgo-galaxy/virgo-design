@@ -2,7 +2,12 @@ import { CursorArrowIcon } from '@virgo-design/icons';
 import { Cursor as PrimitiveCursor } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import type { CursorFollowerProps, CursorProviderProps, CursorVisualProps } from './Cursor.types';
+import type {
+  CursorFollowerProps,
+  CursorPointer,
+  CursorProviderProps,
+  CursorVisualProps,
+} from './Cursor.types';
 
 import styles from './Cursor.module.scss';
 
@@ -52,4 +57,6 @@ const Follower = forwardRef<HTMLDivElement, CursorFollowerProps>(function Cursor
     />
   );
 });
-export const Cursor = { Provider, Visual, Follower, usePointer: PrimitiveCursor.usePointer };
+const usePointer: () => CursorPointer | null = PrimitiveCursor.usePointer;
+
+export const Cursor = { Provider, Visual, Follower, usePointer };

@@ -3,6 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "description": "Documentation and component demos for Virgo Design.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virgo-galaxy/virgo-design.git",
+    "directory": "apps/website"
+  },
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@virgo-design/charts": "workspace:*",

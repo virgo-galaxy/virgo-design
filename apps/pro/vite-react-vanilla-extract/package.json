@@ -3,6 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "description": "Virgo Design Pro application built with Vite, React and vanilla-extract.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virgo-galaxy/virgo-design.git",
+    "directory": "apps/pro/vite-react-vanilla-extract"
+  },
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@virgo-design/charts": "workspace:*",

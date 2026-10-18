@@ -1,0 +1,5 @@
+@use '@virgo-design/tokens/scss' as tokens;
+
+.scss-consumer {
+  padding: tokens.token('--vd-spacing-16');
+}

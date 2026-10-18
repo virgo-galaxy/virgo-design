@@ -27,7 +27,8 @@
     "./styles.css": "./dist/styles.css"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
     "@virgo-design/primitives": "workspace:*",
@@ -39,7 +40,18 @@
     "react-dom": ">=18.0.0"
   },
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json",
+    "build": "vite build && node ../../scripts/build-declarations.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
-  }
+  },
+  "description": "Styled React components built on Virgo Design primitives and tokens.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virgo-galaxy/virgo-design.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://github.com/virgo-galaxy/virgo-design/tree/main/packages/ui#readme",
+  "bugs": {
+    "url": "https://github.com/virgo-galaxy/virgo-design/issues"
+  },
+  "license": "MIT"
 }

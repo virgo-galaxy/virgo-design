@@ -3,6 +3,7 @@ import { Layout as PrimitiveLayout } from '@virgo-design/primitives';
 import {
   type CSSProperties,
   forwardRef,
+  type JSX,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -20,6 +21,7 @@ import type {
   LayoutLaneProps,
   LayoutProps,
   LayoutSidebarProps,
+  LayoutSidebarProviderProps,
   LayoutSidebarState,
   LayoutSidebarTriggerProps,
   LayoutSurface,
@@ -235,7 +237,10 @@ function SidebarContents({
   );
 }
 
-export const LayoutSidebarProvider = PrimitiveLayout.SidebarProvider;
+export const LayoutSidebarProvider: {
+  (props: LayoutSidebarProviderProps): JSX.Element;
+  displayName: string;
+} = PrimitiveLayout.SidebarProvider;
 
 export const LayoutSidebar = forwardRef<HTMLElement, LayoutSidebarProps>(function LayoutSidebar(
   {

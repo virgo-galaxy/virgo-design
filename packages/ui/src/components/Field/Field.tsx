@@ -1,7 +1,8 @@
 import { Field as PrimitiveField } from '@virgo-design/primitives';
-import { forwardRef } from 'react';
+import { forwardRef, type JSX } from 'react';
 
 import type {
+  FieldControlProps,
   FieldDescriptionProps,
   FieldLabelProps,
   FieldMessageProps,
@@ -62,4 +63,4 @@ export const FieldMessage = forwardRef<HTMLDivElement, FieldMessageProps>(functi
   );
 });
 
-export const FieldControl = PrimitiveField.Control;
+export const FieldControl: (props: FieldControlProps) => JSX.Element = PrimitiveField.Control;

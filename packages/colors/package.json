@@ -16,10 +16,22 @@
     }
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json --noEmit"
-  }
+  },
+  "description": "Color palettes and utilities for Virgo Design.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virgo-galaxy/virgo-design.git",
+    "directory": "packages/colors"
+  },
+  "homepage": "https://github.com/virgo-galaxy/virgo-design/tree/main/packages/colors#readme",
+  "bugs": {
+    "url": "https://github.com/virgo-galaxy/virgo-design/issues"
+  },
+  "license": "MIT"
 }

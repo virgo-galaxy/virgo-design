@@ -13,10 +13,17 @@ export default tseslint.config(
       '**/coverage/**',
       '**/.next/**',
       '**/next-env.d.ts',
+      '**/.artifacts/**',
+      '.husky/_/**',
     ],
   },
 
   js.configs.recommended,
+
+  {
+    files: ['**/*.{js,mjs,cjs}'],
+    languageOptions: { globals: globals.node },
+  },
 
   ...tseslint.configs.recommended,
 

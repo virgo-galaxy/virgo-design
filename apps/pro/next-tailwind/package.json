@@ -3,6 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "description": "Virgo Design Pro application built with Next.js and Tailwind CSS.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virgo-galaxy/virgo-design.git",
+    "directory": "apps/pro/next-tailwind"
+  },
   "scripts": {
     "dev": "pnpm run prepare:workspace && next dev --port 6305",
     "build": "pnpm run prepare:workspace && next build",

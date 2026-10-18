@@ -35,7 +35,8 @@
     "./mono/kode-mono.css": "./src/mono/latin/kode-mono.css"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
     "@fontsource-variable/figtree": "^5.3.0",
@@ -53,5 +54,16 @@
     "@fontsource-variable/noto-sans-tc": "^5.3.0",
     "@fontsource-variable/red-hat-mono": "^5.3.0",
     "@fontsource-variable/source-code-pro": "^5.3.0"
-  }
+  },
+  "description": "Self-hosted variable font entries for Virgo Design.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virgo-galaxy/virgo-design.git",
+    "directory": "packages/fonts"
+  },
+  "homepage": "https://github.com/virgo-galaxy/virgo-design/tree/main/packages/fonts#readme",
+  "bugs": {
+    "url": "https://github.com/virgo-galaxy/virgo-design/issues"
+  },
+  "license": "MIT"
 }

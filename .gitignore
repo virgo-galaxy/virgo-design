@@ -23,3 +23,6 @@ next-env.d.ts
 # Vim
 *.swp
 *.swo
+
+# Local release verification outputs
+.artifacts/

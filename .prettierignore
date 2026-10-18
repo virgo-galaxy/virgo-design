@@ -5,4 +5,5 @@ coverage
 .next
 next-env.d.ts
 pnpm-lock.yaml
-apps/pro/vite-react-scss-modules/public/mockServiceWorker.js
+apps/pro/*/public/mockServiceWorker.js
+.artifacts

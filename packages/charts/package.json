@@ -37,10 +37,22 @@
     "react-dom": ">=18.0.0"
   },
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json",
+    "build": "vite build && node ../../scripts/build-declarations.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "publishConfig": {
-    "access": "public"
-  }
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "description": "React chart components and ECharts integration for Virgo Design.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virgo-galaxy/virgo-design.git",
+    "directory": "packages/charts"
+  },
+  "homepage": "https://github.com/virgo-galaxy/virgo-design/tree/main/packages/charts#readme",
+  "bugs": {
+    "url": "https://github.com/virgo-galaxy/virgo-design/issues"
+  },
+  "license": "MIT"
 }

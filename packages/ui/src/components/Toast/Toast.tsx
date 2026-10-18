@@ -6,7 +6,7 @@ import {
   TriangleAlertIcon,
 } from '@virgo-design/icons';
 import { Toast as PrimitiveToast } from '@virgo-design/primitives';
-import { forwardRef, type ReactNode } from 'react';
+import { forwardRef, type JSX, type ReactNode } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
 import type {
@@ -15,6 +15,7 @@ import type {
   ToastDescriptionProps,
   ToastIntent,
   ToastProps,
+  ToastProviderProps,
   ToastTitleProps,
   ToastViewportProps,
 } from './Toast.types';
@@ -34,7 +35,7 @@ function defaultIcon(intent: ToastIntent): ReactNode {
   return null;
 }
 
-const Provider = PrimitiveToast.Provider;
+const Provider: (props: ToastProviderProps) => JSX.Element = PrimitiveToast.Provider;
 
 const Root = forwardRef<HTMLDivElement, ToastProps>(function ToastRoot(
   { intent = 'default', appearance = 'panel', icon, className, children, ...props },

@@ -75,7 +75,8 @@
     "./tailwind.css": "./dist/css/tailwind.css"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "clean": "node ./scripts/clean.mjs",
@@ -85,5 +86,16 @@
   "dependencies": {
     "@virgo-design/colors": "workspace:*",
     "@virgo-design/fonts": "workspace:*"
-  }
+  },
+  "description": "Foundation values, semantic roles and component presentation tokens for Virgo Design.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virgo-galaxy/virgo-design.git",
+    "directory": "packages/tokens"
+  },
+  "homepage": "https://github.com/virgo-galaxy/virgo-design/tree/main/packages/tokens#readme",
+  "bugs": {
+    "url": "https://github.com/virgo-galaxy/virgo-design/issues"
+  },
+  "license": "MIT"
 }

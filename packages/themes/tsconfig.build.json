@@ -10,5 +10,5 @@
     "paths": { "@virgo-design/tokens": ["../tokens/dist/index.d.ts"] }
   },
   "include": ["src"],
-  "exclude": ["src/**/*.test.ts"]
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.spec.ts", "src/**/*.spec.tsx"]
 }
