@@ -1,9 +1,5 @@
-import styles from './page.module.scss';
+import { redirect } from 'next/navigation';
 
 export default function HomePage() {
-  return (
-    <main className={styles.page}>
-      <h1 className={styles.title}>Hello Virgo</h1>
-    </main>
-  );
+  redirect('/dashboard/workplace');
 }

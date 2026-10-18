@@ -1,0 +1,94 @@
+.editorDialog {
+  --dialog-width: calc(var(--vd-sizing-80) * 8);
+}
+
+.editorHeader {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--vd-spacing-16);
+}
+
+.editorForm {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--vd-spacing-20);
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.photoLayout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vd-spacing-24);
+}
+
+.photoRow {
+  display: flex;
+  align-items: center;
+  gap: var(--vd-spacing-16);
+  min-width: 0;
+  > div {
+    min-width: 0;
+  }
+  strong {
+    font-size: var(--vd-font-size-12);
+  }
+  p {
+    font-size: var(--vd-font-size-11);
+    color: var(--vd-text-tertiary);
+    margin: var(--vd-spacing-6) 0 0;
+  }
+}
+
+.photoActions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  gap: var(--vd-spacing-8);
+}
+
+.photoFilename {
+  min-width: 0;
+  margin: 0;
+  color: var(--vd-text-secondary);
+  font-size: var(--vd-font-size-12);
+  overflow-wrap: anywhere;
+}
+
+.colorRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--vd-spacing-8);
+  > input {
+    width: 110px;
+  }
+}
+
+.editorFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--vd-spacing-12);
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .editorForm {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .photoLayout {
+    flex-wrap: wrap;
+    gap: var(--vd-spacing-12);
+  }
+
+  .colorRow {
+    gap: var(--vd-spacing-6);
+  }
+}

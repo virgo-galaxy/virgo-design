@@ -1,0 +1,52 @@
+.trendCard[data-size='md'] {
+  align-content: start;
+  --card-padding: var(--vd-spacing-20);
+  --card-title-font-size: var(--vd-font-size-14);
+  --card-gap: var(--vd-spacing-20);
+}
+
+.panelHeader {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--vd-spacing-12);
+}
+
+.trendSummary {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--vd-spacing-12);
+  margin-block-end: var(--vd-spacing-16);
+  > div:first-child {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--vd-spacing-8);
+  }
+  strong {
+    font-family: var(--vd-font-family-mono);
+    font-size: var(--vd-font-size-32);
+    line-height: var(--vd-line-height-1);
+    font-weight: var(--vd-font-weight-500);
+    letter-spacing: -1px;
+  }
+  span {
+    font-size: var(--vd-font-size-12);
+    color: var(--vd-text-tertiary);
+  }
+  .trendRatio {
+    margin-inline-start: var(--vd-spacing-4);
+    color: var(--vd-status-success-text);
+    font-family: var(--vd-font-family-mono);
+    font-size: var(--vd-font-size-11);
+  }
+}
+
+@media (max-width: 640px) {
+  .panelHeader,
+  .trendSummary {
+    flex-wrap: wrap;
+  }
+}

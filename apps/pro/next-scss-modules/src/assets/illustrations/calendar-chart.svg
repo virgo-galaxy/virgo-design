@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="128" viewBox="0 0 160 128" fill="none">
+  <defs>
+    <linearGradient id="cover" x1="30" y1="22" x2="134" y2="107" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8CE0F4"/><stop offset=".45" stop-color="#55B9ED"/><stop offset="1" stop-color="#318AD5"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="125" y1="33" x2="130" y2="105" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#74CDF4"/><stop offset="1" stop-color="#237CC4"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0" y1="9" x2="0" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D8E4EF"/><stop offset=".35" stop-color="#FFF"/><stop offset=".75" stop-color="#B7CCDF"/><stop offset="1" stop-color="#87ACC7"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="45" x2="0" y2="99" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF"/><stop offset="1" stop-color="#D6EFFA"/>
+    </linearGradient>
+    <filter id="shadow" x="3" y="6" width="153" height="118" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#367DAA" flood-opacity=".16"/>
+    </filter>
+    <filter id="barShadow" x="-50%" y="-30%" width="200%" height="190%">
+      <feDropShadow dx="2" dy="4" stdDeviation="2" flood-color="#2D7FAF" flood-opacity=".25"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M41 27 132 30Q144 30 142 43L136 100Q135 111 123 110L32 106Z" fill="url(#edge)"/>
+    <path d="M34 25 126 27Q138 27 136 40L129 98Q128 109 116 108L23 105Q12 105 14 93L21 37Q22 25 34 25Z" fill="url(#cover)"/>
+    <path d="m34 27 91 2q10 0 9 11" stroke="#BAF1FF" stroke-opacity=".5" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="48" cy="32" rx="5" ry="4" fill="#2D8DC5"/>
+    <ellipse cx="106" cy="33" rx="5" ry="4" fill="#2D8DC5"/>
+    <path d="M48 31c-7-4-4-18 2-19 7-1 8 8 7 14" stroke="url(#ring)" stroke-width="5" stroke-linecap="round"/>
+    <path d="M106 32c-7-4-4-18 2-19 7-1 8 8 7 14" stroke="url(#ring)" stroke-width="5" stroke-linecap="round"/>
+    <g filter="url(#barShadow)" fill="url(#bar)" stroke="#EAF8FE" stroke-width="1">
+      <rect x="34" y="71" width="23" height="24" rx="4" transform="rotate(3 34 71)"/>
+      <rect x="65" y="52" width="23" height="43" rx="4" transform="rotate(3 65 52)"/>
+      <rect x="97" y="64" width="23" height="31" rx="4" transform="rotate(3 97 64)"/>
+    </g>
+  </g>
+  <path d="M77 99v15c0 8-13 8-13 0v-6" stroke="#BCE5F8" stroke-width="7" stroke-linecap="round"/>
+  <path d="M77 99v15c0 8-13 8-13 0v-6" stroke="#EFFAFF" stroke-width="3" stroke-linecap="round"/>
+</svg>

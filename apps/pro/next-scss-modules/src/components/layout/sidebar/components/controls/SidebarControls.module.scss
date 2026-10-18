@@ -1,0 +1,59 @@
+.controls {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  min-height: var(--vd-sizing-28);
+  justify-content: center;
+
+  &[data-state='collapsed'][data-rail-icon-size='large'] .toggleButton > svg {
+    flex: none;
+    width: var(--vd-sizing-20);
+    height: var(--vd-sizing-20);
+  }
+
+  &[data-state='expanded'] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--vd-sizing-28);
+    column-gap: var(--vd-spacing-8);
+    align-items: center;
+    padding-inline: var(--vd-spacing-8);
+
+    .workspace {
+      grid-column: 1;
+      justify-self: center;
+    }
+
+    .toggleHint {
+      grid-column: 2;
+      justify-self: end;
+    }
+  }
+}
+
+.statusDot {
+  flex: none;
+}
+
+.workspace {
+  display: flex;
+  align-items: center;
+  gap: var(--vd-spacing-8);
+  color: var(--vd-text-tertiary);
+  font-family: var(--vd-font-family-mono);
+  font-size: var(--vd-font-size-10);
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+}
+
+.toggleButton {
+  flex: none;
+  width: var(--vd-sizing-28);
+  min-width: var(--vd-sizing-28);
+  height: var(--vd-sizing-28);
+
+  > svg {
+    width: var(--vd-sizing-16);
+    height: var(--vd-sizing-16);
+  }
+}

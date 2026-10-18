@@ -1,0 +1,389 @@
+import { Empty, Progress, Surface, Tag, Timeline } from '@virgo-design/ui';
+import { useParams } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+
+import { FilterSelect } from '@/components/controls/filter-select';
+import { PageHeading } from '@/components/display/page-heading';
+import { Panel } from '@/components/display/panel';
+import { ResourceContent } from '@/components/feedback/resource-content';
+import { useCurrentUser } from '@/features/auth';
+import { CatalogBoundary, moduleFilterKey, Person, useTaskCatalog } from '@/features/catalog';
+import { canManageProject } from '@/lib/auth/permissions';
+import { businessLabel } from '@/lib/formatting/business-labels';
+import { routePath } from '@/routes';
+import { AppLink, useAppNavigation, useQueryParams } from '@/routes/navigation';
+
+import { MetricStrip } from '../components/MetricStrip/MetricStrip';
+import { ProjectActivityPanel } from '../components/ProjectActivityPanel/ProjectActivityPanel';
+import { ProjectTaskPanel } from '../components/ProjectTaskPanel/ProjectTaskPanel';
+import { useProjectResources } from '../hooks/use-project-resources';
+import {
+  formatProjectDate,
+  healthIntent,
+  projectHealthLabelNames,
+} from '../presentation/project-presentation';
+import { projectDetailPath, projectHandoffPath, projectTasksPath } from '../routes/navigation';
+
+import styles from './ProjectDetailView.module.scss';
+import shared from '@/styles/product-layout.module.scss';
+
+function ProjectDetailContent({
+  resources,
+}: {
+  resources: ReturnType<typeof useProjectResources>;
+}) {
+  const { projects, metadata } = useTaskCatalog();
+  const { members: taskAssignees, referenceDate: taskReferenceDate } = metadata;
+
+  const { t, i18n } = useTranslation();
+  const user = useCurrentUser()!;
+  const { projectId } = useParams<{ projectId: string }>();
+  const navigate = useAppNavigation();
+  const [params] = useQueryParams();
+
+  const candidate = params.get('returnTo');
+  const portfolioPath =
+    candidate && new RegExp('^' + routePath('work.projects') + '(?:\\?[^#]*)?$').test(candidate)
+      ? candidate
+      : routePath('work.projects');
+  const project = projects.find((item) => item.id === projectId);
+
+  if (!project)
+    return (
+      <div className={shared.page}>
+        <h1 className={shared.srOnly}>{t('tasks.workspace.projectDetails')}</h1>
+        <Empty size="md">
+          <Empty.Title>{t('projectDetails.projectNotFound')}</Empty.Title>
+          <Empty.Description>
+            {t('projectDetails.chooseAProjectFromThePortfolioToViewIts')}
+          </Empty.Description>
+          <Empty.Action>
+            <AppLink className={shared.link} href={portfolioPath}>
+              {t('projectDetails.backToProjects')}
+            </AppLink>
+          </Empty.Action>
+        </Empty>
+      </div>
+    );
+
+  const members = taskAssignees.filter((member) => project.memberIds.includes(member.id));
+
+  return (
+    <div className={shared.page}>
+      <Surface border="default" radius={8} className={styles.recordSummary}>
+        <div className={styles.recordBar}>
+          <div>
+            <Tag size="md" intent={healthIntent[project.health]}>
+              {t(`projects.${projectHealthLabelNames[project.health]}`)}
+            </Tag>
+            <span className={shared.mono}>{project.code}</span>
+            <span className={shared.caption}>
+              {t('projectDetails.taskSnapshotValue', { v0: taskReferenceDate })}
+            </span>
+          </div>
+          <div className={styles.recordControls}>
+            <div className={styles.projectPicker}>
+              <FilterSelect
+                label={t('projectDetails.projectRecord')}
+                value={project.id}
+                onChange={(id) =>
+                  navigate(
+                    routePath('work.projects.[projectId]', { projectId: id }) +
+                      '?returnTo=' +
+                      encodeURIComponent(portfolioPath),
+                  )
+                }
+                options={projects.map((item) => ({
+                  value: item.id,
+                  label: businessLabel(item.name, i18n.language),
+                }))}
+              />
+            </div>
+            {canManageProject(user, project.id) ? (
+              <AppLink className={shared.link} href={projectHandoffPath(project.id)}>
+                {t('tasks.workspace.handoff')}
+              </AppLink>
+            ) : null}
+            <AppLink className={shared.link} href={portfolioPath}>
+              {t('projectDetails.projectPortfolio')}
+            </AppLink>
+          </div>
+        </div>
+        <PageHeading
+          variant="integrated"
+          title={businessLabel(project.name, i18n.language)}
+          description={t(
+            user.role === 'member' ? 'projects.personalScope' : 'projects.portfolioScope',
+          )}
+        />
+        <ResourceContent resource={resources.summary}>
+          {(summary) => (
+            <MetricStrip
+              className={styles.summaryMetrics!}
+              items={[
+                {
+                  label: t('projectDetails.taskCompletion'),
+                  value: `${summary.progress}%`,
+                  note: t('projectDetails.tasksCompleted', {
+                    completed: summary.completed,
+                    total: summary.total,
+                  }),
+                },
+                {
+                  label: t('projectDetails.openWork'),
+                  value: (
+                    <AppLink
+                      className={shared.link}
+                      href={
+                        projectTasksPath(project) +
+                        '&status=backlog&status=todo&status=in_progress&status=in_review'
+                      }
+                    >
+                      {summary.open}
+                    </AppLink>
+                  ),
+                  note: t('projectDetails.awaitingReviewCount', { count: summary.review }),
+                },
+                {
+                  label: t('projectDetails.estimatedEffort'),
+                  value: `${summary.hours}h`,
+                  note: t('projectDetails.allLinkedTasks'),
+                },
+                {
+                  label: t('projectDetails.overdueTasks'),
+                  value: (
+                    <AppLink
+                      className={shared.link}
+                      href={projectTasksPath(project) + '&due=overdue'}
+                    >
+                      {summary.overdue}
+                    </AppLink>
+                  ),
+                  note: t('projectDetails.openWorkPastItsDueDate'),
+                },
+              ]}
+            />
+          )}
+        </ResourceContent>
+      </Surface>
+      <div className={shared.twoColumns}>
+        <div className={shared.stack}>
+          <Panel
+            title={t('projectDetails.projectBrief')}
+            description={t('projectDetails.theOutcomeThisTeamIsWorkingToward')}
+          >
+            <div className={shared.body}>
+              <span className={shared.eyebrow}>{t('projectDetails.objective')}</span>
+              <p className={styles.objective}>{businessLabel(project.objective, i18n.language)}</p>
+              <div className={styles.acceptance}>
+                <h3>{t('projectDetails.releaseAcceptance')}</h3>
+                <ul>
+                  <li>{t('projectDetails.everyTaskHasAClearOwnerAndADocumented')}</li>
+                  <li>
+                    {t(
+                      'projectDetails.reviewRequestsIncludeAcceptanceNotesBeforeTheOctoberCheckpoint',
+                    )}
+                  </li>
+                  <li>{t('projectDetails.openRisksAreHandedToTheProjectLeadBefore')}</li>
+                </ul>
+              </div>
+              <ResourceContent resource={resources.summary}>
+                {(summary) => (
+                  <div className={styles.progress}>
+                    <div>
+                      <strong>{t('projectDetails.deliveryProgress')}</strong>
+                      <span>
+                        {t('projectDetails.valueCompletedValueRemaining', {
+                          v0: summary.completed,
+                          v1: summary.open,
+                        })}
+                      </span>
+                    </div>
+                    <Progress
+                      size="md"
+                      value={summary.progress}
+                      aria-label={t('projectDetails.projectTaskCompletion')}
+                    />
+                  </div>
+                )}
+              </ResourceContent>
+            </div>
+          </Panel>
+          <Panel title={t('tasks.module')} description={t('projects.moduleProgress')}>
+            <ResourceContent resource={resources.modules}>
+              {(modules) => (
+                <div className={styles.moduleGrid}>
+                  {project.modules.map((module) => {
+                    const count = modules.find((item) => item.id === module.id);
+                    const total = count?.total ?? 0;
+                    const done = count?.completed ?? 0;
+
+                    return (
+                      <AppLink
+                        key={module.id}
+                        className={styles.moduleCard}
+                        href={
+                          projectTasksPath(project) +
+                          '&module=' +
+                          encodeURIComponent(moduleFilterKey(project.id, module.id))
+                        }
+                      >
+                        <strong>{businessLabel(module.name, i18n.language)}</strong>
+                        <span>{t('projects.completedOfTotal', { completed: done, total })}</span>
+                        <Progress
+                          value={total ? Math.round((done / total) * 100) : 0}
+                          size="sm"
+                          aria-label={businessLabel(module.name, i18n.language)}
+                        />
+                      </AppLink>
+                    );
+                  })}
+                </div>
+              )}
+            </ResourceContent>
+          </Panel>
+          <ProjectTaskPanel project={project} resource={resources.tasks} />
+          <Panel
+            title={t('projectDetails.milestones')}
+            description={t('projectDetails.projectScheduleAndHandoffPoints')}
+          >
+            <div className={shared.body}>
+              <Timeline
+                size="medium"
+                aria-label={t('projectDetails.valueMilestoneSchedule', {
+                  v0: businessLabel(project.name, i18n.language),
+                })}
+              >
+                {project.milestones.map((milestone, index) => (
+                  <Timeline.Item
+                    key={milestone.title}
+                    status={
+                      milestone.date < taskReferenceDate
+                        ? 'complete'
+                        : index ===
+                            project.milestones.findIndex((item) => item.date >= taskReferenceDate)
+                          ? 'active'
+                          : 'pending'
+                    }
+                  >
+                    <Timeline.Title>{businessLabel(milestone.title, i18n.language)}</Timeline.Title>
+                    <Timeline.Description>
+                      {businessLabel(milestone.note, i18n.language)}
+                    </Timeline.Description>
+                    <Timeline.Time dateTime={milestone.date}>
+                      {formatProjectDate(milestone.date, i18n.language)}
+                    </Timeline.Time>
+                  </Timeline.Item>
+                ))}
+              </Timeline>
+            </div>
+          </Panel>
+        </div>
+        <div className={shared.stack}>
+          <Panel title={t('projectDetails.recordInformation')}>
+            <dl className={styles.metadata}>
+              <div>
+                <dt>{t('projectDetails.projectId')}</dt>
+                <dd className={shared.mono}>{project.code}</dd>
+              </div>
+              <div>
+                <dt>{t('projectDetails.projectLead')}</dt>
+                <dd>
+                  <Person id={project.owner} />
+                </dd>
+              </div>
+              <div>
+                <dt>{t('projectDetails.workspace')}</dt>
+                <dd>{t('projectDetails.virgoStudio')}</dd>
+              </div>
+              <div>
+                <dt>{t('projectDetails.started')}</dt>
+                <dd>
+                  <time dateTime={project.start}>
+                    {formatProjectDate(project.start, i18n.language)}
+                  </time>
+                </dd>
+              </div>
+              <div>
+                <dt>{t('projectDetails.targetDate')}</dt>
+                <dd>
+                  <time dateTime={project.due}>
+                    {formatProjectDate(project.due, i18n.language)}
+                  </time>
+                </dd>
+              </div>
+              <div>
+                <dt>{t('projectDetails.visibility')}</dt>
+                <dd>{t('projectDetails.teamWorkspace')}</dd>
+              </div>
+              <div>
+                <dt>{t('projectDetails.healthAssessment')}</dt>
+                <dd>
+                  <Tag size="md" intent={healthIntent[project.health]}>
+                    {t(`projects.${projectHealthLabelNames[project.health]}`)}
+                  </Tag>
+                </dd>
+              </div>
+            </dl>
+          </Panel>
+          <Panel
+            title={t('projectDetails.projectTeam')}
+            description={t('projectDetails.leadAndTaskOwnersInThisProject')}
+          >
+            <ResourceContent resource={resources.members}>
+              {(counts) => (
+                <ul className={styles.team}>
+                  {members.map((member) => (
+                    <li key={member.id}>
+                      <Person id={member.id} />
+                      <span>
+                        {member.id === project.owner
+                          ? t('projectDetails.lead')
+                          : t('projectDetails.valueTasks', {
+                              v0: counts.find((entry) => entry.memberId === member.id)?.count ?? 0,
+                            })}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </ResourceContent>
+          </Panel>
+          <ProjectActivityPanel resource={resources.activity} />
+          <Panel title={t('projectDetails.relatedFocusAreas')}>
+            <ul className={styles.related}>
+              {projects
+                .filter((item) => item.id !== project.id)
+                .map((item) => (
+                  <li key={item.id}>
+                    <AppLink className={shared.link} href={projectDetailPath(item)}>
+                      {businessLabel(item.name, i18n.language)}
+                      <span aria-hidden="true">↗</span>
+                    </AppLink>
+                    <span className={shared.caption}>
+                      {businessLabel(item.summary, i18n.language)}
+                    </span>
+                  </li>
+                ))}
+            </ul>
+          </Panel>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProjectDetailResource() {
+  const { projectId = '' } = useParams<{ projectId: string }>();
+  const resources = useProjectResources(projectId);
+
+  return <ProjectDetailContent resources={resources} />;
+}
+
+export function ProjectDetailView() {
+  return (
+    <CatalogBoundary>
+      <ProjectDetailResource />
+    </CatalogBoundary>
+  );
+}

@@ -1,0 +1,126 @@
+.page {
+  display: grid;
+  gap: var(--vd-spacing-20);
+  min-width: 0;
+}
+
+.eyebrow {
+  color: var(--vd-text-tertiary);
+  font: var(--vd-font-size-10) var(--vd-font-family-mono);
+  letter-spacing: 1px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--vd-spacing-8);
+}
+
+.caption {
+  color: var(--vd-text-tertiary);
+  font-size: var(--vd-font-size-11);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vd-spacing-12);
+  padding: var(--vd-spacing-16) var(--vd-spacing-20);
+}
+
+.search {
+  width: 100%;
+  max-width: 370px;
+}
+
+.count {
+  margin-inline-start: auto;
+  color: var(--vd-text-tertiary);
+  font: var(--vd-font-size-11) var(--vd-font-family-mono);
+}
+
+.body {
+  padding: var(--vd-spacing-20);
+}
+
+.stack {
+  display: grid;
+  gap: var(--vd-spacing-20);
+  min-width: 0;
+}
+
+.twoColumns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(280px, 1fr);
+  gap: var(--vd-spacing-20);
+  align-items: start;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vd-spacing-12);
+  flex-wrap: wrap;
+  padding: var(--vd-spacing-16) var(--vd-spacing-20);
+  border-top: 1px solid var(--vd-border-subtle);
+  font-size: var(--vd-font-size-11);
+  color: var(--vd-text-tertiary);
+}
+
+.link {
+  color: var(--vd-brand-link);
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  &:focus-visible {
+    outline: 2px solid var(--vd-brand-link);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+}
+
+.mono {
+  font-family: var(--vd-font-family-mono);
+  font-size: var(--vd-font-size-11);
+  color: var(--vd-text-tertiary);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 1050px) {
+  .twoColumns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .toolbar,
+  .body {
+    padding: var(--vd-spacing-16);
+  }
+
+  .search {
+    max-width: none;
+  }
+
+  .count {
+    margin-inline-start: 0;
+  }
+
+  .footer {
+    padding: var(--vd-spacing-16);
+  }
+}

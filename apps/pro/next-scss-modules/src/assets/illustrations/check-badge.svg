@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="badge" x1="21" y1="18" x2="45" y2="46" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67D9F1" />
+      <stop offset="1" stop-color="#239CD7" />
+    </linearGradient>
+    <linearGradient id="ring" x1="24" y1="22" x2="40" y2="43" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" />
+      <stop offset="1" stop-color="#C3F4FF" />
+    </linearGradient>
+    <radialGradient id="shadow">
+      <stop stop-color="#29AAD8" stop-opacity=".24" />
+      <stop offset="1" stop-color="#29AAD8" stop-opacity="0" />
+    </radialGradient>
+    <filter id="depth" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#208CB9" flood-opacity=".24" />
+    </filter>
+  </defs>
+  <circle cx="32" cy="32" r="31" fill="#8993AC" fill-opacity=".08" />
+  <ellipse cx="32" cy="47" rx="20" ry="9" fill="url(#shadow)" />
+  <g filter="url(#depth)">
+    <rect x="21" y="20" width="27" height="28" rx="7" fill="#249FD7" fill-opacity=".2" />
+    <rect x="18" y="17" width="28" height="29" rx="7" fill="url(#badge)" />
+    <path d="M24 19h16" stroke="#fff" stroke-opacity=".4" stroke-width="1.5" stroke-linecap="round" />
+    <circle cx="32" cy="32" r="9" stroke="#fff" stroke-opacity=".3" stroke-width="3" />
+    <path d="M32 23a9 9 0 1 1-8.56 11.78" stroke="url(#ring)" stroke-width="3" stroke-linecap="round" />
+    <path d="m28 32 2.5 2.5 5.5-5.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg>

@@ -1,0 +1,69 @@
+import virgoDesignLogoAsset from '@virgo-design/icons/brands/virgo-design.svg';
+import { Layout, type LayoutSidebarDisplayState, Tag, Tooltip } from '@virgo-design/ui';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { proRouteConfig, routePath } from '@/routes';
+import { AppLink, useAppNavigation } from '@/routes/navigation';
+
+const virgoDesignLogo = virgoDesignLogoAsset.src;
+
+import styles from './HeaderBrand.module.scss';
+
+export function HeaderBrand({
+  scale,
+  sidebarState,
+  onSidebarWidthChange,
+}: {
+  scale: 'regular' | 'large';
+  sidebarState: LayoutSidebarDisplayState;
+  onSidebarWidthChange: (width: number) => void;
+}) {
+  const { t } = useTranslation();
+  const navigate = useAppNavigation();
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+
+  return (
+    <div className={styles.brand} data-scale={scale}>
+      <Tooltip open={sidebarState === 'hidden' && tooltipOpen} onOpenChange={setTooltipOpen}>
+        <Tooltip.Trigger
+          render={(props) => (
+            <Layout.SidebarTrigger
+              {...props}
+              action="expand"
+              className={styles.brandTrigger}
+              aria-label={
+                sidebarState === 'hidden' ? t('app.restoreNavigation') : t('app.virgoDesignProHome')
+              }
+              onClick={(event) => {
+                props.onClick?.(event);
+
+                if (event.defaultPrevented) return;
+
+                if (sidebarState === 'hidden') {
+                  onSidebarWidthChange(224);
+                } else {
+                  event.preventDefault();
+                  navigate(routePath(proRouteConfig.home));
+                }
+              }}
+            >
+              <img src={virgoDesignLogo} alt="" width="590" height="470" />
+            </Layout.SidebarTrigger>
+          )}
+        />
+        <Tooltip.Content>{t('app.restoreNavigation')}</Tooltip.Content>
+      </Tooltip>
+      <AppLink
+        href={routePath(proRouteConfig.home)}
+        className={styles.brandHome}
+        aria-label={t('app.virgoDesignProHome')}
+      >
+        {t('app.virgoDesign')}
+      </AppLink>
+      <Tag size="md" intent="brand" variant="soft" className={styles.proBadge}>
+        {t('app.pro')}
+      </Tag>
+    </div>
+  );
+}

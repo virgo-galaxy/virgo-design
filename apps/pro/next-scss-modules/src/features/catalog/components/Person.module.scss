@@ -1,0 +1,12 @@
+.person {
+  display: inline-flex;
+  gap: var(--vd-spacing-8);
+  align-items: center;
+  color: var(--vd-text-secondary);
+  font-size: var(--vd-font-size-12);
+  white-space: nowrap;
+}
+.avatar {
+  font-family: var(--vd-font-family-mono);
+  flex-shrink: 0;
+}

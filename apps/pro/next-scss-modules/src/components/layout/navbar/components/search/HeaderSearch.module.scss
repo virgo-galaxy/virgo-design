@@ -1,0 +1,23 @@
+.search {
+  width: var(--pro-search-width, 280px);
+  margin-inline-start: auto;
+
+  &[data-size='medium'] {
+    --input-padding-inline: var(--vd-spacing-12);
+    --input-background: var(--vd-surface-secondary);
+    --input-border: transparent;
+    --input-border-hover: transparent;
+  }
+}
+
+@media (max-width: 900px) {
+  .search {
+    width: 230px;
+  }
+}
+
+@media (max-width: 640px) {
+  .search {
+    width: 100%;
+  }
+}

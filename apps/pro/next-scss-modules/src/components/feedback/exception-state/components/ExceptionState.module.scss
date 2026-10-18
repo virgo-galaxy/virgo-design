@@ -1,0 +1,36 @@
+.canvas {
+  display: grid;
+  min-width: 0;
+  min-height: min-content;
+  place-items: center;
+}
+
+.state[data-size='md'] {
+  --result-gap: var(--vd-spacing-20);
+  --result-padding: var(--vd-spacing-32);
+}
+
+.illustration {
+  --art-halo: var(--vd-brand-subtle);
+  --art-line: var(--vd-brand-subtle-hover);
+  --art-ink: var(--vd-text-secondary);
+  --art-paper: var(--vd-surface-default);
+  --art-brand: var(--vd-brand-primary);
+  --art-on-brand: var(--vd-brand-foreground);
+  --art-warning: var(--vd-status-warning-solid);
+  width: 160px;
+  height: 134px;
+
+  > span,
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .state[data-size='md'] {
+    --result-padding: var(--vd-spacing-24) var(--vd-spacing-16);
+  }
+}
