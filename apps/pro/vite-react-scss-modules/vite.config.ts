@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 import { themeBootstrapPlugin } from '../../../config/theme-bootstrap-plugin.ts';
-import defaults from './src/config/settings.json';
+import defaults from './src/config/settings.json' with { type: 'json' };
 
 export default defineConfig({
   plugins: [
@@ -20,6 +20,20 @@ export default defineConfig({
     }),
     react(),
   ],
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          includeDependenciesRecursively: false,
+          groups: [
+            { name: 'charts-runtime', test: /node_modules[\\/]tslib[\\/]/ },
+            { name: 'charts-engine', test: /node_modules[\\/]echarts[\\/]/ },
+            { name: 'charts-renderer', test: /node_modules[\\/]zrender[\\/]/ },
+          ],
+        },
+      },
+    },
+  },
   server: {
     port: 6301,
     strictPort: true,
