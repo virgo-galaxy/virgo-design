@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 
 import { translateApiDescription } from '@/i18n/translate-api-description';
 
-import styles from './api-reference.module.scss';
 import type { ApiReferenceDocument, ApiReferenceRegistry } from './api-reference.types';
+
+import styles from './api-reference.module.scss';
 
 interface ApiReferenceProps {
   document: ApiReferenceDocument;

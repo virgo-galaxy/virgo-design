@@ -3,8 +3,6 @@ import { DatePicker as PrimitiveDatePicker } from '@virgo-design/primitives';
 import { createContext, forwardRef, useContext } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
-import calendarStyles from '../Calendar/Calendar.module.scss';
-import styles from './DatePicker.module.scss';
 import type {
   DatePickerCalendarProps,
   DatePickerContentProps,
@@ -12,6 +10,9 @@ import type {
   DatePickerProps,
   DatePickerTriggerProps,
 } from './DatePicker.types';
+
+import calendarStyles from '../Calendar/Calendar.module.scss';
+import styles from './DatePicker.module.scss';
 
 export const SizeContext = createContext<DatePickerProps['size']>('medium');
 

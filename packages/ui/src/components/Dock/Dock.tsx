@@ -6,13 +6,14 @@ import { useLocale } from '../../locale/context/locale-context';
 import { Button } from '../Button';
 import { Tooltip } from '../Tooltip';
 import { useTooltipPresentation } from '../Tooltip/TooltipContext';
-import styles from './Dock.module.scss';
 import type {
   DockBoundaryProps,
   DockContentProps,
   DockHandleProps,
   DockRootProps,
 } from './Dock.types';
+
+import styles from './Dock.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

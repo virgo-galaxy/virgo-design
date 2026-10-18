@@ -4,8 +4,9 @@ import { forwardRef, useState } from 'react';
 import { useLocale } from '../../locale/context/locale-context';
 import { Checkbox } from '../Checkbox';
 import { Dropdown } from '../Dropdown';
-import styles from './Table.module.scss';
 import type { TableSelectionAction, TableSelectionProps } from './Table.types';
+
+import styles from './Table.module.scss';
 
 const defaultSelectionActions: readonly TableSelectionAction[] = ['all', 'invert', 'none'];
 

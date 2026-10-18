@@ -2,8 +2,9 @@ import { duration, easing } from '@virgo-design/tokens';
 import { type CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import styles from './foundation-tokens.module.scss';
 import { FoundationPage, FoundationSection } from './FoundationPage';
+
+import styles from './foundation-tokens.module.scss';
 
 type CubicBezier = readonly [number, number, number, number];
 

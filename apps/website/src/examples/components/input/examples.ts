@@ -2,29 +2,30 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import InputClearableExample from './InputClearableExample';
-import inputClearableStyles from './InputClearableExample.module.scss?virgo-raw';
 import inputClearableSource from './InputClearableExample.tsx?raw';
 import InputContentExample from './InputContentExample';
-import inputContentStyles from './InputContentExample.module.scss?virgo-raw';
 import inputContentSource from './InputContentExample.tsx?raw';
 import InputDecorationsExample from './InputDecorationsExample';
-import inputDecorationsStyles from './InputDecorationsExample.module.scss?virgo-raw';
 import inputDecorationsSource from './InputDecorationsExample.tsx?raw';
 import InputPasswordExample from './InputPasswordExample';
-import inputPasswordStyles from './InputPasswordExample.module.scss?virgo-raw';
 import inputPasswordSource from './InputPasswordExample.tsx?raw';
 import InputSizesExample from './InputSizesExample';
-import inputSizesStyles from './InputSizesExample.module.scss?virgo-raw';
 import inputSizesSource from './InputSizesExample.tsx?raw';
 import InputStatesExample from './InputStatesExample';
-import inputStatesStyles from './InputStatesExample.module.scss?virgo-raw';
 import inputStatesSource from './InputStatesExample.tsx?raw';
 import TextareaSizesExample from './TextareaSizesExample';
-import textareaSizesStyles from './TextareaSizesExample.module.scss?virgo-raw';
 import textareaSizesSource from './TextareaSizesExample.tsx?raw';
 import TextareaStatesExample from './TextareaStatesExample';
-import textareaStatesStyles from './TextareaStatesExample.module.scss?virgo-raw';
 import textareaStatesSource from './TextareaStatesExample.tsx?raw';
+
+import inputClearableStyles from './InputClearableExample.module.scss?virgo-raw';
+import inputContentStyles from './InputContentExample.module.scss?virgo-raw';
+import inputDecorationsStyles from './InputDecorationsExample.module.scss?virgo-raw';
+import inputPasswordStyles from './InputPasswordExample.module.scss?virgo-raw';
+import inputSizesStyles from './InputSizesExample.module.scss?virgo-raw';
+import inputStatesStyles from './InputStatesExample.module.scss?virgo-raw';
+import textareaSizesStyles from './TextareaSizesExample.module.scss?virgo-raw';
+import textareaStatesStyles from './TextareaStatesExample.module.scss?virgo-raw';
 
 export const inputExamples = {
   inputSizes: {

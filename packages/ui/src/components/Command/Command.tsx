@@ -4,7 +4,6 @@ import { forwardRef } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
 import { Dialog } from '../Dialog';
-import styles from './Command.module.scss';
 import type {
   CommandDialogProps,
   CommandEmptyProps,
@@ -15,6 +14,8 @@ import type {
   CommandProps,
   CommandSeparatorProps,
 } from './Command.types';
+
+import styles from './Command.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

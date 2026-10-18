@@ -2,8 +2,9 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import ToolbarActionsExample from './ToolbarActionsExample';
-import styleSource from './ToolbarActionsExample.module.scss?virgo-raw';
 import source from './ToolbarActionsExample.tsx?raw';
+
+import styleSource from './ToolbarActionsExample.module.scss?virgo-raw';
 
 export const toolbarExamples = {
   actions: {

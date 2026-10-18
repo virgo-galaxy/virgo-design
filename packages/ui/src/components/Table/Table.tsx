@@ -2,7 +2,6 @@ import { Table as PrimitiveTable } from '@virgo-design/primitives';
 import { type CSSProperties, forwardRef, type ReactNode, useState } from 'react';
 
 import { ColumnResizeHandle, ResizeContext } from './ColumnResizeHandle';
-import styles from './Table.module.scss';
 import type {
   TableCaptionProps,
   TableCellProps,
@@ -16,6 +15,8 @@ import type {
 import { TableFilter } from './TableFilter';
 import { TableSearch } from './TableSearch';
 import { TableSortButton } from './TableSortButton';
+
+import styles from './Table.module.scss';
 
 export const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
   {

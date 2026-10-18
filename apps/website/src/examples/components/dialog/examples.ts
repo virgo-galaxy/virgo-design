@@ -2,11 +2,12 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import DialogFormExample from './DialogFormExample';
-import dialogFormStyles from './DialogFormExample.module.scss?virgo-raw';
 import dialogFormSource from './DialogFormExample.tsx?raw';
 import DialogSizesExample from './DialogSizesExample';
-import dialogSizesStyles from './DialogSizesExample.module.scss?virgo-raw';
 import dialogSizesSource from './DialogSizesExample.tsx?raw';
+
+import dialogFormStyles from './DialogFormExample.module.scss?virgo-raw';
+import dialogSizesStyles from './DialogSizesExample.module.scss?virgo-raw';
 
 export const dialogExamples = {
   sizes: {

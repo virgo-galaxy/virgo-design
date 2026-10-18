@@ -6,9 +6,10 @@ import { Button } from '../Button';
 import { Checkbox } from '../Checkbox';
 import { Popover } from '../Popover';
 import { Tooltip } from '../Tooltip';
-import styles from './Table.module.scss';
 import type { TableFilterProps } from './Table.types';
 import { useColumnControlTooltip } from './use-column-control-tooltip';
+
+import styles from './Table.module.scss';
 
 export const TableFilter = forwardRef<HTMLDivElement, TableFilterProps>(function TableFilter(
   {

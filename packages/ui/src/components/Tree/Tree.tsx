@@ -2,7 +2,6 @@ import { ChevronRightIcon } from '@virgo-design/icons';
 import { Tree as PrimitiveTree } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import styles from './Tree.module.scss';
 import type {
   TreeGroupProps,
   TreeItemProps,
@@ -10,6 +9,8 @@ import type {
   TreeProps,
   TreeToggleProps,
 } from './Tree.types';
+
+import styles from './Tree.module.scss';
 
 export const Tree = forwardRef<HTMLDivElement, TreeProps>(function Tree(
   { size = 'medium', className, ...props },

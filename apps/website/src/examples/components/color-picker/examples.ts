@@ -2,17 +2,18 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import ColorPickerControlledExample from './ColorPickerControlledExample';
-import style0 from './ColorPickerControlledExample.module.scss?virgo-raw';
 import source0 from './ColorPickerControlledExample.tsx?raw';
 import ColorPickerPanelExample from './ColorPickerPanelExample';
-import style2 from './ColorPickerPanelExample.module.scss?virgo-raw';
 import source2 from './ColorPickerPanelExample.tsx?raw';
 import ColorPickerSimpleExample from './ColorPickerSimpleExample';
-import style3 from './ColorPickerSimpleExample.module.scss?virgo-raw';
 import source3 from './ColorPickerSimpleExample.tsx?raw';
 import ColorPickerStatesExample from './ColorPickerStatesExample';
-import style1 from './ColorPickerStatesExample.module.scss?virgo-raw';
 import source1 from './ColorPickerStatesExample.tsx?raw';
+
+import style0 from './ColorPickerControlledExample.module.scss?virgo-raw';
+import style2 from './ColorPickerPanelExample.module.scss?virgo-raw';
+import style3 from './ColorPickerSimpleExample.module.scss?virgo-raw';
+import style1 from './ColorPickerStatesExample.module.scss?virgo-raw';
 export const colorPickerExamples = {
   example3: {
     id: 'color-picker-simple',

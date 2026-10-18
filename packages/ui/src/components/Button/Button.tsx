@@ -2,9 +2,10 @@ import { Button as PrimitiveButton } from '@virgo-design/primitives';
 import { forwardRef, useContext } from 'react';
 
 import { ActionGroupSizeContext } from '../../internal/action-group/ActionGroupContext';
-import styles from './Button.module.scss';
 import type { ButtonProps } from './Button.types';
 import { ButtonGroup } from './ButtonGroup';
+
+import styles from './Button.module.scss';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');

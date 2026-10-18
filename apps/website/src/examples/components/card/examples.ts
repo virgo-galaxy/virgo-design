@@ -2,23 +2,24 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import CardActionsExample from './CardActionsExample';
-import cardActionsStyles from './CardActionsExample.module.scss?virgo-raw';
 import cardActionsSource from './CardActionsExample.tsx?raw';
 import CardBasicExample from './CardBasicExample';
-import cardBasicStyles from './CardBasicExample.module.scss?virgo-raw';
 import cardBasicSource from './CardBasicExample.tsx?raw';
 import CardChildrenExample from './CardChildrenExample';
-import cardChildrenStyles from './CardChildrenExample.module.scss?virgo-raw';
 import cardChildrenSource from './CardChildrenExample.tsx?raw';
 import CardHeaderExample from './CardHeaderExample';
-import cardHeaderStyles from './CardHeaderExample.module.scss?virgo-raw';
 import cardHeaderSource from './CardHeaderExample.tsx?raw';
 import CardProfileExample from './CardProfileExample';
-import cardProfileStyles from './CardProfileExample.module.scss?virgo-raw';
 import cardProfileSource from './CardProfileExample.tsx?raw';
 import CardVariantsExample from './CardVariantsExample';
-import cardVariantsStyles from './CardVariantsExample.module.scss?virgo-raw';
 import cardVariantsSource from './CardVariantsExample.tsx?raw';
+
+import cardActionsStyles from './CardActionsExample.module.scss?virgo-raw';
+import cardBasicStyles from './CardBasicExample.module.scss?virgo-raw';
+import cardChildrenStyles from './CardChildrenExample.module.scss?virgo-raw';
+import cardHeaderStyles from './CardHeaderExample.module.scss?virgo-raw';
+import cardProfileStyles from './CardProfileExample.module.scss?virgo-raw';
+import cardVariantsStyles from './CardVariantsExample.module.scss?virgo-raw';
 
 export const cardExamples = {
   cardBasic: {

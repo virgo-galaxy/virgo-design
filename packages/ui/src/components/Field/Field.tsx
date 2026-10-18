@@ -1,13 +1,14 @@
 import { Field as PrimitiveField } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import styles from './Field.module.scss';
 import type {
   FieldDescriptionProps,
   FieldLabelProps,
   FieldMessageProps,
   FieldProps,
 } from './Field.types';
+
+import styles from './Field.module.scss';
 
 export const Field = forwardRef<HTMLDivElement, FieldProps>(function Field(
   { layout, className, ...props },

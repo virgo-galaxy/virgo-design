@@ -3,13 +3,14 @@ import { Popover as PrimitivePopover } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
 import { Button } from '../Button';
-import styles from './FloatingAction.module.scss';
 import type {
   FloatingActionContentProps,
   FloatingActionGroupProps,
   FloatingActionProps,
   FloatingActionTriggerProps,
 } from './FloatingAction.types';
+
+import styles from './FloatingAction.module.scss';
 
 const join = (...values: Array<string | undefined>) => values.filter(Boolean).join(' ');
 

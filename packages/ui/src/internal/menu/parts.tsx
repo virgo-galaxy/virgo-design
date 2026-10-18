@@ -12,6 +12,7 @@ import type {
   MenuSubmenuTriggerProps,
 } from '../../components/Menu/Menu.types';
 import { menuClasses as cx, MenuSizeContext } from './context';
+
 import styles from './Menu.module.scss';
 
 const Content = forwardRef<HTMLDivElement, MenuContentProps>(function MenuContent(

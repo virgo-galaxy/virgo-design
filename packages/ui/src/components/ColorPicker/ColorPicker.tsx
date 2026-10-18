@@ -3,7 +3,6 @@ import { createContext, forwardRef, useContext, useState } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
 import { Select } from '../Select';
-import styles from './ColorPicker.module.scss';
 import type {
   ColorPickerAlphaFieldProps,
   ColorPickerAreaProps,
@@ -20,6 +19,8 @@ import type {
   ColorPickerTriggerProps,
   ColorPickerValueProps,
 } from './ColorPicker.types';
+
+import styles from './ColorPicker.module.scss';
 
 const SizeContext = createContext<NonNullable<ColorPickerProps['size']>>('medium');
 

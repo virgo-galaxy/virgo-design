@@ -2,8 +2,9 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import MenubarApplicationExample from './MenubarApplicationExample';
-import menubarApplicationStyles from './MenubarApplicationExample.module.scss?virgo-raw';
 import menubarApplicationSource from './MenubarApplicationExample.tsx?raw';
+
+import menubarApplicationStyles from './MenubarApplicationExample.module.scss?virgo-raw';
 
 export const menubarExamples = {
   menubarApplication: {

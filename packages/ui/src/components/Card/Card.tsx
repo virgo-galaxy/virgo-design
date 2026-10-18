@@ -1,7 +1,6 @@
 import { createElement, forwardRef } from 'react';
 
 import { Surface } from '../Surface';
-import styles from './Card.module.scss';
 import type {
   CardBodyProps,
   CardDescriptionProps,
@@ -10,6 +9,8 @@ import type {
   CardProps,
   CardTitleProps,
 } from './Card.types';
+
+import styles from './Card.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

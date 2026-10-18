@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
-import styles from '../../styles/color-studio.module.scss';
 import { HexColorField } from './HexColorField';
+
+import styles from '../../styles/color-studio.module.scss';
 
 interface PaletteAnchorControlProps {
   value: string;

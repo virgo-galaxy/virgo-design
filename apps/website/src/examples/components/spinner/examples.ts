@@ -2,17 +2,18 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import SpinnerButtonExample from './SpinnerButtonExample';
-import spinnerButtonStyles from './SpinnerButtonExample.module.scss?virgo-raw';
 import spinnerButtonSource from './SpinnerButtonExample.tsx?raw';
 import SpinnerInlineExample from './SpinnerInlineExample';
-import spinnerInlineStyles from './SpinnerInlineExample.module.scss?virgo-raw';
 import spinnerInlineSource from './SpinnerInlineExample.tsx?raw';
 import SpinnerSizesExample from './SpinnerSizesExample';
-import spinnerSizesStyles from './SpinnerSizesExample.module.scss?virgo-raw';
 import spinnerSizesSource from './SpinnerSizesExample.tsx?raw';
 import SpinnerThemesExample from './SpinnerThemesExample';
-import spinnerThemesStyles from './SpinnerThemesExample.module.scss?virgo-raw';
 import spinnerThemesSource from './SpinnerThemesExample.tsx?raw';
+
+import spinnerButtonStyles from './SpinnerButtonExample.module.scss?virgo-raw';
+import spinnerInlineStyles from './SpinnerInlineExample.module.scss?virgo-raw';
+import spinnerSizesStyles from './SpinnerSizesExample.module.scss?virgo-raw';
+import spinnerThemesStyles from './SpinnerThemesExample.module.scss?virgo-raw';
 
 export const spinnerExamples = {
   spinnerSizes: {

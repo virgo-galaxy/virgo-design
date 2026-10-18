@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 
 import { FontFamilyPreview } from './components/FontFamilyPreview';
 import { InternationalSansPreview } from './components/InternationalSansPreview';
-import styles from './foundation-tokens.module.scss';
 import { FoundationPage, FoundationSection } from './FoundationPage';
+
+import styles from './foundation-tokens.module.scss';
 
 const fontWeightLabelKeys = {
   400: 'foundations.typography.fontWeights.regular',

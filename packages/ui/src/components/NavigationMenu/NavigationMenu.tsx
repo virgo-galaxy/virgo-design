@@ -20,7 +20,6 @@ import {
 import { PopupMaterial } from '../../internal/overlay/PopupMaterial';
 import { composeRefs } from '../../internal/utils/composeRefs';
 import { Separator as BaseSeparator } from '../Separator';
-import styles from './NavigationMenu.module.scss';
 import type {
   NavigationMenuContentProps,
   NavigationMenuGroupLabelProps,
@@ -34,6 +33,8 @@ import type {
   NavigationMenuSubmenu,
   NavigationMenuTriggerProps,
 } from './NavigationMenu.types';
+
+import styles from './NavigationMenu.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

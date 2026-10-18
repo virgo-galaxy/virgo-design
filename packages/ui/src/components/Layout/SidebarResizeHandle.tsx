@@ -8,13 +8,14 @@ import {
 } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
-import styles from './Layout.module.scss';
 import type {
   LayoutLength,
   LayoutSidebarDisplayState,
   LayoutSidebarProps,
   LayoutSidebarState,
 } from './Layout.types';
+
+import styles from './Layout.module.scss';
 
 type Props = {
   [Key in 'minWidth' | 'maxWidth' | 'resizeSnap' | 'onResizeEnd' | 'side']?:

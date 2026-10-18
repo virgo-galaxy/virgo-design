@@ -2,20 +2,21 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import AvatarGroupExample from './AvatarGroupExample';
-import avatarGroupStyles from './AvatarGroupExample.module.scss?virgo-raw';
 import avatarGroupSource from './AvatarGroupExample.tsx?raw';
 import AvatarImageFallbackExample from './AvatarImageFallbackExample';
-import avatarImageFallbackStyles from './AvatarImageFallbackExample.module.scss?virgo-raw';
 import avatarImageFallbackSource from './AvatarImageFallbackExample.tsx?raw';
 import AvatarPresenceExample from './AvatarPresenceExample';
-import avatarPresenceStyles from './AvatarPresenceExample.module.scss?virgo-raw';
 import avatarPresenceSource from './AvatarPresenceExample.tsx?raw';
 import AvatarShapesExample from './AvatarShapesExample';
-import avatarShapesStyles from './AvatarShapesExample.module.scss?virgo-raw';
 import avatarShapesSource from './AvatarShapesExample.tsx?raw';
 import AvatarSizesExample from './AvatarSizesExample';
-import avatarSizesStyles from './AvatarSizesExample.module.scss?virgo-raw';
 import avatarSizesSource from './AvatarSizesExample.tsx?raw';
+
+import avatarGroupStyles from './AvatarGroupExample.module.scss?virgo-raw';
+import avatarImageFallbackStyles from './AvatarImageFallbackExample.module.scss?virgo-raw';
+import avatarPresenceStyles from './AvatarPresenceExample.module.scss?virgo-raw';
+import avatarShapesStyles from './AvatarShapesExample.module.scss?virgo-raw';
+import avatarSizesStyles from './AvatarSizesExample.module.scss?virgo-raw';
 
 export const avatarExamples = {
   avatarImageFallback: {

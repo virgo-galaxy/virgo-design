@@ -10,6 +10,7 @@ import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { comboboxExamples } from '@/examples/components/combobox/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 import styles from './ComboboxPage.module.scss';
 
 export function ComboboxPage() {

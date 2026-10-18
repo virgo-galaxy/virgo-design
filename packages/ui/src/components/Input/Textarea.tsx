@@ -1,8 +1,9 @@
 import { Textarea as PrimitiveTextarea } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import styles from './Textarea.module.scss';
 import type { TextareaProps } from './Textarea.types';
+
+import styles from './Textarea.module.scss';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');

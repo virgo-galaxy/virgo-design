@@ -10,6 +10,7 @@ import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { datePickerExamples } from '@/examples/components/date-picker/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 import styles from './DatePickerPage.module.scss';
 
 export function DatePickerPage() {

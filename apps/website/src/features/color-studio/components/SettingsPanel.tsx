@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next';
 
 import { chromaticModeTranslationKeys } from '../color-studio-i18n';
 import type { ChromaticMode } from '../model/types';
-import styles from '../styles/color-studio.module.scss';
 import { ChromaticModeControl } from './controls/ChromaticModeControl';
 import { ColorModelControl } from './controls/ColorModelControl';
 import { HueControls } from './controls/HueControls';
 import { PaletteAnchorControl } from './controls/PaletteAnchorControl';
+
+import styles from '../styles/color-studio.module.scss';
 
 interface SettingsPanelProps {
   mode: ChromaticMode;

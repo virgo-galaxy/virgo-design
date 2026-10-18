@@ -2,17 +2,18 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import SeparatorDecorativeExample from './SeparatorDecorativeExample';
-import separatorDecorativeStyles from './SeparatorDecorativeExample.module.scss?virgo-raw';
 import separatorDecorativeSource from './SeparatorDecorativeExample.tsx?raw';
 import SeparatorHorizontalExample from './SeparatorHorizontalExample';
-import separatorHorizontalStyles from './SeparatorHorizontalExample.module.scss?virgo-raw';
 import separatorHorizontalSource from './SeparatorHorizontalExample.tsx?raw';
 import SeparatorLabelExample from './SeparatorLabelExample';
-import separatorLabelStyles from './SeparatorLabelExample.module.scss?virgo-raw';
 import separatorLabelSource from './SeparatorLabelExample.tsx?raw';
 import SeparatorVerticalExample from './SeparatorVerticalExample';
-import separatorVerticalStyles from './SeparatorVerticalExample.module.scss?virgo-raw';
 import separatorVerticalSource from './SeparatorVerticalExample.tsx?raw';
+
+import separatorDecorativeStyles from './SeparatorDecorativeExample.module.scss?virgo-raw';
+import separatorHorizontalStyles from './SeparatorHorizontalExample.module.scss?virgo-raw';
+import separatorLabelStyles from './SeparatorLabelExample.module.scss?virgo-raw';
+import separatorVerticalStyles from './SeparatorVerticalExample.module.scss?virgo-raw';
 
 export const separatorExamples = {
   separatorLabel: {

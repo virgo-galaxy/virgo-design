@@ -2,8 +2,9 @@ import { Slider as PrimitiveSlider } from '@virgo-design/primitives';
 import { type CSSProperties, forwardRef, useLayoutEffect, useRef, useState } from 'react';
 
 import { useComposedRefs } from '../../internal/utils/composeRefs';
-import styles from './Slider.module.scss';
 import type { SliderProps } from './Slider.types';
+
+import styles from './Slider.module.scss';
 
 export const Slider = forwardRef<HTMLInputElement, SliderProps>(function Slider(
   {

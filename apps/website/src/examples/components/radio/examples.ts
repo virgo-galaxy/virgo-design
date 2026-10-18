@@ -2,17 +2,18 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import RadioBasicExample from './RadioBasicExample';
-import radioBasicStyles from './RadioBasicExample.module.scss?virgo-raw';
 import radioBasicSource from './RadioBasicExample.tsx?raw';
 import RadioDisabledExample from './RadioDisabledExample';
-import radioDisabledStyles from './RadioDisabledExample.module.scss?virgo-raw';
 import radioDisabledSource from './RadioDisabledExample.tsx?raw';
 import RadioHorizontalExample from './RadioHorizontalExample';
-import radioHorizontalStyles from './RadioHorizontalExample.module.scss?virgo-raw';
 import radioHorizontalSource from './RadioHorizontalExample.tsx?raw';
 import RadioVerticalExample from './RadioVerticalExample';
-import radioVerticalStyles from './RadioVerticalExample.module.scss?virgo-raw';
 import radioVerticalSource from './RadioVerticalExample.tsx?raw';
+
+import radioBasicStyles from './RadioBasicExample.module.scss?virgo-raw';
+import radioDisabledStyles from './RadioDisabledExample.module.scss?virgo-raw';
+import radioHorizontalStyles from './RadioHorizontalExample.module.scss?virgo-raw';
+import radioVerticalStyles from './RadioVerticalExample.module.scss?virgo-raw';
 
 export const radioExamples = {
   radioBasic: {

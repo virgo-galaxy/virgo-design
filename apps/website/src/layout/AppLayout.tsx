@@ -6,8 +6,9 @@ import { ROUTE_PATHS } from '@/shared/routes/route-config';
 import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { DocumentationNavigationDock } from './DocumentationNavigationDock';
-import styles from './layout.module.scss';
 import { SiteHeader } from './SiteHeader';
+
+import styles from './layout.module.scss';
 
 interface AppLayoutProps {
   children: ReactNode;

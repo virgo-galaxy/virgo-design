@@ -6,9 +6,10 @@ import { Button } from '../Button';
 import { Input } from '../Input';
 import { Popover } from '../Popover';
 import { Tooltip } from '../Tooltip';
-import styles from './Table.module.scss';
 import type { TableSearchProps } from './Table.types';
 import { useColumnControlTooltip } from './use-column-control-tooltip';
+
+import styles from './Table.module.scss';
 
 export function TableSearch({
   label,

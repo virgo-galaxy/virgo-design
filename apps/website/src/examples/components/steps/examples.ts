@@ -2,8 +2,9 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import Example from './StepsWorkflowExample';
-import style from './StepsWorkflowExample.module.scss?virgo-raw';
 import source from './StepsWorkflowExample.tsx?raw';
+
+import style from './StepsWorkflowExample.module.scss?virgo-raw';
 export const stepsExamples = {
   example0: {
     id: 'steps-workflow',

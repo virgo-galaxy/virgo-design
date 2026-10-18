@@ -2,8 +2,9 @@ import { CursorArrowIcon } from '@virgo-design/icons';
 import { Cursor as PrimitiveCursor } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import styles from './Cursor.module.scss';
 import type { CursorFollowerProps, CursorProviderProps, CursorVisualProps } from './Cursor.types';
+
+import styles from './Cursor.module.scss';
 
 const visualSizes = { sm: 16, md: 20, lg: 24 } as const;
 

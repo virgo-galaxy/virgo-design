@@ -10,6 +10,7 @@ import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { colorPickerExamples } from '@/examples/components/color-picker/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 import styles from './ColorPickerPage.module.scss';
 
 export function ColorPickerPage() {

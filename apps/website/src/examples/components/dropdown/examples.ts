@@ -2,32 +2,33 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import DropdownClickExample from './DropdownClickExample';
-import dropdownClickStyles from './DropdownClickExample.module.scss?virgo-raw';
 import dropdownClickSource from './DropdownClickExample.tsx?raw';
 import DropdownControlledExample from './DropdownControlledExample';
-import dropdownControlledStyles from './DropdownControlledExample.module.scss?virgo-raw';
 import dropdownControlledSource from './DropdownControlledExample.tsx?raw';
 import DropdownCustomTriggerExample from './DropdownCustomTriggerExample';
-import dropdownCustomTriggerStyles from './DropdownCustomTriggerExample.module.scss?virgo-raw';
 import dropdownCustomTriggerSource from './DropdownCustomTriggerExample.tsx?raw';
 import DropdownDisabledExample from './DropdownDisabledExample';
-import dropdownDisabledStyles from './DropdownDisabledExample.module.scss?virgo-raw';
 import dropdownDisabledSource from './DropdownDisabledExample.tsx?raw';
 import DropdownHoverExample from './DropdownHoverExample';
-import dropdownHoverStyles from './DropdownHoverExample.module.scss?virgo-raw';
 import dropdownHoverSource from './DropdownHoverExample.tsx?raw';
 import DropdownPlacementExample from './DropdownPlacementExample';
-import dropdownPlacementStyles from './DropdownPlacementExample.module.scss?virgo-raw';
 import dropdownPlacementSource from './DropdownPlacementExample.tsx?raw';
 import DropdownSizesExample from './DropdownSizesExample';
-import dropdownSizesStyles from './DropdownSizesExample.module.scss?virgo-raw';
 import dropdownSizesSource from './DropdownSizesExample.tsx?raw';
 import DropdownSplitExample from './DropdownSplitExample';
-import dropdownSplitStyles from './DropdownSplitExample.module.scss?virgo-raw';
 import dropdownSplitSource from './DropdownSplitExample.tsx?raw';
 import DropdownSplitStatesExample from './DropdownSplitStatesExample';
-import dropdownSplitStatesStyles from './DropdownSplitStatesExample.module.scss?virgo-raw';
 import dropdownSplitStatesSource from './DropdownSplitStatesExample.tsx?raw';
+
+import dropdownClickStyles from './DropdownClickExample.module.scss?virgo-raw';
+import dropdownControlledStyles from './DropdownControlledExample.module.scss?virgo-raw';
+import dropdownCustomTriggerStyles from './DropdownCustomTriggerExample.module.scss?virgo-raw';
+import dropdownDisabledStyles from './DropdownDisabledExample.module.scss?virgo-raw';
+import dropdownHoverStyles from './DropdownHoverExample.module.scss?virgo-raw';
+import dropdownPlacementStyles from './DropdownPlacementExample.module.scss?virgo-raw';
+import dropdownSizesStyles from './DropdownSizesExample.module.scss?virgo-raw';
+import dropdownSplitStyles from './DropdownSplitExample.module.scss?virgo-raw';
+import dropdownSplitStatesStyles from './DropdownSplitStatesExample.module.scss?virgo-raw';
 
 export const dropdownExamples = {
   dropdownClick: {

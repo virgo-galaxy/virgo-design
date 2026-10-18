@@ -2,26 +2,27 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import NavigationGroupedExample from './NavigationGroupedExample';
-import navigationGroupedStyles from './NavigationGroupedExample.module.scss?virgo-raw';
 import navigationGroupedSource from './NavigationGroupedExample.tsx?raw';
 import NavigationHorizontalExample from './NavigationHorizontalExample';
-import navigationHorizontalStyles from './NavigationHorizontalExample.module.scss?virgo-raw';
 import navigationHorizontalSource from './NavigationHorizontalExample.tsx?raw';
 import NavigationNestedExample from './NavigationNestedExample';
-import navigationNestedStyles from './NavigationNestedExample.module.scss?virgo-raw';
 import navigationNestedSource from './NavigationNestedExample.tsx?raw';
 import NavigationPopoverExample from './NavigationPopoverExample';
-import navigationPopoverStyles from './NavigationPopoverExample.module.scss?virgo-raw';
 import navigationPopoverSource from './NavigationPopoverExample.tsx?raw';
 import NavigationSegmentedExample from './NavigationSegmentedExample';
-import navigationSegmentedStyles from './NavigationSegmentedExample.module.scss?virgo-raw';
 import navigationSegmentedSource from './NavigationSegmentedExample.tsx?raw';
 import NavigationSegmentedIconsExample from './NavigationSegmentedIconsExample';
-import navigationSegmentedIconsStyles from './NavigationSegmentedIconsExample.module.scss?virgo-raw';
 import navigationSegmentedIconsSource from './NavigationSegmentedIconsExample.tsx?raw';
 import NavigationVerticalExample from './NavigationVerticalExample';
-import navigationVerticalStyles from './NavigationVerticalExample.module.scss?virgo-raw';
 import navigationVerticalSource from './NavigationVerticalExample.tsx?raw';
+
+import navigationGroupedStyles from './NavigationGroupedExample.module.scss?virgo-raw';
+import navigationHorizontalStyles from './NavigationHorizontalExample.module.scss?virgo-raw';
+import navigationNestedStyles from './NavigationNestedExample.module.scss?virgo-raw';
+import navigationPopoverStyles from './NavigationPopoverExample.module.scss?virgo-raw';
+import navigationSegmentedStyles from './NavigationSegmentedExample.module.scss?virgo-raw';
+import navigationSegmentedIconsStyles from './NavigationSegmentedIconsExample.module.scss?virgo-raw';
+import navigationVerticalStyles from './NavigationVerticalExample.module.scss?virgo-raw';
 
 export const navigationMenuExamples = {
   navigationGrouped: {

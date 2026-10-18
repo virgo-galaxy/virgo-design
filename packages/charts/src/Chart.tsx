@@ -13,7 +13,6 @@ import {
   useState,
 } from 'react';
 
-import styles from './Chart.module.scss';
 import { numeric, read } from './data';
 import type { ChartDefinition, SeriesDefinition } from './engine/compiler';
 import { Sparkline } from './native/Sparkline';
@@ -31,6 +30,8 @@ import type {
   XAxisProps,
   YAxisProps,
 } from './types';
+
+import styles from './Chart.module.scss';
 
 const EngineView = lazy(() => import('./engine/EngineView'));
 

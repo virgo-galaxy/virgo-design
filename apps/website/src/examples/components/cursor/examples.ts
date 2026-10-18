@@ -2,26 +2,27 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import CursorComparisonExample from './CursorComparisonExample';
-import cursorComparisonStyles from './CursorComparisonExample.module.scss?virgo-raw';
 import cursorComparisonSource from './CursorComparisonExample.tsx?raw';
 import CursorCustomExample from './CursorCustomExample';
-import cursorCustomStyles from './CursorCustomExample.module.scss?virgo-raw';
 import cursorCustomSource from './CursorCustomExample.tsx?raw';
 import CursorDefaultExample from './CursorDefaultExample';
-import cursorDefaultStyles from './CursorDefaultExample.module.scss?virgo-raw';
 import cursorDefaultSource from './CursorDefaultExample.tsx?raw';
 import CursorFeedbackExample from './CursorFeedbackExample';
-import cursorFeedbackStyles from './CursorFeedbackExample.module.scss?virgo-raw';
 import cursorFeedbackSource from './CursorFeedbackExample.tsx?raw';
 import CursorScopeExample from './CursorScopeExample';
-import cursorScopeStyles from './CursorScopeExample.module.scss?virgo-raw';
 import cursorScopeSource from './CursorScopeExample.tsx?raw';
 import CursorSizesExample from './CursorSizesExample';
-import cursorSizesStyles from './CursorSizesExample.module.scss?virgo-raw';
 import cursorSizesSource from './CursorSizesExample.tsx?raw';
 import CursorTooltipExample from './CursorTooltipExample';
-import cursorTooltipStyles from './CursorTooltipExample.module.scss?virgo-raw';
 import cursorTooltipSource from './CursorTooltipExample.tsx?raw';
+
+import cursorComparisonStyles from './CursorComparisonExample.module.scss?virgo-raw';
+import cursorCustomStyles from './CursorCustomExample.module.scss?virgo-raw';
+import cursorDefaultStyles from './CursorDefaultExample.module.scss?virgo-raw';
+import cursorFeedbackStyles from './CursorFeedbackExample.module.scss?virgo-raw';
+import cursorScopeStyles from './CursorScopeExample.module.scss?virgo-raw';
+import cursorSizesStyles from './CursorSizesExample.module.scss?virgo-raw';
+import cursorTooltipStyles from './CursorTooltipExample.module.scss?virgo-raw';
 
 export const cursorExamples = {
   cursorDefault: {

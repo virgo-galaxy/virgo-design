@@ -5,7 +5,6 @@ import { forwardRef } from 'react';
 import { useLocale } from '../../locale/context/locale-context';
 import { Button } from '../Button';
 import { Dialog } from '../Dialog';
-import styles from './Drawer.module.scss';
 import type {
   DrawerBodyProps,
   DrawerCloseProps,
@@ -17,6 +16,8 @@ import type {
   DrawerRootProps,
   DrawerTitleProps,
 } from './Drawer.types';
+
+import styles from './Drawer.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

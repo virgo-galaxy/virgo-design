@@ -3,12 +3,13 @@ import { Collapsible as PrimitiveCollapsible } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
 import { Button } from '../Button';
-import styles from './Collapsible.module.scss';
 import type {
   CollapsibleContentProps,
   CollapsibleProps,
   CollapsibleTriggerProps,
 } from './Collapsible.types';
+
+import styles from './Collapsible.module.scss';
 
 const classes = (...values: Array<string | undefined>) => values.filter(Boolean).join(' ');
 

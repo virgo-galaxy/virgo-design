@@ -2,8 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
 
-import styles from './Field.module.scss';
 import { Field } from './index';
+
+import styles from './Field.module.scss';
 
 describe('Field visual contract', () => {
   it.each(['vertical', 'horizontal'] as const)(

@@ -2,23 +2,24 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import ButtonGroupsExample from './ButtonGroupsExample';
-import groupsStyles from './ButtonGroupsExample.module.scss?virgo-raw';
 import groupsSource from './ButtonGroupsExample.tsx?raw';
 import ButtonIconOnlyExample from './ButtonIconOnlyExample';
-import buttonIconOnlyStyles from './ButtonIconOnlyExample.module.scss?virgo-raw';
 import buttonIconOnlySource from './ButtonIconOnlyExample.tsx?raw';
 import ButtonIconsExample from './ButtonIconsExample';
-import buttonIconsStyles from './ButtonIconsExample.module.scss?virgo-raw';
 import buttonIconsSource from './ButtonIconsExample.tsx?raw';
 import ButtonSizesExample from './ButtonSizesExample';
-import buttonSizesStyles from './ButtonSizesExample.module.scss?virgo-raw';
 import buttonSizesSource from './ButtonSizesExample.tsx?raw';
 import ButtonStatesExample from './ButtonStatesExample';
-import buttonStatesStyles from './ButtonStatesExample.module.scss?virgo-raw';
 import buttonStatesSource from './ButtonStatesExample.tsx?raw';
 import ButtonVariantsExample from './ButtonVariantsExample';
-import buttonVariantsStyles from './ButtonVariantsExample.module.scss?virgo-raw';
 import buttonVariantsSource from './ButtonVariantsExample.tsx?raw';
+
+import groupsStyles from './ButtonGroupsExample.module.scss?virgo-raw';
+import buttonIconOnlyStyles from './ButtonIconOnlyExample.module.scss?virgo-raw';
+import buttonIconsStyles from './ButtonIconsExample.module.scss?virgo-raw';
+import buttonSizesStyles from './ButtonSizesExample.module.scss?virgo-raw';
+import buttonStatesStyles from './ButtonStatesExample.module.scss?virgo-raw';
+import buttonVariantsStyles from './ButtonVariantsExample.module.scss?virgo-raw';
 
 export const buttonExamples = {
   groups: {

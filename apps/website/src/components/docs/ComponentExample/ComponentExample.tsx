@@ -8,10 +8,11 @@ import { useSourceCopy } from '@/shared/hooks/use-source-copy';
 import { AppearanceContext } from '@/shared/theme/appearance-context';
 import { SourceCopyButton } from '@/shared/ui/source-copy-button/SourceCopyButton';
 
-import styles from './component-example.module.scss';
 import { useComponentExampleDisclosure } from './component-example-runtime-context';
 import reactLogo from './react-logo.svg';
 import sassLogo from './sass-logo.svg';
+
+import styles from './component-example.module.scss';
 
 export interface ComponentExampleDefinition {
   id: string;

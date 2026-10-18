@@ -5,8 +5,9 @@ import { forwardRef, useRef, useState } from 'react';
 import { useLocale } from '../../locale/context/locale-context';
 import { Tooltip } from '../Tooltip';
 import { useTooltipPresentation } from '../Tooltip/TooltipContext';
-import styles from './Table.module.scss';
 import type { TableSortButtonProps } from './Table.types';
+
+import styles from './Table.module.scss';
 
 export const TableSortButton = forwardRef<HTMLButtonElement, TableSortButtonProps>(
   function TableSortButton(

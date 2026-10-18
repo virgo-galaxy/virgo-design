@@ -2,14 +2,15 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import TreeControlledExample from './TreeControlledExample';
-import style1 from './TreeControlledExample.module.scss?virgo-raw';
 import source1 from './TreeControlledExample.tsx?raw';
 import TreeHierarchyExample from './TreeHierarchyExample';
-import style0 from './TreeHierarchyExample.module.scss?virgo-raw';
 import source0 from './TreeHierarchyExample.tsx?raw';
 import TreeMultipleExample from './TreeMultipleExample';
-import style2 from './TreeMultipleExample.module.scss?virgo-raw';
 import source2 from './TreeMultipleExample.tsx?raw';
+
+import style1 from './TreeControlledExample.module.scss?virgo-raw';
+import style0 from './TreeHierarchyExample.module.scss?virgo-raw';
+import style2 from './TreeMultipleExample.module.scss?virgo-raw';
 export const treeExamples = {
   example0: {
     id: 'tree-hierarchy',

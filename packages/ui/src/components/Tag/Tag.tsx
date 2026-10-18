@@ -2,8 +2,9 @@ import { CloseIcon } from '@virgo-design/icons';
 import { forwardRef } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
-import styles from './Tag.module.scss';
 import type { TagProps } from './Tag.types';
+
+import styles from './Tag.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

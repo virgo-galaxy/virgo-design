@@ -2,14 +2,15 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import FormBasicExample from './FormBasicExample';
-import style0 from './FormBasicExample.module.scss?virgo-raw';
 import source0 from './FormBasicExample.tsx?raw';
 import FormHorizontalExample from './FormHorizontalExample';
-import style1 from './FormHorizontalExample.module.scss?virgo-raw';
 import source1 from './FormHorizontalExample.tsx?raw';
 import FormSubmitExample from './FormSubmitExample';
-import style2 from './FormSubmitExample.module.scss?virgo-raw';
 import source2 from './FormSubmitExample.tsx?raw';
+
+import style0 from './FormBasicExample.module.scss?virgo-raw';
+import style1 from './FormHorizontalExample.module.scss?virgo-raw';
+import style2 from './FormSubmitExample.module.scss?virgo-raw';
 export const formExamples = {
   example0: {
     id: 'form-basic',

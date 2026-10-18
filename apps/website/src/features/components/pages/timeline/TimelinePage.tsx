@@ -10,6 +10,7 @@ import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { timelineExamples } from '@/examples/components/timeline/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 import styles from './TimelinePage.module.scss';
 export function TimelinePage() {
   const { t } = useTranslation();

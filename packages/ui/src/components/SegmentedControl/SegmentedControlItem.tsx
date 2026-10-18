@@ -2,8 +2,9 @@ import { Radio as PrimitiveRadio } from '@virgo-design/primitives';
 import { forwardRef, useId, useRef, useState } from 'react';
 
 import { Tooltip } from '../Tooltip';
-import styles from './SegmentedControl.module.scss';
 import type { SegmentedControlItemProps } from './SegmentedControl.types';
+
+import styles from './SegmentedControl.module.scss';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');

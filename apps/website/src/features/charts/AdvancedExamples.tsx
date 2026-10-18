@@ -3,8 +3,9 @@ import { EChartsChart } from '@virgo-design/charts/echarts';
 import { Surface } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
-import styles from './ChartsPage.module.scss';
 import { CalendarHeatmap } from './components/CalendarHeatmap';
+
+import styles from './ChartsPage.module.scss';
 
 export default function AdvancedExamples() {
   const { t } = useTranslation();

@@ -11,7 +11,6 @@ import {
 } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
-import styles from './Select.module.scss';
 import type {
   SelectContentProps,
   SelectMultipleProps,
@@ -19,6 +18,8 @@ import type {
   SelectProps,
   SelectTriggerProps,
 } from './Select.types';
+
+import styles from './Select.module.scss';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');

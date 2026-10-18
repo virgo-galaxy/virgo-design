@@ -2,9 +2,10 @@ import type { ColorScale } from '@virgo-design/colors';
 import { Button } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
-import styles from '../styles/foundation-extensions.module.scss';
 import { HexColorField } from './controls/HexColorField';
 import { FoundationScale } from './FoundationScale';
+
+import styles from '../styles/foundation-extensions.module.scss';
 
 interface BrandNeutralPageProps {
   brandBase: string;

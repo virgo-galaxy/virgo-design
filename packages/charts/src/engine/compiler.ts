@@ -7,7 +7,6 @@ import type {
   XAXisComponentOption,
 } from 'echarts';
 
-import styles from '../Chart.module.scss';
 import { numeric, read } from '../data';
 import type {
   BarProps,
@@ -19,6 +18,8 @@ import type {
   YAxisProps,
 } from '../types';
 import type { ChartTheme } from './theme';
+
+import styles from '../Chart.module.scss';
 
 export interface SeriesDefinition extends BarProps {
   key: string;

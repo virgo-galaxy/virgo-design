@@ -1,9 +1,10 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 
-import styles from '../Chart.module.scss';
 import { numeric, read } from '../data';
 import type { ChartFormatter, SparklineProps } from '../types';
 import { areaPath, linear, linePath } from './geometry';
+
+import styles from '../Chart.module.scss';
 
 /** Deliberately independent of the ECharts adapter and its runtime chunks. */
 export function Sparkline({

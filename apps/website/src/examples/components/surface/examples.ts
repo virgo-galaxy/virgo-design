@@ -2,38 +2,39 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import SurfaceBordersExample from './SurfaceBordersExample';
-import surfaceBordersStyles from './SurfaceBordersExample.module.scss?virgo-raw';
 import surfaceBordersSource from './SurfaceBordersExample.tsx?raw';
 import SurfaceColorBackgroundExample from './SurfaceColorBackgroundExample';
-import surfaceColorBackgroundStyles from './SurfaceColorBackgroundExample.module.scss?virgo-raw';
 import surfaceColorBackgroundSource from './SurfaceColorBackgroundExample.tsx?raw';
 import SurfaceElevationExample from './SurfaceElevationExample';
-import surfaceElevationStyles from './SurfaceElevationExample.module.scss?virgo-raw';
 import surfaceElevationSource from './SurfaceElevationExample.tsx?raw';
 import SurfaceImageBackgroundExample from './SurfaceImageBackgroundExample';
-import surfaceImageBackgroundStyles from './SurfaceImageBackgroundExample.module.scss?virgo-raw';
 import surfaceImageBackgroundSource from './SurfaceImageBackgroundExample.tsx?raw';
 import SurfaceImageContainExample from './SurfaceImageContainExample';
-import surfaceImageContainStyles from './SurfaceImageContainExample.module.scss?virgo-raw';
 import surfaceImageContainSource from './SurfaceImageContainExample.tsx?raw';
 import SurfaceImageMaterialExample from './SurfaceImageMaterialExample';
-import surfaceImageMaterialStyles from './SurfaceImageMaterialExample.module.scss?virgo-raw';
 import surfaceImageMaterialSource from './SurfaceImageMaterialExample.tsx?raw';
 import SurfaceLayoutCompositionExample from './SurfaceLayoutCompositionExample';
-import surfaceLayoutCompositionStyles from './SurfaceLayoutCompositionExample.module.scss?virgo-raw';
 import surfaceLayoutCompositionSource from './SurfaceLayoutCompositionExample.tsx?raw';
 import SurfaceMaterialsExample from './SurfaceMaterialsExample';
-import surfaceMaterialsStyles from './SurfaceMaterialsExample.module.scss?virgo-raw';
 import surfaceMaterialsSource from './SurfaceMaterialsExample.tsx?raw';
 import SurfaceOverflowExample from './SurfaceOverflowExample';
-import surfaceOverflowStyles from './SurfaceOverflowExample.module.scss?virgo-raw';
 import surfaceOverflowSource from './SurfaceOverflowExample.tsx?raw';
 import SurfaceRadiusExample from './SurfaceRadiusExample';
-import surfaceRadiusStyles from './SurfaceRadiusExample.module.scss?virgo-raw';
 import surfaceRadiusSource from './SurfaceRadiusExample.tsx?raw';
 import SurfaceTonesExample from './SurfaceTonesExample';
-import surfaceTonesStyles from './SurfaceTonesExample.module.scss?virgo-raw';
 import surfaceTonesSource from './SurfaceTonesExample.tsx?raw';
+
+import surfaceBordersStyles from './SurfaceBordersExample.module.scss?virgo-raw';
+import surfaceColorBackgroundStyles from './SurfaceColorBackgroundExample.module.scss?virgo-raw';
+import surfaceElevationStyles from './SurfaceElevationExample.module.scss?virgo-raw';
+import surfaceImageBackgroundStyles from './SurfaceImageBackgroundExample.module.scss?virgo-raw';
+import surfaceImageContainStyles from './SurfaceImageContainExample.module.scss?virgo-raw';
+import surfaceImageMaterialStyles from './SurfaceImageMaterialExample.module.scss?virgo-raw';
+import surfaceLayoutCompositionStyles from './SurfaceLayoutCompositionExample.module.scss?virgo-raw';
+import surfaceMaterialsStyles from './SurfaceMaterialsExample.module.scss?virgo-raw';
+import surfaceOverflowStyles from './SurfaceOverflowExample.module.scss?virgo-raw';
+import surfaceRadiusStyles from './SurfaceRadiusExample.module.scss?virgo-raw';
+import surfaceTonesStyles from './SurfaceTonesExample.module.scss?virgo-raw';
 
 export const surfaceExamples = {
   surfaceTones: {

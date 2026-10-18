@@ -2,14 +2,15 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import FieldBasicExample from './FieldBasicExample';
-import style0 from './FieldBasicExample.module.scss?virgo-raw';
 import source0 from './FieldBasicExample.tsx?raw';
 import FieldStatesExample from './FieldStatesExample';
-import style2 from './FieldStatesExample.module.scss?virgo-raw';
 import source2 from './FieldStatesExample.tsx?raw';
 import FieldValidationExample from './FieldValidationExample';
-import style1 from './FieldValidationExample.module.scss?virgo-raw';
 import source1 from './FieldValidationExample.tsx?raw';
+
+import style0 from './FieldBasicExample.module.scss?virgo-raw';
+import style2 from './FieldStatesExample.module.scss?virgo-raw';
+import style1 from './FieldValidationExample.module.scss?virgo-raw';
 export const fieldExamples = {
   example0: {
     id: 'field-basic',

@@ -2,44 +2,45 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import TooltipActionExample from './TooltipActionExample';
-import tooltipActionStyles from './TooltipActionExample.module.scss?virgo-raw';
 import tooltipActionSource from './TooltipActionExample.tsx?raw';
 import TooltipActivationExample from './TooltipActivationExample';
-import tooltipActivationStyles from './TooltipActivationExample.module.scss?virgo-raw';
 import tooltipActivationSource from './TooltipActivationExample.tsx?raw';
 import TooltipBasicExample from './TooltipBasicExample';
-import tooltipBasicStyles from './TooltipBasicExample.module.scss?virgo-raw';
 import tooltipBasicSource from './TooltipBasicExample.tsx?raw';
 import TooltipCursorExample from './TooltipCursorExample';
-import tooltipCursorStyles from './TooltipCursorExample.module.scss?virgo-raw';
 import tooltipCursorSource from './TooltipCursorExample.tsx?raw';
 import TooltipCustomColorExample from './TooltipCustomColorExample';
-import tooltipCustomColorStyles from './TooltipCustomColorExample.module.scss?virgo-raw';
 import tooltipCustomColorSource from './TooltipCustomColorExample.tsx?raw';
 import TooltipDirectionExample from './TooltipDirectionExample';
-import tooltipDirectionStyles from './TooltipDirectionExample.module.scss?virgo-raw';
 import tooltipDirectionSource from './TooltipDirectionExample.tsx?raw';
 import TooltipDisabledExample from './TooltipDisabledExample';
-import tooltipDisabledStyles from './TooltipDisabledExample.module.scss?virgo-raw';
 import tooltipDisabledSource from './TooltipDisabledExample.tsx?raw';
 import TooltipDynamicExample from './TooltipDynamicExample';
-import tooltipDynamicStyles from './TooltipDynamicExample.module.scss?virgo-raw';
 import tooltipDynamicSource from './TooltipDynamicExample.tsx?raw';
 import TooltipInstantExample from './TooltipInstantExample';
-import tooltipInstantStyles from './TooltipInstantExample.module.scss?virgo-raw';
 import tooltipInstantSource from './TooltipInstantExample.tsx?raw';
 import TooltipPlacementExample from './TooltipPlacementExample';
-import tooltipPlacementStyles from './TooltipPlacementExample.module.scss?virgo-raw';
 import tooltipPlacementSource from './TooltipPlacementExample.tsx?raw';
 import TooltipSizesExample from './TooltipSizesExample';
-import tooltipSizesStyles from './TooltipSizesExample.module.scss?virgo-raw';
 import tooltipSizesSource from './TooltipSizesExample.tsx?raw';
 import TooltipSmoothExample from './TooltipSmoothExample';
-import tooltipSmoothStyles from './TooltipSmoothExample.module.scss?virgo-raw';
 import tooltipSmoothSource from './TooltipSmoothExample.tsx?raw';
 import TooltipTonesExample from './TooltipTonesExample';
-import tooltipTonesStyles from './TooltipTonesExample.module.scss?virgo-raw';
 import tooltipTonesSource from './TooltipTonesExample.tsx?raw';
+
+import tooltipActionStyles from './TooltipActionExample.module.scss?virgo-raw';
+import tooltipActivationStyles from './TooltipActivationExample.module.scss?virgo-raw';
+import tooltipBasicStyles from './TooltipBasicExample.module.scss?virgo-raw';
+import tooltipCursorStyles from './TooltipCursorExample.module.scss?virgo-raw';
+import tooltipCustomColorStyles from './TooltipCustomColorExample.module.scss?virgo-raw';
+import tooltipDirectionStyles from './TooltipDirectionExample.module.scss?virgo-raw';
+import tooltipDisabledStyles from './TooltipDisabledExample.module.scss?virgo-raw';
+import tooltipDynamicStyles from './TooltipDynamicExample.module.scss?virgo-raw';
+import tooltipInstantStyles from './TooltipInstantExample.module.scss?virgo-raw';
+import tooltipPlacementStyles from './TooltipPlacementExample.module.scss?virgo-raw';
+import tooltipSizesStyles from './TooltipSizesExample.module.scss?virgo-raw';
+import tooltipSmoothStyles from './TooltipSmoothExample.module.scss?virgo-raw';
+import tooltipTonesStyles from './TooltipTonesExample.module.scss?virgo-raw';
 
 export const tooltipExamples = {
   tooltipCursor: {

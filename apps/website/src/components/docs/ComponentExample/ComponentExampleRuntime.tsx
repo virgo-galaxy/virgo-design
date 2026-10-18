@@ -2,12 +2,13 @@ import { Button } from '@virgo-design/ui';
 import { type ReactNode, useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import styles from './component-example.module.scss';
 import {
   ComponentExampleRuntimeContext,
   type ComponentExampleRuntimeContextValue,
   type DisclosureUpdater,
 } from './component-example-runtime-context';
+
+import styles from './component-example.module.scss';
 
 export function ComponentExampleRuntimeProvider({ children }: { children: ReactNode }) {
   const [examples, setExamples] = useState<Record<string, boolean>>({});

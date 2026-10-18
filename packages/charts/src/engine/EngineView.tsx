@@ -1,13 +1,14 @@
 import type { EChartsType } from 'echarts';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import styles from '../Chart.module.scss';
 import { numeric, read } from '../data';
 import type { ChartRenderer } from '../types';
 import { type ChartDefinition, compileOption } from './compiler';
 import { init } from './core';
 import { useChartRuntime, useReducedMotion } from './runtime';
 import { useChartTheme } from './theme';
+
+import styles from '../Chart.module.scss';
 
 export interface EngineViewProps {
   definition: ChartDefinition;

@@ -2,17 +2,18 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import FloatingActionDisabledExample from './FloatingActionDisabledExample';
-import floatingActionDisabledStyles from './FloatingActionDisabledExample.module.scss?virgo-raw';
 import floatingActionDisabledSource from './FloatingActionDisabledExample.tsx?raw';
 import FloatingActionGroupExample from './FloatingActionGroupExample';
-import floatingActionGroupStyles from './FloatingActionGroupExample.module.scss?virgo-raw';
 import floatingActionGroupSource from './FloatingActionGroupExample.tsx?raw';
 import FloatingActionPlacementExample from './FloatingActionPlacementExample';
-import floatingActionPlacementStyles from './FloatingActionPlacementExample.module.scss?virgo-raw';
 import floatingActionPlacementSource from './FloatingActionPlacementExample.tsx?raw';
 import FloatingActionVariantsExample from './FloatingActionVariantsExample';
-import floatingActionVariantsStyles from './FloatingActionVariantsExample.module.scss?virgo-raw';
 import floatingActionVariantsSource from './FloatingActionVariantsExample.tsx?raw';
+
+import floatingActionDisabledStyles from './FloatingActionDisabledExample.module.scss?virgo-raw';
+import floatingActionGroupStyles from './FloatingActionGroupExample.module.scss?virgo-raw';
+import floatingActionPlacementStyles from './FloatingActionPlacementExample.module.scss?virgo-raw';
+import floatingActionVariantsStyles from './FloatingActionVariantsExample.module.scss?virgo-raw';
 
 export const floatingActionExamples = {
   floatingActionVariants: {

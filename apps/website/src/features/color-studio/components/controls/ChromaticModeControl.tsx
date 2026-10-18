@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { chromaticModeTranslationKeys } from '../../color-studio-i18n';
 import type { ChromaticMode } from '../../model/types';
+
 import styles from '../../styles/color-studio.module.scss';
 
 interface ChromaticModeControlProps {

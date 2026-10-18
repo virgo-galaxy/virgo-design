@@ -2,11 +2,12 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import Composition from './ResultCompositionExample';
-import compositionStyles from './ResultCompositionExample.module.scss?virgo-raw';
 import compositionSource from './ResultCompositionExample.tsx?raw';
 import Variants from './ResultVariantsExample';
-import variantsStyles from './ResultVariantsExample.module.scss?virgo-raw';
 import variantsSource from './ResultVariantsExample.tsx?raw';
+
+import compositionStyles from './ResultCompositionExample.module.scss?virgo-raw';
+import variantsStyles from './ResultVariantsExample.module.scss?virgo-raw';
 export const resultExamples = {
   variants: {
     id: 'result-variants',

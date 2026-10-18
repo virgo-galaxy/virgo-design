@@ -4,7 +4,6 @@ import { createContext, forwardRef, useContext } from 'react';
 
 import { PopupMaterial } from '../../internal/overlay/PopupMaterial';
 import { Button, type ButtonSize } from '../Button';
-import styles from './Dropdown.module.scss';
 import type {
   DropdownButtonProps,
   DropdownContentProps,
@@ -12,6 +11,8 @@ import type {
   DropdownProps,
   DropdownTriggerProps,
 } from './Dropdown.types';
+
+import styles from './Dropdown.module.scss';
 
 const UIContext = createContext<{ size: ButtonSize; disabled: boolean }>({
   size: 'medium',

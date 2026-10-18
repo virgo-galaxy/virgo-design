@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSourceCopy } from '@/shared/hooks/use-source-copy';
 
 import { generateSemanticColorCss } from './semantic-color-export';
+
 import styles from './styles/semantic-color-export.module.scss';
 
 export function SemanticColorExport() {

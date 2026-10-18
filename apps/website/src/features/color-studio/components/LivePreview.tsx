@@ -10,8 +10,9 @@ import { useCopyToast } from '@/shared/hooks/use-copy-toast';
 import { CopyToast } from '@/shared/ui/copy-toast/CopyToast';
 
 import type { ChromaticMode } from '../model/types';
-import styles from '../styles/color-studio.module.scss';
 import { ColorFamilyCarousel } from './ColorFamilyCarousel';
+
+import styles from '../styles/color-studio.module.scss';
 
 const steps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const satisfies readonly ColorScaleStep[];
 

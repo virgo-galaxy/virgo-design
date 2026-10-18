@@ -2,9 +2,10 @@ import { Tooltip as PrimitiveTooltip } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
 import { Button } from '../Button';
-import styles from './Tooltip.module.scss';
 import type { TooltipContentProps, TooltipProps, TooltipTriggerProps } from './Tooltip.types';
 import { TooltipProvider, useTooltipPresentation } from './TooltipContext';
+
+import styles from './Tooltip.module.scss';
 
 const Root = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
   { className, ...props },

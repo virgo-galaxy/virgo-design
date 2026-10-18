@@ -3,7 +3,6 @@ import { Combobox as PrimitiveCombobox } from '@virgo-design/primitives';
 import { createContext, forwardRef, useContext } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
-import styles from './Combobox.module.scss';
 import type {
   ComboboxClearProps,
   ComboboxContentProps,
@@ -13,6 +12,8 @@ import type {
   ComboboxOptionProps,
   ComboboxProps,
 } from './Combobox.types';
+
+import styles from './Combobox.module.scss';
 
 const SizeContext = createContext<ComboboxProps['size']>('medium');
 

@@ -1,8 +1,9 @@
 import { Slider as PrimitiveSlider } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import styles from './Slider.module.scss';
 import type { SliderRangeProps } from './Slider.types';
+
+import styles from './Slider.module.scss';
 
 export const SliderRange = forwardRef<HTMLDivElement, SliderRangeProps>(function SliderRange(
   { size = 'medium', className, ...props },

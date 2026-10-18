@@ -2,20 +2,21 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import AlertActionExample from './AlertActionExample';
-import alertActionStyles from './AlertActionExample.module.scss?virgo-raw';
 import alertActionSource from './AlertActionExample.tsx?raw';
 import AlertClosableExample from './AlertClosableExample';
-import alertClosableStyles from './AlertClosableExample.module.scss?virgo-raw';
 import alertClosableSource from './AlertClosableExample.tsx?raw';
 import AlertContentExample from './AlertContentExample';
-import alertContentStyles from './AlertContentExample.module.scss?virgo-raw';
 import alertContentSource from './AlertContentExample.tsx?raw';
 import AlertCustomIconExample from './AlertCustomIconExample';
-import alertCustomIconStyles from './AlertCustomIconExample.module.scss?virgo-raw';
 import alertCustomIconSource from './AlertCustomIconExample.tsx?raw';
 import AlertIntentsExample from './AlertIntentsExample';
-import alertIntentsStyles from './AlertIntentsExample.module.scss?virgo-raw';
 import alertIntentsSource from './AlertIntentsExample.tsx?raw';
+
+import alertActionStyles from './AlertActionExample.module.scss?virgo-raw';
+import alertClosableStyles from './AlertClosableExample.module.scss?virgo-raw';
+import alertContentStyles from './AlertContentExample.module.scss?virgo-raw';
+import alertCustomIconStyles from './AlertCustomIconExample.module.scss?virgo-raw';
+import alertIntentsStyles from './AlertIntentsExample.module.scss?virgo-raw';
 
 export const alertExamples = {
   alertIntents: {

@@ -1,6 +1,5 @@
 import { forwardRef } from 'react';
 
-import styles from './Empty.module.scss';
 import type {
   EmptyActionProps,
   EmptyDescriptionProps,
@@ -8,6 +7,8 @@ import type {
   EmptyProps,
   EmptyTitleProps,
 } from './Empty.types';
+
+import styles from './Empty.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

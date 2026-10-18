@@ -10,8 +10,9 @@ import {
 import type { HTMLAttributes } from 'react';
 import { createContext, forwardRef, useContext, useId } from 'react';
 
-import styles from './Result.module.scss';
 import type { ResultProps, ResultStatus, ResultTitleProps } from './Result.types';
+
+import styles from './Result.module.scss';
 
 const classes = (...values: (string | undefined)[]) => values.filter(Boolean).join(' ');
 const Context = createContext<ResultStatus>('info');

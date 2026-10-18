@@ -2,26 +2,27 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import SelectContentExample from './SelectContentExample';
-import selectContentStyles from './SelectContentExample.module.scss?virgo-raw';
 import selectContentSource from './SelectContentExample.tsx?raw';
 import SelectDisabledOptionExample from './SelectDisabledOptionExample';
-import selectDisabledOptionStyles from './SelectDisabledOptionExample.module.scss?virgo-raw';
 import selectDisabledOptionSource from './SelectDisabledOptionExample.tsx?raw';
 import SelectKeyboardExample from './SelectKeyboardExample';
-import selectKeyboardStyles from './SelectKeyboardExample.module.scss?virgo-raw';
 import selectKeyboardSource from './SelectKeyboardExample.tsx?raw';
 import SelectLongContentExample from './SelectLongContentExample';
-import selectLongContentStyles from './SelectLongContentExample.module.scss?virgo-raw';
 import selectLongContentSource from './SelectLongContentExample.tsx?raw';
 import SelectMultipleExample from './SelectMultipleExample';
-import selectMultipleStyles from './SelectMultipleExample.module.scss?virgo-raw';
 import selectMultipleSource from './SelectMultipleExample.tsx?raw';
 import SelectSizesExample from './SelectSizesExample';
-import selectSizesStyles from './SelectSizesExample.module.scss?virgo-raw';
 import selectSizesSource from './SelectSizesExample.tsx?raw';
 import SelectStatesExample from './SelectStatesExample';
-import selectStatesStyles from './SelectStatesExample.module.scss?virgo-raw';
 import selectStatesSource from './SelectStatesExample.tsx?raw';
+
+import selectContentStyles from './SelectContentExample.module.scss?virgo-raw';
+import selectDisabledOptionStyles from './SelectDisabledOptionExample.module.scss?virgo-raw';
+import selectKeyboardStyles from './SelectKeyboardExample.module.scss?virgo-raw';
+import selectLongContentStyles from './SelectLongContentExample.module.scss?virgo-raw';
+import selectMultipleStyles from './SelectMultipleExample.module.scss?virgo-raw';
+import selectSizesStyles from './SelectSizesExample.module.scss?virgo-raw';
+import selectStatesStyles from './SelectStatesExample.module.scss?virgo-raw';
 
 export const selectExamples = {
   selectMultiple: {

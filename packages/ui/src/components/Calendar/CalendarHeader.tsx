@@ -1,8 +1,9 @@
 import { useLocale } from '../../locale/context/locale-context';
 import { SegmentedControl } from '../SegmentedControl';
 import { Select } from '../Select';
-import styles from './Calendar.module.scss';
 import type { CalendarHeaderRenderProps } from './Calendar.types';
+
+import styles from './Calendar.module.scss';
 
 export function CalendarHeader({
   month,

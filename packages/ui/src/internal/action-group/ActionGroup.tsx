@@ -1,8 +1,9 @@
 import { type CSSProperties, forwardRef, useContext } from 'react';
 
-import styles from './ActionGroup.module.scss';
 import type { ActionGroupProps } from './ActionGroup.types';
 import { ActionGroupSizeContext } from './ActionGroupContext';
+
+import styles from './ActionGroup.module.scss';
 
 export const ActionGroup = forwardRef<HTMLDivElement, ActionGroupProps>(function ActionGroup(
   {

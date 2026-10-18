@@ -1,8 +1,9 @@
 import { Switch as PrimitiveSwitch } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import styles from './Switch.module.scss';
 import type { SwitchProps } from './Switch.types';
+
+import styles from './Switch.module.scss';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');

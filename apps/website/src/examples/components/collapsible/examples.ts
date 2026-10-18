@@ -2,8 +2,9 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import Example from './CollapsibleDisclosureExample';
-import style from './CollapsibleDisclosureExample.module.scss?virgo-raw';
 import source from './CollapsibleDisclosureExample.tsx?raw';
+
+import style from './CollapsibleDisclosureExample.module.scss?virgo-raw';
 export const collapsibleExamples = {
   example0: {
     id: 'collapsible-disclosure',

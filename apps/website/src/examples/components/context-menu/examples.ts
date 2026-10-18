@@ -2,14 +2,15 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import ContextMenuCheckboxExample from './ContextMenuCheckboxExample';
-import contextMenuCheckboxStyles from './ContextMenuCheckboxExample.module.scss?virgo-raw';
 import contextMenuCheckboxSource from './ContextMenuCheckboxExample.tsx?raw';
 import ContextMenuRadioExample from './ContextMenuRadioExample';
-import contextMenuRadioStyles from './ContextMenuRadioExample.module.scss?virgo-raw';
 import contextMenuRadioSource from './ContextMenuRadioExample.tsx?raw';
 import ContextMenuTargetExample from './ContextMenuTargetExample';
-import contextMenuTargetStyles from './ContextMenuTargetExample.module.scss?virgo-raw';
 import contextMenuTargetSource from './ContextMenuTargetExample.tsx?raw';
+
+import contextMenuCheckboxStyles from './ContextMenuCheckboxExample.module.scss?virgo-raw';
+import contextMenuRadioStyles from './ContextMenuRadioExample.module.scss?virgo-raw';
+import contextMenuTargetStyles from './ContextMenuTargetExample.module.scss?virgo-raw';
 
 export const contextMenuExamples = {
   contextMenuTarget: {

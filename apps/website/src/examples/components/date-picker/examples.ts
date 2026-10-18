@@ -2,14 +2,15 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import DatePickerBasicExample from './DatePickerBasicExample';
-import style0 from './DatePickerBasicExample.module.scss?virgo-raw';
 import source0 from './DatePickerBasicExample.tsx?raw';
 import DatePickerRangeExample from './DatePickerRangeExample';
-import rangeStyle from './DatePickerRangeExample.module.scss?virgo-raw';
 import rangeSource from './DatePickerRangeExample.tsx?raw';
 import DatePickerStatesExample from './DatePickerStatesExample';
-import style1 from './DatePickerStatesExample.module.scss?virgo-raw';
 import source1 from './DatePickerStatesExample.tsx?raw';
+
+import style0 from './DatePickerBasicExample.module.scss?virgo-raw';
+import rangeStyle from './DatePickerRangeExample.module.scss?virgo-raw';
+import style1 from './DatePickerStatesExample.module.scss?virgo-raw';
 export const datePickerExamples = {
   example0: {
     id: 'date-picker-basic',

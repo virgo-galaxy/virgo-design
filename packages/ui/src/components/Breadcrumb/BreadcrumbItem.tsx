@@ -1,8 +1,9 @@
 import { Breadcrumb as PrimitiveBreadcrumb } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import styles from './Breadcrumb.module.scss';
 import type { BreadcrumbItemProps } from './Breadcrumb.types';
+
+import styles from './Breadcrumb.module.scss';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');

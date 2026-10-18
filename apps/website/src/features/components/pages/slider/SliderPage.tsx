@@ -10,6 +10,7 @@ import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { sliderExamples } from '@/examples/components/slider/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 import styles from './SliderPage.module.scss';
 export function SliderPage() {
   const { t } = useTranslation();

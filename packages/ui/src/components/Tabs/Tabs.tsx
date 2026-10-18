@@ -2,9 +2,10 @@ import { Tabs as PrimitiveTabs } from '@virgo-design/primitives';
 import { forwardRef, useMemo } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
-import styles from './Tabs.module.scss';
 import type { TabsProps } from './Tabs.types';
 import { TabsVisualContext } from './TabsContext';
+
+import styles from './Tabs.module.scss';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');

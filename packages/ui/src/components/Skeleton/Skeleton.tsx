@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
 
-import styles from './Skeleton.module.scss';
 import type { SkeletonProps } from './Skeleton.types';
+
+import styles from './Skeleton.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

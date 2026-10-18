@@ -2,20 +2,21 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import DockControlledExample from './DockControlledExample';
-import dockControlledStyles from './DockControlledExample.module.scss?virgo-raw';
 import dockControlledSource from './DockControlledExample.tsx?raw';
 import DockFreePositioningExample from './DockFreePositioningExample';
-import dockFreePositioningStyles from './DockFreePositioningExample.module.scss?virgo-raw';
 import dockFreePositioningSource from './DockFreePositioningExample.tsx?raw';
 import DockHandlePositionExample from './DockHandlePositionExample';
-import dockHandlePositionStyles from './DockHandlePositionExample.module.scss?virgo-raw';
 import dockHandlePositionSource from './DockHandlePositionExample.tsx?raw';
 import DockLockPinExample from './DockLockPinExample';
-import dockLockPinStyles from './DockLockPinExample.module.scss?virgo-raw';
 import dockLockPinSource from './DockLockPinExample.tsx?raw';
 import DockPersistenceExample from './DockPersistenceExample';
-import dockPersistenceStyles from './DockPersistenceExample.module.scss?virgo-raw';
 import dockPersistenceSource from './DockPersistenceExample.tsx?raw';
+
+import dockControlledStyles from './DockControlledExample.module.scss?virgo-raw';
+import dockFreePositioningStyles from './DockFreePositioningExample.module.scss?virgo-raw';
+import dockHandlePositionStyles from './DockHandlePositionExample.module.scss?virgo-raw';
+import dockLockPinStyles from './DockLockPinExample.module.scss?virgo-raw';
+import dockPersistenceStyles from './DockPersistenceExample.module.scss?virgo-raw';
 
 export const dockExamples = {
   dockLockPin: {

@@ -12,6 +12,7 @@ import { calendarExamples } from '@/examples/components/calendar/examples';
 import { useAppLocale } from '@/i18n';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 import styles from './CalendarPage.module.scss';
 
 export function CalendarPage() {

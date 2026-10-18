@@ -2,26 +2,27 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import TabsAlignmentExample from './TabsAlignmentExample';
-import tabsAlignmentStyles from './TabsAlignmentExample.module.scss?virgo-raw';
 import tabsAlignmentSource from './TabsAlignmentExample.tsx?raw';
 import TabsBasicExample from './TabsBasicExample';
-import tabsBasicStyles from './TabsBasicExample.module.scss?virgo-raw';
 import tabsBasicSource from './TabsBasicExample.tsx?raw';
 import TabsCardExample from './TabsCardExample';
-import tabsCardStyles from './TabsCardExample.module.scss?virgo-raw';
 import tabsCardSource from './TabsCardExample.tsx?raw';
 import TabsDisabledExample from './TabsDisabledExample';
-import tabsDisabledStyles from './TabsDisabledExample.module.scss?virgo-raw';
 import tabsDisabledSource from './TabsDisabledExample.tsx?raw';
 import TabsEditableExample from './TabsEditableExample';
-import tabsEditableStyles from './TabsEditableExample.module.scss?virgo-raw';
 import tabsEditableSource from './TabsEditableExample.tsx?raw';
 import TabsIconsExample from './TabsIconsExample';
-import tabsIconsStyles from './TabsIconsExample.module.scss?virgo-raw';
 import tabsIconsSource from './TabsIconsExample.tsx?raw';
 import TabsPlainExample from './TabsPlainExample';
-import tabsPlainStyles from './TabsPlainExample.module.scss?virgo-raw';
 import tabsPlainSource from './TabsPlainExample.tsx?raw';
+
+import tabsAlignmentStyles from './TabsAlignmentExample.module.scss?virgo-raw';
+import tabsBasicStyles from './TabsBasicExample.module.scss?virgo-raw';
+import tabsCardStyles from './TabsCardExample.module.scss?virgo-raw';
+import tabsDisabledStyles from './TabsDisabledExample.module.scss?virgo-raw';
+import tabsEditableStyles from './TabsEditableExample.module.scss?virgo-raw';
+import tabsIconsStyles from './TabsIconsExample.module.scss?virgo-raw';
+import tabsPlainStyles from './TabsPlainExample.module.scss?virgo-raw';
 
 export const tabsExamples = {
   tabsBasic: {

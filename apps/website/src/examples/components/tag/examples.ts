@@ -2,20 +2,21 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import TagClosableExample from './TagClosableExample';
-import tagClosableStyles from './TagClosableExample.module.scss?virgo-raw';
 import tagClosableSource from './TagClosableExample.tsx?raw';
 import TagIconsExample from './TagIconsExample';
-import tagIconsStyles from './TagIconsExample.module.scss?virgo-raw';
 import tagIconsSource from './TagIconsExample.tsx?raw';
 import TagIntentsExample from './TagIntentsExample';
-import tagIntentsStyles from './TagIntentsExample.module.scss?virgo-raw';
 import tagIntentsSource from './TagIntentsExample.tsx?raw';
 import TagSizesExample from './TagSizesExample';
-import tagSizesStyles from './TagSizesExample.module.scss?virgo-raw';
 import tagSizesSource from './TagSizesExample.tsx?raw';
 import TagVariantsExample from './TagVariantsExample';
-import tagVariantsStyles from './TagVariantsExample.module.scss?virgo-raw';
 import tagVariantsSource from './TagVariantsExample.tsx?raw';
+
+import tagClosableStyles from './TagClosableExample.module.scss?virgo-raw';
+import tagIconsStyles from './TagIconsExample.module.scss?virgo-raw';
+import tagIntentsStyles from './TagIntentsExample.module.scss?virgo-raw';
+import tagSizesStyles from './TagSizesExample.module.scss?virgo-raw';
+import tagVariantsStyles from './TagVariantsExample.module.scss?virgo-raw';
 
 export const tagExamples = {
   tagIntents: {

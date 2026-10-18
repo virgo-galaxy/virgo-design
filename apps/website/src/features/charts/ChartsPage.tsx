@@ -6,9 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import { DocumentationCatalogue } from '@/components/docs/DocumentationCatalogue';
 
-import styles from './ChartsPage.module.scss';
 import { AdvancedPreview } from './components/AdvancedPreview';
 import { CartesianExample } from './components/CartesianExample';
+
+import styles from './ChartsPage.module.scss';
 
 const initial = [
   { date: '2026-09-25', created: 12, completed: 8 },

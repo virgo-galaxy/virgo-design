@@ -2,8 +2,9 @@ import { ColorPicker } from '@virgo-design/ui';
 import { useId } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import styles from '../../styles/color-studio.module.scss';
 import { ColorPickerPopover } from './ColorPickerPopover';
+
+import styles from '../../styles/color-studio.module.scss';
 
 interface HexColorFieldProps {
   label?: string;

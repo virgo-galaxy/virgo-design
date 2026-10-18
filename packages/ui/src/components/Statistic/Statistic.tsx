@@ -3,9 +3,10 @@ import type { HTMLAttributes } from 'react';
 import { forwardRef } from 'react';
 
 import { Skeleton } from '../Skeleton';
-import styles from './Statistic.module.scss';
 import type { StatisticProps, StatisticTrendProps, StatisticValueProps } from './Statistic.types';
 import { StatisticNumber } from './StatisticNumber';
+
+import styles from './Statistic.module.scss';
 
 const classes = (...values: (string | undefined)[]) => values.filter(Boolean).join(' ');
 

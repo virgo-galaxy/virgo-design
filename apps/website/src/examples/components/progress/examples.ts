@@ -2,14 +2,15 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import ProgressIntentsExample from './ProgressIntentsExample';
-import progressIntentsStyles from './ProgressIntentsExample.module.scss?virgo-raw';
 import progressIntentsSource from './ProgressIntentsExample.tsx?raw';
 import ProgressSizesExample from './ProgressSizesExample';
-import progressSizesStyles from './ProgressSizesExample.module.scss?virgo-raw';
 import progressSizesSource from './ProgressSizesExample.tsx?raw';
 import ProgressValuesExample from './ProgressValuesExample';
-import progressValuesStyles from './ProgressValuesExample.module.scss?virgo-raw';
 import progressValuesSource from './ProgressValuesExample.tsx?raw';
+
+import progressIntentsStyles from './ProgressIntentsExample.module.scss?virgo-raw';
+import progressSizesStyles from './ProgressSizesExample.module.scss?virgo-raw';
+import progressValuesStyles from './ProgressValuesExample.module.scss?virgo-raw';
 
 export const progressExamples = {
   progressValues: {

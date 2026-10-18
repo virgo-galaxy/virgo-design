@@ -2,17 +2,18 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import ToastIntentsExample from './ToastIntentsExample';
-import toastIntentsStyles from './ToastIntentsExample.module.scss?virgo-raw';
 import toastIntentsSource from './ToastIntentsExample.tsx?raw';
 import ToastPlacementExample from './ToastPlacementExample';
-import toastPlacementStyles from './ToastPlacementExample.module.scss?virgo-raw';
 import toastPlacementSource from './ToastPlacementExample.tsx?raw';
 import ToastStackExample from './ToastStackExample';
-import toastStackStyles from './ToastStackExample.module.scss?virgo-raw';
 import toastStackSource from './ToastStackExample.tsx?raw';
 import ToastUndoExample from './ToastUndoExample';
-import toastUndoStyles from './ToastUndoExample.module.scss?virgo-raw';
 import toastUndoSource from './ToastUndoExample.tsx?raw';
+
+import toastIntentsStyles from './ToastIntentsExample.module.scss?virgo-raw';
+import toastPlacementStyles from './ToastPlacementExample.module.scss?virgo-raw';
+import toastStackStyles from './ToastStackExample.module.scss?virgo-raw';
+import toastUndoStyles from './ToastUndoExample.module.scss?virgo-raw';
 
 export const toastExamples = {
   toastIntents: {

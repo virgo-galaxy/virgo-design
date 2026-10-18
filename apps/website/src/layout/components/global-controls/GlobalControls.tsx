@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { AppearanceControl } from './AppearanceControl';
-import styles from './global-controls.module.scss';
 import { LanguageControl } from './LanguageControl';
 import { ThemeStyleControl } from './ThemeStyleControl';
+
+import styles from './global-controls.module.scss';
 
 export function GlobalControls() {
   const { t } = useTranslation();

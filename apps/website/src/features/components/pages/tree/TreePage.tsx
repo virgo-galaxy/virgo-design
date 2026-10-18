@@ -10,6 +10,7 @@ import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { treeExamples } from '@/examples/components/tree/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 import styles from './TreePage.module.scss';
 export function TreePage() {
   const { t } = useTranslation();

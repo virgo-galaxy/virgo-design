@@ -2,17 +2,18 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import CheckboxBasicExample from './CheckboxBasicExample';
-import checkboxBasicStyles from './CheckboxBasicExample.module.scss?virgo-raw';
 import checkboxBasicSource from './CheckboxBasicExample.tsx?raw';
 import CheckboxCheckAllExample from './CheckboxCheckAllExample';
-import checkboxCheckAllStyles from './CheckboxCheckAllExample.module.scss?virgo-raw';
 import checkboxCheckAllSource from './CheckboxCheckAllExample.tsx?raw';
 import CheckboxDisabledExample from './CheckboxDisabledExample';
-import checkboxDisabledStyles from './CheckboxDisabledExample.module.scss?virgo-raw';
 import checkboxDisabledSource from './CheckboxDisabledExample.tsx?raw';
 import CheckboxGroupExample from './CheckboxGroupExample';
-import checkboxGroupStyles from './CheckboxGroupExample.module.scss?virgo-raw';
 import checkboxGroupSource from './CheckboxGroupExample.tsx?raw';
+
+import checkboxBasicStyles from './CheckboxBasicExample.module.scss?virgo-raw';
+import checkboxCheckAllStyles from './CheckboxCheckAllExample.module.scss?virgo-raw';
+import checkboxDisabledStyles from './CheckboxDisabledExample.module.scss?virgo-raw';
+import checkboxGroupStyles from './CheckboxGroupExample.module.scss?virgo-raw';
 
 export const checkboxExamples = {
   checkboxBasic: {

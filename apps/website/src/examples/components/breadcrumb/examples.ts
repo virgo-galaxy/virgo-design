@@ -2,17 +2,18 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import BreadcrumbBasicExample from './BreadcrumbBasicExample';
-import breadcrumbBasicStyles from './BreadcrumbBasicExample.module.scss?virgo-raw';
 import breadcrumbBasicSource from './BreadcrumbBasicExample.tsx?raw';
 import BreadcrumbDynamicExample from './BreadcrumbDynamicExample';
-import breadcrumbDynamicStyles from './BreadcrumbDynamicExample.module.scss?virgo-raw';
 import breadcrumbDynamicSource from './BreadcrumbDynamicExample.tsx?raw';
 import BreadcrumbIconsExample from './BreadcrumbIconsExample';
-import breadcrumbIconsStyles from './BreadcrumbIconsExample.module.scss?virgo-raw';
 import breadcrumbIconsSource from './BreadcrumbIconsExample.tsx?raw';
 import BreadcrumbSeparatorExample from './BreadcrumbSeparatorExample';
-import breadcrumbSeparatorStyles from './BreadcrumbSeparatorExample.module.scss?virgo-raw';
 import breadcrumbSeparatorSource from './BreadcrumbSeparatorExample.tsx?raw';
+
+import breadcrumbBasicStyles from './BreadcrumbBasicExample.module.scss?virgo-raw';
+import breadcrumbDynamicStyles from './BreadcrumbDynamicExample.module.scss?virgo-raw';
+import breadcrumbIconsStyles from './BreadcrumbIconsExample.module.scss?virgo-raw';
+import breadcrumbSeparatorStyles from './BreadcrumbSeparatorExample.module.scss?virgo-raw';
 
 export const breadcrumbExamples = {
   breadcrumbBasic: {

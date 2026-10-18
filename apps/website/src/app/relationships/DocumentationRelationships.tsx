@@ -9,6 +9,7 @@ import {
   getCompositionsForComponent,
   getPrimitivesForComponent,
 } from './componentPrimitiveRelations';
+
 import styles from './documentation-relationships.module.scss';
 
 function formatSlug(slug: string) {

@@ -9,7 +9,6 @@ import { Toast as PrimitiveToast } from '@virgo-design/primitives';
 import { forwardRef, type ReactNode } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
-import styles from './Toast.module.scss';
 import type {
   ToastActionProps,
   ToastCloseProps,
@@ -19,6 +18,8 @@ import type {
   ToastTitleProps,
   ToastViewportProps,
 } from './Toast.types';
+
+import styles from './Toast.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

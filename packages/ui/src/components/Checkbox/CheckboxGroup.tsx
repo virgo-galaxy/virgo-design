@@ -1,8 +1,9 @@
 import { Checkbox as PrimitiveCheckbox } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import styles from './Checkbox.module.scss';
 import type { CheckboxGroupProps } from './Checkbox.types';
+
+import styles from './Checkbox.module.scss';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');

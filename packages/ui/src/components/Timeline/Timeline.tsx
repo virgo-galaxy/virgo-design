@@ -1,7 +1,6 @@
 import { Timeline as PrimitiveTimeline } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import styles from './Timeline.module.scss';
 import type {
   TimelineDescriptionProps,
   TimelineIndicatorProps,
@@ -10,6 +9,8 @@ import type {
   TimelineTimeProps,
   TimelineTitleProps,
 } from './Timeline.types';
+
+import styles from './Timeline.module.scss';
 
 export const Timeline = forwardRef<HTMLOListElement, TimelineProps>(function Timeline(
   { size = 'medium', className, ...props },

@@ -1,8 +1,9 @@
 import { Radio as PrimitiveRadio } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import styles from './Radio.module.scss';
 import type { RadioProps } from './Radio.types';
+
+import styles from './Radio.module.scss';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');

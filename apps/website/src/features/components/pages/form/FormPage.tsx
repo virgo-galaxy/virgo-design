@@ -11,6 +11,7 @@ import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { formExamples } from '@/examples/components/form/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 import styles from './FormPage.module.scss';
 export function FormPage() {
   const { t } = useTranslation();

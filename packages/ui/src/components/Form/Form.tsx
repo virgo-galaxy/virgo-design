@@ -1,8 +1,9 @@
 import { Form as PrimitiveForm } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import styles from './Form.module.scss';
 import type { FormProps } from './Form.types';
+
+import styles from './Form.module.scss';
 
 export const Form = forwardRef<HTMLFormElement, FormProps>(function Form(
   { layout = 'vertical', size = 'medium', className, ...props },

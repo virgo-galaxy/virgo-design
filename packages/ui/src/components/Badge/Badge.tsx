@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
 
-import styles from './Badge.module.scss';
 import type { BadgeProps } from './Badge.types';
+
+import styles from './Badge.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

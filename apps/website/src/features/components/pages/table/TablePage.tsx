@@ -10,6 +10,7 @@ import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { tableExamples } from '@/examples/components/table/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 import styles from './TablePage.module.scss';
 export function TablePage() {
   const { t } = useTranslation();

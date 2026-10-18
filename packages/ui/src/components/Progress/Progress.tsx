@@ -1,7 +1,8 @@
 import { forwardRef, useId } from 'react';
 
-import styles from './Progress.module.scss';
 import type { ProgressProps } from './Progress.types';
+
+import styles from './Progress.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

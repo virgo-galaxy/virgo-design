@@ -3,9 +3,10 @@ import { Calendar as PrimitiveCalendar } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
-import styles from './Calendar.module.scss';
 import type { CalendarProps } from './Calendar.types';
 import { CalendarHeader } from './CalendarHeader';
+
+import styles from './Calendar.module.scss';
 
 export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(
   { size = 'medium', fullscreen = false, renderHeader, className, ...props },

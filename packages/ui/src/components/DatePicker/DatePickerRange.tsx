@@ -3,14 +3,15 @@ import { DatePicker as Primitive } from '@virgo-design/primitives';
 import { forwardRef, useContext } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
-import calendarStyles from '../Calendar/Calendar.module.scss';
 import { SizeContext } from './DatePicker';
-import styles from './DatePicker.module.scss';
 import type {
   DatePickerRangeCalendarProps,
   DatePickerRangeInputProps,
   DatePickerRangeProps,
 } from './DatePicker.types';
+
+import calendarStyles from '../Calendar/Calendar.module.scss';
+import styles from './DatePicker.module.scss';
 
 export const DatePickerRange = forwardRef<HTMLDivElement, DatePickerRangeProps>(function Range(
   { size = 'medium', className, ...props },

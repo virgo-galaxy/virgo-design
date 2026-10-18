@@ -19,8 +19,9 @@ import {
 
 import { useComposedRefs } from '../../internal/utils/composeRefs';
 import { useLocale } from '../../locale/context/locale-context';
-import styles from './Input.module.scss';
 import type { InputPasswordProps, InputProps } from './Input.types';
+
+import styles from './Input.module.scss';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');

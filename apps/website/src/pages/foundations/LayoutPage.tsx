@@ -2,8 +2,9 @@ import { sizing, spacing } from '@virgo-design/tokens';
 import { useTranslation } from 'react-i18next';
 
 import { LayoutScalePreview } from './components/LayoutScalePreview';
-import styles from './foundation-tokens.module.scss';
 import { FoundationPage, FoundationSection } from './FoundationPage';
+
+import styles from './foundation-tokens.module.scss';
 
 export function LayoutPage() {
   const { t } = useTranslation();

@@ -8,7 +8,6 @@ import {
 import { createContext, forwardRef, type ReactNode, useContext } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
-import styles from './Alert.module.scss';
 import type {
   AlertActionProps,
   AlertCloseProps,
@@ -19,6 +18,8 @@ import type {
   AlertProps,
   AlertTitleProps,
 } from './Alert.types';
+
+import styles from './Alert.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

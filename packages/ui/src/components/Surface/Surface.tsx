@@ -1,7 +1,8 @@
 import { type CSSProperties, forwardRef } from 'react';
 
-import styles from './Surface.module.scss';
 import type { SurfaceBackground, SurfaceProps } from './Surface.types';
+
+import styles from './Surface.module.scss';
 
 type SurfaceStyle = CSSProperties & {
   '--surface-tone': string;

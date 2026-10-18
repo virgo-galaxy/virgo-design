@@ -1,7 +1,8 @@
 import { forwardRef, useId } from 'react';
 
-import styles from './Separator.module.scss';
 import type { SeparatorProps } from './Separator.types';
+
+import styles from './Separator.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

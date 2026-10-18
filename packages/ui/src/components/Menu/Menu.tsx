@@ -2,10 +2,11 @@ import { Menu as PrimitiveMenu } from '@virgo-design/primitives';
 import { forwardRef, useContext } from 'react';
 
 import { menuClasses as cx, MenuSizeContext } from '../../internal/menu/context';
-import styles from '../../internal/menu/Menu.module.scss';
 import { menuUIParts } from '../../internal/menu/parts';
 import { Button } from '../Button';
 import type { MenuProps, MenuTriggerProps } from './Menu.types';
+
+import styles from '../../internal/menu/Menu.module.scss';
 
 const Root = forwardRef<HTMLDivElement, MenuProps>(function MenuRoot(
   { size = 'medium', className, ...props },

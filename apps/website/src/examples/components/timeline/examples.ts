@@ -2,11 +2,12 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import TimelineBasicExample from './TimelineBasicExample';
-import style0 from './TimelineBasicExample.module.scss?virgo-raw';
 import source0 from './TimelineBasicExample.tsx?raw';
 import TimelineIndicatorsExample from './TimelineIndicatorsExample';
-import style1 from './TimelineIndicatorsExample.module.scss?virgo-raw';
 import source1 from './TimelineIndicatorsExample.tsx?raw';
+
+import style0 from './TimelineBasicExample.module.scss?virgo-raw';
+import style1 from './TimelineIndicatorsExample.module.scss?virgo-raw';
 export const timelineExamples = {
   example0: {
     id: 'timeline-basic',

@@ -11,6 +11,7 @@ import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { cursorExamples } from '@/examples/components/cursor/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 import styles from './CursorPage.module.scss';
 
 export function CursorPage() {

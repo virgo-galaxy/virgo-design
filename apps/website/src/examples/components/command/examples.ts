@@ -2,14 +2,15 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import CommandDialogExample from './CommandDialogExample';
-import commandDialogStyles from './CommandDialogExample.module.scss?virgo-raw';
 import commandDialogSource from './CommandDialogExample.tsx?raw';
 import CommandFilterExample from './CommandFilterExample';
-import commandFilterStyles from './CommandFilterExample.module.scss?virgo-raw';
 import commandFilterSource from './CommandFilterExample.tsx?raw';
 import CommandInlineExample from './CommandInlineExample';
-import commandInlineStyles from './CommandInlineExample.module.scss?virgo-raw';
 import commandInlineSource from './CommandInlineExample.tsx?raw';
+
+import commandDialogStyles from './CommandDialogExample.module.scss?virgo-raw';
+import commandFilterStyles from './CommandFilterExample.module.scss?virgo-raw';
+import commandInlineStyles from './CommandInlineExample.module.scss?virgo-raw';
 
 export const commandExamples = {
   commandInline: {

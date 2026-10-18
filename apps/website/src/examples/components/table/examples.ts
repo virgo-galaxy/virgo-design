@@ -2,26 +2,27 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import TableBasicExample from './TableBasicExample';
-import style0 from './TableBasicExample.module.scss?virgo-raw';
 import source0 from './TableBasicExample.tsx?raw';
 import TableCompositionExample from './TableCompositionExample';
-import compositionStyles from './TableCompositionExample.module.scss?virgo-raw';
 import compositionSource from './TableCompositionExample.tsx?raw';
 import TableDensityExample from './TableDensityExample';
-import style1 from './TableDensityExample.module.scss?virgo-raw';
 import source1 from './TableDensityExample.tsx?raw';
 import TableEmptyExample from './TableEmptyExample';
-import style2 from './TableEmptyExample.module.scss?virgo-raw';
 import source2 from './TableEmptyExample.tsx?raw';
 import TableFilteringExample from './TableFilteringExample';
-import filteringStyles from './TableFilteringExample.module.scss?virgo-raw';
 import filteringSource from './TableFilteringExample.tsx?raw';
 import TableSelectionExample from './TableSelectionExample';
-import selectionStyles from './TableSelectionExample.module.scss?virgo-raw';
 import selectionSource from './TableSelectionExample.tsx?raw';
 import TableSortingExample from './TableSortingExample';
-import sortingStyles from './TableSortingExample.module.scss?virgo-raw';
 import sortingSource from './TableSortingExample.tsx?raw';
+
+import style0 from './TableBasicExample.module.scss?virgo-raw';
+import compositionStyles from './TableCompositionExample.module.scss?virgo-raw';
+import style1 from './TableDensityExample.module.scss?virgo-raw';
+import style2 from './TableEmptyExample.module.scss?virgo-raw';
+import filteringStyles from './TableFilteringExample.module.scss?virgo-raw';
+import selectionStyles from './TableSelectionExample.module.scss?virgo-raw';
+import sortingStyles from './TableSortingExample.module.scss?virgo-raw';
 export const tableExamples = {
   composition: {
     id: 'table-composition',

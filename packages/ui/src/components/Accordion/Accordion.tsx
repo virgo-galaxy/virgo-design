@@ -2,13 +2,14 @@ import { ChevronDownIcon } from '@virgo-design/icons';
 import { Accordion as PrimitiveAccordion } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
-import styles from './Accordion.module.scss';
 import type {
   AccordionContentProps,
   AccordionItemProps,
   AccordionProps,
   AccordionTriggerProps,
 } from './Accordion.types';
+
+import styles from './Accordion.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

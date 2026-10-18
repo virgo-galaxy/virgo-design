@@ -2,14 +2,15 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import SkeletonCardExample from './SkeletonCardExample';
-import skeletonCardStyles from './SkeletonCardExample.module.scss?virgo-raw';
 import skeletonCardSource from './SkeletonCardExample.tsx?raw';
 import SkeletonMotionExample from './SkeletonMotionExample';
-import skeletonMotionStyles from './SkeletonMotionExample.module.scss?virgo-raw';
 import skeletonMotionSource from './SkeletonMotionExample.tsx?raw';
 import SkeletonShapesExample from './SkeletonShapesExample';
-import skeletonShapesStyles from './SkeletonShapesExample.module.scss?virgo-raw';
 import skeletonShapesSource from './SkeletonShapesExample.tsx?raw';
+
+import skeletonCardStyles from './SkeletonCardExample.module.scss?virgo-raw';
+import skeletonMotionStyles from './SkeletonMotionExample.module.scss?virgo-raw';
+import skeletonShapesStyles from './SkeletonShapesExample.module.scss?virgo-raw';
 
 export const skeletonExamples = {
   skeletonShapes: {

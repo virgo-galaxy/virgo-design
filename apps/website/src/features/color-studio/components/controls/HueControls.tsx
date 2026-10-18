@@ -2,6 +2,7 @@ import { Slider } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import type { ChromaticMode } from '../../model/types';
+
 import styles from '../../styles/color-studio.module.scss';
 
 interface HueControlsProps {

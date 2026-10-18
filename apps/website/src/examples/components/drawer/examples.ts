@@ -2,20 +2,21 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import DrawerAnatomyExample from './DrawerAnatomyExample';
-import drawerAnatomyStyles from './DrawerAnatomyExample.module.scss?virgo-raw';
 import drawerAnatomySource from './DrawerAnatomyExample.tsx?raw';
 import DrawerFormExample from './DrawerFormExample';
-import drawerFormStyles from './DrawerFormExample.module.scss?virgo-raw';
 import drawerFormSource from './DrawerFormExample.tsx?raw';
 import DrawerNonModalExample from './DrawerNonModalExample';
-import drawerNonModalStyles from './DrawerNonModalExample.module.scss?virgo-raw';
 import drawerNonModalSource from './DrawerNonModalExample.tsx?raw';
 import DrawerPlacementsExample from './DrawerPlacementsExample';
-import drawerPlacementsStyles from './DrawerPlacementsExample.module.scss?virgo-raw';
 import drawerPlacementsSource from './DrawerPlacementsExample.tsx?raw';
 import DrawerSizesExample from './DrawerSizesExample';
-import drawerSizesStyles from './DrawerSizesExample.module.scss?virgo-raw';
 import drawerSizesSource from './DrawerSizesExample.tsx?raw';
+
+import drawerAnatomyStyles from './DrawerAnatomyExample.module.scss?virgo-raw';
+import drawerFormStyles from './DrawerFormExample.module.scss?virgo-raw';
+import drawerNonModalStyles from './DrawerNonModalExample.module.scss?virgo-raw';
+import drawerPlacementsStyles from './DrawerPlacementsExample.module.scss?virgo-raw';
+import drawerSizesStyles from './DrawerSizesExample.module.scss?virgo-raw';
 
 export const drawerExamples = {
   drawerPlacements: {

@@ -1,8 +1,9 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
 
 import { Skeleton } from '../Skeleton';
-import styles from './Statistic.module.scss';
 import type { StatisticAnimationOptions } from './Statistic.types';
+
+import styles from './Statistic.module.scss';
 
 const useClientLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 

@@ -26,6 +26,7 @@ import {
   type PrimitiveSlug,
 } from './primitiveDocs';
 import { PrimitiveExample } from './PrimitiveExample';
+
 import styles from './primitives-docs.module.scss';
 
 const primitiveNavigationGroups = primitiveCategories.map((category) => ({

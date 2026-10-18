@@ -10,8 +10,9 @@ import { useLocale } from '../../locale/context/locale-context';
 import { Button } from '../Button';
 import { Popover } from '../Popover';
 import { TimeColumn } from './TimeColumn';
-import styles from './TimePicker.module.scss';
 import type { TimePickerProps } from './TimePicker.types';
+
+import styles from './TimePicker.module.scss';
 
 const hours = Array.from({ length: 24 }, (_, index) => index);
 const subdivisions = Array.from({ length: 60 }, (_, index) => index);

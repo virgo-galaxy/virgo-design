@@ -11,6 +11,7 @@ import { FamilyEditorPanel } from './components/FamilyEditorPanel';
 import { LivePreview } from './components/LivePreview';
 import { SettingsPanel } from './components/SettingsPanel';
 import type { ColorStudioController } from './model/use-color-studio';
+
 import styles from './styles/color-studio.module.scss';
 import pagerStyles from './styles/foundation-pager.module.scss';
 

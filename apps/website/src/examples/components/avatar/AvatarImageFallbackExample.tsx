@@ -1,8 +1,9 @@
 import { Avatar } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
-import styles from './AvatarImageFallbackExample.module.scss';
 import { avatarImageFixture } from './fixtures';
+
+import styles from './AvatarImageFallbackExample.module.scss';
 
 export default function App() {
   const { t } = useTranslation();

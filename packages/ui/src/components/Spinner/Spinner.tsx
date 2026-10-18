@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
 
-import styles from './Spinner.module.scss';
 import type { SpinnerProps } from './Spinner.types';
+
+import styles from './Spinner.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

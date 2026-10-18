@@ -2,14 +2,15 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import Animation from './StatisticAnimationExample';
-import animationStyles from './StatisticAnimationExample.module.scss?virgo-raw';
 import animationSource from './StatisticAnimationExample.tsx?raw';
 import Composition from './StatisticCompositionExample';
-import compositionStyles from './StatisticCompositionExample.module.scss?virgo-raw';
 import compositionSource from './StatisticCompositionExample.tsx?raw';
 import Variants from './StatisticVariantsExample';
-import variantsStyles from './StatisticVariantsExample.module.scss?virgo-raw';
 import variantsSource from './StatisticVariantsExample.tsx?raw';
+
+import animationStyles from './StatisticAnimationExample.module.scss?virgo-raw';
+import compositionStyles from './StatisticCompositionExample.module.scss?virgo-raw';
+import variantsStyles from './StatisticVariantsExample.module.scss?virgo-raw';
 export const statisticExamples = {
   animation: {
     id: 'statistic-animation',

@@ -8,6 +8,7 @@ import {
 } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
+
 import styles from './Table.module.scss';
 
 type ColumnResizeContext = {

@@ -6,8 +6,9 @@ import { Link } from 'react-router-dom';
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
 
 import { createBrandTimeline } from './brand-motion';
-import styles from './virgo-brand.module.scss';
 import { VirgoMark } from './VirgoMark';
+
+import styles from './virgo-brand.module.scss';
 
 gsap.registerPlugin(useGSAP);
 

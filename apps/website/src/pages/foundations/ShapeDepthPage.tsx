@@ -5,8 +5,9 @@ import { useAppearance } from '@/shared/theme/use-appearance';
 
 import { DepthScalePreview } from './components/DepthScalePreview';
 import { ShapeScalePreview } from './components/ShapeScalePreview';
-import styles from './foundation-tokens.module.scss';
 import { FoundationPage, FoundationSection } from './FoundationPage';
+
+import styles from './foundation-tokens.module.scss';
 
 export function ShapeDepthPage() {
   const { t } = useTranslation();

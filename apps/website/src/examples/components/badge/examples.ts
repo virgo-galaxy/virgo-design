@@ -2,23 +2,24 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import BadgeCountsExample from './BadgeCountsExample';
-import badgeCountsStyles from './BadgeCountsExample.module.scss?virgo-raw';
 import badgeCountsSource from './BadgeCountsExample.tsx?raw';
 import BadgeInteractiveHostExample from './BadgeInteractiveHostExample';
-import badgeInteractiveHostStyles from './BadgeInteractiveHostExample.module.scss?virgo-raw';
 import badgeInteractiveHostSource from './BadgeInteractiveHostExample.tsx?raw';
 import BadgeMotionExample from './BadgeMotionExample';
-import badgeMotionStyles from './BadgeMotionExample.module.scss?virgo-raw';
 import badgeMotionSource from './BadgeMotionExample.tsx?raw';
 import BadgeStandaloneExample from './BadgeStandaloneExample';
-import badgeStandaloneStyles from './BadgeStandaloneExample.module.scss?virgo-raw';
 import badgeStandaloneSource from './BadgeStandaloneExample.tsx?raw';
 import BadgeStatusExample from './BadgeStatusExample';
-import badgeStatusStyles from './BadgeStatusExample.module.scss?virgo-raw';
 import badgeStatusSource from './BadgeStatusExample.tsx?raw';
 import BadgeZeroExample from './BadgeZeroExample';
-import badgeZeroStyles from './BadgeZeroExample.module.scss?virgo-raw';
 import badgeZeroSource from './BadgeZeroExample.tsx?raw';
+
+import badgeCountsStyles from './BadgeCountsExample.module.scss?virgo-raw';
+import badgeInteractiveHostStyles from './BadgeInteractiveHostExample.module.scss?virgo-raw';
+import badgeMotionStyles from './BadgeMotionExample.module.scss?virgo-raw';
+import badgeStandaloneStyles from './BadgeStandaloneExample.module.scss?virgo-raw';
+import badgeStatusStyles from './BadgeStatusExample.module.scss?virgo-raw';
+import badgeZeroStyles from './BadgeZeroExample.module.scss?virgo-raw';
 
 export const badgeExamples = {
   badgeCounts: {

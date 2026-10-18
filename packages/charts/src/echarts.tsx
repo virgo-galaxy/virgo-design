@@ -3,12 +3,13 @@ import * as echarts from 'echarts';
 import type { HTMLAttributes } from 'react';
 import { useMemo, useRef } from 'react';
 
-import styles from './Chart.module.scss';
 import { advancedTheme } from './engine/advanced-theme';
 import { mapDataPaletteColors } from './engine/data-palette';
 import { useChartRuntime, useReducedMotion } from './engine/runtime';
 import { useChartTheme } from './engine/theme';
 import type { ChartRenderer } from './types';
+
+import styles from './Chart.module.scss';
 
 export type { EChartsOption, EChartsType } from 'echarts';
 export { connect, disconnect, getMap, registerMap, registerTheme } from 'echarts';

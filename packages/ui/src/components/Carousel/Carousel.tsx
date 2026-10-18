@@ -11,7 +11,6 @@ import {
 
 import { useLocale } from '../../locale/context/locale-context';
 import { Button } from '../Button';
-import styles from './Carousel.module.scss';
 import type {
   CarouselIndicatorsProps,
   CarouselItemProps,
@@ -19,6 +18,8 @@ import type {
   CarouselTrackProps,
   CarouselViewportProps,
 } from './Carousel.types';
+
+import styles from './Carousel.module.scss';
 
 const classes = (...values: Array<string | undefined>) => values.filter(Boolean).join(' ');
 const ArrowContext = createContext<NonNullable<CarouselProps['arrows']>>('none');

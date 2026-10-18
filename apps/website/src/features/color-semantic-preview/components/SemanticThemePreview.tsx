@@ -18,8 +18,9 @@ import {
 import { type CSSProperties, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import styles from '../styles/color-semantic-preview.module.scss';
 import { StatusColorReview } from './StatusColorReview';
+
+import styles from '../styles/color-semantic-preview.module.scss';
 
 interface SemanticThemePreviewProps {
   theme: VirgoTheme;

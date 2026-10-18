@@ -2,26 +2,27 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import PopoverClickExample from './PopoverClickExample';
-import popoverClickStyles from './PopoverClickExample.module.scss?virgo-raw';
 import popoverClickSource from './PopoverClickExample.tsx?raw';
 import PopoverCustomTriggerExample from './PopoverCustomTriggerExample';
-import popoverCustomTriggerStyles from './PopoverCustomTriggerExample.module.scss?virgo-raw';
 import popoverCustomTriggerSource from './PopoverCustomTriggerExample.tsx?raw';
 import PopoverDisabledExample from './PopoverDisabledExample';
-import popoverDisabledStyles from './PopoverDisabledExample.module.scss?virgo-raw';
 import popoverDisabledSource from './PopoverDisabledExample.tsx?raw';
 import PopoverFormExample from './PopoverFormExample';
-import popoverFormStyles from './PopoverFormExample.module.scss?virgo-raw';
 import popoverFormSource from './PopoverFormExample.tsx?raw';
 import PopoverHoverExample from './PopoverHoverExample';
-import popoverHoverStyles from './PopoverHoverExample.module.scss?virgo-raw';
 import popoverHoverSource from './PopoverHoverExample.tsx?raw';
 import PopoverNestedMenuExample from './PopoverNestedMenuExample';
-import popoverNestedMenuStyles from './PopoverNestedMenuExample.module.scss?virgo-raw';
 import popoverNestedMenuSource from './PopoverNestedMenuExample.tsx?raw';
 import PopoverPlacementExample from './PopoverPlacementExample';
-import popoverPlacementStyles from './PopoverPlacementExample.module.scss?virgo-raw';
 import popoverPlacementSource from './PopoverPlacementExample.tsx?raw';
+
+import popoverClickStyles from './PopoverClickExample.module.scss?virgo-raw';
+import popoverCustomTriggerStyles from './PopoverCustomTriggerExample.module.scss?virgo-raw';
+import popoverDisabledStyles from './PopoverDisabledExample.module.scss?virgo-raw';
+import popoverFormStyles from './PopoverFormExample.module.scss?virgo-raw';
+import popoverHoverStyles from './PopoverHoverExample.module.scss?virgo-raw';
+import popoverNestedMenuStyles from './PopoverNestedMenuExample.module.scss?virgo-raw';
+import popoverPlacementStyles from './PopoverPlacementExample.module.scss?virgo-raw';
 
 export const popoverExamples = {
   popoverClick: {

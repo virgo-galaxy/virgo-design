@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { SemanticThemePreview } from './components/SemanticThemePreview';
+
 import styles from './styles/color-semantic-preview.module.scss';
 
 export function ColorSemanticPreview() {

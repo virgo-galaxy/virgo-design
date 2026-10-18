@@ -10,6 +10,7 @@ import { ReferenceSpecimen } from '@/components/docs/ReferenceSpecimen';
 import { timePickerExamples } from '@/examples/components/time-picker/examples';
 
 import { ComponentPageMetadata } from '../../components/ComponentPageMetadata';
+
 import styles from './TimePickerPage.module.scss';
 export function TimePickerPage() {
   const { t } = useTranslation();

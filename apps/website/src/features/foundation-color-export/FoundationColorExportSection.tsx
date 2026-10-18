@@ -11,6 +11,7 @@ import {
   type FoundationScaleNaming,
   generateFoundationColorCode,
 } from './foundation-color-export';
+
 import styles from './foundation-color-export.module.scss';
 
 interface FoundationColorExportSectionProps {

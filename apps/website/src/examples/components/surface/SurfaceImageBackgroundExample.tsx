@@ -2,6 +2,7 @@ import { Surface } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { surfaceImageFixture } from './fixtures';
+
 import styles from './SurfaceImageBackgroundExample.module.scss';
 
 export default function App() {

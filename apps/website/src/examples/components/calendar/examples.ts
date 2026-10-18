@@ -2,14 +2,15 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import CalendarBasicExample from './CalendarBasicExample';
-import style0 from './CalendarBasicExample.module.scss?virgo-raw';
 import source0 from './CalendarBasicExample.tsx?raw';
 import CalendarConstraintsExample from './CalendarConstraintsExample';
-import style1 from './CalendarConstraintsExample.module.scss?virgo-raw';
 import source1 from './CalendarConstraintsExample.tsx?raw';
 import CalendarPanelExample from './CalendarPanelExample';
-import style2 from './CalendarPanelExample.module.scss?virgo-raw';
 import source2 from './CalendarPanelExample.tsx?raw';
+
+import style0 from './CalendarBasicExample.module.scss?virgo-raw';
+import style1 from './CalendarConstraintsExample.module.scss?virgo-raw';
+import style2 from './CalendarPanelExample.module.scss?virgo-raw';
 export const calendarExamples = {
   example2: {
     id: 'calendar-panel',

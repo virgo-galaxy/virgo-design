@@ -6,6 +6,7 @@ import { ArticleSection } from '@/components/docs/ArticleSection';
 import { DocumentationCatalogue } from '@/components/docs/DocumentationCatalogue';
 
 import { ThemeExperience } from './ThemeExperience';
+
 import styles from './themes-page.module.scss';
 
 const installCode = `pnpm add @virgo-design/tokens @virgo-design/themes @virgo-design/ui`;

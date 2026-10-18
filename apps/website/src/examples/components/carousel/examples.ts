@@ -2,8 +2,9 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import Example from './CarouselContentExample';
-import style from './CarouselContentExample.module.scss?virgo-raw';
 import source from './CarouselContentExample.tsx?raw';
+
+import style from './CarouselContentExample.module.scss?virgo-raw';
 export const carouselExamples = {
   example0: {
     id: 'carousel-content',

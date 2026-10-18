@@ -11,8 +11,9 @@ import { forwardRef, useEffect, useState } from 'react';
 import { useLocale } from '../../locale/context/locale-context';
 import { Dropdown } from '../Dropdown';
 import { Input } from '../Input';
-import styles from './Pagination.module.scss';
 import type { PaginationLabels, PaginationProps } from './Pagination.types';
+
+import styles from './Pagination.module.scss';
 
 function QuickJumper({
   state,

@@ -4,13 +4,14 @@ import { forwardRef } from 'react';
 import { PopupMaterial } from '../../internal/overlay/PopupMaterial';
 import { useLocale } from '../../locale/context/locale-context';
 import { Button } from '../Button';
-import styles from './Popover.module.scss';
 import type {
   PopoverCloseProps,
   PopoverContentProps,
   PopoverProps,
   PopoverTriggerProps,
 } from './Popover.types';
+
+import styles from './Popover.module.scss';
 
 const Root = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   { className, ...props },

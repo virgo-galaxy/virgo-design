@@ -2,14 +2,15 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import EmptyActionExample from './EmptyActionExample';
-import emptyActionStyles from './EmptyActionExample.module.scss?virgo-raw';
 import emptyActionSource from './EmptyActionExample.tsx?raw';
 import EmptyBasicExample from './EmptyBasicExample';
-import emptyBasicStyles from './EmptyBasicExample.module.scss?virgo-raw';
 import emptyBasicSource from './EmptyBasicExample.tsx?raw';
 import EmptySearchExample from './EmptySearchExample';
-import emptySearchStyles from './EmptySearchExample.module.scss?virgo-raw';
 import emptySearchSource from './EmptySearchExample.tsx?raw';
+
+import emptyActionStyles from './EmptyActionExample.module.scss?virgo-raw';
+import emptyBasicStyles from './EmptyBasicExample.module.scss?virgo-raw';
+import emptySearchStyles from './EmptySearchExample.module.scss?virgo-raw';
 
 export const emptyExamples = {
   emptyBasic: {

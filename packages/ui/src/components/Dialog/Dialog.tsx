@@ -2,7 +2,6 @@ import { Dialog as PrimitiveDialog } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
 import { Button } from '../Button';
-import styles from './Dialog.module.scss';
 import type {
   DialogBodyProps,
   DialogCloseProps,
@@ -15,6 +14,8 @@ import type {
   DialogTitleProps,
   DialogTriggerProps,
 } from './Dialog.types';
+
+import styles from './Dialog.module.scss';
 
 function classes(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ');

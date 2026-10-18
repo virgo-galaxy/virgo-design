@@ -2,41 +2,42 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import PaginationAlignmentExample from './PaginationAlignmentExample';
-import paginationAlignmentStyles from './PaginationAlignmentExample.module.scss?virgo-raw';
 import paginationAlignmentSource from './PaginationAlignmentExample.tsx?raw';
 import PaginationBasicExample from './PaginationBasicExample';
-import paginationBasicStyles from './PaginationBasicExample.module.scss?virgo-raw';
 import paginationBasicSource from './PaginationBasicExample.tsx?raw';
 import PaginationControlledExample from './PaginationControlledExample';
-import paginationControlledStyles from './PaginationControlledExample.module.scss?virgo-raw';
 import paginationControlledSource from './PaginationControlledExample.tsx?raw';
 import PaginationDisabledExample from './PaginationDisabledExample';
-import paginationDisabledStyles from './PaginationDisabledExample.module.scss?virgo-raw';
 import paginationDisabledSource from './PaginationDisabledExample.tsx?raw';
 import PaginationEmptyExample from './PaginationEmptyExample';
-import paginationEmptyStyles from './PaginationEmptyExample.module.scss?virgo-raw';
 import paginationEmptySource from './PaginationEmptyExample.tsx?raw';
 import PaginationLocalizationExample from './PaginationLocalizationExample';
-import paginationLocalizationStyles from './PaginationLocalizationExample.module.scss?virgo-raw';
 import paginationLocalizationSource from './PaginationLocalizationExample.tsx?raw';
 import PaginationMoreExample from './PaginationMoreExample';
-import paginationMoreStyles from './PaginationMoreExample.module.scss?virgo-raw';
 import paginationMoreSource from './PaginationMoreExample.tsx?raw';
 import PaginationPageSizeExample from './PaginationPageSizeExample';
-import paginationPageSizeStyles from './PaginationPageSizeExample.module.scss?virgo-raw';
 import paginationPageSizeSource from './PaginationPageSizeExample.tsx?raw';
 import PaginationQuickJumpExample from './PaginationQuickJumpExample';
-import paginationQuickJumpStyles from './PaginationQuickJumpExample.module.scss?virgo-raw';
 import paginationQuickJumpSource from './PaginationQuickJumpExample.tsx?raw';
 import PaginationRangeExample from './PaginationRangeExample';
-import paginationRangeStyles from './PaginationRangeExample.module.scss?virgo-raw';
 import paginationRangeSource from './PaginationRangeExample.tsx?raw';
 import PaginationTextLabelsExample from './PaginationTextLabelsExample';
-import paginationTextLabelsStyles from './PaginationTextLabelsExample.module.scss?virgo-raw';
 import paginationTextLabelsSource from './PaginationTextLabelsExample.tsx?raw';
 import PaginationTotalExample from './PaginationTotalExample';
-import paginationTotalStyles from './PaginationTotalExample.module.scss?virgo-raw';
 import paginationTotalSource from './PaginationTotalExample.tsx?raw';
+
+import paginationAlignmentStyles from './PaginationAlignmentExample.module.scss?virgo-raw';
+import paginationBasicStyles from './PaginationBasicExample.module.scss?virgo-raw';
+import paginationControlledStyles from './PaginationControlledExample.module.scss?virgo-raw';
+import paginationDisabledStyles from './PaginationDisabledExample.module.scss?virgo-raw';
+import paginationEmptyStyles from './PaginationEmptyExample.module.scss?virgo-raw';
+import paginationLocalizationStyles from './PaginationLocalizationExample.module.scss?virgo-raw';
+import paginationMoreStyles from './PaginationMoreExample.module.scss?virgo-raw';
+import paginationPageSizeStyles from './PaginationPageSizeExample.module.scss?virgo-raw';
+import paginationQuickJumpStyles from './PaginationQuickJumpExample.module.scss?virgo-raw';
+import paginationRangeStyles from './PaginationRangeExample.module.scss?virgo-raw';
+import paginationTextLabelsStyles from './PaginationTextLabelsExample.module.scss?virgo-raw';
+import paginationTotalStyles from './PaginationTotalExample.module.scss?virgo-raw';
 
 export const paginationExamples = {
   paginationBasic: {

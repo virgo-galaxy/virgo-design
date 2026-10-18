@@ -1,7 +1,6 @@
 import { forwardRef } from 'react';
 
 import { Button } from '../Button';
-import styles from './Steps.module.scss';
 import type {
   StepsDescriptionProps,
   StepsIndicatorProps,
@@ -10,6 +9,8 @@ import type {
   StepsTitleProps,
   StepsTriggerProps,
 } from './Steps.types';
+
+import styles from './Steps.module.scss';
 
 const classes = (...values: Array<string | undefined>) => values.filter(Boolean).join(' ');
 

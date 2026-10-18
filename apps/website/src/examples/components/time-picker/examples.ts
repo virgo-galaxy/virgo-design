@@ -2,11 +2,12 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import TimePickerControlledExample from './TimePickerControlledExample';
-import style0 from './TimePickerControlledExample.module.scss?virgo-raw';
 import source0 from './TimePickerControlledExample.tsx?raw';
 import TimePickerStatesExample from './TimePickerStatesExample';
-import style1 from './TimePickerStatesExample.module.scss?virgo-raw';
 import source1 from './TimePickerStatesExample.tsx?raw';
+
+import style0 from './TimePickerControlledExample.module.scss?virgo-raw';
+import style1 from './TimePickerStatesExample.module.scss?virgo-raw';
 export const timePickerExamples = {
   example0: {
     id: 'time-picker-controlled',

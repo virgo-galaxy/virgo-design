@@ -8,6 +8,7 @@ import { Collapsible } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { contrastRatio } from '../contrast';
+
 import styles from '../styles/color-semantic-preview.module.scss';
 
 const marks: Record<StatusColorFamily, string> = {

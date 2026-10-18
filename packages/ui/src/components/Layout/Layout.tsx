@@ -12,7 +12,6 @@ import {
 import { useComposedRefs } from '../../internal/utils/composeRefs';
 import { useLocale } from '../../locale/context/locale-context';
 import { Surface } from '../Surface';
-import styles from './Layout.module.scss';
 import type {
   LayoutContentProps,
   LayoutFloatingProps,
@@ -26,6 +25,8 @@ import type {
   LayoutSurface,
 } from './Layout.types';
 import { SidebarResizeHandle } from './SidebarResizeHandle';
+
+import styles from './Layout.module.scss';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');

@@ -2,14 +2,15 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import SliderControlledExample from './SliderControlledExample';
-import style0 from './SliderControlledExample.module.scss?virgo-raw';
 import source0 from './SliderControlledExample.tsx?raw';
 import SliderRangeExample from './SliderRangeExample';
-import style2 from './SliderRangeExample.module.scss?virgo-raw';
 import source2 from './SliderRangeExample.tsx?raw';
 import SliderStepsExample from './SliderStepsExample';
-import style1 from './SliderStepsExample.module.scss?virgo-raw';
 import source1 from './SliderStepsExample.tsx?raw';
+
+import style0 from './SliderControlledExample.module.scss?virgo-raw';
+import style2 from './SliderRangeExample.module.scss?virgo-raw';
+import style1 from './SliderStepsExample.module.scss?virgo-raw';
 export const sliderExamples = {
   example0: {
     id: 'slider-controlled',

@@ -6,6 +6,7 @@ import { VirgoBrand } from '@/components/brand/VirgoBrand/VirgoBrand';
 import { PRIMARY_NAVIGATION_ITEMS } from '@/shared/routes/route-config';
 
 import { GlobalControls } from './components/global-controls/GlobalControls';
+
 import styles from './layout.module.scss';
 
 function activePrimaryNavigation(pathname: string) {

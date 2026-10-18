@@ -2,20 +2,21 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import SegmentedContentExample from './SegmentedContentExample';
-import segmentedContentStyles from './SegmentedContentExample.module.scss?virgo-raw';
 import segmentedContentSource from './SegmentedContentExample.tsx?raw';
 import SegmentedDisabledExample from './SegmentedDisabledExample';
-import segmentedDisabledStyles from './SegmentedDisabledExample.module.scss?virgo-raw';
 import segmentedDisabledSource from './SegmentedDisabledExample.tsx?raw';
 import SegmentedMotionExample from './SegmentedMotionExample';
-import segmentedMotionStyles from './SegmentedMotionExample.module.scss?virgo-raw';
 import segmentedMotionSource from './SegmentedMotionExample.tsx?raw';
 import SegmentedSizesExample from './SegmentedSizesExample';
-import segmentedSizesStyles from './SegmentedSizesExample.module.scss?virgo-raw';
 import segmentedSizesSource from './SegmentedSizesExample.tsx?raw';
 import SegmentedVariantsExample from './SegmentedVariantsExample';
-import segmentedVariantsStyles from './SegmentedVariantsExample.module.scss?virgo-raw';
 import segmentedVariantsSource from './SegmentedVariantsExample.tsx?raw';
+
+import segmentedContentStyles from './SegmentedContentExample.module.scss?virgo-raw';
+import segmentedDisabledStyles from './SegmentedDisabledExample.module.scss?virgo-raw';
+import segmentedMotionStyles from './SegmentedMotionExample.module.scss?virgo-raw';
+import segmentedSizesStyles from './SegmentedSizesExample.module.scss?virgo-raw';
+import segmentedVariantsStyles from './SegmentedVariantsExample.module.scss?virgo-raw';
 
 export const segmentedControlExamples = {
   segmentedVariants: {

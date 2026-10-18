@@ -2,8 +2,9 @@ import { Breadcrumb as PrimitiveBreadcrumb } from '@virgo-design/primitives';
 import { forwardRef } from 'react';
 
 import { useLocale } from '../../locale/context/locale-context';
-import styles from './Breadcrumb.module.scss';
 import type { BreadcrumbProps } from './Breadcrumb.types';
+
+import styles from './Breadcrumb.module.scss';
 
 function joinClassNames(...classNames: Array<string | false | null | undefined>) {
   return classNames.filter(Boolean).join(' ');

@@ -2,17 +2,18 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import AccordionMultipleExample from './AccordionMultipleExample';
-import accordionMultipleStyles from './AccordionMultipleExample.module.scss?virgo-raw';
 import accordionMultipleSource from './AccordionMultipleExample.tsx?raw';
 import AccordionSingleExample from './AccordionSingleExample';
-import accordionSingleStyles from './AccordionSingleExample.module.scss?virgo-raw';
 import accordionSingleSource from './AccordionSingleExample.tsx?raw';
 import AccordionSizesExample from './AccordionSizesExample';
-import accordionSizesStyles from './AccordionSizesExample.module.scss?virgo-raw';
 import accordionSizesSource from './AccordionSizesExample.tsx?raw';
 import AccordionVariantsExample from './AccordionVariantsExample';
-import accordionVariantsStyles from './AccordionVariantsExample.module.scss?virgo-raw';
 import accordionVariantsSource from './AccordionVariantsExample.tsx?raw';
+
+import accordionMultipleStyles from './AccordionMultipleExample.module.scss?virgo-raw';
+import accordionSingleStyles from './AccordionSingleExample.module.scss?virgo-raw';
+import accordionSizesStyles from './AccordionSizesExample.module.scss?virgo-raw';
+import accordionVariantsStyles from './AccordionVariantsExample.module.scss?virgo-raw';
 
 export const accordionExamples = {
   accordionVariants: {

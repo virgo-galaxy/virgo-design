@@ -2,17 +2,18 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import ComboboxAutocompleteExample from './ComboboxAutocompleteExample';
-import style1 from './ComboboxAutocompleteExample.module.scss?virgo-raw';
 import source1 from './ComboboxAutocompleteExample.tsx?raw';
 import ComboboxBasicExample from './ComboboxBasicExample';
-import style0 from './ComboboxBasicExample.module.scss?virgo-raw';
 import source0 from './ComboboxBasicExample.tsx?raw';
 import ComboboxControlledExample from './ComboboxControlledExample';
-import style2 from './ComboboxControlledExample.module.scss?virgo-raw';
 import source2 from './ComboboxControlledExample.tsx?raw';
 import ComboboxGroupsExample from './ComboboxGroupsExample';
-import style3 from './ComboboxGroupsExample.module.scss?virgo-raw';
 import source3 from './ComboboxGroupsExample.tsx?raw';
+
+import style1 from './ComboboxAutocompleteExample.module.scss?virgo-raw';
+import style0 from './ComboboxBasicExample.module.scss?virgo-raw';
+import style2 from './ComboboxControlledExample.module.scss?virgo-raw';
+import style3 from './ComboboxGroupsExample.module.scss?virgo-raw';
 export const comboboxExamples = {
   example0: {
     id: 'combobox-basic',

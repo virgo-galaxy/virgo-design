@@ -2,23 +2,24 @@ import type { ComponentExampleDefinition } from '@/components/docs/ComponentExam
 import { createExampleSource } from '@/examples/components/create-example-source';
 
 import SwitchAppearancesExample from './SwitchAppearancesExample';
-import switchAppearancesStyles from './SwitchAppearancesExample.module.scss?virgo-raw';
 import switchAppearancesSource from './SwitchAppearancesExample.tsx?raw';
 import SwitchBasicExample from './SwitchBasicExample';
-import switchBasicStyles from './SwitchBasicExample.module.scss?virgo-raw';
 import switchBasicSource from './SwitchBasicExample.tsx?raw';
 import SwitchDisabledExample from './SwitchDisabledExample';
-import switchDisabledStyles from './SwitchDisabledExample.module.scss?virgo-raw';
 import switchDisabledSource from './SwitchDisabledExample.tsx?raw';
 import SwitchIconsExample from './SwitchIconsExample';
-import switchIconsStyles from './SwitchIconsExample.module.scss?virgo-raw';
 import switchIconsSource from './SwitchIconsExample.tsx?raw';
 import SwitchSizesExample from './SwitchSizesExample';
-import switchSizesStyles from './SwitchSizesExample.module.scss?virgo-raw';
 import switchSizesSource from './SwitchSizesExample.tsx?raw';
 import SwitchTextExample from './SwitchTextExample';
-import switchTextStyles from './SwitchTextExample.module.scss?virgo-raw';
 import switchTextSource from './SwitchTextExample.tsx?raw';
+
+import switchAppearancesStyles from './SwitchAppearancesExample.module.scss?virgo-raw';
+import switchBasicStyles from './SwitchBasicExample.module.scss?virgo-raw';
+import switchDisabledStyles from './SwitchDisabledExample.module.scss?virgo-raw';
+import switchIconsStyles from './SwitchIconsExample.module.scss?virgo-raw';
+import switchSizesStyles from './SwitchSizesExample.module.scss?virgo-raw';
+import switchTextStyles from './SwitchTextExample.module.scss?virgo-raw';
 
 export const switchExamples = {
   switchBasic: {

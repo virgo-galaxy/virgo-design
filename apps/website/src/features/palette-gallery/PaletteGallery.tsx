@@ -8,6 +8,7 @@ import { ScrollCue } from '@/shared/ui/scroll-cue/ScrollCue';
 
 import { FamilyCard } from './components/FamilyCard';
 import { FamilyDetail } from './components/FamilyDetail';
+
 import styles from './styles/palette-gallery.module.scss';
 
 interface PaletteGalleryProps {
