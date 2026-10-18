@@ -1,0 +1,14 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["vite/client", "node"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@virgo-design/colors": ["../../../packages/colors/src/index.ts"],
+      "@virgo-design/tokens": ["../../../packages/tokens/src/index.ts"],
+      "@virgo-design/themes": ["../../../packages/themes/src/index.ts"],
+      "@virgo-design/tokens/vanilla-extract": ["../../../packages/tokens/src/vanilla-extract.ts"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}
