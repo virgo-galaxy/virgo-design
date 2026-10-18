@@ -1,0 +1,35 @@
+import { useCallback } from 'react';
+
+import { getTasks } from '@/api/tasks';
+import type { TaskListQuery } from '@/api/tasks/types';
+import { useRemoteData } from '@/hooks/async/use-remote-data';
+import { useResourceRevision } from '@/store/resources';
+
+import { getTaskCollection } from '../data/queries';
+
+export function useTaskQuery(query: TaskListQuery, mode: 'page' | 'collection' = 'page') {
+  const revision = useResourceRevision('tasks');
+  const key = JSON.stringify(query);
+
+  const load = useCallback(
+    async (signal: AbortSignal) => ({
+      key,
+      mode,
+      result: await (mode === 'collection' ? getTaskCollection : getTasks)(
+        JSON.parse(key) as TaskListQuery,
+        signal,
+      ),
+    }),
+    [key, mode],
+  );
+
+  const resource = useRemoteData(load, { revision });
+  const current = resource.data?.key === key && resource.data.mode === mode;
+
+  return {
+    data: resource.data?.result ?? null,
+    error: resource.error,
+    loading: resource.loading || (!current && !resource.error),
+    retry: resource.retry,
+  };
+}

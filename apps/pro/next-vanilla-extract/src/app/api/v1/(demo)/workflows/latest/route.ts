@@ -1,0 +1,6 @@
+import { getWorkflowsLatest } from '@/server/demo/handlers/workflows';
+import { demoRoute } from '@/server/demo/route';
+
+export const runtime = 'nodejs';
+
+export const GET = demoRoute(getWorkflowsLatest);

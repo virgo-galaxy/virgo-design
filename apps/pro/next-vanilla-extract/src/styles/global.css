@@ -1,0 +1,6 @@
+@import './fonts.css';
+@import '@virgo-design/tokens/styles.css';
+@import '@virgo-design/themes/styles.css';
+@import '@virgo-design/ui/styles.css';
+@import '@virgo-design/charts/styles.css';
+@import './base.css';

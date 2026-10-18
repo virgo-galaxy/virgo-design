@@ -1,9 +1,5 @@
-import { page, title } from './page.css';
+import { redirect } from 'next/navigation';
 
 export default function HomePage() {
-  return (
-    <main className={page}>
-      <h1 className={title}>Hello Virgo</h1>
-    </main>
-  );
+  redirect('/dashboard/workplace');
 }

@@ -1,0 +1,27 @@
+'use client';
+
+import type { ReactNode } from 'react';
+
+import { useAppSession } from '@/features/auth/context/app-session-context';
+import { CatalogProvider } from '@/features/catalog';
+import { ProfileIdentityProvider } from '@/features/profile';
+import { AppLayout } from '@/layout';
+import { RouteRedirect } from '@/routes/navigation';
+
+export function ProtectedLayout({
+  children,
+  settingsActions,
+}: {
+  children: ReactNode;
+  settingsActions?: ReactNode;
+}) {
+  const state = useAppSession();
+  if (!state.current?.authenticated) return <RouteRedirect to="/login" replace />;
+  return (
+    <CatalogProvider>
+      <ProfileIdentityProvider>
+        <AppLayout settingsActions={settingsActions}>{children}</AppLayout>
+      </ProfileIdentityProvider>
+    </CatalogProvider>
+  );
+}

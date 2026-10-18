@@ -1,0 +1,34 @@
+import type { LocaleOf } from '@/i18n';
+
+import type { analyticsEnUS } from './en-US';
+
+export const analyticsZhCN = {
+  overviewTitle: '交付分析',
+  overviewDescription: '从交付产出、项目进展到团队投入，一览工作全貌。',
+  tasksDelivered: '已交付任务',
+  dailyThroughput: '日均交付量',
+  deliveredTasksDay: '任务 / 天',
+  planAttainment: '计划达成率',
+  deliveryMomentum: '交付增幅',
+  momentumNote: '较前半周期',
+  plannedInPeriod: '本周期计划 {{count}} 个',
+  belowPlan: '距离计划还差 {{count}} 个',
+  remainingPlan: '待达成计划',
+  delivered: '已交付',
+  planned: '计划',
+  projectWorkload: '每日交付构成',
+  projectDescription: '按天查看各项目的交付量。',
+  taskDistribution: '任务分布',
+  currentRegisterValueTasks: '工作空间共 {{v0}} 个任务',
+  tasks: '任务',
+  deliveryTrend: '交付趋势',
+  trendDescription: '每日实际产出与交付计划的走势。',
+  attainmentValue: '计划达成 {{value}}%',
+  ownershipCapacity: '团队投入',
+  ownerDescription: '按未完成任务的预估工时排序。',
+  valueOpenTasks: '{{v0}} 个未完成任务',
+  ownerPages: '团队投入分页',
+  ownerRange: '{{start}}–{{end}} / {{total}} 人',
+  h: '小时',
+  estimateNote: '工时为任务预估，并非实际用时。',
+} satisfies LocaleOf<typeof analyticsEnUS>;

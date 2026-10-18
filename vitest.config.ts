@@ -82,6 +82,7 @@ export default defineConfig({
       './apps/pro/vite-react-vanilla-extract/vitest.config.ts',
       './apps/pro/next-scss-modules/vitest.config.ts',
       './apps/pro/next-tailwind/vitest.config.ts',
+      './apps/pro/next-vanilla-extract/vitest.config.ts',
     ],
     environment: 'jsdom',
     setupFiles: ['./test/setup.ts'],

@@ -196,9 +196,39 @@ importers:
 
   apps/pro/next-vanilla-extract:
     dependencies:
+      '@gsap/react':
+        specifier: ^2.1.2
+        version: 2.1.2(gsap@3.15.0)(react@19.2.8)
       '@vanilla-extract/css':
         specifier: ^1.21.3
         version: 1.21.3
+      '@virgo-design/charts':
+        specifier: workspace:*
+        version: link:../../../packages/charts
+      '@virgo-design/fonts':
+        specifier: workspace:*
+        version: link:../../../packages/fonts
+      '@virgo-design/icons':
+        specifier: workspace:*
+        version: link:../../../packages/icons
+      '@virgo-design/themes':
+        specifier: workspace:*
+        version: link:../../../packages/themes
+      '@virgo-design/tokens':
+        specifier: workspace:*
+        version: link:../../../packages/tokens
+      '@virgo-design/ui':
+        specifier: workspace:*
+        version: link:../../../packages/ui
+      axios:
+        specifier: ^1.20.0
+        version: 1.20.0
+      gsap:
+        specifier: ^3.15.0
+        version: 3.15.0
+      i18next:
+        specifier: ^26.4.2
+        version: 26.4.2(typescript@6.0.3)
       next:
         specifier: ^16.4.2
         version: 16.4.2(@babel/core@7.29.7)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.104.0)
@@ -208,10 +238,25 @@ importers:
       react-dom:
         specifier: ^19.2.8
         version: 19.2.8(react@19.2.8)
+      react-i18next:
+        specifier: ^17.0.13
+        version: 17.0.13(i18next@26.4.2(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
+      zustand:
+        specifier: ^5.0.15
+        version: 5.0.15(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.7.0(react@19.2.8))
     devDependencies:
       '@vanilla-extract/next-plugin':
         specifier: ^2.5.2
         version: 2.5.2(@swc/helpers@0.5.23)(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(next@16.4.2(@babel/core@7.29.7)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.104.0))(sass@1.104.0)(terser@5.51.2)(webpack@5.112.0(esbuild@0.28.2))
+      '@vanilla-extract/vite-plugin':
+        specifier: ^5.2.6
+        version: 5.2.6(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.104.0)(terser@5.51.2)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.104.0)(terser@5.51.2))
+      msw:
+        specifier: ^2.15.0
+        version: 2.15.0(@types/node@24.13.3)(typescript@6.0.3)
+      react-router:
+        specifier: 8.4.0
+        version: 8.4.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
 
   apps/pro/vite-react-scss-modules:
     dependencies:

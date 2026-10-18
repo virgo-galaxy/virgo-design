@@ -1,0 +1,20 @@
+{
+  "appearance": "system",
+  "theme": "virgo",
+  "showHeader": true,
+  "headerHeight": 64,
+  "headerMaterial": "glass",
+  "sidebarState": "expanded",
+  "sidebarMode": "expanded",
+  "sidebarStyle": "collapsible",
+  "sidebarWidth": 224,
+  "sidebarRailWidth": 52,
+  "sidebarResizable": true,
+  "sidebarSnap": true,
+  "showSubmenuHeader": true,
+  "showBreadcrumb": true,
+  "showFooter": true,
+  "showOverlayArrows": true,
+  "breathe": true,
+  "notificationIndicator": "dot"
+}

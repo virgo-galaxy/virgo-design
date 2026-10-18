@@ -91,7 +91,7 @@ export default tseslint.config(
 
   {
     files: [
-      'apps/pro/{vite-react-scss-modules,vite-react-tailwind,vite-react-vanilla-extract,next-scss-modules,next-tailwind}/**/*.{ts,tsx}',
+      'apps/pro/{vite-react-scss-modules,vite-react-tailwind,vite-react-vanilla-extract,next-scss-modules,next-tailwind,next-vanilla-extract}/**/*.{ts,tsx}',
     ],
 
     rules: {

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="body" x1="20" y1="17" x2="46" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D49BFF" />
+      <stop offset="1" stop-color="#9E54E4" />
+    </linearGradient>
+    <linearGradient id="paper" x1="22" y1="19" x2="42" y2="46" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" />
+      <stop offset="1" stop-color="#E9D1FF" />
+    </linearGradient>
+    <radialGradient id="shadow">
+      <stop stop-color="#9E54E4" stop-opacity=".22" />
+      <stop offset="1" stop-color="#9E54E4" stop-opacity="0" />
+    </radialGradient>
+    <filter id="depth" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#9E54E4" flood-opacity=".24" />
+    </filter>
+  </defs>
+  <circle cx="32" cy="32" r="31" fill="#8993AC" fill-opacity=".08" />
+  <ellipse cx="32" cy="47" rx="20" ry="9" fill="url(#shadow)" />
+  <g filter="url(#depth)">
+    <circle cx="34" cy="34" r="16" fill="#9E54E4" fill-opacity=".25" />
+    <circle cx="31" cy="31" r="16" fill="url(#body)" />
+    <circle cx="31" cy="31" r="11" fill="url(#paper)" />
+    <path d="M31 17a14 14 0 0 1 13 9" stroke="#fff" stroke-opacity=".4" stroke-width="1.5" stroke-linecap="round" />
+    <path d="M29 25v12l9-6-9-6Z" fill="url(#body)" />
+    <path d="M31 21v2M21 31h2M31 39v2" stroke="#C394F2" stroke-width="1.5" stroke-linecap="round" />
+  </g>
+</svg>
