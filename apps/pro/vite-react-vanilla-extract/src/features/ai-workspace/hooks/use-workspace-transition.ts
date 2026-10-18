@@ -35,6 +35,7 @@ export function useWorkspaceTransition({
   const previousFocus = useRef<HTMLElement | null>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
   const windowTween = useRef<gsap.core.Tween | null>(null);
+  const completeTransition = useRef<((active: boolean) => void) | null>(null);
 
   useGSAP(
     () => {
@@ -68,6 +69,11 @@ export function useWorkspaceTransition({
           : windowNode.querySelector<HTMLElement>('[data-ai-mode-trigger]');
 
         target?.focus({ preventScroll: true });
+      };
+
+      completeTransition.current = (nextActive) => {
+        if (nextActive) focusAi();
+        else focusWorkbench();
       };
 
       const animation = gsap.timeline({
@@ -115,10 +121,15 @@ export function useWorkspaceTransition({
 
       if (!active) gsap.set(windowNode, { clearProps: 'transform,borderRadius' });
 
+      const phase = root.current?.dataset.phase;
+
+      if (phase === 'entering' || phase === 'leaving') completeTransition.current(active);
+
       return () => {
         moveTween.current?.kill();
         windowTween.current = null;
         timeline.current = null;
+        completeTransition.current = null;
       };
     },
     { scope: root, dependencies: [size.width, size.height, reducedMotion], revertOnUpdate: true },
@@ -142,18 +153,23 @@ export function useWorkspaceTransition({
         root.current?.setAttribute('data-phase', 'entering');
         node.style.willChange = 'transform';
 
-        if (animation.progress() === 1) {
-          node.inert = false;
-          node.removeAttribute('aria-hidden');
-          root.current?.setAttribute('data-phase', 'ai');
-          stage.current?.focus({ preventScroll: true });
+        if (reducedMotion || animation.progress() === 1) {
+          animation.pause().progress(1, true);
+          completeTransition.current?.(true);
         } else animation.play();
-      } else if (animation.progress() > 0) {
+      } else if (
+        animation.progress() > 0 ||
+        root.current?.dataset.phase === 'entering' ||
+        root.current?.dataset.phase === 'ai'
+      ) {
         node.inert = true;
         node.setAttribute('aria-hidden', 'true');
         root.current?.setAttribute('data-phase', 'leaving');
         node.style.willChange = 'transform';
-        animation.reverse();
+        if (reducedMotion || animation.progress() === 0) {
+          animation.pause().progress(0, true);
+          completeTransition.current?.(false);
+        } else animation.reverse();
       }
     },
     { scope: root, dependencies: [active] },
