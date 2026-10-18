@@ -3,7 +3,7 @@ import { Button, Surface, Tooltip } from '@virgo-design/ui';
 import { type CSSProperties, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useVoiceRecorder } from './useVoiceRecorder';
+import { useVoiceRecorder } from './use-voice-recorder';
 
 import styles from './VoiceBar.module.scss';
 

@@ -2,7 +2,7 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { useVoiceRecorder } from './useVoiceRecorder';
+import { useVoiceRecorder } from './use-voice-recorder';
 
 class Recorder {
   static instances: Recorder[] = [];
