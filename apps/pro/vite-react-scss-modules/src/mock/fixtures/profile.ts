@@ -1,6 +1,6 @@
 import grokBotAvatar from '@virgo-design/icons/artwork/grok-bot.svg';
 
-import adminHumanAvatar from '@/assets/avatars/admin.svg';
+import adminHumanAvatar from '@/assets/avatars/admin.webp';
 
 import type { ProfileRecord } from '../model/state';
 

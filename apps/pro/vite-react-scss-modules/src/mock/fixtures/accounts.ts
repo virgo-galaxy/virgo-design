@@ -1,5 +1,5 @@
 import type { SessionUser } from '@/api/auth/types';
-import adminAvatar from '@/assets/avatars/admin.svg';
+import adminAvatar from '@/assets/avatars/admin.webp';
 
 import { projectIds, users } from './team';
 

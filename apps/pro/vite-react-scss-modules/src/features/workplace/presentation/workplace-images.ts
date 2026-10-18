@@ -1,8 +1,8 @@
-import beach from '@/assets/images/beach.webp';
-import glacier from '@/assets/images/glacier.webp';
-import ocean from '@/assets/images/ocean.webp';
-import starlight from '@/assets/images/starlight.webp';
-import volcano from '@/assets/images/volcano.webp';
+import beach from '@/assets/landscapes/beach.webp';
+import glacier from '@/assets/landscapes/glacier.webp';
+import ocean from '@/assets/landscapes/ocean.webp';
+import starlight from '@/assets/landscapes/starlight.webp';
+import volcano from '@/assets/landscapes/volcano.webp';
 
 export const workplaceImages = [
   {

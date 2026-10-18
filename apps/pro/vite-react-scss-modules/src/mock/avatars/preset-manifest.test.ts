@@ -9,10 +9,10 @@ import { avatarsHandlers } from '../handlers/avatars';
 import { systemPresetAvatarManifest } from './preset-manifest';
 
 const moduleUrl = import.meta.url;
-const presetsDirectory = new URL('../../assets/avatars/presets/', moduleUrl);
+const avatarsDirectory = new URL('../../assets/avatars/', moduleUrl);
 const fetchAsset = vi.fn(async (request: Request) => {
   const filename = new URL(request.url).pathname.split('/').at(-1)!;
-  return new Response(readFileSync(new URL(filename, presetsDirectory)), {
+  return new Response(readFileSync(new URL(filename, avatarsDirectory)), {
     headers: { 'Content-Type': 'image/webp' },
   });
 });
@@ -36,7 +36,7 @@ describe('system preset avatars', () => {
         `/api/v1/avatars/${apiId}.webp`,
       );
 
-      const image = readFileSync(new URL(filename, presetsDirectory));
+      const image = readFileSync(new URL(filename, avatarsDirectory));
       expect(image.subarray(0, 4).toString()).toBe('RIFF');
       expect(image.subarray(8, 12).toString()).toBe('WEBP');
     }
@@ -55,7 +55,7 @@ describe('system preset avatars', () => {
       expect(response?.headers.get('Cache-Control')).toBe('public, max-age=86400');
       const filename = source.split('/').at(-1)!;
       expect(Buffer.from(await response!.arrayBuffer())).toEqual(
-        readFileSync(new URL(filename, presetsDirectory)),
+        readFileSync(new URL(filename, avatarsDirectory)),
       );
     }
     expect(fetchAsset).toHaveBeenCalledTimes(Object.keys(systemPresetAvatarManifest).length);
