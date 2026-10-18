@@ -1,22 +1,5 @@
 import { ArrowRightIcon, CheckIcon } from '@virgo-design/icons';
-import {
-  Alert,
-  Button,
-  Checkbox,
-  DatePicker,
-  Empty,
-  Field,
-  Form,
-  Input,
-  Radio,
-  Skeleton,
-  Steps,
-  Surface,
-  Tag,
-  Textarea,
-  TimePicker,
-  Tree,
-} from '@virgo-design/ui';
+import { Alert, Button, Empty, Form, Skeleton, Steps, Surface } from '@virgo-design/ui';
 import {
   type Dispatch,
   type SetStateAction,
@@ -28,7 +11,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router';
 
-import { FilterSelect } from '@/components/controls/filter-select';
 import { Panel } from '@/components/display/panel';
 import { ExceptionState } from '@/components/feedback/exception-state';
 import { MutationFeedback } from '@/components/feedback/mutation-feedback';
@@ -37,23 +19,18 @@ import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, useTaskCatalog } from '@/features/catalog';
 import { projectHandoffPath } from '@/features/projects';
 import type { TaskState } from '@/features/tasks';
-import {
-  getTaskCollection,
-  taskStatusIntent,
-  taskStatusLabelNames,
-  useTaskDependentQuery,
-} from '@/features/tasks';
+import { getTaskCollection, useTaskDependentQuery } from '@/features/tasks';
 import { useMutation } from '@/hooks/async/use-mutation';
 import { canManageProject, isAdmin } from '@/lib/auth/permissions';
-import { businessLabel } from '@/lib/formatting/business-labels';
 import { routePath } from '@/routes';
 
+import { HandoffDetailsStep } from '../components/HandoffDetailsStep';
+import { HandoffReviewStep } from '../components/HandoffReviewStep';
+import { HandoffScopeStep } from '../components/HandoffScopeStep';
 import { useHandoffSession } from '../hooks/use-handoff-session';
 import {
   type HandoffDraft,
-  reconcileScope,
   scopeGroups,
-  scopeTreeValues,
   validateHandoff,
   type WorkflowReceipt,
 } from '../model/handoff';
@@ -80,7 +57,7 @@ function ProjectHandoffContent({
   const { projectId } = useParams();
 
   const mutation = useMutation();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const stages = [
     { title: t('handoff.defineTheHandoff'), description: t('handoff.projectAndSchedule') },
     { title: t('handoff.buildTheScope'), description: t('handoff.workAndAudience') },
@@ -112,7 +89,6 @@ function ProjectHandoffContent({
   const selected = groups
     .flatMap((group) => group.tasks)
     .filter((task) => draft.taskIds.includes(task.id));
-  const treeValues = scopeTreeValues(draft.taskIds, groups);
   const project = projects.find((item) => item.id === draft.projectId)!;
 
   const update = <Key extends keyof HandoffDraft>(key: Key, value: HandoffDraft[Key]) => {
@@ -260,285 +236,39 @@ function ProjectHandoffContent({
                   </Alert>
                 ) : null}
                 {stage === 0 ? (
-                  <>
-                    <Field required invalid={Boolean(errors.title)}>
-                      <Field.Label>{t('handoff.handoffTitle')}</Field.Label>
-                      <Input
-                        value={draft.title}
-                        maxLength={100}
-                        onChange={(event) => update('title', event.target.value)}
-                      />
-                      {errors.title ? (
-                        <Field.Message>{t(`handoff.validation.${errors.title}`)}</Field.Message>
-                      ) : null}
-                    </Field>
-                    <FilterSelect
-                      label={t('handoff.handoffProject')}
-                      value={draft.projectId}
-                      onChange={(value) => {
-                        navigate(projectHandoffPath(value));
-                        setStage(0);
-                        setDraft((previous) => ({
-                          ...previous,
-                          projectId: value,
-                          taskIds: [],
-                          confirmed: false,
-                        }));
-                        setErrors({});
-                      }}
-                      options={projects
-                        .filter((item) => canManageProject(user, item.id))
-                        .map((item) => ({
-                          value: item.id,
-                          label: businessLabel(item.name, i18n.language),
-                        }))}
-                    />
-                    <div className={styles.fieldGrid}>
-                      <Field required invalid={Boolean(errors.date)}>
-                        <Field.Label>{t('handoff.handoffDate')}</Field.Label>
-                        <DatePicker
-                          size="medium"
-                          value={draft.date}
-                          onValueChange={(value) => update('date', value)}
-                          min={project?.start}
-                        >
-                          <DatePicker.Input />
-                          <DatePicker.Trigger aria-label={t('handoff.chooseHandoffDate')} />
-                          <DatePicker.Content aria-label={t('handoff.handoffDateCalendar')}>
-                            <DatePicker.Calendar
-                              locale={i18n.language}
-                              defaultMonth={draft.date.slice(0, 7)}
-                              weekStartsOn={1}
-                            />
-                          </DatePicker.Content>
-                        </DatePicker>
-                        {errors.date ? (
-                          <Field.Message>{t(`handoff.validation.${errors.date}`)}</Field.Message>
-                        ) : null}
-                      </Field>
-                      <Field required invalid={Boolean(errors.time)}>
-                        <Field.Label>{t('handoff.handoffTime')}</Field.Label>
-                        <TimePicker
-                          size="medium"
-                          value={draft.time}
-                          onValueChange={(value) => update('time', value)}
-                        />
-                        <Field.Description>{t('handoff.asiaShanghaiUtc0800')}</Field.Description>
-                        {errors.time ? (
-                          <Field.Message>{t(`handoff.validation.${errors.time}`)}</Field.Message>
-                        ) : null}
-                      </Field>
-                    </div>
-                    <p className={styles.stageCopy}>
-                      {t('handoff.valueYourSelectionsWillBeKeptWhileMovingBetween', {
-                        v0: businessLabel(project?.summary ?? '', i18n.language),
-                      })}
-                    </p>
-                  </>
+                  <HandoffDetailsStep
+                    draft={draft}
+                    project={project}
+                    errors={errors}
+                    onChange={update}
+                    onProjectChange={(projectId) => {
+                      navigate(projectHandoffPath(projectId));
+                      setStage(0);
+                      setDraft((previous) => ({
+                        ...previous,
+                        projectId,
+                        taskIds: [],
+                        confirmed: false,
+                      }));
+                      setErrors({});
+                    }}
+                  />
                 ) : stage === 1 ? (
-                  <div className={styles.scopeLayout}>
-                    <div>
-                      <div className={styles.treeTools}>
-                        <Tag size="md" variant="outline">
-                          {t('handoff.selectedTasks', { count: selected.length })}
-                        </Tag>
-                        <Button.Group layout="custom" className={shared.actions}>
-                          <Button
-                            size="medium"
-                            variant="text"
-                            type="button"
-                            onClick={() =>
-                              update(
-                                'taskIds',
-                                groups.flatMap((group) => group.tasks.map((task) => task.id)),
-                              )
-                            }
-                          >
-                            {t('handoff.selectAll')}
-                          </Button>
-                          <Button
-                            size="medium"
-                            variant="text"
-                            type="button"
-                            onClick={() => update('taskIds', [])}
-                          >
-                            {t('handoff.clear')}
-                          </Button>
-                        </Button.Group>
-                      </div>
-                      <Tree
-                        key={draft.projectId}
-                        className={styles.scopeTree}
-                        size="medium"
-                        selectionMode="multiple"
-                        aria-label={t('handoff.handoffTaskScope')}
-                        expandedValues={expanded}
-                        onExpandedValuesChange={setExpanded}
-                        selectedValues={treeValues}
-                        onSelectedValuesChange={(next) =>
-                          update('taskIds', reconcileScope(draft.taskIds, next, groups))
-                        }
-                      >
-                        {groups.map((group) => (
-                          <Tree.Item
-                            key={group.id}
-                            value={group.id}
-                            branch
-                            textValue={t(`handoff.scopeLabels.${group.id}`)}
-                          >
-                            <Tree.Label className={styles.treeLabel}>
-                              <Tree.Toggle
-                                aria-label={t('handoff.toggleValue', {
-                                  v0: t(`handoff.scopeLabels.${group.id}`),
-                                })}
-                              />
-                              <span
-                                className={styles.treeMark}
-                                data-selected={treeValues.includes(group.id)}
-                              >
-                                {treeValues.includes(group.id) ? '✓' : '＋'}
-                              </span>
-                              <strong>
-                                {t(`handoff.scopeLabels.${group.id}`)} · {group.tasks.length}
-                              </strong>
-                            </Tree.Label>
-                            <Tree.Group>
-                              {group.tasks.map((task) => (
-                                <Tree.Item
-                                  key={task.id}
-                                  value={task.id}
-                                  textValue={`${task.id} ${businessLabel(task.title, i18n.language)}`}
-                                >
-                                  <Tree.Label className={styles.treeLabel}>
-                                    <span
-                                      className={styles.treeMark}
-                                      data-selected={draft.taskIds.includes(task.id)}
-                                    >
-                                      {draft.taskIds.includes(task.id) ? '✓' : '＋'}
-                                    </span>
-                                    <span className={styles.treeCopy}>
-                                      <span>{businessLabel(task.title, i18n.language)}</span>
-                                      <span className={shared.mono}>
-                                        {t('handoff.valueValueH', {
-                                          v0: task.id,
-                                          v1: task.estimateHours,
-                                        })}
-                                      </span>
-                                    </span>
-                                    <Tag size="md" intent={taskStatusIntent[task.status]}>
-                                      {t(`tasks.statusLabels.${taskStatusLabelNames[task.status]}`)}
-                                    </Tag>
-                                  </Tree.Label>
-                                </Tree.Item>
-                              ))}
-                            </Tree.Group>
-                          </Tree.Item>
-                        ))}
-                      </Tree>
-                      <p className={styles.scopeNote}>
-                        {t('handoff.selectAGroupToIncludeItsTasksOrSelect')}
-                      </p>
-                    </div>
-                    <div className={shared.stack}>
-                      <fieldset className={styles.fieldset}>
-                        <legend>{t('handoff.packetAudience')}</legend>
-                        <Radio.Group
-                          aria-label={t('handoff.packetAudience')}
-                          value={draft.audience}
-                          orientation="vertical"
-                          onValueChange={(value) => {
-                            if (value === 'team' || value === 'external') update('audience', value);
-                          }}
-                        >
-                          <Radio value="team" className={styles.choice!}>
-                            {t('handoff.teamWorkspace')}
-                          </Radio>
-                          <Radio value="external" className={styles.choice!}>
-                            {t('handoff.externalCollaborators')}
-                          </Radio>
-                        </Radio.Group>
-                        <p className={shared.caption}>
-                          {t(
-                            'handoff.workspaceReleaseMaterialCurrentlySupportsTeamAccessExternalPreparation',
-                          )}
-                        </p>
-                      </fieldset>
-                      <Field invalid={Boolean(errors.notes)}>
-                        <Field.Label>{t('handoff.handoffNotes')}</Field.Label>
-                        <Textarea
-                          rows={5}
-                          value={draft.notes}
-                          maxLength={1500}
-                          onChange={(event) => update('notes', event.target.value)}
-                          placeholder={t('handoff.acceptanceNotesRisksAndTheNextOwner')}
-                        />
-                      </Field>
-                    </div>
-                  </div>
+                  <HandoffScopeStep
+                    draft={draft}
+                    groups={groups}
+                    errors={errors}
+                    expanded={expanded}
+                    onExpandedChange={setExpanded}
+                    onChange={update}
+                  />
                 ) : (
-                  <>
-                    <div className={styles.reviewGrid}>
-                      <dl className={styles.reviewMetadata}>
-                        <div>
-                          <dt>{t('handoff.handoff')}</dt>
-                          <dd>{businessLabel(draft.title, i18n.language)}</dd>
-                        </div>
-                        <div>
-                          <dt>{t('handoff.project')}</dt>
-                          <dd>{businessLabel(project?.name ?? '', i18n.language)}</dd>
-                        </div>
-                        <div>
-                          <dt>{t('handoff.scheduleUtc0800')}</dt>
-                          <dd>
-                            {draft.date} · {draft.time}
-                          </dd>
-                        </div>
-                        <div>
-                          <dt>{t('handoff.audience')}</dt>
-                          <dd>
-                            <Tag size="md" intent={draft.audience === 'team' ? 'info' : 'warning'}>
-                              {draft.audience === 'team'
-                                ? t('handoff.teamWorkspace')
-                                : t('handoff.externalCollaborators')}
-                            </Tag>
-                          </dd>
-                        </div>
-                      </dl>
-                      <div>
-                        <span className={shared.eyebrow}>
-                          {t('handoff.packetScopeValueTasks', { v0: selected.length })}
-                        </span>
-                        <ul className={styles.scopeReview}>
-                          {selected.map((task) => (
-                            <li key={task.id}>
-                              <span>
-                                <span className={shared.mono}>{task.id}</span>
-                                {businessLabel(task.title, i18n.language)}
-                              </span>
-                              <Tag size="md" intent={taskStatusIntent[task.status]}>
-                                {t(`tasks.statusLabels.${taskStatusLabelNames[task.status]}`)}
-                              </Tag>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                    {draft.notes ? <div className={styles.reviewNotes}>{draft.notes}</div> : null}
-                    {draft.audience === 'external' && draft.projectId === 'online-store' ? (
-                      <Alert intent="warning">
-                        <Alert.Title>{t('handoff.externalAccessNeedsReview')}</Alert.Title>
-                        <Alert.Description>
-                          {t('handoff.thePacketWillBeCheckedAgainstWorkspaceSCurrent')}
-                        </Alert.Description>
-                      </Alert>
-                    ) : null}
-                    <Checkbox
-                      checked={draft.confirmed}
-                      onChange={(event) => update('confirmed', event.target.checked)}
-                    >
-                      {t('handoff.iReviewedTheTaskScopeAudienceAndSchedule')}
-                    </Checkbox>
-                  </>
+                  <HandoffReviewStep
+                    draft={draft}
+                    project={project}
+                    selected={selected}
+                    onChange={update}
+                  />
                 )}
               </div>
               <div className={styles.wizardFooter}>

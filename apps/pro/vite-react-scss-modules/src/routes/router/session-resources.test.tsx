@@ -251,7 +251,7 @@ it('opens project, profile and result views with scoped reads and bounded previe
     view.unmount();
   }
 });
-it('limits a manager’s handoff projects, loads the selected scope and preserves its raw title across locale changes', async () => {
+it('limits a manager’s handoff scope and preserves its draft across steps and locale changes', async () => {
   await login({ account: 'ava', password: 'virgo123' });
 
   const { default: ProjectHandoffPage } = await import('@/pages/work/projects/[projectId]/handoff');
@@ -286,7 +286,7 @@ it('limits a manager’s handoff projects, loads the selected scope and preserve
         )}
       />,
     );
-    const title = await screen.findByRole('textbox', { name: 'Handoff title' });
+    let title = await screen.findByRole('textbox', { name: 'Handoff title' });
     const raw = (title as HTMLInputElement).value;
 
     fireEvent.click(screen.getByRole('button', { name: 'Handoff project' }));
@@ -294,6 +294,36 @@ it('limits a manager’s handoff projects, loads the selected scope and preserve
     expect(screen.getByRole('option', { name: 'Support Desk' })).toBeInTheDocument();
     expect(screen.queryByRole('option', { name: 'Booking System' })).not.toBeInTheDocument();
     fireEvent.keyDown(screen.getByRole('listbox'), { key: 'Escape' });
+
+    fireEvent.change(title, { target: { value: '' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    expect(title).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.queryByRole('tree', { name: 'Handoff task scope' })).toBeNull();
+
+    fireEvent.change(title, { target: { value: raw } });
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    expect(screen.getByRole('tree', { name: 'Handoff task scope' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Select all' }));
+    fireEvent.change(screen.getByRole('textbox', { name: 'Handoff notes' }), {
+      target: { value: 'Review the release packet with the project lead.' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    expect(screen.getByText('Review the release packet with the project lead.')).toBeVisible();
+    fireEvent.click(
+      screen.getByRole('checkbox', { name: 'I reviewed the task scope, audience and schedule.' }),
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+    expect(screen.getByRole('textbox', { name: 'Handoff notes' })).toHaveValue(
+      'Review the release packet with the project lead.',
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    expect(
+      screen.getByRole('checkbox', { name: 'I reviewed the task scope, audience and schedule.' }),
+    ).toBeChecked();
+    fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+    title = screen.getByRole('textbox', { name: 'Handoff title' });
 
     await act(() => i18nInstance.changeLanguage('zh-CN'));
     expect(title).toHaveValue(raw);

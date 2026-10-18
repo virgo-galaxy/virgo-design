@@ -11,30 +11,6 @@
   display: grid;
   gap: var(--vd-spacing-24);
 }
-.fieldGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--vd-spacing-20);
-  align-items: start;
-}
-.fieldset {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  min-width: 0;
-  legend {
-    margin-bottom: var(--vd-spacing-12);
-    font-size: var(--vd-font-size-12);
-    font-weight: 500;
-  }
-  [role='radiogroup'] {
-    flex-wrap: wrap;
-    gap: var(--vd-spacing-12) var(--vd-spacing-24);
-  }
-  p {
-    margin: var(--vd-spacing-12) 0 0;
-  }
-}
 .stepsFrame {
   padding: var(--vd-spacing-16);
   border-bottom: var(--vd-stroke-width, var(--vd-border-width-1)) solid var(--vd-border-subtle);
@@ -73,112 +49,6 @@
   font-size: var(--vd-font-size-20);
   letter-spacing: -0.3px;
 }
-.stageCopy {
-  margin: var(--vd-spacing-6) 0 0;
-  font-size: var(--vd-font-size-12);
-  color: var(--vd-text-secondary);
-}
-.scopeLayout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(230px, 1fr);
-  gap: var(--vd-spacing-24);
-}
-.scopeTree {
-  min-width: 0;
-  [role='treeitem'] {
-    min-width: 0;
-  }
-  [data-slot='label'] {
-    min-width: 0;
-    white-space: normal;
-  }
-}
-.treeLabel {
-  display: flex;
-  align-items: start;
-  gap: var(--vd-spacing-8);
-  width: 100%;
-  font-size: var(--vd-font-size-12);
-}
-.treeCopy {
-  display: grid;
-  gap: var(--vd-spacing-4);
-  min-width: 0;
-  flex: 1;
-}
-.treeMark {
-  color: var(--vd-text-tertiary);
-  width: 16px;
-  flex-shrink: 0;
-  font-family: var(--vd-font-family-mono);
-  &[data-selected='true'] {
-    color: var(--vd-brand-primary);
-  }
-}
-.treeTools {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--vd-spacing-12);
-  padding-bottom: var(--vd-spacing-12);
-}
-.scopeNote {
-  color: var(--vd-text-tertiary);
-  font-size: var(--vd-font-size-11);
-  line-height: 1.7;
-  margin: var(--vd-spacing-12) 0 0;
-}
-.choice {
-  padding: var(--vd-spacing-12);
-  border: 1px solid var(--vd-border-subtle);
-  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
-  font-size: var(--vd-font-size-12);
-}
-.reviewGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--vd-spacing-20);
-}
-.reviewMetadata {
-  margin: 0;
-  padding: var(--vd-spacing-16);
-  border: 1px solid var(--vd-border-subtle);
-  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
-  display: grid;
-  gap: var(--vd-spacing-16);
-  > div {
-    display: grid;
-    gap: var(--vd-spacing-4);
-  }
-  dt {
-    color: var(--vd-text-tertiary);
-    font-size: var(--vd-font-size-11);
-  }
-  dd {
-    margin: 0;
-    font-size: var(--vd-font-size-13);
-    overflow-wrap: anywhere;
-  }
-}
-.scopeReview {
-  padding: 0;
-  list-style: none;
-  margin: 0;
-  display: grid;
-  gap: var(--vd-spacing-12);
-  li {
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
-    gap: var(--vd-spacing-12);
-    font-size: var(--vd-font-size-12);
-  }
-  li > span:first-child {
-    display: grid;
-    gap: var(--vd-spacing-4);
-  }
-}
 .wizardFooter {
   border-top: 1px solid var(--vd-border-subtle);
   padding: var(--vd-spacing-16) var(--vd-spacing-20);
@@ -188,27 +58,8 @@
   gap: var(--vd-spacing-12);
   flex-wrap: wrap;
 }
-.reviewNotes {
-  background: var(--vd-surface-secondary);
-  border-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
-  padding: var(--vd-spacing-16);
-  color: var(--vd-text-secondary);
-  font-size: var(--vd-font-size-12);
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-@media (max-width: 760px) {
-  .scopeLayout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .reviewGrid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
+
 @media (max-width: 640px) {
-  .fieldGrid {
-    grid-template-columns: minmax(0, 1fr);
-  }
   .fields {
     padding: var(--vd-spacing-16);
     gap: var(--vd-spacing-20);
@@ -230,12 +81,6 @@
     [data-slot='title'] {
       font-size: var(--vd-font-size-11);
     }
-  }
-  .treeLabel {
-    flex-wrap: wrap;
-  }
-  .treeLabel > [data-slot='root'] {
-    margin-inline-start: var(--vd-spacing-24);
   }
   .wizardFooter {
     padding: var(--vd-spacing-16);

@@ -8,18 +8,13 @@ import { Panel } from '@/components/display/panel';
 import { ResourceContent } from '@/components/feedback/resource-content';
 import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, moduleFilterKey, Person, useTaskCatalog } from '@/features/catalog';
-import {
-  taskDetailsPath,
-  taskPriorityIntent,
-  taskStatusIntent,
-  taskStatusLabelNames,
-} from '@/features/tasks';
 import { canManageProject } from '@/lib/auth/permissions';
 import { businessLabel } from '@/lib/formatting/business-labels';
-import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { routePath } from '@/routes';
 
 import { MetricStrip } from '../components/MetricStrip/MetricStrip';
+import { ProjectActivityPanel } from '../components/ProjectActivityPanel/ProjectActivityPanel';
+import { ProjectTaskPanel } from '../components/ProjectTaskPanel/ProjectTaskPanel';
 import { useProjectResources } from '../hooks/use-project-resources';
 import {
   formatProjectDate,
@@ -243,75 +238,7 @@ function ProjectDetailContent({
               )}
             </ResourceContent>
           </Panel>
-          <Panel
-            title={t('projectDetails.linkedTasks')}
-            description={t('projectDetails.liveRecordsFromTheSharedTaskRegister')}
-            actions={
-              <Link className={shared.link} to={projectTasksPath(project)}>
-                {t('projectDetails.openTaskRegister')}
-              </Link>
-            }
-          >
-            <ResourceContent resource={resources.tasks}>
-              {(data) => (
-                <>
-                  <ul className={styles.taskList}>
-                    {data.items.map((task) => (
-                      <li key={task.id}>
-                        <div>
-                          <span className={shared.mono}>{task.id}</span>
-                          <Link
-                            className={styles.taskButton}
-                            to={taskDetailsPath(task.id, projectDetailPath(project))}
-                          >
-                            {businessLabel(task.title, i18n.language)}
-                          </Link>
-                          <span className={shared.caption}>
-                            {t('projectDetails.valueHEstimateValue', {
-                              v0: task.estimateHours,
-                              v1: task.dueDate
-                                ? t('projectDetails.dueValue', {
-                                    v0: formatDueDate(task.dueDate, i18n.language),
-                                  })
-                                : t('projectDetails.unscheduled'),
-                            })}
-                          </span>
-                        </div>
-                        <div className={styles.taskTags}>
-                          <Tag size="md" intent={taskStatusIntent[task.status]}>
-                            {t(`tasks.statusLabels.${taskStatusLabelNames[task.status]}`)}
-                          </Tag>
-                          <Tag
-                            size="md"
-                            intent={taskPriorityIntent[task.priority]}
-                            variant="outline"
-                          >
-                            {t(`tasks.priorityLabels.${task.priority}`)}
-                          </Tag>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                  {!data.total ? (
-                    <p className={shared.body}>
-                      {t('projectDetails.noTasksAreLinkedToThisProject')}
-                    </p>
-                  ) : null}
-                  <div className={shared.footer}>
-                    <span role="status">
-                      {t('projects.taskPreview', {
-                        count: Math.min(data.total, 8),
-                        total: data.total,
-                      })}
-                    </span>
-                    <Link className={shared.link} to={projectTasksPath(project)}>
-                      {t('projects.viewTasks')}
-                    </Link>
-                  </div>
-                </>
-              )}
-            </ResourceContent>
-          </Panel>
+          <ProjectTaskPanel project={project} resource={resources.tasks} />
           <Panel
             title={t('projectDetails.milestones')}
             description={t('projectDetails.projectScheduleAndHandoffPoints')}
@@ -418,47 +345,7 @@ function ProjectDetailContent({
               )}
             </ResourceContent>
           </Panel>
-          <Panel
-            title={t('projectDetails.recordedActivity')}
-            description={t('projects.recentProjectActivity')}
-          >
-            <ResourceContent resource={resources.activity}>
-              {(events) => (
-                <div className={shared.body}>
-                  {events.length ? (
-                    <Timeline size="medium" aria-label={t('projectDetails.projectTeamActivity')}>
-                      {events.map((event) => (
-                        <Timeline.Item key={event.id} status={event.status}>
-                          <Timeline.Title>
-                            {businessLabel(event.name, i18n.language)}
-                          </Timeline.Title>
-                          <Timeline.Description>
-                            {event.taskTitle && event.action
-                              ? t(`workplace.activityActions.${event.action}`, {
-                                  title: businessLabel(event.taskTitle, i18n.language),
-                                })
-                              : t('workplace.activityUpdated')}
-                          </Timeline.Description>
-                          <Timeline.Time dateTime={event.dateTime}>
-                            {new Intl.DateTimeFormat(i18n.language, {
-                              month: 'short',
-                              day: 'numeric',
-                              hour: '2-digit',
-                              minute: '2-digit',
-                            }).format(new Date(event.dateTime))}
-                          </Timeline.Time>
-                        </Timeline.Item>
-                      ))}
-                    </Timeline>
-                  ) : (
-                    <p className={shared.caption}>
-                      {t('projectDetails.noTeamActivityRecordedForThisProjectInThe')}
-                    </p>
-                  )}
-                </div>
-              )}
-            </ResourceContent>
-          </Panel>
+          <ProjectActivityPanel resource={resources.activity} />
           <Panel title={t('projectDetails.relatedFocusAreas')}>
             <ul className={styles.related}>
               {projects
