@@ -1,9 +1,12 @@
-import { exceptionsEnUS, exceptionsZhCN } from '@/components/exception-state/locales';
-import { languageControlEnUS, languageControlZhCN } from '@/components/language-control/locales';
-import { themeStyleControlEnUS, themeStyleControlZhCN } from '@/components/navbar/locales';
-import { notificationsEnUS, notificationsZhCN } from '@/components/notification/locales';
-import { settingsEnUS, settingsZhCN } from '@/components/settings/locales';
-import { sidebarEnUS, sidebarZhCN } from '@/components/sidebar/locales';
+import {
+  languageControlEnUS,
+  languageControlZhCN,
+} from '@/components/controls/language-control/locales';
+import { exceptionsEnUS, exceptionsZhCN } from '@/components/feedback/exception-state/locales';
+import { themeStyleControlEnUS, themeStyleControlZhCN } from '@/components/layout/navbar/locales';
+import { notificationsEnUS, notificationsZhCN } from '@/components/layout/notification/locales';
+import { settingsEnUS, settingsZhCN } from '@/components/layout/settings/locales';
+import { sidebarEnUS, sidebarZhCN } from '@/components/layout/sidebar/locales';
 import { aiWorkspaceEnUS, aiWorkspaceZhCN } from '@/features/ai-workspace/locales';
 import { analyticsEnUS, analyticsZhCN } from '@/features/analytics/locales';
 import { authEnUS, authZhCN } from '@/features/auth/locales';

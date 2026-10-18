@@ -4,7 +4,7 @@ import { Dropdown } from '@virgo-design/ui';
 import { useId } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { MenuControl } from '@/components/menu-control';
+import { MenuControl } from '@/components/controls/menu-control';
 import { usePreferencesStore } from '@/preferences';
 
 import styles from './ThemeStyleControl.module.scss';

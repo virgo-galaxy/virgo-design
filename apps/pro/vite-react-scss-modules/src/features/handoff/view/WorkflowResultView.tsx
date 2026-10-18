@@ -6,8 +6,8 @@ import { Link, useNavigate } from 'react-router';
 
 import { getTasks } from '@/api/tasks';
 import { getLatestWorkflow } from '@/api/workflows';
-import { MutationFeedback } from '@/components/mutation-feedback';
-import { RemoteState } from '@/components/remote-state';
+import { MutationFeedback } from '@/components/feedback/mutation-feedback';
+import { RemoteState } from '@/components/feedback/remote-state';
 import {
   CatalogBoundary,
   moduleName,

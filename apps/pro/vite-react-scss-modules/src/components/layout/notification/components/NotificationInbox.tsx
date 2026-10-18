@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { readAllNotifications, readNotification } from '@/api/notifications';
-import { MutationFeedback } from '@/components/mutation-feedback';
-import { RemoteState } from '@/components/remote-state';
+import { MutationFeedback } from '@/components/feedback/mutation-feedback';
+import { RemoteState } from '@/components/feedback/remote-state';
 import { taskDetailsPath } from '@/features/tasks';
 import { useMutation } from '@/hooks/async/use-mutation';
 import { businessLabel } from '@/lib/formatting/business-labels';

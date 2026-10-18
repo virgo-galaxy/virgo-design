@@ -1,7 +1,7 @@
 import { lazy, type ReactNode, Suspense } from 'react';
 import { Navigate, Outlet, useOutletContext } from 'react-router';
 
-import { RemoteState } from '@/components/remote-state';
+import { RemoteState } from '@/components/feedback/remote-state';
 import { SessionContext, useSessionState } from '@/features/auth';
 import { CatalogProvider } from '@/features/catalog';
 import { ProfileIdentityProvider } from '@/features/profile';

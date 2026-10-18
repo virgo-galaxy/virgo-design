@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { UserGenderIcon } from '@/components/user-gender-icon';
+import { UserGenderIcon } from '@/components/display/user-gender-icon';
 import { useCurrentUser, useSession } from '@/features/auth';
 import { avatarForeground, profileInitials, useProfileIdentityResource } from '@/features/profile';
 import { isAdmin } from '@/lib/auth/permissions';

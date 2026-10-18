@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { RemoteState } from '@/components/remote-state';
+import { RemoteState } from '@/components/feedback/remote-state';
 import type { RemoteData } from '@/hooks/async/use-remote-data';
 
 interface ResourceContentProps<T> {

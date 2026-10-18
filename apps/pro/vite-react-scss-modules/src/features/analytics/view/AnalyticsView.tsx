@@ -6,7 +6,7 @@ import {
   getProjectDelivery,
   getTaskStatusSummary,
 } from '@/api/analytics';
-import { ResourceContent } from '@/components/resource-content';
+import { ResourceContent } from '@/components/feedback/resource-content';
 import { CatalogBoundary } from '@/features/catalog';
 import { useTaskDependentQuery } from '@/features/tasks';
 import { formatDueDate } from '@/lib/formatting/format-due-date';

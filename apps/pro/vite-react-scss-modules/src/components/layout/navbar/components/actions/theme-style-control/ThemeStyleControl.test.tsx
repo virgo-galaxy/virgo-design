@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect, it } from 'vitest';
 
-import { LanguageControl } from '@/components/language-control';
+import { LanguageControl } from '@/components/controls/language-control';
 
 import { ThemeStyleControl } from './ThemeStyleControl';
 

@@ -3,8 +3,8 @@ import { Alert, Button, Combobox, DatePicker, Field, Form, Input } from '@virgo-
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { FilterSelect } from '@/components/filter-select';
-import { MultiFilterSelect } from '@/components/multi-filter-select';
+import { FilterSelect } from '@/components/controls/filter-select';
+import { MultiFilterSelect } from '@/components/controls/multi-filter-select';
 import { projectName, useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/formatting/business-labels';
 

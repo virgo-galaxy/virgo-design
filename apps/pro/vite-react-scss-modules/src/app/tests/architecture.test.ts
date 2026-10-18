@@ -126,7 +126,7 @@ function layer(file: string) {
   if (path.startsWith('mock/react/')) return 'integration';
   if (path === 'layout/index.ts' || path === 'layout/AppLayout.tsx') return 'integration';
   if (path.startsWith('routes/router/')) return 'routing';
-  if (/^components\/(navbar|notification)\//.test(path)) return 'applicationComponents';
+  if (/^components\/layout\/(navbar|notification)\//.test(path)) return 'applicationComponents';
   if (path === 'store/index.ts' || /^store\/(bootstrap|session)\//.test(path)) return 'integration';
   return path.includes('/') ? path.split('/')[0]! : 'entry';
 }
@@ -491,5 +491,5 @@ it('keeps reusable layout components free of business providers and API clients'
   }
 
   for (const component of ['navbar', 'sidebar', 'footer', 'settings'])
-    visit(join(root, 'components', component, 'index.ts'));
+    visit(join(root, 'components/layout', component, 'index.ts'));
 });

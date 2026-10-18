@@ -2,7 +2,7 @@ import { Chart } from '@virgo-design/charts';
 import { useTranslation } from 'react-i18next';
 
 import type { ProjectDeliveryDayDto } from '@/api/analytics/types';
-import { Panel } from '@/components/panel';
+import { Panel } from '@/components/display/panel';
 import { useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/formatting/business-labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';

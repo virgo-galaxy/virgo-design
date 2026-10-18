@@ -7,7 +7,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, expect, it } from 'vitest';
 
 import { getDeliveryTrend } from '@/api/analytics';
 import { login } from '@/api/auth';
-import { useNotificationInbox } from '@/components/notification/hooks/use-notification-inbox';
+import { useNotificationInbox } from '@/components/layout/notification/hooks/use-notification-inbox';
 import { CatalogBoundary, CatalogProvider } from '@/features/catalog';
 import { ProfileIdentityProvider, useProfileIdentityResource } from '@/features/profile';
 import { useTaskDependentQuery, useTaskOperations, useTaskQuery } from '@/features/tasks';

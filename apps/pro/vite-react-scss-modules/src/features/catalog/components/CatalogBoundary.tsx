@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { RemoteState } from '@/components/remote-state';
+import { RemoteState } from '@/components/feedback/remote-state';
 
 import { useCatalogResource } from '../context/resource';
 

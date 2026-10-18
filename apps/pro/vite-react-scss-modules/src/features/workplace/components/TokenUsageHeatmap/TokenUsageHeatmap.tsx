@@ -11,7 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import type { TokenUsageReportDto } from '@/api/analytics/types';
-import { ResourceContent } from '@/components/resource-content';
+import { ResourceContent } from '@/components/feedback/resource-content';
 
 import { useTokenUsageResource } from '../../data/token-usage-context';
 import {

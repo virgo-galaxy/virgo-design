@@ -2,7 +2,7 @@ import { LanguageIcon } from '@virgo-design/icons';
 import { Dropdown } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
-import { MenuControl } from '@/components/menu-control';
+import { MenuControl } from '@/components/controls/menu-control';
 import { setAppLocalePreference, useAppLocalePreference } from '@/i18n';
 
 export function LanguageControl() {

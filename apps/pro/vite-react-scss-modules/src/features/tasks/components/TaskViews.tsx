@@ -8,8 +8,8 @@ import calendarClockArtwork from '@/assets/illustrations/calendar-clock.svg';
 import documentStackArtwork from '@/assets/illustrations/document-stack.svg';
 import playCircleArtwork from '@/assets/illustrations/play-circle.svg';
 import shieldCheckArtwork from '@/assets/illustrations/shield-check.svg';
-import { RemoteState } from '@/components/remote-state';
-import { WorkOverview } from '@/components/work-overview';
+import { WorkOverview } from '@/components/display/work-overview';
+import { RemoteState } from '@/components/feedback/remote-state';
 import { routePath, routeWithQuery } from '@/routes';
 
 import { useTaskDependentQuery } from '../hooks/use-task-dependent-query';

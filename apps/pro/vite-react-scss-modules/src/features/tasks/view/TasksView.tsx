@@ -4,8 +4,8 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { MutationFeedback } from '@/components/mutation-feedback';
-import { RemoteState } from '@/components/remote-state';
+import { MutationFeedback } from '@/components/feedback/mutation-feedback';
+import { RemoteState } from '@/components/feedback/remote-state';
 import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
 import { useMutation } from '@/hooks/async/use-mutation';

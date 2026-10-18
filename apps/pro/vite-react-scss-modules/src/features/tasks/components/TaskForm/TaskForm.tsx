@@ -3,7 +3,7 @@ import { type FormEvent, useEffect, useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBlocker } from 'react-router';
 
-import { MutationFeedback } from '@/components/mutation-feedback';
+import { MutationFeedback } from '@/components/feedback/mutation-feedback';
 import { projectName, useTaskCatalog } from '@/features/catalog';
 import { useMutation } from '@/hooks/async/use-mutation';
 import { businessLabel } from '@/lib/formatting/business-labels';

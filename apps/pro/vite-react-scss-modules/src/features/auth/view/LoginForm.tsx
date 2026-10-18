@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 
 import { login } from '@/api/auth';
 import type { LoginDto, LoginRequest } from '@/api/auth/types';
-import { LanguageControl } from '@/components/language-control';
+import { LanguageControl } from '@/components/controls/language-control';
 import { isHttpError } from '@/lib/http';
 import { useAppPreferences } from '@/preferences';
 import { proRouteConfig, routePath } from '@/routes';

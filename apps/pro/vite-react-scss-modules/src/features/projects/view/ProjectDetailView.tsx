@@ -2,11 +2,10 @@ import { Empty, Progress, Surface, Tag, Timeline } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
 
-import { FilterSelect } from '@/components/filter-select';
-import { MetricStrip } from '@/components/metric-strip';
-import { PageHeading } from '@/components/page-heading';
-import { Panel } from '@/components/panel';
-import { ResourceContent } from '@/components/resource-content';
+import { FilterSelect } from '@/components/controls/filter-select';
+import { PageHeading } from '@/components/display/page-heading';
+import { Panel } from '@/components/display/panel';
+import { ResourceContent } from '@/components/feedback/resource-content';
 import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, moduleFilterKey, Person, useTaskCatalog } from '@/features/catalog';
 import {
@@ -20,6 +19,7 @@ import { businessLabel } from '@/lib/formatting/business-labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { routePath } from '@/routes';
 
+import { MetricStrip } from '../components/MetricStrip/MetricStrip';
 import { useProjectResources } from '../hooks/use-project-resources';
 import {
   formatProjectDate,

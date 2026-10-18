@@ -3,12 +3,12 @@ import { type CSSProperties, type ReactNode, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation } from 'react-router';
 
-import { AppFooter, FooterBrand } from '@/components/footer';
-import { Navbar } from '@/components/navbar';
-import { AccountMenu } from '@/components/navbar/components/account-menu/AccountMenu';
-import { NotificationControl } from '@/components/notification';
-import { SettingsDrawer, SettingsTrigger, useSettingsDrawer } from '@/components/settings';
-import { AppSidebar, useSidebar } from '@/components/sidebar';
+import { AppFooter, FooterBrand } from '@/components/layout/footer';
+import { Navbar } from '@/components/layout/navbar';
+import { AccountMenu } from '@/components/layout/navbar/components/account-menu/AccountMenu';
+import { NotificationControl } from '@/components/layout/notification';
+import { SettingsDrawer, SettingsTrigger, useSettingsDrawer } from '@/components/layout/settings';
+import { AppSidebar, useSidebar } from '@/components/layout/sidebar';
 import { AiWorkspace } from '@/features/ai-workspace';
 import { useAgentMode } from '@/features/ai-workspace/store';
 import { useCurrentUser } from '@/features/auth';

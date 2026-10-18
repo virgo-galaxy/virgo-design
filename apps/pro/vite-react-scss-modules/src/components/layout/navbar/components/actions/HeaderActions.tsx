@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { LanguageControl } from '@/components/language-control';
+import { LanguageControl } from '@/components/controls/language-control';
 
 import { AppearanceControl } from './appearance-control/AppearanceControl';
 import { ThemeStyleControl } from './theme-style-control/ThemeStyleControl';
