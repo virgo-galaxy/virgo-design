@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { getSession, logout, resetDemo } from '@/api/auth';
+import { getSession, logout } from '@/api/auth';
 import type { LoginDto, SessionDto } from '@/api/auth/types';
-import { useRemoteData } from '@/hooks/use-remote-data';
+import { useRemoteData } from '@/hooks/async/use-remote-data';
 import {
   clearAuthSession,
   expireAuthSession,
@@ -13,18 +13,17 @@ import {
 export function useSessionState({
   onSessionEnd,
   onSessionStart,
-  onDemoReset,
 }: {
   onSessionEnd: () => void;
   onSessionStart: () => void;
-  onDemoReset: () => Promise<unknown>;
 }) {
   const resource = useRemoteData(getSession);
   const [session, setSession] = useState<SessionDto | null>(null);
   const [expired, setExpired] = useState(false);
   const current = session ?? resource.data;
 
-  const finish = () => {
+  const endSession = () => {
+    setExpired(false);
     clearAuthSession();
     onSessionEnd();
     setSession({ authenticated: false });
@@ -75,17 +74,8 @@ export function useSessionState({
     async signOut() {
       await logout();
 
-      setExpired(false);
-      finish();
+      endSession();
     },
-    async resetDemo() {
-      const next = await resetDemo();
-      if (next.authenticated) throw new Error('Demo reset did not end the session');
-
-      await onDemoReset();
-
-      setExpired(false);
-      finish();
-    },
+    endSession,
   };
 }

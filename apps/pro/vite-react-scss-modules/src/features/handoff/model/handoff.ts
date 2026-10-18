@@ -9,9 +9,9 @@ import type {
 export type HandoffDraft = HandoffRequest;
 
 export const initialHandoff: HandoffDraft = {
-  title: 'October release handoff',
+  title: 'Release handoff',
   projectId: 'online-store',
-  date: '2026-10-06',
+  date: '',
   time: '10:00',
   taskIds: [],
   audience: 'team',

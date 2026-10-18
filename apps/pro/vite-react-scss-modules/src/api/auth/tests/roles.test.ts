@@ -4,7 +4,12 @@ import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
 import { getOwnerCapacity, getProjectDelivery } from '@/api/analytics';
-import { updateProfileIdentity, updateProfilePreferences } from '@/api/profile';
+import {
+  getProfileIdentity,
+  getProfilePreferences,
+  updateProfileIdentity,
+  updateProfilePreferences,
+} from '@/api/profile';
 import { getProjects, getProjectSummaries } from '@/api/projects';
 import {
   createTask,
@@ -18,12 +23,12 @@ import {
 import { prepareHandoff } from '@/api/workflows';
 import { getWorkspaceSummary } from '@/api/workspace';
 import { clearAuthSession, getAccessToken, sessionExpiredEvent } from '@/lib/auth/session';
+import { getDemoAccounts, resetDemo } from '@/mock/client';
 import { resetDemoState, unloadDemoState } from '@/mock/data/store';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { handlers } from '@/mock/handlers';
-import { readProfile } from '@/test/profile';
 
-import { getDemoAccounts, getSession, login, logout, resetDemo } from '..';
+import { getSession, login, logout } from '..';
 
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
@@ -93,7 +98,7 @@ describe('Bearer accounts and project permissions', () => {
     const expected = initialTaskState.tasks.filter((task) => task.assignee === 'hana');
     expect(tasks.total).toBe(expected.length);
     expect(tasks.items.every((task) => task.assignee === 'hana')).toBe(true);
-    expect((await readProfile()).name).toBe('Maya Singh');
+    expect((await getProfileIdentity()).name).toBe('Maya Singh');
     expect((await getWorkspaceSummary()).openTasks).toBe(
       expected.filter((task) => task.status !== 'done').length,
     );
@@ -179,9 +184,9 @@ describe('Bearer accounts and project permissions', () => {
   });
   it('rejects an expired token, emits a sign-in event and permits a new login', async () => {
     const session = await signIn('hana');
-    const tokens = JSON.parse(sessionStorage.getItem('virgo-pro.mock-tokens.v1')!);
+    const tokens = JSON.parse(sessionStorage.getItem('virgo-pro.mock-tokens')!);
     tokens[session.accessToken].expiresAt = '2000-01-01T00:00:00Z';
-    sessionStorage.setItem('virgo-pro.mock-tokens.v1', JSON.stringify(tokens));
+    sessionStorage.setItem('virgo-pro.mock-tokens', JSON.stringify(tokens));
     let expired = false;
     const listener = () => {
       expired = true;
@@ -200,7 +205,7 @@ describe('Bearer accounts and project permissions', () => {
     await updateProfilePreferences({ digest: false });
     await logout();
     await signIn('leo');
-    expect((await readProfile()).name).toBe('Leo Martin');
+    expect((await getProfileIdentity()).name).toBe('Leo Martin');
     await updateProfileIdentity({ bio: 'Project coordination' });
     await expect(updateProfilePreferences({ focusProject: 'online-store' })).rejects.toMatchObject({
       status: 422,
@@ -208,20 +213,20 @@ describe('Bearer accounts and project permissions', () => {
     await logout();
     unloadDemoState();
     await signIn('hana');
-    expect(await readProfile()).toMatchObject({
+    expect(await getProfileIdentity()).toMatchObject({
       name: 'Hana Studio',
       displayName: 'Hana Studio',
       bio: 'Frontend delivery',
-      digest: false,
     });
+    expect((await getProfilePreferences()).digest).toBe(false);
     await signIn('admin');
-    expect((await readProfile()).name).toBe('Administrator');
+    expect((await getProfileIdentity()).name).toBe('Administrator');
   });
   it('reports an invalid saved session as expired during bootstrap', async () => {
     const session = await signIn('hana');
-    const tokens = JSON.parse(sessionStorage.getItem('virgo-pro.mock-tokens.v1')!);
+    const tokens = JSON.parse(sessionStorage.getItem('virgo-pro.mock-tokens')!);
     delete tokens[session.accessToken];
-    sessionStorage.setItem('virgo-pro.mock-tokens.v1', JSON.stringify(tokens));
+    sessionStorage.setItem('virgo-pro.mock-tokens', JSON.stringify(tokens));
     let expired = 0;
     const listener = () => expired++;
     window.addEventListener(sessionExpiredEvent, listener);

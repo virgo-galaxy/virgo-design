@@ -1,6 +1,6 @@
 import { hydrateTheme, resolveTheme } from '@virgo-design/themes';
 
-import { demoResetCompleteEvent, demoResetEvent } from '@/lib/demo/reset';
+import { storageResetCompleteEvent, storageResetEvent } from '@/lib/storage';
 import { localStorageAccess } from '@/lib/storage';
 
 import {
@@ -140,8 +140,8 @@ export function startPreferencesSync(store: PreferencesStore) {
   media?.addEventListener('change', syncSystemAppearance);
   window.addEventListener('storage', syncStorage);
   window.addEventListener('pagehide', flush);
-  window.addEventListener(demoResetEvent, beginReset);
-  window.addEventListener(demoResetCompleteEvent, completeReset);
+  window.addEventListener(storageResetEvent, beginReset);
+  window.addEventListener(storageResetCompleteEvent, completeReset);
 
   return () => {
     cancelSave();
@@ -150,7 +150,7 @@ export function startPreferencesSync(store: PreferencesStore) {
     media?.removeEventListener('change', syncSystemAppearance);
     window.removeEventListener('storage', syncStorage);
     window.removeEventListener('pagehide', flush);
-    window.removeEventListener(demoResetEvent, beginReset);
-    window.removeEventListener(demoResetCompleteEvent, completeReset);
+    window.removeEventListener(storageResetEvent, beginReset);
+    window.removeEventListener(storageResetCompleteEvent, completeReset);
   };
 }

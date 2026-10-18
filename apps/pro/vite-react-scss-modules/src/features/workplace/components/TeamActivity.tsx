@@ -6,7 +6,7 @@ import type { ActivityDto } from '@/api/analytics/types';
 import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
 import { useTaskDependentQuery } from '@/features/tasks';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 
 import styles from '../styles/workplace.module.scss';
 

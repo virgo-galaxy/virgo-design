@@ -16,9 +16,9 @@ import {
   projectsEnUS,
   projectsZhCN,
 } from '@/features/projects/locales';
-import { settingsEnUS, settingsZhCN } from '@/features/settings/locales';
 import { tasksEnUS, tasksZhCN } from '@/features/tasks/locales';
 import { workplaceEnUS, workplaceZhCN } from '@/features/workplace/locales';
+import { settingsEnUS, settingsZhCN } from '@/preferences/locales';
 
 import type { LocaleOf } from '../model/locale-types';
 import { appEnUS } from './app/en-US';

@@ -43,11 +43,10 @@ import {
   taskStatusLabelNames,
   useTaskDependentQuery,
 } from '@/features/tasks';
-import { useMutation } from '@/hooks/use-mutation';
+import { useMutation } from '@/hooks/async/use-mutation';
 import { canManageProject, isAdmin } from '@/lib/auth/permissions';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 import { routePath } from '@/routes';
-import shared from '@/styles/product-layout.module.scss';
 
 import { useHandoffSession } from '../hooks/use-handoff-session';
 import {
@@ -58,7 +57,9 @@ import {
   validateHandoff,
   type WorkflowReceipt,
 } from '../model/handoff';
+
 import styles from './ProjectHandoffView.module.scss';
+import shared from '@/styles/product-layout.module.scss';
 
 function ProjectHandoffContent({
   draft,

@@ -7,7 +7,7 @@ import type { UserDetailsDto } from '@/api/users/types';
 import { UserGenderIcon } from '@/components/user-gender-icon/UserGenderIcon';
 import { projectName, useTaskCatalog } from '@/features/catalog';
 import { userDetailsCache } from '@/features/users';
-import { businessLabel, formatWorkLocation } from '@/lib/demo/labels';
+import { businessLabel, formatWorkLocation } from '@/lib/formatting/business-labels';
 
 import styles from './TaskAssigneeCard.module.scss';
 

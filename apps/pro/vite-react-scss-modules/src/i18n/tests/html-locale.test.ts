@@ -11,7 +11,7 @@ it.each([null, 'en-US'] as const)(
   async (saved) => {
     window.localStorage.clear();
     document.documentElement.lang = 'zh-CN';
-    if (saved) window.localStorage.setItem('virgo-pro:locale:v1', saved);
+    if (saved) window.localStorage.setItem('virgo-pro:locale', saved);
     vi.resetModules();
     const runtime = await import('../runtime/locale');
     await runtime.initializeI18n({

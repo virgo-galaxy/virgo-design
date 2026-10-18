@@ -6,7 +6,7 @@ export type RouteAccess = 'session' | 'manage' | 'admin';
 export type ProContentLayout = 'flow' | 'fill';
 
 interface ProRouteMeta {
-  labelKey: ParseKeys;
+  labelKey: Extract<ParseKeys, `app.${string}`>;
   icon?: ProRouteIcon;
   menu?: boolean;
   breadcrumb?: boolean;
@@ -71,33 +71,33 @@ export const proRouteConfig = {
         },
         {
           key: 'work.tasks.new',
-          labelKey: 'tasks.newTask',
+          labelKey: 'app.newTask',
           activeMenu: 'work.tasks',
           access: 'manage',
           menu: false,
         },
         {
           key: 'work.tasks.[id]',
-          labelKey: 'tasks.taskDetails',
+          labelKey: 'app.taskDetails',
           activeMenu: 'work.tasks',
           menu: false,
         },
         {
           key: 'work.tasks.[id].edit',
-          labelKey: 'tasks.editTask',
+          labelKey: 'app.editTask',
           activeMenu: 'work.tasks',
           access: 'manage',
           menu: false,
         },
         {
           key: 'work.projects.[projectId]',
-          labelKey: 'tasks.workspace.projectDetails',
+          labelKey: 'app.projectDetails',
           activeMenu: 'work.projects',
           menu: false,
         },
         {
           key: 'work.projects.[projectId].handoff',
-          labelKey: 'tasks.workspace.handoff',
+          labelKey: 'app.prepareHandoff',
           activeMenu: 'work.projects',
           access: 'manage',
           menu: false,

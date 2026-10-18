@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 import type { ProjectDeliveryDayDto } from '@/api/analytics/types';
 import { Panel } from '@/components/panel/Panel';
 import { useTaskCatalog } from '@/features/catalog';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 
 import { deliveryColors } from '../presentation/chart-colors';
+
 import styles from '../styles/analytics.module.scss';
 
 export function ProjectDeliveryPanel({

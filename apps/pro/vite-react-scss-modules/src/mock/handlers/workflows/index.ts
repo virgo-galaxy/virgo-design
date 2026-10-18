@@ -8,7 +8,7 @@ import { isRecord } from '@/lib/validation/is-record';
 import { forbidden } from '../../auth/access';
 import { requestUser } from '../../auth/session';
 import { getDemoState, updateDemoState } from '../../data/store';
-import { projects } from '../../fixtures/projects';
+import { createProjects } from '../../fixtures/projects';
 import { endpoint, failure, success } from '../../http/response';
 
 export const workflowsHandlers = [
@@ -48,7 +48,7 @@ export const workflowsHandlers = [
       !body.title.trim() ||
       body.title.trim().length > 100 ||
       typeof body.projectId !== 'string' ||
-      !projects.some((project) => project.id === body.projectId) ||
+      !createProjects().some((project) => project.id === body.projectId) ||
       typeof body.date !== 'string' ||
       !/^\d{4}-\d{2}-\d{2}$/.test(body.date) ||
       typeof body.time !== 'string' ||
@@ -70,7 +70,7 @@ export const workflowsHandlers = [
 
     const draft = body as unknown as HandoffRequest;
     const tasks = getDemoState().tasks;
-    const project = projects.find((p) => p.id === draft.projectId)!;
+    const project = createProjects().find((p) => p.id === draft.projectId)!;
     const date = new Date(`${draft.date}T00:00:00Z`);
 
     if (

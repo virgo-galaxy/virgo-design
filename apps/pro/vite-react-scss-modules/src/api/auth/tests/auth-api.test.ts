@@ -3,12 +3,13 @@ import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { API_ERROR_CODES } from '@/api/gateway/constants';
+import { getProfileIdentity, getProfilePreferences } from '@/api/profile';
+import { enterDemoSession } from '@/mock/client';
 import { handlers } from '@/mock/handlers';
 import { resetSession } from '@/mock/handlers/auth';
 import { resetProfile } from '@/mock/handlers/profile';
-import { readProfile } from '@/test/profile';
 
-import { enterDemoSession, getSession, logout } from '..';
+import { getSession, logout } from '..';
 
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
@@ -41,15 +42,19 @@ describe('mock account session', () => {
 
   it('ends the session through HTTP, rejects protected requests and restores the demo session', async () => {
     expect(await getSession()).toMatchObject({ authenticated: true, user: { id: 'admin' } });
-    expect((await readProfile()).name).toBe('Administrator');
+    expect((await getProfileIdentity()).name).toBe('Administrator');
     expect(await logout()).toEqual({ authenticated: false });
     expect(await getSession()).toEqual({ authenticated: false });
-    await expect(readProfile()).rejects.toMatchObject({
+    await expect(getProfileIdentity()).rejects.toMatchObject({
+      status: 401,
+      code: API_ERROR_CODES.AUTHENTICATION_REQUIRED,
+    });
+    await expect(getProfilePreferences()).rejects.toMatchObject({
       status: 401,
       code: API_ERROR_CODES.AUTHENTICATION_REQUIRED,
     });
     expect(await logout()).toEqual({ authenticated: false });
     expect(await enterDemoSession()).toMatchObject({ authenticated: true, user: { id: 'admin' } });
-    expect((await readProfile()).name).toBe('Administrator');
+    expect((await getProfileIdentity()).name).toBe('Administrator');
   });
 });

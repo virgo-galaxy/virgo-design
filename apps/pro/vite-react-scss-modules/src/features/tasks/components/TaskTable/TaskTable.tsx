@@ -17,7 +17,7 @@ import { CopyableText } from '@/components/copyable-text/CopyableText';
 import { useCurrentUser } from '@/features/auth';
 import { moduleFilterKey, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
 import { canCreateTask, canEditTask } from '@/lib/auth/permissions';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 
 import type { TaskSort } from '../../model/sort';
@@ -38,6 +38,7 @@ import {
   taskStatusLabelNames,
 } from '../../presentation/task-presentation';
 import { TaskAssigneeCard } from '../TaskAssigneeCard/TaskAssigneeCard';
+
 import styles from './TaskTable.module.scss';
 
 const densityByControlSize = {

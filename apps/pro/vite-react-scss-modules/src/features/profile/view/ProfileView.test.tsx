@@ -1,18 +1,22 @@
 // @vitest-environment jsdom
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { setupServer } from 'msw/node';
-import { type ReactNode, useState } from 'react';
+import type { ReactNode } from 'react';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 import { afterAll, afterEach, beforeAll, beforeEach, expect, it } from 'vitest';
 
-import { updateProfileIdentity, updateProfilePreferences } from '@/api/profile';
-import { ProResourcesProvider } from '@/app/composition/providers/ProResourcesProvider';
+import {
+  getProfileIdentity,
+  getProfilePreferences,
+  updateProfileIdentity,
+  updateProfilePreferences,
+} from '@/api/profile';
+import { BusinessDataProvider } from '@/layout/providers/BusinessDataProvider';
 import { handlers } from '@/mock/handlers';
 import { resetProfile } from '@/mock/handlers/profile';
-import { readProfile } from '@/test/profile';
+import { useInvalidateResources } from '@/store/resources';
 import { TestSessionProvider } from '@/test/TestSessionProvider';
 
-import { ProfileRevisionContext } from '../context/resource';
 import { ProfileView } from './ProfileView';
 
 const server = setupServer(...handlers);
@@ -22,12 +26,12 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 function RefreshProfile({ children }: { children: ReactNode }) {
-  const [revision, setRevision] = useState(0);
+  const invalidate = useInvalidateResources();
   return (
-    <ProfileRevisionContext value={revision}>
-      <button onClick={() => setRevision((value) => value + 1)}>Refresh profile</button>
+    <>
+      <button onClick={() => invalidate({ profile: true })}>Refresh profile</button>
       {children}
-    </ProfileRevisionContext>
+    </>
   );
 }
 function mount() {
@@ -36,11 +40,11 @@ function mount() {
       path: '*',
       element: (
         <TestSessionProvider>
-          <ProResourcesProvider>
+          <BusinessDataProvider>
             <RefreshProfile>
               <ProfileView />
             </RefreshProfile>
-          </ProResourcesProvider>
+          </BusinessDataProvider>
         </TestSessionProvider>
       ),
     },
@@ -61,8 +65,10 @@ it('saves identity without overwriting preferences changed after the editor open
     fireEvent.change(name, { target: { value: 'Updated administrator' } });
     fireEvent.click(screen.getByRole('button', { name: 'Save profile' }));
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
-    expect(await readProfile()).toMatchObject({
+    expect(await getProfileIdentity()).toMatchObject({
       name: 'Updated administrator',
+    });
+    expect(await getProfilePreferences()).toMatchObject({
       digest: false,
       reviewReminders: false,
     });
@@ -90,9 +96,11 @@ it('keeps edited preference fields while refreshing untouched fields and saves o
       fireEvent.click(screen.getByRole('button', { name: 'Save preferences' })),
     );
     await screen.findByText('Personal preferences saved.');
-    expect(await readProfile()).toMatchObject({
+    expect(await getProfilePreferences()).toMatchObject({
       digest: false,
       reviewReminders: false,
+    });
+    expect(await getProfileIdentity()).toMatchObject({
       headline: 'Updated in another view',
     });
   } finally {

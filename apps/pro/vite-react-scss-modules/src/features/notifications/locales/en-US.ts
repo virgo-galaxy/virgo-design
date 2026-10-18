@@ -1,5 +1,7 @@
 export const notificationsEnUS = {
   inbox: {
+    read: 'Read',
+    unread: 'Unread',
     readAll: 'Mark all read',
     empty: 'You are all caught up.',
     welcome:

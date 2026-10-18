@@ -7,9 +7,8 @@ import { FilterSelect } from '@/components/filter-select/FilterSelect';
 import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedback';
 import { Panel } from '@/components/panel/Panel';
 import { useTaskCatalog } from '@/features/catalog';
-import { useMutation } from '@/hooks/use-mutation';
-import { businessLabel } from '@/lib/demo/labels';
-import shared from '@/styles/product-layout.module.scss';
+import { useMutation } from '@/hooks/async/use-mutation';
+import { businessLabel } from '@/lib/formatting/business-labels';
 
 import type { profileEnUS } from '../locales/en-US';
 import {
@@ -17,7 +16,9 @@ import {
   profilePreferences,
   validateProfilePreferences,
 } from '../model/profile';
+
 import styles from './ProfilePreferencesForm.module.scss';
+import shared from '@/styles/product-layout.module.scss';
 
 export function ProfilePreferencesForm({
   profile,

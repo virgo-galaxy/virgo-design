@@ -18,9 +18,8 @@ import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, Person, useTaskCatalog } from '@/features/catalog';
 import { useTaskDependentQuery } from '@/features/tasks';
 import { canManageProject } from '@/lib/auth/permissions';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 import { routePath, routeWithQuery } from '@/routes';
-import shared from '@/styles/product-layout.module.scss';
 
 import { filterProjects, type Project } from '../model/project';
 import {
@@ -29,7 +28,9 @@ import {
   projectHealthLabelNames,
 } from '../presentation/project-presentation';
 import { projectDetailPath, projectHandoffPath, projectTasksPath } from '../routes/navigation';
+
 import styles from './ProjectsView.module.scss';
+import shared from '@/styles/product-layout.module.scss';
 
 function ProjectCard({
   project,

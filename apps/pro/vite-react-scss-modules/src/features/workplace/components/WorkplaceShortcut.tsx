@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import type { shortcuts } from '../config/shortcuts';
+
 import styles from '../styles/workplace.module.scss';
 
 const shortcutIcons = { tasks: CircleCheckIcon, projects: LayersIcon, analytics: GaugeIcon };

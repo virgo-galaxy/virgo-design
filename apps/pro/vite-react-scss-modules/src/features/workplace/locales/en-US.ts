@@ -123,7 +123,7 @@ export const workplaceEnUS = {
     completed: 'Completed {{title}}',
   },
   announcement: {
-    title: 'Release checkpoint · October 6',
+    title: 'Release checkpoint',
     body: 'Attach acceptance notes and clear review requests before the team checkpoint.',
   },
   imageAlts: {

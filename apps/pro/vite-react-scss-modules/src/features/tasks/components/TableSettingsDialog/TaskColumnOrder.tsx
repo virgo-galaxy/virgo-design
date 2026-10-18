@@ -11,6 +11,7 @@ import {
   type TaskTableSettings,
 } from '../../model/table-settings';
 import { taskColumnLabelName } from '../../presentation/column-label';
+
 import styles from './TableSettingsDialog.module.scss';
 
 export function TaskColumnOrder({

@@ -1,14 +1,11 @@
+import { RouterProvider, type RouterProviderProps } from 'react-router';
+
 import { LocaleProvider } from '@/i18n/react';
 
-import { AppBootstrap } from '../bootstrap/AppBootstrap';
-import { RouterApp } from '../router/RouterApp';
-
-export function App() {
+export function App({ router }: { router: RouterProviderProps['router'] }) {
   return (
     <LocaleProvider>
-      <AppBootstrap>
-        <RouterApp />
-      </AppBootstrap>
+      <RouterProvider router={router} />
     </LocaleProvider>
   );
 }

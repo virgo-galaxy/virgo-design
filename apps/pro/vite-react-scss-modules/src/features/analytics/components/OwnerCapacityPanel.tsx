@@ -7,6 +7,7 @@ import { Panel } from '@/components/panel/Panel';
 import { Person, useTaskCatalog } from '@/features/catalog';
 
 import { chartColors } from '../presentation/chart-colors';
+
 import styles from '../styles/analytics.module.scss';
 
 const ownerPageSize = 5;

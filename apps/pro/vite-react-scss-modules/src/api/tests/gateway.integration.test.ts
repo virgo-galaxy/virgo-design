@@ -40,8 +40,6 @@ describe('real Gateway mode', () => {
       vi.stubEnv('VITE_API_BASE_URL', `http://127.0.0.1:${address.port}/api/v1`);
       vi.stubEnv('VITE_API_MOCKING', 'false');
       vi.resetModules();
-      const { enableMocking } = await import('@/mock');
-      await enableMocking();
       const { getProfileIdentity } = await import('@/api/profile');
       expect((await getProfileIdentity()).name).toBe('Gateway profile');
       expect(received).toBe('/api/v1/profile/identity');

@@ -57,7 +57,10 @@ export default defineConfig({
   test: {
     name: 'pro',
     environment: 'node',
-    setupFiles: [fileURLToPath(new URL('./src/test/setup.ts', import.meta.url))],
+    setupFiles: [
+      fileURLToPath(new URL('./src/test/setup.ts', import.meta.url)),
+      fileURLToPath(new URL('./src/mock/tests/setup.ts', import.meta.url)),
+    ],
     include: ['src/**/*.test.{ts,tsx}'],
   },
 });

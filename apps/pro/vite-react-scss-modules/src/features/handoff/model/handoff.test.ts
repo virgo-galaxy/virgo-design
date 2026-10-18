@@ -1,15 +1,17 @@
 import { describe, expect, it } from 'vitest';
 
+import { demoDate } from '@/mock/fixtures/dates';
 import { projects } from '@/mock/fixtures/projects';
-import { initialTaskState } from '@/mock/fixtures/tasks';
+import { initialTaskState, taskReferenceDate } from '@/mock/fixtures/tasks';
 import { sampleError } from '@/mock/fixtures/workflows';
 
 import { handoffFromReceipt, initialHandoff } from './handoff';
 import { reconcileScope, scopeGroups, scopeTreeValues, validateHandoff } from './handoff';
 
 const tasks = initialTaskState.tasks;
+const initializedHandoff = { ...initialHandoff, date: taskReferenceDate };
 const completeHandoff = {
-  ...initialHandoff,
+  ...initializedHandoff,
   title: '  Workspace acceptance checkpoint  ',
   taskIds: ['1bbcd880-f5e5', 'df4de51e-ea0d'],
   notes: '  Check navigation and export permissions.  ',
@@ -18,15 +20,15 @@ const completeHandoff = {
 
 describe('handoff scope and stage validation', () => {
   it('validates only the scope needed to advance, then requires final confirmation', () => {
-    expect(validateHandoff(initialHandoff, tasks, 0, projects)).toEqual({});
-    expect(validateHandoff(initialHandoff, tasks, 1, projects)).toHaveProperty('taskIds');
+    expect(validateHandoff(initializedHandoff, tasks, 0, projects)).toEqual({});
+    expect(validateHandoff(initializedHandoff, tasks, 1, projects)).toHaveProperty('taskIds');
     expect(
       validateHandoff({ ...completeHandoff, confirmed: false }, tasks, 2, projects),
     ).toHaveProperty('confirmed');
     expect(validateHandoff(completeHandoff, tasks, 2, projects)).toEqual({});
   });
-  it.each(['2025-06-01', '2026-02-30', 'not-a-date'])(
-    'rejects invalid or past handoff date %s',
+  it.each([demoDate(-1, projects[0]!.start), '2026-02-30', 'not-a-date'])(
+    'rejects invalid dates and dates before the project started: %s',
     (date) => {
       expect(validateHandoff({ ...completeHandoff, date }, tasks, 2, projects)).toHaveProperty(
         'date',

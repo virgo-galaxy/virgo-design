@@ -6,6 +6,7 @@ import { Panel } from '@/components/panel/Panel';
 import { taskStatuses, taskStatusLabelNames } from '@/features/tasks';
 
 import { chartColors } from '../presentation/chart-colors';
+
 import styles from '../styles/analytics.module.scss';
 
 export function TaskDistributionPanel({ summary }: { summary: TaskStatusSummaryDto }) {

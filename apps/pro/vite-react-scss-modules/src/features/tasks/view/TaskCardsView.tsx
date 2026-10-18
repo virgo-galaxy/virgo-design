@@ -11,7 +11,7 @@ import {
   projectName,
   useTaskCatalog,
 } from '@/features/catalog';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { routePath, routeWithQuery } from '@/routes';
 
@@ -26,6 +26,7 @@ import {
   taskStatusLabelNames,
 } from '../presentation/task-presentation';
 import { taskDetailsPath } from '../routes/navigation';
+
 import styles from '../styles/TaskCards.module.scss';
 
 function TaskCardsContent() {

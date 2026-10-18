@@ -20,6 +20,7 @@ import { WorkspaceCarousel } from '../components/WorkspaceCarousel';
 import { WorkspaceMetrics } from '../components/WorkspaceMetrics';
 import { shortcuts } from '../config/shortcuts';
 import { TokenUsageDataProvider } from '../data/token-usage-data';
+
 import styles from '../styles/workplace.module.scss';
 
 const widgetIds = ['distribution', 'shortcuts', 'inspiration', 'activity'] as const;

@@ -10,10 +10,11 @@ import {
   type TaskTableSettings,
 } from '../../model/table-settings';
 import type { Task } from '../../model/task';
-import styles from './TableSettingsDialog.module.scss';
 import { AlignmentChoices, Choice, NumberSetting, Toggle } from './TableSettingsFields';
 import { TaskColumnEditor } from './TaskColumnEditor';
 import { TaskColumnOrder } from './TaskColumnOrder';
+
+import styles from './TableSettingsDialog.module.scss';
 
 export function TableSettingsDialog({
   settings,

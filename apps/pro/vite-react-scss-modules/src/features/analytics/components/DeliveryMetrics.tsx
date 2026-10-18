@@ -7,6 +7,7 @@ import type { TrendPointDto } from '@/api/analytics/types';
 
 import { deliveryAnalysis } from '../model/delivery-analysis';
 import { chartColors } from '../presentation/chart-colors';
+
 import styles from '../styles/analytics.module.scss';
 
 const percent = (value: number) => `${Math.round(value)}%`;

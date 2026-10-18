@@ -8,7 +8,7 @@ import type { TaskDto } from '@/api/tasks/types';
 import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
 import { taskStatusIntent, taskStatusLabelNames, useTaskQuery } from '@/features/tasks';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { routePath } from '@/routes';
 

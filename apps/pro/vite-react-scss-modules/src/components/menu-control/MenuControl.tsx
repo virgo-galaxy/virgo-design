@@ -1,7 +1,7 @@
 import { Dropdown, Tooltip } from '@virgo-design/ui';
-import type { ReactNode } from 'react';
+import { type ReactNode, useState } from 'react';
 
-import { useMenuTooltip } from './use-menu-tooltip';
+import { useOverlayTooltip } from '@/hooks/overlay/use-overlay-tooltip';
 
 interface MenuControlProps {
   label: string;
@@ -10,18 +10,21 @@ interface MenuControlProps {
 }
 
 export function MenuControl({ label, icon, children }: MenuControlProps) {
-  const interaction = useMenuTooltip();
+  const [open, setOpen] = useState(false);
+  const tooltip = useOverlayTooltip(open);
 
   return (
     <Dropdown
       trigger="click"
-      open={interaction.menuOpen}
-      onOpenChange={interaction.onMenuOpenChange}
+      open={open}
+      onOpenChange={(next) => {
+        tooltip.suppress();
+        setOpen(next);
+      }}
     >
-      <Tooltip open={interaction.tooltipOpen} onOpenChange={interaction.onTooltipOpenChange}>
+      <Tooltip {...tooltip.tooltipProps}>
         <Tooltip.Trigger
-          onPointerEnter={interaction.onTriggerPointerEnter}
-          onBlur={interaction.onTriggerBlur}
+          {...tooltip.triggerProps}
           render={(triggerProps) => (
             <Dropdown.Trigger {...triggerProps} iconOnly variant="text" aria-label={label}>
               {icon}

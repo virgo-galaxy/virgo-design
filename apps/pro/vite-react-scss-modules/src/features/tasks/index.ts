@@ -1,7 +1,6 @@
-export * from './data/operations';
 export * from './data/queries';
-export { useTaskCommands } from './hooks/use-task-commands';
 export * from './hooks/use-task-dependent-query';
+export { useTaskOperations } from './hooks/use-task-operations';
 export * from './hooks/use-task-query';
 export * from './model/export';
 export * from './model/query-params';

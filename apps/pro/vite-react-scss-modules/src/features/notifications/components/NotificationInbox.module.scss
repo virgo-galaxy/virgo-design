@@ -50,26 +50,24 @@
   gap: 8px;
   font-size: 13px;
 }
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: transparent;
+.statusIcon {
+  display: inline-flex;
+  color: var(--vd-text-secondary);
   flex-shrink: 0;
 }
-li[data-unread] .dot {
-  background: var(--vd-brand-primary);
+li[data-unread] .statusIcon {
+  color: var(--vd-brand-primary);
 }
 .task {
   font-size: 13px;
   line-height: 1.6;
-  padding-inline-start: 14px;
+  padding-inline-start: 24px;
 }
 .meta,
 .unavailable {
   font-size: 12px;
   color: var(--vd-text-secondary);
-  padding-inline-start: 14px;
+  padding-inline-start: 24px;
 }
 .empty {
   padding: 28px 12px;

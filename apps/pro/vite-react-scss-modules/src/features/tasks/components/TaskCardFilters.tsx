@@ -5,11 +5,12 @@ import { useTranslation } from 'react-i18next';
 
 import { MultiFilterSelect } from '@/components/multi-filter-select/MultiFilterSelect';
 import { projectName, useTaskCatalog } from '@/features/catalog';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 
 import type { TaskQuery } from '../model/query-params';
 import { filterValues, taskStatuses } from '../model/task';
 import { taskStatusLabelNames } from '../presentation/task-presentation';
+
 import styles from '../styles/TaskCards.module.scss';
 
 export function TaskCardFilters({

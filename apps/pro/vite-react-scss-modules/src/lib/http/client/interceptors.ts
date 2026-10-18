@@ -8,7 +8,7 @@ export function installHttpInterceptors(client: AxiosInstance): void {
   client.interceptors.request.use((config) => {
     const token = getAccessToken();
 
-    if (token && !['/auth/login', '/auth/demo-accounts'].includes(config.url ?? ''))
+    if (token && config.url !== '/auth/login')
       config.headers.set('Authorization', `Bearer ${token}`);
 
     return config;

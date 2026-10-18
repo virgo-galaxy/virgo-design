@@ -1,7 +1,7 @@
 import type { LoginDto, SessionUser } from '@/api/auth/types';
 import { sessionStorageAccess } from '@/lib/storage';
 
-const storageKey = 'virgo-pro.auth-session.v1';
+const storageKey = 'virgo-pro.auth-session';
 export const sessionExpiredEvent = 'virgo-pro:session-expired';
 
 let memory: LoginDto | undefined;

@@ -2,7 +2,8 @@ import { createContext, useContext } from 'react';
 
 import type { ProjectDto } from '@/api/projects/types';
 import type { TaskMetadataDto } from '@/api/tasks/types';
-import { type RemoteData, useRemoteData } from '@/hooks/use-remote-data';
+import { type RemoteData, useRemoteData } from '@/hooks/async/use-remote-data';
+import { useResourceRevision } from '@/store/resources';
 
 import { loadCatalog } from '../data/load-catalog';
 
@@ -29,6 +30,7 @@ export function useTaskCatalog() {
   return resource.data;
 }
 
-export function useCatalogData(revision: number) {
+export function useCatalogData() {
+  const revision = useResourceRevision('catalog');
   return useRemoteData(loadCatalog, { revision });
 }

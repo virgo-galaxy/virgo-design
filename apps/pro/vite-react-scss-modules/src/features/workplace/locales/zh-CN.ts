@@ -124,7 +124,7 @@ export const workplaceZhCN = {
     completed: '完成了 {{title}}',
   },
   announcement: {
-    title: '发布检查点 · 10 月 6 日',
+    title: '发布检查点',
     body: '在团队检查点前补充验收说明，并处理评审请求。',
   },
   imageAlts: {

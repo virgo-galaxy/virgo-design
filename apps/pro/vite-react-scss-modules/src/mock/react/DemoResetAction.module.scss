@@ -1,0 +1,4 @@
+.dangerAction:not(:disabled) {
+  color: var(--vd-status-danger-accent);
+  border-color: var(--vd-status-danger-border);
+}

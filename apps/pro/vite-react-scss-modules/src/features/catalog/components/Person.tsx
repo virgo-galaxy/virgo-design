@@ -1,9 +1,10 @@
 import { Avatar, type AvatarSize } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 
 import { useTaskCatalog } from '../context/resource';
+
 import styles from './Person.module.scss';
 
 export function Person({ id, size = 'md' }: { id: string; size?: AvatarSize }) {

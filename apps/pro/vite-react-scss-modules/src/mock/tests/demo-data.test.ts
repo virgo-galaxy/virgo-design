@@ -2,9 +2,14 @@
 import { setupServer } from 'msw/node';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
-import { enterDemoSession, getSession, logout, resetDemo } from '@/api/auth';
+import { getSession, logout } from '@/api/auth';
 import { getNotifications, readAllNotifications } from '@/api/notifications';
-import { updateProfileIdentity, updateProfilePreferences } from '@/api/profile';
+import {
+  getProfileIdentity,
+  getProfilePreferences,
+  updateProfileIdentity,
+  updateProfilePreferences,
+} from '@/api/profile';
 import {
   createTask,
   deleteTasks,
@@ -15,10 +20,9 @@ import {
 } from '@/api/tasks';
 import { getLatestWorkflow, prepareHandoff } from '@/api/workflows';
 import { taskDraft, validateTask } from '@/features/tasks';
-import { businessLabel } from '@/lib/demo/labels';
-import { clearDemoStorage } from '@/lib/demo/reset';
-import { readProfile } from '@/test/profile';
-import { readAnalytics } from '@/test/reporting-data';
+import { businessLabel } from '@/lib/formatting/business-labels';
+import { enterDemoSession, resetDemo } from '@/mock/client';
+import { clearDemoStorage } from '@/mock/data/reset';
 
 import { demoStorageKey, getDemoState, resetDemoState, unloadDemoState } from '../data/store';
 import { initialProfile } from '../fixtures/profile';
@@ -29,6 +33,7 @@ import { initialTaskState, taskAssignees, taskProjects } from '../fixtures/tasks
 import { users } from '../fixtures/team';
 import { handlers } from '../handlers';
 import { resetSession } from '../handlers/auth';
+import { readAnalytics } from './reporting-data.test-helper';
 
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
@@ -119,7 +124,7 @@ describe('local demonstration persistence', () => {
     await enterDemoSession();
     expect(await getTask(task.id)).toEqual(finished);
     await expect(getTask(deleted.id)).rejects.toMatchObject({ status: 404 });
-    expect((await readProfile()).name).toBe('Saved Admin');
+    expect((await getProfileIdentity()).name).toBe('Saved Admin');
     expect((await getLatestWorkflow('success')).reference).toBe(receipt.reference);
     const analytics = await readAnalytics();
     const date = finished.completedAt!.slice(0, 10);
@@ -138,15 +143,15 @@ describe('local demonstration persistence', () => {
     await deleteTasks({ ids: initialTaskState.tasks.slice(0, 3).map((task) => task.id) });
     await updateProfileIdentity({ name: 'Changed' });
     await readAllNotifications();
-    localStorage.setItem('virgo-pro:settings:v1', 'custom');
-    localStorage.setItem('virgo-pro.tasks-table.v1', 'custom');
+    localStorage.setItem('virgo-pro:settings', 'custom');
+    localStorage.setItem('virgo-pro.tasks-table', 'custom');
     sessionStorage.setItem('virgo-pro.workspace.agent-mode', 'true');
     localStorage.setItem('other-app', 'keep');
     sessionStorage.setItem('other-session', 'keep');
     expect(await resetDemo()).toEqual({ authenticated: false });
     expect(localStorage.getItem(demoStorageKey)).toBeNull();
-    expect(localStorage.getItem('virgo-pro:settings:v1')).toBeNull();
-    expect(localStorage.getItem('virgo-pro.tasks-table.v1')).toBeNull();
+    expect(localStorage.getItem('virgo-pro:settings')).toBeNull();
+    expect(localStorage.getItem('virgo-pro.tasks-table')).toBeNull();
     expect(sessionStorage.getItem('virgo-pro.workspace.agent-mode')).toBeNull();
     expect(localStorage.getItem('other-app')).toBe('keep');
     expect(sessionStorage.getItem('other-session')).toBe('keep');
@@ -157,19 +162,32 @@ describe('local demonstration persistence', () => {
     expect(getDemoState().records).toEqual(initial.records);
     expect((await getNotifications()).unreadCount).toBe(unreadCount);
     expect((await getTasks()).total).toBe(initialTaskState.tasks.length);
-    expect(await readProfile()).toEqual(initialProfile);
+    const {
+      focusProject,
+      digest,
+      digestTime,
+      reviewReminders,
+      compactActivity,
+      ...expectedIdentity
+    } = initialProfile;
+
+    expect(await getProfileIdentity()).toEqual(expectedIdentity);
+    expect(await getProfilePreferences()).toEqual({
+      focusProject,
+      digest,
+      digestTime,
+      reviewReminders,
+      compactActivity,
+    });
   });
 
-  it('recovers safely from damaged, unsupported and inconsistent stored snapshots', () => {
+  it('uses demo defaults for damaged or inconsistent saved data', () => {
     for (const raw of [
       '{',
-      JSON.stringify({ version: 2, state: getDemoState() }),
+      JSON.stringify({ tasks: 'invalid' }),
       JSON.stringify({
-        version: 3,
-        state: {
-          ...getDemoState(),
-          tasks: [{ ...initialTaskState.tasks[0], module: 'wrong-project' }],
-        },
+        ...getDemoState(),
+        tasks: [{ ...initialTaskState.tasks[0], module: 'wrong-project' }],
       }),
     ]) {
       localStorage.setItem(demoStorageKey, raw);

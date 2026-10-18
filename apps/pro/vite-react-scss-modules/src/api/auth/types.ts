@@ -31,8 +31,3 @@ export interface LoginDto extends SessionDto {
   expiresAt: string;
   user: SessionUser;
 }
-
-export interface DemoAccountsDto {
-  accounts: SessionUser[];
-  password: string;
-}

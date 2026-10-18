@@ -8,10 +8,10 @@ import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedbac
 import { RemoteState } from '@/components/remote-state/RemoteState';
 import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, moduleName, projectName, useTaskCatalog } from '@/features/catalog';
-import { useMutation } from '@/hooks/use-mutation';
+import { useMutation } from '@/hooks/async/use-mutation';
 import { canCreateTask, isAdmin } from '@/lib/auth/permissions';
 import { downloadCsv } from '@/lib/browser/download';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 import { routePath, routeWithQuery } from '@/routes';
 
 import { TableSettingsDialog } from '../components/TableSettingsDialog/TableSettingsDialog';
@@ -19,8 +19,8 @@ import { TaskDeleteDialog } from '../components/TaskDeleteDialog';
 import { TaskFilters } from '../components/TaskFilters/TaskFilters';
 import { TaskTable } from '../components/TaskTable/TaskTable';
 import { TaskViews } from '../components/TaskViews';
-import { useTaskOperations } from '../data/operations';
 import { getAllTasks, taskPageView } from '../data/queries';
+import { useTaskOperations } from '../hooks/use-task-operations';
 import { useTaskQuery } from '../hooks/use-task-query';
 import { useTaskTableQuery } from '../hooks/use-task-table-query';
 import { createTasksCsv } from '../model/export';
@@ -30,6 +30,7 @@ import { filterValues, type Task } from '../model/task';
 import { taskStatusLabelNames } from '../presentation/task-presentation';
 import { taskCreatePath, taskDetailsPath, taskEditPath } from '../routes/navigation';
 import { useTaskTableSettings } from '../store';
+
 import taskActions from '../styles/TaskActions.module.scss';
 import styles from './TasksView.module.scss';
 

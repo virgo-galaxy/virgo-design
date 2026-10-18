@@ -8,8 +8,9 @@ import type { SessionUser } from '@/api/auth/types';
 import { useAgentMode } from '@/features/ai-workspace/store';
 import { useHandoffStore } from '@/features/handoff/store';
 import { useTaskTableSettings } from '@/features/tasks/store';
-import { clearDemoStorage } from '@/lib/demo/reset';
+import { clearDemoStorage } from '@/mock/data/reset';
 import { defaultPreferences, preferencesStorageKey, useAppPreferences } from '@/preferences';
+import { useInvalidateResources, useResourceRevision } from '@/store/resources';
 
 import { initializeAppStores } from '../bootstrap';
 import { clearStoredSessionState } from './session-stores';
@@ -39,6 +40,8 @@ it('keeps one set across rerenders and replaces all business stores when identit
     () => ({
       handoff: useHandoffStore((state) => state),
       table: useTaskTableSettings(),
+      revision: useResourceRevision('tasks'),
+      invalidate: useInvalidateResources(),
     }),
     {
       wrapper: ({ children }: { children: ReactNode }) => (
@@ -49,16 +52,23 @@ it('keeps one set across rerenders and replaces all business stores when identit
   act(() => {
     view.result.current.handoff.setDraft((draft) => ({ ...draft, notes: 'Private draft' }));
     view.result.current.handoff.setStage(1);
+    view.result.current.invalidate({ tasks: true });
   });
   const oldDraft = view.result.current.handoff;
+  const invalidateOldSession = view.result.current.invalidate;
   user = { ...admin, name: 'Updated display name' };
   view.rerender();
   expect(view.result.current.handoff.draft.notes).toBe('Private draft');
+  expect(view.result.current.revision).toBe(1);
   user = { ...admin, id: 'next-user', role: 'member' };
   view.rerender();
-  act(() => oldDraft.setDraft((draft) => ({ ...draft, notes: 'Late old-session edit' })));
+  act(() => {
+    oldDraft.setDraft((draft) => ({ ...draft, notes: 'Late old-session edit' }));
+    invalidateOldSession({ tasks: true });
+  });
   expect(view.result.current.handoff.draft.notes).toBe('');
   expect(view.result.current.handoff.stage).toBe(0);
+  expect(view.result.current.revision).toBe(0);
 });
 
 it('passes live permissions to feature stores without losing the current business draft', () => {
@@ -90,7 +100,7 @@ it('passes live permissions to feature stores without losing the current busines
     window.dispatchEvent(new Event('pagehide'));
   });
   view.unmount();
-  expect(localStorage.getItem('virgo-pro.tasks-table.v1')).toBeNull();
+  expect(localStorage.getItem('virgo-pro.tasks-table')).toBeNull();
 });
 
 it('cleans up a logged-out session while application preferences survive the next login', () => {
@@ -155,5 +165,5 @@ it('does not recreate reset preferences from pending writes, pagehide or session
   expect(getTheme()).toBe(defaultPreferences.theme);
   view.unmount();
   expect(localStorage.getItem(preferencesStorageKey)).toBeNull();
-  expect(localStorage.getItem('virgo-pro.tasks-table.v1')).toBeNull();
+  expect(localStorage.getItem('virgo-pro.tasks-table')).toBeNull();
 });

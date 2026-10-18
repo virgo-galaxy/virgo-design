@@ -4,13 +4,13 @@ import { API_ERROR_CODES } from '@/api/gateway/constants';
 import type { ProjectSummaryDto } from '@/api/projects/types';
 
 import { requestUser, scopedTasks } from '../../auth/session';
-import { getDemoReferenceDate } from '../../data/reporting-date';
 import { getDemoState } from '../../data/store';
-import { projects } from '../../fixtures/projects';
+import { demoDate } from '../../fixtures/dates';
+import { createProjects } from '../../fixtures/projects';
 import { endpoint, failure, success } from '../../http/response';
 
 function projectFor(request: Request, id: unknown) {
-  return projects.find(
+  return createProjects().find(
     (project) => project.id === id && requestUser(request)?.projects.includes(project.id),
   );
 }
@@ -22,7 +22,7 @@ function summarizeProject(
   projectId: string,
   tasks: readonly import('@/api/tasks/types').TaskDto[],
 ): ProjectSummaryDto {
-  const date = getDemoReferenceDate();
+  const date = demoDate();
   const related = tasks.filter((task) => task.project === projectId);
   const completed = related.filter((task) => task.status === 'done').length;
 
@@ -54,7 +54,7 @@ export const projectsHandlers = [
     );
 
     return success(
-      projects
+      createProjects()
         .filter((project) => user.projects.includes(project.id))
         .map((project) => {
           const count = open.filter((task) => task.project === project.id).length;
@@ -76,7 +76,7 @@ export const projectsHandlers = [
     const tasks = scopedTasks(getDemoState().tasks, request);
 
     return success(
-      projects
+      createProjects()
         .filter(
           (project) =>
             user.projects.includes(project.id) && (!projectId || project.id === projectId),
@@ -119,6 +119,8 @@ export const projectsHandlers = [
     );
   }),
   http.get(endpoint('/projects'), ({ request }) =>
-    success(projects.filter((project) => requestUser(request)?.projects.includes(project.id))),
+    success(
+      createProjects().filter((project) => requestUser(request)?.projects.includes(project.id)),
+    ),
   ),
 ];

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { RemoteState } from '@/components/remote-state/RemoteState';
-import type { RemoteData } from '@/hooks/use-remote-data';
+import type { RemoteData } from '@/hooks/async/use-remote-data';
 
 interface ResourceContentProps<T> {
   resource: Pick<RemoteData<T>, 'data' | 'error' | 'loading' | 'retry'>;

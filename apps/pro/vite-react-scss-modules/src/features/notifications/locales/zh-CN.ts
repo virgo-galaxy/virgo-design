@@ -4,6 +4,8 @@ import type { notificationsEnUS } from './en-US';
 
 export const notificationsZhCN = {
   inbox: {
+    read: '已读',
+    unread: '未读',
     readAll: '全部已读',
     empty: '暂无通知',
     welcome: '登录项目经理或成员账号，体验任务分配、评审与交付通知。',

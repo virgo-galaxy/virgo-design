@@ -8,11 +8,12 @@ import {
   recentActivity,
   taskStatusSummary,
 } from '../model/analytics';
-import { initialTaskState, taskReferenceDate } from './tasks';
+import { demoDate } from './dates';
+import { initialTaskState } from './tasks';
 
 export function analyticsSnapshot(
   tasks: readonly TaskDto[],
-  through = taskReferenceDate,
+  through = demoDate(),
   records?: readonly TaskRecordDto[],
 ) {
   return {

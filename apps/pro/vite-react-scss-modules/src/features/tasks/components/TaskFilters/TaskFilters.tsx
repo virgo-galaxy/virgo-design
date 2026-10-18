@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { FilterSelect } from '@/components/filter-select/FilterSelect';
 import { MultiFilterSelect } from '@/components/multi-filter-select/MultiFilterSelect';
 import { projectName, useTaskCatalog } from '@/features/catalog';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 
 import { emptyTaskQuery, queryError, type TaskQuery as Filters } from '../../model/query-params';
 import { filterValues, taskPriorities, taskStatuses } from '../../model/task';
@@ -15,6 +15,7 @@ import {
   taskStatusIntent,
   taskStatusLabelNames,
 } from '../../presentation/task-presentation';
+
 import styles from './TaskFilters.module.scss';
 
 export function TaskFilters({

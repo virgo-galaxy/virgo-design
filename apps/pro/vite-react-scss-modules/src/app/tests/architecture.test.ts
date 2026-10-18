@@ -100,13 +100,15 @@ const layerRanks: Record<string, number> = {
   i18n: 2,
   preferences: 2,
   hooks: 3,
+  store: 2,
   routes: 3,
   mock: 3,
   components: 4,
   features: 5,
   pages: 6,
   layout: 6,
-  composition: 7,
+  integration: 7,
+  routing: 8,
   app: 8,
   entry: 9,
 };
@@ -118,8 +120,14 @@ function layer(file: string) {
   const path = relative(root, file);
   if (isApiDefinition(path)) return 'apiDefinitions';
   if (/^i18n\/(bootstrap\/|locales\/resources\.ts$|types\/i18next\.d\.ts$)/.test(path))
-    return 'composition';
-  if (path.startsWith('store/')) return 'composition';
+    return 'integration';
+  if (path === 'mock/index.ts') return 'integration';
+  if (path.startsWith('mock/react/')) return 'integration';
+  if (path === 'layout/index.ts' || /^layout\/(MainLayout\.tsx|providers\/)/.test(path))
+    return 'integration';
+  if (path.startsWith('routes/router/')) return 'routing';
+  if (/^preferences\/(react|locales)\//.test(path)) return 'components';
+  if (path === 'store/index.ts' || /^store\/(bootstrap|session)\//.test(path)) return 'integration';
   return path.includes('/') ? path.split('/')[0]! : 'entry';
 }
 
@@ -147,7 +155,7 @@ it('keeps every production dependency directed by layer without reverse-dependen
 it('has no cycles after collapsing files into product layers and individual feature owners', () => {
   function owner(file: string) {
     const path = relative(root, file);
-    if (layer(file) === 'composition') return 'composition';
+    if (layer(file) === 'integration') return 'integration';
     return path.startsWith('features/') ? path.split('/').slice(0, 2).join('/') : layer(file);
   }
   const owners = new Map<string, Set<string>>();
@@ -230,7 +238,10 @@ it('keeps API requests and reusable definitions on explicit public entries', () 
           expect(path, `${from} → API definition ${to}`).toBe('@/' + to.replace(/\.ts$/, ''));
         continue;
       }
-      expect(from.startsWith('mock/'), `${from} → request client ${to}`).toBe(false);
+      expect(
+        from.startsWith('mock/') && !from.startsWith('mock/client/'),
+        `${from} → request client ${to}`,
+      ).toBe(false);
       if (to === 'api/index.ts') {
         expect(from.startsWith('api/'), `${from} → API root barrel`).toBe(true);
         continue;
@@ -262,7 +273,6 @@ it('keeps module entry directories and feature roots limited to index files', ()
     'components',
     'features',
     'i18n',
-    'layout',
     'lib',
     'mock',
     'preferences',
@@ -283,7 +293,7 @@ it('keeps locale runtime and preferences independent of application assembly and
       visited.add(file);
       const path = relative(root, file);
       expect(
-        ['app', 'composition', 'features', 'pages', 'layout'].includes(layer(file)),
+        ['app', 'integration', 'routing', 'features', 'pages', 'layout'].includes(layer(file)),
         `${entry} → ${path}`,
       ).toBe(false);
       for (const dependency of graph.get(file) ?? []) visit(dependency);
@@ -292,8 +302,8 @@ it('keeps locale runtime and preferences independent of application assembly and
   }
 });
 
-it('keeps route, locale, preferences and HTTP consumers on explicit public entries', () => {
-  const boundaries = ['app', 'routes', 'i18n', 'preferences', 'lib/http'];
+it('keeps route, layout, locale, preferences and HTTP consumers on explicit public entries', () => {
+  const boundaries = ['app', 'routes', 'layout', 'i18n', 'preferences', 'lib/http'];
   for (const file of sources(root, true)) {
     const from = relative(root, file);
     for (const path of imports(file)) {
@@ -301,8 +311,18 @@ it('keeps route, locale, preferences and HTTP consumers on explicit public entri
       if (!dependency) continue;
       const to = relative(root, dependency);
       for (const boundary of boundaries) {
-        if (boundary === 'app' && !graph.has(file)) continue;
+        if ((boundary === 'app' || boundary === 'layout') && !graph.has(file)) continue;
         if (!to.startsWith(boundary + '/') || from.startsWith(boundary + '/')) continue;
+        if (boundary === 'routes' && to === 'routes/router/index.ts') {
+          expect(from === 'main.tsx' || !graph.has(file), `${from} → router creation`).toBe(true);
+          continue;
+        }
+        if (
+          boundary === 'preferences' &&
+          ['preferences/react/index.ts', 'preferences/locales/index.ts'].includes(to)
+        ) {
+          continue;
+        }
         if (
           boundary === 'i18n' &&
           (to === 'i18n/bootstrap/index.ts' || to === 'i18n/react/index.ts')
@@ -391,6 +411,7 @@ it('centralizes browser storage access and application route literals', () => {
 });
 
 const storeOwners = [
+  'store/resources',
   'preferences/store',
   ...readdirSync(join(root, 'features'))
     .filter((feature) => existsSync(join(root, 'features', feature, 'store')))
@@ -400,7 +421,7 @@ const storeOwners = [
 it('keeps stores with their owning modules and application store assembly separate', () => {
   for (const entry of readdirSync(join(root, 'store'), { withFileTypes: true }))
     if (entry.isDirectory())
-      expect(['bootstrap', 'session'], `store/${entry.name}`).toContain(entry.name);
+      expect(['bootstrap', 'session', 'resources'], `store/${entry.name}`).toContain(entry.name);
   for (const file of sources(root, true)) {
     const from = relative(root, file);
     const sourceOwner = storeOwners.find((owner) => from.startsWith(owner + '/'));
@@ -427,4 +448,45 @@ it('keeps stores with their owning modules and application store assembly separa
       }
     }
   }
+});
+
+it('keeps Mock integration confined to the application entry and route assembly', () => {
+  for (const file of files) {
+    const from = relative(root, file);
+
+    if (
+      from !== 'main.tsx' &&
+      !/^(app|routes|layout|features|preferences|lib|store|api)\//.test(from)
+    )
+      continue;
+
+    for (const dependency of graph.get(file) ?? []) {
+      const to = relative(root, dependency);
+
+      if (!to.startsWith('mock/')) continue;
+
+      expect(['main.tsx', 'routes/router/router.tsx'], from).toContain(from);
+      expect(
+        from === 'main.tsx' ? ['mock/index.ts'] : ['mock/index.ts', 'mock/react/index.ts'],
+        `${from} → private ${to}`,
+      ).toContain(to);
+    }
+  }
+});
+
+it('keeps the reusable shell free of business providers and API clients', () => {
+  const visited = new Set<string>();
+
+  function visit(file: string) {
+    if (visited.has(file)) return;
+    visited.add(file);
+    const path = relative(root, file);
+
+    expect(/^(features|app|mock)\//.test(path), path).toBe(false);
+    expect(path.startsWith('api/') && !isApiDefinition(path), path).toBe(false);
+
+    for (const dependency of graph.get(file) ?? []) visit(dependency);
+  }
+
+  visit(join(root, 'layout/shell/AppShell.tsx'));
 });

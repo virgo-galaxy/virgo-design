@@ -50,9 +50,8 @@ it('restores theme, appearance and layout from the application record without re
 it.each([
   null,
   '{',
-  JSON.stringify({ version: 2 }),
+  JSON.stringify([]),
   JSON.stringify({
-    version: 1,
     theme: 'unknown-theme',
     appearance: 'invalid',
     sidebarWidth: 'wide',
@@ -84,7 +83,6 @@ it('restores theme, appearance and layout together without a stale pending save'
   expect(document.documentElement.dataset.virgoTheme).toBe(defaultPreferences.theme);
   expect(result.current.preferences).toEqual(defaultPreferences);
   expect(JSON.parse(localStorage.getItem(preferencesStorageKey)!)).toEqual({
-    version: 1,
     ...defaultPreferences,
   });
   unmount();

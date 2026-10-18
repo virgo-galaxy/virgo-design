@@ -25,17 +25,18 @@ import {
   taskStatusLabelNames,
   useTaskDependentQuery,
 } from '@/features/tasks';
-import { useMutation } from '@/hooks/use-mutation';
-import { useRemoteData } from '@/hooks/use-remote-data';
+import { useMutation } from '@/hooks/async/use-mutation';
+import { useRemoteData } from '@/hooks/async/use-remote-data';
 import { downloadCsv } from '@/lib/browser/download';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 import { routePath } from '@/routes';
-import shared from '@/styles/product-layout.module.scss';
+import { useResourceRevision } from '@/store/resources';
 
-import { useWorkflowRevision } from '../context/revision';
 import { useHandoffSession } from '../hooks/use-handoff-session';
 import type { WorkflowReceipt } from '../model/handoff';
+
 import styles from './WorkflowResultView.module.scss';
+import shared from '@/styles/product-layout.module.scss';
 
 function ResultContent({
   receipt,
@@ -372,7 +373,7 @@ function ResultTasks({ receipt }: { receipt: WorkflowReceipt }) {
 }
 
 function ResultResource({ outcome }: { outcome: 'success' | 'error' }) {
-  const revision = useWorkflowRevision();
+  const revision = useResourceRevision('workflows');
   const load = useCallback((signal: AbortSignal) => getLatestWorkflow(outcome, signal), [outcome]);
   const resource = useRemoteData(load, { key: outcome, revision });
 

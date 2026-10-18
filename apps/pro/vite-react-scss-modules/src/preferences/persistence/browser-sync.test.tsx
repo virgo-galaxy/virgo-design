@@ -3,7 +3,7 @@ import { act, renderHook } from '@testing-library/react';
 import { getTheme } from '@virgo-design/themes';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 
-import { clearDemoStorage } from '@/lib/demo/reset';
+import { clearDemoStorage } from '@/mock/data/reset';
 
 import { disposePreferences, initializePreferences } from '../bootstrap/initialize-preferences';
 import { useAppPreferences } from '../hooks/use-app-preferences';
@@ -80,7 +80,6 @@ it('merges pending local edits with different fields received from another tab b
   expect(document.documentElement.dataset.theme).toBe('dark');
   vi.advanceTimersByTime(200);
   expect(JSON.parse(localStorage.getItem(preferencesStorageKey)!)).toMatchObject({
-    version: 1,
     sidebarWidth: 280,
     appearance: 'dark',
     theme: 'soft',

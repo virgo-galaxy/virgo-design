@@ -2,6 +2,7 @@ import { http } from 'msw';
 
 import { requestUser, scopedTasks } from '../../auth/session';
 import { getDemoState } from '../../data/store';
+import { demoDate } from '../../fixtures/dates';
 import { projects } from '../../fixtures/projects';
 import { endpoint, success } from '../../http/response';
 import {
@@ -11,12 +12,7 @@ import {
   recentActivity,
   taskStatusSummary,
 } from '../../model/analytics';
-import {
-  dailyTokenUsage,
-  reportingDate,
-  reportingYears,
-  visibleRecords,
-} from '../../model/task-records';
+import { dailyTokenUsage, reportingYears, visibleRecords } from '../../model/task-records';
 
 export const analyticsHandlers = [
   http.get(endpoint('/activity'), ({ request }) => {
@@ -34,7 +30,7 @@ export const analyticsHandlers = [
   http.get(endpoint('/analytics/delivery-trend'), ({ request }) => {
     const state = getDemoState();
 
-    return success(deliveryTrend(scopedTasks(state.tasks, request), reportingDate(state.records)));
+    return success(deliveryTrend(scopedTasks(state.tasks, request), demoDate()));
   }),
   http.get(endpoint('/analytics/project-delivery'), ({ request }) => {
     const state = getDemoState();
@@ -42,7 +38,7 @@ export const analyticsHandlers = [
     return success(
       projectDelivery(
         scopedTasks(state.tasks, request),
-        reportingDate(state.records),
+        demoDate(),
         requestUser(request)!.projects,
       ),
     );
@@ -65,7 +61,7 @@ export const analyticsHandlers = [
     const user = requestUser(request)!;
     const state = getDemoState();
     const records = visibleRecords(state.records, user);
-    const referenceDate = reportingDate(state.records);
+    const referenceDate = demoDate();
 
     return success({
       referenceDate,

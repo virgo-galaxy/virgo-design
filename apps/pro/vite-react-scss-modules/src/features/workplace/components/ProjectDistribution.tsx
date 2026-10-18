@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { getProjectDistribution } from '@/api/projects';
 import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import { useTaskDependentQuery } from '@/features/tasks';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 
 import styles from '../styles/workplace.module.scss';
 

@@ -21,6 +21,8 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useMediaQuery } from '@/hooks/browser/use-media-query';
+
 import {
   clampPreviewZoom,
   DEFAULT_PREVIEW_ZOOM,
@@ -30,6 +32,7 @@ import {
   workspacePreview,
 } from '../../model/preview';
 import { VoiceBar } from '../VoiceBar/VoiceBar';
+
 import styles from './AiWorkspace.module.scss';
 
 gsap.registerPlugin(useGSAP);
@@ -45,7 +48,6 @@ function viewport() {
   return {
     width: window.innerWidth,
     height: window.innerHeight,
-    reduced: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   };
 }
 
@@ -63,6 +65,7 @@ export function AiWorkspace({
   footer?: ReactNode;
 }) {
   const { t } = useTranslation();
+  const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   const root = useRef<HTMLDivElement>(null);
   const workbench = useRef<HTMLDivElement>(null);
@@ -104,22 +107,21 @@ export function AiWorkspace({
   const ResizeIcon = resizeIcons[corner];
 
   useEffect(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => {
+    const cancelGesture = () => {
       drag.current = null;
       resizeGesture.current = null;
       setDragging(false);
+    };
+    const update = () => {
+      cancelGesture();
       setSize(viewport());
     };
 
+    cancelGesture();
     window.addEventListener('resize', update);
-    media.addEventListener('change', update);
 
-    return () => {
-      window.removeEventListener('resize', update);
-      media.removeEventListener('change', update);
-    };
-  }, []);
+    return () => window.removeEventListener('resize', update);
+  }, [reducedMotion]);
 
   useGSAP(
     () => {
@@ -131,7 +133,7 @@ export function AiWorkspace({
       moveTween.current?.kill();
       gsap.set(previewNode, { x: target.x, y: target.y });
 
-      const duration = size.reduced ? 0.001 : 0.72;
+      const duration = reducedMotion ? 0.001 : 0.72;
       const focusAi = () => {
         root.current?.setAttribute('data-phase', 'ai');
         windowNode.inert = false;
@@ -182,16 +184,16 @@ export function AiWorkspace({
             autoAlpha: 1,
             y: 0,
             scale: 1,
-            duration: size.reduced ? 0.001 : 0.38,
+            duration: reducedMotion ? 0.001 : 0.38,
             ease: 'power2.out',
           },
-          size.reduced ? 0 : 0.3,
+          reducedMotion ? 0 : 0.3,
         )
         .fromTo(
           previewNode,
           { autoAlpha: 0 },
-          { autoAlpha: 1, duration: size.reduced ? 0.001 : 0.18 },
-          size.reduced ? 0 : 0.54,
+          { autoAlpha: 1, duration: reducedMotion ? 0.001 : 0.18 },
+          reducedMotion ? 0 : 0.54,
         );
 
       windowTween.current = animation.getChildren(false, true, false)[0] as gsap.core.Tween;
@@ -206,7 +208,7 @@ export function AiWorkspace({
         timeline.current = null;
       };
     },
-    { scope: root, dependencies: [size.width, size.height, size.reduced], revertOnUpdate: true },
+    { scope: root, dependencies: [size.width, size.height, reducedMotion], revertOnUpdate: true },
   );
 
   useGSAP(
@@ -269,7 +271,7 @@ export function AiWorkspace({
     moveTween.current = gsap.to([workbench.current, previewFrame.current], {
       x: target.x,
       y: target.y,
-      duration: size.reduced ? 0.001 : 0.28,
+      duration: reducedMotion ? 0.001 : 0.28,
       ease: 'power2.out',
       onComplete: retargetReturn,
     });

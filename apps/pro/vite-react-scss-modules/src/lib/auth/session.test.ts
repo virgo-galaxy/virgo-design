@@ -63,7 +63,7 @@ it('clears the persisted token before publishing session expiration', () => {
   try {
     expireAuthSession();
     expect(listener).toHaveBeenCalledOnce();
-    expect(window.sessionStorage.getItem('virgo-pro.auth-session.v1')).toBeNull();
+    expect(window.sessionStorage.getItem('virgo-pro.auth-session')).toBeNull();
   } finally {
     window.removeEventListener(sessionExpiredEvent, listener);
   }

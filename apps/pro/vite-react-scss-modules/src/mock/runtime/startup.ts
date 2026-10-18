@@ -4,9 +4,7 @@ import { createMockActivation } from './activation';
 
 let starting: Promise<void> | undefined;
 
-export function enableMocking(): Promise<void> {
-  if (import.meta.env.VITE_API_MOCKING !== 'true') return Promise.resolve();
-
+export function startMocking(): Promise<void> {
   starting ??= import('./browser')
     .then(async ({ worker }) => {
       const registration = await worker.start({

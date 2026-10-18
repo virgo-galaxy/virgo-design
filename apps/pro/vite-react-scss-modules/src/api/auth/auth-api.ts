@@ -6,7 +6,7 @@ import {
 } from '@/lib/auth/session';
 import { http } from '@/lib/http';
 
-import type { DemoAccountsDto, LoginDto, LoginRequest, SessionDto } from './types';
+import type { LoginDto, LoginRequest, SessionDto } from './types';
 
 export async function login(draft: LoginRequest): Promise<LoginDto> {
   const session = await http.post<LoginDto>('/auth/login', draft);
@@ -14,10 +14,6 @@ export async function login(draft: LoginRequest): Promise<LoginDto> {
   saveAuthSession(session);
 
   return session;
-}
-
-export function getDemoAccounts(signal?: AbortSignal) {
-  return http.get<DemoAccountsDto>('/auth/demo-accounts', signal ? { signal } : {});
 }
 
 export async function getSession(signal?: AbortSignal): Promise<SessionDto> {
@@ -39,12 +35,4 @@ export async function logout(): Promise<SessionDto> {
   clearAuthSession();
 
   return session;
-}
-
-export function enterDemoSession(): Promise<SessionDto> {
-  return login({ account: 'admin', password: 'virgo123' });
-}
-
-export function resetDemo(): Promise<SessionDto> {
-  return http.post('/demo/reset');
 }

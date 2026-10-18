@@ -1,4 +1,4 @@
-import { demoResetCompleteEvent } from '@/lib/demo/reset';
+import { storageResetCompleteEvent } from '@/lib/storage';
 import { sessionStorageAccess } from '@/lib/storage';
 
 import { createWorkspaceStore, type WorkspaceStore } from '../model/workspace-store';
@@ -32,10 +32,10 @@ export function startWorkspaceSync(store: WorkspaceStore, allowed: boolean) {
 
   const reset = () => store.getState().setAgentMode(false);
 
-  window.addEventListener(demoResetCompleteEvent, reset);
+  window.addEventListener(storageResetCompleteEvent, reset);
 
   return () => {
     unsubscribe();
-    window.removeEventListener(demoResetCompleteEvent, reset);
+    window.removeEventListener(storageResetCompleteEvent, reset);
   };
 }

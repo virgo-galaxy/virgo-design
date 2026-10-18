@@ -84,8 +84,9 @@ export function recentActivity(
   records?: readonly TaskRecordDto[],
 ): ActivityDto[] {
   return records
-    ? [...records]
+    ? records
         .filter((record) => record.kind !== 'assisted')
+        .reverse()
         .sort((a, b) => b.recordedAt.localeCompare(a.recordedAt))
         .slice(0, 3)
         .map((record) => ({

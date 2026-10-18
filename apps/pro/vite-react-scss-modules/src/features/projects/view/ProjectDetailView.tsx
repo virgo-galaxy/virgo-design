@@ -16,10 +16,9 @@ import {
   taskStatusLabelNames,
 } from '@/features/tasks';
 import { canManageProject } from '@/lib/auth/permissions';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 import { routePath } from '@/routes';
-import shared from '@/styles/product-layout.module.scss';
 
 import { useProjectResources } from '../hooks/use-project-resources';
 import {
@@ -28,7 +27,9 @@ import {
   projectHealthLabelNames,
 } from '../presentation/project-presentation';
 import { projectDetailPath, projectHandoffPath, projectTasksPath } from '../routes/navigation';
+
 import styles from './ProjectDetailView.module.scss';
+import shared from '@/styles/product-layout.module.scss';
 
 function ProjectDetailContent({
   resources,

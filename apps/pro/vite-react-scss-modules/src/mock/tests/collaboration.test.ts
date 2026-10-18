@@ -13,12 +13,12 @@ import {
   updateTaskStatus,
 } from '@/api/tasks';
 import { buildTokenUsageCalendar } from '@/features/workplace';
-import { readAnalytics, readWorkspace } from '@/test/reporting-data';
 
 import { resetDemoState, unloadDemoState } from '../data/store';
 import { initialTaskState } from '../fixtures/tasks';
 import { users } from '../fixtures/team';
 import { handlers } from '../handlers';
+import { readAnalytics, readWorkspace } from './reporting-data.test-helper';
 
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));

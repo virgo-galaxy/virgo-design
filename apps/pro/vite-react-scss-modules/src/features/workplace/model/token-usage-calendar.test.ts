@@ -3,11 +3,25 @@ import { describe, expect, it } from 'vitest';
 import {
   buildTokenUsageCalendar,
   formatTokenCount,
+  latestTokenUsageDate,
   tokenUsageLevel,
   tokenUsageScale,
 } from './token-usage-calendar';
 
 describe('annual token usage calendar', () => {
+  it('opens the latest populated day in each year, excluding empty and future days', () => {
+    const usage = [
+      { date: '2032-01-01', inputTokens: 1000, outputTokens: 500 },
+      { date: '2032-01-02', inputTokens: 0, outputTokens: 0 },
+      { date: '2032-01-03', inputTokens: 2000, outputTokens: 800 },
+      { date: '2031-12-28', inputTokens: 3000, outputTokens: 500 },
+    ];
+
+    expect(latestTokenUsageDate('2032-01-02', usage, 2032)).toBe('2032-01-01');
+    expect(latestTokenUsageDate('2032-01-02', usage, 2031)).toBe('2031-12-28');
+    expect(latestTokenUsageDate('2032-01-02', [], 2032)).toBe('2032-01-02');
+  });
+
   it('places every date in a Monday-first week and preserves input/output totals', () => {
     const result = buildTokenUsageCalendar('2026-10-01', [
       { date: '2026-01-01', inputTokens: 40000000, outputTokens: 12000000 },

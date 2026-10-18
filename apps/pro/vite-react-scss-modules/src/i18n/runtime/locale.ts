@@ -11,7 +11,7 @@ import {
   resolveAppLocale,
 } from '../model/locale';
 
-export const localeStorageKey = 'virgo-pro:locale:v1';
+export const localeStorageKey = 'virgo-pro:locale';
 const defaultLocale = normalizeAppLocale(
   typeof document === 'undefined' ? undefined : document.documentElement.lang,
 );

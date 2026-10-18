@@ -6,6 +6,7 @@ import { HandoffStoreProvider } from '@/features/handoff/store';
 import { TaskTableStoreProvider } from '@/features/tasks/store';
 import { isAdmin } from '@/lib/auth/permissions';
 
+import { ResourceStoreProvider } from '../resources';
 import { createSessionStores } from './session-stores';
 
 interface Props {
@@ -18,13 +19,15 @@ function SessionStoreScope({ user, children }: Props) {
   const [stores] = useState(() => createSessionStores(admin));
 
   return (
-    <HandoffStoreProvider initialStore={stores.handoff}>
-      <TaskTableStoreProvider initialStore={stores.tasks} canPersist={admin}>
-        <WorkspaceStoreProvider initialStore={stores.workspace} allowed={admin}>
-          {children}
-        </WorkspaceStoreProvider>
-      </TaskTableStoreProvider>
-    </HandoffStoreProvider>
+    <ResourceStoreProvider initialStore={stores.resources}>
+      <HandoffStoreProvider initialStore={stores.handoff}>
+        <TaskTableStoreProvider initialStore={stores.tasks} canPersist={admin}>
+          <WorkspaceStoreProvider initialStore={stores.workspace} allowed={admin}>
+            {children}
+          </WorkspaceStoreProvider>
+        </TaskTableStoreProvider>
+      </HandoffStoreProvider>
+    </ResourceStoreProvider>
   );
 }
 

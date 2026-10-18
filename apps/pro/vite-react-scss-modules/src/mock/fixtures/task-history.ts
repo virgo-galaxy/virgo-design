@@ -1,6 +1,7 @@
 import type { TaskDto, TaskStatusDto } from '@/api/tasks/types';
 
-import { projects } from './projects';
+import { demoDate } from './dates';
+import { createProjects } from './projects';
 import { createMockTaskId } from './task-id';
 import { teamAssignments, type TeamJob } from './team';
 
@@ -117,12 +118,12 @@ const stableIds = [
   '667ffe5a-d25e',
 ];
 
-export function createTaskHistory(): TaskDto[] {
+export function createTaskHistory(through = demoDate()): TaskDto[] {
   const hoursByMember = new Map<string, number>();
   const activeByMember = new Map<string, number>();
   const result: TaskDto[] = [];
 
-  projects.forEach((project, projectIndex) => {
+  createProjects(through).forEach((project, projectIndex) => {
     const counts = stateCounts[projectIndex]!;
     const total = moduleCounts[projectIndex]!.reduce((sum, count) => sum + count, 0);
     let ordinal = 0;
@@ -156,7 +157,7 @@ export function createTaskHistory(): TaskDto[] {
 
         const index = result.length;
         const projectStart = Date.parse(`${project.start}T02:00:00Z`);
-        const reference = Date.UTC(2026, 9, 5, 10);
+        const reference = Date.parse(`${through}T00:00:00Z`);
         const span = reference - projectStart;
         const historyPosition = (ordinal * 19 + moduleIndex * 7) % total;
         const recent = status === 'done' && ordinal % 3 === 0;
@@ -165,7 +166,7 @@ export function createTaskHistory(): TaskDto[] {
           : projectStart + Math.floor(((historyPosition + 1) / (total + 1)) * (span - 10 * day));
         const created =
           index === 0
-            ? Date.UTC(2026, 9, 1, 3, 20)
+            ? Date.parse(`${demoDate(-4, through)}T03:20:00Z`)
             : status === 'done'
               ? Math.max(projectStart, completed - (3 + (ordinal % 12)) * day)
               : projectStart + Math.floor((historyPosition / total) * (span - 5 * day));
@@ -188,7 +189,11 @@ export function createTaskHistory(): TaskDto[] {
           dueDate:
             status === 'backlog' && index % 3 === 0
               ? ''
-              : new Date(status === 'done' ? completed : Date.UTC(2026, 9, 2 + (index % 27)))
+              : new Date(
+                  status === 'done'
+                    ? completed
+                    : Date.parse(`${demoDate(-3 + (index % 27), through)}T00:00:00Z`),
+                )
                   .toISOString()
                   .slice(0, 10),
         });

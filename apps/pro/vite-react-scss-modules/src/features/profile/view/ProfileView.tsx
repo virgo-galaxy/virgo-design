@@ -16,15 +16,16 @@ import { CatalogBoundary, Person, projectName, useTaskCatalog } from '@/features
 import { projectDetailPath, projectHandoffPath } from '@/features/projects';
 import { useTaskDependentQuery } from '@/features/tasks';
 import { isAdmin } from '@/lib/auth/permissions';
-import { businessLabel, formatWorkLocation } from '@/lib/demo/labels';
+import { businessLabel, formatWorkLocation } from '@/lib/formatting/business-labels';
 import { routePath } from '@/routes';
-import shared from '@/styles/product-layout.module.scss';
 
 import { ProfileEditor } from '../components/ProfileEditor/ProfileEditor';
 import { ProfilePreferencesForm } from '../components/ProfilePreferencesForm';
 import { useProfileIdentityResource, useProfilePreferencesData } from '../context/resource';
 import { avatarForeground, profileInitials } from '../model/profile';
+
 import styles from './ProfileView.module.scss';
+import shared from '@/styles/product-layout.module.scss';
 
 function ProfileContent({
   profile,

@@ -65,3 +65,22 @@ it('switches light/dark appearance from the login page', async () => {
   await user.click(screen.getByRole('button', { name: 'Light Mode' }));
   expect(document.documentElement).toHaveAttribute('data-theme', 'light');
 });
+
+it('leaves real credentials empty and does not request demo accounts', async () => {
+  const requests: string[] = [];
+  const record = ({ request }: { request: Request }) =>
+    requests.push(new URL(request.url).pathname);
+  server.events.on('request:start', record);
+
+  try {
+    render(<LoginForm onLogin={vi.fn()} expired={false} />);
+
+    expect(screen.getByRole('textbox', { name: 'Account' })).toHaveValue('');
+    expect(screen.getByLabelText(/^Password/)).toHaveValue('');
+    expect(screen.queryByRole('button', { name: 'Choose a demo account' })).toBeNull();
+    await act(async () => {});
+    expect(requests).not.toContain('/api/v1/auth/demo-accounts');
+  } finally {
+    server.events.removeListener('request:start', record);
+  }
+});

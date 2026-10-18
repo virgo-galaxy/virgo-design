@@ -1,10 +1,10 @@
 import { http } from 'msw';
 
 import { isAdmin } from '@/lib/auth/permissions';
-import { clearDemoStorage } from '@/lib/demo/reset';
 
 import { forbidden } from '../../auth/access';
 import { requestUser } from '../../auth/session';
+import { clearDemoStorage } from '../../data/reset';
 import { resetDemoState } from '../../data/store';
 import { endpoint, success } from '../../http/response';
 import { endDemoSession } from '../auth';

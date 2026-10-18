@@ -2,35 +2,43 @@ import type { TaskRecordDto } from '@/api/analytics/types';
 import { localStorageAccess } from '@/lib/storage';
 import { isRecord } from '@/lib/validation/is-record';
 
+import { demoDate } from '../fixtures/dates';
 import { initialProfile } from '../fixtures/profile';
 import { projects } from '../fixtures/projects';
+import { createTaskHistory } from '../fixtures/task-history';
 import { initialTaskState } from '../fixtures/tasks';
-import { sampleError, sampleSuccess } from '../fixtures/workflows';
+import { createWorkflowSamples } from '../fixtures/workflows';
 import type { DemoState } from '../model/state';
 import {
+  isDemoUsageRecord,
   recordKinds,
   seedNotifications,
   seedTaskRecords,
   validRecordPerson,
 } from '../model/task-records';
+import { refreshDemoTimeline } from './refresh-timeline';
+import { demoStorageKey } from './storage-key';
 
-export const demoStorageKey = 'virgo-pro.demo-data.v1';
+export { demoStorageKey } from './storage-key';
 
 function seed(): DemoState {
-  const records = seedTaskRecords(initialTaskState.tasks);
+  const tasks = createTaskHistory();
+  const records = seedTaskRecords(tasks);
 
   return structuredClone({
     ...initialTaskState,
+    tasks,
     profile: initialProfile,
     profiles: {},
-    workflows: { success: sampleSuccess, error: sampleError },
+    workflows: createWorkflowSamples(),
     sequence: 101,
     records,
-    notifications: seedNotifications(initialTaskState.tasks, records),
+    notifications: seedNotifications(tasks, records),
   });
 }
 
 let state: DemoState | undefined;
+let timelineDate = '';
 
 function validSavedState(value: unknown): value is DemoState {
   if (
@@ -108,14 +116,15 @@ export function getDemoState(): DemoState {
     try {
       const saved: unknown = JSON.parse(localStorageAccess.get(demoStorageKey).value ?? 'null');
 
-      if (
-        isRecord(saved) &&
-        saved.version === 3 &&
-        validSavedState(saved.state) &&
-        validHistory(saved.state)
-      )
-        state = saved.state;
+      if (validSavedState(saved) && validHistory(saved)) state = saved;
     } catch {}
+  }
+
+  const today = demoDate();
+
+  if (timelineDate !== today) {
+    state = refreshDemoTimeline(state, today);
+    timelineDate = today;
   }
 
   return state;
@@ -123,7 +132,8 @@ export function getDemoState(): DemoState {
 
 export function updateDemoState(update: (previous: DemoState) => DemoState) {
   const next = update(structuredClone(getDemoState()));
-  localStorageAccess.set(demoStorageKey, JSON.stringify({ version: 3, state: next }));
+  const saved = { ...next, records: next.records.filter((record) => !isDemoUsageRecord(record)) };
+  localStorageAccess.set(demoStorageKey, JSON.stringify(saved));
   state = next;
 
   return next;
@@ -131,11 +141,13 @@ export function updateDemoState(update: (previous: DemoState) => DemoState) {
 
 export function resetDemoState() {
   state = seed();
+  timelineDate = '';
   localStorageAccess.remove(demoStorageKey);
 }
 
 export function unloadDemoState() {
   state = undefined;
+  timelineDate = '';
 }
 
 function validHistory(value: DemoState): boolean {
@@ -182,5 +194,5 @@ function validHistory(value: DemoState): boolean {
 
 if (typeof window !== 'undefined')
   window.addEventListener('storage', (event) => {
-    if (event.key === demoStorageKey) state = undefined;
+    if (event.key === demoStorageKey) unloadDemoState();
   });

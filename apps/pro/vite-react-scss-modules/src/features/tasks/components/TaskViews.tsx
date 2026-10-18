@@ -13,6 +13,7 @@ import { WorkOverview } from '@/components/work-overview/WorkOverview';
 import { routePath, routeWithQuery } from '@/routes';
 
 import { useTaskDependentQuery } from '../hooks/use-task-dependent-query';
+
 import styles from './TaskViews.module.scss';
 
 export function TaskViews({ view, children }: { view: 'table' | 'cards'; children: ReactNode }) {

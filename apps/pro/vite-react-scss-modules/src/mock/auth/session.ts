@@ -6,7 +6,7 @@ import { sessionStorageAccess } from '@/lib/storage';
 
 import { demoAccounts } from '../fixtures/accounts';
 
-const key = 'virgo-pro.mock-tokens.v1';
+const key = 'virgo-pro.mock-tokens';
 type RecordEntry = { userId: string; expiresAt: string };
 
 let tokens: Record<string, RecordEntry> = {};

@@ -12,9 +12,10 @@ import {
 } from '../../model/table-settings';
 import type { Task } from '../../model/task';
 import { taskColumnLabelName } from '../../presentation/column-label';
-import styles from './TableSettingsDialog.module.scss';
 import { AlignmentChoices, NumberSetting } from './TableSettingsFields';
 import { TaskColumnPreview } from './TaskColumnPreview';
+
+import styles from './TableSettingsDialog.module.scss';
 
 export function TaskColumnEditor({
   settings,

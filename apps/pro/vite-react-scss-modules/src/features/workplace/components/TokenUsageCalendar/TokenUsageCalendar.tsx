@@ -7,10 +7,15 @@ import type { TokenUsageReportDto } from '@/api/analytics/types';
 import calendarChartArtwork from '@/assets/illustrations/calendar-chart.svg';
 import { ResourceContent } from '@/components/resource-content/ResourceContent';
 import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 
 import { useTokenUsageResource } from '../../data/token-usage-context';
-import { buildTokenUsageCalendar, formatTokenCount } from '../../model/token-usage-calendar';
+import {
+  buildTokenUsageCalendar,
+  formatTokenCount,
+  latestTokenUsageDate,
+} from '../../model/token-usage-calendar';
+
 import styles from './TokenUsageCalendar.module.scss';
 
 const highUsageThreshold = 100000;
@@ -29,8 +34,7 @@ function TokenUsageCalendarView({
   const taskAssignees = metadata.members;
   const { t, i18n } = useTranslation();
 
-  const openingDate =
-    reportYear === Number(referenceDate.slice(0, 4)) ? referenceDate : `${reportYear}-12-31`;
+  const openingDate = latestTokenUsageDate(referenceDate, tokenUsage, reportYear);
   const [selectedMonth, setMonth] = useState(openingDate.slice(0, 7));
   const month = selectedMonth.startsWith(String(reportYear))
     ? selectedMonth

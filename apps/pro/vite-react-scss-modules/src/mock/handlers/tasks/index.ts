@@ -8,21 +8,29 @@ import { isRecord } from '@/lib/validation/is-record';
 
 import { forbidden } from '../../auth/access';
 import { requestUser, scopedTasks } from '../../auth/session';
-import { getDemoReferenceDate } from '../../data/reporting-date';
 import { getDemoState, updateDemoState } from '../../data/store';
+import { demoDate } from '../../fixtures/dates';
 import { projects } from '../../fixtures/projects';
 import { createMockTaskId } from '../../fixtures/task-id';
 import { initialTaskState, taskAssignees, taskProjects } from '../../fixtures/tasks';
 import { endpoint, failure, success } from '../../http/response';
 import { queryTasks, taskDataColumns } from '../../model/task-query';
-import { appendTaskRecord, seedNotifications, seedTaskRecords } from '../../model/task-records';
+import {
+  appendTaskRecord,
+  isDemoUsageRecord,
+  seedNotifications,
+  seedTaskRecords,
+} from '../../model/task-records';
 
 export function resetTasks() {
   updateDemoState((previous) => ({
     ...previous,
     tasks: structuredClone(initialTaskState.tasks),
     nextId: initialTaskState.nextId,
-    records: seedTaskRecords(initialTaskState.tasks),
+    records: [
+      ...seedTaskRecords(initialTaskState.tasks),
+      ...previous.records.filter(isDemoUsageRecord),
+    ],
     notifications: seedNotifications(
       initialTaskState.tasks,
       seedTaskRecords(initialTaskState.tasks),
@@ -112,12 +120,7 @@ function taskRequest(body: unknown): TaskRequest {
 }
 
 function list(params: URLSearchParams, request: Request, all = false): TaskListDto {
-  return queryTasks(
-    scopedTasks(getDemoState().tasks, request),
-    params,
-    getDemoReferenceDate(),
-    all,
-  );
+  return queryTasks(scopedTasks(getDemoState().tasks, request), params, demoDate(), all);
 }
 
 type CollectionSnapshot = { owner: string; expiresAt: number; data: TaskListDto };
@@ -140,7 +143,7 @@ function snapshotPage(params: URLSearchParams, snapshotId: string, data: TaskLis
 
 function taskSummary(request: Request) {
   const tasks = scopedTasks(getDemoState().tasks, request);
-  const week = new Date(`${getDemoReferenceDate()}T00:00:00Z`);
+  const week = new Date(`${demoDate()}T00:00:00Z`);
   week.setUTCDate(week.getUTCDate() + 7);
   const through = week.toISOString().slice(0, 10);
 
@@ -149,7 +152,7 @@ function taskSummary(request: Request) {
     inProgress: tasks.filter((t) => t.status === 'in_progress').length,
     completed: tasks.filter((t) => t.status === 'done').length,
     dueSoon: tasks.filter(
-      (t) => t.status !== 'done' && t.dueDate >= getDemoReferenceDate() && t.dueDate <= through,
+      (t) => t.status !== 'done' && t.dueDate >= demoDate() && t.dueDate <= through,
     ).length,
   };
 
@@ -172,7 +175,7 @@ export const tasksHandlers = [
           ),
       ),
       projects: taskProjects.filter((project) => user.projects.includes(project)),
-      referenceDate: getDemoReferenceDate(),
+      referenceDate: demoDate(),
       columnFilterOptions: Object.fromEntries(
         taskDataColumns.map((key) => [
           key,

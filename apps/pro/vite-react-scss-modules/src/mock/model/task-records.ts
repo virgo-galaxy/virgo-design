@@ -4,8 +4,8 @@ import type { NotificationDto, NotificationKind } from '@/api/notifications/type
 import type { TaskDto } from '@/api/tasks/types';
 import { canViewTask } from '@/lib/auth/permissions';
 
-import { projects } from '../fixtures/projects';
-import { taskReferenceDate } from '../fixtures/tasks';
+import { demoDate } from '../fixtures/dates';
+import { createProjects, projects } from '../fixtures/projects';
 import { users } from '../fixtures/team';
 import type { DemoState, StoredNotification } from './state';
 
@@ -47,11 +47,11 @@ function receipt(
   };
 }
 
-export function seedTaskRecords(tasks: readonly TaskDto[]): TaskRecordDto[] {
+export function seedTaskRecords(tasks: readonly TaskDto[], through = demoDate()): TaskRecordDto[] {
   return tasks.flatMap((task) => {
     const manager = projects.find((project) => project.id === task.project)!.owner;
     const start = Date.parse(task.createdAt);
-    const end = Date.parse(task.completedAt ?? `${taskReferenceDate}T10:00:00Z`);
+    const end = Date.parse(task.completedAt ?? `${through}T00:00:00Z`);
     const at = (fraction: number) =>
       new Date(start + Math.max(0, end - start) * fraction).toISOString();
     const records = [receipt(task, manager, 'created', at(0), `seed-${task.id}-created`)];
@@ -62,28 +62,61 @@ export function seedTaskRecords(tasks: readonly TaskDto[]): TaskRecordDto[] {
     if (task.status === 'done')
       records.push(receipt(task, manager, 'approved', at(1), `seed-${task.id}-approved`));
 
-    if (task.assignee) {
-      const sessions = 8 + task.estimateHours;
-      const phase = ['done', 'in_review'].includes(task.status) ? 0.75 : 0.95;
-      for (let index = 0; index < sessions; index++) {
-        const record = receipt(
-          task,
-          task.assignee,
-          'assisted',
-          at((phase * (index + 1)) / (sessions + 1)),
-          `seed-${task.id}-assistance-${index}`,
-        );
-        const variation = 0.6 + ((Number.parseInt(task.id.slice(0, 4), 16) + index * 17) % 9) * 0.2;
-        records.push({
-          ...record,
-          inputTokens: Math.round(record.inputTokens * variation),
-          outputTokens: Math.round(record.outputTokens * variation),
-        });
-      }
-    }
-
     return records;
   });
+}
+
+export function isDemoUsageRecord(record: TaskRecordDto) {
+  return record.kind === 'assisted' && record.id.startsWith('seed-');
+}
+
+export function seedUsageRecords(tasks: readonly TaskDto[], through: string): TaskRecordDto[] {
+  const byPerson = new Map<string, TaskDto[]>();
+
+  for (const task of tasks) {
+    if (!task.assignee) continue;
+
+    const assigned = byPerson.get(task.assignee) ?? [];
+    assigned.push(task);
+    byPerson.set(task.assignee, assigned);
+  }
+
+  const records: TaskRecordDto[] = [];
+  const start = `${Number(through.slice(0, 4)) - 1}-01-01`;
+  const recent = demoDate(-13, through);
+
+  for (let date = start; date <= through; date = demoDate(1, date)) {
+    for (const [person, assigned] of byPerson) {
+      let seed = 0;
+
+      for (const character of `${date}:${person}`)
+        seed = (Math.imul(seed, 31) + character.charCodeAt(0)) >>> 0;
+
+      if (date < recent && seed % 4 !== 0) continue;
+
+      const available = assigned.filter((task) => task.createdAt.slice(0, 10) <= date);
+      const task = available[seed % available.length];
+
+      if (!task) continue;
+
+      const record = receipt(
+        task,
+        person,
+        'assisted',
+        `${date}T00:00:00.000Z`,
+        `seed-usage-${date}-${person}`,
+      );
+      const variation = 0.5 + (seed % 16) / 10;
+
+      records.push({
+        ...record,
+        inputTokens: Math.round(record.inputTokens * variation),
+        outputTokens: Math.round(record.outputTokens * variation),
+      });
+    }
+  }
+
+  return records;
 }
 
 function notificationFor(
@@ -113,6 +146,7 @@ function notificationFor(
 export function seedNotifications(
   tasks: readonly TaskDto[],
   records: readonly TaskRecordDto[],
+  through = demoDate(),
 ): StoredNotification[] {
   const result: StoredNotification[] = [
     {
@@ -123,7 +157,7 @@ export function seedNotifications(
       taskId: null,
       taskTitle: '',
       project: '',
-      createdAt: `${taskReferenceDate}T00:00:00Z`,
+      createdAt: `${through}T00:00:00Z`,
       readAt: null,
     },
   ];
@@ -239,18 +273,10 @@ export function dailyTokenUsage(records: readonly TaskRecordDto[]): TokenUsageDa
   return [...days.values()].sort((a, b) => a.date.localeCompare(b.date));
 }
 
-export function reportingDate(records: readonly TaskRecordDto[]) {
-  return records.reduce(
-    (date, record) =>
-      record.recordedAt.slice(0, 10) > date ? record.recordedAt.slice(0, 10) : date,
-    taskReferenceDate,
-  );
-}
-
 export function reportingYears(records: readonly TaskRecordDto[], date: string) {
   const start = Math.min(
     Number(date.slice(0, 4)) - 1,
-    ...projects.map((project) => Number(project.start.slice(0, 4))),
+    ...createProjects(date).map((project) => Number(project.start.slice(0, 4))),
     ...records.map((record) => Number(record.recordedAt.slice(0, 4))),
   );
 

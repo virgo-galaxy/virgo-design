@@ -1,0 +1,38 @@
+.demo {
+  border-top: 1px solid var(--vd-border-subtle);
+  margin-top: 28px;
+  padding-top: 24px;
+}
+.demoTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+.demo > p {
+  color: var(--vd-text-secondary);
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 10px 0 16px;
+}
+.demoHint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--vd-text-secondary);
+}
+.demoHint code {
+  color: var(--vd-text-primary);
+  background: var(--vd-surface-background);
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+.demoHint > button {
+  margin-left: auto;
+}
+.demo .identity {
+  margin-bottom: 0;
+}

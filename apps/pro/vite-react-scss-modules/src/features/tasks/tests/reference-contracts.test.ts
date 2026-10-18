@@ -1,24 +1,30 @@
 // @vitest-environment jsdom
 import { delay, http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
-import { afterAll, afterEach, beforeAll, beforeEach, expect, it } from 'vitest';
+import { afterAll, afterEach, beforeAll, beforeEach, expect, it, vi } from 'vitest';
 
 import { getProjectModuleStats, getProjects, getProjectSummaries } from '@/api/projects';
 import { createTask, getTasks, updateTask, updateTaskStatus } from '@/api/tasks';
 import { moduleFilterKey, moduleName } from '@/features/catalog';
 import { getDemoState, updateDemoState } from '@/mock/data/store';
-import { projects } from '@/mock/fixtures/projects';
+import * as projectFixtures from '@/mock/fixtures/projects';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';
 
 import { getTaskCollection } from '../data/queries';
 import { taskDraft } from '../model/task';
+
+const { projects } = projectFixtures;
 const server = setupServer(...handlers);
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 beforeEach(() => resetTasks());
-afterEach(() => server.resetHandlers());
+afterEach(() => {
+  server.resetHandlers();
+  vi.restoreAllMocks();
+});
 afterAll(() => server.close());
 it('keeps relations and permissions stable through display-name changes and resolves scoped module IDs', async () => {
+  vi.spyOn(projectFixtures, 'createProjects').mockReturnValue(projects);
   const project = projects[0]!;
   const original = project.name;
   try {

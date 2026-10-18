@@ -1,5 +1,5 @@
 import type { MemberDto } from '@/api/tasks/types';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 
 export type Project = import('@/api/projects/types').ProjectDto;
 

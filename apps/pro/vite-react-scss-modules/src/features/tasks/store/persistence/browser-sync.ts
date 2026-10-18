@@ -1,4 +1,4 @@
-import { demoResetCompleteEvent, demoResetEvent } from '@/lib/demo/reset';
+import { storageResetCompleteEvent, storageResetEvent } from '@/lib/storage';
 import { localStorageAccess } from '@/lib/storage';
 
 import {
@@ -74,8 +74,8 @@ export function startTaskTableSync(store: TaskTableStore, canPersist: boolean) {
 
   window.addEventListener('storage', onStorage);
   window.addEventListener('pagehide', flush);
-  window.addEventListener(demoResetEvent, beginReset);
-  window.addEventListener(demoResetCompleteEvent, finishReset);
+  window.addEventListener(storageResetEvent, beginReset);
+  window.addEventListener(storageResetCompleteEvent, finishReset);
 
   return () => {
     unsubscribe();
@@ -83,7 +83,7 @@ export function startTaskTableSync(store: TaskTableStore, canPersist: boolean) {
 
     window.removeEventListener('storage', onStorage);
     window.removeEventListener('pagehide', flush);
-    window.removeEventListener(demoResetEvent, beginReset);
-    window.removeEventListener(demoResetCompleteEvent, finishReset);
+    window.removeEventListener(storageResetEvent, beginReset);
+    window.removeEventListener(storageResetCompleteEvent, finishReset);
   };
 }

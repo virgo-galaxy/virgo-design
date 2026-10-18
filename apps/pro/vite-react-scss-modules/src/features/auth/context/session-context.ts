@@ -5,7 +5,7 @@ import type { SessionUser } from '@/api/auth/types';
 export const SessionContext = createContext<{
   user: SessionUser;
   signOut: () => Promise<void>;
-  resetDemo: () => Promise<void>;
+  endSession: () => void;
 } | null>(null);
 
 export function useSession() {

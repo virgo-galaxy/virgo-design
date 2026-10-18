@@ -3,8 +3,9 @@ import { Button, Tooltip } from '@virgo-design/ui';
 import type { HTMLAttributes, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import styles from './CopyableText.module.scss';
 import { useCopyFeedback } from './use-copy-feedback';
+
+import styles from './CopyableText.module.scss';
 
 export interface CopyableTextProps extends HTMLAttributes<HTMLDivElement> {
   value: string;

@@ -2,7 +2,7 @@ import { Button, Dialog } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedback';
-import { useMutation } from '@/hooks/use-mutation';
+import { useMutation } from '@/hooks/async/use-mutation';
 
 import taskActions from '../styles/TaskActions.module.scss';
 

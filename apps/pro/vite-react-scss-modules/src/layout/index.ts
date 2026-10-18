@@ -1,1 +1,1 @@
-export { ProtectedLayout, SessionLayout } from './session/SessionLayout';
+export { MainLayout } from './MainLayout';

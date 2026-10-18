@@ -16,6 +16,7 @@ import { DeliveryTrendPanel } from '../components/DeliveryTrendPanel';
 import { OwnerCapacityPanel } from '../components/OwnerCapacityPanel';
 import { ProjectDeliveryPanel } from '../components/ProjectDeliveryPanel';
 import { TaskDistributionPanel } from '../components/TaskDistributionPanel';
+
 import styles from '../styles/analytics.module.scss';
 
 export function AnalyticsView() {

@@ -1,490 +1,135 @@
-import { MoonFilledIcon, SearchIcon, SunFilledIcon, VirgoDesignIcon } from '@virgo-design/icons';
-import virgoDesignLogo from '@virgo-design/icons/brands/virgo-design.svg';
-import {
-  Badge,
-  Breadcrumb,
-  Button,
-  Drawer,
-  Input,
-  Layout,
-  type LayoutSidebarDisplayState,
-  Separator,
-  Tag,
-  Toolbar,
-  Tooltip,
-} from '@virgo-design/ui';
-import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
+import { Button, Drawer, Layout, Tooltip } from '@virgo-design/ui';
+import type { CSSProperties, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router';
 
-import { LanguageControl } from '@/components/language-control/LanguageControl';
-import { ThemeStyleControl } from '@/components/theme-style-control/ThemeStyleControl';
-import { AiWorkspace } from '@/features/ai-workspace';
-import { useCurrentUser, useSession } from '@/features/auth';
-import { NotificationControl } from '@/features/notifications';
-import { useProfileIdentityResource } from '@/features/profile';
-import { SettingsDrawer, SettingsTrigger } from '@/features/settings';
-import { isAdmin } from '@/lib/auth/permissions';
-import { getFixedHeaderMaterial, sidebarWidthRanges, useAppPreferences } from '@/preferences';
-import { proRouteConfig, proRouting, routeIcons, routePath } from '@/routes';
+import { useAppPreferences } from '@/preferences';
+import { SettingsDrawer, SettingsTrigger } from '@/preferences/react';
 
-import { AccountMenu } from '../account-menu/AccountMenu';
-import { SidebarNavigation } from '../navigation/SidebarNavigation';
+import { AppContent } from './content/AppContent';
+import { AppFooter } from './footer/AppFooter';
+import { AppHeader } from './header/AppHeader';
+import { AppSidebar } from './sidebar/AppSidebar';
+import { useSidebar } from './sidebar/use-sidebar';
+import { useSettingsDrawer } from './use-settings-drawer';
+
 import styles from './AppShell.module.scss';
 
-function HeaderSearch() {
-  const { t } = useTranslation();
-
-  return (
-    <Input
-      rootClassName={styles.search!}
-      suffix={<SearchIcon />}
-      aria-label={t('app.searchPlaceholder')}
-      placeholder={t('app.searchPlaceholder')}
-      size="medium"
-    />
-  );
-}
-
 export function AppShell({
-  agentMode,
-  onAgentModeChange,
+  children,
+  headerActions,
+  accountMenu,
+  settingsActions,
+  workspaceLabel,
+  canCustomize = true,
+  canVisit,
 }: {
-  agentMode: boolean;
-  onAgentModeChange: (active: boolean) => void;
+  children: ReactNode;
+  headerActions?: ReactNode;
+  accountMenu?: ReactNode;
+  settingsActions?: ReactNode;
+  workspaceLabel?: ReactNode;
+  canCustomize?: boolean;
+  canVisit?: ((key: string) => boolean) | undefined;
 }) {
   const { t } = useTranslation();
-  const user = useCurrentUser();
-  const { resetDemo } = useSession();
-  const admin = isAdmin(user);
-  const profileResource = useProfileIdentityResource();
-  const profile = profileResource.data ?? {
-    name: user!.name,
-    displayName: user!.name,
-    avatarColor: '#165dff',
-    avatarImage: user!.avatarUrl ?? '',
-  };
-
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-  const currentPage = proRouting.match(pathname);
-  const currentGroup = currentPage?.group
-    ? { ...currentPage.group, label: t(currentPage.group.labelKey) }
-    : undefined;
-  const currentPageLabel = currentPage ? t(currentPage.labelKey) : t('app.pageNotFound');
-  const CurrentGroupIcon = currentGroup ? routeIcons[currentGroup.icon] : undefined;
-  const CurrentPageIcon = currentPage?.icon ? routeIcons[currentPage.icon] : undefined;
-
-  const {
-    preferences: settings,
-    updatePreferences: updateSettings,
-    resetPreferences: resetSettings,
-    appearance: theme,
-    storageAvailable,
-  } = useAppPreferences(admin);
-
-  const headerMaterial = getFixedHeaderMaterial(settings.theme) ?? settings.headerMaterial;
-  const { sidebarWidth } = settings;
-  const [sidebarOverride, setSidebarOverride] = useState<LayoutSidebarDisplayState | null>(null);
-  const setSidebarWidth = useCallback(
-    (sidebarWidth: number) => updateSettings({ sidebarWidth }),
-    [updateSettings],
-  );
-
-  const [settingsOpen, setSettingsOpen] = useState(false);
-  const [settingsTooltipOpen, setSettingsTooltipOpen] = useState(false);
-  const [settingsAnchorY, setSettingsAnchorY] = useState(58);
-  const [navigationTooltipOpen, setNavigationTooltipOpen] = useState(false);
-  const [narrow, setNarrow] = useState(() => window.matchMedia('(max-width: 1080px)').matches);
-
-  const sidebarState =
-    settings.sidebarState === 'hidden'
-      ? 'hidden'
-      : (sidebarOverride ?? (narrow ? 'collapsed' : settings.sidebarState));
-  const setSidebarState = useCallback(
-    (sidebarState: LayoutSidebarDisplayState) => {
-      if (admin && !narrow) updateSettings({ sidebarState });
-      else setSidebarOverride(sidebarState);
-    },
-    [admin, narrow, updateSettings],
-  );
-
-  const navigationToggle = useRef<HTMLButtonElement>(null);
-  const settingsTrigger = useRef<HTMLButtonElement>(null);
-  const restoringSettingsFocus = useRef(false);
-  const settingsTooltipSuppressed = useRef(false);
-  const contentRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const media = window.matchMedia('(max-width: 1080px)');
-    const update = () => setNarrow(media.matches);
-
-    media.addEventListener('change', update);
-
-    return () => media.removeEventListener('change', update);
-  }, []);
-
-  const mobilePath = narrow ? pathname : null;
-
-  useEffect(() => {
-    setSidebarOverride(null);
-  }, [mobilePath]);
-
-  useEffect(() => {
-    document.title = t('app.valueVirgoDesignPro', { v0: currentPageLabel });
-  }, [currentPageLabel, t]);
-
-  useEffect(() => {
-    contentRef.current?.scrollTo({ top: 0 });
-    contentRef.current?.focus({ preventScroll: true });
-  }, [pathname]);
-
-  const settingsTriggerProps = {
-    ref: settingsTrigger,
-    tooltipOpen: settingsTooltipOpen && !settingsOpen,
-    onTooltipOpenChange: (open: boolean) => {
-      setSettingsTooltipOpen(open && !settingsOpen && !settingsTooltipSuppressed.current);
-    },
-    onTooltipInteraction: () => {
-      if (!settingsOpen && !restoringSettingsFocus.current && settingsTooltipSuppressed.current) {
-        settingsTooltipSuppressed.current = false;
-        setSettingsTooltipOpen(true);
-      }
-    },
-  };
-
-  const footerBrand = (
-    <>
-      <VirgoDesignIcon size={16} />
-      <span>{t('app.virgoDesignPro')}</span>
-    </>
-  );
+  const { preferences, updatePreferences, resetPreferences, appearance, storageAvailable } =
+    useAppPreferences(canCustomize);
+  const sidebar = useSidebar({ preferences, updatePreferences, canCustomize });
+  const settings = useSettingsDrawer(updatePreferences);
 
   return (
-    <AiWorkspace
-      active={admin && agentMode}
-      theme={theme}
-      onExit={() => onAgentModeChange(false)}
-      footer={
-        settings.showFooter ? <span className={styles.footerBrand}>{footerBrand}</span> : null
-      }
-    >
-      <Tooltip.Provider size="medium" arrow={settings.showOverlayArrows}>
-        <Drawer
-          className={styles.settingsRoot}
-          open={settingsOpen}
-          onOpenChange={(open) => {
-            restoringSettingsFocus.current = !open;
-            settingsTooltipSuppressed.current = true;
-            setSettingsTooltipOpen(false);
-            setSettingsOpen(open);
-          }}
+    <Tooltip.Provider size="medium" arrow={preferences.showOverlayArrows}>
+      <Drawer
+        className={styles.settingsRoot}
+        open={settings.open}
+        onOpenChange={settings.onOpenChange}
+      >
+        <Layout.SidebarProvider
+          id="pro-sidebar"
+          state={sidebar.state}
+          onStateChange={sidebar.setState}
         >
-          <Layout.SidebarProvider
-            id="pro-sidebar"
-            state={sidebarState}
-            onStateChange={setSidebarState}
+          <Layout
+            className={styles.shell!}
+            direction="vertical"
+            data-theme={appearance}
+            style={
+              {
+                '--pro-header-height': preferences.showHeader
+                  ? `${preferences.headerHeight}px`
+                  : '0px',
+              } as CSSProperties
+            }
+            onKeyDown={sidebar.onKeyDown}
           >
-            <Layout
-              className={styles.shell!}
-              direction="vertical"
-              data-theme={theme}
-              style={
-                {
-                  '--pro-header-height': settings.showHeader ? `${settings.headerHeight}px` : '0px',
-                } as CSSProperties
+            <a className={styles.skipLink} href="#pro-main">
+              {t('app.skipToContent')}
+            </a>
+            <AppHeader
+              preferences={preferences}
+              updatePreferences={updatePreferences}
+              theme={appearance}
+              narrow={sidebar.narrow}
+              sidebarState={sidebar.state}
+              onSidebarWidthChange={sidebar.setWidth}
+              actions={headerActions}
+              accountMenu={accountMenu}
+              settingsTrigger={
+                canCustomize && preferences.showHeader ? (
+                  <SettingsTrigger {...settings.triggerProps} />
+                ) : null
               }
-              onKeyDown={(event) => {
-                if (
-                  event.key === 'Escape' &&
-                  narrow &&
-                  sidebarState === 'expanded' &&
-                  !event.defaultPrevented
-                ) {
-                  setSidebarState('collapsed');
-                  navigationToggle.current?.focus();
-                }
-              }}
-            >
-              <a className={styles.skipLink} href="#pro-main">
-                {t('app.skipToContent')}
-              </a>
-              <Layout.Header
-                className={styles.header!}
-                data-scale={settings.headerHeight > 64 ? 'large' : 'regular'}
-                hidden={!settings.showHeader}
-                height={settings.headerHeight}
-                gap={narrow ? 'var(--vd-spacing-12)' : 'var(--vd-spacing-24)'}
-                paddingInline={narrow ? 'var(--vd-spacing-12)' : 'var(--vd-spacing-24)'}
-                surface={{ tone: 'default', material: headerMaterial, border: 'none' }}
-                logo={
-                  <div className={styles.brand}>
-                    <Tooltip
-                      open={sidebarState === 'hidden' && navigationTooltipOpen}
-                      onOpenChange={setNavigationTooltipOpen}
-                    >
-                      <Tooltip.Trigger
-                        render={(props) => (
-                          <Layout.SidebarTrigger
-                            {...props}
-                            action="expand"
-                            className={styles.brandTrigger}
-                            aria-label={
-                              sidebarState === 'hidden'
-                                ? t('app.restoreNavigation')
-                                : t('app.virgoDesignProHome')
-                            }
-                            onClick={(event) => {
-                              props.onClick?.(event);
-
-                              if (!event.defaultPrevented) {
-                                if (sidebarState === 'hidden') {
-                                  setSidebarWidth(224);
-                                } else {
-                                  event.preventDefault();
-                                  navigate(routePath(proRouteConfig.home));
-                                }
-                              }
-                            }}
-                          >
-                            <img src={virgoDesignLogo} alt="" width="590" height="470" />
-                          </Layout.SidebarTrigger>
-                        )}
-                      />
-                      <Tooltip.Content>{t('app.restoreNavigation')}</Tooltip.Content>
-                    </Tooltip>
-                    <Link
-                      to={routePath(proRouteConfig.home)}
-                      className={styles.brandHome}
-                      aria-label={t('app.virgoDesignProHome')}
-                    >
-                      {t('app.virgoDesign')}
-                    </Link>
-                    <Tag size="md" intent="brand" variant="soft" className={styles.proBadge}>
-                      {t('app.pro')}
-                    </Tag>
-                  </div>
-                }
-                actions={
-                  <Toolbar
-                    layout="custom"
-                    aria-label={t('app.globalActions')}
-                    className={styles.actions}
-                  >
-                    <LanguageControl />
-                    <Tooltip>
-                      <Tooltip.Trigger
-                        render={(props) => (
-                          <Button
-                            {...props}
-                            iconOnly
-                            variant="text"
-                            aria-label={theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
-                            onClick={(event) => {
-                              props.onClick?.(event);
-
-                              if (!event.defaultPrevented)
-                                updateSettings({
-                                  appearance: theme === 'light' ? 'dark' : 'light',
-                                });
-                            }}
-                          >
-                            {theme === 'light' ? <MoonFilledIcon /> : <SunFilledIcon />}
-                          </Button>
-                        )}
-                      />
-                      <Tooltip.Content>
-                        {theme === 'light' ? t('app.darkMode') : t('app.lightMode')}
-                      </Tooltip.Content>
-                    </Tooltip>
-                    <ThemeStyleControl />
-                    <NotificationControl
-                      showOverlayArrows={settings.showOverlayArrows}
-                      indicator={settings.notificationIndicator}
-                    />
-                    {admin && settings.showHeader ? (
-                      <SettingsTrigger {...settingsTriggerProps} />
-                    ) : null}
-                    <Separator orientation="vertical" decorative className={styles.actionDivider} />
-                    <AccountMenu
-                      profile={profile}
-                      agentMode={agentMode}
-                      onAgentModeChange={onAgentModeChange}
-                    />
-                  </Toolbar>
-                }
-              >
-                <HeaderSearch />
-              </Layout.Header>
-
-              <Layout direction="horizontal" className={styles.body!}>
-                <Layout.Sidebar
-                  className={styles.sidebar}
-                  data-rail-icon-size={settings.sidebarRailWidth > 64 ? 'large' : 'regular'}
-                  width={sidebarWidth}
-                  resizable={admin && settings.sidebarResizable}
-                  minWidth={sidebarWidthRanges.expanded.min}
-                  maxWidth={sidebarWidthRanges.expanded.max}
-                  mode={narrow && sidebarState === 'expanded' ? 'overlay' : 'inline'}
-                  {...(settings.sidebarSnap
-                    ? { resizeSnap: { collapseAt: 160, hideAt: 24, hysteresis: 16 } }
-                    : {})}
-                  onWidthChange={setSidebarWidth}
-                  collapsedWidth={settings.sidebarRailWidth}
-                  collapsible
-                  surface={{
-                    tone: 'default',
-                    border: 'none',
-                    elevation: narrow && sidebarState === 'expanded' ? 2 : 0,
-                  }}
-                  trigger={
-                    <div className={styles.sidebarToggle}>
-                      {sidebarState === 'expanded' ? (
-                        <span className={styles.environment}>
-                          <Badge
-                            dot
-                            intent="success"
-                            animation={settings.breathe ? 'breathe' : 'none'}
-                            className={styles.statusDot}
-                          />
-                          {t(`app.workspaces.${user?.role ?? 'member'}`)}
-                        </span>
-                      ) : null}
-                      <Tooltip className={styles.sidebarToggleHint}>
-                        <Tooltip.Trigger
-                          ref={navigationToggle}
-                          render={(props) => (
-                            <Layout.SidebarTrigger
-                              {...props}
-                              className={styles.sidebarToggleButton}
-                            />
-                          )}
-                        />
-                        <Tooltip.Content placement="right" offset={12}>
-                          {sidebarState !== 'expanded'
-                            ? t('app.expandSidebar')
-                            : t('app.collapseSidebar')}
-                        </Tooltip.Content>
-                      </Tooltip>
-                    </div>
-                  }
-                >
-                  {({ collapsed }) => (
-                    <SidebarNavigation
-                      collapsed={collapsed}
-                      railIconSize={settings.sidebarRailWidth > 64 ? 'large' : 'regular'}
-                      pathname={pathname}
-                      showSubmenuHeader={settings.showSubmenuHeader}
-                      sidebarStyle={settings.sidebarStyle}
-                      showOverlayArrows={settings.showOverlayArrows}
-                    />
-                  )}
-                </Layout.Sidebar>
-                {narrow && sidebarState === 'expanded' ? (
-                  <Layout.SidebarTrigger
-                    action="collapse"
-                    className={styles.sidebarBackdrop}
-                    aria-label={t('app.closeNavigation')}
-                    onClick={() => navigationToggle.current?.focus()}
-                  />
-                ) : null}
-                <Layout.Content
-                  id="pro-main"
-                  ref={contentRef}
-                  tabIndex={-1}
-                  scrollable
-                  className={styles.main!}
-                >
-                  <div className={styles.content} data-layout={currentPage?.contentLayout}>
-                    {settings.showBreadcrumb && currentPage?.breadcrumb ? (
-                      <div className={styles.contextBar}>
-                        <Breadcrumb aria-label={t('app.pageBreadcrumb')}>
-                          {CurrentGroupIcon && currentGroup ? (
-                            <Breadcrumb.Item
-                              aria-current={false}
-                              icon={<CurrentGroupIcon />}
-                              className={styles.breadcrumbIcon!}
-                            >
-                              <span className={styles.breadcrumbIconLabel}>
-                                {currentGroup.label}
-                              </span>
-                            </Breadcrumb.Item>
-                          ) : null}
-                          {currentGroup && currentGroup.label !== currentPageLabel ? (
-                            <Breadcrumb.Item aria-current={false}>
-                              {currentGroup.label}
-                            </Breadcrumb.Item>
-                          ) : null}
-                          <Breadcrumb.Item
-                            {...(CurrentPageIcon ? { icon: <CurrentPageIcon /> } : {})}
-                          >
-                            {currentPageLabel}
-                          </Breadcrumb.Item>
-                        </Breadcrumb>
-                      </div>
-                    ) : null}
-                    <div className={styles.pageContent}>
-                      <Outlet context={{ showOverlayArrows: settings.showOverlayArrows }} />
-                    </div>
-                    {settings.showFooter ? (
-                      <footer className={styles.contentFooter}>
-                        <Link to={routePath(proRouteConfig.home)}>{footerBrand}</Link>
-                      </footer>
-                    ) : null}
-                  </div>
-                </Layout.Content>
-              </Layout>
-              {admin && !settings.showHeader ? (
-                <>
-                  <div className={styles.recoveryControls}>
-                    <Button
-                      variant="outline"
-                      onClick={() => updateSettings({ showHeader: true, sidebarState: 'expanded' })}
-                    >
-                      {t('app.restoreNavigation')}
-                    </Button>
-                    <AccountMenu
-                      profile={profile}
-                      agentMode={agentMode}
-                      onAgentModeChange={onAgentModeChange}
-                    />
-                  </div>
-                  <SettingsTrigger {...settingsTriggerProps} anchorY={settingsAnchorY} />
-                </>
-              ) : null}
-            </Layout>
-          </Layout.SidebarProvider>
-          {admin ? (
-            <SettingsDrawer
-              settings={settings}
-              theme={theme}
-              storageAvailable={storageAvailable}
-              onChange={updateSettings}
-              onReset={resetSettings}
-              onResetDemo={resetDemo}
-              onHeaderChange={(showHeader, anchorY) => {
-                updateSettings({ showHeader });
-
-                if (!showHeader) {
-                  restoringSettingsFocus.current = true;
-                  settingsTooltipSuppressed.current = true;
-                  setSettingsAnchorY(anchorY);
-                  setSettingsTooltipOpen(false);
-                  setSettingsOpen(false);
-                }
-              }}
-              onCloseAutoFocus={(event) => {
-                event.preventDefault();
-                queueMicrotask(() => {
-                  restoringSettingsFocus.current = true;
-                  settingsTrigger.current?.focus({ preventScroll: true });
-                  restoringSettingsFocus.current = false;
-                });
-              }}
             />
-          ) : null}
-        </Drawer>
-      </Tooltip.Provider>
-    </AiWorkspace>
+
+            <Layout direction="horizontal" className={styles.body!}>
+              <AppSidebar
+                preferences={preferences}
+                canCustomize={canCustomize}
+                canVisit={canVisit}
+                workspaceLabel={workspaceLabel}
+                narrow={sidebar.narrow}
+                state={sidebar.state}
+                toggleRef={sidebar.toggleRef}
+                onWidthChange={sidebar.setWidth}
+              />
+              <AppContent
+                showBreadcrumb={preferences.showBreadcrumb}
+                footer={preferences.showFooter ? <AppFooter /> : null}
+              >
+                {children}
+              </AppContent>
+            </Layout>
+            {canCustomize && !preferences.showHeader ? (
+              <>
+                <div className={styles.recoveryControls}>
+                  <Button
+                    variant="outline"
+                    onClick={() =>
+                      updatePreferences({ showHeader: true, sidebarState: 'expanded' })
+                    }
+                  >
+                    {t('app.restoreNavigation')}
+                  </Button>
+                  {accountMenu}
+                </div>
+                <SettingsTrigger {...settings.triggerProps} anchorY={settings.anchorY} />
+              </>
+            ) : null}
+          </Layout>
+        </Layout.SidebarProvider>
+        {canCustomize ? (
+          <SettingsDrawer
+            settings={preferences}
+            theme={appearance}
+            storageAvailable={storageAvailable}
+            onChange={updatePreferences}
+            onReset={resetPreferences}
+            extraActions={settingsActions}
+            onHeaderChange={settings.onHeaderChange}
+            onCloseAutoFocus={settings.onCloseAutoFocus}
+          />
+        ) : null}
+      </Drawer>
+    </Tooltip.Provider>
   );
 }

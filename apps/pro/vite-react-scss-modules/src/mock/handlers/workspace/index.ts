@@ -2,11 +2,11 @@ import { http } from 'msw';
 
 import { requestUser, scopedTasks } from '../../auth/session';
 import { getDemoState } from '../../data/store';
+import { demoDate } from '../../fixtures/dates';
 import { projects } from '../../fixtures/projects';
 import { taskAssignees } from '../../fixtures/tasks';
 import { announcements } from '../../fixtures/workplace';
 import { endpoint, success } from '../../http/response';
-import { reportingDate } from '../../model/task-records';
 
 export const workspaceHandlers = [
   http.get(endpoint('/announcements'), () => success(announcements)),
@@ -16,7 +16,7 @@ export const workspaceHandlers = [
     const state = getDemoState();
     const tasks = scopedTasks(state.tasks, request);
     const completed = tasks.filter((task) => task.status === 'done').length;
-    const date = reportingDate(state.records);
+    const date = demoDate();
 
     return success({
       date,

@@ -2,13 +2,13 @@ import { useCallback } from 'react';
 
 import { getTasks } from '@/api/tasks';
 import type { TaskListQuery } from '@/api/tasks/types';
-import { useRemoteData } from '@/hooks/use-remote-data';
+import { useRemoteData } from '@/hooks/async/use-remote-data';
+import { useResourceRevision } from '@/store/resources';
 
-import { useTaskRevision } from '../data/operations';
 import { getTaskCollection } from '../data/queries';
 
 export function useTaskQuery(query: TaskListQuery, mode: 'page' | 'collection' = 'page') {
-  const revision = useTaskRevision();
+  const revision = useResourceRevision('tasks');
   const key = JSON.stringify(query);
 
   const load = useCallback(

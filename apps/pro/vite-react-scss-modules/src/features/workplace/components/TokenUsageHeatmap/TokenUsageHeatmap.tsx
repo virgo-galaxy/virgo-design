@@ -19,6 +19,7 @@ import {
   formatTokenCount,
   tokenUsageScale,
 } from '../../model/token-usage-calendar';
+
 import styles from './TokenUsageHeatmap.module.scss';
 
 type UsageDay = ReturnType<typeof buildTokenUsageCalendar>['days'][number];

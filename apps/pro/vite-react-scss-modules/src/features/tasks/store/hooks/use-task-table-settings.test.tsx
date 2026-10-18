@@ -44,7 +44,7 @@ it('shares changes between readers and flushes a pending save when the session u
   act(() => view.result.current.first.setSettings((settings) => ({ ...settings, striped: true })));
   expect(view.result.current.second.settings.striped).toBe(true);
   view.unmount();
-  expect(JSON.parse(localStorage.getItem(taskTableStorageKey)!).settings.striped).toBe(true);
+  expect(JSON.parse(localStorage.getItem(taskTableStorageKey)!).striped).toBe(true);
 });
 
 it('keeps non-admin table adjustments in memory without overwriting saved browser settings', async () => {
@@ -73,8 +73,8 @@ it('accepts cross-tab preferences and cancels pending edits after a cross-tab cl
   try {
     const view = renderHook(useTaskTableSettings, { wrapper });
     const incoming = JSON.stringify({
-      version: 1,
-      settings: { ...defaultTableSettings(), size: 'large' },
+      ...defaultTableSettings(),
+      size: 'large',
     });
     act(() => {
       localStorage.setItem(taskTableStorageKey, incoming);

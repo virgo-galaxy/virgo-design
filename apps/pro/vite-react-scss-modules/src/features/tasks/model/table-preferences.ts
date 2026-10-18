@@ -7,13 +7,10 @@ import {
   type TaskTableSettings,
 } from './table-settings';
 
-export const taskTableStorageKey = 'virgo-pro.tasks-table.v1';
+export const taskTableStorageKey = 'virgo-pro.tasks-table';
 
 export function serializeTaskTableSettings(settings: TaskTableSettings): string {
-  return JSON.stringify({
-    version: 1,
-    settings,
-  });
+  return JSON.stringify(settings);
 }
 
 const choices = {
@@ -37,11 +34,10 @@ export function parseTaskTableSettings(raw: string | null): TaskTableSettings {
   const defaults = defaultTableSettings();
 
   try {
-    const saved: unknown = JSON.parse(raw ?? 'null');
+    const value: unknown = JSON.parse(raw ?? 'null');
 
-    if (!isRecord(saved) || saved.version !== 1 || !isRecord(saved.settings)) return defaults;
+    if (!isRecord(value)) return defaults;
 
-    const value = saved.settings;
     const next: TaskTableSettings = { ...defaults };
 
     for (const [key, fallback] of Object.entries(defaults))

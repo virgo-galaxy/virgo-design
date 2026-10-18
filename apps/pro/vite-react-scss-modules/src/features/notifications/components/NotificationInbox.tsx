@@ -1,3 +1,4 @@
+import { MailIcon, MailOpenIcon } from '@virgo-design/icons';
 import { Button, Separator } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -6,10 +7,11 @@ import { readAllNotifications, readNotification } from '@/api/notifications';
 import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedback';
 import { RemoteState } from '@/components/remote-state/RemoteState';
 import { taskDetailsPath } from '@/features/tasks';
-import { useMutation } from '@/hooks/use-mutation';
-import { businessLabel } from '@/lib/demo/labels';
+import { useMutation } from '@/hooks/async/use-mutation';
+import { businessLabel } from '@/lib/formatting/business-labels';
 
 import type { useNotificationInbox } from '../hooks/use-notification-inbox';
+
 import styles from './NotificationInbox.module.scss';
 
 export function NotificationInbox({
@@ -32,6 +34,7 @@ export function NotificationInbox({
         <Button
           size="small"
           variant="text"
+          leadingIcon={<MailOpenIcon size={16} />}
           disabled={!inbox.data?.unreadCount || mutation.pending}
           onClick={() =>
             void mutation.run(async () => {
@@ -74,7 +77,15 @@ export function NotificationInbox({
                   }
                 >
                   <span className={styles.itemHeading}>
-                    <span className={styles.dot} aria-hidden="true" />
+                    <span
+                      className={styles.statusIcon}
+                      role="img"
+                      aria-label={t(
+                        item.readAt ? 'notifications.inbox.read' : 'notifications.inbox.unread',
+                      )}
+                    >
+                      {item.readAt ? <MailOpenIcon size={16} /> : <MailIcon size={16} />}
+                    </span>
                     <strong>{t(`notifications.inbox.kinds.${item.kind}`)}</strong>
                   </span>
                   <span className={styles.task}>

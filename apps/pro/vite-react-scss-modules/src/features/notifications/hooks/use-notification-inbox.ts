@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 
 import { getNotifications } from '@/api/notifications';
-import { useRemoteData } from '@/hooks/use-remote-data';
-
-import { useNotificationRevision } from '../context/revision';
+import { useRemoteData } from '@/hooks/async/use-remote-data';
+import { useResourceRevision } from '@/store/resources';
 
 export function useNotificationInbox() {
-  const revision = useNotificationRevision();
+  const revision = useResourceRevision('notifications');
   const resource = useRemoteData(getNotifications, { revision });
   const { retry } = resource;
 

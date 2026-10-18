@@ -4,6 +4,7 @@ import { type CSSProperties, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useVoiceRecorder } from './useVoiceRecorder';
+
 import styles from './VoiceBar.module.scss';
 
 const bars = [12, 22, 16, 30, 20, 40, 26, 34, 18, 42, 28, 36, 22, 32, 16, 26, 12];

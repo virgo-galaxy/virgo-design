@@ -10,8 +10,8 @@ import {
   visibleColumns,
 } from './table-settings';
 
-it('restores defaults for corrupt or unsupported saved preferences', () => {
-  for (const raw of [null, '{', '[]', '{"version":2,"settings":{}}'])
+it('restores defaults for corrupt or invalid saved preferences', () => {
+  for (const raw of [null, '{', '[]', 'false'])
     expect(parseTaskTableSettings(raw)).toEqual(defaultTableSettings());
 });
 
@@ -28,12 +28,7 @@ it('preserves composition, order and empty optional menu choices across reloads'
     filter: true,
     search: true,
   };
-  const restored = parseTaskTableSettings(
-    JSON.stringify({
-      version: 1,
-      settings,
-    }),
-  );
+  const restored = parseTaskTableSettings(JSON.stringify(settings));
   expect(restored).toEqual({
     ...settings,
     pinnedColumns: { start: 'title', end: null },
@@ -60,12 +55,7 @@ it('preserves selection visibility and configuration while restoring its first p
       controls: { ...settings.columns[0]!.controls, filter: true, search: true },
     },
   );
-  const restored = parseTaskTableSettings(
-    JSON.stringify({
-      version: 1,
-      settings,
-    }),
-  );
+  const restored = parseTaskTableSettings(JSON.stringify(settings));
   expect(restored.columns[0]).toMatchObject({
     visible: false,
     width: 100,
@@ -87,12 +77,7 @@ it('repairs duplicate or missing columns, invalid bounds and hidden data columns
     { width: 5000, minWidth: 40, maxWidth: 100 },
   );
   settings.columns.push(settings.columns[1]!);
-  const result = parseTaskTableSettings(
-    JSON.stringify({
-      version: 1,
-      settings,
-    }),
-  );
+  const result = parseTaskTableSettings(JSON.stringify(settings));
   expect(result.size).toBe('medium');
   expect(result.columns).toHaveLength(13);
   expect(result.selectionActions).toEqual(['odd']);
@@ -155,11 +140,7 @@ it('changes pin boundaries without changing column order and prevents overlappin
 
 it('restores pin boundaries including explicit unpinning, and ignores invalid saved keys', () => {
   const settings = defaultTableSettings();
-  const save = (pinnedColumns: unknown) =>
-    JSON.stringify({
-      version: 1,
-      settings: { ...settings, pinnedColumns },
-    });
+  const save = (pinnedColumns: unknown) => JSON.stringify({ ...settings, pinnedColumns });
   expect(parseTaskTableSettings(save({ start: null, end: 'completedAt' })).pinnedColumns).toEqual({
     start: null,
     end: 'completedAt',

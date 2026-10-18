@@ -16,7 +16,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } 
 import { login } from '@/api/auth';
 import { API_ERROR_CODES } from '@/api/gateway/constants';
 import { getTasks } from '@/api/tasks';
-import { ProResourcesProvider } from '@/app/composition/providers/ProResourcesProvider';
+import { BusinessDataProvider } from '@/layout/providers/BusinessDataProvider';
 import { initialTaskState } from '@/mock/fixtures/tasks';
 import { handlers } from '@/mock/handlers';
 import { resetTasks } from '@/mock/handlers/tasks';
@@ -49,9 +49,9 @@ function renderPage(path = '/work/tasks') {
       {
         element: (
           <TestSessionProvider>
-            <ProResourcesProvider>
+            <BusinessDataProvider>
               <Outlet />
-            </ProResourcesProvider>
+            </BusinessDataProvider>
           </TestSessionProvider>
         ),
         children: [

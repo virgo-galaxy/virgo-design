@@ -3,8 +3,11 @@ import { Badge, Button, Popover, Tooltip } from '@virgo-design/ui';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useOverlayTooltip } from '@/hooks/overlay/use-overlay-tooltip';
+
 import { useNotificationInbox } from '../../hooks/use-notification-inbox';
 import { NotificationInbox } from '../NotificationInbox';
+
 import styles from './NotificationControl.module.scss';
 
 export function NotificationControl({
@@ -17,24 +20,19 @@ export function NotificationControl({
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const inbox = useNotificationInbox();
-  const [tooltipOpen, setTooltipOpen] = useState(false);
-  const tooltipSuppressed = useRef(false);
+  const tooltip = useOverlayTooltip(open);
   const restoringFocus = useRef(false);
 
   const showFreshTooltip = () => {
-    if (!open && !restoringFocus.current && tooltipSuppressed.current) {
-      tooltipSuppressed.current = false;
-      setTooltipOpen(true);
-    }
+    if (!restoringFocus.current) tooltip.resumeOnInteraction();
   };
 
   return (
     <Popover
       open={open}
       onOpenChange={(next) => {
-        tooltipSuppressed.current = true;
+        tooltip.suppress();
         restoringFocus.current = !next;
-        setTooltipOpen(false);
         setOpen(next);
 
         if (next) inbox.retry();
@@ -44,10 +42,7 @@ export function NotificationControl({
           });
       }}
     >
-      <Tooltip
-        open={tooltipOpen && !open}
-        onOpenChange={(next) => setTooltipOpen(next && !open && !tooltipSuppressed.current)}
-      >
+      <Tooltip {...tooltip.tooltipProps}>
         <Tooltip.Trigger
           onFocus={showFreshTooltip}
           onPointerMove={(event) => {

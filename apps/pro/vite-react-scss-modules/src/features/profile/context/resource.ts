@@ -11,9 +11,8 @@ import type {
   UpdateProfileIdentityRequest,
   UpdateProfilePreferencesRequest,
 } from '@/api/profile/types';
-import { type RemoteData, useRemoteData } from '@/hooks/use-remote-data';
-
-export const ProfileRevisionContext = createContext(0);
+import { type RemoteData, useRemoteData } from '@/hooks/async/use-remote-data';
+import { useResourceRevision } from '@/store/resources';
 
 export const ProfileIdentityResourceContext = createContext<
   | (RemoteData<ProfileIdentityDto> & {
@@ -30,7 +29,8 @@ export function useProfileIdentityResource() {
   return value;
 }
 
-export function useProfileIdentityData(revision: number) {
+export function useProfileIdentityData() {
+  const revision = useResourceRevision('profile');
   const resource = useRemoteData(getProfileIdentity, { revision });
   const { setData } = resource;
 
@@ -45,7 +45,7 @@ export function useProfileIdentityData(revision: number) {
 }
 
 export function useProfilePreferencesData() {
-  const revision = useContext(ProfileRevisionContext);
+  const revision = useResourceRevision('profile');
   const resource = useRemoteData(getProfilePreferences, { revision });
   const { setData } = resource;
 

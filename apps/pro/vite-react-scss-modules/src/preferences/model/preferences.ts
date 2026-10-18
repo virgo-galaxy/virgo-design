@@ -2,6 +2,7 @@ import { getThemePreset, resolveThemeId } from '@virgo-design/themes';
 import type { LayoutSidebarDisplayState } from '@virgo-design/ui';
 
 import configuredDefaults from '@/config/settings.json';
+import { isRecord } from '@/lib/validation/is-record';
 
 export type Appearance = 'light' | 'dark' | 'system';
 export type SidebarStyle = 'collapsible' | 'labels';
@@ -47,7 +48,7 @@ export interface AppPreferences {
   notificationIndicator: NotificationIndicator;
 }
 
-export const preferencesStorageKey = 'virgo-pro:settings:v1';
+export const preferencesStorageKey = 'virgo-pro:settings';
 
 function readDefaultPreferences(): AppPreferences {
   const {
@@ -102,12 +103,9 @@ export function parsePreferences(raw: string | null): AppPreferences {
   const settings = { ...defaultPreferences };
 
   try {
-    const data: unknown = raw ? JSON.parse(raw) : null;
+    const record: unknown = raw ? JSON.parse(raw) : null;
 
-    if (!data || typeof data !== 'object' || !('version' in data) || data.version !== 1)
-      return settings;
-
-    const record = data as Record<string, unknown>;
+    if (!isRecord(record)) return settings;
 
     settings.theme = resolveThemeId(record.theme) ?? settings.theme;
     if (
@@ -167,5 +165,5 @@ export function parsePreferences(raw: string | null): AppPreferences {
 }
 
 export function serializePreferences(settings: AppPreferences) {
-  return JSON.stringify({ version: 1, ...settings });
+  return JSON.stringify(settings);
 }

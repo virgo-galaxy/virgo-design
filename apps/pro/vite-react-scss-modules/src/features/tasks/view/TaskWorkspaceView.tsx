@@ -18,14 +18,15 @@ import {
   projectName,
   useTaskCatalog,
 } from '@/features/catalog';
-import { useMutation } from '@/hooks/use-mutation';
-import { useRemoteData } from '@/hooks/use-remote-data';
+import { useMutation } from '@/hooks/async/use-mutation';
+import { useRemoteData } from '@/hooks/async/use-remote-data';
 import { canCreateTask, canEditTask, isAdmin, taskStatusChoices } from '@/lib/auth/permissions';
-import { businessLabel } from '@/lib/demo/labels';
+import { businessLabel } from '@/lib/formatting/business-labels';
 import { routePath } from '@/routes';
+import { useResourceRevision } from '@/store/resources';
 
 import { TaskForm } from '../components/TaskForm/TaskForm';
-import { useTaskOperations, useTaskRevision } from '../data/operations';
+import { useTaskOperations } from '../hooks/use-task-operations';
 import { type Task } from '../model/task';
 import {
   taskPriorityIntent,
@@ -33,6 +34,7 @@ import {
   taskStatusLabelNames,
 } from '../presentation/task-presentation';
 import { taskDetailsPath, taskEditPath, taskReturnPath } from '../routes/navigation';
+
 import styles from './TaskWorkspace.module.scss';
 
 const stages = ['backlog', 'todo', 'in_progress', 'in_review', 'done'] as const;
@@ -41,7 +43,7 @@ function TaskWorkspaceContent({ mode }: { mode: 'create' | 'edit' | 'details' })
   const { id = '' } = useParams();
   const [params] = useSearchParams();
   const returnTo = taskReturnPath(params.get('returnTo'));
-  const revision = useTaskRevision();
+  const revision = useResourceRevision('tasks');
 
   const load = useCallback(
     async (signal: AbortSignal) => {
@@ -157,7 +159,7 @@ function TaskDetails({
   const navigate = useNavigate();
   const { projects } = useTaskCatalog();
   const { dispatch } = useTaskOperations();
-  const revision = useTaskRevision();
+  const revision = useResourceRevision('tasks');
   const user = useCurrentUser();
   const mutation = useMutation();
 

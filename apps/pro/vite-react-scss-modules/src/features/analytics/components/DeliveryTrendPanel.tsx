@@ -7,6 +7,7 @@ import { formatDueDate } from '@/lib/formatting/format-due-date';
 
 import { deliveryAnalysis } from '../model/delivery-analysis';
 import { chartColors } from '../presentation/chart-colors';
+
 import styles from '../styles/analytics.module.scss';
 
 export function DeliveryTrendPanel({ trendPoints }: { trendPoints: TrendPointDto[] }) {

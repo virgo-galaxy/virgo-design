@@ -8,45 +8,39 @@ import {
   VirgoDesignIcon,
 } from '@virgo-design/icons';
 import virgoLogo from '@virgo-design/icons/brands/virgo-design.svg';
-import { Button, Field, Form, Input, Progress, Select, Tag, Tooltip } from '@virgo-design/ui';
-import { useEffect, useState } from 'react';
+import { Button, Field, Form, Input, Progress, Tag, Tooltip } from '@virgo-design/ui';
+import { type ReactNode, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { getDemoAccounts, login } from '@/api/auth';
-import type { LoginDto } from '@/api/auth/types';
+import { login } from '@/api/auth';
+import type { LoginDto, LoginRequest } from '@/api/auth/types';
 import { LanguageControl } from '@/components/language-control/LanguageControl';
-import { useRemoteData } from '@/hooks/use-remote-data';
-import { businessLabel } from '@/lib/demo/labels';
 import { isHttpError } from '@/lib/http';
 import { useAppPreferences } from '@/preferences';
 import { proRouteConfig, routePath } from '@/routes';
 
-import styles from './LoginForm.module.scss';
+import { LoginFormContext } from './login-form-context';
 
-const loadAccounts = (signal: AbortSignal) =>
-  import.meta.env.VITE_API_MOCKING === 'true' ? getDemoAccounts(signal) : Promise.resolve(null);
+import styles from './LoginForm.module.scss';
 
 export function LoginForm({
   onLogin,
   expired,
+  defaultCredentials,
+  children,
 }: {
   onLogin: (session: LoginDto) => void;
   expired: boolean;
+  defaultCredentials?: LoginRequest | undefined;
+  children?: ReactNode;
 }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { appearance, updatePreferences } = useAppPreferences(false);
-  const demo = useRemoteData(loadAccounts);
 
-  const [account, setAccount] = useState(
-    import.meta.env.VITE_API_MOCKING === 'true' ? 'admin' : '',
-  );
-  const [password, setPassword] = useState(
-    import.meta.env.VITE_API_MOCKING === 'true' ? 'virgo123' : '',
-  );
+  const [account, setAccount] = useState(defaultCredentials?.account ?? '');
+  const [password, setPassword] = useState(defaultCredentials?.password ?? '');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<'invalidCredentials' | 'failed' | ''>('');
-
-  const selected = demo.data?.accounts.find((user) => user.account === account);
 
   useEffect(() => {
     document.title = `${t('auth.login.signIn')} · Virgo Design Pro`;
@@ -224,75 +218,19 @@ export function LoginForm({
                 {t(pending ? 'auth.login.signingIn' : 'auth.login.signIn')}
               </Button>
             </Form>
-            {import.meta.env.VITE_API_MOCKING === 'true' ? (
-              <div className={styles.demo}>
-                <div className={styles.demoTitle}>
-                  <strong>{t('auth.login.demoTitle')}</strong>
-                  <Tag variant="soft">{t('auth.login.demoBadge')}</Tag>
-                </div>
-                <p>{t('auth.login.demoDescription')}</p>
-                {demo.data ? (
-                  <>
-                    <Field>
-                      <Field.Label>{t('auth.login.chooseAccount')}</Field.Label>
-                      <Select
-                        value={selected?.id ?? ''}
-                        disabled={pending}
-                        onValueChange={(id) => {
-                          const user = demo.data!.accounts.find((user) => user.id === id);
-                          if (user) {
-                            setAccount(user.account);
-                            setPassword(demo.data!.password);
-                            setError('');
-                          }
-                        }}
-                      >
-                        <Select.Trigger placeholder={t('auth.login.chooseAccount')} />
-                        <Select.Content>
-                          {demo.data.accounts.map((user) => (
-                            <Select.Option key={user.id} value={user.id}>
-                              <span>
-                                {businessLabel(user.name, i18n.language)} ·{' '}
-                                {t(`auth.login.roles.${user.role}`)}
-                              </span>
-                            </Select.Option>
-                          ))}
-                        </Select.Content>
-                      </Select>
-                    </Field>
-                    <div className={styles.demoHint}>
-                      <code>{demo.data.password}</code>
-                      <span>{t('auth.login.sharedPassword')}</span>
-                      <Button
-                        type="button"
-                        variant="text"
-                        size="small"
-                        onClick={() => setPassword(demo.data!.password)}
-                        disabled={pending}
-                      >
-                        {t('auth.login.fillPassword')}
-                      </Button>
-                    </div>
-                    {selected ? (
-                      <p className={styles.identity}>
-                        {businessLabel(selected.jobTitle, i18n.language)} ·{' '}
-                        {selected.role === 'admin'
-                          ? t('auth.login.allProjects')
-                          : selected.projects
-                              .map((project) => businessLabel(project, i18n.language))
-                              .join(' / ')}
-                      </p>
-                    ) : null}
-                  </>
-                ) : demo.error ? (
-                  <Button variant="text" onClick={demo.retry}>
-                    {t('auth.login.retryAccounts')}
-                  </Button>
-                ) : (
-                  <p role="status">{t('auth.login.loadingAccounts')}</p>
-                )}
-              </div>
-            ) : null}
+            <LoginFormContext
+              value={{
+                credentials: { account, password },
+                pending,
+                setCredentials: (credentials) => {
+                  setAccount(credentials.account);
+                  setPassword(credentials.password);
+                  setError('');
+                },
+              }}
+            >
+              {children}
+            </LoginFormContext>
           </section>
         </div>
         <footer className={styles.footer}>

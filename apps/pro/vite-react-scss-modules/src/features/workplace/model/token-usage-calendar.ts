@@ -2,6 +2,25 @@ import type { TokenUsageDayDto } from '@/api/analytics/types';
 
 const dayMs = 86400000;
 
+export function latestTokenUsageDate(
+  referenceDate: string,
+  usage: TokenUsageDayDto[],
+  year: number,
+) {
+  const latest = usage.reduce(
+    (date, day) =>
+      day.date.startsWith(`${year}-`) &&
+      day.date <= referenceDate &&
+      day.inputTokens + day.outputTokens > 0 &&
+      day.date > date
+        ? day.date
+        : date,
+    '',
+  );
+
+  return latest || (year === Number(referenceDate.slice(0, 4)) ? referenceDate : `${year}-12-31`);
+}
+
 export function tokenUsageLevel(tokens: number) {
   return tokens === 0 ? 0 : tokens < 10000 ? 1 : tokens < 50000 ? 2 : tokens < 100000 ? 3 : 4;
 }
@@ -33,9 +52,9 @@ export function formatTokenCount(tokens: number, locale: string) {
 }
 
 export function buildTokenUsageCalendar(
-  snapshotDate: string,
+  referenceDate: string,
   usage: TokenUsageDayDto[],
-  year = Number(snapshotDate.slice(0, 4)),
+  year = Number(referenceDate.slice(0, 4)),
 ) {
   const start = Date.UTC(year, 0, 1);
   const end = Date.UTC(year + 1, 0, 1);
@@ -43,7 +62,7 @@ export function buildTokenUsageCalendar(
   const records = new Map(usage.map((day) => [day.date, day]));
   const days = Array.from({ length: (end - start) / dayMs }, (_, index) => {
     const date = new Date(start + index * dayMs).toISOString().slice(0, 10);
-    const future = date > snapshotDate;
+    const future = date > referenceDate;
     const inputTokens = future ? 0 : (records.get(date)?.inputTokens ?? 0);
     const outputTokens = future ? 0 : (records.get(date)?.outputTokens ?? 0);
 
