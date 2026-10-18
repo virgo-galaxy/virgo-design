@@ -9,9 +9,13 @@ const { createRoot, createAppRouter, render, startMocking } = vi.hoisted(() => (
 }));
 
 vi.mock('react-dom/client', () => ({ createRoot }));
-vi.mock('@/app', () => ({ App: () => null }));
+vi.mock('@/i18n/bootstrap', () => ({ initializeAppLocale: vi.fn() }));
 vi.mock('@/routes/router', () => ({ createAppRouter }));
 vi.mock('@/mock', () => ({ startMocking }));
+vi.mock('@/store/bootstrap', () => ({
+  initializeAppStores: vi.fn(),
+  disposeAppStores: vi.fn(),
+}));
 
 beforeEach(() => {
   vi.resetModules();

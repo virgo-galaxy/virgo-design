@@ -110,8 +110,8 @@ const layerRanks: Record<string, number> = {
   layout: 7,
   integration: 8,
   routing: 9,
-  app: 9,
-  entry: 10,
+  app: 10,
+  entry: 11,
 };
 function isApiDefinition(file: string) {
   return /^api\/[^/]+\/(types|constants)\.ts$/.test(file);
@@ -261,15 +261,14 @@ it('resolves every local production import, including lazy and type-only depende
         expect(resolveImport(file, path), `${relative(root, file)} → ${path}`).toBeDefined();
 });
 
-it('keeps module entry directories and feature roots limited to index files', () => {
-  const expectEntry = (directory: string, typescriptOnly = false) => {
+it('keeps module roots limited to entry files and the application component', () => {
+  const expectEntry = (directory: string, typescriptOnly = false, allowedFiles = ['index.ts']) => {
     for (const entry of readdirSync(directory, { withFileTypes: true }))
       if (entry.isFile() && (!typescriptOnly || /\.tsx?$/.test(entry.name)))
-        expect(entry.name, relative(root, join(directory, entry.name))).toBe('index.ts');
+        expect(allowedFiles, relative(root, join(directory, entry.name))).toContain(entry.name);
   };
   for (const module of [
     'api',
-    'app',
     'components',
     'features',
     'i18n',
@@ -280,6 +279,7 @@ it('keeps module entry directories and feature roots limited to index files', ()
     'store',
   ])
     expectEntry(join(root, module), true);
+  expectEntry(join(root, 'app'), true, ['index.ts', 'App.tsx']);
   for (const feature of readdirSync(join(root, 'features')))
     expectEntry(join(root, 'features', feature));
   for (const owner of storeOwners) expectEntry(join(root, owner));
@@ -322,7 +322,10 @@ it('keeps route, layout, locale, preferences and HTTP consumers on explicit publ
         if ((boundary === 'app' || boundary === 'layout') && !graph.has(file)) continue;
         if (!to.startsWith(boundary + '/') || from.startsWith(boundary + '/')) continue;
         if (boundary === 'routes' && to === 'routes/router/index.ts') {
-          expect(from === 'main.tsx' || !graph.has(file), `${from} → router creation`).toBe(true);
+          expect(
+            from === 'app/bootstrap/initialize.ts' || !graph.has(file),
+            `${from} → router creation`,
+          ).toBe(true);
           continue;
         }
         if (
@@ -362,7 +365,7 @@ it('keeps model, domain and base modules independent of presentation, including 
   }
 });
 
-it('uses index files as public entries and limits side-effect imports to the app entry', () => {
+it('uses index files as public entries without initialization side effects', () => {
   for (const file of files.filter((file) => {
     const from = relative(root, file);
     return (
@@ -377,8 +380,7 @@ it('uses index files as public entries and limits side-effect imports to the app
         (statement) =>
           ts.isExportDeclaration(statement) ||
           ts.isExportAssignment(statement) ||
-          (ts.isImportDeclaration(statement) &&
-            (statement.importClause !== undefined || from === 'app/index.ts')) ||
+          (ts.isImportDeclaration(statement) && statement.importClause !== undefined) ||
           (ts.canHaveModifiers(statement) &&
             ts
               .getModifiers(statement)
@@ -452,7 +454,7 @@ it('keeps stores with their owning modules and application store assembly separa
   }
 });
 
-it('keeps Mock integration confined to the application entry and route assembly', () => {
+it('keeps Mock integration confined to application startup and route assembly', () => {
   for (const file of files) {
     const from = relative(root, file);
 
@@ -467,9 +469,11 @@ it('keeps Mock integration confined to the application entry and route assembly'
 
       if (!to.startsWith('mock/')) continue;
 
-      expect(['main.tsx', 'routes/router/router.tsx'], from).toContain(from);
+      expect(['app/bootstrap/initialize.ts', 'routes/router/router.tsx'], from).toContain(from);
       expect(
-        from === 'main.tsx' ? ['mock/index.ts'] : ['mock/index.ts', 'mock/react/index.ts'],
+        from === 'app/bootstrap/initialize.ts'
+          ? ['mock/index.ts']
+          : ['mock/index.ts', 'mock/react/index.ts'],
         `${from} → private ${to}`,
       ).toContain(to);
     }

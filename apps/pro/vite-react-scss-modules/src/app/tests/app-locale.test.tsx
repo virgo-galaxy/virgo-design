@@ -4,11 +4,14 @@ import userEvent from '@testing-library/user-event';
 import { Input, Table } from '@virgo-design/ui';
 import { StrictMode } from 'react';
 import { createMemoryRouter } from 'react-router';
-import { expect, it } from 'vitest';
+import { afterEach, expect, it, vi } from 'vitest';
 
 import { i18nInstance } from '@/i18n';
+import { createAppRouter } from '@/routes/router';
 
-import { App } from '../root/App';
+vi.mock('@/routes/router', () => ({ createAppRouter: vi.fn() }));
+
+afterEach(() => vi.unstubAllEnvs());
 
 it('switches the UI language with the app while preserving component state', async () => {
   const user = userEvent.setup();
@@ -23,9 +26,13 @@ it('switches the UI language with the app while preserving component state', asy
       ),
     },
   ]);
+  vi.mocked(createAppRouter).mockReturnValue(router);
+  vi.stubEnv('VITE_API_MOCKING', 'false');
+
+  const { App } = await import('../App');
   const view = render(
     <StrictMode>
-      <App router={router} />
+      <App />
     </StrictMode>,
   );
 
