@@ -15,6 +15,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } 
 
 import { login } from '@/api/auth';
 import { API_ERROR_CODES } from '@/api/gateway/constants';
+import * as taskApi from '@/api/tasks';
 import { getTasks } from '@/api/tasks';
 import { CatalogProvider } from '@/features/catalog';
 import { initialTaskState } from '@/server/demo/fixtures/tasks';
@@ -851,5 +852,41 @@ it('prevents selecting retained rows during a different query and recovers after
     );
   } finally {
     release();
+  }
+});
+
+it('finishes an in-flight save without redirecting after the editor has unmounted', async () => {
+  const originalUpdate = taskApi.updateTask;
+  let release!: () => void;
+  let started!: () => void;
+  const pending = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  const saving = new Promise<void>((resolve) => {
+    started = resolve;
+  });
+  const update = vi.spyOn(taskApi, 'updateTask').mockImplementation(async (...args) => {
+    started();
+    await pending;
+    return originalUpdate(...args);
+  });
+  try {
+    const router = renderPage('/work/tasks/49e7996a-311b/edit');
+    fireEvent.change(await screen.findByRole('textbox', { name: 'Title' }), {
+      target: { value: 'Saved after leaving the editor' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Save changes' }));
+    await saving;
+    await act(() => router.navigate('/work/tasks'));
+    await screen.findByRole('table', { name: /^Workspace tasks/ });
+    await act(async () => {
+      release();
+    });
+    await screen.findByText('Saved after leaving the editor', { exact: true });
+    expect(router.state.location.pathname).toBe('/work/tasks');
+    expect(screen.getByRole('table', { name: /^Workspace tasks/ })).toBeInTheDocument();
+  } finally {
+    release();
+    update.mockRestore();
   }
 });

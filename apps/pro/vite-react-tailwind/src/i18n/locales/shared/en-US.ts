@@ -7,6 +7,11 @@ export const sharedEnUS = {
     failed: 'Copy failed',
     copyValue: 'Copy {{value}}',
   },
+  startup: {
+    error: 'The workspace could not start',
+    storage: 'Allow this site to access browser storage, then retry.',
+    failed: 'Check your connection and site permissions, then retry.',
+  },
   remote: {
     loading: 'Loading data…',
     error: 'Unable to load data',

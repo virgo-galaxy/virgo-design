@@ -10,6 +10,11 @@ export const sharedZhCN = {
     failed: '复制失败，请重试',
     copyValue: '复制 {{value}}',
   },
+  startup: {
+    error: '工作空间暂时无法启动',
+    storage: '请允许此站点访问浏览器存储后重试。',
+    failed: '请检查网络连接和站点权限后重试。',
+  },
   remote: {
     loading: '正在加载数据…',
     error: '数据加载失败',

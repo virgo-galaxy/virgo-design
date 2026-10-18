@@ -1,7 +1,7 @@
 import { ArrowLeftIcon, ArrowRightIcon } from '@virgo-design/icons';
 import { Button, Empty, Steps, Tag, Timeline } from '@virgo-design/ui';
 import { useParams } from 'next/navigation';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { getTask, getTaskHistory } from '@/api/tasks';
@@ -115,6 +115,13 @@ function TaskEditor({ task, returnTo }: { task?: Task | undefined; returnTo: str
   const { t, i18n } = useTranslation();
   const { dispatch } = useTaskOperations();
   const navigate = useAppNavigation();
+  const active = useRef(true);
+  useEffect(() => {
+    active.current = true;
+    return () => {
+      active.current = false;
+    };
+  }, []);
   const cancel = () => navigate(task ? taskDetailsPath(task.id, returnTo) : returnTo);
 
   return (
@@ -132,6 +139,8 @@ function TaskEditor({ task, returnTo }: { task?: Task | undefined; returnTo: str
               const saved = await dispatch(
                 task ? { type: 'edit', id: task.id, draft } : { type: 'create', draft },
               );
+              if (!active.current) return;
+
               navigate(taskDetailsPath(saved.id, returnTo), {
                 replace: true,
               });

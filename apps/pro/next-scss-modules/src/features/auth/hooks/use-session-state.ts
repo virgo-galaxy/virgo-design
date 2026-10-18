@@ -9,6 +9,7 @@ import {
   getSessionExpiresAt,
   sessionExpiredEvent,
 } from '@/lib/auth/session';
+import { subscribeToSessionReset } from '@/lib/auth/session-reset';
 
 export function useSessionState({
   onSessionEnd,
@@ -38,8 +39,12 @@ export function useSessionState({
     };
 
     window.addEventListener(sessionExpiredEvent, onExpired);
+    const stopResetSync = subscribeToSessionReset(onExpired);
 
-    return () => window.removeEventListener(sessionExpiredEvent, onExpired);
+    return () => {
+      window.removeEventListener(sessionExpiredEvent, onExpired);
+      stopResetSync();
+    };
   }, [onSessionEnd]);
 
   useEffect(() => {

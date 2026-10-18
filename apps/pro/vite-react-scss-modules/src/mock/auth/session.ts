@@ -2,12 +2,13 @@ import type { LoginDto, SessionUser } from '@/api/auth/types';
 import type { TaskDto } from '@/api/tasks/types';
 import { canViewTask } from '@/lib/auth/permissions';
 import { clearAuthSession, saveAuthSession } from '@/lib/auth/session';
+import { getSessionResetId } from '@/lib/auth/session-reset';
 import { sessionStorageAccess } from '@/lib/storage';
 
 import { demoAccounts } from '../fixtures/accounts';
 
 const key = 'virgo-pro.mock-tokens';
-type RecordEntry = { userId: string; expiresAt: string };
+type RecordEntry = { userId: string; expiresAt: string; resetId?: string | null };
 
 let tokens: Record<string, RecordEntry> = {};
 let memoryOnly = false;
@@ -42,7 +43,7 @@ export function createSession(user: SessionUser): LoginDto {
 
   const accessToken = `virgo-demo-${crypto.randomUUID()}`;
   const expiresAt = new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString();
-  tokens[accessToken] = { userId: user.id, expiresAt };
+  tokens[accessToken] = { userId: user.id, expiresAt, resetId: getSessionResetId() };
   saveTokens();
 
   return { authenticated: true, user, accessToken, expiresAt };
@@ -57,6 +58,7 @@ export function requestUser(request: Request): SessionUser | undefined {
 
   if (
     !record ||
+    (record.resetId ?? null) !== getSessionResetId() ||
     !Number.isFinite(Date.parse(record.expiresAt)) ||
     Date.parse(record.expiresAt) <= Date.now()
   )

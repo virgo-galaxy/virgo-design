@@ -1,5 +1,6 @@
 import { login } from '@/api/auth';
 import type { SessionDto } from '@/api/auth/types';
+import { publishSessionReset } from '@/lib/auth/session-reset';
 import { http } from '@/lib/http';
 
 import { clearDemoStorage } from './reset';
@@ -16,5 +17,6 @@ export function enterDemoSession(): Promise<SessionDto> {
 export async function resetDemo(): Promise<SessionDto> {
   const result = await http.post<SessionDto>('/demo/reset');
   clearDemoStorage();
+  publishSessionReset();
   return result;
 }

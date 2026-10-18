@@ -12,8 +12,7 @@ export default defineConfig({
       defaultTheme: defaults.theme,
       defaultAppearance: defaults.appearance as 'light' | 'dark' | 'system',
       storage: {
-        key: 'virgo-pro:settings:v1',
-        version: 1,
+        key: 'virgo-pro:settings',
         themeField: 'theme',
         appearanceField: 'appearance',
       },

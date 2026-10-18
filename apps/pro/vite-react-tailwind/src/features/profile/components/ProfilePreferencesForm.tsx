@@ -1,6 +1,7 @@
-import { Alert, Button, Field, Form, Radio, Switch, TimePicker } from '@virgo-design/ui';
-import { useState } from 'react';
+import { Alert, Button, Dialog, Field, Form, Radio, Switch, TimePicker } from '@virgo-design/ui';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useBlocker } from 'react-router';
 
 import type { UpdateProfilePreferencesRequest } from '@/api/profile/types';
 import { FilterSelect } from '@/components/controls/filter-select';
@@ -39,165 +40,211 @@ export function ProfilePreferencesForm({
     ([key, value]) => value !== profile[key as keyof ProfilePreferences],
   );
 
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      preferenceDirty &&
+      !mutation.pending &&
+      (currentLocation.pathname !== nextLocation.pathname ||
+        currentLocation.search !== nextLocation.search),
+  );
+
+  useEffect(() => {
+    if (!preferenceDirty) return;
+    const beforeUnload = (event: BeforeUnloadEvent) => event.preventDefault();
+    window.addEventListener('beforeunload', beforeUnload);
+    return () => window.removeEventListener('beforeunload', beforeUnload);
+  }, [preferenceDirty]);
+
   return (
-    <Panel
-      title={t('profile.workspacePreferences')}
-      description={t('profile.savedPreferencesApplyForThisSession')}
-    >
-      <MutationFeedback pending={mutation.pending} error={mutation.error} />
-      <Form
-        inert={mutation.pending}
-        aria-busy={mutation.pending}
-        size="medium"
-        className="w-full [padding:0_var(--vd-spacing-20)] viewport-max-640:px-16"
-        onSubmit={(event) => {
-          event.preventDefault();
-
-          const invalid = validateProfilePreferences(preferences, projects);
-
-          if (Object.keys(invalid).length) {
-            setPreferenceError(Object.values(invalid)[0]!);
-
-            return;
-          }
-
-          void mutation.run(async () => {
-            await savePreferences(preferenceChanges);
-
-            setPreferenceChanges({});
-            setPreferenceError('');
-            onSaved();
-          });
-        }}
+    <>
+      <Panel
+        title={t('profile.workspacePreferences')}
+        description={t('profile.savedPreferencesApplyForThisSession')}
       >
-        <div
-          className={[
-            '[&_+_&]:[border-top:1px_solid_var(--vd-border-subtle)] [&_h3]:[margin:0_0_var(--vd-spacing-6)] [&_h3]:text-(length:--vd-font-size-13)',
-            "[&_p]:m-0 [&_p]:text-(length:--vd-font-size-12) [&_p]:text-text-secondary [&_[role='radiogroup']]:flex-wrap",
-            'viewport-max-640:flex-col viewport-max-640:gap-16',
-            'flex [align-items:start] justify-between gap-32 [padding:var(--vd-spacing-24)_0]',
-          ].join(' ')}
+        <MutationFeedback pending={mutation.pending} error={mutation.error} />
+        <Form
+          inert={mutation.pending}
+          aria-busy={mutation.pending}
+          size="medium"
+          className="w-full [padding:0_var(--vd-spacing-20)] viewport-max-640:px-16"
+          onSubmit={(event) => {
+            event.preventDefault();
+
+            const invalid = validateProfilePreferences(preferences, projects);
+
+            if (Object.keys(invalid).length) {
+              setPreferenceError(Object.values(invalid)[0]!);
+
+              return;
+            }
+
+            void mutation.run(async () => {
+              await savePreferences(preferenceChanges);
+
+              setPreferenceChanges({});
+              setPreferenceError('');
+              onSaved();
+            });
+          }}
         >
-          <div>
-            <h3>{t('profile.focusProject')}</h3>
-            <p>{t('profile.theProjectHighlightedOnYourProfileOverview')}</p>
+          <div
+            className={[
+              '[&_+_&]:[border-top:1px_solid_var(--vd-border-subtle)] [&_h3]:[margin:0_0_var(--vd-spacing-6)] [&_h3]:text-(length:--vd-font-size-13)',
+              "[&_p]:m-0 [&_p]:text-(length:--vd-font-size-12) [&_p]:text-text-secondary [&_[role='radiogroup']]:flex-wrap",
+              'viewport-max-640:flex-col viewport-max-640:gap-16',
+              'flex [align-items:start] justify-between gap-32 [padding:var(--vd-spacing-24)_0]',
+            ].join(' ')}
+          >
+            <div>
+              <h3>{t('profile.focusProject')}</h3>
+              <p>{t('profile.theProjectHighlightedOnYourProfileOverview')}</p>
+            </div>
+            <div className="viewport-max-640:w-full [width:250px] [flex-shrink:0] grid gap-16">
+              <FilterSelect
+                label={t('profile.preferredProject')}
+                value={preferences.focusProject}
+                onChange={(value) =>
+                  setPreferenceChanges((previous) => ({ ...previous, focusProject: value }))
+                }
+                options={projects.map((item) => ({
+                  value: item.id,
+                  label: businessLabel(item.name, i18n.language),
+                }))}
+              />
+            </div>
           </div>
-          <div className="viewport-max-640:w-full [width:250px] [flex-shrink:0] grid gap-16">
-            <FilterSelect
-              label={t('profile.preferredProject')}
-              value={preferences.focusProject}
-              onChange={(value) =>
-                setPreferenceChanges((previous) => ({ ...previous, focusProject: value }))
-              }
-              options={projects.map((item) => ({
-                value: item.id,
-                label: businessLabel(item.name, i18n.language),
-              }))}
-            />
+          <div
+            className={[
+              '[&_+_&]:[border-top:1px_solid_var(--vd-border-subtle)] [&_h3]:[margin:0_0_var(--vd-spacing-6)] [&_h3]:text-(length:--vd-font-size-13)',
+              "[&_p]:m-0 [&_p]:text-(length:--vd-font-size-12) [&_p]:text-text-secondary [&_[role='radiogroup']]:flex-wrap",
+              'viewport-max-640:flex-col viewport-max-640:gap-16',
+              'flex [align-items:start] justify-between gap-32 [padding:var(--vd-spacing-24)_0]',
+            ].join(' ')}
+          >
+            <div>
+              <h3>{t('profile.dailyDigest')}</h3>
+              <p>{t('profile.keepYourPreferredReviewTimeWithYourWorkspaceSettings')}</p>
+            </div>
+            <div className="viewport-max-640:w-full [width:250px] [flex-shrink:0] grid gap-16">
+              <Switch
+                checked={preferences.digest}
+                onCheckedChange={(checked) =>
+                  setPreferenceChanges((previous) => ({ ...previous, digest: checked }))
+                }
+              >
+                {t('profile.dailyDigestEnabled')}
+              </Switch>
+              <Field disabled={!preferences.digest}>
+                <Field.Label>{t('profile.digestTime')}</Field.Label>
+                <TimePicker
+                  size="medium"
+                  value={preferences.digestTime}
+                  onValueChange={(value) =>
+                    setPreferenceChanges((previous) => ({ ...previous, digestTime: value }))
+                  }
+                />
+                <Field.Description>{t('profile.asiaShanghai')}</Field.Description>
+              </Field>
+            </div>
           </div>
-        </div>
-        <div
-          className={[
-            '[&_+_&]:[border-top:1px_solid_var(--vd-border-subtle)] [&_h3]:[margin:0_0_var(--vd-spacing-6)] [&_h3]:text-(length:--vd-font-size-13)',
-            "[&_p]:m-0 [&_p]:text-(length:--vd-font-size-12) [&_p]:text-text-secondary [&_[role='radiogroup']]:flex-wrap",
-            'viewport-max-640:flex-col viewport-max-640:gap-16',
-            'flex [align-items:start] justify-between gap-32 [padding:var(--vd-spacing-24)_0]',
-          ].join(' ')}
-        >
-          <div>
-            <h3>{t('profile.dailyDigest')}</h3>
-            <p>{t('profile.keepYourPreferredReviewTimeWithYourWorkspaceSettings')}</p>
-          </div>
-          <div className="viewport-max-640:w-full [width:250px] [flex-shrink:0] grid gap-16">
+          <div
+            className={[
+              '[&_+_&]:[border-top:1px_solid_var(--vd-border-subtle)] [&_h3]:[margin:0_0_var(--vd-spacing-6)] [&_h3]:text-(length:--vd-font-size-13)',
+              "[&_p]:m-0 [&_p]:text-(length:--vd-font-size-12) [&_p]:text-text-secondary [&_[role='radiogroup']]:flex-wrap",
+              'viewport-max-640:flex-col viewport-max-640:gap-16',
+              'flex [align-items:start] justify-between gap-32 [padding:var(--vd-spacing-24)_0]',
+            ].join(' ')}
+          >
+            <div>
+              <h3>{t('profile.reviewReminders')}</h3>
+              <p>{t('profile.storeYourPreferenceForAcceptanceReviewReminders')}</p>
+            </div>
             <Switch
-              checked={preferences.digest}
+              appearance="fader"
+              checked={preferences.reviewReminders}
               onCheckedChange={(checked) =>
-                setPreferenceChanges((previous) => ({ ...previous, digest: checked }))
+                setPreferenceChanges((previous) => ({
+                  ...previous,
+                  reviewReminders: checked,
+                }))
               }
             >
-              {t('profile.dailyDigestEnabled')}
+              {t('profile.reviewRemindersEnabled')}
             </Switch>
-            <Field disabled={!preferences.digest}>
-              <Field.Label>{t('profile.digestTime')}</Field.Label>
-              <TimePicker
-                size="medium"
-                value={preferences.digestTime}
-                onValueChange={(value) =>
-                  setPreferenceChanges((previous) => ({ ...previous, digestTime: value }))
-                }
-              />
-              <Field.Description>{t('profile.asiaShanghai')}</Field.Description>
-            </Field>
           </div>
-        </div>
-        <div
-          className={[
-            '[&_+_&]:[border-top:1px_solid_var(--vd-border-subtle)] [&_h3]:[margin:0_0_var(--vd-spacing-6)] [&_h3]:text-(length:--vd-font-size-13)',
-            "[&_p]:m-0 [&_p]:text-(length:--vd-font-size-12) [&_p]:text-text-secondary [&_[role='radiogroup']]:flex-wrap",
-            'viewport-max-640:flex-col viewport-max-640:gap-16',
-            'flex [align-items:start] justify-between gap-32 [padding:var(--vd-spacing-24)_0]',
-          ].join(' ')}
-        >
-          <div>
-            <h3>{t('profile.reviewReminders')}</h3>
-            <p>{t('profile.storeYourPreferenceForAcceptanceReviewReminders')}</p>
-          </div>
-          <Switch
-            appearance="fader"
-            checked={preferences.reviewReminders}
-            onCheckedChange={(checked) =>
-              setPreferenceChanges((previous) => ({
-                ...previous,
-                reviewReminders: checked,
-              }))
-            }
+          <div
+            className={[
+              '[&_+_&]:[border-top:1px_solid_var(--vd-border-subtle)] [&_h3]:[margin:0_0_var(--vd-spacing-6)] [&_h3]:text-(length:--vd-font-size-13)',
+              "[&_p]:m-0 [&_p]:text-(length:--vd-font-size-12) [&_p]:text-text-secondary [&_[role='radiogroup']]:flex-wrap",
+              'viewport-max-640:flex-col viewport-max-640:gap-16',
+              'flex [align-items:start] justify-between gap-32 [padding:var(--vd-spacing-24)_0]',
+            ].join(' ')}
           >
-            {t('profile.reviewRemindersEnabled')}
-          </Switch>
-        </div>
-        <div
-          className={[
-            '[&_+_&]:[border-top:1px_solid_var(--vd-border-subtle)] [&_h3]:[margin:0_0_var(--vd-spacing-6)] [&_h3]:text-(length:--vd-font-size-13)',
-            "[&_p]:m-0 [&_p]:text-(length:--vd-font-size-12) [&_p]:text-text-secondary [&_[role='radiogroup']]:flex-wrap",
-            'viewport-max-640:flex-col viewport-max-640:gap-16',
-            'flex [align-items:start] justify-between gap-32 [padding:var(--vd-spacing-24)_0]',
-          ].join(' ')}
-        >
-          <div>
-            <h3>{t('profile.activitySpacing')}</h3>
-            <p>{t('profile.chooseHowTheActivityTimelineReadsOnYourProfile')}</p>
+            <div>
+              <h3>{t('profile.activitySpacing')}</h3>
+              <p>{t('profile.chooseHowTheActivityTimelineReadsOnYourProfile')}</p>
+            </div>
+            <Radio.Group
+              value={preferences.compactActivity ? 'compact' : 'comfortable'}
+              aria-label={t('profile.activitySpacing')}
+              orientation="horizontal"
+              onValueChange={(value) =>
+                setPreferenceChanges((previous) => ({
+                  ...previous,
+                  compactActivity: value === 'compact',
+                }))
+              }
+            >
+              <Radio value="comfortable">{t('profile.comfortable')}</Radio>
+              <Radio value="compact">{t('profile.compact')}</Radio>
+            </Radio.Group>
           </div>
-          <Radio.Group
-            value={preferences.compactActivity ? 'compact' : 'comfortable'}
-            aria-label={t('profile.activitySpacing')}
-            orientation="horizontal"
-            onValueChange={(value) =>
-              setPreferenceChanges((previous) => ({
-                ...previous,
-                compactActivity: value === 'compact',
-              }))
-            }
-          >
-            <Radio value="comfortable">{t('profile.comfortable')}</Radio>
-            <Radio value="compact">{t('profile.compact')}</Radio>
-          </Radio.Group>
-        </div>
-        {preferenceError ? (
-          <Alert intent="error">
-            <Alert.Title>{t(`profile.validation.${preferenceError}`)}</Alert.Title>
-          </Alert>
-        ) : null}
-        <div className="[border-top:1px_solid_var(--vd-border-subtle)] flex items-center justify-between flex-wrap gap-12 [padding:var(--vd-spacing-20)_0]">
-          <span className="text-text-tertiary [font-size:var(--vd-font-size-11)]">
-            {preferenceDirty
-              ? t('profile.unsavedPreferenceChanges')
-              : t('profile.preferencesAreUpToDate')}
-          </span>
-          <Button size="medium" type="submit" disabled={mutation.pending || !preferenceDirty}>
-            {t('profile.savePreferences')}
-          </Button>
-        </div>
-      </Form>
-    </Panel>
+          {preferenceError ? (
+            <Alert intent="error">
+              <Alert.Title>{t(`profile.validation.${preferenceError}`)}</Alert.Title>
+            </Alert>
+          ) : null}
+          <div className="[border-top:1px_solid_var(--vd-border-subtle)] flex items-center justify-between flex-wrap gap-12 [padding:var(--vd-spacing-20)_0]">
+            <span className="text-text-tertiary [font-size:var(--vd-font-size-11)]">
+              {preferenceDirty
+                ? t('profile.unsavedPreferenceChanges')
+                : t('profile.preferencesAreUpToDate')}
+            </span>
+            <Button size="medium" type="submit" disabled={mutation.pending || !preferenceDirty}>
+              {t('profile.savePreferences')}
+            </Button>
+          </div>
+        </Form>
+      </Panel>
+      <Dialog.Root
+        open={blocker.state === 'blocked'}
+        onOpenChange={(open) => {
+          if (!open && blocker.state === 'blocked') blocker.reset();
+        }}
+      >
+        <Dialog.Portal>
+          <Dialog.Overlay />
+          <Dialog.Content size="sm">
+            <Dialog.Header>
+              <Dialog.Title>{t('profile.discardPreferenceChanges')}</Dialog.Title>
+              <Dialog.Description>
+                {t('profile.yourSavedPreferencesWillStayAsTheyAre')}
+              </Dialog.Description>
+            </Dialog.Header>
+            <Dialog.Footer>
+              <Button
+                variant="outline"
+                onClick={() => blocker.state === 'blocked' && blocker.reset()}
+              >
+                {t('profile.keepEditing')}
+              </Button>
+              <Button onClick={() => blocker.state === 'blocked' && blocker.proceed()}>
+                {t('profile.discardChanges')}
+              </Button>
+            </Dialog.Footer>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+    </>
   );
 }

@@ -37,7 +37,7 @@ it('switches the UI language with the app while preserving component state', asy
   );
 
   try {
-    const password = screen.getByLabelText('Password');
+    const password = await screen.findByLabelText('Password');
     await user.click(screen.getByRole('button', { name: 'Show password' }));
     await act(() => i18nInstance.changeLanguage('zh-CN'));
     expect(password).toHaveAttribute('type', 'text');

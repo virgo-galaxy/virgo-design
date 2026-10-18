@@ -87,6 +87,8 @@ export const profileZhCN = {
   chooseHowTheActivityTimelineReadsOnYourProfile: '选择个人资料中动态时间线的显示间距。',
   comfortable: '宽松',
   compact: '紧凑',
+  discardPreferenceChanges: '放弃偏好修改？',
+  yourSavedPreferencesWillStayAsTheyAre: '已保存的偏好将保持不变。',
   savePreferences: '保存偏好',
   validation: {
     nameInvalid: '显示名称不能为空，且不能超过 60 个字符。',

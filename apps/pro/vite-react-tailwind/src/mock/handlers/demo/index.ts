@@ -1,6 +1,7 @@
 import { http } from 'msw';
 
 import { isAdmin } from '@/lib/auth/permissions';
+import { publishSessionReset } from '@/lib/auth/session-reset';
 
 import { forbidden } from '../../auth/access';
 import { requestUser } from '../../auth/session';
@@ -16,6 +17,7 @@ export const demoHandlers = [
     clearDemoStorage();
     resetDemoState();
     endDemoSession();
+    publishSessionReset();
 
     return success({ authenticated: false });
   }),

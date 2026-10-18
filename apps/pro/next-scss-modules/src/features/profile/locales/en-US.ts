@@ -93,6 +93,8 @@ export const profileEnUS = {
     'Choose how the activity timeline reads on your profile.',
   comfortable: 'Comfortable',
   compact: 'Compact',
+  discardPreferenceChanges: 'Discard preference changes?',
+  yourSavedPreferencesWillStayAsTheyAre: 'Your saved preferences will stay as they are.',
   savePreferences: 'Save preferences',
   validation: {
     nameInvalid: 'Use a display name within 60 characters.',
