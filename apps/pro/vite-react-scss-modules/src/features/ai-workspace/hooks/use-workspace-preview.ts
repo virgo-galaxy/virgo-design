@@ -241,9 +241,7 @@ export function useWorkspacePreview({
     event.preventDefault();
     moveTween.current?.kill();
     applyPreviewZoom(
-      event.key === 'Home'
-        ? DEFAULT_PREVIEW_ZOOM
-        : zoomRef.current + (increase ? 0.1 : -0.1),
+      event.key === 'Home' ? DEFAULT_PREVIEW_ZOOM : zoomRef.current + (increase ? 0.1 : -0.1),
     );
     retargetReturn();
   };

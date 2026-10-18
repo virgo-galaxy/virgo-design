@@ -1,6 +1,7 @@
 import type { LocaleOf } from '@/i18n';
 
 import type { profileEnUS } from './en-US';
+
 export const profileZhCN = {
   projectScope: '当前工作视图包含 {{count}} 个项目。',
   yourProjects: '我参与的项目',

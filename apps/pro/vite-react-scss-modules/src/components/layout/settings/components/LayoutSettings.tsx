@@ -106,16 +106,12 @@ export function LayoutSettings({
               className={styles.segments!}
               size="medium"
             >
-              <SegmentedControl.Item value="solid">
-                {t('settings.opaque')}
-              </SegmentedControl.Item>
+              <SegmentedControl.Item value="solid">{t('settings.opaque')}</SegmentedControl.Item>
               <SegmentedControl.Item value="glass">
                 {t('settings.frostedGlass')}
               </SegmentedControl.Item>
             </SegmentedControl>
-            <p className={styles.hint}>
-              {t('settings.softenContentScrollingBeneathTheHeader')}
-            </p>
+            <p className={styles.hint}>{t('settings.softenContentScrollingBeneathTheHeader')}</p>
           </>
         )}
       </section>
@@ -136,12 +132,8 @@ export function LayoutSettings({
           className={styles.segments!}
           size="medium"
         >
-          <SegmentedControl.Item value="expanded">
-            {t('settings.expanded')}
-          </SegmentedControl.Item>
-          <SegmentedControl.Item value="collapsed">
-            {t('settings.iconRail')}
-          </SegmentedControl.Item>
+          <SegmentedControl.Item value="expanded">{t('settings.expanded')}</SegmentedControl.Item>
+          <SegmentedControl.Item value="collapsed">{t('settings.iconRail')}</SegmentedControl.Item>
         </SegmentedControl>
         <div className={styles.width}>
           <div className={styles.widthLabel}>

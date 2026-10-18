@@ -1,6 +1,7 @@
 import { routePath } from '@/routes';
 
 import type { Project } from '../model/project';
+
 export function projectDetailPath(project: Project) {
   return routePath('work.projects.[projectId]', { projectId: project.id });
 }

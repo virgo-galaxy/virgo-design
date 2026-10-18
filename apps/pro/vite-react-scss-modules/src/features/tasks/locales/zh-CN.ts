@@ -1,6 +1,7 @@
 import type { LocaleOf } from '@/i18n';
 
 import type { tasksEnUS } from './en-US';
+
 export const tasksZhCN = {
   query: {
     dueCondition: '截止条件',

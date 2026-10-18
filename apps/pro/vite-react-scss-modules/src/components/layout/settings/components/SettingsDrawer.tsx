@@ -49,11 +49,7 @@ export function SettingsDrawer({
         <Drawer.Body className={styles.body}>
           <AppearanceSettings settings={settings} theme={theme} onChange={onChange} />
           <Separator decorative />
-          <LayoutSettings
-            settings={settings}
-            onChange={onChange}
-            onHeaderChange={onHeaderChange}
-          />
+          <LayoutSettings settings={settings} onChange={onChange} onHeaderChange={onHeaderChange} />
         </Drawer.Body>
         <Drawer.Footer className={styles.footer}>
           <p role="status">

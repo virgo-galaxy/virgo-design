@@ -68,11 +68,7 @@ export function ProjectTaskPanel({
                     <Tag size="md" intent={taskStatusIntent[task.status]}>
                       {t(`tasks.statusLabels.${taskStatusLabelNames[task.status]}`)}
                     </Tag>
-                    <Tag
-                      size="md"
-                      intent={taskPriorityIntent[task.priority]}
-                      variant="outline"
-                    >
+                    <Tag size="md" intent={taskPriorityIntent[task.priority]} variant="outline">
                       {t(`tasks.priorityLabels.${task.priority}`)}
                     </Tag>
                   </div>
@@ -80,9 +76,7 @@ export function ProjectTaskPanel({
               ))}
             </ul>
             {!data.total ? (
-              <p className={shared.body}>
-                {t('projectDetails.noTasksAreLinkedToThisProject')}
-              </p>
+              <p className={shared.body}>{t('projectDetails.noTasksAreLinkedToThisProject')}</p>
             ) : null}
             <div className={shared.footer}>
               <span role="status">

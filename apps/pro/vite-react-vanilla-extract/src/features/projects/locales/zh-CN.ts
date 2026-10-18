@@ -1,6 +1,7 @@
 import type { LocaleOf } from '@/i18n';
 
 import type { projectsEnUS } from './en-US';
+
 export const projectsZhCN = {
   overdue: '已逾期',
   completedOfTotal: '{{total}} 个任务，已完成 {{completed}} 个',

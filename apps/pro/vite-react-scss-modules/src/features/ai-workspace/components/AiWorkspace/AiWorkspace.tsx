@@ -142,11 +142,7 @@ export function AiWorkspace({
         onDoubleClick={(event) => {
           if (!active || event.defaultPrevented || root.current?.dataset.phase !== 'ai') return;
 
-          if (
-            event.target instanceof Element &&
-            event.target.closest(interactiveSelector)
-          )
-            return;
+          if (event.target instanceof Element && event.target.closest(interactiveSelector)) return;
 
           event.preventDefault();
           restore();

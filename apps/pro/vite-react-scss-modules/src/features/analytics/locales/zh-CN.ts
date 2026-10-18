@@ -1,6 +1,7 @@
 import type { LocaleOf } from '@/i18n';
 
 import type { analyticsEnUS } from './en-US';
+
 export const analyticsZhCN = {
   overviewTitle: '交付分析',
   overviewDescription: '从交付产出、项目进展到团队投入，一览工作全貌。',

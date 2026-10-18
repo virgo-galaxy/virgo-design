@@ -1,6 +1,7 @@
 import type { LocaleOf } from '@/i18n';
 
 import type { settingsEnUS } from './en-US';
+
 export const settingsZhCN = {
   px: 'px',
   settings: '设置',

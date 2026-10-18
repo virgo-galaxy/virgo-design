@@ -1,6 +1,7 @@
 import type { LocaleOf } from '@/i18n';
 
 import type { handoffEnUS } from './en-US';
+
 export const handoffZhCN = {
   selectedTasks: '已选择 {{count}} 个任务',
   project: '项目',

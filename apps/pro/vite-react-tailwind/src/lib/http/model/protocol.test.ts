@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { isApiErrorData, isApiResponse } from './protocol';
+
 describe('Gateway wire protocol', () => {
   it('requires code, msg and an explicit data member', () => {
     expect(isApiResponse({ code: 0, msg: 'success', data: null })).toBe(true);

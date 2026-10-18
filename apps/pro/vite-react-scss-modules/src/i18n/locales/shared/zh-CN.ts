@@ -1,5 +1,6 @@
 import type { LocaleOf } from '../../model/locale-types';
 import type { sharedEnUS } from './en-US';
+
 export const sharedZhCN = {
   gender: { male: '男', female: '女' },
   workLocation: '工作地',

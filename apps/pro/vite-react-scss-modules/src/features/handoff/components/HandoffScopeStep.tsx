@@ -93,10 +93,7 @@ export function HandoffScopeStep({
                     v0: t(`handoff.scopeLabels.${group.id}`),
                   })}
                 />
-                <span
-                  className={styles.treeMark}
-                  data-selected={treeValues.includes(group.id)}
-                >
+                <span className={styles.treeMark} data-selected={treeValues.includes(group.id)}>
                   {treeValues.includes(group.id) ? '✓' : '＋'}
                 </span>
                 <strong>
@@ -136,9 +133,7 @@ export function HandoffScopeStep({
             </Tree.Item>
           ))}
         </Tree>
-        <p className={styles.scopeNote}>
-          {t('handoff.selectAGroupToIncludeItsTasksOrSelect')}
-        </p>
+        <p className={styles.scopeNote}>{t('handoff.selectAGroupToIncludeItsTasksOrSelect')}</p>
       </div>
       <div className={shared.stack}>
         <fieldset className={styles.fieldset}>
@@ -159,9 +154,7 @@ export function HandoffScopeStep({
             </Radio>
           </Radio.Group>
           <p className={shared.caption}>
-            {t(
-              'handoff.workspaceReleaseMaterialCurrentlySupportsTeamAccessExternalPreparation',
-            )}
+            {t('handoff.workspaceReleaseMaterialCurrentlySupportsTeamAccessExternalPreparation')}
           </p>
         </fieldset>
         <Field invalid={Boolean(errors.notes)}>

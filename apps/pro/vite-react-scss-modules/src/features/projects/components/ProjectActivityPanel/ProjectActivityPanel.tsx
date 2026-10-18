@@ -34,9 +34,7 @@ export function ProjectActivityPanel({
               <Timeline size="medium" aria-label={t('projectDetails.projectTeamActivity')}>
                 {events.map((event) => (
                   <Timeline.Item key={event.id} status={event.status}>
-                    <Timeline.Title>
-                      {businessLabel(event.name, i18n.language)}
-                    </Timeline.Title>
+                    <Timeline.Title>{businessLabel(event.name, i18n.language)}</Timeline.Title>
                     <Timeline.Description>
                       {event.taskTitle && event.action
                         ? t(`workplace.activityActions.${event.action}`, {

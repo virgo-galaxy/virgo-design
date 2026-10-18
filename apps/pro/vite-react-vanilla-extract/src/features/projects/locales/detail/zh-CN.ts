@@ -1,6 +1,7 @@
 import type { LocaleOf } from '@/i18n';
 
 import type { projectDetailsEnUS } from './en-US';
+
 export const projectDetailsZhCN = {
   unscheduled: '未安排',
   dueValue: '截止 {{v0}}',

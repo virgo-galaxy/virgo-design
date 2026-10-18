@@ -1,6 +1,7 @@
 import { createServer } from 'node:http';
 
 import { afterEach, describe, expect, it, vi } from 'vitest';
+
 afterEach(() => {
   vi.unstubAllEnvs();
   vi.resetModules();

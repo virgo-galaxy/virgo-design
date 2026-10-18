@@ -5,6 +5,7 @@ import { taskAssignees } from '@/mock/fixtures/tasks';
 
 import { projectDetailPath, projectTasksPath } from '../routes/navigation';
 import { filterProjects } from './project';
+
 describe('project presentation', () => {
   it('uses stable IDs in links independently of display names', () => {
     const renamed = { ...projects[1]!, name: 'A renamed project' };

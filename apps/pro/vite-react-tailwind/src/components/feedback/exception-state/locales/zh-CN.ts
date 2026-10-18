@@ -1,6 +1,7 @@
 import type { LocaleOf } from '@/i18n';
 
 import type { exceptionsEnUS } from './en-US';
+
 export const exceptionsZhCN = {
   accessDenied: '无权访问',
   youDonTHaveAccessToThisResource: '你没有访问此资源的权限。',
