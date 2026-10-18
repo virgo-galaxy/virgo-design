@@ -1,0 +1,35 @@
+@layer theme, base, components, utilities;
+
+/* Keep the Pro baseline reset; deliberately omit Tailwind Preflight. */
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' source(none);
+@import '@virgo-design/tokens/tailwind.css';
+
+@source '../';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@custom-variant container-max-1000 (@container (max-width: 1000px));
+@custom-variant container-max-720 (@container (max-width: 720px));
+@custom-variant container-max-480 (@container (max-width: 480px));
+@custom-variant recent-tasks-max-380 (@container recent-tasks (max-width: 380px));
+@custom-variant viewport-min-1201 (@media (min-width: 1201px));
+@custom-variant viewport-min-1680 (@media (min-width: 1680px));
+@custom-variant viewport-max-2199 (@media (max-width: 2199px));
+@custom-variant viewport-max-1599 (@media (max-width: 1599px));
+@custom-variant viewport-max-1400 (@media (max-width: 1400px));
+@custom-variant viewport-max-1200 (@media (max-width: 1200px));
+@custom-variant viewport-max-1199 (@media (max-width: 1199px));
+@custom-variant viewport-max-1100 (@media (max-width: 1100px));
+@custom-variant viewport-max-1050 (@media (max-width: 1050px));
+@custom-variant viewport-max-1000 (@media (max-width: 1000px));
+@custom-variant viewport-max-900 (@media (max-width: 900px));
+@custom-variant viewport-max-850 (@media (max-width: 850px));
+@custom-variant viewport-max-760 (@media (max-width: 760px));
+@custom-variant viewport-max-720 (@media (max-width: 720px));
+@custom-variant viewport-max-680 (@media (max-width: 680px));
+@custom-variant viewport-max-640 (@media (max-width: 640px));
+@custom-variant viewport-max-600 (@media (max-width: 600px));
+@custom-variant viewport-max-480 (@media (max-width: 480px));
+@custom-variant viewport-max-440 (@media (max-width: 440px));
+@custom-variant no-hover (@media (hover: none));

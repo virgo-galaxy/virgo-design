@@ -1,0 +1,43 @@
+{
+  "name": "@virgo-design/pro-next-tailwind",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm run prepare:workspace && next dev --port 6305",
+    "build": "pnpm run prepare:workspace && next build",
+    "start": "next start --port 6305",
+    "typecheck": "next typegen && tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src next.config.ts postcss.config.mjs vitest.config.ts",
+    "test": "pnpm -w build:tokens && vitest run --config vitest.config.ts",
+    "prepare:workspace": "pnpm --filter @virgo-design/pro-next-tailwind^... --if-present build"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@virgo-design/charts": "workspace:*",
+    "@virgo-design/fonts": "workspace:*",
+    "@virgo-design/icons": "workspace:*",
+    "@virgo-design/themes": "workspace:*",
+    "@virgo-design/tokens": "workspace:*",
+    "@virgo-design/ui": "workspace:*",
+    "axios": "^1.20.0",
+    "gsap": "^3.15.0",
+    "i18next": "^26.4.2",
+    "msw": "^2.15.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-i18next": "^17.0.13",
+    "zustand": "^5.0.15",
+    "next": "^16.4.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "tailwindcss": "^4.3.3",
+    "react-router": "8.4.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}

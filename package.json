@@ -9,6 +9,7 @@
     "dev:pro-vite-react-scss-modules": "pnpm --filter @virgo-design/pro-vite-react-scss-modules dev",
     "dev:pro-vite-react-tailwind": "pnpm --filter @virgo-design/pro-vite-react-tailwind dev",
     "dev:pro-vite-react-vanilla-extract": "pnpm --filter @virgo-design/pro-vite-react-vanilla-extract dev",
+    "dev:pro-next-tailwind": "pnpm --filter @virgo-design/pro-next-tailwind dev",
     "gen:icons": "pnpm --filter @virgo-design/icons generate",
     "gen:api-docs": "node scripts/generate-api-docs.mjs",
     "check:api-docs": "node scripts/generate-api-docs.mjs --check",

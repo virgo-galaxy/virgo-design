@@ -2,5 +2,7 @@ node_modules
 dist
 coverage
 .vite
+.next
+next-env.d.ts
 pnpm-lock.yaml
 apps/pro/vite-react-scss-modules/public/mockServiceWorker.js

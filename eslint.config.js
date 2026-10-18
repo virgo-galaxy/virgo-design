@@ -7,7 +7,13 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ['**/dist/**', '**/node_modules/**', '**/coverage/**'],
+    ignores: [
+      '**/dist/**',
+      '**/node_modules/**',
+      '**/coverage/**',
+      '**/.next/**',
+      '**/next-env.d.ts',
+    ],
   },
 
   js.configs.recommended,
@@ -70,7 +76,23 @@ export default tseslint.config(
   },
 
   {
-    files: ['apps/pro/vite-react-{scss-modules,tailwind,vanilla-extract}/**/*.{ts,tsx}'],
+    files: ['apps/pro/next-*/**/*.{ts,tsx}'],
+
+    rules: {
+      'react-refresh/only-export-components': [
+        'warn',
+        {
+          allowConstantExport: true,
+          allowExportNames: ['metadata', 'generateMetadata', 'viewport', 'generateViewport'],
+        },
+      ],
+    },
+  },
+
+  {
+    files: [
+      'apps/pro/{vite-react-scss-modules,vite-react-tailwind,vite-react-vanilla-extract,next-tailwind}/**/*.{ts,tsx}',
+    ],
 
     rules: {
       'no-empty': ['error', { allowEmptyCatch: true }],
