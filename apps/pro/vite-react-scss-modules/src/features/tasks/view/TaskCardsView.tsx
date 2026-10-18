@@ -2,8 +2,8 @@ import { Pagination, Surface, Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router';
 
-import { NoResults } from '@/components/no-results/NoResults';
-import { RemoteState } from '@/components/remote-state/RemoteState';
+import { NoResults } from '@/components/no-results';
+import { RemoteState } from '@/components/remote-state';
 import {
   CatalogBoundary,
   moduleName,

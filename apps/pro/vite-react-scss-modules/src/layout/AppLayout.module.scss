@@ -1,0 +1,110 @@
+.settingsRoot {
+  display: block;
+}
+
+.shell {
+  height: 100dvh;
+  overflow: hidden;
+  color: var(--vd-text-primary);
+  background: var(--vd-surface-background);
+}
+
+.body {
+  position: relative;
+  overflow: hidden;
+}
+
+.skipLink {
+  position: fixed;
+  top: var(--vd-spacing-8);
+  left: var(--vd-spacing-8);
+  padding: var(--vd-spacing-12);
+  z-index: 10;
+  background: var(--vd-surface-default);
+  color: var(--vd-brand-link);
+  transform: translateY(-200%);
+  &:focus {
+    transform: none;
+  }
+}
+
+.recoveryControls {
+  position: fixed;
+  top: var(--vd-spacing-8);
+  right: var(--vd-spacing-48);
+  z-index: 10;
+  display: flex;
+  gap: var(--vd-spacing-8);
+  align-items: center;
+  padding: var(--vd-spacing-4);
+  background: var(--vd-surface-default);
+  border-radius: var(--vd-radius-8);
+  border: var(--vd-border-width-1) solid var(--vd-border-subtle);
+}
+
+.main {
+  outline: none;
+  background: color-mix(in srgb, var(--vd-surface-secondary) 35%, var(--vd-surface-background));
+  scrollbar-width: thin;
+  scroll-padding-block-start: var(--pro-header-height);
+}
+
+.content {
+  --pro-content-padding: var(--vd-spacing-24);
+  width: 100%;
+  padding: var(--pro-content-padding);
+  padding-block-start: calc(var(--pro-header-height) + var(--pro-content-padding));
+}
+
+.content[data-layout='fill'] {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  .pageContent {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    > * {
+      flex: 1;
+    }
+  }
+}
+
+.pageContent {
+  min-width: 0;
+}
+
+.contextBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--vd-spacing-12);
+  margin-block-end: var(--vd-spacing-24);
+}
+
+.breadcrumbIcon {
+  gap: 0;
+}
+
+.breadcrumbIconLabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .content {
+    --pro-content-padding: var(--vd-spacing-20);
+  }
+}
+
+@media (max-width: 640px) {
+  .content {
+    --pro-content-padding: var(--vd-spacing-16);
+  }
+}

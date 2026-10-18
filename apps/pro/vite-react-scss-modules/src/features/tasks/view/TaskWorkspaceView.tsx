@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useNavigate, useParams, useSearchParams } from 'react-router';
 
 import { getTask, getTaskHistory } from '@/api/tasks';
-import { FilterSelect } from '@/components/filter-select/FilterSelect';
-import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedback';
-import { PageHeading } from '@/components/page-heading/PageHeading';
-import { Panel } from '@/components/panel/Panel';
-import { RemoteState } from '@/components/remote-state/RemoteState';
+import { FilterSelect } from '@/components/filter-select';
+import { MutationFeedback } from '@/components/mutation-feedback';
+import { PageHeading } from '@/components/page-heading';
+import { Panel } from '@/components/panel';
+import { RemoteState } from '@/components/remote-state';
 import { useCurrentUser } from '@/features/auth';
 import {
   CatalogBoundary,

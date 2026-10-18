@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { getDeliveryTrend } from '@/api/analytics';
 import type { TrendPointDto } from '@/api/analytics/types';
-import { ResourceContent } from '@/components/resource-content/ResourceContent';
+import { ResourceContent } from '@/components/resource-content';
 import { useTaskDependentQuery } from '@/features/tasks';
 import { formatDueDate } from '@/lib/formatting/format-due-date';
 

@@ -2,7 +2,7 @@ import { Progress } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { getProjectDistribution } from '@/api/projects';
-import { ResourceContent } from '@/components/resource-content/ResourceContent';
+import { ResourceContent } from '@/components/resource-content';
 import { useTaskDependentQuery } from '@/features/tasks';
 import { businessLabel } from '@/lib/formatting/business-labels';
 

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { getActivity } from '@/api/analytics';
 import type { ActivityDto } from '@/api/analytics/types';
-import { ResourceContent } from '@/components/resource-content/ResourceContent';
+import { ResourceContent } from '@/components/resource-content';
 import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
 import { useTaskDependentQuery } from '@/features/tasks';
 import { businessLabel } from '@/lib/formatting/business-labels';

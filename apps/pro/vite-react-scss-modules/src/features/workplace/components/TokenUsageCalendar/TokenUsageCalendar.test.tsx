@@ -5,7 +5,7 @@ import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, expect, it } from 'vitest';
 
 import { getTokenUsageReport } from '@/api/analytics';
-import { BusinessDataProvider } from '@/layout/providers/BusinessDataProvider';
+import { CatalogProvider } from '@/features/catalog';
 import { demoDate } from '@/mock/fixtures/dates';
 import { handlers } from '@/mock/handlers';
 import { success } from '@/mock/http/response';
@@ -35,11 +35,11 @@ it('opens a populated day and shows its receipts when the report date itself has
 
   render(
     <TestSessionProvider>
-      <BusinessDataProvider>
+      <CatalogProvider>
         <TokenUsageDataProvider>
           <TokenUsageCalendar year={null} onYearChange={() => {}} />
         </TokenUsageDataProvider>
-      </BusinessDataProvider>
+      </CatalogProvider>
     </TestSessionProvider>,
   );
 

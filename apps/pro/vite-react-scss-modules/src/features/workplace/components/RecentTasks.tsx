@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import type { TaskDto } from '@/api/tasks/types';
-import { ResourceContent } from '@/components/resource-content/ResourceContent';
+import { ResourceContent } from '@/components/resource-content';
 import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
 import { taskStatusIntent, taskStatusLabelNames, useTaskQuery } from '@/features/tasks';
 import { businessLabel } from '@/lib/formatting/business-labels';

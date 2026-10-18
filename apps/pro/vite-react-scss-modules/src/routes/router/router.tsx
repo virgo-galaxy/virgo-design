@@ -20,7 +20,7 @@ const DemoResetAction = demo
 export function createAppRoutes(): RouteObject[] {
   return [
     {
-      element: <SessionRoute />,
+      element: <SessionRoute subscribeToChanges={demo?.subscribeToDemoChanges} />,
       errorElement: <RouteError />,
       children: [
         {
@@ -37,7 +37,6 @@ export function createAppRoutes(): RouteObject[] {
                   </Suspense>
                 ) : null
               }
-              subscribeToChanges={demo?.subscribeToDemoChanges}
             />
           ),
           children: [

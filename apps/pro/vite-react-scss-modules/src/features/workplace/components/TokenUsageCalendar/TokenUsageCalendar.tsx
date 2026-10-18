@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { TokenUsageReportDto } from '@/api/analytics/types';
 import calendarChartArtwork from '@/assets/illustrations/calendar-chart.svg';
-import { ResourceContent } from '@/components/resource-content/ResourceContent';
+import { ResourceContent } from '@/components/resource-content';
 import { CatalogBoundary, projectName, useTaskCatalog } from '@/features/catalog';
 import { businessLabel } from '@/lib/formatting/business-labels';
 

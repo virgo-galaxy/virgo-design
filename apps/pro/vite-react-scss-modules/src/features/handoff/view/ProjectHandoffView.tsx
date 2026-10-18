@@ -28,11 +28,11 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router';
 
-import { ExceptionState } from '@/components/exception-state/ExceptionState';
-import { FilterSelect } from '@/components/filter-select/FilterSelect';
-import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedback';
-import { Panel } from '@/components/panel/Panel';
-import { RemoteState } from '@/components/remote-state/RemoteState';
+import { ExceptionState } from '@/components/exception-state';
+import { FilterSelect } from '@/components/filter-select';
+import { MutationFeedback } from '@/components/mutation-feedback';
+import { Panel } from '@/components/panel';
+import { RemoteState } from '@/components/remote-state';
 import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, useTaskCatalog } from '@/features/catalog';
 import { projectHandoffPath } from '@/features/projects';

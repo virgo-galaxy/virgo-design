@@ -105,12 +105,13 @@ const layerRanks: Record<string, number> = {
   mock: 3,
   components: 4,
   features: 5,
-  pages: 6,
-  layout: 6,
-  integration: 7,
-  routing: 8,
-  app: 8,
-  entry: 9,
+  applicationComponents: 6,
+  pages: 7,
+  layout: 7,
+  integration: 8,
+  routing: 9,
+  app: 9,
+  entry: 10,
 };
 function isApiDefinition(file: string) {
   return /^api\/[^/]+\/(types|constants)\.ts$/.test(file);
@@ -123,10 +124,9 @@ function layer(file: string) {
     return 'integration';
   if (path === 'mock/index.ts') return 'integration';
   if (path.startsWith('mock/react/')) return 'integration';
-  if (path === 'layout/index.ts' || /^layout\/(MainLayout\.tsx|providers\/)/.test(path))
-    return 'integration';
+  if (path === 'layout/index.ts' || path === 'layout/AppLayout.tsx') return 'integration';
   if (path.startsWith('routes/router/')) return 'routing';
-  if (/^preferences\/(react|locales)\//.test(path)) return 'components';
+  if (/^components\/(navbar|notification)\//.test(path)) return 'applicationComponents';
   if (path === 'store/index.ts' || /^store\/(bootstrap|session)\//.test(path)) return 'integration';
   return path.includes('/') ? path.split('/')[0]! : 'entry';
 }
@@ -293,7 +293,15 @@ it('keeps locale runtime and preferences independent of application assembly and
       visited.add(file);
       const path = relative(root, file);
       expect(
-        ['app', 'integration', 'routing', 'features', 'pages', 'layout'].includes(layer(file)),
+        [
+          'app',
+          'integration',
+          'routing',
+          'applicationComponents',
+          'features',
+          'pages',
+          'layout',
+        ].includes(layer(file)),
         `${entry} → ${path}`,
       ).toBe(false);
       for (const dependency of graph.get(file) ?? []) visit(dependency);
@@ -315,12 +323,6 @@ it('keeps route, layout, locale, preferences and HTTP consumers on explicit publ
         if (!to.startsWith(boundary + '/') || from.startsWith(boundary + '/')) continue;
         if (boundary === 'routes' && to === 'routes/router/index.ts') {
           expect(from === 'main.tsx' || !graph.has(file), `${from} → router creation`).toBe(true);
-          continue;
-        }
-        if (
-          boundary === 'preferences' &&
-          ['preferences/react/index.ts', 'preferences/locales/index.ts'].includes(to)
-        ) {
           continue;
         }
         if (
@@ -456,7 +458,7 @@ it('keeps Mock integration confined to the application entry and route assembly'
 
     if (
       from !== 'main.tsx' &&
-      !/^(app|routes|layout|features|preferences|lib|store|api)\//.test(from)
+      !/^(app|routes|layout|components|features|preferences|lib|store|api)\//.test(from)
     )
       continue;
 
@@ -474,7 +476,7 @@ it('keeps Mock integration confined to the application entry and route assembly'
   }
 });
 
-it('keeps the reusable shell free of business providers and API clients', () => {
+it('keeps reusable layout components free of business providers and API clients', () => {
   const visited = new Set<string>();
 
   function visit(file: string) {
@@ -488,5 +490,6 @@ it('keeps the reusable shell free of business providers and API clients', () => 
     for (const dependency of graph.get(file) ?? []) visit(dependency);
   }
 
-  visit(join(root, 'layout/shell/AppShell.tsx'));
+  for (const component of ['navbar', 'sidebar', 'footer', 'settings'])
+    visit(join(root, 'components', component, 'index.ts'));
 });

@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { UpdateProfilePreferencesRequest } from '@/api/profile/types';
-import { FilterSelect } from '@/components/filter-select/FilterSelect';
-import { MutationFeedback } from '@/components/mutation-feedback/MutationFeedback';
-import { Panel } from '@/components/panel/Panel';
+import { FilterSelect } from '@/components/filter-select';
+import { MutationFeedback } from '@/components/mutation-feedback';
+import { Panel } from '@/components/panel';
 import { useTaskCatalog } from '@/features/catalog';
 import { useMutation } from '@/hooks/async/use-mutation';
 import { businessLabel } from '@/lib/formatting/business-labels';

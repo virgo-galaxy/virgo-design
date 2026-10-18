@@ -11,12 +11,13 @@ import {
   updateProfileIdentity,
   updateProfilePreferences,
 } from '@/api/profile';
-import { BusinessDataProvider } from '@/layout/providers/BusinessDataProvider';
+import { CatalogProvider } from '@/features/catalog';
 import { handlers } from '@/mock/handlers';
 import { resetProfile } from '@/mock/handlers/profile';
 import { useInvalidateResources } from '@/store/resources';
 import { TestSessionProvider } from '@/test/TestSessionProvider';
 
+import { ProfileIdentityProvider } from '../context/ProfileIdentityProvider';
 import { ProfileView } from './ProfileView';
 
 const server = setupServer(...handlers);
@@ -40,11 +41,13 @@ function mount() {
       path: '*',
       element: (
         <TestSessionProvider>
-          <BusinessDataProvider>
-            <RefreshProfile>
-              <ProfileView />
-            </RefreshProfile>
-          </BusinessDataProvider>
+          <CatalogProvider>
+            <ProfileIdentityProvider>
+              <RefreshProfile>
+                <ProfileView />
+              </RefreshProfile>
+            </ProfileIdentityProvider>
+          </CatalogProvider>
         </TestSessionProvider>
       ),
     },

@@ -2,11 +2,11 @@ import { Empty, Progress, Surface, Tag, Timeline } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
 
-import { FilterSelect } from '@/components/filter-select/FilterSelect';
-import { MetricStrip } from '@/components/metric-strip/MetricStrip';
-import { PageHeading } from '@/components/page-heading/PageHeading';
-import { Panel } from '@/components/panel/Panel';
-import { ResourceContent } from '@/components/resource-content/ResourceContent';
+import { FilterSelect } from '@/components/filter-select';
+import { MetricStrip } from '@/components/metric-strip';
+import { PageHeading } from '@/components/page-heading';
+import { Panel } from '@/components/panel';
+import { ResourceContent } from '@/components/resource-content';
 import { useCurrentUser } from '@/features/auth';
 import { CatalogBoundary, moduleFilterKey, Person, useTaskCatalog } from '@/features/catalog';
 import {

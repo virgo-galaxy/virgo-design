@@ -13,11 +13,11 @@ import { createAppRoutes } from './router';
 
 const projectFailure = vi.hoisted(() => ({ current: false }));
 
-vi.mock('@/layout/shell/AppShell', async () => {
+vi.mock('@/layout', async () => {
   const { Outlet } = await import('react-router');
   const { useSession } = await import('@/features/auth');
   return {
-    AppShell: function TestShell() {
+    AppLayout: function TestLayout() {
       const { signOut } = useSession();
       return (
         <>
@@ -68,10 +68,17 @@ vi.mock('@/pages/work/tasks/new', async () => {
   };
 });
 const server = setupServer(...handlers);
+const reads: string[] = [];
+
+server.events.on('request:start', ({ request }) => {
+  if (request.method === 'GET') reads.push(new URL(request.url).pathname);
+});
+
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 afterAll(() => server.close());
 let router: ReturnType<typeof createMemoryRouter>;
 beforeEach(() => {
+  reads.length = 0;
   projectFailure.current = false;
   localStorage.clear();
   sessionStorage.clear();
@@ -115,6 +122,10 @@ describe('one data router owns session and protected navigation', () => {
     start(routePath('work.tasks') + '?status=todo');
     await screen.findByRole('heading', { name: 'Welcome back' });
     expect(router.state.location.pathname).toBe(routePath('login'));
+    const sharedReads = ['/api/v1/tasks/metadata', '/api/v1/projects', '/api/v1/profile/identity'];
+
+    for (const path of sharedReads) expect(reads).not.toContain(path);
+
     fireEvent.change(screen.getByRole('textbox', { name: 'Account' }), {
       target: { value: 'admin' },
     });
@@ -124,6 +135,10 @@ describe('one data router owns session and protected navigation', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Sign in to workspace' }));
     await screen.findByRole('heading', { name: 'Workplace route' });
     expect(router.state.location.pathname).toBe(routePath('dashboard.workplace'));
+    await waitFor(() => {
+      for (const path of sharedReads)
+        expect(reads.filter((request) => request === path)).toHaveLength(1);
+    });
   });
   it('restores an authenticated deep link and treats Login as a home redirect', async () => {
     await login({ account: 'admin', password: 'virgo123' });

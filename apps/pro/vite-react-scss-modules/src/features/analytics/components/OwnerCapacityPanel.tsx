@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { OwnerCapacityDto } from '@/api/analytics/types';
-import { Panel } from '@/components/panel/Panel';
+import { Panel } from '@/components/panel';
 import { Person, useTaskCatalog } from '@/features/catalog';
 
 import { chartColors } from '../presentation/chart-colors';

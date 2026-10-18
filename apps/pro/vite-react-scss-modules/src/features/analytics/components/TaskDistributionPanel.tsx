@@ -2,7 +2,7 @@ import { Chart } from '@virgo-design/charts';
 import { useTranslation } from 'react-i18next';
 
 import type { TaskStatusSummaryDto } from '@/api/analytics/types';
-import { Panel } from '@/components/panel/Panel';
+import { Panel } from '@/components/panel';
 import { taskStatuses, taskStatusLabelNames } from '@/features/tasks';
 
 import { chartColors } from '../presentation/chart-colors';

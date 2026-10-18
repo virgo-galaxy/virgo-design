@@ -1,8 +1,10 @@
 import { lazy, type ReactNode, Suspense } from 'react';
 import { Navigate, Outlet, useOutletContext } from 'react-router';
 
-import { RemoteState } from '@/components/remote-state/RemoteState';
+import { RemoteState } from '@/components/remote-state';
 import { SessionContext, useSessionState } from '@/features/auth';
+import { CatalogProvider } from '@/features/catalog';
+import { ProfileIdentityProvider } from '@/features/profile';
 import { userDetailsCache } from '@/features/users';
 import { clearStoredSessionState, SessionStoreProvider } from '@/store';
 import type { ResourceSubscriber } from '@/store/resources';
@@ -11,9 +13,7 @@ import { routePath } from '../definitions/paths';
 import { proRouteConfig } from '../definitions/routes.config';
 import { RouteLoading } from './RouteViews';
 
-const MainLayout = lazy(() =>
-  import('@/layout').then((module) => ({ default: module.MainLayout })),
-);
+const AppLayout = lazy(() => import('@/layout').then((module) => ({ default: module.AppLayout })));
 
 type SessionState = ReturnType<typeof useSessionState>;
 
@@ -22,7 +22,11 @@ function clearSessionState() {
   userDetailsCache.clear();
 }
 
-export function SessionRoute() {
+export function SessionRoute({
+  subscribeToChanges,
+}: {
+  subscribeToChanges?: ResourceSubscriber | undefined;
+}) {
   const state = useSessionState({
     onSessionEnd: clearSessionState,
     onSessionStart: clearSessionState,
@@ -46,18 +50,14 @@ export function SessionRoute() {
     <SessionContext
       value={{ user: state.current.user, signOut: state.signOut, endSession: state.endSession }}
     >
-      <SessionStoreProvider user={state.current.user}>{outlet}</SessionStoreProvider>
+      <SessionStoreProvider user={state.current.user} subscribeToChanges={subscribeToChanges}>
+        {outlet}
+      </SessionStoreProvider>
     </SessionContext>
   );
 }
 
-export function ProtectedRoute({
-  settingsActions,
-  subscribeToChanges,
-}: {
-  settingsActions?: ReactNode;
-  subscribeToChanges?: ResourceSubscriber | undefined;
-}) {
+export function ProtectedRoute({ settingsActions }: { settingsActions?: ReactNode }) {
   const state = useOutletContext<SessionState>();
 
   if (!state.current?.authenticated || !state.current.user) {
@@ -66,7 +66,11 @@ export function ProtectedRoute({
 
   return (
     <Suspense fallback={<RouteLoading />}>
-      <MainLayout settingsActions={settingsActions} subscribeToChanges={subscribeToChanges} />
+      <CatalogProvider>
+        <ProfileIdentityProvider>
+          <AppLayout settingsActions={settingsActions} />
+        </ProfileIdentityProvider>
+      </CatalogProvider>
     </Suspense>
   );
 }
