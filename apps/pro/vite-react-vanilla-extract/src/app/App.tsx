@@ -1,10 +1,13 @@
-import * as styles from './App.css';
+import { RouterProvider } from 'react-router';
+
+import { LocaleProvider } from '@/i18n/react';
+
+import { router } from './bootstrap/initialize';
 
 export function App() {
   return (
-    <main className={styles.root}>
-      <h1 className={styles.title}>Hello Virgo</h1>
-      <p className={styles.description}>Virgo Design Pro · Vanilla Extract</p>
-    </main>
+    <LocaleProvider>
+      <RouterProvider router={router} />
+    </LocaleProvider>
   );
 }
