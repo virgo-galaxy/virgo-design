@@ -70,7 +70,7 @@ export default tseslint.config(
   },
 
   {
-    files: ['apps/pro/vite-react-scss-modules/**/*.{ts,tsx}'],
+    files: ['apps/pro/vite-react-{scss-modules,tailwind}/**/*.{ts,tsx}'],
 
     rules: {
       'no-empty': ['error', { allowEmptyCatch: true }],

@@ -78,6 +78,7 @@ export default defineConfig({
     projects: [
       { extends: true, test: { name: 'workspace', exclude: [...defaultExclude, 'apps/pro/**'] } },
       './apps/pro/vite-react-scss-modules/vitest.config.ts',
+      './apps/pro/vite-react-tailwind/vitest.config.ts',
     ],
     environment: 'jsdom',
     setupFiles: ['./test/setup.ts'],

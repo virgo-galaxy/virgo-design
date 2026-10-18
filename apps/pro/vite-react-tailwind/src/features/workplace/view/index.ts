@@ -1,0 +1,1 @@
+export { WorkplaceView } from './WorkplaceView';

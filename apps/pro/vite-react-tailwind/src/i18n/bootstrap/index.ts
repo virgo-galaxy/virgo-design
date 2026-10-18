@@ -1,0 +1,1 @@
+export { initializeAppLocale } from './initialize';
