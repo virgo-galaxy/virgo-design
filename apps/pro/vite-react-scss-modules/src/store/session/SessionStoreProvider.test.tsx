@@ -10,7 +10,12 @@ import { useHandoffStore } from '@/features/handoff/store';
 import { useTaskTableSettings } from '@/features/tasks/store';
 import { clearDemoStorage } from '@/mock/data/reset';
 import { defaultPreferences, preferencesStorageKey, useAppPreferences } from '@/preferences';
-import { useInvalidateResources, useResourceRevision } from '@/store/resources';
+import {
+  type ResourceChanges,
+  type ResourceSubscriber,
+  useInvalidateResources,
+  useResourceRevision,
+} from '@/store/resources';
 
 import { initializeAppStores } from '../bootstrap';
 import { clearStoredSessionState } from './session-stores';
@@ -69,6 +74,55 @@ it('keeps one set across rerenders and replaces all business stores when identit
   expect(view.result.current.handoff.draft.notes).toBe('');
   expect(view.result.current.handoff.stage).toBe(0);
   expect(view.result.current.revision).toBe(0);
+});
+
+it('keeps one resource subscription per session and releases it on identity change and unmount', () => {
+  const listeners = new Set<(changes: ResourceChanges) => void>();
+  const unsubscribe = vi.fn();
+  const subscribeToChanges = vi.fn<ResourceSubscriber>((listener) => {
+    listeners.add(listener);
+
+    return () => {
+      listeners.delete(listener);
+      unsubscribe();
+    };
+  });
+  const changes: ResourceChanges = {
+    tasks: true,
+    catalog: false,
+    profile: false,
+    workflows: false,
+    notifications: false,
+  };
+  let user = admin;
+  const view = renderHook(() => useResourceRevision('tasks'), {
+    wrapper: ({ children }: { children: ReactNode }) => (
+      <SessionStoreProvider user={user} subscribeToChanges={subscribeToChanges}>
+        {children}
+      </SessionStoreProvider>
+    ),
+  });
+
+  act(() => listeners.forEach((listener) => listener(changes)));
+  expect(view.result.current).toBe(1);
+
+  view.rerender();
+  expect(subscribeToChanges).toHaveBeenCalledTimes(1);
+  expect(listeners.size).toBe(1);
+
+  user = { ...admin, id: 'next-user', role: 'member' };
+  view.rerender();
+  expect(unsubscribe).toHaveBeenCalledTimes(1);
+  expect(subscribeToChanges).toHaveBeenCalledTimes(2);
+  expect(listeners.size).toBe(1);
+  expect(view.result.current).toBe(0);
+
+  act(() => listeners.forEach((listener) => listener(changes)));
+  expect(view.result.current).toBe(1);
+
+  view.unmount();
+  expect(unsubscribe).toHaveBeenCalledTimes(2);
+  expect(listeners.size).toBe(0);
 });
 
 it('passes live permissions to feature stores without losing the current business draft', () => {

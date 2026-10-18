@@ -4,16 +4,22 @@ import { SessionContext } from '@/features/auth';
 import { TaskTableStoreProvider } from '@/features/tasks/store';
 import { isAdmin } from '@/lib/auth/permissions';
 import { getStoredUser } from '@/lib/auth/session';
-import { ResourceStoreProvider } from '@/store/resources';
+import { ResourceStoreProvider, type ResourceSubscriber } from '@/store/resources';
 
-export function TestSessionProvider({ children }: { children: ReactNode }) {
+export function TestSessionProvider({
+  children,
+  subscribeToChanges,
+}: {
+  children: ReactNode;
+  subscribeToChanges?: ResourceSubscriber | undefined;
+}) {
   const user = getStoredUser();
 
   if (!user) throw new Error('Sign in before rendering the test session');
 
   return (
     <SessionContext value={{ user, signOut: async () => {}, endSession: () => {} }}>
-      <ResourceStoreProvider>
+      <ResourceStoreProvider subscribeToChanges={subscribeToChanges}>
         <TaskTableStoreProvider canPersist={isAdmin(user)}>{children}</TaskTableStoreProvider>
       </ResourceStoreProvider>
     </SessionContext>
