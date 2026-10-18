@@ -1,0 +1,21 @@
+{
+  "name": "@virgo-design/pro-next-scss-modules",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 6304",
+    "build": "next build",
+    "start": "next start --port 6304",
+    "typecheck": "next typegen && tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src next.config.ts"
+  },
+  "dependencies": {
+    "next": "^16.4.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "sass": "^1.104.0"
+  }
+}
