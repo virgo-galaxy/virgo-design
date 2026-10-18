@@ -102,6 +102,13 @@ export { LayoutIcon, type LayoutIconProps } from './generated/LayoutIcon.js';
 export { LockFilledIcon, type LockFilledIconProps } from './generated/LockFilledIcon.js';
 export { LockIcon, type LockIconProps } from './generated/LockIcon.js';
 export { LogOutIcon, type LogOutIconProps } from './generated/LogOutIcon.js';
+export { MailFilledIcon, type MailFilledIconProps } from './generated/MailFilledIcon.js';
+export { MailIcon, type MailIconProps } from './generated/MailIcon.js';
+export {
+  MailOpenFilledIcon,
+  type MailOpenFilledIconProps,
+} from './generated/MailOpenFilledIcon.js';
+export { MailOpenIcon, type MailOpenIconProps } from './generated/MailOpenIcon.js';
 export { MaximizeIcon, type MaximizeIconProps } from './generated/MaximizeIcon.js';
 export {
   MicrophoneFilledIcon,

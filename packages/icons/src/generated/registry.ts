@@ -76,6 +76,10 @@ import { LayoutIcon } from './LayoutIcon.js';
 import { LockFilledIcon } from './LockFilledIcon.js';
 import { LockIcon } from './LockIcon.js';
 import { LogOutIcon } from './LogOutIcon.js';
+import { MailFilledIcon } from './MailFilledIcon.js';
+import { MailIcon } from './MailIcon.js';
+import { MailOpenFilledIcon } from './MailOpenFilledIcon.js';
+import { MailOpenIcon } from './MailOpenIcon.js';
 import { MaximizeIcon } from './MaximizeIcon.js';
 import { MicrophoneFilledIcon } from './MicrophoneFilledIcon.js';
 import { MicrophoneIcon } from './MicrophoneIcon.js';
@@ -213,6 +217,10 @@ export const iconComponents = {
   'lock-filled': LockFilledIcon,
   lock: LockIcon,
   'log-out': LogOutIcon,
+  'mail-filled': MailFilledIcon,
+  mail: MailIcon,
+  'mail-open-filled': MailOpenFilledIcon,
+  'mail-open': MailOpenIcon,
   maximize: MaximizeIcon,
   'microphone-filled': MicrophoneFilledIcon,
   microphone: MicrophoneIcon,

@@ -143,6 +143,13 @@ export const iconSvgSources = {
   lock: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <!-- Chamfered two-unit outline with an open interior; the shackle meets the body. -->\n  <path d="M7 9.5v-4L9.5 3h5L17 5.5v4h-2v-3L13.5 5h-3L9 6.5v3z" />\n  <path d="M5.5 9.5h13l1 1v9l-1 1h-13l-1-1v-9z M7 11.5l-.5.5v6l.5.5h10l.5-.5v-6l-.5-.5z" fill-rule="evenodd" />\n  <path d="M11.5 13h1l.5.5v3l-.5.5h-1l-.5-.5v-3z" />\n</svg>\n',
   'log-out':
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M5 3h6l.5.5v1l-.5.5H6v14h5l.5.5v1l-.5.5H5l-1-1V4z" />\n  <path d="m17 7 5 5-5 5h-1.4l-.5-.5v-1.4l2.6-2.6H10l-.5-.5v-1l.5-.5h7.7l-2.6-2.6V7.5l.5-.5z" />\n</svg>\n',
+  'mail-filled':
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M3 5h18l1 1v12l-1 1H3l-1-1V6z M4 7v1.4l7.5 5.8h1L20 8.4V7h-1.5L12 12 5.5 7z" fill-rule="evenodd" />\n</svg>\n',
+  mail: '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M3 5h18l1 1v12l-1 1H3l-1-1V6z M5.5 7l6.5 5 6.5-5z M4 8.4v8.6h16V8.4l-7.5 5.8h-1z" fill-rule="evenodd" />\n</svg>\n',
+  'mail-open-filled':
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M11.5 3h1l9.5 7v10l-1 1H3l-1-1V10z M4.5 10.6l7.5 5 7.5-5L12 5.1z" fill-rule="evenodd" />\n</svg>\n',
+  'mail-open':
+    '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path d="M11.5 3h1l9.5 7v10l-1 1H3l-1-1V10z M4.5 10.6l7.5 5 7.5-5L12 5.1z M4 12.7V19h16v-6.3l-7.5 4.9h-1z" fill-rule="evenodd" />\n</svg>\n',
   maximize:
     '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">\n  <path fill-rule="evenodd" d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 2v12h12V6H6Z" />\n</svg>\n',
   'microphone-filled':
