@@ -35,6 +35,10 @@ const examplesBySlug = Object.fromEntries(
   ]),
 );
 
+function findComponentHeading(name: string) {
+  return screen.findByRole('heading', { level: 1, name }, { timeout: INTEGRATION_TEST_TIMEOUT });
+}
+
 describe('Components documentation integration', () => {
   it(
     'keeps every copied component route and follows the Website appearance',
@@ -79,7 +83,7 @@ describe('Components documentation integration', () => {
           componentRoutes.filter((route) => route.group === group.id).map((route) => route.path),
         ),
       );
-      expect(await screen.findByRole('heading', { level: 1, name: 'Button' })).toBeInTheDocument();
+      expect(await findComponentHeading('Button')).toBeInTheDocument();
       expect(document.querySelectorAll('[data-article-section]')).toHaveLength(5);
       expect(document.querySelectorAll('[data-example-frame]')).toHaveLength(6);
       expect(screen.queryByRole('heading', { name: 'Examples' })).not.toBeInTheDocument();
@@ -134,13 +138,7 @@ describe('Components documentation integration', () => {
       expect(screen.getByRole('button', { name: 'Collapse all' })).toBeInTheDocument();
 
       await user.click(screen.getByRole('link', { name: /Surface/ }));
-      expect(
-        await screen.findByRole(
-          'heading',
-          { level: 1, name: 'Surface' },
-          { timeout: INTEGRATION_TEST_TIMEOUT },
-        ),
-      ).toBeInTheDocument();
+      expect(await findComponentHeading('Surface')).toBeInTheDocument();
       expect(screen.getByRole('button', { name: 'Expand all' })).toHaveAttribute(
         'aria-expanded',
         'false',
@@ -174,7 +172,7 @@ describe('Components documentation integration', () => {
 
       const sidebar = screen.getByRole('complementary', { name: 'Components sidebar' });
       const navigation = screen.getByRole('navigation', { name: 'Component navigation' });
-      const heading = await screen.findByRole('heading', { level: 1, name: 'Button' });
+      const heading = await findComponentHeading('Button');
       const trigger = within(sidebar).getByRole('button', { name: 'Collapse sidebar' });
       await user.click(trigger);
 
@@ -198,27 +196,34 @@ describe('Components documentation integration', () => {
     INTEGRATION_TEST_TIMEOUT,
   );
 
-  it('keeps Textarea inside the Input documentation family', async () => {
-    vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+  it(
+    'keeps Textarea inside the Input documentation family',
+    async () => {
+      vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
 
-    render(
-      <AppearanceContext.Provider value={{ appearance: 'light', setAppearance: () => {} }}>
-        <MemoryRouter initialEntries={['/components/input']}>
-          <Routes>
-            <Route path="/components/*" element={<ComponentsDocumentation />} />
-          </Routes>
-        </MemoryRouter>
-      </AppearanceContext.Provider>,
-    );
+      render(
+        <AppearanceContext.Provider value={{ appearance: 'light', setAppearance: () => {} }}>
+          <MemoryRouter initialEntries={['/components/input']}>
+            <Routes>
+              <Route path="/components/*" element={<ComponentsDocumentation />} />
+            </Routes>
+          </MemoryRouter>
+        </AppearanceContext.Provider>,
+      );
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'Input' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 2, name: 'Textarea' })).toBeInTheDocument();
-    expect(
-      within(screen.getByRole('navigation', { name: 'Component navigation' })).queryByRole('link', {
-        name: /Textarea/,
-      }),
-    ).not.toBeInTheDocument();
-  });
+      expect(await findComponentHeading('Input')).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 2, name: 'Textarea' })).toBeInTheDocument();
+      expect(
+        within(screen.getByRole('navigation', { name: 'Component navigation' })).queryByRole(
+          'link',
+          {
+            name: /Textarea/,
+          },
+        ),
+      ).not.toBeInTheDocument();
+    },
+    INTEGRATION_TEST_TIMEOUT,
+  );
 
   describe.each(['light', 'dark'] as const)('%s overviews', (appearance) => {
     it.each(componentRoutes)(
@@ -236,11 +241,7 @@ describe('Components documentation integration', () => {
           </AppearanceContext.Provider>,
         );
 
-        const heading = await screen.findByRole(
-          'heading',
-          { level: 1, name },
-          { timeout: INTEGRATION_TEST_TIMEOUT },
-        );
+        const heading = await findComponentHeading(name);
         const board = heading.closest('.component-page');
         const overview = heading.closest('#overview');
         const copy = overview?.querySelector(':scope > .overview-copy');
@@ -319,6 +320,7 @@ describe('Components documentation integration', () => {
         sources.forEach((source) => expect(source).toHaveAttribute('data-state', 'closed'));
         sourceButtons.forEach((button) => expect(button).toHaveAttribute('aria-expanded', 'false'));
       },
+      INTEGRATION_TEST_TIMEOUT,
     );
   });
 });
