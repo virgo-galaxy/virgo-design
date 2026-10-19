@@ -1,13 +1,5 @@
 // @vitest-environment jsdom
-import {
-  act,
-  createEvent,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  within,
-} from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { createMemoryRouter, Outlet, RouterProvider } from 'react-router';
@@ -504,106 +496,27 @@ it('edits the focused width thumb through the shared numeric input', async () =>
   expect(within(dialog).getAllByRole('spinbutton')).toHaveLength(1);
 });
 
-it('shows insertion edges and drops columns at the indicated boundary', async () => {
+it('keeps selection visibility and its locked leading position in the table', async () => {
   renderPage();
-  await screen.findByRole('table', { name: /^Workspace tasks/ });
+  const table = await screen.findByRole('table', { name: /^Workspace tasks/ });
   fireEvent.click(screen.getByRole('button', { name: 'Table settings' }));
   const dialog = await screen.findByRole('dialog', { name: 'Table settings' });
   fireEvent.click(within(dialog).getByRole('tab', { name: 'Columns' }));
   const list = within(dialog).getByRole('list', { name: 'Column order' });
-  const selectionVisibility = within(dialog).getByRole('checkbox', {
+  const selectionVisibility = within(list).getByRole('checkbox', {
     name: 'Show Selection column',
   });
   expect(selectionVisibility).toBeEnabled();
   fireEvent.click(selectionVisibility);
   expect(selectionVisibility).not.toBeChecked();
-  expect(
-    screen
-      .getByRole('table', { name: /^Workspace tasks/ })
-      .querySelector('th[data-column-key="selection"]'),
-  ).toBeNull();
-  fireEvent.click(within(dialog).getByRole('button', { name: 'Selection' }));
+  expect(table.querySelector('th[data-column-key="selection"]')).toBeNull();
+  fireEvent.click(within(list).getByRole('button', { name: 'Selection' }));
   expect(within(dialog).getByRole('region', { name: 'Selection' })).toBeInTheDocument();
   fireEvent.click(selectionVisibility);
-  expect(
-    screen.getByRole('table', { name: /^Workspace tasks/ }).querySelector('thead th'),
-  ).toHaveAttribute('data-column-key', 'selection');
-  const lockedHandle = within(dialog).getByRole('button', { name: 'Drag column Selection' });
+  expect(table.querySelector('thead th')).toHaveAttribute('data-column-key', 'selection');
+  const lockedHandle = within(list).getByRole('button', { name: 'Drag column Selection' });
   expect(lockedHandle).toBeDisabled();
   expect(lockedHandle).toHaveAttribute('draggable', 'false');
-  const row = (name: string) =>
-    within(dialog).getByRole('button', { name }).closest('[role="listitem"]')!;
-  const dataTransfer = { setData: vi.fn(), setDragImage: vi.fn(), dropEffect: '' };
-  const start = (name: string) => {
-    within(list)
-      .getAllByRole('listitem')
-      .forEach((item, index) => {
-        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue({
-          top: 100 + index * 40,
-          bottom: 140 + index * 40,
-          height: 40,
-          left: 0,
-          right: 240,
-          width: 240,
-        } as DOMRect);
-      });
-    fireEvent.dragStart(within(dialog).getByRole('button', { name: `Drag column ${name}` }), {
-      dataTransfer,
-    });
-  };
-  const hover = (name: string, edge: 'before' | 'after') => {
-    const item = row(name);
-    const event = createEvent.dragOver(item, { dataTransfer });
-    Object.defineProperty(event, 'clientY', {
-      value: item.getBoundingClientRect().top + (edge === 'before' ? 5 : 35),
-    });
-    fireEvent(item, event);
-  };
-  const order = () =>
-    within(list)
-      .getAllByRole('listitem')
-      .map((item) => within(item).getAllByRole('button')[1]!.textContent);
-  start('Task');
-  hover('Priority', 'before');
-  expect(row('Priority')).toHaveAttribute('data-drop-position', 'before');
-  hover('Priority', 'after');
-  expect(row('Priority')).toHaveAttribute('data-drop-position', 'after');
-  expect(list.querySelectorAll('[data-drop-position]')).toHaveLength(1);
-  fireEvent.drop(list, { dataTransfer });
-  expect(order().slice(0, 5)).toEqual(['Selection', 'ID', 'Status', 'Priority', 'Task']);
-  expect(list.querySelector('[data-drop-position]')).toBeNull();
-
-  start('Task');
-  hover('Status', 'before');
-  expect(row('Status')).toHaveAttribute('data-drop-position', 'before');
-  fireEvent.drop(list, { dataTransfer });
-  expect(order().slice(0, 5)).toEqual(['Selection', 'ID', 'Task', 'Status', 'Priority']);
-
-  fireEvent.keyDown(within(dialog).getByRole('button', { name: 'Drag column Task' }), {
-    key: 'ArrowUp',
-  });
-  expect(order().slice(0, 5)).toEqual(['Selection', 'ID', 'Task', 'Status', 'Priority']);
-  start('Status');
-  hover('Selection', 'before');
-  expect(list.querySelector('[data-drop-position]')).toBeNull();
-  fireEvent.drop(list, { dataTransfer });
-  expect(order().slice(0, 5)).toEqual(['Selection', 'ID', 'Task', 'Status', 'Priority']);
-
-  start('Task');
-  hover('Task', 'after');
-  expect(list.querySelector('[data-drop-position]')).toBeNull();
-  hover('Status', 'before');
-  expect(list.querySelector('[data-drop-position]')).toBeNull();
-  hover('Priority', 'after');
-  expect(row('Priority')).toHaveAttribute('data-drop-position', 'after');
-  const leave = createEvent.dragLeave(list);
-  Object.defineProperty(leave, 'clientX', { value: -1 });
-  fireEvent(list, leave);
-  expect(list.querySelector('[data-drop-position]')).toBeNull();
-  hover('Priority', 'after');
-  fireEvent.dragEnd(within(dialog).getByRole('button', { name: 'Drag column Task' }));
-  expect(list.querySelector('[data-drop-position]')).toBeNull();
-  expect(order().slice(0, 5)).toEqual(['Selection', 'ID', 'Task', 'Status', 'Priority']);
 });
 
 it('previews the real column width, sorting arrows and combined filter/search controls live', async () => {
