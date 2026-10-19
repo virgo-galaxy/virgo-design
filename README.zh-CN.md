@@ -44,6 +44,13 @@ Virgo Design 是一套 React 设计系统，提供组件、交互原语、图标
 | [Fonts](packages/fonts)           | 自托管可变字体和字体元数据。            |
 | [Colors](packages/colors)         | 颜色转换、色阶和色板生成。              |
 
+## 兼容性
+
+组件包已在 React 18 和 React 19 项目中通过安装验证。运行依赖要求见各包的 `peerDependencies`。
+
+下方的 Node.js 和 pnpm 版本用于开发本仓库，不代表使用组件包的最低环境要求。
+更低版本的 Node.js、TypeScript 和构建工具不在兼容性保证范围内。
+
 ## 开发
 
 使用 Node.js 24.14.0（见 `.nvmrc`）和 pnpm 11.9.0（见根目录 `package.json` 的 `packageManager` 字段）。
@@ -77,7 +84,10 @@ Git 钩子会对暂存文件运行 ESLint、Prettier，并校验符合 Conventio
 
 ## 社区
 
-参与项目讨论或贡献前，请阅读[社区行为准则](CODE_OF_CONDUCT.md)。
+- [Issues](https://github.com/virgo-galaxy/virgo-design/issues)：报告 Bug 和提出具体功能需求。
+- [Discussions](https://github.com/virgo-galaxy/virgo-design/discussions)：使用问答、想法讨论和项目公告。
+- [贡献指南](CONTRIBUTING.md)：开发环境、验证方式和 PR 提交流程。
+- [社区行为准则](CODE_OF_CONDUCT.md)：参与规范和私密行为举报渠道。
 
 ## 许可证
 

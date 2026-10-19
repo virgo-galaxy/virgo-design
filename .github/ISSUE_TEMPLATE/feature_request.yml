@@ -1,0 +1,36 @@
+name: Feature request
+description: Propose a specific improvement to a package, application or repository tool.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Search existing issues and discussions first.
+        For exploratory ideas, use [Ideas](https://github.com/virgo-galaxy/virgo-design/discussions/categories/ideas).
+  - type: input
+    id: scope
+    attributes:
+      label: Affected packages or applications
+      description: Use package names or repository paths. For a new area, describe where it belongs.
+      placeholder: '@virgo-design/charts, apps/website, or repository tooling'
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: Explain what you need to do and what the current behavior prevents.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed improvement
+      description: Describe the behavior or API you would like. Examples are helpful.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Include existing approaches or workarounds, if any.

@@ -1,0 +1,24 @@
+body:
+  - type: markdown
+    attributes:
+      value: Search existing discussions and feature requests first.
+  - type: input
+    id: scope
+    attributes:
+      label: Relevant packages or applications
+      description: Use package names or repository paths. For a new area, describe where it belongs.
+      placeholder: '@virgo-design/charts, apps/website, or repository tooling'
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Idea and use case
+      description: Describe the problem or opportunity and how your idea would help.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Examples or alternatives
+      description: Share examples, related proposals or existing approaches, if any.

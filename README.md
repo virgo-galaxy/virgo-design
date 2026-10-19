@@ -46,6 +46,14 @@ Tailwind CSS or vanilla-extract.
 | [Fonts](packages/fonts)           | Self-hosted variable fonts and family metadata.             |
 | [Colors](packages/colors)         | Color conversion, tonal scales and palette generation.      |
 
+## Compatibility
+
+Package consumer checks cover React 18 and React 19. Runtime dependency requirements are declared
+in each package's `peerDependencies`.
+
+The Node.js and pnpm versions below apply to repository development, not minimum consumer
+requirements. Compatibility with older Node.js, TypeScript or build tools is not guaranteed.
+
 ## Development
 
 Use Node.js 24.14.0 (`.nvmrc`) and pnpm 11.9.0 (`packageManager`).
@@ -80,7 +88,10 @@ in isolated consumers. See the [release guide](RELEASING.md) for versioning and 
 
 ## Community
 
-Read our [Code of Conduct](CODE_OF_CONDUCT.md) before participating in project discussions or contributions.
+- [Issues](https://github.com/virgo-galaxy/virgo-design/issues): bug reports and specific feature requests.
+- [Discussions](https://github.com/virgo-galaxy/virgo-design/discussions): questions, ideas and announcements.
+- [Contributing](CONTRIBUTING.md): development setup, validation and pull requests.
+- [Code of Conduct](CODE_OF_CONDUCT.md): standards for participation and private conduct reports.
 
 ## License
 

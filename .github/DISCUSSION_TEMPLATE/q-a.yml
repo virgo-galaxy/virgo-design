@@ -1,0 +1,26 @@
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Search existing discussions first.
+        Remove credentials and private information from examples and logs.
+  - type: input
+    id: scope
+    attributes:
+      label: Relevant packages or applications
+      description: Use package names or repository paths. List multiple areas when relevant.
+      placeholder: '@virgo-design/themes, apps/pro/next-tailwind, or repository tooling'
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: Explain what you are trying to do, what you have tried and where you need help.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Example and environment
+      description: Include relevant code, package versions and framework or browser details.

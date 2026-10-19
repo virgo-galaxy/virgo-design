@@ -1,0 +1,52 @@
+name: Bug report
+description: Report a reproducible problem with a package, application or repository tool.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Search existing issues before reporting.
+        For usage questions, use [Q&A](https://github.com/virgo-galaxy/virgo-design/discussions/categories/q-a).
+        Remove credentials and private information from examples and logs.
+  - type: input
+    id: scope
+    attributes:
+      label: Affected packages or applications
+      description: Use package names or repository paths. List all affected areas for a cross-package problem.
+      placeholder: '@virgo-design/ui, apps/pro/next-tailwind, or repository tooling'
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: Include the installed package versions, or the commit SHA if running repository code.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Provide a minimal example or repository link and the steps needed to reproduce the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include relevant errors, screenshots or recordings if useful.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include relevant React, framework, browser and OS versions. For tooling problems, include Node.js and pnpm versions.
+    validations:
+      required: true
