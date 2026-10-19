@@ -84,6 +84,8 @@ describe('Components documentation integration', () => {
         ),
       );
       expect(await findComponentHeading('Button')).toBeInTheDocument();
+      expect(within(navigation).queryByText(/^V?\d+\.\d+\.\d+$/)).not.toBeInTheDocument();
+      expect(within(navigation).queryByText(/STABLE|REVIEW/)).not.toBeInTheDocument();
       expect(document.querySelectorAll('[data-article-section]')).toHaveLength(5);
       expect(document.querySelectorAll('[data-example-frame]')).toHaveLength(6);
       expect(screen.queryByRole('heading', { name: 'Examples' })).not.toBeInTheDocument();
@@ -116,7 +118,6 @@ describe('Components documentation integration', () => {
       expect(componentRoutes.find((route) => route.id === 'dock')).toMatchObject({
         group: 'layout',
         index: '03',
-        version: 'V1.0.0',
       });
       expect(
         componentRoutes
@@ -228,7 +229,7 @@ describe('Components documentation integration', () => {
   describe.each(['light', 'dark'] as const)('%s overviews', (appearance) => {
     it.each(componentRoutes)(
       'renders $name with shared heading structure and a Reference specimen hero',
-      async ({ id, index, name, path, status, version }) => {
+      async ({ id, index, name, path }) => {
         vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
 
         const { container } = render(
@@ -260,11 +261,8 @@ describe('Components documentation integration', () => {
         expect(overview).toHaveAttribute('data-docs-section', 'overview');
         expect(overview?.parentElement).toBe(board);
         expect(heading.parentElement).toBe(copy);
-        expect(copy?.querySelector(':scope > .eyebrow-row')).toHaveTextContent(
+        expect(copy?.querySelector(':scope > .eyebrow-row')?.textContent).toBe(
           `Component ${index}`,
-        );
-        expect(copy?.querySelector(':scope > .eyebrow-row .version-badge')).toHaveTextContent(
-          `${status.toUpperCase()} · ${version}`,
         );
         expect(copy?.querySelector(':scope > p')).not.toBeEmptyDOMElement();
         expect(firstArticle).toBeInTheDocument();
@@ -278,8 +276,6 @@ describe('Components documentation integration', () => {
         expect(specimen).toHaveAttribute('data-border', 'default');
         expect(specimen).toHaveAttribute('data-radius', '16');
         expect(specimen).toHaveAttribute('data-elevation', '2');
-        expect(copy?.querySelector('.version-badge')).toHaveAttribute('data-variant', 'outline');
-        expect(copy?.querySelector('.version-badge')).toHaveAttribute('data-intent', 'brand');
         expect(specimen?.querySelector('.specimen-toolbar')).toHaveTextContent(
           'Reference specimen',
         );

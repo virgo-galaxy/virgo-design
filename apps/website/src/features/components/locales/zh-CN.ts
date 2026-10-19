@@ -7,10 +7,6 @@ export const componentsZhCN = {
   sidebar: '组件侧栏',
   navigation: '组件导航',
   component: '组件 {{index}}',
-  status: {
-    stable: '稳定',
-    review: '评审中',
-  },
   groups: {
     general: '通用',
     layout: '布局',

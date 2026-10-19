@@ -5,10 +5,6 @@ export const componentsEnUS = {
   sidebar: 'Components sidebar',
   navigation: 'Component navigation',
   component: 'Component {{index}}',
-  status: {
-    stable: 'STABLE',
-    review: 'REVIEW',
-  },
   groups: {
     general: 'General',
     layout: 'Layout',

@@ -9,9 +9,7 @@ import { ButtonPage } from './ButtonPage';
 describe('Button article documentation', () => {
   it('keeps five article sections and six independent examples, without the PoC section', () => {
     const { container } = render(
-      <ComponentPageMetadataProvider
-        metadata={{ index: '01', status: 'stable', version: 'V1.0.0' }}
-      >
+      <ComponentPageMetadataProvider metadata={{ index: '01' }}>
         <ButtonPage />
       </ComponentPageMetadataProvider>,
     );

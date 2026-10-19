@@ -9,9 +9,7 @@ import { DialogPage } from './DialogPage';
 describe('Dialog article documentation', () => {
   it('renders Sizes and Form dialog as articles with their own example frames', () => {
     const { container } = render(
-      <ComponentPageMetadataProvider
-        metadata={{ index: '26', status: 'stable', version: 'V1.0.0' }}
-      >
+      <ComponentPageMetadataProvider metadata={{ index: '26' }}>
         <DialogPage />
       </ComponentPageMetadataProvider>,
     );

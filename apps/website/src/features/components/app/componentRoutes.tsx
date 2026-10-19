@@ -118,8 +118,6 @@ export const componentRoutes = [
     name: 'Button',
     category: 'Actions',
     path: '/components/button',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/button/ButtonPage').then((module) => ({ default: module.ButtonPage })),
     ),
@@ -131,8 +129,6 @@ export const componentRoutes = [
     name: 'Surface',
     category: 'Appearance',
     path: '/components/surface',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/surface/SurfacePage').then((module) => ({ default: module.SurfacePage })),
     ),
@@ -144,8 +140,6 @@ export const componentRoutes = [
     name: 'Dock',
     category: 'Layout',
     path: '/components/dock',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/dock/DockPage').then((module) => ({ default: module.DockPage })),
     ),
@@ -157,8 +151,6 @@ export const componentRoutes = [
     name: 'Layout',
     category: 'Structure',
     path: '/components/layout',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/layout/LayoutPage').then((module) => ({ default: module.LayoutPage })),
     ),
@@ -170,8 +162,6 @@ export const componentRoutes = [
     name: 'Separator',
     category: 'Layout',
     path: '/components/separator',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/separator/SeparatorPage').then((module) => ({
         default: module.SeparatorPage,
@@ -185,8 +175,6 @@ export const componentRoutes = [
     name: 'Breadcrumb',
     category: 'Navigation',
     path: '/components/breadcrumb',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/breadcrumb/BreadcrumbPage').then((module) => ({
         default: module.BreadcrumbPage,
@@ -200,8 +188,6 @@ export const componentRoutes = [
     name: 'Dropdown',
     category: 'Navigation',
     path: '/components/dropdown',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/dropdown/DropdownPage').then((module) => ({ default: module.DropdownPage })),
     ),
@@ -213,8 +199,6 @@ export const componentRoutes = [
     name: 'NavigationMenu',
     category: 'Navigation',
     path: '/components/navigation-menu',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/navigation-menu/NavigationMenuPage').then((module) => ({
         default: module.NavigationMenuPage,
@@ -228,8 +212,6 @@ export const componentRoutes = [
     name: 'Pagination',
     category: 'Navigation',
     path: '/components/pagination',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/pagination/PaginationPage').then((module) => ({
         default: module.PaginationPage,
@@ -243,8 +225,6 @@ export const componentRoutes = [
     name: 'Steps',
     category: 'Navigation',
     path: '/components/steps',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/steps/StepsPage').then((module) => ({ default: module.StepsPage })),
     ),
@@ -256,8 +236,6 @@ export const componentRoutes = [
     name: 'Tabs',
     category: 'Navigation',
     path: '/components/tabs',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/tabs/TabsPage').then((module) => ({ default: module.TabsPage })),
     ),
@@ -269,8 +247,6 @@ export const componentRoutes = [
     name: 'Tree',
     category: 'Navigation',
     path: '/components/tree',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/tree/TreePage').then((module) => ({ default: module.TreePage })),
     ),
@@ -282,8 +258,6 @@ export const componentRoutes = [
     name: 'Calendar',
     category: 'Forms',
     path: '/components/calendar',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/calendar/CalendarPage').then((module) => ({ default: module.CalendarPage })),
     ),
@@ -295,8 +269,6 @@ export const componentRoutes = [
     name: 'Checkbox',
     category: 'Forms',
     path: '/components/checkbox',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/checkbox/CheckboxPage').then((module) => ({ default: module.CheckboxPage })),
     ),
@@ -308,8 +280,6 @@ export const componentRoutes = [
     name: 'ColorPicker',
     category: 'Forms',
     path: '/components/color-picker',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/color-picker/ColorPickerPage').then((module) => ({
         default: module.ColorPickerPage,
@@ -323,8 +293,6 @@ export const componentRoutes = [
     name: 'Combobox',
     category: 'Forms',
     path: '/components/combobox',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/combobox/ComboboxPage').then((module) => ({ default: module.ComboboxPage })),
     ),
@@ -336,8 +304,6 @@ export const componentRoutes = [
     name: 'DatePicker',
     category: 'Forms',
     path: '/components/date-picker',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/date-picker/DatePickerPage').then((module) => ({
         default: module.DatePickerPage,
@@ -351,8 +317,6 @@ export const componentRoutes = [
     name: 'Field',
     category: 'Forms',
     path: '/components/field',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/field/FieldPage').then((module) => ({ default: module.FieldPage })),
     ),
@@ -364,8 +328,6 @@ export const componentRoutes = [
     name: 'Form',
     category: 'Forms',
     path: '/components/form',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/form/FormPage').then((module) => ({ default: module.FormPage })),
     ),
@@ -377,8 +339,6 @@ export const componentRoutes = [
     name: 'Input',
     category: 'Forms',
     path: '/components/input',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/input/InputPage').then((module) => ({ default: module.InputPage })),
     ),
@@ -390,8 +350,6 @@ export const componentRoutes = [
     name: 'Radio',
     category: 'Forms',
     path: '/components/radio',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/radio/RadioPage').then((module) => ({ default: module.RadioPage })),
     ),
@@ -403,8 +361,6 @@ export const componentRoutes = [
     name: 'Segmented Control',
     category: 'Forms',
     path: '/components/segmented-control',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/segmented-control/SegmentedControlPage').then((module) => ({
         default: module.SegmentedControlPage,
@@ -418,8 +374,6 @@ export const componentRoutes = [
     name: 'Select',
     category: 'Forms',
     path: '/components/select',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/select/SelectPage').then((module) => ({ default: module.SelectPage })),
     ),
@@ -431,8 +385,6 @@ export const componentRoutes = [
     name: 'Slider',
     category: 'Forms',
     path: '/components/slider',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/slider/SliderPage').then((module) => ({ default: module.SliderPage })),
     ),
@@ -444,8 +396,6 @@ export const componentRoutes = [
     name: 'Switch',
     category: 'Forms',
     path: '/components/switch',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/switch/SwitchPage').then((module) => ({ default: module.SwitchPage })),
     ),
@@ -457,8 +407,6 @@ export const componentRoutes = [
     name: 'TimePicker',
     category: 'Forms',
     path: '/components/time-picker',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/time-picker/TimePickerPage').then((module) => ({
         default: module.TimePickerPage,
@@ -472,8 +420,6 @@ export const componentRoutes = [
     name: 'Collapsible',
     category: 'Interaction',
     path: '/components/collapsible',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/collapsible/CollapsiblePage').then((module) => ({
         default: module.CollapsiblePage,
@@ -487,8 +433,6 @@ export const componentRoutes = [
     name: 'Cursor',
     category: 'Interaction',
     path: '/components/cursor',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/cursor/CursorPage').then((module) => ({ default: module.CursorPage })),
     ),
@@ -500,8 +444,6 @@ export const componentRoutes = [
     name: 'Accordion',
     category: 'Data Display',
     path: '/components/accordion',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/accordion/AccordionPage').then((module) => ({
         default: module.AccordionPage,
@@ -515,8 +457,6 @@ export const componentRoutes = [
     name: 'Avatar',
     category: 'Data Display',
     path: '/components/avatar',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/avatar/AvatarPage').then((module) => ({ default: module.AvatarPage })),
     ),
@@ -528,8 +468,6 @@ export const componentRoutes = [
     name: 'Badge',
     category: 'Data Display',
     path: '/components/badge',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/badge/BadgePage').then((module) => ({ default: module.BadgePage })),
     ),
@@ -541,8 +479,6 @@ export const componentRoutes = [
     name: 'Card',
     category: 'Data Display',
     path: '/components/card',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/card/CardPage').then((module) => ({ default: module.CardPage })),
     ),
@@ -555,8 +491,6 @@ export const componentRoutes = [
     name: 'Carousel',
     category: 'Data Display',
     path: '/components/carousel',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/carousel/CarouselPage').then((module) => ({ default: module.CarouselPage })),
     ),
@@ -568,8 +502,6 @@ export const componentRoutes = [
     name: 'Empty',
     category: 'Data Display',
     path: '/components/empty',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/empty/EmptyPage').then((module) => ({ default: module.EmptyPage })),
     ),
@@ -581,8 +513,6 @@ export const componentRoutes = [
     name: 'Popover',
     category: 'Data Display',
     path: '/components/popover',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/popover/PopoverPage').then((module) => ({ default: module.PopoverPage })),
     ),
@@ -594,8 +524,6 @@ export const componentRoutes = [
     name: 'Statistic',
     category: 'Data Display',
     path: '/components/statistic',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/statistic/StatisticPage').then((module) => ({
         default: module.StatisticPage,
@@ -609,8 +537,6 @@ export const componentRoutes = [
     name: 'Table',
     category: 'Data Display',
     path: '/components/table',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/table/TablePage').then((module) => ({ default: module.TablePage })),
     ),
@@ -622,8 +548,6 @@ export const componentRoutes = [
     name: 'Tag',
     category: 'Data Display',
     path: '/components/tag',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/tag/TagPage').then((module) => ({ default: module.TagPage })),
     ),
@@ -635,8 +559,6 @@ export const componentRoutes = [
     name: 'Timeline',
     category: 'Data Display',
     path: '/components/timeline',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/timeline/TimelinePage').then((module) => ({ default: module.TimelinePage })),
     ),
@@ -648,8 +570,6 @@ export const componentRoutes = [
     name: 'Tooltip',
     category: 'Data Display',
     path: '/components/tooltip',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/tooltip/TooltipPage').then((module) => ({ default: module.TooltipPage })),
     ),
@@ -661,8 +581,6 @@ export const componentRoutes = [
     name: 'Alert',
     category: 'Feedback',
     path: '/components/alert',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/alert/AlertPage').then((module) => ({ default: module.AlertPage })),
     ),
@@ -674,8 +592,6 @@ export const componentRoutes = [
     name: 'Dialog',
     category: 'Feedback',
     path: '/components/dialog',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/dialog/DialogPage').then((module) => ({ default: module.DialogPage })),
     ),
@@ -687,8 +603,6 @@ export const componentRoutes = [
     name: 'Drawer',
     category: 'Feedback',
     path: '/components/drawer',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/drawer/DrawerPage').then((module) => ({ default: module.DrawerPage })),
     ),
@@ -700,8 +614,6 @@ export const componentRoutes = [
     name: 'Progress',
     category: 'Feedback',
     path: '/components/progress',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/progress/ProgressPage').then((module) => ({ default: module.ProgressPage })),
     ),
@@ -713,8 +625,6 @@ export const componentRoutes = [
     name: 'Result',
     category: 'Feedback',
     path: '/components/result',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/result/ResultPage').then((module) => ({ default: module.ResultPage })),
     ),
@@ -726,8 +636,6 @@ export const componentRoutes = [
     name: 'Skeleton',
     category: 'Feedback',
     path: '/components/skeleton',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/skeleton/SkeletonPage').then((module) => ({ default: module.SkeletonPage })),
     ),
@@ -739,8 +647,6 @@ export const componentRoutes = [
     name: 'Spinner',
     category: 'Feedback',
     path: '/components/spinner',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/spinner/SpinnerPage').then((module) => ({ default: module.SpinnerPage })),
     ),
@@ -752,8 +658,6 @@ export const componentRoutes = [
     name: 'Toast',
     category: 'Feedback',
     path: '/components/toast',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/toast/ToastPage').then((module) => ({ default: module.ToastPage })),
     ),
@@ -765,8 +669,6 @@ export const componentRoutes = [
     name: 'Command',
     category: 'Actions',
     path: '/components/command',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/command/CommandPage').then((module) => ({ default: module.CommandPage })),
     ),
@@ -778,8 +680,6 @@ export const componentRoutes = [
     name: 'ContextMenu',
     category: 'Actions',
     path: '/components/context-menu',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/menu-system/MenuSystemPages').then((module) => ({
         default: module.ContextMenuPage,
@@ -793,8 +693,6 @@ export const componentRoutes = [
     name: 'FloatingAction',
     category: 'Actions',
     path: '/components/floating-action',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/floating-action/FloatingActionPage').then((module) => ({
         default: module.FloatingActionPage,
@@ -808,8 +706,6 @@ export const componentRoutes = [
     name: 'Menu',
     category: 'Actions',
     path: '/components/menu',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/menu-system/MenuSystemPages').then((module) => ({
         default: module.MenuPage,
@@ -823,8 +719,6 @@ export const componentRoutes = [
     name: 'Menubar',
     category: 'Actions',
     path: '/components/menubar',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/menu-system/MenuSystemPages').then((module) => ({
         default: module.MenubarPage,
@@ -838,8 +732,6 @@ export const componentRoutes = [
     name: 'Toolbar',
     category: 'Actions',
     path: '/components/toolbar',
-    status: 'stable',
-    version: 'V1.0.0',
     Component: lazy(() =>
       import('../pages/toolbar/ToolbarPage').then((module) => ({ default: module.ToolbarPage })),
     ),

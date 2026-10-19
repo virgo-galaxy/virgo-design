@@ -1,7 +1,7 @@
 import '@virgo-design/tokens/styles.css';
 import './styles.scss';
 
-import { Breadcrumb, Layout, Tag } from '@virgo-design/ui';
+import { Breadcrumb, Layout } from '@virgo-design/ui';
 import { type ReactNode, Suspense, useLayoutEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
@@ -86,13 +86,6 @@ export function ComponentsDocumentation({ renderRelationships }: ComponentsDocum
                     <strong>{route.name}</strong>
                     <small>{t(`components.catalogue.sidebarLabels.${route.id}`)}</small>
                   </DocumentationSidebarCopy>
-                  <Tag
-                    size="sm"
-                    intent={route.status === 'stable' ? 'success' : 'neutral'}
-                    data-status={route.status}
-                  >
-                    {route.version.replace(/^V/, '')}
-                  </Tag>
                 </DocumentationSidebarItem>
               ))}
               {groupIndex < navigationGroups.length - 1 ? <DocumentationSidebarSeparator /> : null}

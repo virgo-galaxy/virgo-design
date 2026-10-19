@@ -1,4 +1,3 @@
-import { Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -30,16 +29,7 @@ export function ComponentsCataloguePage() {
           >
             {routes.map((route) => {
               return (
-                <DocumentationCatalogueItem
-                  key={route.id}
-                  to={route.path}
-                  title={route.name}
-                  accessory={
-                    <Tag size="sm" variant="outline">
-                      {route.version.replace(/^V/, '')}
-                    </Tag>
-                  }
-                >
+                <DocumentationCatalogueItem key={route.id} to={route.path} title={route.name}>
                   {t(`components.catalogue.metadata.${route.id}`)}
                 </DocumentationCatalogueItem>
               );

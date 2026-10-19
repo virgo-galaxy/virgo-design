@@ -1,11 +1,8 @@
-import { Tag } from '@virgo-design/ui';
 import { createContext, type ReactNode, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export type ComponentPageMetadataValue = {
   index: string;
-  status: 'stable' | 'review';
-  version: string;
 };
 
 const ComponentPageMetadataContext = createContext<ComponentPageMetadataValue | null>(null);
@@ -35,9 +32,6 @@ export function ComponentPageMetadata() {
   return (
     <div className="eyebrow-row">
       <span>{t('components.catalogue.component', { index: metadata.index })}</span>
-      <Tag className="version-badge" size="sm" intent="brand" variant="outline">
-        {t(`components.catalogue.status.${metadata.status}`)} · {metadata.version}
-      </Tag>
     </div>
   );
 }
