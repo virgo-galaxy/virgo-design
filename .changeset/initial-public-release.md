@@ -9,4 +9,6 @@
 '@virgo-design/ui': minor
 ---
 
-Prepare the first public release of the eight Virgo Design libraries with verified package entry points, styles, assets and isolated consumer installation.
+Add the Virgo Design libraries for React components, interaction primitives, icons, charts,
+design tokens, themes, fonts and color utilities. Include JavaScript and TypeScript entry points,
+stylesheets, SVG assets and self-hosted font resources.

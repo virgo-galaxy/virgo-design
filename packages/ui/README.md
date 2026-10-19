@@ -3,6 +3,14 @@
 Virgo Design's styled React components, built on primitives, icons and the shared
 token/theme contract. Applications own business state and translation resources.
 
+## Installation
+
+Requires React and ReactDOM 18 or later in the consuming application. To use the official themes:
+
+```sh
+pnpm add @virgo-design/ui @virgo-design/tokens @virgo-design/themes
+```
+
 ## Usage
 
 ```tsx
@@ -23,12 +31,17 @@ export function Example() {
 }
 ```
 
-## Entries
+Load styles once in this order: Tokens, Themes, UI, then application styles. The example sets a
+local Virgo/light scope; applications can also set theme attributes on the document root and use
+`@virgo-design/themes` to manage theme switching. `LocaleProvider` supplies built-in component
+text; application copy is managed by the application's translation system.
+
+## Package exports
 
 - `@virgo-design/ui`: components, public types, `LocaleProvider` and `PortalProvider`.
 - `/locale`: built-in `enUS` and `zhCN` packs and the complete `UILocale` contract.
 - `/metadata`: component metadata for documentation and tooling.
 - `/styles.css`: compiled component styles; load after token and theme styles.
 
-Requires React and ReactDOM 18 or later. Applications initialize themes and connect
-their current language to `LocaleProvider`. Detailed APIs and examples live in the Website.
+Connect the application's language to `LocaleProvider` using `enUS`, `zhCN` or a complete custom
+`UILocale` pack. Component APIs are documented in the Virgo Design website's Components section.

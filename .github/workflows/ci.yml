@@ -17,10 +17,10 @@ env:
   HUSKY: '0'
 
 jobs:
-  checks:
-    name: Workspace checks
+  quality:
+    name: Code checks
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7
         with:
@@ -39,8 +39,62 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: pnpm exec commitlint --from "$BASE_SHA" --to "$HEAD_SHA"
-      - run: pnpm all
+      - run: pnpm check:icons
+      - run: pnpm check:api-docs
+      - run: pnpm build:packages
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm format:check
       - run: pnpm changeset status
+      - name: Check generated tracked files
+        run: git diff --exit-code
+
+  tests:
+    name: Tests (${{ matrix.shard }}/3)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - uses: pnpm/action-setup@v6
+        with:
+          cache: true
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:packages
+      - name: Run test shard
+        run: pnpm exec vitest run --shard=${{ matrix.shard }}/3
+
+  builds:
+    name: Application builds
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - uses: pnpm/action-setup@v6
+        with:
+          cache: true
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:packages
+      - name: Build Next.js applications with prepared libraries
+        run: |
+          pnpm --filter @virgo-design/pro-next-scss-modules exec next build
+          pnpm --filter @virgo-design/pro-next-tailwind exec next build
+          pnpm --filter @virgo-design/pro-next-vanilla-extract exec next build
+      - name: Build Vite applications
+        run: pnpm --filter @virgo-design/website --filter './apps/pro/vite-*' --recursive --workspace-concurrency=1 run build
       - name: Check generated tracked files
         run: git diff --exit-code
 
@@ -60,3 +114,22 @@ jobs:
           cache: true
       - run: pnpm install --frozen-lockfile
       - run: pnpm check:packages
+
+  checks:
+    name: Workspace checks
+    if: ${{ always() }}
+    needs: [quality, tests, builds, packages]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require all CI jobs to pass
+        env:
+          QUALITY_RESULT: ${{ needs.quality.result }}
+          TEST_RESULT: ${{ needs.tests.result }}
+          BUILD_RESULT: ${{ needs.builds.result }}
+          PACKAGE_RESULT: ${{ needs.packages.result }}
+        run: |
+          test "$QUALITY_RESULT" = success
+          test "$TEST_RESULT" = success
+          test "$BUILD_RESULT" = success
+          test "$PACKAGE_RESULT" = success

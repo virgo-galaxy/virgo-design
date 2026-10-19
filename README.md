@@ -28,8 +28,23 @@
   English | <a href="README.zh-CN.md">简体中文</a>
 </p>
 
-React components, primitives, icons, charts, tokens, themes, fonts and color utilities, with a
-Website and six Pro application implementations. The project is preparing its first npm release.
+Virgo Design is a React design system with components, interaction primitives, icons, charts,
+design tokens, themes, fonts and color utilities. The repository also includes a documentation
+and demo website and six Pro application templates built with Vite or Next.js and SCSS Modules,
+Tailwind CSS or vanilla-extract.
+
+## Packages
+
+| Package                           | Purpose                                                     |
+| --------------------------------- | ----------------------------------------------------------- |
+| [UI](packages/ui)                 | Styled React components.                                    |
+| [Primitives](packages/primitives) | Unstyled interaction and accessibility components.          |
+| [Icons](packages/icons)           | React icons, SVG assets and icon tooling.                   |
+| [Charts](packages/charts)         | React charts, ECharts integration and SVG sparklines.       |
+| [Tokens](packages/tokens)         | Foundation values, semantic roles and styling integrations. |
+| [Themes](packages/themes)         | Six theme presets, CSS generation and theme switching.      |
+| [Fonts](packages/fonts)           | Self-hosted variable fonts and family metadata.             |
+| [Colors](packages/colors)         | Color conversion, tonal scales and palette generation.      |
 
 ## Development
 
@@ -40,12 +55,21 @@ pnpm install --frozen-lockfile
 pnpm dev:website
 ```
 
-Pro development commands follow `pnpm dev:pro-<directory-name>`, such as
-`pnpm dev:pro-next-tailwind`. Implementations live in [apps/pro](apps/pro).
+The documentation website runs at `http://localhost:6300`. Run Pro applications from the
+repository root with the following commands:
 
-Git hooks run ESLint/Prettier on staged files and validate conventional commit headers.
+| Application                                                   | Command                                   | Port |
+| ------------------------------------------------------------- | ----------------------------------------- | ---- |
+| [Vite + SCSS Modules](apps/pro/vite-react-scss-modules)       | `pnpm dev:pro-vite-react-scss-modules`    | 6301 |
+| [Vite + Tailwind CSS](apps/pro/vite-react-tailwind)           | `pnpm dev:pro-vite-react-tailwind`        | 6302 |
+| [Vite + vanilla-extract](apps/pro/vite-react-vanilla-extract) | `pnpm dev:pro-vite-react-vanilla-extract` | 6303 |
+| [Next.js + SCSS Modules](apps/pro/next-scss-modules)          | `pnpm dev:pro-next-scss-modules`          | 6304 |
+| [Next.js + Tailwind CSS](apps/pro/next-tailwind)              | `pnpm dev:pro-next-tailwind`              | 6305 |
+| [Next.js + vanilla-extract](apps/pro/next-vanilla-extract)    | `pnpm dev:pro-next-vanilla-extract`       | 6306 |
+
+Git hooks run ESLint and Prettier on staged files and validate Conventional Commits headers.
 `pnpm all` runs the complete workspace checks; `pnpm check:packages` verifies packed libraries
-in isolated consumers. See [release preparation](RELEASING.md) for versions and artifact checks.
+in isolated consumers. See the [release guide](RELEASING.md) for versioning and package validation.
 
 ## Architecture
 

@@ -3,6 +3,12 @@
 Shared font stylesheets and font metadata. Applications choose the families to load
 and apply them through their own styles or theme.
 
+## Installation
+
+```sh
+pnpm add @virgo-design/fonts
+```
+
 ## Usage
 
 ```ts
@@ -15,7 +21,10 @@ const bodyFamily = sansFonts.inter.cssFamily;
 const codeFamily = monoFonts.jetbrainsMono.cssFamily;
 ```
 
-## Entries
+The CSS imports define `@font-face` rules. Apply the selected families through `font-family` in
+your application styles, using the metadata's `cssFamily` values or the declared font names.
+
+## Package exports
 
 - `@virgo-design/fonts`: `sansFonts`, `monoFonts` and their public types.
 - `/default.css`: Inter, the five Noto Sans regional families and JetBrains Mono.

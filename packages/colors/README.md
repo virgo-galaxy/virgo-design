@@ -3,6 +3,12 @@
 Color conversion, ten-step tonal scales and palette generation. Semantic roles and
 CSS variables belong to `@virgo-design/tokens`.
 
+## Installation
+
+```sh
+pnpm add @virgo-design/colors
+```
+
 ## Usage
 
 ```ts
@@ -17,8 +23,10 @@ const palette = generateColorPalette({
 });
 ```
 
-## Entries
+## API
 
-- `@virgo-design/colors`: generators, color conversion, Virgo presets and public types.
-- Scales use steps 1–10; `generateColorScale` preserves the base at step 6.
-- Palette generation supports `oklch`, `hsl` and `hsv`.
+Import generators, color conversion functions, Virgo presets and public types from
+`@virgo-design/colors`. The package does not require React or a browser.
+
+Scales use steps 1–10. `generateColorScale` returns hex colors and preserves the normalized base
+color at step 6. Palette generation supports `oklch`, `hsl` and `hsv`.

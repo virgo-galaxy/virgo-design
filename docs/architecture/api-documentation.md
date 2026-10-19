@@ -29,7 +29,7 @@ The generator writes these files under `apps/website/src/generated/`:
 | ---------------------------------------- | ---------------------------------------- |
 | `component-api-reference.generated.ts`   | UI declaration and property facts        |
 | `primitive-api-reference.generated.ts`   | Primitive declaration and property facts |
-| `api-description-resources.generated.ts` | Lean English description resources       |
+| `api-description-resources.generated.ts` | English description resources            |
 | `api-reference.generated.ts`             | Re-export barrel for the fact registries |
 
 Commit regenerated output with its source change. If generated imports or output structure need
@@ -49,9 +49,9 @@ English text. The description-resource equivalence test guards agreement with th
 
 ## Loading and presentation
 
-The i18n registry imports lean description resources and Chinese overrides. Detail features import
-their own fact registry, keeping full signatures and declaration metadata out of the initial
-translation bundle.
+The i18n registry imports description strings and Chinese overrides. Detail features import their
+own fact registry, keeping full signatures and declaration metadata out of the initial translation
+bundle.
 
 Surface owns declaration frames; Table owns table semantics, internal separators and a named
 scroll viewport. Website styles own content geometry and typography. Presentation changes do not

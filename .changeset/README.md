@@ -1,7 +1,10 @@
-# Version changes
+# Changesets
 
-Run `pnpm changeset` for a publishable library change. The eight public packages share one
-fixed version group; private applications are not versioned or tagged by Changesets.
+Run `pnpm changeset` from the repository root to record a library change. Select the affected
+packages and change level, then describe the effect on consumers. Commit the resulting Markdown
+file with the implementation. Use `pnpm changeset status` to review the proposed version changes.
 
-See [the release guide](../RELEASING.md) for validation and version preparation. The current
-workflow prepares version PRs only and does not publish to npm.
+The eight public libraries share a fixed version group in [config.json](config.json). Private
+applications are excluded from versioning and tagging.
+
+See the [release guide](../RELEASING.md) for package validation and version management.

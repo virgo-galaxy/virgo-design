@@ -20,12 +20,10 @@ Keep one main landmark, including during loading. Embedded Layout examples use
 `Layout.Content as="div"`. Preserve the `website-main` skip target where the Website shell supplies
 skip navigation. Decorative mockup regions do not introduce extra page landmarks.
 
-Use public UI components for existing interactions and customize them through supported classes,
-slots, props and CSS variables. If a general capability is missing, fix its owning package rather
-than rebuilding its behavior locally or adding a Website-only public prop. Headless documentation
-and token specimens may deliberately use primitives or native controls when a styled recipe would
-hide the behavior or visual value being demonstrated. These are narrow demonstration exceptions,
-not a general exemption for product controls. Keep their scope explicit in the owning tests.
+Use public UI components for product controls and customize them through supported classes,
+slots, props and CSS variables. Add missing shared behavior to its owning package. Headless
+component documentation and token specimens can use primitives or native controls to demonstrate
+their behavior or raw visual values.
 
 ## Imports and module APIs
 
@@ -86,8 +84,8 @@ disclosure relationships, unique IDs, announcements and cleanup of pending work.
 
 `ComponentExampleRuntimeProvider` coordinates a page's Expand all/Collapse all control. Disclosure
 belongs to each mounted instance, so rendering one definition twice does not merge state or IDs.
-Removing an instance must remove its registration. Bulk disclosure changes sources, not the live
-examples' menus, dialogs or notifications.
+Removing an instance must remove its registration. Bulk disclosure changes source-panel visibility
+without changing the live examples' menus, dialogs or notifications.
 
 Keep shortcuts, form names, notification providers and timers local to an example so several
 examples can run independently on one page. Use the existing shared runtime rather than adding a
@@ -95,15 +93,15 @@ second documentation framework.
 
 Standalone examples reuse the same executable modules through
 [the lazy registry](../../apps/website/src/examples/components/standalone-example-registry.ts).
-`/examples/:exampleId?theme=light|dark` selects appearance, despite the parameter's name; the route
-omits Website chrome and source controls. Keep IDs aligned with the registry's filename convention.
+`/examples/:exampleId?theme=light|dark` selects the example's light/dark appearance. The route omits
+Website navigation and source controls. Keep IDs aligned with the registry's filename convention.
 
 ## Loading and verification
 
 Component route metadata and the standalone registry keep example modules lazy. Initial i18n
-imports lean API description resources rather than full declaration registries. Preserve shell,
-sidebar and skip-target ownership across Suspense boundaries; use the existing Skeleton/Spinner
-components and localized accessible status without fabricated progress or artificial delays.
+imports API description strings rather than full declaration registries. Preserve shell, sidebar
+and skip-target ownership across Suspense boundaries. Use Skeleton/Spinner components and
+localized accessible status while content loads.
 
 Relevant checks live beside ComponentExample, the example manifests, source normalization,
 StandaloneExamplePage, i18n and the affected page or component. For behavioral changes, verify

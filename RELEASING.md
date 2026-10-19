@@ -1,67 +1,104 @@
-# Release preparation
+# Release guide
 
-The eight public libraries under `packages/` share one Changesets fixed version group.
-The root project, Website and six Pro applications remain private. CLI delivery is separate
-future work. Publishing to npm is not enabled in the current scripts or workflows.
+## Package scope
 
-## Validate the libraries
+The eight libraries under `packages/` use one Changesets fixed version group, defined in
+[`.changeset/config.json`](.changeset/config.json). They are versioned together. The repository
+root, documentation website and Pro applications are private workspaces and are excluded from
+package versioning and npm publication.
 
-Use Node from `.nvmrc` and the pnpm version in the root `packageManager` field:
+## Versions, commits and tags
 
-```sh
-pnpm install --frozen-lockfile
-pnpm build:packages
-pnpm all
-pnpm check:packages
-```
+A release can contain many commits. Ordinary commits do not require an immediate version bump or
+npm publication; Changesets collects library changes for the next release.
 
-`check:packages` rebuilds the libraries, packs each one and writes archives and a report under
-`.artifacts/packages/`. It checks archive contents, rewritten workspace dependency versions,
-public export targets, licenses and README files, then runs publint and TypeScript export checks.
-The JavaScript export analysis uses the ESM-only profile because these packages do not promise
-CommonJS. CSS, SCSS and other asset exports are checked in the archives and consumer builds.
+Version numbers use `major.minor.patch`. For example:
 
-It then installs all eight real tarballs into temporary directories outside the repository.
-Overrides select local tarballs for the unpublished internal dependencies without changing the
-archives. Consumer checks cover the declared minimum React 18 runtime and the workspace React 19
-version, Bundler/NodeNext type resolution, public JavaScript entry imports, server rendering,
-CSS/font/icon assets and SCSS, Tailwind and vanilla-extract builds. Successful temporary consumers
-are removed; a failed consumer's directory is retained for investigation. Nothing is uploaded.
+| Change             | Example           |
+| ------------------ | ----------------- |
+| Compatible bug fix | `0.1.0` → `0.1.1` |
+| New functionality  | `0.1.0` → `0.2.0` |
+| Stable public API  | `1.0.0`           |
 
-To pack already-built libraries without running consumer checks:
+The `0.x` series allows API changes during development; document incompatible changes in the
+changelog. After `1.0.0`, incompatible public API changes require a major version increase.
+See [Semantic Versioning](https://semver.org/) for the version rules.
 
-```sh
-pnpm pack:packages
-```
+A package version identifies a published artifact; a Git release tag identifies its source
+commit. Later commits do not update that release. Keep published versions and release tags
+unchanged, and publish changes under a new version when another release is needed.
 
-That command still validates archive contents. It does not build or publish.
+## Record changes
 
-## Record and prepare versions
+For a library change, run from the repository root:
 
 ```sh
 pnpm changeset
 pnpm changeset status
 ```
 
-Choose the change level for the affected public library and describe the consumer-visible change.
-Changesets applies the fixed group when calculating the release. Its configuration does not
-create local commits automatically. Keep `workspace:*` in repository dependency declarations;
-pnpm rewrites them in the packed manifests.
+Select the affected packages and change level. Describe the API or behavior change and any action
+consumers need to take. Commit the changeset with the implementation.
 
-The initial changeset proposes the first minor release from `0.0.0`. Package versions stay at
-`0.0.0` until a version preparation is explicitly run. Review the proposed version before applying it.
+Keep internal dependency declarations as `workspace:*`. pnpm replaces them with package versions
+when packing, so archive manifests contain installable dependency ranges.
 
-The manually triggered **Version packages** workflow opens or updates a version PR on `main`.
-It requires GitHub Actions permission to create pull requests. It has no publish step and no npm
-credentials. Generated version changes must pass CI and be reviewed like other changes.
+## Validate packages
 
-GitHub places CI runs from version PRs created with `GITHUB_TOKEN` in an approval-required state.
-Review the version PR, then select **Approve workflows to run** to start its checks. The CI workflow
-also supports manual runs on the version branch. See [GitHub's workflow trigger rules](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#triggering-a-workflow-from-a-workflow).
+Use the Node.js version in `.nvmrc` and the pnpm version in the root `packageManager` field:
 
-## Before enabling npm publication
+```sh
+pnpm install --frozen-lockfile
+pnpm all
+pnpm check:packages
+```
 
-Confirm the intended version/channel, npm scope permissions, authentication and release ownership.
-Then configure the actual publishing step as a separate change. Keep the public-package allowlist,
-MIT license files and third-party notices intact, and repeat the isolated consumer checks against
-the release archives. Website deployment and Pro template distribution have their own delivery paths.
+`pnpm all` checks generated files, builds the libraries, runs type, lint, formatting and test
+checks, and builds the applications. `pnpm check:packages` builds the libraries and validates their
+tarballs in projects outside the workspace. It checks:
+
+- Archive contents, public export targets, dependency versions, licenses and README files.
+- Package metadata with publint and TypeScript exports with Are the Types Wrong.
+- Installation with React 18 and the workspace React 19 version.
+- Bundler and NodeNext type resolution, server rendering and JavaScript imports.
+- CSS, fonts, SVG assets and SCSS, Tailwind CSS and vanilla-extract integration.
+
+The [CI workflow](.github/workflows/ci.yml) runs code checks, three test shards, application builds
+and package consumer validation as separate jobs. The **Workspace checks** result requires every
+job to pass. Application builds prepare the libraries once before building the seven applications.
+
+Archives and the validation report are written to `.artifacts/packages/`. Successful temporary
+consumer projects are removed; failed projects are retained for investigation. Package validation
+does not upload archives to npm.
+
+To pack libraries that have already been built:
+
+```sh
+pnpm pack:packages
+```
+
+This checks archive contents without rebuilding the libraries or running consumer projects.
+
+## Update versions
+
+Run the [Version packages workflow](.github/workflows/version-packages.yml) on `main` to open or
+update a pull request containing package versions and changelogs. The repository must allow
+GitHub Actions to create pull requests.
+
+To generate the same version changes locally:
+
+```sh
+pnpm version:packages
+```
+
+Review package versions, dependency updates and changelogs, then run the validation commands
+against the updated packages before merging.
+
+CI runs for pull requests created or updated with `GITHUB_TOKEN` require approval. Select
+**Approve workflows to run** in the pull request, or manually run CI on the version branch.
+See [GitHub's workflow trigger rules](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#triggering-a-workflow-from-a-workflow).
+
+Version commands update repository files. The Version packages workflow opens the version pull
+request; it does not publish packages. npm publication requires a separate publishing operation
+with access to the `@virgo-design` scope. Website deployment and Pro application distribution are
+managed separately from library publication.

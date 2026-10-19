@@ -3,8 +3,8 @@
 Primitives own React interaction and accessibility behavior. UI adds Virgo presentation and
 built-in component text. Applications own business state, data access and product composition.
 Public usage belongs in the [UI README](../../packages/ui/README.md),
-[Primitives README](../../packages/primitives/README.md) and Website API reference; this document
-records the boundaries needed to maintain those layers.
+[Primitives README](../../packages/primitives/README.md) and Website API reference. This guide
+defines package responsibilities, shared behavior and component maintenance.
 
 ## Ownership and public boundaries
 
@@ -49,13 +49,13 @@ adding a product-specific variant to the public component.
 
 UI owns built-in text through its complete `UILocale` packs in `@virgo-design/ui/locale`.
 `LocaleProvider` selects or scopes a pack; English is the default. Applications extend a full pack
-for wording overrides and connect their own current language to the provider. Business copy and
+for wording overrides and connect their language setting to the provider. Business copy and
 application translation keys stay outside UI and Primitives.
 
 Forms and data controls preserve native semantics where possible. Applications own submission,
 business validation, data ordering, filtering, paging and persistence. Presentation or selection
-controls alone do not make Table a virtualized data grid. New abstractions need demonstrated
-shared requirements rather than a future feature list.
+controls alone do not make Table a virtualized data grid. Add shared abstractions when multiple
+components need the same behavior.
 
 ## Layout and surfaces
 

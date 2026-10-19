@@ -25,7 +25,7 @@ parallel token values or edit generated `dist` files. UI and Charts do not impor
 
 `tokenCatalog` records each role's layer, required state and light/dark fallback.
 `tokenVars` supplies typed CSS references. `themeContractRoles` defines the roles a theme may
-implement; `themeContract` contains the current presentation roles.
+implement; `themeContract` contains default declarations for presentation roles.
 
 Validate theme declarations with `validateThemeContract`, rather than validating computed styles
 that may already have inherited a fallback. Contract-version mismatches, missing required roles,
@@ -38,9 +38,8 @@ Foundation values are not theme-overridable contract roles. Component-local vari
 local styling APIs rather than requirements for every theme.
 
 `THEME_CONTRACT_VERSION` identifies the breaking CSS contract major. An additive optional role
-with a fallback does not require a new major. The current unpublished project does not retain
-legacy theme IDs, deprecated variable aliases or a migration layer. Unknown saved IDs fall back
-to the configured default without rewriting storage merely because it was read.
+with a fallback does not require a new major. Unknown saved theme IDs fall back to the configured
+default; reading a saved preference does not rewrite it.
 
 ## Theme, appearance and styles
 
@@ -48,7 +47,7 @@ Theme selects a visual language through `data-virgo-theme`; appearance selects l
 `data-theme` and `color-scheme`. Applications own the light/dark/system preference. Changing a
 theme does not itself change that preference. Use `getThemeAttributes` for resolved scopes.
 
-Load styles in this order: Tokens, Themes, UI, then application styles. The Themes JavaScript
+Load styles in this order: Tokens, Themes, UI/Charts, then application styles. The Themes JavaScript
 entry does not load CSS implicitly. Consumers load all official themes or the required theme
 stylesheet explicitly. Custom theme registration also does not insert its CSS: generate it with
 `getThemeCss` and include it in the consuming application.

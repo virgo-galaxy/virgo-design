@@ -28,8 +28,21 @@
   <a href="README.md">English</a> | 简体中文
 </p>
 
-Virgo Design 提供 React 组件、交互原语、图标、图表、设计 Tokens、主题、字体和颜色工具，
-并包含文档与演示站点以及六套 Pro 应用实现。项目正在准备首次 npm 发布。
+Virgo Design 是一套 React 设计系统，提供组件、交互原语、图标、图表、设计 Tokens、主题、字体和颜色工具。
+仓库还包含文档与演示站点，以及基于 Vite 或 Next.js，搭配 SCSS Modules、Tailwind CSS 或 vanilla-extract 的六套 Pro 应用模板。
+
+## 包
+
+| 包                                | 用途                                    |
+| --------------------------------- | --------------------------------------- |
+| [UI](packages/ui)                 | 带样式的 React 组件。                   |
+| [Primitives](packages/primitives) | 无样式的交互与无障碍组件。              |
+| [Icons](packages/icons)           | React 图标、SVG 资源和图标工具。        |
+| [Charts](packages/charts)         | React 图表、ECharts 集成和 SVG 迷你图。 |
+| [Tokens](packages/tokens)         | 基础数值、语义角色和样式集成。          |
+| [Themes](packages/themes)         | 六套主题、CSS 生成和主题切换。          |
+| [Fonts](packages/fonts)           | 自托管可变字体和字体元数据。            |
+| [Colors](packages/colors)         | 颜色转换、色阶和色板生成。              |
 
 ## 开发
 
@@ -40,8 +53,16 @@ pnpm install --frozen-lockfile
 pnpm dev:website
 ```
 
-Pro 的开发命令遵循 `pnpm dev:pro-<目录名>`，例如 `pnpm dev:pro-next-tailwind`。
-各版本位于 [apps/pro](apps/pro)。
+文档站点运行在 `http://localhost:6300`。在仓库根目录使用以下命令启动 Pro 应用：
+
+| 应用                                                          | 命令                                      | 端口 |
+| ------------------------------------------------------------- | ----------------------------------------- | ---- |
+| [Vite + SCSS Modules](apps/pro/vite-react-scss-modules)       | `pnpm dev:pro-vite-react-scss-modules`    | 6301 |
+| [Vite + Tailwind CSS](apps/pro/vite-react-tailwind)           | `pnpm dev:pro-vite-react-tailwind`        | 6302 |
+| [Vite + vanilla-extract](apps/pro/vite-react-vanilla-extract) | `pnpm dev:pro-vite-react-vanilla-extract` | 6303 |
+| [Next.js + SCSS Modules](apps/pro/next-scss-modules)          | `pnpm dev:pro-next-scss-modules`          | 6304 |
+| [Next.js + Tailwind CSS](apps/pro/next-tailwind)              | `pnpm dev:pro-next-tailwind`              | 6305 |
+| [Next.js + vanilla-extract](apps/pro/next-vanilla-extract)    | `pnpm dev:pro-next-vanilla-extract`       | 6306 |
 
 Git 钩子会对暂存文件运行 ESLint、Prettier，并校验符合 Conventional Commits 规范的提交信息。
 `pnpm all` 运行完整的仓库检查；`pnpm check:packages` 在仓库外的独立项目中验证打包后的依赖。
