@@ -26,3 +26,7 @@ next-env.d.ts
 
 # Local release verification outputs
 .artifacts/
+
+# Generated CLI package contents
+/cli/templates/
+/cli/LICENSE

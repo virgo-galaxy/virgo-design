@@ -7,3 +7,4 @@ next-env.d.ts
 pnpm-lock.yaml
 apps/pro/*/public/mockServiceWorker.js
 .artifacts
+cli/templates

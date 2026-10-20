@@ -54,6 +54,23 @@ in each package's `peerDependencies`.
 The Node.js and pnpm versions below apply to repository development, not minimum consumer
 requirements. Compatibility with older Node.js, TypeScript or build tools is not guaranteed.
 
+## Generate a Pro application
+
+The [project generator](cli/README.md) exports six standalone Pro applications using the published
+Virgo Design packages. Choose Vite or Next.js App Router with SCSS Modules, Tailwind CSS or
+vanilla-extract.
+
+```sh
+pnpm install --frozen-lockfile
+pnpm build:cli
+pnpm create:pro ../my-pro --template vite-react-tailwind
+cd ../my-pro
+pnpm install
+pnpm dev
+```
+
+Run `pnpm create:pro` to choose the directory, framework and styling interactively.
+
 ## Development
 
 Use Node.js 24.14.0 (`.nvmrc`) and pnpm 11.9.0 (`packageManager`).

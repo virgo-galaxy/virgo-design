@@ -76,7 +76,11 @@ export default defineConfig({
 
   test: {
     projects: [
-      { extends: true, test: { name: 'workspace', exclude: [...defaultExclude, 'apps/pro/**'] } },
+      {
+        extends: true,
+        test: { name: 'workspace', exclude: [...defaultExclude, 'apps/pro/**', 'cli/**'] },
+      },
+      './cli/vitest.config.ts',
       './apps/pro/vite-react-scss-modules/vitest.config.ts',
       './apps/pro/vite-react-tailwind/vitest.config.ts',
       './apps/pro/vite-react-vanilla-extract/vitest.config.ts',

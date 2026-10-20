@@ -51,6 +51,22 @@ Virgo Design 是一套 React 设计系统，提供组件、交互原语、图标
 下方的 Node.js 和 pnpm 版本用于开发本仓库，不代表使用组件包的最低环境要求。
 更低版本的 Node.js、TypeScript 和构建工具不在兼容性保证范围内。
 
+## 生成 Pro 应用
+
+[项目生成器](cli/README.md) 支持导出六套独立的 Pro 应用，使用已发布到 npm 的 Virgo Design 包。
+可选择 Vite 或 Next.js App Router，搭配 SCSS Modules、Tailwind CSS 或 vanilla-extract。
+
+```sh
+pnpm install --frozen-lockfile
+pnpm build:cli
+pnpm create:pro ../my-pro --template vite-react-tailwind
+cd ../my-pro
+pnpm install
+pnpm dev
+```
+
+运行 `pnpm create:pro`，可交互选择项目目录、框架和样式方案。
+
 ## 开发
 
 使用 Node.js 24.14.0（见 `.nvmrc`）和 pnpm 11.9.0（见根目录 `package.json` 的 `packageManager` 字段）。

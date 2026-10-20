@@ -14,6 +14,7 @@ export default tseslint.config(
       '**/.next/**',
       '**/next-env.d.ts',
       '**/.artifacts/**',
+      'cli/templates/**',
       '.husky/_/**',
     ],
   },
@@ -26,6 +27,8 @@ export default tseslint.config(
   },
 
   ...tseslint.configs.recommended,
+
+  { languageOptions: { parserOptions: { tsconfigRootDir: import.meta.dirname } } },
 
   {
     files: ['**/*.{ts,tsx}'],

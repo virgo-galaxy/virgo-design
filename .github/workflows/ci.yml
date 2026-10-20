@@ -115,10 +115,37 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check:packages
 
+  templates:
+    name: Standalone template (${{ matrix.template }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        template:
+          - vite-react-scss-modules
+          - vite-react-tailwind
+          - vite-react-vanilla-extract
+          - next-scss-modules
+          - next-tailwind
+          - next-vanilla-extract
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - uses: pnpm/action-setup@v6
+        with:
+          cache: true
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check:cli --template ${{ matrix.template }}
+
   checks:
     name: Workspace checks
     if: ${{ always() }}
-    needs: [quality, tests, builds, packages]
+    needs: [quality, tests, builds, packages, templates]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -128,8 +155,10 @@ jobs:
           TEST_RESULT: ${{ needs.tests.result }}
           BUILD_RESULT: ${{ needs.builds.result }}
           PACKAGE_RESULT: ${{ needs.packages.result }}
+          TEMPLATE_RESULT: ${{ needs.templates.result }}
         run: |
           test "$QUALITY_RESULT" = success
           test "$TEST_RESULT" = success
           test "$BUILD_RESULT" = success
           test "$PACKAGE_RESULT" = success
+          test "$TEMPLATE_RESULT" = success

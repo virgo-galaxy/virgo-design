@@ -5,6 +5,9 @@
   "type": "module",
   "packageManager": "pnpm@11.9.0",
   "scripts": {
+    "build:cli": "pnpm --filter @virgo-design/create build",
+    "create:pro": "node cli/dist/index.js",
+    "check:cli": "pnpm build:cli && node cli/scripts/check-templates.mjs",
     "dev:website": "pnpm --filter @virgo-design/website dev",
     "dev:pro-vite-react-scss-modules": "pnpm --filter @virgo-design/pro-vite-react-scss-modules dev",
     "dev:pro-vite-react-tailwind": "pnpm --filter @virgo-design/pro-vite-react-tailwind dev",

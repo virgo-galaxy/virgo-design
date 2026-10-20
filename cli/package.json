@@ -1,0 +1,37 @@
+{
+  "name": "@virgo-design/create",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Generate standalone Virgo Design Pro applications.",
+  "license": "MIT",
+  "bin": {
+    "create-virgo": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "templates",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepack": "pnpm run build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --config vitest.config.ts"
+  },
+  "engines": {
+    "node": ">=24.14.0 <25"
+  },
+  "dependencies": {
+    "@clack/prompts": "1.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "prettier": "3.9.6",
+    "typescript": "6.0.3",
+    "vitest": "5.0.0",
+    "eslint": "10.10.0",
+    "eslint-plugin-simple-import-sort": "14.0.0",
+    "typescript-eslint": "8.70.0"
+  }
+}
