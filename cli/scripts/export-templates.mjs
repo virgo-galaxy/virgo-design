@@ -101,6 +101,23 @@ function transformConfig(source, filename) {
               (property) =>
                 !property.name?.getText(file).replaceAll(/['"]/g, '').startsWith('@virgo-design/'),
             );
+            if (filename === 'vitest.config.ts' && key === 'alias') {
+              const sourceAlias = properties.find(
+                (property) =>
+                  ts.isPropertyAssignment(property) &&
+                  ts.isStringLiteral(property.name) &&
+                  property.name.text === '@',
+              );
+              if (sourceAlias) {
+                // Vitest can pass root-relative module IDs to Vite on Windows.
+                properties.push(
+                  ts.factory.createPropertyAssignment(
+                    ts.factory.createStringLiteral('/src'),
+                    sourceAlias.initializer,
+                  ),
+                );
+              }
+            }
             if (!properties.length) return undefined;
             return ts.factory.updatePropertyAssignment(
               node,
