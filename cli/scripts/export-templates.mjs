@@ -38,6 +38,7 @@ const importSorter = new ESLint({
   },
 });
 const readJson = async (filename) => JSON.parse(await readFile(filename, 'utf8'));
+const readText = async (filename) => (await readFile(filename, 'utf8')).replaceAll('\r\n', '\n');
 const templates = [
   { id: 'vite-react-scss-modules', framework: 'vite', style: 'scss-modules' },
   { id: 'vite-react-tailwind', framework: 'vite', style: 'tailwind' },
@@ -259,6 +260,30 @@ async function copyProjectRules(directory) {
   await cp(path.join(root, 'LICENSE'), path.join(directory, 'LICENSE'));
 }
 
+async function normalizeTemplateLineEndings(directory) {
+  const textFiles = new Set([
+    '.editorconfig',
+    '.env.example',
+    '.gitattributes',
+    '.nvmrc',
+    '.prettierignore',
+    '_gitignore',
+    'LICENSE',
+  ]);
+  for (const entry of await readdir(directory, { recursive: true, withFileTypes: true })) {
+    if (!entry.isFile()) continue;
+    if (
+      !textFiles.has(entry.name) &&
+      !/\.(?:css|html|js|json|md|mjs|scss|svg|tsx?|ya?ml)$/.test(entry.name)
+    )
+      continue;
+    const filename = path.join(entry.parentPath, entry.name);
+    const original = await readFile(filename, 'utf8');
+    const normalized = original.replaceAll('\r\n', '\n');
+    if (normalized !== original) await writeFile(filename, normalized);
+  }
+}
+
 async function exportMinimal(output, variant, repository, base, libraryVersions) {
   const template = { ...variant, id: `minimal-${variant.id}`, tier: 'minimal' };
   const vite = variant.framework === 'vite';
@@ -283,7 +308,7 @@ async function exportMinimal(output, variant, repository, base, libraryVersions)
   }
   if (tailwind) {
     const filename = path.join(directory, 'src/styles.css');
-    const styles = await readFile(filename, 'utf8');
+    const styles = await readText(filename);
     await writeFile(filename, styles.replace('\n\nbody {', "\n@import 'tailwindcss';\n\nbody {"));
   }
 
@@ -389,7 +414,7 @@ async function exportStarter(output, variant) {
   if (vite) {
     const filename = path.join(directory, 'vite.config.ts');
     if (!tailwind) {
-      const config = (await readFile(filename, 'utf8'))
+      const config = (await readText(filename))
         .replace(/^import tailwindcss .*\n/m, '')
         .replace('    tailwindcss(),\n', '');
       await writeFormatted(
@@ -433,7 +458,7 @@ async function exportStarter(output, variant) {
     path.join(directory, 'public/virgo-design.svg'),
   );
   await copyProjectRules(directory);
-  const eslint = await readFile(path.join(baseline, 'eslint.config.js'), 'utf8');
+  const eslint = await readText(path.join(baseline, 'eslint.config.js'));
   await writeFormatted(
     directory,
     'eslint.config.js',
@@ -625,6 +650,7 @@ export async function exportTemplates() {
   for (const template of templates) {
     starter.push(await exportStarter(output, template));
   }
+  await normalizeTemplateLineEndings(output);
   await writeFile(
     path.join(output, 'manifest.json'),
     `${JSON.stringify({ templates: [...templates, ...minimal, ...starter] }, null, 2)}\n`,
