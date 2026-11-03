@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { execFileSync, spawn } from 'node:child_process';
+import { realpathSync } from 'node:fs';
 import { mkdir, mkdtemp, readFile, realpath, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:net';
 import os from 'node:os';
@@ -31,6 +32,8 @@ assert(templates.length, `No templates match ${values.template ?? values.variant
 const reportName = values.template ?? values.variant ?? values.tier ?? 'all';
 await mkdir(output, { recursive: true });
 const windows = process.platform === 'win32';
+// Keep Vitest's project root and worker paths in the same Windows path spelling.
+const temporaryDirectory = realpathSync.native(os.tmpdir());
 const pnpmEntry = process.env.npm_execpath;
 if (windows) assert(pnpmEntry, 'Run the template check with pnpm check:cli on Windows.');
 
@@ -103,7 +106,7 @@ async function checkStartup(framework, cwd) {
 
 const archive = path.join(output, 'virgo-design-create-0.0.0.tgz');
 await runPnpm(['pack', '--out', archive], path.join(root, 'cli'));
-const consumer = await mkdtemp(path.join(os.tmpdir(), 'virgo-cli-consumer-'));
+const consumer = await mkdtemp(path.join(temporaryDirectory, 'virgo-cli-consumer-'));
 await writeFile(
   path.join(consumer, 'package.json'),
   JSON.stringify({
@@ -120,7 +123,7 @@ await run(process.execPath, [executable, '--help'], consumer);
 const report = { archive, templates: [] };
 try {
   for (const template of templates) {
-    const parent = await mkdtemp(path.join(os.tmpdir(), 'virgo-pro-'));
+    const parent = await mkdtemp(path.join(temporaryDirectory, 'virgo-pro-'));
     const relative = values.startup ? path.join('project space', 'my-pro') : 'my-pro';
     const directory = path.join(parent, relative);
     const result = { id: template.id, directory, passed: false };
