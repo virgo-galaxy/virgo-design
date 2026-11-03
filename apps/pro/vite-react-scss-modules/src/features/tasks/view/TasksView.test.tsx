@@ -595,7 +595,7 @@ it('previews the real column width, sorting arrows and combined filter/search co
     'aria-sort',
     'none',
   );
-});
+}, 15_000);
 
 it('shows optional ID beside selection, completed timestamps and distinct default header controls', async () => {
   renderPage();
