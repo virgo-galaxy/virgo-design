@@ -1,0 +1,9 @@
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' source(none);
+@import '@virgo-design/tokens/tailwind.css';
+
+@source '../';
+
+@custom-variant viewport-max-900 (@media (max-width: 900px));
+@custom-variant viewport-max-640 (@media (max-width: 640px));

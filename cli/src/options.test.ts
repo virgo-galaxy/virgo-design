@@ -29,6 +29,54 @@ const templates: Template[] = [
 
 beforeEach(() => vi.resetAllMocks());
 
+it('offers only Vite and Tailwind for Starter and generates the selected template', async () => {
+  const starter: Template = {
+    id: 'starter-vite-react-tailwind',
+    framework: 'vite',
+    style: 'tailwind',
+    tier: 'starter',
+  };
+  vi.mocked(select)
+    .mockResolvedValueOnce('starter')
+    .mockResolvedValueOnce('vite')
+    .mockResolvedValueOnce('tailwind')
+    .mockResolvedValueOnce('no');
+  vi.mocked(portPrompt).mockResolvedValueOnce('6300');
+
+  expect(
+    await resolveOptions({
+      target: './virgo-app',
+      templates: [...templates, starter],
+      interactive: true,
+    }),
+  ).toEqual({ target: './virgo-app', template: starter.id, port: 6300 });
+  expect(vi.mocked(select).mock.calls[1]?.[0].options.map(({ value }) => value)).toEqual(['vite']);
+  expect(vi.mocked(select).mock.calls[2]?.[0].options.map(({ value }) => value)).toEqual([
+    'tailwind',
+  ]);
+});
+
+it.each(templates)('generates Minimal for $id', async (variant) => {
+  vi.mocked(select)
+    .mockResolvedValueOnce('minimal')
+    .mockResolvedValueOnce(variant.framework)
+    .mockResolvedValueOnce(variant.style)
+    .mockResolvedValueOnce('no');
+  vi.mocked(portPrompt).mockResolvedValueOnce('6300');
+  const minimal: Template = {
+    ...variant,
+    id: `minimal-${variant.id}`,
+    tier: 'minimal',
+  };
+  expect(
+    await resolveOptions({
+      target: './virgo-app',
+      templates: [...templates, minimal],
+      interactive: true,
+    }),
+  ).toEqual({ target: './virgo-app', template: minimal.id, port: 6300 });
+});
+
 it('returns from the port to the previous styling choice and uses the updated template', async () => {
   vi.mocked(select)
     .mockResolvedValueOnce('pro')

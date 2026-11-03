@@ -6,8 +6,8 @@ import { directoryPrompt, goBack, portPrompt, select } from './prompts.js';
 
 const defaultDirectory = './virgo-app';
 const tiers = [
-  { value: 'minimal', label: 'Minimal (preview)' },
-  { value: 'starter', label: 'Starter (preview)' },
+  { value: 'minimal', label: 'Minimal' },
+  { value: 'starter', label: 'Starter' },
   { value: 'pro', label: 'Pro' },
 ] as const;
 type Tier = (typeof tiers)[number]['value'];
@@ -64,7 +64,10 @@ export async function resolveOptions({
     'start' as const,
   ];
   let tier: Tier = 'pro';
-  const frameworks = [...new Set(templates.map((entry) => entry.framework))];
+  const proTemplates = templates.filter((entry) => entry.tier === undefined);
+  const starterTemplates = templates.filter((entry) => entry.tier === 'starter');
+  const availableTemplates = () =>
+    tier === 'starter' && starterTemplates.length ? starterTemplates : proTemplates;
   let framework: Template['framework'] | undefined;
   let style: Template['style'] = 'tailwind';
   let developmentPort = selectedPort ?? defaultPort;
@@ -92,10 +95,11 @@ export async function resolveOptions({
         break;
       }
       case 'framework': {
+        const frameworks = [...new Set(availableTemplates().map((entry) => entry.framework))];
         const choice = await select<Template['framework']>({
           message: 'Framework',
           options: frameworks.map((value) => ({ value, label: frameworkLabels[value] })),
-          ...(framework === undefined ? {} : { initialValue: framework }),
+          ...(framework && frameworks.includes(framework) ? { initialValue: framework } : {}),
           canGoBack,
         });
         if (choice === goBack) {
@@ -122,10 +126,12 @@ export async function resolveOptions({
         break;
       }
       case 'styling': {
-        const candidates = templates.filter((entry) => entry.framework === framework);
+        const candidates = availableTemplates().filter((entry) => entry.framework === framework);
         const choice: Awaited<ReturnType<typeof select<Template['style']>>> = await select({
           message: 'Styling',
-          initialValue: style,
+          initialValue: candidates.some((entry) => entry.style === style)
+            ? style
+            : (candidates[0]?.style ?? 'tailwind'),
           options: candidates.map((entry) => ({
             value: entry.style,
             label: styleLabels[entry.style],
@@ -166,7 +172,17 @@ export async function resolveOptions({
         break;
       }
       case 'start': {
-        if (tier !== 'pro') return { kind: 'preview', tier };
+        if (tier === 'starter' && !starterTemplates.length) return { kind: 'preview', tier };
+        const selectedTemplate =
+          tier === 'minimal'
+            ? templates.find(
+                (entry) =>
+                  entry.tier === 'minimal' &&
+                  entry.framework === framework &&
+                  entry.style === style,
+              )?.id
+            : template;
+        if (!selectedTemplate && tier === 'minimal') return { kind: 'preview', tier };
         const choice = await select({
           message: 'Install dependencies and start the dev server?',
           options: [
@@ -181,10 +197,11 @@ export async function resolveOptions({
           break;
         }
         if (cancelled(choice) || choice === undefined) return;
-        if (!target || !template) throw new Error('Project directory and template are required.');
+        if (!target || !selectedTemplate)
+          throw new Error('Project directory and template are required.');
         return {
           target,
-          template,
+          template: selectedTemplate,
           port: developmentPort,
           ...(choice === 'yes' ? { autoStart: true } : {}),
         };

@@ -19,6 +19,7 @@ export interface Template {
   id: string;
   framework: 'vite' | 'next';
   style: 'scss-modules' | 'tailwind' | 'vanilla-extract';
+  tier?: 'minimal' | 'starter';
 }
 
 const bundledTemplates = fileURLToPath(new URL('../templates/', import.meta.url));
@@ -74,7 +75,10 @@ export async function generateProject({
   await mkdir(path.dirname(destination), { recursive: true });
   const staging = await mkdtemp(path.join(path.dirname(destination), '.create-virgo-'));
   try {
-    await cp(path.join(templatesDirectory, template), staging, { recursive: true });
+    const variant = selected.tier ? selected.id.slice(selected.tier.length + 1) : selected.id;
+    await cp(path.join(templatesDirectory, selected.tier ?? 'pro', variant), staging, {
+      recursive: true,
+    });
     await rename(path.join(staging, '_gitignore'), path.join(staging, '.gitignore'));
     const packagePath = path.join(staging, 'package.json');
     const manifest = JSON.parse(await readFile(packagePath, 'utf8'));
@@ -88,7 +92,8 @@ export async function generateProject({
       manifest.scripts.start = `next start --port ${port}`;
     }
     await writeFile(packagePath, `${JSON.stringify(manifest, null, 2)}\n`);
-    await cp(path.join(staging, '.env.example'), path.join(staging, '.env'));
+    if (selected.tier !== 'minimal')
+      await cp(path.join(staging, '.env.example'), path.join(staging, '.env'));
     if (exists) await rmdir(destination);
     await rename(staging, destination);
   } catch (error) {

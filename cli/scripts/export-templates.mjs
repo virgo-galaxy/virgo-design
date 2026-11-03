@@ -246,16 +246,271 @@ async function adaptNextPackageAssets(directory) {
   }
 }
 
+async function copyProjectRules(directory) {
+  await cp(path.join(root, '.prettierrc.json'), path.join(directory, '.prettierrc.json'));
+  for (const filename of ['.editorconfig', '.gitattributes']) {
+    const config = await readFile(path.join(root, filename), 'utf8');
+    await writeFile(
+      path.join(directory, filename),
+      config.replace(/^\uFEFF/, '').replaceAll('\r\n', '\n'),
+    );
+  }
+  await cp(path.join(root, '.nvmrc'), path.join(directory, '.nvmrc'));
+  await cp(path.join(root, 'LICENSE'), path.join(directory, 'LICENSE'));
+}
+
+async function exportMinimal(output, variant, repository, base, libraryVersions) {
+  const template = { ...variant, id: `minimal-${variant.id}`, tier: 'minimal' };
+  const vite = variant.framework === 'vite';
+  const tailwind = variant.style === 'tailwind';
+  const scss = variant.style === 'scss-modules';
+  const vanilla = variant.style === 'vanilla-extract';
+  const application = path.join(root, 'apps/pro', variant.id);
+  const source = path.join(cli, 'source/minimal');
+  const styling = path.join(source, 'styling', variant.style);
+  const directory = path.join(output, template.tier, variant.id);
+
+  for (const layer of ['common', variant.framework]) {
+    await cp(path.join(source, layer), directory, { recursive: true });
+  }
+  await cp(path.join(styling, 'src'), path.join(directory, 'src'), { recursive: true });
+  const config = vite ? 'vite.config.ts' : 'next.config.ts';
+  if (vanilla || (vite && tailwind)) {
+    await cp(path.join(styling, config), path.join(directory, config));
+  }
+  if (!vite && tailwind) {
+    await cp(path.join(styling, 'postcss.config.mjs'), path.join(directory, 'postcss.config.mjs'));
+  }
+  if (tailwind) {
+    const filename = path.join(directory, 'src/styles.css');
+    const styles = await readFile(filename, 'utf8');
+    await writeFile(filename, styles.replace('\n\nbody {', "\n@import 'tailwindcss';\n\nbody {"));
+  }
+
+  await mkdir(path.join(directory, 'public'));
+  await cp(
+    path.join(application, 'public/favicon.ico'),
+    path.join(directory, 'public/favicon.ico'),
+  );
+  await copyProjectRules(directory);
+  const dependencies = {
+    react: await installedVersion('react', application),
+    'react-dom': await installedVersion('react-dom', application),
+    ...(!vite ? { next: await installedVersion('next', application) } : {}),
+  };
+  for (const name of ['@virgo-design/tokens', '@virgo-design/themes', '@virgo-design/ui']) {
+    assert(libraryVersions[name], `Missing released dependency version: ${name}`);
+    dependencies[name] = libraryVersions[name];
+  }
+  const tools = [
+    '@types/react',
+    '@types/react-dom',
+    'prettier',
+    'typescript',
+    ...(vite ? ['@vitejs/plugin-react', 'vite'] : ['@types/node']),
+    ...(tailwind ? ['tailwindcss', vite ? '@tailwindcss/vite' : '@tailwindcss/postcss'] : []),
+    ...(scss ? ['sass'] : []),
+    ...(vanilla
+      ? [
+          '@vanilla-extract/css',
+          vite ? '@vanilla-extract/vite-plugin' : '@vanilla-extract/next-plugin',
+        ]
+      : []),
+  ];
+  const devDependencies = Object.fromEntries(
+    await Promise.all(tools.map(async (name) => [name, await installedVersion(name, application)])),
+  );
+  await writeFormatted(
+    directory,
+    'package.json',
+    JSON.stringify({
+      name: 'virgo-app',
+      private: true,
+      version: '0.0.0',
+      type: 'module',
+      packageManager: repository.packageManager,
+      engines: repository.engines,
+      scripts: {
+        build: vite ? 'vite build' : 'next build',
+        typecheck: vite ? 'tsc --noEmit' : 'next typegen && tsc --noEmit',
+        format: 'prettier --write .',
+        'format:check': 'prettier --check .',
+      },
+      dependencies,
+      devDependencies,
+    }),
+  );
+  const compilerOptions = { ...base.compilerOptions };
+  delete compilerOptions.paths;
+  if (vite) compilerOptions.types = ['vite/client'];
+  else
+    Object.assign(compilerOptions, {
+      allowJs: true,
+      esModuleInterop: true,
+      incremental: true,
+      tsBuildInfoFile: '.next/cache/tsconfig.tsbuildinfo',
+      plugins: [{ name: 'next' }],
+      types: ['node', 'react', 'react-dom'],
+    });
+  await writeFormatted(
+    directory,
+    'tsconfig.json',
+    JSON.stringify({
+      compilerOptions,
+      include: vite
+        ? ['src', config]
+        : ['next-env.d.ts', 'src', config, '.next/types/**/*.ts', '.next/dev/types/**/*.ts'],
+      ...(vite ? {} : { exclude: ['node_modules'] }),
+    }),
+  );
+  await writeFormatted(
+    directory,
+    'pnpm-workspace.yaml',
+    `packages: []\nallowBuilds:\n  esbuild: true\n${scss ? "  '@parcel/watcher': true\n" : ''}${!vite && vanilla ? "  '@swc/core': true\n" : ''}`,
+  );
+  await assertStandalone(directory);
+  console.log(`Exported ${template.id}`);
+  return template;
+}
+
+async function exportStarter(output, variant) {
+  const baseline = path.join(output, 'pro', variant.id);
+  const directory = path.join(output, 'starter', variant.id);
+  const source = path.join(cli, 'source/starter');
+  const vite = variant.framework === 'vite';
+  const tailwind = variant.style === 'tailwind';
+  const vanilla = variant.style === 'vanilla-extract';
+  for (const layer of ['common', variant.framework, `styling/${variant.style}`]) {
+    await cp(path.join(source, layer), directory, { recursive: true });
+  }
+  for (const filename of ['tsconfig.json', '_gitignore', ...(vite ? ['config'] : [])]) {
+    await cp(path.join(baseline, filename), path.join(directory, filename), { recursive: true });
+  }
+  if (vite) {
+    const filename = path.join(directory, 'vite.config.ts');
+    if (!tailwind) {
+      const config = (await readFile(filename, 'utf8'))
+        .replace(/^import tailwindcss .*\n/m, '')
+        .replace('    tailwindcss(),\n', '');
+      await writeFormatted(
+        directory,
+        'vite.config.ts',
+        vanilla
+          ? `import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';\n${config.replace('    react(),', '    react(),\n    vanillaExtractPlugin(),')}`
+          : config,
+      );
+    }
+  } else {
+    const nextConfig = vanilla ? 'styling/vanilla-extract/next.config.ts' : 'next/next.config.ts';
+    await cp(path.join(cli, 'source/minimal', nextConfig), path.join(directory, 'next.config.ts'));
+    if (tailwind) {
+      await cp(
+        path.join(baseline, 'postcss.config.mjs'),
+        path.join(directory, 'postcss.config.mjs'),
+      );
+    }
+  }
+  if (tailwind) {
+    const stylesheet = path.join(directory, 'src/styles/global.css');
+    await writeFile(stylesheet, `${await readFile(stylesheet, 'utf8')}@import './tailwind.css';\n`);
+  }
+  if (vanilla) {
+    const filename = path.join(directory, 'vitest.config.ts');
+    const config = await readFile(filename, 'utf8');
+    await writeFormatted(
+      directory,
+      'vitest.config.ts',
+      `import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';\n${config.replace(
+        'defineConfig({',
+        'defineConfig({\n  plugins: [vanillaExtractPlugin()],',
+      )}`,
+    );
+  }
+  await mkdir(path.join(directory, 'public'));
+  await cp(path.join(baseline, 'public/favicon.ico'), path.join(directory, 'public/favicon.ico'));
+  await cp(
+    path.join(root, 'packages/icons/brands/virgo-design.svg'),
+    path.join(directory, 'public/virgo-design.svg'),
+  );
+  await copyProjectRules(directory);
+  const eslint = await readFile(path.join(baseline, 'eslint.config.js'), 'utf8');
+  await writeFormatted(
+    directory,
+    'eslint.config.js',
+    eslint.replace(/^.*mockServiceWorker.*\n/m, ''),
+  );
+  await writeFile(
+    path.join(directory, '.prettierignore'),
+    'dist\n.next\nnext-env.d.ts\ncoverage\npnpm-lock.yaml\n',
+  );
+  const workspace = await readFile(path.join(baseline, 'pnpm-workspace.yaml'), 'utf8');
+  await writeFile(
+    path.join(directory, 'pnpm-workspace.yaml'),
+    workspace.replace(/^.*msw: false\n/m, ''),
+  );
+
+  const { dependencies, devDependencies, scripts, engines, packageManager } = await readJson(
+    path.join(baseline, 'package.json'),
+  );
+  const runtime = [
+    '@virgo-design/fonts',
+    '@virgo-design/icons',
+    '@virgo-design/themes',
+    '@virgo-design/tokens',
+    '@virgo-design/ui',
+    'axios',
+    'i18next',
+    'react',
+    'react-dom',
+    'react-i18next',
+    vite ? 'react-router' : 'next',
+    ...(vanilla ? ['@vanilla-extract/css'] : []),
+  ];
+  delete devDependencies['@testing-library/jest-dom'];
+  delete devDependencies.msw;
+  if (!vite) {
+    delete devDependencies['react-router'];
+    delete devDependencies['@testing-library/user-event'];
+  }
+  if (vanilla) delete devDependencies['@vanilla-extract/css'];
+  await writeFormatted(
+    directory,
+    'package.json',
+    JSON.stringify({
+      name: 'virgo-starter',
+      version: '0.0.0',
+      private: true,
+      type: 'module',
+      license: 'MIT',
+      packageManager,
+      engines,
+      scripts,
+      dependencies: Object.fromEntries(
+        runtime.map((name) => {
+          const version = dependencies[name] ?? devDependencies[name];
+          assert(version, `Missing Starter dependency: ${name}`);
+          return [name, version];
+        }),
+      ),
+      devDependencies,
+    }),
+  );
+  await assertStandalone(directory);
+  const template = { ...variant, id: `starter-${variant.id}`, tier: 'starter' };
+  console.log(`Exported ${template.id}`);
+  return template;
+}
+
 export async function exportTemplates() {
   const output = path.join(cli, 'templates');
   const libraryVersions = await readJson(path.join(cli, 'config/library-versions.json'));
   const repository = await readJson(path.join(root, 'package.json'));
   const base = await readJson(path.join(root, 'tsconfig.base.json'));
   await rm(output, { recursive: true, force: true });
-  await mkdir(output, { recursive: true });
+  await mkdir(path.join(output, 'starter'), { recursive: true });
   for (const template of templates) {
     const application = path.join(root, 'apps/pro', template.id);
-    const directory = path.join(output, template.id);
+    const directory = path.join(output, 'pro', template.id);
     await mkdir(directory, { recursive: true });
     for (const filename of ['src', 'public', '.env.example']) {
       await cp(path.join(application, filename), path.join(directory, filename), {
@@ -341,16 +596,7 @@ export async function exportTemplates() {
       await writeFile(testPath, test);
     }
     await cp(path.join(cli, 'config/eslint.config.js'), path.join(directory, 'eslint.config.js'));
-    await cp(path.join(root, '.prettierrc.json'), path.join(directory, '.prettierrc.json'));
-    for (const filename of ['.editorconfig', '.gitattributes']) {
-      const config = await readFile(path.join(root, filename), 'utf8');
-      await writeFile(
-        path.join(directory, filename),
-        config.replace(/^\uFEFF/, '').replaceAll('\r\n', '\n'),
-      );
-    }
-    await cp(path.join(root, '.nvmrc'), path.join(directory, '.nvmrc'));
-    await cp(path.join(root, 'LICENSE'), path.join(directory, 'LICENSE'));
+    await copyProjectRules(directory);
     await writeFile(
       path.join(directory, '_gitignore'),
       'node_modules/\ndist/\n.next/\ncoverage/\n.vite/\n*.tsbuildinfo\nnext-env.d.ts\n.env\n.env.local\n.DS_Store\n',
@@ -371,8 +617,16 @@ export async function exportTemplates() {
     await assertStandalone(directory);
     console.log(`Exported ${template.id}`);
   }
+  const minimal = [];
+  for (const template of templates) {
+    minimal.push(await exportMinimal(output, template, repository, base, libraryVersions));
+  }
+  const starter = [];
+  for (const template of templates) {
+    starter.push(await exportStarter(output, template));
+  }
   await writeFile(
     path.join(output, 'manifest.json'),
-    `${JSON.stringify({ templates }, null, 2)}\n`,
+    `${JSON.stringify({ templates: [...templates, ...minimal, ...starter] }, null, 2)}\n`,
   );
 }

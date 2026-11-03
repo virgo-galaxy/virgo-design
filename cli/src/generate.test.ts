@@ -12,7 +12,7 @@ let templatesDirectory: string;
 beforeEach(async () => {
   directory = await mkdtemp(path.join(os.tmpdir(), 'virgo-generator-test-'));
   templatesDirectory = path.join(directory, 'templates');
-  const template = path.join(templatesDirectory, 'vite-react-tailwind');
+  const template = path.join(templatesDirectory, 'pro/vite-react-tailwind');
   await mkdir(template, { recursive: true });
   await writeFile(
     path.join(templatesDirectory, 'manifest.json'),
@@ -55,7 +55,7 @@ it('creates a standalone project with its name, dotfiles and default environment
   expect(await readdir(target)).not.toContain('_gitignore');
   expect(
     JSON.parse(
-      await readFile(path.join(templatesDirectory, 'vite-react-tailwind/package.json'), 'utf8'),
+      await readFile(path.join(templatesDirectory, 'pro/vite-react-tailwind/package.json'), 'utf8'),
     ).name,
   ).toBe('virgo-pro');
 });
@@ -110,7 +110,7 @@ it('rejects unknown templates and invalid project names before creating files', 
 });
 
 it('removes staging files when a bundled template is incomplete', async () => {
-  await rm(path.join(templatesDirectory, 'vite-react-tailwind/_gitignore'));
+  await rm(path.join(templatesDirectory, 'pro/vite-react-tailwind/_gitignore'));
   await expect(
     generateProject({
       target: path.join(directory, 'my-pro'),

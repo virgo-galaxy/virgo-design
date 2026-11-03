@@ -1,0 +1,57 @@
+.page {
+  box-sizing: border-box;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.heading {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 2.5rem;
+}
+
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stage {
+  padding-top: 2rem;
+}
+
+.sprite {
+  display: block;
+  width: 7rem;
+  height: 72px;
+  overflow: visible;
+}
+
+.hint {
+  margin: 0;
+  color: var(--vd-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.keycap {
+  box-sizing: border-box;
+  display: inline-flex;
+  min-width: 1.5rem;
+  justify-content: center;
+  padding-inline: 0.375rem;
+  border: 1px solid var(--vd-border-subtle);
+  border-bottom-width: 2px;
+  border-radius: 0.375rem;
+  color: var(--vd-text-primary);
+  background: var(--vd-surface-elevated);
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+}

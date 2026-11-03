@@ -147,7 +147,7 @@ jobs:
           cache: true
       - run: pnpm install --frozen-lockfile
       - if: runner.os == 'Linux'
-        run: pnpm check:cli --template ${{ matrix.template }}
+        run: pnpm check:cli --variant ${{ matrix.template }} --startup
       - if: runner.os != 'Linux'
         run: pnpm check:cli --template ${{ matrix.template }} --startup
 

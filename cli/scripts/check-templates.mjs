@@ -11,14 +11,24 @@ import { parseArgs } from 'node:util';
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const output = path.join(root, '.artifacts/cli');
 const { values } = parseArgs({
-  options: { template: { type: 'string' }, startup: { type: 'boolean' } },
+  options: {
+    template: { type: 'string' },
+    tier: { type: 'string' },
+    variant: { type: 'string' },
+    startup: { type: 'boolean' },
+  },
 });
 const readJson = async (filename) => JSON.parse(await readFile(filename, 'utf8'));
 const registry = await readJson(path.join(root, 'cli/templates/manifest.json'));
 const templates = registry.templates.filter(
-  (template) => !values.template || template.id === values.template,
+  (template) =>
+    (!values.template || template.id === values.template) &&
+    (!values.variant ||
+      template.id === (template.tier ? `${template.tier}-${values.variant}` : values.variant)) &&
+    (!values.tier || (template.tier ?? 'pro') === values.tier),
 );
-assert(templates.length, `Unknown template: ${values.template}`);
+assert(templates.length, `No templates match ${values.template ?? values.variant ?? values.tier}.`);
+const reportName = values.template ?? values.variant ?? values.tier ?? 'all';
 await mkdir(output, { recursive: true });
 const windows = process.platform === 'win32';
 const pnpmEntry = process.env.npm_execpath;
@@ -74,7 +84,7 @@ async function checkStartup(framework, cwd) {
   try {
     const deadline = Date.now() + 20_000;
     while (!error && server.exitCode === null && Date.now() < deadline) {
-      const response = await fetch(`http://127.0.0.1:${port}/login`, {
+      const response = await fetch(`http://127.0.0.1:${port}/`, {
         signal: AbortSignal.timeout(1000),
       }).catch(() => undefined);
       if (response?.ok) {
@@ -141,6 +151,9 @@ try {
     const manifest = await readJson(path.join(directory, 'package.json'));
     assert.equal(manifest.name, 'my-pro');
     assert(!JSON.stringify(manifest).includes('workspace:'));
+    if (template.tier === 'starter') {
+      assert(!manifest.dependencies?.msw && !manifest.devDependencies?.msw);
+    }
     await runPnpm(
       [
         'install',
@@ -156,19 +169,22 @@ try {
       assert(!installed.startsWith(root), `${name}: linked back into repository`);
       assert.equal((await readJson(path.join(installed, 'package.json'))).version, version);
     }
-    for (const command of ['typecheck', 'lint', 'format:check', 'test', 'build'])
-      await runPnpm([command], directory);
+    const checks =
+      template.tier === 'minimal'
+        ? ['typecheck', 'format:check', 'build']
+        : ['typecheck', 'lint', 'format:check', 'test', 'build'];
+    for (const command of checks) await runPnpm([command], directory);
     if (values.startup) await checkStartup(template.framework, directory);
     result.passed = true;
     await writeFile(
-      path.join(output, `report-${values.template ?? 'all'}.json`),
+      path.join(output, `report-${reportName}.json`),
       `${JSON.stringify(report, null, 2)}\n`,
     );
     console.log(`Verified standalone ${template.id}: ${directory}`);
   }
 } finally {
   await writeFile(
-    path.join(output, `report-${values.template ?? 'all'}.json`),
+    path.join(output, `report-${reportName}.json`),
     `${JSON.stringify(report, null, 2)}\n`,
   );
 }

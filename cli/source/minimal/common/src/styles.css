@@ -1,0 +1,11 @@
+@import '@virgo-design/tokens/styles.css';
+@import '@virgo-design/themes/styles.css';
+@import '@virgo-design/ui/styles.css';
+
+body {
+  margin: 0;
+  line-height: 1.5;
+  font-family: var(--vd-font-family-sans);
+  color: var(--vd-text-primary);
+  background: var(--vd-surface-background);
+}
