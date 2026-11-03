@@ -59,8 +59,8 @@ Virgo Design 是一套 React 设计系统，提供组件、交互原语、图标
 ```sh
 pnpm install --frozen-lockfile
 pnpm build:cli
-pnpm create:pro ../my-pro --template vite-react-tailwind
-cd ../my-pro
+pnpm create:pro ../virgo-pro --template vite-react-tailwind
+cd ../virgo-pro
 pnpm install
 pnpm dev
 ```

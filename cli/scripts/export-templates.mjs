@@ -39,12 +39,12 @@ const importSorter = new ESLint({
 });
 const readJson = async (filename) => JSON.parse(await readFile(filename, 'utf8'));
 const templates = [
-  { id: 'vite-react-scss-modules', framework: 'vite', style: 'scss-modules', port: 6301 },
-  { id: 'vite-react-tailwind', framework: 'vite', style: 'tailwind', port: 6302 },
-  { id: 'vite-react-vanilla-extract', framework: 'vite', style: 'vanilla-extract', port: 6303 },
-  { id: 'next-scss-modules', framework: 'next', style: 'scss-modules', port: 6304 },
-  { id: 'next-tailwind', framework: 'next', style: 'tailwind', port: 6305 },
-  { id: 'next-vanilla-extract', framework: 'next', style: 'vanilla-extract', port: 6306 },
+  { id: 'vite-react-scss-modules', framework: 'vite', style: 'scss-modules' },
+  { id: 'vite-react-tailwind', framework: 'vite', style: 'tailwind' },
+  { id: 'vite-react-vanilla-extract', framework: 'vite', style: 'vanilla-extract' },
+  { id: 'next-scss-modules', framework: 'next', style: 'scss-modules' },
+  { id: 'next-tailwind', framework: 'next', style: 'tailwind' },
+  { id: 'next-vanilla-extract', framework: 'next', style: 'vanilla-extract' },
 ];
 const commonTools = [
   'typescript',
@@ -85,6 +85,16 @@ function transformConfig(source, filename) {
       const visit = (node) => {
         if (ts.isPropertyAssignment(node) && ts.isObjectLiteralExpression(node.initializer)) {
           const key = node.name.getText(file).replaceAll(/['"]/g, '');
+          if (filename === 'vite.config.ts' && key === 'server') {
+            const properties = node.initializer.properties.filter(
+              (property) => property.name?.getText(file) !== 'port',
+            );
+            return ts.factory.updatePropertyAssignment(
+              node,
+              node.name,
+              ts.factory.updateObjectLiteralExpression(node.initializer, properties),
+            );
+          }
           if (key === 'alias' || key === 'resolveAlias') {
             const properties = node.initializer.properties.filter(
               (property) =>
@@ -274,15 +284,14 @@ export async function exportTemplates() {
     for (const name of tools)
       manifest.devDependencies[name] = await installedVersion(name, application);
     delete manifest.scripts['prepare:workspace'];
-    manifest.scripts.dev =
-      template.framework === 'vite' ? 'vite' : `next dev --port ${template.port}`;
+    delete manifest.scripts.dev;
+    delete manifest.scripts.start;
     manifest.scripts.build = template.framework === 'vite' ? 'vite build' : 'next build';
     manifest.scripts.test = 'vitest run --config vitest.config.ts';
     manifest.scripts.lint = 'eslint .';
     manifest.scripts.format = 'prettier --write .';
     manifest.scripts['format:check'] = 'prettier --check .';
-    if (template.framework === 'vite')
-      manifest.scripts.preview = `vite preview --port ${template.port} --strictPort`;
+    delete manifest.scripts.preview;
     await writeFormatted(directory, 'package.json', JSON.stringify(manifest));
 
     const tsconfig = await readJson(path.join(application, 'tsconfig.json'));
@@ -333,6 +342,13 @@ export async function exportTemplates() {
     }
     await cp(path.join(cli, 'config/eslint.config.js'), path.join(directory, 'eslint.config.js'));
     await cp(path.join(root, '.prettierrc.json'), path.join(directory, '.prettierrc.json'));
+    for (const filename of ['.editorconfig', '.gitattributes']) {
+      const config = await readFile(path.join(root, filename), 'utf8');
+      await writeFile(
+        path.join(directory, filename),
+        config.replace(/^\uFEFF/, '').replaceAll('\r\n', '\n'),
+      );
+    }
     await cp(path.join(root, '.nvmrc'), path.join(directory, '.nvmrc'));
     await cp(path.join(root, 'LICENSE'), path.join(directory, 'LICENSE'));
     await writeFile(
@@ -350,7 +366,7 @@ export async function exportTemplates() {
     );
     await writeFile(
       path.join(directory, 'README.md'),
-      `# Virgo Design Pro\n\n${manifest.description}\n\n## Development\n\nUse Node.js ${await readFile(path.join(root, '.nvmrc'), 'utf8').then((value) => value.trim())} and ${repository.packageManager.replace('@', ' ')}.\n\n\`\`\`sh\npnpm install\npnpm dev\n\`\`\`\n\nThe application runs at http://localhost:${template.port}. Demo data is enabled by default in \`.env\`. ${template.framework === 'vite' ? 'API requests use MSW in the browser.' : 'Demo API routes run on the Next.js server without a database.'}\n\n## Checks\n\n\`\`\`sh\npnpm typecheck\npnpm lint\npnpm test\npnpm build\n\`\`\`\n\n## License\n\n[MIT](LICENSE).\n`,
+      `# Virgo Design Pro\n\n${manifest.description}\n\n## Development\n\nUse Node.js ${await readFile(path.join(root, '.nvmrc'), 'utf8').then((value) => value.trim())} and ${repository.packageManager.replace('@', ' ')}.\n\n\`\`\`sh\npnpm install\npnpm dev\n\`\`\`\n\nThe development server uses the port selected during generation. See \`package.json\` for the startup commands. Demo data is enabled by default in \`.env\`. ${template.framework === 'vite' ? 'API requests use MSW in the browser.' : 'Demo API routes run on the Next.js server without a database.'}\n\n## Checks\n\n\`\`\`sh\npnpm typecheck\npnpm lint\npnpm test\npnpm build\n\`\`\`\n\n## License\n\n[MIT](LICENSE).\n`,
     );
     await assertStandalone(directory);
     console.log(`Exported ${template.id}`);

@@ -10,35 +10,39 @@ Run from the repository root:
 
 ```sh
 pnpm build:cli
-pnpm create:pro ../my-pro
-cd ../my-pro
+pnpm create:pro ../virgo-pro
+cd ../virgo-pro
 pnpm install
 pnpm dev
 ```
 
 Available templates:
 
-| Template                     | Framework          | Styles          | Port |
-| ---------------------------- | ------------------ | --------------- | ---- |
-| `vite-react-scss-modules`    | Vite + React       | SCSS Modules    | 6301 |
-| `vite-react-tailwind`        | Vite + React       | Tailwind CSS    | 6302 |
-| `vite-react-vanilla-extract` | Vite + React       | vanilla-extract | 6303 |
-| `next-scss-modules`          | Next.js App Router | SCSS Modules    | 6304 |
-| `next-tailwind`              | Next.js App Router | Tailwind CSS    | 6305 |
-| `next-vanilla-extract`       | Next.js App Router | vanilla-extract | 6306 |
+| Template                     | Framework          | Styles          |
+| ---------------------------- | ------------------ | --------------- |
+| `vite-react-scss-modules`    | Vite + React       | SCSS Modules    |
+| `vite-react-tailwind`        | Vite + React       | Tailwind CSS    |
+| `vite-react-vanilla-extract` | Vite + React       | vanilla-extract |
+| `next-scss-modules`          | Next.js App Router | SCSS Modules    |
+| `next-tailwind`              | Next.js App Router | Tailwind CSS    |
+| `next-vanilla-extract`       | Next.js App Router | vanilla-extract |
 
-The interactive flow asks for a directory, framework and styling. Use the arrow keys and Enter
-to select options, or Ctrl+C to cancel without generating a project. Arguments skip the corresponding
+The interactive flow asks for a directory, framework, styling and development port. All templates
+default to port `6300`. For the directory and port, press Enter to accept the default, Tab to fill it
+for editing, or type a different value.
+Use the arrow keys and Enter to select options, Esc to return to the previous prompt when available,
+or Ctrl+C to cancel without generating a project. The final directory name becomes the package name.
+Arguments skip the corresponding
 prompts:
 
 ```sh
 pnpm create:pro
-pnpm create:pro ../my-pro
-pnpm create:pro ../my-pro --template next-vanilla-extract
+pnpm create:pro ../virgo-pro
+pnpm create:pro ../virgo-pro --template next-vanilla-extract --port 6310
 ```
 
 Use `pnpm create:pro --help` to list templates. A non-interactive terminal requires both a directory
-and `--template`. The destination must be new or empty. The CLI does not install dependencies or
+and `--template`, and uses port `6300` if `--port` is omitted. The destination must be new or empty. The CLI does not install dependencies or
 initialize Git automatically.
 
 ## Template maintenance
@@ -46,7 +50,8 @@ initialize Git automatically.
 Edit application code in `apps/pro`. Build output under `cli/templates` is generated and must not
 be edited directly. Released Virgo dependency versions are selected in `config/library-versions.json`;
 other dependency versions come from the repository's installed, locked dependencies. Generated
-projects use npm packages and have no paths back into the monorepo.
+projects use npm packages and have no paths back into the monorepo. They include EditorConfig and
+Git attributes for UTF-8 editing and LF text files across platforms.
 
 ## Validation
 

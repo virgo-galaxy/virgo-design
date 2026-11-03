@@ -17,7 +17,7 @@ beforeEach(async () => {
   await writeFile(
     path.join(templatesDirectory, 'manifest.json'),
     JSON.stringify({
-      templates: [{ id: 'vite-react-tailwind', framework: 'vite', style: 'tailwind', port: 6302 }],
+      templates: [{ id: 'vite-react-tailwind', framework: 'vite', style: 'tailwind' }],
     }),
   );
   await writeFile(
@@ -48,6 +48,7 @@ it('creates a standalone project with its name, dotfiles and default environment
     name: 'my-pro',
     private: true,
     dependencies: { '@virgo-design/ui': '0.1.0' },
+    scripts: { dev: 'vite --port 6300', preview: 'vite preview --port 6300 --strictPort' },
   });
   expect(await readFile(path.join(target, '.env'), 'utf8')).toBe('VITE_API_MOCKING=true\n');
   expect(await readFile(path.join(target, '.gitignore'), 'utf8')).toBe('node_modules/\n');

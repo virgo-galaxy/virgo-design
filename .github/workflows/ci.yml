@@ -116,12 +116,13 @@ jobs:
       - run: pnpm check:packages
 
   templates:
-    name: Standalone template (${{ matrix.template }})
-    runs-on: ubuntu-latest
+    name: Standalone template (${{ matrix.template }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu-latest]
         template:
           - vite-react-scss-modules
           - vite-react-tailwind
@@ -129,6 +130,11 @@ jobs:
           - next-scss-modules
           - next-tailwind
           - next-vanilla-extract
+        include:
+          - os: macos-latest
+            template: vite-react-tailwind
+          - os: windows-latest
+            template: next-tailwind
     steps:
       - uses: actions/checkout@v7
         with:
@@ -140,7 +146,10 @@ jobs:
         with:
           cache: true
       - run: pnpm install --frozen-lockfile
-      - run: pnpm check:cli --template ${{ matrix.template }}
+      - if: runner.os == 'Linux'
+        run: pnpm check:cli --template ${{ matrix.template }}
+      - if: runner.os != 'Linux'
+        run: pnpm check:cli --template ${{ matrix.template }} --startup
 
   checks:
     name: Workspace checks

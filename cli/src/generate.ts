@@ -13,11 +13,12 @@ import {
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { defaultPort, parsePort } from './port.js';
+
 export interface Template {
   id: string;
   framework: 'vite' | 'next';
   style: 'scss-modules' | 'tailwind' | 'vanilla-extract';
-  port: number;
 }
 
 const bundledTemplates = fileURLToPath(new URL('../templates/', import.meta.url));
@@ -42,18 +43,22 @@ export async function listTemplates(directory = bundledTemplates): Promise<Templ
 export async function generateProject({
   target,
   template,
+  port = defaultPort,
   templatesDirectory = bundledTemplates,
 }: {
   target: string;
   template: string;
+  port?: number;
   templatesDirectory?: string;
 }) {
   const templates = await listTemplates(templatesDirectory);
-  if (!templates.some((entry) => entry.id === template)) {
+  const selected = templates.find((entry) => entry.id === template);
+  if (!selected) {
     throw new Error(
       `Unknown template: ${template}. Available: ${templates.map((entry) => entry.id).join(', ')}`,
     );
   }
+  parsePort(String(port));
   const destination = path.resolve(target);
   const name = projectName(target);
   let exists = false;
@@ -74,6 +79,14 @@ export async function generateProject({
     const packagePath = path.join(staging, 'package.json');
     const manifest = JSON.parse(await readFile(packagePath, 'utf8'));
     manifest.name = name;
+    manifest.scripts ??= {};
+    if (selected.framework === 'vite') {
+      manifest.scripts.dev = `vite --port ${port}`;
+      manifest.scripts.preview = `vite preview --port ${port} --strictPort`;
+    } else {
+      manifest.scripts.dev = `next dev --port ${port}`;
+      manifest.scripts.start = `next start --port ${port}`;
+    }
     await writeFile(packagePath, `${JSON.stringify(manifest, null, 2)}\n`);
     await cp(path.join(staging, '.env.example'), path.join(staging, '.env'));
     if (exists) await rmdir(destination);

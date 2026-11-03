@@ -6,10 +6,10 @@ import { exportTemplates } from './export-templates.mjs';
 
 const directory = fileURLToPath(new URL('../', import.meta.url));
 await rm(new URL('../dist/', import.meta.url), { recursive: true, force: true });
-const compiled = spawnSync('tsc', ['-p', 'tsconfig.build.json'], {
+const tsc = fileURLToPath(new URL('../node_modules/typescript/bin/tsc', import.meta.url));
+const compiled = spawnSync(process.execPath, [tsc, '-p', 'tsconfig.build.json'], {
   cwd: directory,
   stdio: 'inherit',
-  shell: process.platform === 'win32',
 });
 if (compiled.error) throw compiled.error;
 if (compiled.status !== 0) process.exit(compiled.status ?? 1);
