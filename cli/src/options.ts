@@ -4,7 +4,13 @@ import { projectName, type Template } from './generate.js';
 import { defaultPort, parsePort } from './port.js';
 import { directoryPrompt, goBack, portPrompt, select } from './prompts.js';
 
-const defaultDirectory = './virgo-pro';
+const defaultDirectory = './virgo-app';
+const tiers = [
+  { value: 'minimal', label: 'Minimal (preview)' },
+  { value: 'starter', label: 'Starter (preview)' },
+  { value: 'pro', label: 'Pro' },
+] as const;
+type Tier = (typeof tiers)[number]['value'];
 const frameworkLabels = { vite: 'Vite + React', next: 'Next.js App Router' };
 const styleLabels = {
   'scss-modules': 'SCSS Modules',
@@ -30,7 +36,11 @@ export async function resolveOptions({
   port?: string | undefined;
   templates: Template[];
   interactive: boolean;
-}): Promise<{ target: string; template: string; port: number } | undefined> {
+}): Promise<
+  | { kind: 'preview'; tier: Exclude<Tier, 'pro'> }
+  | { target: string; template: string; port: number; autoStart?: true }
+  | undefined
+> {
   const selectedPort = port === undefined ? undefined : parsePort(port.trim());
   if (template && !templates.some((entry) => entry.id === template)) {
     throw new Error(
@@ -38,7 +48,7 @@ export async function resolveOptions({
     );
   }
   if (target) projectName(target);
-  if (target && template && (!interactive || selectedPort !== undefined)) {
+  if (target && template && !interactive) {
     return { target, template, port: selectedPort ?? defaultPort };
   }
   if (!interactive) {
@@ -46,16 +56,19 @@ export async function resolveOptions({
       'Specify a project directory and --template in a non-interactive terminal. Use --help to list templates.',
     );
   }
-  intro('Virgo Design Pro');
+  intro('Virgo Create');
   const steps = [
     ...(!target ? (['directory'] as const) : []),
-    ...(!template ? (['framework', 'styling'] as const) : []),
+    ...(!template ? (['tier', 'framework', 'styling'] as const) : []),
     ...(selectedPort === undefined ? (['port'] as const) : []),
+    'start' as const,
   ];
+  let tier: Tier = 'pro';
   const frameworks = [...new Set(templates.map((entry) => entry.framework))];
   let framework: Template['framework'] | undefined;
   let style: Template['style'] = 'tailwind';
   let developmentPort = selectedPort ?? defaultPort;
+  let portInput: string | undefined;
 
   for (let index = 0; index < steps.length; index++) {
     const canGoBack = index > 0;
@@ -93,6 +106,21 @@ export async function resolveOptions({
         framework = choice;
         break;
       }
+      case 'tier': {
+        const choice: Awaited<ReturnType<typeof select<Tier>>> = await select({
+          message: 'Template',
+          options: [...tiers],
+          initialValue: tier,
+          canGoBack,
+        });
+        if (choice === goBack) {
+          index -= 2;
+          break;
+        }
+        if (cancelled(choice) || choice === undefined) return;
+        tier = choice;
+        break;
+      }
       case 'styling': {
         const candidates = templates.filter((entry) => entry.framework === framework);
         const choice: Awaited<ReturnType<typeof select<Template['style']>>> = await select({
@@ -126,6 +154,7 @@ export async function resolveOptions({
             }
           },
           canGoBack,
+          portInput,
         );
         if (input === goBack) {
           index -= 2;
@@ -133,10 +162,34 @@ export async function resolveOptions({
         }
         if (cancelled(input)) return;
         developmentPort = parsePort(input?.trim() || String(defaultPort));
+        portInput = input;
         break;
+      }
+      case 'start': {
+        if (tier !== 'pro') return { kind: 'preview', tier };
+        const choice = await select({
+          message: 'Install dependencies and start the dev server?',
+          options: [
+            { value: 'yes', label: 'Yes' },
+            { value: 'no', label: 'No' },
+          ],
+          initialValue: 'no',
+          canGoBack,
+        });
+        if (choice === goBack) {
+          index -= 2;
+          break;
+        }
+        if (cancelled(choice) || choice === undefined) return;
+        if (!target || !template) throw new Error('Project directory and template are required.');
+        return {
+          target,
+          template,
+          port: developmentPort,
+          ...(choice === 'yes' ? { autoStart: true } : {}),
+        };
       }
     }
   }
-  if (!target || !template) throw new Error('Project directory and template are required.');
-  return { target, template, port: developmentPort };
+  throw new Error('Project setup did not finish.');
 }

@@ -31,9 +31,11 @@ beforeEach(() => vi.resetAllMocks());
 
 it('returns from the port to the previous styling choice and uses the updated template', async () => {
   vi.mocked(select)
+    .mockResolvedValueOnce('pro')
     .mockResolvedValueOnce('next')
     .mockResolvedValueOnce('tailwind')
-    .mockResolvedValueOnce('vanilla-extract');
+    .mockResolvedValueOnce('vanilla-extract')
+    .mockResolvedValueOnce('no');
   vi.mocked(portPrompt).mockResolvedValueOnce(goBack).mockResolvedValueOnce('6310');
   expect(await resolveOptions({ target: '../my-pro', templates, interactive: true })).toEqual({
     target: '../my-pro',
@@ -41,7 +43,7 @@ it('returns from the port to the previous styling choice and uses the updated te
     port: 6310,
   });
   expect(select).toHaveBeenNthCalledWith(
-    3,
+    4,
     expect.objectContaining({
       message: 'Styling',
       initialValue: 'tailwind',
@@ -57,8 +59,10 @@ it('keeps the project path when returning to the directory prompt', async () => 
     .mockResolvedValueOnce('../second-pro');
   vi.mocked(select)
     .mockResolvedValueOnce(goBack)
+    .mockResolvedValueOnce('pro')
     .mockResolvedValueOnce('vite')
-    .mockResolvedValueOnce('tailwind');
+    .mockResolvedValueOnce('tailwind')
+    .mockResolvedValueOnce('no');
   expect(await resolveOptions({ templates, interactive: true, port: '6300' })).toEqual({
     target: '../second-pro',
     template: 'vite-react-tailwind',
@@ -73,13 +77,17 @@ it('keeps the project path when returning to the directory prompt', async () => 
 it.each(templates)('selects $id from its framework and styling', async (template) => {
   vi.mocked(directoryPrompt).mockResolvedValueOnce('../my-pro');
   vi.mocked(portPrompt).mockResolvedValueOnce('');
-  vi.mocked(select).mockResolvedValueOnce(template.framework).mockResolvedValueOnce(template.style);
+  vi.mocked(select)
+    .mockResolvedValueOnce('pro')
+    .mockResolvedValueOnce(template.framework)
+    .mockResolvedValueOnce(template.style)
+    .mockResolvedValueOnce('no');
   expect(await resolveOptions({ templates, interactive: true })).toEqual({
     target: '../my-pro',
     template: template.id,
     port: 6300,
   });
-  expect(vi.mocked(select).mock.calls[1]?.[0].options).toHaveLength(3);
+  expect(vi.mocked(select).mock.calls[2]?.[0].options).toHaveLength(3);
 });
 
 it('uses complete flags without opening prompts, including outside a terminal', async () => {
@@ -98,11 +106,16 @@ it('uses complete flags without opening prompts, including outside a terminal', 
 
 it('only asks for missing options', async () => {
   vi.mocked(directoryPrompt).mockResolvedValueOnce('../my-pro');
+  vi.mocked(select).mockResolvedValueOnce('no');
   expect(
     await resolveOptions({ templates, interactive: true, template: 'next-tailwind', port: '6310' }),
   ).toEqual({ target: '../my-pro', template: 'next-tailwind', port: 6310 });
-  expect(select).not.toHaveBeenCalled();
-  vi.mocked(select).mockResolvedValueOnce('vite').mockResolvedValueOnce('scss-modules');
+  expect(select).toHaveBeenCalledOnce();
+  vi.mocked(select)
+    .mockResolvedValueOnce('pro')
+    .mockResolvedValueOnce('vite')
+    .mockResolvedValueOnce('scss-modules')
+    .mockResolvedValueOnce('no');
   vi.mocked(portPrompt).mockResolvedValueOnce('6311');
   expect(await resolveOptions({ templates, interactive: true, target: '../another-pro' })).toEqual({
     target: '../another-pro',
@@ -114,7 +127,7 @@ it('only asks for missing options', async () => {
 });
 
 it('accepts the default directory and validates typed names', async () => {
-  vi.mocked(directoryPrompt).mockResolvedValueOnce('./virgo-pro');
+  vi.mocked(directoryPrompt).mockResolvedValueOnce('./virgo-app');
   await resolveOptions({
     templates,
     interactive: true,
@@ -122,7 +135,7 @@ it('accepts the default directory and validates typed names', async () => {
     port: '6300',
   });
   const validate = vi.mocked(directoryPrompt).mock.calls[0]?.[0].validate;
-  expect(vi.mocked(directoryPrompt).mock.calls[0]?.[0].defaultValue).toBe('./virgo-pro');
+  expect(vi.mocked(directoryPrompt).mock.calls[0]?.[0].defaultValue).toBe('./virgo-app');
   if (typeof validate !== 'function') throw new Error('Directory validation was not configured.');
   expect(await validate('')).toBeUndefined();
   expect(await validate('../my-pro')).toBeUndefined();
@@ -161,7 +174,7 @@ it.each(['0', '65536', '1.5', '1e3', 'abc', ''])(
 it.each([0, 1, 2])('cancels prompt %i without returning generation options', async (stage) => {
   vi.mocked(directoryPrompt).mockResolvedValueOnce(stage === 0 ? CANCEL_SYMBOL : '../my-pro');
   vi.mocked(select)
-    .mockResolvedValueOnce(stage === 1 ? CANCEL_SYMBOL : 'vite')
+    .mockResolvedValueOnce(stage === 1 ? CANCEL_SYMBOL : 'pro')
     .mockResolvedValueOnce(CANCEL_SYMBOL);
   expect(await resolveOptions({ templates, interactive: true })).toBeUndefined();
   expect(cancel).toHaveBeenCalledOnce();
@@ -179,4 +192,34 @@ it('rejects missing non-interactive options and invalid explicit values before p
     resolveOptions({ templates, interactive: true, target: '../Bad Name' }),
   ).rejects.toThrow('project directory name');
   expect(intro).not.toHaveBeenCalled();
+});
+
+it.each(['minimal', 'starter'] as const)(
+  'previews %s without asking to start or returning a generation request',
+  async (tier) => {
+    vi.mocked(select)
+      .mockResolvedValueOnce(tier)
+      .mockResolvedValueOnce('vite')
+      .mockResolvedValueOnce('tailwind');
+    vi.mocked(portPrompt).mockResolvedValueOnce('6300');
+    expect(await resolveOptions({ templates, interactive: true, target: './virgo-app' })).toEqual({
+      kind: 'preview',
+      tier,
+    });
+    expect(select).toHaveBeenCalledTimes(3);
+  },
+);
+
+it('requires an explicit Yes to install and start', async () => {
+  vi.mocked(select).mockResolvedValueOnce('yes');
+  expect(
+    await resolveOptions({
+      templates,
+      interactive: true,
+      target: './virgo-app',
+      template: 'next-tailwind',
+      port: '6300',
+    }),
+  ).toEqual({ target: './virgo-app', template: 'next-tailwind', port: 6300, autoStart: true });
+  expect(select).toHaveBeenCalledWith(expect.objectContaining({ initialValue: 'no' }));
 });

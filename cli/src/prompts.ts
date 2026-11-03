@@ -69,16 +69,23 @@ export function select<Value extends string>({
   });
 }
 
-export function directoryPrompt(options: Omit<InputOptions, 'canGoBack'>) {
-  return inputPrompt(options);
+export function directoryPrompt(options: Omit<InputOptions, 'canGoBack' | 'checkOnSubmit'>) {
+  return inputPrompt({ ...options, checkOnSubmit: true });
 }
 
 export function portPrompt(
   defaultValue: string,
   validate: (value?: string) => string | undefined,
   canGoBack = false,
+  initialValue?: string,
 ) {
-  return inputPrompt({ message: 'Development port', defaultValue, validate, canGoBack });
+  return inputPrompt({
+    message: 'Development port',
+    defaultValue,
+    validate,
+    canGoBack,
+    ...(initialValue === undefined ? {} : { initialValue }),
+  });
 }
 
 interface InputOptions {
@@ -87,6 +94,7 @@ interface InputOptions {
   initialValue?: string;
   validate: (value?: string) => string | undefined;
   canGoBack?: boolean;
+  checkOnSubmit?: boolean;
 }
 
 function inputPrompt({
@@ -95,6 +103,7 @@ function inputPrompt({
   initialValue = '',
   validate,
   canGoBack = false,
+  checkOnSubmit = false,
 }: InputOptions) {
   let cursor = [...initialValue].length;
   let back = false;
@@ -105,8 +114,11 @@ function inputPrompt({
         const heading = `${S_BAR}\n${symbol(this.state)}  ${message}`;
         if (back && this.state === 'cancel') return `${S_BAR}\n${S_BAR}  ↶ Back`;
         const bar = symbolBar(this.state);
-        if (this.state === 'submit' || this.state === 'cancel')
-          return `${heading}\n${bar}  ${styleText('dim', this.value ?? '')}`;
+        if (this.state === 'submit' || this.state === 'cancel') {
+          const check =
+            this.state === 'submit' && checkOnSubmit ? `${styleText('green', '✓')} ` : '';
+          return `${heading}\n${bar}  ${check}${styleText('dim', this.value ?? '')}`;
+        }
         const characters = [...this.userInput];
         const character = characters[cursor];
         const input = this.userInput

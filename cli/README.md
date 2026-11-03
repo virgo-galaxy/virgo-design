@@ -27,7 +27,9 @@ Available templates:
 | `next-tailwind`              | Next.js App Router | Tailwind CSS    |
 | `next-vanilla-extract`       | Next.js App Router | vanilla-extract |
 
-The interactive flow asks for a directory, framework, styling and development port. All templates
+Virgo Create asks for a project directory (default `./virgo-app`), template tier, framework,
+styling and development port. Pro generates a project. Minimal and Starter preview the selection
+flow without writing files. All templates
 default to port `6300`. For the directory and port, press Enter to accept the default, Tab to fill it
 for editing, or type a different value.
 Use the arrow keys and Enter to select options, Esc to return to the previous prompt when available,
@@ -42,8 +44,8 @@ pnpm create:pro ../virgo-pro --template next-vanilla-extract --port 6310
 ```
 
 Use `pnpm create:pro --help` to list templates. A non-interactive terminal requires both a directory
-and `--template`, and uses port `6300` if `--port` is omitted. The destination must be new or empty. The CLI does not install dependencies or
-initialize Git automatically.
+and `--template`, and uses port `6300` if `--port` is omitted. The destination must be new or empty. Pro offers to install dependencies and start the dev server. The default is No, which prints
+the commands for you to run. The CLI does not initialize Git automatically.
 
 ## Template maintenance
 

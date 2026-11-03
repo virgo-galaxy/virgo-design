@@ -8,6 +8,7 @@ import { outro } from '@clack/prompts';
 import { generateProject, listTemplates } from './generate.js';
 import { resolveOptions } from './options.js';
 import { defaultPort } from './port.js';
+import { startProject } from './start.js';
 
 try {
   const { values, positionals } = parseArgs({
@@ -34,30 +35,46 @@ try {
       templates: await listTemplates(),
       interactive,
     });
-    if (options) {
+    if (options && 'kind' in options) {
+      const name = options.tier === 'minimal' ? 'Minimal' : 'Starter';
+      outro(`${name} is a preview. No project was created.`);
+    } else if (options) {
       const result = await generateProject(options);
       const message = '🎉 Project created successfully!';
-      if (interactive && (!positionals[0] || !values.template || values.port === undefined))
-        outro(message);
+      if (interactive) outro(message);
       else console.log(message);
-      const [cwd, destination] = await Promise.all([
-        realpath(process.cwd()),
-        realpath(result.directory),
-      ]);
-      const relative = path.relative(cwd, destination) || '.';
-      const directory = relative.startsWith('-') ? './' + relative : relative;
-      const windows = process.platform === 'win32';
-      const quoted =
-        /^[a-zA-Z0-9_./\\-]+$/.test(directory) && (windows || !directory.includes('\\'))
-          ? directory
-          : windows
-            ? `"${directory}"`
-            : "'" + directory.replaceAll("'", "'\\''") + "'";
-      const changeDirectory =
-        windows && (path.isAbsolute(directory) || /[%!$`]|\[|\]/.test(directory))
-          ? "Set-Location -LiteralPath '" + directory.replaceAll("'", "''") + "'"
-          : `cd ${quoted}`;
-      console.log(`\n   ${changeDirectory}\n   pnpm install\n   pnpm dev`);
+      let showCommands = !options.autoStart;
+      if (options.autoStart) {
+        try {
+          await startProject(result.directory);
+        } catch (error) {
+          console.error(error instanceof Error ? error.message : String(error));
+          process.exitCode = 1;
+          showCommands = true;
+        }
+      }
+      if (showCommands) {
+        const [cwd, destination] = await Promise.all([
+          realpath(process.cwd()),
+          realpath(result.directory),
+        ]);
+        const relative = path.relative(cwd, destination) || '.';
+        const directory = relative.startsWith('-') ? './' + relative : relative;
+        const windows = process.platform === 'win32';
+        const quoted =
+          /^[a-zA-Z0-9_./\\-]+$/.test(directory) && (windows || !directory.includes('\\'))
+            ? directory
+            : windows
+              ? `"${directory}"`
+              : "'" + directory.replaceAll("'", "'\\''") + "'";
+        const changeDirectory =
+          windows && (path.isAbsolute(directory) || /[%!$`]|\[|\]/.test(directory))
+            ? "Set-Location -LiteralPath '" + directory.replaceAll("'", "''") + "'"
+            : `cd ${quoted}`;
+        console.log(
+          `\nTo get started, run:\n\n   ${changeDirectory}\n   pnpm install\n   pnpm dev\n`,
+        );
+      }
     }
   }
 } catch (error) {
