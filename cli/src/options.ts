@@ -4,8 +4,8 @@ import { projectName, type Template } from './generate.js';
 import { defaultPort, parsePort } from './port.js';
 import { directoryPrompt, goBack, portPrompt, select } from './prompts.js';
 
-const defaultDirectory = './virgo-app';
-const tiers = [
+export const defaultDirectory = './virgo-app';
+export const tiers = [
   { value: 'minimal', label: 'Minimal' },
   { value: 'starter', label: 'Starter' },
   { value: 'pro', label: 'Pro' },
@@ -64,7 +64,7 @@ export async function resolveOptions({
     'start' as const,
   ];
   let tier: Tier = 'pro';
-  const proTemplates = templates.filter((entry) => entry.tier === undefined);
+  const proTemplates = templates.filter((entry) => entry.tier === 'pro');
   const starterTemplates = templates.filter((entry) => entry.tier === 'starter');
   const availableTemplates = () =>
     tier === 'starter' && starterTemplates.length ? starterTemplates : proTemplates;

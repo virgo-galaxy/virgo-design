@@ -1,9 +1,8 @@
 {
   "name": "@virgo-design/create",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.1.0",
   "type": "module",
-  "description": "Generate standalone Virgo Design Pro applications.",
+  "description": "Generate standalone Minimal, Starter, and Pro applications with Virgo Design.",
   "license": "MIT",
   "bin": {
     "create-virgo": "./dist/index.js"
@@ -21,6 +20,19 @@
   },
   "engines": {
     "node": ">=24.14.0 <25"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virgo-galaxy/virgo-design.git",
+    "directory": "cli"
+  },
+  "homepage": "https://github.com/virgo-galaxy/virgo-design/tree/main/cli#readme",
+  "bugs": {
+    "url": "https://github.com/virgo-galaxy/virgo-design/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
     "@clack/core": "1.5.1",

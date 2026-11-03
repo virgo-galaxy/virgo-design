@@ -24,9 +24,8 @@ const registry = await readJson(path.join(root, 'cli/templates/manifest.json'));
 const templates = registry.templates.filter(
   (template) =>
     (!values.template || template.id === values.template) &&
-    (!values.variant ||
-      template.id === (template.tier ? `${template.tier}-${values.variant}` : values.variant)) &&
-    (!values.tier || (template.tier ?? 'pro') === values.tier),
+    (!values.variant || template.id === `${template.tier}-${values.variant}`) &&
+    (!values.tier || template.tier === values.tier),
 );
 assert(templates.length, `No templates match ${values.template ?? values.variant ?? values.tier}.`);
 const reportName = values.template ?? values.variant ?? values.tier ?? 'all';
@@ -104,7 +103,8 @@ async function checkStartup(framework, cwd) {
   }
 }
 
-const archive = path.join(output, 'virgo-design-create-0.0.0.tgz');
+const { version } = await readJson(path.join(root, 'cli/package.json'));
+const archive = path.join(output, `virgo-design-create-${version}.tgz`);
 await runPnpm(['pack', '--out', archive], path.join(root, 'cli'));
 const consumer = await mkdtemp(path.join(temporaryDirectory, 'virgo-cli-consumer-'));
 await writeFile(

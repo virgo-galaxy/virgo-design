@@ -149,7 +149,7 @@ jobs:
       - if: runner.os == 'Linux'
         run: pnpm check:cli --variant ${{ matrix.template }} --startup
       - if: runner.os != 'Linux'
-        run: pnpm check:cli --template ${{ matrix.template }} --startup
+        run: pnpm check:cli --template pro-${{ matrix.template }} --startup
 
   checks:
     name: Workspace checks

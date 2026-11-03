@@ -63,7 +63,7 @@ vanilla-extract.
 ```sh
 pnpm install --frozen-lockfile
 pnpm build:cli
-pnpm create:pro ../virgo-pro --template vite-react-tailwind
+pnpm create:pro ../virgo-pro --template pro-vite-react-tailwind
 cd ../virgo-pro
 pnpm install
 pnpm dev

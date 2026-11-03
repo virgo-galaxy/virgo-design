@@ -17,7 +17,9 @@ beforeEach(async () => {
   await writeFile(
     path.join(templatesDirectory, 'manifest.json'),
     JSON.stringify({
-      templates: [{ id: 'vite-react-tailwind', framework: 'vite', style: 'tailwind' }],
+      templates: [
+        { id: 'pro-vite-react-tailwind', framework: 'vite', style: 'tailwind', tier: 'pro' },
+      ],
     }),
   );
   await writeFile(
@@ -40,7 +42,7 @@ it('creates a standalone project with its name, dotfiles and default environment
   const target = path.join(directory, 'my-pro');
   const result = await generateProject({
     target,
-    template: 'vite-react-tailwind',
+    template: 'pro-vite-react-tailwind',
     templatesDirectory,
   });
   expect(result).toEqual({ directory: target, name: 'my-pro' });
@@ -63,7 +65,7 @@ it('creates a standalone project with its name, dotfiles and default environment
 it('accepts an existing empty project directory', async () => {
   const target = path.join(directory, 'my-pro');
   await mkdir(target);
-  await generateProject({ target, template: 'vite-react-tailwind', templatesDirectory });
+  await generateProject({ target, template: 'pro-vite-react-tailwind', templatesDirectory });
   expect(await readFile(path.join(target, '.env'), 'utf8')).toContain('VITE_API_MOCKING=true');
 });
 
@@ -72,14 +74,14 @@ it('refuses to overwrite a nonempty directory or an existing file', async () => 
   await mkdir(target);
   await writeFile(path.join(target, 'notes.txt'), 'Keep this file');
   await expect(
-    generateProject({ target, template: 'vite-react-tailwind', templatesDirectory }),
+    generateProject({ target, template: 'pro-vite-react-tailwind', templatesDirectory }),
   ).rejects.toThrow('new or empty directory');
   expect(await readdir(target)).toEqual(['notes.txt']);
   expect(await readFile(path.join(target, 'notes.txt'), 'utf8')).toBe('Keep this file');
   const file = path.join(directory, 'existing-file');
   await writeFile(file, 'Keep this file');
   await expect(
-    generateProject({ target: file, template: 'vite-react-tailwind', templatesDirectory }),
+    generateProject({ target: file, template: 'pro-vite-react-tailwind', templatesDirectory }),
   ).rejects.toThrow('new or empty directory');
 });
 
@@ -89,7 +91,7 @@ it('refuses to write through a destination symlink', async () => {
   const target = path.join(directory, 'my-pro');
   await symlink(original, target, 'dir');
   await expect(
-    generateProject({ target, template: 'vite-react-tailwind', templatesDirectory }),
+    generateProject({ target, template: 'pro-vite-react-tailwind', templatesDirectory }),
   ).rejects.toThrow('new or empty directory');
   expect(await readdir(original)).toEqual([]);
 });
@@ -102,7 +104,7 @@ it('rejects unknown templates and invalid project names before creating files', 
   await expect(
     generateProject({
       target: path.join(directory, 'Bad Name'),
-      template: 'vite-react-tailwind',
+      template: 'pro-vite-react-tailwind',
       templatesDirectory,
     }),
   ).rejects.toThrow('project directory name');
@@ -114,7 +116,7 @@ it('removes staging files when a bundled template is incomplete', async () => {
   await expect(
     generateProject({
       target: path.join(directory, 'my-pro'),
-      template: 'vite-react-tailwind',
+      template: 'pro-vite-react-tailwind',
       templatesDirectory,
     }),
   ).rejects.toThrow();

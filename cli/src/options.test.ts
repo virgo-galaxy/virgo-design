@@ -19,12 +19,17 @@ vi.mock('./prompts.js', () => ({
 }));
 
 const templates: Template[] = [
-  { id: 'vite-react-scss-modules', framework: 'vite', style: 'scss-modules' },
-  { id: 'vite-react-tailwind', framework: 'vite', style: 'tailwind' },
-  { id: 'vite-react-vanilla-extract', framework: 'vite', style: 'vanilla-extract' },
-  { id: 'next-scss-modules', framework: 'next', style: 'scss-modules' },
-  { id: 'next-tailwind', framework: 'next', style: 'tailwind' },
-  { id: 'next-vanilla-extract', framework: 'next', style: 'vanilla-extract' },
+  { id: 'pro-vite-react-scss-modules', framework: 'vite', style: 'scss-modules', tier: 'pro' },
+  { id: 'pro-vite-react-tailwind', framework: 'vite', style: 'tailwind', tier: 'pro' },
+  {
+    id: 'pro-vite-react-vanilla-extract',
+    framework: 'vite',
+    style: 'vanilla-extract',
+    tier: 'pro',
+  },
+  { id: 'pro-next-scss-modules', framework: 'next', style: 'scss-modules', tier: 'pro' },
+  { id: 'pro-next-tailwind', framework: 'next', style: 'tailwind', tier: 'pro' },
+  { id: 'pro-next-vanilla-extract', framework: 'next', style: 'vanilla-extract', tier: 'pro' },
 ];
 
 beforeEach(() => vi.resetAllMocks());
@@ -65,7 +70,7 @@ it.each(templates)('generates Minimal for $id', async (variant) => {
   vi.mocked(portPrompt).mockResolvedValueOnce('6300');
   const minimal: Template = {
     ...variant,
-    id: `minimal-${variant.id}`,
+    id: `minimal-${variant.id.slice(4)}`,
     tier: 'minimal',
   };
   expect(
@@ -87,7 +92,7 @@ it('returns from the port to the previous styling choice and uses the updated te
   vi.mocked(portPrompt).mockResolvedValueOnce(goBack).mockResolvedValueOnce('6310');
   expect(await resolveOptions({ target: '../my-pro', templates, interactive: true })).toEqual({
     target: '../my-pro',
-    template: 'next-vanilla-extract',
+    template: 'pro-next-vanilla-extract',
     port: 6310,
   });
   expect(select).toHaveBeenNthCalledWith(
@@ -113,7 +118,7 @@ it('keeps the project path when returning to the directory prompt', async () => 
     .mockResolvedValueOnce('no');
   expect(await resolveOptions({ templates, interactive: true, port: '6300' })).toEqual({
     target: '../second-pro',
-    template: 'vite-react-tailwind',
+    template: 'pro-vite-react-tailwind',
     port: 6300,
   });
   expect(directoryPrompt).toHaveBeenNthCalledWith(
@@ -144,9 +149,9 @@ it('uses complete flags without opening prompts, including outside a terminal', 
       templates,
       interactive: false,
       target: '../my-pro',
-      template: 'next-vanilla-extract',
+      template: 'pro-next-vanilla-extract',
     }),
-  ).toEqual({ target: '../my-pro', template: 'next-vanilla-extract', port: 6300 });
+  ).toEqual({ target: '../my-pro', template: 'pro-next-vanilla-extract', port: 6300 });
   expect(intro).not.toHaveBeenCalled();
   expect(select).not.toHaveBeenCalled();
   expect(directoryPrompt).not.toHaveBeenCalled();
@@ -156,8 +161,13 @@ it('only asks for missing options', async () => {
   vi.mocked(directoryPrompt).mockResolvedValueOnce('../my-pro');
   vi.mocked(select).mockResolvedValueOnce('no');
   expect(
-    await resolveOptions({ templates, interactive: true, template: 'next-tailwind', port: '6310' }),
-  ).toEqual({ target: '../my-pro', template: 'next-tailwind', port: 6310 });
+    await resolveOptions({
+      templates,
+      interactive: true,
+      template: 'pro-next-tailwind',
+      port: '6310',
+    }),
+  ).toEqual({ target: '../my-pro', template: 'pro-next-tailwind', port: 6310 });
   expect(select).toHaveBeenCalledOnce();
   vi.mocked(select)
     .mockResolvedValueOnce('pro')
@@ -167,7 +177,7 @@ it('only asks for missing options', async () => {
   vi.mocked(portPrompt).mockResolvedValueOnce('6311');
   expect(await resolveOptions({ templates, interactive: true, target: '../another-pro' })).toEqual({
     target: '../another-pro',
-    template: 'vite-react-scss-modules',
+    template: 'pro-vite-react-scss-modules',
     port: 6311,
   });
   expect(directoryPrompt).toHaveBeenCalledOnce();
@@ -179,7 +189,7 @@ it('accepts the default directory and validates typed names', async () => {
   await resolveOptions({
     templates,
     interactive: true,
-    template: 'vite-react-tailwind',
+    template: 'pro-vite-react-tailwind',
     port: '6300',
   });
   const validate = vi.mocked(directoryPrompt).mock.calls[0]?.[0].validate;
@@ -198,7 +208,7 @@ it('can cancel at the port prompt without generating a project', async () => {
       templates,
       interactive: true,
       target: '../my-pro',
-      template: 'next-tailwind',
+      template: 'pro-next-tailwind',
     }),
   ).toBeUndefined();
   expect(cancel).toHaveBeenCalledOnce();
@@ -212,7 +222,7 @@ it.each(['0', '65536', '1.5', '1e3', 'abc', ''])(
         templates,
         interactive: false,
         target: '../my-pro',
-        template: 'next-tailwind',
+        template: 'pro-next-tailwind',
         port,
       }),
     ).rejects.toThrow('between 1 and 65535');
@@ -265,9 +275,9 @@ it('requires an explicit Yes to install and start', async () => {
       templates,
       interactive: true,
       target: './virgo-app',
-      template: 'next-tailwind',
+      template: 'pro-next-tailwind',
       port: '6300',
     }),
-  ).toEqual({ target: './virgo-app', template: 'next-tailwind', port: 6300, autoStart: true });
+  ).toEqual({ target: './virgo-app', template: 'pro-next-tailwind', port: 6300, autoStart: true });
   expect(select).toHaveBeenCalledWith(expect.objectContaining({ initialValue: 'no' }));
 });

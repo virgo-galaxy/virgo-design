@@ -7,6 +7,9 @@ The eight libraries under `packages/` use one Changesets fixed version group, de
 root, documentation website and Pro applications are private workspaces and are excluded from
 package versioning and npm publication.
 
+The [project generator](cli/README.md) has its own version and is released separately from the
+library group.
+
 ## Versions, commits and tags
 
 A release can contain many commits. Ordinary commits do not require an immediate version bump or

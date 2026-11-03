@@ -19,7 +19,7 @@ export interface Template {
   id: string;
   framework: 'vite' | 'next';
   style: 'scss-modules' | 'tailwind' | 'vanilla-extract';
-  tier?: 'minimal' | 'starter';
+  tier: 'minimal' | 'starter' | 'pro';
 }
 
 const bundledTemplates = fileURLToPath(new URL('../templates/', import.meta.url));
@@ -75,8 +75,8 @@ export async function generateProject({
   await mkdir(path.dirname(destination), { recursive: true });
   const staging = await mkdtemp(path.join(path.dirname(destination), '.create-virgo-'));
   try {
-    const variant = selected.tier ? selected.id.slice(selected.tier.length + 1) : selected.id;
-    await cp(path.join(templatesDirectory, selected.tier ?? 'pro', variant), staging, {
+    const variant = selected.id.slice(selected.tier.length + 1);
+    await cp(path.join(templatesDirectory, selected.tier, variant), staging, {
       recursive: true,
     });
     await rename(path.join(staging, '_gitignore'), path.join(staging, '.gitignore'));

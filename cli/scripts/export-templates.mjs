@@ -640,8 +640,9 @@ export async function exportTemplates() {
       `# Virgo Design Pro\n\n${manifest.description}\n\n## Development\n\nUse Node.js ${await readFile(path.join(root, '.nvmrc'), 'utf8').then((value) => value.trim())} and ${repository.packageManager.replace('@', ' ')}.\n\n\`\`\`sh\npnpm install\npnpm dev\n\`\`\`\n\nThe development server uses the port selected during generation. See \`package.json\` for the startup commands. Demo data is enabled by default in \`.env\`. ${template.framework === 'vite' ? 'API requests use MSW in the browser.' : 'Demo API routes run on the Next.js server without a database.'}\n\n## Checks\n\n\`\`\`sh\npnpm typecheck\npnpm lint\npnpm test\npnpm build\n\`\`\`\n\n## License\n\n[MIT](LICENSE).\n`,
     );
     await assertStandalone(directory);
-    console.log(`Exported ${template.id}`);
+    console.log(`Exported pro-${template.id}`);
   }
+  const pro = templates.map((variant) => ({ ...variant, id: `pro-${variant.id}`, tier: 'pro' }));
   const minimal = [];
   for (const template of templates) {
     minimal.push(await exportMinimal(output, template, repository, base, libraryVersions));
@@ -653,6 +654,6 @@ export async function exportTemplates() {
   await normalizeTemplateLineEndings(output);
   await writeFile(
     path.join(output, 'manifest.json'),
-    `${JSON.stringify({ templates: [...templates, ...minimal, ...starter] }, null, 2)}\n`,
+    `${JSON.stringify({ templates: [...pro, ...minimal, ...starter] }, null, 2)}\n`,
   );
 }

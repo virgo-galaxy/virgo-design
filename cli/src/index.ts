@@ -6,7 +6,7 @@ import { parseArgs } from 'node:util';
 import { outro } from '@clack/prompts';
 
 import { generateProject, listTemplates } from './generate.js';
-import { resolveOptions } from './options.js';
+import { defaultDirectory, resolveOptions, tiers } from './options.js';
 import { defaultPort } from './port.js';
 import { startProject } from './start.js';
 
@@ -20,10 +20,43 @@ try {
       list: { type: 'boolean' },
     },
   });
-  if (values.help || values.list) {
-    console.log('Usage: create-virgo [directory] [--template <template>] [--port <port>]');
-    console.log(`Omit options to choose interactively. Default port: ${defaultPort}.\n`);
-    console.log((await listTemplates()).map((template) => `  ${template.id}`).join('\n'));
+  if (values.help) {
+    const templates = await listTemplates();
+    const groups = tiers.map(({ value, label }) =>
+      [
+        `  ${label}`,
+        ...templates.filter(({ tier }) => tier === value).map(({ id }) => `    ${id}`),
+      ].join('\n'),
+    );
+    console.log(`Virgo Create
+
+Usage
+  create-virgo [directory] [options]
+
+Arguments
+  directory              Where to create the project. Interactive default: ${defaultDirectory}.
+
+Options
+  --template <id>        Select a template from the list below.
+  --port <number>        Set the development server port. Default: ${defaultPort}.
+  -h, --help             Show this help.
+  --list                 Show the available template IDs.
+
+In a terminal, the CLI asks for any missing choices and whether to
+install dependencies and start the dev server. Without a terminal,
+provide both a directory and --template.
+
+Templates
+
+${groups.join('\n\n')}
+
+Examples
+  create-virgo
+  create-virgo ./my-app
+  create-virgo --template starter-next-tailwind --port 6310
+  create-virgo ./my-pro --template pro-next-tailwind --port 6310`);
+  } else if (values.list) {
+    console.log((await listTemplates()).map(({ id }) => id).join('\n'));
   } else {
     if (positionals.length > 1)
       throw new Error('Specify one project directory. Use --help for usage.');
