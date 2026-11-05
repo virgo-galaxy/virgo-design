@@ -488,6 +488,10 @@
 }
 
 @media (max-width: 980px) {
+  .studio {
+    overflow-x: clip;
+  }
+
   .shell {
     padding: 28px 20px;
   }

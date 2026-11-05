@@ -4,6 +4,7 @@ import { layoutEnUS } from './en-US';
 
 export const layoutZhCN = {
   navigation: {
+    colors: '颜色',
     themes: '主题',
     icons: '图标',
     charts: '图表',

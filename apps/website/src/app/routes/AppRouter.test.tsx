@@ -307,9 +307,29 @@ describe('Icon routes', () => {
   });
 });
 
+describe('Color routes', () => {
+  it.each(['/', '/colors'])('opens the standalone color page from %s', async (path) => {
+    renderRoute(path);
+
+    await findRouteHeading('Colors');
+    expect(screen.getByTestId('current-path')).toHaveTextContent('/colors');
+    expect(screen.getByText('@virgo-design/colors')).toBeInTheDocument();
+    expect(document.querySelector('[data-documentation-navigation]')).toBeNull();
+    for (const id of ['color-studio', 'palette-gallery', 'foundation-export']) {
+      expect(document.getElementById(id)).toBeInTheDocument();
+    }
+  });
+});
+
 describe('Foundation routes', () => {
+  it('opens the first remaining foundation category from /foundations', async () => {
+    renderRoute('/foundations');
+
+    await findRouteHeading('Typography');
+    expect(screen.getByTestId('current-path')).toHaveTextContent('/foundations/typography');
+  });
+
   it.each([
-    ['/foundations/colors', 'Colors'],
     ['/foundations/typography', 'Typography'],
     ['/foundations/layout', 'Layout'],
     ['/foundations/shape-depth', 'Shape & Depth'],
@@ -318,6 +338,12 @@ describe('Foundation routes', () => {
     renderRoute(path);
 
     await findRouteHeading(heading);
+    expect(
+      within(screen.getByRole('navigation', { name: 'Foundation categories' })).queryByRole(
+        'link',
+        { name: 'Colors' },
+      ),
+    ).toBeNull();
     expect(
       within(screen.getByRole('navigation', { name: 'Foundation categories' })).queryByRole(
         'link',

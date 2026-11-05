@@ -117,6 +117,10 @@
 }
 
 @media (max-width: 720px) {
+  .section {
+    overflow-x: clip;
+  }
+
   .inner {
     padding: 42px 18px 30px;
   }

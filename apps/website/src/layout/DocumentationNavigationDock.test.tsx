@@ -44,7 +44,7 @@ afterEach(() => {
 
 function setup() {
   return render(
-    <MemoryRouter initialEntries={['/foundations/colors']}>
+    <MemoryRouter initialEntries={['/foundations/typography']}>
       <TestLayout />
     </MemoryRouter>,
   );

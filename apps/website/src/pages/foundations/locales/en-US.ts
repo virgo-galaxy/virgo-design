@@ -2,7 +2,6 @@ export const foundationsEnUS = {
   navigation: {
     move: 'Move foundation navigation',
     label: 'Foundation categories',
-    colors: 'Colors',
     typography: 'Typography',
     layout: 'Layout',
     shapeDepth: 'Shape & Depth',

@@ -6,7 +6,6 @@ export const foundationsZhCN = {
   navigation: {
     move: '移动基础导航',
     label: '基础类别',
-    colors: '颜色',
     typography: '排版',
     layout: '布局',
     shapeDepth: '形状与层级',

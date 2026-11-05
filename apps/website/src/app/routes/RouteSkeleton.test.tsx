@@ -13,6 +13,7 @@ vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
 
 describe('Pending route landmarks', () => {
   it.each([
+    '/colors',
     '/components',
     '/primitives/',
     '/icons',

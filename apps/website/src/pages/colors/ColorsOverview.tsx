@@ -2,11 +2,11 @@ import {
   VIRGO_BRAND_SCALE,
   VIRGO_CHROMATIC_BASES,
   VIRGO_NEUTRAL_SCALE,
-} from '@virgo-design/tokens';
+} from '@virgo-design/colors';
 import { Steps, Surface } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
-import { FoundationPage } from '@/pages/foundations/FoundationPage';
+import { DocumentationCatalogue } from '@/components/docs/DocumentationCatalogue';
 
 import styles from './colors-overview.module.scss';
 
@@ -82,53 +82,55 @@ export function ColorsOverview() {
   };
 
   return (
-    <FoundationPage
-      id="colors-overview"
-      className={styles.overview ?? ''}
-      title={t('foundations.colors.title')}
-      description={t('foundations.colors.description')}
-    >
-      <div className={styles.metricGrid}>
-        {metrics.map((metric) => (
-          <Surface
-            role="article"
-            tone="default"
-            border="subtle"
-            key={metric.label}
-            className={styles.metricCard}
-          >
-            <div className={styles.colorPreview} data-kind={metric.kind} aria-hidden="true">
-              {metric.colors.map((color, index) => (
-                <i key={`${color}-${index}`} style={{ backgroundColor: color }} />
-              ))}
-            </div>
-            <strong>{metric.value}</strong>
-            <span>{metric.label}</span>
-          </Surface>
-        ))}
-      </div>
-
-      <div className={styles.journeyBlock}>
-        <Steps className={styles.journeyRail}>
-          {journey.map((step) => (
-            <Steps.Item key={step.number}>
-              <Steps.Trigger className={styles.journeyStep} onClick={() => scrollTo(step.target)}>
-                <Steps.Title>
-                  <strong>
-                    {step.number} · {step.title}
-                  </strong>
-                </Steps.Title>
-                <Steps.Description>{step.description}</Steps.Description>
-              </Steps.Trigger>
-            </Steps.Item>
+    <div id="colors-overview" className={styles.overview}>
+      <DocumentationCatalogue
+        pageId="colors"
+        eyebrow="@virgo-design/colors"
+        title={t('foundations.colors.title')}
+        description={t('foundations.colors.description')}
+      >
+        <div className={styles.metricGrid}>
+          {metrics.map((metric) => (
+            <Surface
+              role="article"
+              tone="default"
+              border="subtle"
+              key={metric.label}
+              className={styles.metricCard}
+            >
+              <div className={styles.colorPreview} data-kind={metric.kind} aria-hidden="true">
+                {metric.colors.map((color, index) => (
+                  <i key={`${color}-${index}`} style={{ backgroundColor: color }} />
+                ))}
+              </div>
+              <strong>{metric.value}</strong>
+              <span>{metric.label}</span>
+            </Surface>
           ))}
-        </Steps>
-
-        <div className={styles.journeyCopy}>
-          <p>{t('foundations.colors.journey.summary')}</p>
-          <p>{t('foundations.colors.journey.detail')}</p>
         </div>
-      </div>
-    </FoundationPage>
+
+        <div className={styles.journeyBlock}>
+          <Steps className={styles.journeyRail}>
+            {journey.map((step) => (
+              <Steps.Item key={step.number}>
+                <Steps.Trigger className={styles.journeyStep} onClick={() => scrollTo(step.target)}>
+                  <Steps.Title>
+                    <strong>
+                      {step.number} · {step.title}
+                    </strong>
+                  </Steps.Title>
+                  <Steps.Description>{step.description}</Steps.Description>
+                </Steps.Trigger>
+              </Steps.Item>
+            ))}
+          </Steps>
+
+          <div className={styles.journeyCopy}>
+            <p>{t('foundations.colors.journey.summary')}</p>
+            <p>{t('foundations.colors.journey.detail')}</p>
+          </div>
+        </div>
+      </DocumentationCatalogue>
+    </div>
   );
 }

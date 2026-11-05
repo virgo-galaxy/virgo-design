@@ -39,7 +39,7 @@ describe('SiteHeader', () => {
   });
 
   it('self-hosts the site header with fixed Layout composition and NavigationMenu state', () => {
-    renderHeader('/foundations/colors');
+    renderHeader('/foundations/typography');
 
     const header = screen.getByRole('banner');
     const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
@@ -83,7 +83,7 @@ describe('SiteHeader', () => {
     expect(await screen.findByRole('group', { name: '全局控制' })).toBeInTheDocument();
   });
 
-  it('orders the product areas from Foundations and Tokens through Themes to Charts', () => {
+  it('orders the product areas from Colors and Foundations through Tokens to Charts', () => {
     renderHeader();
 
     const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
@@ -93,6 +93,7 @@ describe('SiteHeader', () => {
         .getAllByRole('link')
         .map((link) => [link.textContent, link.getAttribute('href')]),
     ).toEqual([
+      ['Colors', '/colors'],
       ['Foundations', '/foundations'],
       ['Tokens', '/tokens'],
       ['Themes', '/themes'],
@@ -102,6 +103,19 @@ describe('SiteHeader', () => {
       ['Charts', '/charts'],
     ]);
     expect(within(navigation).queryByRole('link', { name: 'Resources' })).not.toBeInTheDocument();
+  });
+
+  it('keeps Colors active independently of Foundations', () => {
+    renderHeader('/colors');
+
+    const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
+    expect(within(navigation).getByRole('link', { name: 'Colors' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+    expect(within(navigation).getByRole('link', { name: 'Foundations' })).not.toHaveAttribute(
+      'aria-current',
+    );
   });
 
   it.each(['/icons', '/icons/settings', '/icons/studio'])('keeps Icons active on %s', (path) => {

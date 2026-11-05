@@ -13,7 +13,6 @@ import styles from './documentation-navigation-dock.module.scss';
 const STORAGE_KEY = 'virgo-design:documentation-navigation';
 const EDGES = ['top', 'left', 'right'] as const;
 const ICONS = {
-  'foundations.navigation.colors': PaletteIcon,
   'foundations.navigation.typography': TypeIcon,
   'foundations.navigation.layout': LayoutIcon,
   'foundations.navigation.shapeDepth': LayersIcon,

@@ -13,6 +13,7 @@ export function RouteSkeleton() {
     path.startsWith(`${ROUTE_PATHS.components}/`) || path.startsWith(`${ROUTE_PATHS.primitives}/`);
   const standalone = path.startsWith('/examples/');
   const catalogue =
+    path === ROUTE_PATHS.colors ||
     path === ROUTE_PATHS.components ||
     path === ROUTE_PATHS.primitives ||
     path === ROUTE_PATHS.icons;

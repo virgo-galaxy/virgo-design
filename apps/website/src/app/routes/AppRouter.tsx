@@ -100,17 +100,14 @@ export function AppRouter() {
   return (
     <Suspense fallback={<RouteSkeleton />}>
       <Routes>
-        <Route
-          path={ROUTE_PATHS.root}
-          element={<Navigate to={ROUTE_PATHS.foundationColors} replace />}
-        />
+        <Route path={ROUTE_PATHS.root} element={<Navigate to={ROUTE_PATHS.colors} replace />} />
         <Route
           path={ROUTE_PATHS.foundations}
-          element={<Navigate to={ROUTE_PATHS.foundationColors} replace />}
+          element={<Navigate to={ROUTE_PATHS.foundationTypography} replace />}
         />
         <Route path={ROUTE_PATHS.themes} element={<ThemesPage />} />
         <Route path={ROUTE_PATHS.charts} element={<ChartsPage />} />
-        <Route path={ROUTE_PATHS.foundationColors} element={<ColorsPage />} />
+        <Route path={ROUTE_PATHS.colors} element={<ColorsPage />} />
         <Route path={ROUTE_PATHS.foundationTypography} element={<TypographyPage />} />
         <Route path={ROUTE_PATHS.foundationLayout} element={<LayoutPage />} />
         <Route path={ROUTE_PATHS.foundationShapeDepth} element={<ShapeDepthPage />} />
