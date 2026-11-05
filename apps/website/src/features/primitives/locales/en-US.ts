@@ -2,7 +2,7 @@ export const primitivesEnUS = {
   catalogue: {
     title: 'Primitives',
     description:
-      'Headless building blocks for building custom interfaces with Virgo Design behavior, accessibility and interaction protocols.',
+      'Unstyled React primitives for custom components, with keyboard navigation, focus management, and accessibility built in.',
     headless: 'Headless',
     names: {
       carousel: 'Carousel',

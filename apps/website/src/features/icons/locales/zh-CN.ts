@@ -3,7 +3,7 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import type { iconsEnUS } from './en-US';
 export const iconsZhCN = {
   title: '图标',
-  description: '浏览 Virgo 的 Outline / Filled 图标家族，检查标准几何，并创建自定义图标。',
+  description: '成套的轮廓与填充图标，清晰表达界面中的操作、导航与状态。',
   reviewControls: '预览控制',
   toggleGrid: '切换网格',
   grid: '网格（{{state}}）',

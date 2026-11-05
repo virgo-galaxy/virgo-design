@@ -1,7 +1,7 @@
 export const iconsEnUS = {
   title: 'Icons',
   description:
-    'Explore Virgo’s Outline / Filled icon families, inspect canonical geometry, and create custom icons.',
+    'A cohesive collection of outline and filled icons for actions, navigation, and status.',
   reviewControls: 'Review controls',
   toggleGrid: 'Toggle grid',
   grid: 'Grid ({{state}})',

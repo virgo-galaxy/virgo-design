@@ -5,8 +5,7 @@ import { foundationColorsEnUS } from './en-US';
 export const foundationColorsZhCN = {
   colors: {
     title: '颜色',
-    description:
-      '一套完整、系统且可扩展的颜色基础，包含十二个基础色彩家族、一套品牌色阶与一套中性色阶，共 140 个基础颜色。',
+    description: '基础色板、品牌色阶与中性色阶，为界面建立统一的颜色基础。',
     foundationColors: '基础颜色',
     chromaticFamilies: '色彩家族',
     brandScale: '套品牌色阶',

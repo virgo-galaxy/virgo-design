@@ -4,8 +4,7 @@ import { fontsEnUS } from './en-US';
 
 export const fontsZhCN = {
   title: '字体',
-  description:
-    'Virgo Design 的自托管 Sans 与 Mono 字体资源。浏览字体、预览文字，按需加载到自己的应用中。',
+  description: '可自托管的无衬线与等宽字体，满足界面、多语言内容和代码的排版需要。',
   catalogue: {
     title: '字体预览',
     description: '选择字体类别，输入自己的文字，复制各字体的 CSS 导入代码。',

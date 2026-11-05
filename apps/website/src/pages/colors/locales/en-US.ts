@@ -2,7 +2,7 @@ export const foundationColorsEnUS = {
   colors: {
     title: 'Colors',
     description:
-      'A complete, systematic, and extensible color foundation with 140 colors across chromatic, brand, and neutral scales.',
+      'A coordinated set of chromatic, brand, and neutral color scales for interface design.',
     foundationColors: 'Foundation colors',
     chromaticFamilies: 'Chromatic families',
     brandScale: 'Brand scale',

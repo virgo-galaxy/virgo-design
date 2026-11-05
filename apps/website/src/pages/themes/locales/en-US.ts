@@ -1,7 +1,7 @@
 export const themesEnUS = {
   title: 'Themes',
   description:
-    'Built on Virgo Design tokens and presentation contracts, providing unified interface and chart styling.',
+    'Themes built on shared design tokens, bringing a cohesive look to interfaces and charts.',
   model: {
     title: 'Theme, Token and Appearance',
     description:

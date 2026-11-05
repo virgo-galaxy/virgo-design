@@ -11,7 +11,7 @@ export const tokensEnUS = {
   overview: {
     title: 'Design tokens',
     description:
-      'Shared foundation values and semantic roles for Virgo Design interfaces. Explore the scales, then see how they are applied to color and typography.',
+      'Shared scales and semantic tokens that keep color, typography, spacing, and motion consistent.',
     foundationsDescription:
       'Reusable values for typography, spacing, dimensions, shape, elevation, and motion.',
     semanticDescription: 'Named roles describe how foundation values are used in an interface.',

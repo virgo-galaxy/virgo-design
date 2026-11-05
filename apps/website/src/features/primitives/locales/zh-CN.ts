@@ -4,7 +4,7 @@ import type { primitivesEnUS } from './en-US';
 export const primitivesZhCN = {
   catalogue: {
     title: '原语',
-    description: '无样式的基础构建块，为自定义界面提供 Virgo Design 的行为、无障碍能力与交互协议。',
+    description: '无样式的 React 交互原语，为自定义组件提供键盘操作、焦点管理与无障碍能力。',
     headless: '无样式',
     names: {
       carousel: '轮播',

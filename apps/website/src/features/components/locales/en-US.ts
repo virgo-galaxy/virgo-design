@@ -1,7 +1,7 @@
 export const componentsEnUS = {
   title: 'Components',
   description:
-    'Production-ready interface components built from Virgo Design primitives, tokens and interaction patterns.',
+    'Ready-to-use React components with consistent styling and interaction for everyday interface needs.',
   sidebar: 'Components sidebar',
   navigation: 'Component navigation',
   component: 'Component {{index}}',

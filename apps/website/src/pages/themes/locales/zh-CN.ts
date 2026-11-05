@@ -4,7 +4,7 @@ import type { themesEnUS } from './en-US';
 
 export const themesZhCN = {
   title: '主题',
-  description: '基于 Virgo Design token 与视觉契约构建，提供统一的界面与图表样式。',
+  description: '基于设计变量的主题方案，为界面与图表提供协调一致的视觉风格。',
   model: {
     title: 'Theme、Token 与明暗外观',
     description: '主题实现视觉契约；组件继续负责结构、语义和交互。',

@@ -1,7 +1,7 @@
 export const fontsEnUS = {
   title: 'Fonts',
   description:
-    'Self-hosted Sans and Mono fonts for Virgo Design. Explore the families, preview your text, and load the fonts your application needs.',
+    'Self-hosted sans-serif and monospace fonts for interfaces, multilingual content, and code.',
   catalogue: {
     title: 'Font preview',
     description: 'Choose a category, try your own text, and copy the CSS import for each family.',

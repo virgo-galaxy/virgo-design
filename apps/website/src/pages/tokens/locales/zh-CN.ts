@@ -14,8 +14,7 @@ export const tokensZhCN = {
   },
   overview: {
     title: '变量',
-    description:
-      'Virgo Design 界面共用的基础值与语义角色。从基础尺度出发，查看它们如何应用于颜色与排版。',
+    description: '基础尺度与语义变量，统一定义界面中的颜色、排版、间距与动效。',
     foundationsDescription: '可复用的排版、间距、尺寸、形状、层级与动效尺度。',
     semanticDescription: '通过具名角色，定义基础值在界面中的具体用途。',
     typographyDescription: '字体角色、字号、字重与行高。',

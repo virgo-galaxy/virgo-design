@@ -4,7 +4,7 @@ import type { chartsEnUS } from './en-US';
 export const chartsZhCN = {
   title: '图表',
   description:
-    '基于 React 与 Apache ECharts 构建的数据可视化组件，提供统一的语义主题、交互反馈与动画能力。',
+    '基于 React 与 Apache ECharts 的图表组件，为数据可视化提供统一的主题样式与交互反馈。',
   created: '新增',
   completed: '完成',
   planned: '计划',
