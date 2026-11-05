@@ -6,6 +6,7 @@ dist/
 coverage/
 .vite/
 .next/
+.vercel/
 next-env.d.ts
 
 # TypeScript cache

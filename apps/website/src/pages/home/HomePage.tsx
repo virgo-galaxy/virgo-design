@@ -15,7 +15,7 @@ import { OverviewDemo } from './components/OverviewDemo';
 import { TemplatePicker } from './components/TemplatePicker';
 import { ThemeShowcase } from './components/ThemeShowcase';
 import { WorkspaceDemo } from './components/WorkspaceDemo';
-import { repositoryUrl, type TemplateTier } from './model';
+import { proDemoUrl, repositoryUrl, type TemplateTier } from './model';
 
 import styles from './home-page.module.scss';
 
@@ -68,7 +68,7 @@ export function HomePage() {
               <a className={styles.primaryLink} href="#create-project">
                 {t('home.hero.start')}
               </a>
-              <a href="#create-project" className={styles.proLink} onClick={() => setTier('pro')}>
+              <a href={proDemoUrl} className={styles.proLink} target="_blank" rel="noreferrer">
                 {t('home.hero.pro')}
                 <ExternalLinkIcon size={16} aria-hidden="true" />
               </a>
