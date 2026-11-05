@@ -41,10 +41,6 @@ export const colorStudioEnUS = {
       paletteAnchorHint:
         'Choose an anchor when Linked Palette is enabled. Virgo Design Official keeps its chromatic bases unchanged.',
 
-      linkedPalette: 'Linked Palette',
-      linkedOn: 'One anchor drives all families',
-      linkedOff: 'Every family base is editable',
-
       colorModel: 'Color Model',
       recommended: 'OKLCH recommended',
 
@@ -55,20 +51,6 @@ export const colorStudioEnUS = {
       familyEditorTitle: 'Family Editor',
       familyEditorDescription:
         'Edit each family base independently. Every value remains step 6 of its tonal scale.',
-
-      independentHint:
-        'Linked palette is off. Hue spread and distribution no longer control the families.',
-
-      independentMode: 'Independent Families',
-      independentDescription: 'Each family now uses its own step-6 base color.',
-
-      familyBases: 'Family Bases',
-      step6: 'Step 6',
-
-      official: 'Virgo Chromatic Foundation V1',
-      officialDescription: '12 official base hues · individually editable · OKLCH tonal scales',
-      linkedMode: 'Linked Generation',
-      linkedModeDescription: 'One shared anchor generates all twelve hue families.',
     },
     preview: {
       eyebrow: 'PREVIEW',
@@ -81,8 +63,6 @@ export const colorStudioEnUS = {
       customTitle: 'Twelve independent chromatic bases',
       customDescription: 'Each family base is edited directly while tonal scales remain generated.',
       selectedFamily: 'Selected family',
-      previousFamilies: 'Previous color families',
-      nextFamilies: 'Next color families',
       live: 'LIVE',
     },
     extensions: {

@@ -111,7 +111,6 @@ export const tokensZhCN = {
       dangerMessage: '请重新连接后再试。',
       info: '发现新版本',
       infoMessage: '有一项语义更新可用。',
-      live: '实时',
     },
     data: {
       categorical: '获客渠道',

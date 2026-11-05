@@ -10,7 +10,6 @@ export const paletteGalleryZhCN = {
     description:
       '十二个基础色彩家族，加上 Brand 与 Neutral，共同展开为 140 个基础颜色。点击任意一组查看对应十阶色阶。',
     colorFamilies: '基础色彩组',
-    selectedFamily: '基础色彩组',
     baseColor: '基础色',
     tonalScale: '十阶色阶',
     kinds: {

@@ -4,7 +4,6 @@ export const chartsEnUS = {
     'React chart components powered by Apache ECharts, with coordinated themes and interactive data visualization.',
   created: 'Created',
   completed: 'Completed',
-  planned: 'Planned',
   update: 'Update data',
   reset: 'Reset',
   data: 'View underlying data',

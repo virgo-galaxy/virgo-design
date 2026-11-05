@@ -7,7 +7,6 @@ export const chartsZhCN = {
     '基于 React 与 Apache ECharts 的图表组件，为数据可视化提供统一的主题样式与交互反馈。',
   created: '新增',
   completed: '完成',
-  planned: '计划',
   update: '更新数据',
   reset: '重置',
   data: '查看原始数据',

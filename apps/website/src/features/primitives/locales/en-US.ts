@@ -268,7 +268,6 @@ export const primitivesEnUS = {
       partNote: 'A single native textarea element; there are no compound parts.',
       behaviors: {
         item1: 'Accepts native textarea attributes and browser editing behavior.',
-        item2: 'Forwards change events, disabled and read-only state, and the element ref.',
       },
       accessibility: {
         item1: 'Retains native textarea semantics; consumers provide the accessible label.',

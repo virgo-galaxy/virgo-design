@@ -4,8 +4,6 @@ import type { componentsEnUS } from './en-US';
 export const componentsZhCN = {
   title: '组件',
   description: '可直接使用的 React 界面组件，为常见界面需求提供统一的样式与交互。',
-  sidebar: '组件侧栏',
-  navigation: '组件导航',
   component: '组件 {{index}}',
   groups: {
     general: '通用',

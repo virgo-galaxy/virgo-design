@@ -108,7 +108,6 @@ export const tokensEnUS = {
       dangerMessage: 'Reconnect before trying again.',
       info: 'New version',
       infoMessage: 'A semantic update is available.',
-      live: 'Live',
     },
     data: {
       categorical: 'Acquisition channels',

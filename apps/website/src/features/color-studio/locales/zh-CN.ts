@@ -42,10 +42,6 @@ export const colorStudioZhCN = {
       paletteAnchorHint:
         '启用关联色板时使用锚点生成十二个家族；Virgo Design 官方基础色板保持独立。',
 
-      linkedPalette: '关联色板',
-      linkedOn: '一个锚点驱动全部色彩家族',
-      linkedOff: '每个色彩家族的基础色均可独立编辑',
-
       colorModel: '色彩模型',
       recommended: '推荐 OKLCH',
 
@@ -55,19 +51,6 @@ export const colorStudioZhCN = {
       familyEditorEyebrow: '独立编辑',
       familyEditorTitle: '色彩家族编辑器',
       familyEditorDescription: '分别调整每个色彩家族的基础色。每个值仍作为该色阶的第 6 阶。',
-
-      independentHint: '已关闭关联色板。色相跨度与分布曲线不再控制各个色彩家族。',
-
-      independentMode: '独立色彩家族',
-      independentDescription: '每个色彩家族现在使用各自独立的第 6 阶基础色。',
-
-      familyBases: '基础色',
-      step6: '第 6 阶',
-
-      official: 'Virgo Chromatic Foundation V1',
-      officialDescription: '12 个官方基础色 · 可独立编辑 · OKLCH 十阶色阶',
-      linkedMode: '关联生成',
-      linkedModeDescription: '使用一个共享锚点生成全部十二个色相家族。',
     },
     preview: {
       eyebrow: '预览',
@@ -80,8 +63,6 @@ export const colorStudioZhCN = {
       customTitle: '十二个独立基础色',
       customDescription: '每个家族的基础色直接编辑，纵向色阶仍由算法生成。',
       selectedFamily: '当前色彩家族',
-      previousFamilies: '上一组色彩家族',
-      nextFamilies: '下一组色彩家族',
       live: '实时',
     },
     extensions: {

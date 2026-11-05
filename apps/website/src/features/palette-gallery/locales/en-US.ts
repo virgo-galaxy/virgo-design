@@ -6,7 +6,6 @@ export const paletteGalleryEnUS = {
     description:
       'Twelve chromatic families, Brand and Neutral unfold into 140 foundation colors. Click any group to inspect its ten-step scale.',
     colorFamilies: 'Foundation color groups',
-    selectedFamily: 'Foundation group',
     baseColor: 'Base color',
     tonalScale: '10-step tonal scale',
     kinds: {

@@ -228,7 +228,6 @@ export const primitivesZhCN = {
       partNote: '单个原生 textarea 元素，没有复合组成部分。',
       behaviors: {
         item1: '接受原生 textarea 属性与浏览器编辑行为。',
-        item2: '转发 change 事件、禁用与只读状态，以及元素 ref。',
       },
       accessibility: {
         item1: '保留原生 textarea 语义；使用方提供无障碍标签。',
