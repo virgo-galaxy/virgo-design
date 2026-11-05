@@ -19,7 +19,9 @@ export const tokensEnUS = {
     previewEyebrow: 'SEMANTIC COLOR',
     previewTitle: 'Resolved themes',
     previewDescription:
-      'The same formal roles resolve from themes.light.color and themes.dark.color.',
+      'The preview follows the page appearance. Enable comparison to view light and dark together.',
+    previewLabel: 'Semantic color preview',
+    compareThemes: 'Compare light and dark',
     comparisonLabel: 'Light and dark Color Semantic comparison',
     themeLabel: 'Resolved theme',
     light: {

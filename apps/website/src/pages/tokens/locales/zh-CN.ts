@@ -22,7 +22,9 @@ export const tokensZhCN = {
       '以下所有数值均由 @virgo-design/tokens 直接解析，覆盖界面层级、交互状态、信息反馈和数据可视化。',
     previewEyebrow: '语义颜色',
     previewTitle: '解析后的主题',
-    previewDescription: '同一套正式角色分别由 themes.light.color 与 themes.dark.color 解析。',
+    previewDescription: '预览跟随页面明暗模式，开启「明暗对照」可同时查看两种模式。',
+    previewLabel: '语义颜色预览',
+    compareThemes: '明暗对照',
     comparisonLabel: 'Color Semantic 浅色与深色主题对比',
     themeLabel: '解析主题',
     light: {
