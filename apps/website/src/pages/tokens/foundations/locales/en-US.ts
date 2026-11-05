@@ -3,7 +3,8 @@ export const foundationsEnUS = {
     title: 'Typography scale',
     description:
       'Foundation specifications for font family, size, weight, and line height across Virgo Design.',
-    fontFamily: 'Font Family',
+    fontFamily: 'Font roles',
+    fontResources: 'Explore fonts and multilingual previews',
     fontFamilyDescription:
       'The official Sans and Mono font roles and fallback stacks for Virgo Design.',
     fontFamilyRoles: {
@@ -12,25 +13,6 @@ export const foundationsEnUS = {
     },
     fontFamilyStack: 'Font-family stack',
     fontFamilySpecimen: 'Virgo Design\nBuild tools that feel inevitable.',
-    internationalSans: {
-      title: 'International Sans',
-      description:
-        'Locale-aware Sans stacks pair Inter for Latin glyphs with the corresponding Noto Sans family for CJK glyphs.',
-      localeSelector: 'International sans locale',
-      activeStack: 'Font family',
-      locale: 'Locale',
-      latin: 'Latin glyphs',
-      script: 'Locale script',
-      stack: 'Resolved font-family stack',
-      locales: {
-        latin: 'Latin',
-        zhHans: 'Simplified Chinese',
-        zhHantTW: 'Traditional Chinese · TW',
-        zhHantHK: 'Traditional Chinese · HK',
-        ja: 'Japanese',
-        ko: 'Korean',
-      },
-    },
     fontSize: 'Font Size',
     fontWeight: 'Font Weight',
     fontWeights: {

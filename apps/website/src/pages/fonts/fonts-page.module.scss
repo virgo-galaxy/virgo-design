@@ -1,0 +1,127 @@
+.section {
+  min-width: 0;
+  scroll-margin-top: calc(var(--layout-header-height) + var(--vd-spacing-24));
+}
+
+.sectionHeader {
+  margin-bottom: var(--vd-spacing-24);
+}
+
+.sectionHeader h2 {
+  margin: 0;
+  font-size: var(--vd-font-size-24);
+  letter-spacing: -0.02em;
+}
+
+.section p {
+  line-height: 1.65;
+}
+
+.sectionHeader p,
+.section > p {
+  max-width: 75ch;
+  margin: var(--vd-spacing-8) 0 0;
+  color: var(--layout-secondary);
+}
+
+.catalogueControls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--vd-spacing-24);
+  margin-bottom: var(--vd-spacing-24);
+}
+
+.catalogueControls .categoryTabs {
+  width: auto;
+}
+
+.sampleInput {
+  display: grid;
+  width: min(400px, 100%);
+  gap: var(--vd-spacing-8);
+}
+
+.sampleInput label {
+  color: var(--layout-secondary);
+  font-size: var(--vd-font-size-13);
+}
+
+.fontGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--vd-spacing-16);
+}
+
+.fontCard {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--layout-line);
+  border-radius: var(--vd-radius-12);
+  background: var(--vd-surface-default);
+}
+
+.fontHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vd-spacing-16);
+  padding: var(--vd-spacing-16) var(--vd-spacing-24);
+}
+
+.fontHeader h3 {
+  margin: 0;
+  font-size: var(--vd-font-size-16);
+  font-weight: var(--vd-font-weight-600);
+}
+
+.section .specimen {
+  flex: 1;
+  min-height: 160px;
+  margin: 0;
+  padding: var(--vd-spacing-24);
+  overflow-wrap: anywhere;
+  font-size: clamp(24px, 2.5vw, 34px);
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.fontMeta {
+  display: grid;
+  gap: var(--vd-spacing-6);
+  border-top: 1px solid var(--layout-line);
+  padding: var(--vd-spacing-16) var(--vd-spacing-24);
+  color: var(--layout-secondary);
+  font-size: var(--vd-font-size-12);
+}
+
+.fontMeta code {
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+}
+
+.code {
+  overflow: auto;
+  margin: var(--vd-spacing-16) 0 var(--vd-spacing-24);
+  border: 1px solid var(--layout-line);
+  border-radius: var(--vd-radius-12);
+  padding: var(--vd-spacing-20);
+  color: var(--layout-text);
+  background: var(--vd-surface-default);
+  font-size: var(--vd-font-size-13);
+  line-height: 1.65;
+}
+
+@media (max-width: 720px) {
+  .fontGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sampleInput {
+    width: 100%;
+  }
+}

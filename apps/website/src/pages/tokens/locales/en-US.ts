@@ -15,7 +15,7 @@ export const tokensEnUS = {
     foundationsDescription:
       'Reusable values for typography, spacing, dimensions, shape, elevation, and motion.',
     semanticDescription: 'Named roles describe how foundation values are used in an interface.',
-    typographyDescription: 'Font families, sizes, weights, and line heights.',
+    typographyDescription: 'Font roles, sizes, weights, and line heights.',
     layoutDescription: 'Spacing and sizing scales for arranging interface elements.',
     shapeDepthDescription: 'Borders, corner radii, and theme-aware elevation levels.',
     motionDescription: 'Duration scales and easing curves.',

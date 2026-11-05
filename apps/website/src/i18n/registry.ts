@@ -248,6 +248,8 @@ import { foundationColorsEnUS } from '@/pages/colors/locales/en-US';
 import { foundationColorsZhCN } from '@/pages/colors/locales/zh-CN';
 import { standaloneEnUS } from '@/pages/examples/locales/en-US';
 import { standaloneZhCN } from '@/pages/examples/locales/zh-CN';
+import { fontsEnUS } from '@/pages/fonts/locales/en-US';
+import { fontsZhCN } from '@/pages/fonts/locales/zh-CN';
 import { themesEnUS } from '@/pages/themes/locales/en-US';
 import { themesZhCN } from '@/pages/themes/locales/zh-CN';
 import { foundationsEnUS } from '@/pages/tokens/foundations/locales/en-US';
@@ -259,6 +261,7 @@ import type { LocaleOf } from './locale-types';
 
 export const enUS = {
   themes: themesEnUS,
+  fonts: fontsEnUS,
   themeStyleControl: themeStyleControlEnUS,
   charts: chartsEnUS,
   icons: iconsEnUS,
@@ -404,6 +407,7 @@ export const enUS = {
 
 export const zhCN = {
   themes: themesZhCN,
+  fonts: fontsZhCN,
   themeStyleControl: themeStyleControlZhCN,
   charts: chartsZhCN,
   icons: iconsZhCN,

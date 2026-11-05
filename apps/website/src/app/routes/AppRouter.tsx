@@ -17,6 +17,9 @@ const ChartsPage = lazy(() =>
 const ColorsPage = lazy(() =>
   import('@/pages/colors/ColorsPage').then((module) => ({ default: module.ColorsPage })),
 );
+const FontsPage = lazy(() =>
+  import('@/pages/fonts/FontsPage').then((module) => ({ default: module.FontsPage })),
+);
 const TypographyPage = lazy(() =>
   import('@/pages/tokens/foundations/TypographyPage').then((module) => ({
     default: module.TypographyPage,
@@ -118,6 +121,7 @@ export function AppRouter() {
         <Route path={ROUTE_PATHS.themes} element={<ThemesPage />} />
         <Route path={ROUTE_PATHS.charts} element={<ChartsPage />} />
         <Route path={ROUTE_PATHS.colors} element={<ColorsPage />} />
+        <Route path={ROUTE_PATHS.fonts} element={<FontsPage />} />
         <Route path={ROUTE_PATHS.icons} element={<IconsPage />} />
         <Route path={`${ROUTE_PATHS.icons}/:iconId`} element={<IconsPage />} />
         <Route path={ROUTE_PATHS.tokens} element={<TokensDocumentation />}>

@@ -1,6 +1,7 @@
 export const ROUTE_PATHS = {
   root: '/',
   colors: '/colors',
+  fonts: '/fonts',
   tokens: '/tokens',
   tokenFoundationTypography: '/tokens/foundations/typography',
   tokenFoundationLayout: '/tokens/foundations/layout',
@@ -20,6 +21,7 @@ export const ROUTE_PATHS = {
 
 export const PRIMARY_NAVIGATION_ITEMS = [
   { path: ROUTE_PATHS.colors, label: 'app.navigation.colors' },
+  { path: ROUTE_PATHS.fonts, label: 'app.navigation.fonts' },
   { path: ROUTE_PATHS.tokens, label: 'app.navigation.tokens' },
   { path: ROUTE_PATHS.themes, label: 'app.navigation.themes' },
   { path: ROUTE_PATHS.icons, label: 'app.navigation.icons' },

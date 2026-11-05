@@ -18,7 +18,7 @@ export const tokensZhCN = {
       'Virgo Design 界面共用的基础值与语义角色。从基础尺度出发，查看它们如何应用于颜色与排版。',
     foundationsDescription: '可复用的排版、间距、尺寸、形状、层级与动效尺度。',
     semanticDescription: '通过具名角色，定义基础值在界面中的具体用途。',
-    typographyDescription: '字体族、字号、字重与行高。',
+    typographyDescription: '字体角色、字号、字重与行高。',
     layoutDescription: '用于组织界面元素的间距与尺寸尺度。',
     shapeDepthDescription: '边框、圆角与跟随明暗模式的阴影层级。',
     motionDescription: '动画时长尺度与缓动曲线。',

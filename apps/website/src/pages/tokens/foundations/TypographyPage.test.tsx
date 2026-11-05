@@ -15,8 +15,12 @@ describe('TypographyPage', () => {
     );
 
     expect(screen.getByRole('heading', { level: 1, name: 'Typography scale' })).toBeTruthy();
-    expect(screen.getByRole('heading', { level: 2, name: 'Font Family' })).toBeTruthy();
+    expect(screen.getByRole('heading', { level: 2, name: 'Font roles' })).toBeTruthy();
     expect(screen.queryByText('Document and UI semantic typography')).toBeNull();
     expect(screen.queryByText('Typography in context')).toBeNull();
+    expect(screen.queryByRole('heading', { name: 'International Sans' })).toBeNull();
+    expect(
+      screen.getByRole('link', { name: 'Explore fonts and multilingual previews' }),
+    ).toHaveAttribute('href', '/fonts');
   });
 });

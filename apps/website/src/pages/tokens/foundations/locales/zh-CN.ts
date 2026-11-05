@@ -6,7 +6,8 @@ export const foundationsZhCN = {
   typography: {
     title: '排版尺度',
     description: 'Virgo Design 的字体族、字号、字重与行高基础规范。',
-    fontFamily: '字体族',
+    fontFamily: '字体角色',
+    fontResources: '查看字体资源与多语言预览',
     fontFamilyDescription: 'Virgo Design 的正式 Sans 与 Mono 字体角色及其回退栈。',
     fontFamilyRoles: {
       sans: 'Sans',
@@ -14,25 +15,6 @@ export const foundationsZhCN = {
     },
     fontFamilyStack: '字体栈',
     fontFamilySpecimen: 'Virgo Design\n构建自然得仿佛理所当然的工具。',
-    internationalSans: {
-      title: '国际化 Sans',
-      description:
-        '支持地区语言的 Sans 字体栈：拉丁字符使用 Inter，CJK 字符使用对应的 Noto Sans 字体。',
-      localeSelector: '国际化 Sans 语言地区',
-      activeStack: '字体家族',
-      locale: '语言地区',
-      latin: '拉丁字符',
-      script: '本地文字',
-      stack: '解析后的字体栈',
-      locales: {
-        latin: '拉丁字符',
-        zhHans: '简体中文',
-        zhHantTW: '繁體中文 · 台灣',
-        zhHantHK: '繁體中文 · 香港',
-        ja: '日本語',
-        ko: '한국어',
-      },
-    },
     fontSize: '字号',
     fontWeight: '字重',
     fontWeights: {

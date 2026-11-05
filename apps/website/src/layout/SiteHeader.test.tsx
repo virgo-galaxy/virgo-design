@@ -83,7 +83,7 @@ describe('SiteHeader', () => {
     expect(await screen.findByRole('group', { name: '全局控制' })).toBeInTheDocument();
   });
 
-  it('orders the product areas from Colors through Tokens to Charts', () => {
+  it('orders the product areas from Colors and Fonts through to Components and Charts', () => {
     renderHeader();
 
     const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
@@ -94,6 +94,7 @@ describe('SiteHeader', () => {
         .map((link) => [link.textContent, link.getAttribute('href')]),
     ).toEqual([
       ['Colors', '/colors'],
+      ['Fonts', '/fonts'],
       ['Tokens', '/tokens'],
       ['Themes', '/themes'],
       ['Icons', '/icons'],
@@ -109,6 +110,19 @@ describe('SiteHeader', () => {
 
     const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
     expect(within(navigation).getByRole('link', { name: 'Colors' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+    expect(within(navigation).getByRole('link', { name: 'Tokens' })).not.toHaveAttribute(
+      'aria-current',
+    );
+  });
+
+  it('keeps Fonts active independently of the typography tokens', () => {
+    renderHeader('/fonts');
+
+    const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
+    expect(within(navigation).getByRole('link', { name: 'Fonts' })).toHaveAttribute(
       'aria-current',
       'page',
     );

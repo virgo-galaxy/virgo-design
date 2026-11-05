@@ -53,6 +53,19 @@ function findRouteHeading(name: string) {
   return screen.findByRole('heading', { level: 1, name }, { timeout: ROUTE_LOAD_TIMEOUT });
 }
 
+it('opens Fonts as a standalone catalogue with font previews and loading examples', async () => {
+  renderRoute('/fonts');
+
+  await findRouteHeading('Fonts');
+  expect(screen.getByText('@virgo-design/fonts')).toBeInTheDocument();
+  expect(document.querySelector('[data-docs-sidebar]')).toBeNull();
+  expect(screen.getByRole('heading', { level: 2, name: 'Font preview' })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { level: 2, name: 'International Sans' })).toBeInTheDocument();
+  expect(
+    screen.getByRole('heading', { level: 2, name: 'Installation and usage' }),
+  ).toBeInTheDocument();
+});
+
 describe('Token routes', () => {
   it('opens the mobile contents and closes it after selecting a page', async () => {
     const user = userEvent.setup();

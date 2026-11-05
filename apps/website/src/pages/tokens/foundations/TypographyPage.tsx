@@ -1,9 +1,11 @@
 import { fontSize, fontWeight, lineHeight } from '@virgo-design/tokens';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+
+import { ROUTE_PATHS } from '@/shared/routes/route-config';
 
 import { TokenPage, TokenSection } from '../TokenPage';
 import { FontFamilyPreview } from './components/FontFamilyPreview';
-import { InternationalSansPreview } from './components/InternationalSansPreview';
 
 import styles from '../token-page.module.scss';
 
@@ -27,14 +29,9 @@ export function TypographyPage() {
         description={t('tokens.foundations.typography.fontFamilyDescription')}
       >
         <FontFamilyPreview />
-      </TokenSection>
-
-      <TokenSection
-        id="international-sans"
-        title={t('tokens.foundations.typography.internationalSans.title')}
-        description={t('tokens.foundations.typography.internationalSans.description')}
-      >
-        <InternationalSansPreview />
+        <p>
+          <Link to={ROUTE_PATHS.fonts}>{t('tokens.foundations.typography.fontResources')}</Link>
+        </p>
       </TokenSection>
 
       <TokenSection title={t('tokens.foundations.typography.fontSize')}>

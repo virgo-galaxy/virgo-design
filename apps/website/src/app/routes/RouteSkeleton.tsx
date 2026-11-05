@@ -17,6 +17,7 @@ export function RouteSkeleton() {
   const catalogue =
     path === ROUTE_PATHS.tokens ||
     path === ROUTE_PATHS.colors ||
+    path === ROUTE_PATHS.fonts ||
     path === ROUTE_PATHS.components ||
     path === ROUTE_PATHS.primitives ||
     path === ROUTE_PATHS.icons;

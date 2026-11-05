@@ -1,6 +1,7 @@
 export const layoutEnUS = {
   navigation: {
     colors: 'Colors',
+    fonts: 'Fonts',
     themes: 'Themes',
     icons: 'Icons',
     charts: 'Charts',
