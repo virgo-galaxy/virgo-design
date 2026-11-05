@@ -1,4 +1,4 @@
-import { GithubIcon, MoonIcon, SunIcon } from '@virgo-design/icons';
+import { GithubIcon, MoonFilledIcon, SunFilledIcon } from '@virgo-design/icons';
 import { Button, Dropdown, Layout, NavigationMenu } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -82,9 +82,9 @@ export function HomeHeader() {
             onClick={() => setAppearance(appearance === 'light' ? 'dark' : 'light')}
           >
             {appearance === 'light' ? (
-              <SunIcon size={25} aria-hidden="true" />
+              <MoonFilledIcon size={25} aria-hidden="true" />
             ) : (
-              <MoonIcon size={25} aria-hidden="true" />
+              <SunFilledIcon size={25} aria-hidden="true" />
             )}
           </Button>
         </div>
