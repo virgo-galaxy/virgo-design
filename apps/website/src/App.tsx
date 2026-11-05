@@ -6,9 +6,9 @@ import { AppLayout } from '@/layout/AppLayout';
 
 function RoutedApp() {
   const { pathname } = useLocation();
-  const standaloneExample = pathname.startsWith('/examples/');
+  const standalonePage = pathname.startsWith('/examples/') || pathname === '/';
 
-  return standaloneExample ? (
+  return standalonePage ? (
     <AppRouter />
   ) : (
     <AppLayout>

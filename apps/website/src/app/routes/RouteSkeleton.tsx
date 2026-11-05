@@ -22,6 +22,14 @@ export function RouteSkeleton() {
     path === ROUTE_PATHS.primitives ||
     path === ROUTE_PATHS.icons;
 
+  if (path === '') {
+    return (
+      <main id="website-main" tabIndex={-1} className={styles.page}>
+        <PageSkeleton variant="page" />
+      </main>
+    );
+  }
+
   if (document) {
     return (
       <div className={styles.document} data-route-skeleton="document">

@@ -83,8 +83,8 @@ describe('SiteHeader', () => {
     expect(await screen.findByRole('group', { name: '全局控制' })).toBeInTheDocument();
   });
 
-  it('orders the product areas from Colors and Fonts through to Components and Charts', () => {
-    renderHeader();
+  it('keeps the existing single-row navigation limited to design pages', () => {
+    renderHeader('/colors');
 
     const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
 
@@ -98,12 +98,27 @@ describe('SiteHeader', () => {
       ['Tokens', '/tokens'],
       ['Themes', '/themes'],
       ['Icons', '/icons'],
-      ['Primitives', '/primitives'],
-      ['Components', '/components'],
-      ['Charts', '/charts'],
     ]);
     expect(within(navigation).queryByRole('link', { name: 'Resources' })).not.toBeInTheDocument();
   });
+
+  it.each(['/components', '/components/button', '/primitives', '/primitives/dialog', '/charts'])(
+    'keeps the existing single-row navigation limited to development pages on %s',
+    (path) => {
+      renderHeader(path);
+      const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
+      expect(
+        within(navigation)
+          .getAllByRole('link')
+          .map((link) => [link.textContent, link.getAttribute('href')]),
+      ).toEqual([
+        ['Primitives', '/primitives'],
+        ['Components', '/components'],
+        ['Charts', '/charts'],
+      ]);
+      expect(screen.getAllByRole('navigation')).toHaveLength(1);
+    },
+  );
 
   it('keeps Colors active independently of Tokens', () => {
     renderHeader('/colors');

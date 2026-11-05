@@ -250,6 +250,8 @@ import { standaloneEnUS } from '@/pages/examples/locales/en-US';
 import { standaloneZhCN } from '@/pages/examples/locales/zh-CN';
 import { fontsEnUS } from '@/pages/fonts/locales/en-US';
 import { fontsZhCN } from '@/pages/fonts/locales/zh-CN';
+import { homeEnUS } from '@/pages/home/locales/en-US';
+import { homeZhCN } from '@/pages/home/locales/zh-CN';
 import { themesEnUS } from '@/pages/themes/locales/en-US';
 import { themesZhCN } from '@/pages/themes/locales/zh-CN';
 import { foundationsEnUS } from '@/pages/tokens/foundations/locales/en-US';
@@ -260,6 +262,7 @@ import { tokensZhCN } from '@/pages/tokens/locales/zh-CN';
 import type { LocaleOf } from './locale-types';
 
 export const enUS = {
+  home: homeEnUS,
   themes: themesEnUS,
   fonts: fontsEnUS,
   themeStyleControl: themeStyleControlEnUS,
@@ -406,6 +409,7 @@ export const enUS = {
 } as const;
 
 export const zhCN = {
+  home: homeZhCN,
   themes: themesZhCN,
   fonts: fontsZhCN,
   themeStyleControl: themeStyleControlZhCN,

@@ -35,7 +35,17 @@ beforeAll(async () => {
 
 beforeEach(() => {
   vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
-  vi.stubGlobal('matchMedia', vi.fn().mockReturnValue({ matches: true }));
+  vi.stubGlobal(
+    'matchMedia',
+    vi.fn().mockImplementation((query: string) => ({
+      matches: query.includes('prefers-reduced-motion: reduce'),
+      media: query,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+    })),
+  );
 });
 
 function renderRoute(path: string) {
@@ -339,8 +349,8 @@ describe('Icon routes', () => {
 });
 
 describe('Color routes', () => {
-  it.each(['/', '/colors'])('opens the standalone color page from %s', async (path) => {
-    renderRoute(path);
+  it('opens the standalone color page from /colors', async () => {
+    renderRoute('/colors');
 
     await findRouteHeading('Colors');
     expect(screen.getByTestId('current-path')).toHaveTextContent('/colors');
@@ -350,6 +360,20 @@ describe('Color routes', () => {
       expect(document.getElementById(id)).toBeInTheDocument();
     }
   });
+});
+
+it('opens the product homepage without redirecting to the design documentation', async () => {
+  renderRoute('/');
+
+  await screen.findByRole(
+    'heading',
+    { level: 1, name: /From components,/ },
+    { timeout: ROUTE_LOAD_TIMEOUT },
+  );
+  expect(screen.getByTestId('current-path')).toHaveTextContent('/');
+  expect(screen.getByRole('navigation', { name: 'Home navigation' })).toBeInTheDocument();
+  expect(screen.queryByRole('navigation', { name: 'Primary navigation' })).toBeNull();
+  expect(document.querySelector('[data-docs-sidebar]')).toBeNull();
 });
 
 describe('Grouped token pages', () => {

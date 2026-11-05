@@ -12,6 +12,16 @@ import { RouteSkeleton } from './RouteSkeleton';
 vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
 
 describe('Pending route landmarks', () => {
+  it('gives the pending homepage its own main landmark', () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <RouteSkeleton />
+      </MemoryRouter>,
+    );
+    expect(screen.getAllByRole('main')).toHaveLength(1);
+    expect(screen.getByRole('main')).toHaveAttribute('id', 'website-main');
+  });
+
   it.each([
     '/colors',
     '/fonts',

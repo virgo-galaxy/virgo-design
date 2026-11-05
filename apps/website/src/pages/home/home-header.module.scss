@@ -1,0 +1,165 @@
+.header {
+  z-index: 300;
+  gap: 24px;
+  height: var(--home-header-height);
+  color: var(--layout-text);
+  background: color-mix(in srgb, var(--layout-page) 92%, transparent);
+  backdrop-filter: blur(16px);
+}
+
+.brand {
+  --virgo-brand-logo-height: 34px;
+  --virgo-brand-gap: 10px;
+  --virgo-brand-font-size: 24px;
+  --virgo-brand-font-weight: 650;
+  --virgo-brand-name-line-height: 1;
+  --virgo-brand-letter-spacing: -0.035em;
+}
+
+.header > [data-slot='header-content'] {
+  align-self: stretch;
+}
+
+.navigation {
+  --navigation-menu-gap: clamp(20px, 2.5vw, 48px);
+  align-self: stretch;
+}
+
+.navigation [data-slot='list'] {
+  height: 100%;
+  align-items: stretch;
+}
+
+.navigation [data-vd-navigation-menu-control] {
+  position: relative;
+  height: 100%;
+  padding-inline: 6px;
+  border-radius: 0;
+  color: var(--layout-text);
+  background: transparent;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.navigation [data-vd-navigation-menu-control][data-active='true'] {
+  color: var(--layout-text);
+  background: transparent;
+}
+
+.navigation [data-vd-navigation-menu-control][data-active='true']::after {
+  position: absolute;
+  right: 6px;
+  bottom: 13px;
+  left: 6px;
+  height: 2px;
+  background: var(--vd-brand-primary);
+  content: '';
+}
+
+.navigation [data-vd-navigation-menu-control]:hover {
+  color: var(--vd-brand-link);
+  background: transparent;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.github {
+  display: grid;
+  min-width: 36px;
+  min-height: 36px;
+  place-items: center;
+  color: inherit;
+}
+.github:hover {
+  color: var(--vd-brand-link);
+}
+.github:focus-visible {
+  outline: 2px solid var(--vd-border-focus);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.language {
+  min-width: 92px;
+  height: 34px;
+  border-radius: 10px;
+  padding-inline: 14px;
+  background: transparent;
+}
+.actions .appearance[data-icon-only='true'] {
+  --button-icon-size: 24px;
+  color: var(--vd-brand-primary);
+}
+
+.compactLanguage {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .brand {
+    --virgo-brand-font-size: 20px;
+    --virgo-brand-logo-height: 30px;
+  }
+  .actions {
+    gap: 12px;
+  }
+  .navigation {
+    --navigation-menu-gap: 16px;
+  }
+}
+
+@media (max-width: 760px) {
+  .header {
+    gap: 8px;
+    padding-inline: 16px;
+  }
+  .brand > span {
+    display: none;
+  }
+  .actions {
+    gap: 6px;
+  }
+  .github {
+    display: none;
+  }
+  .language {
+    min-width: 60px;
+    padding-inline: 8px;
+  }
+  .navigation {
+    --navigation-menu-gap: 10px;
+  }
+  .navigation [data-vd-navigation-menu-control] {
+    font-size: 13px;
+    padding-inline: 3px;
+  }
+  .fullLanguage {
+    display: none;
+  }
+  .compactLanguage {
+    display: inline;
+  }
+  .navigation [data-vd-navigation-menu-control][data-active='true']::after {
+    bottom: 11px;
+  }
+}
+
+@media (max-width: 370px) {
+  .header {
+    gap: 6px;
+    padding-inline: 10px;
+  }
+  .language {
+    min-width: 54px;
+    padding-inline: 6px;
+  }
+  .navigation {
+    --navigation-menu-gap: 2px;
+  }
+  .navigation [data-vd-navigation-menu-control] {
+    font-size: 12px;
+  }
+}

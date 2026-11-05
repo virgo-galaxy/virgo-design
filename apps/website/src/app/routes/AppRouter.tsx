@@ -1,11 +1,15 @@
 import { lazy, Suspense } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { PageSkeleton } from '@/components/loading/PageSkeleton';
 import { StandaloneExamplePage } from '@/pages/examples/StandaloneExamplePage';
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
 
 import { RouteSkeleton } from './RouteSkeleton';
+
+const HomePage = lazy(() =>
+  import('@/pages/home/HomePage').then((module) => ({ default: module.HomePage })),
+);
 
 const ThemesPage = lazy(() =>
   import('@/pages/themes/ThemesPage').then((module) => ({ default: module.ThemesPage })),
@@ -117,7 +121,7 @@ export function AppRouter() {
   return (
     <Suspense fallback={<RouteSkeleton />}>
       <Routes>
-        <Route path={ROUTE_PATHS.root} element={<Navigate to={ROUTE_PATHS.colors} replace />} />
+        <Route path={ROUTE_PATHS.root} element={<HomePage />} />
         <Route path={ROUTE_PATHS.themes} element={<ThemesPage />} />
         <Route path={ROUTE_PATHS.charts} element={<ChartsPage />} />
         <Route path={ROUTE_PATHS.colors} element={<ColorsPage />} />

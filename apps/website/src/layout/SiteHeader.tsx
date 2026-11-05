@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 
 import { VirgoBrand } from '@/components/brand/VirgoBrand/VirgoBrand';
-import { PRIMARY_NAVIGATION_ITEMS } from '@/shared/routes/route-config';
+import { getPrimaryNavigationItems } from '@/shared/routes/route-config';
 
 import { GlobalControls } from './components/global-controls/GlobalControls';
 
@@ -11,7 +11,7 @@ import styles from './layout.module.scss';
 
 function activePrimaryNavigation(pathname: string) {
   return (
-    PRIMARY_NAVIGATION_ITEMS.find(
+    getPrimaryNavigationItems(pathname).find(
       (item) => pathname === item.path || pathname.startsWith(`${item.path}/`),
     )?.path ?? ''
   );
@@ -38,7 +38,7 @@ export function SiteHeader() {
         value={activePrimaryNavigation(pathname)}
       >
         <NavigationMenu.List>
-          {PRIMARY_NAVIGATION_ITEMS.map((item) => (
+          {getPrimaryNavigationItems(pathname).map((item) => (
             <NavigationMenu.Item key={item.path} value={item.path}>
               <NavigationMenu.Link render={(linkProps) => <Link {...linkProps} to={item.path} />}>
                 {t(item.label)}
