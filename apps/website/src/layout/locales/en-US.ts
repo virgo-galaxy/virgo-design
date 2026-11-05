@@ -6,7 +6,6 @@ export const layoutEnUS = {
     charts: 'Charts',
     skipToContent: 'Skip to main content',
     label: 'Primary navigation',
-    foundations: 'Foundations',
     tokens: 'Tokens',
     components: 'Components',
     primitives: 'Primitives',

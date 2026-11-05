@@ -10,9 +10,12 @@ export function RouteSkeleton() {
   const { pathname } = useLocation();
   const path = pathname.replace(/\/+$/, '');
   const document =
-    path.startsWith(`${ROUTE_PATHS.components}/`) || path.startsWith(`${ROUTE_PATHS.primitives}/`);
+    path.startsWith(`${ROUTE_PATHS.tokens}/`) ||
+    path.startsWith(`${ROUTE_PATHS.components}/`) ||
+    path.startsWith(`${ROUTE_PATHS.primitives}/`);
   const standalone = path.startsWith('/examples/');
   const catalogue =
+    path === ROUTE_PATHS.tokens ||
     path === ROUTE_PATHS.colors ||
     path === ROUTE_PATHS.components ||
     path === ROUTE_PATHS.primitives ||

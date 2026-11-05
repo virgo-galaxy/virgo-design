@@ -13,7 +13,7 @@ import { AppLayout } from './AppLayout';
 vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
 
 describe('Website landmarks', () => {
-  it.each(['/components', '/components/', '/primitives', '/primitives/', '/tokens/typography'])(
+  it.each(['/components', '/components/', '/primitives', '/primitives/', '/tokens', '/tokens/'])(
     'gives %s one main region and a keyboard reachable skip target',
     async (pathname) => {
       render(
@@ -35,7 +35,7 @@ describe('Website landmarks', () => {
     },
   );
 
-  it.each(['/components/button', '/primitives/calendar'])(
+  it.each(['/components/button', '/primitives/calendar', '/tokens/semantic/typography'])(
     'lets the detail shell own the main region on %s',
     (pathname) => {
       render(

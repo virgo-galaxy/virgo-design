@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 
 import { useAppearance } from '@/shared/theme/use-appearance';
 
+import { TokenPage, TokenSection } from '../TokenPage';
 import { DepthScalePreview } from './components/DepthScalePreview';
 import { ShapeScalePreview } from './components/ShapeScalePreview';
-import { FoundationPage, FoundationSection } from './FoundationPage';
 
-import styles from './foundation-tokens.module.scss';
+import styles from '../token-page.module.scss';
 
 export function ShapeDepthPage() {
   const { t } = useTranslation();
@@ -15,12 +15,12 @@ export function ShapeDepthPage() {
   const theme = themes[appearance];
 
   return (
-    <FoundationPage
-      title={t('foundations.shapeDepth.title')}
-      description={t('foundations.shapeDepth.description')}
+    <TokenPage
+      title={t('tokens.foundations.shapeDepth.title')}
+      description={t('tokens.foundations.shapeDepth.description')}
     >
       <div className={styles.splitSections}>
-        <FoundationSection title={t('foundations.shapeDepth.borderWidth')}>
+        <TokenSection title={t('tokens.foundations.shapeDepth.borderWidth')}>
           <div className={styles.borderList}>
             {Object.entries(borderWidth).map(([name, value]) => (
               <article key={name} className={styles.borderRow}>
@@ -32,9 +32,9 @@ export function ShapeDepthPage() {
               </article>
             ))}
           </div>
-        </FoundationSection>
+        </TokenSection>
 
-        <FoundationSection title={t('foundations.shapeDepth.borderStyle')}>
+        <TokenSection title={t('tokens.foundations.shapeDepth.borderStyle')}>
           <div className={styles.borderList}>
             {Object.entries(borderStyle).map(([name, value]) => (
               <article key={name} className={styles.borderRow}>
@@ -46,10 +46,10 @@ export function ShapeDepthPage() {
               </article>
             ))}
           </div>
-        </FoundationSection>
+        </TokenSection>
       </div>
 
-      <FoundationSection title={t('foundations.shapeDepth.radius')}>
+      <TokenSection title={t('tokens.foundations.shapeDepth.radius')}>
         <div className={styles.radiusGrid}>
           {Object.entries(radius).map(([name, value]) => (
             <article key={name} className={styles.radiusCard}>
@@ -61,20 +61,20 @@ export function ShapeDepthPage() {
             </article>
           ))}
         </div>
-      </FoundationSection>
+      </TokenSection>
 
-      <FoundationSection
+      <TokenSection
         id="shape-scale-preview"
-        eyebrow={t('foundations.shapeDepth.preview.eyebrow')}
-        title={t('foundations.shapeDepth.preview.title')}
-        description={t('foundations.shapeDepth.preview.description')}
+        eyebrow={t('tokens.foundations.shapeDepth.preview.eyebrow')}
+        title={t('tokens.foundations.shapeDepth.preview.title')}
+        description={t('tokens.foundations.shapeDepth.preview.description')}
       >
         <ShapeScalePreview />
-      </FoundationSection>
+      </TokenSection>
 
-      <FoundationSection
-        title={t('foundations.shapeDepth.elevation')}
-        description={t('foundations.shapeDepth.elevationDescription')}
+      <TokenSection
+        title={t('tokens.foundations.shapeDepth.elevation')}
+        description={t('tokens.foundations.shapeDepth.elevationDescription')}
       >
         <div className={styles.elevationGrid}>
           {elevationLevels.map((level) => (
@@ -88,16 +88,16 @@ export function ShapeDepthPage() {
             </article>
           ))}
         </div>
-      </FoundationSection>
+      </TokenSection>
 
-      <FoundationSection
+      <TokenSection
         id="depth-scale-preview"
-        eyebrow={t('foundations.shapeDepth.depthPreview.eyebrow')}
-        title={t('foundations.shapeDepth.depthPreview.title')}
-        description={t('foundations.shapeDepth.depthPreview.description')}
+        eyebrow={t('tokens.foundations.shapeDepth.depthPreview.eyebrow')}
+        title={t('tokens.foundations.shapeDepth.depthPreview.title')}
+        description={t('tokens.foundations.shapeDepth.depthPreview.description')}
       >
         <DepthScalePreview />
-      </FoundationSection>
-    </FoundationPage>
+      </TokenSection>
+    </TokenPage>
   );
 }

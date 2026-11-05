@@ -248,10 +248,10 @@ import { foundationColorsEnUS } from '@/pages/colors/locales/en-US';
 import { foundationColorsZhCN } from '@/pages/colors/locales/zh-CN';
 import { standaloneEnUS } from '@/pages/examples/locales/en-US';
 import { standaloneZhCN } from '@/pages/examples/locales/zh-CN';
-import { foundationsEnUS } from '@/pages/foundations/locales/en-US';
-import { foundationsZhCN } from '@/pages/foundations/locales/zh-CN';
 import { themesEnUS } from '@/pages/themes/locales/en-US';
 import { themesZhCN } from '@/pages/themes/locales/zh-CN';
+import { foundationsEnUS } from '@/pages/tokens/foundations/locales/en-US';
+import { foundationsZhCN } from '@/pages/tokens/foundations/locales/zh-CN';
 import { tokensEnUS } from '@/pages/tokens/locales/en-US';
 import { tokensZhCN } from '@/pages/tokens/locales/zh-CN';
 
@@ -264,13 +264,12 @@ export const enUS = {
   icons: iconsEnUS,
   app: layoutEnUS,
   foundations: {
-    ...foundationsEnUS,
     ...foundationColorsEnUS,
     ...colorStudioEnUS,
     ...paletteGalleryEnUS,
     ...foundationColorExportEnUS,
   },
-  tokens: tokensEnUS,
+  tokens: { ...tokensEnUS, foundations: foundationsEnUS },
   examples: {
     standalone: standaloneEnUS,
     steps: stepsExamplesEnUS,
@@ -410,13 +409,12 @@ export const zhCN = {
   icons: iconsZhCN,
   app: layoutZhCN,
   foundations: {
-    ...foundationsZhCN,
     ...foundationColorsZhCN,
     ...colorStudioZhCN,
     ...paletteGalleryZhCN,
     ...foundationColorExportZhCN,
   },
-  tokens: tokensZhCN,
+  tokens: { ...tokensZhCN, foundations: foundationsZhCN },
   examples: {
     standalone: standaloneZhCN,
     steps: stepsExamplesZhCN,

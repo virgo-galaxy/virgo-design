@@ -23,12 +23,16 @@ export function FontFamilyPreview() {
             style={{ '--family-preview-font': definition.family } as CSSProperties}
           >
             <header>
-              <span>{t(`foundations.typography.fontFamilyRoles.${role}`)}</span>
+              <span>{t(`tokens.foundations.typography.fontFamilyRoles.${role}`)}</span>
               <h3>{definition.name}</h3>
             </header>
-            <p>{role === 'sans' ? t('foundations.typography.fontFamilySpecimen') : monoSpecimen}</p>
+            <p>
+              {role === 'sans'
+                ? t('tokens.foundations.typography.fontFamilySpecimen')
+                : monoSpecimen}
+            </p>
             <div className={styles.stack}>
-              <span>{t('foundations.typography.fontFamilyStack')}</span>
+              <span>{t('tokens.foundations.typography.fontFamilyStack')}</span>
               <code>{definition.family}</code>
             </div>
           </article>

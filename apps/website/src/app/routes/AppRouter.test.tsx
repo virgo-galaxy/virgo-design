@@ -1,12 +1,12 @@
 import '@/i18n';
 
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { floatingActionMetadata } from '@virgo-design/ui/metadata';
 import { MemoryRouter, useLocation } from 'react-router-dom';
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { primitiveDocs } from '@/features/primitives/primitiveDocs';
-import { DocumentationNavigationDock } from '@/layout/DocumentationNavigationDock';
 import { AppearanceContext } from '@/shared/theme/appearance-context';
 
 import { AppRouter } from './AppRouter';
@@ -42,7 +42,6 @@ function renderRoute(path: string) {
   return render(
     <AppearanceContext.Provider value={{ appearance: 'light', setAppearance: () => {} }}>
       <MemoryRouter initialEntries={[path]}>
-        <DocumentationNavigationDock />
         <AppRouter />
         <CurrentPath />
       </MemoryRouter>
@@ -55,29 +54,48 @@ function findRouteHeading(name: string) {
 }
 
 describe('Token routes', () => {
-  it('redirects /tokens to the formal Color Semantic page', async () => {
-    renderRoute('/tokens');
+  it('opens the mobile contents and closes it after selecting a page', async () => {
+    const user = userEvent.setup();
+    renderRoute('/tokens/foundations/layout');
+    await findRouteHeading('Spacing & sizing');
 
-    await findRouteHeading('Semantic colors');
-    const navigation = screen.getByRole('navigation', { name: 'Token categories' });
+    const trigger = screen.getByRole('button', { name: 'Token contents' });
+    await user.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    const navigation = screen.getByRole('navigation', { name: 'Mobile token navigation' });
+    await user.click(within(navigation).getByRole('link', { name: 'Motion' }));
 
-    expect(navigation).toHaveAttribute('data-variant', 'segmented');
-    expect(navigation.querySelectorAll('[data-slot="separator"]')).toHaveLength(1);
-    expect(navigation.querySelectorAll('[data-slot="icon"]')).toHaveLength(2);
-    expect(
-      within(navigation).getByRole('link', { name: 'Colors' }).getAttribute('aria-current'),
-    ).toBe('page');
-    expect(within(navigation).getByRole('link', { name: 'Typography' }).getAttribute('href')).toBe(
-      '/tokens/typography',
-    );
+    await findRouteHeading('Motion');
+    expect(screen.getByTestId('current-path')).toHaveTextContent('/tokens/foundations/motion');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.getByRole('main')).toHaveFocus();
   });
 
-  it('renders the formal Semantic Typography page', async () => {
-    renderRoute('/tokens/typography');
+  it('opens the complete token overview without a sidebar', async () => {
+    renderRoute('/tokens');
+
+    await findRouteHeading('Design tokens');
+    expect(screen.queryByRole('navigation', { name: 'Token navigation' })).toBeNull();
+    expect(document.querySelector('[data-docs-sidebar]')).toBeNull();
+    expect(
+      screen.getByRole('heading', { level: 2, name: 'Foundation values' }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Semantic tokens' })).toBeInTheDocument();
+    expect(document.querySelectorAll('[data-docs-page="tokens"] a')).toHaveLength(6);
+    expect(screen.getByText('@virgo-design/tokens')).toBeInTheDocument();
+  });
+
+  it('keeps semantic typography separate from the foundation scale', async () => {
+    renderRoute('/tokens/semantic/typography');
 
     await findRouteHeading('Semantic Typography');
     expect(screen.getByRole('table', { name: 'Document Typography' })).toBeTruthy();
     expect(screen.getByRole('table', { name: 'UI Typography' })).toBeTruthy();
+    expect(
+      within(screen.getByRole('navigation', { name: 'Token navigation' })).getByRole('link', {
+        name: 'Semantic Typography',
+      }),
+    ).toHaveAttribute('aria-current', 'page');
   });
 });
 
@@ -321,34 +339,25 @@ describe('Color routes', () => {
   });
 });
 
-describe('Foundation routes', () => {
-  it('opens the first remaining foundation category from /foundations', async () => {
-    renderRoute('/foundations');
-
-    await findRouteHeading('Typography');
-    expect(screen.getByTestId('current-path')).toHaveTextContent('/foundations/typography');
-  });
-
+describe('Grouped token pages', () => {
   it.each([
-    ['/foundations/typography', 'Typography'],
-    ['/foundations/layout', 'Layout'],
-    ['/foundations/shape-depth', 'Shape & Depth'],
-    ['/foundations/motion', 'Motion'],
-  ])('keeps %s available', async (path, heading) => {
+    ['/tokens/foundations/typography', 'Typography scale', 'Foundation values'],
+    ['/tokens/foundations/layout', 'Spacing & sizing', 'Foundation values'],
+    ['/tokens/foundations/shape-depth', 'Shape & Depth', 'Foundation values'],
+    ['/tokens/foundations/motion', 'Motion', 'Foundation values'],
+    ['/tokens/semantic/colors', 'Semantic colors', 'Semantic tokens'],
+  ])('opens %s within the shared documentation shell', async (path, heading, group) => {
     renderRoute(path);
 
     await findRouteHeading(heading);
+    const navigation = screen.getByRole('navigation', { name: 'Token navigation' });
     expect(
-      within(screen.getByRole('navigation', { name: 'Foundation categories' })).queryByRole(
-        'link',
-        { name: 'Colors' },
-      ),
-    ).toBeNull();
-    expect(
-      within(screen.getByRole('navigation', { name: 'Foundation categories' })).queryByRole(
-        'link',
-        { name: 'Icons' },
-      ),
-    ).toBeNull();
+      within(within(navigation).getByRole('group', { name: group })).getByRole('link', {
+        name: heading,
+      }),
+    ).toHaveAttribute('aria-current', 'page');
+    expect(document.querySelector('[data-docs-detail-shell]')).toBeInTheDocument();
+    expect(document.querySelector('[data-documentation-navigation]')).toBeNull();
+    expect(screen.getByRole('navigation', { name: 'Breadcrumb' })).toHaveTextContent(group);
   });
 });

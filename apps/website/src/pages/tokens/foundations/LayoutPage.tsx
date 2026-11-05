@@ -1,22 +1,22 @@
 import { sizing, spacing } from '@virgo-design/tokens';
 import { useTranslation } from 'react-i18next';
 
+import { TokenPage, TokenSection } from '../TokenPage';
 import { LayoutScalePreview } from './components/LayoutScalePreview';
-import { FoundationPage, FoundationSection } from './FoundationPage';
 
-import styles from './foundation-tokens.module.scss';
+import styles from '../token-page.module.scss';
 
 export function LayoutPage() {
   const { t } = useTranslation();
 
   return (
-    <FoundationPage
-      title={t('foundations.layout.title')}
-      description={t('foundations.layout.description')}
+    <TokenPage
+      title={t('tokens.foundations.layout.title')}
+      description={t('tokens.foundations.layout.description')}
     >
-      <FoundationSection
-        title={t('foundations.layout.spacing')}
-        description={t('foundations.layout.spacingDescription')}
+      <TokenSection
+        title={t('tokens.foundations.layout.spacing')}
+        description={t('tokens.foundations.layout.spacingDescription')}
       >
         <div className={styles.spacingList}>
           {Object.entries(spacing).map(([name, value]) => (
@@ -31,11 +31,11 @@ export function LayoutPage() {
             </article>
           ))}
         </div>
-      </FoundationSection>
+      </TokenSection>
 
-      <FoundationSection
-        title={t('foundations.layout.sizing')}
-        description={t('foundations.layout.sizingDescription')}
+      <TokenSection
+        title={t('tokens.foundations.layout.sizing')}
+        description={t('tokens.foundations.layout.sizingDescription')}
       >
         <div className={styles.sizingGrid}>
           {Object.entries(sizing).map(([name, value]) => (
@@ -50,16 +50,16 @@ export function LayoutPage() {
             </article>
           ))}
         </div>
-      </FoundationSection>
+      </TokenSection>
 
-      <FoundationSection
+      <TokenSection
         id="scale-preview"
-        eyebrow={t('foundations.layout.preview.eyebrow')}
-        title={t('foundations.layout.preview.title')}
-        description={t('foundations.layout.preview.description')}
+        eyebrow={t('tokens.foundations.layout.preview.eyebrow')}
+        title={t('tokens.foundations.layout.preview.title')}
+        description={t('tokens.foundations.layout.preview.description')}
       >
         <LayoutScalePreview />
-      </FoundationSection>
-    </FoundationPage>
+      </TokenSection>
+    </TokenPage>
   );
 }

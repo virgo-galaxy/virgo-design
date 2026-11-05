@@ -39,7 +39,7 @@ describe('SiteHeader', () => {
   });
 
   it('self-hosts the site header with fixed Layout composition and NavigationMenu state', () => {
-    renderHeader('/foundations/typography');
+    renderHeader('/tokens/foundations/typography');
 
     const header = screen.getByRole('banner');
     const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
@@ -65,7 +65,7 @@ describe('SiteHeader', () => {
       'data-decorative',
       '',
     );
-    expect(within(navigation).getByRole('link', { name: 'Foundations' })).toHaveAttribute(
+    expect(within(navigation).getByRole('link', { name: 'Tokens' })).toHaveAttribute(
       'aria-current',
       'page',
     );
@@ -83,7 +83,7 @@ describe('SiteHeader', () => {
     expect(await screen.findByRole('group', { name: '全局控制' })).toBeInTheDocument();
   });
 
-  it('orders the product areas from Colors and Foundations through Tokens to Charts', () => {
+  it('orders the product areas from Colors through Tokens to Charts', () => {
     renderHeader();
 
     const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
@@ -94,7 +94,6 @@ describe('SiteHeader', () => {
         .map((link) => [link.textContent, link.getAttribute('href')]),
     ).toEqual([
       ['Colors', '/colors'],
-      ['Foundations', '/foundations'],
       ['Tokens', '/tokens'],
       ['Themes', '/themes'],
       ['Icons', '/icons'],
@@ -105,7 +104,7 @@ describe('SiteHeader', () => {
     expect(within(navigation).queryByRole('link', { name: 'Resources' })).not.toBeInTheDocument();
   });
 
-  it('keeps Colors active independently of Foundations', () => {
+  it('keeps Colors active independently of Tokens', () => {
     renderHeader('/colors');
 
     const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
@@ -113,7 +112,7 @@ describe('SiteHeader', () => {
       'aria-current',
       'page',
     );
-    expect(within(navigation).getByRole('link', { name: 'Foundations' })).not.toHaveAttribute(
+    expect(within(navigation).getByRole('link', { name: 'Tokens' })).not.toHaveAttribute(
       'aria-current',
     );
   });
@@ -126,7 +125,7 @@ describe('SiteHeader', () => {
       'aria-current',
       'page',
     );
-    expect(within(navigation).getByRole('link', { name: 'Foundations' })).not.toHaveAttribute(
+    expect(within(navigation).getByRole('link', { name: 'Tokens' })).not.toHaveAttribute(
       'aria-current',
     );
   });

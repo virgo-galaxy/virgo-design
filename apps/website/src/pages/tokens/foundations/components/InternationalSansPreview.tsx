@@ -63,7 +63,7 @@ export function InternationalSansPreview() {
     >
       <Tabs.List
         className={styles.localeOptions!}
-        aria-label={t('foundations.typography.internationalSans.localeSelector')}
+        aria-label={t('tokens.foundations.typography.internationalSans.localeSelector')}
       >
         {internationalSansOrder.map((id) => {
           const option = internationalSans[id];
@@ -77,7 +77,7 @@ export function InternationalSansPreview() {
               type="button"
               title={option.name}
             >
-              <strong>{t(`foundations.typography.internationalSans.locales.${id}`)}</strong>
+              <strong>{t(`tokens.foundations.typography.internationalSans.locales.${id}`)}</strong>
               <span>{option.locale}</span>
             </Tabs.Tab>
           );
@@ -90,34 +90,36 @@ export function InternationalSansPreview() {
             <section className={styles.specimen!} lang={specimen.lang}>
               <header className={styles.specimenHeader!}>
                 <div>
-                  <span>{t('foundations.typography.internationalSans.activeStack')}</span>
+                  <span>{t('tokens.foundations.typography.internationalSans.activeStack')}</span>
                   <h3>{definition.name}</h3>
                 </div>
               </header>
 
               <div className={styles.languageSample!}>
-                <span>{t(`foundations.typography.internationalSans.locales.${activeId}`)}</span>
+                <span>
+                  {t(`tokens.foundations.typography.internationalSans.locales.${activeId}`)}
+                </span>
                 <strong>{specimen.language}</strong>
                 <p>{specimen.mixed}</p>
               </div>
 
               <dl className={styles.stackDetails!}>
                 <div>
-                  <dt>{t('foundations.typography.internationalSans.locale')}</dt>
+                  <dt>{t('tokens.foundations.typography.internationalSans.locale')}</dt>
                   <dd>{definition.locale}</dd>
                 </div>
                 <div>
-                  <dt>{t('foundations.typography.internationalSans.latin')}</dt>
+                  <dt>{t('tokens.foundations.typography.internationalSans.latin')}</dt>
                   <dd>{internationalSans.latin.name}</dd>
                 </div>
                 <div>
-                  <dt>{t('foundations.typography.internationalSans.script')}</dt>
+                  <dt>{t('tokens.foundations.typography.internationalSans.script')}</dt>
                   <dd>{definition.name}</dd>
                 </div>
               </dl>
 
               <div className={styles.stackValue!}>
-                <span>{t('foundations.typography.internationalSans.stack')}</span>
+                <span>{t('tokens.foundations.typography.internationalSans.stack')}</span>
                 <code>{definition.family}</code>
               </div>
             </section>

@@ -98,8 +98,8 @@ describe('LayoutScalePreview', () => {
         </I18nextProvider>,
       );
 
-      expect(localizedI18n.t('foundations.layout.preview.eyebrow')).toBe(eyebrow);
-      expect(localizedI18n.t('foundations.layout.preview.title')).toBe(title);
+      expect(localizedI18n.t('tokens.foundations.layout.preview.eyebrow')).toBe(eyebrow);
+      expect(localizedI18n.t('tokens.foundations.layout.preview.title')).toBe(title);
       expect(within(container).getByRole('heading', { level: 4, name: combinations })).toBeTruthy();
       expect(within(container).getByText(disclaimer)).toBeTruthy();
 
@@ -121,9 +121,9 @@ describe('LayoutScalePreview', () => {
       }
 
       const documentationText = [
-        localizedI18n.t('foundations.layout.preview.eyebrow'),
-        localizedI18n.t('foundations.layout.preview.title'),
-        localizedI18n.t('foundations.layout.preview.description'),
+        localizedI18n.t('tokens.foundations.layout.preview.eyebrow'),
+        localizedI18n.t('tokens.foundations.layout.preview.title'),
+        localizedI18n.t('tokens.foundations.layout.preview.description'),
         container.textContent,
       ].join(' ');
 

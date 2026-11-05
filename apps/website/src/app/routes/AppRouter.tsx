@@ -18,20 +18,34 @@ const ColorsPage = lazy(() =>
   import('@/pages/colors/ColorsPage').then((module) => ({ default: module.ColorsPage })),
 );
 const TypographyPage = lazy(() =>
-  import('@/pages/foundations/TypographyPage').then((module) => ({
+  import('@/pages/tokens/foundations/TypographyPage').then((module) => ({
     default: module.TypographyPage,
   })),
 );
 const LayoutPage = lazy(() =>
-  import('@/pages/foundations/LayoutPage').then((module) => ({ default: module.LayoutPage })),
+  import('@/pages/tokens/foundations/LayoutPage').then((module) => ({
+    default: module.LayoutPage,
+  })),
 );
 const ShapeDepthPage = lazy(() =>
-  import('@/pages/foundations/ShapeDepthPage').then((module) => ({
+  import('@/pages/tokens/foundations/ShapeDepthPage').then((module) => ({
     default: module.ShapeDepthPage,
   })),
 );
 const MotionPage = lazy(() =>
-  import('@/pages/foundations/MotionPage').then((module) => ({ default: module.MotionPage })),
+  import('@/pages/tokens/foundations/MotionPage').then((module) => ({
+    default: module.MotionPage,
+  })),
+);
+const TokensDocumentation = lazy(() =>
+  import('@/pages/tokens/TokensDocumentation').then((module) => ({
+    default: module.TokensDocumentation,
+  })),
+);
+const TokensOverviewPage = lazy(() =>
+  import('@/pages/tokens/TokensOverviewPage').then((module) => ({
+    default: module.TokensOverviewPage,
+  })),
 );
 const PrimitiveCataloguePage = lazy(() =>
   import('@/features/primitives/PrimitiveCataloguePage').then((module) => ({
@@ -101,25 +115,20 @@ export function AppRouter() {
     <Suspense fallback={<RouteSkeleton />}>
       <Routes>
         <Route path={ROUTE_PATHS.root} element={<Navigate to={ROUTE_PATHS.colors} replace />} />
-        <Route
-          path={ROUTE_PATHS.foundations}
-          element={<Navigate to={ROUTE_PATHS.foundationTypography} replace />}
-        />
         <Route path={ROUTE_PATHS.themes} element={<ThemesPage />} />
         <Route path={ROUTE_PATHS.charts} element={<ChartsPage />} />
         <Route path={ROUTE_PATHS.colors} element={<ColorsPage />} />
-        <Route path={ROUTE_PATHS.foundationTypography} element={<TypographyPage />} />
-        <Route path={ROUTE_PATHS.foundationLayout} element={<LayoutPage />} />
-        <Route path={ROUTE_PATHS.foundationShapeDepth} element={<ShapeDepthPage />} />
-        <Route path={ROUTE_PATHS.foundationMotion} element={<MotionPage />} />
         <Route path={ROUTE_PATHS.icons} element={<IconsPage />} />
         <Route path={`${ROUTE_PATHS.icons}/:iconId`} element={<IconsPage />} />
-        <Route
-          path={ROUTE_PATHS.tokens}
-          element={<Navigate to={ROUTE_PATHS.tokenColors} replace />}
-        />
-        <Route path={ROUTE_PATHS.tokenColors} element={<TokensColorPage />} />
-        <Route path={ROUTE_PATHS.tokenTypography} element={<TokensTypographyPage />} />
+        <Route path={ROUTE_PATHS.tokens} element={<TokensDocumentation />}>
+          <Route index element={<TokensOverviewPage />} />
+          <Route path={ROUTE_PATHS.tokenFoundationTypography} element={<TypographyPage />} />
+          <Route path={ROUTE_PATHS.tokenFoundationLayout} element={<LayoutPage />} />
+          <Route path={ROUTE_PATHS.tokenFoundationShapeDepth} element={<ShapeDepthPage />} />
+          <Route path={ROUTE_PATHS.tokenFoundationMotion} element={<MotionPage />} />
+          <Route path={ROUTE_PATHS.tokenColors} element={<TokensColorPage />} />
+          <Route path={ROUTE_PATHS.tokenTypography} element={<TokensTypographyPage />} />
+        </Route>
         <Route path={ROUTE_PATHS.componentExample} element={<StandaloneExamplePage />} />
         <Route path={ROUTE_PATHS.componentRoutes} element={<ComponentsDocumentationRoute />} />
         <Route path={ROUTE_PATHS.primitives} element={<PrimitiveCataloguePage />} />

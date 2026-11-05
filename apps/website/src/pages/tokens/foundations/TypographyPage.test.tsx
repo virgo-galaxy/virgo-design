@@ -14,7 +14,7 @@ describe('TypographyPage', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByRole('heading', { level: 1, name: 'Typography' })).toBeTruthy();
+    expect(screen.getByRole('heading', { level: 1, name: 'Typography scale' })).toBeTruthy();
     expect(screen.getByRole('heading', { level: 2, name: 'Font Family' })).toBeTruthy();
     expect(screen.queryByText('Document and UI semantic typography')).toBeNull();
     expect(screen.queryByText('Typography in context')).toBeNull();

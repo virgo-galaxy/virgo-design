@@ -20,7 +20,9 @@ describe('Pending route landmarks', () => {
     '/icons/settings',
     '/components/button',
     '/primitives/table',
-    '/tokens/colors',
+    '/tokens',
+    '/tokens/foundations/layout',
+    '/tokens/semantic/colors',
   ])('keeps one main landmark and the skip target while %s loads', (path) => {
     render(
       <AppearanceContext.Provider value={{ appearance: 'light', setAppearance: () => {} }}>

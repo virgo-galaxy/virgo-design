@@ -4,12 +4,27 @@ import { tokensEnUS } from './en-US';
 
 export const tokensZhCN = {
   navigation: {
-    label: '变量类别',
-    move: '移动变量导航',
-    colors: '颜色',
-    typography: '排版',
+    label: '变量导航',
+    sidebar: '变量侧栏',
+    mobileLabel: '移动端变量导航',
+    menu: '变量目录',
+    overview: '总览',
+    foundations: '基础值',
+    semantic: '语义变量',
   },
-  eyebrow: '设计变量 V1',
+  overview: {
+    title: '变量',
+    description:
+      'Virgo Design 界面共用的基础值与语义角色。从基础尺度出发，查看它们如何应用于颜色与排版。',
+    foundationsDescription: '可复用的排版、间距、尺寸、形状、层级与动效尺度。',
+    semanticDescription: '通过具名角色，定义基础值在界面中的具体用途。',
+    typographyDescription: '字体族、字号、字重与行高。',
+    layoutDescription: '用于组织界面元素的间距与尺寸尺度。',
+    shapeDepthDescription: '边框、圆角与跟随明暗模式的阴影层级。',
+    motionDescription: '动画时长尺度与缓动曲线。',
+    colorsDescription: '文字、表面、边框、交互与状态的颜色角色。',
+    semanticTypographyDescription: '文档、产品界面与代码的排版角色。',
+  },
   colors: {
     title: '语义颜色',
     description:

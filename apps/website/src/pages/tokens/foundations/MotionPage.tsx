@@ -2,9 +2,9 @@ import { duration, easing } from '@virgo-design/tokens';
 import { type CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { FoundationPage, FoundationSection } from './FoundationPage';
+import { TokenPage, TokenSection } from '../TokenPage';
 
-import styles from './foundation-tokens.module.scss';
+import styles from '../token-page.module.scss';
 
 type CubicBezier = readonly [number, number, number, number];
 
@@ -80,7 +80,7 @@ function EasingCurveCard({ name, value }: EasingCurveCardProps) {
         <circle className={styles.easingEndpoint} cx={plot.left} cy={plot.bottom} r="1" />
         <circle className={styles.easingEndpoint} cx={plot.right} cy={plot.top} r="1" />
         <text className={styles.easingAxisLabel} x="52" y="98" textAnchor="middle">
-          {t('foundations.motion.axes.time')}
+          {t('tokens.foundations.motion.axes.time')}
         </text>
         <text
           className={styles.easingAxisLabel}
@@ -89,7 +89,7 @@ function EasingCurveCard({ name, value }: EasingCurveCardProps) {
           textAnchor="middle"
           transform="rotate(-90 4 48)"
         >
-          {t('foundations.motion.axes.progress')}
+          {t('tokens.foundations.motion.axes.progress')}
         </text>
       </svg>
     </article>
@@ -101,13 +101,13 @@ export function MotionPage() {
   const maximumDuration = Math.max(...Object.values(duration).map(durationInMilliseconds));
 
   return (
-    <FoundationPage
-      title={t('foundations.motion.title')}
-      description={t('foundations.motion.description')}
+    <TokenPage
+      title={t('tokens.foundations.motion.title')}
+      description={t('tokens.foundations.motion.description')}
     >
-      <FoundationSection
-        title={t('foundations.motion.duration')}
-        description={t('foundations.motion.durationDescription')}
+      <TokenSection
+        title={t('tokens.foundations.motion.duration')}
+        description={t('tokens.foundations.motion.durationDescription')}
       >
         <div className={styles.durationList}>
           {Object.entries(duration).map(([name, value]) => (
@@ -130,20 +130,20 @@ export function MotionPage() {
             </article>
           ))}
         </div>
-      </FoundationSection>
+      </TokenSection>
 
-      <FoundationSection
-        title={t('foundations.motion.easing')}
-        description={t('foundations.motion.easingDescription')}
+      <TokenSection
+        title={t('tokens.foundations.motion.easing')}
+        description={t('tokens.foundations.motion.easingDescription')}
       >
         <div className={styles.easingRowGrid}>
           {Object.entries(easing).map(([name, value]) => (
             <EasingCurveCard key={name} name={name} value={value} />
           ))}
         </div>
-      </FoundationSection>
+      </TokenSection>
 
-      <p className={styles.motionDisclaimer}>{t('foundations.motion.disclaimer')}</p>
-    </FoundationPage>
+      <p className={styles.motionDisclaimer}>{t('tokens.foundations.motion.disclaimer')}</p>
+    </TokenPage>
   );
 }

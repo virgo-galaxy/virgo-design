@@ -100,7 +100,7 @@ describe('DepthScalePreview', () => {
         </I18nextProvider>,
       );
 
-      expect(localizedI18n.t('foundations.shapeDepth.depthPreview.title')).toBe(title);
+      expect(localizedI18n.t('tokens.foundations.shapeDepth.depthPreview.title')).toBe(title);
       expect(within(container).getByText(disclaimer)).toBeTruthy();
       for (const name of [elevation, layered]) {
         expect(within(container).getByRole('heading', { level: 4, name })).toBeTruthy();

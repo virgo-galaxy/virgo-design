@@ -1,14 +1,13 @@
 export const ROUTE_PATHS = {
   root: '/',
   colors: '/colors',
-  foundations: '/foundations',
-  foundationTypography: '/foundations/typography',
-  foundationLayout: '/foundations/layout',
-  foundationShapeDepth: '/foundations/shape-depth',
-  foundationMotion: '/foundations/motion',
   tokens: '/tokens',
-  tokenColors: '/tokens/colors',
-  tokenTypography: '/tokens/typography',
+  tokenFoundationTypography: '/tokens/foundations/typography',
+  tokenFoundationLayout: '/tokens/foundations/layout',
+  tokenFoundationShapeDepth: '/tokens/foundations/shape-depth',
+  tokenFoundationMotion: '/tokens/foundations/motion',
+  tokenColors: '/tokens/semantic/colors',
+  tokenTypography: '/tokens/semantic/typography',
   charts: '/charts',
   themes: '/themes',
   icons: '/icons',
@@ -21,23 +20,10 @@ export const ROUTE_PATHS = {
 
 export const PRIMARY_NAVIGATION_ITEMS = [
   { path: ROUTE_PATHS.colors, label: 'app.navigation.colors' },
-  { path: ROUTE_PATHS.foundations, label: 'app.navigation.foundations' },
   { path: ROUTE_PATHS.tokens, label: 'app.navigation.tokens' },
   { path: ROUTE_PATHS.themes, label: 'app.navigation.themes' },
   { path: ROUTE_PATHS.icons, label: 'app.navigation.icons' },
   { path: ROUTE_PATHS.primitives, label: 'app.navigation.primitives' },
   { path: ROUTE_PATHS.components, label: 'app.navigation.components' },
   { path: ROUTE_PATHS.charts, label: 'app.navigation.charts' },
-] as const;
-
-export const FOUNDATION_NAVIGATION_ITEMS = [
-  { path: ROUTE_PATHS.foundationTypography, label: 'foundations.navigation.typography' },
-  { path: ROUTE_PATHS.foundationLayout, label: 'foundations.navigation.layout' },
-  { path: ROUTE_PATHS.foundationShapeDepth, label: 'foundations.navigation.shapeDepth' },
-  { path: ROUTE_PATHS.foundationMotion, label: 'foundations.navigation.motion' },
-] as const;
-
-export const TOKEN_NAVIGATION_ITEMS = [
-  { path: ROUTE_PATHS.tokenColors, label: 'tokens.navigation.colors' },
-  { path: ROUTE_PATHS.tokenTypography, label: 'tokens.navigation.typography' },
 ] as const;

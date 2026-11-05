@@ -10,7 +10,6 @@ export const layoutZhCN = {
     charts: '图表',
     skipToContent: '跳转到主要内容',
     label: '主导航',
-    foundations: '基础',
     tokens: '变量',
     components: '组件',
     primitives: '原语',

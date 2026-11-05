@@ -8,9 +8,9 @@ import { i18nInstance } from '@/i18n/runtime';
 
 import { MotionPage } from './MotionPage';
 
-vi.mock('./FoundationPage', () => ({
-  FoundationPage: ({ children }: { children: ReactNode }) => <main>{children}</main>,
-  FoundationSection: ({
+vi.mock('../TokenPage', () => ({
+  TokenPage: ({ children }: { children: ReactNode }) => <main>{children}</main>,
+  TokenSection: ({
     title,
     description,
     children,
@@ -125,7 +125,7 @@ describe('MotionPage', () => {
     ({ locale, duration, easing, disclaimer }) => {
       const { localizedI18n, getByRole, getByText } = renderMotionPage(locale);
 
-      expect(localizedI18n.t('foundations.motion.duration')).toBe(duration);
+      expect(localizedI18n.t('tokens.foundations.motion.duration')).toBe(duration);
       expect(getByRole('heading', { level: 2, name: duration })).toBeTruthy();
       expect(getByRole('heading', { level: 2, name: easing })).toBeTruthy();
       expect(getByText(disclaimer)).toBeTruthy();

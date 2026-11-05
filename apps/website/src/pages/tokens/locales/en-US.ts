@@ -1,11 +1,27 @@
 export const tokensEnUS = {
   navigation: {
-    label: 'Token categories',
-    move: 'Move token navigation',
-    colors: 'Colors',
-    typography: 'Typography',
+    label: 'Token navigation',
+    sidebar: 'Token sidebar',
+    mobileLabel: 'Mobile token navigation',
+    menu: 'Token contents',
+    overview: 'Overview',
+    foundations: 'Foundation values',
+    semantic: 'Semantic tokens',
   },
-  eyebrow: 'TOKENS V1',
+  overview: {
+    title: 'Design tokens',
+    description:
+      'Shared foundation values and semantic roles for Virgo Design interfaces. Explore the scales, then see how they are applied to color and typography.',
+    foundationsDescription:
+      'Reusable values for typography, spacing, dimensions, shape, elevation, and motion.',
+    semanticDescription: 'Named roles describe how foundation values are used in an interface.',
+    typographyDescription: 'Font families, sizes, weights, and line heights.',
+    layoutDescription: 'Spacing and sizing scales for arranging interface elements.',
+    shapeDepthDescription: 'Borders, corner radii, and theme-aware elevation levels.',
+    motionDescription: 'Duration scales and easing curves.',
+    colorsDescription: 'Color roles for text, surfaces, borders, interactions, and status.',
+    semanticTypographyDescription: 'Typography roles for documents, product interfaces, and code.',
+  },
   colors: {
     title: 'Semantic colors',
     description:

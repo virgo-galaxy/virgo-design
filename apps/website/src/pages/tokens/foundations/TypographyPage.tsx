@@ -1,43 +1,43 @@
 import { fontSize, fontWeight, lineHeight } from '@virgo-design/tokens';
 import { useTranslation } from 'react-i18next';
 
+import { TokenPage, TokenSection } from '../TokenPage';
 import { FontFamilyPreview } from './components/FontFamilyPreview';
 import { InternationalSansPreview } from './components/InternationalSansPreview';
-import { FoundationPage, FoundationSection } from './FoundationPage';
 
-import styles from './foundation-tokens.module.scss';
+import styles from '../token-page.module.scss';
 
 const fontWeightLabelKeys = {
-  400: 'foundations.typography.fontWeights.regular',
-  500: 'foundations.typography.fontWeights.medium',
-  600: 'foundations.typography.fontWeights.semibold',
-  700: 'foundations.typography.fontWeights.bold',
+  400: 'tokens.foundations.typography.fontWeights.regular',
+  500: 'tokens.foundations.typography.fontWeights.medium',
+  600: 'tokens.foundations.typography.fontWeights.semibold',
+  700: 'tokens.foundations.typography.fontWeights.bold',
 } as const satisfies Record<keyof typeof fontWeight, string>;
 
 export function TypographyPage() {
   const { t } = useTranslation();
 
   return (
-    <FoundationPage
-      title={t('foundations.typography.title')}
-      description={t('foundations.typography.description')}
+    <TokenPage
+      title={t('tokens.foundations.typography.title')}
+      description={t('tokens.foundations.typography.description')}
     >
-      <FoundationSection
-        title={t('foundations.typography.fontFamily')}
-        description={t('foundations.typography.fontFamilyDescription')}
+      <TokenSection
+        title={t('tokens.foundations.typography.fontFamily')}
+        description={t('tokens.foundations.typography.fontFamilyDescription')}
       >
         <FontFamilyPreview />
-      </FoundationSection>
+      </TokenSection>
 
-      <FoundationSection
+      <TokenSection
         id="international-sans"
-        title={t('foundations.typography.internationalSans.title')}
-        description={t('foundations.typography.internationalSans.description')}
+        title={t('tokens.foundations.typography.internationalSans.title')}
+        description={t('tokens.foundations.typography.internationalSans.description')}
       >
         <InternationalSansPreview />
-      </FoundationSection>
+      </TokenSection>
 
-      <FoundationSection title={t('foundations.typography.fontSize')}>
+      <TokenSection title={t('tokens.foundations.typography.fontSize')}>
         <div className={styles.typeScale}>
           {Object.entries(fontSize).map(([name, value]) => (
             <article key={name} className={styles.typeScaleRow}>
@@ -49,10 +49,10 @@ export function TypographyPage() {
             </article>
           ))}
         </div>
-      </FoundationSection>
+      </TokenSection>
 
       <div className={styles.splitSections}>
-        <FoundationSection title={t('foundations.typography.fontWeight')}>
+        <TokenSection title={t('tokens.foundations.typography.fontWeight')}>
           <div className={styles.simpleList}>
             {Object.values(fontWeight).map((value) => (
               <article key={value} className={styles.simpleRow}>
@@ -64,11 +64,11 @@ export function TypographyPage() {
               </article>
             ))}
           </div>
-        </FoundationSection>
+        </TokenSection>
 
-        <FoundationSection
-          title={t('foundations.typography.lineHeight')}
-          description={t('foundations.typography.lineHeightDescription')}
+        <TokenSection
+          title={t('tokens.foundations.typography.lineHeight')}
+          description={t('tokens.foundations.typography.lineHeightDescription')}
         >
           <div className={styles.lineHeightGrid}>
             {Object.entries(lineHeight).map(([name, value]) => (
@@ -78,15 +78,15 @@ export function TypographyPage() {
                   <code>{value.toFixed(2)}</code>
                 </div>
                 <p style={{ lineHeight: value }}>
-                  {t('foundations.typography.lineHeightSample.first')}
+                  {t('tokens.foundations.typography.lineHeightSample.first')}
                   <br />
-                  {t('foundations.typography.lineHeightSample.second')}
+                  {t('tokens.foundations.typography.lineHeightSample.second')}
                 </p>
               </article>
             ))}
           </div>
-        </FoundationSection>
+        </TokenSection>
       </div>
-    </FoundationPage>
+    </TokenPage>
   );
 }

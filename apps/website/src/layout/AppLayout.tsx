@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
 import { useAppearance } from '@/shared/theme/use-appearance';
 
-import { DocumentationNavigationDock } from './DocumentationNavigationDock';
 import { SiteHeader } from './SiteHeader';
 
 import styles from './layout.module.scss';
@@ -20,6 +19,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   const { appearance } = useAppearance();
   const normalizedPathname = pathname.replace(/\/+$/, '');
   const detailOwnsMain =
+    normalizedPathname.startsWith(`${ROUTE_PATHS.tokens}/`) ||
     normalizedPathname.startsWith(`${ROUTE_PATHS.components}/`) ||
     normalizedPathname.startsWith(`${ROUTE_PATHS.primitives}/`);
   const Content = detailOwnsMain ? 'div' : 'main';
@@ -34,7 +34,6 @@ export function AppLayout({ children }: AppLayoutProps) {
         {t('app.navigation.skipToContent')}
       </a>
       <SiteHeader />
-      <DocumentationNavigationDock />
 
       <Content
         className={styles.content}

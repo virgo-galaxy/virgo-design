@@ -1,15 +1,6 @@
 export const foundationsEnUS = {
-  navigation: {
-    move: 'Move foundation navigation',
-    label: 'Foundation categories',
-    typography: 'Typography',
-    layout: 'Layout',
-    shapeDepth: 'Shape & Depth',
-    motion: 'Motion',
-  },
-  eyebrow: 'FOUNDATIONS V1',
   typography: {
-    title: 'Typography',
+    title: 'Typography scale',
     description:
       'Foundation specifications for font family, size, weight, and line height across Virgo Design.',
     fontFamily: 'Font Family',
@@ -57,7 +48,7 @@ export const foundationsEnUS = {
     },
   },
   layout: {
-    title: 'Layout',
+    title: 'Spacing & sizing',
     description:
       'Spacing controls the distance between elements. Sizing controls the dimensions of the elements themselves.',
     spacing: 'Spacing',

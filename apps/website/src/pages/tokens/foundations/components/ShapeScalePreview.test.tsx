@@ -116,8 +116,8 @@ describe('ShapeScalePreview', () => {
         </I18nextProvider>,
       );
 
-      expect(localizedI18n.t('foundations.shapeDepth.preview.eyebrow')).toBe(eyebrow);
-      expect(localizedI18n.t('foundations.shapeDepth.preview.title')).toBe(title);
+      expect(localizedI18n.t('tokens.foundations.shapeDepth.preview.eyebrow')).toBe(eyebrow);
+      expect(localizedI18n.t('tokens.foundations.shapeDepth.preview.title')).toBe(title);
       expect(within(container).getByText(disclaimer)).toBeTruthy();
       for (const name of [small, medium, full]) {
         expect(within(container).getByRole('heading', { level: 4, name })).toBeTruthy();

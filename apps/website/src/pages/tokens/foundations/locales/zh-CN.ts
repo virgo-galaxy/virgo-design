@@ -3,17 +3,8 @@ import type { LocaleOf } from '@/i18n/locale-types';
 import { foundationsEnUS } from './en-US';
 
 export const foundationsZhCN = {
-  navigation: {
-    move: '移动基础导航',
-    label: '基础类别',
-    typography: '排版',
-    layout: '布局',
-    shapeDepth: '形状与层级',
-    motion: '动效',
-  },
-  eyebrow: '基础规范 V1',
   typography: {
-    title: '排版',
+    title: '排版尺度',
     description: 'Virgo Design 的字体族、字号、字重与行高基础规范。',
     fontFamily: '字体族',
     fontFamilyDescription: 'Virgo Design 的正式 Sans 与 Mono 字体角色及其回退栈。',
@@ -58,7 +49,7 @@ export const foundationsZhCN = {
     },
   },
   layout: {
-    title: '布局基础',
+    title: '间距与尺寸',
     description: '间距控制元素之间的距离，尺寸控制对象自身的维度。',
     spacing: '间距',
     spacingDescription: '用于内边距、外边距、间距与空间节奏的基础值。',
