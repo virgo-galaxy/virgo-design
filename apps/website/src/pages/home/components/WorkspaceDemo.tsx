@@ -8,9 +8,9 @@ import {
   Field,
   Form,
   Input,
+  SegmentedControl,
   Select,
   Surface,
-  Tabs,
 } from '@virgo-design/ui';
 import { useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -37,6 +37,7 @@ const initialTasks: Task[] = [
 
 export function WorkspaceDemo() {
   const { t, i18n } = useTranslation();
+  const [activeView, setActiveView] = useState('tasks');
   const [tasks, setTasks] = useState(initialTasks);
   const [date, setDate] = useState('2026-09-26');
   const [calendarOpen, setCalendarOpen] = useState(true);
@@ -66,13 +67,21 @@ export function WorkspaceDemo() {
         radius={16}
         elevation={3}
       >
-        <Tabs defaultValue="tasks" variant="plain">
+        <div>
           <div className={styles.workspaceHeader}>
             <h2>{t('home.demo.workspace')}</h2>
-            <Tabs.List className={styles.workspaceTabs!} aria-label={t('home.demo.tabs')}>
-              <Tabs.Tab value="tasks">{t('home.demo.tasks')}</Tabs.Tab>
-              <Tabs.Tab value="files">{t('home.demo.files')}</Tabs.Tab>
-            </Tabs.List>
+            <SegmentedControl
+              className={styles.workspaceTabs!}
+              aria-label={t('home.demo.tabs')}
+              value={activeView}
+              onValueChange={setActiveView}
+              variant="soft"
+              size="small"
+              motion="slide"
+            >
+              <SegmentedControl.Item value="tasks">{t('home.demo.tasks')}</SegmentedControl.Item>
+              <SegmentedControl.Item value="files">{t('home.demo.files')}</SegmentedControl.Item>
+            </SegmentedControl>
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <Dialog.Trigger size="small" variant="primary">
                 {t('home.demo.newTask')}
@@ -127,7 +136,7 @@ export function WorkspaceDemo() {
               </Dialog.Portal>
             </Dialog>
           </div>
-          <Tabs.Panel value="tasks" className={styles.tasksPanel!}>
+          <div className={styles.tasksPanel} hidden={activeView !== 'tasks'}>
             <div className={styles.tasks}>
               {tasks.map((task) => {
                 const title = task.label ? t(`home.demo.${task.label}`) : task.name;
@@ -211,16 +220,16 @@ export function WorkspaceDemo() {
                 />
               </Surface>
             ) : null}
-          </Tabs.Panel>
-          <Tabs.Panel value="files" className={styles.filesPanel!}>
+          </div>
+          <div className={styles.filesPanel} hidden={activeView !== 'files'}>
             {['design-tokens.json', 'workspace.tsx', 'theme.css', 'README.md'].map((file) => (
               <div className={styles.fileRow} key={file}>
                 <FileTextIcon size={18} aria-hidden="true" />
                 <span>{file}</span>
               </div>
             ))}
-          </Tabs.Panel>
-        </Tabs>
+          </div>
+        </div>
       </Surface>
     </div>
   );

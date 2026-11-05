@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/virgo-galaxy/virgo-design">
+  <a href="https://virgo-design.vercel.app/">
     <img src="packages/icons/brands/virgo-design.svg" alt="Virgo Design 标志" width="160" height="128" />
   </a>
 </p>
@@ -26,6 +26,11 @@
 
 <p align="center">
   <a href="README.md">English</a> | 简体中文
+</p>
+
+<p align="center">
+  <a href="https://virgo-design.vercel.app/">官网与文档</a> ·
+  <a href="https://virgo-design-pro.vercel.app/">Pro 演示</a>
 </p>
 
 Virgo Design 是一套 React 设计系统，提供组件、交互原语、图标、图表、设计 Tokens、主题、字体和颜色工具。

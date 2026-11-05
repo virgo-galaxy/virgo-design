@@ -1,5 +1,5 @@
 import { Chart } from '@virgo-design/charts';
-import { Avatar, Button, Checkbox, Select, Surface, Switch } from '@virgo-design/ui';
+import { Avatar, Checkbox, SegmentedControl, Select, Surface, Switch } from '@virgo-design/ui';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -45,19 +45,21 @@ export function OverviewDemo({
     >
       <div className={styles.overviewHeader}>
         <h3>{t('home.demo.overview')}</h3>
-        <Button.Group size="mini" aria-label={t('home.demo.period')}>
+        <SegmentedControl
+          className={styles.periodControl!}
+          size="mini"
+          variant="soft"
+          motion="slide"
+          aria-label={t('home.demo.period')}
+          value={period}
+          onValueChange={(value) => setPeriod(value as 'week' | 'month')}
+        >
           {(['week', 'month'] as const).map((value) => (
-            <Button
-              key={value}
-              size="mini"
-              variant={period === value ? 'secondary' : 'text'}
-              aria-pressed={period === value}
-              onClick={() => setPeriod(value)}
-            >
+            <SegmentedControl.Item key={value} value={value}>
               {t(`home.demo.${value}`)}
-            </Button>
+            </SegmentedControl.Item>
           ))}
-        </Button.Group>
+        </SegmentedControl>
       </div>
       <Chart.Root
         data={data}

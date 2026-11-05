@@ -1,6 +1,7 @@
 import {
   ArrowRightIcon,
   CheckIcon,
+  GithubIcon,
   LockIcon,
   MoonFilledIcon,
   SunFilledIcon,
@@ -57,10 +58,10 @@ export function LoginForm({
           '[min-height:100dvh] flex flex-col text-text-primary relative [isolation:isolate] overflow-hidden',
         ].join(' ')}
       >
-        <header className="viewport-max-720:[padding:20px] flex items-center justify-between [padding:28px_clamp(24px,_6vw,_104px)]">
+        <header className="viewport-max-720:[padding:20px_16px] flex items-center justify-between [padding:28px_clamp(24px,_6vw,_104px)]">
           <a
             href={routePath(proRouteConfig.home)}
-            className="[&_img]:[width:36px] [&_img]:[height:32px] [&_img]:object-contain flex items-center [gap:12px] no-underline [color:inherit] [font-size:18px]"
+            className="[&_img]:[width:36px] [&_img]:[height:32px] [&_img]:object-contain flex items-center [gap:12px] no-underline [color:inherit] [font-size:18px] whitespace-nowrap shrink-0 viewport-max-720:[gap:8px] viewport-max-720:[font-size:16px] viewport-max-720:[&_img]:[width:32px] viewport-max-720:[&_img]:[height:28px]"
           >
             <img src={virgoLogo} alt="" />
             <strong>Virgo Design</strong>
@@ -69,6 +70,32 @@ export function LoginForm({
             </Tag>
           </a>
           <Button.Group size="medium" gap={8} aria-label={t('auth.login.pageControls')}>
+            <Tooltip>
+              <Tooltip.Trigger
+                render={(props) => (
+                  <Button
+                    {...props}
+                    iconOnly
+                    variant="text"
+                    aria-label="GitHub"
+                    onClick={(event) => {
+                      props.onClick?.(event);
+
+                      if (!event.defaultPrevented) {
+                        window.open(
+                          'https://github.com/virgo-galaxy/virgo-design',
+                          '_blank',
+                          'noopener,noreferrer',
+                        );
+                      }
+                    }}
+                  >
+                    <GithubIcon />
+                  </Button>
+                )}
+              />
+              <Tooltip.Content>GitHub</Tooltip.Content>
+            </Tooltip>
             <LanguageControl />
             <Tooltip>
               <Tooltip.Trigger
@@ -319,10 +346,20 @@ export function LoginForm({
           ].join(' ')}
         >
           <span>{t('auth.login.footer')}</span>
-          <span className="inline-flex items-center [gap:6px]">
+          <a
+            href="https://virgo-design.vercel.app/"
+            target="_blank"
+            rel="noreferrer"
+            className={[
+              'inline-flex items-center [gap:6px] [color:inherit] no-underline',
+              'hover:text-brand-link hover:underline [text-underline-offset:3px]',
+              'focus-visible:[outline:var(--vd-border-width-2)_solid_var(--vd-border-focus)]',
+              'focus-visible:[outline-offset:var(--vd-spacing-4)] [border-radius:var(--vd-shape-radius-4,_var(--vd-radius-4))]',
+            ].join(' ')}
+          >
             <VirgoDesignIcon size={16} />
-            Virgo Design Pro
-          </span>
+            Virgo Design
+          </a>
         </footer>
       </main>
     </Tooltip.Provider>

@@ -1,6 +1,7 @@
 import {
   ArrowRightIcon,
   CheckIcon,
+  GithubIcon,
   LockIcon,
   MoonFilledIcon,
   SunFilledIcon,
@@ -58,6 +59,32 @@ export function LoginForm({
             </Tag>
           </a>
           <Button.Group size="medium" gap={8} aria-label={t('auth.login.pageControls')}>
+            <Tooltip>
+              <Tooltip.Trigger
+                render={(props) => (
+                  <Button
+                    {...props}
+                    iconOnly
+                    variant="text"
+                    aria-label="GitHub"
+                    onClick={(event) => {
+                      props.onClick?.(event);
+
+                      if (!event.defaultPrevented) {
+                        window.open(
+                          'https://github.com/virgo-galaxy/virgo-design',
+                          '_blank',
+                          'noopener,noreferrer',
+                        );
+                      }
+                    }}
+                  >
+                    <GithubIcon />
+                  </Button>
+                )}
+              />
+              <Tooltip.Content>GitHub</Tooltip.Content>
+            </Tooltip>
             <LanguageControl />
             <Tooltip>
               <Tooltip.Trigger
@@ -235,10 +262,15 @@ export function LoginForm({
         </div>
         <footer className={styles.footer}>
           <span>{t('auth.login.footer')}</span>
-          <span className={styles.footerBrand}>
+          <a
+            href="https://virgo-design.vercel.app/"
+            target="_blank"
+            rel="noreferrer"
+            className={styles.footerBrand}
+          >
             <VirgoDesignIcon size={16} />
-            Virgo Design Pro
-          </span>
+            Virgo Design
+          </a>
         </footer>
       </main>
     </Tooltip.Provider>

@@ -34,7 +34,7 @@ export const header = style({
   padding: '28px clamp(24px, 6vw, 104px)',
   '@media': {
     '(max-width: 720px)': {
-      padding: '20px',
+      padding: '20px 16px',
     },
   },
 });
@@ -46,6 +46,14 @@ export const brand = style({
   textDecoration: 'none',
   color: 'inherit',
   fontSize: '18px',
+  '@media': {
+    '(max-width: 720px)': {
+      flexShrink: 0,
+      gap: '8px',
+      fontSize: '16px',
+      whiteSpace: 'nowrap',
+    },
+  },
 });
 
 export const layout = style({
@@ -219,12 +227,30 @@ export const footerBrand = style({
   display: 'inline-flex',
   alignItems: 'center',
   gap: '6px',
+  color: 'inherit',
+  textDecoration: 'none',
+  borderRadius: 'var(--vd-shape-radius-4, var(--vd-radius-4))',
+  ':hover': {
+    color: tokens['--vd-brand-link'],
+    textDecoration: 'underline',
+    textUnderlineOffset: '3px',
+  },
+  ':focus-visible': {
+    outline: 'var(--vd-border-width-2) solid var(--vd-border-focus)',
+    outlineOffset: tokens['--vd-spacing-4'],
+  },
 });
 
 globalStyle(`${brand} img`, {
   width: '36px',
   height: '32px',
   objectFit: 'contain',
+  '@media': {
+    '(max-width: 720px)': {
+      width: '32px',
+      height: '28px',
+    },
+  },
 });
 
 globalStyle(`${story} h2`, {

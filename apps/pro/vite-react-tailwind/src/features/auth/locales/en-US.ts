@@ -1,6 +1,6 @@
 export const authEnUS = {
   login: {
-    pageControls: 'Language and appearance',
+    pageControls: 'GitHub, language and appearance',
     workspace: 'A workspace for your team',
     heroTitle: 'Every idea deserves',
     heroAccent: 'a clear next step.',

@@ -88,32 +88,21 @@
 
 .workspaceHeader .workspaceTabs {
   width: auto;
-  gap: 2px;
   margin-inline: auto;
-  border: 0;
   border-radius: 9px;
-  padding: 2px;
-  background: var(--vd-surface-secondary);
 }
 
-.workspaceHeader .workspaceTabs[data-variant='plain'] > [data-slot='item'] + [data-slot='item'] {
-  margin-inline-start: 0;
-}
-
-.workspaceHeader .workspaceTabs[data-variant='plain'] > [data-slot='item']::before {
-  display: none;
-}
-.workspaceTabs button[role='tab'] {
-  height: 28px;
-  border: 1px solid transparent;
-  border-radius: 7px;
+.workspaceTabs [data-segment-value] {
   color: var(--vd-text-secondary);
-  font-size: 12px;
 }
-.workspaceTabs button[role='tab'][aria-selected='true'] {
+
+.workspaceHeader .workspaceTabs > [data-slot='indicator'] {
   border-color: var(--vd-brand-primary);
+  border-radius: 7px;
+}
+
+.workspaceTabs [data-segment-value]:has(input:checked) {
   color: var(--vd-brand-link);
-  background: var(--vd-surface-default);
 }
 
 .workspace .tasksPanel,
@@ -249,19 +238,12 @@
   line-height: 1.4;
 }
 
-.overviewHeader [role='group'] {
-  gap: 0;
-  border-radius: 8px;
-  padding: 2px;
-  background: var(--vd-surface-secondary);
-}
-.overviewHeader button[aria-pressed='true'] {
-  color: var(--vd-brand-link);
-  background: var(--vd-brand-subtle);
-}
-.overviewHeader button[aria-pressed='false'] {
+.periodControl [data-segment-value] {
   color: var(--vd-text-secondary);
-  background: transparent;
+}
+
+.periodControl [data-segment-value]:has(input:checked) {
+  color: var(--vd-brand-link);
 }
 
 .overview [data-chart] {

@@ -4,7 +4,7 @@ import type { authEnUS } from './en-US';
 
 export const authZhCN = {
   login: {
-    pageControls: '语言与外观',
+    pageControls: 'GitHub、语言与外观',
     workspace: '团队项目工作空间',
     heroTitle: '让每个想法，',
     heroAccent: '都有清晰的下一步。',

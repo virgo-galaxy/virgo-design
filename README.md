@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/virgo-galaxy/virgo-design">
+  <a href="https://virgo-design.vercel.app/">
     <img src="packages/icons/brands/virgo-design.svg" alt="Virgo Design logo" width="160" height="128" />
   </a>
 </p>
@@ -26,6 +26,11 @@
 
 <p align="center">
   English | <a href="README.zh-CN.md">简体中文</a>
+</p>
+
+<p align="center">
+  <a href="https://virgo-design.vercel.app/">Website &amp; Docs</a> ·
+  <a href="https://virgo-design-pro.vercel.app/">Pro Demo</a>
 </p>
 
 Virgo Design is a React design system with components, interaction primitives, icons, charts,
