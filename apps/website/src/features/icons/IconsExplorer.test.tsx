@@ -14,7 +14,7 @@ import { IconsExplorer } from './IconsExplorer';
 function renderIcons(appearance: 'light' | 'dark' = 'light') {
   return render(
     <AppearanceContext.Provider value={{ appearance, setAppearance: () => {} }}>
-      <MemoryRouter initialEntries={['/foundations/icons']}>
+      <MemoryRouter initialEntries={['/icons']}>
         <IconsExplorer />
       </MemoryRouter>
     </AppearanceContext.Provider>,
@@ -208,7 +208,7 @@ describe('Icons foundation', () => {
           <button type="button" onClick={() => setWebsiteAppearance('light')}>
             Set Website light
           </button>
-          <MemoryRouter initialEntries={['/foundations/icons']}>
+          <MemoryRouter initialEntries={['/icons']}>
             <IconsExplorer />
           </MemoryRouter>
         </AppearanceContext.Provider>

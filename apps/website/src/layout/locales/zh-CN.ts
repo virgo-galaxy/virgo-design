@@ -5,6 +5,7 @@ import { layoutEnUS } from './en-US';
 export const layoutZhCN = {
   navigation: {
     themes: '主题',
+    icons: '图标',
     charts: '图表',
     skipToContent: '跳转到主要内容',
     label: '主导航',

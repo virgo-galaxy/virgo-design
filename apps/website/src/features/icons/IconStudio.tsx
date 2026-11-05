@@ -61,7 +61,7 @@ export function IconStudio() {
   };
   return (
     <section className="icon-platform">
-      <Link className="icon-platform-link" to="/foundations/icons">
+      <Link className="icon-platform-link" to="/icons">
         <ArrowReturnIcon size={20} />
         {t('icons.back')}
       </Link>

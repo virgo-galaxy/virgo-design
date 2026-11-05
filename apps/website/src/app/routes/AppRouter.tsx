@@ -67,7 +67,7 @@ const ComponentsDocumentation = lazy(() =>
   })),
 );
 const IconsPage = lazy(() =>
-  import('@/pages/foundations/IconsPage').then((module) => ({
+  import('@/pages/icons/IconsPage').then((module) => ({
     default: module.IconsPage,
   })),
 );
@@ -115,8 +115,8 @@ export function AppRouter() {
         <Route path={ROUTE_PATHS.foundationLayout} element={<LayoutPage />} />
         <Route path={ROUTE_PATHS.foundationShapeDepth} element={<ShapeDepthPage />} />
         <Route path={ROUTE_PATHS.foundationMotion} element={<MotionPage />} />
-        <Route path={ROUTE_PATHS.foundationIcons} element={<IconsPage />} />
-        <Route path={`${ROUTE_PATHS.foundationIcons}/:iconId`} element={<IconsPage />} />
+        <Route path={ROUTE_PATHS.icons} element={<IconsPage />} />
+        <Route path={`${ROUTE_PATHS.icons}/:iconId`} element={<IconsPage />} />
         <Route
           path={ROUTE_PATHS.tokens}
           element={<Navigate to={ROUTE_PATHS.tokenColors} replace />}

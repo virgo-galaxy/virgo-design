@@ -57,7 +57,7 @@ export function IconCatalogue() {
             <Combobox.Empty>{t('icons.noSuggestions')}</Combobox.Empty>
           </Combobox.Content>
         </Combobox>
-        <Link className="icon-platform-link" to="/foundations/icons/studio">
+        <Link className="icon-platform-link" to="/icons/studio">
           <StudioToolsIcon size={20} />
           {t('icons.studio')}
         </Link>
@@ -138,7 +138,7 @@ export function IconCatalogue() {
                 key={icon.id}
                 className="icon-platform-card"
                 aria-label={`${icon.id} ${t(`icons.variantNames.${icon.variant}`)}`}
-                to={`/foundations/icons/${icon.id}`}
+                to={`/icons/${icon.id}`}
               >
                 <Icon
                   size={24}

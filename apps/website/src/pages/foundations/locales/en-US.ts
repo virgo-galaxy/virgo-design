@@ -7,7 +7,6 @@ export const foundationsEnUS = {
     layout: 'Layout',
     shapeDepth: 'Shape & Depth',
     motion: 'Motion',
-    icons: 'Icons',
   },
   eyebrow: 'FOUNDATIONS V1',
   typography: {

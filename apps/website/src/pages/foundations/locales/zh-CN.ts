@@ -11,7 +11,6 @@ export const foundationsZhCN = {
     layout: '布局',
     shapeDepth: '形状与层级',
     motion: '动效',
-    icons: '图标',
   },
   eyebrow: '基础规范 V1',
   typography: {

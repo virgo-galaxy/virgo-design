@@ -20,7 +20,7 @@ export function IconDetail({ id }: { id: string }) {
     return (
       <section className="icon-platform">
         <p>{t('icons.notFound')}</p>
-        <Link className="icon-platform-link" to="/foundations/icons">
+        <Link className="icon-platform-link" to="/icons">
           <ArrowReturnIcon size={20} />
           {t('icons.back')}
         </Link>
@@ -39,7 +39,7 @@ export function IconDetail({ id }: { id: string }) {
     .sort((a, b) => a.id.localeCompare(b.id, 'en', { sensitivity: 'base', numeric: true }));
   return (
     <section className="icon-platform" key={icon.id}>
-      <Link className="icon-platform-link" to="/foundations/icons">
+      <Link className="icon-platform-link" to="/icons">
         <ArrowReturnIcon size={20} />
         {t('icons.back')}
       </Link>
@@ -55,7 +55,7 @@ export function IconDetail({ id }: { id: string }) {
                 className="icon-platform-card"
                 aria-label={`${item.componentName} ${t(`icons.variantNames.${item.variant}`)}`}
                 key={item.id}
-                to={`/foundations/icons/${item.id}`}
+                to={`/icons/${item.id}`}
                 aria-current={item.id === id ? 'page' : undefined}
               >
                 <VariantIcon size={24} />
@@ -83,7 +83,7 @@ export function IconDetail({ id }: { id: string }) {
         <div>
           <dt>{t('icons.category')}</dt>
           <dd>
-            <Link to={`/foundations/icons?category=${icon.category}`}>
+            <Link to={`/icons?category=${icon.category}`}>
               {t(`icons.categoryNames.${icon.category}`)}
             </Link>
           </dd>
@@ -96,7 +96,7 @@ export function IconDetail({ id }: { id: string }) {
                   <Link
                     className="icon-platform-term"
                     key={alias}
-                    to={`/foundations/icons?q=${encodeURIComponent(alias)}`}
+                    to={`/icons?q=${encodeURIComponent(alias)}`}
                   >
                     {alias}
                   </Link>
@@ -111,7 +111,7 @@ export function IconDetail({ id }: { id: string }) {
               <Link
                 className="icon-platform-term"
                 key={tag}
-                to={`/foundations/icons?q=${encodeURIComponent(tag)}`}
+                to={`/icons?q=${encodeURIComponent(tag)}`}
               >
                 {tag}
               </Link>
@@ -151,7 +151,7 @@ export function IconDetail({ id }: { id: string }) {
         {related.map((item) => {
           const RelatedIcon = iconComponents[item.id];
           return (
-            <Link className="icon-related-card" key={item.id} to={`/foundations/icons/${item.id}`}>
+            <Link className="icon-related-card" key={item.id} to={`/icons/${item.id}`}>
               <span className="icon-related-glyph">
                 <RelatedIcon size={24} />
               </span>

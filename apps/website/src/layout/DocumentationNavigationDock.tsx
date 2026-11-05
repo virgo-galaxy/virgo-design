@@ -1,11 +1,4 @@
-import {
-  LayersIcon,
-  LayoutIcon,
-  PaletteIcon,
-  ShapesIcon,
-  SplineIcon,
-  TypeIcon,
-} from '@virgo-design/icons';
+import { LayersIcon, LayoutIcon, PaletteIcon, SplineIcon, TypeIcon } from '@virgo-design/icons';
 import { Dock, type DockPlacement } from '@virgo-design/ui';
 import { useLayoutEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +18,6 @@ const ICONS = {
   'foundations.navigation.layout': LayoutIcon,
   'foundations.navigation.shapeDepth': LayersIcon,
   'foundations.navigation.motion': SplineIcon,
-  'foundations.navigation.icons': ShapesIcon,
   'tokens.navigation.colors': PaletteIcon,
   'tokens.navigation.typography': TypeIcon,
 } as const;

@@ -15,6 +15,8 @@ describe('Pending route landmarks', () => {
   it.each([
     '/components',
     '/primitives/',
+    '/icons',
+    '/icons/settings',
     '/components/button',
     '/primitives/table',
     '/tokens/colors',

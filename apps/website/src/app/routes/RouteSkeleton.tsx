@@ -12,7 +12,10 @@ export function RouteSkeleton() {
   const document =
     path.startsWith(`${ROUTE_PATHS.components}/`) || path.startsWith(`${ROUTE_PATHS.primitives}/`);
   const standalone = path.startsWith('/examples/');
-  const catalogue = path === ROUTE_PATHS.components || path === ROUTE_PATHS.primitives;
+  const catalogue =
+    path === ROUTE_PATHS.components ||
+    path === ROUTE_PATHS.primitives ||
+    path === ROUTE_PATHS.icons;
 
   if (document) {
     return (

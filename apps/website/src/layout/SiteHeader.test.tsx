@@ -96,10 +96,24 @@ describe('SiteHeader', () => {
       ['Foundations', '/foundations'],
       ['Tokens', '/tokens'],
       ['Themes', '/themes'],
+      ['Icons', '/icons'],
       ['Primitives', '/primitives'],
       ['Components', '/components'],
       ['Charts', '/charts'],
     ]);
     expect(within(navigation).queryByRole('link', { name: 'Resources' })).not.toBeInTheDocument();
+  });
+
+  it.each(['/icons', '/icons/settings', '/icons/studio'])('keeps Icons active on %s', (path) => {
+    renderHeader(path);
+
+    const navigation = screen.getByRole('navigation', { name: 'Primary navigation' });
+    expect(within(navigation).getByRole('link', { name: 'Icons' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+    expect(within(navigation).getByRole('link', { name: 'Foundations' })).not.toHaveAttribute(
+      'aria-current',
+    );
   });
 });

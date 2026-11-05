@@ -282,41 +282,32 @@ describe('Primitive routes', () => {
   });
 });
 
-describe('Foundation routes', () => {
-  it('renders the icon catalogue within Foundations', async () => {
-    renderRoute('/foundations/icons');
+describe('Icon routes', () => {
+  it('renders the standalone icon catalogue with its package header', async () => {
+    renderRoute('/icons');
 
     await findRouteHeading('Icons');
-    const navigation = screen.getByRole('navigation', { name: 'Foundation categories' });
-
-    expect(screen.getByText('FOUNDATIONS V1')).toBeInTheDocument();
-    expect(screen.queryByText('VIRGO DESIGN · FOUNDATIONS')).not.toBeInTheDocument();
-    expect(navigation).toHaveAttribute('data-variant', 'segmented');
-    expect(navigation.querySelectorAll('[data-slot="separator"]')).toHaveLength(5);
-    expect(navigation.querySelectorAll('[data-slot="icon"]')).toHaveLength(6);
-    expect(within(navigation).getByRole('link', { name: 'Icons' })).toHaveAttribute(
-      'aria-current',
-      'page',
-    );
+    expect(screen.getByText('@virgo-design/icons')).toBeInTheDocument();
+    expect(screen.queryByRole('navigation', { name: 'Foundation categories' })).toBeNull();
+    expect(document.querySelector('[data-documentation-navigation]')).toBeNull();
     expect(screen.getByRole('combobox', { name: 'Search icons…' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'settings Outline' })).toHaveAttribute(
       'href',
-      '/foundations/icons/settings',
+      '/icons/settings',
     );
   });
 
-  it('opens a deep-linked icon detail and keeps the Icons navigation active', async () => {
-    renderRoute('/foundations/icons/settings');
+  it('opens a standalone deep-linked icon detail without foundation navigation', async () => {
+    renderRoute('/icons/settings');
     await screen.findByRole('button', { name: 'Code format' });
-    const navigation = screen.getByRole('navigation', { name: 'Foundation categories' });
-    expect(within(navigation).getByRole('link', { name: 'Icons' })).toHaveAttribute(
-      'aria-current',
-      'page',
-    );
+    expect(screen.getByText('@virgo-design/icons')).toBeInTheDocument();
+    expect(screen.queryByRole('navigation', { name: 'Foundation categories' })).toBeNull();
     expect(screen.getByTestId('icon-canvas')).toHaveAttribute('data-icon', 'settings');
     expect(screen.getByTestId('actual-20')).toHaveAttribute('width', '20');
   });
+});
 
+describe('Foundation routes', () => {
   it.each([
     ['/foundations/colors', 'Colors'],
     ['/foundations/typography', 'Typography'],
@@ -327,5 +318,11 @@ describe('Foundation routes', () => {
     renderRoute(path);
 
     await findRouteHeading(heading);
+    expect(
+      within(screen.getByRole('navigation', { name: 'Foundation categories' })).queryByRole(
+        'link',
+        { name: 'Icons' },
+      ),
+    ).toBeNull();
   });
 });

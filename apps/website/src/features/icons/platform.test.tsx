@@ -45,11 +45,11 @@ describe('Icons platform', () => {
     expect(getIconSvg('grok-bot')).toContain('width="24" height="24"');
   });
   it('shows monochrome and full-color Virgo marks together in the brands catalogue', () => {
-    mount(<IconCatalogue />, ['/foundations/icons?category=brands']);
+    mount(<IconCatalogue />, ['/icons?category=brands']);
     const mono = screen.getByRole('link', { name: 'virgo-design Outline' });
     const colored = screen.getByRole('link', { name: 'virgo-design-color Color' });
-    expect(mono).toHaveAttribute('href', '/foundations/icons/virgo-design');
-    expect(colored).toHaveAttribute('href', '/foundations/icons/virgo-design-color');
+    expect(mono).toHaveAttribute('href', '/icons/virgo-design');
+    expect(colored).toHaveAttribute('href', '/icons/virgo-design-color');
     expect(mono.querySelector('linearGradient')).toBeNull();
     expect(colored.querySelectorAll('linearGradient')).toHaveLength(3);
     expect(searchWebsiteIcons('Virgo 彩色').map((icon) => icon.id)).toEqual(['virgo-design-color']);
@@ -77,7 +77,7 @@ describe('Icons platform', () => {
     expect(cards).toHaveLength(iconManifest.length);
     expect(document.querySelector('.icon-family, .icon-family-variants')).toBeNull();
     expect(cards.map((card) => card.getAttribute('href'))).toEqual(
-      sorted.map((icon) => `/foundations/icons/${icon.id}`),
+      sorted.map((icon) => `/icons/${icon.id}`),
     );
     cards.forEach((card, index) => {
       expect(card).toHaveClass('icon-platform-card');
@@ -100,9 +100,9 @@ describe('Icons platform', () => {
     }
     mount(
       <Routes>
-        <Route path="/foundations/icons/:id" element={<DetailRoute />} />
+        <Route path="/icons/:id" element={<DetailRoute />} />
       </Routes>,
-      ['/foundations/icons/sun'],
+      ['/icons/sun'],
     );
     await userEvent.click(screen.getByRole('link', { name: 'SunFilledIcon Filled' }));
     expect(screen.getByRole('heading', { name: 'sun-filled' })).toBeInTheDocument();
@@ -164,7 +164,7 @@ describe('Icons platform', () => {
         <IconCatalogue />
         <FilterLocation />
       </>,
-      ['/foundations/icons'],
+      ['/icons'],
     );
     const cards = () => document.querySelectorAll('.icon-platform-card');
     expect(cards()).toHaveLength(iconManifest.length);
@@ -218,19 +218,16 @@ describe('Icons platform', () => {
   });
   it('restores animation filtering from deep links and ignores unknown animation values', () => {
     const { unmount } = mount(<IconCatalogue />, [
-      '/foundations/icons?animation=true&category=development&q=代码',
+      '/icons?animation=true&category=development&q=代码',
     ]);
     expect(document.querySelectorAll('.icon-platform-card')).toHaveLength(1);
-    expect(screen.getByRole('link', { name: /code/ })).toHaveAttribute(
-      'href',
-      '/foundations/icons/code',
-    );
+    expect(screen.getByRole('link', { name: /code/ })).toHaveAttribute('href', '/icons/code');
     expect(screen.getByRole('button', { name: 'Animated' })).toHaveAttribute(
       'aria-pressed',
       'true',
     );
     unmount();
-    mount(<IconCatalogue />, ['/foundations/icons?animation=unknown']);
+    mount(<IconCatalogue />, ['/icons?animation=unknown']);
     expect(document.querySelectorAll('.icon-platform-card')).toHaveLength(iconManifest.length);
     expect(screen.getByRole('button', { name: 'Animated' })).toHaveAttribute(
       'aria-pressed',
@@ -371,7 +368,7 @@ describe('Icons platform', () => {
     expect(studio.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
     expect(screen.getByRole('link', { name: 'studio-tools Outline' })).toHaveAttribute(
       'href',
-      '/foundations/icons/studio-tools',
+      '/icons/studio-tools',
     );
     unmount();
     mount(<IconDetail id="studio-tools" />);
@@ -385,10 +382,10 @@ describe('Icons platform', () => {
   });
   it('filters categories, gives no-results feedback and enters a detail route', async () => {
     render(
-      <MemoryRouter initialEntries={['/foundations/icons']}>
+      <MemoryRouter initialEntries={['/icons']}>
         <Routes>
-          <Route path="/foundations/icons" element={<IconCatalogue />} />
-          <Route path="/foundations/icons/:iconId" element={<p>detail route</p>} />
+          <Route path="/icons" element={<IconCatalogue />} />
+          <Route path="/icons/:iconId" element={<p>detail route</p>} />
         </Routes>
       </MemoryRouter>,
     );
@@ -397,7 +394,7 @@ describe('Icons platform', () => {
     await userEvent.type(search, 'gear');
     expect(screen.getByRole('link', { name: 'settings Outline' })).toHaveAttribute(
       'href',
-      '/foundations/icons/settings',
+      '/icons/settings',
     );
     await userEvent.click(screen.getByRole('button', { name: 'Actions' }));
     expect(screen.getByText('No icons match your search.')).toBeInTheDocument();
@@ -418,9 +415,9 @@ describe('Icons platform', () => {
     }
     mount(
       <Routes>
-        <Route path="/foundations/icons/:id" element={<DetailRoute />} />
+        <Route path="/icons/:id" element={<DetailRoute />} />
       </Routes>,
-      ['/foundations/icons/settings'],
+      ['/icons/settings'],
     );
     await userEvent.click(screen.getByRole('button', { name: 'Copy code' }));
     expect(document.querySelector('.icon-code-feedback')).toHaveTextContent('Copied');
@@ -447,10 +444,7 @@ describe('Icons platform', () => {
   it('renders metadata, canonical sizes, external background state and related icons', () => {
     mount(<IconDetail id="settings" />);
     expect(screen.getByText('SettingsIcon', { selector: 'code' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'gear' })).toHaveAttribute(
-      'href',
-      '/foundations/icons?q=gear',
-    );
+    expect(screen.getByRole('link', { name: 'gear' })).toHaveAttribute('href', '/icons?q=gear');
     for (const size of [16, 20, 24, 32])
       expect(
         screen.getByTestId(size === 24 ? 'actual-icon-glyph' : `actual-${size}`),
