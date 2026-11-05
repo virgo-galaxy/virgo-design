@@ -30,8 +30,8 @@
 
 Virgo Design is a React design system with components, interaction primitives, icons, charts,
 design tokens, themes, fonts and color utilities. The repository also includes a documentation
-and demo website and six Pro application templates built with Vite or Next.js and SCSS Modules,
-Tailwind CSS or vanilla-extract.
+and demo website, six Pro reference applications and a project generator with Minimal, Starter
+and Pro templates.
 
 ## Packages
 
@@ -46,30 +46,50 @@ Tailwind CSS or vanilla-extract.
 | [Fonts](packages/fonts)           | Self-hosted variable fonts and family metadata.             |
 | [Colors](packages/colors)         | Color conversion, tonal scales and palette generation.      |
 
+## Use components
+
+Add the components, design tokens and official themes to an existing React application:
+
+```sh
+pnpm add @virgo-design/ui @virgo-design/tokens @virgo-design/themes
+```
+
+See the [UI usage guide](packages/ui/README.md#usage) for stylesheet loading and theme setup.
+
 ## Compatibility
 
 Package consumer checks cover React 18 and React 19. Runtime dependency requirements are declared
 in each package's `peerDependencies`.
 
-The Node.js and pnpm versions below apply to repository development, not minimum consumer
-requirements. Compatibility with older Node.js, TypeScript or build tools is not guaranteed.
+The Node.js and pnpm versions in the Development section apply to repository development, not
+minimum consumer requirements. Compatibility with older Node.js, TypeScript or build tools is
+not guaranteed.
 
-## Generate a Pro application
+## Create a project
 
-The [project generator](cli/README.md) exports six standalone Pro applications using the published
-Virgo Design packages. Choose Vite or Next.js App Router with SCSS Modules, Tailwind CSS or
-vanilla-extract.
+Run [Virgo Create](cli/README.md) to choose a project directory, template tier, framework, styling
+and development port:
 
 ```sh
-pnpm install --frozen-lockfile
-pnpm build:cli
-pnpm create:pro ../virgo-pro --template pro-vite-react-tailwind
-cd ../virgo-pro
+pnpm create @virgo-design
+```
+
+- **Minimal**: a Hello Virgo page with an interactive counter.
+- **Starter**: an application shell, a workspace page, and language and appearance controls.
+- **Pro**: the complete reference application with demo data.
+
+Each tier supports Vite + React or Next.js App Router with SCSS Modules, Tailwind CSS or
+vanilla-extract, for eighteen combinations in total. Generated projects use the published
+Virgo Design packages and run independently of this repository.
+
+To specify a template directly:
+
+```sh
+pnpm create @virgo-design ./virgo-app --template starter-next-tailwind
+cd virgo-app
 pnpm install
 pnpm dev
 ```
-
-Run `pnpm create:pro` to choose the directory, framework and styling interactively.
 
 ## Development
 
@@ -91,6 +111,13 @@ repository root with the following commands:
 | [Next.js + SCSS Modules](apps/pro/next-scss-modules)          | `pnpm dev:pro-next-scss-modules`          | 6304 |
 | [Next.js + Tailwind CSS](apps/pro/next-tailwind)              | `pnpm dev:pro-next-tailwind`              | 6305 |
 | [Next.js + vanilla-extract](apps/pro/next-vanilla-extract)    | `pnpm dev:pro-next-vanilla-extract`       | 6306 |
+
+To build and try the generator from this checkout:
+
+```sh
+pnpm build:cli
+pnpm create:pro
+```
 
 Git hooks run ESLint and Prettier on staged files and validate Conventional Commits headers.
 `pnpm all` runs the complete workspace checks; `pnpm check:packages` verifies packed libraries

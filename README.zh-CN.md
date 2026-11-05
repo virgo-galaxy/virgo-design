@@ -29,7 +29,7 @@
 </p>
 
 Virgo Design 是一套 React 设计系统，提供组件、交互原语、图标、图表、设计 Tokens、主题、字体和颜色工具。
-仓库还包含文档与演示站点，以及基于 Vite 或 Next.js，搭配 SCSS Modules、Tailwind CSS 或 vanilla-extract 的六套 Pro 应用模板。
+仓库还提供文档与演示站点、六套 Pro 参考应用，以及支持 Minimal、Starter 和 Pro 三档模板的项目生成器。
 
 ## 包
 
@@ -44,28 +44,46 @@ Virgo Design 是一套 React 设计系统，提供组件、交互原语、图标
 | [Fonts](packages/fonts)           | 自托管可变字体和字体元数据。            |
 | [Colors](packages/colors)         | 颜色转换、色阶和色板生成。              |
 
+## 使用组件
+
+在已有的 React 应用中安装组件、设计变量和官方主题：
+
+```sh
+pnpm add @virgo-design/ui @virgo-design/tokens @virgo-design/themes
+```
+
+样式加载顺序和主题接入方式见 [UI 使用说明](packages/ui/README.md#usage)。
+
 ## 兼容性
 
 组件包已在 React 18 和 React 19 项目中通过安装验证。运行依赖要求见各包的 `peerDependencies`。
 
-下方的 Node.js 和 pnpm 版本用于开发本仓库，不代表使用组件包的最低环境要求。
+“开发”一节中的 Node.js 和 pnpm 版本用于开发本仓库，不代表使用组件包的最低环境要求。
 更低版本的 Node.js、TypeScript 和构建工具不在兼容性保证范围内。
 
-## 生成 Pro 应用
+## 创建项目
 
-[项目生成器](cli/README.md) 支持导出六套独立的 Pro 应用，使用已发布到 npm 的 Virgo Design 包。
-可选择 Vite 或 Next.js App Router，搭配 SCSS Modules、Tailwind CSS 或 vanilla-extract。
+运行 [Virgo Create](cli/README.md)，交互选择项目目录、模板档位、框架、样式方案和开发端口：
 
 ```sh
-pnpm install --frozen-lockfile
-pnpm build:cli
-pnpm create:pro ../virgo-pro --template pro-vite-react-tailwind
-cd ../virgo-pro
+pnpm create @virgo-design
+```
+
+- **Minimal**：Hello Virgo 页面和交互式计数器。
+- **Starter**：应用外壳、工作区页面，以及语言和明暗切换。
+- **Pro**：完整的参考应用与演示数据。
+
+每档均支持 Vite + React 或 Next.js App Router，搭配 SCSS Modules、Tailwind CSS 或 vanilla-extract，
+共十八种组合。生成的项目使用已发布到 npm 的 Virgo Design 包，可以脱离本仓库独立运行。
+
+也可以直接指定模板：
+
+```sh
+pnpm create @virgo-design ./virgo-app --template starter-next-tailwind
+cd virgo-app
 pnpm install
 pnpm dev
 ```
-
-运行 `pnpm create:pro`，可交互选择项目目录、框架和样式方案。
 
 ## 开发
 
@@ -86,6 +104,13 @@ pnpm dev:website
 | [Next.js + SCSS Modules](apps/pro/next-scss-modules)          | `pnpm dev:pro-next-scss-modules`          | 6304 |
 | [Next.js + Tailwind CSS](apps/pro/next-tailwind)              | `pnpm dev:pro-next-tailwind`              | 6305 |
 | [Next.js + vanilla-extract](apps/pro/next-vanilla-extract)    | `pnpm dev:pro-next-vanilla-extract`       | 6306 |
+
+在本仓库中构建和试用项目生成器：
+
+```sh
+pnpm build:cli
+pnpm create:pro
+```
 
 Git 钩子会对暂存文件运行 ESLint、Prettier，并校验符合 Conventional Commits 规范的提交信息。
 `pnpm all` 运行完整的仓库检查；`pnpm check:packages` 在仓库外的独立项目中验证打包后的依赖。
