@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://virgo-design.vercel.app/">
+  <a href="https://design.virgogalaxy.com/">
     <img src="packages/icons/brands/virgo-design.svg" alt="Virgo Design logo" width="160" height="128" />
   </a>
 </p>
@@ -29,8 +29,8 @@
 </p>
 
 <p align="center">
-  <a href="https://virgo-design.vercel.app/">Website &amp; Docs</a> ·
-  <a href="https://virgo-design-pro.vercel.app/">Pro Demo</a>
+  <a href="https://design.virgogalaxy.com/">Website &amp; Docs</a> ·
+  <a href="https://pro.design.virgogalaxy.com/">Pro Demo</a>
 </p>
 
 Virgo Design is a React design system with components, interaction primitives, icons, charts,

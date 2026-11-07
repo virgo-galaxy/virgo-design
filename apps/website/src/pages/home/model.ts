@@ -15,4 +15,4 @@ export function createProjectCommand(
 }
 
 export const repositoryUrl = 'https://github.com/virgo-galaxy/virgo-design';
-export const proDemoUrl = 'https://virgo-design-pro.vercel.app';
+export const proDemoUrl = 'https://pro.design.virgogalaxy.com';

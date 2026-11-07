@@ -347,7 +347,7 @@ export function LoginForm({
         >
           <span>{t('auth.login.footer')}</span>
           <a
-            href="https://virgo-design.vercel.app/"
+            href="https://design.virgogalaxy.com/"
             target="_blank"
             rel="noreferrer"
             className={[
