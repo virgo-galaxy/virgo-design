@@ -1,5 +1,12 @@
 # @virgo-design/tokens
 
+## 0.1.2
+
+### Patch Changes
+
+- b66c5fe: Allow compatible updates of internal library dependencies without republishing dependent packages.
+  Public libraries now use caret dependency ranges and are versioned independently.
+
 ## 0.1.1
 
 ### Patch Changes
