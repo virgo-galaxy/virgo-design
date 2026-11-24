@@ -1,0 +1,67 @@
+{
+  "format": "nsh-browser-model-v1",
+  "id": "css",
+  "manifest": {
+    "id": "css",
+    "documentKinds": [
+      {
+        "id": "css",
+        "extensions": [
+          ".css"
+        ]
+      },
+      {
+        "id": "scss",
+        "extensions": [
+          ".scss"
+        ]
+      },
+      {
+        "id": "less",
+        "extensions": [
+          ".less"
+        ]
+      }
+    ]
+  },
+  "model": {
+    "file": "model.onnx",
+    "sha256": "65f244b0447b3d2251bfecad9ba8bcf092a9aa45c01f1f3e4ff47031c61f94bc",
+    "bytes": 3599063
+  },
+  "source": {
+    "file": "packs/css/model/model.pt",
+    "sha256": "d2ecf0779717613fe69c8ce597af7118fb67febaab50e3262e18e958b73df418"
+  },
+  "contextBytes": 512,
+  "schema": {
+    "tokenTypes": [
+      "keyword",
+      "comment",
+      "string",
+      "number",
+      "operator",
+      "punctuation",
+      "namespace",
+      "class",
+      "function",
+      "parameter",
+      "variable",
+      "property",
+      "label",
+      "tag",
+      "attribute"
+    ],
+    "modifiers": [
+      "declaration"
+    ]
+  },
+  "modifierThreshold": 0.6,
+  "decoder": {},
+  "quantized": false,
+  "resumableTrainingCheckpoint": false,
+  "input": "original-utf8-bytes",
+  "output": "original-utf16-spans",
+  "exporterSha256": "889577b2dc24ad6a2cbb1179fdfc7f9afcbc5a5906cde6c5835a64e8bb8ed2f5",
+  "graphSha256": "d81bd686e41c83796add567ee5d754865363fae81709bdf0969e5da1e61981a6"
+}

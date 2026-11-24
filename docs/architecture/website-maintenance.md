@@ -75,6 +75,16 @@ Use the existing [Button manifest](../../apps/website/src/examples/components/bu
 as a reference. Public installation requirements stay in package READMEs instead of being repeated
 in every example. Changing source normalization belongs in the shared transformer and its tests.
 
+The website highlights displayed TSX and SCSS with `@virgo-nsh/highlighter`.
+The source panel follows the site appearance and keeps the original text visible
+while inference loads or if it fails. The browser loads the active language's
+model on first use, and the copy action reads the original source.
+
+When updating the highlighter, export the TypeScript and CSS families with
+`--models typescript,css` from the matching NSH release snapshot. Put the export
+in `apps/website/public/models/` and keep the model and metadata bytes intact
+for integrity validation. See [NSH model delivery](https://github.com/virgo-galaxy/virgo-nsh/blob/main/docs/model-delivery.md).
+
 ## Runtime isolation and interaction
 
 `ComponentExample` owns source disclosure, tabs and copy feedback. Opening source keeps the live

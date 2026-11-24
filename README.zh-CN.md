@@ -99,7 +99,10 @@ pnpm install --frozen-lockfile
 pnpm dev:website
 ```
 
-文档站点运行在 `http://localhost:6300`。在仓库根目录使用以下命令启动 Pro 应用：
+文档站点运行在 `http://localhost:6300`。展开组件示例的源码面板，可以查看 NSH 提供的
+React（TSX）和 SCSS 高亮。站点更新记录见[网站 Changelog](apps/website/CHANGELOG.md)。
+
+在仓库根目录使用以下命令启动 Pro 应用：
 
 | 应用                                                          | 命令                                      | 端口 |
 | ------------------------------------------------------------- | ----------------------------------------- | ---- |

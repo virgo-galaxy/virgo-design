@@ -9,6 +9,7 @@ import { AppearanceContext } from '@/shared/theme/appearance-context';
 import { SourceCopyButton } from '@/shared/ui/source-copy-button/SourceCopyButton';
 
 import { useComponentExampleDisclosure } from './component-example-runtime-context';
+import { ExampleSourceCode } from './ExampleSourceCode';
 import reactLogo from './react-logo.svg';
 import sassLogo from './sass-logo.svg';
 
@@ -181,7 +182,7 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
         aria-hidden={!sourceOpen}
         inert={!sourceOpen}
       >
-        <div className={styles.sourceInner} data-example-source-inner>
+        <div className={styles.sourceInner} data-nsh-theme={appearance} data-example-source-inner>
           {hasScss ? (
             <Tabs
               className={styles.sourceTabsRoot!}
@@ -250,9 +251,15 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
               >
                 <pre
                   tabIndex={sourceOpen ? 0 : -1}
+                  className="nsh"
+                  data-language="tsx"
                   aria-label={t('docs.componentExample.reactSourceCodeFor', { title })}
                 >
-                  <code data-language="tsx">{displayReactSource}</code>
+                  <ExampleSourceCode
+                    language="tsx"
+                    source={displayReactSource}
+                    active={sourceOpen}
+                  />
                 </pre>
               </Tabs.Panel>
               <Tabs.Panel
@@ -263,9 +270,15 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
               >
                 <pre
                   tabIndex={sourceOpen ? 0 : -1}
+                  className="nsh"
+                  data-language="scss"
                   aria-label={t('docs.componentExample.scssSourceCodeFor', { title })}
                 >
-                  <code data-language="scss">{styleSource}</code>
+                  <ExampleSourceCode
+                    language="scss"
+                    source={styleSource}
+                    active={sourceOpen && activeSourceTab === 'scss'}
+                  />
                 </pre>
               </Tabs.Panel>
             </Tabs>
@@ -300,10 +313,16 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
               </div>
               <pre
                 tabIndex={sourceOpen ? 0 : -1}
+                className="nsh"
+                data-language="tsx"
                 aria-label={t('docs.componentExample.reactSourceCodeFor', { title })}
                 data-example-source-panel="react"
               >
-                <code data-language="tsx">{displayReactSource}</code>
+                <ExampleSourceCode
+                  language="tsx"
+                  source={displayReactSource}
+                  active={sourceOpen && activeSourceTab === 'react'}
+                />
               </pre>
             </>
           )}

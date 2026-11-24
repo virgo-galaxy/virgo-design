@@ -8,3 +8,6 @@ pnpm-lock.yaml
 apps/pro/*/public/mockServiceWorker.js
 .artifacts
 cli/templates
+
+# NSH export files are content-addressed. Preserve their original bytes.
+apps/website/public/models

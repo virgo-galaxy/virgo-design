@@ -215,6 +215,8 @@
 }
 
 .source pre {
+  --nsh-background: transparent;
+
   margin: 0;
   padding: 0 var(--component-example-inset) var(--vd-spacing-24);
   color: var(--vd-text-primary);

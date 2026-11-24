@@ -105,8 +105,11 @@ pnpm install --frozen-lockfile
 pnpm dev:website
 ```
 
-The documentation website runs at `http://localhost:6300`. Run Pro applications from the
-repository root with the following commands:
+The documentation website runs at `http://localhost:6300`. Open a component example's
+source panel to see NSH highlighting for React (TSX) and SCSS. See the
+[website changelog](apps/website/CHANGELOG.md) for documentation site updates.
+
+Run Pro applications from the repository root with these commands:
 
 | Application                                                   | Command                                   | Port |
 | ------------------------------------------------------------- | ----------------------------------------- | ---- |

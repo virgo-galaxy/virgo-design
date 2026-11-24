@@ -1,0 +1,121 @@
+{
+  "format": "nsh-model-assets-v1",
+  "models": [
+    {
+      "id": "typescript",
+      "manifest": {
+        "id": "typescript",
+        "documentKinds": [
+          {
+            "id": "javascript",
+            "extensions": [
+              ".js"
+            ]
+          },
+          {
+            "id": "javascript-esm",
+            "extensions": [
+              ".mjs"
+            ]
+          },
+          {
+            "id": "javascript-commonjs",
+            "extensions": [
+              ".cjs"
+            ]
+          },
+          {
+            "id": "jsx",
+            "extensions": [
+              ".jsx"
+            ]
+          },
+          {
+            "id": "typescript",
+            "extensions": [
+              ".ts"
+            ]
+          },
+          {
+            "id": "typescript-esm",
+            "extensions": [
+              ".mts"
+            ]
+          },
+          {
+            "id": "typescript-commonjs",
+            "extensions": [
+              ".cts"
+            ]
+          },
+          {
+            "id": "tsx",
+            "extensions": [
+              ".tsx"
+            ]
+          },
+          {
+            "id": "typescript-declaration",
+            "extensions": [
+              ".d.ts"
+            ]
+          },
+          {
+            "id": "typescript-esm-declaration",
+            "extensions": [
+              ".d.mts"
+            ]
+          },
+          {
+            "id": "typescript-commonjs-declaration",
+            "extensions": [
+              ".d.cts"
+            ]
+          }
+        ]
+      },
+      "sha256": "9d067b497f970f343c2bb063fe70748dcf3d4c841c9baeb6f9ab68fb741ebb33",
+      "bytes": 3614184,
+      "path": "v1/typescript/9d067b497f970f343c2bb063fe70748dcf3d4c841c9baeb6f9ab68fb741ebb33.onnx",
+      "metadata": {
+        "sha256": "2da94425e5bd9cb2e5f3f7d2bc4f740a702ca8034e81a1a173528dfd6c72a801",
+        "path": "v1/typescript/2da94425e5bd9cb2e5f3f7d2bc4f740a702ca8034e81a1a173528dfd6c72a801.json"
+      },
+      "dependencies": []
+    },
+    {
+      "id": "css",
+      "manifest": {
+        "id": "css",
+        "documentKinds": [
+          {
+            "id": "css",
+            "extensions": [
+              ".css"
+            ]
+          },
+          {
+            "id": "scss",
+            "extensions": [
+              ".scss"
+            ]
+          },
+          {
+            "id": "less",
+            "extensions": [
+              ".less"
+            ]
+          }
+        ]
+      },
+      "sha256": "65f244b0447b3d2251bfecad9ba8bcf092a9aa45c01f1f3e4ff47031c61f94bc",
+      "bytes": 3599063,
+      "path": "v1/css/65f244b0447b3d2251bfecad9ba8bcf092a9aa45c01f1f3e4ff47031c61f94bc.onnx",
+      "metadata": {
+        "sha256": "69011087bbdbeebeabf6333b5f45343790a56ee49aec5954de0283ec7b047147",
+        "path": "v1/css/69011087bbdbeebeabf6333b5f45343790a56ee49aec5954de0283ec7b047147.json"
+      },
+      "dependencies": []
+    }
+  ]
+}
