@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react';
+import { type ComponentPropsWithoutRef, useEffect, useRef } from 'react';
 
 import type { SourceLanguage } from './source-highlighter';
 
@@ -19,56 +19,28 @@ export function HighlightedCodeBlock({
   ...props
 }: HighlightedCodeBlockProps) {
   const block = useRef<HTMLPreElement>(null);
-  const [highlighted, setHighlighted] = useState<{
-    source: string;
-    language: SourceLanguage;
-    markup: string;
-  }>();
-  const markup =
-    highlighted?.source === source && highlighted.language === language
-      ? highlighted.markup
-      : undefined;
-
   useEffect(() => {
-    if (!active || markup !== undefined || typeof Worker === 'undefined') return;
+    const element = block.current;
+    if (!active || !element || typeof Worker === 'undefined') return;
 
+    let stop: (() => void) | undefined;
     let current = true;
-    const highlight = () => {
-      void import('./source-highlighter')
-        .then(({ sourceHighlighter }) =>
-          current ? sourceHighlighter.highlight(source, { language }) : undefined,
-        )
-        .then(
-          (result) => {
-            if (current && result) setHighlighted({ source, language, markup: result.value });
-          },
-          () => {
-            // Keep the original source visible if the model or runtime is unavailable.
-          },
-        );
-    };
-
-    const observer =
-      typeof IntersectionObserver === 'undefined'
-        ? undefined
-        : new IntersectionObserver(
-            (entries, viewportObserver) => {
-              if (current && entries.some((entry) => entry.isIntersecting)) {
-                viewportObserver.disconnect();
-                highlight();
-              }
-            },
-            { rootMargin: '128px' },
-          );
-
-    if (observer && block.current) observer.observe(block.current);
-    else highlight();
+    void import('./source-highlighter').then(
+      ({ sourceHighlighter }) => {
+        if (current) {
+          stop = sourceHighlighter.observeElement(element, { language, rootMargin: '128px' });
+        }
+      },
+      () => {
+        // Keep the original source visible if the runtime is unavailable.
+      },
+    );
 
     return () => {
       current = false;
-      observer?.disconnect();
+      stop?.();
     };
-  }, [active, language, markup, source]);
+  }, [active, language, source]);
 
   return (
     <pre
@@ -77,12 +49,10 @@ export function HighlightedCodeBlock({
       className={className ? `nsh ${className}` : 'nsh'}
       data-language={language}
     >
-      {markup === undefined ? (
-        <code data-language={language}>{source}</code>
-      ) : (
-        // NSH's value contains escaped source text inside its own token markup.
-        <code data-language={language} dangerouslySetInnerHTML={{ __html: markup }} />
-      )}
+      {/* Each source gets its own code node so NSH can own its token markup. */}
+      <code key={`${language}:${source}`} data-language={language}>
+        {source}
+      </code>
     </pre>
   );
 }

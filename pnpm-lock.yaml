@@ -479,8 +479,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       '@virgo-nsh/highlighter':
-        specifier: 0.1.0
-        version: 0.1.0
+        specifier: 0.1.1
+        version: 0.1.1
       gsap:
         specifier: ^3.15.0
         version: 3.15.0
@@ -2148,8 +2148,8 @@ packages:
     peerDependencies:
       webpack: ^4.30.0 || ^5.20.2
 
-  '@virgo-nsh/highlighter@0.1.0':
-    resolution: {integrity: sha512-dL1GDkkHevkKDQIBfCyKVfwiSZpJ4DHufhBuYTVPuos3yj/Fxb6zHdnF3DzVl34CkzSJeP8wzBbMIg5VT6LnnA==}
+  '@virgo-nsh/highlighter@0.1.1':
+    resolution: {integrity: sha512-wq9FQqCe5a/oBoETJgmogbNBb3QEAAQGnDRNdj4ng3yxTRM/ywJJHLCvQmFDQzm6yP5xW5IuJnXzmf8Qoot3yw==}
 
   '@vitejs/plugin-react@6.1.1':
     resolution: {integrity: sha512-yxLaQV9gkhS8ezJqCM6+ndU7mDY6gqAg75NQ+0IjwEI8IYOmQCgkRwHKVSfWXW076DsqMo0Dk+0FK1U+M5RgFw==}
@@ -5527,7 +5527,7 @@ snapshots:
       - babel-plugin-macros
       - supports-color
 
-  '@virgo-nsh/highlighter@0.1.0':
+  '@virgo-nsh/highlighter@0.1.1':
     dependencies:
       onnxruntime-web: 1.31.1
 

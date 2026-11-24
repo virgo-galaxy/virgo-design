@@ -80,7 +80,7 @@ with `@virgo-nsh/highlighter`. Colors' Tailwind export is a CSS `@theme` block
 and uses the CSS language entry. The XML model loads when an Icons code panel
 shows SVG. The Bash model handles the two project creation commands on the
 homepage and the installation commands in Fonts and Themes. Highlighting
-starts near the viewport, and collapsible panels
+starts within 128 px of the viewport through NSH's `observeElement()`. Collapsible panels
 also wait until opened and selected. The original text stays visible during
 loading and after a failure, and the copy action reads the original source.
 Syntax colors follow the site's appearance. The homepage template command

@@ -10,4 +10,4 @@ allowBuilds:
   msw: false
   protobufjs: false
 minimumReleaseAgeExclude:
-  - '@virgo-nsh/highlighter@0.1.0'
+  - '@virgo-nsh/highlighter@0.1.1'
