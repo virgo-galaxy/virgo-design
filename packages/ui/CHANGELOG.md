@@ -1,5 +1,15 @@
 # @virgo-design/ui
 
+## 0.1.1
+
+### Patch Changes
+
+- Add an optional `icon` prop to `SegmentedControl.Item` for decorative icons before labels. Icon sizing, spacing, and colors follow the control's size and state.
+- Updated dependencies:
+  - @virgo-design/icons@0.1.1
+  - @virgo-design/primitives@0.1.1
+  - @virgo-design/tokens@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes

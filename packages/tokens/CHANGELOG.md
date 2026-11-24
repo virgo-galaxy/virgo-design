@@ -1,5 +1,13 @@
 # @virgo-design/tokens
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies:
+  - @virgo-design/colors@0.1.1
+  - @virgo-design/fonts@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes

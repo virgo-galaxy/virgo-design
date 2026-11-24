@@ -55,9 +55,9 @@ export const segmentedControlExamples = {
     id: 'segmented-content',
     title: 'Option content',
     titleTranslationKey: 'examples.segmentedControl.copy.optionContent',
-    description: 'Short mode and period choices share the same single-selection behavior.',
+    description: 'Add a leading icon to a label, or keep options text-only.',
     descriptionTranslationKey:
-      'examples.segmentedControl.copy.shortModeAndPeriodChoicesShareTheSameSingleSelection',
+      'examples.segmentedControl.copy.addALeadingIconToALabelOrKeepOptionsTextOnly',
     Component: SegmentedContentExample,
     source: createExampleSource(segmentedContentSource),
     styleSource: segmentedContentStyles,

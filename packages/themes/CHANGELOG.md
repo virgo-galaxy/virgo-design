@@ -1,5 +1,12 @@
 # @virgo-design/themes
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies:
+  - @virgo-design/tokens@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes

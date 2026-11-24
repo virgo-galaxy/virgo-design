@@ -14,6 +14,7 @@ export const SegmentedControlItem = forwardRef<HTMLInputElement, SegmentedContro
   function SegmentedControlItem(
     {
       children,
+      icon,
       className,
       disabled,
       value,
@@ -82,6 +83,11 @@ export const SegmentedControlItem = forwardRef<HTMLInputElement, SegmentedContro
             }
           }}
         />
+        {icon ? (
+          <span className={styles.icon} data-slot="icon" aria-hidden="true">
+            {icon}
+          </span>
+        ) : null}
         <span className={styles.label} data-slot="label">
           {children}
         </span>

@@ -10496,6 +10496,16 @@ export const componentApiReference: ApiReferenceRegistry = {
               'components.segmented-control.api.segmented-control-item-props.properties.children.description',
           },
           {
+            name: 'icon',
+            type: 'ReactNode',
+            required: false,
+            defaultValue: '',
+            description: 'Optional decorative icon before the segment label.',
+            source: '@virgo-design/ui',
+            descriptionTranslationKey:
+              'components.segmented-control.api.segmented-control-item-props.properties.icon.description',
+          },
+          {
             name: 'tooltip',
             type: 'ReactNode | false | undefined',
             required: false,

@@ -1,6 +1,6 @@
 {
   "name": "@virgo-design/create",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Generate standalone Minimal, Starter, and Pro applications with Virgo Design.",
   "license": "MIT",

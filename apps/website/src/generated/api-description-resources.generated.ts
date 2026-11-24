@@ -1116,6 +1116,8 @@ export const componentsApiEnUS: ApiDescriptionResources = {
         'Value represented by this segment.',
       'segmented-control-item-props.properties.children.description':
         'Visible label or content for the segment.',
+      'segmented-control-item-props.properties.icon.description':
+        'Optional decorative icon before the segment label.',
       'segmented-control-item-props.properties.tooltip.description':
         'Tooltip shown on pointer hover or keyboard focus; false omits it.',
       'segmented-control-item-props.properties.class-name.description':

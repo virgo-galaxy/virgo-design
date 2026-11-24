@@ -29,6 +29,6 @@ export const segmentedControlEnUS = {
   segmentedContent: {
     title: 'Content',
     description:
-      'Only the option content changes; visual treatment, size, and motion use their defaults.',
+      'Options support text labels and leading icons; visual treatment, size, and motion use their defaults.',
   },
 } as const;

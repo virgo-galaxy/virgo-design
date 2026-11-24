@@ -43,6 +43,10 @@ export const segmentedControlMetadata = {
       description: 'Segment option backed by a native radio input and visible label.',
     },
     {
+      name: 'icon',
+      description: 'Optional decorative icon before the segment label.',
+    },
+    {
       name: 'label',
       description: 'Visible content for an individual segment.',
     },
@@ -57,6 +61,7 @@ export const segmentedControlMetadata = {
     solid: true,
     soft: true,
     size: true,
+    icon: true,
     slidingIndicator: true,
     reducedMotion: true,
   },

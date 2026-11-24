@@ -14,6 +14,7 @@ export const segmentedControlApiZhCN = {
     'segmented-control-props.properties.on-value-change.description': '选中值变化时调用。',
     'segmented-control-item-props.properties.value.description': '此分段表示的值。',
     'segmented-control-item-props.properties.children.description': '分段的可见标签或内容。',
+    'segmented-control-item-props.properties.icon.description': '显示在分段标签前的可选装饰图标。',
     'segmented-control-item-props.properties.tooltip.description':
       '鼠标悬停或键盘聚焦时显示提示；false 不显示。',
     'segmented-control-item-props.properties.class-name.description':

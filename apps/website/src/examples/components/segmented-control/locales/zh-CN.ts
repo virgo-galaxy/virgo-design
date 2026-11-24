@@ -24,7 +24,7 @@ export const segmentedControlExamplesZhCN = {
     controlSizes: '控件尺寸',
     onlySizeChangesSelectionAndVisualTreatmentStayFixed: '仅改变尺寸；选择与视觉样式保持一致。',
     optionContent: '选项内容',
-    shortModeAndPeriodChoicesShareTheSameSingleSelection: '简短模式与时间范围选项共用单选行为。',
+    addALeadingIconToALabelOrKeepOptionsTextOnly: '可在文字前添加图标，也可使用纯文字选项。',
     disabledOption: '禁用选项',
     unavailableChoicesRemainVisibleInContext: '不可用选项仍保留在上下文中。',
     theme: '主题',

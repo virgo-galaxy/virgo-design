@@ -34,6 +34,10 @@ export interface SegmentedControlItemProps extends Omit<
 
   /** Visible label or content for the segment. */
   children: ReactNode;
+
+  /** Optional decorative icon before the segment label. */
+  icon?: ReactNode;
+
   /** Tooltip shown on pointer hover or keyboard focus; false omits it. */
   tooltip?: ReactNode | false | undefined;
 

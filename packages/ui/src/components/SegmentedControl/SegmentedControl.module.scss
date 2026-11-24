@@ -5,6 +5,8 @@
   --segmented-radius: #{control-size.token(medium, radius)};
   --segmented-item-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   --segmented-padding-inline: #{control-size.token(medium, padding-inline)};
+  --segmented-icon-size: #{control-size.token(medium, icon-size)};
+  --segmented-gap: #{control-size.token(medium, gap)};
   --segmented-indicator-x: 0px;
   --segmented-indicator-width: 0px;
   --segmented-font-family: var(--vd-typography-ui-label-medium-font-family);
@@ -70,6 +72,7 @@
   min-width: 0;
   align-items: center;
   justify-content: center;
+  gap: var(--segmented-gap);
   padding-inline: var(--segmented-padding-inline);
   color: var(--vd-text-primary);
   cursor: pointer;
@@ -131,11 +134,30 @@
   white-space: nowrap;
 }
 
+.icon {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--segmented-icon-size);
+  height: var(--segmented-icon-size);
+  color: inherit;
+
+  > svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .root[data-size='mini'] {
   --segmented-height: #{control-size.token(mini, height)};
   --segmented-radius: #{control-size.token(mini, radius)};
   --segmented-item-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   --segmented-padding-inline: #{control-size.token(mini, padding-inline)};
+  --segmented-icon-size: #{control-size.token(mini, icon-size)};
+  --segmented-gap: #{control-size.token(mini, gap)};
   --segmented-font-family: var(--vd-typography-ui-label-small-font-family);
   --segmented-letter-spacing: var(--vd-typography-ui-label-small-letter-spacing, inherit);
   --segmented-font-size: #{control-size.token(mini, font-size)};
@@ -151,6 +173,8 @@
   --segmented-radius: #{control-size.token(small, radius)};
   --segmented-item-radius: var(--vd-shape-radius-4, var(--vd-radius-4));
   --segmented-padding-inline: #{control-size.token(small, padding-inline)};
+  --segmented-icon-size: #{control-size.token(small, icon-size)};
+  --segmented-gap: #{control-size.token(small, gap)};
   --segmented-font-family: var(--vd-typography-ui-label-small-font-family);
   --segmented-letter-spacing: var(--vd-typography-ui-label-small-letter-spacing, inherit);
   --segmented-font-size: #{control-size.token(small, font-size)};
@@ -166,6 +190,8 @@
   --segmented-radius: #{control-size.token(medium, radius)};
   --segmented-item-radius: var(--vd-shape-radius-6, var(--vd-radius-6));
   --segmented-padding-inline: #{control-size.token(medium, padding-inline)};
+  --segmented-icon-size: #{control-size.token(medium, icon-size)};
+  --segmented-gap: #{control-size.token(medium, gap)};
   --segmented-font-size: #{control-size.token(medium, font-size)};
 }
 
@@ -174,6 +200,8 @@
   --segmented-radius: #{control-size.token(large, radius)};
   --segmented-item-radius: var(--vd-shape-radius-8, var(--vd-radius-8));
   --segmented-padding-inline: #{control-size.token(large, padding-inline)};
+  --segmented-icon-size: #{control-size.token(large, icon-size)};
+  --segmented-gap: #{control-size.token(large, gap)};
   --segmented-font-size: #{control-size.token(large, font-size)};
 }
 

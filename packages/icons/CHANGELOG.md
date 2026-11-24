@@ -1,5 +1,11 @@
 # @virgo-design/icons
 
+## 0.1.1
+
+### Patch Changes
+
+- Align the package version with the Virgo Design `0.1.1` release. No package-specific API changes.
+
 ## 0.1.0
 
 ### Minor Changes

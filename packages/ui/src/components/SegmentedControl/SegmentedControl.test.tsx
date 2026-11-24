@@ -76,6 +76,32 @@ describe('SegmentedControl', () => {
     expect(screen.getByRole('radio', { name: 'Pear' })).toBeChecked();
   });
 
+  it('keeps icon labels decorative and selects the option when its icon is clicked', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+
+    render(
+      <SegmentedControl defaultValue="code" onValueChange={onValueChange} aria-label="View mode">
+        <SegmentedControl.Item value="code">Code</SegmentedControl.Item>
+        <SegmentedControl.Item
+          value="preview"
+          icon={<svg aria-label="Preview icon" data-testid="preview-icon" />}
+        >
+          Preview
+        </SegmentedControl.Item>
+      </SegmentedControl>,
+    );
+
+    const icon = screen.getByTestId('preview-icon');
+    expect(icon.parentElement).toHaveAttribute('aria-hidden', 'true');
+    expect(screen.getByRole('radio', { name: 'Preview' })).not.toBeChecked();
+
+    await user.click(icon);
+
+    expect(screen.getByRole('radio', { name: 'Preview' })).toBeChecked();
+    expect(onValueChange).toHaveBeenCalledWith('preview');
+  });
+
   it('updates an uncontrolled selection', async () => {
     const user = userEvent.setup();
     renderControl();

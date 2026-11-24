@@ -1,3 +1,4 @@
+import { CodeIcon, EyeIcon } from '@virgo-design/icons';
 import { SegmentedControl } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
@@ -12,10 +13,10 @@ export default function App() {
         defaultValue="code"
         aria-label={t('examples.segmentedControl.copy.viewMode')}
       >
-        <SegmentedControl.Item value="code">
+        <SegmentedControl.Item value="code" icon={<CodeIcon />}>
           {t('examples.segmentedControl.copy.code')}
         </SegmentedControl.Item>
-        <SegmentedControl.Item value="preview">
+        <SegmentedControl.Item value="preview" icon={<EyeIcon />}>
           {t('examples.segmentedControl.copy.preview')}
         </SegmentedControl.Item>
       </SegmentedControl>

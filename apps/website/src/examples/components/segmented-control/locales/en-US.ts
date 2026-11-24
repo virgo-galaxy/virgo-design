@@ -23,8 +23,8 @@ export const segmentedControlExamplesEnUS = {
     onlySizeChangesSelectionAndVisualTreatmentStayFixed:
       'Only size changes; selection and visual treatment stay fixed.',
     optionContent: 'Option content',
-    shortModeAndPeriodChoicesShareTheSameSingleSelection:
-      'Short mode and period choices share the same single-selection behavior.',
+    addALeadingIconToALabelOrKeepOptionsTextOnly:
+      'Add a leading icon to a label, or keep options text-only.',
     disabledOption: 'Disabled option',
     unavailableChoicesRemainVisibleInContext: 'Unavailable choices remain visible in context.',
     theme: 'Theme',

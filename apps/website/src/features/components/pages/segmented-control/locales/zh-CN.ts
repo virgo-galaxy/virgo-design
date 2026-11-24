@@ -30,6 +30,6 @@ export const segmentedControlZhCN = {
   },
   segmentedContent: {
     title: '内容',
-    description: '仅改变选项内容；视觉样式、尺寸与动效使用默认值。',
+    description: '选项支持文字标签与前置图标；视觉样式、尺寸与动效使用默认值。',
   },
 } satisfies LocaleOf<typeof segmentedControlEnUS>;

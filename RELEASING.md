@@ -15,16 +15,17 @@ library group.
 A release can contain many commits. Ordinary commits do not require an immediate version bump or
 npm publication; Changesets collects library changes for the next release.
 
-Version numbers use `major.minor.patch`. For example:
+Version numbers use `major.minor.patch`. During `0.x` development, this project uses:
 
-| Change             | Example           |
-| ------------------ | ----------------- |
-| Compatible bug fix | `0.1.0` → `0.1.1` |
-| New functionality  | `0.1.0` → `0.2.0` |
-| Stable public API  | `1.0.0`           |
+| Change                                                  | Example           |
+| ------------------------------------------------------- | ----------------- |
+| Compatible fix, improvement or small API addition       | `0.1.0` → `0.1.1` |
+| Significant milestone or incompatible public API change | `0.1.x` → `0.2.0` |
+| Public API ready for a stability commitment             | `1.0.0`           |
 
-The `0.x` series allows API changes during development; document incompatible changes in the
-changelog. After `1.0.0`, incompatible public API changes require a major version increase.
+Document incompatible changes and migration steps in the changelog. Reaching `1.0.0` is an
+explicit stability decision, not an automatic consequence of release count. After `1.0.0`, use
+minor releases for compatible new functionality and major releases for incompatible API changes.
 See [Semantic Versioning](https://semver.org/) for the version rules.
 
 A package version identifies a published artifact; a Git release tag identifies its source
@@ -42,6 +43,11 @@ pnpm changeset status
 
 Select the affected packages and change level. Describe the API or behavior change and any action
 consumers need to take. Commit the changeset with the implementation.
+
+When a library release should also become the default for newly generated projects, update
+`cli/config/library-versions.json`, bump `cli/package.json`, and record the change in
+`cli/CHANGELOG.md`. The generator remains a separately published package; its version can align
+with the libraries in a coordinated release.
 
 Keep internal dependency declarations as `workspace:*`. pnpm replaces them with package versions
 when packing, so archive manifests contain installable dependency ranges.
@@ -105,3 +111,8 @@ Version commands update repository files. The Version packages workflow opens th
 request; it does not publish packages. npm publication requires a separate publishing operation
 with access to the `@virgo-design` scope. Website deployment and Pro application distribution are
 managed separately from library publication.
+
+For a coordinated library and generator release, publish the libraries first. After the exact
+versions in `cli/config/library-versions.json` are available on npm, verify the packed CLI with
+`pnpm check:cli` and publish the generator. Updating repository versions alone does not update
+packages that users have already installed.
