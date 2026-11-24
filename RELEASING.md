@@ -106,34 +106,29 @@ This checks archive contents without rebuilding the libraries or running consume
 
 ## Update versions
 
-The [Version packages workflow](.github/workflows/version-packages.yml) opens or updates a pull
-request when changesets reach `main`. It can also be run manually. The repository must allow
-GitHub Actions to create pull requests.
-
-To generate the same version changes locally:
+Prepare package versions and changelogs directly on `main`:
 
 ```sh
 pnpm version:packages
 ```
 
-Review package versions, dependency updates and changelogs, then run the validation commands
-against the updated packages before merging.
-
-The workflow explicitly dispatches CI on the version branch, including PRs created with
-`GITHUB_TOKEN`. Review the package versions, dependency ranges and changelogs before merging the
-release PR. A normal code commit does not publish pending changesets.
+Review package versions, dependency updates and changelogs, run the validation commands, then
+commit and push on `main`. There is no automatic version branch or release PR. Preparing versions
+does not publish them, and a normal code commit does not start npm publication.
 
 ## Publish packages
 
-The [Publish packages workflow](.github/workflows/publish-packages.yml) starts after successful
-main CI. It verifies that the checked commit is still main and has a successful CI run, skips
-commits with pending changesets, and asks Changesets for versions not yet published to npm.
+Run the [Publish packages workflow](.github/workflows/publish-packages.yml) manually on `main` and
+choose the single package to publish. It verifies that the checked commit is still main and has a
+successful CI run. Only the selected package is included in the publish plan; other unpublished
+packages remain untouched. Selecting a package whose current version is already published does
+not upload it again or change its version.
 
 The workflow builds and packs that plan, checks archive hashes, then publishes through npm OIDC:
 
-1. Publish changed libraries and wait for their exact versions and tags to be visible, their
+1. Publish the selected library and wait for its exact version and tag to be visible, its
    tarballs to download, and the downloaded hashes to match the planned archives.
-2. If the generator is included, verify every exact version in its default dependency list before
+2. If the generator is selected, verify every exact version in its default dependency list before
    publishing it. Verify its download and run a standalone Starter project against npm packages.
 3. Create package-specific Git tags only after verification succeeds.
 

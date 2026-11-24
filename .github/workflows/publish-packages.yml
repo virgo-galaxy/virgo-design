@@ -1,11 +1,22 @@
 name: Publish packages
 
 on:
-  workflow_run:
-    workflows: [CI]
-    branches: [main]
-    types: [completed]
   workflow_dispatch:
+    inputs:
+      package:
+        description: Package to publish from main
+        required: true
+        type: choice
+        options:
+          - '@virgo-design/ui'
+          - '@virgo-design/primitives'
+          - '@virgo-design/icons'
+          - '@virgo-design/charts'
+          - '@virgo-design/tokens'
+          - '@virgo-design/themes'
+          - '@virgo-design/fonts'
+          - '@virgo-design/colors'
+          - '@virgo-design/create'
 
 permissions:
   contents: read
@@ -17,14 +28,11 @@ concurrency:
 
 env:
   HUSKY: '0'
+  RELEASE_PACKAGE: ${{ inputs.package }}
 
 jobs:
   publish:
-    if: >-
-      (github.event_name == 'workflow_run' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_repository.full_name == github.repository) ||
-      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 75
     permissions:
@@ -34,7 +42,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ github.sha }}
           fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@v7
@@ -59,39 +67,34 @@ jobs:
           test "$CI_RUNS" -gt 0
           echo 'ready=true' >> "$GITHUB_OUTPUT"
           echo "sha=$RELEASE_SHA" >> "$GITHUB_OUTPUT"
-      - name: Check for pending version changes
-        if: steps.source.outputs.ready == 'true'
-        id: versions
-        run: |
-          pnpm changeset status --output .artifacts/release/changesets.json
-          node --input-type=module <<'NODE'
-          import fs from 'node:fs';
-          const status = JSON.parse(fs.readFileSync('.artifacts/release/changesets.json', 'utf8'));
-          const pending = status.releases.some(release => release.type !== 'none');
-          if (pending) console.log('Pending changesets must be versioned and merged before publishing.');
-          fs.appendFileSync(process.env.GITHUB_OUTPUT, `ready=${!pending}\n`);
-          NODE
+          echo "artifact=npm-release-$RELEASE_SHA-${RELEASE_PACKAGE##*/}" >> "$GITHUB_OUTPUT"
       - name: Restore the original packed plan when retrying
-        if: steps.versions.outputs.ready == 'true'
+        if: steps.source.outputs.ready == 'true'
         id: resume
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_ARTIFACT: npm-release-${{ steps.source.outputs.sha }}
+          RELEASE_ARTIFACT: ${{ steps.source.outputs.artifact }}
         run: |
           ARTIFACTS=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" --jq '[.artifacts[] | select(.name == env.RELEASE_ARTIFACT and .expired == false)] | length')
           if [ "$ARTIFACTS" -gt 0 ]; then
             gh run download "$GITHUB_RUN_ID" --name "$RELEASE_ARTIFACT" --dir .artifacts/release/packed
             echo 'ready=true' >> "$GITHUB_OUTPUT"
           fi
-      - name: Plan unpublished package versions
-        if: steps.versions.outputs.ready == 'true' && steps.resume.outputs.ready != 'true'
+      - name: Plan only the selected package
+        if: steps.source.outputs.ready == 'true' && steps.resume.outputs.ready != 'true'
         id: plan
         run: |
           pnpm exec changeset publish-plan --output .artifacts/release/plan.json
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
-          const { plan } = JSON.parse(fs.readFileSync('.artifacts/release/plan.json', 'utf8'));
+          const file = '.artifacts/release/plan.json';
+          const output = JSON.parse(fs.readFileSync(file, 'utf8'));
+          const plan = output.plan
+            .map(group => group.filter(release => release.name === process.env.RELEASE_PACKAGE))
+            .filter(group => group.length > 0);
+          fs.writeFileSync(file, JSON.stringify({ ...output, plan }, null, 2));
           const releases = plan.flat().filter(release => release.kind === 'publish');
+          if (!releases.length) console.log('The selected package has no unpublished version. Prepare its version on main before publishing.');
           console.log(JSON.stringify(releases, null, 2));
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `ready=${releases.length > 0}\n`);
           NODE
@@ -105,7 +108,7 @@ jobs:
         if: steps.plan.outputs.ready == 'true'
         uses: actions/upload-artifact@v7.0.2
         with:
-          name: npm-release-${{ steps.source.outputs.sha }}
+          name: ${{ steps.source.outputs.artifact }}
           path: .artifacts/release/packed
           retention-days: 14
           if-no-files-found: error

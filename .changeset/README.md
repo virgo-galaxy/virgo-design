@@ -9,8 +9,8 @@ packages whose published behavior or metadata changes. Changesets also updates d
 dependency leaves their supported version range. The private repository root and applications are
 excluded from versioning and tagging.
 
-The version workflow opens a release pull request and starts CI for its branch. After that pull
-request is merged and main CI passes, the publish workflow releases the unpublished versions
-using npm trusted publishing. See the release guide for the one-time npm configuration.
+Prepare versions and changelogs directly on `main` with `pnpm version:packages`, then review,
+validate, commit and push them. No version branch or release PR is created. Publishing is a
+separate manual workflow: choose one package to publish from `main` using npm trusted publishing.
 
 See the [release guide](../RELEASING.md) for package validation and version management.
