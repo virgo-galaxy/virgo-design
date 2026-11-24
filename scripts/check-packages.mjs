@@ -21,13 +21,17 @@ import { x as extract } from 'tar';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const output = path.join(root, '.artifacts/packages');
 const readJson = async (file) => JSON.parse(await readFile(file, 'utf8'));
-const pnpm = process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm';
+const windows = process.platform === 'win32';
+const pnpmEntry = process.env.npm_execpath;
+if (windows) assert(pnpmEntry, 'Run package validation with pnpm on Windows.');
 const packOnly = process.argv.includes('--pack-only');
 
 async function run(args, cwd = root) {
   console.log(`\n> pnpm ${args.join(' ')}`);
   return new Promise((resolve, reject) => {
-    const child = spawn(pnpm, args, {
+    const command = windows ? (/\.exe$/i.test(pnpmEntry) ? pnpmEntry : process.execPath) : 'pnpm';
+    const commandArgs = windows && command === process.execPath ? [pnpmEntry, ...args] : args;
+    const child = spawn(command, commandArgs, {
       cwd,
       stdio: 'inherit',
       env: { ...process.env, HUSKY: '0' },
