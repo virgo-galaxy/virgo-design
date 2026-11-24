@@ -41,16 +41,16 @@ Virgo Design 是一套 React 设计系统，提供组件、交互原语、图标
 
 ## 包
 
-| 包                                | 用途                                    |
-| --------------------------------- | --------------------------------------- |
-| [UI](packages/ui)                 | 带样式的 React 组件。                   |
-| [Primitives](packages/primitives) | 无样式的交互与无障碍组件。              |
-| [Icons](packages/icons)           | React 图标、SVG 资源和图标工具。        |
-| [Charts](packages/charts)         | React 图表、ECharts 集成和 SVG 迷你图。 |
-| [Tokens](packages/tokens)         | 基础数值、语义角色和样式集成。          |
-| [Themes](packages/themes)         | 六套主题、CSS 生成和主题切换。          |
-| [Fonts](packages/fonts)           | 自托管可变字体和字体元数据。            |
-| [Colors](packages/colors)         | 颜色转换、色阶和色板生成。              |
+| 包                                | 当前版本                                                                                                                                   | 用途                                    |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------- |
+| [UI](packages/ui)                 | [![UI 版本](https://img.shields.io/npm/v/@virgo-design/ui?label=)](https://www.npmjs.com/package/@virgo-design/ui)                         | 带样式的 React 组件。                   |
+| [Primitives](packages/primitives) | [![Primitives 版本](https://img.shields.io/npm/v/@virgo-design/primitives?label=)](https://www.npmjs.com/package/@virgo-design/primitives) | 无样式的交互与无障碍组件。              |
+| [Icons](packages/icons)           | [![Icons 版本](https://img.shields.io/npm/v/@virgo-design/icons?label=)](https://www.npmjs.com/package/@virgo-design/icons)                | React 图标、SVG 资源和图标工具。        |
+| [Charts](packages/charts)         | [![Charts 版本](https://img.shields.io/npm/v/@virgo-design/charts?label=)](https://www.npmjs.com/package/@virgo-design/charts)             | React 图表、ECharts 集成和 SVG 迷你图。 |
+| [Tokens](packages/tokens)         | [![Tokens 版本](https://img.shields.io/npm/v/@virgo-design/tokens?label=)](https://www.npmjs.com/package/@virgo-design/tokens)             | 基础数值、语义角色和样式集成。          |
+| [Themes](packages/themes)         | [![Themes 版本](https://img.shields.io/npm/v/@virgo-design/themes?label=)](https://www.npmjs.com/package/@virgo-design/themes)             | 六套主题、CSS 生成和主题切换。          |
+| [Fonts](packages/fonts)           | [![Fonts 版本](https://img.shields.io/npm/v/@virgo-design/fonts?label=)](https://www.npmjs.com/package/@virgo-design/fonts)                | 自托管可变字体和字体元数据。            |
+| [Colors](packages/colors)         | [![Colors 版本](https://img.shields.io/npm/v/@virgo-design/colors?label=)](https://www.npmjs.com/package/@virgo-design/colors)             | 颜色转换、色阶和色板生成。              |
 
 ## 使用组件
 

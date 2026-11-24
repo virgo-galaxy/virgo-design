@@ -84,8 +84,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@virgo-design/colors": "workspace:*",
-    "@virgo-design/fonts": "workspace:*"
+    "@virgo-design/colors": "workspace:^",
+    "@virgo-design/fonts": "workspace:^"
   },
   "description": "Foundation values, semantic roles and component presentation tokens for Virgo Design.",
   "repository": {

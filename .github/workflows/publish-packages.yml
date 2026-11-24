@@ -1,0 +1,116 @@
+name: Publish packages
+
+on:
+  workflow_run:
+    workflows: [CI]
+    branches: [main]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: publish-packages
+  cancel-in-progress: false
+
+env:
+  HUSKY: '0'
+
+jobs:
+  publish:
+    if: >-
+      (github.event_name == 'workflow_run' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_repository.full_name == github.repository) ||
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    permissions:
+      contents: write
+      actions: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - uses: pnpm/action-setup@v6
+      - run: pnpm install --frozen-lockfile
+      - name: Require successful CI for the current main commit
+        id: source
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          RELEASE_SHA=$(git rev-parse HEAD)
+          MAIN_SHA=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq '.object.sha')
+          if [ "$RELEASE_SHA" != "$MAIN_SHA" ]; then
+            echo 'A newer main commit exists; skipping this release.'
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          CI_RUNS=$(gh run list --workflow ci.yml --commit "$RELEASE_SHA" --branch main --status success --json databaseId --jq 'length')
+          test "$CI_RUNS" -gt 0
+          echo 'ready=true' >> "$GITHUB_OUTPUT"
+          echo "sha=$RELEASE_SHA" >> "$GITHUB_OUTPUT"
+      - name: Check for pending version changes
+        if: steps.source.outputs.ready == 'true'
+        id: versions
+        run: |
+          pnpm changeset status --output .artifacts/release/changesets.json
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const status = JSON.parse(fs.readFileSync('.artifacts/release/changesets.json', 'utf8'));
+          const pending = status.releases.some(release => release.type !== 'none');
+          if (pending) console.log('Pending changesets must be versioned and merged before publishing.');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `ready=${!pending}\n`);
+          NODE
+      - name: Restore the original packed plan when retrying
+        if: steps.versions.outputs.ready == 'true'
+        id: resume
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_ARTIFACT: npm-release-${{ steps.source.outputs.sha }}
+        run: |
+          ARTIFACTS=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" --jq '[.artifacts[] | select(.name == env.RELEASE_ARTIFACT and .expired == false)] | length')
+          if [ "$ARTIFACTS" -gt 0 ]; then
+            gh run download "$GITHUB_RUN_ID" --name "$RELEASE_ARTIFACT" --dir .artifacts/release/packed
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Plan unpublished package versions
+        if: steps.versions.outputs.ready == 'true' && steps.resume.outputs.ready != 'true'
+        id: plan
+        run: |
+          pnpm exec changeset publish-plan --output .artifacts/release/plan.json
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const { plan } = JSON.parse(fs.readFileSync('.artifacts/release/plan.json', 'utf8'));
+          const releases = plan.flat().filter(release => release.kind === 'publish');
+          console.log(JSON.stringify(releases, null, 2));
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `ready=${releases.length > 0}\n`);
+          NODE
+      - name: Build and pack the planned versions
+        if: steps.plan.outputs.ready == 'true'
+        run: |
+          pnpm build:packages
+          pnpm exec changeset pack --from-publish-plan .artifacts/release/plan.json --out-dir .artifacts/release/packed
+          pnpm release:publish --pack-dir .artifacts/release/packed
+      - name: Preserve the exact archives for retries
+        if: steps.plan.outputs.ready == 'true'
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: npm-release-${{ steps.source.outputs.sha }}
+          path: .artifacts/release/packed
+          retention-days: 14
+          if-no-files-found: error
+      - name: Publish and verify npm downloads
+        if: steps.plan.outputs.ready == 'true' || steps.resume.outputs.ready == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm release:publish --pack-dir .artifacts/release/packed --execute

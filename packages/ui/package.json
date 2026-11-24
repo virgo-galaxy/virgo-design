@@ -31,9 +31,9 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "@virgo-design/primitives": "workspace:*",
-    "@virgo-design/icons": "workspace:*",
-    "@virgo-design/tokens": "workspace:*"
+    "@virgo-design/primitives": "workspace:^",
+    "@virgo-design/icons": "workspace:^",
+    "@virgo-design/tokens": "workspace:^"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

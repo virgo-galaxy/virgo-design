@@ -531,7 +531,7 @@ importers:
   packages/charts:
     dependencies:
       '@virgo-design/tokens':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../tokens
       echarts:
         specifier: 6.1.0
@@ -611,28 +611,28 @@ importers:
   packages/themes:
     dependencies:
       '@virgo-design/tokens':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../tokens
 
   packages/tokens:
     dependencies:
       '@virgo-design/colors':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../colors
       '@virgo-design/fonts':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../fonts
 
   packages/ui:
     dependencies:
       '@virgo-design/icons':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../icons
       '@virgo-design/primitives':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../primitives
       '@virgo-design/tokens':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../tokens
       react:
         specifier: '>=18.0.0'

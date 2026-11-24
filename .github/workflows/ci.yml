@@ -146,10 +146,12 @@ jobs:
         with:
           cache: true
       - run: pnpm install --frozen-lockfile
+      - run: pnpm build:packages
+      - run: pnpm pack:packages
       - if: runner.os == 'Linux'
-        run: pnpm check:cli --variant ${{ matrix.template }} --startup
+        run: pnpm check:cli --variant ${{ matrix.template }} --local-packages --startup
       - if: runner.os != 'Linux'
-        run: pnpm check:cli --template pro-${{ matrix.template }} --startup
+        run: pnpm check:cli --template pro-${{ matrix.template }} --local-packages --startup
 
   checks:
     name: Workspace checks

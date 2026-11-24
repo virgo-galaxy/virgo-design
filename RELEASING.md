@@ -2,18 +2,20 @@
 
 ## Package scope
 
-The eight libraries under `packages/` use one Changesets fixed version group, defined in
-[`.changeset/config.json`](.changeset/config.json). They are versioned together. The repository
-root, documentation website and Pro applications are private workspaces and are excluded from
-package versioning and npm publication.
+Public libraries under `packages/` are versioned independently with Changesets, configured in
+[`.changeset/config.json`](.changeset/config.json). Only changed packages and dependents that need
+a new dependency range are released. New public libraries get their own versions and changelogs.
+The repository root, documentation website and Pro applications are private workspaces and are
+excluded from package versioning and npm publication. Their `0.0.0` versions do not represent a
+shared version for the libraries.
 
 The [project generator](cli/README.md) has its own version and is released separately from the
-library group.
+libraries.
 
 ## Versions, commits and tags
 
 A release can contain many commits. Ordinary commits do not require an immediate version bump or
-npm publication; Changesets collects library changes for the next release.
+npm publication; Changesets collects library and generator changes for the next release.
 
 Version numbers use `major.minor.patch`. During `0.x` development, this project uses:
 
@@ -31,10 +33,12 @@ See [Semantic Versioning](https://semver.org/) for the version rules.
 A package version identifies a published artifact; a Git release tag identifies its source
 commit. Later commits do not update that release. Keep published versions and release tags
 unchanged, and publish changes under a new version when another release is needed.
+Use package-specific tags such as `@virgo-design/ui@0.1.2`; different package tags may point to the
+same commit without sharing a version number.
 
 ## Record changes
 
-For a library change, run from the repository root:
+For a library or generator change, run from the repository root:
 
 ```sh
 pnpm changeset
@@ -45,12 +49,21 @@ Select the affected packages and change level. Describe the API or behavior chan
 consumers need to take. Commit the changeset with the implementation.
 
 When a library release should also become the default for newly generated projects, update
-`cli/config/library-versions.json`, bump `cli/package.json`, and record the change in
-`cli/CHANGELOG.md`. The generator remains a separately published package; its version can align
-with the libraries in a coordinated release.
+`cli/config/library-versions.json` and include `@virgo-design/create` in the changeset. Changesets
+updates its version and `cli/CHANGELOG.md`. The generator remains independently versioned; its
+default dependency list can contain different library versions that have been tested together.
 
-Keep internal dependency declarations as `workspace:*`. pnpm replaces them with package versions
-when packing, so archive manifests contain installable dependency ranges.
+Use `workspace:^` for compatible dependencies between public libraries. For example, a dependency
+on a workspace package at `0.1.1` is packed as `^0.1.1`, which allows compatible patch releases
+without requiring the dependent to be republished. Changesets includes dependents when an update
+leaves their supported range. When code starts using a newly added API, include its dependent in
+the changeset and ensure the packed dependency range requires the version that introduced it.
+Private applications can keep `workspace:*` to use the current checkout.
+
+For example, a compatible UI improvement can release only `@virgo-design/ui@0.1.2`, while the other
+libraries and generator stay at `0.1.1`. Adding icons can release only the icons package; UI needs
+a release if its implementation also changes to use them. Library releases do not automatically
+change the generator's default dependency versions.
 
 ## Validate packages
 
@@ -75,6 +88,9 @@ tarballs in projects outside the workspace. It checks:
 The [CI workflow](.github/workflows/ci.yml) runs code checks, three test shards, application builds
 and package consumer validation as separate jobs. The **Workspace checks** result requires every
 job to pass. Application builds prepare the libraries once before building the seven applications.
+Template CI jobs build and pack the current libraries, then use `--local-packages` to install
+their archives through overrides in temporary projects. They do not require unpublished versions
+to exist on npm, and these overrides are not written into distributed templates.
 
 Archives and the validation report are written to `.artifacts/packages/`. Successful temporary
 consumer projects are removed; failed projects are retained for investigation. Package validation
@@ -90,8 +106,8 @@ This checks archive contents without rebuilding the libraries or running consume
 
 ## Update versions
 
-Run the [Version packages workflow](.github/workflows/version-packages.yml) on `main` to open or
-update a pull request containing package versions and changelogs. The repository must allow
+The [Version packages workflow](.github/workflows/version-packages.yml) opens or updates a pull
+request when changesets reach `main`. It can also be run manually. The repository must allow
 GitHub Actions to create pull requests.
 
 To generate the same version changes locally:
@@ -103,16 +119,57 @@ pnpm version:packages
 Review package versions, dependency updates and changelogs, then run the validation commands
 against the updated packages before merging.
 
-CI runs for pull requests created or updated with `GITHUB_TOKEN` require approval. Select
-**Approve workflows to run** in the pull request, or manually run CI on the version branch.
-See [GitHub's workflow trigger rules](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#triggering-a-workflow-from-a-workflow).
+The workflow explicitly dispatches CI on the version branch, including PRs created with
+`GITHUB_TOKEN`. Review the package versions, dependency ranges and changelogs before merging the
+release PR. A normal code commit does not publish pending changesets.
 
-Version commands update repository files. The Version packages workflow opens the version pull
-request; it does not publish packages. npm publication requires a separate publishing operation
-with access to the `@virgo-design` scope. Website deployment and Pro application distribution are
-managed separately from library publication.
+## Publish packages
 
-For a coordinated library and generator release, publish the libraries first. After the exact
-versions in `cli/config/library-versions.json` are available on npm, verify the packed CLI with
-`pnpm check:cli` and publish the generator. Updating repository versions alone does not update
-packages that users have already installed.
+The [Publish packages workflow](.github/workflows/publish-packages.yml) starts after successful
+main CI. It verifies that the checked commit is still main and has a successful CI run, skips
+commits with pending changesets, and asks Changesets for versions not yet published to npm.
+
+The workflow builds and packs that plan, checks archive hashes, then publishes through npm OIDC:
+
+1. Publish changed libraries and wait for their exact versions and tags to be visible, their
+   tarballs to download, and the downloaded hashes to match the planned archives.
+2. If the generator is included, verify every exact version in its default dependency list before
+   publishing it. Verify its download and run a standalone Starter project against npm packages.
+3. Create package-specific Git tags only after verification succeeds.
+
+No long-lived npm publishing token is needed. npm can accept an upload before its scanning and
+download availability checks finish. The workflow waits up to 25 minutes for each verification
+phase. If a phase times out, retry the failed workflow after npm becomes ready; do not bump a
+version simply to retry an accepted upload. Already visible versions must match the packed bytes
+and are not uploaded again.
+The original packed plan is retained as a workflow artifact for 14 days and restored when retrying
+that workflow run, so a retry still verifies accepted uploads and uses the same archive bytes.
+
+The publishing command defaults to inspection only. To inspect a prepared pack directory locally:
+
+```sh
+pnpm release:publish --pack-dir .artifacts/release/packed
+```
+
+The workflow supplies `--execute` and its OIDC identity for actual publication. Website deployment
+and Pro application distribution remain separate from npm publication. Updating a package does
+not update packages that users have already installed.
+
+## Configure npm trusted publishing
+
+For each package being released, open its npm settings and add this trusted publisher:
+
+| Field                | Value                                      |
+| -------------------- | ------------------------------------------ |
+| Provider             | GitHub Actions                             |
+| Organization or user | `virgo-galaxy`                             |
+| Repository           | `virgo-design`                             |
+| Workflow filename    | `publish-packages.yml`                     |
+| Environment          | Leave empty                                |
+| Allowed action       | Allow direct publishing with `npm publish` |
+
+The workflow must already exist on GitHub. Configure packages when their next real release is
+ready: npm requires a new trust configuration to complete its first successful publish within
+two days. Each package needs its own configuration; adding a new public package also requires
+setting up its npm package and publishing authorization. See the
+[npm trusted publishing documentation](https://docs.npmjs.com/trusted-publishers/).

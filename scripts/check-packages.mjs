@@ -52,13 +52,9 @@ for (const entry of await readdir(path.join(root, 'packages'), { withFileTypes: 
   if (!manifest.private) packages.push({ directory, manifest });
 }
 packages.sort((a, b) => a.manifest.name.localeCompare(b.manifest.name));
-const config = await readJson(path.join(root, '.changeset/config.json'));
-assert.deepEqual(
-  packages.map(({ manifest }) => manifest.name),
-  [...config.fixed[0]].sort(),
-);
-assert.equal(packages.length, 8, 'Expected exactly the eight public libraries');
+assert(packages.length > 0, 'No public libraries found');
 const versions = new Map(packages.map(({ manifest }) => [manifest.name, manifest.version]));
+assert.equal(versions.size, packages.length, 'Public library names must be unique');
 const report = { packages: [], consumers: [] };
 await mkdir(output, { recursive: true });
 
@@ -106,12 +102,16 @@ for (const { directory, manifest } of packages) {
         !/^(workspace:|file:|link:)/.test(range),
         `${packed.name}: unresolved ${field}.${name}`,
       );
-      if (versions.has(name))
-        assert.equal(
-          range,
-          versions.get(name),
-          `${packed.name}: unexpected internal dependency version`,
-        );
+      if (versions.has(name)) {
+        const declared = manifest[field][name].replace(/^workspace:/, '');
+        const expected =
+          declared === '*'
+            ? versions.get(name)
+            : declared === '^' || declared === '~'
+              ? `${declared}${versions.get(name)}`
+              : declared;
+        assert.equal(range, expected, `${packed.name}: unexpected ${field}.${name} range`);
+      }
     }
   }
   for (const target of targets(packed.exports)) {

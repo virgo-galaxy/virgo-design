@@ -1,5 +1,7 @@
 # @virgo-design/primitives
 
+[![npm version](https://img.shields.io/npm/v/@virgo-design/primitives)](https://www.npmjs.com/package/@virgo-design/primitives)
+
 Unstyled React components for interaction, state and accessibility behavior.
 Applications provide visual styles, business data and visible text.
 

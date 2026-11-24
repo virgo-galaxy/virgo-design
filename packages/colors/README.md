@@ -1,5 +1,7 @@
 # @virgo-design/colors
 
+[![npm version](https://img.shields.io/npm/v/@virgo-design/colors)](https://www.npmjs.com/package/@virgo-design/colors)
+
 Color conversion, ten-step tonal scales and palette generation. Semantic roles and
 CSS variables belong to `@virgo-design/tokens`.
 

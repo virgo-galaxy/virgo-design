@@ -1,5 +1,7 @@
 # Virgo Create
 
+[![npm version](https://img.shields.io/npm/v/@virgo-design/create)](https://www.npmjs.com/package/@virgo-design/create)
+
 Generate a standalone Virgo Design application with Vite + React or Next.js App Router.
 Use Node.js 24.14 or newer in the Node.js 24 release line and pnpm 11.9 or newer in the pnpm 11 release line.
 
@@ -82,6 +84,18 @@ published Virgo versions from `cli/config/library-versions.json`.
 `pnpm check:cli` installs the CLI archive outside the workspace and verifies the generated projects.
 Use `--template` to select one template, `--tier` for one tier, or `--variant` for a variant across
 all three tiers. Use `--startup` to also check the production server.
+
+Before publishing a library update, test generated projects against locally packed libraries:
+
+```sh
+pnpm build:packages
+pnpm pack:packages
+pnpm check:cli --variant vite-react-tailwind --local-packages --startup
+```
+
+The local mode uses dependency overrides only in temporary test projects. Generated template
+manifests keep the published dependency versions from `cli/config/library-versions.json`.
+Without `--local-packages`, the check installs those exact versions from npm.
 
 ## License
 

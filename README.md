@@ -43,16 +43,16 @@ and Pro templates.
 
 ## Packages
 
-| Package                           | Purpose                                                     |
-| --------------------------------- | ----------------------------------------------------------- |
-| [UI](packages/ui)                 | Styled React components.                                    |
-| [Primitives](packages/primitives) | Unstyled interaction and accessibility components.          |
-| [Icons](packages/icons)           | React icons, SVG assets and icon tooling.                   |
-| [Charts](packages/charts)         | React charts, ECharts integration and SVG sparklines.       |
-| [Tokens](packages/tokens)         | Foundation values, semantic roles and styling integrations. |
-| [Themes](packages/themes)         | Six theme presets, CSS generation and theme switching.      |
-| [Fonts](packages/fonts)           | Self-hosted variable fonts and family metadata.             |
-| [Colors](packages/colors)         | Color conversion, tonal scales and palette generation.      |
+| Package                           | Current version                                                                                                                               | Purpose                                                     |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| [UI](packages/ui)                 | [![UI version](https://img.shields.io/npm/v/@virgo-design/ui?label=)](https://www.npmjs.com/package/@virgo-design/ui)                         | Styled React components.                                    |
+| [Primitives](packages/primitives) | [![Primitives version](https://img.shields.io/npm/v/@virgo-design/primitives?label=)](https://www.npmjs.com/package/@virgo-design/primitives) | Unstyled interaction and accessibility components.          |
+| [Icons](packages/icons)           | [![Icons version](https://img.shields.io/npm/v/@virgo-design/icons?label=)](https://www.npmjs.com/package/@virgo-design/icons)                | React icons, SVG assets and icon tooling.                   |
+| [Charts](packages/charts)         | [![Charts version](https://img.shields.io/npm/v/@virgo-design/charts?label=)](https://www.npmjs.com/package/@virgo-design/charts)             | React charts, ECharts integration and SVG sparklines.       |
+| [Tokens](packages/tokens)         | [![Tokens version](https://img.shields.io/npm/v/@virgo-design/tokens?label=)](https://www.npmjs.com/package/@virgo-design/tokens)             | Foundation values, semantic roles and styling integrations. |
+| [Themes](packages/themes)         | [![Themes version](https://img.shields.io/npm/v/@virgo-design/themes?label=)](https://www.npmjs.com/package/@virgo-design/themes)             | Six theme presets, CSS generation and theme switching.      |
+| [Fonts](packages/fonts)           | [![Fonts version](https://img.shields.io/npm/v/@virgo-design/fonts?label=)](https://www.npmjs.com/package/@virgo-design/fonts)                | Self-hosted variable fonts and family metadata.             |
+| [Colors](packages/colors)         | [![Colors version](https://img.shields.io/npm/v/@virgo-design/colors?label=)](https://www.npmjs.com/package/@virgo-design/colors)             | Color conversion, tonal scales and palette generation.      |
 
 ## Use components
 

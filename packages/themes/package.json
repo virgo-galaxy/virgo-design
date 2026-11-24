@@ -27,7 +27,7 @@
     "./contrast.css": "./dist/contrast.css"
   },
   "dependencies": {
-    "@virgo-design/tokens": "workspace:*"
+    "@virgo-design/tokens": "workspace:^"
   },
   "scripts": {
     "build": "vite build && node ../../scripts/build-declarations.mjs && node scripts/build-css.mjs",

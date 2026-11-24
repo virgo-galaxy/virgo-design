@@ -17,9 +17,22 @@ const { values } = parseArgs({
     tier: { type: 'string' },
     variant: { type: 'string' },
     startup: { type: 'boolean' },
+    'local-packages': { type: 'boolean' },
   },
 });
 const readJson = async (filename) => JSON.parse(await readFile(filename, 'utf8'));
+const localPackages = new Map();
+if (values['local-packages']) {
+  const report = await readJson(path.join(root, '.artifacts/packages/report.json'));
+  for (const pkg of report.packages) {
+    const manifest = await readJson(
+      path.join(root, 'packages', pkg.name.split('/')[1], 'package.json'),
+    );
+    assert.equal(pkg.version, manifest.version, `${pkg.name}: local archive version is stale`);
+    localPackages.set(pkg.name, pkg);
+  }
+  assert(localPackages.size, 'Build and pack the libraries before using --local-packages.');
+}
 const registry = await readJson(path.join(root, 'cli/templates/manifest.json'));
 const templates = registry.templates.filter(
   (template) =>
@@ -120,7 +133,11 @@ await runPnpm(
 );
 const executable = path.join(consumer, 'node_modules/@virgo-design/create/dist/index.js');
 await run(process.execPath, [executable, '--help'], consumer);
-const report = { archive, templates: [] };
+const report = {
+  archive,
+  source: values['local-packages'] ? 'local-packages' : 'npm',
+  templates: [],
+};
 try {
   for (const template of templates) {
     const parent = await mkdtemp(path.join(temporaryDirectory, 'virgo-pro-'));
@@ -157,6 +174,25 @@ try {
     if (template.tier === 'starter') {
       assert(!manifest.dependencies?.msw && !manifest.devDependencies?.msw);
     }
+    if (values['local-packages']) {
+      for (const name of Object.keys(manifest.dependencies)) {
+        if (name.startsWith('@virgo-design/'))
+          assert(localPackages.has(name), `${name}: missing local archive`);
+      }
+      const overrides = Object.fromEntries(
+        [...localPackages].map(([name, pkg]) => [
+          name,
+          `file:${pkg.archive.split(path.sep).join('/')}`,
+        ]),
+      );
+      const workspaceFile = path.join(directory, 'pnpm-workspace.yaml');
+      const workspace = await readFile(workspaceFile, 'utf8');
+      assert(!/^overrides:/m.test(workspace), 'Template already declares dependency overrides');
+      await writeFile(
+        workspaceFile,
+        `${workspace.trimEnd()}\noverrides: ${JSON.stringify(overrides)}\n`,
+      );
+    }
     await runPnpm(
       [
         'install',
@@ -170,8 +206,11 @@ try {
       if (!name.startsWith('@virgo-design/')) continue;
       const installed = await realpath(path.join(directory, 'node_modules', name));
       assert(!installed.startsWith(root), `${name}: linked back into repository`);
-      assert.equal((await readJson(path.join(installed, 'package.json'))).version, version);
+      const expected = values['local-packages'] ? localPackages.get(name).version : version;
+      assert.equal((await readJson(path.join(installed, 'package.json'))).version, expected);
     }
+    if (values['local-packages'])
+      await runPnpm(['exec', 'prettier', '--write', 'pnpm-workspace.yaml'], directory);
     const checks =
       template.tier === 'minimal'
         ? ['typecheck', 'format:check', 'build']

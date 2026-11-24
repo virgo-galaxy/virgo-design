@@ -1,5 +1,7 @@
 # @virgo-design/fonts
 
+[![npm version](https://img.shields.io/npm/v/@virgo-design/fonts)](https://www.npmjs.com/package/@virgo-design/fonts)
+
 Shared font stylesheets and font metadata. Applications choose the families to load
 and apply them through their own styles or theme.
 

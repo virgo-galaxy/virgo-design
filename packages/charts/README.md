@@ -1,5 +1,7 @@
 # @virgo-design/charts
 
+[![npm version](https://img.shields.io/npm/v/@virgo-design/charts)](https://www.npmjs.com/package/@virgo-design/charts)
+
 React charts backed by Apache ECharts, plus a standalone SVG Sparkline. Charts use
 Virgo's token/theme contract for presentation.
 

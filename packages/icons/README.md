@@ -1,5 +1,7 @@
 # @virgo-design/icons
 
+[![npm version](https://img.shields.io/npm/v/@virgo-design/icons)](https://www.npmjs.com/package/@virgo-design/icons)
+
 Virgo's SVG icon assets and generated React components. Icons inherit `currentColor`
 and support consumer-controlled sizing.
 

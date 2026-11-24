@@ -1,5 +1,7 @@
 # @virgo-design/tokens
 
+[![npm version](https://img.shields.io/npm/v/@virgo-design/tokens)](https://www.npmjs.com/package/@virgo-design/tokens)
+
 Foundation values, semantic roles and component presentation tokens. Theme packages
 implement this contract; UI and chart packages consume it.
 

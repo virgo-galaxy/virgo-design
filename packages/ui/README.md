@@ -1,5 +1,7 @@
 # @virgo-design/ui
 
+[![npm version](https://img.shields.io/npm/v/@virgo-design/ui)](https://www.npmjs.com/package/@virgo-design/ui)
+
 Virgo Design's styled React components, built on primitives, icons and the shared
 token/theme contract. Applications own business state and translation resources.
 

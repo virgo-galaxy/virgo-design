@@ -1,5 +1,7 @@
 # @virgo-design/themes
 
+[![npm version](https://img.shields.io/npm/v/@virgo-design/themes)](https://www.npmjs.com/package/@virgo-design/themes)
+
 Theme presets and runtime switching for the token contract. Official themes are
 `virgo`, `minimal`, `soft`, `glass`, `retro` and `contrast`, each with light and dark appearances.
 
