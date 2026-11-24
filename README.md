@@ -10,9 +10,6 @@
   <a href="https://github.com/virgo-galaxy/virgo-design/actions/workflows/ci.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/virgo-galaxy/virgo-design/ci.yml?branch=main&amp;label=CI&amp;logo=github" alt="CI status" />
   </a>
-  <a href="https://www.npmjs.com/package/@virgo-design/ui">
-    <img src="https://img.shields.io/npm/v/@virgo-design/ui?logo=npm&amp;logoColor=white" alt="npm version" />
-  </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-2563eb?style=flat" alt="MIT license" />
   </a>
