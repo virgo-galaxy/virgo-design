@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import { DocumentationCatalogue } from '@/components/docs/DocumentationCatalogue';
+import { HighlightedCodeBlock } from '@/shared/ui/highlighted-code-block/HighlightedCodeBlock';
 
 import { FontCatalogue } from './components/FontCatalogue';
 import { InternationalSansPreview } from './components/InternationalSansPreview';
@@ -58,26 +59,24 @@ export function FontsPage() {
           <h2 id="font-usage-title">{t('fonts.usage.title')}</h2>
           <p>{t('fonts.usage.description')}</p>
         </header>
-        <pre className={styles.code}>
-          <code>{installCode}</code>
-        </pre>
+        <HighlightedCodeBlock className={styles.code} language="bash" source={installCode} />
         <h3>{t('fonts.usage.individual')}</h3>
-        <pre className={styles.code}>
-          <code>{individualCode}</code>
-        </pre>
-        <pre className={styles.code}>
-          <code>{applicationCode}</code>
-        </pre>
+        <HighlightedCodeBlock
+          className={styles.code}
+          language="typescript"
+          source={individualCode}
+        />
+        <HighlightedCodeBlock className={styles.code} language="css" source={applicationCode} />
         <h3>{t('fonts.usage.metadata')}</h3>
         <p>{t('fonts.usage.metadataDescription')}</p>
-        <pre className={styles.code}>
-          <code>{metadataCode}</code>
-        </pre>
+        <HighlightedCodeBlock className={styles.code} language="typescript" source={metadataCode} />
         <h3>{t('fonts.usage.aggregate')}</h3>
         <p>{t('fonts.usage.aggregateDescription')}</p>
-        <pre className={styles.code}>
-          <code>{"import '@virgo-design/fonts/default.css';"}</code>
-        </pre>
+        <HighlightedCodeBlock
+          className={styles.code}
+          language="typescript"
+          source={"import '@virgo-design/fonts/default.css';"}
+        />
       </section>
     </DocumentationCatalogue>
   );

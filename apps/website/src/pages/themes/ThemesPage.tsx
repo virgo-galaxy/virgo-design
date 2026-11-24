@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import { DocumentationCatalogue } from '@/components/docs/DocumentationCatalogue';
+import { HighlightedCodeBlock } from '@/shared/ui/highlighted-code-block/HighlightedCodeBlock';
 
 import { ThemeExperience } from './ThemeExperience';
 
@@ -98,16 +99,10 @@ export function ThemesPage() {
         title={t('themes.install.title')}
         description={t('themes.install.description')}
       >
-        <pre className={styles.code}>
-          <code>{installCode}</code>
-        </pre>
-        <pre className={styles.code}>
-          <code>{runtimeCode}</code>
-        </pre>
+        <HighlightedCodeBlock className={styles.code} language="bash" source={installCode} />
+        <HighlightedCodeBlock className={styles.code} language="typescript" source={runtimeCode} />
         <p>{t('themes.install.persistence')}</p>
-        <pre className={styles.code}>
-          <code>{reactCode}</code>
-        </pre>
+        <HighlightedCodeBlock className={styles.code} language="typescript" source={reactCode} />
       </ArticleSection>
 
       <ArticleSection
@@ -138,10 +133,12 @@ export function ThemesPage() {
             </Table.Body>
           </Table>
         </Table.Viewport>
-        <pre className={styles.code}>
-          <code>{`import { themePresets, themeRegistry, defaultTheme } from '@virgo-design/themes';
-import type { ThemeId, ThemePreset } from '@virgo-design/themes';`}</code>
-        </pre>
+        <HighlightedCodeBlock
+          className={styles.code}
+          language="typescript"
+          source={`import { themePresets, themeRegistry, defaultTheme } from '@virgo-design/themes';
+import type { ThemeId, ThemePreset } from '@virgo-design/themes';`}
+        />
       </ArticleSection>
 
       <ArticleSection
@@ -151,9 +148,7 @@ import type { ThemeId, ThemePreset } from '@virgo-design/themes';`}</code>
         description={t('themes.authoring.description')}
       >
         <p>{t('themes.authoring.contract')}</p>
-        <pre className={styles.code}>
-          <code>{customCode}</code>
-        </pre>
+        <HighlightedCodeBlock className={styles.code} language="typescript" source={customCode} />
         <p>{t('themes.authoring.scopes')}</p>
         <p>{t('themes.authoring.audit')}</p>
       </ArticleSection>

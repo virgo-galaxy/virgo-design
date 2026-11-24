@@ -2,6 +2,7 @@ import { Button } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { useSourceCopy } from '@/shared/hooks/use-source-copy';
+import { HighlightedCodeBlock } from '@/shared/ui/highlighted-code-block/HighlightedCodeBlock';
 
 import { generateSemanticColorCss } from './semantic-color-export';
 
@@ -21,9 +22,7 @@ export function SemanticColorExport() {
           {state === 'success' ? t('tokens.colors.export.copied') : t('tokens.colors.export.copy')}
         </Button>
       </div>
-      <pre className={styles.codeBlock}>
-        <code>{code}</code>
-      </pre>
+      <HighlightedCodeBlock className={styles.codeBlock} language="css" source={code} />
       <p>
         <span role="status">
           {state === 'error'

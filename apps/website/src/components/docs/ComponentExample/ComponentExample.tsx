@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 
 import { useSourceCopy } from '@/shared/hooks/use-source-copy';
 import { AppearanceContext } from '@/shared/theme/appearance-context';
+import { HighlightedCodeBlock } from '@/shared/ui/highlighted-code-block/HighlightedCodeBlock';
 import { SourceCopyButton } from '@/shared/ui/source-copy-button/SourceCopyButton';
 
 import { useComponentExampleDisclosure } from './component-example-runtime-context';
-import { ExampleSourceCode } from './ExampleSourceCode';
 import reactLogo from './react-logo.svg';
 import sassLogo from './sass-logo.svg';
 
@@ -249,18 +249,13 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                 className={styles.sourcePanel!}
                 data-example-source-panel="react"
               >
-                <pre
+                <HighlightedCodeBlock
+                  language="tsx"
+                  source={displayReactSource}
+                  active={sourceOpen}
                   tabIndex={sourceOpen ? 0 : -1}
-                  className="nsh"
-                  data-language="tsx"
                   aria-label={t('docs.componentExample.reactSourceCodeFor', { title })}
-                >
-                  <ExampleSourceCode
-                    language="tsx"
-                    source={displayReactSource}
-                    active={sourceOpen}
-                  />
-                </pre>
+                />
               </Tabs.Panel>
               <Tabs.Panel
                 value="scss"
@@ -268,18 +263,13 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                 className={styles.sourcePanel!}
                 data-example-source-panel="scss"
               >
-                <pre
+                <HighlightedCodeBlock
+                  language="scss"
+                  source={styleSource}
+                  active={sourceOpen && activeSourceTab === 'scss'}
                   tabIndex={sourceOpen ? 0 : -1}
-                  className="nsh"
-                  data-language="scss"
                   aria-label={t('docs.componentExample.scssSourceCodeFor', { title })}
-                >
-                  <ExampleSourceCode
-                    language="scss"
-                    source={styleSource}
-                    active={sourceOpen && activeSourceTab === 'scss'}
-                  />
-                </pre>
+                />
               </Tabs.Panel>
             </Tabs>
           ) : (
@@ -311,19 +301,14 @@ export function ComponentExample({ example, showCaption = true }: ComponentExamp
                   />
                 ) : null}
               </div>
-              <pre
+              <HighlightedCodeBlock
+                language="tsx"
+                source={displayReactSource}
+                active={sourceOpen && activeSourceTab === 'react'}
                 tabIndex={sourceOpen ? 0 : -1}
-                className="nsh"
-                data-language="tsx"
                 aria-label={t('docs.componentExample.reactSourceCodeFor', { title })}
                 data-example-source-panel="react"
-              >
-                <ExampleSourceCode
-                  language="tsx"
-                  source={displayReactSource}
-                  active={sourceOpen && activeSourceTab === 'react'}
-                />
-              </pre>
+              />
             </>
           )}
         </div>

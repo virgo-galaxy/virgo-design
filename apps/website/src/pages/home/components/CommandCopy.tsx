@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import { useSourceCopy } from '@/shared/hooks/use-source-copy';
+import { HighlightedCodeBlock } from '@/shared/ui/highlighted-code-block/HighlightedCodeBlock';
 import { SourceCopyButton } from '@/shared/ui/source-copy-button/SourceCopyButton';
 
 import styles from '../home-page.module.scss';
@@ -20,7 +21,11 @@ export function CommandCopy({ command, dark = false }: { command: string; dark?:
 
   return (
     <div className={styles.command} data-command-tone={dark ? 'dark' : 'light'}>
-      <code>{command}</code>
+      <HighlightedCodeBlock
+        source={command}
+        language="bash"
+        data-theme={dark ? 'dark' : undefined}
+      />
       <SourceCopyButton
         label={t('home.command.copy')}
         hint={feedback}

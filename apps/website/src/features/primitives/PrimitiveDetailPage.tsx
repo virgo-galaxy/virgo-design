@@ -18,6 +18,7 @@ import { primitiveApiReference } from '@/generated/primitive-api-reference.gener
 import { useAppLocale } from '@/i18n/use-app-locale';
 import { ROUTE_PATHS } from '@/shared/routes/route-config';
 import { useAppearance } from '@/shared/theme/use-appearance';
+import { HighlightedCodeBlock } from '@/shared/ui/highlighted-code-block/HighlightedCodeBlock';
 
 import {
   getPrimitiveDoc,
@@ -161,9 +162,11 @@ export function PrimitiveDetailPage({ renderRelationships }: PrimitiveDetailPage
                       </Card.Description>
                     </Card.Header>
                     <Card.Body>
-                      <pre className={styles.importBlock}>
-                        <code>{importStatement}</code>
-                      </pre>
+                      <HighlightedCodeBlock
+                        className={styles.importBlock}
+                        language="typescript"
+                        source={importStatement}
+                      />
                     </Card.Body>
                   </Card>
 

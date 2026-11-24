@@ -116,6 +116,70 @@
         "path": "v1/css/69011087bbdbeebeabf6333b5f45343790a56ee49aec5954de0283ec7b047147.json"
       },
       "dependencies": []
+    },
+    {
+      "id": "xml",
+      "manifest": {
+        "id": "xml",
+        "documentKinds": [
+          {
+            "id": "xml",
+            "extensions": [
+              ".xml",
+              ".xsd",
+              ".xsl",
+              ".xslt",
+              ".wsdl",
+              ".rss",
+              ".atom",
+              ".plist",
+              ".csproj",
+              ".props",
+              ".targets"
+            ]
+          },
+          {
+            "id": "svg",
+            "extensions": [
+              ".svg"
+            ]
+          }
+        ]
+      },
+      "sha256": "fb82277447d7abda93e367c42a3b2f754c6e8e6066b0ffa67490883a1eada837",
+      "bytes": 3601440,
+      "path": "v1/xml/fb82277447d7abda93e367c42a3b2f754c6e8e6066b0ffa67490883a1eada837.onnx",
+      "metadata": {
+        "sha256": "7de5a609585ac42b7d84ccbeb739f25d53548c3932ec41c39e300d492beda1b2",
+        "path": "v1/xml/7de5a609585ac42b7d84ccbeb739f25d53548c3932ec41c39e300d492beda1b2.json"
+      },
+      "dependencies": []
+    },
+    {
+      "id": "bash",
+      "manifest": {
+        "id": "bash",
+        "documentKinds": [
+          {
+            "id": "bash",
+            "extensions": [
+              ".sh",
+              ".bash",
+              ".zsh",
+              ".csh",
+              ".tcsh"
+            ]
+          }
+        ]
+      },
+      "sha256": "7feadcb291685616b97a852130dc1594665dc870769c2b59eb862d89204aedc9",
+      "bytes": 3602472,
+      "path": "v1/bash/7feadcb291685616b97a852130dc1594665dc870769c2b59eb862d89204aedc9.onnx",
+      "metadata": {
+        "sha256": "4852945632366af3134a220b7a96c42ae740e3a29c626b69a8a89af89757953f",
+        "path": "v1/bash/4852945632366af3134a220b7a96c42ae740e3a29c626b69a8a89af89757953f.json"
+      },
+      "dependencies": []
     }
   ]
 }

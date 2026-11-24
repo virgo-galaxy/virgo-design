@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSourceCopy } from '@/shared/hooks/use-source-copy';
+import { HighlightedCodeBlock } from '@/shared/ui/highlighted-code-block/HighlightedCodeBlock';
 import { SourceCopyButton } from '@/shared/ui/source-copy-button/SourceCopyButton';
 
 import { downloadIconSvg } from './download';
@@ -102,9 +103,12 @@ export function IconCodePanel({
           />
         </Button.Group>
       </header>
-      <pre tabIndex={0} aria-label={t('icons.codeExample')}>
-        <code data-language={format === 'svg' ? 'svg' : 'tsx'}>{source}</code>
-      </pre>
+      <HighlightedCodeBlock
+        language={format === 'svg' ? 'svg' : 'tsx'}
+        source={source}
+        tabIndex={0}
+        aria-label={t('icons.codeExample')}
+      />
       <span className="icon-code-feedback" role="status" aria-live="polite" aria-atomic="true">
         {state === 'success' || state === 'error'
           ? copyHint

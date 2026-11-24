@@ -29,7 +29,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   }, [pathname]);
 
   return (
-    <div className={styles.layout} data-theme={appearance}>
+    <div className={styles.layout} data-theme={appearance} data-nsh-theme={appearance}>
       <a className={styles.skipLink} href="#website-main">
         {t('app.navigation.skipToContent')}
       </a>

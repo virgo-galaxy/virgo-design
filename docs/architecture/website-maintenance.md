@@ -75,13 +75,19 @@ Use the existing [Button manifest](../../apps/website/src/examples/components/bu
 as a reference. Public installation requirements stay in package READMEs instead of being repeated
 in every example. Changing source normalization belongs in the shared transformer and its tests.
 
-The website highlights displayed TSX and SCSS with `@virgo-nsh/highlighter`.
-The source panel follows the site appearance and keeps the original text visible
-while inference loads or if it fails. The browser loads the active language's
-model on first use, and the copy action reads the original source.
+The shared `HighlightedCodeBlock` highlights TypeScript, TSX, CSS, SCSS, SVG and Bash
+with `@virgo-nsh/highlighter`. Colors' Tailwind export is a CSS `@theme` block
+and uses the CSS language entry. The XML model loads when an Icons code panel
+shows SVG. The Bash model handles the two project creation commands on the
+homepage and the installation commands in Fonts and Themes. Highlighting
+starts near the viewport, and collapsible panels
+also wait until opened and selected. The original text stays visible during
+loading and after a failure, and the copy action reads the original source.
+Syntax colors follow the site's appearance. The homepage template command
+uses the dark palette to match its panel.
 
-When updating the highlighter, export the TypeScript and CSS families with
-`--models typescript,css` from the matching NSH release snapshot. Put the export
+When updating the highlighter, export the TypeScript, CSS, XML and Bash families
+with `--models typescript,css,xml,bash` from the matching NSH release snapshot. Put the export
 in `apps/website/public/models/` and keep the model and metadata bytes intact
 for integrity validation. See [NSH model delivery](https://github.com/virgo-galaxy/virgo-nsh/blob/main/docs/model-delivery.md).
 

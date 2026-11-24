@@ -50,7 +50,7 @@ export function HomePage() {
   );
 
   return (
-    <div ref={root} className={styles.page} data-theme={appearance}>
+    <div ref={root} className={styles.page} data-theme={appearance} data-nsh-theme={appearance}>
       <a className={styles.skipLink} href="#website-main">
         {t('app.navigation.skipToContent')}
       </a>

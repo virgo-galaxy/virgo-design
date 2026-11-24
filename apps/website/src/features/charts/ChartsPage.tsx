@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ArticleSection } from '@/components/docs/ArticleSection';
 import { DocumentationCatalogue } from '@/components/docs/DocumentationCatalogue';
+import { HighlightedCodeBlock } from '@/shared/ui/highlighted-code-block/HighlightedCodeBlock';
 
 import { AdvancedPreview } from './components/AdvancedPreview';
 import { CartesianExample } from './components/CartesianExample';
@@ -240,9 +241,7 @@ export function ChartsPage() {
           title={t('charts.composition')}
           description={t('charts.compositionDescription')}
         >
-          <pre className={styles.code}>
-            <code>{code}</code>
-          </pre>
+          <HighlightedCodeBlock className={styles.code} language="tsx" source={code} />
         </ArticleSection>
         <ArticleSection
           id="chart-api"
@@ -304,26 +303,30 @@ export function ChartsPage() {
           <p>{t('charts.engineBoundary')}</p>
           <p>{t('charts.rendererDescription')}</p>
           <h3>{t('charts.declarative')}</h3>
-          <pre className={styles.code}>
-            <code>{`<Chart.Root data={data} title="Delivery" renderer="svg">
+          <HighlightedCodeBlock
+            className={styles.code}
+            language="tsx"
+            source={`<Chart.Root data={data} title="Delivery" renderer="svg">
   <Chart.Cartesian>
     <Chart.XAxis dataKey="date" />
     <Chart.Line dataKey="value" curve="linear" />
     <Chart.Tooltip />
   </Chart.Cartesian>
-</Chart.Root>`}</code>
-          </pre>
+</Chart.Root>`}
+          />
           <h3>{t('charts.advanced')}</h3>
-          <pre className={styles.code}>
-            <code>{`import { EChartsChart } from '@virgo-design/charts/echarts';
+          <HighlightedCodeBlock
+            className={styles.code}
+            language="tsx"
+            source={`import { EChartsChart } from '@virgo-design/charts/echarts';
 import type { EChartsOption } from '@virgo-design/charts/echarts';
 
 const option: EChartsOption = {
   radar: { indicator: [{ name: 'Design', max: 100 }, { name: 'Engineering', max: 100 }, { name: 'Research', max: 100 }] },
   series: [{ type: 'radar', data: [{ value: [82, 64, 75] }] }],
 };
-<EChartsChart option={option} renderer="svg" aria-label="Group details" />;`}</code>
-          </pre>
+<EChartsChart option={option} renderer="svg" aria-label="Group details" />;`}
+          />
           <p>{t('charts.advancedDescription')}</p>
         </ArticleSection>
       </div>

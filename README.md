@@ -105,8 +105,8 @@ pnpm install --frozen-lockfile
 pnpm dev:website
 ```
 
-The documentation website runs at `http://localhost:6300`. Open a component example's
-source panel to see NSH highlighting for React (TSX) and SCSS. See the
+The documentation website runs at `http://localhost:6300`. It uses NSH to highlight
+TypeScript, TSX, CSS, SCSS, SVG and Bash examples. See the
 [website changelog](apps/website/CHANGELOG.md) for documentation site updates.
 
 Run Pro applications from the repository root with these commands:

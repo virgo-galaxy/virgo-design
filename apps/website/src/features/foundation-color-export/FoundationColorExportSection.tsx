@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useSectionMotion } from '@/shared/hooks/use-section-motion';
 import { useSourceCopy } from '@/shared/hooks/use-source-copy';
+import { HighlightedCodeBlock } from '@/shared/ui/highlighted-code-block/HighlightedCodeBlock';
 
 import {
   type FoundationExportFormat,
@@ -111,9 +112,11 @@ export function FoundationColorExportSection({
             </div>
           </div>
 
-          <pre className={styles.codeBlock!}>
-            <code>{code}</code>
-          </pre>
+          <HighlightedCodeBlock
+            className={styles.codeBlock!}
+            language={format === 'scss' ? 'scss' : 'css'}
+            source={code}
+          />
           <p className={styles.note!}>
             <span role="status">
               {state === 'error'

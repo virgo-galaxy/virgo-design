@@ -2,6 +2,7 @@ import { Surface, Table, Tag } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 
 import { translateApiDescription } from '@/i18n/translate-api-description';
+import { HighlightedCodeBlock } from '@/shared/ui/highlighted-code-block/HighlightedCodeBlock';
 
 import type { ApiReferenceDocument, ApiReferenceRegistry } from './api-reference.types';
 
@@ -85,11 +86,11 @@ export function ApiReference({
             </div>
 
             {declaration.signature ? (
-              <pre className={styles.signature}>
-                <code>
-                  {declarationLabel(declaration.kind, declaration.name, declaration.signature)}
-                </code>
-              </pre>
+              <HighlightedCodeBlock
+                className={styles.signature}
+                language="typescript"
+                source={declarationLabel(declaration.kind, declaration.name, declaration.signature)}
+              />
             ) : null}
 
             {declaration.properties.length > 0 ? (

@@ -2,7 +2,9 @@
 
 ## Unreleased
 
-- Highlight React (TSX) and SCSS source in component examples with
-  `@virgo-nsh/highlighter@0.1.0`. The site serves the TypeScript and CSS models and
-  loads each on first use. Highlights follow the site's appearance, and copying
-  uses the original source.
+- Highlight TypeScript, TSX, CSS, SCSS and SVG examples with `@virgo-nsh/highlighter@0.1.0`
+  in Components, Primitives, Charts, Colors, Fonts, Tokens, Themes and Icons.
+  The Colors Tailwind export uses the CSS model. Icons loads the XML model when
+  an SVG example is selected. The homepage, Fonts and Themes use the Bash model
+  for their command examples. The website loads models on demand. Syntax colors
+  follow the code block's appearance, and copy actions use the original source.
