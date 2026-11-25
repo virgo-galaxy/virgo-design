@@ -3,6 +3,7 @@ import { AiIcon } from './AiIcon.js';
 import { AlignCenterIcon } from './AlignCenterIcon.js';
 import { AlignLeftIcon } from './AlignLeftIcon.js';
 import { AlignRightIcon } from './AlignRightIcon.js';
+import { AppleIcon } from './AppleIcon.js';
 import { ArrowDownIcon } from './ArrowDownIcon.js';
 import { ArrowEnterIcon } from './ArrowEnterIcon.js';
 import { ArrowLeftIcon } from './ArrowLeftIcon.js';
@@ -33,8 +34,11 @@ import { CircleInfoFilledIcon } from './CircleInfoFilledIcon.js';
 import { CircleInfoIcon } from './CircleInfoIcon.js';
 import { CircleXFilledIcon } from './CircleXFilledIcon.js';
 import { CircleXIcon } from './CircleXIcon.js';
+import { ClockFilledIcon } from './ClockFilledIcon.js';
 import { ClockIcon } from './ClockIcon.js';
 import { CloseIcon } from './CloseIcon.js';
+import { CloudFilledIcon } from './CloudFilledIcon.js';
+import { CloudIcon } from './CloudIcon.js';
 import { CodeIcon } from './CodeIcon.js';
 import { CopyIcon } from './CopyIcon.js';
 import { CursorArrowIcon } from './CursorArrowIcon.js';
@@ -52,9 +56,12 @@ import { EyeClosedFilledIcon } from './EyeClosedFilledIcon.js';
 import { EyeClosedIcon } from './EyeClosedIcon.js';
 import { EyeFilledIcon } from './EyeFilledIcon.js';
 import { EyeIcon } from './EyeIcon.js';
+import { FileTextFilledIcon } from './FileTextFilledIcon.js';
 import { FileTextIcon } from './FileTextIcon.js';
 import { FilterFilledIcon } from './FilterFilledIcon.js';
 import { FilterIcon } from './FilterIcon.js';
+import { FolderFilledIcon } from './FolderFilledIcon.js';
+import { FolderIcon } from './FolderIcon.js';
 import { FormFilledIcon } from './FormFilledIcon.js';
 import { FormIcon } from './FormIcon.js';
 import { GaugeFilledIcon } from './GaugeFilledIcon.js';
@@ -68,11 +75,15 @@ import { HomeFilledIcon } from './HomeFilledIcon.js';
 import { HomeIcon } from './HomeIcon.js';
 import { LanguageEnIcon } from './LanguageEnIcon.js';
 import { LanguageIcon } from './LanguageIcon.js';
+import { LanguageJaIcon } from './LanguageJaIcon.js';
+import { LanguageKoIcon } from './LanguageKoIcon.js';
+import { LanguageTwIcon } from './LanguageTwIcon.js';
 import { LanguageZhIcon } from './LanguageZhIcon.js';
 import { LayersFilledIcon } from './LayersFilledIcon.js';
 import { LayersIcon } from './LayersIcon.js';
 import { LayoutFilledIcon } from './LayoutFilledIcon.js';
 import { LayoutIcon } from './LayoutIcon.js';
+import { LinuxIcon } from './LinuxIcon.js';
 import { LockFilledIcon } from './LockFilledIcon.js';
 import { LockIcon } from './LockIcon.js';
 import { LogOutIcon } from './LogOutIcon.js';
@@ -86,9 +97,13 @@ import { MicrophoneIcon } from './MicrophoneIcon.js';
 import { MinusIcon } from './MinusIcon.js';
 import { MonitorFilledIcon } from './MonitorFilledIcon.js';
 import { MonitorIcon } from './MonitorIcon.js';
+import { MonitorPlugFilledIcon } from './MonitorPlugFilledIcon.js';
+import { MonitorPlugIcon } from './MonitorPlugIcon.js';
 import { MoonFilledIcon } from './MoonFilledIcon.js';
 import { MoonIcon } from './MoonIcon.js';
 import { MoveIcon } from './MoveIcon.js';
+import { NetworkNeighborhoodFilledIcon } from './NetworkNeighborhoodFilledIcon.js';
+import { NetworkNeighborhoodIcon } from './NetworkNeighborhoodIcon.js';
 import { PaletteFilledIcon } from './PaletteFilledIcon.js';
 import { PaletteIcon } from './PaletteIcon.js';
 import { PauseFilledIcon } from './PauseFilledIcon.js';
@@ -135,15 +150,19 @@ import { UnpinIcon } from './UnpinIcon.js';
 import { UploadIcon } from './UploadIcon.js';
 import { UserFilledIcon } from './UserFilledIcon.js';
 import { UserIcon } from './UserIcon.js';
+import { UsersFilledIcon } from './UsersFilledIcon.js';
+import { UsersIcon } from './UsersIcon.js';
 import { VirgoDesignIcon } from './VirgoDesignIcon.js';
 import { WidgetsFilledIcon } from './WidgetsFilledIcon.js';
 import { WidgetsIcon } from './WidgetsIcon.js';
 import { WindowMoveIcon } from './WindowMoveIcon.js';
+import { WindowsIcon } from './WindowsIcon.js';
 export const iconComponents = {
   ai: AiIcon,
   'align-center': AlignCenterIcon,
   'align-left': AlignLeftIcon,
   'align-right': AlignRightIcon,
+  apple: AppleIcon,
   'arrow-down': ArrowDownIcon,
   'arrow-enter': ArrowEnterIcon,
   'arrow-left': ArrowLeftIcon,
@@ -174,8 +193,11 @@ export const iconComponents = {
   'circle-info': CircleInfoIcon,
   'circle-x-filled': CircleXFilledIcon,
   'circle-x': CircleXIcon,
+  'clock-filled': ClockFilledIcon,
   clock: ClockIcon,
   close: CloseIcon,
+  'cloud-filled': CloudFilledIcon,
+  cloud: CloudIcon,
   code: CodeIcon,
   copy: CopyIcon,
   'cursor-arrow': CursorArrowIcon,
@@ -193,9 +215,12 @@ export const iconComponents = {
   'eye-closed': EyeClosedIcon,
   'eye-filled': EyeFilledIcon,
   eye: EyeIcon,
+  'file-text-filled': FileTextFilledIcon,
   'file-text': FileTextIcon,
   'filter-filled': FilterFilledIcon,
   filter: FilterIcon,
+  'folder-filled': FolderFilledIcon,
+  folder: FolderIcon,
   'form-filled': FormFilledIcon,
   form: FormIcon,
   'gauge-filled': GaugeFilledIcon,
@@ -209,11 +234,15 @@ export const iconComponents = {
   home: HomeIcon,
   'language-en': LanguageEnIcon,
   language: LanguageIcon,
+  'language-ja': LanguageJaIcon,
+  'language-ko': LanguageKoIcon,
+  'language-tw': LanguageTwIcon,
   'language-zh': LanguageZhIcon,
   'layers-filled': LayersFilledIcon,
   layers: LayersIcon,
   'layout-filled': LayoutFilledIcon,
   layout: LayoutIcon,
+  linux: LinuxIcon,
   'lock-filled': LockFilledIcon,
   lock: LockIcon,
   'log-out': LogOutIcon,
@@ -227,9 +256,13 @@ export const iconComponents = {
   minus: MinusIcon,
   'monitor-filled': MonitorFilledIcon,
   monitor: MonitorIcon,
+  'monitor-plug-filled': MonitorPlugFilledIcon,
+  'monitor-plug': MonitorPlugIcon,
   'moon-filled': MoonFilledIcon,
   moon: MoonIcon,
   move: MoveIcon,
+  'network-neighborhood-filled': NetworkNeighborhoodFilledIcon,
+  'network-neighborhood': NetworkNeighborhoodIcon,
   'palette-filled': PaletteFilledIcon,
   palette: PaletteIcon,
   'pause-filled': PauseFilledIcon,
@@ -276,8 +309,11 @@ export const iconComponents = {
   upload: UploadIcon,
   'user-filled': UserFilledIcon,
   user: UserIcon,
+  'users-filled': UsersFilledIcon,
+  users: UsersIcon,
   'virgo-design': VirgoDesignIcon,
   'widgets-filled': WidgetsFilledIcon,
   widgets: WidgetsIcon,
   'window-move': WindowMoveIcon,
+  windows: WindowsIcon,
 } as const;

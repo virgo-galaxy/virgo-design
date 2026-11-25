@@ -1,0 +1,34 @@
+/* This file is generated from icons/apple.svg by scripts/generate.ts. Do not edit. */
+import { forwardRef } from 'react';
+
+import type { IconProps } from '../icon-props.js';
+
+export type AppleIconProps = IconProps;
+
+export const AppleIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, AppleIconProps>(
+  function AppleIcon({ size = 24, ...props }: AppleIconProps, ref) {
+    return (
+      <svg
+        ref={ref}
+        aria-hidden={props['aria-label'] || props['aria-labelledby'] ? undefined : true}
+        {...props}
+        fill="currentColor"
+        height={size}
+        viewBox="0 0 24 24"
+        width={size}
+      >
+        <path
+          d={
+            'M17.67 12.57c-0.01 -1.64 0.73 -2.88 2.23 -3.79 -0.84 -1.2 -2.11 -1.86 -3.78 -1.99 -1.58 -0.13 -3.32 0.92 -3.95 0.92 -0.67 0 -2.21 -0.88 -3.41 -0.88 -2.49 0.04 -5.14 1.99 -5.14 5.95 0 1.17 0.21 2.38 0.64 3.63 0.57 1.64 2.63 5.66 4.79 5.59 1.13 -0.03 1.92 -0.8 3.38 -0.8 1.42 0 2.16 0.8 3.41 0.8 2.17 -0.03 4.04 -3.68 4.58 -5.33 -2.91 -1.37 -2.75 -4.02 -2.75 -4.1z'
+          }
+        />
+        <path
+          d={
+            'M15.15 5.24c1.22 -1.45 1.11 -2.76 1.07 -3.24 -1.08 0.06 -2.32 0.73 -3.03 1.56 -0.78 0.88 -1.24 1.98 -1.14 3.21 1.17 0.09 2.23 -0.51 3.1 -1.53z'
+          }
+        />
+      </svg>
+    );
+  },
+);
+AppleIcon.displayName = 'AppleIcon';

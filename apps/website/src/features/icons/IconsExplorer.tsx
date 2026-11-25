@@ -24,18 +24,19 @@ const playbackModes = {
 
 type PlaybackMode = keyof typeof playbackModes;
 
+function iconLabel(id: string) {
+  if (id === 'github') return 'GitHub';
+  if (id.startsWith('language-')) return `Language ${id.slice('language-'.length).toUpperCase()}`;
+  return id.replace(
+    /(^|-)(\w)/g,
+    (_match, separator: string, character: string) =>
+      `${separator ? ' ' : ''}${character.toUpperCase()}`,
+  );
+}
+
 const iconOptions = iconManifest.map((icon) => ({
   id: icon.id,
-  label:
-    icon.id === 'github'
-      ? 'GitHub'
-      : icon.id
-          .replace(
-            /(^|-)(\w)/g,
-            (_match, separator: string, character: string) =>
-              `${separator ? ' ' : ''}${character.toUpperCase()}`,
-          )
-          .replace(/\b(En|Zh)$/, (value) => value.toUpperCase()),
+  label: iconLabel(icon.id),
   Icon: iconComponents[icon.id],
   animated: icon.animated,
   variant: icon.variant,

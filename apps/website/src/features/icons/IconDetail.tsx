@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { getIconSvg, iconComponents, iconManifest } from './catalogue';
 import { IconCodePanel } from './IconCodePanel';
 import { IconsExplorer } from './IconsExplorer';
+import { getRelatedIcons } from './related';
 
 export function IconDetail({ id }: { id: string }) {
   const { t } = useTranslation();
@@ -26,17 +27,7 @@ export function IconDetail({ id }: { id: string }) {
         </Link>
       </section>
     );
-  const related = iconManifest
-    .filter(
-      (item) =>
-        item.family !== icon.family &&
-        item.variant === 'outline' &&
-        (item.category === icon.category ||
-          item.tags.some((tag) => (icon.tags as readonly string[]).includes(tag))),
-    )
-    .sort((a, b) => Number(b.category === icon.category) - Number(a.category === icon.category))
-    .slice(0, 6)
-    .sort((a, b) => a.id.localeCompare(b.id, 'en', { sensitivity: 'base', numeric: true }));
+  const related = getRelatedIcons(icon.family);
   return (
     <section className="icon-platform" key={icon.id}>
       <Link className="icon-platform-link" to="/icons">

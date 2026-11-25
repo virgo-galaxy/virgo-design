@@ -34,3 +34,24 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Apple and Windows marks
+
+The `apple` and `windows` icon families adapt the [Apple](https://fontawesome.com/icons/apple?style=brands)
+and [Windows](https://fontawesome.com/icons/windows?style=brands) icons from Font Awesome Free 7.3.1.
+The paths were scaled to a 24-unit grid and adjusted for solid rendering.
+
+Copyright 2026 Fonticons, Inc. Icon artwork is licensed under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+## Linux penguin
+
+The `linux` icon family is a simplified vector interpretation of [Tux](https://linuxfoundation.atlassian.net/wiki/spaces/ES/pages/160202865/Can%2BI%2Buse%2BTux%2Bthe%2BPenguin),
+the penguin originally drawn by Larry Ewing (lewing@isc.tamu.edu) with The GIMP.
+
+## Japanese and Traditional Chinese glyphs
+
+The 「の」 and 「漢」 icon outlines use [Noto Sans CJK TC Bold](https://github.com/notofonts/noto-cjk/tree/main/Sans/OTF/TraditionalChinese).
+The glyphs were converted to SVG paths and scaled to the Virgo icon grid.
+Small chamfers were added to selected outside corners of the Traditional Chinese glyph.
+The source font is licensed under the [SIL Open Font License 1.1](https://github.com/notofonts/noto-cjk/blob/main/Sans/LICENSE).

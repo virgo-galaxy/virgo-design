@@ -1,0 +1,30 @@
+/* This file is generated from icons/cloud.svg by scripts/generate.ts. Do not edit. */
+import { forwardRef } from 'react';
+
+import type { IconProps } from '../icon-props.js';
+
+export type CloudIconProps = IconProps;
+
+export const CloudIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, CloudIconProps>(
+  function CloudIcon({ size = 24, ...props }: CloudIconProps, ref) {
+    return (
+      <svg
+        ref={ref}
+        aria-hidden={props['aria-label'] || props['aria-labelledby'] ? undefined : true}
+        {...props}
+        fill="currentColor"
+        height={size}
+        viewBox="0 0 24 24"
+        width={size}
+      >
+        <path
+          d={
+            'M4.5 19 2 16.5v-3.25l2.5-2.5H7L8.25 7.5 11 4.75h4.25L18 7.5l1 2.75h1l2 2v4.25L19.5 19z M5.33 17h13.34L20 15.67v-2.59l-.83-.83H17.6l-1.32-3.63-1.87-1.87h-2.58L10 8.58l-1.63 4.17H5.33L4 14.08v1.59z'
+          }
+          fillRule="evenodd"
+        />
+      </svg>
+    );
+  },
+);
+CloudIcon.displayName = 'CloudIcon';

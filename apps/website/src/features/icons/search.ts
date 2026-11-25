@@ -11,6 +11,7 @@ export const chineseIconKeywords = {
   'resize-corner-bottom-right': ['缩放', '等比缩放', '调整大小', '缩放角', '右下'],
   'resize-corner-top-left': ['缩放', '等比缩放', '调整大小', '缩放角', '左上'],
   'resize-corner-top-right': ['缩放', '等比缩放', '调整大小', '缩放角', '右上'],
+  windows: ['Windows', '微软', '视窗'],
   'window-move': ['窗口', '移动', '拖动', '浮窗', '指针', '停靠'],
   ai: ['AI', '字母', '文字', '人工智能', '智能', 'Agent 模式'],
   sparkles: ['闪光', '星光', '星星', '人工智能', '助手', '智能体', 'AI 模式'],
@@ -26,6 +27,7 @@ export const chineseIconKeywords = {
   'align-left': ['对齐', '居左', '左对齐', '文本', '排列'],
   'align-center': ['对齐', '居中', '居中对齐', '文本', '排列'],
   'align-right': ['对齐', '居右', '右对齐', '文本', '排列'],
+  apple: ['苹果', '苹果电脑', 'Mac', 'macOS'],
   bot: ['机器人', '助手', '人工智能'],
   bell: ['铃铛', '通知', '提醒', '消息'],
   briefcase: ['公文包', '工作', '项目', '任务'],
@@ -34,6 +36,7 @@ export const chineseIconKeywords = {
   filter: ['筛选', '过滤', '漏斗', '表格'],
   edit: ['编辑', '铅笔', '修改', '书写'],
   'file-text': ['详情', '文档', '文件', '文字', '查看'],
+  folder: ['文件夹', '目录', '档案', '文件'],
   form: ['表单', '标签', '输入框', '字段'],
   calendar: ['日历', '日期', '选择日期'],
   'chart-line': ['折线图', '图表', '分析', '数据可视化', '趋势'],
@@ -43,6 +46,7 @@ export const chineseIconKeywords = {
   'circle-x': ['错误', '失败'],
   clock: ['时间', '时钟', '选择时间'],
   close: ['关闭', '取消'],
+  cloud: ['云', '云朵', '云端', '云服务', '云存储'],
   copy: ['复制', '剪贴板'],
   code: ['代码', '开发'],
   'cursor-arrow': ['光标', '鼠标'],
@@ -61,9 +65,13 @@ export const chineseIconKeywords = {
   home: ['首页', '主页'],
   language: ['语言', '翻译', '中英文', '自动检测'],
   'language-en': ['英文', '英语', '语言'],
-  'language-zh': ['中文', '汉语', '语言'],
+  'language-ja': ['日语', '日文', '日本語', 'の', '语言'],
+  'language-ko': ['韩语', '韩文', '한국어', '한글', '한', '语言'],
+  'language-tw': ['中文', '繁体中文', '繁體中文', '繁體', '台灣', '台湾', '漢', '语言'],
+  'language-zh': ['中文', '汉语', '简体中文', '语言'],
   layers: ['图层', '层级'],
   layout: ['布局', '排版'],
+  linux: ['Linux', '企鹅', '小企鹅', 'Tux'],
   lock: ['锁定', '安全'],
   'log-out': ['退出', '退出系统', '登出', '注销', '账号', '会话'],
   mail: ['信封', '邮件', '消息', '通知', '未读', '闭合'],
@@ -73,6 +81,8 @@ export const chineseIconKeywords = {
   maximize: ['最大化', '展开', '还原', '窗口', '面板'],
   moon: ['月亮', '夜间', '深色'],
   monitor: ['显示器', '屏幕', '桌面', '系统', '跟随系统'],
+  'monitor-plug': ['显示器', '屏幕', '插头', '插销', '连接本机'],
+  'network-neighborhood': ['网上邻居', '邻居', '网络', '局域网', '设备', '电脑'],
   palette: ['调色板', '颜色'],
   pin: ['固定', '图钉'],
   stop: ['停止', '结束播放'],
@@ -97,6 +107,7 @@ export const chineseIconKeywords = {
   'gender-male': ['性别', '男', '男性'],
   'gender-female': ['性别', '女', '女性'],
   user: ['用户', '账户', '个人'],
+  users: ['用户组', '群组', '团队', '成员', '多人'],
   upload: ['上传', '导入'],
   download: ['下载', '导出'],
   'chevron-up': ['箭头', '上', '向上'],
@@ -114,10 +125,12 @@ const chineseCategories = {
   layout: ['布局'],
   status: ['状态'],
   system: ['系统'],
+  files: ['文件'],
+  people: ['用户'],
   development: ['开发'],
   design: ['设计'],
   brands: ['品牌'],
-};
+} satisfies Record<IconCategory, readonly string[]>;
 const websiteKeywords = Object.fromEntries(
   iconManifest.map((icon) => [
     icon.id,
@@ -153,6 +166,7 @@ export function iconAnimationIdeaKey(id: IconId) {
   if (family.startsWith('arrow-')) return 'icons.animationIdeas.arrow';
   if (family.startsWith('chevron-')) return 'icons.animationIdeas.chevron';
   if (family.startsWith('chevrons-')) return 'icons.animationIdeas.chevrons';
+  if (family === 'monitor-plug') return 'icons.animationIdeas.devicePlug';
   if (
     family === 'code' ||
     family === 'trash' ||

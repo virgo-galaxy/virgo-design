@@ -141,6 +141,9 @@ describe('Icons foundation', () => {
     ['Moon', 'moon'],
     ['Sun', 'sun'],
     ['Language EN', 'language-en'],
+    ['Language JA', 'language-ja'],
+    ['Language KO', 'language-ko'],
+    ['Language TW', 'language-tw'],
     ['Language ZH', 'language-zh'],
   ])('reviews %s at every canonical size', async (label, id) => {
     const user = userEvent.setup();

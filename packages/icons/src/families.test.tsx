@@ -13,12 +13,16 @@ const dualFamilies = [
   'bot',
   'briefcase',
   'calendar',
+  'clock',
+  'cloud',
   'circle-check',
   'circle-info',
   'circle-x',
   'triangle-alert',
   'dashboard',
   'database',
+  'file-text',
+  'folder',
   'filter',
   'form',
   'gauge',
@@ -36,6 +40,8 @@ const dualFamilies = [
   'unpin',
   'microphone',
   'monitor',
+  'monitor-plug',
+  'network-neighborhood',
   'sun',
   'moon',
   'play',
@@ -49,20 +55,31 @@ const dualFamilies = [
   'studio-tools',
   'trash',
   'user',
+  'users',
 ] as const;
 
+const filledDefaults = ['apple', 'linux', 'windows'];
+
 describe('Outline / Filled families', () => {
-  it('provides exactly the intended 40 pairs and keeps every other family single', () => {
+  it('provides the intended paired variants and canonical filled icons', () => {
     expect(
       iconManifest
-        .filter((icon) => icon.variant === 'filled')
+        .filter((icon) => icon.variant === 'filled' && icon.id !== icon.family)
         .map((icon) => icon.family)
         .sort(),
     ).toEqual([...dualFamilies].sort());
+    expect(
+      iconManifest
+        .filter((icon) => icon.variant === 'filled' && icon.id === icon.family)
+        .map((icon) => icon.id)
+        .sort(),
+    ).toEqual(filledDefaults);
     for (const icon of iconManifest) {
       const variants = iconManifest.filter((item) => item.family === icon.family);
       expect(variants).toHaveLength(dualFamilies.some((family) => family === icon.family) ? 2 : 1);
-      expect(variants.filter((item) => item.variant === 'outline')).toHaveLength(1);
+      expect(variants.find((item) => item.id === icon.family)?.variant).toBe(
+        filledDefaults.includes(icon.family) ? 'filled' : 'outline',
+      );
     }
   });
 
@@ -107,14 +124,13 @@ describe('Outline / Filled families', () => {
     { family: undefined },
     { family: 'Bad_Name' },
     { family: 'missing' },
-    { family: 'bell' },
+    { family: 'sun' },
     { variant: 'regular' },
     { variant: 'filled' },
   ])('rejects invalid family relationships before generation: %j', (change) => {
-    const records = [
-      { ...iconManifest[0]!, ...change },
-      ...iconManifest.slice(1),
-    ] as IconMetadata[];
+    const records = iconManifest.map((icon) =>
+      icon.id === 'bell' ? { ...icon, ...change } : icon,
+    ) as IconMetadata[];
     expect(() =>
       validateIconMetadata(
         records,

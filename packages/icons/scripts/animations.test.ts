@@ -8,7 +8,7 @@ import { validateIconSvg } from '../src/tooling';
 import { createIconAnimation, validateIconAnimation } from './animations';
 
 describe('generated animation definitions', () => {
-  it.each(iconManifest.filter((icon) => icon.variant === 'filled'))(
+  it.each(iconManifest.filter((icon) => icon.variant === 'filled' && icon.id !== icon.family))(
     '$family shares animation capability, duration and playback timing across its variants',
     async (icon) => {
       const outline = iconManifest.find((item) => item.id === icon.family)!;

@@ -28,6 +28,7 @@ export const iconsZhCN = {
   playAnimations: '播放',
   animationIdeas: {
     bell: '铃铛轻轻左右摇动，再回到直立位置。',
+    devicePlug: '插头先拉开，再朝屏幕方向插入。',
     'external-link': '缺口两端向外掰开，箭头蓄力后向右上探出，再回到原位。',
     bot: '天线左右摆动，机器人身体保持不动。',
     check: '先画出短边，再画出向上的长边。',
@@ -111,6 +112,8 @@ export const iconsZhCN = {
     layout: '布局',
     status: '状态',
     system: '系统',
+    files: '文件',
+    people: '用户',
     development: '开发',
     design: '设计',
     brands: '品牌',

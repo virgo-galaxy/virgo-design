@@ -26,6 +26,7 @@ export const iconsEnUS = {
   playAnimations: 'Play',
   animationIdeas: {
     bell: 'Gently ring the bell from side to side, then settle upright.',
+    devicePlug: 'Pull the plug back, then slide it toward the display.',
     'external-link':
       'Flex the open corners outward, draw the arrow back, then launch it diagonally.',
     bot: 'Sway the antenna while the robot stays still.',
@@ -113,6 +114,8 @@ export const iconsEnUS = {
     layout: 'Layout',
     status: 'Status',
     system: 'System',
+    files: 'Files',
+    people: 'Users',
     development: 'Development',
     design: 'Design',
     brands: 'Brands',

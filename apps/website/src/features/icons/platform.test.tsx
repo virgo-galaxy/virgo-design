@@ -13,6 +13,7 @@ import { getIconSvg, iconManifest, iconSvgSources } from './catalogue';
 import { IconCatalogue } from './IconCatalogue';
 import { IconDetail } from './IconDetail';
 import { IconStudio } from './IconStudio';
+import { getRelatedIcons } from './related';
 import { iconAnimationIdeaKey, searchWebsiteIcons, sortCatalogueIcons } from './search';
 
 vi.mock('@/shared/lib/clipboard', () => ({
@@ -85,7 +86,7 @@ describe('Icons platform', () => {
       expect(card.querySelector('small')).toHaveTextContent(
         `Family: ${icon.family} · ${icon.variant === 'color' ? 'Color' : icon.variant === 'filled' ? 'Filled' : 'Outline'}`,
       );
-      if (icon.variant === 'filled') {
+      if (icon.variant === 'filled' && icon.id !== icon.family) {
         expect(sorted[index - 1]?.family).toBe(icon.family);
         expect(sorted[index - 1]?.variant).toBe('outline');
       }
@@ -138,8 +139,8 @@ describe('Icons platform', () => {
   it('filters the implemented animations together with search and category', () => {
     const candidates = searchWebsiteIcons('', undefined, true);
     const staticIcons = searchWebsiteIcons('', undefined, false);
-    expect(candidates).toHaveLength(46);
-    expect(staticIcons).toHaveLength(iconManifest.length - 46);
+    expect(candidates).toHaveLength(48);
+    expect(staticIcons).toHaveLength(iconManifest.length - 48);
     expect([...candidates, ...staticIcons].map((icon) => icon.id).sort()).toEqual(
       iconManifest.map((icon) => icon.id).sort(),
     );
@@ -174,13 +175,13 @@ describe('Icons platform', () => {
       'true',
     );
     expect(screen.getByTestId('filter-location')).toHaveTextContent('animation=true');
-    expect(cards()).toHaveLength(46);
+    expect(cards()).toHaveLength(48);
     expect(
       screen.getByText(
         'Each family shares its motion across variants. Preview playback can be paused.',
       ),
     ).toBeInTheDocument();
-    expect(document.querySelectorAll('.icon-animation-idea')).toHaveLength(46);
+    expect(document.querySelectorAll('.icon-animation-idea')).toHaveLength(48);
     expect(document.querySelector('animate, animateTransform')).not.toBeNull();
     const pause = screen.getByRole('button', { name: 'Pause' });
     expect(pause.textContent).toBe('');
@@ -305,6 +306,54 @@ describe('Icons platform', () => {
       (item) => item.textContent,
     );
     expect(ids).toEqual(sortCatalogueIcons(iconManifest).map((icon) => icon.id));
+  });
+  it.each([
+    ['monitor', 'monitor-plug', 'network-neighborhood'],
+    ['monitor-plug', 'monitor', 'network-neighborhood'],
+    ['network-neighborhood', 'monitor', 'monitor-plug'],
+    ['file-text', 'folder', 'edit'],
+    ['clock', 'calendar', 'bell'],
+    ['users', 'user', 'log-out'],
+    ['language-tw', 'language-zh', 'language-ja'],
+  ] as const)('recommends icons with a shared use for %s', (family, first, second) => {
+    const ids = getRelatedIcons(family).map((icon) => icon.id);
+    expect(ids).toEqual(expect.arrayContaining([first, second]));
+  });
+  it('recommends distinct families across the catalogue', () => {
+    for (const { family, id } of iconManifest) {
+      const related = getRelatedIcons(family);
+      expect(related.length, id).toBeGreaterThan(0);
+      expect(related.length, id).toBeLessThanOrEqual(6);
+      expect(new Set(related.map((icon) => icon.family)).size, id).toBe(related.length);
+      for (const icon of related) {
+        expect(icon.family, id).not.toBe(family);
+        expect(icon.id, id).toBe(icon.family);
+      }
+    }
+  });
+  it('filters files and users in both locales and keeps variants in the same category', async () => {
+    const links = () =>
+      Array.from(document.querySelectorAll('.icon-platform-card'), (card) =>
+        card.getAttribute('href'),
+      );
+    mount(<IconCatalogue />, ['/icons']);
+    await userEvent.click(screen.getByRole('button', { name: 'Files' }));
+    expect(links()).toEqual(
+      expect.arrayContaining(['/icons/folder', '/icons/folder-filled', '/icons/file-text']),
+    );
+    expect(links()).not.toContain('/icons/user');
+    await act(() => setAppLocale('zh-CN'));
+    expect(screen.getByRole('button', { name: '文件' })).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(screen.getByRole('button', { name: '用户' }));
+    expect(links()).toEqual(
+      expect.arrayContaining(['/icons/user', '/icons/users', '/icons/users-filled']),
+    );
+    expect(links()).not.toContain('/icons/folder');
+    for (const icon of iconManifest) {
+      expect(icon.category, icon.id).toBe(
+        iconManifest.find((item) => item.id === icon.family)?.category,
+      );
+    }
   });
   it.each(['check', 'circle-check', 'studio-tools'])(
     'orders related cards for %s alphabetically in both locales',

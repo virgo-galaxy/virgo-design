@@ -188,6 +188,18 @@ export function createIconAnimation(
         transform(0, 'translate', ['0 0', `0 ${family === 'upload' ? -1.5 : 1.5}`, '0 0', '0 0']),
       ],
     };
+  } else if (family === 'monitor-plug') {
+    animation = {
+      duration: 900,
+      tracks: [
+        transform(
+          definition.paths.length - 1,
+          'translate',
+          ['0 0', '0 1.15', '-1.05 -1.75', '0 0', '0 0'],
+          [0, 0.22, 0.5, 0.75, 1],
+        ),
+      ],
+    };
   } else if (family === 'bell') {
     animation = {
       duration: 1200,

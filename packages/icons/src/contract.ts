@@ -4,6 +4,8 @@ export const iconCategories = [
   'layout',
   'status',
   'system',
+  'files',
+  'people',
   'development',
   'design',
   'brands',
@@ -40,14 +42,21 @@ export function validateIconMetadata(
     if (!record || !names.has(record.id) || seen.has(record.id))
       throw new Error(`Unknown or duplicate metadata: ${record?.id}.`);
     seen.add(record.id);
+    const defaultFilled =
+      record.variant === 'filled' &&
+      record.id === record.family &&
+      !names.has(`${record.family}-filled`);
+    const expectedId =
+      record.variant === 'outline' || defaultFilled
+        ? record.family
+        : `${record.family}-${record.variant}`;
     if (
       typeof record.family !== 'string' ||
       !/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(record.family) ||
       !['outline', 'filled', 'color'].includes(record.variant) ||
       (record.variant === 'color' && record.category !== 'brands') ||
       record.family.endsWith('-filled') ||
-      record.id !==
-        (record.variant === 'outline' ? record.family : `${record.family}-${record.variant}`) ||
+      record.id !== expectedId ||
       !names.has(record.family)
     )
       throw new Error(`Invalid icon family / variant: ${record.id}.`);
@@ -89,7 +98,7 @@ export function searchIcons<T extends IconManifestEntry>(
 ): T[] {
   const tokens = query.normalize('NFKC').trim().toLowerCase().split(/\s+/).filter(Boolean);
   const familyAliases = new Map(
-    records.filter((icon) => icon.variant === 'outline').map((icon) => [icon.family, icon.aliases]),
+    records.filter((icon) => icon.id === icon.family).map((icon) => [icon.family, icon.aliases]),
   );
   return records
     .filter((icon) => {

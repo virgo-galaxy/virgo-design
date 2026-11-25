@@ -1,0 +1,30 @@
+/* This file is generated from icons/linux.svg by scripts/generate.ts. Do not edit. */
+import { forwardRef } from 'react';
+
+import type { IconProps } from '../icon-props.js';
+
+export type LinuxIconProps = IconProps;
+
+export const LinuxIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, LinuxIconProps>(
+  function LinuxIcon({ size = 24, ...props }: LinuxIconProps, ref) {
+    return (
+      <svg
+        ref={ref}
+        aria-hidden={props['aria-label'] || props['aria-labelledby'] ? undefined : true}
+        {...props}
+        fill="currentColor"
+        height={size}
+        viewBox="0 0 24 24"
+        width={size}
+      >
+        <path
+          d={
+            'M12 2C9.2 2 7.4 4.3 7.4 7.2c0 1.65-.55 3.2-1.4 4.55l-2.3 3.55c-.56.86-.62 1.92-.17 2.78L2 19.65l.55 1.6 4.85.75 2-.85c1.65.48 3.55.48 5.2 0l2 .85 4.85-.75.55-1.6-1.53-1.57c.45-.86.39-1.92-.17-2.78L18 11.75c-.85-1.35-1.4-2.9-1.4-4.55C16.6 4.3 14.8 2 12 2z M10.4 5.75a.88.88 0 1 0 0 1.76.88.88 0 1 0 0-1.76z M13.6 5.75a.88.88 0 1 0 0 1.76.88.88 0 1 0 0-1.76z M12 8.1l2.25 1.25L12 10.65 9.75 9.35z M12 11.4c-2.8 0-4.7 2.35-4.7 5.1 0 1.58 2.1 2.75 4.7 2.75s4.7-1.17 4.7-2.75c0-2.75-1.9-5.1-4.7-5.1z'
+          }
+          fillRule="evenodd"
+        />
+      </svg>
+    );
+  },
+);
+LinuxIcon.displayName = 'LinuxIcon';
