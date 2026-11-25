@@ -1,4 +1,4 @@
-import { GithubIcon, MoonFilledIcon, SunFilledIcon } from '@virgo-design/icons';
+import { GithubIcon, LanguageIcon, MoonFilledIcon, SunFilledIcon } from '@virgo-design/icons';
 import { Button, Dropdown, Layout, NavigationMenu } from '@virgo-design/ui';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -32,23 +32,14 @@ export function HomeHeader() {
       logo={<VirgoBrand className={styles.brand} />}
       actions={
         <div className={styles.actions}>
-          <a
-            className={styles.github}
-            href={repositoryUrl}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="GitHub"
-          >
-            <GithubIcon size={27} aria-hidden="true" />
-          </a>
           <Dropdown size="small" trigger="click">
             <Dropdown.Trigger
-              variant="outline"
+              iconOnly
+              variant="text"
               className={styles.language}
               aria-label={t('home.header.language')}
             >
-              <span className={styles.fullLanguage}>{locale === 'zh-CN' ? '中文' : 'English'}</span>
-              <span className={styles.compactLanguage}>{locale === 'zh-CN' ? '中文' : 'EN'}</span>
+              <LanguageIcon aria-hidden="true" />
             </Dropdown.Trigger>
             <Dropdown.Content
               arrow={false}
@@ -59,7 +50,7 @@ export function HomeHeader() {
                 checked={locale === 'zh-CN'}
                 onSelect={() => void setAppLocale('zh-CN')}
               >
-                中文
+                简体中文
               </Dropdown.Item>
               <Dropdown.Item
                 checked={locale === 'en-US'}
@@ -87,6 +78,15 @@ export function HomeHeader() {
               <SunFilledIcon size={25} aria-hidden="true" />
             )}
           </Button>
+          <a
+            className={styles.github}
+            href={repositoryUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+          >
+            <GithubIcon size={27} aria-hidden="true" />
+          </a>
         </div>
       }
     >

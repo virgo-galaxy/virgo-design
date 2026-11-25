@@ -82,20 +82,13 @@
   outline-offset: 3px;
   border-radius: 6px;
 }
-.language {
-  min-width: 92px;
-  height: 34px;
-  border-radius: 10px;
-  padding-inline: 14px;
-  background: transparent;
-}
+.actions .language[data-icon-only='true'],
 .actions .appearance[data-icon-only='true'] {
   --button-icon-size: 24px;
-  color: var(--vd-brand-primary);
 }
 
-.compactLanguage {
-  display: none;
+.actions .appearance[data-icon-only='true'] {
+  color: var(--vd-brand-primary);
 }
 
 @media (max-width: 1000px) {
@@ -125,22 +118,12 @@
   .github {
     display: none;
   }
-  .language {
-    min-width: 60px;
-    padding-inline: 8px;
-  }
   .navigation {
     --navigation-menu-gap: 10px;
   }
   .navigation [data-vd-navigation-menu-control] {
     font-size: 13px;
     padding-inline: 3px;
-  }
-  .fullLanguage {
-    display: none;
-  }
-  .compactLanguage {
-    display: inline;
   }
   .navigation [data-vd-navigation-menu-control][data-active='true']::after {
     bottom: 11px;
@@ -151,10 +134,6 @@
   .header {
     gap: 6px;
     padding-inline: 10px;
-  }
-  .language {
-    min-width: 54px;
-    padding-inline: 6px;
   }
   .navigation {
     --navigation-menu-gap: 2px;
