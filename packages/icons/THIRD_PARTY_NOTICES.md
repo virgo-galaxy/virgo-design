@@ -35,11 +35,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## Apple and Windows marks
+## Font Awesome brand marks
 
-The `apple` and `windows` icon families adapt the [Apple](https://fontawesome.com/icons/apple?style=brands)
-and [Windows](https://fontawesome.com/icons/windows?style=brands) icons from Font Awesome Free 7.3.1.
-The paths were scaled to a 24-unit grid and adjusted for solid rendering.
+The `apple`, `windows`, `x-twitter` and `twitter` icon families adapt the
+[Apple](https://fontawesome.com/icons/apple?style=brands),
+[Windows](https://fontawesome.com/icons/windows?style=brands),
+[X](https://fontawesome.com/icons/brands/solid/x-twitter) and
+[Twitter](https://fontawesome.com/icons/brands/solid/twitter) icons from Font Awesome Free 7.3.1.
+The paths were scaled to a 24-unit grid. The Apple and Windows paths were also adjusted for solid rendering.
 
 Copyright 2026 Fonticons, Inc. Icon artwork is licensed under
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

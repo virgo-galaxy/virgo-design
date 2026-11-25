@@ -1573,6 +1573,17 @@
     "animated": false
   },
   {
+    "id": "twitter",
+    "family": "twitter",
+    "variant": "filled",
+    "category": "brands",
+    "tags": ["twitter", "bird", "logo", "social media"],
+    "aliases": ["twitter-bird", "legacy-twitter"],
+    "status": "stable",
+    "description": "The original Twitter bird brand mark in a single inherited color.",
+    "animated": false
+  },
+  {
     "id": "type",
     "family": "type",
     "variant": "outline",
@@ -1735,6 +1746,17 @@
     "aliases": ["microsoft-windows"],
     "status": "stable",
     "description": "A solid four-pane Windows brand mark.",
+    "animated": false
+  },
+  {
+    "id": "x-twitter",
+    "family": "x-twitter",
+    "variant": "filled",
+    "category": "brands",
+    "tags": ["x", "twitter", "logo", "social media"],
+    "aliases": ["x-brand", "x-logo"],
+    "status": "stable",
+    "description": "The X social platform brand mark in a single inherited color.",
     "animated": false
   }
 ]

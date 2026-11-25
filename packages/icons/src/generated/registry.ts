@@ -142,6 +142,7 @@ import { TrashFilledIcon } from './TrashFilledIcon.js';
 import { TrashIcon } from './TrashIcon.js';
 import { TriangleAlertFilledIcon } from './TriangleAlertFilledIcon.js';
 import { TriangleAlertIcon } from './TriangleAlertIcon.js';
+import { TwitterIcon } from './TwitterIcon.js';
 import { TypeIcon } from './TypeIcon.js';
 import { UnlockFilledIcon } from './UnlockFilledIcon.js';
 import { UnlockIcon } from './UnlockIcon.js';
@@ -157,6 +158,7 @@ import { WidgetsFilledIcon } from './WidgetsFilledIcon.js';
 import { WidgetsIcon } from './WidgetsIcon.js';
 import { WindowMoveIcon } from './WindowMoveIcon.js';
 import { WindowsIcon } from './WindowsIcon.js';
+import { XTwitterIcon } from './XTwitterIcon.js';
 export const iconComponents = {
   ai: AiIcon,
   'align-center': AlignCenterIcon,
@@ -301,6 +303,7 @@ export const iconComponents = {
   trash: TrashIcon,
   'triangle-alert-filled': TriangleAlertFilledIcon,
   'triangle-alert': TriangleAlertIcon,
+  twitter: TwitterIcon,
   type: TypeIcon,
   'unlock-filled': UnlockFilledIcon,
   unlock: UnlockIcon,
@@ -316,4 +319,5 @@ export const iconComponents = {
   widgets: WidgetsIcon,
   'window-move': WindowMoveIcon,
   windows: WindowsIcon,
+  'x-twitter': XTwitterIcon,
 } as const;

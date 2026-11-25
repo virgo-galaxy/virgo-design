@@ -58,7 +58,7 @@ const dualFamilies = [
   'users',
 ] as const;
 
-const filledDefaults = ['apple', 'linux', 'windows'];
+const filledDefaults = ['apple', 'linux', 'twitter', 'windows', 'x-twitter'];
 
 describe('Outline / Filled families', () => {
   it('provides the intended paired variants and canonical filled icons', () => {
@@ -109,15 +109,20 @@ describe('Outline / Filled families', () => {
 
   it.each([
     ['sun', 'M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z'],
-    ['moon', 'M8.648 3.648A9 9 0 1 0 20.352 15.352 9 9 0 0 1 8.648 3.648Z'],
     ['play', 'M8 4.25h1l11 7.25v1L9 19.75H8l-.5-.5v-14z'],
-    ['pause', 'M7 4.5h2l.5.5v14l-.5.5H7l-.5-.5V5z M15 4.5h2l.5.5v14l-.5.5h-2l-.5-.5V5z'],
     ['stop', 'M6 5h12l1 1v12l-1 1H6l-1-1V6z'],
   ] as const)('preserves the old %s solid silhouette in its Filled variant', (family, d) => {
     expect(validateIconSvg(iconSvgSources[`${family}-filled`]).paths[0]?.d).toBe(d);
     const outline = validateIconSvg(iconSvgSources[family]).paths[0]!;
     expect(outline.fillRule).toBe('evenodd');
-    expect(outline.d.toLowerCase().match(/m/g)).toHaveLength(family === 'pause' ? 4 : 2);
+    expect(outline.d.toLowerCase().match(/m/g)).toHaveLength(2);
+  });
+
+  it.each(['moon', 'pause'] as const)('keeps the %s outer contour across variants', (family) => {
+    const outline = validateIconSvg(iconSvgSources[family]).paths[0]!;
+    const filled = validateIconSvg(iconSvgSources[`${family}-filled`]).paths[0]!;
+    expect(outline.fillRule).toBe('evenodd');
+    expect(outline.d.startsWith(filled.d + ' M')).toBe(true);
   });
 
   it.each([

@@ -115,6 +115,7 @@ describe('icons generator', () => {
       'sun.svg',
       'trash.svg',
       'triangle-alert.svg',
+      'twitter.svg',
       'type.svg',
       'unlock.svg',
       'unpin.svg',
@@ -125,6 +126,7 @@ describe('icons generator', () => {
       'widgets.svg',
       'windows.svg',
       'window-move.svg',
+      'x-twitter.svg',
     ];
     const filledFamilies =
       'bell bot briefcase calendar circle-check circle-info circle-x clock cloud triangle-alert dashboard database file-text filter folder form gauge home layers layout widgets eye eye-closed lock unlock pin unpin mail mail-open microphone monitor monitor-plug network-neighborhood sun moon play pause stop palette receipt settings shapes shirt studio-tools trash user users'.split(

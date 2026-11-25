@@ -69,9 +69,11 @@ import {
   StopIcon,
   SunIcon,
   TriangleAlertIcon,
+  TwitterIcon,
   TypeIcon,
   UnlockIcon,
   UnpinIcon,
+  XTwitterIcon,
 } from './index';
 
 const addedIcons = [
@@ -93,6 +95,8 @@ const addedIcons = [
   ['play', PlayIcon],
   ['pause', PauseIcon],
   ['github', GithubIcon],
+  ['twitter', TwitterIcon],
+  ['x-twitter', XTwitterIcon],
   ['code', CodeIcon],
   ['copy', CopyIcon],
   ['circle-check', CircleCheckIcon],

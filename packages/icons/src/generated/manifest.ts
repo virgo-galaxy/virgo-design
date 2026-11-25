@@ -1735,6 +1735,18 @@ export const iconManifest = [
     componentName: 'TriangleAlertFilledIcon',
   },
   {
+    id: 'twitter',
+    family: 'twitter',
+    variant: 'filled',
+    category: 'brands',
+    tags: ['twitter', 'bird', 'logo', 'social media'],
+    aliases: ['twitter-bird', 'legacy-twitter'],
+    status: 'stable',
+    description: 'The original Twitter bird brand mark in a single inherited color.',
+    animated: false,
+    componentName: 'TwitterIcon',
+  },
+  {
     id: 'type',
     family: 'type',
     variant: 'outline',
@@ -1915,6 +1927,18 @@ export const iconManifest = [
     description: 'A solid four-pane Windows brand mark.',
     animated: false,
     componentName: 'WindowsIcon',
+  },
+  {
+    id: 'x-twitter',
+    family: 'x-twitter',
+    variant: 'filled',
+    category: 'brands',
+    tags: ['x', 'twitter', 'logo', 'social media'],
+    aliases: ['x-brand', 'x-logo'],
+    status: 'stable',
+    description: 'The X social platform brand mark in a single inherited color.',
+    animated: false,
+    componentName: 'XTwitterIcon',
   },
 ] as const satisfies readonly IconManifestEntry[];
 export type IconId = (typeof iconManifest)[number]['id'];

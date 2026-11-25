@@ -62,7 +62,6 @@ export function HomeHeader() {
           </Dropdown>
           <Button
             className={styles.appearance}
-            data-appearance={appearance}
             size="small"
             iconOnly
             variant="text"

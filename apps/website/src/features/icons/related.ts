@@ -93,6 +93,7 @@ const relatedGroups: readonly (readonly IconFamily[])[] = [
   ['studio-tools', 'shapes', 'spline', 'palette', 'type', 'layers'],
   ['virgo-design', 'studio-tools', 'palette', 'type', 'shapes'],
   ['cybertruck', 'gauge'],
+  ['x-twitter', 'twitter'],
   ['monitor', 'settings'],
   ['settings', 'reset'],
   ['palette', 'shirt'],

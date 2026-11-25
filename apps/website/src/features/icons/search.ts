@@ -12,6 +12,8 @@ export const chineseIconKeywords = {
   'resize-corner-top-left': ['缩放', '等比缩放', '调整大小', '缩放角', '左上'],
   'resize-corner-top-right': ['缩放', '等比缩放', '调整大小', '缩放角', '右上'],
   windows: ['Windows', '微软', '视窗'],
+  'x-twitter': ['X', '推特', '社交平台', '新版标志'],
+  twitter: ['推特', '蓝鸟', '旧版推特', '社交平台'],
   'window-move': ['窗口', '移动', '拖动', '浮窗', '指针', '停靠'],
   ai: ['AI', '字母', '文字', '人工智能', '智能', 'Agent 模式'],
   sparkles: ['闪光', '星光', '星星', '人工智能', '助手', '智能体', 'AI 模式'],

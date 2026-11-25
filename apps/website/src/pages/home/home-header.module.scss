@@ -69,8 +69,8 @@
 }
 .github {
   display: grid;
-  min-width: 36px;
-  min-height: 36px;
+  width: var(--vd-control-small-height, var(--vd-sizing-28));
+  height: var(--vd-control-small-height, var(--vd-sizing-28));
   place-items: center;
   border-radius: 6px;
   color: inherit;
@@ -86,10 +86,6 @@
 .actions .appearance[data-icon-only='true'] {
   --button-icon-size: 24px;
   --button-foreground: var(--layout-text);
-}
-
-.actions .appearance[data-appearance='light'] {
-  --button-icon-size: 28px;
 }
 
 @media (max-width: 1000px) {

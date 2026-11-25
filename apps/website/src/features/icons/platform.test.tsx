@@ -56,6 +56,24 @@ describe('Icons platform', () => {
     expect(searchWebsiteIcons('Virgo 彩色').map((icon) => icon.id)).toEqual(['virgo-design-color']);
   });
 
+  it.each([
+    ['x-twitter', 'twitter', 'XTwitterIcon', 'x-logo', '新版标志'],
+    ['twitter', 'x-twitter', 'TwitterIcon', 'twitter-bird', '蓝鸟'],
+  ] as const)(
+    'finds the %s brand mark and its related logo',
+    (id, related, component, alias, keyword) => {
+      expect(searchWebsiteIcons(alias, 'brands').map((icon) => icon.id)).toEqual([id]);
+      expect(searchWebsiteIcons(keyword, 'brands').map((icon) => icon.id)).toEqual([id]);
+      mount(<IconDetail id={id} />);
+      expect(document.querySelector('.icon-code-panel code')).toHaveTextContent(
+        `import { ${component} } from '@virgo-design/icons'`,
+      );
+      expect(
+        document.querySelector(`.icon-related-card[href="/icons/${related}"]`),
+      ).toBeInTheDocument();
+    },
+  );
+
   it('previews the colorful mark and offers its brand import and original SVG', async () => {
     mount(<IconDetail id="virgo-design-color" />);
     expect(screen.getByTestId('large-icon-glyph').querySelectorAll('linearGradient')).toHaveLength(

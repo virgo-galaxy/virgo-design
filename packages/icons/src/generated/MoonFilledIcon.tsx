@@ -18,7 +18,7 @@ const animation = {
   ],
 } as const;
 const animationPaths = [
-  { d: 'M8.648 3.648A9 9 0 1 0 20.352 15.352 9 9 0 0 1 8.648 3.648Z' },
+  { d: 'M8.089 2.256 A10.5 10.5 0 1 0 21.744 15.911 10.5 10.5 0 0 1 8.089 2.256 Z' },
 ] as const;
 
 export type MoonFilledIconProps = IconProps & { animated?: IconAnimation };
@@ -44,7 +44,7 @@ export const MoonFilledIcon = /* @__PURE__ */ forwardRef<SVGSVGElement, MoonFill
           />
         ) : (
           <>
-            <path d={'M8.648 3.648A9 9 0 1 0 20.352 15.352 9 9 0 0 1 8.648 3.648Z'} />
+            <path d={'M8.089 2.256 A10.5 10.5 0 1 0 21.744 15.911 10.5 10.5 0 0 1 8.089 2.256 Z'} />
           </>
         )}
       </svg>

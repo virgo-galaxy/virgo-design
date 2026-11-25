@@ -210,6 +210,7 @@ export {
   type TriangleAlertFilledIconProps,
 } from './generated/TriangleAlertFilledIcon.js';
 export { TriangleAlertIcon, type TriangleAlertIconProps } from './generated/TriangleAlertIcon.js';
+export { TwitterIcon, type TwitterIconProps } from './generated/TwitterIcon.js';
 export { TypeIcon, type TypeIconProps } from './generated/TypeIcon.js';
 export { UnlockFilledIcon, type UnlockFilledIconProps } from './generated/UnlockFilledIcon.js';
 export { UnlockIcon, type UnlockIconProps } from './generated/UnlockIcon.js';
@@ -225,4 +226,5 @@ export { WidgetsFilledIcon, type WidgetsFilledIconProps } from './generated/Widg
 export { WidgetsIcon, type WidgetsIconProps } from './generated/WidgetsIcon.js';
 export { WindowMoveIcon, type WindowMoveIconProps } from './generated/WindowMoveIcon.js';
 export { WindowsIcon, type WindowsIconProps } from './generated/WindowsIcon.js';
+export { XTwitterIcon, type XTwitterIconProps } from './generated/XTwitterIcon.js';
 export type { IconProps } from './icon-props.js';
