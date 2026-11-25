@@ -62,6 +62,7 @@ export function HomeHeader() {
           </Dropdown>
           <Button
             className={styles.appearance}
+            data-appearance={appearance}
             size="small"
             iconOnly
             variant="text"
@@ -73,9 +74,9 @@ export function HomeHeader() {
             onClick={() => setAppearance(appearance === 'light' ? 'dark' : 'light')}
           >
             {appearance === 'light' ? (
-              <MoonFilledIcon size={25} aria-hidden="true" />
+              <MoonFilledIcon aria-hidden="true" />
             ) : (
-              <SunFilledIcon size={25} aria-hidden="true" />
+              <SunFilledIcon aria-hidden="true" />
             )}
           </Button>
           <a
@@ -85,7 +86,7 @@ export function HomeHeader() {
             rel="noreferrer"
             aria-label="GitHub"
           >
-            <GithubIcon size={27} aria-hidden="true" />
+            <GithubIcon size={21} aria-hidden="true" />
           </a>
         </div>
       }

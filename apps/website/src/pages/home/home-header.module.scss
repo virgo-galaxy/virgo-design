@@ -72,23 +72,24 @@
   min-width: 36px;
   min-height: 36px;
   place-items: center;
+  border-radius: 6px;
   color: inherit;
 }
 .github:hover {
-  color: var(--vd-brand-link);
+  background: var(--vd-fill-hover);
 }
 .github:focus-visible {
   outline: 2px solid var(--vd-border-focus);
   outline-offset: 3px;
-  border-radius: 6px;
 }
 .actions .language[data-icon-only='true'],
 .actions .appearance[data-icon-only='true'] {
   --button-icon-size: 24px;
+  --button-foreground: var(--layout-text);
 }
 
-.actions .appearance[data-icon-only='true'] {
-  color: var(--vd-brand-primary);
+.actions .appearance[data-appearance='light'] {
+  --button-icon-size: 28px;
 }
 
 @media (max-width: 1000px) {
