@@ -30,7 +30,7 @@ export function FontsPage() {
   return (
     <DocumentationCatalogue
       pageId="fonts"
-      eyebrow="@virgo-design/fonts"
+      packageName="@virgo-design/fonts"
       title={t('fonts.title')}
       description={t('fonts.description')}
     >

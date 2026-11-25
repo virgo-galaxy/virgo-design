@@ -85,7 +85,7 @@ export function ColorsOverview() {
     <div id="colors-overview" className={styles.overview}>
       <DocumentationCatalogue
         pageId="colors"
-        eyebrow="@virgo-design/colors"
+        packageName="@virgo-design/colors"
         title={t('foundations.colors.title')}
         description={t('foundations.colors.description')}
       >

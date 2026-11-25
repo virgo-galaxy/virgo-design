@@ -1,13 +1,15 @@
-import { Card } from '@virgo-design/ui';
+import { Card, Tag } from '@virgo-design/ui';
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+
+import { packageVersions } from './package-versions';
 
 import styles from './documentation-catalogue.module.scss';
 
 interface DocumentationCatalogueRootProps {
   children: ReactNode;
   description: ReactNode;
-  eyebrow: ReactNode;
+  packageName: keyof typeof packageVersions;
   pageId: string;
   title: ReactNode;
 }
@@ -15,7 +17,7 @@ interface DocumentationCatalogueRootProps {
 export function DocumentationCatalogue({
   children,
   description,
-  eyebrow,
+  packageName,
   pageId,
   title,
 }: DocumentationCatalogueRootProps) {
@@ -23,7 +25,12 @@ export function DocumentationCatalogue({
     <section className={styles.page} data-docs-page={pageId}>
       <div className={styles.inner}>
         <header className={styles.hero}>
-          <p className={styles.eyebrow}>{eyebrow}</p>
+          <div className={styles.packageInfo}>
+            <span className={styles.eyebrow}>{packageName}</span>
+            <Tag size="sm" variant="outline">
+              v{packageVersions[packageName]}
+            </Tag>
+          </div>
           <h1>{title}</h1>
           <p>{description}</p>
         </header>

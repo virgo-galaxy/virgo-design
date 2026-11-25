@@ -84,7 +84,7 @@ export function ChartsPage() {
   return (
     <DocumentationCatalogue
       pageId="charts"
-      eyebrow="@virgo-design/charts"
+      packageName="@virgo-design/charts"
       title={t('charts.title')}
       description={t('charts.description')}
     >

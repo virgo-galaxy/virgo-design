@@ -23,7 +23,7 @@ export function PrimitiveCataloguePage() {
   return (
     <DocumentationCatalogue
       pageId="primitives-catalogue"
-      eyebrow="@virgo-design/primitives"
+      packageName="@virgo-design/primitives"
       title={t('primitives.catalogue.title')}
       description={t('primitives.catalogue.description')}
     >

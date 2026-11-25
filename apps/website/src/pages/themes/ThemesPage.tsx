@@ -67,7 +67,7 @@ export function ThemesPage() {
   return (
     <DocumentationCatalogue
       pageId="themes"
-      eyebrow="@virgo-design/themes"
+      packageName="@virgo-design/themes"
       title={t('themes.title')}
       description={t('themes.description')}
     >

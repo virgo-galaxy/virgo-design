@@ -2,6 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 
+import { version as uiVersion } from '../../../../../../packages/ui/package.json';
 import {
   DocumentationCatalogue,
   DocumentationCatalogueGroup,
@@ -14,7 +15,7 @@ describe('DocumentationCatalogue', () => {
       <MemoryRouter>
         <DocumentationCatalogue
           pageId="test-catalogue"
-          eyebrow="@virgo-design/test"
+          packageName="@virgo-design/ui"
           title="Catalogue"
           description="Documentation catalogue contract."
         >
@@ -42,6 +43,11 @@ describe('DocumentationCatalogue', () => {
     const group = screen.getByRole('region', { name: 'Actions & Commands' });
 
     expect(catalogue).toBeInTheDocument();
+    expect(screen.getByText('@virgo-design/ui')).toBeInTheDocument();
+    expect(screen.getByText(`v${uiVersion}`).closest('[data-variant]')).toHaveAttribute(
+      'data-variant',
+      'outline',
+    );
     expect(within(group).getByText('02')).toBeInTheDocument();
     expect(within(group).getByRole('link', { name: /Button/ })).toHaveAttribute(
       'href',

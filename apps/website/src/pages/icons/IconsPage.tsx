@@ -13,7 +13,7 @@ export function IconsPage() {
   return (
     <DocumentationCatalogue
       pageId="icons"
-      eyebrow="@virgo-design/icons"
+      packageName="@virgo-design/icons"
       title={t('icons.title')}
       description={t('icons.description')}
     >

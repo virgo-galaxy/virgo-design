@@ -15,7 +15,7 @@ export function TokensOverviewPage() {
   return (
     <DocumentationCatalogue
       pageId="tokens"
-      eyebrow="@virgo-design/tokens"
+      packageName="@virgo-design/tokens"
       title={t('tokens.overview.title')}
       description={t('tokens.overview.description')}
     >

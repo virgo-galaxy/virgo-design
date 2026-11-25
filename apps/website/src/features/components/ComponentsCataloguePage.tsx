@@ -13,7 +13,7 @@ export function ComponentsCataloguePage() {
   return (
     <DocumentationCatalogue
       pageId="components-catalogue"
-      eyebrow="@virgo-design/ui"
+      packageName="@virgo-design/ui"
       title={t('components.catalogue.title')}
       description={t('components.catalogue.description')}
     >
