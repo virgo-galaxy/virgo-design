@@ -50,9 +50,7 @@ function MinimalPreview() {
 
 function TemplatePreview({ tier }: { tier: TemplateTier }) {
   const { t } = useTranslation();
-  const { appearance } = useAppearance();
-  const [previewAppearance, setPreviewAppearance] = useState<'light' | 'dark' | null>(null);
-  const mode = previewAppearance ?? appearance;
+  const { appearance, setAppearance } = useAppearance();
 
   return (
     <Surface
@@ -60,7 +58,7 @@ function TemplatePreview({ tier }: { tier: TemplateTier }) {
       border="subtle"
       tone="default"
       radius={16}
-      data-theme={mode}
+      data-theme={appearance}
       aria-label={t('home.templates.preview', { name: t(`home.templates.${tier}.name`) })}
       role="region"
     >
@@ -78,7 +76,7 @@ function TemplatePreview({ tier }: { tier: TemplateTier }) {
             </div>
             <div className={styles.previewControls}>
               <LanguageControl />
-              <AppearanceControl value={mode} onChange={setPreviewAppearance} />
+              <AppearanceControl value={appearance} onChange={setAppearance} />
             </div>
           </div>
           <div className={styles.previewLayout}>

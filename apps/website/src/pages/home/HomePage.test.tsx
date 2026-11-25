@@ -113,6 +113,23 @@ it('keeps task completion and creation interactive', async () => {
   ).toBeInTheDocument();
 });
 
+it('keeps template and homepage appearance in sync in both directions', async () => {
+  const user = userEvent.setup();
+  renderHome();
+  const navigation = screen.getByRole('navigation', { name: 'Home navigation' });
+  const header = within(navigation.closest('header')!);
+  const preview = screen.getByRole('region', { name: 'Starter template preview' });
+
+  await user.click(within(preview).getByRole('button', { name: 'Switch to dark mode' }));
+  expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
+  expect(preview).toHaveAttribute('data-theme', 'dark');
+
+  await user.click(header.getByRole('button', { name: 'Switch to light mode' }));
+  expect(document.documentElement).toHaveAttribute('data-theme', 'light');
+  expect(preview).toHaveAttribute('data-theme', 'light');
+  expect(within(preview).getByRole('button', { name: 'Switch to dark mode' })).toBeInTheDocument();
+});
+
 it('scopes theme changes to the light and dark preview cards', async () => {
   const user = userEvent.setup();
   renderHome();
