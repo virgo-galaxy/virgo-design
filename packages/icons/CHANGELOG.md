@@ -1,5 +1,13 @@
 # @virgo-design/icons
 
+## 0.1.3
+
+### Patch Changes
+
+- 5f1d4b2: Add `XTwitterIcon` and `TwitterIcon` as static brand icons.
+- 95bc341: Add the repository's `packages/icons/AGENTS.md` guide for icon style, sizing, variants, motion, categories, and related icons.
+- 5f1d4b2: Match the outline and filled pause silhouettes, balance the moon and settings icon sizes, center the closed-eye variants, and scale down the Traditional Chinese glyph.
+
 ## 0.1.2
 
 ### Patch Changes
